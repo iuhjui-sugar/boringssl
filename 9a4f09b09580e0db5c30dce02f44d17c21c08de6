@@ -1,0 +1,244 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b7bb1374_21e7a712",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-29T18:02:09Z",
+      "side": 1,
+      "message": "Add a \"Update-Note: something about how tls13_experiment2 is gone and the server should just remove the variant call\".",
+      "revId": "9a4f09b09580e0db5c30dce02f44d17c21c08de6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2636946a_940eb8d0",
+        "filename": "ssl/s3_pkt.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-29T18:02:09Z",
+      "side": 1,
+      "message": "I believe this block can just be deleted now.",
+      "revId": "9a4f09b09580e0db5c30dce02f44d17c21c08de6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72c127e1_b85bd13e",
+        "filename": "ssl/s3_pkt.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-29T18:02:09Z",
+      "side": 1,
+      "message": "Ditto here.",
+      "revId": "9a4f09b09580e0db5c30dce02f44d17c21c08de6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "213b248c_01144ca4",
+        "filename": "ssl/ssl_versions.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-29T18:02:09Z",
+      "side": 1,
+      "message": "Maybe add a comment:\n\n// This logic is part of the TLS 1.3 variants mechanism used in TLS 1.3 experimentation. Although we currently only have one variant, TLS 1.3 does not a final stable deployment yet, so leave the logic in place for now.",
+      "revId": "9a4f09b09580e0db5c30dce02f44d17c21c08de6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce8a864c_ce11b6f9",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-29T18:02:09Z",
+      "side": 1,
+      "message": "earlyTrafficSecret :\u003d",
+      "range": {
+        "startLine": 696,
+        "startChar": 3,
+        "endLine": 697,
+        "endChar": 23
+      },
+      "revId": "9a4f09b09580e0db5c30dce02f44d17c21c08de6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f79ca8e_5fe0c0da",
+        "filename": "ssl/test/runner/prf.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-29T18:02:09Z",
+      "side": 1,
+      "message": "Nit: inline this variable?",
+      "range": {
+        "startLine": 399,
+        "startChar": 1,
+        "endLine": 399,
+        "endChar": 13
+      },
+      "revId": "9a4f09b09580e0db5c30dce02f44d17c21c08de6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2da6764c_88902bf2",
+        "filename": "ssl/test/runner/prf.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-29T18:02:09Z",
+      "side": 1,
+      "message": "No longer necessary?",
+      "range": {
+        "startLine": 405,
+        "startChar": 38,
+        "endLine": 405,
+        "endChar": 55
+      },
+      "revId": "9a4f09b09580e0db5c30dce02f44d17c21c08de6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec9d4eeb_7792c3b8",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 6170,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-29T18:02:09Z",
+      "side": 1,
+      "message": "[ Oh, I suspect you\u0027ll have to rebase this go fmt past\nhttps://boringssl.googlesource.com/boringssl/+/0ab3f0ca2575284525acb77672139058a6eb8e97 ]",
+      "revId": "9a4f09b09580e0db5c30dce02f44d17c21c08de6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44fef108_83f7e88f",
+        "filename": "ssl/tls13_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-29T18:02:09Z",
+      "side": 1,
+      "message": "Nit: Fold these two into line 75 and remove the \u003d 0 on cipher_suite.",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 28
+      },
+      "revId": "9a4f09b09580e0db5c30dce02f44d17c21c08de6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "455ad302_6eb26b1c",
+        "filename": "ssl/tls13_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 859,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-29T18:02:09Z",
+      "side": 1,
+      "message": "This can just be inlined into ext_types below.",
+      "range": {
+        "startLine": 859,
+        "startChar": 11,
+        "endLine": 859,
+        "endChar": 17
+      },
+      "revId": "9a4f09b09580e0db5c30dce02f44d17c21c08de6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f31c8e33_85ad230c",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-29T18:02:09Z",
+      "side": 1,
+      "message": "This parameter can go away now.",
+      "range": {
+        "startLine": 69,
+        "startChar": 43,
+        "endLine": 69,
+        "endChar": 60
+      },
+      "revId": "9a4f09b09580e0db5c30dce02f44d17c21c08de6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82e9617f_7901c20e",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-29T18:02:09Z",
+      "side": 1,
+      "message": "Nit: This can now be static const char kTLSLabelVersion[]. Saves like a hair of binary size. :-)\n\nDo you think it makes sense to just inline the \"tls13 \" prefix into the labels themselves?",
+      "revId": "9a4f09b09580e0db5c30dce02f44d17c21c08de6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
