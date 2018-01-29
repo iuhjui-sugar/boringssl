@@ -265,6 +265,24 @@
     },
     {
       "key": {
+        "uuid": "fc9674b6_e69ccf03",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2633,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2018-01-29T23:36:51Z",
+      "side": 1,
+      "message": "I added the check for if !quic_transport_params so we don\u0027t stash it away. I don\u0027t see how the check at line 2652 could be removed through, because add_serverhello will be run if the extension was received, so it\u0027s still needed to handle the case where the client sent it but the server\u0027s not configured to send it.",
+      "parentUuid": "66857256_0df0b663",
+      "revId": "d81a46e82fcd9411d280581a82f8a7c1b4925c8e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4153976b_868349dd",
         "filename": "ssl/t1_lib.cc",
         "patchSetId": 5
