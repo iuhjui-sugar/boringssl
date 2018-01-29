@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8314e8dc_1f8b3d97",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 2965,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2018-01-29T23:19:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "163f2821_6515a32e",
+      "revId": "d81a46e82fcd9411d280581a82f8a7c1b4925c8e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "35a66bf3_18d231cf",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 5
@@ -39,6 +57,30 @@
       "revId": "d81a46e82fcd9411d280581a82f8a7c1b4925c8e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2006de2a_5e94e3a1",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 2980,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2018-01-29T23:19:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35a66bf3_18d231cf",
+      "range": {
+        "startLine": 2980,
+        "startChar": 55,
+        "endLine": 2980,
+        "endChar": 61
+      },
+      "revId": "d81a46e82fcd9411d280581a82f8a7c1b4925c8e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "d86a492f_3afbd26a",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 2981,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2018-01-29T23:19:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bbc6a77e_97c41c9d",
+      "range": {
+        "startLine": 2981,
+        "startChar": 71,
+        "endLine": 2981,
+        "endChar": 74
+      },
+      "revId": "d81a46e82fcd9411d280581a82f8a7c1b4925c8e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8b77a6cd_ada5cb60",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 5
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "c2fcfc7c_2b867663",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 2984,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2018-01-29T23:19:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b77a6cd_ada5cb60",
+      "range": {
+        "startLine": 2984,
+        "startChar": 56,
+        "endLine": 2984,
+        "endChar": 71
+      },
+      "revId": "d81a46e82fcd9411d280581a82f8a7c1b4925c8e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "17a5ee1f_4d1179de",
         "filename": "ssl/internal.h",
         "patchSetId": 5
@@ -105,6 +195,24 @@
     },
     {
       "key": {
+        "uuid": "db450af7_0bcd21f8",
+        "filename": "ssl/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 2638,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2018-01-29T23:19:59Z",
+      "side": 1,
+      "message": "Moved peer_quic_transport_params to SSL3_STATE (and changed it to Array). I left quic_transport_params here.",
+      "parentUuid": "17a5ee1f_4d1179de",
+      "revId": "d81a46e82fcd9411d280581a82f8a7c1b4925c8e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2cdebe0d_8e6d2972",
         "filename": "ssl/t1_lib.cc",
         "patchSetId": 5
@@ -119,6 +227,24 @@
       "revId": "d81a46e82fcd9411d280581a82f8a7c1b4925c8e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da8eb300_f12e2ba1",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2624,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2018-01-29T23:19:59Z",
+      "side": 1,
+      "message": "I had to make it CopyFrom(*contents) because it would only convert CBS to Span (not CBS*), but it\u0027s nice to be able to use Array.",
+      "parentUuid": "2cdebe0d_8e6d2972",
+      "revId": "d81a46e82fcd9411d280581a82f8a7c1b4925c8e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -156,6 +282,24 @@
     },
     {
       "key": {
+        "uuid": "3cc8c05d_db44a2ef",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2645,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2018-01-29T23:19:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4153976b_868349dd",
+      "revId": "d81a46e82fcd9411d280581a82f8a7c1b4925c8e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7fa544fd_6d02ab35",
         "filename": "ssl/test/runner/common.go",
         "patchSetId": 5
@@ -176,6 +320,30 @@
       "revId": "d81a46e82fcd9411d280581a82f8a7c1b4925c8e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "036d0adf_80492c88",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2018-01-29T23:19:59Z",
+      "side": 1,
+      "message": "Did an s/QuicTransportParams/QUICTransportParams/g in the go code - that fixed this, the one below, extensionQuicTransportParams, and expectedQuicTransportParams.",
+      "parentUuid": "7fa544fd_6d02ab35",
+      "range": {
+        "startLine": 273,
+        "startChar": 1,
+        "endLine": 273,
+        "endChar": 20
+      },
+      "revId": "d81a46e82fcd9411d280581a82f8a7c1b4925c8e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -202,6 +370,30 @@
     },
     {
       "key": {
+        "uuid": "f61c9c36_7418a9cf",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2018-01-29T23:19:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8f576f4_b710ef3d",
+      "range": {
+        "startLine": 501,
+        "startChar": 4,
+        "endLine": 501,
+        "endChar": 23
+      },
+      "revId": "d81a46e82fcd9411d280581a82f8a7c1b4925c8e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d19cc542_93c3b787",
         "filename": "ssl/test/runner/handshake_client.go",
         "patchSetId": 5
@@ -222,6 +414,30 @@
       "revId": "d81a46e82fcd9411d280581a82f8a7c1b4925c8e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86581b75_78e57c41",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 1538,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2018-01-29T23:19:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d19cc542_93c3b787",
+      "range": {
+        "startLine": 1538,
+        "startChar": 27,
+        "endLine": 1538,
+        "endChar": 33
+      },
+      "revId": "d81a46e82fcd9411d280581a82f8a7c1b4925c8e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -248,6 +464,30 @@
     },
     {
       "key": {
+        "uuid": "dee8ccaa_c198813c",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2018-01-29T23:19:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0f4a07c_f0830bba",
+      "range": {
+        "startLine": 479,
+        "startChar": 4,
+        "endLine": 479,
+        "endChar": 31
+      },
+      "revId": "d81a46e82fcd9411d280581a82f8a7c1b4925c8e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b3b073b6_0c01674c",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 5
@@ -271,6 +511,30 @@
     },
     {
       "key": {
+        "uuid": "1cef211a_935c28ee",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 6589,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2018-01-29T23:19:59Z",
+      "side": 1,
+      "message": "Done. Yay for find/replace.",
+      "parentUuid": "b3b073b6_0c01674c",
+      "range": {
+        "startLine": 6589,
+        "startChar": 11,
+        "endLine": 6589,
+        "endChar": 30
+      },
+      "revId": "d81a46e82fcd9411d280581a82f8a7c1b4925c8e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9d5b1570_bc150bbf",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 5
@@ -285,6 +549,24 @@
       "revId": "d81a46e82fcd9411d280581a82f8a7c1b4925c8e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed20b93c_3e09a320",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 6651,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2018-01-29T23:19:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d5b1570_bc150bbf",
+      "revId": "d81a46e82fcd9411d280581a82f8a7c1b4925c8e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
