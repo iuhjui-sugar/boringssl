@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d112a585_38eaff01",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-30T20:16:35Z",
+      "side": 1,
+      "message": "Maybe add a sentence like: \"If we add multiple variants again, we\u0027ll probably just make the server default be what we\u0027d like you all to run, so avoid unnecessary churn.\"",
+      "revId": "6639dabc9658df58b6242d3574ffe14b713279e5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
