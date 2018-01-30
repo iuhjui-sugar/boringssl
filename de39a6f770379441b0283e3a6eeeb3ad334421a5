@@ -33,6 +33,24 @@
       "revId": "de39a6f770379441b0283e3a6eeeb3ad334421a5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d8048cc_2ca610f3",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 2615,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2018-01-30T23:48:20Z",
+      "side": 1,
+      "message": "Yeah, this looks reasonable.",
+      "parentUuid": "bd1f649e_ec56e04f",
+      "revId": "de39a6f770379441b0283e3a6eeeb3ad334421a5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
