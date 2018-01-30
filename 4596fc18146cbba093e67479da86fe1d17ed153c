@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fda8fb4b_17ae5b54",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-30T23:51:15Z",
+      "side": 1,
+      "message": "I think our C++ helpers tend to be GoogleCPlusPlusStyle, but I also don\u0027t particularly care.",
+      "range": {
+        "startLine": 499,
+        "startChar": 12,
+        "endLine": 499,
+        "endChar": 22
+      },
+      "revId": "4596fc18146cbba093e67479da86fe1d17ed153c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2047af1a_aaa3834d",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-30T23:51:15Z",
+      "side": 1,
+      "message": "No need for bssl:: prefix since we\u0027re in namespace bssl. (Otherwise ScopedCBB and Span perhaps ought to be prefixed, I dunno.)",
+      "range": {
+        "startLine": 500,
+        "startChar": 22,
+        "endLine": 500,
+        "endChar": 29
+      },
+      "revId": "4596fc18146cbba093e67479da86fe1d17ed153c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
