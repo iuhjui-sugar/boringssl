@@ -1,0 +1,141 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad57bb67_9454299f",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 3542,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-31T00:27:08Z",
+      "side": 1,
+      "message": "May as well put this with the other functions. Strange to have this one be C and the others C++.",
+      "revId": "54f9846cfa36dc966f17948ce70c790ebd02d6be",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02e5bc87_5c0eda24",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 3542,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-31T00:27:08Z",
+      "side": 1,
+      "message": "I called it \"mode\" in the original version because it was an enum that told the SSL whether it was the handshaker or the record layer. Though it looks like you\u0027ve made it implicit instead. (I don\u0027t hugely care either way. Maybe we don\u0027t need that state?)",
+      "range": {
+        "startLine": 3542,
+        "startChar": 59,
+        "endLine": 3542,
+        "endChar": 62
+      },
+      "revId": "54f9846cfa36dc966f17948ce70c790ebd02d6be",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b56b356_9617b32a",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 4477,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-31T00:27:08Z",
+      "side": 1,
+      "message": "OPENSSL_EXPORT?\n\nIt is a little odd that these are C++ but with C naming. It wouldn\u0027t be transparent to the caller since they would need to write bssl::SSL_serialize_handoff.\n\n(I don\u0027t have strong opinions on whether we should be writing new APIs in C++ or C style. C++ means we can use bool and Span, which is nice. I dunno. I\u0027ve been making them C just out of habit.)",
+      "revId": "54f9846cfa36dc966f17948ce70c790ebd02d6be",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d56a3c09_4750711c",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-31T00:27:08Z",
+      "side": 1,
+      "message": "I was anticipating configuration bits hanging off of ssl (ssl-\u003eversion should get moved to s3, but everything else...), wouldn\u0027t need to get serialized. It\u0027s a little less stuff we need to keep stable, and if record layer and handshaker, say, disagree on max_send_fragment, then they\u0027ll just send different maximum records. Meh. My hope is that the intersection is relatively small and most configuration can just get deployed to one side or the other using the usual mechanisms. Those, one hopes, already have a version skew story.\n\nmode in particular includes bits like SSL_MODE_ACCEPT_MOVING_WRITE_BUFFER and SSL_MODE_ENABLE_PARTIAL_WRITE which are more implementation details of how either side calls various APIs, so that\u0027s kind of weird to send back and forth.",
+      "revId": "54f9846cfa36dc966f17948ce70c790ebd02d6be",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22f4bcc9_bd318d0f",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-31T00:27:08Z",
+      "side": 1,
+      "message": "There\u0027s CBS_copy_bytes which might be easier to use for these fixed-width array things. You\u0027ll still need a CBS_len(\u0026read_seq) !\u003d 0 check though. (It was meant for fixed-width TLS fields.)",
+      "range": {
+        "startLine": 194,
+        "startChar": 6,
+        "endLine": 194,
+        "endChar": 56
+      },
+      "revId": "54f9846cfa36dc966f17948ce70c790ebd02d6be",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf7f4cdb_569fb0e7",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-31T00:27:08Z",
+      "side": 1,
+      "message": "There\u0027s a CBS_strdup, or BUF_strndup. Probably also prudent to check CBS_contains_zero_byte on \u0026hostname. (Maybe CBS_strdup should do that check...)",
+      "range": {
+        "startLine": 255,
+        "startChar": 8,
+        "endLine": 257,
+        "endChar": 41
+      },
+      "revId": "54f9846cfa36dc966f17948ce70c790ebd02d6be",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40ed6609_14c4abb1",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 2727,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-31T00:27:08Z",
+      "side": 1,
+      "message": "Mismerge?",
+      "revId": "54f9846cfa36dc966f17948ce70c790ebd02d6be",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
