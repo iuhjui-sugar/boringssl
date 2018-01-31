@@ -236,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "03fbc771_a8bba5d7",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-01-31T22:17:08Z",
+      "side": 1,
+      "message": "(Actually, can\u0027t copy the sequence numbers inline here because they\u0027ll get overwritten when configuring the AEADs, so that has to be done last.)",
+      "parentUuid": "5612cdad_f8a54af4",
+      "range": {
+        "startLine": 194,
+        "startChar": 6,
+        "endLine": 194,
+        "endChar": 56
+      },
+      "revId": "54f9846cfa36dc966f17948ce70c790ebd02d6be",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cf7f4cdb_569fb0e7",
         "filename": "ssl/handoff.cc",
         "patchSetId": 3
