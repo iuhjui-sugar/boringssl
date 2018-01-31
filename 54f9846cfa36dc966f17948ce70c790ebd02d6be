@@ -42,6 +42,48 @@
     },
     {
       "key": {
+        "uuid": "a16ee06d_8c3ab4ff",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 3542,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-01-31T22:05:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad57bb67_9454299f",
+      "revId": "54f9846cfa36dc966f17948ce70c790ebd02d6be",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "269e8b52_0552332c",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 3542,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-01-31T22:05:53Z",
+      "side": 1,
+      "message": "\"original version\" \u003c- I assume there was a doc that I didn\u0027t remember about? I just made these names up as I went.\n\nBut, yea, the handshaker / record split is implicit: if you apply a handoff, you\u0027re a handshaker. If you apply a handback, you\u0027re a record processor.\n\n(We can always rename stuff later. Need to get the roll started now.)",
+      "parentUuid": "02e5bc87_5c0eda24",
+      "range": {
+        "startLine": 3542,
+        "startChar": 59,
+        "endLine": 3542,
+        "endChar": 62
+      },
+      "revId": "54f9846cfa36dc966f17948ce70c790ebd02d6be",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1b56b356_9617b32a",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 3
@@ -56,6 +98,24 @@
       "revId": "54f9846cfa36dc966f17948ce70c790ebd02d6be",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4824cd7_a78b2479",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 4477,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-01-31T22:05:53Z",
+      "side": 1,
+      "message": "\u003e OPENSSL_EXPORT\n\nThanks. Done.\n\n\u003e It is a little odd that these are C++ but with C naming.\n\nYea. I\u0027m not sure. If this was C++, these should be members of the SSL class, but I don\u0027t think we\u0027re quite there yet and, plus, SSL* is hidden from callers.\n\nSo what would these be? SerializeHandoff at the top-level of bssl?\n\nProbably going to do the roll with these since it\u0027s not hard to change later.",
+      "parentUuid": "1b56b356_9617b32a",
+      "revId": "54f9846cfa36dc966f17948ce70c790ebd02d6be",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -76,6 +136,24 @@
     },
     {
       "key": {
+        "uuid": "260f5421_fee90d7b",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-01-31T22:05:53Z",
+      "side": 1,
+      "message": "I started off with sending these config things, but just asserting at the other side that values that it cared about matched the local config. That was a pain in bssl_shim (because both SSL\u0027s and SSL_CTX\u0027s needed to be configured the same) and I switched over to this.\n\nI agree that |mode| is a weird one and needs to be cleaned up but, otherwise, I think most configuration reasonably does apply at the handshaker and should be mirrored over. (The maximum record size, for example, is something that can be configured in a handshake if we ever support that.)",
+      "parentUuid": "d56a3c09_4750711c",
+      "revId": "54f9846cfa36dc966f17948ce70c790ebd02d6be",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d4d23a49_8bd1cec7",
         "filename": "ssl/handoff.cc",
         "patchSetId": 3
@@ -90,6 +168,24 @@
       "revId": "54f9846cfa36dc966f17948ce70c790ebd02d6be",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3efd232_25e8a469",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-01-31T22:05:53Z",
+      "side": 1,
+      "message": "Yea, I think so.",
+      "parentUuid": "d4d23a49_8bd1cec7",
+      "revId": "54f9846cfa36dc966f17948ce70c790ebd02d6be",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -116,6 +212,30 @@
     },
     {
       "key": {
+        "uuid": "5612cdad_f8a54af4",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-01-31T22:05:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22f4bcc9_bd318d0f",
+      "range": {
+        "startLine": 194,
+        "startChar": 6,
+        "endLine": 194,
+        "endChar": 56
+      },
+      "revId": "54f9846cfa36dc966f17948ce70c790ebd02d6be",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cf7f4cdb_569fb0e7",
         "filename": "ssl/handoff.cc",
         "patchSetId": 3
@@ -139,6 +259,30 @@
     },
     {
       "key": {
+        "uuid": "ef31e690_d367629a",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-01-31T22:05:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf7f4cdb_569fb0e7",
+      "range": {
+        "startLine": 255,
+        "startChar": 8,
+        "endLine": 257,
+        "endChar": 41
+      },
+      "revId": "54f9846cfa36dc966f17948ce70c790ebd02d6be",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "40ed6609_14c4abb1",
         "filename": "ssl/internal.h",
         "patchSetId": 3
@@ -153,6 +297,24 @@
       "revId": "54f9846cfa36dc966f17948ce70c790ebd02d6be",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "442c48af_940cec6a",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 2727,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-01-31T22:05:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40ed6609_14c4abb1",
+      "revId": "54f9846cfa36dc966f17948ce70c790ebd02d6be",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
