@@ -76,6 +76,23 @@
     },
     {
       "key": {
+        "uuid": "d4d23a49_8bd1cec7",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-01-31T00:31:19Z",
+      "side": 1,
+      "message": "(There\u0027s a whole lot of error-handling missing here around getting back TLS versions we don\u0027t understand and whatnot, but I guess that falls under all the version skew bits to be resolved?)",
+      "revId": "54f9846cfa36dc966f17948ce70c790ebd02d6be",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "22f4bcc9_bd318d0f",
         "filename": "ssl/handoff.cc",
         "patchSetId": 3
