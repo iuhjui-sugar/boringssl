@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "75e9cd2a_c0ba3779",
+        "filename": "fipstools/run_cavp.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-02-02T22:34:12Z",
+      "side": 1,
+      "message": "Thanks for the head\u0027s up. (Indeed, this only applies to the latest Android.)",
+      "parentUuid": "eff4b53c_71e53ce5",
+      "revId": "87cdc66044d280b70c7b4eae96960c95284d4fca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "143e8037_95e4c42f",
         "filename": "fipstools/run_cavp.go",
         "patchSetId": 1
@@ -39,6 +57,30 @@
       "revId": "87cdc66044d280b70c7b4eae96960c95284d4fca",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89ac607a_2d015e75",
+        "filename": "fipstools/run_cavp.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-02-02T22:34:12Z",
+      "side": 1,
+      "message": "Good point, thanks.",
+      "parentUuid": "143e8037_95e4c42f",
+      "range": {
+        "startLine": 453,
+        "startChar": 20,
+        "endLine": 453,
+        "endChar": 28
+      },
+      "revId": "87cdc66044d280b70c7b4eae96960c95284d4fca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
