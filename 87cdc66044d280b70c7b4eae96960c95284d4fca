@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eff4b53c_71e53ce5",
+        "filename": "fipstools/run_cavp.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-02T19:20:00Z",
+      "side": 1,
+      "message": "Note that old Androids don\u0027t propagate the exit code right. I believe you need Android \u003e\u003d N to resolve it. run_android_tests.go has an annoying workaround, but I\u0027m assuming you can live with it relying on new Androids for these purposes.",
+      "revId": "87cdc66044d280b70c7b4eae96960c95284d4fca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "143e8037_95e4c42f",
+        "filename": "fipstools/run_cavp.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-02T19:20:00Z",
+      "side": 1,
+      "message": "Nit: I think you actually want path here and filepath above. filepath is the host OS\u0027s paths, and the path on device is always forward-slash-based paths.\n\n(Not that anyone is going to run this script on Windows.)",
+      "range": {
+        "startLine": 453,
+        "startChar": 20,
+        "endLine": 453,
+        "endChar": 28
+      },
+      "revId": "87cdc66044d280b70c7b4eae96960c95284d4fca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
