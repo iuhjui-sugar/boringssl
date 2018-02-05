@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1815b9e8_6a8a44c5",
+        "filename": "crypto/fipsmodule/bn/mul.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-02-05T22:58:34Z",
+      "side": 1,
+      "message": "s/by because of/because/",
+      "range": {
+        "startLine": 477,
+        "startChar": 76,
+        "endLine": 478,
+        "endChar": 19
+      },
+      "revId": "3461080d4b833ad4dc2f2cd4c8e6963fab880f73",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
