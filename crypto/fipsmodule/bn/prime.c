@@ -343,6 +343,63 @@ static int BN_prime_checks_for_size(int bits) {
   return 28;
 }
 
+// BN_PRIME_CHECKS_BLINDED is the iteration count for blinding the constant-time
+// primality test. See |BN_primality_test| for details. This number is selected
+// so that, for a candidate N-bit RSA prime, picking |BN_PRIME_CHECKS_BLINDED|
+// random N-bit numbers will have at least |BN_prime_checks_for_size(N)| values
+// in range with high probability.
+//
+// The following Python script computes the blinding factor needed for the
+// corresponding iteration count.
+/*
+import math
+
+# We choose candidate RSA primes between sqrt(2)/2 * 2^N and 2^N and select
+# witnesses by generating random N-bit numbers. Thus the probability of
+# selecting one in range is at least sqrt(2)/2.
+p = math.sqrt(2) / 2
+
+# Target a 2^-80 probability of the blinding being insufficient.
+epsilon = 2**-80
+
+def choose(a, b):
+  r = 1
+  for i in xrange(b):
+    r *= a - i
+    r /= (i + 1)
+  return r
+
+def failure_rate(iterations, iterations_blinded):
+  prob = 0.0
+  for i in xrange(iterations):
+    prob += (choose(iterations_blinded, i) *
+             p**i * (1-p)**(iterations_blinded - i))
+  return prob
+
+for N in (3, 4, 5, 6, 8, 13, 19, 28):
+  M = N
+  while True:
+    prob = failure_rate(N, M)
+    if prob < epsilon:
+      print N, M, prob
+      break
+    M += 1
+
+Output:
+  3 53 4.43927387758e-25
+  4 56 5.4559565573e-25
+  5 59 5.47044804496e-25
+  6 62 4.74781795233e-25
+  8 67 8.11486028886e-25
+  13 80 5.52341867763e-25
+  19 94 5.74309668718e-25
+  28 114 4.39583733951e-25
+
+64 iterations suffices for 400-bit primes and larger (6 iterations), which is
+already well below the minimum acceptable key size for RSA.
+*/
+#define BN_PRIME_CHECKS_BLINDED 64
+
 static int probable_prime(BIGNUM *rnd, int bits);
 static int probable_prime_dh(BIGNUM *rnd, int bits, const BIGNUM *add,
                              const BIGNUM *rem, BN_CTX *ctx);
@@ -535,8 +592,6 @@ int BN_primality_test(int *is_probably_prime, const BIGNUM *w,
   // To support RSA key generation, this function should treat |w| as secret if
   // it is a large prime. Composite numbers are discarded, so they may return
   // early.
-  //
-  // TODO(davidben): This function is getting better, but is not constant-time.
 
   if (BN_cmp(w, BN_value_one()) <= 0) {
     *is_probably_prime = 0;
@@ -609,18 +664,51 @@ int BN_primality_test(int *is_probably_prime, const BIGNUM *w,
 
   // The following loop performs in inner iteration of the Miller-Rabin
   // Primality test (Step 4).
-  for (int i = 1; i <= iterations; i++) {
+  //
+  // The algorithm as specified in FIPS 186-4 leaks information on |w|, the RSA
+  // private key. Instead, we run through each iteration unconditionally,
+  // performing modular multiplications, masking off any effects to behave
+  // equivalently to the specified algorithm.
+  //
+  // Additionally, we must blind the number of values of |b| we try. Steps
+  // 4.1–4.2 say to discard out-of-range values. The number of tries needed to
+  // get in range leaks information about |w|. To avoid leaking information, we
+  // use |bn_rand_secret_range| which, rather than discarding bad values, fixes
+  // them to be in range. Though not uniformly selected, these fixed values are
+  // still usable as potential Rabin-Miller witnesses.
+  //
+  // We keep counters of both how many total iterations we've run, and how many
+  // iterations were selected uniformly. We iterate until we've both performed
+  // at least |iterations| uniform iterations and at least
+  // |BN_PRIME_CHECKS_BLINDED| total iterations. If |BN_PRIME_CHECKS_BLINDED| is
+  // set large enough, it will be the limiting factor with high probability and
+  // we won't leak information.
+  //
+  // Rabin-Miller is already probabilistic, so we could reach the desired
+  // confidence levels with this non-uniform distribution by simply increasing
+  // the iteration count appropriately. However, to align with FIPS 186-4, we
+  // use the more pessimal analysis. As a result, this function is more complex
+  // and has more timing risk than is actually necessary.
+  //
+  // Note that because composite numbers may still be rejected in variable-time
+  // by a discarded value, this blinding does not impact the majority of
+  // candidate RSA factors in RSA key generation. Only the final few primality
+  // tests that actually land on a prime do more work.
+
+  crypto_word_t uniform_iterations = 0;
+  // Using |constant_time_lt_w| seems to prevent the compiler from optimizing
+  // this into two jumps.
+  for (int i = 1; (i <= BN_PRIME_CHECKS_BLINDED) |
+                  constant_time_lt_w(uniform_iterations, iterations);
+       i++) {
+    int is_uniform;
     if (// Step 4.1-4.2
-        !BN_rand_range_ex(b, 2, w1) ||
+        !bn_rand_secret_range(b, &is_uniform, 2, w1) ||
         // Step 4.3
         !BN_mod_exp_mont_consttime(z, b, m, w, ctx, mont)) {
       goto err;
     }
-
-    // The algorithm as specified in FIPS 186-4 leaks information on |w|, the
-    // RSA private key. Instead, we run through the loop unconditionally,
-    // performing modular multiplications, masking off any effects to behave
-    // equivalently to the specified algorithm.
+    uniform_iterations += is_uniform;
 
     // loop_done is all ones if the loop has completed and all zeros otherwise.
     crypto_word_t loop_done = 0;
@@ -682,6 +770,7 @@ int BN_primality_test(int *is_probably_prime, const BIGNUM *w,
     }
   }
 
+  assert(uniform_iterations >= (crypto_word_t)iterations);
   *is_probably_prime = 1;
   ret = 1;
 
