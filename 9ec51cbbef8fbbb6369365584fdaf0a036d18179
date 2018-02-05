@@ -1,0 +1,176 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1d344447_fbc62158",
+        "filename": "crypto/fipsmodule/bn/div.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-02-05T21:44:17Z",
+      "side": 1,
+      "message": "I\u0027d suggest: \"The |a| and |b| arguments must be \u003c |m|.\"",
+      "range": {
+        "startLine": 429,
+        "startChar": 42,
+        "endLine": 429,
+        "endChar": 70
+      },
+      "revId": "9ec51cbbef8fbbb6369365584fdaf0a036d18179",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8e2d1f9_f2ce15c0",
+        "filename": "crypto/fipsmodule/bn/div.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-02-05T21:44:17Z",
+      "side": 1,
+      "message": "ditto.",
+      "range": {
+        "startLine": 441,
+        "startChar": 42,
+        "endLine": 441,
+        "endChar": 70
+      },
+      "revId": "9ec51cbbef8fbbb6369365584fdaf0a036d18179",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f32b802_f7827774",
+        "filename": "crypto/fipsmodule/bn/div.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-02-05T21:44:17Z",
+      "side": 1,
+      "message": "/* |borrow| must be either zero or one for |0 - borrow| to be a valid input to |bn_select_words|. Consider cases:\n\n1) MSB of |m| isn\u0027t set. Therefore |a + b| doesn\u0027t overflow and |carry| is zero. Then |borrow| is either zero or one by the contract of |bn_sub_words|.\n\n2) MSB of |m| is set. It might be that |a| + |b| still doesn\u0027t overflow in which case (1) applies. Otherwise |carry| is one and |tmp| \u003d |a| + |b| - 2^(|num|*BN_BITS2). We require that |bn_sub_words| return zero so |tmp| must be ≤ |m|. We know that |a| + |b| \u003c 2|m| and that 2^(|num|*BN_BITS2) \u003e |m|, thus |tmp| \u003d (a value ≤ 2|m|) - (a value \u003e |m|). Thus |tmp| \u003c 2|m|, as required. */",
+      "range": {
+        "startLine": 448,
+        "startChar": 11,
+        "endLine": 448,
+        "endChar": 17
+      },
+      "revId": "9ec51cbbef8fbbb6369365584fdaf0a036d18179",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e2fff1d_087fa4d0",
+        "filename": "crypto/fipsmodule/bn/div.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 464,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-02-05T21:44:17Z",
+      "side": 1,
+      "message": "… it …",
+      "range": {
+        "startLine": 464,
+        "startChar": 20,
+        "endLine": 464,
+        "endChar": 21
+      },
+      "revId": "9ec51cbbef8fbbb6369365584fdaf0a036d18179",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b6488da_628b7c02",
+        "filename": "crypto/fipsmodule/bn/div.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-02-05T21:44:17Z",
+      "side": 1,
+      "message": "… a …",
+      "range": {
+        "startLine": 465,
+        "startChar": 32,
+        "endLine": 465,
+        "endChar": 33
+      },
+      "revId": "9ec51cbbef8fbbb6369365584fdaf0a036d18179",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6f11f7c_45f82d7c",
+        "filename": "crypto/fipsmodule/bn/div.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-02-05T21:44:17Z",
+      "side": 1,
+      "message": "allocs",
+      "range": {
+        "startLine": 465,
+        "startChar": 6,
+        "endLine": 465,
+        "endChar": 12
+      },
+      "revId": "9ec51cbbef8fbbb6369365584fdaf0a036d18179",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b37c411_2dac66dc",
+        "filename": "crypto/fipsmodule/bn/div.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-02-05T21:44:17Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem to be called for given the comment. The comment says that the function just ensures that |bn-\u003ewidth| ≥ |width|, which is true in this branch. Why worry if it doesn\u0027t fit in |width| words?",
+      "revId": "9ec51cbbef8fbbb6369365584fdaf0a036d18179",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5572ab33_dddef5ff",
+        "filename": "crypto/fipsmodule/bn/div.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-02-05T21:44:17Z",
+      "side": 1,
+      "message": "Is allocation still needed if |bn-\u003edmax| ≥ |width|?",
+      "revId": "9ec51cbbef8fbbb6369365584fdaf0a036d18179",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
