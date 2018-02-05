@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4c9f7f99_459d99e8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-02-05T20:18:07Z",
+      "side": 1,
+      "message": "(typo)",
+      "range": {
+        "startLine": 9,
+        "startChar": 55,
+        "endLine": 9,
+        "endChar": 61
+      },
+      "revId": "54191822f36512a17a0721a0fe7bfefbb498e594",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0fdba3e9_f8082e57",
+        "filename": "crypto/fipsmodule/bn/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-02-05T20:18:07Z",
+      "side": 1,
+      "message": "s/,/ and/",
+      "range": {
+        "startLine": 357,
+        "startChar": 76,
+        "endLine": 357,
+        "endChar": 77
+      },
+      "revId": "54191822f36512a17a0721a0fe7bfefbb498e594",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
