@@ -303,6 +303,27 @@ int bn_rand_range_words(BN_ULONG *out, BN_ULONG min_inclusive,
                         const BN_ULONG *max_exclusive, size_t len,
                         const uint8_t additional_data[32]);
 
+// bn_range_secret_range behaves like |BN_rand_range_ex|, but treats
+// |max_exclusive| as secret. Because of this constraint, the distribution of
+// values returned is more complex.
+//
+// Rather than repeatedly generating values until one is in range, which would
+// leak information, it generates one value. If the value is in range, it sets
+// |*out_is_uniform| to one. Otherwise, it sets |*out_is_uniform| to zero,
+// fixing up the value to force it in range.
+//
+// The subset of calls to |bn_rand_secret_range| which set |*out_is_uniform| to
+// one are uniformly distributed in the target range. Calls overall are not.
+// This function is intended for use in situations where the extra values are
+// still usable and where the number of iterations needed to reach the target
+// number of uniform outputs may be blinded for negligible probabilities of
+// timing leaks.
+//
+// Although this function treats |max_exclusive| as secret, it treats the number
+// of bits in |max_exclusive| as public.
+int bn_rand_secret_range(BIGNUM *r, int *out_is_uniform, BN_ULONG min_inclusive,
+                         const BIGNUM *max_exclusive);
+
 int bn_mul_mont(BN_ULONG *rp, const BN_ULONG *ap, const BN_ULONG *bp,
                 const BN_ULONG *np, const BN_ULONG *n0, int num);
 
