@@ -16,6 +16,24 @@
       "revId": "cafcb8bec230c4e4b3f3f5c9f181a70f5e7422fc",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "102016cc_b27a6139",
+        "filename": "crypto/fipsmodule/bn/montgomery_inv.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-06T01:10:19Z",
+      "side": 1,
+      "message": "Done. (p \u003e n_bits is also still true, so I lifted the assert up a hair.)",
+      "parentUuid": "42fd8e88_f1d92b08",
+      "revId": "cafcb8bec230c4e4b3f3f5c9f181a70f5e7422fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
