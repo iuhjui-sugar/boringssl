@@ -476,7 +476,7 @@ static enum ssl_hs_wait_t do_start_connect(SSL_HANDSHAKE *hs) {
   }
 
   hs->state = state_enter_early_data;
-  return ssl_hs_flush;
+  return ssl_hs_ok;
 }
 
 static enum ssl_hs_wait_t do_enter_early_data(SSL_HANDSHAKE *hs) {
@@ -484,12 +484,12 @@ static enum ssl_hs_wait_t do_enter_early_data(SSL_HANDSHAKE *hs) {
 
   if (SSL_is_dtls(ssl)) {
     hs->state = state_read_hello_verify_request;
-    return ssl_hs_ok;
+    return ssl_hs_flush;
   }
 
   if (!hs->early_data_offered) {
     hs->state = state_read_server_hello;
-    return ssl_hs_ok;
+    return ssl_hs_flush;
   }
 
   ssl->s3->aead_write_ctx->SetVersionIfNullCipher(ssl->session->ssl_version);
