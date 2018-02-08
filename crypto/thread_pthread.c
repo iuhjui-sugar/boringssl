@@ -91,52 +91,107 @@ void CRYPTO_once(CRYPTO_once_t *once, void (*init)(void)) {
   }
 }
 
+/* Used to create a linked list of all thread local data.  We need this so that
+ * we can delete all data when the library is unloaded before the owning
+ * threads call pthread_exit. */
+typedef struct crypto_thread_local_data_st {
+  /* Pointers to thread local data. */
+  void *pointers[NUM_OPENSSL_THREAD_LOCALS];
+  /* I like linked lists and I cannot lie. You other coders can't deny. */
+  struct crypto_thread_local_data_st *prev, *next;
+} CRYPTO_THREAD_LOCAL_DATA;
+
+/* This should be locked whenever a thread is modifying or using the array of
+ * destructors, or if a thread is changing the list of thread local data.  */
 static pthread_mutex_t g_destructors_lock = PTHREAD_MUTEX_INITIALIZER;
 static thread_local_destructor_t g_destructors[NUM_OPENSSL_THREAD_LOCALS];
+static CRYPTO_THREAD_LOCAL_DATA *g_thread_local_data_list;
 
+static CRYPTO_THREAD_LOCAL_DATA *create_local_data() {
+  CRYPTO_THREAD_LOCAL_DATA *data = (CRYPTO_THREAD_LOCAL_DATA *)
+      OPENSSL_malloc(sizeof(CRYPTO_THREAD_LOCAL_DATA));
+  if (data == NULL) return NULL;
+  OPENSSL_memset(data->pointers, 0, sizeof(void *) * NUM_OPENSSL_THREAD_LOCALS);
+  if (pthread_mutex_lock(&g_destructors_lock) != 0) {
+    return NULL;
+  }
+  if (g_thread_local_data_list) {
+    g_thread_local_data_list->prev = data;
+  }
+  data->prev = NULL;
+  data->next = g_thread_local_data_list;
+  g_thread_local_data_list = data;
+  pthread_mutex_unlock(&g_destructors_lock);
+  return data;
+}
+
+/* Called by each thread on thread exit.  It releases thread local data for
+ * that thread only. */
 static void thread_local_destructor(void *arg) {
   if (arg == NULL) {
     return;
   }
-
+  CRYPTO_THREAD_LOCAL_DATA *data = arg;
   thread_local_destructor_t destructors[NUM_OPENSSL_THREAD_LOCALS];
   if (pthread_mutex_lock(&g_destructors_lock) != 0) {
     return;
   }
   OPENSSL_memcpy(destructors, g_destructors, sizeof(destructors));
+  if (data->next) {
+    data->next->prev = data->prev;
+  }
+  if (data->prev) {
+    data->prev->next = data->next;
+  } else {
+    g_thread_local_data_list = data->next;
+  }
   pthread_mutex_unlock(&g_destructors_lock);
 
   unsigned i;
-  void **pointers = arg;
   for (i = 0; i < NUM_OPENSSL_THREAD_LOCALS; i++) {
     if (destructors[i] != NULL) {
-      destructors[i](pointers[i]);
+      destructors[i](data->pointers[i]);
     }
   }
-
-  OPENSSL_free(pointers);
+  OPENSSL_free(data);
 }
 
 static pthread_once_t g_thread_local_init_once = PTHREAD_ONCE_INIT;
 static pthread_key_t g_thread_local_key;
-static int g_thread_local_failed = 0;
+static int g_thread_local_key_created = 0;
+
+/* This is called when the library is unloaded via dlclose.  */
+void __attribute__((destructor)) delete_all_local_data() {
+  if (g_thread_local_key_created) {
+    int result = pthread_key_delete(g_thread_local_key);
+    if (result) {
+      /* This is run on library unload.  If the key delete fails,
+       * there is not much we can do. */
+    }
+  }
+  while (g_thread_local_data_list) {
+    thread_local_destructor(g_thread_local_data_list);
+  }
+}
 
 static void thread_local_init(void) {
-  g_thread_local_failed =
-      pthread_key_create(&g_thread_local_key, thread_local_destructor) != 0;
+  int result = pthread_key_create(&g_thread_local_key, thread_local_destructor);
+  /* Possible errors: EAGAIN -> too many keys or other error.
+   * ENOMEM -> out of memory. */
+  g_thread_local_key_created = (result == 0);
 }
 
 void *CRYPTO_get_thread_local(thread_local_data_t index) {
   CRYPTO_once(&g_thread_local_init_once, thread_local_init);
-  if (g_thread_local_failed) {
+  if (!g_thread_local_key_created) {
     return NULL;
   }
 
-  void **pointers = pthread_getspecific(g_thread_local_key);
-  if (pointers == NULL) {
+  CRYPTO_THREAD_LOCAL_DATA *data = pthread_getspecific(g_thread_local_key);
+  if (data == NULL) {
     return NULL;
   }
-  return pointers[index];
+  return data->pointers[index];
 }
 
 int CRYPTO_set_thread_local(thread_local_data_t index, void *value,
@@ -154,9 +209,8 @@ int CRYPTO_set_thread_local(thread_local_data_t index, void *value,
       destructor(value);
       return 0;
     }
-    OPENSSL_memset(pointers, 0, sizeof(void *) * NUM_OPENSSL_THREAD_LOCALS);
-    if (pthread_setspecific(g_thread_local_key, pointers) != 0) {
-      OPENSSL_free(pointers);
+    if (pthread_setspecific(g_thread_local_key, data) != 0) {
+      thread_local_destructor(data);
       destructor(value);
       return 0;
     }
@@ -169,7 +223,7 @@ int CRYPTO_set_thread_local(thread_local_data_t index, void *value,
   g_destructors[index] = destructor;
   pthread_mutex_unlock(&g_destructors_lock);
 
-  pointers[index] = value;
+  data->pointers[index] = value;
   return 1;
 }
 
