@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5b3d248e_34cb53ed",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-02-09T21:54:44Z",
+      "side": 1,
+      "message": "… uses …",
+      "range": {
+        "startLine": 39,
+        "startChar": 20,
+        "endLine": 39,
+        "endChar": 21
+      },
+      "revId": "971dd55bad1d2781c86bafd1e14a3d21c182dc3e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14441fb0_98decfe1",
+        "filename": "crypto/fipsmodule/rsa/rsa_impl.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-02-09T21:54:44Z",
+      "side": 1,
+      "message": "worth using rsa-\u003emont_n-\u003eN? (Doesn\u0027t look like it\u0027s used for much, but there\u0027s a ucmp in there.)",
+      "range": {
+        "startLine": 311,
+        "startChar": 42,
+        "endLine": 311,
+        "endChar": 48
+      },
+      "revId": "971dd55bad1d2781c86bafd1e14a3d21c182dc3e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e7c74fd_1067a179",
+        "filename": "crypto/fipsmodule/rsa/rsa_impl.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-02-09T21:54:44Z",
+      "side": 1,
+      "message": "(ditto.)",
+      "range": {
+        "startLine": 617,
+        "startChar": 42,
+        "endLine": 617,
+        "endChar": 48
+      },
+      "revId": "971dd55bad1d2781c86bafd1e14a3d21c182dc3e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5a756ca_249fcbc5",
+        "filename": "crypto/fipsmodule/rsa/rsa_impl.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 757,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-02-09T21:54:44Z",
+      "side": 1,
+      "message": "or just rsa-\u003emont_n-\u003eN-\u003ewidth, right?",
+      "range": {
+        "startLine": 757,
+        "startChar": 26,
+        "endLine": 757,
+        "endChar": 50
+      },
+      "revId": "971dd55bad1d2781c86bafd1e14a3d21c182dc3e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
