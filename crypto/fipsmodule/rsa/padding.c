@@ -512,7 +512,7 @@ int RSA_verify_PKCS1_PSS_mgf1(RSA *rsa, const uint8_t *mHash,
     goto err;
   }
 
-  MSBits = (BN_num_bits(rsa->n) - 1) & 0x7;
+  MSBits = (RSA_bits(rsa) - 1) & 0x7;
   emLen = RSA_size(rsa);
   if (EM[0] & (0xFF << MSBits)) {
     OPENSSL_PUT_ERROR(RSA, RSA_R_FIRST_OCTET_INVALID);
@@ -594,12 +594,14 @@ int RSA_padding_add_PKCS1_PSS_mgf1(RSA *rsa, unsigned char *EM,
 
   hLen = EVP_MD_size(Hash);
 
+  // This causes |rsa| to be public-key frozen thus making |BN_is_zero| safe.
+  MSBits = (RSA_bits(rsa) - 1) & 0x7;
+
   if (BN_is_zero(rsa->n)) {
     OPENSSL_PUT_ERROR(RSA, RSA_R_EMPTY_PUBLIC_KEY);
     goto err;
   }
 
-  MSBits = (BN_num_bits(rsa->n) - 1) & 0x7;
   emLen = RSA_size(rsa);
   if (MSBits == 0) {
     assert(emLen >= 1);

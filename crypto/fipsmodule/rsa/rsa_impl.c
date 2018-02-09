@@ -109,6 +109,37 @@ static int check_modulus_and_exponent_sizes(const RSA *rsa) {
   return 1;
 }
 
+// freeze_public_key normalises the width of |rsa->n|, creates |rsa->mont_n|,
+// and set the bit to indicate that the public-key is frozen. The |ctx| argument
+// may be NULL.
+static int freeze_public_key(RSA *rsa, BN_CTX *ctx) {
+  CRYPTO_MUTEX_lock_read(&rsa->lock);
+  int flags = rsa->flags;
+  CRYPTO_MUTEX_unlock_read(&rsa->lock);
+  if (flags & RSA_FLAG_PUBLIC_KEY_FROZEN) {
+    return 1;
+  }
+
+  int ret = 0;
+  CRYPTO_MUTEX_lock_write(&rsa->lock);
+  if (!(rsa->flags & RSA_FLAG_PUBLIC_KEY_FROZEN)) {
+    // |rsa->n| is public. Normalize the width.
+    bn_set_minimal_width(rsa->n);
+    if (rsa->mont_n == NULL) {
+      rsa->mont_n = BN_MONT_CTX_new_for_modulus(rsa->n, ctx);
+      if (rsa->mont_n == NULL) {
+        goto out;
+      }
+    }
+    rsa->flags |= RSA_FLAG_PUBLIC_KEY_FROZEN;
+  }
+  ret = 1;
+
+out:
+  CRYPTO_MUTEX_unlock_write(&rsa->lock);
+  return ret;
+}
+
 // freeze_private_key finishes initializing |rsa|'s private key components.
 // After this function has returned, |rsa| may not be changed. This is needed
 // because |RSA| is a public struct and, additionally, OpenSSL 1.1.0 opaquified
@@ -128,12 +159,15 @@ static int freeze_private_key(RSA *rsa, BN_CTX *ctx) {
     goto err;
   }
 
-  // |rsa->n| is public. Normalize the width.
-  bn_set_minimal_width(rsa->n);
-  if (rsa->mont_n == NULL) {
-    rsa->mont_n = BN_MONT_CTX_new_for_modulus(rsa->n, ctx);
+  // A private-key freeze is a superset of a public-key freeze. Thus, if the
+  // public-key isn't frozen yet, so that now.
+  if (!(rsa->flags & RSA_FLAG_PUBLIC_KEY_FROZEN)) {
+    bn_set_minimal_width(rsa->n);
     if (rsa->mont_n == NULL) {
-      goto err;
+      rsa->mont_n = BN_MONT_CTX_new_for_modulus(rsa->n, ctx);
+      if (rsa->mont_n == NULL) {
+        goto err;
+      }
     }
   }
 
@@ -211,7 +245,7 @@ static int freeze_private_key(RSA *rsa, BN_CTX *ctx) {
     }
   }
 
-  rsa->flags |= RSA_FLAG_PRIVATE_KEY_FROZEN;
+  rsa->flags |= RSA_FLAG_PRIVATE_KEY_FROZEN | RSA_FLAG_PUBLIC_KEY_FROZEN;
   ret = 1;
 
 err:
@@ -219,7 +253,13 @@ err:
   return ret;
 }
 
+unsigned RSA_bits(const RSA *rsa) {
+  freeze_public_key((RSA *) rsa, NULL);
+  return BN_num_bits(rsa->n);
+}
+
 size_t rsa_default_size(const RSA *rsa) {
+  freeze_public_key((RSA *) rsa, NULL);
   return BN_num_bytes(rsa->n);
 }
 
@@ -230,11 +270,20 @@ int RSA_encrypt(RSA *rsa, size_t *out_len, uint8_t *out, size_t max_out,
     return 0;
   }
 
+  uint8_t *buf = NULL;
+  BN_CTX *ctx = BN_CTX_new();
+  int ret = 0;
+  if (ctx == NULL) {
+    goto err;
+  }
+
+  if (!freeze_public_key(rsa, ctx)) {
+    return 0;
+  }
+
   const unsigned rsa_size = RSA_size(rsa);
   BIGNUM *f, *result;
-  uint8_t *buf = NULL;
-  BN_CTX *ctx = NULL;
-  int i, ret = 0;
+  int i;
 
   if (max_out < rsa_size) {
     OPENSSL_PUT_ERROR(RSA, RSA_R_OUTPUT_BUFFER_TOO_SMALL);
@@ -243,11 +292,6 @@ int RSA_encrypt(RSA *rsa, size_t *out_len, uint8_t *out, size_t max_out,
 
   if (!check_modulus_and_exponent_sizes(rsa)) {
     return 0;
-  }
-
-  ctx = BN_CTX_new();
-  if (ctx == NULL) {
-    goto err;
   }
 
   BN_CTX_start(ctx);
@@ -290,8 +334,7 @@ int RSA_encrypt(RSA *rsa, size_t *out_len, uint8_t *out, size_t max_out,
     goto err;
   }
 
-  if (!BN_MONT_CTX_set_locked(&rsa->mont_n, &rsa->lock, rsa->n, ctx) ||
-      !BN_mod_exp_mont(result, f, rsa->e, rsa->n, ctx, rsa->mont_n)) {
+  if (!BN_mod_exp_mont(result, f, rsa->e, rsa->n, ctx, rsa->mont_n)) {
     goto err;
   }
 
@@ -596,8 +639,7 @@ int RSA_verify_raw(RSA *rsa, size_t *out_len, uint8_t *out, size_t max_out,
     goto err;
   }
 
-  if (!BN_MONT_CTX_set_locked(&rsa->mont_n, &rsa->lock, rsa->n, ctx) ||
-      !BN_mod_exp_mont(result, f, rsa->e, rsa->n, ctx, rsa->mont_n)) {
+  if (!BN_mod_exp_mont(result, f, rsa->e, rsa->n, ctx, rsa->mont_n)) {
     goto err;
   }
 
@@ -664,14 +706,14 @@ int rsa_default_private_transform(RSA *rsa, uint8_t *out, const uint8_t *in,
     goto err;
   }
 
-  if (BN_ucmp(f, rsa->n) >= 0) {
-    // Usually the padding functions would catch this.
-    OPENSSL_PUT_ERROR(RSA, RSA_R_DATA_TOO_LARGE);
+  if (!freeze_private_key(rsa, ctx)) {
+    OPENSSL_PUT_ERROR(RSA, ERR_R_INTERNAL_ERROR);
     goto err;
   }
 
-  if (!freeze_private_key(rsa, ctx)) {
-    OPENSSL_PUT_ERROR(RSA, ERR_R_INTERNAL_ERROR);
+  if (BN_ucmp(f, rsa->n) >= 0) {
+    // Usually the padding functions would catch this.
+    OPENSSL_PUT_ERROR(RSA, RSA_R_DATA_TOO_LARGE);
     goto err;
   }
 

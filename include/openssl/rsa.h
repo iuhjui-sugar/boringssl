@@ -509,9 +509,15 @@ OPENSSL_EXPORT void *RSA_get_ex_data(const RSA *rsa, int idx);
 // RSA_FLAG_EXT_PKEY is deprecated and ignored.
 #define RSA_FLAG_EXT_PKEY 0x20
 
+// RSA_FLAG_PUBLIC_KEY_FROZEN specifies that the key has been used for a
+// public or private key operation and so the modulus may no longer be
+// mutated.
+#define RSA_FLAG_PUBLIC_KEY_FROZEN 0x40
+
 // RSA_FLAG_PRIVATE_KEY_FROZEN specifies that the key has been used for a
-// private key operation and may no longer be mutated.
-#define RSA_FLAG_PRIVATE_KEY_FROZEN 0x40
+// private key operation and may no longer be mutated. If this is set,
+// |RSA_FLAG_PUBLIC_KEY_FROZEN| must be set.
+#define RSA_FLAG_PRIVATE_KEY_FROZEN 0x80
 
 
 // RSA public exponent values.

@@ -158,8 +158,6 @@ int RSA_up_ref(RSA *rsa) {
   return 1;
 }
 
-unsigned RSA_bits(const RSA *rsa) { return BN_num_bits(rsa->n); }
-
 void RSA_get0_key(const RSA *rsa, const BIGNUM **out_n, const BIGNUM **out_e,
                   const BIGNUM **out_d) {
   if (out_n != NULL) {
@@ -198,7 +196,8 @@ void RSA_get0_crt_params(const RSA *rsa, const BIGNUM **out_dmp1,
 
 int RSA_set0_key(RSA *rsa, BIGNUM *n, BIGNUM *e, BIGNUM *d) {
   if ((rsa->n == NULL && n == NULL) ||
-      (rsa->e == NULL && e == NULL)) {
+      (rsa->e == NULL && e == NULL) ||
+      (rsa->flags & RSA_FLAG_PUBLIC_KEY_FROZEN)) {
     return 0;
   }
 
@@ -220,7 +219,8 @@ int RSA_set0_key(RSA *rsa, BIGNUM *n, BIGNUM *e, BIGNUM *d) {
 
 int RSA_set0_factors(RSA *rsa, BIGNUM *p, BIGNUM *q) {
   if ((rsa->p == NULL && p == NULL) ||
-      (rsa->q == NULL && q == NULL)) {
+      (rsa->q == NULL && q == NULL) ||
+      (rsa->flags & RSA_FLAG_PRIVATE_KEY_FROZEN)) {
     return 0;
   }
 
