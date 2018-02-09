@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "53632567_f4cdcb09",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-09T22:10:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b3d248e_34cb53ed",
+      "range": {
+        "startLine": 39,
+        "startChar": 20,
+        "endLine": 39,
+        "endChar": 21
+      },
+      "revId": "971dd55bad1d2781c86bafd1e14a3d21c182dc3e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "14441fb0_98decfe1",
         "filename": "crypto/fipsmodule/rsa/rsa_impl.c",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "971dd55bad1d2781c86bafd1e14a3d21c182dc3e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cca26ab_8af89777",
+        "filename": "crypto/fipsmodule/rsa/rsa_impl.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-09T22:10:30Z",
+      "side": 1,
+      "message": "Meh, okay. At some point I want to add a lower-level version of BN_mod_exp_mont that removes the dependency on BN_nmmod (just fail the operation) and the automatic BN_MONT_CTX creation, at which point that argument can go away.",
+      "parentUuid": "14441fb0_98decfe1",
+      "range": {
+        "startLine": 311,
+        "startChar": 42,
+        "endLine": 311,
+        "endChar": 48
+      },
+      "revId": "971dd55bad1d2781c86bafd1e14a3d21c182dc3e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "730d769c_35095594",
+        "filename": "crypto/fipsmodule/rsa/rsa_impl.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-09T22:10:30Z",
+      "side": 1,
+      "message": "(ditto)",
+      "parentUuid": "9e7c74fd_1067a179",
+      "range": {
+        "startLine": 617,
+        "startChar": 42,
+        "endLine": 617,
+        "endChar": 48
+      },
+      "revId": "971dd55bad1d2781c86bafd1e14a3d21c182dc3e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d5a756ca_249fcbc5",
         "filename": "crypto/fipsmodule/rsa/rsa_impl.c",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "971dd55bad1d2781c86bafd1e14a3d21c182dc3e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "174b5579_8f3fd5a7",
+        "filename": "crypto/fipsmodule/rsa/rsa_impl.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 757,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-09T22:10:30Z",
+      "side": 1,
+      "message": "Done. Also flipped it back to \u003d\u003d. It\u0027s still within spec for BN_BLINDING_invert to give you something bigger, but it\u0027s silly so we\u0027d like to find out.",
+      "parentUuid": "d5a756ca_249fcbc5",
+      "range": {
+        "startLine": 757,
+        "startChar": 26,
+        "endLine": 757,
+        "endChar": 50
+      },
+      "revId": "971dd55bad1d2781c86bafd1e14a3d21c182dc3e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
