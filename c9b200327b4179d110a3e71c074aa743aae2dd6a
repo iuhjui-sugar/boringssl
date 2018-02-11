@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8946d969_bb9ee613",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1750,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-02-11T01:14:36Z",
+      "side": 1,
+      "message": "\"some\"? (At least one, might be more if there\u0027s a zero or two at the end of |p_wNAF|.)",
+      "range": {
+        "startLine": 1750,
+        "startChar": 25,
+        "endLine": 1750,
+        "endChar": 28
+      },
+      "revId": "c9b200327b4179d110a3e71c074aa743aae2dd6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0743d9b1_49fda2f1",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1765,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-02-11T01:14:36Z",
+      "side": 1,
+      "message": "isn\u0027t this hopeless? This only kicks in once i \u003c\u003d 31, so is it even worth bothering with?",
+      "range": {
+        "startLine": 1765,
+        "startChar": 6,
+        "endLine": 1765,
+        "endChar": 18
+      },
+      "revId": "c9b200327b4179d110a3e71c074aa743aae2dd6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3efb1229_2a915072",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1791,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-02-11T01:14:36Z",
+      "side": 1,
+      "message": "quicker not to bother copying? (And maybe have a pointer for \u0027y\u0027 which can be pointed at a temp buffer when negation is needed.)",
+      "revId": "c9b200327b4179d110a3e71c074aa743aae2dd6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
