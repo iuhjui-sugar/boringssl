@@ -131,6 +131,15 @@ struct gcm128_context {
   unsigned use_aesni_gcm_crypt:1;
 };
 
+struct ccm128_context {
+    union {
+        uint64_t u[2];
+        uint8_t c[16];
+    } nonce, cmac;
+    uint64_t blocks;
+    block128_f block;
+};
+
 #if defined(OPENSSL_X86) || defined(OPENSSL_X86_64)
 // crypto_gcm_clmul_enabled returns one if the CLMUL implementation of GCM is
 // used.
@@ -246,6 +255,48 @@ OPENSSL_EXPORT int CRYPTO_gcm128_finish(GCM128_CONTEXT *ctx, const uint8_t *tag,
 // CRYPTO_gcm128_tag calculates the authenticator and copies it into |tag|.
 // The minimum of |len| and 16 bytes are copied into |tag|.
 OPENSSL_EXPORT void CRYPTO_gcm128_tag(GCM128_CONTEXT *ctx, uint8_t *tag,
+                                      size_t len);
+
+// CCM
+
+typedef struct ccm128_context CCM128_CONTEXT;
+
+// CRYPTO_ccm128_init initialises |ctx| to use |block| (typically AES) with
+// the given key and parameters.
+OPENSSL_EXPORT void CRYPTO_ccm128_init(CCM128_CONTEXT *ctx, unsigned M,
+                                       unsigned L, const void *key,
+                                       block128_f block);
+
+// CRYPTO_ccm128_setiv sets the IV (nonce) for |ctx|. The |key| must be the same
+// key that was passed to |CRYPTO_ccm128_init|.
+OPENSSL_EXPORT int CRYPTO_ccm128_setiv(CCM128_CONTEXT *ctx, const void *key,
+                                       const uint8_t *nonce, size_t len,
+                                       size_t mlen);
+
+// CRYPTO_ccm128_aad sets the authenticated data for an instance of CCM.
+// This must be called before and data is encrypted. The |key| must be the same
+// key that was passed to |CRYPTO_ccm128_init|. It returns one on success
+// and zero otherwise.
+OPENSSL_EXPORT int CRYPTO_ccm128_aad(CCM128_CONTEXT *ctx, const void *key,
+                                     const uint8_t *aad, size_t len);
+
+// CRYPTO_ccm128_encrypt encrypts |len| bytes from |in| to |out|. The |key|
+// must be the same key that was passed to |CRYPTO_ccm128_init|. It returns one
+// on success and zero otherwise.
+OPENSSL_EXPORT int CRYPTO_ccm128_encrypt(CCM128_CONTEXT *ctx, const void *key,
+                                         const uint8_t *in, uint8_t *out,
+                                         size_t len);
+
+// CRYPTO_ccm128_decrypt decrypts |len| bytes from |in| to |out|. The |key| must
+// be the same key that was passed to |CRYPTO_ccm128_init|. It returns one on
+// success and zero otherwise.
+OPENSSL_EXPORT int CRYPTO_ccm128_decrypt(CCM128_CONTEXT *ctx, const void *key,
+                                         const uint8_t *in, uint8_t *out,
+                                         size_t len);
+
+// CRYPTO_ccm128_tag calculates the authenticator and copies it into |tag|.
+// The minimum of |len| and 16 bytes are copied into |tag|.
+OPENSSL_EXPORT size_t CRYPTO_ccm128_tag(CCM128_CONTEXT *ctx, uint8_t *tag,
                                       size_t len);
 
 
