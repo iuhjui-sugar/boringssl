@@ -24,6 +24,8 @@ import json
 # OS_ARCH_COMBOS maps from OS and platform to the OpenSSL assembly "style" for
 # that platform and the extension used by asm files.
 OS_ARCH_COMBOS = [
+    ('fuchsia', 'aarch64', 'linux64', [], 'S'),
+    ('fuchsia', 'x86_64', 'elf', [], 'S'),
     ('ios', 'arm', 'ios32', [], 'S'),
     ('ios', 'aarch64', 'ios64', [], 'S'),
     ('linux', 'arm', 'linux32', [], 'S'),
