@@ -97,6 +97,19 @@ typedef struct {
   ctr128_f ctr;
 } EVP_AES_GCM_CTX;
 
+typedef struct {
+  union {
+    double align;
+    AES_KEY ks;
+  } ks;               // AES key schedule to use
+  int key_set;        // Set if key initialised
+  int iv_set;         // Set if an iv is set
+  int tag_set;        // Set if tag is valid
+  int len_set;        // Set if message length set
+  int L, M;           // L and M parameters from RFC3610
+  CCM128_CONTEXT ccm;
+} EVP_AES_CCM_CTX;
+
 #if !defined(OPENSSL_NO_ASM) && \
     (defined(OPENSSL_X86_64) || defined(OPENSSL_X86))
 #define VPAES

@@ -117,6 +117,9 @@ OPENSSL_EXPORT const EVP_AEAD *EVP_aead_aes_128_gcm_siv(void);
 // https://tools.ietf.org/html/draft-irtf-cfrg-gcmsiv-02
 OPENSSL_EXPORT const EVP_AEAD *EVP_aead_aes_256_gcm_siv(void);
 
+// EVP_aead_aes_128_ccm is AES-128 in Counter with CBC-MAC made.
+OPENSSL_EXPORT const EVP_AEAD *EVP_aead_aes_128_ccm(void);
+
 // EVP_has_aes_hardware returns one if we enable hardware support for fast and
 // constant-time AES-GCM.
 OPENSSL_EXPORT int EVP_has_aes_hardware(void);
