@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff949cc5_92c9afa1",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-13T20:08:11Z",
+      "side": 1,
+      "message": "I think you\u0027ll want to either also include these files or make the code check OPENSSL_LINUX. (Probably the former.)",
+      "revId": "558b0eaba09abe4e4d8c9af471b9591e855e663f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
