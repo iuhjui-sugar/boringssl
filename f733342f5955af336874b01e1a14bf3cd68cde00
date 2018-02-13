@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "450194b0_b53d812d",
+        "filename": "crypto/cipher_extra/e_aesccm.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-13T19:55:49Z",
+      "side": 1,
+      "message": "Bluetooth uses L \u003d 2, not L \u003d 3.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 37
+      },
+      "revId": "f733342f5955af336874b01e1a14bf3cd68cde00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4eeb8017_4124b08e",
+        "filename": "crypto/cipher_extra/e_aesccm.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-13T19:55:49Z",
+      "side": 1,
+      "message": "This should be the same line as above.",
+      "revId": "f733342f5955af336874b01e1a14bf3cd68cde00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe869078_6dffb02c",
+        "filename": "crypto/cipher_extra/e_aesccm.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-13T19:55:49Z",
+      "side": 1,
+      "message": "!\u003d",
+      "range": {
+        "startLine": 127,
+        "startChar": 15,
+        "endLine": 127,
+        "endChar": 17
+      },
+      "revId": "f733342f5955af336874b01e1a14bf3cd68cde00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5361cde0_5f84715f",
+        "filename": "crypto/fipsmodule/modes/ccm.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-13T19:55:49Z",
+      "side": 1,
+      "message": "File has various style issues where we differ from OpenSSL, so you probably want to take another pass over this. I haven\u0027t added comments here because I\u0027m assuming it will get reworked a bit once you fix the parameters.",
+      "revId": "f733342f5955af336874b01e1a14bf3cd68cde00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5d2615a_22a34052",
+        "filename": "include/openssl/aead.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-13T19:55:49Z",
+      "side": 1,
+      "message": "What M and L? It looks like you\u0027ve done the IETF\u0027s AEAD_AES_128_CCM, so it should be documented as such, but that\u0027s not the one the Bluetooth folks need. See https://www.bluetooth.com/specifications/bluetooth-core-specification, volume 6, part E. They use M \u003d 4 and L \u003d 2.\n\nIt looks like AES-CCM does actually encode M and L into the AD and where CTR mode starts, so in theory we could have a single EVP_AEAD, recover M and L based on tag length and nonce length. But this is a lot of mess and requires validating parameters more than you\u0027ve currently done (2 \u003c\u003d L \u003c\u003d 8, M has a whitelist of 7 sizes).\n\nI think it would be better to add EVP_aead_aes_128_ccm_bluetooth and call it a day.",
+      "revId": "f733342f5955af336874b01e1a14bf3cd68cde00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
