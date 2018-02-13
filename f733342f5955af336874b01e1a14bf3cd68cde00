@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1b081ac7_75e36f6b",
+        "filename": "crypto/cipher_extra/e_aesccm.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-02-13T20:47:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "450194b0_b53d812d",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 37
+      },
+      "revId": "f733342f5955af336874b01e1a14bf3cd68cde00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4eeb8017_4124b08e",
         "filename": "crypto/cipher_extra/e_aesccm.c",
         "patchSetId": 3
@@ -39,6 +63,24 @@
       "revId": "f733342f5955af336874b01e1a14bf3cd68cde00",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c2147fb_0ce900e1",
+        "filename": "crypto/cipher_extra/e_aesccm.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-02-13T20:47:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4eeb8017_4124b08e",
+      "revId": "f733342f5955af336874b01e1a14bf3cd68cde00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "9cf3741f_0107ad5e",
+        "filename": "crypto/cipher_extra/e_aesccm.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-02-13T20:47:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe869078_6dffb02c",
+      "range": {
+        "startLine": 127,
+        "startChar": 15,
+        "endLine": 127,
+        "endChar": 17
+      },
+      "revId": "f733342f5955af336874b01e1a14bf3cd68cde00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5361cde0_5f84715f",
         "filename": "crypto/fipsmodule/modes/ccm.c",
         "patchSetId": 3
@@ -82,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "e9be5d2a_d36379c1",
+        "filename": "crypto/fipsmodule/modes/ccm.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-02-13T20:47:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5361cde0_5f84715f",
+      "revId": "f733342f5955af336874b01e1a14bf3cd68cde00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f5d2615a_22a34052",
         "filename": "include/openssl/aead.h",
         "patchSetId": 3
@@ -96,6 +180,24 @@
       "revId": "f733342f5955af336874b01e1a14bf3cd68cde00",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76de107d_8ebed888",
+        "filename": "include/openssl/aead.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-02-13T20:47:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5d2615a_22a34052",
+      "revId": "f733342f5955af336874b01e1a14bf3cd68cde00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
