@@ -34,6 +34,24 @@
       "revId": "558b0eaba09abe4e4d8c9af471b9591e855e663f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4873cdb7_96410f14",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-14T00:49:35Z",
+      "side": 1,
+      "message": "Ah yes, of course.",
+      "parentUuid": "28414995_c651cda7",
+      "revId": "558b0eaba09abe4e4d8c9af471b9591e855e663f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
