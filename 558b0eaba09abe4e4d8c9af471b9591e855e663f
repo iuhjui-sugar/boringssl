@@ -16,6 +16,24 @@
       "revId": "558b0eaba09abe4e4d8c9af471b9591e855e663f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28414995_c651cda7",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 6535
+      },
+      "writtenOn": "2018-02-14T00:36:33Z",
+      "side": 1,
+      "message": "I don\u0027t believe so.  Those files are only for ARCH\u003d\u0027arm\u0027, correct?  Fuchsia only supports aarch64: https://fuchsia.googlesource.com/zircon/+/master/docs/architecture_support.md",
+      "parentUuid": "ff949cc5_92c9afa1",
+      "revId": "558b0eaba09abe4e4d8c9af471b9591e855e663f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
