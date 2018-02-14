@@ -1,0 +1,643 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce842518_d0218949",
+        "filename": "crypto/cipher_extra/e_aesccm.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-14T00:42:49Z",
+      "side": 1,
+      "message": "Newline here.",
+      "revId": "200105e844c79a06d0e698d54a8e7b7aa9a49b84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01c25039_a6d60314",
+        "filename": "crypto/cipher_extra/e_aesccm.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-14T00:42:49Z",
+      "side": 1,
+      "message": "Most of the names in the file are wrong considering they\u0027re just for the Bluetooth variant. See following comment:",
+      "revId": "200105e844c79a06d0e698d54a8e7b7aa9a49b84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "990b99bc_79234fa6",
+        "filename": "crypto/cipher_extra/e_aesccm.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-14T00:42:49Z",
+      "side": 1,
+      "message": "This call and the copy doesn\u0027t really do anything. You\u0027re not precomputing anything per-key in the CCM128_CONTEXT. It\u0027s just stashing away M and L funny and then extracting it back out.\n\nInstead, replace ccm in aead_aes_ccm_ctx with just M and L, rename this function to aead_aes_ccm_init_bluetooth (because it is actually Bluetooth-specific), and then have the other functions pass the saved M and L in there. Later on, if we were to add a different AES-CCM function, only the init hook would change.\n\nAt that point, init, setiv, and aad can just be merged into one function.\n\nEVP_AEAD_CTX and EVP_CIPHER_CTX are very much not analogous structures, so it is not necessarily correct to blindly translate between the two. (EVP_AEAD_CTX is more like EVP_PKEY and EVP_CIPHER_CTX is more like EVP_PKEY combined with EVP_PKEY_CTX.)",
+      "revId": "200105e844c79a06d0e698d54a8e7b7aa9a49b84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a6c044a_c8d5e5c8",
+        "filename": "crypto/cipher_extra/e_aesccm.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-14T00:42:49Z",
+      "side": 1,
+      "message": "Nit: Move |ccm|\u0027s decl down to next to line 98, though note comment above about the memcpy and whatnot.",
+      "revId": "200105e844c79a06d0e698d54a8e7b7aa9a49b84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1e7371a_d6eda2ef",
+        "filename": "crypto/cipher_extra/e_aesccm.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-14T00:42:49Z",
+      "side": 1,
+      "message": "This is missing in the other function, and is also specific to the Bluetooth version.",
+      "revId": "200105e844c79a06d0e698d54a8e7b7aa9a49b84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2558751_6880e917",
+        "filename": "crypto/cipher_extra/e_aesccm.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-14T00:42:49Z",
+      "side": 1,
+      "message": "Internal error? You seem to be going with performing all your checks in the AEAD code.",
+      "range": {
+        "startLine": 101,
+        "startChar": 30,
+        "endLine": 101,
+        "endChar": 57
+      },
+      "revId": "200105e844c79a06d0e698d54a8e7b7aa9a49b84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e06f2f01_51cce58e",
+        "filename": "crypto/cipher_extra/e_aesccm.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-14T00:42:49Z",
+      "side": 1,
+      "message": "Seems cleaner to fold this into CRYPTO_ccm128_aad.",
+      "range": {
+        "startLine": 105,
+        "startChar": 6,
+        "endLine": 105,
+        "endChar": 20
+      },
+      "revId": "200105e844c79a06d0e698d54a8e7b7aa9a49b84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e931d944_8767b458",
+        "filename": "crypto/cipher_extra/e_aesccm.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-14T00:42:49Z",
+      "side": 1,
+      "message": "OPENSSL_PUT_ERROR(CIPHER, ERR_R_INTERNAL_ERROR). Ditto below.",
+      "revId": "200105e844c79a06d0e698d54a8e7b7aa9a49b84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5165391_b6d6436d",
+        "filename": "crypto/cipher_extra/test/aes_128_ccm_bluetooth_tests.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-14T00:42:49Z",
+      "side": 1,
+      "message": "This doesn\u0027t cover most of the encoding edge cases. The 2^32 case is maybe a little large, but we can at least cover the 2^16 case, and also the zero case.",
+      "revId": "200105e844c79a06d0e698d54a8e7b7aa9a49b84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56264136_12df98ff",
+        "filename": "crypto/fipsmodule/modes/ccm.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-14T00:42:49Z",
+      "side": 1,
+      "message": "newline",
+      "revId": "200105e844c79a06d0e698d54a8e7b7aa9a49b84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3259bb61_ae6657d9",
+        "filename": "crypto/fipsmodule/modes/ccm.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-14T00:42:49Z",
+      "side": 1,
+      "message": "This should fail if mlen is too large to be represented.",
+      "range": {
+        "startLine": 67,
+        "startChar": 65,
+        "endLine": 67,
+        "endChar": 69
+      },
+      "revId": "200105e844c79a06d0e698d54a8e7b7aa9a49b84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "beb0784a_07f505bb",
+        "filename": "crypto/fipsmodule/modes/ccm.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-14T00:42:49Z",
+      "side": 1,
+      "message": "unsigned",
+      "range": {
+        "startLine": 68,
+        "startChar": 1,
+        "endLine": 68,
+        "endChar": 14
+      },
+      "revId": "200105e844c79a06d0e698d54a8e7b7aa9a49b84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "559f6916_df6a561d",
+        "filename": "crypto/fipsmodule/modes/ccm.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-14T00:42:49Z",
+      "side": 1,
+      "message": "i",
+      "range": {
+        "startLine": 70,
+        "startChar": 14,
+        "endLine": 70,
+        "endChar": 18
+      },
+      "revId": "200105e844c79a06d0e698d54a8e7b7aa9a49b84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1131f58a_68fda867",
+        "filename": "crypto/fipsmodule/modes/ccm.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-14T00:42:49Z",
+      "side": 1,
+      "message": "unsigned and move down to first use.",
+      "range": {
+        "startLine": 86,
+        "startChar": 3,
+        "endLine": 86,
+        "endChar": 14
+      },
+      "revId": "200105e844c79a06d0e698d54a8e7b7aa9a49b84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0f99284_5751e8b3",
+        "filename": "crypto/fipsmodule/modes/ccm.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-14T00:42:49Z",
+      "side": 1,
+      "message": "Move down to first use.",
+      "revId": "200105e844c79a06d0e698d54a8e7b7aa9a49b84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76fd917d_c0ecb3b3",
+        "filename": "crypto/fipsmodule/modes/ccm.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-14T00:42:49Z",
+      "side": 1,
+      "message": "semicolon, newline.",
+      "range": {
+        "startLine": 94,
+        "startChar": 42,
+        "endLine": 94,
+        "endChar": 44
+      },
+      "revId": "200105e844c79a06d0e698d54a8e7b7aa9a49b84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e73d5d1c_c22dd61a",
+        "filename": "crypto/fipsmodule/modes/ccm.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-14T00:42:49Z",
+      "side": 1,
+      "message": "Nit: unneccessary parens.",
+      "revId": "200105e844c79a06d0e698d54a8e7b7aa9a49b84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6030f4e6_ea81f785",
+        "filename": "crypto/fipsmodule/modes/ccm.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-14T00:42:49Z",
+      "side": 1,
+      "message": "This expression is kind of wonky. I realize it\u0027s so the compiler doesn\u0027t scream about taking something mod 2^32, but what about:\n\n// Cast to u64 to avoid the compiler complaining about invalid shifts.\nuint64_t len_u64 \u003d len;\nif (len_u64 \u003c 0x10000 - 0x100) {\n  ...\n} else if (len_u64 \u003c\u003d 0xffffffff) {\n  ...0xff 0xfe case...\n} else {\n  ...0xff 0xff case..., remove the silly % (sizeof(len) * 8) stuff.\n}\n\nThe compiler should be plenty smart enough to erase the dead code...",
+      "revId": "200105e844c79a06d0e698d54a8e7b7aa9a49b84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "298c653c_3995060f",
+        "filename": "crypto/fipsmodule/modes/ccm.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-14T00:42:49Z",
+      "side": 1,
+      "message": "lowercase",
+      "range": {
+        "startLine": 101,
+        "startChar": 22,
+        "endLine": 101,
+        "endChar": 26
+      },
+      "revId": "200105e844c79a06d0e698d54a8e7b7aa9a49b84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ecf34b2b_34bec360",
+        "filename": "crypto/fipsmodule/modes/ccm.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-14T00:42:49Z",
+      "side": 1,
+      "message": "Style...",
+      "revId": "200105e844c79a06d0e698d54a8e7b7aa9a49b84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d114d9a_d7b7e72f",
+        "filename": "crypto/fipsmodule/modes/ccm.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-14T00:42:49Z",
+      "side": 1,
+      "message": "uint8_t counter[16]",
+      "range": {
+        "startLine": 132,
+        "startChar": 29,
+        "endLine": 132,
+        "endChar": 45
+      },
+      "revId": "200105e844c79a06d0e698d54a8e7b7aa9a49b84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d3d4e17_d7542cac",
+        "filename": "crypto/fipsmodule/modes/ccm.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-14T00:42:49Z",
+      "side": 1,
+      "message": "unsigned",
+      "range": {
+        "startLine": 133,
+        "startChar": 2,
+        "endLine": 133,
+        "endChar": 14
+      },
+      "revId": "200105e844c79a06d0e698d54a8e7b7aa9a49b84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9edf9616_442093cd",
+        "filename": "crypto/fipsmodule/modes/ccm.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-14T00:42:49Z",
+      "side": 1,
+      "message": "Move to where it is used.",
+      "revId": "200105e844c79a06d0e698d54a8e7b7aa9a49b84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19ccf982_1f39af29",
+        "filename": "crypto/fipsmodule/modes/ccm.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-14T00:42:49Z",
+      "side": 1,
+      "message": "Style",
+      "revId": "200105e844c79a06d0e698d54a8e7b7aa9a49b84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b003e10f_1ca8d200",
+        "filename": "crypto/fipsmodule/modes/ccm.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-14T00:42:49Z",
+      "side": 1,
+      "message": "unsigned",
+      "range": {
+        "startLine": 149,
+        "startChar": 1,
+        "endLine": 149,
+        "endChar": 14
+      },
+      "revId": "200105e844c79a06d0e698d54a8e7b7aa9a49b84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e5a64e4_b604def8",
+        "filename": "crypto/fipsmodule/modes/ccm.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-14T00:42:49Z",
+      "side": 1,
+      "message": "uint8_t",
+      "range": {
+        "startLine": 150,
+        "startChar": 3,
+        "endLine": 150,
+        "endChar": 14
+      },
+      "revId": "200105e844c79a06d0e698d54a8e7b7aa9a49b84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48b1ff91_4a7493ac",
+        "filename": "crypto/fipsmodule/modes/ccm.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-14T00:42:49Z",
+      "side": 1,
+      "message": "Move all these next to use.",
+      "revId": "200105e844c79a06d0e698d54a8e7b7aa9a49b84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c682718_8b3ddf4c",
+        "filename": "crypto/fipsmodule/modes/ccm.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-14T00:42:49Z",
+      "side": 1,
+      "message": "Style:",
+      "revId": "200105e844c79a06d0e698d54a8e7b7aa9a49b84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e5c57ff_1d6bebac",
+        "filename": "crypto/fipsmodule/modes/ccm.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-14T00:42:49Z",
+      "side": 1,
+      "message": "Style",
+      "range": {
+        "startLine": 158,
+        "startChar": 0,
+        "endLine": 159,
+        "endChar": 35
+      },
+      "revId": "200105e844c79a06d0e698d54a8e7b7aa9a49b84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71d163ec_83a7a8fb",
+        "filename": "crypto/fipsmodule/modes/ccm.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-14T00:42:49Z",
+      "side": 1,
+      "message": "This is undefined behavior. Honestly, I suspect the version with the unions will compile identically in any sensible compiler anyway.",
+      "revId": "200105e844c79a06d0e698d54a8e7b7aa9a49b84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d9d0aef_9235fc1e",
+        "filename": "crypto/fipsmodule/modes/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-14T00:42:49Z",
+      "side": 1,
+      "message": "Formatting",
+      "revId": "200105e844c79a06d0e698d54a8e7b7aa9a49b84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e959033_5027dcdb",
+        "filename": "crypto/fipsmodule/modes/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-14T00:42:49Z",
+      "side": 1,
+      "message": "Period",
+      "revId": "200105e844c79a06d0e698d54a8e7b7aa9a49b84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c2cfe00_488e4e24",
+        "filename": "include/openssl/aead.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-14T00:42:49Z",
+      "side": 1,
+      "message": ", as described in the Bluetooth Core Specification v5.0, Volume 6, Part E, Section 1.",
+      "revId": "200105e844c79a06d0e698d54a8e7b7aa9a49b84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
