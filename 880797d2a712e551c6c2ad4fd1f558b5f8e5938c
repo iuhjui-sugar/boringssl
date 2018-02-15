@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6f7ecb04_671306b9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-15T01:36:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a1bc54a_a6f8074d",
+      "range": {
+        "startLine": 14,
+        "startChar": 58,
+        "endLine": 14,
+        "endChar": 68
+      },
+      "revId": "880797d2a712e551c6c2ad4fd1f558b5f8e5938c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed8885e1_2323cc52",
         "filename": "ssl/test/runner/common.go",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "880797d2a712e551c6c2ad4fd1f558b5f8e5938c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e96d2656_f566f068",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1555,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-15T01:36:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed8885e1_2323cc52",
+      "range": {
+        "startLine": 1555,
+        "startChar": 4,
+        "endLine": 1555,
+        "endChar": 25
+      },
+      "revId": "880797d2a712e551c6c2ad4fd1f558b5f8e5938c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
