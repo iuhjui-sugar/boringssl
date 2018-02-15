@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "142a7d4b_c466f687",
+        "filename": "crypto/thread_pthread.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 8853
+      },
+      "writtenOn": "2018-02-15T23:30:09Z",
+      "side": 1,
+      "message": "I don\u0027t seem to be able to push anymore.  I\u0027m thinking of bracketing lines 126-139 with\n\n#ifdef DLCLOSEABLE_PLUGIN_LIBRARY\n...\n#endif",
+      "revId": "27e84ce31ec1890a732b58cf32039cad53cd7fcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
