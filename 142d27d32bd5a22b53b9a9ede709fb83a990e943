@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "86fd1320_0a368c36",
+        "filename": "crypto/fipsmodule/modes/ccm.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-16T00:27:11Z",
+      "side": 1,
+      "message": "This is 8*L, no? Also you probably want to check nonce_len is consistent with L. It also hits undefined behavior for L \u003d 8.",
+      "range": {
+        "startLine": 68,
+        "startChar": 34,
+        "endLine": 68,
+        "endChar": 42
+      },
+      "revId": "142d27d32bd5a22b53b9a9ede709fb83a990e943",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0b0ff67_d10efd6a",
+        "filename": "crypto/fipsmodule/modes/ccm.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-16T00:27:11Z",
+      "side": 1,
+      "message": "If you do something like:\n\n  if (aad_len !\u003d 0) {\n    ctx-\u003enonce.c[0] |\u003d 0x40;\n  }\n  (*block)(ctx-\u003enonce.c, ctx-\u003ecmac.c, key);\n  ctx-\u003eblocks++;\n  if (aad_len \u003d\u003d 0) {\n    return 1;\n  }\n\nThen you can remove the\n\n  if (!(flags0 \u0026 0x40)) {\n\nbits in encrypt/decrypt.",
+      "revId": "142d27d32bd5a22b53b9a9ede709fb83a990e943",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "225c98a9_3d42a4c2",
+        "filename": "crypto/fipsmodule/modes/ccm.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-16T00:27:11Z",
+      "side": 1,
+      "message": "len !\u003d 0",
+      "range": {
+        "startLine": 206,
+        "startChar": 6,
+        "endLine": 206,
+        "endChar": 9
+      },
+      "revId": "142d27d32bd5a22b53b9a9ede709fb83a990e943",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a0235bc_b4815dcd",
+        "filename": "crypto/fipsmodule/modes/ccm.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-16T00:27:11Z",
+      "side": 1,
+      "message": "Unneccessary?",
+      "revId": "142d27d32bd5a22b53b9a9ede709fb83a990e943",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7d20ecf_d250e4f9",
+        "filename": "crypto/fipsmodule/modes/ccm.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-16T00:27:11Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "142d27d32bd5a22b53b9a9ede709fb83a990e943",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94c45a3c_07647538",
+        "filename": "crypto/fipsmodule/modes/internal.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-02-16T00:27:11Z",
+      "side": 1,
+      "message": "This does not appear to be correct. You\u0027re passing in the actual input length here.",
+      "revId": "142d27d32bd5a22b53b9a9ede709fb83a990e943",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
