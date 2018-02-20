@@ -251,7 +251,6 @@ int ec_wNAF_mul(const EC_GROUP *group, EC_POINT *r, const EC_SCALAR *g_scalar,
   size_t wNAF_len = bits + 1;
   size_t precomp_len = (size_t)1 << (wsize - 1);
   if (wNAF_len > OPENSSL_ARRAY_SIZE(g_wNAF) ||
-      wNAF_len > OPENSSL_ARRAY_SIZE(p_wNAF) ||
       2 * precomp_len > OPENSSL_ARRAY_SIZE(precomp_storage)) {
     OPENSSL_PUT_ERROR(EC, ERR_R_INTERNAL_ERROR);
     goto err;
