@@ -2952,6 +2952,12 @@ OPENSSL_EXPORT const char *SSL_get_psk_identity(const SSL *ssl);
 // phase of the experiment. It returns one for success and zero otherwise.
 OPENSSL_EXPORT int SSL_set_dummy_pq_padding_size(SSL *ssl, size_t num_bytes);
 
+// SSL_dummy_pq_padding_used sets |*ext_echoed| to one if the server echoed a
+// dummy PQ padding extension and zero otherwise. It may only be called on a
+// client connection once the handshake has completed. It returns one on success
+// and zero on error.
+OPENSSL_EXPORT int SSL_dummy_pq_padding_used(SSL *ssl, int *ext_echoed);
+
 
 // QUIC Transport Parameters.
 //
