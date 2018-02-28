@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "974f81ad_1df102ab",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2445,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-02-28T23:32:07Z",
+      "side": 1,
+      "message": "Sure. This API isn\u0027t long for the world anyway.",
+      "parentUuid": "6d55d479_ebfdc185",
+      "revId": "8412f3b3413e80bf851b61284a2ae69a44e6d955",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a20081bc_7a5131a5",
         "filename": "ssl/test/bssl_shim.cc",
         "patchSetId": 1
@@ -39,6 +57,30 @@
       "revId": "8412f3b3413e80bf851b61284a2ae69a44e6d955",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20833d95_5736c110",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1872,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-02-28T23:32:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a20081bc_7a5131a5",
+      "range": {
+        "startLine": 1872,
+        "startChar": 40,
+        "endLine": 1872,
+        "endChar": 41
+      },
+      "revId": "8412f3b3413e80bf851b61284a2ae69a44e6d955",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
