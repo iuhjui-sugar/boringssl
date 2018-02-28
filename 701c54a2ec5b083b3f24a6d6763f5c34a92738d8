@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb4061e8_69967b7c",
+        "filename": "cr-buildbucket.cfg",
+        "patchSetId": 2
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 6950
+      },
+      "writtenOn": "2018-02-28T02:23:45Z",
+      "side": 1,
+      "message": "from here onwards is copy-pasta from above with new value of \n  dimensions: \"pool",
+      "revId": "701c54a2ec5b083b3f24a6d6763f5c34a92738d8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
