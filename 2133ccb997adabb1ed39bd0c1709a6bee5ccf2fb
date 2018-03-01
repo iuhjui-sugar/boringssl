@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6ba3a5ce_7518bbfc",
+        "filename": "cr-buildbucket.cfg",
+        "patchSetId": 3
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-03-01T22:56:17Z",
+      "side": 1,
+      "message": "FWIW, I think we also never got these working anyway. Something about the script needing to support multiple devices? (It wasn\u0027t clear to me what environment the script is supposed to support? I gather there will be multiple devices and we should either shard the tests onto them or at least not explode horribly?)",
+      "revId": "2133ccb997adabb1ed39bd0c1709a6bee5ccf2fb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
