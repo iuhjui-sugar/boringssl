@@ -16,6 +16,24 @@
       "revId": "d202ba0e927bc9f41662065fced1ccd13a25fd85",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0675da91_a63b1a77",
+        "filename": "crypto/fipsmodule/bn/prime.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-03-04T19:28:15Z",
+      "side": 1,
+      "message": "Thanks! I\u0027ve fixed it in my local copy and will include it when I upload the next revision of this tower. (Been working on and off on the rest of key generation.)",
+      "parentUuid": "4cd7aa41_94d7cb13",
+      "revId": "d202ba0e927bc9f41662065fced1ccd13a25fd85",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
