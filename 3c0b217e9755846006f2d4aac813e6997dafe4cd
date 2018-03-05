@@ -16,6 +16,24 @@
       "revId": "3c0b217e9755846006f2d4aac813e6997dafe4cd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4bd61a1c_cb5f0f77",
+        "filename": "crypto/fipsmodule/rsa/blinding.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-03-05T20:30:01Z",
+      "side": 1,
+      "message": "Done.\n\n(I\u0027ve never cared much for the ad-hoc sometimes-backtraced-bits. Maybe we can teach err to sample the stack or something...)",
+      "parentUuid": "e94d2e00_ed919828",
+      "revId": "3c0b217e9755846006f2d4aac813e6997dafe4cd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
