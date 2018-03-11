@@ -148,6 +148,8 @@ elseif(MSVC)
       "C4711" # function 'function' selected for inline expansion
       "C4800" # 'int' : forcing value to bool 'true' or 'false'
               # (performance warning)
+      "C4819" # the file contains a character that cannot be represented in the current code page (XXX)
+              # save the file in Unicode format to prevent data loss
       "C4820" # 'bytes' bytes padding added after construct 'member_name'
       "C5026" # move constructor was implicitly defined as deleted
       "C5027" # move assignment operator was implicitly defined as deleted
