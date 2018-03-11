@@ -17,6 +17,7 @@
 package main
 
 import (
+	"bufio"
 	"bytes"
 	"fmt"
 	"io/ioutil"
@@ -89,7 +90,6 @@ func main() {
 #include <algorithm>
 #include <string>
 
-
 `)
 
 	// MSVC limits the length of string constants, so we emit an array of
@@ -104,22 +104,40 @@ func main() {
 			os.Exit(1)
 		}
 		fmt.Printf("static const char *kData%d[] = {\n", i)
-		for i := 0; i < len(data); i += chunkSize {
-			chunk := chunkSize
-			if chunk > len(data)-i {
-				chunk = len(data) - i
+		scanner := bufio.NewScanner(bytes.NewReader(data))
+		scanner.Split(bufio.ScanRunes)
+		buf := new(bytes.Buffer)
+		arrayLen := 0
+		for scanner.Scan() {
+			buf.Write(scanner.Bytes())
+			if chunkSize < buf.Len() {
+				fmt.Printf("    %s,\n", quote(buf.Bytes()))
+				arrayLen++
+				buf.Reset()
 			}
-			fmt.Printf("    %s,\n", quote(data[i:i+chunk]))
+		}
+		if 0 < buf.Len() {
+			fmt.Printf("    %s,\n", quote(buf.Bytes()))
+			arrayLen++
+			buf.Reset()
 		}
 		fmt.Printf("};\n")
-		fmt.Printf("static const size_t kLen%d = %d;\n\n", i, len(data))
+		fmt.Printf("static const size_t kArrayLen%d = %d;\n\n", i, arrayLen)
 	}
 
-	fmt.Printf(`static std::string AssembleString(const char **data, size_t len) {
-  std::string ret;
-  for (size_t i = 0; i < len; i += %d) {
-    size_t chunk = std::min(static_cast<size_t>(%d), len - i);
-    ret.append(data[i / %d], chunk);
+	fmt.Printf(`static std::string AssembleString(const char **arrayData, size_t arrayLen) {
+  std::string ret;  
+  const char **pos = arrayData;
+  const char **end = arrayData + arrayLen;
+  size_t bytesLen = 0;
+  for (; pos != end; ++pos) {	
+    bytesLen += strlen(*pos);
+  }
+  ret.reserve(bytesLen);
+  pos = arrayData;
+  end = arrayData + arrayLen;
+  for (; pos != end; ++pos) {	
+    ret.append(*pos);
   }
   return ret;
 }
@@ -128,10 +146,10 @@ func main() {
 std::string GetTestData(const char *path);
 
 std::string GetTestData(const char *path) {
-`, chunkSize, chunkSize, chunkSize)
+`)
 	for i, arg := range os.Args[1:] {
 		fmt.Printf("  if (strcmp(path, %s) == 0) {\n", quote([]byte(arg)))
-		fmt.Printf("    return AssembleString(kData%d, kLen%d);\n", i, i)
+		fmt.Printf("    return AssembleString(kData%d, kArrayLen%d);\n", i, i)
 		fmt.Printf("  }\n")
 	}
 	fmt.Printf(`  fprintf(stderr, "File not embedded: %%s.\n", path);
