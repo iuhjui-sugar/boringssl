@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fd974395_3edc1184",
+        "filename": "util/embed_test_data.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-03-12T16:49:44Z",
+      "side": 1,
+      "message": "So, I rather suspect the bug is actually just here. I must have meant for this to be \u0026\u0026, not ||; || doesn\u0027t make much sense. It\u0027s even encoding Latin-1, not UTF-8!\n\nIf you just change || to \u0026\u0026 (maybe replace rune(b) \u003e 127 with b \u003e 127 while you\u0027re at it... not sure why that cast is there), without the rest of this change, does that work?",
+      "range": {
+        "startLine": 50,
+        "startChar": 20,
+        "endLine": 50,
+        "endChar": 22
+      },
+      "revId": "4b52bfd2c14be517a511f59b2e01c93ca4895511",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc3dbb1b_1c347391",
+        "filename": "util/embed_test_data.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-03-12T16:49:44Z",
+      "side": 1,
+      "message": "What\u0027s this change for?",
+      "revId": "4b52bfd2c14be517a511f59b2e01c93ca4895511",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
