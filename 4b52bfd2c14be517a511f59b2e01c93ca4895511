@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e90fa0ba_bb28e8b2",
+        "filename": "util/embed_test_data.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 8880
+      },
+      "writtenOn": "2018-03-13T13:57:58Z",
+      "side": 1,
+      "message": "rollback all code, add surpress warning C4819, and changed this line like..\n\n// printable ascii code [32, 126]\nif 32 \u003c\u003d b \u0026\u0026 b \u003c\u003d 126 {\n\nbuild and test success.",
+      "parentUuid": "fd974395_3edc1184",
+      "range": {
+        "startLine": 50,
+        "startChar": 20,
+        "endLine": 50,
+        "endChar": 22
+      },
+      "revId": "4b52bfd2c14be517a511f59b2e01c93ca4895511",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cc3dbb1b_1c347391",
         "filename": "util/embed_test_data.go",
         "patchSetId": 1
@@ -39,6 +63,24 @@
       "revId": "4b52bfd2c14be517a511f59b2e01c93ca4895511",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d9eb921_bc693ae0",
+        "filename": "util/embed_test_data.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 8880
+      },
+      "writtenOn": "2018-03-13T13:57:58Z",
+      "side": 1,
+      "message": "hmm.. I don\u0027t want split utf-8 character (like ∞, on p256-x86_64_tests.txt)\nbut it\u0027s useless if convert non-printable ascii code to hex code like \\x??\n\nI did rollback all.. and changed above if statement.\n\nsource code and test data has several latin-1 and utf-8 characters.\n(you can find these files by regex query like [^\\x00-\\x7F] \n on *.h / *.cc / *.txt in editor like vscode, vim..)\nsurpress warning C4819 is still required for cjk windows\n\nalternative: vs2015 update 3 has /utf-8 option. \n this option set source and executable sets to utf-8\n convert all codes to utf-8 and add that switch\n gcc has -finput-charset\u003dUTF-8 option.",
+      "parentUuid": "cc3dbb1b_1c347391",
+      "revId": "4b52bfd2c14be517a511f59b2e01c93ca4895511",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
