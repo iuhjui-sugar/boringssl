@@ -16,6 +16,24 @@
       "revId": "2133ccb997adabb1ed39bd0c1709a6bee5ccf2fb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90d88744_6a794858",
+        "filename": "cr-buildbucket.cfg",
+        "patchSetId": 3
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 6950
+      },
+      "writtenOn": "2018-03-16T01:16:32Z",
+      "side": 1,
+      "message": "smth like that. Feel free to wipe these builders out from here, but after I finish migration plz.",
+      "parentUuid": "6ba3a5ce_7518bbfc",
+      "revId": "2133ccb997adabb1ed39bd0c1709a6bee5ccf2fb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
