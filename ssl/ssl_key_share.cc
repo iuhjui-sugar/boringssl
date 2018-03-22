@@ -124,6 +124,22 @@ class ECKeyShare : public SSLKeyShare {
     return true;
   }
 
+  bool Serialize(CBB *out) override {
+    assert(private_key_);
+    // Padding is added to avoid leaking the length.
+    return (CBB_add_asn1_uint64(out, group_id_) &&
+            BN_marshal_asn1(out, private_key_.get()));
+  }
+
+  bool Deserialize(CBS *in) override {
+    assert(!private_key_);
+    private_key_.reset(BN_new());
+    if (!BN_parse_asn1_unsigned(in, private_key_.get())) {
+      return false;
+    }
+    return true;
+  }
+
  private:
   UniquePtr<BIGNUM> private_key_;
   int nid_;
@@ -166,6 +182,21 @@ class X25519KeyShare : public SSLKeyShare {
     return true;
   }
 
+  bool Serialize(CBB *out) override {
+    return (CBB_add_asn1_uint64(out, GroupID()) &&
+            CBB_add_asn1_octet_string(out, private_key_, sizeof(private_key_)));
+  }
+
+  bool Deserialize(CBS *in) override {
+    CBS key;
+    if (!CBS_get_asn1(in, &key, CBS_ASN1_OCTETSTRING) ||
+        CBS_len(&key) != sizeof(private_key_) ||
+        !CBS_copy_bytes(&key, private_key_, sizeof(private_key_))) {
+      return false;
+    }
+    return true;
+  }
+
  private:
   uint8_t private_key_[32];
 };
@@ -204,6 +235,19 @@ UniquePtr<SSLKeyShare> SSLKeyShare::Create(uint16_t group_id) {
       return nullptr;
   }
 }
+
+UniquePtr<SSLKeyShare> SSLKeyShare::Create(CBS *in) {
+  uint64_t group;
+  if (!CBS_get_asn1_uint64(in, &group)) {
+    return nullptr;
+  }
+  UniquePtr<SSLKeyShare> key_share = Create(static_cast<uint64_t>(group));
+  if (!key_share->Deserialize(in)) {
+    return nullptr;
+  }
+  return key_share;
+}
+
 
 bool SSLKeyShare::Accept(CBB *out_public_key, Array<uint8_t> *out_secret,
                          uint8_t *out_alert, Span<const uint8_t> peer_key) {
