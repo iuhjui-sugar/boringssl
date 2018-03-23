@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0fe39ec5_7585242d",
+        "filename": "crypto/fipsmodule/ec/make_p256-x86_64-table.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-03-23T19:10:03Z",
+      "side": 1,
+      "message": "It works either way because shift jumps from 245 to 252, but isn\u0027t the cutoff actually shift \u003c 249?\n\nAlternatively, shift + 7 \u003c 256.",
+      "range": {
+        "startLine": 94,
+        "startChar": 13,
+        "endLine": 94,
+        "endChar": 16
+      },
+      "revId": "7882beadfbfff12bcfaa3f9283eef7a2dde87c16",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
