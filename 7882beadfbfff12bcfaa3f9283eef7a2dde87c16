@@ -22,6 +22,30 @@
       "revId": "7882beadfbfff12bcfaa3f9283eef7a2dde87c16",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f56bfaed_f467c32b",
+        "filename": "crypto/fipsmodule/ec/make_p256-x86_64-table.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-03-26T16:21:02Z",
+      "side": 1,
+      "message": "I think the cutoff is 252 (36×7), but shift+7 \u003c 256 is clearer, thanks. Done.",
+      "parentUuid": "0fe39ec5_7585242d",
+      "range": {
+        "startLine": 94,
+        "startChar": 13,
+        "endLine": 94,
+        "endChar": 16
+      },
+      "revId": "7882beadfbfff12bcfaa3f9283eef7a2dde87c16",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
