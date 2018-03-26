@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c34c19ae_5cf22174",
+        "filename": "crypto/fipsmodule/bn/prime.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-03-26T19:10:17Z",
+      "side": 1,
+      "message": "superfluous.",
+      "revId": "6bfe30e3f6d720eaf2116740f58369d267feffa5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57026159_4a6703e4",
+        "filename": "crypto/fipsmodule/bn/prime.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-03-26T19:10:17Z",
+      "side": 1,
+      "message": "nit: blank line above.",
+      "revId": "6bfe30e3f6d720eaf2116740f58369d267feffa5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
