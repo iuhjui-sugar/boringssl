@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9c4adb31_3511b5f4",
+        "filename": "crypto/fipsmodule/bn/prime.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 636,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-03-27T23:42:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "13339be3_4e8001d0",
+      "range": {
+        "startLine": 636,
+        "startChar": 34,
+        "endLine": 636,
+        "endChar": 39
+      },
+      "revId": "e3a3e6a9d4e7a7ca81b429733c231478b8764ce8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "729d0d5a_11736fa6",
         "filename": "crypto/fipsmodule/bn/shift.c",
         "patchSetId": 7
@@ -36,6 +60,30 @@
       "writtenOn": "2018-03-26T20:40:31Z",
       "side": 1,
       "message": "Doesn\u0027t this request that sizeof(BN_ULONG) \u003d\u003d sizeof(crypto_word_t)? (As opposed to \u003c\u003d, which is checked above.)",
+      "range": {
+        "startLine": 327,
+        "startChar": 33,
+        "endLine": 327,
+        "endChar": 53
+      },
+      "revId": "e3a3e6a9d4e7a7ca81b429733c231478b8764ce8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d05cbdf_415e7902",
+        "filename": "crypto/fipsmodule/bn/shift.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-03-27T23:42:39Z",
+      "side": 1,
+      "message": "Does it? l \u003c\u003c (BN_BITS2 - 32) will be computed as a BN_ULONG[*], and then the result gets cast into a crypto_word_t.\n\n[*] Assuming BN_ULONG as at least as big as an int. I guess I can add that too. :-)",
+      "parentUuid": "729d0d5a_11736fa6",
       "range": {
         "startLine": 327,
         "startChar": 33,
@@ -68,6 +116,30 @@
       "revId": "e3a3e6a9d4e7a7ca81b429733c231478b8764ce8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c952ba5a_1ca3c248",
+        "filename": "crypto/fipsmodule/bn/shift.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-03-27T23:42:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f5309b3_77bc1659",
+      "range": {
+        "startLine": 361,
+        "startChar": 25,
+        "endLine": 361,
+        "endChar": 48
+      },
+      "revId": "e3a3e6a9d4e7a7ca81b429733c231478b8764ce8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
