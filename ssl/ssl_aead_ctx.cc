@@ -40,6 +40,7 @@ SSLAEADContext::SSLAEADContext(uint16_t version_arg, bool is_dtls_arg,
       is_dtls_(is_dtls_arg),
       variable_nonce_included_in_record_(false),
       random_variable_nonce_(false),
+      omit_seqnum_in_ad_(false),
       omit_length_in_ad_(false),
       omit_version_in_ad_(false),
       omit_ad_(false),
@@ -134,7 +135,11 @@ UniquePtr<SSLAEADContext> SSLAEADContext::Create(
       aead_ctx->xor_fixed_nonce_ = true;
       aead_ctx->variable_nonce_len_ = 8;
       aead_ctx->variable_nonce_included_in_record_ = false;
-      aead_ctx->omit_ad_ = true;
+      if (ssl_is_draft28(version)) {
+        aead_ctx->omit_seqnum_in_ad_ = true;
+      } else {
+        aead_ctx->omit_ad_ = true;
+      }
       assert(fixed_iv.size() >= aead_ctx->variable_nonce_len_);
     }
   } else {
@@ -208,8 +213,11 @@ size_t SSLAEADContext::GetAdditionalData(uint8_t out[13], uint8_t type,
     return 0;
   }
 
-  OPENSSL_memcpy(out, seqnum, 8);
-  size_t len = 8;
+  size_t len = 0;
+  if (!omit_seqnum_in_ad_) {
+    OPENSSL_memcpy(out, seqnum, 8);
+    len += 8;
+  }
   out[len++] = type;
   if (!omit_version_in_ad_) {
     out[len++] = static_cast<uint8_t>((record_version >> 8));
@@ -320,7 +328,8 @@ bool SSLAEADContext::SealScatter(uint8_t *out_prefix, uint8_t *out,
   }
 
   uint8_t ad[13];
-  size_t ad_len = GetAdditionalData(ad, type, record_version, seqnum, in_len);
+  size_t ad_len = GetAdditionalData(ad, type, record_version, seqnum,
+                                    in_len + extra_in_len);
 
   // Assemble the nonce.
   uint8_t nonce[EVP_AEAD_MAX_NONCE_LENGTH];

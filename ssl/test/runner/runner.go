@@ -1378,6 +1378,20 @@ var tlsVersions = []tlsVersion{
 		versionWire:  tls13Draft23Version,
 		tls13Variant: TLS13Draft23,
 	},
+	{
+		name:         "TLS13Draft28",
+		version:      VersionTLS13,
+		excludeFlag:  "-no-tls13",
+		versionWire:  tls13Draft28Version,
+		tls13Variant: TLS13Draft28,
+	},
+	{
+		name:         "TLS13Final",
+		version:      VersionTLS13,
+		excludeFlag:  "-no-tls13",
+		versionWire:  tls13FinalVersion,
+		tls13Variant: TLS13Final,
+	},
 }
 
 func allVersions(protocol protocol) []tlsVersion {
@@ -5395,7 +5409,7 @@ func addVersionNegotiationTests() {
 				expectedClientVersion := expectedVersion
 				if expectedVersion == VersionTLS13 && runnerVers.tls13Variant != shimVers.tls13Variant {
 					expectedClientVersion = VersionTLS12
-					if shimVers.tls13Variant == TLS13Draft23 {
+					if runnerVers.tls13Variant != TLS13Draft23 {
 						expectedServerVersion = VersionTLS12
 					}
 				}
