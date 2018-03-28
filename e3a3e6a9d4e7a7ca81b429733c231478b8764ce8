@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "5f0221f0_25b14dee",
+        "filename": "crypto/fipsmodule/bn/shift.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-03-28T01:44:27Z",
+      "side": 1,
+      "message": "Ah, yes: |l| is |BN_ULONG|. Carry on.",
+      "parentUuid": "2d05cbdf_415e7902",
+      "range": {
+        "startLine": 327,
+        "startChar": 33,
+        "endLine": 327,
+        "endChar": 53
+      },
+      "revId": "e3a3e6a9d4e7a7ca81b429733c231478b8764ce8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2f5309b3_77bc1659",
         "filename": "crypto/fipsmodule/bn/shift.c",
         "patchSetId": 7
