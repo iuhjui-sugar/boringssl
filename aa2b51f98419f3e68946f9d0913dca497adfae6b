@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "aa6ed323_e642d340",
+        "filename": "crypto/fipsmodule/bn/prime.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-03-29T21:39:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ecc8d86_fccca5d2",
+      "range": {
+        "startLine": 372,
+        "startChar": 17,
+        "endLine": 372,
+        "endChar": 27
+      },
+      "revId": "aa2b51f98419f3e68946f9d0913dca497adfae6b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ad226ae4_5bf764a2",
         "filename": "crypto/fipsmodule/bn/random.c",
         "patchSetId": 9
@@ -36,6 +60,30 @@
       "writtenOn": "2018-03-28T22:24:15Z",
       "side": 1,
       "message": "should this be zero if |b| is zero?",
+      "range": {
+        "startLine": 204,
+        "startChar": 11,
+        "endLine": 204,
+        "endChar": 25
+      },
+      "revId": "aa2b51f98419f3e68946f9d0913dca497adfae6b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "babe1e34_aea330c9",
+        "filename": "crypto/fipsmodule/bn/random.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-03-29T21:39:25Z",
+      "side": 1,
+      "message": "Right, which we check a line above. :-)",
+      "parentUuid": "ad226ae4_5bf764a2",
       "range": {
         "startLine": 204,
         "startChar": 11,
@@ -62,6 +110,24 @@
       "revId": "aa2b51f98419f3e68946f9d0913dca497adfae6b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85f2560f_e85fedb3",
+        "filename": "crypto/fipsmodule/bn/random.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-03-29T21:39:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e752907_a418187d",
+      "revId": "aa2b51f98419f3e68946f9d0913dca497adfae6b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
