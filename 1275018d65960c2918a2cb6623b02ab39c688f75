@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a4db57ae_5ead9101",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-03-29T17:44:34Z",
+      "side": 1,
+      "message": "EXPECT_TRUE/EXPECT_FALSE should work fine inside lambdas, which might be a bit easier to debug should these trip.\n\n(Even ASSERT_TRUE/ASSERT_FALSE will work. They just stick a return void.)",
+      "range": {
+        "startLine": 736,
+        "startChar": 36,
+        "endLine": 736,
+        "endChar": 44
+      },
+      "revId": "1275018d65960c2918a2cb6623b02ab39c688f75",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2896e44e_56745ff6",
+        "filename": "crypto/x509/x509_vpm.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-03-29T17:44:34Z",
+      "side": 1,
+      "message": "Nit: unnecessary parens",
+      "range": {
+        "startLine": 492,
+        "startChar": 8,
+        "endLine": 492,
+        "endChar": 9
+      },
+      "revId": "1275018d65960c2918a2cb6623b02ab39c688f75",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
