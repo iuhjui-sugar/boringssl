@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "608ed4e0_93af44ff",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-03-30T16:50:02Z",
+      "side": 1,
+      "message": "Indeed. I had managed to convince myself that they didn\u0027t somehow. Done.",
+      "parentUuid": "a4db57ae_5ead9101",
+      "range": {
+        "startLine": 736,
+        "startChar": 36,
+        "endLine": 736,
+        "endChar": 44
+      },
+      "revId": "1275018d65960c2918a2cb6623b02ab39c688f75",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2896e44e_56745ff6",
         "filename": "crypto/x509/x509_vpm.c",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "1275018d65960c2918a2cb6623b02ab39c688f75",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b5ff9e7_18430e11",
+        "filename": "crypto/x509/x509_vpm.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-03-30T16:50:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2896e44e_56745ff6",
+      "range": {
+        "startLine": 492,
+        "startChar": 8,
+        "endLine": 492,
+        "endChar": 9
+      },
+      "revId": "1275018d65960c2918a2cb6623b02ab39c688f75",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
