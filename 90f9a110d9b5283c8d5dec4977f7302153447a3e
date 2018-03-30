@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5325607c_400b3902",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-03-30T19:30:18Z",
+      "side": 1,
+      "message": "Just TLS1_3_VERSION, I imagine.",
+      "range": {
+        "startLine": 600,
+        "startChar": 8,
+        "endLine": 600,
+        "endChar": 28
+      },
+      "revId": "90f9a110d9b5283c8d5dec4977f7302153447a3e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45426ee7_fcbe7505",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3315,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-03-30T19:30:18Z",
+      "side": 1,
+      "message": "Do we want this in here just yet? The downside is that it\u0027d be exposed via about:flags and random people using BoringSSL (which we sadly don\u0027t 100% control). The upside is we can react to the RFC being released but, even so... suppose the RFC were released tomorrow and we could flip it on in Chrome stable immediately. I don\u0027t think we\u0027d want to skip the usual dev/beta/stable process.",
+      "range": {
+        "startLine": 3315,
+        "startChar": 2,
+        "endLine": 3315,
+        "endChar": 13
+      },
+      "revId": "90f9a110d9b5283c8d5dec4977f7302153447a3e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69c16aec_cb021b38",
+        "filename": "ssl/ssl_aead_ctx.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-03-30T19:30:18Z",
+      "side": 1,
+      "message": "TLS 1.3 uses the *ciphertext* length, not the plaintext length.",
+      "revId": "90f9a110d9b5283c8d5dec4977f7302153447a3e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
