@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "57929101_dd3b07d6",
+        "filename": "crypto/fipsmodule/bn/prime.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-03-30T17:44:50Z",
+      "side": 1,
+      "message": "maybe name this \"bn_odd_num_is_obviously_composite\"? (It doesn\u0027t reject even numbers, I think, which would be surprising given the name.)",
+      "revId": "8d3582b16a55e7fc87c60156d6b66f94ec2e24a4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4bd8f9a_1de04388",
+        "filename": "crypto/fipsmodule/rsa/rsa_impl.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 1007,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-03-30T17:44:50Z",
+      "side": 1,
+      "message": "0 /* no trial division, already done by |bn_is_obviously_composite| */",
+      "range": {
+        "startLine": 1007,
+        "startChar": 78,
+        "endLine": 1007,
+        "endChar": 79
+      },
+      "revId": "8d3582b16a55e7fc87c60156d6b66f94ec2e24a4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
