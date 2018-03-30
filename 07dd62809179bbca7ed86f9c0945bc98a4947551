@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1f45ab18_2826812a",
+        "filename": "crypto/fipsmodule/rsa/rsa_impl.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 929,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-03-30T17:50:59Z",
+      "side": 1,
+      "message": "nit: augment comment to describe |pow2_bits_100| argument.",
+      "revId": "07dd62809179bbca7ed86f9c0945bc98a4947551",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
