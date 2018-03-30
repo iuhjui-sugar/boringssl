@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "75f48ea2_0f675b21",
+        "filename": "crypto/fipsmodule/bn/div.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 523,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-03-30T19:38:58Z",
+      "side": 1,
+      "message": "Did I mention RSA keygen is terrible? :-)",
+      "parentUuid": "63ee2c1d_4c46c9f2",
+      "revId": "e29ff563228fc055d31ddd9717b88d7e99ac54de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d5a9be0e_cdc27c07",
         "filename": "crypto/fipsmodule/bn/div.c",
         "patchSetId": 8
@@ -30,6 +48,24 @@
       "writtenOn": "2018-03-30T19:26:56Z",
       "side": 1,
       "message": "If quotient \u003d\u003d numerator (for example), doesn\u0027t the code also need to copy to it?",
+      "revId": "e29ff563228fc055d31ddd9717b88d7e99ac54de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d76249b8_355e629b",
+        "filename": "crypto/fipsmodule/bn/div.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 531,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-03-30T19:38:58Z",
+      "side": 1,
+      "message": "That\u0027s checked up in 476. If we can write directly into quotient, we do (and BN_copy will return early), but if it aliases anything or the caller didn\u0027t ask for it, we work in a temporary.",
+      "parentUuid": "d5a9be0e_cdc27c07",
       "revId": "e29ff563228fc055d31ddd9717b88d7e99ac54de",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
