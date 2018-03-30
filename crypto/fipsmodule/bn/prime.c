@@ -401,7 +401,7 @@ Output:
 64 iterations suffices for 400-bit primes and larger (6 uniform samples needed),
 which is already well below the minimum acceptable key size for RSA.
 */
-#define BN_PRIME_CHECKS_BLINDED 64
+#define BN_PRIME_CHECKS_BLINDED 16
 
 static int probable_prime(BIGNUM *rnd, int bits);
 static int probable_prime_dh(BIGNUM *rnd, int bits, const BIGNUM *add,
