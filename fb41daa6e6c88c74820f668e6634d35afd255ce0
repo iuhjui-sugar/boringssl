@@ -1,0 +1,130 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9e6e94ed_ac60a1a8",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-03-31T00:35:49Z",
+      "side": 1,
+      "message": "This may be difficult in the case of client certificates since they sign over the whole transcript and I don\u0027t think we know the hash function until we get the CertificateVerify message from the client.",
+      "revId": "fb41daa6e6c88c74820f668e6634d35afd255ce0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d89838e_a82ef4c2",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-03-31T00:35:49Z",
+      "side": 1,
+      "message": "Why?",
+      "range": {
+        "startLine": 651,
+        "startChar": 28,
+        "endLine": 651,
+        "endChar": 45
+      },
+      "revId": "fb41daa6e6c88c74820f668e6634d35afd255ce0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e81aedca_d87d657c",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1548,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-03-31T00:35:49Z",
+      "side": 1,
+      "message": "I think David would like to keep logic inside the do_* functions.",
+      "revId": "fb41daa6e6c88c74820f668e6634d35afd255ce0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7245f89f_2676a40e",
+        "filename": "ssl/ssl_key_share.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-03-31T00:35:49Z",
+      "side": 1,
+      "message": "This is a TODO, no? (|BN_marshal_asn1| doesn\u0027t pad the value to a fixed length. Rather we would want to use an OCTET STRING to encode that.)",
+      "range": {
+        "startLine": 129,
+        "startChar": 7,
+        "endLine": 129,
+        "endChar": 52
+      },
+      "revId": "fb41daa6e6c88c74820f668e6634d35afd255ce0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19fac779_38f113ba",
+        "filename": "ssl/ssl_key_share.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-03-31T00:35:49Z",
+      "side": 1,
+      "message": "sizeof(private_key_)",
+      "range": {
+        "startLine": 187,
+        "startChar": 57,
+        "endLine": 187,
+        "endChar": 59
+      },
+      "revId": "fb41daa6e6c88c74820f668e6634d35afd255ce0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "465e8cc9_f0b6eb02",
+        "filename": "ssl/ssl_key_share.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-03-31T00:35:49Z",
+      "side": 1,
+      "message": "sizeof(private_key_)\n\n(and on the next line.)",
+      "range": {
+        "startLine": 192,
+        "startChar": 74,
+        "endLine": 192,
+        "endChar": 76
+      },
+      "revId": "fb41daa6e6c88c74820f668e6634d35afd255ce0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
