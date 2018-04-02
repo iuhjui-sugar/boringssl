@@ -166,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "08051f0a_3dd97c0f",
+        "filename": "ssl/ssl_key_share.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-04-02T22:09:06Z",
+      "side": 1,
+      "message": "But BN_marshal_asn1 writes an ASN.1 INTEGER, which must be minimal. (And it uses |BN_num_bytes| to remove any padding. If you wrote an OCTET STRING of |sizeof(BN_ULONG) * private_key_-\u003ewidth| bytes from |private_key_-\u003ed|, then that could well be correctly padded if |width| is always set correctly.",
+      "parentUuid": "09a327de_6b0dd111",
+      "range": {
+        "startLine": 129,
+        "startChar": 7,
+        "endLine": 129,
+        "endChar": 52
+      },
+      "revId": "fb41daa6e6c88c74820f668e6634d35afd255ce0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "19fac779_38f113ba",
         "filename": "ssl/ssl_key_share.cc",
         "patchSetId": 2
