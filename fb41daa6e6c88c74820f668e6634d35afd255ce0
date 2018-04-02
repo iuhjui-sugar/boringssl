@@ -125,6 +125,23 @@
       "revId": "fb41daa6e6c88c74820f668e6634d35afd255ce0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6db1e40f_58adb33b",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2392,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-04-02T18:42:49Z",
+      "side": 1,
+      "message": "nit: blank line above.",
+      "revId": "fb41daa6e6c88c74820f668e6634d35afd255ce0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
