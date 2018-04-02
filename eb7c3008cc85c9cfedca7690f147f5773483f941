@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fc707af6_0aa38f48",
+        "filename": "crypto/fipsmodule/bn/montgomery.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-04-02T18:13:39Z",
+      "side": 0,
+      "message": "This is missing in the new version, but I\u0027m guessing that it\u0027s an ad-hoc zeroisation? In which case I\u0027m fine dropping it.",
+      "range": {
+        "startLine": 302,
+        "startChar": 4,
+        "endLine": 302,
+        "endChar": 12
+      },
+      "revId": "eb7c3008cc85c9cfedca7690f147f5773483f941",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
