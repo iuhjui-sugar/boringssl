@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "548cd1b3_f0e68017",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-04-02T20:11:56Z",
+      "side": 1,
+      "message": "Oh well.  Done.",
+      "parentUuid": "9e6e94ed_ac60a1a8",
+      "revId": "fb41daa6e6c88c74820f668e6634d35afd255ce0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d89838e_a82ef4c2",
         "filename": "ssl/handshake_server.cc",
         "patchSetId": 2
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "775c5d33_01499bd8",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-04-02T20:11:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d89838e_a82ef4c2",
+      "range": {
+        "startLine": 651,
+        "startChar": 28,
+        "endLine": 651,
+        "endChar": 45
+      },
+      "revId": "fb41daa6e6c88c74820f668e6634d35afd255ce0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e81aedca_d87d657c",
         "filename": "ssl/handshake_server.cc",
         "patchSetId": 2
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "5efbdef5_98cd2a92",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1548,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-04-02T20:11:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e81aedca_d87d657c",
+      "revId": "fb41daa6e6c88c74820f668e6634d35afd255ce0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7245f89f_2676a40e",
         "filename": "ssl/ssl_key_share.cc",
         "patchSetId": 2
@@ -70,6 +130,30 @@
       "writtenOn": "2018-03-31T00:35:49Z",
       "side": 1,
       "message": "This is a TODO, no? (|BN_marshal_asn1| doesn\u0027t pad the value to a fixed length. Rather we would want to use an OCTET STRING to encode that.)",
+      "range": {
+        "startLine": 129,
+        "startChar": 7,
+        "endLine": 129,
+        "endChar": 52
+      },
+      "revId": "fb41daa6e6c88c74820f668e6634d35afd255ce0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09a327de_6b0dd111",
+        "filename": "ssl/ssl_key_share.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-04-02T20:11:56Z",
+      "side": 1,
+      "message": "I thought I understood davidben to say that it was safe.  As I read it, BN_rand_range_ex() always sets the width to the same value.  Not so?  (Or just too subtle to count upon?)",
+      "parentUuid": "7245f89f_2676a40e",
       "range": {
         "startLine": 129,
         "startChar": 7,
@@ -105,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "600f9e7f_7de4c447",
+        "filename": "ssl/ssl_key_share.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-04-02T20:11:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19fac779_38f113ba",
+      "range": {
+        "startLine": 187,
+        "startChar": 57,
+        "endLine": 187,
+        "endChar": 59
+      },
+      "revId": "fb41daa6e6c88c74820f668e6634d35afd255ce0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "465e8cc9_f0b6eb02",
         "filename": "ssl/ssl_key_share.cc",
         "patchSetId": 2
@@ -128,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "ada90864_b0a3d6d6",
+        "filename": "ssl/ssl_key_share.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-04-02T20:11:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "465e8cc9_f0b6eb02",
+      "range": {
+        "startLine": 192,
+        "startChar": 74,
+        "endLine": 192,
+        "endChar": 76
+      },
+      "revId": "fb41daa6e6c88c74820f668e6634d35afd255ce0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6db1e40f_58adb33b",
         "filename": "ssl/test/bssl_shim.cc",
         "patchSetId": 2
@@ -142,6 +274,24 @@
       "revId": "fb41daa6e6c88c74820f668e6634d35afd255ce0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12943966_6bb379ff",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2392,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-04-02T20:11:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6db1e40f_58adb33b",
+      "revId": "fb41daa6e6c88c74820f668e6634d35afd255ce0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
