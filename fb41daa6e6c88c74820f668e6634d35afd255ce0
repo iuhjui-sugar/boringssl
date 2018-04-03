@@ -214,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "68ca5798_7db7a9ce",
+        "filename": "ssl/ssl_key_share.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-04-03T22:20:21Z",
+      "side": 1,
+      "message": "LGTM.",
+      "parentUuid": "dd653320_f1c50560",
+      "range": {
+        "startLine": 129,
+        "startChar": 7,
+        "endLine": 129,
+        "endChar": 52
+      },
+      "revId": "fb41daa6e6c88c74820f668e6634d35afd255ce0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "19fac779_38f113ba",
         "filename": "ssl/ssl_key_share.cc",
         "patchSetId": 2
