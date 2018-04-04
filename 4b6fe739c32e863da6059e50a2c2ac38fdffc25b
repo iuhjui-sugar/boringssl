@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd54fa35_b2944e46",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 3314,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-04T19:32:25Z",
+      "side": 1,
+      "message": "I dunno, it still seems to me we ought to wait on this one. I think ideally we\u0027d tie the anti-downgrade bit to the final RFC (maybe with a field trial to disable in case it goes wrong); \"we\u0027re now shipping the final RFC, so check if there are any final issues with your middlebox\" is a bit easier of a story than \"we\u0027re now shipping the final RFC \u003cnext cycle\u003e oh actually we missed a step, please check it again now\".\n\nThere\u0027s also the risk of someone taking our code and turning it on ahead of schedule.\n\nIt\u0027s true that the final RFC won\u0027t run the middlebox vendors\u0027 (false) claims of \"oh, it\u0027s just breaking because they\u0027re shipping a non-standard thing\", but we\u0027re just gaining a few weeks of time there.",
+      "revId": "4b6fe739c32e863da6059e50a2c2ac38fdffc25b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99a5f26a_b07248e2",
+        "filename": "ssl/ssl_aead_ctx.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-04T19:32:25Z",
+      "side": 1,
+      "message": "I\u0027m not thrilled about reconstructing the AD---it won\u0027t work for DTLS 1.3---but this seems reasonable for now. Maybe leave a TODO to rework this for DTLS 1.3? We\u0027ll see how many modes we\u0027ll be done with by the time we get there...\n\nI think this record layer / SSLAEADContext split made more sense when there was relatively little variation between SSLv3 through TLSv1.2. :-)\n\nActually... don\u0027t do this for this CL unless you feel particularly motivated to, but here\u0027s a proposal for a revision:\n\nAdd a Span\u003cconst u8\u003e record_header parameter to Open/Seal. Leave the other parameters as is. tls13_ad_ is renamed to ad_is_record_header_.",
+      "revId": "4b6fe739c32e863da6059e50a2c2ac38fdffc25b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "93e8025a_b83e110f",
+        "filename": "ssl/ssl_versions.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-04T19:32:25Z",
+      "side": 1,
+      "message": "That\u0027s not quite what this implements, right? I dunno, since we\u0027re probably never going to ship draft-28, maybe just delete this block and leave it at variant \u003d\u003d version for now? I imagine we\u0027d want to just leave the server at tls13_default and change the code when we want to rejuggle things.",
+      "revId": "4b6fe739c32e863da6059e50a2c2ac38fdffc25b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7e22203_0c61d0e0",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-04T19:32:25Z",
+      "side": 1,
+      "message": "Ditto re just VersionTLS13 and re maybe not wanting to do this just yet.",
+      "revId": "4b6fe739c32e863da6059e50a2c2ac38fdffc25b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1a195d0_8398ce23",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-04T19:32:25Z",
+      "side": 1,
+      "message": "Just replace all this with\n\n  additionalData \u003d b.data[:recordHeaderLen]?",
+      "revId": "4b6fe739c32e863da6059e50a2c2ac38fdffc25b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc7b1199_79e81485",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 624,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-04T19:32:25Z",
+      "side": 1,
+      "message": "Nit: Below, this is computed as len(b.data) - recordHeaderLen. Probably want to match that. (Also, were there an explicit IV, which there isn\u0027t, the length in the AD would include that, since it\u0027s just whatever the TLSCiphertext header is.)",
+      "revId": "4b6fe739c32e863da6059e50a2c2ac38fdffc25b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
