@@ -469,6 +469,8 @@ void SSL_CTX_set_handoff_mode(SSL_CTX *ctx, bool on) {
   ctx->handoff = on;
 }
 
+void SSL_set_handoff_mode(SSL *ssl, bool on) { ssl->handoff = on; }
+
 }  // namespace bssl
 
 using namespace bssl;
