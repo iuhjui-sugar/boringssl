@@ -163,6 +163,7 @@ static bool MoveExData(SSL *dest, SSL *src) {
   return true;
 }
 
+// MoveBIOs moves the |BIO|s of |src| to |dst|.  It is used for handoff.
 static void MoveBIOs(SSL *dest, SSL *src) {
   BIO *rbio = SSL_get_rbio(src);
   BIO_up_ref(rbio);
@@ -1971,6 +1972,28 @@ class SettingsWriter {
     }
     return true;
   }
+
+  bool WriteHandoff(const bssl::Array<uint8_t>& handoff) {
+    bssl::ScopedCBB cbb;
+    if (!CBB_init(cbb.get(), 2048) ||
+        !CBB_add_u24(cbb.get(), handoff.size()) ||
+        !CBB_add_bytes(cbb.get(), handoff.data(), handoff.size()) ||
+        !Write(kHandoffTag, cbb.get())) {
+      return false;
+    }
+    return true;
+  }
+
+  bool WriteHandback(const bssl::Array<uint8_t>& handback) {
+    bssl::ScopedCBB cbb;
+    if (!CBB_init(cbb.get(), 2048) ||
+        !CBB_add_u24(cbb.get(), handback.size()) ||
+        !CBB_add_bytes(cbb.get(), handback.data(), handback.size()) ||
+        !Write(kHandbackTag, cbb.get())) {
+      return false;
+    }
+    return true;
+  }
 };
 
 static bssl::UniquePtr<SSL> NewSSL(SSL_CTX *ssl_ctx, const TestConfig *config,
@@ -2188,7 +2211,8 @@ static bssl::UniquePtr<SSL> NewSSL(SSL_CTX *ssl_ctx, const TestConfig *config,
 
 static bool DoExchange(bssl::UniquePtr<SSL_SESSION> *out_session,
                        bssl::UniquePtr<SSL> *ssl_uniqueptr,
-                       const TestConfig *config, bool is_resume, bool is_retry);
+                       const TestConfig *config, bool is_resume, bool is_retry,
+                       SettingsWriter *writer);
 
 // DoConnection tests an SSL connection against the peer. On success, it returns
 // true and sets |*out_session| to the negotiated SSL session. If the test is a
@@ -2197,7 +2221,7 @@ static bool DoExchange(bssl::UniquePtr<SSL_SESSION> *out_session,
 static bool DoConnection(bssl::UniquePtr<SSL_SESSION> *out_session,
                          SSL_CTX *ssl_ctx, const TestConfig *config,
                          const TestConfig *retry_config, bool is_resume,
-                         SSL_SESSION *session) {
+                         SSL_SESSION *session, SettingsWriter *writer) {
   bssl::UniquePtr<SSL> ssl = NewSSL(ssl_ctx, config, session, is_resume,
                                     std::unique_ptr<TestState>(new TestState));
   if (!ssl) {
@@ -2242,7 +2266,7 @@ static bool DoConnection(bssl::UniquePtr<SSL_SESSION> *out_session,
   SSL_set_bio(ssl.get(), bio.get(), bio.get());
   bio.release();  // SSL_set_bio takes ownership.
 
-  bool ret = DoExchange(out_session, &ssl, config, is_resume, false);
+  bool ret = DoExchange(out_session, &ssl, config, is_resume, false, writer);
   if (!config->is_server && is_resume && config->expect_reject_early_data) {
     // We must have failed due to an early data rejection.
     if (ret) {
@@ -2277,7 +2301,7 @@ static bool DoConnection(bssl::UniquePtr<SSL_SESSION> *out_session,
     }
 
     assert(!config->handoff);
-    ret = DoExchange(out_session, &ssl, retry_config, is_resume, true);
+    ret = DoExchange(out_session, &ssl, retry_config, is_resume, true, writer);
   }
 
   if (!ret) {
@@ -2311,7 +2335,7 @@ static bool HandbackReady(SSL *ssl, int ret) {
 static bool DoExchange(bssl::UniquePtr<SSL_SESSION> *out_session,
                        bssl::UniquePtr<SSL> *ssl_uniqueptr,
                        const TestConfig *config, bool is_resume,
-                       bool is_retry) {
+                       bool is_retry, SettingsWriter *writer) {
   int ret;
   SSL *ssl = ssl_uniqueptr->get();
   SSL_CTX *session_ctx = ssl->ctx;
@@ -2353,7 +2377,8 @@ static bool DoExchange(bssl::UniquePtr<SSL_SESSION> *out_session,
       bssl::Array<uint8_t> handoff;
       if (!CBB_init(cbb.get(), 512) ||
           !SSL_serialize_handoff(ssl_handoff.get(), cbb.get()) ||
-          !CBBFinishArray(cbb.get(), &handoff)) {
+          !CBBFinishArray(cbb.get(), &handoff) ||
+          !writer->WriteHandoff(handoff)) {
         fprintf(stderr, "Handoff serialisation failed.\n");
         return false;
       }
@@ -2385,7 +2410,8 @@ static bool DoExchange(bssl::UniquePtr<SSL_SESSION> *out_session,
       bssl::Array<uint8_t> handback;
       if (!CBB_init(cbb.get(), 512) ||
           !SSL_serialize_handback(ssl, cbb.get()) ||
-          !CBBFinishArray(cbb.get(), &handback)) {
+          !CBBFinishArray(cbb.get(), &handback) ||
+          !writer->WriteHandback(handback)) {
         fprintf(stderr, "Handback serialisation failed.\n");
         return false;
       }
@@ -2777,7 +2803,7 @@ int main(int argc, char **argv) {
       return 1;
     }
     if (!DoConnection(&session, ssl_ctx.get(), config, &retry_config, is_resume,
-                      offer_session.get())) {
+                      offer_session.get(), &writer)) {
       fprintf(stderr, "Connection %d failed.\n", i + 1);
       ERR_print_errors_fp(stderr);
       return 1;
