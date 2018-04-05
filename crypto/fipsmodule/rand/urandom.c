@@ -81,16 +81,22 @@
 
 #endif  // OPENSSL_LINUX
 
-// rand_lock is used to protect the |*_requested| variables.
-DEFINE_STATIC_MUTEX(rand_lock);
+#if defined(BORINGSSL_FIPS) && !defined(USE_NR_getrandom)
+#error "Cannot build in FIPS mode without getrandom support"
+#endif
 
-// The following constants are magic values of |urandom_fd|.
-static const int kUnset = 0;
-static const int kHaveGetrandom = -3;
+#if !defined(BORINGSSL_FIPS)
+// rand_lock is used to protect |urandom_fd_requested|.
+DEFINE_STATIC_MUTEX(rand_lock);
 
 // urandom_fd_requested is set by |RAND_set_urandom_fd|. It's protected by
 // |rand_lock|.
 DEFINE_BSS_GET(int, urandom_fd_requested);
+#endif  // !BORINGSSL_FIPS
+
+// The following constants are magic values of |urandom_fd|.
+static const int kUnset = 0;
+static const int kHaveGetrandom = -3;
 
 // urandom_fd is a file descriptor to /dev/urandom. It's protected by |once|.
 DEFINE_BSS_GET(int, urandom_fd);
@@ -114,10 +120,6 @@ static void message(const char *msg) {
 // |urandom_buffering|, whose values may be read safely after calling the
 // once.
 static void init_once(void) {
-  CRYPTO_STATIC_MUTEX_lock_read(rand_lock_bss_get());
-  int fd = *urandom_fd_requested_bss_get();
-  CRYPTO_STATIC_MUTEX_unlock_read(rand_lock_bss_get());
-
 #if defined(USE_NR_getrandom)
   uint8_t dummy;
   long getrandom_ret =
@@ -144,6 +146,18 @@ static void init_once(void) {
   }
 #endif  // USE_NR_getrandom
 
+#if defined(BORINGSSL_FIPS)
+  // If built in FIPS mode, getrandom must be supported.
+  message(
+      "BoringSSL has been compiled in FIPS mode, which requires the getrandom "
+      "system call, but the kernel does not support it.\n");
+  abort();
+#else
+  CRYPTO_STATIC_MUTEX_lock_read(rand_lock_bss_get());
+  int fd = *urandom_fd_requested_bss_get();
+  CRYPTO_STATIC_MUTEX_unlock_read(rand_lock_bss_get());
+
+  // In non-FIPS mode, /dev/urandom may be used.
   if (fd == kUnset) {
     do {
       fd = open("/dev/urandom", O_RDONLY);
@@ -167,29 +181,6 @@ static void init_once(void) {
     }
   }
 
-#if defined(BORINGSSL_FIPS)
-  // In FIPS mode we ensure that the kernel has sufficient entropy before
-  // continuing. This is automatically handled by getrandom, which requires
-  // that the entropy pool has been initialised, but for urandom we have to
-  // poll.
-  for (;;) {
-    int entropy_bits;
-    if (ioctl(fd, RNDGETENTCNT, &entropy_bits)) {
-      message(
-          "RNDGETENTCNT on /dev/urandom failed. We cannot continue in this "
-          "case when in FIPS mode.\n");
-      abort();
-    }
-
-    static const int kBitsNeeded = 256;
-    if (entropy_bits >= kBitsNeeded) {
-      break;
-    }
-
-    usleep(250000);
-  }
-#endif
-
   int flags = fcntl(fd, F_GETFD);
   if (flags == -1) {
     // Native Client doesn't implement |fcntl|.
@@ -203,8 +194,10 @@ static void init_once(void) {
     }
   }
   *urandom_fd_bss_get() = fd;
+#endif  // !BORINGSSL_FIPS
 }
 
+#if !defined(BORINGSSL_FIPS)
 void RAND_set_urandom_fd(int fd) {
   fd = dup(fd);
   if (fd < 0) {
@@ -235,6 +228,7 @@ void RAND_set_urandom_fd(int fd) {
     abort();  // Already initialized.
   }
 }
+#endif
 
 #if defined(USE_NR_getrandom) && defined(OPENSSL_MSAN)
 void __msan_unpoison(void *, size_t);
