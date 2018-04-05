@@ -389,6 +389,8 @@ class TLSFuzzer {
     // |ctx| is shared between runs, so we must clear any modifications to it
     // made later on in this function.
     SSL_CTX_flush_sessions(ctx_.get(), 0);
+    handoff_ = {};
+    handback_ = {};
 
     bssl::UniquePtr<SSL> ssl(SSL_new(ctx_.get()));
     if (role_ == kServer) {
