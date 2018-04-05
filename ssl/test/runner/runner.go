@@ -482,21 +482,68 @@ type testCase struct {
 
 var testCases []testCase
 
-func writeTranscript(test *testCase, path string, data []byte) {
-	if len(data) == 0 {
-		return
-	}
+type transcript struct {
+	c      chan map[int][]byte
+	accum  map[int][]byte
+	err    chan error
+	Prefix string
+}
 
-	settings, err := ioutil.ReadFile(path)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error reading %s: %s.\n", path, err)
-		return
+func NewTranscript() *transcript {
+	t := &transcript{
+		c:     make(chan map[int][]byte),
+		accum: make(map[int][]byte),
+		err:   make(chan error),
 	}
+	// Buffer writes internally until the shim is done writing, since it is
+	// responsible for writing the file header.
+	writer := func() error {
+		for m := range t.c {
+			for i, data := range m {
+				t.accum[i] = append(t.accum[i], data...)
+			}
+		}
 
-	settings = append(settings, data...)
-	if err := ioutil.WriteFile(path, settings, 0644); err != nil {
-		fmt.Fprintf(os.Stderr, "Error writing %s: %s\n", path, err)
+		for i, data := range t.accum {
+			if len(t.Prefix) == 0 {
+				panic("t.Prefix not set")
+			}
+			path := t.Prefix + strconv.Itoa(i)
+			f, err := os.OpenFile(path, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0644)
+			if err != nil {
+				return err
+			}
+			defer f.Close()
+			if _, err := f.Write(data); err != nil {
+				return err
+			}
+			if err := f.Close(); err != nil {
+				return err
+			}
+		}
+		return nil
 	}
+	go func() { t.err <- writer() }()
+	return t
+}
+
+func (t *transcript) Done() error {
+	close(t.c)
+	return <-t.err
+}
+
+type transcriptWriter struct {
+	c chan map[int][]byte
+	i int
+}
+
+func (t *transcript) Writer(i int) io.Writer {
+	return transcriptWriter{t.c, i}
+}
+
+func (w transcriptWriter) Write(p []byte) (int, error) {
+	w.c <- map[int][]byte{w.i: p}
+	return len(p), nil
 }
 
 // A timeoutConn implements an idle timeout on each Read and Write operation.
@@ -523,7 +570,7 @@ func (t *timeoutConn) Write(b []byte) (int, error) {
 	return t.Conn.Write(b)
 }
 
-func doExchange(test *testCase, config *Config, conn net.Conn, isResume bool, transcriptPrefix string, num int) error {
+func doExchange(test *testCase, config *Config, conn net.Conn, isResume bool, transcriptWriter io.Writer) error {
 	if !test.noSessionCache {
 		if config.ClientSessionCache == nil {
 			config.ClientSessionCache = NewLRUClientSessionCache(1)
@@ -575,11 +622,8 @@ func doExchange(test *testCase, config *Config, conn net.Conn, isResume bool, tr
 		if *flagDebug {
 			defer connDebug.WriteTo(os.Stdout)
 		}
-		if len(transcriptPrefix) != 0 {
-			defer func() {
-				path := transcriptPrefix + strconv.Itoa(num)
-				writeTranscript(test, path, connDebug.Transcript())
-			}()
+		if len(*transcriptDir) != 0 {
+			defer func() { transcriptWriter.Write(connDebug.Transcript()) }()
 		}
 
 		if config.Bugs.PacketAdaptor != nil {
@@ -1117,7 +1161,7 @@ func runTest(test *testCase, shimPath string, mallocNumToFail int64) error {
 		flags = append(flags, "-tls13-variant", strconv.Itoa(test.tls13Variant))
 	}
 
-	var transcriptPrefix string
+	transcripts := NewTranscript()
 	if len(*transcriptDir) != 0 {
 		protocol := "tls"
 		if test.protocol == dtls {
@@ -1133,8 +1177,8 @@ func runTest(test *testCase, shimPath string, mallocNumToFail int64) error {
 		if err := os.MkdirAll(dir, 0755); err != nil {
 			return err
 		}
-		transcriptPrefix = filepath.Join(dir, test.name+"-")
-		flags = append(flags, "-write-settings", transcriptPrefix)
+		transcripts.Prefix = filepath.Join(dir, test.name+"-")
+		flags = append(flags, "-write-settings", transcripts.Prefix)
 	}
 
 	flags = append(flags, test.flags...)
@@ -1176,7 +1220,7 @@ func runTest(test *testCase, shimPath string, mallocNumToFail int64) error {
 
 	conn, err := acceptOrWait(listener, waitChan)
 	if err == nil {
-		err = doExchange(test, &config, conn, false /* not a resumption */, transcriptPrefix, 0)
+		err = doExchange(test, &config, conn, false /* not a resumption */, transcripts.Writer(0))
 		conn.Close()
 	}
 
@@ -1196,7 +1240,7 @@ func runTest(test *testCase, shimPath string, mallocNumToFail int64) error {
 		var connResume net.Conn
 		connResume, err = acceptOrWait(listener, waitChan)
 		if err == nil {
-			err = doExchange(test, &resumeConfig, connResume, true /* resumption */, transcriptPrefix, i+1)
+			err = doExchange(test, &resumeConfig, connResume, true /* resumption */, transcripts.Writer(i+1))
 			connResume.Close()
 		}
 	}
@@ -1225,6 +1269,9 @@ func runTest(test *testCase, shimPath string, mallocNumToFail int64) error {
 			err = errors.New("timeout waiting for the shim to exit.")
 		}
 		shimKilledLock.Unlock()
+	}
+	if transcriptErr := transcripts.Done(); transcriptErr != nil {
+		fmt.Fprintf(os.Stderr, "Test '%s' failed to write transcript: %v.\n", test.name, transcriptErr)
 	}
 
 	var isValgrindError, mustFail bool
