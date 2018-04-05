@@ -1876,66 +1876,100 @@ static bool CheckHandshakeProperties(SSL *ssl, bool is_resume,
   return true;
 }
 
-static bool WriteSettings(int i, const TestConfig *config,
-                          const SSL_SESSION *session) {
-  if (config->write_settings.empty()) {
+// SettingsWriter writes fuzzing inputs to a file if |write_settings| is set.
+class SettingsWriter {
+ private:
+  std::string path_;
+
+  // Write writes a block of tagged data to the settings file, if one was
+  // configured.
+  bool Write(uint16_t t, CBB *cbb) {
+    if (path_.empty()) {
+      return true;
+    }
+    bssl::ScopedCBB tag;
+    if (!CBB_init(tag.get(), 2) || !CBB_add_u16(tag.get(), t)) {
+      return false;
+    }
+    FILE *fp = fopen(path_.c_str(), "a");
+    size_t len = CBB_len(tag.get());
+    if (!fp || fwrite(CBB_data(tag.get()), 1, len, fp) != len) {
+      return false;
+    }
+    if (cbb != nullptr) {
+      len = CBB_len(cbb);
+      if (fwrite(CBB_data(cbb), 1, len, fp) != len) {
+        return false;
+      }
+    }
+    if (fclose(fp) != 0) {
+      return false;
+    }
     return true;
   }
 
-  // Treat write_settings as a path prefix for each connection in the run.
-  char buf[DECIMAL_SIZE(int)];
-  snprintf(buf, sizeof(buf), "%d", i);
-  std::string path = config->write_settings + buf;
+ public:
+  SettingsWriter() {}
 
-  bssl::ScopedCBB cbb;
-  if (!CBB_init(cbb.get(), 64)) {
-    return false;
+  // Init initializes the writer for a new connection, given by |i|.  Each
+  // connection gets a unique output file.
+  bool Init(int i, const TestConfig *config, SSL_SESSION *session) {
+    if (config->write_settings.empty()) {
+      return true;
+    }
+    // Treat write_settings as a path prefix for each connection in the run.
+    char buf[DECIMAL_SIZE(int)];
+    snprintf(buf, sizeof(buf), "%d", i);
+    path_ = config->write_settings + buf;
+    FILE *fp = fopen(path_.c_str(), "w");
+    if (!fp || fclose(fp) != 0) {
+      return false;
+    }
+
+    if (!WriteSession(session)) {
+      return false;
+    }
+
+    if (config->is_server &&
+        (config->require_any_client_certificate || config->verify_peer)) {
+      if (!Write(kRequestClientCert, nullptr)) {
+        return false;
+      }
+    }
+
+    if (config->tls13_variant != 0) {
+      bssl::ScopedCBB cbb;
+      if (!CBB_init(cbb.get(), 3) ||
+          !CBB_add_u8(cbb.get(), static_cast<uint8_t>(config->tls13_variant)) ||
+          !Write(kTLS13Variant, cbb.get())) {
+        return false;
+      };
+    }
+
+    return true;
   }
 
-  if (session != nullptr) {
+  bool WriteSession(SSL_SESSION *session) {
+    if (session == nullptr) {
+      return true;
+    }
     uint8_t *data;
     size_t len;
     if (!SSL_SESSION_to_bytes(session, &data, &len)) {
       return false;
     }
     bssl::UniquePtr<uint8_t> free_data(data);
+    bssl::ScopedCBB cbb;
     CBB child;
-    if (!CBB_add_u16(cbb.get(), kSessionTag) ||
+    if (!CBB_init(cbb.get(), 64) ||
         !CBB_add_u24_length_prefixed(cbb.get(), &child) ||
-        !CBB_add_bytes(&child, data, len) ||
-        !CBB_flush(cbb.get())) {
+        !CBB_add_bytes(&child, data, len) || !CBB_flush(cbb.get()) ||
+        !Write(kSessionTag, cbb.get())) {
       return false;
     }
+    return true;
   }
-
-  if (config->is_server &&
-      (config->require_any_client_certificate || config->verify_peer) &&
-      !CBB_add_u16(cbb.get(), kRequestClientCert)) {
-    return false;
-  }
-
-  if (config->tls13_variant != 0 &&
-      (!CBB_add_u16(cbb.get(), kTLS13Variant) ||
-       !CBB_add_u8(cbb.get(), static_cast<uint8_t>(config->tls13_variant)))) {
-    return false;
-  }
-
-  uint8_t *settings;
-  size_t settings_len;
-  if (!CBB_add_u16(cbb.get(), kDataTag) ||
-      !CBB_finish(cbb.get(), &settings, &settings_len)) {
-    return false;
-  }
-  bssl::UniquePtr<uint8_t> free_settings(settings);
-
-  using ScopedFILE = std::unique_ptr<FILE, decltype(&fclose)>;
-  ScopedFILE file(fopen(path.c_str(), "w"), fclose);
-  if (!file) {
-    return false;
-  }
-
-  return fwrite(settings, settings_len, 1, file.get()) == 1;
-}
+};
 
 static bssl::UniquePtr<SSL> NewSSL(SSL_CTX *ssl_ctx, const TestConfig *config,
                                    SSL_SESSION *session, bool is_resume,
@@ -2735,7 +2769,8 @@ int main(int argc, char **argv) {
     }
 
     bssl::UniquePtr<SSL_SESSION> offer_session = std::move(session);
-    if (!WriteSettings(i, config, offer_session.get())) {
+    SettingsWriter writer;
+    if (!writer.Init(i, config, offer_session.get())) {
       fprintf(stderr, "Error writing settings.\n");
       return 1;
     }

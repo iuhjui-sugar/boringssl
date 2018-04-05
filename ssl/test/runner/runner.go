@@ -482,20 +482,18 @@ type testCase struct {
 
 var testCases []testCase
 
-func writeTranscript(test *testCase, path string, data []byte) {
-	if len(data) == 0 {
-		return
-	}
-
-	settings, err := ioutil.ReadFile(path)
+func writeTranscript(path string, data []byte) {
+	f, err := os.OpenFile(path, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0644)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error reading %s: %s.\n", path, err)
+		fmt.Fprintf(os.Stderr, "Error opening %s: %s\n", path, err)
 		return
 	}
-
-	settings = append(settings, data...)
-	if err := ioutil.WriteFile(path, settings, 0644); err != nil {
-		fmt.Fprintf(os.Stderr, "Error writing %s: %s\n", path, err)
+	defer func() {
+		if err := f.Close(); err != nil {
+			fmt.Fprintf(os.Stderr, "Error closing %s: %s\n", path, err)
+		}
+	}()
+	if _, err := f.Write(data); err != nil {
 	}
 }
 
@@ -577,8 +575,8 @@ func doExchange(test *testCase, config *Config, conn net.Conn, isResume bool, tr
 		}
 		if len(transcriptPrefix) != 0 {
 			defer func() {
-				path := transcriptPrefix + strconv.Itoa(num)
-				writeTranscript(test, path, connDebug.Transcript())
+				path := transcriptPrefix + strconv.Itoa(num) + ".runner"
+				writeTranscript(path, connDebug.Transcript())
 			}()
 		}
 
@@ -1225,6 +1223,22 @@ func runTest(test *testCase, shimPath string, mallocNumToFail int64) error {
 			err = errors.New("timeout waiting for the shim to exit.")
 		}
 		shimKilledLock.Unlock()
+	}
+	if len(*transcriptDir) > 0 {
+		for i := 0; i <= resumeCount; i++ {
+			path := transcriptPrefix + strconv.Itoa(i)
+			transcript, readErr := ioutil.ReadFile(path + ".runner")
+			if readErr != nil {
+				if os.IsNotExist(readErr) {
+					break
+				}
+				return readErr
+			}
+			writeTranscript(path, transcript)
+			if rmErr := os.Remove(path + ".runner"); rmErr != nil {
+				return rmErr
+			}
+		}
 	}
 
 	var isValgrindError, mustFail bool
