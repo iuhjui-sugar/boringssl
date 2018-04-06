@@ -145,9 +145,18 @@ TEST_P(PerAEADTest, TestVector) {
     std::vector<uint8_t> out(in.size() + EVP_AEAD_max_overhead(aead()));
     if (!t->HasAttribute("NO_SEAL")) {
       size_t out_len;
-      ASSERT_TRUE(EVP_AEAD_CTX_seal(ctx.get(), out.data(), &out_len, out.size(),
-                                    nonce.data(), nonce.size(), in.data(),
-                                    in.size(), ad.data(), ad.size()));
+      int ret = EVP_AEAD_CTX_seal(ctx.get(), out.data(), &out_len, out.size(),
+                                   nonce.data(), nonce.size(), in.data(),
+                                   in.size(), ad.data(), ad.size());
+
+      if (t->HasAttribute("FAILS")) {
+        ASSERT_FALSE(ret) << "Encrypted bad data.";
+        ERR_clear_error();
+        // fall through to test that |EVP_AEAD_CTX_open| fails too.
+      } else {
+        ASSERT_TRUE(ret);
+      }
+
       out.resize(out_len);
 
       ASSERT_EQ(out.size(), ct.size() + tag.size());
@@ -293,10 +302,19 @@ TEST_P(PerAEADTest, TestVectorScatterGather) {
     std::vector<uint8_t> out_tag(EVP_AEAD_max_overhead(aead()));
     if (!t->HasAttribute("NO_SEAL")) {
       size_t out_tag_len;
-      ASSERT_TRUE(EVP_AEAD_CTX_seal_scatter(
+      int ret = EVP_AEAD_CTX_seal_scatter(
           ctx.get(), out.data(), out_tag.data(), &out_tag_len, out_tag.size(),
           nonce.data(), nonce.size(), in.data(), in.size(), nullptr, 0,
-          ad.data(), ad.size()));
+          ad.data(), ad.size());
+
+      if (t->HasAttribute("FAILS")) {
+        ASSERT_FALSE(ret) << "Encrypted bad data.";
+        ERR_clear_error();
+        // fall through to test that |EVP_AEAD_CTX_open_gather| fails too.
+      } else {
+        ASSERT_TRUE(ret);
+      }
+
       out_tag.resize(out_tag_len);
 
       ASSERT_EQ(out.size(), ct.size());
