@@ -33,14 +33,26 @@ TEST(Ed25519Test, TestVectors) {
     ASSERT_EQ(32u, public_key.size());
     ASSERT_TRUE(t->GetBytes(&message, "MESSAGE"));
     ASSERT_TRUE(t->GetBytes(&expected_signature, "SIG"));
-    ASSERT_EQ(64u, expected_signature.size());
+    if (expected_signature.size() != 64) {
+      // Wycheproof provides tests for arbitrary sized signatures, however,
+      // |ED25519_verify| has no in-place bounds checking, so just skip them.
+      t->SkipCurrent();
+      return;
+    }
 
     uint8_t signature[64];
     ASSERT_TRUE(ED25519_sign(signature, message.data(), message.size(),
                              private_key.data()));
-    EXPECT_EQ(Bytes(expected_signature), Bytes(signature));
-    EXPECT_TRUE(ED25519_verify(message.data(), message.size(), signature,
-                               public_key.data()));
+
+    if (!t->HasAttribute("FAILS")) {
+      EXPECT_EQ(Bytes(expected_signature), Bytes(signature));
+      EXPECT_TRUE(ED25519_verify(message.data(), message.size(), signature,
+                                 public_key.data()));
+    } else {
+      EXPECT_NE(Bytes(expected_signature), Bytes(signature));
+      EXPECT_FALSE(ED25519_verify(message.data(), message.size(),
+                                  expected_signature.data(), public_key.data()));
+    }
   });
 }
 
