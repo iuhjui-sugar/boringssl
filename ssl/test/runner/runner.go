@@ -10904,6 +10904,20 @@ func addCurveTests() {
 		shouldFail:    true,
 		expectedError: ":ERROR_PARSING_EXTENSION:",
 	})
+
+	// Implementations should mask off the high order bit in X25519.
+	testCases = append(testCases, testCase{
+		name: "SetX25519HighBit",
+		config: Config{
+			MinVersion:       VersionTLS13,
+			MaxVersion:       VersionTLS13,
+			CurvePreferences: []CurveID{CurveX25519},
+			Bugs: ProtocolBugs{
+				SetX25519HighBit: true,
+			},
+		},
+	})
+
 }
 
 func addTLS13RecordTests() {

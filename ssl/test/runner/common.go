@@ -1562,6 +1562,10 @@ type ProtocolBugs struct {
 	// SendCompressedCoordinates, if true, causes ECDH key shares over NIST
 	// curves to use compressed coordinates.
 	SendCompressedCoordinates bool
+
+	// SetX25519HighBit, if true, causes X25519 key shares to set their
+	// high-order bit.
+	SetX25519HighBit bool
 }
 
 func (c *Config) serverInit() {
