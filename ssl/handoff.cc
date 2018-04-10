@@ -252,6 +252,14 @@ bool SSL_apply_handback(SSL *ssl, Span<const uint8_t> handback) {
   }
 
   ssl->version = session->ssl_version;
+  s3->hs->min_version = TLS1_VERSION;
+  s3->hs->max_version = TLS1_2_VERSION;
+  if (!ssl_supports_version(s3->hs.get(), ssl->version) ||
+      session->cipher != s3->hs->new_cipher ||
+      ssl->version < SSL_CIPHER_get_min_version(session->cipher) ||
+      SSL_CIPHER_get_max_version(session->cipher) < ssl->version) {
+    return false;
+  }
   ssl->do_handshake = ssl_server_handshake;
   ssl->server = true;
 
