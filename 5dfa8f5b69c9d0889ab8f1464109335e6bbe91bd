@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6e6c8d05_612dc81a",
+        "filename": "ssl/ssl_key_share.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-10T22:36:39Z",
+      "side": 1,
+      "message": "Probably also reject if group \u003e 0xffff, since it\u0027s actually a uint16_t.",
+      "revId": "5dfa8f5b69c9d0889ab8f1464109335e6bbe91bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
