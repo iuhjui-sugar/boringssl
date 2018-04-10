@@ -81,8 +81,8 @@ static void get_method_versions(const SSL_PROTOCOL_METHOD *method,
   }
 }
 
-static bool method_supports_version(const SSL_PROTOCOL_METHOD *method,
-                                    uint16_t version) {
+bool method_supports_version(const SSL_PROTOCOL_METHOD *method,
+                             uint16_t version) {
   const uint16_t *versions;
   size_t num_versions;
   get_method_versions(method, &versions, &num_versions);
