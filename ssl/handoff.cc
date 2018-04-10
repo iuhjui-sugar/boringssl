@@ -277,6 +277,10 @@ bool SSL_apply_handback(SSL *ssl, Span<const uint8_t> handback) {
     return false;
   }
 
+  uint16_t protocol_version;
+  if (!ssl_protocol_version_from_wire(&protocol_version, version)) {
+    return false;
+  }
   ssl->version = version;
   ssl->conf_max_version = conf_max_version;
   ssl->conf_min_version = conf_min_version;
