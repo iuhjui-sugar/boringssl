@@ -252,7 +252,7 @@ UniquePtr<SSLKeyShare> SSLKeyShare::Create(CBS *in) {
     return nullptr;
   }
   UniquePtr<SSLKeyShare> key_share = Create(static_cast<uint64_t>(group));
-  if (!key_share->Deserialize(in)) {
+  if (!key_share || !key_share->Deserialize(in)) {
     return nullptr;
   }
   return key_share;
