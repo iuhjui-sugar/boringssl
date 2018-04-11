@@ -1,0 +1,169 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f1851d0b_0208be6a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-11T22:07:51Z",
+      "side": 1,
+      "message": "Mind stapling it to that TSan bug? It\u0027s vaguely related.",
+      "revId": "25ff29e5c4ef52bae3c2c8877f7de67bb813dfe2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d28caeb4_ea0ee04f",
+        "filename": "crypto/x509/by_dir.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-11T22:07:51Z",
+      "side": 1,
+      "message": "We\u0027d get better threading behavior if we leave this at read and then sort just after the push. Dunno if that\u0027s worth bothering...",
+      "revId": "25ff29e5c4ef52bae3c2c8877f7de67bb813dfe2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fedbc8d_de40d677",
+        "filename": "crypto/x509v3/pcy_tree.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-11T22:07:51Z",
+      "side": 1,
+      "message": "sk_sort will handle NULL, but it seems better to write:\n\nif (!*pnodes) {\n  ...\n} else {\n  sk_X509_POLICY_NODE_sort(*pnodes);\n  if (sk_X509_POLICY_NODE_find(*pnodes, NULL, pcy))\n        return 1;\n}",
+      "revId": "25ff29e5c4ef52bae3c2c8877f7de67bb813dfe2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "332404a8_5c42318b",
+        "filename": "crypto/x509v3/v3_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-11T22:07:51Z",
+      "side": 1,
+      "message": "Oh, I didn\u0027t realize this was one of them. That\u0027s actually reachable, sadly. Though I guess there\u0027ll only be like 5 of them, tops, so it doesn\u0027t matter.",
+      "revId": "25ff29e5c4ef52bae3c2c8877f7de67bb813dfe2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "040af582_472e7c64",
+        "filename": "include/openssl/stack.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-11T22:07:51Z",
+      "side": 1,
+      "message": "This no longer mentions the default comparison is pointer equality.",
+      "range": {
+        "startLine": 166,
+        "startChar": 64,
+        "endLine": 166,
+        "endChar": 65
+      },
+      "revId": "25ff29e5c4ef52bae3c2c8877f7de67bb813dfe2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b35b283d_b476267c",
+        "filename": "include/openssl/stack.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-11T22:07:51Z",
+      "side": 1,
+      "message": "So we don\u0027t forget, maybe add on its own paragraph or something:\n\nNote this differs from OpenSSL. The type signature is slightly different, and OpenSSL\u0027s sk_find will implicitly sort |sk| if it has a comparison function defined.\n\n(Hrm, this is another argument for tweaking just sk_find. Because we changed the type signature, any sk_find code is already BoringSSL-specific. But sk_push could be whatever.)",
+      "revId": "25ff29e5c4ef52bae3c2c8877f7de67bb813dfe2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96241cee_fd227c26",
+        "filename": "include/openssl/stack.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-11T22:07:51Z",
+      "side": 1,
+      "message": "const",
+      "range": {
+        "startLine": 171,
+        "startChar": 27,
+        "endLine": 171,
+        "endChar": 33
+      },
+      "revId": "25ff29e5c4ef52bae3c2c8877f7de67bb813dfe2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05135ee6_91289781",
+        "filename": "include/openssl/stack.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-11T22:07:51Z",
+      "side": 1,
+      "message": "Also const here.",
+      "revId": "25ff29e5c4ef52bae3c2c8877f7de67bb813dfe2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edc2d553_e5208741",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-11T22:07:51Z",
+      "side": 1,
+      "message": "We actively don\u0027t want to sort this one (not that it has a comparator attached). The cipher list\u0027s order is meaningful and sorting this is a threading bug.\n\nActually, want to make prio and allow const pointers? It should be possible now that sk_find is actually const.",
+      "revId": "25ff29e5c4ef52bae3c2c8877f7de67bb813dfe2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
