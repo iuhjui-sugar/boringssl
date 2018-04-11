@@ -539,7 +539,6 @@ static int tree_prune(X509_POLICY_TREE *tree, X509_POLICY_LEVEL *curr)
 static int tree_add_auth_node(STACK_OF(X509_POLICY_NODE) **pnodes,
                               X509_POLICY_NODE *pcy)
 {
-    sk_X509_POLICY_NODE_sort(*pnodes);
     if (!*pnodes) {
         *pnodes = policy_node_cmp_new();
         if (!*pnodes)

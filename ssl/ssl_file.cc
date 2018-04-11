@@ -224,7 +224,6 @@ int SSL_add_file_cert_subjects_to_stack(STACK_OF(X509_NAME) *stack,
     }
 
     // Check for duplicates.
-    sk_X509_NAME_sort(stack);
     if (sk_X509_NAME_find(stack, NULL, xn)) {
       continue;
     }
