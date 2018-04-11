@@ -383,6 +383,7 @@ static const SSL_CIPHER *ssl3_choose_cipher(
     in_group_flags = NULL;
     allow = server_pref->ciphers;
   }
+  sk_SSL_CIPHER_sort(allow);
 
   uint32_t mask_k, mask_a;
   ssl_get_compatible_server_ciphers(hs, &mask_k, &mask_a);
