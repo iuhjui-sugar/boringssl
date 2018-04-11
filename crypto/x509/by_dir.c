@@ -317,7 +317,8 @@ static int get_cert_by_subject(X509_LOOKUP *xl, int type, X509_NAME *name,
             }
             if (type == X509_LU_CRL && ent->hashes) {
                 htmp.hash = h;
-                CRYPTO_STATIC_MUTEX_lock_read(&g_ent_hashes_lock);
+                CRYPTO_STATIC_MUTEX_lock_write(&g_ent_hashes_lock);
+                sk_BY_DIR_HASH_sort(ent->hashes);
                 if (sk_BY_DIR_HASH_find(ent->hashes, &idx, &htmp)) {
                     hent = sk_BY_DIR_HASH_value(ent->hashes, idx);
                     k = hent->suffix;
@@ -325,7 +326,7 @@ static int get_cert_by_subject(X509_LOOKUP *xl, int type, X509_NAME *name,
                     hent = NULL;
                     k = 0;
                 }
-                CRYPTO_STATIC_MUTEX_unlock_read(&g_ent_hashes_lock);
+                CRYPTO_STATIC_MUTEX_unlock_write(&g_ent_hashes_lock);
             } else {
                 k = 0;
                 hent = NULL;
@@ -387,6 +388,7 @@ static int get_cert_by_subject(X509_LOOKUP *xl, int type, X509_NAME *name,
              */
             CRYPTO_MUTEX_lock_write(&xl->store_ctx->objs_lock);
             tmp = NULL;
+            sk_X509_OBJECT_sort(xl->store_ctx->objs);
             if (sk_X509_OBJECT_find(xl->store_ctx->objs, &idx, &stmp)) {
                 tmp = sk_X509_OBJECT_value(xl->store_ctx->objs, idx);
             }
@@ -404,6 +406,7 @@ static int get_cert_by_subject(X509_LOOKUP *xl, int type, X509_NAME *name,
                  */
                 if (!hent) {
                     htmp.hash = h;
+                    sk_BY_DIR_HASH_sort(ent->hashes);
                     if (sk_BY_DIR_HASH_find(ent->hashes, &idx, &htmp))
                         hent = sk_BY_DIR_HASH_value(ent->hashes, idx);
                 }

@@ -245,7 +245,9 @@ int sk_find(_STACK *sk, size_t *out_index, void *p) {
     return 0;
   }
 
-  sk_sort(sk);
+  if (!sk_is_sorted(sk)) {
+    return 0;
+  }
 
   // sk->comp is a function that takes pointers to pointers to elements, but
   // qsort and bsearch take a comparison function that just takes pointers to

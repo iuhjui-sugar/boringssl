@@ -162,12 +162,12 @@ OPENSSL_EXPORT void *sk_delete(_STACK *sk, size_t where);
 // otherwise it returns NULL.
 OPENSSL_EXPORT void *sk_delete_ptr(_STACK *sk, void *p);
 
-// sk_find returns the first value in the stack equal to |p|. If a comparison
-// function has been set on the stack, then equality is defined by it and the
-// stack will be sorted if need be so that a binary search can be used.
-// Otherwise pointer equality is used. If a matching element is found, its
-// index is written to |*out_index| (if |out_index| is not NULL) and one is
-// returned. Otherwise zero is returned.
+// sk_find returns the first value in the stack equal to |p|. If the stack has
+// been sorted and a comparison function has been set on the stack, then
+// equality is defined by it then binary search will be used. Otherwise pointer
+// equality is used. If a matching element is found, its index is written to
+// |*out_index| (if |out_index| is not NULL) and one is returned. Otherwise zero
+// is returned.
 OPENSSL_EXPORT int sk_find(_STACK *sk, size_t *out_index, void *p);
 
 // sk_shift removes and returns the first element in the stack, or returns NULL
