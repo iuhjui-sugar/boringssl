@@ -85,6 +85,7 @@ _STACK *sk_new(stack_cmp_func comp) {
 
   ret->comp = comp;
   ret->num_alloc = kMinSize;
+  sk_sort(ret);
 
   return ret;
 
@@ -109,6 +110,7 @@ void sk_zero(_STACK *sk) {
   OPENSSL_memset(sk->data, 0, sizeof(void*) * sk->num);
   sk->num = 0;
   sk->sorted = 0;
+  sk_sort(sk);
 }
 
 void *sk_value(const _STACK *sk, size_t i) {
@@ -289,7 +291,15 @@ void *sk_shift(_STACK *sk) {
   return sk_delete(sk, 0);
 }
 
-size_t sk_push(_STACK *sk, void *p) { return (sk_insert(sk, p, sk->num)); }
+size_t sk_push(_STACK *sk, void *p) {
+  int is_sorted = sk_is_sorted(sk);
+
+  size_t ret = sk_insert(sk, p, sk->num);
+  if (is_sorted) {
+    sk_sort(sk);
+  }
+  return ret;
+}
 
 void *sk_pop(_STACK *sk) {
   if (sk == NULL) {
@@ -359,7 +369,7 @@ stack_cmp_func sk_set_cmp_func(_STACK *sk, stack_cmp_func comp) {
     sk->sorted = 0;
   }
   sk->comp = comp;
-
+  sk_sort(sk);
   return old;
 }
 

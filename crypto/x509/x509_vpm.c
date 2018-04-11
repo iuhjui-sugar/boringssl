@@ -600,7 +600,6 @@ int X509_VERIFY_PARAM_add0_table(X509_VERIFY_PARAM *param)
     } else {
         size_t idx;
 
-        sk_X509_VERIFY_PARAM_sort(param_table);
         if (sk_X509_VERIFY_PARAM_find(param_table, &idx, param)) {
             ptmp = sk_X509_VERIFY_PARAM_value(param_table, idx);
             X509_VERIFY_PARAM_free(ptmp);
@@ -636,7 +635,6 @@ const X509_VERIFY_PARAM *X509_VERIFY_PARAM_lookup(const char *name)
     pm.name = (char *)name;
     if (param_table) {
         size_t idx;
-        sk_X509_VERIFY_PARAM_sort(param_table);
         if (sk_X509_VERIFY_PARAM_find(param_table, &idx, &pm))
             return sk_X509_VERIFY_PARAM_value(param_table, idx);
     }
