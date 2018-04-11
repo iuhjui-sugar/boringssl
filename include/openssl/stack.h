@@ -179,8 +179,9 @@ OPENSSL_EXPORT int sk_find(const _STACK *sk, size_t *out_index, void *p);
 // if the stack is empty.
 OPENSSL_EXPORT void *sk_shift(_STACK *sk);
 
-// sk_push appends |p| to the stack and returns the length of the new stack, or
-// 0 on allocation failure.
+// sk_push appends |p| to the stack, sorting the stack if it has a comparison
+// function, and returns the length of the new stack, or 0 on allocation
+// failure.
 OPENSSL_EXPORT size_t sk_push(_STACK *sk, void *p);
 
 // sk_pop returns and removes the last element on the stack, or NULL if the
