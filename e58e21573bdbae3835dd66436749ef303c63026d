@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "635585e4_778dba04",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-12T00:14:50Z",
+      "side": 1,
+      "message": "There\u0027s... quite a lot of invariants around the version. The version must be consistent with the cipher suite. The version should be TLS, not DTLS. If conf_max_version and conf_min_version are getting serialized (why?), they probably also want to be consistent and valid.\n\nCome to think of it, the version also is already sent in the session. Probably shouldn\u0027t get serialized twice? Happy to stamp this as-is for now if you don\u0027t want to go down that rabbithole just yet, but I expect a bit more than that needs to get revised here. :-/",
+      "revId": "e58e21573bdbae3835dd66436749ef303c63026d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
