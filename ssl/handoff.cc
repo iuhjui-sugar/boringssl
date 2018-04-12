@@ -166,8 +166,8 @@ bool SSL_serialize_handback(const SSL *ssl, CBB *out) {
       !CBB_add_asn1_bool(&seq, ssl->quiet_shutdown) ||
       !CBB_add_asn1_bool(&seq, ssl->tlsext_channel_id_enabled) ||
       !CBB_add_asn1_bool(&seq, ssl->retain_only_sha256_of_client_certs) ||
-      !CBB_add_asn1_bool(&seq, ssl->token_binding_negotiated) ||
-      !CBB_add_asn1_uint64(&seq, ssl->negotiated_token_binding_param) ||
+      !CBB_add_asn1_bool(&seq, ssl->s3->token_binding_negotiated) ||
+      !CBB_add_asn1_uint64(&seq, ssl->s3->negotiated_token_binding_param) ||
       !CBB_add_asn1_bool(&seq, s3->hs->next_proto_neg_seen) ||
       !CBB_add_asn1_bool(&seq, s3->hs->cert_request) ||
       !CBB_add_asn1_bool(&seq, s3->hs->extended_master_secret) ||
@@ -310,8 +310,8 @@ bool SSL_apply_handback(SSL *ssl, Span<const uint8_t> handback) {
   ssl->quiet_shutdown = quiet_shutdown;
   ssl->tlsext_channel_id_enabled = channel_id_enabled;
   ssl->retain_only_sha256_of_client_certs = retain_only_sha256;
-  ssl->token_binding_negotiated = token_binding_negotiated;
-  ssl->negotiated_token_binding_param =
+  s3->token_binding_negotiated = token_binding_negotiated;
+  s3->negotiated_token_binding_param =
       static_cast<uint8_t>(negotiated_token_binding_param);
   s3->hs->next_proto_neg_seen = next_proto_neg_seen;
   s3->hs->wait = ssl_hs_flush;
