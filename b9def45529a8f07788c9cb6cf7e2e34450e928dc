@@ -16,6 +16,24 @@
       "revId": "b9def45529a8f07788c9cb6cf7e2e34450e928dc",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8614b044_750dc5d4",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-04-12T19:44:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc913dbe_8a758240",
+      "revId": "b9def45529a8f07788c9cb6cf7e2e34450e928dc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
