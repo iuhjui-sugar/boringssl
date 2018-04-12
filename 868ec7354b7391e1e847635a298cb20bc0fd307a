@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "661c28b0_101b3257",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-12T19:28:30Z",
+      "side": 0,
+      "message": "(Oops. I\u0027ll go do a follow-up change to move these to ssl-\u003es3.)",
+      "range": {
+        "startLine": 317,
+        "startChar": 7,
+        "endLine": 317,
+        "endChar": 37
+      },
+      "revId": "868ec7354b7391e1e847635a298cb20bc0fd307a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
