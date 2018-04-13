@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9e83974e_49ca6ac5",
+        "filename": "tool/speed.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-13T17:24:15Z",
+      "side": 1,
+      "message": "Nit: I suspect this\u0027ll result in a static initializer... unless std::string does the short string optimization and the compiler is *really* magic. Not that this tool\u0027s startup is particularly important, but maybe const char *.",
+      "range": {
+        "startLine": 151,
+        "startChar": 10,
+        "endLine": 151,
+        "endChar": 21
+      },
+      "revId": "f352a14bbf75c349d8ca633569b8bb3bd62bca64",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
