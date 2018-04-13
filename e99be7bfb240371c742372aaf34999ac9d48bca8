@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b6638c66_0dac3061",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1880,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-04-13T01:35:47Z",
+      "side": 1,
+      "message": "Or just keep the CBB open during the handshake so it can accumulate stuff?",
+      "parentUuid": "a8246fcc_9b317032",
+      "revId": "e99be7bfb240371c742372aaf34999ac9d48bca8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "723e15a8_969e7fe4",
         "filename": "ssl/test/bssl_shim.cc",
         "patchSetId": 6
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "f0f04eb9_e5c73697",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1894,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-04-13T01:35:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "723e15a8_969e7fe4",
+      "range": {
+        "startLine": 1894,
+        "startChar": 4,
+        "endLine": 1894,
+        "endChar": 8
+      },
+      "revId": "e99be7bfb240371c742372aaf34999ac9d48bca8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5b4b5668_85385727",
         "filename": "ssl/test/bssl_shim.cc",
         "patchSetId": 6
@@ -56,6 +98,24 @@
       "revId": "e99be7bfb240371c742372aaf34999ac9d48bca8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab5dfc75_65aed832",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1914,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-04-13T01:35:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b4b5668_85385727",
+      "revId": "e99be7bfb240371c742372aaf34999ac9d48bca8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -76,6 +136,24 @@
     },
     {
       "key": {
+        "uuid": "ac35e9f6_bef09896",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-04-13T01:35:47Z",
+      "side": 1,
+      "message": "Yeah, but they\u0027re Wrong, right?  :-)",
+      "parentUuid": "59d2f571_50bb1553",
+      "revId": "e99be7bfb240371c742372aaf34999ac9d48bca8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0bdbfffc_d32fe91e",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 6
@@ -87,6 +165,24 @@
       "writtenOn": "2018-04-11T23:57:53Z",
       "side": 1,
       "message": "Ah, I see. This code was relying on some vague synchronization with the shim writing the settings before doing anything, and each of the tests requiring *something* from the shim. And rather concatenation should wait until the shim ends.\n\nWDYT about this version: doExchange no longer gets passed transcriptPrefix or num and just returns the transcript output. Unfortunately, that\u0027s probably a nuisance to do without making it an output parameter. (We could use named returns, but then all the error returns need to get redone.) So perhaps it takes an output parameter, outTranscript *[]byte, and this defer just does *outTranscript \u003d connDebug.Transcript().\n\nThen the doExchange calls can just gather them into a [][]byte and we append to the shim halves with the existing writeTranscript. That should avoid stuff like the os.IsNotExist bit.\n\nThoughts? (If this is actually cleaner, that\u0027s fine too. It just seems weird to have Go return data to Go in a file.)",
+      "revId": "e99be7bfb240371c742372aaf34999ac9d48bca8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "551a4061_2f8c8a27",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-04-13T01:35:47Z",
+      "side": 1,
+      "message": "It\u0027s wordier than what you suggested, but see how you like this version.",
+      "parentUuid": "0bdbfffc_d32fe91e",
       "revId": "e99be7bfb240371c742372aaf34999ac9d48bca8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
