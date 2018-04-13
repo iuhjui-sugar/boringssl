@@ -1538,7 +1538,8 @@ static bool ConnectClientAndServer(bssl::UniquePtr<SSL> *out_client,
                                    bssl::UniquePtr<SSL> *out_server,
                                    SSL_CTX *client_ctx, SSL_CTX *server_ctx,
                                    const ClientConfig &config = ClientConfig(),
-                                   bool do_handshake = true) {
+                                   bool do_handshake = true,
+                                   bool shed_handshake_config = true) {
   bssl::UniquePtr<SSL> client(SSL_new(client_ctx)), server(SSL_new(server_ctx));
   if (!client || !server) {
     return false;
@@ -1561,6 +1562,9 @@ static bool ConnectClientAndServer(bssl::UniquePtr<SSL> *out_client,
   // SSL_set_bio takes ownership.
   SSL_set_bio(client.get(), bio1, bio1);
   SSL_set_bio(server.get(), bio2, bio2);
+
+  SSL_shed_handshake_config(client.get(), shed_handshake_config);
+  SSL_shed_handshake_config(server.get(), shed_handshake_config);
 
   if (do_handshake && !CompleteHandshakes(client.get(), server.get())) {
     return false;
@@ -1608,7 +1612,8 @@ class SSLVersionTest : public ::testing::TestWithParam<VersionParam> {
 
   bool Connect(const ClientConfig &config = ClientConfig()) {
     return ConnectClientAndServer(&client_, &server_, client_ctx_.get(),
-                                  server_ctx_.get(), config);
+                                  server_ctx_.get(), config, true,
+                                  shed_handshake_config_);
   }
 
   uint16_t version() const { return GetParam().version; }
@@ -1617,6 +1622,7 @@ class SSLVersionTest : public ::testing::TestWithParam<VersionParam> {
     return GetParam().ssl_method == VersionParam::is_dtls;
   }
 
+  bool shed_handshake_config_ = true;
   bssl::UniquePtr<SSL> client_, server_;
   bssl::UniquePtr<SSL_CTX> server_ctx_, client_ctx_;
   bssl::UniquePtr<X509> cert_;
@@ -2729,6 +2735,7 @@ TEST_P(SSLVersionTest, SSLClearSessionResumption) {
     return;
   }
 
+  shed_handshake_config_ = false;
   ASSERT_TRUE(Connect());
 
   EXPECT_FALSE(SSL_session_reused(client_.get()));
@@ -2737,6 +2744,7 @@ TEST_P(SSLVersionTest, SSLClearSessionResumption) {
   // Reset everything.
   ASSERT_TRUE(SSL_clear(client_.get()));
   ASSERT_TRUE(SSL_clear(server_.get()));
+  // XXX unit test interaction between SSL_clear and shed_handshakes.
 
   // Attempt to connect a second time.
   ASSERT_TRUE(CompleteHandshakes(client_.get(), server_.get()));

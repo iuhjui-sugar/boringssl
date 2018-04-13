@@ -1892,7 +1892,7 @@ OPENSSL_EXPORT int SSL_set_session_id_context(SSL *ssl, const uint8_t *sid_ctx,
                                               size_t sid_ctx_len);
 
 // SSL_get0_session_id_context returns a pointer to |ssl|'s session ID context
-// and sets |*out_len| to its length.
+// and sets |*out_len| to its length.  It returns NULL on error.
 OPENSSL_EXPORT const uint8_t *SSL_get0_session_id_context(const SSL *ssl,
                                                           size_t *out_len);
 
@@ -2296,7 +2296,7 @@ OPENSSL_EXPORT void SSL_set_custom_verify(
 OPENSSL_EXPORT int SSL_CTX_get_verify_mode(const SSL_CTX *ctx);
 
 // SSL_get_verify_mode returns |ssl|'s verify mode, set by |SSL_CTX_set_verify|
-// or |SSL_set_verify|.
+// or |SSL_set_verify|.  Returns -1 on error.
 OPENSSL_EXPORT int SSL_get_verify_mode(const SSL *ssl);
 
 // SSL_CTX_get_verify_callback returns the callback set by
@@ -3672,6 +3672,12 @@ OPENSSL_EXPORT const SSL_METHOD *DTLSv1_server_method(void);
 OPENSSL_EXPORT const SSL_METHOD *DTLSv1_client_method(void);
 OPENSSL_EXPORT const SSL_METHOD *DTLSv1_2_server_method(void);
 OPENSSL_EXPORT const SSL_METHOD *DTLSv1_2_client_method(void);
+
+// SSL_shed_handshake_config allows some of the configuration of |ssl| to be
+// freed after its handshake completes.  When configuration shedding is enabled,
+// it is an error to enable renegotiation, and it is an error to call
+// SSL_clear().
+OPENSSL_EXPORT void SSL_shed_handshake_config(SSL *ssl, int enable);
 
 // SSL_clear resets |ssl| to allow another connection and returns one on success
 // or zero on failure. It returns most configuration state but releases memory
