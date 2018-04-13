@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ed2c829_eb242e18",
+        "filename": "util/bot/DEPS",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-13T18:55:17Z",
+      "side": 1,
+      "message": "Just to make sure I understand: this isn\u0027t needed to build anything, it\u0027s just if someone wants to checkout the sources?\n\n(This DEPS file actually isn\u0027t used by anything but the builders. Devs just clone the repo the old fashioned way. But I\u0027m fine having this around for consistency with Chromium.)",
+      "revId": "f69dc2c4ea442456c1eb8d3701fa113927db401a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "312bf9e9_17d62025",
+        "filename": "util/bot/DEPS",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-13T18:55:17Z",
+      "side": 1,
+      "message": "Nit: I\u0027d probably just omit these comments. There\u0027s maybe five people who regularly commit to this repository, so we don\u0027t have quite the synchronization issues that Chromium does. :-)",
+      "revId": "f69dc2c4ea442456c1eb8d3701fa113927db401a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aec3b4eb_019a0601",
+        "filename": "util/bot/DEPS",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-13T18:55:17Z",
+      "side": 1,
+      "message": "Do you mind tweaking util/bot/UPDATING slightly to mention that the versions should be updated along with the revisions? Just so we remember to touch those too. Thanks!\n\n(Hrm. With so many of these, maybe it\u0027s time we wrote a script to sync with Chromium...)",
+      "revId": "f69dc2c4ea442456c1eb8d3701fa113927db401a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f69dac94_3c1f0448",
+        "filename": "util/bot/DEPS",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-13T18:55:17Z",
+      "side": 1,
+      "message": "Neat! Can anyone make cipd packages? How do they work? I wonder if we should replace some of the hand-rolled hooks below.",
+      "revId": "f69dc2c4ea442456c1eb8d3701fa113927db401a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
