@@ -22,6 +22,30 @@
       "revId": "f168241d6ae925146d57cfb02ea8912504c569e7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fcaaed6_ddee0c25",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 3539,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-16T18:58:27Z",
+      "side": 1,
+      "message": "The . is needed because GTest only allows [a-zA-Z0-9_] in this string. Removing the v isn\u0027t needed, but I don\u0027t think we ever write TLSv13 anywhere, so I figured TLS13 would be marginally preferable.",
+      "parentUuid": "a97641a4_87fc6a5a",
+      "range": {
+        "startLine": 3533,
+        "startChar": 0,
+        "endLine": 3539,
+        "endChar": 3
+      },
+      "revId": "f168241d6ae925146d57cfb02ea8912504c569e7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
