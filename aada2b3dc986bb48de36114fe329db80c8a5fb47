@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b33857b1_94717f56",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1076,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-04-16T16:41:19Z",
+      "side": 1,
+      "message": "nit: Add a comment about how this defaults to the sigalgs list if not sent.",
+      "range": {
+        "startLine": 1076,
+        "startChar": 2,
+        "endLine": 1076,
+        "endChar": 39
+      },
+      "revId": "aada2b3dc986bb48de36114fe329db80c8a5fb47",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
