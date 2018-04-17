@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "09bcd40a_56234c73",
+        "filename": "crypto/asn1/time_support.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-17T18:09:36Z",
+      "side": 1,
+      "message": "Yikes... apparently this is what Trusty does:\nhttps://android.googlesource.com/trusty/lib/+/master/lib/openssl-stubs/include/time.h\n\nMaybe leave this one alone for the time being, since this exclusion is particularly egregious. Probably we want to resolve that by moving them off crypto/asn1 to begin with, at which point we\u0027ll hopefully just have a smaller file list for them to consume in the first place.",
+      "revId": "1eb47427c663bf7b96d499bafca0ae64be0fb7e3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "047324fa_d4411a03",
+        "filename": "crypto/bio/connect.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-17T18:09:36Z",
+      "side": 1,
+      "message": "[Ditto these two comments for the other files.]",
+      "revId": "1eb47427c663bf7b96d499bafca0ae64be0fb7e3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59c4c72c_7e178c49",
+        "filename": "crypto/bio/connect.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-17T18:09:36Z",
+      "side": 1,
+      "message": "So, OPENSSL_TRUSTY isn\u0027t going to get defined until you pull in openssl/base.h (which is, in turn, pulled in by any other header). I think we usually do something like:\n\n#include \u003copenssl/bio.h\u003e\n\n#if !defined(OPENSSL_TRUSTY)\n\n#include \u003cassert.h\u003e\n#include \u003cerrno.h\u003e\n[...]\n\nSee crypto/rand_extra/windows.c for an example.",
+      "revId": "1eb47427c663bf7b96d499bafca0ae64be0fb7e3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f8d790a_ed75d6a6",
+        "filename": "crypto/bio/connect.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-17T18:09:36Z",
+      "side": 1,
+      "message": "Nit: newline here.",
+      "revId": "1eb47427c663bf7b96d499bafca0ae64be0fb7e3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
