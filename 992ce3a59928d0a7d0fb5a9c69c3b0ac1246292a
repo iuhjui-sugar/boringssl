@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cf0d18b0_ad21dcb9",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 1923,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-17T22:36:39Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "992ce3a59928d0a7d0fb5a9c69c3b0ac1246292a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8369733_c6ef636b",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 2771,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-17T22:36:39Z",
+      "side": 1,
+      "message": "This should probably write if DoConnection fails too.",
+      "revId": "992ce3a59928d0a7d0fb5a9c69c3b0ac1246292a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
