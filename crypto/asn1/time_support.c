@@ -55,6 +55,7 @@
  * (eay@cryptsoft.com).  This product includes software written by Tim
  * Hudson (tjh@cryptsoft.com). */
 
+#if !defined(OPENSSL_TRUSTY)
 #if !defined(_POSIX_C_SOURCE)
 #define _POSIX_C_SOURCE 201410L  /* for gmtime_r */
 #endif
@@ -204,3 +205,4 @@ int OPENSSL_gmtime_diff(int *out_days, int *out_secs, const struct tm *from,
 
   return 1;
 }
+#endif // if !defined(OPENSSL_TRUSTY)

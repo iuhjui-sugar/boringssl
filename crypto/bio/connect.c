@@ -54,6 +54,7 @@
  * copied and put under another distribution licence
  * [including the GNU Public Licence.] */
 
+#if !defined(OPENSSL_TRUSTY)
 #include <openssl/bio.h>
 
 #include <assert.h>
@@ -540,3 +541,4 @@ int BIO_set_nbio(BIO *bio, int on) {
 int BIO_do_connect(BIO *bio) {
   return BIO_ctrl(bio, BIO_C_DO_STATE_MACHINE, 0, NULL);
 }
+#endif // if !defined(OPENSSL_TRUSTY)

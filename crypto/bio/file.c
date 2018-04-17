@@ -54,6 +54,7 @@
  * copied and put under another distribution licence
  * [including the GNU Public Licence.] */
 
+#if !defined(OPENSSL_TRUSTY)
 #if defined(__linux) || defined(__sun) || defined(__hpux)
 // Following definition aliases fopen to fopen64 on above mentioned
 // platforms. This makes it possible to open and sequentially access
@@ -313,3 +314,4 @@ int BIO_rw_filename(BIO *bio, const char *filename) {
   return BIO_ctrl(bio, BIO_C_SET_FILENAME,
                   BIO_CLOSE | BIO_FP_READ | BIO_FP_WRITE, (char *)filename);
 }
+#endif // if !defined(OPENSSL_TRUSTY)

@@ -55,6 +55,7 @@
  * copied and put under another distribution licence
  * [including the GNU Public Licence.] */
 
+#if !defined(OPENSSL_TRUSTY)
 #include <openssl/bio.h>
 
 #include <fcntl.h>
@@ -200,3 +201,4 @@ BIO *BIO_new_socket(int fd, int close_flag) {
   BIO_set_fd(ret, fd, close_flag);
   return ret;
 }
+#endif // if !defined(OPENSSL_TRUSTY)

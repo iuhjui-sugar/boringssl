@@ -12,6 +12,7 @@
  * OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. */
 
+#if !defined(OPENSSL_TRUSTY)
 #undef _POSIX_C_SOURCE
 #define _POSIX_C_SOURCE 200112L
 
@@ -112,3 +113,4 @@ int bio_sock_error(int sock) {
   }
   return error;
 }
+#endif // if !defined(OPENSSL_TRUSTY)

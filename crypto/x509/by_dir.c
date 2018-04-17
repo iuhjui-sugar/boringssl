@@ -55,6 +55,7 @@
  * copied and put under another distribution licence
  * [including the GNU Public Licence.] */
 
+#if !defined(OPENSSL_TRUSTY)
 #include <string.h>
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -452,3 +453,4 @@ static int get_cert_by_subject(X509_LOOKUP *xl, int type, X509_NAME *name,
         BUF_MEM_free(b);
     return (ok);
 }
+#endif // if !defined(OPENSSL_TRUSTY)
