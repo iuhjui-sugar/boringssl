@@ -22,6 +22,30 @@
       "revId": "46b17df5336aeef13a3fc7e7fb0fc9255482b4d4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bcbf27e3_bd50be88",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-04-17T14:47:32Z",
+      "side": 1,
+      "message": "(We should give it a month to see if anything explodes before stripping them out. I\u0027m happy landing this or waiting, whichever you wish, but it\u0027s small.)",
+      "parentUuid": "65176aa3_3c60ea2f",
+      "range": {
+        "startLine": 10,
+        "startChar": 40,
+        "endLine": 10,
+        "endChar": 47
+      },
+      "revId": "46b17df5336aeef13a3fc7e7fb0fc9255482b4d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
