@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "18f6cf65_edc4fdf1",
+        "filename": "crypto/fipsmodule/bn/exponentiation.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 716,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-04-18T22:19:41Z",
+      "side": 1,
+      "message": "isn\u0027t this just an assert()?",
+      "revId": "11c1b525ace2bf8b7f6c2889a73f6f893ed50a7e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40b2a9d7_135658fd",
+        "filename": "crypto/fipsmodule/bn/exponentiation.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 831,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-04-18T22:19:41Z",
+      "side": 1,
+      "message": "ditto.",
+      "revId": "11c1b525ace2bf8b7f6c2889a73f6f893ed50a7e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
