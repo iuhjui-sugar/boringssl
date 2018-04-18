@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d882427f_e9b821ee",
+        "filename": "crypto/fipsmodule/rsa/rsa_impl.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 1257,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-04-18T22:25:28Z",
+      "side": 1,
+      "message": "This seems fragile if we ever add more fields.\n\nHow about tagging RSA* objects if the generation fails instead with something obvious which causes other common operations to fail with YOU_NEED_TO_CHECK_THE_RETURN_VALUE_OF_RSA_GENERATE_EX?",
+      "revId": "6ff1851e5ed9ff36941e7744c8458919482bb393",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "153b4bd0_11c22707",
+        "filename": "crypto/rsa_extra/rsa_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 903,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-04-18T22:25:28Z",
+      "side": 1,
+      "message": "... \"to fail\" ...",
+      "range": {
+        "startLine": 903,
+        "startChar": 29,
+        "endLine": 903,
+        "endChar": 30
+      },
+      "revId": "6ff1851e5ed9ff36941e7744c8458919482bb393",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
