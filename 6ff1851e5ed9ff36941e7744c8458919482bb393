@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "49f51b1c_069866d3",
+        "filename": "crypto/fipsmodule/rsa/rsa_impl.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 1257,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-04-19T22:01:01Z",
+      "side": 1,
+      "message": "Your point about this style failing in the common case, if we forget something, is pretty good. I\u0027m wondering whether the code currently in this CL might not be the best answer now.",
+      "parentUuid": "dcbaeef5_13ef62f8",
+      "revId": "6ff1851e5ed9ff36941e7744c8458919482bb393",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "153b4bd0_11c22707",
         "filename": "crypto/rsa_extra/rsa_test.cc",
         "patchSetId": 5
