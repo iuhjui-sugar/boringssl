@@ -22,6 +22,30 @@
       "revId": "d124734b9890c5ad672f0830b4b68f86b3d12de4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e76c97ad_eb517cab",
+        "filename": "crypto/fipsmodule/bn/exponentiation.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 733,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-19T20:04:01Z",
+      "side": 0,
+      "message": "It\u0027s impossible to make a BN_MONT_CTX over an odd number. Added an assert.",
+      "parentUuid": "69a4f293_de98095b",
+      "range": {
+        "startLine": 733,
+        "startChar": 7,
+        "endLine": 733,
+        "endChar": 26
+      },
+      "revId": "d124734b9890c5ad672f0830b4b68f86b3d12de4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
