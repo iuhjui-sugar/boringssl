@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "dcbaeef5_13ef62f8",
+        "filename": "crypto/fipsmodule/rsa/rsa_impl.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 1257,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-19T20:15:28Z",
+      "side": 1,
+      "message": "The particular caller that was doing silly things just extracted fields from the RSA directly without actually using an operation. All the fields are zero, so it wasn\u0027t a huge deal, but still a little awkward.\n\nThe other motivation was that rsa_generate_key_impl also ends up instantiating all the cached fields, so if we were to retry sometime after that, things would get mixed up. I later made it only retry on RSA_R_TOO_MANY_ITERATIONS, so that can\u0027t come up, but it seemed better to generate into a fresh object.\n\nWe already behave horribly if you, say, RSA_generate_key_ex inside an RSA that already had a key in it, since the cached fields would be wrong, but that\u0027s at least a caller-induced state, whereas this is an internal retry. Still, maybe we should add rsa_clear_cached_fields which we could call whenever the key is mutated. At that point, the cached fields motivation is moot.\n\nWe could drop all the fields in RSA when key generation fails, but that seems like it\u0027d have the inverse problem if we got to clear a field. This version will at least fail in the common case, so we\u0027re more likely to notice. Then again, if we clear at least rsa-\u003en, it doesn\u0027t matter as much if we miss another, so perhaps that\u0027s fine.\n\nThoughts? I think I\u0027m warming to rsa_clear_cached_fields + clearing the key when keygen fails.",
+      "parentUuid": "d882427f_e9b821ee",
+      "revId": "6ff1851e5ed9ff36941e7744c8458919482bb393",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "153b4bd0_11c22707",
         "filename": "crypto/rsa_extra/rsa_test.cc",
         "patchSetId": 5
