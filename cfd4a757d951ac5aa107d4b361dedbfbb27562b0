@@ -22,6 +22,30 @@
       "revId": "cfd4a757d951ac5aa107d4b361dedbfbb27562b0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02bf826a_0f4bea98",
+        "filename": "crypto/cpu-intel.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 8939
+      },
+      "writtenOn": "2018-04-19T20:00:05Z",
+      "side": 1,
+      "message": "Done, thanks!",
+      "parentUuid": "29d3ca9e_7e15e0ce",
+      "range": {
+        "startLine": 173,
+        "startChar": 0,
+        "endLine": 175,
+        "endChar": 27
+      },
+      "revId": "cfd4a757d951ac5aa107d4b361dedbfbb27562b0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
