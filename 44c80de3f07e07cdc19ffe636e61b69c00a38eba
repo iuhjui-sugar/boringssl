@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8cd4f0b7_e71ac278",
+        "filename": "ssl/test/fuzzer.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-04-20T20:30:57Z",
+      "side": 1,
+      "message": "(nit: missing \u0027)\u0027)",
+      "range": {
+        "startLine": 325,
+        "startChar": 67,
+        "endLine": 325,
+        "endChar": 68
+      },
+      "revId": "44c80de3f07e07cdc19ffe636e61b69c00a38eba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7cee5351_3dfe877f",
+        "filename": "ssl/test/fuzzer_tags.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-04-20T20:30:57Z",
+      "side": 1,
+      "message": "mention that it\u0027s u24-length-prefixed? (And below.)",
+      "revId": "44c80de3f07e07cdc19ffe636e61b69c00a38eba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f78578fe_fd392f8e",
+        "filename": "ssl/test/fuzzer_tags.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-04-20T20:30:57Z",
+      "side": 1,
+      "message": "(typo: \u0027the\u0027)",
+      "range": {
+        "startLine": 48,
+        "startChar": 31,
+        "endLine": 48,
+        "endChar": 33
+      },
+      "revId": "44c80de3f07e07cdc19ffe636e61b69c00a38eba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
