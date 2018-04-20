@@ -22,6 +22,30 @@
       "revId": "ed6e9e3fbc8c00c90ac0426058bb6123253436f1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2fe7966_d68232e5",
+        "filename": "crypto/fipsmodule/bn/bn_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2302,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-20T20:07:56Z",
+      "side": 1,
+      "message": "It\u0027s just to sanity-check the full Cartesian product of {consttime,vartime} x {minimal-width, non-minimal-width} works correctly. Added a comment.\n\n(Though it\u0027s true that the non-minimality of p gets thrown away very early on in the process.)",
+      "parentUuid": "6bd5673f_196f5dc8",
+      "range": {
+        "startLine": 2302,
+        "startChar": 31,
+        "endLine": 2302,
+        "endChar": 36
+      },
+      "revId": "ed6e9e3fbc8c00c90ac0426058bb6123253436f1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
