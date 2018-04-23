@@ -16,6 +16,29 @@
       "revId": "e76a817afa7b5e14747e658d3678d84ef3d780af",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67b4217a_8a642373",
+        "filename": "cr-buildbucket.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 6950
+      },
+      "writtenOn": "2018-04-23T20:19:02Z",
+      "side": 1,
+      "message": "btw, do these have to be Win7, or can it be Win10?\nIf it doesn\u0027t matter, we can relax this to be jsut \"os:Windows\" and you get either 7 or 10.\nThe pool of machines has ~5 VMs of each.",
+      "range": {
+        "startLine": 149,
+        "startChar": 3,
+        "endLine": 215,
+        "endChar": 5
+      },
+      "revId": "e76a817afa7b5e14747e658d3678d84ef3d780af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
