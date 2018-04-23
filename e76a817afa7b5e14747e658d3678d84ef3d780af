@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "60bb569d_0bc44b86",
+        "filename": "cr-buildbucket.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 6950
+      },
+      "writtenOn": "2018-04-23T20:15:50Z",
+      "side": 1,
+      "message": "this is our new much faster way to fetch recipe (copied from https://chromium.googlesource.com/infra/infra.git/+/infra/config/cr-buildbucket.cfg#45 )",
+      "revId": "e76a817afa7b5e14747e658d3678d84ef3d780af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
