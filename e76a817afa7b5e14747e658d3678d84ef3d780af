@@ -39,6 +39,30 @@
       "revId": "e76a817afa7b5e14747e658d3678d84ef3d780af",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5548ef66_fa5f7bc5",
+        "filename": "cr-buildbucket.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-23T20:26:20Z",
+      "side": 1,
+      "message": "Hrm. The compile-only ones can certainly be whichever.\n\nWe do need BoringSSL to be able to run on both Win7 and Win10, so this prevents us from accidentally touching an API that Win7 lacks. But BoringSSL does not have much of an OS dependency and our post-commit CI has dedicated Win7 bots, so I don\u0027t feel very strongly.",
+      "parentUuid": "67b4217a_8a642373",
+      "range": {
+        "startLine": 149,
+        "startChar": 3,
+        "endLine": 215,
+        "endChar": 5
+      },
+      "revId": "e76a817afa7b5e14747e658d3678d84ef3d780af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
