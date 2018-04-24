@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f99bbf7f_6e1a4a76",
+        "filename": "crypto/fipsmodule/bn/bn_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1580,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-04-24T17:46:27Z",
+      "side": 0,
+      "message": "Maybe just leave this in as a sanity check.",
+      "range": {
+        "startLine": 1567,
+        "startChar": 0,
+        "endLine": 1580,
+        "endChar": 54
+      },
+      "revId": "941f535438b7eff99e8705918ca0ed5f328240e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
