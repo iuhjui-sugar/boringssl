@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c29c24c8_56070304",
+        "filename": "crypto/fipsmodule/ec/ec_montgomery.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-24T17:52:23Z",
+      "side": 1,
+      "message": "Note this function works differently because our inversion is now a Montgomery inversion and doesn\u0027t have Montgomery conversions we need to cancel out. I patterned this after the tuned P-256 files.",
+      "revId": "c5e54a10f68939a815d5f0329ce8ccd08cdd27d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65062f99_fcb7a2e7",
+        "filename": "crypto/fipsmodule/ec/felem.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-24T17:52:23Z",
+      "side": 1,
+      "message": "The zero case is actually impossible, but ah well. (We only ever invert y of the point we are multiplying. If y \u003d 0, then P \u003d -P and P + P \u003d inf. That means P has order 2, which is impossible in prime-order curves, or P is infinity. We never multiply infinity by anything because that\u0027s not a legal peer point.)",
+      "revId": "c5e54a10f68939a815d5f0329ce8ccd08cdd27d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
