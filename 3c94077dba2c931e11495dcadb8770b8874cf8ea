@@ -1,0 +1,466 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b5aaaa7c_ef0b5519",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-25T21:26:13Z",
+      "side": 1,
+      "message": "It also cuts down on per-connection memory use a nice amount!\n\nWant to add Bug: 123?",
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2310740_26a0d373",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2299,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-25T21:26:13Z",
+      "side": 1,
+      "message": "Nit: It returns [...]",
+      "range": {
+        "startLine": 2299,
+        "startChar": 25,
+        "endLine": 2299,
+        "endChar": 32
+      },
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "271663ea_08c57bd1",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3676,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-25T21:26:13Z",
+      "side": 1,
+      "message": "This is the deprecated functions section. Move it up to obscure functions perhaps?",
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c23b9b6_68f445b7",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3679,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-25T21:26:13Z",
+      "side": 1,
+      "message": "Nit: |SSL_clear|. (That\u0027ll linkify it.)",
+      "range": {
+        "startLine": 3679,
+        "startChar": 3,
+        "endLine": 3679,
+        "endChar": 14
+      },
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2968a48c_6ebc147a",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3680,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-25T21:26:13Z",
+      "side": 1,
+      "message": "Nit: SSL_shed_handshake_config sounds like a function that will actively shed it right now, rather than configure it to be shed later. Perhaps SSL_set_shed_handshake_config?",
+      "range": {
+        "startLine": 3680,
+        "startChar": 20,
+        "endLine": 3680,
+        "endChar": 45
+      },
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c429011_12295e61",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-25T21:26:13Z",
+      "side": 1,
+      "message": "Actually, this probably wants to go on hs directly anyway, right?",
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6542fb2a_b3cdb1b1",
+        "filename": "ssl/handshake.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-25T21:26:13Z",
+      "side": 1,
+      "message": "Probably prudent to also return nullptr and assert if ssl-\u003econfig is null. The earlier renegotiation check should catch it, but that way we still honor SSL_HANDSHAKE\u0027s invariants.",
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "daec1c31_0529a976",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1207,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-25T21:26:13Z",
+      "side": 1,
+      "message": "Nit: newline.",
+      "range": {
+        "startLine": 1207,
+        "startChar": 40,
+        "endLine": 1207,
+        "endChar": 42
+      },
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1a5b548_90e86557",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-25T21:26:13Z",
+      "side": 1,
+      "message": "(You\u0027ll probably need to rebase across https://boringssl.googlesource.com/boringssl/+/48b276db3d2f05ccbcd47c08bf2f99d55d257515 soon. Sorry. :-( )",
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b72d1dc_d2030f3a",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1346,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-25T21:26:13Z",
+      "side": 1,
+      "message": "I thought the point of was that it\u0027d be guaranteed to be non-null as long as the SSL_HANDSHAKE was alive and thus didn\u0027t need constant null checks.",
+      "range": {
+        "startLine": 1345,
+        "startChar": 67,
+        "endLine": 1346,
+        "endChar": 41
+      },
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0232a88b_b6a06d27",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2705,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-25T21:26:13Z",
+      "side": 1,
+      "message": "I am drooling right now at how small this class is.",
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5b7d5047_6e411858",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2711,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-25T21:26:13Z",
+      "side": 1,
+      "message": "Nit: Maybe say explicitly that accesses to this field must check for null.",
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3007a4e_646c999c",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2712,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-25T21:26:13Z",
+      "side": 1,
+      "message": "Hrm. I see you did ssl-\u003econfig \u003d nullptr in SSL_free, so it sort of works, but it\u0027s probably better to do this the old-fashioned way (SSL_CONFIG *config, call Delete(ssl-\u003econfig) in SSL_free and New\u003cSSL_CONFIG\u003e() to make one in SSL_new) until SSLConnection has a destructor. (I was hoping to fix the destructor, but the ssl_st thing is causing minor headache and I moved on to other things for the time being.)\n\nAlso you need to use New/Delete/MakeUnique/UniquePtr instead of the real ones, tagging the class with kAllowUniquePtr. This is due to gRPC\u0027s absurd C++ runtime constraints.",
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53aa83ab_63205f59",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2786,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-25T21:26:13Z",
+      "side": 1,
+      "message": "Oh hrm. That\u0027s awkward. So putting things on CERT vs putting things on SSL_CTX + SSL behaves slightly differently when it comes to calling SSL_set_SSL_CTX, how one typically handles SNI.\n\nIn the spirit of putting that off as much as possible, is there any reason this can\u0027t just hang off of cert? I skimmed it and didn\u0027t see any clear use of it.",
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7eae18ce_7fdc60e5",
+        "filename": "ssl/ssl_cert.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 686,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-25T21:26:13Z",
+      "side": 1,
+      "message": "Have this take an hs instead?",
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47d92d30_757ccefa",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-25T21:26:13Z",
+      "side": 1,
+      "message": "shed_handshake_config(false).\n\n(I really want a warning to catch these...)",
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc772c96_64b2b656",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-25T21:26:13Z",
+      "side": 1,
+      "message": "Rename to ssl_config_free maybe?",
+      "range": {
+        "startLine": 771,
+        "startChar": 27,
+        "endLine": 771,
+        "endChar": 35
+      },
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ada44ee_b7e018d2",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 960,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-25T21:26:13Z",
+      "side": 1,
+      "message": "Adding comment here so we remember. There are other tests which check if renegotiation isn\u0027t allowed so hopefully not too bad?",
+      "range": {
+        "startLine": 960,
+        "startChar": 31,
+        "endLine": 960,
+        "endChar": 50
+      },
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb5b97d5_9f069fa5",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1488,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-25T21:26:13Z",
+      "side": 1,
+      "message": "Perhaps also set *out_len to zero, rather than leaving it uninitialized, so the caller doesn\u0027t hit a memory error.",
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f4efcc0_d45d58dd",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2134,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-25T21:26:13Z",
+      "side": 1,
+      "message": "Having all these config operations fail is probably correct, so this is more a side thought than a request to change something, but it occurs to me that returning success isn\u0027t wrong, per se. By doing nothing, we have successfully arranged for a subsequent handshakes attached to this SSL to use that ALPN config. Thus we have successfully honored the caller\u0027s request.\n\nOf course, there won\u0027t be any subsequent handshakes, but that\u0027s beside the point. :-)",
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "38ed93bf_57be40aa",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2766,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-25T21:26:13Z",
+      "side": 1,
+      "message": ":-P\n\nPerhaps \"// SSL_clear may not be used after the config has been shed.\"",
+      "range": {
+        "startLine": 2766,
+        "startChar": 22,
+        "endLine": 2766,
+        "endChar": 67
+      },
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4ddee62_0d9a4430",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2747,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-25T21:26:13Z",
+      "side": 1,
+      "message": "(Adding comment as reminder to do that.)",
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d4c8a1b_83371d49",
+        "filename": "ssl/ssl_x509.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1129,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-25T21:26:13Z",
+      "side": 1,
+      "message": "NULL/nullptr",
+      "range": {
+        "startLine": 1129,
+        "startChar": 11,
+        "endLine": 1129,
+        "endChar": 12
+      },
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d8611ec_60ed6067",
+        "filename": "ssl/ssl_x509.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1226,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-25T21:26:13Z",
+      "side": 1,
+      "message": "[This should hopefully be impossible, but yeah checking seems prudent. It takes SSL instead of SSL_HANDSHAKE since it\u0027s largely a weird compatibility hook.]",
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
