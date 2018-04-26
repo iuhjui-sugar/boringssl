@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "50df7407_fa4793ce",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-04-26T22:18:59Z",
+      "side": 1,
+      "message": "Done.\n\nYou know, I didn\u0027t even know we had a bug tracker.  Would it be nuts to CC a mailing list with our bug activity?",
+      "parentUuid": "b5aaaa7c_ef0b5519",
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e2310740_26a0d373",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 1
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "a0369eb1_afd28d8f",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2299,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-04-26T22:18:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e2310740_26a0d373",
+      "range": {
+        "startLine": 2299,
+        "startChar": 25,
+        "endLine": 2299,
+        "endChar": 32
+      },
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "271663ea_08c57bd1",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 1
@@ -56,6 +98,24 @@
       "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "216d01a0_adda54e2",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3676,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-04-26T22:18:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "271663ea_08c57bd1",
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "6e25d603_6b0a9d4b",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3679,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-04-26T22:18:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c23b9b6_68f445b7",
+      "range": {
+        "startLine": 3679,
+        "startChar": 3,
+        "endLine": 3679,
+        "endChar": 14
+      },
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2968a48c_6ebc147a",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 1
@@ -105,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "395d6453_65e8aefa",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3680,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-04-26T22:18:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2968a48c_6ebc147a",
+      "range": {
+        "startLine": 3680,
+        "startChar": 20,
+        "endLine": 3680,
+        "endChar": 45
+      },
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8c429011_12295e61",
         "filename": "ssl/handoff.cc",
         "patchSetId": 1
@@ -122,6 +230,24 @@
     },
     {
       "key": {
+        "uuid": "43abebd1_271e2943",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-04-26T22:18:59Z",
+      "side": 1,
+      "message": "To state the reason explicitly: because it is state, not configuration. Yes?\n\nDone.",
+      "parentUuid": "8c429011_12295e61",
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6542fb2a_b3cdb1b1",
         "filename": "ssl/handshake.cc",
         "patchSetId": 1
@@ -136,6 +262,24 @@
       "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1db444dd_fa74448c",
+        "filename": "ssl/handshake.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-04-26T22:18:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6542fb2a_b3cdb1b1",
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -162,6 +306,30 @@
     },
     {
       "key": {
+        "uuid": "3f3ef4f7_96e41d2a",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1207,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-04-26T22:18:59Z",
+      "side": 1,
+      "message": "Done.  I thought I ran all this through clang-format.  Am I holding it wrong?",
+      "parentUuid": "daec1c31_0529a976",
+      "range": {
+        "startLine": 1207,
+        "startChar": 40,
+        "endLine": 1207,
+        "endChar": 42
+      },
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d1a5b548_90e86557",
         "filename": "ssl/handshake_server.cc",
         "patchSetId": 1
@@ -176,6 +344,24 @@
       "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3016d3db_cd7e4cab",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-04-26T22:18:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d1a5b548_90e86557",
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -199,6 +385,30 @@
       "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7343d06_e052c1ca",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1346,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-04-26T22:18:59Z",
+      "side": 1,
+      "message": "Done.  This was just a brain fart.",
+      "parentUuid": "6b72d1dc_d2030f3a",
+      "range": {
+        "startLine": 1345,
+        "startChar": 67,
+        "endLine": 1346,
+        "endChar": 41
+      },
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -236,6 +446,24 @@
     },
     {
       "key": {
+        "uuid": "5712e981_2f216147",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2711,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-04-26T22:18:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b7d5047_6e411858",
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3007a4e_646c999c",
         "filename": "ssl/internal.h",
         "patchSetId": 1
@@ -247,6 +475,24 @@
       "writtenOn": "2018-04-25T21:26:13Z",
       "side": 1,
       "message": "Hrm. I see you did ssl-\u003econfig \u003d nullptr in SSL_free, so it sort of works, but it\u0027s probably better to do this the old-fashioned way (SSL_CONFIG *config, call Delete(ssl-\u003econfig) in SSL_free and New\u003cSSL_CONFIG\u003e() to make one in SSL_new) until SSLConnection has a destructor. (I was hoping to fix the destructor, but the ssl_st thing is causing minor headache and I moved on to other things for the time being.)\n\nAlso you need to use New/Delete/MakeUnique/UniquePtr instead of the real ones, tagging the class with kAllowUniquePtr. This is due to gRPC\u0027s absurd C++ runtime constraints.",
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0699adaa_dc960970",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2712,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-04-26T22:18:59Z",
+      "side": 1,
+      "message": "I\u0027m not sure I follow what kAllowUniquePtr is for, if I am changing this to be a plain pointer.  But changed to use New and Delete.",
+      "parentUuid": "e3007a4e_646c999c",
       "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -270,6 +516,24 @@
     },
     {
       "key": {
+        "uuid": "b8c56a58_589af50d",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2786,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-04-26T22:18:59Z",
+      "side": 1,
+      "message": "If I did that I\u0027d have to move |cert| back to |SSL|.\n\nDo ssl-\u003ecert and ssl_ctx-\u003ecert point at the same object?  If so, I\u0027m not sure I see why we have SSL_set_early_data_enabled(), but perhaps the bool could live on |SSL_CTX| in that event?",
+      "parentUuid": "53aa83ab_63205f59",
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7eae18ce_7fdc60e5",
         "filename": "ssl/ssl_cert.cc",
         "patchSetId": 1
@@ -287,6 +551,24 @@
     },
     {
       "key": {
+        "uuid": "91e9eebe_afea65cc",
+        "filename": "ssl/ssl_cert.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 686,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-04-26T22:18:59Z",
+      "side": 1,
+      "message": "I must have mistaken this for a public function or something.  Done.",
+      "parentUuid": "7eae18ce_7fdc60e5",
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "47d92d30_757ccefa",
         "filename": "ssl/ssl_lib.cc",
         "patchSetId": 1
@@ -301,6 +583,24 @@
       "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2a06e20_5f6c73e2",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-04-26T22:18:59Z",
+      "side": 1,
+      "message": "If you feel like we\u0027re really swimming in RAM, I could make these normal bools.  :-)\n\nDone.",
+      "parentUuid": "47d92d30_757ccefa",
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -327,6 +627,30 @@
     },
     {
       "key": {
+        "uuid": "e7f1e62d_2871c367",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-04-26T22:18:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc772c96_64b2b656",
+      "range": {
+        "startLine": 771,
+        "startChar": 27,
+        "endLine": 771,
+        "endChar": 35
+      },
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1ada44ee_b7e018d2",
         "filename": "ssl/ssl_lib.cc",
         "patchSetId": 1
@@ -350,6 +674,30 @@
     },
     {
       "key": {
+        "uuid": "67f3065b_adddb955",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 960,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-04-26T22:18:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ada44ee_b7e018d2",
+      "range": {
+        "startLine": 960,
+        "startChar": 31,
+        "endLine": 960,
+        "endChar": 50
+      },
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bb5b97d5_9f069fa5",
         "filename": "ssl/ssl_lib.cc",
         "patchSetId": 1
@@ -364,6 +712,24 @@
       "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "869df661_15e2c105",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1488,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-04-26T22:18:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb5b97d5_9f069fa5",
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -407,6 +773,30 @@
     },
     {
       "key": {
+        "uuid": "e31d9905_44287cc3",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2766,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-04-26T22:18:59Z",
+      "side": 1,
+      "message": "Done.  Maybe we just return 0 here, since SSL_clear() has a return value?  (Makes it easier to unit test AFAICT.)",
+      "parentUuid": "38ed93bf_57be40aa",
+      "range": {
+        "startLine": 2766,
+        "startChar": 22,
+        "endLine": 2766,
+        "endChar": 67
+      },
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4ddee62_0d9a4430",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 1
@@ -421,6 +811,24 @@
       "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa7952c0_dcdec45f",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2747,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-04-26T22:18:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4ddee62_0d9a4430",
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -447,6 +855,30 @@
     },
     {
       "key": {
+        "uuid": "bd193493_1a8498f7",
+        "filename": "ssl/ssl_x509.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1129,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-04-26T22:18:59Z",
+      "side": 1,
+      "message": "Whoops, done.",
+      "parentUuid": "1d4c8a1b_83371d49",
+      "range": {
+        "startLine": 1129,
+        "startChar": 11,
+        "endLine": 1129,
+        "endChar": 12
+      },
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0d8611ec_60ed6067",
         "filename": "ssl/ssl_x509.cc",
         "patchSetId": 1
@@ -458,6 +890,24 @@
       "writtenOn": "2018-04-25T21:26:13Z",
       "side": 1,
       "message": "[This should hopefully be impossible, but yeah checking seems prudent. It takes SSL instead of SSL_HANDSHAKE since it\u0027s largely a weird compatibility hook.]",
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "550a181f_4bfc861a",
+        "filename": "ssl/ssl_x509.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1226,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-04-26T22:18:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d8611ec_60ed6067",
       "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
