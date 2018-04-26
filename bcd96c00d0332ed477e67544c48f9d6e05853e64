@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3619d4ba_befc9d1c",
+        "filename": "crypto/fipsmodule/ec/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-04-26T22:57:50Z",
+      "side": 1,
+      "message": "s/and infinite/at infinity/",
+      "range": {
+        "startLine": 119,
+        "startChar": 44,
+        "endLine": 119,
+        "endChar": 47
+      },
+      "revId": "bcd96c00d0332ed477e67544c48f9d6e05853e64",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
