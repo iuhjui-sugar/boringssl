@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bbc6aeca_f42c4f68",
+        "filename": "third_party/wycheproof/convert_wycheproof.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-26T22:00:24Z",
+      "side": 1,
+      "message": "I think these flags might actually be vaguely intended to help out with categorizing \"acceptable\" as valid or invalid, but RSA/ECDSA we consistently reject all the \"acceptable\" ones and X25519\u0027s markings do not match the RFC. Not all of X25519\u0027s \"acceptable\" vectors even have flags.\n\nI\u0027ve bothered Thai about the latter. If flags end up being useful as more than just comments later, we can try to surface them more usefully and reconvert.",
+      "revId": "46a907abb9067de2b004a3353c62046835b93d7a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
