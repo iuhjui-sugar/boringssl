@@ -2,6 +2,98 @@
   "comments": [
     {
       "key": {
+        "uuid": "daec233d_f6e23e88",
+        "filename": "third_party/wycheproof/convert_wycheproof.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-04-26T23:18:26Z",
+      "side": 1,
+      "message": "keys :\u003d make([]string, 0, len(m))",
+      "range": {
+        "startLine": 42,
+        "startChar": 1,
+        "endLine": 42,
+        "endChar": 18
+      },
+      "revId": "46a907abb9067de2b004a3353c62046835b93d7a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1dc10fd_7e03d9a9",
+        "filename": "third_party/wycheproof/convert_wycheproof.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-04-26T23:18:26Z",
+      "side": 1,
+      "message": "fmt.Sprintf(\"Unknown type for %q: %T\", key, valueI)",
+      "range": {
+        "startLine": 75,
+        "startChar": 8,
+        "endLine": 75,
+        "endChar": 33
+      },
+      "revId": "46a907abb9067de2b004a3353c62046835b93d7a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc3361a1_3db9c8f4",
+        "filename": "third_party/wycheproof/convert_wycheproof.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-04-26T23:18:26Z",
+      "side": 1,
+      "message": "w, err :\u003d os.OpenFile(txtPath, os.O_CREATE | os.O_TRUNC | os.O_WRONLY, 0666)\nif err !\u003d nil {\n  return err\n}\ndefer w.Close()\n\nThen write directly to w.",
+      "range": {
+        "startLine": 129,
+        "startChar": 1,
+        "endLine": 129,
+        "endChar": 19
+      },
+      "revId": "46a907abb9067de2b004a3353c62046835b93d7a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03b023ec_71c137a6",
+        "filename": "third_party/wycheproof/convert_wycheproof.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-04-26T23:18:26Z",
+      "side": 1,
+      "message": "?",
+      "range": {
+        "startLine": 130,
+        "startChar": 52,
+        "endLine": 130,
+        "endChar": 58
+      },
+      "revId": "46a907abb9067de2b004a3353c62046835b93d7a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bbc6aeca_f42c4f68",
         "filename": "third_party/wycheproof/convert_wycheproof.go",
         "patchSetId": 2
