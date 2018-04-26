@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "82786bd1_e5c95b15",
+        "filename": "crypto/test/wycheproof_util.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-04-26T23:24:43Z",
+      "side": 1,
+      "message": "if (…) {\n  *out \u003d …;\n} else if (…) {\n  *out \u003d …;\n} else if (…) {\n  *out \u003d …;\n} else {\n  t-\u003ePrintLine(…);\n  return false;\n}\nreturn true;",
+      "revId": "c769f8586b9f60eb8712d1d917ae66d9dcfbf6e9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
