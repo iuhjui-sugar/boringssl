@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9181009f_f46c0b56",
+        "filename": "third_party/wycheproof/convert_wycheproof.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-27T03:07:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "daec233d_f6e23e88",
+      "range": {
+        "startLine": 42,
+        "startChar": 1,
+        "endLine": 42,
+        "endChar": 18
+      },
+      "revId": "46a907abb9067de2b004a3353c62046835b93d7a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d1dc10fd_7e03d9a9",
         "filename": "third_party/wycheproof/convert_wycheproof.go",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "46a907abb9067de2b004a3353c62046835b93d7a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27d26987_f1910e6c",
+        "filename": "third_party/wycheproof/convert_wycheproof.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-27T03:07:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d1dc10fd_7e03d9a9",
+      "range": {
+        "startLine": 75,
+        "startChar": 8,
+        "endLine": 75,
+        "endChar": 33
+      },
+      "revId": "46a907abb9067de2b004a3353c62046835b93d7a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "65446bf3_7c00eacf",
+        "filename": "third_party/wycheproof/convert_wycheproof.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-27T03:07:00Z",
+      "side": 1,
+      "message": "Done. Though this does mean that Fprintf can nominally fail, which is why I usually write to a bytes.Buffer. :-)",
+      "parentUuid": "dc3361a1_3db9c8f4",
+      "range": {
+        "startLine": 129,
+        "startChar": 1,
+        "endLine": 129,
+        "endChar": 19
+      },
+      "revId": "46a907abb9067de2b004a3353c62046835b93d7a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "03b023ec_71c137a6",
         "filename": "third_party/wycheproof/convert_wycheproof.go",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "46a907abb9067de2b004a3353c62046835b93d7a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27c9f65a_13c1ea67",
+        "filename": "third_party/wycheproof/convert_wycheproof.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-27T03:07:00Z",
+      "side": 1,
+      "message": "Whoops. Fixed.",
+      "parentUuid": "03b023ec_71c137a6",
+      "range": {
+        "startLine": 130,
+        "startChar": 52,
+        "endLine": 130,
+        "endChar": 58
+      },
+      "revId": "46a907abb9067de2b004a3353c62046835b93d7a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
