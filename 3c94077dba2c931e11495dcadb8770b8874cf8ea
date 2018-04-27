@@ -248,6 +248,24 @@
     },
     {
       "key": {
+        "uuid": "f9c55b6e_94202a31",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-27T22:50:33Z",
+      "side": 1,
+      "message": "Yeah. Not that SSL_clear has any hope of working in the handoff code.",
+      "parentUuid": "43abebd1_271e2943",
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6542fb2a_b3cdb1b1",
         "filename": "ssl/handshake.cc",
         "patchSetId": 1
@@ -534,6 +552,24 @@
     },
     {
       "key": {
+        "uuid": "ceb6d834_b9f5d721",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2786,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-27T22:50:33Z",
+      "side": 1,
+      "message": "(Answering in reverse order.)\n\n\u003e Do ssl-\u003ecert and ssl_ctx-\u003ecert point at the same object?  If so, I\u0027m not sure I see why we have SSL_set_early_data_enabled(), but perhaps the bool could live on |SSL_CTX| in that event?\n\nThey don\u0027t point to the same object. It gets cloned. Honestly, I have no idea what ssl-\u003ecert \"means\". It dates to SSLeay. I imagine EAY had some vague idea what all the different structs meant in SSLeay days, but even he was woefully inconsistent. Then OpenSSL came a long and completely forgot it all. Then we came along and very slowly tried to make sense of the madness.\n\nssl-\u003ecert is one of those parts we still haven\u0027t made sense of because it\u0027s kind of a mess. Right now it\u0027s \"stuff that gets affected by SSL_set_SSL_CTX\". :-)\nhttps://bugs.chromium.org/p/boringssl/issues/detail?id\u003d123#c2\n\nIn particular, we use SSL_set_SSL_CTX, so if we want something keyed on SNI, that works better. (Though I like Adam\u0027s idea of a ClientHello dispatcher that runs before you make an SSL.)\n\n\u003e If I did that I\u0027d have to move |cert| back to |SSL|.\n\nOh, I see. I found the place where it touches that field. Hrmf.\n\nOkay, how about we do this but in SSL_set_SSL_CTX, copy the field over from the new SSL_CTX? I guess this can continue to fall under the \"our configuration story is a nightmare and needs some thought\" bucket. :-/\n\n(There\u0027s really barely any reason for reading tickets to check that field TBH. Once our 0-RTT implementation has been shipped and we know it works, we might just remove that check...)",
+      "parentUuid": "b8c56a58_589af50d",
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7eae18ce_7fdc60e5",
         "filename": "ssl/ssl_cert.cc",
         "patchSetId": 1
@@ -598,6 +634,24 @@
       "side": 1,
       "message": "If you feel like we\u0027re really swimming in RAM, I could make these normal bools.  :-)\n\nDone.",
       "parentUuid": "47d92d30_757ccefa",
+      "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fc8d9aca_72208140",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-27T22:50:33Z",
+      "side": 1,
+      "message": "I dunno, this is an AGL-ism. I guess it\u0027s to save a few crumbs since it\u0027s \"free\". :-)",
+      "parentUuid": "d2a06e20_5f6c73e2",
       "revId": "3c94077dba2c931e11495dcadb8770b8874cf8ea",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false

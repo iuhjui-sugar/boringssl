@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "02a174ea_5c897de3",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 3302,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-27T22:50:33Z",
+      "side": 1,
+      "message": "Maybe also add:\n\n// Additionally, APIs to query handshake configuration options, such as |SSL_get_ciphers|, may not be called after the handshake.",
+      "revId": "65c13390383d4a01fbdcffc7e16657351772f5ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7dded19e_2a313962",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-27T22:50:33Z",
+      "side": 1,
+      "message": "Probably similarly ought to live on hs directly, but feel free to do this as a follow up.",
+      "revId": "65c13390383d4a01fbdcffc7e16657351772f5ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f8919f0_007acde8",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 3139,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-27T22:50:33Z",
+      "side": 1,
+      "message": "Okay, I think I understand a bit more why you rather wanted SSL_CTX to be part of the SSL_CONFIG. Ah well. :-/",
+      "revId": "65c13390383d4a01fbdcffc7e16657351772f5ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ffb63d52_f6b86d02",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 889,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-27T22:50:33Z",
+      "side": 1,
+      "message": "It occurs to me that, in order to use it in Chrome, I\u0027m probably going to need to make this implicitly ignore shed_handshake_config if !server + renego is allowed, and then separately, if you take renego away, re-evaluate it. But don\u0027t worry about. We can figure that out on the Chrome side after you land this. It won\u0027t affect servers, just clients.",
+      "revId": "65c13390383d4a01fbdcffc7e16657351772f5ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
