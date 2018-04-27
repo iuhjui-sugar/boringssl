@@ -230,6 +230,7 @@ func main() {
 		"ecdsa_secp384r1_sha384_test.json",
 		"ecdsa_secp384r1_sha512_test.json",
 		"ecdsa_secp521r1_sha512_test.json",
+		"eddsa_test.json",
 		"rsa_signature_test.json",
 		"x25519_test.json",
 
@@ -240,7 +241,6 @@ func main() {
 		// "chacha20_poly1305_test.json",
 		// "dsa_test.json",
 		// "ecdh_test.json",
-		// "eddsa_test.json",
 	}
 	for _, jsonPath := range jsonPaths {
 		if !strings.HasSuffix(jsonPath, ".json") {
