@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1bb7eea0_fe506778",
+        "filename": "tool/client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-30T15:16:27Z",
+      "side": 1,
+      "message": "Various style issues. We follow Google C++ style.",
+      "revId": "74706a87dee289c24666581b5c7cb7eb29274f75",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e81a31d6_a59eaa3b",
+        "filename": "tool/client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-30T15:16:27Z",
+      "side": 1,
+      "message": "This malloc isn\u0027t really necessary, and I believe you actually underallocated by one byte, so there is actually a memory error in here. But just use CBS to parse. Something like:\n\n#include \u003copenssl/bytestring.h\u003e\n\nfprintf(stderr, \"Server supported NPN protocols: \");\nCBS cbs, proto;\nCBS_init(\u0026cbs, in, inlen);\nwhile (CBS_get_u8_length_prefixed(\u0026cbs, \u0026proto)) {\n  fwrite(CBS_data(\u0026proto), CBS_len(\u0026proto), 1, stderr);\n  if (CBS_len(\u0026cbs) !\u003d 0) {\n    fprintf(stderr, \", \");\n  }\n}\nfprintf(stderr, \"\\n\");",
+      "revId": "74706a87dee289c24666581b5c7cb7eb29274f75",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d782870_d9301bf0",
+        "filename": "tool/client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-04-30T15:16:27Z",
+      "side": 1,
+      "message": "Rather than the extra flag, it seems better just to fold this into NextProtoSelectCallback. Otherwise they collide and you have to make up a random string like \"h2\" here.",
+      "revId": "74706a87dee289c24666581b5c7cb7eb29274f75",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
