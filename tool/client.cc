@@ -130,6 +130,10 @@ static const struct argument kArguments[] = {
         "Enable the specified experimental TLS 1.3 variant",
     },
     {
+        "-npn-protos", kBooleanArgument,
+        "Show a list of NPN protocols supported by the server, if any",
+    },
+    {
         "-ed25519", kBooleanArgument, "Advertise Ed25519 support",
     },
     {
@@ -161,6 +165,25 @@ static bssl::UniquePtr<EVP_PKEY> LoadPrivateKey(const std::string &file) {
 
 static int NextProtoSelectCallback(SSL* ssl, uint8_t** out, uint8_t* outlen,
                                    const uint8_t* in, unsigned inlen, void* arg) {
+  *out = reinterpret_cast<uint8_t *>(arg);
+  *outlen = strlen(reinterpret_cast<const char *>(arg));
+  return SSL_TLSEXT_ERR_OK;
+}
+
+static int NextProtoDumpCallback(SSL* ssl, uint8_t** out, uint8_t* outlen,
+				 const uint8_t* in, unsigned inlen, void* arg) {
+  char *protolist = (char *)malloc(inlen);
+  char *p = protolist;
+  for(unsigned int i=0; i<inlen;){
+      unsigned int protolen = in[i++];
+      for(unsigned int j=0; j<protolen; j++){
+	*p++ = in[i++];
+      }
+      *p++ = ',';
+  }
+  *p++ = '\0';
+  fprintf(stderr, "Server supported NPN protocols: %s\n", protolist);
+  free(protolist);
   *out = reinterpret_cast<uint8_t *>(arg);
   *outlen = strlen(reinterpret_cast<const char *>(arg));
   return SSL_TLSEXT_ERR_OK;
@@ -531,6 +554,11 @@ bool Client(const std::vector<std::string> &args) {
       return false;
     }
     SSL_CTX_set_tls13_variant(ctx.get(), variant);
+  }
+
+  if (args_map.count("-npn-protos") != 0) {
+    const char *proto = "h2";
+    SSL_CTX_set_next_proto_select_cb(ctx.get(), NextProtoDumpCallback, (void *)proto);
   }
 
   if (args_map.count("-ed25519") != 0) {
