@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4ccaa465_de2aab57",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 3302,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-05-01T06:45:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02a174ea_5c897de3",
+      "revId": "65c13390383d4a01fbdcffc7e16657351772f5ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7dded19e_2a313962",
         "filename": "ssl/handoff.cc",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "65c13390383d4a01fbdcffc7e16657351772f5ac",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2f0f856_841becee",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-05-01T06:45:51Z",
+      "side": 1,
+      "message": "Why so?  I don\u0027t have a super-principled way of making the distinction, but it seems more like config than state.",
+      "parentUuid": "7dded19e_2a313962",
+      "revId": "65c13390383d4a01fbdcffc7e16657351772f5ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -64,6 +100,24 @@
       "writtenOn": "2018-04-27T22:50:33Z",
       "side": 1,
       "message": "It occurs to me that, in order to use it in Chrome, I\u0027m probably going to need to make this implicitly ignore shed_handshake_config if !server + renego is allowed, and then separately, if you take renego away, re-evaluate it. But don\u0027t worry about. We can figure that out on the Chrome side after you land this. It won\u0027t affect servers, just clients.",
+      "revId": "65c13390383d4a01fbdcffc7e16657351772f5ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c4d095e_6bdf5ef8",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 889,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-05-01T06:45:51Z",
+      "side": 1,
+      "message": "Not sure I follow: is the idea to cover the case where shedding is enabled for a client and SSL_do_handshake runs a second time during renegotiation?",
+      "parentUuid": "ffb63d52_f6b86d02",
       "revId": "65c13390383d4a01fbdcffc7e16657351772f5ac",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
