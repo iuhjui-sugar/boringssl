@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "96c96522_d81a01d9",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3340,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-05-01T22:44:45Z",
+      "side": 1,
+      "message": "Mention the interaction with |SSL_set_shed_handshake_config| here as well?",
+      "range": {
+        "startLine": 3339,
+        "startChar": 13,
+        "endLine": 3340,
+        "endChar": 0
+      },
+      "revId": "ee61262a6c9d8fa61d4129d895dbe1e37dd313fa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd3da0c8_20cf1078",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2070,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-05-01T22:44:45Z",
+      "side": 1,
+      "message": "It\u0027s nice to be able to set this unconditionally!",
+      "range": {
+        "startLine": 2069,
+        "startChar": 49,
+        "endLine": 2070,
+        "endChar": 0
+      },
+      "revId": "ee61262a6c9d8fa61d4129d895dbe1e37dd313fa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
