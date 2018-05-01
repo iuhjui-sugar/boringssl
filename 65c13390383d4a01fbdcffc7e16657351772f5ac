@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "b8a8ce47_c3c7eee4",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-01T20:37:57Z",
+      "side": 1,
+      "message": "Hrm, maybe. I guess I saw it as a property of the connection: for this particular connection, I\u0027ve decided not to bother with this whole handoff thing. But yeah the notion is not very sound for stuff you set on a callback.\n\n*shrug* Whatever.",
+      "parentUuid": "a2f0f856_841becee",
+      "revId": "65c13390383d4a01fbdcffc7e16657351772f5ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f8919f0_007acde8",
         "filename": "ssl/internal.h",
         "patchSetId": 2
@@ -118,6 +136,24 @@
       "side": 1,
       "message": "Not sure I follow: is the idea to cover the case where shedding is enabled for a client and SSL_do_handshake runs a second time during renegotiation?",
       "parentUuid": "ffb63d52_f6b86d02",
+      "revId": "65c13390383d4a01fbdcffc7e16657351772f5ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c8956ddf_cc917e37",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 889,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-01T20:37:57Z",
+      "side": 1,
+      "message": "Chrome is stuck supporting renegotiation for HTTP/1.1, but HTTP/2 forbids it. So what we do is:\n\n1. Clear SSL object with renegotiation enabled.\n2. Run the handshake to completion.\n3. If ALPN is h2, turn renegotiation back off. If it\u0027s http/1.1, leave it on.\n\nIf HTTP/1.1, we\u0027re stuck not shedding the handshake config. It\u0027s obnoxious but so it goes. (Although, I could imagine doing some sort of hilarious retry thing...) But for long-lived HTTP/2 connections, it would be nice to shed things. So I was thinking:\n\nvoid ssl_maybe_shed_handshake_config(SSL *ssl) {\n  if (ssl-\u003es3-\u003ehs ||\n      !ssl-\u003econfig ||\n      !ssl-\u003econfig-\u003eshed_handshake_config) {\n    return;\n  }\n  // Clients can\u0027t shed handshake configuration if they allow renego.\n  if (!ssl-\u003eserver \u0026\u0026\n      (ssl-\u003erenegotiate_mode \u003d\u003d ssl_renegotiate_once ||\n       ssl-\u003erenegotiate_mode \u003d\u003d ssl_renegotiate_freely)) {\n    return;\n  }\n  Delete(ssl-\u003econfig);\n  ssl-\u003econfig \u003d nullptr;\n}\n\nHere:\n\nif (!early_return) {\n  ssl-\u003es3-\u003ehs.reset();\n  ssl_maybe_shed_handshake_config(ssl);\n}\n\nAnd when configuring renegotiate mode, call ssl_maybe_shed_handshake_config(ssl) after adjusting ssl-\u003erenegotiate_mode.\n\nBut don\u0027t worry about it. I\u0027ll toy with this separately.",
+      "parentUuid": "5c4d095e_6bdf5ef8",
       "revId": "65c13390383d4a01fbdcffc7e16657351772f5ac",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
