@@ -13,6 +13,7 @@
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include <memory>
@@ -25,6 +26,7 @@
 #include "../../internal.h"
 #include "../../test/file_test.h"
 #include "../../test/test_util.h"
+#include "../../test/wycheproof_util.h"
 
 
 static void TestRaw(FileTest *t) {
@@ -126,6 +128,43 @@ TEST(AESTest, TestVectors) {
       TestKeyWrap(t);
     } else {
       ADD_FAILURE() << "Unknown mode " << t->GetParameter();
+    }
+  });
+}
+
+TEST(AESTest, WycheproofKeyWrap) {
+  FileTestGTest("third_party/wycheproof/kw_test.txt", [](FileTest *t) {
+    std::string key_size;
+    ASSERT_TRUE(t->GetInstruction(&key_size, "keySize"));
+    std::vector<uint8_t> ct, key, msg;
+    ASSERT_TRUE(t->GetBytes(&ct, "ct"));
+    ASSERT_TRUE(t->GetBytes(&key, "key"));
+    ASSERT_TRUE(t->GetBytes(&msg, "msg"));
+    ASSERT_EQ(static_cast<unsigned>(atoi(key_size.c_str())), key.size() * 8);
+    WycheproofResult result;
+    ASSERT_TRUE(GetWycheproofResult(t, &result));
+
+    if (result != WycheproofResult::kInvalid) {
+      ASSERT_GE(ct.size(), 8u);
+
+      AES_KEY aes;
+      ASSERT_EQ(0, AES_set_decrypt_key(key.data(), 8 * key.size(), &aes));
+      std::vector<uint8_t> out(ct.size() - 8);
+      int len = AES_unwrap_key(&aes, nullptr, out.data(), ct.data(), ct.size());
+      ASSERT_EQ(static_cast<int>(out.size()), len);
+      EXPECT_EQ(Bytes(msg), Bytes(out));
+
+      out.resize(msg.size() + 8);
+      ASSERT_EQ(0, AES_set_encrypt_key(key.data(), 8 * key.size(), &aes));
+      len = AES_wrap_key(&aes, nullptr, out.data(), msg.data(), msg.size());
+      ASSERT_EQ(static_cast<int>(out.size()), len);
+      EXPECT_EQ(Bytes(ct), Bytes(out));
+    } else {
+      AES_KEY aes;
+      ASSERT_EQ(0, AES_set_decrypt_key(key.data(), 8 * key.size(), &aes));
+      std::vector<uint8_t> out(ct.size() < 8 ? 0 : ct.size() - 8);
+      int len = AES_unwrap_key(&aes, nullptr, out.data(), ct.data(), ct.size());
+      EXPECT_EQ(-1, len);
     }
   });
 }
