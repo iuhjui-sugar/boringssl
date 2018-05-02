@@ -459,6 +459,51 @@ void SSL_CTX_set_handoff_mode(SSL_CTX *ctx, bool on) {
   ctx->handoff = on;
 }
 
+int SSL_CTX_add_cert_compression_alg(SSL_CTX *ctx, uint16_t alg_id,
+                                     bssl::CertCompressFunc compress,
+                                     bssl::CertDecompressFunc decompress) {
+  for (size_t i = 0; i < sk_CertCompressionAlg_num(ctx->cert_compression_algs);
+       i++) {
+    if (sk_CertCompressionAlg_value(ctx->cert_compression_algs, i)->alg_id ==
+        alg_id) {
+      return 0;
+    }
+  }
+
+  CertCompressionAlg *alg = reinterpret_cast<CertCompressionAlg *>(
+      OPENSSL_malloc(sizeof(CertCompressionAlg)));
+  if (alg == nullptr) {
+    goto err;
+  }
+
+  OPENSSL_memset(alg, 0, sizeof(CertCompressionAlg));
+  alg->alg_id = alg_id;
+  alg->compress = compress;
+  alg->decompress = decompress;
+
+  if (ctx->cert_compression_algs == nullptr) {
+    ctx->cert_compression_algs = sk_CertCompressionAlg_new_null();
+    if (ctx->cert_compression_algs == nullptr) {
+      goto err;
+    }
+  }
+
+  if (!sk_CertCompressionAlg_push(ctx->cert_compression_algs, alg)) {
+    goto err;
+  }
+
+  return 1;
+
+err:
+  OPENSSL_free(alg);
+  if (ctx->cert_compression_algs != nullptr &&
+      sk_CertCompressionAlg_num(ctx->cert_compression_algs) == 0) {
+    sk_CertCompressionAlg_free(ctx->cert_compression_algs);
+    ctx->cert_compression_algs = nullptr;
+  }
+  return 0;
+}
+
 }  // namespace bssl
 
 using namespace bssl;

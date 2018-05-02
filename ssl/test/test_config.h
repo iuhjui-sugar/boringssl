@@ -155,6 +155,7 @@ struct TestConfig {
   bool handoff = false;
   bool expect_dummy_pq_padding = false;
   bool no_rsa_pss_rsae_certs = false;
+  bool install_cert_compression_algs = false;
 };
 
 bool ParseConfig(int argc, char **argv, TestConfig *out_initial,

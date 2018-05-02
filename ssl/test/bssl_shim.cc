@@ -1317,6 +1317,57 @@ static bssl::UniquePtr<SSL_CTX> SetupCtx(SSL_CTX *old_ctx,
                              ssl_ctx.get());
   }
 
+  if (config->install_cert_compression_algs &&
+      (!SSL_CTX_add_cert_compression_alg(
+           ssl_ctx.get(), 0xff02,
+           [](SSL *ssl, bssl::UniquePtr<CRYPTO_BUFFER> *out,
+              bssl::Span<const uint8_t> in) -> bool {
+             std::unique_ptr<uint8_t[]> buf(new uint8_t[4 + in.size()]);
+             buf[0] = 1;
+             buf[1] = 2;
+             buf[2] = 3;
+             buf[3] = 4;
+             OPENSSL_memcpy(&buf[4], in.data(), in.size());
+             out->reset(CRYPTO_BUFFER_new(buf.get(), 4 + in.size(), nullptr));
+             return true;
+           },
+           [](SSL *ssl, bssl::UniquePtr<CRYPTO_BUFFER> *out,
+              size_t uncomressed_len,
+              bssl::Span<const uint8_t> in) -> bssl::CertDecompressionResult {
+             if (in.size() < 4 || in[0] != 1 || in[1] != 2 || in[2] != 3 ||
+                 in[3] != 4) {
+               return bssl::CertDecompressionResult::kFailed;
+             }
+             const bssl::Span<const uint8_t> uncompressed(in.subspan(4));
+             out->reset(CRYPTO_BUFFER_new(uncompressed.data(),
+                                          uncompressed.size(), nullptr));
+             return bssl::CertDecompressionResult::kSuccess;
+           }) ||
+       !SSL_CTX_add_cert_compression_alg(
+           ssl_ctx.get(), 0xff01,
+           [](SSL *ssl, bssl::UniquePtr<CRYPTO_BUFFER> *out,
+              bssl::Span<const uint8_t> in) -> bool {
+             if (in.size() < 2 || in[0] != 0 || in[1] != 0) {
+               return false;
+             }
+             out->reset(CRYPTO_BUFFER_new(in.subspan(2).data(), in.size() - 2,
+                                          nullptr));
+             return true;
+           },
+           [](SSL *ssl, bssl::UniquePtr<CRYPTO_BUFFER> *out,
+              size_t uncomressed_len,
+              bssl::Span<const uint8_t> in) -> bssl::CertDecompressionResult {
+             std::unique_ptr<uint8_t[]> buf(new uint8_t[2 + in.size()]);
+             buf[0] = 0;
+             buf[1] = 0;
+             OPENSSL_memcpy(&buf[2], in.data(), in.size());
+             out->reset(CRYPTO_BUFFER_new(buf.get(), 2 + in.size(), nullptr));
+             return bssl::CertDecompressionResult::kSuccess;
+           }))) {
+    fprintf(stderr, "SSL_CTX_add_cert_compression_alg failed.\n");
+    abort();
+  }
+
   return ssl_ctx;
 }
 

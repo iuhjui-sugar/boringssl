@@ -146,7 +146,8 @@ SSL_HANDSHAKE::SSL_HANDSHAKE(SSL *ssl_arg)
       ticket_expected(false),
       extended_master_secret(false),
       pending_private_key_op(false),
-      grease_seeded(false) {
+      grease_seeded(false),
+      cert_compression_negotiated(false) {
 }
 
 SSL_HANDSHAKE::~SSL_HANDSHAKE() {
