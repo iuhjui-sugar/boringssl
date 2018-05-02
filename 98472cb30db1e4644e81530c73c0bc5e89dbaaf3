@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9b0aa555_43345d16",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-05-02T20:49:51Z",
+      "side": 1,
+      "message": "requires moving",
+      "range": {
+        "startLine": 11,
+        "startChar": 32,
+        "endLine": 11,
+        "endChar": 37
+      },
+      "revId": "98472cb30db1e4644e81530c73c0bc5e89dbaaf3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
