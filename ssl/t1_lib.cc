@@ -2756,6 +2756,91 @@ static bool ext_quic_transport_params_add_serverhello(SSL_HANDSHAKE *hs,
   return true;
 }
 
+// Certificate compression
+
+static bool cert_compression_add_clienthello(SSL_HANDSHAKE *hs, CBB *out) {
+  return true;
+}
+
+static bool cert_compression_parse_serverhello(SSL_HANDSHAKE *hs,
+                                               uint8_t *out_alert,
+                                               CBS *contents) {
+  if (contents == nullptr) {
+    return true;
+  }
+
+  // We don't send an extension in our ClientHello, therefore the server is not
+  // allowed to echo one.
+  return false;
+}
+
+static bool cert_compression_parse_clienthello(SSL_HANDSHAKE *hs,
+                                               uint8_t *out_alert,
+                                               CBS *contents) {
+  if (contents == nullptr) {
+    return true;
+  }
+
+  const size_t num_algs =
+      sk_CertCompressionAlg_num(hs->ssl->ctx->cert_compression_algs);
+
+  // Until a code-point is assigned for this, disable all processing unless at
+  // least one algorithm has been configured.
+  if (num_algs == 0) {
+    return true;
+  }
+
+  CBS alg_ids;
+  if (!CBS_get_u8_length_prefixed(contents, &alg_ids) ||
+      CBS_len(contents) != 0 ||
+      CBS_len(&alg_ids) == 0) {
+    return false;
+  }
+
+  uint16_t last_value = 0;
+  bool have_last_value = false;
+  size_t best_index = num_algs;
+
+  while (CBS_len(&alg_ids) > 0) {
+    uint16_t alg_id;
+    if (!CBS_get_u16(&alg_ids, &alg_id)) {
+      return false;
+    }
+
+    if (have_last_value && last_value >= alg_id) {
+      return false;
+    }
+
+    for (size_t i = 0; i < num_algs; i++) {
+      const auto *alg =
+          sk_CertCompressionAlg_value(hs->ssl->ctx->cert_compression_algs, i);
+      if (alg->alg_id == alg_id && alg->compress != nullptr) {
+        if (i < best_index) {
+          best_index = i;
+        }
+        break;
+      }
+    }
+
+    have_last_value = true;
+    last_value = alg_id;
+  }
+
+  if (best_index < num_algs &&
+      ssl_protocol_version(hs->ssl) >= TLS1_3_VERSION) {
+    hs->cert_compression_negotiated = true;
+    hs->cert_compression_alg_id =
+        sk_CertCompressionAlg_value(hs->ssl->ctx->cert_compression_algs,
+                                    best_index)
+            ->alg_id;
+  }
+
+  return true;
+}
+
+static bool cert_compression_add_serverhello(SSL_HANDSHAKE *hs, CBB *out) {
+  return true;
+}
 
 // kExtensions contains all the supported extensions.
 static const struct tls_extension kExtensions[] = {
@@ -2939,6 +3024,14 @@ static const struct tls_extension kExtensions[] = {
     ext_token_binding_parse_serverhello,
     ext_token_binding_parse_clienthello,
     ext_token_binding_add_serverhello,
+  },
+  {
+    TLSEXT_TYPE_cert_compression,
+    NULL,
+    cert_compression_add_clienthello,
+    cert_compression_parse_serverhello,
+    cert_compression_parse_clienthello,
+    cert_compression_add_serverhello,
   },
 };
 

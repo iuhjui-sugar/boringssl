@@ -82,26 +82,27 @@ const (
 
 // TLS handshake message types.
 const (
-	typeHelloRequest        uint8 = 0
-	typeClientHello         uint8 = 1
-	typeServerHello         uint8 = 2
-	typeHelloVerifyRequest  uint8 = 3
-	typeNewSessionTicket    uint8 = 4
-	typeEndOfEarlyData      uint8 = 5 // draft-ietf-tls-tls13-21
-	typeHelloRetryRequest   uint8 = 6 // draft-ietf-tls-tls13-16
-	typeEncryptedExtensions uint8 = 8 // draft-ietf-tls-tls13-16
-	typeCertificate         uint8 = 11
-	typeServerKeyExchange   uint8 = 12
-	typeCertificateRequest  uint8 = 13
-	typeServerHelloDone     uint8 = 14
-	typeCertificateVerify   uint8 = 15
-	typeClientKeyExchange   uint8 = 16
-	typeFinished            uint8 = 20
-	typeCertificateStatus   uint8 = 22
-	typeKeyUpdate           uint8 = 24  // draft-ietf-tls-tls13-16
-	typeNextProtocol        uint8 = 67  // Not IANA assigned
-	typeChannelID           uint8 = 203 // Not IANA assigned
-	typeMessageHash         uint8 = 254 // draft-ietf-tls-tls13-21
+	typeHelloRequest          uint8 = 0
+	typeClientHello           uint8 = 1
+	typeServerHello           uint8 = 2
+	typeHelloVerifyRequest    uint8 = 3
+	typeNewSessionTicket      uint8 = 4
+	typeEndOfEarlyData        uint8 = 5 // draft-ietf-tls-tls13-21
+	typeHelloRetryRequest     uint8 = 6 // draft-ietf-tls-tls13-16
+	typeEncryptedExtensions   uint8 = 8 // draft-ietf-tls-tls13-16
+	typeCertificate           uint8 = 11
+	typeServerKeyExchange     uint8 = 12
+	typeCertificateRequest    uint8 = 13
+	typeServerHelloDone       uint8 = 14
+	typeCertificateVerify     uint8 = 15
+	typeClientKeyExchange     uint8 = 16
+	typeFinished              uint8 = 20
+	typeCertificateStatus     uint8 = 22
+	typeKeyUpdate             uint8 = 24  // draft-ietf-tls-tls13-16
+	typeCompressedCertificate uint8 = 25  // Not IANA assigned
+	typeNextProtocol          uint8 = 67  // Not IANA assigned
+	typeChannelID             uint8 = 203 // Not IANA assigned
+	typeMessageHash           uint8 = 254 // draft-ietf-tls-tls13-21
 )
 
 // TLS compression types.
@@ -133,6 +134,7 @@ const (
 	extensionSignatureAlgorithmsCert    uint16 = 50    // draft-ietf-tls-tls13-23
 	extensionKeyShare                   uint16 = 51    // draft-ietf-tls-tls13-23
 	extensionCustom                     uint16 = 1234  // not IANA assigned
+	extensionCompressedCertAlgs         uint16 = 12345 // not IANA assigned
 	extensionNextProtoNeg               uint16 = 13172 // not IANA assigned
 	extensionRenegotiationInfo          uint16 = 0xff01
 	extensionChannelID                  uint16 = 30032 // not IANA assigned
@@ -330,6 +332,16 @@ type ServerSessionCache interface {
 	Put(sessionId string, session *sessionState)
 }
 
+// CertCompressionAlg is a certificate compression algorithm, specified as a
+// pair of functions for compressing and decompressing certificates.
+type CertCompressionAlg struct {
+	// Compress returns a compressed representation of the input.
+	Compress func([]byte) []byte
+	// Decompress depresses the contents of in and writes the result to out, which
+	// will be the correct size. It returns true on success and false otherwise.
+	Decompress func(out, in []byte) bool
+}
+
 // A Config structure is used to configure a TLS client or server.
 // After one has been passed to a TLS function it must not be
 // modified. A Config may be reused; the tls package will also not
@@ -499,6 +511,8 @@ type Config struct {
 	// QUICTransportParams, if not empty, will be sent in the QUIC
 	// transport parameters extension.
 	QUICTransportParams []byte
+
+	CertCompressionAlgs map[uint16]CertCompressionAlg
 
 	// Bugs specifies optional misbehaviour to be used for testing other
 	// implementations.
@@ -1587,6 +1601,18 @@ type ProtocolBugs struct {
 	// SetX25519HighBit, if true, causes X25519 key shares to set their
 	// high-order bit.
 	SetX25519HighBit bool
+
+	// DuplicateCompressedCertAlgs, if true, causes two, equal, certificate
+	// compression algorithm IDs to be sent.
+	DuplicateCompressedCertAlgs bool
+
+	// UnsortedCompressedCertAlgs, if true, causes two, dummy, certificate
+	// compression algorithms to be sent in the wrong order.
+	UnsortedCompressedCertAlgs bool
+
+	// ExpectedCompressedCert specifies the compression algorithm ID that must be
+	// used on this connection, or zero if there are no speciial requirements.
+	ExpectedCompressedCert uint16
 }
 
 func (c *Config) serverInit() {
