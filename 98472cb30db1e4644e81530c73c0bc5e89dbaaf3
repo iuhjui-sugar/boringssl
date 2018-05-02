@@ -22,6 +22,30 @@
       "revId": "98472cb30db1e4644e81530c73c0bc5e89dbaaf3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68304f9d_0b4b27b7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-02T21:33:43Z",
+      "side": 1,
+      "message": "Oops. Already went in though. :-/",
+      "parentUuid": "9b0aa555_43345d16",
+      "range": {
+        "startLine": 11,
+        "startChar": 32,
+        "endLine": 11,
+        "endChar": 37
+      },
+      "revId": "98472cb30db1e4644e81530c73c0bc5e89dbaaf3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
