@@ -22,6 +22,30 @@
       "revId": "3f1fbf0d856a21a6b03240238ac85b3a863d019f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69cce697_888f9d28",
+        "filename": "ssl/d1_srtp.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-02T20:27:32Z",
+      "side": 1,
+      "message": "I was copying your convention and misremembered. :-) Looks like you put the asserts on the gets but not the sets. Done.",
+      "parentUuid": "49896e4c_d5429bea",
+      "range": {
+        "startLine": 202,
+        "startChar": 14,
+        "endLine": 202,
+        "endChar": 0
+      },
+      "revId": "3f1fbf0d856a21a6b03240238ac85b3a863d019f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
