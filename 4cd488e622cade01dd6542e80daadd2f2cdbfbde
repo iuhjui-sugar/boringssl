@@ -16,6 +16,24 @@
       "revId": "4cd488e622cade01dd6542e80daadd2f2cdbfbde",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22a09a26_b0492b8a",
+        "filename": "third_party/wycheproof/kwp_test.json",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-02T19:39:58Z",
+      "side": 1,
+      "message": "It\u0027s not. Apparently there\u0027s another mode for key wrap that specifies some kind of padding scheme. We don\u0027t implement it.\n\nI\u0027ve been copying over all the JSON files and only converting the ones we use. It makes updating a bit easier if we don\u0027t have to subset the files twice. (The converter already only converts the subset we care about.)",
+      "parentUuid": "6767e627_917ec3d8",
+      "revId": "4cd488e622cade01dd6542e80daadd2f2cdbfbde",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
