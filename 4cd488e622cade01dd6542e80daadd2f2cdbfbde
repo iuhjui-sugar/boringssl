@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6767e627_917ec3d8",
+        "filename": "third_party/wycheproof/kwp_test.json",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-05-02T19:19:07Z",
+      "side": 1,
+      "message": "Is this file used?",
+      "revId": "4cd488e622cade01dd6542e80daadd2f2cdbfbde",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
