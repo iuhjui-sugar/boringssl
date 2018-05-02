@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b4c07878_cdd53c0a",
+        "filename": "crypto/cipher_extra/cipher_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-05-02T19:12:49Z",
+      "side": 1,
+      "message": "size_t for |total|",
+      "revId": "5065f35c23d8a325504d24b9506794c1f953deb4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
