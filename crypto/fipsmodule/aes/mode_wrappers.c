@@ -6,7 +6,7 @@
  * are met:
  *
  * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer. 
+ *    notice, this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in
@@ -50,6 +50,7 @@
 
 #include <assert.h>
 
+#include "../aes/internal.h"
 #include "../modes/internal.h"
 
 
@@ -72,11 +73,9 @@ void AES_ecb_encrypt(const uint8_t *in, uint8_t *out, const AES_KEY *key,
   }
 }
 
-#if defined(OPENSSL_NO_ASM) || \
-    (!defined(OPENSSL_X86_64) && !defined(OPENSSL_X86))
+#if defined(OPENSSL_NO_ASM) || defined(HWAES)
 void AES_cbc_encrypt(const uint8_t *in, uint8_t *out, size_t len,
                      const AES_KEY *key, uint8_t *ivec, const int enc) {
-
   if (enc) {
     CRYPTO_cbc128_encrypt(in, out, len, key, ivec, (block128_f)AES_encrypt);
   } else {
@@ -84,15 +83,13 @@ void AES_cbc_encrypt(const uint8_t *in, uint8_t *out, size_t len,
   }
 }
 #else
-
 void asm_AES_cbc_encrypt(const uint8_t *in, uint8_t *out, size_t len,
                          const AES_KEY *key, uint8_t *ivec, const int enc);
 void AES_cbc_encrypt(const uint8_t *in, uint8_t *out, size_t len,
                      const AES_KEY *key, uint8_t *ivec, const int enc) {
   asm_AES_cbc_encrypt(in, out, len, key, ivec, enc);
 }
-
-#endif  // OPENSSL_NO_ASM || (!OPENSSL_X86_64 && !OPENSSL_X86)
+#endif  // !OPENSSL_NO_ASM && !HWAES
 
 void AES_ofb128_encrypt(const uint8_t *in, uint8_t *out, size_t length,
                         const AES_KEY *key, uint8_t *ivec, int *num) {
