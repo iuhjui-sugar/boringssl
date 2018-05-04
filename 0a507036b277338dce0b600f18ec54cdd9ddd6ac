@@ -22,6 +22,74 @@
       "revId": "0a507036b277338dce0b600f18ec54cdd9ddd6ac",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "909329e8_6919c2a3",
+        "filename": "crypto/fipsmodule/aes/aes.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 820,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-04T17:47:14Z",
+      "side": 1,
+      "message": "(I suspect every AArch64 configuration we care about actually defines __ARM_FEATURE_CRYPTO and so we statically know hwaes_capable returns true, but whatever.)\n\nThis doesn\u0027t kick in aes_hw_* for AArch64 though. That codepath is still using the built-in one. I guess you could add an if defined(HWAES) at the top of each of those functions. Or perhaps those functions could define static void asm_AES_encrypt (silly name... #defines?) and then these wrappers can just be:\n\nvoid AES_encrypt(...) {\n  if (hwaes_capable()) {\n    aes_hw_encrypt(in, out, key);\n    return;\n  }\n  asm_AES_encrypt(in, out, key);\n}\n\n(Hopefully, on platforms without any assembly at all, the compiler is smart enough to first optimize out that conditional and then inline the static asm_AES_encrypt into the wrapper.)",
+      "revId": "0a507036b277338dce0b600f18ec54cdd9ddd6ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6754a6a7_05145133",
+        "filename": "crypto/fipsmodule/aes/asm/aesni-x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-04T17:47:14Z",
+      "side": 1,
+      "message": "This is such a fantastically useful line of code... :-)",
+      "revId": "0a507036b277338dce0b600f18ec54cdd9ddd6ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "23e7a5da_6964879a",
+        "filename": "crypto/fipsmodule/aes/mode_wrappers.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-04T17:47:14Z",
+      "side": 1,
+      "message": "This seems a bit off. I\u0027m guessing the motivation was to deal with the hw/non-hw incompatibility? There aren\u0027t any platforms with asm_AES_cbc_encrypt (just Intel) but not HWAES. I think this change will lose the asm_AES_cbc_encrypt optimization on Intel w/o AESNI, and fail to compile on platforms without HWAES.\n\nPerhaps:\n\nvoid AES_cbc_encrypt(...) {\n  if (hwaes_capable()) {\n    aes_hw_cbc_encrypt(...);\n    return;\n  }\n#if !NO_ASM \u0026\u0026 (X86_64 || X86)\n  asm_AES_cbc_encrypt(...);\n#else\n  if (enc) {\n    ...\n  } else {\n    ...\n  }\n#endif\n}\n\nThough this does have the consequence of checking hwaes_capable() a few extra times in the CBC-mode EVP_CIPHER on some platforms since AES_cbc_encrypt is actually called by EVP_CIPHER.",
+      "revId": "0a507036b277338dce0b600f18ec54cdd9ddd6ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d488183_3a52659c",
+        "filename": "crypto/fipsmodule/cipher/e_aes.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 770,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-04T17:47:14Z",
+      "side": 1,
+      "message": "I certainly hope no one cares about this optimization! People often use \"ECB mode\" when they actually want the AES block operation, but in that case the generic loop over the block128_f should suffice, rather than the fancy assembly loop.\n\nBut removing that can be a separate thing I guess.",
+      "revId": "0a507036b277338dce0b600f18ec54cdd9ddd6ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
