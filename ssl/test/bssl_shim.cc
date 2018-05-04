@@ -119,6 +119,8 @@ struct TestState {
   // cert_verified is true if certificate verification has been driven to
   // completion. This tests that the callback is not called again after this.
   bool cert_verified = false;
+  bool cookie_verify_tried = false;
+  bool cookie_verify_done = false;
 };
 
 static void TestStateExFree(void *parent, void *ptr, CRYPTO_EX_DATA *ad,
@@ -769,6 +771,43 @@ static int AlpnSelectCallback(SSL* ssl, const uint8_t** out, uint8_t* outlen,
   return SSL_TLSEXT_ERR_OK;
 }
 
+
+static enum ssl_cookie_verify_result_t CookieVerifyCallback(SSL *ssl,
+                               const uint8_t **out, size_t *out_len,
+                               const uint8_t *in, size_t in_len, void *arg) {
+  const TestConfig *config = GetTestConfig(ssl);
+
+  if (GetTestState(ssl)->cookie_verify_done) {
+    fprintf(stderr, "CookieVerifyCallback called after completion.\n");
+    return ssl_cookie_verify_error;
+  }
+
+  if (in == NULL && in_len == 0) {
+    if (GetTestState(ssl)->cookie_verify_tried) {
+      fprintf(stderr, "CookieVerifyCallback tried multiple times.\n");
+      return ssl_cookie_verify_error;
+    }
+
+    GetTestState(ssl)->cookie_verify_tried = true;
+
+    *out = (const uint8_t*)config->cookie.data();
+    *out_len = config->cookie.size();
+    return ssl_cookie_verify_retry_request;
+  }
+
+  if ((config->cookie.size() != in_len) ||
+      (OPENSSL_memcmp(in, config->cookie.data(), in_len) != 0)) {
+    fprintf(stderr, "Cookie doesn't match.\n");
+
+    *out = (const uint8_t*)config->cookie.data();
+    *out_len = config->cookie.size();
+    return ssl_cookie_verify_retry_request;
+  }
+
+  GetTestState(ssl)->cookie_verify_done = true;
+  return ssl_cookie_verify_success;
+}
+
 static unsigned PskClientCallback(SSL *ssl, const char *hint,
                                   char *out_identity,
                                   unsigned max_identity_len,
@@ -1207,6 +1246,10 @@ static bssl::UniquePtr<SSL_CTX> SetupCtx(SSL_CTX *old_ctx,
 
   if (!config->select_alpn.empty() || config->decline_alpn) {
     SSL_CTX_set_alpn_select_cb(ssl_ctx.get(), AlpnSelectCallback, NULL);
+  }
+
+  if (!config->cookie.empty()) {
+    SSL_CTX_set_cookie_verify_cb(ssl_ctx.get(), CookieVerifyCallback, NULL);
   }
 
   SSL_CTX_set_channel_id_cb(ssl_ctx.get(), ChannelIdCallback);

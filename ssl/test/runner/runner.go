@@ -12679,6 +12679,34 @@ func addTLS13HandshakeTests() {
 
 		testCases = append(testCases, testCase{
 			testType: serverTest,
+			name: "HelloRetryRequest-Cookie-Server-" + name,
+			config: Config{
+				MaxVersion: VersionTLS13,
+				MinVersion: VersionTLS13,
+			},
+			tls13Variant:       variant,
+			flags: []string{
+				"-cookie", base64.StdEncoding.EncodeToString([]byte{1,2,3,4}),
+			},
+		})
+
+		testCases = append(testCases, testCase{
+			testType: serverTest,
+			name: "HelloRetryRequest-Cookie-Curve-Server-" + name,
+			config: Config{
+				MaxVersion: VersionTLS13,
+				MinVersion: VersionTLS13,
+				// Require a HelloRetryRequest for every curve.
+				DefaultCurves: []CurveID{},
+			},
+			tls13Variant:       variant,
+			flags: []string{
+				"-cookie", base64.StdEncoding.EncodeToString([]byte{1,2,3,4}),
+			},
+		})
+
+		testCases = append(testCases, testCase{
+			testType: serverTest,
 			name:     "SecondClientHelloMissingKeyShare-" + name,
 			config: Config{
 				MaxVersion:    VersionTLS13,
@@ -12694,6 +12722,22 @@ func addTLS13HandshakeTests() {
 
 		testCases = append(testCases, testCase{
 			testType: serverTest,
+			name:     "SecondClientHelloMissingCookie-" + name,
+			config: Config{
+				MaxVersion:    VersionTLS13,
+				Bugs: ProtocolBugs{
+					SecondClientHelloMissingCookie: true,
+				},
+			},
+			tls13Variant:  variant,
+			flags: []string{
+				"-cookie", base64.StdEncoding.EncodeToString([]byte{1,2,3,4}),
+			},
+			shouldFail:    true,
+		})
+
+		testCases = append(testCases, testCase{
+			testType: serverTest,
 			name:     "SecondClientHelloWrongCurve-" + name,
 			config: Config{
 				MaxVersion:    VersionTLS13,
@@ -12705,6 +12749,23 @@ func addTLS13HandshakeTests() {
 			tls13Variant:  variant,
 			shouldFail:    true,
 			expectedError: ":WRONG_CURVE:",
+		})
+
+		testCases = append(testCases, testCase{
+			testType: serverTest,
+			name:     "SecondClientHelloWrongCookie-" + name,
+			config: Config{
+				MaxVersion: VersionTLS13,
+				Bugs: ProtocolBugs{
+					MisinterpretHelloRetryRequestCookie: []byte{4, 3, 2, 1},
+				},
+			},
+			tls13Variant:  variant,
+			flags: []string{
+				"-cookie", base64.StdEncoding.EncodeToString([]byte{1,2,3,4}),
+			},
+			shouldFail:    true,
+			expectedError: ":WRONG_COOKIE:",
 		})
 
 		testCases = append(testCases, testCase{

@@ -2660,6 +2660,16 @@ void SSL_CTX_set_dos_protection_cb(SSL_CTX *ctx,
   ctx->dos_protection_cb = cb;
 }
 
+void SSL_CTX_set_cookie_verify_cb(
+    SSL_CTX *ctx,
+    enum ssl_cookie_verify_result_t (*cb)(SSL *ssl,
+                                const uint8_t **out, size_t *out_len,
+                                const uint8_t *in, size_t in_len, void *arg),
+    void *arg) {
+  ctx->cookie_verify_cb = cb;
+  ctx->cookie_verify_cb_arg = arg;
+}
+
 void SSL_set_renegotiate_mode(SSL *ssl, enum ssl_renegotiate_mode_t mode) {
   ssl->renegotiate_mode = mode;
 

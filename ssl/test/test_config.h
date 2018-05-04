@@ -61,6 +61,7 @@ struct TestConfig {
   bool decline_alpn = false;
   std::string quic_transport_params;
   std::string expected_quic_transport_params;
+  std::string cookie;
   bool expect_session_miss = false;
   bool expect_extended_master_secret = false;
   std::string psk;

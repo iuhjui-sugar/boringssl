@@ -515,7 +515,11 @@ NextCipherSuite:
 		}
 
 		c.out.resetCipher()
-		if len(helloRetryRequest.cookie) > 0 {
+		if c.config.Bugs.SecondClientHelloMissingCookie {
+			hello.tls13Cookie = nil
+		} else if len(c.config.Bugs.MisinterpretHelloRetryRequestCookie) > 0 {
+			hello.tls13Cookie = c.config.Bugs.MisinterpretHelloRetryRequestCookie
+		} else if len(helloRetryRequest.cookie) > 0 {
 			hello.tls13Cookie = helloRetryRequest.cookie
 		}
 

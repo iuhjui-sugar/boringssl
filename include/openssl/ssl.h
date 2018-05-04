@@ -3471,6 +3471,40 @@ OPENSSL_EXPORT void SSL_CTX_set_select_certificate_cb(
 OPENSSL_EXPORT void SSL_CTX_set_dos_protection_cb(
     SSL_CTX *ctx, int (*cb)(const SSL_CLIENT_HELLO *));
 
+// ssl_cookie_verify_result_t enumerates the possible results from verifying a
+// TLS 1.3 cookie with |cookie_verify_cb|.
+enum ssl_cookie_verify_result_t {
+  // ssl_cookie_verify_success indicates that the cookie verification was
+  // successful.
+  ssl_cookie_verify_success,
+  // ssl_cookie_verify_retry_request indicates that the cookie verification
+  // was not successful and that an HelloRetryRequest message should be sent.
+  ssl_cookie_verify_retry_request,
+  // ssl_cookie_verify_error indicates that a fatal error occured and the
+  // handshake should be terminated.
+  ssl_cookie_verify_error,
+};
+
+// SSL_CTX_set_cookie_verify_cb sets a callback on |ctx| that is called during
+// ClientHello processing in order to verify a cookie sent by the client. The
+// callback is also called when the client doesn't send a cookie.
+//
+// The callback is passed the raw client cookie in |in| (which would be NULL
+// if the client doesn't send any cookie) of length |in_len|.
+//
+// It should then either accept the cookie (or lack thereof) by returning
+// |ssl_cookie_verify_success|, or reject it by setting |*out| and |*out_len|
+// to a valid cookie and returning |ssl_cookie_verify_retry_request|, which
+// will trigger an HelloRetryRequest containig the cookie specified in |*out|.
+//
+// See |ssl_cookie_verify_result_t| for details of the return values.
+OPENSSL_EXPORT void SSL_CTX_set_cookie_verify_cb(
+    SSL_CTX *ctx,
+    enum ssl_cookie_verify_result_t (*cb)(SSL *ssl,
+                                const uint8_t **out, size_t *out_len,
+                                const uint8_t *in, size_t in_len, void *arg),
+    void *arg);
+
 // SSL_ST_* are possible values for |SSL_state| and the bitmasks that make them
 // up.
 #define SSL_ST_CONNECT 0x1000
@@ -4745,6 +4779,7 @@ OPENSSL_EXPORT bool SSL_apply_handback(SSL *ssl, Span<const uint8_t> handback);
 #define SSL_R_NEGOTIATED_TB_WITHOUT_EMS_OR_RI 285
 #define SSL_R_SERVER_ECHOED_INVALID_SESSION_ID 286
 #define SSL_R_PRIVATE_KEY_OPERATION_FAILED 287
+#define SSL_R_WRONG_COOKIE 288
 #define SSL_R_SSLV3_ALERT_CLOSE_NOTIFY 1000
 #define SSL_R_SSLV3_ALERT_UNEXPECTED_MESSAGE 1010
 #define SSL_R_SSLV3_ALERT_BAD_RECORD_MAC 1020

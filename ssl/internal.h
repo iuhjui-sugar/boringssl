@@ -1585,6 +1585,11 @@ struct SSL_HANDSHAKE {
   // in progress.
   bool pending_private_key_op:1;
 
+  // got_supported_key_share is true if the client sent a supported key share,
+  // used to keep track of whether we need to send the key_share extension in
+  // HRR.
+  bool got_supported_key_share:1;
+
   // grease_seeded is true if |grease_seed| has been initialized.
   bool grease_seeded:1;
 
@@ -2181,6 +2186,11 @@ struct SSLContext {
   // format.
   uint8_t *alpn_client_proto_list;
   unsigned alpn_client_proto_list_len;
+
+  enum ssl_cookie_verify_result_t (*cookie_verify_cb)(SSL *ssl,
+                                const uint8_t **out, size_t *out_len,
+                                const uint8_t *in, size_t in_len, void *arg);
+  void *cookie_verify_cb_arg;
 
   // SRTP profiles we are willing to do from RFC 5764
   STACK_OF(SRTP_PROTECTION_PROFILE) *srtp_profiles;
