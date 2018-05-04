@@ -1261,10 +1261,19 @@ type ProtocolBugs struct {
 	// ECDHE secret instead.
 	SecondClientHelloMissingKeyShare bool
 
+	// SecondClientHelloMissingCookie, if true, causes the second TLS 1.3
+	// ClientHello to skip sending a cookie extension.
+	SecondClientHelloMissingCookie bool
+
 	// MisinterpretHelloRetryRequestCurve, if non-zero, causes the TLS 1.3
 	// client to pretend the server requested a HelloRetryRequest with the
 	// given curve rather than the actual one.
 	MisinterpretHelloRetryRequestCurve CurveID
+
+	// MisinterpretHelloRetryRequestCookie, if not empty, causes the TLS 1.3
+	// client to pretend the server requested a HelloRetryRequest with the
+	// given cookie rather than the actual one.
+	MisinterpretHelloRetryRequestCookie []byte
 
 	// DuplicateKeyShares, if true, causes the TLS 1.3 client to send two
 	// copies of each KeyShareEntry.

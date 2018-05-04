@@ -84,6 +84,10 @@ static const struct argument kArguments[] = {
         "The server will require a client certificate.",
     },
     {
+        "-cookie", kOptionalArgument,
+        "The server will check client cookie.",
+    },
+    {
         "", kOptionalArgument, "",
     },
 };
@@ -159,6 +163,26 @@ static void InfoCallback(const SSL *ssl, int type, int value) {
       fprintf(stderr, "Handshake progress: %s\n", SSL_state_string_long(ssl));
       break;
   }
+}
+
+static enum ssl_cookie_verify_result_t CookieVerifyCallback(SSL *ssl,
+                               const uint8_t **out, size_t *out_len,
+                               const uint8_t *in, size_t in_len, void *arg) {
+  char *cookie = (char *) arg;
+  size_t cookie_len = strlen(cookie);
+
+  if ((cookie_len != in_len) || (memcmp(in, cookie, in_len) != 0)) {
+    *out = (const uint8_t *) arg;
+    *out_len = cookie_len;
+
+    fprintf(stderr, "Bad Cookie, yuck!\n");
+
+    return ssl_cookie_verify_retry_request;
+  }
+
+  fprintf(stderr, "Good Cookie, yum!\n");
+
+  return ssl_cookie_verify_success;
 }
 
 static FILE *g_keylog_file = nullptr;
@@ -321,6 +345,11 @@ bool Server(const std::vector<std::string> &args) {
     SSL_CTX_set_cert_verify_callback(
         ctx.get(), [](X509_STORE_CTX *store, void *arg) -> int { return 1; },
         nullptr);
+  }
+
+  if (args_map.count("-cookie") != 0) {
+    SSL_CTX_set_cookie_verify_cb(ctx.get(), CookieVerifyCallback,
+                                 (void *) args_map["-cookie"].c_str());
   }
 
   Listener listener;

@@ -178,6 +178,7 @@ const Flag<std::string> kBase64Flags[] = {
   { "-quic-transport-params", &TestConfig::quic_transport_params },
   { "-expected-quic-transport-params",
     &TestConfig::expected_quic_transport_params },
+  { "-cookie", &TestConfig::cookie },
 };
 
 const Flag<int> kIntFlags[] = {

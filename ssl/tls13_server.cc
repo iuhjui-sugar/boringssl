@@ -59,9 +59,9 @@ enum server_hs_state_t {
 static const uint8_t kZeroes[EVP_MAX_MD_SIZE] = {0};
 
 static int resolve_ecdhe_secret(SSL_HANDSHAKE *hs, bool *out_need_retry,
+                                Array<uint8_t> *out_dhe_secret,
                                 SSL_CLIENT_HELLO *client_hello) {
   SSL *const ssl = hs->ssl;
-  *out_need_retry = false;
 
   // We only support connections that include an ECDHE key exchange.
   CBS key_share;
@@ -73,9 +73,8 @@ static int resolve_ecdhe_secret(SSL_HANDSHAKE *hs, bool *out_need_retry,
   }
 
   bool found_key_share;
-  Array<uint8_t> dhe_secret;
   uint8_t alert = SSL_AD_DECODE_ERROR;
-  if (!ssl_ext_key_share_parse_clienthello(hs, &found_key_share, &dhe_secret,
+  if (!ssl_ext_key_share_parse_clienthello(hs, &found_key_share, out_dhe_secret,
                                            &alert, &key_share)) {
     ssl_send_alert(ssl, SSL3_AL_FATAL, alert);
     return 0;
@@ -86,7 +85,85 @@ static int resolve_ecdhe_secret(SSL_HANDSHAKE *hs, bool *out_need_retry,
     return 0;
   }
 
-  return tls13_advance_key_schedule(hs, dhe_secret.data(), dhe_secret.size());
+  hs->got_supported_key_share = true;
+
+  return 1;
+}
+
+static int verify_cookie(SSL_HANDSHAKE *hs, bool *out_need_retry,
+                          SSL_CLIENT_HELLO *client_hello) {
+  SSL *const ssl = hs->ssl;
+
+  if (ssl->ctx->cookie_verify_cb == NULL) {
+    return 1;
+  }
+
+  CBS contents, cookie;
+  CBS_init(&cookie, NULL, 0);
+  // We call the callback whether the client sent a cookie or not.
+  if (ssl_client_hello_get_extension(client_hello, &contents,
+                                     TLSEXT_TYPE_cookie)) {
+    if (!CBS_get_u16_length_prefixed(&contents, &cookie)) {
+      return 0;
+    }
+  }
+
+  const uint8_t *cookie_out;
+  size_t cookie_out_len;
+  enum ssl_cookie_verify_result_t ret = ssl->ctx->cookie_verify_cb(
+          ssl, &cookie_out, &cookie_out_len, CBS_data(&cookie),
+          CBS_len(&cookie), ssl->ctx->cookie_verify_cb_arg);
+
+  if (ret == ssl_cookie_verify_success) {
+    return 1;
+  }
+
+  if (ret == ssl_cookie_verify_retry_request) {
+    if (cookie_out != nullptr && cookie_out_len > 0) {
+      if (hs->cookie.CopyFrom(MakeConstSpan(cookie_out, cookie_out_len))) {
+        *out_need_retry = true;
+      }
+    }
+  }
+
+  return 0;
+}
+
+static int ssl_ext_cookie_add_hello_retry_request(SSL_HANDSHAKE *hs, CBB *out) {
+  if (hs->cookie.empty()) {
+    return 1;
+  }
+
+  CBB contents, cookie;
+  if (!CBB_add_u16(out, TLSEXT_TYPE_cookie) ||
+      !CBB_add_u16_length_prefixed(out, &contents) ||
+      !CBB_add_u16_length_prefixed(&contents, &cookie) ||
+      !CBB_add_bytes(&cookie, hs->cookie.data(), hs->cookie.size()) ||
+      !CBB_flush(out)) {
+    return 0;
+  }
+
+  // The cookie is no longer needed in memory.
+  hs->cookie.Reset();
+  return 1;
+}
+
+static int ssl_ext_key_share_add_hello_retry_request(SSL_HANDSHAKE *hs,
+                                                      CBB *out) {
+  uint16_t group_id;
+
+  if (hs->got_supported_key_share) {
+    return 1;
+  }
+
+  if (!tls1_get_shared_group(hs, &group_id) ||
+      !CBB_add_u16(out, TLSEXT_TYPE_key_share) ||
+      !CBB_add_u16(out, 2 /* length */) ||
+      !CBB_add_u16(out, group_id)) {
+    return 0;
+  }
+
+  return 1;
 }
 
 static int ssl_ext_supported_versions_add_serverhello(SSL_HANDSHAKE *hs,
@@ -464,9 +541,14 @@ static enum ssl_hs_wait_t do_select_session(SSL_HANDSHAKE *hs) {
     ssl->s3->skip_early_data = true;
   }
 
-  // Resolve ECDHE and incorporate it into the secret.
-  bool need_retry;
-  if (!resolve_ecdhe_secret(hs, &need_retry, &client_hello)) {
+  bool need_retry = false;
+  Array<uint8_t> dhe_secret;
+  // Both functions need to be executed regardless of the result of the other
+  // one, this is to ensure we only send a single HRR if we get a key_share
+  // mismatch and invalid cookie in the same CH.
+  int ret1 = resolve_ecdhe_secret(hs, &need_retry, &dhe_secret, &client_hello);
+  int ret2 = verify_cookie(hs, &need_retry, &client_hello);
+  if (!ret1 || !ret2) {
     if (need_retry) {
       ssl->s3->early_data_accepted = false;
       ssl->s3->skip_early_data = true;
@@ -477,6 +559,10 @@ static enum ssl_hs_wait_t do_select_session(SSL_HANDSHAKE *hs) {
       hs->tls13_state = state_send_hello_retry_request;
       return ssl_hs_ok;
     }
+    return ssl_hs_error;
+  }
+
+  if (!tls13_advance_key_schedule(hs, dhe_secret.data(), dhe_secret.size())) {
     return ssl_hs_error;
   }
 
@@ -491,7 +577,6 @@ static enum ssl_hs_wait_t do_send_hello_retry_request(SSL_HANDSHAKE *hs) {
 
   ScopedCBB cbb;
   CBB body, session_id, extensions;
-  uint16_t group_id;
   if (!ssl->method->init_message(ssl, cbb.get(), &body, SSL3_MT_SERVER_HELLO) ||
       !CBB_add_u16(&body, TLS1_2_VERSION) ||
       !CBB_add_bytes(&body, kHelloRetryRequest, SSL3_RANDOM_SIZE) ||
@@ -499,14 +584,12 @@ static enum ssl_hs_wait_t do_send_hello_retry_request(SSL_HANDSHAKE *hs) {
       !CBB_add_bytes(&session_id, hs->session_id, hs->session_id_len) ||
       !CBB_add_u16(&body, ssl_cipher_get_value(hs->new_cipher)) ||
       !CBB_add_u8(&body, 0 /* no compression */) ||
-      !tls1_get_shared_group(hs, &group_id) ||
       !CBB_add_u16_length_prefixed(&body, &extensions) ||
       !CBB_add_u16(&extensions, TLSEXT_TYPE_supported_versions) ||
       !CBB_add_u16(&extensions, 2 /* length */) ||
       !CBB_add_u16(&extensions, ssl->version) ||
-      !CBB_add_u16(&extensions, TLSEXT_TYPE_key_share) ||
-      !CBB_add_u16(&extensions, 2 /* length */) ||
-      !CBB_add_u16(&extensions, group_id) ||
+      !ssl_ext_cookie_add_hello_retry_request(hs, &extensions) ||
+      !ssl_ext_key_share_add_hello_retry_request(hs, &extensions) ||
       !ssl_add_message_cbb(ssl, cbb.get())) {
     return ssl_hs_error;
   }
@@ -536,13 +619,27 @@ static enum ssl_hs_wait_t do_read_second_client_hello(SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
-  bool need_retry;
-  if (!resolve_ecdhe_secret(hs, &need_retry, &client_hello)) {
+  bool need_retry = false;
+  Array<uint8_t> dhe_secret;
+  if (!resolve_ecdhe_secret(hs, &need_retry, &dhe_secret, &client_hello)) {
     if (need_retry) {
       // Only send one HelloRetryRequest.
       ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);
       OPENSSL_PUT_ERROR(SSL, SSL_R_WRONG_CURVE);
     }
+    return ssl_hs_error;
+  }
+
+  if (!verify_cookie(hs, &need_retry, &client_hello)) {
+    if (need_retry) {
+      // Only send one HelloRetryRequest.
+      ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);
+      OPENSSL_PUT_ERROR(SSL, SSL_R_WRONG_COOKIE);
+    }
+    return ssl_hs_error;
+  }
+
+  if (!tls13_advance_key_schedule(hs, dhe_secret.data(), dhe_secret.size())) {
     return ssl_hs_error;
   }
 
