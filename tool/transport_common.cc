@@ -91,6 +91,26 @@ static void SplitHostPort(std::string *out_hostname, std::string *out_port,
   }
 }
 
+static std::string GetLastSocketErrorString() {
+#if defined(OPENSSL_WINDOWS)
+  int error = WSAGetLastError();
+  char *buffer;
+  DWORD len = FormatMessageA(
+      FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_ALLOCATE_BUFFER, 0, error, 0,
+      reinterpret_cast<char *>(&buffer), 0, nullptr);
+  if (len == 0) {
+    char buf[256];
+    snprintf(buf, sizeof(buf), "unknown error (0x%x)", error);
+    return buf;
+  }
+  std::string ret(buffer, len);
+  LocalFree(buffer);
+  return ret;
+#else
+  return strerror(errno);
+#endif
+}
+
 // Connect sets |*out_sock| to be a socket connected to the destination given
 // in |hostname_and_port|, which should be of the form "www.example.com:123".
 // It returns true on success and false otherwise.
@@ -145,7 +165,8 @@ bool Connect(int *out_sock, const std::string &hostname_and_port) {
   }
 
   if (connect(*out_sock, result->ai_addr, result->ai_addrlen) != 0) {
-    perror("connect");
+    std::string error = GetLastSocketErrorString();
+    fprintf(stderr, "connect: %s\n", error.c_str());
     goto out;
   }
   ok = true;
@@ -350,7 +371,7 @@ static bool SocketSelect(int sock, bool stdin_open, bool *socket_ready,
 #else
   WSAEVENT socket_handle = WSACreateEvent();
   if (socket_handle == WSA_INVALID_EVENT ||
-      WSAEventSelect(sock, socket_handle, FD_READ) != 0) {
+      WSAEventSelect(sock, socket_handle, FD_READ | FD_CLOSE) != 0) {
     WSACloseEvent(socket_handle);
     return false;
   }
@@ -379,11 +400,26 @@ static bool SocketSelect(int sock, bool stdin_open, bool *socket_ready,
 #endif
 }
 
-// PrintErrorCallback is a callback function from OpenSSL's
-// |ERR_print_errors_cb| that writes errors to a given |FILE*|.
-int PrintErrorCallback(const char *str, size_t len, void *ctx) {
-  fwrite(str, len, 1, reinterpret_cast<FILE*>(ctx));
-  return 1;
+void PrintSSLError(FILE *file, const char *msg, int ssl_err, int ret) {
+  switch (ssl_err) {
+    case SSL_ERROR_SSL:
+      fprintf(file, "%s: %s\n", msg, ERR_reason_error_string(ERR_peek_error()));
+      break;
+    case SSL_ERROR_SYSCALL:
+      if (ret == 0) {
+        fprintf(file, "%s: peer closed connection\n", msg);
+      } else {
+        std::string error = GetLastSocketErrorString();
+        fprintf(file, "%s: %s\n", msg, error.c_str());
+      }
+      break;
+    case SSL_ERROR_ZERO_RETURN:
+      fprintf(file, "%s: received close_notify\n", msg);
+      break;
+    default:
+      fprintf(file, "%s: unknown error type (%d)\n", msg, ssl_err);
+  }
+  ERR_print_errors_fp(file);
 }
 
 bool TransferData(SSL *ssl, int sock) {
@@ -427,17 +463,18 @@ bool TransferData(SSL *ssl, int sock) {
       }
 #endif
       int ssl_ret = SSL_write(ssl, buffer, n);
-      if (!SocketSetNonBlocking(sock, true)) {
-        return false;
-      }
-
       if (ssl_ret <= 0) {
         int ssl_err = SSL_get_error(ssl, ssl_ret);
-        fprintf(stderr, "Error while writing: %d\n", ssl_err);
-        ERR_print_errors_cb(PrintErrorCallback, stderr);
+        PrintSSLError(stderr, "Error while writing", ssl_err, ssl_ret);
         return false;
       } else if (ssl_ret != n) {
         fprintf(stderr, "Short write from SSL_write.\n");
+        return false;
+      }
+
+      // Note we handle errors before restoring the non-blocking state. On
+      // Windows, |SocketSetNonBlocking| internally clears the last error.
+      if (!SocketSetNonBlocking(sock, true)) {
         return false;
       }
     }
@@ -451,8 +488,7 @@ bool TransferData(SSL *ssl, int sock) {
         if (ssl_err == SSL_ERROR_WANT_READ) {
           continue;
         }
-        fprintf(stderr, "Error while reading: %d\n", ssl_err);
-        ERR_print_errors_cb(PrintErrorCallback, stderr);
+        PrintSSLError(stderr, "Error while reading", ssl_err, ssl_ret);
         return false;
       } else if (ssl_ret == 0) {
         return true;
