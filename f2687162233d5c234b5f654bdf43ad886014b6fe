@@ -16,6 +16,24 @@
       "revId": "f2687162233d5c234b5f654bdf43ad886014b6fe",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72eb4c5a_2dfbce33",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-05-05T02:18:01Z",
+      "side": 1,
+      "message": "Will do in a separate CL.  I\u0027d like to submit this now in order to submit the fuzzing stuff.  (This was the last crash.)",
+      "parentUuid": "708667ec_1e170b13",
+      "revId": "f2687162233d5c234b5f654bdf43ad886014b6fe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
