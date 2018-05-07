@@ -226,7 +226,7 @@ TEST(ErrTest, SaveAndRestore) {
 TEST(ErrTest, PreservesLastError) {
   SetLastError(ERROR_INVALID_FUNCTION);
   ERR_get_error();
-  EXPECT_EQ(ERROR_INVALID_FUNCTION, GetLastError());
+  EXPECT_EQ(static_cast<DWORD>(ERROR_INVALID_FUNCTION), GetLastError());
 }
 #else
 TEST(ErrTest, PreservesErrno) {
