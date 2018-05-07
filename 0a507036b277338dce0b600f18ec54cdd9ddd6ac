@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c3df3a49_ac5761fa",
+        "filename": "crypto/fipsmodule/aes/aes.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-05-07T18:15:46Z",
+      "side": 1,
+      "message": "Yep, thanks.",
+      "parentUuid": "71fdc393_f7a67de9",
+      "range": {
+        "startLine": 814,
+        "startChar": 34,
+        "endLine": 814,
+        "endChar": 43
+      },
+      "revId": "0a507036b277338dce0b600f18ec54cdd9ddd6ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "909329e8_6919c2a3",
         "filename": "crypto/fipsmodule/aes/aes.c",
         "patchSetId": 1
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "765828d8_04602ada",
+        "filename": "crypto/fipsmodule/aes/aes.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 820,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-05-07T18:15:46Z",
+      "side": 1,
+      "message": "\u003e This doesn\u0027t kick in aes_hw_* for AArch64 though.\n\nMy thought for AArch64 was that asm_AES_encrypt should be called aes_nohw_encrypt (and so on), and then the C functions can have the same name on platforms, like AArch64, where we don\u0027t have an assembly version.\n\nThis change got large enough to want to defer that though.",
+      "parentUuid": "909329e8_6919c2a3",
+      "revId": "0a507036b277338dce0b600f18ec54cdd9ddd6ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6754a6a7_05145133",
         "filename": "crypto/fipsmodule/aes/asm/aesni-x86_64.pl",
         "patchSetId": 1
@@ -53,6 +95,24 @@
       "writtenOn": "2018-05-04T17:47:14Z",
       "side": 1,
       "message": "This is such a fantastically useful line of code... :-)",
+      "revId": "0a507036b277338dce0b600f18ec54cdd9ddd6ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1c798b0d_eed39f40",
+        "filename": "crypto/fipsmodule/aes/asm/aesni-x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-05-07T18:15:46Z",
+      "side": 1,
+      "message": "Yep!",
+      "parentUuid": "6754a6a7_05145133",
       "revId": "0a507036b277338dce0b600f18ec54cdd9ddd6ac",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -76,6 +136,24 @@
     },
     {
       "key": {
+        "uuid": "e69f1112_d86d0b34",
+        "filename": "crypto/fipsmodule/aes/mode_wrappers.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-05-07T18:15:46Z",
+      "side": 1,
+      "message": "Yep, sorry. This was a hack that I forget to come back to and address.\n\nI think this is also suitable for a follow-up change because CRYPTO_cbc128_* functions are fallbacks that are mooted by aes_AES_cbc when we have it, but EVP will call them directly. Also, we have bsaes_cbc_encrypt which is preferable to asm_AES whenever we have SSSE3, which is very common.",
+      "parentUuid": "23e7a5da_6964879a",
+      "revId": "0a507036b277338dce0b600f18ec54cdd9ddd6ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0d488183_3a52659c",
         "filename": "crypto/fipsmodule/cipher/e_aes.c",
         "patchSetId": 1
@@ -90,6 +168,24 @@
       "revId": "0a507036b277338dce0b600f18ec54cdd9ddd6ac",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d9a6767_57f5736b",
+        "filename": "crypto/fipsmodule/cipher/e_aes.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 770,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-05-07T18:15:46Z",
+      "side": 1,
+      "message": "Yep, this certainly looks like a candidate for removal.",
+      "parentUuid": "0d488183_3a52659c",
+      "revId": "0a507036b277338dce0b600f18ec54cdd9ddd6ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
