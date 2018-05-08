@@ -22,6 +22,30 @@
       "revId": "871b73b52bd0f37aa89c2b5294f25bc647344889",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c203b79a_076855c4",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1777,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-08T22:44:54Z",
+      "side": 1,
+      "message": "Nah, I just think that SHA-256 is too small and we\u0027ve got to go bigger. :-)",
+      "parentUuid": "c9dbb3b4_223ae112",
+      "range": {
+        "startLine": 1777,
+        "startChar": 31,
+        "endLine": 1777,
+        "endChar": 32
+      },
+      "revId": "871b73b52bd0f37aa89c2b5294f25bc647344889",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
