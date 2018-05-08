@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c9dbb3b4_223ae112",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1777,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-05-08T22:22:04Z",
+      "side": 1,
+      "message": "typo.",
+      "range": {
+        "startLine": 1777,
+        "startChar": 31,
+        "endLine": 1777,
+        "endChar": 32
+      },
+      "revId": "871b73b52bd0f37aa89c2b5294f25bc647344889",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
