@@ -154,6 +154,24 @@
     },
     {
       "key": {
+        "uuid": "ec6d0aa6_adcce832",
+        "filename": "crypto/fipsmodule/aes/mode_wrappers.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-10T19:16:03Z",
+      "side": 1,
+      "message": "Yeah, it\u0027d be nice to have a more coherent story for AES_* and EVP_CIPHER_*. Given we keep getting random requests for AES_* to be accelerated, probably the dispatch should be shared between the two somehow.",
+      "parentUuid": "e69f1112_d86d0b34",
+      "revId": "0a507036b277338dce0b600f18ec54cdd9ddd6ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0d488183_3a52659c",
         "filename": "crypto/fipsmodule/cipher/e_aes.c",
         "patchSetId": 1
