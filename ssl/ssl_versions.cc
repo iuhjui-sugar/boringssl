@@ -309,6 +309,12 @@ bool ssl_supports_version(SSL_HANDSHAKE *hs, uint16_t version) {
     return true;
   }
 
+  // The server, when not configured at |tls13_default|, should additionally
+  // enable all TLS 1.3 variants.
+  if (ssl->server && ssl->tls13_variant != tls13_default) {
+    return true;
+  }
+
   return false;
 }
 

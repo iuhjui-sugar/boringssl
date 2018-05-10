@@ -5394,12 +5394,16 @@ func addVersionNegotiationTests() {
 					expectedVersion = runnerVers.version
 				}
 				// When running and shim have different TLS 1.3 variants enabled,
-				// shim peers are expected to fall back to TLS 1.2.
-				if expectedVersion == VersionTLS13 && runnerVers.tls13Variant != shimVers.tls13Variant {
-					expectedVersion = VersionTLS12
-				}
-				expectedClientVersion := expectedVersion
+				// shim clients are expected to fall back to TLS 1.2, while shim
+				// servers support multiple variants.
 				expectedServerVersion := expectedVersion
+				expectedClientVersion := expectedVersion
+				if expectedVersion == VersionTLS13 && runnerVers.tls13Variant != shimVers.tls13Variant {
+					expectedClientVersion = VersionTLS12
+					if shimVers.tls13Variant == TLS13Draft23 {
+						expectedServerVersion = VersionTLS12
+					}
+				}
 
 				suffix := shimVers.name + "-" + runnerVers.name
 				if protocol == dtls {
