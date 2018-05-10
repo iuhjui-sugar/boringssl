@@ -1376,6 +1376,13 @@ var tlsVersions = []tlsVersion{
 		versionDTLS: VersionDTLS12,
 	},
 	{
+		name:         "TLS13Default",
+		version:      VersionTLS13,
+		excludeFlag:  "-no-tls13",
+		versionWire:  tls13Draft23Version,
+		tls13Variant: TLS13Default,
+	},
+	{
 		name:         "TLS13Draft23",
 		version:      VersionTLS13,
 		excludeFlag:  "-no-tls13",
@@ -5393,13 +5400,17 @@ func addVersionNegotiationTests() {
 				if runnerVers.version < shimVers.version {
 					expectedVersion = runnerVers.version
 				}
-				// When running and shim have different TLS 1.3 variants enabled,
-				// shim peers are expected to fall back to TLS 1.2.
-				if expectedVersion == VersionTLS13 && runnerVers.tls13Variant != shimVers.tls13Variant {
-					expectedVersion = VersionTLS12
-				}
-				expectedClientVersion := expectedVersion
+
 				expectedServerVersion := expectedVersion
+				expectedClientVersion := expectedVersion
+				// If the TLS 1.3 versions don't match, downgrade to TLS 1.2.
+				if expectedVersion == VersionTLS13 && shimVers.versionWire != runnerVers.versionWire {
+					expectedClientVersion = VersionTLS12
+					// By default, the server enables all variants.
+					if shimVers.tls13Variant != TLS13Default {
+						expectedServerVersion = VersionTLS12
+					}
+				}
 
 				suffix := shimVers.name + "-" + runnerVers.name
 				if protocol == dtls {

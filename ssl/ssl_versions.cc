@@ -304,9 +304,19 @@ bool ssl_supports_version(SSL_HANDSHAKE *hs, uint16_t version) {
   if (protocol_version != TLS1_3_VERSION ||
       (ssl->tls13_variant == tls13_draft28 &&
        version == TLS1_3_DRAFT28_VERSION) ||
-      (ssl->tls13_variant == tls13_default &&
+      (ssl->tls13_variant == tls13_draft23 &&
        version == TLS1_3_DRAFT23_VERSION)) {
     return true;
+  }
+
+  if (ssl->tls13_variant == tls13_default) {
+    // When configured at |tls13_default|, the client should enable our
+    // default variant (draft23) and the server should enable all variants.
+    if (ssl->server) {
+      return true;
+    } else if (version == TLS1_3_DRAFT23_VERSION) {
+      return true;
+    }
   }
 
   return false;
