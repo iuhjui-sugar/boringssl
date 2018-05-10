@@ -301,15 +301,19 @@ bool ssl_supports_version(SSL_HANDSHAKE *hs, uint16_t version) {
 
   // This logic is part of the TLS 1.3 variants mechanism used in TLS 1.3
   // experimentation. TLS 1.3 variants must match the enabled |tls13_variant|.
-  if (protocol_version != TLS1_3_VERSION ||
-      (ssl->tls13_variant == tls13_draft28 &&
-       version == TLS1_3_DRAFT28_VERSION) ||
-      (ssl->tls13_variant == tls13_default &&
-       version == TLS1_3_DRAFT23_VERSION)) {
-    return true;
+  // When configured at |tls13_default|, we enable all variants.
+  if (protocol_version == TLS1_3_VERSION) {
+    switch (ssl->tls13_variant) {
+      case tls13_draft23:
+        return version == TLS1_3_DRAFT23_VERSION;
+      case tls13_draft28:
+        return version == TLS1_3_DRAFT28_VERSION;
+      case tls13_default:
+        return true;
+    }
   }
 
-  return false;
+  return true;
 }
 
 bool ssl_add_supported_versions(SSL_HANDSHAKE *hs, CBB *cbb) {
