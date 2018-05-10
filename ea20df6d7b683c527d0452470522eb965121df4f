@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2e389d5b_717c9d85",
+        "filename": "ssl/ssl_versions.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-10T15:42:28Z",
+      "side": 1,
+      "message": "This means we\u0027ll need to go tweak some code on the server which previously got kind of confusing. WDYT about:\n\nenum {\n  tls13_default \u003d 0,\n  tls13_draft23,\n  tls13_draft28,\n};\n\ntls13_draft* means that version and only that version.\ntls13_default + client \u003d\u003e tls13_draft23 (for now, though we\u0027ll flip that soon enough)\ntls13_default + server \u003d\u003e {tls13_draft23, tls13_draft28}",
+      "revId": "ea20df6d7b683c527d0452470522eb965121df4f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
