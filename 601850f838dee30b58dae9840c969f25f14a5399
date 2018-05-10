@@ -1,0 +1,158 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "820dc5ea_c78bf1d9",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 4448,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-10T23:39:24Z",
+      "side": 1,
+      "message": "I suspect Cloudflare will want these functions accessible to C.",
+      "revId": "601850f838dee30b58dae9840c969f25f14a5399",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a157648_c01c9061",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 4458,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-10T23:39:24Z",
+      "side": 1,
+      "message": "dependencies",
+      "range": {
+        "startLine": 4458,
+        "startChar": 30,
+        "endLine": 4458,
+        "endChar": 42
+      },
+      "revId": "601850f838dee30b58dae9840c969f25f14a5399",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2045addc_fd391440",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 4462,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-10T23:39:24Z",
+      "side": 1,
+      "message": "A thought, but probably for a follow-up: so that we don\u0027t have everyone implementing the same glue code (zlib\u0027s API, in particular, is gnarly), it might make sense to provide openssl/ssl_zlib.h and openssl/ssl_brotli.h as header-only libraries #include \u003czlib.h\u003e, etc., and provide static inline wrappers over the registration function.\n\nThat way we get the best of both worlds. We don\u0027t actually depend on zlib and brotli, but if you have them, using them doesn\u0027t take any effort on your part.",
+      "revId": "601850f838dee30b58dae9840c969f25f14a5399",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "84fde585_1f6f441a",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 4469,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-10T23:39:24Z",
+      "side": 1,
+      "message": "Do we gain much from putting it in a CRYPTO_BUFFER? It\u0027s not the certificate itself, but a serialized Certificate message. Apart from caching, it\u0027s not going to be retained much in any long-lived form. Even then, BoringSSL\u0027s not retaining a copy. And we\u0027re copying in the cached case anyway.\n\nWhat about giving the caller a CBB? It\u0027s going into one anyway.",
+      "range": {
+        "startLine": 4469,
+        "startChar": 43,
+        "endLine": 4469,
+        "endChar": 73
+      },
+      "revId": "601850f838dee30b58dae9840c969f25f14a5399",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f7a5a5b_24332867",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 4481,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-10T23:39:24Z",
+      "side": 1,
+      "message": "Chrome just runs Brotli and gzip on the IO thread directly. Do we particularly need these to be asynchronous? (I take it from CertCompressFunc you don\u0027t think the server needs an asynchronous compression function.)",
+      "revId": "601850f838dee30b58dae9840c969f25f14a5399",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa6ec70e_677a9db5",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 4491,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-10T23:39:24Z",
+      "side": 1,
+      "message": "Might be worth explicitly noting that we already give you the output size and you should use it to both bound your memory and reject on mismatch.",
+      "revId": "601850f838dee30b58dae9840c969f25f14a5399",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3788c4a6_2d72a7ff",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 4493,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-10T23:39:24Z",
+      "side": 1,
+      "message": "Ditto about CRYPTO_BUFFER. Actually, we could just give the caller a uint8_t*, since we know the length. Or if C++, a Span\u003cuint8_t\u003e.",
+      "range": {
+        "startLine": 4493,
+        "startChar": 14,
+        "endLine": 4493,
+        "endChar": 44
+      },
+      "revId": "601850f838dee30b58dae9840c969f25f14a5399",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4f07feb_22177403",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 4501,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-10T23:39:24Z",
+      "side": 1,
+      "message": "No particular preferences on one function vs. two functions, but if one function, explicitly allow one or the other to be NULL for asymmetric preferences. Size-conscious clients will probably want to only include code for decompression. (Notably Cronet right now pulls in only the decompression half of Brotli.)",
+      "revId": "601850f838dee30b58dae9840c969f25f14a5399",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
