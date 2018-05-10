@@ -16,6 +16,24 @@
       "revId": "ea20df6d7b683c527d0452470522eb965121df4f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9671630c_c268db1f",
+        "filename": "ssl/ssl_versions.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-05-10T17:15:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e389d5b_717c9d85",
+      "revId": "ea20df6d7b683c527d0452470522eb965121df4f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
