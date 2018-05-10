@@ -1376,6 +1376,13 @@ var tlsVersions = []tlsVersion{
 		versionDTLS: VersionDTLS12,
 	},
 	{
+		name:         "TLS13Default",
+		version:      VersionTLS13,
+		excludeFlag:  "-no-tls13",
+		versionWire:  tls13Draft23Version,
+		tls13Variant: TLS13Default,
+	},
+	{
 		name:         "TLS13Draft23",
 		version:      VersionTLS13,
 		excludeFlag:  "-no-tls13",
@@ -5393,13 +5400,12 @@ func addVersionNegotiationTests() {
 				if runnerVers.version < shimVers.version {
 					expectedVersion = runnerVers.version
 				}
-				// When running and shim have different TLS 1.3 variants enabled,
-				// shim peers are expected to fall back to TLS 1.2.
+
 				if expectedVersion == VersionTLS13 && runnerVers.tls13Variant != shimVers.tls13Variant {
-					expectedVersion = VersionTLS12
+					if shimVers.tls13Variant != TLS13Default && runnerVers.tls13Variant != TLS13Default {
+						expectedVersion = VersionTLS12
+					}
 				}
-				expectedClientVersion := expectedVersion
-				expectedServerVersion := expectedVersion
 
 				suffix := shimVers.name + "-" + runnerVers.name
 				if protocol == dtls {
@@ -5412,8 +5418,8 @@ func addVersionNegotiationTests() {
 					clientVers = VersionTLS10
 				}
 				clientVers = recordVersionToWire(clientVers, protocol)
-				serverVers := expectedServerVersion
-				if expectedServerVersion >= VersionTLS13 {
+				serverVers := expectedVersion
+				if expectedVersion >= VersionTLS13 {
 					serverVers = VersionTLS12
 				}
 				serverVers = recordVersionToWire(serverVers, protocol)
@@ -5430,7 +5436,7 @@ func addVersionNegotiationTests() {
 						},
 					},
 					flags:           flags,
-					expectedVersion: expectedClientVersion,
+					expectedVersion: expectedVersion,
 				})
 				testCases = append(testCases, testCase{
 					protocol: protocol,
@@ -5444,7 +5450,7 @@ func addVersionNegotiationTests() {
 						},
 					},
 					flags:           flags2,
-					expectedVersion: expectedClientVersion,
+					expectedVersion: expectedVersion,
 				})
 
 				testCases = append(testCases, testCase{
@@ -5459,7 +5465,7 @@ func addVersionNegotiationTests() {
 						},
 					},
 					flags:           flags,
-					expectedVersion: expectedServerVersion,
+					expectedVersion: expectedVersion,
 				})
 				testCases = append(testCases, testCase{
 					protocol: protocol,
@@ -5473,7 +5479,7 @@ func addVersionNegotiationTests() {
 						},
 					},
 					flags:           flags2,
-					expectedVersion: expectedServerVersion,
+					expectedVersion: expectedVersion,
 				})
 			}
 		}
