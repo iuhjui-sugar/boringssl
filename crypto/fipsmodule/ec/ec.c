@@ -914,7 +914,11 @@ int ec_point_mul_scalar(const EC_GROUP *group, EC_POINT *r,
 void EC_GROUP_set_asn1_flag(EC_GROUP *group, int flag) {}
 
 const EC_METHOD *EC_GROUP_method_of(const EC_GROUP *group) {
-  return NULL;
+  // This is not a real |EC_METHOD|. It is exposed in the public API purely to
+  // give callers a way to call |EC_METHOD_get_field_type|. cryptography.io
+  // crashes if this function returns NULL.
+  static const EC_METHOD kDummyMethod = {0};
+  return &kDummyMethod;
 }
 
 int EC_METHOD_get_field_type(const EC_METHOD *meth) {
