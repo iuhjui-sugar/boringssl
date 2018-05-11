@@ -16,6 +16,24 @@
       "revId": "1ff6c5699f5c8731f6daa619ca1ffa656bfda1fa",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1b2ce0a_af983df2",
+        "filename": "crypto/pkcs8/pkcs8_x509.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 744,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-11T21:42:03Z",
+      "side": 1,
+      "message": "Erp. Yeah, you\u0027re right, that\u0027s totally wrong. Done and added a test in the next CL.",
+      "parentUuid": "f779efd3_604ba082",
+      "revId": "1ff6c5699f5c8731f6daa619ca1ffa656bfda1fa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
