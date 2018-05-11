@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "67236363_1d1727dd",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 4194,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-05-11T21:44:24Z",
+      "side": 1,
+      "message": "s/.//",
+      "range": {
+        "startLine": 4194,
+        "startChar": 79,
+        "endLine": 4194,
+        "endChar": 80
+      },
+      "revId": "a050a2a72e769746bf89b9175ea82faad0b358f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73dacc15_d11b03d0",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 4201,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-05-11T21:44:24Z",
+      "side": 1,
+      "message": "…which must have been allocated with |OPENSSL_malloc|\" (presumably).",
+      "range": {
+        "startLine": 4201,
+        "startChar": 73,
+        "endLine": 4201,
+        "endChar": 74
+      },
+      "revId": "a050a2a72e769746bf89b9175ea82faad0b358f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e50bdc7_b34ca4b5",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2877,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-05-11T21:44:24Z",
+      "side": 1,
+      "message": "!ssl-\u003econfig",
+      "range": {
+        "startLine": 2877,
+        "startChar": 5,
+        "endLine": 2877,
+        "endChar": 9
+      },
+      "revId": "a050a2a72e769746bf89b9175ea82faad0b358f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
