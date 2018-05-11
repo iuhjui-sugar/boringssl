@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f779efd3_604ba082",
+        "filename": "crypto/pkcs8/pkcs8_x509.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 744,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-05-11T20:54:44Z",
+      "side": 1,
+      "message": "|written| isn\u0027t mentioned here, and aren\u0027t the branches switched?. Maybe\n\nsize_t todo \u003d p12-\u003eber_len - written;\nint len \u003d todo \u003e INT_MAX ? INT_MAX : (int)todo;",
+      "revId": "1ff6c5699f5c8731f6daa619ca1ffa656bfda1fa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
