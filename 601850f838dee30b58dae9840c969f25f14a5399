@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e9bf7518_4c391144",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 4448,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-05-11T22:29:32Z",
+      "side": 1,
+      "message": "They can wrap them in C++, exposing extern \"C\" functions for now. In the future, OpenSSL will probably come up with a C-API, which we\u0027ll want to mirror, and we can switch.",
+      "parentUuid": "820dc5ea_c78bf1d9",
+      "revId": "601850f838dee30b58dae9840c969f25f14a5399",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a157648_c01c9061",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 4
@@ -39,6 +57,30 @@
       "revId": "601850f838dee30b58dae9840c969f25f14a5399",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44abfe3c_df5d188a",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 4458,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-05-11T22:29:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a157648_c01c9061",
+      "range": {
+        "startLine": 4458,
+        "startChar": 30,
+        "endLine": 4458,
+        "endChar": 42
+      },
+      "revId": "601850f838dee30b58dae9840c969f25f14a5399",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -82,6 +124,30 @@
     },
     {
       "key": {
+        "uuid": "25cd86ec_8578f677",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 4469,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-05-11T22:29:32Z",
+      "side": 1,
+      "message": "CBB makes sense. Done.",
+      "parentUuid": "84fde585_1f6f441a",
+      "range": {
+        "startLine": 4469,
+        "startChar": 43,
+        "endLine": 4469,
+        "endChar": 73
+      },
+      "revId": "601850f838dee30b58dae9840c969f25f14a5399",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f7a5a5b_24332867",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 4
@@ -99,6 +165,24 @@
     },
     {
       "key": {
+        "uuid": "97626277_9a5ca52c",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 4481,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-05-11T22:29:32Z",
+      "side": 1,
+      "message": "Seems like we don\u0027t care to run decompression in a sandbox at the moment, so not bothering with this.",
+      "parentUuid": "9f7a5a5b_24332867",
+      "revId": "601850f838dee30b58dae9840c969f25f14a5399",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aa6ec70e_677a9db5",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 4
@@ -113,6 +197,24 @@
       "revId": "601850f838dee30b58dae9840c969f25f14a5399",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a24f56d7_b00bc416",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 4491,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-05-11T22:29:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa6ec70e_677a9db5",
+      "revId": "601850f838dee30b58dae9840c969f25f14a5399",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -139,6 +241,30 @@
     },
     {
       "key": {
+        "uuid": "801c44f2_0a03fc40",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 4493,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-05-11T22:29:32Z",
+      "side": 1,
+      "message": "My thought here was that the result might be coming out of a cache, in which case it would be nice to take a reference to the cache entry rather than copy it into a temp buffer. I suspect that a single-entry cache might be quite effective since not everyone does HTTP/2 and we make several connections in the HTTP/1 case.",
+      "parentUuid": "3788c4a6_2d72a7ff",
+      "range": {
+        "startLine": 4493,
+        "startChar": 14,
+        "endLine": 4493,
+        "endChar": 44
+      },
+      "revId": "601850f838dee30b58dae9840c969f25f14a5399",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b4f07feb_22177403",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 4
@@ -153,6 +279,24 @@
       "revId": "601850f838dee30b58dae9840c969f25f14a5399",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf203b81_e99a131e",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 4501,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-05-11T22:29:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4f07feb_22177403",
+      "revId": "601850f838dee30b58dae9840c969f25f14a5399",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
