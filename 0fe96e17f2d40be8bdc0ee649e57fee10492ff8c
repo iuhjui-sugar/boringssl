@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7586aa5c_d4852095",
+        "filename": "crypto/pkcs8/pkcs8_x509.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 1027,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-05-11T21:26:03Z",
+      "side": 1,
+      "message": "s/\u003d\u003d -1/\u003c 0/ for these to catch any crazy -2 or -3 values that OpenSSL might add in the future? (And |mac_iterations|, just below.)",
+      "range": {
+        "startLine": 1027,
+        "startChar": 14,
+        "endLine": 1027,
+        "endChar": 16
+      },
+      "revId": "0fe96e17f2d40be8bdc0ee649e57fee10492ff8c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61cb9998_e184b6ac",
+        "filename": "crypto/pkcs8/pkcs8_x509.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 1059,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-05-11T21:26:03Z",
+      "side": 1,
+      "message": "These values are used until much later. Move them down there? (Except |mac_key| because it\u0027s mentioned at err:)",
+      "revId": "0fe96e17f2d40be8bdc0ee649e57fee10492ff8c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
