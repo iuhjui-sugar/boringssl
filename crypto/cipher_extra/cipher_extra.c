@@ -67,48 +67,39 @@
 #include "../internal.h"
 
 
+static const struct {
+  int nid;
+  const EVP_CIPHER *(*cipher_func)(void);
+  const char *short_name;
+  const char *long_name;
+} kCiphers[] = {
+    {NID_rc2_cbc, EVP_rc2_cbc, SN_rc2_cbc, LN_rc2_cbc},
+    {NID_rc2_40_cbc, EVP_rc2_40_cbc, SN_rc2_40_cbc, LN_rc2_40_cbc},
+    {NID_des_ede_cbc, EVP_des_cbc, SN_des_ede_cbc, LN_des_ede_cbc},
+    {NID_des_ede3_cbc, EVP_des_ede3_cbc, SN_des_ede3_cbc, LN_des_ede3_cbc},
+    {NID_aes_128_cbc, EVP_aes_128_cbc, SN_aes_128_cbc, LN_aes_128_cbc},
+    {NID_aes_192_cbc, EVP_aes_192_cbc, SN_aes_192_cbc, LN_aes_192_cbc},
+    {NID_aes_256_cbc, EVP_aes_256_cbc, SN_aes_256_cbc, LN_aes_256_cbc},
+    {NID_aes_128_gcm, EVP_aes_128_gcm, SN_aes_128_gcm, LN_aes_128_gcm},
+    {NID_aes_192_gcm, EVP_aes_192_gcm, SN_aes_192_gcm, LN_aes_192_gcm},
+    {NID_aes_256_gcm, EVP_aes_256_gcm, SN_aes_256_gcm, LN_aes_256_gcm},
+};
+
 const EVP_CIPHER *EVP_get_cipherbynid(int nid) {
-  switch (nid) {
-    case NID_rc2_cbc:
-      return EVP_rc2_cbc();
-    case NID_rc2_40_cbc:
-      return EVP_rc2_40_cbc();
-    case NID_des_ede3_cbc:
-      return EVP_des_ede3_cbc();
-    case NID_des_ede_cbc:
-      return EVP_des_cbc();
-    case NID_aes_128_cbc:
-      return EVP_aes_128_cbc();
-    case NID_aes_192_cbc:
-      return EVP_aes_192_cbc();
-    case NID_aes_256_cbc:
-      return EVP_aes_256_cbc();
-    default:
-      return NULL;
+  for (size_t i = 0; i < OPENSSL_ARRAY_SIZE(kCiphers); i++) {
+    if (kCiphers[i].nid == nid) {
+      return kCiphers[i].cipher_func();
+    }
   }
+  return NULL;
 }
 
 const EVP_CIPHER *EVP_get_cipherbyname(const char *name) {
-  if (OPENSSL_strcasecmp(name, "rc4") == 0) {
-    return EVP_rc4();
-  } else if (OPENSSL_strcasecmp(name, "des-cbc") == 0) {
-    return EVP_des_cbc();
-  } else if (OPENSSL_strcasecmp(name, "des-ede3-cbc") == 0 ||
-             OPENSSL_strcasecmp(name, "3des") == 0) {
-    return EVP_des_ede3_cbc();
-  } else if (OPENSSL_strcasecmp(name, "aes-128-cbc") == 0) {
-    return EVP_aes_128_cbc();
-  } else if (OPENSSL_strcasecmp(name, "aes-256-cbc") == 0) {
-    return EVP_aes_256_cbc();
-  } else if (OPENSSL_strcasecmp(name, "aes-128-ctr") == 0) {
-    return EVP_aes_128_ctr();
-  } else if (OPENSSL_strcasecmp(name, "aes-256-ctr") == 0) {
-    return EVP_aes_256_ctr();
-  } else if (OPENSSL_strcasecmp(name, "aes-128-ecb") == 0) {
-    return EVP_aes_128_ecb();
-  } else if (OPENSSL_strcasecmp(name, "aes-256-ecb") == 0) {
-    return EVP_aes_256_ecb();
+  for (size_t i = 0; i < OPENSSL_ARRAY_SIZE(kCiphers); i++) {
+    if (strcmp(name, kCiphers[i].short_name) == 0 ||
+        strcmp(name, kCiphers[i].long_name) == 0) {
+      return kCiphers[i].cipher_func();
+    }
   }
-
   return NULL;
 }
