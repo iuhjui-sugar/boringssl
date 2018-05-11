@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ca15c48_4ee71bda",
+        "filename": "crypto/bytestring/unicode.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-05-11T20:42:42Z",
+      "side": 1,
+      "message": "nit: these two cases could be:\n\n(v \u0026 0xfffe) \u003d\u003d 0xfffe",
+      "revId": "bccce997ad901cb3da163b4c345ad1eab31d9bbb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
