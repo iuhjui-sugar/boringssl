@@ -104,15 +104,9 @@ typedef struct {
 static char vpaes_capable(void) {
   return (OPENSSL_ia32cap_P[1] & (1 << (41 - 32))) != 0;
 }
-
-#if defined(OPENSSL_X86_64)
-#define BSAES
-static char bsaes_capable(void) {
-  return vpaes_capable();
-}
 #endif
 
-#elif !defined(OPENSSL_NO_ASM) && \
+#if !defined(OPENSSL_NO_ASM) && \
     (defined(OPENSSL_ARM) || defined(OPENSSL_AARCH64))
 
 #if defined(OPENSSL_ARM) && __ARM_MAX_ARCH__ >= 7
