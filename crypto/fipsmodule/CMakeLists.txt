@@ -7,7 +7,6 @@ if(${ARCH} STREQUAL "x86_64")
     aesni-gcm-x86_64.${ASM_EXT}
     aesni-x86_64.${ASM_EXT}
     aes-x86_64.${ASM_EXT}
-    bsaes-x86_64.${ASM_EXT}
     ghash-x86_64.${ASM_EXT}
     md5-x86_64.${ASM_EXT}
     p256-x86_64-asm.${ASM_EXT}
