@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f658045f_2e8756ad",
+        "filename": "crypto/cipher_extra/cipher_extra.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-05-14T20:54:24Z",
+      "side": 1,
+      "message": "strcasecmp and drop the SN_ values?\n\n(Some of the SN values are odd, like: #define SN_aes_128_gcm \"id-aes128-GCM\". The non-odd ones are just the uppercase of the LN_* values.)",
+      "revId": "c5c7591f22ec863049e0a5b32edb9f0de6667dc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cab411b9_52c521bc",
+        "filename": "crypto/fipsmodule/ec/ec.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 920,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-05-14T20:54:24Z",
+      "side": 1,
+      "message": "\u003d { 0 }?\n\n(I think typical systems will zero-initialize statics anyway, but I\u0027m not sure what the spec says about it.)",
+      "revId": "c5c7591f22ec863049e0a5b32edb9f0de6667dc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}

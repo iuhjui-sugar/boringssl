@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e7c3f4f0_a22b5401",
+        "filename": "crypto/cipher_extra/cipher_extra.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-05-14T20:54:24Z",
+      "side": 0,
+      "message": "\"rc4\" is missing.",
+      "revId": "69271b5d4fed328eb61b86b013937ce22549fee5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd8628bc_dbac0cfa",
+        "filename": "crypto/cipher_extra/cipher_extra.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-05-14T20:54:24Z",
+      "side": 0,
+      "message": "\"3des\" is missing.",
+      "range": {
+        "startLine": 97,
+        "startChar": 39,
+        "endLine": 97,
+        "endChar": 43
+      },
+      "revId": "69271b5d4fed328eb61b86b013937ce22549fee5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
