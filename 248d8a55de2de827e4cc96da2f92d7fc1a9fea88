@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "73e6c382_87c7c984",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-14T14:39:12Z",
+      "side": 1,
+      "message": "Note the comment here. Did you run the tests? s390x is big-endian, isn\u0027t it?\n\nBoringSSL only supports little-endian architectures; we don\u0027t have big-endian development machines or continuous testing infrastructure. Lacking that, any support would be constantly breaking, and we do not want that.",
+      "revId": "248d8a55de2de827e4cc96da2f92d7fc1a9fea88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
