@@ -22,6 +22,30 @@
       "revId": "05750f23aec26bd80fe6a8fbdfab47efadda7212",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "726bab28_9ee6180f",
+        "filename": "crypto/fipsmodule/aes/mode_wrappers.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-05-14T23:36:13Z",
+      "side": 1,
+      "message": "It actually applies to the \"!defined(OPENSSL_AARCH64)\" although, with hindsight, it should have mentioned Aarch64. It gets cleaned-up in the next patch, however: https://boringssl-review.googlesource.com/c/boringssl/+/28385/2/crypto/fipsmodule/aes/mode_wrappers.c",
+      "parentUuid": "4d93e5e0_044d9da8",
+      "range": {
+        "startLine": 84,
+        "startChar": 2,
+        "endLine": 87,
+        "endChar": 53
+      },
+      "revId": "05750f23aec26bd80fe6a8fbdfab47efadda7212",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
