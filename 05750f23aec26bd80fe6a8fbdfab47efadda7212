@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4d93e5e0_044d9da8",
+        "filename": "crypto/fipsmodule/aes/mode_wrappers.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-05-14T23:30:12Z",
+      "side": 1,
+      "message": "The comment says \"Can\u0027t use |aes_hw_cbc_encrypt|\" but then the code precedes to conditionally use aes_hw_cbc_encrypt. Maybe this comment is supposed to appear above where `asm_AES_cbc_encrypt` is called below?",
+      "range": {
+        "startLine": 84,
+        "startChar": 2,
+        "endLine": 87,
+        "endChar": 53
+      },
+      "revId": "05750f23aec26bd80fe6a8fbdfab47efadda7212",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
