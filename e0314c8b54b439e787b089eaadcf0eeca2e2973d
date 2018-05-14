@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c795731f_63a2256f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-05-14T22:06:27Z",
+      "side": 1,
+      "message": "Revert⁵?",
+      "range": {
+        "startLine": 15,
+        "startChar": 55,
+        "endLine": 15,
+        "endChar": 0
+      },
+      "revId": "e0314c8b54b439e787b089eaadcf0eeca2e2973d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
