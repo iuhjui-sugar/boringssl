@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a7de4576_e541b629",
+        "filename": "crypto/cipher_extra/cipher_extra.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-05-15T21:57:10Z",
+      "side": 1,
+      "message": "// \"3des\" is added as an alias by tcpdump in Android. We don\u0027t support dynamic cipher registration so this is, instead, hard-coded here.",
+      "revId": "5b79d366fcdd217108be91402ef2cfe375a48810",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0688b5ae_814dec12",
+        "filename": "crypto/cipher_extra/cipher_extra.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-05-15T21:57:10Z",
+      "side": 1,
+      "message": "I still kind of think this should be OPENSSL_strcasecmp just in case.",
+      "range": {
+        "startLine": 107,
+        "startChar": 8,
+        "endLine": 107,
+        "endChar": 14
+      },
+      "revId": "5b79d366fcdd217108be91402ef2cfe375a48810",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
