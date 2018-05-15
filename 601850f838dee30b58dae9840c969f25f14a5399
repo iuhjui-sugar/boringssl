@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "f0057b7d_795e99a7",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 4448,
+      "author": {
+        "id": 6925
+      },
+      "writtenOn": "2018-05-15T23:11:04Z",
+      "side": 1,
+      "message": "I\u0027m sort of OK with this, but of course I\u0027d rather I didn\u0027t have to introduce C++ to a C codebase just for this :)",
+      "parentUuid": "e9bf7518_4c391144",
+      "revId": "601850f838dee30b58dae9840c969f25f14a5399",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a157648_c01c9061",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 4
@@ -95,6 +113,24 @@
       "writtenOn": "2018-05-10T23:39:24Z",
       "side": 1,
       "message": "A thought, but probably for a follow-up: so that we don\u0027t have everyone implementing the same glue code (zlib\u0027s API, in particular, is gnarly), it might make sense to provide openssl/ssl_zlib.h and openssl/ssl_brotli.h as header-only libraries #include \u003czlib.h\u003e, etc., and provide static inline wrappers over the registration function.\n\nThat way we get the best of both worlds. We don\u0027t actually depend on zlib and brotli, but if you have them, using them doesn\u0027t take any effort on your part.",
+      "revId": "601850f838dee30b58dae9840c969f25f14a5399",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "09fdd18e_dedf5726",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 4462,
+      "author": {
+        "id": 6925
+      },
+      "writtenOn": "2018-05-15T23:11:04Z",
+      "side": 1,
+      "message": "This would indeed be quite useful.",
+      "parentUuid": "2045addc_fd391440",
       "revId": "601850f838dee30b58dae9840c969f25f14a5399",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
