@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a15a48b5_466a156f",
+        "filename": "crypto/cipher_extra/cipher_extra.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-15T21:12:20Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "e7c3f4f0_a22b5401",
+      "revId": "69271b5d4fed328eb61b86b013937ce22549fee5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fd8628bc_dbac0cfa",
         "filename": "crypto/cipher_extra/cipher_extra.c",
         "patchSetId": 4
@@ -30,6 +48,30 @@
       "writtenOn": "2018-05-14T20:54:24Z",
       "side": 0,
       "message": "\"3des\" is missing.",
+      "range": {
+        "startLine": 97,
+        "startChar": 39,
+        "endLine": 97,
+        "endChar": 43
+      },
+      "revId": "69271b5d4fed328eb61b86b013937ce22549fee5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "403d18ee_a0316ea6",
+        "filename": "crypto/cipher_extra/cipher_extra.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-15T21:12:20Z",
+      "side": 0,
+      "message": "Hrm. Do you know where you got that name from? git grep -wi 3des in OpenSSL doesn\u0027t come up with anything that looked like it.",
+      "parentUuid": "fd8628bc_dbac0cfa",
       "range": {
         "startLine": 97,
         "startChar": 39,

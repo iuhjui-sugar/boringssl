@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a7600351_b2103e57",
+        "filename": "crypto/cipher_extra/cipher_extra.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-15T21:12:20Z",
+      "side": 1,
+      "message": "Yeah, the odd ones are why I figured it was simplest to leave it with the SN values. OpenSSL installs everything in a giant hash table by SN and LN and looks up in there.",
+      "parentUuid": "f658045f_2e8756ad",
+      "revId": "c5c7591f22ec863049e0a5b32edb9f0de6667dc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cab411b9_52c521bc",
         "filename": "crypto/fipsmodule/ec/ec.c",
         "patchSetId": 4
@@ -33,6 +51,24 @@
       "revId": "c5c7591f22ec863049e0a5b32edb9f0de6667dc4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11653c7a_0ac5fb4d",
+        "filename": "crypto/fipsmodule/ec/ec.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 920,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-15T21:12:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cab411b9_52c521bc",
+      "revId": "c5c7591f22ec863049e0a5b32edb9f0de6667dc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
