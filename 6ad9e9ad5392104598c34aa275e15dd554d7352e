@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7c64793b_805c7f48",
+        "filename": "crypto/pkcs8/pkcs8_x509.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-15T22:54:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36d09a9a_ce6c4ede",
+      "revId": "6ad9e9ad5392104598c34aa275e15dd554d7352e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "29023a29_81b83273",
         "filename": "crypto/pkcs8/pkcs8_x509.c",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "6ad9e9ad5392104598c34aa275e15dd554d7352e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a1484e7_2e52ea81",
+        "filename": "crypto/pkcs8/pkcs8_x509.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-15T22:54:12Z",
+      "side": 1,
+      "message": "Oh good point. Fixed, though I made that cleanup parse_bag_attribute\u0027s responsibility. It seemed a bit weird that parse_bag_attributes expected friendly_name to be uninitialized but also expected the caller to clean it up on error.\n\nTime to add a PKCS#12 fuzzer perhaps! It won\u0027t see inside a PKCS8ShroudedKeyBag or encrypted ContentInfo, but there\u0027s nothing stopping a CertBag from living inside an unencrypted ContentInfo, so we\u0027ll still have decent coverage.",
+      "parentUuid": "29023a29_81b83273",
+      "revId": "6ad9e9ad5392104598c34aa275e15dd554d7352e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
