@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9bf6a4b2_d2d9d000",
+        "filename": "crypto/cipher_extra/cipher_extra.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-15T22:54:03Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a7de4576_e541b629",
+      "revId": "5b79d366fcdd217108be91402ef2cfe375a48810",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0688b5ae_814dec12",
         "filename": "crypto/cipher_extra/cipher_extra.c",
         "patchSetId": 7
@@ -39,6 +57,30 @@
       "revId": "5b79d366fcdd217108be91402ef2cfe375a48810",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c4c5fbf_f33c878c",
+        "filename": "crypto/cipher_extra/cipher_extra.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-15T22:54:03Z",
+      "side": 1,
+      "message": "Redid this as just adding to the old style. I missed that one could register arbitrary aliases and OpenSSL registers a bunch of its own. The table thing is then questionably useful.",
+      "parentUuid": "0688b5ae_814dec12",
+      "range": {
+        "startLine": 107,
+        "startChar": 8,
+        "endLine": 107,
+        "endChar": 14
+      },
+      "revId": "5b79d366fcdd217108be91402ef2cfe375a48810",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
