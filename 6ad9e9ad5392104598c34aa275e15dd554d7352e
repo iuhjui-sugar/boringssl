@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "36d09a9a_ce6c4ede",
+        "filename": "crypto/pkcs8/pkcs8_x509.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-05-15T22:21:09Z",
+      "side": 1,
+      "message": "(nit: there\u0027s a blank line after all the other ones.)",
+      "revId": "6ad9e9ad5392104598c34aa275e15dd554d7352e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29023a29_81b83273",
+        "filename": "crypto/pkcs8/pkcs8_x509.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-05-15T22:21:09Z",
+      "side": 1,
+      "message": "parse_bag_attributes can set |*out_friendly_name| but later fail and return 0. So I think |friendly_name| needs to be set to NULL before this and OPENSSL_freed on failure.",
+      "revId": "6ad9e9ad5392104598c34aa275e15dd554d7352e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
