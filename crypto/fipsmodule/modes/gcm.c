@@ -539,10 +539,17 @@ int CRYPTO_gcm128_aad(GCM128_CONTEXT *ctx, const uint8_t *aad, size_t len) {
 
   // Process the remainder.
   if (len != 0) {
-    n = (unsigned int)len;
-    for (size_t i = 0; i < len; ++i) {
+    size_t i = 0;
+    if (len >= 8) {
+      uint64_t aad64;
+      OPENSSL_memcpy(&aad64, aad, sizeof(aad64));
+      ctx->Xi.u[0] ^= aad64;
+      i = 8;
+    }
+    for (; i < len; ++i) {
       ctx->Xi.c[i] ^= aad[i];
     }
+    n = (unsigned int)len;
   }
 
   ctx->ares = n;
@@ -898,6 +905,36 @@ int CRYPTO_gcm128_encrypt_ctr32(GCM128_CONTEXT *ctx, const void *key,
     (*ctx->block)(ctx->Yi.c, ctx->EKi.c, key);
     ++ctr;
     ctx->Yi.d[3] = CRYPTO_bswap4(ctr);
+    if (len >= 8) {
+      uint64_t in64, EKi64, Xi64;
+      OPENSSL_memcpy(&in64, &in[n], sizeof(in64));
+      OPENSSL_memcpy(&EKi64, &ctx->EKi.c[n], sizeof(EKi64));
+
+      const uint64_t out64 = in64 ^ EKi64;
+      OPENSSL_memcpy(&out[n], &out64, sizeof(out64));
+
+      OPENSSL_memcpy(&Xi64, &ctx->Xi.c[n], sizeof(Xi64));
+      Xi64 ^= out64;
+      OPENSSL_memcpy(&ctx->Xi.c[n], &Xi64, sizeof(Xi64));
+
+      n += 8;
+      len -= 8;
+    }
+    if (len >= 4) {
+      uint32_t in32, EKi32, Xi32;
+      OPENSSL_memcpy(&in32, &in[n], sizeof(in32));
+      OPENSSL_memcpy(&EKi32, &ctx->EKi.c[n], sizeof(EKi32));
+
+      const uint32_t out32 = in32 ^ EKi32;
+      OPENSSL_memcpy(&out[n], &out32, sizeof(out32));
+
+      OPENSSL_memcpy(&Xi32, &ctx->Xi.c[n], sizeof(Xi32));
+      Xi32 ^= out32;
+      OPENSSL_memcpy(&ctx->Xi.c[n], &Xi32, sizeof(Xi32));
+
+      n += 4;
+      len -= 4;
+    }
     while (len--) {
       ctx->Xi.c[n] ^= out[n] = in[n] ^ ctx->EKi.c[n];
       ++n;
