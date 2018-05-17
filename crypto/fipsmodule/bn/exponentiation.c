@@ -1037,26 +1037,27 @@ int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
   powerbufLen +=
       sizeof(m->d[0]) *
       (top * numPowers + ((2 * top) > numPowers ? (2 * top) : numPowers));
-#ifdef alloca
-  if (powerbufLen < 3072) {
-    powerbufFree = alloca(powerbufLen + MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH);
-  } else
+
+#ifdef OPENSSL_BN_ASM_MONT5
+  // 4480 was determined analytically and verified experimentally to be
+  // the value of |powerbufLen| when the inputs are 1024 bits. This minimizes
+  // the stack usage while maximizing the performance win.
+  alignas(MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH) BN_ULONG
+    storage[4480 / sizeof(BN_ULONG)];
+
+  if ((size_t)powerbufLen <= sizeof(storage)) {
+    powerbuf = (unsigned char *)storage;
+  }
+  assert(powerbuf != NULL || top * BN_BITS2 > 1024);
 #endif
-  {
-    if ((powerbufFree = OPENSSL_malloc(
-            powerbufLen + MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH)) == NULL) {
+  if (powerbuf == NULL) {
+    powerbufFree = OPENSSL_malloc(powerbufLen + MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH);
+    if (powerbufFree == NULL) {
       goto err;
     }
+    powerbuf = MOD_EXP_CTIME_ALIGN(powerbufFree);
   }
-
-  powerbuf = MOD_EXP_CTIME_ALIGN(powerbufFree);
   OPENSSL_memset(powerbuf, 0, powerbufLen);
-
-#ifdef alloca
-  if (powerbufLen < 3072) {
-    powerbufFree = NULL;
-  }
-#endif
 
   // lay down tmp and am right after powers table
   tmp.d = (BN_ULONG *)(powerbuf + sizeof(m->d[0]) * top * numPowers);
@@ -1264,6 +1265,9 @@ int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
 
 err:
   BN_MONT_CTX_free(new_mont);
+  if (powerbuf != NULL && powerbufFree == NULL) {
+    OPENSSL_cleanse(powerbuf, powerbufLen);
+  }
   OPENSSL_free(powerbufFree);
   return (ret);
 }
