@@ -541,7 +541,8 @@ int CRYPTO_gcm128_aad(GCM128_CONTEXT *ctx, const uint8_t *aad, size_t len) {
   if (len != 0) {
     size_t i = 0;
     if (len >= 8) {
-      *((uint64_t*)ctx->Xi.c) ^= *(uint64_t*)aad;
+      const uint64_t* aad64p = (uint64_t*)aad;
+      ctx->Xi.u[0] ^= *aad64p;
       i = 8;
     }
     for (; i < len; ++i) {
@@ -904,14 +905,25 @@ int CRYPTO_gcm128_encrypt_ctr32(GCM128_CONTEXT *ctx, const void *key,
     ++ctr;
     ctx->Yi.d[3] = CRYPTO_bswap4(ctr);
     if (len >= 8) {
-      *((uint64_t*)&out[n]) = *((uint64_t*)&(in[n])) ^ *((uint64_t*)&ctx->EKi.c[n]);
-      *((uint64_t*)&ctx->Xi.c[n]) ^= *((uint64_t*)&out[n]);
+      const uint64_t* in64p = (uint64_t*)&in[n];
+      const uint64_t* EKi64p = (uint64_t*)&ctx->EKi.c[n];
+      uint64_t* Xi64p = (uint64_t*)&ctx->Xi.c[n];
+      uint64_t* out64p = (uint64_t*)&out[n];
+      
+
+      *out64p = *in64p ^ *EKi64p;
+      *Xi64p ^= *out64p;
       n += 8;
       len -= 8;
     }
     if (len >= 4) {
-      *((uint32_t*)&out[n]) = *((uint32_t*)&(in[n])) ^ *((uint32_t*)&ctx->EKi.c[n]);
-      *((uint32_t*)&ctx->Xi.c[n]) ^= *((uint32_t*)&out[n]);
+      const uint32_t* in32p = (uint32_t*)&in[n];
+      const uint32_t* EKi32p = (uint32_t*)&ctx->EKi.c[n];
+      uint32_t* out32p = (uint32_t*)&out[n];
+      uint32_t* Xi32p = (uint32_t*)&ctx->Xi.c[n];
+
+      *out32p = *in32p ^ *EKi32p;
+      *Xi32p ^= *out32p;
       n += 4;
       len -= 4;
     }
