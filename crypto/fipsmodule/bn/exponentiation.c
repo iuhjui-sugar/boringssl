@@ -914,9 +914,6 @@ static int copy_from_prebuf(BIGNUM *b, int top, unsigned char *buf, int idx,
   return 1;
 }
 
-// BN_mod_exp_mont_conttime is based on the assumption that the L1 data cache
-// line width of the target processor is at least the following value.
-#define MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH (64)
 #define MOD_EXP_CTIME_MIN_CACHE_LINE_MASK \
   (MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH - 1)
 
@@ -966,7 +963,6 @@ int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
   int numPowers;
   unsigned char *powerbufFree = NULL;
   int powerbufLen = 0;
-  unsigned char *powerbuf = NULL;
   BIGNUM tmp, am;
 
   if (!BN_is_odd(m)) {
@@ -1005,6 +1001,9 @@ int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
   int top = mont->N.width;
 
 #ifdef RSAZ_ENABLED
+  alignas(MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH) BN_ULONG
+    storage[MOD_EXP_CTIME_STORAGE_LEN];
+
   // If the size of the operands allow it, perform the optimized
   // RSAZ exponentiation. For further information see
   // crypto/bn/rsaz_exp.c and accompanying assembly modules.
@@ -1013,7 +1012,8 @@ int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
     if (!bn_wexpand(rr, 16)) {
       goto err;
     }
-    RSAZ_1024_mod_exp_avx2(rr->d, a->d, p->d, m->d, mont->RR.d, mont->n0[0]);
+    RSAZ_1024_mod_exp_avx2(rr->d, a->d, p->d, m->d, mont->RR.d, mont->n0[0],
+                           storage);
     rr->width = 16;
     rr->neg = 0;
     ret = 1;
@@ -1037,26 +1037,23 @@ int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
   powerbufLen +=
       sizeof(m->d[0]) *
       (top * numPowers + ((2 * top) > numPowers ? (2 * top) : numPowers));
-#ifdef alloca
-  if (powerbufLen < 3072) {
-    powerbufFree = alloca(powerbufLen + MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH);
-  } else
+
+  unsigned char *powerbuf = NULL;
+#ifdef RSAZ_ENABLED
+  // If RSAZ is enabled at compile-time then |storage| will be more than large
+  // enough for |powerbuf| for 1024-bit or smaller exponents.
+  if ((size_t)powerbufLen <= sizeof(storage)) {
+    powerbuf = (unsigned char *)storage;
+  }
 #endif
-  {
-    if ((powerbufFree = OPENSSL_malloc(
-            powerbufLen + MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH)) == NULL) {
+  if (powerbuf == NULL) {
+    powerbufFree = OPENSSL_malloc(powerbufLen + MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH);
+    if (powerbufFree == NULL) {
       goto err;
     }
+    powerbuf = MOD_EXP_CTIME_ALIGN(powerbufFree);
   }
-
-  powerbuf = MOD_EXP_CTIME_ALIGN(powerbufFree);
   OPENSSL_memset(powerbuf, 0, powerbufLen);
-
-#ifdef alloca
-  if (powerbufLen < 3072) {
-    powerbufFree = NULL;
-  }
-#endif
 
   // lay down tmp and am right after powers table
   tmp.d = (BN_ULONG *)(powerbuf + sizeof(m->d[0]) * top * numPowers);
@@ -1264,6 +1261,9 @@ int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
 
 err:
   BN_MONT_CTX_free(new_mont);
+  if (powerbuf != NULL && powerbufFree == NULL) {
+    OPENSSL_cleanse(powerbuf, powerbufLen);
+  }
   OPENSSL_free(powerbufFree);
   return (ret);
 }
