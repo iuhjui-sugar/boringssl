@@ -378,27 +378,12 @@ static bool SpeedAEAD(const EVP_AEAD *aead, const std::string &name,
     return true;
   }
 
-  
-  bool res = true;
-  
-  for(ad_len=0; ad_len < 16; ad_len++ )
-  {
-    for(int j=0; j < 16; j++ )
-    {
-      int k = j;
-      res = res && SpeedAEADChunk(aead, name + "ad_len= " + std::to_string(ad_len) + " ( " + std::to_string(k) +" bytes)", k, ad_len, evp_aead_seal);
-    }
-  
-    for(int i=16; i <= 8192; i<<=2 )
-    {
-      for(int j=0; j < 16; j++ )
-      {
-        int k = i+j;
-        res = res && SpeedAEADChunk(aead, name + "ad_len= " + std::to_string(ad_len) + " ( " + std::to_string(k) +" bytes)", k, ad_len, evp_aead_seal);
-      }
-    }
-  }
-  return  res;
+  return SpeedAEADChunk(aead, name + " (16 bytes)", 16, ad_len,
+                        evp_aead_seal) &&
+         SpeedAEADChunk(aead, name + " (1350 bytes)", 1350, ad_len,
+                        evp_aead_seal) &&
+         SpeedAEADChunk(aead, name + " (8192 bytes)", 8192, ad_len,
+                        evp_aead_seal);
 }
 
 static bool SpeedAEADOpen(const EVP_AEAD *aead, const std::string &name,
