@@ -1158,7 +1158,7 @@ int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
         bn_mul_mont_gather5(tmp.d, tmp.d, powerbuf, np, n0, top, wvalue);
       }
     } else {
-      const uint8_t *p_bytes = (const uint8_t *)p->d;
+      const unsigned char *p_bytes = (const unsigned char *)p->d;
       assert(bits < max_bits);
       // |p = 0| has been handled as a special case, so |max_bits| is at least
       // one word.
