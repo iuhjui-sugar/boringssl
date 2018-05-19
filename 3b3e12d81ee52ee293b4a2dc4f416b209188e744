@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "65f6c3c9_95cefe3a",
+        "filename": "crypto/fipsmodule/rsa/rsa_impl.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 739,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-05-19T06:30:21Z",
+      "side": 1,
+      "message": "The last name is mispelled: It should be \"Strenzke\". See http://citeseerx.ist.psu.edu/viewdoc/download?doi\u003d10.1.1.699.2077\u0026rep\u003drep1\u0026type\u003dpdf.",
+      "range": {
+        "startLine": 739,
+        "startChar": 15,
+        "endLine": 739,
+        "endChar": 22
+      },
+      "revId": "3b3e12d81ee52ee293b4a2dc4f416b209188e744",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
