@@ -22,6 +22,30 @@
       "revId": "cd243d45252cbe7a2d7e86d92fb07fa84dd45f97",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5939557d_0ffcc3e6",
+        "filename": "crypto/fipsmodule/bn/internal.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-21T19:37:05Z",
+      "side": 1,
+      "message": "Sigh. Fortunately it\u0027s only negative numbers that really need the parens here, and alignas(-1) does not make much sense.",
+      "parentUuid": "691f1529_e333dae3",
+      "range": {
+        "startLine": 190,
+        "startChar": 0,
+        "endLine": 190,
+        "endChar": 47
+      },
+      "revId": "cd243d45252cbe7a2d7e86d92fb07fa84dd45f97",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
