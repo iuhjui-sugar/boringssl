@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "691f1529_e333dae3",
+        "filename": "crypto/fipsmodule/bn/internal.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-05-21T19:01:02Z",
+      "side": 1,
+      "message": "It seems MSVC objects to the parentheses when this is used as an an `alignas()`, so we need to remove the parentheses to appease it.",
+      "range": {
+        "startLine": 190,
+        "startChar": 0,
+        "endLine": 190,
+        "endChar": 47
+      },
+      "revId": "cd243d45252cbe7a2d7e86d92fb07fa84dd45f97",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
