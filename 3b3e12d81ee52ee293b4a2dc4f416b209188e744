@@ -22,6 +22,30 @@
       "revId": "3b3e12d81ee52ee293b4a2dc4f416b209188e744",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81e62169_9e04cb8c",
+        "filename": "crypto/fipsmodule/rsa/rsa_impl.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 739,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-05-21T18:10:25Z",
+      "side": 1,
+      "message": "Thanks for pointing that out. Fixed in https://boringssl-review.googlesource.com/c/boringssl/+/28625.",
+      "parentUuid": "65f6c3c9_95cefe3a",
+      "range": {
+        "startLine": 739,
+        "startChar": 15,
+        "endLine": 739,
+        "endChar": 22
+      },
+      "revId": "3b3e12d81ee52ee293b4a2dc4f416b209188e744",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
