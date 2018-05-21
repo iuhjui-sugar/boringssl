@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "75cfb171_5ea08024",
+        "filename": "tool/speed.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-05-21T21:36:02Z",
+      "side": 1,
+      "message": "change this to |direction| and drop the added call to |EVP_AEAD_CTX_init_with_direction|, below?",
+      "range": {
+        "startLine": 329,
+        "startChar": 40,
+        "endLine": 329,
+        "endChar": 53
+      },
+      "revId": "04718dfa73cd36861e138f4b4e7540208f1d0322",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
