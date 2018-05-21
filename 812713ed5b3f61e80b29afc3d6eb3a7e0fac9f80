@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "57232d6b_3d854ff2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-21T18:48:32Z",
+      "side": 1,
+      "message": "(Also we don\u0027t need to protect the exponent in that case anyway.)",
+      "revId": "812713ed5b3f61e80b29afc3d6eb3a7e0fac9f80",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a0b15c8_a11ff3f8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-21T18:48:32Z",
+      "side": 1,
+      "message": "Strictly speaking this wouldn\u0027t be true if we had another mont5 platform, but even in OpenSSL, the only other mont5 platform is SPARC T4. :-)\n\nFWIW, we do appear to have gotten away with a 6k buffer in ec_GFp_simple_mul_single, and tool/rand.cc even uses 12k of stack space. And, alloca macro issues aside, we did previously believe 3072 was an acceptable stack allocation. I do know of one consumer who might be unhappy at this, but they\u0027re a little fuzzy right now, are unlikely care about RSA private keys, and have a hand-curated subset of the library anyway. So we can cross that bridge if we ever come to it and, in the meantime, I\u0027m happy to try doing this unconditionally.",
+      "revId": "812713ed5b3f61e80b29afc3d6eb3a7e0fac9f80",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a0e5c4d_0df1ed27",
+        "filename": "crypto/fipsmodule/bn/exponentiation.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 1055,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-21T18:48:32Z",
+      "side": 1,
+      "message": "Nit: 80 chars (I\u0027ll go ahead and fix this.)",
+      "revId": "812713ed5b3f61e80b29afc3d6eb3a7e0fac9f80",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
