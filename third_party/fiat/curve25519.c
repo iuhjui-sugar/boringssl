@@ -97,11 +97,6 @@ static uint8_t /*bool*/ subborrow_u51(uint8_t /*bool*/ c, uint64_t a,
   return x >> 63;
 }
 
-static uint64_t cmovznz64(uint64_t t, uint64_t z, uint64_t nz) {
-  t = -!!t; // all set if nonzero, 0 if 0
-  return (t&nz) | ((~t)&z);
-}
-
 #else
 
 static uint8_t /*bool*/ addcarryx_u25(uint8_t /*bool*/ c, uint32_t a,
@@ -138,11 +133,6 @@ static uint8_t /*bool*/ subborrow_u26(uint8_t /*bool*/ c, uint32_t a,
   uint32_t x = a - b - c;
   *low = x & ((1 << 26) - 1);
   return x >> 31;
-}
-
-static uint32_t cmovznz32(uint32_t t, uint32_t z, uint32_t nz) {
-  t = -!!t; // all set if nonzero, 0 if 0
-  return (t&nz) | ((~t)&z);
 }
 
 #endif
@@ -204,7 +194,7 @@ static void fe_freeze(uint64_t out[5], const uint64_t in1[5]) {
   { uint64_t x16; uint8_t/*bool*/ x17 = subborrow_u51(x14, x6, 0x7ffffffffffff, &x16);
   { uint64_t x19; uint8_t/*bool*/ x20 = subborrow_u51(x17, x8, 0x7ffffffffffff, &x19);
   { uint64_t x22; uint8_t/*bool*/ x23 = subborrow_u51(x20, x7, 0x7ffffffffffff, &x22);
-  { uint64_t x24 = cmovznz64(x23, 0x0, 0xffffffffffffffffL);
+  { uint64_t x24 = (uint64_t)0 - x23;
   { uint64_t x25 = (x24 & 0x7ffffffffffed);
   { uint64_t x27; uint8_t/*bool*/ x28 = addcarryx_u51(0x0, x10, x25, &x27);
   { uint64_t x29 = (x24 & 0x7ffffffffffff);
@@ -693,7 +683,7 @@ static void fe_freeze(uint32_t out[10], const uint32_t in1[10]) {
   { uint32_t x41; uint8_t/*bool*/ x42 = subborrow_u25(x39, x16, 0x1ffffff, &x41);
   { uint32_t x44; uint8_t/*bool*/ x45 = subborrow_u26(x42, x18, 0x3ffffff, &x44);
   { uint32_t x47; uint8_t/*bool*/ x48 = subborrow_u25(x45, x17, 0x1ffffff, &x47);
-  { uint32_t x49 = cmovznz32(x48, 0x0, 0xffffffff);
+  { uint32_t x49 = (uint32_t)0 - x48;
   { uint32_t x50 = (x49 & 0x3ffffed);
   { uint32_t x52; uint8_t/*bool*/ x53 = addcarryx_u26(0x0, x20, x50, &x52);
   { uint32_t x54 = (x49 & 0x1ffffff);
