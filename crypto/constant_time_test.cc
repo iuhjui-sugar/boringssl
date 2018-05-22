@@ -112,6 +112,9 @@ TEST(ConstantTimeTest, Test) {
 
       EXPECT_EQ(a, constant_time_select_w(CONSTTIME_TRUE_W, a, b));
       EXPECT_EQ(b, constant_time_select_w(CONSTTIME_FALSE_W, a, b));
+
+      EXPECT_EQ(a, constant_time_select_w_by_bit(1, a, b));
+      EXPECT_EQ(b, constant_time_select_w_by_bit(0, a, b));
     }
   }
 
