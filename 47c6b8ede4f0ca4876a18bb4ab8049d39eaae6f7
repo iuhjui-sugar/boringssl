@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "f01e922d_e37b6d7a",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-05-22T21:17:02Z",
+      "side": 1,
+      "message": "Cool.",
+      "parentUuid": "53e40785_c13ae1b1",
+      "revId": "47c6b8ede4f0ca4876a18bb4ab8049d39eaae6f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a736e0cc_46cf64e0",
         "filename": "ssl/ssl_lib.cc",
         "patchSetId": 5
@@ -53,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "68057b84_13d4c052",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 727,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-05-22T21:17:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a736e0cc_46cf64e0",
+      "revId": "47c6b8ede4f0ca4876a18bb4ab8049d39eaae6f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e9392c49_3e52f743",
         "filename": "ssl/t1_lib.cc",
         "patchSetId": 5
@@ -64,6 +100,24 @@
       "writtenOn": "2018-05-22T18:50:34Z",
       "side": 1,
       "message": "(The server doesn\u0027t echo it regardless.)",
+      "revId": "47c6b8ede4f0ca4876a18bb4ab8049d39eaae6f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "04691c71_c8f553bb",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2773,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-05-22T21:17:02Z",
+      "side": 1,
+      "message": "A server can echo it if we sent it to advertise its own decompression support should the client wish to compress the client-cert.",
+      "parentUuid": "e9392c49_3e52f743",
       "revId": "47c6b8ede4f0ca4876a18bb4ab8049d39eaae6f7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -87,6 +141,24 @@
     },
     {
       "key": {
+        "uuid": "973ea071_19542f59",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2812,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-05-22T21:17:02Z",
+      "side": 1,
+      "message": "I\u0027ve dropped it for now. I wonder whether we should just impose it, but it\u0027s not that important.",
+      "parentUuid": "a58796a4_fe0eeb9c",
+      "revId": "47c6b8ede4f0ca4876a18bb4ab8049d39eaae6f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "abab5ab4_4a46d258",
         "filename": "ssl/test/runner/common.go",
         "patchSetId": 5
@@ -98,6 +170,30 @@
       "writtenOn": "2018-05-22T18:50:34Z",
       "side": 1,
       "message": "special",
+      "range": {
+        "startLine": 1614,
+        "startChar": 53,
+        "endLine": 1614,
+        "endChar": 61
+      },
+      "revId": "47c6b8ede4f0ca4876a18bb4ab8049d39eaae6f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3022ff03_45f82201",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 1614,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-05-22T21:17:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "abab5ab4_4a46d258",
       "range": {
         "startLine": 1614,
         "startChar": 53,
@@ -133,6 +229,30 @@
     },
     {
       "key": {
+        "uuid": "a8b6520a_b39bd7c6",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 14351,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-05-22T21:17:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e986c4d_65ef0e6c",
+      "range": {
+        "startLine": 14351,
+        "startChar": 4,
+        "endLine": 14351,
+        "endChar": 14
+      },
+      "revId": "47c6b8ede4f0ca4876a18bb4ab8049d39eaae6f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d64a0b9_7a13f36f",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 5
@@ -150,6 +270,24 @@
     },
     {
       "key": {
+        "uuid": "8cad1edd_896ad6c2",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 14464,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-05-22T21:17:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d64a0b9_7a13f36f",
+      "revId": "47c6b8ede4f0ca4876a18bb4ab8049d39eaae6f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ac10c895_2b915e45",
         "filename": "ssl/tls13_both.cc",
         "patchSetId": 5
@@ -161,6 +299,24 @@
       "writtenOn": "2018-05-22T18:50:34Z",
       "side": 1,
       "message": "msg has a larger header in DTLS 1.3 (which we don\u0027t implement yet, but I\u0027m expecting we\u0027ll eventually be asked to), and also finish_message internally increments the message sequence number.\n\nInstead, how about replacing the first bit with:\n\nif (hs-\u003ecert_compression_negotiated) {\n  if (!CBB_init(cbb.get(), 64)) {\n    return false;\n  }\n} else {\n  if (!ssl-\u003emethod-\u003einit_message(ssl, cbb.get(), \u0026body, SSL3_MT_CERTIFICATE)) {\n    return false;\n  }\n}\n\n// (The bulk as-is)\n\nif (!hs-\u003ecert_compression_negotiated) {\n  return ssl_add_message_cbb(ssl, cbb.get());\n}\n\nArray\u003cuint8_t\u003e msg;\nif (!CBBFinishArray(cbb.get(), \u0026msg)) {\n  return 0;\n}\n\n// everything else as-is without the subspan(4).",
+      "revId": "47c6b8ede4f0ca4876a18bb4ab8049d39eaae6f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d4cba340_afaad3f5",
+        "filename": "ssl/tls13_both.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-05-22T21:17:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac10c895_2b915e45",
       "revId": "47c6b8ede4f0ca4876a18bb4ab8049d39eaae6f7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
