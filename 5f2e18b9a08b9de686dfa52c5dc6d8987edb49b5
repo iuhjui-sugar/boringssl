@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "968621d0_ca764681",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-22T20:37:15Z",
+      "side": 1,
+      "message": "I don\u0027t believe this file is currently compatible with the bit-wise booleans, because of fe_nz. If I run tests with OPENSSL_SMALL, P-256 breaks.\n\n(It would also be good to refresh the fe_* functions to pick up the /*bool*/ comments, but that\u0027s easy enough to do.)",
+      "revId": "5f2e18b9a08b9de686dfa52c5dc6d8987edb49b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
