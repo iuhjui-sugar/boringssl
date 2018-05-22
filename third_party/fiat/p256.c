@@ -70,10 +70,7 @@ static uint64_t subborrow_u64(uint8_t c, uint64_t a, uint64_t b, uint64_t *low) 
   return (uint8_t) (x>>127);
 }
 
-static uint64_t cmovznz_u64(uint64_t t, uint64_t z, uint64_t nz) {
-  t = -!!t; // all set if nonzero, 0 if 0
-  return (t&nz) | ((~t)&z);
-}
+#define cmovznz_u64(t, z, nz) constant_time_select_w_by_bit(t, nz, z)
 
 #else
 
@@ -96,10 +93,7 @@ static uint32_t subborrow_u32(uint8_t c, uint32_t a, uint32_t b, uint32_t *low) 
   return (uint8_t) (x>>63);
 }
 
-static uint32_t cmovznz_u32(uint32_t t, uint32_t z, uint32_t nz) {
-  t = -!!t; // all set if nonzero, 0 if 0
-  return (t&nz) | ((~t)&z);
-}
+#define cmovznz_u32(t, z, nz) constant_time_select_w_by_bit(t, nz, z)
 
 #endif
 

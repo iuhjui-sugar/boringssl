@@ -350,6 +350,15 @@ static inline crypto_word_t constant_time_select_w(crypto_word_t mask,
   return (mask & a) | (~mask & b);
 }
 
+// constant_time_select_w_by_bit acts like |constant_time_select_w| except
+// |mask| must be zero or one.
+static inline crypto_word_t constant_time_select_w_by_bit(uint8_t mask,
+                                                          crypto_word_t a,
+                                                          crypto_word_t b) {
+  return constant_time_select_w((crypto_word_t)0 - mask, a, b);
+}
+
+
 // constant_time_select_8 acts like |constant_time_select| but operates on
 // 8-bit values.
 static inline uint8_t constant_time_select_8(uint8_t mask, uint8_t a,
