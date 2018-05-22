@@ -301,6 +301,30 @@
     },
     {
       "key": {
+        "uuid": "d107928f_2ab1adbd",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 4493,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-22T18:50:34Z",
+      "side": 1,
+      "message": "Hrm, maybe. And I guess we can just parse the certificate out of there directly rather than messing with init_buf.\n\nThere\u0027s no sense in these CRYPTO_BUFFERs participate in the pooling, but the caller can just pass in NULL there.",
+      "parentUuid": "801c44f2_0a03fc40",
+      "range": {
+        "startLine": 4493,
+        "startChar": 14,
+        "endLine": 4493,
+        "endChar": 44
+      },
+      "revId": "601850f838dee30b58dae9840c969f25f14a5399",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b4f07feb_22177403",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 4

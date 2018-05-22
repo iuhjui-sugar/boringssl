@@ -1,0 +1,169 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "038c4a6b_306c2f65",
+        "filename": "include/openssl/ssl3.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-22T18:50:34Z",
+      "side": 1,
+      "message": "(I was originally going to suggest picking a random number for the time being, but I guess it will never be sent unsolicited, so it\u0027s actually okay if it collides with something else, as long as we never implement experimental-cert-compression and that something else at the same time.)",
+      "revId": "47c6b8ede4f0ca4876a18bb4ab8049d39eaae6f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "53e40785_c13ae1b1",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-22T18:50:34Z",
+      "side": 1,
+      "message": "Because I should not be allowed near C++, this can be:\n\nfor (CertCompressionAlg *alg : ctx-\u003ecert_compression_algs) {\n  if (alg-\u003ealg_id \u003d\u003d alg_id) {\n    return 0;\n  }\n}",
+      "revId": "47c6b8ede4f0ca4876a18bb4ab8049d39eaae6f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a736e0cc_46cf64e0",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 727,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-22T18:50:34Z",
+      "side": 1,
+      "message": "I think you could also just pass in Delete\u003cCertCompressionAlg\u003e. (I really should give SSL_CTX and SSL destructors and then we can just use UniquePtr.)",
+      "revId": "47c6b8ede4f0ca4876a18bb4ab8049d39eaae6f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9392c49_3e52f743",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2773,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-22T18:50:34Z",
+      "side": 1,
+      "message": "(The server doesn\u0027t echo it regardless.)",
+      "revId": "47c6b8ede4f0ca4876a18bb4ab8049d39eaae6f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a58796a4_fe0eeb9c",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2812,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-22T18:50:34Z",
+      "side": 1,
+      "message": "The draft doesn\u0027t actually require them be sorted quite yet. I like the easy duplicate checking, but probably we should get that into the draft before early code point allocation in that case, since it becomes awkward to change things afterwards. Unfortunately, changing the draft now has the converse problem of delaying getting an early code point. :-/\n\nhttps://www.ietf.org/mail-archive/web/tls/current/msg26127.html\n\nMy feeling is that we\u0027re unlikely to win this one, since it\u0027s a departure from everything else in TLS, and it\u0027s probably not worth the trouble? *shrug*",
+      "revId": "47c6b8ede4f0ca4876a18bb4ab8049d39eaae6f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "abab5ab4_4a46d258",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 1614,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-22T18:50:34Z",
+      "side": 1,
+      "message": "special",
+      "range": {
+        "startLine": 1614,
+        "startChar": 53,
+        "endLine": 1614,
+        "endChar": 61
+      },
+      "revId": "47c6b8ede4f0ca4876a18bb4ab8049d39eaae6f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4e986c4d_65ef0e6c",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 14351,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-22T18:50:34Z",
+      "side": 1,
+      "message": "shrinkingPrefix?",
+      "range": {
+        "startLine": 14351,
+        "startChar": 4,
+        "endLine": 14351,
+        "endChar": 14
+      },
+      "revId": "47c6b8ede4f0ca4876a18bb4ab8049d39eaae6f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d64a0b9_7a13f36f",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 14464,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-22T18:50:34Z",
+      "side": 1,
+      "message": "Might be worth testing the peer ignores the advertisement in TLS 1.2, rather than trying to compress the TLS 1.2 certificate. (Though our implementation isn\u0027t currently in any danger of this since it\u0027s all separate code.)",
+      "revId": "47c6b8ede4f0ca4876a18bb4ab8049d39eaae6f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ac10c895_2b915e45",
+        "filename": "ssl/tls13_both.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-22T18:50:34Z",
+      "side": 1,
+      "message": "msg has a larger header in DTLS 1.3 (which we don\u0027t implement yet, but I\u0027m expecting we\u0027ll eventually be asked to), and also finish_message internally increments the message sequence number.\n\nInstead, how about replacing the first bit with:\n\nif (hs-\u003ecert_compression_negotiated) {\n  if (!CBB_init(cbb.get(), 64)) {\n    return false;\n  }\n} else {\n  if (!ssl-\u003emethod-\u003einit_message(ssl, cbb.get(), \u0026body, SSL3_MT_CERTIFICATE)) {\n    return false;\n  }\n}\n\n// (The bulk as-is)\n\nif (!hs-\u003ecert_compression_negotiated) {\n  return ssl_add_message_cbb(ssl, cbb.get());\n}\n\nArray\u003cuint8_t\u003e msg;\nif (!CBBFinishArray(cbb.get(), \u0026msg)) {\n  return 0;\n}\n\n// everything else as-is without the subspan(4).",
+      "revId": "47c6b8ede4f0ca4876a18bb4ab8049d39eaae6f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
