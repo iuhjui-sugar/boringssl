@@ -70,10 +70,7 @@ static uint64_t subborrow_u64(uint8_t c, uint64_t a, uint64_t b, uint64_t *low) 
   return (uint8_t) (x>>127);
 }
 
-static uint64_t cmovznz_u64(uint64_t t, uint64_t z, uint64_t nz) {
-  t = -!!t; // all set if nonzero, 0 if 0
-  return (t&nz) | ((~t)&z);
-}
+#define cmovznz_u64(t, z, nz) constant_time_select_w_by_bit(t, nz, z)
 
 #else
 
@@ -96,10 +93,7 @@ static uint32_t subborrow_u32(uint8_t c, uint32_t a, uint32_t b, uint32_t *low) 
   return (uint8_t) (x>>63);
 }
 
-static uint32_t cmovznz_u32(uint32_t t, uint32_t z, uint32_t nz) {
-  t = -!!t; // all set if nonzero, 0 if 0
-  return (t&nz) | ((~t)&z);
-}
+#define cmovznz_u32(t, z, nz) constant_time_select_w_by_bit(t, nz, z)
 
 #endif
 
@@ -839,13 +833,11 @@ static void fe_opp(uint32_t out[8], const uint32_t in1[8]) {
 
 #define NLIMBS 4
 typedef uint64_t limb_t;
-#define cmovznz_limb cmovznz_u64
 typedef uint64_t fe[NLIMBS];
 #else // 64BIT; else 32BIT
 
 #define NLIMBS 8
 typedef uint32_t limb_t;
-#define cmovznz_limb cmovznz_u32
 typedef uint32_t fe[NLIMBS];
 
 #endif // 64BIT
@@ -866,8 +858,9 @@ static void fe_copy(limb_t out[NLIMBS], const limb_t in1[NLIMBS]) {
 
 static void fe_cmovznz(limb_t out[NLIMBS], limb_t t, const limb_t z[NLIMBS],
                        const limb_t nz[NLIMBS]) {
+  limb_t t_is_zero = constant_time_is_zero_w(t);
   for (int i = 0; i < NLIMBS; i++) {
-    out[i] = cmovznz_limb(t, z[i], nz[i]);
+    out[i] = constant_time_select_w(t_is_zero, z[i], nz[i]);
   }
 }
 
