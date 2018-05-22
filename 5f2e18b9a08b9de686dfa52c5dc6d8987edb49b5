@@ -16,6 +16,24 @@
       "revId": "5f2e18b9a08b9de686dfa52c5dc6d8987edb49b5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5c2d94a_bda77e79",
+        "filename": "third_party/fiat/p256.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-05-22T21:33:34Z",
+      "side": 1,
+      "message": "I missed the calls that were going through the `cmovznz_limb` alias and I didn\u0027t notice that because I wasn\u0027t building with `-DOPENSSL_SMALL`. I reproduced the failure by building with `-DOPENSSL_SMALL` and I fixed the bug by removing `cmovznz_limb` and rewriting `fe_cmovznz()`.",
+      "parentUuid": "968621d0_ca764681",
+      "revId": "5f2e18b9a08b9de686dfa52c5dc6d8987edb49b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
