@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "46447981_378b9201",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-23T21:24:09Z",
+      "side": 1,
+      "message": "up to",
+      "range": {
+        "startLine": 11,
+        "startChar": 60,
+        "endLine": 11,
+        "endChar": 64
+      },
+      "revId": "8fa359b3498ea849d705e644e0a461d5493d9de4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52c679f1_56d8a021",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-23T21:24:09Z",
+      "side": 1,
+      "message": "Optimized",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 8
+      },
+      "revId": "8fa359b3498ea849d705e644e0a461d5493d9de4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5e27e39_64ff5ae6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-23T21:24:09Z",
+      "side": 1,
+      "message": "I\u0027m curious at what point this stops being noticeable. 1-4 bytes are pretty tiny, so I\u0027m slightly dubious it\u0027s worth the trouble to optimize for them? Probably that\u0027s starting to measure things like the EVP_AEAD wrapper overhead too.",
+      "range": {
+        "startLine": 35,
+        "startChar": 35,
+        "endLine": 35,
+        "endChar": 42
+      },
+      "revId": "8fa359b3498ea849d705e644e0a461d5493d9de4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf40f9c4_4f31e6c1",
+        "filename": "crypto/fipsmodule/modes/gcm.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 911,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-23T21:24:09Z",
+      "side": 1,
+      "message": "I believe you can use Eki.u here and Eki.d below, but it\u0027s not a totally obvious transformation because it relies on n being zero here. (The block at line 844 does not continue if n !\u003d 0.) But hopefully the compiler is able to figure it out all the same.\n\nTBH, it\u0027s a little disappointing to me that the compiler can\u0027t just perform this transformation itself, but I guess it doesn\u0027t know that that ctx, in, and out can\u0027t alias in a way that makes this a problem.",
+      "revId": "8fa359b3498ea849d705e644e0a461d5493d9de4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
