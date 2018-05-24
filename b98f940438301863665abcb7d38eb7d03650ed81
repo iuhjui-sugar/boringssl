@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2b54cf21_524302e1",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1366,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-05-24T18:02:08Z",
+      "side": 1,
+      "message": "nit: nullptr",
+      "range": {
+        "startLine": 1366,
+        "startChar": 42,
+        "endLine": 1366,
+        "endChar": 46
+      },
+      "revId": "b98f940438301863665abcb7d38eb7d03650ed81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
