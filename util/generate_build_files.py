@@ -14,11 +14,14 @@
 
 """Enumerates source files for consumption by various build systems."""
 
+from collections import defaultdict
+import json
 import optparse
 import os
+from string import Template
 import subprocess
 import sys
-import json
+import textwrap
 
 
 # OS_ARCH_COMBOS maps from OS and platform to the OpenSSL assembly "style" for
@@ -344,21 +347,83 @@ class GYP(object):
     out.write('    ],\n')
 
   def WriteFiles(self, files, asm_outputs):
+    # Gyp is fussy about having two files of the same basename in a single
+    # target, so we partition by directory to create a library for each.
+    dirs = defaultdict(list)
+    for filename in files['crypto']:
+      dir, basename = os.path.split(filename)
+      if dir.startswith('src/'):
+        dir = dir[4:]
+      if dir.startswith('crypto/'):
+        dir = dir[7:]
+      # map things like third_party/fiat to third_party_fiat
+      dir = dir.replace(os.path.sep, '_')
+      # things not in subdirectory go to main lib.
+      if not dir:
+        dir = 'core'
+      dirs[dir].append(filename)
+
+    boringssl_crypto_deps = []
+    for dir in dirs.keys():
+      if dir != 'core':
+        boringssl_crypto_deps.append('boringssl_crypto_%s_lib' % dir)
+
     with open('boringssl.gypi', 'w+') as gypi:
-      gypi.write(self.header + '{\n  \'variables\': {\n')
+      gypi.write(self.header + '{\n  \'variables\': {\n')  # }} auto-indent
 
       self.PrintVariableSection(gypi, 'boringssl_ssl_sources',
                                 files['ssl'] + files['ssl_headers'] +
                                 files['ssl_internal_headers'])
-      self.PrintVariableSection(gypi, 'boringssl_crypto_sources',
-                                files['crypto'] + files['crypto_headers'] +
-                                files['crypto_internal_headers'])
+      for dir in sorted(dirs.keys()):
+        sources = dirs[dir]
+        self.PrintVariableSection(gypi, 'boringssl_crypto_%s_sources' % dir,
+                                  sources + files['crypto_headers'] +
+                                  files['crypto_internal_headers'])
+      self.PrintVariableSection(gypi, 'boringssl_crypto_deps', boringssl_crypto_deps)
 
       for ((osname, arch), asm_files) in asm_outputs:
         self.PrintVariableSection(gypi, 'boringssl_%s_%s_sources' %
                                   (osname, arch), asm_files)
 
-      gypi.write('  }\n}\n')
+      gypi.write('  },\n')  # end variables
+
+      target_template = Template(textwrap.dedent(r"""
+      #
+          {
+            'target_name': '${target_name}',
+            'type': 'static_library',
+            'include_dirs': [
+              '<(src)',
+              '<(src)/include',
+            ],
+            'sources': [
+              '<@(${sources_name})',
+            ],
+            'conditions': [
+              ['OS == "linux"', {
+                'cflags': [
+                  # TODO(b/80525998): Use threads or drop linux build.
+                  '-DOPENSSL_NO_THREADS',
+                ],
+                'link_settings': {
+                  'libraries': [
+                    '-lpthread',
+                  ],
+                },
+              }],
+            ],
+          },
+      """)[3:])
+      sub_targets = []
+      gypi.write('  \'targets\': [\n')  # ]
+      for dir in sorted(dirs.keys()):
+        if dir == 'core':
+          continue
+        gypi.write(target_template.substitute({
+            'target_name': 'boringssl_crypto_%s_lib' % dir,
+            'sources_name': 'boringssl_crypto_%s_sources' % dir,
+        }))
+      gypi.write('  ]\n}\n')
 
 
 def FindCMakeFiles(directory):
