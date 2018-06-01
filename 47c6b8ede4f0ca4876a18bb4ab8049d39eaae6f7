@@ -124,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "1d4e92b9_71e45e4a",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 2773,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-06-01T22:58:38Z",
+      "side": 1,
+      "message": "That\u0027s actually advertised in CertificateRequest and is orthogonal to the client support. ClientHello \u003d\u003e (Server)Certificate and CertificateRequest \u003d\u003e (Client)Certificate are two parallel sets of extension negotiation in TLS 1.3.",
+      "parentUuid": "04691c71_c8f553bb",
+      "revId": "47c6b8ede4f0ca4876a18bb4ab8049d39eaae6f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a58796a4_fe0eeb9c",
         "filename": "ssl/t1_lib.cc",
         "patchSetId": 5
