@@ -73,6 +73,10 @@ extern "C" {
 
 // DSA contains functions for signing and verifying with the Digital Signature
 // Algorithm.
+//
+// This module is deprecated and retained for legacy compatibility reasons only.
+// It is not considered a priority for performance or hardening work. Use
+// Ed25519, ECDSA with P-256, or RSA instead.
 
 
 // Allocation and destruction.
