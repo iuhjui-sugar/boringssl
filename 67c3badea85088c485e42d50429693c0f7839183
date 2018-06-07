@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da617c46_aea5cce7",
+        "filename": "crypto/evp/evp_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-06-07T16:54:15Z",
+      "side": 1,
+      "message": "For later since they\u0027re not exposed in a parsable form, but we should get them to add tags to every \"acceptable\" output so we can distinguish this stuff.",
+      "revId": "67c3badea85088c485e42d50429693c0f7839183",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
