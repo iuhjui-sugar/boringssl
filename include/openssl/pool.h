@@ -48,6 +48,11 @@ OPENSSL_EXPORT void CRYPTO_BUFFER_POOL_free(CRYPTO_BUFFER_POOL *pool);
 OPENSSL_EXPORT CRYPTO_BUFFER *CRYPTO_BUFFER_new(const uint8_t *data, size_t len,
                                                 CRYPTO_BUFFER_POOL *pool);
 
+// CRYPTO_BUFFER_alloc creates an unpooled |CRYPTO_BUFFER| of the given size and
+// writes the underlying buffer to |*out_data|. It returns NULL on error.
+OPENSSL_EXPORT CRYPTO_BUFFER *CRYPTO_BUFFER_alloc(uint8_t **out_data,
+                                                  size_t len);
+
 // CRYPTO_BUFFER_new_from_CBS acts the same as |CRYPTO_BUFFER_new|.
 OPENSSL_EXPORT CRYPTO_BUFFER *CRYPTO_BUFFER_new_from_CBS(
     CBS *cbs, CRYPTO_BUFFER_POOL *pool);
