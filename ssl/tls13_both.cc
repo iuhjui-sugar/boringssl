@@ -468,6 +468,11 @@ int tls13_add_certificate(SSL_HANDSHAKE *hs) {
     return 0;
   }
 
+  ssl->cert_compression_negotiated = true;
+  ssl->cert_compression_alg_id = hs->cert_compression_alg_id;
+  ssl->cert_compression_uncompressed_len = msg.size();
+  ssl->cert_compression_compressed_len = CBB_len(cbb.get());
+
   return 1;
 }
 

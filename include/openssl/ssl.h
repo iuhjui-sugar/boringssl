@@ -4285,6 +4285,17 @@ OPENSSL_EXPORT int SSL_CTX_set_tlsext_status_cb(SSL_CTX *ctx,
 OPENSSL_EXPORT int SSL_CTX_set_tlsext_status_arg(SSL_CTX *ctx, void *arg);
 
 
+// SSL_get_certificate_compression_info returns 0 if certificate compression
+// was not negotiated for the connection, otheriwse returns 1 and sets
+// |*out_alg| to the certificate compression algorithm negotiated with the
+// client, |*out_uncompressed_len| to the length of the uncompressed
+// certificate message, and |*out_compressed_len| to the length of the
+// compressed certificate message.
+OPENSSL_EXPORT int SSL_get_certificate_compression_info(const SSL *ssl,
+                                                uint16_t *out_alg,
+                                                size_t *out_uncompressed_len,
+                                                size_t *out_compressed_len);
+
 // Nodejs compatibility section (hidden).
 //
 // These defines exist for node.js, with the hope that we can eliminate the
