@@ -2818,6 +2818,21 @@ struct SSLConnection {
   // renegotiate_mode controls how peer renegotiation attempts are handled.
   enum ssl_renegotiate_mode_t renegotiate_mode;
 
+  // cert_compression_alg_id, for a server, contains the negotiated certificate
+  // compression algorithm for this client. It is only valid if
+  // |cert_compression_negotiated| is true.
+  uint16_t cert_compression_alg_id;
+
+  // cert_compression_uncompressed_len, for a server, contains the length of
+  // the uncompressed certificate message. It is only valid if
+  // |cert_compression_negotiated| is true.
+  size_t cert_compression_uncompressed_len;
+
+  // cert_compression_compressed_len, for a server, contains the length of
+  // the compressed certificate message. It is only valid if
+  // |cert_compression_negotiated| is true.
+  size_t cert_compression_compressed_len;
+
   // server is true iff the this SSL* is the server half. Note: before the SSL*
   // is initialized by either SSL_set_accept_state or SSL_set_connect_state,
   // the side is not determined. In this state, server is always false.
@@ -2834,6 +2849,10 @@ struct SSLConnection {
 
   // If enable_early_data is true, early data can be sent and accepted.
   bool enable_early_data : 1;
+
+  // cert_compression_negotiated is true if certificate compression was
+  // successfully enabled for this connection.
+  bool cert_compression_negotiated:1;
 };
 
 // From draft-ietf-tls-tls13-18, used in determining PSK modes.
