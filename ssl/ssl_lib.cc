@@ -2950,3 +2950,16 @@ int SSL_CTX_set_tlsext_status_arg(SSL_CTX *ctx, void *arg) {
   ctx->legacy_ocsp_callback_arg = arg;
   return 1;
 }
+
+int SSL_get_certificate_compression_info(const SSL *ssl, uint16_t *out_alg,
+                                         size_t *out_uncompressed_len,
+                                         size_t *out_compressed_len) {
+  if (!ssl->cert_compression_negotiated) {
+    return 0;
+  }
+
+  *out_alg = ssl->cert_compression_alg_id;
+  *out_uncompressed_len = ssl->cert_compression_uncompressed_len;
+  *out_compressed_len = ssl->cert_compression_compressed_len;
+  return 1;
+}
