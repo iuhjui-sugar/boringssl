@@ -67,8 +67,10 @@ def SetEnvironmentAndGetRuntimeDllDirs():
 
 def FindDepotTools():
   """Returns the path to depot_tools in $PATH."""
-  for path in os.environ['PATH'].split(os.pathsep):
+  # Hack to see if the problem is two different copies of depot_tools
+  for path in reversed(os.environ['PATH'].split(os.pathsep)):
     if os.path.isfile(os.path.join(path, 'gclient.py')):
+      print "!!! Found depot_tools at", path
       return path
   raise Exception("depot_tools not found!")
 
