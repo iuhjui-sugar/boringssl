@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "83a45619_33e1464d",
+        "filename": "include/openssl/pool.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-06-13T19:12:45Z",
+      "side": 1,
+      "message": "Since this lets you get a mutable pointer to a CRYPTO_BUFFER\u0027s data, it might be worth including some more text about how to use this. Something about how you should write some data to the pointer, but once you\u0027ve set it up, throw away the pointer and treat it as immutable.",
+      "revId": "b2c8703c419abf07468d99810bb86454f8450051",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72a11ff3_164e8069",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 3964,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-06-13T19:12:45Z",
+      "side": 1,
+      "message": "Huh! I\u0027m actually kind of surprised that passed the CQ, but okay! Historically MSVC took a lot of offense at stuffing function pointers into void* because C doesn\u0027t promise they fit on all implementations. Apparently we\u0027re not all that confident about this von Neumann architecture idea yet.\n\nAmusingly GCC didn\u0027t care, and GCC is far more likely to run on platforms where they were different sizes.",
+      "range": {
+        "startLine": 3964,
+        "startChar": 24,
+        "endLine": 3964,
+        "endChar": 39
+      },
+      "revId": "b2c8703c419abf07468d99810bb86454f8450051",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8cf0ba40_7d83f16d",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2786,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-06-13T19:12:45Z",
+      "side": 1,
+      "message": "Nit: I expect that just doing first || CBB_flush(out) without the \u003d\u003d 1 works.",
+      "range": {
+        "startLine": 2786,
+        "startChar": 33,
+        "endLine": 2786,
+        "endChar": 37
+      },
+      "revId": "b2c8703c419abf07468d99810bb86454f8450051",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11f44730_4748ed47",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 14589,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-06-13T19:12:45Z",
+      "side": 1,
+      "message": "Shrinks",
+      "range": {
+        "startLine": 14589,
+        "startChar": 33,
+        "endLine": 14589,
+        "endChar": 39
+      },
+      "revId": "b2c8703c419abf07468d99810bb86454f8450051",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0170dc4f_20283893",
+        "filename": "ssl/tls13_both.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-06-13T19:12:45Z",
+      "side": 1,
+      "message": "Should we sanity-check that CRYPTO_BUFFER_len(decompressed.get()) \u003d\u003d uncompressed_len? If the callback just ignores the length, we have worse problems, of course, but I could imagine someone doing the caching thing forgetting to check.",
+      "revId": "b2c8703c419abf07468d99810bb86454f8450051",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63653f04_f95d15c3",
+        "filename": "ssl/tls13_both.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-06-13T19:12:45Z",
+      "side": 1,
+      "message": "I\u0027m not sure why we had the message type checks in the handshake functions rather than here. They could just have been here. *shrug*",
+      "revId": "b2c8703c419abf07468d99810bb86454f8450051",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
