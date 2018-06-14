@@ -1,0 +1,203 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c281d23_7f46ea3b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-06-14T20:55:40Z",
+      "side": 1,
+      "message": "Since this might break something, could you add something like:\n\nUpdate-Note: Some invalid X.509 timestamps will be newly rejected.\n\nThis is just so that, if someone\u0027s tests to fail, it will be easier to figure out what change it was.\n\nIt\u0027s probably also worth noting that this change fixes bugs in time comparisons around the UTCTime / GeneralizedTime cutoff.",
+      "revId": "f1d8ff3ab6f59f946e4f7bb90ac0df8d11496350",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d40a4486_302a8e12",
+        "filename": "crypto/x509/x509_time_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-06-14T20:55:40Z",
+      "side": 1,
+      "message": "This file is a little inconsistent about Google vs OpenSSL style. I guess since we have to rewrite tests with GTest and EXPECT macros anyway, may as well be Google (2-space indents, leave license header along, but other comments // instead of /*)? But I dunno. We\u0027re pretty inconsistent. :-)\n\nPS: clang-format is fantastic.",
+      "revId": "f1d8ff3ab6f59f946e4f7bb90ac0df8d11496350",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "030fcaea_e99077ac",
+        "filename": "crypto/x509/x509_time_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-06-14T20:55:40Z",
+      "side": 1,
+      "message": "Nit: I think we\u0027d usually put openssl/x509.h first in tests, since this file is testing X.509 functions. (Point 1 in https://google.github.io/styleguide/cppguide.html#Names_and_Order_of_Includes.)",
+      "revId": "f1d8ff3ab6f59f946e4f7bb90ac0df8d11496350",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6edd3c3_e59fdb4c",
+        "filename": "crypto/x509/x509_time_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-06-14T20:55:40Z",
+      "side": 1,
+      "message": "This file is C++, so you can just write:\n\nstruct TESTDATA {\n  ....\n}\n\nMaybe TestData? I think we usually try to name the C++ files like C++. But, uh, it\u0027s pretty random.",
+      "revId": "f1d8ff3ab6f59f946e4f7bb90ac0df8d11496350",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72fe229f_9260d253",
+        "filename": "crypto/x509/x509_time_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-06-14T20:55:40Z",
+      "side": 1,
+      "message": "static const TestData kX509CmpTests[] \u003d {",
+      "revId": "f1d8ff3ab6f59f946e4f7bb90ac0df8d11496350",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "296644e5_b2f956c3",
+        "filename": "crypto/x509/x509_time_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-06-14T20:55:40Z",
+      "side": 1,
+      "message": "You can actually just write:\n\n  for (const auto \u0026test : x509_cmp_tests) {\n\nI would also suggest something like:\n\n  SCOPED_TRACE(test.data);\n\nThis makes it so that it prints the string on failure and it\u0027s a little easier to tell which it was.",
+      "revId": "f1d8ff3ab6f59f946e4f7bb90ac0df8d11496350",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a1732b4_5db1e6f9",
+        "filename": "crypto/x509/x509_time_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-06-14T20:55:40Z",
+      "side": 1,
+      "message": "Declare variables close to use, so this line can just fold into line 156 as \"int result \u003d ...\". Or you could even just do:\n\n  ASSERT_EQ(x509_cmp_tests[idx].expected,\n            X509_cmp_time(\u0026t, \u0026x509_cmp_tests[idx].cmp_time));\n\nDitto for the test below.",
+      "revId": "f1d8ff3ab6f59f946e4f7bb90ac0df8d11496350",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1dba8538_607b082a",
+        "filename": "crypto/x509/x509_time_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-06-14T20:55:40Z",
+      "side": 1,
+      "message": "No need for the second set of parens. Though maybe write this as:\n\n  reinterpret_cast\u003cunsigned char*\u003e(x509_cmp_tests[idx].data)",
+      "range": {
+        "startLine": 153,
+        "startChar": 13,
+        "endLine": 153,
+        "endChar": 30
+      },
+      "revId": "f1d8ff3ab6f59f946e4f7bb90ac0df8d11496350",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3660c6b_01aa281a",
+        "filename": "crypto/x509/x509_time_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-06-14T20:55:40Z",
+      "side": 1,
+      "message": "Nit: The test will continue to run fine if this fails, so I\u0027d suggest EXPECT_EQ rather than ASSERT_EQ. (EXPECT_EQ \u003d fail if it doesn\u0027t match, but keep running, ASSERT_EQ \u003d stop the test if it doesn\u0027t match. Usually you use the latter for length checks and other stuff where it will just crash otherwise.)",
+      "range": {
+        "startLine": 157,
+        "startChar": 4,
+        "endLine": 157,
+        "endChar": 13
+      },
+      "revId": "f1d8ff3ab6f59f946e4f7bb90ac0df8d11496350",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd3e5bb2_e705420b",
+        "filename": "crypto/x509/x509_time_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-06-14T20:55:40Z",
+      "side": 1,
+      "message": "We have C++ scopers for all these types. You can just write:\n\n  bssl::UniquePtr\u003cASN1_TIME\u003e asn1_before(ASN1_TIME_adj(NULL, now, -1, 0));\n\nAnd then asn1_before.get() when accessing.",
+      "revId": "f1d8ff3ab6f59f946e4f7bb90ac0df8d11496350",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf85312c_91444646",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1888,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-06-14T20:55:40Z",
+      "side": 1,
+      "message": "This library is amazing...",
+      "revId": "f1d8ff3ab6f59f946e4f7bb90ac0df8d11496350",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
