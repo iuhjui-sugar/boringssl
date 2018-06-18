@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d3c4572f_2a30cd05",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 8939
+      },
+      "writtenOn": "2018-06-18T21:29:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c281d23_7f46ea3b",
+      "revId": "f1d8ff3ab6f59f946e4f7bb90ac0df8d11496350",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d40a4486_302a8e12",
         "filename": "crypto/x509/x509_time_test.cc",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "f1d8ff3ab6f59f946e4f7bb90ac0df8d11496350",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e8a362b_3ba76d94",
+        "filename": "crypto/x509/x509_time_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8939
+      },
+      "writtenOn": "2018-06-18T21:29:20Z",
+      "side": 1,
+      "message": "Done (and thanks for the tip!)",
+      "parentUuid": "d40a4486_302a8e12",
+      "revId": "f1d8ff3ab6f59f946e4f7bb90ac0df8d11496350",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "3af19a3d_56b74f7d",
+        "filename": "crypto/x509/x509_time_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 8939
+      },
+      "writtenOn": "2018-06-18T21:29:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "030fcaea_e99077ac",
+      "revId": "f1d8ff3ab6f59f946e4f7bb90ac0df8d11496350",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f6edd3c3_e59fdb4c",
         "filename": "crypto/x509/x509_time_test.cc",
         "patchSetId": 3
@@ -67,6 +121,24 @@
       "revId": "f1d8ff3ab6f59f946e4f7bb90ac0df8d11496350",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e24f89db_af8b7d76",
+        "filename": "crypto/x509/x509_time_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 8939
+      },
+      "writtenOn": "2018-06-18T21:29:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6edd3c3_e59fdb4c",
+      "revId": "f1d8ff3ab6f59f946e4f7bb90ac0df8d11496350",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "5e0502f4_d27d4073",
+        "filename": "crypto/x509/x509_time_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 8939
+      },
+      "writtenOn": "2018-06-18T21:29:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72fe229f_9260d253",
+      "revId": "f1d8ff3ab6f59f946e4f7bb90ac0df8d11496350",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "296644e5_b2f956c3",
         "filename": "crypto/x509/x509_time_test.cc",
         "patchSetId": 3
@@ -104,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "e41990ea_945d5873",
+        "filename": "crypto/x509/x509_time_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 8939
+      },
+      "writtenOn": "2018-06-18T21:29:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "296644e5_b2f956c3",
+      "revId": "f1d8ff3ab6f59f946e4f7bb90ac0df8d11496350",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4a1732b4_5db1e6f9",
         "filename": "crypto/x509/x509_time_test.cc",
         "patchSetId": 3
@@ -118,6 +226,24 @@
       "revId": "f1d8ff3ab6f59f946e4f7bb90ac0df8d11496350",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d88b360_98994ead",
+        "filename": "crypto/x509/x509_time_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 8939
+      },
+      "writtenOn": "2018-06-18T21:29:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a1732b4_5db1e6f9",
+      "revId": "f1d8ff3ab6f59f946e4f7bb90ac0df8d11496350",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -144,6 +270,30 @@
     },
     {
       "key": {
+        "uuid": "d990789b_d021fef7",
+        "filename": "crypto/x509/x509_time_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 8939
+      },
+      "writtenOn": "2018-06-18T21:29:20Z",
+      "side": 1,
+      "message": "The cast also removes const, so I just removed the parens.",
+      "parentUuid": "1dba8538_607b082a",
+      "range": {
+        "startLine": 153,
+        "startChar": 13,
+        "endLine": 153,
+        "endChar": 30
+      },
+      "revId": "f1d8ff3ab6f59f946e4f7bb90ac0df8d11496350",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b3660c6b_01aa281a",
         "filename": "crypto/x509/x509_time_test.cc",
         "patchSetId": 3
@@ -167,6 +317,30 @@
     },
     {
       "key": {
+        "uuid": "3458ee28_5722f884",
+        "filename": "crypto/x509/x509_time_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 8939
+      },
+      "writtenOn": "2018-06-18T21:29:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b3660c6b_01aa281a",
+      "range": {
+        "startLine": 157,
+        "startChar": 4,
+        "endLine": 157,
+        "endChar": 13
+      },
+      "revId": "f1d8ff3ab6f59f946e4f7bb90ac0df8d11496350",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd3e5bb2_e705420b",
         "filename": "crypto/x509/x509_time_test.cc",
         "patchSetId": 3
@@ -181,6 +355,24 @@
       "revId": "f1d8ff3ab6f59f946e4f7bb90ac0df8d11496350",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb1b6f92_b1b34191",
+        "filename": "crypto/x509/x509_time_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 8939
+      },
+      "writtenOn": "2018-06-18T21:29:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd3e5bb2_e705420b",
+      "revId": "f1d8ff3ab6f59f946e4f7bb90ac0df8d11496350",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
