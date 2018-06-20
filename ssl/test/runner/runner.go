@@ -1487,20 +1487,56 @@ NextTest:
 			test.config.MaxVersion >= VersionTLS13 ||
 			test.config.MaxVersion < VersionTLS10 ||
 			(test.resumeConfig != nil && (test.resumeConfig.MaxVersion < VersionTLS10 || test.resumeConfig.MaxVersion >= VersionTLS13)) ||
-			strings.HasPrefix(test.name, "VersionNegotiation-") {
+			test.name == "Draft-Downgrade-Server" /* requires TLS 1.3 shim server */ {
 			continue
 		}
 
-		for _, flag := range test.flags {
+		// Skip cases where the shim server would not be configured to
+		// support TLS 1.0, 1.1, or 1.2, and always contract its (min,
+		// max) versions to this range, since versions outside that
+		// range are disallowed in split handshakes.
+		no_tls1 := false
+		no_tls11 := false
+		no_tls12 := false
+		has_max_version := false
+		has_min_version := false
+		for i, flag := range test.flags {
 			if flag == "-implicit-handshake" {
 				continue NextTest
 			}
+			if flag == "-max-version" {
+				has_max_version = true
+				if test.flags[i+1] == "772" || test.flags[i+1] == "768" {
+					continue NextTest
+				}
+			}
+			if flag == "-min-version" {
+				has_min_version = true
+			}
+			if flag == "-no-tls12" {
+				no_tls12 = true
+			}
+			if flag == "-no-tls11" {
+				no_tls11 = true
+			}
+			if flag == "-no-tls1" {
+				no_tls1 = true
+			}
+		}
+		if no_tls1 && no_tls11 && no_tls12 {
+			continue NextTest
 		}
 
 		shTest := test
 		shTest.name += "-Split"
 		shTest.flags = make([]string, len(test.flags), len(test.flags)+1)
 		copy(shTest.flags, test.flags)
+		if !has_min_version {
+			shTest.flags = append(shTest.flags, "-min-version", "769")
+		}
+		if !has_max_version {
+			shTest.flags = append(shTest.flags, "-max-version", "771")
+		}
 		shTest.flags = append(shTest.flags, "-handoff")
 
 		splitHandshakeTests = append(splitHandshakeTests, shTest)

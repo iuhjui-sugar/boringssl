@@ -99,6 +99,36 @@ bool SSL_apply_handoff(SSL *ssl, Span<const uint8_t> handoff) {
   return true;
 }
 
+// serialize_config encodes how |ssl| is configured.  The configuration is used
+// only to check that |ssl| doesn't have anything configured that is unsupported
+// on the handback side.
+static bool serialize_config(const SSL *ssl, CBB *out) {
+  CBB ciphers;
+  if (!CBB_add_u16(out, ssl->s3->hs->min_version) ||
+      !CBB_add_u16(out, ssl->s3->hs->max_version) ||
+      !CBB_add_asn1(out, &ciphers, CBS_ASN1_SEQUENCE)) {
+    return false;
+  }
+  STACK_OF(SSL_CIPHER) *configured_ciphers = SSL_get_ciphers(ssl);
+  for (size_t i = 0; i < sk_SSL_CIPHER_num(configured_ciphers); ++i) {
+    if (!CBB_add_u16(&ciphers,
+                     static_cast<uint16_t>(SSL_CIPHER_get_id(
+                         sk_SSL_CIPHER_value(configured_ciphers, i))))) {
+      return false;
+    }
+  }
+  CBB supported_groups;
+  if (!CBB_add_asn1(out, &supported_groups, CBS_ASN1_SEQUENCE)) {
+    return false;
+  }
+  for (uint16_t group : tls1_get_grouplist(ssl->s3->hs.get())) {
+    if (!CBB_add_u16(&supported_groups, group)) {
+      return false;
+    }
+  }
+  return CBB_flush(out);
+}
+
 bool SSL_serialize_handback(const SSL *ssl, CBB *out) {
   if (!ssl->server || ssl->method->is_dtls || ssl->version < TLS1_VERSION) {
     return false;
@@ -153,7 +183,7 @@ bool SSL_serialize_handback(const SSL *ssl, CBB *out) {
       s3->session_reused ? ssl->session : s3->hs->new_session.get();
   if (!CBB_add_asn1(out, &seq, CBS_ASN1_SEQUENCE) ||
       !CBB_add_asn1_uint64(&seq, kHandbackVersion) ||
-      !CBB_add_asn1_uint64(&seq, type) ||
+      !serialize_config(ssl, &seq) || !CBB_add_asn1_uint64(&seq, type) ||
       !CBB_add_asn1_octet_string(&seq, s3->read_sequence,
                                  sizeof(s3->read_sequence)) ||
       !CBB_add_asn1_octet_string(&seq, s3->write_sequence,
@@ -194,6 +224,82 @@ bool SSL_serialize_handback(const SSL *ssl, CBB *out) {
   return CBB_flush(out);
 }
 
+// subset_u16 returns true if |remote|, a SEQUENCE of u16, is non-empty and
+// contains no element that isn't present in |supported|.
+static bool subset_u16(const uint16_t *supported, size_t len, CBS *remote) {
+  CBS list;
+  if (!CBS_get_asn1(remote, &list, CBS_ASN1_SEQUENCE) || CBS_len(&list) == 0) {
+    return false;
+  }
+  uint16_t remote_config[len];
+  size_t rlen = 0;
+  while (CBS_len(&list)) {
+    uint16_t id;
+    if (!CBS_get_u16(&list, &id) || rlen > len) {
+      return false;
+    }
+    remote_config[rlen++] = id;
+  }
+  qsort(remote_config, rlen, sizeof(uint16_t), compare_uint16_t);
+
+  uint16_t local_config[len];
+  memcpy(local_config, supported, len * sizeof(uint16_t));
+  qsort(local_config, len, sizeof(uint16_t), compare_uint16_t);
+
+  size_t r = 0, l = 0;
+  for (; r < rlen; ++r) {
+    if (local_config[l] > remote_config[r]) {
+      return false;
+    }
+    while (local_config[l] < remote_config[r]) {
+      ++l;
+      if (l >= len) {
+        return false;
+      }
+    }
+    if (local_config[l] != remote_config[r]) {
+      return false;
+    }
+  }
+  return true;
+}
+
+// deserialize_config returns true iff the configuration used in the handshake
+// enables no features that are not also enabled on |ssl|.
+//
+// For example, rather than choking only when the client and server happen to
+// negotiate a cipher that's not supported here, on the handback side, be more
+// consistent, and choke whenever the handshaker is configured to support a
+// cipher that is unsupported here.
+static bool deserialize_config(const SSL *ssl, CBS *in) {
+  // TLS 1.3, and its multiple draft versions, is left for future generations to
+  // handle.
+  uint16_t min_version, max_version;
+  if (!CBS_get_u16(in, &min_version) || !CBS_get_u16(in, &max_version) ||
+      min_version == 0 || max_version == 0 ||
+      min_version < ssl->s3->hs->config->conf_min_version ||
+      max_version > ssl->s3->hs->config->conf_max_version ||
+      max_version > TLS1_2_VERSION) {
+    return false;
+  }
+
+  CBS ciphers;
+  STACK_OF(SSL_CIPHER) *configured = SSL_get_ciphers(ssl);
+  size_t len = sk_SSL_CIPHER_num(configured);
+  uint16_t configured_ciphers[len];
+  for (size_t i = 0; i < len; ++i) {
+    configured_ciphers[i] = static_cast<uint16_t>(
+        SSL_CIPHER_get_id(sk_SSL_CIPHER_value(configured, i)));
+  }
+  Span<const uint16_t> configured_groups =
+      tls1_get_grouplist(ssl->s3->hs.get());
+  if (!subset_u16(configured_ciphers, len, in) ||
+      !subset_u16(configured_groups.data(), configured_groups.size(), in)) {
+    return false;
+  }
+  return true;
+}
+
 bool SSL_apply_handback(SSL *ssl, Span<const uint8_t> handback) {
   if (ssl->do_handshake != nullptr ||
       ssl->method->is_dtls) {
@@ -212,12 +318,9 @@ bool SSL_apply_handback(SSL *ssl, Span<const uint8_t> handback) {
   CBS handback_cbs(handback);
   if (!CBS_get_asn1(&handback_cbs, &seq, CBS_ASN1_SEQUENCE) ||
       !CBS_get_asn1_uint64(&seq, &handback_version) ||
-      handback_version != kHandbackVersion ||
-      !CBS_get_asn1_uint64(&seq, &type)) {
-    return false;
-  }
-
-  if (!CBS_get_asn1(&seq, &read_seq, CBS_ASN1_OCTETSTRING) ||
+      handback_version != kHandbackVersion || !deserialize_config(ssl, &seq) ||
+      !CBS_get_asn1_uint64(&seq, &type) ||
+      !CBS_get_asn1(&seq, &read_seq, CBS_ASN1_OCTETSTRING) ||
       CBS_len(&read_seq) != sizeof(s3->read_sequence) ||
       !CBS_get_asn1(&seq, &write_seq, CBS_ASN1_OCTETSTRING) ||
       CBS_len(&write_seq) != sizeof(s3->write_sequence) ||
