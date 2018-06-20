@@ -3121,6 +3121,8 @@ void ssl_reset_error_state(SSL *ssl);
 // current state of the error queue.
 void ssl_set_read_error(SSL* ssl);
 
+int compare_uint16_t(const void *, const void *);
+
 }  // namespace bssl
 
 

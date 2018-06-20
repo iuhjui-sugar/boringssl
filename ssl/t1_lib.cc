@@ -133,7 +133,7 @@ namespace bssl {
 
 static int ssl_check_clienthello_tlsext(SSL_HANDSHAKE *hs);
 
-static int compare_uint16_t(const void *p1, const void *p2) {
+int compare_uint16_t(const void *p1, const void *p2) {
   uint16_t u1 = *((const uint16_t *)p1);
   uint16_t u2 = *((const uint16_t *)p2);
   if (u1 < u2) {
