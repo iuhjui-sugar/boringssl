@@ -758,10 +758,15 @@ static bool DoExchange(bssl::UniquePtr<SSL_SESSION> *out_session,
 
   if (!config->implicit_handshake) {
     if (config->handoff) {
+#if defined(OPENSSL_LINUX)
       if (!DoSplitHandshake(ssl_uniqueptr, writer, is_resume)) {
         return false;
       }
       ssl = ssl_uniqueptr->get();
+#else
+      fprintf(stderr, "The external handshaker can only be used on Linux\n");
+      return false;  // This shouldn't happen.
+#endif
     }
 
     do {
@@ -1090,7 +1095,7 @@ int main(int argc, char **argv) {
   CRYPTO_library_init();
 
   TestConfig initial_config, resume_config, retry_config;
-  if (!ParseConfig(argc - 1, argv + 1, &initial_config, &resume_config,
+  if (!ParseConfig(argc, argv, &initial_config, &resume_config,
                    &retry_config)) {
     return Usage(argv[0]);
   }
