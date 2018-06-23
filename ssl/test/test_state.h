@@ -65,4 +65,17 @@ void AdvanceClock(unsigned seconds);
 
 void CopySessions(SSL_CTX *dest, const SSL_CTX *src);
 
+namespace bssl {
+
+// SerializeTestState serializes the state of the test, and is used for both the
+// handoff and handback steps of a split-handshake test.
+bool SerializeTestState(const TestState *in, SSL_CTX *ctx, CBB *out);
+
+// DeserializeTestState deserializes the state of the test, previously
+// serialized with |SerializeTestState|.  It is used in both the handoff and
+// handback steps of a split-handshake test.
+bool DeserializeTestState(CBS *in, TestState *out_state, SSL_CTX *out_ctx);
+
+}  //
+
 #endif  // HEADER_TEST_STATE
