@@ -65,4 +65,14 @@ void AdvanceClock(unsigned seconds);
 
 void CopySessions(SSL_CTX *dest, const SSL_CTX *src);
 
+// XXX this is dumb.  There should be just one serialized format.  And it should
+// have a version number.
+bool SerializeTestState(const SSL *ssl, CBB *out);
+
+bool SerializeTestState2(const TestState *state, CBB *out);
+
+bool DeserializeTestState(CBS *in, TestState *out_state, SSL_CTX *out_ctx);
+
+bool DeserializeTestState2(CBS *in, TestState *out_state);
+
 #endif  // HEADER_TEST_STATE

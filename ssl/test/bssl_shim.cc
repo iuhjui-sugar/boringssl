@@ -1087,7 +1087,7 @@ int main(int argc, char **argv) {
   CRYPTO_library_init();
 
   TestConfig initial_config, resume_config, retry_config;
-  if (!ParseConfig(argc - 1, argv + 1, &initial_config, &resume_config,
+  if (!ParseConfig(argc, argv, &initial_config, &resume_config,
                    &retry_config)) {
     return Usage(argv[0]);
   }
