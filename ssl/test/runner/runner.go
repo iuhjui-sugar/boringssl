@@ -1497,6 +1497,7 @@ NextTest:
 			}
 		}
 
+		// XXX make these tests not run on Windows.
 		shTest := test
 		shTest.name += "-Split"
 		shTest.flags = make([]string, len(test.flags), len(test.flags)+1)
