@@ -1475,6 +1475,9 @@ func bigFromHex(hex string) *big.Int {
 }
 
 func convertToSplitHandshakeTests(tests []testCase) (splitHandshakeTests []testCase) {
+	if runtime.GOOS != "linux" {
+		return
+	}
 NextTest:
 	for _, test := range tests {
 		if test.protocol != tls ||
@@ -1492,6 +1495,7 @@ NextTest:
 			}
 		}
 
+		// XXX make these tests not run on Windows.
 		shTest := test
 		shTest.name += "-Split"
 		shTest.flags = make([]string, len(test.flags), len(test.flags)+1)
