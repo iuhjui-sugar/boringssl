@@ -1475,6 +1475,9 @@ func bigFromHex(hex string) *big.Int {
 }
 
 func convertToSplitHandshakeTests(tests []testCase) (splitHandshakeTests []testCase) {
+	if runtime.GOOS != "linux" {
+		return
+	}
 NextTest:
 	for _, test := range tests {
 		if test.protocol != tls ||
@@ -2812,7 +2815,7 @@ read alert 1 0
 			messageCount:            5,
 			keyUpdateRequest:        keyUpdateRequested,
 			readWithUnfinishedWrite: true,
-			flags:                   []string{"-async"},
+			flags: []string{"-async"},
 		},
 		{
 			name: "SendSNIWarningAlert",
