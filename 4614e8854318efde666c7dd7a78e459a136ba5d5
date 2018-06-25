@@ -1,0 +1,187 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "04132f2a_07c9e486",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-06-25T21:26:48Z",
+      "side": 1,
+      "message": "This doesn\u0027t cover different variants of TLS 1.3 and the like. We\u0027re expecting to have multiple variants even going forward after the RFC, as an anti-ossification measure. (That\u0027s why I suggested the actual kTLSVersions list.)",
+      "revId": "4614e8854318efde666c7dd7a78e459a136ba5d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b01e3099_837ae3ff",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-06-25T21:26:48Z",
+      "side": 1,
+      "message": "This can be:\n\n  for (const SSL_CIPHER *cipher : configured_ciphers) {",
+      "revId": "4614e8854318efde666c7dd7a78e459a136ba5d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bf1e6cb_cd4fc4a2",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-06-25T21:26:48Z",
+      "side": 1,
+      "message": "Nit: newline",
+      "range": {
+        "startLine": 186,
+        "startChar": 37,
+        "endLine": 186,
+        "endChar": 38
+      },
+      "revId": "4614e8854318efde666c7dd7a78e459a136ba5d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "457952db_d6f0b8fd",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-06-25T21:26:48Z",
+      "side": 1,
+      "message": "Span\u003cconst uint16_t\u003e maybe?",
+      "range": {
+        "startLine": 229,
+        "startChar": 23,
+        "endLine": 229,
+        "endChar": 60
+      },
+      "revId": "4614e8854318efde666c7dd7a78e459a136ba5d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee5d568d_69ec8a89",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-06-25T21:26:48Z",
+      "side": 1,
+      "message": "I believe this is a GCC-ism, and also means we\u0027ll end up allocating an attacker-specified amount of stack space, which isn\u0027t great. Array\u003cuint16_t\u003e?",
+      "range": {
+        "startLine": 234,
+        "startChar": 11,
+        "endLine": 234,
+        "endChar": 29
+      },
+      "revId": "4614e8854318efde666c7dd7a78e459a136ba5d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e32011b6_413dd77f",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-06-25T21:26:48Z",
+      "side": 1,
+      "message": "!\u003d 0",
+      "range": {
+        "startLine": 236,
+        "startChar": 23,
+        "endLine": 236,
+        "endChar": 24
+      },
+      "revId": "4614e8854318efde666c7dd7a78e459a136ba5d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da330d20_1e12461a",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-06-25T21:26:48Z",
+      "side": 1,
+      "message": "bsearch?",
+      "revId": "4614e8854318efde666c7dd7a78e459a136ba5d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3ad2131_d07f595d",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-06-25T21:26:48Z",
+      "side": 1,
+      "message": "This doesn\u0027t cover TLS 1.3 ciphers, which aren\u0027t configured. (I was thinking it just dump the kCiphers array.)",
+      "revId": "4614e8854318efde666c7dd7a78e459a136ba5d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0605fdd_d274f423",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-06-25T21:26:48Z",
+      "side": 1,
+      "message": "Nit: newline.",
+      "range": {
+        "startLine": 320,
+        "startChar": 45,
+        "endLine": 320,
+        "endChar": 46
+      },
+      "revId": "4614e8854318efde666c7dd7a78e459a136ba5d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
