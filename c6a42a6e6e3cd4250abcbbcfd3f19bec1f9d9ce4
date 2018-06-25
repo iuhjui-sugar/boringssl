@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "88a2d64d_60121a60",
+        "filename": "ssl/test/settings_writer.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-06-25T17:54:00Z",
+      "side": 1,
+      "message": "I think both of these should be just be bssl::Span\u003cconst uint8_t\u003e hand{off,back} without any const-refs or anything. There should be an implicit cast and Span is small enough to pass by value.",
+      "revId": "c6a42a6e6e3cd4250abcbbcfd3f19bec1f9d9ce4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
