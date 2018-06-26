@@ -16,6 +16,24 @@
       "revId": "f5ff3d127a09f4e218397c2a6fbd9939e9640d8f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99b7c676_db598fbd",
+        "filename": "crypto/pkcs7/pkcs7_x509.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-06-26T18:31:29Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b51ec649_624d708a",
+      "revId": "f5ff3d127a09f4e218397c2a6fbd9939e9640d8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
