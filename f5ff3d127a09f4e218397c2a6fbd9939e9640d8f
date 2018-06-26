@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b51ec649_624d708a",
+        "filename": "crypto/pkcs7/pkcs7_x509.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-06-26T18:25:50Z",
+      "side": 1,
+      "message": "I noticed I forgot this bit.",
+      "revId": "f5ff3d127a09f4e218397c2a6fbd9939e9640d8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
