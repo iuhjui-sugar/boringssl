@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e4b9d75c_01b07bf8",
+        "filename": "ssl/t1_enc.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-06-28T08:10:55Z",
+      "side": 0,
+      "message": "Not totally clear that the left clause here is moot now. Is |!ssl-\u003es3-\u003ehave_version| newly impossible without SSLv3?",
+      "revId": "3815720cf31339b1739f8ad1c21205105412c6b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
