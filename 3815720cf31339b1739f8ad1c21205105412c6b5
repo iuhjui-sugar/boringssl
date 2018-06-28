@@ -16,6 +16,24 @@
       "revId": "3815720cf31339b1739f8ad1c21205105412c6b5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81a1c372_79fd0314",
+        "filename": "ssl/t1_enc.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-06-28T16:42:11Z",
+      "side": 0,
+      "message": "Yeah. The SSL_in_init check below implies that the version is set. (Probably could have just reordered these lines earlier.)",
+      "parentUuid": "e4b9d75c_01b07bf8",
+      "revId": "3815720cf31339b1739f8ad1c21205105412c6b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
