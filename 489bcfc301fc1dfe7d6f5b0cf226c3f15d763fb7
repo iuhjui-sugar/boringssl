@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fe8a58c8_0e0cb63b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-06-29T19:52:16Z",
+      "side": 1,
+      "message": "(Confirmed CLA on file.)",
+      "revId": "489bcfc301fc1dfe7d6f5b0cf226c3f15d763fb7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
