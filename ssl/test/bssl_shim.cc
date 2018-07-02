@@ -1344,7 +1344,7 @@ static bssl::UniquePtr<SSL_CTX> SetupCtx(SSL_CTX *old_ctx,
   }
 
   if (config->install_cert_compression_algs &&
-      (!SSL_CTX_add_cert_compression_alg(
+      (!bssl::SSL_CTX_add_cert_compression_alg(
            ssl_ctx.get(), 0xff02,
            [](SSL *ssl, CBB *out, bssl::Span<const uint8_t> in) -> bool {
              if (!CBB_add_u8(out, 1) ||
@@ -1367,7 +1367,7 @@ static bssl::UniquePtr<SSL_CTX> SetupCtx(SSL_CTX *old_ctx,
                                           uncompressed.size(), nullptr));
              return true;
            }) ||
-       !SSL_CTX_add_cert_compression_alg(
+       !bssl::SSL_CTX_add_cert_compression_alg(
            ssl_ctx.get(), 0xff01,
            [](SSL *ssl, CBB *out, bssl::Span<const uint8_t> in) -> bool {
              if (in.size() < 2 || in[0] != 0 || in[1] != 0) {
@@ -2401,7 +2401,7 @@ static bool DoExchange(bssl::UniquePtr<SSL_SESSION> *out_session,
       if (!ctx_handoff) {
         return false;
       }
-      SSL_CTX_set_handoff_mode(ctx_handoff.get(), 1);
+      bssl::SSL_CTX_set_handoff_mode(ctx_handoff.get(), 1);
 
       bssl::UniquePtr<SSL> ssl_handoff =
           NewSSL(ctx_handoff.get(), config, nullptr, false, nullptr);
@@ -2431,7 +2431,7 @@ static bool DoExchange(bssl::UniquePtr<SSL_SESSION> *out_session,
       bssl::ScopedCBB cbb;
       bssl::Array<uint8_t> handoff;
       if (!CBB_init(cbb.get(), 512) ||
-          !SSL_serialize_handoff(ssl_handoff.get(), cbb.get()) ||
+          !bssl::SSL_serialize_handoff(ssl_handoff.get(), cbb.get()) ||
           !CBBFinishArray(cbb.get(), &handoff) ||
           !writer->WriteHandoff(handoff)) {
         fprintf(stderr, "Handoff serialisation failed.\n");
@@ -2464,7 +2464,7 @@ static bool DoExchange(bssl::UniquePtr<SSL_SESSION> *out_session,
       bssl::ScopedCBB cbb;
       bssl::Array<uint8_t> handback;
       if (!CBB_init(cbb.get(), 512) ||
-          !SSL_serialize_handback(ssl, cbb.get()) ||
+          !bssl::SSL_serialize_handback(ssl, cbb.get()) ||
           !CBBFinishArray(cbb.get(), &handback) ||
           !writer->WriteHandback(handback)) {
         fprintf(stderr, "Handback serialisation failed.\n");
