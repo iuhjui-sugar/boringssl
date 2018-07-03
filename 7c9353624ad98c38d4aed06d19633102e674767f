@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "81a3750d_09949f0e",
+        "filename": "crypto/fipsmodule/rand/rand.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-07-03T18:29:47Z",
+      "side": 1,
+      "message": "next_all?",
+      "range": {
+        "startLine": 220,
+        "startChar": 31,
+        "endLine": 220,
+        "endChar": 35
+      },
+      "revId": "7c9353624ad98c38d4aed06d19633102e674767f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
