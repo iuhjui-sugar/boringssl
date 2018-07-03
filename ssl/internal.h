@@ -1997,8 +1997,8 @@ struct tlsext_ticket_key {
 DECLARE_LHASH_OF(SSL_SESSION)
 
 struct CertCompressionAlg {
-  bssl::CertCompressFunc compress;
-  bssl::CertDecompressFunc decompress;
+  cert_compression_func_t compress;
+  cert_decompression_func_t decompress;
   uint16_t alg_id;
 };
 
