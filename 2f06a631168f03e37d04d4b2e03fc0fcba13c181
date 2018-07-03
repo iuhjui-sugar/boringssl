@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2599f7e0_f463ed4e",
+        "filename": "ssl/tls13_both.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 6651
+      },
+      "writtenOn": "2018-07-03T16:34:07Z",
+      "side": 1,
+      "message": "There’s a return 0 missing from here.",
+      "revId": "2f06a631168f03e37d04d4b2e03fc0fcba13c181",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
