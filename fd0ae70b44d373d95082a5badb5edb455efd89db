@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1bae4f50_6b88dc7e",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3308,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-07-03T22:27:42Z",
+      "side": 1,
+      "message": "Can\u0027t these be inline-initialised too?",
+      "revId": "fd0ae70b44d373d95082a5badb5edb455efd89db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
