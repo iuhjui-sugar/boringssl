@@ -16,6 +16,24 @@
       "revId": "fd0ae70b44d373d95082a5badb5edb455efd89db",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "607b8429_f4156f29",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3308,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-07-03T22:45:22Z",
+      "side": 1,
+      "message": "Not until C++20. :-(\n\nThat\u0027s the one big annoyance with C++\u0027ing things. Once something is C++, memset(0) is a bit bad manners, and that means we need to manually initialize every bitfield.\n\nApparently it\u0027s a syntax problem. See http://open-std.org/JTC1/SC22/WG21/docs/cwg_closed.html#1341 for why it was initially rejected, and [the longest sequence of tokens that forms a valid size] here for the weird syntax quirk they added for it:\nhttps://en.cppreference.com/w/cpp/language/bit_field",
+      "parentUuid": "1bae4f50_6b88dc7e",
+      "revId": "fd0ae70b44d373d95082a5badb5edb455efd89db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
