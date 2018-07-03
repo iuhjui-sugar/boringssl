@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "856e42bb_f469c1fc",
+        "filename": "ssl/test/test_config.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1401,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-07-03T22:30:42Z",
+      "side": 1,
+      "message": "Here, this\u0027ll avoid the need for that silly counter. We have more fancy config parsing now.\nhttps://boringssl-review.googlesource.com/c/boringssl/+/29594",
+      "revId": "27041f0760c6bc5c5b4026691e26d3f67936738d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5d03f58_ba02dfe6",
+        "filename": "ssl/test/test_config.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-07-03T22:30:42Z",
+      "side": 1,
+      "message": "I am confused why this function still exists in the top commit, but I suppose, either way, you need it at this intermediate stage, so we can sort that out later. (Ditto for the other Move* function.)",
+      "revId": "27041f0760c6bc5c5b4026691e26d3f67936738d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07025e39_05c19c7f",
+        "filename": "ssl/test/test_state.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-07-03T22:30:42Z",
+      "side": 1,
+      "message": "Nit: Perhaps just:\n\n// Some code treats [etc]\nstatic timeval g_clock \u003d {1234, 1234};\n\nThen you also don\u0027t need the clock to call the CRYPTO_once, just the indices.",
+      "revId": "27041f0760c6bc5c5b4026691e26d3f67936738d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
