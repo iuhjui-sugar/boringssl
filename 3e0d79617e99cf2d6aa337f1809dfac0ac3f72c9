@@ -16,6 +16,24 @@
       "revId": "3e0d79617e99cf2d6aa337f1809dfac0ac3f72c9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37eccd68_910ef301",
+        "filename": "ssl/test/handshake_util.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-07-03T23:17:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2168ca43_1aa4990a",
+      "revId": "3e0d79617e99cf2d6aa337f1809dfac0ac3f72c9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
