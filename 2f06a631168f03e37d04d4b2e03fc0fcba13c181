@@ -2,6 +2,86 @@
   "comments": [
     {
       "key": {
+        "uuid": "d0ac305c_a3648fa7",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2772,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-07-03T18:34:09Z",
+      "side": 1,
+      "message": "Perhaps ssl_cert_compression_func_t, just to namespace it a little better. Ditto below.",
+      "range": {
+        "startLine": 2772,
+        "startChar": 3,
+        "endLine": 2772,
+        "endChar": 26
+      },
+      "revId": "2f06a631168f03e37d04d4b2e03fc0fcba13c181",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6535a261_2d59a686",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2797,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-07-03T18:34:09Z",
+      "side": 1,
+      "message": "Nit: NULL since we\u0027re in C now.",
+      "range": {
+        "startLine": 2797,
+        "startChar": 39,
+        "endLine": 2797,
+        "endChar": 46
+      },
+      "revId": "2f06a631168f03e37d04d4b2e03fc0fcba13c181",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04861910_98c8f373",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1362,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-07-03T18:34:09Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "2f06a631168f03e37d04d4b2e03fc0fcba13c181",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb5522e2_15734a4b",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1381,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-07-03T18:34:09Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "2f06a631168f03e37d04d4b2e03fc0fcba13c181",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2599f7e0_f463ed4e",
         "filename": "ssl/tls13_both.cc",
         "patchSetId": 1
