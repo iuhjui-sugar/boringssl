@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a150726_282b35f0",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 761,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-07-03T22:40:05Z",
+      "side": 1,
+      "message": "I think this is part of what\u0027s confusing me with the Move* functions earlier. Right now, it looks like we do:\n\n1. Make an SSL.\n2. Call DoExchange\n3. Make ssl_handoff which takes the original SSL\u0027s bits. Drive that until the handoff point (so it\u0027s parsed the ClientHello)\n4. Apply that handoff to the original SSL.\n5. Drive the original SSL to the handback point.\n6. Make yet another SSL, ssl_handback, and apply the handback.\n7. Swap ssl_uniqueptr to point to ssl_handback. Run the rest of the test on that.\n\nIs that actually how the caller is meant to work, with the three SSLs? I would have thought things would look like this:\n\n1. Make an SSL.\n2. Call DoExchange.\n3. Call DoSplitHandshake, which does:\n3a. Run the original SSL to the handoff point.\n3b. Make ssl_handshaker, steal TestConfig/TestState (later to be replaced with spawning a new binary and reparsing TestConfig + serializing TestState).\n3c. Apply the handoff to ssl_handshaker.\n3d. Run ssl_handshaker to the handback point.\n3e. Apply the handback to the original SSL.\n3f. Put TestConfig/TestState back (later to be replaced by serializing and such)\n4. Continue the test on the original SSL.\n\nThat makes DoSplitHandshake a bit more transparent, and means that, once you\u0027ve got a separate binary, you don\u0027t need MoveTest{Config,State} anymore.",
+      "revId": "3cdddcbbc39916d7f30b8fa5ad9c0f2351d6e04d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
