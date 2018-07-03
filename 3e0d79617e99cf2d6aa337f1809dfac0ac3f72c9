@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2168ca43_1aa4990a",
+        "filename": "ssl/test/handshake_util.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-07-03T22:31:32Z",
+      "side": 1,
+      "message": "Unused?",
+      "revId": "3e0d79617e99cf2d6aa337f1809dfac0ac3f72c9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
