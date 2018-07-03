@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2480d478_2c623ddd",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4133,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-07-03T21:17:10Z",
+      "side": 1,
+      "message": "Seems like an unrelated fix? But it\u0027s just a test so we\u0027ll not need to cherry-pick this anywhere.",
+      "range": {
+        "startLine": 4133,
+        "startChar": 44,
+        "endLine": 4133,
+        "endChar": 58
+      },
+      "revId": "28879edcafc339c5bce0f494c4080b991c1b4efb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
