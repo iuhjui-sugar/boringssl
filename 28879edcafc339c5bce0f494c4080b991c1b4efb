@@ -22,6 +22,30 @@
       "revId": "28879edcafc339c5bce0f494c4080b991c1b4efb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "29143205_f7deb576",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4133,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-07-03T21:27:30Z",
+      "side": 1,
+      "message": "It\u0027s because we map all draft versions into TLS1_3_VERSION at the public API, and since this switched to calling the public API rather than jamming something into the SSL_SESSION, it needs the public API value.\n\n(The reverse mapping is a little wonky, but this is a temporary issue.)",
+      "parentUuid": "2480d478_2c623ddd",
+      "range": {
+        "startLine": 4133,
+        "startChar": 44,
+        "endLine": 4133,
+        "endChar": 58
+      },
+      "revId": "28879edcafc339c5bce0f494c4080b991c1b4efb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
