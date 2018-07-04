@@ -16,6 +16,24 @@
       "revId": "3cdddcbbc39916d7f30b8fa5ad9c0f2351d6e04d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "883926e7_738b4963",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 761,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-07-04T05:49:35Z",
+      "side": 1,
+      "message": "It does seem to have been a deliberate choice to require three SSLs.  It\u0027s documented that way, and SSL_apply_handback() will choke if SSL_set_accept_state() has been called.\n\nWhile I\u0027m sure we can make it work either way, it seems a bit cleaner to require 3 SSLs, because allows the requirement that the handback be applied to a \"fresh\" SSL.\n\nDo you see a benefit to re-using the original SSL from the point of view of actual callers?  Or just from the point of view of the test?",
+      "parentUuid": "6a150726_282b35f0",
+      "revId": "3cdddcbbc39916d7f30b8fa5ad9c0f2351d6e04d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
