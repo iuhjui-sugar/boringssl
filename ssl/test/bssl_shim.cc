@@ -789,8 +789,7 @@ static bool DoExchange(bssl::UniquePtr<SSL_SESSION> *out_session,
         return false;
       }
       SSL_set_accept_state(ssl_handoff.get());
-      if (!MoveTestConfig(ssl_handoff.get(), ssl) ||
-          !MoveTestState(ssl_handoff.get(), ssl)) {
+      if (!MoveTestState(ssl_handoff.get(), ssl)) {
         return false;
       }
       MoveBIOs(ssl_handoff.get(), ssl);
@@ -820,8 +819,7 @@ static bool DoExchange(bssl::UniquePtr<SSL_SESSION> *out_session,
       }
 
       MoveBIOs(ssl, ssl_handoff.get());
-      if (!MoveTestConfig(ssl, ssl_handoff.get()) ||
-          !MoveTestState(ssl, ssl_handoff.get())) {
+      if (!MoveTestState(ssl, ssl_handoff.get())) {
         return false;
       }
 
@@ -863,8 +861,7 @@ static bool DoExchange(bssl::UniquePtr<SSL_SESSION> *out_session,
         return false;
       }
       MoveBIOs(ssl_handback.get(), ssl);
-      if (!MoveTestConfig(ssl_handback.get(), ssl) ||
-          !MoveTestState(ssl_handback.get(), ssl)) {
+      if (!MoveTestState(ssl_handback.get(), ssl)) {
         return false;
       }
 
