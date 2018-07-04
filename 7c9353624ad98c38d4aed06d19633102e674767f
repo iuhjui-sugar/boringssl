@@ -22,6 +22,30 @@
       "revId": "7c9353624ad98c38d4aed06d19633102e674767f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79f73a1a_c74c0c2a",
+        "filename": "crypto/fipsmodule/rand/rand.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-07-04T00:19:04Z",
+      "side": 1,
+      "message": "Yep, thanks.",
+      "parentUuid": "81a3750d_09949f0e",
+      "range": {
+        "startLine": 220,
+        "startChar": 31,
+        "endLine": 220,
+        "endChar": 35
+      },
+      "revId": "7c9353624ad98c38d4aed06d19633102e674767f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
