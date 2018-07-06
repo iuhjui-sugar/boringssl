@@ -34,6 +34,24 @@
       "revId": "3cdddcbbc39916d7f30b8fa5ad9c0f2351d6e04d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ceda62a7_4cf1e28a",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 761,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-07-06T19:48:23Z",
+      "side": 1,
+      "message": "Huh, interesting. My original design assumed it was just the one SSL, on the assumption that existing frontend code potentially attached lots of state to the SSL (as in here...) and it would be easier to keep continuity. I gather this wasn\u0027t considered an issue? If folks prefer three SSLs, whatever works. I think I was also assuming that apply_handback would check consistency with the handoff point, if more complex handoff points ever happened. But I\u0027m really not a fan of complex handoff points, and I suppose there\u0027s may be no particular need to check that anyway? I think it\u0027d mostly be about whether we could crash the calling code by doing something confusing.\n\nEven with three SSLs, though, it seems this test has one more Move step than is necessary. You could instead have the original SSL run to the handoff point, apply that to a new SSL to run the handshake, and then make a final SSL to apply the handback. That\u0027s two move steps, one at each transition, whereas this code does three.",
+      "parentUuid": "883926e7_738b4963",
+      "revId": "3cdddcbbc39916d7f30b8fa5ad9c0f2351d6e04d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
