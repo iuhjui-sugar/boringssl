@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5715e7d4_d1570fb6",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 795,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-07-06T18:50:08Z",
+      "side": 1,
+      "message": "Rather a lot of .get() calls to pay for small things like this... :-)",
+      "revId": "207c0bc990bacb6185f0cba041c6405f23555ae8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
