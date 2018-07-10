@@ -156,316 +156,6 @@
 
 namespace bssl {
 
-// kCiphers is an array of all supported ciphers, sorted by id.
-static constexpr SSL_CIPHER kCiphers[] = {
-    // The RSA ciphers
-    // Cipher 02
-    {
-     SSL3_TXT_RSA_NULL_SHA,
-     "TLS_RSA_WITH_NULL_SHA",
-     SSL3_CK_RSA_NULL_SHA,
-     SSL_kRSA,
-     SSL_aRSA,
-     SSL_eNULL,
-     SSL_SHA1,
-     SSL_HANDSHAKE_MAC_DEFAULT,
-    },
-
-    // Cipher 0A
-    {
-     SSL3_TXT_RSA_DES_192_CBC3_SHA,
-     "TLS_RSA_WITH_3DES_EDE_CBC_SHA",
-     SSL3_CK_RSA_DES_192_CBC3_SHA,
-     SSL_kRSA,
-     SSL_aRSA,
-     SSL_3DES,
-     SSL_SHA1,
-     SSL_HANDSHAKE_MAC_DEFAULT,
-    },
-
-
-    // New AES ciphersuites
-
-    // Cipher 2F
-    {
-     TLS1_TXT_RSA_WITH_AES_128_SHA,
-     "TLS_RSA_WITH_AES_128_CBC_SHA",
-     TLS1_CK_RSA_WITH_AES_128_SHA,
-     SSL_kRSA,
-     SSL_aRSA,
-     SSL_AES128,
-     SSL_SHA1,
-     SSL_HANDSHAKE_MAC_DEFAULT,
-    },
-
-    // Cipher 35
-    {
-     TLS1_TXT_RSA_WITH_AES_256_SHA,
-     "TLS_RSA_WITH_AES_256_CBC_SHA",
-     TLS1_CK_RSA_WITH_AES_256_SHA,
-     SSL_kRSA,
-     SSL_aRSA,
-     SSL_AES256,
-     SSL_SHA1,
-     SSL_HANDSHAKE_MAC_DEFAULT,
-    },
-
-    // PSK cipher suites.
-
-    // Cipher 8C
-    {
-     TLS1_TXT_PSK_WITH_AES_128_CBC_SHA,
-     "TLS_PSK_WITH_AES_128_CBC_SHA",
-     TLS1_CK_PSK_WITH_AES_128_CBC_SHA,
-     SSL_kPSK,
-     SSL_aPSK,
-     SSL_AES128,
-     SSL_SHA1,
-     SSL_HANDSHAKE_MAC_DEFAULT,
-    },
-
-    // Cipher 8D
-    {
-     TLS1_TXT_PSK_WITH_AES_256_CBC_SHA,
-     "TLS_PSK_WITH_AES_256_CBC_SHA",
-     TLS1_CK_PSK_WITH_AES_256_CBC_SHA,
-     SSL_kPSK,
-     SSL_aPSK,
-     SSL_AES256,
-     SSL_SHA1,
-     SSL_HANDSHAKE_MAC_DEFAULT,
-    },
-
-    // GCM ciphersuites from RFC5288
-
-    // Cipher 9C
-    {
-     TLS1_TXT_RSA_WITH_AES_128_GCM_SHA256,
-     "TLS_RSA_WITH_AES_128_GCM_SHA256",
-     TLS1_CK_RSA_WITH_AES_128_GCM_SHA256,
-     SSL_kRSA,
-     SSL_aRSA,
-     SSL_AES128GCM,
-     SSL_AEAD,
-     SSL_HANDSHAKE_MAC_SHA256,
-    },
-
-    // Cipher 9D
-    {
-     TLS1_TXT_RSA_WITH_AES_256_GCM_SHA384,
-     "TLS_RSA_WITH_AES_256_GCM_SHA384",
-     TLS1_CK_RSA_WITH_AES_256_GCM_SHA384,
-     SSL_kRSA,
-     SSL_aRSA,
-     SSL_AES256GCM,
-     SSL_AEAD,
-     SSL_HANDSHAKE_MAC_SHA384,
-    },
-
-    // TLS 1.3 suites.
-
-    // Cipher 1301
-    {
-      TLS1_TXT_AES_128_GCM_SHA256,
-      "TLS_AES_128_GCM_SHA256",
-      TLS1_CK_AES_128_GCM_SHA256,
-      SSL_kGENERIC,
-      SSL_aGENERIC,
-      SSL_AES128GCM,
-      SSL_AEAD,
-      SSL_HANDSHAKE_MAC_SHA256,
-    },
-
-    // Cipher 1302
-    {
-      TLS1_TXT_AES_256_GCM_SHA384,
-      "TLS_AES_256_GCM_SHA384",
-      TLS1_CK_AES_256_GCM_SHA384,
-      SSL_kGENERIC,
-      SSL_aGENERIC,
-      SSL_AES256GCM,
-      SSL_AEAD,
-      SSL_HANDSHAKE_MAC_SHA384,
-    },
-
-    // Cipher 1303
-    {
-      TLS1_TXT_CHACHA20_POLY1305_SHA256,
-      "TLS_CHACHA20_POLY1305_SHA256",
-      TLS1_CK_CHACHA20_POLY1305_SHA256,
-      SSL_kGENERIC,
-      SSL_aGENERIC,
-      SSL_CHACHA20POLY1305,
-      SSL_AEAD,
-      SSL_HANDSHAKE_MAC_SHA256,
-    },
-
-    // Cipher C009
-    {
-     TLS1_TXT_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,
-     "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA",
-     TLS1_CK_ECDHE_ECDSA_WITH_AES_128_CBC_SHA,
-     SSL_kECDHE,
-     SSL_aECDSA,
-     SSL_AES128,
-     SSL_SHA1,
-     SSL_HANDSHAKE_MAC_DEFAULT,
-    },
-
-    // Cipher C00A
-    {
-     TLS1_TXT_ECDHE_ECDSA_WITH_AES_256_CBC_SHA,
-     "TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA",
-     TLS1_CK_ECDHE_ECDSA_WITH_AES_256_CBC_SHA,
-     SSL_kECDHE,
-     SSL_aECDSA,
-     SSL_AES256,
-     SSL_SHA1,
-     SSL_HANDSHAKE_MAC_DEFAULT,
-    },
-
-    // Cipher C013
-    {
-     TLS1_TXT_ECDHE_RSA_WITH_AES_128_CBC_SHA,
-     "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA",
-     TLS1_CK_ECDHE_RSA_WITH_AES_128_CBC_SHA,
-     SSL_kECDHE,
-     SSL_aRSA,
-     SSL_AES128,
-     SSL_SHA1,
-     SSL_HANDSHAKE_MAC_DEFAULT,
-    },
-
-    // Cipher C014
-    {
-     TLS1_TXT_ECDHE_RSA_WITH_AES_256_CBC_SHA,
-     "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA",
-     TLS1_CK_ECDHE_RSA_WITH_AES_256_CBC_SHA,
-     SSL_kECDHE,
-     SSL_aRSA,
-     SSL_AES256,
-     SSL_SHA1,
-     SSL_HANDSHAKE_MAC_DEFAULT,
-    },
-
-    // GCM based TLS v1.2 ciphersuites from RFC5289
-
-    // Cipher C02B
-    {
-     TLS1_TXT_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
-     "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256",
-     TLS1_CK_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
-     SSL_kECDHE,
-     SSL_aECDSA,
-     SSL_AES128GCM,
-     SSL_AEAD,
-     SSL_HANDSHAKE_MAC_SHA256,
-    },
-
-    // Cipher C02C
-    {
-     TLS1_TXT_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,
-     "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384",
-     TLS1_CK_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,
-     SSL_kECDHE,
-     SSL_aECDSA,
-     SSL_AES256GCM,
-     SSL_AEAD,
-     SSL_HANDSHAKE_MAC_SHA384,
-    },
-
-    // Cipher C02F
-    {
-     TLS1_TXT_ECDHE_RSA_WITH_AES_128_GCM_SHA256,
-     "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
-     TLS1_CK_ECDHE_RSA_WITH_AES_128_GCM_SHA256,
-     SSL_kECDHE,
-     SSL_aRSA,
-     SSL_AES128GCM,
-     SSL_AEAD,
-     SSL_HANDSHAKE_MAC_SHA256,
-    },
-
-    // Cipher C030
-    {
-     TLS1_TXT_ECDHE_RSA_WITH_AES_256_GCM_SHA384,
-     "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
-     TLS1_CK_ECDHE_RSA_WITH_AES_256_GCM_SHA384,
-     SSL_kECDHE,
-     SSL_aRSA,
-     SSL_AES256GCM,
-     SSL_AEAD,
-     SSL_HANDSHAKE_MAC_SHA384,
-    },
-
-    // ECDHE-PSK cipher suites.
-
-    // Cipher C035
-    {
-     TLS1_TXT_ECDHE_PSK_WITH_AES_128_CBC_SHA,
-     "TLS_ECDHE_PSK_WITH_AES_128_CBC_SHA",
-     TLS1_CK_ECDHE_PSK_WITH_AES_128_CBC_SHA,
-     SSL_kECDHE,
-     SSL_aPSK,
-     SSL_AES128,
-     SSL_SHA1,
-     SSL_HANDSHAKE_MAC_DEFAULT,
-    },
-
-    // Cipher C036
-    {
-     TLS1_TXT_ECDHE_PSK_WITH_AES_256_CBC_SHA,
-     "TLS_ECDHE_PSK_WITH_AES_256_CBC_SHA",
-     TLS1_CK_ECDHE_PSK_WITH_AES_256_CBC_SHA,
-     SSL_kECDHE,
-     SSL_aPSK,
-     SSL_AES256,
-     SSL_SHA1,
-     SSL_HANDSHAKE_MAC_DEFAULT,
-    },
-
-    // ChaCha20-Poly1305 cipher suites.
-
-    // Cipher CCA8
-    {
-     TLS1_TXT_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256,
-     "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256",
-     TLS1_CK_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256,
-     SSL_kECDHE,
-     SSL_aRSA,
-     SSL_CHACHA20POLY1305,
-     SSL_AEAD,
-     SSL_HANDSHAKE_MAC_SHA256,
-    },
-
-    // Cipher CCA9
-    {
-     TLS1_TXT_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256,
-     "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256",
-     TLS1_CK_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256,
-     SSL_kECDHE,
-     SSL_aECDSA,
-     SSL_CHACHA20POLY1305,
-     SSL_AEAD,
-     SSL_HANDSHAKE_MAC_SHA256,
-    },
-
-    // Cipher CCAB
-    {
-     TLS1_TXT_ECDHE_PSK_WITH_CHACHA20_POLY1305_SHA256,
-     "TLS_ECDHE_PSK_WITH_CHACHA20_POLY1305_SHA256",
-     TLS1_CK_ECDHE_PSK_WITH_CHACHA20_POLY1305_SHA256,
-     SSL_kECDHE,
-     SSL_aPSK,
-     SSL_CHACHA20POLY1305,
-     SSL_AEAD,
-     SSL_HANDSHAKE_MAC_SHA256,
-    },
-
-};
-
-static const size_t kCiphersLen = OPENSSL_ARRAY_SIZE(kCiphers);
-
 #define CIPHER_ADD 1
 #define CIPHER_KILL 2
 #define CIPHER_DEL 3
@@ -707,7 +397,7 @@ static bool ssl_cipher_collect_ciphers(Array<CIPHER_ORDER> *out_co_list,
                                        CIPHER_ORDER **out_head,
                                        CIPHER_ORDER **out_tail) {
   Array<CIPHER_ORDER> co_list;
-  if (!co_list.Init(kCiphersLen)) {
+  if (!co_list.Init(OPENSSL_ARRAY_SIZE(kCiphers))) {
     return false;
   }
 
@@ -770,6 +460,27 @@ bool SSLCipherPreferenceList::Init(UniquePtr<STACK_OF(SSL_CIPHER)> ciphers_arg,
   size_t unused_len;
   copy.Release(&in_group_flags, &unused_len);
   return true;
+}
+
+bool SSLCipherPreferenceList::Init(const SSLCipherPreferenceList& other) {
+  size_t size = sk_SSL_CIPHER_num(other.ciphers.get());
+  Span<const bool> other_flags(other.in_group_flags, size);
+  UniquePtr<STACK_OF(SSL_CIPHER)> other_ciphers(sk_SSL_CIPHER_dup(other.ciphers.get()));
+  return Init(std::move(other_ciphers), other_flags);
+}
+
+void SSLCipherPreferenceList::Remove(const SSL_CIPHER *cipher) {
+  size_t index;
+  if (!sk_SSL_CIPHER_find(ciphers.get(), &index, cipher)) {
+    return;
+  }
+  if (in_group_flags[index] == 0 /* last element of group */ && index > 0) {
+    in_group_flags[index-1] = 0;
+  }
+  for (size_t i = index; i < sk_SSL_CIPHER_num(ciphers.get()) - 1; ++i) {
+    in_group_flags[i] = in_group_flags[i+1];
+  }
+  sk_SSL_CIPHER_delete(ciphers.get(), index);
 }
 
 // ssl_cipher_apply_rule applies the rule type |rule| to ciphers matching its
@@ -1051,7 +762,7 @@ static bool ssl_cipher_process_rulestr(const char *rule_str,
       // Look for a matching exact cipher. These aren't allowed in multipart
       // rules.
       if (!multi && ch != '+') {
-        for (j = 0; j < kCiphersLen; j++) {
+        for (j = 0; j < OPENSSL_ARRAY_SIZE(kCiphers); j++) {
           const SSL_CIPHER *cipher = &kCiphers[j];
           if (rule_equals(cipher->name, buf, buf_len) ||
               rule_equals(cipher->standard_name, buf, buf_len)) {
@@ -1217,7 +928,7 @@ bool ssl_create_cipher_list(UniquePtr<SSLCipherPreferenceList> *out_cipher_list,
   UniquePtr<STACK_OF(SSL_CIPHER)> cipherstack(sk_SSL_CIPHER_new_null());
   Array<bool> in_group_flags;
   if (cipherstack == nullptr ||
-      !in_group_flags.Init(kCiphersLen)) {
+      !in_group_flags.Init(OPENSSL_ARRAY_SIZE(kCiphers))) {
     return false;
   }
 
@@ -1345,7 +1056,8 @@ const SSL_CIPHER *SSL_get_cipher_by_value(uint16_t value) {
 
   c.id = 0x03000000L | value;
   return reinterpret_cast<const SSL_CIPHER *>(bsearch(
-      &c, kCiphers, kCiphersLen, sizeof(SSL_CIPHER), ssl_cipher_id_cmp));
+      &c, kCiphers, OPENSSL_ARRAY_SIZE(kCiphers), sizeof(SSL_CIPHER),
+      ssl_cipher_id_cmp));
 }
 
 uint32_t SSL_CIPHER_get_id(const SSL_CIPHER *cipher) { return cipher->id; }
