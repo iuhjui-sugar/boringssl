@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "49809e95_ca1dcb3f",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-07-10T23:36:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b01e3099_837ae3ff",
+      "revId": "4614e8854318efde666c7dd7a78e459a136ba5d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5bf1e6cb_cd4fc4a2",
         "filename": "ssl/handoff.cc",
         "patchSetId": 2
@@ -47,6 +65,30 @@
       "writtenOn": "2018-06-25T21:26:48Z",
       "side": 1,
       "message": "Nit: newline",
+      "range": {
+        "startLine": 186,
+        "startChar": 37,
+        "endLine": 186,
+        "endChar": 38
+      },
+      "revId": "4614e8854318efde666c7dd7a78e459a136ba5d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47a969c4_70619212",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-07-10T23:36:20Z",
+      "side": 1,
+      "message": "Done.  Is STYLE.md the right place to look for directions on how to configure clang-format?  As I have it configured, it wants to add this newline back.",
+      "parentUuid": "5bf1e6cb_cd4fc4a2",
       "range": {
         "startLine": 186,
         "startChar": 37,
