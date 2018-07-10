@@ -157,7 +157,7 @@
 namespace bssl {
 
 // kCiphers is an array of all supported ciphers, sorted by id.
-static const SSL_CIPHER kCiphers[] = {
+const SSL_CIPHER kCiphers[] = {
     // The RSA ciphers
     // Cipher 02
     {
@@ -464,7 +464,7 @@ static const SSL_CIPHER kCiphers[] = {
 
 };
 
-static const size_t kCiphersLen = OPENSSL_ARRAY_SIZE(kCiphers);
+const size_t kCiphersLen = OPENSSL_ARRAY_SIZE(kCiphers);
 
 #define CIPHER_ADD 1
 #define CIPHER_KILL 2
@@ -783,6 +783,27 @@ bool SSLCipherPreferenceList::Init(UniquePtr<STACK_OF(SSL_CIPHER)> ciphers_arg,
   size_t unused_len;
   copy.Release(&in_group_flags, &unused_len);
   return true;
+}
+
+bool SSLCipherPreferenceList::Init(const SSLCipherPreferenceList& other) {
+  size_t size = sk_SSL_CIPHER_num(other.ciphers.get());
+  Span<const bool> other_flags(other.in_group_flags, size);
+  UniquePtr<STACK_OF(SSL_CIPHER)> other_ciphers(sk_SSL_CIPHER_dup(other.ciphers.get()));
+  return Init(std::move(other_ciphers), other_flags);
+}
+
+void SSLCipherPreferenceList::Remove(const SSL_CIPHER *cipher) {
+  size_t index;
+  if (!sk_SSL_CIPHER_find(ciphers.get(), &index, cipher)) {
+    return;
+  }
+  if (in_group_flags[index] == 0 /* last element of group */ && index > 0) {
+    in_group_flags[index-1] = 0;
+  }
+  for (size_t i = index; i < sk_SSL_CIPHER_num(ciphers.get()); ++i) {
+    in_group_flags[i] = in_group_flags[i+1];
+  }
+  sk_SSL_CIPHER_delete(ciphers.get(), index);
 }
 
 // ssl_cipher_apply_rule applies the rule type |rule| to ciphers matching its
