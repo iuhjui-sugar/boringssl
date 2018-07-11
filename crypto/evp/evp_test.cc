@@ -496,21 +496,57 @@ static void RunWycheproofTest(const char *path) {
   });
 }
 
-TEST(EVPTest, Wycheproof) {
+TEST(EVPTest, WycheproofDSA) {
   RunWycheproofTest("third_party/wycheproof_testvectors/dsa_test.txt");
+}
+
+TEST(EVPTest, WycheproofECDSAP224) {
   RunWycheproofTest(
       "third_party/wycheproof_testvectors/ecdsa_secp224r1_sha224_test.txt");
   RunWycheproofTest(
       "third_party/wycheproof_testvectors/ecdsa_secp224r1_sha256_test.txt");
   RunWycheproofTest(
+      "third_party/wycheproof_testvectors/ecdsa_secp224r1_sha512_test.txt");
+}
+
+TEST(EVPTest, WycheproofECDSAP256) {
+  RunWycheproofTest(
       "third_party/wycheproof_testvectors/ecdsa_secp256r1_sha256_test.txt");
   RunWycheproofTest(
-      "third_party/wycheproof_testvectors/ecdsa_secp384r1_sha384_test.txt");
+      "third_party/wycheproof_testvectors/ecdsa_secp256r1_sha512_test.txt");
+}
+
+TEST(EVPTest, WycheproofECDSAP384) {
   RunWycheproofTest(
       "third_party/wycheproof_testvectors/ecdsa_secp384r1_sha512_test.txt");
   RunWycheproofTest(
-      "third_party/wycheproof_testvectors/ecdsa_secp521r1_sha512_test.txt");
-  RunWycheproofTest("third_party/wycheproof_testvectors/eddsa_test.txt");
+      "third_party/wycheproof_testvectors/ecdsa_secp384r1_sha384_test.txt");
+}
+
+TEST(EVPTest, WycheproofECDSAP512) {
   RunWycheproofTest(
-      "third_party/wycheproof_testvectors/rsa_signature_test.txt");
+      "third_party/wycheproof_testvectors/ecdsa_secp521r1_sha512_test.txt");
+}
+
+TEST(EVPTest, WycheproofEdDSA) {
+  RunWycheproofTest("third_party/wycheproof_testvectors/eddsa_test.txt");
+}
+
+TEST(EVPTest, WycheproofRSA) {
+  RunWycheproofTest(
+      "third_party/wycheproof_testvectors/rsa_signature_2048_sha224_test.txt");
+  RunWycheproofTest(
+      "third_party/wycheproof_testvectors/rsa_signature_2048_sha256_test.txt");
+  RunWycheproofTest(
+      "third_party/wycheproof_testvectors/rsa_signature_2048_sha512_test.txt");
+  RunWycheproofTest(
+      "third_party/wycheproof_testvectors/rsa_signature_3072_sha256_test.txt");
+  RunWycheproofTest(
+      "third_party/wycheproof_testvectors/rsa_signature_3072_sha384_test.txt");
+  RunWycheproofTest(
+      "third_party/wycheproof_testvectors/rsa_signature_3072_sha512_test.txt");
+  RunWycheproofTest(
+      "third_party/wycheproof_testvectors/rsa_signature_4096_sha384_test.txt");
+  RunWycheproofTest(
+      "third_party/wycheproof_testvectors/rsa_signature_4096_sha512_test.txt");
 }
