@@ -22,6 +22,15 @@
 #include <openssl/base.h>
 
 struct TestState {
+  // Serialize writes the current test state to |out|, along with some bits of
+  // state that are stored in |ctx|.  It should be kept up-to-date when new
+  // fields are added.
+  bool Serialize(SSL_CTX *ctx, CBB *out) const;
+
+  // Deserialize returns a new |TestState| from data written by |Serialize|, and
+  // updates |out_ctx|.  Returns nullptr on error.
+  static std::unique_ptr<TestState> Deserialize(CBS *cbs, SSL_CTX *out_ctx);
+
   // async_bio is async BIO which pauses reads and writes.
   BIO *async_bio = nullptr;
   // packeted_bio is the packeted BIO which simulates read timeouts.
