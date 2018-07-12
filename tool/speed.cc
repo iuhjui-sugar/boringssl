@@ -414,9 +414,9 @@ static bool SpeedAEADOpen(const EVP_AEAD *aead, const std::string &name,
 static bool SpeedHashChunk(const EVP_MD *md, const std::string &name,
                            size_t chunk_len) {
   bssl::ScopedEVP_MD_CTX ctx;
-  uint8_t scratch[8192];
+  std::vector<uint8_t> scratch(1024*1024);
 
-  if (chunk_len > sizeof(scratch)) {
+  if (chunk_len > scratch.size()) {
     return false;
   }
 
@@ -426,7 +426,7 @@ static bool SpeedHashChunk(const EVP_MD *md, const std::string &name,
         unsigned int md_len;
 
         return EVP_DigestInit_ex(ctx.get(), md, NULL /* ENGINE */) &&
-               EVP_DigestUpdate(ctx.get(), scratch, chunk_len) &&
+               EVP_DigestUpdate(ctx.get(), &scratch[0], chunk_len) &&
                EVP_DigestFinal_ex(ctx.get(), digest, &md_len);
       })) {
     fprintf(stderr, "EVP_DigestInit_ex failed.\n");
@@ -445,7 +445,8 @@ static bool SpeedHash(const EVP_MD *md, const std::string &name,
 
   return SpeedHashChunk(md, name + " (16 bytes)", 16) &&
          SpeedHashChunk(md, name + " (256 bytes)", 256) &&
-         SpeedHashChunk(md, name + " (8192 bytes)", 8192);
+         SpeedHashChunk(md, name + " (8192 bytes)", 8192) &&
+         SpeedHashChunk(md, name + " (1M bytes)", 1024*1024);
 }
 
 static bool SpeedRandomChunk(const std::string &name, size_t chunk_len) {
@@ -810,6 +811,7 @@ bool Speed(const std::vector<std::string> &args) {
                  kTLSADLen, selected) ||
       !SpeedHash(EVP_sha1(), "SHA-1", selected) ||
       !SpeedHash(EVP_sha256(), "SHA-256", selected) ||
+      !SpeedHash(EVP_sha256x16(), "SHA-256x16", selected) ||
       !SpeedHash(EVP_sha512(), "SHA-512", selected) ||
       !SpeedRandom(selected) ||
       !SpeedECDH(selected) ||
