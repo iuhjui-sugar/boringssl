@@ -88,6 +88,10 @@ OPENSSL_EXPORT const EVP_MD *EVP_sha512(void);
 // MD5 and SHA-1, as used in TLS 1.1 and below.
 OPENSSL_EXPORT const EVP_MD *EVP_md5_sha1(void);
 
+// EVP_sha256x16 is a 16-lane version of SHA-256. It does not produce the same
+// outputs as SHA-256. See https://eprint.iacr.org/2014/170.pdf.
+OPENSSL_EXPORT const EVP_MD *EVP_sha256x16(void);
+
 // EVP_get_digestbynid returns an |EVP_MD| for the given NID, or NULL if no
 // such digest is known.
 OPENSSL_EXPORT const EVP_MD *EVP_get_digestbynid(int nid);
