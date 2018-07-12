@@ -322,6 +322,7 @@ typedef struct rc4_key_st RC4_KEY;
 typedef struct rsa_meth_st RSA_METHOD;
 typedef struct rsa_st RSA;
 typedef struct sha256_state_st SHA256_CTX;
+typedef struct sha256x16_state_st SHA256x16_CTX;
 typedef struct sha512_state_st SHA512_CTX;
 typedef struct sha_state_st SHA_CTX;
 typedef struct spake2_ctx_st SPAKE2_CTX;
