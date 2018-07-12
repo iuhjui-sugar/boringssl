@@ -102,6 +102,7 @@ add_subdirectory(bio)
 add_subdirectory(bn_extra)
 add_subdirectory(obj)
 add_subdirectory(asn1)
+add_subdirectory(sha256x16)
 
 # Level 2
 add_subdirectory(engine)
@@ -187,6 +188,7 @@ add_library(
   $<TARGET_OBJECTS:rand_extra>
   $<TARGET_OBJECTS:obj>
   $<TARGET_OBJECTS:asn1>
+  $<TARGET_OBJECTS:sha256x16>
   $<TARGET_OBJECTS:engine>
   $<TARGET_OBJECTS:dh>
   $<TARGET_OBJECTS:dsa>
