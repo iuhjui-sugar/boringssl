@@ -30,6 +30,7 @@
 #include <openssl/nid.h>
 #include <openssl/obj.h>
 #include <openssl/sha.h>
+#include <openssl/sha256x16.h>
 
 #include "../internal.h"
 #include "../test/test_util.h"
@@ -50,6 +51,7 @@ static const MD md5 = { "MD5", &EVP_md5, &MD5 };
 static const MD sha1 = { "SHA1", &EVP_sha1, &SHA1 };
 static const MD sha224 = { "SHA224", &EVP_sha224, &SHA224 };
 static const MD sha256 = { "SHA256", &EVP_sha256, &SHA256 };
+static const MD sha256x16 = { "SHA256x16", &EVP_sha256x16, &SHA256x16 };
 static const MD sha384 = { "SHA384", &EVP_sha384, &SHA384 };
 static const MD sha512 = { "SHA512", &EVP_sha512, &SHA512 };
 static const MD md5_sha1 = { "MD5-SHA1", &EVP_md5_sha1, nullptr };
@@ -141,6 +143,25 @@ static const TestVector kTestVectors[] = {
     // MD5-SHA1 tests.
     { md5_sha1, "abc", 1,
       "900150983cd24fb0d6963f7d28e17f72a9993e364706816aba3e25717850c26c9cd0d89d" },
+
+    // SHA-256×16 tests.
+    { sha256x16,
+      "987654321000000000000000000000000000000000000000000000000000000000000000"
+      "000000000000000000000000000000000000000000000000000000000000000000000000"
+      "000000000000000000000000000000000000000000000000000000000000000000000000"
+      "000000000000000000000000000000000000000000000000000000000000000000000000"
+      "000000000000000000000000000000000000000000000000000000000000000000000000"
+      "000000000000000000000000000000000000000000000000000000000000000000000000"
+      "000000000000000000000000000000000000000000000000000000000000000000000000"
+      "000000000000000000000000000000000000000000000000000000000000000000000000"
+      "000000000000000000000000000000000000000000000000000000000000000000000000"
+      "000000000000000000000000000000000000000000000000000000000000000000000000"
+      "000000000000000000000000000000000000000000000000000000000000000000000000"
+      "000000000000000000000000000000000000000000000000000000000000000000000000"
+      "000000000000000000000000000000000000000000000000000000000000000000000000"
+      "000000000000000000000000000000000000000000000000000000000000000000000000"
+      "0000000123456789", 1,
+      "bb50b34c6c261fe32a6da9dd959282e669a5471d7ad5d9c67fb296ef8e60c454" },
 };
 
 static void CompareDigest(const TestVector *test,
@@ -274,4 +295,34 @@ TEST(DigestTest, TransformBlocks) {
   SHA256_TransformBlocks(ctx2.h, blocks, sizeof(blocks) / SHA256_CBLOCK);
 
   EXPECT_TRUE(0 == OPENSSL_memcmp(ctx1.h, ctx2.h, sizeof(ctx1.h)));
+}
+
+TEST(DigestTest, SHA256x16TrailerCases) {
+  // Terminating a SHA-256x16 hash is complex so it's worth testing all the
+  // lengths mod 1024.
+  uint8_t block[1024];
+  for (size_t i = 0; i < sizeof(block); i++) {
+    block[i] = i & 0xff;
+  }
+
+  uint8_t digest_xors[SHA256x16_DIGEST_LENGTH] = {0};
+  for (size_t i = 0; i < sizeof(block); i++) {
+    uint8_t digest[SHA256x16_DIGEST_LENGTH];
+    SHA256x16_CTX ctx;
+    SHA256x16_Init(&ctx);
+    SHA256x16_Update(&ctx, block, sizeof(block));
+    SHA256x16_Update(&ctx, block, i);
+    SHA256x16_Final(digest, &ctx);
+
+    for (size_t j = 0; j < SHA256x16_DIGEST_LENGTH; j++) {
+      digest_xors[j] ^= digest[j];
+    }
+  }
+
+  static const uint8_t kExpected[SHA256x16_DIGEST_LENGTH] = {
+      0x5d, 0xc7, 0xa7, 0xda, 0xa8, 0xc3, 0xa6, 0xd5, 0xe2, 0x89, 0xc8,
+      0x24, 0xb3, 0x1f, 0xf1, 0x2a, 0xd0, 0x40, 0xa4, 0xa8, 0x51, 0xb4,
+      0x58, 0xdb, 0xaa, 0x81, 0xc0, 0x8e, 0x8c, 0xa5, 0x29, 0x1b,
+  };
+  EXPECT_EQ(Bytes(digest_xors), Bytes(kExpected));
 }
