@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "97e91df8_51e02329",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1204,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2018-07-14T20:04:38Z",
+      "side": 1,
+      "message": "It appears this is returning the client_early_traffic_secret/(client|server)_handshake_traffic_secret/(client|server)_application_traffic_secret_0, which is a secret, not a key. (It is used to derive both the key and the IV.) How about renaming this to set_encryption_secret (and similar rename for arguments key and key_len)? I\u0027m also thinking this name should be singular, as one call to this function results in setting one secret.",
+      "range": {
+        "startLine": 1204,
+        "startChar": 8,
+        "endLine": 1204,
+        "endChar": 27
+      },
+      "revId": "52e38f9d0af5d9eee8f7ef46806c586ffbf11582",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "386ba9f4_5dff4ace",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1214,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2018-07-14T20:04:38Z",
+      "side": 1,
+      "message": "the QUIC-TLS draft says \"The alert level of all TLS alerts is “fatal”; a TLS stack MUST NOT generate alerts at the “warning” level.\" - I think it\u0027s fine to leave out |level| here.",
+      "range": {
+        "startLine": 1214,
+        "startChar": 38,
+        "endLine": 1214,
+        "endChar": 43
+      },
+      "revId": "52e38f9d0af5d9eee8f7ef46806c586ffbf11582",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51714a9b_8418b583",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1217,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2018-07-14T20:04:38Z",
+      "side": 1,
+      "message": "Can you describe the ownership and lifetime of the data being read?",
+      "range": {
+        "startLine": 1217,
+        "startChar": 8,
+        "endLine": 1217,
+        "endChar": 12
+      },
+      "revId": "52e38f9d0af5d9eee8f7ef46806c586ffbf11582",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec73f77c_13f9a24d",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1218,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2018-07-14T20:04:38Z",
+      "side": 1,
+      "message": "Some documentation would be nice for return values.",
+      "revId": "52e38f9d0af5d9eee8f7ef46806c586ffbf11582",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
