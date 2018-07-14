@@ -1189,6 +1189,36 @@ OPENSSL_EXPORT void SSL_CTX_set_private_key_method(
     SSL_CTX *ctx, const SSL_PRIVATE_KEY_METHOD *key_method);
 
 
+enum ssl_encryption_level_t {
+  ssl_el_initial = 0,
+  ssl_el_early_data,
+  ssl_el_handshake,
+  ssl_el_application,
+};
+
+// ssl_stream_method_st (aka |SSL_STREAM_METHOD|) describes custom stream hooks
+struct ssl_stream_method_st {
+  // set_encryption_keys provides the encryption keys to be used by the stream
+  // at a particular encryption level and direction specified by |level| and
+  // |is_write|.
+  int (*set_encryption_keys)(SSL *ssl, enum ssl_encryption_level_t level,
+                             int is_write, const uint8_t *key, size_t key_len);
+  // write_message provides the stream with a message to be written to the peer at a
+  // particular encryption level |level|.
+  int (*write_message)(SSL *ssl, enum ssl_encryption_level_t level, uint8_t *data,
+                        size_t len);
+  // Indicates that the current flight (potentially consisting of multiple EncryptionEncryption Levels is done), this will determine UDP datagram boundaries. (Sent after ServerFinished for example for a flight containing an unencrypted encryption level (SH) and encrypted encryption level (EE/C/CV/SF))
+  int (*flush_flight)(SSL *ssl);
+  // Send an aelrt
+  int (*send_alert)(SSL *ssl, uint8_t level, uint8_t desc);
+   // Reads from QUIC, QUIC should return whatever it has so far on the specified encryption level, erroring out if the incoming data is for a different encryption level. The TLS stack will continue querying until it stops receiving data, at which point it'll spit back out to QUIC that its waiting on data.
+  int (*read)(SSL *ssl, enum ssl_encryption_level_t level, uint8_t **in, size_t *in_len);
+};
+
+
+OPENSSL_EXPORT void SSL_set_custom_stream_method(
+    SSL *ssl, const SSL_STREAM_METHOD *stream_method);
+
 // Cipher suites.
 //
 // |SSL_CIPHER| objects represent cipher suites.
