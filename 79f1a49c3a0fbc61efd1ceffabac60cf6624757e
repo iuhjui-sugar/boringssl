@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8f6af417_972a16dc",
+        "filename": "util/fipstools/testdata/x86_64-GOTRewrite/in.s",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-07-14T03:40:26Z",
+      "side": 1,
+      "message": "Nit: Maybe worth a similar test for stderr instead of OPENSSL_ia32cap_P, since the final load for local vs. external is different. (I suspect we could unify those codepaths if we wanted. Though the path for symbols we know to be local is slightly more efficient right now, since it doesn\u0027t need that extra dereference at the end.)",
+      "revId": "79f1a49c3a0fbc61efd1ceffabac60cf6624757e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
