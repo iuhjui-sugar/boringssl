@@ -294,6 +294,11 @@ bool ssl_supports_version(SSL_HANDSHAKE *hs, uint16_t version) {
     return false;
   }
 
+  // Only allows TLS 1.3 if QUIC hooks are configured.
+  if (ssl->ctx->quic_method && protocol_version != TLS1_3_VERSION) {
+    return false;
+  }
+
   // If the TLS 1.3 variant is set to |tls13_default|, all variants are enabled,
   // otherwise only the matching version is enabled.
   if (protocol_version == TLS1_3_VERSION) {
