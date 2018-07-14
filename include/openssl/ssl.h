@@ -3036,6 +3036,74 @@ OPENSSL_EXPORT void SSL_get_peer_quic_transport_params(const SSL *ssl,
                                                        size_t *out_params_len);
 
 
+// SSL Stream Method
+//
+// QUIC acts as an underlying transport for the TLS 1.3 handshake. This method
+// allows a QUIC implementation to implement the necessary hooks to serve as the
+// underlying transport as described in draft-ietf-quic-tls.
+//
+// An implementation of these hooks should handle:
+// * Storing different encryption secrets corresponding to the different QUIC
+// encryption levels.
+// * Encrypting and sending messages over the transport using a specified
+// encryption level.
+// * Sending alerts in case of a handshake error.
+// * Provide data to BoringSSL as it receives handshake data.
+//
+// The implementation is required to drive the handshake via SSL_do_handshake
+// between reads and writes to the stream hooks.
+//
+// Note: 0-RTT does not currently work with this API.
+
+// ssl_encryption_level_t represents a specific QUIC encryption level used to
+// transmit handshake messages.
+enum ssl_encryption_level_t {
+  ssl_encryption_initial = 0,
+  ssl_encryption_early_data,
+  ssl_encryption_handshake,
+  ssl_encryption_application,
+};
+
+// ssl_stream_method_st (aka |SSL_STREAM_METHOD|) describes custom stream hooks.
+struct ssl_stream_method_st {
+  // set_encryption_secret configures the read or write secret for the given
+  // encryption level. This hook will be called prior to a message being written
+  // with these keys. Once a message has been sent at an updated encryption
+  // level, it is safe to release the previous keys from memory. It returns one
+  // on success and zero on error.
+  int (*set_encryption_secret)(SSL *ssl, enum ssl_encryption_level_t level,
+                               int is_write, const uint8_t *secret,
+                               size_t secret_len);
+  // write_message adds a message to the current flight at the given encryption
+  // level. It returns one on success and zero on error.
+  int (*write_message)(SSL *ssl, enum ssl_encryption_level_t level,
+                       const uint8_t *data, size_t len);
+  // flush_flight is called when the current flight is complete and should be
+  // written to the transport. Note a flight may contain data at several
+  // encryption levels. It returns one on success and zero on error.
+  int (*flush_flight)(SSL *ssl);
+  // send_alert sends a fatal alert at the specified encryption level. It
+  // returns one on success and zero on error.
+  int (*send_alert)(SSL *ssl, enum ssl_encryption_level_t level, uint8_t alert);
+};
+
+// SSL_provide_data provides data from a custom stream from encryption level
+// |level|. It is an error to call this function outside of the handshake or
+// with an encryption level other than that which is expected. The handshake
+// must be driven after each call to this function. It returns on on success and
+// zero on error.
+OPENSSL_EXPORT int SSL_provide_data(SSL *ssl, enum ssl_encryption_level_t level,
+                                    const uint8_t *data, size_t len);
+
+
+// SSL_CTX_set_custom_stream_method configures a custom underlying stream. This
+// should only be configured with a minimum version of TLS 1.3. |stream_method|
+// must remain valid for the lifetime of |ctx|. It returns one on success and
+// zero on error.
+OPENSSL_EXPORT int SSL_CTX_set_custom_stream_method(
+    SSL_CTX *ctx, const SSL_STREAM_METHOD *stream_method);
+
+
 // Early data.
 //
 // WARNING: 0-RTT support in BoringSSL is currently experimental and not fully
