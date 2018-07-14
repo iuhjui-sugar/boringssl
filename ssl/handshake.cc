@@ -158,8 +158,7 @@ SSL_HANDSHAKE::~SSL_HANDSHAKE() {
 
 UniquePtr<SSL_HANDSHAKE> ssl_handshake_new(SSL *ssl) {
   UniquePtr<SSL_HANDSHAKE> hs = MakeUnique<SSL_HANDSHAKE>(ssl);
-  if (!hs ||
-      !hs->transcript.Init()) {
+  if (!hs || !hs->transcript.Init()) {
     return nullptr;
   }
   hs->config = ssl->config.get();
@@ -453,8 +452,7 @@ bool ssl_send_finished(SSL_HANDSHAKE *hs) {
   }
 
   // Log the master secret, if logging is enabled.
-  if (!ssl_log_secret(ssl, "CLIENT_RANDOM",
-                      session->master_key,
+  if (!ssl_log_secret(ssl, "CLIENT_RANDOM", session->master_key,
                       session->master_key_length)) {
     return 0;
   }
@@ -520,6 +518,32 @@ int ssl_run_handshake(SSL_HANDSHAKE *hs, bool *out_early_return) {
       case ssl_hs_read_server_hello:
       case ssl_hs_read_message:
       case ssl_hs_read_change_cipher_spec: {
+        if (ssl->stream_method) {
+          if (hs->wait == ssl_hs_read_change_cipher_spec) {
+            break;
+          }
+
+          uint8_t *in;
+          size_t in_len;
+          if (!ssl->stream_method->read(ssl, ssl->s3->read_level, &in,
+                                        &in_len)) {
+            ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
+            return -1;
+          }
+
+          if (in_len == 0) {
+            ssl->s3->rwstate = SSL_READING;
+            return -1;
+          }
+
+          // Append the entire handshake record to the buffer.
+          if (!BUF_MEM_append(ssl->s3->hs_buf.get(), in, in_len)) {
+            ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
+            return -1;
+          }
+          break;
+        }
+
         uint8_t alert = SSL_AD_DECODE_ERROR;
         size_t consumed = 0;
         ssl_open_record_t ret;

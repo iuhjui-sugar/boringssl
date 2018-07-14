@@ -76,8 +76,9 @@ static int hkdf_expand_label(uint8_t *out, const EVP_MD *digest,
   CBB child;
   uint8_t *hkdf_label;
   size_t hkdf_label_len;
-  if (!CBB_init(cbb.get(), 2 + 1 + strlen(kTLS13LabelVersion) + label_len + 1 +
-                               hash_len) ||
+  if (!CBB_init(
+          cbb.get(),
+          2 + 1 + strlen(kTLS13LabelVersion) + label_len + 1 + hash_len) ||
       !CBB_add_u16(cbb.get(), len) ||
       !CBB_add_u8_length_prefixed(cbb.get(), &child) ||
       !CBB_add_bytes(&child, (const uint8_t *)kTLS13LabelVersion,
@@ -133,7 +134,8 @@ static int derive_secret(SSL_HANDSHAKE *hs, uint8_t *out, size_t len,
                            context_hash_len, len);
 }
 
-int tls13_set_traffic_key(SSL *ssl, enum evp_aead_direction_t direction,
+int tls13_set_traffic_key(SSL *ssl, enum ssl_encryption_level_t level,
+                          enum evp_aead_direction_t direction,
                           const uint8_t *traffic_secret,
                           size_t traffic_secret_len) {
   const SSL_SESSION *session = SSL_get_session(ssl);
@@ -178,6 +180,13 @@ int tls13_set_traffic_key(SSL *ssl, enum evp_aead_direction_t direction,
     return 0;
   }
 
+  if (ssl->stream_method) {
+    if (!ssl->stream_method->set_encryption_keys(
+            ssl, level, direction, traffic_secret, traffic_secret_len)) {
+      return 0;
+    }
+  }
+
   if (direction == evp_aead_open) {
     if (!ssl->method->set_read_state(ssl, std::move(traffic_aead))) {
       return 0;
@@ -193,10 +202,12 @@ int tls13_set_traffic_key(SSL *ssl, enum evp_aead_direction_t direction,
     OPENSSL_memmove(ssl->s3->read_traffic_secret, traffic_secret,
                     traffic_secret_len);
     ssl->s3->read_traffic_secret_len = traffic_secret_len;
+    ssl->s3->read_level = level;
   } else {
     OPENSSL_memmove(ssl->s3->write_traffic_secret, traffic_secret,
                     traffic_secret_len);
     ssl->s3->write_traffic_secret_len = traffic_secret_len;
+    ssl->s3->write_level = level;
   }
 
   return 1;
@@ -222,43 +233,76 @@ int tls13_derive_early_secrets(SSL_HANDSHAKE *hs) {
       !derive_secret(hs, ssl->s3->early_exporter_secret, hs->hash_len,
                      kTLS13LabelEarlyExporter,
                      strlen(kTLS13LabelEarlyExporter))) {
-    return 0;
+    return false;
   }
   ssl->s3->early_exporter_secret_len = hs->hash_len;
-  return 1;
+
+  if (ssl->stream_method) {
+    return ssl->stream_method->set_encryption_keys(
+        ssl, ssl_el_early_data, !ssl->server, hs->early_traffic_secret,
+        hs->hash_len);
+  }
+
+  return true;
 }
 
 int tls13_derive_handshake_secrets(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
-  return derive_secret(hs, hs->client_handshake_secret, hs->hash_len,
-                       kTLS13LabelClientHandshakeTraffic,
-                       strlen(kTLS13LabelClientHandshakeTraffic)) &&
-         ssl_log_secret(ssl, "CLIENT_HANDSHAKE_TRAFFIC_SECRET",
-                        hs->client_handshake_secret, hs->hash_len) &&
-         derive_secret(hs, hs->server_handshake_secret, hs->hash_len,
-                       kTLS13LabelServerHandshakeTraffic,
-                       strlen(kTLS13LabelServerHandshakeTraffic)) &&
-         ssl_log_secret(ssl, "SERVER_HANDSHAKE_TRAFFIC_SECRET",
-                        hs->server_handshake_secret, hs->hash_len);
+  if (!derive_secret(hs, hs->client_handshake_secret, hs->hash_len,
+                     kTLS13LabelClientHandshakeTraffic,
+                     strlen(kTLS13LabelClientHandshakeTraffic)) ||
+      !ssl_log_secret(ssl, "CLIENT_HANDSHAKE_TRAFFIC_SECRET",
+                      hs->client_handshake_secret, hs->hash_len) ||
+      !derive_secret(hs, hs->server_handshake_secret, hs->hash_len,
+                     kTLS13LabelServerHandshakeTraffic,
+                     strlen(kTLS13LabelServerHandshakeTraffic)) ||
+      !ssl_log_secret(ssl, "SERVER_HANDSHAKE_TRAFFIC_SECRET",
+                      hs->server_handshake_secret, hs->hash_len)) {
+    return false;
+  }
+
+  if (ssl->stream_method) {
+    return ssl->stream_method->set_encryption_keys(
+               ssl, ssl_el_handshake, !ssl->server, hs->client_handshake_secret,
+               hs->hash_len) &&
+           ssl->stream_method->set_encryption_keys(
+               ssl, ssl_el_handshake, ssl->server, hs->server_handshake_secret,
+               hs->hash_len);
+  }
+
+  return true;
 }
 
 int tls13_derive_application_secrets(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
   ssl->s3->exporter_secret_len = hs->hash_len;
-  return derive_secret(hs, hs->client_traffic_secret_0, hs->hash_len,
-                       kTLS13LabelClientApplicationTraffic,
-                       strlen(kTLS13LabelClientApplicationTraffic)) &&
-         ssl_log_secret(ssl, "CLIENT_TRAFFIC_SECRET_0",
-                        hs->client_traffic_secret_0, hs->hash_len) &&
-         derive_secret(hs, hs->server_traffic_secret_0, hs->hash_len,
-                       kTLS13LabelServerApplicationTraffic,
-                       strlen(kTLS13LabelServerApplicationTraffic)) &&
-         ssl_log_secret(ssl, "SERVER_TRAFFIC_SECRET_0",
-                        hs->server_traffic_secret_0, hs->hash_len) &&
-         derive_secret(hs, ssl->s3->exporter_secret, hs->hash_len,
-                       kTLS13LabelExporter, strlen(kTLS13LabelExporter)) &&
-         ssl_log_secret(ssl, "EXPORTER_SECRET", ssl->s3->exporter_secret,
-                        hs->hash_len);
+  if (!derive_secret(hs, hs->client_traffic_secret_0, hs->hash_len,
+                     kTLS13LabelClientApplicationTraffic,
+                     strlen(kTLS13LabelClientApplicationTraffic)) ||
+      !ssl_log_secret(ssl, "CLIENT_TRAFFIC_SECRET_0",
+                      hs->client_traffic_secret_0, hs->hash_len) ||
+      !derive_secret(hs, hs->server_traffic_secret_0, hs->hash_len,
+                     kTLS13LabelServerApplicationTraffic,
+                     strlen(kTLS13LabelServerApplicationTraffic)) ||
+      !ssl_log_secret(ssl, "SERVER_TRAFFIC_SECRET_0",
+                      hs->server_traffic_secret_0, hs->hash_len) ||
+      !derive_secret(hs, ssl->s3->exporter_secret, hs->hash_len,
+                     kTLS13LabelExporter, strlen(kTLS13LabelExporter)) ||
+      !ssl_log_secret(ssl, "EXPORTER_SECRET", ssl->s3->exporter_secret,
+                      hs->hash_len)) {
+    return false;
+  }
+
+  if (ssl->stream_method) {
+    return ssl->stream_method->set_encryption_keys(
+               ssl, ssl_el_application, !ssl->server,
+               hs->client_traffic_secret_0, hs->hash_len) &&
+           ssl->stream_method->set_encryption_keys(
+               ssl, ssl_el_application, ssl->server,
+               hs->server_traffic_secret_0, hs->hash_len);
+  }
+
+  return true;
 }
 
 static const char kTLS13LabelApplicationTraffic[] = "traffic upd";
@@ -281,7 +325,7 @@ int tls13_rotate_traffic_key(SSL *ssl, enum evp_aead_direction_t direction) {
     return 0;
   }
 
-  return tls13_set_traffic_key(ssl, direction, secret, secret_len);
+  return tls13_set_traffic_key(ssl, ssl_el_application, direction, secret, secret_len);
 }
 
 static const char kTLS13LabelResumption[] = "res master";
@@ -476,9 +520,8 @@ int tls13_verify_psk_binder(SSL_HANDSHAKE *hs, SSL_SESSION *session,
     return 0;
   }
 
-  int binder_ok =
-      CBS_len(&binder) == hash_len &&
-      CRYPTO_memcmp(CBS_data(&binder), verify_data, hash_len) == 0;
+  int binder_ok = CBS_len(&binder) == hash_len &&
+                  CRYPTO_memcmp(CBS_data(&binder), verify_data, hash_len) == 0;
 #if defined(BORINGSSL_UNSAFE_FUZZER_MODE)
   binder_ok = 1;
 #endif
