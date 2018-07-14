@@ -703,16 +703,14 @@ static enum ssl_hs_wait_t do_send_server_hello(SSL_HANDSHAKE *hs) {
   }
 
   // Implement the TLS 1.3 anti-downgrade feature.
-  if (ssl_supports_version(hs, TLS1_3_VERSION)) {
-    if (ssl_protocol_version(ssl) == TLS1_2_VERSION) {
-      OPENSSL_memcpy(ssl->s3->server_random + SSL3_RANDOM_SIZE -
-                         sizeof(kTLS13DowngradeRandom),
-                     kTLS13DowngradeRandom, sizeof(kTLS13DowngradeRandom));
-    } else {
-      OPENSSL_memcpy(ssl->s3->server_random + SSL3_RANDOM_SIZE -
-                         sizeof(kTLS12DowngradeRandom),
-                     kTLS12DowngradeRandom, sizeof(kTLS12DowngradeRandom));
-    }
+  if (ssl_protocol_version(ssl) == TLS1_2_VERSION) {
+    OPENSSL_memcpy(ssl->s3->server_random + SSL3_RANDOM_SIZE -
+                   sizeof(kTLS13DowngradeRandom),
+                   kTLS13DowngradeRandom, sizeof(kTLS13DowngradeRandom));
+  } else {
+    OPENSSL_memcpy(ssl->s3->server_random + SSL3_RANDOM_SIZE -
+                   sizeof(kTLS12DowngradeRandom),
+                   kTLS12DowngradeRandom, sizeof(kTLS12DowngradeRandom));
   }
 
   const SSL_SESSION *session = hs->new_session.get();
