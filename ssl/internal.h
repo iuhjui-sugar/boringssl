@@ -1251,7 +1251,8 @@ int tls13_advance_key_schedule(SSL_HANDSHAKE *hs, const uint8_t *in,
 
 // tls13_set_traffic_key sets the read or write traffic keys to
 // |traffic_secret|. It returns one on success and zero on error.
-int tls13_set_traffic_key(SSL *ssl, enum evp_aead_direction_t direction,
+int tls13_set_traffic_key(SSL *ssl, enum ssl_encryption_level_t level,
+                          enum evp_aead_direction_t direction,
                           const uint8_t *traffic_secret,
                           size_t traffic_secret_len);
 
@@ -2110,6 +2111,9 @@ struct SSL3_STATE {
   // needs re-doing when in SSL_accept or SSL_connect
   int rwstate = SSL_NOTHING;
 
+  enum ssl_encryption_level_t read_level = ssl_el_initial;
+  enum ssl_encryption_level_t write_level = ssl_el_initial;
+
   // early_data_skipped is the amount of early data that has been skipped by the
   // record layer.
   uint16_t early_data_skipped = 0;
@@ -2433,6 +2437,9 @@ struct SSL_CONFIG {
                                   unsigned max_psk_len) = nullptr;
   unsigned (*psk_server_callback)(SSL *ssl, const char *identity, uint8_t *psk,
                                   unsigned max_psk_len) = nullptr;
+
+  const SSL_STREAM_METHOD *stream_method = nullptr;
+
 
   // for server side, keep the list of CA_dn we can use
   UniquePtr<STACK_OF(CRYPTO_BUFFER)> client_CA;

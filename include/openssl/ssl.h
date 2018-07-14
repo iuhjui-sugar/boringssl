@@ -1189,6 +1189,29 @@ OPENSSL_EXPORT void SSL_CTX_set_private_key_method(
     SSL_CTX *ctx, const SSL_PRIVATE_KEY_METHOD *key_method);
 
 
+enum ssl_encryption_level_t {
+  ssl_el_initial = 0,
+  ssl_el_early_data,
+  ssl_el_handshake,
+  ssl_el_application,
+};
+
+struct ssl_stream_method_st {
+  int (*set_encryption_keys)(SSL *ssl, enum ssl_encryption_level_t level,
+                              int is_write,
+                              const uint8_t *key, size_t key_len);
+  int (*write_message)(SSL *ssl, enum ssl_encryption_level_t level, uint8_t *data,
+                        size_t len);
+  int (*flush_level)(SSL *ssl, enum ssl_encryption_level_t level);
+  int (*flush_flight)(SSL *ssl);
+  int (*send_alert)(SSL *ssl, uint8_t level, uint8_t desc);
+  int (*read)(SSL *ssl, enum ssl_encryption_level_t level, uint8_t **in, size_t *in_len);
+};
+
+
+OPENSSL_EXPORT void SSL_set_custom_stream_method(
+    SSL *ssl, const SSL_STREAM_METHOD *stream_method);
+
 // Cipher suites.
 //
 // |SSL_CIPHER| objects represent cipher suites.

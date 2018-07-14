@@ -95,8 +95,14 @@ static bool ssl3_set_read_state(SSL *ssl, UniquePtr<SSLAEADContext> aead_ctx) {
 }
 
 static bool ssl3_set_write_state(SSL *ssl, UniquePtr<SSLAEADContext> aead_ctx) {
-  if (!tls_flush_pending_hs_data(ssl)) {
-    return false;
+  if (ssl->config->stream_method) {
+    if (!ssl->config->stream_method->flush_level(ssl, ssl->s3->write_level)) {
+      return false;
+    }
+  } else {
+    if (!tls_flush_pending_hs_data(ssl)) {
+      return false;
+    }
   }
 
   OPENSSL_memset(ssl->s3->write_sequence, 0, sizeof(ssl->s3->write_sequence));
