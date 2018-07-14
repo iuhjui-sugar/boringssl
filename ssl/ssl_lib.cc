@@ -2303,6 +2303,14 @@ char *SSL_get_shared_ciphers(const SSL *ssl, char *buf, int len) {
   return buf;
 }
 
+void SSL_set_custom_stream_method(SSL *ssl,
+                                  const SSL_STREAM_METHOD *stream_method) {
+  if (!ssl->config) {
+    return;
+  }
+  ssl->stream_method = stream_method;
+}
+
 int SSL_get_ex_new_index(long argl, void *argp, CRYPTO_EX_unused *unused,
                          CRYPTO_EX_dup *dup_unused, CRYPTO_EX_free *free_func) {
   int index;
