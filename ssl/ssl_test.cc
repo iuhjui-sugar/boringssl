@@ -4114,6 +4114,73 @@ TEST(SSLTest, HandoffDeclined) {
   EXPECT_EQ(43, byte);
 }
 
+TEST(SSLTest, StreamMethod) {
+  bssl::UniquePtr<SSL_CTX> client_ctx(SSL_CTX_new(TLS_method()));
+  bssl::UniquePtr<SSL_CTX> server_ctx(SSL_CTX_new(TLS_method()));
+  ASSERT_TRUE(client_ctx);
+  ASSERT_TRUE(server_ctx);
+
+  bssl::UniquePtr<X509> cert = GetTestCertificate();
+  bssl::UniquePtr<EVP_PKEY> key = GetTestKey();
+  ASSERT_TRUE(cert);
+  ASSERT_TRUE(key);
+  ASSERT_TRUE(SSL_CTX_use_certificate(server_ctx.get(), cert.get()));
+  ASSERT_TRUE(SSL_CTX_use_PrivateKey(server_ctx.get(), key.get()));
+
+  bssl::UniquePtr<SSL> client(SSL_new(client_ctx.get())), server(SSL_new(server_ctx.get()));
+  ASSERT_TRUE(client && server);
+  SSL_set_connect_state(client.get());
+  SSL_set_accept_state(server.get());
+
+  SSL_set_ex_data(server.get(), 1, client.get());
+  SSL_set_ex_data(client.get(), 1, server.get());
+
+  auto nopSetEncryption = [](SSL *ssl, enum ssl_encryption_level_t level,
+                             int is_write, const uint8_t *secret,
+                             size_t secret_len) -> int {
+    return 1;
+  };
+
+  auto writeMessage = [](SSL *ssl, enum ssl_encryption_level_t level,
+                         uint8_t *data, size_t len) -> int {
+    SSL *peer = reinterpret_cast<SSL *>(SSL_get_ex_data(ssl, 1));
+    int ret = SSL_do_handshake(peer);
+    if (ret) {
+      ret = SSL_provide_data(peer, level, data, len);
+    }
+    return ret;
+  };
+  auto nopFlushFlight = [](SSL *ssl) -> int { return 1; };
+
+  auto nopSendAlert = [](SSL *ssl, enum ssl_encryption_level_t level,
+                         uint8_t alert) -> int { return 1; };
+
+  const SSL_STREAM_METHOD clientStreamMethod = {
+    nopSetEncryption,
+    writeMessage,
+    nopFlushFlight,
+    nopSendAlert};
+
+  const SSL_STREAM_METHOD serverStreamMethod = {
+    nopSetEncryption,
+    writeMessage,
+    nopFlushFlight,
+    nopSendAlert
+  };
+  
+  SSL_set_custom_stream_method(client.get(), &clientStreamMethod);
+  SSL_set_custom_stream_method(server.get(), &serverStreamMethod);
+
+  BIO *bio1, *bio2;
+  ASSERT_TRUE(BIO_new_bio_pair(&bio1, 0, &bio2, 0));
+
+  // SSL_set_bio takes ownership.
+  SSL_set_bio(client.get(), bio1, bio1);
+  SSL_set_bio(server.get(), bio2, bio2);
+
+  ASSERT_TRUE(CompleteHandshakes(client.get(), server.get()));
+}
+  
 // TODO(davidben): Convert this file to GTest properly.
 TEST(SSLTest, AllTests) {
   if (!TestSSL_SESSIONEncoding(kOpenSSLSession) ||
