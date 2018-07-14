@@ -4114,6 +4114,10 @@ TEST(SSLTest, HandoffDeclined) {
   EXPECT_EQ(43, byte);
 }
 
+TEST(SSLTest, StreamMethod) {
+  ASSERT_TRUE(true);
+}
+  
 // TODO(davidben): Convert this file to GTest properly.
 TEST(SSLTest, AllTests) {
   if (!TestSSL_SESSIONEncoding(kOpenSSLSession) ||
