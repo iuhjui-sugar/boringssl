@@ -779,6 +779,51 @@ BIO *SSL_get_rbio(const SSL *ssl) { return ssl->rbio.get(); }
 
 BIO *SSL_get_wbio(const SSL *ssl) { return ssl->wbio.get(); }
 
+size_t SSL_quic_max_handshake_flight_len(SSL *ssl,
+                                         enum ssl_encryption_level_t level) {
+  switch (level) {
+    case ssl_encryption_initial:
+    case ssl_encryption_early_data:
+    case ssl_encryption_application:
+      return 16384;
+    case ssl_encryption_handshake:
+      return 32768;
+  }
+
+  return 0;
+}
+
+enum ssl_encryption_level_t SSL_quic_read_level(SSL *ssl) {
+  return ssl->s3->read_level;
+}
+
+enum ssl_encryption_level_t SSL_quic_write_level(SSL *ssl) {
+  return ssl->s3->write_level;
+}
+
+int SSL_provide_quic_data(SSL *ssl, enum ssl_encryption_level_t level,
+                          const uint8_t *data, size_t len) {
+  if (ssl->ctx->quic_method == nullptr) {
+    OPENSSL_PUT_ERROR(SSL, ERR_R_SHOULD_NOT_HAVE_BEEN_CALLED);
+    return 0;
+  }
+
+  if (level != ssl->s3->read_level) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_WRONG_ENCRYPTION_LEVEL_RECEIVED);
+    return 0;
+  }
+
+  // Re-create the handshake buffer if needed.
+  if (!ssl->s3->hs_buf) {
+    ssl->s3->hs_buf.reset(BUF_MEM_new());
+    if (!ssl->s3->hs_buf) {
+      return 0;
+    }
+  }
+
+  return BUF_MEM_append(ssl->s3->hs_buf.get(), data, len);
+}
+
 int SSL_do_handshake(SSL *ssl) {
   ssl_reset_error_state(ssl);
 
@@ -1191,6 +1236,9 @@ int SSL_get_error(const SSL *ssl, int ret_code) {
       return SSL_ERROR_HANDBACK;
 
     case SSL_READING: {
+      if (ssl->ctx->quic_method) {
+        return SSL_ERROR_WANT_READ;
+      }
       BIO *bio = SSL_get_rbio(ssl);
       if (BIO_should_read(bio)) {
         return SSL_ERROR_WANT_READ;
@@ -2294,6 +2342,15 @@ char *SSL_get_shared_ciphers(const SSL *ssl, char *buf, int len) {
   }
   buf[0] = '\0';
   return buf;
+}
+
+int SSL_CTX_set_custom_quic_method(SSL_CTX *ctx,
+                                   const SSL_QUIC_METHOD *quic_method) {
+  if (ctx->method->is_dtls || ctx->conf_min_version != TLS1_3_VERSION) {
+    return 0;
+  }
+  ctx->quic_method = quic_method;
+  return 1;
 }
 
 int SSL_get_ex_new_index(long argl, void *argp, CRYPTO_EX_unused *unused,

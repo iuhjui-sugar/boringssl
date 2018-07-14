@@ -49,6 +49,7 @@ OPENSSL_MSVC_PRAGMA(warning(pop))
 #endif
 
 #if !defined(OPENSSL_NO_THREADS)
+#include <condition_variable>
 #include <thread>
 #endif
 
@@ -4419,6 +4420,286 @@ TEST(SSLTest, GetCertificateThreads) {
 
   EXPECT_EQ(cert2, cert2_thread);
   EXPECT_EQ(0, X509_cmp(cert.get(), cert2));
+}
+#endif
+
+#if !defined(OPENSSL_NO_THREADS)
+struct Stream {
+  std::mutex read_lock;
+  std::condition_variable read_cond;
+  uint8_t read_count = 0;
+
+  std::mutex write_lock;
+  std::condition_variable write_cond;
+  uint8_t write_count = 0;
+
+  enum ssl_encryption_level_t level;
+  uint8_t data[SSL3_RT_MAX_PLAIN_LENGTH];
+  size_t len;
+
+  // shutdown indicates the write side of the stream has shutdown.
+  bool shutdown = false;
+};
+
+class QUICMethodTest : public testing::Test {
+ protected:
+  void SetUp() override {
+    client_ctx_.reset(SSL_CTX_new(TLS_method()));
+    server_ctx_.reset(SSL_CTX_new(TLS_method()));
+    ASSERT_TRUE(client_ctx_);
+    ASSERT_TRUE(server_ctx_);
+
+    bssl::UniquePtr<X509> cert = GetTestCertificate();
+    bssl::UniquePtr<EVP_PKEY> key = GetTestKey();
+    ASSERT_TRUE(cert);
+    ASSERT_TRUE(key);
+    ASSERT_TRUE(SSL_CTX_use_certificate(server_ctx_.get(), cert.get()));
+    ASSERT_TRUE(SSL_CTX_use_PrivateKey(server_ctx_.get(), key.get()));
+
+    SSL_CTX_set_min_proto_version(server_ctx_.get(), TLS1_3_VERSION);
+    SSL_CTX_set_max_proto_version(server_ctx_.get(), TLS1_3_VERSION);
+    SSL_CTX_set_min_proto_version(client_ctx_.get(), TLS1_3_VERSION);
+    SSL_CTX_set_max_proto_version(client_ctx_.get(), TLS1_3_VERSION);
+  }
+
+  static int nopSetEncryptionKeys(SSL *ssl, enum ssl_encryption_level_t level,
+                           const uint8_t *read_key, const uint8_t *write_key,
+                           size_t secret_len) {
+    return 1;
+  }
+
+  static int nopFlushFlight(SSL *ssl) {
+    return 1;
+  }
+
+  static int nopSendAlert(SSL *ssl, enum ssl_encryption_level_t level,
+                          uint8_t alert) {
+    return 1;
+  }
+
+  static bool consumeStream(SSL *ssl, Stream *stream) {
+    std::unique_lock<std::mutex> wlock(stream->write_lock);
+    stream->write_cond.wait(wlock, [&] { return stream->write_count; });
+    stream->write_count--;
+
+    if (stream->shutdown) {
+      printf("Shutdown\n");
+      return false;
+    }
+
+    bool ret =
+        SSL_provide_quic_data(ssl, stream->level, stream->data, stream->len);
+
+    std::unique_lock<std::mutex> rlock(stream->read_lock);
+    stream->read_count++;
+    stream->read_cond.notify_one();
+
+    return ret;
+  }
+
+  static void ShutdownStream(Stream *stream) {
+    std::unique_lock<std::mutex> rlock(stream->read_lock);
+    std::unique_lock<std::mutex> wlock(stream->write_lock);
+    stream->shutdown = true;
+    stream->read_count++;
+    stream->read_cond.notify_one();
+    stream->write_count++;
+    stream->write_cond.notify_one();
+  }
+
+
+  typedef void(*ConnectMethod)(SSL *ssl, Stream *in_stream, Stream *out_stream);
+
+  void Create(const SSL_QUIC_METHOD clientQuicMethod,
+              const SSL_QUIC_METHOD serverQuicMethod,
+              ConnectMethod clientConnect, ConnectMethod serverConnect) {
+    ASSERT_TRUE(SSL_CTX_set_custom_quic_method(client_ctx_.get(), &clientQuicMethod));
+    ASSERT_TRUE(SSL_CTX_set_custom_quic_method(server_ctx_.get(), &serverQuicMethod));
+
+    client_.reset(SSL_new(client_ctx_.get()));
+    server_.reset(SSL_new(server_ctx_.get()));
+    ASSERT_TRUE(client_ && server_);
+    SSL_set_connect_state(client_.get());
+    SSL_set_accept_state(server_.get());
+
+    BIO *bio1, *bio2;
+    ASSERT_TRUE(BIO_new_bio_pair(&bio1, 0, &bio2, 0));
+
+    // SSL_set_bio takes ownership.
+    SSL_set_bio(client_.get(), bio1, bio1);
+    SSL_set_bio(server_.get(), bio2, bio2);
+
+
+    clientServerStream.read_count++;
+    serverClientStream.read_count++;
+
+    std::vector<std::thread> threads;
+    threads.emplace_back([&] {
+      clientConnect(client_.get(), &serverClientStream, &clientServerStream);
+    });
+    threads.emplace_back([&] {
+      serverConnect(server_.get(), &clientServerStream, &serverClientStream);
+    });
+    for (auto &thread : threads) {
+      thread.join();
+    }
+  }
+
+  bssl::UniquePtr<SSL_CTX> client_ctx_;
+  bssl::UniquePtr<SSL_CTX> server_ctx_;
+
+  bssl::UniquePtr<SSL> client_;
+  bssl::UniquePtr<SSL> server_;
+
+  Stream clientServerStream;
+  Stream serverClientStream;
+};
+
+TEST_F(QUICMethodTest, StreamMethod) {
+  auto writeMessage = [](SSL *ssl, enum ssl_encryption_level_t level,
+                         const uint8_t *data, size_t len) -> int {
+    Stream *stream = reinterpret_cast<Stream *>(SSL_get_ex_data(ssl, 1));
+    std::unique_lock<std::mutex> rlock(stream->read_lock);
+    stream->read_cond.wait(rlock, [&] { return stream->read_count; });
+    stream->read_count--;
+    if (stream->shutdown) {
+      return 0;
+    }
+
+    stream->level = level;
+    memcpy(stream->data, data, len);
+    stream->len = len;
+
+    std::unique_lock<std::mutex> wlock(stream->write_lock);
+    stream->write_count++;
+    stream->write_cond.notify_one();
+    return true;
+  };
+
+  const SSL_QUIC_METHOD clientQuicMethod = {
+    nopSetEncryptionKeys,
+    writeMessage,
+    nopFlushFlight,
+    nopSendAlert
+  };
+
+  const SSL_QUIC_METHOD serverQuicMethod = {
+    nopSetEncryptionKeys,
+    writeMessage,
+    nopFlushFlight,
+    nopSendAlert
+  };
+
+  auto clientConnect = [](SSL *ssl, Stream *in_stream, Stream *out_stream) {
+    int ret = -1;
+    while (ret == -1) {
+      SSL_set_ex_data(ssl, 1, out_stream);
+      ret = SSL_do_handshake(ssl);
+      if (ret == -1) {
+        ASSERT_EQ(SSL_get_error(ssl, ret), SSL_ERROR_WANT_READ);
+        ASSERT_TRUE(consumeStream(ssl, in_stream));
+      }
+    }
+
+    // Drain the NewSessionTicket from the server.
+    ASSERT_TRUE(consumeStream(ssl, in_stream));
+  };
+
+  auto serverConnect = [](SSL *ssl, Stream *in_stream, Stream *out_stream) {
+    int ret = -1;
+    while (ret == -1) {
+      SSL_set_ex_data(ssl, 1, out_stream);
+      ret = SSL_do_handshake(ssl);
+      if (ret == -1) {
+        ASSERT_EQ(SSL_get_error(ssl, ret), SSL_ERROR_WANT_READ);
+        ASSERT_TRUE(consumeStream(ssl, in_stream));
+      }
+    }
+  };
+
+  Create(clientQuicMethod, serverQuicMethod, clientConnect, serverConnect);
+
+  ASSERT_EQ(SSL_do_handshake(client_.get()), 1);
+  ASSERT_EQ(SSL_do_handshake(server_.get()), 1);
+}
+
+TEST_F(QUICMethodTest, StreamMethodWrongLevel) {
+  auto writeMessage = [](SSL *ssl, enum ssl_encryption_level_t level,
+                         const uint8_t *data, size_t len) -> int {
+    Stream *stream = reinterpret_cast<Stream *>(SSL_get_ex_data(ssl, 1));
+    std::unique_lock<std::mutex> rlock(stream->read_lock);
+    stream->read_cond.wait(rlock, [&] { return stream->read_count; });
+    stream->read_count--;
+    if (stream->shutdown) {
+      return 0;
+    }
+
+    // Pass all handshake data at the initial level.
+    stream->level = ssl_encryption_initial;
+    memcpy(stream->data, data, len);
+    stream->len = len;
+
+    std::unique_lock<std::mutex> wlock(stream->write_lock);
+    stream->write_count++;
+    stream->write_cond.notify_one();
+    return true;
+  };
+
+  const SSL_QUIC_METHOD clientQuicMethod = {
+    nopSetEncryptionKeys,
+    writeMessage,
+    nopFlushFlight,
+    nopSendAlert
+  };
+
+  const SSL_QUIC_METHOD serverQuicMethod = {
+    nopSetEncryptionKeys,
+    writeMessage,
+    nopFlushFlight,
+    nopSendAlert
+  };
+
+  auto clientConnect = [](SSL *ssl, Stream *in_stream, Stream *out_stream) {
+    int ret = -1;
+    while (ret == -1) {
+      SSL_set_ex_data(ssl, 1, out_stream);
+      ret = SSL_do_handshake(ssl);
+      if (ret == -1) {
+        ASSERT_EQ(SSL_get_error(ssl, ret), SSL_ERROR_WANT_READ);
+        if (!consumeStream(ssl, in_stream)) {
+          // The client should error out while trying to read the
+          // EncryptedExtensions at the wrong level during
+          // state_read_encrypted_extensions.
+          ASSERT_TRUE(ssl->s3->hs->tls13_state == 3);
+          ShutdownStream(in_stream);
+          ShutdownStream(out_stream);
+          return;
+        }
+      }
+    }
+  };
+
+  auto serverConnect = [](SSL *ssl, Stream *in_stream, Stream *out_stream) {
+    int ret = -1;
+    while (ret == -1) {
+      SSL_set_ex_data(ssl, 1, out_stream);
+      ret = SSL_do_handshake(ssl);
+      if (ret == -1) {
+        if (SSL_get_error(ssl, ret) != SSL_ERROR_WANT_READ) {
+          // The server should fail to write past the EncryptedExtensions in
+          // state_send_server_hello.
+          ASSERT_TRUE(ssl->s3->hs->tls13_state == 4);
+          return;
+        }
+        ASSERT_TRUE(consumeStream(ssl, in_stream));
+      }
+    }
+  };
+
+  Create(clientQuicMethod, serverQuicMethod, clientConnect, serverConnect);
+
+  ASSERT_EQ(SSL_do_handshake(client_.get()), -1);
+  ASSERT_EQ(SSL_do_handshake(server_.get()), -1);
 }
 #endif
 
