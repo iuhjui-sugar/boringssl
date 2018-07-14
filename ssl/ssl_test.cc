@@ -49,6 +49,7 @@ OPENSSL_MSVC_PRAGMA(warning(pop))
 #endif
 
 #if !defined(OPENSSL_NO_THREADS)
+#include <condition_variable>
 #include <thread>
 #endif
 
@@ -4404,6 +4405,139 @@ TEST(SSLTest, GetCertificateThreads) {
 
   EXPECT_EQ(cert2, cert2_thread);
   EXPECT_EQ(0, X509_cmp(cert.get(), cert2));
+}
+#endif
+
+#if !defined(OPENSSL_NO_THREADS)
+struct Stream {
+  std::mutex read_lock;
+  std::condition_variable read_cond;
+  uint8_t read_count = 0;
+
+  std::mutex write_lock;
+  std::condition_variable write_cond;
+  uint8_t write_count = 0;
+
+  enum ssl_encryption_level_t level;
+  uint8_t data[SSL3_RT_MAX_PLAIN_LENGTH];
+  size_t len;
+};
+
+TEST(SSLTest, StreamMethod) {
+  bssl::UniquePtr<SSL_CTX> client_ctx(SSL_CTX_new(TLS_method()));
+  bssl::UniquePtr<SSL_CTX> server_ctx(SSL_CTX_new(TLS_method()));
+  ASSERT_TRUE(client_ctx);
+  ASSERT_TRUE(server_ctx);
+
+  bssl::UniquePtr<X509> cert = GetTestCertificate();
+  bssl::UniquePtr<EVP_PKEY> key = GetTestKey();
+  ASSERT_TRUE(cert);
+  ASSERT_TRUE(key);
+  ASSERT_TRUE(SSL_CTX_use_certificate(server_ctx.get(), cert.get()));
+  ASSERT_TRUE(SSL_CTX_use_PrivateKey(server_ctx.get(), key.get()));
+
+  bssl::UniquePtr<SSL> client(SSL_new(client_ctx.get())), server(SSL_new(server_ctx.get()));
+  ASSERT_TRUE(client && server);
+  SSL_set_connect_state(client.get());
+  SSL_set_accept_state(server.get());
+
+  SSL_set_min_proto_version(server.get(), TLS1_3_VERSION);
+  SSL_set_max_proto_version(server.get(), TLS1_3_VERSION);
+  SSL_set_min_proto_version(client.get(), TLS1_3_VERSION);
+  SSL_set_max_proto_version(client.get(), TLS1_3_VERSION);
+
+  auto nopSetEncryption = [](SSL *ssl, enum ssl_encryption_level_t level,
+                             int is_write, const uint8_t *secret,
+                             size_t secret_len) -> int {
+    return 1;
+  };
+
+  auto writeMessage = [](SSL *ssl, enum ssl_encryption_level_t level,
+                         uint8_t *data, size_t len) -> int {
+    Stream *stream = reinterpret_cast<Stream *>(SSL_get_ex_data(ssl, 1));
+    std::unique_lock<std::mutex> rlock(stream->read_lock);
+    stream->read_cond.wait(rlock, [&] { return stream->read_count; });
+    stream->read_count--;
+
+    stream->level = level;
+    memcpy(stream->data, data, len);
+    stream->len = len;
+
+    std::unique_lock<std::mutex> wlock(stream->write_lock);
+    stream->write_count++;
+    stream->write_cond.notify_one();
+    return true;
+  };
+  auto nopFlushFlight = [](SSL *ssl) -> int { return 1; };
+
+  auto nopSendAlert = [](SSL *ssl, enum ssl_encryption_level_t level,
+                         uint8_t alert) -> int { return 1; };
+
+  const SSL_STREAM_METHOD clientStreamMethod = {
+    nopSetEncryption,
+    writeMessage,
+    nopFlushFlight,
+    nopSendAlert};
+
+  const SSL_STREAM_METHOD serverStreamMethod = {
+    nopSetEncryption,
+    writeMessage,
+    nopFlushFlight,
+    nopSendAlert
+  };
+
+  ASSERT_TRUE(SSL_set_custom_stream_method(client.get(), &clientStreamMethod));
+  ASSERT_TRUE(SSL_set_custom_stream_method(server.get(), &serverStreamMethod));
+
+  BIO *bio1, *bio2;
+  ASSERT_TRUE(BIO_new_bio_pair(&bio1, 0, &bio2, 0));
+
+  // SSL_set_bio takes ownership.
+  SSL_set_bio(client.get(), bio1, bio1);
+  SSL_set_bio(server.get(), bio2, bio2);
+
+  auto consume = [&](SSL *ssl, Stream *stream) {
+    std::unique_lock<std::mutex> wlock(stream->write_lock);
+    stream->write_cond.wait(wlock, [&] { return stream->write_count; });
+    stream->write_count--;
+
+    ASSERT_TRUE(SSL_provide_data(ssl, stream->level, stream->data, stream->len));
+
+    std::unique_lock<std::mutex> rlock(stream->read_lock);
+    stream->read_count++;
+    stream->read_cond.notify_one();
+  };
+
+  auto connect = [&](SSL *ssl, Stream* in_stream, Stream* out_stream) {
+    int ret = -1;
+    while (ret == -1) {
+      SSL_set_ex_data(ssl, 1, out_stream);
+      ret = SSL_do_handshake(ssl);
+      if (ret == -1) {
+        ASSERT_EQ(SSL_get_error(ssl, ret), SSL_ERROR_WANT_READ);
+        consume(ssl, in_stream);
+      }
+    }
+
+    // Drain the NewSessionTicket from the server.
+    if (!SSL_is_server(ssl)) {
+      consume(ssl, in_stream);
+    }
+  };
+
+  Stream cs_stream, sc_stream;
+  cs_stream.read_count++;
+  sc_stream.read_count++;
+
+  std::vector<std::thread> threads;
+  threads.emplace_back([&] { connect(client.get(), &sc_stream, &cs_stream); });
+  threads.emplace_back([&] { connect(server.get(), &cs_stream, &sc_stream); });
+  for (auto &thread : threads) {
+    thread.join();
+  }
+
+  ASSERT_EQ(SSL_do_handshake(client.get()), 1);
+  ASSERT_EQ(SSL_do_handshake(server.get()), 1);
 }
 #endif
 
