@@ -16,6 +16,24 @@
       "revId": "79f1a49c3a0fbc61efd1ceffabac60cf6624757e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9e328ff_d0573b7d",
+        "filename": "util/fipstools/testdata/x86_64-GOTRewrite/in.s",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-07-14T03:49:36Z",
+      "side": 1,
+      "message": "Oh, I guess there are actually three cases:\n\n- OPENSSL_ia32cap_P: direct module-local but needs to be BCM-external because mutable\n- external: indirect through module-local but BCM-external GOT entry\n- local: direct module- and BCM-local symbol somewhere; it\u0027s BCM-local because it\u0027s either in .text or .rodata and we fold .rodata into .text.\n\nWhich is why the tests below care about both stderr and foo.",
+      "parentUuid": "8f6af417_972a16dc",
+      "revId": "79f1a49c3a0fbc61efd1ceffabac60cf6624757e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
