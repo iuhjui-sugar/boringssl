@@ -163,9 +163,11 @@ int ssl3_write_app_data(SSL *ssl, bool *out_needs_handshake, const uint8_t *in,
   for (;;) {
     // max contains the maximum number of bytes that we can put into a record.
     unsigned max = ssl->max_send_fragment;
-    if (is_early_data_write && max > ssl->session->ticket_max_early_data -
-                                         ssl->s3->hs->early_data_written) {
-      max = ssl->session->ticket_max_early_data - ssl->s3->hs->early_data_written;
+    if (is_early_data_write &&
+        max > ssl->session->ticket_max_early_data -
+                  ssl->s3->hs->early_data_written) {
+      max =
+          ssl->session->ticket_max_early_data - ssl->s3->hs->early_data_written;
       if (max == 0) {
         ssl->s3->wnum = tot;
         ssl->s3->hs->can_early_write = false;

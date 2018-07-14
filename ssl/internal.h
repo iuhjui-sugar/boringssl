@@ -1231,7 +1231,8 @@ bool tls13_advance_key_schedule(SSL_HANDSHAKE *hs, const uint8_t *in,
 
 // tls13_set_traffic_key sets the read or write traffic keys to
 // |traffic_secret|. It returns true on success and false on error.
-bool tls13_set_traffic_key(SSL *ssl, enum evp_aead_direction_t direction,
+bool tls13_set_traffic_key(SSL *ssl, enum ssl_encryption_level_t level,
+                           enum evp_aead_direction_t direction,
                            const uint8_t *traffic_secret,
                            size_t traffic_secret_len);
 
@@ -1272,7 +1273,8 @@ bool tls13_finished_mac(SSL_HANDSHAKE *hs, uint8_t *out, size_t *out_len,
 // tls13_derive_session_psk calculates the PSK for this session based on the
 // resumption master secret and |nonce|. It returns true on success, and false
 // on failure.
-bool tls13_derive_session_psk(SSL_SESSION *session, Span<const uint8_t> nonce);
+bool tls13_derive_session_psk(SSL_SESSION *session, Span<const uint8_t> nonce,
+                              bool use_quic);
 
 // tls13_write_psk_binder calculates the PSK binder value and replaces the last
 // bytes of |msg| with the resulting value. It returns true on success, and
@@ -2076,6 +2078,10 @@ struct SSL3_STATE {
   // returned.  This is needed for non-blocking IO so we know what request
   // needs re-doing when in SSL_accept or SSL_connect
   int rwstate = SSL_NOTHING;
+
+  bool got_stream_data = false;
+  enum ssl_encryption_level_t read_level = ssl_el_initial;
+  enum ssl_encryption_level_t write_level = ssl_el_initial;
 
   // early_data_skipped is the amount of early data that has been skipped by the
   // record layer.
@@ -3079,6 +3085,9 @@ struct ssl_st {
   // method is the method table corresponding to the current protocol (DTLS or
   // TLS).
   const bssl::SSL_PROTOCOL_METHOD *method = nullptr;
+
+  // stream_method is the method table corresponding to the custom strema layer.
+  const SSL_STREAM_METHOD *stream_method = nullptr;
 
   // config is a container for handshake configuration.  Accesses to this field
   // should check for nullptr, since configuration may be shed after the
