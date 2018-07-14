@@ -779,6 +779,25 @@ BIO *SSL_get_rbio(const SSL *ssl) { return ssl->rbio.get(); }
 
 BIO *SSL_get_wbio(const SSL *ssl) { return ssl->wbio.get(); }
 
+int SSL_provide_data(SSL *ssl, enum ssl_encryption_level_t level,
+                     const uint8_t *data, size_t len) {
+  if (ssl->stream_method == nullptr || level != ssl->s3->read_level) {
+    return false;
+  }
+
+  // Re-create the handshake buffer if needed.
+  if (!ssl->s3->hs_buf) {
+    ssl->s3->hs_buf.reset(BUF_MEM_new());
+    if (!ssl->s3->hs_buf) {
+      return false;
+    }
+  }
+
+  ssl->s3->got_stream_data = true;
+
+  return BUF_MEM_append(ssl->s3->hs_buf.get(), data, len);
+}
+
 int SSL_do_handshake(SSL *ssl) {
   ssl_reset_error_state(ssl);
 
@@ -1191,6 +1210,9 @@ int SSL_get_error(const SSL *ssl, int ret_code) {
       return SSL_ERROR_HANDBACK;
 
     case SSL_READING: {
+      if (ssl->stream_method) {
+        return SSL_ERROR_WANT_READ;
+      }
       BIO *bio = SSL_get_rbio(ssl);
       if (BIO_should_read(bio)) {
         return SSL_ERROR_WANT_READ;
@@ -2187,6 +2209,10 @@ EVP_PKEY *SSL_CTX_get0_privatekey(const SSL_CTX *ctx) {
 }
 
 const SSL_CIPHER *SSL_get_current_cipher(const SSL *ssl) {
+  SSL_HANDSHAKE *hs = ssl->s3->hs.get();
+  if (hs != NULL && !ssl->s3->aead_write_ctx->cipher()) {
+    return hs->new_cipher;
+  }
   return ssl->s3->aead_write_ctx->cipher();
 }
 
@@ -2294,6 +2320,16 @@ char *SSL_get_shared_ciphers(const SSL *ssl, char *buf, int len) {
   }
   buf[0] = '\0';
   return buf;
+}
+
+int SSL_set_custom_stream_method(SSL *ssl,
+                                 const SSL_STREAM_METHOD *stream_method) {
+  if (!ssl->config || SSL_is_dtls(ssl) ||
+      ssl->config->conf_min_version != TLS1_3_VERSION) {
+    return 0;
+  }
+  ssl->stream_method = stream_method;
+  return 1;
 }
 
 int SSL_get_ex_new_index(long argl, void *argp, CRYPTO_EX_unused *unused,
