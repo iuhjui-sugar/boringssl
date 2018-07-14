@@ -185,7 +185,8 @@ static int add_new_session_tickets(SSL_HANDSHAKE *hs) {
         !CBB_add_u8_length_prefixed(&body, &nonce_cbb) ||
         !CBB_add_bytes(&nonce_cbb, nonce, sizeof(nonce)) ||
         !CBB_add_u16_length_prefixed(&body, &ticket) ||
-        !tls13_derive_session_psk(session.get(), nonce) ||
+        !tls13_derive_session_psk(session.get(), nonce,
+                                  ssl->stream_method != nullptr) ||
         !ssl_encrypt_ticket(hs, &ticket, session.get()) ||
         !CBB_add_u16_length_prefixed(&body, &extensions)) {
       return 0;

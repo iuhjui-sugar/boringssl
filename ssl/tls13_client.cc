@@ -857,7 +857,8 @@ int tls13_process_new_session_ticket(SSL *ssl, const SSLMessage &msg) {
     session->timeout = server_timeout;
   }
 
-  if (!tls13_derive_session_psk(session.get(), ticket_nonce)) {
+  if (!tls13_derive_session_psk(session.get(), ticket_nonce,
+                                ssl->stream_method != nullptr)) {
     return 0;
   }
 
