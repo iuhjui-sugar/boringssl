@@ -4114,6 +4114,51 @@ TEST(SSLTest, HandoffDeclined) {
   EXPECT_EQ(43, byte);
 }
 
+TEST(SSLTest, StreamMethod) {
+  bssl::UniquePtr<SSL_CTX> client_ctx(SSL_CTX_new(TLS_method()));
+  bssl::UniquePtr<SSL_CTX> server_ctx(SSL_CTX_new(TLS_method()));
+  ASSERT_TRUE(client_ctx);
+  ASSERT_TRUE(server_ctx);
+
+  bssl::UniquePtr<X509> cert = GetTestCertificate();
+  bssl::UniquePtr<EVP_PKEY> key = GetTestKey();
+  ASSERT_TRUE(cert);
+  ASSERT_TRUE(key);
+  ASSERT_TRUE(SSL_CTX_use_certificate(server_ctx.get(), cert.get()));
+  ASSERT_TRUE(SSL_CTX_use_PrivateKey(server_ctx.get(), key.get()));
+
+  bssl::UniquePtr<SSL> client(SSL_new(client_ctx.get())), server(SSL_new(server_ctx.get()));
+  ASSERT_TRUE(client && server);
+  SSL_set_connect_state(client.get());
+  SSL_set_accept_state(server.get());
+
+  const SSL_STREAM_METHOD clientStreamMethod = {
+    clientSetEncryption,
+    clientWriteMessage,
+    clientFlushFlight,
+    clientSendAlert
+  };
+
+  const SSL_STREAM_METHOD serverStreamMethod = {
+    serverSetEncryption,
+    serverWriteMessage,
+    serverFlushFlight,
+    serverSendAlert
+  };
+  
+  SSL_set_custom_stream_method(client.get(), clientStreamMethod);
+  SSL_set_custom_stream_method(server.get(), serverStreamMethod);
+
+  BIO *bio1, *bio2;
+  ASSERT_TRUE(BIO_new_bio_pair(&bio1, 0, &bio2, 0));
+
+  // SSL_set_bio takes ownership.
+  SSL_set_bio(client.get(), bio1, bio1);
+  SSL_set_bio(server.get(), bio2, bio2);
+
+  ASSERT_TRUE(CompleteHandshakes(client.get(), server.get()));
+}
+  
 // TODO(davidben): Convert this file to GTest properly.
 TEST(SSLTest, AllTests) {
   if (!TestSSL_SESSIONEncoding(kOpenSSLSession) ||
