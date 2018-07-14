@@ -784,6 +784,25 @@ BIO *SSL_get_rbio(const SSL *ssl) { return ssl->rbio.get(); }
 
 BIO *SSL_get_wbio(const SSL *ssl) { return ssl->wbio.get(); }
 
+int SSL_provide_data(SSL *ssl, enum ssl_encryption_level_t level, uint8_t *data,
+                     size_t len) {
+  if (ssl->stream_method == nullptr || level != ssl->s3->read_level) {
+    return false;
+  }
+
+  // Re-create the handshake buffer if needed.
+  if (!ssl->s3->hs_buf) {
+    ssl->s3->hs_buf.reset(BUF_MEM_new());
+    if (!ssl->s3->hs_buf) {
+      return false;
+    }
+  }
+
+  ssl->s3->got_stream_data = true;
+
+  return BUF_MEM_append(ssl->s3->hs_buf.get(), data, len);
+}
+
 int SSL_do_handshake(SSL *ssl) {
   ssl_reset_error_state(ssl);
 
@@ -2301,6 +2320,14 @@ char *SSL_get_shared_ciphers(const SSL *ssl, char *buf, int len) {
   }
   buf[0] = '\0';
   return buf;
+}
+
+void SSL_set_custom_stream_method(SSL *ssl,
+                                  const SSL_STREAM_METHOD *stream_method) {
+  if (!ssl->config) {
+    return;
+  }
+  ssl->stream_method = stream_method;
 }
 
 int SSL_get_ex_new_index(long argl, void *argp, CRYPTO_EX_unused *unused,
