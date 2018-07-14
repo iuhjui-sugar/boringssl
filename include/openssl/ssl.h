@@ -1203,6 +1203,58 @@ OPENSSL_EXPORT void SSL_CTX_set_private_key_method(
     SSL_CTX *ctx, const SSL_PRIVATE_KEY_METHOD *key_method);
 
 
+enum ssl_encryption_level_t {
+  ssl_el_initial = 0,
+  ssl_el_early_data,
+  ssl_el_handshake,
+  ssl_el_application,
+};
+
+// ssl_stream_method_st (aka |SSL_STREAM_METHOD|) describes custom stream hooks
+struct ssl_stream_method_st {
+  // set_encryption_secret provides the encryption secret to be used by the
+  // stream at a particular encryption level and direction specified by |level|
+  // and |is_write|.
+  //
+  // This returns 0 on error, and 1 otherwise.
+  int (*set_encryption_secret)(SSL *ssl, enum ssl_encryption_level_t level,
+                               int is_write, const uint8_t *secret,
+                               size_t secret_len);
+  // write_message provides the stream with a message to be written to the peer
+  // at a particular encryption level |level|.
+  //
+  // This returns 0 on error, and 1 otherwise.
+  int (*write_message)(SSL *ssl, enum ssl_encryption_level_t level,
+                       uint8_t *data, size_t len);
+  // flush_flight indicates that the current flight has been completely written
+  // out and can be flushed out to the underlying transport.
+  //
+  // This returns 0 on error, and 1 otherwise.
+  int (*flush_flight)(SSL *ssl);
+  // send_alert sends a fatal alert |alert| out on the transport at a particular
+  // encryption level.
+  //
+  // This returns 0 on error, and 1 otherwise.
+  int (*send_alert)(SSL *ssl, enum ssl_encryption_level_t level, uint8_t alert);
+};
+
+// SSL_provide_data provides data from a custom stream from encryption level
+// |level|. It is an error to call this method outside of the handshake or
+// with an encryption level other than that which is expected. The handshake
+// must be driven between each call to this method.
+//
+// It returns 0 on error, and 1 otherwise.
+OPENSSL_EXPORT int SSL_provide_data(SSL *ssl, enum ssl_encryption_level_t level,
+                                    const uint8_t *data, size_t len);
+
+
+// SSL_set_custom_stream_method configures a custom underlying stream. This can
+// only be configured with a minimum version of TLS 1.3.
+//
+// It returns 0 on error, and 1 otherwise.
+OPENSSL_EXPORT int SSL_set_custom_stream_method(
+    SSL *ssl, const SSL_STREAM_METHOD *stream_method);
+
 // Cipher suites.
 //
 // |SSL_CIPHER| objects represent cipher suites.
