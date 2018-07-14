@@ -1189,6 +1189,43 @@ OPENSSL_EXPORT void SSL_CTX_set_private_key_method(
     SSL_CTX *ctx, const SSL_PRIVATE_KEY_METHOD *key_method);
 
 
+enum ssl_encryption_level_t {
+  ssl_el_initial = 0,
+  ssl_el_early_data,
+  ssl_el_handshake,
+  ssl_el_application,
+};
+
+// ssl_stream_method_st (aka |SSL_STREAM_METHOD|) describes custom stream hooks
+struct ssl_stream_method_st {
+  // set_encryption_keys provides the encryption keys to be used by the stream
+  // at a particular encryption level and direction specified by |level| and
+  // |is_write|.
+  int (*set_encryption_keys)(SSL *ssl, enum ssl_encryption_level_t level,
+                             int is_write, const uint8_t *key, size_t key_len);
+  // write_message provides the stream with a message to be written to the peer at a
+  // particular encryption level |level|.
+  int (*write_message)(SSL *ssl, enum ssl_encryption_level_t level, uint8_t *data,
+                        size_t len);
+  // flush_flight indicates that the current flight has been completely written 
+  // out and can be flushed out to the underlying transport.
+  int (*flush_flight)(SSL *ssl);
+  // send_alert sends an alert of |level| and |desc| out on the transport.
+  int (*send_alert)(SSL *ssl, uint8_t level, uint8_t desc);
+};
+
+// SSL_provide_data provides data from a custom stream from encryption level
+// |level|. It is an error to call this method outside of the handshake or
+// with an encryption level other than that which is expected.
+//
+// It returns 0 on error, and 1 otherwise.
+OPENSSL_EXPORT int SSL_provide_data(SSL *ssl, enum ssl_encryption_level_t level,
+                                    uint8_t *data, size_t len);
+
+
+OPENSSL_EXPORT void SSL_set_custom_stream_method(
+    SSL *ssl, const SSL_STREAM_METHOD *stream_method);
+
 // Cipher suites.
 //
 // |SSL_CIPHER| objects represent cipher suites.
