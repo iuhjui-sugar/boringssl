@@ -16,6 +16,24 @@
       "revId": "b1326d176cd6961663c4f55355b0c9fe54cc59d1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f6c5796_eb1569bf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-07-17T20:05:30Z",
+      "side": 1,
+      "message": "It\u0027s current state (otherwise the test would fail). What I was referring to is that, in TLS 1.3, the server message ordering is:\n\n  CertificateRequest\n  Certificate\n  CertificateVerify\n\nAlthough we get the CertificateRequest early, we must resolve the selected client certificate *after* verifying the certificate. (At the BoringSSL level. We also want to do it at the Chromium level, but that\u0027s what you\u0027re fixing.) We do this, but I wanted to make sure we didn\u0027t regress that.\n\nDoes that clarify things?",
+      "parentUuid": "27e96eec_8d233c60",
+      "revId": "b1326d176cd6961663c4f55355b0c9fe54cc59d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
