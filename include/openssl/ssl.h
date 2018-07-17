@@ -3054,6 +3054,53 @@ OPENSSL_EXPORT void SSL_get_peer_quic_transport_params(const SSL *ssl,
                                                        size_t *out_params_len);
 
 
+// Delegated credentials.
+//
+// draft-ietf-tls-subcerts is a proposed extension for TLS 1.3 that allows an
+// end point to use its certificate to delegate credentials for authentication.
+// If the peer indicates support for this extension, then a host may use a
+// delegated credential to sign the handshake. Once issued, credentials can't be
+// revoked. In order to mitigate the damage in case the credential secret key is
+// compromised, the credential is only valid for a short time (days, hours, or
+// even minutes). This library implements draft-02 of the protocol spec.
+//
+// The extension ID has not been assigned; we're using 0xff02 for the time
+// being. Currently only the server-side is implemented.
+//
+// Servers configure a DC for use in the handshake via
+// |SSL_CTX_set_delegated_credential| or |SSL_set_delegated_credential|. It must
+// be signed by the host's end-entity certificate as defined in
+// draft-ietf-tls-subcerts-02.
+
+// SSL_CTX_set_delegated_credential configures the delegated credential (DC)
+// that will be sent to peers that indicate support for the extension. |dc| is
+// the DC in wire format, and |pkey| or |key_method| is the corresponding
+// private key. Currently (as of draft-02), only servers may configure a DC to
+// use in the handshake.
+//
+// It's the caller's responsibility to ensure that the DC is being used in the
+// correct protocol and that the signature scheme is supported by the peer. If
+// not, the handshake will fall back to the private key or private key method
+// associated with the certificate.
+OPENSSL_EXPORT int SSL_CTX_set_delegated_credential(
+    SSL_CTX *ctx, CRYPTO_BUFFER *dc, EVP_PKEY *pkey,
+    const SSL_PRIVATE_KEY_METHOD *key_method);
+
+// SSL_set_delegated_credential configures the delegated credential (DC) that
+// will be sent to the peer for the current connection. |dc| is the DC in wire
+// format, and |pkey| or |key_method| is the corresponding private key.
+// Currently (as of draft-02), only servers may configure a DC to use in the
+// handshake.
+//
+// It's the caller's responsibility to ensure that the DC is being used in the
+// correct protocol and that the signature scheme is supported by the peer. If
+// not, the handshake will fallback to the private key or private key method
+// associated with the certificate.
+OPENSSL_EXPORT int SSL_set_delegated_credential(
+    SSL *ssl, CRYPTO_BUFFER *dc, EVP_PKEY *pkey,
+    const SSL_PRIVATE_KEY_METHOD *key_method);
+
+
 // QUIC integration.
 //
 // QUIC acts as an underlying transport for the TLS 1.3 handshake. The following
@@ -4965,5 +5012,7 @@ BSSL_NAMESPACE_END
 #define SSL_R_TLSV1_UNKNOWN_PSK_IDENTITY 1115
 #define SSL_R_TLSV1_CERTIFICATE_REQUIRED 1116
 #define SSL_R_TOO_MUCH_READ_EARLY_DATA 1117
+#define SSL_R_INVALID_DELEGATED_CREDENTIAL 1118
+#define SSL_R_DELEGATED_CREDENTIAL_EXPIRED 1119
 
 #endif  // OPENSSL_HEADER_SSL_H
