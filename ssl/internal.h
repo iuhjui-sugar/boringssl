@@ -1203,6 +1203,13 @@ bool ssl_add_cert_chain(SSL_HANDSHAKE *hs, CBB *cbb);
 // and returns false.
 bool ssl_cert_check_digital_signature_key_usage(const CBS *in);
 
+// ssl_cert_check_delegation_usage parses the DER-encoded, X.509 certificate in
+// |in| and returns true if it has the delegation usage extension. Otherwise it
+// pushes to the error queue and returns false.
+//
+// See https://tools.ietf.org/html/draft-ietf-tls-subcerts for details.
+bool ssl_cert_check_delegation_usage(const CBS *in);
+
 // ssl_cert_parse_pubkey extracts the public key from the DER-encoded, X.509
 // certificate in |in|. It returns an allocated |EVP_PKEY| or else returns
 // nullptr and pushes to the error queue.
@@ -1379,6 +1386,66 @@ enum handback_t {
   handback_after_handshake,
 };
 
+// Delegated credentials.
+
+// This structure stores a delegated credential (DC) as defined by
+// draft-ietf-tls-subcerts-02.
+struct DC {
+  static constexpr bool kAllowUniquePtr = true;
+  ~DC();
+
+  // dup returns a copy of this DC and takes ownership of |cred_pubkey|,
+  // |signature|, and |pkey|.
+  UniquePtr<DC> dup();
+
+  // parse parses the delegated credential stored in |in|. If successful, it
+  // returns the parsed structure; otherwise it returns NULL and sets
+  // |out_alert|.
+  static UniquePtr<DC> parse(const CBS *in, uint8_t *out_alert);
+
+  // raw is the DC encoded as specified in draft-ietf-tls-subcerts-02.
+  UniquePtr<CRYPTO_BUFFER> raw;
+
+  // valid_time is equal to the number of seconds since the notBefore field of
+  // the delegation certificate, i.e., the certificate used to delegate this
+  // credential.
+  uint32_t valid_time;
+
+  // expected_cert_verify_algorithm is the signature scheme of the DC public
+  // key.o
+  uint16_t expected_cert_verify_algorithm;
+
+  // expected_version is the protocol in which the DC must be used.
+  uint16_t expected_version;
+
+  // public_key is the encoded DC public key.
+  UniquePtr<CRYPTO_BUFFER> public_key;
+
+  // algorithm is the signature scheme of the end-entity certificate used to
+  // produce |signature|.
+  uint16_t algorithm;
+
+  // signature binds the DC to the end-entity certificate.
+  UniquePtr<CRYPTO_BUFFER> signature;
+
+  // pkey is the public key parsed from |public_key|.
+  UniquePtr<EVP_PKEY> pkey;
+};
+
+// ssl_dc_verify returns true if the delegated credential sent by the peer is
+// valid.
+bool ssl_dc_verify(const SSL_HANDSHAKE *hs);
+
+// ssl_signing_with_dc returns true if the peer has indicated support for DCs
+// and the host has sent a DC in reply. If this is true, then we're committed to
+// using the DC in the handshake.
+bool ssl_signing_with_dc(const SSL_HANDSHAKE *hs);
+
+// ssl_verifying_with_dc returns true if the host has indicated support for DCs
+// and the peer has sent a DC in reply. If this is true, then we're committed to
+// using the DC in the handshake.
+bool ssl_verifying_with_dc(const SSL_HANDSHAKE *hs);
+
 struct SSL_HANDSHAKE {
   explicit SSL_HANDSHAKE(SSL *ssl);
   ~SSL_HANDSHAKE();
@@ -1507,6 +1574,9 @@ struct SSL_HANDSHAKE {
   // peer_pubkey is the public key parsed from the peer's leaf certificate.
   UniquePtr<EVP_PKEY> peer_pubkey;
 
+  // peer_dc is the delegated credential offered by the peer.
+  UniquePtr<DC> peer_dc;
+
   // new_session is the new mutable session being established by the current
   // handshake. It should not be cached.
   UniquePtr<SSL_SESSION> new_session;
@@ -1549,6 +1619,10 @@ struct SSL_HANDSHAKE {
 
   // ocsp_stapling_requested is true if a client requested OCSP stapling.
   bool ocsp_stapling_requested : 1;
+
+  // delegated_credential_requested is true if the peer indicated support for
+  // the delegated credential extension.
+  bool delegated_credential_requested:1;
 
   // should_ack_sni is used by a server and indicates that the SNI extension
   // should be echoed in the ServerHello.
@@ -1791,6 +1865,15 @@ bool tls1_get_legacy_signature_algorithm(uint16_t *out, const EVP_PKEY *pkey);
 // supported. It returns true on success and false on error.
 bool tls1_choose_signature_algorithm(SSL_HANDSHAKE *hs, uint16_t *out);
 
+// tls1_get_peer_verify_algorithms returns the signature schemes for which the
+// peer indicated support.
+//
+// NOTE: The related function |SSL_get0_peer_verify_algorithms| only has
+// well-defined behavior during the callbacks set by |SSL_CTX_set_cert_cb| and
+// |SSL_CTX_set_client_cert_cb|, or when the handshake is paused because of
+// them.
+Span<const uint16_t> tls1_get_peer_verify_algorithms(const SSL_HANDSHAKE *hs);
+
 // tls12_add_verify_sigalgs adds the signature algorithms acceptable for the
 // peer signature to |out|. It returns true on success and false on error. If
 // |for_certs| is true, the potentially more restrictive list of algorithms for
@@ -1884,6 +1967,19 @@ struct CERT {
   // ticket key. Only sessions with a matching value will be accepted.
   uint8_t sid_ctx_length = 0;
   uint8_t sid_ctx[SSL_MAX_SID_CTX_LENGTH] = {0};
+
+  // Delegated credentials.
+
+  // dc is the delegated credential to send to to the peer (if requested).
+  UniquePtr<DC> dc = nullptr;
+
+  // dc_privatekey is used instead of |privatekey| or |key_method| to
+  // authenticate the host if a delegated credential is used in the handshake.
+  UniquePtr<EVP_PKEY> dc_privatekey = nullptr;
+
+  // dc_key_method, if not NULL, is used instead of |dc_privatekey| to
+  // authenticate the host.
+  const SSL_PRIVATE_KEY_METHOD *dc_key_method = nullptr;
 };
 
 // |SSL_PROTOCOL_METHOD| abstracts between TLS and DTLS.
@@ -2473,6 +2569,10 @@ struct SSL_CONFIG {
   // ocsp_stapling_enabled is only used by client connections and indicates
   // whether OCSP stapling will be requested.
   bool ocsp_stapling_enabled : 1;
+
+  // delegated_credential_enabled indicates the host's willing to negotiate
+  // delegated credential extension.
+  bool delegated_credential_enabled:1;
 
   // channel_id_enabled is copied from the |SSL_CTX|. For a server, means that
   // we'll accept Channel IDs from clients. For a client, means that we'll
@@ -3073,6 +3173,10 @@ struct ssl_ctx_st {
   // If true, a client will request certificate timestamps.
   bool signed_cert_timestamps_enabled : 1;
 
+  // If true, the host will indicate support for the delegated credential
+  // extension.
+  bool delegated_credential_enabled : 1;
+
   // channel_id_enabled is whether Channel ID is enabled. For a server, means
   // that we'll accept Channel IDs from clients.  For a client, means that we'll
   // advertise support.
@@ -3288,6 +3392,9 @@ struct ssl_session_st {
 
   // The OCSP response that came with the session.
   bssl::UniquePtr<CRYPTO_BUFFER> ocsp_response;
+
+  // The delegated credential that came with the session.
+  bssl::UniquePtr<CRYPTO_BUFFER> delegated_credential = nullptr;
 
   // peer_sha256 contains the SHA-256 hash of the peer's certificate if
   // |peer_sha256_valid| is true.
