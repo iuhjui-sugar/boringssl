@@ -34,6 +34,24 @@
       "revId": "b1326d176cd6961663c4f55355b0c9fe54cc59d1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8295b15b_c3e908fe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 8939
+      },
+      "writtenOn": "2018-07-17T20:13:41Z",
+      "side": 1,
+      "message": "Ah, my confusion was not realizing that CertificateRequest resolution meant cert_cb getting called. LGTM",
+      "parentUuid": "9f6c5796_eb1569bf",
+      "revId": "b1326d176cd6961663c4f55355b0c9fe54cc59d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
