@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "27e96eec_8d233c60",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 8939
+      },
+      "writtenOn": "2018-07-17T18:55:54Z",
+      "side": 1,
+      "message": "Does this refer to the future state? I don\u0027t see how this corresponds to the test.",
+      "revId": "b1326d176cd6961663c4f55355b0c9fe54cc59d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
