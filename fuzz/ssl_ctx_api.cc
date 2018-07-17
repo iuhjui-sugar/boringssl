@@ -490,6 +490,13 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *buf, size_t len) {
         }
         SSL_CTX_set1_sigalgs_list(ctx, sigalgs.c_str());
       },
+      [](SSL_CTX *ctx, CBS *cbs) {
+        bssl::UniquePtr<CRYPTO_BUFFER> buf(
+            CRYPTO_BUFFER_new_from_CBS(cbs, nullptr));
+        SSL_CTX_set1_delegated_credential(
+            ctx, buf.get(), nullptr,
+            reinterpret_cast<SSL_PRIVATE_KEY_METHOD *>(cbs));
+      },
   };
 
   bssl::UniquePtr<SSL_CTX> ctx(SSL_CTX_new(TLS_method()));
