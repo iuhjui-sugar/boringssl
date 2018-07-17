@@ -16,6 +16,24 @@
       "revId": "35b4a1255c301a3931d301cfa17c17d2fef0c1ba",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5543f599_9cd26154",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2060,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-07-17T04:39:40Z",
+      "side": 1,
+      "message": "Oops, yes. Thanks! (One of these days, maybe we can be rid of malloc failure handling...)\n\nhttps://boringssl-review.googlesource.com/c/boringssl/+/29825",
+      "parentUuid": "91f29bb8_e13f0db3",
+      "revId": "35b4a1255c301a3931d301cfa17c17d2fef0c1ba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
