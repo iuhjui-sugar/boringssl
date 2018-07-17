@@ -320,6 +320,11 @@ void PrintConnectionInfo(BIO *bio, const SSL *ssl) {
     size_t sct_list_len;
     SSL_get0_signed_cert_timestamp_list(ssl, &sct_list, &sct_list_len);
     BIO_printf(bio, "  SCT list: %s\n", sct_list_len > 0 ? "yes" : "no");
+
+    uint8_t *dc;
+    size_t dc_len;
+    SSL_get0_delegated_credential(ssl, (const uint8_t **)&dc, &dc_len);
+    BIO_printf(bio, "  Delegated credential: %s\n", (dc_len > 0) ? "yes" : "no");
   }
 
   BIO_printf(
