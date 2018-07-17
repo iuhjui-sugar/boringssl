@@ -180,6 +180,16 @@ UniquePtr<CERT> ssl_cert_dup(CERT *cert) {
   ret->sid_ctx_length = cert->sid_ctx_length;
   OPENSSL_memcpy(ret->sid_ctx, cert->sid_ctx, sizeof(ret->sid_ctx));
 
+  if (cert->dc) {
+    ret->dc = cert->dc->dup();
+    if (!ret->dc) {
+       return nullptr;
+    }
+  }
+
+  ret->dc_privatekey = UpRef(cert->dc_privatekey);
+  ret->dc_key_method = cert->dc_key_method;
+
   return ret;
 }
 
@@ -194,6 +204,10 @@ void ssl_cert_clear_certs(CERT *cert) {
   cert->chain.reset();
   cert->privatekey.reset();
   cert->key_method = nullptr;
+
+  cert->dc.reset();
+  cert->dc_privatekey.reset();
+  cert->dc_key_method = nullptr;
 }
 
 static void ssl_cert_set_cert_cb(CERT *cert, int (*cb)(SSL *ssl, void *arg),
@@ -633,6 +647,26 @@ bool ssl_cert_check_digital_signature_key_usage(const CBS *in) {
   return true;
 }
 
+bool ssl_cert_check_delegation_usage(const CBS *in) {
+  CBS contents;
+
+  // 1.3.6.1.4.1.44363.44, defined in draft-ietf-tls-subcerts-02.
+  static const uint8_t kDelegationUsageOID[] = {
+      0x2b, 0x06, 0x01, 0x04, 0x01, 0x82, 0xda, 0x4b, 0x2c,
+  };
+  cert_get_ext_result_t result = cert_get_ext(&contents, in,
+      Span<const uint8_t>(kDelegationUsageOID, sizeof(kDelegationUsageOID)));
+  switch (result) {
+    case cert_get_ext_found:
+      return true;
+    case cert_get_ext_not_found:
+      return false;
+    case cert_get_ext_error:
+      OPENSSL_PUT_ERROR(SSL, SSL_R_CANNOT_PARSE_LEAF_CERT);
+      return false;
+  }
+}
+
 UniquePtr<STACK_OF(CRYPTO_BUFFER)> ssl_parse_client_CA_list(SSL *ssl,
                                                             uint8_t *out_alert,
                                                             CBS *cbs) {
@@ -770,8 +804,317 @@ bool ssl_on_certificate_selected(SSL_HANDSHAKE *hs) {
   CRYPTO_BUFFER_init_CBS(
       sk_CRYPTO_BUFFER_value(hs->config->cert->chain.get(), 0), &leaf);
 
-  hs->local_pubkey = ssl_cert_parse_pubkey(&leaf);
+  if (ssl_signing_with_dc(hs)) {
+    hs->local_pubkey = UpRef(hs->config->cert->dc->pkey);
+  } else {
+    hs->local_pubkey = ssl_cert_parse_pubkey(&leaf);
+  }
   return hs->local_pubkey != NULL;
+}
+
+
+// Delegated credentials.
+
+DC::~DC() {
+}
+
+UniquePtr<DC> DC::dup() {
+  auto ret = MakeUnique<DC>();
+  if (!ret) {
+    return nullptr;
+  }
+  ret->valid_time = this->valid_time;
+  ret->expected_cert_verify_algorithm = this->expected_cert_verify_algorithm;
+  ret->expected_version = this->expected_version;
+  ret->public_key = UpRef(this->public_key);
+  ret->algorithm = this->algorithm;
+  ret->signature = UpRef(this->signature);
+  ret->pkey = UpRef(this->pkey);
+  ret->raw = UpRef(this->raw);
+  return ret;
+}
+
+UniquePtr<DC> DC::parse(const CBS *in, uint8_t *out_alert) {
+  auto dc = MakeUnique<DC>();
+  if (!dc) {
+    *out_alert = SSL_AD_INTERNAL_ERROR;
+    return nullptr;
+  }
+
+  CBS pubkey, sig, deleg = *in;
+  if (!CBS_get_u32(&deleg, &dc->valid_time) ||
+      !CBS_get_u16(&deleg, &dc->expected_cert_verify_algorithm) ||
+      !CBS_get_u16(&deleg, &dc->expected_version) ||
+      !CBS_get_u24_length_prefixed(&deleg, &pubkey) ||
+      !CBS_get_u16(&deleg, &dc->algorithm) ||
+      !CBS_get_u16_length_prefixed(&deleg, &sig)) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
+    *out_alert = SSL_AD_DECODE_ERROR;
+    return nullptr;
+  }
+
+  dc->raw.reset(CRYPTO_BUFFER_new(CBS_data(in), CBS_len(in), NULL));
+  if (dc->raw == nullptr) {
+    *out_alert = SSL_AD_INTERNAL_ERROR;
+    return nullptr;
+  }
+
+  dc->public_key.reset(
+      CRYPTO_BUFFER_new(CBS_data(&pubkey), CBS_len(&pubkey), NULL));
+  if (dc->public_key == nullptr) {
+    *out_alert = SSL_AD_INTERNAL_ERROR;
+    return nullptr;
+  }
+
+  dc->signature.reset(CRYPTO_BUFFER_new(CBS_data(&sig), CBS_len(&sig), NULL));
+  if (dc->signature == nullptr) {
+    *out_alert = SSL_AD_INTERNAL_ERROR;
+    return nullptr;
+  }
+
+  dc->pkey = UniquePtr<EVP_PKEY>(EVP_parse_public_key(&pubkey));
+  if (dc->pkey == nullptr) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
+    *out_alert = SSL_AD_DECODE_ERROR;
+    return nullptr;
+  }
+  return dc;
+}
+
+// build_dc_message writes to |message| the message used by the end-entity
+// certificate to compute the DC signature. The message consists of the
+// end-entity certificate |leaf|, the DC public key, and the DC parameters.
+static int build_dc_message(CBB *message,
+                            const DC *dc,
+                            const CRYPTO_BUFFER *leaf) {
+  // The signature message begins with the octet 32 (0x20) repeated 64 times.
+  uint8_t buf[64];
+  OPENSSL_memset(buf, 0x20, sizeof(buf));
+  if (!CBB_add_bytes(message, buf, sizeof(buf))) {
+    return 0;
+  }
+
+  // The remainder of the message is the context string, the 0x00 separator, the
+  // delegation certificate |leaf| and the DC public key and parameters. The
+  // latter is encoded by the first |kDCOverhead| bytes plus the length of the
+  // public key.
+  //
+  // Note that as of draft-ietf-tls-subcerts-02, only the server may
+  // authenticate itself using delegated credentials.
+  static const char kServerContext[] = "TLS, server delegated credentials";
+  static const size_t kDCOverhead = 13;
+  if (!CBB_add_bytes(message,
+                     (const uint8_t *)kServerContext,
+                     sizeof(kServerContext)) ||
+      !CBB_add_bytes(message,
+                     CRYPTO_BUFFER_data(leaf),
+                     CRYPTO_BUFFER_len(leaf)) ||
+      !CBB_add_bytes(message,
+                     CRYPTO_BUFFER_data(dc->raw.get()),
+                     kDCOverhead + CRYPTO_BUFFER_len(dc->public_key.get()))) {
+    return 0;
+  }
+
+  return 1;
+}
+
+bool ssl_dc_verify(const SSL_HANDSHAKE *hs) {
+  const DC *dc = hs->peer_dc.get();
+  assert(dc);
+  const CRYPTO_BUFFER *raw_leaf =
+      sk_CRYPTO_BUFFER_value(hs->new_session->certs.get(), 0);
+  assert(raw_leaf);
+  X509 *leaf = hs->new_session->x509_peer;
+
+  const ASN1_TIME *not_before = X509_get0_notBefore(leaf);
+  OPENSSL_timeval now;
+  ssl_get_current_time(hs->ssl, &now);
+
+  // Verify that the current time is within the validity interval of the
+  // credential. We want that |not_before| is greater than or equal to the
+  // current time minus the credential's validity time.
+  //
+  // |X509_cmp_time(not_before, &cmp_time) == -1| holds if |cmp_time| is behind
+  // of (or at) |not_before|.
+  time_t cmp_time = now.tv_sec - static_cast<uint64_t>(dc->valid_time);
+  if (X509_cmp_time(not_before, &cmp_time) == -1) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_DELEGATED_CREDENTIAL_EXPIRED);
+    return false;
+  }
+
+  // Verify that the credential's validity interval is no longer than the
+  // maximum permitted by the spec. We want that |not_before| plus the validity
+  // time is less than now + the maximum permitted TTL.
+  static uint64_t kMaxTTL = 60 * 60 * 24 * 7;
+  cmp_time += kMaxTTL;
+  if (X509_cmp_time(not_before, &cmp_time) == 1) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_INVALID_DELEGATED_CREDENTIAL);
+    return false;
+  }
+
+  // Verify that DelegatedCredential.cred.expected_cert_verify_algorithm matches
+  // the scheme indicated in the peer's CertificateVerify.algorithm.
+  uint16_t peer_sigalg = hs->new_session->peer_signature_algorithm;
+  if (dc->expected_cert_verify_algorithm != peer_sigalg) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_INVALID_DELEGATED_CREDENTIAL);
+    return false;
+  }
+
+  // Verify that DelegatedCredential.cred.expected_version matches the
+  // negotiated protocol version.
+  //
+  // NOTE: We don't call |ssl_protocol_version| because we need the version sent
+  // on the wire. For example, a delegated credential can be bound to a draft of
+  // TLS 1.3.
+  assert(hs->ssl->s3->have_version);
+  if (dc->expected_version != hs->ssl->version) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_INVALID_DELEGATED_CREDENTIAL);
+    return false;
+  }
+
+  // Verify that the end-entity certificate can be used with the delegated
+  // credential extension. This has two parts: first, the certificate must have
+  // the DelegationUsage extension defined in the standard; two, it must have
+  // the digitalSignature KeyUsage enabled. The second condition is checked by
+  // |tls13_process_certificate|.
+  CBS in;
+  CRYPTO_BUFFER_init_CBS(raw_leaf, &in);
+  if (!ssl_cert_check_delegation_usage(&in)) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_INVALID_DELEGATED_CREDENTIAL);
+    return false;
+  }
+
+  // Use the public key in the server's end-entity certificate to verify the
+  // signature of the credential.
+  //
+  // First, build the message whose signature is to be verified.
+  CBB message;
+  CBB_init(&message, 512);
+  if (!build_dc_message(&message, dc, raw_leaf)) {
+    OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
+    return false;
+  }
+
+  // Use DelegatedCredential.algorithm as the algorithm to verify the signature.
+  const EVP_MD *digest = SSL_get_signature_algorithm_digest(dc->algorithm);
+
+  // Verify the delegated credential message using the leaf cert public key.
+  EVP_PKEY *leaf_pubkey = X509_get_pubkey(leaf);
+  EVP_PKEY_CTX *pctx;
+  EVP_MD_CTX ctx;
+  EVP_MD_CTX_init(&ctx);
+  EVP_DigestVerifyInit(&ctx, &pctx, digest, NULL, leaf_pubkey);
+  int result = EVP_DigestVerify(&ctx,
+    CRYPTO_BUFFER_data(dc->signature.get()),
+    CRYPTO_BUFFER_len(dc->signature.get()),
+    CBB_data(&message), CBB_len(&message));
+
+  EVP_PKEY_free(leaf_pubkey);
+  return !!result;
+}
+
+// ssl_can_serve_dc returns true if the host has configured a DC that it can
+// serve in the handshake. Specifically, it checks that a DC has been
+// configured, that the DC protocol version is the same as the negotiated
+// protocol version, and that the DC signature algorithm is supported by the
+// peer.
+static bool ssl_can_serve_dc(const SSL_HANDSHAKE *hs) {
+  // Check that a DC has been configured.
+  const CERT *cert = hs->config->cert.get();
+  if (cert->dc == nullptr ||
+      cert->dc->raw == nullptr ||
+      (cert->dc_privatekey == nullptr && cert->dc_key_method == nullptr)) {
+    return false;
+  }
+
+  // Check that the negotiated version matches the protocol version to which the
+  // DC is bound, and that 1.3 or higher has been negotiated.
+  //
+  // NOTE: We use |hs->ssl->version| for checking the DC expected version. We
+  // don't call |ssl_protocol_version| because we need the version sent on the
+  // wire. For example, a delegated credential can be bound to a draft of TLS
+  // 1.3.
+  const DC *dc = cert->dc.get();
+  assert(hs->ssl->s3->have_version);
+  if (hs->ssl->version != dc->expected_version ||
+      ssl_protocol_version(hs->ssl) < TLS1_3_VERSION) {
+    return false;
+  }
+
+  // Check that the DC signature algorithm is supported by the peer.
+  Span<const uint16_t> peer_sigalgs = tls1_get_peer_verify_algorithms(hs);
+  for (uint16_t peer_sigalg : peer_sigalgs) {
+    if (dc->expected_cert_verify_algorithm == peer_sigalg) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+bool ssl_signing_with_dc(const SSL_HANDSHAKE *hs) {
+  // As of draft-ietf-tls-subcert-02, only the server may use delegated
+  // credentials to authenticate itself.
+  if (hs->ssl->server &&
+      hs->delegated_credential_requested &&
+      ssl_can_serve_dc(hs)) {
+    return true;
+  }
+  return false;
+}
+
+bool ssl_verifying_with_dc(const SSL_HANDSHAKE *hs) {
+  // As of draft-ietf-tls-subcert-02, only the server may use delegated
+  // credentials to authenticate itself.
+  if (!hs->ssl->server &&
+      hs->config->delegated_credential_enabled &&
+      hs->new_session->delegated_credential != nullptr) {
+    return true;
+  }
+  return false;
+}
+
+static int cert_set_dc(CERT *cert, CRYPTO_BUFFER *const raw, EVP_PKEY *privkey,
+                       const SSL_PRIVATE_KEY_METHOD *key_method) {
+  cert->dc = nullptr;
+  cert->dc_privatekey = nullptr;
+  cert->dc_key_method = nullptr;
+
+  if (raw == nullptr || (privkey == nullptr && key_method == nullptr)) {
+    OPENSSL_PUT_ERROR(SSL, ERR_R_PASSED_NULL_PARAMETER);
+    return 0;
+  }
+
+  if (privkey != nullptr && key_method != nullptr) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_CANNOT_HAVE_BOTH_PRIVKEY_AND_METHOD);
+    return 0;
+  }
+
+  uint8_t out_alert;
+  CBS contents;
+  CRYPTO_BUFFER_init_CBS(raw, &contents);
+  cert->dc = DC::parse(&contents, &out_alert);
+  if (cert->dc == nullptr) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_INVALID_DELEGATED_CREDENTIAL);
+    return 0;
+  }
+
+  if (privkey) {
+    // Check that the public and private keys match.
+    if (!ssl_compare_public_and_private_key(cert->dc->pkey.get(), privkey)) {
+      OPENSSL_PUT_ERROR(SSL, SSL_R_CERTIFICATE_AND_PRIVATE_KEY_MISMATCH);
+      return 0;
+    }
+
+    EVP_PKEY_up_ref(privkey);
+    cert->dc_privatekey.reset(privkey);
+  }
+
+  cert->dc_key_method = key_method;
+
+  CRYPTO_BUFFER_up_ref(raw);
+  cert->dc->raw.reset(raw);
+  return 1;
 }
 
 BSSL_NAMESPACE_END
@@ -898,4 +1241,23 @@ void SSL_set0_client_CAs(SSL *ssl, STACK_OF(CRYPTO_BUFFER) *name_list) {
   }
   ssl->ctx->x509_method->ssl_flush_cached_client_CA(ssl->config.get());
   ssl->config->client_CA.reset(name_list);
+}
+
+// Delegated credentials.
+
+int SSL_CTX_set_delegated_credential(SSL_CTX *ctx,
+                                     CRYPTO_BUFFER *dc,
+                                     EVP_PKEY *pkey,
+                                     const SSL_PRIVATE_KEY_METHOD *key_method) {
+  return cert_set_dc(ctx->cert.get(), dc, pkey, key_method);
+}
+
+int SSL_set_delegated_credential(SSL *ssl,
+                                 CRYPTO_BUFFER *dc,
+                                 EVP_PKEY *pkey,
+                                 const SSL_PRIVATE_KEY_METHOD *key_method) {
+  if (!ssl->config) {
+    return 0;
+  }
+  return cert_set_dc(ssl->config->cert.get(), dc, pkey, key_method);
 }
