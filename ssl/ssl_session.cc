@@ -234,6 +234,8 @@ UniquePtr<SSL_SESSION> SSL_SESSION_dup(SSL_SESSION *session, int dup_flags) {
   new_session->ocsp_response = UpRef(session->ocsp_response);
   new_session->signed_cert_timestamp_list =
       UpRef(session->signed_cert_timestamp_list);
+  new_session->delegated_credential =
+      UpRef(session->delegated_credential);
 
   OPENSSL_memcpy(new_session->peer_sha256, session->peer_sha256,
                  SHA256_DIGEST_LENGTH);
@@ -936,6 +938,18 @@ void SSL_SESSION_get0_ocsp_response(const SSL_SESSION *session,
   if (session->ocsp_response) {
     *out = CRYPTO_BUFFER_data(session->ocsp_response.get());
     *out_len = CRYPTO_BUFFER_len(session->ocsp_response.get());
+  } else {
+    *out = nullptr;
+    *out_len = 0;
+  }
+}
+
+void SSL_SESSION_get0_delegated_credential(const SSL_SESSION *session,
+                                           const uint8_t **out,
+                                           size_t *out_len) {
+  if (session->delegated_credential) {
+    *out = CRYPTO_BUFFER_data(session->delegated_credential.get());
+    *out_len = CRYPTO_BUFFER_len(session->delegated_credential.get());
   } else {
     *out = nullptr;
     *out_len = 0;

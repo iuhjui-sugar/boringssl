@@ -141,6 +141,10 @@ static const struct argument kArguments[] = {
         "Allow renegotiations from the peer.",
     },
     {
+        "-subcerts", kBooleanArgument,
+        "Enables delegated credential support.",
+    },
+    {
         "-debug", kBooleanArgument,
         "Print debug information about the handshake",
     },
@@ -285,6 +289,10 @@ static bool DoConnection(SSL_CTX *ctx,
 
   if (resume_session) {
     SSL_set_session(ssl.get(), resume_session.get());
+  }
+
+  if (args_map.count("-subcerts") != 0) {
+    SSL_enable_delegated_credentials(ssl.get(), true);
   }
 
   SSL_set_bio(ssl.get(), bio.get(), bio.get());

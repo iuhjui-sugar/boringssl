@@ -1517,6 +1517,15 @@ OPENSSL_EXPORT void SSL_get0_signed_cert_timestamp_list(const SSL *ssl,
 OPENSSL_EXPORT void SSL_get0_ocsp_response(const SSL *ssl, const uint8_t **out,
                                            size_t *out_len);
 
+// SSL_get0_delegated_credential sets |*out| and |*out_len| to point to
+// |*out_len| bytes of the delegated credential sent by the peer. Its format is
+// as specified in https://tools.ietf.org/html/draft-ietf-tls-subcerts-02.
+//
+// WARNING: the returned data is not guaranteed to be well formed.
+OPENSSL_EXPORT void SSL_get0_delegated_credential(const SSL *ssl,
+                                                  const uint8_t **out,
+                                                  size_t *out_len);
+
 // SSL_get_tls_unique writes at most |max_out| bytes of the tls-unique value
 // for |ssl| to |out| and sets |*out_len| to the number of bytes written. It
 // returns one on success or zero on error. In general |max_out| should be at
@@ -1675,6 +1684,14 @@ OPENSSL_EXPORT void SSL_SESSION_get0_signed_cert_timestamp_list(
 OPENSSL_EXPORT void SSL_SESSION_get0_ocsp_response(const SSL_SESSION *session,
                                                    const uint8_t **out,
                                                    size_t *out_len);
+
+// SSL_SESSION_get0_delegated_credential sets |*out| and |*out_len| to point to
+// |*out_len| bytes of the delegated credential sent by the peer. Its format
+// is as specified in https://tools.ietf.org/html/draft-ietf-tls-subcerts-02.
+//
+// WARNING: the returned data is not guaranteed to be well formed.
+OPENSSL_EXPORT void SSL_SESSION_get0_delegated_credential(
+    const SSL_SESSION *session, const uint8_t **out, size_t *out_len);
 
 // SSL_MAX_MASTER_KEY_LENGTH is the maximum length of a master secret.
 #define SSL_MAX_MASTER_KEY_LENGTH 48
@@ -3056,6 +3073,68 @@ OPENSSL_EXPORT void SSL_get_peer_quic_transport_params(const SSL *ssl,
                                                        const uint8_t **out_params,
                                                        size_t *out_params_len);
 
+
+// Delegated credentials.
+//
+// draft-ietf-tls-subcerts is a proposed extension for TLS 1.3 that allows an
+// end point to use its certificate to delegate credentials for authentication.
+// If the peer indicates support for this extension, then a host may use a
+// delegated credential to sign the handshake. Once issued, credentials can't be
+// revoked. In order to mitigate the damage in case the credential secret key is
+// compromised, the credential is only valid for a short time (days, hours, or
+// even minutes). This library implements draft-02 of the protocol spec.
+//
+// The extension ID has not been assigned; we're using 0xff02 for the time
+// being.
+//
+// Hosts enable this extension with |SSL_CTX_enable_delegated_credentials| or
+// |SSL_enable_delegated_credentials|. Once the handshake completes,
+// applications may obtain the delegated credential (DC) offered by the peer via
+// |SSL_get0_delegated_credential|.
+//
+// Hosts configure a DC for use in the handshake via
+// |SSL_CTX_set_delegated_credential| or |SSL_set_delegated_credential|. It must
+// be signed by the host's end-entity certificate as defined in
+// draft-ietf-tls-subcerts-02.
+
+// SSL_CTX_enable_delegated_credentials enables support for the delegated
+// credentials extension. Currently (as of draft-02), only clients may indicate
+// support for this extension.
+OPENSSL_EXPORT void SSL_CTX_enable_delegated_credentials(SSL_CTX *ctx,
+                                                         int enabled);
+
+// SSL_enable_delegated_credentials enables support for the delegated
+// credentials extension for a particular connection. Currently (as of
+// draft-02), only clients may indicate support for this extension.
+OPENSSL_EXPORT void SSL_enable_delegated_credentials(SSL *ssl, int enabled);
+
+// SSL_CTX_set_delegated_credential configures the delegated credential (DC)
+// that will be sent to peers that indicate support for the extension. |dc| is
+// the DC in wire format, and |pkey| or |key_method| is the corresponding
+// private key. Currently (as of draft-02), only servers may configure a DC to
+// use in the handshake.
+//
+// It's the caller's responsibility to ensure that the DC is being used in the
+// correct protocol and that the signature scheme is supported by the peer. If
+// not, the handshake will fallback to the private key or private key method
+// associated with the certificate.
+OPENSSL_EXPORT int SSL_CTX_set_delegated_credential(
+    SSL_CTX *ctx, CRYPTO_BUFFER *dc, EVP_PKEY *pkey,
+    const SSL_PRIVATE_KEY_METHOD *key_method);
+
+// SSL_set_delegated_credential configures the delegated credential (DC) that
+// will be sent to the peer for the current connection. |dc| is the DC in wire
+// format, and |pkey| or |key_method| is the corresponding private key.
+// Currently (as of draft-02), only servers may configure a DC to use in the
+// handshake.
+//
+// It's the caller's responsibility to ensure that the DC is being used in the
+// correct protocol and that the signature scheme is supported by the peer. If
+// not, the handshake will fallback to the private key or private key method
+// associated with the certificate.
+OPENSSL_EXPORT int SSL_set_delegated_credential(
+    SSL *ssl, CRYPTO_BUFFER *dc, EVP_PKEY *pkey,
+    const SSL_PRIVATE_KEY_METHOD *key_method);
 
 // QUIC integration.
 //
@@ -4984,5 +5063,7 @@ BSSL_NAMESPACE_END
 #define SSL_R_TLSV1_UNKNOWN_PSK_IDENTITY 1115
 #define SSL_R_TLSV1_CERTIFICATE_REQUIRED 1116
 #define SSL_R_TOO_MUCH_READ_EARLY_DATA 1117
+#define SSL_R_INVALID_DELEGATED_CREDENTIAL 1118
+#define SSL_R_DELEGATED_CREDENTIAL_EXPIRED 1119
 
 #endif  // OPENSSL_HEADER_SSL_H
