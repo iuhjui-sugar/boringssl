@@ -150,12 +150,9 @@ static const SSL_CIPHER *choose_tls13_cipher(
 
 static bool add_new_session_tickets(SSL_HANDSHAKE *hs, bool *out_sent_tickets) {
   SSL *const ssl = hs->ssl;
-  if (// If the client doesn't accept resumption with PSK_DHE_KE, don't send a
-      // session ticket.
-      !hs->accept_psk_mode ||
-      // We only implement stateless resumption in TLS 1.3, so skip sending
-      // tickets if disabled.
-      (SSL_get_options(ssl) & SSL_OP_NO_TICKET)) {
+  // If the client doesn't accept resumption with PSK_DHE_KE, don't send a
+  // session ticket.
+  if (!hs->accept_psk_mode) {
     *out_sent_tickets = false;
     return true;
   }
@@ -164,27 +161,52 @@ static bool add_new_session_tickets(SSL_HANDSHAKE *hs, bool *out_sent_tickets) {
   // the client makes several connections before getting a renewal.
   static const int kNumTickets = 2;
 
-  // Rebase the session timestamp so that it is measured from ticket
-  // issuance.
+  bool stateless_ok = !(SSL_get_options(ssl) & SSL_OP_NO_TICKET);
+  if (!stateless_ok) {
+    // If stateless tickets are disabled, try to mint stateful IDs instead.
+    SSL_CTX *ctx = ssl->session_ctx.get();
+    if (!(ctx->session_cache_mode & SSL_SESS_CACHE_SERVER) ||
+        ((ctx->session_cache_mode & SSL_SESS_CACHE_NO_INTERNAL_STORE) &&
+         ssl->session_ctx->new_session_cb == nullptr)) {
+      // Both internal and external session cache are disabled. Skip sending
+      // tickets altogether.
+      *out_sent_tickets = false;
+      return true;
+    }
+    if (!hs->sessions_to_cache.Init(kNumTickets)) {
+      return false;
+    }
+  }
+
+  // Rebase the session timestamp so that it is measured from ticket issuance.
   ssl_session_rebase_time(ssl, hs->new_session.get());
 
   for (int i = 0; i < kNumTickets; i++) {
+    static_assert(kNumTickets < 256, "Too many tickets");
+    uint8_t nonce[] = {static_cast<uint8_t>(i)};
+
+    // Derive a new copy of the session with a fresh nonce and resumption
+    // information.
     UniquePtr<SSL_SESSION> session(
         SSL_SESSION_dup(hs->new_session.get(), SSL_SESSION_INCLUDE_NONAUTH));
-    if (!session) {
-      return false;
-    }
-
-    if (!RAND_bytes((uint8_t *)&session->ticket_age_add, 4)) {
+    if (!session ||
+        !tls13_derive_session_psk(session.get(), nonce) ||
+        !RAND_bytes((uint8_t *)&session->ticket_age_add, 4)) {
       return false;
     }
     session->ticket_age_add_valid = true;
     if (ssl->enable_early_data) {
       session->ticket_max_early_data = kMaxEarlyDataAccepted;
     }
-
-    static_assert(kNumTickets < 256, "Too many tickets");
-    uint8_t nonce[] = {static_cast<uint8_t>(i)};
+    if (!stateless_ok) {
+      session->session_id_length = SSL_MAX_SSL_SESSION_ID_LENGTH;
+      if (!RAND_bytes(session->session_id, session->session_id_length)) {
+        return false;
+      }
+      hs->sessions_to_cache[i] = UpRef(session);
+    }
+    ssl_release_certs_if_needed(hs, session.get());
+    session->not_resumable = false;
 
     ScopedCBB cbb;
     CBB body, nonce_cbb, ticket, extensions;
@@ -195,8 +217,9 @@ static bool add_new_session_tickets(SSL_HANDSHAKE *hs, bool *out_sent_tickets) {
         !CBB_add_u8_length_prefixed(&body, &nonce_cbb) ||
         !CBB_add_bytes(&nonce_cbb, nonce, sizeof(nonce)) ||
         !CBB_add_u16_length_prefixed(&body, &ticket) ||
-        !tls13_derive_session_psk(session.get(), nonce) ||
-        !ssl_encrypt_ticket(hs, &ticket, session.get()) ||
+        (stateless_ok ? !ssl_encrypt_ticket(hs, &ticket, session.get())
+                      : !CBB_add_bytes(&ticket, session->session_id,
+                                       session->session_id_length)) ||
         !CBB_add_u16_length_prefixed(&body, &extensions)) {
       return false;
     }
@@ -276,10 +299,11 @@ static enum ssl_hs_wait_t do_select_parameters(SSL_HANDSHAKE *hs) {
   return ssl_hs_ok;
 }
 
-static enum ssl_ticket_aead_result_t select_session(
-    SSL_HANDSHAKE *hs, uint8_t *out_alert, UniquePtr<SSL_SESSION> *out_session,
-    int32_t *out_ticket_age_skew, const SSLMessage &msg,
-    const SSL_CLIENT_HELLO *client_hello) {
+static ssl_hs_wait_t select_session(SSL_HANDSHAKE *hs, uint8_t *out_alert,
+                                    UniquePtr<SSL_SESSION> *out_session,
+                                    int32_t *out_ticket_age_skew,
+                                    const SSLMessage &msg,
+                                    const SSL_CLIENT_HELLO *client_hello) {
   SSL *const ssl = hs->ssl;
   *out_session = NULL;
 
@@ -288,7 +312,7 @@ static enum ssl_ticket_aead_result_t select_session(
   if (!hs->accept_psk_mode ||
       !ssl_client_hello_get_extension(client_hello, &pre_shared_key,
                                       TLSEXT_TYPE_pre_shared_key)) {
-    return ssl_ticket_aead_ignore_ticket;
+    return ssl_hs_ok;
   }
 
   // Verify that the pre_shared_key extension is the last extension in
@@ -297,7 +321,7 @@ static enum ssl_ticket_aead_result_t select_session(
       client_hello->extensions + client_hello->extensions_len) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_PRE_SHARED_KEY_MUST_BE_LAST);
     *out_alert = SSL_AD_ILLEGAL_PARAMETER;
-    return ssl_ticket_aead_error;
+    return ssl_hs_error;
   }
 
   CBS ticket, binders;
@@ -305,30 +329,47 @@ static enum ssl_ticket_aead_result_t select_session(
   if (!ssl_ext_pre_shared_key_parse_clienthello(hs, &ticket, &binders,
                                                 &client_ticket_age, out_alert,
                                                 &pre_shared_key)) {
-    return ssl_ticket_aead_error;
+    return ssl_hs_error;
   }
 
-  // TLS 1.3 session tickets are renewed separately as part of the
-  // NewSessionTicket.
-  bool unused_renew;
   UniquePtr<SSL_SESSION> session;
-  enum ssl_ticket_aead_result_t ret =
-      ssl_process_ticket(hs, &session, &unused_renew, CBS_data(&ticket),
-                         CBS_len(&ticket), NULL, 0);
-  switch (ret) {
-    case ssl_ticket_aead_success:
-      break;
-    case ssl_ticket_aead_error:
-      *out_alert = SSL_AD_INTERNAL_ERROR;
-      return ret;
-    default:
-      return ret;
+  // We support both stateful and stateless handling of tickets. Stateful
+  // tickets sent short session IDs, and stateless tickets are larger, so we
+  // simply use the length.
+  //
+  // Note the length check bypasses |SSL_TICKET_AEAD_METHOD|. The API does not
+  // allow sessions to be encoded shorter than the serialized session, so no
+  // |SSL_TICKET_AEAD_METHOD| could emit short (presumably stateful) tickets.
+  if (CBS_len(&ticket) > SSL_MAX_SSL_SESSION_ID_LENGTH) {
+    // TLS 1.3 session tickets are renewed separately as part of the
+    // NewSessionTicket.
+    bool unused_renew;
+    switch (ssl_process_ticket(hs, &session, &unused_renew, CBS_data(&ticket),
+                               CBS_len(&ticket), NULL, 0)) {
+      case ssl_ticket_aead_success:
+        break;
+      case ssl_ticket_aead_error:
+        *out_alert = SSL_AD_INTERNAL_ERROR;
+        return ssl_hs_error;
+      case ssl_ticket_aead_retry:
+        return ssl_hs_pending_ticket;
+      case ssl_ticket_aead_ignore_ticket:
+        return ssl_hs_ok;
+    }
+  } else {
+    ssl_hs_wait_t lookup_ret = ssl_lookup_session(hs, &session, ticket);
+    if (lookup_ret != ssl_hs_ok || session == nullptr) {
+      if (lookup_ret == ssl_hs_error) {
+        *out_alert = SSL_AD_INTERNAL_ERROR;
+      }
+      return lookup_ret;
+    }
   }
 
   if (!ssl_session_is_resumable(hs, session.get()) ||
       // Historically, some TLS 1.3 tickets were missing ticket_age_add.
       !session->ticket_age_add_valid) {
-    return ssl_ticket_aead_ignore_ticket;
+    return ssl_hs_ok;
   }
 
   // Recover the client ticket age and convert to seconds.
@@ -345,7 +386,7 @@ static enum ssl_ticket_aead_result_t select_session(
   // To avoid overflowing |hs->ticket_age_skew|, we will not resume
   // 68-year-old sessions.
   if (server_ticket_age > INT32_MAX) {
-    return ssl_ticket_aead_ignore_ticket;
+    return ssl_hs_ok;
   }
 
   // TODO(davidben,svaldez): Measure this value to decide on tolerance. For
@@ -356,11 +397,11 @@ static enum ssl_ticket_aead_result_t select_session(
   // Check the PSK binder.
   if (!tls13_verify_psk_binder(hs, session.get(), msg, &binders)) {
     *out_alert = SSL_AD_DECRYPT_ERROR;
-    return ssl_ticket_aead_error;
+    return ssl_hs_error;
   }
 
   *out_session = std::move(session);
-  return ssl_ticket_aead_success;
+  return ssl_hs_ok;
 }
 
 static enum ssl_hs_wait_t do_select_session(SSL_HANDSHAKE *hs) {
@@ -378,55 +419,49 @@ static enum ssl_hs_wait_t do_select_session(SSL_HANDSHAKE *hs) {
 
   uint8_t alert = SSL_AD_DECODE_ERROR;
   UniquePtr<SSL_SESSION> session;
-  switch (select_session(hs, &alert, &session, &ssl->s3->ticket_age_skew, msg,
-                         &client_hello)) {
-    case ssl_ticket_aead_ignore_ticket:
-      assert(!session);
-      if (!ssl_get_new_session(hs, 1 /* server */)) {
-        ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
-        return ssl_hs_error;
-      }
-      break;
-
-    case ssl_ticket_aead_success:
-      // Carry over authentication information from the previous handshake into
-      // a fresh session.
-      hs->new_session =
-          SSL_SESSION_dup(session.get(), SSL_SESSION_DUP_AUTH_ONLY);
-
-      if (ssl->enable_early_data &&
-          // Early data must be acceptable for this ticket.
-          session->ticket_max_early_data != 0 &&
-          // The client must have offered early data.
-          hs->early_data_offered &&
-          // Channel ID is incompatible with 0-RTT.
-          !ssl->s3->channel_id_valid &&
-          // If Token Binding is negotiated, reject 0-RTT.
-          !ssl->s3->token_binding_negotiated &&
-          // The negotiated ALPN must match the one in the ticket.
-          MakeConstSpan(ssl->s3->alpn_selected) == session->early_alpn) {
-        ssl->s3->early_data_accepted = true;
-      }
-
-      if (hs->new_session == NULL) {
-        ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
-        return ssl_hs_error;
-      }
-
-      ssl->s3->session_reused = true;
-
-      // Resumption incorporates fresh key material, so refresh the timeout.
-      ssl_session_renew_timeout(ssl, hs->new_session.get(),
-                                ssl->session_ctx->session_psk_dhe_timeout);
-      break;
-
-    case ssl_ticket_aead_error:
+  ssl_hs_wait_t wait = select_session(
+      hs, &alert, &session, &ssl->s3->ticket_age_skew, msg, &client_hello);
+  if (wait != ssl_hs_ok) {
+    if (wait == ssl_hs_error) {
       ssl_send_alert(ssl, SSL3_AL_FATAL, alert);
-      return ssl_hs_error;
+    }
+    hs->tls13_state = state_select_session;
+    return wait;
+  }
 
-    case ssl_ticket_aead_retry:
-      hs->tls13_state = state_select_session;
-      return ssl_hs_pending_ticket;
+  if (session != nullptr) {
+    // Carry over authentication information from the previous handshake into a
+    // fresh session.
+    hs->new_session = SSL_SESSION_dup(session.get(), SSL_SESSION_DUP_AUTH_ONLY);
+    if (hs->new_session == nullptr) {
+      ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
+      return ssl_hs_error;
+    }
+
+    if (ssl->enable_early_data &&
+        // Early data must be acceptable for this ticket.
+        session->ticket_max_early_data != 0 &&
+        // The client must have offered early data.
+        hs->early_data_offered &&
+        // Channel ID is incompatible with 0-RTT.
+        !ssl->s3->channel_id_valid &&
+        // If Token Binding is negotiated, reject 0-RTT.
+        !ssl->s3->token_binding_negotiated &&
+        // The negotiated ALPN must match the one in the ticket.
+        MakeConstSpan(ssl->s3->alpn_selected) == session->early_alpn) {
+      ssl->s3->early_data_accepted = true;
+    }
+
+    ssl->s3->session_reused = true;
+
+    // Resumption incorporates fresh key material, so refresh the timeout.
+    ssl_session_renew_timeout(ssl, hs->new_session.get(),
+                              ssl->session_ctx->session_psk_dhe_timeout);
+  } else {
+    if (!ssl_get_new_session(hs, 1 /* server */)) {
+      ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_INTERNAL_ERROR);
+      return ssl_hs_error;
+    }
   }
 
   // Record connection properties in the new session.

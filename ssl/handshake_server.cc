@@ -1415,7 +1415,7 @@ static enum ssl_hs_wait_t do_send_server_finished(SSL_HANDSHAKE *hs) {
   if (hs->ticket_expected) {
     const SSL_SESSION *session;
     UniquePtr<SSL_SESSION> session_copy;
-    if (ssl->session == NULL) {
+    if (ssl->session == nullptr) {
       // Fix the timeout to measure from the ticket issuance time.
       ssl_session_rebase_time(ssl, hs->new_session.get());
       session = hs->new_session.get();
@@ -1450,9 +1450,17 @@ static enum ssl_hs_wait_t do_send_server_finished(SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
-  if (ssl->session != NULL) {
+  if (ssl->session != nullptr) {
     hs->state = state12_read_change_cipher_spec;
   } else {
+    // If using IDs, queue the session to be cached.
+    if (hs->new_session->session_id_length != 0) {
+      if (!hs->sessions_to_cache.Init(1)) {
+        return ssl_hs_error;
+      }
+      hs->sessions_to_cache[0] = UpRef(hs->new_session);
+    }
+
     hs->state = state12_finish_server_handshake;
   }
   return ssl_hs_flush;
@@ -1467,18 +1475,12 @@ static enum ssl_hs_wait_t do_finish_server_handshake(SSL_HANDSHAKE *hs) {
 
   ssl->method->on_handshake_complete(ssl);
 
-  // If we aren't retaining peer certificates then we can discard it now.
-  if (hs->new_session != NULL &&
-      hs->config->retain_only_sha256_of_client_certs) {
-    hs->new_session->certs.reset();
-    ssl->ctx->x509_method->session_clear(hs->new_session.get());
-  }
-
-  if (ssl->session != NULL) {
-    ssl->s3->established_session = UpRef(ssl->session);
-  } else {
+  if (hs->new_session != nullptr) {
+    ssl_release_certs_if_needed(hs, hs->new_session.get());
     ssl->s3->established_session = std::move(hs->new_session);
     ssl->s3->established_session->not_resumable = false;
+  } else {
+    ssl->s3->established_session = UpRef(ssl->session);
   }
 
   hs->handshake_finalized = true;

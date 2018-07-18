@@ -1506,6 +1506,21 @@ static enum ssl_hs_wait_t do_finish_flight(SSL_HANDSHAKE *hs) {
 static enum ssl_hs_wait_t do_read_session_ticket(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
 
+  if (hs->in_false_start) {
+    // Make a copy of the session. While callers should use the new session
+    // callback, some expect an cacheable (and therefore threadsafe and
+    // immutable) session out of |SSL_get_session| after |SSL_do_handshake|
+    // completes.
+    //
+    // TODO(davidben): Do we actually need to do this?
+    UniquePtr<SSL_SESSION> copy =
+        SSL_SESSION_dup(hs->new_session.get(), SSL_SESSION_DUP_ALL);
+    if (!copy) {
+      return ssl_hs_error;
+    }
+    hs->new_session = std::move(copy);
+  }
+
   if (!hs->ticket_expected) {
     hs->state = state_process_change_cipher_spec;
     return ssl_hs_read_change_cipher_spec;
@@ -1533,9 +1548,7 @@ static enum ssl_hs_wait_t do_read_session_ticket(SSL_HANDSHAKE *hs) {
 
   if (CBS_len(&ticket) == 0) {
     // RFC 5077 allows a server to change its mind and send no ticket after
-    // negotiating the extension. The value of |ticket_expected| is checked in
-    // |ssl_update_cache| so is cleared here to avoid an unnecessary update.
-    hs->ticket_expected = false;
+    // negotiating the extension.
     ssl->method->next_message(ssl);
     hs->state = state_process_change_cipher_spec;
     return ssl_hs_read_change_cipher_spec;
@@ -1576,7 +1589,7 @@ static enum ssl_hs_wait_t do_read_session_ticket(SSL_HANDSHAKE *hs) {
 
   if (renewed_session) {
     session->not_resumable = false;
-    ssl->session = std::move(renewed_session);
+    hs->new_session = std::move(renewed_session);
   }
 
   ssl->method->next_message(ssl);
@@ -1600,6 +1613,15 @@ static enum ssl_hs_wait_t do_read_server_finished(SSL_HANDSHAKE *hs) {
     return wait;
   }
 
+  // If we have a new session (either from a full handshake or ticket renewal),
+  // queue it for caching.
+  if (hs->new_session != nullptr) {
+    if (!hs->sessions_to_cache.Init(1)) {
+      return ssl_hs_error;
+    }
+    hs->sessions_to_cache[0] = UpRef(hs->new_session);
+  }
+
   if (ssl->session != NULL) {
     hs->state = state_send_client_finished;
     return ssl_hs_ok;
@@ -1614,23 +1636,14 @@ static enum ssl_hs_wait_t do_finish_client_handshake(SSL_HANDSHAKE *hs) {
 
   ssl->method->on_handshake_complete(ssl);
 
-  if (ssl->session != NULL) {
-    ssl->s3->established_session = UpRef(ssl->session);
-  } else {
-    // We make a copy of the session in order to maintain the immutability
-    // of the new established_session due to False Start. The caller may
-    // have taken a reference to the temporary session.
-    ssl->s3->established_session =
-        SSL_SESSION_dup(hs->new_session.get(), SSL_SESSION_DUP_ALL);
-    if (!ssl->s3->established_session) {
-      return ssl_hs_error;
-    }
+  if (hs->new_session != nullptr) {
+    ssl->s3->established_session = std::move(hs->new_session);
     // Renegotiations do not participate in session resumption.
     if (!ssl->s3->initial_handshake_complete) {
       ssl->s3->established_session->not_resumable = false;
     }
-
-    hs->new_session.reset();
+  } else {
+    ssl->s3->established_session = UpRef(ssl->session);
   }
 
   hs->handshake_finalized = true;

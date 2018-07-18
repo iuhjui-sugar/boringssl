@@ -275,27 +275,28 @@ ssl_open_record_t ssl_open_app_data(SSL *ssl, Span<uint8_t> *out,
 void ssl_update_cache(SSL_HANDSHAKE *hs, int mode) {
   SSL *const ssl = hs->ssl;
   SSL_CTX *ctx = ssl->session_ctx.get();
-  // Never cache sessions with empty session IDs.
-  if (ssl->s3->established_session->session_id_length == 0 ||
-      ssl->s3->established_session->not_resumable ||
-      (ctx->session_cache_mode & mode) != mode) {
+  if ((ctx->session_cache_mode & mode) != mode) {
     return;
   }
 
   // Clients never use the internal session cache.
-  int use_internal_cache = ssl->server && !(ctx->session_cache_mode &
-                                            SSL_SESS_CACHE_NO_INTERNAL_STORE);
+  bool use_internal_cache = ssl->server && !(ctx->session_cache_mode &
+                                             SSL_SESS_CACHE_NO_INTERNAL_STORE);
 
-  // A client may see new sessions on abbreviated handshakes if the server
-  // decides to renew the ticket. Once the handshake is completed, it should be
-  // inserted into the cache.
-  if (ssl->s3->established_session.get() != ssl->session.get() ||
-      (!ssl->server && hs->ticket_expected)) {
-    if (use_internal_cache) {
-      SSL_CTX_add_session(ctx, ssl->s3->established_session.get());
+  bool cache_updated = false;
+  for (const auto &session : hs->sessions_to_cache) {
+    // Never cache sessions with empty session IDs.
+    if (session->session_id_length == 0 || session->not_resumable) {
+      continue;
     }
+
+    if (use_internal_cache) {
+      SSL_CTX_add_session(ctx, session.get());
+      cache_updated = true;
+    }
+
     if (ctx->new_session_cb != NULL) {
-      UniquePtr<SSL_SESSION> ref = UpRef(ssl->s3->established_session);
+      UniquePtr<SSL_SESSION> ref = UpRef(session);
       if (ctx->new_session_cb(ssl, ref.get())) {
         // |new_session_cb|'s return value signals whether it took ownership.
         ref.release();
@@ -303,14 +304,14 @@ void ssl_update_cache(SSL_HANDSHAKE *hs, int mode) {
     }
   }
 
-  if (use_internal_cache &&
+  if (cache_updated &&
       !(ctx->session_cache_mode & SSL_SESS_CACHE_NO_AUTO_CLEAR)) {
     // Automatically flush the internal session cache every 255 connections.
-    int flush_cache = 0;
+    bool flush_cache = false;
     CRYPTO_MUTEX_lock_write(&ctx->lock);
     ctx->handshakes_since_cache_flush++;
     if (ctx->handshakes_since_cache_flush >= 255) {
-      flush_cache = 1;
+      flush_cache = true;
       ctx->handshakes_since_cache_flush = 0;
     }
     CRYPTO_MUTEX_unlock_write(&ctx->lock);

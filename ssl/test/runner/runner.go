@@ -11164,42 +11164,85 @@ func addSessionTicketTests() {
 		expectResumeRejected: true,
 	})
 
-	for _, ver := range tlsVersions {
-		// Prior to TLS 1.3, disabling session tickets enables session IDs.
-		useStatefulResumption := ver.version < VersionTLS13
+	for _, async := range []bool{false, true} {
+		for _, ver := range tlsVersions {
+			prefix := ver.name
+			var flags []string
+			if async {
+				prefix += "-Async"
+				flags = []string{"-async"}
+			}
 
-		// SSL_OP_NO_TICKET implies the server must not mint any tickets.
-		testCases = append(testCases, testCase{
-			testType: serverTest,
-			name:     ver.name + "-NoTicket-NoMint",
-			config: Config{
-				MinVersion: ver.version,
-				MaxVersion: ver.version,
-				Bugs: ProtocolBugs{
-					ExpectNoNewSessionTicket: true,
-					RequireSessionIDs:        useStatefulResumption,
+			// SSL_OP_NO_TICKET implies the server must not mint any tickets.
+			// Instead, it should fall back to stateful resumption.
+			testCases = append(testCases, testCase{
+				testType: serverTest,
+				name:     prefix + "-NoTicket-NoMint",
+				config: Config{
+					MinVersion: ver.version,
+					MaxVersion: ver.version,
+					Bugs: ProtocolBugs{
+						RequireSessionIDs: true,
+					},
 				},
-			},
-			resumeSession: useStatefulResumption,
-			tls13Variant:  ver.tls13Variant,
-			flags:         []string{"-no-ticket"},
-		})
+				resumeSession: true,
+				tls13Variant:  ver.tls13Variant,
+				flags:         append([]string{"-no-ticket"}, flags...),
+			})
 
-		// SSL_OP_NO_TICKET implies the server must not accept any tickets.
-		testCases = append(testCases, testCase{
-			testType: serverTest,
-			name:     ver.name + "-NoTicket-NoAccept",
-			config: Config{
-				MinVersion: ver.version,
-				MaxVersion: ver.version,
-			},
-			tls13Variant:         ver.tls13Variant,
-			resumeSession:        true,
-			expectResumeRejected: true,
-			// Set SSL_OP_NO_TICKET on the second connection, after the first
-			// has established tickets.
-			flags: []string{"-on-resume-no-ticket"},
-		})
+			if ver.version >= VersionTLS13 {
+				// 0-RTT goes through slightly different codepaths, so test
+				// SSL_OP_NO_TICKET with 0-RTT.
+				testCases = append(testCases, testCase{
+					testType: serverTest,
+					name:     prefix + "-NoTicket-EarlyData",
+					config: Config{
+						MinVersion: ver.version,
+						MaxVersion: ver.version,
+						Bugs: ProtocolBugs{
+							RequireSessionIDs:       true,
+							SendEarlyData:           [][]byte{{1, 2, 3, 4}},
+							ExpectEarlyDataAccepted: true,
+							ExpectHalfRTTData:       [][]byte{{254, 253, 252, 251}},
+						},
+					},
+					resumeSession:        true,
+					resumeRenewedSession: true,
+					tls13Variant:         ver.tls13Variant,
+					flags:                append([]string{"-no-ticket", "-enable-early-data"}, flags...),
+				})
+			}
+
+			// Enabling SSL_OP_NO_TICKET does not invalidate previously-issued
+			// stateful sessions.
+			testCases = append(testCases, testCase{
+				testType: serverTest,
+				name:     prefix + "-AcceptSessionsFromNoTicket",
+				config: Config{
+					MinVersion: ver.version,
+					MaxVersion: ver.version,
+				},
+				tls13Variant:  ver.tls13Variant,
+				resumeSession: true,
+				flags:         append([]string{"-on-initial-no-ticket"}, flags...),
+			})
+
+			// SSL_OP_NO_TICKET implies the server must not accept any tickets.
+			testCases = append(testCases, testCase{
+				testType: serverTest,
+				name:     prefix + "-NoTicket-NoAccept",
+				config: Config{
+					MinVersion: ver.version,
+					MaxVersion: ver.version,
+				},
+				tls13Variant:         ver.tls13Variant,
+				resumeSession:        true,
+				expectResumeRejected: true,
+				// Set SSL_OP_NO_TICKET on the second connection, after the first
+				// has established tickets.
+				flags: append([]string{"-on-resume-no-ticket"}, flags...),
+			})
+		}
 	}
 }
 

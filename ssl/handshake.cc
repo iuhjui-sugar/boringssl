@@ -499,6 +499,14 @@ bool ssl_output_cert_chain(SSL_HANDSHAKE *hs) {
   return true;
 }
 
+void ssl_release_certs_if_needed(SSL_HANDSHAKE *hs, SSL_SESSION *session) {
+  // If we aren't retaining peer certificates, discard them.
+  if (hs->config->retain_only_sha256_of_client_certs) {
+    session->certs.reset();
+    hs->ssl->ctx->x509_method->session_clear(session);
+  }
+}
+
 int ssl_run_handshake(SSL_HANDSHAKE *hs, bool *out_early_return) {
   SSL *const ssl = hs->ssl;
   for (;;) {
