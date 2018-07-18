@@ -260,6 +260,7 @@ UniquePtr<SSL_SESSION> SSL_SESSION_dup(SSL_SESSION *session, int dup_flags) {
         session->original_handshake_hash_len;
     new_session->ticket_lifetime_hint = session->ticket_lifetime_hint;
     new_session->ticket_age_add = session->ticket_age_add;
+    new_session->ticket_age_add_valid = session->ticket_age_add_valid;
     new_session->ticket_max_early_data = session->ticket_max_early_data;
     new_session->extended_master_secret = session->extended_master_secret;
 
@@ -637,11 +638,9 @@ int ssl_session_is_resumable(const SSL_HANDSHAKE *hs,
               hs->config->retain_only_sha256_of_client_certs);
 }
 
-// ssl_lookup_session looks up |session_id| in the session cache and sets
-// |*out_session| to an |SSL_SESSION| object if found.
-static enum ssl_hs_wait_t ssl_lookup_session(
-    SSL_HANDSHAKE *hs, UniquePtr<SSL_SESSION> *out_session,
-    Span<const uint8_t> session_id) {
+ssl_hs_wait_t ssl_lookup_session(SSL_HANDSHAKE *hs,
+                                 UniquePtr<SSL_SESSION> *out_session,
+                                 Span<const uint8_t> session_id) {
   SSL *const ssl = hs->ssl;
   out_session->reset();
 

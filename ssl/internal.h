@@ -1481,6 +1481,11 @@ struct SSL_HANDSHAKE {
   // key_block is the record-layer key block for TLS 1.2 and earlier.
   Array<uint8_t> key_block;
 
+  // sessions_to_cache is the list of sessions to cache at the end of the
+  // handshake. We defer caching to just at the end of the handshake so
+  // |SSL_in_init| can return zero in the callback.
+  Array<UniquePtr<SSL_SESSION>> sessions_to_cache;
+
   // scts_requested is true if the SCT extension is in the ClientHello.
   bool scts_requested:1;
 
@@ -1702,6 +1707,11 @@ enum ssl_verify_result_t ssl_verify_peer_cert(SSL_HANDSHAKE *hs);
 enum ssl_hs_wait_t ssl_get_finished(SSL_HANDSHAKE *hs);
 bool ssl_send_finished(SSL_HANDSHAKE *hs);
 bool ssl_output_cert_chain(SSL_HANDSHAKE *hs);
+
+// ssl_release_certs_if_needed releases certificates associated with |session|
+// if |hs| is configured to so after the handshake.
+void ssl_release_certs_if_needed(SSL_HANDSHAKE *hs, SSL_SESSION *session);
+
 
 // SSLKEYLOGFILE functions.
 
@@ -2527,11 +2537,17 @@ void ssl_set_session(SSL *ssl, SSL_SESSION *session);
 // |ssl_hs_pending_session| and should be called again. If a ticket could not be
 // decrypted immediately it returns |ssl_hs_pending_ticket| and should also
 // be called again. Otherwise, it returns |ssl_hs_error|.
-enum ssl_hs_wait_t ssl_get_prev_session(SSL_HANDSHAKE *hs,
-                                        UniquePtr<SSL_SESSION> *out_session,
-                                        bool *out_tickets_supported,
-                                        bool *out_renew_ticket,
-                                        const SSL_CLIENT_HELLO *client_hello);
+ssl_hs_wait_t ssl_get_prev_session(SSL_HANDSHAKE *hs,
+                                   UniquePtr<SSL_SESSION> *out_session,
+                                   bool *out_tickets_supported,
+                                   bool *out_renew_ticket,
+                                   const SSL_CLIENT_HELLO *client_hello);
+
+// ssl_lookup_session looks up |session_id| in the session cache and sets
+// |*out_session| to an |SSL_SESSION| object if found.
+ssl_hs_wait_t ssl_lookup_session(SSL_HANDSHAKE *hs,
+                                 UniquePtr<SSL_SESSION> *out_session,
+                                 Span<const uint8_t> session_id);
 
 // The following flags determine which parts of the session are duplicated.
 #define SSL_SESSION_DUP_AUTH_ONLY 0x0

@@ -1576,6 +1576,11 @@ func (c *Conn) processTLS13NewSessionTicket(newSessionTicket *newSessionTicketMs
 		return errors.New("tls: received unexpected NewSessionTicket")
 	}
 
+	if c.config.Bugs.RequireSessionIDs && len(newSessionTicket.ticket) > 32 {
+		// As a proxy for stateful vs. stateless, check the length of the ticket.
+		return fmt.Errorf("tls: received unexpectedly long ticket of length %d", len(newSessionTicket.ticket))
+	}
+
 	if c.config.ClientSessionCache == nil || newSessionTicket.ticketLifetime == 0 {
 		return nil
 	}
