@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d84c493e_86ce02dd",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1592,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-07-19T15:03:25Z",
+      "side": 1,
+      "message": "Ah, hrm. The nuisance here is that we never release the old ssl-\u003esession, when we normally would. Will fiddle with this more.\n\nSession-tracking is such a mess... :-/",
+      "revId": "21354f135327672c1ce7c0892c80a5828b965a17",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
