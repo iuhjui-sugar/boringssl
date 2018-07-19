@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "0ff6bc4c_bf7f6b1e",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1509,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-07-19T15:17:01Z",
+      "side": 1,
+      "message": "Other issue: while this is, strictly speaking, idempotent, we end up bouncing on it every iteration through the state.",
+      "revId": "21354f135327672c1ce7c0892c80a5828b965a17",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d84c493e_86ce02dd",
         "filename": "ssl/handshake_client.cc",
         "patchSetId": 2
