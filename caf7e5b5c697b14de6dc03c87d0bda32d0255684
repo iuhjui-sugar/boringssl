@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e6ba6081_123be75d",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-07-19T17:21:59Z",
+      "side": 1,
+      "message": "(nit: delete space.)",
+      "range": {
+        "startLine": 455,
+        "startChar": 2,
+        "endLine": 455,
+        "endChar": 3
+      },
+      "revId": "caf7e5b5c697b14de6dc03c87d0bda32d0255684",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e94f1415_5f962134",
+        "filename": "ssl/test/test_state.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-07-19T17:21:59Z",
+      "side": 1,
+      "message": "test |version|? Define a constexpr kVersion and fail if |version| is greater?",
+      "range": {
+        "startLine": 110,
+        "startChar": 25,
+        "endLine": 110,
+        "endChar": 32
+      },
+      "revId": "caf7e5b5c697b14de6dc03c87d0bda32d0255684",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc4fb6bd_b70cf572",
+        "filename": "ssl/test/test_state.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-07-19T17:21:59Z",
+      "side": 1,
+      "message": "Move variable into the loop?",
+      "range": {
+        "startLine": 117,
+        "startChar": 25,
+        "endLine": 117,
+        "endChar": 32
+      },
+      "revId": "caf7e5b5c697b14de6dc03c87d0bda32d0255684",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8055cc7_5d4998c1",
+        "filename": "ssl/test/test_state.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-07-19T17:21:59Z",
+      "side": 1,
+      "message": "Does |SSL_CTX_add_session| work here? (If not, then I\u0027m missing why you need to dup the sessions.)",
+      "range": {
+        "startLine": 123,
+        "startChar": 4,
+        "endLine": 123,
+        "endChar": 23
+      },
+      "revId": "caf7e5b5c697b14de6dc03c87d0bda32d0255684",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f2362c1_5a95851b",
+        "filename": "ssl/test/test_state.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-07-19T17:21:59Z",
+      "side": 1,
+      "message": "(ditto about doing something with |version|.)",
+      "range": {
+        "startLine": 150,
+        "startChar": 25,
+        "endLine": 150,
+        "endChar": 32
+      },
+      "revId": "caf7e5b5c697b14de6dc03c87d0bda32d0255684",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
