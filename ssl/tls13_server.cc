@@ -344,8 +344,7 @@ static ssl_hs_wait_t select_session(SSL_HANDSHAKE *hs, uint8_t *out_alert,
     // TLS 1.3 session tickets are renewed separately as part of the
     // NewSessionTicket.
     bool unused_renew;
-    switch (ssl_process_ticket(hs, &session, &unused_renew, CBS_data(&ticket),
-                               CBS_len(&ticket), NULL, 0)) {
+    switch (ssl_process_ticket(hs, &session, &unused_renew, ticket, {})) {
       case ssl_ticket_aead_success:
         break;
       case ssl_ticket_aead_error:
