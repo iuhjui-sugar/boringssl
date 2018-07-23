@@ -1,0 +1,371 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "49adedc5_8a6d5e5e",
+        "filename": "ssl/test/CMakeLists.txt",
+        "patchSetId": 13
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-07-23T19:36:05Z",
+      "side": 1,
+      "message": "do you want:\n\nif (UNIX AND NOT APPLE)\n\n? (I.e. to exclude macOS.)",
+      "revId": "c8d3a7309b0d4a93dfa3021eb1ba2338fd20c802",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa0fe8d3_d4a73d43",
+        "filename": "ssl/test/CMakeLists.txt",
+        "patchSetId": 13
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-07-23T19:36:05Z",
+      "side": 1,
+      "message": "indent two spaces in the if() block.",
+      "revId": "c8d3a7309b0d4a93dfa3021eb1ba2338fd20c802",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd2b423a_af1234f2",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 768,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-07-23T19:36:05Z",
+      "side": 1,
+      "message": "This is probably a superfluous comment?",
+      "range": {
+        "startLine": 768,
+        "startChar": 21,
+        "endLine": 768,
+        "endChar": 46
+      },
+      "revId": "c8d3a7309b0d4a93dfa3021eb1ba2338fd20c802",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c60d3509_d36ea0e1",
+        "filename": "ssl/test/handshake_util.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-07-23T19:36:05Z",
+      "side": 1,
+      "message": "ssize_t",
+      "range": {
+        "startLine": 160,
+        "startChar": 4,
+        "endLine": 160,
+        "endChar": 8
+      },
+      "revId": "c8d3a7309b0d4a93dfa3021eb1ba2338fd20c802",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f30db4ec_b382c139",
+        "filename": "ssl/test/handshake_util.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-07-23T19:36:05Z",
+      "side": 1,
+      "message": "needs an EINTR loop:\n\nif (FD_ISSET(wfd, \u0026rfds)) {\n  ssize_t bytes;\n  do {\n    bytes \u003d read(wfd, buf, sizeof(buf));\n  } while (bytes \u003c 0 \u0026\u0026 errno \u003d\u003d EINTR);\n\nCan also be defined as a macro if that\u0027s easier:\n\n#define HANDLE_EINTR(x) ({ \\\n  decltype(x) ret; \\\n  do { \\\n    ret \u003d (x); \\\n  } while (ret \u003d\u003d -1 \u0026\u0026 errno \u003d\u003d EINTR); \\\n  ret; \\\n})",
+      "range": {
+        "startLine": 161,
+        "startChar": 29,
+        "endLine": 161,
+        "endChar": 69
+      },
+      "revId": "c8d3a7309b0d4a93dfa3021eb1ba2338fd20c802",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7bd950e_10ccff21",
+        "filename": "ssl/test/handshake_util.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-07-23T19:36:05Z",
+      "side": 1,
+      "message": "ditto about EINTR",
+      "range": {
+        "startLine": 190,
+        "startChar": 8,
+        "endLine": 190,
+        "endChar": 12
+      },
+      "revId": "c8d3a7309b0d4a93dfa3021eb1ba2338fd20c802",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7a2293e_9b25612c",
+        "filename": "ssl/test/handshake_util.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-07-23T19:36:05Z",
+      "side": 1,
+      "message": "EINTR",
+      "range": {
+        "startLine": 215,
+        "startChar": 18,
+        "endLine": 215,
+        "endChar": 23
+      },
+      "revId": "c8d3a7309b0d4a93dfa3021eb1ba2338fd20c802",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13bce9de_4c1ada06",
+        "filename": "ssl/test/handshake_util.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-07-23T19:36:05Z",
+      "side": 1,
+      "message": "ssize_t",
+      "range": {
+        "startLine": 215,
+        "startChar": 4,
+        "endLine": 215,
+        "endChar": 7
+      },
+      "revId": "c8d3a7309b0d4a93dfa3021eb1ba2338fd20c802",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4300cef_ec40a083",
+        "filename": "ssl/test/handshake_util.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-07-23T19:36:05Z",
+      "side": 1,
+      "message": "EINTR",
+      "range": {
+        "startLine": 227,
+        "startChar": 8,
+        "endLine": 227,
+        "endChar": 13
+      },
+      "revId": "c8d3a7309b0d4a93dfa3021eb1ba2338fd20c802",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a755571e_05f1a793",
+        "filename": "ssl/test/handshake_util.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-07-23T19:36:05Z",
+      "side": 1,
+      "message": "(nit: indent and const)",
+      "range": {
+        "startLine": 239,
+        "startChar": 3,
+        "endLine": 239,
+        "endChar": 4
+      },
+      "revId": "c8d3a7309b0d4a93dfa3021eb1ba2338fd20c802",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6490631_d95f681f",
+        "filename": "ssl/test/handshake_util.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-07-23T19:36:05Z",
+      "side": 1,
+      "message": "since flags is zero, can just use |pipe|.",
+      "range": {
+        "startLine": 275,
+        "startChar": 17,
+        "endLine": 275,
+        "endChar": 18
+      },
+      "revId": "c8d3a7309b0d4a93dfa3021eb1ba2338fd20c802",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb42f0db_f836df53",
+        "filename": "ssl/test/handshake_util.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-07-23T19:36:05Z",
+      "side": 1,
+      "message": "Some asserts (before the fork()) are probably in order here to ensure that kFdControl isn\u0027t taken by one of the pipes that\u0027ll be needed next and so on.",
+      "revId": "c8d3a7309b0d4a93dfa3021eb1ba2338fd20c802",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f2a497a_1432c702",
+        "filename": "ssl/test/handshake_util.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-07-23T19:36:05Z",
+      "side": 1,
+      "message": "this needs to be constructed before fork() because one cannot malloc after fork(). (The address-space may have been cloned at the point where another thread had the malloc lock.)\n\nYou may want to use posix_spawn.",
+      "revId": "c8d3a7309b0d4a93dfa3021eb1ba2338fd20c802",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20df9557_43ff273a",
+        "filename": "ssl/test/handshake_util.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-07-23T19:36:05Z",
+      "side": 1,
+      "message": "EINTR",
+      "range": {
+        "startLine": 324,
+        "startChar": 6,
+        "endLine": 324,
+        "endChar": 11
+      },
+      "revId": "c8d3a7309b0d4a93dfa3021eb1ba2338fd20c802",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a93394a_fc255082",
+        "filename": "ssl/test/handshake_util.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-07-23T19:36:05Z",
+      "side": 1,
+      "message": "EINTR",
+      "range": {
+        "startLine": 330,
+        "startChar": 6,
+        "endLine": 330,
+        "endChar": 13
+      },
+      "revId": "c8d3a7309b0d4a93dfa3021eb1ba2338fd20c802",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "143db91d_8ff6b356",
+        "filename": "ssl/test/handshake_util.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-07-23T19:36:05Z",
+      "side": 1,
+      "message": "EINTR",
+      "range": {
+        "startLine": 343,
+        "startChar": 12,
+        "endLine": 343,
+        "endChar": 16
+      },
+      "revId": "c8d3a7309b0d4a93dfa3021eb1ba2338fd20c802",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55c6e42a_d2d73ba0",
+        "filename": "ssl/test/handshake_util.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-07-23T19:36:05Z",
+      "side": 1,
+      "message": "ssl_uniqueptr (or rename the argument).",
+      "range": {
+        "startLine": 35,
+        "startChar": 71,
+        "endLine": 35,
+        "endChar": 74
+      },
+      "revId": "c8d3a7309b0d4a93dfa3021eb1ba2338fd20c802",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
