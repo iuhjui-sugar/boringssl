@@ -143,6 +143,7 @@ const Flag<bool> kBoolFlags[] = {
   { "-fail-ocsp-callback", &TestConfig::fail_ocsp_callback },
   { "-install-cert-compression-algs",
     &TestConfig::install_cert_compression_algs },
+  { "-reverify-on-resume", &TestConfig::reverify_on_resume },
 };
 
 const Flag<std::string> kStringFlags[] = {
@@ -1486,6 +1487,9 @@ bssl::UniquePtr<SSL> TestConfig::NewSSL(
   }
   if (partial_write) {
     SSL_set_mode(ssl.get(), SSL_MODE_ENABLE_PARTIAL_WRITE);
+  }
+  if (reverify_on_resume) {
+    SSL_CTX_set_reverify_on_resume(ssl_ctx, 1);
   }
   if (no_tls13) {
     SSL_set_options(ssl.get(), SSL_OP_NO_TLSv1_3);

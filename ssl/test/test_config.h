@@ -166,6 +166,7 @@ struct TestConfig {
   bool decline_ocsp_callback = false;
   bool fail_ocsp_callback = false;
   bool install_cert_compression_algs = false;
+  bool reverify_on_resume = false;
 
   bssl::UniquePtr<SSL_CTX> SetupCtx(SSL_CTX *old_ctx) const;
 
