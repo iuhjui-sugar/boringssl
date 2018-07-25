@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "83ce8ecb_8b7067ac",
+        "filename": "cr-buildbucket.cfg",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 9101
+      },
+      "writtenOn": "2018-07-25T21:10:11Z",
+      "side": 1,
+      "message": "Does this have to be mac?",
+      "range": {
+        "startLine": 84,
+        "startChar": 15,
+        "endLine": 84,
+        "endChar": 20
+      },
+      "revId": "bf817be50439d72ce1aae110e69b47ce05afafb2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
