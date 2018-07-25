@@ -22,6 +22,30 @@
       "revId": "bf817be50439d72ce1aae110e69b47ce05afafb2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db48f50a_ae3a4026",
+        "filename": "cr-buildbucket.cfg",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 9097
+      },
+      "writtenOn": "2018-07-25T22:47:34Z",
+      "side": 1,
+      "message": "Doh.",
+      "parentUuid": "83ce8ecb_8b7067ac",
+      "range": {
+        "startLine": 84,
+        "startChar": 15,
+        "endLine": 84,
+        "endChar": 20
+      },
+      "revId": "bf817be50439d72ce1aae110e69b47ce05afafb2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
