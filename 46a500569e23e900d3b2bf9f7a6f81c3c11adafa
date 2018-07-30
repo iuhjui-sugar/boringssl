@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e4799937_e65ab871",
+        "filename": "ssl/ssl_cipher.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-07-30T21:18:09Z",
+      "side": 1,
+      "message": "does \"constexpr const\" mean anything more than \"constexpr\"?",
+      "range": {
+        "startLine": 160,
+        "startChar": 17,
+        "endLine": 160,
+        "endChar": 22
+      },
+      "revId": "46a500569e23e900d3b2bf9f7a6f81c3c11adafa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fffe7ba1_380a3cc4",
+        "filename": "ssl/ssl_cipher.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1313,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-07-30T21:18:09Z",
+      "side": 1,
+      "message": "s/being/consisting of just/\n\n(Also, I\u0027d move this comment into ssl_cipher_id_cmp_inner and duplicate it in check_order.)",
+      "range": {
+        "startLine": 1313,
+        "startChar": 51,
+        "endLine": 1313,
+        "endChar": 56
+      },
+      "revId": "46a500569e23e900d3b2bf9f7a6f81c3c11adafa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf249fca_afeca4ee",
+        "filename": "ssl/ssl_cipher.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1319,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-07-30T21:18:09Z",
+      "side": 1,
+      "message": "(nit: the other functions here all have \"noexcept\", but not this?)",
+      "revId": "46a500569e23e900d3b2bf9f7a6f81c3c11adafa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb9f7608_46316de7",
+        "filename": "ssl/ssl_cipher.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1331,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-07-30T21:18:09Z",
+      "side": 1,
+      "message": "ssl_cipher_id_cmp_inner(\u0026arr[N - 2], \u0026arr[N - 1]) \u003c 0\n\n(The C-style \"cmp\" functions are designed to be compared to zero. Mentally the comparison operator moves between the two arguments.)",
+      "range": {
+        "startLine": 1331,
+        "startChar": 19,
+        "endLine": 1331,
+        "endChar": 74
+      },
+      "revId": "46a500569e23e900d3b2bf9f7a6f81c3c11adafa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
