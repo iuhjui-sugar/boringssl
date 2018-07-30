@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a8252d68_09627021",
+        "filename": "ssl/ssl_cipher.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 8784
+      },
+      "writtenOn": "2018-07-30T21:31:01Z",
+      "side": 1,
+      "message": "No, `constexpr` should suffice.",
+      "parentUuid": "e4799937_e65ab871",
+      "range": {
+        "startLine": 160,
+        "startChar": 17,
+        "endLine": 160,
+        "endChar": 22
+      },
+      "revId": "46a500569e23e900d3b2bf9f7a6f81c3c11adafa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fffe7ba1_380a3cc4",
         "filename": "ssl/ssl_cipher.cc",
         "patchSetId": 1
@@ -48,6 +72,47 @@
     },
     {
       "key": {
+        "uuid": "82085d11_cc91aadd",
+        "filename": "ssl/ssl_cipher.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1313,
+      "author": {
+        "id": 8784
+      },
+      "writtenOn": "2018-07-30T21:31:01Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fffe7ba1_380a3cc4",
+      "range": {
+        "startLine": 1313,
+        "startChar": 51,
+        "endLine": 1313,
+        "endChar": 56
+      },
+      "revId": "46a500569e23e900d3b2bf9f7a6f81c3c11adafa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a09a7e95_97fc4a65",
+        "filename": "ssl/ssl_cipher.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1315,
+      "author": {
+        "id": 8784
+      },
+      "writtenOn": "2018-07-30T21:31:01Z",
+      "side": 1,
+      "message": "It seems MSVC chokes on this `noexcept`. It is not required, but serves as additional check for constexpr, so I will just remove it.",
+      "revId": "46a500569e23e900d3b2bf9f7a6f81c3c11adafa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bf249fca_afeca4ee",
         "filename": "ssl/ssl_cipher.cc",
         "patchSetId": 1
@@ -59,6 +124,24 @@
       "writtenOn": "2018-07-30T21:18:09Z",
       "side": 1,
       "message": "(nit: the other functions here all have \"noexcept\", but not this?)",
+      "revId": "46a500569e23e900d3b2bf9f7a6f81c3c11adafa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e4fc196_f987f9a7",
+        "filename": "ssl/ssl_cipher.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1319,
+      "author": {
+        "id": 8784
+      },
+      "writtenOn": "2018-07-30T21:31:01Z",
+      "side": 1,
+      "message": "This one is not constexpr, so there should be no need to introduce it here.",
+      "parentUuid": "bf249fca_afeca4ee",
       "revId": "46a500569e23e900d3b2bf9f7a6f81c3c11adafa",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -85,6 +168,30 @@
       "revId": "46a500569e23e900d3b2bf9f7a6f81c3c11adafa",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "968ca79a_27ede5d9",
+        "filename": "ssl/ssl_cipher.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1331,
+      "author": {
+        "id": 8784
+      },
+      "writtenOn": "2018-07-30T21:31:01Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "bb9f7608_46316de7",
+      "range": {
+        "startLine": 1331,
+        "startChar": 19,
+        "endLine": 1331,
+        "endChar": 74
+      },
+      "revId": "46a500569e23e900d3b2bf9f7a6f81c3c11adafa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
