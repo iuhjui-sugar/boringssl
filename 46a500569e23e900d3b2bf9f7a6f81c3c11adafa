@@ -148,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "8c944761_fddc24b5",
+        "filename": "ssl/ssl_cipher.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1319,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-07-30T22:06:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8e4fc196_f987f9a7",
+      "revId": "46a500569e23e900d3b2bf9f7a6f81c3c11adafa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bb9f7608_46316de7",
         "filename": "ssl/ssl_cipher.cc",
         "patchSetId": 1
@@ -188,6 +206,53 @@
         "startChar": 19,
         "endLine": 1331,
         "endChar": 74
+      },
+      "revId": "46a500569e23e900d3b2bf9f7a6f81c3c11adafa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "34e4117f_d9cda1be",
+        "filename": "ssl/ssl_cipher.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1331,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-07-30T22:06:38Z",
+      "side": 1,
+      "message": "But it\u0027s got to be arr[N-2], arr[N-1] otherwise the order on the page doesn\u0027t match the order in memory :) I wondered for a sec whether I missed something, so I did it locally. Will upload change in a sec.",
+      "parentUuid": "968ca79a_27ede5d9",
+      "range": {
+        "startLine": 1331,
+        "startChar": 19,
+        "endLine": 1331,
+        "endChar": 74
+      },
+      "revId": "46a500569e23e900d3b2bf9f7a6f81c3c11adafa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "242c3250_6cb28dc9",
+        "filename": "ssl/ssl_cipher.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1333,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-07-30T22:06:38Z",
+      "side": 1,
+      "message": "(Also changed this to a zero. Since it\u0027s not a cmp function, the return convention is one on success or zero on error.)",
+      "range": {
+        "startLine": 1333,
+        "startChar": 24,
+        "endLine": 1333,
+        "endChar": 26
       },
       "revId": "46a500569e23e900d3b2bf9f7a6f81c3c11adafa",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
