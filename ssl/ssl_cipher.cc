@@ -157,7 +157,7 @@
 namespace bssl {
 
 // kCiphers is an array of all supported ciphers, sorted by id.
-static const SSL_CIPHER kCiphers[] = {
+static constexpr const SSL_CIPHER kCiphers[] = {
     // The RSA ciphers
     // Cipher 02
     {
@@ -555,19 +555,6 @@ static const CIPHER_ALIAS kCipherAliases[] = {
 };
 
 static const size_t kCipherAliasesLen = OPENSSL_ARRAY_SIZE(kCipherAliases);
-
-static int ssl_cipher_id_cmp(const void *in_a, const void *in_b) {
-  const SSL_CIPHER *a = reinterpret_cast<const SSL_CIPHER *>(in_a);
-  const SSL_CIPHER *b = reinterpret_cast<const SSL_CIPHER *>(in_b);
-
-  if (a->id > b->id) {
-    return 1;
-  } else if (a->id < b->id) {
-    return -1;
-  } else {
-    return 0;
-  }
-}
 
 bool ssl_cipher_get_evp_aead(const EVP_AEAD **out_aead,
                              size_t *out_mac_secret_len,
@@ -1322,6 +1309,33 @@ size_t ssl_cipher_get_record_split_len(const SSL_CIPHER *cipher) {
 }  // namespace bssl
 
 using namespace bssl;
+
+// C++11's constexpr functions must be have a body being a return-statement.
+static constexpr int ssl_cipher_id_cmp_inner(const SSL_CIPHER *a,
+                                             const SSL_CIPHER *b) noexcept {
+  return (a->id > b->id) ? 1 : ((a->id < b->id) ? -1 : 0);
+}
+
+static int ssl_cipher_id_cmp(const void *in_a, const void *in_b) {
+  return ssl_cipher_id_cmp_inner(reinterpret_cast<const SSL_CIPHER *>(in_a),
+                                 reinterpret_cast<const SSL_CIPHER *>(in_b));
+}
+
+template <typename T, size_t N>
+static constexpr size_t countof(T const (&)[N]) noexcept {
+  return N;
+}
+
+template <typename T, size_t I>
+static constexpr int check_order(const T (&arr)[I], size_t N) noexcept {
+  return N > 1 ? ((ssl_cipher_id_cmp_inner(&arr[N - 1], &arr[N - 2]) == 1)
+                      ? check_order(arr, N - 1)
+                      : -1)
+               : 1;
+}
+
+static_assert(check_order(kCiphers, countof(kCiphers)) == 1,
+              "Ciphers are not sorted, bsearch won't work");
 
 const SSL_CIPHER *SSL_get_cipher_by_value(uint16_t value) {
   SSL_CIPHER c;
