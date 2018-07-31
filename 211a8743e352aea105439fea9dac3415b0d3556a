@@ -1,0 +1,244 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "328a0a3f_b71c2e09",
+        "filename": "ssl/test/CMakeLists.txt",
+        "patchSetId": 14
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-07-31T17:47:20Z",
+      "side": 1,
+      "message": "(nit: trailing spaces in this file.)",
+      "revId": "211a8743e352aea105439fea9dac3415b0d3556a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d70f4a6_6132fe35",
+        "filename": "ssl/test/handshake_util.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-07-31T17:47:20Z",
+      "side": 1,
+      "message": "(nit: waitpid returns a pid_t.)",
+      "range": {
+        "startLine": 161,
+        "startChar": 7,
+        "endLine": 161,
+        "endChar": 14
+      },
+      "revId": "211a8743e352aea105439fea9dac3415b0d3556a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55894471_5f01ec6c",
+        "filename": "ssl/test/handshake_util.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-07-31T17:47:20Z",
+      "side": 1,
+      "message": "(nit: superfluous blank line.)",
+      "revId": "211a8743e352aea105439fea9dac3415b0d3556a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3682b5dc_ffd96049",
+        "filename": "ssl/test/handshake_util.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-07-31T17:47:20Z",
+      "side": 1,
+      "message": "strdup here is odd because it means that args[0] needs to be freed. I think you can get away without it? If not, how about:\n\nstd::unique_ptr\u003cchar[]\u003e handshaker_path(strdup(config-\u003ehandshaker_path.c_str()));\nargs.push_back(handshaker_path.get());\n\n?",
+      "revId": "211a8743e352aea105439fea9dac3415b0d3556a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36528c2e_cb00b184",
+        "filename": "ssl/test/handshake_util.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-07-31T17:47:20Z",
+      "side": 1,
+      "message": "static const",
+      "revId": "211a8743e352aea105439fea9dac3415b0d3556a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87ebaea3_269db65a",
+        "filename": "ssl/test/handshake_util.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-07-31T17:47:20Z",
+      "side": 1,
+      "message": "argv[0] will be the program path, do you want to include that?",
+      "revId": "211a8743e352aea105439fea9dac3415b0d3556a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11b48fd3_eda823ac",
+        "filename": "ssl/test/handshake_util.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-07-31T17:47:20Z",
+      "side": 1,
+      "message": "(nit: the return value of posix_spawn_file_actions_adddup2 is checked in the other cases.)",
+      "revId": "211a8743e352aea105439fea9dac3415b0d3556a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40a2fd53_399ddf14",
+        "filename": "ssl/test/handshake_util.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-07-31T17:47:20Z",
+      "side": 1,
+      "message": "pull into a constexpr, e.g. kBufSize.",
+      "range": {
+        "startLine": 377,
+        "startChar": 58,
+        "endLine": 377,
+        "endChar": 67
+      },
+      "revId": "211a8743e352aea105439fea9dac3415b0d3556a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1559d109_f415f4cc",
+        "filename": "ssl/test/handshaker.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-07-31T17:47:20Z",
+      "side": 1,
+      "message": "pull into a constexpr kBufLen or such.",
+      "range": {
+        "startLine": 125,
+        "startChar": 58,
+        "endLine": 125,
+        "endChar": 67
+      },
+      "revId": "211a8743e352aea105439fea9dac3415b0d3556a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "442a89a7_4f820e64",
+        "filename": "ssl/test/handshaker.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-07-31T17:47:20Z",
+      "side": 1,
+      "message": "EINTR again, I\u0027m afraid. (And the |write| call, below.)\n\nProbably fine to just write the EINTR loops inline here.",
+      "range": {
+        "startLine": 126,
+        "startChar": 12,
+        "endLine": 126,
+        "endChar": 16
+      },
+      "revId": "211a8743e352aea105439fea9dac3415b0d3556a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41f3bf3c_8e387983",
+        "filename": "ssl/test/handshaker.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-07-31T17:47:20Z",
+      "side": 1,
+      "message": "ssize_t",
+      "range": {
+        "startLine": 126,
+        "startChar": 2,
+        "endLine": 126,
+        "endChar": 5
+      },
+      "revId": "211a8743e352aea105439fea9dac3415b0d3556a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed50a3f0_5ac7dbdb",
+        "filename": "ssl/test/handshaker.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-07-31T17:47:20Z",
+      "side": 1,
+      "message": "why _exit rather than \"return 2\"?",
+      "range": {
+        "startLine": 129,
+        "startChar": 4,
+        "endLine": 129,
+        "endChar": 13
+      },
+      "revId": "211a8743e352aea105439fea9dac3415b0d3556a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
