@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4353f2d0_ac395242",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-07-31T20:15:03Z",
+      "side": 1,
+      "message": "Its a little strange these are differently named.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 78
+      },
+      "revId": "8d05bfd4095ad3c9831a27ca4c2e829b2cb7a8b1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb4b99fc_740b86d9",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 3524,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-07-31T20:15:03Z",
+      "side": 1,
+      "message": "nit: Probably doesn\u0027t need the \u0027defaults to false\u0027.",
+      "range": {
+        "startLine": 3524,
+        "startChar": 0,
+        "endLine": 3524,
+        "endChar": 68
+      },
+      "revId": "8d05bfd4095ad3c9831a27ca4c2e829b2cb7a8b1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "012b4fd3_dd63ad5e",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 3528,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-07-31T20:15:03Z",
+      "side": 1,
+      "message": "Is it easier to have this on SSL_CTX rather than SSL?",
+      "range": {
+        "startLine": 3528,
+        "startChar": 20,
+        "endLine": 3528,
+        "endChar": 50
+      },
+      "revId": "8d05bfd4095ad3c9831a27ca4c2e829b2cb7a8b1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e8ba709_76bc3990",
+        "filename": "ssl/handshake.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-07-31T20:15:03Z",
+      "side": 1,
+      "message": "Probably just inline since there\u0027s one reference to ssl.",
+      "range": {
+        "startLine": 382,
+        "startChar": 0,
+        "endLine": 382,
+        "endChar": 27
+      },
+      "revId": "8d05bfd4095ad3c9831a27ca4c2e829b2cb7a8b1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a75153d0_f5cbb641",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 739,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-07-31T20:15:03Z",
+      "side": 1,
+      "message": "Move the uses_certificate_auth check up here.",
+      "range": {
+        "startLine": 738,
+        "startChar": 0,
+        "endLine": 739,
+        "endChar": 0
+      },
+      "revId": "8d05bfd4095ad3c9831a27ca4c2e829b2cb7a8b1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fc37023_0476985f",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 740,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-07-31T20:15:03Z",
+      "side": 1,
+      "message": "just move both return ssl_hs_ok outside this \u0027if\u0027.",
+      "range": {
+        "startLine": 740,
+        "startChar": 6,
+        "endLine": 740,
+        "endChar": 23
+      },
+      "revId": "8d05bfd4095ad3c9831a27ca4c2e829b2cb7a8b1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b394a9c4_bf1187c5",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 878,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-07-31T20:15:03Z",
+      "side": 1,
+      "message": "Probably not needed.",
+      "range": {
+        "startLine": 878,
+        "startChar": 2,
+        "endLine": 878,
+        "endChar": 33
+      },
+      "revId": "8d05bfd4095ad3c9831a27ca4c2e829b2cb7a8b1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
