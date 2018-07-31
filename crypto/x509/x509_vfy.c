@@ -628,36 +628,27 @@ static int check_chain_extensions(X509_STORE_CTX *ctx)
             if (!ok)
                 goto end;
         }
-        ret = X509_check_ca(x);
+
         switch (must_be_ca) {
         case -1:
-            if ((ctx->param->flags & X509_V_FLAG_X509_STRICT)
-                && (ret != 1) && (ret != 0)) {
-                ret = 0;
-                ctx->error = X509_V_ERR_INVALID_CA;
-            } else
-                ret = 1;
+            ret = 1;
             break;
         case 0:
-            if (ret != 0) {
+            if (X509_check_ca(x)) {
                 ret = 0;
                 ctx->error = X509_V_ERR_INVALID_NON_CA;
             } else
                 ret = 1;
             break;
         default:
-            if ((ret == 0)
-                || ((ctx->param->flags & X509_V_FLAG_X509_STRICT)
-                    && (ret != 1))
-                || ((ctx->param->flags & X509_V_FLAG_REQUIRE_CA_BASIC_CONSTRAINTS)
-                    && (ret != 1))
-                ) {
+            if (!X509_check_ca(x)) {
                 ret = 0;
                 ctx->error = X509_V_ERR_INVALID_CA;
             } else
                 ret = 1;
             break;
         }
+
         if (ret == 0) {
             ctx->error_depth = i;
             ctx->current_cert = x;
