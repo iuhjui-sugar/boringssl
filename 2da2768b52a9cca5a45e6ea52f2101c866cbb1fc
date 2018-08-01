@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b26fe45d_e9367828",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-08-01T01:03:31Z",
+      "side": 0,
+      "message": "It\u0027s not clear to me how the old behavior was consistent with the comment above.  But whatever.",
+      "range": {
+        "startLine": 639,
+        "startChar": 24,
+        "endLine": 639,
+        "endChar": 0
+      },
+      "revId": "2da2768b52a9cca5a45e6ea52f2101c866cbb1fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88b5163e_5bbd5059",
+        "filename": "crypto/x509v3/v3_purp.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-08-01T01:03:31Z",
+      "side": 0,
+      "message": "Uh. It never returned 2.  Am I missing something?",
+      "range": {
+        "startLine": 731,
+        "startChar": 40,
+        "endLine": 731,
+        "endChar": 0
+      },
+      "revId": "2da2768b52a9cca5a45e6ea52f2101c866cbb1fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}

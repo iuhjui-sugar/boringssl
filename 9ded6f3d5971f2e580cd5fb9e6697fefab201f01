@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "28645904_409d821c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-08-01T01:03:31Z",
+      "side": 1,
+      "message": "Another way to say this, which may be more useful, is that this makes some stuff previously enabled by X509_V_FLAG_X509_STRICT into the default and only behavior.",
+      "range": {
+        "startLine": 13,
+        "startChar": 132,
+        "endLine": 13,
+        "endChar": 0
+      },
+      "revId": "9ded6f3d5971f2e580cd5fb9e6697fefab201f01",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a85a9ec5_ac106022",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-08-01T01:03:31Z",
+      "side": 1,
+      "message": "The correctness of this code would be easier to see if this were an enum.",
+      "range": {
+        "startLine": 632,
+        "startChar": 29,
+        "endLine": 633,
+        "endChar": 0
+      },
+      "revId": "9ded6f3d5971f2e580cd5fb9e6697fefab201f01",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ddf96f9_86339cf1",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-08-01T01:03:31Z",
+      "side": 1,
+      "message": "It seems this is now the only meaning of X509_V_FLAG_X509_STRICT.  Worth documenting as such?  Or worth eliminating this branch as well?",
+      "range": {
+        "startLine": 662,
+        "startChar": 65,
+        "endLine": 663,
+        "endChar": 0
+      },
+      "revId": "9ded6f3d5971f2e580cd5fb9e6697fefab201f01",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4d93212_03e5fe87",
+        "filename": "crypto/x509v3/v3_purp.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-08-01T01:03:31Z",
+      "side": 1,
+      "message": "You could write return check_ca(x) here.",
+      "range": {
+        "startLine": 654,
+        "startChar": 17,
+        "endLine": 655,
+        "endChar": 0
+      },
+      "revId": "9ded6f3d5971f2e580cd5fb9e6697fefab201f01",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
