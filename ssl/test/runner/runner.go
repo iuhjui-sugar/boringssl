@@ -1478,9 +1478,23 @@ func bigFromHex(hex string) *big.Int {
 }
 
 func convertToSplitHandshakeTests(tests []testCase) (splitHandshakeTests []testCase) {
-	if runtime.GOOS != "linux" {
-		return
+	var stdout bytes.Buffer
+	shim := exec.Command(*shimPath, "-is-handshaker-supported")
+	shim.Stdout = &stdout;
+	if err := shim.Run(); err != nil {
+		panic(err)
 	}
+	output := string(stdout.Bytes())
+
+	switch output {
+	case "No\n":
+		return
+	case "Yes\n":
+		break
+	default:
+		panic("Unknown output from shim: " + output)
+	}
+
 NextTest:
 	for _, test := range tests {
 		if test.protocol != tls ||
