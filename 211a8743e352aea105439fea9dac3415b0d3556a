@@ -154,6 +154,24 @@
     },
     {
       "key": {
+        "uuid": "1f1a63f1_4a7dbf8a",
+        "filename": "ssl/test/handshake_util.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-08-01T01:25:54Z",
+      "side": 1,
+      "message": "Heh, asan picks up the problem here, even though I didn\u0027t:  \"alloc-dealloc-mismatch (malloc vs operator delete [])\"\n\nbssl::UniquePtr + OPENSSL_strdup seems like the most compact way to do the needful.",
+      "parentUuid": "e74b711b_bed5b1b1",
+      "revId": "211a8743e352aea105439fea9dac3415b0d3556a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "36528c2e_cb00b184",
         "filename": "ssl/test/handshake_util.cc",
         "patchSetId": 14
