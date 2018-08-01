@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7bb40b93_9e63c591",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-08-01T18:44:00Z",
+      "side": 0,
+      "message": "Ack",
+      "parentUuid": "b26fe45d_e9367828",
+      "range": {
+        "startLine": 639,
+        "startChar": 24,
+        "endLine": 639,
+        "endChar": 0
+      },
+      "revId": "2da2768b52a9cca5a45e6ea52f2101c866cbb1fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "88b5163e_5bbd5059",
         "filename": "crypto/x509v3/v3_purp.c",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "2da2768b52a9cca5a45e6ea52f2101c866cbb1fc",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e18e7cbf_f10867d7",
+        "filename": "crypto/x509v3/v3_purp.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-08-01T18:44:00Z",
+      "side": 0,
+      "message": "Nope. It just never returned two and this code was leftover.",
+      "parentUuid": "88b5163e_5bbd5059",
+      "range": {
+        "startLine": 731,
+        "startChar": 40,
+        "endLine": 731,
+        "endChar": 0
+      },
+      "revId": "2da2768b52a9cca5a45e6ea52f2101c866cbb1fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
