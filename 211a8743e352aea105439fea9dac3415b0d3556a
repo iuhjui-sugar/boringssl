@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "61e41f99_718f22af",
+        "filename": "ssl/test/CMakeLists.txt",
+        "patchSetId": 14
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-08-01T00:18:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "328a0a3f_b71c2e09",
+      "revId": "211a8743e352aea105439fea9dac3415b0d3556a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d70f4a6_6132fe35",
         "filename": "ssl/test/handshake_util.cc",
         "patchSetId": 14
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "852b78ee_34666324",
+        "filename": "ssl/test/handshake_util.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-08-01T00:18:03Z",
+      "side": 1,
+      "message": "Whoops.  Done.",
+      "parentUuid": "6d70f4a6_6132fe35",
+      "range": {
+        "startLine": 161,
+        "startChar": 7,
+        "endLine": 161,
+        "endChar": 14
+      },
+      "revId": "211a8743e352aea105439fea9dac3415b0d3556a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "55894471_5f01ec6c",
         "filename": "ssl/test/handshake_util.cc",
         "patchSetId": 14
@@ -56,6 +98,24 @@
       "revId": "211a8743e352aea105439fea9dac3415b0d3556a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "068768c4_8bcba9d3",
+        "filename": "ssl/test/handshake_util.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-08-01T00:18:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55894471_5f01ec6c",
+      "revId": "211a8743e352aea105439fea9dac3415b0d3556a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -76,6 +136,24 @@
     },
     {
       "key": {
+        "uuid": "e74b711b_bed5b1b1",
+        "filename": "ssl/test/handshake_util.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-08-01T00:18:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3682b5dc_ffd96049",
+      "revId": "211a8743e352aea105439fea9dac3415b0d3556a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "36528c2e_cb00b184",
         "filename": "ssl/test/handshake_util.cc",
         "patchSetId": 14
@@ -87,6 +165,24 @@
       "writtenOn": "2018-07-31T17:47:20Z",
       "side": 1,
       "message": "static const",
+      "revId": "211a8743e352aea105439fea9dac3415b0d3556a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "faf6781e_d2e9feb2",
+        "filename": "ssl/test/handshake_util.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-08-01T00:18:03Z",
+      "side": 1,
+      "message": "Unfortunately not.  posix_spawn() et al. all require a non-const char*.",
+      "parentUuid": "36528c2e_cb00b184",
       "revId": "211a8743e352aea105439fea9dac3415b0d3556a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -110,6 +206,24 @@
     },
     {
       "key": {
+        "uuid": "32e184c4_a6065a67",
+        "filename": "ssl/test/handshake_util.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-08-01T00:18:03Z",
+      "side": 1,
+      "message": "Due to the way argv is initialized (see main() in bssl_shim.cc), config-\u003eargv starts with argv[1].  Which is a bit confusing.  I could change it.  For now, added a comment.",
+      "parentUuid": "87ebaea3_269db65a",
+      "revId": "211a8743e352aea105439fea9dac3415b0d3556a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "11b48fd3_eda823ac",
         "filename": "ssl/test/handshake_util.cc",
         "patchSetId": 14
@@ -124,6 +238,24 @@
       "revId": "211a8743e352aea105439fea9dac3415b0d3556a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ac44cf7_4a6492c3",
+        "filename": "ssl/test/handshake_util.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-08-01T00:18:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11b48fd3_eda823ac",
+      "revId": "211a8743e352aea105439fea9dac3415b0d3556a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -150,6 +282,30 @@
     },
     {
       "key": {
+        "uuid": "f5089100_1cd25714",
+        "filename": "ssl/test/handshake_util.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-08-01T00:18:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40a2fd53_399ddf14",
+      "range": {
+        "startLine": 377,
+        "startChar": 58,
+        "endLine": 377,
+        "endChar": 67
+      },
+      "revId": "211a8743e352aea105439fea9dac3415b0d3556a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1559d109_f415f4cc",
         "filename": "ssl/test/handshaker.cc",
         "patchSetId": 14
@@ -170,6 +326,30 @@
       "revId": "211a8743e352aea105439fea9dac3415b0d3556a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "155b9751_acfede23",
+        "filename": "ssl/test/handshaker.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-08-01T00:18:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1559d109_f415f4cc",
+      "range": {
+        "startLine": 125,
+        "startChar": 58,
+        "endLine": 125,
+        "endChar": 67
+      },
+      "revId": "211a8743e352aea105439fea9dac3415b0d3556a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -219,6 +399,54 @@
     },
     {
       "key": {
+        "uuid": "ed8a48cf_e6624e42",
+        "filename": "ssl/test/handshaker.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-08-01T00:18:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41f3bf3c_8e387983",
+      "range": {
+        "startLine": 126,
+        "startChar": 2,
+        "endLine": 126,
+        "endChar": 5
+      },
+      "revId": "211a8743e352aea105439fea9dac3415b0d3556a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6e621625_a8d76016",
+        "filename": "ssl/test/handshaker.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-08-01T00:18:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "442a89a7_4f820e64",
+      "range": {
+        "startLine": 126,
+        "startChar": 12,
+        "endLine": 126,
+        "endChar": 16
+      },
+      "revId": "211a8743e352aea105439fea9dac3415b0d3556a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed50a3f0_5ac7dbdb",
         "filename": "ssl/test/handshaker.cc",
         "patchSetId": 14
@@ -239,6 +467,30 @@
       "revId": "211a8743e352aea105439fea9dac3415b0d3556a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2403d0de_aa523c04",
+        "filename": "ssl/test/handshaker.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-08-01T00:18:03Z",
+      "side": 1,
+      "message": "Ah, no good reason.  This was probably post-fork code originally.",
+      "parentUuid": "ed50a3f0_5ac7dbdb",
+      "range": {
+        "startLine": 129,
+        "startChar": 4,
+        "endLine": 129,
+        "endChar": 13
+      },
+      "revId": "211a8743e352aea105439fea9dac3415b0d3556a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
