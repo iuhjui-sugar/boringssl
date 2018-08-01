@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bc30bf24_662201d2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 8939
+      },
+      "writtenOn": "2018-08-01T19:18:26Z",
+      "side": 1,
+      "message": "Yeah; in 1.2 we already have state_verify_server_certificate, but in 1.3 there\u0027s state_read_server_certificate_verify. Open to suggestions for naming!",
+      "parentUuid": "4353f2d0_ac395242",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 78
+      },
+      "revId": "8d05bfd4095ad3c9831a27ca4c2e829b2cb7a8b1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eb4b99fc_740b86d9",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "78e50bf4_1eaa357a",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 3524,
+      "author": {
+        "id": 8939
+      },
+      "writtenOn": "2018-08-01T19:18:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb4b99fc_740b86d9",
+      "range": {
+        "startLine": 3524,
+        "startChar": 0,
+        "endLine": 3524,
+        "endChar": 68
+      },
+      "revId": "8d05bfd4095ad3c9831a27ca4c2e829b2cb7a8b1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "012b4fd3_dd63ad5e",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 3
@@ -59,6 +107,30 @@
       "writtenOn": "2018-07-31T20:15:03Z",
       "side": 1,
       "message": "Is it easier to have this on SSL_CTX rather than SSL?",
+      "range": {
+        "startLine": 3528,
+        "startChar": 20,
+        "endLine": 3528,
+        "endChar": 50
+      },
+      "revId": "8d05bfd4095ad3c9831a27ca4c2e829b2cb7a8b1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74aef795_52d5d461",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 3528,
+      "author": {
+        "id": 8939
+      },
+      "writtenOn": "2018-08-01T19:18:26Z",
+      "side": 1,
+      "message": "I\u0027m not entirely sure, but this depends on the verify_mode (which is set on the context) and the certificate verify callback which also is. Doc:\nhttps://docs.google.com/document/d/1aNZH1w_0D6dhroOyIhh5o93Zr--wvl5CEqLk_8wXt7A/edit?ts\u003d5b43d657#heading\u003dh.u2od7r34j10w",
+      "parentUuid": "012b4fd3_dd63ad5e",
       "range": {
         "startLine": 3528,
         "startChar": 20,
@@ -91,6 +163,30 @@
       "revId": "8d05bfd4095ad3c9831a27ca4c2e829b2cb7a8b1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94378692_3a397629",
+        "filename": "ssl/handshake.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 8939
+      },
+      "writtenOn": "2018-08-01T19:18:26Z",
+      "side": 1,
+      "message": "There\u0027s a couple others on lines 389 and 394; I inlined it but let me know if you\u0027d prefer it factored out again.",
+      "parentUuid": "8e8ba709_76bc3990",
+      "range": {
+        "startLine": 382,
+        "startChar": 0,
+        "endLine": 382,
+        "endChar": 27
+      },
+      "revId": "8d05bfd4095ad3c9831a27ca4c2e829b2cb7a8b1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -160,6 +256,30 @@
       "revId": "8d05bfd4095ad3c9831a27ca4c2e829b2cb7a8b1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5e1b929_9e896580",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 878,
+      "author": {
+        "id": 8939
+      },
+      "writtenOn": "2018-08-01T19:18:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b394a9c4_bf1187c5",
+      "range": {
+        "startLine": 878,
+        "startChar": 2,
+        "endLine": 878,
+        "endChar": 33
+      },
+      "revId": "8d05bfd4095ad3c9831a27ca4c2e829b2cb7a8b1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
