@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ae2cba3_2410923a",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-08-01T00:38:30Z",
+      "side": 1,
+      "message": "It would be nice to have a means of regenerating these certs, if for no other reason than that they\u0027ll expire some day.",
+      "range": {
+        "startLine": 551,
+        "startChar": 34,
+        "endLine": 552,
+        "endChar": 0
+      },
+      "revId": "2da2768b52a9cca5a45e6ea52f2101c866cbb1fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e41eb82_bf0a7f09",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-08-01T00:38:30Z",
+      "side": 1,
+      "message": "80 columns?",
+      "range": {
+        "startLine": 652,
+        "startChar": 82,
+        "endLine": 652,
+        "endChar": 0
+      },
+      "revId": "2da2768b52a9cca5a45e6ea52f2101c866cbb1fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
