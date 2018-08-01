@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "87ecf7e4_07596a34",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-08-01T18:43:56Z",
+      "side": 1,
+      "message": "The verification time is fixed, so it won\u0027t expire, but I can include the Go source in a comment.",
+      "parentUuid": "7ae2cba3_2410923a",
+      "range": {
+        "startLine": 551,
+        "startChar": 34,
+        "endLine": 552,
+        "endChar": 0
+      },
+      "revId": "2da2768b52a9cca5a45e6ea52f2101c866cbb1fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8e41eb82_bf0a7f09",
         "filename": "crypto/x509/x509_vfy.c",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "2da2768b52a9cca5a45e6ea52f2101c866cbb1fc",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc55de31_5e630fbd",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-08-01T18:43:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e41eb82_bf0a7f09",
+      "range": {
+        "startLine": 652,
+        "startChar": 82,
+        "endLine": 652,
+        "endChar": 0
+      },
+      "revId": "2da2768b52a9cca5a45e6ea52f2101c866cbb1fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
