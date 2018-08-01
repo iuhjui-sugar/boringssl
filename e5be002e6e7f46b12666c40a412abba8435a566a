@@ -22,6 +22,30 @@
       "revId": "e5be002e6e7f46b12666c40a412abba8435a566a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97ce992e_54ef015c",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 1495,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-08-01T17:14:46Z",
+      "side": 1,
+      "message": "Android trybots only do a compile, they don\u0027t appear to run tests. I don\u0027t know why that is, although I suspect that we can compile for Android on normal machines but running tests needs attached devices, which are a scarce resource?",
+      "parentUuid": "544bdaa2_0ed81081",
+      "range": {
+        "startLine": 1495,
+        "startChar": 2,
+        "endLine": 1495,
+        "endChar": 0
+      },
+      "revId": "e5be002e6e7f46b12666c40a412abba8435a566a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
