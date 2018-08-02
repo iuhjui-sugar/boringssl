@@ -18,6 +18,7 @@
 #include <unistd.h>
 
 #include <openssl/bytestring.h>
+#include <openssl/rand.h>
 #include <openssl/ssl.h>
 
 #include "../internal.h"
@@ -136,6 +137,15 @@ int main(int argc, char **argv) {
   }
   const TestConfig *config = initial_config.handshaker_resume
       ? &resume_config : &initial_config;
+#if defined(BORINGSSL_UNSAFE_DETERMINISTIC_MODE)
+  if (initial_config.handshaker_resume) {
+    // Session resumptions fail if the PRNG behaves the same as in the initial
+    // session.  Not sure of the reason, but a kick to the PRNG fixes the
+    // problem and doesn't compromise determinism, so ... *shrug*?
+    uint8_t byte;
+    RAND_bytes(&byte, 1);
+  }
+#endif  // BORINGSSL_UNSAFE_DETERMINISTIC_MODE
 
   // read() will return the entire message in one go, because it's a datagram
   // socket.
