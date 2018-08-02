@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "41f266cc_688e9553",
+        "filename": "ssl/test/handshaker.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-08-02T20:05:24Z",
+      "side": 1,
+      "message": "// If the PRNG returns exactly the same values when trying to resume then a \"random\" session ID will happen to exactly match the session ID \"randomly\" generated on the initial connection. The client will thus incorrectly believe that the server is resuming.\n\n(It\u0027s just a guess, but I suspect it\u0027s probably true.)",
+      "revId": "594185018e129b0173b09ff4f7a9d132091064ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
