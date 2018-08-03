@@ -21,6 +21,10 @@
 
 #include "settings_writer.h"
 
+#if defined(OPENSSL_LINUX) && !defined(OPENSSL_ANDROID)
+#define HANDSHAKER_SUPPORTED
+#endif
+
 // RetryAsync is called after a failed operation on |ssl| with return code
 // |ret|. If the operation should be retried, it simulates one asynchronous
 // event and returns true. Otherwise it returns false.

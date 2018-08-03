@@ -12,6 +12,10 @@
  * OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. */
 
+#include "handshake_util.h"
+
+#if defined(HANDSHAKER_SUPPORTED)
+
 #include <errno.h>
 #include <fcntl.h>
 #include <signal.h>
@@ -21,7 +25,6 @@
 #include <openssl/ssl.h>
 
 #include "../internal.h"
-#include "handshake_util.h"
 #include "test_config.h"
 #include "test_state.h"
 
@@ -157,3 +160,13 @@ int main(int argc, char **argv) {
   }
   return 0;
 }
+
+#else  // HANDSHAKER_SUPPORTED
+
+int main(int argc, char **argv) {
+  fprintf(stderr,
+          "Split handshakes are not supported in this configuration.\n");
+  return 1;
+}
+
+#endif  // !HANDSHAKER_SUPPORTED
