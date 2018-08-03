@@ -22,6 +22,30 @@
       "revId": "d059012b1e3c1a0c5f5709c861289f60d4336470",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c030ab08_c050bd3c",
+        "filename": "ssl/test/handshaker.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-08-03T22:42:13Z",
+      "side": 1,
+      "message": "Good idea. Done.",
+      "parentUuid": "868667f0_6baab085",
+      "range": {
+        "startLine": 17,
+        "startChar": 55,
+        "endLine": 17,
+        "endChar": 0
+      },
+      "revId": "d059012b1e3c1a0c5f5709c861289f60d4336470",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
