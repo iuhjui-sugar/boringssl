@@ -25,6 +25,8 @@
 #include "test_config.h"
 #include "test_state.h"
 
+#if defined(OPENSSL_LINUX) && !defined(OPENSSL_ANDROID)
+
 using namespace bssl;
 
 namespace {
@@ -157,3 +159,13 @@ int main(int argc, char **argv) {
   }
   return 0;
 }
+
+#else
+
+int main(int argc, char **argv) {
+  fprintf(stderr,
+          "Split handshakes are not supported in this configuration.\n");
+  return 1;
+}
+
+#endif
