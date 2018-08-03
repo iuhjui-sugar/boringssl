@@ -492,7 +492,9 @@ struct SSLSignatureAlgorithmList {
 static SSLSignatureAlgorithmList tls12_get_verify_sigalgs(const SSL *ssl,
                                                           bool for_certs) {
   SSLSignatureAlgorithmList ret;
-  if (!ssl->ctx->verify_sigalgs.empty()) {
+  if (!ssl->config->verify_sigalgs.empty()) {
+    ret.list = ssl->config->verify_sigalgs;
+  } else if (!ssl->ctx->verify_sigalgs.empty()) {
     ret.list = ssl->ctx->verify_sigalgs;
   } else {
     ret.list = kVerifySignatureAlgorithms;
