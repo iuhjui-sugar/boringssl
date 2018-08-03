@@ -12,6 +12,10 @@
  * OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. */
 
+#include <openssl/base.h>
+
+#if defined(OPENSSL_LINUX) && !defined(OPENSSL_ANDROID)
+
 #include <errno.h>
 #include <fcntl.h>
 #include <signal.h>
@@ -157,3 +161,13 @@ int main(int argc, char **argv) {
   }
   return 0;
 }
+
+#else
+
+int main(int argc, char **argv) {
+  fprintf(stderr,
+          "Split handshakes are not supported in this configuration.\n");
+  return 1;
+}
+
+#endif
