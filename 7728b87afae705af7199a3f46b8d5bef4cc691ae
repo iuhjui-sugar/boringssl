@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a4c5e8a_6c25f011",
+        "filename": "ssl/ssl_privkey.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-03T21:15:42Z",
+      "side": 1,
+      "message": "Drive-by comment (I\u0027ll let Steven do the main review and one of you all confirm this): I believe OpenSSL doesn\u0027t split the signing and verify prefs like we do, so this should probably configure both lists.",
+      "revId": "7728b87afae705af7199a3f46b8d5bef4cc691ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
