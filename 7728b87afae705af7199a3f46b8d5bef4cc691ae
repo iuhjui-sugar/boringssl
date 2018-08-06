@@ -25,6 +25,47 @@
     },
     {
       "key": {
+        "uuid": "23ef75ca_c8e31f11",
+        "filename": "ssl/ssl_privkey.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-08-06T19:29:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f169789_16d91c6e",
+      "range": {
+        "startLine": 544,
+        "startChar": 4,
+        "endLine": 544,
+        "endChar": 17
+      },
+      "revId": "7728b87afae705af7199a3f46b8d5bef4cc691ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "74c107ae_47cb3162",
+        "filename": "ssl/ssl_privkey.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-08-06T19:29:44Z",
+      "side": 1,
+      "message": "(Figured that std::sort would probably cause problems so switched to qsort.)",
+      "revId": "7728b87afae705af7199a3f46b8d5bef4cc691ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "621ee51e_faec6c6b",
         "filename": "ssl/ssl_privkey.cc",
         "patchSetId": 5
@@ -45,6 +86,30 @@
       "revId": "7728b87afae705af7199a3f46b8d5bef4cc691ae",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d914554_f29a04f5",
+        "filename": "ssl/ssl_privkey.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-08-06T19:29:44Z",
+      "side": 1,
+      "message": "I dislike pointer arithmetic slightly more than I dislike this :)",
+      "parentUuid": "621ee51e_faec6c6b",
+      "range": {
+        "startLine": 584,
+        "startChar": 9,
+        "endLine": 584,
+        "endChar": 12
+      },
+      "revId": "7728b87afae705af7199a3f46b8d5bef4cc691ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -83,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "51d15094_b4ad9a1a",
+        "filename": "ssl/ssl_privkey.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-08-06T19:29:44Z",
+      "side": 1,
+      "message": "Done. (Involved adding verify_sigalgs to SSL_CONFIG in order to be able to configure on an SSL*. Doesn\u0027t appear that SSL_CTX.verify_sigalgs could have been non-empty previously.)",
+      "parentUuid": "fdc326df_b4169e9e",
+      "revId": "7728b87afae705af7199a3f46b8d5bef4cc691ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0a44304b_3a8ea83f",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 5
@@ -103,6 +186,30 @@
       "revId": "7728b87afae705af7199a3f46b8d5bef4cc691ae",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "990e856d_6f893219",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 4232,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-08-06T19:29:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a44304b_3a8ea83f",
+      "range": {
+        "startLine": 4232,
+        "startChar": 1,
+        "endLine": 4232,
+        "endChar": 4
+      },
+      "revId": "7728b87afae705af7199a3f46b8d5bef4cc691ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
