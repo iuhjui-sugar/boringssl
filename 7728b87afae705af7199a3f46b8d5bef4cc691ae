@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "5f169789_16d91c6e",
+        "filename": "ssl/ssl_privkey.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-08-06T16:01:47Z",
+      "side": 1,
+      "message": "Its a little bit odd that we \u0027succeed\u0027 when we fail to copy the array. Maybe flip the parity of this function to indicate whether we have a valid sigalg list and then make false be the error condition?",
+      "range": {
+        "startLine": 544,
+        "startChar": 4,
+        "endLine": 544,
+        "endChar": 17
+      },
+      "revId": "7728b87afae705af7199a3f46b8d5bef4cc691ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "621ee51e_faec6c6b",
+        "filename": "ssl/ssl_privkey.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-08-06T16:01:47Z",
+      "side": 1,
+      "message": "nit: Might be more straightforward to just use strlen or len \u003d p - str, though probably fine.",
+      "range": {
+        "startLine": 584,
+        "startChar": 9,
+        "endLine": 584,
+        "endChar": 12
+      },
+      "revId": "7728b87afae705af7199a3f46b8d5bef4cc691ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5a4c5e8a_6c25f011",
         "filename": "ssl/ssl_privkey.cc",
         "patchSetId": 5
@@ -13,6 +59,47 @@
       "writtenOn": "2018-08-03T21:15:42Z",
       "side": 1,
       "message": "Drive-by comment (I\u0027ll let Steven do the main review and one of you all confirm this): I believe OpenSSL doesn\u0027t split the signing and verify prefs like we do, so this should probably configure both lists.",
+      "revId": "7728b87afae705af7199a3f46b8d5bef4cc691ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fdc326df_b4169e9e",
+        "filename": "ssl/ssl_privkey.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-08-06T16:01:47Z",
+      "side": 1,
+      "message": "Yeah, at least for now, we probably want this to set both.",
+      "parentUuid": "5a4c5e8a_6c25f011",
+      "revId": "7728b87afae705af7199a3f46b8d5bef4cc691ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a44304b_3a8ea83f",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 4232,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-08-06T16:01:47Z",
+      "side": 1,
+      "message": "Maybe test that RSA-PSS+SHA256:rsa_pss_rsae_sha256 (mixing types) does the right thing.",
+      "range": {
+        "startLine": 4232,
+        "startChar": 1,
+        "endLine": 4232,
+        "endChar": 4
+      },
       "revId": "7728b87afae705af7199a3f46b8d5bef4cc691ae",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
