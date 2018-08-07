@@ -526,10 +526,20 @@ bool ssl_cert_check_private_key(const CERT *cert, const EVP_PKEY *privkey) {
   return ssl_compare_public_and_private_key(pubkey.get(), privkey);
 }
 
-bool ssl_cert_check_digital_signature_key_usage(const CBS *in) {
-  CBS buf = *in;
+enum class CertGetExtResult {
+  Error,
+  Found,
+  NotFound,
+};
 
-  CBS tbs_cert, outer_extensions;
+// cert_get_ext parses a DER-encoded X.509 certificate from |cert| and sets
+// |*out_ext| to contain the contents of the extension from that certificate
+// with the OID |oid|. On success it returns |Found|. If the extension was not
+// found then it returns |NotFound|. If an error was encountered while parsing
+// the certificate then it returns |Error|.
+static CertGetExtResult cert_get_ext(CBS *out_ext, const CBS *cert,
+                                     Span<const uint8_t> oid) {
+  CBS buf = *cert, tbs_cert, outer_extensions;
   int has_extensions;
   if (!ssl_cert_skip_to_spki(&buf, &tbs_cert) ||
       // subjectPublicKeyInfo
@@ -545,62 +555,72 @@ bool ssl_cert_check_digital_signature_key_usage(const CBS *in) {
       !CBS_get_optional_asn1(
           &tbs_cert, &outer_extensions, &has_extensions,
           CBS_ASN1_CONSTRUCTED | CBS_ASN1_CONTEXT_SPECIFIC | 3)) {
-    OPENSSL_PUT_ERROR(SSL, SSL_R_CANNOT_PARSE_LEAF_CERT);
-    return false;
+    return CertGetExtResult::Error;
   }
 
   if (!has_extensions) {
-    return true;
+    return CertGetExtResult::NotFound;
   }
 
   CBS extensions;
   if (!CBS_get_asn1(&outer_extensions, &extensions, CBS_ASN1_SEQUENCE)) {
-    OPENSSL_PUT_ERROR(SSL, SSL_R_CANNOT_PARSE_LEAF_CERT);
-    return false;
+    return CertGetExtResult::Error;
   }
 
   while (CBS_len(&extensions) > 0) {
-    CBS extension, oid, contents;
+    CBS extension, ext_oid, contents;
     if (!CBS_get_asn1(&extensions, &extension, CBS_ASN1_SEQUENCE) ||
-        !CBS_get_asn1(&extension, &oid, CBS_ASN1_OBJECT) ||
+        !CBS_get_asn1(&extension, &ext_oid, CBS_ASN1_OBJECT) ||
         (CBS_peek_asn1_tag(&extension, CBS_ASN1_BOOLEAN) &&
          !CBS_get_asn1(&extension, NULL, CBS_ASN1_BOOLEAN)) ||
         !CBS_get_asn1(&extension, &contents, CBS_ASN1_OCTETSTRING) ||
         CBS_len(&extension) != 0) {
-      OPENSSL_PUT_ERROR(SSL, SSL_R_CANNOT_PARSE_LEAF_CERT);
-      return false;
+      return CertGetExtResult::Error;
     }
 
-    static const uint8_t kKeyUsageOID[3] = {0x55, 0x1d, 0x0f};
-    if (CBS_len(&oid) != sizeof(kKeyUsageOID) ||
-        OPENSSL_memcmp(CBS_data(&oid), kKeyUsageOID, sizeof(kKeyUsageOID)) !=
-            0) {
-      continue;
+    if (CBS_mem_equal(&ext_oid, oid.data(), oid.size())) {
+      *out_ext = contents;
+      return CertGetExtResult::Found;
     }
-
-    CBS bit_string;
-    if (!CBS_get_asn1(&contents, &bit_string, CBS_ASN1_BITSTRING) ||
-        CBS_len(&contents) != 0) {
-      OPENSSL_PUT_ERROR(SSL, SSL_R_CANNOT_PARSE_LEAF_CERT);
-      return false;
-    }
-
-    // This is the KeyUsage extension. See
-    // https://tools.ietf.org/html/rfc5280#section-4.2.1.3
-    if (!CBS_is_valid_asn1_bitstring(&bit_string)) {
-      OPENSSL_PUT_ERROR(SSL, SSL_R_CANNOT_PARSE_LEAF_CERT);
-      return false;
-    }
-
-    if (!CBS_asn1_bitstring_has_bit(&bit_string, 0)) {
-      OPENSSL_PUT_ERROR(SSL, SSL_R_ECC_CERT_NOT_FOR_SIGNING);
-      return false;
-    }
-
-    return true;
   }
 
-  // No KeyUsage extension found.
+  return CertGetExtResult::NotFound;
+}
+
+bool ssl_cert_check_digital_signature_key_usage(const CBS *in) {
+  CBS contents;
+
+  static const uint8_t kKeyUsageOID[3] = {0x55, 0x1d, 0x0f};
+  CertGetExtResult result = cert_get_ext(&contents, in, kKeyUsageOID);
+  switch (result) {
+    case CertGetExtResult::Found:
+      break;
+    case CertGetExtResult::NotFound:
+      return true;
+    case CertGetExtResult::Error:
+      OPENSSL_PUT_ERROR(SSL, SSL_R_CANNOT_PARSE_LEAF_CERT);
+      return false;
+  }
+
+  CBS bit_string;
+  if (!CBS_get_asn1(&contents, &bit_string, CBS_ASN1_BITSTRING) ||
+      CBS_len(&contents) != 0) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_CANNOT_PARSE_LEAF_CERT);
+    return false;
+  }
+
+  // This is the KeyUsage extension. See
+  // https://tools.ietf.org/html/rfc5280#section-4.2.1.3
+  if (!CBS_is_valid_asn1_bitstring(&bit_string)) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_CANNOT_PARSE_LEAF_CERT);
+    return false;
+  }
+
+  if (!CBS_asn1_bitstring_has_bit(&bit_string, 0)) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_ECC_CERT_NOT_FOR_SIGNING);
+    return false;
+  }
+
   return true;
 }
 
