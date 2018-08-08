@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d30c5cee_0d168646",
+        "filename": "util/embed_test_data.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-08T17:36:55Z",
+      "side": 1,
+      "message": "Whoops! Although probably it makes sense to do this in the quote function above.",
+      "revId": "23151b1072d856d6d63b9c151842926a3288f41f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
