@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "03062ce8_a8d63d3b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-08-08T14:54:16Z",
+      "side": 1,
+      "message": "Clang format most of this CL.",
+      "revId": "2a6fd13fae5438ed3c6e5557364be6f383ae8a9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3db78f1d_8be51a2c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-08-08T14:54:16Z",
+      "side": 1,
+      "message": "Probably overly detailed here, but should also mention what \u0027reverify\u0027 means and doesn\u0027t do.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 83
+      },
+      "revId": "2a6fd13fae5438ed3c6e5557364be6f383ae8a9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "442f58b9_79ae3fa6",
+        "filename": "ssl/handshake.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-08-08T14:54:16Z",
+      "side": 1,
+      "message": "Yeah missed that, factoring ssl out seems fine then.",
+      "range": {
+        "startLine": 382,
+        "startChar": 0,
+        "endLine": 382,
+        "endChar": 57
+      },
+      "revId": "2a6fd13fae5438ed3c6e5557364be6f383ae8a9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04d745d3_6a827041",
+        "filename": "ssl/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 1701,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-08-08T14:54:16Z",
+      "side": 1,
+      "message": "nit: clang-format and add newline.",
+      "range": {
+        "startLine": 1701,
+        "startChar": 0,
+        "endLine": 1701,
+        "endChar": 89
+      },
+      "revId": "2a6fd13fae5438ed3c6e5557364be6f383ae8a9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9aa7b78a_949447c0",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 4970,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-08-08T14:54:16Z",
+      "side": 1,
+      "message": "Also test the positive case (that the verify callback passes on resumption when we require it).",
+      "range": {
+        "startLine": 4970,
+        "startChar": 0,
+        "endLine": 4970,
+        "endChar": 96
+      },
+      "revId": "2a6fd13fae5438ed3c6e5557364be6f383ae8a9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
