@@ -16,6 +16,24 @@
       "revId": "23151b1072d856d6d63b9c151842926a3288f41f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4dbba8e5_9aade1dc",
+        "filename": "util/embed_test_data.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-08-08T18:13:32Z",
+      "side": 1,
+      "message": "Oh good point, missed that function. Done.",
+      "parentUuid": "d30c5cee_0d168646",
+      "revId": "23151b1072d856d6d63b9c151842926a3288f41f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
