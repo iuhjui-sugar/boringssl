@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8f72ba16_0fb6cbcd",
+        "filename": "include/openssl/chacha.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-08T22:52:15Z",
+      "side": 1,
+      "message": "chacha/internal.h?",
+      "revId": "a9865dbb70a4bae9372c5f179b356565ff16d6c7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
