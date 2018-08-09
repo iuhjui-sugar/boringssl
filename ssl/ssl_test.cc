@@ -2422,7 +2422,7 @@ TEST_P(SSLVersionTest, DefaultTicketKeyInitialization) {
 TEST_P(SSLVersionTest, DefaultTicketKeyRotation) {
   static const time_t kStartTime = 1001;
   g_current_time.tv_sec = kStartTime;
-  uint8_t ticket_key[kTicketKeyLen];
+  uint8_t ticket_key[kTicketKeyLen] = {0};
 
   // We use session reuse as a proxy for ticket decryption success, hence
   // disable session timeouts.
