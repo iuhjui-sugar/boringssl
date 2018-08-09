@@ -21,6 +21,7 @@ enable_language(C)
 enable_language(CXX)
 
 set(MSAN 1)
+set(USE_CUSTOM_LIBCXX 1)
 
 if(ANDROID)
   # Android-NDK CMake files reconfigure the path and so Go and Perl won't be
