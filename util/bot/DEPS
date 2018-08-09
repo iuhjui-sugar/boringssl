@@ -19,7 +19,7 @@ vars = {
   'checkout_fuzzer': False,
   'checkout_sde': False,
   'checkout_nasm': False,
-  'checkout_libcxx': False,
+  'checkout_libcxx': True,
 }
 
 deps = {
