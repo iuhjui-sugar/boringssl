@@ -16,6 +16,24 @@
       "revId": "6a0f7e0c6ea5c27acfe705a2d1dbaf54760805e8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e70d4b84_6f55a181",
+        "filename": "ssl/internal.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 2908,
+      "author": {
+        "id": 8939
+      },
+      "writtenOn": "2018-08-10T20:08:28Z",
+      "side": 1,
+      "message": "Thanks, I guess clang-format only adds line breaks.",
+      "parentUuid": "15b2aedc_f14295c5",
+      "revId": "6a0f7e0c6ea5c27acfe705a2d1dbaf54760805e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
