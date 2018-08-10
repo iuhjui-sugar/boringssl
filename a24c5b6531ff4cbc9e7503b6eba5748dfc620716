@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5127718f_b2449b1c",
+        "filename": "crypto/ecdh_extra/ecdh_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-08-10T17:53:41Z",
+      "side": 1,
+      "message": "Are named curves forbidden? Did you mean explicit curves?",
+      "range": {
+        "startLine": 151,
+        "startChar": 35,
+        "endLine": 151,
+        "endChar": 47
+      },
+      "revId": "a24c5b6531ff4cbc9e7503b6eba5748dfc620716",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
