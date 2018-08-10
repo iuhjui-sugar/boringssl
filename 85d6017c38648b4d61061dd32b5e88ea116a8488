@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a333895c_6de96f81",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-10T17:03:11Z",
+      "side": 1,
+      "message": "Add\n\nBug: chromium:347402\n\nThis will staple it to crbug.com/347402, which I\u0027ve just assigned to you. (Sorry, forgot we had a bug lying around already.)",
+      "revId": "85d6017c38648b4d61061dd32b5e88ea116a8488",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e9aecd4_aa2eaded",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 3526,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-10T17:03:11Z",
+      "side": 1,
+      "message": "It also only works with |SSL_CTX_set_custom_verify|.",
+      "range": {
+        "startLine": 3526,
+        "startChar": 45,
+        "endLine": 3526,
+        "endChar": 57
+      },
+      "revId": "85d6017c38648b4d61061dd32b5e88ea116a8488",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e830762_11adcd2a",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 3527,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-10T17:03:11Z",
+      "side": 1,
+      "message": "Nit: If you write |SSL_VERIFY_NONE|, the generated docs will render it in fixed-width font and generate a little link. (The first word does not get such a thing, just to be confusing. :-) )",
+      "range": {
+        "startLine": 3527,
+        "startChar": 3,
+        "endLine": 3527,
+        "endChar": 18
+      },
+      "revId": "85d6017c38648b4d61061dd32b5e88ea116a8488",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1fd00d0_f7173730",
+        "filename": "ssl/handshake.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-10T17:03:11Z",
+      "side": 1,
+      "message": "nullptr (you can also omit the .get() actually)",
+      "range": {
+        "startLine": 384,
+        "startChar": 47,
+        "endLine": 384,
+        "endChar": 51
+      },
+      "revId": "85d6017c38648b4d61061dd32b5e88ea116a8488",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3572771f_b955a474",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 739,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-10T17:03:11Z",
+      "side": 1,
+      "message": "Nit: a tab snuck in here.",
+      "revId": "85d6017c38648b4d61061dd32b5e88ea116a8488",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6cfbeff_2ffa4ca8",
+        "filename": "ssl/tls13_client.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-10T17:03:11Z",
+      "side": 1,
+      "message": "Nit: It\u0027s an early return, so we usually just write:\n\nif (...) {\n  ...\n  return ...;\n}\n...\nreturn ...;",
+      "revId": "85d6017c38648b4d61061dd32b5e88ea116a8488",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
