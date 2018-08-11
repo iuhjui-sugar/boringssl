@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2c0ed6e4_80fdfafe",
+        "filename": "luci-notify.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 6950
+      },
+      "writtenOn": "2018-08-11T00:32:58Z",
+      "side": 1,
+      "message": "David, I\u0027m sorry, but I don\u0027t any way to avoid this copy-pasta.\nHowever, I can assure you we are aware of this problem and are working on a more high level config, from which all this copy-pasta will be generated.",
+      "range": {
+        "startLine": 18,
+        "startChar": 2,
+        "endLine": 18,
+        "endChar": 12
+      },
+      "revId": "8aa13e53f4b979e0ad44d21f395a24c3057f3351",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
