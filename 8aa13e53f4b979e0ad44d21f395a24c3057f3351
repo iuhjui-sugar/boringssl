@@ -63,6 +63,24 @@
       "revId": "8aa13e53f4b979e0ad44d21f395a24c3057f3351",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa5dee2a_c12a68f7",
+        "filename": "luci-notify.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 6950
+      },
+      "writtenOn": "2018-08-11T00:51:53Z",
+      "side": 1,
+      "message": "oops, yeah, my buffer was truncated to 100 lines :)",
+      "parentUuid": "f7e5b6fe_9fdca2ab",
+      "revId": "8aa13e53f4b979e0ad44d21f395a24c3057f3351",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
