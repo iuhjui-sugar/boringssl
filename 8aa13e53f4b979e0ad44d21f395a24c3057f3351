@@ -22,6 +22,47 @@
       "revId": "8aa13e53f4b979e0ad44d21f395a24c3057f3351",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee3e3524_b4ae27a0",
+        "filename": "luci-notify.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-11T00:38:34Z",
+      "side": 1,
+      "message": "Sounds good. Thanks! :-)",
+      "parentUuid": "2c0ed6e4_80fdfafe",
+      "range": {
+        "startLine": 18,
+        "startChar": 2,
+        "endLine": 18,
+        "endChar": 12
+      },
+      "revId": "8aa13e53f4b979e0ad44d21f395a24c3057f3351",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f7e5b6fe_9fdca2ab",
+        "filename": "luci-notify.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-11T00:38:34Z",
+      "side": 1,
+      "message": "Looks like this is missing linux_clang_rel_msan, linux_small, win*, and mac*.",
+      "revId": "8aa13e53f4b979e0ad44d21f395a24c3057f3351",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
