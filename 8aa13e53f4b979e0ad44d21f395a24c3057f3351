@@ -81,6 +81,24 @@
       "revId": "8aa13e53f4b979e0ad44d21f395a24c3057f3351",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e49cf7df_86f85ce6",
+        "filename": "luci-notify.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-13T18:00:38Z",
+      "side": 1,
+      "message": "(Still missing linux_clang_rel_msan since it needed a rebase. Went ahead and fixed that.)",
+      "parentUuid": "aa5dee2a_c12a68f7",
+      "revId": "8aa13e53f4b979e0ad44d21f395a24c3057f3351",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
