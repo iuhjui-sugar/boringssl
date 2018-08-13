@@ -5889,46 +5889,57 @@ func addVersionNegotiationTests() {
 	testCases = append(testCases, testCase{
 		name: "Downgrade-TLS12-Client",
 		config: Config{
+			TLS13Variant: TLS13RFC,
 			Bugs: ProtocolBugs{
 				NegotiateVersion: VersionTLS12,
 			},
 		},
-		expectedVersion: VersionTLS12,
-		// TODO(davidben): This test should fail once TLS 1.3 is final
-		// and the fallback signal restored.
+		tls13Variant:       TLS13RFC,
+		expectedVersion:    VersionTLS12,
+		shouldFail:         true,
+		expectedLocalError: "remote error: illegal parameter",
 	})
 	testCases = append(testCases, testCase{
 		testType: serverTest,
 		name:     "Downgrade-TLS12-Server",
 		config: Config{
+			TLS13Variant: TLS13RFC,
 			Bugs: ProtocolBugs{
 				SendSupportedVersions: []uint16{VersionTLS12},
 			},
 		},
-		expectedVersion: VersionTLS12,
-		// TODO(davidben): This test should fail once TLS 1.3 is final
-		// and the fallback signal restored.
+		tls13Variant:       TLS13RFC,
+		expectedVersion:    VersionTLS12,
+		shouldFail:         true,
+		expectedLocalError: "tls: downgrade from TLS 1.3 detected",
 	})
 
 	testCases = append(testCases, testCase{
-		name: "Draft-Downgrade-Client",
+		name: "Downgrade-TLS11-Client",
 		config: Config{
-			MaxVersion: VersionTLS12,
+			TLS13Variant: TLS13RFC,
 			Bugs: ProtocolBugs{
-				SendDraftTLS13DowngradeRandom: true,
+				NegotiateVersion: VersionTLS11,
 			},
 		},
-		flags: []string{"-expect-draft-downgrade"},
+		tls13Variant:       TLS13RFC,
+		expectedVersion:    VersionTLS11,
+		shouldFail:         true,
+		expectedLocalError: "remote error: illegal parameter",
 	})
 	testCases = append(testCases, testCase{
 		testType: serverTest,
-		name:     "Draft-Downgrade-Server",
+		name:     "Downgrade-TLS11-Server",
 		config: Config{
-			MaxVersion: VersionTLS12,
+			TLS13Variant: TLS13RFC,
 			Bugs: ProtocolBugs{
-				ExpectDraftTLS13DowngradeRandom: true,
+				SendSupportedVersions: []uint16{VersionTLS11},
 			},
 		},
+		tls13Variant:       TLS13RFC,
+		expectedVersion:    VersionTLS11,
+		shouldFail:         true,
+		expectedLocalError: "tls: downgrade from TLS 1.2 detected",
 	})
 
 	// SSL 3.0 support has been removed. Test that the shim does not
