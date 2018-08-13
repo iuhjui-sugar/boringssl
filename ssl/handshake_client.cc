@@ -588,19 +588,23 @@ static enum ssl_hs_wait_t do_read_server_hello(SSL_HANDSHAKE *hs) {
   OPENSSL_memcpy(ssl->s3->server_random, CBS_data(&server_random),
                  SSL3_RANDOM_SIZE);
 
-  // Measure, but do not enforce, the TLS 1.3 anti-downgrade feature, with a
-  // different value.
-  //
-  // For draft TLS 1.3 versions, it is not safe to deploy this feature. However,
-  // some TLS terminators are non-compliant and copy the origin server's value,
-  // so we wish to measure eventual compatibility impact.
+  // Enforce the TLS 1.3 anti-downgrade feature.
   if (!ssl->s3->initial_handshake_complete &&
-      hs->max_version >= TLS1_3_VERSION &&
-      OPENSSL_memcmp(ssl->s3->server_random + SSL3_RANDOM_SIZE -
-                         sizeof(kDraftDowngradeRandom),
-                     kDraftDowngradeRandom,
-                     sizeof(kDraftDowngradeRandom)) == 0) {
-    ssl->s3->draft_downgrade = true;
+      ssl_supports_version(hs, TLS1_3_VERSION)) {
+    static_assert(
+        sizeof(kTLS12DowngradeRandom) == sizeof(kTLS13DowngradeRandom),
+        "downgrade signals have different size");
+    auto suffix =
+        MakeConstSpan(ssl->s3->server_random, sizeof(ssl->s3->server_random))
+            .subspan(SSL3_RANDOM_SIZE - sizeof(kTLS13DowngradeRandom));
+    if (suffix == kTLS12DowngradeRandom || suffix == kTLS13DowngradeRandom) {
+      ssl->s3->tls13_downgrade = true;
+      if (!ssl->ctx->ignore_tls13_downgrade) {
+        OPENSSL_PUT_ERROR(SSL, SSL_R_TLS13_DOWNGRADE);
+        ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);
+        return ssl_hs_error;
+      }
+    }
   }
 
   if (!ssl->s3->initial_handshake_complete && ssl->session != NULL &&
@@ -1477,11 +1481,13 @@ static enum ssl_hs_wait_t do_send_client_finished(SSL_HANDSHAKE *hs) {
 static bool can_false_start(const SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
 
-  // False Start only for TLS 1.2 with an ECDHE+AEAD cipher.
+  // False Start only for TLS 1.2 with an ECDHE+AEAD cipher. It is also disabled
+  // if a TLS 1.3 downgrade was recorded.
   if (SSL_is_dtls(ssl) ||
       SSL_version(ssl) != TLS1_2_VERSION ||
       hs->new_cipher->algorithm_mkey != SSL_kECDHE ||
-      hs->new_cipher->algorithm_mac != SSL_AEAD) {
+      hs->new_cipher->algorithm_mac != SSL_AEAD ||
+      ssl->s3->tls13_downgrade) {
     return false;
   }
 

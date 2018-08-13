@@ -5683,7 +5683,8 @@ func addVersionNegotiationTests() {
 				config: Config{
 					TLS13Variant: vers.tls13Variant,
 					Bugs: ProtocolBugs{
-						SendSupportedVersions: []uint16{0x1111, vers.wire(protocol), 0x2222},
+						SendSupportedVersions:      []uint16{0x1111, vers.wire(protocol), 0x2222},
+						IgnoreTLS13DowngradeRandom: true,
 					},
 				},
 				expectedVersion: vers.version,
@@ -5723,8 +5724,9 @@ func addVersionNegotiationTests() {
 		config: Config{
 			MaxVersion: VersionTLS13,
 			Bugs: ProtocolBugs{
-				SendClientVersion:     0x0304,
-				OmitSupportedVersions: true,
+				SendClientVersion:          0x0304,
+				OmitSupportedVersions:      true,
+				IgnoreTLS13DowngradeRandom: true,
 			},
 		},
 		expectedVersion: VersionTLS12,
@@ -5735,8 +5737,9 @@ func addVersionNegotiationTests() {
 		name:     "ConflictingVersionNegotiation",
 		config: Config{
 			Bugs: ProtocolBugs{
-				SendClientVersion:     VersionTLS12,
-				SendSupportedVersions: []uint16{VersionTLS11},
+				SendClientVersion:          VersionTLS12,
+				SendSupportedVersions:      []uint16{VersionTLS11},
+				IgnoreTLS13DowngradeRandom: true,
 			},
 		},
 		// The extension takes precedence over the ClientHello version.
@@ -5748,8 +5751,9 @@ func addVersionNegotiationTests() {
 		name:     "ConflictingVersionNegotiation-2",
 		config: Config{
 			Bugs: ProtocolBugs{
-				SendClientVersion:     VersionTLS11,
-				SendSupportedVersions: []uint16{VersionTLS12},
+				SendClientVersion:          VersionTLS11,
+				SendSupportedVersions:      []uint16{VersionTLS12},
+				IgnoreTLS13DowngradeRandom: true,
 			},
 		},
 		// The extension takes precedence over the ClientHello version.
@@ -5790,8 +5794,9 @@ func addVersionNegotiationTests() {
 		name:     "MinorVersionTolerance",
 		config: Config{
 			Bugs: ProtocolBugs{
-				SendClientVersion:     0x03ff,
-				OmitSupportedVersions: true,
+				SendClientVersion:          0x03ff,
+				OmitSupportedVersions:      true,
+				IgnoreTLS13DowngradeRandom: true,
 			},
 		},
 		expectedVersion: VersionTLS12,
@@ -5801,8 +5806,9 @@ func addVersionNegotiationTests() {
 		name:     "MajorVersionTolerance",
 		config: Config{
 			Bugs: ProtocolBugs{
-				SendClientVersion:     0x0400,
-				OmitSupportedVersions: true,
+				SendClientVersion:          0x0400,
+				OmitSupportedVersions:      true,
+				IgnoreTLS13DowngradeRandom: true,
 			},
 		},
 		// TLS 1.3 must be negotiated with the supported_versions
@@ -5889,46 +5895,108 @@ func addVersionNegotiationTests() {
 	testCases = append(testCases, testCase{
 		name: "Downgrade-TLS12-Client",
 		config: Config{
+			TLS13Variant: TLS13RFC,
 			Bugs: ProtocolBugs{
 				NegotiateVersion: VersionTLS12,
 			},
 		},
-		expectedVersion: VersionTLS12,
-		// TODO(davidben): This test should fail once TLS 1.3 is final
-		// and the fallback signal restored.
+		tls13Variant:       TLS13RFC,
+		expectedVersion:    VersionTLS12,
+		shouldFail:         true,
+		expectedLocalError: "remote error: illegal parameter",
 	})
 	testCases = append(testCases, testCase{
 		testType: serverTest,
 		name:     "Downgrade-TLS12-Server",
 		config: Config{
+			TLS13Variant: TLS13RFC,
 			Bugs: ProtocolBugs{
 				SendSupportedVersions: []uint16{VersionTLS12},
 			},
 		},
-		expectedVersion: VersionTLS12,
-		// TODO(davidben): This test should fail once TLS 1.3 is final
-		// and the fallback signal restored.
+		tls13Variant:       TLS13RFC,
+		expectedVersion:    VersionTLS12,
+		shouldFail:         true,
+		expectedLocalError: "tls: downgrade from TLS 1.3 detected",
 	})
 
 	testCases = append(testCases, testCase{
-		name: "Draft-Downgrade-Client",
+		name: "Downgrade-TLS11-Client",
 		config: Config{
-			MaxVersion: VersionTLS12,
+			TLS13Variant: TLS13RFC,
 			Bugs: ProtocolBugs{
-				SendDraftTLS13DowngradeRandom: true,
+				NegotiateVersion: VersionTLS11,
 			},
 		},
-		flags: []string{"-expect-draft-downgrade"},
+		tls13Variant:       TLS13RFC,
+		expectedVersion:    VersionTLS11,
+		shouldFail:         true,
+		expectedLocalError: "remote error: illegal parameter",
 	})
 	testCases = append(testCases, testCase{
 		testType: serverTest,
-		name:     "Draft-Downgrade-Server",
+		name:     "Downgrade-TLS11-Server",
 		config: Config{
-			MaxVersion: VersionTLS12,
+			TLS13Variant: TLS13RFC,
 			Bugs: ProtocolBugs{
-				ExpectDraftTLS13DowngradeRandom: true,
+				SendSupportedVersions: []uint16{VersionTLS11},
 			},
 		},
+		tls13Variant:       TLS13RFC,
+		expectedVersion:    VersionTLS11,
+		shouldFail:         true,
+		expectedLocalError: "tls: downgrade from TLS 1.2 detected",
+	})
+
+	// Test that the draft TLS 1.3 variants don't trigger the downgrade logic.
+	testCases = append(testCases, testCase{
+		name: "Downgrade-Draft-Client",
+		config: Config{
+			TLS13Variant: TLS13Draft28,
+			Bugs: ProtocolBugs{
+				NegotiateVersion:         VersionTLS12,
+				SendTLS13DowngradeRandom: true,
+			},
+		},
+		tls13Variant:    TLS13Draft28,
+		expectedVersion: VersionTLS12,
+	})
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "Downgrade-Draft-Server",
+		config: Config{
+			TLS13Variant: TLS13Draft28,
+			Bugs: ProtocolBugs{
+				CheckTLS13DowngradeRandom: true,
+			},
+		},
+		tls13Variant:    TLS13Draft28,
+		expectedVersion: VersionTLS13,
+	})
+
+	// Test that FalseStart is disabled when the downgrade logic triggers.
+	testCases = append(testCases, testCase{
+		name: "Downgrade-FalseStart",
+		config: Config{
+			TLS13Variant: TLS13RFC,
+			NextProtos:   []string{"foo"},
+			Bugs: ProtocolBugs{
+				NegotiateVersion:          VersionTLS12,
+				ExpectFalseStart:          true,
+				AlertBeforeFalseStartTest: alertAccessDenied,
+			},
+		},
+		tls13Variant:    TLS13RFC,
+		expectedVersion: VersionTLS12,
+		flags: []string{
+			"-false-start",
+			"-advertise-alpn", "\x03foo",
+			"-ignore-tls13-downgrade",
+		},
+		shimWritesFirst:    true,
+		shouldFail:         true,
+		expectedError:      ":TLSV1_ALERT_ACCESS_DENIED:",
+		expectedLocalError: "tls: peer did not false start: EOF",
 	})
 
 	// SSL 3.0 support has been removed. Test that the shim does not
