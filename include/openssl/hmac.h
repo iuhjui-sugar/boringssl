@@ -110,6 +110,8 @@ OPENSSL_EXPORT void HMAC_CTX_free(HMAC_CTX *ctx);
 // WARNING: NULL and empty keys are ambiguous on non-initial calls. Passing NULL
 // |key| but repeating the previous |md| reuses the previous key rather than the
 // empty key.
+//
+// HMAC_Init_ex can only fail due to |ctx| being uninitialized, or due to OOM.
 OPENSSL_EXPORT int HMAC_Init_ex(HMAC_CTX *ctx, const void *key, size_t key_len,
                                 const EVP_MD *md, ENGINE *impl);
 
