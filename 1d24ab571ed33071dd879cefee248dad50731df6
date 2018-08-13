@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "e1665e79_56b4f929",
+        "filename": "crypto/fipsmodule/hmac/hmac.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-13T23:57:30Z",
+      "side": 1,
+      "message": "I think I prefer them without, but if there\u0027s a compelling reason otherwise I\u0027m happy to be convinced.\n\nMy thinking: downside of the comments is they\u0027re kind of noisy. Upside is they might provide some help verifying stuff. For that, I can imagine intermediate annotations being useful if:\n\na) They feed into the type system or other checker, so we know they\u0027re accurate. But we don\u0027t have anywhere near that useful of a type system (yay C...).\n\nb) Failing automated checking, it is a useful intermediate condition for a human. But without checking, the developer still needs to know that EVP_Digest* has no useful failure cases. Once the developer knows that, the intermediate condition is just the default one: functions that promise no useful error cases should only call such functions.\n\n(b) here isn\u0027t universal; maybe one function thinks NULL is a useful input and another things NULL isn\u0027t, or maybe you call a function but tolerate it failing without passing to the caller. Comments could be useful there. But that doesn\u0027t seem to be what\u0027s going on here.\n\nThis is all frustratingly vague, but I don\u0027t see a way to do better given the implementation is C and the API is \"mostly\" the existing OpenSSL one. :-( (You are planning on calling panic when things go wrong, right? That should hopefully limit the failure modes when we inevitably get this vagueness wrong.)",
+      "parentUuid": "12f36b0d_9079cb9b",
+      "revId": "1d24ab571ed33071dd879cefee248dad50731df6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c7b76de9_7da78fe7",
         "filename": "include/openssl/digest.h",
         "patchSetId": 1
