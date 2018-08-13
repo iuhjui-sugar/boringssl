@@ -214,15 +214,14 @@ int EVP_PKEY_type(int nid) {
 }
 
 int EVP_PKEY_set1_RSA(EVP_PKEY *pkey, RSA *key) {
-  if (EVP_PKEY_assign_RSA(pkey, key)) {
-    RSA_up_ref(key);
-    return 1;
-  }
-  return 0;
+  EVP_PKEY_assign_RSA(pkey, key);
+  RSA_up_ref(key);
+  return 1;
 }
 
 int EVP_PKEY_assign_RSA(EVP_PKEY *pkey, RSA *key) {
-  return EVP_PKEY_assign(pkey, EVP_PKEY_RSA, key);
+  assert(EVP_PKEY_assign(pkey, EVP_PKEY_RSA, key));
+  return 1;
 }
 
 RSA *EVP_PKEY_get0_RSA(EVP_PKEY *pkey) {
@@ -242,15 +241,14 @@ RSA *EVP_PKEY_get1_RSA(EVP_PKEY *pkey) {
 }
 
 int EVP_PKEY_set1_DSA(EVP_PKEY *pkey, DSA *key) {
-  if (EVP_PKEY_assign_DSA(pkey, key)) {
-    DSA_up_ref(key);
-    return 1;
-  }
-  return 0;
+  EVP_PKEY_assign_DSA(pkey, key);
+  DSA_up_ref(key);
+  return 1;
 }
 
 int EVP_PKEY_assign_DSA(EVP_PKEY *pkey, DSA *key) {
-  return EVP_PKEY_assign(pkey, EVP_PKEY_DSA, key);
+  assert(EVP_PKEY_assign(pkey, EVP_PKEY_DSA, key));
+  return 1;
 }
 
 DSA *EVP_PKEY_get0_DSA(EVP_PKEY *pkey) {
@@ -270,15 +268,14 @@ DSA *EVP_PKEY_get1_DSA(EVP_PKEY *pkey) {
 }
 
 int EVP_PKEY_set1_EC_KEY(EVP_PKEY *pkey, EC_KEY *key) {
-  if (EVP_PKEY_assign_EC_KEY(pkey, key)) {
-    EC_KEY_up_ref(key);
-    return 1;
-  }
-  return 0;
+  EVP_PKEY_assign_EC_KEY(pkey, key);
+  EC_KEY_up_ref(key);
+  return 1;
 }
 
 int EVP_PKEY_assign_EC_KEY(EVP_PKEY *pkey, EC_KEY *key) {
-  return EVP_PKEY_assign(pkey, EVP_PKEY_EC, key);
+  assert(EVP_PKEY_assign(pkey, EVP_PKEY_EC, key));
+  return 1;
 }
 
 EC_KEY *EVP_PKEY_get0_EC_KEY(EVP_PKEY *pkey) {
