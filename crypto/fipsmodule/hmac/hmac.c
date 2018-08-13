@@ -136,6 +136,7 @@ int HMAC_Init_ex(HMAC_CTX *ctx, const void *key, size_t key_len,
       if (!EVP_DigestInit_ex(&ctx->md_ctx, md, impl) ||
           !EVP_DigestUpdate(&ctx->md_ctx, key, key_len) ||
           !EVP_DigestFinal_ex(&ctx->md_ctx, key_block, &key_block_len)) {
+        // Only EVP_DigestInit_ex can fail, and only from OOM.
         return 0;
       }
     } else {
@@ -153,6 +154,7 @@ int HMAC_Init_ex(HMAC_CTX *ctx, const void *key, size_t key_len,
     }
     if (!EVP_DigestInit_ex(&ctx->i_ctx, md, impl) ||
         !EVP_DigestUpdate(&ctx->i_ctx, pad, EVP_MD_block_size(md))) {
+      // Only EVP_DigestInit_ex can fail, and only from OOM.
       return 0;
     }
 
@@ -161,6 +163,7 @@ int HMAC_Init_ex(HMAC_CTX *ctx, const void *key, size_t key_len,
     }
     if (!EVP_DigestInit_ex(&ctx->o_ctx, md, impl) ||
         !EVP_DigestUpdate(&ctx->o_ctx, pad, EVP_MD_block_size(md))) {
+      // Only EVP_DigestInit_ex can fail, and only from OOM.
       return 0;
     }
 
@@ -168,6 +171,8 @@ int HMAC_Init_ex(HMAC_CTX *ctx, const void *key, size_t key_len,
   }
 
   if (!EVP_MD_CTX_copy_ex(&ctx->md_ctx, &ctx->i_ctx)) {
+    // EVP_MD_CTX_copy_ex can fail due to ctx->md_ctx being
+    // uninitialized, or due to OOM.
     return 0;
   }
 
