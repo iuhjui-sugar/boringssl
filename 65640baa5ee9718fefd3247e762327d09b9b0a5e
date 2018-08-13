@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b9f0c4a2_1d9b7ac5",
+        "filename": "crypto/x509v3/v3_purp.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-13T22:53:42Z",
+      "side": 1,
+      "message": "I\u0027m not sure why this isn\u0027t x509v3_cache_extensions, but upstream does this one so okay...",
+      "revId": "65640baa5ee9718fefd3247e762327d09b9b0a5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
