@@ -1588,14 +1588,6 @@ type ProtocolBugs struct {
 	// that many bytes.
 	PadClientHello int
 
-	// SendDraftTLS13DowngradeRandom, if true, causes the server to send the
-	// draft TLS 1.3 anti-downgrade signal.
-	SendDraftTLS13DowngradeRandom bool
-
-	// ExpectDraftTLS13DowngradeRandom, if true, causes the client to
-	// require the server send the draft TLS 1.3 anti-downgrade signal.
-	ExpectDraftTLS13DowngradeRandom bool
-
 	// ExpectDummyPQPaddingLength, if not zero, causes the server to
 	// require that the client sent a dummy PQ padding extension of this
 	// length.
@@ -2062,8 +2054,6 @@ var (
 	// See draft-ietf-tls-tls13-16, section 6.3.1.2.
 	downgradeTLS13 = []byte{0x44, 0x4f, 0x57, 0x4e, 0x47, 0x52, 0x44, 0x01}
 	downgradeTLS12 = []byte{0x44, 0x4f, 0x57, 0x4e, 0x47, 0x52, 0x44, 0x00}
-
-	downgradeTLS13Draft = []uint8{0x95, 0xb9, 0x9f, 0x87, 0x22, 0xfe, 0x9b, 0x64}
 )
 
 func containsGREASE(values []uint16) bool {
