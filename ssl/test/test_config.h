@@ -156,7 +156,8 @@ struct TestConfig {
   bool use_custom_verify_callback = false;
   std::string expect_msg_callback;
   bool allow_false_start_without_alpn = false;
-  bool expect_draft_downgrade = false;
+  bool ignore_tls13_downgrade = false;
+  bool expect_tls13_downgrade = false;
   int dummy_pq_padding_len = 0;
   bool handoff = false;
   bool expect_dummy_pq_padding = false;
