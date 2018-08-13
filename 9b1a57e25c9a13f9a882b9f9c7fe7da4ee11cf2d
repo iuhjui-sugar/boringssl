@@ -1,0 +1,278 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ad92087_17985522",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 3683,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-13T21:59:10Z",
+      "side": 1,
+      "message": "newline",
+      "revId": "9b1a57e25c9a13f9a882b9f9c7fe7da4ee11cf2d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25c2c373_489b257a",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 3685,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-13T21:59:10Z",
+      "side": 1,
+      "message": "The string \"ServerRandom\" does not appear anywhere in the specification. The spec does seem to say \"with the Random value\" but I think some of that\u0027s actually a mistake; the type is named \"Random\" and the field is \"random\". There\u0027s also a \"ServerHello.Random\" which similarly is off. It should be \"ServerHello.random\". Though that\u0027s kind of weird here.\n\nActually, the specification never even says \"anti-downgrade\". How about \"the downgrade signal in the server\u0027s random value\"?\n\nAlso remove \"are allowed to\". Either it ignores it or it doesn\u0027t.",
+      "range": {
+        "startLine": 3685,
+        "startChar": 29,
+        "endLine": 3685,
+        "endChar": 41
+      },
+      "revId": "9b1a57e25c9a13f9a882b9f9c7fe7da4ee11cf2d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ebd7b7b_53d2276d",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 3686,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-13T21:59:10Z",
+      "side": 1,
+      "message": "newline",
+      "range": {
+        "startLine": 3686,
+        "startChar": 68,
+        "endLine": 3686,
+        "endChar": 69
+      },
+      "revId": "9b1a57e25c9a13f9a882b9f9c7fe7da4ee11cf2d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efac4538_3b0a8aa0",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-13T21:59:10Z",
+      "side": 1,
+      "message": "Don\u0027t condition on tls13_variant like that. This doesn\u0027t work on tls13_default. (It\u0027s critical that we never ever condition on tls13_variant like this or we\u0027d need a ton more tests to catch these kinds of bugs.)\n\nReplace this with:\n\n  if (!ssl-\u003es3-\u003einitial_handshake_complete \u0026\u0026\n      ssl_supports_version(ssl, TLS1_3_VERSION)) {\n\n(This is also slightly wonky if DTLS 1.3 uses the bit-flipped pattern, but hopefully drafts will be gone by then and we can go back to the max_version computation.)",
+      "revId": "9b1a57e25c9a13f9a882b9f9c7fe7da4ee11cf2d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fdef1ff4_7ae0fadf",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-13T21:59:10Z",
+      "side": 1,
+      "message": "How about...\n\n  static_assert(sizeof(kTLS12DowngradeRandom) \u003d\u003d sizeof(kTLS13DowngradeRandom),\n                \"downgrade signals have different size\");\n  auto suffix \u003d MakeConstSpan(ssl-\u003es3-\u003eserver_random).subspan(\n      SSL3_RANDOM_SIZE - sizeof(kTLS13DowngradeRandom);\n  if (suffix \u003d\u003d kTLS12DowngradeRandom || suffix \u003d\u003d kTLS13DowngradeRandom) {",
+      "revId": "9b1a57e25c9a13f9a882b9f9c7fe7da4ee11cf2d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9fe83fa_d493f0e0",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1483,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-13T21:59:10Z",
+      "side": 1,
+      "message": "Disable False Start when the downgrade signal trips, with a comment explaining why since it\u0027s non-obvious. (And a test.)",
+      "revId": "9b1a57e25c9a13f9a882b9f9c7fe7da4ee11cf2d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a407cbd_82c22e20",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-13T21:59:10Z",
+      "side": 1,
+      "message": "if (ssl_supports_version(ssl, TLS1_3_VERSION)) {",
+      "range": {
+        "startLine": 706,
+        "startChar": 43,
+        "endLine": 706,
+        "endChar": 74
+      },
+      "revId": "9b1a57e25c9a13f9a882b9f9c7fe7da4ee11cf2d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d520130_27f7388d",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 707,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-13T21:59:10Z",
+      "side": 1,
+      "message": "This will break DTLS. (ssl-\u003eversion is also something one should rarely condition on.) ssl_protocol_version(ssl) \u003d\u003d TLS1_2_VERSION.",
+      "revId": "9b1a57e25c9a13f9a882b9f9c7fe7da4ee11cf2d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4742c7a1_43357972",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1012,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-13T21:59:10Z",
+      "side": 1,
+      "message": "Nit: Maybe just\n\nkTLS12DowngradeRandom\nkTLS13DowngradeRandom",
+      "revId": "9b1a57e25c9a13f9a882b9f9c7fe7da4ee11cf2d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f889178b_4c5b9145",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 3052,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-13T21:59:10Z",
+      "side": 1,
+      "message": "should continue",
+      "range": {
+        "startLine": 3052,
+        "startChar": 52,
+        "endLine": 3052,
+        "endChar": 74
+      },
+      "revId": "9b1a57e25c9a13f9a882b9f9c7fe7da4ee11cf2d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e1028ed_0e142ed1",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 3053,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-13T21:59:10Z",
+      "side": 1,
+      "message": "TLS 1.3 anti-downgrade mechanism\n\nOr maybe:\n\nis whether a connection should continue when the server random signals a downgrade.",
+      "range": {
+        "startLine": 3053,
+        "startChar": 8,
+        "endLine": 3053,
+        "endChar": 9
+      },
+      "revId": "9b1a57e25c9a13f9a882b9f9c7fe7da4ee11cf2d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "972417ed_8ef8b5d8",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-13T21:59:10Z",
+      "side": 1,
+      "message": "Same comment about conditioning on the variant. (Maybe the TLS 1.1 -\u003e TLS 1.2 case shouldn\u0027t be conditioned on 1.3 at all... I dunno.)",
+      "range": {
+        "startLine": 608,
+        "startChar": 3,
+        "endLine": 608,
+        "endChar": 37
+      },
+      "revId": "9b1a57e25c9a13f9a882b9f9c7fe7da4ee11cf2d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "541c9fcb_f6a734a0",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 1179,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-13T21:59:10Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "9b1a57e25c9a13f9a882b9f9c7fe7da4ee11cf2d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68a14b82_1717c8dd",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 5944,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-13T21:59:10Z",
+      "side": 1,
+      "message": "Also test that this logic does *not* fire for draft versions, both on client and server. Having an explicit Send* functions might be useful in that case, I dunno.",
+      "revId": "9b1a57e25c9a13f9a882b9f9c7fe7da4ee11cf2d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
