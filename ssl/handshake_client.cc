@@ -588,19 +588,25 @@ static enum ssl_hs_wait_t do_read_server_hello(SSL_HANDSHAKE *hs) {
   OPENSSL_memcpy(ssl->s3->server_random, CBS_data(&server_random),
                  SSL3_RANDOM_SIZE);
 
-  // Measure, but do not enforce, the TLS 1.3 anti-downgrade feature, with a
-  // different value.
-  //
-  // For draft TLS 1.3 versions, it is not safe to deploy this feature. However,
-  // some TLS terminators are non-compliant and copy the origin server's value,
-  // so we wish to measure eventual compatibility impact.
+  // Enforce the TLS 1.3 anti-downgrade feature.
   if (!ssl->s3->initial_handshake_complete &&
       hs->max_version >= TLS1_3_VERSION &&
-      OPENSSL_memcmp(ssl->s3->server_random + SSL3_RANDOM_SIZE -
-                         sizeof(kDraftDowngradeRandom),
-                     kDraftDowngradeRandom,
-                     sizeof(kDraftDowngradeRandom)) == 0) {
-    ssl->s3->draft_downgrade = true;
+      ssl->tls13_variant == tls13_rfc) {
+    if (OPENSSL_memcmp(ssl->s3->server_random + SSL3_RANDOM_SIZE -
+                           sizeof(kTLS13DowngradeRandomTLS12),
+                       kTLS13DowngradeRandomTLS12,
+                       sizeof(kTLS13DowngradeRandomTLS12)) == 0 ||
+        OPENSSL_memcmp(ssl->s3->server_random + SSL3_RANDOM_SIZE -
+                           sizeof(kTLS13DowngradeRandomTLS13),
+                       kTLS13DowngradeRandomTLS13,
+                       sizeof(kTLS13DowngradeRandomTLS13)) == 0) {
+      ssl->s3->tls13_downgrade = true;
+      if (!ssl->ctx->ignore_tls13_downgrade) {
+        OPENSSL_PUT_ERROR(SSL, SSL_R_TLS13_DOWNGRADE);
+        ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);
+        return ssl_hs_error;
+      }
+    }
   }
 
   if (!ssl->s3->initial_handshake_complete && ssl->session != NULL &&
