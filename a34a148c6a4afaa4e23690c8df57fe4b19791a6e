@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a53d676a_fa66654d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-13T19:26:18Z",
+      "side": 1,
+      "message": "Mind adding a note that the anti-downgrade signal will be added in a follow-up change?",
+      "revId": "a34a148c6a4afaa4e23690c8df57fe4b19791a6e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d39c2e0_31088292",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3407,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-13T19:26:18Z",
+      "side": 1,
+      "message": "Probably not in this CL, but do need to flip this to tls13_default later and then maybe have another option for enabling the drafts. flooey@ is working on enabling it in Conscrypt, and it\u0027s important that Android never touch the draft versions.\n\nWhat if you added at the end:\n\n  tls13_all \u003d tls13_default,\n\nAnd then we patch the servers to use tls13_all. Then we get rid of tls13_default and move tls13_rfc to position 0.\n\nWDYT?",
+      "revId": "a34a148c6a4afaa4e23690c8df57fe4b19791a6e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f6e1503_3e832bcd",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1768,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-13T19:26:18Z",
+      "side": 1,
+      "message": "Uh... let\u0027s not write O(N^2) checks.\n\n\tvers, ok :\u003d wireToVersion(wireVers, isDTLS)\n\tif !ok || c.minVersion(isDTLS) \u003e vers || vers \u003e c.maxVersion(isDTLS) {\n\t\treturn 0, false\n\t}\n\n\tif vers \u003d\u003d VersionTLS13 {\n\t\tswitch c.TLS13Variant {\n\t\tcase TLS13Draft23:\n\t\t\tif wireVers !\u003d tls13Draft23Version {\n\t\t\t\treturn 0, false\n\t\t\t}\n\t\tcase TLS13Draft28:\n\t\t\tif wireVers !\u003d tls13Draft28Version {\n\t\t\t\treturn 0, false\n\t\t\t}\n\t\tcase TLS13RFC:\n\t\t\tif wireVers !\u003d VersionTLS13 {\n\t\t\t\treturn 0, false\n\t\t\t}\n\t\tcase TLS13Default:\n\t\t\t// Allow all of them.\n\t\tdefault:\n\t\t\tpanic(c.TLS13Variant)\n\t\t}\n\t}\n\treturn vers, true\n}\n\nWhile longer, it\u0027s much much easier to read.",
+      "revId": "a34a148c6a4afaa4e23690c8df57fe4b19791a6e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63263d4a_ffed93dc",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1027,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-13T19:26:18Z",
+      "side": 1,
+      "message": "I\u0027m guessing this is because lots of things say \"TLS13\" in them.",
+      "revId": "a34a148c6a4afaa4e23690c8df57fe4b19791a6e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
