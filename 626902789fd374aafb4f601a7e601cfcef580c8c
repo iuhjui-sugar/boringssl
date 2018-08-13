@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "83bb0c89_9f9b2c98",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 3407,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-13T20:06:45Z",
+      "side": 1,
+      "message": "Nit: Maybe add a TODO here like:\n\nTODO(svaldez): Make |tls13_rfc| the default after callers are switched to\nexplicitly enable |tls13_all|.",
+      "revId": "626902789fd374aafb4f601a7e601cfcef580c8c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
