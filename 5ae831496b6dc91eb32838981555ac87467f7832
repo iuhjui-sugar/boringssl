@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "b952185e_67208279",
+        "filename": "crypto/evp/evp.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-13T23:15:28Z",
+      "side": 1,
+      "message": "This will cause the function to get compiled out in release builds.",
+      "range": {
+        "startLine": 223,
+        "startChar": 2,
+        "endLine": 223,
+        "endChar": 8
+      },
+      "revId": "5ae831496b6dc91eb32838981555ac87467f7832",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4c76a5f9_c0ea115d",
         "filename": "crypto/evp/evp.c",
         "patchSetId": 1
@@ -13,6 +36,41 @@
       "writtenOn": "2018-08-13T23:05:38Z",
       "side": 1,
       "message": "This seems wrong: The documentation says, \"EVP_PKEY_assign sets the underlying key of |pkey| to |key|, which must be of the given type.\" However, this implementation doesn\u0027t seem to verify that |key| is of the type |type|.",
+      "revId": "5ae831496b6dc91eb32838981555ac87467f7832",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "545b3eaa_900ce71b",
+        "filename": "crypto/evp/evp.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-13T23:15:28Z",
+      "side": 1,
+      "message": "There\u0027s nothing that can be done to verify it anyway. C doesn\u0027t keep type information alongside void* pointers. By \"which must be\", we usually mean \"this is the caller\u0027s responsibility and we don\u0027t promise good behavior if you mess this up\".\n\n(This function is kind of ridiculous. OpenSSL believes one can register custom EVP_PKEY types, which is how we inherited it. Probably shouldn\u0027t be exported...)",
+      "parentUuid": "4c76a5f9_c0ea115d",
+      "revId": "5ae831496b6dc91eb32838981555ac87467f7832",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19cc950d_97d6a0af",
+        "filename": "crypto/evp/evp.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-13T23:15:28Z",
+      "side": 1,
+      "message": "This case causes the various callers to also NULL-check the input, which means removing the failure checks isn\u0027t quiiiiite a no-op and the documentation thus doesn\u0027t match either. (Not that I could give you a clear reason for why this is useful. It\u0027s just the current behavior. :-/ )",
       "revId": "5ae831496b6dc91eb32838981555ac87467f7832",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
