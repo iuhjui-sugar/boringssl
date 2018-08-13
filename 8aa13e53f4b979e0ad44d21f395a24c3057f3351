@@ -99,6 +99,24 @@
       "revId": "8aa13e53f4b979e0ad44d21f395a24c3057f3351",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8e0aabfc_e3272dc8",
+        "filename": "luci-notify.cfg",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 6950
+      },
+      "writtenOn": "2018-08-13T18:03:40Z",
+      "side": 1,
+      "message": "thanks.",
+      "parentUuid": "e49cf7df_86f85ce6",
+      "revId": "8aa13e53f4b979e0ad44d21f395a24c3057f3351",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
