@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ec1f6dbe_d8cea350",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1485,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-14T21:08:09Z",
+      "side": 1,
+      "message": "We didn\u0027t really justify the original one, but perhaps we should now. How\u0027s this? (A little long. Feel free to shorten it.)\n\n\nFalse Start bypasses the Finished check\u0027s downgrade protection. This can enable attacks where we send data under weaker settings than supported (e.g. the Logjam attack). Thus we require TLS 1.2 with an ECDHE+AEAD cipher, our strongest settings before TLS 1.3.\n\nNow that TLS 1.3 exists, we would like to avoid similar attacks between TLS 1.2 and TLS 1.3, but there are too many TLS 1.2 deployments to sacrifice False Start on them. TLS 1.3\u0027s downgrade signal fixes this, but |SSL_CTX_set_ignore_tls13_downgrade| can disable it due to compatibility issues.\n\n|SSL_CTX_set_ignore_tls13_downgrade| normally still retains Finished-based downgrade protection, but False Start bypasses that. Thus, we disable False Start based on the TLS 1.3 downgrade signal, even if otherwise unenforced.",
+      "revId": "a3b289ef59a560275b0c4273ce8994ad20c75bb5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "519d60b6_624cac5b",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1497,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-14T21:08:09Z",
+      "side": 1,
+      "message": "Existing issue and my fault, but do you mind changing this word to \"tightened\" while you\u0027re here?",
+      "range": {
+        "startLine": 1497,
+        "startChar": 34,
+        "endLine": 1497,
+        "endChar": 41
+      },
+      "revId": "a3b289ef59a560275b0c4273ce8994ad20c75bb5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a36473fa_ff7a00a3",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 1597,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-14T21:08:09Z",
+      "side": 1,
+      "message": "Unused?",
+      "range": {
+        "startLine": 1597,
+        "startChar": 1,
+        "endLine": 1597,
+        "endChar": 26
+      },
+      "revId": "a3b289ef59a560275b0c4273ce8994ad20c75bb5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25d9eaad_38025f8d",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 5898,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-14T21:08:09Z",
+      "side": 1,
+      "message": "Redundant with line 5903. (Though is this needed now that the TLS13Variant check is fixed? I guess it\u0027s nice to be explicit, but we\u0027ll also never have the default variant not enable RFC, so whichever...)\n\nDitto for the tests below.",
+      "revId": "a3b289ef59a560275b0c4273ce8994ad20c75bb5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18ee3d86_4cf5f6c3",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 5977,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-14T21:08:09Z",
+      "side": 1,
+      "message": "False Start",
+      "range": {
+        "startLine": 5977,
+        "startChar": 14,
+        "endLine": 5977,
+        "endChar": 24
+      },
+      "revId": "a3b289ef59a560275b0c4273ce8994ad20c75bb5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fded1fa_a8b4241b",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 6000,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-14T21:08:09Z",
+      "side": 1,
+      "message": "Also test that False Start still works if:\n\n1. The client\u0027s max version is TLS 1.2 (i.e. TLS 1.3 is disabled)\n2. The server supports TLS 1.3 (i.e. it will include the downgrade signal but the client should ignore it because it\u0027s not a downgrade)\n3. (Client enables False Start, etc.)\n\nThis is to make sure this change doesn\u0027t lose False Start in clients that haven\u0027t turned on TLS 1.3 yet.",
+      "revId": "a3b289ef59a560275b0c4273ce8994ad20c75bb5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
