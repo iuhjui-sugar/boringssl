@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "31fe3a47_dc905c87",
+        "filename": "include/openssl/ec.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-14T19:53:16Z",
+      "side": 1,
+      "message": "It can also fail if we don\u0027t know what |nid| is. :-) Strictly speaking I think it can also fail if we manage to get super confused internally and think the generator isn\u0027t on the curve, but this can only happen if the library was catastrophically miscompiled or cosmic rays.\n\nPerhaps \"or NULL on unsupported NID or allocation failure\".\n\n(One of these days I\u0027d like to take the allocation failure out of this one. There\u0027s all of four curves here... we should just put the stuff in the binary and not worry about it.)",
+      "range": {
+        "startLine": 105,
+        "startChar": 40,
+        "endLine": 105,
+        "endChar": 43
+      },
+      "revId": "e268fd4089771305970ea50deb0e90c23ef2c813",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8cdd2190_ece87a97",
+        "filename": "include/openssl/ec_key.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-14T19:53:16Z",
+      "side": 1,
+      "message": "There\u0027s also the case where it has a group and you set the same group again (yes, this is absurd). Perhaps:\n\n\"It returns one on success and zero if |key| is already configured with a different group.\"\n\nThe history with this function is that OpenSSL used to let you freely change the group even after configuring a key. This is nuts and badly complicated some timing hardening.\n\nFortunately, no one does such an absurd thing. Unfortunately, there was a caller that sets the group twice! :-( (Their function to setup a private key sets private key + group and then calls their function to setup the public key... which resets the group.)\n\nOpenSSL also used to copy EC_GROUPs all over the place so EC_KEY_set_group actually allocated. That\u0027s now gone,",
+      "revId": "e268fd4089771305970ea50deb0e90c23ef2c813",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34916e4b_2b2ee7c5",
+        "filename": "include/openssl/evp.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-14T19:53:16Z",
+      "side": 1,
+      "message": "or if |key| is NULL",
+      "range": {
+        "startLine": 179,
+        "startChar": 40,
+        "endLine": 179,
+        "endChar": 41
+      },
+      "revId": "e268fd4089771305970ea50deb0e90c23ef2c813",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d1f62f1_637028fd",
+        "filename": "include/openssl/evp.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-14T19:53:16Z",
+      "side": 1,
+      "message": "It\u0027s probably reasonable to implicitly assume this: it\u0027s not actually possible to have a group-less EC_KEY object unless it\u0027s totally empty. We won\u0027t let you fill in the public (or private) half. We wouldn\u0027t even know how to represent them in memory. The serialization format also isn\u0027t defined without a group.\n\nThat said, a fun fact: depending on which spec you look at, it is vaguely defined to have an \"implicitCurve\" SubjectPublicKeyInfo in a certificate which encodes an EC key without a group! Fortunately, this is banned in RFC 5480 and I know of no implementation which believes in it. But in that scenario, your API would probably tell the parsing function what default group to use (e.g. EC_KEY_parse_private_key).\n\nOther fun fact: In DSA certificates, which we do not support, the group may likewise be omitted, in which case the semantics are that you inherit the issuer\u0027s group! This is terrible. :-)\n\n(I don\u0027t know why this had to be so complicated. Bad decisions piled atop bad decisions in the name of \"flexibility\".)",
+      "range": {
+        "startLine": 200,
+        "startChar": 12,
+        "endLine": 200,
+        "endChar": 13
+      },
+      "revId": "e268fd4089771305970ea50deb0e90c23ef2c813",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44750552_c6d75003",
+        "filename": "include/openssl/hmac.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-14T19:53:16Z",
+      "side": 1,
+      "message": "[Technically I believe even this is impossible, but this is not obvious so let\u0027s leave it at \"allocation failure\".]",
+      "range": {
+        "startLine": 125,
+        "startChar": 3,
+        "endLine": 125,
+        "endChar": 29
+      },
+      "revId": "e268fd4089771305970ea50deb0e90c23ef2c813",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
