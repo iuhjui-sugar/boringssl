@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bb22f837_9339023a",
+        "filename": "include/openssl/ec.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 8959
+      },
+      "writtenOn": "2018-08-14T20:14:37Z",
+      "side": 1,
+      "message": "Good catch; fixed.",
+      "parentUuid": "31fe3a47_dc905c87",
+      "range": {
+        "startLine": 105,
+        "startChar": 40,
+        "endLine": 105,
+        "endChar": 43
+      },
+      "revId": "e268fd4089771305970ea50deb0e90c23ef2c813",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8cdd2190_ece87a97",
         "filename": "include/openssl/ec_key.h",
         "patchSetId": 6
@@ -39,6 +63,24 @@
       "revId": "e268fd4089771305970ea50deb0e90c23ef2c813",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38773a7c_cd19262f",
+        "filename": "include/openssl/ec_key.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 8959
+      },
+      "writtenOn": "2018-08-14T20:14:37Z",
+      "side": 1,
+      "message": "Dear god...\n\nFixed :)",
+      "parentUuid": "8cdd2190_ece87a97",
+      "revId": "e268fd4089771305970ea50deb0e90c23ef2c813",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "053239a9_43d6c5f6",
+        "filename": "include/openssl/evp.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 8959
+      },
+      "writtenOn": "2018-08-14T20:14:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34916e4b_2b2ee7c5",
+      "range": {
+        "startLine": 179,
+        "startChar": 40,
+        "endLine": 179,
+        "endChar": 41
+      },
+      "revId": "e268fd4089771305970ea50deb0e90c23ef2c813",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d1f62f1_637028fd",
         "filename": "include/openssl/evp.h",
         "patchSetId": 6
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "28b39f8f_e5753ef1",
+        "filename": "include/openssl/evp.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 8959
+      },
+      "writtenOn": "2018-08-14T20:14:37Z",
+      "side": 1,
+      "message": "Any harm in leaving it explicit? It sounds like, based on what you said, it\u0027s technically possible according to the spec (if ill advised) to be able to encode w/o the group. Plus, the documentation on EC_KEY_parse_private_key implies that private keys can omit the group, so it wouldn\u0027t be too much of a stretch for somebody to assume that public keys worked the same way:\n\n\"If |group| is non-null, the parameters field of the ECPrivateKey may be omitted (but must match |group| if present). Otherwise, the parameters field is required.\"",
+      "parentUuid": "6d1f62f1_637028fd",
+      "range": {
+        "startLine": 200,
+        "startChar": 12,
+        "endLine": 200,
+        "endChar": 13
+      },
+      "revId": "e268fd4089771305970ea50deb0e90c23ef2c813",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "44750552_c6d75003",
         "filename": "include/openssl/hmac.h",
         "patchSetId": 6
@@ -99,6 +189,30 @@
       "writtenOn": "2018-08-14T19:53:16Z",
       "side": 1,
       "message": "[Technically I believe even this is impossible, but this is not obvious so let\u0027s leave it at \"allocation failure\".]",
+      "range": {
+        "startLine": 125,
+        "startChar": 3,
+        "endLine": 125,
+        "endChar": 29
+      },
+      "revId": "e268fd4089771305970ea50deb0e90c23ef2c813",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "56f40211_6eb50f4e",
+        "filename": "include/openssl/hmac.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 8959
+      },
+      "writtenOn": "2018-08-14T20:14:37Z",
+      "side": 1,
+      "message": "Hahah yeah I saw your internal comment. Let me know if at some point you feel comfortable changing this to \"It returns one.\"",
+      "parentUuid": "44750552_c6d75003",
       "range": {
         "startLine": 125,
         "startChar": 3,
