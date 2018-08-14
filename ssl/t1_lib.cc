@@ -2957,7 +2957,8 @@ static const struct tls_extension kExtensions[] = {
   },
 };
 
-#define kNumExtensions (sizeof(kExtensions) / sizeof(struct tls_extension))
+constexpr unsigned kNumExtensions =
+    sizeof(kExtensions) / sizeof(struct tls_extension);
 
 static_assert(kNumExtensions <=
                   sizeof(((SSL_HANDSHAKE *)NULL)->extensions.sent) * 8,
@@ -2996,46 +2997,78 @@ bool ssl_add_clienthello_tlsext(SSL_HANDSHAKE *hs, CBB *out,
     }
   }
 
+  // Construct an array of pairs of unsigneds, where the first of the pair is an
+  // index into |kExtensions| and the second is a random value. Then the pairs
+  // are sorted by the random value to random ordering for extensions in a
+  // ClientHello. We also emit two GREASE extensions, and they're included in
+  // the shuffle by assigning them "indexes" of |kNumExtensions| and
+  // |kNumExtensions|+1.
+  constexpr unsigned kNumExtraExtensions = 2;
+  unsigned shuffled_extensions[2*(kNumExtensions + kNumExtraExtensions)];
+  for (unsigned i = 0; i < kNumExtensions + kNumExtraExtensions; i++) {
+    unsigned random_value;
+    RAND_bytes(reinterpret_cast<uint8_t *>(&random_value),
+               sizeof(random_value));
+    shuffled_extensions[2 * i] = i;
+    shuffled_extensions[2*i+1] = random_value;
+  }
+
+  qsort(shuffled_extensions, kNumExtensions + kNumExtraExtensions,
+        sizeof(unsigned) * 2, [](const void *in_a, const void *in_b) {
+          const unsigned *a = reinterpret_cast<const unsigned *>(in_a);
+          const unsigned *b = reinterpret_cast<const unsigned *>(in_b);
+          if (a[1] < b[1]) {
+            return -1;
+          } else if (a[1] > b[1]) {
+            return 1;
+          } else {
+            return 0;
+          }
+        });
+
   uint16_t grease_ext1 = 0;
-  if (ssl->ctx->grease_enabled) {
-    // Add a fake empty extension. See draft-davidben-tls-grease-01.
-    grease_ext1 = ssl_get_grease_value(hs, ssl_grease_extension1);
-    if (!CBB_add_u16(&extensions, grease_ext1) ||
-        !CBB_add_u16(&extensions, 0 /* zero length */)) {
-      OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
-      return false;
-    }
-  }
+  for (size_t i = 0; i < kNumExtensions + kNumExtraExtensions; i++) {
+    unsigned index = shuffled_extensions[2*i];
+    if (index < kNumExtensions) {
+      const size_t len_before = CBB_len(&extensions);
+      if (!kExtensions[index].add_clienthello(hs, &extensions)) {
+        OPENSSL_PUT_ERROR(SSL, SSL_R_ERROR_ADDING_EXTENSION);
+        ERR_add_error_dataf("extension %u", (unsigned)kExtensions[index].value);
+        return false;
+      }
 
-  for (size_t i = 0; i < kNumExtensions; i++) {
-    const size_t len_before = CBB_len(&extensions);
-    if (!kExtensions[i].add_clienthello(hs, &extensions)) {
-      OPENSSL_PUT_ERROR(SSL, SSL_R_ERROR_ADDING_EXTENSION);
-      ERR_add_error_dataf("extension %u", (unsigned)kExtensions[i].value);
-      return false;
-    }
+      if (CBB_len(&extensions) != len_before) {
+        hs->extensions.sent |= (1u << index);
+      }
+    } else if (index == kNumExtensions) {
+      if (ssl->ctx->grease_enabled) {
+        // Add a fake empty extension. See draft-davidben-tls-grease-01.
+        grease_ext1 = ssl_get_grease_value(hs, ssl_grease_extension1);
+        if (!CBB_add_u16(&extensions, grease_ext1) ||
+            !CBB_add_u16(&extensions, 0 /* zero length */)) {
+          OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
+          return false;
+        }
+      }
+    } else if (index == kNumExtensions + 1) {
+      // Add a fake non-empty extension. See draft-davidben-tls-grease-01.
+      uint16_t grease_ext2 = ssl_get_grease_value(hs, ssl_grease_extension2);
 
-    if (CBB_len(&extensions) != len_before) {
-      hs->extensions.sent |= (1u << i);
-    }
-  }
+      // The two fake extensions must not have the same value. GREASE values are
+      // of the form 0x1a1a, 0x2a2a, 0x3a3a, etc., so XOR to generate a
+      // different one.
+      if (grease_ext1 == grease_ext2) {
+        grease_ext2 ^= 0x1010;
+      }
 
-  if (ssl->ctx->grease_enabled) {
-    // Add a fake non-empty extension. See draft-davidben-tls-grease-01.
-    uint16_t grease_ext2 = ssl_get_grease_value(hs, ssl_grease_extension2);
-
-    // The two fake extensions must not have the same value. GREASE values are
-    // of the form 0x1a1a, 0x2a2a, 0x3a3a, etc., so XOR to generate a different
-    // one.
-    if (grease_ext1 == grease_ext2) {
-      grease_ext2 ^= 0x1010;
-    }
-
-    if (!CBB_add_u16(&extensions, grease_ext2) ||
-        !CBB_add_u16(&extensions, 1 /* one byte length */) ||
-        !CBB_add_u8(&extensions, 0 /* single zero byte as contents */)) {
-      OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
-      return false;
+      if (!CBB_add_u16(&extensions, grease_ext2) ||
+          !CBB_add_u16(&extensions, 1 /* one byte length */) ||
+          !CBB_add_u8(&extensions, 0 /* single zero byte as contents */)) {
+        OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
+        return false;
+      }
+    } else {
+      abort();
     }
   }
 
