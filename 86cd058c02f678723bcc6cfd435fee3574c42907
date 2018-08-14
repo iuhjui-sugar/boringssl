@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6021a20f_e1505efd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-14T17:40:51Z",
+      "side": 1,
+      "message": "Yeah, we need to get a patch into clang-format for that. Something like ForEachMacros, but telling clang-format that STACK_OF(T) should be treated as if it were a type. (There\u0027s a function determineStarAmpUsage which is probably where to patch it.)",
+      "revId": "86cd058c02f678723bcc6cfd435fee3574c42907",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
