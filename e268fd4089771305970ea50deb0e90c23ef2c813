@@ -178,6 +178,30 @@
     },
     {
       "key": {
+        "uuid": "16882d52_37d6bddf",
+        "filename": "include/openssl/evp.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-14T20:31:47Z",
+      "side": 1,
+      "message": "To clarify a bit: EC_KEY_parse_private_key can\u0027t produce group-less EC_KEYs. Rather it allows the *serialization* to carry an implicit group, but you need to tell us which group to fill in.\n\nBut I don\u0027t mind having the text in there.",
+      "parentUuid": "28b39f8f_e5753ef1",
+      "range": {
+        "startLine": 200,
+        "startChar": 12,
+        "endLine": 200,
+        "endChar": 13
+      },
+      "revId": "e268fd4089771305970ea50deb0e90c23ef2c813",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44750552_c6d75003",
         "filename": "include/openssl/hmac.h",
         "patchSetId": 6
