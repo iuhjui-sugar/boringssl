@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "c1a4f463_e025f2eb",
+        "filename": "crypto/fipsmodule/hmac/hmac.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 8959
+      },
+      "writtenOn": "2018-08-14T00:54:14Z",
+      "side": 1,
+      "message": "That\u0027s a fair perspective; I\u0027ve removed them.",
+      "parentUuid": "e1665e79_56b4f929",
+      "revId": "1d24ab571ed33071dd879cefee248dad50731df6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c7b76de9_7da78fe7",
         "filename": "include/openssl/digest.h",
         "patchSetId": 1
