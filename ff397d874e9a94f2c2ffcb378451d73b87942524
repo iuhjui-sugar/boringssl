@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8a655a50_d933045c",
+        "filename": "crypto/test/test_util.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-15T02:23:47Z",
+      "side": 1,
+      "message": "It\u0027s unclear whether we would have bothered with Bytes if we had Span\u003cconst uint8_t\u003e from the beginning. But it prints to GTest in hex, which is handy I guess.",
+      "revId": "ff397d874e9a94f2c2ffcb378451d73b87942524",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
