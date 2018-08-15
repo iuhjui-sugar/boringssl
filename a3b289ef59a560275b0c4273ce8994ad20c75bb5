@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "cc488071_66107dfd",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1485,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-08-15T14:51:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec1f6dbe_d8cea350",
+      "revId": "a3b289ef59a560275b0c4273ce8994ad20c75bb5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "519d60b6_624cac5b",
         "filename": "ssl/handshake_client.cc",
         "patchSetId": 5
@@ -39,6 +57,30 @@
       "revId": "a3b289ef59a560275b0c4273ce8994ad20c75bb5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c725295f_ee73826b",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1497,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-08-15T14:51:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "519d60b6_624cac5b",
+      "range": {
+        "startLine": 1497,
+        "startChar": 34,
+        "endLine": 1497,
+        "endChar": 41
+      },
+      "revId": "a3b289ef59a560275b0c4273ce8994ad20c75bb5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "af1bd2b4_6e769fa8",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 1597,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-08-15T14:51:46Z",
+      "side": 1,
+      "message": "Used to force the runner to check the downgrade random even when negotiating TLS drafts.",
+      "parentUuid": "a36473fa_ff7a00a3",
+      "range": {
+        "startLine": 1597,
+        "startChar": 1,
+        "endLine": 1597,
+        "endChar": 26
+      },
+      "revId": "a3b289ef59a560275b0c4273ce8994ad20c75bb5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "25d9eaad_38025f8d",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 5
@@ -79,6 +145,24 @@
       "revId": "a3b289ef59a560275b0c4273ce8994ad20c75bb5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8a3f732_570b8880",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 5898,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-08-15T14:51:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25d9eaad_38025f8d",
+      "revId": "a3b289ef59a560275b0c4273ce8994ad20c75bb5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -105,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "f8eb9876_fe361442",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 5977,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-08-15T14:51:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18ee3d86_4cf5f6c3",
+      "range": {
+        "startLine": 5977,
+        "startChar": 14,
+        "endLine": 5977,
+        "endChar": 24
+      },
+      "revId": "a3b289ef59a560275b0c4273ce8994ad20c75bb5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1fded1fa_a8b4241b",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 5
@@ -119,6 +227,24 @@
       "revId": "a3b289ef59a560275b0c4273ce8994ad20c75bb5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71b44b9f_51e953e9",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 6000,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-08-15T14:51:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1fded1fa_a8b4241b",
+      "revId": "a3b289ef59a560275b0c4273ce8994ad20c75bb5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
