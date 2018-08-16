@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "16e15b83_ec035e31",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-08-16T17:32:51Z",
+      "side": 1,
+      "message": "Maybe convert this into the link as below for consistency?",
+      "range": {
+        "startLine": 599,
+        "startChar": 36,
+        "endLine": 599,
+        "endChar": 59
+      },
+      "revId": "d5660773c8a91abd17a022311149db1e0e417d61",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
