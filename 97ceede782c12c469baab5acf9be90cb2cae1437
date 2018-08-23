@@ -16,6 +16,24 @@
       "revId": "97ceede782c12c469baab5acf9be90cb2cae1437",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca644493_e4a29a16",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2941,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-08-23T15:17:25Z",
+      "side": 1,
+      "message": "So we need something more robust. What about if we track if the final added extension was empty and use the padding extension in that case? (I can cook that up.)",
+      "parentUuid": "e8abd619_2713a3ea",
+      "revId": "97ceede782c12c469baab5acf9be90cb2cae1437",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
