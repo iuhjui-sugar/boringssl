@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e8abd619_2713a3ea",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2941,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-23T15:12:58Z",
+      "side": 1,
+      "message": "This no longer works. With the wrong settings enabled, the last extension will be TLSEXT_TYPE_channel_id, which is empty. (That tokbind and cert compression got added at the end of the list was also goofy, since they\u0027re not always present, but they were always non-empty.)",
+      "revId": "97ceede782c12c469baab5acf9be90cb2cae1437",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
