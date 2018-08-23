@@ -34,6 +34,24 @@
       "revId": "97ceede782c12c469baab5acf9be90cb2cae1437",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7640d0d3_c9e13bbc",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2941,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-23T15:30:33Z",
+      "side": 1,
+      "message": "Oh, I was thinking just moving the Channel ID extension around (Firefox doesn\u0027t do that one so it wouldn\u0027t affect this CL), but that works too. *shrug*",
+      "parentUuid": "ca644493_e4a29a16",
+      "revId": "97ceede782c12c469baab5acf9be90cb2cae1437",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
