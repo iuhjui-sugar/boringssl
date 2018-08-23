@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "67c27cb3_1d8fa8d6",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 3054,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-23T22:36:30Z",
+      "side": 1,
+      "message": "\u003d\u003d 0 might be easier to understand. I\u0027m guessing \u003c 5 was to capture the PSK extension being empty, but, in that case, padding wouldn\u0027t help because PSK always goes last. (It\u0027s also impossible for the PSK extension to be empty.)",
+      "range": {
+        "startLine": 3054,
+        "startChar": 26,
+        "endLine": 3054,
+        "endChar": 47
+      },
+      "revId": "7fb13f3241a601b1db5301727cafc408a6e105ce",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
