@@ -194,11 +194,6 @@ int ECDSA_do_verify(const uint8_t *digest, size_t digest_len,
   int ret = 0;
   EC_POINT *point = NULL;
   BN_CTX_start(ctx);
-  BIGNUM *X = BN_CTX_get(ctx);
-  if (X == NULL) {
-    OPENSSL_PUT_ERROR(ECDSA, ERR_R_BN_LIB);
-    goto err;
-  }
 
   EC_SCALAR r, s, u1, u2, s_inv_mont, m;
   if (BN_is_zero(sig->r) ||
@@ -208,13 +203,9 @@ int ECDSA_do_verify(const uint8_t *digest, size_t digest_len,
     OPENSSL_PUT_ERROR(ECDSA, ECDSA_R_BAD_SIGNATURE);
     goto err;
   }
-
+  
   // s_inv_mont = s^-1 in the Montgomery domain. This is
-  // |ec_scalar_to_montgomery| followed by |ec_scalar_inv_montgomery|, but
-  // |ec_scalar_inv_montgomery| followed by |ec_scalar_from_montgomery| is
-  // equivalent and slightly more efficient.
-  ec_scalar_inv_montgomery(group, &s_inv_mont, &s);
-  ec_scalar_from_montgomery(group, &s_inv_mont, &s_inv_mont);
+  ec_scalar_non_ctime_inv_mont(group, &s_inv_mont, &s);
 
   // u1 = m * s^-1 mod order
   // u2 = r * s^-1 mod order
@@ -234,21 +225,8 @@ int ECDSA_do_verify(const uint8_t *digest, size_t digest_len,
     OPENSSL_PUT_ERROR(ECDSA, ERR_R_EC_LIB);
     goto err;
   }
-  if (!EC_POINT_get_affine_coordinates_GFp(group, point, X, NULL, ctx)) {
-    OPENSSL_PUT_ERROR(ECDSA, ERR_R_EC_LIB);
-    goto err;
-  }
-  if (!field_element_to_scalar(group, X)) {
-    OPENSSL_PUT_ERROR(ECDSA, ERR_R_BN_LIB);
-    goto err;
-  }
-  // The signature is correct iff |X| is equal to |sig->r|.
-  if (BN_ucmp(X, sig->r) != 0) {
-    OPENSSL_PUT_ERROR(ECDSA, ECDSA_R_BAD_SIGNATURE);
-    goto err;
-  }
-
-  ret = 1;
+  
+  ret = ec_cmp_x_coordinate(group, point, sig->r, ctx);
 
 err:
   BN_CTX_end(ctx);

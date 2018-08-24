@@ -74,3 +74,13 @@ void ec_scalar_inv_montgomery(const EC_GROUP *group, EC_SCALAR *r,
                               const EC_SCALAR *a) {
   group->meth->scalar_inv_montgomery(group, r, a);
 }
+
+int ec_scalar_non_ctime_inv_mont(const EC_GROUP *group, EC_SCALAR *r,
+                                 const EC_SCALAR *a) {
+  return group->meth->scalar_non_ctime_inv_mont(group, r, a);
+}
+
+int ec_cmp_x_coordinate(const EC_GROUP *group, const EC_POINT *p, 
+                        const BIGNUM *r, BN_CTX *ctx) {
+  return group->meth->cmp_x_coordinate(group, p, r, ctx);
+}
