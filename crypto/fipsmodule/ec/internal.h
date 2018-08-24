@@ -166,7 +166,16 @@ struct ec_method_st {
   // Montgomery form.
   void (*scalar_inv_montgomery)(const EC_GROUP *group, EC_SCALAR *out,
                                 const EC_SCALAR *in);
-
+  // scalar_vartime_inv performs the same computation as scalar_inv_montgomery.
+  // It further assumes that the inputs are public so there is no concern 
+  // about leaking their values through timing.
+  int (*scalar_vartime_inv_mont)(const EC_GROUP *group, EC_SCALAR *out,
+                                   const EC_SCALAR *in);
+  // Compares the x (affine) coordinate of the point p with r.
+  // Return 1 on success 0 otherwise
+  // Assumption: the caller starts the BN_CTX.
+  int (*cmp_x_coordinate)(const EC_GROUP *group, const EC_POINT *p, 
+                          const BIGNUM *r, BN_CTX *ctx);
 } /* EC_METHOD */;
 
 const EC_METHOD *EC_GFp_mont_method(void);
@@ -272,6 +281,16 @@ void ec_scalar_mul_montgomery(const EC_GROUP *group, EC_SCALAR *r,
 void ec_scalar_inv_montgomery(const EC_GROUP *group, EC_SCALAR *r,
                               const EC_SCALAR *a);
 
+// Same as ec_scalar_inv_montgomery but in non constant time.
+int ec_scalar_vartime_inv_mont(const EC_GROUP *group, EC_SCALAR *r,
+                                 const EC_SCALAR *a);
+
+// Compares the x (affine) coordinate of the point p with r.
+// Return 1 on success 0 otherwise
+// Assumption: the caller starts the BN_CTX.
+int ec_cmp_x_coordinate(const EC_GROUP *group, const EC_POINT *p, 
+                        const BIGNUM *r, BN_CTX *ctx);
+
 // ec_point_mul_scalar sets |r| to generator * |g_scalar| + |p| *
 // |p_scalar|. Unlike other functions which take |EC_SCALAR|, |g_scalar| and
 // |p_scalar| need not be fully reduced. They need only contain as many bits as
@@ -331,6 +350,16 @@ int ec_GFp_simple_cmp(const EC_GROUP *, const EC_RAW_POINT *a,
                       const EC_RAW_POINT *b);
 void ec_simple_scalar_inv_montgomery(const EC_GROUP *group, EC_SCALAR *r,
                                      const EC_SCALAR *a);
+
+int ec_GFp_simple_mont_inv_mod_ord_vartime(const EC_GROUP *group, 
+                                             EC_SCALAR *r,
+                                             const EC_SCALAR *a);
+
+// Compares the x (affine) coordinate of the point p with r.
+// Return 1 on success 0 otherwise
+// Assumption: the caller starts the BN_CTX.
+int ec_GFp_simple_cmp_x_coordinate(const EC_GROUP *group, const EC_POINT *p, 
+                                   const BIGNUM *r, BN_CTX *ctx);
 
 // method functions in montgomery.c
 int ec_GFp_mont_group_init(EC_GROUP *);
