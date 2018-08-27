@@ -30,7 +30,7 @@
 #include "internal.h"
 
 
-namespace bssl {
+BSSL_NAMESPACE_BEGIN
 
 enum client_hs_state_t {
   state_read_hello_retry_request = 0,
@@ -923,4 +923,4 @@ int tls13_process_new_session_ticket(SSL *ssl, const SSLMessage &msg) {
   return 1;
 }
 
-}  // namespace bssl
+BSSL_NAMESPACE_END
