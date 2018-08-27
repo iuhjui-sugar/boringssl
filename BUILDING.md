@@ -110,6 +110,68 @@ architecture, matching values used in the `-arch` flag in Apple's toolchain.
 Passing multiple architectures for a multiple-architecture build is not
 supported.
 
+### Building with Prefixed Symbols
+
+BoringSSL's build system has minimal support for adding a custom prefix to all
+symbols. This can be useful when linking multiple versions of BoringSSL in the
+same project to avoid symbol conflicts.
+
+If the `BORINGSSL_PREFIX` symbol is defined, the `openssl/base.h` header file
+(which is included in all other BoringSSL header files) will include a
+`boringssl_prefix_symbols.h` file. All generated `.S` files will include a
+header file - `boringssl_prefix_symbols_asm.h` if a GNU assembler is used, and
+`boringssl_prefix_symbols_nasm.inc` if a NASM assembler is used. Neither of
+these files are provided by BoringSSL - it is the caller's responsibility to
+provide these files in a way that suits the caller's needs.
+
+It is recommended that the `boringssl_prefix_symbols.h` file contain something
+like the following. Keep in mind that the caller will need to ensure that this
+file is kept up to date with all symbols exposed by the current version of
+BoringSSL.
+
+```C
+// This macro pastes two identifiers into one. It performs one iteration of
+// macro expansion on its arguments before pasting. In other words,
+// #define FOO foo
+// __PREFIX(FOO, _bar)
+// evaluates to the identifier foo_bar.
+#define __PREFIX(a, b) __PREFIX_INNER(a, b)
+#define __PREFIX_INNER(a, b) a ## b
+
+#define BORINGSSL_SYMBOL_FOO __PREFIX(BORINGSSL_PREFIX, BORINGSSL_SYMBOL_FOO)
+```
+
+It is recommended that the `boringssl_prefix_symbols_asm.h` file simply include
+the `boringssl_prefix_symbols.h` file, except on Mac, which requires special
+logic due to the way Mach-O handles symbol naming.
+
+```C
+#if !defined(__APPLE__)
+// On non-Mac platforms, just use boringssl_prefix_symbols.h
+#include <boringssl_prefix_symbols.h>
+#else
+
+// On Mac, we need to treat assembly symbols differently than we treat other
+// symbols (see boringssl_prefix_symbols.h). The Mac linker expects symbols to
+// be prefixed with an underscore. Knowing this, the Perl scripts that generate
+// the .S files generate them with function names that are prefixed with an
+// underscore. Thus, doing something like '#define FOO bar' (as we do in
+// boringssl_prefix_symbols.h) won't work to rename an assembly function 'FOO'
+// since it will be written in the .S file as '_FOO'. Thus, on Mac, in addition
+// to replacing assembly symbol FOO with BORINGSSL_PREFIX_FOO (which we still
+// need to do since assembly symbols are referenced in C code), we replace _FOO
+// with _BORINGSSL_PREFIX_FOO so that the .S file is properly modified.
+#define __PREFIX_MAC_ASM(a, b) __PREFIX_MAC_ASM_INNER(a, b)
+#define __PREFIX_MAC_ASM_INNER(a, b) _ ## a ## b
+
+#define _BORINGSSL_ASM_SYMBOL_FOO __PREFIX_MAC_ASM(BORINGSSL_PREFIX, BORINGSSL_ASM_SYMBOL_FOO)
+
+#endif
+```
+
+The `BORINGSSL_PREFIX` symbol can be set to `FOO` using CMake with the
+`-DBORINGSSL_PREFIX=FOO` flag.
+
 ## Known Limitations on Windows
 
   * Versions of CMake since 3.0.2 have a bug in its Ninja generator that causes
