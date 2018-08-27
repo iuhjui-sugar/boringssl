@@ -20,6 +20,11 @@ include(sources.cmake)
 enable_language(C)
 enable_language(CXX)
 
+# This is a dummy target which all other targets depend on (manually - see other
+# CMakeLists.txt files). This gives us a hook to add any targets which need to
+# run before all other targets.
+add_custom_target(global_target)
+
 if(ANDROID)
   # Android-NDK CMake files reconfigure the path and so Go and Perl won't be
   # found. However, ninja will still find them in $PATH if we just name them.
@@ -41,8 +46,25 @@ endif()
 if(USE_CUSTOM_LIBCXX)
   set(BORINGSSL_ALLOW_CXX_RUNTIME 1)
 endif()
+
 if(BORINGSSL_ALLOW_CXX_RUNTIME)
   add_definitions(-DBORINGSSL_ALLOW_CXX_RUNTIME)
+endif()
+
+if(BORINGSSL_PREFIX AND BORINGSSL_PREFIX_SYMBOLS)
+  add_definitions(-DBORINGSSL_PREFIX=${BORINGSSL_PREFIX})
+
+  # Use "symbol_prefix_include" to store generated header files
+  add_definitions(-I${CMAKE_CURRENT_BINARY_DIR}/symbol_prefix_include)
+  add_custom_target(
+    boringssl_prefix_symbols
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_CURRENT_BINARY_DIR}/symbol_prefix_include
+    COMMAND ${GO_EXECUTABLE} run ${CMAKE_CURRENT_SOURCE_DIR}/util/make_prefix_headers.go -out ${CMAKE_CURRENT_BINARY_DIR}/symbol_prefix_include ${BORINGSSL_PREFIX_SYMBOLS}
+    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/util/make_prefix_headers.go)
+
+  add_dependencies(global_target boringssl_prefix_symbols)
+elseif(BORINGSSL_PREFIX OR BORINGSSL_PREFIX_SYMBOLS)
+  message(FATAL_ERROR "Must specify both or neither of BORINGSSL_PREFIX and BORINGSSL_PREFIX_SYMBOLS")
 endif()
 
 if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
