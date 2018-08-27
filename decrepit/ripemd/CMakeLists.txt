@@ -7,3 +7,5 @@ add_library(
 
   ripemd.c
 )
+
+add_dependencies(ripemd_decrepit global_target)

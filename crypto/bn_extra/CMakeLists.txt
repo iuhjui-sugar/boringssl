@@ -8,3 +8,5 @@ add_library(
   bn_asn1.c
   convert.c
 )
+
+add_dependencies(bn_extra global_target)

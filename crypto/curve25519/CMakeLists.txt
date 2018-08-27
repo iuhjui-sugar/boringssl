@@ -17,3 +17,5 @@ add_library(
 
   ${CURVE25519_ARCH_SOURCES}
 )
+
+add_dependencies(curve25519 global_target)

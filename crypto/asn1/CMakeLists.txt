@@ -36,3 +36,5 @@ add_library(
   tasn_utl.c
   time_support.c
 )
+
+add_dependencies(asn1 global_target)

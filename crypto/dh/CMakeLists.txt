@@ -10,3 +10,5 @@ add_library(
   check.c
   dh_asn1.c
 )
+
+add_dependencies(dh global_target)

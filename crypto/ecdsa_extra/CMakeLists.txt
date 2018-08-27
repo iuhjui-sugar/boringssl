@@ -7,3 +7,5 @@ add_library(
 
   ecdsa_asn1.c
 )
+
+add_dependencies(ecdsa_extra global_target)

@@ -11,3 +11,5 @@ add_library(
   cbb.c
   unicode.c
 )
+
+add_dependencies(bytestring global_target)

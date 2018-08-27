@@ -7,3 +7,5 @@ add_library(
 
   xts.c
 )
+
+add_dependencies(xts global_target)

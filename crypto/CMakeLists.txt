@@ -151,6 +151,8 @@ add_library(
   thread_win.c
 )
 
+add_dependencies(crypto_base global_target)
+
 if(FIPS_DELOCATE)
   SET_SOURCE_FILES_PROPERTIES(fipsmodule/bcm.o PROPERTIES EXTERNAL_OBJECT true)
   SET_SOURCE_FILES_PROPERTIES(fipsmodule/bcm.o PROPERTIES GENERATED true)
@@ -205,6 +207,8 @@ add_library(
 
   ${CRYPTO_FIPS_OBJECTS}
 )
+
+add_dependencies(crypto global_target)
 
 if(FIPS_DELOCATE)
   add_dependencies(crypto bcm_o_target)
@@ -280,6 +284,8 @@ add_executable(
   $<TARGET_OBJECTS:boringssl_gtest_main>
   $<TARGET_OBJECTS:test_support>
 )
+
+add_dependencies(crypto_test global_target)
 
 target_link_libraries(crypto_test crypto boringssl_gtest)
 if(WIN32)

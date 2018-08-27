@@ -7,3 +7,5 @@ add_library(
 
   cfb64ede.c
 )
+
+add_dependencies(des_decrepit global_target)

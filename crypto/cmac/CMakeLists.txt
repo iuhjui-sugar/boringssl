@@ -7,3 +7,5 @@ add_library(
 
   cmac.c
 )
+
+add_dependencies(cmac global_target)

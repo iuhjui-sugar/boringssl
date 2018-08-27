@@ -21,3 +21,5 @@ add_library(
   scrypt.c
   sign.c
 )
+
+add_dependencies(evp global_target)

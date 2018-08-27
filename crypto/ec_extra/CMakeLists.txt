@@ -7,3 +7,5 @@ add_library(
 
   ec_asn1.c
 )
+
+add_dependencies(ec_extra global_target)

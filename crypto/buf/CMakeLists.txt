@@ -7,3 +7,5 @@ add_library(
 
   buf.c
 )
+
+add_dependencies(buf global_target)

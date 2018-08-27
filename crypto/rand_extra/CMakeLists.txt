@@ -11,3 +11,5 @@ add_library(
   rand_extra.c
   windows.c
 )
+
+add_dependencies(rand_extra global_target)

@@ -7,3 +7,5 @@ add_library(
 
   dsa_decrepit.c
 )
+
+add_dependencies(dsa_decrepit global_target)

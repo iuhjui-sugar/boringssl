@@ -7,3 +7,5 @@ add_library(
 
   rsa_decrepit.c
 )
+
+add_dependencies(rsa_decrepit global_target)

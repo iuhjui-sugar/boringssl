@@ -16,3 +16,5 @@ add_library(
   socket.c
   socket_helper.c
 )
+
+add_dependencies(bio global_target)

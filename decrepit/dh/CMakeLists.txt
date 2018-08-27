@@ -7,3 +7,5 @@ add_library(
 
   dh_decrepit.c
 )
+
+add_dependencies(dh_decrepit global_target)

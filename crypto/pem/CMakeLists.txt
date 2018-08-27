@@ -14,3 +14,5 @@ add_library(
   pem_x509.c
   pem_xaux.c
 )
+
+add_dependencies(pem global_target)
