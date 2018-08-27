@@ -41,8 +41,21 @@ endif()
 if(USE_CUSTOM_LIBCXX)
   set(BORINGSSL_ALLOW_CXX_RUNTIME 1)
 endif()
+
 if(BORINGSSL_ALLOW_CXX_RUNTIME)
   add_definitions(-DBORINGSSL_ALLOW_CXX_RUNTIME)
+endif()
+
+if((BORINGSSL_PREFIX) AND (BORINGSSL_PREFIX_SYMBOLS))
+  add_definitions(-DBORINGSSL_PREFIX=${BORINGSSL_PREFIX})
+
+  add_custom_command(
+    OUTPUT boringssl_prefix_symbols.h boringssl_prefix_symbols_asm.h boringssl_prefix_symbols_nasm.inc
+    COMMAND ${GO_EXECUTABLE} run util/make_prefix_headers.go ${BORINGSSL_PREFIX_SYMBOLS}
+    DEPENDS util/make_prefix_headers.go
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+elseif((BORINGSSL_PREFIX) OR (BORINGSSL_PREFIX_SYMBOLS))
+  message(FATAL_ERROR "Must specify both or neither of BORINGSSL_PREFIX and BORINGSSL_PREFIX_SYMBOLS")
 endif()
 
 if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
