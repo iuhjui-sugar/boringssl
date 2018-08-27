@@ -7,3 +7,5 @@ add_library(
 
   rc4.c
 )
+
+add_dependencies(rc4 global_target)

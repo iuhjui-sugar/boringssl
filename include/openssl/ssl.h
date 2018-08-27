@@ -4334,6 +4334,11 @@ OPENSSL_EXPORT int SSL_CTX_set_tlsext_status_arg(SSL_CTX *ctx, void *arg);
 // functions.
 // https://boringssl.googlesource.com/boringssl/+/master/PORTING.md#Replacements-for-values
 
+// The legacy consumers of these macro variables do not support
+// BORINGSSL_PREFIX, but they also don't use that feature, so it's fine to just
+// omit these variables when we're prefixing symbols.
+#if !defined(BORINGSSL_PREFIX)
+
 #define DTLS_CTRL_GET_TIMEOUT doesnt_exist
 #define DTLS_CTRL_HANDLE_TIMEOUT doesnt_exist
 #define SSL_CTRL_CHAIN doesnt_exist
@@ -4453,6 +4458,7 @@ OPENSSL_EXPORT int SSL_CTX_set_tlsext_status_arg(SSL_CTX *ctx, void *arg);
 #define SSL_set_tmp_rsa SSL_set_tmp_rsa
 #define SSL_total_renegotiations SSL_total_renegotiations
 
+#endif // !defined(BORINGSSL_PREFIX)
 
 #if defined(__cplusplus)
 }  // extern C
@@ -4461,7 +4467,7 @@ OPENSSL_EXPORT int SSL_CTX_set_tlsext_status_arg(SSL_CTX *ctx, void *arg);
 
 extern "C++" {
 
-namespace bssl {
+BSSL_NAMESPACE_BEGIN
 
 BORINGSSL_MAKE_DELETER(SSL, SSL_free)
 BORINGSSL_MAKE_DELETER(SSL_CTX, SSL_CTX_free)
@@ -4573,7 +4579,7 @@ OPENSSL_EXPORT bool SSL_apply_handoff(SSL *ssl, Span<const uint8_t> handoff);
 OPENSSL_EXPORT bool SSL_serialize_handback(const SSL *ssl, CBB *out);
 OPENSSL_EXPORT bool SSL_apply_handback(SSL *ssl, Span<const uint8_t> handback);
 
-}  // namespace bssl
+BSSL_NAMESPACE_END
 
 }  // extern C++
 

@@ -31,5 +31,7 @@ add_library(
   ${CIPHER_ARCH_SOURCES}
 )
 
+add_dependencies(cipher_extra global_target)
+
 perlasm(aes128gcmsiv-x86_64.${ASM_EXT} asm/aes128gcmsiv-x86_64.pl)
 perlasm(chacha20_poly1305_x86_64.${ASM_EXT} asm/chacha20_poly1305_x86_64.pl)

@@ -7,3 +7,5 @@ add_library(
 
   base64_bio.c
 )
+
+add_dependencies(bio_decrepit global_target)

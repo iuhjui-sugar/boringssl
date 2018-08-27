@@ -7,3 +7,5 @@ add_library(
 
   cfb.c
 )
+
+add_dependencies(cfb global_target)

@@ -7,3 +7,5 @@ add_library(
 
   ssl_decrepit.c
 )
+
+add_dependencies(ssl_decrepit global_target)

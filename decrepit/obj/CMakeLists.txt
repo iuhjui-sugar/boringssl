@@ -7,3 +7,5 @@ add_library(
 
   obj_decrepit.c
 )
+
+add_dependencies(obj_decrepit global_target)

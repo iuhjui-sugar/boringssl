@@ -7,3 +7,5 @@ add_library(
 
   stack.c
 )
+
+add_dependencies(stack global_target)

@@ -55,3 +55,5 @@ add_library(
   x_x509.c
   x_x509a.c
 )
+
+add_dependencies(x509 global_target)

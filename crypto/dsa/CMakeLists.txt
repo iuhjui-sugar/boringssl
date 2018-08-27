@@ -8,3 +8,5 @@ add_library(
   dsa.c
   dsa_asn1.c
 )
+
+add_dependencies(dsa global_target)

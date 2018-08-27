@@ -7,3 +7,5 @@ add_library(
 
   ecdh_extra.c
 )
+
+add_dependencies(ecdh_extra global_target)

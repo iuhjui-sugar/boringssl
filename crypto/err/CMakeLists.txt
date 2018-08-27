@@ -38,3 +38,5 @@ add_library(
   err.c
   err_data.c
 )
+
+add_dependencies(err global_target)

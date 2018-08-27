@@ -7,3 +7,5 @@ add_library(
 
   lhash.c
 )
+
+add_dependencies(lhash global_target)

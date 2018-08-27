@@ -7,3 +7,5 @@ add_library(
 
   base64.c
 )
+
+add_dependencies(base64 global_target)

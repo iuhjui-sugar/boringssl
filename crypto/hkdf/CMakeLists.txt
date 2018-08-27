@@ -7,3 +7,5 @@ add_library(
 
   hkdf.c
 )
+
+add_dependencies(hkdf global_target)

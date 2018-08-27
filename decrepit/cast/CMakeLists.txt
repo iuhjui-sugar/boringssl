@@ -8,3 +8,5 @@ add_library(
   cast.c
   cast_tables.c
 )
+
+add_dependencies(cast global_target)

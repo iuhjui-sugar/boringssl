@@ -7,3 +7,5 @@ add_library(
 
   pool.c
 )
+
+add_dependencies(pool global_target)

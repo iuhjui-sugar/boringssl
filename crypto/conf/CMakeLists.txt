@@ -7,3 +7,5 @@ add_library(
 
   conf.c
 )
+
+add_dependencies(conf global_target)

@@ -43,3 +43,5 @@ add_library(
   v3_sxnet.c
   v3_utl.c
 )
+
+add_dependencies(x509v3 global_target)

@@ -19,3 +19,5 @@ add_library(
 
   ${POLY1305_ARCH_SOURCES}
 )
+
+add_dependencies(poly1305 global_target)

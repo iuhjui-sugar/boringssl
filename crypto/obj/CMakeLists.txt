@@ -8,3 +8,5 @@ add_library(
   obj.c
   obj_xref.c
 )
+
+add_dependencies(obj global_target)

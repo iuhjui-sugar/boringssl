@@ -7,3 +7,5 @@ add_library(
 
   blowfish.c
 )
+
+add_dependencies(blowfish global_target)
