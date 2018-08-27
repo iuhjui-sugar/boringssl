@@ -71,6 +71,18 @@
 #include <openssl/is_boringssl.h>
 #include <openssl/opensslconf.h>
 
+#if defined(BORINGSSL_PREFIX)
+#include <boringssl_prefix_symbols.h>
+#endif
+
+#if defined(BORINGSSL_PREFIX)
+#define BSSL_NAMESPACE_BEGIN namespace bssl { inline namespace BORINGSSL_PREFIX {
+#define BSSL_NAMESPACE_END } }
+#else
+#define BSSL_NAMESPACE_BEGIN namespace bssl {
+#define BSSL_NAMESPACE_END }
+#endif
+
 #if defined(__cplusplus)
 extern "C" {
 #endif
@@ -387,7 +399,7 @@ extern "C++" {
 
 extern "C++" {
 
-namespace bssl {
+BSSL_NAMESPACE_BEGIN
 
 namespace internal {
 
@@ -464,7 +476,7 @@ using UniquePtr = std::unique_ptr<T, internal::Deleter<T>>;
     return UpRef(ptr.get());                                        \
   }
 
-}  // namespace bssl
+BSSL_NAMESPACE_END
 
 }  // extern C++
 
