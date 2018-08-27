@@ -1136,6 +1136,9 @@ OPTION	DOTNAME
 ___
 }
 print STDOUT "#if defined(__x86_64__) && !defined(OPENSSL_NO_ASM)\n" if ($gas);
+print STDOUT "#if defined(BORINGSSL_PREFIX)\n" if ($gas);
+print STDOUT "#include <boringssl_prefix_symbols_asm.h>\n" if ($gas);
+print STDOUT "#endif\n" if ($gas);
 
 while(defined(my $line=<>)) {
 
