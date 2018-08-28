@@ -78,8 +78,7 @@ OPENSSL_EXPORT void ED25519_keypair(uint8_t out_public_key[32],
                                     uint8_t out_private_key[64]);
 
 // ED25519_sign sets |out_sig| to be a signature of |message_len| bytes from
-// |message| using |private_key|. It returns one on success or zero on
-// error.
+// |message| using |private_key|, and returns one.
 OPENSSL_EXPORT int ED25519_sign(uint8_t out_sig[64], const uint8_t *message,
                                 size_t message_len,
                                 const uint8_t private_key[64]);
