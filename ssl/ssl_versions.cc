@@ -35,7 +35,6 @@ bool ssl_protocol_version_from_wire(uint16_t *out, uint16_t version) {
       return true;
 
     case TLS1_3_DRAFT23_VERSION:
-    case TLS1_3_DRAFT28_VERSION:
       *out = TLS1_3_VERSION;
       return true;
 
@@ -58,7 +57,6 @@ bool ssl_protocol_version_from_wire(uint16_t *out, uint16_t version) {
 
 static const uint16_t kTLSVersions[] = {
     TLS1_3_VERSION,
-    TLS1_3_DRAFT28_VERSION,
     TLS1_3_DRAFT23_VERSION,
     TLS1_2_VERSION,
     TLS1_1_VERSION,
@@ -102,7 +100,6 @@ bool ssl_method_supports_version(const SSL_PROTOCOL_METHOD *method,
 static const char *ssl_version_to_string(uint16_t version) {
   switch (version) {
     case TLS1_3_DRAFT23_VERSION:
-    case TLS1_3_DRAFT28_VERSION:
     case TLS1_3_VERSION:
       return "TLSv1.3";
 
@@ -130,7 +127,6 @@ static uint16_t wire_version_to_api(uint16_t version) {
   switch (version) {
     // Report TLS 1.3 draft versions as TLS 1.3 in the public API.
     case TLS1_3_DRAFT23_VERSION:
-    case TLS1_3_DRAFT28_VERSION:
     case TLS1_3_VERSION:
       return TLS1_3_VERSION;
     default:
@@ -142,8 +138,7 @@ static uint16_t wire_version_to_api(uint16_t version) {
 // particular, it picks an arbitrary TLS 1.3 representative. This should only be
 // used in context where that does not matter.
 static bool api_version_to_wire(uint16_t *out, uint16_t version) {
-  if (version == TLS1_3_DRAFT23_VERSION ||
-      version == TLS1_3_DRAFT28_VERSION) {
+  if (version == TLS1_3_DRAFT23_VERSION) {
     return false;
   }
 
@@ -300,8 +295,6 @@ bool ssl_supports_version(SSL_HANDSHAKE *hs, uint16_t version) {
     switch (ssl->tls13_variant) {
       case tls13_draft23:
         return version == TLS1_3_DRAFT23_VERSION;
-      case tls13_draft28:
-        return version == TLS1_3_DRAFT28_VERSION;
       case tls13_rfc:
         return version == TLS1_3_VERSION;
       case tls13_all:
@@ -354,10 +347,6 @@ bool ssl_negotiate_version(SSL_HANDSHAKE *hs, uint8_t *out_alert,
   OPENSSL_PUT_ERROR(SSL, SSL_R_UNSUPPORTED_PROTOCOL);
   *out_alert = SSL_AD_PROTOCOL_VERSION;
   return false;
-}
-
-bool ssl_is_draft28(uint16_t version) {
-  return version == TLS1_3_DRAFT28_VERSION || version == TLS1_3_VERSION;
 }
 
 }  // namespace bssl

@@ -35,19 +35,16 @@ const (
 // A draft version of TLS 1.3 that is sent over the wire for the current draft.
 const (
 	tls13Draft23Version = 0x7f17
-	tls13Draft28Version = 0x7f1c
 )
 
 const (
 	TLS13RFC     = 0
 	TLS13Draft23 = 1
-	TLS13Draft28 = 2
-	TLS13All     = 3
+	TLS13All     = 2
 )
 
 var allTLSWireVersions = []uint16{
 	VersionTLS13,
-	tls13Draft28Version,
 	tls13Draft23Version,
 	VersionTLS12,
 	VersionTLS11,
@@ -1738,16 +1735,12 @@ func wireToVersion(vers uint16, isDTLS bool) (uint16, bool) {
 		switch vers {
 		case VersionSSL30, VersionTLS10, VersionTLS11, VersionTLS12, VersionTLS13:
 			return vers, true
-		case tls13Draft23Version, tls13Draft28Version:
+		case tls13Draft23Version:
 			return VersionTLS13, true
 		}
 	}
 
 	return 0, false
-}
-
-func isDraft28(vers uint16) bool {
-	return vers == tls13Draft28Version || vers == VersionTLS13
 }
 
 // isSupportedVersion checks if the specified wire version is acceptable. If so,
@@ -1762,10 +1755,6 @@ func (c *Config) isSupportedVersion(wireVers uint16, isDTLS bool) (uint16, bool)
 		switch c.TLS13Variant {
 		case TLS13Draft23:
 			if wireVers != tls13Draft23Version {
-				return 0, false
-			}
-		case TLS13Draft28:
-			if wireVers != tls13Draft28Version {
 				return 0, false
 			}
 		case TLS13RFC:

@@ -453,7 +453,7 @@ func (hc *halfConn) decrypt(b *block) (ok bool, prefixLen int, contentType recor
 				n := len(payload) - c.Overhead()
 				additionalData[11] = byte(n >> 8)
 				additionalData[12] = byte(n)
-			} else if isDraft28(hc.wireVersion) {
+			} else if hc.wireVersion == VersionTLS13 {
 				additionalData = b.data[:recordHeaderLen]
 			}
 			var err error
@@ -619,7 +619,7 @@ func (hc *halfConn) encrypt(b *block, explicitIVLen int, typ recordType) (bool, 
 				copy(additionalData[8:], b.data[:3])
 				additionalData[11] = byte(payloadLen >> 8)
 				additionalData[12] = byte(payloadLen)
-			} else if isDraft28(hc.wireVersion) {
+			} else if hc.wireVersion == VersionTLS13 {
 				additionalData = make([]byte, 5)
 				copy(additionalData, b.data[:3])
 				n := len(b.data) - recordHeaderLen

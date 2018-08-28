@@ -408,10 +408,6 @@ bool ssl_negotiate_version(SSL_HANDSHAKE *hs, uint8_t *out_alert,
 // call this function before the version is determined.
 uint16_t ssl_protocol_version(const SSL *ssl);
 
-// ssl_is_draft28 returns whether the version corresponds to a draft28 TLS 1.3
-// variant.
-bool ssl_is_draft28(uint16_t version);
-
 // Cipher suites.
 
 }  // namespace bssl

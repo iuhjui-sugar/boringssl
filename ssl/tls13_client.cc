@@ -291,7 +291,7 @@ static enum ssl_hs_wait_t do_read_server_hello(SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
-  if (ssl_is_draft28(ssl->version)) {
+  if (ssl->version == TLS1_3_VERSION) {
     // Recheck supported_versions, in case this is the second ServerHello.
     uint16_t version;
     if (!have_supported_versions ||

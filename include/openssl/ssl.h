@@ -600,7 +600,6 @@ OPENSSL_EXPORT int DTLSv1_handle_timeout(SSL *ssl);
 #define DTLS1_2_VERSION 0xfefd
 
 #define TLS1_3_DRAFT23_VERSION 0x7f17
-#define TLS1_3_DRAFT28_VERSION 0x7f1c
 
 // SSL_CTX_set_min_proto_version sets the minimum protocol version for |ctx| to
 // |version|. If |version| is zero, the default minimum version is used. It
@@ -3384,7 +3383,6 @@ OPENSSL_EXPORT int SSL_total_renegotiations(const SSL *ssl);
 enum tls13_variant_t {
   tls13_rfc = 0,
   tls13_draft23,
-  tls13_draft28,
   // tls13_all enables all variants of TLS 1.3, to keep the transition smooth as
   // early adopters move to the final version.
   tls13_all,

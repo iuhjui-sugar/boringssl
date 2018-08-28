@@ -1389,13 +1389,6 @@ var tlsVersions = []tlsVersion{
 		versionWire:  tls13Draft23Version,
 		tls13Variant: TLS13Draft23,
 	},
-	{
-		name:         "TLS13Draft28",
-		version:      VersionTLS13,
-		excludeFlag:  "-no-tls13",
-		versionWire:  tls13Draft28Version,
-		tls13Variant: TLS13Draft28,
-	},
 }
 
 func allVersions(protocol protocol) []tlsVersion {
@@ -3025,7 +3018,7 @@ read alert 1 0
 					ExpectPackedEncryptedHandshake: 512,
 				},
 			},
-			tls13Variant: TLS13Draft28,
+			tls13Variant: TLS13RFC,
 			messageLen:   1024,
 			flags: []string{
 				"-max-send-fragment", "512",
@@ -3067,17 +3060,16 @@ read alert 1 0
 			tls13Variant: TLS13Draft23,
 		},
 		{
-			// Test that handshake data is tightly packed in TLS 1.3
-			// draft-28.
+			// Test that handshake data is tightly packed in the final TLS 1.3.
 			testType: serverTest,
-			name:     "PackedEncryptedHandshake-TLS13Draft28",
+			name:     "PackedEncryptedHandshake-TLS13",
 			config: Config{
 				MaxVersion: VersionTLS13,
 				Bugs: ProtocolBugs{
 					ExpectPackedEncryptedHandshake: 16384,
 				},
 			},
-			tls13Variant: TLS13Draft28,
+			tls13Variant: TLS13RFC,
 		},
 		{
 			// Test that DTLS can handle multiple application data
@@ -5954,7 +5946,7 @@ func addVersionNegotiationTests() {
 				SendTLS13DowngradeRandom: true,
 			},
 		},
-		tls13Variant:    TLS13Draft28,
+		tls13Variant:    TLS13Draft23,
 		expectedVersion: VersionTLS12,
 	})
 	testCases = append(testCases, testCase{
@@ -5965,7 +5957,7 @@ func addVersionNegotiationTests() {
 				CheckTLS13DowngradeRandom: true,
 			},
 		},
-		tls13Variant:    TLS13Draft28,
+		tls13Variant:    TLS13Draft23,
 		expectedVersion: VersionTLS13,
 	})
 
@@ -6010,7 +6002,7 @@ func addVersionNegotiationTests() {
 			"-advertise-alpn", "\x03foo",
 			"-expect-alpn", "foo",
 			"-ignore-tls13-downgrade",
-			"-tls13-variant", strconv.Itoa(TLS13Draft28),
+			"-tls13-variant", strconv.Itoa(TLS13Draft23),
 			"-max-version", strconv.Itoa(VersionTLS13),
 		},
 		shimWritesFirst: true,
@@ -12751,7 +12743,7 @@ func addTLS13HandshakeTests() {
 
 		// Test that the supported_versions extension is enforced in the
 		// second ServerHello. Note we only enforce this starting draft 28.
-		if isDraft28(version.versionWire) {
+		if version.versionWire == VersionTLS13 {
 			testCases = append(testCases, testCase{
 				name: "SecondServerHelloNoVersion-" + name,
 				config: Config{
