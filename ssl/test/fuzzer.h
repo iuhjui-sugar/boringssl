@@ -490,12 +490,11 @@ class TLSFuzzer {
           break;
 
         case kTLS13Variant: {
+          // Ignored.
           uint8_t variant;
           if (!CBS_get_u8(cbs, &variant)) {
             return nullptr;
           }
-          SSL_set_tls13_variant(ssl.get(),
-                                static_cast<tls13_variant_t>(variant));
           break;
         }
 

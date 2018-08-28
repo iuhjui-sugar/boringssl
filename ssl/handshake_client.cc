@@ -416,8 +416,7 @@ static enum ssl_hs_wait_t do_start_connect(SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
-  // Initialize a random session ID for the experimental TLS 1.3 variant
-  // requiring a session id.
+  // Initialize a random session ID.
   if (ssl->session != nullptr &&
       !ssl->s3->initial_handshake_complete &&
       ssl->session->session_id_length > 0) {

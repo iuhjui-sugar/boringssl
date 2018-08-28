@@ -134,7 +134,7 @@ UniquePtr<SSLAEADContext> SSLAEADContext::Create(
       aead_ctx->xor_fixed_nonce_ = true;
       aead_ctx->variable_nonce_len_ = 8;
       aead_ctx->variable_nonce_included_in_record_ = false;
-      if (ssl_is_draft28(version)) {
+      if (version == TLS1_3_VERSION) {
         aead_ctx->ad_is_header_ = true;
       } else {
         aead_ctx->omit_ad_ = true;

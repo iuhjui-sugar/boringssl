@@ -32,23 +32,8 @@ const (
 	VersionDTLS12 = 0xfefd
 )
 
-// A draft version of TLS 1.3 that is sent over the wire for the current draft.
-const (
-	tls13Draft23Version = 0x7f17
-	tls13Draft28Version = 0x7f1c
-)
-
-const (
-	TLS13RFC     = 0
-	TLS13Draft23 = 1
-	TLS13Draft28 = 2
-	TLS13All     = 3
-)
-
 var allTLSWireVersions = []uint16{
 	VersionTLS13,
-	tls13Draft28Version,
-	tls13Draft23Version,
 	VersionTLS12,
 	VersionTLS11,
 	VersionTLS10,
@@ -446,9 +431,6 @@ type Config struct {
 	// If zero, then the maximum version supported by this package is used,
 	// which is currently TLS 1.2.
 	MaxVersion uint16
-
-	// TLS13Variant is the variant of TLS 1.3 to use.
-	TLS13Variant int
 
 	// CurvePreferences contains the elliptic curves that will be used in
 	// an ECDHE handshake, in preference order. If empty, the default will
@@ -1767,19 +1749,10 @@ func wireToVersion(vers uint16, isDTLS bool) (uint16, bool) {
 			return VersionTLS10, true
 		}
 	} else {
-		switch vers {
-		case VersionSSL30, VersionTLS10, VersionTLS11, VersionTLS12, VersionTLS13:
-			return vers, true
-		case tls13Draft23Version, tls13Draft28Version:
-			return VersionTLS13, true
-		}
+		return vers, true
 	}
 
 	return 0, false
-}
-
-func isDraft28(vers uint16) bool {
-	return vers == tls13Draft28Version || vers == VersionTLS13
 }
 
 // isSupportedVersion checks if the specified wire version is acceptable. If so,
@@ -1789,26 +1762,6 @@ func (c *Config) isSupportedVersion(wireVers uint16, isDTLS bool) (uint16, bool)
 	vers, ok := wireToVersion(wireVers, isDTLS)
 	if !ok || c.minVersion(isDTLS) > vers || vers > c.maxVersion(isDTLS) {
 		return 0, false
-	}
-	if vers == VersionTLS13 {
-		switch c.TLS13Variant {
-		case TLS13Draft23:
-			if wireVers != tls13Draft23Version {
-				return 0, false
-			}
-		case TLS13Draft28:
-			if wireVers != tls13Draft28Version {
-				return 0, false
-			}
-		case TLS13RFC:
-			if wireVers != VersionTLS13 {
-				return 0, false
-			}
-		case TLS13All:
-			// Allow all of them.
-		default:
-			panic(c.TLS13Variant)
-		}
 	}
 	return vers, true
 }

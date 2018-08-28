@@ -427,7 +427,7 @@ NextCipherSuite:
 			// set. Fill in an arbitrary TLS 1.3 version to compute
 			// the binder.
 			if session.vers < VersionTLS13 {
-				version = tls13Draft23Version
+				version = VersionTLS13
 			}
 			generatePSKBinders(version, hello, pskCipherSuite, session.masterSecret, []byte{}, []byte{}, c.config)
 		}
