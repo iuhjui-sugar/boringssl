@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bd0fb0a6_4e43e588",
+        "filename": "crypto/fipsmodule/ec/asm/p256_beeu-x86_64-asm.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-08-29T22:01:34Z",
+      "side": 1,
+      "message": "This isn\u0027t actually perlasm, this is just a Perl script that prints its contents :)",
+      "revId": "3f3711530f1434109b9439deec8737363539d4bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe58245f_c3aa735e",
+        "filename": "crypto/fipsmodule/ec/asm/p256_beeu-x86_64-asm.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-08-29T22:01:34Z",
+      "side": 1,
+      "message": "This assumes the C preprocessor, so shouldn\u0027t comments start with \"//\"? (I think cpp will ignore directives that it doesn\u0027t understand, but that\u0027s not ideal.)\n\nAlso, cpp stuff would probably have to be expanded for Windows.",
+      "revId": "3f3711530f1434109b9439deec8737363539d4bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d808bc0b_8d5fceaf",
+        "filename": "crypto/fipsmodule/ec/asm/p256_beeu-x86_64-asm.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-08-29T22:01:34Z",
+      "side": 1,
+      "message": "Would need .cfi directives.",
+      "revId": "3f3711530f1434109b9439deec8737363539d4bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8382587a_79d1b8c0",
+        "filename": "crypto/fipsmodule/ec/ec_montgomery.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-08-29T22:01:34Z",
+      "side": 1,
+      "message": "We use \"vartime\" at the end of names to indicate non-constant-time.",
+      "range": {
+        "startLine": 235,
+        "startChar": 66,
+        "endLine": 235,
+        "endChar": 75
+      },
+      "revId": "3f3711530f1434109b9439deec8737363539d4bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "657872c2_1a899079",
+        "filename": "crypto/fipsmodule/ec/p256-x86_64.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-08-29T22:01:34Z",
+      "side": 1,
+      "message": "\"inline\" should only be used in header files to avoid unused-symbol errors.",
+      "range": {
+        "startLine": 297,
+        "startChar": 7,
+        "endLine": 297,
+        "endChar": 13
+      },
+      "revId": "3f3711530f1434109b9439deec8737363539d4bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
