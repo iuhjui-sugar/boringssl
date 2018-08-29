@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "69b131f7_71904e7a",
+        "filename": "BUILDING.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 8959
+      },
+      "writtenOn": "2018-08-29T22:50:01Z",
+      "side": 1,
+      "message": "Oh, awesome idea! And thanks so much for writing that script!\n\nSo let me know what you\u0027re thinking related to how to incorporate this into the build. In particular, I\u0027m curious what you think about where files should go during the build and whatnot. I\u0027m thinking something like:\n\nWhen you run \u0027cmake \u003cpath-to-src\u003e -DBORINGSSL_PREFIX_SYMBOLS\u003d\u003cpath-to-symbols\u003e\u0027, the following happens:\n1. Create \"symbol_prefix_include\" directory\n2. Run the Go script, placing the generated header files in the \"symbol_prefix_include\" directory\n3. Configure Ninja/Make to add that directory to the include path",
+      "parentUuid": "f8bf9cdf_2720b9d8",
+      "revId": "e49159635fb62e6be91ed7c84089da58ededc263",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1a221d60_6829a71b",
         "filename": "BUILDING.md",
         "patchSetId": 2
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "80186c37_8410538d",
+        "filename": "BUILDING.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 8959
+      },
+      "writtenOn": "2018-08-29T22:50:01Z",
+      "side": 1,
+      "message": "Good catch; fixed.",
+      "parentUuid": "1a221d60_6829a71b",
+      "range": {
+        "startLine": 150,
+        "startChar": 11,
+        "endLine": 150,
+        "endChar": 18
+      },
+      "revId": "e49159635fb62e6be91ed7c84089da58ededc263",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e6f1d647_2df9d4a7",
         "filename": "crypto/perlasm/x86_64-xlate.pl",
         "patchSetId": 2
@@ -53,6 +95,24 @@
       "writtenOn": "2018-08-29T19:58:17Z",
       "side": 1,
       "message": "I believe this should work for Yasm/NASM:\n\n%ifdef BORINGSSL_PREFIX\n%include \"boringssl_prefix_symbols_nasm.inc\"\n%endif",
+      "revId": "e49159635fb62e6be91ed7c84089da58ededc263",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4ecae29_8e8495c1",
+        "filename": "crypto/perlasm/x86_64-xlate.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 1131,
+      "author": {
+        "id": 8959
+      },
+      "writtenOn": "2018-08-29T22:50:01Z",
+      "side": 1,
+      "message": "OK, done. I\u0027ve also updated BUILDING.md to reference this. I\u0027m not familiar with NASM, so feel free to correct my wording in BUILDING.md.",
+      "parentUuid": "e6f1d647_2df9d4a7",
       "revId": "e49159635fb62e6be91ed7c84089da58ededc263",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
