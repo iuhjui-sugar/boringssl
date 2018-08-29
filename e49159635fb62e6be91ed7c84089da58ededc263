@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f8bf9cdf_2720b9d8",
+        "filename": "BUILDING.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-29T19:58:17Z",
+      "side": 1,
+      "message": "Want a script for it?\nhttps://boringssl-review.googlesource.com/c/boringssl/+/31444\n\nDisclaimer: untested. Feel free to modify as needed. :-)\n\nWe can probably set up some CMake glue so you can even pass in -DBORINGSSL_PREFIX_SYMBOLS\u003dpath/to/symbols.txt for step two.\n\nAnd then maybe we check in some standard tooling to double-check all symbols for prefixes. Or to gather symbols, etc. And hopefully we\u0027ll eventually end up with something you can use without fuss.",
+      "revId": "e49159635fb62e6be91ed7c84089da58ededc263",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a221d60_6829a71b",
+        "filename": "BUILDING.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-29T19:58:17Z",
+      "side": 1,
+      "message": "I think you just mean \"boringssl_prefix_symbols.h\", right?",
+      "range": {
+        "startLine": 150,
+        "startChar": 11,
+        "endLine": 150,
+        "endChar": 18
+      },
+      "revId": "e49159635fb62e6be91ed7c84089da58ededc263",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6f1d647_2df9d4a7",
+        "filename": "crypto/perlasm/x86_64-xlate.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 1131,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-29T19:58:17Z",
+      "side": 1,
+      "message": "I believe this should work for Yasm/NASM:\n\n%ifdef BORINGSSL_PREFIX\n%include \"boringssl_prefix_symbols_nasm.inc\"\n%endif",
+      "revId": "e49159635fb62e6be91ed7c84089da58ededc263",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
