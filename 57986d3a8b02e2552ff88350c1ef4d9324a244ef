@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "925debb2_6c24421b",
+        "filename": "crypto/cpu-arm-linux.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-08-31T21:36:56Z",
+      "side": 1,
+      "message": "Ugh, the diff got mangled. The change is STRING_PIECE_get_delimited and its callers.",
+      "range": {
+        "startLine": 62,
+        "startChar": 11,
+        "endLine": 62,
+        "endChar": 37
+      },
+      "revId": "57986d3a8b02e2552ff88350c1ef4d9324a244ef",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
