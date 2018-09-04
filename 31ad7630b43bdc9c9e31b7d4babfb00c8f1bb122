@@ -22,6 +22,30 @@
       "revId": "31ad7630b43bdc9c9e31b7d4babfb00c8f1bb122",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa15d756_d30345c8",
+        "filename": "crypto/cpu-arm-linux.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-04T23:51:22Z",
+      "side": 1,
+      "message": "Done. (I blame Emacs.)",
+      "parentUuid": "e36c16dc_1a8c49a5",
+      "range": {
+        "startLine": 88,
+        "startChar": 9,
+        "endLine": 88,
+        "endChar": 10
+      },
+      "revId": "31ad7630b43bdc9c9e31b7d4babfb00c8f1bb122",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
