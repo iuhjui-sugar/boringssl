@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "04ebf7b8_d392e9de",
+        "filename": "API-CONVENTIONS.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-04T17:37:22Z",
+      "side": 1,
+      "message": "This is terrible, but OpenSSL does it all the time. :\u0027-(",
+      "range": {
+        "startLine": 207,
+        "startChar": 13,
+        "endLine": 208,
+        "endChar": 45
+      },
+      "revId": "fcec2a4b5268055fcc03a1e35de87f6d9e67cfd8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
