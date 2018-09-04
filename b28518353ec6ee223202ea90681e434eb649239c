@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9e87edc0_64e82ca0",
+        "filename": "API-CONVENTIONS.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-09-04T22:34:19Z",
+      "side": 1,
+      "message": "Don\u0027t we have a convention that ownership is only taken on success?",
+      "range": {
+        "startLine": 207,
+        "startChar": 14,
+        "endLine": 208,
+        "endChar": 45
+      },
+      "revId": "b28518353ec6ee223202ea90681e434eb649239c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
