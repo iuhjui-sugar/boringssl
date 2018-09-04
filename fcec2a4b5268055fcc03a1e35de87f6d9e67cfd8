@@ -45,6 +45,30 @@
       "revId": "fcec2a4b5268055fcc03a1e35de87f6d9e67cfd8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36dedc72_dbd0f720",
+        "filename": "API-CONVENTIONS.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-04T22:11:58Z",
+      "side": 1,
+      "message": "Hrm. I think I must have dropped some words when revising things. I meant \"API documentation may also describe [...]\". Thanks!",
+      "parentUuid": "0926bc4d_3661a233",
+      "range": {
+        "startLine": 226,
+        "startChar": 18,
+        "endLine": 226,
+        "endChar": 26
+      },
+      "revId": "fcec2a4b5268055fcc03a1e35de87f6d9e67cfd8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
