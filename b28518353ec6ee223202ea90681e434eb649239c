@@ -22,6 +22,30 @@
       "revId": "b28518353ec6ee223202ea90681e434eb649239c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07c948f8_785e780c",
+        "filename": "API-CONVENTIONS.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-04T23:25:15Z",
+      "side": 1,
+      "message": "Good point. Although I think we usually make note of it explicitly since this is surprising to C++ folks.",
+      "parentUuid": "9e87edc0_64e82ca0",
+      "range": {
+        "startLine": 207,
+        "startChar": 14,
+        "endLine": 208,
+        "endChar": 45
+      },
+      "revId": "b28518353ec6ee223202ea90681e434eb649239c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
