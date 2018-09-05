@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ee67d5f5_aebb52c7",
+        "filename": "BUILDING.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 8959
+      },
+      "writtenOn": "2018-09-05T03:18:08Z",
+      "side": 1,
+      "message": "Yeah, I\u0027m planning on rewriting it last once we\u0027ve settled what it is we actually want to build, and have verified that it works. I\u0027ll leave this comment unresolved, though, as a reminder.",
+      "parentUuid": "b8080cdf_64e9fad9",
+      "revId": "5c4784519d29b7974b2c99e854d022e800565199",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7782bfe9_ff616147",
         "filename": "include/openssl/base.h",
         "patchSetId": 4
@@ -33,6 +51,24 @@
       "revId": "5c4784519d29b7974b2c99e854d022e800565199",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfde9d43_e8748311",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 8959
+      },
+      "writtenOn": "2018-09-05T03:18:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7782bfe9_ff616147",
+      "revId": "5c4784519d29b7974b2c99e854d022e800565199",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -73,6 +109,48 @@
       "revId": "5c4784519d29b7974b2c99e854d022e800565199",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f51f9e6_c2f375c9",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 8959
+      },
+      "writtenOn": "2018-09-05T03:18:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97f3fe62_eacd069f",
+      "revId": "5c4784519d29b7974b2c99e854d022e800565199",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3060c420_128f0f6c",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 8959
+      },
+      "writtenOn": "2018-09-05T03:18:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f9405a0_f6553c9c",
+      "range": {
+        "startLine": 79,
+        "startChar": 63,
+        "endLine": 79,
+        "endChar": 79
+      },
+      "revId": "5c4784519d29b7974b2c99e854d022e800565199",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }

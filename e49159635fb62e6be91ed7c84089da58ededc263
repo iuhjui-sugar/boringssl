@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "8e5a39af_4c4bd400",
+        "filename": "BUILDING.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 8959
+      },
+      "writtenOn": "2018-09-05T03:18:08Z",
+      "side": 1,
+      "message": "Sounds good to me! I\u0027m going to try to get CMake working; it\u0027ll hopefully save me time on the boringssl-sys side in the long run. If it becomes too painful, I might give up and go the easier route for the time being :)\n\nWith that said, a few questions:\n- What should we name the temporary directory in which we generate the header files?\n- How should this directory be created? Will CMake be smart enough to create build rules which create the directory itself before generating the header files?\n\nRe: Doing this in CMake: Is it acceptable, for the time being, to simply say that we only support symbol prefixing for consumers building via CMake?\n\nRe: Auto-checker and beyond: Sounds roughly good to me, although yes, I definitely want to punt on that for a future CL :)",
+      "parentUuid": "f2ff85b3_afa0b047",
+      "revId": "e49159635fb62e6be91ed7c84089da58ededc263",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1a221d60_6829a71b",
         "filename": "BUILDING.md",
         "patchSetId": 2
