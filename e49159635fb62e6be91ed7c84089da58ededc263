@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "f2ff85b3_afa0b047",
+        "filename": "BUILDING.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-05T00:18:05Z",
+      "side": 1,
+      "message": "I think it\u0027s mostly a matter of how much work we want to do right away vs. how soon you want a solution. :-)\n\nWith the CL as-is, the story is: we give you -DBORINGSSL_PREFIX on the CMake side and a script. It\u0027s your responsibility to figure out the symbol list, run the script, check the generated files in somewhere, and then add -Iwhere/you/put/them into the C flags.\n\nWith some amount of CMake goo, we can improve this to what you describe with BORINGSSL_PREFIX_SYMBOLS. We\u0027d tell CMake that boringssl_prefix_symbols.h is an output which depends on the script and the supplied file and we\u0027d tell CMake to add the containing directory to the include directories.\n\nThat would save you from checking in the generated headers, but mean fighting with CMake. Fighting with CMake is a pain, so I am perfectly happy with this CL doing either of the above, depending on which you feel like doing.\n\nOf course, even with CMake goop, folks using non-CMake build systems (which is actually our usual assumption for consumers, but I gather you\u0027re just calling into CMake) have to do everything themselves. Our usual answer is generated files are pre-generated with generate_build_files.py, but we don\u0027t have a sane source for the symbol list yet (hence the dumb hack to amortize it to updates on your end for now).\n\nAfter this CL (or in the same one if you feel like it), probably the next step is to write a checker. I\u0027m thinking a Go script that uses debug/{elf,macho,pe} that takes lib{crypto,ssl}.a and checks:\n\n- All C symbols start with the passed in prefix\n- All C++ symbols have the prefix as a substring somewhere.\n\nFinally, once we somehow figure out how to generate the symbol list sanely (I\u0027m currently thinking a barebones C parser), we can stop making it your problem and, with some CMake and generate_build_files.py goop, -DBORINGSSL_PREFIX\u003dblah will Just Work. Or maybe we implement the \"build twice, sample symbols from first build\" strategy in CMake, but that doesn\u0027t work for generate_build_files.py.\n\nWDYT?",
+      "parentUuid": "69b131f7_71904e7a",
+      "revId": "e49159635fb62e6be91ed7c84089da58ededc263",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1a221d60_6829a71b",
         "filename": "BUILDING.md",
         "patchSetId": 2

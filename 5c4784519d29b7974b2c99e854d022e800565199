@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b8080cdf_64e9fad9",
+        "filename": "BUILDING.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-05T00:18:05Z",
+      "side": 1,
+      "message": "(This bit wants to be rewritten, but I assume you left it alone until I responded to your question on the other patchset.)",
+      "revId": "5c4784519d29b7974b2c99e854d022e800565199",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7782bfe9_ff616147",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-05T00:18:05Z",
+      "side": 1,
+      "message": "Style nit: This is defining new symbols and should be after the includes block. (Since it\u0027s a C++ macro, there\u0027s something to be said for putting it in the !OPENSSL_NO_CXX block way at the bottom, but I don\u0027t particularly care.)",
+      "revId": "5c4784519d29b7974b2c99e854d022e800565199",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97f3fe62_eacd069f",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-05T00:18:05Z",
+      "side": 1,
+      "message": "Nit: clang-format.",
+      "revId": "5c4784519d29b7974b2c99e854d022e800565199",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f9405a0_f6553c9c",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-05T00:18:05Z",
+      "side": 1,
+      "message": "This is a really dumb cosmetic thing, but I just realized:\n\nThe script currently does BORINGSSL_PREFIX + ACTUAL_NAME, so one would probably expect BORINGSSL_PREFIX to end in _. But then the C++ symbols would mangle to bssl::blahblah_::UniquePtr, which is kinda weird.\n\nWDYT about making the script put the _ in and BORINGSSL_PREFIX would be without underscore?",
+      "range": {
+        "startLine": 79,
+        "startChar": 63,
+        "endLine": 79,
+        "endChar": 79
+      },
+      "revId": "5c4784519d29b7974b2c99e854d022e800565199",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
