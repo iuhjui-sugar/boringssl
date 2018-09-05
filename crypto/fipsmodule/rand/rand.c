@@ -103,20 +103,24 @@ static int hwrand(uint8_t *buf, size_t len) {
 
 #endif
 
-// rand_state contains an RNG state.
+// rand_state contains an RNG state. State object are managed in one of two
+// ways, depending on whether |RAND_enable_fork_unsafe_buffering| has been
+// called: if it has been called then thread-local storage is used to keep a
+// per-thread state. Otherwise a mutex-protected pool of state objects is used.
 struct rand_state {
   CTR_DRBG_STATE drbg;
-  // next forms a NULL-terminated linked-list of all free |rand_state| objects.
+  // next forms a NULL-terminated linked-list of all free |rand_state| objects
+  // in a pool. This is unused if using thread-local states.
   struct rand_state *next;
   // calls is the number of generate calls made on |drbg| since it was last
   // (re)seeded. This is bound by |kReseedInterval|.
   unsigned calls;
 
 #if defined(BORINGSSL_FIPS)
-  // next_all forms another NULL-terminated linked-list, this time of all
-  // |rand_state| objects that have been allocated including those that might
-  // currently be in use.
-  struct rand_state *next_all;
+  // prev_all and next_all form another NULL-terminated linked-list, this time
+  // of all |rand_state| objects that have been allocated including those that
+  // might currently be in use.
+  struct rand_state *prev_all, *next_all;
   // last_block contains the previous block from |CRYPTO_sysrand|.
   uint8_t last_block[CRNGT_BLOCK_SIZE];
   // last_block_valid is non-zero iff |last_block| contains data from
@@ -185,15 +189,13 @@ static void rand_get_seed(struct rand_state *state,
 
 #endif
 
-// rand_state_free_list is a list of currently free, |rand_state| structures.
-// When a thread needs a |rand_state| it picks the head element of this list and
-// allocs a new one if the list is empty. Once it's finished, it pushes the
-// state back onto the front of the list.
+// rand_state_free_list is a list of currently free, |rand_state| structures if
+// a pool is being used. When a thread needs a |rand_state| it picks the head
+// element of this list and allocs a new one if the list is empty. Once it's
+// finished, it pushes the state back onto the front of the list.
 //
-// Previously we used a thread-local state but for processes with large numbers
-// of threads this can result in excessive memory usage. Since we don't free
-// |rand_state| objects, the number of objects in memory will eventually equal
-// the maximum concurrency of |RAND_bytes|.
+// Since we don't free |rand_state| objects, the number of objects in memory
+// will eventually equal the maximum concurrency of |RAND_bytes|.
 DEFINE_BSS_GET(struct rand_state *, rand_state_free_list);
 
 // rand_state_lock protects |rand_state_free_list| (and |rand_state_all_list|,
@@ -225,6 +227,33 @@ static void rand_state_clear_all(void) {
 }
 #endif
 
+// rand_state_free frees a |rand_state|. This is called when a thread exits if
+// we're using thread-local states.
+static void rand_state_free(void *state_in) {
+  struct rand_state *state = state_in;
+  if (state_in == NULL) {
+    return;
+  }
+
+#if defined(BORINGSSL_FIPS)
+  CRYPTO_STATIC_MUTEX_lock_write(rand_state_lock_bss_get());
+  if (state->prev_all != NULL) {
+    state->prev_all->next_all = state->next_all;
+  } else {
+    *rand_state_all_list_bss_get() = state->next_all;
+  }
+
+  if (state->next_all != NULL) {
+    state->next_all->prev_all = state->prev_all;
+  }
+  CRYPTO_STATIC_MUTEX_unlock_write(rand_state_lock_bss_get());
+
+  CTR_DRBG_clear(&state->drbg);
+#endif
+
+  OPENSSL_free(state);
+}
+
 // rand_state_init seeds a |rand_state|.
 static void rand_state_init(struct rand_state *state) {
   OPENSSL_memset(state, 0, sizeof(struct rand_state));
@@ -235,17 +264,30 @@ static void rand_state_init(struct rand_state *state) {
   }
 }
 
-// rand_state_get pops a |rand_state| from the head of
+// rand_state_get returns a usable |rand_state|, or NULL if memory is exhausted.
+//
+// If a pool is being used, it pops a |rand_state| from the head of
 // |rand_state_free_list| and returns it. If the list is empty, it
 // creates a fresh |rand_state| and returns that instead.
+//
+// Alternatively, if thread-local states are being used, it returns the current
+// thread's state object and creates it if needed.
 static struct rand_state *rand_state_get(void) {
   struct rand_state *state = NULL;
-  CRYPTO_STATIC_MUTEX_lock_write(rand_state_lock_bss_get());
-  state = *rand_state_free_list_bss_get();
-  if (state != NULL) {
-    *rand_state_free_list_bss_get() = state->next;
+  if (rand_fork_unsafe_buffering_enabled()) {
+    // Thread-local storage is used in this case. This is unrelated to fork-
+    // safety and we are overloading this global control to also identify
+    // processes that really care about PRNG speed.
+    state = CRYPTO_get_thread_local(OPENSSL_THREAD_LOCAL_RAND);
+  } else {
+    // Otherwise a mutex-protected pool of states is used.
+    CRYPTO_STATIC_MUTEX_lock_write(rand_state_lock_bss_get());
+    state = *rand_state_free_list_bss_get();
+    if (state != NULL) {
+      *rand_state_free_list_bss_get() = state->next;
+    }
+    CRYPTO_STATIC_MUTEX_unlock_write(rand_state_lock_bss_get());
   }
-  CRYPTO_STATIC_MUTEX_unlock_write(rand_state_lock_bss_get());
 
   if (state != NULL) {
     return state;
@@ -261,15 +303,30 @@ static struct rand_state *rand_state_get(void) {
 #if defined(BORINGSSL_FIPS)
   CRYPTO_STATIC_MUTEX_lock_write(rand_state_lock_bss_get());
   state->next_all = *rand_state_all_list_bss_get();
+  if (state->next_all) {
+    state->next_all->prev_all = state;
+  }
   *rand_state_all_list_bss_get() = state;
   CRYPTO_STATIC_MUTEX_unlock_write(rand_state_lock_bss_get());
 #endif
 
+  if (rand_fork_unsafe_buffering_enabled() &&
+      !CRYPTO_set_thread_local(OPENSSL_THREAD_LOCAL_RAND, state,
+                               rand_state_free)) {
+    rand_state_free(state);
+    return NULL;
+  }
+
   return state;
 }
 
-// rand_state_put pushes |state| onto |rand_state_free_list|.
+// rand_state_put pushes |state| onto |rand_state_free_list| if the pool is
+// being used.
 static void rand_state_put(struct rand_state *state) {
+  if (rand_fork_unsafe_buffering_enabled()) {
+    return;
+  }
+
   CRYPTO_STATIC_MUTEX_lock_write(rand_state_lock_bss_get());
   state->next = *rand_state_free_list_bss_get();
   *rand_state_free_list_bss_get() = state;
