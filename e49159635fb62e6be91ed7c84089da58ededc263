@@ -109,6 +109,24 @@
     },
     {
       "key": {
+        "uuid": "227d95d7_4cc78eaa",
+        "filename": "BUILDING.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 8959
+      },
+      "writtenOn": "2018-09-05T20:00:24Z",
+      "side": 1,
+      "message": "OK, after consulting with our CMake guru, I\u0027ve figured it out. It\u0027s a bit ugly, but it works, and will give a place to hook any other global dependencies that need to be added in the future.",
+      "parentUuid": "6d3931cb_3f1d8cbd",
+      "revId": "e49159635fb62e6be91ed7c84089da58ededc263",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1a221d60_6829a71b",
         "filename": "BUILDING.md",
         "patchSetId": 2

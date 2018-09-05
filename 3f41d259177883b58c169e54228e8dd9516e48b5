@@ -16,6 +16,24 @@
       "revId": "3f41d259177883b58c169e54228e8dd9516e48b5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d27ff914_064116da",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 8959
+      },
+      "writtenOn": "2018-09-05T20:00:24Z",
+      "side": 1,
+      "message": "Ah, for some reason I had issues with it before, but now it works without the parens. Done.",
+      "parentUuid": "9d2b26d4_5a26b76f",
+      "revId": "3f41d259177883b58c169e54228e8dd9516e48b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
