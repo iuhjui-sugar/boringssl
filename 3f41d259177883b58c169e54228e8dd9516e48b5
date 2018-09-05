@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9d2b26d4_5a26b76f",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-05T16:40:42Z",
+      "side": 1,
+      "message": "Nit: I think you don\u0027t need the parens. Ditto below.",
+      "revId": "3f41d259177883b58c169e54228e8dd9516e48b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}

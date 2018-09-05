@@ -91,6 +91,24 @@
     },
     {
       "key": {
+        "uuid": "6d3931cb_3f1d8cbd",
+        "filename": "BUILDING.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-05T16:40:42Z",
+      "side": 1,
+      "message": "I don\u0027t really know how to use CMake and mostly do it by trial-and-error. :-)\n\nYou could add_dependencies every target (probably add a no-op target in the non-prefix case to keep it uniform), but we have lots of tiny targets in libcrypto, so that\u0027s unlikely to work well.\nhttps://cmake.org/cmake/help/latest/command/add_dependencies.html\n\nThere\u0027s this feature, though it seems to suggest that the dependency scanner does this magically?? Though it might not work if the targets are all defined in little subdirectories? Not sure/\nhttps://cmake.org/cmake/help/latest/prop_sf/OBJECT_DEPENDS.html\n\nFWIW, I do want to flatten those dependencies down and ultimately make the file lists live in sources.cmake. So it might be easier after that happens. I haven\u0027t fully thought through the latter part though since CMake\u0027s variable scoping believes in directories in interesting ways.",
+      "parentUuid": "253f338f_f002a1df",
+      "revId": "e49159635fb62e6be91ed7c84089da58ededc263",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1a221d60_6829a71b",
         "filename": "BUILDING.md",
         "patchSetId": 2
