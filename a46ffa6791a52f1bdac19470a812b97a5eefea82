@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9064728e_2046b2c6",
+        "filename": "crypto/CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 8959
+      },
+      "writtenOn": "2018-09-06T00:17:30Z",
+      "side": 1,
+      "message": "Sorry I didn\u0027t notice this before, but shouldn\u0027t this be \"../third_party/fiat/curve25519.c\" (one layer of ..)? As is, CMake gives me an error about not being able to find the path.",
+      "revId": "a46ffa6791a52f1bdac19470a812b97a5eefea82",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
