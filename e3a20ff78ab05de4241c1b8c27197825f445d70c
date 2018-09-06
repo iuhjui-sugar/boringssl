@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "07227a44_16ff7c70",
+        "filename": "crypto/fipsmodule/rand/rand.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-06T23:54:33Z",
+      "side": 1,
+      "message": "Look what you made me do. :-)\nhttps://boringssl-review.googlesource.com/c/boringssl/+/31684",
+      "revId": "e3a20ff78ab05de4241c1b8c27197825f445d70c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4df91cc2_bf6c3777",
+        "filename": "crypto/fipsmodule/rand/rand.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-06T23:54:33Z",
+      "side": 1,
+      "message": "Nit: This doesn\u0027t actually check if the pool is being used. Perhaps \"This may only be called if the pool is being used.\"",
+      "range": {
+        "startLine": 325,
+        "startChar": 60,
+        "endLine": 325,
+        "endChar": 61
+      },
+      "revId": "e3a20ff78ab05de4241c1b8c27197825f445d70c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
