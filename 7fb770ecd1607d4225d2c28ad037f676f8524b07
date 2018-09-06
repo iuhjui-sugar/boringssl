@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3dd61aa0_db39896f",
+        "filename": "crypto/rand_extra/rand_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-09-06T23:27:58Z",
+      "side": 1,
+      "message": "Handle ret\u003d0 case, otherwise it\u0027ll loop forever.",
+      "revId": "7fb770ecd1607d4225d2c28ad037f676f8524b07",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f31bbbb_3b59893d",
+        "filename": "crypto/rand_extra/rand_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-09-06T23:27:58Z",
+      "side": 1,
+      "message": "s/ly//",
+      "range": {
+        "startLine": 122,
+        "startChar": 53,
+        "endLine": 122,
+        "endChar": 55
+      },
+      "revId": "7fb770ecd1607d4225d2c28ad037f676f8524b07",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ee9d906_9f0b01e2",
+        "filename": "crypto/rand_extra/rand_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-09-06T23:27:58Z",
+      "side": 1,
+      "message": "// !OPENSSL_WINDOWS",
+      "revId": "7fb770ecd1607d4225d2c28ad037f676f8524b07",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
