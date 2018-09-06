@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9f1aee88_364ddf7d",
+        "filename": "BUILDING.md",
+        "patchSetId": 10
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-06T17:53:51Z",
+      "side": 1,
+      "message": "Nit: Let\u0027s maybe call this \"has experimental support\" since we\u0027re still figuring this out. Also added a note that we may change how this works (hopefully for the better!).",
+      "revId": "715e8761b5d5e2203d9961215fcc616eb0f43dfc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "23e62d32_ae09fe25",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 10
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-06T17:53:51Z",
+      "side": 1,
+      "message": "Probably want to spell this include_directories(${CMAKE_CURRENT_BINARY_DIR}/symbol_prefix_include) so it works on MSVC.",
+      "revId": "715e8761b5d5e2203d9961215fcc616eb0f43dfc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a8b1005_5b331535",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 10
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-06T17:53:51Z",
+      "side": 1,
+      "message": "Looks like this target runs on every build invocation. I fixed up the dependencies a bit. Does this still work for you?",
+      "revId": "715e8761b5d5e2203d9961215fcc616eb0f43dfc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4636377_363c2724",
+        "filename": "crypto/perlasm/x86_64-xlate.pl",
+        "patchSetId": 10
+      },
+      "lineNbr": 1135,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-06T17:53:51Z",
+      "side": 1,
+      "message": "(I imagine we\u0027ll want to extend this to other platforms later, but let\u0027s do that separately and get this in for you to play with. :) )",
+      "revId": "715e8761b5d5e2203d9961215fcc616eb0f43dfc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6294b2c4_09bbc8b3",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 4388,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-06T17:53:51Z",
+      "side": 1,
+      "message": "Actually, it\u0027s better than this, since BORINGSSL_PREFIX will turn all of these into macros anyway, which satisfies the #ifdef.",
+      "revId": "715e8761b5d5e2203d9961215fcc616eb0f43dfc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bec93a4d_0bf7427b",
+        "filename": "third_party/fiat/CMakeLists.txt",
+        "patchSetId": 10
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-06T17:53:51Z",
+      "side": 1,
+      "message": "Oops, I just forgot to remove this file. Will fix.",
+      "revId": "715e8761b5d5e2203d9961215fcc616eb0f43dfc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
