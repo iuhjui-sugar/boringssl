@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a2eb6e9_743f32bb",
+        "filename": "crypto/chacha/CMakeLists.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 9171
+      },
+      "writtenOn": "2018-09-06T14:12:31Z",
+      "side": 0,
+      "message": "Hi, CMake gives me an error after this changes:\ncc: error: /opt/boringssl-master/crypto/chacha/chacha-x86_64.S: No such file or directory\ncc: fatal error: no input files",
+      "revId": "1fcae84a4f80bba8014f5bb26410c9b5b715b2cc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
