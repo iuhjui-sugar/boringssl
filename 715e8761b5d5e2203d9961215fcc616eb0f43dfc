@@ -87,6 +87,24 @@
     },
     {
       "key": {
+        "uuid": "1f4ab2e4_38b371a9",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 4388,
+      "author": {
+        "id": 8959
+      },
+      "writtenOn": "2018-09-06T18:03:12Z",
+      "side": 1,
+      "message": "Is this also true of the preceding block of defines?",
+      "parentUuid": "6294b2c4_09bbc8b3",
+      "revId": "715e8761b5d5e2203d9961215fcc616eb0f43dfc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bec93a4d_0bf7427b",
         "filename": "third_party/fiat/CMakeLists.txt",
         "patchSetId": 10
