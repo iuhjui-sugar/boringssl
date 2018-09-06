@@ -105,6 +105,24 @@
     },
     {
       "key": {
+        "uuid": "651768f7_85f2627a",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 4388,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-06T18:04:55Z",
+      "side": 1,
+      "message": "Nah, the preceding defines aren\u0027t symbols. They\u0027re constants. :-)",
+      "parentUuid": "1f4ab2e4_38b371a9",
+      "revId": "715e8761b5d5e2203d9961215fcc616eb0f43dfc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bec93a4d_0bf7427b",
         "filename": "third_party/fiat/CMakeLists.txt",
         "patchSetId": 10
