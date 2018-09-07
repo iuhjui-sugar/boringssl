@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d003cd0e_bd686b1a",
+        "filename": "crypto/perlasm/arm-xlate.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-09-07T19:26:12Z",
+      "side": 1,
+      "message": "Hmm, you\u0027re correct that it wasn\u0027t triggering. I had confirmed that it was triggering but, when OPENSSL_NO_ASM is set in the CMake, the assembly files aren\u0027t generated, so actually rebuilding wasn\u0027t doing anything :(\n\nI think there\u0027ll plausibly be cases where we do want a non-static assembly function so it would be good to drop them from the .S files. Let me rerun the try-bots and see whether everything still works with ASM_FLAGS set.",
+      "parentUuid": "566d7258_59382a02",
+      "revId": "35486282b4c6a13e2f3b05e98e164da28c275abb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ae545876_fce5e1dc",
         "filename": "crypto/perlasm/x86_64-xlate.pl",
         "patchSetId": 4
