@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8bd3c31c_0a5ebc58",
+        "filename": "ssl/t1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1995,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-09-07T14:53:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bd3c31c_14d8a4d1",
+      "revId": "30da4602ddd6be9329e8bddd0e1a778b01ed33a2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8bd3c31c_b4e0d885",
         "filename": "ssl/tls13_server.c",
         "patchSetId": 1
@@ -30,6 +48,30 @@
       "writtenOn": "2016-11-07T23:22:35Z",
       "side": 1,
       "message": "You need to store this on the SSL_HANDSHAKE and decline to send a ticket based on this.\n\nThe point of moving this to the ClientHello was to mirror the NST losing it. The changes are two sides of the same coin and need to be done as one atomic unit. Instead of the client being on the hook to punt pointless NSTs, the server is on the hook for declining to send them.",
+      "range": {
+        "startLine": 112,
+        "startChar": 6,
+        "endLine": 112,
+        "endChar": 16
+      },
+      "revId": "30da4602ddd6be9329e8bddd0e1a778b01ed33a2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8bd3c31c_ca585448",
+        "filename": "ssl/tls13_server.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-09-07T14:53:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bd3c31c_b4e0d885",
       "range": {
         "startLine": 112,
         "startChar": 6,
