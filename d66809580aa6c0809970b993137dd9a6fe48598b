@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ca440b0b_05d0a75e",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-07T19:17:44Z",
+      "side": 0,
+      "message": "Shouldn\u0027t this also be added to CMAKE_ASM_FLAGS?",
+      "range": {
+        "startLine": 276,
+        "startChar": 6,
+        "endLine": 276,
+        "endChar": 21
+      },
+      "revId": "d66809580aa6c0809970b993137dd9a6fe48598b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "666de015_bd7b9ce9",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-07T19:17:44Z",
+      "side": 0,
+      "message": "Note removing this relies on CMake picking clang for both CMAKE_{C,CXX}_COMPILER but also CMAKE_ASM_COMPILER. That said, it seems to pick it even for my clang-toolchain.cmake which forgets to set CMAKE_ASM_COMPILER, so CMake might just do this automatically.",
+      "revId": "d66809580aa6c0809970b993137dd9a6fe48598b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}

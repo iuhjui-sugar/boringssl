@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "566d7258_59382a02",
+        "filename": "crypto/perlasm/arm-xlate.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-07T19:17:44Z",
+      "side": 1,
+      "message": "Not something to change, but note this is either unnecessary or fragile. (E.g. I\u0027m pretty sure this isn\u0027t currently tripping due to CMAKE_ASM_FLAGS comment.) If the assembly files get assembled, everything will link and most of the assembly will get dropped on the floor unreferenced.\n\nExcept there are a few places where we use the same symbol name between assembly and the C fallback implementation. In those cases, we\u0027re relying on the linker to pick the right one...\n\nThat said, as I look around for such an instance, all the ones I\u0027d thought of (aes_nohw_* and *block_data_order) mark the C function as static...",
+      "revId": "35486282b4c6a13e2f3b05e98e164da28c275abb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ae545876_fce5e1dc",
+        "filename": "crypto/perlasm/x86_64-xlate.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 1146,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-07T19:17:44Z",
+      "side": 1,
+      "message": "Confirmed that clang -fsanitize\u003dmemory foo.S still tripped this.",
+      "revId": "35486282b4c6a13e2f3b05e98e164da28c275abb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
