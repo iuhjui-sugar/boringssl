@@ -39,6 +39,24 @@
       "revId": "d66809580aa6c0809970b993137dd9a6fe48598b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b90f31b8_22197e43",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-09-07T21:00:37Z",
+      "side": 0,
+      "message": "Yea, it seems to even if just $CC and $CXX are set in the environ.",
+      "parentUuid": "666de015_bd7b9ce9",
+      "revId": "d66809580aa6c0809970b993137dd9a6fe48598b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
