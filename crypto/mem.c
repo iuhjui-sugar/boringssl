@@ -71,6 +71,19 @@ OPENSSL_MSVC_PRAGMA(warning(pop))
 
 #define OPENSSL_MALLOC_PREFIX 8
 
+#if !defined(__GNUC__) && !defined(__clang__)
+static
+#endif
+void sdallocx(void* ptr, size_t size, int flags);
+
+#if defined(__GNUC__) || defined(__clang__)
+__attribute((weak,noinline))
+#else
+static
+#endif
+void sdallocx(void* ptr, size_t size, int flags) {
+  free(ptr);
+}
 
 void *OPENSSL_malloc(size_t size) {
   void *ptr = malloc(size + OPENSSL_MALLOC_PREFIX);
@@ -92,7 +105,7 @@ void OPENSSL_free(void *orig_ptr) {
 
   size_t size = *(size_t *)ptr;
   OPENSSL_cleanse(ptr, size + OPENSSL_MALLOC_PREFIX);
-  free(ptr);
+  sdallocx(ptr, size + OPENSSL_MALLOC_PREFIX, 0);
 }
 
 void *OPENSSL_realloc(void *orig_ptr, size_t new_size) {
