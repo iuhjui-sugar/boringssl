@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f9cc9f92_833d1207",
+        "filename": "crypto/mem.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-09-10T16:05:38Z",
+      "side": 1,
+      "message": "This doesn\u0027t say \"static\", which will mismatch with the definition below when not building with GCC nor Clang.",
+      "revId": "e9681b3e216cf93d6480b955781603e97f906f03",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
