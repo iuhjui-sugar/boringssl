@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0536b28d_7a5acc2e",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-15T01:17:32Z",
+      "side": 1,
+      "message": "Nit: s/config/features/ maybe? Since it\u0027s less about the configuration itself and more about what we can handle at all.",
+      "range": {
+        "startLine": 27,
+        "startChar": 13,
+        "endLine": 27,
+        "endChar": 19
+      },
+      "revId": "a554d79b405aa18e8df2294e71231ea7cd888f56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40437e41_0ce056aa",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-15T01:17:32Z",
+      "side": 1,
+      "message": "Nit: CBS_ASN1_OCTETSTRING is probably better here. SEQUENCE would imply the children are all ASN.1 elements, but this is a custom byte serialization.\n\n(Or you could make it a SEQUENCE OF INTEGER, but this byte representation is probably saner all around. More compact at least.)",
+      "range": {
+        "startLine": 31,
+        "startChar": 35,
+        "endLine": 31,
+        "endChar": 52
+      },
+      "revId": "a554d79b405aa18e8df2294e71231ea7cd888f56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28358243_4c2b1179",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-15T01:17:32Z",
+      "side": 1,
+      "message": "Check for failure. Ditto below.",
+      "range": {
+        "startLine": 97,
+        "startChar": 4,
+        "endLine": 97,
+        "endChar": 22
+      },
+      "revId": "a554d79b405aa18e8df2294e71231ea7cd888f56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94114ab8_da26e024",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-15T01:17:32Z",
+      "side": 1,
+      "message": "Nice! I was thinking of stashing both lists and modify the negotiation algorithm, but this is probably simpler. (Though I guess most other places would want the latter strategy? I\u0027m fine with either.)",
+      "range": {
+        "startLine": 116,
+        "startChar": 30,
+        "endLine": 116,
+        "endChar": 36
+      },
+      "revId": "a554d79b405aa18e8df2294e71231ea7cd888f56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f61d5c8_9733811c",
+        "filename": "ssl/internal.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-15T01:17:32Z",
+      "side": 1,
+      "message": "Won\u0027t this cause ODR problems? Perhaps leave the definition in ssl_cipher.cc and instead add extern const size_t kNumCipher to the header and const size_t kNumCiphers \u003d OPENSSL_ARRAY_SIZE(kCiphers) to the cc file.",
+      "revId": "a554d79b405aa18e8df2294e71231ea7cd888f56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04226f94_8bb46e41",
+        "filename": "ssl/ssl_cipher.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-15T01:17:32Z",
+      "side": 1,
+      "message": "Failure check (and clang-format).",
+      "revId": "a554d79b405aa18e8df2294e71231ea7cd888f56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80269065_b474ab5c",
+        "filename": "ssl/ssl_cipher.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-15T01:17:32Z",
+      "side": 1,
+      "message": "They\u0027re bools, so perhaps:\n\nif (!in_group_flags[index] \u0026\u0026 index \u003e 0) {\n  in_group_flags[index-1] \u003d false;\n}",
+      "range": {
+        "startLine": 477,
+        "startChar": 31,
+        "endLine": 477,
+        "endChar": 32
+      },
+      "revId": "a554d79b405aa18e8df2294e71231ea7cd888f56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
