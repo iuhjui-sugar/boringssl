@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cdfcccb6_8ed36715",
+        "filename": "util/godeps.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-09-17T21:17:11Z",
+      "side": 1,
+      "message": "s/or/e/",
+      "range": {
+        "startLine": 45,
+        "startChar": 10,
+        "endLine": 45,
+        "endChar": 12
+      },
+      "revId": "fdf3e47278263e582720cbf95944da6b5405b3f0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b31db2ea_d4dfb9b9",
+        "filename": "util/godeps.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-09-17T21:17:11Z",
+      "side": 1,
+      "message": "s/or/e/",
+      "range": {
+        "startLine": 82,
+        "startChar": 10,
+        "endLine": 82,
+        "endChar": 12
+      },
+      "revId": "fdf3e47278263e582720cbf95944da6b5405b3f0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
