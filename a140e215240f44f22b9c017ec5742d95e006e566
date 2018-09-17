@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "54f6641f_90f9b3b7",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-17T23:18:16Z",
+      "side": 1,
+      "message": "There\u0027s three of these now. Maybe worth a getrandom_eintr wrapper?",
+      "revId": "a140e215240f44f22b9c017ec5742d95e006e566",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e4112e9_3e44b64d",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-17T23:18:16Z",
+      "side": 1,
+      "message": "Did you mean \u0026\u0026?",
+      "range": {
+        "startLine": 140,
+        "startChar": 33,
+        "endLine": 140,
+        "endChar": 35
+      },
+      "revId": "a140e215240f44f22b9c017ec5742d95e006e566",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34ab7323_218d4c0e",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-17T23:18:16Z",
+      "side": 1,
+      "message": "The early returns and elses are getting kinda complciated. What do you think about this? It makes the blocking case reuse the existing error-checking. (Though it does make us tolerate system that ENOSYS 0 and EAGAIN on GRND_NONBLOCK.)\n\n// Probe getrandom to see if it works. Run with GRND_NONBLOCK first to print\n// a diagnostic message before blocking.\nuint8_t dummy;\nlong getrandom_ret \u003d getrandom_eintr(\u0026dummy, sizeof(dummy), GRND_NONBLOCK);\nif (getrandom_ret \u003d\u003d -1 \u0026\u0026 errno \u003d\u003d EAGAIN) {\n  fprintf(stderr, \"getrandom indicates, etc.\");\n  getrandom_ret \u003d getrandom_eintr(\u0026dummy, sizeof(dummy), 0 /* no flags */);\n}\nif (get_random_ret \u003d\u003d 1) {\n  *urandom_fd_bss_get() \u003d kHaveGetrandom;\n  return;\n}\n// On ENOSYS, fallthrough to using /dev/urandom below. Other errors are fatal.\nif (getrandom_ret !\u003d -1 || errno !\u003d ENOSYS) {\n  perror(\"getrandom\");\n  abort();\n}",
+      "revId": "a140e215240f44f22b9c017ec5742d95e006e566",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
