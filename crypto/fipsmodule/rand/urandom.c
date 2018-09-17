@@ -108,8 +108,12 @@ static void init_once(void) {
 
 #if defined(USE_NR_getrandom)
   uint8_t dummy;
-  long getrandom_ret =
-      syscall(__NR_getrandom, &dummy, sizeof(dummy), GRND_NONBLOCK);
+  long getrandom_ret;
+
+  do {
+    getrandom_ret =
+        syscall(__NR_getrandom, &dummy, sizeof(dummy), GRND_NONBLOCK);
+  } while (getrandom_ret == -1 && errno == EINTR);
 
   if (getrandom_ret == 1) {
     *urandom_fd_bss_get() = kHaveGetrandom;
@@ -130,6 +134,14 @@ static void init_once(void) {
       *urandom_fd_bss_get() = kHaveGetrandom;
       return;
     }
+
+    perror("getrandom");
+    abort();
+  } else if (getrandom_ret == -1 || errno == ENOSYS) {
+    // Ignore ENOSYS and fallthrough to using /dev/urandom, below.
+  } else {
+    perror("getrandom");
+    abort();
   }
 #endif  // USE_NR_getrandom
 
