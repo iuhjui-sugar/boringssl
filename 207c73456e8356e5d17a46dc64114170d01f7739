@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "76808526_3b3117ef",
+        "filename": "util/ar/ar.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 8959
+      },
+      "writtenOn": "2018-09-18T02:53:19Z",
+      "side": 1,
+      "message": "Your hypothesis is that nulls in the middle aren\u0027t possible? I observed long runs of nulls at the end, but never any nulls followed by non-null characters.",
+      "parentUuid": "d77c5f49_72f51227",
+      "revId": "207c73456e8356e5d17a46dc64114170d01f7739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a6056369_289d3d5c",
         "filename": "util/read_symbols.go",
         "patchSetId": 1
@@ -50,6 +68,24 @@
       "revId": "207c73456e8356e5d17a46dc64114170d01f7739",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a38b8ef4_04c63490",
+        "filename": "util/read_symbols.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 8959
+      },
+      "writtenOn": "2018-09-18T02:53:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6056369_289d3d5c",
+      "revId": "207c73456e8356e5d17a46dc64114170d01f7739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -76,6 +112,30 @@
     },
     {
       "key": {
+        "uuid": "4eda2557_f93eda42",
+        "filename": "util/read_symbols.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 8959
+      },
+      "writtenOn": "2018-09-18T02:53:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f22687c_180d17f2",
+      "range": {
+        "startLine": 52,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 5
+      },
+      "revId": "207c73456e8356e5d17a46dc64114170d01f7739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c982e02_e4b5b064",
         "filename": "util/read_symbols.go",
         "patchSetId": 1
@@ -99,6 +159,30 @@
     },
     {
       "key": {
+        "uuid": "a36dc376_c4ff8f0e",
+        "filename": "util/read_symbols.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 8959
+      },
+      "writtenOn": "2018-09-18T02:53:19Z",
+      "side": 1,
+      "message": "Mac is silly and adds a \u0027__.SYMDEF SORTED\u0027 file which isn\u0027t an object file.",
+      "parentUuid": "1c982e02_e4b5b064",
+      "range": {
+        "startLine": 61,
+        "startChar": 23,
+        "endLine": 61,
+        "endChar": 49
+      },
+      "revId": "207c73456e8356e5d17a46dc64114170d01f7739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "db6fb5a3_19dd41db",
         "filename": "util/read_symbols.go",
         "patchSetId": 1
@@ -113,6 +197,24 @@
       "revId": "207c73456e8356e5d17a46dc64114170d01f7739",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18291da1_cc006349",
+        "filename": "util/read_symbols.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 8959
+      },
+      "writtenOn": "2018-09-18T02:53:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db6fb5a3_19dd41db",
+      "revId": "207c73456e8356e5d17a46dc64114170d01f7739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -133,6 +235,24 @@
     },
     {
       "key": {
+        "uuid": "dc1d0b1c_318e7a80",
+        "filename": "util/read_symbols.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 8959
+      },
+      "writtenOn": "2018-09-18T02:53:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14762013_14c2091f",
+      "revId": "207c73456e8356e5d17a46dc64114170d01f7739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "304a9f35_975e8770",
         "filename": "util/read_symbols.go",
         "patchSetId": 1
@@ -144,6 +264,24 @@
       "writtenOn": "2018-09-18T00:10:50Z",
       "side": 1,
       "message": "C++ mangled names, with the Itanium ABI, always start with \"_Z\". (\"__Z\" on darwin.)",
+      "revId": "207c73456e8356e5d17a46dc64114170d01f7739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c7699de_f623b735",
+        "filename": "util/read_symbols.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 8959
+      },
+      "writtenOn": "2018-09-18T02:53:19Z",
+      "side": 1,
+      "message": "So this one was interesting. It was \"stat$INODE64\". It doesn\u0027t show up when I exclude non-exported symbols, but I\u0027m worried that something like it will show up in the future. I guess it\u0027s not really C++.",
+      "parentUuid": "304a9f35_975e8770",
       "revId": "207c73456e8356e5d17a46dc64114170d01f7739",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -196,6 +334,30 @@
     },
     {
       "key": {
+        "uuid": "efcb8463_5ddcfeec",
+        "filename": "util/read_symbols.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 8959
+      },
+      "writtenOn": "2018-09-18T02:53:19Z",
+      "side": 1,
+      "message": "Isn\u0027t Go style to have these in camel case, even for initialisms and acronyms?",
+      "parentUuid": "0eb91c1f_9091fa48",
+      "range": {
+        "startLine": 96,
+        "startChar": 16,
+        "endLine": 96,
+        "endChar": 19
+      },
+      "revId": "207c73456e8356e5d17a46dc64114170d01f7739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e5041ce5_a73d812b",
         "filename": "util/read_symbols.go",
         "patchSetId": 1
@@ -213,6 +375,24 @@
     },
     {
       "key": {
+        "uuid": "bf03a942_03e2b4a2",
+        "filename": "util/read_symbols.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 8959
+      },
+      "writtenOn": "2018-09-18T02:53:19Z",
+      "side": 1,
+      "message": "Our ELF expert has confirmed that this is correct :) Done.",
+      "parentUuid": "e5041ce5_a73d812b",
+      "revId": "207c73456e8356e5d17a46dc64114170d01f7739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2a08f37f_90965c1a",
         "filename": "util/read_symbols.go",
         "patchSetId": 1
@@ -227,6 +407,24 @@
       "revId": "207c73456e8356e5d17a46dc64114170d01f7739",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "054c6ca0_6b8e68fa",
+        "filename": "util/read_symbols.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 8959
+      },
+      "writtenOn": "2018-09-18T02:53:19Z",
+      "side": 1,
+      "message": "Yeah, N_EXT includes everything that\u0027s exported, which should include P_EXT. I\u0027ve removed the TODO comment.",
+      "parentUuid": "2a08f37f_90965c1a",
+      "revId": "207c73456e8356e5d17a46dc64114170d01f7739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -253,6 +451,30 @@
     },
     {
       "key": {
+        "uuid": "333ce918_f275f2f7",
+        "filename": "util/read_symbols.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 8959
+      },
+      "writtenOn": "2018-09-18T02:53:19Z",
+      "side": 1,
+      "message": "Apparently it does. Changed.",
+      "parentUuid": "d0356557_aa1370b7",
+      "range": {
+        "startLine": 133,
+        "startChar": 28,
+        "endLine": 133,
+        "endChar": 83
+      },
+      "revId": "207c73456e8356e5d17a46dc64114170d01f7739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "db015e91_e7ed1a9b",
         "filename": "util/read_symbols.go",
         "patchSetId": 1
@@ -264,6 +486,24 @@
       "writtenOn": "2018-09-18T00:10:50Z",
       "side": 1,
       "message": "I\u0027m guessing you meant to have this import the other library?",
+      "revId": "207c73456e8356e5d17a46dc64114170d01f7739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bef792b_82cd6b9a",
+        "filename": "util/read_symbols.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 8959
+      },
+      "writtenOn": "2018-09-18T02:53:19Z",
+      "side": 1,
+      "message": "Eventually, yes. Haven\u0027t looked into how to do it yet (haven\u0027t worked with modules).",
+      "parentUuid": "db015e91_e7ed1a9b",
       "revId": "207c73456e8356e5d17a46dc64114170d01f7739",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
