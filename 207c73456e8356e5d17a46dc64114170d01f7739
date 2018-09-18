@@ -1,0 +1,272 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b6e258a2_743c8155",
+        "filename": "util/ar/ar.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-18T00:10:50Z",
+      "side": 1,
+      "message": "inject-hash and delocate should be updated to pick up the new location.",
+      "revId": "207c73456e8356e5d17a46dc64114170d01f7739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d77c5f49_72f51227",
+        "filename": "util/ar/ar.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-18T00:10:50Z",
+      "side": 1,
+      "message": "A shorter version:\n\nfor len(name) \u003e 0 \u0026\u0026 name[len(name)-1] \u003d\u003d 0 {\n  name \u003d name[:len(name)-1]\n}\n\n(String slicing in Go doesn\u0027t make a copy.)",
+      "revId": "207c73456e8356e5d17a46dc64114170d01f7739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6056369_289d3d5c",
+        "filename": "util/read_symbols.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-18T00:10:50Z",
+      "side": 1,
+      "message": "defer out.Close()",
+      "revId": "207c73456e8356e5d17a46dc64114170d01f7739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f22687c_180d17f2",
+        "filename": "util/read_symbols.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-18T00:10:50Z",
+      "side": 1,
+      "message": "Nit: Capitalize and add period.",
+      "range": {
+        "startLine": 52,
+        "startChar": 4,
+        "endLine": 52,
+        "endChar": 5
+      },
+      "revId": "207c73456e8356e5d17a46dc64114170d01f7739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c982e02_e4b5b064",
+        "filename": "util/read_symbols.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-18T00:10:50Z",
+      "side": 1,
+      "message": "strings.HasSuffix(name, \".o\")\n\nThough I think delocate didn\u0027t need to filter the filenames or anything. What files did you have to filter out?",
+      "range": {
+        "startLine": 61,
+        "startChar": 23,
+        "endLine": 61,
+        "endChar": 49
+      },
+      "revId": "207c73456e8356e5d17a46dc64114170d01f7739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db6fb5a3_19dd41db",
+        "filename": "util/read_symbols.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-18T00:10:50Z",
+      "side": 1,
+      "message": "Stray line?",
+      "revId": "207c73456e8356e5d17a46dc64114170d01f7739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14762013_14c2091f",
+        "filename": "util/read_symbols.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-18T00:10:50Z",
+      "side": 1,
+      "message": "Nit: Period at the end.",
+      "revId": "207c73456e8356e5d17a46dc64114170d01f7739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "304a9f35_975e8770",
+        "filename": "util/read_symbols.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-18T00:10:50Z",
+      "side": 1,
+      "message": "C++ mangled names, with the Itanium ABI, always start with \"_Z\". (\"__Z\" on darwin.)",
+      "revId": "207c73456e8356e5d17a46dc64114170d01f7739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "238c3f9a_1ddf62f7",
+        "filename": "util/read_symbols.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-18T00:10:50Z",
+      "side": 1,
+      "message": "Do you think it\u0027s worth letting this be overridable by a flag? I assume you\u0027re going to be be cross-compiling on ARM, which means runtime.GOOS isn\u0027t necessarily right.",
+      "range": {
+        "startLine": 86,
+        "startChar": 8,
+        "endLine": 86,
+        "endChar": 20
+      },
+      "revId": "207c73456e8356e5d17a46dc64114170d01f7739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0eb91c1f_9091fa48",
+        "filename": "util/read_symbols.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-18T00:10:50Z",
+      "side": 1,
+      "message": "Nit: ELF since it\u0027s always written in all-uppercase.",
+      "range": {
+        "startLine": 96,
+        "startChar": 16,
+        "endLine": 96,
+        "endChar": 19
+      },
+      "revId": "207c73456e8356e5d17a46dc64114170d01f7739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5041ce5_a73d812b",
+        "filename": "util/read_symbols.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-18T00:10:50Z",
+      "side": 1,
+      "message": "Looks like the check you want is something like:\n\n  if elf.ST_BIND(sym.Info) !\u003d elf.STB_LOCAL \u0026\u0026 sym.Section !\u003d elf.SHN_UNDEF",
+      "revId": "207c73456e8356e5d17a46dc64114170d01f7739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a08f37f_90965c1a",
+        "filename": "util/read_symbols.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-18T00:10:50Z",
+      "side": 1,
+      "message": "You want to include the N_PEXT ones. Those symbols are hidden at the shared library level, but visible at the static library level.\n\nThough given this works, I suspect that means N_PEXT symbols also set N_EXT. We like to build with -fvisibility\u003dhidden which should make everything private_extern.",
+      "revId": "207c73456e8356e5d17a46dc64114170d01f7739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0356557_aa1370b7",
+        "filename": "util/read_symbols.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-18T00:10:50Z",
+      "side": 1,
+      "message": "Out of curiosity, why doesn\u0027t it work to just exclude the N_UNDF ones?",
+      "range": {
+        "startLine": 133,
+        "startChar": 28,
+        "endLine": 133,
+        "endChar": 83
+      },
+      "revId": "207c73456e8356e5d17a46dc64114170d01f7739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db015e91_e7ed1a9b",
+        "filename": "util/read_symbols.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-18T00:10:50Z",
+      "side": 1,
+      "message": "I\u0027m guessing you meant to have this import the other library?",
+      "revId": "207c73456e8356e5d17a46dc64114170d01f7739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
