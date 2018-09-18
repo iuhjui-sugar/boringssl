@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cfa12fdf_ad22962b",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-18T00:18:50Z",
+      "side": 1,
+      "message": "I think you need to move this down a hair, after we define __NR_getrandom.",
+      "revId": "fe766551757dd1c2fa35b72ff08f74ce7f8637e3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb76b21a_fe87320e",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-18T00:18:50Z",
+      "side": 1,
+      "message": "Nit: clang-format",
+      "revId": "fe766551757dd1c2fa35b72ff08f74ce7f8637e3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
