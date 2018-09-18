@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "bab20a66_2b0d8105",
+        "filename": "util/ar/ar.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-18T08:31:40Z",
+      "side": 1,
+      "message": "Oh, I see! Sorry, misread what your code was doing. Ignore this comment. :-)",
+      "parentUuid": "76808526_3b3117ef",
+      "revId": "207c73456e8356e5d17a46dc64114170d01f7739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a6056369_289d3d5c",
         "filename": "util/read_symbols.go",
         "patchSetId": 1
@@ -288,6 +306,24 @@
     },
     {
       "key": {
+        "uuid": "6abac7a2_3b2b8066",
+        "filename": "util/read_symbols.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-18T08:31:40Z",
+      "side": 1,
+      "message": "That\u0027s probably silliness where they needed to add a new version of stat and give it a different name as a symbol-versioning thing. But it was presumably an undefined symbol, so no need to do anything special with it.\n\n(libcrypto doesn\u0027t have any C++ symbols right now. libssl will want _Z stuff excluded.)",
+      "parentUuid": "0c7699de_f623b735",
+      "revId": "207c73456e8356e5d17a46dc64114170d01f7739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "238c3f9a_1ddf62f7",
         "filename": "util/read_symbols.go",
         "patchSetId": 1
@@ -346,6 +382,30 @@
       "side": 1,
       "message": "Isn\u0027t Go style to have these in camel case, even for initialisms and acronyms?",
       "parentUuid": "0eb91c1f_9091fa48",
+      "range": {
+        "startLine": 96,
+        "startChar": 16,
+        "endLine": 96,
+        "endChar": 19
+      },
+      "revId": "207c73456e8356e5d17a46dc64114170d01f7739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ce622ac_0faba333",
+        "filename": "util/read_symbols.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-18T08:31:40Z",
+      "side": 1,
+      "message": "https://github.com/golang/go/wiki/CodeReviewComments#initialisms",
+      "parentUuid": "efcb8463_5ddcfeec",
       "range": {
         "startLine": 96,
         "startChar": 16,
@@ -504,6 +564,24 @@
       "side": 1,
       "message": "Eventually, yes. Haven\u0027t looked into how to do it yet (haven\u0027t worked with modules).",
       "parentUuid": "db015e91_e7ed1a9b",
+      "revId": "207c73456e8356e5d17a46dc64114170d01f7739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3124b2ee_40d49d13",
+        "filename": "util/read_symbols.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-18T08:31:40Z",
+      "side": 1,
+      "message": "Oh, it\u0027s boring. Just import it as boringssl.googlesource.com/boringssl/util/ar or whatever. The only feature of modules we\u0027re actually using right now is telling Go that the source directory has a name. :-)",
+      "parentUuid": "5bef792b_82cd6b9a",
       "revId": "207c73456e8356e5d17a46dc64114170d01f7739",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
