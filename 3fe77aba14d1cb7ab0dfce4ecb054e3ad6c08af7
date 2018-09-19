@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7165d58e_1c2241f3",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-19T17:55:45Z",
+      "side": 1,
+      "message": "Optional: Maybe fold this into boringssl_getrandom.",
+      "revId": "3fe77aba14d1cb7ab0dfce4ecb054e3ad6c08af7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
