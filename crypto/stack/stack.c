@@ -56,6 +56,7 @@
 
 #include <openssl/stack.h>
 
+#include <assert.h>
 #include <string.h>
 
 #include <openssl/mem.h>
@@ -272,33 +273,42 @@ int sk_find(const _STACK *sk, size_t *out_index, const void *p,
     return 0;
   }
 
-  // sk->comp is a function that takes pointers to pointers to elements, but
-  // qsort and bsearch take a comparison function that just takes pointers to
-  // elements. However, since we're passing an array of pointers to
-  // qsort/bsearch, we can just cast the comparison function and everything
-  // works.
+  // The stack is sorted, so binary search to find the element.
   //
-  // TODO(davidben): This is undefined behavior, but the call is in libc so,
-  // e.g., CFI does not notice. Unfortunately, |bsearch| is missing a void*
-  // parameter in its callback and |bsearch_s| is a mess of incompatibility.
-  const void *const *r = bsearch(&p, sk->data, sk->num, sizeof(void *),
-                                 (int (*)(const void *, const void *))sk->comp);
-  if (r == NULL) {
-    return 0;
-  }
-  size_t idx = ((void **)r) - sk->data;
-  // This function always returns the first result.
-  while (idx > 0) {
-    const void *elem = sk->data[idx - 1];
-    if (call_cmp_func(sk->comp, &p, &elem) != 0) {
-      break;
+  // |lo| and |hi| maintain a half-open interval of where the answer may be. All
+  // indices such that |lo <= idx < hi| are candidates.
+  size_t lo = 0, hi = sk->num;
+  while (hi - lo > 1) {
+    // Bias the sample towards |lo|, so that we never sample the last element
+    // and the |r = 0| case below makes progress. |hi - 1 - lo > 0|, so halving
+    // it subtracts at least 1, thus |mid| is at most |hi - 2|.
+    size_t mid = lo + (hi - 1 - lo) / 2;
+    assert(mid < hi - 1);
+    const void *elem = sk->data[mid];
+    int r = call_cmp_func(sk->comp, &p, &elem);
+    if (r > 0) {
+      lo = mid + 1;  // The answer is above |mid|, exclusive.
+    } else if (r < 0) {
+      hi = mid;  // The answer is below |mid|, exclusive.
+    } else {
+      hi = mid + 1;  // The answer is below |mid|, inclusive. Note this
+                     // function always returns the first match.
     }
-    idx--;
   }
-  if (out_index) {
-    *out_index = idx;
+  // Zero or one elements remaining.
+  if (lo < hi) {
+    assert(lo + 1 == hi);
+    const void *elem = sk->data[lo];
+    if (call_cmp_func(sk->comp, &p, &elem) != 0) {
+      return 0;
+    }
+    if (out_index) {
+      *out_index = lo;
+    }
+    return 1;
   }
-  return 1;
+  assert(lo == hi);
+  return 0;
 }
 
 void *sk_shift(_STACK *sk) {
@@ -361,7 +371,10 @@ void sk_sort(_STACK *sk) {
     return;
   }
 
-  // See the comment in sk_find about this cast.
+  // sk->comp is a function that takes pointers to pointers to elements, but
+  // qsort take a comparison function that just takes pointers to elements.
+  // However, since we're passing an array of pointers to qsort, we can just
+  // cast the comparison function and everything works.
   //
   // TODO(davidben): This is undefined behavior, but the call is in libc so,
   // e.g., CFI does not notice. Unfortunately, |qsort| is missing a void*
