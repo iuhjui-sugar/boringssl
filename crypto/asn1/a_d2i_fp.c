@@ -64,43 +64,6 @@
 
 static int asn1_d2i_read_bio(BIO *in, BUF_MEM **pb);
 
-#ifndef NO_OLD_ASN1
-# ifndef OPENSSL_NO_FP_API
-
-void *ASN1_d2i_fp(void *(*xnew) (void), d2i_of_void *d2i, FILE *in, void **x)
-{
-    BIO *b = BIO_new_fp(in, BIO_NOCLOSE);
-    if (b == NULL) {
-        OPENSSL_PUT_ERROR(ASN1, ERR_R_BUF_LIB);
-        return NULL;
-    }
-    void *ret = ASN1_d2i_bio(xnew, d2i, b, x);
-    BIO_free(b);
-    return (ret);
-}
-# endif
-
-void *ASN1_d2i_bio(void *(*xnew) (void), d2i_of_void *d2i, BIO *in, void **x)
-{
-    BUF_MEM *b = NULL;
-    const unsigned char *p;
-    void *ret = NULL;
-    int len;
-
-    len = asn1_d2i_read_bio(in, &b);
-    if (len < 0)
-        goto err;
-
-    p = (unsigned char *)b->data;
-    ret = d2i(x, &p, len);
- err:
-    if (b != NULL)
-        BUF_MEM_free(b);
-    return (ret);
-}
-
-#endif
-
 void *ASN1_item_d2i_bio(const ASN1_ITEM *it, BIO *in, void *x)
 {
     BUF_MEM *b = NULL;
