@@ -1,0 +1,392 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c626deef_ca9283a0",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1205,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-24T22:43:57Z",
+      "side": 1,
+      "message": "This should have a section title and section documentation that explains what this is for. Right now the only documentation is that these are \"custom stream hooks\", but a reader wouldn\u0027t know what a custom stream hook is, what it does, and when should they use it. (Actually I\u0027m a little confused myself whether you are referring to stream as the overall QUIC mishmash or a single encryption level\u0027s worth of data.)\n\nThe documentation really needs to talk about QUIC. Why don\u0027t the function names mention QUIC? This CL is already conditioning some QUIC-only bits on this API. We will certainly need other QUIC-specific tweaks (EndOfEarlyData woes, API flow for 0-RTT in general).\n\nAdditionally, it needs to clearly explain the model and how the pieces fit together. What is an encryption level? Are you ever going to jump around encryption levels? What is a stream? What is the initial state of the world? How do reads work? How do I know when to read? How do writes work? What are flights? When do I retransmit? Why are these functions synchronous when I/O is usually async? Do I still call SSL_read? How about SSL_do_handshake? What about BIOs? What does 0-RTT do? (I suspect the answer to that is that it doesn\u0027t work right now.)\n\nThe documentation should be such that someone who has read only the QUIC spec and this header, without talking to us at all, would be able to use this API and understand what all the pieces do. We\u0027re inventing a ton of new concepts all at once, so this\u0027ll likely need more text than most of our APIs. :-/\n\nThe section should probably also be next to the \"QUIC Transport Parameters\" section. (Or merged into it, but this is complex enough to probably warrant it\u0027s own top-level comment? Or maybe you can put the top-level docs on SSL_STREAM_METHOD?)",
+      "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c599e750_eaf5234d",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1207,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-24T22:43:57Z",
+      "side": 1,
+      "message": "Perhaps:\n\n  ssl_encryption_initial,\n  ssl_encryption_early_data,\n  ssl_encryption_handshake,\n  ssl_encryption_application,",
+      "range": {
+        "startLine": 1207,
+        "startChar": 6,
+        "endLine": 1207,
+        "endChar": 8
+      },
+      "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1021de41_152e6f01",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1213,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-24T22:43:57Z",
+      "side": 1,
+      "message": "Period at the end of the sentence.",
+      "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e4bccc3_421068da",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1217,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-24T22:43:57Z",
+      "side": 1,
+      "message": "Perhaps: set_encryption_secret configures the read or write secret for the given encryption level. It returns one on success and zero on error.\n\nAlso:\n\n- Will you call this multiple times for a given level?\n- How do I know when to release, say, the handshake keys from memory?\n- Will you ask to write something before giving me the key? No? What about the initial encryption level?\n\nAs I write the second one, it occurs to me this API is a little odd for reads. There isn\u0027t a corresponding promise on the read side. What does it mean if I get an ssl_encryption_handshake record before you\u0027ve told me the keys?",
+      "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21fff3c6_6de5a58d",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1219,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-24T22:43:57Z",
+      "side": 1,
+      "message": "We usually say the success condition first and spell out \"one\" and \"zero\". \"It returns one on success and zero on error\". (Ditto throughout.)",
+      "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8a818e9_6966a5cc",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1224,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-24T22:43:57Z",
+      "side": 1,
+      "message": "\"provides the stream with a message to be written to the peer\" is a lot of words. :-)\n\nPerhaps: write_message adds a message to the current flight at the given encryption level. It returns one on success and zero on error.",
+      "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7454deed_a3f0933b",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1228,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-24T22:43:57Z",
+      "side": 1,
+      "message": "const",
+      "range": {
+        "startLine": 1228,
+        "startChar": 23,
+        "endLine": 1228,
+        "endChar": 30
+      },
+      "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d32ac4b_b54f192b",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1230,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-24T22:43:57Z",
+      "side": 1,
+      "message": "flush_flight is called when the current flight is complete and should be written to the transport. Note a flight may contain data at several more than one levels.",
+      "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d85e1044_ecedecbc",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1235,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-24T22:43:57Z",
+      "side": 1,
+      "message": "send_alert sends a fatal alert at the specified encryption level. It returns one on success and zero on error.",
+      "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0de256e_7d491cf3",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1242,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-24T22:43:57Z",
+      "side": 1,
+      "message": "function (ditto throughout)",
+      "range": {
+        "startLine": 1242,
+        "startChar": 40,
+        "endLine": 1242,
+        "endChar": 46
+      },
+      "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7d6584e_e45ffd2d",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1244,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-24T22:43:57Z",
+      "side": 1,
+      "message": "Maybe \"after\"?",
+      "range": {
+        "startLine": 1244,
+        "startChar": 18,
+        "endLine": 1244,
+        "endChar": 25
+      },
+      "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7842e8a7_963fab44",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1246,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-24T22:43:57Z",
+      "side": 1,
+      "message": "What does it mean for providing data to fail?",
+      "range": {
+        "startLine": 1246,
+        "startChar": 19,
+        "endLine": 1246,
+        "endChar": 24
+      },
+      "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "661a34de_1e101f04",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1252,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-24T22:43:57Z",
+      "side": 1,
+      "message": "Is this actually true? It looks like the code happily lets you do this but breaks in random places (like the CCS handling).",
+      "range": {
+        "startLine": 1251,
+        "startChar": 71,
+        "endLine": 1252,
+        "endChar": 56
+      },
+      "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20d10d3b_eda00405",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1256,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-24T22:43:57Z",
+      "side": 1,
+      "message": "What are the caller\u0027s lifetime obligations here? (If not documented, the default assumption is that it only needs to be valid for the duration of the function call. That\u0027s clearly not what\u0027s going on here.)\n\nAlso, why not attach this to the SSL_CTX, not the SSL? Attaching to the SSL eats 8 bytes per connection, and you\u0027re never going to install socket-specific callbacks.",
+      "range": {
+        "startLine": 1256,
+        "startChar": 39,
+        "endLine": 1256,
+        "endChar": 52
+      },
+      "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "328d8d68_60464f61",
+        "filename": "ssl/handshake.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-24T22:43:57Z",
+      "side": 1,
+      "message": "If it\u0027s ssl_hs_read_change_cipher_spec, presumably you want to error rather than falling through.",
+      "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f30af57_0c5c5293",
+        "filename": "ssl/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 2082,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-24T22:43:57Z",
+      "side": 1,
+      "message": "Does this state actually do anything? The state of init_buf should be sufficient.",
+      "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9c889e5_6bb93cc8",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-24T22:43:57Z",
+      "side": 1,
+      "message": "return 0 and OPENSSL_PUT_ERROR.",
+      "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1bbfe34d_8d6f68b5",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 788,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-24T22:43:57Z",
+      "side": 1,
+      "message": "Do this after the check.",
+      "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4417008a_ff67d88b",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2221,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-24T22:43:57Z",
+      "side": 1,
+      "message": "This breaks TLS 1.2. TLS 1.2 picks the cipher considerably before configuring it. (That\u0027s the reason why SSL_get_current_cipher and SSL_get_pending_cipher both exist.)",
+      "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e35c99b_b3b4262e",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-24T22:43:57Z",
+      "side": 1,
+      "message": "protocol_label",
+      "range": {
+        "startLine": 77,
+        "startChar": 14,
+        "endLine": 77,
+        "endChar": 27
+      },
+      "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
