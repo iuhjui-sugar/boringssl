@@ -139,15 +139,17 @@ size_t lh_num_items(const _LHASH *lh) { return lh->num_items; }
 // not found, it returns a pointer that points to a NULL pointer. If |out_hash|
 // is not NULL, then it also puts the hash value of |data| in |*out_hash|.
 static LHASH_ITEM **get_next_ptr_and_hash(const _LHASH *lh, uint32_t *out_hash,
-                                          const void *data) {
-  const uint32_t hash = lh->hash(data);
+                                          const void *data,
+                                          lhash_hash_func_helper call_hash_func,
+                                          lhash_cmp_func_helper call_cmp_func) {
+  const uint32_t hash = call_hash_func(lh->hash, data);
   if (out_hash != NULL) {
     *out_hash = hash;
   }
 
   LHASH_ITEM **ret = &lh->buckets[hash % lh->num_buckets];
   for (LHASH_ITEM *cur = *ret; cur != NULL; cur = *ret) {
-    if (lh->comp(cur->data, data) == 0) {
+    if (call_cmp_func(lh->comp, cur->data, data) == 0) {
       break;
     }
     ret = &cur->next;
@@ -158,13 +160,14 @@ static LHASH_ITEM **get_next_ptr_and_hash(const _LHASH *lh, uint32_t *out_hash,
 
 // get_next_ptr_by_key behaves like |get_next_ptr_and_hash| but takes a key
 // which may be a different type from the values stored in |lh|.
-static LHASH_ITEM **get_next_ptr_by_key(const _LHASH *lh, const void *key,
-                                        uint32_t key_hash,
-                                        int (*cmp_key)(const void *key,
-                                                       const void *value)) {
+static LHASH_ITEM **get_next_ptr_by_key(
+    const _LHASH *lh, const void *key, uint32_t key_hash,
+    int (*cmp_key)(const void *key, const void *value),
+    int (*call_cmp_key)(int (*)(const void *, const void *), const void *,
+                        const void *)) {
   LHASH_ITEM **ret = &lh->buckets[key_hash % lh->num_buckets];
   for (LHASH_ITEM *cur = *ret; cur != NULL; cur = *ret) {
-    if (cmp_key(key, cur->data) == 0) {
+    if (call_cmp_key(cmp_key, key, cur->data) == 0) {
       break;
     }
     ret = &cur->next;
@@ -173,14 +176,20 @@ static LHASH_ITEM **get_next_ptr_by_key(const _LHASH *lh, const void *key,
   return ret;
 }
 
-void *lh_retrieve(const _LHASH *lh, const void *data) {
-  LHASH_ITEM **next_ptr = get_next_ptr_and_hash(lh, NULL, data);
+void *lh_retrieve(const _LHASH *lh, const void *data,
+                  lhash_hash_func_helper call_hash_func,
+                  lhash_cmp_func_helper call_cmp_func) {
+  LHASH_ITEM **next_ptr =
+      get_next_ptr_and_hash(lh, NULL, data, call_hash_func, call_cmp_func);
   return *next_ptr == NULL ? NULL : (*next_ptr)->data;
 }
 
 void *lh_retrieve_key(const _LHASH *lh, const void *key, uint32_t key_hash,
+                      int (*call_cmp_key)(int (*)(const void *, const void *),
+                                          const void *, const void *),
                       int (*cmp_key)(const void *key, const void *value)) {
-  LHASH_ITEM **next_ptr = get_next_ptr_by_key(lh, key, key_hash, cmp_key);
+  LHASH_ITEM **next_ptr =
+      get_next_ptr_by_key(lh, key, key_hash, cmp_key, call_cmp_key);
   return *next_ptr == NULL ? NULL : (*next_ptr)->data;
 }
 
@@ -247,12 +256,15 @@ static void lh_maybe_resize(_LHASH *lh) {
   }
 }
 
-int lh_insert(_LHASH *lh, void **old_data, void *data) {
+int lh_insert(_LHASH *lh, void **old_data, void *data,
+              lhash_hash_func_helper call_hash_func,
+              lhash_cmp_func_helper call_cmp_func) {
   uint32_t hash;
   LHASH_ITEM **next_ptr, *item;
 
   *old_data = NULL;
-  next_ptr = get_next_ptr_and_hash(lh, &hash, data);
+  next_ptr =
+      get_next_ptr_and_hash(lh, &hash, data, call_hash_func, call_cmp_func);
 
 
   if (*next_ptr != NULL) {
@@ -279,10 +291,13 @@ int lh_insert(_LHASH *lh, void **old_data, void *data) {
   return 1;
 }
 
-void *lh_delete(_LHASH *lh, const void *data) {
+void *lh_delete(_LHASH *lh, const void *data,
+                lhash_hash_func_helper call_hash_func,
+                lhash_cmp_func_helper call_cmp_func) {
   LHASH_ITEM **next_ptr, *item, *ret;
 
-  next_ptr = get_next_ptr_and_hash(lh, NULL, data);
+  next_ptr =
+      get_next_ptr_and_hash(lh, NULL, data, call_hash_func, call_cmp_func);
 
   if (*next_ptr == NULL) {
     // No such element.
@@ -300,8 +315,9 @@ void *lh_delete(_LHASH *lh, const void *data) {
   return ret;
 }
 
-static void lh_doall_internal(_LHASH *lh, void (*no_arg_func)(void *),
-                              void (*arg_func)(void *, void *), void *arg) {
+void lh_doall_arg(_LHASH *lh,
+                  void (*call_func)(void (*)(void *, void *), void *, void *),
+                  void (*func)(void *, void *), void *arg) {
   if (lh == NULL) {
     return;
   }
@@ -315,11 +331,7 @@ static void lh_doall_internal(_LHASH *lh, void (*no_arg_func)(void *),
     LHASH_ITEM *next;
     for (LHASH_ITEM *cur = lh->buckets[i]; cur != NULL; cur = next) {
       next = cur->next;
-      if (arg_func) {
-        arg_func(cur->data, arg);
-      } else {
-        no_arg_func(cur->data);
-      }
+      call_func(func, cur->data, arg);
     }
   }
 
@@ -331,14 +343,6 @@ static void lh_doall_internal(_LHASH *lh, void (*no_arg_func)(void *),
   // |callback_depth| will have suppressed any resizing. Thus any needed
   // resizing is done here.
   lh_maybe_resize(lh);
-}
-
-void lh_doall(_LHASH *lh, void (*func)(void *)) {
-  lh_doall_internal(lh, func, NULL, NULL);
-}
-
-void lh_doall_arg(_LHASH *lh, void (*func)(void *, void *), void *arg) {
-  lh_doall_internal(lh, NULL, func, arg);
 }
 
 uint32_t lh_strhash(const char *c) {
