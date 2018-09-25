@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3d867566_e249e9eb",
+        "filename": "include/openssl/pem.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-09-25T23:29:25Z",
+      "side": 1,
+      "message": "Can you elaborate in the description what the rule is then? We\u0027re allowed to cast function pointers into void*/** as long we end up calling them via a pointer that has their true type? If so, what was this code doing before? (Calling them with a pointer argument turned into a void *?)",
+      "range": {
+        "startLine": 129,
+        "startChar": 7,
+        "endLine": 129,
+        "endChar": 72
+      },
+      "revId": "7a841070a81d7c6ac8983865189768c1bfdb9351",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
