@@ -22,6 +22,30 @@
       "revId": "7a841070a81d7c6ac8983865189768c1bfdb9351",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fe82652_6c5b950b",
+        "filename": "include/openssl/pem.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-25T23:47:04Z",
+      "side": 1,
+      "message": "Disclaimer: I could be completely wrong here...\n\nThis comment is about something else.\n\nThat\u0027s just about take our void **x and using it as a type **. IIRC, you can cast data pointers around (modulo some dumb rules around alignment), but if you actually dereference that pointer under the wrong type, then strict aliasing rules kick in. I believe strict aliasing does not allow this:\n\n  int *x;\n  int **y \u003d \u0026x;\n  void **z \u003d (void **)y;  // Allowed; types have compatible\n                          // alignment and we\u0027re not actually\n                          // dereferencing stuff yet.\n  int w;\n  *y \u003d \u0026w;  // Allowed; y points to an int* and is being\n            // dereferenced as an int*.\n  *z \u003d \u0026w;  // Not allowed. z actually points to an int*\n            // but is being dereferenced as a void*.\n\nThus casting to and from void** and T** is dubious but not immediately problematic. In this case, it\u0027s fine because we are ultimately dereferencing it as a type **. The comment was meant to explain why it was fine.\n\nAlthough... actually, as I write this, it occurs to me that the ASN1_ITEM nonsense violates this rule everywhere and d2i_Foo is typically an ASN1_ITEM thing. (But not always since they can also just be our own reimplementations.) So maybe I should just delete the comment because it\u0027s sort of silly anyway. :-)\n\nSeparately, the rule for function pointers that\u0027s upsetting CFI is that you can cast them to other function types if you like for storage, but you must cast the, back to the exact same type before you call them.\n\nWhether you can cast function pointers to void* is a mess. MSVC will scream at you. I think GCC throws a warning. C doesn\u0027t promise you can because of architectures where code and data pointers are different size. I forget if it is undefined or impl-defined or what. Either way, we weren\u0027t doing it before or after this change. MSVC would have screamed.\n\n\nBasically, C is terrible. :-)",
+      "parentUuid": "3d867566_e249e9eb",
+      "range": {
+        "startLine": 129,
+        "startChar": 7,
+        "endLine": 129,
+        "endChar": 72
+      },
+      "revId": "7a841070a81d7c6ac8983865189768c1bfdb9351",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
