@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cf518141_153bb6e6",
+        "filename": "crypto/x509/x_all.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-09-25T23:40:49Z",
+      "side": 1,
+      "message": "Should we unify the logic here and use |BIO_read_asn1| in the FILE* case too?",
+      "revId": "2ab8c9757cb442366a52e6ad0068c9b525e3efe6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
