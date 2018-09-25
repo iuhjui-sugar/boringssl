@@ -46,6 +46,30 @@
       "revId": "7a841070a81d7c6ac8983865189768c1bfdb9351",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96a735dd_65863f35",
+        "filename": "include/openssl/pem.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-25T23:55:21Z",
+      "side": 1,
+      "message": "int *x;\n  int **y \u003d \u0026x;\n  void **z \u003d (void **)y;  // Allowed; types have compatible\n                          // alignment and we\u0027re not actually\n                          // dereferencing stuff yet\n\nHuh. I wonder if this is not actually always okay...\n\n\nA pointer to void shall have the same representation and alignment requirements as a\npointer to a character type. Similarly, pointers to qualified or unqualified versions of\ncompatible types shall have the same representation and alignment requirements. All\npointers to structure types shall have the same representation and alignment requirements\nas each other. All pointers to union types shall have the same representation and\nalignment requirements as each other. Pointers to other types need not have the same\nrepresentation or alignment requirements.\n\n\nAnd then later on:\n\n\nA pointer to an object type may be converted to a pointer to a different object type. If the\nresulting pointer is not correctly aligned for the referenced type, the behavior is\nundefined. Otherwise, when converted back again, the result shall compare equal to the\noriginal pointer. When a pointer to an object is converted to a pointer to a character type,\nthe result points to the lowest addressed byte of the object. Successive increments of the\nresult, up to the size of the object, yield pointers to the remaining bytes of the object\n\n\nThe referenced types in this conversion are int* and void*, but the first but doesn\u0027t promise that int* and void* have the same alignment requirements.\n\nBut the particular alignment of each type is implementation-defined, and they have the same alignment between int* and void*, so we know we don\u0027t hit that undefined case.\n\n\nBLEGH.",
+      "parentUuid": "5fe82652_6c5b950b",
+      "range": {
+        "startLine": 129,
+        "startChar": 7,
+        "endLine": 129,
+        "endChar": 72
+      },
+      "revId": "7a841070a81d7c6ac8983865189768c1bfdb9351",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
