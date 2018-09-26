@@ -646,6 +646,24 @@
     },
     {
       "key": {
+        "uuid": "9226ed73_fb10d556",
+        "filename": "ssl/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 2082,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-26T17:51:30Z",
+      "side": 1,
+      "message": "Doesn\u0027t that already happen? It\u0027s also true normally; we might get a record with only a partial message. It\u0027s also true here because SSL_provide_data might provide half a message.\n\nssl_read_handshake is a bit less strict than the others. It\u0027s okay to just drive that repeatedly on its own.",
+      "parentUuid": "0627f2d6_255dfc1c",
+      "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d9c889e5_6bb93cc8",
         "filename": "ssl/ssl_lib.cc",
         "patchSetId": 4
