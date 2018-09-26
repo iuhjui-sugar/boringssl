@@ -16,6 +16,24 @@
       "revId": "2ab8c9757cb442366a52e6ad0068c9b525e3efe6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0851caae_4afab826",
+        "filename": "crypto/x509/x_all.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-26T19:18:30Z",
+      "side": 1,
+      "message": "Did you mean the item case? The FILE* case just blindly forwards to the BIO case.\n\nSGTM! asn1_d2i_read_bio is terrifying.",
+      "parentUuid": "cf518141_153bb6e6",
+      "revId": "2ab8c9757cb442366a52e6ad0068c9b525e3efe6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
