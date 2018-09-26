@@ -70,6 +70,30 @@
       "revId": "7a841070a81d7c6ac8983865189768c1bfdb9351",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba8dd5ab_af9061bc",
+        "filename": "include/openssl/pem.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-09-26T23:17:39Z",
+      "side": 1,
+      "message": "One battle at a time.\n\nI would drop this comment but mention in the change description that the aim is to ensure that when calling a function through a function-pointer, the type of the pointer must exactly match the true type of the function.",
+      "parentUuid": "96a735dd_65863f35",
+      "range": {
+        "startLine": 129,
+        "startChar": 7,
+        "endLine": 129,
+        "endChar": 72
+      },
+      "revId": "7a841070a81d7c6ac8983865189768c1bfdb9351",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
