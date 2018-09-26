@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5abf082d_fee0f17c",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1205,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-09-26T17:29:41Z",
+      "side": 1,
+      "message": "The wording probably still needs more work.",
+      "parentUuid": "c626deef_ca9283a0",
+      "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c599e750_eaf5234d",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 4
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "8612ff95_e4f27970",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1207,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-09-26T17:29:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c599e750_eaf5234d",
+      "range": {
+        "startLine": 1207,
+        "startChar": 6,
+        "endLine": 1207,
+        "endChar": 8
+      },
+      "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1021de41_152e6f01",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 4
@@ -56,6 +98,24 @@
       "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49c4af0a_a648ab92",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1213,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-09-26T17:29:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1021de41_152e6f01",
+      "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -76,6 +136,24 @@
     },
     {
       "key": {
+        "uuid": "94721d1d_5ef0eba3",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1217,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-09-26T17:29:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e4bccc3_421068da",
+      "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "21fff3c6_6de5a58d",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 4
@@ -93,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "6f9c2015_c8fabaf5",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1219,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-09-26T17:29:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21fff3c6_6de5a58d",
+      "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f8a818e9_6966a5cc",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 4
@@ -107,6 +203,24 @@
       "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af34b461_82c44272",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1224,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-09-26T17:29:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8a818e9_6966a5cc",
+      "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -133,6 +247,30 @@
     },
     {
       "key": {
+        "uuid": "636bcab2_0ad431e6",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1228,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-09-26T17:29:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7454deed_a3f0933b",
+      "range": {
+        "startLine": 1228,
+        "startChar": 23,
+        "endLine": 1228,
+        "endChar": 30
+      },
+      "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9d32ac4b_b54f192b",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 4
@@ -150,6 +288,24 @@
     },
     {
       "key": {
+        "uuid": "66b0d682_2a799c20",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1230,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-09-26T17:29:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d32ac4b_b54f192b",
+      "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d85e1044_ecedecbc",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 4
@@ -164,6 +320,24 @@
       "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0382223d_a13c4dac",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1235,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-09-26T17:29:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d85e1044_ecedecbc",
+      "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -190,6 +364,30 @@
     },
     {
       "key": {
+        "uuid": "721b2430_0159c5fc",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1242,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-09-26T17:29:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0de256e_7d491cf3",
+      "range": {
+        "startLine": 1242,
+        "startChar": 40,
+        "endLine": 1242,
+        "endChar": 46
+      },
+      "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d7d6584e_e45ffd2d",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 4
@@ -210,6 +408,30 @@
       "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe2448ba_63eec795",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1244,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-09-26T17:29:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7d6584e_e45ffd2d",
+      "range": {
+        "startLine": 1244,
+        "startChar": 18,
+        "endLine": 1244,
+        "endChar": 25
+      },
+      "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -236,6 +458,30 @@
     },
     {
       "key": {
+        "uuid": "ecc445c7_fbe08df4",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1246,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-09-26T17:29:41Z",
+      "side": 1,
+      "message": "Violating the calling parameters.",
+      "parentUuid": "7842e8a7_963fab44",
+      "range": {
+        "startLine": 1246,
+        "startChar": 19,
+        "endLine": 1246,
+        "endChar": 24
+      },
+      "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "661a34de_1e101f04",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 4
@@ -256,6 +502,30 @@
       "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09a99ef8_d1b9fb38",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1252,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-09-26T17:29:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "661a34de_1e101f04",
+      "range": {
+        "startLine": 1251,
+        "startChar": 71,
+        "endLine": 1252,
+        "endChar": 56
+      },
+      "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -282,6 +552,30 @@
     },
     {
       "key": {
+        "uuid": "ea1c9b40_189dbcbd",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1256,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-09-26T17:29:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20d10d3b_eda00405",
+      "range": {
+        "startLine": 1256,
+        "startChar": 39,
+        "endLine": 1256,
+        "endChar": 52
+      },
+      "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "328d8d68_60464f61",
         "filename": "ssl/handshake.cc",
         "patchSetId": 4
@@ -296,6 +590,24 @@
       "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d43eab6_3fd55e3c",
+        "filename": "ssl/handshake.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-09-26T17:29:41Z",
+      "side": 1,
+      "message": "We ignore them, rather than reading them from the stream.",
+      "parentUuid": "328d8d68_60464f61",
+      "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -316,6 +628,24 @@
     },
     {
       "key": {
+        "uuid": "0627f2d6_255dfc1c",
+        "filename": "ssl/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 2082,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-09-26T17:29:41Z",
+      "side": 1,
+      "message": "hs_buf might have only a partial message, and repeated calls to handshake should return SSL_READING until something has come in through provide_data.",
+      "parentUuid": "1f30af57_0c5c5293",
+      "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d9c889e5_6bb93cc8",
         "filename": "ssl/ssl_lib.cc",
         "patchSetId": 4
@@ -330,6 +660,24 @@
       "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3e8d6b1_e950be7d",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-09-26T17:29:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d9c889e5_6bb93cc8",
+      "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -350,6 +698,24 @@
     },
     {
       "key": {
+        "uuid": "d89998c9_0f2fbcd1",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 788,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-09-26T17:29:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1bbfe34d_8d6f68b5",
+      "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4417008a_ff67d88b",
         "filename": "ssl/ssl_lib.cc",
         "patchSetId": 4
@@ -361,6 +727,24 @@
       "writtenOn": "2018-09-24T22:43:57Z",
       "side": 1,
       "message": "This breaks TLS 1.2. TLS 1.2 picks the cipher considerably before configuring it. (That\u0027s the reason why SSL_get_current_cipher and SSL_get_pending_cipher both exist.)",
+      "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40d9af41_b7fc9db1",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2221,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-09-26T17:29:41Z",
+      "side": 1,
+      "message": "Don\u0027t know what the cleanest way of doing this is, though since we don\u0027t need this for our implementation, might be fine to leave as is?",
+      "parentUuid": "4417008a_ff67d88b",
       "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -387,6 +771,30 @@
       "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1b0435d_2ad0b57d",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-09-26T17:29:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e35c99b_b3b4262e",
+      "range": {
+        "startLine": 77,
+        "startChar": 14,
+        "endLine": 77,
+        "endChar": 27
+      },
+      "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
