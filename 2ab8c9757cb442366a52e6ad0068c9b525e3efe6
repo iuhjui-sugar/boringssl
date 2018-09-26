@@ -34,6 +34,24 @@
       "revId": "2ab8c9757cb442366a52e6ad0068c9b525e3efe6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d536327b_724ccc3a",
+        "filename": "crypto/x509/x_all.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-09-26T23:20:18Z",
+      "side": 1,
+      "message": "I mean that in IMPLEMENT_D2I_FP we create a BIO from the FILE, but then we use d2i_Foo_bio, where as here we use BIO_read_asn1 + d2i_Foo. Seems that the problem of BIO to Foo should have the same solution in both cases. (We could also unify in the other direction, of course, if that has advantages.)",
+      "parentUuid": "0851caae_4afab826",
+      "revId": "2ab8c9757cb442366a52e6ad0068c9b525e3efe6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
