@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4920c134_008dc5d4",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-09-27T00:45:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0536b28d_7a5acc2e",
+      "range": {
+        "startLine": 27,
+        "startChar": 13,
+        "endLine": 27,
+        "endChar": 19
+      },
+      "revId": "a554d79b405aa18e8df2294e71231ea7cd888f56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "40437e41_0ce056aa",
         "filename": "ssl/handoff.cc",
         "patchSetId": 6
@@ -45,6 +69,30 @@
       "revId": "a554d79b405aa18e8df2294e71231ea7cd888f56",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b998488_bb783d7d",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-09-27T00:45:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40437e41_0ce056aa",
+      "range": {
+        "startLine": 31,
+        "startChar": 35,
+        "endLine": 31,
+        "endChar": 52
+      },
+      "revId": "a554d79b405aa18e8df2294e71231ea7cd888f56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "6309f230_977b8b75",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-09-27T00:45:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "28358243_4c2b1179",
+      "range": {
+        "startLine": 97,
+        "startChar": 4,
+        "endLine": 97,
+        "endChar": 22
+      },
+      "revId": "a554d79b405aa18e8df2294e71231ea7cd888f56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "94114ab8_da26e024",
         "filename": "ssl/handoff.cc",
         "patchSetId": 6
@@ -82,6 +154,30 @@
       "writtenOn": "2018-09-15T01:17:32Z",
       "side": 1,
       "message": "Nice! I was thinking of stashing both lists and modify the negotiation algorithm, but this is probably simpler. (Though I guess most other places would want the latter strategy? I\u0027m fine with either.)",
+      "range": {
+        "startLine": 116,
+        "startChar": 30,
+        "endLine": 116,
+        "endChar": 36
+      },
+      "revId": "a554d79b405aa18e8df2294e71231ea7cd888f56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c57c1f98_a3e35fe7",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-09-27T00:45:31Z",
+      "side": 1,
+      "message": "You lost me there, and unfortunately I can\u0027t find our earlier discussion about this.  (I think it was in a chat.)  What are the other places?  Versions?  Supported curves?  What else?  Those both seem like cases where this same approach would work fine, unless I\u0027m missing something.",
+      "parentUuid": "94114ab8_da26e024",
       "range": {
         "startLine": 116,
         "startChar": 30,
@@ -111,6 +207,24 @@
     },
     {
       "key": {
+        "uuid": "09085026_5353a61e",
+        "filename": "ssl/internal.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-09-27T00:45:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f61d5c8_9733811c",
+      "revId": "a554d79b405aa18e8df2294e71231ea7cd888f56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "04226f94_8bb46e41",
         "filename": "ssl/ssl_cipher.cc",
         "patchSetId": 6
@@ -125,6 +239,24 @@
       "revId": "a554d79b405aa18e8df2294e71231ea7cd888f56",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "778f67ca_b2af2a9a",
+        "filename": "ssl/ssl_cipher.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-09-27T00:45:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04226f94_8bb46e41",
+      "revId": "a554d79b405aa18e8df2294e71231ea7cd888f56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -148,6 +280,30 @@
       "revId": "a554d79b405aa18e8df2294e71231ea7cd888f56",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45e04588_81ebd1ac",
+        "filename": "ssl/ssl_cipher.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-09-27T00:45:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "80269065_b474ab5c",
+      "range": {
+        "startLine": 477,
+        "startChar": 31,
+        "endLine": 477,
+        "endChar": 32
+      },
+      "revId": "a554d79b405aa18e8df2294e71231ea7cd888f56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
