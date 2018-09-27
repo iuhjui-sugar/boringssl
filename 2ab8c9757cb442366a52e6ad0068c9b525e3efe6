@@ -52,6 +52,24 @@
       "revId": "2ab8c9757cb442366a52e6ad0068c9b525e3efe6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f77c82f6_b2148af9",
+        "filename": "crypto/x509/x_all.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-09-27T17:45:08Z",
+      "side": 1,
+      "message": "bio_func is just the function generated here, so it\u0027s doing the same thing in both cases. I just figured this way we wouldn\u0027t have to write the BIO_read_asn1 + d2i_func call twice. Would you prefer it inlined? (I don\u0027t really care.)",
+      "parentUuid": "d536327b_724ccc3a",
+      "revId": "2ab8c9757cb442366a52e6ad0068c9b525e3efe6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
