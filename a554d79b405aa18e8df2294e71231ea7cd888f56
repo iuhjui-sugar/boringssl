@@ -225,6 +225,24 @@
     },
     {
       "key": {
+        "uuid": "c8d57a56_126a9ac2",
+        "filename": "ssl/internal.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-09-27T01:15:48Z",
+      "side": 1,
+      "message": "Er, maybe not.  You can\u0027t make a constexpr extern, unless I\u0027m missing something?  \n\nCan you be more specific about the ODR problem you anticipate?",
+      "parentUuid": "09085026_5353a61e",
+      "revId": "a554d79b405aa18e8df2294e71231ea7cd888f56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "04226f94_8bb46e41",
         "filename": "ssl/ssl_cipher.cc",
         "patchSetId": 6
