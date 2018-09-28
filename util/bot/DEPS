@@ -182,6 +182,12 @@ hooks = [
     ],
   },
   {
+    'name': 'mac_toolchain',
+    'pattern': '.',
+    'condition': 'host_os == "mac"',
+    'action': ['python', 'boringssl/util/bot/mac_toolchain.py'],
+  },
+  {
     'name': 'clang',
     'pattern': '.',
     'condition': 'checkout_clang',
