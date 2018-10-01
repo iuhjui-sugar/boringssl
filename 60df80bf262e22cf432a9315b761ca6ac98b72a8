@@ -52,6 +52,24 @@
       "revId": "60df80bf262e22cf432a9315b761ca6ac98b72a8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f043f9b_cf1fb07f",
+        "filename": "include/openssl/lhash.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-10-01T23:07:25Z",
+      "side": 1,
+      "message": "Ugh. Ok, revert to the old patch-set if that\u0027s what\u0027s needed to keep MSVC happy :(",
+      "parentUuid": "f576d1ad_28f222d6",
+      "revId": "60df80bf262e22cf432a9315b761ca6ac98b72a8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
