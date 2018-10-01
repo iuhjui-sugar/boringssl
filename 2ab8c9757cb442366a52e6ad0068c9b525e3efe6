@@ -70,6 +70,24 @@
       "revId": "2ab8c9757cb442366a52e6ad0068c9b525e3efe6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de019e49_b72770ee",
+        "filename": "crypto/x509/x_all.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-10-01T17:16:43Z",
+      "side": 1,
+      "message": "Ah, sorry. I didn\u0027t see that bio_func was this function through all the macros.",
+      "parentUuid": "f77c82f6_b2148af9",
+      "revId": "2ab8c9757cb442366a52e6ad0068c9b525e3efe6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
