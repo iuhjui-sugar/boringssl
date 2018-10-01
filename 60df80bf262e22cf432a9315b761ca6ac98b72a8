@@ -16,6 +16,24 @@
       "revId": "60df80bf262e22cf432a9315b761ca6ac98b72a8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8bae01a6_8b5be64d",
+        "filename": "include/openssl/lhash.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-01T22:20:47Z",
+      "side": 1,
+      "message": "Arguably this is the more idiomatic way to call a closure and the others are the weird ones. :-) But better to be consistent.\n\nDone.",
+      "parentUuid": "9df537f4_6072000a",
+      "revId": "60df80bf262e22cf432a9315b761ca6ac98b72a8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
