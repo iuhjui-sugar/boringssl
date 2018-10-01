@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4b8ce615_a1fedb03",
+        "filename": "include/openssl/lhash.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-10-01T17:55:00Z",
+      "side": 1,
+      "message": "If these are only defined in a single .c file now, is INLINE correct here? Maybe just static + unused?",
+      "range": {
+        "startLine": 169,
+        "startChar": 2,
+        "endLine": 169,
+        "endChar": 16
+      },
+      "revId": "267484efddf2d0f331978aa263a19913369ecb78",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
