@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "f518809e_3ced26a4",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-01T19:59:11Z",
+      "side": 1,
+      "message": "Yeah, TLS 1.3 ciphers and versions aren\u0027t configurable in a way that\u0027s compatible with strategy.\n\nActually, that does suggest we\u0027d have to revise this for TLS 1.3 ciphers anyway. Since ~every code point in TLS 1.3 is a uint16_t anyway, we could do it fairly generically by storing everything in sorted Array\u003cuint16_t\u003es and have a function like supports_codepoint(Span\u003cconst uint16_t\u003e, uint16_t) which calls bsearch.\n\nDownside is we have to modify all the negotiation steps to take this extra thing into account. Though we have to do that anyway for most of these...",
+      "parentUuid": "c57c1f98_a3e35fe7",
+      "range": {
+        "startLine": 116,
+        "startChar": 30,
+        "endLine": 116,
+        "endChar": 36
+      },
+      "revId": "a554d79b405aa18e8df2294e71231ea7cd888f56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2f61d5c8_9733811c",
         "filename": "ssl/internal.h",
         "patchSetId": 6
