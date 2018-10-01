@@ -267,6 +267,24 @@
     },
     {
       "key": {
+        "uuid": "95903f06_4eeed920",
+        "filename": "ssl/internal.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-01T20:03:12Z",
+      "side": 1,
+      "message": "const\u0027s probably fine I guess?\n\nYou can\u0027t define the same symbol in two different translation units. I believe this is true for constexpr too. We do end up odr-using this array a bunch by taking its address.\n\nI don\u0027t think we don\u0027t get the rope to do something like this until C++17 inline variables.\nhttps://en.cppreference.com/w/cpp/language/inline\n\nI could be wrong here though.",
+      "parentUuid": "c8d57a56_126a9ac2",
+      "revId": "a554d79b405aa18e8df2294e71231ea7cd888f56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "04226f94_8bb46e41",
         "filename": "ssl/ssl_cipher.cc",
         "patchSetId": 6
