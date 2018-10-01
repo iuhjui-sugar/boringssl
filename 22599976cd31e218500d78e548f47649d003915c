@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a9ab2f7_c8007443",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-10-01T17:49:41Z",
+      "side": 1,
+      "message": "s/is/are/ (and in CL description).",
+      "range": {
+        "startLine": 249,
+        "startChar": 3,
+        "endLine": 249,
+        "endChar": 5
+      },
+      "revId": "22599976cd31e218500d78e548f47649d003915c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
