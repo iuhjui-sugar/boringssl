@@ -22,6 +22,30 @@
       "revId": "267484efddf2d0f331978aa263a19913369ecb78",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2d6f307_59bc43c1",
+        "filename": "include/openssl/lhash.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-01T21:17:21Z",
+      "side": 1,
+      "message": "ssl/internal.h defines them in a header. The others don\u0027t bother just because they\u0027re already single-file libraries. :-)",
+      "parentUuid": "4b8ce615_a1fedb03",
+      "range": {
+        "startLine": 169,
+        "startChar": 2,
+        "endLine": 169,
+        "endChar": 16
+      },
+      "revId": "267484efddf2d0f331978aa263a19913369ecb78",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
