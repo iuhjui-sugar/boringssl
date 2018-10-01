@@ -34,6 +34,24 @@
       "revId": "60df80bf262e22cf432a9315b761ca6ac98b72a8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f576d1ad_28f222d6",
+        "filename": "include/openssl/lhash.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-01T22:47:42Z",
+      "side": 1,
+      "message": "The new doall seems to offend MSVC. MSVC thinks we\u0027re actually going to call it as the casted type, rather than using it as some bizarre storage. The struct version might actually be shorter there.\n\nhttps://logs.chromium.org/logs/boringssl/buildbucket/cr-buildbucket.appspot.com/8933829166678047968/+/steps/ninja/0/stdout",
+      "parentUuid": "8bae01a6_8b5be64d",
+      "revId": "60df80bf262e22cf432a9315b761ca6ac98b72a8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
