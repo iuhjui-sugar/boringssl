@@ -70,7 +70,7 @@ my $globl = sub {
 my $global = $globl;
 my $extern = sub {
     &$globl(@_);
-    return;	# return nothing
+    return; # return nothing
 };
 my $type = sub {
     if ($flavour =~ /linux/)	{ ".type\t".join(',',@_); }
