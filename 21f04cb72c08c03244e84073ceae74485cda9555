@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f22fc50e_6312dab6",
+        "filename": "crypto/perlasm/arm-xlate.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-02T18:31:54Z",
+      "side": 1,
+      "message": "This still needs to call $globl otherwise it messes up iOS name mangling:\nhttps://logs.chromium.org/logs/boringssl/buildbucket/cr-buildbucket.appspot.com/8933755163903074720/+/steps/ninja/0/stdout\n\nThat\u0027s why it still called it previously despite throwing away the output. It was to get the name registered.\n\nThough that error also implies we have an assembly \u003d\u003e public symbol call, which may or may not be visible. So this CL may break shared library ARM builds (which we don\u0027t currently have CQ coverage for but Chromium cares about it). So we probably need to go back and figure out what\u0027s going on here... we want the assembly object files to emit a reference to OPENSSL_armcap_P without imposing an opinion on its visibility. Surely that\u0027s possible since C does it all the time...",
+      "revId": "21f04cb72c08c03244e84073ceae74485cda9555",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
