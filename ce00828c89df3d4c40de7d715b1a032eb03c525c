@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "59eb93f7_c0af09f4",
+        "filename": "crypto/chacha/asm/chacha-armv8.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-02T19:20:49Z",
+      "side": 0,
+      "message": "I don\u0027t know why this is even compiling, but removing this line is causing iOS to emit:\n\n  .private_extern OPENSSL_armcap_P\n\nand\n\n  .long   OPENSSL_armcap_P-.\n\nwhich is also wrong since it\u0027s messing up the name mangling.\n\nI\u0027m also still confused why this is needed given that C clearly can refer to a name without imposing opinions on its visibility.",
+      "revId": "ce00828c89df3d4c40de7d715b1a032eb03c525c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
