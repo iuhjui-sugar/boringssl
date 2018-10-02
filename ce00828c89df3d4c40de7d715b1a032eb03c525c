@@ -16,6 +16,24 @@
       "revId": "ce00828c89df3d4c40de7d715b1a032eb03c525c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d4a448c_482f8973",
+        "filename": "crypto/chacha/asm/chacha-armv8.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-02T19:21:35Z",
+      "side": 0,
+      "message": "You can see what perlasm generates by running, e.g.:\n\n  perl crypto/chacha/asm/chacha-armv8.pl ios64 /tmp/blah.S",
+      "parentUuid": "59eb93f7_c0af09f4",
+      "revId": "ce00828c89df3d4c40de7d715b1a032eb03c525c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
