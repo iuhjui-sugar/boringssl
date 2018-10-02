@@ -34,6 +34,24 @@
       "revId": "ce00828c89df3d4c40de7d715b1a032eb03c525c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af1e5f60_37cf01f2",
+        "filename": "crypto/chacha/asm/chacha-armv8.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 6535
+      },
+      "writtenOn": "2018-10-02T20:04:28Z",
+      "side": 0,
+      "message": "Okay, imitating https://boringssl-review.googlesource.com/c/boringssl/+/3471",
+      "parentUuid": "7d4a448c_482f8973",
+      "revId": "ce00828c89df3d4c40de7d715b1a032eb03c525c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
