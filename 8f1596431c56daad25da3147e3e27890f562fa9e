@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e3ef9056_e0c67d8e",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 3079,
+      "author": {
+        "id": 9216
+      },
+      "writtenOn": "2018-10-02T18:45:46Z",
+      "side": 1,
+      "message": "It would be useful if there were a way to have SSL handshake retry the write.  (A la BIO_set_retry_write()).  The call to \"write_message()\" can be used as a signal to allocate resources or transfer control -- and *then* retry the handshake.",
+      "revId": "8f1596431c56daad25da3147e3e27890f562fa9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
