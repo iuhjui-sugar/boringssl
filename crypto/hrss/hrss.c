@@ -18,9 +18,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include <openssl/cpu.h>
 #include <openssl/hmac.h>
 #include <openssl/mem.h>
 #include <openssl/sha.h>
+
+#if defined(OPENSSL_X86_64)
+#define HRSS_ASM
+#endif
 
 #include "../internal.h"
 
@@ -459,8 +464,9 @@ OPENSSL_UNUSED static void poly_print(const struct poly *p) {
 // poly_mul_aux writes the product of |a| and |b| to |out|, using |scratch| as
 // scratch space. It'll use Karatsuba if the inputs are large enough to warrant
 // it.
-static void poly_mul_aux(uint16_t *out, uint16_t *scratch, const uint16_t *a,
-                         size_t a_len, const uint16_t *b, size_t b_len) {
+static void poly_mul_noasm_aux(uint16_t *out, uint16_t *scratch,
+                               const uint16_t *a, size_t a_len,
+                               const uint16_t *b, size_t b_len) {
   // The inputs need not be even in length, but the lengths must be equal.
   assert(a_len == b_len);
 
@@ -496,10 +502,11 @@ static void poly_mul_aux(uint16_t *out, uint16_t *scratch, const uint16_t *a,
   }
 
   uint16_t *const child_scratch = &scratch[2 * high_len];
-  poly_mul_aux(scratch, child_scratch, out, high_len, &out[high_len], high_len);
-  poly_mul_aux(&out[low_len * 2], child_scratch, a_high, high_len, b_high,
-               high_len);
-  poly_mul_aux(out, child_scratch, a, low_len, b, low_len);
+  poly_mul_noasm_aux(scratch, child_scratch, out, high_len, &out[high_len],
+                     high_len);
+  poly_mul_noasm_aux(&out[low_len * 2], child_scratch, a_high, high_len, b_high,
+                     high_len);
+  poly_mul_noasm_aux(out, child_scratch, a, low_len, b, low_len);
 
   for (size_t i = 0; i < low_len * 2; i++) {
     scratch[i] -= out[i] + out[low_len * 2 + i];
@@ -514,16 +521,41 @@ static void poly_mul_aux(uint16_t *out, uint16_t *scratch, const uint16_t *a,
 }
 
 // poly_mul sets |*out| to |x|×|y| mod (𝑥^n - 1).
-static void poly_mul(struct poly *out, const struct poly *x,
-                     const struct poly *y) {
+static void poly_mul_noasm(struct poly *out, const struct poly *x,
+                           const struct poly *y) {
   uint16_t prod[2 * N];
   uint16_t scratch[2 * N];
-  poly_mul_aux(prod, scratch, x->v, N, y->v, N);
+  poly_mul_noasm_aux(prod, scratch, x->v, N, y->v, N);
 
   for (size_t i = 0; i < N; i++) {
     out->v[i] = prod[i] + prod[i + N];
   }
 }
+
+#if defined(HRSS_ASM)
+
+// poly_Rq_mul is defined in assembly.
+extern void poly_Rq_mul(struct poly *r, const struct poly *a,
+                        const struct poly *b);
+
+static void poly_mul(struct poly *r, const struct poly *a,
+                     const struct poly *b) {
+  const int has_avx2 = (OPENSSL_ia32cap_get()[2] & (1 << 5)) != 0;
+  if (has_avx2) {
+    poly_Rq_mul(r, a, b);
+  } else {
+    poly_mul_noasm(r, a, b);
+  }
+}
+
+#else
+
+static void poly_mul(struct poly *r, const struct poly *a,
+                     const struct poly *b) {
+  poly_mul_noasm(r, a, b);
+}
+
+#endif  // HRSS_ASM
 
 // poly_mul_x_minus_1 sets |p| to |p|×(𝑥 - 1) mod (𝑥^n - 1).
 static void poly_mul_x_minus_1(struct poly *p) {
