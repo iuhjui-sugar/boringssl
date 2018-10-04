@@ -2,6 +2,46 @@
   "comments": [
     {
       "key": {
+        "uuid": "5125be9f_6ce1478a",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 3039,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-04T23:40:32Z",
+      "side": 1,
+      "message": "How about \"QUIC integration\"?\n\nReasoning:\n\n- Title should have QUIC in it.\n- SSL is assumed from the file anyway.\n- We don\u0027t capitalize all the words in these. (Guessing you got that from \"QUIC Transport Parameters\" which looks like a mistake.)\n\nAlso the word \"stream\" here is... odd. QUIC has STREAM frames, but this isn\u0027t a STREAM frame. Actually the spec seems to even go out of its way to say \"flow of bytes\". The distinction may even be important for, e.g., https://tools.ietf.org/html/draft-ietf-quic-tls-15#section-4.6",
+      "revId": "8f1596431c56daad25da3147e3e27890f562fa9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98aecc04_05089b8f",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 3067,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-04T23:40:32Z",
+      "side": 1,
+      "message": "I think these APIs should all say QUIC in the name. They\u0027re extremely QUIC-specific and even cause labels to change. (Also same comment as before re \"stream\".)\n\nWhy not just SSL_QUIC_METHOD? Likewise, stream_method \u003d\u003e quic_method, SSL_provide_data \u003d\u003e SSL_provide_quic_data, SSL_CTX_set_custom_stream_method \u003d\u003e SSL_CTX_set_quic_method.",
+      "range": {
+        "startLine": 3067,
+        "startChar": 30,
+        "endLine": 3067,
+        "endChar": 47
+      },
+      "revId": "8f1596431c56daad25da3147e3e27890f562fa9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e3ef9056_e0c67d8e",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 7
@@ -13,6 +53,241 @@
       "writtenOn": "2018-10-02T18:45:46Z",
       "side": 1,
       "message": "It would be useful if there were a way to have SSL handshake retry the write.  (A la BIO_set_retry_write()).  The call to \"write_message()\" can be used as a signal to allocate resources or transfer control -- and *then* retry the handshake.",
+      "revId": "8f1596431c56daad25da3147e3e27890f562fa9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b8627a0_bdedb54b",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 3079,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-04T23:40:32Z",
+      "side": 1,
+      "message": "Our state machine doesn\u0027t work that way. Even in TCP, the equivalent hook in BoringSSL is always synchronous. We always write the handshake flight-by-flight. (OpenSSL/BoringSSL have always done this. In the original implementation, it stuck a buffering BIO in front. Otherwise you end up writing each tiny handshake message one at a time.)\n\nWhat *is* asynchronous in our TCP code is flush_flight. Unlike write_message, making flush_flight async is *plausible*, but given the QUIC code already must retain a copy for retransmits and outgoing handshake flights have bounded size, it seems dubiously useful.",
+      "parentUuid": "e3ef9056_e0c67d8e",
+      "revId": "8f1596431c56daad25da3147e3e27890f562fa9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8e5cf61c_f914d99e",
+        "filename": "ssl/internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 2799,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-04T23:40:32Z",
+      "side": 1,
+      "message": "stream, though see other comments on the word \"stream\"",
+      "range": {
+        "startLine": 2799,
+        "startChar": 67,
+        "endLine": 2799,
+        "endChar": 73
+      },
+      "revId": "8f1596431c56daad25da3147e3e27890f562fa9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81245bb3_ec9f589a",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-04T23:40:32Z",
+      "side": 1,
+      "message": "Nit: Perhaps ERR_R_SHOULD_NOT_HAVE_BEEN_CALLED for the first one and a new error code for the second? ERR_R_SHOULD_NOT_HAVE_BEEN_CALLED seems a better fit than ERR_R_INTERNAL_ERROR for \"you called this API on an SSL that you obviously shouldn\u0027t have\". The second has interesting consequences for cross-epoch injection and probably warrants an error code.",
+      "revId": "8f1596431c56daad25da3147e3e27890f562fa9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3b98862_a1e51b63",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 790,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-04T23:40:32Z",
+      "side": 1,
+      "message": "Since it\u0027s not immediately obvious one needs to do this, let\u0027s add a test for this. (Though see notes below. Maybe not necessary anymore?)",
+      "revId": "8f1596431c56daad25da3147e3e27890f562fa9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67b6bcec_07776c8e",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 790,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-04T23:40:32Z",
+      "side": 1,
+      "message": "Actually, I\u0027m not sure this is sufficient. Suppose QUIC receives a CRYPTO frame at offset a billion bytes ahead. QUIC needs to know a billion is too big.\n\nFor STREAM frames, the answer is flow control. But CRYPTO frames don\u0027t participate in flow control. Instead, the answer is that TLS needs to tell QUIC its limits:\nhttps://tools.ietf.org/html/draft-ietf-quic-transport-15#section-10.4\n\nSo I think we need to expose some kind of API here. That API may actually need to allow querying future encryption levels due to the buffering noted in the third bullet point here:\nhttps://tools.ietf.org/html/draft-ietf-quic-tls-15#section-4.1.1\n\nNote this limit is the maximum for the entire encryption level, not an individual message as we currently measure. (Not that the distinction is really meaningful at all.)\n\n(Actually, this design opens up the possibility to saving the copy here, but I don\u0027t think it\u0027s worth it. Our code rather seriously wants hs_buf to exist.)\n\nNB: What this limit means for post-handshake messages is really unclear. See chat between Nick, Victor, and me.",
+      "range": {
+        "startLine": 790,
+        "startChar": 7,
+        "endLine": 790,
+        "endChar": 36
+      },
+      "revId": "8f1596431c56daad25da3147e3e27890f562fa9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8374df5_572152ec",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 791,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-04T23:40:32Z",
+      "side": 1,
+      "message": "This function should either consistently send an alert or not send one (tls_can_accept_handshake_data having an output parameter is honestly kinda silly. It only outputs one alert, plus an impossible codepath.) Sending one is a little weird since it means SSL_provide_data (which naively one assumes is a dumb copy) can re-entrantly call send_alert. There\u0027s probably no actual point in sending the alert, TBH.",
+      "revId": "8f1596431c56daad25da3147e3e27890f562fa9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccc57696_b9fa9e75",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-04T23:40:32Z",
+      "side": 1,
+      "message": "KeyUpdate messages should be forbidden, right? Could you implement that (and test it)?",
+      "revId": "8f1596431c56daad25da3147e3e27890f562fa9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "559af629_f3608e64",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-04T23:40:32Z",
+      "side": 1,
+      "message": "Hrm. I\u0027m guessing you started running this code to deal with SSL_get_current_cipher? :-/\n\nI feel a little uneasy about this because:\n\na) This ends up deriving keys that match QUIC\u0027s and even an AES key schedule and GHASH table. It\u0027s kind of a waste of CPU.\n\nb) If we accidentally use the SSLAEADContexts, we\u0027ll reuse nonces which is a huge security problem. Moreover, that code is even reachable right now since SSL_read, etc., don\u0027t have checks!\n\nWDYT about adding an SSLAEADContext::CreatePlaceholderForQUIC(uint16_t version, const SSL_CIPHER *cipher) that just calls the SSLAEADContext constructor but leaves everything else alone?\n\nMost operations will be garbage EVP_AEAD_CTX_{open,seal} will just SEGV, but this code is already assuming that never happens. We can also add an is_placeholder_ bit and have that return an internal error.",
+      "revId": "8f1596431c56daad25da3147e3e27890f562fa9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70c078cb_4c3db66e",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-04T23:40:32Z",
+      "side": 1,
+      "message": "There\u0027s actually a very subtle check buried in here, which I suspect was just a bug in previous patch sets. ssl3_set_read_state calls tls_has_unprocessed_handshake_data, which notices if you call, say, SSL_provide_quic_data(initial, ServerHello|EncryptedExtensions) in one go.\n\nThere are two different cases for cross-epoch injection.\n\n1. EncryptedExtensions comes in at the initial layer in its own CRYPTO frame.\n\n2. EncryptedExtensions comes in at the same frame as ServerHello. \n\nThe former is QUIC\u0027s problem since we can\u0027t do much about it, aside from providing this level parameter to SSL_provide_data as a robustness check. Conversely, the latter is our problem and QUIC can\u0027t do anything about it.\n\nSince we don\u0027t have BoGo coverage, maybe test these two cases? You could test (1) by just trying to pass handshake data at initial level and asserting that fails. (2) is more fun. A thought: buffer up the ServerHello..Finished flight and, in flush flight, shift a few bytes from handshake to initial. (Remember to assert on the error code too. Otherwise we might just be dropping the excess data and getting confused.)",
+      "range": {
+        "startLine": 193,
+        "startChar": 22,
+        "endLine": 193,
+        "endChar": 36
+      },
+      "revId": "8f1596431c56daad25da3147e3e27890f562fa9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83c41fb8_849c731f",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-04T23:40:32Z",
+      "side": 1,
+      "message": "Optional / haha, why did we write it that way? / follow-up: maybe we should fold this direction check into the direction check above. Seems a little silly to branch on the same thing twice.\n\n(I\u0027d just go upload this, but I didn\u0027t want to force a needless rebase on you.)",
+      "revId": "8f1596431c56daad25da3147e3e27890f562fa9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02fd1197_9660720f",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-04T23:40:32Z",
+      "side": 1,
+      "message": "OPENSSL_PUT_ERROR on each of these callback calls. Unlike other function calls, external callbacks rarely hit the error queue. We\u0027ve introduced bugs in calling code when we forget to push errors when callbacks fail. Ditto throughout the CL.",
+      "range": {
+        "startLine": 243,
+        "startChar": 36,
+        "endLine": 243,
+        "endChar": 57
+      },
+      "revId": "8f1596431c56daad25da3147e3e27890f562fa9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bda984e_5e192968",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-04T23:40:32Z",
+      "side": 1,
+      "message": "!\u003d nullptr\n\nDitto below.",
+      "range": {
+        "startLine": 266,
+        "startChar": 27,
+        "endLine": 266,
+        "endChar": 29
+      },
       "revId": "8f1596431c56daad25da3147e3e27890f562fa9e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
