@@ -27,6 +27,10 @@
 #define HRSS_ASM
 #endif
 
+#if defined(OPENSSL_AARCH64)
+#include <arm_neon.h>
+#endif
+
 #include "../internal.h"
 
 // This is an implementation of [HRSS], but with a KEM transformation based on
@@ -239,7 +243,7 @@ static void poly3_zero(struct poly3 *p) {
 // word. This is used in bit-slicing operations to make a vector from a fixed
 // value.
 static word_t lsb_to_all(word_t v) {
-  return (word_t)((intptr_t)(v << (BITS_PER_WORD - 1)) >> (BITS_PER_WORD - 1));
+  return ~((v & 1) - 1);
 }
 
 // poly3_mul_const sets |p| to |p|×m, where m  = (ms, ma).
@@ -263,8 +267,8 @@ static void poly3_rotr_consttime(struct poly3 *p, size_t bits) {
 }
 
 // poly3_fmadd sets |out| to |out| + |in|×m, where m is (ms, ma).
-static void poly3_fmadd(struct poly3 *out, const struct poly3 *in, word_t ms,
-                        word_t ma) {
+static void poly3_fmadd(struct poly3 *restrict out,
+                        const struct poly3 *restrict in, word_t ms, word_t ma) {
   ms = lsb_to_all(ms);
   ma = lsb_to_all(ma);
 
@@ -447,7 +451,10 @@ static void poly3_invert(struct poly3 *out, const struct poly3 *in) {
 // Coefficients are ordered little-endian, thus the coefficient of x^0 is the
 // first element of the array.
 struct poly {
-  uint16_t v[N];
+#if defined(OPENSSL_AARCH64) || defined(OPENSSL_ARM)
+  alignas(16)
+#endif
+  uint16_t v[N+3];
 };
 
 OPENSSL_UNUSED static void poly_print(const struct poly *p) {
@@ -460,6 +467,272 @@ OPENSSL_UNUSED static void poly_print(const struct poly *p) {
   }
   printf("]\n");
 }
+
+OPENSSL_UNUSED static void hexdump(const void *void_in, size_t len) {
+  const uint8_t *in = (const uint8_t *) void_in;
+  for (size_t i = 0; i < len; i++) {
+    printf("%02x", in[i]);
+  }
+  printf("\n");
+}
+
+#if defined(OPENSSL_AARCH64)
+
+// kVecsPerPoly is the number of 128-bit NEON vectors needed to represent a
+// polynomial.
+#define VECS_PER_POLY ((N + 7) / 8)
+
+void poly_mul_noasm_aarch64_aux(uint16x8_t *restrict out,
+                                       uint16x8_t *restrict scratch,
+                                       const uint16x8_t *a, const uint16x8_t *b,
+                                       size_t n);
+
+void poly_mul_noasm_aarch64_aux(uint16x8_t *restrict out,
+                                       uint16x8_t *restrict scratch,
+                                       const uint16x8_t *a, const uint16x8_t *b,
+                                       size_t n) {
+  assert(n != 1);
+
+  if (n == 2) {
+    uint16x8_t result[4];
+    const uint16x8_t zero = {0};
+    uint16x8_t vec_a[3];
+    vec_a[0] = a[0];
+    vec_a[1] = a[1];
+    vec_a[2] = zero;
+
+    const uint16_t *b_words = (const uint16_t *)b;
+    result[0] = vmulq_n_u16(a[0], b_words[0]);
+    result[1] = vmulq_n_u16(a[1], b_words[0]);
+
+#define BLOCK_PRE(x, y)                                   \
+  result[x + 0] = vmlaq_n_u16(result[x + 0], vec_a[0], b_words[y]); \
+  result[x + 1] = vmulq_n_u16(vec_a[1], b_words[y]);
+
+    BLOCK_PRE(1, 8);
+
+    result[3] = zero;
+
+#define ROTATE_VEC_A                           \
+  vec_a[2] = vextq_u16(vec_a[1], vec_a[2], 7); \
+  vec_a[1] = vextq_u16(vec_a[0], vec_a[1], 7); \
+  vec_a[0] = vextq_u16(zero, vec_a[0], 7);
+
+    ROTATE_VEC_A;
+
+#define BLOCK(x, y)                                                 \
+  result[x + 0] = vmlaq_n_u16(result[x + 0], vec_a[0], b_words[y]); \
+  result[x + 1] = vmlaq_n_u16(result[x + 1], vec_a[1], b_words[y]); \
+  result[x + 2] = vmlaq_n_u16(result[x + 2], vec_a[2], b_words[y]);
+
+    BLOCK(0, 1);
+    BLOCK(1, 9);
+
+    ROTATE_VEC_A;
+
+    BLOCK(0, 2);
+    BLOCK(1, 10);
+
+    ROTATE_VEC_A;
+
+    BLOCK(0, 3);
+    BLOCK(1, 11);
+
+    ROTATE_VEC_A;
+
+    BLOCK(0, 4);
+    BLOCK(1, 12);
+
+    ROTATE_VEC_A;
+
+    BLOCK(0, 5);
+    BLOCK(1, 13);
+
+    ROTATE_VEC_A;
+
+    BLOCK(0, 6);
+    BLOCK(1, 14);
+
+    ROTATE_VEC_A;
+
+    BLOCK(0, 7);
+    BLOCK(1, 15);
+
+#undef BLOCK
+#undef BLOCK_PRE
+#undef ROTATE_VEC_A
+
+    memcpy(out, result, sizeof(result));
+
+    return;
+  }
+
+  if (n == 3) {
+    uint16x8_t result[6];
+    const uint16x8_t zero = {0};
+    uint16x8_t vec_a[4];
+    vec_a[0] = a[0];
+    vec_a[1] = a[1];
+    vec_a[2] = a[2];
+    vec_a[3] = zero;
+
+    const uint16_t *b_words = (const uint16_t *)b;
+    result[0] = vmulq_n_u16(a[0], b_words[0]);
+    result[1] = vmulq_n_u16(a[1], b_words[0]);
+    result[2] = vmulq_n_u16(a[2], b_words[0]);
+
+#define BLOCK_PRE(x, y)                                   \
+  result[x + 0] = vmlaq_n_u16(result[x + 0], vec_a[0], b_words[y]); \
+  result[x + 1] = vmlaq_n_u16(result[x + 1], vec_a[1], b_words[y]); \
+  result[x + 2] = vmulq_n_u16(vec_a[2], b_words[y]);
+
+    BLOCK_PRE(1, 8);
+    BLOCK_PRE(2, 16);
+
+    result[5] = zero;
+
+#define ROTATE_VEC_A                           \
+  vec_a[3] = vextq_u16(vec_a[2], vec_a[3], 7); \
+  vec_a[2] = vextq_u16(vec_a[1], vec_a[2], 7); \
+  vec_a[1] = vextq_u16(vec_a[0], vec_a[1], 7); \
+  vec_a[0] = vextq_u16(zero, vec_a[0], 7);
+
+    ROTATE_VEC_A;
+
+#define BLOCK(x, y)                                           \
+  result[x + 0] = vmlaq_n_u16(result[x + 0], vec_a[0], b_words[y]); \
+  result[x + 1] = vmlaq_n_u16(result[x + 1], vec_a[1], b_words[y]); \
+  result[x + 2] = vmlaq_n_u16(result[x + 2], vec_a[2], b_words[y]); \
+  result[x + 3] = vmlaq_n_u16(result[x + 3], vec_a[3], b_words[y]);
+
+    BLOCK(0, 1);
+    BLOCK(1, 9);
+    BLOCK(2, 17);
+
+    ROTATE_VEC_A;
+
+    BLOCK(0, 2);
+    BLOCK(1, 10);
+    BLOCK(2, 18);
+
+    ROTATE_VEC_A;
+
+    BLOCK(0, 3);
+    BLOCK(1, 11);
+    BLOCK(2, 19);
+
+    ROTATE_VEC_A;
+
+    BLOCK(0, 4);
+    BLOCK(1, 12);
+    BLOCK(2, 20);
+
+    ROTATE_VEC_A;
+
+    BLOCK(0, 5);
+    BLOCK(1, 13);
+    BLOCK(2, 21);
+
+    ROTATE_VEC_A;
+
+    BLOCK(0, 6);
+    BLOCK(1, 14);
+    BLOCK(2, 22);
+
+    ROTATE_VEC_A;
+
+    BLOCK(0, 7);
+    BLOCK(1, 15);
+    BLOCK(2, 23);
+
+#undef BLOCK
+#undef BLOCK_PRE
+#undef ROTATE_VEC_A
+
+    memcpy(out, result, sizeof(result));
+
+    return;
+  }
+
+  // Karatsuba multiplication.
+  // https://en.wikipedia.org/wiki/Karatsuba_algorithm
+
+  // When |n| is odd, the two "halves" will have different lengths. The first is
+  // always the smaller.
+  const size_t low_len = n / 2;
+  const size_t high_len = n - low_len;
+  const uint16x8_t *a_high = &a[low_len];
+  const uint16x8_t *b_high = &b[low_len];
+
+  // Store a_1 + a_0 in the first half of |out| and b_1 + b_0 in the second
+  // half.
+  for (size_t i = 0; i < low_len; i++) {
+    out[i] = a_high[i] + a[i];
+    out[high_len + i] = b_high[i] + b[i];
+  }
+  if (high_len != low_len) {
+    out[low_len] = a_high[low_len];
+    out[high_len + low_len] = b_high[low_len];
+  }
+
+  uint16x8_t *const child_scratch = &scratch[2 * high_len];
+  // Calculate (a_1 + a_0) × (b_1 + b_0) and write to scratch buffer.
+  poly_mul_noasm_aarch64_aux(scratch, child_scratch, out, &out[high_len],
+                             high_len);
+  // Calculate a_1 × b_1.
+  poly_mul_noasm_aarch64_aux(&out[low_len * 2], child_scratch, a_high, b_high,
+                             high_len);
+  // Calculate a_0 × b_0.
+  poly_mul_noasm_aarch64_aux(out, child_scratch, a, b, low_len);
+
+  // Subtract those last two products from the first.
+  for (size_t i = 0; i < low_len * 2; i++) {
+    scratch[i] -= out[i] + out[low_len * 2 + i];
+  }
+  if (low_len != high_len) {
+    scratch[low_len * 2] -= out[low_len * 4];
+    scratch[low_len * 2 + 1] -= out[low_len * 4 + 1];
+  }
+
+  // Add the middle product into the output.
+  for (size_t i = 0; i < high_len * 2; i++) {
+    out[low_len + i] += scratch[i];
+  }
+}
+
+void poly_mul_noasm(struct poly *out, const struct poly *x,
+                           const struct poly *y);
+
+// poly_mul_noasm sets |*out| to |x|×|y| mod (𝑥^n - 1).
+void poly_mul_noasm(struct poly *out, const struct poly *x,
+                           const struct poly *y) {
+  OPENSSL_memset((uint16_t *)&x->v[N], 0, 3 * sizeof(uint16_t));
+  OPENSSL_memset((uint16_t *)&y->v[N], 0, 3 * sizeof(uint16_t));
+
+  static_assert(sizeof(out->v) == sizeof(uint16x8_t) * VECS_PER_POLY,
+                "struct poly is the wrong size");
+  static_assert(alignof(struct poly) == alignof(uint16x8_t),
+                "struct poly has incorrect alignment");
+  uint16x8_t prod[VECS_PER_POLY * 2];
+  uint16x8_t scratch[VECS_PER_POLY * 3];
+  poly_mul_noasm_aarch64_aux(prod, scratch, (const uint16x8_t *)x->v,
+                             (const uint16x8_t *)y->v, VECS_PER_POLY);
+
+  // |prod| needs to be reduced mod (𝑥^n - 1), which just involves adding the
+  // upper-half to the lower-half. However, N is 701, which isn't a multiple of
+  // the vector size, the upper-half vectors all have to be shifted before being
+  // added to the lower-half.
+  uint16x8_t *out_vecs = (uint16x8_t *)out->v;
+  for (size_t i = 0; i < VECS_PER_POLY; i++) {
+    const uint16x8_t v =
+        vextq_u16(prod[VECS_PER_POLY - 1 + i], prod[VECS_PER_POLY + i], 5);
+    out_vecs[i] = prod[i] + v;
+  }
+
+  OPENSSL_memset(&out->v[N], 0, 3 * sizeof(uint16_t));
+}
+
+#else
 
 // poly_mul_aux writes the product of |a| and |b| to |out|, using |scratch| as
 // scratch space. It'll use Karatsuba if the inputs are large enough to warrant
@@ -520,7 +793,7 @@ static void poly_mul_noasm_aux(uint16_t *out, uint16_t *scratch,
   }
 }
 
-// poly_mul sets |*out| to |x|×|y| mod (𝑥^n - 1).
+// poly_mul_noasm sets |*out| to |x|×|y| mod (𝑥^n - 1).
 static void poly_mul_noasm(struct poly *out, const struct poly *x,
                            const struct poly *y) {
   uint16_t prod[2 * N];
@@ -532,7 +805,9 @@ static void poly_mul_noasm(struct poly *out, const struct poly *x,
   }
 }
 
-#if defined(HRSS_ASM)
+#endif  // !AARCH64
+
+#if defined(OPENSSL_X86_64) && !defined(OPENSSL_NO_ASM)
 
 // poly_Rq_mul is defined in assembly.
 extern void poly_Rq_mul(struct poly *r, const struct poly *a,
@@ -542,6 +817,21 @@ static void poly_mul(struct poly *r, const struct poly *a,
                      const struct poly *b) {
   const int has_avx2 = (OPENSSL_ia32cap_get()[2] & (1 << 5)) != 0;
   if (has_avx2) {
+    poly_Rq_mul(r, a, b);
+  } else {
+    poly_mul_noasm(r, a, b);
+  }
+}
+
+#elif defined(OPENSSL_ARM) && !defined(OPENSSL_NO_ASM)
+
+// poly_Rq_mul is defined in assembly.
+extern void poly_Rq_mul(struct poly *r, const struct poly *a,
+                        const struct poly *b);
+
+static void poly_mul(struct poly *r, const struct poly *a,
+                     const struct poly *b) {
+  if (CRYPTO_is_NEON_capable()) {
     poly_Rq_mul(r, a, b);
   } else {
     poly_mul_noasm(r, a, b);
@@ -1315,4 +1605,10 @@ void HRSS_decap(uint8_t out_shared_key[32],
     out_shared_key[i] =
         constant_time_select_8(ok, shared_key[i], out_shared_key[i]);
   }
+}
+
+void HRSS_serialize_public_key(uint8_t out[HRSS_PUBLIC_KEY_BYTES],
+                               const struct HRSS_public_key *in_pub) {
+  struct public_key *pub = (struct public_key *)in_pub;
+  OPENSSL_memcpy(out, &pub->ph.v, N * sizeof(uint16_t));
 }

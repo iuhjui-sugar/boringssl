@@ -17,10 +17,13 @@
 
 #include <openssl/base.h>
 
+#if defined(OPENSSL_ARM) || defined(OPENSSL_AARCH64)
+#include <stdalign.h>
+#endif
+
 #if defined(__cplusplus)
 extern "C" {
 #endif
-
 
 // HRSS
 //
@@ -31,15 +34,21 @@ extern "C" {
 
 struct HRSS_private_key {
   union {
+#if defined(OPENSSL_AARCH64) || defined(OPENSSL_ARM)
+    alignas(16)
+#endif
     uintptr_t alignment;
-    uint8_t opaque[1785];
+    uint8_t opaque[1794];
   } u;
 };
 
 struct HRSS_public_key {
   union {
+#if defined(OPENSSL_AARCH64) || defined(OPENSSL_ARM)
+    alignas(16)
+#endif
     uint16_t alignment;
-    uint8_t opaque[1402];
+    uint8_t opaque[1408];
   } u;
 };
 
@@ -54,6 +63,8 @@ struct HRSS_public_key {
 // HRSS_ENCAP_BYTES is the number of bytes of entropy needed to encapsulate a
 // session key.
 #define HRSS_ENCAP_BYTES (HRSS_SAMPLE_BYTES + HRSS_SAMPLE_BYTES)
+// HRSS_PUBLIC_KEY_BYTES is the number of bytes in a public key.
+#define HRSS_PUBLIC_KEY_BYTES 1138
 // HRSS_CIPHERTEXT_BYTES is the number of bytes in a ciphertext.
 #define HRSS_CIPHERTEXT_BYTES (1138 + 32)
 // HRSS_KEY_BYTES is the number of bytes in a shared key.
@@ -84,6 +95,9 @@ OPENSSL_EXPORT void HRSS_decap(uint8_t out_shared_key[HRSS_KEY_BYTES],
                                const struct HRSS_private_key *in_priv,
                                const uint8_t *ciphertext,
                                size_t ciphertext_len);
+
+OPENSSL_EXPORT void HRSS_serialize_public_key(
+    uint8_t out[HRSS_PUBLIC_KEY_BYTES], const struct HRSS_public_key *in_pub);
 
 
 #if defined(__cplusplus)
