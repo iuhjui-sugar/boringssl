@@ -27,6 +27,10 @@
 #define HRSS_ASM
 #endif
 
+#if defined(OPENSSL_AARCH64)
+#include <arm_neon.h>
+#endif
+
 #include "../internal.h"
 
 // This is an implementation of [HRSS], but with a KEM transformation based on
@@ -461,6 +465,13 @@ OPENSSL_UNUSED static void poly_print(const struct poly *p) {
   printf("]\n");
 }
 
+OPENSSL_UNUSED static void hexdump(const uint8_t *in, size_t len) {
+  for (size_t i = 0; i < len; i++) {
+    printf("%02x", in[i]);
+  }
+  printf("\n");
+}
+
 // poly_mul_aux writes the product of |a| and |b| to |out|, using |scratch| as
 // scratch space. It'll use Karatsuba if the inputs are large enough to warrant
 // it.
@@ -472,6 +483,149 @@ static void poly_mul_noasm_aux(uint16_t *out, uint16_t *scratch,
 
   static const size_t kSchoolbookLimit = 64;
   if (a_len < kSchoolbookLimit) {
+    assert(a_len == 43 || a_len == 44);
+#if defined(OPENSSL_AARCH64)
+    uint16x8_t vec_b[7];
+    for (unsigned i = 0; i < 5; i++) {
+      memcpy(&vec_b[i], b + 8 * i, sizeof(uint16x8_t));
+    }
+    memset(&vec_b[5], 0, sizeof(uint16x8_t));
+    if (a_len == 43) {
+      memcpy(&vec_b[5], b + 8 * 5, sizeof(uint16_t) * 3);
+    } else {
+      memcpy(&vec_b[5], b + 8 * 5, sizeof(uint16_t) * 4);
+    }
+    memset(&vec_b[6], 0, sizeof(uint16x8_t));
+
+    uint16x8_t result[11];
+    result[0] = vmulq_n_u16(vec_b[0], a[0]);
+    result[1] = vmulq_n_u16(vec_b[1], a[0]);
+    result[2] = vmulq_n_u16(vec_b[2], a[0]);
+    result[3] = vmulq_n_u16(vec_b[3], a[0]);
+    result[4] = vmulq_n_u16(vec_b[4], a[0]);
+    result[5] = vmulq_n_u16(vec_b[5], a[0]);
+
+#define BLOCK_PRE(x, y) \
+    result[x+0] = vmlaq_n_u16(result[x+0], vec_b[0], a[y]); \
+    result[x+1] = vmlaq_n_u16(result[x+1], vec_b[1], a[y]); \
+    result[x+2] = vmlaq_n_u16(result[x+2], vec_b[2], a[y]); \
+    result[x+3] = vmlaq_n_u16(result[x+3], vec_b[3], a[y]); \
+    result[x+4] = vmlaq_n_u16(result[x+4], vec_b[4], a[y]); \
+    result[x+5] = vmulq_n_u16(vec_b[5], a[y]);
+
+    BLOCK_PRE(1, 8);
+    BLOCK_PRE(2, 16);
+    BLOCK_PRE(3, 24);
+    BLOCK_PRE(4, 32);
+    BLOCK_PRE(5, 40);
+
+#define ROTATE_VEC_B                           \
+  vec_b[5] = vextq_u16(vec_b[4], vec_b[5], 7); \
+  vec_b[4] = vextq_u16(vec_b[3], vec_b[4], 7); \
+  vec_b[3] = vextq_u16(vec_b[2], vec_b[3], 7); \
+  vec_b[2] = vextq_u16(vec_b[1], vec_b[2], 7); \
+  vec_b[1] = vextq_u16(vec_b[0], vec_b[1], 7); \
+  vec_b[0] = vextq_u16(vec_b[6], vec_b[0], 7);
+
+    ROTATE_VEC_B;
+
+#define BLOCK(x, y)                                           \
+  result[x + 0] = vmlaq_n_u16(result[x + 0], vec_b[0], a[y]); \
+  result[x + 1] = vmlaq_n_u16(result[x + 1], vec_b[1], a[y]); \
+  result[x + 2] = vmlaq_n_u16(result[x + 2], vec_b[2], a[y]); \
+  result[x + 3] = vmlaq_n_u16(result[x + 3], vec_b[3], a[y]); \
+  result[x + 4] = vmlaq_n_u16(result[x + 4], vec_b[4], a[y]); \
+  result[x + 5] = vmlaq_n_u16(result[x + 5], vec_b[5], a[y]);
+
+    BLOCK(5, 41);
+    BLOCK(4, 33);
+    BLOCK(3, 25);
+    BLOCK(2, 17);
+    BLOCK(1, 9);
+    BLOCK(0, 1);
+
+    ROTATE_VEC_B;
+
+    BLOCK(0, 2);
+    BLOCK(1, 10);
+    BLOCK(2, 18);
+    BLOCK(3, 26);
+    BLOCK(4, 34);
+    BLOCK(5, 42);
+
+    ROTATE_VEC_B;
+
+    if (a_len == 44) {
+      BLOCK(5, 43);
+    }
+    BLOCK(4, 35);
+    BLOCK(3, 27);
+    BLOCK(2, 19);
+    BLOCK(1, 11);
+    BLOCK(0, 3);
+
+    ROTATE_VEC_B;
+
+    BLOCK(0, 4);
+    BLOCK(1, 12);
+    BLOCK(2, 20);
+    BLOCK(3, 28);
+    BLOCK(4, 36);
+
+#define ROTATE_VEC_B_EXT                       \
+  vec_b[6] = vextq_u16(vec_b[5], vec_b[6], 7); \
+  vec_b[5] = vextq_u16(vec_b[4], vec_b[5], 7); \
+  vec_b[4] = vextq_u16(vec_b[3], vec_b[4], 7); \
+  vec_b[3] = vextq_u16(vec_b[2], vec_b[3], 7); \
+  vec_b[2] = vextq_u16(vec_b[1], vec_b[2], 7); \
+  vec_b[1] = vextq_u16(vec_b[0], vec_b[1], 7); \
+  vec_b[0] = vextq_u16(vec_b[6], vec_b[0], 7);
+
+    ROTATE_VEC_B_EXT;
+
+#define BLOCK_EXT(x, y)                                       \
+  result[x + 0] = vmlaq_n_u16(result[x + 0], vec_b[0], a[y]); \
+  result[x + 1] = vmlaq_n_u16(result[x + 1], vec_b[1], a[y]); \
+  result[x + 2] = vmlaq_n_u16(result[x + 2], vec_b[2], a[y]); \
+  result[x + 3] = vmlaq_n_u16(result[x + 3], vec_b[3], a[y]); \
+  result[x + 4] = vmlaq_n_u16(result[x + 4], vec_b[4], a[y]); \
+  result[x + 5] = vmlaq_n_u16(result[x + 5], vec_b[5], a[y]); \
+  result[x + 6] = vmlaq_n_u16(result[x + 6], vec_b[6], a[y]);
+
+    BLOCK_EXT(4, 37);
+    BLOCK_EXT(3, 29);
+    BLOCK_EXT(2, 21);
+    BLOCK_EXT(1, 13);
+    BLOCK_EXT(0, 5);
+
+    ROTATE_VEC_B_EXT;
+
+    BLOCK_EXT(0, 6);
+    BLOCK_EXT(1, 14);
+    BLOCK_EXT(2, 22);
+    BLOCK_EXT(3, 30);
+    BLOCK_EXT(4, 38);
+
+    ROTATE_VEC_B_EXT;
+
+    BLOCK_EXT(4, 39);
+    BLOCK_EXT(3, 31);
+    BLOCK_EXT(2, 23);
+    BLOCK_EXT(1, 15);
+    BLOCK_EXT(0, 7);
+
+    for (unsigned i = 0; i < 10; i++) {
+      memcpy(out + 8 * i, &result[i], sizeof(uint16x8_t));
+    }
+    if (a_len == 44) {
+      memcpy(out + 8 * 10, &result[10], sizeof(uint16x8_t));
+    } else {
+      memcpy(out + 8 * 10, &result[10], sizeof(uint16_t) * 6);
+    }
+
+    return;
+#endif
+
     OPENSSL_memset(out, 0, sizeof(uint16_t) * a_len * 2);
     for (size_t i = 0; i < a_len; i++) {
       for (size_t j = 0; j < b_len; j++) {
