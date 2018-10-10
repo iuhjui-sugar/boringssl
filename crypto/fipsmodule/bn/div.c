@@ -64,7 +64,7 @@
 #include "internal.h"
 
 
-#if !defined(BN_ULLONG)
+#if !defined(BN_CAN_DIVIDE_ULLONG)
 // bn_div_words divides a double-width |h|,|l| by |d| and returns the result,
 // which must fit in a |BN_ULONG|.
 static BN_ULONG bn_div_words(BN_ULONG h, BN_ULONG l, BN_ULONG d) {
@@ -135,7 +135,7 @@ static BN_ULONG bn_div_words(BN_ULONG h, BN_ULONG l, BN_ULONG d) {
   ret |= q;
   return ret;
 }
-#endif  // !defined(BN_ULLONG)
+#endif  // !defined(BN_CAN_DIVIDE_ULLONG)
 
 static inline void bn_div_rem_words(BN_ULONG *quotient_out, BN_ULONG *rem_out,
                                     BN_ULONG n0, BN_ULONG n1, BN_ULONG d0) {
@@ -168,7 +168,7 @@ static inline void bn_div_rem_words(BN_ULONG *quotient_out, BN_ULONG *rem_out,
                    : "a"(n1), "d"(n0), "rm"(d0)
                    : "cc");
 #else
-#if defined(BN_ULLONG)
+#if defined(BN_CAN_DIVIDE_ULLONG)
   BN_ULLONG n = (((BN_ULLONG)n0) << BN_BITS2) | n1;
   *quotient_out = (BN_ULONG)(n / d0);
 #else
