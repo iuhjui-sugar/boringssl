@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4eb4c376_05421f1d",
+        "filename": "crypto/fipsmodule/bn/div.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-10T15:33:17Z",
+      "side": 1,
+      "message": "(Strictly speaking this also wants an X86/X86_64 check, but that\u0027s getting pretty unwieldy. Hopefully no one tries to build clang-cl for ARM or something weird like that. :-) )",
+      "revId": "07ec90c0f808fd6ddccad428e8a67b210f035680",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
