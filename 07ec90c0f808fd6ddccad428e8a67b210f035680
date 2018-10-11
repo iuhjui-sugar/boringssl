@@ -34,6 +34,24 @@
       "revId": "07ec90c0f808fd6ddccad428e8a67b210f035680",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8ba5c138_598dcb63",
+        "filename": "crypto/fipsmodule/bn/div.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-11T16:25:35Z",
+      "side": 1,
+      "message": "Yeah, if it comes up, we can either make it more complicated or stick an OPENSSL_UNUSED in front to shut it up. Whatever works.",
+      "parentUuid": "c4bcfb0d_8ecbf54f",
+      "revId": "07ec90c0f808fd6ddccad428e8a67b210f035680",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
