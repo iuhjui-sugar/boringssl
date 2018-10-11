@@ -16,6 +16,24 @@
       "revId": "07ec90c0f808fd6ddccad428e8a67b210f035680",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4bcfb0d_8ecbf54f",
+        "filename": "crypto/fipsmodule/bn/div.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 9226
+      },
+      "writtenOn": "2018-10-11T04:10:13Z",
+      "side": 1,
+      "message": "Yes, this code would cause unused code warning for clang-cl + ARM + assembler.  I guess it can be recognized if people set that as compile error.  Even if not, having the unused code might be harmless.",
+      "parentUuid": "4eb4c376_05421f1d",
+      "revId": "07ec90c0f808fd6ddccad428e8a67b210f035680",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
