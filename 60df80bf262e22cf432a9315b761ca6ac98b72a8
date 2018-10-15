@@ -70,6 +70,24 @@
       "revId": "60df80bf262e22cf432a9315b761ca6ac98b72a8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dede6c2b_116850c7",
+        "filename": "include/openssl/lhash.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-15T23:24:23Z",
+      "side": 1,
+      "message": "Oops, forgot about this. Reverted to patch set 8.",
+      "parentUuid": "6f043f9b_cf1fb07f",
+      "revId": "60df80bf262e22cf432a9315b761ca6ac98b72a8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
