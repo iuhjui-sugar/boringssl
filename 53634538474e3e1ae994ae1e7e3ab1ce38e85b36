@@ -16,6 +16,24 @@
       "revId": "53634538474e3e1ae994ae1e7e3ab1ce38e85b36",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f07d3aa_4b5c271d",
+        "filename": "include/openssl/cipher.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-16T16:00:02Z",
+      "side": 1,
+      "message": "No one seems to have used switch statements so far, but good point. :-) Switched them to distinct negative numbers.\n\nI didn\u0027t match upstream\u0027s values because ours already don\u0027t match. Notably our current EVP_CIPH_MODE_MASK (0x3f) puts the bits all at the bottom whereas upstream considered the values themselves stable, so when they needed more mode bits, they took some upper ones (0xf0007). If it turns out we need to match later, we can always go back and change that.",
+      "parentUuid": "36c300d3_b575f963",
+      "revId": "53634538474e3e1ae994ae1e7e3ab1ce38e85b36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
