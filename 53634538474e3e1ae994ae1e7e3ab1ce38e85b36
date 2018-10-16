@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "36c300d3_b575f963",
+        "filename": "include/openssl/cipher.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-10-16T00:00:44Z",
+      "side": 1,
+      "message": "https://github.com/nodejs/node/pull/23635#issuecomment-429926644 makes a fair point. (If they\u0027re all the same then switch statements will break.)",
+      "revId": "53634538474e3e1ae994ae1e7e3ab1ce38e85b36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
