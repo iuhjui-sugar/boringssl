@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb1ee44a_d60b80c9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-16T18:46:12Z",
+      "side": 1,
+      "message": "What would the replacement test do? I take it you all don\u0027t have fork but have something morally equivalent?",
+      "range": {
+        "startLine": 10,
+        "startChar": 54,
+        "endLine": 11,
+        "endChar": 16
+      },
+      "revId": "ed8a2af731755a8b9d0b0cb577da6912fc36b94e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
