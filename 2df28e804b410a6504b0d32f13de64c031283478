@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "316f6544_97c49f55",
+        "filename": "include/openssl/conf.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-17T20:42:51Z",
+      "side": 1,
+      "message": "Optional: You can also make this DECLARE_LHASH_OF(CONF_VALUE) and leave the DEFINE_LHASH_OF(CONF_VALUE) in the source file, which will make this type effectively an opaque struct, with no caller ability to create it.",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 15
+      },
+      "revId": "2df28e804b410a6504b0d32f13de64c031283478",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
