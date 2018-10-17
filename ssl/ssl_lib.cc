@@ -2751,6 +2751,14 @@ int SSL_set_tlsext_status_type(SSL *ssl, int type) {
   return 1;
 }
 
+int SSL_get_tlsext_status_type(SSL *ssl) {
+  if (ssl->config->ocsp_stapling_enabled) {
+    return TLSEXT_STATUSTYPE_ocsp;
+  }
+
+  return TLSEXT_STATUSTYPE_nothing;
+}
+
 int SSL_set_tlsext_status_ocsp_resp(SSL *ssl, uint8_t *resp, size_t resp_len) {
   if (SSL_set_ocsp_response(ssl, resp, resp_len)) {
     OPENSSL_free(resp);
