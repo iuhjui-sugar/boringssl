@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "46a3cb6e_a388f13c",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 4271,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-10-18T18:51:20Z",
+      "side": 1,
+      "message": "Needs a comment in the style of the other functions here.",
+      "revId": "84f5c874ff7275ea61f92008543a621f6794d986",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
