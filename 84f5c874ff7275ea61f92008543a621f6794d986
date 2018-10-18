@@ -16,6 +16,52 @@
       "revId": "84f5c874ff7275ea61f92008543a621f6794d986",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4aa3a089_cfb07740",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2754,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-18T18:58:08Z",
+      "side": 1,
+      "message": "const",
+      "range": {
+        "startLine": 2754,
+        "startChar": 31,
+        "endLine": 2754,
+        "endChar": 34
+      },
+      "revId": "84f5c874ff7275ea61f92008543a621f6794d986",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5a6e172_89e2b617",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2755,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-18T18:58:08Z",
+      "side": 1,
+      "message": "I don\u0027t think this is quite what Node is using it for. This is one of those places where OpenSSL does a bad job separating config vs. handshake property, whereas we usually separate them. In OpenSSL, this is:\n\nFor a client, did I request OCSP stapling via SSL_set_tlsext_status_type?\n\nFor a server, did the *client* request OCSP stapling via the extension?\n\nThis is only implementing the client half, and Node\u0027s using it as a server. For the server half, you want to query hs-\u003eocsp_stapling_requested.\n\nAlso note that ssl-\u003econfig may be null in BoringSSL. We release a lot of state after the handshake to save memory, so accessors need a null check.",
+      "range": {
+        "startLine": 2755,
+        "startChar": 6,
+        "endLine": 2755,
+        "endChar": 40
+      },
+      "revId": "84f5c874ff7275ea61f92008543a621f6794d986",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
