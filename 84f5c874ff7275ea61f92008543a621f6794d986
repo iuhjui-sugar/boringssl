@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0b48db07_481d22d9",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 4271,
+      "author": {
+        "id": 9244
+      },
+      "writtenOn": "2018-10-18T19:19:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46a3cb6e_a388f13c",
+      "revId": "84f5c874ff7275ea61f92008543a621f6794d986",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4aa3a089_cfb07740",
         "filename": "ssl/ssl_lib.cc",
         "patchSetId": 1
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "67ea115d_82b5fe02",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2754,
+      "author": {
+        "id": 9244
+      },
+      "writtenOn": "2018-10-18T19:19:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4aa3a089_cfb07740",
+      "range": {
+        "startLine": 2754,
+        "startChar": 31,
+        "endLine": 2754,
+        "endChar": 34
+      },
+      "revId": "84f5c874ff7275ea61f92008543a621f6794d986",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e5a6e172_89e2b617",
         "filename": "ssl/ssl_lib.cc",
         "patchSetId": 1
@@ -62,6 +104,30 @@
       "revId": "84f5c874ff7275ea61f92008543a621f6794d986",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77491173_c09caaaf",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2755,
+      "author": {
+        "id": 9244
+      },
+      "writtenOn": "2018-10-18T19:19:38Z",
+      "side": 1,
+      "message": "Oh, thanks, that makes sense! I\u0027ve updated the function to check hs-\u003eocsp_stapling_requested on the server side and to check ssl-\u003econfig !\u003d NULL on the client side.",
+      "parentUuid": "e5a6e172_89e2b617",
+      "range": {
+        "startLine": 2755,
+        "startChar": 6,
+        "endLine": 2755,
+        "endChar": 40
+      },
+      "revId": "84f5c874ff7275ea61f92008543a621f6794d986",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
