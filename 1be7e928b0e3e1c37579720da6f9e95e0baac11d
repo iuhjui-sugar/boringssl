@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d06ac09c_b2a33613",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 4276,
+      "author": {
+        "id": 9244
+      },
+      "writtenOn": "2018-10-18T21:19:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43baa7eb_837fe908",
+      "revId": "1be7e928b0e3e1c37579720da6f9e95e0baac11d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "afca99d5_fb190047",
         "filename": "ssl/ssl_lib.cc",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "1be7e928b0e3e1c37579720da6f9e95e0baac11d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3e8bb8b_c9d1baa6",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2762,
+      "author": {
+        "id": 9244
+      },
+      "writtenOn": "2018-10-18T21:19:04Z",
+      "side": 1,
+      "message": "I like the ternary idea :) Done.",
+      "parentUuid": "afca99d5_fb190047",
+      "revId": "1be7e928b0e3e1c37579720da6f9e95e0baac11d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
