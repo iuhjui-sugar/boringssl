@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "43baa7eb_837fe908",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 4276,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-18T19:30:21Z",
+      "side": 1,
+      "message": "Some style nits: symbols are referred to as |symbol_name| and without parens. (Our doc generator will linkify it.) Function documentation also starts with the function name, like in Go, which is probably why the doc try job is unhappy. :-)\n\nI\u0027d also suggest saying TLSEXT_STATUSTYPE_nothing instead of -1, and maybe calling out that it doesn\u0027t really say useful things after the handshake completes, since that differs from OpenSSL. (OpenSSL retains all the random handshake state for the lifetime of the connection. We drop it after the handshake completes.)\n\nPerhaps something like:\n\nSSL_get_tlsext_status_type returns |TLSEXT_STATUSTYPE_ocsp| if the client requested OCSP stapling and |TLSEXT_STATUSTYPE_nothing| otherwise. On the client, this reflects whether OCSP stapling was enabled via, e.g., |SSL_set_tlsext_status_type|. On the server, this is determined during the handshake. It may be queried in callbacks set by |SSL_CTX_set_cert_cb|. The result is undefined after the handshake completes.",
+      "revId": "1be7e928b0e3e1c37579720da6f9e95e0baac11d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afca99d5_fb190047",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2762,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-18T19:30:21Z",
+      "side": 1,
+      "message": "Nit: We usually don\u0027t write else blocks after if blocks that always return.\n\n(It\u0027s also really just a funny boolean, so you could also just use a ternary for the ocsp/nothing dispatches, if you like.)",
+      "revId": "1be7e928b0e3e1c37579720da6f9e95e0baac11d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
