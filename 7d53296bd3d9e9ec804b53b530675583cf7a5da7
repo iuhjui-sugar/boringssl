@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "79b65cd1_f398109d",
+        "filename": "crypto/cipher_extra/e_aesgcmsiv.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-18T18:07:42Z",
+      "side": 1,
+      "message": "In the past I think Brian pushed for this formulation, on grounds that we\u0027re not converting a computation in integer space back to pointer:\n\n  uintptr_t p \u003d (uintptr_t)\u0026ctx-\u003estate;  // OK. Pointer-to-int conversion\\\n                                         // is always valid with\n                                         // implementation-defined result.\n  p \u003d p \u0026 8;  // OK. Just math on an integer.\n  return (struct aead_aes_gcm_siv_asm_ctx *)(ctx-\u003estate.opaque + p);\n     // Arithmetic OK. Defined to point to the p\u0027th byte in there.\n     // Conversion OK if pointer is correctly aligned. We\u0027re relying on\n     // the uintptr_t conversion matching the alignment.\n\nThat said, the spec says:\n\n\"An integer may be converted to any pointer type. Except as previously specified, the result is implementation-defined, might not be correctly aligned, might not point to an entity of the referenced type, and might be a trap representation.\"\n\nNotably, that it\u0027s implementation-defined, not straight-up undefined. So I suspect what you wrote is about as okay. (Of course, no implementation actually says how they define any of this, so I have no idea.)\n\nNot sure if there\u0027s other clauses of interest here.",
+      "revId": "7d53296bd3d9e9ec804b53b530675583cf7a5da7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9b9ec5a_31a13fd9",
+        "filename": "include/openssl/aead.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-18T18:07:42Z",
+      "side": 1,
+      "message": "Should we OPENSSL_cleanse this in EVP_AEAD_CTX_cleanup?",
+      "range": {
+        "startLine": 180,
+        "startChar": 4,
+        "endLine": 180,
+        "endChar": 9
+      },
+      "revId": "7d53296bd3d9e9ec804b53b530675583cf7a5da7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
