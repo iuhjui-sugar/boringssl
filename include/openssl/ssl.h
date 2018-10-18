@@ -4268,6 +4268,14 @@ OPENSSL_EXPORT int OPENSSL_init_ssl(uint64_t opts,
 // Use |SSL_enable_ocsp_stapling| instead.
 OPENSSL_EXPORT int SSL_set_tlsext_status_type(SSL *ssl, int type);
 
+// On the client side SSL_get_tlsext_status_type() can be used to determine
+// whether the client has previously called SSL_set_tlsext_status_type(). It
+// will return TLSEXT_STATUSTYPE_ocsp if it has been called or -1 otherwise. On
+// the server side SSL_get_tlsext_status_type() can be used to determine
+// whether the client requested OCSP stapling. If the client requested it then
+// this function will return TLSEXT_STATUSTYPE_ocsp, or -1 otherwise.
+OPENSSL_EXPORT int SSL_get_tlsext_status_type(const SSL *ssl);
+
 // SSL_set_tlsext_status_ocsp_resp sets the OCSP response. It returns one on
 // success and zero on error. On success, |ssl| takes ownership of |resp|, which
 // must have been allocated by |OPENSSL_malloc|.
