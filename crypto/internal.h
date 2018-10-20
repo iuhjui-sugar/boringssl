@@ -116,13 +116,8 @@
 #include <assert.h>
 #include <string.h>
 
-#if !defined(__cplusplus)
-#if defined(_MSC_VER)
-#define alignas(x) __declspec(align(x))
-#define alignof __alignof
-#else
+#if !defined(__cplusplus) && !defined(_MSC_VER)
 #include <stdalign.h>
-#endif
 #endif
 
 #if defined(OPENSSL_THREADS) && \
