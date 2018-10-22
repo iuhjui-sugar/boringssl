@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6201a89c_ffe15183",
+        "filename": "crypto/cipher_extra/e_aesgcmsiv.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-10-22T22:42:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79b65cd1_f398109d",
+      "revId": "7d53296bd3d9e9ec804b53b530675583cf7a5da7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a9b9ec5a_31a13fd9",
         "filename": "include/openssl/aead.h",
         "patchSetId": 1
@@ -39,6 +57,30 @@
       "revId": "7d53296bd3d9e9ec804b53b530675583cf7a5da7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23898527_13327843",
+        "filename": "include/openssl/aead.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-10-22T22:42:57Z",
+      "side": 1,
+      "message": "I\u0027m going to say no: we\u0027ll zero it in |EVP_AEAD_CTX_free| if heap allocated and we don\u0027t generally clear stack variables elsewhere.",
+      "parentUuid": "a9b9ec5a_31a13fd9",
+      "range": {
+        "startLine": 180,
+        "startChar": 4,
+        "endLine": 180,
+        "endChar": 9
+      },
+      "revId": "7d53296bd3d9e9ec804b53b530675583cf7a5da7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
