@@ -1485,6 +1485,11 @@ struct SSL_HANDSHAKE {
   // the client if |in_early_data| is true.
   UniquePtr<SSL_SESSION> early_session;
 
+  // early_reverify_attempted records whether the saved server
+  // certificate was reverified before sending early data, so that we
+  // can avoid reverifying twice.
+  bool early_reverify_attempted;
+
   // new_cipher is the cipher being negotiated in this handshake.
   const SSL_CIPHER *new_cipher = nullptr;
 

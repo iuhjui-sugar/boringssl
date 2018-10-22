@@ -5016,6 +5016,32 @@ func addStateMachineCoverageTests(config stateMachineTestConfig) {
 						}, flags...),
 						resumeSession: true,
 					})
+					tests = append(tests, testCase{
+						testType: testType,
+						name:     "EarlyData-RejectTicket-ClientReverify" + suffix,
+						config: Config{
+							MaxVersion:       vers.version,
+							MaxEarlyDataSize: 16384,
+							Certificates:     []Certificate{rsaCertificate},
+						},
+						resumeConfig: &Config{
+							MaxVersion:             vers.version,
+							MaxEarlyDataSize:       16384,
+							Certificates:           []Certificate{rsaCertificate},
+							SessionTicketsDisabled: true,
+						},
+						tls13Variant:         vers.tls13Variant,
+						resumeSession:        true,
+						expectResumeRejected: true,
+						flags: []string{
+							"-enable-early-data",
+							"-expect-ticket-supports-early-data",
+							"-reverify-on-resume",
+							"-on-resume-shim-writes-first",
+							// Session tickets are disabled, so the runner will not send a ticket.
+							"-on-retry-expect-no-session",
+						},
+					})
 				}
 			}
 		}
