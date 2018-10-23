@@ -34,6 +34,24 @@
       "revId": "2ec10ca079f512d3ea190c6800e7b40cfc8042ef",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71415996_ac34c9cf",
+        "filename": "crypto/cipher_extra/tls_cbc.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 9253
+      },
+      "writtenOn": "2018-10-23T19:04:36Z",
+      "side": 1,
+      "message": "That formula gives kVarianceBlocks \u003d 5 for SHA-256, and kVarianceBlocks \u003d 3 for SHA-384; thus, how this matches with the previous assignment (kVarianceBlocks \u003d 6)?",
+      "parentUuid": "4ab94557_aa8b94f1",
+      "revId": "2ec10ca079f512d3ea190c6800e7b40cfc8042ef",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
