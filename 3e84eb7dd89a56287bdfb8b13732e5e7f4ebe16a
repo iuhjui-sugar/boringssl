@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a94fb807_b1b97f99",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-23T21:01:02Z",
+      "side": 1,
+      "message": "It\u0027s a C file, so I believe the issue is C11 rather than C++11.",
+      "range": {
+        "startLine": 10,
+        "startChar": 22,
+        "endLine": 10,
+        "endChar": 27
+      },
+      "revId": "3e84eb7dd89a56287bdfb8b13732e5e7f4ebe16a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
