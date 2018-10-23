@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7417eab5_d60d7340",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-23T20:40:53Z",
+      "side": 1,
+      "message": "Although this one is set in the build in question, it appears this isn\u0027t actually an Android build.\n\nThis looks like the issue:\nhttps://boringssl-review.googlesource.com/c/boringssl/+/32686\nBut we should get the Android folks to update that sysroot. It\u0027s too old.\n\nThis thread suggests that __ANDROID__ is preferred over ANDROID, which is consistent here. ANDROID seems to have unclear meaning and, even in AOSP, apparently means \"building something Android-related\" rather than \"building for Android\".\nhttps://groups.google.com/forum/#!topic/android-ndk/cf9_f1SLXls",
+      "range": {
+        "startLine": 149,
+        "startChar": 64,
+        "endLine": 149,
+        "endChar": 71
+      },
+      "revId": "7cac6da2741b65125095bbf612115c764a6a2487",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
