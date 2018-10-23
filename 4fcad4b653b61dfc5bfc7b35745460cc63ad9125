@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "d1b316c5_66839a65",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1205,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-10-23T17:39:35Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5abf082d_fee0f17c",
+      "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c599e750_eaf5234d",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 4
@@ -808,6 +826,24 @@
       "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a73afd9_9114adaf",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 2221,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-10-23T17:39:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40d9af41_b7fc9db1",
+      "revId": "4fcad4b653b61dfc5bfc7b35745460cc63ad9125",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
