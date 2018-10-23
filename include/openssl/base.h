@@ -146,7 +146,7 @@ extern "C" {
 #define OPENSSL_NO_THREADS_CORRUPT_MEMORY_AND_LEAK_SECRETS_IF_THREADED
 #endif
 
-#if defined(__ANDROID_API__)
+#if defined(__ANDROID_API__) || defined(BORINGSSL_ANDROID_SYSTEM)
 #define OPENSSL_ANDROID
 #endif
 
