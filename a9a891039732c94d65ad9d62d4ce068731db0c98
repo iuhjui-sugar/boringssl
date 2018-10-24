@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4a8f8542_4d074e0a",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-10-24T00:34:40Z",
+      "side": 1,
+      "message": "\u0026\u0026 to join these two lines?",
+      "revId": "a9a891039732c94d65ad9d62d4ce068731db0c98",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
