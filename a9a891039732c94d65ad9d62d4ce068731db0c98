@@ -16,6 +16,24 @@
       "revId": "a9a891039732c94d65ad9d62d4ce068731db0c98",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d23f625a_3701fce2",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-24T17:38:52Z",
+      "side": 1,
+      "message": "The preprocessor doesn\u0027t like it when you use undefined symbols:\nhttps://godbolt.org/z/5hJ2nw",
+      "parentUuid": "4a8f8542_4d074e0a",
+      "revId": "a9a891039732c94d65ad9d62d4ce068731db0c98",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
