@@ -1,0 +1,467 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ddd35e59_d1d2c16a",
+        "filename": "crypto/fipsmodule/ec/asm/p256_beeu-x86_64-asm.pl",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-24T21:20:39Z",
+      "side": 1,
+      "message": "(I have not looked at this very carefully.)",
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a0163600_441a7e3c",
+        "filename": "crypto/fipsmodule/ec/asm/p256_beeu-x86_64-asm.pl",
+        "patchSetId": 7
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-24T21:20:39Z",
+      "side": 1,
+      "message": "I suppose it\u0027s tiny, but is this function really worth it over bn_add_words? :-P",
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6da54894_0f7dfdc8",
+        "filename": "crypto/fipsmodule/ec/internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-24T21:20:39Z",
+      "side": 1,
+      "message": "It returns",
+      "range": {
+        "startLine": 176,
+        "startChar": 61,
+        "endLine": 176,
+        "endChar": 68
+      },
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5633be39_820475a2",
+        "filename": "crypto/fipsmodule/ec/internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-24T21:20:39Z",
+      "side": 1,
+      "message": "Nit: cmp_x_coordinate compares [...]",
+      "range": {
+        "startLine": 176,
+        "startChar": 5,
+        "endLine": 176,
+        "endChar": 13
+      },
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87df8b92_fe24459f",
+        "filename": "crypto/fipsmodule/ec/internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-24T21:20:39Z",
+      "side": 1,
+      "message": "It\u0027s probably worth spelling this out slightly more explicitly. It\u0027s checking if p.(affine).x % order \u003d\u003d r, which is slightly different from p.(affine).x \u003d\u003d r.",
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5810a4ed_2e9d142f",
+        "filename": "crypto/fipsmodule/ec/internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-24T21:20:39Z",
+      "side": 1,
+      "message": "This doesn\u0027t match the usual calling convention, which is that functions call BN_CTX_start/BN_CTX_end themselves. E.g. this will behave badly if called in a loop (not that it will...).",
+      "range": {
+        "startLine": 362,
+        "startChar": 3,
+        "endLine": 362,
+        "endChar": 43
+      },
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efbe7513_855da342",
+        "filename": "crypto/fipsmodule/ec/p256-x86_64.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-24T21:20:39Z",
+      "side": 1,
+      "message": "const (ditto below)",
+      "range": {
+        "startLine": 297,
+        "startChar": 59,
+        "endLine": 297,
+        "endChar": 64
+      },
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ba65b55_dd6da40a",
+        "filename": "crypto/fipsmodule/ec/p256-x86_64.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-24T21:20:39Z",
+      "side": 1,
+      "message": "More for later but we can probably tighten this by splitting mul into mul_scalar and mul_arbitrary since we never do a constant-time double-multiplication.",
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "93fd4ba6_c88c8645",
+        "filename": "crypto/fipsmodule/ec/p256-x86_64.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-24T21:20:39Z",
+      "side": 1,
+      "message": "mul_public is even tighter. None of the arguments are allowed to be NULL.",
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a1dd646_313d5602",
+        "filename": "crypto/fipsmodule/ec/p256-x86_64.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-24T21:20:39Z",
+      "side": 1,
+      "message": "sizeof(P256_POINT_AFFINE) or sizeof(p.a)\n\n(Are the parens around precomputed_table[0] necessary? Ditto below.)",
+      "range": {
+        "startLine": 409,
+        "startChar": 71,
+        "endLine": 409,
+        "endChar": 77
+      },
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcf89a65_87d9132b",
+        "filename": "crypto/fipsmodule/ec/p256-x86_64.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-24T21:20:39Z",
+      "side": 1,
+      "message": "Maybe fold this into line 408\u0027s branch.",
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92ce87f0_9cbd47fe",
+        "filename": "crypto/fipsmodule/ec/p256-x86_64.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-24T21:20:39Z",
+      "side": 1,
+      "message": "is_greater_vartime returns, etc.",
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "faec837d_ab96eeb8",
+        "filename": "crypto/fipsmodule/ec/p256-x86_64.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 589,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-24T21:20:39Z",
+      "side": 1,
+      "message": "Nit: else after early return.",
+      "range": {
+        "startLine": 589,
+        "startChar": 6,
+        "endLine": 589,
+        "endChar": 10
+      },
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd0f362e_486f243c",
+        "filename": "crypto/fipsmodule/ec/p256-x86_64.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-24T21:20:39Z",
+      "side": 1,
+      "message": "This appears to be z^2, not z.",
+      "range": {
+        "startLine": 601,
+        "startChar": 38,
+        "endLine": 601,
+        "endChar": 39
+      },
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c3f9db0_49ea020c",
+        "filename": "crypto/fipsmodule/ec/p256-x86_64.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-24T21:20:39Z",
+      "side": 1,
+      "message": "Why doesn\u0027t this just do:\n\n  mul_mont(tmp, r, z);\n  return x \u003d\u003d tmp?\n\nIs this because of the claim below that mul_mont doesn\u0027t leave the value fully-reduced? (See comment below.)",
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b482ab4f_392a21f9",
+        "filename": "crypto/fipsmodule/ec/p256-x86_64.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-24T21:20:39Z",
+      "side": 1,
+      "message": "Nit: Stray parens? (Also const uint8_t*)",
+      "range": {
+        "startLine": 611,
+        "startChar": 9,
+        "endLine": 611,
+        "endChar": 10
+      },
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04a536f4_c97ac4cc",
+        "filename": "crypto/fipsmodule/ec/p256-x86_64.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-24T21:20:39Z",
+      "side": 1,
+      "message": "I\u0027m confused by this comment. If these functions aren\u0027t performing the conditional subtract at the end, surely other bounds also won\u0027t work out. Or is something else going on? If p-\u003eraw.[XYZ] aren\u0027t reduced, that\u0027s concerning.\n\nWe\u0027ve at least previously believed these functions all take reduced inputs to reduced outputs, per the comment in the header.",
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d32161f4_52142cf7",
+        "filename": "crypto/fipsmodule/ec/p256-x86_64.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 659,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-24T21:20:39Z",
+      "side": 1,
+      "message": "(That r_felem remains less than p is also important so that cmp_x_and_r sees reduced inputs.)",
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e660be7_373c8d9d",
+        "filename": "crypto/fipsmodule/ec/p256-x86_64.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-24T21:20:39Z",
+      "side": 1,
+      "message": "Worth some unit tests?",
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95220cc5_79fe6934",
+        "filename": "crypto/fipsmodule/ec/p256-x86_64.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-24T21:20:39Z",
+      "side": 1,
+      "message": "Presumably this parameter is not actually const.",
+      "range": {
+        "startLine": 100,
+        "startChar": 25,
+        "endLine": 100,
+        "endChar": 30
+      },
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e48ef63d_ac658ece",
+        "filename": "crypto/fipsmodule/ec/p256-x86_64.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-24T21:20:39Z",
+      "side": 1,
+      "message": "This function does not appear to actually return anything.",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 3
+      },
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa380441_45cc46b9",
+        "filename": "crypto/fipsmodule/ec/simple.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-24T21:20:39Z",
+      "side": 1,
+      "message": "X \u003d\u003d NULL",
+      "range": {
+        "startLine": 595,
+        "startChar": 6,
+        "endLine": 595,
+        "endChar": 15
+      },
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2e79c59_ca7db2aa",
+        "filename": "crypto/fipsmodule/ec/simple.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-24T21:20:39Z",
+      "side": 1,
+      "message": "This won\u0027t build when the FIPS fragments are compiled separately. (We really ought to add that to the CQ and save mab the constant trouble...)",
+      "range": {
+        "startLine": 605,
+        "startChar": 7,
+        "endLine": 605,
+        "endChar": 30
+      },
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}

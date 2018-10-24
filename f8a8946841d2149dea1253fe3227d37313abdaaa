@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "026a313d_a7bfac92",
+        "filename": "crypto/fipsmodule/ecdsa/ecdsa.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-24T21:20:39Z",
+      "side": 0,
+      "message": "Now that we have no temporaries within this function, the BN_CTX_start / BN_CTX_end bits can be removed from here (modulo ec_cmp_x_coordinate\u0027s calling convention being wrong).",
+      "range": {
+        "startLine": 196,
+        "startChar": 2,
+        "endLine": 196,
+        "endChar": 14
+      },
+      "revId": "f8a8946841d2149dea1253fe3227d37313abdaaa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
