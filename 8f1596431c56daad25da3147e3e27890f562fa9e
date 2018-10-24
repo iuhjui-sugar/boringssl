@@ -335,6 +335,24 @@
     },
     {
       "key": {
+        "uuid": "5386542a_f3302a4b",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-10-24T17:05:14Z",
+      "side": 1,
+      "message": "Done, though not easy to test, since the QUIC code never calls into SSL_read.",
+      "parentUuid": "ccc57696_b9fa9e75",
+      "revId": "8f1596431c56daad25da3147e3e27890f562fa9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "559af629_f3608e64",
         "filename": "ssl/tls13_enc.cc",
         "patchSetId": 7
@@ -390,6 +408,30 @@
       "revId": "8f1596431c56daad25da3147e3e27890f562fa9e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67189e57_a9546894",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-10-24T17:05:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70c078cb_4c3db66e",
+      "range": {
+        "startLine": 193,
+        "startChar": 22,
+        "endLine": 193,
+        "endChar": 36
+      },
+      "revId": "8f1596431c56daad25da3147e3e27890f562fa9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
