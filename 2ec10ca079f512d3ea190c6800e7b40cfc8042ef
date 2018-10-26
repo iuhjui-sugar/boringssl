@@ -70,6 +70,24 @@
       "revId": "2ec10ca079f512d3ea190c6800e7b40cfc8042ef",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ff5ad69_067317c2",
+        "filename": "crypto/cipher_extra/tls_cbc.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-10-26T16:46:17Z",
+      "side": 1,
+      "message": "I think six comes about from the maximum MAC size (48 bytes) + the maximum padding (256 bytes), which is five (SHA-256) blocks. Then +1 because of the hash termination, which can cause a full extra block.\n\nI think one can tighten this up in a few ways:\n\nFirstly, a 48-byte MAC can\u0027t happen with a SHA-256 block size. Secondly, (as highlighted here), when the block size is larger fewer blocks can vary. Thirdly, +1 is conservative for the termination.\n\nSo let\u0027s write it as:\n\n(md_size + 255 + 1 + 1 + md_length_size + md_block_size - 1) / md_block_size",
+      "parentUuid": "07f39579_fccf8919",
+      "revId": "2ec10ca079f512d3ea190c6800e7b40cfc8042ef",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
