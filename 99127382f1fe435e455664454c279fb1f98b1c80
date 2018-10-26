@@ -34,6 +34,24 @@
       "revId": "99127382f1fe435e455664454c279fb1f98b1c80",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3080569d_70842a26",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5190
+      },
+      "writtenOn": "2018-10-26T21:18:28Z",
+      "side": 1,
+      "message": "Fair point! I think it was because I (mis)read 182-183 about being tag numbers, rather than the full tag, I suppose largely because they all omit the CBS_ASN1_UNIVERSAL class (since it\u0027s all just zero)",
+      "parentUuid": "27d8e936_276c24b0",
+      "revId": "99127382f1fe435e455664454c279fb1f98b1c80",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
