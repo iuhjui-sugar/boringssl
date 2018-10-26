@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9edc9940_3e6eb311",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5190
+      },
+      "writtenOn": "2018-10-26T20:42:15Z",
+      "side": 1,
+      "message": "From a documentation standpoint, is this correct? It read a little confusing.\n\nThat is, I can\u0027t do\nunsigned tag \u003d ...;\nif ((tag \u0026 CBS_ASN1_TAG_NUMBER_MASK) \u003d\u003d CBS_ASN1_SEQUENCE)\n\nbecause ASN1_SEQUENCE includes the constructed bit.\n\nI\u0027m not sure the better way to word this, though - I can give it a thought, if nothing jumps out to you.",
+      "revId": "99127382f1fe435e455664454c279fb1f98b1c80",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
