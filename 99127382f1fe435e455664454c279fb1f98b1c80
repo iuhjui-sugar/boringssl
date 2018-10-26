@@ -16,6 +16,24 @@
       "revId": "99127382f1fe435e455664454c279fb1f98b1c80",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27d8e936_276c24b0",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-26T21:09:16Z",
+      "side": 1,
+      "message": "So I think the documentation on this bit is fine; tag \u0026 CBS_ASN1_TAG_NUMBER_MASK will indeed query the tag number.\n\nThe reason that doesn\u0027t work is because the constants below aren\u0027t tag numbers. They\u0027re the entire tag, so it includes the class (because ASN.1) and the constructed bit (because we\u0027re weird). Universal types have class zero, so the former is more a nitpick. The latter does indeed break things, though the documentation did say they\u0027re constants for \"tags\" and not \"tag numbers\". (It used to say \"tag numbers\", but I\u0027ve fixed that in this CL.) It also notes that the constructed bit is included.\n\nThis works:\n\n  if ((tag \u0026 CBS_ASN1_TAG_NUMBER_MASK) \u003d\u003d\n      (CBS_ASN1_SEQUENCE \u0026 CBS_ASN1_TAG_NUMBER_MASK))\n\nBut you presumably don\u0027t want that anyway. That will also match, say, [16] which matches in tag number, but not tag class.\n\nWas the confusion perhaps that you read \"tag number\" as \"number representing a tag\"? I got the name from the ASN.1 spec, which calls it a \"number\":\n\nA tag is specified by giving a class and a number within the class. The class is one of:\n– universal;\n– application;\n– private;\n– context-specific.\nThe number is a non-negative integer, specified in decimal notation.",
+      "parentUuid": "9edc9940_3e6eb311",
+      "revId": "99127382f1fe435e455664454c279fb1f98b1c80",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
