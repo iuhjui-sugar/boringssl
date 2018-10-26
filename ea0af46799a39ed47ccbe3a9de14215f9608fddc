@@ -1,0 +1,354 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "36eca916_4d331ae2",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 3039,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-26T00:25:47Z",
+      "side": 1,
+      "message": "Nit: We usually put a period after these.",
+      "range": {
+        "startLine": 3039,
+        "startChar": 18,
+        "endLine": 3039,
+        "endChar": 19
+      },
+      "revId": "ea0af46799a39ed47ccbe3a9de14215f9608fddc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61208c19_47fc2f65",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 3042,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-26T00:25:47Z",
+      "side": 1,
+      "message": "Nit: I\u0027d just remove this.",
+      "range": {
+        "startLine": 3042,
+        "startChar": 32,
+        "endLine": 3042,
+        "endChar": 65
+      },
+      "revId": "ea0af46799a39ed47ccbe3a9de14215f9608fddc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c13fc48c_0aff12fb",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 3042,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-26T00:25:47Z",
+      "side": 1,
+      "message": "\"The following functions allow\" perhaps?",
+      "range": {
+        "startLine": 3041,
+        "startChar": 67,
+        "endLine": 3042,
+        "endChar": 9
+      },
+      "revId": "ea0af46799a39ed47ccbe3a9de14215f9608fddc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b41350c6_2b96447c",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 3051,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-26T00:25:47Z",
+      "side": 1,
+      "message": "doc.go doesn\u0027t know how to format these things. (This is also just regurgitating the SSL_QUIC_METHOD list.) Here\u0027s an alternative for 3045..3054 (|SSL_do_handshake| wants bars, btw). WDYT?\n\n\nWhen configured for QUIC, |SSL_do_handshake| will drive the handshake as before, but it will not use the configured |BIO|. It will call functions on |SSL_QUIC_METHOD| to configure secrets and send data. If data is needed from the peer, it will return |SSL_ERROR_WANT_READ|. When received, the caller should call |SSL_provide_quic_data| and then |SSL_do_handshake| to continue the handshake. It is an error to call |SSL_read| and |SSL_write| in QUIC. [Can you ERR_R_SHOULD_NOT_HAVE_BEEN_CALLED them?]\n\nNote that secrets for an encryption level may be available to QUIC before the level is active in TLS. Callers should use |SSL_quic_read_level| to determine the active read level for |SSL_provide_quic_data|. |SSL_do_handshake| will pass the active write level to |SSL_QUIC_METHOD| when writing data. Callers can use |SSL_quic_write_level| to query the active write level when generating their own errors.\n\nSee https://tools.ietf.org/html/draft-ietf-quic-tls-15#section-4.1 for more details.",
+      "range": {
+        "startLine": 3051,
+        "startChar": 2,
+        "endLine": 3051,
+        "endChar": 5
+      },
+      "revId": "ea0af46799a39ed47ccbe3a9de14215f9608fddc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee4241e8_8e3205a0",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 3056,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-26T00:25:47Z",
+      "side": 1,
+      "message": "I think \"DoS\" is more common. I\u0027d maybe also say \"DoS attacks\".",
+      "range": {
+        "startLine": 3056,
+        "startChar": 12,
+        "endLine": 3056,
+        "endChar": 15
+      },
+      "revId": "ea0af46799a39ed47ccbe3a9de14215f9608fddc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "364ddde6_cd3c717f",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 3059,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-26T00:25:47Z",
+      "side": 1,
+      "message": "the maximum buffer length at each encryption level",
+      "range": {
+        "startLine": 3058,
+        "startChar": 7,
+        "endLine": 3059,
+        "endChar": 9
+      },
+      "revId": "ea0af46799a39ed47ccbe3a9de14215f9608fddc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23d46af7_e1434787",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 3061,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-26T00:25:47Z",
+      "side": 1,
+      "message": "Also we don\u0027t have a way to consume post-handshake tickets.",
+      "revId": "ea0af46799a39ed47ccbe3a9de14215f9608fddc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "893a3f99_74a2f6d8",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 3062,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-26T00:25:47Z",
+      "side": 1,
+      "message": "Did you mean to put this link elsewhere? It\u0027s not really about the rest of the paragraph.",
+      "revId": "ea0af46799a39ed47ccbe3a9de14215f9608fddc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfa13bcd_22dc52d6",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 3077,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-26T00:25:47Z",
+      "side": 1,
+      "message": "It\u0027s probably worth emphasizing:\n\n- This does not imply that we\u0027ve started using the keys.\n\n- Although we provide them together for ACKs, 0-RTT being weird means you must deal with being given 0-RTT read keys (as a server) and application data write keys (for ACKing) separately. This is a little fun...\n\nPerhaps:\n\nset_encryption_keys configures the read and write secrets for the given encryption level. This function will always be called before an encryption level other than |ssl_encryption_initial| is used. Note, however, that secrets for a level may be configured before TLS is ready to send or accept data at that level.\n\nWhen reading packets at a given level, the QUIC implementation must send ACKs at the same level, so this function provides read and write keys together. The exception is |ssl_encryption_early_data|, where keys are only available in the client to server direction. The other key will be NULL. The server acknowledges such data at |ssl_encryption_application|, which will be configured in the same |SSL_do_handshake| call.\n\nThis function should use |SSL_get_current_cipher| to determine the TLS cipher suite.\n\n\nThat last one is actually a somewhat strong guarantee, but I suspect we need to give it? Otherwise the QUIC stack will again be in a situation where it can\u0027t read stuff without ACKing it. This is saying that we won\u0027t insert an async step between the two.\n\nThe one scenario I could imagine breaking that is if 0-RTT+PSK+certs becomes a thing and we need to do another CertificateVerify. In that case, I think we should defer releasing the 0-RTT keys until the async step is done. The QUIC stack would effectively be doing this anyway.\n\nWDYT?",
+      "range": {
+        "startLine": 3077,
+        "startChar": 21,
+        "endLine": 3077,
+        "endChar": 22
+      },
+      "revId": "ea0af46799a39ed47ccbe3a9de14215f9608fddc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9805575_2ffe701d",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 3086,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-26T00:25:47Z",
+      "side": 1,
+      "message": "Perhaps add:\n\nA single handshake flight may include multiple messages at multiple encryption levels. Callers should defer writing data to the network until |flush_flight| for optimal packing into QUIC packets and transport datagrams.\n\n(That\u0027s a little wordy. If you can find a tighter phrasing, use that.)",
+      "revId": "ea0af46799a39ed47ccbe3a9de14215f9608fddc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c07eabe6_3026fd79",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 3095,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-26T00:25:47Z",
+      "side": 1,
+      "message": "I was going to comment that write vs send was weird, but I guess the difference is that send_alert doesn\u0027t communicate with flush_flight? (We had similar silliness around SSL_PROTOCOL_METHOD and decided to call the flush_flight-paired hooks add_message, etc. Do you think that would make sense here? Makes it clearer not to expect something async.)",
+      "range": {
+        "startLine": 3095,
+        "startChar": 8,
+        "endLine": 3095,
+        "endChar": 18
+      },
+      "revId": "ea0af46799a39ed47ccbe3a9de14215f9608fddc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ab6f0c4_1e68acbb",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 3099,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-26T00:25:47Z",
+      "side": 1,
+      "message": "Perhaps: \"[...] returns the maximum number of bytes that may be received at the given encryption level. This function should be used to limit buffering in the QUIC implementation. See https://tools.ietf.org/html/draft-ietf-quic-transport-16#section-4.4.\"",
+      "range": {
+        "startLine": 3098,
+        "startChar": 45,
+        "endLine": 3099,
+        "endChar": 9
+      },
+      "revId": "ea0af46799a39ed47ccbe3a9de14215f9608fddc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60da6270_f9277bce",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 3111,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-26T00:25:47Z",
+      "side": 1,
+      "message": "Maybe \"the current read level\", so we\u0027re clear on what the is expected. :-)",
+      "range": {
+        "startLine": 3111,
+        "startChar": 40,
+        "endLine": 3111,
+        "endChar": 61
+      },
+      "revId": "ea0af46799a39ed47ccbe3a9de14215f9608fddc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec39e449_32944691",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 3112,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-26T00:25:47Z",
+      "side": 1,
+      "message": "one",
+      "range": {
+        "startLine": 3112,
+        "startChar": 63,
+        "endLine": 3112,
+        "endChar": 65
+      },
+      "revId": "ea0af46799a39ed47ccbe3a9de14215f9608fddc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72d0642c_604511cd",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 3112,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-26T00:25:47Z",
+      "side": 1,
+      "message": "[We might actually not need this constraint now that we\u0027re doing things by flight.]",
+      "range": {
+        "startLine": 3111,
+        "startChar": 63,
+        "endLine": 3112,
+        "endChar": 50
+      },
+      "revId": "ea0af46799a39ed47ccbe3a9de14215f9608fddc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0aad4a7c_ec34180f",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 3122,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-26T00:25:47Z",
+      "side": 1,
+      "message": "Nit: Probably just set_quic_method",
+      "range": {
+        "startLine": 3122,
+        "startChar": 30,
+        "endLine": 3122,
+        "endChar": 39
+      },
+      "revId": "ea0af46799a39ed47ccbe3a9de14215f9608fddc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
