@@ -1,0 +1,530 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a5503bf_2426e407",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 3100,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-30T22:49:52Z",
+      "side": 1,
+      "message": "Nit: key_len, or read_secret / write_secret. I think it should be the latter? TLS calls them secrets, and one derives transport keys out of them. \n\nThe QUIC spec is a little bit iffy, but I think it matches. (Should we call it set_encryption_secrets then?)",
+      "range": {
+        "startLine": 3100,
+        "startChar": 36,
+        "endLine": 3100,
+        "endChar": 46
+      },
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b70b5406_e426b21a",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 3122,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-30T22:49:52Z",
+      "side": 1,
+      "message": "const (here and for the next two)",
+      "range": {
+        "startLine": 3122,
+        "startChar": 34,
+        "endLine": 3122,
+        "endChar": 37
+      },
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d2f64e4_ea29be74",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 3133,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-30T22:49:52Z",
+      "side": 1,
+      "message": "This is no longer true in the current SSL_provide_quic_data implementation. (Now that we\u0027re solely doing per-flight enforcement in QUIC, removing the doc and leaving the code as-is is probably better. Allowing multiple calls in a row is more friendly to iovecs.)",
+      "range": {
+        "startLine": 3132,
+        "startChar": 63,
+        "endLine": 3133,
+        "endChar": 51
+      },
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3efe04e_5e63e8e2",
+        "filename": "ssl/handshake.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-30T22:49:52Z",
+      "side": 1,
+      "message": "Nit: in QUIC\n\n(I suspect ssl_hs_read_change_cipher_spec never happens at this point, but *shrug*. Nice to be robust)",
+      "range": {
+        "startLine": 548,
+        "startChar": 47,
+        "endLine": 548,
+        "endChar": 72
+      },
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a504d56f_c470e973",
+        "filename": "ssl/internal.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-30T22:49:52Z",
+      "side": 1,
+      "message": "// CreatePlaceholderForQUIC creates a placeholder |SSLAEADContext| for the given cipher and version. The resulting object can be queried for various properties but cannot encrypt or decrypt data.",
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "520452cf_145d2d3f",
+        "filename": "ssl/s3_both.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-30T22:49:52Z",
+      "side": 1,
+      "message": "falses should be -1 (this is a BIO calling convention function).",
+      "range": {
+        "startLine": 303,
+        "startChar": 13,
+        "endLine": 303,
+        "endChar": 18
+      },
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc014f72_537fd3fd",
+        "filename": "ssl/ssl_aead_ctx.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-30T22:49:52Z",
+      "side": 1,
+      "message": "Nit: MakeUnique should do this for you. (Honestly I\u0027d love for OPENSSL_malloc to do this internally, but then we\u0027d be sad when OPENSSL_PUT_ERROR itself needs to malloc...)",
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4334ce6d_4669ae49",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 786,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-30T22:49:52Z",
+      "side": 1,
+      "message": "This one should return zero, right?",
+      "range": {
+        "startLine": 786,
+        "startChar": 9,
+        "endLine": 786,
+        "endChar": 34
+      },
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28b786e5_e6955d89",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 790,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-30T22:49:52Z",
+      "side": 1,
+      "message": "This will break SSL_CTX_set_max_cert_list and the like. It should parallel the logic in ssl_max_handshake_message_len (which is actually considerably more complicated). Putting them next to each other may be prudent. Specifically:\n\n- 16384 is probably still fine as the default? (Default \u003d when there aren\u0027t certificates.)\n\n- If we are a client, use 2*max_cert_list (Certificate + CertificateRequest), or the default, whichever is larger.\n\n- If we are a server and are *not* requesting a client certificate, use the default.\n\n- If we are a server and *are* requesting a client certificate. use max_cert_list (just Certificate) or the default, whichever is larger.\n\n\n[Strictly speaking the client may also send a CertificateRequest-sized message, but it\u0027s in the ClientHello, so that would be in ssl_encryption_initial, and we\u0027ve historically not allowed giant ones of those. Keeping it that way seems prudent.]",
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3486cd46_ddde2654",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 805,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-30T22:49:52Z",
+      "side": 1,
+      "message": "Probably prudent to check SSL_quic_max_handshake_flight_len and reject if too big? Although if we get that far the QUIC stack has likely already forgotten some bounds.",
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f84f7bd_1f06e381",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 992,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-30T22:49:52Z",
+      "side": 1,
+      "message": "Nit: I\u0027d put this in SSL_peek so it covers both.",
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8add9074_b5b4bc43",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 2358,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-30T22:49:52Z",
+      "side": 1,
+      "message": "Oh, interesting. I think what I had in mind was having the ssl_supports_version implicitly shut off all pre-1.3 functions. We usually don\u0027t require that you set config options in a particular order. That is, it\u0027s odd that this doesn\u0027t work:\n\nSSL_CTX_set_quic_method(ctx, kQuicMethod);\nSSL_CTX_set_min_proto_version(ctx, TLS1_3_VERSION);\n\nThoughts?\n\n(If you leave it as-is, probably should emphasize in the docs that you have to configure them in a particular order.)",
+      "range": {
+        "startLine": 2358,
+        "startChar": 30,
+        "endLine": 2358,
+        "endChar": 69
+      },
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0df34a4e_24878ce4",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-30T22:49:52Z",
+      "side": 1,
+      "message": "Naming nits throughout:\n\nUpperCamelCaseMethods (e.g. nopSetEncryptionKeys)\nlower_case_local_variables (e.g. clientConnect, writeMessage)\nlowercase_with_underscore_class_members_ (e.g. clientServerStream)",
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6403bd1_ac457766",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 4427,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-30T22:49:52Z",
+      "side": 1,
+      "message": "I poked at the deadlock (see below), but it seems it may be cleaner to just not use threads. WDYT about this testing framework?\n\nhttps://boringssl-review.googlesource.com/c/boringssl/+/32784",
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0967a61d_d21468dd",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 4469,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-30T22:49:52Z",
+      "side": 1,
+      "message": "Nit: clang-format",
+      "range": {
+        "startLine": 4469,
+        "startChar": 24,
+        "endLine": 4469,
+        "endChar": 26
+      },
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b479f8f7_13e54181",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 4506,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-30T22:49:52Z",
+      "side": 1,
+      "message": "Isn\u0027t this a dining philosophers\u0027 deadlock?\n\nThis takes rlock then wlock, but consumeStream takes wlock then rlock. Then later in QUICMethod.StreamMethod, writeMessage takes rlock then wlock.",
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cdc25e36_929c15af",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 4514,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-30T22:49:52Z",
+      "side": 1,
+      "message": "Nit: Maybe Connect or RunHandshake? It\u0027s doing a bit more than just creating stuff.",
+      "range": {
+        "startLine": 4514,
+        "startChar": 7,
+        "endLine": 4514,
+        "endChar": 13
+      },
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02469e4c_c67afbb4",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 4534,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-30T22:49:52Z",
+      "side": 1,
+      "message": "This shouldn\u0027t do anything, right? (In fact, configuring them means the test won\u0027t flag accidental use of the BIOs.)",
+      "range": {
+        "startLine": 4527,
+        "startChar": 0,
+        "endLine": 4534,
+        "endChar": 0
+      },
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bab6816f_cf60c2d0",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 4556,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-30T22:49:52Z",
+      "side": 1,
+      "message": "Maybe client_to_server_stream_. The missing preposition was a little unclear.",
+      "range": {
+        "startLine": 4556,
+        "startChar": 9,
+        "endLine": 4556,
+        "endChar": 27
+      },
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65c42437_33e38001",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 4563,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-30T22:49:52Z",
+      "side": 1,
+      "message": "Using unallocated ex_data indices means that, if other code happens to allocate it with a free function, badness will ensue.\n\nThis code should either allocate its own somewhere or, if not already used, just use SSL_{get,set}_app_data. Ditto for the other function.",
+      "range": {
+        "startLine": 4563,
+        "startChar": 48,
+        "endLine": 4563,
+        "endChar": 71
+      },
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6601b7b2_7ef19110",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 4606,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-30T22:49:52Z",
+      "side": 1,
+      "message": "Maybe add:\n\nTODO(svaldez): Add an API to consume the NewSessionTicket.",
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91844287_040a2808",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 4917,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-30T22:49:52Z",
+      "side": 1,
+      "message": "NOOOOOOOOOOOO!!!! :-)",
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c9a6250_d878dcd5",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-30T22:49:52Z",
+      "side": 1,
+      "message": "Super nitpicky nitpick: since below you call this a protocol_label, maybe k{TLS13,QUIC}ProtocolLabel?",
+      "range": {
+        "startLine": 74,
+        "startChar": 26,
+        "endLine": 74,
+        "endChar": 38
+      },
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d41c35e3_cb607068",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-30T22:49:52Z",
+      "side": 1,
+      "message": "Everything from here down to line 184 can also go into the quic_method check. (No sense in deriving keys we aren\u0027t going to use.)",
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06f9e372_b316584d",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-30T22:49:52Z",
+      "side": 1,
+      "message": "Maybe add a comment like:\n\nInstall a placeholder SSLAEADContext so SSL_get_current_cipher, etc., work. The encryption itself will be handled by the SSL_QUIC_METHOD.",
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72213dea_5b9d206f",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-30T22:49:52Z",
+      "side": 1,
+      "message": "ssl_encryption_handshake. Ditto below. (I noticed this redoing the tests to actually capture the keys.)",
+      "range": {
+        "startLine": 288,
+        "startChar": 19,
+        "endLine": 288,
+        "endChar": 45
+      },
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
