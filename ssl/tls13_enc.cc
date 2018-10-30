@@ -285,14 +285,14 @@ bool tls13_derive_handshake_secrets(SSL_HANDSHAKE *hs) {
   if (ssl->ctx->quic_method != nullptr) {
     if (ssl->server) {
       if (!ssl->ctx->quic_method->set_encryption_keys(
-              ssl, ssl_encryption_application, hs->client_handshake_secret,
+              ssl, ssl_encryption_handshake, hs->client_handshake_secret,
               hs->server_handshake_secret, hs->hash_len)) {
         OPENSSL_PUT_ERROR(SSL, SSL_R_QUIC_INTERNAL_ERROR);
         return false;
       }
     } else {
       if (!ssl->ctx->quic_method->set_encryption_keys(
-              ssl, ssl_encryption_application, hs->server_handshake_secret,
+              ssl, ssl_encryption_handshake, hs->server_handshake_secret,
               hs->client_handshake_secret, hs->hash_len)) {
         OPENSSL_PUT_ERROR(SSL, SSL_R_QUIC_INTERNAL_ERROR);
         return false;
