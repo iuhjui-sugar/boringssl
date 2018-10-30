@@ -52,6 +52,24 @@
       "revId": "99127382f1fe435e455664454c279fb1f98b1c80",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eaef76e8_351f914d",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-10-30T20:45:39Z",
+      "side": 1,
+      "message": "(Marking resolved.)",
+      "parentUuid": "3080569d_70842a26",
+      "revId": "99127382f1fe435e455664454c279fb1f98b1c80",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
