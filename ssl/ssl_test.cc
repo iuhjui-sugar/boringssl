@@ -17,7 +17,7 @@
 #include <time.h>
 
 #include <algorithm>
-#include <functional>
+#include <limits>
 #include <string>
 #include <utility>
 #include <vector>
@@ -50,7 +50,6 @@ OPENSSL_MSVC_PRAGMA(warning(pop))
 #endif
 
 #if !defined(OPENSSL_NO_THREADS)
-#include <condition_variable>
 #include <thread>
 #endif
 
@@ -104,6 +103,26 @@ struct CurveTest {
   const char *rule;
   // The list of expected curves, in order.
   std::vector<uint16_t> expected;
+};
+
+template <typename T>
+class UnownedSSLExData {
+ public:
+  UnownedSSLExData() {
+    index_ = SSL_get_ex_new_index(0, nullptr, nullptr, nullptr, nullptr);
+  }
+
+  T *Get(const SSL *ssl) {
+    return index_ < 0 ? nullptr
+                      : static_cast<T *>(SSL_get_ex_data(ssl, index_));
+  }
+
+  bool Set(SSL *ssl, T *t) {
+    return index_ >= 0 && SSL_set_ex_data(ssl, index_, t);
+  }
+
+ private:
+  int index_;
 };
 
 static const CipherTest kCipherTests[] = {
@@ -4424,23 +4443,147 @@ TEST(SSLTest, GetCertificateThreads) {
 }
 #endif
 
-#if !defined(OPENSSL_NO_THREADS)
-struct Stream {
-  std::mutex read_lock;
-  std::condition_variable read_cond;
-  uint8_t read_count = 0;
+constexpr size_t kNumQUICLevels = 4;
+static_assert(ssl_encryption_initial < kNumQUICLevels,
+              "kNumQUICLevels is wrong");
+static_assert(ssl_encryption_early_data < kNumQUICLevels,
+              "kNumQUICLevels is wrong");
+static_assert(ssl_encryption_handshake < kNumQUICLevels,
+              "kNumQUICLevels is wrong");
+static_assert(ssl_encryption_application < kNumQUICLevels,
+              "kNumQUICLevels is wrong");
 
-  std::mutex write_lock;
-  std::condition_variable write_cond;
-  uint8_t write_count = 0;
+class MockQUICTransport {
+ public:
+  MockQUICTransport() {
+    // The caller is expected to configure initial keys.
+    levels_[ssl_encryption_initial].write_key = {1};
+    levels_[ssl_encryption_initial].read_key = {1};
+  }
 
-  enum ssl_encryption_level_t level;
-  uint8_t data[SSL3_RT_MAX_PLAIN_LENGTH];
-  size_t len;
+  void set_peer(MockQUICTransport *peer) { peer_ = peer; }
 
-  // shutdown indicates the write side of the stream has shutdown.
-  bool shutdown = false;
-  bool flushed = false;
+  bool has_alert() const { return has_alert_; }
+  ssl_encryption_level_t alert_level() const { return alert_level_; }
+  uint8_t alert() const { return alert_; }
+
+  bool PeerKeysMatch(ssl_encryption_level_t level) const {
+    return levels_[level].write_key == peer_->levels_[level].read_key &&
+           levels_[level].read_key == peer_->levels_[level].write_key;
+  }
+
+  bool HasKeys(ssl_encryption_level_t level) const {
+    return !levels_[level].write_key.empty() || !levels_[level].read_key.empty();
+  }
+
+  bool SetEncryptionKeys(ssl_encryption_level_t level, const uint8_t *read_key,
+                         const uint8_t *write_key, size_t key_len) {
+    if (HasKeys(level)) {
+      ADD_FAILURE() << "duplicate keys configured";
+      return false;
+    }
+    if (level != ssl_encryption_early_data &&
+        (read_key == nullptr || write_key == nullptr)) {
+      ADD_FAILURE() << "key was unexpectedly null";
+      return false;
+    }
+    if (read_key != nullptr) {
+      levels_[level].read_key.assign(read_key, read_key + key_len);
+    }
+    if (write_key != nullptr) {
+      levels_[level].write_key.assign(write_key, write_key + key_len);
+    }
+    return true;
+  }
+
+  bool WriteHandshakeData(ssl_encryption_level_t level,
+                          Span<const uint8_t> data) {
+    if (levels_[level].write_key.empty()) {
+      ADD_FAILURE() << "data written before keys configured";
+      return false;
+    }
+    levels_[level].write_data.insert(levels_[level].write_data.end(),
+                                     data.begin(), data.end());
+    return true;
+  }
+
+  bool SendAlert(ssl_encryption_level_t level, uint8_t alert) {
+    if (has_alert_) {
+      ADD_FAILURE() << "duplicate alert sent";
+      return false;
+    }
+
+    if (levels_[level].write_key.empty()) {
+      ADD_FAILURE() << "alert sent before keys configured";
+      return false;
+    }
+
+    has_alert_ = true;
+    alert_level_ = level;
+    alert_ = alert;
+    return true;
+  }
+
+  bool ReadHandshakeData(std::vector<uint8_t> *out,
+                         ssl_encryption_level_t level,
+                         size_t num = std::numeric_limits<size_t>::max()) {
+    if (levels_[level].read_key.empty()) {
+      ADD_FAILURE() << "data read before keys configured";
+      return false;
+    }
+    // The peer may not have configured any keys yet.
+    if (peer_->levels_[level].write_key.empty()) {
+      return true;
+    }
+    // Check the peer computed the same key.
+    if (peer_->levels_[level].write_key != levels_[level].read_key) {
+      ADD_FAILURE() << "peer write key does not match read key";
+      return false;
+    }
+    std::vector<uint8_t> *peer_data = &peer_->levels_[level].write_data;
+    num = std::min(num, peer_data->size());
+    out->assign(peer_data->begin(), peer_data->begin() + num);
+    peer_data->erase(peer_data->begin(), peer_data->begin() + num);
+    return true;
+  }
+
+ private:
+  MockQUICTransport *peer_ = nullptr;
+
+  bool has_alert_ = false;
+  ssl_encryption_level_t alert_level_ = ssl_encryption_initial;
+  uint8_t alert_ = 0;
+
+  struct Level {
+    std::vector<uint8_t> write_data;
+    std::vector<uint8_t> write_key;
+    std::vector<uint8_t> read_key;
+  };
+  Level levels_[kNumQUICLevels];
+};
+
+class MockQUICTransportPair {
+ public:
+  MockQUICTransportPair() {
+    server_.set_peer(&client_);
+    client_.set_peer(&server_);
+  }
+
+  ~MockQUICTransportPair() {
+    server_.set_peer(nullptr);
+    client_.set_peer(nullptr);
+  }
+
+  MockQUICTransport *client() { return &client_; }
+  MockQUICTransport *server() { return &server_; }
+
+  bool ClientAndServerKeysMatch(ssl_encryption_level_t level) const {
+    return client_.PeerKeysMatch(level);
+  }
+
+ private:
+  MockQUICTransport client_;
+  MockQUICTransport server_;
 };
 
 class QUICMethodTest : public testing::Test {
@@ -4464,491 +4607,324 @@ class QUICMethodTest : public testing::Test {
     SSL_CTX_set_max_proto_version(client_ctx_.get(), TLS1_3_VERSION);
   }
 
-  static int nopSetEncryptionKeys(SSL *ssl, enum ssl_encryption_level_t level,
-                           const uint8_t *read_key, const uint8_t *write_key,
-                           size_t secret_len) {
-    return 1;
+  static MockQUICTransport *TransportFromSSL(const SSL *ssl) {
+    return ex_data_.Get(ssl);
   }
 
-  static int nopFlushFlight(SSL *ssl) {
-    return 1;
+  static bool ProvideHandshakeData(
+      SSL *ssl, size_t num = std::numeric_limits<size_t>::max()) {
+    MockQUICTransport *transport = TransportFromSSL(ssl);
+    ssl_encryption_level_t level = SSL_quic_read_level(ssl);
+    std::vector<uint8_t> data;
+    return transport->ReadHandshakeData(&data, level, num) &&
+           SSL_provide_quic_data(ssl, level, data.data(), data.size());
   }
 
-  static int nopSendAlert(SSL *ssl, enum ssl_encryption_level_t level,
-                          uint8_t alert) {
-    return 1;
-  }
-
-  static bool consumeStream(SSL *ssl, Stream *stream) {
-    std::unique_lock<std::mutex> wlock(stream->write_lock);
-    stream->write_cond.wait(wlock, [&] { return stream->write_count; });
-    stream->write_count--;
-
-    if (stream->shutdown) {
+  bool CreateClientAndServer() {
+    client_.reset(SSL_new(client_ctx_.get()));
+    server_.reset(SSL_new(server_ctx_.get()));
+    if (!client_ || !server_) {
       return false;
     }
 
-    bool ret = true;
-    if (!stream->flushed) {
-      ret =
-          SSL_provide_quic_data(ssl, stream->level, stream->data, stream->len);
-    }
-
-    std::unique_lock<std::mutex> rlock(stream->read_lock);
-    stream->read_count++;
-    stream->read_cond.notify_one();
-
-    return ret;
-  }
-
-  static void ShutdownStream(Stream *stream) {
-    std::unique_lock<std::mutex> rlock(stream->read_lock);
-    std::unique_lock<std::mutex> wlock(stream->write_lock);
-    stream->shutdown = true;
-    stream->read_count++;
-    stream->read_cond.notify_one();
-    stream->write_count++;
-    stream->write_cond.notify_one();
-  }
-
-  void Create(const SSL_QUIC_METHOD clientQuicMethod,
-              const SSL_QUIC_METHOD serverQuicMethod,
-              std::function<void(SSL *, Stream *, Stream *)> clientConnect,
-              std::function<void(SSL *, Stream *, Stream *)> serverConnect) {
-    ASSERT_TRUE(SSL_CTX_set_quic_method(client_ctx_.get(), &clientQuicMethod));
-    ASSERT_TRUE(SSL_CTX_set_quic_method(server_ctx_.get(), &serverQuicMethod));
-
-    client_.reset(SSL_new(client_ctx_.get()));
-    server_.reset(SSL_new(server_ctx_.get()));
-    ASSERT_TRUE(client_ && server_);
     SSL_set_connect_state(client_.get());
     SSL_set_accept_state(server_.get());
 
-    BIO *bio1, *bio2;
-    ASSERT_TRUE(BIO_new_bio_pair(&bio1, 0, &bio2, 0));
+    ex_data_.Set(client_.get(), transport_.client());
+    ex_data_.Set(server_.get(), transport_.server());
+    return true;
+  }
 
-    // SSL_set_bio takes ownership.
-    SSL_set_bio(client_.get(), bio1, bio1);
-    SSL_set_bio(server_.get(), bio2, bio2);
+  // The following functions may be configured on an |SSL_QUIC_METHOD| as
+  // default implementations.
 
+  static int SetEncryptionKeysCallback(SSL *ssl, ssl_encryption_level_t level,
+                                       const uint8_t *read_key,
+                                       const uint8_t *write_key,
+                                       size_t key_len) {
+    return TransportFromSSL(ssl)->SetEncryptionKeys(level, read_key, write_key,
+                                                    key_len);
+  }
 
-    clientServerStream.read_count++;
-    serverClientStream.read_count++;
+  static int AddMessageCallback(SSL *ssl, enum ssl_encryption_level_t level,
+                                const uint8_t *data, size_t len) {
+    EXPECT_EQ(level, SSL_quic_write_level(ssl));
+    return TransportFromSSL(ssl)->WriteHandshakeData(level,
+                                                     MakeConstSpan(data, len));
+  }
 
-    std::vector<std::thread> threads;
-    threads.emplace_back([&] {
-      clientConnect(client_.get(), &serverClientStream, &clientServerStream);
-    });
-    threads.emplace_back([&] {
-      serverConnect(server_.get(), &clientServerStream, &serverClientStream);
-    });
-    for (auto &thread : threads) {
-      thread.join();
-    }
+  static int FlushFlightCallback(SSL *ssl) { return 1; }
+
+  static int SendAlertCallback(SSL *ssl, ssl_encryption_level_t level,
+                               uint8_t alert) {
+    EXPECT_EQ(level, SSL_quic_write_level(ssl));
+    return TransportFromSSL(ssl)->SendAlert(level, alert);
   }
 
   bssl::UniquePtr<SSL_CTX> client_ctx_;
   bssl::UniquePtr<SSL_CTX> server_ctx_;
 
+  static UnownedSSLExData<MockQUICTransport> ex_data_;
+  MockQUICTransportPair transport_;
+
   bssl::UniquePtr<SSL> client_;
   bssl::UniquePtr<SSL> server_;
-
-  Stream clientServerStream;
-  Stream serverClientStream;
 };
 
-TEST_F(QUICMethodTest, StreamMethod) {
-  auto writeMessage = [](SSL *ssl, enum ssl_encryption_level_t level,
-                         const uint8_t *data, size_t len) -> int {
-    Stream *stream = reinterpret_cast<Stream *>(SSL_get_ex_data(ssl, 1));
-    std::unique_lock<std::mutex> rlock(stream->read_lock);
-    stream->read_cond.wait(rlock, [&] { return stream->read_count; });
-    stream->read_count--;
-    if (stream->shutdown) {
-      return 0;
+UnownedSSLExData<MockQUICTransport> QUICMethodTest::ex_data_;
+
+// Test a full handshake works.
+TEST_F(QUICMethodTest, Basic) {
+  const SSL_QUIC_METHOD quic_method = {
+      SetEncryptionKeysCallback,
+      AddMessageCallback,
+      FlushFlightCallback,
+      SendAlertCallback,
+  };
+
+  ASSERT_TRUE(SSL_CTX_set_quic_method(client_ctx_.get(), &quic_method));
+  ASSERT_TRUE(SSL_CTX_set_quic_method(server_ctx_.get(), &quic_method));
+  ASSERT_TRUE(CreateClientAndServer());
+
+  for (;;) {
+    ASSERT_TRUE(ProvideHandshakeData(client_.get()));
+    int client_ret = SSL_do_handshake(client_.get());
+    if (client_ret != 1) {
+      ASSERT_EQ(client_ret, -1);
+      ASSERT_EQ(SSL_get_error(client_.get(), client_ret), SSL_ERROR_WANT_READ);
     }
 
-    stream->level = level;
-    memcpy(stream->data, data, len);
-    stream->len = len;
-
-    std::unique_lock<std::mutex> wlock(stream->write_lock);
-    stream->write_count++;
-    stream->write_cond.notify_one();
-    return true;
-  };
-
-  const SSL_QUIC_METHOD clientQuicMethod = {
-    nopSetEncryptionKeys,
-    writeMessage,
-    nopFlushFlight,
-    nopSendAlert
-  };
-
-  const SSL_QUIC_METHOD serverQuicMethod = {
-    nopSetEncryptionKeys,
-    writeMessage,
-    nopFlushFlight,
-    nopSendAlert
-  };
-
-  auto clientConnect = [&](SSL *ssl, Stream *in_stream, Stream *out_stream) {
-    int ret = -1;
-    while (ret == -1) {
-      SSL_set_ex_data(ssl, 1, out_stream);
-      ret = SSL_do_handshake(ssl);
-      if (ret == -1) {
-        ASSERT_EQ(SSL_get_error(ssl, ret), SSL_ERROR_WANT_READ);
-        ASSERT_TRUE(consumeStream(ssl, in_stream));
-      }
+    ASSERT_TRUE(ProvideHandshakeData(server_.get()));
+    int server_ret = SSL_do_handshake(server_.get());
+    if (server_ret != 1) {
+      ASSERT_EQ(server_ret, -1);
+      ASSERT_EQ(SSL_get_error(server_.get(), server_ret), SSL_ERROR_WANT_READ);
     }
 
-    // Drain the NewSessionTicket from the server.
-    ASSERT_TRUE(consumeStream(ssl, in_stream));
-  };
-
-  auto serverConnect = [&](SSL *ssl, Stream *in_stream, Stream *out_stream) {
-    int ret = -1;
-    while (ret == -1) {
-      SSL_set_ex_data(ssl, 1, out_stream);
-      ret = SSL_do_handshake(ssl);
-      if (ret == -1) {
-        ASSERT_EQ(SSL_get_error(ssl, ret), SSL_ERROR_WANT_READ);
-        ASSERT_TRUE(consumeStream(ssl, in_stream));
-      }
+    if (client_ret == 1 && server_ret == 1) {
+      break;
     }
-  };
+  }
 
-  Create(clientQuicMethod, serverQuicMethod, clientConnect, serverConnect);
-
-  ASSERT_EQ(SSL_do_handshake(client_.get()), 1);
-  ASSERT_EQ(SSL_do_handshake(server_.get()), 1);
+  EXPECT_EQ(SSL_do_handshake(client_.get()), 1);
+  EXPECT_EQ(SSL_do_handshake(server_.get()), 1);
+  EXPECT_TRUE(transport_.ClientAndServerKeysMatch(ssl_encryption_application));
+  EXPECT_FALSE(transport_.client()->has_alert());
+  EXPECT_FALSE(transport_.server()->has_alert());
 }
 
-TEST_F(QUICMethodTest, StreamMethodBuffered) {
-  auto writeMessage = [](SSL *ssl, enum ssl_encryption_level_t level,
-                         const uint8_t *data, size_t len) -> int {
-    Stream *stream = reinterpret_cast<Stream *>(SSL_get_ex_data(ssl, 1));
-    std::unique_lock<std::mutex> rlock(stream->read_lock);
-    stream->read_cond.wait(rlock, [&] { return stream->read_count; });
-    stream->read_count--;
-    if (stream->shutdown) {
-      return 0;
-    }
-
-    stream->level = level;
-    memcpy(stream->data, data, len);
-    stream->len = len;
-
-    std::unique_lock<std::mutex> wlock(stream->write_lock);
-    stream->write_count++;
-    stream->write_cond.notify_one();
-    return true;
+// Test only releasing data to QUIC one byte at a time on request.
+TEST_F(QUICMethodTest, ByteByByte) {
+  const SSL_QUIC_METHOD quic_method = {
+      SetEncryptionKeysCallback,
+      AddMessageCallback,
+      FlushFlightCallback,
+      SendAlertCallback,
   };
 
-  auto consumeStreamBuffered = [](SSL *ssl, Stream *stream) -> bool {
-    std::unique_lock<std::mutex> wlock(stream->write_lock);
-    stream->write_cond.wait(wlock, [&] { return stream->write_count; });
-    stream->write_count--;
+  ASSERT_TRUE(SSL_CTX_set_quic_method(client_ctx_.get(), &quic_method));
+  ASSERT_TRUE(SSL_CTX_set_quic_method(server_ctx_.get(), &quic_method));
+  ASSERT_TRUE(CreateClientAndServer());
 
-    if (stream->shutdown) {
-      return false;
+  for (;;) {
+    int client_ret = SSL_do_handshake(client_.get());
+    if (client_ret != 1) {
+      ASSERT_EQ(client_ret, -1);
+      ASSERT_EQ(SSL_get_error(client_.get(), client_ret), SSL_ERROR_WANT_READ);
+      ASSERT_TRUE(ProvideHandshakeData(client_.get(), 1));
     }
 
-    // Provide data if the read level changed.
-    if (stream->level != SSL_quic_read_level(ssl)) {
-      stream->write_count++;
-      stream->write_cond.notify_one();
-      stream->flushed = true;
-      return true;
+    int server_ret = SSL_do_handshake(server_.get());
+    if (server_ret != 1) {
+      ASSERT_EQ(server_ret, -1);
+      ASSERT_EQ(SSL_get_error(server_.get(), server_ret), SSL_ERROR_WANT_READ);
+      ASSERT_TRUE(ProvideHandshakeData(server_.get(), 1));
     }
 
-    bool ret = true;
-    if (!stream->flushed) {
-      ret =
-          SSL_provide_quic_data(ssl, stream->level, stream->data, stream->len);
+    if (client_ret == 1 && server_ret == 1) {
+      break;
     }
+  }
 
-    std::unique_lock<std::mutex> rlock(stream->read_lock);
-    stream->read_count++;
-    stream->read_cond.notify_one();
-
-    return ret;
-  };
-
-  auto flushFlight = [](SSL *ssl) -> int {
-    Stream *stream = reinterpret_cast<Stream *>(SSL_get_ex_data(ssl, 1));
-    std::unique_lock<std::mutex> rlock(stream->read_lock);
-    stream->read_cond.wait(rlock, [&] { return stream->read_count; });
-    stream->read_count--;
-    if (stream->shutdown) {
-      return 0;
-    }
-
-    stream->flushed = true;
-
-    std::unique_lock<std::mutex> wlock(stream->write_lock);
-    stream->write_count++;
-    stream->write_cond.notify_one();
-    return true;
-  };
-
-  const SSL_QUIC_METHOD clientQuicMethod = {
-    nopSetEncryptionKeys,
-    writeMessage,
-    flushFlight,
-    nopSendAlert
-  };
-
-  const SSL_QUIC_METHOD serverQuicMethod = {
-    nopSetEncryptionKeys,
-    writeMessage,
-    flushFlight,
-    nopSendAlert
-  };
-
-  auto clientConnect = [&](SSL *ssl, Stream *in_stream, Stream *out_stream) {
-    int ret = -1;
-    while (ret == -1) {
-      SSL_set_ex_data(ssl, 1, out_stream);
-      ret = SSL_do_handshake(ssl);
-      if (ret == -1) {
-        ASSERT_EQ(SSL_get_error(ssl, ret), SSL_ERROR_WANT_READ);
-        while (!in_stream->flushed) {
-          ASSERT_TRUE(consumeStreamBuffered(ssl, in_stream));
-        }
-        in_stream->flushed = false;
-      }
-    }
-
-    // Drain the NewSessionTicket from the server.
-    while (!in_stream->flushed) {
-      ASSERT_TRUE(consumeStreamBuffered(ssl, in_stream));
-    }
-    in_stream->flushed = false;
-  };
-
-  auto serverConnect = [&](SSL *ssl, Stream *in_stream, Stream *out_stream) {
-    int ret = -1;
-    while (ret == -1) {
-      SSL_set_ex_data(ssl, 1, out_stream);
-      ret = SSL_do_handshake(ssl);
-      if (ret == -1) {
-        ASSERT_EQ(SSL_get_error(ssl, ret), SSL_ERROR_WANT_READ);
-        while (!in_stream->flushed) {
-          ASSERT_TRUE(consumeStreamBuffered(ssl, in_stream));
-        }
-        in_stream->flushed = false;
-      }
-    }
-  };
-
-  Create(clientQuicMethod, serverQuicMethod, clientConnect, serverConnect);
-
-  ASSERT_EQ(SSL_do_handshake(client_.get()), 1);
-  ASSERT_EQ(SSL_do_handshake(server_.get()), 1);
+  EXPECT_EQ(SSL_do_handshake(client_.get()), 1);
+  EXPECT_EQ(SSL_do_handshake(server_.get()), 1);
+  EXPECT_TRUE(transport_.ClientAndServerKeysMatch(ssl_encryption_application));
+  EXPECT_FALSE(transport_.client()->has_alert());
+  EXPECT_FALSE(transport_.server()->has_alert());
 }
 
-TEST_F(QUICMethodTest, StreamMethodWrongLevel) {
-  auto writeMessage = [](SSL *ssl, enum ssl_encryption_level_t level,
-                         const uint8_t *data, size_t len) -> int {
-    Stream *stream = reinterpret_cast<Stream *>(SSL_get_ex_data(ssl, 1));
-    std::unique_lock<std::mutex> rlock(stream->read_lock);
-    stream->read_cond.wait(rlock, [&] { return stream->read_count; });
-    stream->read_count--;
-    if (stream->shutdown) {
-      return 0;
-    }
+// Test buffering write data until explicit flushes.
+TEST_F(QUICMethodTest, Buffered) {
+  struct BufferedFlight {
+    std::vector<uint8_t> data[kNumQUICLevels];
+  };
+  static UnownedSSLExData<BufferedFlight> buffered_flights;
 
-    // Pass all handshake data at the initial level.
-    stream->level = ssl_encryption_initial;
-    memcpy(stream->data, data, len);
-    stream->len = len;
-
-    std::unique_lock<std::mutex> wlock(stream->write_lock);
-    stream->write_count++;
-    stream->write_cond.notify_one();
-    return true;
+  auto add_message = [](SSL *ssl, enum ssl_encryption_level_t level,
+                        const uint8_t *data, size_t len) -> int {
+    BufferedFlight *flight = buffered_flights.Get(ssl);
+    flight->data[level].insert(flight->data[level].end(), data, data + len);
+    return 1;
   };
 
-  const SSL_QUIC_METHOD clientQuicMethod = {
-    nopSetEncryptionKeys,
-    writeMessage,
-    nopFlushFlight,
-    nopSendAlert
-  };
-
-  const SSL_QUIC_METHOD serverQuicMethod = {
-    nopSetEncryptionKeys,
-    writeMessage,
-    nopFlushFlight,
-    nopSendAlert
-  };
-
-  auto clientConnect = [&](SSL *ssl, Stream *in_stream, Stream *out_stream) {
-    int ret = -1;
-    while (ret == -1) {
-      SSL_set_ex_data(ssl, 1, out_stream);
-      ret = SSL_do_handshake(ssl);
-      if (ret == -1) {
-        ASSERT_EQ(SSL_get_error(ssl, ret), SSL_ERROR_WANT_READ);
-        if (!consumeStream(ssl, in_stream)) {
-          // The client should error out while trying to read the
-          // EncryptedExtensions at the wrong level during
-          // state_read_encrypted_extensions.
-          ASSERT_EQ(ssl->s3->hs->tls13_state, 3);
-          int err = ERR_get_error();
-          ASSERT_EQ(ERR_GET_LIB(err), ERR_LIB_SSL);
-          ASSERT_EQ(ERR_GET_REASON(err), SSL_R_WRONG_ENCRYPTION_LEVEL_RECEIVED);
-          ShutdownStream(in_stream);
-          ShutdownStream(out_stream);
-          return;
+  auto flush_flight = [](SSL *ssl) -> int {
+    BufferedFlight *flight = buffered_flights.Get(ssl);
+    for (size_t level = 0; level < kNumQUICLevels; level++) {
+      if (!flight->data[level].empty()) {
+        if (!TransportFromSSL(ssl)->WriteHandshakeData(
+                static_cast<ssl_encryption_level_t>(level),
+                flight->data[level])) {
+          return 0;
         }
+        flight->data[level].clear();
       }
     }
+    return 1;
   };
 
-  auto serverConnect = [&](SSL *ssl, Stream *in_stream, Stream *out_stream) {
-    int ret = -1;
-    while (ret == -1) {
-      SSL_set_ex_data(ssl, 1, out_stream);
-      ret = SSL_do_handshake(ssl);
-      if (ret == -1) {
-        if (SSL_get_error(ssl, ret) != SSL_ERROR_WANT_READ) {
-          return;
-        }
-        ASSERT_TRUE(consumeStream(ssl, in_stream));
-      }
+  const SSL_QUIC_METHOD quic_method = {
+    SetEncryptionKeysCallback,
+    add_message,
+    flush_flight,
+    SendAlertCallback,
+  };
+
+  ASSERT_TRUE(SSL_CTX_set_quic_method(client_ctx_.get(), &quic_method));
+  ASSERT_TRUE(SSL_CTX_set_quic_method(server_ctx_.get(), &quic_method));
+  ASSERT_TRUE(CreateClientAndServer());
+
+  BufferedFlight client_flight, server_flight;
+  buffered_flights.Set(client_.get(), &client_flight);
+  buffered_flights.Set(server_.get(), &server_flight);
+
+  for (;;) {
+    ASSERT_TRUE(ProvideHandshakeData(client_.get()));
+    int client_ret = SSL_do_handshake(client_.get());
+    if (client_ret != 1) {
+      ASSERT_EQ(client_ret, -1);
+      ASSERT_EQ(SSL_get_error(client_.get(), client_ret), SSL_ERROR_WANT_READ);
     }
+
+    ASSERT_TRUE(ProvideHandshakeData(server_.get()));
+    int server_ret = SSL_do_handshake(server_.get());
+    if (server_ret != 1) {
+      ASSERT_EQ(server_ret, -1);
+      ASSERT_EQ(SSL_get_error(server_.get(), server_ret), SSL_ERROR_WANT_READ);
+    }
+
+    if (client_ret == 1 && server_ret == 1) {
+      break;
+    }
+  }
+
+  EXPECT_EQ(SSL_do_handshake(client_.get()), 1);
+  EXPECT_EQ(SSL_do_handshake(server_.get()), 1);
+  EXPECT_TRUE(transport_.ClientAndServerKeysMatch(ssl_encryption_application));
+  EXPECT_FALSE(transport_.client()->has_alert());
+  EXPECT_FALSE(transport_.server()->has_alert());
+}
+
+// Test that excess data at one level is rejected. That is, if a single
+// |SSL_provide_quic_data| call included both ServerHello and
+// EncryptedExtensions in a single chunk, BoringSSL notices and rejects this on
+// key change.
+TEST_F(QUICMethodTest, ExcessProvidedData) {
+  auto add_message = [](SSL *ssl, enum ssl_encryption_level_t level,
+                        const uint8_t *data, size_t len) -> int {
+    // Switch everything to the initial level.
+    return TransportFromSSL(ssl)->WriteHandshakeData(ssl_encryption_initial,
+                                                     MakeConstSpan(data, len));
   };
 
-  Create(clientQuicMethod, serverQuicMethod, clientConnect, serverConnect);
+  const SSL_QUIC_METHOD quic_method = {
+      SetEncryptionKeysCallback,
+      add_message,
+      FlushFlightCallback,
+      SendAlertCallback,
+  };
 
+  ASSERT_TRUE(SSL_CTX_set_quic_method(client_ctx_.get(), &quic_method));
+  ASSERT_TRUE(SSL_CTX_set_quic_method(server_ctx_.get(), &quic_method));
+  ASSERT_TRUE(CreateClientAndServer());
+
+  // Send the ClientHello and ServerHello through Finished.
   ASSERT_EQ(SSL_do_handshake(client_.get()), -1);
+  ASSERT_EQ(SSL_get_error(client_.get(), -1), SSL_ERROR_WANT_READ);
+  ASSERT_TRUE(ProvideHandshakeData(server_.get()));
   ASSERT_EQ(SSL_do_handshake(server_.get()), -1);
+  ASSERT_EQ(SSL_get_error(server_.get(), -1), SSL_ERROR_WANT_READ);
+
+  // The client is still waiting for the ServerHello at initial
+  // encryption.
+  ASSERT_EQ(ssl_encryption_initial, SSL_quic_read_level(client_.get()));
+
+  // |add_message| incorrectly wrote everything at the initial level, so this
+  // queues up ServerHello through Finished in one chunk.
+  ASSERT_TRUE(ProvideHandshakeData(client_.get()));
+
+  // The client reads ServerHello successfully, but then rejects the buffered
+  // EncryptedExtensions on key change.
+  ASSERT_EQ(SSL_do_handshake(client_.get()), -1);
+  ASSERT_EQ(SSL_get_error(client_.get(), -1), SSL_ERROR_SSL);
+  uint32_t err = ERR_get_error();
+  EXPECT_EQ(ERR_GET_LIB(err), ERR_LIB_SSL);
+  EXPECT_EQ(ERR_GET_REASON(err), SSL_R_BUFFERED_MESSAGES_ON_CIPHER_CHANGE);
+
+  // The client sends an alert in response to this.
+  ASSERT_TRUE(transport_.client()->has_alert());
+  EXPECT_EQ(transport_.client()->alert_level(), ssl_encryption_initial);
+  EXPECT_EQ(transport_.client()->alert(), SSL_AD_UNEXPECTED_MESSAGE);
+
+  // Sanity-check client did get far enough to process the ServerHello and
+  // install keys.
+  EXPECT_TRUE(transport_.client()->HasKeys(ssl_encryption_handshake));
 }
 
-
-TEST_F(QUICMethodTest, StreamMethodWrongLevelBuffered) {
-  auto writeMessage = [](SSL *ssl, enum ssl_encryption_level_t level,
-                         const uint8_t *data, size_t len) -> int {
-    Stream *stream = reinterpret_cast<Stream *>(SSL_get_ex_data(ssl, 1));
-    std::unique_lock<std::mutex> rlock(stream->read_lock);
-    stream->read_cond.wait(rlock, [&] { return stream->read_count; });
-    stream->read_count--;
-    if (stream->shutdown) {
-      return 0;
-    }
-
-    stream->level = level;
-    memcpy(stream->data, data, len);
-    stream->len = len;
-
-    std::unique_lock<std::mutex> wlock(stream->write_lock);
-    stream->write_count++;
-    stream->write_cond.notify_one();
-    return true;
+// Test that |SSL_provide_quic_data| will reject data at the wrong level.
+TEST_F(QUICMethodTest, ProvideWrongLevel) {
+  const SSL_QUIC_METHOD quic_method = {
+      SetEncryptionKeysCallback,
+      AddMessageCallback,
+      FlushFlightCallback,
+      SendAlertCallback,
   };
 
-  auto consumeStreamBuffered = [](SSL *ssl, Stream *stream) -> bool {
-    std::unique_lock<std::mutex> wlock(stream->write_lock);
-    stream->write_cond.wait(wlock, [&] { return stream->write_count; });
-    stream->write_count--;
+  ASSERT_TRUE(SSL_CTX_set_quic_method(client_ctx_.get(), &quic_method));
+  ASSERT_TRUE(SSL_CTX_set_quic_method(server_ctx_.get(), &quic_method));
+  ASSERT_TRUE(CreateClientAndServer());
 
-    if (stream->shutdown) {
-      return false;
-    }
+  // Send the ClientHello and ServerHello through Finished.
+  ASSERT_EQ(SSL_do_handshake(client_.get()), -1);
+  ASSERT_EQ(SSL_get_error(client_.get(), -1), SSL_ERROR_WANT_READ);
+  ASSERT_TRUE(ProvideHandshakeData(server_.get()));
+  ASSERT_EQ(SSL_do_handshake(server_.get()), -1);
+  ASSERT_EQ(SSL_get_error(server_.get(), -1), SSL_ERROR_WANT_READ);
 
-    bool ret = true;
-    if (!stream->flushed) {
-      ret =
-          SSL_provide_quic_data(ssl, stream->level, stream->data, stream->len);
-    }
+  // The client is still waiting for the ServerHello at initial
+  // encryption.
+  ASSERT_EQ(ssl_encryption_initial, SSL_quic_read_level(client_.get()));
 
-    std::unique_lock<std::mutex> rlock(stream->read_lock);
-    stream->read_count++;
-    stream->read_cond.notify_one();
+  // Data cannot be provided at the next level.
+  std::vector<uint8_t> data;
+  ASSERT_TRUE(
+      transport_.client()->ReadHandshakeData(&data, ssl_encryption_initial));
+  ASSERT_FALSE(SSL_provide_quic_data(client_.get(), ssl_encryption_handshake,
+                                     data.data(), data.size()));
+  ERR_clear_error();
 
-    return ret;
-  };
+  // Progress to EncryptedExtensions.
+  ASSERT_TRUE(SSL_provide_quic_data(client_.get(), ssl_encryption_initial,
+                                    data.data(), data.size()));
+  ASSERT_EQ(SSL_do_handshake(client_.get()), -1);
+  ASSERT_EQ(SSL_get_error(client_.get(), -1), SSL_ERROR_WANT_READ);
+  ASSERT_EQ(ssl_encryption_handshake, SSL_quic_read_level(client_.get()));
 
-  auto flushFlight = [](SSL *ssl) -> int {
-    Stream *stream = reinterpret_cast<Stream *>(SSL_get_ex_data(ssl, 1));
-    std::unique_lock<std::mutex> rlock(stream->read_lock);
-    stream->read_cond.wait(rlock, [&] { return stream->read_count; });
-    stream->read_count--;
-    if (stream->shutdown) {
-      return 0;
-    }
-
-    stream->flushed = true;
-
-    std::unique_lock<std::mutex> wlock(stream->write_lock);
-    stream->write_count++;
-    stream->write_cond.notify_one();
-    return true;
-  };
-
-  const SSL_QUIC_METHOD clientQuicMethod = {
-    nopSetEncryptionKeys,
-    writeMessage,
-    flushFlight,
-    nopSendAlert
-  };
-
-  const SSL_QUIC_METHOD serverQuicMethod = {
-    nopSetEncryptionKeys,
-    writeMessage,
-    flushFlight,
-    nopSendAlert
-  };
-
-  auto clientConnect = [&](SSL *ssl, Stream *in_stream, Stream *out_stream) {
-    int ret = -1;
-    while (ret == -1) {
-      SSL_set_ex_data(ssl, 1, out_stream);
-      ret = SSL_do_handshake(ssl);
-      if (ret == -1) {
-        ASSERT_EQ(SSL_get_error(ssl, ret), SSL_ERROR_WANT_READ);
-        while (!in_stream->flushed) {
-          if (!consumeStream(ssl, in_stream)) {
-            // The client should error out while trying to read the
-            // EncryptedExtensions at the wrong level during
-            // state_read_encrypted_extensions.
-            ASSERT_EQ(ssl->s3->hs->state, 3);
-            int err = ERR_get_error();
-            ASSERT_EQ(ERR_GET_LIB(err), ERR_LIB_SSL);
-            ASSERT_EQ(ERR_GET_REASON(err), SSL_R_WRONG_ENCRYPTION_LEVEL_RECEIVED);
-            ShutdownStream(in_stream);
-            ShutdownStream(out_stream);
-            return;
-          }
-        }
-        in_stream->flushed = false;
-      }
-    }
-  };
-
-  auto serverConnect = [&](SSL *ssl, Stream *in_stream, Stream *out_stream) {
-    int ret = -1;
-    while (ret == -1) {
-      SSL_set_ex_data(ssl, 1, out_stream);
-      ret = SSL_do_handshake(ssl);
-      if (ret == -1) {
-        if (SSL_get_error(ssl, ret) != SSL_ERROR_WANT_READ) {
-          return;
-        }
-        while (!in_stream->flushed) {
-          ASSERT_TRUE(consumeStreamBuffered(ssl, in_stream));
-        }
-        in_stream->flushed = false;
-      }
-    }
-  };
-
-  Create(clientQuicMethod, serverQuicMethod, clientConnect, serverConnect);
+  // Data cannot be provided at the previous level.
+  ASSERT_TRUE(
+      transport_.client()->ReadHandshakeData(&data, ssl_encryption_handshake));
+  ASSERT_FALSE(SSL_provide_quic_data(client_.get(), ssl_encryption_initial,
+                                     data.data(), data.size()));
 }
-#endif
 
 // TODO(davidben): Convert this file to GTest properly.
 TEST(SSLTest, AllTests) {
