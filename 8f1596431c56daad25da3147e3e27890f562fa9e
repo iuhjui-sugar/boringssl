@@ -459,6 +459,30 @@
     },
     {
       "key": {
+        "uuid": "e0e6bf1c_f99ce6d6",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-31T19:58:54Z",
+      "side": 1,
+      "message": "(Resolved by new tests.)",
+      "parentUuid": "88174c23_a49f202b",
+      "range": {
+        "startLine": 193,
+        "startChar": 22,
+        "endLine": 193,
+        "endChar": 36
+      },
+      "revId": "8f1596431c56daad25da3147e3e27890f562fa9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "83c41fb8_849c731f",
         "filename": "ssl/tls13_enc.cc",
         "patchSetId": 7

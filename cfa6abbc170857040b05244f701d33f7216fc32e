@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "93024eba_e694f566",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 3099,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-31T19:58:54Z",
+      "side": 1,
+      "message": "Nit: clang-format",
+      "range": {
+        "startLine": 3099,
+        "startChar": 32,
+        "endLine": 3099,
+        "endChar": 33
+      },
+      "revId": "cfa6abbc170857040b05244f701d33f7216fc32e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e921701b_4f305b0c",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-31T19:58:54Z",
+      "side": 1,
+      "message": "I\u0027ve added a few comments here so we\u0027re not just making numbers up. Also the complicated limit is for the handshake, not the initial level.",
+      "revId": "cfa6abbc170857040b05244f701d33f7216fc32e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0b5e001_e654f62b",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 830,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-31T19:58:54Z",
+      "side": 1,
+      "message": "This is a bound on the total data, not individual writes. (Fixed and added test.)",
+      "revId": "cfa6abbc170857040b05244f701d33f7216fc32e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "120bd343_2e70984c",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 4480,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-31T19:58:54Z",
+      "side": 1,
+      "message": "Oops, now we believe this is spelled secrets. My bad.",
+      "range": {
+        "startLine": 4480,
+        "startChar": 20,
+        "endLine": 4480,
+        "endChar": 25
+      },
+      "revId": "cfa6abbc170857040b05244f701d33f7216fc32e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3964200b_fd14992e",
+        "filename": "ssl/ssl_versions.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-31T19:58:54Z",
+      "side": 1,
+      "message": "I know I suggested this, but it occurs to me that we actually want to change it at ssl_get_version_range. That way the handshake knows the minimum version is TLS 1.3 and not to send RI and EMS and such.\n\nMy bad. Fixed this.",
+      "revId": "cfa6abbc170857040b05244f701d33f7216fc32e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
