@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0959b46a_6f304e67",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 3100,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-10-31T18:11:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a5503bf_2426e407",
+      "range": {
+        "startLine": 3100,
+        "startChar": 36,
+        "endLine": 3100,
+        "endChar": 46
+      },
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b70b5406_e426b21a",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 12
@@ -45,6 +69,30 @@
       "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14bed03f_f4e139a9",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 3122,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-10-31T18:11:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b70b5406_e426b21a",
+      "range": {
+        "startLine": 3122,
+        "startChar": 34,
+        "endLine": 3122,
+        "endChar": 37
+      },
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "0b2e1fb6_30f7a343",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 3133,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-10-31T18:11:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d2f64e4_ea29be74",
+      "range": {
+        "startLine": 3132,
+        "startChar": 63,
+        "endLine": 3133,
+        "endChar": 51
+      },
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a3efe04e_5e63e8e2",
         "filename": "ssl/handshake.cc",
         "patchSetId": 12
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "c1fe5860_98808fc3",
+        "filename": "ssl/handshake.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-10-31T18:11:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3efe04e_5e63e8e2",
+      "range": {
+        "startLine": 548,
+        "startChar": 47,
+        "endLine": 548,
+        "endChar": 72
+      },
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a504d56f_c470e973",
         "filename": "ssl/internal.h",
         "patchSetId": 12
@@ -111,6 +207,24 @@
     },
     {
       "key": {
+        "uuid": "ab2329de_37d7e72d",
+        "filename": "ssl/internal.h",
+        "patchSetId": 12
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-10-31T18:11:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a504d56f_c470e973",
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8c8350a6_d1e1ae3d",
         "filename": "ssl/s3_both.cc",
         "patchSetId": 12
@@ -122,6 +236,24 @@
       "writtenOn": "2018-10-31T00:48:28Z",
       "side": 1,
       "message": "What do you think about doing this instead?\nhttps://boringssl-review.googlesource.com/c/boringssl/+/32785",
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a851ab43_b89b04d4",
+        "filename": "ssl/s3_both.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-10-31T18:11:58Z",
+      "side": 1,
+      "message": "Seems reasonable, should I pull that in, or do you want to rebase it on top?",
+      "parentUuid": "8c8350a6_d1e1ae3d",
       "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -151,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "54489917_ab9b0820",
+        "filename": "ssl/s3_both.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-10-31T18:11:58Z",
+      "side": 1,
+      "message": "Confused how this change happened...",
+      "parentUuid": "520452cf_145d2d3f",
+      "range": {
+        "startLine": 303,
+        "startChar": 13,
+        "endLine": 303,
+        "endChar": 18
+      },
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bc014f72_537fd3fd",
         "filename": "ssl/ssl_aead_ctx.cc",
         "patchSetId": 12
@@ -165,6 +321,24 @@
       "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cac25703_0fb73d10",
+        "filename": "ssl/ssl_aead_ctx.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-10-31T18:11:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc014f72_537fd3fd",
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -191,6 +365,30 @@
     },
     {
       "key": {
+        "uuid": "ba60219a_1040dc95",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 786,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-10-31T18:11:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4334ce6d_4669ae49",
+      "range": {
+        "startLine": 786,
+        "startChar": 9,
+        "endLine": 786,
+        "endChar": 34
+      },
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "28b786e5_e6955d89",
         "filename": "ssl/ssl_lib.cc",
         "patchSetId": 12
@@ -205,6 +403,24 @@
       "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa5e4fc3_13691ce5",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 790,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-10-31T18:11:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "28b786e5_e6955d89",
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -225,6 +441,24 @@
     },
     {
       "key": {
+        "uuid": "c3392be2_1537a2cf",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 805,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-10-31T18:11:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3486cd46_ddde2654",
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8f84f7bd_1f06e381",
         "filename": "ssl/ssl_lib.cc",
         "patchSetId": 12
@@ -239,6 +473,24 @@
       "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d42137f3_281d1ed0",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 992,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-10-31T18:11:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f84f7bd_1f06e381",
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -262,6 +514,30 @@
       "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6c5e077_acbaaf65",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 2358,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-10-31T18:11:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8add9074_b5b4bc43",
+      "range": {
+        "startLine": 2358,
+        "startChar": 30,
+        "endLine": 2358,
+        "endChar": 69
+      },
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -293,6 +569,24 @@
       "writtenOn": "2018-10-30T22:49:52Z",
       "side": 1,
       "message": "I poked at the deadlock (see below), but it seems it may be cleaner to just not use threads. WDYT about this testing framework?\n\nhttps://boringssl-review.googlesource.com/c/boringssl/+/32784",
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0cef2d12_6ae2e47e",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 4427,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-10-31T18:11:58Z",
+      "side": 1,
+      "message": "Seems reasonable, a bit longer but avoiding having to deal with threading is nice.\n\nLeaving the rest of this file alone, so that can be squashed in place of this.",
+      "parentUuid": "c6403bd1_ac457766",
       "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -488,6 +782,30 @@
     },
     {
       "key": {
+        "uuid": "b6b385ed_e361bc7f",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-10-31T18:11:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c9a6250_d878dcd5",
+      "range": {
+        "startLine": 74,
+        "startChar": 26,
+        "endLine": 74,
+        "endChar": 38
+      },
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d41c35e3_cb607068",
         "filename": "ssl/tls13_enc.cc",
         "patchSetId": 12
@@ -505,6 +823,24 @@
     },
     {
       "key": {
+        "uuid": "f0f7bceb_0d604689",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-10-31T18:11:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d41c35e3_cb607068",
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "06f9e372_b316584d",
         "filename": "ssl/tls13_enc.cc",
         "patchSetId": 12
@@ -519,6 +855,24 @@
       "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37712c89_16498e94",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-10-31T18:11:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06f9e372_b316584d",
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -542,6 +896,30 @@
       "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "821eea7a_b6d37fcc",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-10-31T18:11:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72213dea_5b9d206f",
+      "range": {
+        "startLine": 288,
+        "startChar": 19,
+        "endLine": 288,
+        "endChar": 45
+      },
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
