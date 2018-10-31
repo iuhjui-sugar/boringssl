@@ -3102,6 +3102,8 @@ struct ssl_quic_method_st {
   // level. A single handshake flight may include multiple encryption levels.
   // Callers can defer writing data to the network until |flush_flight| for
   // optimal packing. It returns one on success and zero on error.
+  //
+  // FIXME: Rename this since now it's not a message.
   int (*add_message)(SSL *ssl, enum ssl_encryption_level_t level,
                      const uint8_t *data, size_t len);
   // flush_flight is called when the current flight is complete and should be
