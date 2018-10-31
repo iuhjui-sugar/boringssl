@@ -111,6 +111,23 @@
     },
     {
       "key": {
+        "uuid": "8c8350a6_d1e1ae3d",
+        "filename": "ssl/s3_both.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-10-31T00:48:28Z",
+      "side": 1,
+      "message": "What do you think about doing this instead?\nhttps://boringssl-review.googlesource.com/c/boringssl/+/32785",
+      "revId": "721d181548ec363d1ee7a62cd5c9e306d3c8ade5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "520452cf_145d2d3f",
         "filename": "ssl/s3_both.cc",
         "patchSetId": 12
