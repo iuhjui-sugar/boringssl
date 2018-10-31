@@ -22,6 +22,30 @@
       "revId": "f8a8946841d2149dea1253fe3227d37313abdaaa",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccb8b84d_c2a6a69c",
+        "filename": "crypto/fipsmodule/ecdsa/ecdsa.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-10-31T00:19:07Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "026a313d_a7bfac92",
+      "range": {
+        "startLine": 196,
+        "startChar": 2,
+        "endLine": 196,
+        "endChar": 14
+      },
+      "revId": "f8a8946841d2149dea1253fe3227d37313abdaaa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }

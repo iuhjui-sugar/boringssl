@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "5cebdbcc_bb3bd517",
+        "filename": "crypto/fipsmodule/ec/asm/p256_beeu-x86_64-asm.pl",
+        "patchSetId": 7
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-10-31T00:19:07Z",
+      "side": 1,
+      "message": "Good point. Dropped. (Also dropped their custom greater_than function.)",
+      "parentUuid": "a0163600_441a7e3c",
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6da54894_0f7dfdc8",
         "filename": "crypto/fipsmodule/ec/internal.h",
         "patchSetId": 7
@@ -82,6 +100,54 @@
     },
     {
       "key": {
+        "uuid": "8a8c67ee_fcdd7ce2",
+        "filename": "crypto/fipsmodule/ec/internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-10-31T00:19:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6da54894_0f7dfdc8",
+      "range": {
+        "startLine": 176,
+        "startChar": 61,
+        "endLine": 176,
+        "endChar": 68
+      },
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4131d8be_1cddc6f0",
+        "filename": "crypto/fipsmodule/ec/internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-10-31T00:19:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5633be39_820475a2",
+      "range": {
+        "startLine": 176,
+        "startChar": 5,
+        "endLine": 176,
+        "endChar": 13
+      },
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "87df8b92_fe24459f",
         "filename": "crypto/fipsmodule/ec/internal.h",
         "patchSetId": 7
@@ -96,6 +162,24 @@
       "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a62377d4_8aaedf17",
+        "filename": "crypto/fipsmodule/ec/internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-10-31T00:19:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87df8b92_fe24459f",
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -122,6 +206,30 @@
     },
     {
       "key": {
+        "uuid": "b4de8a0a_efc5c49f",
+        "filename": "crypto/fipsmodule/ec/internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-10-31T00:19:07Z",
+      "side": 1,
+      "message": "I\u0027ll change that behaviour.",
+      "parentUuid": "5810a4ed_2e9d142f",
+      "range": {
+        "startLine": 362,
+        "startChar": 3,
+        "endLine": 362,
+        "endChar": 43
+      },
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "efbe7513_855da342",
         "filename": "crypto/fipsmodule/ec/p256-x86_64.c",
         "patchSetId": 7
@@ -142,6 +250,30 @@
       "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8684db39_c7df113d",
+        "filename": "crypto/fipsmodule/ec/p256-x86_64.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-10-31T00:19:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "efbe7513_855da342",
+      "range": {
+        "startLine": 297,
+        "startChar": 59,
+        "endLine": 297,
+        "endChar": 64
+      },
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -179,6 +311,24 @@
     },
     {
       "key": {
+        "uuid": "e22fde36_ca75f0d2",
+        "filename": "crypto/fipsmodule/ec/p256-x86_64.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-10-31T00:19:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "93fd4ba6_c88c8645",
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a1dd646_313d5602",
         "filename": "crypto/fipsmodule/ec/p256-x86_64.c",
         "patchSetId": 7
@@ -202,6 +352,30 @@
     },
     {
       "key": {
+        "uuid": "dd013dcc_818e524d",
+        "filename": "crypto/fipsmodule/ec/p256-x86_64.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-10-31T00:19:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a1dd646_313d5602",
+      "range": {
+        "startLine": 409,
+        "startChar": 71,
+        "endLine": 409,
+        "endChar": 77
+      },
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fcf89a65_87d9132b",
         "filename": "crypto/fipsmodule/ec/p256-x86_64.c",
         "patchSetId": 7
@@ -219,6 +393,24 @@
     },
     {
       "key": {
+        "uuid": "9722b692_77efd236",
+        "filename": "crypto/fipsmodule/ec/p256-x86_64.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-10-31T00:19:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fcf89a65_87d9132b",
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "92ce87f0_9cbd47fe",
         "filename": "crypto/fipsmodule/ec/p256-x86_64.c",
         "patchSetId": 7
@@ -233,6 +425,24 @@
       "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45c0f0aa_999ff3f7",
+        "filename": "crypto/fipsmodule/ec/p256-x86_64.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-10-31T00:19:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92ce87f0_9cbd47fe",
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -259,6 +469,30 @@
     },
     {
       "key": {
+        "uuid": "dea58b7f_cd8e4de8",
+        "filename": "crypto/fipsmodule/ec/p256-x86_64.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 589,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-10-31T00:19:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "faec837d_ab96eeb8",
+      "range": {
+        "startLine": 589,
+        "startChar": 6,
+        "endLine": 589,
+        "endChar": 10
+      },
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fd0f362e_486f243c",
         "filename": "crypto/fipsmodule/ec/p256-x86_64.c",
         "patchSetId": 7
@@ -282,6 +516,30 @@
     },
     {
       "key": {
+        "uuid": "044708b7_3e8b78e9",
+        "filename": "crypto/fipsmodule/ec/p256-x86_64.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 601,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-10-31T00:19:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd0f362e_486f243c",
+      "range": {
+        "startLine": 601,
+        "startChar": 38,
+        "endLine": 601,
+        "endChar": 39
+      },
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6c3f9db0_49ea020c",
         "filename": "crypto/fipsmodule/ec/p256-x86_64.c",
         "patchSetId": 7
@@ -296,6 +554,24 @@
       "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c47bf1e_2a78921f",
+        "filename": "crypto/fipsmodule/ec/p256-x86_64.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-10-31T00:19:07Z",
+      "side": 1,
+      "message": "(I\u0027ve deleted this function. See below.)",
+      "parentUuid": "6c3f9db0_49ea020c",
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -322,6 +598,30 @@
     },
     {
       "key": {
+        "uuid": "6a44c01a_7439fa07",
+        "filename": "crypto/fipsmodule/ec/p256-x86_64.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 611,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-10-31T00:19:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b482ab4f_392a21f9",
+      "range": {
+        "startLine": 611,
+        "startChar": 9,
+        "endLine": 611,
+        "endChar": 10
+      },
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "04a536f4_c97ac4cc",
         "filename": "crypto/fipsmodule/ec/p256-x86_64.c",
         "patchSetId": 7
@@ -333,6 +633,24 @@
       "writtenOn": "2018-10-24T21:20:39Z",
       "side": 1,
       "message": "I\u0027m confused by this comment. If these functions aren\u0027t performing the conditional subtract at the end, surely other bounds also won\u0027t work out. Or is something else going on? If p-\u003eraw.[XYZ] aren\u0027t reduced, that\u0027s concerning.\n\nWe\u0027ve at least previously believed these functions all take reduced inputs to reduced outputs, per the comment in the header.",
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f12cdf6_f1d94a56",
+        "filename": "crypto/fipsmodule/ec/p256-x86_64.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-10-31T00:19:07Z",
+      "side": 1,
+      "message": "Agreed. Thanks for pointing this out, it\u0027s odd.\n\nI\u0027ve confirmed that the BEEU function is already giving reduced outputs so, if we were fully-reduced before, then we still are. I\u0027ve rewritten this function on that basis. See if it looks better now.",
+      "parentUuid": "04a536f4_c97ac4cc",
       "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -356,6 +674,24 @@
     },
     {
       "key": {
+        "uuid": "0e8e0be4_01cd7a75",
+        "filename": "crypto/fipsmodule/ec/p256-x86_64.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 659,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-10-31T00:19:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d32161f4_52142cf7",
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2e660be7_373c8d9d",
         "filename": "crypto/fipsmodule/ec/p256-x86_64.h",
         "patchSetId": 7
@@ -370,6 +706,24 @@
       "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd604a8e_5ad16bf3",
+        "filename": "crypto/fipsmodule/ec/p256-x86_64.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-10-31T00:19:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e660be7_373c8d9d",
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -419,6 +773,54 @@
     },
     {
       "key": {
+        "uuid": "e542408e_ffe8f524",
+        "filename": "crypto/fipsmodule/ec/p256-x86_64.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-10-31T00:19:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95220cc5_79fe6934",
+      "range": {
+        "startLine": 100,
+        "startChar": 25,
+        "endLine": 100,
+        "endChar": 30
+      },
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aad47695_7f9d07fa",
+        "filename": "crypto/fipsmodule/ec/p256-x86_64.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-10-31T00:19:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e48ef63d_ac658ece",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 3
+      },
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aa380441_45cc46b9",
         "filename": "crypto/fipsmodule/ec/simple.c",
         "patchSetId": 7
@@ -442,6 +844,30 @@
     },
     {
       "key": {
+        "uuid": "a9848fdd_919a9473",
+        "filename": "crypto/fipsmodule/ec/simple.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-10-31T00:19:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa380441_45cc46b9",
+      "range": {
+        "startLine": 595,
+        "startChar": 6,
+        "endLine": 595,
+        "endChar": 15
+      },
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f2e79c59_ca7db2aa",
         "filename": "crypto/fipsmodule/ec/simple.c",
         "patchSetId": 7
@@ -462,6 +888,30 @@
       "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74d44f3f_eecbd773",
+        "filename": "crypto/fipsmodule/ec/simple.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-10-31T00:19:07Z",
+      "side": 1,
+      "message": "moved in ec.c.",
+      "parentUuid": "f2e79c59_ca7db2aa",
+      "range": {
+        "startLine": 605,
+        "startChar": 7,
+        "endLine": 605,
+        "endChar": 30
+      },
+      "revId": "0ce27e4034f978b3fe58a434a5f2b963a70234db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
