@@ -127,6 +127,12 @@ struct ec_method_st {
   int (*point_get_affine_coordinates)(const EC_GROUP *, const EC_RAW_POINT *,
                                       BIGNUM *x, BIGNUM *y);
 
+  // add sets |r| to |a| + |b|.
+  void (*add)(const EC_GROUP *group, EC_RAW_POINT *r, const EC_RAW_POINT *a,
+              const EC_RAW_POINT *b);
+  // dbl sets |r| to |a| + |a|.
+  void (*dbl)(const EC_GROUP *group, EC_RAW_POINT *r, const EC_RAW_POINT *a);
+
   // Computes |r = g_scalar*generator + p_scalar*p| if |g_scalar| and |p_scalar|
   // are both non-null. Computes |r = g_scalar*generator| if |p_scalar| is null.
   // Computes |r = p_scalar*p| if g_scalar is null. At least one of |g_scalar|
