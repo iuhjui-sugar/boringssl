@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f52b12e2_b6968a70",
+        "filename": "crypto/fipsmodule/ec/p224-64.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 1018,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-11-05T23:58:43Z",
+      "side": 1,
+      "message": "typedefed arrays in C work really oddly.",
+      "revId": "328b6329055892be5b43d57114f16f4f163cb195",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
