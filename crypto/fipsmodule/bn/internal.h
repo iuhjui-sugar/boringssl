@@ -360,9 +360,12 @@ int bn_mod_exp_base_2_consttime(BIGNUM *r, unsigned p, const BIGNUM *n,
 // -2 on error.
 int bn_jacobi(const BIGNUM *a, const BIGNUM *b, BN_CTX *ctx);
 
+// bn_is_bit_set returns one if bit |bit| is set in |a| and zero otherwise.
+BN_ULONG bn_is_bit_set(const BIGNUM *a, unsigned bit);
+
 // bn_is_bit_set_words returns one if bit |bit| is set in |a| and zero
 // otherwise.
-int bn_is_bit_set_words(const BN_ULONG *a, size_t num, unsigned bit);
+BN_ULONG bn_is_bit_set_words(const BN_ULONG *a, size_t num, unsigned bit);
 
 // bn_one_to_montgomery sets |r| to one in Montgomery form. It returns one on
 // success and zero on error. This function treats the bit width of the modulus

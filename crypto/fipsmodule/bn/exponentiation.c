@@ -127,11 +127,13 @@
 
 void bn_mul_mont_gather5(BN_ULONG *rp, const BN_ULONG *ap, const void *table,
                          const BN_ULONG *np, const BN_ULONG *n0, int num,
-                         int power);
-void bn_scatter5(const BN_ULONG *inp, size_t num, void *table, size_t power);
+                         crypto_word_t power);
+void bn_scatter5(const BN_ULONG *inp, size_t num, void *table,
+                 crypto_word_t power);
 void bn_gather5(BN_ULONG *out, size_t num, void *table, size_t power);
 void bn_power5(BN_ULONG *rp, const BN_ULONG *ap, const void *table,
-               const BN_ULONG *np, const BN_ULONG *n0, int num, int power);
+               const BN_ULONG *np, const BN_ULONG *n0, int num,
+               crypto_word_t power);
 int bn_from_montgomery(BN_ULONG *rp, const BN_ULONG *ap,
                        const BN_ULONG *not_used, const BN_ULONG *np,
                        const BN_ULONG *n0, int num);
@@ -856,24 +858,22 @@ void bn_mod_inverse_prime_mont_small(BN_ULONG *r, const BN_ULONG *a, size_t num,
 // used to transfer a BIGNUM from/to that table.
 
 static void copy_to_prebuf(const BIGNUM *b, int top, unsigned char *buf,
-                           int idx, int window) {
-  int i, j;
-  const int width = 1 << window;
+                           size_t idx, int window) {
+  const size_t width = (size_t)1 << window;
   BN_ULONG *table = (BN_ULONG *) buf;
 
   if (top > b->width) {
     top = b->width;  // this works because 'buf' is explicitly zeroed
   }
 
-  for (i = 0, j = idx; i < top; i++, j += width)  {
+  for (size_t i = 0, j = idx; i < (size_t)top; i++, j += width)  {
     table[j] = b->d[i];
   }
 }
 
-static int copy_from_prebuf(BIGNUM *b, int top, unsigned char *buf, int idx,
+static int copy_from_prebuf(BIGNUM *b, int top, unsigned char *buf, size_t idx,
                             int window) {
-  int i, j;
-  const int width = 1 << window;
+  const size_t width = (size_t)1 << window;
   volatile BN_ULONG *table = (volatile BN_ULONG *)buf;
 
   if (!bn_wexpand(b, top)) {
@@ -881,34 +881,34 @@ static int copy_from_prebuf(BIGNUM *b, int top, unsigned char *buf, int idx,
   }
 
   if (window <= 3) {
-    for (i = 0; i < top; i++, table += width) {
+    for (size_t i = 0; i < (size_t)top; i++, table += width) {
       BN_ULONG acc = 0;
 
-      for (j = 0; j < width; j++) {
-        acc |= table[j] & ((BN_ULONG)0 - (constant_time_eq_int(j, idx) & 1));
+      for (size_t j = 0; j < width; j++) {
+        acc |= table[j] & ((BN_ULONG)0 - (constant_time_eq_w(j, idx) & 1));
       }
 
       b->d[i] = acc;
     }
   } else {
-    int xstride = 1 << (window - 2);
+    size_t xstride = (size_t)1 << (window - 2);
     BN_ULONG y0, y1, y2, y3;
 
-    i = idx >> (window - 2);  // equivalent of idx / xstride
+    size_t i = idx >> (window - 2);  // equivalent of idx / xstride
     idx &= xstride - 1;       // equivalent of idx % xstride
 
-    y0 = (BN_ULONG)0 - (constant_time_eq_int(i, 0) & 1);
-    y1 = (BN_ULONG)0 - (constant_time_eq_int(i, 1) & 1);
-    y2 = (BN_ULONG)0 - (constant_time_eq_int(i, 2) & 1);
-    y3 = (BN_ULONG)0 - (constant_time_eq_int(i, 3) & 1);
+    y0 = (BN_ULONG)0 - (constant_time_eq_w(i, 0) & 1);
+    y1 = (BN_ULONG)0 - (constant_time_eq_w(i, 1) & 1);
+    y2 = (BN_ULONG)0 - (constant_time_eq_w(i, 2) & 1);
+    y3 = (BN_ULONG)0 - (constant_time_eq_w(i, 3) & 1);
 
-    for (i = 0; i < top; i++, table += width) {
+    for (i = 0; i < (size_t)top; i++, table += width) {
       BN_ULONG acc = 0;
 
-      for (j = 0; j < xstride; j++) {
+      for (size_t j = 0; j < xstride; j++) {
         acc |= ((table[j + 0 * xstride] & y0) | (table[j + 1 * xstride] & y1) |
                 (table[j + 2 * xstride] & y2) | (table[j + 3 * xstride] & y3)) &
-               ((BN_ULONG)0 - (constant_time_eq_int(j, idx) & 1));
+               ((BN_ULONG)0 - (constant_time_eq_w(j, idx) & 1));
       }
 
       b->d[i] = acc;
@@ -962,7 +962,7 @@ static int copy_from_prebuf(BIGNUM *b, int top, unsigned char *buf, int idx,
 int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
                               const BIGNUM *m, BN_CTX *ctx,
                               const BN_MONT_CTX *mont) {
-  int i, ret = 0, window, wvalue;
+  int i, ret = 0, window;
   BN_MONT_CTX *new_mont = NULL;
 
   int numPowers;
@@ -1145,10 +1145,13 @@ int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
     }
 
     bits--;
-    for (wvalue = 0, i = bits % 5; i >= 0; i--, bits--) {
-      wvalue = (wvalue << 1) + BN_is_bit_set(p, bits);
+    {
+      crypto_word_t wvalue;
+      for (wvalue = 0, i = bits % 5; i >= 0; i--, bits--) {
+        wvalue = (wvalue << 1) + bn_is_bit_set(p, bits);
+      }
+      bn_gather5(tmp.d, top, powerbuf, wvalue);
     }
-    bn_gather5(tmp.d, top, powerbuf, wvalue);
 
     // At this point |bits| is 4 mod 5 and at least -1. (|bits| is the first bit
     // that has not been read yet.)
@@ -1158,8 +1161,9 @@ int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
     // significant bits.
     if (top & 7) {
       while (bits >= 0) {
+        crypto_word_t wvalue;
         for (wvalue = 0, i = 0; i < 5; i++, bits--) {
-          wvalue = (wvalue << 1) + BN_is_bit_set(p, bits);
+          wvalue = (wvalue << 1) + bn_is_bit_set(p, bits);
         }
 
         bn_mul_mont(tmp.d, tmp.d, tmp.d, np, n0, top);
@@ -1182,7 +1186,7 @@ int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
       // here is the top bit, inclusive.
       if (bits - 4 >= max_bits - 8) {
         // Read five bits from |bits-4| through |bits|, inclusive.
-        wvalue = p_bytes[p->width * BN_BYTES - 1];
+        crypto_word_t wvalue = p_bytes[p->width * BN_BYTES - 1];
         wvalue >>= (bits - 4) & 7;
         wvalue &= 0x1f;
         bits -= 5;
@@ -1236,24 +1240,27 @@ int BN_mod_exp_mont_consttime(BIGNUM *rr, const BIGNUM *a, const BIGNUM *p,
     }
 
     bits--;
-    for (wvalue = 0, i = bits % window; i >= 0; i--, bits--) {
-      wvalue = (wvalue << 1) + BN_is_bit_set(p, bits);
-    }
-    if (!copy_from_prebuf(&tmp, top, powerbuf, wvalue, window)) {
-      goto err;
+    {
+      crypto_word_t wvalue;
+      for (wvalue = 0, i = bits % window; i >= 0; i--, bits--) {
+        wvalue = (wvalue << 1) + bn_is_bit_set(p, bits);
+      }
+      if (!copy_from_prebuf(&tmp, top, powerbuf, wvalue, window)) {
+        goto err;
+      }
     }
 
     // Scan the exponent one window at a time starting from the most
     // significant bits.
     while (bits >= 0) {
-      wvalue = 0;  // The 'value' of the window
+      crypto_word_t wvalue = 0;  // The 'value' of the window
 
       // Scan the window, squaring the result as we go
       for (i = 0; i < window; i++, bits--) {
         if (!BN_mod_mul_montgomery(&tmp, &tmp, &tmp, mont, ctx)) {
           goto err;
         }
-        wvalue = (wvalue << 1) + BN_is_bit_set(p, bits);
+        wvalue = (wvalue << 1) + bn_is_bit_set(p, bits);
       }
 
       // Fetch the appropriate pre-computed value from the pre-buf
