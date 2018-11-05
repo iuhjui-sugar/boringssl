@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "35a5a76d_9a974e0c",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-05T22:46:53Z",
+      "side": 1,
+      "message": "Seems this would quickly get out of sync with the actual list. Could you maybe extract it from the real list in ssl_key_shares.cc (or at least have the function live nearby so we remember to update it).",
+      "revId": "9c12f62620f9ce8d1a039dd56cbbc99da1272327",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f17685b5_8a18d6e2",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-05T22:46:53Z",
+      "side": 1,
+      "message": "Nit: malloc failure",
+      "revId": "9c12f62620f9ce8d1a039dd56cbbc99da1272327",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1d5fa81_29d5f246",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-05T22:46:53Z",
+      "side": 1,
+      "message": "Nit: malloc failure. Alternatively, just do  \u003d std::move(new_configured_curves).",
+      "revId": "9c12f62620f9ce8d1a039dd56cbbc99da1272327",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
