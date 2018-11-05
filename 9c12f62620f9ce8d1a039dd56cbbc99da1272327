@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c123a7ec_a24eca00",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-11-05T23:03:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35a5a76d_9a974e0c",
+      "revId": "9c12f62620f9ce8d1a039dd56cbbc99da1272327",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f17685b5_8a18d6e2",
         "filename": "ssl/handoff.cc",
         "patchSetId": 4
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "41ef20ce_7acf2bf0",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-11-05T23:03:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f17685b5_8a18d6e2",
+      "revId": "9c12f62620f9ce8d1a039dd56cbbc99da1272327",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f1d5fa81_29d5f246",
         "filename": "ssl/handoff.cc",
         "patchSetId": 4
@@ -50,6 +86,24 @@
       "revId": "9c12f62620f9ce8d1a039dd56cbbc99da1272327",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f8b2e45_cd4467e1",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2018-11-05T23:03:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1d5fa81_29d5f246",
+      "revId": "9c12f62620f9ce8d1a039dd56cbbc99da1272327",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
