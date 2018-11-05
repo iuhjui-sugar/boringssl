@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "818e53b9_3e97eb63",
+        "filename": "crypto/fipsmodule/ec/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-05T19:23:23Z",
+      "side": 1,
+      "message": "ec_field_element_to_scalar",
+      "range": {
+        "startLine": 311,
+        "startChar": 3,
+        "endLine": 311,
+        "endChar": 26
+      },
+      "revId": "3f8f5e90c67b7b0b27467124a73f76385b4ebb3a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06cbd923_6847b6c6",
+        "filename": "crypto/fipsmodule/ec/p256-x86_64.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-05T19:23:23Z",
+      "side": 1,
+      "message": "(This branch is always true.)",
+      "revId": "3f8f5e90c67b7b0b27467124a73f76385b4ebb3a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56510610_795a0c89",
+        "filename": "crypto/fipsmodule/ec/p256-x86_64.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-05T19:23:23Z",
+      "side": 1,
+      "message": "Maybe worth a comment explaining the computation. Something like:\n\nWe wish to compare x/z^2 with r. This is equivalent to comparing x with r*z^2. Note that x and z are represented in Montgomery form, while r is not.",
+      "revId": "3f8f5e90c67b7b0b27467124a73f76385b4ebb3a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "adffde42_317dc057",
+        "filename": "crypto/fipsmodule/ec/simple.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-05T19:23:23Z",
+      "side": 1,
+      "message": "(I\u0027ll upload a follow-up which applies this optimization to the other implementations too.)",
+      "revId": "3f8f5e90c67b7b0b27467124a73f76385b4ebb3a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
