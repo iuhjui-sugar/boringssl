@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "16443a14_d5e0d13e",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1525,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-06T18:42:51Z",
+      "side": 1,
+      "message": "This is very much not something we want to promise. This means we can never fix the nonsense where it queries the defined session. Because we are reverting an attempt to be clear here, we can\u0027t do much better than something vague like:\n\nSSL_get_current_cipher returns cipher suite used by |ssl|, or NULL if it has not been negotiated yet.",
+      "range": {
+        "startLine": 1524,
+        "startChar": 70,
+        "endLine": 1525,
+        "endChar": 30
+      },
+      "revId": "a42219011f1373bcf42b7413732cb0644720b33a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
