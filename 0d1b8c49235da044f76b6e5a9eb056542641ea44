@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "aa315f4b_1f3719f1",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2282,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-11-06T18:37:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a325d710_e6c0170f",
+      "revId": "0d1b8c49235da044f76b6e5a9eb056542641ea44",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "11a8ef81_691846b2",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "0d1b8c49235da044f76b6e5a9eb056542641ea44",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cdcd0c64_9e7c067b",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 4631,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-11-06T18:37:14Z",
+      "side": 1,
+      "message": "Just dropping it since its not too useful to know the particular values.",
+      "parentUuid": "11a8ef81_691846b2",
+      "revId": "0d1b8c49235da044f76b6e5a9eb056542641ea44",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
