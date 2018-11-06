@@ -4721,6 +4721,10 @@ class QUICMethodTest : public testing::Test {
                                           const uint8_t *read_key,
                                           const uint8_t *write_key,
                                           size_t key_len) {
+    if (SSL_get_current_cipher(ssl) == nullptr) {
+      ADD_FAILURE() << "current cipher unavailable";
+      return false;
+    }
     return TransportFromSSL(ssl)->SetEncryptionSecrets(level, read_key,
                                                        write_key, key_len);
   }

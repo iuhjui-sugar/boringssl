@@ -250,6 +250,15 @@ bool tls13_derive_early_secrets(SSL_HANDSHAKE *hs) {
   ssl->s3->early_exporter_secret_len = hs->hash_len;
 
   if (ssl->ctx->quic_method != nullptr) {
+    // Set the write AEAD early for set_encryption_secrets callbacks.
+    const SSL_SESSION *session = SSL_get_session(ssl);
+    uint16_t version = ssl_session_protocol_version(session);
+    UniquePtr<SSLAEADContext> quic_aead =
+        SSLAEADContext::CreatePlaceholderForQUIC(version, session->cipher);
+    if (!ssl->method->set_write_state(ssl, std::move(quic_aead))) {
+      return false;
+    }
+
     if (ssl->server) {
       if (!ssl->ctx->quic_method->set_encryption_secrets(
               ssl, ssl_encryption_early_data, nullptr, hs->early_traffic_secret,
@@ -286,6 +295,15 @@ bool tls13_derive_handshake_secrets(SSL_HANDSHAKE *hs) {
   }
 
   if (ssl->ctx->quic_method != nullptr) {
+    // Set the write AEAD early for set_encryption_secrets callbacks.
+    const SSL_SESSION *session = SSL_get_session(ssl);
+    uint16_t version = ssl_session_protocol_version(session);
+    UniquePtr<SSLAEADContext> quic_aead =
+        SSLAEADContext::CreatePlaceholderForQUIC(version, session->cipher);
+    if (!ssl->method->set_write_state(ssl, std::move(quic_aead))) {
+      return false;
+    }
+
     if (ssl->server) {
       if (!ssl->ctx->quic_method->set_encryption_secrets(
               ssl, ssl_encryption_handshake, hs->client_handshake_secret,
