@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3618fa5d_7efe6cc9",
+        "filename": "ssl/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 1006,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-11-06T00:16:33Z",
+      "side": 1,
+      "message": "It\u0027s minor, but can be keep this as before? (i.e. with the fixed lengths)",
+      "revId": "1c7cae371e4883085faaed1fc5adcdadd1e92cac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
