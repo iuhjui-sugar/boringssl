@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 2.8.11)
 
+set(boringssl_SOVERSION 0)
+
 # Report AppleClang separately from Clang. Their version numbers are different.
 # https://cmake.org/cmake/help/v3.0/policy/CMP0025.html
 if(POLICY CMP0025)
@@ -491,6 +493,12 @@ endif()
 # Add minimal googletest targets. The provided one has many side-effects, and
 # googletest has a very straightforward build.
 add_library(boringssl_gtest third_party/googletest/src/gtest-all.cc)
+if(BUILD_SHARED_LIBS AND SOVERSION)
+  set_target_properties(
+    boringssl_gtest PROPERTIES
+    SOVERSION ${boringssl_SOVERSION}
+  )
+endif()
 target_include_directories(boringssl_gtest PRIVATE third_party/googletest)
 
 include_directories(third_party/googletest/include)

@@ -400,6 +400,12 @@ add_library(
   ${CRYPTO_ARCH_SOURCES}
   ${CRYPTO_FIPS_OBJECTS}
 )
+if(BUILD_SHARED_LIBS AND SOVERSION)
+  set_target_properties(
+    crypto PROPERTIES
+    SOVERSION ${boringssl_SOVERSION}
+  )
+endif()
 
 add_dependencies(crypto global_target)
 
