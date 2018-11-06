@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba6f3693_467f5659",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4724,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-06T16:47:27Z",
+      "side": 1,
+      "message": "In the spirit of making MockQUICTransport actually mock QUIC, maybe this should pass SSL_get_current_cipher into SetEncryptionSecrets which then does:\n\n1. Check it\u0027s non-null.\n2. Stash it into Level.\n3. When it checks read/write keys for consistency, also check the cipher.",
+      "revId": "31e4a099ea15e761d7645d24fa1f2b7aca969ed4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
