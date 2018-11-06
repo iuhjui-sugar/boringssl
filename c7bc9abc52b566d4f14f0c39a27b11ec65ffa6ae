@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "908535de_67fd5982",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-06T00:38:10Z",
+      "side": 1,
+      "message": "Gerrit won\u0027t let me leave a comment on the previous file, so doing it here:\n\nDid you mean to delete e855a42[...] from server_corpus?",
+      "revId": "c7bc9abc52b566d4f14f0c39a27b11ec65ffa6ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d9eddf7_b4e8d2dd",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-06T00:38:10Z",
+      "side": 1,
+      "message": "Oops, missed there were two of these. Could you check this for failure too? (We really should see about crashing on malloc failures...)",
+      "revId": "c7bc9abc52b566d4f14f0c39a27b11ec65ffa6ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cbc7fb76_0fd09ec2",
+        "filename": "ssl/ssl_key_share.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-06T00:38:10Z",
+      "side": 1,
+      "message": "(Does return kNamedGroups work? I thought there was an implicit constructor. If not, whatever.)",
+      "revId": "c7bc9abc52b566d4f14f0c39a27b11ec65ffa6ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
