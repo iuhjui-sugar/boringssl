@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a325d710_e6c0170f",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2282,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-06T18:30:45Z",
+      "side": 1,
+      "message": "This changes the public behavior of SSL_get_current_cipher. Could you:\n\n1. Add to the commit message:\n\nUpdate-Note: This effectively reverts https://boringssl-review.googlesource.com/4733, which was an attempt at a well-defined story during renegotiation and pre-handshake. This is a behavior change, though one that matches OpenSSL upstream. It is also more consistent with other functions, such as SSL_get_curve_id. Renegotiation is now opt-in, so this is less critical, and, if we change the behavior mid-renegotiation, we should do it consistently to all getters.\n\n2. Adjust the documentation accordingly.",
+      "revId": "0d1b8c49235da044f76b6e5a9eb056542641ea44",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11a8ef81_691846b2",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 4631,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-06T18:30:45Z",
+      "side": 1,
+      "message": "You can fold this into the line below. Something like:\n\nADD_FAILURE() \u003c\u003c \"peer cipher (\" \u003c\u003c peer_-\u003elevels_[level].cipher \u003c\u003c \") does not match ours (\" \u003c\u003c levels_[level].cipher \u003c\u003c \")\";",
+      "revId": "0d1b8c49235da044f76b6e5a9eb056542641ea44",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bbc8543b_49bcc9a8",
+        "filename": "ssl/test/test_config.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1642,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-06T18:30:45Z",
+      "side": 0,
+      "message": "We *really* need to stop using SSL_get_session internally...\n\n(This is part of why I kept complaining about it when we did the SSL_SESSION refactor. It\u0027s absurd that getters return the offered session pre-handshake.)",
+      "revId": "6ec9e40b286d718890b7f3af904c330b8b73819f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
