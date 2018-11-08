@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c327dafb_1e8c1187",
+        "filename": "crypto/fipsmodule/ecdsa/ecdsa_verify_tests.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 2692,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-11-08T23:12:59Z",
+      "side": 1,
+      "message": "totally optional:\n\nr \u003d n+3, x \u003d 3. It would seem that only x should be reduced mod n before the compare, not r.",
+      "revId": "0877d19ced5fe70dd79548e5b69f53e5e0f0a5fb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
