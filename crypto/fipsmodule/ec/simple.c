@@ -370,39 +370,14 @@ int ec_GFp_simple_mont_inv_mod_ord_vartime(const EC_GROUP *group,
   return 1;
 }
 
-// Compares the x (affine) coordinate of the point p with x.
-// Return 1 on success 0 otherwise
-// Assumption: the caller starts the BN_CTX.
 int ec_GFp_simple_cmp_x_coordinate(const EC_GROUP *group, const EC_POINT *p,
                                    const BIGNUM *r, BN_CTX *ctx) {
-  int ret = 0;
   BN_CTX_start(ctx);
-
   BIGNUM *X = BN_CTX_get(ctx);
-  if (X == NULL) {
-    OPENSSL_PUT_ERROR(ECDSA, ERR_R_BN_LIB);
-    goto out;
-  }
-
-  if (!EC_POINT_get_affine_coordinates_GFp(group, p, X, NULL, ctx)) {
-    OPENSSL_PUT_ERROR(ECDSA, ERR_R_EC_LIB);
-    goto out;
-  }
-
-  if (!ec_field_element_to_scalar(group, X)) {
-    OPENSSL_PUT_ERROR(ECDSA, ERR_R_BN_LIB);
-    goto out;
-  }
-
-  // The signature is correct iff |X| is equal to |r|.
-  if (BN_ucmp(X, r) != 0) {
-    OPENSSL_PUT_ERROR(ECDSA, ECDSA_R_BAD_SIGNATURE);
-    goto out;
-  }
-
-  ret = 1;
-
-out:
+  int ret = X != NULL &&
+            EC_POINT_get_affine_coordinates_GFp(group, p, X, NULL, ctx) &&
+            ec_field_element_to_scalar(group, X) &&
+            BN_ucmp(X, r) == 0;
   BN_CTX_end(ctx);
   return ret;
 }

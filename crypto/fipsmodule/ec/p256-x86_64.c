@@ -656,7 +656,6 @@ static int ecp_nistz256_cmp_x_coordinate(const EC_GROUP *group,
     }
   }
 
-  OPENSSL_PUT_ERROR(ECDSA, ECDSA_R_BAD_SIGNATURE);
   return 0;
 }
 
