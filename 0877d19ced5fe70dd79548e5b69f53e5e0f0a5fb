@@ -16,6 +16,24 @@
       "revId": "0877d19ced5fe70dd79548e5b69f53e5e0f0a5fb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1a91139_b32e27c7",
+        "filename": "crypto/fipsmodule/ecdsa/ecdsa_verify_tests.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 2692,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-08T23:39:18Z",
+      "side": 1,
+      "message": "Done. (Those are rejected quite early in common code and hopefully covered by Wycheproof, but good to test ourselves.)",
+      "parentUuid": "c327dafb_1e8c1187",
+      "revId": "0877d19ced5fe70dd79548e5b69f53e5e0f0a5fb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
