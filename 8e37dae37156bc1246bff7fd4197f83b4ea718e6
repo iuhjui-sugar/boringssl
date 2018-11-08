@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bf732595_30452fcf",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-08T23:26:53Z",
+      "side": 1,
+      "message": "If you move this to just after line 453, you don\u0027t need state_early_reverify_server_certificate. Each retry would rerun lines 445 and 450, but that\u0027s idempotent when they don\u0027t branch, so it\u0027s fine.",
+      "revId": "8e37dae37156bc1246bff7fd4197f83b4ea718e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "832bcb4a_f15178af",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-08T23:26:53Z",
+      "side": 1,
+      "message": "I don\u0027t believe this case is possible. If we offered 0-RTT, we won\u0027t let you go here anyway. :-)\n\nRather, you don\u0027t need to store early_reverify_attempted and can just condition the TLS 1.3 reverify on !early_data_accepted or !early_data_offered, depending on whether we want the following scenario to verify twice:\n\n1. Send ClientHello w/ early data.\n2. Reverify.\n3. Early return for 0-RTT.\n4. Server responds with TLS 1.3 + resumption accept 0-RTT reject. This causes SSL_read, SSL_write, or SSL_do_handshake to pause the handshake with 0-RTT reject.\n5. Caller calls reset_for_early_data_reject.\n6. Handshake resumes. Do we reverify the certificate? It\u0027s guaranteed to be the same as before, but it may be simpler for the caller if we reverify. That way we can say \"reset always means you forget my previous verification\".\n\nI\u0027m learning towards yes, we do reverify, which means you condition on early_data_accepted.",
+      "revId": "8e37dae37156bc1246bff7fd4197f83b4ea718e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2bf1ea47_7772041c",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 911,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-08T23:26:53Z",
+      "side": 1,
+      "message": "Nit: %q will quote and escape and such.",
+      "range": {
+        "startLine": 911,
+        "startChar": 71,
+        "endLine": 911,
+        "endChar": 74
+      },
+      "revId": "8e37dae37156bc1246bff7fd4197f83b4ea718e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57cfec29_3e0ca6b7",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 5021,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-08T23:26:53Z",
+      "side": 1,
+      "message": "Also worth testing:\n\n1. Client offers 0-RTT w/ reverify on. Before SSL_do_handshake returns, make sure we\u0027ve called the verify callback and honor its results. (E.g. if it says \"bad cert\", handshake should fail.)\n\n2. Client offers 0-RTT w/ reverify on. Verify says yes so SSL_do_handshake succeeds early. Server accepts 0-RTT. We shouldn\u0027t call the verify callback a second time (the missing check in tls13_client.cc).\n\n3. Client offers 0-RTT w/ reverify on. Verify says yes so SSL_do_handshake succeeds early. Server rejects 0-RTT *and* rejects our session. On the retry leg (the post-reset_for_early_data_reject leg), the callback should run again on the new certificate and we should honor its results.\n\n4. Same as above but the server accepts our session.\n\nI believe this is testing case (3) but doesn\u0027t actually assert that the callback behavior is what we want.",
+      "revId": "8e37dae37156bc1246bff7fd4197f83b4ea718e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
