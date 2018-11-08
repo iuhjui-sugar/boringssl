@@ -614,7 +614,6 @@ static int ecp_nistz256_cmp_x_coordinate(const EC_GROUP *group,
                                          const EC_POINT *p, const BIGNUM *r,
                                          BN_CTX *ctx) {
   if (ec_GFp_simple_is_at_infinity(group, &p->raw)) {
-    OPENSSL_PUT_ERROR(EC, EC_R_POINT_AT_INFINITY);
     return 0;
   }
 
@@ -656,7 +655,6 @@ static int ecp_nistz256_cmp_x_coordinate(const EC_GROUP *group,
     }
   }
 
-  OPENSSL_PUT_ERROR(ECDSA, ECDSA_R_BAD_SIGNATURE);
   return 0;
 }
 
