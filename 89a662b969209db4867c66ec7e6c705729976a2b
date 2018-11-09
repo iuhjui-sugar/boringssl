@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1d09d825_8a809c9e",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3070,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-09T21:10:04Z",
+      "side": 1,
+      "message": "Can remove this bit.",
+      "range": {
+        "startLine": 3070,
+        "startChar": 16,
+        "endLine": 3070,
+        "endChar": 44
+      },
+      "revId": "89a662b969209db4867c66ec7e6c705729976a2b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "adbd80d6_53a33434",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 962,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-09T21:10:04Z",
+      "side": 1,
+      "message": "I think this is redundant with SSL_in_init.",
+      "revId": "89a662b969209db4867c66ec7e6c705729976a2b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "166ce620_f1eba28b",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 964,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-09T21:10:04Z",
+      "side": 1,
+      "message": "0, ditto throughout.\n\n(Maybe worth a test that feeds in garbage and tests that SSL_process_quic_post_handshake does what we expect.)",
+      "range": {
+        "startLine": 964,
+        "startChar": 11,
+        "endLine": 964,
+        "endChar": 13
+      },
+      "revId": "89a662b969209db4867c66ec7e6c705729976a2b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcfb810b_65a0d243",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 972,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-09T21:10:04Z",
+      "side": 1,
+      "message": "I don\u0027t think it matters, but I\u0027d suggest swapping this block and check_read_error. If we\u0027re in the handshake, that error probably takes precedence over the read half being locked up for whatever reason.",
+      "revId": "89a662b969209db4867c66ec7e6c705729976a2b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3107d0dd_08f8cd52",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4803,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-09T21:10:04Z",
+      "side": 1,
+      "message": "Probably worth a second connection to test the resumption works?",
+      "revId": "89a662b969209db4867c66ec7e6c705729976a2b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
