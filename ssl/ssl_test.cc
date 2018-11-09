@@ -4762,6 +4762,10 @@ TEST_F(QUICMethodTest, Basic) {
       SendAlertCallback,
   };
 
+  g_last_session = nullptr;
+
+  SSL_CTX_set_session_cache_mode(client_ctx_.get(), SSL_SESS_CACHE_BOTH);
+  SSL_CTX_sess_set_new_cb(client_ctx_.get(), SaveLastSession);
   ASSERT_TRUE(SSL_CTX_set_quic_method(client_ctx_.get(), &quic_method));
   ASSERT_TRUE(SSL_CTX_set_quic_method(server_ctx_.get(), &quic_method));
   ASSERT_TRUE(CreateClientAndServer());
@@ -4793,13 +4797,10 @@ TEST_F(QUICMethodTest, Basic) {
   EXPECT_FALSE(transport_.server()->has_alert());
 
   // The server sent NewSessionTicket messages in the handshake.
-  //
-  // TODO(davidben,svaldez): Add an API for the client to consume post-handshake
-  // messages and update these tests.
-  std::vector<uint8_t> new_session_ticket;
-  ASSERT_TRUE(transport_.client()->ReadHandshakeData(
-      &new_session_ticket, ssl_encryption_application));
-  EXPECT_FALSE(new_session_ticket.empty());
+  EXPECT_FALSE(g_last_session);
+  ASSERT_TRUE(ProvideHandshakeData(client_.get()));
+  EXPECT_EQ(SSL_process_quic_post_handshake(client_.get()), 1);
+  EXPECT_TRUE(g_last_session);
 }
 
 // Test only releasing data to QUIC one byte at a time on request, to maximize

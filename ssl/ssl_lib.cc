@@ -956,6 +956,38 @@ static int ssl_do_post_handshake(SSL *ssl, const SSLMessage &msg) {
   return 1;
 }
 
+int SSL_process_quic_post_handshake(SSL *ssl) {
+  ssl_reset_error_state(ssl);
+
+  if (ssl->do_handshake == NULL) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_UNINITIALIZED);
+    return -1;
+  }
+
+  // Replay post-handshake message errors.
+  if (!check_read_error(ssl)) {
+    return -1;
+  }
+
+  if (SSL_in_init(ssl)) {
+    OPENSSL_PUT_ERROR(SSL, ERR_R_SHOULD_NOT_HAVE_BEEN_CALLED);
+    return 0;
+  }
+
+  // Process any buffered post-handshake messages.
+  SSLMessage msg;
+  while (ssl->method->get_message(ssl, &msg)) {
+    // Handle the post-handshake message and try again.
+    if (!ssl_do_post_handshake(ssl, msg)) {
+      ssl_set_read_error(ssl);
+      return -1;
+    }
+    ssl->method->next_message(ssl);
+  }
+
+  return 1;
+}
+
 static int ssl_read_impl(SSL *ssl) {
   ssl_reset_error_state(ssl);
 
