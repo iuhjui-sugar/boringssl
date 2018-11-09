@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "54d6343c_d42204ff",
+        "filename": "crypto/fipsmodule/ecdsa/ecdsa_verify_tests.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 2515,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-09T21:51:15Z",
+      "side": 0,
+      "message": "Note this is the same as the above, but r and x are different, so it shouldn\u0027t have been.",
+      "range": {
+        "startLine": 2515,
+        "startChar": 4,
+        "endLine": 2515,
+        "endChar": 60
+      },
+      "revId": "f09df6930f86ef5d0fbc4b0f6163f8b4467b86f9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
