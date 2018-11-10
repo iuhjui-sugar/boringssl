@@ -361,6 +361,30 @@ class GYP(object):
       gypi.write('  }\n}\n')
 
 
+class Meson(object):
+
+  def __init__(self):
+    self.header = \
+"""# This file is created by generate_build_files.py. Do not edit manually.
+
+"""
+
+  def PrintFilesSection(self, fp, name, files):
+    fp.write('%s = files(\n' % name)
+    for fn in sorted(files):
+      fp.write('  \'%s\',\n' % fn)
+    fp.write(')\n')
+
+  def WriteFiles(self, files, asm_outputs):
+    with open('meson.build', 'w+') as fp:
+      fp.write(self.header)
+      for name, fns in sorted(files.items()):
+        self.PrintFilesSection(fp, name, fns)
+      for (osname, arch), fns in asm_outputs:
+        self.PrintFilesSection(
+          fp, 'crypto_sources_%s_%s' % (osname, arch), fns)
+
+
 def FindCMakeFiles(directory):
   """Returns list of all CMakeLists.txt files recursively in directory."""
   cmakefiles = []
@@ -678,7 +702,7 @@ def main(platforms):
 
 if __name__ == '__main__':
   parser = optparse.OptionParser(usage='Usage: %prog [--prefix=<path>]'
-      ' [android|bazel|eureka|gn|gyp]')
+      ' [android|bazel|eureka|gn|gyp|meson]')
   parser.add_option('--prefix', dest='prefix',
       help='For Bazel, prepend argument to all source files')
   parser.add_option(
@@ -705,6 +729,8 @@ if __name__ == '__main__':
       platforms.append(GN())
     elif s == 'gyp':
       platforms.append(GYP())
+    elif s == 'meson':
+      platforms.append(Meson())
     else:
       parser.print_help()
       sys.exit(1)
