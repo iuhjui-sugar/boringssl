@@ -163,6 +163,7 @@ const (
 	CurveP384   CurveID = 24
 	CurveP521   CurveID = 25
 	CurveX25519 CurveID = 29
+	CurveCECPQ2 CurveID = 16696
 )
 
 // TLS Elliptic Curve Point Formats
@@ -1626,6 +1627,18 @@ type ProtocolBugs struct {
 	// SendCertUncompressedLength, if not zero, sets the uncompressed length that
 	// will be sent in the compressed certificate message.
 	SendCertUncompressedLength uint32
+
+	// FailIfHelloRetryRequested causes a handshake failure if a server requests a
+	// hello retry.
+	FailIfHelloRetryRequested bool
+
+	// FailedIfCECPQ2Offered will cause a server to reject a ClientHello if CECPQ2
+	// is supported.
+	FailIfCECPQ2Offered bool
+
+	// ExpectKeyShares, if not nil, lists (in order) the curves that a ClientHello
+	// should have key shares for.
+	ExpectedKeyShares []CurveID
 }
 
 func (c *Config) serverInit() {
@@ -1705,7 +1718,7 @@ func (c *Config) maxVersion(isDTLS bool) uint16 {
 	return ret
 }
 
-var defaultCurvePreferences = []CurveID{CurveX25519, CurveP256, CurveP384, CurveP521}
+var defaultCurvePreferences = []CurveID{CurveX25519, CurveCECPQ2, CurveP256, CurveP384, CurveP521}
 
 func (c *Config) curvePreferences() []CurveID {
 	if c == nil || len(c.CurvePreferences) == 0 {
