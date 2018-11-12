@@ -97,7 +97,7 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CLANG)
     # honor it. Suppress it here to compensate. See https://crbug.com/772117.
     set(C_CXX_FLAGS "${C_CXX_FLAGS} -Wno-deprecated-declarations")
   else()
-    set(C_CXX_FLAGS "${C_CXX_FLAGS} -Wall -ggdb -fvisibility=hidden -fno-common")
+    set(C_CXX_FLAGS "${C_CXX_FLAGS} -Wall -O3 -ggdb -fvisibility=hidden -fno-common")
   endif()
 
   if(CLANG)
