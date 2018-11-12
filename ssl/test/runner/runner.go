@@ -2840,7 +2840,7 @@ read alert 1 0
 			messageCount:            5,
 			keyUpdateRequest:        keyUpdateRequested,
 			readWithUnfinishedWrite: true,
-			flags:                   []string{"-async"},
+			flags: []string{"-async"},
 		},
 		{
 			name: "SendSNIWarningAlert",
@@ -9605,7 +9605,7 @@ func addSignatureAlgorithmTests() {
 			CipherSuites: []uint16{TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256},
 			Certificates: []Certificate{ecdsaP256Certificate},
 		},
-		flags:         []string{"-p384-only"},
+		flags:         []string{"-curves", strconv.Itoa(int(CurveP384))},
 		shouldFail:    true,
 		expectedError: ":BAD_ECC_CERT:",
 	})
@@ -9617,7 +9617,7 @@ func addSignatureAlgorithmTests() {
 			MaxVersion:   VersionTLS13,
 			Certificates: []Certificate{ecdsaP256Certificate},
 		},
-		flags: []string{"-p384-only"},
+		flags: []string{"-curves", strconv.Itoa(int(CurveP384))},
 	})
 
 	// In TLS 1.2, the ECDSA curve is not in the signature algorithm.
@@ -10697,6 +10697,7 @@ var testCurves = []struct {
 	{"P-384", CurveP384},
 	{"P-521", CurveP521},
 	{"X25519", CurveX25519},
+	{"CECPQ2", CurveCECPQ2},
 }
 
 const bogusCurve = 0x1234
@@ -10704,6 +10705,10 @@ const bogusCurve = 0x1234
 func addCurveTests() {
 	for _, curve := range testCurves {
 		for _, ver := range tlsVersions {
+			if curve.id == CurveCECPQ2 && ver.version < VersionTLS13 {
+				continue
+			}
+
 			suffix := curve.name + "-" + ver.name
 
 			testCases = append(testCases, testCase{
@@ -10744,7 +10749,7 @@ func addCurveTests() {
 				expectedCurveID: curve.id,
 			})
 
-			if curve.id != CurveX25519 {
+			if curve.id != CurveX25519 && curve.id != CurveCECPQ2 {
 				testCases = append(testCases, testCase{
 					name: "CurveTest-Client-Compressed-" + suffix,
 					config: Config{
@@ -10888,7 +10893,7 @@ func addCurveTests() {
 				IgnorePeerCurvePreferences: true,
 			},
 		},
-		flags:         []string{"-p384-only"},
+		flags:         []string{"-curves", strconv.Itoa(int(CurveP384))},
 		shouldFail:    true,
 		expectedError: ":WRONG_CURVE:",
 	})
@@ -10904,7 +10909,7 @@ func addCurveTests() {
 				SendCurve: CurveP256,
 			},
 		},
-		flags:         []string{"-p384-only"},
+		flags:         []string{"-curves", strconv.Itoa(int(CurveP384))},
 		shouldFail:    true,
 		expectedError: ":WRONG_CURVE:",
 	})
@@ -11185,6 +11190,110 @@ func addCurveTests() {
 			},
 		},
 		flags: []string{"-server-preference"},
+	})
+
+	// CECPQ2 should not be offered by a TLS < 1.3 client.
+	testCases = append(testCases, testCase{
+		name: "CECPQ2NotInTLS12",
+		config: Config{
+			Bugs: ProtocolBugs{
+				FailIfCECPQ2Offered: true,
+			},
+		},
+		flags: []string{"-max-version", strconv.Itoa(VersionTLS12)},
+	})
+
+	// CECPQ2 should not be offered by default as a client.
+	testCases = append(testCases, testCase{
+		name: "CECPQ2NotEnabledByDefaultInClients",
+		config: Config{
+			MinVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				FailIfCECPQ2Offered: true,
+			},
+		},
+	})
+
+	// If CECPQ2 is offered, both X25519 and CECPQ2 should have a key-share.
+	testCases = append(testCases, testCase{
+		name: "NotJustCECPQ2KeyShare",
+		config: Config{
+			MinVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				ExpectedKeyShares: []CurveID{CurveCECPQ2, CurveX25519},
+			},
+		},
+		flags: []string{
+			"-curves", strconv.Itoa(int(CurveCECPQ2)),
+			"-curves", strconv.Itoa(int(CurveX25519)),
+			"-expect-curve-id", strconv.Itoa(int(CurveCECPQ2)),
+		},
+	})
+
+	// ... but only if CECPQ2 is listed first.
+	testCases = append(testCases, testCase{
+		name: "CECPQ2KeyShareNotIncludedSecond",
+		config: Config{
+			MinVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				ExpectedKeyShares: []CurveID{CurveX25519},
+			},
+		},
+		flags: []string{
+			"-curves", strconv.Itoa(int(CurveX25519)),
+			"-curves", strconv.Itoa(int(CurveCECPQ2)),
+			"-expect-curve-id", strconv.Itoa(int(CurveX25519)),
+		},
+	})
+
+	// If CECPQ2 is the only configured curve, the key share is sent.
+	testCases = append(testCases, testCase{
+		name: "JustConfiguringCECPQ2Works",
+		config: Config{
+			MinVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				ExpectedKeyShares: []CurveID{CurveCECPQ2},
+			},
+		},
+		flags: []string{
+			"-curves", strconv.Itoa(int(CurveCECPQ2)),
+			"-expect-curve-id", strconv.Itoa(int(CurveCECPQ2)),
+		},
+	})
+
+	// As a server, CECPQ2 is supported by default.
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "CECPQ2EnabledByDefaultForAServer",
+		config: Config{
+			MinVersion:       VersionTLS13,
+			CurvePreferences: []CurveID{CurveCECPQ2, CurveX25519},
+			DefaultCurves:    []CurveID{CurveCECPQ2},
+			Bugs: ProtocolBugs{
+				FailIfHelloRetryRequested: true,
+			},
+		},
+		flags: []string{
+			"-server-preference",
+			"-expect-curve-id", strconv.Itoa(int(CurveCECPQ2)),
+		},
+	})
+
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "CECPQ2EnabledByDefaultForAServer2",
+		config: Config{
+			MinVersion:       VersionTLS13,
+			CurvePreferences: []CurveID{CurveX25519, CurveCECPQ2},
+			DefaultCurves:    []CurveID{CurveX25519},
+			Bugs: ProtocolBugs{
+				FailIfHelloRetryRequested: true,
+			},
+		},
+		flags: []string{
+			"-server-preference",
+			"-expect-curve-id", strconv.Itoa(int(CurveX25519)),
+		},
 	})
 }
 
@@ -12726,7 +12835,7 @@ func addTLS13HandshakeTests() {
 				},
 			},
 			tls13Variant:  variant,
-			flags:         []string{"-p384-only"},
+			flags:         []string{"-curves", strconv.Itoa(int(CurveP384))},
 			shouldFail:    true,
 			expectedError: ":WRONG_CURVE:",
 		})
