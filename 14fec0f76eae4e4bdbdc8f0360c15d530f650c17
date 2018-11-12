@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fc3ee3d2_c76e18ec",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-11-12T16:43:22Z",
+      "side": 1,
+      "message": "much, much",
+      "range": {
+        "startLine": 9,
+        "startChar": 65,
+        "endLine": 9,
+        "endChar": 66
+      },
+      "revId": "14fec0f76eae4e4bdbdc8f0360c15d530f650c17",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54faf087_3b77a254",
+        "filename": "crypto/ecdh_extra/ecdh_extra.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-11-12T16:43:22Z",
+      "side": 1,
+      "message": "for consistency: out_len",
+      "range": {
+        "startLine": 80,
+        "startChar": 39,
+        "endLine": 80,
+        "endChar": 45
+      },
+      "revId": "14fec0f76eae4e4bdbdc8f0360c15d530f650c17",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f08d1ee2_b64d9c5a",
+        "filename": "crypto/ecdh_extra/ecdh_extra.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-11-12T16:43:22Z",
+      "side": 1,
+      "message": "buf_len",
+      "range": {
+        "startLine": 97,
+        "startChar": 9,
+        "endLine": 97,
+        "endChar": 15
+      },
+      "revId": "14fec0f76eae4e4bdbdc8f0360c15d530f650c17",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6fbd2bbe_28087567",
+        "filename": "crypto/fipsmodule/ec/ec.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1012,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-11-12T16:43:22Z",
+      "side": 1,
+      "message": "(typo.)",
+      "range": {
+        "startLine": 1012,
+        "startChar": 18,
+        "endLine": 1012,
+        "endChar": 21
+      },
+      "revId": "14fec0f76eae4e4bdbdc8f0360c15d530f650c17",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2924214_392698ff",
+        "filename": "crypto/fipsmodule/ec/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-11-12T16:43:22Z",
+      "side": 1,
+      "message": "s/in //",
+      "range": {
+        "startLine": 360,
+        "startChar": 11,
+        "endLine": 360,
+        "endChar": 14
+      },
+      "revId": "14fec0f76eae4e4bdbdc8f0360c15d530f650c17",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
