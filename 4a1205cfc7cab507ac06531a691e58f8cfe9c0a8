@@ -22,6 +22,30 @@
       "revId": "4a1205cfc7cab507ac06531a691e58f8cfe9c0a8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f899a753_6d225fd7",
+        "filename": "crypto/fipsmodule/ec/ec.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-13T01:27:28Z",
+      "side": 1,
+      "message": "Done.\n\n(\"Additionally\" and \"|EC_GROUP_new_curve_GFp|\" are remarkably long, actually. Removed \"Additionally\" which makes it compact again.)",
+      "parentUuid": "a0c25207_92131907",
+      "range": {
+        "startLine": 347,
+        "startChar": 37,
+        "endLine": 347,
+        "endChar": 38
+      },
+      "revId": "4a1205cfc7cab507ac06531a691e58f8cfe9c0a8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
