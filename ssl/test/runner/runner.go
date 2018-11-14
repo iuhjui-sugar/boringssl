@@ -908,7 +908,7 @@ func doExchange(test *testCase, config *Config, conn net.Conn, isResume bool, tr
 
 		for i, v := range buf {
 			if v != testMessage[i]^0xff {
-				return fmt.Errorf("bad reply contents at byte %d", i)
+				return fmt.Errorf("bad reply contents at byte %d; got %q and wanted %q", i, buf, testMessage)
 			}
 		}
 	}
@@ -5016,6 +5016,36 @@ func addStateMachineCoverageTests(config stateMachineTestConfig) {
 						}, flags...),
 						resumeSession: true,
 					})
+					if vers.version >= VersionTLS13 {
+						tests = append(tests, testCase{
+							testType: testType,
+							name:     "EarlyData-RejectTicket-ClientReverify" + suffix,
+							config: Config{
+								MaxVersion:       vers.version,
+								MaxEarlyDataSize: 16384,
+								Certificates:     []Certificate{rsaCertificate},
+							},
+							resumeConfig: &Config{
+								MaxVersion:             vers.version,
+								MaxEarlyDataSize:       16384,
+								Certificates:           []Certificate{rsaCertificate},
+								SessionTicketsDisabled: true,
+							},
+							tls13Variant:         vers.tls13Variant,
+							resumeSession:        true,
+							expectResumeRejected: true,
+							flags: append([]string{
+								"-enable-early-data",
+								"-expect-ticket-supports-early-data",
+								"-reverify-on-resume",
+								"-on-resume-verify-fail",
+								"-on-resume-shim-writes-first",
+								// Session tickets are disabled, so the runner will not send a ticket.
+								"-on-retry-expect-no-session",
+								"-expect-reject-early-data",
+							}, flags...),
+						})
+					}
 				}
 			}
 		}

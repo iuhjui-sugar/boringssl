@@ -183,6 +183,7 @@ enum ssl_client_hs_state_t {
   state_read_server_certificate,
   state_read_certificate_status,
   state_verify_server_certificate,
+  state_early_reverify_server_certificate,
   state_reverify_server_certificate,
   state_read_server_key_exchange,
   state_read_certificate_request,
@@ -468,11 +469,43 @@ static enum ssl_hs_wait_t do_enter_early_data(SSL_HANDSHAKE *hs) {
   // of it.
   hs->in_early_data = true;
   hs->early_session = UpRef(ssl->session);
-  hs->can_early_write = true;
 
+  if(hs->ssl->ctx->reverify_on_resume &&
+     ssl_cipher_uses_certificate_auth(hs->early_session->cipher)) {
+    switch (ssl_reverify_peer_cert(hs)) {
+    case ssl_verify_ok:
+      break;
+    case ssl_verify_invalid:
+      return ssl_hs_error;
+    case ssl_verify_retry:
+      hs->state = state_early_reverify_server_certificate;
+      return ssl_hs_certificate_verify;
+    }
+  }
+
+  hs->can_early_write = true;
   hs->state = state_read_server_hello;
   return ssl_hs_early_return;
 }
+
+static enum ssl_hs_wait_t do_early_reverify_server_certificate(SSL_HANDSHAKE *hs) {
+  assert(hs->ssl->ctx->reverify_on_resume);
+
+  switch (ssl_reverify_peer_cert(hs)) {
+    case ssl_verify_ok:
+      break;
+    case ssl_verify_invalid:
+      return ssl_hs_error;
+    case ssl_verify_retry:
+      hs->state = state_early_reverify_server_certificate;
+      return ssl_hs_certificate_verify;
+  }
+
+  hs->can_early_write = true;
+  hs->state = state_read_server_hello;
+  return ssl_hs_early_return;
+}
+
 
 static enum ssl_hs_wait_t do_read_hello_verify_request(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
@@ -741,6 +774,7 @@ static enum ssl_hs_wait_t do_read_server_hello(SSL_HANDSHAKE *hs) {
 
   if (ssl->session != NULL) {
     if (ssl->ctx->reverify_on_resume &&
+        !ssl->s3->early_data_accepted &&
         ssl_cipher_uses_certificate_auth(hs->new_cipher)) {
       hs->state = state_reverify_server_certificate;
     } else {
@@ -1710,6 +1744,9 @@ enum ssl_hs_wait_t ssl_client_handshake(SSL_HANDSHAKE *hs) {
       case state_verify_server_certificate:
         ret = do_verify_server_certificate(hs);
         break;
+      case state_early_reverify_server_certificate:
+        ret = do_early_reverify_server_certificate(hs);
+        break;
       case state_reverify_server_certificate:
         ret = do_reverify_server_certificate(hs);
         break;
@@ -1787,6 +1824,8 @@ const char *ssl_client_handshake_state(SSL_HANDSHAKE *hs) {
       return "TLS client read_certificate_status";
     case state_verify_server_certificate:
       return "TLS client verify_server_certificate";
+    case state_early_reverify_server_certificate:
+      return "TLS client early_reverify_server_certificate";
     case state_reverify_server_certificate:
       return "TLS client reverify_server_certificate";
     case state_read_server_key_exchange:
