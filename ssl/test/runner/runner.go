@@ -42,6 +42,8 @@ import (
 	"sync"
 	"syscall"
 	"time"
+
+	"boringssl.googlesource.com/boringssl/util/testresult"
 )
 
 var (
@@ -14502,10 +14504,10 @@ type statusMsg struct {
 	err     error
 }
 
-func statusPrinter(doneChan chan *testOutput, statusChan chan statusMsg, total int) {
+func statusPrinter(doneChan chan *testresult.Results, statusChan chan statusMsg, total int) {
 	var started, done, failed, unimplemented, lineLen int
 
-	testOutput := newTestOutput()
+	testOutput := testresult.NewResults()
 	for msg := range statusChan {
 		if !*pipe {
 			// Erase the previous status line.
@@ -14528,18 +14530,22 @@ func statusPrinter(doneChan chan *testOutput, statusChan chan statusMsg, total i
 						fmt.Printf("UNIMPLEMENTED (%s)\n", msg.test.name)
 					}
 					unimplemented++
-					testOutput.addResult(msg.test.name, "UNIMPLEMENTED")
+					if *allowUnimplemented {
+						testOutput.AddSkip(msg.test.name)
+					} else {
+						testOutput.AddResult(msg.test.name, "SKIP")
+					}
 				} else {
 					fmt.Printf("FAILED (%s)\n%s\n", msg.test.name, msg.err)
 					failed++
-					testOutput.addResult(msg.test.name, "FAIL")
+					testOutput.AddResult(msg.test.name, "FAIL")
 				}
 			} else {
 				if *pipe {
 					// Print each test instead of a status line.
 					fmt.Printf("PASSED (%s)\n", msg.test.name)
 				}
-				testOutput.addResult(msg.test.name, "PASS")
+				testOutput.AddResult(msg.test.name, "PASS")
 			}
 		}
 
@@ -14603,7 +14609,7 @@ func main() {
 
 	statusChan := make(chan statusMsg, *numWorkers)
 	testChan := make(chan *testCase, *numWorkers)
-	doneChan := make(chan *testOutput)
+	doneChan := make(chan *testresult.Results)
 
 	if len(*shimConfigFile) != 0 {
 		encoded, err := ioutil.ReadFile(*shimConfigFile)
@@ -14676,16 +14682,12 @@ func main() {
 	fmt.Printf("\n")
 
 	if *jsonOutput != "" {
-		if err := testOutput.writeTo(*jsonOutput); err != nil {
+		if err := testOutput.WriteToFile(*jsonOutput); err != nil {
 			fmt.Fprintf(os.Stderr, "Error: %s\n", err)
 		}
 	}
 
-	if !*allowUnimplemented && testOutput.NumFailuresByType["UNIMPLEMENTED"] > 0 {
-		os.Exit(1)
-	}
-
-	if !testOutput.noneFailed {
+	if !testOutput.HasUnexpectedResults() {
 		os.Exit(1)
 	}
 }
