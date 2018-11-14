@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7279211c_52704b8a",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 4716,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-11-14T18:25:22Z",
+      "side": 1,
+      "message": "This sets up the SSL\u0027s on a separate transport, so slightly different.",
+      "parentUuid": "009f42de_6dc6e340",
+      "range": {
+        "startLine": 4716,
+        "startChar": 7,
+        "endLine": 4716,
+        "endChar": 34
+      },
+      "revId": "44e1f8c6de1c4f9504446b3b9fdc826cda3795f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e3a6a6f8_9ab2e23e",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "44e1f8c6de1c4f9504446b3b9fdc826cda3795f7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4be81cfe_4d2ba3b8",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 5158,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2018-11-14T18:25:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3a6a6f8_9ab2e23e",
+      "range": {
+        "startLine": 5158,
+        "startChar": 21,
+        "endLine": 5158,
+        "endChar": 55
+      },
+      "revId": "44e1f8c6de1c4f9504446b3b9fdc826cda3795f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
