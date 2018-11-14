@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0181a2e9_e00402cb",
+        "filename": "crypto/fipsmodule/ec/p224-64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-14T23:28:10Z",
+      "side": 1,
+      "message": "I believe this isn\u0027t actually a strict aliasing violation because you can alias an int64_t with a uint64_t, but I did have to go look it up. :-P Will leave to you whether you want to leave it as-is, use a union, or manually reassign to a p224_limb[4] element-by-element. (The last one is probably tempting the compiler least.)",
+      "range": {
+        "startLine": 253,
+        "startChar": 34,
+        "endLine": 253,
+        "endChar": 46
+      },
+      "revId": "ac5eccdef7e17bcc062854e9d43453ec577d9c50",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
