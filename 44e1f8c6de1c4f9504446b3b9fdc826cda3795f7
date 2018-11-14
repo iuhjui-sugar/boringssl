@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "3552998b_00916a87",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 4716,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-14T18:52:56Z",
+      "side": 1,
+      "message": "Ah, missed that. You probably could do transport_ \u003d MockQUICTransportPair(), but this is probably more sensible, yeah.",
+      "parentUuid": "7279211c_52704b8a",
+      "range": {
+        "startLine": 4716,
+        "startChar": 7,
+        "endLine": 4716,
+        "endChar": 34
+      },
+      "revId": "44e1f8c6de1c4f9504446b3b9fdc826cda3795f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3a6a6f8_9ab2e23e",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 2
