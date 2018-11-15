@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4818c10a_6ac1f606",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-11-15T14:54:01Z",
+      "side": 1,
+      "message": "Can you include a comment here noting that this was added for iPhone X\u0027s?",
+      "revId": "5c266672d45f4509d91aa91ffd6624cc1c2cb923",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
