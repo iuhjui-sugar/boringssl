@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "664f3ed2_8c10d3f5",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 8939
+      },
+      "writtenOn": "2018-11-16T18:43:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64601e73_4f4a59e5",
+      "revId": "2f7db1c122439900dda8c6dcf0a6aac8a42a6319",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "641c5be1_d4beda71",
         "filename": "ssl/handshake_client.cc",
         "patchSetId": 10
@@ -33,6 +51,24 @@
       "revId": "2f7db1c122439900dda8c6dcf0a6aac8a42a6319",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e9d5d16_9a898a73",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 8939
+      },
+      "writtenOn": "2018-11-16T18:43:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "641c5be1_d4beda71",
+      "revId": "2f7db1c122439900dda8c6dcf0a6aac8a42a6319",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "6f62ad1d_4d6315e8",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1730,
+      "author": {
+        "id": 8939
+      },
+      "writtenOn": "2018-11-16T18:43:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dec8a1eb_a7115f6b",
+      "revId": "2f7db1c122439900dda8c6dcf0a6aac8a42a6319",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2a54d263_e45a15fe",
         "filename": "ssl/internal.h",
         "patchSetId": 10
@@ -64,6 +118,24 @@
       "writtenOn": "2018-11-16T01:44:10Z",
       "side": 1,
       "message": "I believe this field is no longer used.\n\nFor future, we\u0027d normally put an \u003d false here so it\u0027s zero-initialized. Except that we like to binpack bools per the block below. Sadly, C++ does not let you initialize such things inline until C++20 (aargh...), so we have to remember to do it in the constructor.",
+      "revId": "2f7db1c122439900dda8c6dcf0a6aac8a42a6319",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5be24219_eba28905",
+        "filename": "ssl/internal.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 1517,
+      "author": {
+        "id": 8939
+      },
+      "writtenOn": "2018-11-16T18:43:10Z",
+      "side": 1,
+      "message": "Oops, missed this file after a git checkout to an earlier revision. Thanks",
+      "parentUuid": "2a54d263_e45a15fe",
       "revId": "2f7db1c122439900dda8c6dcf0a6aac8a42a6319",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "b1c4680b_9329f636",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 5019,
+      "author": {
+        "id": 8939
+      },
+      "writtenOn": "2018-11-16T18:43:10Z",
+      "side": 1,
+      "message": "Done, but I also renamed my tests to have a hyphen after \"Client\".",
+      "parentUuid": "d2eb3d7d_6a2c3ad6",
+      "revId": "2f7db1c122439900dda8c6dcf0a6aac8a42a6319",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4883e58b_c5fe453e",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 10
@@ -101,6 +191,24 @@
       "revId": "2f7db1c122439900dda8c6dcf0a6aac8a42a6319",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52a47575_4350029b",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 5045,
+      "author": {
+        "id": 8939
+      },
+      "writtenOn": "2018-11-16T18:43:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4883e58b_c5fe453e",
+      "revId": "2f7db1c122439900dda8c6dcf0a6aac8a42a6319",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -124,6 +232,30 @@
       "revId": "2f7db1c122439900dda8c6dcf0a6aac8a42a6319",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4715929f_44df7da4",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 5049,
+      "author": {
+        "id": 8939
+      },
+      "writtenOn": "2018-11-16T18:43:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c80a2c1a_561f4869",
+      "range": {
+        "startLine": 5049,
+        "startChar": 28,
+        "endLine": 5049,
+        "endChar": 39
+      },
+      "revId": "2f7db1c122439900dda8c6dcf0a6aac8a42a6319",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
