@@ -1,0 +1,129 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "64601e73_4f4a59e5",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-16T01:44:10Z",
+      "side": 1,
+      "message": "Nit: Can you order this to match the order the functions are in?",
+      "revId": "2f7db1c122439900dda8c6dcf0a6aac8a42a6319",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "641c5be1_d4beda71",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 470,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-16T01:44:10Z",
+      "side": 1,
+      "message": "My bad, I should have mentioned this earlier. I\u0027m not sure this actually matters, but I believe we want this to be set down in line 488. I think. (We haven\u0027t quite yet gotten far enough to be willing to send 0-RTT at this point.) TBH, the can_early_{read,write} and in_early_data trifecta may be more complex of state than they should have been.",
+      "revId": "2f7db1c122439900dda8c6dcf0a6aac8a42a6319",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dec8a1eb_a7115f6b",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1730,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-16T01:44:10Z",
+      "side": 1,
+      "message": "Ditto re ordering here and in the switch-case below.",
+      "revId": "2f7db1c122439900dda8c6dcf0a6aac8a42a6319",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a54d263_e45a15fe",
+        "filename": "ssl/internal.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 1517,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-16T01:44:10Z",
+      "side": 1,
+      "message": "I believe this field is no longer used.\n\nFor future, we\u0027d normally put an \u003d false here so it\u0027s zero-initialized. Except that we like to binpack bools per the block below. Sadly, C++ does not let you initialize such things inline until C++20 (aargh...), so we have to remember to do it in the constructor.",
+      "revId": "2f7db1c122439900dda8c6dcf0a6aac8a42a6319",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2eb3d7d_6a2c3ad6",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 5019,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-16T01:44:10Z",
+      "side": 1,
+      "message": "Some of your new tests are failing in fuzzer mode. This is entirely silly (fuzzer mode can\u0027t handle 0-RTT rejects because it uses the null cipher. We really should do something about that...).\n\nTo fix it, open ssl/test/runner/fuzzer_mode_config.json, and let\u0027s just make the \"EarlyData-Reject-Client-*\" and \"EarlyData-RejectTicket-Client-*\" patterns say \"EarlyData-Reject*-Client-*\". That\u0027ll pick up your tests too.",
+      "revId": "2f7db1c122439900dda8c6dcf0a6aac8a42a6319",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4883e58b_c5fe453e",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 5045,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-16T01:44:10Z",
+      "side": 1,
+      "message": "(My bad. Didn\u0027t realize this when we were talking previously.) So this and the below test that it doesn\u0027t crash or call the callback three times, but it doesn\u0027t test that it calls it twice as expected.  To test the failure cases of these two, use -on-retry-verify-fail That\u0027ll cause the verify to pass in the early flow but fail in the post-reset_for_early_data flow.\n\nAnnoyingly, that\u0027s a lot of code to double up. :-( One minor help with length is you can actually remove the Certificates block in each of these tests. rsaCertificate is the default for client tests. Beyond that, I suspect we should add some high-level templates for 0-RTT tests, now that we know what kind of flows we test...",
+      "revId": "2f7db1c122439900dda8c6dcf0a6aac8a42a6319",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c80a2c1a_561f4869",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 5049,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-16T01:44:10Z",
+      "side": 1,
+      "message": "Nit: the hyphen in 0-RTT looks odd. Maybe Reject0RTT? Or perhaps just Reject. Ditto with Accept0-RTT below.",
+      "range": {
+        "startLine": 5049,
+        "startChar": 28,
+        "endLine": 5049,
+        "endChar": 39
+      },
+      "revId": "2f7db1c122439900dda8c6dcf0a6aac8a42a6319",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
