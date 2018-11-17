@@ -1626,6 +1626,10 @@ type ProtocolBugs struct {
 	// SendCertUncompressedLength, if not zero, sets the uncompressed length that
 	// will be sent in the compressed certificate message.
 	SendCertUncompressedLength uint32
+
+	// FailIfHelloRetryRequested causes a handshake failure if a server requests a
+	// hello retry.
+	FailIfHelloRetryRequested bool
 }
 
 func (c *Config) serverInit() {

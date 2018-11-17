@@ -1452,6 +1452,10 @@ struct SSL_HANDSHAKE {
   // TLS 1.3.
   Array<uint8_t> ecdh_public_key;
 
+  // ecdh_group_id, for servers, is the |SSL_CURVE_*| ID for the public key in
+  // |ecdh_public_key|.
+  uint16_t ecdh_group_id;
+
   // peer_sigalgs are the signature algorithms that the peer supports. These are
   // taken from the contents of the signature algorithms extension for a server
   // or from the CertificateRequest for a client.
@@ -2693,8 +2697,11 @@ bool tls1_check_group_id(const SSL_HANDSHAKE *ssl, uint16_t group_id);
 
 // tls1_get_shared_group sets |*out_group_id| to the first preferred shared
 // group between client and server preferences and returns true. If none may be
-// found, it returns false.
-bool tls1_get_shared_group(SSL_HANDSHAKE *hs, uint16_t *out_group_id);
+// found, it returns false. If |key_share_groups| is non-empty, and the first
+// preferred shared group is not included, but an acceptable group is, then
+// |*out_group_id| is set to the most preferable group in |key_share_groups|.
+bool tls1_get_shared_group(SSL_HANDSHAKE *hs, uint16_t *out_group_id,
+                           Span<const uint16_t> key_share_groups);
 
 // tls1_set_curves converts the array of NIDs in |curves| into a newly allocated
 // array of TLS group IDs. On success, the function returns true and writes the

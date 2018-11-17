@@ -169,6 +169,7 @@ struct TestConfig {
   bool is_handshaker_supported = false;
   bool handshaker_resume = false;
   std::string handshaker_path;
+  bool server_preference = false;
 
   int argc;
   char **argv;
