@@ -312,7 +312,7 @@ static void ssl_get_compatible_server_ciphers(SSL_HANDSHAKE *hs,
 
   // Check for a shared group to consider ECDHE ciphers.
   uint16_t unused;
-  if (tls1_get_shared_group(hs, &unused)) {
+  if (tls1_get_shared_group(hs, &unused, {})) {
     mask_k |= SSL_kECDHE;
   }
 
@@ -805,7 +805,7 @@ static enum ssl_hs_wait_t do_send_server_certificate(SSL_HANDSHAKE *hs) {
     if (alg_k & SSL_kECDHE) {
       // Determine the group to use.
       uint16_t group_id;
-      if (!tls1_get_shared_group(hs, &group_id)) {
+      if (!tls1_get_shared_group(hs, &group_id, {})) {
         OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
         ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_HANDSHAKE_FAILURE);
         return ssl_hs_error;

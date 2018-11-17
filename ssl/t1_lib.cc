@@ -299,7 +299,8 @@ Span<const uint16_t> tls1_get_grouplist(const SSL_HANDSHAKE *hs) {
   return Span<const uint16_t>(kDefaultGroups);
 }
 
-bool tls1_get_shared_group(SSL_HANDSHAKE *hs, uint16_t *out_group_id) {
+bool tls1_get_shared_group(SSL_HANDSHAKE *hs, uint16_t *out_group_id,
+                           Span<const uint16_t> key_share_groups) {
   SSL *const ssl = hs->ssl;
   assert(ssl->server);
 
@@ -322,16 +323,44 @@ bool tls1_get_shared_group(SSL_HANDSHAKE *hs, uint16_t *out_group_id) {
     supp = groups;
   }
 
+  bool group_found = false;
   for (uint16_t pref_group : pref) {
     for (uint16_t supp_group : supp) {
       if (pref_group == supp_group) {
         *out_group_id = pref_group;
+        group_found = true;
+        goto done;
+      }
+    }
+  }
+
+done:
+  if (!group_found) {
+    return false;
+  }
+  if (key_share_groups.empty()) {
+    return true;
+  }
+
+  // If the preferred group is in the list of key shares then great, we're done.
+  for (uint16_t key_share_group : key_share_groups) {
+    if (*out_group_id == key_share_group) {
+      return true;
+    }
+  }
+
+  // If not, then perhaps we can find an acceptable group in the list of key-
+  // shares.
+  for (uint16_t supp_group : groups) {
+    for (uint16_t key_share_group : key_share_groups) {
+      if (supp_group == key_share_group) {
+        *out_group_id = supp_group;
         return true;
       }
     }
   }
 
-  return false;
+  return true;
 }
 
 bool tls1_set_curves(Array<uint16_t> *out_group_ids, Span<const int> curves) {
@@ -2229,17 +2258,50 @@ bool ssl_ext_key_share_parse_serverhello(SSL_HANDSHAKE *hs,
 bool ssl_ext_key_share_parse_clienthello(SSL_HANDSHAKE *hs, bool *out_found,
                                          Array<uint8_t> *out_secret,
                                          uint8_t *out_alert, CBS *contents) {
-  uint16_t group_id;
   CBS key_shares;
-  if (!tls1_get_shared_group(hs, &group_id)) {
-    OPENSSL_PUT_ERROR(SSL, SSL_R_NO_SHARED_GROUP);
-    *out_alert = SSL_AD_HANDSHAKE_FAILURE;
-    return false;
-  }
-
   if (!CBS_get_u16_length_prefixed(contents, &key_shares) ||
       CBS_len(contents) != 0) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
+    return false;
+  }
+
+  // Count the number of key shares.
+  size_t num_key_shares = 0;
+  CBS tmp_key_shares = key_shares;
+  while (CBS_len(&tmp_key_shares) > 0) {
+    uint16_t id;
+    CBS tmp;
+    if (!CBS_get_u16(&tmp_key_shares, &id) ||
+        !CBS_get_u16_length_prefixed(&tmp_key_shares, &tmp)) {
+      OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
+      return false;
+    }
+    num_key_shares++;
+  }
+
+  Array<uint16_t> key_share_groups;
+  if (!key_share_groups.Init(num_key_shares)) {
+    return false;
+  }
+
+  // Copy key share group IDs to |key_share_groups|.
+  size_t i = 0;
+  tmp_key_shares = key_shares;
+  while (CBS_len(&tmp_key_shares) > 0) {
+    uint16_t id;
+    CBS tmp;
+    if (!CBS_get_u16(&tmp_key_shares, &id) ||
+        !CBS_get_u16_length_prefixed(&tmp_key_shares, &tmp)) {
+      OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
+      return false;
+    }
+    key_share_groups[i++] = id;
+  }
+
+  uint16_t group_id;
+  if (!tls1_get_shared_group(hs, &group_id, key_share_groups)) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_NO_SHARED_GROUP);
+    *out_alert = SSL_AD_HANDSHAKE_FAILURE;
     return false;
   }
 
@@ -2285,6 +2347,7 @@ bool ssl_ext_key_share_parse_clienthello(SSL_HANDSHAKE *hs, bool *out_found,
     *out_alert = SSL_AD_ILLEGAL_PARAMETER;
     return false;
   }
+  hs->ecdh_group_id = group_id;
 
   *out_secret = std::move(secret);
   *out_found = true;
@@ -2292,12 +2355,10 @@ bool ssl_ext_key_share_parse_clienthello(SSL_HANDSHAKE *hs, bool *out_found,
 }
 
 bool ssl_ext_key_share_add_serverhello(SSL_HANDSHAKE *hs, CBB *out) {
-  uint16_t group_id;
   CBB kse_bytes, public_key;
-  if (!tls1_get_shared_group(hs, &group_id) ||
-      !CBB_add_u16(out, TLSEXT_TYPE_key_share) ||
+  if (!CBB_add_u16(out, TLSEXT_TYPE_key_share) ||
       !CBB_add_u16_length_prefixed(out, &kse_bytes) ||
-      !CBB_add_u16(&kse_bytes, group_id) ||
+      !CBB_add_u16(&kse_bytes, hs->ecdh_group_id) ||
       !CBB_add_u16_length_prefixed(&kse_bytes, &public_key) ||
       !CBB_add_bytes(&public_key, hs->ecdh_public_key.data(),
                      hs->ecdh_public_key.size()) ||
@@ -2307,7 +2368,7 @@ bool ssl_ext_key_share_add_serverhello(SSL_HANDSHAKE *hs, CBB *out) {
 
   hs->ecdh_public_key.Reset();
 
-  hs->new_session->group_id = group_id;
+  hs->new_session->group_id = hs->ecdh_group_id;
   return true;
 }
 

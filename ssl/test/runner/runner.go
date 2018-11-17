@@ -11155,6 +11155,37 @@ func addCurveTests() {
 			},
 		},
 	})
+
+	// Test that a server won't spend a round-trip just to get its favorite curve
+	// if the curve in the key-share is good enough. I.e. if a client sends a
+	// P-256 or X25519 key-share, but supports both, a BoringSSL server should
+	// avoid HRR.
+	testCases = append(testCases, testCase{
+		name:     "GoodEnoughCurves1",
+		testType: serverTest,
+		config: Config{
+			MinVersion:       VersionTLS13,
+			DefaultCurves:    []CurveID{CurveX25519},
+			CurvePreferences: []CurveID{CurveX25519, CurveP256},
+			Bugs: ProtocolBugs{
+				FailIfHelloRetryRequested: true,
+			},
+		},
+		flags: []string{"-server-preference"},
+	})
+	testCases = append(testCases, testCase{
+		name:     "GoodEnoughCurves2",
+		testType: serverTest,
+		config: Config{
+			MinVersion:       VersionTLS13,
+			DefaultCurves:    []CurveID{CurveP256},
+			CurvePreferences: []CurveID{CurveP256, CurveX25519},
+			Bugs: ProtocolBugs{
+				FailIfHelloRetryRequested: true,
+			},
+		},
+		flags: []string{"-server-preference"},
+	})
 }
 
 func addTLS13RecordTests() {
@@ -12617,11 +12648,14 @@ func addTLS13HandshakeTests() {
 			config: Config{
 				MaxVersion:    VersionTLS13,
 				DefaultCurves: []CurveID{CurveP384},
+				Bugs: ProtocolBugs{
+					FailIfHelloRetryRequested: true,
+				},
 			},
 			tls13Variant: variant,
-			// Although the ClientHello did not predict our preferred curve,
-			// we always select it whether it is predicted or not.
-			expectedCurveID: CurveX25519,
+			// Although the preferred curve will be X25519, since the client offered
+			// P-384, we'll deal with it and not force a round-trip.
+			expectedCurveID: CurveP384,
 		})
 
 		testCases = append(testCases, testCase{

@@ -146,6 +146,7 @@ const Flag<bool> kBoolFlags[] = {
   { "-is-handshaker-supported", &TestConfig::is_handshaker_supported },
   { "-handshaker-resume", &TestConfig::handshaker_resume },
   { "-reverify-on-resume", &TestConfig::reverify_on_resume },
+  { "-server-preference", &TestConfig::server_preference },
 };
 
 const Flag<std::string> kStringFlags[] = {
@@ -1293,7 +1294,6 @@ bssl::UniquePtr<SSL_CTX> TestConfig::SetupCtx(SSL_CTX *old_ctx) const {
     return nullptr;
   }
 
-
   if (install_cert_compression_algs &&
       (!SSL_CTX_add_cert_compression_alg(
            ssl_ctx.get(), 0xff02,
@@ -1338,6 +1338,10 @@ bssl::UniquePtr<SSL_CTX> TestConfig::SetupCtx(SSL_CTX *old_ctx) const {
            }))) {
     fprintf(stderr, "SSL_CTX_add_cert_compression_alg failed.\n");
     abort();
+  }
+
+  if (server_preference) {
+    SSL_CTX_set_options(ssl_ctx.get(), SSL_OP_CIPHER_SERVER_PREFERENCE);
   }
 
   return ssl_ctx;
