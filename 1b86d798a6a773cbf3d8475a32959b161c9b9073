@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e712417a_fa1a7992",
+        "filename": "crypto/fipsmodule/bn/exponentiation.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-18T20:11:21Z",
+      "side": 1,
+      "message": "There are corresponding corresponding comments in x86_64-mont5.pl. Mind fixing them to match?",
+      "revId": "1b86d798a6a773cbf3d8475a32959b161c9b9073",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c840e588_8ce61ce0",
+        "filename": "crypto/fipsmodule/bn/exponentiation.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-18T20:11:21Z",
+      "side": 1,
+      "message": "Did you mean to change this one too?",
+      "range": {
+        "startLine": 133,
+        "startChar": 56,
+        "endLine": 133,
+        "endChar": 62
+      },
+      "revId": "1b86d798a6a773cbf3d8475a32959b161c9b9073",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61820d30_aff710ac",
+        "filename": "crypto/fipsmodule/bn/exponentiation.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 874,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-18T20:11:21Z",
+      "side": 1,
+      "message": "I\u0027m curious how you decided on crypto_word_t vs size_t. Notably, this spot causes some crypto_word_t to size_t conversions, which is a narrowing conversion on NaCl. (And, of course, there\u0027s BIGNUM\u0027s indices being int, but that\u0027s something that\u0027d be nice to eventually fix...)\n\n(This isn\u0027t a request for a particular type. TBH I\u0027m not really sure what the Correct types are for most of this mess. It\u0027s still a bit all over the pace, and windows are one of the places where we necessarily convert from value to index somewhere.)",
+      "range": {
+        "startLine": 874,
+        "startChar": 68,
+        "endLine": 874,
+        "endChar": 74
+      },
+      "revId": "1b86d798a6a773cbf3d8475a32959b161c9b9073",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04b17eb7_d2dcf479",
+        "filename": "crypto/fipsmodule/bn/shift.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-18T20:11:21Z",
+      "side": 1,
+      "message": "This ought to be moved to BN_is_bit_set.",
+      "revId": "1b86d798a6a773cbf3d8475a32959b161c9b9073",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
