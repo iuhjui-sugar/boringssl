@@ -65,6 +65,30 @@
     },
     {
       "key": {
+        "uuid": "c11c6745_7c84544e",
+        "filename": "crypto/fipsmodule/bn/exponentiation.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 874,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-11-18T23:27:45Z",
+      "side": 1,
+      "message": "The idea is to give `copy_from_prebuf` and `copy_to_prebuf` similar types to the assembly scatter/gather functions that they emulate.\n\nI think that this should stay crypto_word_t. The `size_t` variables should be retyped to be `native_word_t` where that type is the same as `crypto_word_t` and `BN_ULONG`; i.e. define `native_word_t` the way we define `crypto_word_t`, then `typedef native_word_t crypto_word_t;` and `typedef native_word_t BN_ULONG;` or `typedef crypto_word_t BN_ULONG;`.",
+      "parentUuid": "61820d30_aff710ac",
+      "range": {
+        "startLine": 874,
+        "startChar": 68,
+        "endLine": 874,
+        "endChar": 74
+      },
+      "revId": "1b86d798a6a773cbf3d8475a32959b161c9b9073",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "04b17eb7_d2dcf479",
         "filename": "crypto/fipsmodule/bn/shift.c",
         "patchSetId": 1
