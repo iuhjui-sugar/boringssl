@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce1be844_ad8bb225",
+        "filename": "crypto/fipsmodule/bn/exponentiation.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 853,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-11-19T17:49:45Z",
+      "side": 1,
+      "message": "(nit, not for this CL: this function is looking a bit silly now.)",
+      "revId": "ca61ca7195918707d54bc8dab7b7ccb5024f29e6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
