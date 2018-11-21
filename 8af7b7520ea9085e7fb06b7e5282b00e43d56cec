@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a2148ca_ed5643ce",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-11-21T00:38:09Z",
+      "side": 1,
+      "message": "s/s//",
+      "range": {
+        "startLine": 408,
+        "startChar": 32,
+        "endLine": 408,
+        "endChar": 33
+      },
+      "revId": "8af7b7520ea9085e7fb06b7e5282b00e43d56cec",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "578b383a_4a5da55d",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-11-21T00:38:09Z",
+      "side": 1,
+      "message": "nit: merge if statements.",
+      "revId": "8af7b7520ea9085e7fb06b7e5282b00e43d56cec",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e5e537d_59778555",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-11-21T00:38:09Z",
+      "side": 1,
+      "message": "Worth a comment that you\u0027re writing into |ret| here because it\u0027s a bit subtle.",
+      "revId": "8af7b7520ea9085e7fb06b7e5282b00e43d56cec",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
