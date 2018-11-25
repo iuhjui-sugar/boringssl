@@ -102,12 +102,17 @@ func ParseAR(r io.Reader) (map[string][]byte, error) {
 			}
 
 			filename := longFilenameTable[offset:]
-			if i := bytes.IndexByte(filename, '/'); i < 0 {
-				return nil, errors.New("ar: unterminated filename in table")
-			} else {
-				filename = filename[:i]
+			// Windows terminates filenames with NUL characters, while
+			// the sysv/GNU variant uses /. We terminate on either.
+			idx := bytes.IndexByte(filename, '\x00')
+			idx2 := bytes.IndexByte(filename, '/')
+			if idx < 0 || (0 <= idx2 && idx2 < idx) {
+				idx = idx2
 			}
-
+			if idx < 0 {
+				return nil, errors.New("ar: unterminated filename in table:")
+			}
+			filename = filename[:idx]
 			name = string(filename)
 
 		default:
