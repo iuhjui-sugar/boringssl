@@ -93,9 +93,6 @@ func main() {
 		}
 
 		for name, contents := range objectFiles {
-			if !strings.HasSuffix(name, ".o") {
-				continue
-			}
 			syms, err := listSymbols(contents)
 			if err != nil {
 				printAndExit("Error listing symbols from %s in %s: %s", archive, name, err)
