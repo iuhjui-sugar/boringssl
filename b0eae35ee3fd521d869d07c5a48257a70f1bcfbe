@@ -16,6 +16,24 @@
       "revId": "b0eae35ee3fd521d869d07c5a48257a70f1bcfbe",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6beec00_d7221b37",
+        "filename": "util/ar/ar_test.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-26T23:55:46Z",
+      "side": 1,
+      "message": "Not that I could tell. I was rather confused by that myself. The newlines were even there when I manually extracted the files back out. It\u0027s also 4 extra newlines, which is surprising given I thought ar normally pads up to a multiple of 2 bytes.",
+      "parentUuid": "fdc25e3d_a0600810",
+      "revId": "b0eae35ee3fd521d869d07c5a48257a70f1bcfbe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
