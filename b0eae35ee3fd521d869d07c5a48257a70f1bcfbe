@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fdc25e3d_a0600810",
+        "filename": "util/ar/ar_test.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-11-26T23:30:16Z",
+      "side": 1,
+      "message": "Wait, what? It\u0027s appending newlines to the binary contents of the object files in a .a? Surely we\u0027re missing some length somewhere to cleanly remove these, right?",
+      "revId": "b0eae35ee3fd521d869d07c5a48257a70f1bcfbe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
