@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "733732cc_b313a5f4",
+        "filename": "util/read_symbols.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-11-26T23:25:50Z",
+      "side": 1,
+      "message": "can\u0027t you just `fmt.Fprintf(os.Stderr, format, args...)` ?",
+      "revId": "6b946e7563f5cf5a830e64d354a9cf6981e2c3c8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8b5c0a8_30a444b5",
+        "filename": "util/read_symbols.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-11-26T23:25:50Z",
+      "side": 1,
+      "message": "maybe %q for the first two cases.",
+      "range": {
+        "startLine": 101,
+        "startChar": 45,
+        "endLine": 101,
+        "endChar": 47
+      },
+      "revId": "6b946e7563f5cf5a830e64d354a9cf6981e2c3c8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3077c94b_feec7a5c",
+        "filename": "util/read_symbols.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-11-26T23:25:50Z",
+      "side": 1,
+      "message": "|archive| and |name| arguments switched?",
+      "range": {
+        "startLine": 101,
+        "startChar": 60,
+        "endLine": 101,
+        "endChar": 67
+      },
+      "revId": "6b946e7563f5cf5a830e64d354a9cf6981e2c3c8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7de8bb1_36c296ce",
+        "filename": "util/read_symbols.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-11-26T23:25:50Z",
+      "side": 1,
+      "message": "|s| is a symbol name, right? But passing to |Fprintln| will cause it to look for printf-style escape sequences (e.g. \"%d\"). Just use |io.WriteString(out, s)| ?",
+      "revId": "6b946e7563f5cf5a830e64d354a9cf6981e2c3c8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
