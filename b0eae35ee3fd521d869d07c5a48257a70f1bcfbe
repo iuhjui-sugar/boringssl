@@ -34,6 +34,24 @@
       "revId": "b0eae35ee3fd521d869d07c5a48257a70f1bcfbe",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50268e82_c1e0c015",
+        "filename": "util/ar/ar_test.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-11-26T23:57:15Z",
+      "side": 1,
+      "message": "So, if you use the `ar` tool on macOS (presuming it has one) you get four extra newlines at the end? I.e. it doesn\u0027t round-trip cleanly?",
+      "parentUuid": "b6beec00_d7221b37",
+      "revId": "b0eae35ee3fd521d869d07c5a48257a70f1bcfbe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
