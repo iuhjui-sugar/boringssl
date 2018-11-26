@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "86a57301_365923dd",
+        "filename": "crypto/thread_win.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-11-26T23:35:26Z",
+      "side": 1,
+      "message": "Why have the additional layer of macro function here?",
+      "revId": "4f1e2a3e0123d1a93743af09fcb978368049cf16",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
