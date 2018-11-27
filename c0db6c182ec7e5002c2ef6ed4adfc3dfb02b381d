@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c4a5d3df_23257b92",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-27T16:37:23Z",
+      "side": 1,
+      "message": "I don\u0027t follow what this sentence is referring to. When BSAES is used, the AES_KEY is internal to EVP_CIPHER or EVP_AEAD, so it is already mode-locked. This CL only affects the low-level AES_* APIs which indeed are not mode-locked, but this CL is not routing BSAES up to them because that wouldn\u0027t work.",
+      "revId": "c0db6c182ec7e5002c2ef6ed4adfc3dfb02b381d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1166769f_7474d87a",
+        "filename": "crypto/fipsmodule/aes/aes.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 831,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-27T16:37:23Z",
+      "side": 1,
+      "message": "The comment isn\u0027t applicable here since BSAES isn\u0027t suitable for AES_encrypt anyway. It doesn\u0027t implement enough operations.",
+      "revId": "c0db6c182ec7e5002c2ef6ed4adfc3dfb02b381d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65dc97ef_0b7f277c",
+        "filename": "crypto/fipsmodule/cipher/e_aes.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-27T16:37:23Z",
+      "side": 1,
+      "message": "BSAES isn\u0027t compatible with anything other than aes_nohw_*, so this would need to call into that implementation directly, like the assembly already does.\n\nNot relevant for this CL, but relevant if we land this without removing BSAES from x86_64. Though if, say, someone ever wrote vpaes for armv7.pl, that would break too. Mixing and matching AES implementations does not appear to generally be safe, and BSAES is written targetting aes_nohw_*\u0027s format.\n\n(The reason BSAES calls into plain AES_* today is just because plain AES_* was originally just aes_nohw_*. Routing different AES implementations into those functions was a recent change.)",
+      "range": {
+        "startLine": 168,
+        "startChar": 12,
+        "endLine": 168,
+        "endChar": 31
+      },
+      "revId": "c0db6c182ec7e5002c2ef6ed4adfc3dfb02b381d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
