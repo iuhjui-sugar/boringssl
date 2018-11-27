@@ -16,6 +16,24 @@
       "revId": "4f1e2a3e0123d1a93743af09fcb978368049cf16",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "204aba9c_a74db56c",
+        "filename": "crypto/thread_win.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-27T02:28:44Z",
+      "side": 1,
+      "message": "Otherwise it doesn\u0027t expand the contents. I renamed EXPAND_AND_STRINGIFY_ to STRINGIFY so hopefully that\u0027s clearer.\n\nThe C preprocessor\u0027s expanding order is really weird. It expands arguments before inserting them into the macro replacement *except* that arguments which participate in # or ## are not expanded. Otherwise assert(a \u003d\u003d b) would expand a and b out rather than printing the expression as-is.\n\nSo:\n\n  #define STRINGIFY(x) #x\n  #define EXPAND_AND_STRINGIFY(x) STRINGIFY(x)\n  #define foo bar\n  STRINGIFY(foo)             // Expands to \"foo\"\n  EXPAND_AND_STRINGIFY(foo)  // Expands to \"bar\".",
+      "parentUuid": "86a57301_365923dd",
+      "revId": "4f1e2a3e0123d1a93743af09fcb978368049cf16",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
