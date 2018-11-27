@@ -163,6 +163,24 @@
       "revId": "6b946e7563f5cf5a830e64d354a9cf6981e2c3c8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e3ddf9c_82f5191d",
+        "filename": "util/read_symbols.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-11-27T02:23:49Z",
+      "side": 1,
+      "message": "Yep, you\u0027re correct.",
+      "parentUuid": "8388fc2e_b50f9016",
+      "revId": "6b946e7563f5cf5a830e64d354a9cf6981e2c3c8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
