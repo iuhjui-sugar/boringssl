@@ -1169,7 +1169,13 @@ while(defined(my $line=<>)) {
 
     $line =~ s|\R$||;           # Better chomp
 
-    $line =~ s|[#!].*$||;	# get rid of asm-style comments...
+    if ($nasm) {
+	$line =~ s|^#ifdef |%ifdef |;
+	$line =~ s|^#ifndef |%ifndef |;
+	$line =~ s|^#endif|%endif|;
+    }
+
+    $line =~ s|[#!] .*$||;	# get rid of asm-style comments...
     $line =~ s|/\*.*\*/||;	# ... and C-style comments...
     $line =~ s|^\s+||;		# ... and skip white spaces in beginning
     $line =~ s|\s+$||;		# ... and at the end
