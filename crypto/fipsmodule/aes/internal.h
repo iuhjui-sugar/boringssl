@@ -108,6 +108,54 @@ void aes_hw_ecb_encrypt(const uint8_t *in, uint8_t *out, size_t length,
                         const AES_KEY *key, const int enc);
 #endif
 
+#if defined(OPENSSL_X86_64) || defined(OPENSSL_X86)
+#define VPAES
+static char vpaes_capable(void) {
+  return (OPENSSL_ia32cap_P[1] & (1 << (41 - 32))) != 0;
+}
+#endif
+
+#if defined(VPAES)
+
+int vpaes_set_encrypt_key(const uint8_t *userKey, int bits, AES_KEY *key);
+int vpaes_set_decrypt_key(const uint8_t *userKey, int bits, AES_KEY *key);
+void vpaes_encrypt(const uint8_t *in, uint8_t *out, const AES_KEY *key);
+void vpaes_decrypt(const uint8_t *in, uint8_t *out, const AES_KEY *key);
+void vpaes_cbc_encrypt(const uint8_t *in, uint8_t *out, size_t length,
+                       const AES_KEY *key, uint8_t *ivec, int enc);
+
+#else
+
+static char vpaes_capable(void) {
+  return 0;
+}
+
+// On other platforms, vpaes_capable() will always return false and so the
+// following will never be called.
+static int vpaes_set_encrypt_key(const uint8_t *userKey, int bits,
+                                 AES_KEY *key) {
+  abort();
+}
+
+static int vpaes_set_decrypt_key(const uint8_t *userKey, int bits,
+                                 AES_KEY *key) {
+  abort();
+}
+
+static void vpaes_encrypt(const uint8_t *in, uint8_t *out, const AES_KEY *key) {
+  abort();
+}
+
+static void vpaes_decrypt(const uint8_t *in, uint8_t *out, const AES_KEY *key) {
+  abort();
+}
+
+static void vpaes_cbc_encrypt(const uint8_t *in, uint8_t *out, size_t length,
+                              const AES_KEY *key, uint8_t *ivec, int enc) {
+  abort();
+}
+#endif  // !VPAES
+
 #if defined(__cplusplus)
 }  // extern C
 #endif

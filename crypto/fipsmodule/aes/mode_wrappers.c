@@ -82,6 +82,9 @@ void AES_cbc_encrypt(const uint8_t *in, uint8_t *out, size_t len,
   if (hwaes_capable()) {
     aes_hw_cbc_encrypt(in, out, len, key, ivec, enc);
     return;
+  } else if (vpaes_capable()) {
+    vpaes_cbc_encrypt(in, out, len, key, ivec, enc);
+    return;
   }
 
 #if !defined(OPENSSL_NO_ASM) && \

@@ -99,14 +99,6 @@ typedef struct {
 } EVP_AES_GCM_CTX;
 
 #if !defined(OPENSSL_NO_ASM) && \
-    (defined(OPENSSL_X86_64) || defined(OPENSSL_X86))
-#define VPAES
-static char vpaes_capable(void) {
-  return (OPENSSL_ia32cap_P[1] & (1 << (41 - 32))) != 0;
-}
-#endif
-
-#if !defined(OPENSSL_NO_ASM) && \
     (defined(OPENSSL_ARM) || defined(OPENSSL_AARCH64))
 
 #if defined(OPENSSL_ARM) && __ARM_MAX_ARCH__ >= 7
@@ -145,44 +137,6 @@ static void bsaes_ctr32_encrypt_blocks(const uint8_t *in, uint8_t *out,
 }
 #endif
 
-#if defined(VPAES)
-// On platforms where VPAES gets defined (just above), then these functions are
-// provided by asm.
-int vpaes_set_encrypt_key(const uint8_t *userKey, int bits, AES_KEY *key);
-int vpaes_set_decrypt_key(const uint8_t *userKey, int bits, AES_KEY *key);
-
-void vpaes_encrypt(const uint8_t *in, uint8_t *out, const AES_KEY *key);
-void vpaes_decrypt(const uint8_t *in, uint8_t *out, const AES_KEY *key);
-
-void vpaes_cbc_encrypt(const uint8_t *in, uint8_t *out, size_t length,
-                       const AES_KEY *key, uint8_t *ivec, int enc);
-#else
-static char vpaes_capable(void) {
-  return 0;
-}
-
-// On other platforms, vpaes_capable() will always return false and so the
-// following will never be called.
-static int vpaes_set_encrypt_key(const uint8_t *userKey, int bits,
-                                 AES_KEY *key) {
-  abort();
-}
-static int vpaes_set_decrypt_key(const uint8_t *userKey, int bits,
-                                 AES_KEY *key) {
-  abort();
-}
-static void vpaes_encrypt(const uint8_t *in, uint8_t *out, const AES_KEY *key) {
-  abort();
-}
-static void vpaes_decrypt(const uint8_t *in, uint8_t *out, const AES_KEY *key) {
-  abort();
-}
-static void vpaes_cbc_encrypt(const uint8_t *in, uint8_t *out, size_t length,
-                              const AES_KEY *key, uint8_t *ivec, int enc) {
-  abort();
-}
-#endif
-
 static int aes_init_key(EVP_CIPHER_CTX *ctx, const uint8_t *key,
                         const uint8_t *iv, int enc) {
   int ret, mode;
@@ -192,9 +146,10 @@ static int aes_init_key(EVP_CIPHER_CTX *ctx, const uint8_t *key,
   // have side channels. When lacking HWAES, prefer VPAES over BSAES, despite
   // BSAES being generally faster, because VPAES does everything with
   // side-channel-resistant implementations. BSAES uses
-  // |AES_encrypt|/|AES_decrypt| which would be using the "no_hw"
-  // implementations when HWAES isn't available, and those implementations have
-  // known side channels.
+  // |AES_encrypt|/|AES_decrypt| which are implemented in terms of VPAES when
+  // VPAES is available, and BSAES and VPAES aren't compatible with each other.
+  // We don't want to fall back to the "no_hw" implementations when using BSAES
+  // because those implementations have known side channels.
 
   mode = ctx->cipher->flags & EVP_CIPH_MODE_MASK;
   if ((mode == EVP_CIPH_ECB_MODE || mode == EVP_CIPH_CBC_MODE) && !enc) {
