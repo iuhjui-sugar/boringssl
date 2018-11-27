@@ -1,6 +1,3 @@
 [
-	["crypto/crypto_test"],
-	["crypto/crypto_test", "--fork_unsafe_buffering", "--gtest_filter=RandTest.*:-RandTest.Fork"],
-	["decrepit/decrepit_test"],
-	["ssl/ssl_test"]
+	["crypto/crypto_test", "--gtest_filter=ImplDi*"]
 ]

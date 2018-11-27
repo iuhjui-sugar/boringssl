@@ -212,6 +212,7 @@ $movkey = $PREFIX eq "aes_hw" ? "movups" : "movups";
 
 $code=".text\n";
 $code.=".extern	OPENSSL_ia32cap_P\n";
+$code.=".extern	BORINGSSL_function_hit\n";
 
 $rounds="%eax";	# input to and changed by aesni_[en|de]cryptN !!!
 # this is natural Unix argument order for public $PREFIX_[ecb|cbc]_encrypt ...
@@ -274,6 +275,9 @@ $code.=<<___;
 .type	${PREFIX}_encrypt,\@abi-omnipotent
 .align	16
 ${PREFIX}_encrypt:
+#if !defined(NDEBUG) && !defined(BORINGSSL_FIPS)
+  movb \$1,BORINGSSL_function_hit+1(%rip)
+#endif
 	movups	($inp),$inout0		# load input
 	mov	240($key),$rounds	# key->rounds
 ___
@@ -1183,6 +1187,10 @@ $code.=<<___;
 .align	16
 ${PREFIX}_ctr32_encrypt_blocks:
 .cfi_startproc
+#if !defined(NDEBUG) && !defined(BORINGSSL_FIPS)
+  movb \$1,BORINGSSL_function_hit(%rip)
+#endif
+
 	cmp	\$1,$len
 	jne	.Lctr32_bulk
 
@@ -4236,7 +4244,7 @@ $code.=<<___;
 .cfi_endproc
 .size	${PREFIX}_cbc_encrypt,.-${PREFIX}_cbc_encrypt
 ___
-} 
+}
 # int ${PREFIX}_set_decrypt_key(const unsigned char *inp,
 #				int bits, AES_KEY *key)
 #
@@ -4327,6 +4335,9 @@ $code.=<<___;
 ${PREFIX}_set_encrypt_key:
 __aesni_set_encrypt_key:
 .cfi_startproc
+#if !defined(NDEBUG) && !defined(BORINGSSL_FIPS)
+  movb \$1,BORINGSSL_function_hit+3(%rip)
+#endif
 	.byte	0x48,0x83,0xEC,0x08	# sub rsp,8
 .cfi_adjust_cfa_offset	8
 	mov	\$-1,%rax

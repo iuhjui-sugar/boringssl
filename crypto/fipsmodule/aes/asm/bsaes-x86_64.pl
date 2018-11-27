@@ -1908,11 +1908,16 @@ $code.=<<___;
 .cfi_endproc
 .size	bsaes_cbc_encrypt,.-bsaes_cbc_encrypt
 
+.extern	BORINGSSL_function_hit
 .globl	bsaes_ctr32_encrypt_blocks
 .type	bsaes_ctr32_encrypt_blocks,\@abi-omnipotent
 .align	16
 bsaes_ctr32_encrypt_blocks:
 .cfi_startproc
+#if !defined(NDEBUG)
+  movb \$1, BORINGSSL_function_hit+6(%rip)
+#endif
+
 	mov	%rsp, %rax
 .Lctr_enc_prologue:
 	push	%rbp

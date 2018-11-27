@@ -664,6 +664,9 @@ _aesni_ctr32_6x:
 .align	32
 aesni_gcm_encrypt:
 .cfi_startproc
+#if !defined(NDEBUG) && !defined(BORINGSSL_FIPS)
+  movb \$1,BORINGSSL_function_hit+2(%rip)
+#endif
 	xor	$ret,$ret
 
 	# We call |_aesni_ctr32_6x| twice, each call consuming 96 bytes of
