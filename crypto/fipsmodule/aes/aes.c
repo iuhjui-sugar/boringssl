@@ -824,11 +824,17 @@ int aes_nohw_set_decrypt_key(const uint8_t *key, unsigned bits,
 // the aes_hw_* functions. The latter set |AES_KEY.rounds| to one less than the
 // true value, which breaks the former. Therefore the two functions cannot mix.
 // Also, on Aarch64, the plain-C code, above, is incompatible with the
-// |aes_hw_*| functions.
+// |aes_hw_*| functions. Also the |vpaes_*| functions are incompatible with
+// non-|vpaes_*| functions.
+//
+// See the comment in |aes_init_key| for the rationale for preferring HWAES
+// over VPAES over BSAES.
 
 void AES_encrypt(const uint8_t *in, uint8_t *out, const AES_KEY *key) {
   if (hwaes_capable()) {
     aes_hw_encrypt(in, out, key);
+  } else if (vpaes_capable()) {
+    vpaes_encrypt(in, out, key);
   } else {
     aes_nohw_encrypt(in, out, key);
   }
@@ -837,6 +843,8 @@ void AES_encrypt(const uint8_t *in, uint8_t *out, const AES_KEY *key) {
 void AES_decrypt(const uint8_t *in, uint8_t *out, const AES_KEY *key) {
   if (hwaes_capable()) {
     aes_hw_decrypt(in, out, key);
+  } else if (vpaes_capable()) {
+    vpaes_decrypt(in, out, key);
   } else {
     aes_nohw_decrypt(in, out, key);
   }
@@ -845,6 +853,8 @@ void AES_decrypt(const uint8_t *in, uint8_t *out, const AES_KEY *key) {
 int AES_set_encrypt_key(const uint8_t *key, unsigned bits, AES_KEY *aeskey) {
   if (hwaes_capable()) {
     return aes_hw_set_encrypt_key(key, bits, aeskey);
+  } else if (vpaes_capable()) {
+    return vpaes_set_encrypt_key(key, bits, aeskey);
   } else {
     return aes_nohw_set_encrypt_key(key, bits, aeskey);
   }
@@ -853,6 +863,8 @@ int AES_set_encrypt_key(const uint8_t *key, unsigned bits, AES_KEY *aeskey) {
 int AES_set_decrypt_key(const uint8_t *key, unsigned bits, AES_KEY *aeskey) {
   if (hwaes_capable()) {
     return aes_hw_set_decrypt_key(key, bits, aeskey);
+  } else if (vpaes_capable()) {
+    return vpaes_set_decrypt_key(key, bits, aeskey);
   } else {
     return aes_nohw_set_decrypt_key(key, bits, aeskey);
   }
