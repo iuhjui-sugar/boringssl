@@ -33,6 +33,22 @@ sub ::AUTOLOAD
     &generic($opcode,@_) or die "undefined subroutine \&$AUTOLOAD";
 }
 
+sub ::record_function_hit
+{ my($index)=@_;
+  &preprocessor_ifndef("NDEBUG");
+  &push("ebx");
+  &push("edx");
+  &call(&label("pic"));
+  &set_label("pic");
+  &blindpop("ebx");
+  &lea("ebx",&DWP("BORINGSSL_function_hit+$index"."-".&label("pic"),"ebx"));
+  &mov("edx", 1);
+  &movb(&BP(0, "ebx"), "dl");
+  &pop("edx");
+  &pop("ebx");
+  &preprocessor_endif();
+}
+
 sub ::emit
 { my $opcode=shift;
 
