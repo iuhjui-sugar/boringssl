@@ -1913,6 +1913,10 @@ $code.=<<___;
 .align	16
 bsaes_ctr32_encrypt_blocks:
 .cfi_startproc
+#ifndef NDEBUG
+.extern	BORINGSSL_function_hit
+  movb \$1, BORINGSSL_function_hit+6(%rip)
+#endif
 	mov	%rsp, %rax
 .Lctr_enc_prologue:
 	push	%rbp
