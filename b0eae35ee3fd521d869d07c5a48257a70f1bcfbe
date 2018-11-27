@@ -52,6 +52,24 @@
       "revId": "b0eae35ee3fd521d869d07c5a48257a70f1bcfbe",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7bd6a87_7fdde05b",
+        "filename": "util/ar/ar_test.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-27T01:23:53Z",
+      "side": 1,
+      "message": "$ wc -c *.o\n     860 bar.cc.o\n     684 foo.c.o\n    1544 total\n$ ar qc blah.a *.o\n$ mkdir tmp\n$ cd tmp\n$ ar x ../blah.a\n$ wc -c *.o\n     864 bar.cc.o\n     688 foo.c.o\n    1552 total\n\nI kinda wonder if BSD ar is just buggy or something.",
+      "parentUuid": "50268e82_c1e0c015",
+      "revId": "b0eae35ee3fd521d869d07c5a48257a70f1bcfbe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
