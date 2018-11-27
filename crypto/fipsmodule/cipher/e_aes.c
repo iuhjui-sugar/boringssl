@@ -188,6 +188,14 @@ static int aes_init_key(EVP_CIPHER_CTX *ctx, const uint8_t *key,
   int ret, mode;
   EVP_AES_KEY *dat = (EVP_AES_KEY *)ctx->cipher_data;
 
+  // Prefer HWAES over any other mode, assuming it is faster and less likely to
+  // have side channels. When lacking HWAES, prefer VPAES over BSAES, despite
+  // BSAES being generally faster, because VPAES does everything with
+  // side-channel-resistant implementations. BSAES uses
+  // |AES_encrypt|/|AES_decrypt| which would be using the "no_hw"
+  // implementations when HWAES isn't available, and those implementations have
+  // known side channels.
+
   mode = ctx->cipher->flags & EVP_CIPH_MODE_MASK;
   if ((mode == EVP_CIPH_ECB_MODE || mode == EVP_CIPH_CBC_MODE) && !enc) {
     if (hwaes_capable()) {
@@ -197,14 +205,14 @@ static int aes_init_key(EVP_CIPHER_CTX *ctx, const uint8_t *key,
       if (mode == EVP_CIPH_CBC_MODE) {
         dat->stream.cbc = aes_hw_cbc_encrypt;
       }
-    } else if (bsaes_capable() && mode == EVP_CIPH_CBC_MODE) {
-      ret = AES_set_decrypt_key(key, ctx->key_len * 8, &dat->ks.ks);
-      dat->block = AES_decrypt;
-      dat->stream.cbc = bsaes_cbc_encrypt;
     } else if (vpaes_capable()) {
       ret = vpaes_set_decrypt_key(key, ctx->key_len * 8, &dat->ks.ks);
       dat->block = vpaes_decrypt;
       dat->stream.cbc = mode == EVP_CIPH_CBC_MODE ? vpaes_cbc_encrypt : NULL;
+    } else if (bsaes_capable() && mode == EVP_CIPH_CBC_MODE) {
+      ret = AES_set_decrypt_key(key, ctx->key_len * 8, &dat->ks.ks);
+      dat->block = AES_decrypt;
+      dat->stream.cbc = bsaes_cbc_encrypt;
     } else {
       ret = AES_set_decrypt_key(key, ctx->key_len * 8, &dat->ks.ks);
       dat->block = AES_decrypt;
@@ -219,14 +227,14 @@ static int aes_init_key(EVP_CIPHER_CTX *ctx, const uint8_t *key,
     } else if (mode == EVP_CIPH_CTR_MODE) {
       dat->stream.ctr = aes_hw_ctr32_encrypt_blocks;
     }
-  } else if (bsaes_capable() && mode == EVP_CIPH_CTR_MODE) {
-    ret = AES_set_encrypt_key(key, ctx->key_len * 8, &dat->ks.ks);
-    dat->block = AES_encrypt;
-    dat->stream.ctr = bsaes_ctr32_encrypt_blocks;
   } else if (vpaes_capable()) {
     ret = vpaes_set_encrypt_key(key, ctx->key_len * 8, &dat->ks.ks);
     dat->block = vpaes_encrypt;
     dat->stream.cbc = mode == EVP_CIPH_CBC_MODE ? vpaes_cbc_encrypt : NULL;
+  } else if (bsaes_capable() && mode == EVP_CIPH_CTR_MODE) {
+    ret = AES_set_encrypt_key(key, ctx->key_len * 8, &dat->ks.ks);
+    dat->block = AES_encrypt;
+    dat->stream.ctr = bsaes_ctr32_encrypt_blocks;
   } else {
     ret = AES_set_encrypt_key(key, ctx->key_len * 8, &dat->ks.ks);
     dat->block = AES_encrypt;
@@ -299,6 +307,9 @@ static int aes_ofb_cipher(EVP_CIPHER_CTX *ctx, uint8_t *out, const uint8_t *in,
 ctr128_f aes_ctr_set_key(AES_KEY *aes_key, GCM128_KEY *gcm_key,
                          block128_f *out_block, const uint8_t *key,
                          size_t key_bytes) {
+  // See the comment in |aes_init_key| for the rationale for preferring HWAES
+  // over VPAES over BSAES.
+
   if (hwaes_capable()) {
     aes_hw_set_encrypt_key(key, key_bytes * 8, aes_key);
     if (gcm_key != NULL) {
@@ -310,17 +321,6 @@ ctr128_f aes_ctr_set_key(AES_KEY *aes_key, GCM128_KEY *gcm_key,
     return aes_hw_ctr32_encrypt_blocks;
   }
 
-  if (bsaes_capable()) {
-    AES_set_encrypt_key(key, key_bytes * 8, aes_key);
-    if (gcm_key != NULL) {
-      CRYPTO_gcm128_init_key(gcm_key, aes_key, AES_encrypt, 0);
-    }
-    if (out_block) {
-      *out_block = AES_encrypt;
-    }
-    return bsaes_ctr32_encrypt_blocks;
-  }
-
   if (vpaes_capable()) {
     vpaes_set_encrypt_key(key, key_bytes * 8, aes_key);
     if (out_block) {
@@ -330,6 +330,17 @@ ctr128_f aes_ctr_set_key(AES_KEY *aes_key, GCM128_KEY *gcm_key,
       CRYPTO_gcm128_init_key(gcm_key, aes_key, vpaes_encrypt, 0);
     }
     return NULL;
+  }
+
+  if (bsaes_capable()) {
+    AES_set_encrypt_key(key, key_bytes * 8, aes_key);
+    if (gcm_key != NULL) {
+      CRYPTO_gcm128_init_key(gcm_key, aes_key, AES_encrypt, 0);
+    }
+    if (out_block) {
+      *out_block = AES_encrypt;
+    }
+    return bsaes_ctr32_encrypt_blocks;
   }
 
   AES_set_encrypt_key(key, key_bytes * 8, aes_key);
