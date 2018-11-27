@@ -191,4 +191,11 @@ sub ::safeseh
     push(@out,"%endif\n");
 }
 
+sub ::preprocessor_ifndef
+{ my($define)=@_;
+  push(@out,"%ifndef ${define}\n"); }
+
+sub ::preprocessor_endif
+{ push(@out,"%endif\n");    }
+
 1;
