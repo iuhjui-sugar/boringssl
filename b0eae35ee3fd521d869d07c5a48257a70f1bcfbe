@@ -70,6 +70,24 @@
       "revId": "b0eae35ee3fd521d869d07c5a48257a70f1bcfbe",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf87b571_ef876b64",
+        "filename": "util/ar/ar_test.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-11-27T21:02:51Z",
+      "side": 1,
+      "message": "(Updated the comment based on digging into where the newlines are coming from.)",
+      "parentUuid": "d7bd6a87_7fdde05b",
+      "revId": "b0eae35ee3fd521d869d07c5a48257a70f1bcfbe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
