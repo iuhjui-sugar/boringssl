@@ -67,9 +67,10 @@
 # Goldmont	3.84/1.39	1.39	1.63	1.31	1.70
 # Bulldozer	5.80/0.98	1.05	1.24	0.93	1.23
 
-$PREFIX="aesni";	# if $PREFIX is set to "AES", the script
+$PREFIX="aes_hw";	# if $PREFIX is set to "AES", the script
 			# generates drop-in replacement for
 			# crypto/aes/asm/aes-586.pl:-)
+$AESNI_PREFIX=$PREFIX;
 $inline=1;		# inline _aesni_[en|de]crypt
 
 $0 =~ m/(.*[\/\\])[^\/\\]+$/; $dir=$1;
@@ -85,7 +86,7 @@ open OUT,">$output";
 &external_label("OPENSSL_ia32cap_P");
 &static_label("key_const");
 
-if ($PREFIX eq "aesni")	{ $movekey=\&movups; }
+if ($PREFIX eq $AESNI_PREFIX)	{ $movekey=\&movups; }
 else			{ $movekey=\&movups; }
 
 $len="eax";
@@ -414,21 +415,21 @@ sub aesni_generate6
     &ret();
     &function_end_B("_aesni_${p}rypt6");
 }
-&aesni_generate2("enc") if ($PREFIX eq "aesni");
+&aesni_generate2("enc") if ($PREFIX eq $AESNI_PREFIX);
 &aesni_generate2("dec");
-&aesni_generate3("enc") if ($PREFIX eq "aesni");
+&aesni_generate3("enc") if ($PREFIX eq $AESNI_PREFIX);
 &aesni_generate3("dec");
-&aesni_generate4("enc") if ($PREFIX eq "aesni");
+&aesni_generate4("enc") if ($PREFIX eq $AESNI_PREFIX);
 &aesni_generate4("dec");
-&aesni_generate6("enc") if ($PREFIX eq "aesni");
+&aesni_generate6("enc") if ($PREFIX eq $AESNI_PREFIX);
 &aesni_generate6("dec");
 
-if ($PREFIX eq "aesni") {
+if ($PREFIX eq $AESNI_PREFIX) {
 ######################################################################
-# void aesni_ecb_encrypt (const void *in, void *out,
+# void aes_hw_ecb_encrypt (const void *in, void *out,
 #                         size_t length, const AES_KEY *key,
 #                         int enc);
-&function_begin("aesni_ecb_encrypt");
+&function_begin("${PREFIX}_ecb_encrypt");
 	&mov	($inp,&wparam(0));
 	&mov	($out,&wparam(1));
 	&mov	($len,&wparam(2));
@@ -647,7 +648,7 @@ if ($PREFIX eq "aesni") {
 	&pxor	("xmm5","xmm5");
 	&pxor	("xmm6","xmm6");
 	&pxor	("xmm7","xmm7");
-&function_end("aesni_ecb_encrypt");
+&function_end("${PREFIX}_ecb_encrypt");
 
 ######################################################################
 # void aesni_ccm64_[en|de]crypt_blocks (const void *in, void *out,
@@ -858,7 +859,7 @@ if ($PREFIX eq "aesni") {
 }
 
 ######################################################################
-# void aesni_ctr32_encrypt_blocks (const void *in, void *out,
+# void aes_hw_ctr32_encrypt_blocks (const void *in, void *out,
 #                         size_t blocks, const AES_KEY *key,
 #                         const char *ivec);
 #
@@ -873,7 +874,7 @@ if ($PREFIX eq "aesni") {
 #	64	2nd triplet of counter vector
 #	80	saved %esp
 
-&function_begin("aesni_ctr32_encrypt_blocks");
+&function_begin("${PREFIX}_ctr32_encrypt_blocks");
 	&mov	($inp,&wparam(0));
 	&mov	($out,&wparam(1));
 	&mov	($len,&wparam(2));
@@ -1115,7 +1116,7 @@ if ($PREFIX eq "aesni") {
 	&movdqa	(&QWP(64,"esp"),"xmm0");
 	&pxor	("xmm7","xmm7");
 	&mov	("esp",&DWP(80,"esp"));
-&function_end("aesni_ctr32_encrypt_blocks");
+&function_end("${PREFIX}_ctr32_encrypt_blocks");
 
 ######################################################################
 # void aesni_xts_[en|de]crypt(const char *inp,char *out,size_t len,
