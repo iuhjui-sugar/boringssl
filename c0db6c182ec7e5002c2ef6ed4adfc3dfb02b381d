@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6ebb1dd9_f33f1357",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-11-27T19:57:11Z",
+      "side": 1,
+      "message": "With this change, if you have an `AES_KEY` that was created using this API then that `AES_KEY` will work with any other API, using only local reasoning about APIs that construct`AES_KEY`s. Without this change, one has to reason about how the rest of the (higher-level) APIs use `AES_KEY`.\n\nIn fact, we could take this change even further and replace all direct uses of {aes_hw,vpaes,aes_nohw}_set_{encrypt,decrypt}_key with `AES_set_encrypt_key` and `AES_set_decrypt_key`, moving the declarations of {aes_hw,vpaes,aes_nohw}_set_{encrypt,decrypt}_key to aes.c, to guarantee this.",
+      "parentUuid": "c4a5d3df_23257b92",
+      "revId": "c0db6c182ec7e5002c2ef6ed4adfc3dfb02b381d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1166769f_7474d87a",
         "filename": "crypto/fipsmodule/aes/aes.c",
         "patchSetId": 2
@@ -47,6 +65,30 @@
       "writtenOn": "2018-11-27T16:37:23Z",
       "side": 1,
       "message": "BSAES isn\u0027t compatible with anything other than aes_nohw_*, so this would need to call into that implementation directly, like the assembly already does.\n\nNot relevant for this CL, but relevant if we land this without removing BSAES from x86_64. Though if, say, someone ever wrote vpaes for armv7.pl, that would break too. Mixing and matching AES implementations does not appear to generally be safe, and BSAES is written targetting aes_nohw_*\u0027s format.\n\n(The reason BSAES calls into plain AES_* today is just because plain AES_* was originally just aes_nohw_*. Routing different AES implementations into those functions was a recent change.)",
+      "range": {
+        "startLine": 168,
+        "startChar": 12,
+        "endLine": 168,
+        "endChar": 31
+      },
+      "revId": "c0db6c182ec7e5002c2ef6ed4adfc3dfb02b381d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a2115f7_2f5eb970",
+        "filename": "crypto/fipsmodule/cipher/e_aes.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2018-11-27T19:57:11Z",
+      "side": 1,
+      "message": "If there were a VPAES for ARM (or the current situation for x86-64), it would work fine because the VPAES implementation would be chosen and the BSAES implementation wouldn\u0027t be used, because (due to the other CL) VPAES is preferred over BSAES.",
+      "parentUuid": "65dc97ef_0b7f277c",
       "range": {
         "startLine": 168,
         "startChar": 12,
