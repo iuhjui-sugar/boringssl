@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "63be68ca_709a954c",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 15
+      },
+      "lineNbr": 833,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-03T21:00:59Z",
+      "side": 0,
+      "message": "(Odd. My go fmt prefers it lined up.)",
+      "revId": "401c55a30fca9c2f5c494d305612084d26c80a2b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}

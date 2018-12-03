@@ -1,0 +1,576 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "103b9ac4_9e0c10f0",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-03T21:00:59Z",
+      "side": 1,
+      "message": "https://eprint.iacr.org/2017/667.pdf",
+      "range": {
+        "startLine": 46,
+        "startChar": 9,
+        "endLine": 46,
+        "endChar": 42
+      },
+      "revId": "6d5f90fb9504098ce768dac9249484565073f6e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5c4c8cb_c73d4a1c",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-03T21:00:59Z",
+      "side": 1,
+      "message": "This also omits clang-cl. Dunno if it works there. (clang-cl defines __clang__ and _MSC_VER, and not __GNUC__.) Though I actually thought MSVC had these too.\nhttps://msdn.microsoft.com/en-us/library/hh977022.aspx",
+      "range": {
+        "startLine": 62,
+        "startChar": 57,
+        "endLine": 62,
+        "endChar": 75
+      },
+      "revId": "6d5f90fb9504098ce768dac9249484565073f6e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7dbd63d_bb07f375",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-03T21:00:59Z",
+      "side": 1,
+      "message": "Maybe worth writing down that you\u0027re doing this by uint16s, since there\u0027s a few notions of add. Ditto below.",
+      "revId": "6d5f90fb9504098ce768dac9249484565073f6e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fdd5d0b_fae0e2e0",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-03T21:00:59Z",
+      "side": 1,
+      "message": "Nit: Maybe \"by one uint16_t\" and ditto below? I spent a while trying to figure out how this code was managing to shift by one bit, since BN_rshift1 shifts by a bit.\n\nMight also be worth saying something about ordering. That left-bit-shifts result in right-little-endian-word-shifts is extra confusing. :-)",
+      "range": {
+        "startLine": 97,
+        "startChar": 57,
+        "endLine": 97,
+        "endChar": 60
+      },
+      "revId": "6d5f90fb9504098ce768dac9249484565073f6e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a295b3f_9c1ef0fe",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-03T21:00:59Z",
+      "side": 1,
+      "message": "(Binary literals are apparently a GNU extension, but it\u0027s also using intrinsics so *shrug*.)",
+      "range": {
+        "startLine": 179,
+        "startChar": 27,
+        "endLine": 179,
+        "endChar": 37
+      },
+      "revId": "6d5f90fb9504098ce768dac9249484565073f6e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "74355c09_d82dde52",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-03T21:00:59Z",
+      "side": 1,
+      "message": "Huh. I found one arm_neon.h which defines uint16x8_t as\n\n  typedef __attribute__((neon_vector_type(4))) uint16_t uint16x4_t;\n\nhttps://cs.chromium.org/codesearch/f/chromium/src/third_party/android_ndk/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/5.0/include/arm_neon.h?cl\u003d4e2cea441bfd43f0863d14f57b1e1844260b9884\n\nbut another just does:\n\n  typedef __m128i uint16x8_t;\n\nhttps://cs.chromium.org/chromium/src/third_party/android_ndk/toolchains/x86_64-4.9/prebuilt/linux-x86_64/lib/gcc/x86_64-linux-android/4.9.x/include/arm_neon.h?rcl\u003d4e2cea441bfd43f0863d14f57b1e1844260b9884\u0026l\u003d142\n\nI suspect this syntax works with the former but not the latter? But hopefully the compiler will notice and scream if needed?\n\nIf we hit problems, we can always use vaddq_u16 and friends.",
+      "range": {
+        "startLine": 193,
+        "startChar": 55,
+        "endLine": 193,
+        "endChar": 60
+      },
+      "revId": "6d5f90fb9504098ce768dac9249484565073f6e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4689b01_9a20b2db",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-03T21:00:59Z",
+      "side": 1,
+      "message": "(https://chromium-review.googlesource.com/951773 suggests that some GCCs may get offended by this. If it comes up, we can use vdupq_n_u16(0) like you do below.)",
+      "range": {
+        "startLine": 204,
+        "startChar": 27,
+        "endLine": 204,
+        "endChar": 30
+      },
+      "revId": "6d5f90fb9504098ce768dac9249484565073f6e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "04cabb48_a545b29f",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-03T21:00:59Z",
+      "side": 1,
+      "message": "godbolt says GCC gets upset about this because:\n\n\u003csource\u003e:19:3: note: use -flax-vector-conversions to permit conversions between vectors with differing element types or numbers of subparts\n   a \u003d vshrq_n_s16(a \u003c\u003c 15, 15);\n   ^\n\u003csource\u003e:19:19: error: incompatible type for argument 1 of \u0027vshrq_n_s16\u0027\n   a \u003d vshrq_n_s16(a \u003c\u003c 15, 15);\n                   ^\n\nAdding a cast seems to shut it up.",
+      "range": {
+        "startLine": 227,
+        "startChar": 6,
+        "endLine": 227,
+        "endChar": 17
+      },
+      "revId": "6d5f90fb9504098ce768dac9249484565073f6e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afcd9904_3c10b280",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-03T21:00:59Z",
+      "side": 1,
+      "message": "I think this is strict aliasing violation. godbolt says GCC at least produces the same code with the memcpy, and even slightly better code with vget_low_u16(a).\n\nType-punning version:\nvec_broadcast_bit:\n        vmov    d16, r0, r1  @ v8hi\n        vmov    d17, r2, r3\n        vshl.i16        q8, q8, #15\n        vshr.s16        q8, q8, #15\n        vmov    r2, r3, d16  @ v2di\n        vmov    d16, r2, r3     @ int\n        vdup.16 q8, d16[0]\n        vmov    r0, r1, d16  @ v8hi\n        vmov    r2, r3, d17\n        bx      lr\n\nmemcpy version:\nvec_broadcast_bit2:\n        vmov    d16, r0, r1  @ v8hi\n        vmov    d17, r2, r3\n        vshl.i16        q8, q8, #15\n        vshr.s16        q8, q8, #15\n        vmov    r2, r3, d16  @ v2di\n        vmov    d16, r2, r3     @ int\n        vdup.16 q8, d16[0]\n        vmov    r0, r1, d16  @ v8hi\n        vmov    r2, r3, d17\n        bx      lr\n\nvget_low_u16 version:\nvec_broadcast_bit3:\n        vmov    d16, r0, r1  @ v8hi\n        vmov    d17, r2, r3\n        vshl.i16        q8, q8, #15\n        vshr.s16        q8, q8, #15\n        vdup.16 q8, d16[0]\n        vmov    r0, r1, d16  @ v8hi\n        vmov    r2, r3, d17\n        bx      lr\n\nAs far as I can tell, the vmov of d16 in and out of r2:r3 is a no-op and just GCC being confused...",
+      "range": {
+        "startLine": 228,
+        "startChar": 24,
+        "endLine": 228,
+        "endChar": 41
+      },
+      "revId": "6d5f90fb9504098ce768dac9249484565073f6e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "572a90a6_ab4d75ea",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-03T21:00:59Z",
+      "side": 1,
+      "message": "Dead code? Ditto with line 242.",
+      "revId": "6d5f90fb9504098ce768dac9249484565073f6e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b4c6c16_e4a22296",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-03T21:00:59Z",
+      "side": 1,
+      "message": "Any reason not to use crypto_word_t? Then you can even use things like constant_time_select_w.",
+      "revId": "6d5f90fb9504098ce768dac9249484565073f6e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbca3977_7dd183d4",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-03T21:00:59Z",
+      "side": 1,
+      "message": "(Did you mean to keep this in?)",
+      "revId": "6d5f90fb9504098ce768dac9249484565073f6e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a896d2f9_74cbcda6",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-03T21:00:59Z",
+      "side": 1,
+      "message": "Nit: non-zero",
+      "range": {
+        "startLine": 319,
+        "startChar": 44,
+        "endLine": 319,
+        "endChar": 45
+      },
+      "revId": "6d5f90fb9504098ce768dac9249484565073f6e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1d59957_ca04932f",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-03T21:00:59Z",
+      "side": 1,
+      "message": "This code also requires bits be non-zero. If bits \u003d 0, there\u0027s a lot of left-shifting by BITS_PER_WORD which is, frustratingly, UB.",
+      "revId": "6d5f90fb9504098ce768dac9249484565073f6e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29ca88ab_635d0ef3",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-03T21:00:59Z",
+      "side": 1,
+      "message": "I\u0027m not sure this quite works, though BITS_IN_LAST_WORD may just be making my head hurt.\n\nSuppose BITS_IN_LAST_WORD \u003c bits \u003c BITS_PER_WORD. That means out-\u003ev[WORDS_PER_POLY - 2] should get carry bits from both in-\u003ev[WORDS_PER_POLY - 1], but also in-\u003ev[0] because there are more carry bits than fit in BITS_IN_LAST_WORD.\n\nI suspect the reason this works is you only ever call this with power-of-two bits and BITS_IN_LAST_WORD \u003d BITS_PER_WORD - 3, so there aren\u0027t any powers of two in the problem range.\n\nOne possible fix would be to do:\n\n  OPENSSL_COMPILE_ASSERT(BITS_IN_LAST_WORD !\u003d 0,\n                         \"in-\u003ev[0] shift is undefined\");\n  word_t carry \u003d in-\u003ev[WORDS_PER_POLY - 1] |\n                 in-\u003ev[0] \u003c\u003c (BITS_PER_WORD - BITS_IN_LAST_WORD);\n  carry \u003e\u003e\u003d BITS_PER_WORD - bits;\n\nThough this is adding in a couple extra instructions that we actually don\u0027t need, so maybe it\u0027s better to tighten the function\u0027s spec? I believe it\u0027s sufficient to require bits \u003c BITS_IN_LAST_WORD. Then static_assert(BITS_IN_LAST_WORD \u003e BITS_PER_WORD/2) is sufficient to ensure that poly2_rotr_consttime meets that requirement.",
+      "revId": "6d5f90fb9504098ce768dac9249484565073f6e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e7fee86_cb55f1d3",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-03T21:00:59Z",
+      "side": 1,
+      "message": "Do you need to \u0026 this with (1 \u003c\u003c BITS_IN_LAST_WORD) - 1? Otherwise I think there are excess bits lying around that could mess up, say, line 353.",
+      "range": {
+        "startLine": 361,
+        "startChar": 57,
+        "endLine": 361,
+        "endChar": 64
+      },
+      "revId": "6d5f90fb9504098ce768dac9249484565073f6e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f400a3a5_4bda5990",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-03T21:00:59Z",
+      "side": 1,
+      "message": "Optional:\n\n  OPENSSL_STATIC_ASSERT(1\u003c\u003c(9+1) \u003e N, \"maximum shift is too small\");\n  OPENSSL_STATIC_ASSERT(1\u003c\u003c9 \u003c\u003d N, \"maximum shift is too large\");",
+      "revId": "6d5f90fb9504098ce768dac9249484565073f6e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50a02c24_ddd4e3b5",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-03T21:00:59Z",
+      "side": 1,
+      "message": "Optional: the ~(m-1) trick is probably more efficient, if we care.",
+      "range": {
+        "startLine": 376,
+        "startChar": 28,
+        "endLine": 376,
+        "endChar": 46
+      },
+      "revId": "6d5f90fb9504098ce768dac9249484565073f6e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f8fdca5_b5263689",
+        "filename": "include/openssl/hrss.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-03T21:00:59Z",
+      "side": 1,
+      "message": "https://eprint.iacr.org/2017/667.pdf",
+      "range": {
+        "startLine": 27,
+        "startChar": 24,
+        "endLine": 27,
+        "endChar": 59
+      },
+      "revId": "6d5f90fb9504098ce768dac9249484565073f6e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2665cdc2_f7ae946c",
+        "filename": "include/openssl/hrss.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-03T21:00:59Z",
+      "side": 1,
+      "message": "outputs",
+      "range": {
+        "startLine": 62,
+        "startChar": 54,
+        "endLine": 62,
+        "endChar": 61
+      },
+      "revId": "6d5f90fb9504098ce768dac9249484565073f6e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed81756d_318987e9",
+        "filename": "ssl/ssl_key_share.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-03T21:00:59Z",
+      "side": 1,
+      "message": "(Are these actually necessary now that we zero all mallocs automatically?)",
+      "revId": "6d5f90fb9504098ce768dac9249484565073f6e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffff4edd_11ae9e6b",
+        "filename": "ssl/ssl_key_share.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-03T21:00:59Z",
+      "side": 1,
+      "message": "Do we actually need to implement (De)Serialize for CECPQ2? It only works for the offer side (this reads uninitialized memory on accept side). In TLS 1.3, that\u0027s the client, which doesn\u0027t play this handoff game. In TLS 1.2, we do serialize, but TLS 1.2 can\u0027t use CECPQ2.\n\nIn 1.3, the server key share, certificate, and certificate signature all happen in one flight, so I don\u0027t think we\u0027d ever need to serialize that stuff.",
+      "revId": "6d5f90fb9504098ce768dac9249484565073f6e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c38a0c5_cf25b2a9",
+        "filename": "ssl/ssl_key_share.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-03T21:00:59Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "range": {
+        "startLine": 325,
+        "startChar": 80,
+        "endLine": 325,
+        "endChar": 82
+      },
+      "revId": "6d5f90fb9504098ce768dac9249484565073f6e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a603df91_a64ce78b",
+        "filename": "ssl/ssl_key_share.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-03T21:00:59Z",
+      "side": 1,
+      "message": "Stray code?",
+      "revId": "6d5f90fb9504098ce768dac9249484565073f6e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71210474_5b73e5be",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 15
+      },
+      "lineNbr": 1721,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-03T21:00:59Z",
+      "side": 1,
+      "message": "Any reason for this ordering vs CECPQ2 in front?",
+      "range": {
+        "startLine": 1721,
+        "startChar": 40,
+        "endLine": 1721,
+        "endChar": 64
+      },
+      "revId": "6d5f90fb9504098ce768dac9249484565073f6e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f8c3730_cee7ebc1",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 15
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-03T21:00:59Z",
+      "side": 1,
+      "message": "Nit: Maybe \"unexpected HelloRetryRequest\"? (I don\u0027t think \"hello-retry\" is a standard term. :-) )",
+      "range": {
+        "startLine": 520,
+        "startChar": 27,
+        "endLine": 520,
+        "endChar": 48
+      },
+      "revId": "6d5f90fb9504098ce768dac9249484565073f6e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "324163a7_b80b5786",
+        "filename": "ssl/test/runner/hrss/hrss.go",
+        "patchSetId": 15
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-03T21:00:59Z",
+      "side": 1,
+      "message": "This is sign and absolute value? (Comment maybe?)",
+      "revId": "6d5f90fb9504098ce768dac9249484565073f6e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e4c51b2_74ac7958",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 15
+      },
+      "lineNbr": 11164,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-03T21:00:59Z",
+      "side": 1,
+      "message": "Does this CL actually have code to blacklist CECPQ2 on the client? I think this is just passing by way of the defaults working out. As far as I can tell, the C code will both happily advertise CECPQ2 and happily accept CECPQ2 if advertised. (Although, in the latter case, it\u0027ll quickly fail the length check, so it doesn\u0027t strictly need its own check...)\n\n(It\u0027s not particularly a disaster if CECPQ2 is offered at 1.2-only clients, but it is a little silly.)",
+      "revId": "6d5f90fb9504098ce768dac9249484565073f6e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
