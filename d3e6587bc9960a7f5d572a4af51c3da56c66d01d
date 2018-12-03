@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "280be497_1527d225",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-03T17:01:57Z",
+      "side": 1,
+      "message": "There\u0027s an analogous one in aes-586.pl. Didn\u0027t find any others. I skimmed over references to 7 and 28 near an OPENSSL_ia32cap_P. The aes-586.pl version has a lot more text about what this is about:\nhttps://github.com/openssl/openssl/commit/6c69aa532eee8a2cd1228b7810a926f2b752b864\n\nThere\u0027s... a lot of text, but I think it\u0027s trying to use smaller tables so it\u0027s harder to distinguish accesses at different offsets.\n\n(The commit that added it to the 64-bit version just talks about synchronizing the two.)",
+      "revId": "d3e6587bc9960a7f5d572a4af51c3da56c66d01d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
