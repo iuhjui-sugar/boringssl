@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d72f26e7_ab9d4796",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-05T22:13:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c0587df_b7743b34",
+      "range": {
+        "startLine": 355,
+        "startChar": 38,
+        "endLine": 355,
+        "endChar": 59
+      },
+      "revId": "f1a7c29669eee8182d5c828e875b9d3d6542a5cc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dd2c5c30_bd68fecc",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 18
@@ -82,6 +106,30 @@
     },
     {
       "key": {
+        "uuid": "2ec0fa21_45877e5c",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-05T22:13:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c04f51c_9d2c7f59",
+      "range": {
+        "startLine": 516,
+        "startChar": 43,
+        "endLine": 516,
+        "endChar": 58
+      },
+      "revId": "f1a7c29669eee8182d5c828e875b9d3d6542a5cc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7dce5982_91ba35e3",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 18
@@ -96,6 +144,24 @@
       "revId": "f1a7c29669eee8182d5c828e875b9d3d6542a5cc",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c736cc5_fb8796ce",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-05T22:13:55Z",
+      "side": 1,
+      "message": "Going to document rather than change that. This is a hot function and the inversion already takes care of cleaning the extra bits in the result.",
+      "parentUuid": "7dce5982_91ba35e3",
+      "revId": "f1a7c29669eee8182d5c828e875b9d3d6542a5cc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -116,6 +182,24 @@
     },
     {
       "key": {
+        "uuid": "3be4880a_971b13cc",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-05T22:13:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "723672a1_0cae21dd",
+      "revId": "f1a7c29669eee8182d5c828e875b9d3d6542a5cc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "94905770_97a927e5",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 18
@@ -127,6 +211,24 @@
       "writtenOn": "2018-12-05T01:01:06Z",
       "side": 1,
       "message": "Yay! :-)",
+      "revId": "f1a7c29669eee8182d5c828e875b9d3d6542a5cc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "36b02f03_d8e715d6",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-05T22:13:55Z",
+      "side": 1,
+      "message": "This is called after the inversion (which is a big time-sink). Trailing bits may not be cleared while calculating the inversion, but are cleared here before returning.",
+      "parentUuid": "94905770_97a927e5",
       "revId": "f1a7c29669eee8182d5c828e875b9d3d6542a5cc",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -167,6 +269,24 @@
     },
     {
       "key": {
+        "uuid": "70a088cf_ec2370a5",
+        "filename": "crypto/hrss/internal.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-05T22:13:55Z",
+      "side": 1,
+      "message": "Yea, probably. Done.",
+      "parentUuid": "95d2c40b_1cece4de",
+      "revId": "f1a7c29669eee8182d5c828e875b9d3d6542a5cc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7db2b90a_47b7ae04",
         "filename": "ssl/t1_lib.cc",
         "patchSetId": 18
@@ -181,6 +301,24 @@
       "revId": "f1a7c29669eee8182d5c828e875b9d3d6542a5cc",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16f63682_79873529",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-05T22:13:55Z",
+      "side": 1,
+      "message": "Done and test added.",
+      "parentUuid": "7db2b90a_47b7ae04",
+      "revId": "f1a7c29669eee8182d5c828e875b9d3d6542a5cc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
