@@ -20,6 +20,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 )
 
@@ -37,7 +38,9 @@ type arTest struct {
 }
 
 func (test *arTest) Path(file string) string {
-	return filepath.Join(*testDataDir, test.name, file)
+	dir := *testDataDir
+	dir = strings.Replace(dir, "${TEST_SRCDIR}", os.Getenv("TEST_SRCDIR"), -1)
+	return filepath.Join(dir, test.name, file)
 }
 
 func removeTrailingNewlines(in []byte) []byte {
