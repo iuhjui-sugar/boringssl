@@ -1,0 +1,186 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0c0587df_b7743b34",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-05T01:01:06Z",
+      "side": 1,
+      "message": "Nit: Well, if we\u0027re saying power of two, non-zero is implied. :-) (\"non-zero power of two\" sounds like it might exclude 2^0.)",
+      "range": {
+        "startLine": 355,
+        "startChar": 38,
+        "endLine": 355,
+        "endChar": 59
+      },
+      "revId": "f1a7c29669eee8182d5c828e875b9d3d6542a5cc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd2c5c30_bd68fecc",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-05T01:01:06Z",
+      "side": 1,
+      "message": "Ditto about masking off the top few bits of the last word.",
+      "revId": "f1a7c29669eee8182d5c828e875b9d3d6542a5cc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1623f22_e60ede37",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-05T01:01:06Z",
+      "side": 1,
+      "message": "I started trying to work through these and gave up and brute-forced to check. :-)\n\ndef gf3_to_bits(x):\n  if x \u003d\u003d 0:\n    return (0, 0)\n  if x \u003d\u003d 1:\n    return (0, 1)\n  if x \u003d\u003d 2:\n    return (1, 0)\n  raise ValueError(x)\n\ndef bits_to_gf3((s, a)):\n  if s \u003d\u003d 0 and a \u003d\u003d 0:\n    return 0\n  if s \u003d\u003d 0 and a \u003d\u003d 1:\n    return 1\n  if s \u003d\u003d 1 and a \u003d\u003d 0:\n    return 2\n  raise ValueError((s, a))\n\ndef check_binop(gf3_op, bits_op):\n  for x in xrange(3):\n    for y in xrange(3):\n      z \u003d gf3_op(x, y)\n      z2 \u003d bits_to_gf3(bits_op(gf3_to_bits(x), gf3_to_bits(y)))\n      assert z \u003d\u003d z2\n\ndef bits_mul((s1, a1), (s2, a2)):\n  s3 \u003d (s2 \u0026 a1) ^ (s1 \u0026 a2)\n  a3 \u003d (s1 \u0026 s2) ^ (a1 \u0026 a2)\n  return (s3, a3)\n\ndef bits_add((s1, a1), (s2, a2)):\n  t1 \u003d ~(s1 | a1) \u0026 1\n  t2 \u003d ~(s2 | a2) \u0026 1\n  s3 \u003d (a1 \u0026 a2) ^ (t1 \u0026 s2) ^ (t2 \u0026 s1)\n  a3 \u003d (s1 \u0026 s2) ^ (t1 \u0026 a2) ^ (t2 \u0026 a1)\n  return s3, a3\n\ncheck_binop(lambda x, y: (x * y) % 3, bits_mul)\ncheck_binop(lambda x, y: (x + y) % 3, bits_add)",
+      "revId": "f1a7c29669eee8182d5c828e875b9d3d6542a5cc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4c04f51c_9d2c7f59",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-05T01:01:06Z",
+      "side": 1,
+      "message": "0u - (v \u0026 1) is one fewer operation, but I don\u0027t know how the compiler handles it.",
+      "range": {
+        "startLine": 516,
+        "startChar": 43,
+        "endLine": 516,
+        "endChar": 58
+      },
+      "revId": "f1a7c29669eee8182d5c828e875b9d3d6542a5cc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7dce5982_91ba35e3",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-05T01:01:06Z",
+      "side": 1,
+      "message": "If m !\u003d 0, this leaves some gunk at the end of the last word.",
+      "revId": "f1a7c29669eee8182d5c828e875b9d3d6542a5cc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "723672a1_0cae21dd",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-05T01:01:06Z",
+      "side": 1,
+      "message": "Oh hrmf. I don\u0027t think this works on NaCl and Linux x32, where pointers are smaller than the native word.\n\nIt\u0027s just a one-off, so maybe just ifdef OPENSSL_64_BIT? Or we could define crypto_signed_word_t. Or perhaps lsb_to_all(v \u003e\u003e (BITS_IN_LAST_WORD - 1)).",
+      "revId": "f1a7c29669eee8182d5c828e875b9d3d6542a5cc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94905770_97a927e5",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-05T01:01:06Z",
+      "side": 1,
+      "message": "Yay! :-)",
+      "revId": "f1a7c29669eee8182d5c828e875b9d3d6542a5cc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1d6ab5b1_3000a829",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 18
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-05T01:01:06Z",
+      "side": 1,
+      "message": "[Note to self: start here tomorrow.]",
+      "revId": "f1a7c29669eee8182d5c828e875b9d3d6542a5cc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "95d2c40b_1cece4de",
+        "filename": "crypto/hrss/internal.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-05T01:01:06Z",
+      "side": 1,
+      "message": "Optional: Does it make sense to just s/\\bword_t\\b/crypto_word_t/g?",
+      "revId": "f1a7c29669eee8182d5c828e875b9d3d6542a5cc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7db2b90a_47b7ae04",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-05T01:01:06Z",
+      "side": 1,
+      "message": "Re https://boringssl-review.googlesource.com/c/boringssl/+/33105/15..18/ssl/test/runner/runner.go#308, this is the place that wants a version check for the client to notice if the server selects CECPQ2 at TLS 1.2.\n\nBut it doesn\u0027t hugely matter because, if the client doesn\u0027t check, CECPQ2\u0027s parser will immediately reject it as the wrong length, since it doesn\u0027t fit.\n\n(We really should avoid this logic being all over the place... maybe if we\u0027d do things like have SSLKeyShare::Create were really attached to SSL_HANDSHAKE and implicitly check. Yeah, I dunno. libssl still could be cleaner. :-) )",
+      "revId": "f1a7c29669eee8182d5c828e875b9d3d6542a5cc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}

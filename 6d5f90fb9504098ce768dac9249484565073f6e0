@@ -342,6 +342,30 @@
     },
     {
       "key": {
+        "uuid": "6f2a4ce9_e538016f",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-05T01:01:06Z",
+      "side": 1,
+      "message": "I suspect *someone*\u0027s doing it. :-/",
+      "parentUuid": "82639d69_b0ae2648",
+      "range": {
+        "startLine": 227,
+        "startChar": 6,
+        "endLine": 227,
+        "endChar": 17
+      },
+      "revId": "6d5f90fb9504098ce768dac9249484565073f6e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "afcd9904_3c10b280",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 15
@@ -453,6 +477,24 @@
       "side": 1,
       "message": "If you\u0027re happy saying that |crypto_word_t| is the biggest, native word size then size. (It makes sense but I wasn\u0027t sure.)",
       "parentUuid": "8b4c6c16_e4a22296",
+      "revId": "6d5f90fb9504098ce768dac9249484565073f6e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b7145c5_e5998204",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-05T01:01:06Z",
+      "side": 1,
+      "message": "Yeah. crypto_word_t can be bigger than size_t too.",
+      "parentUuid": "5836407c_b341656b",
       "revId": "6d5f90fb9504098ce768dac9249484565073f6e0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -1144,6 +1186,24 @@
       "side": 1,
       "message": "I think t1_lib.cc:341 will prevent CECPQ2 from being selected when TLS 1.3 isn\u0027t being used but you\u0027re right that there should be a test of |max_version| before CECPQ2 is advertised as a client. Done.",
       "parentUuid": "7e4c51b2_74ac7958",
+      "revId": "6d5f90fb9504098ce768dac9249484565073f6e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "211500fe_6d456469",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 15
+      },
+      "lineNbr": 11164,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-05T01:01:06Z",
+      "side": 1,
+      "message": "The client never calls tls1_get_shared_group since it doesn\u0027t need to select a group. (There\u0027s three pieces to parameter negotiation: client offer, server select, client accept. That last step is always a little fussy. It\u0027s tls1_check_group_id.)",
+      "parentUuid": "a12e248f_fd10e740",
       "revId": "6d5f90fb9504098ce768dac9249484565073f6e0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
