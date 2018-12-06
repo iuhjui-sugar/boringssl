@@ -1,0 +1,285 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a89e4069_1d13a52d",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-06T00:30:58Z",
+      "side": 1,
+      "message": "Nit: The ARM code takes a uint16_t. It doesn\u0027t matter because the only uses pass in a crypto_word_t boolean, but maybe use _mm_set1_epi16 here for consistency?\n\nOr maybe just take a crypto_word_t and document that it only takes true/false masks. Then just about anything works.",
+      "range": {
+        "startLine": 83,
+        "startChar": 28,
+        "endLine": 83,
+        "endChar": 36
+      },
+      "revId": "6c943d372cd65188d4ad8dcde33800208b9022b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0eab93d2_9373f106",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 642,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-06T00:30:58Z",
+      "side": 1,
+      "message": "How big is scratch? (2n+2 it looks like?)",
+      "range": {
+        "startLine": 642,
+        "startChar": 65,
+        "endLine": 642,
+        "endChar": 66
+      },
+      "revId": "6c943d372cd65188d4ad8dcde33800208b9022b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "effa9e1e_73fdc5e1",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 664,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-06T00:30:58Z",
+      "side": 1,
+      "message": "It\u0027s also undefined to do that. :-)",
+      "range": {
+        "startLine": 664,
+        "startChar": 18,
+        "endLine": 664,
+        "endChar": 44
+      },
+      "revId": "6c943d372cd65188d4ad8dcde33800208b9022b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04951df9_64fdc7b8",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 782,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-06T00:30:58Z",
+      "side": 1,
+      "message": "This differs from poly3_fmadd a bit. This one expects ms and ma to already have all the bits duplicated, while poly3_fmadd does it internally. Probably worth calling attention to this.\n\nI would hope the compiler can just deal with it either way, but making poly3_fmadd match this might actually make sense. They\u0027re both used in poly3_invert where the ms and ma (s_s and s_a) are otherwise used to compute should_swap, which also wants the bit duplicated. Moving the bit duplication outside would save doing it redundantly.",
+      "revId": "6c943d372cd65188d4ad8dcde33800208b9022b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "319c4fd1_9e274bea",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 865,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-06T00:30:58Z",
+      "side": 1,
+      "message": "In the paper, this is a conditional subtraction (line 12 deg_f \u003d deg_f - ~done), but here it\u0027s unconditional. It seems that, unlike the paper\u0027s algorithm, this can cause still_going to flip from 0 back to f..f.\n\nDid you mean still_going \u0026\u003d ~vec_set(...) below? Or deg_f \u003d deg_f - (1 \u0026 still_going_word)?\n\nDitto in crypto_word_t version below.",
+      "revId": "6c943d372cd65188d4ad8dcde33800208b9022b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e99775b2_864ad49e",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 867,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-06T00:30:58Z",
+      "side": 1,
+      "message": "Given you\u0027re only ever using f0_is_zero as ~f0_is_zero[_word] and this already has an inversion, maybe just compute f0_is_non_zero[_word]?\n\n(I suspect that the compiler is not going to optimize across word_from_vec well.)\n\nDitto in crypto_word_t version below.",
+      "range": {
+        "startLine": 867,
+        "startChar": 16,
+        "endLine": 867,
+        "endChar": 26
+      },
+      "revId": "6c943d372cd65188d4ad8dcde33800208b9022b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b188c216_9ebdee76",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 883,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-06T00:30:58Z",
+      "side": 1,
+      "message": "out is seeded from b, which sees poly3_vec_fmadd, which does *not* clear trailing bits. That means poly3_rotr_consttime must survive gunk up there. I\u0027m not sure it does.\n\npoly2_rotr_bits ends with:\n\n  crypto_word_t last_word \u003d carry \u003e\u003e (BITS_PER_WORD - BITS_IN_LAST_WORD) |\n                            in-\u003ev[WORDS_PER_POLY - 1] \u003e\u003e bits;\n\nIf there was trailing gunk, it would end up in last_word, no?\n\n(If it is meant to survive it, that probably deserves a test. Trailing gunk is mostly free, except when we start doing some rotations.)\n\nDitto in crypto_word_t version below.",
+      "range": {
+        "startLine": 883,
+        "startChar": 2,
+        "endLine": 883,
+        "endChar": 22
+      },
+      "revId": "6c943d372cd65188d4ad8dcde33800208b9022b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9770a41b_9a0bbfa2",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 930,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-06T00:30:58Z",
+      "side": 1,
+      "message": "lsb_to_all? Probably a little more efficient. Ditto with f0_is_zero below.",
+      "range": {
+        "startLine": 930,
+        "startChar": 8,
+        "endLine": 930,
+        "endChar": 32
+      },
+      "revId": "6c943d372cd65188d4ad8dcde33800208b9022b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0c0399e_91ebcff2",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 997,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-06T00:30:58Z",
+      "side": 1,
+      "message": "How big is scratch?",
+      "range": {
+        "startLine": 997,
+        "startChar": 50,
+        "endLine": 997,
+        "endChar": 60
+      },
+      "revId": "6c943d372cd65188d4ad8dcde33800208b9022b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8de5de99_b31866aa",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 1002,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-06T00:30:58Z",
+      "side": 1,
+      "message": "s/Katatsuba/Karatsuba/g",
+      "range": {
+        "startLine": 1002,
+        "startChar": 5,
+        "endLine": 1002,
+        "endChar": 14
+      },
+      "revId": "6c943d372cd65188d4ad8dcde33800208b9022b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53c640dc_e9ced420",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 1027,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-06T00:30:58Z",
+      "side": 1,
+      "message": "simpler",
+      "range": {
+        "startLine": 1027,
+        "startChar": 28,
+        "endLine": 1027,
+        "endChar": 36
+      },
+      "revId": "6c943d372cd65188d4ad8dcde33800208b9022b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0e079c6_a080e142",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 1031,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-06T00:30:58Z",
+      "side": 1,
+      "message": "then?",
+      "range": {
+        "startLine": 1031,
+        "startChar": 54,
+        "endLine": 1031,
+        "endChar": 58
+      },
+      "revId": "6c943d372cd65188d4ad8dcde33800208b9022b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b51068b_6c97e8ab",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 1034,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-06T00:30:58Z",
+      "side": 1,
+      "message": "[Note to self: start here tomorrow]",
+      "revId": "6c943d372cd65188d4ad8dcde33800208b9022b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
