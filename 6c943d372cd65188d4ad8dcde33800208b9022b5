@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ca883563_f2d63d02",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-06T02:54:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a89e4069_1d13a52d",
+      "range": {
+        "startLine": 83,
+        "startChar": 28,
+        "endLine": 83,
+        "endChar": 36
+      },
+      "revId": "6c943d372cd65188d4ad8dcde33800208b9022b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0eab93d2_9373f106",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 20
@@ -45,6 +69,30 @@
       "revId": "6c943d372cd65188d4ad8dcde33800208b9022b5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7d62ae2_51a722c0",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 642,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-06T02:54:38Z",
+      "side": 1,
+      "message": "It\u0027s complicated. Comment expanded.",
+      "parentUuid": "0eab93d2_9373f106",
+      "range": {
+        "startLine": 642,
+        "startChar": 65,
+        "endLine": 642,
+        "endChar": 66
+      },
+      "revId": "6c943d372cd65188d4ad8dcde33800208b9022b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "27587b1a_f3006f21",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 664,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-06T02:54:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "effa9e1e_73fdc5e1",
+      "range": {
+        "startLine": 664,
+        "startChar": 18,
+        "endLine": 664,
+        "endChar": 44
+      },
+      "revId": "6c943d372cd65188d4ad8dcde33800208b9022b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "04951df9_64fdc7b8",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 20
@@ -85,6 +157,24 @@
       "revId": "6c943d372cd65188d4ad8dcde33800208b9022b5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7723cbbd_b42ad2a7",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 782,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-06T02:54:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04951df9_64fdc7b8",
+      "revId": "6c943d372cd65188d4ad8dcde33800208b9022b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -105,6 +195,24 @@
     },
     {
       "key": {
+        "uuid": "976bd29e_8bcdda22",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 852,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-06T02:54:38Z",
+      "side": 1,
+      "message": "I claim that |f| and |g| never have gunk: they start gunk-free, right-shifting doesn\u0027t create gunk, they swap only with themselves, and fmadd with gunk-free arguments gives gunk-free output.\n\nThat is not true of |b| and |c| because left-shifting creates gunk. It turns out that |b| is gunk-free by the end, at least in tests, but I can\u0027t prove that, so I\u0027ve added degunking before the rotate.",
+      "parentUuid": "4da6ba5c_b550caf7",
+      "revId": "6c943d372cd65188d4ad8dcde33800208b9022b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "319c4fd1_9e274bea",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 20
@@ -119,6 +227,24 @@
       "revId": "6c943d372cd65188d4ad8dcde33800208b9022b5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9113ec51_b3e956fb",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 865,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-06T02:54:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "319c4fd1_9e274bea",
+      "revId": "6c943d372cd65188d4ad8dcde33800208b9022b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -145,6 +271,30 @@
     },
     {
       "key": {
+        "uuid": "2c21a828_a9c527ce",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 867,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-06T02:54:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e99775b2_864ad49e",
+      "range": {
+        "startLine": 867,
+        "startChar": 16,
+        "endLine": 867,
+        "endChar": 26
+      },
+      "revId": "6c943d372cd65188d4ad8dcde33800208b9022b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b188c216_9ebdee76",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 20
@@ -165,6 +315,30 @@
       "revId": "6c943d372cd65188d4ad8dcde33800208b9022b5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75a7e080_2aecbe29",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 883,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-06T02:54:38Z",
+      "side": 1,
+      "message": "(Repeated from above:)\n\nIn practice |b| ends up gunk-free in tests, but I can\u0027t show that\u0027s always true. Thus I\u0027ve added degunking before rotating.",
+      "parentUuid": "b188c216_9ebdee76",
+      "range": {
+        "startLine": 883,
+        "startChar": 2,
+        "endLine": 883,
+        "endChar": 22
+      },
+      "revId": "6c943d372cd65188d4ad8dcde33800208b9022b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -191,6 +365,30 @@
     },
     {
       "key": {
+        "uuid": "57b2cf0f_b141d9d0",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 930,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-06T02:54:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9770a41b_9a0bbfa2",
+      "range": {
+        "startLine": 930,
+        "startChar": 8,
+        "endLine": 930,
+        "endChar": 32
+      },
+      "revId": "6c943d372cd65188d4ad8dcde33800208b9022b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d0c0399e_91ebcff2",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 20
@@ -211,6 +409,30 @@
       "revId": "6c943d372cd65188d4ad8dcde33800208b9022b5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "999452c2_5637e4cc",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 997,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-06T02:54:38Z",
+      "side": 1,
+      "message": "It\u0027s complicated. Commented added.",
+      "parentUuid": "d0c0399e_91ebcff2",
+      "range": {
+        "startLine": 997,
+        "startChar": 50,
+        "endLine": 997,
+        "endChar": 60
+      },
+      "revId": "6c943d372cd65188d4ad8dcde33800208b9022b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -237,6 +459,30 @@
     },
     {
       "key": {
+        "uuid": "9295e656_e605b395",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 1002,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-06T02:54:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8de5de99_b31866aa",
+      "range": {
+        "startLine": 1002,
+        "startChar": 5,
+        "endLine": 1002,
+        "endChar": 14
+      },
+      "revId": "6c943d372cd65188d4ad8dcde33800208b9022b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "53c640dc_e9ced420",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 20
@@ -260,6 +506,30 @@
     },
     {
       "key": {
+        "uuid": "8ef40b3e_dd2ae304",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 1027,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-06T02:54:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53c640dc_e9ced420",
+      "range": {
+        "startLine": 1027,
+        "startChar": 28,
+        "endLine": 1027,
+        "endChar": 36
+      },
+      "revId": "6c943d372cd65188d4ad8dcde33800208b9022b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0e079c6_a080e142",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 20
@@ -280,6 +550,30 @@
       "revId": "6c943d372cd65188d4ad8dcde33800208b9022b5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98557333_c02ed049",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 1031,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-06T02:54:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0e079c6_a080e142",
+      "range": {
+        "startLine": 1031,
+        "startChar": 54,
+        "endLine": 1031,
+        "endChar": 58
+      },
+      "revId": "6c943d372cd65188d4ad8dcde33800208b9022b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
