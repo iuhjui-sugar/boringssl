@@ -88,6 +88,23 @@
     },
     {
       "key": {
+        "uuid": "4da6ba5c_b550caf7",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 852,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-06T00:33:08Z",
+      "side": 1,
+      "message": "This doesn\u0027t appear to survive trailing gunk either.\n\nDitto in crypto_word_t version below.",
+      "revId": "6c943d372cd65188d4ad8dcde33800208b9022b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "319c4fd1_9e274bea",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 20
