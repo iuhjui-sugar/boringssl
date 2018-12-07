@@ -191,6 +191,36 @@ OPENSSL_INLINE void vpaes_cbc_encrypt(const uint8_t *in, uint8_t *out,
 #endif  // !VPAES
 
 
+#if defined(BSAES) && defined(OPENSSL_X86_64)
+// bsaes does not come with a constant-time key setup function, but vpaes's CPU
+// requirements are identical. Set up the key schedule with vpaes and convert to
+// bsaes.
+void vpaes_encrypt_key_to_bsaes(AES_KEY *vpaes, const AES_KEY *bsaes);
+void vpaes_decrypt_key_to_bsaes(AES_KEY *vpaes, const AES_KEY *bsaes);
+
+OPENSSL_INLINE int bsaes_set_encrypt_key(const uint8_t *user_key, int bits,
+                                         AES_KEY *key) {
+  int ret = vpaes_set_encrypt_key(user_key, bits, key);
+  if (ret == 0) {
+    vpaes_encrypt_key_to_bsaes(key, key);
+  }
+  return ret;
+}
+
+OPENSSL_INLINE int bsaes_set_decrypt_key(const uint8_t *user_key, int bits,
+                                         AES_KEY *key) {
+  int ret = vpaes_set_decrypt_key(user_key, bits, key);
+  if (ret == 0) {
+    vpaes_decrypt_key_to_bsaes(key, key);
+  }
+  return ret;
+}
+#else
+#define bsaes_set_encrypt_key AES_set_encrypt_key
+#define bsaes_set_decrypt_key AES_set_decrypt_key
+#endif  // BSAES && OPENSSL_X86_64
+
+
 void aes_nohw_encrypt(const uint8_t *in, uint8_t *out, const AES_KEY *key);
 void aes_nohw_decrypt(const uint8_t *in, uint8_t *out, const AES_KEY *key);
 int aes_nohw_set_encrypt_key(const uint8_t *key, unsigned bits,

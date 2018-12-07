@@ -993,6 +993,237 @@ _vpaes_preheat:
 	ret
 .cfi_endproc
 .size	_vpaes_preheat,.-_vpaes_preheat
+
+
+# void ${PREFIX}_encrypt_key_to_bsaes(AES_KEY *vpaes, const AES_KEY *bsaes);
+.globl	${PREFIX}_encrypt_key_to_bsaes
+.type	${PREFIX}_encrypt_key_to_bsaes,\@function,2
+.align	16
+${PREFIX}_encrypt_key_to_bsaes:
+___
+$code.=<<___ if ($win64);
+	# %xmm6 through %xmm15 are callee-saved on Windows. Although this
+	# function only uses %xmm9 onwards via _vpaes_preheat, se_handler relies
+	# on the save area being the same size for all functions.
+	lea	-0xb8(%rsp),%rsp
+	movaps	%xmm6,0x10(%rsp)
+	movaps	%xmm7,0x20(%rsp)
+	movaps	%xmm8,0x30(%rsp)
+	movaps	%xmm9,0x40(%rsp)
+	movaps	%xmm10,0x50(%rsp)
+	movaps	%xmm11,0x60(%rsp)
+	movaps	%xmm12,0x70(%rsp)
+	movaps	%xmm13,0x80(%rsp)
+	movaps	%xmm14,0x90(%rsp)
+	movaps	%xmm15,0xa0(%rsp)
+.Lenc_key_to_bsaes_body:
+___
+$code.=<<___;
+	# %rdi is the output and %rsi is the input.
+	#
+	# See _vpaes_schedule_core for the key schedule logic. In particular,
+	# _vpaes_schedule_transform(.Lk_ipt) (section 2.2 of the paper),
+	# _vpaes_schedule_mangle (section 4.3), and .Lschedule_mangle_last
+	# contain the transformations not in the bsaes representation. This
+	# function inverts those transforms.
+
+	call	_vpaes_preheat
+	lea	.Lk_opt(%rip), %r11
+	lea	.Lk_sr(%rip), %r10
+
+	# vpaes stores one fewer round count than bsaes, but the number of keys
+	# is the same.
+	mov	240(%rsi), %ecx
+	inc	%ecx
+	mov	%ecx, 240(%rdi)
+
+	# The first key is transformed with _vpaes_schedule_transform(.Lk_ipt).
+	# This is inverted with .Lk_opt.
+	movdqu	(%rsi), %xmm0
+	call	_vpaes_schedule_transform
+	movdqu	%xmm0, (%rdi)
+
+	# The middle keys have _vpaes_schedule_transform(.Lk_ipt) applied,
+	# followed by _vpaes_schedule_mangle. _vpaes_schedule_mangle XORs 0x63,
+	# multiplies by the circulant 0,1,1,1, then applies ShiftRows.
+	movdqa	.Lk_mc_forward(%rip), %xmm3
+	mov	\$0x10, %r8d
+.Loop_enc_key_to_bsaes:
+	lea	16(%rsi), %rsi
+	lea	16(%rdi), %rdi
+	movdqu	(%rsi), %xmm0
+
+	# Invert the ShiftRows step (see .Lschedule_mangle_both). Note we cycle
+	# %r8 in the opposite direction and start at 0x10 instead of 0x30.
+	movdqa	(%r8,%r10), %xmm1
+	pshufb	%xmm1, %xmm0
+	add	\$16, %r8
+	and	\$0x30, %r8
+
+	# Handle the last key differently.
+	dec	%ecx
+	jz	.Loop_enc_key_to_bsaes_last
+
+	# Multiply by the circulant. This is its own inverse.
+	movdqa	%xmm0, %xmm1
+	pshufb	%xmm3, %xmm1
+	movdqa	%xmm1, %xmm0
+	pshufb	%xmm3, %xmm1
+	pxor	%xmm1, %xmm0
+	pshufb	%xmm3, %xmm1
+	pxor	%xmm1, %xmm0
+
+	# XOR and finish.
+	pxor	.Lk_s63(%rip), %xmm0
+	call	_vpaes_schedule_transform
+	movdqu	%xmm0, (%rdi)
+	jmp	.Loop_enc_key_to_bsaes
+
+.Loop_enc_key_to_bsaes_last:
+	# The final key does not have a basis transform (note
+	# .Lschedule_mangle_last inverts the original transform). It only XORs
+	# 0x63 and applies ShiftRows. The latter was already inverted in the
+	# loop. Note that, because we act on the original representation, we use
+	# .Lk_s63_raw, not .Lk_s63.
+	pxor	.Lk_s63_raw(%rip), %xmm0
+	movdqu	%xmm0, (%rdi)
+
+	# Wipe registers which contained key material.
+	pxor	%xmm0, %xmm0
+	pxor	%xmm1, %xmm1
+	pxor	%xmm2, %xmm2	# used by _vpaes_schedule_transform
+___
+$code.=<<___ if ($win64);
+	movaps	0x10(%rsp),%xmm6
+	movaps	0x20(%rsp),%xmm7
+	movaps	0x30(%rsp),%xmm8
+	movaps	0x40(%rsp),%xmm9
+	movaps	0x50(%rsp),%xmm10
+	movaps	0x60(%rsp),%xmm11
+	movaps	0x70(%rsp),%xmm12
+	movaps	0x80(%rsp),%xmm13
+	movaps	0x90(%rsp),%xmm14
+	movaps	0xa0(%rsp),%xmm15
+	lea	0xb8(%rsp),%rsp
+.Lenc_key_to_bsaes_epilogue:
+___
+$code.=<<___;
+	ret
+.size	${PREFIX}_encrypt_key_to_bsaes,.-${PREFIX}_encrypt_key_to_bsaes
+
+
+# void ${PREFIX}_decrypt_key_to_bsaes(AES_KEY *vpaes, const AES_KEY *bsaes);
+.globl	${PREFIX}_decrypt_key_to_bsaes
+.type	${PREFIX}_decrypt_key_to_bsaes,\@function,2
+.align	16
+${PREFIX}_decrypt_key_to_bsaes:
+___
+$code.=<<___ if ($win64);
+	# %xmm6 through %xmm15 are callee-saved on Windows. Although this
+	# function only uses %xmm9 onwards via _vpaes_preheat, se_handler relies
+	# on the save area being the same size for all functions.
+	lea	-0xb8(%rsp),%rsp
+	movaps	%xmm6,0x10(%rsp)
+	movaps	%xmm7,0x20(%rsp)
+	movaps	%xmm8,0x30(%rsp)
+	movaps	%xmm9,0x40(%rsp)
+	movaps	%xmm10,0x50(%rsp)
+	movaps	%xmm11,0x60(%rsp)
+	movaps	%xmm12,0x70(%rsp)
+	movaps	%xmm13,0x80(%rsp)
+	movaps	%xmm14,0x90(%rsp)
+	movaps	%xmm15,0xa0(%rsp)
+.Ldec_key_to_bsaes_body:
+___
+$code.=<<___;
+	# %rdi is the output and %rsi is the input.
+	#
+	# See _vpaes_schedule_core for the key schedule logic. Note vpaes
+	# computes the decryption key schedule in reverse. Additionally,
+	# aes-x86_64.pl shares some transformations, so we must only partially
+	# invert vpaes's transformations. In general, vpaes computes in a
+	# different basis (.Lk_ipt and .Lk_opt) and applies the inverses of
+	# MixColumns, ShiftRows, and the affine part of the AES S-box (which is
+	# split into a linear skew and XOR of 0x63). We undo all but MixColumns.
+
+	call	_vpaes_preheat
+	lea	.Lk_sr(%rip), %r10
+	lea	.Lk_opt_then_skew(%rip), %r11
+
+	# vpaes stores one fewer round count than bsaes, but the number of keys
+	# is the same.
+	mov	240(%rsi), %ecx
+	inc	%ecx
+	mov	%ecx, 240(%rdi)
+
+	# Undo the basis change and reapply the S-box affine transform. See
+	# .Lschedule_mangle_last.
+	movdqu	(%rsi), %xmm0
+	call	_vpaes_schedule_transform
+	movdqu	%xmm0, (%rdi)
+
+	# See _vpaes_schedule_mangle for the transform on the middle keys. Note
+	# it simultaneously inverts MixColumns and the S-box affine transform.
+	# See .Lk_dksd through .Lk_dks9.
+	mov	\$0x30, %r8d
+.Loop_dec_key_to_bsaes:
+	lea	16(%rsi), %rsi
+	lea	16(%rdi), %rdi
+	movdqu	(%rsi), %xmm0
+
+	# Invert the ShiftRows step (see .Lschedule_mangle_both). Note going
+	# forwards cancels inverting for which direction we cycle %r8.
+	movdqa	(%r8,%r10), %xmm1
+	pshufb	%xmm1, %xmm0
+	add	\$-16, %r8
+	and	\$0x30, %r8
+
+	# Handle the last key differently.
+	dec	%ecx
+	jz	.Loop_dec_key_to_bsaes_last
+
+	# Undo the basis change and reapply the S-box affine transform.
+	call	_vpaes_schedule_transform
+
+	# Rotate each word by 8 bytes (cycle the rows). It's unclear where this
+	# comes from, but it seems to be necesary to match aes-x86_64.pl.
+	movdqa	%xmm0, %xmm1
+	psrld	\$24, %xmm0
+	pslld	\$8, %xmm1
+	por	%xmm1, %xmm0
+
+	movdqu	%xmm0, (%rdi)
+	jmp	.Loop_dec_key_to_bsaes
+
+.Loop_dec_key_to_bsaes_last:
+	# The final key only inverts ShiftRows (already done in the loop). See
+	# .Lschedule_am_decrypting. Its basis is not transformed.
+	movdqu	%xmm0, (%rdi)
+
+	# Wipe registers which contained key material.
+	pxor	%xmm0, %xmm0
+	pxor	%xmm1, %xmm1
+	pxor	%xmm2, %xmm2	# used by _vpaes_schedule_transform
+___
+$code.=<<___ if ($win64);
+	movaps	0x10(%rsp),%xmm6
+	movaps	0x20(%rsp),%xmm7
+	movaps	0x30(%rsp),%xmm8
+	movaps	0x40(%rsp),%xmm9
+	movaps	0x50(%rsp),%xmm10
+	movaps	0x60(%rsp),%xmm11
+	movaps	0x70(%rsp),%xmm12
+	movaps	0x80(%rsp),%xmm13
+	movaps	0x90(%rsp),%xmm14
+	movaps	0xa0(%rsp),%xmm15
+	lea	0xb8(%rsp),%rsp
+.Ldec_key_to_bsaes_epilogue:
+___
+$code.=<<___;
+	ret
+.size	${PREFIX}_decrypt_key_to_bsaes,.-${PREFIX}_decrypt_key_to_bsaes
+
+
 ########################################################
 ##                                                    ##
 ##                     Constants                      ##
@@ -1094,6 +1325,51 @@ _vpaes_consts:
 .Lk_dsbo:	# decryption sbox final output
 	.quad	0x1387EA537EF94000, 0xC7AA6DB9D4943E2D
 	.quad	0x12D7560F93441D00, 0xCA4B8159D8C58E9C
+
+##
+## Additional constants for converting to bsaes.
+##
+
+# .Lk_s63_raw is 0x63 in all bytes. This differs from .Lk_s63 which is 0x63 with
+# .Lk_ipt applied.
+.Lk_s63_raw:
+	.quad	0x6363636363636363, 0x6363636363636363
+
+# .Lk_opt_then_skew applies skew(opt(x)) XOR 0x63, where skew is the linear
+# transform in the AES S-box. 0x63 is incorporated into the low half of the
+# table. This was computed with the following script:
+#
+#   def u64s_to_u128(x, y):
+#       return x | (y << 64)
+#   def u128_to_u64s(w):
+#       return w & ((1<<64)-1), w >> 64
+#   def get_byte(w, i):
+#       return (w >> (i*8)) & 0xff
+#   def apply_table(table, b):
+#       lo = b & 0xf
+#       hi = b >> 4
+#       return get_byte(table[0], lo) ^ get_byte(table[1], hi)
+#   def opt(b):
+#       table = [
+#           u64s_to_u128(0xFF9F4929D6B66000, 0xF7974121DEBE6808),
+#           u64s_to_u128(0x01EDBD5150BCEC00, 0xE10D5DB1B05C0CE0),
+#       ]
+#       return apply_table(table, b)
+#   def rot_byte(b, n):
+#       return 0xff & ((b << n) | (b >> (8-n)))
+#   def skew(x):
+#       return (x ^ rot_byte(x, 1) ^ rot_byte(x, 2) ^ rot_byte(x, 3) ^
+#               rot_byte(x, 4))
+#   table = [0, 0]
+#   for i in range(16):
+#       table[0] |= (skew(opt(i)) ^ 0x63) << (i*8)
+#       table[1] |= skew(opt(i<<4)) << (i*8)
+#   print("\t.quad\t0x%016x, 0x%016x" % u128_to_u64s(table[0]))
+#   print("\t.quad\t0x%016x, 0x%016x" % u128_to_u64s(table[1]))
+.Lk_opt_then_skew:
+	.quad	0x9cb8436798bc4763, 0x6440bb9f6044bf9b
+	.quad	0x1f30062936192f00, 0xb49bad829db284ab
+
 .asciz	"Vector Permutation AES for x86_64/SSSE3, Mike Hamburg (Stanford University)"
 .align	64
 .size	_vpaes_consts,.-_vpaes_consts
@@ -1209,6 +1485,14 @@ se_handler:
 	.rva	.LSEH_end_${PREFIX}_cbc_encrypt
 	.rva	.LSEH_info_${PREFIX}_cbc_encrypt
 
+	.rva	.LSEH_begin_${PREFIX}_encrypt_key_to_bsaes
+	.rva	.LSEH_end_${PREFIX}_encrypt_key_to_bsaes
+	.rva	.LSEH_info_${PREFIX}_encrypt_key_to_bsaes
+
+	.rva	.LSEH_begin_${PREFIX}_decrypt_key_to_bsaes
+	.rva	.LSEH_end_${PREFIX}_decrypt_key_to_bsaes
+	.rva	.LSEH_info_${PREFIX}_decrypt_key_to_bsaes
+
 .section	.xdata
 .align	8
 .LSEH_info_${PREFIX}_set_encrypt_key:
@@ -1231,6 +1515,14 @@ se_handler:
 	.byte	9,0,0,0
 	.rva	se_handler
 	.rva	.Lcbc_body,.Lcbc_epilogue		# HandlerData[]
+.LSEH_info_${PREFIX}_encrypt_key_to_bsaes:
+	.byte	9,0,0,0
+	.rva	se_handler
+	.rva	.Lenc_key_to_bsaes_body,.Lenc_key_to_bsaes_epilogue		# HandlerData[]
+.LSEH_info_${PREFIX}_decrypt_key_to_bsaes:
+	.byte	9,0,0,0
+	.rva	se_handler
+	.rva	.Ldec_key_to_bsaes_body,.Ldec_key_to_bsaes_epilogue		# HandlerData[]
 ___
 }
 
