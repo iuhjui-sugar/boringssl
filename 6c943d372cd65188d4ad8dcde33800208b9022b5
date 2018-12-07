@@ -213,6 +213,24 @@
     },
     {
       "key": {
+        "uuid": "ddcb4412_6315b429",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 852,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-07T00:44:17Z",
+      "side": 1,
+      "message": "Re |f| and |g|, I\u0027ve been confused all this time and assuming fmadd will produce gunk. So yeah ignore this note.",
+      "parentUuid": "976bd29e_8bcdda22",
+      "revId": "6c943d372cd65188d4ad8dcde33800208b9022b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "319c4fd1_9e274bea",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 20
@@ -330,6 +348,30 @@
       "side": 1,
       "message": "(Repeated from above:)\n\nIn practice |b| ends up gunk-free in tests, but I can\u0027t show that\u0027s always true. Thus I\u0027ve added degunking before rotating.",
       "parentUuid": "b188c216_9ebdee76",
+      "range": {
+        "startLine": 883,
+        "startChar": 2,
+        "endLine": 883,
+        "endChar": 22
+      },
+      "revId": "6c943d372cd65188d4ad8dcde33800208b9022b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d68dae2e_18e8b048",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 883,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-07T00:44:17Z",
+      "side": 1,
+      "message": "I figured it out!\n\n\nLemma: deg(f)+1 \u003c\u003d deg_f and deg(g)+1 \u003c\u003d deg_g (deg(x^2) \u003d 2, deg(x) \u003d 1, deg(1) \u003d 0, and deg(0) \u003d -1, so I\u0027m adding one to count terms.)\nProof:\nThis starts out true.\n\nWe decrement deg_f (until still_going \u003d 0, but at that point deg_f is zero) iff we rshift1(f) and we swap f and g iff we swap deg_f and deg_g.\n\nThe one nuisance is fmadd(f, g, s) may increase f\u0027s degree up to deg_g. But we swap if s !\u003d 0 \u0026\u0026 deg_f \u003c deg_g, so either s is zero (in which case fmadd is a no-op) or we make sure deg_f \u003e\u003d deg_g before fmadd.\n\n\nRemark: I believe still_going is a no-op, which is probably why deg_f-- vs deg_f -\u003d 1 \u0026 still_going didn\u0027t matter. Once deg_f has hit zero, f is also zero, which means f_0 is always zero, which means:\n\n- s \u003d -f0*g0 \u003d 0\n- should_swap \u003d still_going /\\ s !\u003d 0 /\\ deg_f \u003c deg_g \u003d false\n- f0_is_nonzero \u003d false, so still_going /\\ f0_is_nonzero \u003d false\n- no other computation uses still_going\n\n(It might have mattered in the original to compute the right k, but we appear to think the more complex f0_is_nonzero logic is needed anyway. And I guess deg_f underflowing is confusing. It just doesn\u0027t actually matter if it does.)\n\n\nLemma: deg_g \u003e\u003d 1 throughout the algorithm\nProof: We only ever decrement deg_f. Once deg_f hits zero, we stop swapping, so we\u0027ll never set deg_g to zero.\n\n\nLemma: until still_going \u003d false, deg(c)+1 \u003c\u003d N - deg_f and deg(b)+1 \u003c\u003d N - deg_g\nProof: This starts out true. Every time we swap f and g, we also swap b and c. Every time we right-shift f, we also left-shift c and adjust deg_f to compensate.\n\n\nThe above holds for b and g even once still_going \u003d false because, at that point, there are no more swaps and we leave b, g, and deg_g alone. It does *not* obviously hold for c because we\u0027ll keep left-shifting c and right-shifting f past the point that f has terms to right-shift, but we don\u0027t return c so we don\u0027t care. I suspect c can indeed have trailing gunk.\n\nThat means, at the end, we have deg(b)+1 \u003c\u003d N - deg_g \u003c\u003d N - 1, which means there are no terms in b to truncate.\n\n\nSo, that explains the confusion earlier about whether f/X and c*X should be circular or truncating. It doesn\u0027t matter. If f/X is circular, deg_f/keep_going will stop us from paying attention to further terms (though it\u0027s clearly meant to be truncating). c*X being circular is irrelevant for all values that end up in b. It might affect the final value of c, but we only care about b.",
+      "parentUuid": "75a7e080_2aecbe29",
       "range": {
         "startLine": 883,
         "startChar": 2,

@@ -1,0 +1,335 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e8f6d79f_51128e39",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 22
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-07T00:44:17Z",
+      "side": 1,
+      "message": "Oh, whoops! I\u0027ve been confused all this time. This function, if |in| and |out| lack trailing gunk, will leave |out| without trailing gunk, so there\u0027s not actually a need to leave a comment here. It\u0027s true of most functions. So you can probably just remove this comment.\n\n(Also why some of my comments below probably didn\u0027t make much sense.)",
+      "range": {
+        "startLine": 546,
+        "startChar": 65,
+        "endLine": 547,
+        "endChar": 43
+      },
+      "revId": "023fef799d803b984c4d4e946ce38a74a2712e91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75107f2b_9ae01b30",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 22
+      },
+      "lineNbr": 895,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-07T00:44:17Z",
+      "side": 1,
+      "message": "[Noting here since Gerrit doesn\u0027t make it obvious when there are comments in previous patch sets.]\n\nI believe ~every change I suggested making to this function around trailing bits was unnecessary. :-) See comment in this spot on patch set 20 which includes a proof that this line is a no-op.\n\n(Although the no-op-ness is not entirely obvious because lshift1(c) *does* appear to lose data[*] after still_going clears. We just don\u0027t care. Might be worth a brief comment about that.)\n\n[*] Or rather, it is not obvious to me that it doesn\u0027t. But I suspect it indeed does.",
+      "revId": "023fef799d803b984c4d4e946ce38a74a2712e91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da646d24_b7b82160",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 22
+      },
+      "lineNbr": 990,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-07T00:44:17Z",
+      "side": 1,
+      "message": "I assume the +3 is to round it up to a multiple of our vector sizes? (Maybe worth a comment.)",
+      "range": {
+        "startLine": 990,
+        "startChar": 19,
+        "endLine": 990,
+        "endChar": 22
+      },
+      "revId": "023fef799d803b984c4d4e946ce38a74a2712e91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba3f81dd_e0644f38",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 22
+      },
+      "lineNbr": 1008,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-07T00:44:17Z",
+      "side": 1,
+      "message": "Nit: This is a slightly odd expression. The number of u16s per vec_t is written out as 7 on the left and sizeof(vec_t)/2 on the right.",
+      "range": {
+        "startLine": 1008,
+        "startChar": 27,
+        "endLine": 1008,
+        "endChar": 29
+      },
+      "revId": "023fef799d803b984c4d4e946ce38a74a2712e91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a70c2f5c_2b67df4d",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 22
+      },
+      "lineNbr": 1059,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-07T00:44:17Z",
+      "side": 1,
+      "message": "This is a strict aliasing violation. :-P\n\nNEON has vgetq_lane_u16 and x86 has _mm_extract_epi16. (Failing that there\u0027s memcpy, but I assume the compiler is more likely to behave given the intrinsics.)\n\nDitto for n \u003d 3.",
+      "revId": "023fef799d803b984c4d4e946ce38a74a2712e91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0c64df7_8af4eb9f",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 22
+      },
+      "lineNbr": 1069,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-07T00:44:17Z",
+      "side": 1,
+      "message": "Optional: Given https://boringssl-review.googlesource.com/23404, it might be prudent to define these to\n\n  do {\n   ....\n  } while (0)\n\nto get the usual semicolon hack. :-) Ditto for the blocks below.",
+      "revId": "023fef799d803b984c4d4e946ce38a74a2712e91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fb47e58_d89ba697",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 22
+      },
+      "lineNbr": 1242,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-07T00:44:17Z",
+      "side": 1,
+      "message": ":-(\n\nI guess otherwise everything that produces a poly needs to zero the top, and it\u0027s annoying to find them all.",
+      "revId": "023fef799d803b984c4d4e946ce38a74a2712e91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d104d6cd_dba7af8c",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 22
+      },
+      "lineNbr": 1251,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-07T00:44:17Z",
+      "side": 1,
+      "message": "Mumble strict aliasing mumble. :-P Although this one\u0027s annoying to deal with.\n\nWhat if you defined poly as a union of uint16_t and vec_t? It would also avoid the need for explicit alignment check.",
+      "range": {
+        "startLine": 1251,
+        "startChar": 34,
+        "endLine": 1251,
+        "endChar": 49
+      },
+      "revId": "023fef799d803b984c4d4e946ce38a74a2712e91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0ad14d7_2caef5ec",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 22
+      },
+      "lineNbr": 1319,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-07T00:44:17Z",
+      "side": 1,
+      "message": "Is this missing a:\n\n  scratch[low_len * 2 + 1] -\u003d out[low_len * 4 + 1];\n\nThe vector-based one has that line, and the poly3 one does by virtue of splitting up the out and \u0026out[low_len*2] subtractions. Specifically, out[low_len*2] has length high_len*2 or low_len*2+2 so index low_len*2+1 must be accounted for.",
+      "revId": "023fef799d803b984c4d4e946ce38a74a2712e91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acc9d4dd_a06f1fb4",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 22
+      },
+      "lineNbr": 1350,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-07T00:44:17Z",
+      "side": 1,
+      "message": "Nit: cannot always? (It can if you assume NEON. Chrome on Android does days.)",
+      "range": {
+        "startLine": 1350,
+        "startChar": 18,
+        "endLine": 1350,
+        "endChar": 19
+      },
+      "revId": "023fef799d803b984c4d4e946ce38a74a2712e91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9c3d4aa_8ad025e3",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 22
+      },
+      "lineNbr": 1446,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-07T00:44:17Z",
+      "side": 1,
+      "message": "Doesn\u0027t make a difference but maybe just take an int16_t?",
+      "range": {
+        "startLine": 1446,
+        "startChar": 24,
+        "endLine": 1446,
+        "endChar": 30
+      },
+      "revId": "023fef799d803b984c4d4e946ce38a74a2712e91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c9401b4_ae9529a6",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 22
+      },
+      "lineNbr": 1453,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-07T00:44:17Z",
+      "side": 1,
+      "message": "[Confirmed by just brute-forcing all values.]",
+      "revId": "023fef799d803b984c4d4e946ce38a74a2712e91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "805b93a1_320a6687",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 22
+      },
+      "lineNbr": 1467,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-07T00:44:17Z",
+      "side": 1,
+      "message": "yielding",
+      "range": {
+        "startLine": 1467,
+        "startChar": 42,
+        "endLine": 1467,
+        "endChar": 50
+      },
+      "revId": "023fef799d803b984c4d4e946ce38a74a2712e91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0226173_1ad09a67",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 22
+      },
+      "lineNbr": 1582,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-07T00:44:17Z",
+      "side": 1,
+      "message": "[Oh no, another one.]",
+      "revId": "023fef799d803b984c4d4e946ce38a74a2712e91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "694f8a9c_132ee805",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 22
+      },
+      "lineNbr": 1600,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-07T00:44:17Z",
+      "side": 1,
+      "message": "I\u0027m not sure if it matters, but the poly3 version believes that inv(0) \u003d 0, while this one believes inv(0) \u003d 1.\n\npoly3 gives 0 because f0 would always be zero and thus the multiplication at the end would zero the whole thing.\n\nThis gives 1 because s in the loop is always zero, so we never swap b and c or change rotation, leaving b is unmodified from its starting value of 1.\n\n(The difference being that this version assumes f0 \u003d 1, but the other version finds the last non-zero f0, which allows for the possibility of never finding one.)",
+      "revId": "023fef799d803b984c4d4e946ce38a74a2712e91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "963c7690_b8789b1d",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 22
+      },
+      "lineNbr": 1628,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-07T00:44:17Z",
+      "side": 1,
+      "message": "[Note to self: start here tomorrow. Nearly out of the woods!]",
+      "revId": "023fef799d803b984c4d4e946ce38a74a2712e91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e8e9ba83_64382b0c",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 22
+      },
+      "lineNbr": 1631,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-07T00:44:17Z",
+      "side": 1,
+      "message": "I\u0027m not seeing the algorithm on page three. I see something which looks like the overall inversion thing we\u0027ve been doing, but nothing about mod 2.",
+      "revId": "023fef799d803b984c4d4e946ce38a74a2712e91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
