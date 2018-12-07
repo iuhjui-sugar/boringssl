@@ -120,6 +120,8 @@ static int ensure_fixed_copy(BIGNUM **out, const BIGNUM *in, int width) {
     return 0;
   }
   *out = copy;
+  CONSTTIME_SECRET(copy->d, sizeof(BN_ULONG) * width);
+
   return 1;
 }
 
@@ -224,6 +226,9 @@ static int freeze_private_key(RSA *rsa, BN_CTX *ctx) {
           goto err;
         }
         rsa->inv_small_mod_large_mont = inv_small_mod_large_mont;
+        CONSTTIME_SECRET(
+            rsa->inv_small_mod_large_mont->d,
+            sizeof(BN_ULONG) * rsa->inv_small_mod_large_mont->width);
       }
     }
   }
@@ -531,6 +536,7 @@ int rsa_default_decrypt(RSA *rsa, size_t *out_len, uint8_t *out, size_t max_out,
                                               rsa_size, NULL, 0, NULL, NULL);
       break;
     case RSA_NO_PADDING:
+      CONSTTIME_DECLASSIFY(out, rsa_size);
       *out_len = rsa_size;
       ret = 1;
       break;
@@ -539,8 +545,11 @@ int rsa_default_decrypt(RSA *rsa, size_t *out_len, uint8_t *out, size_t max_out,
       goto err;
   }
 
+  CONSTTIME_DECLASSIFY(&ret, sizeof(ret));
   if (!ret) {
     OPENSSL_PUT_ERROR(RSA, RSA_R_PADDING_CHECK_FAILED);
+  } else {
+    CONSTTIME_DECLASSIFY(out, out_len);
   }
 
 err:
