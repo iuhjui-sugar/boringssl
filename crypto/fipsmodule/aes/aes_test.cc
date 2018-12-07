@@ -22,6 +22,7 @@
 #include <gtest/gtest.h>
 
 #include <openssl/aes.h>
+#include <openssl/rand.h>
 
 #include "../../internal.h"
 #include "../../test/file_test.h"
@@ -186,3 +187,65 @@ TEST(AESTest, WrapBadLengths) {
               AES_wrap_key(&aes, nullptr, out.data(), in.data(), in.size()));
   }
 }
+
+#if !defined(OPENSSL_NO_ASM) && defined(OPENSSL_X86_64) && \
+    !defined(BORINGSSL_SHARED_LIBRARY)
+extern "C" {
+int aes_nohw_set_encrypt_key(const uint8_t *key, unsigned bits,
+                             AES_KEY *aeskey);
+int vpaes_set_encrypt_key(const uint8_t *key, unsigned bits, AES_KEY *aeskey);
+void vpaes_encrypt_key_to_bsaes(AES_KEY *vpaes, const AES_KEY *bsaes);
+
+int aes_nohw_set_decrypt_key(const uint8_t *key, unsigned bits,
+                             AES_KEY *aeskey);
+int vpaes_set_decrypt_key(const uint8_t *key, unsigned bits, AES_KEY *aeskey);
+void vpaes_decrypt_key_to_bsaes(AES_KEY *vpaes, const AES_KEY *bsaes);
+}  // extern "C"
+
+static Bytes AESKeyToBytes(const AES_KEY *key) {
+  return Bytes(reinterpret_cast<const uint8_t *>(key), sizeof(*key));
+}
+
+TEST(AESTest, VPAESToBSAESConvert) {
+  const int kNumIterations = 1000;
+  for (int i = 0; i < kNumIterations; i++) {
+    uint8_t key[256 / 8];
+    RAND_bytes(key, sizeof(key));
+    SCOPED_TRACE(Bytes(key));
+    for (unsigned bits : {128u, 192u, 256u}) {
+      SCOPED_TRACE(bits);
+      for (bool enc : {false, true}) {
+        SCOPED_TRACE(enc);
+        AES_KEY nohw, vpaes, bsaes;
+        OPENSSL_memset(&nohw, 0xaa, sizeof(nohw));
+        OPENSSL_memset(&vpaes, 0xaa, sizeof(vpaes));
+        OPENSSL_memset(&bsaes, 0xaa, sizeof(bsaes));
+
+        if (enc) {
+          aes_nohw_set_encrypt_key(key, bits, &nohw);
+          vpaes_set_encrypt_key(key, bits, &vpaes);
+          vpaes_encrypt_key_to_bsaes(&bsaes, &vpaes);
+        } else {
+          aes_nohw_set_decrypt_key(key, bits, &nohw);
+          vpaes_set_decrypt_key(key, bits, &vpaes);
+          vpaes_decrypt_key_to_bsaes(&bsaes, &vpaes);
+        }
+
+        // Although not fatal, stop running if this fails, otherwise we'll spam
+        // the user's console.
+        ASSERT_EQ(AESKeyToBytes(&nohw), AESKeyToBytes(&bsaes));
+
+        // Repeat the test in-place.
+        OPENSSL_memcpy(&bsaes, &vpaes, sizeof(AES_KEY));
+        if (enc) {
+          vpaes_encrypt_key_to_bsaes(&bsaes, &vpaes);
+        } else {
+          vpaes_decrypt_key_to_bsaes(&bsaes, &vpaes);
+        }
+
+        ASSERT_EQ(AESKeyToBytes(&nohw), AESKeyToBytes(&bsaes));
+      }
+    }
+  }
+}
+#endif  // !NO_ASM && X86_64 && !SHARED_LIBRARY

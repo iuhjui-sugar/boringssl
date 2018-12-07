@@ -189,6 +189,38 @@ static void vpaes_cbc_encrypt(const uint8_t *in, uint8_t *out, size_t length,
 }
 #endif
 
+#if defined(BSAES)
+#if defined(OPENSSL_X86_64)
+// bsaes does not come with a constant-time key setup function, but vpaes's CPU
+// requirements are identical. Set up the key schedule with vpaes and convert to
+// bsaes.
+void vpaes_encrypt_key_to_bsaes(AES_KEY *vpaes, const AES_KEY *bsaes);
+void vpaes_decrypt_key_to_bsaes(AES_KEY *vpaes, const AES_KEY *bsaes);
+
+static int bsaes_set_encrypt_key(const uint8_t *user_key, int bits,
+                                 AES_KEY *key) {
+  int ret = vpaes_set_encrypt_key(user_key, bits, key);
+  if (ret == 0) {
+    vpaes_encrypt_key_to_bsaes(key, key);
+  }
+  return ret;
+}
+
+static int bsaes_set_decrypt_key(const uint8_t *user_key, int bits,
+                                 AES_KEY *key) {
+  int ret = vpaes_set_decrypt_key(user_key, bits, key);
+  if (ret == 0) {
+    vpaes_decrypt_key_to_bsaes(key, key);
+  }
+  return ret;
+}
+#else
+#define bsaes_set_encrypt_key AES_set_encrypt_key
+#define bsaes_set_decrypt_key AES_set_decrypt_key
+#endif  // !OPENSSL_X86_64
+#endif  // BSAES
+
+
 static int aes_init_key(EVP_CIPHER_CTX *ctx, const uint8_t *key,
                         const uint8_t *iv, int enc) {
   int ret, mode;
@@ -204,7 +236,7 @@ static int aes_init_key(EVP_CIPHER_CTX *ctx, const uint8_t *key,
         dat->stream.cbc = aes_hw_cbc_encrypt;
       }
     } else if (bsaes_capable() && mode == EVP_CIPH_CBC_MODE) {
-      ret = AES_set_decrypt_key(key, ctx->key_len * 8, &dat->ks.ks);
+      ret = bsaes_set_decrypt_key(key, ctx->key_len * 8, &dat->ks.ks);
       dat->block = AES_decrypt;
       dat->stream.cbc = bsaes_cbc_encrypt;
     } else if (vpaes_capable()) {
@@ -226,7 +258,7 @@ static int aes_init_key(EVP_CIPHER_CTX *ctx, const uint8_t *key,
       dat->stream.ctr = aes_hw_ctr32_encrypt_blocks;
     }
   } else if (bsaes_capable() && mode == EVP_CIPH_CTR_MODE) {
-    ret = AES_set_encrypt_key(key, ctx->key_len * 8, &dat->ks.ks);
+    ret = bsaes_set_encrypt_key(key, ctx->key_len * 8, &dat->ks.ks);
     dat->block = AES_encrypt;
     dat->stream.ctr = bsaes_ctr32_encrypt_blocks;
   } else if (vpaes_capable()) {
@@ -317,7 +349,7 @@ ctr128_f aes_ctr_set_key(AES_KEY *aes_key, GCM128_KEY *gcm_key,
   }
 
   if (bsaes_capable()) {
-    AES_set_encrypt_key(key, key_bytes * 8, aes_key);
+    bsaes_set_encrypt_key(key, key_bytes * 8, aes_key);
     if (gcm_key != NULL) {
       CRYPTO_gcm128_init_key(gcm_key, aes_key, AES_encrypt, 0);
     }
