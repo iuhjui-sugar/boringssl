@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4ac2d72d_0217e6ad",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 22
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-12-10T17:02:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e8f6d79f_51128e39",
+      "range": {
+        "startLine": 546,
+        "startChar": 65,
+        "endLine": 547,
+        "endChar": 43
+      },
+      "revId": "023fef799d803b984c4d4e946ce38a74a2712e91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "75107f2b_9ae01b30",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 22
@@ -65,6 +89,30 @@
     },
     {
       "key": {
+        "uuid": "11fc2f4c_0b0b6346",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 22
+      },
+      "lineNbr": 990,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-12-10T17:02:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da646d24_b7b82160",
+      "range": {
+        "startLine": 990,
+        "startChar": 19,
+        "endLine": 990,
+        "endChar": 22
+      },
+      "revId": "023fef799d803b984c4d4e946ce38a74a2712e91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba3f81dd_e0644f38",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 22
@@ -88,6 +136,30 @@
     },
     {
       "key": {
+        "uuid": "be0d05cb_c63490cb",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 22
+      },
+      "lineNbr": 1008,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-12-10T17:02:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba3f81dd_e0644f38",
+      "range": {
+        "startLine": 1008,
+        "startChar": 27,
+        "endLine": 1008,
+        "endChar": 29
+      },
+      "revId": "023fef799d803b984c4d4e946ce38a74a2712e91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a70c2f5c_2b67df4d",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 22
@@ -105,6 +177,24 @@
     },
     {
       "key": {
+        "uuid": "14ed8cc0_bb46c2a3",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 22
+      },
+      "lineNbr": 1059,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-12-10T17:02:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a70c2f5c_2b67df4d",
+      "revId": "023fef799d803b984c4d4e946ce38a74a2712e91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c0c64df7_8af4eb9f",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 22
@@ -119,6 +209,24 @@
       "revId": "023fef799d803b984c4d4e946ce38a74a2712e91",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36b25313_62f250ca",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 22
+      },
+      "lineNbr": 1069,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-12-10T17:02:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c0c64df7_8af4eb9f",
+      "revId": "023fef799d803b984c4d4e946ce38a74a2712e91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -162,6 +270,30 @@
     },
     {
       "key": {
+        "uuid": "b75ce507_b5655ff0",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 22
+      },
+      "lineNbr": 1251,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-12-10T17:02:30Z",
+      "side": 1,
+      "message": "Done. Although I fear that anonymous unions will upset MSVC. I\u0027ll see when the builders try this revision.",
+      "parentUuid": "d104d6cd_dba7af8c",
+      "range": {
+        "startLine": 1251,
+        "startChar": 34,
+        "endLine": 1251,
+        "endChar": 49
+      },
+      "revId": "023fef799d803b984c4d4e946ce38a74a2712e91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c0ad14d7_2caef5ec",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 22
@@ -176,6 +308,24 @@
       "revId": "023fef799d803b984c4d4e946ce38a74a2712e91",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21304da3_fe497ca5",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 22
+      },
+      "lineNbr": 1319,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-12-10T17:02:30Z",
+      "side": 1,
+      "message": "out[low_len * 4 + 1] is zero. An n-length vector has indexes running 0 to n-1. So the greatest coefficient in the product is 2×(n-1) \u003d 2n-2. I.e. it has length 2n-1.\n\nWhen dealing with groups of coefficients, as the vector and poly3 versions do, the final group will still have non-zero values, even if the final coefficient in that group is known to be zero.",
+      "parentUuid": "c0ad14d7_2caef5ec",
+      "revId": "023fef799d803b984c4d4e946ce38a74a2712e91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -202,6 +352,30 @@
     },
     {
       "key": {
+        "uuid": "c5baf48e_479c6edb",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 22
+      },
+      "lineNbr": 1350,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-12-10T17:02:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "acc9d4dd_a06f1fb4",
+      "range": {
+        "startLine": 1350,
+        "startChar": 18,
+        "endLine": 1350,
+        "endChar": 19
+      },
+      "revId": "023fef799d803b984c4d4e946ce38a74a2712e91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c9c3d4aa_8ad025e3",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 22
@@ -222,6 +396,30 @@
       "revId": "023fef799d803b984c4d4e946ce38a74a2712e91",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a7ae6e0_b5c20c9d",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 22
+      },
+      "lineNbr": 1446,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-12-10T17:02:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9c3d4aa_8ad025e3",
+      "range": {
+        "startLine": 1446,
+        "startChar": 24,
+        "endLine": 1446,
+        "endChar": 30
+      },
+      "revId": "023fef799d803b984c4d4e946ce38a74a2712e91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -265,6 +463,30 @@
     },
     {
       "key": {
+        "uuid": "8887e1d0_68d63803",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 22
+      },
+      "lineNbr": 1467,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-12-10T17:02:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "805b93a1_320a6687",
+      "range": {
+        "startLine": 1467,
+        "startChar": 42,
+        "endLine": 1467,
+        "endChar": 50
+      },
+      "revId": "023fef799d803b984c4d4e946ce38a74a2712e91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d0226173_1ad09a67",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 22
@@ -299,6 +521,24 @@
     },
     {
       "key": {
+        "uuid": "bea0254b_06bbe010",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 22
+      },
+      "lineNbr": 1600,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-12-10T17:02:30Z",
+      "side": 1,
+      "message": "inverting mod2 is only done in the context of key generation and the input is only zero if the RNG produces hundreds of bits of zeros. So I\u0027m ok saying that the behaviour on zero inputs can be anything.",
+      "parentUuid": "694f8a9c_132ee805",
+      "revId": "023fef799d803b984c4d4e946ce38a74a2712e91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "963c7690_b8789b1d",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 22
@@ -330,6 +570,24 @@
       "revId": "023fef799d803b984c4d4e946ce38a74a2712e91",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd75c74b_8c3ef172",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 22
+      },
+      "lineNbr": 1631,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-12-10T17:02:30Z",
+      "side": 1,
+      "message": "Yep, sorry. Bottom on page two. Fixed.",
+      "parentUuid": "e8e9ba83_64382b0c",
+      "revId": "023fef799d803b984c4d4e946ce38a74a2712e91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }

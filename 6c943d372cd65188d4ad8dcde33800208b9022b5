@@ -384,6 +384,30 @@
     },
     {
       "key": {
+        "uuid": "d6b893ae_dccc80bc",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 883,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-12-10T17:02:30Z",
+      "side": 1,
+      "message": "Thank you for that. I\u0027ve done a handful of changes to all three inversion functions based on that to try and move operations out of the loop.",
+      "parentUuid": "d68dae2e_18e8b048",
+      "range": {
+        "startLine": 883,
+        "startChar": 2,
+        "endLine": 883,
+        "endChar": 22
+      },
+      "revId": "6c943d372cd65188d4ad8dcde33800208b9022b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9770a41b_9a0bbfa2",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 20
