@@ -2783,6 +2783,17 @@ void SSL_set_jdk11_workaround(SSL *ssl, int enable) {
   ssl->config->jdk11_workaround = !!enable;
 }
 
+void SSL_set_num_tickets(SSL *ssl, uint32_t num_tickets) {
+  if (!ssl->config) {
+    return;
+  }
+
+  if (num_tickets >= 256) {
+	  num_tickets = 255;
+  }
+  ssl->config->num_tickets = num_tickets;
+}
+
 int SSL_clear(SSL *ssl) {
   if (!ssl->config) {
     return 0;  // SSL_clear may not be used after shedding config.

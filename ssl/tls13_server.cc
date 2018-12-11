@@ -155,13 +155,13 @@ static bool add_new_session_tickets(SSL_HANDSHAKE *hs, bool *out_sent_tickets) {
 
   // TLS 1.3 recommends single-use tickets, so issue multiple tickets in case
   // the client makes several connections before getting a renewal.
-  static const int kNumTickets = 2;
+  const uint32_t numTickets = hs->config->num_tickets;
 
   // Rebase the session timestamp so that it is measured from ticket
   // issuance.
   ssl_session_rebase_time(ssl, hs->new_session.get());
 
-  for (int i = 0; i < kNumTickets; i++) {
+  for (uint32_t i = 0; i < numTickets; i++) {
     UniquePtr<SSL_SESSION> session(
         SSL_SESSION_dup(hs->new_session.get(), SSL_SESSION_INCLUDE_NONAUTH));
     if (!session) {
@@ -176,7 +176,6 @@ static bool add_new_session_tickets(SSL_HANDSHAKE *hs, bool *out_sent_tickets) {
       session->ticket_max_early_data = kMaxEarlyDataAccepted;
     }
 
-    static_assert(kNumTickets < 256, "Too many tickets");
     uint8_t nonce[] = {static_cast<uint8_t>(i)};
 
     ScopedCBB cbb;

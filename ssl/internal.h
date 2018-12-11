@@ -2462,6 +2462,8 @@ struct SSL_CONFIG {
   // DTLS-SRTP.
   UniquePtr<STACK_OF(SRTP_PROTECTION_PROFILE)> srtp_profiles;
 
+  uint32_t num_tickets = 2;
+
   // verify_mode is a bitmask of |SSL_VERIFY_*| values.
   uint8_t verify_mode = SSL_VERIFY_NONE;
 

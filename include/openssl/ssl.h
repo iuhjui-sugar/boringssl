@@ -3800,6 +3800,10 @@ OPENSSL_EXPORT int SSL_is_tls13_downgrade(const SSL *ssl);
 // See also https://bugs.openjdk.java.net/browse/JDK-8211806.
 OPENSSL_EXPORT void SSL_set_jdk11_workaround(SSL *ssl, int enable);
 
+// SSL_set_num_tickets configures the number of TLS tickets for session reuse
+// the server sends to the client over a new session.
+OPENSSL_EXPORT void SSL_set_num_tickets(SSL *ssl, uint32_t numTickets);
+
 
 // Deprecated functions.
 
