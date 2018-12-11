@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a8b5ac32_dffa4ff1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T20:31:39Z",
+      "side": 1,
+      "message": "(Mostly. It\u0027s slightly different because the annotations would cause the compiler to optimize differently, but hopefully not much.)",
+      "range": {
+        "startLine": 25,
+        "startChar": 5,
+        "endLine": 25,
+        "endChar": 33
+      },
+      "revId": "cdde5bc7052074b1e842dc958b8fc99f96f6be2e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "55986115_e386fe1d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T20:31:39Z",
+      "side": 1,
+      "message": "Oh, that\u0027s interesting. BN_mod_exp_mont is supposed to protect the input but requires inputs be reduced. The comparison itself is constant-time and because unreduced inputs are publicly invalid, it\u0027s okay to branch. So we\u0027d do:\n\nint ret \u003d BN_cmp(...);\nCONSTTIME_DECLASSIFY(\u0026ret, sizeof(ret));\nif (ret \u003c 0) { ... }\n\nHowever, specifically in the case of the anti-glitch check, we don\u0027t want that! If the glitch additionally caused us to generate an OOB output, we\u0027d want to reject that in constant-time too. So maybe we should fix that.\n\nThis also suggests tweaking this bn_resize_words bit to unconditionally clamp rather than check things fit.\nhttps://boringssl.googlesource.com/boringssl/+/master/crypto/fipsmodule/rsa/rsa_impl.c#884",
+      "revId": "cdde5bc7052074b1e842dc958b8fc99f96f6be2e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd9c5370_3e7058c3",
+        "filename": "crypto/fipsmodule/rsa/padding.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T20:31:39Z",
+      "side": 1,
+      "message": "(I\u0027m guessing this is reachable from unit tests somewhere, since we should never actually call this...)",
+      "revId": "cdde5bc7052074b1e842dc958b8fc99f96f6be2e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38a3adf4_cd5b25ec",
+        "filename": "crypto/fipsmodule/rsa/rsa_impl.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T20:31:39Z",
+      "side": 1,
+      "message": "(Not sure where best to jam those in, but p and q are also secret. They\u0027re interesting because their secrecy should bleed to iqmp and because we need to set up BN_MONT_CTX in constant-time.)",
+      "revId": "cdde5bc7052074b1e842dc958b8fc99f96f6be2e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6cd945f9_2a7fd7ac",
+        "filename": "crypto/fipsmodule/rsa/rsa_impl.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T20:31:39Z",
+      "side": 1,
+      "message": "I\u0027m guessing this was for unit tests? I ask because the TLS code immediately marks it as secret again.",
+      "revId": "cdde5bc7052074b1e842dc958b8fc99f96f6be2e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0fe9f715_25741aaf",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1269,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T20:31:39Z",
+      "side": 1,
+      "message": "This isn\u0027t actually public, but that\u0027d require us push the annotations all the way down to individual AEADs. Maybe a TODO to refine this?\n\nThough we should be able to push it down to after tls1_generate_master_secret returns for free. That\u0027ll check that the PRF is also constant-time.",
+      "revId": "cdde5bc7052074b1e842dc958b8fc99f96f6be2e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
