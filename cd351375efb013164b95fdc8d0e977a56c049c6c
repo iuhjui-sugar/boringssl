@@ -1419,6 +1419,24 @@
       "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74d5750c_1884e142",
+        "filename": "ssl/tls13_client.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-11T21:35:05Z",
+      "side": 1,
+      "message": "Yes, good point. Also agreed that it\u0027s something for a separate CL but CECPQ1 was always paired with AES-256-GCM.",
+      "parentUuid": "082f2461_6bf4a796",
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
