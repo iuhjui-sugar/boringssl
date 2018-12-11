@@ -760,6 +760,23 @@
       "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "082f2461_6bf4a796",
+        "filename": "ssl/tls13_client.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T19:47:31Z",
+      "side": 1,
+      "message": "[Stapling here at random.]\n\nProbably for a follow-up CL as this is already pretty big, but do you think it makes sense to tweak the server cipher suite negotiation to demote AES-128-GCM in favor of AES-256-GCM if we pick CECPQ2?\n\n(One of the benefits of not having configurable ciphers is we still have a lot of freedom over tweaking that algorithm.)",
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
