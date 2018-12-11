@@ -1,0 +1,576 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5c85c481_694c3cfe",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T01:48:27Z",
+      "side": 1,
+      "message": "Nit: Most of the code writes this as y \u003d (s1 ⊕ s2) ⊕ (a1 ∧ a2). It\u0027s obviously the same, but epsilon easier to check it.",
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd221ea9_9b8d78e7",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T01:48:27Z",
+      "side": 1,
+      "message": "(Checked the new equation by brute force.)",
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3d749f8b_7af3a1ab",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 838,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T01:48:27Z",
+      "side": 1,
+      "message": "This is slightly out of date. It\u0027s starting at 1, but is sampled at a different time. Might also be worth summarizing or linking somewhere to the other changes.",
+      "range": {
+        "startLine": 838,
+        "startChar": 18,
+        "endLine": 838,
+        "endChar": 50
+      },
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d93a4778_9d168e73",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 930,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T01:48:27Z",
+      "side": 1,
+      "message": "Ditto. (Maybe just cite |poly3_invert_vec| so we don\u0027t have to write it so many times. :-) )",
+      "range": {
+        "startLine": 930,
+        "startChar": 19,
+        "endLine": 930,
+        "endChar": 50
+      },
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4a2d0eb_33387560",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 999,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T01:48:27Z",
+      "side": 1,
+      "message": "Nit: VECS_PER_POLY",
+      "range": {
+        "startLine": 999,
+        "startChar": 3,
+        "endLine": 999,
+        "endChar": 15
+      },
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c420904_3c23d6d7",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 1042,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T01:48:27Z",
+      "side": 1,
+      "message": "I\u0027m a little surprised this does anything, actually. restrict on the outputs implies that out and scratch are independent of a and b. We never modify a or b, so the compiler shouldn\u0027t care if they alias.",
+      "range": {
+        "startLine": 1042,
+        "startChar": 42,
+        "endLine": 1042,
+        "endChar": 50
+      },
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f235551f_c14371a8",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 1322,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T01:48:27Z",
+      "side": 1,
+      "message": "You\u0027re going to hate this, but this operation can actually be UB, even though a[i] and b[i] are uint16_t. Suppose both were 0xffff. uint16_t is smaller than int, so it actually is (int)a[i] * (int)b[i].\n\n0xffff * 0xffff, however, doesn\u0027t fit in an int.\n\n(unsigned)a[i] * b[i] should clear this with minimal extra typing. (I believe then you get unsigned * int, and the unsigned wins.)\n\n$ cat c-is-obnoxious.c \n#include \u003cstdint.h\u003e\n\nint main() {\n  uint16_t a \u003d 0xffff, b \u003d 0xffff;\n  uint16_t c \u003d a * b;\n  return c;\n}\n$ clang -fsanitize\u003dundefined c-is-obnoxious.c \n$ ./a.out \nc-is-obnoxious.c:5:18: runtime error: signed integer overflow: 65535 * 65535 cannot be represented in type \u0027int\u0027\n\n$ cat c-is-obnoxious-2.c \n#include \u003cstdint.h\u003e\n\nint main() {\n  uint16_t a \u003d 0xffff, b \u003d 0xffff;\n  uint16_t c \u003d (unsigned)a * b;\n  return c;\n}\n$ clang -fsanitize\u003dundefined c-is-obnoxious-2.c \n$ ./a.out",
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b9baa6c_4e310fa0",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 1489,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T01:48:27Z",
+      "side": 1,
+      "message": "[Confirmed via brute force that this doesn\u0027t trip -fsanitize\u003dundefined.]",
+      "range": {
+        "startLine": 1489,
+        "startChar": 22,
+        "endLine": 1489,
+        "endChar": 24
+      },
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d2ea3af_22d36186",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 1704,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T01:48:27Z",
+      "side": 1,
+      "message": "(I think the masks on all the left-shifts are unnecessary, but hopefully the compiler will figure it out.)",
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "961a5b81_2b42fe9a",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 1731,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T01:48:27Z",
+      "side": 1,
+      "message": "This function cannot actually fail right now.",
+      "range": {
+        "startLine": 1731,
+        "startChar": 7,
+        "endLine": 1731,
+        "endChar": 10
+      },
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b86023c0_3ad8d225",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 1768,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T01:48:27Z",
+      "side": 1,
+      "message": "but",
+      "range": {
+        "startLine": 1768,
+        "startChar": 36,
+        "endLine": 1768,
+        "endChar": 38
+      },
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3cb23c08_704b8c3b",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 1788,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T01:48:27Z",
+      "side": 1,
+      "message": "Did you mean {0, 1, Q-1} or something of the sort, given the call to mod3_from_modQ?",
+      "range": {
+        "startLine": 1788,
+        "startChar": 3,
+        "endLine": 1788,
+        "endChar": 19
+      },
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea4b75cb_2f2a6f7d",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 1856,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T01:48:27Z",
+      "side": 1,
+      "message": "Is it generally considered okay to shift by a secret offset? I actually don\u0027t know.",
+      "range": {
+        "startLine": 1856,
+        "startChar": 36,
+        "endLine": 1856,
+        "endChar": 40
+      },
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1964e7e8_d3e52317",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 1881,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T01:48:27Z",
+      "side": 1,
+      "message": "But sum is signed, so the overflow will cause some troubles. :-P Maybe add them as uint16_t and switch back to int16_t at the end? (Casts are defined to wraparound on overflow.)\n\nAlthough, given integer promotion, I\u0027m not sure it\u0027s actually UB. All the operations will be done as int, but reduced to fit into a int16_t at each step. But a uint16_t is a little more obvious.",
+      "range": {
+        "startLine": 1881,
+        "startChar": 69,
+        "endLine": 1881,
+        "endChar": 73
+      },
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e161a530_023f08d0",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 1882,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T01:48:27Z",
+      "side": 1,
+      "message": "We\u0027re not actually working mod Q, are we? Sign isn\u0027t meaningful mod Q. If I\u0027m reading it right, we\u0027re working in Z, representing -1 as 0xffff, but because sum is bound by +/-N and N \u003c 2^15, we can work over uint16_t and not think very hard about this.",
+      "range": {
+        "startLine": 1882,
+        "startChar": 52,
+        "endLine": 1882,
+        "endChar": 58
+      },
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72ef3ff7_de16747b",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 1884,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T01:48:27Z",
+      "side": 1,
+      "message": "Optional: this can be N-2 because out-\u003ev[N-1] is zero. (HRSSNIST skips the last product.)",
+      "range": {
+        "startLine": 1884,
+        "startChar": 27,
+        "endLine": 1884,
+        "endChar": 32
+      },
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eed2f927_0b0874a4",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 1885,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T01:48:27Z",
+      "side": 1,
+      "message": "Ditto about u16 multiplication.",
+      "range": {
+        "startLine": 1885,
+        "startChar": 11,
+        "endLine": 1885,
+        "endChar": 37
+      },
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75b33a7c_f22978c7",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 1893,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T01:48:27Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 1893,
+        "startChar": 25,
+        "endLine": 1893,
+        "endChar": 28
+      },
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c30fd437_478f737f",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 1977,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T01:48:27Z",
+      "side": 1,
+      "message": "Dunno if it\u0027s worth bothering, but I think we can cut 1/3 of the additions by noting that:\n\n  0 \u003d (-a[i] + a[i+2]) + (a[i] - a[i+1]) + (a[i+1] - a[i+2])\n\nAnd so this loop and the fixup below can be:\n\n  // s0, s1, s2 are added into out-\u003ev[0], out-\u003ev[1], and out-\u003ev[2],\n  // respectively. We do not compute s2 because it can be derived\n  // from s0 + s1.\n  // (Alternatively, just handle the first three elements last and\n  // write into out directly.)\n  uint16_t s0 \u003d 0, s1 \u003d 0;\n  for (size_t i \u003d 3; i \u003c 699; i +\u003d 3) {\n    s0 +\u003d -a-\u003ev[i] + a-\u003ev[i + 2];\n    s1 +\u003d a-\u003ev[i] - a-\u003ev[i + 1];\n    // s2 +\u003d a-\u003ev[i + 1] - a-\u003ev[i + 2];\n  }\n\n  // Handle the fact that the three-element pattern doesn\u0027t fill the\n  // polynomial exactly (since 701 isn\u0027t a multiple of three).\n  s0 -\u003d a-\u003ev[699];\n  s1 +\u003d a-\u003ev[699] - a-\u003ev[700];\n  // s2 +\u003d a-\u003ev[700];  (I suppose this suggests making s1 the one we infer)\n\n  // Note that s0 + s1 + s2 \u003d 0.\n  out-\u003ev[0] +\u003d s0;\n  out-\u003ev[1] +\u003d s1;\n  out-\u003ev[2] -\u003d s0 + s1;  // out-\u003ev[2] +\u003d s2",
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca62568b_8b4cef1f",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 1983,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T01:48:27Z",
+      "side": 1,
+      "message": "Nit: Was there a particular reason for this order? (In order, it\u0027s whatever was in the loop, with i \u003d 699 and the i + 2 terms dropped.)",
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "767aef7a_bee4eade",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 1987,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T01:48:27Z",
+      "side": 1,
+      "message": "moves",
+      "range": {
+        "startLine": 1987,
+        "startChar": 17,
+        "endLine": 1987,
+        "endChar": 25
+      },
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5bf7c54_3508f009",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 1991,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T01:48:27Z",
+      "side": 1,
+      "message": "Mostly noting for myself, this all computes in Z, but it\u0027s fine because each term in out-\u003ev is the sum of N terms in {-1, 0, 1}. Subtracting v at most doubles the magnitude. Thus these have magnitude at most 2N which fits in int16_t.",
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "35071233_444cd78d",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 2004,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T01:48:27Z",
+      "side": 1,
+      "message": "Maybe worth noting that the HRSS bits are modeled after HRSSNIST, rather than HRSS. Notably the paper\u0027s formulation doesn\u0027t retain quite as much intermediate state, and it doesn\u0027t pre-multiply h by p. Though, it seems pre-multiplying makes it closer to the original NTRU? (I originally guessed it was so the receiver didn\u0027t have to check, but presumably HRSSNIST is newer.)",
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e11b41aa_3357f912",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 2047,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T01:48:27Z",
+      "side": 1,
+      "message": "Nit: These asserts seem to make most sense in the *_key_from_external functions.",
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "498e7c7e_35916ff5",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 2059,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T01:48:27Z",
+      "side": 1,
+      "message": "pg_phi1",
+      "range": {
+        "startLine": 2059,
+        "startChar": 5,
+        "endLine": 2059,
+        "endChar": 12
+      },
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3e8547f_d1137939",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 2119,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T01:48:27Z",
+      "side": 1,
+      "message": "(This is the thing that used to be a giant hash in HRSS and got shrunk in SXY, right?)",
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dd6755a9_c848453c",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 2140,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T01:48:27Z",
+      "side": 1,
+      "message": "One of these days, we should sort out HMAC\u0027s fallibility. We can even trim the memory usage by taking the partial block out, and separating an in-progress HMAC from a digested HMAC key.",
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7011238d_7f192431",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 2170,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T01:48:27Z",
+      "side": 1,
+      "message": "[Note to self: start here tomorrow.]",
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

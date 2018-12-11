@@ -294,6 +294,30 @@
     },
     {
       "key": {
+        "uuid": "86dca5fb_a841ef48",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 22
+      },
+      "lineNbr": 1251,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T01:48:27Z",
+      "side": 1,
+      "message": "If it becomes a problem, you could just make the entire structure a union. :-)",
+      "parentUuid": "b75ce507_b5655ff0",
+      "range": {
+        "startLine": 1251,
+        "startChar": 34,
+        "endLine": 1251,
+        "endChar": 49
+      },
+      "revId": "023fef799d803b984c4d4e946ce38a74a2712e91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c0ad14d7_2caef5ec",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 22
