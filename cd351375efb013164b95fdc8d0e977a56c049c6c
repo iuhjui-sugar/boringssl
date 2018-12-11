@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a3c6974a_8c86fce8",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-11T19:58:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c85c481_694c3cfe",
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd221ea9_9b8d78e7",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 24
@@ -59,6 +77,30 @@
     },
     {
       "key": {
+        "uuid": "5de659cf_bb83e894",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 835,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-11T19:58:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5cc24af_c554b90b",
+      "range": {
+        "startLine": 835,
+        "startChar": 74,
+        "endLine": 835,
+        "endChar": 75
+      },
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3d749f8b_7af3a1ab",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 24
@@ -79,6 +121,30 @@
       "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14882992_67113378",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 838,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-11T19:58:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d749f8b_7af3a1ab",
+      "range": {
+        "startLine": 838,
+        "startChar": 18,
+        "endLine": 838,
+        "endChar": 50
+      },
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -105,6 +171,30 @@
     },
     {
       "key": {
+        "uuid": "31c5781c_030697d8",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 918,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-11T19:58:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "941bf97a_232b625c",
+      "range": {
+        "startLine": 918,
+        "startChar": 75,
+        "endLine": 918,
+        "endChar": 76
+      },
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d93a4778_9d168e73",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 24
@@ -125,6 +215,30 @@
       "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "587029b8_93706453",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 930,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-11T19:58:46Z",
+      "side": 1,
+      "message": "Done, although the other way around.",
+      "parentUuid": "d93a4778_9d168e73",
+      "range": {
+        "startLine": 930,
+        "startChar": 19,
+        "endLine": 930,
+        "endChar": 50
+      },
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -151,6 +265,30 @@
     },
     {
       "key": {
+        "uuid": "6439d7d5_bba7dd23",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 999,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-11T19:58:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4a2d0eb_33387560",
+      "range": {
+        "startLine": 999,
+        "startChar": 3,
+        "endLine": 999,
+        "endChar": 15
+      },
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c420904_3c23d6d7",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 24
@@ -162,6 +300,30 @@
       "writtenOn": "2018-12-11T01:48:27Z",
       "side": 1,
       "message": "I\u0027m a little surprised this does anything, actually. restrict on the outputs implies that out and scratch are independent of a and b. We never modify a or b, so the compiler shouldn\u0027t care if they alias.",
+      "range": {
+        "startLine": 1042,
+        "startChar": 42,
+        "endLine": 1042,
+        "endChar": 50
+      },
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "de6e38ad_fcff3f62",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 1042,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-11T19:58:46Z",
+      "side": 1,
+      "message": "It\u0027s likely that they don\u0027t do anything. I saw that the generated code was pretty bad on ARMv7 and slapped restricts everywhere reasonable to try and improve things. I recall that it did help a little, but likely because of the restrict on |out| and |scratch|.",
+      "parentUuid": "7c420904_3c23d6d7",
       "range": {
         "startLine": 1042,
         "startChar": 42,
@@ -188,6 +350,24 @@
       "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1d5afdc_3e332600",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 1322,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-11T19:58:46Z",
+      "side": 1,
+      "message": "Thanks. You\u0027re right: I do hate it :) I think I\u0027ve gotten all the cases of uint16_t×uint16_t multiplication.",
+      "parentUuid": "f235551f_c14371a8",
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -237,6 +417,30 @@
     },
     {
       "key": {
+        "uuid": "6970a0e4_23a11418",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 1619,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-11T19:58:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6efa323c_ed473f39",
+      "range": {
+        "startLine": 1619,
+        "startChar": 73,
+        "endLine": 1619,
+        "endChar": 74
+      },
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b95b94e_b1db12b3",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 24
@@ -257,6 +461,30 @@
       "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99193ad1_365b950a",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 1670,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-11T19:58:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b95b94e_b1db12b3",
+      "range": {
+        "startLine": 1670,
+        "startChar": 68,
+        "endLine": 1670,
+        "endChar": 69
+      },
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -300,6 +528,30 @@
     },
     {
       "key": {
+        "uuid": "0bfb7fd7_3a2451da",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 1731,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-11T19:58:46Z",
+      "side": 1,
+      "message": "Thanks. (And |sign_extend| is always true at the moment.)",
+      "parentUuid": "961a5b81_2b42fe9a",
+      "range": {
+        "startLine": 1731,
+        "startChar": 7,
+        "endLine": 1731,
+        "endChar": 10
+      },
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b86023c0_3ad8d225",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 24
@@ -320,6 +572,30 @@
       "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c82845e7_c0d2cb07",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 1768,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-11T19:58:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b86023c0_3ad8d225",
+      "range": {
+        "startLine": 1768,
+        "startChar": 36,
+        "endLine": 1768,
+        "endChar": 38
+      },
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -346,6 +622,30 @@
     },
     {
       "key": {
+        "uuid": "22e6b1ce_f5ded048",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 1788,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-11T19:58:46Z",
+      "side": 1,
+      "message": "Yep, thanks.",
+      "parentUuid": "3cb23c08_704b8c3b",
+      "range": {
+        "startLine": 1788,
+        "startChar": 3,
+        "endLine": 1788,
+        "endChar": 19
+      },
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ea4b75cb_2f2a6f7d",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 24
@@ -366,6 +666,30 @@
       "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a6a4cbf_e20ee19c",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 1856,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-11T19:58:46Z",
+      "side": 1,
+      "message": "I believe so because everything will be based on barrel-shifting circuits. A quick check on my desktop shows different shift amounts taking the same time. It\u0027s not impossible that this is wrong, but I think it\u0027s likely to be true.",
+      "parentUuid": "ea4b75cb_2f2a6f7d",
+      "range": {
+        "startLine": 1856,
+        "startChar": 36,
+        "endLine": 1856,
+        "endChar": 40
+      },
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -392,6 +716,30 @@
     },
     {
       "key": {
+        "uuid": "95533fed_e5a0a1a6",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 1881,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-11T19:58:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1964e7e8_d3e52317",
+      "range": {
+        "startLine": 1881,
+        "startChar": 69,
+        "endLine": 1881,
+        "endChar": 73
+      },
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e161a530_023f08d0",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 24
@@ -412,6 +760,30 @@
       "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccb2b82d_d819d63c",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 1882,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-11T19:58:46Z",
+      "side": 1,
+      "message": "I think you can think of this mod Q, but since -1 is being represented here by 0xffff, and we\u0027re not shifting \u003c\u003c 3 when testing for negative values below, it\u0027s probably not helpful to think that way. Have updated comment.",
+      "parentUuid": "e161a530_023f08d0",
+      "range": {
+        "startLine": 1882,
+        "startChar": 52,
+        "endLine": 1882,
+        "endChar": 58
+      },
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -438,6 +810,30 @@
     },
     {
       "key": {
+        "uuid": "44a194e2_9399a76e",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 1884,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-11T19:58:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72ef3ff7_de16747b",
+      "range": {
+        "startLine": 1884,
+        "startChar": 27,
+        "endLine": 1884,
+        "endChar": 32
+      },
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eed2f927_0b0874a4",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 24
@@ -458,6 +854,30 @@
       "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c50a0e26_7af84009",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 1885,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-11T19:58:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eed2f927_0b0874a4",
+      "range": {
+        "startLine": 1885,
+        "startChar": 11,
+        "endLine": 1885,
+        "endChar": 37
+      },
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -484,6 +904,30 @@
     },
     {
       "key": {
+        "uuid": "b500985d_233bc872",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 1893,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-11T19:58:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75b33a7c_f22978c7",
+      "range": {
+        "startLine": 1893,
+        "startChar": 25,
+        "endLine": 1893,
+        "endChar": 28
+      },
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c30fd437_478f737f",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 24
@@ -501,6 +945,24 @@
     },
     {
       "key": {
+        "uuid": "0ba1737c_19aef3f8",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 1977,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-11T19:58:46Z",
+      "side": 1,
+      "message": "Good observation, thanks. Done.",
+      "parentUuid": "c30fd437_478f737f",
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ca62568b_8b4cef1f",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 24
@@ -515,6 +977,24 @@
       "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b402c6c7_ef269029",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 1983,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-11T19:58:46Z",
+      "side": 1,
+      "message": "You mean the 2, 0, 1 order? I think it just ended up in my head in that order for some reason.",
+      "parentUuid": "ca62568b_8b4cef1f",
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -538,6 +1018,30 @@
       "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96e1b9bb_a6b888ce",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 1987,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-11T19:58:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "767aef7a_bee4eade",
+      "range": {
+        "startLine": 1987,
+        "startChar": 17,
+        "endLine": 1987,
+        "endChar": 25
+      },
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -575,6 +1079,24 @@
     },
     {
       "key": {
+        "uuid": "27bd4320_cc619cfb",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 2004,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-11T19:58:46Z",
+      "side": 1,
+      "message": "Actually it\u0027s based on SXY rather the HRSS. SXY don\u0027t give a super-detailed breakdown so some of this is just my doing. Once this is submitted one immediate change lined up is to remove the confirmation hash since HRSS round two has dropped it. Then there\u0027s an additional optimisation that I have in email but that\u0027s not a breaking change.",
+      "parentUuid": "35071233_444cd78d",
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e11b41aa_3357f912",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 24
@@ -589,6 +1111,24 @@
       "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "470d4e1c_8adb991f",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 2047,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-11T19:58:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e11b41aa_3357f912",
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -615,6 +1155,30 @@
     },
     {
       "key": {
+        "uuid": "c35f3de2_26b28081",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 2059,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-11T19:58:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "498e7c7e_35916ff5",
+      "range": {
+        "startLine": 2059,
+        "startChar": 5,
+        "endLine": 2059,
+        "endChar": 12
+      },
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c3e8547f_d1137939",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 24
@@ -626,6 +1190,24 @@
       "writtenOn": "2018-12-11T01:48:27Z",
       "side": 1,
       "message": "(This is the thing that used to be a giant hash in HRSS and got shrunk in SXY, right?)",
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f7f590b8_aa26675a",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 2119,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-11T19:58:46Z",
+      "side": 1,
+      "message": "Yes, and it\u0027ll actually be eliminated before we use this code for real since HRSS have decided to drop it.",
+      "parentUuid": "c3e8547f_d1137939",
       "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -683,6 +1265,24 @@
     },
     {
       "key": {
+        "uuid": "5b1e5b76_f42a6ef2",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 2186,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-11T19:58:46Z",
+      "side": 1,
+      "message": "Added test.",
+      "parentUuid": "fcf30e4f_5d0d7034",
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c9405352_4d255850",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 24
@@ -697,6 +1297,24 @@
       "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a0a71dd_47b074ee",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 2190,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-11T19:58:46Z",
+      "side": 1,
+      "message": "Dropped the extra reduction. I think it\u0027s cleaner to ignore R3 and just consider that |poly3_mul| tolerates slightly unreduced values but works in S3.",
+      "parentUuid": "c9405352_4d255850",
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -720,6 +1338,30 @@
       "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bd2ba01_74c0a971",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 2204,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-11T19:58:46Z",
+      "side": 1,
+      "message": "This is in order to align with that I understand will be in round two of HRSS. (There\u0027ll be a follow-up change to optimise something based on this.)",
+      "parentUuid": "acbd79f1_a963ef58",
+      "range": {
+        "startLine": 2204,
+        "startChar": 21,
+        "endLine": 2204,
+        "endChar": 44
+      },
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
