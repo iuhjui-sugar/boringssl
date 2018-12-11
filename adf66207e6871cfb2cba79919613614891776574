@@ -22,6 +22,30 @@
       "revId": "adf66207e6871cfb2cba79919613614891776574",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "139c1a31_0239e538",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3559,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T19:56:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd04ab5d_9f3b9d59",
+      "range": {
+        "startLine": 3559,
+        "startChar": 23,
+        "endLine": 3559,
+        "endChar": 24
+      },
+      "revId": "adf66207e6871cfb2cba79919613614891776574",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
