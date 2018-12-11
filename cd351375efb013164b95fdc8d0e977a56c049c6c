@@ -36,6 +36,29 @@
     },
     {
       "key": {
+        "uuid": "d5cc24af_c554b90b",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 835,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T19:01:12Z",
+      "side": 1,
+      "message": "Just trying to keep track of which reduction is happening where: this should probably say \"1 mod Φ(N)\".",
+      "range": {
+        "startLine": 835,
+        "startChar": 74,
+        "endLine": 835,
+        "endChar": 75
+      },
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3d749f8b_7af3a1ab",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 24
@@ -52,6 +75,29 @@
         "startChar": 18,
         "endLine": 838,
         "endChar": 50
+      },
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "941bf97a_232b625c",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 918,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T19:01:12Z",
+      "side": 1,
+      "message": "mod Φ(N)",
+      "range": {
+        "startLine": 918,
+        "startChar": 75,
+        "endLine": 918,
+        "endChar": 76
       },
       "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
@@ -165,6 +211,52 @@
       "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6efa323c_ed473f39",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 1619,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T19:01:12Z",
+      "side": 1,
+      "message": "mod Φ(N)",
+      "range": {
+        "startLine": 1619,
+        "startChar": 73,
+        "endLine": 1619,
+        "endChar": 74
+      },
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b95b94e_b1db12b3",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 1670,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T19:01:12Z",
+      "side": 1,
+      "message": "mod Φ(N)",
+      "range": {
+        "startLine": 1670,
+        "startChar": 68,
+        "endLine": 1670,
+        "endChar": 69
+      },
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     },
     {
       "key": {
@@ -571,6 +663,103 @@
       "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fcf30e4f_5d0d7034",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 2186,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T19:01:12Z",
+      "side": 1,
+      "message": "This does assume that HRSS_poly3_mul tolerates unreduced, but that appears to be the case. (Worth tests?) It\u0027s nice how polynomials are much more straightforward in how they react to this stuff.",
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c9405352_4d255850",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 2190,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T19:01:12Z",
+      "side": 1,
+      "message": "HRSS_poly3_mul already reduces it mod Φ(N).\n\nIt is a little odd how poly_mul works in Rq while poly3_mul works in S3 rather than R3 (but it must tolerate inputs in R3 per above). That might suggest moving the reduction out. Then again, this algorithm uses Rq, Sq, and S3, but not R3, so high-level code should never need to reduce mod phi(N) anyway. Dunno. (I realized at some point through this iteration that I\u0027d completely failed to keep track of whether we\u0027d reduced by phi(N) or not at each stage, so it\u0027s on my mind.)",
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acbd79f1_a963ef58",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 2204,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T19:01:12Z",
+      "side": 1,
+      "message": "SXY appears to just reduce it mod 3, rather than checking things are in bounds. It computes r\u0027 \u003d [ [ stuff ]_Rq ]_S3), whereas this is reducing it mod Rq, then Sq, then checking the values are in bounds.\n\nI agree that it\u0027ll always be in bounds for correct inputs. (Inverses all happen mod Sq, so we know the computation is correct mod Sq. But since r was generated from S3 representatives, we know we have equality at that point. Unlike m\u0027, r\u0027 doesn\u0027t factors of 3 to clear.)\n\nI assume this means that this works fine, but I figured I\u0027d point it out in case you know otherwise. Specifically, if somehow (I assume negligible probability?) everything checked out for [c]_S3, but not c as-is, this would return something different.",
+      "range": {
+        "startLine": 2204,
+        "startChar": 21,
+        "endLine": 2204,
+        "endChar": 44
+      },
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0ff47d4_151cae49",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 2213,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T19:01:12Z",
+      "side": 1,
+      "message": "(Strictly speaking, \u0026c is violating the input requirements of poly_marshal_mod3, but as long as it returns *something* rather than crashing, we don\u0027t care.)",
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fbad704d_aead24de",
+        "filename": "include/openssl/hrss.h",
+        "patchSetId": 24
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T19:01:12Z",
+      "side": 1,
+      "message": "one",
+      "range": {
+        "startLine": 93,
+        "startChar": 11,
+        "endLine": 93,
+        "endChar": 15
+      },
+      "revId": "cd351375efb013164b95fdc8d0e977a56c049c6c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
