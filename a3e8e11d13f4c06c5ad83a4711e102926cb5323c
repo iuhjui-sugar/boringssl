@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b3fb9e0_3f06e82c",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 25
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T23:10:23Z",
+      "side": 1,
+      "message": "Stray change?\n\n(FWIW, I usually -DCMAKE_BUILD_TYPE\u003dRelease to do things in release mode.)",
+      "range": {
+        "startLine": 100,
+        "startChar": 42,
+        "endLine": 100,
+        "endChar": 47
+      },
+      "revId": "a3e8e11d13f4c06c5ad83a4711e102926cb5323c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8a808ef_fc4d843a",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 25
+      },
+      "lineNbr": 2210,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T23:10:23Z",
+      "side": 1,
+      "message": "Optional: owf ends up recomputing poly_lift(\u0026m). We could probably save computing it twice. Though it doesn\u0027t look hugely expensive.",
+      "revId": "a3e8e11d13f4c06c5ad83a4711e102926cb5323c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2741219c_f07bbab6",
+        "filename": "crypto/hrss/hrss_test.cc",
+        "patchSetId": 25
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T23:10:23Z",
+      "side": 1,
+      "message": "i and j don\u0027t really help tell us how it failed or anything. :-) Maybe more useful to do:\n\nSCOPED_TRACE(Bytes(generate_key_entropy));\nSCOPED_TRACE(Bytes(encap_entropy));",
+      "revId": "a3e8e11d13f4c06c5ad83a4711e102926cb5323c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bb39949_aba78282",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 25
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T23:10:23Z",
+      "side": 1,
+      "message": "Nit: \u003e\u003d",
+      "range": {
+        "startLine": 343,
+        "startChar": 37,
+        "endLine": 343,
+        "endChar": 39
+      },
+      "revId": "a3e8e11d13f4c06c5ad83a4711e102926cb5323c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ba25df2_ac733f9b",
+        "filename": "ssl/test/runner/hrss/hrss.go",
+        "patchSetId": 25
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-11T23:10:23Z",
+      "side": 1,
+      "message": "In the interest of not taking forever, I\u0027m going to mostly skip reviewing this and assume it\u0027s about the same as the C code. :-P",
+      "revId": "a3e8e11d13f4c06c5ad83a4711e102926cb5323c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
