@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "520179ee_cbbb16de",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 4722,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-12-12T22:40:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db98407c_7d1f5856",
+      "range": {
+        "startLine": 4722,
+        "startChar": 39,
+        "endLine": 4722,
+        "endChar": 42
+      },
+      "revId": "5eefd18b63e98aa7fe1957f9148506c3e250753b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7ddf1ed4_7897f368",
         "filename": "ssl/ssl_lib.cc",
         "patchSetId": 1
@@ -39,6 +63,24 @@
       "revId": "5eefd18b63e98aa7fe1957f9148506c3e250753b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80949f69_5aad96f5",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-12-12T22:40:27Z",
+      "side": 1,
+      "message": "Ack: it\u0027ll probably need changes for 0-RTT. Going to get to TLS 1.3 first and worry about 0-RTT later.",
+      "parentUuid": "7ddf1ed4_7897f368",
+      "revId": "5eefd18b63e98aa7fe1957f9148506c3e250753b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
