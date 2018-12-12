@@ -172,6 +172,10 @@ struct TestConfig {
   bool jdk11_workaround = false;
   bool server_preference = false;
   bool export_traffic_secrets = false;
+  bool enable_delegated_credential = false;
+  bool expect_delegated_credential = false;
+  std::string dc_pubfile;
+  std::string dc_keyfile;
 
   int argc;
   char **argv;

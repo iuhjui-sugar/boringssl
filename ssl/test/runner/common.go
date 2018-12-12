@@ -140,6 +140,7 @@ const (
 	extensionRenegotiationInfo          uint16 = 0xff01
 	extensionQUICTransportParams        uint16 = 0xffa5 // draft-ietf-quic-tls-13
 	extensionChannelID                  uint16 = 30032  // not IANA assigned
+	extensionDelegatedCredential        uint16 = 0xff02 // draft-ietf-tls-subcerts-02 (not IANA assigned)
 )
 
 // TLS signaling cipher suite values
@@ -273,6 +274,7 @@ type ConnectionState struct {
 	PeerSignatureAlgorithm     signatureAlgorithm    // algorithm used by the peer in the handshake
 	CurveID                    CurveID               // the curve used in ECDHE
 	QUICTransportParams        []byte                // the QUIC transport params received from the peer
+	DelegatedCredentialUsed    bool                  // whether or not a delegated credential was used
 }
 
 // ClientAuthType declares the policy the server will follow for
@@ -519,6 +521,13 @@ type Config struct {
 	// Bugs specifies optional misbehaviour to be used for testing other
 	// implementations.
 	Bugs ProtocolBugs
+
+	// True if delegated credentials should be enabled.
+	DelegatedCredentialsEnabled bool
+
+	// The delegated credential to offer on the server side
+	DelegatedCredential    *DelegatedCredential
+	DelegatedCredentialKey crypto.PrivateKey
 
 	serverInitOnce sync.Once // guards calling (*Config).serverInit
 }
@@ -1905,6 +1914,9 @@ type Certificate struct {
 	// SignedCertificateTimestampList structure which will be
 	// served to clients that request it.
 	SignedCertificateTimestampList []byte
+	// DelegatedCredential contains a delegated credential for use
+	// with clients that negotiate this extension.
+	DelegatedCredential []byte
 	// Leaf is the parsed form of the leaf certificate, which may be
 	// initialized using x509.ParseCertificate to reduce per-handshake
 	// processing for TLS clients doing client authentication. If nil, the

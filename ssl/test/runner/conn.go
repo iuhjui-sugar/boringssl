@@ -8,6 +8,7 @@ package runner
 
 import (
 	"bytes"
+	"crypto"
 	"crypto/cipher"
 	"crypto/ecdsa"
 	"crypto/subtle"
@@ -48,6 +49,7 @@ type Conn struct {
 	ocspResponse         []byte // stapled OCSP response
 	sctList              []byte // signed certificate timestamp list
 	peerCertificates     []*x509.Certificate
+	peerPublicKey        crypto.PublicKey
 	// verifiedChains contains the certificate chains that we built, as
 	// opposed to the ones presented by the server.
 	verifiedChains [][]*x509.Certificate
@@ -115,6 +117,9 @@ type Conn struct {
 	// not full for ExpectPackedEncryptedHandshake. If true, no more
 	// handshake data may be received until the next flight or epoch change.
 	seenHandshakePackEnd bool
+
+	// delegatedCredentialUsed is true if a delegated credential was used.
+	delegatedCredentialUsed bool
 
 	tmp [16]byte
 }
@@ -1854,6 +1859,7 @@ func (c *Conn) ConnectionState() ConnectionState {
 		state.PeerSignatureAlgorithm = c.peerSignatureAlgorithm
 		state.CurveID = c.curveID
 		state.QUICTransportParams = c.quicTransportParams
+		state.DelegatedCredentialUsed = c.delegatedCredentialUsed
 	}
 
 	return state
