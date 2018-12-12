@@ -148,6 +148,8 @@ const Flag<bool> kBoolFlags[] = {
   { "-jdk11-workaround", &TestConfig::jdk11_workaround },
   { "-server-preference", &TestConfig::server_preference },
   { "-export-traffic-secrets", &TestConfig::export_traffic_secrets },
+  { "-enable-dc", &TestConfig::enable_delegated_credential },
+  { "-expect-dc", &TestConfig::expect_delegated_credential },
 };
 
 const Flag<std::string> kStringFlags[] = {
@@ -176,6 +178,8 @@ const Flag<std::string> kStringFlags[] = {
   { "-expect-client-ca-list", &TestConfig::expected_client_ca_list },
   { "-expect-msg-callback", &TestConfig::expect_msg_callback },
   { "-handshaker-path", &TestConfig::handshaker_path },
+  { "-dc-pubfile", &TestConfig::dc_pubfile },
+  { "-dc-keyfile", &TestConfig::dc_keyfile },
 };
 
 const Flag<std::string> kBase64Flags[] = {
@@ -748,6 +752,46 @@ static bool GetCertificate(SSL *ssl, bssl::UniquePtr<X509> *out_x509,
   return true;
 }
 
+static bssl::UniquePtr<CRYPTO_BUFFER>LoadDelegatedCredential(const std::string &file){
+  uint8_t *data;
+  char *name;
+  char *header;
+  long len;
+
+  bssl::UniquePtr<BIO> bio(BIO_new(BIO_s_file()));
+  if (!bio || !BIO_read_filename(bio.get(), file.c_str())) {
+    return nullptr;
+  }
+  if(!PEM_read_bio(bio.get(), &name, &header, &data, &len)){
+    return nullptr;
+  }
+  OPENSSL_free(name);
+  OPENSSL_free(header);
+  auto ret = bssl::UniquePtr<CRYPTO_BUFFER>(
+      CRYPTO_BUFFER_new(data, len, NULL));
+  OPENSSL_free(data);
+  return ret;
+}
+
+static bool InstallDelegatedCredential(SSL *ssl){
+  const TestConfig *config = GetTestConfig(ssl);
+  bssl::UniquePtr<CRYPTO_BUFFER> dc;
+  bssl::UniquePtr<EVP_PKEY> privkey;
+
+  dc = LoadDelegatedCredential(config->dc_pubfile);
+  if (dc == nullptr){
+    return false;
+  }
+  privkey = LoadPrivateKey(config->dc_keyfile);
+  if (privkey == nullptr) {
+    return false;
+  }
+  if(!SSL_set_delegated_credential(ssl, dc.get(), privkey.get(), NULL)){
+    return false;
+  }
+  return true;
+}
+
 static bool FromHexDigit(uint8_t *out, char c) {
   if ('0' <= c && c <= '9') {
     *out = c - '0';
@@ -1260,6 +1304,10 @@ bssl::UniquePtr<SSL_CTX> TestConfig::SetupCtx(SSL_CTX *old_ctx) const {
     SSL_CTX_set_rsa_pss_rsae_certs_enabled(ssl_ctx.get(), 0);
   }
 
+  if (enable_delegated_credential) {
+    SSL_CTX_enable_delegated_credential(ssl_ctx.get(), 1);
+  }
+
   if (!verify_prefs.empty()) {
     std::vector<uint16_t> u16s(verify_prefs.begin(), verify_prefs.end());
     if (!SSL_CTX_set_verify_algorithm_prefs(ssl_ctx.get(), u16s.data(),
@@ -1428,6 +1476,11 @@ static int CertCallback(SSL *ssl, void *arg) {
 
   if (config->fail_cert_callback) {
     return 0;
+  }
+  if (config->enable_delegated_credential){
+    if (!InstallDelegatedCredential(ssl)){
+      return 0;
+    }
   }
 
   // The certificate will be installed via other means.
