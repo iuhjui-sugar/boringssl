@@ -24,6 +24,7 @@
 #include <string.h>
 
 #include <openssl/aead.h>
+#include <openssl/aes.h>
 #include <openssl/bn.h>
 #include <openssl/curve25519.h>
 #include <openssl/digest.h>
@@ -800,6 +801,111 @@ static bool SpeedHRSS(const std::string &selected) {
   return true;
 }
 
+extern "C" {
+int aes_nohw_set_encrypt_key(const uint8_t *key, unsigned bits,
+                             AES_KEY *aeskey);
+int vpaes_set_encrypt_key(const uint8_t *key, unsigned bits, AES_KEY *aeskey);
+void vpaes_encrypt_key_to_bsaes(AES_KEY *vpaes, const AES_KEY *bsaes);
+
+int aes_nohw_set_decrypt_key(const uint8_t *key, unsigned bits,
+                             AES_KEY *aeskey);
+int vpaes_set_decrypt_key(const uint8_t *key, unsigned bits, AES_KEY *aeskey);
+void vpaes_decrypt_key_to_bsaes(AES_KEY *vpaes, const AES_KEY *bsaes);
+}
+
+static bool SpeedVPAES(const std::string &selected) {
+  if (!selected.empty() && selected != "VPAES") {
+    return true;
+  }
+
+    static const uint8_t kZero[16] = {0};
+  TimeResults results;
+  if (!TimeFunction(&results, [&]() -> bool {
+        AES_KEY key;
+        aes_nohw_set_decrypt_key(kZero, 128, &key);
+        return true;
+      })) {
+    fprintf(stderr, "Failed to time something.\n");
+    return false;
+  }
+  results.Print("aes_nohw_set_decrypt_key");
+
+  if (!TimeFunction(&results, [&]() -> bool {
+        AES_KEY key;
+        vpaes_set_decrypt_key(kZero, 128, &key);
+        return true;
+      })) {
+    fprintf(stderr, "Failed to time something.\n");
+    return false;
+  }
+  results.Print("vpaes_set_decrypt_key");
+
+  if (!TimeFunction(&results, [&]() -> bool {
+        AES_KEY key;
+        vpaes_set_decrypt_key(kZero, 128, &key);
+        vpaes_decrypt_key_to_bsaes(&key, &key);
+        return true;
+      })) {
+    fprintf(stderr, "Failed to time something.\n");
+    return false;
+  }
+  results.Print("vpaes_set_decrypt_key + convert");
+
+  AES_KEY key1, key2;
+  vpaes_set_decrypt_key(kZero, 128, &key1);
+  if (!TimeFunction(&results, [&]() -> bool {
+        vpaes_decrypt_key_to_bsaes(&key2, &key1);
+        return true;
+      })) {
+    fprintf(stderr, "Failed to time something.\n");
+    return false;
+  }
+  results.Print("vpaes_decrypt_key_to_bsaes");
+
+  if (!TimeFunction(&results, [&]() -> bool {
+        AES_KEY key;
+        aes_nohw_set_encrypt_key(kZero, 128, &key);
+        return true;
+      })) {
+    fprintf(stderr, "Failed to time something.\n");
+    return false;
+  }
+  results.Print("aes_nohw_set_encrypt_key");
+
+  if (!TimeFunction(&results, [&]() -> bool {
+        AES_KEY key;
+        vpaes_set_encrypt_key(kZero, 128, &key);
+        return true;
+      })) {
+    fprintf(stderr, "Failed to time something.\n");
+    return false;
+  }
+  results.Print("vpaes_set_encrypt_key");
+
+  if (!TimeFunction(&results, [&]() -> bool {
+        AES_KEY key;
+        vpaes_set_encrypt_key(kZero, 128, &key);
+        vpaes_encrypt_key_to_bsaes(&key, &key);
+        return true;
+      })) {
+    fprintf(stderr, "Failed to time something.\n");
+    return false;
+  }
+  results.Print("vpaes_set_encrypt_key + convert");
+
+  vpaes_set_encrypt_key(kZero, 128, &key1);
+  if (!TimeFunction(&results, [&]() -> bool {
+        vpaes_encrypt_key_to_bsaes(&key2, &key1);
+        return true;
+      })) {
+    fprintf(stderr, "Failed to time something.\n");
+    return false;
+  }
+  results.Print("vpaes_encrypt_key_to_bsaes");
+
+  return true;
+}
+
 static const struct argument kArguments[] = {
     {
      "-filter", kOptionalArgument,
@@ -874,7 +980,8 @@ bool Speed(const std::vector<std::string> &args) {
       !SpeedSPAKE2(selected) ||
       !SpeedScrypt(selected) ||
       !SpeedRSAKeyGen(selected) ||
-      !SpeedHRSS(selected)) {
+      !SpeedHRSS(selected) ||
+      !SpeedVPAES(selected)) {
     return false;
   }
 
