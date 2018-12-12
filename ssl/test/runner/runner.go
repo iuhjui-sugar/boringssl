@@ -16,6 +16,7 @@ package runner
 
 import (
 	"bytes"
+	"crypto"
 	"crypto/ecdsa"
 	"crypto/elliptic"
 	"crypto/rand"
@@ -108,6 +109,7 @@ const (
 	testCertECDSAP384
 	testCertECDSAP521
 	testCertEd25519
+	testCertDelegator
 )
 
 const (
@@ -119,6 +121,8 @@ const (
 	ecdsaP384CertificateFile = "ecdsa_p384_cert.pem"
 	ecdsaP521CertificateFile = "ecdsa_p521_cert.pem"
 	ed25519CertificateFile   = "ed25519_cert.pem"
+	delegatorCertificateFile = "delegator_cert.pem"
+	dcFile                   = "dc.pem"
 )
 
 const (
@@ -130,6 +134,8 @@ const (
 	ecdsaP384KeyFile = "ecdsa_p384_key.pem"
 	ecdsaP521KeyFile = "ecdsa_p521_key.pem"
 	ed25519KeyFile   = "ed25519_key.pem"
+	delegatorKeyFile = "delegator_key.pem"
+	dcKeyFile        = "dc_key.pem"
 	channelIDKeyFile = "channel_id_key.pem"
 )
 
@@ -143,6 +149,7 @@ var (
 	ecdsaP521Certificate Certificate
 	ed25519Certificate   Certificate
 	garbageCertificate   Certificate
+	delegatorCertificate Certificate
 )
 
 var testCerts = []struct {
@@ -198,6 +205,12 @@ var testCerts = []struct {
 		keyFile:  ed25519KeyFile,
 		cert:     &ed25519Certificate,
 	},
+	{
+		id:       testCertDelegator,
+		certFile: delegatorCertificateFile,
+		keyFile:  delegatorKeyFile,
+		cert:     &delegatorCertificate,
+	},
 }
 
 var channelIDKey *ecdsa.PrivateKey
@@ -210,6 +223,9 @@ var testSCTList2 = []byte{0, 6, 0, 4, 1, 2, 3, 4}
 
 var testOCSPExtension = append([]byte{byte(extensionStatusRequest) >> 8, byte(extensionStatusRequest), 0, 8, statusTypeOCSP, 0, 0, 4}, testOCSPResponse...)
 var testSCTExtension = append([]byte{byte(extensionSignedCertificateTimestamp) >> 8, byte(extensionSignedCertificateTimestamp), 0, byte(len(testSCTList))}, testSCTList...)
+
+var dc *DelegatedCredential
+var dcKey crypto.PrivateKey
 
 func initCertificates() {
 	for i := range testCerts {
@@ -244,6 +260,32 @@ func initCertificates() {
 
 	garbageCertificate.Certificate = [][]byte{[]byte("GARBAGE")}
 	garbageCertificate.PrivateKey = rsaCertificate.PrivateKey
+
+	// Parse the delegator certificate used for testing the Delegated
+	// Credentials extension.
+	delegatorCertificate.Leaf, err = x509.ParseCertificate(delegatorCertificate.Certificate[0])
+	if err != nil {
+		panic(err)
+	}
+
+	// Create a delegated credential valid for 24 hours following the notBefore
+	// time of the delegator certificate.
+	//
+	// For the purpose of this test, suppose the delegator certificate has just
+	// been issued. Validity time is the current time plus the desired TTL (24
+	// hours) minus the notBefore of the delegator.
+	var cred *Credential
+	validity := 24 * time.Hour
+	scheme := uint16(signatureECDSAWithP256AndSHA256)
+	version := uint16(VersionTLS13)
+	cred, dcKey, err = NewCredential(scheme, version, validity)
+	if err != nil {
+		panic(err)
+	}
+	dc, err = Delegate(&delegatorCertificate, cred)
+	if err != nil {
+		panic(err)
+	}
 }
 
 func getRunnerCertificate(t testCert) Certificate {
@@ -494,6 +536,9 @@ type testCase struct {
 	// exportTrafficSecrets, if true, configures the test to export the TLS 1.3
 	// traffic secrets and confirms that they match.
 	exportTrafficSecrets bool
+	// expectDelegatedCredentials is true when a test should expect
+	// delegated credentials to be sent
+	expectDelegatedCredential bool
 }
 
 var testCases []testCase
@@ -725,6 +770,14 @@ func doExchange(test *testCase, config *Config, conn net.Conn, isResume bool, tr
 
 	if expected := test.expectedCurveID; expected != 0 && expected != connState.CurveID {
 		return fmt.Errorf("expected peer to use curve %04x, but got %04x", expected, connState.CurveID)
+	}
+
+	if test.expectDelegatedCredential != connState.DelegatedCredentialUsed {
+		if test.expectDelegatedCredential {
+			return fmt.Errorf("expected a delegated credential, got none")
+		} else {
+			return fmt.Errorf("got an unexpected delegated credential")
+		}
 	}
 
 	if test.expectPeerCertificate != nil {
@@ -15015,6 +15068,60 @@ func addJDK11WorkaroundTests() {
 	}
 }
 
+func addDelegatedCredentialTests() {
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "DelegatedCredentialServerTest",
+		config: Config{
+			MaxVersion:                  VersionTLS13,
+			DefaultCurves:               []CurveID{CurveP256},
+			DelegatedCredentialsEnabled: true,
+		},
+		flags: []string{
+			"-cert-file", path.Join(*resourceDir, delegatorCertificateFile),
+			"-key-file", path.Join(*resourceDir, delegatorKeyFile),
+			"-dc-pubfile", path.Join(*resourceDir, dcFile),
+			"-dc-keyfile", path.Join(*resourceDir, dcKeyFile),
+			"-enable-dc",
+		},
+		expectDelegatedCredential: true,
+	})
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "DelegatedCredentialNegotationTest",
+		config: Config{
+			MaxVersion:                  VersionTLS13,
+			DefaultCurves:               []CurveID{CurveP256},
+			DelegatedCredentialsEnabled: false,
+		},
+		flags: []string{
+			"-cert-file", path.Join(*resourceDir, delegatorCertificateFile),
+			"-key-file", path.Join(*resourceDir, delegatorKeyFile),
+			"-dc-pubfile", path.Join(*resourceDir, dcFile),
+			"-dc-keyfile", path.Join(*resourceDir, dcKeyFile),
+			"-enable-dc",
+		},
+		expectDelegatedCredential: false,
+	})
+	testCases = append(testCases, testCase{
+		testType: clientTest,
+		name:     "DelegatedCredentialClientTest",
+		config: Config{
+			MaxVersion:                  VersionTLS13,
+			DefaultCurves:               []CurveID{CurveP256},
+			Certificates:                []Certificate{delegatorCertificate},
+			DelegatedCredentialsEnabled: true,
+			DelegatedCredential:         dc,
+			DelegatedCredentialKey:      dcKey,
+		},
+		flags: []string{
+			"-enable-dc",
+			"-expect-dc",
+		},
+	})
+
+}
+
 func worker(statusChan chan statusMsg, c chan *testCase, shimPath string, wg *sync.WaitGroup) {
 	defer wg.Done()
 
@@ -15150,6 +15257,7 @@ func main() {
 	addOmitExtensionsTests()
 	addCertCompressionTests()
 	addJDK11WorkaroundTests()
+	addDelegatedCredentialTests()
 
 	testCases = append(testCases, convertToSplitHandshakeTests(testCases)...)
 
