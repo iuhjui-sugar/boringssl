@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "67719889_788f0ac9",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 25
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-12-12T17:16:09Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "8b3fb9e0_3f06e82c",
+      "range": {
+        "startLine": 100,
+        "startChar": 42,
+        "endLine": 100,
+        "endChar": 47
+      },
+      "revId": "a3e8e11d13f4c06c5ad83a4711e102926cb5323c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c8a808ef_fc4d843a",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 25
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "59fa9d80_607ec990",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 25
+      },
+      "lineNbr": 2210,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-12-12T17:16:09Z",
+      "side": 1,
+      "message": "Good catch, fixed.",
+      "parentUuid": "c8a808ef_fc4d843a",
+      "revId": "a3e8e11d13f4c06c5ad83a4711e102926cb5323c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2741219c_f07bbab6",
         "filename": "crypto/hrss/hrss_test.cc",
         "patchSetId": 25
@@ -56,6 +98,24 @@
       "revId": "a3e8e11d13f4c06c5ad83a4711e102926cb5323c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acc9feef_be12c486",
+        "filename": "crypto/hrss/hrss_test.cc",
+        "patchSetId": 25
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-12-12T17:16:09Z",
+      "side": 1,
+      "message": "Done. Although I did use i and j to figure out the type of error in practice :) (I.e. did it fail immediately, or only after a few attempts?)",
+      "parentUuid": "2741219c_f07bbab6",
+      "revId": "a3e8e11d13f4c06c5ad83a4711e102926cb5323c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "9684337c_4868680b",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 25
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-12-12T17:16:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0bb39949_aba78282",
+      "range": {
+        "startLine": 343,
+        "startChar": 37,
+        "endLine": 343,
+        "endChar": 39
+      },
+      "revId": "a3e8e11d13f4c06c5ad83a4711e102926cb5323c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ba25df2_ac733f9b",
         "filename": "ssl/test/runner/hrss/hrss.go",
         "patchSetId": 25
@@ -96,6 +180,24 @@
       "revId": "a3e8e11d13f4c06c5ad83a4711e102926cb5323c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a2cc25e_a33d8d66",
+        "filename": "ssl/test/runner/hrss/hrss.go",
+        "patchSetId": 25
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-12-12T17:16:09Z",
+      "side": 1,
+      "message": "I think it\u0027s close enough for a unittest. I might realign things in the future but this CL needs to be put to bed now.",
+      "parentUuid": "6ba25df2_ac733f9b",
+      "revId": "a3e8e11d13f4c06c5ad83a4711e102926cb5323c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
