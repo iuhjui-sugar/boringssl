@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "db98407c_7d1f5856",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 4722,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-12T22:37:50Z",
+      "side": 1,
+      "message": "Nit: true/false",
+      "range": {
+        "startLine": 4722,
+        "startChar": 39,
+        "endLine": 4722,
+        "endChar": 42
+      },
+      "revId": "5eefd18b63e98aa7fe1957f9148506c3e250753b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ddf1ed4_7897f368",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-12T22:37:50Z",
+      "side": 1,
+      "message": "(Note this gets set later than you\u0027d want for 0-RTT, but 0-RTT would already need a richer API anyway.)",
+      "revId": "5eefd18b63e98aa7fe1957f9148506c3e250753b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
