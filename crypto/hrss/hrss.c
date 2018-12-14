@@ -2077,17 +2077,6 @@ void HRSS_generate_key(
   poly_clamp(&priv->ph_inverse);
 }
 
-static void owf(uint8_t out[POLY_BYTES], const struct public_key *pub,
-                const struct poly *m_lifted, const struct poly *r) {
-  struct poly prh_plus_m;
-  poly_mul(&prh_plus_m, r, &pub->ph);
-  for (unsigned i = 0; i < N; i++) {
-    prh_plus_m.v[i] += m_lifted->v[i];
-  }
-
-  poly_marshal(out, &prh_plus_m);
-}
-
 static const char kSharedKey[] = "shared key";
 
 void HRSS_encap(uint8_t out_ciphertext[POLY_BYTES],
@@ -2100,7 +2089,14 @@ void HRSS_encap(uint8_t out_ciphertext[POLY_BYTES],
   poly_short_sample(&m, in);
   poly_short_sample(&r, in + HRSS_SAMPLE_BYTES);
   poly_lift(&m_lifted, &m);
-  owf(out_ciphertext, pub, &m_lifted, &r);
+
+  struct poly prh_plus_m;
+  poly_mul(&prh_plus_m, &r, &pub->ph);
+  for (unsigned i = 0; i < N; i++) {
+    prh_plus_m.v[i] += m_lifted.v[i];
+  }
+
+  poly_marshal(out_ciphertext, &prh_plus_m);
 
   uint8_t m_bytes[HRSS_POLY3_BYTES], r_bytes[HRSS_POLY3_BYTES];
   poly_marshal_mod3(m_bytes, &m);
@@ -2116,11 +2112,8 @@ void HRSS_encap(uint8_t out_ciphertext[POLY_BYTES],
 }
 
 void HRSS_decap(uint8_t out_shared_key[HRSS_KEY_BYTES],
-                const struct HRSS_public_key *in_pub,
                 const struct HRSS_private_key *in_priv,
                 const uint8_t *ciphertext, size_t ciphertext_len) {
-  const struct public_key *pub =
-      public_key_from_external((struct HRSS_public_key *)in_pub);
   const struct private_key *priv =
       private_key_from_external((struct HRSS_private_key *)in_priv);
 
@@ -2186,23 +2179,41 @@ void HRSS_decap(uint8_t out_shared_key[HRSS_KEY_BYTES],
   for (unsigned i = 0; i < N; i++) {
     c.v[i] -= m_lifted.v[i];
   }
-  poly_mul(&c, &c, &priv->ph_inverse);
-  poly_mod_phiN(&c);
-  poly_clamp(&c);
+  struct poly r;
+  poly_mul(&r, &c, &priv->ph_inverse);
+  poly_mod_phiN(&r);
+  poly_clamp(&r);
 
   struct poly3 r3;
-  crypto_word_t ok = poly3_from_poly_checked(&r3, &c);
+  crypto_word_t ok = poly3_from_poly_checked(&r3, &r);
 
   uint8_t expected_ciphertext[HRSS_CIPHERTEXT_BYTES];
   OPENSSL_STATIC_ASSERT(HRSS_CIPHERTEXT_BYTES == POLY_BYTES,
                         "ciphertext is the wrong size");
   assert(ciphertext_len == sizeof(expected_ciphertext));
-  owf(expected_ciphertext, pub, &m_lifted, &c);
+
+  // We can re-encaps with |c|, instead of computing rh, as long as we check
+  // that |r| has coefficients in {-1,0,1}, as |poly3_from_poly_checked| does.
+  // It is important not to reduce r mod 3 (or perform any other non-invertible
+  // operations) before this check.
+
+  // t = (b(1) / N) mod Q
+  uint16_t t = 0;
+  for (size_t i = 0; i < N; i++) {
+    t += c.v[i];
+  }
+  static const uint16_t kNInvModQ = 2197;
+  t = ((unsigned) t * kNInvModQ) & (Q - 1);
+
+  for (size_t i = 0; i < N; i++) {
+    c.v[i] = (c.v[i] - t + m_lifted.v[i]) & (Q - 1);
+  }
+  poly_marshal(expected_ciphertext, &c);
 
   uint8_t m_bytes[HRSS_POLY3_BYTES];
   uint8_t r_bytes[HRSS_POLY3_BYTES];
   poly_marshal_mod3(m_bytes, &m);
-  poly_marshal_mod3(r_bytes, &c);
+  poly_marshal_mod3(r_bytes, &r);
 
   ok &= constant_time_is_zero_w(CRYPTO_memcmp(ciphertext, expected_ciphertext,
                                               sizeof(expected_ciphertext)));

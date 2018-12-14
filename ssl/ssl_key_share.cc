@@ -287,8 +287,8 @@ class CECPQ2KeyShare : public SSLKeyShare {
       return false;
     }
 
-    HRSS_decap(secret.data() + 32, &hrss_public_key_, &hrss_private_key_,
-               peer_key.data() + 32, peer_key.size() - 32);
+    HRSS_decap(secret.data() + 32, &hrss_private_key_, peer_key.data() + 32,
+               peer_key.size() - 32);
 
     *out_secret = std::move(secret);
     return true;
