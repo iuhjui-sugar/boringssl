@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "440b6870_55acc4ad",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2200,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-14T21:29:33Z",
+      "side": 1,
+      "message": "c? Might also be worth a comment as to what it\u0027s for.\n\nIt\u0027s to undo poly_mod_phiN, right? Although I\u0027m actually not seeing why this works. If I plugged things in right, looks like the claim then is c\u0027 * ph * ph_inverse \u003d c\u0027 + t * phi_N (c\u0027 \u003d c - m_lifted)? Is this because of how ph_inverse is generated?",
+      "range": {
+        "startLine": 2200,
+        "startChar": 10,
+        "endLine": 2200,
+        "endChar": 11
+      },
+      "revId": "28803a8c522ecc3b84552816090840efc6729a69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c88f9f2d_37aee3f9",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2205,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-14T21:29:33Z",
+      "side": 1,
+      "message": "[Confirmed]",
+      "range": {
+        "startLine": 2205,
+        "startChar": 36,
+        "endLine": 2205,
+        "endChar": 40
+      },
+      "revId": "28803a8c522ecc3b84552816090840efc6729a69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c3a1947_c2946eb5",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2209,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-14T21:29:33Z",
+      "side": 1,
+      "message": "Optional: there\u0027s probably some juggling to be done to avoid adding back what you subtracted in line 2180. Though it\u0027s a little fussy because t is computed based on the subtracted c. (Subtract into r and sample t before multiplying?)\n\nThen again, that\u0027ll probably make the business with t more confusing. :-)",
+      "range": {
+        "startLine": 2209,
+        "startChar": 25,
+        "endLine": 2209,
+        "endChar": 40
+      },
+      "revId": "28803a8c522ecc3b84552816090840efc6729a69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
