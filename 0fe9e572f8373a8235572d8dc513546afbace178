@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "18eccee4_48652af8",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2168,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-17T22:07:15Z",
+      "side": 1,
+      "message": "Mismerge? This is already done in line 2162.",
+      "revId": "0fe9e572f8373a8235572d8dc513546afbace178",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29a6f0d6_1dacba9e",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2196,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-17T22:07:15Z",
+      "side": 1,
+      "message": "Hah. Somehow I didn\u0027t even notice this. Am I correct that this is because the only thing we ever marshal is c \u003d rh + lift(m) (mod Rq), and both lift(m) and h are zero mod x - 1?\n\nMaybe worth adding a note on poly_(un)marshal that it doesn\u0027t serialize arbitrary polynomials.",
+      "range": {
+        "startLine": 2196,
+        "startChar": 64,
+        "endLine": 2196,
+        "endChar": 71
+      },
+      "revId": "0fe9e572f8373a8235572d8dc513546afbace178",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
