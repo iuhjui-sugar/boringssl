@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4f760208_3879bcae",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3805,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-12-17T23:42:23Z",
+      "side": 1,
+      "message": "This function appears to exist in OpenSSL, but with |size_t| and a return value: https://www.openssl.org/docs/man1.1.1/man3/SSL_set_num_tickets.html\n\nWe would tend to align with OpenSSL on stuff like this. (I.e. also adding the other functions there, although the getters are probably useless.)",
+      "range": {
+        "startLine": 3805,
+        "startChar": 50,
+        "endLine": 3805,
+        "endChar": 58
+      },
+      "revId": "062ecb20ae10420874976e806a9720f55f5dece4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2be2936_a872b6a9",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2465,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-12-17T23:42:23Z",
+      "side": 1,
+      "message": "Can probably a uint8_t? (I don\u0027t think being able to send \u003e 255 tickets per connection is useful!)",
+      "revId": "062ecb20ae10420874976e806a9720f55f5dece4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39b4db05_38dd3458",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2792,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-12-17T23:42:23Z",
+      "side": 1,
+      "message": "(nit: we would fix this up for you before landing, but indentation is two spaces. clang-format can do this sort of thing automatically for you.)",
+      "revId": "062ecb20ae10420874976e806a9720f55f5dece4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
