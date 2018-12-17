@@ -981,6 +981,12 @@ static bool DoExchange(bssl::UniquePtr<SSL_SESSION> *out_session,
           pending_initial_write = false;
         }
 
+        if (config->key_update &&
+            !SSL_enqueue_key_update(ssl, 0 /* no requested response */)) {
+          fprintf(stderr, "SSL_enqueue_key_update failed.\n");
+          return false;
+        }
+
         for (int i = 0; i < n; i++) {
           buf[i] ^= 0xff;
         }
