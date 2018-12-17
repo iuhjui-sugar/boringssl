@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "88cfc1c6_5f2cb4ac",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2168,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-12-17T22:58:22Z",
+      "side": 1,
+      "message": "Thanks.",
+      "parentUuid": "18eccee4_48652af8",
+      "revId": "0fe9e572f8373a8235572d8dc513546afbace178",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "29a6f0d6_1dacba9e",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 1
@@ -39,6 +57,30 @@
       "revId": "0fe9e572f8373a8235572d8dc513546afbace178",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "987f5bea_58cdc3cc",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 2196,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2018-12-17T22:58:22Z",
+      "side": 1,
+      "message": "\u003e Am I correct that this is because the only thing we ever marshal is c \u003d rh + lift(m) (mod Rq), and both lift(m) and h are zero mod x - 1?\n\nWell, ultimately it\u0027s because it\u0027s what the HRSS spec says to do :) But, yea, h(1) is zero by construction and so is lift(m). So encoding the final coefficient is superfluous and allows for tricks like this.",
+      "parentUuid": "29a6f0d6_1dacba9e",
+      "range": {
+        "startLine": 2196,
+        "startChar": 64,
+        "endLine": 2196,
+        "endChar": 71
+      },
+      "revId": "0fe9e572f8373a8235572d8dc513546afbace178",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
