@@ -394,6 +394,18 @@ OPENSSL_EXPORT int SSL_pending(const SSL *ssl);
 // https://crbug.com/466303.
 OPENSSL_EXPORT int SSL_write(SSL *ssl, const void *buf, int num);
 
+// SSL_enqueue_key_update queues a TLS 1.3 KeyUpdate message to be sent on |ssl|
+// if one is not already queued. If |also_request_from_peer| is true, then the
+// KeyUpdate message will request that the peer also updates their traffic keys.
+// This function requires that |ssl| have completed a TLS >= 1.3 handshake. It
+// returns one on success or zero on error.
+//
+// Note that this function does not _send_ the message itself. The next call to
+// |SSL_write| will cause the message to be sent. |SSL_write| may be called with
+// a zero length to flush a KeyUpdate message when no application data is
+// pending.
+OPENSSL_EXPORT int SSL_enqueue_key_update(SSL *ssl, int also_request_from_peer);
+
 // SSL_shutdown shuts down |ssl|. It runs in two stages. First, it sends
 // close_notify and returns zero or one on success or -1 on failure. Zero
 // indicates that close_notify was sent, but not received, and one additionally
