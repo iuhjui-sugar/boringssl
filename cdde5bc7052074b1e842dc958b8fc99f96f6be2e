@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "b9a8352c_32259523",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-18T22:44:41Z",
+      "side": 1,
+      "message": "This patch was a idle-for-a-couple-of-hours project. Unclear when I\u0027ll find the time again to push it forward but I\u0027m going to land this for now so that it doesn\u0027t get lost. This corner of RSA lights up valgrind at the moment so it\u0027s pretty clear where to start when either of us get back to it :)",
+      "parentUuid": "55986115_e386fe1d",
+      "revId": "cdde5bc7052074b1e842dc958b8fc99f96f6be2e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dd9c5370_3e7058c3",
         "filename": "crypto/fipsmodule/rsa/padding.c",
         "patchSetId": 2
@@ -76,6 +94,24 @@
     },
     {
       "key": {
+        "uuid": "2acd7c54_6af10325",
+        "filename": "crypto/fipsmodule/rsa/rsa_impl.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-18T22:44:41Z",
+      "side": 1,
+      "message": "Setting up BN_MONT_CTX is currently not constant time because it checks that the value isn\u0027t zero etc. So marking as secret probably needs to happen inside that code. Leaving it for now.",
+      "parentUuid": "38a3adf4_cd5b25ec",
+      "revId": "cdde5bc7052074b1e842dc958b8fc99f96f6be2e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6cd945f9_2a7fd7ac",
         "filename": "crypto/fipsmodule/rsa/rsa_impl.c",
         "patchSetId": 2
@@ -93,6 +129,24 @@
     },
     {
       "key": {
+        "uuid": "cc3d4fba_b6adafee",
+        "filename": "crypto/fipsmodule/rsa/rsa_impl.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-18T22:44:41Z",
+      "side": 1,
+      "message": "Hmm, I think it was preemptive. I\u0027ve dropped it for now.",
+      "parentUuid": "6cd945f9_2a7fd7ac",
+      "revId": "cdde5bc7052074b1e842dc958b8fc99f96f6be2e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0fe9f715_25741aaf",
         "filename": "ssl/handshake_server.cc",
         "patchSetId": 2
@@ -107,6 +161,24 @@
       "revId": "cdde5bc7052074b1e842dc958b8fc99f96f6be2e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdd4c8bc_19919074",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1269,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-18T22:44:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0fe9f715_25741aaf",
+      "revId": "cdde5bc7052074b1e842dc958b8fc99f96f6be2e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
