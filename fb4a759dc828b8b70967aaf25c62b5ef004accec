@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "725aaec7_945ad259",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-19T20:06:21Z",
+      "side": 1,
+      "message": "Nit: 80 chars (we can fix this before landing)",
+      "revId": "fb4a759dc828b8b70967aaf25c62b5ef004accec",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
