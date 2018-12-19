@@ -152,4 +152,21 @@ TEST(ABITest, X86_64) {
   CHECK_ABI(abi_test_clobber_xmm15);
 #endif
 }
+
+#if defined(OPENSSL_WINDOWS)
+// Test that the trampoline's SEH metadata works.
+TEST(ABITest, TrampolineSEH) {
+  bool handled = false;
+  __try {
+    CHECK_ABI(memcpy, (char *)0x1, (char *)0x3, (size_t)-1);
+  } __except (GetExceptionCode() == EXCEPTION_ACCESS_VIOLATION
+                  ? EXCEPTION_EXECUTE_HANDLER
+                  : EXCEPTION_CONTINUE_SEARCH) {
+    handled = true;
+  }
+
+  EXPECT_TRUE(handled);
+}
+#endif  // OPENSSL_WINDOWS
+
 #endif   // OPENSSL_X86_64 && SUPPORTS_ABI_TEST
