@@ -177,6 +177,12 @@ OPENSSL_EXPORT int EC_KEY_set_public_key_affine_coordinates(EC_KEY *key,
                                                             BIGNUM *x,
                                                             BIGNUM *y);
 
+// EC_KEY_key2buf encodes the public key in |key| to an allocated octet string.
+// It returns the length of the encoded octet string or zero if an error
+// occurred.
+OPENSSL_EXPORT int EC_KEY_key2buf(EC_KEY *key, point_conversion_form_t form,
+                                  unsigned char **pbuf, BN_CTX *ctx);
+
 
 // Key generation.
 

@@ -394,6 +394,28 @@ err:
   return ok;
 }
 
+int EC_KEY_key2buf(EC_KEY *key, point_conversion_form_t form,
+                   unsigned char **pbuf, BN_CTX *ctx) {
+  if (key == NULL || key->pub_key == NULL || key->group == NULL)
+    return 0;
+
+  size_t len;
+  unsigned char *buf;
+  len = EC_POINT_point2oct(key->group, key->pub_key, form, NULL, 0, NULL);
+  if (len == 0)
+    return 0;
+  buf = OPENSSL_malloc(len);
+  if (buf == NULL)
+    return 0;
+  len = EC_POINT_point2oct(key->group, key->pub_key, form, buf, len, ctx);
+  if (len == 0) {
+    OPENSSL_free(buf);
+    return 0;
+  }
+  *pbuf = buf;
+  return len;
+}
+
 int EC_KEY_generate_key(EC_KEY *key) {
   if (key == NULL || key->group == NULL) {
     OPENSSL_PUT_ERROR(EC, ERR_R_PASSED_NULL_PARAMETER);
