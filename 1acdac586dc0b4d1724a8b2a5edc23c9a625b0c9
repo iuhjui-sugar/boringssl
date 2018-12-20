@@ -1,0 +1,129 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b907fe27_691cccb0",
+        "filename": "ssl/ssl_cert.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-20T21:33:28Z",
+      "side": 1,
+      "message": "(Note to self: \"enum class\" is the new hotness now that this code is C++. Could convert before landing.)",
+      "revId": "1acdac586dc0b4d1724a8b2a5edc23c9a625b0c9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "739d6e1b_7d459243",
+        "filename": "ssl/ssl_cert.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-20T21:33:28Z",
+      "side": 1,
+      "message": "(nit: double space.)",
+      "range": {
+        "startLine": 536,
+        "startChar": 46,
+        "endLine": 536,
+        "endChar": 47
+      },
+      "revId": "1acdac586dc0b4d1724a8b2a5edc23c9a625b0c9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "befabb7b_2d20c21b",
+        "filename": "ssl/ssl_cert.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-20T21:33:28Z",
+      "side": 1,
+      "message": "probably this would be a Span\u003cconst uint8_t\u003e and avoid the additional length argument. A uint8_t[] will coerce automatically.",
+      "revId": "1acdac586dc0b4d1724a8b2a5edc23c9a625b0c9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89e6e432_2f7b0d76",
+        "filename": "ssl/ssl_cert.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-20T21:33:28Z",
+      "side": 1,
+      "message": "argument order is:\n\nContext pointer (e.g. SSL*).\nOut args\nIn args.\n\nSo this would probably be:\n\nstatic cert_get_extension_result_t cert_get_extension(CBS *out_ext, const CBS *cert, Span\u003cconst uint8_t\u003e oid)",
+      "revId": "1acdac586dc0b4d1724a8b2a5edc23c9a625b0c9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "266535ee_3f54b420",
+        "filename": "ssl/ssl_cert.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-20T21:33:28Z",
+      "side": 1,
+      "message": "probably pushing the error would move up to the caller.",
+      "revId": "1acdac586dc0b4d1724a8b2a5edc23c9a625b0c9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b59016a_b91ebfb0",
+        "filename": "ssl/ssl_cert.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-20T21:33:28Z",
+      "side": 1,
+      "message": "s/int/cert_skip_to_ext_result_t/",
+      "revId": "1acdac586dc0b4d1724a8b2a5edc23c9a625b0c9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36e99f1e_13e2501b",
+        "filename": "ssl/ssl_cert.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-20T21:33:28Z",
+      "side": 1,
+      "message": "switch so that the compiler will enforce all cases are checked?",
+      "revId": "1acdac586dc0b4d1724a8b2a5edc23c9a625b0c9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
