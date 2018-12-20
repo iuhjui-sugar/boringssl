@@ -1,0 +1,146 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba7bc597_89aea304",
+        "filename": "crypto/abi_self_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-20T19:48:35Z",
+      "side": 1,
+      "message": "Nit: superfluous blank line.",
+      "revId": "99f14f58c1fc98be27b0e55f3b03088aae6c73de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b507ab39_361e51f3",
+        "filename": "crypto/test/abi_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-20T19:48:35Z",
+      "side": 1,
+      "message": "idx--? (otherwise the |idx \u003e 0| seems wrong.) Also, doesn\u0027t this never run because ret[idx] is known to be \u0027,\u0027?",
+      "revId": "99f14f58c1fc98be27b0e55f3b03088aae6c73de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c5e7dc4_24c3b448",
+        "filename": "crypto/test/abi_test.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-20T19:48:35Z",
+      "side": 1,
+      "message": "I didn\u0027t follow this. I parsed it as:\n\nAssertion: CHECK_ABI cannot be defined with a leading, named arg.\nJustification: The C spec forbids having no named args. (Which seems to be a reason why that assertion would be wrong, not right.)",
+      "revId": "99f14f58c1fc98be27b0e55f3b03088aae6c73de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "942f90d8_1d9680ea",
+        "filename": "crypto/test/asm/trampoline-x86_64.pl",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-20T19:48:35Z",
+      "side": 1,
+      "message": "Did this end-up working then, or are we assuming that issue gets fixed in the future?",
+      "range": {
+        "startLine": 22,
+        "startChar": 42,
+        "endLine": 22,
+        "endChar": 60
+      },
+      "revId": "99f14f58c1fc98be27b0e55f3b03088aae6c73de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cf533fc_1d8cd07f",
+        "filename": "crypto/test/asm/trampoline-x86_64.pl",
+        "patchSetId": 6
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-20T19:48:35Z",
+      "side": 1,
+      "message": "elseif (/^%xmm/) {\n  …\n} else {\n  die \"unknown register in |caller_state|\"\n}\n\n(Just to catch mistakes in the future when we add %zmm or something.)",
+      "revId": "99f14f58c1fc98be27b0e55f3b03088aae6c73de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16130372_4ceb5446",
+        "filename": "crypto/test/asm/trampoline-x86_64.pl",
+        "patchSetId": 6
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-20T19:48:35Z",
+      "side": 1,
+      "message": "(Maybe likewise to catch future register types.)",
+      "revId": "99f14f58c1fc98be27b0e55f3b03088aae6c73de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "40400887_48758f87",
+        "filename": "crypto/test/asm/trampoline-x86_64.pl",
+        "patchSetId": 6
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-20T19:48:35Z",
+      "side": 1,
+      "message": "(ditto.)",
+      "revId": "99f14f58c1fc98be27b0e55f3b03088aae6c73de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aff8a0f9_8dcc956a",
+        "filename": "crypto/test/asm/trampoline-x86_64.pl",
+        "patchSetId": 6
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-20T19:48:35Z",
+      "side": 1,
+      "message": "Wait, really? Windows keep stack slots around for the parameters that are passed in registers anyway? Does it duplicate the values in them too?",
+      "revId": "99f14f58c1fc98be27b0e55f3b03088aae6c73de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
