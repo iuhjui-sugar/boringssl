@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c016e9fe_7b5caa8a",
+        "filename": "crypto/abi_self_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-20T20:18:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba7bc597_89aea304",
+      "revId": "99f14f58c1fc98be27b0e55f3b03088aae6c73de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b507ab39_361e51f3",
         "filename": "crypto/test/abi_test.cc",
         "patchSetId": 6
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "c1cde911_2e3b9519",
+        "filename": "crypto/test/abi_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-20T20:18:51Z",
+      "side": 1,
+      "message": "Er, yeah, that loop is totally nonsense. Fixed.",
+      "parentUuid": "b507ab39_361e51f3",
+      "revId": "99f14f58c1fc98be27b0e55f3b03088aae6c73de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8c5e7dc4_24c3b448",
         "filename": "crypto/test/abi_test.h",
         "patchSetId": 6
@@ -47,6 +83,24 @@
       "writtenOn": "2018-12-20T19:48:35Z",
       "side": 1,
       "message": "I didn\u0027t follow this. I parsed it as:\n\nAssertion: CHECK_ABI cannot be defined with a leading, named arg.\nJustification: The C spec forbids having no named args. (Which seems to be a reason why that assertion would be wrong, not right.)",
+      "revId": "99f14f58c1fc98be27b0e55f3b03088aae6c73de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89b05603_40990f60",
+        "filename": "crypto/test/abi_test.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-20T20:18:51Z",
+      "side": 1,
+      "message": "It\u0027s worse than that. The C specification forbids passing in zero inputs to a \"...\" parameter. C11 6.10.3, paragraph 4:\n\n\u003e If the identifier-list in the macro definition does not end with an ellipsis, the number of arguments (including those arguments consisting of no preprocessing tokens) in an invocation of a function-like macro shall equal the number of parameters in the macro definition. Otherwise, there shall be more arguments in the invocation than there are parameters in the macro definition (excluding the ...). There shall exist a ) preprocessing token that terminates the invocation.\n\nEveryone allows it anyway, but it doesn\u0027t really work well because something like:\n\n  foo(bar, __VA_ARGS__)\n\nwill give you a trailing comma. IIRC, Clang and GCC explode there, while MSVC strips the trailing comma. In another iteration I had some other workaround, but apparently it broke MSVC. And then I gave up and just fixed the string in post.\n\nSomehow I suspect the compiler variation is why the C standard gave up and didn\u0027t try to define it. :-)",
+      "parentUuid": "8c5e7dc4_24c3b448",
       "revId": "99f14f58c1fc98be27b0e55f3b03088aae6c73de",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -76,6 +130,30 @@
     },
     {
       "key": {
+        "uuid": "7fe864c5_e0f05941",
+        "filename": "crypto/test/asm/trampoline-x86_64.pl",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-20T20:18:51Z",
+      "side": 1,
+      "message": "It worked in release mode, but not in debug mode. I didn\u0027t dig into it too closely since it sounded like we cared more about --gc-sections.\n\nThough, worst case, the embedder can always manually move the file to crypto_test...",
+      "parentUuid": "942f90d8_1d9680ea",
+      "range": {
+        "startLine": 22,
+        "startChar": 42,
+        "endLine": 22,
+        "endChar": 60
+      },
+      "revId": "99f14f58c1fc98be27b0e55f3b03088aae6c73de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2cf533fc_1d8cd07f",
         "filename": "crypto/test/asm/trampoline-x86_64.pl",
         "patchSetId": 6
@@ -93,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "1095911b_2a369186",
+        "filename": "crypto/test/asm/trampoline-x86_64.pl",
+        "patchSetId": 6
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-20T20:18:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2cf533fc_1d8cd07f",
+      "revId": "99f14f58c1fc98be27b0e55f3b03088aae6c73de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "16130372_4ceb5446",
         "filename": "crypto/test/asm/trampoline-x86_64.pl",
         "patchSetId": 6
@@ -104,6 +200,24 @@
       "writtenOn": "2018-12-20T19:48:35Z",
       "side": 1,
       "message": "(Maybe likewise to catch future register types.)",
+      "revId": "99f14f58c1fc98be27b0e55f3b03088aae6c73de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3e01cecd_7103cb98",
+        "filename": "crypto/test/asm/trampoline-x86_64.pl",
+        "patchSetId": 6
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-20T20:18:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16130372_4ceb5446",
       "revId": "99f14f58c1fc98be27b0e55f3b03088aae6c73de",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -127,6 +241,24 @@
     },
     {
       "key": {
+        "uuid": "cca35d72_b1e36f92",
+        "filename": "crypto/test/asm/trampoline-x86_64.pl",
+        "patchSetId": 6
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-20T20:18:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40400887_48758f87",
+      "revId": "99f14f58c1fc98be27b0e55f3b03088aae6c73de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aff8a0f9_8dcc956a",
         "filename": "crypto/test/asm/trampoline-x86_64.pl",
         "patchSetId": 6
@@ -138,6 +270,24 @@
       "writtenOn": "2018-12-20T19:48:35Z",
       "side": 1,
       "message": "Wait, really? Windows keep stack slots around for the parameters that are passed in registers anyway? Does it duplicate the values in them too?",
+      "revId": "99f14f58c1fc98be27b0e55f3b03088aae6c73de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43f0307e_464f64b3",
+        "filename": "crypto/test/asm/trampoline-x86_64.pl",
+        "patchSetId": 6
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2018-12-20T20:18:51Z",
+      "side": 1,
+      "message": "Nah, it\u0027s scratch space in case the callee needs it. The intended purpose is so that, if you need to take the address of your parameter and otherwise would have been a leaf function, you don\u0027t need to introduce a stack frame. (Windows doesn\u0027t have a red zone.)\n\nIn practice, the compiler seems to use it as free space to stash stuff that fits. (So vaguely a red zone.) perlasm\u0027s dual-ABI magic uses it to switch between Win64 and SysV calling conventions. It stashes rdi and rsi (which are parameters in SysV and non-volatile in Win64) there, then shifts all the parameters up so that Win64 looks vaguely like SysV. Then it replaces \"ret\" with an epilog that restores rdi and rsi before returning.\n\n(This file has opted out of all that via @abi-omnipotent because it needs to do some truly heinous things.)\n\nSee \"home addresses\" here:\nhttps://docs.microsoft.com/en-us/cpp/build/stack-usage?view\u003dvs-2017\n\nAlso this article for why you always get it even when there are fewer parameters (though not actually relevant for our function).\nhttps://blogs.msdn.microsoft.com/oldnewthing/20160623-00/?p\u003d93735",
+      "parentUuid": "aff8a0f9_8dcc956a",
       "revId": "99f14f58c1fc98be27b0e55f3b03088aae6c73de",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
