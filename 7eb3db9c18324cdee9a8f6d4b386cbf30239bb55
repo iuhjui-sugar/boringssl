@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ee708197_e2df3096",
+        "filename": "ssl/ssl_x509.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1227,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2018-12-20T21:25:12Z",
+      "side": 1,
+      "message": "I\u0027m unclear what this comment is trying to say. Is it \"Deferencing |ssl-\u003es3| is valid because (something) could call |SSL_get0_peer_verify_algorithms| at this point too and that dereferences it therefore it must be ok?\"",
+      "revId": "7eb3db9c18324cdee9a8f6d4b386cbf30239bb55",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
