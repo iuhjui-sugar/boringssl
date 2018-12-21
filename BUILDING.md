@@ -36,6 +36,10 @@
   * To build the x86 and x86\_64 assembly, your assembler must support AVX2
     instructions and MOVBE. If using GNU binutils, you must have 2.22 or later
 
+  * On x86_64 Linux, the tests have an optional
+    [libunwind](https://www.nongnu.org/libunwind/) dependency to test the
+    assembly more thoroughly.
+
 ## Building
 
 Using Ninja (note the 'N' is capitalized in the cmake invocation):
