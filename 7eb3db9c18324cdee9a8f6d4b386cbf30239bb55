@@ -16,6 +16,24 @@
       "revId": "7eb3db9c18324cdee9a8f6d4b386cbf30239bb55",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86eaa56a_abf3009a",
+        "filename": "ssl/ssl_x509.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1227,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2018-12-21T18:07:41Z",
+      "side": 1,
+      "message": "Yes, that\u0027s what I mean. The purpose of this comment was to remind me to point this out to reviewers, since I thought there was a chance that this could be problematic. If it looks OK to you, I\u0027ll remove the comment.",
+      "parentUuid": "ee708197_e2df3096",
+      "revId": "7eb3db9c18324cdee9a8f6d4b386cbf30239bb55",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
