@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "e9c7114c_f121d221",
+        "filename": "ssl/ssl_cert.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2018-12-21T19:22:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "739d6e1b_7d459243",
+      "range": {
+        "startLine": 536,
+        "startChar": 46,
+        "endLine": 536,
+        "endChar": 47
+      },
+      "revId": "1acdac586dc0b4d1724a8b2a5edc23c9a625b0c9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "befabb7b_2d20c21b",
         "filename": "ssl/ssl_cert.cc",
         "patchSetId": 2
@@ -53,6 +77,24 @@
       "writtenOn": "2018-12-20T21:33:28Z",
       "side": 1,
       "message": "probably this would be a Span\u003cconst uint8_t\u003e and avoid the additional length argument. A uint8_t[] will coerce automatically.",
+      "revId": "1acdac586dc0b4d1724a8b2a5edc23c9a625b0c9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ae9cb0d_da5eda4d",
+        "filename": "ssl/ssl_cert.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2018-12-21T19:22:44Z",
+      "side": 1,
+      "message": "\u003e A uint8_t[] will coerce automatically.\n\nWhat does this mean?\n\nChanged |ext_oid| type to Span\u003ccont uint8_t\u003e and dropped |ext_oid_len| paraemter.",
+      "parentUuid": "befabb7b_2d20c21b",
       "revId": "1acdac586dc0b4d1724a8b2a5edc23c9a625b0c9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -76,6 +118,24 @@
     },
     {
       "key": {
+        "uuid": "c68a4a6b_72be50b4",
+        "filename": "ssl/ssl_cert.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2018-12-21T19:22:44Z",
+      "side": 1,
+      "message": "Done.\n\nAlso, s/skip_to_ext/get_ext/g. Let me know if you prefer \"get_extension\" instead.",
+      "parentUuid": "89e6e432_2f7b0d76",
+      "revId": "1acdac586dc0b4d1724a8b2a5edc23c9a625b0c9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "266535ee_3f54b420",
         "filename": "ssl/ssl_cert.cc",
         "patchSetId": 2
@@ -90,6 +150,24 @@
       "revId": "1acdac586dc0b4d1724a8b2a5edc23c9a625b0c9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ab52659_7bccaa69",
+        "filename": "ssl/ssl_cert.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2018-12-21T19:22:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "266535ee_3f54b420",
+      "revId": "1acdac586dc0b4d1724a8b2a5edc23c9a625b0c9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -110,6 +188,24 @@
     },
     {
       "key": {
+        "uuid": "c48c1e26_d11ea66d",
+        "filename": "ssl/ssl_cert.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2018-12-21T19:22:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b59016a_b91ebfb0",
+      "revId": "1acdac586dc0b4d1724a8b2a5edc23c9a625b0c9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "36e99f1e_13e2501b",
         "filename": "ssl/ssl_cert.cc",
         "patchSetId": 2
@@ -124,6 +220,24 @@
       "revId": "1acdac586dc0b4d1724a8b2a5edc23c9a625b0c9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d546ff4d_eff3271b",
+        "filename": "ssl/ssl_cert.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2018-12-21T19:22:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36e99f1e_13e2501b",
+      "revId": "1acdac586dc0b4d1724a8b2a5edc23c9a625b0c9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
