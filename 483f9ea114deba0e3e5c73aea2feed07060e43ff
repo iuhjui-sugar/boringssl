@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4b70acdf_2e43f589",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1499,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2018-12-22T19:40:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c07be72_1791a432",
+      "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "00728cc8_e366d15f",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c51859f_98134248",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 3056,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2018-12-22T19:40:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00728cc8_e366d15f",
+      "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "98c737bb_0206083d",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 3063,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2018-12-22T19:40:10Z",
+      "side": 1,
+      "message": "s/; i/. I/",
+      "parentUuid": "74124907_dc58efc0",
+      "range": {
+        "startLine": 3063,
+        "startChar": 10,
+        "endLine": 3063,
+        "endChar": 11
+      },
+      "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0ce87820_62a60fd2",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 2
@@ -79,6 +139,30 @@
       "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db976d07_22124cc4",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 3067,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2018-12-22T19:40:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ce87820_62a60fd2",
+      "range": {
+        "startLine": 3067,
+        "startChar": 57,
+        "endLine": 3067,
+        "endChar": 59
+      },
+      "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -105,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "e7bcde7a_793d4163",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 3070,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2018-12-22T19:40:10Z",
+      "side": 1,
+      "message": "Aww you\u0027re right!\n\nThis is also not the right function name. It should be |SSL_CTX_enable_delegated_credentials|. Fixed here and below.",
+      "parentUuid": "0e319871_4dae153b",
+      "range": {
+        "startLine": 3070,
+        "startChar": 69,
+        "endLine": 3070,
+        "endChar": 70
+      },
+      "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b8b1033_62fae6d5",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 2
@@ -116,6 +224,24 @@
       "writtenOn": "2018-12-20T22:15:30Z",
       "side": 1,
       "message": "I think this comment needs to explain why an application would care about the delegated credential. Generally OpenSSL/BoringSSL checks that the leaf certificate has signed the handshake and the application takes care of validating the certificate chain. (Or configures X509_STORE stuff to have it done automatically.)\n\nDoes this code verify that the delegated credential signed the handshake? And that the leaf certificate signed the delegated credential? What requirements are there on the application?\n\n(I\u0027m sure I\u0027ll find the answer to those questions later in this change, but it should be specified in this comment.)",
+      "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffbc3388_04eb0294",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 3072,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2018-12-22T19:40:10Z",
+      "side": 1,
+      "message": "\u003e I think this comment needs to explain why an application would care about the delegated credential. Generally OpenSSL/BoringSSL checks that the leaf certificate has signed the handshake and the application takes care of validating the certificate chain. (Or configures X509_STORE stuff to have it done automatically.)\n\u003e \n\u003e Does this code verify that the delegated credential signed the handshake? And that the leaf certificate signed the delegated credential?\n\nApplications may want to know whether a DC was used, and if so, when it expires. They may also care about the signature algorithm that was used. This function doesn\u0027t verify the delegation and it doesn\u0027t return the handshake signature. If the DC were invalid or the handshake signature were invalid, then the connection would abort.\n\n\u003e What requirements are there on the application?\n\nThis is the raw DC, so the application needs to parse the data it\u0027s interested in.\n\nIn retrospect, I don\u0027t think the raw DC is all that useful. Perhaps I should change this to a function that returns 1 if a DC was used and 0 if not? Another call could be used to return the validity time. What do you think?",
+      "parentUuid": "0b8b1033_62fae6d5",
       "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -145,6 +271,30 @@
     },
     {
       "key": {
+        "uuid": "1558869a_d65dd22f",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 3086,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2018-12-22T19:40:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5c05d40_c5879082",
+      "range": {
+        "startLine": 3086,
+        "startChar": 7,
+        "endLine": 3086,
+        "endChar": 11
+      },
+      "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c00bbf6_81b8abd6",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 2
@@ -165,6 +315,30 @@
       "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4654947a_a552cea5",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 3087,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2018-12-22T19:40:10Z",
+      "side": 1,
+      "message": "Yes, that\u0027s what I mean. Fixed here and below.",
+      "parentUuid": "1c00bbf6_81b8abd6",
+      "range": {
+        "startLine": 3087,
+        "startChar": 41,
+        "endLine": 3087,
+        "endChar": 48
+      },
+      "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -191,6 +365,30 @@
     },
     {
       "key": {
+        "uuid": "79895412_21189ba5",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 3093,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2018-12-22T19:40:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "087a3d95_0bdfd06d",
+      "range": {
+        "startLine": 3093,
+        "startChar": 41,
+        "endLine": 3093,
+        "endChar": 42
+      },
+      "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "de89c60e_155a1499",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 2
@@ -214,6 +412,30 @@
     },
     {
       "key": {
+        "uuid": "32b0ce58_95d91966",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 3107,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2018-12-22T19:40:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de89c60e_155a1499",
+      "range": {
+        "startLine": 3107,
+        "startChar": 26,
+        "endLine": 3107,
+        "endChar": 27
+      },
+      "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8adb6741_86f64aee",
         "filename": "ssl/internal.h",
         "patchSetId": 2
@@ -228,6 +450,24 @@
       "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "705f307b_b987fe82",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1397,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2018-12-22T19:40:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8adb6741_86f64aee",
+      "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -254,6 +494,30 @@
     },
     {
       "key": {
+        "uuid": "a80f4aa8_d8f7c715",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1398,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2018-12-22T19:40:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a1fbb78_fc201e9b",
+      "range": {
+        "startLine": 1398,
+        "startChar": 33,
+        "endLine": 1398,
+        "endChar": 40
+      },
+      "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "197d5cd5_2a51d7bb",
         "filename": "ssl/internal.h",
         "patchSetId": 2
@@ -271,6 +535,24 @@
     },
     {
       "key": {
+        "uuid": "af1a4276_20f335de",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1426,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2018-12-22T19:40:10Z",
+      "side": 1,
+      "message": "Done.\n\nNote that there\u0027s a simiilar method called |ssl_cert_dup| for |struct CERT|.",
+      "parentUuid": "197d5cd5_2a51d7bb",
+      "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "af897bae_1a1a7757",
         "filename": "ssl/internal.h",
         "patchSetId": 2
@@ -285,6 +567,24 @@
       "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1cb34d44_65f285a3",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1431,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2018-12-22T19:40:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af897bae_1a1a7757",
+      "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -311,6 +611,30 @@
     },
     {
       "key": {
+        "uuid": "b3244c36_673b0e96",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1870,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2018-12-22T19:40:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "65344a80_c1b03f97",
+      "range": {
+        "startLine": 1870,
+        "startChar": 50,
+        "endLine": 1870,
+        "endChar": 53
+      },
+      "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f22baaa0_8103b27b",
         "filename": "ssl/internal.h",
         "patchSetId": 2
@@ -331,6 +655,30 @@
       "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10e0b72c_4a4d9a6d",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1871,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2018-12-22T19:40:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f22baaa0_8103b27b",
+      "range": {
+        "startLine": 1871,
+        "startChar": 35,
+        "endLine": 1871,
+        "endChar": 36
+      },
+      "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -357,6 +705,30 @@
     },
     {
       "key": {
+        "uuid": "28e9f1cd_eca9a179",
+        "filename": "ssl/ssl_cert.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2018-12-22T19:40:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aff35a37_97aa635f",
+      "range": {
+        "startLine": 655,
+        "startChar": 2,
+        "endLine": 655,
+        "endChar": 5
+      },
+      "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99680167_31e3bbd4",
         "filename": "ssl/ssl_cert.cc",
         "patchSetId": 2
@@ -371,6 +743,24 @@
       "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87874141_c56f70da",
+        "filename": "ssl/ssl_cert.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 813,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2018-12-22T19:40:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99680167_31e3bbd4",
+      "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -397,6 +787,30 @@
     },
     {
       "key": {
+        "uuid": "6171d672_128d0633",
+        "filename": "ssl/ssl_cert.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 837,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2018-12-22T19:40:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3754b4b_a9358d51",
+      "range": {
+        "startLine": 837,
+        "startChar": 17,
+        "endLine": 837,
+        "endChar": 36
+      },
+      "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d3c043ca_de65f039",
         "filename": "ssl/ssl_cert.cc",
         "patchSetId": 2
@@ -408,6 +822,30 @@
       "writtenOn": "2018-12-20T22:15:30Z",
       "side": 1,
       "message": "probably want to plumb in the |CRYPTO_BUFFER_POOL| from the SSL_CTX if using buffers. (And below.)",
+      "range": {
+        "startLine": 854,
+        "startChar": 61,
+        "endLine": 854,
+        "endChar": 65
+      },
+      "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "418d30ac_e05f3149",
+        "filename": "ssl/ssl_cert.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 854,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2018-12-22T19:40:10Z",
+      "side": 1,
+      "message": "Using NULL here is pretty common in this file, e.g. |SSL_CTX_set_ocsp_response|.\n\n|ssl_dc_parse| is called by |cert_set_dc|, which is called by both |SSL_CTX_set_delegated_credential| and |SSL_set_delegated_credential|. If I’m not mistaken, the former has access to this pool (ctx-\u003epool), but the latter does not. I could refactor |cert_set_dc| so that it takes an |SSL_CTX *| as input; if not NULL, then it uses the pool for plumbing.\n\nCould you explain the benefit of using |ctx-\u003epool| instead of the default pool? (For my own edification.)",
+      "parentUuid": "d3c043ca_de65f039",
       "range": {
         "startLine": 854,
         "startChar": 61,
@@ -437,6 +875,24 @@
     },
     {
       "key": {
+        "uuid": "d21416f7_16528986",
+        "filename": "ssl/ssl_cert.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 875,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2018-12-22T19:40:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a33bd692_c9d2f79c",
+      "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7cbb19c4_e71797c5",
         "filename": "ssl/ssl_cert.cc",
         "patchSetId": 2
@@ -451,6 +907,24 @@
       "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4d4e9e3_cd397bcd",
+        "filename": "ssl/ssl_cert.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 878,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2018-12-22T19:40:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7cbb19c4_e71797c5",
+      "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -471,6 +945,24 @@
     },
     {
       "key": {
+        "uuid": "c67bc6eb_ee566d57",
+        "filename": "ssl/ssl_cert.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 881,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2018-12-22T19:40:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a171e4e1_60af2ae7",
+      "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bbce21e1_4bc90959",
         "filename": "ssl/ssl_cert.cc",
         "patchSetId": 2
@@ -485,6 +977,24 @@
       "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5b2a7e5_34ef3c16",
+        "filename": "ssl/ssl_cert.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 896,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2018-12-22T19:40:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bbce21e1_4bc90959",
+      "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -505,6 +1015,24 @@
     },
     {
       "key": {
+        "uuid": "627bb845_0a50a138",
+        "filename": "ssl/ssl_cert.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 901,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2018-12-22T19:40:10Z",
+      "side": 1,
+      "message": "Modified this code to use the first 13 + len(public_key) bytes of |dc-\u003eraw|.",
+      "parentUuid": "dfa8d781_9b2d3e2e",
+      "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5e49ccc7_125eb8a0",
         "filename": "ssl/ssl_cert.cc",
         "patchSetId": 2
@@ -516,6 +1044,24 @@
       "writtenOn": "2018-12-20T22:15:30Z",
       "side": 1,
       "message": "What if X509 compatibility isn\u0027t enabled? (There\u0027s a \"buffers mode\" that disables all crypto/x509 code.)",
+      "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc47beb9_9d23b921",
+        "filename": "ssl/ssl_cert.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 921,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2018-12-22T19:40:10Z",
+      "side": 1,
+      "message": "I suppose this was the best way I could think of to get the raw leaf certificate when I first wrote this ode. Is there another place I can find the leaf certificate?",
+      "parentUuid": "5e49ccc7_125eb8a0",
       "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -539,6 +1085,24 @@
     },
     {
       "key": {
+        "uuid": "72198235_d6343c2b",
+        "filename": "ssl/ssl_cert.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 925,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2018-12-22T19:40:10Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "9110079d_6a535757",
+      "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bf7d1229_89716cb7",
         "filename": "ssl/ssl_cert.cc",
         "patchSetId": 2
@@ -553,6 +1117,24 @@
       "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "147e06ed_d2d406c2",
+        "filename": "ssl/ssl_cert.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1041,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2018-12-22T19:40:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf7d1229_89716cb7",
+      "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -579,6 +1161,30 @@
     },
     {
       "key": {
+        "uuid": "ddb8c23d_30200b01",
+        "filename": "ssl/ssl_privkey.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2018-12-22T19:40:10Z",
+      "side": 1,
+      "message": "They are! Fixed.",
+      "parentUuid": "be8a2381_c9244c4c",
+      "range": {
+        "startLine": 143,
+        "startChar": 7,
+        "endLine": 144,
+        "endChar": 50
+      },
+      "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9307eab7_54a8c3d9",
         "filename": "ssl/t1_lib.cc",
         "patchSetId": 2
@@ -593,6 +1199,24 @@
       "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3196e924_97ec320c",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2881,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2018-12-22T19:40:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9307eab7_54a8c3d9",
+      "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -613,6 +1237,24 @@
     },
     {
       "key": {
+        "uuid": "07fb4b6f_1f1796b9",
+        "filename": "ssl/tls13_both.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2018-12-22T19:40:10Z",
+      "side": 1,
+      "message": "It is, but according to the spec:\n\u003e The server MUST send the delegated credential as an extension in the CertificateEntry of its end-entity certificate; the client SHOULD ignore delegated credentials sent as extensions to any other certificate.\n\nDo you think the client should abort if it encounters a DC in a non-leaf certificate? Either way is fine with me.",
+      "parentUuid": "a892a81b_c65d12df",
+      "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dd41d96f_2eb250a5",
         "filename": "tool/client.cc",
         "patchSetId": 2
@@ -627,6 +1269,24 @@
       "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdf32534_d24779bc",
+        "filename": "tool/client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2018-12-22T19:40:10Z",
+      "side": 1,
+      "message": "Removed, also the use of the \"-subcerts\" flag below.",
+      "parentUuid": "dd41d96f_2eb250a5",
+      "revId": "483f9ea114deba0e3e5c73aea2feed07060e43ff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
