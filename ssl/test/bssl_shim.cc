@@ -368,6 +368,16 @@ static bool CheckAuthProperties(SSL *ssl, bool is_resume,
     return false;
   }
 
+  if (config->expect_delegated_credential) {
+    const uint8_t *out;
+    size_t out_len;
+    SSL_SESSION_get0_delegated_credential(SSL_get_session(ssl), &out, &out_len);
+    if (out == nullptr) {
+      fprintf(stderr, "Expected delegated credential, got none\n");
+      return false;
+    }
+  }
+
   const uint8_t *peer_sha256;
   size_t peer_sha256_len;
   SSL_SESSION_get0_peer_sha256(SSL_get_session(ssl), &peer_sha256,

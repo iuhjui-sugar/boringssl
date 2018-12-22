@@ -887,6 +887,14 @@ ResendHelloRetryRequest:
 					if hs.clientHello.sctListSupported {
 						cert.sctList = hs.cert.SignedCertificateTimestampList
 					}
+					if hs.clientHello.delegatedCredential && config.DelegatedCredentialsEnabled {
+						var err error
+						cert.delegatedCredential, err = config.DelegatedCredential.Marshal()
+						if err != nil {
+							c.sendAlert(alertInternalError)
+							return fmt.Errorf("failed to serialize delegated credential")
+						}
+					}
 					cert.duplicateExtensions = config.Bugs.SendDuplicateCertExtensions
 					cert.extraExtension = config.Bugs.SendExtensionOnCertificate
 				} else {
@@ -949,6 +957,9 @@ ResendHelloRetryRequest:
 
 		// Determine the hash to sign.
 		privKey := hs.cert.PrivateKey
+		if hs.clientHello.delegatedCredential && config.DelegatedCredentialsEnabled {
+			privKey = config.DelegatedCredentialKey
+		}
 
 		var err error
 		certVerify.signatureAlgorithm, err = selectSignatureAlgorithm(c.vers, privKey, config, hs.clientHello.signatureAlgorithms)

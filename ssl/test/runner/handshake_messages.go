@@ -292,6 +292,7 @@ type clientHelloMsg struct {
 	sctListSupported        bool
 	customExtension         string
 	hasGREASEExtension      bool
+	delegatedCredential     bool
 	pskBinderFirst          bool
 	omitExtensions          bool
 	emptyExtensions         bool
@@ -346,6 +347,7 @@ func (m *clientHelloMsg) equal(i interface{}) bool {
 		m.sctListSupported == m1.sctListSupported &&
 		m.customExtension == m1.customExtension &&
 		m.hasGREASEExtension == m1.hasGREASEExtension &&
+		m.delegatedCredential == m.delegatedCredential &&
 		m.pskBinderFirst == m1.pskBinderFirst &&
 		m.omitExtensions == m1.omitExtensions &&
 		m.emptyExtensions == m1.emptyExtensions &&
@@ -592,6 +594,10 @@ func (m *clientHelloMsg) marshal() []byte {
 			algIDs.addU16(v)
 		}
 	}
+	if m.delegatedCredential {
+		extensions.addU16(extensionDelegatedCredential)
+		extensions.addU16(0)
+	}
 	// The PSK extension must be last. See https://tools.ietf.org/html/rfc8446#section-4.2.11
 	if len(m.pskIdentities) > 0 && !m.pskBinderFirst {
 		extensions.addU16(extensionPreSharedKey)
@@ -716,6 +722,7 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 	m.supportedVersions = nil
 	m.alpnProtocols = nil
 	m.extendedMasterSecret = false
+	m.delegatedCredential = false
 	m.customExtension = ""
 
 	if len(reader) == 0 {
@@ -940,6 +947,8 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 				seen[algID] = struct{}{}
 				m.compressedCertAlgs = append(m.compressedCertAlgs, algID)
 			}
+		case extensionDelegatedCredential:
+			m.delegatedCredential = true
 		case extensionPadding:
 			// Padding bytes must be all zero.
 			for _, b := range body {
@@ -1601,6 +1610,7 @@ type certificateEntry struct {
 	ocspResponse        []byte
 	sctList             []byte
 	duplicateExtensions bool
+	delegatedCredential []byte
 	extraExtension      []byte
 }
 
@@ -1647,6 +1657,11 @@ func (m *certificateMsg) marshal() (x []byte) {
 					extensions.addU16(extensionSignedCertificateTimestamp)
 					extension := extensions.addU16LengthPrefixed()
 					extension.addBytes(cert.sctList)
+				}
+				if cert.delegatedCredential != nil {
+					extensions.addU16(extensionDelegatedCredential)
+					extension := extensions.addU16LengthPrefixed()
+					extension.addBytes(cert.delegatedCredential)
 				}
 			}
 			if cert.extraExtension != nil {
@@ -1700,6 +1715,8 @@ func (m *certificateMsg) unmarshal(data []byte) bool {
 					}
 				case extensionSignedCertificateTimestamp:
 					cert.sctList = []byte(body)
+				case extensionDelegatedCredential:
+					cert.delegatedCredential = []byte(body)
 				default:
 					return false
 				}
