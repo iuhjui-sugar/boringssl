@@ -12,7 +12,10 @@ project(BoringSSL NONE)
 if(WIN32)
   # On Windows, prefer cl over gcc if both are available. By default most of
   # the CMake generators prefer gcc, even on Windows.
-  set(CMAKE_GENERATOR_CC cl)
+  find_program(CLEXE "cl.exe")
+  if(${CLEXE})
+    set(CMAKE_GENERATOR_CC ${CLEXE})
+  endif()
 endif()
 
 include(sources.cmake)
