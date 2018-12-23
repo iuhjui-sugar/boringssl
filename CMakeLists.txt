@@ -218,6 +218,9 @@ if(WIN32)
   # Studio generator. This will be fixed in CMake 3.13.0. See
   # https://gitlab.kitware.com/cmake/cmake/merge_requests/2179
   add_compile_options($<$<COMPILE_LANGUAGE:CXX>:-D_STL_EXTRA_DISABLED_WARNINGS=4774\ 4987>)
+  if(MINGW)
+    add_definitions(-D__USE_MINGW_ANSI_STDIO=1)
+  endif()
 endif()
 
 if((CMAKE_COMPILER_IS_GNUCXX AND CMAKE_C_COMPILER_VERSION VERSION_GREATER "4.7.99") OR
