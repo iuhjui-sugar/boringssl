@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0dda1fe0_13989b45",
+        "filename": "BUILDING.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-01-02T23:37:43Z",
+      "side": 1,
+      "message": "I think just:\n\nsee [INCORPORATING.md](/INCORPORATING.md).",
+      "range": {
+        "startLine": 6,
+        "startChar": 65,
+        "endLine": 9,
+        "endChar": 0
+      },
+      "revId": "466695e11327642b08e751aaa3dd9ccddc65c317",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "136e0f26_7cd7ef08",
+        "filename": "BUILDING.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-01-02T23:37:43Z",
+      "side": 1,
+      "message": "at most five years old",
+      "range": {
+        "startLine": 10,
+        "startChar": 41,
+        "endLine": 10,
+        "endChar": 72
+      },
+      "revId": "466695e11327642b08e751aaa3dd9ccddc65c317",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
