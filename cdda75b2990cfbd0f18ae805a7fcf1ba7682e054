@@ -22,6 +22,30 @@
       "revId": "cdda75b2990cfbd0f18ae805a7fcf1ba7682e054",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "897f3262_7975e0c5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-02T23:48:50Z",
+      "side": 1,
+      "message": "I think without is right, but this is confusing so I reworded it.",
+      "parentUuid": "95132520_130f164a",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 7
+      },
+      "revId": "cdda75b2990cfbd0f18ae805a7fcf1ba7682e054",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
