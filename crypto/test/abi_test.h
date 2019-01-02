@@ -106,7 +106,8 @@ struct alignas(16) Reg128 {
 //   See the comment in |CHECK_ABI|. Note ABI testing is only meaningful for
 //   assembly, which is not affected by compiler optimizations.
 #if defined(LOOP_CALLER_STATE_REGISTERS) && !defined(OPENSSL_NO_ASM) && \
-    !defined(BORINGSSL_SHARED_LIBRARY) && !defined(NDEBUG)
+    !defined(BORINGSSL_SHARED_LIBRARY) && !defined(NDEBUG) &&           \
+    !defined(OPENSSL_IOS)
 #define SUPPORTS_ABI_TEST
 
 // CallerState contains all caller state that the callee is expected to
