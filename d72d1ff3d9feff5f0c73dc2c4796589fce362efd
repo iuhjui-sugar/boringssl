@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "e30f1ce6_8047ef09",
+        "filename": "crypto/fipsmodule/ec/make_p256-x86_64-tests.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-01-02T22:22:13Z",
+      "side": 1,
+      "message": "\u003e Supposing it does, since set_infinity (vacuously) sets Y^2 \u003d X^3\n\nI think (0 : 0 : 0) doesn\u0027t technically count. I don\u0027t recall exactly why right now, but I presume that there\u0027s a reason why the \"standard\" Jacobian infinity is (1 : 1 : 0).\n\n\nI think that, as long as we\u0027re clear that we\u0027re internally defining infinity to be (* : * : 0) and that it\u0027s a superset of the \"standard\" values, that\u0027s fine. And given that definition, it\u0027s good to test it. (We don\u0027t import / export Jacobian values anywhere, right?)",
+      "parentUuid": "a65bebb1_670d914b",
+      "revId": "d72d1ff3d9feff5f0c73dc2c4796589fce362efd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e64555ff_242f90ce",
         "filename": "crypto/fipsmodule/ec/make_p256-x86_64-tests.go",
         "patchSetId": 1
