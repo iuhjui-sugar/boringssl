@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a65bebb1_670d914b",
+        "filename": "crypto/fipsmodule/ec/make_p256-x86_64-tests.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-02T22:02:44Z",
+      "side": 1,
+      "message": "Hrm. I guess it somewhat depends on when you believe \"division\" by zero happens. :-) Our original code used to believe any zero Z was okay:\nhttps://boringssl.googlesource.com/boringssl/+/51073ce05587f413d46f908407b47e884d6d325e/crypto/fipsmodule/ec/simple.c#250\n\nBut now we zero the whole thing:\nhttps://boringssl.googlesource.com/boringssl/+/be11d6d8d7935a848720b58d9d9b4231c91d13f6/crypto/fipsmodule/ec/simple.c#186\n\nI think, ultimately, the question is what representations the operations expect. Our point-on-curve checks don\u0027t really care what it is, as long as Z \u003d 0. One could imagine an alternate constant-time[1] implementation that skipped the is_infinity check and just evaluated the Jacobian point-on-curve formula.\nhttps://boringssl.googlesource.com/boringssl/+/be11d6d8d7935a848720b58d9d9b4231c91d13f6/crypto/fipsmodule/ec/simple.c#220\n\nSame with point add:\nhttps://boringssl.googlesource.com/boringssl/+/be11d6d8d7935a848720b58d9d9b4231c91d13f6/crypto/fipsmodule/ec/ec_montgomery.c#229\nhttps://boringssl.googlesource.com/boringssl/+/be11d6d8d7935a848720b58d9d9b4231c91d13f6/crypto/fipsmodule/ec/ec_montgomery.c#317\n\nThough the relevant point add is the assembly one. I assume that\u0027s using a comparable formula. For completeness, the Y^2 \u003d X^3 interpretation also requires that point_add and point_dbl preserves Y^2 \u003d X^3 when it returns infinity.\n\nSupposing it does, since set_infinity (vacuously) sets Y^2 \u003d X^3 and we don\u0027t allow externally setting Jacobian coordinates, I think it\u0027s true now that we\u0027ll never see other values of infinity. But we did that by accident and we don\u0027t currently test or prove[3] the preservation property, so testing that the assembly continues to work for all Z \u003d 0 infinities seems prudent. I\u0027ve left it as-is but added a comment discussing this.\n\nThoughts?\n\n\n[1] That function is already not constant-time due to the Z \u003d 1 check. We don\u0027t care since point-on-curve checks only happen for public (affine) points, but we probably should do a check as an anti-fault measure after point multiplication. That one would need to be constant-time, so we\u0027d probably want to split separate[2] affine/Jacobian functions. Then removing the Z \u003d 0 special case may also make sense? Though even then it\u0027s probably unnecessary because we\u0027d leak whether it\u0027s infinity anyway by failing to serialize, and on prime order curves I\u0027m not sure infinity is actually possible in the two secret contexts. (We don\u0027t allow the peer ECDH keys to be infinity, always generate non-zero scalars, and don\u0027t do secret dual multiplication.)\n\n[2] Amusingly, I think the old Z_is_one bit, before Brian fixed it to match the name, didn\u0027t have that problem. Because, short of separate functions, what we actually wanted was Z_is_publicly_one. But separate functions seems more sensible all around.\n\n[3] https://github.com/davidben/fiat-crypto/blob/c7b95f62b2a54b559522573310e9b487327d219a/src/Curves/Weierstrass/Jacobian.v#L82-L88\nhttps://github.com/davidben/fiat-crypto/blob/c7b95f62b2a54b559522573310e9b487327d219a/src/Curves/Weierstrass/Jacobian.v#L544-L545",
+      "parentUuid": "128e6bcb_969dc860",
+      "revId": "d72d1ff3d9feff5f0c73dc2c4796589fce362efd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e64555ff_242f90ce",
         "filename": "crypto/fipsmodule/ec/make_p256-x86_64-tests.go",
         "patchSetId": 1
@@ -39,6 +57,30 @@
       "revId": "d72d1ff3d9feff5f0c73dc2c4796589fce362efd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9edf6f34_d7377b26",
+        "filename": "crypto/fipsmodule/ec/make_p256-x86_64-tests.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-02T22:02:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e64555ff_242f90ce",
+      "range": {
+        "startLine": 105,
+        "startChar": 4,
+        "endLine": 105,
+        "endChar": 5
+      },
+      "revId": "d72d1ff3d9feff5f0c73dc2c4796589fce362efd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
