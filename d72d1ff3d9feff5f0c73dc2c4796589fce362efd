@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "128e6bcb_969dc860",
+        "filename": "crypto/fipsmodule/ec/make_p256-x86_64-tests.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-01-02T19:11:41Z",
+      "side": 1,
+      "message": "I don\u0027t think so:\n\nWe have y² \u003d x³ - 3x + b; x \u003d X/Z²; y \u003d Y/Z³\n\nThus:\n\nY² \u003d X³ - 3XZ⁴ + BZ⁶\n\nFor Z \u003d 0, we have Y² \u003d X³. So I think the Jacobian representations of points at infinity are (X : Y : 0) where Y² \u003d X³. That gives the canonical representation which is (1 : 1 : 0).",
+      "revId": "d72d1ff3d9feff5f0c73dc2c4796589fce362efd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e64555ff_242f90ce",
+        "filename": "crypto/fipsmodule/ec/make_p256-x86_64-tests.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-01-02T19:11:41Z",
+      "side": 1,
+      "message": "capital X and Z (and on L109 for Y and Z.).",
+      "range": {
+        "startLine": 105,
+        "startChar": 4,
+        "endLine": 105,
+        "endChar": 5
+      },
+      "revId": "d72d1ff3d9feff5f0c73dc2c4796589fce362efd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
