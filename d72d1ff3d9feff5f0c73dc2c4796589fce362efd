@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "98e3a7b3_d888b03d",
+        "filename": "crypto/fipsmodule/ec/make_p256-x86_64-tests.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-02T22:33:33Z",
+      "side": 1,
+      "message": "\u003e I think (0 : 0 : 0) doesn\u0027t technically count. I don\u0027t recall exactly why right now, but I presume that there\u0027s a reason why the \"standard\" Jacobian infinity is (1 : 1 : 0).\n\nHrm. There\u0027s definitely a lot of (0 : 0 : 0) going around internally. :-)\n\n\u003e We don\u0027t import / export Jacobian values anywhere, right?\n\nNope.",
+      "parentUuid": "e30f1ce6_8047ef09",
+      "revId": "d72d1ff3d9feff5f0c73dc2c4796589fce362efd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e64555ff_242f90ce",
         "filename": "crypto/fipsmodule/ec/make_p256-x86_64-tests.go",
         "patchSetId": 1
