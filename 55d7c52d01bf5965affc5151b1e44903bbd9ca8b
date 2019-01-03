@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "65cac98f_1aa43fcc",
+        "filename": "decrepit/blowfish/blowfish.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-03T21:09:17Z",
+      "side": 1,
+      "message": "I think this is always non-null. Unless the EVP_CIPHER sets EVP_CIPH_ALWAYS_CALL_INIT, EVP_CipherInit_ex does a null check already.",
+      "revId": "55d7c52d01bf5965affc5151b1e44903bbd9ca8b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aef1ef7a_c73be45f",
+        "filename": "decrepit/cast/cast.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 415,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-03T21:09:17Z",
+      "side": 1,
+      "message": "Ditto about the null check.",
+      "revId": "55d7c52d01bf5965affc5151b1e44903bbd9ca8b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
