@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "16587bc4_51d1a4db",
+        "filename": "crypto/test/abi_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-03T19:54:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1cb13c81_25570140",
+      "revId": "9501bf77011414bd3a84da62b075e9b1a90e6901",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e892f464_278ad246",
         "filename": "crypto/test/abi_test.cc",
         "patchSetId": 2
@@ -39,6 +57,30 @@
       "revId": "9501bf77011414bd3a84da62b075e9b1a90e6901",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8368aa86_3bf4236e",
+        "filename": "crypto/test/abi_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-03T19:54:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e892f464_278ad246",
+      "range": {
+        "startLine": 50,
+        "startChar": 12,
+        "endLine": 50,
+        "endChar": 32
+      },
+      "revId": "9501bf77011414bd3a84da62b075e9b1a90e6901",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "912c33fe_8d5add4f",
+        "filename": "crypto/test/abi_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-03T19:54:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "221b5788_82916a5a",
+      "range": {
+        "startLine": 90,
+        "startChar": 9,
+        "endLine": 90,
+        "endChar": 10
+      },
+      "revId": "9501bf77011414bd3a84da62b075e9b1a90e6901",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1bc79119_c62c84e2",
         "filename": "crypto/test/abi_test.cc",
         "patchSetId": 2
@@ -76,6 +142,24 @@
       "writtenOn": "2019-01-02T20:19:43Z",
       "side": 1,
       "message": "static assert that they have the same size? (Can you static_assert that typedefs are equal in C++?)",
+      "revId": "9501bf77011414bd3a84da62b075e9b1a90e6901",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5ec2753_6d9ff3c3",
+        "filename": "crypto/test/abi_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-03T19:54:37Z",
+      "side": 1,
+      "message": "This won\u0027t even compile if they\u0027re not the same type. :-) (Though LLVM libunwind uses uintptr_t, so I suspect later we\u0027ll need to play the static_assert + wrapper function game.)",
+      "parentUuid": "1bc79119_c62c84e2",
       "revId": "9501bf77011414bd3a84da62b075e9b1a90e6901",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -105,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "397eeacd_c28f405a",
+        "filename": "crypto/test/abi_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-03T19:54:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59afa143_4b31486a",
+      "range": {
+        "startLine": 281,
+        "startChar": 17,
+        "endLine": 281,
+        "endChar": 28
+      },
+      "revId": "9501bf77011414bd3a84da62b075e9b1a90e6901",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "27fee811_05e8cbae",
         "filename": "crypto/test/abi_test.h",
         "patchSetId": 2
@@ -125,6 +233,30 @@
       "revId": "9501bf77011414bd3a84da62b075e9b1a90e6901",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46097d99_02f6e79a",
+        "filename": "crypto/test/abi_test.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-03T19:54:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27fee811_05e8cbae",
+      "range": {
+        "startLine": 260,
+        "startChar": 31,
+        "endLine": 260,
+        "endChar": 33
+      },
+      "revId": "9501bf77011414bd3a84da62b075e9b1a90e6901",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
