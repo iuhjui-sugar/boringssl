@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eca6d3dd_699d66be",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-03T20:34:26Z",
+      "side": 1,
+      "message": "Mind adding something like:\n\nUpdate-Note: Assembly files now pay attention to the NDEBUG preprocessor\nsymbol. Ensure the build passes the symbol in. (If release builds\nfail at linktime due to missing BORINGSSL_function_hit, this is the cause.)",
+      "revId": "1180cb2efebefd2a30790e51689229d7bc3d7d3d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69ced77c_2768bc94",
+        "filename": "crypto/fipsmodule/aes/asm/aesni-x86_64.pl",
+        "patchSetId": 13
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-03T20:34:26Z",
+      "side": 1,
+      "message": "Nit: tabs for consistency? (Ditto throughout.)",
+      "range": {
+        "startLine": 280,
+        "startChar": 0,
+        "endLine": 280,
+        "endChar": 2
+      },
+      "revId": "1180cb2efebefd2a30790e51689229d7bc3d7d3d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75299a11_8fd420c9",
+        "filename": "crypto/impl_dispatch_test.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-03T20:34:26Z",
+      "side": 1,
+      "message": "This can just be aesni_, right?",
+      "range": {
+        "startLine": 135,
+        "startChar": 13,
+        "endLine": 135,
+        "endChar": 18
+      },
+      "revId": "1180cb2efebefd2a30790e51689229d7bc3d7d3d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
