@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "f95c86f2_d8b003a4",
+        "filename": "crypto/fipsmodule/ec/make_p256-x86_64-tests.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-01-04T06:54:31Z",
+      "side": 1,
+      "message": "In Jacobian coordinates, ∞ is (T**2:T**3:0) for any non-zero T. (0, 0, 0) is actually the only case of (T**2, T**3, 0) that *isn\u0027t* a valid Jacobian representation. Note, though, that this pattern does require Y \u003d X * T for some non-zero T, in order to be a Jacobian representation. AFAICT there\u0027s nothing special about (1, 1, 0) otherwise.\n\nIn any case, like I mentioned above, the nistz256 code doesn\u0027t actually use pure Jacobian coordinates, and this test program doesn\u0027t generate Jacobian coordinates for the point at infinity here. However, the test program does appear to generate representations of the point at infinity that the nistz256 code recognizes as the point at infinity and special-cases. If not for that special-case logic, i.e. if the code only used arithmetic on the coordinates, then this wouldn\u0027t be good enough, IIUC.",
+      "parentUuid": "98e3a7b3_d888b03d",
+      "revId": "d72d1ff3d9feff5f0c73dc2c4796589fce362efd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e64555ff_242f90ce",
         "filename": "crypto/fipsmodule/ec/make_p256-x86_64-tests.go",
         "patchSetId": 1
