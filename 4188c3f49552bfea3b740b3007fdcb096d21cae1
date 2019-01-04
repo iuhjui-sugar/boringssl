@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "efd787ed_468bea40",
+        "filename": "crypto/fipsmodule/sha/asm/sha512-armv8.pl",
+        "patchSetId": 6
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-01-04T03:30:45Z",
+      "side": 0,
+      "message": "Later in this file is:\n\n```\n#ifndef\t__KERNEL__\n.comm\tOPENSSL_armcap_P,4,4\n.hidden\tOPENSSL_armcap_P\n#endif\n```\n\nDid you mean to remove that too?",
+      "range": {
+        "startLine": 333,
+        "startChar": 0,
+        "endLine": 341,
+        "endChar": 6
+      },
+      "revId": "4188c3f49552bfea3b740b3007fdcb096d21cae1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
