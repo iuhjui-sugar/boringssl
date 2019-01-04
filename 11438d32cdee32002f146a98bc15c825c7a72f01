@@ -1,0 +1,215 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8688a5c2_77e19895",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-04T19:05:41Z",
+      "side": 1,
+      "message": "Nit: Maybe move this to line 427?",
+      "revId": "11438d32cdee32002f146a98bc15c825c7a72f01",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c5603dc_fcfde2dc",
+        "filename": "ssl/ssl_aead_ctx.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-04T19:05:41Z",
+      "side": 1,
+      "message": "protocol_version, but this is already true in line 133. :-)\n\nI suspect this means omit_ad_ can be deleted altogether.",
+      "revId": "11438d32cdee32002f146a98bc15c825c7a72f01",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d7ad6bc_2fe82f3a",
+        "filename": "ssl/ssl_versions.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-04T19:05:41Z",
+      "side": 1,
+      "message": "return version?",
+      "revId": "11438d32cdee32002f146a98bc15c825c7a72f01",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "851626a6_86b17746",
+        "filename": "ssl/ssl_versions.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-04T19:05:41Z",
+      "side": 1,
+      "message": "This comment can be removed.",
+      "range": {
+        "startLine": 127,
+        "startChar": 75,
+        "endLine": 129,
+        "endChar": 46
+      },
+      "revId": "11438d32cdee32002f146a98bc15c825c7a72f01",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "899fe305_4753e2e4",
+        "filename": "ssl/test/fuzzer_tags.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-04T19:05:41Z",
+      "side": 1,
+      "message": "Re making the corpus useless, we could just run the refresh script.\n\nI guess the cost of leaving this in is the fuzzer could waste its time with dummy kTLS13Variant-prefixed copies of the input. You know more about fuzzers than me. Which is worse?\n\n(I think, in the past, kcc recommended just letting the fuzzer rebuild the corpus, but I forget. We certainly were happy to do that whenever we renumbered variants.)",
+      "revId": "11438d32cdee32002f146a98bc15c825c7a72f01",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f54163db_13bd5618",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1752,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-04T19:05:41Z",
+      "side": 1,
+      "message": "This makes wireToVersion no longer validate the input in TLS. I forget if anything\u0027s relying on it doing so. I suspect it might, since wire versions usually come from the network.",
+      "revId": "11438d32cdee32002f146a98bc15c825c7a72f01",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "226f2445_6bbdc6e1",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-04T19:05:41Z",
+      "side": 1,
+      "message": "No need for condition (DTLS 1.3 will want this code too).",
+      "range": {
+        "startLine": 457,
+        "startChar": 11,
+        "endLine": 457,
+        "endChar": 43
+      },
+      "revId": "11438d32cdee32002f146a98bc15c825c7a72f01",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "922aec87_e506ff3d",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 623,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-04T19:05:41Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "11438d32cdee32002f146a98bc15c825c7a72f01",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40dcc84c_fcd6c54c",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-04T19:05:41Z",
+      "side": 1,
+      "message": "Remove this comment.",
+      "range": {
+        "startLine": 427,
+        "startChar": 11,
+        "endLine": 428,
+        "endChar": 17
+      },
+      "revId": "11438d32cdee32002f146a98bc15c825c7a72f01",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65ef017b_f18a00b5",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 3066,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-04T19:05:41Z",
+      "side": 1,
+      "message": "Just \"in TLS 1.3\" I think.",
+      "range": {
+        "startLine": 3066,
+        "startChar": 52,
+        "endLine": 3066,
+        "endChar": 70
+      },
+      "revId": "11438d32cdee32002f146a98bc15c825c7a72f01",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e6fe53e_ba0d4f36",
+        "filename": "ssl/tls13_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-04T19:05:41Z",
+      "side": 1,
+      "message": "This should just be unconditional now.",
+      "revId": "11438d32cdee32002f146a98bc15c825c7a72f01",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
