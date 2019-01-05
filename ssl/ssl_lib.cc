@@ -2156,7 +2156,7 @@ int SSL_CTX_set_alpn_protos(SSL_CTX *ctx, const uint8_t *protos,
              : 1;
 }
 
-int SSL_set_alpn_protos(SSL *ssl, const uint8_t *protos, unsigned protos_len) {
+int SSL_set_alpn_protos(SSL *ssl, const uint8_t *protos, size_t protos_len) {
   // Note this function's calling convention is backwards.
   if (!ssl->config) {
     return 1;
