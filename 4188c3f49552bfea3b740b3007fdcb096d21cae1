@@ -46,6 +46,30 @@
       "revId": "4188c3f49552bfea3b740b3007fdcb096d21cae1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e33dafbd_6cc29fff",
+        "filename": "crypto/fipsmodule/sha/asm/sha512-armv8.pl",
+        "patchSetId": 6
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-01-05T01:08:56Z",
+      "side": 0,
+      "message": "IMO, it is better to remove these because they require too much knowledge and thinking to consider.\n\nI believe these define a .comm symbol that gets deduplicated with the C one for the sake of non-OpenSSL(-derived) users, maybe the Linux kernel and other users.",
+      "parentUuid": "19b084a3_0ab2196d",
+      "range": {
+        "startLine": 333,
+        "startChar": 0,
+        "endLine": 341,
+        "endChar": 6
+      },
+      "revId": "4188c3f49552bfea3b740b3007fdcb096d21cae1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
