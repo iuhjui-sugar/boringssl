@@ -1394,6 +1394,7 @@ func transform(w stringWriter, inputs []inputFile) error {
 		}
 
 		w.WriteString(".type OPENSSL_ia32cap_get, @function\n")
+		w.WriteString(".globl OPENSSL_ia32cap_get\n")
 		w.WriteString("OPENSSL_ia32cap_get:\n")
 		w.WriteString("\tleaq OPENSSL_ia32cap_P(%rip), %rax\n")
 		w.WriteString("\tret\n")

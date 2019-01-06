@@ -186,6 +186,7 @@ stderr_GOTPCREL_external:
 	.long stderr@GOTPCREL
 	.long 0
 .type OPENSSL_ia32cap_get, @function
+.globl OPENSSL_ia32cap_get
 OPENSSL_ia32cap_get:
 	leaq OPENSSL_ia32cap_P(%rip), %rax
 	ret
