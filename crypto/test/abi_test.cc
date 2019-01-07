@@ -95,6 +95,15 @@ crypto_word_t RunTrampoline(Result *out, crypto_word_t func,
   ForEachMismatch(state, state2, [&](const char *reg) {
     out->errors.push_back(std::string(reg) + " was not restored after return");
   });
+#if defined(OPENSSL_X86_64) || defined(OPENSSL_X86)
+  // Linux and Windows ABIs for x86 require the direction flag be cleared on
+  // return. (Some OpenSSL assembly preserves it, which is stronger, but we only
+  // require what is specified by the ABI so |CHECK_ABI| works with C compiler
+  // output.)
+  if (abi_test_get_and_clear_direction_flag() != 0) {
+    out->errors.emplace_back("Direction flag set after return");
+  }
+#endif  // OPENSSL_X86_64 || OPENSSL_X86
   if (unwind) {
     ReadUnwindResult(out);
   }
