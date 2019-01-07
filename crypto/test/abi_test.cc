@@ -25,8 +25,8 @@
 #include <openssl/rand.h>
 #include <openssl/span.h>
 
-#if defined(OPENSSL_LINUX) && defined(SUPPORTS_ABI_TEST) && \
-    defined(BORINGSSL_HAVE_LIBUNWIND)
+#if defined(OPENSSL_LINUX) && defined(OPENSSL_X86_64) && \
+    defined(SUPPORTS_ABI_TEST) && defined(BORINGSSL_HAVE_LIBUNWIND)
 #define UNWIND_TEST_SIGTRAP
 
 #define UNW_LOCAL_ONLY
@@ -40,7 +40,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
-#endif  // LINUX && SUPPORTS_ABI_TEST && HAVE_LIBUNWIND
+#endif  // LINUX && X86_64 && SUPPORTS_ABI_TEST && HAVE_LIBUNWIND
 
 
 namespace abi_test {
