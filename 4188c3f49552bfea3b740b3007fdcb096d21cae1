@@ -70,6 +70,30 @@
       "revId": "4188c3f49552bfea3b740b3007fdcb096d21cae1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7d4b94a_ccd00ec5",
+        "filename": "crypto/fipsmodule/sha/asm/sha512-armv8.pl",
+        "patchSetId": 6
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-08T18:15:37Z",
+      "side": 0,
+      "message": "It appears to be a bit more complicated than this, for some bizarre iOS reasons:\nhttps://boringssl-review.googlesource.com/c/boringssl/+/34224",
+      "parentUuid": "e33dafbd_6cc29fff",
+      "range": {
+        "startLine": 333,
+        "startChar": 0,
+        "endLine": 341,
+        "endChar": 6
+      },
+      "revId": "4188c3f49552bfea3b740b3007fdcb096d21cae1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
