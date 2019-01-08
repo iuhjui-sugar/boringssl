@@ -195,6 +195,8 @@ $code=<<___;
 .code	32
 #endif
 
+.extern OPENSSL_armcap_P
+
 .global	sha1_block_data_order
 .type	sha1_block_data_order,%function
 
@@ -695,12 +697,6 @@ $code.=<<___;
 #endif
 ___
 }}}
-$code.=<<___;
-#if __ARM_MAX_ARCH__>=7
-.comm	OPENSSL_armcap_P,4,4
-.hidden	OPENSSL_armcap_P
-#endif
-___
 
 {   my  %opcode = (
 	"sha1c"		=> 0xf2000c40,	"sha1p"		=> 0xf2100c40,

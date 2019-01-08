@@ -189,6 +189,8 @@ $code.=<<___;
 #define ldrhsb	ldrbhs
 #endif
 
+.extern OPENSSL_armcap_P
+
 .align	5
 .Lsigma:
 .long	0x61707865,0x3320646e,0x79622d32,0x6b206574	@ endian-neutral
@@ -1149,7 +1151,6 @@ $code.=<<___;
 	add		sp,sp,#4*(16+3)
 	ldmia		sp!,{r4-r11,pc}
 .size	ChaCha20_neon,.-ChaCha20_neon
-.comm	OPENSSL_armcap_P,4,4
 #endif
 ___
 }}}

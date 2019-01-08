@@ -319,9 +319,6 @@ $code.=<<___;
 .long	0x8f1bbcdc,0x8f1bbcdc,0x8f1bbcdc,0x8f1bbcdc	//K_40_59
 .long	0xca62c1d6,0xca62c1d6,0xca62c1d6,0xca62c1d6	//K_60_79
 .asciz	"SHA1 block transform for ARMv8, CRYPTOGAMS by <appro\@openssl.org>"
-.align	2
-.comm	OPENSSL_armcap_P,4,4
-.hidden	OPENSSL_armcap_P
 ___
 }}}
 
