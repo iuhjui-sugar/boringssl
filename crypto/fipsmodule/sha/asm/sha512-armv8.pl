@@ -415,13 +415,6 @@ $code.=<<___;
 ___
 }
 
-$code.=<<___;
-#ifndef	__KERNEL__
-.comm	OPENSSL_armcap_P,4,4
-.hidden	OPENSSL_armcap_P
-#endif
-___
-
 {   my  %opcode = (
 	"sha256h"	=> 0x5e004000,	"sha256h2"	=> 0x5e005000,
 	"sha256su0"	=> 0x5e282800,	"sha256su1"	=> 0x5e006000	);
