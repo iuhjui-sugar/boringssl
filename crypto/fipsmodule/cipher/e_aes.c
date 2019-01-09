@@ -46,6 +46,7 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  * ==================================================================== */
 
+#include <assert.h>
 #include <string.h>
 
 #include <openssl/aead.h>
@@ -84,13 +85,13 @@ typedef struct {
 } EVP_AES_KEY;
 
 typedef struct {
+  GCM128_CONTEXT gcm;
   union {
     double align;
     AES_KEY ks;
   } ks;         // AES key schedule to use
   int key_set;  // Set if key initialised
   int iv_set;   // Set if an iv is set
-  GCM128_CONTEXT gcm;
   uint8_t *iv;  // Temporary IV store
   int ivlen;         // IV length
   int taglen;
@@ -257,9 +258,24 @@ ctr128_f aes_ctr_set_key(AES_KEY *aes_key, GCM128_KEY *gcm_key,
   return NULL;
 }
 
+static EVP_AES_GCM_CTX *aes_gcm_from_cipher_ctx(EVP_CIPHER_CTX *ctx) {
+#if defined(__GNUC__) || defined(__clang__)
+  OPENSSL_STATIC_ASSERT(alignof(EVP_AES_GCM_CTX) <= 16,
+                        "EVP_AES_GCM_CTX needs more than 16-byte alignment");
+#endif
+
+  char *ptr = ctx->cipher_data;
+  // |malloc| returns 8-byte alignment, so we only need to adjust by 8 bytes.
+  assert((uintptr_t)ptr % 8 == 0);
+  // The |EVP_CIPHER| must have allocated enough size for the alignment.
+  assert(ctx->cipher->ctx_size == sizeof(EVP_AES_GCM_CTX) + 8);
+  ptr += (uintptr_t)ptr & 8;
+  return (EVP_AES_GCM_CTX *)ptr;
+}
+
 static int aes_gcm_init_key(EVP_CIPHER_CTX *ctx, const uint8_t *key,
                             const uint8_t *iv, int enc) {
-  EVP_AES_GCM_CTX *gctx = ctx->cipher_data;
+  EVP_AES_GCM_CTX *gctx = aes_gcm_from_cipher_ctx(ctx);
   if (!iv && !key) {
     return 1;
   }
@@ -290,7 +306,7 @@ static int aes_gcm_init_key(EVP_CIPHER_CTX *ctx, const uint8_t *key,
 }
 
 static void aes_gcm_cleanup(EVP_CIPHER_CTX *c) {
-  EVP_AES_GCM_CTX *gctx = c->cipher_data;
+  EVP_AES_GCM_CTX *gctx = aes_gcm_from_cipher_ctx(c);
   OPENSSL_cleanse(&gctx->gcm, sizeof(gctx->gcm));
   if (gctx->iv != c->iv) {
     OPENSSL_free(gctx->iv);
@@ -314,7 +330,7 @@ static void ctr64_inc(uint8_t *counter) {
 }
 
 static int aes_gcm_ctrl(EVP_CIPHER_CTX *c, int type, int arg, void *ptr) {
-  EVP_AES_GCM_CTX *gctx = c->cipher_data;
+  EVP_AES_GCM_CTX *gctx = aes_gcm_from_cipher_ctx(c);
   switch (type) {
     case EVP_CTRL_INIT:
       gctx->key_set = 0;
@@ -406,7 +422,7 @@ static int aes_gcm_ctrl(EVP_CIPHER_CTX *c, int type, int arg, void *ptr) {
 
     case EVP_CTRL_COPY: {
       EVP_CIPHER_CTX *out = ptr;
-      EVP_AES_GCM_CTX *gctx_out = out->cipher_data;
+      EVP_AES_GCM_CTX *gctx_out = aes_gcm_from_cipher_ctx(out);
       if (gctx->iv == c->iv) {
         gctx_out->iv = out->iv;
       } else {
@@ -426,7 +442,7 @@ static int aes_gcm_ctrl(EVP_CIPHER_CTX *c, int type, int arg, void *ptr) {
 
 static int aes_gcm_cipher(EVP_CIPHER_CTX *ctx, uint8_t *out, const uint8_t *in,
                           size_t len) {
-  EVP_AES_GCM_CTX *gctx = ctx->cipher_data;
+  EVP_AES_GCM_CTX *gctx = aes_gcm_from_cipher_ctx(ctx);
 
   // If not set up, return error
   if (!gctx->key_set) {
@@ -540,7 +556,7 @@ DEFINE_LOCAL_DATA(EVP_CIPHER, aes_128_gcm_generic) {
   out->block_size = 1;
   out->key_len = 16;
   out->iv_len = 12;
-  out->ctx_size = sizeof(EVP_AES_GCM_CTX);
+  out->ctx_size = sizeof(EVP_AES_GCM_CTX) + 8;
   out->flags = EVP_CIPH_GCM_MODE | EVP_CIPH_CUSTOM_IV |
                EVP_CIPH_FLAG_CUSTOM_CIPHER | EVP_CIPH_ALWAYS_CALL_INIT |
                EVP_CIPH_CTRL_INIT | EVP_CIPH_FLAG_AEAD_CIPHER;
@@ -608,7 +624,7 @@ DEFINE_LOCAL_DATA(EVP_CIPHER, aes_192_gcm_generic) {
   out->block_size = 1;
   out->key_len = 24;
   out->iv_len = 12;
-  out->ctx_size = sizeof(EVP_AES_GCM_CTX);
+  out->ctx_size = sizeof(EVP_AES_GCM_CTX) + 8;
   out->flags = EVP_CIPH_GCM_MODE | EVP_CIPH_CUSTOM_IV |
                EVP_CIPH_FLAG_CUSTOM_CIPHER | EVP_CIPH_ALWAYS_CALL_INIT |
                EVP_CIPH_CTRL_INIT | EVP_CIPH_FLAG_AEAD_CIPHER;
@@ -676,7 +692,7 @@ DEFINE_LOCAL_DATA(EVP_CIPHER, aes_256_gcm_generic) {
   out->block_size = 1;
   out->key_len = 32;
   out->iv_len = 12;
-  out->ctx_size = sizeof(EVP_AES_GCM_CTX);
+  out->ctx_size = sizeof(EVP_AES_GCM_CTX) + 8;
   out->flags = EVP_CIPH_GCM_MODE | EVP_CIPH_CUSTOM_IV |
                EVP_CIPH_FLAG_CUSTOM_CIPHER | EVP_CIPH_ALWAYS_CALL_INIT |
                EVP_CIPH_CTRL_INIT | EVP_CIPH_FLAG_AEAD_CIPHER;
