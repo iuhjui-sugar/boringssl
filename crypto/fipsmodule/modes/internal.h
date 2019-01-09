@@ -295,6 +295,16 @@ void gcm_init_avx(u128 Htable[16], const uint64_t Xi[2]);
 void gcm_gmult_avx(uint64_t Xi[2], const u128 Htable[16]);
 void gcm_ghash_avx(uint64_t Xi[2], const u128 Htable[16], const uint8_t *in,
                    size_t len);
+
+OPENSSL_INLINE char gcm_ssse3_capable(void) {
+  return (OPENSSL_ia32cap_get()[1] & (1 << (41 - 32))) != 0;
+}
+
+void gcm_init_ssse3(u128 Htable[16], const uint64_t Xi[2]);
+void gcm_gmult_ssse3(uint64_t Xi[2], const u128 Htable[16]);
+void gcm_ghash_ssse3(uint64_t Xi[2], const u128 Htable[16], const uint8_t *in,
+                     size_t len);
+
 #define AESNI_GCM
 size_t aesni_gcm_encrypt(const uint8_t *in, uint8_t *out, size_t len,
                          const AES_KEY *key, uint8_t ivec[16], uint64_t *Xi);
