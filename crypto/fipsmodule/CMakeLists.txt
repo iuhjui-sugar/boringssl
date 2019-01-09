@@ -18,6 +18,7 @@ if(${ARCH} STREQUAL "x86_64")
     sha256-x86_64.${ASM_EXT}
     sha512-x86_64.${ASM_EXT}
     vpaes-x86_64.${ASM_EXT}
+    ghash-ssse3-x86_64.${ASM_EXT}
     x86_64-mont5.${ASM_EXT}
     x86_64-mont.${ASM_EXT}
   )
@@ -117,6 +118,7 @@ perlasm(sha512-armv4.${ASM_EXT} sha/asm/sha512-armv4.pl)
 perlasm(sha512-armv8.${ASM_EXT} sha/asm/sha512-armv8.pl)
 perlasm(sha512-x86_64.${ASM_EXT} sha/asm/sha512-x86_64.pl)
 perlasm(vpaes-x86_64.${ASM_EXT} aes/asm/vpaes-x86_64.pl)
+perlasm(ghash-ssse3-x86_64.${ASM_EXT} modes/asm/ghash-ssse3-x86_64.pl)
 perlasm(vpaes-x86.${ASM_EXT} aes/asm/vpaes-x86.pl)
 perlasm(x86_64-mont5.${ASM_EXT} bn/asm/x86_64-mont5.pl)
 perlasm(x86_64-mont.${ASM_EXT} bn/asm/x86_64-mont.pl)
