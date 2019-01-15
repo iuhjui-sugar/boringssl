@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f95314a9_b27e5749",
+        "filename": "crypto/fipsmodule/modes/gcm.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-01-15T18:21:54Z",
+      "side": 1,
+      "message": "GHASH_ASM",
+      "range": {
+        "startLine": 234,
+        "startChar": 13,
+        "endLine": 234,
+        "endChar": 18
+      },
+      "revId": "ad0a828b62b991083ffe7574f75aef7764d59f86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
