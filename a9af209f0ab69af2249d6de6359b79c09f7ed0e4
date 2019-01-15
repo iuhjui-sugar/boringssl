@@ -2,6 +2,126 @@
   "comments": [
     {
       "key": {
+        "uuid": "d8eb343a_16e14656",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 3087,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-15T23:38:52Z",
+      "side": 1,
+      "message": "This paragraph is confusing. I think it reflects a design issue with this CL (A), and a related design issue with draft-ietf-tls-subcerts-02 (B).\n\nThe first sentence sounds like the caller must check the ClientHello before calling this function. In contrast, the second sentence sounds like it\u0027s not the callers responsibility because BoringSSL will internally figure out whether it can use the DC.\n\nI think you actually meant to say that this API does not currently support multiple DCs but, with the spec as currently written, multiple DCs may be needed in general. That leads to the CL\u0027s design issue (A): the SSL_CTX API is basically unusable given DC version/sigalg-pinning.\n\nOne could fix it with a list of DCs, but that runs into the problem SSL_PRIVATE_KEY_METHOD has around extending to multiple keys. I plan to staple either ex_data or an opaque uint64_t for the future built-in certificate selection logic. Maybe, for now, you remove the SSL_CTX API and reword things? Later we can integrate DCs into future built-in certificate selection mechanism.\n\nHowever, that we need a list at all suggests a design issue with the protocol (B) around future-proofing. It is similar to the problem with external PSKs that necessitated draft-wood-tls-external-psk-importer-00: pinning a caller-provisioned thing with TLS-internal negotiated parameter doesn\u0027t really work. (TLS 1.3 external PSKs are basically broken. It is best to treat them as merely a building block for a feature we never finished. draft-wood-tls-external-psk-importer is what we should have done from the start. Now it is a patch over a mistake.)\n\nConsider when TLS 1.4 happens (or, more imminently, https://mailarchive.ietf.org/arch/msg/tls/Yl1IUMwkNlJmB9wldkRJy9Mr2Do). While larger deployments will expect to control such rollout, TLS libraries consider changing the default maximum version fair game. OpenSSL and I believe GnuTLS both enable TLS 1.3 by default. BoringSSL has not yet, but we hope to this year.\n\nHowever, an application that uses this API today will only know to provision TLS 1.3 keys and it will break when TLS 1.4 is enabled. (Or it will switch to the fallback, but consider a newer future application that can rely on DC support in its client base. The fallback isn\u0027t great either since it\u0027s presumably less desirable (slower?) or what was the point of DCs?)\n\nThus I do not think DCs should be pinned to TLS version. Domain separation between versions can be handled using the version in the context parameter, no? (Pinning DCs to a sigalg is probably fine as that\u0027s more a property of the key than a property of the TLS library. The existence of multiple sigalgs for a single key is limited to RSA at this point. Realistically just sticking with rsa_pss_*_sha256 probably suffices...)\n\nFixing this would also reduce the pressure to configure multiple DCs at once, so (A) may no longer apply at that point.",
+      "range": {
+        "startLine": 3084,
+        "startChar": 0,
+        "endLine": 3087,
+        "endChar": 35
+      },
+      "revId": "a9af209f0ab69af2249d6de6359b79c09f7ed0e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ae180c9_de8cd8b8",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 3088,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-15T23:38:52Z",
+      "side": 1,
+      "message": "Maybe set1 since the caller still has to free dc and pkey. Ditto below. (API-CONVENTIONS.md says that\u0027s the default, but may as well retain the name-based convention too.)",
+      "range": {
+        "startLine": 3088,
+        "startChar": 27,
+        "endLine": 3088,
+        "endChar": 31
+      },
+      "revId": "a9af209f0ab69af2249d6de6359b79c09f7ed0e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c498911_6a0cceeb",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 5035,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-15T23:38:52Z",
+      "side": 1,
+      "message": "See https://boringssl-review.googlesource.com/c/boringssl/+/34307. The error system is kind of weird and shouldn\u0027t be allocated manually. In particular, values over 1000 are reserved for alerts. Also you need an ssl.errordata line for the errors to stringify right.\n\nInstead, revert these two lines, rebase, and then run:\n\n  cd ssl; go run ../util/make_errors.go\n\nThat\u0027ll deal with the rest. (The errors are extracted from OPENSSL_PUT_ERROR lines. Descendant of OpenSSL\u0027s mkerr.pl. :-) )",
+      "revId": "a9af209f0ab69af2249d6de6359b79c09f7ed0e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bcb2cc6e_e30af2ae",
+        "filename": "ssl/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 1401,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-15T23:38:52Z",
+      "side": 1,
+      "message": "It doesn\u0027t look like most of these fields need to be retained long-term. As far as I can tell, only raw, expected_cert_verify_algorithm, and expected_version are relevant for the negotiation. (TBH, you could even parse them out on-demand on the server and exclusively store the CRYPTO_BUFFER, but I don\u0027t have particular opinions there.)\n\nConversely, while the client code will need to parse those bits out, it only needs them for the duration of the verification. It may as well parse it onto some stack structure or parse it in-line.",
+      "revId": "a9af209f0ab69af2249d6de6359b79c09f7ed0e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b8e97fd_9558fb07",
+        "filename": "ssl/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 1405,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-15T23:38:52Z",
+      "side": 1,
+      "message": "\u003d 0 on all the plain C types so they\u0027re initialized on construction, since the ctor isn\u0027t doing it.",
+      "revId": "a9af209f0ab69af2249d6de6359b79c09f7ed0e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a88ace2c_8fb99c62",
+        "filename": "ssl/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 1419,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-15T23:38:52Z",
+      "side": 1,
+      "message": "This field is especially goofy. Any DC where it mismatches expected_cert_verify_algorithm is a syntax error, right? One can just reject that in parsing. That, in turn, raises a spec question. Why waste two bytes sending the same thing twice? The only thing that can happen is the caller forgets to check they match and someone maybe gets a CVE.\n\n(Nit: I don\u0027t think \"signature scheme of the end-entity certificate\" is right. I would have read that as the algorithm in the EE certificate\u0027s signature, produced by the CA\u0027s private key, rather than the algorithm in the DC\u0027s signature, produced by the EE cert\u0027s private key. Certificate\u0027s don\u0027t produce signatures, private keys do.)",
+      "range": {
+        "startLine": 1419,
+        "startChar": 11,
+        "endLine": 1419,
+        "endChar": 20
+      },
+      "revId": "a9af209f0ab69af2249d6de6359b79c09f7ed0e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "02c5083f_59271772",
         "filename": "ssl/internal.h",
         "patchSetId": 8
@@ -30,6 +150,137 @@
       "writtenOn": "2019-01-04T21:50:20Z",
       "side": 1,
       "message": "typo: \"to to\"",
+      "revId": "a9af209f0ab69af2249d6de6359b79c09f7ed0e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7027586f_bfb1ade8",
+        "filename": "ssl/ssl_cert.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 810,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-15T23:38:52Z",
+      "side": 1,
+      "message": "UniquePtr\u003cDC\u003e dc \u003d MakeUnique\u003cDC\u003e();\n\n(Otherwise we pick up a libstdc++.so dependency which some downstreams can\u0027t deal with yet. Though one of these days we should fix that...)",
+      "revId": "a9af209f0ab69af2249d6de6359b79c09f7ed0e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37d3cea0_b541e744",
+        "filename": "ssl/ssl_cert.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 916,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-15T23:38:52Z",
+      "side": 1,
+      "message": "Nit: Just alert. (out_foo means it\u0027s an output parameter. alert is just a normal variable that gets passed into an output parameter.)",
+      "revId": "a9af209f0ab69af2249d6de6359b79c09f7ed0e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68caeaa7_993333c6",
+        "filename": "ssl/ssl_cert.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 933,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-15T23:38:52Z",
+      "side": 1,
+      "message": "These two lines can just say:\n\n  cert-\u003edc_privatekey \u003d UpRef(privkey);",
+      "revId": "a9af209f0ab69af2249d6de6359b79c09f7ed0e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8c61698_c2082621",
+        "filename": "ssl/ssl_cert.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 939,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-15T23:38:52Z",
+      "side": 1,
+      "message": "These two lines can just say:\n\n  cert-\u003edc-\u003eraw \u003d UpRef(raw);",
+      "revId": "a9af209f0ab69af2249d6de6359b79c09f7ed0e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11f8f6a6_eca03a44",
+        "filename": "ssl/ssl_privkey.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-15T23:38:52Z",
+      "side": 1,
+      "message": "stray change from false to 0?",
+      "range": {
+        "startLine": 228,
+        "startChar": 53,
+        "endLine": 228,
+        "endChar": 54
+      },
+      "revId": "a9af209f0ab69af2249d6de6359b79c09f7ed0e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "356d139e_2af64bf4",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 2727,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-15T23:38:52Z",
+      "side": 1,
+      "message": "This can just be replaced with forbid_parse_serverhello and the last one with dont_add_serverhello.",
+      "revId": "a9af209f0ab69af2249d6de6359b79c09f7ed0e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6fb2a0d_873b4b05",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 3696,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-15T23:38:52Z",
+      "side": 1,
+      "message": "Nit: MakeConstSpan",
+      "range": {
+        "startLine": 3696,
+        "startChar": 14,
+        "endLine": 3696,
+        "endChar": 22
+      },
       "revId": "a9af209f0ab69af2249d6de6359b79c09f7ed0e4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
