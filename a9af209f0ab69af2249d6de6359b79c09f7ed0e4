@@ -122,6 +122,30 @@
     },
     {
       "key": {
+        "uuid": "78b513af_6fdee2e7",
+        "filename": "ssl/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 1419,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-16T01:31:51Z",
+      "side": 1,
+      "message": "Oohhh. I\u0027m sorry, ignore this. I was confused. :-) This is the EE-\u003eDC signature and the other is the DC-\u003eCV signature.",
+      "parentUuid": "a88ace2c_8fb99c62",
+      "range": {
+        "startLine": 1419,
+        "startChar": 11,
+        "endLine": 1419,
+        "endChar": 20
+      },
+      "revId": "a9af209f0ab69af2249d6de6359b79c09f7ed0e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "02c5083f_59271772",
         "filename": "ssl/internal.h",
         "patchSetId": 8
