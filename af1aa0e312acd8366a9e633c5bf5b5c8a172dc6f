@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c974a25b_0711bc09",
+        "filename": "crypto/fipsmodule/modes/asm/ghash-ssse3-x86_64.pl",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-01-18T01:06:05Z",
+      "side": 1,
+      "message": "\"transpose\"?",
+      "range": {
+        "startLine": 38,
+        "startChar": 18,
+        "endLine": 38,
+        "endChar": 54
+      },
+      "revId": "af1aa0e312acd8366a9e633c5bf5b5c8a172dc6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b464714e_b8473d51",
+        "filename": "crypto/fipsmodule/modes/asm/ghash-ssse3-x86_64.pl",
+        "patchSetId": 7
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-01-18T01:06:05Z",
+      "side": 1,
+      "message": "This might be getting silly, but what about `movdqa %xmm0, %xmm1` here, dropping the copy of xmm2 to xmm1 just below, and `pandn %xmm2, %xmm1`. The idea being that the load of |Llow4_mask| is probably going to block things, so best to have less depend on xmm2. Also, maybe move the load up so that it starts ASAP?",
+      "revId": "af1aa0e312acd8366a9e633c5bf5b5c8a172dc6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6354bbee_3cfac879",
+        "filename": "crypto/fipsmodule/modes/asm/ghash-ssse3-x86_64.pl",
+        "patchSetId": 7
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-01-18T01:06:05Z",
+      "side": 1,
+      "message": "position of loads matters less in loops, although maybe moving it up would be helpful. Might be problematic since xmm4 is used above. Ignore if so.",
+      "revId": "af1aa0e312acd8366a9e633c5bf5b5c8a172dc6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92482f0b_bb28a709",
+        "filename": "crypto/fipsmodule/modes/asm/ghash-ssse3-x86_64.pl",
+        "patchSetId": 7
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-01-18T01:06:05Z",
+      "side": 1,
+      "message": "Can Htable be aligned? (Maybe measure if doing so helps any on Penryn.)",
+      "revId": "af1aa0e312acd8366a9e633c5bf5b5c8a172dc6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fe3e91b_515f1082",
+        "filename": "crypto/fipsmodule/modes/gcm.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-01-18T01:06:05Z",
+      "side": 1,
+      "message": "(ditto) this is just a transpose, right?",
+      "range": {
+        "startLine": 260,
+        "startChar": 46,
+        "endLine": 260,
+        "endChar": 72
+      },
+      "revId": "af1aa0e312acd8366a9e633c5bf5b5c8a172dc6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
