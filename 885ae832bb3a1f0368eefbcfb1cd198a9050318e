@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a7f52123_526af0b3",
+        "filename": "ssl/internal.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 1382,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2019-01-18T17:50:00Z",
+      "side": 1,
+      "message": "dup -\u003e Dup\n\n|cred_pubkey| \u003d\u003e |public_key|",
+      "revId": "885ae832bb3a1f0368eefbcfb1cd198a9050318e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57575b9c_f27b4a02",
+        "filename": "ssl/internal.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 1386,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2019-01-18T17:50:00Z",
+      "side": 1,
+      "message": "\"parse\" -\u003e \"Parse\"",
+      "revId": "885ae832bb3a1f0368eefbcfb1cd198a9050318e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "397f1f66_60d112e0",
+        "filename": "ssl/internal.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 1955,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2019-01-18T17:50:00Z",
+      "side": 1,
+      "message": "to to -\u003e to",
+      "revId": "885ae832bb3a1f0368eefbcfb1cd198a9050318e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9c4d51e_46ffe310",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 2718,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2019-01-18T17:50:00Z",
+      "side": 1,
+      "message": "nit: \"Delegated Credentials\" -\u003e \"Delegated credentials.\" to be consistent with the rest of this change.",
+      "revId": "885ae832bb3a1f0368eefbcfb1cd198a9050318e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44b320a9_f6fda62e",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 14707,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2019-01-18T17:50:00Z",
+      "side": 1,
+      "message": "I think it\u0027s worth adding a test case for Ed25519, since Cloudflare will likely want to support this algorithm.",
+      "revId": "885ae832bb3a1f0368eefbcfb1cd198a9050318e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
