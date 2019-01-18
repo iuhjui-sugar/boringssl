@@ -84,6 +84,24 @@
     },
     {
       "key": {
+        "uuid": "4d07d792_a9592b25",
+        "filename": "crypto/fipsmodule/modes/asm/ghash-ssse3-x86_64.pl",
+        "patchSetId": 7
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-01-18T22:37:01Z",
+      "side": 1,
+      "message": "This can be ignored at will, but I was suggesting not touching %xmm2 for as long as possible on the assumption that memory loads are slow. So I\u0027d put the load into %xmm0 first, then %xmm10, and then %xmm2. Then I don\u0027t think changing anything else makes a difference.",
+      "parentUuid": "6e08263b_96fd0e00",
+      "revId": "af1aa0e312acd8366a9e633c5bf5b5c8a172dc6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6354bbee_3cfac879",
         "filename": "crypto/fipsmodule/modes/asm/ghash-ssse3-x86_64.pl",
         "patchSetId": 7
@@ -174,6 +192,30 @@
       "revId": "af1aa0e312acd8366a9e633c5bf5b5c8a172dc6f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35fed886_6d1997c1",
+        "filename": "crypto/fipsmodule/modes/gcm.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-01-18T22:37:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3fe3e91b_515f1082",
+      "range": {
+        "startLine": 260,
+        "startChar": 46,
+        "endLine": 260,
+        "endChar": 72
+      },
+      "revId": "af1aa0e312acd8366a9e633c5bf5b5c8a172dc6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }

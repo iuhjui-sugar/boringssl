@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba3f4a0a_d183cbf9",
+        "filename": "crypto/fipsmodule/cipher/e_aes.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-01-18T22:37:01Z",
+      "side": 1,
+      "message": "Did you mean \u003e\u003d? (And the message might need fixing too?)",
+      "revId": "569efed2cee018bb25e8a4ba73b0d6bc55dca658",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cba547be_e12b68ed",
+        "filename": "crypto/fipsmodule/cipher/e_aes.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-01-18T22:37:01Z",
+      "side": 1,
+      "message": "This is true on x86-64 because malloc has to return memory suitable for any structure, and |double| has 8-byte alignment there. But i386 only have 4-byte alignment for a |double|[1].\n\n\n[1] https://uclibc.org/docs/psABI-i386.pdf, table 2.1.",
+      "revId": "569efed2cee018bb25e8a4ba73b0d6bc55dca658",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aac3d655_2a9f600a",
+        "filename": "crypto/fipsmodule/modes/asm/ghash-ssse3-x86_64.pl",
+        "patchSetId": 8
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-01-18T22:37:01Z",
+      "side": 1,
+      "message": "s/a // or maybe \"as a 16×16 matrix\".",
+      "range": {
+        "startLine": 37,
+        "startChar": 63,
+        "endLine": 37,
+        "endChar": 76
+      },
+      "revId": "569efed2cee018bb25e8a4ba73b0d6bc55dca658",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3d0ec43_90628190",
+        "filename": "crypto/fipsmodule/modes/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-01-18T22:37:01Z",
+      "side": 1,
+      "message": "This must be useless, right? Either it causes additional padding before |Htable|, which breaks the MOVBE code, or else it doesn\u0027t and |Htable| was already aligned. (No worries if you want to leave it for documentation.)",
+      "range": {
+        "startLine": 496,
+        "startChar": 2,
+        "endLine": 496,
+        "endChar": 14
+      },
+      "revId": "569efed2cee018bb25e8a4ba73b0d6bc55dca658",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
