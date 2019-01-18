@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a864a211_69348d9a",
+        "filename": "crypto/fipsmodule/cipher/e_aes.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-18T22:48:51Z",
+      "side": 1,
+      "message": "I think I want \u003c\u003d. Maybe even \u003d\u003d. If EVP_AES_GCM_CTX needs, say, 32-byte alignment, then the code below doesn\u0027t work.",
+      "parentUuid": "ba3f4a0a_d183cbf9",
+      "revId": "569efed2cee018bb25e8a4ba73b0d6bc55dca658",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cba547be_e12b68ed",
         "filename": "crypto/fipsmodule/cipher/e_aes.c",
         "patchSetId": 8
@@ -30,6 +48,24 @@
       "writtenOn": "2019-01-18T22:37:01Z",
       "side": 1,
       "message": "This is true on x86-64 because malloc has to return memory suitable for any structure, and |double| has 8-byte alignment there. But i386 only have 4-byte alignment for a |double|[1].\n\n\n[1] https://uclibc.org/docs/psABI-i386.pdf, table 2.1.",
+      "revId": "569efed2cee018bb25e8a4ba73b0d6bc55dca658",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "620fae71_e91aed7d",
+        "filename": "crypto/fipsmodule/cipher/e_aes.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-18T22:48:51Z",
+      "side": 1,
+      "message": "long long also has 8-byte alignment on 32-bit. (Or does malloc not have to cover that one?)",
+      "parentUuid": "cba547be_e12b68ed",
       "revId": "569efed2cee018bb25e8a4ba73b0d6bc55dca658",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -70,6 +106,30 @@
       "writtenOn": "2019-01-18T22:37:01Z",
       "side": 1,
       "message": "This must be useless, right? Either it causes additional padding before |Htable|, which breaks the MOVBE code, or else it doesn\u0027t and |Htable| was already aligned. (No worries if you want to leave it for documentation.)",
+      "range": {
+        "startLine": 496,
+        "startChar": 2,
+        "endLine": 496,
+        "endChar": 14
+      },
+      "revId": "569efed2cee018bb25e8a4ba73b0d6bc55dca658",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5f65594d_976c395c",
+        "filename": "crypto/fipsmodule/modes/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-18T22:48:51Z",
+      "side": 1,
+      "message": "It\u0027s to force polyval_ctx to be 16-byte-aligned as a whole. (Thankfully polyval_ctx is only ever stack-allocated.) Otherwise it a priori only needs 8-byte alignment.\n\nI could put it on polyval_ctx instead. It seemed clearer to tag the field that needed it. Though it\u0027s true that we\u0027re also relying on not having padding business... maybe S, H, and GCM128_CONTEXT\u0027s Yi..Xi should also be tagged?",
+      "parentUuid": "f3d0ec43_90628190",
       "range": {
         "startLine": 496,
         "startChar": 2,
