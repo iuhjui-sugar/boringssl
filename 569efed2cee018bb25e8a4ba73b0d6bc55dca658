@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "dd36b47a_b6d715ce",
+        "filename": "crypto/fipsmodule/cipher/e_aes.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-01-18T23:07:31Z",
+      "side": 1,
+      "message": "Oh I see what you mean. The message confused me. How about:\n\n\"EVP_AES_GCM_CTX needs more alignment than this function provides\"",
+      "parentUuid": "a864a211_69348d9a",
+      "revId": "569efed2cee018bb25e8a4ba73b0d6bc55dca658",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cba547be_e12b68ed",
         "filename": "crypto/fipsmodule/cipher/e_aes.c",
         "patchSetId": 8
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "long long also has 8-byte alignment on 32-bit. (Or does malloc not have to cover that one?)",
       "parentUuid": "cba547be_e12b68ed",
+      "revId": "569efed2cee018bb25e8a4ba73b0d6bc55dca658",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f73d877b_7c1317f7",
+        "filename": "crypto/fipsmodule/cipher/e_aes.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-01-18T23:07:31Z",
+      "side": 1,
+      "message": "From that table, |long long| has alignment 4 on x86. I suspect mallocs generally provide 8-byte alignment on 32-bit, but I\u0027m not sure that we can depend on that. Dealing with it just means adding:\n\n#if defined(OPENSSL_32_BIT)\nptr +\u003d (uintptr_t)ptr \u0026 4;\n#endif\n\n... before adjusting the 8-byte alignment.",
+      "parentUuid": "620fae71_e91aed7d",
       "revId": "569efed2cee018bb25e8a4ba73b0d6bc55dca658",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -130,6 +166,30 @@
       "side": 1,
       "message": "It\u0027s to force polyval_ctx to be 16-byte-aligned as a whole. (Thankfully polyval_ctx is only ever stack-allocated.) Otherwise it a priori only needs 8-byte alignment.\n\nI could put it on polyval_ctx instead. It seemed clearer to tag the field that needed it. Though it\u0027s true that we\u0027re also relying on not having padding business... maybe S, H, and GCM128_CONTEXT\u0027s Yi..Xi should also be tagged?",
       "parentUuid": "f3d0ec43_90628190",
+      "range": {
+        "startLine": 496,
+        "startChar": 2,
+        "endLine": 496,
+        "endChar": 14
+      },
+      "revId": "569efed2cee018bb25e8a4ba73b0d6bc55dca658",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94613212_106e1f13",
+        "filename": "crypto/fipsmodule/modes/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-01-18T23:07:31Z",
+      "side": 1,
+      "message": "Eh, I think this fine. (I thought that polyval_ctx was already 16-byte aligned, but I guess not.)",
+      "parentUuid": "5f65594d_976c395c",
       "range": {
         "startLine": 496,
         "startChar": 2,
