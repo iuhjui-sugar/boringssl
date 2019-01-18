@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "00a388be_1658d915",
+        "filename": "crypto/fipsmodule/modes/asm/ghash-ssse3-x86_64.pl",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-18T21:13:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c974a25b_0711bc09",
+      "range": {
+        "startLine": 38,
+        "startChar": 18,
+        "endLine": 38,
+        "endChar": 54
+      },
+      "revId": "af1aa0e312acd8366a9e633c5bf5b5c8a172dc6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b464714e_b8473d51",
         "filename": "crypto/fipsmodule/modes/asm/ghash-ssse3-x86_64.pl",
         "patchSetId": 7
@@ -36,6 +60,24 @@
       "writtenOn": "2019-01-18T01:06:05Z",
       "side": 1,
       "message": "This might be getting silly, but what about `movdqa %xmm0, %xmm1` here, dropping the copy of xmm2 to xmm1 just below, and `pandn %xmm2, %xmm1`. The idea being that the load of |Llow4_mask| is probably going to block things, so best to have less depend on xmm2. Also, maybe move the load up so that it starts ASAP?",
+      "revId": "af1aa0e312acd8366a9e633c5bf5b5c8a172dc6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e08263b_96fd0e00",
+        "filename": "crypto/fipsmodule/modes/asm/ghash-ssse3-x86_64.pl",
+        "patchSetId": 7
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-18T21:13:39Z",
+      "side": 1,
+      "message": "Moved the load up top. Unclear if that did anything on Penryn at least (too much noise), but it didn\u0027t hurt.\n\nI\u0027m not quite following what you\u0027re suggesting around moving the registers around. What change were you thinking?",
+      "parentUuid": "b464714e_b8473d51",
       "revId": "af1aa0e312acd8366a9e633c5bf5b5c8a172dc6f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "eccbe6a3_a666a5e1",
+        "filename": "crypto/fipsmodule/modes/asm/ghash-ssse3-x86_64.pl",
+        "patchSetId": 7
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-18T21:13:39Z",
+      "side": 1,
+      "message": "Done. xmm4 above could be xmm6 without any other changes.",
+      "parentUuid": "6354bbee_3cfac879",
+      "revId": "af1aa0e312acd8366a9e633c5bf5b5c8a172dc6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "92482f0b_bb28a709",
         "filename": "crypto/fipsmodule/modes/asm/ghash-ssse3-x86_64.pl",
         "patchSetId": 7
@@ -73,6 +133,24 @@
       "revId": "af1aa0e312acd8366a9e633c5bf5b5c8a172dc6f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec4f6017_29ce086e",
+        "filename": "crypto/fipsmodule/modes/asm/ghash-ssse3-x86_64.pl",
+        "patchSetId": 7
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-18T21:13:39Z",
+      "side": 1,
+      "message": "Done. This helped quite a lot. It went from a 11% hit on Penryn to a 4% hit. Getting it aligned in C was kind of annoying though.",
+      "parentUuid": "92482f0b_bb28a709",
+      "revId": "af1aa0e312acd8366a9e633c5bf5b5c8a172dc6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
