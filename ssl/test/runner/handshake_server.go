@@ -371,7 +371,7 @@ func applyBugsToClientHello(clientHello *clientHelloMsg, config *Config) {
 		clientHello.signatureAlgorithms = config.signSignatureAlgorithms()
 	}
 	if config.Bugs.IgnorePeerCurvePreferences {
-		clientHello.supportedCurves = config.curvePreferences()
+		clientHello.supportedCurves = config.curvePreferencesServer()
 	}
 	if config.Bugs.IgnorePeerCipherPreferences {
 		clientHello.cipherSuites = config.cipherSuites()
@@ -447,7 +447,7 @@ func (hs *serverHandshakeState) doTLS13Handshake() error {
 
 	supportedCurve := false
 	var selectedCurve CurveID
-	preferredCurves := config.curvePreferences()
+	preferredCurves := config.curvePreferencesServer()
 Curves:
 	for _, curve := range hs.clientHello.supportedCurves {
 		for _, supported := range preferredCurves {
@@ -850,7 +850,7 @@ ResendHelloRetryRequest:
 		if config.ClientAuth >= RequestClientCert {
 			// Request a client certificate
 			certReq := &certificateRequestMsg{
-				vers:                  c.wireVersion,
+				vers: c.wireVersion,
 				hasSignatureAlgorithm: !config.Bugs.OmitCertificateRequestAlgorithms,
 				hasRequestContext:     true,
 				requestContext:        config.Bugs.SendRequestContext,
@@ -1229,7 +1229,7 @@ func (hs *serverHandshakeState) processClientHello() (isResume bool, err error) 
 	}
 
 	supportedCurve := false
-	preferredCurves := config.curvePreferences()
+	preferredCurves := config.curvePreferencesServer()
 Curves:
 	for _, curve := range hs.clientHello.supportedCurves {
 		if curve == CurveCECPQ2 && c.vers < VersionTLS13 {
@@ -1448,7 +1448,7 @@ func (hs *serverHandshakeState) processClientExtensions(serverExtensions *server
 	}
 
 	if c.config.Bugs.SendServerSupportedCurves {
-		serverExtensions.supportedCurves = c.config.curvePreferences()
+		serverExtensions.supportedCurves = c.config.curvePreferencesServer()
 	}
 
 	if !hs.clientHello.hasGREASEExtension && config.Bugs.ExpectGREASE {
