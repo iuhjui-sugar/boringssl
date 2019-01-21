@@ -295,8 +295,7 @@ static const uint16_t kDefaultGroups[] = {
 // TLS 1.3 servers will pick CECPQ2 if offered by a client, but it's not enabled
 // by default for clients.
 static const uint16_t kDefaultGroupsServer[] = {
-    // CECPQ2 is not yet enabled by default.
-    // SSL_CURVE_CECPQ2,
+    SSL_CURVE_CECPQ2,
     SSL_CURVE_X25519,
     SSL_CURVE_SECP256R1,
     SSL_CURVE_SECP384R1,
