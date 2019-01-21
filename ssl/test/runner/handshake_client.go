@@ -108,7 +108,7 @@ func (c *Conn) clientHandshake() error {
 		ocspStapling:            !c.config.Bugs.NoOCSPStapling,
 		sctListSupported:        !c.config.Bugs.NoSignedCertificateTimestamps,
 		serverName:              c.config.ServerName,
-		supportedCurves:         c.config.curvePreferences(),
+		supportedCurves:         c.config.curvePreferencesClient(),
 		supportedPoints:         []uint8{pointFormatUncompressed},
 		nextProtoNeg:            len(c.config.NextProtos) > 0,
 		secureRenegotiation:     []byte{},

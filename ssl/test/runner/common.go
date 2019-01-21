@@ -1715,11 +1715,20 @@ func (c *Config) maxVersion(isDTLS bool) uint16 {
 	return ret
 }
 
-var defaultCurvePreferences = []CurveID{CurveCECPQ2, CurveX25519, CurveP256, CurveP384, CurveP521}
+var defaultCurvePreferencesClient = []CurveID{CurveX25519, CurveP256, CurveP384, CurveP521}
 
-func (c *Config) curvePreferences() []CurveID {
+var defaultCurvePreferencesServer = []CurveID{CurveCECPQ2, CurveX25519, CurveP256, CurveP384, CurveP521}
+
+func (c *Config) curvePreferencesClient() []CurveID {
 	if c == nil || len(c.CurvePreferences) == 0 {
-		return defaultCurvePreferences
+		return defaultCurvePreferencesClient
+	}
+	return c.CurvePreferences
+}
+
+func (c *Config) curvePreferencesServer() []CurveID {
+	if c == nil || len(c.CurvePreferences) == 0 {
+		return defaultCurvePreferencesServer
 	}
 	return c.CurvePreferences
 }
@@ -1728,7 +1737,7 @@ func (c *Config) defaultCurves() map[CurveID]bool {
 	defaultCurves := make(map[CurveID]bool)
 	curves := c.DefaultCurves
 	if c == nil || c.DefaultCurves == nil {
-		curves = c.curvePreferences()
+		curves = c.curvePreferencesClient()
 	}
 	for _, curveID := range curves {
 		defaultCurves[curveID] = true
