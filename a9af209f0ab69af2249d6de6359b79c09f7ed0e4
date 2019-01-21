@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "44676fe2_5b255fdd",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 3087,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2019-01-21T18:37:47Z",
+      "side": 1,
+      "message": "I\u0027m dropping the SSL_CTX API and have reworded the comment for SSL_set1_delegated_credential. Detailed comments in-line.\n\n\n(A)\n\n\u003e This paragraph is confusing. I think it reflects a design issue with this CL (A), and a related design issue with draft-ietf-tls-subcerts-02 (B).\n\u003e \n\u003e The first sentence sounds like the caller must check the ClientHello before calling this function. In contrast, the second sentence sounds like it\u0027s not the callers responsibility because BoringSSL will internally figure out whether it can use the DC.\n\nSo that we\u0027re on the same page, what I mean is this: the caller may configure any *one* DC it wishes, but it will only be used in a handshake if the parameters match those authorized by the delegator (i.e., sigalg and version in the DC must match the negotiated values). (See ssl/ssl_cert.cc:853.)\n\n\u003e I think you actually meant to say that this API does not currently support multiple DCs but, with the spec as currently written, multiple DCs may be needed in general. That leads to the CL\u0027s design issue (A): the SSL_CTX API is basically unusable given DC version/sigalg-pinning.\n\u003e\n\u003e One could fix it with a list of DCs, but that runs into the problem SSL_PRIVATE_KEY_METHOD has around extending to multiple keys. I plan to staple either ex_data or an opaque uint64_t for the future built-in certificate selection logic. Maybe, for now, you remove the SSL_CTX API and reword things? Later we can integrate DCs into future built-in certificate selection mechanism.\n\nI think this is a good point; it definitely make sense to remove this API call.\n\nThe idea for SSL_CTX I had originally was to have a callback set the DC on the fly. It could also set the DC signing key or use the dc_key_method. The tricky part that I foresee is that the server\u0027s parameter preferences (version, sigalg) could, in principle, depend on which DCs are available.\n\n\n(B)\n\nI think it\u0027s worth discussing whether version pinning for DCs should be changed or dropped in draft-03, but allow me to explain the rationale as I understand it. DCs are delegated to proxies for terminating TLS on behalf of the delegator; version pinning is intended to prevent a (compromised) proxy from downgrading connections made on its behalf, without the need to update the client. For example, this allows the delegator to prevent the use of DCs with an old draft of 1.3, or with 1.3 itself once we\u0027re in 1.4-world.\n\nWhile version pinning is security conservative, whether it prevents (or will prevent) a concrete attack is debatable. However, I think we can count on someone finding a major flaw in 1.3 someday; this allows delegators to hedge against this eventuality. However, there might be other mechanisms that are better suited.\n\n\u003e However, an application that uses this API today will only know to provision TLS 1.3 keys and it will break when TLS 1.4 is enabled. (Or it will switch to the fallback, but consider a newer future application that can rely on DC support in its client base. The fallback isn\u0027t great either since it\u0027s presumably less desirable (slower?) or what was the point of DCs?)\n\nThis is an important point. One thing we might do enforce a minimum version (e.g., \u003e\u003d1.4) for a DC rather than a particular version (e.g. 1.4).",
+      "parentUuid": "d8eb343a_16e14656",
+      "range": {
+        "startLine": 3084,
+        "startChar": 0,
+        "endLine": 3087,
+        "endChar": 35
+      },
+      "revId": "a9af209f0ab69af2249d6de6359b79c09f7ed0e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4ae180c9_de8cd8b8",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 8
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "db69f325_9c612b9d",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 3088,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2019-01-21T18:37:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ae180c9_de8cd8b8",
+      "range": {
+        "startLine": 3088,
+        "startChar": 27,
+        "endLine": 3088,
+        "endChar": 31
+      },
+      "revId": "a9af209f0ab69af2249d6de6359b79c09f7ed0e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2c498911_6a0cceeb",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 8
@@ -62,6 +110,24 @@
       "revId": "a9af209f0ab69af2249d6de6359b79c09f7ed0e4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28e3943a_8d699e45",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 5035,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2019-01-21T18:37:47Z",
+      "side": 1,
+      "message": "Nice! Done.",
+      "parentUuid": "2c498911_6a0cceeb",
+      "revId": "a9af209f0ab69af2249d6de6359b79c09f7ed0e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -82,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "2225dee0_a2b972ca",
+        "filename": "ssl/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 1401,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2019-01-21T18:37:47Z",
+      "side": 1,
+      "message": "expected_version, expected_cert_verify_algorithm are used to decide if the DC can be used in the handshake (see ssl/ssl_cert.cc:853).\n\nIf I recall correctly, the client can\u0027t validate all of the parameters at the time it parses the DC. For example, expected_version needs to equal the version chosen by the server; since the version is also negotiated via an extension, it seems to me this isn\u0027t available yet.\n\nAlternatively, the client could delay parsing valid_time, expected_cert_verify_algorithm,  expected_version, and algorithm until it\u0027s ready to validate the DC. Unfortunately, these fields are interwoven with the public key: see ssl_cert.cc:824.",
+      "parentUuid": "bcb2cc6e_e30af2ae",
+      "revId": "a9af209f0ab69af2249d6de6359b79c09f7ed0e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1b8e97fd_9558fb07",
         "filename": "ssl/internal.h",
         "patchSetId": 8
@@ -96,6 +180,24 @@
       "revId": "a9af209f0ab69af2249d6de6359b79c09f7ed0e4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a02216a9_31d23443",
+        "filename": "ssl/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 1405,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2019-01-21T18:37:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b8e97fd_9558fb07",
+      "revId": "a9af209f0ab69af2249d6de6359b79c09f7ed0e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -146,6 +248,30 @@
     },
     {
       "key": {
+        "uuid": "56b2d405_ce8a9a5b",
+        "filename": "ssl/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 1419,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2019-01-21T18:37:47Z",
+      "side": 1,
+      "message": "I\u0027m assuming there\u0027s no action to take here.",
+      "parentUuid": "78b513af_6fdee2e7",
+      "range": {
+        "startLine": 1419,
+        "startChar": 11,
+        "endLine": 1419,
+        "endChar": 20
+      },
+      "revId": "a9af209f0ab69af2249d6de6359b79c09f7ed0e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "02c5083f_59271772",
         "filename": "ssl/internal.h",
         "patchSetId": 8
@@ -160,6 +286,24 @@
       "revId": "a9af209f0ab69af2249d6de6359b79c09f7ed0e4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "444da8cc_4f0ab357",
+        "filename": "ssl/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 1432,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2019-01-21T18:37:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02c5083f_59271772",
+      "revId": "a9af209f0ab69af2249d6de6359b79c09f7ed0e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -180,6 +324,24 @@
     },
     {
       "key": {
+        "uuid": "454492e7_0a49f8e2",
+        "filename": "ssl/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 1963,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2019-01-21T18:37:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f69e62a8_a78ed5e1",
+      "revId": "a9af209f0ab69af2249d6de6359b79c09f7ed0e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7027586f_bfb1ade8",
         "filename": "ssl/ssl_cert.cc",
         "patchSetId": 8
@@ -194,6 +356,24 @@
       "revId": "a9af209f0ab69af2249d6de6359b79c09f7ed0e4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23a63382_83966b00",
+        "filename": "ssl/ssl_cert.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 810,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2019-01-21T18:37:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7027586f_bfb1ade8",
+      "revId": "a9af209f0ab69af2249d6de6359b79c09f7ed0e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -214,6 +394,24 @@
     },
     {
       "key": {
+        "uuid": "c63a5d24_8bb026ec",
+        "filename": "ssl/ssl_cert.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 916,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2019-01-21T18:37:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "37d3cea0_b541e744",
+      "revId": "a9af209f0ab69af2249d6de6359b79c09f7ed0e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "68caeaa7_993333c6",
         "filename": "ssl/ssl_cert.cc",
         "patchSetId": 8
@@ -231,6 +429,24 @@
     },
     {
       "key": {
+        "uuid": "70ddeb4d_e6a7a4fa",
+        "filename": "ssl/ssl_cert.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 933,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2019-01-21T18:37:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68caeaa7_993333c6",
+      "revId": "a9af209f0ab69af2249d6de6359b79c09f7ed0e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e8c61698_c2082621",
         "filename": "ssl/ssl_cert.cc",
         "patchSetId": 8
@@ -245,6 +461,24 @@
       "revId": "a9af209f0ab69af2249d6de6359b79c09f7ed0e4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0fc71d7_d0313048",
+        "filename": "ssl/ssl_cert.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 939,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2019-01-21T18:37:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e8c61698_c2082621",
+      "revId": "a9af209f0ab69af2249d6de6359b79c09f7ed0e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -271,6 +505,30 @@
     },
     {
       "key": {
+        "uuid": "7523d912_d23f7c6b",
+        "filename": "ssl/ssl_privkey.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2019-01-21T18:37:47Z",
+      "side": 1,
+      "message": "Indeed, good catch.",
+      "parentUuid": "11f8f6a6_eca03a44",
+      "range": {
+        "startLine": 228,
+        "startChar": 53,
+        "endLine": 228,
+        "endChar": 54
+      },
+      "revId": "a9af209f0ab69af2249d6de6359b79c09f7ed0e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "356d139e_2af64bf4",
         "filename": "ssl/t1_lib.cc",
         "patchSetId": 8
@@ -285,6 +543,24 @@
       "revId": "a9af209f0ab69af2249d6de6359b79c09f7ed0e4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "853fd094_5e79f2be",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 2727,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2019-01-21T18:37:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "356d139e_2af64bf4",
+      "revId": "a9af209f0ab69af2249d6de6359b79c09f7ed0e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -308,6 +584,30 @@
       "revId": "a9af209f0ab69af2249d6de6359b79c09f7ed0e4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ca09c5c_1bdf6aa9",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 3696,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2019-01-21T18:37:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6fb2a0d_873b4b05",
+      "range": {
+        "startLine": 3696,
+        "startChar": 14,
+        "endLine": 3696,
+        "endChar": 22
+      },
+      "revId": "a9af209f0ab69af2249d6de6359b79c09f7ed0e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
