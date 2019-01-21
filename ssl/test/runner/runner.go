@@ -10991,10 +10991,9 @@ func addCurveTests() {
 		},
 	})
 
-	// As a server, CECPQ2 is not yet supported by default.
 	testCases = append(testCases, testCase{
 		testType: serverTest,
-		name:     "CECPQ2NotEnabledByDefaultForAServer",
+		name:     "CECPQ2EnabledByDefaultForAServer",
 		config: Config{
 			MinVersion:       VersionTLS13,
 			CurvePreferences: []CurveID{CurveCECPQ2, CurveX25519},
@@ -11002,7 +11001,7 @@ func addCurveTests() {
 		},
 		flags: []string{
 			"-server-preference",
-			"-expect-curve-id", strconv.Itoa(int(CurveX25519)),
+			"-expect-curve-id", strconv.Itoa(int(CurveCECPQ2)),
 		},
 	})
 }
