@@ -590,7 +590,7 @@ type ecdheKeyAgreement struct {
 
 func (ka *ecdheKeyAgreement) generateServerKeyExchange(config *Config, cert *Certificate, clientHello *clientHelloMsg, hello *serverHelloMsg, version uint16) (*serverKeyExchangeMsg, error) {
 	var curveid CurveID
-	preferredCurves := config.curvePreferences()
+	preferredCurves := config.curvePreferencesServer()
 
 NextCandidate:
 	for _, candidate := range preferredCurves {

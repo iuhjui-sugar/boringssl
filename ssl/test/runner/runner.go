@@ -13608,6 +13608,9 @@ func addTLS13CipherPreferenceTests() {
 			CipherSuites: []uint16{
 				TLS_AES_128_GCM_SHA256,
 			},
+			CurvePreferences: []CurveID{
+				CurveCECPQ2,
+			},
 		},
 		flags: []string{
 			"-curves", strconv.Itoa(int(CurveCECPQ2)),
@@ -13628,9 +13631,13 @@ func addTLS13CipherPreferenceTests() {
 				TLS_CHACHA20_POLY1305_SHA256,
 				TLS_AES_256_GCM_SHA384,
 			},
+			CurvePreferences: []CurveID{
+				CurveCECPQ2,
+			},
 		},
 		flags: []string{
 			"-curves", strconv.Itoa(int(CurveCECPQ2)),
+			"-expect-curve-id", strconv.Itoa(int(CurveCECPQ2)),
 			"-expect-cipher-aes", strconv.Itoa(int(TLS_CHACHA20_POLY1305_SHA256)),
 			"-expect-cipher-no-aes", strconv.Itoa(int(TLS_CHACHA20_POLY1305_SHA256)),
 		},
@@ -13645,9 +13652,13 @@ func addTLS13CipherPreferenceTests() {
 				TLS_AES_256_GCM_SHA384,
 				TLS_CHACHA20_POLY1305_SHA256,
 			},
+			CurvePreferences: []CurveID{
+				CurveCECPQ2,
+			},
 		},
 		flags: []string{
 			"-curves", strconv.Itoa(int(CurveCECPQ2)),
+			"-expect-curve-id", strconv.Itoa(int(CurveCECPQ2)),
 			"-expect-cipher-aes", strconv.Itoa(int(TLS_AES_256_GCM_SHA384)),
 			"-expect-cipher-no-aes", strconv.Itoa(int(TLS_CHACHA20_POLY1305_SHA256)),
 		},
