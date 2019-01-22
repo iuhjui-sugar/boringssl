@@ -22,6 +22,30 @@
       "revId": "29b56e45e4720526be0255a3d2e079dcd2ac93f1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98a833be_b26efdd7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-01-22T21:54:54Z",
+      "side": 1,
+      "message": "Well, yes: we can change the distribution at will, but some choices will have consequences :)\n\nHave reworded this comment accordingly. (And yes, this flatter distribution should be \"better\" in the security analysis and I expect HRSS round two to do this too.)",
+      "parentUuid": "a1427629_55fe6800",
+      "range": {
+        "startLine": 10,
+        "startChar": 35,
+        "endLine": 10,
+        "endChar": 60
+      },
+      "revId": "29b56e45e4720526be0255a3d2e079dcd2ac93f1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
