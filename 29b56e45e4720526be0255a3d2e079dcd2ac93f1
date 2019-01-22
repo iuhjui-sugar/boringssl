@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a1427629_55fe6800",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-22T20:56:27Z",
+      "side": 1,
+      "message": "It\u0027s not entirely at will, is it? Doesn\u0027t the security analysis depend on the distribution being \"roughly\" uniform? (And so this is okay because we\u0027re turning 6:5:5 to 86:85:85, which is closer to uniform and should, if anything, improve things?)",
+      "range": {
+        "startLine": 10,
+        "startChar": 35,
+        "endLine": 10,
+        "endChar": 60
+      },
+      "revId": "29b56e45e4720526be0255a3d2e079dcd2ac93f1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
