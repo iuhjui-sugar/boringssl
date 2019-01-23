@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "8e10a43f_8ebba5b9",
+        "filename": "crypto/fipsmodule/cipher/e_aes.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-23T01:26:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd36b47a_b6d715ce",
+      "revId": "569efed2cee018bb25e8a4ba73b0d6bc55dca658",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cba547be_e12b68ed",
         "filename": "crypto/fipsmodule/cipher/e_aes.c",
         "patchSetId": 8
@@ -108,6 +126,24 @@
     },
     {
       "key": {
+        "uuid": "7fb158a1_d6622be1",
+        "filename": "crypto/fipsmodule/cipher/e_aes.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-23T01:26:03Z",
+      "side": 1,
+      "message": "Ugh. Done. We really should figure out some way to avoid doing this manually all the time...",
+      "parentUuid": "f73d877b_7c1317f7",
+      "revId": "569efed2cee018bb25e8a4ba73b0d6bc55dca658",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aac3d655_2a9f600a",
         "filename": "crypto/fipsmodule/modes/asm/ghash-ssse3-x86_64.pl",
         "patchSetId": 8
@@ -128,6 +164,30 @@
       "revId": "569efed2cee018bb25e8a4ba73b0d6bc55dca658",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a30f47e_1e19125a",
+        "filename": "crypto/fipsmodule/modes/asm/ghash-ssse3-x86_64.pl",
+        "patchSetId": 8
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-23T01:26:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aac3d655_2a9f600a",
+      "range": {
+        "startLine": 37,
+        "startChar": 63,
+        "endLine": 37,
+        "endChar": 76
+      },
+      "revId": "569efed2cee018bb25e8a4ba73b0d6bc55dca658",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {

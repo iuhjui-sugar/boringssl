@@ -102,6 +102,24 @@
     },
     {
       "key": {
+        "uuid": "80e1147f_99337616",
+        "filename": "crypto/fipsmodule/modes/asm/ghash-ssse3-x86_64.pl",
+        "patchSetId": 7
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-23T01:26:03Z",
+      "side": 1,
+      "message": "Done. Also did the same in gcm_ghash_ssse3.",
+      "parentUuid": "4d07d792_a9592b25",
+      "revId": "af1aa0e312acd8366a9e633c5bf5b5c8a172dc6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6354bbee_3cfac879",
         "filename": "crypto/fipsmodule/modes/asm/ghash-ssse3-x86_64.pl",
         "patchSetId": 7
