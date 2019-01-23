@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "708eaaf6_ee67b8fc",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-01-23T17:21:38Z",
+      "side": 1,
+      "message": "I\u0027ll have to take your word that this adds a build configuration!",
+      "revId": "d0bb6b877a60cffbb8f1537691a33718f468531a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
