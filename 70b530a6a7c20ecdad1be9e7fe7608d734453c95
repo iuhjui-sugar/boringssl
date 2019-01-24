@@ -1,0 +1,146 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e2a34744_09399a3b",
+        "filename": "go.mod",
+        "patchSetId": 15
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-24T01:52:38Z",
+      "side": 1,
+      "message": "Hrm. I\u0027m guessing you\u0027re running with some trunk version of Go? That\u0027s not actually released yet. :-)",
+      "revId": "70b530a6a7c20ecdad1be9e7fe7608d734453c95",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aacb4d8d_9d7d46fb",
+        "filename": "ssl/internal.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 1402,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-24T01:52:38Z",
+      "side": 1,
+      "message": "I don\u0027t think this is actually used anywhere either.",
+      "revId": "70b530a6a7c20ecdad1be9e7fe7608d734453c95",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1c38c39_ace78fed",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 2734,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-24T01:52:38Z",
+      "side": 1,
+      "message": "Hrm. We really ought to enforce this is empty so we don\u0027t forget to when the spec is done.\n\nAt the same time, if we check in a syntax check right now, all BoringSSL servers, whether or not they experiment with DCs, will be interpreting 0xff02 to be an empty extension. That means 0xff02 will be burned as always an empty extension.\n\nSome possibilities:\n\n- We don\u0027t enforce now, but maybe stick a compile-assert that the code point is 0xff02 with a comment. Something silly that will remind us to revisit that code and syntax check when the final code point is assigned and we\u0027re not worried about messing up experimental code points. (0xff02 is not very high-entropy.)\n\n- Enforce the syntax, but condition it on there being any DCs configured. That means normal BoringSSL servers continue to treat 0xff02 as a no-op and we limit the effects to the servers we want. However, this logic runs in between select_certificate_cb (the early callback) and cert_cb (SSL_CTX_set_cert_cb). So if you all are configuring DCs on the latter callback, it won\u0027t work. I assume you\u0027re using select_certificate_cb since you\u0027d need the SSL_CLIENT_HELLO, but worth checking.",
+      "revId": "70b530a6a7c20ecdad1be9e7fe7608d734453c95",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dec8da3d_e56c2234",
+        "filename": "ssl/test/runner/cipher_suites.go",
+        "patchSetId": 15
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-24T01:52:38Z",
+      "side": 1,
+      "message": "This method isn\u0027t actually used in TLS 1.3 to begin with, but I see the DC checking code tries to be relatively uniform about peerPublicKey handling, so there\u0027s something to be said for passing that into the keyAgreement. I\u0027m guessing that was the motification here.",
+      "revId": "70b530a6a7c20ecdad1be9e7fe7608d734453c95",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "06873801_5a81ee08",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 15
+      },
+      "lineNbr": 1392,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-24T01:52:38Z",
+      "side": 1,
+      "message": "Spec question: It\u0027s interesting that there\u0027s no length prefix on the leaf. It\u0027s moot since DER is self-delimiting, but suppose someone adds some new server_certificate_type that uses some alternate format that isn\u0027t self-delimiting. Is that still fine?",
+      "revId": "70b530a6a7c20ecdad1be9e7fe7608d734453c95",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d099cc8_e90e8fc8",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 15
+      },
+      "lineNbr": 1394,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-24T01:52:38Z",
+      "side": 1,
+      "message": "(The spec says DelegatedCredential.scheme here, but I assume that\u0027s just a typo.)",
+      "revId": "70b530a6a7c20ecdad1be9e7fe7608d734453c95",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6b56b70f_ca5ab414",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 15
+      },
+      "lineNbr": 1470,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-24T01:52:38Z",
+      "side": 1,
+      "message": "Nit: This isn\u0027t strictly the same check as in the C end, though it\u0027s currently moot because there\u0027s only one TLS 1.3. c.wireVersion is the version number that appears on the wire, while c.vers is the normalized protocol version which maps draft-23, RFC 8446, etc., all together.\n\nGiven it\u0027s a ProtocolVersion in the spec, I think we want c.wireVersion here.\n\n(This corner is kind of a mess. It got cobbled together over time. :-/ Ideally we\u0027d have two different types or something for the two.)",
+      "revId": "70b530a6a7c20ecdad1be9e7fe7608d734453c95",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18a3e22e_82291a32",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 15
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-24T01:52:38Z",
+      "side": 1,
+      "message": "lifetime",
+      "range": {
+        "startLine": 254,
+        "startChar": 4,
+        "endLine": 254,
+        "endChar": 12
+      },
+      "revId": "70b530a6a7c20ecdad1be9e7fe7608d734453c95",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}

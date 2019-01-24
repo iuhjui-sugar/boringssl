@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "956aac83_b0fd77ab",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 3087,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-24T01:52:38Z",
+      "side": 1,
+      "message": "Re (A), I\u0027m hoping to finally write the in-library dispatch thing this quarter, so let\u0027s see if we can use that. I suppose, for a callback, SSL_set_SSL_CTX + the early callback doesn\u0027t make single-DC SSL_CTXes entirely useless. Regardless, I think (B) is the pivotal issue, since it determines whether single-DC SSL_CTXes make sense at all. (I.e. what\u0027s now in this CL: we take it out of SSL_CTX for now, resolve (B), then figure out what to do from there.)\n\nRe (B), if the proxy is compromised, why does it care which version of TLS it is speaking? It already has all the information it could possibly want out of the connection at any TLS version. It seems the only meaningful defense for a compromised proxy is making sure DCs are suitably short-lived (thus bringing us back to the client clock dependency).\n\nMinimum versions is a little bit weird to define because TLS version code points don\u0027t strictly have an ordering anymore. (Though it\u0027s true they effectively do at the standard level, so it\u0027s possible we can just do the non-standard things ad-hoc.) Especially if we do the rolling versions thing linked above. Or consider when we ran our experiments to figure out what syntaxes got through middleboxes.\n\nI also suspect any scenario where per-version DCs would help is also one where we would need another mechanism to fix the non-DC case anyway.\n\nI suppose the other answer here is that we implicitly clamp off newer TLS versions if configured with a limited set of DCs. This, however, does not mesh well with a callback-based setup. Either we know all the DCs and perturb the max version, or we don\u0027t know all the DCs and assume the caller did it already. I\u0027m not sure that\u0027ll work particularly well.",
+      "parentUuid": "44676fe2_5b255fdd",
+      "range": {
+        "startLine": 3084,
+        "startChar": 0,
+        "endLine": 3087,
+        "endChar": 35
+      },
+      "revId": "a9af209f0ab69af2249d6de6359b79c09f7ed0e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4ae180c9_de8cd8b8",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 8
