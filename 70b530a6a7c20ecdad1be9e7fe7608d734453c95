@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "5d722041_9dda1273",
+        "filename": "go.mod",
+        "patchSetId": 15
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-01-24T19:55:07Z",
+      "side": 1,
+      "message": "Yea, totally me. I always run Go tip-of-tree, but this behaviour is really annoying.",
+      "parentUuid": "0573dada_aed884fd",
+      "revId": "70b530a6a7c20ecdad1be9e7fe7608d734453c95",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aacb4d8d_9d7d46fb",
         "filename": "ssl/internal.h",
         "patchSetId": 15
