@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff08c5e1_11b538c6",
+        "filename": "ssl/ssl_cert.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 805,
+      "author": {
+        "id": 9361
+      },
+      "writtenOn": "2019-01-24T20:20:48Z",
+      "side": 1,
+      "message": "oooh, nice catch Adam. I was a little too fast with that.",
+      "revId": "05742cb3ac09299b1943f21ff3bdb566710884e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
