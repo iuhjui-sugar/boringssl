@@ -124,10 +124,19 @@
 
 BSSL_NAMESPACE_BEGIN
 
-static int do_ssl3_write(SSL *ssl, int type, const uint8_t *in, unsigned len);
+// WriteResult contains the number of bytes of application data and padding that
+// have been written. For former can be <= 0 to indicate an error.
+typedef std::pair<int, unsigned> WriteResult;
+
+static WriteResult WriteError(int n) {
+  return std::make_pair(n, static_cast<unsigned>(0));
+}
+
+static WriteResult do_ssl3_write(SSL *ssl, int type, const uint8_t *in,
+                                 unsigned len, unsigned padding_len);
 
 int ssl3_write_app_data(SSL *ssl, bool *out_needs_handshake, const uint8_t *in,
-                        int len) {
+                        int len, unsigned padding_len) {
   assert(ssl_can_write(ssl));
   assert(!ssl->s3->aead_write_ctx->is_null_cipher());
 
@@ -138,11 +147,13 @@ int ssl3_write_app_data(SSL *ssl, bool *out_needs_handshake, const uint8_t *in,
     return -1;
   }
 
-  unsigned tot, n, nw;
+  unsigned tot, n, nw, padding_written;
 
   assert(ssl->s3->wnum <= INT_MAX);
   tot = ssl->s3->wnum;
+  padding_written = ssl->s3->wnum_padding;
   ssl->s3->wnum = 0;
+  ssl->s3->wnum_padding = 0;
 
   // Ensure that if we end up with a smaller value of data to write out than
   // the the original len from a write which didn't complete for non-blocking
@@ -151,7 +162,7 @@ int ssl3_write_app_data(SSL *ssl, bool *out_needs_handshake, const uint8_t *in,
   // end up with (len-tot) as a large number that will then promptly send
   // beyond the end of the users buffer ... so we trap and report the error in
   // a way the user will notice.
-  if (len < 0 || (size_t)len < tot) {
+  if (len < 0 || (size_t)len < tot || padding_written > padding_len) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_BAD_LENGTH);
     return -1;
   }
@@ -160,6 +171,8 @@ int ssl3_write_app_data(SSL *ssl, bool *out_needs_handshake, const uint8_t *in,
       !ssl->server && SSL_in_early_data(ssl) && ssl->s3->hs->can_early_write;
 
   n = len - tot;
+  padding_len -= padding_written;
+
   for (;;) {
     // max contains the maximum number of bytes that we can put into a record.
     unsigned max = ssl->max_send_fragment;
@@ -170,70 +183,87 @@ int ssl3_write_app_data(SSL *ssl, bool *out_needs_handshake, const uint8_t *in,
           ssl->session->ticket_max_early_data - ssl->s3->hs->early_data_written;
       if (max == 0) {
         ssl->s3->wnum = tot;
+        ssl->s3->wnum_padding = padding_written;
         ssl->s3->hs->can_early_write = false;
         *out_needs_handshake = true;
         return -1;
       }
     }
 
+    unsigned record_padding = 0;
     if (n > max) {
       nw = max;
     } else {
       nw = n;
+      record_padding = std::min(padding_len, max - nw);
     }
 
-    int ret = do_ssl3_write(ssl, SSL3_RT_APPLICATION_DATA, &in[tot], nw);
-    if (ret <= 0) {
+    WriteResult ret = do_ssl3_write(ssl, SSL3_RT_APPLICATION_DATA, &in[tot], nw,
+                                    record_padding);
+    if (ret.first < 0 || (ret.first == 0 && nw > 0)) {
       ssl->s3->wnum = tot;
-      return ret;
+      ssl->s3->wnum_padding = padding_written;
+      return ret.first;
     }
 
     if (is_early_data_write) {
-      ssl->s3->hs->early_data_written += ret;
+      ssl->s3->hs->early_data_written += ret.first;
     }
 
-    if (ret == (int)n || (ssl->mode & SSL_MODE_ENABLE_PARTIAL_WRITE)) {
-      return tot + ret;
-    }
+    n -= ret.first;
+    tot += ret.first;
+    padding_len -= ret.second;
+    padding_written += ret.second;
 
-    n -= ret;
-    tot += ret;
+    if ((n == 0 && padding_len == 0) ||
+        (ssl->mode & SSL_MODE_ENABLE_PARTIAL_WRITE)) {
+      return tot;
+    }
   }
 }
 
-static int ssl3_write_pending(SSL *ssl, int type, const uint8_t *in,
-                              unsigned int len) {
+static WriteResult ssl3_write_pending(SSL *ssl, int type, const uint8_t *in,
+                                      unsigned int len, unsigned padding_len) {
   if (ssl->s3->wpend_tot > (int)len ||
       (!(ssl->mode & SSL_MODE_ACCEPT_MOVING_WRITE_BUFFER) &&
        ssl->s3->wpend_buf != in) ||
-      ssl->s3->wpend_type != type) {
+      ssl->s3->wpend_type != type ||
+      ssl->s3->wpend_padding > padding_len) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_BAD_WRITE_RETRY);
-    return -1;
+    return WriteError(-1);
   }
 
   int ret = ssl_write_buffer_flush(ssl);
   if (ret <= 0) {
-    return ret;
+    return WriteError(ret);
   }
   ssl->s3->wpend_pending = false;
-  return ssl->s3->wpend_ret;
+  return std::make_pair(ssl->s3->wpend_ret, ssl->s3->wpend_padding);
 }
 
 // do_ssl3_write writes an SSL record of the given type.
-static int do_ssl3_write(SSL *ssl, int type, const uint8_t *in, unsigned len) {
+static WriteResult do_ssl3_write(SSL *ssl, int type, const uint8_t *in,
+                                 unsigned len, unsigned padding_len) {
   // If there is still data from the previous record, flush it.
   if (ssl->s3->wpend_pending) {
-    return ssl3_write_pending(ssl, type, in, len);
+    return ssl3_write_pending(ssl, type, in, len, padding_len);
+  }
+
+  if (len + padding_len < len) {
+    OPENSSL_PUT_ERROR(SSL, ERR_R_OVERFLOW);
+    return WriteError(-1);
   }
 
   SSLBuffer *buf = &ssl->s3->write_buffer;
-  if (len > SSL3_RT_MAX_PLAIN_LENGTH || buf->size() > 0) {
+  if (len + padding_len > SSL3_RT_MAX_PLAIN_LENGTH || buf->size() > 0) {
     OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
-    return -1;
+    return WriteError(-1);
   }
 
+  const bool need_seal = len > 0 || padding_len > 0;
+
   if (!tls_flush_pending_hs_data(ssl)) {
-    return -1;
+    return WriteError(-1);
   }
 
   size_t flight_len = 0;
@@ -243,21 +273,33 @@ static int do_ssl3_write(SSL *ssl, int type, const uint8_t *in, unsigned len) {
   }
 
   size_t max_out = flight_len;
-  if (len > 0) {
-    const size_t max_ciphertext_len = len + SSL_max_seal_overhead(ssl);
-    if (max_ciphertext_len < len || max_out + max_ciphertext_len < max_out) {
+  if (need_seal) {
+    size_t max_overhead = SSL_max_seal_overhead(ssl);
+    if (max_overhead + padding_len < max_overhead) {
       OPENSSL_PUT_ERROR(SSL, ERR_R_OVERFLOW);
-      return -1;
+      return WriteError(-1);
+    }
+    max_overhead += padding_len;
+
+    if (len + max_overhead < len) {
+      OPENSSL_PUT_ERROR(SSL, ERR_R_OVERFLOW);
+      return WriteError(-1);
+    }
+    const size_t max_ciphertext_len = len + max_overhead;
+
+    if (max_out + max_ciphertext_len < max_out) {
+      OPENSSL_PUT_ERROR(SSL, ERR_R_OVERFLOW);
+      return WriteError(-1);
     }
     max_out += max_ciphertext_len;
   }
 
   if (max_out == 0) {
-    return 0;
+    return WriteError(0);
   }
 
   if (!buf->EnsureCap(flight_len + ssl_seal_align_prefix_len(ssl), max_out)) {
-    return -1;
+    return WriteError(-1);
   }
 
   // Add any unflushed handshake data as a prefix. This may be a KeyUpdate
@@ -274,11 +316,12 @@ static int do_ssl3_write(SSL *ssl, int type, const uint8_t *in, unsigned len) {
     buf->DidWrite(flight_len);
   }
 
-  if (len > 0) {
+  if (need_seal) {
     size_t ciphertext_len;
     if (!tls_seal_record(ssl, buf->remaining().data(), &ciphertext_len,
-                         buf->remaining().size(), type, in, len)) {
-      return -1;
+                         buf->remaining().size(), type, in, len,
+                         padding_len)) {
+      return WriteError(-1);
     }
     buf->DidWrite(ciphertext_len);
   }
@@ -294,9 +337,10 @@ static int do_ssl3_write(SSL *ssl, int type, const uint8_t *in, unsigned len) {
   ssl->s3->wpend_type = type;
   ssl->s3->wpend_ret = len;
   ssl->s3->wpend_pending = true;
+  ssl->s3->wpend_padding = padding_len;
 
   // We now just need to write the buffer.
-  return ssl3_write_pending(ssl, type, in, len);
+  return ssl3_write_pending(ssl, type, in, len, padding_len);
 }
 
 ssl_open_record_t ssl3_open_app_data(SSL *ssl, Span<uint8_t> *out,
@@ -417,9 +461,10 @@ int ssl3_dispatch_alert(SSL *ssl) {
       return 0;
     }
   } else {
-    int ret = do_ssl3_write(ssl, SSL3_RT_ALERT, &ssl->s3->send_alert[0], 2);
-    if (ret <= 0) {
-      return ret;
+    WriteResult ret = do_ssl3_write(ssl, SSL3_RT_ALERT, &ssl->s3->send_alert[0],
+                                    2, 0 /* no padding */);
+    if (ret.first <= 0) {
+      return ret.first;
     }
   }
 

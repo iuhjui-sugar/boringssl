@@ -158,7 +158,8 @@ static bool add_record_to_flight(SSL *ssl, uint8_t type,
       !tls_seal_record(ssl,
                        (uint8_t *)ssl->s3->pending_flight->data +
                            ssl->s3->pending_flight->length,
-                       &len, max_out, type, in.data(), in.size())) {
+                       &len, max_out, type, in.data(), in.size(),
+                       0 /* no padding */)) {
     return false;
   }
 
