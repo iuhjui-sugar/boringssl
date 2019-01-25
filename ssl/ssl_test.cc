@@ -4353,7 +4353,7 @@ TEST(SSLTest, ApplyHandoffRemovesUnsupportedCurves) {
   EXPECT_EQ(1u, server->config->supported_group_list.size());
 }
 
-TEST(SSLTest, ZeroSizedWiteFlushesHandshakeMessages) {
+TEST(SSLTest, ZeroSizedWriteFlushesHandshakeMessages) {
   // If there are pending handshake mesages, an |SSL_write| of zero bytes should
   // flush them.
   bssl::UniquePtr<SSL_CTX> server_ctx(SSL_CTX_new(TLS_method()));
@@ -4380,6 +4380,90 @@ TEST(SSLTest, ZeroSizedWiteFlushesHandshakeMessages) {
   EXPECT_EQ(0u, BIO_wpending(client_wbio));
   EXPECT_EQ(0, SSL_write(client.get(), nullptr, 0));
   EXPECT_NE(0u, BIO_wpending(client_wbio));
+}
+
+TEST_P(SSLVersionTest, WritePaddedApplicationData) {
+  ASSERT_TRUE(Connect());
+  constexpr uint8_t kTestMsg[] = {'t', 'e', 's', 't'};
+
+  if (GetParam().ssl_method == VersionParam::is_dtls ||
+      version() < TLS1_3_VERSION) {
+    EXPECT_EQ(-1,
+              SSL_write_padded(client_.get(), kTestMsg, sizeof(kTestMsg), 1));
+    ERR_clear_error();
+    return;
+  }
+
+  uint8_t buf[sizeof(kTestMsg) + 1];
+
+  for (size_t padding_len : {1, 2, 4, 8, 16, 32, 64}) {
+    SCOPED_TRACE(padding_len);
+
+    EXPECT_EQ(static_cast<int>(sizeof(kTestMsg)),
+              SSL_write_padded(client_.get(), kTestMsg, sizeof(kTestMsg),
+                               padding_len));
+    EXPECT_EQ(static_cast<int>(sizeof(kTestMsg)),
+              SSL_read(server_.get(), buf, sizeof(buf)));
+  }
+
+  for (size_t padding_len = SSL3_RT_MAX_PLAIN_LENGTH - 16;
+       padding_len < SSL3_RT_MAX_PLAIN_LENGTH + 16; padding_len++) {
+    SCOPED_TRACE(padding_len);
+
+    EXPECT_EQ(static_cast<int>(sizeof(kTestMsg)),
+              SSL_write_padded(client_.get(), kTestMsg, sizeof(kTestMsg),
+                               padding_len));
+    EXPECT_EQ(static_cast<int>(sizeof(kTestMsg)),
+              SSL_read(server_.get(), buf, sizeof(buf)));
+    EXPECT_EQ(Bytes(buf, sizeof(kTestMsg)), Bytes(kTestMsg));
+  }
+
+  // Write a large amount of padding-only records and exceed the capacity of the
+  // pair BIO.
+  constexpr size_t kLargePadding = 1 << 16;
+  EXPECT_EQ(-1, SSL_write_padded(client_.get(), kTestMsg, sizeof(kTestMsg),
+                                 kLargePadding));
+  EXPECT_EQ(SSL_get_error(client_.get(), -1), SSL_ERROR_WANT_WRITE);
+  EXPECT_EQ(static_cast<int>(sizeof(kTestMsg)),
+            SSL_read(server_.get(), buf, sizeof(buf)));
+  EXPECT_EQ(Bytes(buf, sizeof(kTestMsg)), Bytes(kTestMsg));
+
+  for (;;) {
+    const int ret = SSL_write_padded(client_.get(), kTestMsg, sizeof(kTestMsg),
+                                     kLargePadding);
+    if (ret == -1) {
+      ASSERT_EQ(SSL_get_error(client_.get(), -1), SSL_ERROR_WANT_WRITE);
+    } else {
+      ASSERT_EQ(static_cast<int>(sizeof(kTestMsg)), ret);
+      break;
+    }
+
+    ASSERT_EQ(-1, SSL_read(server_.get(), buf, sizeof(buf)));
+    ASSERT_EQ(SSL_get_error(server_.get(), -1), SSL_ERROR_WANT_READ);
+  }
+
+  // PARTIAL_WRITE mode (or MOVING_WRITE_BUFFER) are disallowed when padding is
+  // being used.
+  SSL_set_mode(client_.get(), SSL_MODE_ENABLE_PARTIAL_WRITE);
+  EXPECT_EQ(-1, SSL_write_padded(client_.get(), kTestMsg, sizeof(kTestMsg), 1));
+  ERR_clear_error();
+
+  SSL_clear_mode(client_.get(), SSL_MODE_ENABLE_PARTIAL_WRITE);
+  // Write such a huge amount of padding that the server_ hits the limit on the
+  // number of consecutive empty records.
+  constexpr size_t kHugePadding = 1 << 22;
+  for (;;) {
+    EXPECT_EQ(-1, SSL_write_padded(client_.get(), nullptr, 0, kHugePadding));
+    EXPECT_EQ(SSL_get_error(client_.get(), -1), SSL_ERROR_WANT_WRITE);
+
+    EXPECT_EQ(-1, SSL_read(server_.get(), buf, sizeof(buf)));
+    if (SSL_get_error(server_.get(), -1) == SSL_ERROR_SSL) {
+      break;
+    }
+    EXPECT_EQ(SSL_get_error(server_.get(), -1), SSL_ERROR_WANT_READ);
+  }
+
+  ERR_clear_error();
 }
 
 TEST_P(SSLVersionTest, VerifyBeforeCertRequest) {

@@ -109,6 +109,7 @@
 #include <openssl/ssl.h>
 
 #include <assert.h>
+#include <limits.h>
 #include <string.h>
 
 #include <openssl/bytestring.h>
@@ -375,15 +376,31 @@ ssl_open_record_t tls_open_record(SSL *ssl, uint8_t *out_type,
 
 static bool do_seal_record(SSL *ssl, uint8_t *out_prefix, uint8_t *out,
                            uint8_t *out_suffix, uint8_t type, const uint8_t *in,
-                           const size_t in_len) {
+                           const size_t in_len, const size_t padding_len) {
   SSLAEADContext *aead = ssl->s3->aead_write_ctx.get();
   uint8_t *extra_in = NULL;
   size_t extra_in_len = 0;
+  uint8_t extra_stack_buf[8];
+  UniquePtr<uint8_t> extra_heap_buf;
+
   if (!aead->is_null_cipher() &&
       aead->ProtocolVersion() >= TLS1_3_VERSION) {
+    assert(padding_len < UINT_MAX);
+
     // TLS 1.3 hides the actual record type inside the encrypted data.
-    extra_in = &type;
-    extra_in_len = 1;
+    if (padding_len + 1 <= sizeof(extra_stack_buf)) {
+      extra_in = extra_stack_buf;
+    } else {
+      extra_heap_buf.reset(
+          reinterpret_cast<uint8_t *>(OPENSSL_malloc(padding_len + 1)));
+      extra_in = extra_heap_buf.get();
+    }
+
+    extra_in[0] = type;
+    OPENSSL_memset(&extra_in[1], 0, padding_len);
+    extra_in_len = 1 + padding_len;
+  } else {
+    assert(padding_len == 0);
   }
 
   size_t suffix_len, ciphertext_len;
@@ -440,13 +457,21 @@ static size_t tls_seal_scatter_prefix_len(const SSL *ssl, uint8_t type,
 }
 
 static bool tls_seal_scatter_suffix_len(const SSL *ssl, size_t *out_suffix_len,
-                                        uint8_t type, size_t in_len) {
+                                        uint8_t type, size_t in_len,
+                                        size_t padding_len) {
   size_t extra_in_len = 0;
   if (!ssl->s3->aead_write_ctx->is_null_cipher() &&
       ssl->s3->aead_write_ctx->ProtocolVersion() >= TLS1_3_VERSION) {
+    if (padding_len + 1 == 0) {
+      return false;
+    }
+
     // TLS 1.3 adds an extra byte for encrypted record type.
-    extra_in_len = 1;
+    extra_in_len = 1 + padding_len;
+  } else if (padding_len != 0) {
+    return false;
   }
+
   if (type == SSL3_RT_APPLICATION_DATA &&  // clang-format off
       in_len > 1 &&
       ssl_needs_record_splitting(ssl)) {
@@ -460,13 +485,14 @@ static bool tls_seal_scatter_suffix_len(const SSL *ssl, size_t *out_suffix_len,
 // tls_seal_scatter_record seals a new record of type |type| and body |in| and
 // splits it between |out_prefix|, |out|, and |out_suffix|. Exactly
 // |tls_seal_scatter_prefix_len| bytes are written to |out_prefix|, |in_len|
-// bytes to |out|, and |tls_seal_scatter_suffix_len| bytes to |out_suffix|. It
-// returns one on success and zero on error. If enabled,
+// bytes to |out|, and |tls_seal_scatter_suffix_len| + |padding_len| bytes to
+// |out_suffix|. It returns one on success and zero on error. If enabled,
 // |tls_seal_scatter_record| implements TLS 1.0 CBC 1/n-1 record splitting and
 // may write two records concatenated.
 static bool tls_seal_scatter_record(SSL *ssl, uint8_t *out_prefix, uint8_t *out,
                                    uint8_t *out_suffix, uint8_t type,
-                                   const uint8_t *in, size_t in_len) {
+                                   const uint8_t *in, size_t in_len,
+                                   size_t padding_len) {
   if (type == SSL3_RT_APPLICATION_DATA && in_len > 1 &&
       ssl_needs_record_splitting(ssl)) {
     assert(ssl->s3->aead_write_ctx->ExplicitNonceLen() == 0);
@@ -477,7 +503,7 @@ static bool tls_seal_scatter_record(SSL *ssl, uint8_t *out_prefix, uint8_t *out,
     uint8_t *split_suffix = split_body + 1;
 
     if (!do_seal_record(ssl, out_prefix, split_body, split_suffix, type, in,
-                        1)) {
+                        1, 0 /* no padding */)) {
       return false;
     }
 
@@ -495,7 +521,7 @@ static bool tls_seal_scatter_record(SSL *ssl, uint8_t *out_prefix, uint8_t *out,
     // (header[:-1]) and |out| (header[-1:]).
     uint8_t tmp_prefix[SSL3_RT_HEADER_LENGTH];
     if (!do_seal_record(ssl, tmp_prefix, out + 1, out_suffix, type, in + 1,
-                        in_len - 1)) {
+                        in_len - 1, 0 /* no padding */)) {
       return false;
     }
     assert(tls_seal_scatter_prefix_len(ssl, type, in_len) ==
@@ -506,12 +532,13 @@ static bool tls_seal_scatter_record(SSL *ssl, uint8_t *out_prefix, uint8_t *out,
     return true;
   }
 
-  return do_seal_record(ssl, out_prefix, out, out_suffix, type, in, in_len);
+  return do_seal_record(ssl, out_prefix, out, out_suffix, type, in, in_len,
+                        padding_len);
 }
 
 bool tls_seal_record(SSL *ssl, uint8_t *out, size_t *out_len,
                      size_t max_out_len, uint8_t type, const uint8_t *in,
-                     size_t in_len) {
+                     size_t in_len, size_t padding_len) {
   if (buffers_alias(in, in_len, out, max_out_len)) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_OUTPUT_ALIASES_INPUT);
     return false;
@@ -519,7 +546,7 @@ bool tls_seal_record(SSL *ssl, uint8_t *out, size_t *out_len,
 
   const size_t prefix_len = tls_seal_scatter_prefix_len(ssl, type, in_len);
   size_t suffix_len;
-  if (!tls_seal_scatter_suffix_len(ssl, &suffix_len, type, in_len)) {
+  if (!tls_seal_scatter_suffix_len(ssl, &suffix_len, type, in_len, padding_len)) {
     return false;
   }
   if (in_len + prefix_len < in_len ||
@@ -535,7 +562,8 @@ bool tls_seal_record(SSL *ssl, uint8_t *out, size_t *out_len,
   uint8_t *prefix = out;
   uint8_t *body = out + prefix_len;
   uint8_t *suffix = body + in_len;
-  if (!tls_seal_scatter_record(ssl, prefix, body, suffix, type, in, in_len)) {
+  if (!tls_seal_scatter_record(ssl, prefix, body, suffix, type, in, in_len,
+                               padding_len)) {
     return false;
   }
 
@@ -642,7 +670,7 @@ size_t SealRecordSuffixLen(const SSL *ssl, const size_t plaintext_len) {
   assert(plaintext_len <= SSL3_RT_MAX_PLAIN_LENGTH);
   size_t suffix_len;
   if (!tls_seal_scatter_suffix_len(ssl, &suffix_len, SSL3_RT_APPLICATION_DATA,
-                                   plaintext_len)) {
+                                   plaintext_len, 0 /* no padding */)) {
     assert(false);
     OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
     return 0;
@@ -672,7 +700,7 @@ bool SealRecord(SSL *ssl, const Span<uint8_t> out_prefix,
   }
   return tls_seal_scatter_record(ssl, out_prefix.data(), out.data(),
                                  out_suffix.data(), SSL3_RT_APPLICATION_DATA,
-                                 in.data(), in.size());
+                                 in.data(), in.size(), 0 /* no padding */);
 }
 
 BSSL_NAMESPACE_END

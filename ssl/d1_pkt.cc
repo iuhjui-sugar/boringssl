@@ -188,7 +188,7 @@ ssl_open_record_t dtls1_open_app_data(SSL *ssl, Span<uint8_t> *out,
 }
 
 int dtls1_write_app_data(SSL *ssl, bool *out_needs_handshake, const uint8_t *in,
-                         int len) {
+                         int len, unsigned padding_len) {
   assert(!SSL_in_init(ssl));
   *out_needs_handshake = false;
 
@@ -202,7 +202,7 @@ int dtls1_write_app_data(SSL *ssl, bool *out_needs_handshake, const uint8_t *in,
     return -1;
   }
 
-  if (len < 0) {
+  if (len < 0 || padding_len != 0) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_BAD_LENGTH);
     return -1;
   }

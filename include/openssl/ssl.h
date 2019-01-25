@@ -394,6 +394,14 @@ OPENSSL_EXPORT int SSL_pending(const SSL *ssl);
 // https://crbug.com/466303.
 OPENSSL_EXPORT int SSL_write(SSL *ssl, const void *buf, int num);
 
+// SSL_write_padded acts like |SSL_write|, but additionally writes |padding_len|
+// bytes of padding. This padding is indistinguishable from application data
+// from the point of view of the network. Sending padded records is only valid
+// on TLS 1.3 connections and when neither of |SSL_MODE_ENABLE_PARTIAL_WRITE|
+// nor |SSL_MODE_ACCEPT_MOVING_WRITE_BUFFER| is set.
+OPENSSL_EXPORT int SSL_write_padded(SSL *ssl, const void *buf, size_t num,
+                                    size_t padding_len);
+
 // SSL_KEY_UPDATE_REQUESTED indicates that the peer should reply to a KeyUpdate
 // message with its own, thus updating traffic secrets for both directions on
 // the connection.

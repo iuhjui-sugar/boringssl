@@ -866,19 +866,22 @@ enum ssl_open_record_t dtls_open_record(SSL *ssl, uint8_t *out_type,
 // mess.
 size_t ssl_seal_align_prefix_len(const SSL *ssl);
 
-// tls_seal_record seals a new record of type |type| and body |in| and writes it
-// to |out|. At most |max_out| bytes will be written. It returns true on success
-// and false on error. If enabled, |tls_seal_record| implements TLS 1.0 CBC
-// 1/n-1 record splitting and may write two records concatenated.
+// tls_seal_record seals a new record of type |type| and body |in| and
+// |padding_len| bytes of padding, and writes it to |out|. At most |max_out|
+// bytes will be written. It returns true on success and false on error. If
+// enabled, |tls_seal_record| implements TLS 1.0 CBC 1/n-1 record splitting and
+// may write two records concatenated.
 //
 // For a large record, the bulk of the ciphertext will begin
 // |ssl_seal_align_prefix_len| bytes into out. Aligning |out| appropriately may
-// improve performance. It writes at most |in_len| + |SSL_max_seal_overhead|
-// bytes to |out|.
+// improve performance. It writes at most |in_len| + |padding_len| +
+// |SSL_max_seal_overhead| bytes to |out|.
 //
-// |in| and |out| may not alias.
+// |in| and |out| may not alias. |padding_len| must be zero unless the current
+// state of the TLS connection supports padded records.
 bool tls_seal_record(SSL *ssl, uint8_t *out, size_t *out_len, size_t max_out,
-                     uint8_t type, const uint8_t *in, size_t in_len);
+                     uint8_t type, const uint8_t *in, size_t in_len,
+                     size_t padding_len);
 
 enum dtls1_use_epoch_t {
   dtls1_use_previous_epoch,
@@ -1972,7 +1975,7 @@ struct SSL_PROTOCOL_METHOD {
                                      size_t *out_consumed, uint8_t *out_alert,
                                      Span<uint8_t> in);
   int (*write_app_data)(SSL *ssl, bool *out_needs_handshake, const uint8_t *buf,
-                        int len);
+                        int len, unsigned padding_len);
   int (*dispatch_alert)(SSL *ssl);
   // init_message begins a new handshake message of type |type|. |cbb| is the
   // root CBB to be passed into |finish_message|. |*body| is set to a child CBB
@@ -2147,10 +2150,12 @@ struct SSL3_STATE {
   Span<uint8_t> pending_app_data;
 
   // partial write - check the numbers match
-  unsigned int wnum = 0;  // number of bytes sent so far
-  int wpend_tot = 0;      // number bytes written
+  unsigned wnum = 0;  // number of bytes sent so far
+  unsigned wnum_padding = 0;  // number of padding bytes sent so far
+  int wpend_tot = 0;  // number bytes written
   int wpend_type = 0;
   int wpend_ret = 0;  // number of bytes submitted
+  unsigned wpend_padding = 0;  // number of padding bytes in pending record.
   const uint8_t *wpend_buf = nullptr;
 
   // read_shutdown is the shutdown state for the read half of the connection.
@@ -2682,7 +2687,7 @@ ssl_open_record_t ssl3_open_change_cipher_spec(SSL *ssl, size_t *out_consumed,
                                                uint8_t *out_alert,
                                                Span<uint8_t> in);
 int ssl3_write_app_data(SSL *ssl, bool *out_needs_handshake, const uint8_t *buf,
-                        int len);
+                        int len, unsigned padding_len);
 
 bool ssl3_new(SSL *ssl);
 void ssl3_free(SSL *ssl);
@@ -2715,7 +2720,7 @@ ssl_open_record_t dtls1_open_change_cipher_spec(SSL *ssl, size_t *out_consumed,
                                                 Span<uint8_t> in);
 
 int dtls1_write_app_data(SSL *ssl, bool *out_needs_handshake,
-                         const uint8_t *buf, int len);
+                         const uint8_t *buf, int len, unsigned padding_len);
 
 // dtls1_write_record sends a record. It returns one on success and <= 0 on
 // error.
