@@ -141,6 +141,7 @@
 #include <openssl/ssl.h>
 
 #include <assert.h>
+#include <limits.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -1097,16 +1098,25 @@ int SSL_peek(SSL *ssl, void *buf, int num) {
   return static_cast<int>(todo);
 }
 
-int SSL_write(SSL *ssl, const void *buf, int num) {
+static int ssl_write_padded(SSL *ssl, const void *buf, size_t num,
+                            size_t padding_len) {
   ssl_reset_error_state(ssl);
 
-  if (ssl->quic_method != nullptr) {
+  if (ssl->quic_method != nullptr ||
+      (padding_len != 0 &&
+       (ssl->mode & (SSL_MODE_ENABLE_PARTIAL_WRITE |
+                     SSL_MODE_ACCEPT_MOVING_WRITE_BUFFER)))) {
     OPENSSL_PUT_ERROR(SSL, ERR_R_SHOULD_NOT_HAVE_BEEN_CALLED);
-    return 0;
+    return -1;
   }
 
   if (ssl->do_handshake == NULL) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_UNINITIALIZED);
+    return -1;
+  }
+
+  if (num > INT_MAX || padding_len > UINT_MAX) {
+    OPENSSL_PUT_ERROR(SSL, ERR_R_OVERFLOW);
     return -1;
   }
 
@@ -1130,10 +1140,30 @@ int SSL_write(SSL *ssl, const void *buf, int num) {
       }
     }
 
-    ret = ssl->method->write_app_data(ssl, &needs_handshake,
-                                      (const uint8_t *)buf, num);
+    ret = ssl->method->write_app_data(
+        ssl, &needs_handshake, (const uint8_t *)buf, num, padding_len);
   } while (needs_handshake);
   return ret;
+}
+
+int SSL_write(SSL *ssl, const void *buf, int num) {
+  if (num < 0) {
+    OPENSSL_PUT_ERROR(SSL, ERR_R_OVERFLOW);
+    return -1;
+  }
+
+  return ssl_write_padded(ssl, buf, num, 0 /* no padding */);
+}
+
+int SSL_write_ex_padded(SSL *ssl, const void *buf, size_t num,
+                        size_t padding_len, size_t *written) {
+  const int ret = ssl_write_padded(ssl, buf, num, padding_len);
+  if (ret <= 0) {
+    return 0;
+  }
+
+  *written = ret;
+  return 1;
 }
 
 int SSL_key_update(SSL *ssl, int request_type) {
