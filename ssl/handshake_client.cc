@@ -919,6 +919,7 @@ static enum ssl_hs_wait_t do_reverify_server_certificate(SSL_HANDSHAKE *hs) {
 
 static enum ssl_hs_wait_t do_read_server_key_exchange(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
+
   SSLMessage msg;
   if (!ssl->method->get_message(ssl, &msg)) {
     return ssl_hs_read_message;
@@ -1236,10 +1237,41 @@ static enum ssl_hs_wait_t do_send_client_certificate(SSL_HANDSHAKE *hs) {
 static_assert(sizeof(size_t) >= sizeof(unsigned),
               "size_t is smaller than unsigned");
 
+enum ssl_key_usage_bit_t {
+      key_usage_bit_digital_signature = 0,
+      key_usage_bit_encipherment = 2,
+};
+
 static enum ssl_hs_wait_t do_send_client_key_exchange(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
   ScopedCBB cbb;
   CBB body;
+  if (ssl_cipher_uses_certificate_auth(hs->new_cipher)) {
+    CRYPTO_BUFFER *leaf = sk_CRYPTO_BUFFER_value(hs->new_session->certs.get(), 0);
+    CBS leaf_cbs;
+    CBS_init(&leaf_cbs, CRYPTO_BUFFER_data(leaf), CRYPTO_BUFFER_len(leaf));
+    EVP_PKEY *pkey = hs->peer_pubkey.get();
+
+    // Check key usages for all key types but RSA. This is needed to distinguish
+    // ECDH certificates, which we do not support, from ECDSA certificates. In
+    // principle, we should check RSA key usages based on cipher, but this breaks
+    // buggy antivirus deployments. Other key types are always used for signing.
+    //
+    // TODO(davidben): Get more recent data on RSA key usages.
+    if (EVP_PKEY_id(pkey) != EVP_PKEY_RSA) {
+      if (!ssl_cert_check_key_usage(&leaf_cbs, key_usage_bit_digital_signature)) {
+        return ssl_hs_error;
+      }
+    } else {
+      // Gate enforcement for RSA keys behind the enforce_key_usage flag.
+      if (ssl->config->enforce_key_usage) {
+        if(!ssl_cert_check_key_usage(&leaf_cbs, key_usage_bit_encipherment)) {
+          return ssl_hs_error;
+        }
+      }
+    }
+  }
+
   if (!ssl->method->init_message(ssl, cbb.get(), &body,
                                  SSL3_MT_CLIENT_KEY_EXCHANGE)) {
     return ssl_hs_error;

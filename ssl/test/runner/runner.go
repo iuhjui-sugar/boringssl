@@ -14147,7 +14147,100 @@ func addECDSAKeyUsageTests() {
 				Certificates: []Certificate{cert},
 			},
 			shouldFail:    true,
-			expectedError: ":ECC_CERT_NOT_FOR_SIGNING:",
+			expectedError: ":KEY_USAGE_BIT_INCORRECT:",
+		})
+	}
+}
+
+func addRSAKeyUsageTests() {
+	priv, err := rsa.GenerateKey(rand.Reader, 2048)
+
+	serialNumberLimit := new(big.Int).Lsh(big.NewInt(1), 128)
+	serialNumber, err := rand.Int(rand.Reader, serialNumberLimit)
+	if err != nil {
+		panic(err)
+	}
+
+	dsTemplate := x509.Certificate{
+		SerialNumber: serialNumber,
+		Subject: pkix.Name{
+			Organization: []string{"Acme Co"},
+		},
+		NotBefore: time.Now(),
+		NotAfter:  time.Now(),
+
+		KeyUsage:              x509.KeyUsageDigitalSignature,
+		BasicConstraintsValid: true,
+	}
+
+	encTemplate := x509.Certificate{
+		SerialNumber: serialNumber,
+		Subject: pkix.Name{
+			Organization: []string{"Acme Co"},
+		},
+		NotBefore: time.Now(),
+		NotAfter:  time.Now(),
+
+		KeyUsage:              x509.KeyUsageKeyEncipherment,
+		BasicConstraintsValid: true,
+	}
+
+	dsDerBytes, err := x509.CreateCertificate(rand.Reader, &dsTemplate, &dsTemplate, &priv.PublicKey, priv)
+	if err != nil {
+		panic(err)
+	}
+
+	encDerBytes, err := x509.CreateCertificate(rand.Reader, &encTemplate, &encTemplate, &priv.PublicKey, priv)
+	if err != nil {
+		panic(err)
+	}
+
+	dsCert := Certificate{
+		Certificate: [][]byte{dsDerBytes},
+		PrivateKey:  priv,
+	}
+
+	encCert := Certificate{
+		Certificate: [][]byte{encDerBytes},
+		PrivateKey:  priv,
+	}
+
+	for _, ver := range tlsVersions {
+		if ver.version < VersionTLS12 {
+			continue
+		}
+		if ver.version >= VersionTLS13 {
+			continue
+		}
+
+		testCases = append(testCases, testCase{
+			testType: clientTest,
+			name:     "RSAKeyUsageEncipherment-" + ver.name,
+			config: Config{
+				MinVersion:   ver.version,
+				MaxVersion:   ver.version,
+				Certificates: []Certificate{encCert},
+			},
+			tls13Variant:  ver.tls13Variant,
+			flags: []string{
+				"-enforce-key-usage",
+			},
+		})
+
+		testCases = append(testCases, testCase{
+			testType: clientTest,
+			name:     "RSAKeyUsageDigitalSignature-" + ver.name,
+			config: Config{
+				MinVersion:   ver.version,
+				MaxVersion:   ver.version,
+				Certificates: []Certificate{dsCert},
+			},
+			shouldFail:    true,
+			expectedError: ":KEY_USAGE_BIT_INCORRECT:",
+			tls13Variant:  ver.tls13Variant,
+			flags: []string{
+				"-enforce-key-usage",
+			},
 		})
 	}
 }
@@ -14991,6 +15084,7 @@ func main() {
 	addCertificateTests()
 	addRetainOnlySHA256ClientCertTests()
 	addECDSAKeyUsageTests()
+	addRSAKeyUsageTests()
 	addExtraHandshakeTests()
 	addOmitExtensionsTests()
 	addCertCompressionTests()
