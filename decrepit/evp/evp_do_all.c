@@ -27,7 +27,6 @@ void EVP_CIPHER_do_all_sorted(void (*callback)(const EVP_CIPHER *cipher,
   callback(EVP_aes_256_ctr(), "AES-256-CTR", NULL, arg);
   callback(EVP_aes_256_ecb(), "AES-256-ECB", NULL, arg);
   callback(EVP_aes_256_ofb(), "AES-256-OFB", NULL, arg);
-  callback(EVP_aes_256_xts(), "AES-256-XTS", NULL, arg);
   callback(EVP_des_cbc(), "DES-CBC", NULL, arg);
   callback(EVP_des_ecb(), "DES-ECB", NULL, arg);
   callback(EVP_des_ede(), "DES-EDE", NULL, arg);
@@ -45,7 +44,6 @@ void EVP_CIPHER_do_all_sorted(void (*callback)(const EVP_CIPHER *cipher,
   callback(EVP_aes_256_ctr(), "aes-256-ctr", NULL, arg);
   callback(EVP_aes_256_ecb(), "aes-256-ecb", NULL, arg);
   callback(EVP_aes_256_ofb(), "aes-256-ofb", NULL, arg);
-  callback(EVP_aes_256_xts(), "aes-256-xts", NULL, arg);
   callback(EVP_des_cbc(), "des-cbc", NULL, arg);
   callback(EVP_des_ecb(), "des-ecb", NULL, arg);
   callback(EVP_des_ede(), "des-ede", NULL, arg);
