@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "05f7d165_bd10bd5f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-01-28T20:33:08Z",
+      "side": 1,
+      "message": "This may be OK to do if the valid values for the parameter would fit in an `int`/`unsigned` anyway. For example, I think it is OK to change the `window` parameters of the bn_* functions that take such a parameter, since the valid values are way smaller than the range of type type. In those cases it\u0027s still a win to change the parameter to the full-word sized type in order to avoid needing to cast from a `crypt_word_t` to an `int`/`unsigned`.",
+      "range": {
+        "startLine": 52,
+        "startChar": 67,
+        "endLine": 54,
+        "endChar": 64
+      },
+      "revId": "1b0870042410b1fd3f832c736f3e8d2f8dfcbffc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
