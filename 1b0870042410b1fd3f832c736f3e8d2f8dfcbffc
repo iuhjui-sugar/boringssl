@@ -22,6 +22,30 @@
       "revId": "1b0870042410b1fd3f832c736f3e8d2f8dfcbffc",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d24e72b_809c6f92",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-28T21:09:19Z",
+      "side": 1,
+      "message": "Good point. Amended the long commit message. :-)",
+      "parentUuid": "05f7d165_bd10bd5f",
+      "range": {
+        "startLine": 52,
+        "startChar": 67,
+        "endLine": 54,
+        "endChar": 64
+      },
+      "revId": "1b0870042410b1fd3f832c736f3e8d2f8dfcbffc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
