@@ -2697,6 +2697,13 @@ void SSL_CTX_set_reverify_on_resume(SSL_CTX *ctx, int enabled) {
   ctx->reverify_on_resume = !!enabled;
 }
 
+void SSL_set_enforce_rsa_key_usage(SSL *ssl, int enabled) {
+  if (!ssl->config) {
+    return;
+  }
+  ssl->config->enforce_rsa_key_usage = !!enabled;
+}
+
 void SSL_set_renegotiate_mode(SSL *ssl, enum ssl_renegotiate_mode_t mode) {
   ssl->renegotiate_mode = mode;
 
