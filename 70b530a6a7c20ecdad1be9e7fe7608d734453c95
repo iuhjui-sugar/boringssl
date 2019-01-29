@@ -195,6 +195,24 @@
     },
     {
       "key": {
+        "uuid": "b535e72e_338143e1",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 15
+      },
+      "lineNbr": 1392,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-29T22:10:01Z",
+      "side": 1,
+      "message": "But we do care about it being injective, right? (It is injective since X.509 is self-delimiting, but hence wondering about other formats.)",
+      "parentUuid": "3013a6ef_8d799c9c",
+      "revId": "70b530a6a7c20ecdad1be9e7fe7608d734453c95",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d099cc8_e90e8fc8",
         "filename": "ssl/test/runner/handshake_client.go",
         "patchSetId": 15
