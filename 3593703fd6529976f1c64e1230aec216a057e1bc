@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0cbe2211_a397a32c",
+        "filename": "crypto/cipher_extra/cipher_extra.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-29T16:51:02Z",
+      "side": 1,
+      "message": "This has the consequence of increasing binary size for all consumers that pull in EVP_get_cipherbyname. But size-conscious code already shouldn\u0027t be using this function, so I think it\u0027s fine.",
+      "revId": "3593703fd6529976f1c64e1230aec216a057e1bc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
