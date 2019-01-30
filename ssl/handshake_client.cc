@@ -343,8 +343,7 @@ static bool parse_supported_versions(SSL_HANDSHAKE *hs, uint16_t *version,
 
   SSL *const ssl = hs->ssl;
   CBS copy = *in, extensions;
-  if (!CBS_get_u16_length_prefixed(&copy, &extensions) ||
-      CBS_len(&copy) != 0) {
+  if (!CBS_get_u16_length_prefixed(&copy, &extensions) || CBS_len(&copy) != 0) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
     ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
     return false;
@@ -353,8 +352,8 @@ static bool parse_supported_versions(SSL_HANDSHAKE *hs, uint16_t *version,
   bool have_supported_versions;
   CBS supported_versions;
   const SSL_EXTENSION_TYPE ext_types[] = {
-    {TLSEXT_TYPE_supported_versions, &have_supported_versions,
-     &supported_versions},
+      {TLSEXT_TYPE_supported_versions, &have_supported_versions,
+       &supported_versions},
   };
 
   uint8_t alert = SSL_AD_DECODE_ERROR;
@@ -366,9 +365,8 @@ static bool parse_supported_versions(SSL_HANDSHAKE *hs, uint16_t *version,
   }
 
   // Override the outer version with the extension, if present.
-  if (have_supported_versions &&
-      (!CBS_get_u16(&supported_versions, version) ||
-       CBS_len(&supported_versions) != 0)) {
+  if (have_supported_versions && (!CBS_get_u16(&supported_versions, version) ||
+                                  CBS_len(&supported_versions) != 0)) {
     ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
     return false;
   }
@@ -416,8 +414,7 @@ static enum ssl_hs_wait_t do_start_connect(SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
-  if (ssl->session != nullptr &&
-      !ssl->s3->initial_handshake_complete &&
+  if (ssl->session != nullptr && !ssl->s3->initial_handshake_complete &&
       ssl->session->session_id_length > 0) {
     hs->session_id_len = ssl->session->session_id_length;
     OPENSSL_memcpy(hs->session_id, ssl->session->session_id,
@@ -471,16 +468,17 @@ static enum ssl_hs_wait_t do_enter_early_data(SSL_HANDSHAKE *hs) {
   return ssl_hs_ok;
 }
 
-static enum ssl_hs_wait_t do_early_reverify_server_certificate(SSL_HANDSHAKE *hs) {
+static enum ssl_hs_wait_t do_early_reverify_server_certificate(
+    SSL_HANDSHAKE *hs) {
   if (hs->ssl->ctx->reverify_on_resume) {
     switch (ssl_reverify_peer_cert(hs)) {
-    case ssl_verify_ok:
-      break;
-    case ssl_verify_invalid:
-      return ssl_hs_error;
-    case ssl_verify_retry:
-      hs->state = state_early_reverify_server_certificate;
-      return ssl_hs_certificate_verify;
+      case ssl_verify_ok:
+        break;
+      case ssl_verify_invalid:
+        return ssl_hs_error;
+      case ssl_verify_retry:
+        hs->state = state_early_reverify_server_certificate;
+        return ssl_hs_certificate_verify;
     }
   }
 
@@ -860,8 +858,7 @@ static enum ssl_hs_wait_t do_read_certificate_status(SSL_HANDSHAKE *hs) {
   if (!CBS_get_u8(&certificate_status, &status_type) ||
       status_type != TLSEXT_STATUSTYPE_ocsp ||
       !CBS_get_u24_length_prefixed(&certificate_status, &ocsp_response) ||
-      CBS_len(&ocsp_response) == 0 ||
-      CBS_len(&certificate_status) != 0) {
+      CBS_len(&ocsp_response) == 0 || CBS_len(&certificate_status) != 0) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
     ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
     return ssl_hs_error;
@@ -1007,8 +1004,7 @@ static enum ssl_hs_wait_t do_read_server_key_exchange(SSL_HANDSHAKE *hs) {
 
     // Initialize ECDH and save the peer public key for later.
     hs->key_shares[0] = SSLKeyShare::Create(group_id);
-    if (!hs->key_shares[0] ||
-        !hs->peer_key.CopyFrom(point)) {
+    if (!hs->key_shares[0] || !hs->peer_key.CopyFrom(point)) {
       return ssl_hs_error;
     }
   } else if (!(alg_k & SSL_kPSK)) {
@@ -1223,8 +1219,7 @@ static enum ssl_hs_wait_t do_send_client_certificate(SSL_HANDSHAKE *hs) {
     hs->transcript.FreeBuffer();
   }
 
-  if (!ssl_on_certificate_selected(hs) ||
-      !ssl_output_cert_chain(hs)) {
+  if (!ssl_on_certificate_selected(hs) || !ssl_output_cert_chain(hs)) {
     return ssl_hs_error;
   }
 
@@ -1248,6 +1243,28 @@ static enum ssl_hs_wait_t do_send_client_key_exchange(SSL_HANDSHAKE *hs) {
   Array<uint8_t> pms;
   uint32_t alg_k = hs->new_cipher->algorithm_mkey;
   uint32_t alg_a = hs->new_cipher->algorithm_auth;
+  if (ssl_cipher_uses_certificate_auth(hs->new_cipher)) {
+    CRYPTO_BUFFER *leaf =
+        sk_CRYPTO_BUFFER_value(hs->new_session->certs.get(), 0);
+    CBS leaf_cbs;
+    CBS_init(&leaf_cbs, CRYPTO_BUFFER_data(leaf), CRYPTO_BUFFER_len(leaf));
+
+    // Check the key usage matches the cipher suite. We do this
+    // unconditionally for non-RSA certificates. In particular, it's
+    // needed to distinguish ECDH certificates, which we do not
+    // support, from ECDSA certificates. Historically, we have not
+    // checked RSA key usages, so it is controlled by a flag for
+    // now. See https://crbug.com/795089.
+    ssl_key_usage_t intended_use = (alg_k & SSL_kRSA)
+                                       ? key_usage_encipherment
+                                       : key_usage_digital_signature;
+    if (ssl->config->enforce_rsa_key_usage ||
+        EVP_PKEY_id(hs->peer_pubkey.get()) != EVP_PKEY_RSA) {
+      if (!ssl_cert_check_key_usage(&leaf_cbs, intended_use)) {
+        return ssl_hs_error;
+      }
+    }
+  }
 
   // If using a PSK key exchange, prepare the pre-shared key.
   unsigned psk_len = 0;
@@ -1311,8 +1328,7 @@ static enum ssl_hs_wait_t do_send_client_key_exchange(SSL_HANDSHAKE *hs) {
         !CBB_reserve(&enc_pms, &ptr, RSA_size(rsa)) ||
         !RSA_encrypt(rsa, &enc_pms_len, ptr, RSA_size(rsa), pms.data(),
                      pms.size(), RSA_PKCS1_PADDING) ||
-        !CBB_did_write(&enc_pms, enc_pms_len) ||
-        !CBB_flush(&body)) {
+        !CBB_did_write(&enc_pms, enc_pms_len) || !CBB_flush(&body)) {
       return ssl_hs_error;
     }
   } else if (alg_k & SSL_kECDHE) {
@@ -1421,8 +1437,7 @@ static enum ssl_hs_wait_t do_send_client_certificate_verify(SSL_HANDSHAKE *hs) {
 
   size_t sig_len = max_sig_len;
   switch (ssl_private_key_sign(hs, ptr, &sig_len, max_sig_len,
-                               signature_algorithm,
-                               hs->transcript.buffer())) {
+                               signature_algorithm, hs->transcript.buffer())) {
     case ssl_private_key_success:
       break;
     case ssl_private_key_failure:
@@ -1432,8 +1447,7 @@ static enum ssl_hs_wait_t do_send_client_certificate_verify(SSL_HANDSHAKE *hs) {
       return ssl_hs_private_key_operation;
   }
 
-  if (!CBB_did_write(&child, sig_len) ||
-      !ssl_add_message_cbb(ssl, cbb.get())) {
+  if (!CBB_did_write(&child, sig_len) || !ssl_add_message_cbb(ssl, cbb.get())) {
     return ssl_hs_error;
   }
 
@@ -1518,11 +1532,9 @@ static bool can_false_start(const SSL_HANDSHAKE *hs) {
   // |SSL_CTX_set_ignore_tls13_downgrade| normally still retains Finished-based
   // downgrade protection, but False Start bypasses that. Thus, we disable False
   // Start based on the TLS 1.3 downgrade signal, even if otherwise unenforced.
-  if (SSL_is_dtls(ssl) ||
-      SSL_version(ssl) != TLS1_2_VERSION ||
+  if (SSL_is_dtls(ssl) || SSL_version(ssl) != TLS1_2_VERSION ||
       hs->new_cipher->algorithm_mkey != SSL_kECDHE ||
-      hs->new_cipher->algorithm_mac != SSL_AEAD ||
-      ssl->s3->tls13_downgrade) {
+      hs->new_cipher->algorithm_mac != SSL_AEAD || ssl->s3->tls13_downgrade) {
     return false;
   }
 
