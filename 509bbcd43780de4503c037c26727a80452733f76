@@ -53,6 +53,24 @@
     },
     {
       "key": {
+        "uuid": "6e14f223_88d324fd",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 3669,
+      "author": {
+        "id": 8939
+      },
+      "writtenOn": "2019-01-30T19:16:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "67c577c9_57e74ae0",
+      "revId": "509bbcd43780de4503c037c26727a80452733f76",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1129c558_0ff318fb",
         "filename": "ssl/handshake_client.cc",
         "patchSetId": 4
@@ -67,6 +85,24 @@
       "revId": "509bbcd43780de4503c037c26727a80452733f76",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e59c1f2_74ec766a",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 922,
+      "author": {
+        "id": 8939
+      },
+      "writtenOn": "2019-01-30T19:16:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1129c558_0ff318fb",
+      "revId": "509bbcd43780de4503c037c26727a80452733f76",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +123,24 @@
     },
     {
       "key": {
+        "uuid": "862d29be_d610c749",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1241,
+      "author": {
+        "id": 8939
+      },
+      "writtenOn": "2019-01-30T19:16:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47c64c0a_ba90dca0",
+      "revId": "509bbcd43780de4503c037c26727a80452733f76",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "515c5e72_8afac368",
         "filename": "ssl/handshake_client.cc",
         "patchSetId": 4
@@ -101,6 +155,24 @@
       "revId": "509bbcd43780de4503c037c26727a80452733f76",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c736a40_bcdb0adb",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1258,
+      "author": {
+        "id": 8939
+      },
+      "writtenOn": "2019-01-30T19:16:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "515c5e72_8afac368",
+      "revId": "509bbcd43780de4503c037c26727a80452733f76",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +193,24 @@
     },
     {
       "key": {
+        "uuid": "2f9498ae_860ac7ab",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1261,
+      "author": {
+        "id": 8939
+      },
+      "writtenOn": "2019-01-30T19:16:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70489bed_eaf612b3",
+      "revId": "509bbcd43780de4503c037c26727a80452733f76",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aa04c7f4_c42955a1",
         "filename": "ssl/handshake_client.cc",
         "patchSetId": 4
@@ -135,6 +225,24 @@
       "revId": "509bbcd43780de4503c037c26727a80452733f76",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbc0f222_21d72dcd",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 1268,
+      "author": {
+        "id": 8939
+      },
+      "writtenOn": "2019-01-30T19:16:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa04c7f4_c42955a1",
+      "revId": "509bbcd43780de4503c037c26727a80452733f76",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -161,6 +269,30 @@
     },
     {
       "key": {
+        "uuid": "ac1875e3_17ec75c6",
+        "filename": "ssl/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1194,
+      "author": {
+        "id": 8939
+      },
+      "writtenOn": "2019-01-30T19:16:47Z",
+      "side": 1,
+      "message": "Ah, thanks. Just learned emacs has a \"fill column\" and mine was set to 70.",
+      "parentUuid": "c8081726_e4cad815",
+      "range": {
+        "startLine": 1194,
+        "startChar": 24,
+        "endLine": 1194,
+        "endChar": 40
+      },
+      "revId": "509bbcd43780de4503c037c26727a80452733f76",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "042c83d1_cacadabf",
         "filename": "ssl/internal.h",
         "patchSetId": 4
@@ -181,6 +313,30 @@
       "revId": "509bbcd43780de4503c037c26727a80452733f76",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "594e9432_df65cf59",
+        "filename": "ssl/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 2547,
+      "author": {
+        "id": 8939
+      },
+      "writtenOn": "2019-01-30T19:16:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "042c83d1_cacadabf",
+      "range": {
+        "startLine": 2547,
+        "startChar": 5,
+        "endLine": 2547,
+        "endChar": 14
+      },
+      "revId": "509bbcd43780de4503c037c26727a80452733f76",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -218,6 +374,24 @@
     },
     {
       "key": {
+        "uuid": "14799176_0f58c4bb",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 14210,
+      "author": {
+        "id": 8939
+      },
+      "writtenOn": "2019-01-30T19:16:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "070deeb0_aa23c7f0",
+      "revId": "509bbcd43780de4503c037c26727a80452733f76",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1ea992a6_46f5cd71",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 4
@@ -241,6 +415,30 @@
     },
     {
       "key": {
+        "uuid": "893126f6_c3f01375",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 14272,
+      "author": {
+        "id": 8939
+      },
+      "writtenOn": "2019-01-30T19:16:47Z",
+      "side": 1,
+      "message": "Done; I compromised by testing one mismatched case for each.",
+      "parentUuid": "1ea992a6_46f5cd71",
+      "range": {
+        "startLine": 14272,
+        "startChar": 5,
+        "endLine": 14272,
+        "endChar": 28
+      },
+      "revId": "509bbcd43780de4503c037c26727a80452733f76",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bfe59777_c4093052",
         "filename": "ssl/tls13_both.cc",
         "patchSetId": 4
@@ -255,6 +453,24 @@
       "revId": "509bbcd43780de4503c037c26727a80452733f76",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab62efb7_86b3869c",
+        "filename": "ssl/tls13_both.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 8939
+      },
+      "writtenOn": "2019-01-30T19:16:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bfe59777_c4093052",
+      "revId": "509bbcd43780de4503c037c26727a80452733f76",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
