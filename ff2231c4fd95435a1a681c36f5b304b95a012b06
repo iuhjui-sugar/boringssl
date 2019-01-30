@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "540b6e52_4ace8e38",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 3669,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-30T20:25:46Z",
+      "side": 1,
+      "message": "keyUsage or key usage",
+      "range": {
+        "startLine": 3669,
+        "startChar": 56,
+        "endLine": 3669,
+        "endChar": 65
+      },
+      "revId": "ff2231c4fd95435a1a681c36f5b304b95a012b06",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e12cf78b_1b05042e",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1262,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-30T20:25:46Z",
+      "side": 1,
+      "message": "Mind reflowing this with M-q? I think it can be wrapped more loosely.",
+      "revId": "ff2231c4fd95435a1a681c36f5b304b95a012b06",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "407e917c_56e3754f",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-30T20:25:46Z",
+      "side": 1,
+      "message": "If you initialize enforce_rsa_key_usage here, that should clear the test failures I think.",
+      "revId": "ff2231c4fd95435a1a681c36f5b304b95a012b06",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
