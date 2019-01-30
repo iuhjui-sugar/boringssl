@@ -1,0 +1,152 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3360286f_24ed3fb5",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2159,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-30T17:47:18Z",
+      "side": 1,
+      "message": "Oh this mess. :-/",
+      "revId": "7b5c542459a70f805f3bfbd549bf26d0a328632c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6773ea05_b435cf1e",
+        "filename": "ssl/s3_pkt.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-30T17:47:18Z",
+      "side": 1,
+      "message": "I think we actually want to preferentially write the padding rather than the data when bounded. Suppose we manage to finish writing all the data, but not all the padding, and then the caller sets SSL_MODE_ENABLE_PARTIAL_WRITE. We\u0027ll tell the caller all the data was written, but the caller doesn\u0027t know the padding wasn\u0027t written yet.\n\nIt also means the other side won\u0027t start processing the message without the padding, which is probably epsilon better timing-wise, though that\u0027s pretty much hopeless.\n\nEdit: Ah, I see SSL_MODE_ENABLE_PARTIAL_WRITE is incompatible with padding, so that works. And I guess the padding-first strategy is still incompatible with passing input length of zero. I suppose yet another option is if SSL_write_padded looked like OpenSSL\u0027s SSL_write_ex and returned the amount of padding written, but maybe that\u0027s more complexity than is worth it?",
+      "revId": "7b5c542459a70f805f3bfbd549bf26d0a328632c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e523315e_9b01537a",
+        "filename": "ssl/s3_pkt.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-30T17:47:18Z",
+      "side": 1,
+      "message": "#include \u003calgorithm\u003e",
+      "range": {
+        "startLine": 198,
+        "startChar": 23,
+        "endLine": 198,
+        "endChar": 31
+      },
+      "revId": "7b5c542459a70f805f3bfbd549bf26d0a328632c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "054c8415_16666dd5",
+        "filename": "ssl/s3_pkt.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-30T17:47:18Z",
+      "side": 1,
+      "message": "I feel like this is the sort of thing that would be useful to import https://cs.chromium.org/chromium/src/base/numerics/checked_math.h?sq\u003dpackage:chromium\u0026dr\u003dCSs\u0026g\u003d0 for.",
+      "revId": "7b5c542459a70f805f3bfbd549bf26d0a328632c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f29cec5b_476fd3cd",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1126,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-30T17:47:18Z",
+      "side": 1,
+      "message": "OpenSSL has SSL_write_ex these days, which is a considerably more sane calling convention.\nhttps://www.openssl.org/docs/man1.1.1/man3/SSL_write_ex.html\n\nWe could mirror that instead. Later we can add SSL_write_ex and make SSL_write a wrapper.\n\nThere\u0027s also SSL_read_ex.\nhttps://www.openssl.org/docs/man1.1.1/man3/SSL_read_ex.html\n\nNB: SSL_read and SSL_write currently have this bizarre behavior where, if the custom BIO decides to return -42, it will get passed up through SSL_read and SSL_write to the caller. SSL_read_ex and SSL_write_ex throw that away, but it is unclear to me if OpenSSL has lost this behavior for SSL_read and SSL_write yet. They\u0027re still calling BIO_read and BIO_write rather than BIO_read_ex and BIO_write_ex internally.\n\nThis behavior is, TBH, a huge headache so I\u0027m game to just break it and see if anyone notices. We can just wedge something deep in the BIO_{read,write,ctrl} wrappers to assert and/or normalize all the BIO_METHOD return codes.",
+      "revId": "7b5c542459a70f805f3bfbd549bf26d0a328632c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53d0b989_d7ded069",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 4389,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-30T17:47:18Z",
+      "side": 1,
+      "message": "is_dtls() is a little bit shorter",
+      "range": {
+        "startLine": 4389,
+        "startChar": 6,
+        "endLine": 4389,
+        "endChar": 52
+      },
+      "revId": "7b5c542459a70f805f3bfbd549bf26d0a328632c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61cd4fe8_0bac015d",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-30T17:47:18Z",
+      "side": 1,
+      "message": "Nit: malloc failure check :-(",
+      "revId": "7b5c542459a70f805f3bfbd549bf26d0a328632c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0abcf4b6_a734665f",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-01-30T17:47:18Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "7b5c542459a70f805f3bfbd549bf26d0a328632c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
