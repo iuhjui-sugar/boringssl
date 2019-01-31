@@ -231,6 +231,24 @@
     },
     {
       "key": {
+        "uuid": "fa4a1a62_f11602db",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 15
+      },
+      "lineNbr": 1392,
+      "author": {
+        "id": 9381
+      },
+      "writtenOn": "2019-01-31T17:42:32Z",
+      "side": 1,
+      "message": "Please put the spec comments on the TLS mailing list! This is probably something that should change in -03, or at least be thought about.",
+      "parentUuid": "b535e72e_338143e1",
+      "revId": "70b530a6a7c20ecdad1be9e7fe7608d734453c95",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4d099cc8_e90e8fc8",
         "filename": "ssl/test/runner/handshake_client.go",
         "patchSetId": 15
