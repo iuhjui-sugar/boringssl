@@ -29,6 +29,7 @@
 #include "internal.h"
 #include "../../internal.h"
 #include "../delocate.h"
+#include "../fork_detect.h"
 
 
 // It's assumed that the operating system always has an unfailing source of
@@ -57,6 +58,7 @@ static const unsigned kReseedInterval = 4096;
 // rand_thread_state contains the per-thread state for the RNG.
 struct rand_thread_state {
   CTR_DRBG_STATE drbg;
+  uint64_t fork_generation;
   // calls is the number of generate calls made on |drbg| since it was last
   // (re)seeded. This is bound by |kReseedInterval|.
   unsigned calls;
@@ -259,6 +261,7 @@ void RAND_bytes_with_additional_data(uint8_t *out, size_t out_len,
     additional_data[i] ^= user_additional_data[i];
   }
 
+  uint64_t fork_generation = crypto_get_fork_generation();
   struct rand_thread_state stack_state;
   struct rand_thread_state *state =
       CRYPTO_get_thread_local(OPENSSL_THREAD_LOCAL_RAND);
@@ -280,6 +283,7 @@ void RAND_bytes_with_additional_data(uint8_t *out, size_t out_len,
       abort();
     }
     state->calls = 0;
+    state->fork_generation = fork_generation;
 
 #if defined(BORINGSSL_FIPS)
     if (state != &stack_state) {
@@ -296,7 +300,8 @@ void RAND_bytes_with_additional_data(uint8_t *out, size_t out_len,
 #endif
   }
 
-  if (state->calls >= kReseedInterval) {
+  if (state->calls >= kReseedInterval ||
+      state->fork_generation != fork_generation) {
     uint8_t seed[CTR_DRBG_ENTROPY_LEN];
     rand_get_seed(state, seed);
 #if defined(BORINGSSL_FIPS)
@@ -314,6 +319,7 @@ void RAND_bytes_with_additional_data(uint8_t *out, size_t out_len,
       abort();
     }
     state->calls = 0;
+    state->fork_generation = fork_generation;
   } else {
 #if defined(BORINGSSL_FIPS)
     CRYPTO_STATIC_MUTEX_lock_read(thread_states_list_lock_bss_get());
