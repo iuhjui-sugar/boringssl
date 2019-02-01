@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "87e31fde_0d7f7b39",
+        "filename": "ssl/s3_pkt.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2019-02-01T04:34:37Z",
+      "side": 1,
+      "message": "The other side processing the message too early is a good point. I\u0027ve switched that around.\n\nI think PARTIAL_WRITE mode is basically an anachronism at this point, right? I.e. we shouldn\u0027t worry about it for new APIs. At least that\u0027s what I\u0027m hoping here.",
+      "parentUuid": "6773ea05_b435cf1e",
+      "revId": "7b5c542459a70f805f3bfbd549bf26d0a328632c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e523315e_9b01537a",
         "filename": "ssl/s3_pkt.cc",
         "patchSetId": 2
@@ -56,6 +74,30 @@
       "revId": "7b5c542459a70f805f3bfbd549bf26d0a328632c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b90f9721_4f2ee03d",
+        "filename": "ssl/s3_pkt.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2019-02-01T04:34:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e523315e_9b01537a",
+      "range": {
+        "startLine": 198,
+        "startChar": 23,
+        "endLine": 198,
+        "endChar": 31
+      },
+      "revId": "7b5c542459a70f805f3bfbd549bf26d0a328632c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -93,6 +135,24 @@
     },
     {
       "key": {
+        "uuid": "10bf20d9_a808fd8b",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1126,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2019-02-01T04:34:37Z",
+      "side": 1,
+      "message": "Makes sense.\n\nI\u0027m just uploading this now and heading to bed. Open question: should the |written| output of |SSL_write_ex_padded| count just application data or padding bytes too?",
+      "parentUuid": "f29cec5b_476fd3cd",
+      "revId": "7b5c542459a70f805f3bfbd549bf26d0a328632c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "53d0b989_d7ded069",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 2
@@ -116,6 +176,30 @@
     },
     {
       "key": {
+        "uuid": "77c32748_74f216ba",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 4389,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2019-02-01T04:34:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53d0b989_d7ded069",
+      "range": {
+        "startLine": 4389,
+        "startChar": 6,
+        "endLine": 4389,
+        "endChar": 52
+      },
+      "revId": "7b5c542459a70f805f3bfbd549bf26d0a328632c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "61cd4fe8_0bac015d",
         "filename": "ssl/tls_record.cc",
         "patchSetId": 2
@@ -133,6 +217,24 @@
     },
     {
       "key": {
+        "uuid": "4531829a_156e269f",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2019-02-01T04:34:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61cd4fe8_0bac015d",
+      "revId": "7b5c542459a70f805f3bfbd549bf26d0a328632c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0abcf4b6_a734665f",
         "filename": "ssl/tls_record.cc",
         "patchSetId": 2
@@ -147,6 +249,24 @@
       "revId": "7b5c542459a70f805f3bfbd549bf26d0a328632c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73323abd_86e732a1",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2019-02-01T04:34:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0abcf4b6_a734665f",
+      "revId": "7b5c542459a70f805f3bfbd549bf26d0a328632c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
