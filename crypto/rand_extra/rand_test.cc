@@ -21,6 +21,8 @@
 #include <openssl/cpu.h>
 #include <openssl/span.h>
 
+#include "../fipsmodule/fork_detect.h"
+#include "../fipsmodule/rand/internal.h"
 #include "../test/abi_test.h"
 #include "../test/test_util.h"
 
@@ -40,6 +42,10 @@
 
 // These tests are, strictly speaking, flaky, but we use large enough buffers
 // that the probability of failing when we should pass is negligible.
+
+#if defined(OPENSSL_X86_64)
+static bool have_hwrand() { return (OPENSSL_ia32cap_P[1] & (1u << 30)) != 0; }
+#endif
 
 TEST(RandTest, NotObviouslyBroken) {
   static const uint8_t kZeros[256] = {0};
@@ -124,7 +130,28 @@ static bool ForkAndRand(bssl::Span<uint8_t> out) {
   return true;
 }
 
+static bool ExpectForkSafety() {
+#if defined(OPENSSL_X86_64) && !defined(OPENSSL_NO_ASM)
+  // Hardware entropy is available. BoringSSL is always fork-safe.
+  if (have_hwrand()) {
+    return true;
+  }
+#endif
+  // BoringSSL is fork-safe if the platform supports efficient fork detection or
+  // the caller has left fork-unsafe buffering disabled.
+  return crypto_get_fork_generation() != 0 ||
+         !rand_fork_unsafe_buffering_enabled();
+}
+
+
 TEST(RandTest, Fork) {
+  if (!ExpectForkSafety()) {
+    fprintf(
+        stderr,
+        "BoringSSL is not fork-safe in this configuration. Skipping test.\n");
+    return;
+  }
+
   static const uint8_t kZeros[16] = {0};
 
   // Draw a little entropy to initialize any internal PRNG buffering.
@@ -195,7 +222,7 @@ int CRYPTO_rdrand_multiple8_buf(uint8_t *buf, size_t len);
 }  // extern "C"
 
 TEST(RandTest, RdrandABI) {
-  if ((OPENSSL_ia32cap_P[1] & (1u << 30)) == 0) {
+  if (!have_hwrand()) {
     fprintf(stderr, "rdrand not supported. Skipping.\n");
     return;
   }
