@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9d004817_f0c37949",
+        "filename": "crypto/test/abi_test.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-02-05T16:16:19Z",
+      "side": 1,
+      "message": "\"tightens\"",
+      "range": {
+        "startLine": 229,
+        "startChar": 43,
+        "endLine": 229,
+        "endChar": 52
+      },
+      "revId": "931489a26e58531f986f96b2e543607fc6fe8c71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8973e2ef_8b128a14",
+        "filename": "crypto/test/abi_test.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-02-05T16:16:19Z",
+      "side": 1,
+      "message": "(Generally you use a single space after a period.)",
+      "range": {
+        "startLine": 231,
+        "startChar": 17,
+        "endLine": 231,
+        "endChar": 19
+      },
+      "revId": "931489a26e58531f986f96b2e543607fc6fe8c71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1bd1393e_8c77df8c",
+        "filename": "crypto/test/asm/trampoline-armv8.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-02-05T16:16:19Z",
+      "side": 1,
+      "message": "(elsewhere you use |mov|)",
+      "revId": "931489a26e58531f986f96b2e543607fc6fe8c71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74f31479_ce212d05",
+        "filename": "crypto/test/asm/trampoline-armv8.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-02-05T16:16:19Z",
+      "side": 1,
+      "message": "(ditto about mov.)",
+      "revId": "931489a26e58531f986f96b2e543607fc6fe8c71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
