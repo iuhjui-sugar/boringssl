@@ -16,6 +16,24 @@
       "revId": "7c18e68c0c4c73058a1d32e2f85d762d4615fa51",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a9f2c84_7fb802e2",
+        "filename": "crypto/abi_self_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-02-05T16:40:40Z",
+      "side": 1,
+      "message": "r13..r15 aren\u0027t really general. :-) r13 is the stack pointer, which cannot survive a clobbering. r14 is the link register, which is usable as a general register but already clobbered implicitly by every function call, and r15 is the program counter.\n\nAdded some comments.",
+      "parentUuid": "1ee0f3f0_5ff648b3",
+      "revId": "7c18e68c0c4c73058a1d32e2f85d762d4615fa51",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
