@@ -56,10 +56,11 @@
 #include <openssl/aes.h>
 #include <openssl/cpu.h>
 
-#include "internal.h"
 #include "../../test/abi_test.h"
 #include "../../test/file_test.h"
 #include "../../test/test_util.h"
+#include "../aes/internal.h"
+#include "internal.h"
 
 
 TEST(GCMTest, TestVectors) {
@@ -194,5 +195,35 @@ TEST(GCMTest, ABI) {
     }
   }
 #endif  // GHASH_ASM_ARM
+
+#if defined(AESNI_GCM)
+  if (hwaes_capable()) {
+    AES_KEY aes_key;
+    static const uint8_t kKey[16] = {0};
+
+    // aesni_gcm_* makes assumptions about |GCM128_CONTEXT|'s layout.
+    GCM128_CONTEXT gcm;
+    memset(&gcm, 0, sizeof(gcm));
+    memcpy(&gcm.gcm_key.H, kH, sizeof(kH));
+    memcpy(&gcm.gcm_key.Htable, Htable, sizeof(Htable));
+    memcpy(&gcm.Xi, X, sizeof(X));
+    uint8_t iv[16] = {0};
+
+    aes_hw_set_encrypt_key(kKey, 128, &aes_key);
+    for (size_t blocks : kBlockCounts) {
+      CHECK_ABI(aesni_gcm_encrypt, buf, buf, blocks * 16, &aes_key, iv,
+                gcm.Xi.u);
+      CHECK_ABI(aesni_gcm_encrypt, buf, buf, blocks * 16 + 7, &aes_key, iv,
+                gcm.Xi.u);
+    }
+    aes_hw_set_decrypt_key(kKey, 128, &aes_key);
+    for (size_t blocks : kBlockCounts) {
+      CHECK_ABI(aesni_gcm_decrypt, buf, buf, blocks * 16, &aes_key, iv,
+                gcm.Xi.u);
+      CHECK_ABI(aesni_gcm_decrypt, buf, buf, blocks * 16 + 7, &aes_key, iv,
+                gcm.Xi.u);
+    }
+  }
+#endif  // AESNI_GCM
 }
 #endif  // SUPPORTS_ABI_TEST && GHASH_ASM
