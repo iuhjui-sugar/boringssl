@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "63e4cc27_23cd3ba8",
+        "filename": "crypto/crypto.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2019-02-12T20:07:33Z",
+      "side": 1,
+      "message": "NIT: Here the American spelling of \"initialized\" is used. Above, on line 64, the British spelling is used. I\u0027m not sure which rules we\u0027re supposed to follow.",
+      "range": {
+        "startLine": 76,
+        "startChar": 33,
+        "endLine": 76,
+        "endChar": 45
+      },
+      "revId": "c1615719cec110640e2408c78272c0f8db21882f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
