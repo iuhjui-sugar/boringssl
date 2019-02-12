@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0806b3e3_c7144394",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-02-12T00:29:46Z",
+      "side": 1,
+      "message": "Idle musings: If SSL_write gets replaced with SSL_write_ex, and then one adds a variant of SSL_write_ex, should it be named SSL_write_ex_${variant} or just SSL_write_${variant}...",
+      "range": {
+        "startLine": 407,
+        "startChar": 19,
+        "endLine": 407,
+        "endChar": 38
+      },
+      "revId": "3ec89bb6448cdd3d91f51fbaea4d48f37203429b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4688eee2_a3c16ed0",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-02-12T00:29:46Z",
+      "side": 1,
+      "message": "Nit: out_written?",
+      "range": {
+        "startLine": 408,
+        "startChar": 67,
+        "endLine": 408,
+        "endChar": 74
+      },
+      "revId": "3ec89bb6448cdd3d91f51fbaea4d48f37203429b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac02a266_15f9b84d",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1118,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-02-12T00:29:46Z",
+      "side": 1,
+      "message": "(Would be nice to make this size_t-clean, but later...)",
+      "revId": "3ec89bb6448cdd3d91f51fbaea4d48f37203429b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba573d67_6af5c657",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4388,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-02-12T00:29:46Z",
+      "side": 1,
+      "message": "Nit: std::min(INT_MAX, n - done)",
+      "range": {
+        "startLine": 4388,
+        "startChar": 44,
+        "endLine": 4388,
+        "endChar": 52
+      },
+      "revId": "3ec89bb6448cdd3d91f51fbaea4d48f37203429b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee3edcde_b2d07bf0",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4449,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-02-12T00:29:46Z",
+      "side": 1,
+      "message": "Oh hrm. This is a little goofy. You\u0027re supposed to pass the return value into SSL_get_error, but SSL_get_error currently believes only -1 counts as an in-protocol error.\n\nOpenSSL made SSL_get_error no longer distinguish -1 and 0. I think that\u0027s safe? If it matters, that would mean we\u0027re not clearing rwstate when we should.\nhttps://git.openssl.org/gitweb/?p\u003dopenssl.git;a\u003dcommitdiff;h\u003d8051ab2b6f8e1fb9e957771afcc3555560f9694f",
+      "range": {
+        "startLine": 4449,
+        "startChar": 43,
+        "endLine": 4449,
+        "endChar": 45
+      },
+      "revId": "3ec89bb6448cdd3d91f51fbaea4d48f37203429b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}

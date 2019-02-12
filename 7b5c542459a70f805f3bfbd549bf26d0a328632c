@@ -54,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "c6ce3a6d_3ddfd7dc",
+        "filename": "ssl/s3_pkt.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-02-12T00:29:46Z",
+      "side": 1,
+      "message": "Looks like PyOpenSSL, Conscrypt, and WebRTC use SSL_MODE_ENABLE_PARTIAL_WRITE.\n\nCome to think of it, SSL_write_padding_ex is perfectly compatible with SSL_MODE_ENABLE_PARTIAL_WRITE, even without returning the amount of padding written. It would return success with *out_written \u003d 0.\n\n(I think it\u0027s reasonable to leave this as-is and sort this out as part of a larger (SSL|BIO)_(read|write)_ex cleanup. Although apparently BIO_read_ex has its own issues... https://github.com/openssl/openssl/issues/8208 )",
+      "parentUuid": "87e31fde_0d7f7b39",
+      "revId": "7b5c542459a70f805f3bfbd549bf26d0a328632c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e523315e_9b01537a",
         "filename": "ssl/s3_pkt.cc",
         "patchSetId": 2
@@ -147,6 +165,24 @@
       "side": 1,
       "message": "Makes sense.\n\nI\u0027m just uploading this now and heading to bed. Open question: should the |written| output of |SSL_write_ex_padded| count just application data or padding bytes too?",
       "parentUuid": "f29cec5b_476fd3cd",
+      "revId": "7b5c542459a70f805f3bfbd549bf26d0a328632c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b2ecd3e_5d14aacc",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1126,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-02-12T00:29:46Z",
+      "side": 1,
+      "message": "\u003e SSL_read and SSL_write currently have this bizarre behavior where, if the custom BIO decides to return -42\n\nFor posterity, at a glance OpenSSL does not appear to have broken that. :-/ Their strategy is to have BIO_write and BIO_write_ex wrap an internal function that looks like BIO_write_ex, but is allowed to return \u003c\u003d 0 on error. Then BIO_write_ex clamps \u003c\u003d 0 to 0, while BIO_write leaves it as-is and returns the number of bytes written on success.",
+      "parentUuid": "10bf20d9_a808fd8b",
       "revId": "7b5c542459a70f805f3bfbd549bf26d0a328632c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
