@@ -1467,11 +1467,6 @@ func (hs *clientHandshakeState) verifyCertificates(certMsg *certificateMsg) erro
 	if dc != nil {
 		// Note that this doesn't check a) the delegated credential temporal
 		// validity nor b) that the certificate has the special OID asserted.
-		if dc.expectedTLSVersion != c.wireVersion {
-			c.sendAlert(alertBadCertificate)
-			return errors.New("tls: delegated credential is for wrong TLS version")
-		}
-
 		hs.skxAlgo = dc.expectedCertVerifyAlgo
 
 		var err error

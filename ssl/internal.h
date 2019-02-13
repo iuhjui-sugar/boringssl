@@ -1399,9 +1399,6 @@ struct DC {
   // key.
   uint16_t expected_cert_verify_algorithm = 0;
 
-  // expected_version is the protocol in which the DC must be used.
-  uint16_t expected_version = 0;
-
   // pkey is the public key parsed from |public_key|.
   UniquePtr<EVP_PKEY> pkey;
 
