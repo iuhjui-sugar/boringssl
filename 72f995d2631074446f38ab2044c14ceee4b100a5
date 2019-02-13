@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "74207e46_7dcd8577",
+        "filename": "tool/speed.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-02-13T01:41:54Z",
+      "side": 1,
+      "message": "MSVC says:\n\n..\\tool\\speed.cc(281): error C2220: warning treated as error - no \u0027object\u0027 file generated\n..\\tool\\speed.cc(281): warning C4777: \u0027printf\u0027 : format string \u0027%u\u0027 requires an argument of type \u0027unsigned int\u0027, but variadic argument 1 has type \u0027unsigned int\u0027\n..\\tool\\speed.cc(281): note: to simplify migration, consider the temporary use of /Wv:18 flag with the version of the compiler with which you used to build without warnings\n..\\tool\\speed.cc(281): note: the sizes of types \u0027unsigned int\u0027 and \u0027unsigned int\u0027 might differ on other platforms\n..\\tool\\speed.cc(281): note: consider using \u0027%zu\u0027 in the format string\n..\\tool\\speed.cc(281): warning C4777: \u0027printf\u0027 : format string \u0027%u\u0027 requires an argument of type \u0027unsigned int\u0027, but variadic argument 3 has type \u0027unsigned int\u0027\n..\\tool\\speed.cc(281): note: to simplify migration, consider the temporary use of /Wv:18 flag with the version of the compiler with which you used to build without warnings\n..\\tool\\speed.cc(281): note: the sizes of types \u0027unsigned int\u0027 and \u0027unsigned int\u0027 might differ on other platforms\n..\\tool\\speed.cc(281): note: consider using \u0027%zu\u0027 in the format string\n\nIt appears to be slightly inebriated. I\u0027m guessing including errno.h caused it to explode for some reason. Still need to dig into that.",
+      "revId": "72f995d2631074446f38ab2044c14ceee4b100a5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
