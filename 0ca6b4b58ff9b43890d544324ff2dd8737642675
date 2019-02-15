@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8ba99de8_6f112037",
+        "filename": "tool/speed.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-02-15T23:53:08Z",
+      "side": 1,
+      "message": "\"chunk_lens\" is kind of a silly name, but the functions all take a parameter \"chunk_len\" and it looked weird to read \"chunk_len\" out of \"chunk_sizes\". Thoughts?",
+      "range": {
+        "startLine": 102,
+        "startChar": 27,
+        "endLine": 102,
+        "endChar": 39
+      },
+      "revId": "0ca6b4b58ff9b43890d544324ff2dd8737642675",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
