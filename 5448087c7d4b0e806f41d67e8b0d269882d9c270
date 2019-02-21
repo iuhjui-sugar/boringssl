@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9b5e4e1a_52ee8ab5",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-02-21T21:43:13Z",
+      "side": 1,
+      "message": "I don\u0027t believe that we should expose a function that takes a |len_len| argument: none of our code expects these values to be externally controlled. What structures are you trying to parse?",
+      "revId": "5448087c7d4b0e806f41d67e8b0d269882d9c270",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
