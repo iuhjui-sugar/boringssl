@@ -141,7 +141,7 @@ OPENSSL_EXPORT int CBS_get_u16_length_prefixed(CBS *cbs, CBS *out);
 // returns one on success and zero on error.
 OPENSSL_EXPORT int CBS_get_u24_length_prefixed(CBS *cbs, CBS *out);
 
-// CBS_get_length_prefixed sets |*out| to the content of the length-prefixed
+// CBS_get_bytes_length_prefixed sets |*out| to the content of the length-prefixed
 // |cbs|. The first |len_len| bytes of |cbs| are treated as the length-prefix.
 // It advances |cbs| over the contents copied into |*out|.
 OPENSSL_EXPORT int CBS_get_bytes_length_prefixed(CBS *cbs, CBS *out, size_t len_len);
