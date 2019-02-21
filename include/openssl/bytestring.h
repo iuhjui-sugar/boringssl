@@ -110,6 +110,10 @@ OPENSSL_EXPORT int CBS_get_u24(CBS *cbs, uint32_t *out);
 // and advances |cbs|. It returns one on success and zero on error.
 OPENSSL_EXPORT int CBS_get_u32(CBS *cbs, uint32_t *out);
 
+// CBS_get_u64 sets |*out| to the next, big-endian uint64_t value from |cbs|
+// and advances |cbs|. It returns one on success and zero on error.
+OPENSSL_EXPORT int CBS_get_u64(CBS *cbs, uint64_t *out);
+
 // CBS_get_last_u8 sets |*out| to the last uint8_t from |cbs| and shortens
 // |cbs|. It returns one on success and zero on error.
 OPENSSL_EXPORT int CBS_get_last_u8(CBS *cbs, uint8_t *out);
@@ -136,7 +140,6 @@ OPENSSL_EXPORT int CBS_get_u16_length_prefixed(CBS *cbs, CBS *out);
 // big-endian, length-prefixed value from |cbs| and advances |cbs| over it. It
 // returns one on success and zero on error.
 OPENSSL_EXPORT int CBS_get_u24_length_prefixed(CBS *cbs, CBS *out);
-
 
 // Parsing ASN.1
 //
@@ -458,6 +461,10 @@ OPENSSL_EXPORT int CBB_add_u24(CBB *cbb, uint32_t value);
 // CBB_add_u32 appends a 32-bit, big-endian number from |value| to |cbb|. It
 // returns one on success and zero otherwise.
 OPENSSL_EXPORT int CBB_add_u32(CBB *cbb, uint32_t value);
+
+// CBB_add_u64 appends a 64-bit, big-endian number from |value| to |cbb|. It
+// returns one on success and zero otherwise.
+OPENSSL_EXPORT int CBB_add_u64(CBB *cbb, uint64_t value);
 
 // CBB_discard_child discards the current unflushed child of |cbb|. Neither the
 // child's contents nor the length prefix will be included in the output.
