@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "bdd38576_a8415349",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 9435
+      },
+      "writtenOn": "2019-02-21T21:32:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "937e8d13_cf03c2fe",
+      "revId": "202e2afdc738e80a4023ec7c0e69bb3ca60ea100",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "53d0887e_f9fbf823",
         "filename": "crypto/bytestring/cbs.c",
         "patchSetId": 9
@@ -33,6 +51,24 @@
       "revId": "202e2afdc738e80a4023ec7c0e69bb3ca60ea100",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2510d672_f23015d3",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 9435
+      },
+      "writtenOn": "2019-02-21T21:32:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53d0887e_f9fbf823",
+      "revId": "202e2afdc738e80a4023ec7c0e69bb3ca60ea100",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "c7b0efc0_5f51f7e2",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 9435
+      },
+      "writtenOn": "2019-02-21T21:32:01Z",
+      "side": 1,
+      "message": "Ah, thanks for catching the u16 cases, I\u0027m updating my other CL to use the u16 functions instead. However, I do have a couple of other call-sites that need this - see \"ReadList\" on my CT change.",
+      "parentUuid": "2e0e2b4b_0f66714e",
+      "revId": "202e2afdc738e80a4023ec7c0e69bb3ca60ea100",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a28992d8_a88add76",
         "filename": "include/openssl/bytestring.h",
         "patchSetId": 9
@@ -64,6 +118,24 @@
       "writtenOn": "2019-02-21T20:12:58Z",
       "side": 1,
       "message": "Do you mind adding some tests for these new functions? The existing tests are in crypto/bytestring/bytestring_test.cc. You should be able to just add to the existing u32, etc., tests.\n\nTo run all the tests:\n\n  ninja -C build run_tests\n\nTo run just the ones for CBS and CBB\n\n  ninja -C build crypto_test\n  ./build/crypto/crypto_test --gtest_filter\u003dCBSTest*:CBBTest*",
+      "revId": "202e2afdc738e80a4023ec7c0e69bb3ca60ea100",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "452159cd_4e44836f",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 9435
+      },
+      "writtenOn": "2019-02-21T21:32:01Z",
+      "side": 1,
+      "message": "Certainly, will do.",
+      "parentUuid": "a28992d8_a88add76",
       "revId": "202e2afdc738e80a4023ec7c0e69bb3ca60ea100",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
