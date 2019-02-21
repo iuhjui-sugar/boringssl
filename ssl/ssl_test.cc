@@ -1547,6 +1547,10 @@ static bool CompleteHandshakes(SSL *client, SSL *server) {
     }
   }
 
+  uint8_t byte = 0;
+  SSL_write(server, &byte, 0);
+  SSL_read(client, &byte, 0);
+
   return true;
 }
 

@@ -927,7 +927,10 @@ static enum ssl_hs_wait_t do_send_new_session_ticket(SSL_HANDSHAKE *hs) {
   }
 
   hs->tls13_state = state_done;
-  return sent_tickets ? ssl_hs_flush : ssl_hs_ok;
+  if (hs->ssl->ctx->quic_method != nullptr && sent_tickets) {
+    return ssl_hs_flush;
+  }
+  return ssl_hs_ok;
 }
 
 enum ssl_hs_wait_t tls13_server_handshake(SSL_HANDSHAKE *hs) {
