@@ -16,6 +16,24 @@
       "revId": "24a18b8a40e876f828a5ce185849d46f19c671e8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "797ab68c_e15fa5c1",
+        "filename": "crypto/pool/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-02-21T17:49:43Z",
+      "side": 0,
+      "message": "That\u0027s an OpenSSL header, not a BoringSSL header. We\u0027ve diverged a fair amount here. OpenSSL doesn\u0027t even use DEFINE macros for these things and instead has this monstrosity:\nhttps://cs.chromium.org/chromium/src/third_party/perl/c/include/openssl/safestack.h?sq\u003dpackage:chromium\u0026g\u003d0\n\nI think all of our DECLARE macros have the semicolons built-in, for better or worse. Although, I see the comments in some of the headers are wrong, so I\u0027ll go fix that.",
+      "parentUuid": "93949dbc_fad8a640",
+      "revId": "24a18b8a40e876f828a5ce185849d46f19c671e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
