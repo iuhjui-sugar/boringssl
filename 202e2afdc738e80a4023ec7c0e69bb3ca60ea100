@@ -107,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "77b12da1_32330ee1",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-02-21T23:48:05Z",
+      "side": 1,
+      "message": "Oh, I actually missed that ones that weren\u0027t ReadList! So it looks like there\u0027s four places:\n\n- Two in ReadList\n- One which takes kSignatureLengthBytes\n- One which takes kExtensionsLengthBytes\n\nkExtensionsLengthBytes and kSignatureLengthBytes are just 2, so that can just be a get_u16_length_prefixed. ReadList takes something variable, but there\u0027s only one caller, DecodeSCTList, which takes kSCTListLengthBytes and kSerializedSCTLengthBytes. Those are also just 2.\n\nSo I think you can just make everything say get_u16_length_prefixed.\n\nAlmost everything is a u16 length prefix. u8 is too small for all but really tiny things. A few things use u24, but realistically everything fits in u16 comfortably. Even the stuff that uses u24 I\u0027ve never seen exceed u16. In particular, most fields go inside TLS extensions, which use a u16-prefixed body. That means that any length prefix inside them larger than u16 is pointless because it wouldn\u0027t fit anyway.",
+      "parentUuid": "c7b0efc0_5f51f7e2",
+      "revId": "202e2afdc738e80a4023ec7c0e69bb3ca60ea100",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a28992d8_a88add76",
         "filename": "include/openssl/bytestring.h",
         "patchSetId": 9
