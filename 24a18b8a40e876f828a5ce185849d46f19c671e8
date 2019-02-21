@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "93949dbc_fad8a640",
+        "filename": "crypto/pool/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 7390
+      },
+      "writtenOn": "2019-02-21T17:43:55Z",
+      "side": 0,
+      "message": "I\u0027m surprised this one is necessary (why does it even build?) given https://cs.chromium.org/chromium/src/third_party/perl/c/include/openssl/lhash.h?q\u003dDECLARE_LHASH_OF\u0026sq\u003dpackage:chromium\u0026g\u003d0\u0026l\u003d201 Usually, DECLARE_ macros need a ; and DEFINE_ don\u0027t (exceptions exist, of course)",
+      "revId": "24a18b8a40e876f828a5ce185849d46f19c671e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
