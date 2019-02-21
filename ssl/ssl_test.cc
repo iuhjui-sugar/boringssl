@@ -1547,6 +1547,13 @@ static bool CompleteHandshakes(SSL *client, SSL *server) {
     }
   }
 
+  // NewSessionTickets aren't flushed by the server until it does a write, to
+  // avoid a potential hang from a small buffer where the client doesn't read
+  // data from the server. To flush the tickets, we do a 0-byte write.
+  uint8_t byte = 0;
+  SSL_write(server, nullptr, 0);
+  SSL_read(client, &byte, 0);
+
   return true;
 }
 
@@ -3058,6 +3065,48 @@ TEST_P(SSLVersionTest, ClientSessionCacheMode) {
 
   SSL_CTX_set_session_cache_mode(client_ctx_.get(), SSL_SESS_CACHE_SERVER);
   EXPECT_FALSE(CreateClientSession(client_ctx_.get(), server_ctx_.get()));
+}
+
+TEST(SSLTest, TLS13NewSessionTicketSmallBuffer) {
+  bssl::UniquePtr<X509> cert = GetTestCertificate();
+  ASSERT_TRUE(cert);
+  bssl::UniquePtr<EVP_PKEY> key = GetTestKey();
+  ASSERT_TRUE(key);
+
+  bssl::UniquePtr<SSL_CTX> server_ctx(SSL_CTX_new(TLS_method()));
+  ASSERT_TRUE(server_ctx);
+  bssl::UniquePtr<SSL_CTX> client_ctx(SSL_CTX_new(TLS_method()));
+  ASSERT_TRUE(client_ctx);
+
+  ASSERT_TRUE(SSL_CTX_use_certificate(server_ctx.get(), cert.get()));
+  ASSERT_TRUE(SSL_CTX_use_PrivateKey(server_ctx.get(), key.get()));
+  ASSERT_TRUE(SSL_CTX_set_min_proto_version(client_ctx.get(), TLS1_3_VERSION));
+  ASSERT_TRUE(SSL_CTX_set_max_proto_version(client_ctx.get(), TLS1_3_VERSION));
+  ASSERT_TRUE(SSL_CTX_set_min_proto_version(server_ctx.get(), TLS1_3_VERSION));
+  ASSERT_TRUE(SSL_CTX_set_max_proto_version(server_ctx.get(), TLS1_3_VERSION));
+
+  bssl::UniquePtr<SSL> client(SSL_new(client_ctx.get())),
+      server(SSL_new(server_ctx.get()));
+  ASSERT_TRUE(client);
+  ASSERT_TRUE(server);
+  SSL_set_connect_state(client.get());
+  SSL_set_accept_state(server.get());
+
+  // Use a small buffer so that the new session tickets aren't flushed until
+  // the client-side reads.
+  BIO *bio1, *bio2;
+  ASSERT_TRUE(BIO_new_bio_pair(&bio1, 100, &bio2, 100));
+
+  // SSL_set_bio takes ownership.
+  SSL_set_bio(client.get(), bio1, bio1);
+  SSL_set_bio(server.get(), bio2, bio2);
+
+  ASSERT_TRUE(CompleteHandshakes(client.get(), server.get()));
+
+  // Send a record from client to server.
+  uint8_t byte = 0;
+  EXPECT_EQ(SSL_write(client.get(), &byte, 1), 1);
+  EXPECT_EQ(SSL_read(server.get(), &byte, 1), 1);
 }
 
 TEST(SSLTest, AddChainCertHack) {
