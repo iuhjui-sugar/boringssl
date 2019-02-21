@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "56c4e89e_eef3e665",
+        "filename": "crypto/perlasm/x86_64-xlate.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1193,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-02-21T16:50:10Z",
+      "side": 1,
+      "message": "I spent 5 minutes trying to figure out what the \u0027!\u0027 does here, and I think it just matches \u0027!\u0027, right?",
+      "revId": "6f22d55d28af355a34cfa8b744f4942f14dd14f9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
