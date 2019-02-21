@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "937e8d13_cf03c2fe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-02-21T20:12:58Z",
+      "side": 1,
+      "message": "Nitpick: Usually the first line of the commit message is a fairly short description, since it ends up in subject lines of emails and such.\n\nhttps://www.chromium.org/developers/contributing-code#TOC-Writing-commit-descriptions",
+      "revId": "202e2afdc738e80a4023ec7c0e69bb3ca60ea100",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53d0887e_f9fbf823",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-02-21T20:12:58Z",
+      "side": 1,
+      "message": "(Hah, I actually don\u0027t know if this would have occurred to me.)\n\nTwo small nitpicks:\n\n- The cast shouldn\u0027t be necessary since C will use the larger one as needed. (Both types are unsigned, so there aren\u0027t annoying conversion issues.) If we had -Wconversion on, it\u0027s actually line 178 that would have wanted a cast. But we\u0027re sadly still very far from being -Wconversion-clean.\n\n- The comment should be able to fit on one line. Also add a period at the end and maybe s/call/the call/.",
+      "revId": "202e2afdc738e80a4023ec7c0e69bb3ca60ea100",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e0e2b4b_0f66714e",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-02-21T20:12:58Z",
+      "side": 1,
+      "message": "Looking at the CT change, there seems to be only two places you need to call this, and they\u0027re both u16 length prefixes. Would it work to just call that instead?\n\n(If we do actually need to expose a generic one, I don\u0027t mind, but the fixed-sized ones avoids thinking about, say, what happens if you pass len_len \u003d 16 and the length doesn\u0027t fit in a uint64_t. Seems worth avoiding exposing it if we don\u0027t actually need it.)",
+      "revId": "202e2afdc738e80a4023ec7c0e69bb3ca60ea100",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a28992d8_a88add76",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-02-21T20:12:58Z",
+      "side": 1,
+      "message": "Do you mind adding some tests for these new functions? The existing tests are in crypto/bytestring/bytestring_test.cc. You should be able to just add to the existing u32, etc., tests.\n\nTo run all the tests:\n\n  ninja -C build run_tests\n\nTo run just the ones for CBS and CBB\n\n  ninja -C build crypto_test\n  ./build/crypto/crypto_test --gtest_filter\u003dCBSTest*:CBBTest*",
+      "revId": "202e2afdc738e80a4023ec7c0e69bb3ca60ea100",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
