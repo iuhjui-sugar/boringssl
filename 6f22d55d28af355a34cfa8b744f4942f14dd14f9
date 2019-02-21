@@ -16,6 +16,24 @@
       "revId": "6f22d55d28af355a34cfa8b744f4942f14dd14f9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2f9422b7_7fb4982a",
+        "filename": "crypto/perlasm/x86_64-xlate.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1193,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-02-21T16:57:38Z",
+      "side": 1,
+      "message": "I think so. I assume ! is also a comment syntax, but I have no idea. The original version matched ! so... okay.",
+      "parentUuid": "56c4e89e_eef3e665",
+      "revId": "6f22d55d28af355a34cfa8b744f4942f14dd14f9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
