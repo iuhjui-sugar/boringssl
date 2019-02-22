@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "196bc56d_d66fd34e",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-02-22T19:15:17Z",
+      "side": 0,
+      "message": "Nit: Keep the two blank lines here. The documentation generator uses two blank lines to denote sections. It\u0027s what generates this stuff:\n\nhttps://commondatastorage.googleapis.com/chromium-boringssl-docs/bytestring.h.html",
+      "revId": "24a18b8a40e876f828a5ce185849d46f19c671e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
