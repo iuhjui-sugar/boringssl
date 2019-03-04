@@ -91,6 +91,9 @@ OPENSSL_EXPORT void *OPENSSL_realloc(void *ptr, size_t new_size);
 // |memset_s| from C11.
 OPENSSL_EXPORT void OPENSSL_cleanse(void *ptr, size_t len);
 
+// OPENSSL_clear_free is an alias of OPENSSL_free for OpenSSL compatibility.
+OPENSSL_EXPORT void OPENSSL_clear_free(void *ptr, size_t len);
+
 // CRYPTO_memcmp returns zero iff the |len| bytes at |a| and |b| are equal. It
 // takes an amount of time dependent on |len|, but independent of the contents
 // of |a| and |b|. Unlike memcmp, it cannot be used to put elements into a
@@ -135,10 +138,6 @@ OPENSSL_EXPORT int BIO_vsnprintf(char *buf, size_t n, const char *format,
 #define CRYPTO_malloc OPENSSL_malloc
 #define CRYPTO_realloc OPENSSL_realloc
 #define CRYPTO_free OPENSSL_free
-
-// OPENSSL_clear_free calls |OPENSSL_free|. BoringSSL automatically clears all
-// allocations on free, but we define |OPENSSL_clear_free| for compatibility.
-#define OPENSSL_clear_free(ptr, len) OPENSSL_free(ptr)
 
 
 #if defined(__cplusplus)
