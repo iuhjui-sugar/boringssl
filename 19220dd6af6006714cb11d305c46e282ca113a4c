@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dd326633_26586392",
+        "filename": "crypto/fipsmodule/ec/ec_key.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-03-04T20:01:13Z",
+      "side": 1,
+      "message": "Given this line, which is in OpenSSL too, I suspect this only ever worked upstream on accident. That Node code is not really using the API correctly, IMO. Overwriting an existing key or making use of its half-initalized-ness is not a good plan.\n\nUnfortunately, part of this is a side effect of bad API design on the Node side all the way up at the JS level. Rather than have createECDH, setPrivateKey, and generateKeys functions, they should have simply added two constructor functions:\n\n  crypto.generateECDHKey(curve: string): ECDH\n  crypto.importECDHKey(curve: string, privateKey: string, etc,\n                       encoding: string): ECDH\n\nThis avoids a host of messes around half-initialized ECDH objects.",
+      "revId": "19220dd6af6006714cb11d305c46e282ca113a4c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
