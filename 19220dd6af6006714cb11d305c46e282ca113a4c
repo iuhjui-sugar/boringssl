@@ -16,6 +16,24 @@
       "revId": "19220dd6af6006714cb11d305c46e282ca113a4c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64b5fb1b_bae6df3d",
+        "filename": "crypto/fipsmodule/ec/ec_key.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 9244
+      },
+      "writtenOn": "2019-03-04T21:31:11Z",
+      "side": 1,
+      "message": "Yeah, I agree. I\u0027ll take a stab at updating Node\u0027s API and see what they say :)",
+      "parentUuid": "dd326633_26586392",
+      "revId": "19220dd6af6006714cb11d305c46e282ca113a4c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
