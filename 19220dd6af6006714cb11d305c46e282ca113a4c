@@ -34,6 +34,24 @@
       "revId": "19220dd6af6006714cb11d305c46e282ca113a4c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86920f57_4ec3dc5a",
+        "filename": "crypto/fipsmodule/ec/ec_key.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 9244
+      },
+      "writtenOn": "2019-03-05T02:02:14Z",
+      "side": 1,
+      "message": "I opened a PR against node here[1] in case you\u0027re curious.\n\n[1]: https://github.com/nodejs/node/pull/26445",
+      "parentUuid": "64b5fb1b_bae6df3d",
+      "revId": "19220dd6af6006714cb11d305c46e282ca113a4c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
