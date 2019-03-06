@@ -568,6 +568,7 @@ add_subdirectory(ssl/test)
 add_subdirectory(fipstools)
 add_subdirectory(tool)
 add_subdirectory(decrepit)
+add_subdirectory(third_party/sike)
 
 if(FUZZ)
   if(LIBFUZZER_FROM_DEPS)
