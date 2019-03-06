@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "461d31d0_991be633",
+        "filename": "util/fipstools/delocate/delocate.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1120,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-03-06T23:29:54Z",
+      "side": 1,
+      "message": "Do you remember what this was for? targetReg is only used in threeArgCombineOp, which uses it in the same instruction as before. We can reasonably assume targetReg is usable with that instruction. Was it something to do with line 1143?",
+      "revId": "355943ee1428f27f283f3f42baa9e95fcce75232",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
