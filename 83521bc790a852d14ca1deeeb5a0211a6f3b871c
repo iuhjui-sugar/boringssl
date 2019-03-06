@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cfadd224_513fc9b8",
+        "filename": "third_party/sike/CMakeLists.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 9225
+      },
+      "writtenOn": "2019-03-06T19:36:01Z",
+      "side": 1,
+      "message": "spaces",
+      "revId": "83521bc790a852d14ca1deeeb5a0211a6f3b871c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
