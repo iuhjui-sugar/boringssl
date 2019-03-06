@@ -115,6 +115,7 @@ if(${ARCH} STREQUAL "aarch64")
 
     chacha/chacha-armv8.${ASM_EXT}
     test/trampoline-armv8.${ASM_EXT}
+    ../third_party/sike/asm/fp_arm64_asm.${ASM_EXT}
   )
 endif()
 
@@ -136,6 +137,7 @@ if(${ARCH} STREQUAL "x86_64")
     cipher_extra/chacha20_poly1305_x86_64.${ASM_EXT}
     hrss/asm/poly_rq_mul.S
     test/trampoline-x86_64.${ASM_EXT}
+    ../third_party/sike/asm/fp_x64_asm.${ASM_EXT}
   )
 endif()
 
@@ -404,6 +406,11 @@ add_library(
   x509v3/v3_sxnet.c
   x509v3/v3_utl.c
   ../third_party/fiat/curve25519.c
+  ../third_party/sike/fpx.c
+  ../third_party/sike/isogeny.c
+  ../third_party/sike/P503.c
+  ../third_party/sike/sike.c
+  ../third_party/sike/asm/fp_generic.c
 
   $<TARGET_OBJECTS:fipsmodule>
 
@@ -489,6 +496,7 @@ add_executable(
   x509/x509_time_test.cc
   x509v3/tab_test.cc
   x509v3/v3name_test.cc
+  ../third_party/sike/sike_test.cc
 
   $<TARGET_OBJECTS:crypto_test_data>
   $<TARGET_OBJECTS:boringssl_gtest_main>
