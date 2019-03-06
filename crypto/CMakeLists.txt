@@ -406,6 +406,7 @@ add_library(
   ../third_party/fiat/curve25519.c
 
   $<TARGET_OBJECTS:fipsmodule>
+  $<TARGET_OBJECTS:sike>
 
   ${CRYPTO_ARCH_SOURCES}
   ${CRYPTO_FIPS_OBJECTS}
