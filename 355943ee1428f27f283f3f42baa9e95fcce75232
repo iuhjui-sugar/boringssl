@@ -16,6 +16,24 @@
       "revId": "355943ee1428f27f283f3f42baa9e95fcce75232",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c09cf54_75eb8114",
+        "filename": "util/fipstools/delocate/delocate.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1120,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-03-07T00:36:54Z",
+      "side": 1,
+      "message": "This might well be vestigial now. I believe we hit a case where some operation targetted a vector register but we couldn\u0027t LEA into such a register.",
+      "parentUuid": "461d31d0_991be633",
+      "revId": "355943ee1428f27f283f3f42baa9e95fcce75232",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
