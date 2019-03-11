@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "79e996a4_1a71d2e7",
+        "filename": "crypto/fipsmodule/aes/asm/vpaes-armv8.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-03-11T22:57:04Z",
+      "side": 1,
+      "message": "Out of interest, doesn\u0027t the \u0027adrl\u0027 pseudo-op take care of these two instructions?",
+      "revId": "e925f19b5f9254e5b23538dc571ba1947187596e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
