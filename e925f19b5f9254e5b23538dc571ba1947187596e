@@ -34,6 +34,24 @@
       "revId": "e925f19b5f9254e5b23538dc571ba1947187596e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "770d4efc_019e04b0",
+        "filename": "crypto/fipsmodule/aes/asm/vpaes-armv8.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-03-11T23:02:17Z",
+      "side": 1,
+      "message": ":-(\n\ncrypto/fipsmodule/vpaes-armv8.S:764:2: error: unrecognized instruction mnemonic, did you mean: adr, adrp?\n adrl x11, .Lk_opt\n ^",
+      "parentUuid": "add4dc12_8cac9920",
+      "revId": "e925f19b5f9254e5b23538dc571ba1947187596e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
