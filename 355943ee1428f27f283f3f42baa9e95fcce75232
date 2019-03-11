@@ -34,6 +34,24 @@
       "revId": "355943ee1428f27f283f3f42baa9e95fcce75232",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac9e8f81_707a855d",
+        "filename": "util/fipstools/delocate/delocate.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1120,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-03-11T21:29:20Z",
+      "side": 1,
+      "message": "Have removed this check here. I don\u0027t think it\u0027s needed.",
+      "parentUuid": "8c09cf54_75eb8114",
+      "revId": "355943ee1428f27f283f3f42baa9e95fcce75232",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
