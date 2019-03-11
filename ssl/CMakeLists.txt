@@ -1,4 +1,4 @@
-include_directories(../include)
+include_directories(../include ../third_party/sike/include)
 
 add_library(
   ssl
