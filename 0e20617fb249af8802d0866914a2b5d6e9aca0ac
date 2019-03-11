@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2e19762e_daaeb5fa",
+        "filename": "crypto/fipsmodule/modes/asm/ghash-neon-armv8.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-03-11T23:31:45Z",
+      "side": 1,
+      "message": "What do |zip1| and |zip2| do? I think I know what ZIP did in 32-bit mode, is |zip2| a 16-bit ZIP?\n\n(The ARM documentation is, as usually, staggeringly unhelpful: \"Zip vectors (secondary)\". http://infocenter.arm.com/help/index.jsp?topic\u003d/com.arm.doc.dui0802b/ZIP2_advsimd_vector.html)",
+      "revId": "0e20617fb249af8802d0866914a2b5d6e9aca0ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4eff95b0_e27a2527",
+        "filename": "crypto/fipsmodule/modes/asm/ghash-neon-armv8.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-03-11T23:31:45Z",
+      "side": 1,
+      "message": "I\u0027m struggling to review this because I don\u0027t know AArch64 well enough, but I specifically can\u0027t figure this bit out: Xm is the middle Karatsuba result at 64 bits, right? How does it make sense to add in Xl and Xh without shifting?",
+      "revId": "0e20617fb249af8802d0866914a2b5d6e9aca0ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
