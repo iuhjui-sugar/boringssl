@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2d9d3611_5b57104b",
+        "filename": "crypto/fipsmodule/modes/asm/ghash-neon-armv8.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-03-12T00:52:31Z",
+      "side": 1,
+      "message": "zip1 vD.2d, vM.2d, vN.2d does:\n\n  [m0:m1] :\u003d vM\n  [n0:n1] :\u003d vN\n  vD \u003d [m0:n0]\n\nzip2 is the same but splits uses [m1:n1]. AArch64 seems to have split a lot of vector instructions into 1 and 2 variants.\n\nSomehow by dumb luck I managed to find the one ARM manual that wasn\u0027t *completely* useless.\nhttps://developer.arm.com/docs/ddi0596/a/a64-simd-and-floating-point-instructions-alphabetic-order/zip1-zip-vectors-primary\n\nIndex of instructions:\nhttps://developer.arm.com/docs/ddi0596/a/a64-base-instructions-alphabetic-order\nhttps://developer.arm.com/docs/ddi0596/a/a64-simd-and-floating-point-instructions-alphabetic-order\n\nIncidentally, the PSTATE.DIT sections in that manual are... interesting.",
+      "parentUuid": "2e19762e_daaeb5fa",
+      "revId": "0e20617fb249af8802d0866914a2b5d6e9aca0ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4eff95b0_e27a2527",
         "filename": "crypto/fipsmodule/modes/asm/ghash-neon-armv8.pl",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2019-03-11T23:31:45Z",
       "side": 1,
       "message": "I\u0027m struggling to review this because I don\u0027t know AArch64 well enough, but I specifically can\u0027t figure this bit out: Xm is the middle Karatsuba result at 64 bits, right? How does it make sense to add in Xl and Xh without shifting?",
+      "revId": "0e20617fb249af8802d0866914a2b5d6e9aca0ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "defbfde8_93b4f3ce",
+        "filename": "crypto/fipsmodule/modes/asm/ghash-neon-armv8.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-03-12T00:52:31Z",
+      "side": 1,
+      "message": "There\u0027re two places where we add Xm and Xl/Xh. This one\u0027s just Karatsuba stuff. The middle term we want is:\n\n  x1y0 + x0y1 \u003d (x0 + x1)(y0 + y1) - x0y0 - x1y1.\n\nWe just got Xm \u003d (x0 + x1)(y0 + y1). Now we need to subtract (add) the other two products, which are in Xl and Xh, without any shifting.\n\nThen lines 234,237-239 does the other stage which is adding Xm.hi into Xh.lo and Xm.lo into Xl.hi because they overlap place-wise. I had to be a little clever about it due to lacking direct access to upper halves. :-/",
+      "parentUuid": "4eff95b0_e27a2527",
       "revId": "0e20617fb249af8802d0866914a2b5d6e9aca0ac",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
