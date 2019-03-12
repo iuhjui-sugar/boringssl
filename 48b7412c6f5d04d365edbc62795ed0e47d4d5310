@@ -1,0 +1,176 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "65acfe6b_a02036f8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-03-12T22:23:20Z",
+      "side": 1,
+      "message": "`movq` in AT\u0026T syntax isn\u0027t the MOVQ instruction. Rather AT\u0026T uses suffixes to identify sizes while Intel style does stuff like \"DWORD PTR\".",
+      "revId": "48b7412c6f5d04d365edbc62795ed0e47d4d5310",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f929c19f_7a5ac993",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-03-12T22:23:20Z",
+      "side": 1,
+      "message": "typo: \"variables\"",
+      "range": {
+        "startLine": 21,
+        "startChar": 7,
+        "endLine": 21,
+        "endChar": 16
+      },
+      "revId": "48b7412c6f5d04d365edbc62795ed0e47d4d5310",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd640cee_d81c9bb6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-03-12T22:23:20Z",
+      "side": 1,
+      "message": "adrl expands to adp and add, which can be done manually. See, for example, https://boringssl.googlesource.com/boringssl/+/35941f2923155664bd9fa5d897cb336a0ab729a1%5E%21/#F0\n\nPutting data in .text will break on modern Android, where .text isn\u0027t readable.",
+      "revId": "48b7412c6f5d04d365edbc62795ed0e47d4d5310",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d8ad91c_315e798e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-03-12T22:23:20Z",
+      "side": 1,
+      "message": "typo: at",
+      "range": {
+        "startLine": 32,
+        "startChar": 50,
+        "endLine": 32,
+        "endChar": 52
+      },
+      "revId": "48b7412c6f5d04d365edbc62795ed0e47d4d5310",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd8f30cb_8c10f8f1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-03-12T22:23:20Z",
+      "side": 1,
+      "message": "at",
+      "range": {
+        "startLine": 36,
+        "startChar": 59,
+        "endLine": 36,
+        "endChar": 61
+      },
+      "revId": "48b7412c6f5d04d365edbc62795ed0e47d4d5310",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "171b24e5_e324f5c3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-03-12T22:23:20Z",
+      "side": 1,
+      "message": "time",
+      "range": {
+        "startLine": 38,
+        "startChar": 55,
+        "endLine": 38,
+        "endChar": 60
+      },
+      "revId": "48b7412c6f5d04d365edbc62795ed0e47d4d5310",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "330a384a_a927f6ba",
+        "filename": "third_party/sike/LICENSE",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-03-12T22:23:20Z",
+      "side": 1,
+      "message": "Any contributions by Cloudflare should be submitted under the established CLA, in which case they would be licensed under the default BoringSSL license (which is ISC). (They may also be relicensed as Apache in the future if we align with OpenSSL on that point.)\n\nThe MS license chunk should be included in the top-level LICENSE file. (I.e. replicate what\u0027s done for third_party/fiat.)",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 68
+      },
+      "revId": "48b7412c6f5d04d365edbc62795ed0e47d4d5310",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f0909e1_78dbdae8",
+        "filename": "tool/speed.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-03-12T22:23:20Z",
+      "side": 1,
+      "message": "Just \"Encap\" and \"Decap\" in the call to results.Print, to match HRSS.",
+      "range": {
+        "startLine": 332,
+        "startChar": 46,
+        "endLine": 332,
+        "endChar": 47
+      },
+      "revId": "48b7412c6f5d04d365edbc62795ed0e47d4d5310",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
