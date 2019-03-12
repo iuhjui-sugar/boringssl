@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e4c43fed_171a8652",
+        "filename": "go.mod",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-03-12T22:30:22Z",
+      "side": 1,
+      "message": "Can\u0027t do this I\u0027m afraid because of the number of places where BoringSSL is used. We may have to drop the runner tests for this and depend on self-tests in ssl_test.cc",
+      "revId": "bbe72b97576db4b0c492c6c5ec59c37b9bfd243d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9dedab0_e27f3aa9",
+        "filename": "include/openssl/nid.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 4240,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-03-12T22:30:22Z",
+      "side": 1,
+      "message": "Needs a different name. CECPQ2b?",
+      "revId": "bbe72b97576db4b0c492c6c5ec59c37b9bfd243d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9bab76e_fa1244aa",
+        "filename": "ssl/CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-03-12T22:30:22Z",
+      "side": 1,
+      "message": "rather than add directories here, use relative includes in the .cc files.",
+      "revId": "bbe72b97576db4b0c492c6c5ec59c37b9bfd243d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f9d2d40_92811170",
+        "filename": "ssl/ssl_key_share.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-03-12T22:30:22Z",
+      "side": 1,
+      "message": "We\u0027re not adding more cleanse statements. OPENSSL_malloc does it automatically and it\u0027s often a false-promise anyway because things get left on the stack and in registers.",
+      "revId": "bbe72b97576db4b0c492c6c5ec59c37b9bfd243d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8241bf10_c576de3d",
+        "filename": "ssl/ssl_key_share.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-03-12T22:30:22Z",
+      "side": 1,
+      "message": "In what cases can this function fail?",
+      "revId": "bbe72b97576db4b0c492c6c5ec59c37b9bfd243d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
