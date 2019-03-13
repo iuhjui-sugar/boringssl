@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f7a58555_b3f356de",
+        "filename": "crypto/fipsmodule/aes/asm/bsaes-x86_64.pl",
+        "patchSetId": 5
+      },
+      "lineNbr": 1616,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-03-13T23:34:13Z",
+      "side": 1,
+      "message": "This is a new constraint for x86_64, but armv7 already imposed this constraint.",
+      "range": {
+        "startLine": 1616,
+        "startChar": 16,
+        "endLine": 1616,
+        "endChar": 60
+      },
+      "revId": "9a48a6a511c911d099cd210651f120b27fce547a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
