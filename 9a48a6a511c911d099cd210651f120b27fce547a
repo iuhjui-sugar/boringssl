@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b295e4e5_20c1110e",
+        "filename": "crypto/fipsmodule/aes/asm/bsaes-armv7.pl",
+        "patchSetId": 5
+      },
+      "lineNbr": 1228,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-03-14T17:48:06Z",
+      "side": 1,
+      "message": "Yeah. The original bsaes file has these. Judging by this line:\n\n  my @XMM\u003dmap(\"%xmm$_\",(15,0..14));\t# best on Atom, +10% over (0..15)\n\nI gather bsaes was originally written with particular xmm registers. Then folks noticed that registers aren\u0027t created equal on Atom (seriously?!?!?!), it was easier to permute all the registers that way.\n\nThen this file was translated to ARM and I guess the array was retained?",
+      "parentUuid": "1ee0a4a7_0b572271",
+      "revId": "9a48a6a511c911d099cd210651f120b27fce547a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f7a58555_b3f356de",
         "filename": "crypto/fipsmodule/aes/asm/bsaes-x86_64.pl",
         "patchSetId": 5
