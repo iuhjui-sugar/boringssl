@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "71a59620_886f973d",
+        "filename": "go.mod",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 9225
+      },
+      "writtenOn": "2019-03-15T18:09:53Z",
+      "side": 1,
+      "message": "Ok, I was suspecting it may be rejected, but wasn\u0027t sure. I can drop those tests and look into ssl_test.cc.\nOther idea would be - I can also make smaller implementation of SIKE/p503 in Go and copy it to runner directory. It would be much smaller than what we have on Cloudflare\u0027s github, but not as small as hrss.\nDo you think it makes sense? If not I\u0027ll simply reuse ssl_test.cc",
+      "parentUuid": "e4c43fed_171a8652",
+      "revId": "bbe72b97576db4b0c492c6c5ec59c37b9bfd243d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e9dedab0_e27f3aa9",
         "filename": "include/openssl/nid.h",
         "patchSetId": 1
@@ -53,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "98b01345_f3c2ccdc",
+        "filename": "ssl/CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 9225
+      },
+      "writtenOn": "2019-03-15T18:09:53Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b9bab76e_fa1244aa",
+      "revId": "bbe72b97576db4b0c492c6c5ec59c37b9bfd243d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2f9d2d40_92811170",
         "filename": "ssl/ssl_key_share.cc",
         "patchSetId": 1
@@ -70,6 +106,24 @@
     },
     {
       "key": {
+        "uuid": "3dd6d200_32637050",
+        "filename": "ssl/ssl_key_share.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 9225
+      },
+      "writtenOn": "2019-03-15T18:09:53Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2f9d2d40_92811170",
+      "revId": "bbe72b97576db4b0c492c6c5ec59c37b9bfd243d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8241bf10_c576de3d",
         "filename": "ssl/ssl_key_share.cc",
         "patchSetId": 1
@@ -81,6 +135,24 @@
       "writtenOn": "2019-03-12T22:30:22Z",
       "side": 1,
       "message": "In what cases can this function fail?",
+      "revId": "bbe72b97576db4b0c492c6c5ec59c37b9bfd243d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb5fe214_258b1062",
+        "filename": "ssl/ssl_key_share.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 9225
+      },
+      "writtenOn": "2019-03-15T18:09:53Z",
+      "side": 1,
+      "message": "In case BN_CTX_new() fails - I\u0027m using BN_rand() as I need 253 random bits. Inside I\u0027m also checking for failures from BN_rand() and BN_bn2le_padded(), but in reality this should be always OK (until implementation doesn\u0027t change).",
+      "parentUuid": "8241bf10_c576de3d",
       "revId": "bbe72b97576db4b0c492c6c5ec59c37b9bfd243d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
