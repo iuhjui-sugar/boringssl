@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9810bcad_f38c409d",
+        "filename": "third_party/sike/src/utils.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 9225
+      },
+      "writtenOn": "2019-03-15T23:22:54Z",
+      "side": 1,
+      "message": "Including this causes build to fail on many targets:\nerror: ISO C99 does not support \u0027_Static_assert\u0027 [-Werror\u003dpedantic]\n\nMight be that I\u0027m not setting -std\u003dc11",
+      "revId": "4f6518e5de6f431fe059b10e16f17103650d6e80",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
