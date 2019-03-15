@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f8236950_65057cb8",
+        "filename": "third_party/sike/CMakeLists.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 9225
+      },
+      "writtenOn": "2019-03-15T23:15:44Z",
+      "side": 1,
+      "message": "It will result in \n\nUnknown CMake command \"target_sources\"\n\non some older linux distros\nBetter to use add_library ( sikemodule ) (like for fipsmodule)",
+      "revId": "be4204815ea093f8d8084cd8b702a7c6b3b32e6e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
