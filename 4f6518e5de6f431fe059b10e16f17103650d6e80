@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "c6972ef2_bfa2e6e1",
+        "filename": "third_party/sike/CMakeLists.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 9225
+      },
+      "writtenOn": "2019-03-16T11:47:39Z",
+      "side": 1,
+      "message": "This specific to cloudflare\u0027s build, but will fail in many other builds. fp_generic should be used in all the other cases, not only when OPENSSL_NO_ASM flag is used.\n\nDone",
+      "revId": "4f6518e5de6f431fe059b10e16f17103650d6e80",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9810bcad_f38c409d",
         "filename": "third_party/sike/src/utils.h",
         "patchSetId": 7
@@ -16,6 +33,24 @@
       "revId": "4f6518e5de6f431fe059b10e16f17103650d6e80",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e409f451_ef7bc1d5",
+        "filename": "third_party/sike/src/utils.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 9225
+      },
+      "writtenOn": "2019-03-16T11:47:39Z",
+      "side": 1,
+      "message": "-pedantic was removed (as error message suggests)\nDone",
+      "parentUuid": "9810bcad_f38c409d",
+      "revId": "4f6518e5de6f431fe059b10e16f17103650d6e80",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
