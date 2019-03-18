@@ -22,6 +22,30 @@
       "revId": "7a3b94cd2cb9f14a84375fea05de41d041307faa",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f753308_0175d1ab",
+        "filename": "crypto/fipsmodule/bn/asm/x86_64-mont5.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 3555,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-03-18T15:47:33Z",
+      "side": 1,
+      "message": "Without it, unw_get_proc_name doesn\u0027t recognize the symbol. Elsewhere, internal functions are still tagged with a function type.",
+      "parentUuid": "0395ed7b_4c97c2a9",
+      "range": {
+        "startLine": 3555,
+        "startChar": 0,
+        "endLine": 3555,
+        "endChar": 44
+      },
+      "revId": "7a3b94cd2cb9f14a84375fea05de41d041307faa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
