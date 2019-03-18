@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e9688cb2_eaa49175",
+        "filename": "crypto/fipsmodule/bn/ctx.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-03-18T17:33:14Z",
+      "side": 1,
+      "message": "(Missing words.)",
+      "range": {
+        "startLine": 94,
+        "startChar": 68,
+        "endLine": 94,
+        "endChar": 80
+      },
+      "revId": "8787a4af41e72ca6018756b67bafd2700ea1a0ba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba0d0a57_3062ffd6",
+        "filename": "crypto/fipsmodule/bn/ctx.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-03-18T17:33:14Z",
+      "side": 1,
+      "message": "This is a bit compressed, and I don\u0027t think it needs multiplication. How about:\n\nOPENSSL_STATIC_ASSERT(BN_CTX_START_FRAMES \u003e 1);\nsize_t new_size \u003d BN_CTX_START_FRAMES;\nif (st-\u003esize !\u003d 0) {\n  new_size \u003d st-\u003esize + (st-\u003esize \u003e\u003e 1);\n  if (new_size \u003c st-\u003esize) {\n    return 0;\n  }\n}\nif (new_size \u003e ((size_t)-1) / sizeof(size_t))) {\n  return 0;\n}",
+      "range": {
+        "startLine": 210,
+        "startChar": 38,
+        "endLine": 210,
+        "endChar": 54
+      },
+      "revId": "8787a4af41e72ca6018756b67bafd2700ea1a0ba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
