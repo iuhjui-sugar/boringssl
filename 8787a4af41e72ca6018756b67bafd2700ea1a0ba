@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "91e5c9a0_3092ad5e",
+        "filename": "crypto/fipsmodule/bn/ctx.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-03-18T18:51:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9688cb2_eaa49175",
+      "range": {
+        "startLine": 94,
+        "startChar": 68,
+        "endLine": 94,
+        "endChar": 80
+      },
+      "revId": "8787a4af41e72ca6018756b67bafd2700ea1a0ba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba0d0a57_3062ffd6",
         "filename": "crypto/fipsmodule/bn/ctx.c",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2019-03-18T17:33:14Z",
       "side": 1,
       "message": "This is a bit compressed, and I don\u0027t think it needs multiplication. How about:\n\nOPENSSL_STATIC_ASSERT(BN_CTX_START_FRAMES \u003e 1);\nsize_t new_size \u003d BN_CTX_START_FRAMES;\nif (st-\u003esize !\u003d 0) {\n  new_size \u003d st-\u003esize + (st-\u003esize \u003e\u003e 1);\n  if (new_size \u003c st-\u003esize) {\n    return 0;\n  }\n}\nif (new_size \u003e ((size_t)-1) / sizeof(size_t))) {\n  return 0;\n}",
+      "range": {
+        "startLine": 210,
+        "startChar": 38,
+        "endLine": 210,
+        "endChar": 54
+      },
+      "revId": "8787a4af41e72ca6018756b67bafd2700ea1a0ba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2531dd4c_dbc148ec",
+        "filename": "crypto/fipsmodule/bn/ctx.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-03-18T18:51:51Z",
+      "side": 1,
+      "message": "Compilers are better at this. :-P\nhttps://godbolt.org/z/i_hc0I",
+      "parentUuid": "ba0d0a57_3062ffd6",
       "range": {
         "startLine": 210,
         "startChar": 38,
