@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "52ef2021_61b5ce9d",
+        "filename": "third_party/sike/CMakeLists.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-03-20T20:53:27Z",
+      "side": 1,
+      "message": "-lrt isn\u0027t a definition, and so this breaks the AArch64 build. What were you aiming for here?",
+      "revId": "2c3d1568dfcb0be42e20850f42f6045b6cd407b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}

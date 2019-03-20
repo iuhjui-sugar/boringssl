@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "767b29dd_b8565922",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-03-20T20:53:27Z",
+      "side": 1,
+      "message": "(resolving.)",
+      "parentUuid": "8528416b_4e8e6880",
+      "revId": "48b7412c6f5d04d365edbc62795ed0e47d4d5310",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f929c19f_7a5ac993",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
@@ -95,6 +113,24 @@
       "writtenOn": "2019-03-12T22:23:20Z",
       "side": 1,
       "message": "adrl expands to adp and add, which can be done manually. See, for example, https://boringssl.googlesource.com/boringssl/+/35941f2923155664bd9fa5d897cb336a0ab729a1%5E%21/#F0\n\nPutting data in .text will break on modern Android, where .text isn\u0027t readable.",
+      "revId": "48b7412c6f5d04d365edbc62795ed0e47d4d5310",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17790f2b_4f7e4685",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-03-20T20:53:27Z",
+      "side": 1,
+      "message": "(Note, this is still outstanding. I ran the AArch64 build and it is, indeed, reading from .text, which won\u0027t work on Android.)",
+      "parentUuid": "fd640cee_d81c9bb6",
       "revId": "48b7412c6f5d04d365edbc62795ed0e47d4d5310",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -285,6 +321,30 @@
       "revId": "48b7412c6f5d04d365edbc62795ed0e47d4d5310",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5247b1a4_fed765ea",
+        "filename": "tool/speed.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-03-20T20:53:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f0909e1_78dbdae8",
+      "range": {
+        "startLine": 332,
+        "startChar": 46,
+        "endLine": 332,
+        "endChar": 47
+      },
+      "revId": "48b7412c6f5d04d365edbc62795ed0e47d4d5310",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
