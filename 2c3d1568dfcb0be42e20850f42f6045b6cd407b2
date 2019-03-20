@@ -16,6 +16,24 @@
       "revId": "2c3d1568dfcb0be42e20850f42f6045b6cd407b2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96eb7ced_3d43000b",
+        "filename": "third_party/sike/CMakeLists.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 9225
+      },
+      "writtenOn": "2019-03-20T21:08:04Z",
+      "side": 1,
+      "message": "Will be done with other changes for aarch64.",
+      "parentUuid": "52ef2021_61b5ce9d",
+      "revId": "2c3d1568dfcb0be42e20850f42f6045b6cd407b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
