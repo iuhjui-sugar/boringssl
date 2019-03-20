@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "a2598845_f422486c",
+        "filename": "go.mod",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-03-20T20:57:58Z",
+      "side": 1,
+      "message": "It would be fine to include an implementation in Go inside runner. Also ok to self-test against itself in ssl_test.cc.",
+      "parentUuid": "71a59620_886f973d",
+      "revId": "bbe72b97576db4b0c492c6c5ec59c37b9bfd243d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e9dedab0_e27f3aa9",
         "filename": "include/openssl/nid.h",
         "patchSetId": 1
@@ -156,6 +174,24 @@
       "revId": "bbe72b97576db4b0c492c6c5ec59c37b9bfd243d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90ceafd6_d4ec31b1",
+        "filename": "ssl/ssl_key_share.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-03-20T20:57:58Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "bb5fe214_258b1062",
+      "revId": "bbe72b97576db4b0c492c6c5ec59c37b9bfd243d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
