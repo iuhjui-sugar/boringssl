@@ -155,6 +155,24 @@
     },
     {
       "key": {
+        "uuid": "a6000864_4e6eb605",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 9225
+      },
+      "writtenOn": "2019-03-21T23:50:53Z",
+      "side": 1,
+      "message": "Done now\nI\u0027m not using :pg_hi21: - seems to me clang doesn\u0027t support it, from the other hand it is optional.",
+      "parentUuid": "ce80cb15_2f3d3329",
+      "revId": "48b7412c6f5d04d365edbc62795ed0e47d4d5310",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d8ad91c_315e798e",
         "filename": "/COMMIT_MSG",
         "patchSetId": 5
@@ -316,6 +334,30 @@
       "revId": "48b7412c6f5d04d365edbc62795ed0e47d4d5310",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d888dbaa_bd83d468",
+        "filename": "third_party/sike/LICENSE",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 9225
+      },
+      "writtenOn": "2019-03-21T23:50:53Z",
+      "side": 1,
+      "message": "Cloudflare specific part was removed. CLA is signed for this account, so should be good now.",
+      "parentUuid": "330a384a_a927f6ba",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 68
+      },
+      "revId": "48b7412c6f5d04d365edbc62795ed0e47d4d5310",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {

@@ -34,6 +34,24 @@
       "revId": "2c3d1568dfcb0be42e20850f42f6045b6cd407b2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33b6b0de_7fcc6d43",
+        "filename": "third_party/sike/CMakeLists.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 9225
+      },
+      "writtenOn": "2019-03-21T23:50:53Z",
+      "side": 1,
+      "message": "-lrt is removed now",
+      "parentUuid": "96eb7ced_3d43000b",
+      "revId": "2c3d1568dfcb0be42e20850f42f6045b6cd407b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
