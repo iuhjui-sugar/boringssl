@@ -344,6 +344,14 @@ int SSL_CTX_set_max_proto_version(SSL_CTX *ctx, uint16_t version) {
   return set_max_version(ctx->method, &ctx->conf_max_version, version);
 }
 
+uint16_t SSL_CTX_get_min_proto_version(SSL_CTX *ctx) {
+  return ctx->conf_min_version;
+}
+
+uint16_t SSL_CTX_get_max_proto_version(SSL_CTX *ctx) {
+  return ctx->conf_max_version;
+}
+
 int SSL_set_min_proto_version(SSL *ssl, uint16_t version) {
   if (!ssl->config) {
     return 0;
