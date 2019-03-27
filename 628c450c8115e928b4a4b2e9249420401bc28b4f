@@ -1,0 +1,261 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2ec2d520_235909be",
+        "filename": "third_party/sike/include/sike/sike.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-03-27T02:27:49Z",
+      "side": 1,
+      "message": "an",
+      "range": {
+        "startLine": 41,
+        "startChar": 3,
+        "endLine": 41,
+        "endChar": 4
+      },
+      "revId": "628c450c8115e928b4a4b2e9249420401bc28b4f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed978145_fc2e6a28",
+        "filename": "third_party/sike/include/sike/sike.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-03-27T02:27:49Z",
+      "side": 1,
+      "message": "(stray \u0027s\u0027.)",
+      "range": {
+        "startLine": 42,
+        "startChar": 9,
+        "endLine": 42,
+        "endChar": 10
+      },
+      "revId": "628c450c8115e928b4a4b2e9249420401bc28b4f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f27b391_56a1c1cd",
+        "filename": "third_party/sike/include/sike/sike.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-03-27T02:27:49Z",
+      "side": 1,
+      "message": "Is it reasonable to align these with BoringSSL convention, at least for the exported functions? (i.e. 1 is good, 0 is error?)",
+      "range": {
+        "startLine": 41,
+        "startChar": 21,
+        "endLine": 42,
+        "endChar": 7
+      },
+      "revId": "628c450c8115e928b4a4b2e9249420401bc28b4f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "667c6cdf_8aa82e68",
+        "filename": "third_party/sike/include/sike/sike.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-03-27T02:27:49Z",
+      "side": 1,
+      "message": "in the header file, at least, these should probably have longer names, e.g. out_priv and out_pub.",
+      "range": {
+        "startLine": 44,
+        "startChar": 12,
+        "endLine": 44,
+        "endChar": 14
+      },
+      "revId": "628c450c8115e928b4a4b2e9249420401bc28b4f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b309e56_8c7b5254",
+        "filename": "third_party/sike/include/sike/sike.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-03-27T02:27:49Z",
+      "side": 1,
+      "message": "// SIKE_encaps generates and encrypts a random session key, writing those values to |out_shared_key| and |out_ciphertext|, respectively. It returns one on success or zero on error.\n\nalso pk -\u003e public_key or pub_key.\n\nSimilar for SIKE_decaps.",
+      "revId": "628c450c8115e928b4a4b2e9249420401bc28b4f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d1fe8cf_91e7c7c2",
+        "filename": "third_party/sike/src/asm/fp_generic.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-03-27T02:27:49Z",
+      "side": 1,
+      "message": "BoringSSL is often statically linked, which means that these symbols end up in the global namespace. They seem too generic for that. How about prefixing with sike_ for internal stuff?",
+      "revId": "628c450c8115e928b4a4b2e9249420401bc28b4f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1391eab_41ddf5a8",
+        "filename": "third_party/sike/src/sike.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-03-27T02:27:49Z",
+      "side": 1,
+      "message": "(For all suggested changes in this file, if it\u0027s code from SIKE itself and you don\u0027t want to change it, that\u0027s reasonable.)",
+      "revId": "628c450c8115e928b4a4b2e9249420401bc28b4f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9d0ac2d5_1cb39d77",
+        "filename": "third_party/sike/src/sike.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-03-27T02:27:49Z",
+      "side": 1,
+      "message": "I don\u0027t know if this is 3rd-party code and thus not worth touching, but this doesn\u0027t need to be zero-initialised.",
+      "range": {
+        "startLine": 56,
+        "startChar": 40,
+        "endLine": 56,
+        "endChar": 45
+      },
+      "revId": "628c450c8115e928b4a4b2e9249420401bc28b4f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "565419bc_6cac5bec",
+        "filename": "third_party/sike/src/sike.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-03-27T02:27:49Z",
+      "side": 1,
+      "message": "#include \u003cassert.h\u003e\n\nassert(outsz \u003c sizeof(digest));",
+      "revId": "628c450c8115e928b4a4b2e9249420401bc28b4f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28bce309_2a03d836",
+        "filename": "third_party/sike/src/sike.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-03-27T02:27:49Z",
+      "side": 1,
+      "message": "delete.",
+      "revId": "628c450c8115e928b4a4b2e9249420401bc28b4f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b729a750_248bd495",
+        "filename": "third_party/sike/src/sike.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-03-27T02:27:49Z",
+      "side": 1,
+      "message": "at least some of these don\u0027t need to be zero initialised.",
+      "range": {
+        "startLine": 492,
+        "startChar": 36,
+        "endLine": 492,
+        "endChar": 39
+      },
+      "revId": "628c450c8115e928b4a4b2e9249420401bc28b4f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c378b564_560b1b8a",
+        "filename": "third_party/sike/src/sike.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-03-27T02:27:49Z",
+      "side": 1,
+      "message": "don\u0027t bother with cleanse.",
+      "revId": "628c450c8115e928b4a4b2e9249420401bc28b4f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00cc52d0_4e5aecfa",
+        "filename": "tool/speed.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-03-27T02:27:49Z",
+      "side": 1,
+      "message": "pass the return value up (here and below). If they start failing, we would want to know.",
+      "revId": "628c450c8115e928b4a4b2e9249420401bc28b4f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
