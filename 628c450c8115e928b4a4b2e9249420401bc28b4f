@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e360f2ec_ec44420b",
+        "filename": "third_party/sike/include/sike/sike.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 9225
+      },
+      "writtenOn": "2019-03-27T20:47:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ec2d520_235909be",
+      "range": {
+        "startLine": 41,
+        "startChar": 3,
+        "endLine": 41,
+        "endChar": 4
+      },
+      "revId": "628c450c8115e928b4a4b2e9249420401bc28b4f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed978145_fc2e6a28",
         "filename": "third_party/sike/include/sike/sike.h",
         "patchSetId": 10
@@ -71,6 +95,54 @@
     },
     {
       "key": {
+        "uuid": "26bc0b3a_e0ea5c89",
+        "filename": "third_party/sike/include/sike/sike.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 9225
+      },
+      "writtenOn": "2019-03-27T20:47:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed978145_fc2e6a28",
+      "range": {
+        "startLine": 42,
+        "startChar": 9,
+        "endLine": 42,
+        "endChar": 10
+      },
+      "revId": "628c450c8115e928b4a4b2e9249420401bc28b4f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c32b7cf_14317004",
+        "filename": "third_party/sike/include/sike/sike.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 9225
+      },
+      "writtenOn": "2019-03-27T20:47:21Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0f27b391_56a1c1cd",
+      "range": {
+        "startLine": 41,
+        "startChar": 21,
+        "endLine": 42,
+        "endChar": 7
+      },
+      "revId": "628c450c8115e928b4a4b2e9249420401bc28b4f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "667c6cdf_8aa82e68",
         "filename": "third_party/sike/include/sike/sike.h",
         "patchSetId": 10
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "1fe25ab2_55e1abb9",
+        "filename": "third_party/sike/include/sike/sike.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 9225
+      },
+      "writtenOn": "2019-03-27T20:47:21Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "667c6cdf_8aa82e68",
+      "range": {
+        "startLine": 44,
+        "startChar": 12,
+        "endLine": 44,
+        "endChar": 14
+      },
+      "revId": "628c450c8115e928b4a4b2e9249420401bc28b4f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b309e56_8c7b5254",
         "filename": "third_party/sike/include/sike/sike.h",
         "patchSetId": 10
@@ -108,6 +204,24 @@
       "revId": "628c450c8115e928b4a4b2e9249420401bc28b4f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "963495a2_2c5ea8bc",
+        "filename": "third_party/sike/include/sike/sike.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 9225
+      },
+      "writtenOn": "2019-03-27T20:47:21Z",
+      "side": 1,
+      "message": "Ok, \nbut it actually doesn\u0027t return anything (if garbage in, then garbage out). At least at the moment",
+      "parentUuid": "6b309e56_8c7b5254",
+      "revId": "628c450c8115e928b4a4b2e9249420401bc28b4f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -146,6 +260,24 @@
     },
     {
       "key": {
+        "uuid": "528844d7_7e0c82d8",
+        "filename": "third_party/sike/src/asm/fp_generic.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 9225
+      },
+      "writtenOn": "2019-03-27T20:47:21Z",
+      "side": 1,
+      "message": "I\u0027ve changed all fp* and fp2* functions names to sike_fp sike_fp2.\nFor easier reviewing it is submitted as separated patch as amount of line changed is significant, but there are no functional changes",
+      "parentUuid": "554aac53_08a3b853",
+      "revId": "628c450c8115e928b4a4b2e9249420401bc28b4f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b1391eab_41ddf5a8",
         "filename": "third_party/sike/src/sike.c",
         "patchSetId": 10
@@ -157,6 +289,24 @@
       "writtenOn": "2019-03-27T02:27:49Z",
       "side": 1,
       "message": "(For all suggested changes in this file, if it\u0027s code from SIKE itself and you don\u0027t want to change it, that\u0027s reasonable.)",
+      "revId": "628c450c8115e928b4a4b2e9249420401bc28b4f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b5401379_be9854cf",
+        "filename": "third_party/sike/src/sike.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9225
+      },
+      "writtenOn": "2019-03-27T20:47:21Z",
+      "side": 1,
+      "message": "some of those changes are mine, so all comments addressed",
+      "parentUuid": "b1391eab_41ddf5a8",
       "revId": "628c450c8115e928b4a4b2e9249420401bc28b4f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -186,6 +336,30 @@
     },
     {
       "key": {
+        "uuid": "d6ba69af_7171f4af",
+        "filename": "third_party/sike/src/sike.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 9225
+      },
+      "writtenOn": "2019-03-27T20:47:21Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9d0ac2d5_1cb39d77",
+      "range": {
+        "startLine": 56,
+        "startChar": 40,
+        "endLine": 56,
+        "endChar": 45
+      },
+      "revId": "628c450c8115e928b4a4b2e9249420401bc28b4f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "565419bc_6cac5bec",
         "filename": "third_party/sike/src/sike.c",
         "patchSetId": 10
@@ -200,6 +374,24 @@
       "revId": "628c450c8115e928b4a4b2e9249420401bc28b4f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "adde68ab_dbc35eb4",
+        "filename": "third_party/sike/src/sike.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 9225
+      },
+      "writtenOn": "2019-03-27T20:47:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "565419bc_6cac5bec",
+      "revId": "628c450c8115e928b4a4b2e9249420401bc28b4f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -220,6 +412,24 @@
     },
     {
       "key": {
+        "uuid": "946df5c5_dd03e713",
+        "filename": "third_party/sike/src/sike.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 9225
+      },
+      "writtenOn": "2019-03-27T20:47:21Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "28bce309_2a03d836",
+      "revId": "628c450c8115e928b4a4b2e9249420401bc28b4f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "718a599f_4a446d5d",
         "filename": "third_party/sike/src/sike.c",
         "patchSetId": 10
@@ -237,6 +447,24 @@
     },
     {
       "key": {
+        "uuid": "bda5cb29_a91e5720",
+        "filename": "third_party/sike/src/sike.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 9225
+      },
+      "writtenOn": "2019-03-27T20:47:21Z",
+      "side": 1,
+      "message": "Actually remove SIKE_NO_ASM from everywhere and change CMakeFile so that I can use OPENSSL_NO_ASM instead",
+      "parentUuid": "718a599f_4a446d5d",
+      "revId": "628c450c8115e928b4a4b2e9249420401bc28b4f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2e7aa160_b2c00890",
         "filename": "third_party/sike/src/sike.c",
         "patchSetId": 10
@@ -251,6 +479,24 @@
       "revId": "628c450c8115e928b4a4b2e9249420401bc28b4f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d221a22_19485a81",
+        "filename": "third_party/sike/src/sike.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 9225
+      },
+      "writtenOn": "2019-03-27T20:47:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e7aa160_b2c00890",
+      "revId": "628c450c8115e928b4a4b2e9249420401bc28b4f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -277,6 +523,47 @@
     },
     {
       "key": {
+        "uuid": "ed0d1225_49931989",
+        "filename": "third_party/sike/src/sike.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 9225
+      },
+      "writtenOn": "2019-03-27T20:47:21Z",
+      "side": 1,
+      "message": "Done. Good point - none of them are needed",
+      "parentUuid": "b729a750_248bd495",
+      "range": {
+        "startLine": 492,
+        "startChar": 36,
+        "endLine": 492,
+        "endChar": 39
+      },
+      "revId": "628c450c8115e928b4a4b2e9249420401bc28b4f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aa895297_7189e23e",
+        "filename": "third_party/sike/src/sike.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 9225
+      },
+      "writtenOn": "2019-03-27T20:47:21Z",
+      "side": 1,
+      "message": "This is also not needed then",
+      "revId": "628c450c8115e928b4a4b2e9249420401bc28b4f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c378b564_560b1b8a",
         "filename": "third_party/sike/src/sike.c",
         "patchSetId": 10
@@ -294,6 +581,24 @@
     },
     {
       "key": {
+        "uuid": "9bcfe297_6570d1d7",
+        "filename": "third_party/sike/src/sike.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 9225
+      },
+      "writtenOn": "2019-03-27T20:47:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c378b564_560b1b8a",
+      "revId": "628c450c8115e928b4a4b2e9249420401bc28b4f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "00cc52d0_4e5aecfa",
         "filename": "tool/speed.cc",
         "patchSetId": 10
@@ -308,6 +613,24 @@
       "revId": "628c450c8115e928b4a4b2e9249420401bc28b4f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a073eea_4dbf4ff9",
+        "filename": "tool/speed.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 9225
+      },
+      "writtenOn": "2019-03-27T20:47:21Z",
+      "side": 1,
+      "message": "Good point. SIKE_encaps/decaps don\u0027t return value anymore, so will remove (void).\nTests in sike_test.cc were not checking return value from SIKE_keypair(), so I\u0027ve added it also.",
+      "parentUuid": "00cc52d0_4e5aecfa",
+      "revId": "628c450c8115e928b4a4b2e9249420401bc28b4f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
