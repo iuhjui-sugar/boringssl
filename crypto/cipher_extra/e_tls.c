@@ -66,12 +66,12 @@ static int aead_tls_init(EVP_AEAD_CTX *ctx, const uint8_t *key, size_t key_len,
                          char implicit_iv) {
   if (tag_len != EVP_AEAD_DEFAULT_TAG_LENGTH &&
       tag_len != EVP_MD_size(md)) {
-    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_UNSUPPORTED_TAG_SIZE);
+    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_INVALID_TAG_SIZE);
     return 0;
   }
 
   if (key_len != EVP_AEAD_key_length(ctx->aead)) {
-    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_BAD_KEY_LENGTH);
+    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_INVALID_KEY_LENGTH);
     return 0;
   }
 

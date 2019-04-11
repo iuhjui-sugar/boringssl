@@ -642,10 +642,7 @@ TEST_P(PerAEADTest, InvalidNonceLength) {
                                    0, kZeros /* ad */, ad_len));
     uint32_t err = ERR_get_error();
     EXPECT_EQ(ERR_LIB_CIPHER, ERR_GET_LIB(err));
-    // TODO(davidben): Merge these errors. https://crbug.com/boringssl/129.
-    if (ERR_GET_REASON(err) != CIPHER_R_UNSUPPORTED_NONCE_SIZE) {
-      EXPECT_EQ(CIPHER_R_INVALID_NONCE_SIZE, ERR_GET_REASON(err));
-    }
+    EXPECT_EQ(CIPHER_R_INVALID_NONCE_SIZE, ERR_GET_REASON(err));
 
     ctx.Reset();
     ASSERT_TRUE(EVP_AEAD_CTX_init_with_direction(
@@ -656,9 +653,7 @@ TEST_P(PerAEADTest, InvalidNonceLength) {
                                    sizeof(kZeros), kZeros /* ad */, ad_len));
     err = ERR_get_error();
     EXPECT_EQ(ERR_LIB_CIPHER, ERR_GET_LIB(err));
-    if (ERR_GET_REASON(err) != CIPHER_R_UNSUPPORTED_NONCE_SIZE) {
-      EXPECT_EQ(CIPHER_R_INVALID_NONCE_SIZE, ERR_GET_REASON(err));
-    }
+    EXPECT_EQ(CIPHER_R_INVALID_NONCE_SIZE, ERR_GET_REASON(err));
   }
 }
 

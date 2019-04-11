@@ -50,7 +50,7 @@ static int aead_aes_ccm_init(EVP_AEAD_CTX *ctx, const uint8_t *key,
   assert(15 - L == EVP_AEAD_nonce_length(ctx->aead));
 
   if (key_len != EVP_AEAD_key_length(ctx->aead)) {
-    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_BAD_KEY_LENGTH);
+    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_INVALID_KEY_LENGTH);
     return 0;  // EVP_AEAD_CTX_init should catch this.
   }
 
@@ -59,7 +59,7 @@ static int aead_aes_ccm_init(EVP_AEAD_CTX *ctx, const uint8_t *key,
   }
 
   if (tag_len != M) {
-    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_TAG_TOO_LARGE);
+    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_INVALID_TAG_SIZE);
     return 0;
   }
 

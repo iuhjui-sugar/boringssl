@@ -166,7 +166,7 @@ static int aes_init_key(EVP_CIPHER_CTX *ctx, const uint8_t *key,
   }
 
   if (ret < 0) {
-    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_AES_KEY_SETUP_FAILED);
+    OPENSSL_PUT_ERROR(CIPHER, ERR_R_INTERNAL_ERROR);
     return 0;
   }
 
@@ -845,7 +845,7 @@ static int aead_aes_gcm_init_impl(struct aead_aes_gcm_ctx *gcm_ctx,
   const size_t key_bits = key_len * 8;
 
   if (key_bits != 128 && key_bits != 256) {
-    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_BAD_KEY_LENGTH);
+    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_INVALID_KEY_LENGTH);
     return 0;  // EVP_AEAD_CTX_init should catch this.
   }
 
@@ -854,7 +854,7 @@ static int aead_aes_gcm_init_impl(struct aead_aes_gcm_ctx *gcm_ctx,
   }
 
   if (tag_len > EVP_AEAD_AES_GCM_TAG_LEN) {
-    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_TAG_TOO_LARGE);
+    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_INVALID_TAG_SIZE);
     return 0;
   }
 
@@ -1072,7 +1072,7 @@ static int aead_aes_gcm_tls12_seal_scatter(
       (struct aead_aes_gcm_tls12_ctx *) &ctx->state;
 
   if (nonce_len != 12) {
-    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_UNSUPPORTED_NONCE_SIZE);
+    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_INVALID_NONCE_SIZE);
     return 0;
   }
 
@@ -1167,7 +1167,7 @@ static int aead_aes_gcm_tls13_seal_scatter(
       (struct aead_aes_gcm_tls13_ctx *) &ctx->state;
 
   if (nonce_len != 12) {
-    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_UNSUPPORTED_NONCE_SIZE);
+    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_INVALID_NONCE_SIZE);
     return 0;
   }
 
