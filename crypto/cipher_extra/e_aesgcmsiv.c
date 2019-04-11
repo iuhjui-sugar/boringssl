@@ -74,7 +74,7 @@ static int aead_aes_gcm_siv_asm_init(EVP_AEAD_CTX *ctx, const uint8_t *key,
   const size_t key_bits = key_len * 8;
 
   if (key_bits != 128 && key_bits != 256) {
-    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_BAD_KEY_LENGTH);
+    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_INVALID_KEY_LENGTH);
     return 0;  // EVP_AEAD_CTX_init should catch this.
   }
 
@@ -83,7 +83,7 @@ static int aead_aes_gcm_siv_asm_init(EVP_AEAD_CTX *ctx, const uint8_t *key,
   }
 
   if (tag_len != EVP_AEAD_AES_GCM_SIV_TAG_LEN) {
-    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_TAG_TOO_LARGE);
+    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_INVALID_TAG_SIZE);
     return 0;
   }
 
@@ -359,7 +359,7 @@ static int aead_aes_gcm_siv_asm_seal_scatter(
   }
 
   if (nonce_len != EVP_AEAD_AES_GCM_SIV_NONCE_LEN) {
-    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_UNSUPPORTED_NONCE_SIZE);
+    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_INVALID_NONCE_SIZE);
     return 0;
   }
 
@@ -427,7 +427,7 @@ static int aead_aes_gcm_siv_asm_open(const EVP_AEAD_CTX *ctx, uint8_t *out,
   }
 
   if (nonce_len != EVP_AEAD_AES_GCM_SIV_NONCE_LEN) {
-    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_UNSUPPORTED_NONCE_SIZE);
+    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_INVALID_NONCE_SIZE);
     return 0;
   }
 
@@ -583,7 +583,7 @@ static int aead_aes_gcm_siv_init(EVP_AEAD_CTX *ctx, const uint8_t *key,
   const size_t key_bits = key_len * 8;
 
   if (key_bits != 128 && key_bits != 256) {
-    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_BAD_KEY_LENGTH);
+    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_INVALID_KEY_LENGTH);
     return 0;  // EVP_AEAD_CTX_init should catch this.
   }
 
@@ -591,7 +591,7 @@ static int aead_aes_gcm_siv_init(EVP_AEAD_CTX *ctx, const uint8_t *key,
     tag_len = EVP_AEAD_AES_GCM_SIV_TAG_LEN;
   }
   if (tag_len != EVP_AEAD_AES_GCM_SIV_TAG_LEN) {
-    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_TAG_TOO_LARGE);
+    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_INVALID_TAG_SIZE);
     return 0;
   }
 
@@ -750,7 +750,7 @@ static int aead_aes_gcm_siv_seal_scatter(
   }
 
   if (nonce_len != EVP_AEAD_AES_GCM_SIV_NONCE_LEN) {
-    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_UNSUPPORTED_NONCE_SIZE);
+    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_INVALID_NONCE_SIZE);
     return 0;
   }
 
@@ -789,7 +789,7 @@ static int aead_aes_gcm_siv_open_gather(const EVP_AEAD_CTX *ctx, uint8_t *out,
   }
 
   if (nonce_len != EVP_AEAD_AES_GCM_SIV_NONCE_LEN) {
-    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_UNSUPPORTED_NONCE_SIZE);
+    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_INVALID_NONCE_SIZE);
     return 0;
   }
 
