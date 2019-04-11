@@ -72,7 +72,7 @@ int EVP_AEAD_CTX_init_with_direction(EVP_AEAD_CTX *ctx, const EVP_AEAD *aead,
                                      size_t tag_len,
                                      enum evp_aead_direction_t dir) {
   if (key_len != aead->key_len) {
-    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_UNSUPPORTED_KEY_SIZE);
+    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_INVALID_KEY_LENGTH);
     ctx->aead = NULL;
     return 0;
   }

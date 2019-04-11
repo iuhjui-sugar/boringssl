@@ -197,7 +197,7 @@ static int chacha20_poly1305_seal_scatter(
     return 0;
   }
   if (nonce_len != 12) {
-    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_UNSUPPORTED_NONCE_SIZE);
+    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_INVALID_NONCE_SIZE);
     return 0;
   }
 
@@ -279,7 +279,7 @@ static int aead_xchacha20_poly1305_seal_scatter(
       (struct aead_chacha20_poly1305_ctx *)&ctx->state;
 
   if (nonce_len != 24) {
-    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_UNSUPPORTED_NONCE_SIZE);
+    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_INVALID_NONCE_SIZE);
     return 0;
   }
 
@@ -300,7 +300,7 @@ static int chacha20_poly1305_open_gather(
     size_t nonce_len, const uint8_t *in, size_t in_len, const uint8_t *in_tag,
     size_t in_tag_len, const uint8_t *ad, size_t ad_len, size_t tag_len) {
   if (nonce_len != 12) {
-    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_UNSUPPORTED_NONCE_SIZE);
+    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_INVALID_NONCE_SIZE);
     return 0;
   }
 
@@ -360,7 +360,7 @@ static int aead_xchacha20_poly1305_open_gather(
       (struct aead_chacha20_poly1305_ctx *)&ctx->state;
 
   if (nonce_len != 24) {
-    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_UNSUPPORTED_NONCE_SIZE);
+    OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_INVALID_NONCE_SIZE);
     return 0;
   }
 
