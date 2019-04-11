@@ -22,6 +22,30 @@
       "revId": "9df83229632ce8a1880b891be183f9d75f3f460c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c2d12531_98af9387",
+        "filename": "crypto/cipher_extra/aead_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-04-11T16:13:31Z",
+      "side": 1,
+      "message": "Well, Brian filed this a while ago. https://bugs.chromium.org/p/boringssl/issues/detail?id\u003d34\n\nBut we are probably stuck with it now since it\u0027s probably exposed via Conscrypt. :-(\n\nThough, if we like, we could add EVP_aead_aes_128_variable_nonce so that people don\u0027t do it on accident.",
+      "parentUuid": "4c458563_ae839d32",
+      "range": {
+        "startLine": 53,
+        "startChar": 5,
+        "endLine": 53,
+        "endChar": 9
+      },
+      "revId": "9df83229632ce8a1880b891be183f9d75f3f460c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
