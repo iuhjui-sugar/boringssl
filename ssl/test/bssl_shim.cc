@@ -163,6 +163,12 @@ class SocketCloser {
 #endif
     while (true) {
       char buf[1024];
+#if !defined(OPENSSL_WINDOWS)
+      struct timeval timeout;
+      timeout.tv_sec = 5;
+      timeout.tv_usec = 0;
+      setsockopt(sock_, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout));
+#endif
       if (recv(sock_, buf, sizeof(buf), 0) <= 0) {
         break;
       }
