@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f7e6f8d2_76e5473c",
+        "filename": "crypto/evp/evp_tests.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-04-15T22:05:43Z",
+      "side": 1,
+      "message": "... to ...",
+      "range": {
+        "startLine": 278,
+        "startChar": 22,
+        "endLine": 278,
+        "endChar": 23
+      },
+      "revId": "8535fb39983fd92bb63ae14f09537530d59e65ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db0666cc_4f4edbf1",
+        "filename": "crypto/fipsmodule/digest/digest.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-04-15T22:05:43Z",
+      "side": 1,
+      "message": "your call, but could always assign |tmp_buf| to |out-\u003emd_data| and skip the else {}.",
+      "revId": "8535fb39983fd92bb63ae14f09537530d59e65ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
