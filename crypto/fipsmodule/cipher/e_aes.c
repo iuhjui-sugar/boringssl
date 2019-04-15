@@ -590,7 +590,7 @@ DEFINE_LOCAL_DATA(EVP_CIPHER, aes_128_gcm_generic) {
   out->key_len = 16;
   out->iv_len = 12;
   out->ctx_size = sizeof(EVP_AES_GCM_CTX) + EVP_AES_GCM_CTX_PADDING;
-  out->flags = EVP_CIPH_GCM_MODE | EVP_CIPH_CUSTOM_IV |
+  out->flags = EVP_CIPH_GCM_MODE | EVP_CIPH_CUSTOM_IV | EVP_CIPH_CUSTOM_COPY |
                EVP_CIPH_FLAG_CUSTOM_CIPHER | EVP_CIPH_ALWAYS_CALL_INIT |
                EVP_CIPH_CTRL_INIT | EVP_CIPH_FLAG_AEAD_CIPHER;
   out->init = aes_gcm_init_key;
@@ -658,7 +658,7 @@ DEFINE_LOCAL_DATA(EVP_CIPHER, aes_192_gcm_generic) {
   out->key_len = 24;
   out->iv_len = 12;
   out->ctx_size = sizeof(EVP_AES_GCM_CTX) + EVP_AES_GCM_CTX_PADDING;
-  out->flags = EVP_CIPH_GCM_MODE | EVP_CIPH_CUSTOM_IV |
+  out->flags = EVP_CIPH_GCM_MODE | EVP_CIPH_CUSTOM_IV | EVP_CIPH_CUSTOM_COPY |
                EVP_CIPH_FLAG_CUSTOM_CIPHER | EVP_CIPH_ALWAYS_CALL_INIT |
                EVP_CIPH_CTRL_INIT | EVP_CIPH_FLAG_AEAD_CIPHER;
   out->init = aes_gcm_init_key;
@@ -726,7 +726,7 @@ DEFINE_LOCAL_DATA(EVP_CIPHER, aes_256_gcm_generic) {
   out->key_len = 32;
   out->iv_len = 12;
   out->ctx_size = sizeof(EVP_AES_GCM_CTX) + EVP_AES_GCM_CTX_PADDING;
-  out->flags = EVP_CIPH_GCM_MODE | EVP_CIPH_CUSTOM_IV |
+  out->flags = EVP_CIPH_GCM_MODE | EVP_CIPH_CUSTOM_IV | EVP_CIPH_CUSTOM_COPY |
                EVP_CIPH_FLAG_CUSTOM_CIPHER | EVP_CIPH_ALWAYS_CALL_INIT |
                EVP_CIPH_CTRL_INIT | EVP_CIPH_FLAG_AEAD_CIPHER;
   out->init = aes_gcm_init_key;
