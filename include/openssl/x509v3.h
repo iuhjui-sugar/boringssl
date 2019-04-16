@@ -703,7 +703,7 @@ OPENSSL_EXPORT void X509_email_free(STACK_OF(OPENSSL_STRING) *sk);
 OPENSSL_EXPORT STACK_OF(OPENSSL_STRING) *X509_get1_ocsp(X509 *x);
 /* Flags for X509_check_* functions */
 
-/* Always check subject name for host match even if subject alt names present */
+/* Deprecated: this flag does nothing */
 #define X509_CHECK_FLAG_ALWAYS_CHECK_SUBJECT	0x1
 /* Disable wildcard matching for dnsName fields and common name. */
 #define X509_CHECK_FLAG_NO_WILDCARDS	0x2
