@@ -1001,10 +1001,7 @@ static int do_x509_check(X509 *x, const char *chk, size_t chklen,
                 break;
         }
         GENERAL_NAMES_free(gens);
-        if (rv != 0)
-            return rv;
-        if (san_present)
-            return 0;
+        return rv;
     }
 
     /* We're done if CN-ID is not pertinent */
