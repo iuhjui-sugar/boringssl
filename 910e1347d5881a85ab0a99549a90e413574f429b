@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cc5f3bf4_f2b1ab52",
+        "filename": "crypto/x509v3/v3_utl.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 912,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-04-18T23:36:19Z",
+      "side": 1,
+      "message": "This doesn\u0027t exactly match the Go function, I believe, but it\u0027s close enough. For example, I think Go will accept \"*\" (https://play.golang.org/p/bP89bjqyR2-), while this won\u0027t. But Go is arguably inferior in doing so.",
+      "revId": "910e1347d5881a85ab0a99549a90e413574f429b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe321e13_cabe42ca",
+        "filename": "crypto/x509v3/v3_utl.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-04-18T23:36:19Z",
+      "side": 1,
+      "message": "This logic also triggers when matching SANs, right? Do we want that?",
+      "revId": "910e1347d5881a85ab0a99549a90e413574f429b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
