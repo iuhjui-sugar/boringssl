@@ -1,0 +1,135 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6689649a_e7eb836f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-04-18T00:12:12Z",
+      "side": 1,
+      "message": "Can you add an Update-Note describing what might break and how to fix it? (This is *definitely* user-visible, though mostly unit tests...)",
+      "revId": "007324286f6443d6261c90ee20019ea353f8a0b4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "957b3674_1aa60ef8",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1549,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-04-18T00:12:12Z",
+      "side": 1,
+      "message": "Add a comment as to what\u0027s going on.",
+      "revId": "007324286f6443d6261c90ee20019ea353f8a0b4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3159184f_aafa7767",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1551,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-04-18T00:12:12Z",
+      "side": 1,
+      "message": "nullptr, given there\u0027s no length.",
+      "range": {
+        "startLine": 1551,
+        "startChar": 19,
+        "endLine": 1551,
+        "endChar": 25
+      },
+      "revId": "007324286f6443d6261c90ee20019ea353f8a0b4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fbddd509_c2cf2d44",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3085,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-04-18T00:12:12Z",
+      "side": 1,
+      "message": "clang-format",
+      "revId": "007324286f6443d6261c90ee20019ea353f8a0b4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8078777_66338de5",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3091,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-04-18T00:12:12Z",
+      "side": 1,
+      "message": "s/to verify/so that/?\n\nWe\u0027re not verifying that this happens, right? It\u0027s the scenario we\u0027re testing.",
+      "range": {
+        "startLine": 3091,
+        "startChar": 24,
+        "endLine": 3091,
+        "endChar": 37
+      },
+      "revId": "007324286f6443d6261c90ee20019ea353f8a0b4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "044ab07f_ceac08dd",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 3103,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-04-18T00:12:12Z",
+      "side": 1,
+      "message": "Is that actually what\u0027s going on, given CompleteHandshakes calls SSL_write and SSL_read?",
+      "revId": "007324286f6443d6261c90ee20019ea353f8a0b4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24b55e05_bb0fa1a2",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 929,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-04-18T00:12:12Z",
+      "side": 1,
+      "message": "Comment what\u0027s going on here? This is really non-obvious so we should explain the situation in detail.",
+      "revId": "007324286f6443d6261c90ee20019ea353f8a0b4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
