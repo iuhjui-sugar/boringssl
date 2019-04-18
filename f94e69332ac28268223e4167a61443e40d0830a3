@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "59b2d5c9_b91c3556",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-04-18T21:19:08Z",
+      "side": 1,
+      "message": "One of these days, I should figure out how exactly the C/C++ compatibility is specified formally. I believe CFI gets super upset if you change the names of structs underlying typedefs. But the C++ rule, IIRC, is \"the list of tokens defining the name must be the same\". That is rather solidly not applicable when we\u0027re talking about two different (if related) languages...",
+      "range": {
+        "startLine": 25,
+        "startChar": 30,
+        "endLine": 26,
+        "endChar": 37
+      },
+      "revId": "f94e69332ac28268223e4167a61443e40d0830a3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5f9db949_0aa86677",
+        "filename": "ssl/CMakeLists.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-04-18T21:19:08Z",
+      "side": 1,
+      "message": "generate_build_files.py will probably get upset about this. Perhaps ssl_c_test.c?",
+      "range": {
+        "startLine": 53,
+        "startChar": 2,
+        "endLine": 53,
+        "endChar": 12
+      },
+      "revId": "f94e69332ac28268223e4167a61443e40d0830a3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4414f48a_c0d03544",
+        "filename": "ssl/CMakeLists.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-04-18T21:19:08Z",
+      "side": 1,
+      "message": "I\u0027d meant to add some C tests (Brian points out https://crbug.com/boringssl/228), but I remember from the C++ canary in the then C libssl that Bazel gets very offended by mixed C/C++ targets.\n\nIt should be resolvable, but I mention it just to warn you you may need to fight with downstream builds. :-)\n\n(Perhaps after all that\u0027s sorted, I\u0027ll smuggle a compiler test into ssl_test so we don\u0027t have to do this multiple times...)",
+      "range": {
+        "startLine": 53,
+        "startChar": 13,
+        "endLine": 53,
+        "endChar": 14
+      },
+      "revId": "f94e69332ac28268223e4167a61443e40d0830a3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
