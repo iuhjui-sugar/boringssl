@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "964ed4b9_21767539",
+        "filename": "crypto/x509v3/v3_utl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 991,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-04-18T18:02:20Z",
+      "side": 1,
+      "message": "this is maybe moot with following changes, but this seems like the wrong logic. If a SAN extension is present then I would want Subject to be ignored. But this only appears to trigger if a SAN of the expected type is found.",
+      "range": {
+        "startLine": 991,
+        "startChar": 12,
+        "endLine": 991,
+        "endChar": 28
+      },
+      "revId": "02421d07c70f3e1d356c98ab87d90b339d3bff8c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
