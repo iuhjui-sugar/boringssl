@@ -50,6 +50,7 @@ add_executable(
 
   span_test.cc
   ssl_test.cc
+  ssl_test_c.c
 
   $<TARGET_OBJECTS:boringssl_gtest_main>
 )
