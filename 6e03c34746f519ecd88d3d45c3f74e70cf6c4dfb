@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6cae1c62_2aedc067",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-04-18T18:12:02Z",
+      "side": 1,
+      "message": "is ...",
+      "revId": "6e03c34746f519ecd88d3d45c3f74e70cf6c4dfb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dad38777_b4b0e0ab",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1892,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-04-18T18:12:02Z",
+      "side": 1,
+      "message": "Something seems odd here. This is testing the ...ALWAYS... flag in a block of ...NEVER... checks. But s/ALWAYS/NEVER/ makes it the same as the previous line. Something similar with L1863 and L1866 looking like the same test.",
+      "range": {
+        "startLine": 1890,
+        "startChar": 2,
+        "endLine": 1892,
+        "endChar": 43
+      },
+      "revId": "6e03c34746f519ecd88d3d45c3f74e70cf6c4dfb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
