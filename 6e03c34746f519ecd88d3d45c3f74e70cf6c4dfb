@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1f523b82_2c7847a1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-04-18T18:36:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6cae1c62_2aedc067",
+      "revId": "6e03c34746f519ecd88d3d45c3f74e70cf6c4dfb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dad38777_b4b0e0ab",
         "filename": "crypto/x509/x509_test.cc",
         "patchSetId": 3
@@ -39,6 +57,30 @@
       "revId": "6e03c34746f519ecd88d3d45c3f74e70cf6c4dfb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb091b6a_eb937462",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1892,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-04-18T18:36:03Z",
+      "side": 1,
+      "message": "Oops. Copy-and-paste mishap. There should only be two new tests in each block. Fixed.",
+      "parentUuid": "dad38777_b4b0e0ab",
+      "range": {
+        "startLine": 1890,
+        "startChar": 2,
+        "endLine": 1892,
+        "endChar": 43
+      },
+      "revId": "6e03c34746f519ecd88d3d45c3f74e70cf6c4dfb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
