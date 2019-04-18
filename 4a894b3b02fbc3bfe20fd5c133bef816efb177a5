@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9b6ba950_f106d4cb",
+        "filename": "include/openssl/x509v3.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 707,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-04-18T18:04:43Z",
+      "side": 1,
+      "message": "define it to zero?",
+      "range": {
+        "startLine": 707,
+        "startChar": 45,
+        "endLine": 707,
+        "endChar": 48
+      },
+      "revId": "4a894b3b02fbc3bfe20fd5c133bef816efb177a5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
