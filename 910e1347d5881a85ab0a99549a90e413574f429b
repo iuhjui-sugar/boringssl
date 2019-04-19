@@ -33,6 +33,24 @@
       "revId": "910e1347d5881a85ab0a99549a90e413574f429b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35882b9a_6435be12",
+        "filename": "crypto/x509v3/v3_utl.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 993,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-04-19T00:02:15Z",
+      "side": 1,
+      "message": "It doesn\u0027t. The cmp_type parameter is the string type expected out of |a|. X.509, in a rare moment of sense, picks particular string types for each of the CHOICE arms in GeneralName. In the SAN path, cmp_type \u003e 0 and line 974 performs this check. In the common name path, we must deal with DirectoryString allowing any old string, so cmp_type is -1 and we run this code here.\n\nWhether we want that, I dunno, being strict would be cool but I suspect it would break lots of things, so maybe we defer that to the Chrome cert verifier vaporware. :-)\n\n(I believe this is covered by v3name_test.cc, which believes, among other things, that email addresses are valid DNS names...)",
+      "parentUuid": "fe321e13_cabe42ca",
+      "revId": "910e1347d5881a85ab0a99549a90e413574f429b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
