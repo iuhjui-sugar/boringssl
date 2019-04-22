@@ -68,6 +68,54 @@
       "revId": "f94e69332ac28268223e4167a61443e40d0830a3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df9e1b84_21b2ca3d",
+        "filename": "ssl/CMakeLists.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-04-22T21:36:54Z",
+      "side": 1,
+      "message": "Ok. I\u0027ll watch to see how things blow up and then maybe revert or reshape this.",
+      "parentUuid": "4414f48a_c0d03544",
+      "range": {
+        "startLine": 53,
+        "startChar": 13,
+        "endLine": 53,
+        "endChar": 14
+      },
+      "revId": "f94e69332ac28268223e4167a61443e40d0830a3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "53e72318_27f1ca9d",
+        "filename": "ssl/CMakeLists.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-04-22T21:36:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f9db949_0aa86677",
+      "range": {
+        "startLine": 53,
+        "startChar": 2,
+        "endLine": 53,
+        "endChar": 12
+      },
+      "revId": "f94e69332ac28268223e4167a61443e40d0830a3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
