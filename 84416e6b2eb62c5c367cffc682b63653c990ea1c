@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "04015862_e4322a04",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1555,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-04-22T23:46:06Z",
+      "side": 1,
+      "message": "Isn\u0027t \u0026byte also unused here?",
+      "range": {
+        "startLine": 1555,
+        "startChar": 19,
+        "endLine": 1555,
+        "endChar": 23
+      },
+      "revId": "84416e6b2eb62c5c367cffc682b63653c990ea1c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d02188e_ab18d187",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3109,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-04-22T23:46:06Z",
+      "side": 1,
+      "message": "I\u0027m still not quite following this test.\n\nFirst, we\u0027d run through the handshake part of CompleteHandshakes. Client and server finish their handshakes, buffers are empty.\n\nThen we SSL_write(server, 0). Server tries to flush NST. It gets 100 bytes into the buffer (assuming the ticket doesn\u0027t fit in 100 bytes) and then SSL_ERROR_WANT_WRITE, which is ignored (?).\n\nThen we SSL_read(client, 0). Client picks up partial NST and then SSL_ERROR_WANT_READ, which is ignored (?).\n\nThen we SSL_write(client, 1) and SSL_read(server, 1) here. But everything fits in buffers just fine there. It just tests that the handshake completed (part of CompleteHandshakes) and I guess indirectly checks that the ignored results from SSL_write/SSL_read didn\u0027t get things stuck. It\u0027s also a little weird that, previously, CompleteHandshakes considered SSL_read() to be the test\u0027s job and those tests are still doing that part.\n\nDid you mean SSL_write(server) and SSL_read(client)? Although that only finishes the NST if it is between 100 and 200 bytes, and we don\u0027t test that we successfully finish the tickets.\n\n\nHow about something like this?\nhttps://boringssl-review.googlesource.com/c/boringssl/+/35704\n(I didn\u0027t want to send you down a wild goose chase if what I was thinking didn\u0027t work. But it seems to worked, so here\u0027s something to squash if you like it.)",
+      "revId": "84416e6b2eb62c5c367cffc682b63653c990ea1c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5811a52_e7c430ae",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 931,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-04-22T23:46:06Z",
+      "side": 1,
+      "message": "s/avoid/prevent/",
+      "range": {
+        "startLine": 931,
+        "startChar": 15,
+        "endLine": 931,
+        "endChar": 20
+      },
+      "revId": "84416e6b2eb62c5c367cffc682b63653c990ea1c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
