@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e1f88531_9bd17119",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1555,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2019-04-23T15:36:03Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "04015862_e4322a04",
+      "range": {
+        "startLine": 1555,
+        "startChar": 19,
+        "endLine": 1555,
+        "endChar": 23
+      },
+      "revId": "84416e6b2eb62c5c367cffc682b63653c990ea1c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3d02188e_ab18d187",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 3
@@ -39,6 +63,24 @@
       "revId": "84416e6b2eb62c5c367cffc682b63653c990ea1c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7dbd43a_92745fda",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 3109,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2019-04-23T15:36:03Z",
+      "side": 1,
+      "message": "Yeah, the splitting out to its own function seems reasonable.",
+      "parentUuid": "3d02188e_ab18d187",
+      "revId": "84416e6b2eb62c5c367cffc682b63653c990ea1c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -62,6 +104,30 @@
       "revId": "84416e6b2eb62c5c367cffc682b63653c990ea1c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18ed8305_fe63cdc0",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 931,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2019-04-23T15:36:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5811a52_e7c430ae",
+      "range": {
+        "startLine": 931,
+        "startChar": 15,
+        "endLine": 931,
+        "endChar": 20
+      },
+      "revId": "84416e6b2eb62c5c367cffc682b63653c990ea1c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
