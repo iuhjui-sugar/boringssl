@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ca7dcac5_48c136f9",
+        "filename": "third_party/sike/sike_test.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 9225
+      },
+      "writtenOn": "2019-04-23T16:52:37Z",
+      "side": 1,
+      "message": "needs to be enabled for aarch64",
+      "revId": "4b728181d2ec3acdb650978f28b90cd2c3bf6115",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
