@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "d081f28e_795fb98d",
+        "filename": "third_party/sike/asm/fp-armv8.pl",
+        "patchSetId": 18
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-04-24T20:41:20Z",
+      "side": 1,
+      "message": "(The frame pointer prolog is the pair of stp and mov/add instructions you can find in the other files. 5.2.3 of AAPCS64 talks about overall frame pointer requirements. iOS picks the tightest of them.)",
+      "parentUuid": "fb3cd521_df17ea39",
+      "revId": "4b728181d2ec3acdb650978f28b90cd2c3bf6115",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fa95641b_edb65c37",
         "filename": "third_party/sike/asm/fp-armv8.pl",
         "patchSetId": 18
