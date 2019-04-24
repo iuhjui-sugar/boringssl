@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fb3cd521_df17ea39",
+        "filename": "third_party/sike/asm/fp-armv8.pl",
+        "patchSetId": 18
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-04-24T20:37:07Z",
+      "side": 1,
+      "message": "The iOS ARM64 ABI also requires every function set up a frame pointer in x29, which the ABI tests don\u0027t currently test. I\u0027m not sure exactly what they use it for, but aarch64 has loads of registers, so we should honor those rules. (If nothing else, Windows on ARM64, if we do assembly for it, will need unwind support, and uniformly using a frame pointer will keep it nice and straightforward.)",
+      "parentUuid": "1eda1b56_50abad87",
+      "revId": "4b728181d2ec3acdb650978f28b90cd2c3bf6115",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fa95641b_edb65c37",
         "filename": "third_party/sike/asm/fp-armv8.pl",
         "patchSetId": 18
