@@ -2,6 +2,40 @@
   "comments": [
     {
       "key": {
+        "uuid": "1eda1b56_50abad87",
+        "filename": "third_party/sike/asm/fp-armv8.pl",
+        "patchSetId": 18
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 9225
+      },
+      "writtenOn": "2019-04-24T11:18:23Z",
+      "side": 1,
+      "message": "It seems this code uses x18 a lot without preserving the value stored in the register. According to \"Procedure Call Standard for the ARM 64-bit Architecture\" [1], says that usage of X18 should be avoided in hand-coded assembler. I havn\u0027t seen a problem on linux, but iOS doc [2] says \"The register x18 is reserved for the platform. Conforming software should not make use of it.\" Anyway, x18 shouldn\u0027t be used, so I\u0027ll re-write those functions.\n\n[1] http://infocenter.arm.com/help/topic/com.arm.doc.ihi0055b/IHI0055B_aapcs64.pdf\n[2] https://developer.apple.com/library/archive/documentation/Xcode/Conceptual/iPhoneOSABIReference/Articles/ARM64FunctionCallingConventions.html",
+      "revId": "4b728181d2ec3acdb650978f28b90cd2c3bf6115",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa95641b_edb65c37",
+        "filename": "third_party/sike/asm/fp-armv8.pl",
+        "patchSetId": 18
+      },
+      "lineNbr": 620,
+      "author": {
+        "id": 9225
+      },
+      "writtenOn": "2019-04-24T11:18:23Z",
+      "side": 1,
+      "message": "use X0 instead",
+      "revId": "4b728181d2ec3acdb650978f28b90cd2c3bf6115",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ca7dcac5_48c136f9",
         "filename": "third_party/sike/sike_test.cc",
         "patchSetId": 18
