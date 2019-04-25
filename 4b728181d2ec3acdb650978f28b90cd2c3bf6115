@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "dc4297ad_d49a1155",
+        "filename": "third_party/sike/asm/fp-armv8.pl",
+        "patchSetId": 18
+      },
+      "lineNbr": 620,
+      "author": {
+        "id": 9225
+      },
+      "writtenOn": "2019-04-25T09:05:20Z",
+      "side": 1,
+      "message": "Done. Code doesn\u0027t use x18 anymore",
+      "parentUuid": "fa95641b_edb65c37",
+      "revId": "4b728181d2ec3acdb650978f28b90cd2c3bf6115",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ca7dcac5_48c136f9",
         "filename": "third_party/sike/sike_test.cc",
         "patchSetId": 18
@@ -86,6 +104,24 @@
       "revId": "4b728181d2ec3acdb650978f28b90cd2c3bf6115",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c943d71_919ee421",
+        "filename": "third_party/sike/sike_test.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 9225
+      },
+      "writtenOn": "2019-04-25T09:05:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca7dcac5_48c136f9",
+      "revId": "4b728181d2ec3acdb650978f28b90cd2c3bf6115",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
