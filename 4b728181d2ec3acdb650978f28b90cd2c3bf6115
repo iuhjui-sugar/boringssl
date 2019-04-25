@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "7c01585c_ca4d5aab",
+        "filename": "third_party/sike/asm/fp-armv8.pl",
+        "patchSetId": 18
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-04-25T17:47:20Z",
+      "side": 1,
+      "message": "After https://boringssl-review.googlesource.com/c/boringssl/+/35764 lands, arm-xlate.pl will catch the r18 issue. Testing the frame pointer will be quite a bit more work.",
+      "parentUuid": "d081f28e_795fb98d",
+      "revId": "4b728181d2ec3acdb650978f28b90cd2c3bf6115",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fa95641b_edb65c37",
         "filename": "third_party/sike/asm/fp-armv8.pl",
         "patchSetId": 18
