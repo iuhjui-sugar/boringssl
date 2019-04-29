@@ -22,6 +22,30 @@
       "revId": "27cfa30be5e47e916d589860dab3d8391c038c3c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d06c511c_e4402c3f",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1112,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-04-29T16:14:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3493f4cd_a77ca346",
+      "range": {
+        "startLine": 1112,
+        "startChar": 54,
+        "endLine": 1112,
+        "endChar": 56
+      },
+      "revId": "27cfa30be5e47e916d589860dab3d8391c038c3c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
