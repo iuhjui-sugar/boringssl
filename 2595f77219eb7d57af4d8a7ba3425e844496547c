@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a25287d_458f3241",
+        "filename": "crypto/evp/evp.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-04-30T18:29:07Z",
+      "side": 1,
+      "message": "(nit: remove extra blank line.)",
+      "revId": "2595f77219eb7d57af4d8a7ba3425e844496547c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "637060ce_b910b30e",
+        "filename": "crypto/evp/evp_extra_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-04-30T18:29:07Z",
+      "side": 1,
+      "message": "ERR_clear_error() in case there\u0027s ever more than one value pushed to the queue?\n\n(And below. Although there\u0027s a bunch of cases so maybe don\u0027t bother. Your call.)",
+      "revId": "2595f77219eb7d57af4d8a7ba3425e844496547c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e9868a66_b83941dd",
+        "filename": "crypto/evp/evp_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-04-30T18:29:07Z",
+      "side": 1,
+      "message": "Just confirming: this is returning false rather than using ASSERT_* because the latter only works in functions that return void?",
+      "revId": "2595f77219eb7d57af4d8a7ba3425e844496547c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
