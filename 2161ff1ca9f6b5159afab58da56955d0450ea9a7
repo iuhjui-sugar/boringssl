@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0d6805d5_37684b88",
+        "filename": "crypto/mem.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 7390
+      },
+      "writtenOn": "2019-05-03T19:52:05Z",
+      "side": 1,
+      "message": "But since this talks about libc.so here, I still don\u0027t see what the thinking is here for Windows. More background on why both libboringssl and absl want to have a symbol by this name would be appreciated. From an uninformed distance, it seems like neither should have this symbol on Windows :)",
+      "revId": "2161ff1ca9f6b5159afab58da56955d0450ea9a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
