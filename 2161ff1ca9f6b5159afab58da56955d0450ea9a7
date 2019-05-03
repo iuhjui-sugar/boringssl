@@ -16,6 +16,24 @@
       "revId": "2161ff1ca9f6b5159afab58da56955d0450ea9a7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8373efc_9738cd92",
+        "filename": "crypto/mem.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-05-03T19:58:33Z",
+      "side": 1,
+      "message": "BoringSSL wants to call sdallocx because it\u0027s defined in some cases and malloc/free can work faster if we pass in a length to free(*). So, if we can define a weak symbol we want a weak defn of it that might get overridden. Otherwise it\u0027s static just to reduce the number of #ifdefs.\n\n(*) We have internal cases where it matters.",
+      "parentUuid": "0d6805d5_37684b88",
+      "revId": "2161ff1ca9f6b5159afab58da56955d0450ea9a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
