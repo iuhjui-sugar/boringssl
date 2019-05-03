@@ -79,7 +79,7 @@ static void __asan_poison_memory_region(const void *addr, size_t size) {}
 static void __asan_unpoison_memory_region(const void *addr, size_t size) {}
 #endif
 
-#if defined(__GNUC__) || defined(__clang__)
+#if defined(BORINGSSL_HAS_WEAK_SYMBOLS)
 // sdallocx is a sized |free| function. By passing the size (which we happen to
 // always know in BoringSSL), the malloc implementation can save work. We cannot
 // depend on |sdallocx| being available so we declare a wrapper that falls back

@@ -266,6 +266,13 @@ extern "C" {
 #define OPENSSL_INLINE static inline OPENSSL_UNUSED
 #endif
 
+// Enable use of weak symbols on platforms that support them.  Clang for Windows
+// notably presently has a broken weak symbol implementation.  See:
+//   https://bugs.llvm.org/show_bug.cgi?id=37598
+#if defined(__GNUC__) || (defined(__clang__) && !defined(_MSC_VER))
+#define BORINGSSL_HAS_WEAK_SYMBOLS 1
+#endif
+
 #if defined(BORINGSSL_UNSAFE_FUZZER_MODE) && \
     !defined(BORINGSSL_UNSAFE_DETERMINISTIC_MODE)
 #define BORINGSSL_UNSAFE_DETERMINISTIC_MODE
