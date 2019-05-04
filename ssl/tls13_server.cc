@@ -434,6 +434,12 @@ static enum ssl_hs_wait_t do_select_session(SSL_HANDSHAKE *hs) {
       hs->new_session =
           SSL_SESSION_dup(session.get(), SSL_SESSION_DUP_AUTH_ONLY);
 
+      // Allow a minute of ticket age skew in either direction. This covers
+      // transmission delays in ClientHello and NewSessionTicket, as well as
+      // drift between client and server clock rate since the ticket was issued.
+      // See RFC 8446, section 8.3.
+      static const int32_t kMaxTicketAgeSkewSeconds = 60;
+
       if (!ssl->enable_early_data) {
         ssl->s3->early_data_reason = ssl_early_data_disabled;
       } else if (session->ticket_max_early_data == 0) {
@@ -449,6 +455,9 @@ static enum ssl_hs_wait_t do_select_session(SSL_HANDSHAKE *hs) {
       } else if (MakeConstSpan(ssl->s3->alpn_selected) != session->early_alpn) {
         // The negotiated ALPN must match the one in the ticket.
         ssl->s3->early_data_reason = ssl_early_data_alpn_mismatch;
+      } else if (ssl->s3->ticket_age_skew < -kMaxTicketAgeSkewSeconds ||
+                 kMaxTicketAgeSkewSeconds < ssl->s3->ticket_age_skew) {
+        ssl->s3->early_data_reason = ssl_early_data_ticket_age_skew;
       } else {
         ssl->s3->early_data_reason = ssl_early_data_accepted;
         ssl->s3->early_data_accepted = true;
