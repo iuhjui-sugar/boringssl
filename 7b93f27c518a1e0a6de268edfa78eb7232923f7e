@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3d8ef257_9223aa27",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 5424,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-05-07T22:19:25Z",
+      "side": 1,
+      "message": "on",
+      "range": {
+        "startLine": 5424,
+        "startChar": 47,
+        "endLine": 5424,
+        "endChar": 49
+      },
+      "revId": "7b93f27c518a1e0a6de268edfa78eb7232923f7e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
