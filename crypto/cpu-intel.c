@@ -196,12 +196,12 @@ void OPENSSL_cpuid_setup(void) {
     ecx &= ~(1u << 28);  // AVX
     ecx &= ~(1u << 12);  // FMA
     ecx &= ~(1u << 11);  // AMD XOP
-    // Clear AVX2 and AVX512* bits.
+    // Clear AVX512* bits.
     //
     // TODO(davidben): Should bits 17 and 26-28 also be cleared? Upstream
     // doesn't clear those.
     extended_features[0] &=
-        ~((1u << 5) | (1u << 16) | (1u << 21) | (1u << 30) | (1u << 31));
+        ~((1u << 16) | (1u << 21) | (1u << 30) | (1u << 31));
   }
   // See Intel manual, volume 1, section 15.2.
   if ((xcr0 & 0xe6) != 0xe6) {
