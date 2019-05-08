@@ -1273,6 +1273,12 @@ int SSL_in_early_data(const SSL *ssl) {
   return ssl->s3->hs->in_early_data;
 }
 
+int SSL_early_data_capable(const SSL *ssl) {
+  return ssl->session != nullptr &&
+         ssl_session_protocol_version(ssl->session.get()) >= TLS1_3_VERSION &&
+         ssl->session->ticket_max_early_data != 0;
+}
+
 int SSL_early_data_accepted(const SSL *ssl) {
   return ssl->s3->early_data_accepted;
 }

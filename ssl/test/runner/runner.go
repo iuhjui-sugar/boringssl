@@ -11335,13 +11335,15 @@ func addSessionTicketTests() {
 		},
 	})
 
-	// Test that 0-RTT tickets are ignored in clients unless opted in.
 	testCases = append(testCases, testCase{
 		testType: clientTest,
 		name:     "TLS13-SendTicketEarlyDataInfo-Disabled",
 		config: Config{
 			MaxVersion:       VersionTLS13,
 			MaxEarlyDataSize: 16384,
+		},
+		flags: []string{
+			"-expect-ticket-supports-early-data",
 		},
 	})
 
