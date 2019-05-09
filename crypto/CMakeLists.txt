@@ -87,7 +87,7 @@ endfunction()
 add_subdirectory(fipsmodule)
 add_subdirectory(test)
 
-if(FIPS_DELOCATE)
+if(FIPS_DELOCATE OR FIPS_SHARED)
   SET_SOURCE_FILES_PROPERTIES(fipsmodule/bcm.o PROPERTIES EXTERNAL_OBJECT true)
   SET_SOURCE_FILES_PROPERTIES(fipsmodule/bcm.o PROPERTIES GENERATED true)
 
@@ -413,7 +413,7 @@ add_library(
 
 add_dependencies(crypto global_target)
 
-if(FIPS_DELOCATE)
+if(FIPS_DELOCATE OR FIPS_SHARED)
   add_dependencies(crypto bcm_o_target)
 endif()
 
