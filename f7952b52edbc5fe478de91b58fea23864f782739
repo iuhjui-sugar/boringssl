@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c30e0618_f579b4c4",
+        "filename": "crypto/fipsmodule/sha/asm/sha512-x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 1612,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-05-13T17:59:23Z",
+      "side": 1,
+      "message": "(stack allocation here)",
+      "revId": "f7952b52edbc5fe478de91b58fea23864f782739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
