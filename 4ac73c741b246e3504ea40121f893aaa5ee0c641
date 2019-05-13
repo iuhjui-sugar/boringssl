@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a431acaa_650a99c2",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3296,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-05-13T20:56:11Z",
+      "side": 1,
+      "message": "Might make sense to put it on the SSL_SESSION due to the resumption issue? Specifically, if the server declines resumption, we\u0027d still have attempted it.\n\n(Test?)",
+      "range": {
+        "startLine": 3296,
+        "startChar": 19,
+        "endLine": 3296,
+        "endChar": 41
+      },
+      "revId": "4ac73c741b246e3504ea40121f893aaa5ee0c641",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e04858d1_78fe7241",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 11338,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-05-13T20:56:11Z",
+      "side": 0,
+      "message": "Maybe \"Test that 0-RTT tickets are still recorded as such when early data is disabled overall.\"?",
+      "revId": "7540cc2ec0a5c29306ed852483f833c61eddf133",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
