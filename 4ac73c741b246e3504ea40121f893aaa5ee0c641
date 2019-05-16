@@ -22,6 +22,30 @@
       "revId": "4ac73c741b246e3504ea40121f893aaa5ee0c641",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f762e9d3_c8479e33",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3296,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2019-05-16T14:18:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a431acaa_650a99c2",
+      "range": {
+        "startLine": 3296,
+        "startChar": 19,
+        "endLine": 3296,
+        "endChar": 41
+      },
+      "revId": "4ac73c741b246e3504ea40121f893aaa5ee0c641",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
