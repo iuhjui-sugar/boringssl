@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fe76a23a_1986d897",
+        "filename": "third_party/sike/asm/fp_generic.c",
+        "patchSetId": 23
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-05-16T22:24:42Z",
+      "side": 1,
+      "message": "This CL has a ton of these casts, which are UB (strict aliasing violation) in 32-bit. This should be easy to avoid. It looks like the uint64_t is only to ease P503.c. We can fix that with macros.",
+      "range": {
+        "startLine": 65,
+        "startChar": 27,
+        "endLine": 65,
+        "endChar": 43
+      },
+      "revId": "7922e5abccdafb070efa98e7da39a394d05c5801",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae1ca7b6_45f036ee",
+        "filename": "third_party/sike/sike.c",
+        "patchSetId": 23
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-05-16T22:24:42Z",
+      "side": 1,
+      "message": "This cast is UB and violates more than just strict aliasing. You cannot cast a pointer to a type unless that pointer satisfies the alignment requirements for that type. skA here is secret in SIKE_encaps, which has no alignment guarantees.",
+      "range": {
+        "startLine": 209,
+        "startChar": 29,
+        "endLine": 209,
+        "endChar": 48
+      },
+      "revId": "7922e5abccdafb070efa98e7da39a394d05c5801",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
