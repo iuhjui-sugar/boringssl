@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c705083a_fc7b5338",
+        "filename": "ssl/test/runner/sike/arith.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2019-05-23T19:34:42Z",
+      "side": 1,
+      "message": "(Please note that I added an ISC license to these files as is normal for new code in BoringSSL. I\u0027m assuming that\u0027s ok.)",
+      "revId": "ec51d9ce1669e8b703bbcb00c204e0c899cd54fc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
