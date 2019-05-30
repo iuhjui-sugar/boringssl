@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "52d9de35_7c7b1bcf",
+        "filename": "crypto/CMakeLists.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-05-30T15:12:10Z",
+      "side": 1,
+      "message": "Another option might be to build libcrypto_bad_hash.so and then generate libcrypto.so out of it. Though CMake probably has lots of opinions about what libraries are, so that may cause problems.\n\nSetting this on the target with set_target_properties might be another option, with some sort of wrapper tool.\nhttps://cmake.org/cmake/help/v3.14/prop_tgt/RULE_LAUNCH_LINK.html\nhttps://cmake.org/cmake/help/v3.14/prop_gbl/RULE_LAUNCH_LINK.html\n\nBut this works. :-)",
+      "revId": "827960acc8a4ec668c61f60aab1ac97cedbc4a00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a328ad08_35bdb514",
+        "filename": "crypto/fipsmodule/bcm.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-05-30T15:12:10Z",
+      "side": 1,
+      "message": "or the linker script for shared builds",
+      "range": {
+        "startLine": 103,
+        "startChar": 34,
+        "endLine": 103,
+        "endChar": 44
+      },
+      "revId": "827960acc8a4ec668c61f60aab1ac97cedbc4a00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90521f31_13b4c753",
+        "filename": "crypto/fipsmodule/bcm.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-05-30T15:12:10Z",
+      "side": 1,
+      "message": "Nit: rodata_{start,end} would fit the usual style better.",
+      "range": {
+        "startLine": 124,
+        "startChar": 23,
+        "endLine": 124,
+        "endChar": 34
+      },
+      "revId": "827960acc8a4ec668c61f60aab1ac97cedbc4a00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae49d2da_8cc5aba2",
+        "filename": "crypto/fipsmodule/bcm.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-05-30T15:12:10Z",
+      "side": 1,
+      "message": "Nit: 80 chars. Also this mallocs, so check for failure.",
+      "revId": "827960acc8a4ec668c61f60aab1ac97cedbc4a00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f50e1a13_a81d8099",
+        "filename": "crypto/fipsmodule/fips_shared_support.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-05-30T15:12:10Z",
+      "side": 1,
+      "message": "Hrm. This doesn\u0027t trip -Wmissing-prototypes? Normally we have a warning if you define something non-static without declaring it, so we don\u0027t forget to include headers and get the compiler to check things match.\n\nAnyway, just add extern uint8_t BORINGSSL_bcm_text_hash[] to silence it.",
+      "revId": "827960acc8a4ec668c61f60aab1ac97cedbc4a00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
