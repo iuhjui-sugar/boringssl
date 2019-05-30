@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "96521b68_e3dca192",
+        "filename": "crypto/CMakeLists.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-05-30T18:37:42Z",
+      "side": 1,
+      "message": "Having an add_custom_command output a library does not make CMake happy. Writing a linker wrapper was also a mess. Tried them both before this :)",
+      "parentUuid": "52d9de35_7c7b1bcf",
+      "revId": "827960acc8a4ec668c61f60aab1ac97cedbc4a00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a328ad08_35bdb514",
         "filename": "crypto/fipsmodule/bcm.c",
         "patchSetId": 4
@@ -39,6 +57,30 @@
       "revId": "827960acc8a4ec668c61f60aab1ac97cedbc4a00",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01f8b225_7d9a1a10",
+        "filename": "crypto/fipsmodule/bcm.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-05-30T18:37:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a328ad08_35bdb514",
+      "range": {
+        "startLine": 103,
+        "startChar": 34,
+        "endLine": 103,
+        "endChar": 44
+      },
+      "revId": "827960acc8a4ec668c61f60aab1ac97cedbc4a00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "232ed036_a0146d7a",
+        "filename": "crypto/fipsmodule/bcm.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-05-30T18:37:42Z",
+      "side": 1,
+      "message": "Oops, thanks. Was still in Go mode.",
+      "parentUuid": "90521f31_13b4c753",
+      "range": {
+        "startLine": 124,
+        "startChar": 23,
+        "endLine": 124,
+        "endChar": 34
+      },
+      "revId": "827960acc8a4ec668c61f60aab1ac97cedbc4a00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ae49d2da_8cc5aba2",
         "filename": "crypto/fipsmodule/bcm.c",
         "patchSetId": 4
@@ -82,6 +148,24 @@
     },
     {
       "key": {
+        "uuid": "a5b0f615_bf7a3a9b",
+        "filename": "crypto/fipsmodule/bcm.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-05-30T18:37:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae49d2da_8cc5aba2",
+      "revId": "827960acc8a4ec668c61f60aab1ac97cedbc4a00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f50e1a13_a81d8099",
         "filename": "crypto/fipsmodule/fips_shared_support.c",
         "patchSetId": 4
@@ -96,6 +180,24 @@
       "revId": "827960acc8a4ec668c61f60aab1ac97cedbc4a00",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26e3cff9_8a8a8129",
+        "filename": "crypto/fipsmodule/fips_shared_support.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-05-30T18:37:42Z",
+      "side": 1,
+      "message": "-Wmissing-prototypes doesn\u0027t trigger for data, only for functions. Have added prototype anyway in case that changes in the future.",
+      "parentUuid": "f50e1a13_a81d8099",
+      "revId": "827960acc8a4ec668c61f60aab1ac97cedbc4a00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
