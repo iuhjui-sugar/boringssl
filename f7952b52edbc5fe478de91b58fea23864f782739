@@ -16,6 +16,24 @@
       "revId": "f7952b52edbc5fe478de91b58fea23864f782739",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29eb4ed1_5e89826d",
+        "filename": "crypto/fipsmodule/sha/asm/sha512-x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 1612,
+      "author": {
+        "id": 9531
+      },
+      "writtenOn": "2019-06-04T18:18:58Z",
+      "side": 1,
+      "message": "The stack allocation occurs in the .Lavx2_00_47 loop, 0x40 bytes at a time, for 7 times (total of 0x1c0. This undoes the 0x1c0 added to the stack above with \n    \"add     \\$`2*$SZ*($rounds-8)`,%rsp\"\n\nI pasted the full trace of %rsp here:\nhttps://gist.github.com/danintel/47223ed3701ba15bff055cc8ed789d44",
+      "parentUuid": "c30e0618_f579b4c4",
+      "revId": "f7952b52edbc5fe478de91b58fea23864f782739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
