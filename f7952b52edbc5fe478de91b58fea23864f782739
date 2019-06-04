@@ -34,6 +34,24 @@
       "revId": "f7952b52edbc5fe478de91b58fea23864f782739",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7879acf9_0b37acff",
+        "filename": "crypto/fipsmodule/sha/asm/sha512-x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 1612,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-06-04T18:26:05Z",
+      "side": 1,
+      "message": "Right. The question isn\u0027t why it works. The problem is this logic means this function violates Win64 ABI[*], has invalid CFI annotations (important for things like profilers), and is doing something highly questionable in general.\n\n[*] Granted, most of OpenSSL assembly violates Win64 ABI, but we hope to fix this as Chrome needs Win64 unwind to work for its sampling profiler. This means functions like this which are so hopelessly off the mark are problematic.",
+      "parentUuid": "29eb4ed1_5e89826d",
+      "revId": "f7952b52edbc5fe478de91b58fea23864f782739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
