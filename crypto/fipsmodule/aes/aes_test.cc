@@ -122,12 +122,38 @@ static void TestKeyWrap(FileTest *t) {
                                ciphertext.data(), ciphertext.size()));
 }
 
+static void TestKeyWrapWithPadding(FileTest *t) {
+  std::vector<uint8_t> key, plaintext, ciphertext;
+  ASSERT_TRUE(t->GetBytes(&key, "Key"));
+  ASSERT_TRUE(t->GetBytes(&plaintext, "Plaintext"));
+  ASSERT_TRUE(t->GetBytes(&ciphertext, "Ciphertext"));
+
+  // Test encryption.
+  AES_KEY aes_key;
+  ASSERT_EQ(0, AES_set_encrypt_key(key.data(), 8 * key.size(), &aes_key));
+  std::unique_ptr<uint8_t[]> buf(new uint8_t[plaintext.size() + 15]);
+  int len = AES_wrap_key_padded(&aes_key, buf.get(), plaintext.data(),
+                                plaintext.size());
+  ASSERT_GE(len, 0);
+  EXPECT_EQ(Bytes(ciphertext), Bytes(buf.get(), static_cast<size_t>(len)));
+
+  // Test decryption
+  ASSERT_EQ(0, AES_set_decrypt_key(key.data(), 8 * key.size(), &aes_key));
+  buf.reset(new uint8_t[ciphertext.size() - 8]);
+  len = AES_unwrap_key_padded(&aes_key, buf.get(), ciphertext.data(),
+                              ciphertext.size());
+  ASSERT_EQ(len, static_cast<int>(plaintext.size()));
+  EXPECT_EQ(Bytes(plaintext), Bytes(buf.get(), static_cast<size_t>(len)));
+}
+
 TEST(AESTest, TestVectors) {
   FileTestGTest("crypto/fipsmodule/aes/aes_tests.txt", [](FileTest *t) {
     if (t->GetParameter() == "Raw") {
       TestRaw(t);
     } else if (t->GetParameter() == "KeyWrap") {
       TestKeyWrap(t);
+    } else if (t->GetParameter() == "KeyWrapWithPadding") {
+      TestKeyWrapWithPadding(t);
     } else {
       ADD_FAILURE() << "Unknown mode " << t->GetParameter();
     }
@@ -167,6 +193,46 @@ TEST(AESTest, WycheproofKeyWrap) {
       ASSERT_EQ(0, AES_set_decrypt_key(key.data(), 8 * key.size(), &aes));
       std::vector<uint8_t> out(ct.size() < 8 ? 0 : ct.size() - 8);
       int len = AES_unwrap_key(&aes, nullptr, out.data(), ct.data(), ct.size());
+      EXPECT_EQ(-1, len);
+    }
+  });
+}
+
+TEST(AESTest, WycheproofKeyWrapWithPadding) {
+  FileTestGTest("third_party/wycheproof_testvectors/kwp_test.txt",
+                [](FileTest *t) {
+    std::string key_size;
+    ASSERT_TRUE(t->GetInstruction(&key_size, "keySize"));
+    std::vector<uint8_t> ct, key, msg;
+    ASSERT_TRUE(t->GetBytes(&ct, "ct"));
+    ASSERT_TRUE(t->GetBytes(&key, "key"));
+    ASSERT_TRUE(t->GetBytes(&msg, "msg"));
+    ASSERT_EQ(static_cast<unsigned>(atoi(key_size.c_str())), key.size() * 8);
+    WycheproofResult result;
+    ASSERT_TRUE(GetWycheproofResult(t, &result));
+
+    // Wycheproof contains test vectors with empty messages that it believes
+    // should pass. However, both RFC 5649 and SP 800-38F section 5.3.1 say that
+    // the minimum length is one. Therefore we consider test cases with an empty
+    // message to be invalid.
+    if (result != WycheproofResult::kInvalid && !msg.empty()) {
+      AES_KEY aes;
+      ASSERT_EQ(0, AES_set_decrypt_key(key.data(), 8 * key.size(), &aes));
+      std::vector<uint8_t> out(ct.size() - 8);
+      int len = AES_unwrap_key_padded(&aes, out.data(), ct.data(), ct.size());
+      ASSERT_EQ(static_cast<int>(msg.size()), len);
+      EXPECT_EQ(Bytes(msg), Bytes(out.data(), static_cast<size_t>(len)));
+
+      out.resize(msg.size() + 15);
+      ASSERT_EQ(0, AES_set_encrypt_key(key.data(), 8 * key.size(), &aes));
+      len = AES_wrap_key_padded(&aes, out.data(), msg.data(), msg.size());
+      ASSERT_EQ(static_cast<int>(ct.size()), len);
+      EXPECT_EQ(Bytes(ct), Bytes(out.data(), static_cast<size_t>(len)));
+    } else {
+      AES_KEY aes;
+      ASSERT_EQ(0, AES_set_decrypt_key(key.data(), 8 * key.size(), &aes));
+      std::vector<uint8_t> out(ct.size() < 8 ? 0 : ct.size() - 8);
+      int len = AES_unwrap_key_padded(&aes, out.data(), ct.data(), ct.size());
       EXPECT_EQ(-1, len);
     }
   });

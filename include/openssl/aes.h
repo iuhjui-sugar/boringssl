@@ -6,7 +6,7 @@
  * are met:
  *
  * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer. 
+ *    notice, this list of conditions and the following disclaimer.
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in
@@ -161,6 +161,28 @@ OPENSSL_EXPORT int AES_wrap_key(const AES_KEY *key, const uint8_t *iv,
 OPENSSL_EXPORT int AES_unwrap_key(const AES_KEY *key, const uint8_t *iv,
                                   uint8_t *out, const uint8_t *in,
                                   size_t in_len);
+
+
+// AES key wrap with padding.
+//
+// These functions implement AES Key Wrap with Padding mode, as defined in RFC
+// 5649. They should never be used except to interoperate with existing systems
+// that use this mode.
+
+// AES_wrap_key_padded performs a padded AES key wrap on |in| which must be
+// between 1 and 2^32-1 bytes. |key| must have been configured for encryption.
+// It writes at most |in_len + 15| bytes of ciphertext to |out| and returns the
+// number of bytes written. If |in_len| is invalid, or if memory is exhausted,
+// it returns -1.
+OPENSSL_EXPORT int AES_wrap_key_padded(const AES_KEY *key, uint8_t *out,
+                                       const uint8_t *in, size_t in_len);
+
+// AES_unwrap_key_padded performs a padded AES key unwrap on |in| which must be
+// a multiple of 8 bytes. |key| must have been configured for decryption. On
+// success, it writes at most |in_len| - 8 bytes to |out| and returns the number
+// of bytes written. Otherwise it returns -1.
+OPENSSL_EXPORT int AES_unwrap_key_padded(const AES_KEY *key, uint8_t *out,
+                                         const uint8_t *in, size_t in_len);
 
 
 #if defined(__cplusplus)
