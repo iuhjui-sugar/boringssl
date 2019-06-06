@@ -18,6 +18,7 @@
 
 #include "internal.h"
 
+
 // This function looks at 5+1 scalar bits (5 current, 1 adjacent less
 // significant bit), and recodes them into a signed digit for use in fast point
 // multiplication: the use of signed rather than unsigned digits means that
@@ -89,6 +90,152 @@
 // the input bits "shifted to the left" by one position: for example, the input
 // to compute the least significant recoded digit, given that there's no bit
 // b_-1, has to be b_4 b_3 b_2 b_1 b_0 0.
+//
+// DOUBLING CASE:
+//
+// Point addition formulas for short Weierstrass curves are often incomplete.
+// Edge cases such as P + P or P + ∞ must be handled separately. This
+// complicates constant-time requirements. P + ∞ cannot be avoided (any window
+// may be zero) and is handled with constant-time selects. P + P (where P is not
+// ∞) usually is not. Instead, windowing strategies are chosen to avoid this
+// case. Whether this happens depends on the group order.
+//
+// Let w be the window width (in this function, w = 5). The non-trivial doubling
+// case in single-point scalar multiplication may occur if and only the 2^(w-1)
+// bit of the group order is zero. If it is one, this case may be ignored.
+//
+// Note the above only holds if the scalar is fully reduced and the group order
+// is a prime that is much larger than 2^w.
+//
+// PROOF:
+//
+// Let n be the group order. Let l be the number of bits needed to represent n.
+// Assume there exists some 0 <= k < n such that signed w-bit windowed
+// multiplication hits the doubling case.
+//
+// Windowed multiplication consists of iterating over groups of s_i (defined
+// above based on k's binary representation) from most to least significant. At
+// iteration i (for i = ..., 3w, 2w, w, 0, starting from the most significant
+// window), we:
+//
+//  1. Double the accumulator A, w times. Let A_i be the value of A at this
+//     point.
+//
+//  2. Set A to T_i + A_i, where T_i is a precomputed multiple of P
+//     corresponding to the window s_(i+w-1) ... s_i.
+//
+// Let j be the index such that A_j = T_j ≠ ∞. Looking at A_i and T_i as
+// multiples of P, define a_i and t_i to be (unreduced) scalar coefficients of
+// A_i and T_i. t_i is the value of the w signed bits s_(i+w-1) ... s_i. a_i is
+// computed as a_i = 2^w * (a_(i+w) + t_(i+w)). Thus a_j = t_j ≠ 0 (mod n).
+//
+// t_i is bounded by -2^(w-1) <= t_i <= 2^(w-1). Additionally, we may write it
+// in terms of unsigned bits b_i. t_i consists of signed bits s_(i+w-1) ... s_i.
+// This is computed as:
+//
+//         b_(i+w-2) b_(i+w-3)  ...  b_i      b_(i-1)
+//      -  b_(i+w-1) b_(i+w-2)  ...  b_(i+1)  b_i
+//       --------------------------------------------
+//         s_(i+w-1) s_(i+w-2)  ...  s_(i+1)  s_i
+//
+// We match the two copies (note one is shifted) of bits b_(i+w-2) through b_i,
+// giving:
+//
+//   t_i = - b_(i+w-1)*2^(w-1) + b_(i+w-2)..b_i + b_(i-1)
+//
+// Or, visually,
+//
+//      -  b_(i+w-1)
+//      +            b_(i+w-2)  ...  b_(i+1)  b_i
+//      +                       ...           b_(i-1)
+//       --------------------------------------------
+//         s_(i+w-1) s_(i+w-2)  ...  s_(i+1)  s_i
+//
+// Or, using C notation for bit operations:
+//
+//   t_i = (k>>i) & ((1<<(w-1)) - 1) - (k>>i) & (1<<(w-1)) + (k>>(i-1)) & 1
+//
+// Note b_(i-1) is added in left-shifted by one (or doubled) from its place.
+// This is compensated by t_(i-w)'s subtraction term. Thus, a_i may be computed
+// by taking b_l b_(l-1) ... b_(i+1) b_i, adding an extra copy of b_(i-1). In C
+// notation, this is:
+//
+//   a_i = (k>>(i+w)) << w + ((k>>(i+w-1)) & 1) << w
+//
+// Observe that, while t_i may be positive or negative, a_i is bounded by
+// 0 <= a_i < n + 2^w. Additionally, a_i can only be zero bits if b_(i+w-1) and
+// up are all zero. (Note this implies a non-trivial P + (-P) is unreachable for
+// all groups. That would imply the subsequent a_i is zero, which means all
+// terms thus far were zero.)
+//
+// Returning to our doubling position, we have a_j = t_j (mod n). We now
+// determine the value of a_j - t_j, which must be divisible by n. Our bounds on
+// a_j and t_j imply a_j - t_j is 0 or n. If it is 0, a_j = t_j. However, 2^w
+// divides a_j and -2^(w-1) <= t_j <= 2^(w-1), so this can only happen if
+// a_j = t_j = 0, which is a trivial doubling. Therefore, a_j - t_j = n.
+//
+// Now we determine j. If j >= w (note w divides j), then a_i - t_j cannot be
+// large enough to reach n. Thus, j = 0. Only the final addition may hit the
+// doubling case.
+//
+// Finally, we consider bit patterns for n and k. Divide k into k_h + k_m + k_l
+// such that k_h is the contribution from b_l .. b_w, k_m is the contribution
+// from b_(w-1), and k_l is the contribution from b_(w-2) ... b_0. That is:
+//
+// - 2^w divides k_h
+// - k_m is 0 or 2^(w-1)
+// - 0 <= k_l < 2^(w-1)
+//
+// Divide n into n_h + n_m + n_l similarly. We thus have:
+//
+//   t_0 = (k>>0) & ((1<<(w-1)) - 1) - (k>>0) & (1<<(w-1)) + (k>>(0-1)) & 1
+//       = k & ((1<<(w-1)) - 1) - k & (1<<(w-1))
+//       = k_l - k_m
+//
+//   a_0 = (k>>(0+w)) << w + ((k>>(0+w-1)) & 1) << w
+//       = (k>>w) << w + ((k>>(w-1)) & 1) << w
+//       = k_h + 2*k_m
+//
+//                 n = a_0 - t_0
+//   n_h + n_m + n_l = (k_h + 2*k_m) - (k_l - k_m)
+//                   = k_h + 3*k_m - k_l
+//
+// k < n, so this equation cannot hold if k_m is 0. Thus k_m is 2^(w-1). Now we
+// consider k_h and n_h. We know k_h <= n_h. Suppose k_h = n_h. Then,
+//
+//   n_m + n_l = 3*(2^(w-1)) - k_l
+//             > 3*(2^(w-1)) - 2^(w-1)
+//             = 2^w
+//
+// Contradiction (n_m + n_l is the bottom w bits of n). Thus k_h < n_h. Suppose
+// k_h < n_h - 2*2^w. Then,
+//
+//   n_h + n_m + n_l = k_h + 3*(2^(w-1)) - k_l
+//                   < n_h - 2*2^w + 3*(2^(w-1)) - k_l
+//         n_m + n_l < -2^(w-1) - k_l
+//
+// Contradiction. Thus, k_h = n_h - 2^w. (Note 2^w divides n_h and k_h.) Thus,
+//
+//   n_h + n_m + n_l = k_h + 3*(2^(w-1)) - k_l
+//                   = n_h - 2^w + 3*(2^(w-1)) - k_l
+//         n_m + n_l = 2^(w-1) - k_l
+//                  <= 2^(w-1)
+//
+// Equality would mean 2^(w-1) divides n, which is impossible if n is prime.
+// Thus n_m + n_l < 2^(w-1), so n_m is zero, proving our condition.
+//
+// This proof constructs k, so, to show the converse, let k_h = n_h - 2^w,
+// k_m = 2^(w-1), k_l = 2^(w-1) - n_l. This will result in a non-trivial point
+// doubling in the final addition and is the only such scalar.
+//
+// COMMON CURVES:
+//
+// The group orders for common curves end in the following bit patterns:
+//
+//   P-521: ...00001001; w = 4 is okay
+//   P-384: ...01110011; w = 2, 5, 6, 7 are okay
+//   P-256: ...01010001; w = 5, 7 are okay
+//   P-224: ...00111101; w = 3, 4, 5, 6 are okay
 void ec_GFp_nistp_recode_scalar_bits(uint8_t *sign, uint8_t *digit,
                                      uint8_t in) {
   uint8_t s, d;
