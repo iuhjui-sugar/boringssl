@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0326ee9c_1ed5d6d4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-06-06T00:13:50Z",
+      "side": 1,
+      "message": "It probably won\u0027t, actually. OpenSSL these days are going all in on EVP_CIPHER (and then going a bit nuts; https://www.openssl.org/docs/OpenSSL300Design.html).\n\nTo that end, OpenSSL implements this as EVP_aes_128_wrap_pad, which an EVP_CIPHER.\nhttps://github.com/openssl/openssl/commit/d31fed73e25391cd71a0de488d88724db78f6f8a\n\nBut EVP_CIPHER is a horrific API, so I\u0027m not sure we actually want to align. But this does free us up to design this however we prefer (size_t-clean and such).",
+      "range": {
+        "startLine": 15,
+        "startChar": 28,
+        "endLine": 16,
+        "endChar": 23
+      },
+      "revId": "29e354ae93a42aa3c52b27892f2d0fb15d83196b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8bae9c1e_7a8c3111",
+        "filename": "crypto/fipsmodule/aes/key_wrap.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-06-06T00:13:50Z",
+      "side": 1,
+      "message": "Nit: uint8_t out_iv[8] maybe? (Not that it matters, but may as well.)",
+      "range": {
+        "startLine": 107,
+        "startChar": 32,
+        "endLine": 107,
+        "endChar": 47
+      },
+      "revId": "29e354ae93a42aa3c52b27892f2d0fb15d83196b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd99a07b_4a4418b1",
+        "filename": "crypto/fipsmodule/aes/key_wrap.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-06-06T00:13:50Z",
+      "side": 1,
+      "message": "I take it whoever specified this scheme did not want to have to think about endianness? :-)",
+      "range": {
+        "startLine": 159,
+        "startChar": 44,
+        "endLine": 159,
+        "endChar": 66
+      },
+      "revId": "29e354ae93a42aa3c52b27892f2d0fb15d83196b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "acc74b9d_2689f2d4",
+        "filename": "crypto/fipsmodule/aes/key_wrap.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-06-06T00:13:50Z",
+      "side": 1,
+      "message": "Kind of a silly reason to malloc but I guess it\u0027s probably not worth the trouble to split out a common function. :-)",
+      "revId": "29e354ae93a42aa3c52b27892f2d0fb15d83196b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94c9702c_aafb6a27",
+        "filename": "crypto/fipsmodule/aes/key_wrap.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-06-06T00:13:50Z",
+      "side": 1,
+      "message": "I\u0027m not sure which bits here need to be constant-time. The zero padding check is probably a bit obnoxious, but the AIV check should be doable. (in_len - 16 and in_len - 8 is just a decrement and a bitmask I think? in_len is a multiple of 8.)",
+      "revId": "29e354ae93a42aa3c52b27892f2d0fb15d83196b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
