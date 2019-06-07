@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "23fc4dc4_d7e47df5",
+        "filename": "crypto/fipsmodule/ec/util.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2019-06-07T01:46:29Z",
+      "side": 1,
+      "message": "Typo: you probably meant \"if and only if\" :)",
+      "revId": "e2218c0b8551595fbcc767f01ae0c6b5729df0a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
