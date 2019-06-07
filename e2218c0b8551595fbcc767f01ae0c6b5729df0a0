@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "a1480943_7fd47f36",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-06-07T16:56:02Z",
+      "side": 1,
+      "message": "… if …",
+      "range": {
+        "startLine": 15,
+        "startChar": 13,
+        "endLine": 15,
+        "endChar": 14
+      },
+      "revId": "e2218c0b8551595fbcc767f01ae0c6b5729df0a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "23fc4dc4_d7e47df5",
         "filename": "crypto/fipsmodule/ec/util.c",
         "patchSetId": 2
@@ -13,6 +36,230 @@
       "writtenOn": "2019-06-07T01:46:29Z",
       "side": 1,
       "message": "Typo: you probably meant \"if and only if\" :)",
+      "revId": "e2218c0b8551595fbcc767f01ae0c6b5729df0a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f308eab6_ef121362",
+        "filename": "crypto/fipsmodule/ec/util.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-06-07T16:56:02Z",
+      "side": 1,
+      "message": "I feel that this word is supposed to be significant, but I can\u0027t see how. You\u0027re saying that A_i and T_i are points in the group, therefore they\u0027re some multiple of P, right? (And you give their values in the following.) But then how are they unreduced? Just because t_i might be considered to be a negative number?",
+      "range": {
+        "startLine": 128,
+        "startChar": 44,
+        "endLine": 128,
+        "endChar": 55
+      },
+      "revId": "e2218c0b8551595fbcc767f01ae0c6b5729df0a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e7dfea0_3b288544",
+        "filename": "crypto/fipsmodule/ec/util.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-06-07T16:56:02Z",
+      "side": 1,
+      "message": "I would move this prior to the previous sentence. I think it follows from the defn of a_i and t_i directly.",
+      "range": {
+        "startLine": 130,
+        "startChar": 48,
+        "endLine": 130,
+        "endChar": 75
+      },
+      "revId": "e2218c0b8551595fbcc767f01ae0c6b5729df0a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4a84a84_4aade3c2",
+        "filename": "crypto/fipsmodule/ec/util.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-06-07T16:56:02Z",
+      "side": 1,
+      "message": "do these terms need to be multiplied by 2^something?",
+      "range": {
+        "startLine": 144,
+        "startChar": 33,
+        "endLine": 144,
+        "endChar": 47
+      },
+      "revId": "e2218c0b8551595fbcc767f01ae0c6b5729df0a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "daca7d28_42fc422e",
+        "filename": "crypto/fipsmodule/ec/util.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-06-07T16:56:02Z",
+      "side": 1,
+      "message": "How does this square with the above (L136)?\n\nThere, s_i is shown to be b_(i-1)-b_i, but here (if I\u0027m reading it correctly) it\u0027s b_i+b_(i-1).\n\nIf I have b_(i-1) \u003d 0 and b_i \u003d 1, they\u0027re different values if the answer is signed.",
+      "range": {
+        "startLine": 150,
+        "startChar": 46,
+        "endLine": 150,
+        "endChar": 53
+      },
+      "revId": "e2218c0b8551595fbcc767f01ae0c6b5729df0a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cdda2941_80bf6480",
+        "filename": "crypto/fipsmodule/ec/util.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-06-07T16:56:02Z",
+      "side": 1,
+      "message": "delete word?",
+      "range": {
+        "startLine": 166,
+        "startChar": 58,
+        "endLine": 166,
+        "endChar": 62
+      },
+      "revId": "e2218c0b8551595fbcc767f01ae0c6b5729df0a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6fd79944_67c09bf6",
+        "filename": "crypto/fipsmodule/ec/util.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-06-07T16:56:02Z",
+      "side": 1,
+      "message": "s/i/j/ ?",
+      "range": {
+        "startLine": 177,
+        "startChar": 60,
+        "endLine": 177,
+        "endChar": 61
+      },
+      "revId": "e2218c0b8551595fbcc767f01ae0c6b5729df0a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e56b7d3_35d96c4d",
+        "filename": "crypto/fipsmodule/ec/util.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-06-07T16:56:02Z",
+      "side": 1,
+      "message": "for clarity: \"Thus, j \u003d 0: only the …\"",
+      "range": {
+        "startLine": 178,
+        "startChar": 34,
+        "endLine": 178,
+        "endChar": 45
+      },
+      "revId": "e2218c0b8551595fbcc767f01ae0c6b5729df0a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc35447e_9ecf5af2",
+        "filename": "crypto/fipsmodule/ec/util.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-06-07T16:56:02Z",
+      "side": 1,
+      "message": "I didn\u0027t follow this.",
+      "range": {
+        "startLine": 177,
+        "startChar": 68,
+        "endLine": 178,
+        "endChar": 27
+      },
+      "revId": "e2218c0b8551595fbcc767f01ae0c6b5729df0a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "589b98a9_db855578",
+        "filename": "crypto/fipsmodule/ec/util.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-06-07T16:56:02Z",
+      "side": 1,
+      "message": "Unsure, but s/l/l-1/?\n\n(Maybe rename \u0027l\u0027? You have it as the length of |n|, but also for \"lower\" in h, m, l.)",
+      "range": {
+        "startLine": 182,
+        "startChar": 44,
+        "endLine": 182,
+        "endChar": 45
+      },
+      "revId": "e2218c0b8551595fbcc767f01ae0c6b5729df0a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b475305_54e0eb91",
+        "filename": "crypto/fipsmodule/ec/util.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-06-07T16:56:02Z",
+      "side": 1,
+      "message": "Suggest:\n\nk_h - k_l \u003c k, and k \u003c n, so k_h - k_l !\u003d n. Therefore k_m !\u003d 0, and thus k_m must be 2^(w-1).",
       "revId": "e2218c0b8551595fbcc767f01ae0c6b5729df0a0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
