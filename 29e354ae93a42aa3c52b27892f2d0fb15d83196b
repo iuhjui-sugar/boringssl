@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "7c6febd2_1372f344",
+        "filename": "crypto/fipsmodule/aes/key_wrap.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-06-10T16:42:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bae9c1e_7a8c3111",
+      "range": {
+        "startLine": 107,
+        "startChar": 32,
+        "endLine": 107,
+        "endChar": 47
+      },
+      "revId": "29e354ae93a42aa3c52b27892f2d0fb15d83196b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd99a07b_4a4418b1",
         "filename": "crypto/fipsmodule/aes/key_wrap.c",
         "patchSetId": 2
@@ -102,6 +126,24 @@
       "revId": "29e354ae93a42aa3c52b27892f2d0fb15d83196b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e87379ee_1218665f",
+        "filename": "crypto/fipsmodule/aes/key_wrap.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-06-10T16:42:52Z",
+      "side": 1,
+      "message": "I wasn\u0027t going to bother with being constant-time for this given that KeyWrap is unwise to you, but you\u0027re right that it\u0027s not too bad to do. Done.",
+      "parentUuid": "94c9702c_aafb6a27",
+      "revId": "29e354ae93a42aa3c52b27892f2d0fb15d83196b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
