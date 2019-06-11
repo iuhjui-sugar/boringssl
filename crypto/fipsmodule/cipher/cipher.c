@@ -142,18 +142,35 @@ int EVP_CipherInit_ex(EVP_CIPHER_CTX *ctx, const EVP_CIPHER *cipher,
     ctx->encrypt = enc;
   }
 
+  void *cipher_data = NULL;
   if (cipher) {
     // Ensure a context left from last time is cleared (the previous check
     // attempted to avoid this if the same ENGINE and EVP_CIPHER could be
     // used).
+    // Preserve the malloced cipher_data block if possible.
     if (ctx->cipher) {
-      EVP_CIPHER_CTX_cleanup(ctx);
+      if (ctx->cipher->cleanup) {
+        ctx->cipher->cleanup(ctx);
+      }
+      // If cipher_data is the right size, save and clear it for later
+      if (cipher->ctx_size && ctx->cipher->ctx_size == cipher->ctx_size) {
+        cipher_data = ctx->cipher_data;
+        OPENSSL_cleanse(cipher_data, cipher->ctx_size);
+      } else {
+        OPENSSL_free(ctx->cipher_data);
+      }
+      OPENSSL_memset(ctx, 0, sizeof(EVP_CIPHER_CTX));
+
       // Restore encrypt and flags
       ctx->encrypt = enc;
+      // Restore cipher_data
+      ctx->cipher_data = cipher_data;
     }
 
     ctx->cipher = cipher;
-    if (ctx->cipher->ctx_size) {
+    if (cipher_data) {
+      ctx->cipher_data = cipher_data;
+    } else if (ctx->cipher->ctx_size) {
       ctx->cipher_data = OPENSSL_malloc(ctx->cipher->ctx_size);
       if (!ctx->cipher_data) {
         ctx->cipher = NULL;
