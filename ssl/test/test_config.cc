@@ -148,6 +148,7 @@ const Flag<bool> kBoolFlags[] = {
     {"-server-preference", &TestConfig::server_preference},
     {"-export-traffic-secrets", &TestConfig::export_traffic_secrets},
     {"-key-update", &TestConfig::key_update},
+    {"-expect-delegated-credential-usage", &TestConfig::expect_dc_usage},
 };
 
 const Flag<std::string> kStringFlags[] = {

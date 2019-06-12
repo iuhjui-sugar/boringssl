@@ -3100,6 +3100,9 @@ OPENSSL_EXPORT int SSL_set1_delegated_credential(
     SSL *ssl, CRYPTO_BUFFER *dc, EVP_PKEY *pkey,
     const SSL_PRIVATE_KEY_METHOD *key_method);
 
+// SSL_delegated_credential_used returns 1 if a delegated credential was used.
+OPENSSL_EXPORT int SSL_delegated_credential_used(const SSL *ssl);
+
 
 // QUIC integration.
 //
