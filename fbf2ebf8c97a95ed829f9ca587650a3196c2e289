@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "be9a5946_c1df91dd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-06-12T18:54:16Z",
+      "side": 1,
+      "message": "Could you add a test? For instance, add an -expect-delegated-credential-used flag or something.",
+      "revId": "fbf2ebf8c97a95ed829f9ca587650a3196c2e289",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc46d796_8ea217df",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 3105,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-06-12T18:54:16Z",
+      "side": 1,
+      "message": "Add another newline here. (Sections are separated by two blank lines.)",
+      "revId": "fbf2ebf8c97a95ed829f9ca587650a3196c2e289",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fcb445c_c3ab8cc5",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 2225,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-06-12T18:54:16Z",
+      "side": 1,
+      "message": "This needs to be initialized in the constructor in s3_lib.cc. (C++ does not allow inline initializers with bitfields until C++20.)\n\nAlso space before the : to be consistent. (clang-format does this and clang-format is right by definition.)\n\nPS: If you had a test, you probably would have caught this. :-)",
+      "revId": "fbf2ebf8c97a95ed829f9ca587650a3196c2e289",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "183c027d_d70c139e",
+        "filename": "ssl/ssl_cert.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1015,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-06-12T18:54:16Z",
+      "side": 1,
+      "message": "You can assume this is non-NULL, and bools implicitly convert to int. (So just return ssl-\u003es3-\u003esubcerts_used.)",
+      "revId": "fbf2ebf8c97a95ed829f9ca587650a3196c2e289",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f23372e1_745f767f",
+        "filename": "ssl/tls13_both.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-06-12T18:54:16Z",
+      "side": 1,
+      "message": "You can assume this is non-null.",
+      "revId": "fbf2ebf8c97a95ed829f9ca587650a3196c2e289",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
