@@ -1010,3 +1010,11 @@ int SSL_set1_delegated_credential(SSL *ssl, CRYPTO_BUFFER *dc, EVP_PKEY *pkey,
 
   return cert_set_dc(ssl->config->cert.get(), dc, pkey, key_method);
 }
+
+int SSL_delegated_credential_used(const SSL *ssl) {
+  if (ssl->subcerts_used) {
+    return 1;
+  } else {
+    return 0;
+  }
+}

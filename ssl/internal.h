@@ -3266,6 +3266,9 @@ struct ssl_st {
 
   // If enable_early_data is true, early data can be sent and accepted.
   bool enable_early_data : 1;
+
+  // If subcerts_used is true, we used a delegated credential.
+  bool subcerts_used: 1;
 };
 
 struct ssl_session_st {
