@@ -497,6 +497,11 @@ bool tls13_add_certificate(SSL_HANDSHAKE *hs) {
       OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
       return 0;
     }
+    if(!ssl->s3) {
+      OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
+      return false;
+    }
+    ssl->s3->subcerts_used = true;
   }
 
   for (size_t i = 1; i < sk_CRYPTO_BUFFER_num(cert->chain.get()); i++) {
