@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4168346c_ad725d68",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3271,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-06-12T14:29:19Z",
+      "side": 1,
+      "message": "This should be on ssl-\u003es3. Bits hanging off of ssl are just config. This split is so we can sanely support SSL_clear without having to manually clear individually fields.\n\n(SSL_clear is such an awful API, but there\u0027s a bunch of 3rd-party code that uses it, so we haven\u0027t been able to get rid of it.)",
+      "revId": "3bd6a4be7d34de4b6d82018953d9061609acb89f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
