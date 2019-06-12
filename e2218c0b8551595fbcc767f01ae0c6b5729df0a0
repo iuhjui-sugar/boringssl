@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6b46f684_5d1a248e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-06-12T23:02:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a1480943_7fd47f36",
+      "range": {
+        "startLine": 15,
+        "startChar": 13,
+        "endLine": 15,
+        "endChar": 14
+      },
+      "revId": "e2218c0b8551595fbcc767f01ae0c6b5729df0a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "23fc4dc4_d7e47df5",
         "filename": "crypto/fipsmodule/ec/util.c",
         "patchSetId": 2
@@ -42,6 +66,41 @@
     },
     {
       "key": {
+        "uuid": "117e651e_5ec54bf5",
+        "filename": "crypto/fipsmodule/ec/util.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-06-12T23:02:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23fc4dc4_d7e47df5",
+      "revId": "e2218c0b8551595fbcc767f01ae0c6b5729df0a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "02fd3172_4ff66197",
+        "filename": "crypto/fipsmodule/ec/util.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-06-12T23:02:37Z",
+      "side": 1,
+      "message": "Added an extra condition that it doesn\u0027t apply to funny table strategies as used in, say, nistz256.",
+      "revId": "e2218c0b8551595fbcc767f01ae0c6b5729df0a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f308eab6_ef121362",
         "filename": "crypto/fipsmodule/ec/util.c",
         "patchSetId": 2
@@ -53,6 +112,30 @@
       "writtenOn": "2019-06-07T16:56:02Z",
       "side": 1,
       "message": "I feel that this word is supposed to be significant, but I can\u0027t see how. You\u0027re saying that A_i and T_i are points in the group, therefore they\u0027re some multiple of P, right? (And you give their values in the following.) But then how are they unreduced? Just because t_i might be considered to be a negative number?",
+      "range": {
+        "startLine": 128,
+        "startChar": 44,
+        "endLine": 128,
+        "endChar": 55
+      },
+      "revId": "e2218c0b8551595fbcc767f01ae0c6b5729df0a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2c21d79_4a840e3b",
+        "filename": "crypto/fipsmodule/ec/util.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-06-12T23:02:37Z",
+      "side": 1,
+      "message": "They can also go just above n. Reworded slightly. The important point is that I\u0027m looking at a_i and t_i as integers, not Z/nZ (so that upper and lower bounds are meaningful). Specifically, they\u0027re the values computed by doubling and adding windows and may be unreduced.",
+      "parentUuid": "f308eab6_ef121362",
       "range": {
         "startLine": 128,
         "startChar": 44,
@@ -88,6 +171,30 @@
     },
     {
       "key": {
+        "uuid": "b80970b1_30465007",
+        "filename": "crypto/fipsmodule/ec/util.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-06-12T23:02:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e7dfea0_3b288544",
+      "range": {
+        "startLine": 130,
+        "startChar": 48,
+        "endLine": 130,
+        "endChar": 75
+      },
+      "revId": "e2218c0b8551595fbcc767f01ae0c6b5729df0a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b4a84a84_4aade3c2",
         "filename": "crypto/fipsmodule/ec/util.c",
         "patchSetId": 2
@@ -99,6 +206,30 @@
       "writtenOn": "2019-06-07T16:56:02Z",
       "side": 1,
       "message": "do these terms need to be multiplied by 2^something?",
+      "range": {
+        "startLine": 144,
+        "startChar": 33,
+        "endLine": 144,
+        "endChar": 47
+      },
+      "revId": "e2218c0b8551595fbcc767f01ae0c6b5729df0a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6be3018f_9911f458",
+        "filename": "crypto/fipsmodule/ec/util.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-06-12T23:02:37Z",
+      "side": 1,
+      "message": "Er, this is terrible notation on my part. I meant the number with binary representation b_(i+w-2)..b_i. I\u0027ll rewrite this bit...",
+      "parentUuid": "b4a84a84_4aade3c2",
       "range": {
         "startLine": 144,
         "startChar": 33,
@@ -134,6 +265,30 @@
     },
     {
       "key": {
+        "uuid": "18f92e99_252c954f",
+        "filename": "crypto/fipsmodule/ec/util.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-06-12T23:02:37Z",
+      "side": 1,
+      "message": "Er, yeah, that diagram\u0027s wrong. The individual s_i are no longer correct, but the overall t_i is correct, which is all we care about. I\u0027ve rewritten this bit. Is that clearer?",
+      "parentUuid": "daca7d28_42fc422e",
+      "range": {
+        "startLine": 150,
+        "startChar": 46,
+        "endLine": 150,
+        "endChar": 53
+      },
+      "revId": "e2218c0b8551595fbcc767f01ae0c6b5729df0a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cdda2941_80bf6480",
         "filename": "crypto/fipsmodule/ec/util.c",
         "patchSetId": 2
@@ -157,6 +312,30 @@
     },
     {
       "key": {
+        "uuid": "2fda157b_bb9c454b",
+        "filename": "crypto/fipsmodule/ec/util.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-06-12T23:02:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cdda2941_80bf6480",
+      "range": {
+        "startLine": 166,
+        "startChar": 58,
+        "endLine": 166,
+        "endChar": 62
+      },
+      "revId": "e2218c0b8551595fbcc767f01ae0c6b5729df0a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6fd79944_67c09bf6",
         "filename": "crypto/fipsmodule/ec/util.c",
         "patchSetId": 2
@@ -177,6 +356,30 @@
       "revId": "e2218c0b8551595fbcc767f01ae0c6b5729df0a0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6371858d_fea3dbd2",
+        "filename": "crypto/fipsmodule/ec/util.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-06-12T23:02:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6fd79944_67c09bf6",
+      "range": {
+        "startLine": 177,
+        "startChar": 60,
+        "endLine": 177,
+        "endChar": 61
+      },
+      "revId": "e2218c0b8551595fbcc767f01ae0c6b5729df0a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -226,6 +429,54 @@
     },
     {
       "key": {
+        "uuid": "fde9b259_6bb06841",
+        "filename": "crypto/fipsmodule/ec/util.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-06-12T23:02:37Z",
+      "side": 1,
+      "message": "Expanded this out.",
+      "parentUuid": "cc35447e_9ecf5af2",
+      "range": {
+        "startLine": 177,
+        "startChar": 68,
+        "endLine": 178,
+        "endChar": 27
+      },
+      "revId": "e2218c0b8551595fbcc767f01ae0c6b5729df0a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34d4f506_54200e9b",
+        "filename": "crypto/fipsmodule/ec/util.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-06-12T23:02:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e56b7d3_35d96c4d",
+      "range": {
+        "startLine": 178,
+        "startChar": 34,
+        "endLine": 178,
+        "endChar": 45
+      },
+      "revId": "e2218c0b8551595fbcc767f01ae0c6b5729df0a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "589b98a9_db855578",
         "filename": "crypto/fipsmodule/ec/util.c",
         "patchSetId": 2
@@ -237,6 +488,30 @@
       "writtenOn": "2019-06-07T16:56:02Z",
       "side": 1,
       "message": "Unsure, but s/l/l-1/?\n\n(Maybe rename \u0027l\u0027? You have it as the length of |n|, but also for \"lower\" in h, m, l.)",
+      "range": {
+        "startLine": 182,
+        "startChar": 44,
+        "endLine": 182,
+        "endChar": 45
+      },
+      "revId": "e2218c0b8551595fbcc767f01ae0c6b5729df0a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1b188b0_2d9a4160",
+        "filename": "crypto/fipsmodule/ec/util.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-06-12T23:02:37Z",
+      "side": 1,
+      "message": "Er, yeah, that should be l-1.\n\nI couldn\u0027t come up with a better letter, so I capitalized the l, m, and h subscripts. It\u0027s kinda goofy but hopefully subscripts won\u0027t confuse them with points. WDYT?",
+      "parentUuid": "589b98a9_db855578",
       "range": {
         "startLine": 182,
         "startChar": 44,
@@ -263,6 +538,24 @@
       "revId": "e2218c0b8551595fbcc767f01ae0c6b5729df0a0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c97a66c_eb3b4ed5",
+        "filename": "crypto/fipsmodule/ec/util.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-06-12T23:02:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b475305_54e0eb91",
+      "revId": "e2218c0b8551595fbcc767f01ae0c6b5729df0a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
