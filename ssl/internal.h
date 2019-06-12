@@ -2221,6 +2221,9 @@ struct SSL3_STATE {
   // session_reused indicates whether a session was resumed.
   bool session_reused : 1;
 
+  // If subcerts_used is true, we used a delegated credential.
+  bool subcerts_used : 1;
+
   bool send_connection_binding : 1;
 
   // In a client, this means that the server supported Channel ID and that a
