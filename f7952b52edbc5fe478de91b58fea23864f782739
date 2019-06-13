@@ -52,6 +52,24 @@
       "revId": "f7952b52edbc5fe478de91b58fea23864f782739",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d8382b8_4dc942ad",
+        "filename": "crypto/fipsmodule/sha/asm/sha512-x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 1612,
+      "author": {
+        "id": 9531
+      },
+      "writtenOn": "2019-06-13T16:05:03Z",
+      "side": 1,
+      "message": "I see your problem here. The .cfi directives were added after-the-fact and are not accurate.\nI\u0027m not a .cfi expert, but the problem seems more than correcting/adding .cfi statements.\n%rbp is re-purposed for a moving pointer into a static table (instead of containing the old %rsp for returns and unwinding the stack). I would think it\u0027s critical\nfor run time stack unwinding to not do that.",
+      "parentUuid": "7879acf9_0b37acff",
+      "revId": "f7952b52edbc5fe478de91b58fea23864f782739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
