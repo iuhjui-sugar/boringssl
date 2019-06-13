@@ -101,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "1b995649_efeaae24",
+        "filename": "crypto/fipsmodule/ec/util.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-06-13T15:58:27Z",
+      "side": 1,
+      "message": "Too lazy to go figure it out, but what is nistz256 doing? A 4-tooth comb?",
+      "parentUuid": "02fd3172_4ff66197",
+      "revId": "e2218c0b8551595fbcc767f01ae0c6b5729df0a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f308eab6_ef121362",
         "filename": "crypto/fipsmodule/ec/util.c",
         "patchSetId": 2
@@ -145,6 +163,30 @@
       "revId": "e2218c0b8551595fbcc767f01ae0c6b5729df0a0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e58f2b6_35293a37",
+        "filename": "crypto/fipsmodule/ec/util.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-06-13T15:58:27Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c2c21d79_4a840e3b",
+      "range": {
+        "startLine": 128,
+        "startChar": 44,
+        "endLine": 128,
+        "endChar": 55
+      },
+      "revId": "e2218c0b8551595fbcc767f01ae0c6b5729df0a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -521,6 +563,30 @@
       "revId": "e2218c0b8551595fbcc767f01ae0c6b5729df0a0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b85431f_ef94e7c9",
+        "filename": "crypto/fipsmodule/ec/util.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-06-13T15:58:27Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a1b188b0_2d9a4160",
+      "range": {
+        "startLine": 182,
+        "startChar": 44,
+        "endLine": 182,
+        "endChar": 45
+      },
+      "revId": "e2218c0b8551595fbcc767f01ae0c6b5729df0a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
