@@ -119,6 +119,24 @@
     },
     {
       "key": {
+        "uuid": "015fe96c_69987a11",
+        "filename": "crypto/fipsmodule/ec/util.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-06-13T16:21:45Z",
+      "side": 1,
+      "message": "For the base point, nistz256 is doing w\u003d7 Booth representation, but in a different order. This result specifically applies to the usual algorithm:\n\n  table[i] \u003d i * P\n  ret \u003d Inf\n  for window in 7-bit Booth windows from MSB to LSB:\n    for i in range(7):\n      ret +\u003d ret\n    ret +\u003d table[window]\n\nIt\u0027s got a multi-level table:\n\n  table[i][j] \u003d (2**i * j) * P\n  ret \u003d Inf\n  level \u003d 0\n  for window in 7-bit Booth windows from LSB to MSB:\n    ret +\u003d table[level][window]\n    level +\u003d 7\n\nThe additions are in a different order and with the doublings pre-applied, so the result doesn\u0027t hold.\n\nThe algorithms we currently use are:\n\nnistp224 arbitrary point: standard w\u003d5 Booth (OK - this result)\nnistp224 base point: 4-tooth comb (OK - unsigned)\nnistp256 arbitrary point: standard w\u003d5 Booth (OK - this result)\nnistp256 base point: 4-tooth comb (OK - unsigned)\nnistz256 arbitrary point: standard w\u003d5 Booth (OK - this result)\nnistz256 base point: LSB-to-MSB multi-level w\u003d7 Booth (FIXME - needs analysis)\nmont arbitrary point: unsigned w\u003d5 (OK - unsigned)\nmont base point: no base point optimization, same as arbitrary point\n\n(I believe Go uses LSB-to-MSB multi-level w\u003d6 Booth, so that also warrants a look.)",
+      "parentUuid": "1b995649_efeaae24",
+      "revId": "e2218c0b8551595fbcc767f01ae0c6b5729df0a0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f308eab6_ef121362",
         "filename": "crypto/fipsmodule/ec/util.c",
         "patchSetId": 2
