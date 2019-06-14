@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad440387_92a8b51b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-06-14T22:48:24Z",
+      "side": 1,
+      "message": "Hrm. Actually, this is not immediately obvious. It could be n. I don\u0027t think it actually can be n, but needs more thorough justification...",
+      "range": {
+        "startLine": 33,
+        "startChar": 51,
+        "endLine": 34,
+        "endChar": 27
+      },
+      "revId": "b68463ab6441e17bfa2d58047055363d430b73c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
