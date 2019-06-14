@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9baedfc4_52740979",
+        "filename": "crypto/fipsmodule/ec/p224-64.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1090,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-06-14T21:07:42Z",
+      "side": 1,
+      "message": "This assignment is superfluous given the assert on the previous line, right?",
+      "revId": "013017f9815399394ed54fce8f0ea46f43e18b64",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
