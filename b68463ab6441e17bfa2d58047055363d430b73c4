@@ -22,6 +22,30 @@
       "revId": "b68463ab6441e17bfa2d58047055363d430b73c4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b1eca73_ffe23113",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-06-17T22:12:14Z",
+      "side": 1,
+      "message": "(It indeed cannot be n. Only the last sum can get that high and at that point there is no extra term at the bottom. But this commit message is too long as it is, so I\u0027ll just trim this down a bit...)",
+      "parentUuid": "ad440387_92a8b51b",
+      "range": {
+        "startLine": 33,
+        "startChar": 51,
+        "endLine": 34,
+        "endChar": 27
+      },
+      "revId": "b68463ab6441e17bfa2d58047055363d430b73c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
