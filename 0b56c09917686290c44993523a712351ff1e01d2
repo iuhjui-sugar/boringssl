@@ -39,6 +39,24 @@
       "revId": "0b56c09917686290c44993523a712351ff1e01d2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd21d886_05e467eb",
+        "filename": "ssl/internal.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 2224,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-06-21T20:41:08Z",
+      "side": 1,
+      "message": "Er, should have included in the list:\n\n- subcerts_used\n\nSo that\u0027s four total. :-)",
+      "parentUuid": "3c890080_df986776",
+      "revId": "0b56c09917686290c44993523a712351ff1e01d2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
