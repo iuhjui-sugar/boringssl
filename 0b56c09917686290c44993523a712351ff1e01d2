@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "362133a8_0629e820",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 3103,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-06-21T20:40:39Z",
+      "side": 1,
+      "message": "Nit: and zero otherwise\n\nWe try to be explicit about this because a lot of OpenSSL APIs return 1, 0, or -1. Sometimes -2 if it is feeling really rude. :-)",
+      "range": {
+        "startLine": 3103,
+        "startChar": 77,
+        "endLine": 3103,
+        "endChar": 78
+      },
+      "revId": "0b56c09917686290c44993523a712351ff1e01d2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c890080_df986776",
+        "filename": "ssl/internal.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 2224,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-06-21T20:40:39Z",
+      "side": 1,
+      "message": "Nit: A lot of old ones are off, but we try to do these comments Go-style.\n\nAlso this CL uses all of:\n- SSL_delegated_credential_used\n- expect_dc_usage\n- -expect-delegated-credential-usage\n\nLet\u0027s be consistent. :-)",
+      "revId": "0b56c09917686290c44993523a712351ff1e01d2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
