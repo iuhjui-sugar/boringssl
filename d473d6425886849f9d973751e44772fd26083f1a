@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "13cdd024_0ac1af90",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2043,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2019-06-24T22:44:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c47c4196_8713281a",
+      "range": {
+        "startLine": 2043,
+        "startChar": 69,
+        "endLine": 2043,
+        "endChar": 71
+      },
+      "revId": "d473d6425886849f9d973751e44772fd26083f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dd890921_8e64c223",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "d473d6425886849f9d973751e44772fd26083f1a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b184028_880f9b16",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2044,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2019-06-24T22:44:52Z",
+      "side": 1,
+      "message": "Thanks for that note. That wording sounds better.",
+      "parentUuid": "dd890921_8e64c223",
+      "range": {
+        "startLine": 2044,
+        "startChar": 3,
+        "endLine": 2044,
+        "endChar": 72
+      },
+      "revId": "d473d6425886849f9d973751e44772fd26083f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
