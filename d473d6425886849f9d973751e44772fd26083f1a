@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c47c4196_8713281a",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2043,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-06-24T22:41:58Z",
+      "side": 1,
+      "message": "Nit: I think this comma isn\u0027t quite right.",
+      "range": {
+        "startLine": 2043,
+        "startChar": 69,
+        "endLine": 2043,
+        "endChar": 71
+      },
+      "revId": "d473d6425886849f9d973751e44772fd26083f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd890921_8e64c223",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2044,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-06-24T22:41:58Z",
+      "side": 1,
+      "message": "Strictly speaking, we generate them lazily now, though it\u0027s not actually user-visible. Maybe:\n\n\"will manage session ticket encryption keys by generating them internally and rotating every 48 hours.\"",
+      "range": {
+        "startLine": 2044,
+        "startChar": 3,
+        "endLine": 2044,
+        "endChar": 72
+      },
+      "revId": "d473d6425886849f9d973751e44772fd26083f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
