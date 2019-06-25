@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b9f8cd0d_54372a45",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-06-25T20:21:39Z",
+      "side": 1,
+      "message": "tls13? (It doesn\u0027t cover TLS 1.2 ciphers, which are much more complicated to negotiate.)",
+      "range": {
+        "startLine": 563,
+        "startChar": 14,
+        "endLine": 563,
+        "endChar": 18
+      },
+      "revId": "5d43d3b5704e1d2c1127f08603d9455a92e0c5a5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ea4c3fb_f45dad4f",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-06-25T20:21:39Z",
+      "side": 1,
+      "message": "It also returns NULL if there wasn\u0027t anything compatible, right?\n\n(Actually, it\u0027s a little odd how we don\u0027t get an error in the error queue in this scenario. I guess right now we just have the caller push the error. Dunno if it makes more sense to move it into the function now...)",
+      "range": {
+        "startLine": 564,
+        "startChar": 74,
+        "endLine": 564,
+        "endChar": 75
+      },
+      "revId": "5d43d3b5704e1d2c1127f08603d9455a92e0c5a5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b7c884c_171988de",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-06-25T20:21:39Z",
+      "side": 1,
+      "message": "const non-pointer parameters don\u0027t really do much and occasionally offend MSVC. :-)",
+      "range": {
+        "startLine": 566,
+        "startChar": 40,
+        "endLine": 566,
+        "endChar": 45
+      },
+      "revId": "5d43d3b5704e1d2c1127f08603d9455a92e0c5a5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
