@@ -560,6 +560,12 @@ bool ssl_cipher_requires_server_key_exchange(const SSL_CIPHER *cipher);
 // it returns zero.
 size_t ssl_cipher_get_record_split_len(const SSL_CIPHER *cipher);
 
+// ssl_choose_tls_cipher returns an SSL_CIPHER corresponding with the best
+// available from |cipher_suites| compatible with |version| and |group_id|.
+const SSL_CIPHER *ssl_choose_tls_cipher(CBS cipher_suites,
+                                        const uint16_t version,
+                                        uint16_t group_id);
+
 
 // Transcript layer.
 
