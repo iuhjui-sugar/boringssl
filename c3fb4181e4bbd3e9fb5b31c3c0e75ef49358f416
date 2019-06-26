@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "bacd16aa_41141cb2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-06-26T21:52:32Z",
+      "side": 1,
+      "message": "Mind moving the sentence you added about ESNI here? (And maybe add a bug link.)",
+      "revId": "c3fb4181e4bbd3e9fb5b31c3c0e75ef49358f416",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9a7b0d31_bb89a18a",
         "filename": "ssl/internal.h",
         "patchSetId": 4
