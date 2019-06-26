@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a7b0d31_bb89a18a",
+        "filename": "ssl/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-06-26T21:51:58Z",
+      "side": 1,
+      "message": "Nit: |SSL_CIPHER|",
+      "range": {
+        "startLine": 563,
+        "startChar": 38,
+        "endLine": 563,
+        "endChar": 48
+      },
+      "revId": "c3fb4181e4bbd3e9fb5b31c3c0e75ef49358f416",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5804da5a_07de24bd",
+        "filename": "ssl/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-06-26T21:51:58Z",
+      "side": 1,
+      "message": "It\u0027s a little weird to me that this function doesn\u0027t take an SSL, but I guess we can always add that parameter later if we need to?\n\nRight now our TLS 1.3 cipher preferences aren\u0027t configurable. Hopefully they stay that way, but if we ever options to control it, we\u0027d want them to apply here.",
+      "range": {
+        "startLine": 566,
+        "startChar": 18,
+        "endLine": 566,
+        "endChar": 41
+      },
+      "revId": "c3fb4181e4bbd3e9fb5b31c3c0e75ef49358f416",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
