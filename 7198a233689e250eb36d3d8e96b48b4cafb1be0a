@@ -22,6 +22,30 @@
       "revId": "7198a233689e250eb36d3d8e96b48b4cafb1be0a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d9cb6a4_dd4cd86f",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2019-06-27T16:49:38Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "399533a2_adc6c47d",
+      "range": {
+        "startLine": 140,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 3
+      },
+      "revId": "7198a233689e250eb36d3d8e96b48b4cafb1be0a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
