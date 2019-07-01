@@ -27,11 +27,6 @@ deps = {
     'condition': 'checkout_android',
   },
 
-  'boringssl/util/bot/android_tools': {
-    'url': Var('chromium_git') + '/android_tools.git' + '@' + '347a7c8078a009e98995985b7ab6ec6b35696dea',
-    'condition': 'checkout_android',
-  },
-
   'boringssl/util/bot/gyp':
     Var('chromium_git') + '/external/gyp.git' + '@' + 'd61a9397e668fa9843c4aa7da9e79460fe590bfb',
 
@@ -51,11 +46,6 @@ deps = {
     'condition': 'checkout_libcxx',
   },
 }
-
-recursedeps = [
-  # android_tools pulls in the NDK from a separate repository.
-  'boringssl/util/bot/android_tools',
-]
 
 hooks = [
   {
