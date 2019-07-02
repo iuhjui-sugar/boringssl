@@ -413,16 +413,30 @@ OPENSSL_EXPORT char *ERR_error_string(uint32_t packed_error, char *buf);
 // ERR_clear_system_error clears the system's error value (i.e. errno).
 OPENSSL_EXPORT void ERR_clear_system_error(void);
 
+#if defined(NDEBUG)
+
 // OPENSSL_PUT_ERROR is used by OpenSSL code to add an error to the error
 // queue.
-#define OPENSSL_PUT_ERROR(library, reason) \
+
+#define OPENSSL_PUT_ERROR(library, reason)				\
+  ERR_put_error(ERR_LIB_##library, 0, reason, NULL, 0)
+
+  // OPENSSL_PUT_SYSTEM_ERROR is used by OpenSSL code to add an error from the
+  // operating system to the error queue.
+  // TODO(fork): include errno.
+
+#define OPENSSL_PUT_SYSTEM_ERROR()			\
+  ERR_put_error(ERR_LIB_SYS, 0, 0, NULL, 0);
+
+#else // Debug builds
+
+#define OPENSSL_PUT_ERROR(library, reason)			\
   ERR_put_error(ERR_LIB_##library, 0, reason, __FILE__, __LINE__)
 
-// OPENSSL_PUT_SYSTEM_ERROR is used by OpenSSL code to add an error from the
-// operating system to the error queue.
-// TODO(fork): include errno.
-#define OPENSSL_PUT_SYSTEM_ERROR() \
+#define OPENSSL_PUT_SYSTEM_ERROR()			\
   ERR_put_error(ERR_LIB_SYS, 0, 0, __FILE__, __LINE__);
+
+#endif // defined(NDEBUG)
 
 // ERR_put_error adds an error to the error queue, dropping the least recent
 // error if necessary for space reasons.

@@ -4544,9 +4544,17 @@ OPENSSL_EXPORT int SSL_CTX_set_tlsext_status_arg(SSL_CTX *ctx, void *arg);
 // These defines exist for node.js, with the hope that we can eliminate the
 // need for them over time.
 
+#if defined(NDEBUG)
+
 #define SSLerr(function, reason) \
+  ERR_put_error(ERR_LIB_SSL, 0, reason, NULL, 0)
+
+#else // Debug builds
+
+#define SSLerr(function, reason)				\
   ERR_put_error(ERR_LIB_SSL, 0, reason, __FILE__, __LINE__)
 
+#endif // defined(NDEBUG)
 
 // Preprocessor compatibility section (hidden).
 //

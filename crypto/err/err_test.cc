@@ -117,14 +117,25 @@ static bool HasSuffix(const char *str, const char *suffix) {
 }
 
 TEST(ErrTest, PutMacro) {
-  int expected_line = __LINE__ + 1;
+
+#if defined(NDEBUG)
+  int expected_line = 0;
+#else // Debug builds
+  int expected_line = __LINE__ + 3;
+#endif // defined(NDEBUG)
+
   OPENSSL_PUT_ERROR(USER, ERR_R_INTERNAL_ERROR);
 
   int line;
   const char *file;
   uint32_t error = ERR_get_error_line(&file, &line);
 
+#if defined(NDEBUG)
+  EXPECT_PRED2(HasSuffix, file, "");
+#else // Debug builds
   EXPECT_PRED2(HasSuffix, file, "err_test.cc");
+#endif // defined(NDEBUG)
+
   EXPECT_EQ(expected_line, line);
   EXPECT_EQ(ERR_LIB_USER, ERR_GET_LIB(error));
   EXPECT_EQ(ERR_R_INTERNAL_ERROR, ERR_GET_REASON(error));
