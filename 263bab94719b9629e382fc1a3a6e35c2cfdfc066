@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b2eabdbe_6ebfbf6d",
+        "filename": "crypto/siphash/siphash.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-07-10T20:45:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1b1695d_cc4e717e",
+      "revId": "263bab94719b9629e382fc1a3a6e35c2cfdfc066",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "67f74f42_16964aed",
         "filename": "crypto/siphash/siphash.c",
         "patchSetId": 2
@@ -39,6 +57,30 @@
       "revId": "263bab94719b9629e382fc1a3a6e35c2cfdfc066",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1ce2263_214025ee",
+        "filename": "crypto/siphash/siphash.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-07-10T20:45:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "67f74f42_16964aed",
+      "range": {
+        "startLine": 31,
+        "startChar": 36,
+        "endLine": 31,
+        "endChar": 37
+      },
+      "revId": "263bab94719b9629e382fc1a3a6e35c2cfdfc066",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
