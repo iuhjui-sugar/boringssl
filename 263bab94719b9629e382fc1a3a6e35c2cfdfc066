@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b1b1695d_cc4e717e",
+        "filename": "crypto/siphash/siphash.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-07-10T19:49:43Z",
+      "side": 1,
+      "message": "Elsewhere we usually spell it \u003copenssl/siphash.h\u003e",
+      "revId": "263bab94719b9629e382fc1a3a6e35c2cfdfc066",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67f74f42_16964aed",
+        "filename": "crypto/siphash/siphash.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-07-10T19:49:43Z",
+      "side": 1,
+      "message": "Nit: This line is formatted differently from the others.",
+      "range": {
+        "startLine": 31,
+        "startChar": 36,
+        "endLine": 31,
+        "endChar": 37
+      },
+      "revId": "263bab94719b9629e382fc1a3a6e35c2cfdfc066",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
