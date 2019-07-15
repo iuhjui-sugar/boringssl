@@ -371,6 +371,52 @@
       "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dbead4a9_23372930",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-07-15T22:31:59Z",
+      "side": 1,
+      "message": "All the existing callers seem to just write a single input.",
+      "range": {
+        "startLine": 56,
+        "startChar": 31,
+        "endLine": 56,
+        "endChar": 43
+      },
+      "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b232382_d06fc9b8",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-07-15T22:31:59Z",
+      "side": 1,
+      "message": "(I\u0027d have probably just made a std::vector and thought about the allocation sizes too hard.)",
+      "range": {
+        "startLine": 230,
+        "startChar": 40,
+        "endLine": 230,
+        "endChar": 46
+      },
+      "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
