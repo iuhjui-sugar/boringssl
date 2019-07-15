@@ -1,0 +1,376 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "172c8dac_7d44220b",
+        "filename": "util/fipstools/acvp/ACVP.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-07-15T22:23:53Z",
+      "side": 1,
+      "message": "simpler",
+      "range": {
+        "startLine": 6,
+        "startChar": 152,
+        "endLine": 6,
+        "endChar": 160
+      },
+      "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c7ca5f8_2525ff82",
+        "filename": "util/fipstools/acvp/ACVP.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-07-15T22:23:53Z",
+      "side": 1,
+      "message": "This is a certificate I assume.",
+      "range": {
+        "startLine": 15,
+        "startChar": 24,
+        "endLine": 15,
+        "endChar": 40
+      },
+      "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "809ac0cc_abed63c9",
+        "filename": "util/fipstools/acvp/ACVP.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-07-15T22:23:53Z",
+      "side": 1,
+      "message": "algorithm",
+      "range": {
+        "startLine": 159,
+        "startChar": 15,
+        "endLine": 159,
+        "endChar": 23
+      },
+      "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae5c69a2_a7f9f2ae",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-07-15T22:23:53Z",
+      "side": 1,
+      "message": "var foundCommentStart bool might be clearer. Not sure.\n\nOr perhaps:\n\n  line \u003d bytes.TrimSpace(line)\n  return len(line) \u003e\u003d 2 \u0026\u0026 line[0] \u003d\u003d \u0027/\u0027 \u0026\u0026 line[1] \u003d\u003d \u0027/\u0027",
+      "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11661259_da3096d2",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-07-15T22:23:53Z",
+      "side": 1,
+      "message": "Is there a link to what this is implementing?",
+      "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89313309_8f1a700a",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-07-15T22:23:53Z",
+      "side": 1,
+      "message": "I guess it doesn\u0027t quite produce the same thing, but any reason not to just use url.PathEscape and url.PathUnecape? (I believe this produces invalid Windows filename characters, not that we particularly care.)",
+      "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b23d9b8_d0bfc21e",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-07-15T22:23:53Z",
+      "side": 1,
+      "message": "(Guessing this is just so it can be extended later.)",
+      "range": {
+        "startLine": 239,
+        "startChar": 12,
+        "endLine": 239,
+        "endChar": 18
+      },
+      "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb8cf1dc_c3bf746d",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-07-15T22:23:53Z",
+      "side": 1,
+      "message": "(I\u0027m guessing later we\u0027ll include some flags to toggle this.)",
+      "range": {
+        "startLine": 320,
+        "startChar": 15,
+        "endLine": 320,
+        "endChar": 19
+      },
+      "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4395ae7e_07bb39d4",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-07-15T22:23:53Z",
+      "side": 1,
+      "message": "Is there a difference between GetBytes + Unmarshal and plain Get?",
+      "range": {
+        "startLine": 358,
+        "startChar": 18,
+        "endLine": 358,
+        "endChar": 27
+      },
+      "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4712e98_9fc9b27c",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-07-15T22:23:53Z",
+      "side": 1,
+      "message": "https://usnistgov.github.io/ACVP/artifacts/draft-fussell-acvp-spec-00.html#rfc.section.12 says you use the current accessToken if not provided here.",
+      "range": {
+        "startLine": 422,
+        "startChar": 46,
+        "endLine": 422,
+        "endChar": 71
+      },
+      "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "651d9ab9_52ca9a89",
+        "filename": "util/fipstools/acvp/acvptool/acvp/acvp.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-07-15T22:23:53Z",
+      "side": 1,
+      "message": "I\u0027m guessing it doesn\u0027t matter, but should this also be url.QueryEscaped?",
+      "range": {
+        "startLine": 341,
+        "startChar": 38,
+        "endLine": 341,
+        "endChar": 48
+      },
+      "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5a9bcd3_ebce5924",
+        "filename": "util/fipstools/acvp/acvptool/acvp/acvp.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-07-15T22:23:53Z",
+      "side": 1,
+      "message": "This would probably save a bit of duplication:\n\nfunc (server *Server) newRequestWithToken(method, url string, body io.Reader) (*http.Request, error) {\n    token, err :\u003d server.getToken(endpoint)\n    if err !\u003d nil {\n        return nil, err\n    }\n    req, err :\u003d http.NewRequest(method, url, body)\n    if err !\u003d nil {\n        return nil, err\n    }\n    if len(token) !\u003d 0 {\n       req.Header.Add(\"Authorization\", \"Bearer \"+token)\n    }\n    return req, nil\n}",
+      "range": {
+        "startLine": 356,
+        "startChar": 18,
+        "endLine": 356,
+        "endChar": 28
+      },
+      "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "170b6b80_97664ed1",
+        "filename": "util/fipstools/acvp/acvptool/acvp/acvp.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-07-15T22:23:53Z",
+      "side": 1,
+      "message": "We could probably cut down on reflection here by making a normal type where Data has type json.RawMessage or []json.RawMessage.",
+      "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5be29f3b_20293b15",
+        "filename": "util/fipstools/acvp/acvptool/interactive.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-07-15T22:23:53Z",
+      "side": 1,
+      "message": "(I mostly glossed over this file.)",
+      "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "effb0485_db56d65c",
+        "filename": "util/fipstools/acvp/acvptool/interactive.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-07-15T22:23:53Z",
+      "side": 1,
+      "message": "url \u003d strings.TrimLeft(url, \"/\") ?",
+      "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c7c8cfc_7293f46a",
+        "filename": "util/fipstools/acvp/acvptool/interactive.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-07-15T22:23:53Z",
+      "side": 1,
+      "message": "(Also take no arguments?)",
+      "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "312697ed_4a765181",
+        "filename": "util/fipstools/acvp/acvptool/parser.peg",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-07-15T22:23:53Z",
+      "side": 1,
+      "message": "Should \\ also be excluded here?",
+      "range": {
+        "startLine": 10,
+        "startChar": 30,
+        "endLine": 10,
+        "endChar": 32
+      },
+      "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "305d64e8_c1926b2c",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-07-15T22:23:53Z",
+      "side": 1,
+      "message": "We usually write these with angle brackets.",
+      "range": {
+        "startLine": 23,
+        "startChar": 9,
+        "endLine": 23,
+        "endChar": 10
+      },
+      "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
