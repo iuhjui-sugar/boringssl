@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b836da38_9eb95ef2",
+        "filename": "util/fipstools/acvp/ACVP.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2019-07-16T23:22:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "172c8dac_7d44220b",
+      "range": {
+        "startLine": 6,
+        "startChar": 152,
+        "endLine": 6,
+        "endChar": 160
+      },
+      "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3c7ca5f8_2525ff82",
         "filename": "util/fipstools/acvp/ACVP.md",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5b63018_a56bf1b7",
+        "filename": "util/fipstools/acvp/ACVP.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2019-07-16T23:22:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c7ca5f8_2525ff82",
+      "range": {
+        "startLine": 15,
+        "startChar": 24,
+        "endLine": 15,
+        "endChar": 40
+      },
+      "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "4148f214_e6bb33eb",
+        "filename": "util/fipstools/acvp/ACVP.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2019-07-16T23:22:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "809ac0cc_abed63c9",
+      "range": {
+        "startLine": 159,
+        "startChar": 15,
+        "endLine": 159,
+        "endChar": 23
+      },
+      "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ae5c69a2_a7f9f2ae",
         "filename": "util/fipstools/acvp/acvptool/acvp.go",
         "patchSetId": 3
@@ -85,6 +157,24 @@
       "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb758f17_3fc179c3",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2019-07-16T23:22:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae5c69a2_a7f9f2ae",
+      "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -105,6 +195,24 @@
     },
     {
       "key": {
+        "uuid": "8a73b7f3_6b0f0722",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2019-07-16T23:22:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11661259_da3096d2",
+      "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "89313309_8f1a700a",
         "filename": "util/fipstools/acvp/acvptool/acvp.go",
         "patchSetId": 3
@@ -119,6 +227,24 @@
       "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40b3efc1_3b25abb3",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2019-07-16T23:22:31Z",
+      "side": 1,
+      "message": "Hmm, replacing \u0027/\u0027 with \u0027_\u0027 is nicer in the filesystem, but probably not worth the extra code. Thanks, done.",
+      "parentUuid": "89313309_8f1a700a",
+      "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -145,6 +271,30 @@
     },
     {
       "key": {
+        "uuid": "8d5abded_c0b9c2eb",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2019-07-16T23:22:31Z",
+      "side": 1,
+      "message": "Yea. For example, there might well be a Middle implementation that does RPCs over the network to a machine that, for example, can\u0027t access the internet directly.",
+      "parentUuid": "9b23d9b8_d0bfc21e",
+      "range": {
+        "startLine": 239,
+        "startChar": 12,
+        "endLine": 239,
+        "endChar": 18
+      },
+      "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cb8cf1dc_c3bf746d",
         "filename": "util/fipstools/acvp/acvptool/acvp.go",
         "patchSetId": 3
@@ -156,6 +306,30 @@
       "writtenOn": "2019-07-15T22:23:53Z",
       "side": 1,
       "message": "(I\u0027m guessing later we\u0027ll include some flags to toggle this.)",
+      "range": {
+        "startLine": 320,
+        "startChar": 15,
+        "endLine": 320,
+        "endChar": 19
+      },
+      "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "096ad0f0_38139bf9",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2019-07-16T23:22:31Z",
+      "side": 1,
+      "message": "Eventually, yes.",
+      "parentUuid": "cb8cf1dc_c3bf746d",
       "range": {
         "startLine": 320,
         "startChar": 15,
@@ -191,6 +365,30 @@
     },
     {
       "key": {
+        "uuid": "b814f2b5_0fc84fd2",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2019-07-16T23:22:31Z",
+      "side": 1,
+      "message": "No, but this code wants the unparsed bytes in order to pass it only the Middle. (There might be JSON fields that an unmarshal + marshal will drop.)",
+      "parentUuid": "4395ae7e_07bb39d4",
+      "range": {
+        "startLine": 358,
+        "startChar": 18,
+        "endLine": 358,
+        "endChar": 27
+      },
+      "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e4712e98_9fc9b27c",
         "filename": "util/fipstools/acvp/acvptool/acvp.go",
         "patchSetId": 3
@@ -211,6 +409,30 @@
       "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca4c9416_203f4855",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2019-07-16T23:22:31Z",
+      "side": 1,
+      "message": "Good catch, thanks.",
+      "parentUuid": "e4712e98_9fc9b27c",
+      "range": {
+        "startLine": 422,
+        "startChar": 46,
+        "endLine": 422,
+        "endChar": 71
+      },
+      "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -237,6 +459,30 @@
     },
     {
       "key": {
+        "uuid": "89d50ef5_e36bcd0f",
+        "filename": "util/fipstools/acvp/acvptool/acvp/acvp.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2019-07-16T23:22:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "651d9ab9_52ca9a89",
+      "range": {
+        "startLine": 341,
+        "startChar": 38,
+        "endLine": 341,
+        "endChar": 48
+      },
+      "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a5a9bcd3_ebce5924",
         "filename": "util/fipstools/acvp/acvptool/acvp/acvp.go",
         "patchSetId": 3
@@ -260,6 +506,30 @@
     },
     {
       "key": {
+        "uuid": "5f64be5a_bd720779",
+        "filename": "util/fipstools/acvp/acvptool/acvp/acvp.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2019-07-16T23:22:31Z",
+      "side": 1,
+      "message": "Thanks, done.",
+      "parentUuid": "a5a9bcd3_ebce5924",
+      "range": {
+        "startLine": 356,
+        "startChar": 18,
+        "endLine": 356,
+        "endChar": 28
+      },
+      "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "170b6b80_97664ed1",
         "filename": "util/fipstools/acvp/acvptool/acvp/acvp.go",
         "patchSetId": 3
@@ -274,6 +544,24 @@
       "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ea51c25_1907ef97",
+        "filename": "util/fipstools/acvp/acvptool/acvp/acvp.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2019-07-16T23:22:31Z",
+      "side": 1,
+      "message": "It\u0027s a good thought but, for now, I\u0027m going to leave this using reflection because it\u0027s working and it\u0027s not processing much data. Thanks.",
+      "parentUuid": "170b6b80_97664ed1",
+      "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -328,6 +616,24 @@
     },
     {
       "key": {
+        "uuid": "6560d1f9_5d2733b2",
+        "filename": "util/fipstools/acvp/acvptool/interactive.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2019-07-16T23:22:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c7c8cfc_7293f46a",
+      "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "312697ed_4a765181",
         "filename": "util/fipstools/acvp/acvptool/parser.peg",
         "patchSetId": 3
@@ -348,6 +654,30 @@
       "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e27e803b_4fdfd7dc",
+        "filename": "util/fipstools/acvp/acvptool/parser.peg",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2019-07-16T23:22:31Z",
+      "side": 1,
+      "message": "Yep, thanks.",
+      "parentUuid": "312697ed_4a765181",
+      "range": {
+        "startLine": 10,
+        "startChar": 30,
+        "endLine": 10,
+        "endChar": 32
+      },
+      "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -374,6 +704,30 @@
     },
     {
       "key": {
+        "uuid": "e41c8e22_c35aa909",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2019-07-16T23:22:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "305d64e8_c1926b2c",
+      "range": {
+        "startLine": 23,
+        "startChar": 9,
+        "endLine": 23,
+        "endChar": 10
+      },
+      "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dbead4a9_23372930",
         "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
         "patchSetId": 3
@@ -397,6 +751,30 @@
     },
     {
       "key": {
+        "uuid": "7d2c6a74_4fe42c9f",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2019-07-16T23:22:31Z",
+      "side": 1,
+      "message": "Yea, but I\u0027m expecting that some primitives will need to return multiple arguments.",
+      "parentUuid": "dbead4a9_23372930",
+      "range": {
+        "startLine": 56,
+        "startChar": 31,
+        "endLine": 56,
+        "endChar": 43
+      },
+      "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1b232382_d06fc9b8",
         "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
         "patchSetId": 3
@@ -417,6 +795,30 @@
       "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6aa386a6_25d07b4d",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2019-07-16T23:22:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1b232382_d06fc9b8",
+      "range": {
+        "startLine": 230,
+        "startChar": 40,
+        "endLine": 230,
+        "endChar": 46
+      },
+      "revId": "9abdca78b62b24b1511c91d3994afba46c12c671",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
