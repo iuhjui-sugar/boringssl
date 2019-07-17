@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d8df795d_f269d24c",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3287,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-07-17T17:06:43Z",
+      "side": 1,
+      "message": "Connection properties should go on SSL3_STATE rather than SSL. This is silly and exists basically exclusively to make SSL_clear() implementable without having to manually clear every property. :-/\n\n(I really need to clean this up so this is more obvious...)",
+      "range": {
+        "startLine": 3287,
+        "startChar": 7,
+        "endLine": 3287,
+        "endChar": 32
+      },
+      "revId": "9014c58538ca43615e9a71550055f092eb087c51",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acb92019_467b2c42",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2913,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-07-17T17:06:43Z",
+      "side": 1,
+      "message": "(This is guaranteed to be true by the extensions framework, but no harm in checking.)",
+      "range": {
+        "startLine": 2913,
+        "startChar": 7,
+        "endLine": 2913,
+        "endChar": 39
+      },
+      "revId": "9014c58538ca43615e9a71550055f092eb087c51",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "930dbe19_1d819095",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 676,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-07-17T17:06:43Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "range": {
+        "startLine": 676,
+        "startChar": 44,
+        "endLine": 676,
+        "endChar": 46
+      },
+      "revId": "9014c58538ca43615e9a71550055f092eb087c51",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
