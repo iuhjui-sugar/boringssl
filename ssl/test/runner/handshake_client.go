@@ -9,6 +9,7 @@ import (
 	"crypto"
 	"crypto/ecdsa"
 	"crypto/elliptic"
+	"crypto/rand"
 	"crypto/rsa"
 	"crypto/subtle"
 	"crypto/x509"
@@ -34,6 +35,10 @@ type clientHandshakeState struct {
 	finishedBytes []byte
 	peerPublicKey crypto.PublicKey
 	skxAlgo       signatureAlgorithm
+	esniRetry     struct {
+		enabled   bool
+		retryKeys []EsniKeys
+	}
 }
 
 func mapClientHelloVersion(vers uint16, isDTLS bool) uint16 {
@@ -77,6 +82,168 @@ func fixClientHellos(hello *clientHelloMsg, in []byte) ([]byte, error) {
 	return ret, nil
 }
 
+type ClientEsniSelection struct {
+	isGrease bool
+	esniKeys EsniKeys
+	key      *keyShareEntry
+	suite    *cipherSuite
+	curve    ecdhCurve
+	curveID  CurveID
+}
+
+func (c *Conn) esniClientSelectParams() (*ClientEsniSelection, error) {
+	if len(c.config.EsniKeys) == 0 {
+		return nil, nil
+	}
+
+	for _, serverEsniKeys := range c.config.EsniKeys {
+		if serverEsniKeys.Version != esniKeysVersion {
+			continue
+		}
+
+		foundCurve := false
+		var curveID CurveID
+		var curve ecdhCurve
+		var selectedKeyShare *keyShareEntry
+
+		// Find a compatible keyShareEntry
+		for _, keyShareEntry := range serverEsniKeys.Keys {
+			// If possible, get the ecdhCurve corresponding to this keyShareEntry
+			curveID = keyShareEntry.Group
+			curve, foundCurve = curveForCurveID(curveID, c.config)
+			if foundCurve {
+				selectedKeyShare = &keyShareEntry
+				break
+			}
+		}
+		if !foundCurve {
+			continue
+		}
+
+		// Find compatible cipher suite
+		for _, serverSuiteId := range serverEsniKeys.CipherSuites {
+			var serverSuite *cipherSuite = mutualCipherSuite(c.config.cipherSuites(), serverSuiteId)
+			if serverSuite != nil {
+				return &ClientEsniSelection{
+					esniKeys: serverEsniKeys,
+					key:      selectedKeyShare,
+					suite:    serverSuite,
+					curve:    curve,
+					curveID:  curveID,
+				}, nil
+			}
+		}
+	}
+	return nil, esniClientError("unable to select compatible keyShareEntry")
+}
+func (c *Conn) esniClientGrease() (*clientEncryptedSNI, *ClientEsniSelection, error) {
+	greaseEsniKeys, _ := GetTestEsniKeys([]string{"foobarbaz"})
+	greaseKeyShareEntry := greaseEsniKeys[0].Keys[0]
+	greaseSuite := mutualCipherSuite(c.config.cipherSuites(), TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256)
+	if greaseSuite == nil {
+		return nil, nil, esniClientError("tls: no cipher suite available to generate ESNI GREASE")
+	}
+	greaseCurve, foundCurve := curveForCurveID(greaseKeyShareEntry.Group, c.config)
+	if !foundCurve {
+		return nil, nil, esniClientError("tls: unable to get curve while generating GREASE data")
+	}
+
+	randByteBuf := func(size int) []byte {
+		buf := make([]byte, size)
+		rand.Read(buf[:])
+		return buf
+	}
+
+	greaseRecordDigest := randByteBuf(greaseSuite.hash().Size())
+	greaseEncryptedSNI := randByteBuf(16 + int(greaseEsniKeys[0].PaddedLength) + greaseSuite.keyLen) // is tag_length = keyLen?
+
+	return &clientEncryptedSNI{
+			suite:        greaseSuite.id,
+			keyShare:     greaseKeyShareEntry,
+			recordDigest: greaseRecordDigest,
+			encryptedSNI: greaseEncryptedSNI,
+		}, &ClientEsniSelection{
+			isGrease: true,
+			esniKeys: greaseEsniKeys[0],
+			key:      &greaseKeyShareEntry,
+			suite:    greaseSuite,
+			curve:    greaseCurve,
+			curveID:  greaseKeyShareEntry.Group,
+		}, nil
+}
+
+func (c *Conn) esniClientBuildEncryptedSNI(hello *clientHelloMsg) (*clientEncryptedSNI, *ClientEsniSelection, error) {
+	var selectedParams *ClientEsniSelection
+	selectedParams, err := c.esniClientSelectParams()
+	if err != nil || selectedParams == nil {
+		// We have no esniKeys to use, so we will send GREASE data
+		return c.esniClientGrease()
+	}
+	c.esniSelectedParams = selectedParams
+
+	publicKey, ecdheSecret, err := selectedParams.curve.accept(rand.Reader, selectedParams.key.KeyExchange)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	suite := selectedParams.suite
+	if suite.aead == nil {
+		return nil, nil, esniClientError("selected cipher suite does not define aead")
+	}
+
+	keyShareEntry := keyShareEntry{Group: selectedParams.curveID, KeyExchange: publicKey}
+	esniContents := esniContents{
+		recordDigest:      selectedParams.esniKeys.computeHash(suite.hash()),
+		keyShareEntry:     keyShareEntry,
+		clientHelloRandom: hello.random,
+	}
+	hashValue := esniContents.computeHash(suite.hash())
+	salt := make([]byte, suite.hash().Size())
+	ecdheSecretX := hkdfExtract(suite.hash().New, salt, ecdheSecret)
+	key := hkdfExpandLabel(suite.hash(), ecdheSecretX, esniClientHelloKeyLabel, hashValue, suite.keyLen)
+	iv := hkdfExpandLabel(suite.hash(), ecdheSecretX, esniClientHelloIvLabel, hashValue, suite.ivLen(VersionTLS13))
+	cipher := suite.aeadRaw(key)
+
+	if selectedParams.esniKeys.PaddedLength > esniKeysPaddedLengthMax {
+		return nil, nil, esniClientError("esniKeys.PaddedLength exceeds max value")
+	}
+
+	// Generate the nonce for clientEsniInner
+	rand.Read(c.esniNonce[:])
+
+	clientEsniInner := clientEsniInner{
+		nonce: c.esniNonce,
+		realSni: paddedServerNameList{
+			dnsName: []byte(c.config.ServerName),
+		},
+	}
+
+	clientEsniInnerByteBuilder := newByteBuilder()
+	clientEsniInner.marshal(clientEsniInnerByteBuilder, selectedParams.esniKeys.PaddedLength)
+
+	bb := newByteBuilder()
+	hello.marshalKeyShares(bb)
+	additionalData := bb.data()
+	if len(additionalData) > 2 {
+		additionalData = additionalData[2:]
+	}
+	fmt.Printf("client additionalData [%d]: %x\n", len(additionalData), additionalData)
+	encryptedSNI := cipher.Seal(nil, iv, clientEsniInnerByteBuilder.data(), additionalData)
+
+	var recordDigest []byte
+	if c.config.EsniClientSendRecordDigest {
+		recordDigest = selectedParams.esniKeys.computeHash(suite.hash())
+		fmt.Printf("Client computed hash of recordDigest: %#X\n", recordDigest)
+	}
+
+	return &clientEncryptedSNI{
+		suite:        suite.id,
+		keyShare:     keyShareEntry,
+		recordDigest: recordDigest,
+		encryptedSNI: encryptedSNI,
+	}, selectedParams, nil
+}
+
 func (c *Conn) clientHandshake() error {
 	if c.config == nil {
 		c.config = defaultConfig()
@@ -101,12 +268,20 @@ func (c *Conn) clientHandshake() error {
 		return errors.New("tls: NextProtos values too large")
 	}
 
+	// Compute ClientHello.random because ESNI needs it
+	clientHelloRandom := make([]byte, 32)
+	_, err := io.ReadFull(c.config.rand(), clientHelloRandom)
+	if err != nil {
+		c.sendAlert(alertInternalError)
+		return errors.New("tls: short read from Rand: " + err.Error())
+	}
+
 	minVersion := c.config.minVersion(c.isDTLS)
 	maxVersion := c.config.maxVersion(c.isDTLS)
 	hello := &clientHelloMsg{
 		isDTLS:                  c.isDTLS,
 		compressionMethods:      []uint8{compressionNone},
-		random:                  make([]byte, 32),
+		random:                  clientHelloRandom,
 		ocspStapling:            !c.config.Bugs.NoOCSPStapling,
 		sctListSupported:        !c.config.Bugs.NoSignedCertificateTimestamps,
 		serverName:              c.config.ServerName,
@@ -224,8 +399,8 @@ func (c *Conn) clientHandshake() error {
 			}
 
 			hello.keyShares = append(hello.keyShares, keyShareEntry{
-				group:       curveID,
-				keyExchange: publicKey,
+				Group:       curveID,
+				KeyExchange: publicKey,
 			})
 			keyShares[curveID] = curve
 
@@ -268,12 +443,6 @@ NextCipherSuite:
 
 	if c.config.Bugs.SendFallbackSCSV {
 		hello.cipherSuites = append(hello.cipherSuites, fallbackSCSV)
-	}
-
-	_, err := io.ReadFull(c.config.rand(), hello.random)
-	if err != nil {
-		c.sendAlert(alertInternalError)
-		return errors.New("tls: short read from Rand: " + err.Error())
 	}
 
 	if maxVersion >= VersionTLS12 && !c.config.Bugs.NoSignatureAlgorithms {
@@ -409,6 +578,26 @@ NextCipherSuite:
 	}
 	if c.config.Bugs.SendClientHelloSessionID != nil {
 		hello.sessionId = c.config.Bugs.SendClientHelloSessionID
+	}
+
+	if maxVersion >= VersionTLS13 && c.config.EsniEnabled {
+		clientEncryptedSNI, esniParams, err := c.esniClientBuildEncryptedSNI(hello)
+		haveEsni := true
+		if err != nil {
+			haveEsni = false
+			clientEncryptedSNI = nil
+		}
+		hello.clientEncryptedSNI = clientEncryptedSNI
+
+		// If we are sending the server name via ESNI, we must send
+		// the ESNIKeys.publicName in place of the plaintext
+		// serverName.
+		if haveEsni && !esniParams.isGrease {
+			hello.serverName = string(esniParams.esniKeys.PublicName)
+		}
+		if len(c.config.Bugs.EsniSendPlaintextServerName) > 0 {
+			hello.serverName = c.config.Bugs.EsniSendPlaintextServerName
+		}
 	}
 
 	var helloBytes []byte
@@ -593,8 +782,8 @@ NextCipherSuite:
 			}
 			keyShares[group] = curve
 			hello.keyShares = []keyShareEntry{{
-				group:       group,
-				keyExchange: publicKey,
+				Group:       group,
+				KeyExchange: publicKey,
 			}}
 		}
 
@@ -679,7 +868,7 @@ NextCipherSuite:
 		return fmt.Errorf("tls: server selected an unsupported cipher suite")
 	}
 
-	if haveHelloRetryRequest && helloRetryRequest.hasSelectedGroup && helloRetryRequest.selectedGroup != serverHello.keyShare.group {
+	if haveHelloRetryRequest && helloRetryRequest.hasSelectedGroup && helloRetryRequest.selectedGroup != serverHello.keyShare.Group {
 		c.sendAlert(alertHandshakeFailure)
 		return errors.New("tls: ServerHello parameters did not match HelloRetryRequest")
 	}
@@ -840,14 +1029,14 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 
 	// Resolve ECDHE and compute the handshake secret.
 	if !c.config.Bugs.MissingKeyShare && !c.config.Bugs.SecondClientHelloMissingKeyShare {
-		curve, ok := hs.keyShares[hs.serverHello.keyShare.group]
+		curve, ok := hs.keyShares[hs.serverHello.keyShare.Group]
 		if !ok {
 			c.sendAlert(alertHandshakeFailure)
 			return errors.New("tls: server selected an unsupported group")
 		}
-		c.curveID = hs.serverHello.keyShare.group
+		c.curveID = hs.serverHello.keyShare.Group
 
-		ecdheSecret, err := curve.finish(hs.serverHello.keyShare.keyExchange)
+		ecdheSecret, err := curve.finish(hs.serverHello.keyShare.KeyExchange)
 		if err != nil {
 			return err
 		}
@@ -890,6 +1079,11 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 		c.peerCertificates = hs.session.serverCertificates
 		c.sctList = hs.session.sctList
 		c.ocspResponse = hs.session.ocspResponse
+
+		if hs.esniRetry.enabled && len(c.peerCertificates) == 0 {
+			c.sendAlert(alertIllegalParameter)
+			return errors.New("tls: server resumed session with ESNI and no cert")
+		}
 	} else {
 		msg, err := c.readHandshake()
 		if err != nil {
@@ -1097,7 +1291,7 @@ func (hs *clientHandshakeState) doTLS13Handshake() error {
 
 	c.useOutTrafficSecret(c.wireVersion, hs.suite, clientHandshakeTrafficSecret)
 
-	if certReq != nil && !c.config.Bugs.SkipClientCertificate {
+	if certReq != nil && !hs.esniRetry.enabled && !c.config.Bugs.SkipClientCertificate {
 		certMsg := &certificateMsg{
 			hasRequestContext: true,
 			requestContext:    certReq.requestContext,
@@ -1446,6 +1640,14 @@ func (hs *clientHandshakeState) verifyCertificates(certMsg *certificateMsg) erro
 			Intermediates: x509.NewCertPool(),
 		}
 
+		// If the server requested we retry ESNI with new
+		// keys, then we must verify that the server has
+		// authority to send new ESNIKeys. Note that this is
+		// not the same as authenticating for the origin.
+		if hs.esniRetry.enabled {
+			opts.DNSName = string(c.esniSelectedParams.esniKeys.PublicName)
+		}
+
 		for i, cert := range certs {
 			if i == 0 {
 				continue
@@ -1458,6 +1660,53 @@ func (hs *clientHandshakeState) verifyCertificates(certMsg *certificateMsg) erro
 			c.sendAlert(alertBadCertificate)
 			return err
 		}
+	}
+
+	// If server requested we retry ESNI and cert verification was
+	// successful, (1) abort the connection with alertEsniRequired
+	// and (2) processes the retryKeys.
+	if hs.esniRetry.enabled {
+		// Close this connection.
+		c.sendAlert(alertESNIRequired)
+		if err := c.conn.Close(); err != nil {
+			return err
+		}
+
+		// Find first ESNIKeys with matching version.
+		var retryEsniKeys *EsniKeys
+		for _, retryKey := range hs.esniRetry.retryKeys {
+			if retryKey.Version == esniKeysVersion {
+				retryEsniKeys = &retryKey
+				break
+			}
+		}
+
+		// Consider ESNI securely disabled if none of the
+		// retryKeys match the version.
+
+		// Retry connection with new transport mechanism
+		addr := c.RemoteAddr()
+		conn, err := net.Dial(addr.Network(), addr.String())
+		if err != nil {
+			return err
+		}
+
+		// We won't be needing this config anymore, so we can
+		// reuse it for the retry.
+
+		// Use the new ESNI keys just for this retry attempt
+		// (not caching for future connections).
+		c.config.EsniKeys = []EsniKeys{}
+		if retryEsniKeys != nil {
+			c.config.EsniKeys = append(c.config.EsniKeys, *retryEsniKeys)
+		}
+
+		// Replace c.conn with a new TLS connection.
+		tlsConn := Client(conn, c.config)
+		c.conn = tlsConn
+
+		// Perform the retry.
+		return tlsConn.Handshake()
 	}
 
 	leafPublicKey := getCertificatePublicKey(certs[0])
@@ -1677,6 +1926,44 @@ func (hs *clientHandshakeState) processServerExtensions(serverExtensions *server
 		return fmt.Errorf("tls: PQ experiment signal presence (%t) was not what was expected", serverExtensions.pqExperimentSignal)
 	}
 
+	if c.vers >= VersionTLS13 {
+		err := hs.handleServerEncryptedSNI(serverExtensions.serverEncryptedSNI)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (hs *clientHandshakeState) handleServerEncryptedSNI(serverEncryptedSNI *serverEncryptedSNI) error {
+	if serverEncryptedSNI == nil {
+		return nil
+	}
+
+	// TODO what should happen when we received serverEncryptedSNI but did not send it?
+	if hs.hello.clientEncryptedSNI == nil {
+		return errors.New("tls: client received unsolicited serverEncryptedSNI")
+	}
+
+	switch serverEncryptedSNI.responseType {
+	case serverESNIResponseAccept:
+		// Check that the server echoed the correct nonce
+		if !bytes.Equal(serverEncryptedSNI.nonce[:], hs.c.esniNonce[:]) {
+			hs.c.sendAlert(alertIllegalParameter)
+			return errors.New("tls: server echoed incorrect ESNI nonce")
+		}
+	case serverESNIResponseRetryRequest:
+		if hs.c.config.EsniMaxRetries == 0 {
+			return errors.New("tls: reached max number of ESNI retries")
+		}
+		hs.c.config.EsniMaxRetries--
+		hs.esniRetry.enabled = true
+		hs.esniRetry.retryKeys = serverEncryptedSNI.retryKeys
+
+	default:
+		return errors.New("tls: server specified invalid ESNI response type")
+	}
 	return nil
 }
 

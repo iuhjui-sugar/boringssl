@@ -679,7 +679,6 @@ static bool CheckHandshakeProperties(SSL *ssl, bool is_resume,
             SSL_pq_experiment_signal_seen(ssl) ? "" : "no ");
     return false;
   }
-
   return true;
 }
 
@@ -1177,6 +1176,9 @@ int main(int argc, char **argv) {
   }
 
   bssl::UniquePtr<SSL_CTX> ssl_ctx;
+
+  // TODO(dmcardle) add command line option to receive list of ESNIKeys and
+  // corresponding private keys.
 
   bssl::UniquePtr<SSL_SESSION> session;
   for (int i = 0; i < initial_config.resume_count + 1; i++) {
