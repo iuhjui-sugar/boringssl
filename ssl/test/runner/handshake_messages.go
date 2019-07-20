@@ -245,9 +245,69 @@ type keyShareEntry struct {
 	keyExchange []byte
 }
 
+func (k *keyShareEntry) equal(k1 *keyShareEntry) bool {
+	return k.group == k1.group &&
+		bytes.Equal(k.keyExchange, k1.keyExchange)
+}
+
+func (k *keyShareEntry) marshalKeyShareEntry(bb *byteBuilder) {
+	bb.addU16(uint16(k.group))
+	keyExchange := bb.addU16LengthPrefixed()
+	keyExchange.addBytes(k.keyExchange)
+}
+
+func (k *keyShareEntry) unmarshalKeyShareEntry(br *byteReader) bool {
+	var curveId uint16
+	if !br.readU16(&curveId) {
+		return false
+	}
+	k.group = CurveID(curveId)
+	if !br.readU16LengthPrefixedBytes(&k.keyExchange) {
+		return false
+	}
+	return true
+}
+
 type pskIdentity struct {
 	ticket              []uint8
 	obfuscatedTicketAge uint32
+}
+
+type clientEncryptedSNI struct {
+	suite        uint16
+	keyShare     keyShareEntry
+	recordDigest []byte
+	encryptedSNI []byte
+}
+
+func (c *clientEncryptedSNI) equal(c1 *clientEncryptedSNI) bool {
+	return c.suite == c1.suite &&
+		c.keyShare.equal(&c1.keyShare) &&
+		bytes.Equal(c.recordDigest, c1.recordDigest) &&
+		bytes.Equal(c.encryptedSNI, c1.encryptedSNI)
+}
+
+func (c *clientEncryptedSNI) marshal(bb *byteBuilder) {
+	bb.addU16(c.suite)
+	c.keyShare.marshalKeyShareEntry(bb)
+	bb.addU16LengthPrefixed().addBytes(c.recordDigest)
+	bb.addU16LengthPrefixed().addBytes(c.encryptedSNI)
+}
+
+func (c *clientEncryptedSNI) unmarshal(br *byteReader) bool {
+	if !br.readU16(&c.suite) {
+		return false
+	}
+	if !c.keyShare.unmarshalKeyShareEntry(br) {
+		return false
+	}
+	if !br.readU16LengthPrefixedBytes(&c.recordDigest) {
+		return false
+	}
+	if !br.readU16LengthPrefixedBytes(&c.encryptedSNI) {
+		return false
+	}
+	return true
 }
 
 type clientHelloMsg struct {
@@ -299,6 +359,7 @@ type clientHelloMsg struct {
 	compressedCertAlgs      []uint16
 	delegatedCredentials    bool
 	pqExperimentSignal      bool
+	clientEncryptedSNI      *clientEncryptedSNI
 }
 
 func (m *clientHelloMsg) equal(i interface{}) bool {
@@ -354,15 +415,14 @@ func (m *clientHelloMsg) equal(i interface{}) bool {
 		m.pad == m1.pad &&
 		eqUint16s(m.compressedCertAlgs, m1.compressedCertAlgs) &&
 		m.delegatedCredentials == m1.delegatedCredentials &&
-		m.pqExperimentSignal == m1.pqExperimentSignal
+		m.pqExperimentSignal == m1.pqExperimentSignal &&
+		m.clientEncryptedSNI.equal(m1.clientEncryptedSNI)
 }
 
 func (m *clientHelloMsg) marshalKeyShares(bb *byteBuilder) {
 	keyShares := bb.addU16LengthPrefixed()
 	for _, keyShare := range m.keyShares {
-		keyShares.addU16(uint16(keyShare.group))
-		keyExchange := keyShares.addU16LengthPrefixed()
-		keyExchange.addBytes(keyShare.keyExchange)
+		keyShare.marshalKeyShareEntry(keyShares)
 	}
 	if m.trailingKeyShareData {
 		keyShares.addU8(0)
@@ -605,6 +665,11 @@ func (m *clientHelloMsg) marshal() []byte {
 		extensions.addU16(0) // Length is always 0
 	}
 
+	if m.clientEncryptedSNI != nil {
+		extensions.addU16(extensionEncryptedServerName)
+		// Marshal the clientEncryptedSNI
+		m.clientEncryptedSNI.marshal(extensions)
+	}
 	// The PSK extension must be last. See https://tools.ietf.org/html/rfc8446#section-4.2.11
 	if len(m.pskIdentities) > 0 && !m.pskBinderFirst {
 		extensions.addU16(extensionPreSharedKey)
@@ -972,6 +1037,11 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 				return false
 			}
 			m.pqExperimentSignal = true
+		case extensionEncryptedServerName:
+			m.clientEncryptedSNI = new(clientEncryptedSNI)
+			if !m.clientEncryptedSNI.unmarshal(&body) {
+				return false
+			}
 		}
 
 		if isGREASEValue(extension) {
@@ -1213,6 +1283,55 @@ func (m *encryptedExtensionsMsg) unmarshal(data []byte) bool {
 	return m.extensions.unmarshal(extensions, VersionTLS13)
 }
 
+type serverEncryptedSNI struct {
+	responseType uint8      // Corresponds to enum ServerESNIResponseType
+	nonce        [16]uint8  // Valid when responseType == serverESNIResponseAccept
+	retryKeys    []EsniKeys // Valid when responseType == serverESNIResponseRetryRequest
+}
+
+func (s *serverEncryptedSNI) marshal(bb *byteBuilder) {
+	bb.addU8(s.responseType)
+	switch s.responseType {
+	case serverESNIResponseAccept:
+		for _, nonceByte := range s.nonce {
+			bb.addU8(nonceByte)
+		}
+	case serverESNIResponseRetryRequest:
+		esniKeysList := bb.addU16LengthPrefixed()
+		for _, retryKey := range s.retryKeys {
+			retryKey.marshal(esniKeysList)
+		}
+	default:
+		panic("Invalid ServerESNIResponseType")
+	}
+}
+
+func (s *serverEncryptedSNI) unmarshal(data []byte) bool {
+	br := byteReader(data)
+	if !br.readU8(&s.responseType) {
+		return false
+	}
+	// Read all the bytes of the fixed-size nonce
+	for i := 0; i < len(s.nonce); i++ {
+		if !br.readU8(&s.nonce[i]) {
+			return false
+		}
+	}
+	// Read length-prefixed retryKeys
+	var retryKeysReader byteReader
+	if !br.readU16LengthPrefixed(&retryKeysReader) {
+		return false
+	}
+	for len(retryKeysReader) > 0 {
+		var nextEsniKeys EsniKeys
+		if !nextEsniKeys.unmarshal(&retryKeysReader) {
+			return false
+		}
+		s.retryKeys = append(s.retryKeys, nextEsniKeys)
+	}
+	return true
+}
+
 type serverExtensions struct {
 	nextProtoNeg            bool
 	nextProtos              []string
@@ -1240,6 +1359,8 @@ type serverExtensions struct {
 	quicTransportParams     []byte
 	serverNameAck           bool
 	pqExperimentSignal      bool
+	hasServerESNIResponse   bool
+	serverESNIResponse      serverEncryptedSNI
 }
 
 func (m *serverExtensions) marshal(extensions *byteBuilder) {
@@ -1377,6 +1498,10 @@ func (m *serverExtensions) marshal(extensions *byteBuilder) {
 	if m.pqExperimentSignal {
 		extensions.addU16(extensionPQExperimentSignal)
 		extensions.addU16(0) // zero length
+		if m.hasServerESNIResponse {
+			extensions.addU16(extensionEncryptedServerName)
+			m.serverESNIResponse.marshal(extensions)
+		}
 	}
 }
 
@@ -2638,4 +2763,180 @@ func eqPSKIdentityLists(x, y []pskIdentity) bool {
 	}
 	return true
 
+}
+
+type EsniKeys struct {
+	version    uint16
+	publicName []byte
+	// The list of keys that can be used by the client to encrypt
+	// the SNI. Every key being listed MUST belong to a different
+	// group.
+	keys         []keyShareEntry
+	cipherSuites []uint16 // TODO is this the right type?
+	// Length to pad the ServerNameList to before encryption. This
+	// value SHOULD be the largest ServerNameList the server
+	// expects to support rounded up to the nearest multiple of
+	// 16.
+	paddedLength uint16
+	extensions   []byte
+}
+
+// Partially-initialized EsniKeys. The following fields still need to
+// be initialized:
+//   - publicName
+//   - keys
+//   - cipherSuites
+func defaultEsniKeys() EsniKeys {
+	return EsniKeys{
+		version:      esniKeysVersion,
+		paddedLength: esniKeysPaddedLengthMax,
+		extensions:   []byte{},
+	}
+}
+
+func buildEsniKeys(publicName []byte, keys []keyShareEntry, cipherSuites []uint16) EsniKeys {
+	serverEsniKeys := defaultEsniKeys()
+	serverEsniKeys.publicName = publicName
+	serverEsniKeys.keys = keys
+	serverEsniKeys.cipherSuites = cipherSuites
+
+	return serverEsniKeys
+}
+
+func (e *EsniKeys) marshal(bb *byteBuilder) {
+	bb.addU16(e.version)
+	bb.addU16LengthPrefixed().addBytes(e.publicName)
+	keysWriter := bb.addU16LengthPrefixed()
+	for _, keyShareEntry := range e.keys {
+		keyShareEntry.marshalKeyShareEntry(keysWriter)
+	}
+	cipherSuites := bb.addU16LengthPrefixed()
+	for _, suite := range e.cipherSuites {
+		cipherSuites.addU16(suite)
+	}
+	bb.addU16(e.paddedLength)
+	bb.addU16LengthPrefixed().addBytes(e.extensions)
+}
+
+func keyShareEntriesDupGroup(keys []keyShareEntry) bool {
+	seen := make(map[CurveID]bool)
+	for _, key := range keys {
+		if seen[key.group] {
+			return true
+		}
+		seen[key.group] = true
+	}
+	return false
+}
+
+func (e *EsniKeys) unmarshal(br *byteReader) bool {
+	if !br.readU16(&e.version) || e.version != esniKeysVersion {
+		return false
+	}
+	if !br.readU16LengthPrefixedBytes(&e.publicName) || len(e.publicName) == 0 {
+		return false
+	}
+	var keysReader byteReader
+	if !br.readU16LengthPrefixed(&keysReader) {
+		return false
+	}
+	for len(keysReader) > 0 {
+		var key keyShareEntry
+		if !key.unmarshalKeyShareEntry(&keysReader) {
+			return false
+		}
+		e.keys = append(e.keys, key)
+	}
+	// Check that every key belongs to a different group
+	if keyShareEntriesDupGroup(e.keys) {
+		return false
+	}
+
+	e.cipherSuites = []uint16{}
+	var cipherSuitesReader byteReader
+	if !br.readU16LengthPrefixed(&cipherSuitesReader) {
+		return false
+	}
+	for len(cipherSuitesReader) > 0 {
+		var chunk uint16
+		if !cipherSuitesReader.readU16(&chunk) {
+			return false
+		}
+		e.cipherSuites = append(e.cipherSuites, chunk)
+	}
+
+	if !br.readU16(&e.paddedLength) || e.paddedLength > esniKeysPaddedLengthMax {
+		return false
+	}
+
+	if !br.readU16LengthPrefixedBytes(&e.extensions) {
+		return false
+	}
+
+	return true
+}
+
+func (e *EsniKeys) equal(other *EsniKeys) bool {
+	// Compare esniKeys.keys
+	if len(e.keys) != len(other.keys) {
+		return false
+	}
+	for i, key := range e.keys {
+		if !key.equal(&other.keys[i]) {
+			return false
+		}
+	}
+
+	return e.version == other.version &&
+		bytes.Equal(e.publicName, other.publicName) &&
+		eqUint16s(e.cipherSuites, other.cipherSuites) &&
+		e.paddedLength == other.paddedLength &&
+		bytes.Equal(e.extensions, other.extensions)
+}
+
+type esniRecord struct {
+	esniKeys      EsniKeys
+	dnsExtensions []byte // Is this only for future work?
+}
+
+func (r *esniRecord) marshal(bb *byteBuilder) {
+	r.esniKeys.marshal(bb)
+	// Write a length-zero list of extensions
+	bb.addU16(0)
+}
+
+func (r *esniRecord) unmarshal(br *byteReader) bool {
+	var esniKeys EsniKeys
+	if !esniKeys.unmarshal(br) {
+		return false
+	}
+
+	// Read a list of extensions in the format defined by RFC 8446
+	// Section 4.2. The extensions are meant for future
+	// improvements. If any extension is marked mandatory and we
+	// don't understand that extension, we must reject the
+	// esniRecord.
+
+	var extsReader byteReader
+	if !br.readU16LengthPrefixed(&extsReader) {
+		return false
+	}
+
+	for len(extsReader) > 0 {
+		var extId uint16
+		var extBodyReader byteReader
+		if !extsReader.readU16(&extId) || !extsReader.readU16LengthPrefixed(&extBodyReader) {
+			return false
+		}
+
+		// Check the high order bit of the extension id. If 1,
+		// then the extension is mandatory. Since we don't
+		// support any extensions, we must reject this
+		// esniRecord!
+		if extId&0x8000 != 0 {
+			return false
+		}
+	}
+
+	return true
 }
