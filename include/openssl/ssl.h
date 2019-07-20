@@ -624,6 +624,8 @@ OPENSSL_EXPORT int DTLSv1_handle_timeout(SSL *ssl);
 #define DTLS1_VERSION 0xfeff
 #define DTLS1_2_VERSION 0xfefd
 
+#define ESNI_VERSION 0xff03
+
 // SSL_CTX_set_min_proto_version sets the minimum protocol version for |ctx| to
 // |version|. If |version| is zero, the default minimum version is used. It
 // returns one on success and zero if |version| is invalid.
@@ -3433,6 +3435,7 @@ OPENSSL_EXPORT enum ssl_early_data_reason_t SSL_get_early_data_reason(
 #define SSL_AD_BAD_CERTIFICATE_HASH_VALUE TLS1_AD_BAD_CERTIFICATE_HASH_VALUE
 #define SSL_AD_UNKNOWN_PSK_IDENTITY TLS1_AD_UNKNOWN_PSK_IDENTITY
 #define SSL_AD_CERTIFICATE_REQUIRED TLS1_AD_CERTIFICATE_REQUIRED
+#define SSL_AD_ESNI_REQUIRED 121
 
 // SSL_alert_type_string_long returns a string description of |value| as an
 // alert type (warning or fatal).
@@ -3912,6 +3915,33 @@ OPENSSL_EXPORT int SSL_is_tls13_downgrade(const SSL *ssl);
 // https://bugs.openjdk.java.net/browse/JDK-8212885
 // https://bugs.openjdk.java.net/browse/JDK-8213202
 OPENSSL_EXPORT void SSL_set_jdk11_workaround(SSL *ssl, int enable);
+
+
+// ESNI functions.
+
+// SSL_set_enable_esni configures whether to use ESNI as part of this
+// connection.
+OPENSSL_EXPORT void SSL_set_enable_esni(SSL *ssl, int enable);
+
+// SSL_set_esni_keys takes a u16 length-prefixed list of ESNIKeys structures and
+// selects one to use for connections to the server. If none of the ESNIKeys are
+// suitable, this function disables ESNI for |ssl|.
+OPENSSL_EXPORT int SSL_set_esni_keys(SSL *ssl, const uint8_t *key_struct,
+                                     size_t key_len);
+
+// SSL_add_esni_private_keys adds a new ESNIKeys and corresponding private keys
+// that the server uses to decrypt ESNI. Each KeyShareEntry in the ESNIKeys
+// object must have a corresponding private key. The ESNIKeys provided in the
+// most recent call to this function are stored as the server's retry keys.
+OPENSSL_EXPORT int SSL_add_esni_private_keys(SSL *ssl, const uint8_t *key_struct,
+                                             size_t key_len, const uint8_t **privs,
+                                             size_t *privs_len);
+
+// SSL_get_retry_keys returns the ESNIKeys structures that were returned by the
+// server if ESNI was rejected or a retry was requested. Note that the pointer
+// written to |out_retry_keys| has the same lifetime as the |ssl| parameter.
+OPENSSL_EXPORT void SSL_get_retry_keys(SSL *ssl, uint8_t **out_retry_keys,
+                                       size_t *out_retry_keys_len);
 
 
 // Deprecated functions.
@@ -5039,6 +5069,7 @@ BSSL_NAMESPACE_END
 #define SSL_R_INVALID_DELEGATED_CREDENTIAL 301
 #define SSL_R_KEY_USAGE_BIT_INCORRECT 302
 #define SSL_R_INCONSISTENT_CLIENT_HELLO 303
+#define SSL_R_ESNI_KEYS_DUPLICATE_GROUP 304
 #define SSL_R_SSLV3_ALERT_CLOSE_NOTIFY 1000
 #define SSL_R_SSLV3_ALERT_UNEXPECTED_MESSAGE 1010
 #define SSL_R_SSLV3_ALERT_BAD_RECORD_MAC 1020
