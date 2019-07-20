@@ -547,6 +547,33 @@ static bool extract_sni(SSL_HANDSHAKE *hs, uint8_t *out_alert,
   }
   ssl->s3->hostname.reset(raw);
 
+  // Parse ESNI if available.
+  CBS encrypted_sni;
+  if (ssl_client_hello_get_extension(client_hello, &encrypted_sni,
+                                     TLSEXT_TYPE_encrypted_server_name)) {
+    CBS key_share, kse_bytes;
+    if (!ssl_client_hello_get_extension(client_hello, &key_share,
+                                        TLSEXT_TYPE_key_share)) {
+      OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
+      ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
+      return ssl_hs_error;
+    }
+
+    if (!CBS_get_u16_length_prefixed(&key_share, &kse_bytes) ||
+        !hs->key_share_bytes.CopyFrom(
+            MakeConstSpan(CBS_data(&kse_bytes), CBS_len(&kse_bytes)))) {
+      OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
+      ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
+      return ssl_hs_error;
+    }
+
+    uint8_t alert = SSL_AD_DECODE_ERROR;
+    if (!ssl_ext_encrypted_server_name_parse_clienthello(hs, &alert, &encrypted_sni)) {
+      ssl_send_alert(ssl, SSL3_AL_FATAL, alert);
+      return ssl_hs_error;
+    }
+  }
+
   hs->should_ack_sni = true;
   return true;
 }
@@ -573,6 +600,14 @@ static enum ssl_hs_wait_t do_read_client_hello(SSL_HANDSHAKE *hs) {
   if (hs->config->handoff) {
     return ssl_hs_handoff;
   }
+
+  hs->client_version = client_hello.version;
+  if (client_hello.random_len != SSL3_RANDOM_SIZE) {
+    OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
+    return ssl_hs_error;
+  }
+  OPENSSL_memcpy(ssl->s3->client_random, client_hello.random,
+                 client_hello.random_len);
 
   uint8_t alert = SSL_AD_DECODE_ERROR;
   if (!extract_sni(hs, &alert, &client_hello)) {
@@ -611,14 +646,6 @@ static enum ssl_hs_wait_t do_read_client_hello(SSL_HANDSHAKE *hs) {
     ssl_send_alert(ssl, SSL3_AL_FATAL, alert);
     return ssl_hs_error;
   }
-
-  hs->client_version = client_hello.version;
-  if (client_hello.random_len != SSL3_RANDOM_SIZE) {
-    OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
-    return ssl_hs_error;
-  }
-  OPENSSL_memcpy(ssl->s3->client_random, client_hello.random,
-                 client_hello.random_len);
 
   // Only null compression is supported. TLS 1.3 further requires the peer
   // advertise no other compression.
