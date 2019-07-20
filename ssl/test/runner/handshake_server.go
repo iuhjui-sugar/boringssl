@@ -222,7 +222,7 @@ func (hs *serverHandshakeState) readClientHello() error {
 		}
 
 		for i, group := range expected {
-			if found := hs.clientHello.keyShares[i].group; found != group {
+			if found := hs.clientHello.keyShares[i].Group; found != group {
 				return fmt.Errorf("tls: key share #%d is for group %d, not %d", i, found, group)
 			}
 		}
@@ -350,7 +350,7 @@ func (hs *serverHandshakeState) readClientHello() error {
 	if len(hs.clientHello.keyShares) > 0 {
 		greaseFound = false
 		for _, keyShare := range hs.clientHello.keyShares {
-			if isGREASEValue(uint16(keyShare.group)) {
+			if isGREASEValue(uint16(keyShare.Group)) {
 				greaseFound = true
 				break
 			}
@@ -382,6 +382,225 @@ func applyBugsToClientHello(clientHello *clientHelloMsg, config *Config) {
 	}
 }
 
+func (hs *serverHandshakeState) esniTryDecrypt(suite *cipherSuite, privateKey []byte) (err error, decryptedBytes []byte) {
+	clientEncryptedSNI := hs.clientHello.clientEncryptedSNI
+	fmt.Printf("clientEncryptedSNI.keyShare.keyExchange: %#X\n", clientEncryptedSNI.keyShare.KeyExchange)
+	// Initialize curve with the correct private key
+	var curve x25519ECDHCurve
+	copy(curve.privateKey[:], privateKey)
+
+	ecdheSecret, err := curve.finish(clientEncryptedSNI.keyShare.KeyExchange)
+	if err != nil {
+		fmt.Println(err)
+		return err, nil
+	}
+
+	fmt.Printf("*** server ecdheSecret = %#X\n", ecdheSecret)
+
+	salt := make([]byte, suite.hash().Size())
+	ecdheSecretX := hkdfExtract(suite.hash().New, salt, ecdheSecret)
+	esniContents := esniContents{
+		recordDigest:      clientEncryptedSNI.recordDigest,
+		keyShareEntry:     clientEncryptedSNI.keyShare,
+		clientHelloRandom: hs.clientHello.random,
+	}
+	fmt.Printf("*** clientEncryptedSNI.keyShare = %#X\n", clientEncryptedSNI.keyShare)
+	hashValue := esniContents.computeHash(suite.hash())
+	fmt.Printf("*** esniContents hash = %#X\n", hashValue)
+
+	key := hkdfExpandLabel(suite.hash(), ecdheSecretX, esniClientHelloKeyLabel, hashValue, suite.keyLen)
+	iv := hkdfExpandLabel(suite.hash(), ecdheSecretX, esniClientHelloIvLabel, hashValue, suite.ivLen(VersionTLS13))
+
+	fmt.Printf("*** ecdheSecret = %#X\n", ecdheSecret)
+	fmt.Printf("*** ecdheSecretX = %#X\n", ecdheSecretX)
+	fmt.Printf("*** server key = %#X\n", key)
+	fmt.Printf("*** server iv = %#X\n", iv)
+	cipher := suite.aeadRaw(key)
+	fmt.Printf("*** cipher = %+v\n", cipher)
+	additionalData := hs.clientHello.keySharesRaw
+	if len(additionalData) > 2 {
+		additionalData = additionalData[2:]
+	}
+	fmt.Printf("*** server additionalData [%d]: %x\n", len(additionalData), additionalData)
+	fmt.Printf("*** encryptedSNI: %#X\n", clientEncryptedSNI.encryptedSNI)
+
+	decryptedBytes, err = cipher.Open(nil, iv, clientEncryptedSNI.encryptedSNI, additionalData)
+	if err != nil {
+		fmt.Printf("$$$ err: %#v\n$$$ decryptedBytes: %#X\n", err, decryptedBytes)
+	}
+
+	return err, decryptedBytes
+}
+
+func (hs *serverHandshakeState) esniServerFindEsniKeysMethod1(suite *cipherSuite) (selectedEsniKeys *EsniKeys, selectedEsniKeysIdx int) {
+	config := hs.c.config
+	clientEncryptedSNI := hs.clientHello.clientEncryptedSNI
+	if len(clientEncryptedSNI.recordDigest) > 0 {
+		targetRecordDigest := clientEncryptedSNI.recordDigest
+		fmt.Println("Comparing record_digest against hashes of ESNIKeys")
+		fmt.Printf("looking for record_digest: %x\n", targetRecordDigest)
+		for i, serverEsniKeys := range config.EsniKeys {
+			candidateRecordDigest := serverEsniKeys.computeHash(suite.hash())
+			fmt.Printf("serverRecordDigest[%d]: %x\n", len(candidateRecordDigest), candidateRecordDigest)
+			if bytes.Equal(candidateRecordDigest, targetRecordDigest) {
+				selectedEsniKeys = &serverEsniKeys
+				selectedEsniKeysIdx = i
+				return
+			}
+		}
+	}
+	return
+}
+func (hs *serverHandshakeState) esniServerFindEsniKeysMethod2() (selectedEsniKeys *EsniKeys, selectedEsniKeysIdx int) {
+	config := hs.c.config
+	for i, serverEsniKeys := range config.EsniKeys {
+		privateKey := config.EsniPrivateKeys[i]
+		err, _ := hs.esniTryDecrypt(hs.suite, privateKey[:])
+		if err == nil { // If decrypting was successful
+			selectedEsniKeys = &serverEsniKeys
+			selectedEsniKeysIdx = i
+			return
+		}
+	}
+	return
+}
+
+// Determine the server name requested by the client.
+func (hs *serverHandshakeState) handleClientEncryptedSNI(encryptedExtensions *encryptedExtensionsMsg) error {
+	config := hs.c.config
+	if !config.EsniEnabled {
+		return nil
+	}
+
+	clientEncryptedSNI := hs.clientHello.clientEncryptedSNI
+	if clientEncryptedSNI == nil {
+		return nil
+	}
+
+	// TODO
+	// > Upon receiving an "encrypted_server_name" extension, the client-
+	// > facing server MUST check that it is able to negotiate TLS 1.3 or
+	// > greater.  If not, it MUST abort the connection with a
+	// > "handshake_failure" alert.
+	//
+	// What is the server's obligation here? Check that MaxVersion >= TLS13?
+
+	fmt.Println("---- received clientEncryptedSNI")
+
+	var suite *cipherSuite = mutualCipherSuite(config.cipherSuites(), clientEncryptedSNI.suite)
+	fmt.Printf("suite: %v\n", suite)
+	if suite == nil {
+		fmt.Println("no matching cipher suite")
+		encryptedExtensions.extensions.serverEncryptedSNI = &serverEncryptedSNI{
+			responseType: serverESNIResponseRetryRequest,
+			retryKeys:    hs.c.config.EsniKeys,
+		}
+		return nil
+	}
+
+	// Try method 1: Compare record_digest against cryptographic hashes of
+	// known ESNIKeys and choose the one that matches.
+	var selectedEsniKeys *EsniKeys
+	var selectedEsniKeysIdx int
+	selectedEsniKeys, selectedEsniKeysIdx = hs.esniServerFindEsniKeysMethod1(suite)
+	// If method 1 failed, use method 2: trial decryption.
+	if selectedEsniKeys == nil && config.EsniServerEnableTrialDecryption {
+		selectedEsniKeys, selectedEsniKeysIdx = hs.esniServerFindEsniKeysMethod2()
+	}
+
+	// If method 2 failed, we must ignore the extension and proceed with the
+	// connection. Also, we must send encrypted_server_name extension with
+	// response_type set to esni_retry_requested. (draft-ietf-tls-esni-04
+	// section 5.2).
+	if selectedEsniKeys == nil {
+		fmt.Println("esni server : could not find matching keyShareEntry")
+		// TODO(dmcardle) should be authenticating for the
+		// clientHello.serverName
+		encryptedExtensions.extensions.serverEncryptedSNI = &serverEncryptedSNI{
+			responseType: serverESNIResponseRetryRequest,
+			retryKeys:    hs.c.config.EsniKeys,
+		}
+		return nil
+	}
+
+	// If the clientEncryptedSNI.key_share group does not match one in
+	// EsniKeys.keys, must abort the connection with an "illegal_parameter"
+	// alert.
+	var selectedKeyShare *keyShareEntry
+	for _, keyShare := range selectedEsniKeys.Keys {
+		if clientEncryptedSNI.keyShare.Group == keyShare.Group {
+			selectedKeyShare = &keyShare
+			break
+		}
+	}
+	if selectedKeyShare == nil {
+		fmt.Println("esni server : no keyshare with matching group")
+		hs.c.sendAlert(alertIllegalParameter)
+		return errors.New("no matching keyshare")
+	}
+
+	// If the length of the "encrypted_server_name" extension is
+	// inconsistent with the advertised padding length (plus AEAD expansion)
+	// the server MAY abort the connection with an illegal_parameter alert
+	// without attempting to decrypt.
+	fmt.Printf("--- selectedEsniKeysIdx = %d\n", selectedEsniKeysIdx)
+
+	privateKey := config.EsniPrivateKeys[selectedEsniKeysIdx]
+	err, decryptedBytes := hs.esniTryDecrypt(suite, privateKey[:])
+	if err != nil || len(decryptedBytes) == 0 {
+		fmt.Println("failed to decrypt")
+		fmt.Printf("*** decryptedBytes: %#X\n", decryptedBytes)
+		hs.c.sendAlert(alertDecryptError)
+		return nil
+	}
+
+	// Subtract two bytes for the length prefix on
+	// PaddedServerNameList.dns_name.
+	lenPaddedServerNameList := uint16(len(decryptedBytes)) - esniClientEsniInnerNonceSize - 2
+
+	// Check decrypted value's length
+	if lenPaddedServerNameList != selectedEsniKeys.PaddedLength {
+		hs.c.sendAlert(alertIllegalParameter)
+		return errors.New("decrypted sni wrong length")
+	}
+
+	// Unmarshal the decrypted bytes
+	var decryptedBytesReader byteReader = decryptedBytes
+	var decryptedClientEsniInner clientEsniInner
+	if !decryptedClientEsniInner.unmarshal(&decryptedBytesReader) {
+		err = esniServerError("failed to unmarshal clientEsniInner")
+	}
+
+	// Check that the padding consists of all zeroes
+	fmt.Printf("padding bytes : %d\n", len(decryptedBytesReader))
+	for _, paddingByte := range decryptedBytesReader {
+		if paddingByte != 0x00 {
+			hs.c.sendAlert(alertIllegalParameter)
+			return errors.New("clientEsniInner padding contains non-zero byte")
+		}
+	}
+
+	// TODO If this is the result of a HelloRetryRequest, the server must
+	// abort with an alertIllegalParameter if any of
+	// clientEncryptedSNI.{suite, key,Share, recordDigest, clientEsniInner}
+	// from the second ClientHello do not match that of the first
+	// ClientHello.
+
+	fmt.Printf("---- decrypted nonce: %#X\n", decryptedClientEsniInner.nonce)
+	fmt.Printf("---- decrypted paddedServerNameList: %s\n", decryptedClientEsniInner.realSni)
+	fmt.Printf("---- server received esni : %#v\n", decryptedClientEsniInner)
+
+	encryptedExtensions.extensions.serverEncryptedSNI = &serverEncryptedSNI{
+		responseType: serverESNIResponseAccept,
+		nonce:        decryptedClientEsniInner.nonce,
+	}
+
+	// TODO(dmcardle): What should happen with the realSni value?
+	hs.clientHello.serverName = string(decryptedClientEsniInner.realSni.dnsName)
+
+	return nil
+}
+
 func (hs *serverHandshakeState) doTLS13Handshake() error {
 	c := hs.c
 	config := c.config
@@ -401,6 +620,12 @@ func (hs *serverHandshakeState) doTLS13Handshake() error {
 		unencryptedALPN:       config.Bugs.SendUnencryptedALPN,
 	}
 
+	encryptedExtensions := new(encryptedExtensionsMsg)
+	err := hs.handleClientEncryptedSNI(encryptedExtensions)
+	if err != nil {
+		return err
+	}
+
 	hs.hello.random = make([]byte, 32)
 	if _, err := io.ReadFull(config.rand(), hs.hello.random); err != nil {
 		c.sendAlert(alertInternalError)
@@ -413,7 +638,6 @@ func (hs *serverHandshakeState) doTLS13Handshake() error {
 	}
 
 	// Prepare an EncryptedExtensions message, but do not send it yet.
-	encryptedExtensions := new(encryptedExtensionsMsg)
 	encryptedExtensions.empty = config.Bugs.EmptyEncryptedExtensions
 	if err := hs.processClientExtensions(&encryptedExtensions.extensions); err != nil {
 		return err
@@ -583,7 +807,7 @@ ResendHelloRetryRequest:
 	if hs.hello.hasKeyShare {
 		// Look for the key share corresponding to our selected curve.
 		for i := range hs.clientHello.keyShares {
-			if hs.clientHello.keyShares[i].group == selectedCurve {
+			if hs.clientHello.keyShares[i].Group == selectedCurve {
 				selectedKeyShare = &hs.clientHello.keyShares[i]
 				break
 			}
@@ -662,7 +886,7 @@ ResendHelloRetryRequest:
 
 		if helloRetryRequest.hasSelectedGroup {
 			newKeyShares := newClientHelloCopy.keyShares
-			if len(newKeyShares) != 1 || newKeyShares[0].group != helloRetryRequest.selectedGroup {
+			if len(newKeyShares) != 1 || newKeyShares[0].Group != helloRetryRequest.selectedGroup {
 				return errors.New("tls: KeyShare from HelloRetryRequest not in new ClientHello")
 			}
 			selectedKeyShare = &newKeyShares[0]
@@ -768,7 +992,7 @@ ResendHelloRetryRequest:
 				return err
 			}
 		} else {
-			peerKey = selectedKeyShare.keyExchange
+			peerKey = selectedKeyShare.KeyExchange
 		}
 
 		publicKey, ecdheSecret, err := curve.accept(config.rand(), peerKey)
@@ -789,15 +1013,15 @@ ResendHelloRetryRequest:
 		}
 
 		hs.hello.keyShare = keyShareEntry{
-			group:       curveID,
-			keyExchange: publicKey,
+			Group:       curveID,
+			KeyExchange: publicKey,
 		}
 
 		if config.Bugs.EncryptedExtensionsWithKeyShare {
 			encryptedExtensions.extensions.hasKeyShare = true
 			encryptedExtensions.extensions.keyShare = keyShareEntry{
-				group:       curveID,
-				keyExchange: publicKey,
+				Group:       curveID,
+				KeyExchange: publicKey,
 			}
 		}
 	} else {
@@ -1323,7 +1547,11 @@ func (hs *serverHandshakeState) processClientExtensions(serverExtensions *server
 
 	serverExtensions.duplicateExtension = c.config.Bugs.DuplicateExtension
 
-	if len(hs.clientHello.serverName) > 0 {
+	// Esni may have already set the value of c.serverName. Only
+	// overwrite it if it hasn't been set.
+	//
+	// TODO(dmcardle) is empty ESNI valid?
+	if len(hs.clientHello.serverName) > 0 && len(c.serverName) == 0 {
 		c.serverName = hs.clientHello.serverName
 	}
 	if len(config.Certificates) == 0 {

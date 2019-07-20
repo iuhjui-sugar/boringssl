@@ -152,6 +152,7 @@ const Flag<bool> kBoolFlags[] = {
      &TestConfig::expect_delegated_credential_used},
     {"-enable-pq-experiment-signal", &TestConfig::enable_pq_experiment_signal},
     {"-expect-pq-experiment-signal", &TestConfig::expect_pq_experiment_signal},
+    {"-esni-force-enable", &TestConfig::esni_force_enable},
 };
 
 const Flag<std::string> kStringFlags[] = {
@@ -197,6 +198,8 @@ const Flag<std::string> kBase64Flags[] = {
     {"-quic-transport-params", &TestConfig::quic_transport_params},
     {"-expect-quic-transport-params",
      &TestConfig::expect_quic_transport_params},
+    {"-server-esni-keypairs", &TestConfig::server_esni_keypairs},
+    {"-client-esnikeys", &TestConfig::client_esnikeys},
 };
 
 const Flag<int> kIntFlags[] = {
@@ -1697,6 +1700,101 @@ bssl::UniquePtr<SSL> TestConfig::NewSSL(
       fprintf(stderr, "SSL_set1_delegated_credential failed.\n");
       return nullptr;
     }
+  }
+
+  const auto read_length_prefixed_esni_keys =
+      [](CBS *cbs, std::vector<CBS> *out) -> bool {
+    CBS cbs_esni_keys;
+    if (!CBS_get_u16_length_prefixed(cbs, &cbs_esni_keys))
+      return false;
+
+    while (CBS_len(&cbs_esni_keys) > 0) {
+      CBS cbs_esni_keys_inner;
+      if (!CBS_get_u16_length_prefixed(&cbs_esni_keys, &cbs_esni_keys_inner))
+        return false;
+      out->push_back(cbs_esni_keys_inner);
+    }
+
+    return true;
+  };
+
+  // Unmarshal the ESNIKeys and private keys from bssl_shim's
+  // "-server-esni-keypairs" flag.
+  if (!server_esni_keypairs.empty()) {
+    // Read a U16-prefixed list of ESNIKeys, followed by a U16-prefixed list of
+    // private keys.
+    CBS cbs;
+    CBS_init(&cbs,
+             reinterpret_cast<const uint8_t *>(server_esni_keypairs.data()),
+             server_esni_keypairs.size());
+
+    std::vector<CBS> esni_keys_vec;
+    if (!read_length_prefixed_esni_keys(&cbs, &esni_keys_vec)) {
+      fprintf(stderr, "Failed to unmarshal list of ESNIKeys.\n");
+      return nullptr;
+    }
+
+    CBS cbs_priv_keys;
+    if (!CBS_get_u16_length_prefixed(&cbs, &cbs_priv_keys)) {
+      fprintf(stderr, "Failed to unmarshal list of ESNI private keys.\n");
+      return nullptr;
+    }
+
+    // Fill vector with pointers to each of the private keys.
+    std::vector<const uint8_t *> priv_key_ptrs;
+    std::vector<size_t> priv_key_sizes;
+    const size_t k_priv_key_size = 32;
+    while (CBS_len(&cbs_priv_keys) >= k_priv_key_size) {
+      CBS tmp;
+      priv_key_ptrs.push_back(CBS_data(&cbs_priv_keys));
+      priv_key_sizes.push_back(k_priv_key_size);
+      CBS_get_bytes(&cbs_priv_keys, &tmp, k_priv_key_size);
+      hexdump(__FUNCTION__, "server_private_key", CBS_data(&tmp), CBS_len(&tmp));
+    }
+
+    SSL_set_enable_esni(ssl.get(), true);
+
+    // TODO(dmcardle): Update when the SSL API supports multiple ESNIKeys. For
+    // now, just grabbing the first elements from esni_keys_ptrs and
+    // esni_keys_sizes.
+    const CBS *chosen_esni_keys = &esni_keys_vec.front();
+    if (!SSL_add_esni_private_keys(
+            ssl.get(), CBS_data(chosen_esni_keys), CBS_len(chosen_esni_keys),
+            priv_key_ptrs.data(), priv_key_sizes.data())) {
+      fprintf(stderr, "Failed to add ESNIKeys and private keys.\n");
+      return nullptr;
+    }
+  }
+
+  // Unmarshal the ESNIKeys from bssl_shim's "-client-esnikeys" flag.
+  if (!client_esnikeys.empty()) {
+    CBS cbs;
+    CBS_init(&cbs, reinterpret_cast<const uint8_t *>(client_esnikeys.data()),
+             client_esnikeys.size());
+
+    std::vector<CBS> esni_keys_vec;
+    if (!read_length_prefixed_esni_keys(&cbs, &esni_keys_vec)) {
+      fprintf(stderr, "Failed to unmarshal list of ESNIKeys.\n");
+      return nullptr;
+    }
+
+    SSL_set_enable_esni(ssl.get(), true);
+
+    // TODO(dmcardle): Update when the SSL API supports multiple ESNIKeys. For
+    // now, just grabbing the first elements from esni_keys_ptrs and
+    // esni_keys_sizes.
+    const CBS *chosen_esni_keys = &esni_keys_vec.front();
+    if (!SSL_set_esni_keys(ssl.get(), CBS_data(chosen_esni_keys),
+                           CBS_len(chosen_esni_keys))) {
+      fprintf(stderr, "Failed to add ESNIKeys.\n");
+      return nullptr;
+    }
+  }
+
+  // We may wish to enable ESNI without passing any ESNIKeys to the client, so
+  // that it will send GREASE to the server.
+  if (esni_force_enable) {
+    SSL_set_enable_esni(ssl.get(), true);
   }
 
   return ssl;
