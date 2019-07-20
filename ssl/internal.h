@@ -353,6 +353,71 @@ class Array {
   size_t size_ = 0;
 };
 
+template <typename T>
+class GrowableArray {
+ public:
+  GrowableArray() : GrowableArray(16) {}
+  // |initial_size| must be non-zero
+  GrowableArray(size_t initial_size) { array_.Init(initial_size); }
+  GrowableArray(const GrowableArray &) = delete;
+  GrowableArray(GrowableArray &&other) = default;
+  ~GrowableArray() {}
+
+  GrowableArray &operator=(const GrowableArray &) = delete;
+  GrowableArray &operator=(GrowableArray &&other) = default;
+
+  const T *data() const { return array_.data(); }
+  T *data() { return array_.data(); }
+  size_t size() const { return count_; }
+  bool empty() const { return count_ == 0; }
+
+  const T &operator[](size_t i) const { return array_[i]; }
+  T &operator[](size_t i) { return array_[i]; }
+
+  T *begin() { return array_.data(); }
+  const T *cbegin() const { return array_.data(); }
+  T *end() { return array_.data() + count_; }
+  const T *cend() const { return array_.data() + count_; }
+
+  // Move |elem| to the end of the internal array, growing if necessary. Returns
+  // false when allocation fails.
+  bool Push(T &elem) {
+    if (!MaybeGrow())
+      return false;
+    array_[count_] = std::move(elem);
+    count_++;
+    return true;
+  }
+
+  bool CopyFrom(Span<const T> in) {
+    if (!array_.CopyFrom(in)) {
+      return false;
+    }
+    count_ = in.size();
+    return true;
+  }
+
+ private:
+  bool MaybeGrow() {
+    // No need to grow if we have room for one more T
+    if (count_ < array_.size())
+      return true;
+
+    Array<T> new_array;
+    if (!new_array.Init(array_.size() * 2))
+      return false;
+
+    for (size_t i = 0; i < array_.size(); i++)
+      new_array[i] = std::move(array_[i]);
+    array_ = std::move(new_array);
+
+    return true;
+  }
+
+  size_t count_ = 0;
+  Array<T> array_;
+};
+
 // CBBFinishArray behaves like |CBB_finish| but stores the result in an Array.
 OPENSSL_EXPORT bool CBBFinishArray(CBB *cbb, Array<uint8_t> *out);
 
@@ -1316,6 +1381,24 @@ bool tls13_verify_psk_binder(SSL_HANDSHAKE *hs, SSL_SESSION *session,
                              const SSLMessage &msg, CBS *binders);
 
 
+// ESNI
+
+enum ssl_esni_state_t {
+  ssl_esni_unknown = 0,
+  ssl_esni_attempted = 1,
+  ssl_esni_verified = 2,
+  ssl_esni_retry_required = 3,
+  ssl_esni_sent_grease = 4,
+};
+
+bool tls13_derive_esni_secrets(SSL_HANDSHAKE *hs,
+                               Span<const uint8_t> shared_secret);
+
+bool ssl_ext_encrypted_server_name_parse_clienthello(SSL_HANDSHAKE *hs,
+                                                     uint8_t *out_alert,
+                                                     CBS *contents);
+
+
 // Handshake functions.
 
 enum ssl_hs_wait_t {
@@ -1586,6 +1669,18 @@ struct SSL_HANDSHAKE {
 
   // key_block is the record-layer key block for TLS 1.2 and earlier.
   Array<uint8_t> key_block;
+
+  // esni_state is the state of ESNI for this connection.
+  enum ssl_esni_state_t esni_state;
+
+  // esni_nonce is the nonce used for ESNI in this connection.
+  uint8_t esni_nonce[16];
+
+  uint8_t esni_iv[EVP_AEAD_MAX_NONCE_LENGTH];
+  size_t esni_iv_len;
+
+  // esni_aead_ctx is the AEAD CTX to use with ESNI.
+  ScopedEVP_AEAD_CTX esni_aead_ctx;
 
   // scts_requested is true if the SCT extension is in the ClientHello.
   bool scts_requested : 1;
@@ -2224,6 +2319,9 @@ struct SSL3_STATE {
   // |token_binding_negotiated| is set.
   uint8_t negotiated_token_binding_param = 0;
 
+  // esni_received_retry_keys are the server's ESNIKeys to use on a retry.
+  bssl::Array<uint8_t> esni_received_retry_keys;
+
   // skip_early_data instructs the record layer to skip unexpected early data
   // messages when 0RTT is rejected.
   bool skip_early_data : 1;
@@ -2491,6 +2589,43 @@ struct DTLS1_STATE {
   unsigned timeout_duration_ms = 0;
 };
 
+class ESNI_KEYPAIR {
+ public:
+  struct PRIV_KEY {
+    PRIV_KEY &operator=(const PRIV_KEY &) = delete;
+    PRIV_KEY &operator=(PRIV_KEY &&other) = default;
+
+    uint16_t group;
+    Array<uint8_t> key;
+  };
+
+  ESNI_KEYPAIR() : last_hash_cipher_id(0) {
+    esni_keys_hash.Init(EVP_MAX_MD_SIZE);
+  }
+  ESNI_KEYPAIR &operator=(const ESNI_KEYPAIR &) = delete;
+  ESNI_KEYPAIR &operator=(ESNI_KEYPAIR &&other) = default;
+
+  // Computes the hash of the stored ESNIKeys. Sets |out_digest| to point at
+  // data owned by |this|. Returns false on allocation error.
+  bool Hash(uint16_t cipher_id, Span<uint8_t> *out_digest);
+
+  // Searches for an ESNI_KEYPAIR in |keypairs| with a hash matching
+  // |record_digest|. If no match is found, returns false. Otherwise, searches
+  // ESNI_KEYPAIR's private keys for a key in |group|. If unable to find a
+  // matching private key, returns false and sets |out_error| to true.
+  static bool FindEsniPrivateKey(GrowableArray<ESNI_KEYPAIR> *keypairs,
+                                 uint16_t cipher_id, uint16_t group,
+                                 const Span<const uint8_t> &record_digest,
+                                 Span<const uint8_t> *out_private_key,
+                                 bool *out_error);
+
+  Array<uint8_t> esni_keys;
+  GrowableArray<PRIV_KEY> private_keys;
+ private:
+  Array<uint8_t> esni_keys_hash;
+  uint16_t last_hash_cipher_id;
+};
+
 // SSL_CONFIG contains configuration bits that can be shed after the handshake
 // completes.  Objects of this type are not shared; they are unique to a
 // particular |SSL|.
@@ -2574,6 +2709,18 @@ struct SSL_CONFIG {
   // verify_mode is a bitmask of |SSL_VERIFY_*| values.
   uint8_t verify_mode = SSL_VERIFY_NONE;
 
+  CBS esni_public_name;
+  uint16_t esni_group = 0;
+  const SSL_CIPHER *esni_cipher = nullptr;
+  Array<uint8_t> esni_record_digest;
+  uint16_t esni_padded_length = 0;
+
+  Array<uint8_t> esni_retry_keys;
+  Array<uint8_t> esni_server_keyshare; // used by client
+  Array<uint8_t> esni_client_keyshare;
+
+  GrowableArray<ESNI_KEYPAIR> esni_server_keys;
+
   // Enable signed certificate time stamps. Currently client only.
   bool signed_cert_timestamps_enabled : 1;
 
@@ -2613,6 +2760,9 @@ struct SSL_CONFIG {
   // jdk11_workaround is whether to disable TLS 1.3 for JDK 11 clients, as a
   // workaround for https://bugs.openjdk.java.net/browse/JDK-8211806.
   bool jdk11_workaround : 1;
+
+  // enable_esni is whether the connection should attempt to use ESNI.
+  bool enable_esni : 1;
 };
 
 // From RFC 8446, used in determining PSK modes.
@@ -3442,6 +3592,9 @@ struct ssl_session_st {
   ~ssl_session_st();
   friend void SSL_SESSION_free(SSL_SESSION *);
 };
+
+// TODO(dmcardle): delete this
+void hexdump(const char* loc, const char* label, const uint8_t *buf, size_t len);
 
 
 #endif  // OPENSSL_HEADER_SSL_INTERNAL_H
