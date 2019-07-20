@@ -9,6 +9,7 @@ import (
 	"crypto"
 	"crypto/ecdsa"
 	"crypto/elliptic"
+	"crypto/rand"
 	"crypto/rsa"
 	"crypto/subtle"
 	"crypto/x509"
@@ -101,6 +102,71 @@ func (c *Conn) clientHandshake() error {
 		return errors.New("tls: NextProtos values too large")
 	}
 
+	// Build the clientEncryptedSNI
+	var helloEncryptedSNI *clientEncryptedSNI = nil
+	if len(c.config.EsniKeys) > 0 {
+		// Find which of the EsniKeys we want to use.
+		var selectedEsniKeys *EsniKeys
+		var suite *cipherSuite
+		for _, serverEsniKeys := range c.config.EsniKeys {
+			if serverEsniKeys.version != esniKeysVersion {
+				continue
+			}
+
+			// Find compatible cipher suite
+			for _, serverSuiteId := range serverEsniKeys.cipherSuites {
+				var serverSuite *cipherSuite = mutualCipherSuite(c.config.cipherSuites(), serverSuiteId)
+				if serverSuite != nil {
+					suite = serverSuite
+					selectedEsniKeys = &serverEsniKeys
+					goto SelectedEsniKeysAndSuite
+				}
+			}
+		}
+	SelectedEsniKeysAndSuite:
+		if selectedEsniKeys == nil || suite == nil {
+			return errors.New("tls: Unable to find compatible EsniKeys")
+		}
+
+		// Select one of the server ESNIKeyShareEntry values
+		// TODO select based on future value of |hello.supportedCurves|
+		var esniKeyShareEntry keyShareEntry = selectedEsniKeys.keys[0]
+
+		// Generate an (EC)DHE share in the matching group
+		var curveID CurveID = esniKeyShareEntry.group
+		var curve ecdhCurve = c.config.EsniKeyShares[curveID]
+
+		// TODO publicKey should go into keyshare
+		publicKey, ecdheSecret, err := curve.accept(rand.Reader, esniKeyShareEntry.keyExchange)
+		if err != nil {
+			return err
+		}
+		var esniFinishedHash finishedHash
+		esniFinishedHash.nextSecret()
+		esniFinishedHash.addEntropy(ecdheSecret)
+		esniSecret := esniFinishedHash.deriveSecret(esniEncryptionKeyLabel)
+		key := hkdfExpandLabel(suite.hash(), esniSecret, keyTLS13, nil, suite.keyLen)
+		iv := hkdfExpandLabel(suite.hash(), esniSecret, ivTLS13, nil, suite.ivLen(VersionTLS13))
+		cipher := suite.aead(VersionTLS13, key, iv)
+		if cipher.NonceSize() != 16 {
+			return errors.New("tls: NonceSize of selected cipher differs from ESNI spec")
+		}
+
+		// draft-ietf-tls-esni-04 says we should construct
+		// ClientESNIInner. Because our AEAD interface takes a
+		// nonce parameter, it is simpler to directly construct.
+		nonce := []uint8{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}
+		paddedPlaintextSni := []byte(c.config.ServerName)
+		encryptedSNI := cipher.Seal([]byte{}, nonce, paddedPlaintextSni, []byte{})
+
+		helloEncryptedSNI = &clientEncryptedSNI{
+			suite:        suite.id,
+			keyShare:     keyShareEntry{group: curveID, keyExchange: publicKey},
+			recordDigest: []byte{}, // TODO
+			encryptedSNI: encryptedSNI,
+		}
+	}
+
 	minVersion := c.config.minVersion(c.isDTLS)
 	maxVersion := c.config.maxVersion(c.isDTLS)
 	hello := &clientHelloMsg{
@@ -130,6 +196,7 @@ func (c *Conn) clientHandshake() error {
 		emptyExtensions:         c.config.Bugs.EmptyExtensions,
 		delegatedCredentials:    !c.config.Bugs.DisableDelegatedCredentials,
 		pqExperimentSignal:      c.config.PQExperimentSignal,
+		clientEncryptedSNI:      helloEncryptedSNI,
 	}
 
 	if maxVersion >= VersionTLS13 {

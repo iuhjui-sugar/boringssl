@@ -435,6 +435,7 @@ var (
 	earlyTrafficLabel             = []byte("c e traffic")
 	clientHandshakeTrafficLabel   = []byte("c hs traffic")
 	serverHandshakeTrafficLabel   = []byte("s hs traffic")
+	esniEncryptionKeyLabel        = []byte("esni hs traffic")
 	clientApplicationTrafficLabel = []byte("c ap traffic")
 	serverApplicationTrafficLabel = []byte("s ap traffic")
 	applicationTrafficLabel       = []byte("traffic upd")

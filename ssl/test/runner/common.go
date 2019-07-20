@@ -127,6 +127,18 @@ const (
 	extensionChannelID                  uint16 = 30032  // not IANA assigned
 	extensionDelegatedCredentials       uint16 = 0xff02 // not IANA assigned
 	extensionPQExperimentSignal         uint16 = 54538
+	extensionEncryptedServerName        uint16 = 0xffce
+)
+
+// of enum ServerESNIResponseType
+const (
+	serverESNIResponseAccept       uint8 = 0
+	serverESNIResponseRetryRequest uint8 = 1
+)
+
+const (
+	esniKeysVersion                       uint16 = 0xff03 // draft-ietf-tls-esni-04
+	esniKeysPaddedLengthSupportsWildcards uint16 = 260
 )
 
 // TLS signaling cipher suite values
@@ -364,6 +376,13 @@ type Config struct {
 	// that clients use when verifying server certificates.
 	// If RootCAs is nil, TLS uses the host's root CA set.
 	RootCAs *x509.CertPool
+
+	// EsniKeys defines a rolling list of esniKeys where the
+	// zeroth element is the most recent. With key rotation, we
+	// want to be able to receive messages encrypted for the last
+	// set of keys.
+	EsniKeys      []EsniKeys
+	EsniKeyShares map[CurveID]ecdhCurve
 
 	// NextProtos is a list of supported, application level protocols.
 	NextProtos []string
