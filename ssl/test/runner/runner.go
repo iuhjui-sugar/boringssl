@@ -46,6 +46,7 @@ import (
 	"syscall"
 	"time"
 
+	"boringssl.googlesource.com/boringssl/ssl/test/runner/curve25519"
 	"boringssl.googlesource.com/boringssl/util/testresult"
 )
 
@@ -53,6 +54,7 @@ var (
 	useValgrind        = flag.Bool("valgrind", false, "If true, run code under valgrind")
 	useGDB             = flag.Bool("gdb", false, "If true, run BoringSSL code under gdb")
 	useLLDB            = flag.Bool("lldb", false, "If true, run BoringSSL code under lldb")
+	useRR              = flag.Bool("rr", false, "If true, run BoringSSL code under rr")
 	flagDebug          = flag.Bool("debug", false, "Hexdump the contents of the connection")
 	mallocTest         = flag.Int64("malloc-test", -1, "If non-negative, run each test with each malloc in turn failing from the given number onwards.")
 	mallocTestDebug    = flag.Bool("malloc-test-debug", false, "If true, ask bssl_shim to abort rather than fail a malloc. This can be used with a specific value for --malloc-test to identity the malloc failing that is causing problems.")
@@ -1093,6 +1095,16 @@ func valgrindOf(dbAttach bool, path string, args ...string) *exec.Cmd {
 	return exec.Command("valgrind", valgrindArgs...)
 }
 
+func rrOf(path string, args ...string) *exec.Cmd {
+	commandArgs := []string{"record"}
+	commandArgs = append(commandArgs, path)
+	commandArgs = append(commandArgs, args...)
+
+	fmt.Println("Recording with 'rr'. Run 'rr replay' to inspect.")
+
+	return exec.Command("rr", commandArgs...)
+}
+
 func gdbOf(path string, args ...string) *exec.Cmd {
 	xtermArgs := []string{"-geometry", xtermSize, "-e", "gdb", "--args"}
 	xtermArgs = append(xtermArgs, path)
@@ -1304,6 +1316,8 @@ func runTest(test *testCase, shimPath string, mallocNumToFail int64) error {
 		shim = gdbOf(shimPath, flags...)
 	} else if *useLLDB {
 		shim = lldbOf(shimPath, flags...)
+	} else if *useRR {
+		shim = rrOf(shimPath, flags...)
 	} else {
 		shim = exec.Command(shimPath, flags...)
 	}
@@ -15441,6 +15455,125 @@ func addPQExperimentSignalTests() {
 	})
 }
 
+// Build a slice of EsniKeys for testing. This function resembles the
+// DNS retrieval mechanism.
+func GetTestEsniKeys(publicNames []string) ([]EsniKeys, [][32]byte) {
+	getKeyPair := func() ([32]byte, [32]byte) {
+		var privateKey [32]byte
+		_, err := rand.Read(privateKey[:])
+		if err != nil {
+			panic(err)
+		}
+		var publicKey [32]byte
+		curve25519.ScalarBaseMult(&publicKey, &privateKey)
+		return publicKey, privateKey
+	}
+
+	var outEsniKeys []EsniKeys
+	var outPrivKeys [][32]byte
+
+	for _, publicName := range publicNames {
+		publicKey, privateKey := getKeyPair()
+		outEsniKeys = append(outEsniKeys, BuildEsniKeys(
+			/* publicName */ []byte(publicName),
+			/* keys */ []keyShareEntry{
+				keyShareEntry{
+					Group:       CurveX25519,
+					KeyExchange: publicKey[:],
+				},
+			},
+			/* cipherSuites */ []uint16{
+				TLS_AES_128_GCM_SHA256,
+			}))
+		outPrivKeys = append(outPrivKeys, privateKey)
+	}
+
+	return outEsniKeys, outPrivKeys
+}
+
+func GetTestEsniKeysBytes(publicNames []string) (esniKeysSlice []EsniKeys, esniKeysBytesSlice [][]byte, privKeysSlice [][32]byte) {
+	esniKeysSlice, privKeysSlice = GetTestEsniKeys(publicNames)
+
+	for _, esniKeys := range esniKeysSlice {
+		bb := newByteBuilder()
+		esniKeys.marshal(bb)
+		esniKeysBytes := bb.data()
+		esniKeysBytesSlice = append(esniKeysBytesSlice, esniKeysBytes)
+	}
+
+	return
+}
+
+func addESNITests() {
+	// The ESNIKeys received by some mechanism, such as DNS.
+	testEsniKeys, _ := GetTestEsniKeys([]string{"foo.example", "bar.example"})
+
+	bb := newByteBuilder()
+	bbEsniKeys := bb.addU16LengthPrefixed()
+	for _, esniKeys := range testEsniKeys {
+		esniKeys.marshal(bbEsniKeys)
+	}
+
+	testCases = append(testCases, testCase{
+		testType: clientTest,
+		name:     "EsniSerialization",
+		flags: []string{
+			"-esni-keypairs",
+			//	base64.StdEncoding.EncodeToString(bb.data()),
+			base64.StdEncoding.EncodeToString([]byte("foobar")),
+		},
+		config: Config{
+			MinVersion: VersionTLS13,
+			MaxVersion: VersionTLS13,
+			EsniKeys:   testEsniKeys,
+		},
+	})
+
+	/*
+		testEsniKeys := GetTestEsniKeys()
+
+		// Check that we can marshal and unmarshal
+			for _, testKeyPair := range testEsniKeys {
+				bb := newByteBuilder()
+				esniKeys.marshal(bb)
+				marshalled := bb.data()
+
+				var unmarshalled EsniKeys
+				var br byteReader = byteReader(marshalled)
+				unmarshalled.unmarshal(&br)
+
+				// TODO write |marshalled| to file
+				// TODO write script to spin up client and server
+
+				if !esniKeys.equal(&unmarshalled) {
+					fmt.Printf("esniKeys = %#v\n", esniKeys)
+					fmt.Printf("unmarshalled = %#v\n", unmarshalled)
+					panic("marshal/unmarshal failed for EsniKeys")
+				}
+			}
+	*/
+
+	// TODO(dmcardle) add some actual test cases.
+	// Option 1: Pit this ESNI implementation against itself.
+	// Option 2: Test it against boringssl's real impl.
+	// Option 3: Test it against Firefox's ESNI implementation.
+	/*
+		testCases = append(testCases, testCase{
+			testType: serverTest,
+			name:     "ESNI-test",
+			config: Config{
+				MinVersion: VersionTLS13,
+				MaxVersion: VersionTLS13,
+				Bugs:       ProtocolBugs{},
+				EsniKeys:   serverEsniKeys,
+			},
+			// TODO need some ESNI flags to use
+			flags:      []string{},
+			shouldFail: false,
+		})
+	*/
+}
+
 func worker(statusChan chan statusMsg, c chan *testCase, shimPath string, wg *sync.WaitGroup) {
 	defer wg.Done()
 
@@ -15579,6 +15712,7 @@ func main() {
 	addJDK11WorkaroundTests()
 	addDelegatedCredentialTests()
 	addPQExperimentSignalTests()
+	addESNITests()
 
 	testCases = append(testCases, convertToSplitHandshakeTests(testCases)...)
 
