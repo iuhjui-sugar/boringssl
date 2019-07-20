@@ -235,6 +235,9 @@ extern "C" {
 // extension number.
 #define TLSEXT_TYPE_delegated_credential 0xff02
 
+// ExtensionType value from draft-ietf-tls-esni.
+#define TLSEXT_TYPE_encrypted_server_name 0xffce
+
 // ExtensionType value from RFC6962
 #define TLSEXT_TYPE_certificate_timestamp 18
 

@@ -127,6 +127,22 @@ const (
 	extensionChannelID                  uint16 = 30032  // not IANA assigned
 	extensionDelegatedCredentials       uint16 = 0xff02 // not IANA assigned
 	extensionPQExperimentSignal         uint16 = 54538
+	extensionEncryptedServerName        uint16 = 0xffce
+)
+
+// enum ServerESNIResponseType
+const (
+	serverESNIResponseAccept       uint8 = 0
+	serverESNIResponseRetryRequest uint8 = 1
+)
+
+const (
+	esniKeysVersion         uint16 = 0xff03 // draft-ietf-tls-esni-04
+	esniKeysPaddedLengthMax uint16 = 260
+)
+
+const (
+	esniClientEsniInnerNonceSize uint16 = 16
 )
 
 // TLS signaling cipher suite values
@@ -364,6 +380,30 @@ type Config struct {
 	// that clients use when verifying server certificates.
 	// If RootCAs is nil, TLS uses the host's root CA set.
 	RootCAs *x509.CertPool
+
+	// For clients, EsniKeys is the list of EsniKeys that
+	// correspond to the intended origin, retrieved by some
+	// mechanism, e.g. DNS.
+	EsniKeys []EsniKeys
+
+	// For clients, EsniPrivateKeys is empty. For servers,
+	// EsniPrivateKeys[i] corresponds to the public-facing
+	// EsniKeys[i].
+	EsniPrivateKeys [][32]byte
+
+	// Maximum number of times the client will respond to a server's retry
+	// request.
+	EsniMaxRetries uint16
+
+	// When true, the client will include record_digest in the
+	// clientEncryptedSNI sent to the server. This is a potential
+	// tracking vector and is off by default.
+	EsniClientSendRecordDigest bool
+
+	// When enabled, the server can fall back to trial decryption to find
+	// the private key that matches a clientEncryptedSNI. This enables
+	// support for clients who omit clientEncryptedSNI.record_digest.
+	EsniServerEnableTrialDecryption bool
 
 	// NextProtos is a list of supported, application level protocols.
 	NextProtos []string
@@ -1653,6 +1693,11 @@ type ProtocolBugs struct {
 	// ExpectPQExperimentSignal specifies whether or not the post-quantum
 	// experiment signal should be received by a client or server.
 	ExpectPQExperimentSignal bool
+
+	// If EsniSendPlaintextServerName is nonempty and ESNI is enabled, the
+	// client will send this value in plaintext in addition to the encrypted
+	// SNI.
+	EsniSendPlaintextServerName string
 }
 
 func (c *Config) serverInit() {

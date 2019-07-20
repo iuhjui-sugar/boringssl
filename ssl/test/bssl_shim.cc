@@ -680,6 +680,11 @@ static bool CheckHandshakeProperties(SSL *ssl, bool is_resume,
     return false;
   }
 
+  if (!config->esni_keypairs.empty()) {
+    // TODO(dmcardle) figure out (1) how to store the ESNIKeys (do we need to
+    // parse them?) and (2) how to initialize the config->esni_private field.
+  }
+
   return true;
 }
 
@@ -1177,6 +1182,9 @@ int main(int argc, char **argv) {
   }
 
   bssl::UniquePtr<SSL_CTX> ssl_ctx;
+
+  // TODO(dmcardle) add command line option to receive list of ESNIKeys and
+  // corresponding private keys.
 
   bssl::UniquePtr<SSL_SESSION> session;
   for (int i = 0; i < initial_config.resume_count + 1; i++) {

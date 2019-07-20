@@ -197,6 +197,7 @@ const Flag<std::string> kBase64Flags[] = {
     {"-quic-transport-params", &TestConfig::quic_transport_params},
     {"-expect-quic-transport-params",
      &TestConfig::expect_quic_transport_params},
+    {"-esni-keypairs", &TestConfig::esni_keypairs},
 };
 
 const Flag<int> kIntFlags[] = {
