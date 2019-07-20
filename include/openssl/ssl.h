@@ -619,6 +619,8 @@ OPENSSL_EXPORT int DTLSv1_handle_timeout(SSL *ssl);
 #define DTLS1_VERSION 0xfeff
 #define DTLS1_2_VERSION 0xfefd
 
+#define ESNI_VERSION 0xff03
+
 // SSL_CTX_set_min_proto_version sets the minimum protocol version for |ctx| to
 // |version|. If |version| is zero, the default minimum version is used. It
 // returns one on success and zero if |version| is invalid.
@@ -3905,6 +3907,16 @@ OPENSSL_EXPORT int SSL_is_tls13_downgrade(const SSL *ssl);
 // https://bugs.openjdk.java.net/browse/JDK-8213202
 OPENSSL_EXPORT void SSL_set_jdk11_workaround(SSL *ssl, int enable);
 
+
+// ESNI functions.
+OPENSSL_EXPORT void SSL_set_enable_esni(SSL *ssl, int enable);
+
+OPENSSL_EXPORT int SSL_set_esni_keys(SSL *ssl, const uint8_t *key_struct,
+                                     size_t key_len);
+
+OPENSSL_EXPORT int SSL_set_esni_private_key(SSL *ssl, const uint8_t *priv, size_t priv_len);
+
+OPENSSL_EXPORT void SSL_get_retry_keys(SSL *ssl);
 
 // Deprecated functions.
 

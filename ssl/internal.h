@@ -1315,6 +1315,18 @@ bool tls13_verify_psk_binder(SSL_HANDSHAKE *hs, SSL_SESSION *session,
                              const SSLMessage &msg, CBS *binders);
 
 
+// ESNI
+
+enum ssl_esni_state_t {
+  ssl_esni_unknown = 0,
+  ssl_esni_attempted = 1,
+  ssl_esni_verified = 2,
+  ssl_esni_retry_required = 3,
+};
+
+bool tls13_write_encrypted_sni(SSL_HANDSHAKE *hs, CBB *out, Array<uint8_t> shared_secret);
+
+
 // Handshake functions.
 
 enum ssl_hs_wait_t {
@@ -1561,6 +1573,12 @@ struct SSL_HANDSHAKE {
 
   // key_block is the record-layer key block for TLS 1.2 and earlier.
   Array<uint8_t> key_block;
+
+  // esni_state is the state of ESNI for this connection.
+  enum ssl_esni_state_t esni_state;
+
+  // esni_nonce is the nonce used for ESNI in this connection.
+  uint8_t esni_nonce[16];
 
   // scts_requested is true if the SCT extension is in the ClientHello.
   bool scts_requested : 1;
@@ -2549,6 +2567,14 @@ struct SSL_CONFIG {
   // verify_mode is a bitmask of |SSL_VERIFY_*| values.
   uint8_t verify_mode = SSL_VERIFY_NONE;
 
+  CBS esni_public_name;
+  uint16_t esni_group = 0;
+  const SSL_CIPHER *esni_cipher = nullptr;
+  Array<uint8_t> esni_server_keyshare;
+  Array<uint8_t> esni_record_digest;
+  uint16_t esni_padded_length = 0;
+  Array<uint8_t> esni_private;
+
   // Enable signed certificate time stamps. Currently client only.
   bool signed_cert_timestamps_enabled : 1;
 
@@ -2588,6 +2614,9 @@ struct SSL_CONFIG {
   // jdk11_workaround is whether to disable TLS 1.3 for JDK 11 clients, as a
   // workaround for https://bugs.openjdk.java.net/browse/JDK-8211806.
   bool jdk11_workaround : 1;
+
+  // enable_esni is whether the connection should attempt to use ESNI.
+  bool enable_esni : 1;
 };
 
 // From RFC 8446, used in determining PSK modes.
