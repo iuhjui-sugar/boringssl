@@ -1178,6 +1178,9 @@ int main(int argc, char **argv) {
 
   bssl::UniquePtr<SSL_CTX> ssl_ctx;
 
+  // TODO(dmcardle) add command line option to receive list of ESNIKeys and
+  // corresponding private keys.
+
   bssl::UniquePtr<SSL_SESSION> session;
   for (int i = 0; i < initial_config.resume_count + 1; i++) {
     bool is_resume = i > 0;
