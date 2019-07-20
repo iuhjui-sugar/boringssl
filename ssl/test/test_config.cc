@@ -197,6 +197,8 @@ const Flag<std::string> kBase64Flags[] = {
     {"-quic-transport-params", &TestConfig::quic_transport_params},
     {"-expect-quic-transport-params",
      &TestConfig::expect_quic_transport_params},
+    {"-server-esni-keypairs", &TestConfig::server_esni_keypairs},
+    {"-client-esnikeys", &TestConfig::client_esnikeys},
 };
 
 const Flag<int> kIntFlags[] = {
@@ -1697,6 +1699,52 @@ bssl::UniquePtr<SSL> TestConfig::NewSSL(
       fprintf(stderr, "SSL_set1_delegated_credential failed.\n");
       return nullptr;
     }
+  }
+
+  // Construct the base64-encoded content for bssl_shim's
+  // "-server-esni-keypairs" flag.
+  if (!server_esni_keypairs.empty()) {
+    // Read a U16-prefixed list of ESNIKeys, followed by a U16-prefixed list of
+    // private keys.
+    CBS cbs;
+    CBS_init(&cbs,
+             reinterpret_cast<const uint8_t *>(server_esni_keypairs.data()),
+             server_esni_keypairs.size());
+
+    CBS cbs_esni_keys;
+    if (!CBS_get_u16_length_prefixed(&cbs, &cbs_esni_keys)) {
+      fprintf(stderr, "Failed to unmarshal list of ESNIKeys.\n");
+      return nullptr;
+    }
+
+    CBS cbs_priv_keys;
+    if (!CBS_get_u16_length_prefixed(&cbs, &cbs_priv_keys)) {
+      fprintf(stderr, "Failed to unmarshal list of ESNI private keys.\n");
+      return nullptr;
+    }
+
+    // Fill vector with pointers to each of the private keys.
+    std::vector<const uint8_t *> priv_key_ptrs;
+    std::vector<size_t> priv_key_sizes;
+    const size_t k_priv_key_size = 32;
+    while (CBS_len(&cbs_priv_keys) >= k_priv_key_size) {
+      CBS tmp;
+      priv_key_ptrs.push_back(CBS_data(&cbs_priv_keys));
+      priv_key_sizes.push_back(k_priv_key_size);
+      CBS_get_bytes(&cbs_priv_keys, &tmp, k_priv_key_size);
+    }
+
+    SSL_set_enable_esni(ssl.get(), true);
+    if (!SSL_add_esni_private_keys(
+            ssl.get(), CBS_data(&cbs_esni_keys), CBS_len(&cbs_esni_keys),
+            priv_key_ptrs.data(), priv_key_sizes.data())) {
+      fprintf(stderr, "Failed to add ESNIKeys and private keys.\n");
+      return nullptr;
+    }
+  }
+
+  if (!client_esnikeys.empty()) {
+    // TODO(dmcardle)
   }
 
   return ssl;
