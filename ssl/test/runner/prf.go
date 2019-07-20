@@ -445,6 +445,13 @@ var (
 	resumptionPSKLabel = []byte("resumption")
 )
 
+var (
+	esniClientHelloKeyLabel      = []byte("esni key")
+	esniClientHelloIvLabel       = []byte("esni iv")
+	esniClientHelloRetryKeyLabel = []byte("hrr esni key")
+	esniClientHelloRetryIvLabel  = []byte("hrr esni iv")
+)
+
 // deriveSecret implements TLS 1.3's Derive-Secret function, as defined in
 // section 7.1 of draft ietf-tls-tls13-16.
 func (h *finishedHash) deriveSecret(label []byte) []byte {

@@ -565,4 +565,64 @@ bool tls13_verify_psk_binder(SSL_HANDSHAKE *hs, SSL_SESSION *session,
   return true;
 }
 
+//TODO(svaldez): Support HRR case.
+bool tls13_derive_esni_secrets(SSL_HANDSHAKE *hs, Array<uint8_t> shared_secret) {
+  SSL const *ssl = hs->ssl;
+
+  const EVP_MD *digest =
+      ssl_get_handshake_digest(TLS1_3_VERSION, hs->config->esni_cipher);
+
+  uint8_t zeroes[EVP_MAX_MD_SIZE] = {0};
+  uint8_t zx[EVP_MAX_MD_SIZE] = {0};
+  size_t zx_len;
+  if (!HKDF_extract(zx, &zx_len, digest, shared_secret.data(),
+                    shared_secret.size(), zeroes, EVP_MD_size(digest))) {
+    return false;
+  }
+
+  CBB esni_cbb, record_digest, keyshare;
+  Array<uint8_t> esni_contents;
+  if (!CBB_init(&esni_cbb, 0) ||
+      !CBB_add_u16_length_prefixed(&esni_cbb, &record_digest) ||
+      !CBB_add_bytes(&record_digest, ssl->config->esni_record_digest.data(),
+                     ssl->config->esni_record_digest.size()) ||
+      !CBB_add_u16(&esni_cbb, ssl->config->esni_group) ||
+      !CBB_add_u16_length_prefixed(&esni_cbb, &keyshare) ||
+      !CBB_add_bytes(&keyshare, ssl->config->esni_server_keyshare.data(),
+                     ssl->config->esni_server_keyshare.size()) ||
+      !CBB_add_bytes(&esni_cbb, ssl->s3->client_random, SSL3_RANDOM_SIZE) ||
+      !CBBFinishArray(&esni_cbb, &esni_contents)) {
+    return false;
+  }
+
+  uint8_t esni_hash[EVP_MAX_MD_SIZE];
+  unsigned esni_hash_len;
+  if (!EVP_Digest(esni_contents.data(), esni_contents.size(), esni_hash,
+                  &esni_hash_len, digest, nullptr)) {
+    return false;
+  }
+
+  const EVP_AEAD *aead;
+  size_t discard;
+  if (!ssl_cipher_get_evp_aead(&aead, &discard, &discard, ssl->config->esni_cipher,
+                               TLS1_3_VERSION, false)) {
+    return false;
+  }
+
+  // Derive the key and iv.
+  size_t key_len = EVP_AEAD_key_length(aead);
+  uint8_t key[EVP_AEAD_MAX_KEY_LENGTH];
+  hs->esni_iv_len = EVP_AEAD_nonce_length(aead);
+
+  if (!hkdf_expand_label(key, digest, zx, zx_len, "esni key", 8, esni_hash,
+                         esni_hash_len, key_len) ||
+      !hkdf_expand_label(hs->esni_iv, digest, zx, zx_len, "esni iv", 7,
+                         esni_hash, esni_hash_len, hs->esni_iv_len)) {
+    return false;
+  }
+
+  return EVP_AEAD_CTX_init(hs->esni_aead_ctx.get(), aead, key, key_len,
+                           hs->esni_iv_len, nullptr);
+}
+
 BSSL_NAMESPACE_END
