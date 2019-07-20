@@ -565,4 +565,81 @@ bool tls13_verify_psk_binder(SSL_HANDSHAKE *hs, SSL_SESSION *session,
   return true;
 }
 
+//TODO(svaldez): Support HRR case.
+bool tls13_write_encrypted_sni(SSL_HANDSHAKE *hs, CBB *out, Array<uint8_t> shared_secret) {
+  SSL const *ssl = hs->ssl;
+  
+  const EVP_MD *digest = ssl_get_handshake_digest(TLS1_3_VERSION, hs->config->esni_cipher);
+
+  uint8_t zeroes[EVP_MAX_MD_SIZE] = {0};
+  uint8_t zx[EVP_MAX_MD_SIZE] = {0};  
+  size_t zx_len;
+  if (!HKDF_extract(zx, &zx_len, digest, shared_secret.data(), shared_secret.size(), zeroes, EVP_MD_size(digest))) {
+    return false;
+  }
+
+  CBB esni_cbb, record_digest, keyshare;
+  Array<uint8_t> esni_contents;
+  if (!CBB_init(&esni_cbb, 0) ||
+      !CBB_add_u16_length_prefixed(&esni_cbb, &record_digest) ||
+      !CBB_add_bytes(&record_digest, ssl->config->esni_record_digest.data(), ssl->config->esni_record_digest.size()) ||
+      !CBB_add_u16(&esni_cbb, ssl->config->esni_group) ||
+      !CBB_add_u16_length_prefixed(&esni_cbb, &keyshare) ||
+      !CBB_add_bytes(&keyshare, ssl->config->esni_server_keyshare.data(), ssl->config->esni_server_keyshare.size()) ||
+      !CBB_add_bytes(&esni_cbb, ssl->s3->client_random, SSL3_RANDOM_SIZE) ||
+      !CBBFinishArray(&esni_cbb, &esni_contents)) {
+    return false;
+  }
+  
+  uint8_t esni_hash[EVP_MAX_MD_SIZE];
+  unsigned esni_hash_len;
+  if (!EVP_Digest(esni_contents.data(), esni_contents.size(), esni_hash, &esni_hash_len, digest, nullptr)) {
+    return false;
+  }
+
+  const EVP_AEAD *aead;
+  size_t discard;
+  if (!ssl_cipher_get_evp_aead(&aead, &discard, &discard, ssl->config->esni_cipher,
+                               TLS1_3_VERSION, false)) {
+    return false;
+  }
+
+  // Derive the key and iv.
+  size_t key_len = EVP_AEAD_key_length(aead);
+  uint8_t key[EVP_AEAD_MAX_KEY_LENGTH];
+  size_t iv_len = EVP_AEAD_nonce_length(aead);
+  uint8_t iv[EVP_AEAD_MAX_NONCE_LENGTH];
+  if (!hkdf_expand_label(key, digest, zx, zx_len, "esni key", 8, esni_hash, esni_hash_len, key_len) ||
+      !hkdf_expand_label(iv, digest, zx, zx_len, "esni iv", 7, esni_hash, esni_hash_len, iv_len)) {
+    return false;
+  }
+
+  size_t padding_len = ssl->config->esni_padded_length - strlen(ssl->hostname.get());  
+  
+  CBB client_esni, dns_name;
+  uint8_t *padding;
+  if (!CBB_init(&client_esni, 0) ||
+      !CBB_add_bytes(&client_esni, hs->esni_nonce, sizeof(hs->esni_nonce)) ||
+      !CBB_add_u16_length_prefixed(&client_esni, &dns_name) ||
+      !CBB_add_bytes(&dns_name, (const uint8_t *)ssl->hostname.get(),
+                       strlen(ssl->hostname.get())) ||
+      !CBB_add_space(&dns_name, &padding, padding_len) ||
+      !CBB_flush(&client_esni)) {
+    return false;
+  }
+
+  OPENSSL_memset(padding, padding_len, 0);
+
+  EVP_AEAD_CTX *aead_ctx = EVP_AEAD_CTX_new(aead, key, key_len, iv_len);
+
+  size_t esni_max_len = CBB_len(&client_esni) + EVP_AEAD_max_overhead(aead);
+  uint8_t *esni = (uint8_t*)OPENSSL_malloc(esni_max_len);
+  size_t esni_len = 0;  
+  if (!EVP_AEAD_CTX_seal(aead_ctx, esni, &esni_len, esni_max_len, iv, iv_len, CBB_data(&client_esni), CBB_len(&client_esni), hs->key_share_bytes.data(), hs->key_share_bytes.size())) {
+    return false;
+  }
+
+  return !!CBB_add_bytes(out, esni, esni_len);
+}
+
 BSSL_NAMESPACE_END

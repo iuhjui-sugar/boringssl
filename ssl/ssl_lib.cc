@@ -735,7 +735,8 @@ SSL_CONFIG::SSL_CONFIG(SSL *ssl_arg)
       handoff(false),
       shed_handshake_config(false),
       ignore_tls13_downgrade(false),
-      jdk11_workaround(false) {
+      jdk11_workaround(false),
+      enable_esni(false) {
   assert(ssl);
 }
 
@@ -2848,6 +2849,93 @@ void SSL_set_jdk11_workaround(SSL *ssl, int enable) {
   }
   ssl->config->jdk11_workaround = !!enable;
 }
+
+void SSL_set_enable_esni(SSL *ssl, int enable) {
+  if (!ssl->config) {
+    return;
+  }
+  ssl->config->enable_esni = !!enable;
+}
+
+int SSL_set_esni_keys(SSL *ssl, const uint8_t *key_struct, size_t key_len) {
+  if (!ssl->config->enable_esni) {
+    return false;
+  }
+
+  CBS esni_keys, public_name, keys, cipher_suites, extensions;
+  uint16_t version;
+  CBS_init(&esni_keys, key_struct, key_len);
+  if (!CBS_get_u16(&esni_keys, &version) ||
+      version != ESNI_VERSION ||
+      !CBS_get_u16_length_prefixed(&esni_keys, &ssl->config->esni_public_name) ||
+      !CBS_get_u16_length_prefixed(&esni_keys, &keys) ||
+      !CBS_get_u16_length_prefixed(&esni_keys, &cipher_suites) ||
+      !CBS_get_u16(&esni_keys, &ssl->config->esni_padded_length) ||
+      !CBS_get_u16_length_prefixed(&esni_keys, &extensions)) {
+    return false;
+  }
+
+  // TODO(svaldez): Handle extensions.
+
+  static const uint16_t kDefaultGroups[] = {
+    SSL_CURVE_X25519,
+    SSL_CURVE_SECP256R1,
+    SSL_CURVE_SECP384R1,
+  };
+  Span<const uint16_t> supp = Span<const uint16_t>(kDefaultGroups);
+  if (!ssl->config->supported_group_list.empty()) {
+    supp = ssl->config->supported_group_list;
+  }
+
+  CBS esni_keyshare_bytes;
+  for (uint16_t supp_group : supp) {
+    CBS copy = keys;
+    uint16_t group;
+    while (CBS_len(&copy) > 0) {
+      if (!CBS_get_u16(&copy, &group) ||
+          !CBS_get_u16_length_prefixed(&copy, &esni_keyshare_bytes)) {
+        return false;
+      }
+      if (group == supp_group) {
+        ssl->config->esni_group = supp_group;
+        break;
+      }
+    }
+    if (ssl->config->esni_group != 0) {
+      break;
+    }
+  }
+
+  if (ssl->config->esni_group == 0) {
+    return false;
+  }
+
+  ssl->config->esni_server_keyshare.CopyFrom(esni_keyshare_bytes);
+  ssl->config->esni_cipher = ssl_choose_tls13_cipher(cipher_suites,
+                                                     TLS1_3_VERSION,
+                                                     ssl->config->esni_group);
+  if (!ssl->config->esni_cipher) {
+    return false;
+  }
+
+  const EVP_MD *digest = ssl_get_handshake_digest(TLS1_3_VERSION, ssl->config->esni_cipher);
+
+  uint8_t esni_digest[EVP_MAX_MD_SIZE];
+  unsigned esni_digest_len;
+  if (!EVP_Digest(key_struct, key_len, esni_digest, &esni_digest_len, digest, NULL) ||
+      !ssl->config->esni_record_digest.CopyFrom(Span<uint8_t>(esni_digest, esni_digest_len))) {
+    return false;
+  }
+  
+  return true;
+}
+
+// TODO(svaldez): Support multiple ESNIKeys structs on the server.
+
+int SSL_set_esni_private_keys(SSL *ssl) {
+  return false;
+}
+// Get Retry Keys.
 
 int SSL_clear(SSL *ssl) {
   if (!ssl->config) {
