@@ -614,14 +614,23 @@ static bool ext_sni_add_clienthello(SSL_HANDSHAKE *hs, CBB *out) {
       !CBB_add_u16_length_prefixed(out, &contents) ||
       !CBB_add_u16_length_prefixed(&contents, &server_name_list) ||
       !CBB_add_u8(&server_name_list, TLSEXT_NAMETYPE_host_name) ||
-      !CBB_add_u16_length_prefixed(&server_name_list, &name) ||
-      !CBB_add_bytes(&name, (const uint8_t *)ssl->hostname.get(),
-                     strlen(ssl->hostname.get())) ||
-      !CBB_flush(out)) {
+      !CBB_add_u16_length_prefixed(&server_name_list, &name)) {
     return false;
   }
 
-  return true;
+  if (hs->config->enable_esni && hs->config->esni_group != 0) {
+    if (!CBB_add_bytes(&name, CBS_data(&ssl->config->esni_public_name),
+                       CBS_len(&ssl->config->esni_public_name))) {
+      return false;
+    }
+  } else {
+    if (!CBB_add_bytes(&name, (const uint8_t *)ssl->hostname.get(),
+                       strlen(ssl->hostname.get()))) {
+      return false;
+    }
+  }
+
+  return CBB_flush(out);
 }
 
 static bool ext_sni_parse_serverhello(SSL_HANDSHAKE *hs, uint8_t *out_alert,
@@ -2919,6 +2928,259 @@ static bool ext_pq_experiment_signal_add_serverhello(SSL_HANDSHAKE *hs,
   return true;
 }
 
+// Encrypted Server Name
+//
+// https://tools.ietf.org/html/draft-ietf-tls-esni
+// TODO: Move this out of the callbacks to do early.
+static bool ext_encrypted_server_name_add_clienthello(SSL_HANDSHAKE *hs,
+                                                      CBB *out) {
+  SSL *const ssl = hs->ssl;
+  if (!hs->config->enable_esni || SSL_is_dtls(ssl) ||
+      hs->config->esni_group == 0) {
+    return true;
+  }
+
+  hs->esni_state = ssl_esni_attempted;
+
+  CBB contents, key_exchange, record_digest, esni;
+  if (!CBB_add_u16(out, TLSEXT_TYPE_encrypted_server_name) ||
+      !CBB_add_u16_length_prefixed(out, &contents) ||
+      !CBB_add_u16(&contents, ssl_cipher_get_value(ssl->config->esni_cipher)) ||
+      !CBB_add_u16(&contents, ssl->config->esni_group) ||
+      !CBB_add_u16_length_prefixed(&contents, &key_exchange)) {
+    return false;
+  }
+
+  UniquePtr<SSLKeyShare> esni_client_share =
+      SSLKeyShare::Create(ssl->config->esni_group);
+  Array<uint8_t> shared_secret;
+  uint8_t alert;
+  if (!esni_client_share ||
+      !esni_client_share->Accept(&key_exchange, &shared_secret, &alert,
+                                 ssl->config->esni_server_keyshare)) {
+    return false;
+  }
+
+  ssl->config->esni_client_keyshare.CopyFrom(Span<const uint8_t>(CBB_data(&key_exchange), CBB_len(&key_exchange)));
+
+  if (!CBB_add_u16_length_prefixed(&contents, &record_digest) ||
+      !CBB_add_bytes(&record_digest, ssl->config->esni_record_digest.data(),
+                     ssl->config->esni_record_digest.size()) ||
+      !CBB_flush(&record_digest) ||
+      !CBB_add_u16_length_prefixed(&contents, &esni)) {
+    return false;
+  }
+
+  if (!RAND_bytes(hs->esni_nonce, sizeof(hs->esni_nonce))) {
+    return false;
+  }
+
+  if (!tls13_derive_esni_secrets(hs, std::move(shared_secret))) {
+    return false;
+  }
+
+  size_t padding_len = ssl->config->esni_padded_length - strlen(ssl->hostname.get());
+
+  CBB client_esni, dns_name;
+  uint8_t *padding;
+  if (!CBB_init(&client_esni, 0) ||
+      !CBB_add_bytes(&client_esni, hs->esni_nonce, sizeof(hs->esni_nonce)) ||
+      !CBB_add_u16_length_prefixed(&client_esni, &dns_name) ||
+      !CBB_add_bytes(&dns_name, (const uint8_t *)ssl->hostname.get(),
+                     strlen(ssl->hostname.get())) ||
+      !CBB_add_space(&client_esni, &padding, padding_len) ||
+      !CBB_flush(&client_esni)) {
+    return false;
+  }
+
+  OPENSSL_memset(padding, padding_len, 0);
+  size_t esni_max_len =
+      CBB_len(&client_esni) + EVP_AEAD_max_overhead(hs->esni_aead_ctx->aead);
+  Array<uint8_t> inner_esni;
+  size_t inner_esni_len = 0;
+
+  hexdump(__FUNCTION__, "key_share_bytes", hs->key_share_bytes.data(), hs->key_share_bytes.size());
+  hexdump(__FUNCTION__, "nonce_iv", hs->esni_iv, hs->esni_iv_len);
+  hexdump(__FUNCTION__, "additional_data", hs->key_share_bytes.data(), hs->key_share_bytes.size());
+
+  if (!inner_esni.Init(esni_max_len) ||
+      !EVP_AEAD_CTX_seal(hs->esni_aead_ctx.get(), inner_esni.data(),
+                         &inner_esni_len, esni_max_len, hs->esni_iv,
+                         hs->esni_iv_len, CBB_data(&client_esni),
+                         CBB_len(&client_esni), hs->key_share_bytes.data(),
+                         hs->key_share_bytes.size())) {
+    return false;
+  }
+
+  hexdump(__FUNCTION__, "client_esni", CBB_data(&client_esni), CBB_len(&client_esni));
+  hexdump(__FUNCTION__, "encrypted_data", inner_esni.data(), inner_esni_len);
+
+  if (!CBB_add_bytes(&esni, inner_esni.data(), inner_esni_len) ||
+      !CBB_flush(&esni)) {
+    return false;
+  }
+
+  return CBB_flush(out);
+}
+
+static bool ext_encrypted_server_name_parse_serverhello(SSL_HANDSHAKE *hs, uint8_t *out_alert,
+                                                        CBS *contents) {
+  if (contents == NULL) {
+    return true;
+  }
+
+  assert(!SSL_is_dtls(hs->ssl));
+  assert(hs->config->enable_esni);
+
+  uint8_t response_type;
+  if (!CBS_get_u8(contents, &response_type)) {
+    return false;
+  }
+
+  if (response_type == 0) {
+    if (CBS_len(contents) != sizeof(hs->esni_nonce) ||
+        !CBS_mem_equal(contents, hs->esni_nonce, sizeof(hs->esni_nonce))) {
+      *out_alert = SSL_AD_ILLEGAL_PARAMETER;
+      return false;
+    }
+    hs->esni_state = ssl_esni_verified;
+  } else if (response_type == 1) {
+    // TODO(svaldez): Handle this.
+    // esni_retry_request
+    //ESNIKeys retry_keys<1..2^16-1>;
+    CBS retry_keys;
+    if (!CBS_get_u16_length_prefixed(contents, &retry_keys)) {
+      return false;
+    }
+    hs->ssl->s3->esni_received_retry_keys.CopyFrom(
+        Span<const uint8_t>(CBS_data(&retry_keys), CBS_len(&retry_keys)));
+    hs->esni_state = ssl_esni_retry_required;
+    return false;
+  } else {
+    *out_alert = SSL_AD_ILLEGAL_PARAMETER;
+    return false;
+  }
+
+  return true;
+}
+
+bool ssl_ext_encrypted_server_name_parse_clienthello(SSL_HANDSHAKE *hs,
+                                                     uint8_t *out_alert,
+                                                     CBS *contents) {
+  SSL *const ssl = hs->ssl;
+
+  if (contents == NULL) {
+    return true;
+  }
+
+  hs->esni_state = ssl_esni_attempted;
+
+  CBS key_exchange, record_digest, esni;
+  uint16_t cipher_id;
+  if (!CBS_get_u16(contents, &cipher_id) ||
+      !CBS_get_u16(contents, &hs->config->esni_group) ||
+      !CBS_get_u16_length_prefixed(contents, &key_exchange) ||
+      !CBS_get_u16_length_prefixed(contents, &record_digest) ||
+      !CBS_get_u16_length_prefixed(contents, &esni) ||
+      CBS_len(contents) != 0) {
+    return false;
+  }
+  hs->config->esni_cipher = SSL_get_cipher_by_value(cipher_id);
+  if (!hs->config->esni_record_digest.CopyFrom(
+          MakeSpan(CBS_data(&record_digest), CBS_len(&record_digest)))) {
+    return false;
+  }
+
+  // TODO: Lookup the record_digest and use the appropriate keys, ignoring this
+  // extension if it fails, erroring out if the ESNIKeys matches but the keys
+  // aren't an appropriate keyshare. Setting hs->esni_state appropriately.
+  CBS server_keyshare;
+  CBS_init(&server_keyshare, ssl->config->esni_private.data(),
+           ssl->config->esni_private.size());
+  UniquePtr<SSLKeyShare> esni_server_share =
+      SSLKeyShare::Create(&server_keyshare);
+  if (!esni_server_share) {
+    return true;
+  }
+
+  Array<uint8_t> shared_secret;
+  uint8_t alert;
+  if (!esni_server_share->Finish(&shared_secret, &alert, key_exchange)) {
+    return false;
+  }
+
+  if (!tls13_derive_esni_secrets(hs, std::move(shared_secret))) {
+    return false;
+  }
+
+  Array<uint8_t> inner_esni;
+  size_t inner_esni_len;
+  size_t esni_max_len = CBS_len(&esni);
+  if (!inner_esni.Init(esni_max_len) ||
+      !EVP_AEAD_CTX_open(hs->esni_aead_ctx.get(), inner_esni.data(),
+                         &inner_esni_len, esni_max_len, hs->esni_iv,
+                         hs->esni_iv_len, CBS_data(&esni), CBS_len(&esni),
+                         hs->key_share_bytes.data(),
+                         hs->key_share_bytes.size())) {
+    return false;
+  }
+
+  inner_esni.Shrink(inner_esni_len);
+  CBS real_esni, dns_name;
+  CBS_init(&real_esni, inner_esni.data(), inner_esni.size());
+  if (!CBS_copy_bytes(&real_esni, hs->esni_nonce, sizeof(hs->esni_nonce)) ||
+      !CBS_get_u16_length_prefixed(&real_esni, &dns_name)) {
+    return false;
+  }
+
+  // Copy the hostname as a string.
+  char *raw = nullptr;
+  if (!CBS_strdup(&dns_name, &raw)) {
+    *out_alert = SSL_AD_INTERNAL_ERROR;
+    return false;
+  }
+  ssl->s3->hostname.reset(raw);
+  hs->esni_state = ssl_esni_verified;
+
+  return true;
+}
+
+static bool ext_encrypted_server_name_add_serverhello(SSL_HANDSHAKE *hs,
+                                                      CBB *out) {
+  if (!hs->config->enable_esni || hs->esni_state == ssl_esni_unknown) {
+    return true;
+  }
+
+  uint8_t type = 1;
+  if (hs->esni_state == ssl_esni_verified) {
+    type = 0;
+  }
+
+  CBB contents;
+  if (!CBB_add_u16(out, TLSEXT_TYPE_encrypted_server_name) ||
+      !CBB_add_u16_length_prefixed(out, &contents) ||
+      !CBB_add_u8(&contents, type)) {
+    return false;
+  }
+
+  if (type == 0) {
+    // esni_accept
+    if (!CBB_add_bytes(&contents, hs->esni_nonce, sizeof(hs->esni_nonce))) {
+      return false;
+    }
+  } else {
+    CBB retry_keys;
+    if (!CBB_add_u16_length_prefixed(&contents, &retry_keys) ||
+        !CBB_add_bytes(&retry_keys, hs->config->esni_retry_keys.data(),
+                       hs->config->esni_retry_keys.size())) {
+      return false;
+    }
+  }
+
+  return CBB_flush(out);
+}
+
+
 // kExtensions contains all the supported extensions.
 static const struct tls_extension kExtensions[] = {
   {
@@ -3114,6 +3376,14 @@ static const struct tls_extension kExtensions[] = {
     ext_pq_experiment_signal_parse_serverhello,
     ext_pq_experiment_signal_parse_clienthello,
     ext_pq_experiment_signal_add_serverhello,
+  },
+  {
+    TLSEXT_TYPE_encrypted_server_name,
+    NULL,
+    ext_encrypted_server_name_add_clienthello,
+    ext_encrypted_server_name_parse_serverhello,
+    ignore_parse_clienthello,
+    ext_encrypted_server_name_add_serverhello,
   },
 };
 
@@ -4037,4 +4307,14 @@ void SSL_CTX_set_ed25519_enabled(SSL_CTX *ctx, int enabled) {
 
 void SSL_CTX_set_rsa_pss_rsae_certs_enabled(SSL_CTX *ctx, int enabled) {
   ctx->rsa_pss_rsae_certs_enabled = !!enabled;
+}
+
+void hexdump(const char* loc, const char* label, const uint8_t *buf, size_t len) {
+  printf("[%s] %s [size=%zd] {", loc, label, len);
+  for (size_t i=0; i<len; i++) {
+    if (i % 32 == 0)
+      printf("\n\t");
+    printf("%.2x ", buf[i]);
+  }
+  printf("\n}\n");
 }
