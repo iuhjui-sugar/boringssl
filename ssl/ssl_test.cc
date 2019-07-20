@@ -4080,6 +4080,75 @@ TEST(SSLTest, CertCompression) {
   EXPECT_TRUE(SSL_get_app_data(server.get()) == XORCompressFunc);
 }
 
+TEST(SSLTest, ESNI) {
+  bssl::UniquePtr<SSL_CTX> client_ctx(SSL_CTX_new(TLS_method()));
+  bssl::UniquePtr<SSL_CTX> server_ctx(SSL_CTX_new(TLS_method()));
+  ASSERT_TRUE(client_ctx);
+  ASSERT_TRUE(server_ctx);
+
+  bssl::UniquePtr<X509> cert = GetTestCertificate();
+  bssl::UniquePtr<EVP_PKEY> key = GetTestKey();
+  ASSERT_TRUE(cert);
+  ASSERT_TRUE(key);
+  ASSERT_TRUE(SSL_CTX_use_certificate(server_ctx.get(), cert.get()));
+  ASSERT_TRUE(SSL_CTX_use_PrivateKey(server_ctx.get(), key.get()));
+
+  ASSERT_TRUE(SSL_CTX_set_max_proto_version(client_ctx.get(), TLS1_3_VERSION));
+  ASSERT_TRUE(SSL_CTX_set_max_proto_version(server_ctx.get(), TLS1_3_VERSION));
+
+  bssl::UniquePtr<SSL> client(SSL_new(client_ctx.get())),
+      server(SSL_new(server_ctx.get()));
+  ASSERT_TRUE(client);
+  ASSERT_TRUE(server);
+  SSL_set_connect_state(client.get());
+  SSL_set_accept_state(server.get());
+
+  ASSERT_TRUE(SSL_set_tlsext_host_name(client.get(), "esni-test.com"));
+  SSL_set_enable_esni(client.get(), true);
+  SSL_set_enable_esni(server.get(), true);
+
+  UniquePtr<SSLKeyShare> keyshare = SSLKeyShare::Create(SSL_CURVE_X25519);
+
+  CBB key_struct, public_name, keys, kse_bytes, kse_bytes_c, cipher_suites;
+  if (!CBB_init(&key_struct, 0) ||
+      !CBB_add_u16(&key_struct, ESNI_VERSION) ||
+      !CBB_add_u16_length_prefixed(&key_struct, &public_name) ||
+      !CBB_add_bytes(&public_name, (const uint8_t *)"pn-test.com",
+                     strlen("pn-test.com")) ||
+      !CBB_add_u16_length_prefixed(&key_struct, &keys) ||
+      !CBB_add_u16(&keys, SSL_CURVE_X25519) ||
+      !CBB_add_u16_length_prefixed(&keys, &kse_bytes)) {
+    ASSERT_TRUE(false);
+  }
+
+  kse_bytes_c = kse_bytes;
+  if (!keyshare->Offer(&kse_bytes) ||
+      !CBB_add_u16_length_prefixed(&key_struct, &cipher_suites) ||
+      !CBB_add_u16(&cipher_suites, 0x1303) ||
+      !CBB_add_u16(&key_struct, 32) ||
+      !CBB_add_u16(&key_struct, 0) ||
+      !CBB_flush(&key_struct)) {
+    ASSERT_TRUE(false);
+  }
+  ASSERT_TRUE(SSL_set_esni_keys(client.get(), CBB_data(&key_struct),
+                                CBB_len(&key_struct)));
+  CBB private_key;
+  ASSERT_TRUE(CBB_init(&private_key, 0));
+  ASSERT_TRUE(keyshare->Serialize(&private_key));
+  ASSERT_TRUE(SSL_set_esni_private_key(
+      server.get(), CBB_data(&kse_bytes_c), CBB_len(&kse_bytes_c) - 8,
+      CBB_data(&private_key), CBB_len(&private_key)));
+
+  BIO *bio1, *bio2;
+  ASSERT_TRUE(BIO_new_bio_pair(&bio1, 0, &bio2, 0));
+  // SSL_set_bio takes ownership.
+  SSL_set_bio(client.get(), bio1, bio1);
+  SSL_set_bio(server.get(), bio2, bio2);
+
+  ASSERT_TRUE(CompleteHandshakes(client.get(), server.get()));
+  printf("%s\n", SSL_get_servername(server.get(), TLSEXT_NAMETYPE_host_name));
+}
+
 void MoveBIOs(SSL *dest, SSL *src) {
   BIO *rbio = SSL_get_rbio(src);
   BIO_up_ref(rbio);
