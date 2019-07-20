@@ -746,6 +746,10 @@ static enum ssl_hs_wait_t do_complete_second_flight(SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
+  if (hs->esni_state == ssl_esni_retry_required) {
+    ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ESNI_REQUIRED);
+  }
+
   hs->tls13_state = state_done;
   return ssl_hs_flush;
 }

@@ -619,6 +619,8 @@ OPENSSL_EXPORT int DTLSv1_handle_timeout(SSL *ssl);
 #define DTLS1_VERSION 0xfeff
 #define DTLS1_2_VERSION 0xfefd
 
+#define ESNI_VERSION 0xff03
+
 // SSL_CTX_set_min_proto_version sets the minimum protocol version for |ctx| to
 // |version|. If |version| is zero, the default minimum version is used. It
 // returns one on success and zero if |version| is invalid.
@@ -3420,6 +3422,7 @@ OPENSSL_EXPORT enum ssl_early_data_reason_t SSL_get_early_data_reason(
 #define SSL_AD_BAD_CERTIFICATE_HASH_VALUE TLS1_AD_BAD_CERTIFICATE_HASH_VALUE
 #define SSL_AD_UNKNOWN_PSK_IDENTITY TLS1_AD_UNKNOWN_PSK_IDENTITY
 #define SSL_AD_CERTIFICATE_REQUIRED TLS1_AD_CERTIFICATE_REQUIRED
+#define SSL_AD_ESNI_REQUIRED 121
 
 // SSL_alert_type_string_long returns a string description of |value| as an
 // alert type (warning or fatal).
@@ -3899,6 +3902,30 @@ OPENSSL_EXPORT int SSL_is_tls13_downgrade(const SSL *ssl);
 // https://bugs.openjdk.java.net/browse/JDK-8212885
 // https://bugs.openjdk.java.net/browse/JDK-8213202
 OPENSSL_EXPORT void SSL_set_jdk11_workaround(SSL *ssl, int enable);
+
+
+// ESNI functions.
+
+// SSL_set_enable_esni configures whether to use ESNI as part of this
+// connection.
+OPENSSL_EXPORT void SSL_set_enable_esni(SSL *ssl, int enable);
+
+// SSL_set_esni_keys sets the ESNIKeys structure that should be used for
+// connections to the server.
+OPENSSL_EXPORT int SSL_set_esni_keys(SSL *ssl, const uint8_t *key_struct,
+                                     size_t key_len);
+
+// SSL_add_esni_private_keys adds a new set of ESNIKeys and private keys that
+// the server uses to decrypt ESNI. The last set of configured ESNIKeys are used
+// as the server's retry keys.
+OPENSSL_EXPORT int SSL_add_esni_private_keys(SSL *ssl, const uint8_t *key_struct,
+                                             size_t key_len, const uint8_t **privs,
+                                             size_t *privs_len);
+
+// SSL_get_retry_keys returns the ESNIKeys structures that were returned by the
+// server if ESNI was rejected or a retry was requested.
+OPENSSL_EXPORT void SSL_get_retry_keys(SSL *ssl, uint8_t **out_retry_keys,
+                                       size_t *out_retry_keys_len);
 
 
 // Deprecated functions.
