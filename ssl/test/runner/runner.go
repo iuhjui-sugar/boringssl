@@ -15592,6 +15592,45 @@ func addPQExperimentSignalTests() {
 	})
 }
 
+func addESNITests() {
+	serverEsniKeys := buildEsniKeys([]byte("foo"), /*publicName*/
+		[]keyShareEntry{}, /*keys*/
+		[]uint16{} /*cipherSuites*/)
+
+	// Check that we can marshal and unmarshal
+	bb := newByteBuilder()
+	serverEsniKeys.marshal(bb)
+	marshalled := bb.data()
+
+	var unmarshalled EsniKeys
+	var br byteReader = byteReader(marshalled)
+	unmarshalled.unmarshal(&br)
+
+	if !serverEsniKeys.equal(&unmarshalled) {
+		fmt.Printf("serverEsniKeys = %#v\n", serverEsniKeys)
+		fmt.Printf("serverEsniKeys = %#v\n", unmarshalled)
+		panic("marshal/unmarshal failed for EsniKeys")
+	}
+
+	// TODO(dmcardle) add some actual test cases.
+	// Option 1: Pit this ESNI implementation against itself.
+	// Option 2: Test it against boringssl's real impl.
+	// Option 3: Test it against Firefox's ESNI implementation.
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "ESNI-test",
+		config: Config{
+			MinVersion: VersionTLS13,
+			MaxVersion: VersionTLS13,
+			Bugs:       ProtocolBugs{},
+			EsniKeys:   []EsniKeys{serverEsniKeys},
+		},
+		// TODO need some ESNI flags to use
+		flags:      []string{},
+		shouldFail: false,
+	})
+}
+
 func worker(statusChan chan statusMsg, c chan *testCase, shimPath string, wg *sync.WaitGroup) {
 	defer wg.Done()
 
@@ -15730,6 +15769,7 @@ func main() {
 	addJDK11WorkaroundTests()
 	addDelegatedCredentialTests()
 	addPQExperimentSignalTests()
+	addESNITests()
 
 	testCases = append(testCases, convertToSplitHandshakeTests(testCases)...)
 

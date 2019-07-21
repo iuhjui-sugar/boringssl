@@ -9,6 +9,7 @@ import (
 	"crypto"
 	"crypto/ecdsa"
 	"crypto/elliptic"
+	"crypto/rand"
 	"crypto/rsa"
 	"crypto/subtle"
 	"crypto/x509"
@@ -77,6 +78,95 @@ func fixClientHellos(hello *clientHelloMsg, in []byte) ([]byte, error) {
 	return ret, nil
 }
 
+type ClientEsniSelection struct {
+	esniKeys EsniKeys
+	key      keyShareEntry
+	suite    *cipherSuite
+	curve    ecdhCurve
+	curveID  CurveID
+}
+
+func (c *Conn) esniClientSelectParams() (*ClientEsniSelection, error) {
+	if len(c.config.EsniKeys) == 0 {
+		return nil, errors.New("tls: no ESNI Keys for server")
+	}
+
+	for _, serverEsniKeys := range c.config.EsniKeys {
+		if serverEsniKeys.version != esniKeysVersion {
+			continue
+		}
+
+		// Find a compatible keyShareEntry
+		for _, keyShareEntry := range serverEsniKeys.keys {
+
+			// If possible, get the ecdhCurve corresponding to this keyShareEntry
+			var curveID CurveID = keyShareEntry.group
+			curve, ok := curveForCurveID(curveID, c.config)
+			if !ok {
+				continue
+			}
+
+			// Find compatible cipher suite
+			for _, serverSuiteId := range serverEsniKeys.cipherSuites {
+				var serverSuite *cipherSuite = mutualCipherSuite(c.config.cipherSuites(), serverSuiteId)
+				if serverSuite != nil {
+					return &ClientEsniSelection{
+						esniKeys: serverEsniKeys,
+						key:      keyShareEntry,
+						suite:    serverSuite,
+						curve:    curve,
+						curveID:  curveID,
+					}, nil
+				}
+			}
+		}
+	}
+	return nil, errors.New("tls: esni: unable to select compatible keyShareEntry")
+}
+
+func (c *Conn) esniClientBuildEncryptedSNI() (*clientEncryptedSNI, error) {
+	var selectedParams *ClientEsniSelection
+	selectedParams, err := c.esniClientSelectParams()
+	if err != nil {
+		return nil, err
+	}
+
+	publicKey, ecdheSecret, err := selectedParams.curve.accept(rand.Reader, selectedParams.key.keyExchange)
+	if err != nil {
+		return nil, err
+	}
+
+	suite := selectedParams.suite
+	ecdheSecretX := hkdfExtract(suite.hash().New, []byte{0}, ecdheSecret)
+	key := hkdfExpandLabel(suite.hash(), ecdheSecretX, esniClientHelloKeyLabel, nil, suite.keyLen)
+	iv := hkdfExpandLabel(suite.hash(), ecdheSecretX, esniClientHelloIvLabel, nil, suite.ivLen(VersionTLS13))
+	cipher := suite.aead(VersionTLS13, key, iv)
+	if cipher.NonceSize() != 16 {
+		return nil, errors.New("tls: NonceSize of selected cipher differs from ESNI spec")
+	}
+
+	if selectedParams.esniKeys.paddedLength > esniKeysPaddedLengthMax {
+		return nil, errors.New("tls: ESNIKeys.paddedLength exceeds maximum value")
+	}
+
+	paddedPlaintextSni := make([]byte, selectedParams.esniKeys.paddedLength)
+	copy(paddedPlaintextSni, c.config.ServerName)
+
+	// draft-ietf-tls-esni-04 says we should construct
+	// ClientESNIInner. Because our AEAD interface takes a
+	// nonce parameter, it is simpler to directly construct.
+	nonce := make([]byte, 16)
+	rand.Read(nonce)
+	encryptedSNI := cipher.Seal([]byte{}, nonce, paddedPlaintextSni, []byte{})
+
+	return &clientEncryptedSNI{
+		suite:        suite.id,
+		keyShare:     keyShareEntry{group: selectedParams.curveID, keyExchange: publicKey},
+		recordDigest: []byte{}, // TODO
+		encryptedSNI: encryptedSNI,
+	}, nil
+}
+
 func (c *Conn) clientHandshake() error {
 	if c.config == nil {
 		c.config = defaultConfig()
@@ -99,6 +189,11 @@ func (c *Conn) clientHandshake() error {
 	}
 	if nextProtosLength > 0xffff {
 		return errors.New("tls: NextProtos values too large")
+	}
+
+	clientEncryptedSNI, err := c.esniClientBuildEncryptedSNI()
+	if err != nil {
+		return err
 	}
 
 	minVersion := c.config.minVersion(c.isDTLS)
@@ -130,6 +225,7 @@ func (c *Conn) clientHandshake() error {
 		emptyExtensions:         c.config.Bugs.EmptyExtensions,
 		delegatedCredentials:    !c.config.Bugs.DisableDelegatedCredentials,
 		pqExperimentSignal:      c.config.PQExperimentSignal,
+		clientEncryptedSNI:      clientEncryptedSNI,
 	}
 
 	if maxVersion >= VersionTLS13 {
@@ -270,7 +366,7 @@ NextCipherSuite:
 		hello.cipherSuites = append(hello.cipherSuites, fallbackSCSV)
 	}
 
-	_, err := io.ReadFull(c.config.rand(), hello.random)
+	_, err = io.ReadFull(c.config.rand(), hello.random)
 	if err != nil {
 		c.sendAlert(alertInternalError)
 		return errors.New("tls: short read from Rand: " + err.Error())
