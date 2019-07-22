@@ -55,6 +55,11 @@ func (c *Conn) serverHandshake() error {
 	if err := hs.readClientHello(); err != nil {
 		return err
 	}
+	err, esniServerName := hs.handleClientEncryptedSNI()
+	if err != nil {
+		return err
+	}
+	c.serverName = esniServerName
 
 	if c.vers >= VersionTLS13 {
 		if err := hs.doTLS13Handshake(); err != nil {
@@ -380,6 +385,101 @@ func applyBugsToClientHello(clientHello *clientHelloMsg, config *Config) {
 	if config.Bugs.IgnorePeerCipherPreferences {
 		clientHello.cipherSuites = config.cipherSuites()
 	}
+}
+
+// Determine the server name requested by the client.
+func (hs *serverHandshakeState) handleClientEncryptedSNI() (error, string) {
+	clientEncryptedSNI := hs.clientHello.clientEncryptedSNI
+
+	if clientEncryptedSNI == nil {
+		return nil, ""
+	}
+	fmt.Println("---- received clientEncryptedSNI")
+
+	config := hs.c.config
+	var suite *cipherSuite = mutualCipherSuite(config.cipherSuites(), clientEncryptedSNI.suite)
+	if suite == nil {
+		return errors.New("tls: esni: Server has no matching cipher suite"), ""
+	}
+	hash := suite.hash()
+
+	var selectedEsniKeys *EsniKeys
+	if len(clientEncryptedSNI.recordDigest) != 0 {
+		// Opting for method 1: Compare record_digest against
+		// cryptographic hashes of known ESNIKeys and choose
+		// the one that matches.
+		for _, serverEsniKeys := range config.EsniKeys {
+			if bytes.Equal(serverEsniKeys.computeHash(hash), clientEncryptedSNI.recordDigest) {
+				selectedEsniKeys = &serverEsniKeys
+				break
+			}
+		}
+	}
+
+	if selectedEsniKeys == nil {
+		// Method 2: trial decryption.
+		for i, serverEsniKeys := range config.EsniKeys {
+			privateKey := config.EsniPrivateKeys[i]
+
+			/* --- */
+			foundCurve := false
+			var curveID CurveID
+			var curve ecdhCurve
+
+			// Find a compatible keyShareEntry
+			for _, keyShareEntry := range serverEsniKeys.keys {
+				// If possible, get the ecdhCurve corresponding to this keyShareEntry
+				curveID = keyShareEntry.group
+				curve, foundCurve = curveForCurveID(curveID, config)
+				if foundCurve {
+					break
+				}
+			}
+			if !foundCurve {
+				return errors.New("tls: could not find supported curve for ESNI"), ""
+			}
+			/* --- */
+
+			ecdheSecret, err := curve.finish(clientEncryptedSNI.keyShare.keyExchange)
+			if err != nil {
+				return err, ""
+			}
+
+			ecdheSecretX := hkdfExtract(suite.hash().New, []byte{0}, ecdheSecret)
+			iv := hkdfExpandLabel(suite.hash(), ecdheSecretX, esniClientHelloIvLabel, nil, suite.ivLen(VersionTLS13))
+
+			cipher := suite.aead(VersionTLS13, privateKey[:], iv)
+
+			// TODO what value should be used for nonce?
+			cipherNonce := make([]byte, cipher.NonceSize())
+			_, err = cipher.Open([]byte{}, cipherNonce, clientEncryptedSNI.encryptedSNI, []byte{})
+			// TODO we will need to read the nonce to echo it back
+
+			if err != nil {
+				// Avoid a potential timing side
+				// channel that would be created by
+				// breaking out of the loop here.
+				selectedEsniKeys = &serverEsniKeys
+			}
+		}
+	}
+
+	if selectedEsniKeys == nil {
+		// Failed to find a matching EsniKeys.
+		// TODO
+		//    MUST include "encrypted_server_name" extension
+		//    with "response_type" field seet to
+		//    "esni_retry_requested" and the "retry_keys"
+		//    field set to one or more ESNIKeys structures
+		//    with up-to-date keys.
+		return nil, ""
+	}
+
+	fmt.Printf("---- client requested ServerName: %s\n", selectedEsniKeys.publicName)
+
+	// Use trial decryption of ClientEncryptedSNI.encrypted_sni
+	// with known ESNIKeys and choose the one that succeeds.
+	return nil, string(selectedEsniKeys.publicName)
 }
 
 func (hs *serverHandshakeState) doTLS13Handshake() error {
@@ -1332,9 +1432,11 @@ func (hs *serverHandshakeState) processClientExtensions(serverExtensions *server
 
 	serverExtensions.duplicateExtension = c.config.Bugs.DuplicateExtension
 
-	if len(hs.clientHello.serverName) > 0 {
+	// Only overwrite serverName if it was not already set by ESNI
+	if len(hs.clientHello.serverName) > 0 && len(c.serverName) == 0 {
 		c.serverName = hs.clientHello.serverName
 	}
+	fmt.Printf("--- c.serverName = %s\n", c.serverName)
 	if len(config.Certificates) == 0 {
 		c.sendAlert(alertInternalError)
 		return errors.New("tls: no certificates configured")
