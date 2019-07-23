@@ -46,6 +46,7 @@ import (
 	"syscall"
 	"time"
 
+	"boringssl.googlesource.com/boringssl/ssl/test/runner/curve25519"
 	"boringssl.googlesource.com/boringssl/util/testresult"
 )
 
@@ -15592,6 +15593,86 @@ func addPQExperimentSignalTests() {
 	})
 }
 
+// Build a slice of EsniKeys for testing. This function resembles the
+// DNS retrieval mechanism.
+func GetTestEsniKeys() ([]EsniKeys, [][32]byte) {
+	var privateKey [32]byte
+	_, err := rand.Read(privateKey[:])
+	if err != nil {
+		panic(err)
+	}
+	var publicKey [32]byte
+	curve25519.ScalarBaseMult(&publicKey, &privateKey)
+
+	fmt.Printf("pubKey: %#X\n", publicKey)
+	fmt.Printf("privKey: %#X\n", privateKey)
+
+	var outEsniKeys []EsniKeys
+	var outPrivKeys [][32]byte
+
+	outEsniKeys = append(outEsniKeys, BuildEsniKeys(
+		/* publicName */ []byte("foo"),
+		/* keys */ []keyShareEntry{
+			keyShareEntry{
+				group:       CurveX25519,
+				keyExchange: publicKey[:],
+			},
+		},
+		/* cipherSuites */ []uint16{
+			TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256,
+		}))
+	outPrivKeys = append(outPrivKeys, privateKey)
+
+	return outEsniKeys, outPrivKeys
+}
+
+func addESNITests() {
+	// The ESNIKeys received by some mechanism, such as DNS.
+	/*
+		testEsniKeys := GetTestEsniKeys()
+
+		// Check that we can marshal and unmarshal
+			for _, testKeyPair := range testEsniKeys {
+				bb := newByteBuilder()
+				esniKeys.marshal(bb)
+				marshalled := bb.data()
+
+				var unmarshalled EsniKeys
+				var br byteReader = byteReader(marshalled)
+				unmarshalled.unmarshal(&br)
+
+				// TODO write |marshalled| to file
+				// TODO write script to spin up client and server
+
+				if !esniKeys.equal(&unmarshalled) {
+					fmt.Printf("esniKeys = %#v\n", esniKeys)
+					fmt.Printf("unmarshalled = %#v\n", unmarshalled)
+					panic("marshal/unmarshal failed for EsniKeys")
+				}
+			}
+	*/
+
+	// TODO(dmcardle) add some actual test cases.
+	// Option 1: Pit this ESNI implementation against itself.
+	// Option 2: Test it against boringssl's real impl.
+	// Option 3: Test it against Firefox's ESNI implementation.
+	/*
+		testCases = append(testCases, testCase{
+			testType: serverTest,
+			name:     "ESNI-test",
+			config: Config{
+				MinVersion: VersionTLS13,
+				MaxVersion: VersionTLS13,
+				Bugs:       ProtocolBugs{},
+				EsniKeys:   serverEsniKeys,
+			},
+			// TODO need some ESNI flags to use
+			flags:      []string{},
+			shouldFail: false,
+		})
+	*/
+}
+
 func worker(statusChan chan statusMsg, c chan *testCase, shimPath string, wg *sync.WaitGroup) {
 	defer wg.Done()
 
@@ -15730,6 +15811,7 @@ func main() {
 	addJDK11WorkaroundTests()
 	addDelegatedCredentialTests()
 	addPQExperimentSignalTests()
+	addESNITests()
 
 	testCases = append(testCases, convertToSplitHandshakeTests(testCases)...)
 
