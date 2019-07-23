@@ -9,6 +9,7 @@ import (
 	"crypto"
 	"crypto/ecdsa"
 	"crypto/elliptic"
+	"crypto/rand"
 	"crypto/rsa"
 	"crypto/subtle"
 	"crypto/x509"
@@ -17,6 +18,7 @@ import (
 	"io"
 	"math/big"
 	"net"
+	"os"
 	"time"
 
 	"boringssl.googlesource.com/boringssl/ssl/test/runner/ed25519"
@@ -77,6 +79,131 @@ func fixClientHellos(hello *clientHelloMsg, in []byte) ([]byte, error) {
 	return ret, nil
 }
 
+type ClientEsniSelection struct {
+	esniKeys EsniKeys
+	key      *keyShareEntry
+	suite    *cipherSuite
+	curve    ecdhCurve
+	curveID  CurveID
+}
+
+func (c *Conn) esniClientSelectParams() (*ClientEsniSelection, error) {
+	if len(c.config.EsniKeys) == 0 {
+		return nil, nil
+	}
+
+	for _, serverEsniKeys := range c.config.EsniKeys {
+		if serverEsniKeys.version != esniKeysVersion {
+			continue
+		}
+
+		foundCurve := false
+		var curveID CurveID
+		var curve ecdhCurve
+		var selectedKeyShare *keyShareEntry
+
+		// Find a compatible keyShareEntry
+		for _, keyShareEntry := range serverEsniKeys.keys {
+			// If possible, get the ecdhCurve corresponding to this keyShareEntry
+			curveID = keyShareEntry.group
+			curve, foundCurve = curveForCurveID(curveID, c.config)
+			if foundCurve {
+				selectedKeyShare = &keyShareEntry
+				break
+			}
+		}
+		if !foundCurve {
+			continue
+		}
+
+		// Find compatible cipher suite
+		for _, serverSuiteId := range serverEsniKeys.cipherSuites {
+			var serverSuite *cipherSuite = mutualCipherSuite(c.config.cipherSuites(), serverSuiteId)
+			if serverSuite != nil {
+				return &ClientEsniSelection{
+					esniKeys: serverEsniKeys,
+					key:      selectedKeyShare,
+					suite:    serverSuite,
+					curve:    curve,
+					curveID:  curveID,
+				}, nil
+			}
+		}
+	}
+	return nil, errors.New("tls: esni: unable to select compatible keyShareEntry")
+}
+
+func (c *Conn) esniClientBuildEncryptedSNI(clientHelloRandom []byte) (*clientEncryptedSNI, error) {
+	var selectedParams *ClientEsniSelection
+	selectedParams, err := c.esniClientSelectParams()
+	if err != nil {
+		return nil, err
+	}
+
+	publicKey, ecdheSecret, err := selectedParams.curve.accept(rand.Reader, selectedParams.key.keyExchange)
+	if err != nil {
+		return nil, err
+	}
+
+	fmt.Printf("*** client ecdheSecret = %#X\n", ecdheSecret)
+
+	suite := selectedParams.suite
+	if suite.aead == nil {
+		return nil, errors.New("tls: selected cipher suite has no aead")
+	}
+
+	keyShareEntry := keyShareEntry{group: selectedParams.curveID, keyExchange: publicKey}
+	esniContents := esniContents{
+		recordDigest:      selectedParams.esniKeys.computeHash(suite.hash()),
+		keyShareEntry:     keyShareEntry,
+		clientHelloRandom: clientHelloRandom,
+	}
+	hashValue := esniContents.computeHash(suite.hash())
+	salt := make([]byte, suite.hash().Size())
+	ecdheSecretX := hkdfExtract(suite.hash().New, salt, ecdheSecret)
+	key := hkdfExpandLabel(suite.hash(), ecdheSecretX, esniClientHelloKeyLabel, hashValue, suite.keyLen)
+	iv := hkdfExpandLabel(suite.hash(), ecdheSecretX, esniClientHelloIvLabel, hashValue, suite.ivLen(VersionTLS13))
+	cipher := suite.aead(VersionTLS13, key, iv)
+
+	if selectedParams.esniKeys.paddedLength > esniKeysPaddedLengthMax {
+		return nil, errors.New("tls: ESNIKeys.paddedLength exceeds maximum value")
+	}
+
+	var nonce [16]byte
+	rand.Read(nonce[:])
+
+	clientEsniInner := clientEsniInner{
+		nonce: nonce,
+		realSni: paddedServerNameList{
+			dnsName: []byte(c.config.ServerName),
+		},
+	}
+
+	fmt.Printf("---- client  paddedServerNameList: %s\n", clientEsniInner.realSni)
+
+	fmt.Printf("clientEsniInner: %#X\n", clientEsniInner)
+
+	clientEsniInnerByteBuilder := newByteBuilder()
+	clientEsniInner.marshal(clientEsniInnerByteBuilder, selectedParams.esniKeys.paddedLength)
+
+	// TODO what value should be used for nonce?
+	cipherNonce := make([]byte, cipher.NonceSize())
+	encryptedSNI := cipher.Seal([]byte{}, cipherNonce, clientEsniInnerByteBuilder.data(), []byte{})
+
+	var recordDigest []byte
+	if c.config.EsniClientSendRecordDigest {
+		recordDigest = selectedParams.esniKeys.computeHash(suite.hash())
+		fmt.Printf("Client computed hash of recordDigest: %#X\n", recordDigest)
+	}
+
+	return &clientEncryptedSNI{
+		suite:        suite.id,
+		keyShare:     keyShareEntry,
+		recordDigest: recordDigest,
+		encryptedSNI: encryptedSNI,
+	}, nil
+}
+
 func (c *Conn) clientHandshake() error {
 	if c.config == nil {
 		c.config = defaultConfig()
@@ -101,12 +228,27 @@ func (c *Conn) clientHandshake() error {
 		return errors.New("tls: NextProtos values too large")
 	}
 
+	// Compute ClientHello.random because ESNI needs it
+	clientHelloRandom := make([]byte, 32)
+	_, err := io.ReadFull(c.config.rand(), clientHelloRandom)
+	if err != nil {
+		c.sendAlert(alertInternalError)
+		return errors.New("tls: short read from Rand: " + err.Error())
+	}
+
+	haveEsni := true
+	clientEncryptedSNI, err := c.esniClientBuildEncryptedSNI(clientHelloRandom)
+	if err != nil {
+		haveEsni = false
+		fmt.Fprintf(os.Stderr, "tls: (warning) %s\n", err)
+	}
+
 	minVersion := c.config.minVersion(c.isDTLS)
 	maxVersion := c.config.maxVersion(c.isDTLS)
 	hello := &clientHelloMsg{
 		isDTLS:                  c.isDTLS,
 		compressionMethods:      []uint8{compressionNone},
-		random:                  make([]byte, 32),
+		random:                  clientHelloRandom,
 		ocspStapling:            !c.config.Bugs.NoOCSPStapling,
 		sctListSupported:        !c.config.Bugs.NoSignedCertificateTimestamps,
 		serverName:              c.config.ServerName,
@@ -130,6 +272,7 @@ func (c *Conn) clientHandshake() error {
 		emptyExtensions:         c.config.Bugs.EmptyExtensions,
 		delegatedCredentials:    !c.config.Bugs.DisableDelegatedCredentials,
 		pqExperimentSignal:      c.config.PQExperimentSignal,
+		clientEncryptedSNI:      clientEncryptedSNI,
 	}
 
 	if maxVersion >= VersionTLS13 {
@@ -195,6 +338,12 @@ func (c *Conn) clientHandshake() error {
 
 	if c.noRenegotiationInfo() {
 		hello.secureRenegotiation = nil
+	}
+
+	// If we are sending the server name via ESNI, we do not want
+	// to send it in plaintext as well!
+	if haveEsni {
+		hello.serverName = ""
 	}
 
 	var keyShares map[CurveID]ecdhCurve
@@ -268,12 +417,6 @@ NextCipherSuite:
 
 	if c.config.Bugs.SendFallbackSCSV {
 		hello.cipherSuites = append(hello.cipherSuites, fallbackSCSV)
-	}
-
-	_, err := io.ReadFull(c.config.rand(), hello.random)
-	if err != nil {
-		c.sendAlert(alertInternalError)
-		return errors.New("tls: short read from Rand: " + err.Error())
 	}
 
 	if maxVersion >= VersionTLS12 && !c.config.Bugs.NoSignatureAlgorithms {
