@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dab50f44_8352a7d7",
+        "filename": "crypto/fipsmodule/modes/ccm.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-07-29T18:19:53Z",
+      "side": 1,
+      "message": "Any reason not to just delete this file?",
+      "revId": "9813d798784154cf9fd1f90ab7daa78c775ee76f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
