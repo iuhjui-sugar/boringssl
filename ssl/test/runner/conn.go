@@ -117,6 +117,10 @@ type Conn struct {
 	// handshake data may be received until the next flight or epoch change.
 	seenHandshakePackEnd bool
 
+	// The nonce generated for ClientEsniInner. After receiving server's
+	// response, we need a copy to verify that the server echoed it back.
+	esniNonce [16]byte
+
 	tmp [16]byte
 }
 
