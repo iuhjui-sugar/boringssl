@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f039d9a9_2692f1f8",
+        "filename": "util/fipstools/acvp/acvptool/subprocess/block.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-08-02T15:24:15Z",
+      "side": 1,
+      "message": "Doesn\u0027t matter now but, for later, if the plan is to also do the TDES stuff, that seems to use different algorithms. Maybe also some of the AES modes, though I didn\u0027t look too carefully.\n\n(Also the number of typos in those algorithms is nuts...)",
+      "revId": "ed9d8d3d7e92a1df55a77bc8c5f55a9f13c2bc05",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b8a14478_7d65d2d6",
+        "filename": "util/fipstools/acvp/acvptool/subprocess/block.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-08-02T15:24:15Z",
+      "side": 1,
+      "message": "The spec seems to only talk about the encryption case. Is the decryption half specified anywhere?",
+      "range": {
+        "startLine": 183,
+        "startChar": 11,
+        "endLine": 183,
+        "endChar": 18
+      },
+      "revId": "ed9d8d3d7e92a1df55a77bc8c5f55a9f13c2bc05",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1929aa03_55df2653",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-08-02T15:24:15Z",
+      "side": 1,
+      "message": "out.data()\n\n(Works if the vector is empty.)",
+      "range": {
+        "startLine": 212,
+        "startChar": 34,
+        "endLine": 212,
+        "endChar": 41
+      },
+      "revId": "ed9d8d3d7e92a1df55a77bc8c5f55a9f13c2bc05",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
