@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3db22ca0_ac502c02",
+        "filename": "util/fipstools/acvp/acvptool/subprocess/block.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-08-02T16:41:18Z",
+      "side": 1,
+      "message": "Yea. For CAVP we implemented 3DES support separately. I\u0027ll have to see whether I feel that duplication or merging is best for adding 3DES support when it comes to that.",
+      "parentUuid": "f039d9a9_2692f1f8",
+      "revId": "ed9d8d3d7e92a1df55a77bc8c5f55a9f13c2bc05",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b8a14478_7d65d2d6",
         "filename": "util/fipstools/acvp/acvptool/subprocess/block.go",
         "patchSetId": 1
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "4601aaaa_59966ed7",
+        "filename": "util/fipstools/acvp/acvptool/subprocess/block.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-08-02T16:41:18Z",
+      "side": 1,
+      "message": "No, they just assume that you\u0027ll figure it out. Empirically this code makes the demo ACVP server happy though so it appears to be correct.",
+      "parentUuid": "b8a14478_7d65d2d6",
+      "range": {
+        "startLine": 183,
+        "startChar": 11,
+        "endLine": 183,
+        "endChar": 18
+      },
+      "revId": "ed9d8d3d7e92a1df55a77bc8c5f55a9f13c2bc05",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1929aa03_55df2653",
         "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
         "patchSetId": 1
@@ -62,6 +104,30 @@
       "revId": "ed9d8d3d7e92a1df55a77bc8c5f55a9f13c2bc05",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f1c47b4_98193a3a",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-08-02T16:41:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1929aa03_55df2653",
+      "range": {
+        "startLine": 212,
+        "startChar": 34,
+        "endLine": 212,
+        "endChar": 41
+      },
+      "revId": "ed9d8d3d7e92a1df55a77bc8c5f55a9f13c2bc05",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
