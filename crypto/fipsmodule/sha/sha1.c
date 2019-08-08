@@ -114,7 +114,7 @@ uint8_t *SHA1(const uint8_t *data, size_t len, uint8_t out[SHA_DIGEST_LENGTH]) {
     (ix) = (a) = ROTATE((a), 1);       \
   } while (0)
 
-#ifndef SHA1_ASM
+#if !defined(SHA1_ASM) && !defined(OPENSSL_PPC64LE)
 static void sha1_block_data_order(uint32_t *state, const uint8_t *data,
                                   size_t num);
 #endif
@@ -190,7 +190,7 @@ static void sha1_block_data_order(uint32_t *state, const uint8_t *data,
 *         <appro@fy.chalmers.se> */
 #define X(i)  XX##i
 
-#if !defined(SHA1_ASM)
+#if !defined(SHA1_ASM) && !defined(OPENSSL_PPC64LE)
 static void sha1_block_data_order(uint32_t *state, const uint8_t *data,
                                   size_t num) {
   register uint32_t A, B, C, D, E, T, l;
