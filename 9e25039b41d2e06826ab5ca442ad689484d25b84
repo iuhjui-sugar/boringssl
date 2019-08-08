@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ec4d2aac_8fb7b02c",
+        "filename": "crypto/fipsmodule/sha/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-08-08T20:05:41Z",
+      "side": 1,
+      "message": "Hrm. Does this actually work? The sha1_block_data_order prototype is missing.",
+      "revId": "9e25039b41d2e06826ab5ca442ad689484d25b84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
