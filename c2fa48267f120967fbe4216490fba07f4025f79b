@@ -16,6 +16,24 @@
       "revId": "c2fa48267f120967fbe4216490fba07f4025f79b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7199dd9c_bb79b5e1",
+        "filename": "crypto/fipsmodule/bn/bn.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-08-08T19:55:53Z",
+      "side": 1,
+      "message": "It\u0027s not the size_t that\u0027s passing through the value barrier here, it\u0027s just the result of the comparison.",
+      "parentUuid": "43621868_923a9f0b",
+      "revId": "c2fa48267f120967fbe4216490fba07f4025f79b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
