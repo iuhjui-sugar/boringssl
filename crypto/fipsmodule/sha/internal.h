@@ -41,7 +41,14 @@ void sha512_block_data_order(uint64_t *state, const uint8_t *in,
                              size_t num_blocks);
 #endif
 
-#endif  // OPENSSL_NO_ASM
+#elif defined(OPENSSL_PPC64LE)
+
+// POWER has an intrinsics-based implementation of SHA-1 and thus the functions
+// normally defined in assembly are available even with |OPENSSL_NO_ASM| in
+// this case.
+#define SHA1_ASM
+
+#endif  // NO_ASM
 
 
 #if defined(__cplusplus)
