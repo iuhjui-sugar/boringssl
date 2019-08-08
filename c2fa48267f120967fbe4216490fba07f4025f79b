@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "43621868_923a9f0b",
+        "filename": "crypto/fipsmodule/bn/bn.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 394,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-08-08T19:49:14Z",
+      "side": 1,
+      "message": "static assert that size_t fits in crypto_word_t? (I believe this is always true, but sometimes people like to do strange things like x86_64 NaCl or x32.)",
+      "revId": "c2fa48267f120967fbe4216490fba07f4025f79b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
