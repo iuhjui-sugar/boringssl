@@ -16,6 +16,24 @@
       "revId": "9e25039b41d2e06826ab5ca442ad689484d25b84",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94ec8c66_9b59bad2",
+        "filename": "crypto/fipsmodule/sha/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-08-08T20:18:43Z",
+      "side": 1,
+      "message": "Good point. It works because bcm.c #includes sha1-altivec.c first. Presumably it wouldn\u0027t work with separate compilation.",
+      "parentUuid": "ec4d2aac_8fb7b02c",
+      "revId": "9e25039b41d2e06826ab5ca442ad689484d25b84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
