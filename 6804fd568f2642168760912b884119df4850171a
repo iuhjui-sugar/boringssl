@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "127c71b8_0e11581f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 9667
+      },
+      "writtenOn": "2019-08-08T17:59:02Z",
+      "side": 1,
+      "message": "Android is continuously building system images with HWASAN enabled, and we should eventually have a similar setup in Chromium. Unfortunately this means that for now issues will only be detected once BoringSSL is rolled into Android.\n\nIf you run a builder it would need to run on Android aarch64 and the kernel would need to be specifically patched. We should hopefully be in a better position to let folks run builders when HWASAN-capable devices are added to swarming, which should hopefully happen later this year.",
+      "parentUuid": "68f31cf7_56e8319b",
+      "range": {
+        "startLine": 7,
+        "startChar": 25,
+        "endLine": 7,
+        "endChar": 45
+      },
+      "revId": "6804fd568f2642168760912b884119df4850171a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cdcc90d1_1c204156",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "ba1b3a74_5a677117",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 9667
+      },
+      "writtenOn": "2019-08-08T17:59:02Z",
+      "side": 1,
+      "message": "When a library is loaded, the HWASAN runtime can check that it does not occupy an address space range larger than 4GB. This should guarantee that the relocations did not overflow (modulo the tag).",
+      "parentUuid": "cdcc90d1_1c204156",
+      "range": {
+        "startLine": 15,
+        "startChar": 34,
+        "endLine": 15,
+        "endChar": 49
+      },
+      "revId": "6804fd568f2642168760912b884119df4850171a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e3383c21_eef2cf4b",
         "filename": "crypto/chacha/asm/chacha-armv8.pl",
         "patchSetId": 2
@@ -59,6 +107,30 @@
       "writtenOn": "2019-08-08T17:14:21Z",
       "side": 1,
       "message": "If the concern is that __has_feature might not be defined, wouldn\u0027t this clause need to be first?\n\nIf you\u0027re adding this clause for other reasons, I thought that __has_feature was supposed to be the way to test these things? Is |hwaddress_sanitizer| defined in previous versions of Clang but not sufficiently for this to work? (If so, that suggests that Clang is missing a feature for these relocations.)",
+      "range": {
+        "startLine": 143,
+        "startChar": 42,
+        "endLine": 143,
+        "endChar": 63
+      },
+      "revId": "6804fd568f2642168760912b884119df4850171a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0350e1b_ad2f31ce",
+        "filename": "crypto/chacha/asm/chacha-armv8.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 9667
+      },
+      "writtenOn": "2019-08-08T17:59:02Z",
+      "side": 1,
+      "message": "The concern here is that :pg_hi21_nc: might not be available. I suppose that we could add a feature for this, but I think we generally only add features for C/C++ features and not assembler features. I think we can consider this part of the check to be temporary anyway because HWASAN is not a commonly used feature so we can be more aggressive about the compiler requirements. Once Android is upgraded to a compiler that supports this feature I reckon that we can drop it.",
+      "parentUuid": "e3383c21_eef2cf4b",
       "range": {
         "startLine": 143,
         "startChar": 42,
