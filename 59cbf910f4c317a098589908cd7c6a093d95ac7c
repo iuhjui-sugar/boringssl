@@ -22,6 +22,30 @@
       "revId": "59cbf910f4c317a098589908cd7c6a093d95ac7c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad0a855d_13d0f613",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 9619
+      },
+      "writtenOn": "2019-08-15T15:41:32Z",
+      "side": 1,
+      "message": "Oops, embarrassing... I used this as a proxy for BCM_ASM_SOURCES when I started this work, and forgot to leave a TODO to do it right.\n\nStill, this CL was mainly intended to test my BoringSSL git workflow end to end on a simple change and it has, but I\u0027ll fix the generator up ASAP.",
+      "parentUuid": "2e20158a_814ad480",
+      "range": {
+        "startLine": 102,
+        "startChar": 34,
+        "endLine": 102,
+        "endChar": 55
+      },
+      "revId": "59cbf910f4c317a098589908cd7c6a093d95ac7c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
