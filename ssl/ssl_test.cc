@@ -4698,7 +4698,9 @@ static_assert(ssl_encryption_application < kNumQUICLevels,
 
 class MockQUICTransport {
  public:
-  MockQUICTransport() {
+  enum class Role { kClient, kServer };
+
+  explicit MockQUICTransport(Role role) : role_(role) {
     // The caller is expected to configure initial secrets.
     levels_[ssl_encryption_initial].write_secret = {1};
     levels_[ssl_encryption_initial].read_secret = {1};
@@ -4735,18 +4737,38 @@ class MockQUICTransport {
       return false;
     }
 
-    if (level != ssl_encryption_early_data &&
-        (read_secret == nullptr || write_secret == nullptr)) {
-      ADD_FAILURE() << "key was unexpectedly null";
+    bool expect_read_secret = true, expect_write_secret = true;
+    if (level == ssl_encryption_early_data) {
+      if (role_ == Role::kClient) {
+        expect_write_secret = false;
+      } else {
+        expect_read_secret = false;
+      }
+    }
+
+    if (expect_read_secret) {
+      if (read_secret == nullptr) {
+        ADD_FAILURE() << "read secret was unexpectedly null";
+        return false;
+      }
+      levels_[level].read_secret.assign(read_secret, read_secret + secret_len);
+    } else if (read_secret != nullptr) {
+      ADD_FAILURE() << "unexpected read secret";
       return false;
     }
-    if (read_secret != nullptr) {
-      levels_[level].read_secret.assign(read_secret, read_secret + secret_len);
-    }
-    if (write_secret != nullptr) {
+
+    if (expect_write_secret) {
+      if (write_secret == nullptr) {
+        ADD_FAILURE() << "write secret was unexpectedly null";
+        return false;
+      }
       levels_[level].write_secret.assign(write_secret,
                                          write_secret + secret_len);
+    } else if (write_secret != nullptr) {
+      ADD_FAILURE() << "unexpected write secret";
+      return false;
     }
+
     levels_[level].cipher = SSL_CIPHER_get_id(cipher);
     return true;
   }
@@ -4783,7 +4805,7 @@ class MockQUICTransport {
                          ssl_encryption_level_t level,
                          size_t num = std::numeric_limits<size_t>::max()) {
     if (levels_[level].read_secret.empty()) {
-      ADD_FAILURE() << "data read before keys configured";
+      ADD_FAILURE() << "data read before keys configured in level " << level;
       return false;
     }
     // The peer may not have configured any keys yet.
@@ -4792,11 +4814,12 @@ class MockQUICTransport {
     }
     // Check the peer computed the same key.
     if (peer_->levels_[level].write_secret != levels_[level].read_secret) {
-      ADD_FAILURE() << "peer write key does not match read key";
+      ADD_FAILURE() << "peer write key does not match read key in level "
+                    << level;
       return false;
     }
     if (peer_->levels_[level].cipher != levels_[level].cipher) {
-      ADD_FAILURE() << "peer cipher does not match";
+      ADD_FAILURE() << "peer cipher does not match in level " << level;
       return false;
     }
     std::vector<uint8_t> *peer_data = &peer_->levels_[level].write_data;
@@ -4807,6 +4830,7 @@ class MockQUICTransport {
   }
 
  private:
+  Role role_;
   MockQUICTransport *peer_ = nullptr;
 
   bool has_alert_ = false;
@@ -4824,21 +4848,24 @@ class MockQUICTransport {
 
 class MockQUICTransportPair {
  public:
-  MockQUICTransportPair() {
-    server_.set_peer(&client_);
+  MockQUICTransportPair()
+      : client_(MockQUICTransport::Role::kClient),
+        server_(MockQUICTransport::Role::kServer) {
     client_.set_peer(&server_);
+    server_.set_peer(&client_);
   }
 
   ~MockQUICTransportPair() {
-    server_.set_peer(nullptr);
     client_.set_peer(nullptr);
+    server_.set_peer(nullptr);
   }
 
   MockQUICTransport *client() { return &client_; }
   MockQUICTransport *server() { return &server_; }
 
   bool SecretsMatch(ssl_encryption_level_t level) const {
-    return client_.PeerSecretsMatch(level);
+    return client_.HasSecrets(level) && server_.HasSecrets(level) &&
+           client_.PeerSecretsMatch(level);
   }
 
  private:
