@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2e20158a_814ad480",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-08-15T15:22:49Z",
+      "side": 1,
+      "message": "I think the name might be wrong? These are the CPU-specific sources rather than anything related to the FIPS module by the looks of it. \"libcrypto_arch_sources\", perhaps?",
+      "range": {
+        "startLine": 102,
+        "startChar": 34,
+        "endLine": 102,
+        "endChar": 55
+      },
+      "revId": "59cbf910f4c317a098589908cd7c6a093d95ac7c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
