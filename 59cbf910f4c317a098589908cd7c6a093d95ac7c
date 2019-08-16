@@ -70,6 +70,30 @@
       "revId": "59cbf910f4c317a098589908cd7c6a093d95ac7c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "76271cb5_08653893",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 9619
+      },
+      "writtenOn": "2019-08-16T13:31:10Z",
+      "side": 1,
+      "message": "NB this relies on \"crypto/fipsmodule\" in the path of an assembly file being a reliable indicator of which assembly files need to be in BCM.  If that will not always be true then we need to start parsing all the variants of BCM_ASM_SOURCES out of fipsmodule/CMakeLists.txt instead.",
+      "parentUuid": "5d101137_01d04bb1",
+      "range": {
+        "startLine": 102,
+        "startChar": 34,
+        "endLine": 102,
+        "endChar": 55
+      },
+      "revId": "59cbf910f4c317a098589908cd7c6a093d95ac7c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
