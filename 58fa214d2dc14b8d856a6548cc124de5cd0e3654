@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "489ae4b2_a4dded66",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 3071,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2019-08-19T20:13:17Z",
+      "side": 1,
+      "message": "OK, similar question to my last one.\n\n      struct {\n          CipherSuite suite;\n          KeyShareEntry key_share;\n          opaque record_digest\u003c0..2^16-1\u003e;\n          opaque encrypted_sni\u003c0..2^16-1\u003e;\n      } ClientEncryptedSNI;\n\nShould key_share be length prefixed? I thought not, since there\u0027s only one.",
+      "revId": "58fa214d2dc14b8d856a6548cc124de5cd0e3654",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
