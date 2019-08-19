@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9696b8c8_1d043e91",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2019-08-19T15:18:11Z",
+      "side": 1,
+      "message": "So I believe this new hunk of code is the first pass at reading ClientEncryptedSNI.  (The second pass is ssl_ext_encrypted_server_name_parse_clienthello in t1_lib.cc.)\n\n      // copied from draft 04\n      struct {\n          CipherSuite suite;\n          KeyShareEntry key_share;\n          opaque record_digest\u003c0..2^16-1\u003e;\n          opaque encrypted_sni\u003c0..2^16-1\u003e;\n      } ClientEncryptedSNI;\n\nI\u0027m getting tripped up on this second call to ssl_client_hello_get_extension.  The way I\u0027m reading it, it\u0027s requiring that the \"encrypted_server_name\" extension is followed by a \"key_share\" extension.\n\nMy interpretation was that the KeyShareEntry should be marshalled inline, after the CipherSuite, without any extension ID.\n\nWhich behavior do you think is correct?",
+      "revId": "087d74a82b6ee6fb1295fd2ce104f9a6b0dea7ab",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
