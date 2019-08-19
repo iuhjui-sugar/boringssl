@@ -16,6 +16,24 @@
       "revId": "58fa214d2dc14b8d856a6548cc124de5cd0e3654",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03932419_79ecc1f2",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 3071,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2019-08-19T20:16:43Z",
+      "side": 1,
+      "message": "Ah yeah, it should just be the contents directly. If you\u0027re already making modifications here, can you update it to:\n\n if (!CBS_get_u16(contents, \u0026cipher_id) ||\n     !CBS_get_u16(\u0026contents, \u0026hs-\u003econfig-\u003eesni_group) ||\n     !CBS_get_u16_length_prefixed(\u0026contents, \u0026key_exchange) ||\n     !CBS_get_u16_length_prefixed(contents, \u0026record_digest) ||\n     !CBS_get_u16_length_prefixed(contents, \u0026esni) ||\n     CBS_len(contents) !\u003d 0) {\n\nand update the add_clienthello up above.",
+      "parentUuid": "489ae4b2_a4dded66",
+      "revId": "58fa214d2dc14b8d856a6548cc124de5cd0e3654",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
