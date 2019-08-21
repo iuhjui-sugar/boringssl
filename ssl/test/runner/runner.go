@@ -46,6 +46,7 @@ import (
 	"syscall"
 	"time"
 
+	"boringssl.googlesource.com/boringssl/ssl/test/runner/curve25519"
 	"boringssl.googlesource.com/boringssl/util/testresult"
 )
 
@@ -53,6 +54,8 @@ var (
 	useValgrind        = flag.Bool("valgrind", false, "If true, run code under valgrind")
 	useGDB             = flag.Bool("gdb", false, "If true, run BoringSSL code under gdb")
 	useLLDB            = flag.Bool("lldb", false, "If true, run BoringSSL code under lldb")
+	useRR              = flag.Bool("rr", false, "If true, run BoringSSL code under rr")
+	shimOutputAlways   = flag.Bool("shimOutputAlways", false, "If true, always print the shim's stdout and stderr")
 	flagDebug          = flag.Bool("debug", false, "Hexdump the contents of the connection")
 	mallocTest         = flag.Int64("malloc-test", -1, "If non-negative, run each test with each malloc in turn failing from the given number onwards.")
 	mallocTestDebug    = flag.Bool("malloc-test-debug", false, "If true, ask bssl_shim to abort rather than fail a malloc. This can be used with a specific value for --malloc-test to identity the malloc failing that is causing problems.")
@@ -1093,6 +1096,16 @@ func valgrindOf(dbAttach bool, path string, args ...string) *exec.Cmd {
 	return exec.Command("valgrind", valgrindArgs...)
 }
 
+func rrOf(path string, args ...string) *exec.Cmd {
+	commandArgs := []string{"record"}
+	commandArgs = append(commandArgs, path)
+	commandArgs = append(commandArgs, args...)
+
+	fmt.Println("Recording with 'rr'. Run 'rr replay' to inspect.")
+
+	return exec.Command("rr", commandArgs...)
+}
+
 func gdbOf(path string, args ...string) *exec.Cmd {
 	xtermArgs := []string{"-geometry", xtermSize, "-e", "gdb", "--args"}
 	xtermArgs = append(xtermArgs, path)
@@ -1304,6 +1317,8 @@ func runTest(test *testCase, shimPath string, mallocNumToFail int64) error {
 		shim = gdbOf(shimPath, flags...)
 	} else if *useLLDB {
 		shim = lldbOf(shimPath, flags...)
+	} else if *useRR {
+		shim = rrOf(shimPath, flags...)
 	} else {
 		shim = exec.Command(shimPath, flags...)
 	}
@@ -1419,6 +1434,11 @@ func runTest(test *testCase, shimPath string, mallocNumToFail int64) error {
 	if stderrParts := strings.SplitN(stderr, "--- DONE ---\n", 2); len(stderrParts) == 2 {
 		stderr = stderrParts[0]
 		extraStderr = stderrParts[1]
+	}
+
+	if *shimOutputAlways {
+		fmt.Println(strings.Replace(stdout, "\n", "\nshim stdout> ", -1))
+		fmt.Println(strings.Replace(stderr, "\n", "\nshim stderr> ", -1))
 	}
 
 	failed := err != nil || childErr != nil
@@ -15441,6 +15461,135 @@ func addPQExperimentSignalTests() {
 	})
 }
 
+// Build a slice of EsniKeys for testing. This function resembles the
+// DNS retrieval mechanism.
+func GetTestEsniKeys(publicNames []string) ([]EsniKeys, [][32]byte) {
+	getKeyPair := func() ([32]byte, [32]byte) {
+		var privateKey [32]byte
+		_, err := rand.Read(privateKey[:])
+		if err != nil {
+			panic(err)
+		}
+		var publicKey [32]byte
+		curve25519.ScalarBaseMult(&publicKey, &privateKey)
+		return publicKey, privateKey
+	}
+
+	var outEsniKeys []EsniKeys
+	var outPrivKeys [][32]byte
+
+	for _, publicName := range publicNames {
+		publicKey, privateKey := getKeyPair()
+		outEsniKeys = append(outEsniKeys, BuildEsniKeys(
+			/* publicName */ []byte(publicName),
+			/* keys */ []keyShareEntry{
+				keyShareEntry{
+					Group:       CurveX25519,
+					KeyExchange: publicKey[:],
+				},
+			},
+			/* cipherSuites */ []uint16{
+
+				TLS_AES_128_GCM_SHA256,
+			}))
+		outPrivKeys = append(outPrivKeys, privateKey)
+	}
+
+	return outEsniKeys, outPrivKeys
+}
+
+func GetTestEsniKeysBytes(publicNames []string) (esniKeysSlice []EsniKeys, esniKeysBytesSlice [][]byte, privKeysSlice [][32]byte) {
+	esniKeysSlice, privKeysSlice = GetTestEsniKeys(publicNames)
+
+	for _, esniKeys := range esniKeysSlice {
+		bb := newByteBuilder()
+		esniKeys.marshal(bb)
+		esniKeysBytes := bb.data()
+		esniKeysBytesSlice = append(esniKeysBytesSlice, esniKeysBytes)
+	}
+
+	return
+}
+
+// Corresponds to bssl_shim flag "-server-esni-keypairs"
+func shimEncodeServerKeyPairs(esniKeys []EsniKeys, privKeys [][32]byte) []byte {
+	if len(esniKeys) != len(privKeys) {
+		panic("esniKeys and privKeys must have same length")
+	}
+
+	// Marshal a U16-prefixed list of ESNIKeys followed by a
+	// U16-prefixed list of private keys.
+
+	bb := newByteBuilder()
+	bbEsniKeys := bb.addU16LengthPrefixed()
+	for _, esniKeys := range esniKeys {
+		bbInner := bbEsniKeys.addU16LengthPrefixed()
+		esniKeys.marshal(bbInner)
+	}
+	bbPrivKeys := bb.addU16LengthPrefixed()
+	for _, privKey := range privKeys {
+		bbPrivKeys.addBytes(privKey[:])
+	}
+
+	return bb.data()
+}
+
+// Corresponds to bssl_shim flag "-client-esnikeys"
+func shimEncodeClientEsniKeys(esniKeys []EsniKeys) []byte {
+	bb := newByteBuilder()
+	bbEsniKeys := bb.addU16LengthPrefixed()
+	for _, esniKeys := range esniKeys {
+		bbInner := bbEsniKeys.addU16LengthPrefixed()
+		esniKeys.marshal(bbInner)
+	}
+	return bb.data()
+}
+
+func addESNITests() {
+	testEsniKeys, testPrivateKeys := GetTestEsniKeys([]string{"foo.example", "foo.example"})
+
+	esniTestCases := []testCase{
+		testCase{
+			testType: clientTest,
+			name:     "EsniSerialization-Client",
+			flags: []string{
+				"-host-name", "foo.example",
+				"-client-esnikeys",
+				base64.StdEncoding.EncodeToString(shimEncodeClientEsniKeys(testEsniKeys)),
+			},
+			config: Config{
+				MinVersion:      VersionTLS13,
+				MaxVersion:      VersionTLS13,
+				EsniEnabled:     true,
+				EsniKeys:        testEsniKeys,
+				EsniPrivateKeys: testPrivateKeys,
+				EsniMaxRetries:  1,
+				ServerName:      "example.com",
+			},
+		},
+		// Test the C server implementation
+		testCase{
+			testType: serverTest,
+			name:     "EsniSerialization-Server",
+			flags: []string{
+				"-host-name",
+				"example.com",
+				"-server-esni-keypairs",
+				base64.StdEncoding.EncodeToString(shimEncodeServerKeyPairs(testEsniKeys, testPrivateKeys)),
+			},
+			config: Config{
+				MinVersion:                 VersionTLS13,
+				MaxVersion:                 VersionTLS13,
+				EsniEnabled:                true,
+				EsniKeys:                   testEsniKeys,
+				EsniClientSendRecordDigest: true,
+			},
+		},
+	}
+
+	testCases = append(testCases, esniTestCases...)
+}
+
 func worker(statusChan chan statusMsg, c chan *testCase, shimPath string, wg *sync.WaitGroup) {
 	defer wg.Done()
 
@@ -15579,6 +15728,7 @@ func main() {
 	addJDK11WorkaroundTests()
 	addDelegatedCredentialTests()
 	addPQExperimentSignalTests()
+	addESNITests()
 
 	testCases = append(testCases, convertToSplitHandshakeTests(testCases)...)
 
