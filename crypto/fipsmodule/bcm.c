@@ -161,7 +161,7 @@ BORINGSSL_bcm_power_on_self_test(void) {
   }
 #endif
 
-  if (!BORINGSSL_self_test()) {
+  if (!BORINGSSL_self_test(BORINGSSL_bcm_text_hash)) {
     goto err;
   }
 
