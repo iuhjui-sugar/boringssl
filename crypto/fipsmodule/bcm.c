@@ -98,18 +98,19 @@
 
 #if defined(BORINGSSL_FIPS)
 
-#if !defined(OPENSSL_ASAN)
 // These symbols are filled in by delocate.go (in static builds) or a linker
 // script (in shared builds). They point to the start and end of the module, and
-// the location of the integrity hash, respectively.
+// the location of the integrity hash, respectively. Shared library builds
+// additionally have pointers to the span of read-only data.
+#if !defined(OPENSSL_ASAN)
 extern const uint8_t BORINGSSL_bcm_text_start[];
 extern const uint8_t BORINGSSL_bcm_text_end[];
-extern const uint8_t BORINGSSL_bcm_text_hash[];
 #if defined(BORINGSSL_SHARED_LIBRARY)
 extern const uint8_t BORINGSSL_bcm_rodata_start[];
 extern const uint8_t BORINGSSL_bcm_rodata_end[];
 #endif
 #endif
+extern const uint8_t BORINGSSL_bcm_text_hash[];
 
 static void __attribute__((constructor))
 BORINGSSL_bcm_power_on_self_test(void) {
@@ -161,7 +162,7 @@ BORINGSSL_bcm_power_on_self_test(void) {
   }
 #endif
 
-  if (!BORINGSSL_self_test()) {
+  if (!BORINGSSL_self_test(BORINGSSL_bcm_text_hash)) {
     goto err;
   }
 
