@@ -420,6 +420,7 @@ func (hs *serverHandshakeState) esniServerFindEsniKeysMethod1(suite *cipherSuite
 	config := hs.c.config
 	clientEncryptedSNI := hs.clientHello.clientEncryptedSNI
 	if len(clientEncryptedSNI.recordDigest) > 0 {
+<<<<<<< HEAD   (b80112 In-Progress ESNI draft 04.)
 		fmt.Println("Comparing record_digest against hashes of ESNIKeys")
 		for i, serverEsniKeys := range config.EsniKeys {
 			if bytes.Equal(serverEsniKeys.computeHash(suite.hash()), clientEncryptedSNI.recordDigest) {
@@ -465,6 +466,61 @@ func (hs *serverHandshakeState) handleClientEncryptedSNI(encryptedExtensions *en
 
 	config := hs.c.config
 	var suite *cipherSuite = mutualCipherSuite(config.cipherSuites(), clientEncryptedSNI.suite)
+=======
+		targetRecordDigest := clientEncryptedSNI.recordDigest
+		fmt.Println("Comparing record_digest against hashes of ESNIKeys")
+		fmt.Printf("looking for record_digest: %x\n", targetRecordDigest)
+		for i, serverEsniKeys := range config.EsniKeys {
+			candidateRecordDigest := serverEsniKeys.computeHash(suite.hash())
+			fmt.Printf("serverRecordDigest[%d]: %x\n", len(candidateRecordDigest), candidateRecordDigest)
+			if bytes.Equal(candidateRecordDigest, targetRecordDigest) {
+				selectedEsniKeys = &serverEsniKeys
+				selectedEsniKeysIdx = i
+				return
+			}
+		}
+	}
+	return
+}
+func (hs *serverHandshakeState) esniServerFindEsniKeysMethod2() (selectedEsniKeys *EsniKeys, selectedEsniKeysIdx int) {
+	config := hs.c.config
+	for i, serverEsniKeys := range config.EsniKeys {
+		privateKey := config.EsniPrivateKeys[i]
+		err, _ := hs.esniTryDecrypt(hs.suite, privateKey[:])
+		if err == nil { // If decrypting was successful
+			selectedEsniKeys = &serverEsniKeys
+			selectedEsniKeysIdx = i
+			return
+		}
+	}
+	return
+}
+
+// Determine the server name requested by the client.
+func (hs *serverHandshakeState) handleClientEncryptedSNI(encryptedExtensions *encryptedExtensionsMsg) error {
+	config := hs.c.config
+	if !config.EsniEnabled {
+		return nil
+	}
+
+	clientEncryptedSNI := hs.clientHello.clientEncryptedSNI
+	if clientEncryptedSNI == nil {
+		return nil
+	}
+
+	// TODO
+	// > Upon receiving an "encrypted_server_name" extension, the client-
+	// > facing server MUST check that it is able to negotiate TLS 1.3 or
+	// > greater.  If not, it MUST abort the connection with a
+	// > "handshake_failure" alert.
+	//
+	// What is the server's obligation here? Check that MaxVersion >= TLS13?
+
+	fmt.Println("---- received clientEncryptedSNI")
+
+	var suite *cipherSuite = mutualCipherSuite(config.cipherSuites(), clientEncryptedSNI.suite)
+	fmt.Printf("suite: %v\n", suite)
+>>>>>>> BRANCH (694039 In-Progress ESNI draft 04.)
 	if suite == nil {
 		fmt.Println("no matching cipher suite")
 		encryptedExtensions.extensions.serverEncryptedSNI = &serverEncryptedSNI{

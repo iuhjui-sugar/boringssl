@@ -15489,6 +15489,7 @@ func GetTestEsniKeys(publicNames []string) ([]EsniKeys, [][32]byte) {
 				},
 			},
 			/* cipherSuites */ []uint16{
+<<<<<<< HEAD   (b80112 In-Progress ESNI draft 04.)
 				TLS_AES_128_GCM_SHA256,
 			}))
 		outPrivKeys = append(outPrivKeys, privateKey)
@@ -15597,6 +15598,107 @@ func addESNITests() {
 			shouldFail: false,
 		})
 	*/
+=======
+
+				TLS_AES_128_GCM_SHA256,
+			}))
+		outPrivKeys = append(outPrivKeys, privateKey)
+	}
+
+	return outEsniKeys, outPrivKeys
+}
+
+func GetTestEsniKeysBytes(publicNames []string) (esniKeysSlice []EsniKeys, esniKeysBytesSlice [][]byte, privKeysSlice [][32]byte) {
+	esniKeysSlice, privKeysSlice = GetTestEsniKeys(publicNames)
+
+	for _, esniKeys := range esniKeysSlice {
+		bb := newByteBuilder()
+		esniKeys.marshal(bb)
+		esniKeysBytes := bb.data()
+		esniKeysBytesSlice = append(esniKeysBytesSlice, esniKeysBytes)
+	}
+
+	return
+}
+
+// Corresponds to bssl_shim flag "-server-esni-keypairs"
+func shimEncodeServerKeyPairs(esniKeys []EsniKeys, privKeys [][32]byte) []byte {
+	if len(esniKeys) != len(privKeys) {
+		panic("esniKeys and privKeys must have same length")
+	}
+
+	// Marshal a U16-prefixed list of ESNIKeys followed by a
+	// U16-prefixed list of private keys.
+
+	bb := newByteBuilder()
+	bbEsniKeys := bb.addU16LengthPrefixed()
+	for _, esniKeys := range esniKeys {
+		bbInner := bbEsniKeys.addU16LengthPrefixed()
+		esniKeys.marshal(bbInner)
+	}
+	bbPrivKeys := bb.addU16LengthPrefixed()
+	for _, privKey := range privKeys {
+		bbPrivKeys.addBytes(privKey[:])
+	}
+
+	return bb.data()
+}
+
+// Corresponds to bssl_shim flag "-client-esnikeys"
+func shimEncodeClientEsniKeys(esniKeys []EsniKeys) []byte {
+	bb := newByteBuilder()
+	bbEsniKeys := bb.addU16LengthPrefixed()
+	for _, esniKeys := range esniKeys {
+		bbInner := bbEsniKeys.addU16LengthPrefixed()
+		esniKeys.marshal(bbInner)
+	}
+	return bb.data()
+}
+
+func addESNITests() {
+	testEsniKeys, testPrivateKeys := GetTestEsniKeys([]string{"foo.example", "foo.example"})
+
+	esniTestCases := []testCase{
+		testCase{
+			testType: clientTest,
+			name:     "EsniSerialization-Client",
+			flags: []string{
+				"-host-name", "foo.example",
+				"-client-esnikeys",
+				base64.StdEncoding.EncodeToString(shimEncodeClientEsniKeys(testEsniKeys)),
+			},
+			config: Config{
+				MinVersion:      VersionTLS13,
+				MaxVersion:      VersionTLS13,
+				EsniEnabled:     true,
+				EsniKeys:        testEsniKeys,
+				EsniPrivateKeys: testPrivateKeys,
+				EsniMaxRetries:  1,
+				ServerName:      "example.com",
+			},
+		},
+		// Test the C server implementation
+		testCase{
+			testType: serverTest,
+			name:     "EsniSerialization-Server",
+			flags: []string{
+				"-host-name",
+				"example.com",
+				"-server-esni-keypairs",
+				base64.StdEncoding.EncodeToString(shimEncodeServerKeyPairs(testEsniKeys, testPrivateKeys)),
+			},
+			config: Config{
+				MinVersion:                 VersionTLS13,
+				MaxVersion:                 VersionTLS13,
+				EsniEnabled:                true,
+				EsniKeys:                   testEsniKeys,
+				EsniClientSendRecordDigest: true,
+			},
+		},
+	}
+
+	testCases = append(testCases, esniTestCases...)
+>>>>>>> BRANCH (694039 In-Progress ESNI draft 04.)
 }
 
 func worker(statusChan chan statusMsg, c chan *testCase, shimPath string, wg *sync.WaitGroup) {

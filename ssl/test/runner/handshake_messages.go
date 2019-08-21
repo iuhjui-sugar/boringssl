@@ -350,10 +350,20 @@ func (e *esniContents) unmarshal(br *byteReader) bool {
 }
 
 func (e *esniContents) computeHash(hash crypto.Hash) []byte {
+<<<<<<< HEAD   (b80112 In-Progress ESNI draft 04.)
 	hashFunc := hash.New()
 	var bb *byteBuilder = newByteBuilder()
 	e.marshal(bb)
 	return hashFunc.Sum(bb.data())
+=======
+	var bb *byteBuilder = newByteBuilder()
+	e.marshal(bb)
+
+	h := hash.New()
+	h.Write(bb.data())
+
+	return h.Sum(nil)
+>>>>>>> BRANCH (694039 In-Progress ESNI draft 04.)
 }
 
 type clientEncryptedSNI struct {
@@ -2914,10 +2924,22 @@ func BuildEsniKeys(publicName []byte, keys []keyShareEntry, cipherSuites []uint1
 }
 
 func (e *EsniKeys) computeHash(hash crypto.Hash) []byte {
+<<<<<<< HEAD   (b80112 In-Progress ESNI draft 04.)
 	hashFunc := hash.New()
 	var bb *byteBuilder = newByteBuilder()
 	e.marshal(bb)
 	return hashFunc.Sum(bb.data())
+=======
+	var bb *byteBuilder = newByteBuilder()
+	e.marshal(bb)
+
+	h := hash.New()
+	h.Write(bb.data())
+
+	fmt.Printf("hash of\n\t%x\n\t%x\n", bb.data(), h.Sum(nil))
+
+	return h.Sum(nil)
+>>>>>>> BRANCH (694039 In-Progress ESNI draft 04.)
 }
 
 func (e *EsniKeys) marshal(bb *byteBuilder) {
