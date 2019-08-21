@@ -1701,7 +1701,23 @@ bssl::UniquePtr<SSL> TestConfig::NewSSL(
     }
   }
 
-  // Construct the base64-encoded content for bssl_shim's
+  const auto read_length_prefixed_esni_keys =
+      [](CBS *cbs, std::vector<CBS> *out) -> bool {
+    CBS cbs_esni_keys;
+    if (!CBS_get_u16_length_prefixed(cbs, &cbs_esni_keys))
+      return false;
+
+    while (CBS_len(&cbs_esni_keys) > 0) {
+      CBS cbs_esni_keys_inner;
+      if (!CBS_get_u16_length_prefixed(&cbs_esni_keys, &cbs_esni_keys_inner))
+        return false;
+      out->push_back(cbs_esni_keys_inner);
+    }
+
+    return true;
+  };
+
+  // Unmarshal the ESNIKeys and private keys from bssl_shim's
   // "-server-esni-keypairs" flag.
   if (!server_esni_keypairs.empty()) {
     // Read a U16-prefixed list of ESNIKeys, followed by a U16-prefixed list of
@@ -1711,8 +1727,8 @@ bssl::UniquePtr<SSL> TestConfig::NewSSL(
              reinterpret_cast<const uint8_t *>(server_esni_keypairs.data()),
              server_esni_keypairs.size());
 
-    CBS cbs_esni_keys;
-    if (!CBS_get_u16_length_prefixed(&cbs, &cbs_esni_keys)) {
+    std::vector<CBS> esni_keys_vec;
+    if (!read_length_prefixed_esni_keys(&cbs, &esni_keys_vec)) {
       fprintf(stderr, "Failed to unmarshal list of ESNIKeys.\n");
       return nullptr;
     }
@@ -1735,16 +1751,42 @@ bssl::UniquePtr<SSL> TestConfig::NewSSL(
     }
 
     SSL_set_enable_esni(ssl.get(), true);
+
+    // TODO(dmcardle): Update when the SSL API supports multiple ESNIKeys. For
+    // now, just grabbing the first elements from esni_keys_ptrs and
+    // esni_keys_sizes.
+    const CBS *chosen_esni_keys = &esni_keys_vec.front();
     if (!SSL_add_esni_private_keys(
-            ssl.get(), CBS_data(&cbs_esni_keys), CBS_len(&cbs_esni_keys),
+            ssl.get(), CBS_data(chosen_esni_keys), CBS_len(chosen_esni_keys),
             priv_key_ptrs.data(), priv_key_sizes.data())) {
       fprintf(stderr, "Failed to add ESNIKeys and private keys.\n");
       return nullptr;
     }
   }
 
+  // Unmarshal the ESNIKeys from bssl_shim's "-client-esnikeys" flag.
   if (!client_esnikeys.empty()) {
-    // TODO(dmcardle)
+    CBS cbs;
+    CBS_init(&cbs, reinterpret_cast<const uint8_t *>(client_esnikeys.data()),
+             client_esnikeys.size());
+
+    std::vector<CBS> esni_keys_vec;
+    if (!read_length_prefixed_esni_keys(&cbs, &esni_keys_vec)) {
+      fprintf(stderr, "Failed to unmarshal list of ESNIKeys.\n");
+      return nullptr;
+    }
+
+    SSL_set_enable_esni(ssl.get(), true);
+
+    // TODO(dmcardle): Update when the SSL API supports multiple ESNIKeys. For
+    // now, just grabbing the first elements from esni_keys_ptrs and
+    // esni_keys_sizes.
+    const CBS *chosen_esni_keys = &esni_keys_vec.front();
+    if (!SSL_set_esni_keys(ssl.get(), CBS_data(chosen_esni_keys),
+                           CBS_len(chosen_esni_keys))) {
+      fprintf(stderr, "Failed to add ESNIKeys.\n");
+      return nullptr;
+    }
   }
 
   return ssl;

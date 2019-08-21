@@ -420,9 +420,13 @@ func (hs *serverHandshakeState) esniServerFindEsniKeysMethod1(suite *cipherSuite
 	config := hs.c.config
 	clientEncryptedSNI := hs.clientHello.clientEncryptedSNI
 	if len(clientEncryptedSNI.recordDigest) > 0 {
+		targetRecordDigest := clientEncryptedSNI.recordDigest
 		fmt.Println("Comparing record_digest against hashes of ESNIKeys")
+		fmt.Printf("looking for record_digest: %x\n", targetRecordDigest)
 		for i, serverEsniKeys := range config.EsniKeys {
-			if bytes.Equal(serverEsniKeys.computeHash(suite.hash()), clientEncryptedSNI.recordDigest) {
+			candidateRecordDigest := serverEsniKeys.computeHash(suite.hash())
+			fmt.Printf("serverRecordDigest[%d]: %x\n", len(candidateRecordDigest), candidateRecordDigest)
+			if bytes.Equal(candidateRecordDigest, targetRecordDigest) {
 				selectedEsniKeys = &serverEsniKeys
 				selectedEsniKeysIdx = i
 				return
@@ -447,8 +451,12 @@ func (hs *serverHandshakeState) esniServerFindEsniKeysMethod2() (selectedEsniKey
 
 // Determine the server name requested by the client.
 func (hs *serverHandshakeState) handleClientEncryptedSNI(encryptedExtensions *encryptedExtensionsMsg) error {
-	clientEncryptedSNI := hs.clientHello.clientEncryptedSNI
+	config := hs.c.config
+	if !config.EsniEnabled {
+		return nil
+	}
 
+	clientEncryptedSNI := hs.clientHello.clientEncryptedSNI
 	if clientEncryptedSNI == nil {
 		return nil
 	}
@@ -463,8 +471,8 @@ func (hs *serverHandshakeState) handleClientEncryptedSNI(encryptedExtensions *en
 
 	fmt.Println("---- received clientEncryptedSNI")
 
-	config := hs.c.config
 	var suite *cipherSuite = mutualCipherSuite(config.cipherSuites(), clientEncryptedSNI.suite)
+	fmt.Printf("suite: %v\n", suite)
 	if suite == nil {
 		fmt.Println("no matching cipher suite")
 		encryptedExtensions.extensions.serverEncryptedSNI = &serverEncryptedSNI{

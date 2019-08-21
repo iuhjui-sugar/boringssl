@@ -15489,6 +15489,7 @@ func GetTestEsniKeys(publicNames []string) ([]EsniKeys, [][32]byte) {
 				},
 			},
 			/* cipherSuites */ []uint16{
+
 				TLS_AES_128_GCM_SHA256,
 			}))
 		outPrivKeys = append(outPrivKeys, privateKey)
@@ -15522,7 +15523,8 @@ func shimEncodeServerKeyPairs(esniKeys []EsniKeys, privKeys [][32]byte) []byte {
 	bb := newByteBuilder()
 	bbEsniKeys := bb.addU16LengthPrefixed()
 	for _, esniKeys := range esniKeys {
-		esniKeys.marshal(bbEsniKeys)
+		bbInner := bbEsniKeys.addU16LengthPrefixed()
+		esniKeys.marshal(bbInner)
 	}
 	bbPrivKeys := bb.addU16LengthPrefixed()
 	for _, privKey := range privKeys {
@@ -15532,71 +15534,60 @@ func shimEncodeServerKeyPairs(esniKeys []EsniKeys, privKeys [][32]byte) []byte {
 	return bb.data()
 }
 
+// Corresponds to bssl_shim flag "-client-esnikeys"
+func shimEncodeClientEsniKeys(esniKeys []EsniKeys) []byte {
+	bb := newByteBuilder()
+	bbEsniKeys := bb.addU16LengthPrefixed()
+	for _, esniKeys := range esniKeys {
+		bbInner := bbEsniKeys.addU16LengthPrefixed()
+		esniKeys.marshal(bbInner)
+	}
+	return bb.data()
+}
+
 func addESNITests() {
-	// The ESNIKeys received by some mechanism, such as DNS.
-	testEsniKeys, testPrivateKeys := GetTestEsniKeys([]string{"foo.example", "bar.example"})
-	testCases = append(testCases, testCase{
-		testType: clientTest,
-		name:     "EsniSerialization",
-		flags: []string{
-			"-server-esni-keypairs",
-			base64.StdEncoding.EncodeToString(shimEncodeServerKeyPairs(testEsniKeys, testPrivateKeys)),
+	testEsniKeys, testPrivateKeys := GetTestEsniKeys([]string{"foo.example", "foo.example"})
 
-			// TODO(dmcardle) implement function to
-			// marshal ESNIKeys for bssl_shim flag
-			// "-client-esnikeys"
-		},
-		config: Config{
-			MinVersion:  VersionTLS13,
-			MaxVersion:  VersionTLS13,
-			EsniEnabled: true,
-			EsniKeys:    testEsniKeys,
-		},
-	})
-
-	/*
-		testEsniKeys := GetTestEsniKeys()
-
-		// Check that we can marshal and unmarshal
-			for _, testKeyPair := range testEsniKeys {
-				bb := newByteBuilder()
-				esniKeys.marshal(bb)
-				marshalled := bb.data()
-
-				var unmarshalled EsniKeys
-				var br byteReader = byteReader(marshalled)
-				unmarshalled.unmarshal(&br)
-
-				// TODO write |marshalled| to file
-				// TODO write script to spin up client and server
-
-				if !esniKeys.equal(&unmarshalled) {
-					fmt.Printf("esniKeys = %#v\n", esniKeys)
-					fmt.Printf("unmarshalled = %#v\n", unmarshalled)
-					panic("marshal/unmarshal failed for EsniKeys")
-				}
-			}
-	*/
-
-	// TODO(dmcardle) add some actual test cases.
-	// Option 1: Pit this ESNI implementation against itself.
-	// Option 2: Test it against boringssl's real impl.
-	// Option 3: Test it against Firefox's ESNI implementation.
-	/*
-		testCases = append(testCases, testCase{
-			testType: serverTest,
-			name:     "ESNI-test",
-			config: Config{
-				MinVersion: VersionTLS13,
-				MaxVersion: VersionTLS13,
-				Bugs:       ProtocolBugs{},
-				EsniKeys:   serverEsniKeys,
+	esniTestCases := []testCase{
+		testCase{
+			testType: clientTest,
+			name:     "EsniSerialization-Client",
+			flags: []string{
+				"-host-name", "foo.example",
+				"-client-esnikeys",
+				base64.StdEncoding.EncodeToString(shimEncodeClientEsniKeys(testEsniKeys)),
 			},
-			// TODO need some ESNI flags to use
-			flags:      []string{},
-			shouldFail: false,
-		})
-	*/
+			config: Config{
+				MinVersion:      VersionTLS13,
+				MaxVersion:      VersionTLS13,
+				EsniEnabled:     true,
+				EsniKeys:        testEsniKeys,
+				EsniPrivateKeys: testPrivateKeys,
+				EsniMaxRetries:  1,
+				ServerName:      "example.com",
+			},
+		},
+		// Test the C server implementation
+		testCase{
+			testType: serverTest,
+			name:     "EsniSerialization-Server",
+			flags: []string{
+				"-host-name",
+				"example.com",
+				"-server-esni-keypairs",
+				base64.StdEncoding.EncodeToString(shimEncodeServerKeyPairs(testEsniKeys, testPrivateKeys)),
+			},
+			config: Config{
+				MinVersion:                 VersionTLS13,
+				MaxVersion:                 VersionTLS13,
+				EsniEnabled:                true,
+				EsniKeys:                   testEsniKeys,
+				EsniClientSendRecordDigest: true,
+			},
+		},
+	}
+
+	testCases = append(testCases, esniTestCases...)
 }
 
 func worker(statusChan chan statusMsg, c chan *testCase, shimPath string, wg *sync.WaitGroup) {
