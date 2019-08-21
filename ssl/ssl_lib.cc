@@ -2861,7 +2861,7 @@ int SSL_set_esni_keys(SSL *ssl, const uint8_t *key_struct, size_t key_len) {
     return false;
   }
 
-  CBS esni_keys, public_name, keys, cipher_suites, extensions;
+  CBS esni_keys, keys, cipher_suites, extensions;
   uint16_t version;
   CBS_init(&esni_keys, key_struct, key_len);
   if (!CBS_get_u16(&esni_keys, &version) ||
@@ -2942,7 +2942,8 @@ int SSL_add_esni_private_keys(SSL *ssl, const uint8_t *key_struct,
 
   ssl->config->esni_retry_keys.CopyFrom(Span<const uint8_t>(key_struct, key_len));
 
-  CBS esni_keys, public_name, keys, cipher_suites, extensions;
+  CBS esni_keys, keys, cipher_suites, extensions;
+
   uint16_t version;
   CBS_init(&esni_keys, key_struct, key_len);
   if (!CBS_get_u16(&esni_keys, &version) ||

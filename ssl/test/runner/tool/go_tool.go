@@ -4,8 +4,10 @@ import (
 	"flag"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net"
 	"os"
+	"strconv"
 	"sync"
 
 	"boringssl.googlesource.com/boringssl/ssl/test/runner"
@@ -82,14 +84,15 @@ type keypair struct {
 }
 
 type ToolArgs struct {
-	host             string
-	useOldKeys       bool
-	clientGrease     bool
-	port             int
-	serverKeyFile    string
-	serverCertFile   string
-	generateEsniKeys bool
-	publicName       string
+	host                string
+	useOldKeys          bool
+	clientGrease        bool
+	port                int
+	serverKeyFile       string
+	serverCertFile      string
+	generateEsniKeys    bool
+	saveEsniKeyCorpusTo string
+	publicName          string
 }
 
 func EsniTester() {
@@ -101,10 +104,13 @@ func EsniTester() {
 	flag.BoolVar(&args.useOldKeys, "useOldKeys", false, "When set, simulates client with old ESNI keys")
 	flag.BoolVar(&args.clientGrease, "clientGrease", false, "When set, simulates client with no ESNI keys (sends GREASE)")
 	flag.BoolVar(&args.generateEsniKeys, "generateEsniKeys", false, "When set, tool will generate ESNIKeys and private key files for the specified public name")
+	flag.StringVar(&args.saveEsniKeyCorpusTo, "saveEsniKeyCorpusTo", "", "If nonempty, specifies a directory path; the tool will generate 100 ESNI keys, save them, and return.")
 	flag.StringVar(&args.publicName, "publicName", "", "The public name for generated ESNIKeys")
 	flag.Parse()
 
 	fmt.Printf("Invoked with args: %#v\n", args)
+
+	haltBeforeSimulation := false
 
 	if args.generateEsniKeys {
 		esniKeysSlice, esniKeysBytesSlice, privKeysSlice := runner.GetTestEsniKeysBytes([]string{args.publicName})
@@ -144,6 +150,26 @@ func EsniTester() {
 			fmt.Printf("// ------------------------------ \n")
 		}
 
+		haltBeforeSimulation = true
+	}
+
+	if args.saveEsniKeyCorpusTo != "" {
+		_, keys, _ := runner.GetTestEsniKeysBytes(make([]string, 100))
+		_, err := os.Stat(args.saveEsniKeyCorpusTo)
+		if err != nil {
+			fmt.Printf("Unable to find path.")
+			return
+		}
+		for i, keyBytes := range keys {
+			err := ioutil.WriteFile(args.saveEsniKeyCorpusTo+strconv.Itoa(i), keyBytes, 0700)
+			if err != nil {
+				fmt.Printf("Unable to save generated ESNI key.")
+			}
+		}
+		haltBeforeSimulation = true
+	}
+
+	if haltBeforeSimulation {
 		return
 	}
 
