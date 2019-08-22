@@ -142,6 +142,29 @@
     },
     {
       "key": {
+        "uuid": "337be579_095d0e2f",
+        "filename": "crypto/fipsmodule/self_check/self_check.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 615,
+      "author": {
+        "id": 9682
+      },
+      "writtenOn": "2019-08-22T16:36:31Z",
+      "side": 1,
+      "message": "missing O_CLOEXEC?",
+      "range": {
+        "startLine": 615,
+        "startChar": 35,
+        "endLine": 615,
+        "endChar": 63
+      },
+      "revId": "87bca71bcc4c041887ed3e41b3ef969e2cf70cfb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "31684d7e_e4e58442",
         "filename": "include/openssl/crypto.h",
         "patchSetId": 5
