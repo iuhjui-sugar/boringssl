@@ -166,6 +166,29 @@
     },
     {
       "key": {
+        "uuid": "b76c3b5e_2b2cefa6",
+        "filename": "crypto/fipsmodule/self_check/self_check.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 9681
+      },
+      "writtenOn": "2019-08-22T19:43:00Z",
+      "side": 1,
+      "message": "Stupid question: Where is the code that checks that the value in BORINGSSL_bcm_text_hash actually matches the checksum that we\u0027ve computed ourselves from the library bytes?\n\nThe code here just seems to create the file in flag_path and the code in line 257 checks whether it exists, but how would we find out if due to some error, the value BORINGSSL_bcm_text_hash is some random incorrect value, e.g. 11111...?\n\n(If the value is 0 then my understanding is that the self test will never run, but if the value is 1 and that value is wrong then presumably we should also notice and error rather than writing the incorrect file /dev/boringssl/selftest/11111...?)",
+      "range": {
+        "startLine": 614,
+        "startChar": 6,
+        "endLine": 614,
+        "endChar": 21
+      },
+      "revId": "87bca71bcc4c041887ed3e41b3ef969e2cf70cfb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "337be579_095d0e2f",
         "filename": "crypto/fipsmodule/self_check/self_check.c",
         "patchSetId": 5
