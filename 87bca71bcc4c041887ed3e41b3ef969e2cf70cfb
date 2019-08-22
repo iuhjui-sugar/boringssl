@@ -49,6 +49,29 @@
     },
     {
       "key": {
+        "uuid": "2502d3ae_06696f70",
+        "filename": "crypto/fipsmodule/self_check/self_check.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 9681
+      },
+      "writtenOn": "2019-08-22T13:28:18Z",
+      "side": 1,
+      "message": "Is my understanding correct that the self test needs to be run separately for 32bit and 64bit ABIs?\n\nIf so, wouldn\u0027t we need to include something in flag_path that is indicative of the ABI? E.g.\n\n/dev/boringssl/selftest/32/[hash]\nvs.\n/dev/boringssl/selftest/64/[hash]\n\n?",
+      "range": {
+        "startLine": 254,
+        "startChar": 0,
+        "endLine": 254,
+        "endChar": 39
+      },
+      "revId": "87bca71bcc4c041887ed3e41b3ef969e2cf70cfb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1e09e775_35b4b483",
         "filename": "crypto/fipsmodule/self_check/self_check.c",
         "patchSetId": 5
