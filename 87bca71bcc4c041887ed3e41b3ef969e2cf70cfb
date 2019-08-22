@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "47d323e6_14713992",
+        "filename": "crypto/fipsmodule/bcm.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 9681
+      },
+      "writtenOn": "2019-08-22T12:38:01Z",
+      "side": 1,
+      "message": "Perhaps we should call a new no-arg BORINGSSL_self_test() method here which can then be implemented on top of the other one:\n\n BORINGSSL_self_test(BORINGSSL_bcm_text_hash)\n\n? That way, we wouldn\u0027t break any code that currently calls BORINGSSL_self_test() and which may not have access to BORINGSSL_bcm_text_hash itself (I\u0027m not familiar with how symbol visibility  works in .c land but at least the calling code shouldn\u0027t have any business knowing about that constant).\n\nFor example, AOSP\u0027s\n\nframeworks/base/services/core/jni/com_android_server_devicepolicy_CryptoTestHelper.cpp\n\ncontains such a call (perhaps it shouldn\u0027t, because the self-test runs anyway when the library is loaded)?",
+      "range": {
+        "startLine": 166,
+        "startChar": 27,
+        "endLine": 166,
+        "endChar": 50
+      },
+      "revId": "87bca71bcc4c041887ed3e41b3ef969e2cf70cfb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1e09e775_35b4b483",
         "filename": "crypto/fipsmodule/self_check/self_check.c",
         "patchSetId": 5
