@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7b598c35_b6cb4668",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 2988,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2019-08-22T19:02:12Z",
+      "side": 1,
+      "message": "Should this be adding the padding to client_esni instead of dns_name?\n\n      struct {\n          opaque dns_name\u003c1..2^16-1\u003e;\n          opaque zeros[ESNIKeys.padded_length - length(sni)];\n      } PaddedServerNameList;\n\n      struct {\n          uint8 nonce[16];\n          PaddedServerNameList realSNI;\n      } ClientESNIInner;",
+      "revId": "02d57aa11a58540709103b621542f116c8fc0fe4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
