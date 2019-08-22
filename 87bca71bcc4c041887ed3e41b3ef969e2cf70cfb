@@ -189,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "1dbe864e_4f2fe9c0",
+        "filename": "crypto/fipsmodule/self_check/self_check.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 9681
+      },
+      "writtenOn": "2019-08-22T19:55:18Z",
+      "side": 1,
+      "message": "I think found the logic, in it\u0027s in bcm.c line 161.",
+      "parentUuid": "b76c3b5e_2b2cefa6",
+      "range": {
+        "startLine": 614,
+        "startChar": 6,
+        "endLine": 614,
+        "endChar": 21
+      },
+      "revId": "87bca71bcc4c041887ed3e41b3ef969e2cf70cfb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "337be579_095d0e2f",
         "filename": "crypto/fipsmodule/self_check/self_check.c",
         "patchSetId": 5
