@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1e09e775_35b4b483",
+        "filename": "crypto/fipsmodule/self_check/self_check.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 9680
+      },
+      "writtenOn": "2019-08-22T10:03:04Z",
+      "side": 1,
+      "message": "F_OK, since this is an existence test ?",
+      "range": {
+        "startLine": 257,
+        "startChar": 43,
+        "endLine": 257,
+        "endChar": 47
+      },
+      "revId": "87bca71bcc4c041887ed3e41b3ef969e2cf70cfb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
