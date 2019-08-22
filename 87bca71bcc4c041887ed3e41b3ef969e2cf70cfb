@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ee32a916_82feff70",
+        "filename": "crypto/fipsmodule/bcm.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 9681
+      },
+      "writtenOn": "2019-08-22T19:00:11Z",
+      "side": 1,
+      "message": "For reference, my Android build errors were because the linker script that injects the above symbols is not yet present. On Android a shared library is built so delocate.go is unrelated. Closing this thread.",
+      "parentUuid": "ae7811e2_86b06b86",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 47
+      },
+      "revId": "87bca71bcc4c041887ed3e41b3ef969e2cf70cfb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "47d323e6_14713992",
         "filename": "crypto/fipsmodule/bcm.c",
         "patchSetId": 5
