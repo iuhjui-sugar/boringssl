@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "ae7811e2_86b06b86",
+        "filename": "crypto/fipsmodule/bcm.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 9681
+      },
+      "writtenOn": "2019-08-22T14:18:29Z",
+      "side": 1,
+      "message": "I guess this means that delocate.go needs to be run as part of the (in my case, Android) build?\n\nWhen I add #define BORINGSSL_FIPS just before bash.c:152, I get linked errors in the Android build because the above symbols aren\u0027t found.\n\ndelocate doesn\u0027t seem part of inject_hash.go, which you linked to in a comment thread elsewhere.",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 47
+      },
+      "revId": "87bca71bcc4c041887ed3e41b3ef969e2cf70cfb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "47d323e6_14713992",
         "filename": "crypto/fipsmodule/bcm.c",
         "patchSetId": 5
@@ -69,6 +92,30 @@
       "revId": "87bca71bcc4c041887ed3e41b3ef969e2cf70cfb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63eb259e_88a5c3ff",
+        "filename": "crypto/fipsmodule/self_check/self_check.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 9681
+      },
+      "writtenOn": "2019-08-22T14:18:29Z",
+      "side": 1,
+      "message": "Adam responded to this elsewhere: \"A 32-bit build of BoringSSL will have a different hash: the hash is over the code and data of the module.\"\n\nThat resolves my question.",
+      "parentUuid": "2502d3ae_06696f70",
+      "range": {
+        "startLine": 254,
+        "startChar": 0,
+        "endLine": 254,
+        "endChar": 39
+      },
+      "revId": "87bca71bcc4c041887ed3e41b3ef969e2cf70cfb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
