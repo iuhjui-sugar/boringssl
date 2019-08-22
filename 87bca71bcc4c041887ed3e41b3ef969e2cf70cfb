@@ -166,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "d85f7d73_a3db8e4f",
+        "filename": "crypto/fipsmodule/self_check/self_check.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-08-22T23:59:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e09e775_35b4b483",
+      "range": {
+        "startLine": 257,
+        "startChar": 43,
+        "endLine": 257,
+        "endChar": 47
+      },
+      "revId": "87bca71bcc4c041887ed3e41b3ef969e2cf70cfb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b76c3b5e_2b2cefa6",
         "filename": "crypto/fipsmodule/self_check/self_check.c",
         "patchSetId": 5
@@ -256,6 +280,30 @@
       "revId": "87bca71bcc4c041887ed3e41b3ef969e2cf70cfb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8e8d0dd_f05c95ba",
+        "filename": "include/openssl/crypto.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-08-22T23:59:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "31684d7e_e4e58442",
+      "range": {
+        "startLine": 65,
+        "startChar": 35,
+        "endLine": 65,
+        "endChar": 76
+      },
+      "revId": "87bca71bcc4c041887ed3e41b3ef969e2cf70cfb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
