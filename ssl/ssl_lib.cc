@@ -2848,6 +2848,18 @@ void SSL_CTX_set_false_start_allowed_without_alpn(SSL_CTX *ctx, int allowed) {
 
 int SSL_is_tls13_downgrade(const SSL *ssl) { return ssl->s3->tls13_downgrade; }
 
+int SSL_used_hello_retry_request(const SSL *ssl) {
+  const SSL3_STATE * const s3 = ssl->s3;
+
+  if (!s3) {
+    return 0;
+  }
+
+  return SSL_is_server(ssl)
+    ? s3->sent_hello_retry_request
+    : s3->received_hello_retry_request;
+}
+
 void SSL_CTX_set_ignore_tls13_downgrade(SSL_CTX *ctx, int ignore) {
   ctx->ignore_tls13_downgrade = !!ignore;
 }

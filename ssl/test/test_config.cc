@@ -182,6 +182,7 @@ const Flag<std::string> kStringFlags[] = {
     {"-handshaker-path", &TestConfig::handshaker_path},
     {"-delegated-credential", &TestConfig::delegated_credential},
     {"-expect-early-data-reason", &TestConfig::expect_early_data_reason},
+    {"-expect-hrr", &TestConfig::expect_hrr},
 };
 
 const Flag<std::string> kBase64Flags[] = {

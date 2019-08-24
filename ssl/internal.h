@@ -1602,9 +1602,6 @@ struct SSL_HANDSHAKE {
   // be filled in.
   bool needs_psk_binder : 1;
 
-  bool received_hello_retry_request : 1;
-  bool sent_hello_retry_request : 1;
-
   // handshake_finalized is true once the handshake has completed, at which
   // point accessors should use the established state.
   bool handshake_finalized : 1;
@@ -2293,6 +2290,14 @@ struct SSL3_STATE {
 
   // alert_dispatch is true there is an alert in |send_alert| to be sent.
   bool alert_dispatch : 1;
+
+  // received_hello_retry_request is set if HelloRetryRequest message has been
+  // received by the client during TLS 1.3 handshake
+  bool received_hello_retry_request : 1;
+
+  // sent_hello_retry_request is set if HelloRetryRequest message has been
+  // sent by the server during TLS 1.3 handshake
+  bool sent_hello_retry_request : 1;
 
   // hs_buf is the buffer of handshake data to process.
   UniquePtr<BUF_MEM> hs_buf;

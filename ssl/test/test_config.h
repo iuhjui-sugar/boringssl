@@ -177,6 +177,7 @@ struct TestConfig {
   std::string expect_early_data_reason;
   bool enable_pq_experiment_signal = false;
   bool expect_pq_experiment_signal = false;
+  std::string expect_hrr;
 
   int argc;
   char **argv;
