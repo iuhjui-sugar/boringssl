@@ -677,6 +677,12 @@ static bool CheckHandshakeProperties(SSL *ssl, bool is_resume,
     return false;
   }
 
+  if ((!config->expect_hrr.compare("yes") && !SSL_used_hello_retry_request(ssl)) ||
+      (!config->expect_hrr.compare("no") && SSL_used_hello_retry_request(ssl))) {
+      fprintf(stderr, "Got %sHRR, but wanted opposite.\n",
+        SSL_used_hello_retry_request(ssl) ? "" : "no ");
+      return false;
+  }
   return true;
 }
 

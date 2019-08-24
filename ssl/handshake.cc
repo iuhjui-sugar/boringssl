@@ -155,6 +155,9 @@ SSL_HANDSHAKE::SSL_HANDSHAKE(SSL *ssl_arg)
 
 SSL_HANDSHAKE::~SSL_HANDSHAKE() {
   ssl->ctx->x509_method->hs_flush_cached_ca_names(this);
+  ssl->s3->hrr_used = SSL_is_server(ssl)
+    ? sent_hello_retry_request
+    : received_hello_retry_request;
 }
 
 void SSL_HANDSHAKE::ResizeSecrets(size_t hash_len) {
