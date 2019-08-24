@@ -2294,6 +2294,10 @@ struct SSL3_STATE {
   // alert_dispatch is true there is an alert in |send_alert| to be sent.
   bool alert_dispatch : 1;
 
+  // hrr_triggered is true if HelloRetryReply has been sent by server or received
+  // by the client
+  bool hrr_triggered : 1;
+
   // hs_buf is the buffer of handshake data to process.
   UniquePtr<BUF_MEM> hs_buf;
 

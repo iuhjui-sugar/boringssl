@@ -677,6 +677,12 @@ static bool CheckHandshakeProperties(SSL *ssl, bool is_resume,
     return false;
   }
 
+  if ((!config->expect_hrr.compare("yes") && !SSL_is_HRR(ssl)) ||
+      (!config->expect_hrr.compare("no") && SSL_is_HRR(ssl))) {
+      fprintf(stderr, "Got %sHRR, but wanted opposite.\n",
+        SSL_is_HRR(ssl) ? "" : "no ");
+      return false;
+  }
   return true;
 }
 
