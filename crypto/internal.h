@@ -187,6 +187,10 @@ typedef __uint128_t uint128_t;
 #define OPENSSL_FALLTHROUGH [[gnu::fallthrough]]
 #elif defined(__GNUC__) && __GNUC__ >= 7 // gcc 7
 #define OPENSSL_FALLTHROUGH __attribute__ ((fallthrough))
+#elif defined(__clang__)
+#if __has_attribute(fallthrough)
+#define OPENSSL_FALLTHROUGH __attribute__ ((fallthrough))
+#endif
 #else // C++11 on gcc 6, and all other cases
 #define OPENSSL_FALLTHROUGH
 #endif
