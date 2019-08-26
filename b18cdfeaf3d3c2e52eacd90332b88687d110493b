@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3c722cff_198b63b3",
+        "filename": "crypto/fipsmodule/cipher/cipher.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-08-26T22:46:26Z",
+      "side": 1,
+      "message": "Is this needed? I thought the warning didn\u0027t care if there were no statements between case labels.",
+      "revId": "b18cdfeaf3d3c2e52eacd90332b88687d110493b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
