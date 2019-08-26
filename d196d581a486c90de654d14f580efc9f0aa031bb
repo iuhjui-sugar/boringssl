@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7288b5ca_f01f2f4a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-08-26T16:15:04Z",
+      "side": 1,
+      "message": "chromium:997709 (default is crbug.com/boringssl)",
+      "range": {
+        "startLine": 14,
+        "startChar": 5,
+        "endLine": 14,
+        "endChar": 11
+      },
+      "revId": "d196d581a486c90de654d14f580efc9f0aa031bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01fd206b_44f7c6a9",
+        "filename": "crypto/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-08-26T16:15:04Z",
+      "side": 1,
+      "message": "This needs an #else branch otherwise we break older clang.",
+      "revId": "d196d581a486c90de654d14f580efc9f0aa031bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
