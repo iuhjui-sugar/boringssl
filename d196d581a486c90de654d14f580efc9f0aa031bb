@@ -39,6 +39,24 @@
       "revId": "d196d581a486c90de654d14f580efc9f0aa031bb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a73e9df7_a3c46c01",
+        "filename": "crypto/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-08-26T16:15:50Z",
+      "side": 1,
+      "message": "Ah, I see we crossed mid-air. :-)",
+      "parentUuid": "01fd206b_44f7c6a9",
+      "revId": "d196d581a486c90de654d14f580efc9f0aa031bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
