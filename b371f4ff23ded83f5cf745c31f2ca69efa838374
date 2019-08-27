@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f05031fa_101a5e6f",
+        "filename": "crypto/cipher_extra/cipher_extra.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-08-27T16:47:09Z",
+      "side": 1,
+      "message": "libcrypto can\u0027t depend on libdecrepit. We intentionally keep libcrypto smaller for binary size reasons.",
+      "revId": "b371f4ff23ded83f5cf745c31f2ca69efa838374",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c1f26a3_a9838c8f",
+        "filename": "decrepit/cfb/cfb.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-08-27T16:47:09Z",
+      "side": 1,
+      "message": "This seems off.",
+      "range": {
+        "startLine": 61,
+        "startChar": 4,
+        "endLine": 61,
+        "endChar": 22
+      },
+      "revId": "b371f4ff23ded83f5cf745c31f2ca69efa838374",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
