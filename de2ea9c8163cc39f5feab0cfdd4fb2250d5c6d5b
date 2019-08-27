@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e43f7351_53a5bf29",
+        "filename": "fuzz/CMakeLists.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2019-08-27T16:40:52Z",
+      "side": 1,
+      "message": "Might want to make a separate CL for this and land it sooner than waiting for the ESNI stuff?",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 14
+      },
+      "revId": "de2ea9c8163cc39f5feab0cfdd4fb2250d5c6d5b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
