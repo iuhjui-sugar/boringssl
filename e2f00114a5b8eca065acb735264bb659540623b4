@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad88ac09_90267b9c",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 6825
+      },
+      "writtenOn": "2019-08-27T23:15:29Z",
+      "side": 1,
+      "message": "nit: return early if ssl-\u003equic_method \u003d\u003d nullptr and remove a level of indentation.",
+      "revId": "e2f00114a5b8eca065acb735264bb659540623b4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
