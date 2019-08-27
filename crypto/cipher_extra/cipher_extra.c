@@ -105,6 +105,10 @@ const EVP_CIPHER *EVP_get_cipherbyname(const char *name) {
     return EVP_aes_192_cbc();
   } else if (OPENSSL_strcasecmp(name, "aes-256-cbc") == 0) {
     return EVP_aes_256_cbc();
+  } else if (OPENSSL_strcasecmp(name, "aes-128-cfb") == 0) {
+    return EVP_aes_128_cfb128();
+  } else if (OPENSSL_strcasecmp(name, "aes-256-cfb") == 0) {
+    return EVP_aes_256_cfb128();
   } else if (OPENSSL_strcasecmp(name, "aes-128-ctr") == 0) {
     return EVP_aes_128_ctr();
   } else if (OPENSSL_strcasecmp(name, "aes-192-ctr") == 0) {
