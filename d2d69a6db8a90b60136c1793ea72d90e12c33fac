@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ef6b0840_f83b469b",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-08-30T22:09:26Z",
+      "side": 1,
+      "message": "Does it work for iOS too? (Fine to land just macOS support in this change if we\u0027re not sure.)",
+      "revId": "d2d69a6db8a90b60136c1793ea72d90e12c33fac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b756237_1d3b66cf",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-08-30T22:09:26Z",
+      "side": 1,
+      "message": "This is known to be true, right? Do we know how expensive this call is?",
+      "revId": "d2d69a6db8a90b60136c1793ea72d90e12c33fac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
