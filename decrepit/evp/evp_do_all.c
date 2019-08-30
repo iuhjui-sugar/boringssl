@@ -21,6 +21,8 @@ void EVP_CIPHER_do_all_sorted(void (*callback)(const EVP_CIPHER *cipher,
                               void *arg) {
   callback(EVP_aes_128_cbc(), "AES-128-CBC", NULL, arg);
   callback(EVP_aes_192_cbc(), "AES-192-CBC", NULL, arg);
+  callback(EVP_aes_128_cfb128(), "AES-128-CFB", NULL, arg);
+  callback(EVP_aes_256_cfb128(), "AES-256-CFB", NULL, arg);
   callback(EVP_aes_256_cbc(), "AES-256-CBC", NULL, arg);
   callback(EVP_aes_128_ctr(), "AES-128-CTR", NULL, arg);
   callback(EVP_aes_192_ctr(), "AES-192-CTR", NULL, arg);
@@ -46,6 +48,8 @@ void EVP_CIPHER_do_all_sorted(void (*callback)(const EVP_CIPHER *cipher,
   callback(EVP_aes_128_cbc(), "aes-128-cbc", NULL, arg);
   callback(EVP_aes_192_cbc(), "aes-192-cbc", NULL, arg);
   callback(EVP_aes_256_cbc(), "aes-256-cbc", NULL, arg);
+  callback(EVP_aes_128_cfb128(), "aes-128-cfb", NULL, arg);
+  callback(EVP_aes_256_cfb128(), "aes-256-cfb", NULL, arg);
   callback(EVP_aes_128_ctr(), "aes-128-ctr", NULL, arg);
   callback(EVP_aes_192_ctr(), "aes-192-ctr", NULL, arg);
   callback(EVP_aes_256_ctr(), "aes-256-ctr", NULL, arg);
