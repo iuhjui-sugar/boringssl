@@ -53,6 +53,10 @@
 #endif
 #endif  // OPENSSL_LINUX
 
+#if defined(OPENSSL_MACOS)
+#include <sys/random.h>
+#endif
+
 #include <openssl/thread.h>
 #include <openssl/mem.h>
 
@@ -183,6 +187,15 @@ static void init_once(void) {
   }
 #endif  // USE_NR_getrandom
 
+#if defined(OPENSSL_MACOS)
+  // getentropy is available in macOS 10.12 and up. iOS 10 and up may also
+  // support it, but the header is missing. See https://crbug.com/boringssl/287.
+  if (__builtin_available(macos 10.12, *)) {
+    *urandom_fd_bss_get() = kHaveGetrandom;
+    return;
+  }
+#endif
+
   // Android FIPS builds must support getrandom.
 #if defined(BORINGSSL_FIPS) && defined(OPENSSL_ANDROID)
   perror("getrandom not found");
@@ -297,6 +310,19 @@ static char fill_with_entropy(uint8_t *out, size_t len) {
     if (*urandom_fd_bss_get() == kHaveGetrandom) {
 #if defined(USE_NR_getrandom)
       r = boringssl_getrandom(out, len, 0 /* no flags */);
+#elif defined(OPENSSL_MACOS)
+      if (__builtin_available(macos 10.12, *)) {
+        // |getentropy| can only request 256 bytes at a time.
+        size_t todo = len <= 256 ? len : 256;
+        if (getentropy(out, todo) != 0) {
+          r = -1;
+        } else {
+          r = (ssize_t)todo;
+        }
+      } else {
+        fprintf(stderr, "urandom fd corrupt.\n");
+        abort();
+      }
 #else  // USE_NR_getrandom
       fprintf(stderr, "urandom fd corrupt.\n");
       abort();
