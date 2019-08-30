@@ -124,6 +124,9 @@ extern "C" {
 
 #if defined(__APPLE__)
 #define OPENSSL_APPLE
+#if defined(TARGET_OS_MAC) && TARGET_OS_MAC
+#define OPENSSL_MACOS
+#endif
 #if defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE
 #define OPENSSL_IOS
 #endif
