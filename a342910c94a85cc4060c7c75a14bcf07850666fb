@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1f9f8e60_e426aa61",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3909,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-09-03T22:58:33Z",
+      "side": 1,
+      "message": "Having a hard time parsing this sentence. Guessing you meant to phrase this differently?",
+      "revId": "a342910c94a85cc4060c7c75a14bcf07850666fb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06cd06ec_51b12190",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3910,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-09-03T22:58:33Z",
+      "side": 1,
+      "message": "Nit: SSL_is_hello_retry_request or maybe SSL_used_hello_retry_request? There\u0027s plenty of room to spell it out and I don\u0027t think HRR as an acronym is defined anywhere.",
+      "range": {
+        "startLine": 3910,
+        "startChar": 19,
+        "endLine": 3910,
+        "endChar": 29
+      },
+      "revId": "a342910c94a85cc4060c7c75a14bcf07850666fb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5673d067_41af2ed5",
+        "filename": "ssl/handshake.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-09-03T22:58:33Z",
+      "side": 1,
+      "message": "Just have the handshake set ssl-\u003es3-\u003ehrr_triggered when HRRs happen and omit sent_hello_retry_request/receied_hello_retry_request. (Did you forget to define those?) Then the getter can also just return the field directly.",
+      "revId": "a342910c94a85cc4060c7c75a14bcf07850666fb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41118574_fb8a9ac5",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2297,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-09-03T22:58:33Z",
+      "side": 1,
+      "message": "HelloRetryRequested",
+      "range": {
+        "startLine": 2297,
+        "startChar": 30,
+        "endLine": 2297,
+        "endChar": 45
+      },
+      "revId": "a342910c94a85cc4060c7c75a14bcf07850666fb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bee3b69_da04998f",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-09-03T22:58:33Z",
+      "side": 1,
+      "message": "\u003d\u003d is much more straightforward.\n\nYou can also just make boolean flags like expect_hrr and expect_no_hrr.",
+      "range": {
+        "startLine": 680,
+        "startChar": 27,
+        "endLine": 680,
+        "endChar": 34
+      },
+      "revId": "a342910c94a85cc4060c7c75a14bcf07850666fb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
