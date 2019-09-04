@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5aef20b1_d5df302b",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3909,
+      "author": {
+        "id": 9225
+      },
+      "writtenOn": "2019-09-04T12:48:36Z",
+      "side": 1,
+      "message": "Rephrased",
+      "parentUuid": "1f9f8e60_e426aa61",
+      "revId": "a342910c94a85cc4060c7c75a14bcf07850666fb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "06cd06ec_51b12190",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 1
@@ -30,6 +48,30 @@
       "writtenOn": "2019-09-03T22:58:33Z",
       "side": 1,
       "message": "Nit: SSL_is_hello_retry_request or maybe SSL_used_hello_retry_request? There\u0027s plenty of room to spell it out and I don\u0027t think HRR as an acronym is defined anywhere.",
+      "range": {
+        "startLine": 3910,
+        "startChar": 19,
+        "endLine": 3910,
+        "endChar": 29
+      },
+      "revId": "a342910c94a85cc4060c7c75a14bcf07850666fb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58279d0c_e6b70155",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3910,
+      "author": {
+        "id": 9225
+      },
+      "writtenOn": "2019-09-04T12:48:36Z",
+      "side": 1,
+      "message": "SSL_used_hello_retry_request sounds good. \nChanged",
+      "parentUuid": "06cd06ec_51b12190",
       "range": {
         "startLine": 3910,
         "startChar": 19,
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "6238fd0e_5bef1349",
+        "filename": "ssl/handshake.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 9225
+      },
+      "writtenOn": "2019-09-04T12:48:36Z",
+      "side": 1,
+      "message": "I actually don\u0027t see why I would need 2 separated fields. But maybe my understanding for those flags is incorrect. \nIn the code I can see that sent_hello_retry_request is used (set/read) _only_ by the server and received_hello_retry_request is used _only_ by the client.\nThe SSL_is_HRR() returns 1 if HRR was used (meaning either server has sent HRR or client has received it), which means I need only one flag.\n\nThere is also another thing. After handshake is finished, the SSL_HANDSHAKE object is destroyed, together with information about whether HRR was used (this is a reason why I need \"hrr_triggered\" flag in SSL_STATE). But maybe it would be better just to move \"sent_hello_retry_request\" and \"received_hello_retry_request\" from SSL_HANDSHAKE to SSL_STATE? This way \"hrr_triggered\" wouldn\u0027t be needed anymore.",
+      "parentUuid": "5673d067_41af2ed5",
+      "revId": "a342910c94a85cc4060c7c75a14bcf07850666fb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "41118574_fb8a9ac5",
         "filename": "ssl/internal.h",
         "patchSetId": 1
@@ -82,6 +142,47 @@
     },
     {
       "key": {
+        "uuid": "826b020c_dd7b7460",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2297,
+      "author": {
+        "id": 9225
+      },
+      "writtenOn": "2019-09-04T12:48:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41118574_fb8a9ac5",
+      "range": {
+        "startLine": 2297,
+        "startChar": 30,
+        "endLine": 2297,
+        "endChar": 45
+      },
+      "revId": "a342910c94a85cc4060c7c75a14bcf07850666fb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fbff82d9_3434424a",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2299,
+      "author": {
+        "id": 9225
+      },
+      "writtenOn": "2019-09-04T12:48:36Z",
+      "side": 1,
+      "message": "it should be called \"hrr_used\". I\u0027ll change it",
+      "revId": "a342910c94a85cc4060c7c75a14bcf07850666fb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5bee3b69_da04998f",
         "filename": "ssl/test/bssl_shim.cc",
         "patchSetId": 1
@@ -93,6 +194,30 @@
       "writtenOn": "2019-09-03T22:58:33Z",
       "side": 1,
       "message": "\u003d\u003d is much more straightforward.\n\nYou can also just make boolean flags like expect_hrr and expect_no_hrr.",
+      "range": {
+        "startLine": 680,
+        "startChar": 27,
+        "endLine": 680,
+        "endChar": 34
+      },
+      "revId": "a342910c94a85cc4060c7c75a14bcf07850666fb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6df2e255_410758ba",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 9225
+      },
+      "writtenOn": "2019-09-04T12:48:36Z",
+      "side": 1,
+      "message": "It\u0027s done this way as there are 3 cases actually: 1. HRR used, 2. HRR no-used, 3. don\u0027t test HRR.\nThe third case is important as there are tests which will invoke SSL_is_HRR() multiple times. Those invocations will sometimes (correctly) return 1 and sometimes 0.\nAlternatively I could have a boolean flag indicating whether to check HRR and another flag indicating expected result. Indeed this would make if easier to understand. Would you prefer such solution?",
+      "parentUuid": "5bee3b69_da04998f",
       "range": {
         "startLine": 680,
         "startChar": 27,
