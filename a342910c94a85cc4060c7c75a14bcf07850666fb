@@ -161,6 +161,24 @@
     },
     {
       "key": {
+        "uuid": "d30962dd_4a297213",
+        "filename": "ssl/handshake.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 9225
+      },
+      "writtenOn": "2019-09-06T12:44:01Z",
+      "side": 1,
+      "message": "In patch3 I\u0027ve removed \"hrr_triggered\" and moved sent_hello_retry_request and received_hello_retry_request to SSL_STATE, so that\u0027s done now.",
+      "parentUuid": "6238fd0e_5bef1349",
+      "revId": "a342910c94a85cc4060c7c75a14bcf07850666fb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "41118574_fb8a9ac5",
         "filename": "ssl/internal.h",
         "patchSetId": 1
@@ -287,6 +305,30 @@
       "revId": "a342910c94a85cc4060c7c75a14bcf07850666fb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40bc7c04_d7062b55",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 9225
+      },
+      "writtenOn": "2019-09-06T12:44:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6df2e255_410758ba",
+      "range": {
+        "startLine": 680,
+        "startChar": 27,
+        "endLine": 680,
+        "endChar": 34
+      },
+      "revId": "a342910c94a85cc4060c7c75a14bcf07850666fb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
