@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "0bbba5ba_0f93d95e",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 2936,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2019-09-11T21:16:06Z",
+      "side": 1,
+      "message": "It would be easier to implement this function if we either (1) take exactly one ESNIKeys and one private key, or (2) take [const uint8_t **key_struct] and [size_t *key_len] so we can avoid re-parsing the bytestream.\n\nIt seems reasonable to me that the caller will know where one ESNIKeys ends and the next begins, rather than having one opaque bytestream of concatenated ESNIKeys.\n\nAny objections?",
+      "revId": "15fa0177ac891a88fbbbba975163da00a28e27d8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "af540fa7_537f8bf7",
         "filename": "ssl/t1_lib.cc",
         "patchSetId": 27
