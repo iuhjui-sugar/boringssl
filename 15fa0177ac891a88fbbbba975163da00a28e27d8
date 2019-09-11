@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "af540fa7_537f8bf7",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 2941,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2019-09-11T18:25:53Z",
+      "side": 1,
+      "message": "Any other criteria for selecting the ciphersuite?",
+      "revId": "15fa0177ac891a88fbbbba975163da00a28e27d8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b920f97_62468925",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 2977,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2019-09-11T18:25:53Z",
+      "side": 1,
+      "message": "Which curves should be supported?",
+      "revId": "15fa0177ac891a88fbbbba975163da00a28e27d8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
