@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b02bc188_5dc04be8",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 2936,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2019-09-12T14:02:28Z",
+      "side": 1,
+      "message": "Disregard the details of (2).  I had a conceptual issue -- in reality, each of the N keys in a single ESNIKeys object has a corresponding private key.\n\nBasically I\u0027m asking whether this function should take one ESNIKeys at a time (and corresponding private keys) or N of them.",
+      "parentUuid": "0bbba5ba_0f93d95e",
+      "revId": "15fa0177ac891a88fbbbba975163da00a28e27d8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "af540fa7_537f8bf7",
         "filename": "ssl/t1_lib.cc",
         "patchSetId": 27
