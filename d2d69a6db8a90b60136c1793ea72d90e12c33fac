@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e74b597d_442e6097",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-09-12T00:50:35Z",
+      "side": 1,
+      "message": "The header is missing. :-/ See discussion in https://crbug.com/boringssl/287. I added a comment.",
+      "parentUuid": "ef6b0840_f83b469b",
+      "revId": "d2d69a6db8a90b60136c1793ea72d90e12c33fac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5b756237_1d3b66cf",
         "filename": "crypto/fipsmodule/rand/urandom.c",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2019-08-30T22:09:26Z",
       "side": 1,
       "message": "This is known to be true, right? Do we know how expensive this call is?",
+      "revId": "d2d69a6db8a90b60136c1793ea72d90e12c33fac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f17e4905_8edd79b7",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-09-12T00:50:35Z",
+      "side": 1,
+      "message": "It\u0027ll actually trip a warning if we omit this. There\u0027s a fancy clang feature.\nhttps://clang.llvm.org/docs/LanguageExtensions.html#objective-c-available\n\n(Or rather, it\u0027ll trip a warning if we build with -Wunguarded-availability and then set -DCMAKE_OSX_DEPLOYMENT_TARGET to 10.11 or below.)\n\nLooks like it compiles to a call to this function, which seems plausibly efficient. I could also swap the order of the loop and the various checks.\nhttps://github.com/llvm-mirror/compiler-rt/blob/master/lib/builtins/os_version_check.c#L204",
+      "parentUuid": "5b756237_1d3b66cf",
       "revId": "d2d69a6db8a90b60136c1793ea72d90e12c33fac",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
