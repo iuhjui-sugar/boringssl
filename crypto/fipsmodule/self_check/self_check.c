@@ -15,6 +15,7 @@
 #include <openssl/crypto.h>
 
 #include <stdio.h>
+#include <stdlib.h>
 
 #include <openssl/aead.h>
 #include <openssl/aes.h>
@@ -39,9 +40,12 @@
 // FIPS builds on Android will attempt to write flag files to
 // /dev/boringssl/selftest/ named after the module hash. If the flag file
 // exists, it's assumed that self-tests have already passed and thus do not need
-// to be repeated.
+// to be repeated.  No flag file will be created unless the environment
+// variable specified in |kFlagVariable| is set to any value, in order to limit
+// creations to specific binaries in accordance with Android's SELinux policies.
 #define BORINGSSL_FIPS_SELF_TEST_FLAG_FILE
 static const char kFlagPrefix[] = "/dev/boringssl/selftest/";
+static const char kFlagVariable[] = "BORINGSSL_SELF_TEST_CREATE_FLAG";
 #endif
 
 static void hexdump(const uint8_t *in, size_t len) {
@@ -611,7 +615,7 @@ int BORINGSSL_self_test(
 
 #if defined(BORINGSSL_FIPS_SELF_TEST_FLAG_FILE)
   // Tests were successful. Write flag file if requested.
-  if (flag_path_valid) {
+  if (flag_path_valid && (getenv(kFlagVariable) != NULL)) {
     const int fd = open(flag_path, O_WRONLY | O_CREAT | O_TRUNC, 0644);
     if (fd >= 0) {
       close(fd);
