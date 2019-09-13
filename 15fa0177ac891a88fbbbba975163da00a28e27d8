@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "9c85f84e_ecbc95f5",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 2936,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2019-09-13T21:44:41Z",
+      "side": 1,
+      "message": "Resolved in latest patchset. The function takes exactly 1 ESNIKeys in |key_struct|, N keyshares, and N private keys.",
+      "parentUuid": "b02bc188_5dc04be8",
+      "revId": "15fa0177ac891a88fbbbba975163da00a28e27d8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "af540fa7_537f8bf7",
         "filename": "ssl/t1_lib.cc",
         "patchSetId": 27
@@ -65,6 +83,24 @@
       "writtenOn": "2019-09-11T18:25:53Z",
       "side": 1,
       "message": "Which curves should be supported?",
+      "revId": "15fa0177ac891a88fbbbba975163da00a28e27d8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3b00bfe_7917b8ba",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 2977,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2019-09-13T21:44:41Z",
+      "side": 1,
+      "message": "In latest patchset, I\u0027m using NamedGroups(), defined in ssl_key_share.cc, as the source of groups. I\u0027m thinking I should use that when GREASE-ing the ClientHello as well.",
+      "parentUuid": "4b920f97_62468925",
       "revId": "15fa0177ac891a88fbbbba975163da00a28e27d8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
