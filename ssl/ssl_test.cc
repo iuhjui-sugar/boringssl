@@ -473,6 +473,75 @@ static bool CipherListsEqual(SSL_CTX *ctx,
   return true;
 }
 
+TEST(GrowableArrayTest, Resize) {
+  GrowableArray<size_t> garr;
+  ASSERT_TRUE(garr.empty());
+  EXPECT_EQ(garr.size(), static_cast<size_t>(0));
+
+  garr.Push(42);
+  ASSERT_TRUE(!garr.empty());
+  EXPECT_EQ(garr.size(), static_cast<size_t>(1));
+
+  // Force a resize operation to occur
+  for (size_t i = 0; i < 16; i++) {
+    garr.Push(i + 1);
+  }
+
+  EXPECT_EQ(garr.size(), static_cast<size_t>(17));
+
+  // Verify that expected values are still contained in array
+  for (size_t i = 0; i < garr.size(); i++) {
+    EXPECT_EQ(garr[i], i == 0 ? 42 : i);
+  }
+}
+
+TEST(GrowableArrayTest, MoveConstructor) {
+  GrowableArray<size_t> garr;
+  for (size_t i = 0; i < 100; i++) {
+    garr.Push(i);
+  }
+
+  GrowableArray<size_t> garr_moved(std::move(garr));
+  for (size_t i = 0; i < 100; i++) {
+    EXPECT_EQ(garr_moved[i], i);
+  }
+}
+
+TEST(GrowableArrayTest, GrowableArrayContainingGrowableArrays) {
+  struct Foo {
+    size_t tag;
+    GrowableArray<size_t> bar;
+  };
+
+  GrowableArray<Foo> garr;
+  for (size_t i = 0; i < 100; i++) {
+    Foo foo;
+    foo.tag = i;
+    for (size_t j = 0; j < i; j++) {
+      foo.bar.Push(j);
+    }
+    garr.Push(std::move(foo));
+  }
+  EXPECT_EQ(garr.size(), static_cast<size_t>(100));
+
+  GrowableArray<Foo> garr_moved(std::move(garr));
+  EXPECT_EQ(garr_moved.size(), static_cast<size_t>(100));
+  size_t count = 0;
+  for (const Foo &foo : garr_moved) {
+    // Test the square bracket operator returns the same value as iteration.
+    const Foo &foo_too = garr_moved[count];
+    EXPECT_EQ(foo.tag, foo_too.tag);
+    EXPECT_EQ(foo.bar.size(), foo_too.bar.size());
+
+    EXPECT_EQ(foo.tag, count);
+    EXPECT_EQ(foo.bar.size(), count);
+    for (size_t j = 0; j < count; j++) {
+      EXPECT_EQ(foo.bar[j], j);
+    }
+    count++;
+  }
+}
+
 TEST(SSLTest, CipherRules) {
   for (const CipherTest &t : kCipherTests) {
     SCOPED_TRACE(t.rule);
