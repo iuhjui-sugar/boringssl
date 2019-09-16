@@ -5643,7 +5643,7 @@ TEST(GrowableArrayTest, Structs) {
   size_t count = 0;
   for (const Foo &foo : garr_moved) {
     // Test the square bracket operator returns the same value as iteration.
-    const Foo &foo_too = garr[count];
+    const Foo &foo_too = garr_moved[count];
     EXPECT_EQ(foo.tag, foo_too.tag);
     EXPECT_EQ(foo.bar.size(), foo_too.bar.size());
 
