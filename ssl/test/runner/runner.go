@@ -213,6 +213,17 @@ var testSCTList2 = []byte{0, 6, 0, 4, 1, 2, 3, 4}
 var testOCSPExtension = append([]byte{byte(extensionStatusRequest) >> 8, byte(extensionStatusRequest), 0, 8, statusTypeOCSP, 0, 0, 4}, testOCSPResponse...)
 var testSCTExtension = append([]byte{byte(extensionSignedCertificateTimestamp) >> 8, byte(extensionSignedCertificateTimestamp), 0, byte(len(testSCTList))}, testSCTList...)
 
+func ByteOrder() binary.ByteOrder {
+       var byteOrder binary.ByteOrder
+
+       byteOrder = binary.LittleEndian
+       switch runtime.GOARCH {
+       case "s390x":
+               byteOrder = binary.BigEndian
+       }
+       return byteOrder
+}
+
 func initCertificates() {
 	for i := range testCerts {
 		cert, err := LoadX509KeyPair(path.Join(*resourceDir, testCerts[i].certFile), path.Join(*resourceDir, testCerts[i].keyFile))
@@ -897,7 +908,7 @@ func doExchange(test *testCase, config *Config, conn net.Conn, isResume bool, tr
 		if _, err := io.ReadFull(tlsConn, secretLenBytes); err != nil {
 			return err
 		}
-		secretLen := binary.LittleEndian.Uint16(secretLenBytes)
+		secretLen := ByteOrder().Uint16(secretLenBytes)
 
 		theirReadSecret := make([]byte, secretLen)
 		theirWriteSecret := make([]byte, secretLen)

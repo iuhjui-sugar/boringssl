@@ -99,7 +99,7 @@ BIGNUM *BN_bin2bn(const uint8_t *in, size_t len, BIGNUM *ret) {
   while (len--) {
     word = (word << 8) | *(in++);
     if (m-- == 0) {
-      ret->d[--num_words] = word;
+      ret->d[--num_words] = BSWAP_ULONG(word);
       word = 0;
       m = BN_BYTES - 1;
     }
@@ -148,7 +148,7 @@ size_t BN_bn2bin(const BIGNUM *in, uint8_t *out) {
 
   n = i = BN_num_bytes(in);
   while (i--) {
-    l = in->d[i / BN_BYTES];
+    l = BSWAP_ULONG(in->d[i / BN_BYTES]);
     *(out++) = (unsigned char)(l >> (8 * (i % BN_BYTES))) & 0xff;
   }
   return n;
@@ -205,7 +205,7 @@ BN_ULONG BN_get_word(const BIGNUM *bn) {
     case 0:
       return 0;
     case 1:
-      return bn->d[0];
+      return BSWAP_ULONG(bn->d[0]);
     default:
       return BN_MASK2;
   }
@@ -217,11 +217,12 @@ int BN_get_u64(const BIGNUM *bn, uint64_t *out) {
       *out = 0;
       return 1;
     case 1:
-      *out = bn->d[0];
+      *out = BSWAP_ULONG(bn->d[0]);
       return 1;
 #if defined(OPENSSL_32_BIT)
     case 2:
-      *out = (uint64_t) bn->d[0] | (((uint64_t) bn->d[1]) << 32);
+      *out = (uint64_t) BSWAP_ULONG(bn->d[0]) |
+	(((uint64_t) BSWAP_ULONG(bn->d[1])) << 32);
       return 1;
 #endif
     default:

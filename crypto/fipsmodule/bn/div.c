@@ -208,8 +208,9 @@ int BN_div(BIGNUM *quotient, BIGNUM *rem, const BIGNUM *numerator,
   // Invalid zero-padding would have particularly bad consequences.
   int numerator_width = bn_minimal_width(numerator);
   int divisor_width = bn_minimal_width(divisor);
-  if ((numerator_width > 0 && numerator->d[numerator_width - 1] == 0) ||
-      (divisor_width > 0 && divisor->d[divisor_width - 1] == 0)) {
+  if ((numerator_width > 0 &&
+       BSWAP_ULONG(numerator->d[numerator_width - 1]) == 0) ||
+      (divisor_width > 0 && BSWAP_ULONG(divisor->d[divisor_width - 1]) == 0)) {
     OPENSSL_PUT_ERROR(BN, BN_R_NOT_INITIALIZED);
     return 0;
   }
@@ -280,8 +281,8 @@ int BN_div(BIGNUM *quotient, BIGNUM *rem, const BIGNUM *numerator,
 
   // Get the top 2 words of sdiv
   // div_n=sdiv->width;
-  d0 = sdiv->d[div_n - 1];
-  d1 = (div_n == 1) ? 0 : sdiv->d[div_n - 2];
+  d0 = BSWAP_ULONG(sdiv->d[div_n - 1]);
+  d1 = (div_n == 1) ? 0 : BSWAP_ULONG(sdiv->d[div_n - 2]);
 
   // pointer to the 'top' of snum
   wnump = &(snum->d[num_n - 1]);
@@ -313,8 +314,8 @@ int BN_div(BIGNUM *quotient, BIGNUM *rem, const BIGNUM *numerator,
     // calculate a BN_ULONG q such that | wnum - sdiv * q | < sdiv
     BN_ULONG n0, n1, rm = 0;
 
-    n0 = wnump[0];
-    n1 = wnump[-1];
+    n0 = BSWAP_ULONG(wnump[0]);
+    n1 = BSWAP_ULONG(wnump[-1]);
     if (n0 == d0) {
       q = BN_MASK2;
     } else {
@@ -324,7 +325,7 @@ int BN_div(BIGNUM *quotient, BIGNUM *rem, const BIGNUM *numerator,
 #ifdef BN_ULLONG
       BN_ULLONG t2 = (BN_ULLONG)d1 * q;
       for (;;) {
-        if (t2 <= ((((BN_ULLONG)rm) << BN_BITS2) | wnump[-2])) {
+	if (t2 <= ((((BN_ULLONG)rm) << BN_BITS2) | BSWAP_ULONG(wnump[-2]))) {
           break;
         }
         q--;
@@ -339,7 +340,7 @@ int BN_div(BIGNUM *quotient, BIGNUM *rem, const BIGNUM *numerator,
       BN_UMULT_LOHI(t2l, t2h, d1, q);
       for (;;) {
         if (t2h < rm ||
-            (t2h == rm && t2l <= wnump[-2])) {
+	    (t2h == rm && t2l <= BSWAP_ULONG(wnump[-2]))) {
           break;
         }
         q--;
@@ -356,7 +357,7 @@ int BN_div(BIGNUM *quotient, BIGNUM *rem, const BIGNUM *numerator,
     }
 
     l0 = bn_mul_words(tmp->d, sdiv->d, div_n, q);
-    tmp->d[div_n] = l0;
+    tmp->d[div_n] = BSWAP_ULONG(l0);
     wnum.d--;
     // ingore top values of the bignums just sub the two
     // BN_ULONG arrays with bn_sub_words
@@ -370,11 +371,11 @@ int BN_div(BIGNUM *quotient, BIGNUM *rem, const BIGNUM *numerator,
         // we can't have an overflow here (assuming
         // that q != 0, but if q == 0 then tmp is
         // zero anyway)
-        (*wnump)++;
+	*wnump = BSWAP_ULONG(BSWAP_ULONG(*wnump) + 1);
       }
     }
     // store part of the result
-    *resp = q;
+    *resp = BSWAP_ULONG(q);
   }
 
   bn_set_minimal_width(snum);
@@ -505,7 +506,8 @@ int bn_div_consttime(BIGNUM *quotient, BIGNUM *remainder,
       // r = 2*r or 2*r + 1. Note the result fits in one more word. We store the
       // extra word in |carry|.
       BN_ULONG carry = bn_add_words(r->d, r->d, r->d, divisor->width);
-      r->d[0] |= (numerator->d[i] >> bit) & 1;
+      r->d[0] = BSWAP_ULONG(BSWAP_ULONG(r->d[0]) |
+			    ((BSWAP_ULONG(numerator->d[i]) >> bit) & 1));
       // |r| was previously fully-reduced, so we know:
       //      2*0 <= r <= 2*(divisor-1) + 1
       //        0 <= r <= 2*divisor - 1 < 2*divisor.
@@ -513,7 +515,7 @@ int bn_div_consttime(BIGNUM *quotient, BIGNUM *remainder,
       BN_ULONG subtracted = bn_reduce_once_in_place(r->d, carry, divisor->d,
                                                     tmp->d, divisor->width);
       // The corresponding bit of the quotient is set iff we needed to subtract.
-      q->d[i] |= (~subtracted & 1) << bit;
+      q->d[i] = BSWAP_ULONG(BSWAP_ULONG(q->d[i]) | ((~subtracted & 1) << bit));
     }
   }
 
@@ -756,12 +758,12 @@ BN_ULONG BN_div_word(BIGNUM *a, BN_ULONG w) {
   }
 
   for (i = a->width - 1; i >= 0; i--) {
-    BN_ULONG l = a->d[i];
+    BN_ULONG l = BSWAP_ULONG(a->d[i]);
     BN_ULONG d;
     BN_ULONG unused_rem;
     bn_div_rem_words(&d, &unused_rem, ret, l, w);
     ret = l - (d * w);
-    a->d[i] = d;
+    a->d[i] = BSWAP_ULONG(d);
   }
 
   bn_set_minimal_width(a);
@@ -797,10 +799,12 @@ BN_ULONG BN_mod_word(const BIGNUM *a, BN_ULONG w) {
 
   for (i = a->width - 1; i >= 0; i--) {
 #ifndef BN_CAN_DIVIDE_ULLONG
-    ret = ((ret << BN_BITS4) | ((a->d[i] >> BN_BITS4) & BN_MASK2l)) % w;
-    ret = ((ret << BN_BITS4) | (a->d[i] & BN_MASK2l)) % w;
+    ret = ((ret << BN_BITS4) |
+	   ((BSWAP_ULONG(a->d[i]) >> BN_BITS4) & BN_MASK2l)) % w;
+    ret = ((ret << BN_BITS4) | (BSWAP_ULONG(a->d[i]) & BN_MASK2l)) % w;
 #else
-    ret = (BN_ULLONG)(((ret << (BN_ULLONG)BN_BITS2) | a->d[i]) % (BN_ULLONG)w);
+    ret = (BN_ULLONG)(((ret << (BN_ULLONG)BN_BITS2) |
+		       BSWAP_ULONG(a->d[i])) % (BN_ULLONG)w);
 #endif
   }
   return (BN_ULONG)ret;
@@ -831,7 +835,9 @@ int BN_mod_pow2(BIGNUM *r, const BIGNUM *a, size_t e) {
   // If |e| isn't word-aligned, we have to mask off some of our bits.
   size_t top_word_exponent = e % (sizeof(BN_ULONG) * 8);
   if (top_word_exponent != 0) {
-    r->d[num_words - 1] &= (((BN_ULONG) 1) << top_word_exponent) - 1;
+    r->d[num_words - 1] =
+      BSWAP_ULONG(BSWAP_ULONG(r->d[num_words - 1]) &
+		  ((((BN_ULONG) 1) << top_word_exponent) - 1));
   }
 
   // Fill in the remaining fields of |r|.
@@ -869,13 +875,16 @@ int BN_nnmod_pow2(BIGNUM *r, const BIGNUM *a, size_t e) {
   // which is actually equivalent to the twos-complement representation of |x|
   // in |e| bits, which is -x = ~x + 1.
   for (int i = 0; i < r->width; i++) {
-    r->d[i] = ~r->d[i];
+    BN_ULONG tmp = BSWAP_ULONG(r->d[i]);
+    r->d[i] = BSWAP_ULONG(~tmp);
   }
 
   // If our exponent doesn't span the top word, we have to mask the rest.
   size_t top_word_exponent = e % BN_BITS2;
   if (top_word_exponent != 0) {
-    r->d[r->width - 1] &= (((BN_ULONG) 1) << top_word_exponent) - 1;
+    r->d[r->width - 1] =
+      BSWAP_ULONG(BSWAP_ULONG(r->d[r->width - 1]) &
+		  ((((BN_ULONG) 1) << top_word_exponent) - 1));
   }
 
   // Keep the minimal-width invariant for |BIGNUM|.

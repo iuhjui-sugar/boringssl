@@ -728,14 +728,15 @@ void bn_mod_exp_mont_small(BN_ULONG *r, const BN_ULONG *a, size_t num,
   assert(BN_is_odd(&mont->N));
 
   // Count the number of bits in |p|. Note this function treats |p| as public.
-  while (num_p != 0 && p[num_p - 1] == 0) {
+  while (num_p != 0 && BSWAP_ULONG(p[num_p - 1]) == 0) {
     num_p--;
   }
   if (num_p == 0) {
     bn_from_montgomery_small(r, mont->RR.d, num, mont);
     return;
   }
-  unsigned bits = BN_num_bits_word(p[num_p - 1]) + (num_p - 1) * BN_BITS2;
+  unsigned bits =
+    BN_num_bits_word(BSWAP_ULONG(p[num_p - 1])) + (num_p - 1) * BN_BITS2;
   assert(bits != 0);
 
   // We exponentiate by looking at sliding windows of the exponent and
@@ -819,12 +820,14 @@ void bn_mod_inverse_prime_mont_small(BN_ULONG *r, const BN_ULONG *a, size_t num,
   BN_ULONG p_minus_two[BN_SMALL_MAX_WORDS];
   const BN_ULONG *p = mont->N.d;
   OPENSSL_memcpy(p_minus_two, p, num * sizeof(BN_ULONG));
-  if (p_minus_two[0] >= 2) {
-    p_minus_two[0] -= 2;
+  if (BSWAP_ULONG(p_minus_two[0]) >= 2) {
+    p_minus_two[0] = BSWAP_ULONG(BSWAP_ULONG(p_minus_two[0]) - 2);
   } else {
-    p_minus_two[0] -= 2;
+    p_minus_two[0] = BSWAP_ULONG(BSWAP_ULONG(p_minus_two[0]) - 2);
     for (size_t i = 1; i < num; i++) {
-      if (p_minus_two[i]-- != 0) {
+      int j = (BSWAP_ULONG(p_minus_two[i]) != 0);
+      p_minus_two[i] = BSWAP_ULONG(BSWAP_ULONG(p_minus_two[i]) - 1);
+      if (j) {
         break;
       }
     }
@@ -1232,7 +1235,7 @@ int BN_mod_exp_mont_word(BIGNUM *rr, BN_ULONG a, const BIGNUM *p,
 
   // BN_mod_exp_mont requires reduced inputs.
   if (bn_minimal_width(m) == 1) {
-    a %= m->d[0];
+    a = a % BSWAP_ULONG(m->d[0]);
   }
 
   if (!BN_set_word(&a_bignum, a)) {

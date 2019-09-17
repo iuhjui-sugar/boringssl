@@ -93,7 +93,7 @@ void ec_compute_wNAF(const EC_GROUP *group, int8_t *out,
   int next_bit = bit << 1;  // 2^(w+1), at most 256
   int mask = next_bit - 1;  // at most 255
 
-  int window_val = scalar->words[0] & mask;
+  int window_val = BSWAP_ULONG(scalar->words[0]) & mask;
   for (size_t j = 0; j < bits + 1; j++) {
     assert(0 <= window_val && window_val <= next_bit);
     int digit = 0;

@@ -35,7 +35,8 @@ static void maybe_rshift1_words_carry(BN_ULONG *a, BN_ULONG carry,
   maybe_rshift1_words(a, mask, tmp, num);
   if (num != 0) {
     carry &= mask;
-    a[num - 1] |= carry << (BN_BITS2-1);
+    a[num - 1] = BSWAP_ULONG(BSWAP_ULONG(a[num - 1]) |
+			     (carry << (BN_BITS2-1)));
   }
 }
 
@@ -81,7 +82,9 @@ static int bn_gcd_consttime(BIGNUM *r, unsigned *out_shift, const BIGNUM *x,
 
   unsigned shift = 0;
   for (unsigned i = 0; i < num_iters; i++) {
-    BN_ULONG both_odd = word_is_odd_mask(u->d[0]) & word_is_odd_mask(v->d[0]);
+    BN_ULONG both_odd =
+      word_is_odd_mask(BSWAP_ULONG(u->d[0])) &
+      word_is_odd_mask(BSWAP_ULONG(v->d[0]));
 
     // If both |u| and |v| are odd, subtract the smaller from the larger.
     BN_ULONG u_less_than_v =
@@ -91,8 +94,8 @@ static int bn_gcd_consttime(BIGNUM *r, unsigned *out_shift, const BIGNUM *x,
     bn_select_words(v->d, both_odd & u_less_than_v, tmp->d, v->d, width);
 
     // At least one of |u| and |v| is now even.
-    BN_ULONG u_is_odd = word_is_odd_mask(u->d[0]);
-    BN_ULONG v_is_odd = word_is_odd_mask(v->d[0]);
+    BN_ULONG u_is_odd = word_is_odd_mask(BSWAP_ULONG(u->d[0]));
+    BN_ULONG v_is_odd = word_is_odd_mask(BSWAP_ULONG(v->d[0]));
     assert(!(u_is_odd & v_is_odd));
 
     // If both are even, the final GCD gains a factor of two.
@@ -140,9 +143,9 @@ int bn_is_relatively_prime(int *out_relatively_prime, const BIGNUM *x,
   if (gcd->width == 0) {
     *out_relatively_prime = 0;
   } else {
-    BN_ULONG mask = shift | (gcd->d[0] ^ 1);
+    BN_ULONG mask = shift | (BSWAP_ULONG(gcd->d[0]) ^ 1);
     for (int i = 1; i < gcd->width; i++) {
-      mask |= gcd->d[i];
+      mask |= BSWAP_ULONG(gcd->d[i]);
     }
     *out_relatively_prime = mask == 0;
   }
@@ -260,7 +263,9 @@ int bn_mod_inverse_consttime(BIGNUM *r, int *out_no_inverse, const BIGNUM *a,
   // After each loop iteration, u and v only get smaller, and at least one of
   // them shrinks by at least a factor of two.
   for (unsigned i = 0; i < num_iters; i++) {
-    BN_ULONG both_odd = word_is_odd_mask(u->d[0]) & word_is_odd_mask(v->d[0]);
+    BN_ULONG both_odd =
+      word_is_odd_mask(BSWAP_ULONG(u->d[0])) &
+      word_is_odd_mask(BSWAP_ULONG(v->d[0]));
 
     // If both |u| and |v| are odd, subtract the smaller from the larger.
     BN_ULONG v_less_than_u =
@@ -284,14 +289,15 @@ int bn_mod_inverse_consttime(BIGNUM *r, int *out_no_inverse, const BIGNUM *a,
 
     // Our loop invariants hold at this point. Additionally, exactly one of |u|
     // and |v| is now even.
-    BN_ULONG u_is_even = ~word_is_odd_mask(u->d[0]);
-    BN_ULONG v_is_even = ~word_is_odd_mask(v->d[0]);
+    BN_ULONG u_is_even = ~word_is_odd_mask(BSWAP_ULONG(u->d[0]));
+    BN_ULONG v_is_even = ~word_is_odd_mask(BSWAP_ULONG(v->d[0]));
     assert(u_is_even != v_is_even);
 
     // Halve the even one and adjust the corresponding coefficient.
     maybe_rshift1_words(u->d, u_is_even, tmp->d, n_width);
     BN_ULONG A_or_B_is_odd =
-        word_is_odd_mask(A->d[0]) | word_is_odd_mask(B->d[0]);
+      word_is_odd_mask(BSWAP_ULONG(A->d[0])) |
+      word_is_odd_mask(BSWAP_ULONG(B->d[0]));
     BN_ULONG A_carry =
         maybe_add_words(A->d, A_or_B_is_odd & u_is_even, n->d, tmp->d, n_width);
     BN_ULONG B_carry =
@@ -301,7 +307,8 @@ int bn_mod_inverse_consttime(BIGNUM *r, int *out_no_inverse, const BIGNUM *a,
 
     maybe_rshift1_words(v->d, v_is_even, tmp->d, n_width);
     BN_ULONG C_or_D_is_odd =
-        word_is_odd_mask(C->d[0]) | word_is_odd_mask(D->d[0]);
+      word_is_odd_mask(BSWAP_ULONG(C->d[0])) |
+      word_is_odd_mask(BSWAP_ULONG(D->d[0]));
     BN_ULONG C_carry =
         maybe_add_words(C->d, C_or_D_is_odd & v_is_even, n->d, tmp->d, n_width);
     BN_ULONG D_carry =

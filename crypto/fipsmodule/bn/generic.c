@@ -68,59 +68,63 @@
       (defined(OPENSSL_X86_64) && (defined(__GNUC__) || defined(__clang__))))
 
 #ifdef BN_ULLONG
-#define mul_add(r, a, w, c)               \
-  do {                                    \
-    BN_ULLONG t;                          \
-    t = (BN_ULLONG)(w) * (a) + (r) + (c); \
-    (r) = Lw(t);                          \
-    (c) = Hw(t);                          \
+#define mul_add(r, a, w, c)                                     \
+  do {                                                          \
+    BN_ULLONG t;                                                \
+    t = (BN_ULLONG)(w) * BSWAP_ULONG(a) + BSWAP_ULONG(r) + (c); \
+    (r) = BSWAP_ULONG(Lw(t));                                   \
+    (c) = Hw(t);                                                \
   } while (0)
 
-#define mul(r, a, w, c)             \
-  do {                              \
-    BN_ULLONG t;                    \
-    t = (BN_ULLONG)(w) * (a) + (c); \
-    (r) = Lw(t);                    \
-    (c) = Hw(t);                    \
+#define mul(r, a, w, c)                        \
+  do {                                         \
+    BN_ULLONG t;                               \
+    t = (BN_ULLONG)(w) * BSWAP_ULONG(a) + (c); \
+    (r) = BSWAP_ULONG(Lw(t));                  \
+    (c) = Hw(t);                               \
   } while (0)
 
-#define sqr(r0, r1, a)        \
-  do {                        \
-    BN_ULLONG t;              \
-    t = (BN_ULLONG)(a) * (a); \
-    (r0) = Lw(t);             \
-    (r1) = Hw(t);             \
+#define sqr(r0, r1, a)                              \
+  do {                                              \
+    BN_ULLONG t;                                    \
+    t = (BN_ULLONG)BSWAP_ULONG(a) * BSWAP_ULONG(a); \
+    (r0) = BSWAP_ULONG(Lw(t));                      \
+    (r1) = BSWAP_ULONG(Hw(t));                      \
   } while (0)
 
 #else
 
-#define mul_add(r, a, w, c)             \
-  do {                                  \
-    BN_ULONG high, low, ret, tmp = (a); \
-    ret = (r);                          \
-    BN_UMULT_LOHI(low, high, w, tmp);   \
-    ret += (c);                         \
-    (c) = (ret < (c)) ? 1 : 0;          \
-    (c) += high;                        \
-    ret += low;                         \
-    (c) += (ret < low) ? 1 : 0;         \
-    (r) = ret;                          \
+#define mul_add(r, a, w, c)                        \
+  do {                                             \
+    BN_ULONG high, low, ret, tmp = BSWAP_ULONG(a); \
+    ret = BSWAP_ULONG(r);                          \
+    BN_UMULT_LOHI(low, high, w, tmp);              \
+    ret += (c);                                    \
+    (c) = (ret < (c)) ? 1 : 0;                     \
+    (c) += high;                                   \
+    ret += low;                                    \
+    (c) += (ret < low) ? 1 : 0;                    \
+    (r) = BSWAP_ULONG(ret);                        \
   } while (0)
 
-#define mul(r, a, w, c)                \
+#define mul(r, a, w, c)                           \
+  do {                                            \
+    BN_ULONG high, low, ret, ta = BSWAP_ULONG(a); \
+    BN_UMULT_LOHI(low, high, w, ta);              \
+    ret = low + (c);                              \
+    (c) = high;                                   \
+    (c) += (ret < low) ? 1 : 0;                   \
+    (r) = BSWAP_ULONG(ret);                       \
+  } while (0)
+
+#define sqr(r0, r1, a)                 \
   do {                                 \
-    BN_ULONG high, low, ret, ta = (a); \
-    BN_UMULT_LOHI(low, high, w, ta);   \
-    ret = low + (c);                   \
-    (c) = high;                        \
-    (c) += (ret < low) ? 1 : 0;        \
-    (r) = ret;                         \
-  } while (0)
-
-#define sqr(r0, r1, a)               \
-  do {                               \
-    BN_ULONG tmp = (a);              \
-    BN_UMULT_LOHI(r0, r1, tmp, tmp); \
+    BN_ULONG rr0 = BSWAP_ULONG(r0);    \
+    BN_ULONG rr1 = BSWAP_ULONG(r1);    \
+    BN_ULONG tmp = BSWAP_ULONG(a);     \
+    BN_UMULT_LOHI(rr0, rr1, tmp, tmp); \
+    (r0) = BSWAP_ULONG(rr0);           \
+    (r1) = BSWAP_ULONG(rr1);           \
   } while (0)
 
 #endif  // !BN_ULLONG
@@ -211,17 +215,17 @@ BN_ULONG bn_add_words(BN_ULONG *r, const BN_ULONG *a, const BN_ULONG *b,
   }
 
   while (n & ~3) {
-    ll += (BN_ULLONG)a[0] + b[0];
-    r[0] = (BN_ULONG)ll;
+    ll += (BN_ULLONG)BSWAP_ULONG(a[0]) + BSWAP_ULONG(b[0]);
+    r[0] = BSWAP_ULONG((BN_ULONG)ll);
     ll >>= BN_BITS2;
-    ll += (BN_ULLONG)a[1] + b[1];
-    r[1] = (BN_ULONG)ll;
+    ll += (BN_ULLONG)BSWAP_ULONG(a[1]) + BSWAP_ULONG(b[1]);
+    r[1] = BSWAP_ULONG((BN_ULONG)ll);
     ll >>= BN_BITS2;
-    ll += (BN_ULLONG)a[2] + b[2];
-    r[2] = (BN_ULONG)ll;
+    ll += (BN_ULLONG)BSWAP_ULONG(a[2]) + BSWAP_ULONG(b[2]);
+    r[2] = BSWAP_ULONG((BN_ULONG)ll);
     ll >>= BN_BITS2;
-    ll += (BN_ULLONG)a[3] + b[3];
-    r[3] = (BN_ULONG)ll;
+    ll += (BN_ULLONG)BSWAP_ULONG(a[3]) + BSWAP_ULONG(b[3]);
+    r[3] = BSWAP_ULONG((BN_ULONG)ll);
     ll >>= BN_BITS2;
     a += 4;
     b += 4;
@@ -229,8 +233,8 @@ BN_ULONG bn_add_words(BN_ULONG *r, const BN_ULONG *a, const BN_ULONG *b,
     n -= 4;
   }
   while (n) {
-    ll += (BN_ULLONG)a[0] + b[0];
-    r[0] = (BN_ULONG)ll;
+    ll += (BN_ULLONG)BSWAP_ULONG(a[0]) + BSWAP_ULONG(b[0]);
+    r[0] = BSWAP_ULONG((BN_ULONG)ll);
     ll >>= BN_BITS2;
     a++;
     b++;
@@ -252,42 +256,42 @@ BN_ULONG bn_add_words(BN_ULONG *r, const BN_ULONG *a, const BN_ULONG *b,
 
   c = 0;
   while (n & ~3) {
-    t = a[0];
+    t = BSWAP_ULONG(a[0]);
     t += c;
     c = (t < c);
-    l = t + b[0];
+    l = t + BSWAP_ULONG(b[0]);
     c += (l < t);
-    r[0] = l;
-    t = a[1];
+    r[0] = BSWAP_ULONG(l);
+    t = BSWAP_ULONG(a[1]);
     t += c;
     c = (t < c);
-    l = t + b[1];
+    l = t + BSWAP_ULONG(b[1]);
     c += (l < t);
-    r[1] = l;
-    t = a[2];
+    r[1] = BSWAP_ULONG(l);
+    t = BSWAP_ULONG(a[2]);
     t += c;
     c = (t < c);
-    l = t + b[2];
+    l = t + BSWAP_ULONG(b[2]);
     c += (l < t);
-    r[2] = l;
-    t = a[3];
+    r[2] = BSWAP_ULONG(l);
+    t = BSWAP_ULONG(a[3]);
     t += c;
     c = (t < c);
-    l = t + b[3];
+    l = t + BSWAP_ULONG(b[3]);
     c += (l < t);
-    r[3] = l;
+    r[3] = BSWAP_ULONG(l);
     a += 4;
     b += 4;
     r += 4;
     n -= 4;
   }
   while (n) {
-    t = a[0];
+    t = BSWAP_ULONG(a[0]);
     t += c;
     c = (t < c);
-    l = t + b[0];
+    l = t + BSWAP_ULONG(b[0]);
     c += (l < t);
-    r[0] = l;
+    r[0] = BSWAP_ULONG(l);
     a++;
     b++;
     r++;
@@ -308,27 +312,27 @@ BN_ULONG bn_sub_words(BN_ULONG *r, const BN_ULONG *a, const BN_ULONG *b,
   }
 
   while (n & ~3) {
-    t1 = a[0];
-    t2 = b[0];
-    r[0] = t1 - t2 - c;
+    t1 = BSWAP_ULONG(a[0]);
+    t2 = BSWAP_ULONG(b[0]);
+    r[0] = BSWAP_ULONG(t1 - t2 - c);
     if (t1 != t2) {
       c = (t1 < t2);
     }
-    t1 = a[1];
-    t2 = b[1];
-    r[1] = t1 - t2 - c;
+    t1 = BSWAP_ULONG(a[1]);
+    t2 = BSWAP_ULONG(b[1]);
+    r[1] = BSWAP_ULONG(t1 - t2 - c);
     if (t1 != t2) {
       c = (t1 < t2);
     }
-    t1 = a[2];
-    t2 = b[2];
-    r[2] = t1 - t2 - c;
+    t1 = BSWAP_ULONG(a[2]);
+    t2 = BSWAP_ULONG(b[2]);
+    r[2] = BSWAP_ULONG(t1 - t2 - c);
     if (t1 != t2) {
       c = (t1 < t2);
     }
-    t1 = a[3];
-    t2 = b[3];
-    r[3] = t1 - t2 - c;
+    t1 = BSWAP_ULONG(a[3]);
+    t2 = BSWAP_ULONG(b[3]);
+    r[3] = BSWAP_ULONG(t1 - t2 - c);
     if (t1 != t2) {
       c = (t1 < t2);
     }
@@ -338,9 +342,9 @@ BN_ULONG bn_sub_words(BN_ULONG *r, const BN_ULONG *a, const BN_ULONG *b,
     n -= 4;
   }
   while (n) {
-    t1 = a[0];
-    t2 = b[0];
-    r[0] = t1 - t2 - c;
+    t1 = BSWAP_ULONG(a[0]);
+    t2 = BSWAP_ULONG(b[0]);
+    r[0] = BSWAP_ULONG(t1 - t2 - c);
     if (t1 != t2) {
       c = (t1 < t2);
     }
@@ -361,50 +365,50 @@ BN_ULONG bn_sub_words(BN_ULONG *r, const BN_ULONG *a, const BN_ULONG *b,
 
 // Keep in mind that additions to multiplication result can not overflow,
 // because its high half cannot be all-ones.
-#define mul_add_c(a, b, c0, c1, c2)     \
-  do {                                  \
-    BN_ULONG hi;                        \
-    BN_ULLONG t = (BN_ULLONG)(a) * (b); \
-    t += (c0); /* no carry */           \
-    (c0) = (BN_ULONG)Lw(t);             \
-    hi = (BN_ULONG)Hw(t);               \
-    (c1) += (hi);                       \
-    if ((c1) < hi) {                    \
-      (c2)++;                           \
-    }                                   \
+#define mul_add_c(a, b, c0, c1, c2)                           \
+  do {                                                        \
+    BN_ULONG hi;                                              \
+    BN_ULLONG t = (BN_ULLONG)BSWAP_ULONG(a) * BSWAP_ULONG(b); \
+    t += (c0); /* no carry */                                 \
+    (c0) = (BN_ULONG)Lw(t);                                   \
+    hi = (BN_ULONG)Hw(t);                                     \
+    (c1) += (hi);                                             \
+    if ((c1) < hi) {                                          \
+      (c2)++;                                                 \
+    }                                                         \
   } while (0)
 
-#define mul_add_c2(a, b, c0, c1, c2)        \
-  do {                                      \
-    BN_ULONG hi;                            \
-    BN_ULLONG t = (BN_ULLONG)(a) * (b);     \
-    BN_ULLONG tt = t + (c0); /* no carry */ \
-    (c0) = (BN_ULONG)Lw(tt);                \
-    hi = (BN_ULONG)Hw(tt);                  \
-    (c1) += hi;                             \
-    if ((c1) < hi) {                        \
-      (c2)++;                               \
-    }                                       \
-    t += (c0); /* no carry */               \
-    (c0) = (BN_ULONG)Lw(t);                 \
-    hi = (BN_ULONG)Hw(t);                   \
-    (c1) += hi;                             \
-    if ((c1) < hi) {                        \
-      (c2)++;                               \
-    }                                       \
+#define mul_add_c2(a, b, c0, c1, c2)                          \
+  do {                                                        \
+    BN_ULONG hi;                                              \
+    BN_ULLONG t = (BN_ULLONG)BSWAP_ULONG(a) * BSWAP_ULONG(b); \
+    BN_ULLONG tt = t + (c0); /* no carry */                   \
+    (c0) = (BN_ULONG)Lw(tt);                                  \
+    hi = (BN_ULONG)Hw(tt);                                    \
+    (c1) += hi;                                               \
+    if ((c1) < hi) {                                          \
+      (c2)++;                                                 \
+    }                                                         \
+    t += (c0); /* no carry */                                 \
+    (c0) = (BN_ULONG)Lw(t);                                   \
+    hi = (BN_ULONG)Hw(t);                                     \
+    (c1) += hi;                                               \
+    if ((c1) < hi) {                                          \
+      (c2)++;                                                 \
+    }                                                         \
   } while (0)
 
-#define sqr_add_c(a, i, c0, c1, c2)           \
-  do {                                        \
-    BN_ULONG hi;                              \
-    BN_ULLONG t = (BN_ULLONG)(a)[i] * (a)[i]; \
-    t += (c0); /* no carry */                 \
-    (c0) = (BN_ULONG)Lw(t);                   \
-    hi = (BN_ULONG)Hw(t);                     \
-    (c1) += hi;                               \
-    if ((c1) < hi) {                          \
-      (c2)++;                                 \
-    }                                         \
+#define sqr_add_c(a, i, c0, c1, c2)                                     \
+  do {                                                                  \
+    BN_ULONG hi;                                                        \
+    BN_ULLONG t = (BN_ULLONG)BSWAP_ULONG((a)[i]) * BSWAP_ULONG((a)[i]); \
+    t += (c0); /* no carry */                                           \
+    (c0) = (BN_ULONG)Lw(t);                                             \
+    hi = (BN_ULONG)Hw(t);                                               \
+    (c1) += hi;                                                         \
+    if ((c1) < hi) {                                                    \
+      (c2)++;                                                           \
+    }                                                                   \
   } while (0)
 
 #define sqr_add_c2(a, i, j, c0, c1, c2) mul_add_c2((a)[i], (a)[j], c0, c1, c2)
@@ -413,41 +417,41 @@ BN_ULONG bn_sub_words(BN_ULONG *r, const BN_ULONG *a, const BN_ULONG *b,
 
 // Keep in mind that additions to hi can not overflow, because the high word of
 // a multiplication result cannot be all-ones.
-#define mul_add_c(a, b, c0, c1, c2) \
-  do {                              \
-    BN_ULONG ta = (a), tb = (b);    \
-    BN_ULONG lo, hi;                \
-    BN_UMULT_LOHI(lo, hi, ta, tb);  \
-    (c0) += lo;                     \
-    hi += ((c0) < lo) ? 1 : 0;      \
-    (c1) += hi;                     \
-    (c2) += ((c1) < hi) ? 1 : 0;    \
+#define mul_add_c(a, b, c0, c1, c2)                    \
+  do {                                                 \
+    BN_ULONG ta = BSWAP_ULONG(a), tb = BSWAP_ULONG(b); \
+    BN_ULONG lo, hi;                                   \
+    BN_UMULT_LOHI(lo, hi, ta, tb);                     \
+    (c0) += lo;                                        \
+    hi += ((c0) < lo) ? 1 : 0;                         \
+    (c1) += hi;                                        \
+    (c2) += ((c1) < hi) ? 1 : 0;                       \
   } while (0)
 
-#define mul_add_c2(a, b, c0, c1, c2) \
-  do {                               \
-    BN_ULONG ta = (a), tb = (b);     \
-    BN_ULONG lo, hi, tt;             \
-    BN_UMULT_LOHI(lo, hi, ta, tb);   \
-    (c0) += lo;                      \
-    tt = hi + (((c0) < lo) ? 1 : 0); \
-    (c1) += tt;                      \
-    (c2) += ((c1) < tt) ? 1 : 0;     \
-    (c0) += lo;                      \
-    hi += (c0 < lo) ? 1 : 0;         \
-    (c1) += hi;                      \
-    (c2) += ((c1) < hi) ? 1 : 0;     \
+#define mul_add_c2(a, b, c0, c1, c2)                   \
+  do {                                                 \
+    BN_ULONG ta = BSWAP_ULONG(a), tb = BSWAP_ULONG(b); \
+    BN_ULONG lo, hi, tt;                               \
+    BN_UMULT_LOHI(lo, hi, ta, tb);                     \
+    (c0) += lo;                                        \
+    tt = hi + (((c0) < lo) ? 1 : 0);                   \
+    (c1) += tt;                                        \
+    (c2) += ((c1) < tt) ? 1 : 0;                       \
+    (c0) += lo;                                        \
+    hi += (c0 < lo) ? 1 : 0;                           \
+    (c1) += hi;                                        \
+    (c2) += ((c1) < hi) ? 1 : 0;                       \
   } while (0)
 
-#define sqr_add_c(a, i, c0, c1, c2) \
-  do {                              \
-    BN_ULONG ta = (a)[i];           \
-    BN_ULONG lo, hi;                \
-    BN_UMULT_LOHI(lo, hi, ta, ta);  \
-    (c0) += lo;                     \
-    hi += (c0 < lo) ? 1 : 0;        \
-    (c1) += hi;                     \
-    (c2) += ((c1) < hi) ? 1 : 0;    \
+#define sqr_add_c(a, i, c0, c1, c2)    \
+  do {                                 \
+    BN_ULONG ta = BSWAP_ULONG((a)[i]); \
+    BN_ULONG lo, hi;                   \
+    BN_UMULT_LOHI(lo, hi, ta, ta);     \
+    (c0) += lo;                        \
+    hi += (c0 < lo) ? 1 : 0;           \
+    (c1) += hi;                        \
+    (c2) += ((c1) < hi) ? 1 : 0;       \
   } while (0)
 
 #define sqr_add_c2(a, i, j, c0, c1, c2) mul_add_c2((a)[i], (a)[j], c0, c1, c2)
@@ -461,29 +465,29 @@ void bn_mul_comba8(BN_ULONG r[16], const BN_ULONG a[8], const BN_ULONG b[8]) {
   c2 = 0;
   c3 = 0;
   mul_add_c(a[0], b[0], c1, c2, c3);
-  r[0] = c1;
+  r[0] = BSWAP_ULONG(c1);
   c1 = 0;
   mul_add_c(a[0], b[1], c2, c3, c1);
   mul_add_c(a[1], b[0], c2, c3, c1);
-  r[1] = c2;
+  r[1] = BSWAP_ULONG(c2);
   c2 = 0;
   mul_add_c(a[2], b[0], c3, c1, c2);
   mul_add_c(a[1], b[1], c3, c1, c2);
   mul_add_c(a[0], b[2], c3, c1, c2);
-  r[2] = c3;
+  r[2] = BSWAP_ULONG(c3);
   c3 = 0;
   mul_add_c(a[0], b[3], c1, c2, c3);
   mul_add_c(a[1], b[2], c1, c2, c3);
   mul_add_c(a[2], b[1], c1, c2, c3);
   mul_add_c(a[3], b[0], c1, c2, c3);
-  r[3] = c1;
+  r[3] = BSWAP_ULONG(c1);
   c1 = 0;
   mul_add_c(a[4], b[0], c2, c3, c1);
   mul_add_c(a[3], b[1], c2, c3, c1);
   mul_add_c(a[2], b[2], c2, c3, c1);
   mul_add_c(a[1], b[3], c2, c3, c1);
   mul_add_c(a[0], b[4], c2, c3, c1);
-  r[4] = c2;
+  r[4] = BSWAP_ULONG(c2);
   c2 = 0;
   mul_add_c(a[0], b[5], c3, c1, c2);
   mul_add_c(a[1], b[4], c3, c1, c2);
@@ -491,7 +495,7 @@ void bn_mul_comba8(BN_ULONG r[16], const BN_ULONG a[8], const BN_ULONG b[8]) {
   mul_add_c(a[3], b[2], c3, c1, c2);
   mul_add_c(a[4], b[1], c3, c1, c2);
   mul_add_c(a[5], b[0], c3, c1, c2);
-  r[5] = c3;
+  r[5] = BSWAP_ULONG(c3);
   c3 = 0;
   mul_add_c(a[6], b[0], c1, c2, c3);
   mul_add_c(a[5], b[1], c1, c2, c3);
@@ -500,7 +504,7 @@ void bn_mul_comba8(BN_ULONG r[16], const BN_ULONG a[8], const BN_ULONG b[8]) {
   mul_add_c(a[2], b[4], c1, c2, c3);
   mul_add_c(a[1], b[5], c1, c2, c3);
   mul_add_c(a[0], b[6], c1, c2, c3);
-  r[6] = c1;
+  r[6] = BSWAP_ULONG(c1);
   c1 = 0;
   mul_add_c(a[0], b[7], c2, c3, c1);
   mul_add_c(a[1], b[6], c2, c3, c1);
@@ -510,7 +514,7 @@ void bn_mul_comba8(BN_ULONG r[16], const BN_ULONG a[8], const BN_ULONG b[8]) {
   mul_add_c(a[5], b[2], c2, c3, c1);
   mul_add_c(a[6], b[1], c2, c3, c1);
   mul_add_c(a[7], b[0], c2, c3, c1);
-  r[7] = c2;
+  r[7] = BSWAP_ULONG(c2);
   c2 = 0;
   mul_add_c(a[7], b[1], c3, c1, c2);
   mul_add_c(a[6], b[2], c3, c1, c2);
@@ -519,7 +523,7 @@ void bn_mul_comba8(BN_ULONG r[16], const BN_ULONG a[8], const BN_ULONG b[8]) {
   mul_add_c(a[3], b[5], c3, c1, c2);
   mul_add_c(a[2], b[6], c3, c1, c2);
   mul_add_c(a[1], b[7], c3, c1, c2);
-  r[8] = c3;
+  r[8] = BSWAP_ULONG(c3);
   c3 = 0;
   mul_add_c(a[2], b[7], c1, c2, c3);
   mul_add_c(a[3], b[6], c1, c2, c3);
@@ -527,33 +531,33 @@ void bn_mul_comba8(BN_ULONG r[16], const BN_ULONG a[8], const BN_ULONG b[8]) {
   mul_add_c(a[5], b[4], c1, c2, c3);
   mul_add_c(a[6], b[3], c1, c2, c3);
   mul_add_c(a[7], b[2], c1, c2, c3);
-  r[9] = c1;
+  r[9] = BSWAP_ULONG(c1);
   c1 = 0;
   mul_add_c(a[7], b[3], c2, c3, c1);
   mul_add_c(a[6], b[4], c2, c3, c1);
   mul_add_c(a[5], b[5], c2, c3, c1);
   mul_add_c(a[4], b[6], c2, c3, c1);
   mul_add_c(a[3], b[7], c2, c3, c1);
-  r[10] = c2;
+  r[10] = BSWAP_ULONG(c2);
   c2 = 0;
   mul_add_c(a[4], b[7], c3, c1, c2);
   mul_add_c(a[5], b[6], c3, c1, c2);
   mul_add_c(a[6], b[5], c3, c1, c2);
   mul_add_c(a[7], b[4], c3, c1, c2);
-  r[11] = c3;
+  r[11] = BSWAP_ULONG(c3);
   c3 = 0;
   mul_add_c(a[7], b[5], c1, c2, c3);
   mul_add_c(a[6], b[6], c1, c2, c3);
   mul_add_c(a[5], b[7], c1, c2, c3);
-  r[12] = c1;
+  r[12] = BSWAP_ULONG(c1);
   c1 = 0;
   mul_add_c(a[6], b[7], c2, c3, c1);
   mul_add_c(a[7], b[6], c2, c3, c1);
-  r[13] = c2;
+  r[13] = BSWAP_ULONG(c2);
   c2 = 0;
   mul_add_c(a[7], b[7], c3, c1, c2);
-  r[14] = c3;
-  r[15] = c1;
+  r[14] = BSWAP_ULONG(c3);
+  r[15] = BSWAP_ULONG(c1);
 }
 
 void bn_mul_comba4(BN_ULONG r[8], const BN_ULONG a[4], const BN_ULONG b[4]) {
@@ -563,35 +567,35 @@ void bn_mul_comba4(BN_ULONG r[8], const BN_ULONG a[4], const BN_ULONG b[4]) {
   c2 = 0;
   c3 = 0;
   mul_add_c(a[0], b[0], c1, c2, c3);
-  r[0] = c1;
+  r[0] = BSWAP_ULONG(c1);
   c1 = 0;
   mul_add_c(a[0], b[1], c2, c3, c1);
   mul_add_c(a[1], b[0], c2, c3, c1);
-  r[1] = c2;
+  r[1] = BSWAP_ULONG(c2);
   c2 = 0;
   mul_add_c(a[2], b[0], c3, c1, c2);
   mul_add_c(a[1], b[1], c3, c1, c2);
   mul_add_c(a[0], b[2], c3, c1, c2);
-  r[2] = c3;
+  r[2] = BSWAP_ULONG(c3);
   c3 = 0;
   mul_add_c(a[0], b[3], c1, c2, c3);
   mul_add_c(a[1], b[2], c1, c2, c3);
   mul_add_c(a[2], b[1], c1, c2, c3);
   mul_add_c(a[3], b[0], c1, c2, c3);
-  r[3] = c1;
+  r[3] = BSWAP_ULONG(c1);
   c1 = 0;
   mul_add_c(a[3], b[1], c2, c3, c1);
   mul_add_c(a[2], b[2], c2, c3, c1);
   mul_add_c(a[1], b[3], c2, c3, c1);
-  r[4] = c2;
+  r[4] = BSWAP_ULONG(c2);
   c2 = 0;
   mul_add_c(a[2], b[3], c3, c1, c2);
   mul_add_c(a[3], b[2], c3, c1, c2);
-  r[5] = c3;
+  r[5] = BSWAP_ULONG(c3);
   c3 = 0;
   mul_add_c(a[3], b[3], c1, c2, c3);
-  r[6] = c1;
-  r[7] = c2;
+  r[6] = BSWAP_ULONG(c1);
+  r[7] = BSWAP_ULONG(c2);
 }
 
 void bn_sqr_comba8(BN_ULONG r[16], const BN_ULONG a[8]) {
@@ -601,71 +605,71 @@ void bn_sqr_comba8(BN_ULONG r[16], const BN_ULONG a[8]) {
   c2 = 0;
   c3 = 0;
   sqr_add_c(a, 0, c1, c2, c3);
-  r[0] = c1;
+  r[0] = BSWAP_ULONG(c1);
   c1 = 0;
   sqr_add_c2(a, 1, 0, c2, c3, c1);
-  r[1] = c2;
+  r[1] = BSWAP_ULONG(c2);
   c2 = 0;
   sqr_add_c(a, 1, c3, c1, c2);
   sqr_add_c2(a, 2, 0, c3, c1, c2);
-  r[2] = c3;
+  r[2] = BSWAP_ULONG(c3);
   c3 = 0;
   sqr_add_c2(a, 3, 0, c1, c2, c3);
   sqr_add_c2(a, 2, 1, c1, c2, c3);
-  r[3] = c1;
+  r[3] = BSWAP_ULONG(c1);
   c1 = 0;
   sqr_add_c(a, 2, c2, c3, c1);
   sqr_add_c2(a, 3, 1, c2, c3, c1);
   sqr_add_c2(a, 4, 0, c2, c3, c1);
-  r[4] = c2;
+  r[4] = BSWAP_ULONG(c2);
   c2 = 0;
   sqr_add_c2(a, 5, 0, c3, c1, c2);
   sqr_add_c2(a, 4, 1, c3, c1, c2);
   sqr_add_c2(a, 3, 2, c3, c1, c2);
-  r[5] = c3;
+  r[5] = BSWAP_ULONG(c3);
   c3 = 0;
   sqr_add_c(a, 3, c1, c2, c3);
   sqr_add_c2(a, 4, 2, c1, c2, c3);
   sqr_add_c2(a, 5, 1, c1, c2, c3);
   sqr_add_c2(a, 6, 0, c1, c2, c3);
-  r[6] = c1;
+  r[6] = BSWAP_ULONG(c1);
   c1 = 0;
   sqr_add_c2(a, 7, 0, c2, c3, c1);
   sqr_add_c2(a, 6, 1, c2, c3, c1);
   sqr_add_c2(a, 5, 2, c2, c3, c1);
   sqr_add_c2(a, 4, 3, c2, c3, c1);
-  r[7] = c2;
+  r[7] = BSWAP_ULONG(c2);
   c2 = 0;
   sqr_add_c(a, 4, c3, c1, c2);
   sqr_add_c2(a, 5, 3, c3, c1, c2);
   sqr_add_c2(a, 6, 2, c3, c1, c2);
   sqr_add_c2(a, 7, 1, c3, c1, c2);
-  r[8] = c3;
+  r[8] = BSWAP_ULONG(c3);
   c3 = 0;
   sqr_add_c2(a, 7, 2, c1, c2, c3);
   sqr_add_c2(a, 6, 3, c1, c2, c3);
   sqr_add_c2(a, 5, 4, c1, c2, c3);
-  r[9] = c1;
+  r[9] = BSWAP_ULONG(c1);
   c1 = 0;
   sqr_add_c(a, 5, c2, c3, c1);
   sqr_add_c2(a, 6, 4, c2, c3, c1);
   sqr_add_c2(a, 7, 3, c2, c3, c1);
-  r[10] = c2;
+  r[10] = BSWAP_ULONG(c2);
   c2 = 0;
   sqr_add_c2(a, 7, 4, c3, c1, c2);
   sqr_add_c2(a, 6, 5, c3, c1, c2);
-  r[11] = c3;
+  r[11] = BSWAP_ULONG(c3);
   c3 = 0;
   sqr_add_c(a, 6, c1, c2, c3);
   sqr_add_c2(a, 7, 5, c1, c2, c3);
-  r[12] = c1;
+  r[12] = BSWAP_ULONG(c1);
   c1 = 0;
   sqr_add_c2(a, 7, 6, c2, c3, c1);
-  r[13] = c2;
+  r[13] = BSWAP_ULONG(c2);
   c2 = 0;
   sqr_add_c(a, 7, c3, c1, c2);
-  r[14] = c3;
-  r[15] = c1;
+  r[14] = BSWAP_ULONG(c3);
+  r[15] = BSWAP_ULONG(c1);
 }
 
 void bn_sqr_comba4(BN_ULONG r[8], const BN_ULONG a[4]) {
@@ -675,29 +679,29 @@ void bn_sqr_comba4(BN_ULONG r[8], const BN_ULONG a[4]) {
   c2 = 0;
   c3 = 0;
   sqr_add_c(a, 0, c1, c2, c3);
-  r[0] = c1;
+  r[0] = BSWAP_ULONG(c1);
   c1 = 0;
   sqr_add_c2(a, 1, 0, c2, c3, c1);
-  r[1] = c2;
+  r[1] = BSWAP_ULONG(c2);
   c2 = 0;
   sqr_add_c(a, 1, c3, c1, c2);
   sqr_add_c2(a, 2, 0, c3, c1, c2);
-  r[2] = c3;
+  r[2] = BSWAP_ULONG(c3);
   c3 = 0;
   sqr_add_c2(a, 3, 0, c1, c2, c3);
   sqr_add_c2(a, 2, 1, c1, c2, c3);
-  r[3] = c1;
+  r[3] = BSWAP_ULONG(c1);
   c1 = 0;
   sqr_add_c(a, 2, c2, c3, c1);
   sqr_add_c2(a, 3, 1, c2, c3, c1);
-  r[4] = c2;
+  r[4] = BSWAP_ULONG(c2);
   c2 = 0;
   sqr_add_c2(a, 3, 2, c3, c1, c2);
-  r[5] = c3;
+  r[5] = BSWAP_ULONG(c3);
   c3 = 0;
   sqr_add_c(a, 3, c1, c2, c3);
-  r[6] = c1;
-  r[7] = c2;
+  r[6] = BSWAP_ULONG(c1);
+  r[7] = BSWAP_ULONG(c2);
 }
 
 #undef mul_add

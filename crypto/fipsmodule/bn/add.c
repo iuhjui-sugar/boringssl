@@ -118,12 +118,12 @@ int bn_uadd_consttime(BIGNUM *r, const BIGNUM *a, const BIGNUM *b) {
   BN_ULONG carry = bn_add_words(r->d, a->d, b->d, min);
   for (int i = min; i < max; i++) {
     // |r| and |a| may alias, so use a temporary.
-    BN_ULONG tmp = carry + a->d[i];
-    carry = tmp < a->d[i];
-    r->d[i] = tmp;
+    BN_ULONG tmp = carry + BSWAP_ULONG(a->d[i]);
+    carry = tmp < BSWAP_ULONG(a->d[i]);
+    r->d[i] = BSWAP_ULONG(tmp);
   }
 
-  r->d[max] = carry;
+  r->d[max] = BSWAP_ULONG(carry);
   return 1;
 }
 
@@ -160,7 +160,8 @@ int BN_add_word(BIGNUM *a, BN_ULONG w) {
   }
 
   for (i = 0; w != 0 && i < a->width; i++) {
-    a->d[i] = l = a->d[i] + w;
+    l = BSWAP_ULONG(a->d[i]) + w;
+    a->d[i] = BSWAP_ULONG(l);
     w = (w > l) ? 1 : 0;
   }
 
@@ -169,7 +170,7 @@ int BN_add_word(BIGNUM *a, BN_ULONG w) {
       return 0;
     }
     a->width++;
-    a->d[i] = w;
+    a->d[i] = BSWAP_ULONG(w);
   }
 
   return 1;
@@ -242,9 +243,9 @@ int bn_usub_consttime(BIGNUM *r, const BIGNUM *a, const BIGNUM *b) {
   BN_ULONG borrow = bn_sub_words(r->d, a->d, b->d, b_width);
   for (int i = b_width; i < a->width; i++) {
     // |r| and |a| may alias, so use a temporary.
-    BN_ULONG tmp = a->d[i];
-    r->d[i] = a->d[i] - borrow;
-    borrow = tmp < r->d[i];
+    BN_ULONG tmp = BSWAP_ULONG(a->d[i]);
+    r->d[i] = BSWAP_ULONG(BSWAP_ULONG(a->d[i]) - borrow);
+    borrow = tmp < BSWAP_ULONG(r->d[i]);
   }
 
   if (borrow) {
@@ -290,19 +291,19 @@ int BN_sub_word(BIGNUM *a, BN_ULONG w) {
     return i;
   }
 
-  if ((bn_minimal_width(a) == 1) && (a->d[0] < w)) {
-    a->d[0] = w - a->d[0];
+  if ((bn_minimal_width(a) == 1) && (BSWAP_ULONG(a->d[0]) < w)) {
+    a->d[0] = BSWAP_ULONG(w - BSWAP_ULONG(a->d[0]));
     a->neg = 1;
     return 1;
   }
 
   i = 0;
   for (;;) {
-    if (a->d[i] >= w) {
-      a->d[i] -= w;
+    if (BSWAP_ULONG(a->d[i]) >= w) {
+      a->d[i] = BSWAP_ULONG(BSWAP_ULONG(a->d[i]) - w);
       break;
     } else {
-      a->d[i] -= w;
+      a->d[i] = BSWAP_ULONG(BSWAP_ULONG(a->d[i]) - w);
       i++;
       w = 1;
     }

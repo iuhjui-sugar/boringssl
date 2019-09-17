@@ -75,10 +75,10 @@ uint16_t bn_mod_u16_consttime(const BIGNUM *bn, uint16_t d) {
   uint16_t ret = 0;
   for (int i = bn->width - 1; i >= 0; i--) {
 #if BN_BITS2 == 32
-    ret = shift_and_add_mod_u16(ret, bn->d[i], d, p, m);
+    ret = shift_and_add_mod_u16(ret, BSWAP_ULONG(bn->d[i]), d, p, m);
 #elif BN_BITS2 == 64
-    ret = shift_and_add_mod_u16(ret, bn->d[i] >> 32, d, p, m);
-    ret = shift_and_add_mod_u16(ret, bn->d[i] & 0xffffffff, d, p, m);
+    ret = shift_and_add_mod_u16(ret, BSWAP_ULONG(bn->d[i]) >> 32, d, p, m);
+    ret = shift_and_add_mod_u16(ret, BSWAP_ULONG(bn->d[i]) & 0xffffffff, d, p, m);
 #else
 #error "Unknown BN_ULONG size"
 #endif

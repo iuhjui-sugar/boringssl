@@ -158,7 +158,11 @@ extern "C" {
 #define BN_MONT_CTX_N0_LIMBS 1
 #define BN_DEC_CONV (10000000000000000000UL)
 #define BN_DEC_NUM 19
+#if __BYTE_ORDER == __LITTLE_ENDIAN
 #define TOBN(hi, lo) ((BN_ULONG)(hi) << 32 | (lo))
+#else
+#define TOBN(hi, lo) ((BN_ULONG)BSWAP_32_BITOP(lo) << 32 | BSWAP_32_BITOP(hi))
+#endif
 
 #elif defined(OPENSSL_32_BIT)
 
@@ -179,7 +183,11 @@ extern "C" {
 #define BN_MONT_CTX_N0_LIMBS 2
 #define BN_DEC_CONV (1000000000UL)
 #define BN_DEC_NUM 9
+#if __BYTE_ORDER == __LITTLE_ENDIAN
 #define TOBN(hi, lo) (lo), (hi)
+#else
+#define TOBN(hi, lo) BSWAP_32_BITOP(lo), BSWAP_32_BITOP(hi)
+#endif
 
 #else
 #error "Must define either OPENSSL_32_BIT or OPENSSL_64_BIT"

@@ -42,7 +42,7 @@ void ec_felem_neg(const EC_GROUP *group, EC_FELEM *out, const EC_FELEM *a) {
   assert(borrow == 0);
   (void)borrow;
   for (int i = 0; i < group->field.width; i++) {
-    out->words[i] &= mask;
+    out->words[i] = BSWAP_ULONG(BSWAP_ULONG(out->words[i]) & mask);
   }
 }
 
@@ -63,7 +63,7 @@ void ec_felem_sub(const EC_GROUP *group, EC_FELEM *out, const EC_FELEM *a,
 BN_ULONG ec_felem_non_zero_mask(const EC_GROUP *group, const EC_FELEM *a) {
   BN_ULONG mask = 0;
   for (int i = 0; i < group->field.width; i++) {
-    mask |= a->words[i];
+    mask |= BSWAP_ULONG(a->words[i]);
   }
   return ~constant_time_is_zero_w(mask);
 }

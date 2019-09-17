@@ -330,7 +330,9 @@ static const scalar kOrder = {{0xed, 0xd3, 0xf5, 0x5c, 0x1a, 0x63, 0x12, 0x58,
 static void scalar_cmov(scalar *dest, const scalar *src, crypto_word_t mask) {
   for (size_t i = 0; i < 8; i++) {
     dest->words[i] =
-        constant_time_select_w(mask, src->words[i], dest->words[i]);
+      BSWAP_32(constant_time_select_w(mask,
+				      BSWAP_32(src->words[i]),
+				      BSWAP_32(dest->words[i])));
   }
 }
 
@@ -339,8 +341,8 @@ static void scalar_double(scalar *s) {
   uint32_t carry = 0;
 
   for (size_t i = 0; i < 8; i++) {
-    const uint32_t carry_out = s->words[i] >> 31;
-    s->words[i] = (s->words[i] << 1) | carry;
+    const uint32_t carry_out = BSWAP_32(s->words[i]) >> 31;
+    s->words[i] = BSWAP_32((BSWAP_32(s->words[i]) << 1) | carry);
     carry = carry_out;
   }
 }
@@ -350,8 +352,9 @@ static void scalar_add(scalar *dest, const scalar *src) {
   uint32_t carry = 0;
 
   for (size_t i = 0; i < 8; i++) {
-    uint64_t tmp = ((uint64_t)dest->words[i] + src->words[i]) + carry;
-    dest->words[i] = (uint32_t)tmp;
+    uint64_t tmp =
+      ((uint64_t)BSWAP_32(dest->words[i]) + BSWAP_32(src->words[i])) + carry;
+    dest->words[i] = BSWAP_32((uint32_t)tmp);
     carry = (uint32_t)(tmp >> 32);
   }
 }

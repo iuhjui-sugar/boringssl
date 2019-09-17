@@ -25,8 +25,8 @@
 #include "internal.h"
 
 
-#define U8TO32_LITTLE(p)                              \
-  (((uint32_t)((p)[0])) | ((uint32_t)((p)[1]) << 8) | \
+#define U8TO32_LITTLE(p)                                      \
+  BSWAP_32(((uint32_t)((p)[0])) | ((uint32_t)((p)[1]) << 8) | \
    ((uint32_t)((p)[2]) << 16) | ((uint32_t)((p)[3]) << 24))
 
 // sigma contains the ChaCha constants, which happen to be an ASCII string.
@@ -36,11 +36,15 @@ static const uint8_t sigma[16] = { 'e', 'x', 'p', 'a', 'n', 'd', ' ', '3',
 #define ROTATE(v, n) (((v) << (n)) | ((v) >> (32 - (n))))
 
 // QUARTERROUND updates a, b, c, d with a ChaCha "quarter" round.
-#define QUARTERROUND(a, b, c, d)                \
-  x[a] += x[b]; x[d] = ROTATE(x[d] ^ x[a], 16); \
-  x[c] += x[d]; x[b] = ROTATE(x[b] ^ x[c], 12); \
-  x[a] += x[b]; x[d] = ROTATE(x[d] ^ x[a],  8); \
-  x[c] += x[d]; x[b] = ROTATE(x[b] ^ x[c],  7);
+#define QUARTERROUND(a, b, c, d)                        \
+    x[a] = BSWAP_32(BSWAP_32(x[a]) + BSWAP_32(x[b]));   \
+    x[d] = BSWAP_32(ROTATE(BSWAP_32(x[d] ^ x[a]), 16)); \
+    x[c] = BSWAP_32(BSWAP_32(x[c]) + BSWAP_32(x[d]));   \
+    x[b] = BSWAP_32(ROTATE(BSWAP_32(x[b] ^ x[c]), 12)); \
+    x[a] = BSWAP_32(BSWAP_32(x[a]) + BSWAP_32(x[b]));   \
+    x[d] = BSWAP_32(ROTATE(BSWAP_32(x[d] ^ x[a]),  8)); \
+    x[c] = BSWAP_32(BSWAP_32(x[c]) + BSWAP_32(x[d]));   \
+    x[b] = BSWAP_32(ROTATE(BSWAP_32(x[b] ^ x[c]),  7));
 
 void CRYPTO_hchacha20(uint8_t out[32], const uint8_t key[32],
                       const uint8_t nonce[16]) {
@@ -126,10 +130,10 @@ static void chacha_core(uint8_t output[64], const uint32_t input[16]) {
   }
 
   for (i = 0; i < 16; ++i) {
-    x[i] += input[i];
+    x[i] = BSWAP_32(BSWAP_32(x[i]) + BSWAP_32(input[i]));
   }
   for (i = 0; i < 16; ++i) {
-    U32TO8_LITTLE(output + 4 * i, x[i]);
+    U32TO8_LITTLE(output + 4 * i, BSWAP_32(x[i]));
   }
 }
 
@@ -157,7 +161,7 @@ void CRYPTO_chacha_20(uint8_t *out, const uint8_t *in, size_t in_len,
   input[10] = U8TO32_LITTLE(key + 24);
   input[11] = U8TO32_LITTLE(key + 28);
 
-  input[12] = counter;
+  input[12] = BSWAP_32(counter);
   input[13] = U8TO32_LITTLE(nonce + 0);
   input[14] = U8TO32_LITTLE(nonce + 4);
   input[15] = U8TO32_LITTLE(nonce + 8);
@@ -177,7 +181,7 @@ void CRYPTO_chacha_20(uint8_t *out, const uint8_t *in, size_t in_len,
     in += todo;
     in_len -= todo;
 
-    input[12]++;
+    input[12] = BSWAP_32(BSWAP_32(input[12]) + 1);
   }
 }
 

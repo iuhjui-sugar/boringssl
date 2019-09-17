@@ -183,7 +183,7 @@ static const p224_felem g_p224_pre_comp[2][16][3] = {
 static uint64_t p224_load_u64(const uint8_t in[8]) {
   uint64_t ret;
   OPENSSL_memcpy(&ret, in, sizeof(ret));
-  return ret;
+  return BSWAP_64(ret);
 }
 
 // Helper functions to convert field elements to/from internal representation

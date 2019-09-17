@@ -630,7 +630,7 @@ static void gcm_siv_crypt(uint8_t *out, const uint8_t *in, size_t in_len,
   for (size_t done = 0; done < in_len;) {
     uint8_t keystream[AES_BLOCK_SIZE];
     enc_block(counter.c, keystream, key);
-    counter.w[0]++;
+    counter.w[0] = BSWAP_32(BSWAP_32(counter.w[0]) + 1);
 
     size_t todo = AES_BLOCK_SIZE;
     if (in_len - done < todo) {
@@ -678,8 +678,8 @@ static void gcm_siv_polyval(
     } bitlens;
   } length_block;
 
-  length_block.bitlens.ad = ad_len * 8;
-  length_block.bitlens.in = in_len * 8;
+  length_block.bitlens.ad = BSWAP_64(ad_len * 8);
+  length_block.bitlens.in = BSWAP_64(in_len * 8);
   CRYPTO_POLYVAL_update_blocks(&polyval_ctx, length_block.c,
                                sizeof(length_block));
 

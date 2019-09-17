@@ -1964,9 +1964,9 @@ int ED25519_verify(const uint8_t *message, size_t message_len,
     UINT64_C(0x1000000000000000),
   };
   for (size_t i = 3;; i--) {
-    if (scopy.u64[i] > kOrder[i]) {
+    if (BSWAP_64(scopy.u64[i]) > kOrder[i]) {
       return 0;
-    } else if (scopy.u64[i] < kOrder[i]) {
+    } else if (BSWAP_64(scopy.u64[i]) < kOrder[i]) {
       break;
     } else if (i == 0) {
       return 0;

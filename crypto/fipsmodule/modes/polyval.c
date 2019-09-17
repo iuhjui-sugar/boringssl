@@ -32,16 +32,16 @@ static void byte_reverse(polyval_block *b) {
 // the GHASH field, multiplies that by 'x' and serialises the result back into
 // |b|, but with GHASH's backwards bit ordering.
 static void reverse_and_mulX_ghash(polyval_block *b) {
-  uint64_t hi = b->u[0];
-  uint64_t lo = b->u[1];
+  uint64_t hi = BSWAP_64(b->u[0]);
+  uint64_t lo = BSWAP_64(b->u[1]);
   const crypto_word_t carry = constant_time_eq_w(hi & 1, 1);
   hi >>= 1;
   hi |= lo << 63;
   lo >>= 1;
   lo ^= ((uint64_t) constant_time_select_w(carry, 0xe1, 0)) << 56;
 
-  b->u[0] = CRYPTO_bswap8(lo);
-  b->u[1] = CRYPTO_bswap8(hi);
+  b->u[0] = CRYPTO_BSWAP8(lo);
+  b->u[1] = CRYPTO_BSWAP8(hi);
 }
 
 // POLYVAL(H, X_1, ..., X_n) =

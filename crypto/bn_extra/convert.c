@@ -98,7 +98,7 @@ char *BN_bn2hex(const BIGNUM *bn) {
   for (int i = width - 1; i >= 0; i--) {
     for (int j = BN_BITS2 - 8; j >= 0; j -= 8) {
       // strip leading zeros
-      int v = ((int)(bn->d[i] >> (long)j)) & 0xff;
+      int v = ((int)(BSWAP_ULONG(bn->d[i]) >> (long)j)) & 0xff;
       if (z || v != 0) {
         *(p++) = hextable[v >> 4];
         *(p++) = hextable[v & 0x0f];
@@ -150,7 +150,7 @@ static int decode_hex(BIGNUM *bn, const char *in, int in_len) {
       word = (word << 4) | hex;
     }
 
-    bn->d[i++] = word;
+    bn->d[i++] = BSWAP_ULONG(word);
     in_len -= todo;
   }
   assert(i <= bn->dmax);
@@ -351,7 +351,7 @@ int BN_print(BIO *bp, const BIGNUM *a) {
   for (i = bn_minimal_width(a) - 1; i >= 0; i--) {
     for (j = BN_BITS2 - 4; j >= 0; j -= 4) {
       // strip leading zeros
-      v = ((int)(a->d[i] >> (long)j)) & 0x0f;
+      v = ((int)(BSWAP_ULONG(a->d[i]) >> (long)j)) & 0x0f;
       if (z || v != 0) {
         if (BIO_write(bp, &hextable[v], 1) != 1) {
           goto end;

@@ -90,9 +90,9 @@ int BN_lshift(BIGNUM *r, const BIGNUM *a, int n) {
     }
   } else {
     for (i = a->width - 1; i >= 0; i--) {
-      l = f[i];
-      t[nw + i + 1] |= l >> rb;
-      t[nw + i] = l << lb;
+      l = BSWAP_ULONG(f[i]);
+      t[nw + i + 1] = BSWAP_ULONG(BSWAP_ULONG(t[nw + i + 1]) | (l >> rb));
+      t[nw + i] = BSWAP_ULONG(l << lb);
     }
   }
   OPENSSL_memset(t, 0, nw * sizeof(t[0]));
@@ -121,12 +121,12 @@ int BN_lshift1(BIGNUM *r, const BIGNUM *a) {
   rp = r->d;
   c = 0;
   for (i = 0; i < a->width; i++) {
-    t = *(ap++);
-    *(rp++) = (t << 1) | c;
+    t = BSWAP_ULONG(*(ap++));
+    *(rp++) = BSWAP_ULONG((t << 1) | c);
     c = t >> (BN_BITS2 - 1);
   }
   if (c) {
-    *rp = 1;
+    *rp = BSWAP_ULONG(1);
     r->width++;
   }
 
@@ -146,9 +146,11 @@ void bn_rshift_words(BN_ULONG *r, const BN_ULONG *a, unsigned shift,
   } else {
     for (size_t i = shift_words; i < num - 1; i++) {
       r[i - shift_words] =
-          (a[i] >> shift_bits) | (a[i + 1] << (BN_BITS2 - shift_bits));
+	  BSWAP_ULONG((BSWAP_ULONG(a[i]) >> shift_bits) |
+		      (BSWAP_ULONG(a[i + 1]) << (BN_BITS2 - shift_bits)));
     }
-    r[num - 1 - shift_words] = a[num - 1] >> shift_bits;
+    r[num - 1 - shift_words] =
+      BSWAP_ULONG(BSWAP_ULONG(a[num - 1]) >> shift_bits);
   }
   OPENSSL_memset(r + num - shift_words, 0, shift_words * sizeof(BN_ULONG));
 }
@@ -202,9 +204,10 @@ void bn_rshift1_words(BN_ULONG *r, const BN_ULONG *a, size_t num) {
     return;
   }
   for (size_t i = 0; i < num - 1; i++) {
-    r[i] = (a[i] >> 1) | (a[i + 1] << (BN_BITS2 - 1));
+    r[i] = BSWAP_ULONG((BSWAP_ULONG(a[i]) >> 1) |
+		       (BSWAP_ULONG(a[i + 1]) << (BN_BITS2 - 1)));
   }
-  r[num - 1] = a[num - 1] >> 1;
+  r[num - 1] = BSWAP_ULONG(BSWAP_ULONG(a[num - 1]) >> 1);
 }
 
 int BN_rshift1(BIGNUM *r, const BIGNUM *a) {
@@ -235,7 +238,7 @@ int BN_set_bit(BIGNUM *a, int n) {
     a->width = i + 1;
   }
 
-  a->d[i] |= (((BN_ULONG)1) << j);
+  a->d[i] = BSWAP_ULONG(BSWAP_ULONG(a->d[i]) | (((BN_ULONG)1) << j));
 
   return 1;
 }
@@ -253,7 +256,7 @@ int BN_clear_bit(BIGNUM *a, int n) {
     return 0;
   }
 
-  a->d[i] &= (~(((BN_ULONG)1) << j));
+  a->d[i] = BSWAP_ULONG(BSWAP_ULONG(a->d[i]) & (~(((BN_ULONG)1) << j)));
   bn_set_minimal_width(a);
   return 1;
 }
@@ -264,7 +267,7 @@ int bn_is_bit_set_words(const BN_ULONG *a, size_t num, unsigned bit) {
   if (i >= num) {
     return 0;
   }
-  return (a[i] >> j) & 1;
+  return (BSWAP_ULONG(a[i]) >> j) & 1;
 }
 
 int BN_is_bit_set(const BIGNUM *a, int n) {
@@ -288,7 +291,7 @@ int BN_mask_bits(BIGNUM *a, int n) {
     a->width = w;
   } else {
     a->width = w + 1;
-    a->d[w] &= ~(BN_MASK2 << b);
+    a->d[w] = BSWAP_ULONG(BSWAP_ULONG(a->d[w]) & ~(BN_MASK2 << b));
   }
 
   bn_set_minimal_width(a);
@@ -350,11 +353,11 @@ int BN_count_low_zero_bits(const BIGNUM *bn) {
   int ret = 0;
   crypto_word_t saw_nonzero = 0;
   for (int i = 0; i < bn->width; i++) {
-    crypto_word_t nonzero = ~constant_time_is_zero_w(bn->d[i]);
+    crypto_word_t nonzero = ~constant_time_is_zero_w(BSWAP_ULONG(bn->d[i]));
     crypto_word_t first_nonzero = ~saw_nonzero & nonzero;
     saw_nonzero |= nonzero;
 
-    int bits = bn_count_low_zero_bits_word(bn->d[i]);
+    int bits = bn_count_low_zero_bits_word(BSWAP_ULONG(bn->d[i]));
     ret |= first_nonzero & (i * BN_BITS2 + bits);
   }
 

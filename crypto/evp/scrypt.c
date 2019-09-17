@@ -42,42 +42,43 @@ static void salsa208_word_specification(block_t *inout) {
   OPENSSL_memcpy(&x, inout, sizeof(x));
 
   for (int i = 8; i > 0; i -= 2) {
-    x.words[4] ^= R(x.words[0] + x.words[12], 7);
-    x.words[8] ^= R(x.words[4] + x.words[0], 9);
-    x.words[12] ^= R(x.words[8] + x.words[4], 13);
-    x.words[0] ^= R(x.words[12] + x.words[8], 18);
-    x.words[9] ^= R(x.words[5] + x.words[1], 7);
-    x.words[13] ^= R(x.words[9] + x.words[5], 9);
-    x.words[1] ^= R(x.words[13] + x.words[9], 13);
-    x.words[5] ^= R(x.words[1] + x.words[13], 18);
-    x.words[14] ^= R(x.words[10] + x.words[6], 7);
-    x.words[2] ^= R(x.words[14] + x.words[10], 9);
-    x.words[6] ^= R(x.words[2] + x.words[14], 13);
-    x.words[10] ^= R(x.words[6] + x.words[2], 18);
-    x.words[3] ^= R(x.words[15] + x.words[11], 7);
-    x.words[7] ^= R(x.words[3] + x.words[15], 9);
-    x.words[11] ^= R(x.words[7] + x.words[3], 13);
-    x.words[15] ^= R(x.words[11] + x.words[7], 18);
-    x.words[1] ^= R(x.words[0] + x.words[3], 7);
-    x.words[2] ^= R(x.words[1] + x.words[0], 9);
-    x.words[3] ^= R(x.words[2] + x.words[1], 13);
-    x.words[0] ^= R(x.words[3] + x.words[2], 18);
-    x.words[6] ^= R(x.words[5] + x.words[4], 7);
-    x.words[7] ^= R(x.words[6] + x.words[5], 9);
-    x.words[4] ^= R(x.words[7] + x.words[6], 13);
-    x.words[5] ^= R(x.words[4] + x.words[7], 18);
-    x.words[11] ^= R(x.words[10] + x.words[9], 7);
-    x.words[8] ^= R(x.words[11] + x.words[10], 9);
-    x.words[9] ^= R(x.words[8] + x.words[11], 13);
-    x.words[10] ^= R(x.words[9] + x.words[8], 18);
-    x.words[12] ^= R(x.words[15] + x.words[14], 7);
-    x.words[13] ^= R(x.words[12] + x.words[15], 9);
-    x.words[14] ^= R(x.words[13] + x.words[12], 13);
-    x.words[15] ^= R(x.words[14] + x.words[13], 18);
+    x.words[4] ^= BSWAP_32(R(BSWAP_32(x.words[0]) + BSWAP_32(x.words[12]), 7));
+    x.words[8] ^= BSWAP_32(R(BSWAP_32(x.words[4]) + BSWAP_32(x.words[0]), 9));
+    x.words[12] ^= BSWAP_32(R(BSWAP_32(x.words[8]) + BSWAP_32(x.words[4]), 13));
+    x.words[0] ^= BSWAP_32(R(BSWAP_32(x.words[12]) + BSWAP_32(x.words[8]), 18));
+    x.words[9] ^= BSWAP_32(R(BSWAP_32(x.words[5]) + BSWAP_32(x.words[1]), 7));
+    x.words[13] ^= BSWAP_32(R(BSWAP_32(x.words[9]) + BSWAP_32(x.words[5]), 9));
+    x.words[1] ^= BSWAP_32(R(BSWAP_32(x.words[13]) + BSWAP_32(x.words[9]), 13));
+    x.words[5] ^= BSWAP_32(R(BSWAP_32(x.words[1]) + BSWAP_32(x.words[13]), 18));
+    x.words[14] ^= BSWAP_32(R(BSWAP_32(x.words[10]) + BSWAP_32(x.words[6]), 7));
+    x.words[2] ^= BSWAP_32(R(BSWAP_32(x.words[14]) + BSWAP_32(x.words[10]), 9));
+    x.words[6] ^= BSWAP_32(R(BSWAP_32(x.words[2]) + BSWAP_32(x.words[14]), 13));
+    x.words[10] ^= BSWAP_32(R(BSWAP_32(x.words[6]) + BSWAP_32(x.words[2]), 18));
+    x.words[3] ^= BSWAP_32(R(BSWAP_32(x.words[15]) + BSWAP_32(x.words[11]), 7));
+    x.words[7] ^= BSWAP_32(R(BSWAP_32(x.words[3]) + BSWAP_32(x.words[15]), 9));
+    x.words[11] ^= BSWAP_32(R(BSWAP_32(x.words[7]) + BSWAP_32(x.words[3]), 13));
+    x.words[15] ^= BSWAP_32(R(BSWAP_32(x.words[11]) + BSWAP_32(x.words[7]), 18));
+    x.words[1] ^= BSWAP_32(R(BSWAP_32(x.words[0]) + BSWAP_32(x.words[3]), 7));
+    x.words[2] ^= BSWAP_32(R(BSWAP_32(x.words[1]) + BSWAP_32(x.words[0]), 9));
+    x.words[3] ^= BSWAP_32(R(BSWAP_32(x.words[2]) + BSWAP_32(x.words[1]), 13));
+    x.words[0] ^= BSWAP_32(R(BSWAP_32(x.words[3]) + BSWAP_32(x.words[2]), 18));
+    x.words[6] ^= BSWAP_32(R(BSWAP_32(x.words[5]) + BSWAP_32(x.words[4]), 7));
+    x.words[7] ^= BSWAP_32(R(BSWAP_32(x.words[6]) + BSWAP_32(x.words[5]), 9));
+    x.words[4] ^= BSWAP_32(R(BSWAP_32(x.words[7]) + BSWAP_32(x.words[6]), 13));
+    x.words[5] ^= BSWAP_32(R(BSWAP_32(x.words[4]) + BSWAP_32(x.words[7]), 18));
+    x.words[11] ^= BSWAP_32(R(BSWAP_32(x.words[10]) + BSWAP_32(x.words[9]), 7));
+    x.words[8] ^= BSWAP_32(R(BSWAP_32(x.words[11]) + BSWAP_32(x.words[10]), 9));
+    x.words[9] ^= BSWAP_32(R(BSWAP_32(x.words[8]) + BSWAP_32(x.words[11]), 13));
+    x.words[10] ^= BSWAP_32(R(BSWAP_32(x.words[9]) + BSWAP_32(x.words[8]), 18));
+    x.words[12] ^= BSWAP_32(R(BSWAP_32(x.words[15]) + BSWAP_32(x.words[14]), 7));
+    x.words[13] ^= BSWAP_32(R(BSWAP_32(x.words[12]) + BSWAP_32(x.words[15]), 9));
+    x.words[14] ^= BSWAP_32(R(BSWAP_32(x.words[13]) + BSWAP_32(x.words[12]), 13));
+    x.words[15] ^= BSWAP_32(R(BSWAP_32(x.words[14]) + BSWAP_32(x.words[13]), 18));
   }
 
   for (int i = 0; i < 16; ++i) {
-    inout->words[i] += x.words[i];
+    inout->words[i] =
+      BSWAP_32(BSWAP_32(inout->words[i]) + BSWAP_32(x.words[i]));
   }
 }
 
@@ -123,7 +124,7 @@ static void scryptROMix(block_t *B, uint64_t r, uint64_t N, block_t *T,
   // Step 3.
   for (uint64_t i = 0; i < N; i++) {
     // Note this assumes |N| <= 2^32 and is a power of 2.
-    uint32_t j = B[2 * r - 1].words[0] & (N - 1);
+    uint32_t j = BSWAP_32(B[2 * r - 1].words[0]) & (N - 1);
     for (size_t k = 0; k < 2 * r; k++) {
       xor_block(&T[k], &B[k], &V[2 * r * j + k]);
     }

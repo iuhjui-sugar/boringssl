@@ -71,7 +71,7 @@ OPENSSL_STATIC_ASSERT(CTR_DRBG_ENTROPY_LEN % AES_BLOCK_SIZE == 0,
 // big-endian number.
 static void ctr32_add(CTR_DRBG_STATE *drbg, uint32_t n) {
   drbg->counter.words[3] =
-      CRYPTO_bswap4(CRYPTO_bswap4(drbg->counter.words[3]) + n);
+      CRYPTO_BSWAP4(CRYPTO_BSWAP4(drbg->counter.words[3]) + n);
 }
 
 static int ctr_drbg_update(CTR_DRBG_STATE *drbg, const uint8_t *data,

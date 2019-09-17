@@ -156,21 +156,24 @@ int BN_rand(BIGNUM *rnd, int bits, int top, int bottom) {
   }
 
   RAND_bytes((uint8_t *)rnd->d, words * sizeof(BN_ULONG));
-  rnd->d[words - 1] &= mask;
+  rnd->d[words - 1] = BSWAP_ULONG(BSWAP_ULONG(rnd->d[words - 1]) & mask);
   if (top != BN_RAND_TOP_ANY) {
     if (top == BN_RAND_TOP_TWO && bits > 1) {
       if (bit == 0) {
-        rnd->d[words - 1] |= 1;
-        rnd->d[words - 2] |= kOne << (BN_BITS2 - 1);
+        rnd->d[words - 1] = BSWAP_ULONG(BSWAP_ULONG(rnd->d[words - 1]) | 1);
+        rnd->d[words - 2] = BSWAP_ULONG(BSWAP_ULONG(rnd->d[words - 2]) |
+					(kOne << (BN_BITS2 - 1)));
       } else {
-        rnd->d[words - 1] |= kThree << (bit - 1);
+        rnd->d[words - 1] =
+	  BSWAP_ULONG(BSWAP_ULONG(rnd->d[words - 1]) | (kThree << (bit - 1)));
       }
     } else {
-      rnd->d[words - 1] |= kOne << bit;
+      rnd->d[words - 1] =
+	BSWAP_ULONG(BSWAP_ULONG(rnd->d[words - 1]) | (kOne << bit));
     }
   }
   if (bottom == BN_RAND_BOTTOM_ODD) {
-    rnd->d[0] |= 1;
+    rnd->d[0] = BSWAP_ULONG(BSWAP_ULONG(rnd->d[0]) | 1);
   }
 
   rnd->neg = 0;
@@ -199,11 +202,11 @@ static crypto_word_t bn_less_than_word_mask(const BN_ULONG *a, size_t len,
                         "crypto_word_t is too small");
   crypto_word_t mask = 0;
   for (size_t i = 1; i < len; i++) {
-    mask |= a[i];
+    mask |= BSWAP_ULONG(a[i]);
   }
   // |mask| is now zero iff a[1..len-1] are all zero.
   mask = constant_time_is_zero_w(mask);
-  mask &= constant_time_lt_w(a[0], b);
+  mask &= constant_time_lt_w(BSWAP_ULONG(a[0]), b);
   return mask;
 }
 
@@ -218,15 +221,15 @@ static int bn_range_to_mask(size_t *out_words, BN_ULONG *out_mask,
                             size_t len) {
   // The magnitude of |max_exclusive| is assumed public.
   size_t words = len;
-  while (words > 0 && max_exclusive[words - 1] == 0) {
+  while (words > 0 && BSWAP_ULONG(max_exclusive[words - 1]) == 0) {
     words--;
   }
   if (words == 0 ||
-      (words == 1 && max_exclusive[0] <= min_inclusive)) {
+      (words == 1 && BSWAP_ULONG(max_exclusive[0]) <= min_inclusive)) {
     OPENSSL_PUT_ERROR(BN, BN_R_INVALID_RANGE);
     return 0;
   }
-  BN_ULONG mask = max_exclusive[words - 1];
+  BN_ULONG mask = BSWAP_ULONG(max_exclusive[words - 1]);
   // This sets all bits in |mask| below the most significant bit.
   mask |= mask >> 1;
   mask |= mask >> 2;
@@ -272,7 +275,7 @@ int bn_rand_range_words(BN_ULONG *out, BN_ULONG min_inclusive,
     // bits, where N is the bit length of |max_exclusive|.
     RAND_bytes_with_additional_data((uint8_t *)out, words * sizeof(BN_ULONG),
                                     additional_data);
-    out[words - 1] &= mask;
+    out[words - 1] = BSWAP_ULONG(BSWAP_ULONG(out[words - 1]) & mask);
 
     // If out >= max_exclusive or out < min_inclusive, retry. This implements
     // the equivalent of steps 6 and 7 without leaking the value of |out|.
@@ -314,7 +317,7 @@ int bn_rand_secret_range(BIGNUM *r, int *out_is_uniform, BN_ULONG min_inclusive,
 
   // Select a uniform random number with num_bits(max_exclusive) bits.
   RAND_bytes((uint8_t *)r->d, words * sizeof(BN_ULONG));
-  r->d[words - 1] &= mask;
+  r->d[words - 1] = BSWAP_ULONG(BSWAP_ULONG(r->d[words - 1]) & mask);
 
   // Check, in constant-time, if the value is in range.
   *out_is_uniform =
@@ -323,8 +326,12 @@ int bn_rand_secret_range(BIGNUM *r, int *out_is_uniform, BN_ULONG min_inclusive,
   in_range = 0 - in_range;
 
   // If the value is not in range, force it to be in range.
-  r->d[0] |= constant_time_select_w(in_range, 0, min_inclusive);
-  r->d[words - 1] &= constant_time_select_w(in_range, BN_MASK2, mask >> 1);
+  r->d[0] =
+    BSWAP_ULONG(BSWAP_ULONG(r->d[0]) |
+		constant_time_select_w(in_range, 0, min_inclusive));
+  r->d[words - 1] =
+    BSWAP_ULONG(BSWAP_ULONG(r->d[words - 1]) &
+		constant_time_select_w(in_range, BN_MASK2, mask >> 1));
   assert(bn_in_range_words(r->d, min_inclusive, max_exclusive->d, words));
 
   r->neg = 0;

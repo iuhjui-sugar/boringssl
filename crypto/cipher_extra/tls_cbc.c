@@ -182,6 +182,7 @@ void EVP_tls_cbc_copy_mac(uint8_t *out, size_t md_size, const uint8_t *in,
   OPENSSL_memcpy(out, rotated_mac, md_size);
 }
 
+#if __BYTE_ORDER == __LITTLE_ENDIAN
 // u32toBE serialises an unsigned, 32-bit number (n) as four bytes at (p) in
 // big-endian order. The value of p is advanced by four.
 #define u32toBE(n, p)                \
@@ -205,6 +206,23 @@ void EVP_tls_cbc_copy_mac(uint8_t *out, size_t md_size, const uint8_t *in,
     *((p)++) = (uint8_t)((n) >> 8);  \
     *((p)++) = (uint8_t)((n));       \
   } while (0)
+#else
+// u32toBE serialises an unsigned, 32-bit number (n) as four bytes at (p) in
+// big-endian order. The value of p is advanced by four.
+#define u32toBE(n, p)                \
+  do {                               \
+    *(uint32_t *)(p) = n;            \
+    p += sizeof(uint32_t);           \
+  } while (0)
+
+// u64toBE serialises an unsigned, 64-bit number (n) as eight bytes at (p) in
+// big-endian order. The value of p is advanced by eight.
+#define u64toBE(n, p)                \
+  do {                               \
+    *(uint64_t *)(p) = n;	     \
+    p += sizeof(uint64_t);           \
+  } while (0)
+#endif
 
 typedef union {
   SHA_CTX sha1;

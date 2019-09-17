@@ -70,10 +70,10 @@ uint64_t bn_mont_n0(const BIGNUM *n) {
 
   // n_mod_r = n % r. As explained above, this is done by taking the lowest
   // |BN_MONT_CTX_N0_LIMBS| limbs of |n|.
-  uint64_t n_mod_r = n->d[0];
+  uint64_t n_mod_r = BSWAP_ULONG(n->d[0]);
 #if BN_MONT_CTX_N0_LIMBS == 2
   if (n->width > 1) {
-    n_mod_r |= (uint64_t)n->d[1] << BN_BITS2;
+    n_mod_r |= (uint64_t)BSWAP_ULONG(n->d[1]) << BN_BITS2;
   }
 #endif
 

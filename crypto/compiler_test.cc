@@ -12,6 +12,8 @@
  * OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. */
 
+#include <byteswap.h>
+#include <endian.h>
 #include <limits.h>
 #include <stdint.h>
 
@@ -37,7 +39,15 @@ static void CheckRepresentation(T value) {
   // maximum value until it fits (this must be a power of two). This is the
   // conversion we want.
   using UnsignedT = typename std::make_unsigned<T>::type;
+#if __BYTE_ORDER == __LITTLE_ENDIAN
   UnsignedT value_u = static_cast<UnsignedT>(value);
+#else
+  UnsignedT value_u =
+    sizeof(UnsignedT) == 2 ? bswap_16(static_cast<UnsignedT>(value)) :
+    sizeof(UnsignedT) == 4 ? bswap_32(static_cast<UnsignedT>(value)) :
+    sizeof(UnsignedT) == 8 ? bswap_64(static_cast<UnsignedT>(value)) :
+    static_cast<UnsignedT>(value);
+#endif
   EXPECT_EQ(sizeof(UnsignedT), sizeof(T));
 
   // Integers must be little-endian.

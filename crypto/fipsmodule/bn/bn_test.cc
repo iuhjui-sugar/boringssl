@@ -2168,7 +2168,8 @@ TEST_F(BNTest, LessThanWords) {
       for (size_t k = 0; k < one_word; k++) {
         SCOPED_TRACE(k);
         EXPECT_EQ(k <= i && i < j ? 1 : 0,
-                  bn_in_range_words(kTestVectors[i], kTestVectors[k][0],
+                  bn_in_range_words(kTestVectors[i],
+				    BSWAP_ULONG(kTestVectors[k][0]),
                                     kTestVectors[j],
                                     OPENSSL_ARRAY_SIZE(kTestVectors[i])));
       }

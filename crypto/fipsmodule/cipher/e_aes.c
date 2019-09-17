@@ -1141,7 +1141,7 @@ static int aead_aes_gcm_tls12_seal_scatter(
   uint64_t given_counter;
   OPENSSL_memcpy(&given_counter, nonce + nonce_len - sizeof(given_counter),
                  sizeof(given_counter));
-  given_counter = CRYPTO_bswap8(given_counter);
+  given_counter = CRYPTO_BSWAP8(given_counter);
   if (given_counter == UINT64_MAX ||
       given_counter < gcm_ctx->min_next_nonce) {
     OPENSSL_PUT_ERROR(CIPHER, CIPHER_R_INVALID_NONCE);

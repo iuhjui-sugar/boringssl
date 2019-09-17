@@ -94,25 +94,25 @@ static void bn_mul_normal(BN_ULONG *r, const BN_ULONG *a, size_t na,
     OPENSSL_memset(r, 0, na * sizeof(BN_ULONG));
     return;
   }
-  rr[0] = bn_mul_words(r, a, na, b[0]);
+  rr[0] = BSWAP_ULONG(bn_mul_words(r, a, na, BSWAP_ULONG(b[0])));
 
   for (;;) {
     if (--nb == 0) {
       return;
     }
-    rr[1] = bn_mul_add_words(&(r[1]), a, na, b[1]);
+    rr[1] = BSWAP_ULONG(bn_mul_add_words(&(r[1]), a, na, BSWAP_ULONG(b[1])));
     if (--nb == 0) {
       return;
     }
-    rr[2] = bn_mul_add_words(&(r[2]), a, na, b[2]);
+    rr[2] = BSWAP_ULONG(bn_mul_add_words(&(r[2]), a, na, BSWAP_ULONG(b[2])));
     if (--nb == 0) {
       return;
     }
-    rr[3] = bn_mul_add_words(&(r[3]), a, na, b[3]);
+    rr[3] = BSWAP_ULONG(bn_mul_add_words(&(r[3]), a, na, BSWAP_ULONG(b[3])));
     if (--nb == 0) {
       return;
     }
-    rr[4] = bn_mul_add_words(&(r[4]), a, na, b[4]);
+    rr[4] = BSWAP_ULONG(bn_mul_add_words(&(r[4]), a, na, BSWAP_ULONG(b[4])));
     rr += 4;
     r += 4;
     b += 4;
@@ -147,8 +147,8 @@ static BN_ULONG bn_sub_part_words(BN_ULONG *r, const BN_ULONG *a,
 
   if (dl < 0) {
     for (;;) {
-      t = b[0];
-      r[0] = 0 - t - c;
+      t = BSWAP_ULONG(b[0]);
+      r[0] = BSWAP_ULONG(0 - t - c);
       if (t != 0) {
         c = 1;
       }
@@ -156,8 +156,8 @@ static BN_ULONG bn_sub_part_words(BN_ULONG *r, const BN_ULONG *a,
         break;
       }
 
-      t = b[1];
-      r[1] = 0 - t - c;
+      t = BSWAP_ULONG(b[1]);
+      r[1] = BSWAP_ULONG(0 - t - c);
       if (t != 0) {
         c = 1;
       }
@@ -165,8 +165,8 @@ static BN_ULONG bn_sub_part_words(BN_ULONG *r, const BN_ULONG *a,
         break;
       }
 
-      t = b[2];
-      r[2] = 0 - t - c;
+      t = BSWAP_ULONG(b[2]);
+      r[2] = BSWAP_ULONG(0 - t - c);
       if (t != 0) {
         c = 1;
       }
@@ -174,8 +174,8 @@ static BN_ULONG bn_sub_part_words(BN_ULONG *r, const BN_ULONG *a,
         break;
       }
 
-      t = b[3];
-      r[3] = 0 - t - c;
+      t = BSWAP_ULONG(b[3]);
+      r[3] = BSWAP_ULONG(0 - t - c);
       if (t != 0) {
         c = 1;
       }
@@ -189,8 +189,8 @@ static BN_ULONG bn_sub_part_words(BN_ULONG *r, const BN_ULONG *a,
   } else {
     int save_dl = dl;
     while (c) {
-      t = a[0];
-      r[0] = t - c;
+      t = BSWAP_ULONG(a[0]);
+      r[0] = BSWAP_ULONG(t - c);
       if (t != 0) {
         c = 0;
       }
@@ -198,8 +198,8 @@ static BN_ULONG bn_sub_part_words(BN_ULONG *r, const BN_ULONG *a,
         break;
       }
 
-      t = a[1];
-      r[1] = t - c;
+      t = BSWAP_ULONG(a[1]);
+      r[1] = BSWAP_ULONG(t - c);
       if (t != 0) {
         c = 0;
       }
@@ -207,8 +207,8 @@ static BN_ULONG bn_sub_part_words(BN_ULONG *r, const BN_ULONG *a,
         break;
       }
 
-      t = a[2];
-      r[2] = t - c;
+      t = BSWAP_ULONG(a[2]);
+      r[2] = BSWAP_ULONG(t - c);
       if (t != 0) {
         c = 0;
       }
@@ -216,8 +216,8 @@ static BN_ULONG bn_sub_part_words(BN_ULONG *r, const BN_ULONG *a,
         break;
       }
 
-      t = a[3];
-      r[3] = t - c;
+      t = BSWAP_ULONG(a[3]);
+      r[3] = BSWAP_ULONG(t - c);
       if (t != 0) {
         c = 0;
       }
@@ -419,9 +419,9 @@ static void bn_mul_recursive(BN_ULONG *r, const BN_ULONG *a, const BN_ULONG *b,
 
   // Propagate the carry bit to the end.
   for (int i = n + n2; i < n2 + n2; i++) {
-    BN_ULONG old = r[i];
-    r[i] = old + c;
-    c = r[i] < old;
+    BN_ULONG old = BSWAP_ULONG(r[i]);
+    r[i] = BSWAP_ULONG(old + c);
+    c = BSWAP_ULONG(r[i]) < old;
   }
 
   // The product should fit without carries.
@@ -533,9 +533,9 @@ static void bn_mul_part_recursive(BN_ULONG *r, const BN_ULONG *a,
 
   // Propagate the carry bit to the end.
   for (int i = n + n2; i < n2 + n2; i++) {
-    BN_ULONG old = r[i];
-    r[i] = old + c;
-    c = r[i] < old;
+    BN_ULONG old = BSWAP_ULONG(r[i]);
+    r[i] = BSWAP_ULONG(old + c);
+    c = BSWAP_ULONG(r[i]) < old;
   }
 
   // The product should fit without carries.
@@ -687,13 +687,13 @@ static void bn_sqr_normal(BN_ULONG *r, const BN_ULONG *a, size_t n,
   // Compute the contribution of a[i] * a[j] for all i < j.
   if (n > 1) {
     ap++;
-    rp[n - 1] = bn_mul_words(rp, ap, n - 1, ap[-1]);
+    rp[n - 1] = BSWAP_ULONG(bn_mul_words(rp, ap, n - 1, BSWAP_ULONG(ap[-1])));
     rp += 2;
   }
   if (n > 2) {
     for (size_t i = n - 2; i > 0; i--) {
       ap++;
-      rp[i] = bn_mul_add_words(rp, ap, i, ap[-1]);
+      rp[i] = BSWAP_ULONG(bn_mul_add_words(rp, ap, i, BSWAP_ULONG(ap[-1])));
       rp += 2;
     }
   }
@@ -760,9 +760,9 @@ static void bn_sqr_recursive(BN_ULONG *r, const BN_ULONG *a, size_t n2,
 
   // Propagate the carry bit to the end.
   for (size_t i = n + n2; i < n2 + n2; i++) {
-    BN_ULONG old = r[i];
-    r[i] = old + c;
-    c = r[i] < old;
+    BN_ULONG old = BSWAP_ULONG(r[i]);
+    r[i] = BSWAP_ULONG(old + c);
+    c = BSWAP_ULONG(r[i]) < old;
   }
 
   // The square should fit without carries.
@@ -784,7 +784,7 @@ int BN_mul_word(BIGNUM *bn, BN_ULONG w) {
     if (!bn_wexpand(bn, bn->width + 1)) {
       return 0;
     }
-    bn->d[bn->width++] = ll;
+    bn->d[bn->width++] = BSWAP_ULONG(ll);
   }
 
   return 1;

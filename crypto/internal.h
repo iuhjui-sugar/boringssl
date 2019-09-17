@@ -187,15 +187,6 @@ typedef __uint128_t uint128_t;
 #define OPENSSL_FALLTHROUGH [[gnu::fallthrough]]
 #elif defined(__GNUC__) && __GNUC__ >= 7 // gcc 7
 #define OPENSSL_FALLTHROUGH __attribute__ ((fallthrough))
-#elif defined(__clang__)
-#if __has_attribute(fallthrough) && __clang_major__ >= 5
-// Clang 3.5, at least, complains about "error: declaration does not declare
-// anything", possibily because we put a semicolon after this macro in
-// practice. Thus limit it to >= Clang 5, which does work.
-#define OPENSSL_FALLTHROUGH __attribute__ ((fallthrough))
-#else // clang versions that do not support fallthrough.
-#define OPENSSL_FALLTHROUGH
-#endif
 #else // C++11 on gcc 6, and all other cases
 #define OPENSSL_FALLTHROUGH
 #endif
@@ -712,6 +703,44 @@ static inline uint64_t CRYPTO_bswap8(uint64_t x) {
 }
 #endif
 
+/*
+ * Macros for big endian systems.
+ *
+ * CRYPTO_bswap4/8   do unconditional byte swap, regardless of endian
+ * CRYPTO_BSWAP4/8   do byte swap on little endian
+ * BSWAP_32/64       do byte swap on big endian
+ * BSWAP_32/64_BITOP are for compile time constant initializer.
+ *                   It's slow so not used in running code.
+ */
+#if __BYTE_ORDER == __LITTLE_ENDIAN
+#define CRYPTO_BSWAP4(x) (CRYPTO_bswap4(x))
+#define CRYPTO_BSWAP8(x) (CRYPTO_bswap8(x))
+#define BSWAP_32(x) (x)
+#define BSWAP_64(x) (x)
+#define BSWAP_32_BITOP(x) (x)
+#define BSWAP_64_BITOP(x) (x)
+#define BSWAP_ULONG(x) (x)
+#else
+#define CRYPTO_BSWAP4(x) (x)
+#define CRYPTO_BSWAP8(x) (x)
+#define BSWAP_32(x) (CRYPTO_bswap4(x))
+#define BSWAP_64(x) (CRYPTO_bswap8(x))
+#define BSWAP_32_BITOP(x) \
+  (((((uint32_t)(x)) & 0x000000ff) << 24) | \
+   ((((uint32_t)(x)) & 0x0000ff00) <<  8) | \
+   ((((uint32_t)(x)) >>  8) & 0x0000ff00) | \
+   ((((uint32_t)(x)) >> 24) & 0x000000ff))
+#define BSWAP_64_BITOP(x) \
+  ((uint64_t)BSWAP_32_BITOP((uint64_t)(x) & 0x00000000ffffffff) << 32 | \
+   (uint64_t)BSWAP_32_BITOP((uint64_t)(x) >> 32))
+#if defined(OPENSSL_64_BIT)
+#define BSWAP_ULONG(x) BSWAP_64(x)
+#elif defined(OPENSSL_32_BIT)
+#define BSWAP_ULONG(x) BSWAP_32(x)
+#else
+#error "Must define either OPENSSL_32_BIT or OPENSSL_64_BIT"
+#endif
+#endif
 
 // Language bug workarounds.
 //

@@ -310,7 +310,7 @@ int ASN1_INTEGER_set_uint64(ASN1_INTEGER *out, uint64_t v)
 
     OPENSSL_free(out->data);
     out->data = newdata;
-    v = CRYPTO_bswap8(v);
+    v = CRYPTO_BSWAP8(v);
     memcpy(out->data, &v, sizeof(v));
 
     out->type = V_ASN1_INTEGER;

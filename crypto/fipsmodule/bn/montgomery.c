@@ -300,11 +300,11 @@ static int bn_from_montgomery_in_place(BN_ULONG *r, size_t num_r, BN_ULONG *a,
   BN_ULONG n0 = mont->n0[0];
   BN_ULONG carry = 0;
   for (size_t i = 0; i < num_n; i++) {
-    BN_ULONG v = bn_mul_add_words(a + i, n, num_n, a[i] * n0);
-    v += carry + a[i + num_n];
-    carry |= (v != a[i + num_n]);
-    carry &= (v <= a[i + num_n]);
-    a[i + num_n] = v;
+    BN_ULONG v = bn_mul_add_words(a + i, n, num_n, BSWAP_ULONG(a[i]) * n0);
+    v += carry + BSWAP_ULONG(a[i + num_n]);
+    carry |= (v != BSWAP_ULONG(a[i + num_n]));
+    carry &= (v <= BSWAP_ULONG(a[i + num_n]));
+    a[i + num_n] = BSWAP_ULONG(v);
   }
 
   // Shift |num_n| words to divide by R. We have |a| < 2 * |n|. Note that |a|
@@ -364,13 +364,14 @@ int bn_one_to_montgomery(BIGNUM *r, const BN_MONT_CTX *mont, BN_CTX *ctx) {
   // If the high bit of |n| is set, R = 2^(width*BN_BITS2) < 2 * |n|, so we
   // compute R - |n| rather than perform Montgomery reduction.
   const BIGNUM *n = &mont->N;
-  if (n->width > 0 && (n->d[n->width - 1] >> (BN_BITS2 - 1)) != 0) {
+  if (n->width > 0 && (BSWAP_ULONG(n->d[n->width - 1]) >> (BN_BITS2 - 1)) != 0) {
     if (!bn_wexpand(r, n->width)) {
       return 0;
     }
-    r->d[0] = 0 - n->d[0];
+    r->d[0] = BSWAP_ULONG(0 - BSWAP_ULONG(n->d[0]));
     for (int i = 1; i < n->width; i++) {
-      r->d[i] = ~n->d[i];
+      BN_ULONG tmp = BSWAP_ULONG(n->d[i]);
+      r->d[i] = BSWAP_ULONG(~tmp);
     }
     r->width = n->width;
     r->neg = 0;

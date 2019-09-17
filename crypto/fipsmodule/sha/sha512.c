@@ -350,7 +350,7 @@ static const uint64_t K512[80] = {
 static inline uint64_t load_u64_be(const void *ptr) {
   uint64_t ret;
   OPENSSL_memcpy(&ret, ptr, sizeof(ret));
-  return CRYPTO_bswap8(ret);
+  return CRYPTO_BSWAP8(ret);
 }
 
 #define Sigma0(x) (ROTR((x), 28) ^ ROTR((x), 34) ^ ROTR((x), 39))
