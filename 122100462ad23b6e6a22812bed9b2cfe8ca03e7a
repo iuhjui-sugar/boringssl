@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fec02b8b_6f3278f1",
+        "filename": "crypto/x509v3/v3_purp.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-09-18T17:16:31Z",
+      "side": 1,
+      "message": "Probably worth mentioning this in the commit message.\n\n(I feel weird accepting a thing that OpenSSL didn\u0027t, but it looks like Chromium\u0027s new verifier also accepts it.)",
+      "range": {
+        "startLine": 77,
+        "startChar": 74,
+        "endLine": 77,
+        "endChar": 84
+      },
+      "revId": "122100462ad23b6e6a22812bed9b2cfe8ca03e7a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
