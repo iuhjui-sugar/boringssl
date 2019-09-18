@@ -981,6 +981,14 @@ BSSL_NAMESPACE_END
 
 #endif
 
+// EVP function codes.
+
+// Exists to ease compatibility between OpenSSL and BoringSSL
+// BoringSSL does not support any XOF digests.
+#define EVP_F_EVP_DIGESTFINALXOF 174
+
+// EVP reason codes.
+
 #define EVP_R_BUFFER_TOO_SMALL 100
 #define EVP_R_COMMAND_NOT_SUPPORTED 101
 #define EVP_R_DECODE_ERROR 102
@@ -1006,6 +1014,7 @@ BSSL_NAMESPACE_END
 #define EVP_R_NO_NID_FOR_CURVE 122
 #define EVP_R_NO_OPERATION_SET 123
 #define EVP_R_NO_PARAMETERS_SET 124
+#define EVP_R_NOT_XOF_OR_INVALID_LENGTH 178
 #define EVP_R_OPERATION_NOT_SUPPORTED_FOR_THIS_KEYTYPE 125
 #define EVP_R_OPERATON_NOT_INITIALIZED 126
 #define EVP_R_UNKNOWN_PUBLIC_KEY_TYPE 127

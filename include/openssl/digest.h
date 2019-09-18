@@ -205,6 +205,10 @@ OPENSSL_EXPORT size_t EVP_MD_block_size(const EVP_MD *md);
 // undefined rather than NULL.
 #define EVP_MD_FLAG_DIGALGID_ABSENT 2
 
+// This digest method is an extensible-output function (XOF) and supports
+// the EVP_MD_CTRL_XOF_LEN control. Exists for compatibility, as BoringSSL
+// does not support any XOF digests.
+#define EVP_MD_FLAG_XOF 3
 
 // Digest operation accessors.
 
