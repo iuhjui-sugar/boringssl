@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e4327842_8c7ea2f6",
+        "filename": "include/openssl/digest.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-09-18T20:36:51Z",
+      "side": 1,
+      "message": "We don\u0027t define this ctrl, so documenting it doesn\u0027t make sense. Also, documentation comments are Go-style, so \"EVP_MD_FLAGS_XOF indicates [...]\".",
+      "range": {
+        "startLine": 209,
+        "startChar": 7,
+        "endLine": 209,
+        "endChar": 26
+      },
+      "revId": "cc44bbf8b78d1dabbf02d473ee21228639a921c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ddae991_713597b9",
+        "filename": "include/openssl/digest.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-09-18T20:36:51Z",
+      "side": 1,
+      "message": "This is a flag, so the values should be powers of 2.",
+      "range": {
+        "startLine": 211,
+        "startChar": 24,
+        "endLine": 211,
+        "endChar": 25
+      },
+      "revId": "cc44bbf8b78d1dabbf02d473ee21228639a921c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29242be2_f22c5cea",
+        "filename": "include/openssl/digest.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-09-18T20:36:51Z",
+      "side": 1,
+      "message": "Two newlines per section.",
+      "revId": "cc44bbf8b78d1dabbf02d473ee21228639a921c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "827a8fe4_0bf0cacc",
+        "filename": "include/openssl/evp.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1009,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-09-18T20:36:51Z",
+      "side": 1,
+      "message": "Reason constants are defined funny via util/make_errors.go. I\u0027ve sorted this out.",
+      "range": {
+        "startLine": 1009,
+        "startChar": 8,
+        "endLine": 1009,
+        "endChar": 39
+      },
+      "revId": "cc44bbf8b78d1dabbf02d473ee21228639a921c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
