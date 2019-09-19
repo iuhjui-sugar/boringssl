@@ -22,6 +22,30 @@
       "revId": "122100462ad23b6e6a22812bed9b2cfe8ca03e7a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "483eb610_1d2b466c",
+        "filename": "crypto/x509v3/v3_purp.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-09-19T19:30:16Z",
+      "side": 1,
+      "message": "I\u0027m going to drop \"any\" EKU support and see how it goes.",
+      "parentUuid": "fec02b8b_6f3278f1",
+      "range": {
+        "startLine": 77,
+        "startChar": 74,
+        "endLine": 77,
+        "endChar": 84
+      },
+      "revId": "122100462ad23b6e6a22812bed9b2cfe8ca03e7a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
