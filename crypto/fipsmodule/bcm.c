@@ -98,6 +98,15 @@
 
 #if defined(BORINGSSL_FIPS)
 
+#if defined(OPENSSL_ANDROID)
+#include <sys/mman.h>
+#include <unistd.h>
+
+static const int kReadAndExecute = PROT_READ | PROT_EXEC;
+static const int kExecuteOnly = PROT_EXEC;
+static void BORINGSSL_android_mprotect(int permission);
+#endif  // OPENSSL_ANDROID
+
 #if !defined(OPENSSL_ASAN)
 // These symbols are filled in by delocate.go (in static builds) or a linker
 // script (in shared builds). They point to the start and end of the module, and
@@ -129,6 +138,10 @@ BORINGSSL_bcm_power_on_self_test(void) {
 
   static const uint8_t kHMACKey[64] = {0};
   uint8_t result[SHA512_DIGEST_LENGTH];
+
+#if defined(OPENSSL_ANDROID)
+  BORINGSSL_android_mprotect(kReadAndExecute);
+#endif
 
   unsigned result_len;
   HMAC_CTX hmac_ctx;
@@ -167,6 +180,10 @@ BORINGSSL_bcm_power_on_self_test(void) {
     goto err;
   }
 
+#if defined(OPENSSL_ANDROID)
+  BORINGSSL_android_mprotect(kExecuteOnly);
+#endif
+
   return;
 
 err:
@@ -180,4 +197,16 @@ void BORINGSSL_FIPS_abort(void) {
   }
 }
 
+#if defined(OPENSSL_ANDROID)
+static void BORINGSSL_android_mprotect(int permission) {
+  int pagesize = getpagesize();
+  const uint8_t *const page_start =
+      (const uint8_t *const) ((long) BORINGSSL_bcm_text_start & ~(pagesize - 1));
+
+  int rc = mprotect((void *) page_start, BORINGSSL_bcm_text_end - page_start, permission);
+  if (rc != 0) {
+    perror("BoringSSL: mprotect");
+  }
+}
+#endif  // OPENSSL_ANDROID
 #endif  // BORINGSSL_FIPS
