@@ -126,6 +126,11 @@ static const struct argument kArguments[] = {
         "file to read from for early data.",
     },
     {
+        "-esnikeys",
+        kOptionalArgument,
+        "Base64 encoded ESNIKeys.",
+    },
+    {
         "-ed25519", kBooleanArgument, "Advertise Ed25519 support",
     },
     {
@@ -281,6 +286,17 @@ static bool DoConnection(SSL_CTX *ctx,
 
   if (resume_session) {
     SSL_set_session(ssl.get(), resume_session.get());
+  }
+
+  if (args_map.count("-esnikeys") != 0) {
+    SSL_set_enable_esni_grease(ssl.get(), 1);
+    std::vector<uint8_t> esnikeys;
+    if (!DecodeEsniKeys(args_map["-esnikeys"], &esnikeys)) {
+      return false;
+    }
+    if (!SSL_set_esni_keys(ssl.get(), esnikeys.data(), esnikeys.size())) {
+      return false;
+    }
   }
 
   SSL_set_bio(ssl.get(), bio.get(), bio.get());

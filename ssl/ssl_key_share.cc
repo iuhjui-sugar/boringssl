@@ -131,7 +131,7 @@ class ECKeyShare : public SSLKeyShare {
     UniquePtr<EC_GROUP> group(EC_GROUP_new_by_curve_name(nid_));
     // Padding is added to avoid leaking the length.
     size_t len = BN_num_bytes(EC_GROUP_get0_order(group.get()));
-    if (!CBB_add_asn1_uint64(out, group_id_) ||
+    if (!CBB_add_u16(out, group_id_) ||
         !CBB_add_asn1(out, &cbb, CBS_ASN1_OCTETSTRING) ||
         !BN_bn2cbb_padded(&cbb, len, private_key_.get()) ||
         !CBB_flush(out)) {
@@ -191,15 +191,13 @@ class X25519KeyShare : public SSLKeyShare {
   }
 
   bool Serialize(CBB *out) override {
-    return (CBB_add_asn1_uint64(out, GroupID()) &&
-            CBB_add_asn1_octet_string(out, private_key_, sizeof(private_key_)));
+    return (CBB_add_u16(out, GroupID()) &&
+            CBB_add_bytes(out, private_key_, sizeof(private_key_)));
   }
 
   bool Deserialize(CBS *in) override {
-    CBS key;
-    if (!CBS_get_asn1(in, &key, CBS_ASN1_OCTETSTRING) ||
-        CBS_len(&key) != sizeof(private_key_) ||
-        !CBS_copy_bytes(&key, private_key_, sizeof(private_key_))) {
+    if (CBS_len(in) != sizeof(private_key_) ||
+        !CBS_copy_bytes(in, private_key_, sizeof(private_key_))) {
       return false;
     }
     return true;
@@ -423,11 +421,11 @@ UniquePtr<SSLKeyShare> SSLKeyShare::Create(uint16_t group_id) {
 }
 
 UniquePtr<SSLKeyShare> SSLKeyShare::Create(CBS *in) {
-  uint64_t group;
-  if (!CBS_get_asn1_uint64(in, &group) || group > 0xffff) {
+  uint16_t group;
+  if (!CBS_get_u16(in, &group) || group > 0xffff) {
     return nullptr;
   }
-  UniquePtr<SSLKeyShare> key_share = Create(static_cast<uint16_t>(group));
+  UniquePtr<SSLKeyShare> key_share = Create(group);
   if (!key_share || !key_share->Deserialize(in)) {
     return nullptr;
   }

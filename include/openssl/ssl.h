@@ -631,6 +631,8 @@ OPENSSL_EXPORT int DTLSv1_handle_timeout(SSL *ssl);
 #define DTLS1_VERSION 0xfeff
 #define DTLS1_2_VERSION 0xfefd
 
+#define ESNI_VERSION 0xff03
+
 // SSL_CTX_set_min_proto_version sets the minimum protocol version for |ctx| to
 // |version|. If |version| is zero, the default minimum version is used. It
 // returns one on success and zero if |version| is invalid.
@@ -2624,9 +2626,10 @@ OPENSSL_EXPORT int SSL_add_file_cert_subjects_to_stack(STACK_OF(X509_NAME) *out,
 // in the server_name extension. It returns one on success and zero on error.
 OPENSSL_EXPORT int SSL_set_tlsext_host_name(SSL *ssl, const char *name);
 
-// SSL_get_servername, for a server, returns the hostname supplied by the
-// client or NULL if there was none. The |type| argument must be
-// |TLSEXT_NAMETYPE_host_name|.
+// SSL_get_servername, for a server, returns the hostname supplied by the client
+// or NULL if there was none. The |type| argument must be
+// |TLSEXT_NAMETYPE_host_name|. If the client sent ESNI and we can decrypt it,
+// returns the decrypted SNI.
 OPENSSL_EXPORT const char *SSL_get_servername(const SSL *ssl, const int type);
 
 // SSL_get_servername_type, for a server, returns |TLSEXT_NAMETYPE_host_name|
@@ -3449,6 +3452,7 @@ OPENSSL_EXPORT enum ssl_early_data_reason_t SSL_get_early_data_reason(
 #define SSL_AD_BAD_CERTIFICATE_HASH_VALUE TLS1_AD_BAD_CERTIFICATE_HASH_VALUE
 #define SSL_AD_UNKNOWN_PSK_IDENTITY TLS1_AD_UNKNOWN_PSK_IDENTITY
 #define SSL_AD_CERTIFICATE_REQUIRED TLS1_AD_CERTIFICATE_REQUIRED
+#define SSL_AD_ESNI_REQUIRED 121
 
 // SSL_alert_type_string_long returns a string description of |value| as an
 // alert type (warning or fatal).
@@ -3947,6 +3951,92 @@ OPENSSL_EXPORT int SSL_is_tls13_downgrade(const SSL *ssl);
 // https://bugs.openjdk.java.net/browse/JDK-8213202
 OPENSSL_EXPORT void SSL_set_jdk11_workaround(SSL *ssl, int enable);
 
+
+// ESNI functions.
+
+// For client applications implementing ESNI retry:
+//
+// When SSL_connect indicates an error, client applications that configured ESNI
+// should check its value to see whether they need to retry with new keys. An
+// error of SSL_R_ESNI_NO_RETRY_KEYS indicates there are no valid retry keys
+// (the server may have sent some, but they all had incompatible versions).  A
+// value of SSL_R_ESNI_NOT_ACCEPTED indicates we might have some retry keys to
+// try. In this case, the client should use SSL_get_esni_retry_keys to obtain
+// the retry keys, they should make a copy, and then pass it into a new SSL
+// object with SSL_set_esni_keys. Clients should also employ some method to
+// avoid an infinite loop of ESNI retries.
+
+// SSL_set_enable_esni_grease configures whether the client should send ESNI
+// GREASE as part of this connection. If ESNIKeys are set and it is possible to
+// encrypt SNI with them, the client will not send GREASE.
+OPENSSL_EXPORT void SSL_set_enable_esni_grease(SSL *ssl, int enable);
+
+// SSL_set_esni_keys takes a sequence of ESNIKeys structures serialized in
+// |key_struct| and selects one to use for connections to the server. If none of
+// the ESNIKeys are suitable, this function disables ESNI for |ssl| and returns
+// false. When retrying with new ESNIKeys, this function should be called on a
+// new SSL object with the results of SSL_get_esni_retry_keys.
+OPENSSL_EXPORT int SSL_set_esni_keys(SSL *ssl, const uint8_t *key_struct,
+                                     size_t key_len);
+
+// SSL_add_esni_private_keys adds a new ESNI "bundle" to |ssl|, composed of one
+// ESNIKeys in |key_struct| and its corresponding private keys in |privs|. The
+// server uses these keys to decrypt incoming encrypted SNIs. The ESNIKeys
+// provided in the most recent call to this function are stored as the server's
+// retry keys.
+OPENSSL_EXPORT int SSL_add_esni_private_keys(SSL *ssl,
+                                             const uint8_t *key_struct,
+                                             size_t key_len,
+                                             const uint8_t **privs,
+                                             size_t *privs_len);
+
+// SSL_get_esni_retry_keys returns the ESNIKeys structures that were returned by
+// the server if ESNI was rejected or a retry was requested. Note that the
+// pointer written to |out_retry_keys| has the same lifetime as the |ssl|
+// parameter.
+OPENSSL_EXPORT void SSL_get_esni_retry_keys(SSL *ssl, uint8_t **out_retry_keys,
+                                            size_t *out_retry_keys_len);
+
+// SSL_get_esni_name_override returns which hostname we expect the certificate
+// to name. For clients, this function's behavior is undefined before the TLS
+// 1.3 ClientHello has been sent. For servers, this function's behavior is
+// undefined before the ClientHello has been received.
+//
+// This function will only return the SNI value the caller set or
+// the public_name field from the ESNIKeys that were set. Invariant: if this
+// function returns anything other than the default name, the handshake will
+// always fail.
+//
+// This function will come in handy for client applications that register a
+// custom certificate verifier, as well as server applications that must pick
+// the appropriate certificate based on ESNI value.
+OPENSSL_EXPORT void SSL_get_esni_name_override(SSL *ssl, uint8_t **name,
+                                               size_t *name_len);
+
+// SSL_server_did_receive_esni returns true if and only if the server received
+// ESNI from the client. The behavior of this function is undefined before the
+// handshake completes.
+OPENSSL_EXPORT int SSL_server_did_receive_esni(SSL *ssl);
+
+// SSL_server_did_receive_esni returns true if and only if the server received
+// ESNI from the client and decrypted it successfully. The behavior of this
+// function is undefined before the handshake completes.
+OPENSSL_EXPORT int SSL_server_did_decrypt_esni(SSL *ssl);
+
+// SSL_parse_esni_record parses an ESNIRecord from the |esni_record_len| bytes
+// at |esni_record|. An ESNIRecord is the concatenation of one ESNIKeys and a
+// 16-bit length-prefixed list of Extensions. If a top-level parse of the
+// ESNIKeys is successful, this function updates |out_esni_keys| and
+// |out_esni_keys_len|. Otherwise, it returns false. Next, this function updates
+// |out_dns_extensions| and |out_dns_extensions_len| to point to the remaining
+// bytes, length prefix included. The length prefix and contents of the
+// ESNIRecord's dns_extensions are not parsed in this function.
+OPENSSL_EXPORT int SSL_parse_esni_record(const uint8_t *esni_record,
+                                         size_t esni_record_len,
+                                         const uint8_t **out_esni_keys,
+                                         size_t *out_esni_keys_len,
+                                         const uint8_t **out_dns_extensions,
+                                         size_t *out_dns_extensions_len);
 
 // Deprecated functions.
 
@@ -5070,6 +5160,10 @@ BSSL_NAMESPACE_END
 #define SSL_R_INVALID_DELEGATED_CREDENTIAL 301
 #define SSL_R_KEY_USAGE_BIT_INCORRECT 302
 #define SSL_R_INCONSISTENT_CLIENT_HELLO 303
+#define SSL_R_ESNI_KEYS_DUPLICATE_GROUP 304
+#define SSL_R_ESNI_KEYS_UNSUPPORTED_MANDATORY_EXTENSION 305
+#define SSL_R_ESNI_NOT_ACCEPTED 306
+#define SSL_R_ESNI_NO_RETRY_KEYS 307
 #define SSL_R_SSLV3_ALERT_CLOSE_NOTIFY 1000
 #define SSL_R_SSLV3_ALERT_UNEXPECTED_MESSAGE 1010
 #define SSL_R_SSLV3_ALERT_BAD_RECORD_MAC 1020
