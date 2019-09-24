@@ -46,6 +46,7 @@ const (
 	alertBadCertificateStatusResponse alert = 113
 	alertUnknownPSKIdentity           alert = 115
 	alertCertificateRequired          alert = 116
+	alertESNIRequired                 alert = 121
 )
 
 var alertText = map[alert]string{
@@ -80,6 +81,7 @@ var alertText = map[alert]string{
 	alertUnrecognizedName:             "unrecognized name",
 	alertUnknownPSKIdentity:           "unknown PSK identity",
 	alertCertificateRequired:          "certificate required",
+	alertESNIRequired:                 "ESNI required",
 }
 
 func (e alert) String() string {
