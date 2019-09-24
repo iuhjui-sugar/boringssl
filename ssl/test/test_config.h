@@ -178,6 +178,9 @@ struct TestConfig {
   std::string expect_early_data_reason;
   bool enable_pq_experiment_signal = false;
   bool expect_pq_experiment_signal = false;
+  bool esni_force_enable = false;
+  std::string server_esni_keypairs;
+  std::string client_esnikeys;
 
   int argc;
   char **argv;
