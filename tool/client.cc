@@ -126,6 +126,11 @@ static const struct argument kArguments[] = {
         "file to read from for early data.",
     },
     {
+        "-esnikeys",
+        kOptionalArgument,
+        "Base64 encoded ESNIKeys.",
+    },
+    {
         "-ed25519", kBooleanArgument, "Advertise Ed25519 support",
     },
     {
@@ -228,72 +233,135 @@ static bool WaitForSession(SSL *ssl, int sock) {
 static bool DoConnection(SSL_CTX *ctx,
                          std::map<std::string, std::string> args_map,
                          bool (*cb)(SSL *ssl, int sock)) {
-  int sock = -1;
-  if (args_map.count("-http-tunnel") != 0) {
-    if (!Connect(&sock, args_map["-http-tunnel"]) ||
-        !DoHTTPTunnel(sock, args_map["-connect"])) {
+  int num_connect_attempts = 1;
+
+  std::vector<uint8_t> esnikeys;  // sequence of multiple ESNIKeys
+  if (args_map.count("-esnikeys") != 0) {
+    num_connect_attempts = 3;
+
+    std::vector<uint8_t> esnikeys_base64;
+    if (!ReadAllFilename(&esnikeys_base64, args_map["-esnikeys"])) {
+      fprintf(stderr, "Error reading ESNIKeys file\n");
       return false;
     }
-  } else if (!Connect(&sock, args_map["-connect"])) {
-    return false;
+
+    if (!DecodeEsniKeys(esnikeys_base64, &esnikeys)) {
+      fprintf(stderr, "Error decoding contents of ESNIKeys file\n");
+      return false;
+    }
   }
 
-  if (args_map.count("-starttls") != 0) {
-    const std::string& starttls = args_map["-starttls"];
-    if (starttls == "smtp") {
-      if (!DoSMTPStartTLS(sock)) {
+  bssl::UniquePtr<SSL> ssl_good;
+  int sock;
+  while (num_connect_attempts > 0) {
+    sock = -1;
+    num_connect_attempts--;
+
+    if (args_map.count("-http-tunnel") != 0) {
+      if (!Connect(&sock, args_map["-http-tunnel"]) ||
+          !DoHTTPTunnel(sock, args_map["-connect"])) {
         return false;
       }
-    } else {
-      fprintf(stderr, "Unknown value for -starttls: %s\n", starttls.c_str());
+    } else if (!Connect(&sock, args_map["-connect"])) {
       return false;
+    }
+
+    if (args_map.count("-starttls") != 0) {
+      const std::string &starttls = args_map["-starttls"];
+      if (starttls == "smtp") {
+        if (!DoSMTPStartTLS(sock)) {
+          return false;
+        }
+      } else {
+        fprintf(stderr, "Unknown value for -starttls: %s\n", starttls.c_str());
+        return false;
+      }
+    }
+
+    bssl::UniquePtr<BIO> bio(BIO_new_socket(sock, BIO_CLOSE));
+    bssl::UniquePtr<SSL> ssl(SSL_new(ctx));
+
+    if (args_map.count("-server-name") != 0) {
+      SSL_set_tlsext_host_name(ssl.get(), args_map["-server-name"].c_str());
+    }
+
+    if (args_map.count("-session-in") != 0) {
+      bssl::UniquePtr<BIO> in(
+          BIO_new_file(args_map["-session-in"].c_str(), "rb"));
+      if (!in) {
+        fprintf(stderr, "Error reading session\n");
+        ERR_print_errors_fp(stderr);
+        return false;
+      }
+      bssl::UniquePtr<SSL_SESSION> session(
+          PEM_read_bio_SSL_SESSION(in.get(), nullptr, nullptr, nullptr));
+      if (!session) {
+        fprintf(stderr, "Error reading session\n");
+        ERR_print_errors_fp(stderr);
+        return false;
+      }
+      SSL_set_session(ssl.get(), session.get());
+    }
+
+    if (args_map.count("-renegotiate-freely") != 0) {
+      SSL_set_renegotiate_mode(ssl.get(), ssl_renegotiate_freely);
+    }
+
+    if (resume_session) {
+      SSL_set_session(ssl.get(), resume_session.get());
+    }
+
+    if (!esnikeys.empty()) {
+      SSL_set_enable_esni_grease(ssl.get(), 1);
+      if (!SSL_set_esni_keys(ssl.get(), esnikeys.data(), esnikeys.size())) {
+        return false;
+      }
+    }
+
+    SSL_set_bio(ssl.get(), bio.get(), bio.get());
+    bio.release();
+
+    int ret = SSL_connect(ssl.get());
+    if (ret == 1) {
+      // Success! No need to retry.
+      ssl_good.swap(ssl);
+      break;
+    }
+
+    // If we have no more attempts remaining, just give up.
+    if (num_connect_attempts == 0) {
+      int ssl_err = SSL_get_error(ssl.get(), ret);
+      PrintSSLError(stderr, "Error while connecting", ssl_err, ret);
+      return false;
+    }
+
+    // Set up for the next attempt.
+    const uint32_t packed_error = ERR_get_error();
+    const uint32_t reason = ERR_GET_REASON((packed_error));
+    switch (reason) {
+      case SSL_R_ESNI_NO_RETRY_KEYS:
+        // The server provided no ESNI retry that we can use (or none at
+        // all). We will disable ESNI for the next attempt.
+        esnikeys.clear();
+        break;
+      case SSL_R_ESNI_NOT_ACCEPTED: {
+        // The server did not accept our ESNI, but it sent us some retry keys.
+        uint8_t *retry_keys = nullptr;
+        size_t retry_keys_size = 0;
+        SSL_get_esni_retry_keys(ssl.get(), &retry_keys, &retry_keys_size);
+        esnikeys =
+            std::vector<uint8_t>(retry_keys, retry_keys + retry_keys_size);
+        break;
+      }
+      default:
+        // Connect failed for some other reason that isn't worth retrying.
+        return false;
     }
   }
 
-  bssl::UniquePtr<BIO> bio(BIO_new_socket(sock, BIO_CLOSE));
-  bssl::UniquePtr<SSL> ssl(SSL_new(ctx));
+  assert(ssl_good);
 
-  if (args_map.count("-server-name") != 0) {
-    SSL_set_tlsext_host_name(ssl.get(), args_map["-server-name"].c_str());
-  }
-
-  if (args_map.count("-session-in") != 0) {
-    bssl::UniquePtr<BIO> in(BIO_new_file(args_map["-session-in"].c_str(),
-                                         "rb"));
-    if (!in) {
-      fprintf(stderr, "Error reading session\n");
-      ERR_print_errors_fp(stderr);
-      return false;
-    }
-    bssl::UniquePtr<SSL_SESSION> session(PEM_read_bio_SSL_SESSION(in.get(),
-                                         nullptr, nullptr, nullptr));
-    if (!session) {
-      fprintf(stderr, "Error reading session\n");
-      ERR_print_errors_fp(stderr);
-      return false;
-    }
-    SSL_set_session(ssl.get(), session.get());
-  }
-
-  if (args_map.count("-renegotiate-freely") != 0) {
-    SSL_set_renegotiate_mode(ssl.get(), ssl_renegotiate_freely);
-  }
-
-  if (resume_session) {
-    SSL_set_session(ssl.get(), resume_session.get());
-  }
-
-  SSL_set_bio(ssl.get(), bio.get(), bio.get());
-  bio.release();
-
-  int ret = SSL_connect(ssl.get());
-  if (ret != 1) {
-    int ssl_err = SSL_get_error(ssl.get(), ret);
-    PrintSSLError(stderr, "Error while connecting", ssl_err, ret);
-    return false;
-  }
-
-  if (args_map.count("-early-data") != 0 && SSL_in_early_data(ssl.get())) {
+  if (args_map.count("-early-data") != 0 && SSL_in_early_data(ssl_good.get())) {
     std::string early_data = args_map["-early-data"];
     if (early_data.size() > 0 && early_data[0] == '@') {
       const char *filename = early_data.c_str() + 1;
@@ -306,9 +374,9 @@ static bool DoConnection(SSL_CTX *ctx,
       early_data = std::string(data.begin(), data.end());
     }
     int ed_size = early_data.size();
-    int ssl_ret = SSL_write(ssl.get(), early_data.data(), ed_size);
+    int ssl_ret = SSL_write(ssl_good.get(), early_data.data(), ed_size);
     if (ssl_ret <= 0) {
-      int ssl_err = SSL_get_error(ssl.get(), ssl_ret);
+      int ssl_err = SSL_get_error(ssl_good.get(), ssl_ret);
       PrintSSLError(stderr, "Error while writing", ssl_err, ssl_ret);
       return false;
     } else if (ssl_ret != ed_size) {
@@ -319,9 +387,9 @@ static bool DoConnection(SSL_CTX *ctx,
 
   fprintf(stderr, "Connected.\n");
   bssl::UniquePtr<BIO> bio_stderr(BIO_new_fp(stderr, BIO_NOCLOSE));
-  PrintConnectionInfo(bio_stderr.get(), ssl.get());
+  PrintConnectionInfo(bio_stderr.get(), ssl_good.get());
 
-  return cb(ssl.get(), sock);
+  return cb(ssl_good.get(), sock);
 }
 
 static void InfoCallback(const SSL *ssl, int type, int value) {

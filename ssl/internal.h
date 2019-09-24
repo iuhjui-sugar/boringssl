@@ -1415,6 +1415,28 @@ bool tls13_verify_psk_binder(SSL_HANDSHAKE *hs, SSL_SESSION *session,
                              const SSLMessage &msg, CBS *binders);
 
 
+// ESNI
+
+constexpr size_t k_esni_nonce_length = 16;
+
+enum EsniServerResponseType { k_esni_accept = 0, k_esni_retry_request = 1 };
+
+enum ssl_esni_state_t {
+  ssl_esni_unknown = 0,
+  ssl_esni_attempted = 1,
+  ssl_esni_verified = 2,
+  ssl_esni_retry_required = 3,
+  ssl_esni_sent_grease = 4,
+};
+
+bool tls13_derive_esni_secrets(SSL_HANDSHAKE *hs,
+                               Span<const uint8_t> shared_secret);
+
+bool ssl_ext_encrypted_server_name_parse_clienthello(SSL_HANDSHAKE *hs,
+                                                     uint8_t *out_alert,
+                                                     CBS *contents);
+
+
 // Handshake functions.
 
 enum ssl_hs_wait_t {
@@ -1685,6 +1707,17 @@ struct SSL_HANDSHAKE {
 
   // key_block is the record-layer key block for TLS 1.2 and earlier.
   Array<uint8_t> key_block;
+
+  // esni_state is the state of ESNI for this connection.
+  enum ssl_esni_state_t esni_state;
+
+  // esni_nonce is the nonce used for ESNI in this connection.
+  Array<uint8_t> esni_nonce;
+
+  Array<uint8_t> esni_iv;
+
+  // esni_aead_ctx is the AEAD CTX to use with ESNI.
+  ScopedEVP_AEAD_CTX esni_aead_ctx;
 
   // scts_requested is true if the SCT extension is in the ClientHello.
   bool scts_requested : 1;
@@ -2319,6 +2352,9 @@ struct SSL3_STATE {
   // |token_binding_negotiated| is set.
   uint8_t negotiated_token_binding_param = 0;
 
+  // esni_received_retry_keys are the server's ESNIKeys to use on a retry.
+  bssl::Array<uint8_t> esni_received_retry_keys;
+
   // skip_early_data instructs the record layer to skip unexpected early data
   // messages when 0RTT is rejected.
   bool skip_early_data : 1;
@@ -2594,6 +2630,184 @@ struct DTLS1_STATE {
   unsigned timeout_duration_ms = 0;
 };
 
+
+// TODO(dmcardle): delete this
+void hexdump(const char* loc, const char* label, const uint8_t *buf, size_t len);
+
+class ParsedEsniKeys {
+ public:
+  static constexpr bool kAllowUniquePtr = true;
+  ParsedEsniKeys() : wrong_version_(false), version_(0), padded_len_(0) {}
+
+  uint16_t version() { return version_; }
+  Span<const uint8_t> public_name() {
+    return MakeConstSpan(CBS_data(&public_name_), CBS_len(&public_name_));
+  }
+  CBS keys() { return keys_; }
+  CBS cipher_suites() { return cipher_suites_; }
+  uint16_t padded_len() { return padded_len_; }
+  CBS extensions() { return extensions_; }
+
+  enum Failure {
+    kNoFailure,
+    kUnspecifiedFailure,
+    kWrongVersion,
+    kUnsupportedMandatoryExtension
+  };
+
+  // Parses top level of ESNIKeys. Primitive values are copied out. The bounds
+  // of length-prefixed values are recorded, but they are not parsed further.
+  Failure Parse(CBS *esni_keys) {
+    const uint8_t *esni_keys_begin = CBS_data(esni_keys);
+
+    if (!CBS_get_u16(esni_keys, &version_) ||
+        !CBS_get_u16_length_prefixed(esni_keys, &public_name_) ||
+        !CBS_get_u16_length_prefixed(esni_keys, &keys_) ||
+        !CBS_get_u16_length_prefixed(esni_keys, &cipher_suites_) ||
+        !CBS_get_u16(esni_keys, &padded_len_) ||
+        !CBS_get_u16_length_prefixed(esni_keys, &extensions_)) {
+      return kUnspecifiedFailure;
+    }
+
+    if (version_ != ESNI_VERSION) {
+      wrong_version_ = true;
+      return kWrongVersion;
+    }
+
+    Failure extensions_failure = ValidateExtensions();
+    if (extensions_failure != kNoFailure) {
+      return extensions_failure;
+    }
+
+    // Save bytes so we can compute the hash later.
+    Span<const uint8_t> bytes_span =
+        MakeConstSpan(esni_keys_begin, CBS_data(esni_keys) - esni_keys_begin);
+    if (!esni_keys_bytes_.CopyFrom(bytes_span)) {
+      return kUnspecifiedFailure;
+    }
+
+    return kNoFailure;
+  }
+
+  bool Hash(const EVP_MD *digest, Array<uint8_t> *out) {
+    hexdump(__FUNCTION__, "esni_keys_bytes_", esni_keys_bytes_.data(),
+            esni_keys_bytes_.size());
+
+    uint8_t esni_digest[EVP_MAX_MD_SIZE];
+    unsigned esni_digest_len;
+    if (!EVP_Digest(esni_keys_bytes_.data(), esni_keys_bytes_.size(),
+                    esni_digest, &esni_digest_len, digest, NULL) ||
+        !out->CopyFrom(Span<uint8_t>(esni_digest, esni_digest_len))) {
+      return false;
+    }
+    return true;
+  }
+
+ private:
+  Failure ValidateExtensions() {
+    while (CBS_len(&extensions_) > 0) {
+      uint16_t extension_type;
+      CBS extension_data;
+      if (!CBS_get_u16(&extensions_, &extension_type) ||
+          !CBS_get_u16_length_prefixed(&extensions_, &extension_data)) {
+        return kUnspecifiedFailure;
+      }
+
+      // If high-order bit is 1, extension is mandatory. Since we support no
+      // ESNIKeys extensions, mandatory extensions must be rejected.
+      const uint16_t mandatory_bit_mask = 0x8000;
+      if (extension_type & mandatory_bit_mask) {
+        return kUnsupportedMandatoryExtension;
+      }
+    }
+    return kNoFailure;
+  }
+
+  bool wrong_version_;
+  Array<uint8_t> esni_keys_bytes_;
+
+  // ESNIKeys fields
+  uint16_t version_;
+  CBS public_name_, keys_, cipher_suites_;
+  uint16_t padded_len_;
+  CBS extensions_;
+};
+
+
+class EsniBundle {
+ public:
+  EsniBundle() : last_hash_cipher_id_(0) {}
+  EsniBundle(const EsniBundle &other) = delete;
+  EsniBundle(EsniBundle &&other) = default;
+  EsniBundle &operator=(const EsniBundle &other) = delete;
+  EsniBundle &operator=(EsniBundle &&other) = default;
+
+  // Initializes the keypair with the public-facing ESNIKeys. The caller should
+  // add one private key with AddPrivateKey() for each KeyShareEntry contained
+  // in |esni_keys|.
+  bool Init(Span<const uint8_t> esni_keys) {
+    return esni_keys_.CopyFrom(esni_keys) &&
+           esni_keys_hash_.Init(EVP_MAX_MD_SIZE);
+  }
+
+  // Adds a private key to the internal list. The contents of |priv_key_bytes|
+  // can retrieved later via FindEsniPrivateKey.
+  bool AddPrivateKey(uint16_t group, Span<const uint8_t> priv_key_bytes) {
+    EsniPrivKey priv_key;
+    priv_key.group = group;
+    return priv_key.key.CopyFrom(priv_key_bytes) &&
+           private_keys_.Push(std::move(priv_key));
+  }
+
+  // Computes the hash of the stored ESNIKeys. Sets |out_digest| to point at
+  // data owned by |this|. Returns false on allocation error.
+  bool Hash(uint16_t cipher_id, Span<uint8_t> *out_digest);
+
+  // Searches for an EsniBundle in |keypairs| with a hash matching
+  // |record_digest|. If no match is found, returns false. Otherwise, searches
+  // EsniBundle's private keys for a key in |group|. If unable to find a
+  // matching private key, returns false and sets |out_error| to true.
+  static bool FindEsniPrivateKey(GrowableArray<EsniBundle> *keypairs,
+                                 uint16_t cipher_id, uint16_t group,
+                                 const Span<const uint8_t> &record_digest,
+                                 Span<const uint8_t> *out_private_key,
+                                 bool *out_error);
+
+ private:
+  struct EsniPrivKey {
+    uint16_t group;
+    Array<uint8_t> key;
+  };
+
+  Array<uint8_t> esni_keys_;
+  GrowableArray<EsniPrivKey> private_keys_;
+  Array<uint8_t> esni_keys_hash_;
+  uint16_t last_hash_cipher_id_;
+};
+
+// EsniConfig simply groups ESNI configuration data that would otherwise be
+// contained within SSL_CONFIG. By owning a UniquePtr<EsniConfig>, it is simple
+// to reset the ESNI configuration all at once.
+struct EsniConfig {
+  static constexpr bool kAllowUniquePtr = true;
+
+  explicit EsniConfig() = default;
+  ~EsniConfig() = default;
+
+  // TODO(dmcardle): document each of these esni-related fields.
+  Array<uint8_t> esni_public_name;
+  uint16_t esni_group = 0;
+  const SSL_CIPHER *esni_cipher = nullptr;
+  Array<uint8_t> esni_record_digest;
+  uint16_t esni_padded_length = 0;
+
+  Array<uint8_t> esni_retry_keys;
+  Array<uint8_t> esni_server_keyshare;  // used by client
+  Array<uint8_t> esni_client_keyshare;
+
+  GrowableArray<EsniBundle> esni_server_keys;
+};
+
 // SSL_CONFIG contains configuration bits that can be shed after the handshake
 // completes.  Objects of this type are not shared; they are unique to a
 // particular |SSL|.
@@ -2676,6 +2890,14 @@ struct SSL_CONFIG {
 
   // verify_mode is a bitmask of |SSL_VERIFY_*| values.
   uint8_t verify_mode = SSL_VERIFY_NONE;
+
+  // esni contains ESNI config parameters. When it is null, the connection will
+  // not attempt to use ESNI.
+  UniquePtr<EsniConfig> esni;
+
+  // enable_esni_grease indicates whether the client should default to sending
+  // ESNI GREASE data when it cannot send real encrypted SNI.
+  bool enable_esni_grease = false;
 
   // Enable signed certificate time stamps. Currently client only.
   bool signed_cert_timestamps_enabled : 1;
@@ -3545,6 +3767,5 @@ struct ssl_session_st {
   ~ssl_session_st();
   friend void SSL_SESSION_free(SSL_SESSION *);
 };
-
 
 #endif  // OPENSSL_HEADER_SSL_INTERNAL_H

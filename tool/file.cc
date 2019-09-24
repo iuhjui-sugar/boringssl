@@ -18,6 +18,7 @@
 #include <vector>
 
 #include "internal.h"
+#include "openssl/bio.h"
 
 
 bool ReadAll(std::vector<uint8_t> *out, FILE *file) {
@@ -47,4 +48,16 @@ bool ReadAll(std::vector<uint8_t> *out, FILE *file) {
       out->resize(cap);
     }
   }
+}
+
+// TODO(dmcardle): Output argument first seems odd, but I did it to match
+// ReadAll(). Can I reverse both of them?
+bool ReadAllFilename(std::vector<uint8_t> *out, const std::string filename) {
+  bssl::UniquePtr<BIO> bio(BIO_new(BIO_s_file()));
+  if (!bio || !BIO_read_filename(bio.get(), filename.c_str())) {
+    return false;
+  }
+
+  FILE *file;
+  return BIO_get_fp(bio.get(), &file) && ReadAll(out, file);
 }
