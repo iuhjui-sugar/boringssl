@@ -749,6 +749,15 @@ static enum ssl_hs_wait_t do_complete_second_flight(SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
+  // We don't want to send an alert here if we (the client) originally sent a
+  // ClientEncryptedSNI containing GREASE data.
+  if (hs->esni_state == ssl_esni_retry_required) {
+    ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ESNI_REQUIRED);
+    // Tell the client application that the server rejected their ESNI, but sent
+    // us some retry keys to try.
+    OPENSSL_PUT_ERROR(SSL, SSL_R_ESNI_NOT_ACCEPTED);
+  }
+
   hs->tls13_state = state_done;
   return ssl_hs_flush;
 }
