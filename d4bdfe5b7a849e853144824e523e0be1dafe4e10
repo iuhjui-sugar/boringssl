@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8fd30e30_95d3e78a",
+        "filename": "ssl/internal.h",
+        "patchSetId": 34
+      },
+      "lineNbr": 2627,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2019-09-24T15:16:39Z",
+      "side": 1,
+      "message": "Should validate that |group| matches the group of the ith KeyShareEntry in |esni_keys_|.",
+      "revId": "d4bdfe5b7a849e853144824e523e0be1dafe4e10",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
