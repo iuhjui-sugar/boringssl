@@ -75,9 +75,14 @@ bool GetUnsigned(unsigned *out, const std::string &arg_name,
 
 bool ReadAll(std::vector<uint8_t> *out, FILE *in);
 
+bool DecodeEsniKeys(const std::string &encoded, std::vector<uint8_t> *out);
+bool DecodeEsniPrivs(const std::string &encoded,
+                     std::vector<std::vector<uint8_t>> *out_privs);
+
 bool Ciphers(const std::vector<std::string> &args);
 bool Client(const std::vector<std::string> &args);
 bool DoPKCS12(const std::vector<std::string> &args);
+bool ESNI(const std::vector<std::string> &args);
 bool GenerateEd25519Key(const std::vector<std::string> &args);
 bool GenerateRSAKey(const std::vector<std::string> &args);
 bool MD5Sum(const std::vector<std::string> &args);
