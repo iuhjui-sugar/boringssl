@@ -16,6 +16,7 @@
 
 #include <memory>
 
+#include <openssl/base64.h>
 #include <openssl/err.h>
 #include <openssl/rand.h>
 #include <openssl/ssl.h>
@@ -26,66 +27,94 @@
 
 static const struct argument kArguments[] = {
     {
-        "-accept", kRequiredArgument,
+        "-accept",
+        kRequiredArgument,
         "The port of the server to bind on; eg 45102",
     },
     {
-        "-cipher", kOptionalArgument,
+        "-cipher",
+        kOptionalArgument,
         "An OpenSSL-style cipher suite string that configures the offered "
         "ciphers",
     },
     {
-        "-curves", kOptionalArgument,
+        "-curves",
+        kOptionalArgument,
         "An OpenSSL-style ECDH curves list that configures the offered curves",
     },
     {
-        "-max-version", kOptionalArgument,
+        "-max-version",
+        kOptionalArgument,
         "The maximum acceptable protocol version",
     },
     {
-        "-min-version", kOptionalArgument,
+        "-min-version",
+        kOptionalArgument,
         "The minimum acceptable protocol version",
     },
     {
-        "-key", kOptionalArgument,
+        "-key",
+        kOptionalArgument,
         "PEM-encoded file containing the private key. A self-signed "
         "certificate is generated at runtime if this argument is not provided.",
     },
     {
-        "-cert", kOptionalArgument,
+        "-cert",
+        kOptionalArgument,
         "PEM-encoded file containing the leaf certificate and optional "
         "certificate chain. This is taken from the -key argument if this "
         "argument is not provided.",
     },
     {
-        "-ocsp-response", kOptionalArgument, "OCSP response file to send",
+        "-ocsp-response",
+        kOptionalArgument,
+        "OCSP response file to send",
     },
     {
-        "-loop", kBooleanArgument,
+        "-loop",
+        kBooleanArgument,
         "The server will continue accepting new sequential connections.",
     },
     {
-        "-early-data", kBooleanArgument, "Allow early data",
+        "-early-data",
+        kBooleanArgument,
+        "Allow early data",
     },
     {
-        "-www", kBooleanArgument,
+        "-www",
+        kBooleanArgument,
         "The server will print connection information in response to a "
         "HTTP GET request.",
     },
     {
-        "-debug", kBooleanArgument,
+        "-debug",
+        kBooleanArgument,
         "Print debug information about the handshake",
     },
     {
-        "-require-any-client-cert", kBooleanArgument,
+        "-require-any-client-cert",
+        kBooleanArgument,
         "The server will require a client certificate.",
     },
     {
-        "-jdk11-workaround", kBooleanArgument,
+        "-jdk11-workaround",
+        kBooleanArgument,
         "Enable the JDK 11 workaround",
     },
     {
-        "", kOptionalArgument, "",
+        "-esnikeys",
+        kOptionalArgument,
+        "A single ESNIKeys, base64 encoded",
+    },
+    {
+        "-esniprivs",
+        kOptionalArgument,
+        "A sequence of ESNI private keys, base64 encoded",
+    },
+    {
+        "",
+        kOptionalArgument,
+        "",
     },
 };
 
@@ -337,6 +366,29 @@ bool Server(const std::vector<std::string> &args) {
 
     if (args_map.count("-jdk11-workaround") != 0) {
       SSL_set_jdk11_workaround(ssl.get(), 1);
+    }
+
+    if (args_map.count("-esnikeys") != 0 && args_map.count("-esniprivs") != 0) {
+      SSL_set_enable_esni(ssl.get(), 1);
+      std::vector<uint8_t> esnikeys;
+      std::vector<std::vector<uint8_t>> esniprivs;
+
+      if (!DecodeEsniKeys(args_map["-esnikeys"], &esnikeys) ||
+          !DecodeEsniPrivs(args_map["-esniprivs"], &esniprivs)) {
+        return false;
+      }
+
+      std::vector<const uint8_t*> priv_ptrs;
+      std::vector<size_t> priv_lens;
+      for (const std::vector<uint8_t> &priv : esniprivs) {
+        priv_ptrs.push_back(priv.data());
+        priv_lens.push_back(priv.size());
+      }
+
+      if (!SSL_add_esni_private_keys(ssl.get(), esnikeys.data(), esnikeys.size(),
+                                         priv_ptrs.data(), priv_lens.data())) {
+        return false;
+      }
     }
 
     int ret = SSL_accept(ssl.get());

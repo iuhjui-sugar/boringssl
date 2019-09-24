@@ -4080,6 +4080,388 @@ TEST(SSLTest, CertCompression) {
   EXPECT_TRUE(SSL_get_app_data(server.get()) == XORCompressFunc);
 }
 
+// Serializes a single ESNIKeys into |key_struct|. By default, there will be one
+// KeyShareEntry per NamedGroups(). Because NamedGroups() contains more groups
+// than kDefaultGroups, there will be keypairs that we ourselves should
+// ignore. When |bug_duplicate_group| is true, we will generate an invalid
+// ESNIKeys containing 2 KeyShareEntry values for one group.
+//
+// Parameter |out_key_struct| should already be initialized.
+//
+// Private keys corresponding to each KeyShareEntry in ESNIKeys are serialized
+// in |out_privs|.
+void GenerateEsniKeypairs(CBB *out_key_struct, std::vector<CBB> *out_privs,
+                          bool bug_duplicate_group = false,
+                          bool bug_unsupported_groups = false) {
+  CBB public_name, keys;
+  if (!CBB_add_u16(out_key_struct, ESNI_VERSION) ||
+      !CBB_add_u16_length_prefixed(out_key_struct, &public_name) ||
+      !CBB_add_bytes(&public_name, (const uint8_t *)"pn-test.com",
+                     strlen("pn-test.com")) ||
+      !CBB_flush(&public_name) ||
+      !CBB_add_u16_length_prefixed(out_key_struct, &keys)) {
+    ASSERT_TRUE(false);
+  }
+
+  // Copy NamedGroups() and rotate elements so it disagrees with the groups on
+  // the receiving end.
+  const size_t k_rotate_amount = 4;
+  std::vector<uint16_t> rotated_group_ids;
+  for (const NamedGroup &group : NamedGroups()) {
+    rotated_group_ids.push_back(group.group_id);
+  }
+  std::rotate(rotated_group_ids.begin(),
+              rotated_group_ids.begin() + k_rotate_amount,
+              rotated_group_ids.end());
+
+  if (bug_duplicate_group) {
+    rotated_group_ids.push_back(rotated_group_ids[0]);
+  }
+
+  static const uint16_t kDefaultGroups[] = {
+      SSL_CURVE_X25519,
+      SSL_CURVE_SECP256R1,
+      SSL_CURVE_SECP384R1,
+  };
+
+  // Generate a keyshare for each of the groups supported by SSLKeyShare
+  for (const uint16_t group_id : rotated_group_ids) {
+    if (!bug_unsupported_groups) {
+      // Skip this group if it's not in kDefaultGroups
+      bool supported = false;
+      for (const uint16_t supp : kDefaultGroups) {
+        if (group_id == supp) {
+          supported = true;
+          break;
+        }
+      }
+      if (!supported) {
+        continue;
+      }
+    }
+
+    CBB kse_bytes;
+    if (!CBB_add_u16(&keys, group_id) ||
+        !CBB_add_u16_length_prefixed(&keys, &kse_bytes)) {
+      ASSERT_TRUE(false);
+    }
+
+    CBB pub_key;
+    CBB_init(&pub_key, 0);
+    UniquePtr<SSLKeyShare> keyshare = SSLKeyShare::Create(group_id);
+    if (!keyshare->Offer(&pub_key)) {
+      ASSERT_TRUE(false);
+    }
+
+    // Copy public key into |out_key_struct|
+
+    if (!CBB_add_bytes(&kse_bytes, CBB_data(&pub_key), CBB_len(&pub_key)) ||
+        !CBB_flush(&kse_bytes)) {
+      ASSERT_TRUE(false);
+    }
+
+    // Serialize private key into |out_privs|
+    out_privs->emplace_back();
+    CBB *private_key = &out_privs->back();
+    CBB_init(private_key, 0);
+    keyshare->Serialize(private_key);
+  }
+
+  CBB cipher_suites;
+  if (!CBB_flush(&keys) ||
+      !CBB_add_u16_length_prefixed(out_key_struct, &cipher_suites) ||
+      // TODO(dmcardle): pick cipher suite the same way we generate GREASE in
+      // ESNI client code.
+      !CBB_add_u16(&cipher_suites, 0x1303) || !CBB_flush(&cipher_suites) ||
+      !CBB_add_u16(out_key_struct, 32) || !CBB_add_u16(out_key_struct, 0) ||
+      !CBB_flush(out_key_struct)) {
+    ASSERT_TRUE(false);
+  }
+}
+
+void ESNISetupClient(SSL_CTX *client_ctx, bssl::UniquePtr<SSL> *out_client) {
+  ASSERT_TRUE(client_ctx);
+  ASSERT_TRUE(SSL_CTX_set_max_proto_version(client_ctx, TLS1_3_VERSION));
+  bssl::UniquePtr<SSL> client(SSL_new(client_ctx));
+  ASSERT_TRUE(client);
+  SSL_set_connect_state(client.get());
+  ASSERT_TRUE(SSL_set_tlsext_host_name(client.get(), "esni-test.com"));
+  SSL_set_enable_esni(client.get(), true);
+  out_client->swap(client);
+}
+
+void ESNISetupServer(SSL_CTX *server_ctx, bssl::UniquePtr<SSL> *out_server) {
+  ASSERT_TRUE(server_ctx);
+  bssl::UniquePtr<X509> cert = GetTestCertificate();
+  bssl::UniquePtr<EVP_PKEY> key = GetTestKey();
+  ASSERT_TRUE(cert);
+  ASSERT_TRUE(key);
+  ASSERT_TRUE(SSL_CTX_use_certificate(server_ctx, cert.get()));
+  ASSERT_TRUE(SSL_CTX_use_PrivateKey(server_ctx, key.get()));
+  ASSERT_TRUE(SSL_CTX_set_max_proto_version(server_ctx, TLS1_3_VERSION));
+  bssl::UniquePtr<SSL> server(SSL_new(server_ctx));
+  ASSERT_TRUE(server);
+  SSL_set_accept_state(server.get());
+  SSL_set_enable_esni(server.get(), true);
+  out_server->swap(server);
+}
+
+bool ESNIHelperAddEsniPrivateKeys(SSL *ssl, CBB *key_struct,
+                                  const std::vector<CBB> priv_keys) {
+  // Extract the data pointers and lengths for each of the private keys.
+  const size_t k_num_keys = priv_keys.size();
+  bssl::Array<const uint8_t*> privs;
+  bssl::Array<size_t> privs_len;
+  if (!privs.Init(k_num_keys) ||
+      !privs_len.Init(k_num_keys))
+    return false;
+  for (size_t i = 0; i < k_num_keys; i++) {
+    privs[i] = CBB_data(&priv_keys[i]);
+    privs_len[i] = CBB_len(&priv_keys[i]);
+  }
+
+  return SSL_add_esni_private_keys(ssl, CBB_data(key_struct),
+                                   CBB_len(key_struct), privs.data(), privs_len.data());
+}
+
+TEST(SSLTest, ESNIKeysDuplicateGroupServer) {
+  bssl::UniquePtr<SSL_CTX> client_ctx(SSL_CTX_new(TLS_method()));
+  bssl::UniquePtr<SSL_CTX> server_ctx(SSL_CTX_new(TLS_method()));
+  bssl::UniquePtr<SSL> client, server;
+  ESNISetupClient(client_ctx.get(), &client);
+  ESNISetupServer(server_ctx.get(), &server);
+
+  // Generate an ESNIKeys with two KeyShareEntry values in the same group.
+  CBB key_struct;
+  CBB_init(&key_struct, 0);
+  std::vector<CBB> priv_keys;
+  GenerateEsniKeypairs(&key_struct, &priv_keys, true);
+
+  CBB_flush(&key_struct);
+  // Ensure that we cannot add private keys with duplicate group.
+  ASSERT_FALSE(
+      ESNIHelperAddEsniPrivateKeys(server.get(), &key_struct, priv_keys));
+  uint32_t err = ERR_get_error();
+  EXPECT_EQ(ERR_GET_LIB(err), ERR_LIB_SSL);
+  EXPECT_EQ(ERR_GET_REASON(err), SSL_R_ESNI_KEYS_DUPLICATE_GROUP);
+}
+
+TEST(SSLTest, ESNIKeysDuplicateGroupClient) {
+  bssl::UniquePtr<SSL_CTX> client_ctx(SSL_CTX_new(TLS_method()));
+  bssl::UniquePtr<SSL_CTX> server_ctx(SSL_CTX_new(TLS_method()));
+  bssl::UniquePtr<SSL> client, server;
+  ESNISetupClient(client_ctx.get(), &client);
+  ESNISetupServer(server_ctx.get(), &server);
+
+  // Generate an ESNIKeys with two KeyShareEntry values in the same group.
+  CBB key_struct;
+  CBB_init(&key_struct, 0);
+  std::vector<CBB> priv_keys;
+  GenerateEsniKeypairs(&key_struct, &priv_keys, true);
+
+  ASSERT_FALSE(SSL_set_esni_keys(client.get(), CBB_data(&key_struct),
+                                 CBB_len(&key_struct)));
+  uint32_t err = ERR_get_error();
+  EXPECT_EQ(ERR_GET_LIB(err), ERR_LIB_SSL);
+  EXPECT_EQ(ERR_GET_REASON(err), SSL_R_ESNI_KEYS_DUPLICATE_GROUP);
+}
+
+// TODO(dmcardle): Write test for client and server where ESNIKeys
+// containing KeyShareEntry with unsupported group.
+
+// TODO(dmcardle): Test client/server's ability to ignore ESNIKeys with wrong
+// version.
+
+// Try parsing an ESNIRecord. When/if ESNIRecord.dns_extensions finds a use, we
+// will need to update this test since it uses garbage data in place of
+// well-formed TLS 1.3 Extensions.
+TEST(SSLTest, ESNIParseRecordGood) {
+  CBB esni_record;
+  CBB_init(&esni_record, 0);
+
+  // Serialize a random ESNIKeys into the ESNIRecord
+  std::vector<CBB> priv_keys;
+  GenerateEsniKeypairs(&esni_record, &priv_keys);
+  const size_t expected_esni_keys_len = CBB_len(&esni_record);
+
+  // Add some u16-prefixed garbage for the dns_extensions. We currently do not
+  // parse the contents, although their format is defined.
+  const uint8_t garbage_dns_extensions[] = {
+      0xde, 0xad, 0xbe, 0xef, 0xde, 0xad, 0xbe, 0xef, 0xde, 0xad, 0xbe, 0xef,
+      0xde, 0xad, 0xbe, 0xef, 0xde, 0xad, 0xbe, 0xef, 0xde, 0xad, 0xbe, 0xef,
+  };
+  CBB dns_extensions;
+  CBB_add_u16_length_prefixed(&esni_record, &dns_extensions);
+  CBB_add_bytes(&dns_extensions, garbage_dns_extensions,
+                sizeof(garbage_dns_extensions));
+  CBB_flush(&dns_extensions);
+  CBB_flush(&esni_record);
+
+  const uint8_t *extracted_esni_keys;
+  size_t extracted_esni_keys_len;
+  const uint8_t *extracted_dns_extensions;
+  size_t extracted_dns_extensions_len;
+  ASSERT_TRUE(SSL_parse_esni_record(
+      CBB_data(&esni_record), CBB_len(&esni_record), &extracted_esni_keys,
+      &extracted_esni_keys_len, &extracted_dns_extensions,
+      &extracted_dns_extensions_len));
+
+  ASSERT_EQ(extracted_esni_keys_len, expected_esni_keys_len);
+  ASSERT_EQ(0, OPENSSL_memcmp(CBB_data(&esni_record), extracted_esni_keys,
+                              extracted_esni_keys_len));
+  ASSERT_EQ(extracted_dns_extensions_len, sizeof(garbage_dns_extensions) + 2);
+  ASSERT_EQ(0, OPENSSL_memcmp(garbage_dns_extensions, extracted_dns_extensions + 2,
+                              sizeof(garbage_dns_extensions)));
+}
+
+// Try parsing a malformed ESNIRecord.
+TEST(SSLTest, ESNIParseRecordBad) {
+  const uint8_t garbage_esni_record[] = {
+      0xde, 0xad, 0xbe, 0xef, 0xde, 0xad, 0xbe, 0xef, 0xde, 0xad, 0xbe, 0xef,
+  };
+
+  const uint8_t *extracted_esni_keys;
+  size_t extracted_esni_keys_len;
+  const uint8_t *extracted_dns_extensions;
+  size_t extracted_dns_extensions_len;
+  ASSERT_FALSE(SSL_parse_esni_record(
+      garbage_esni_record, sizeof(garbage_esni_record), &extracted_esni_keys,
+      &extracted_esni_keys_len, &extracted_dns_extensions,
+      &extracted_dns_extensions_len));
+}
+
+TEST(SSLTest, ESNI) {
+  bssl::UniquePtr<SSL_CTX> client_ctx(SSL_CTX_new(TLS_method()));
+  bssl::UniquePtr<SSL_CTX> server_ctx(SSL_CTX_new(TLS_method()));
+  bssl::UniquePtr<SSL> client, server;
+  ESNISetupClient(client_ctx.get(), &client);
+  ESNISetupServer(server_ctx.get(), &server);
+
+  // TODO(dmcardle): test multiple ESNIKeys, not just one ESNIKeys with N keys.
+  CBB key_struct;
+  CBB_init(&key_struct, 0);
+  std::vector<CBB> priv_keys;
+  GenerateEsniKeypairs(&key_struct, &priv_keys);
+
+  ASSERT_TRUE(SSL_set_esni_keys(client.get(), CBB_data(&key_struct),
+                                CBB_len(&key_struct)));
+
+  ASSERT_TRUE(
+      ESNIHelperAddEsniPrivateKeys(server.get(), &key_struct, priv_keys));
+
+  BIO *bio1, *bio2;
+  ASSERT_TRUE(BIO_new_bio_pair(&bio1, 0, &bio2, 0));
+  // SSL_set_bio takes ownership.
+  SSL_set_bio(client.get(), bio1, bio1);
+  SSL_set_bio(server.get(), bio2, bio2);
+
+  ASSERT_TRUE(CompleteHandshakes(client.get(), server.get()));
+  printf("%s\n", SSL_get_servername(server.get(), TLSEXT_NAMETYPE_host_name));
+}
+
+TEST(SSLTest, ESNIRetry) {
+  bssl::UniquePtr<SSL_CTX> client_ctx(SSL_CTX_new(TLS_method()));
+  bssl::UniquePtr<SSL_CTX> server_ctx(SSL_CTX_new(TLS_method()));
+  bssl::UniquePtr<SSL> client, server;
+  ESNISetupClient(client_ctx.get(), &client);
+  ESNISetupServer(server_ctx.get(), &server);
+
+  // Generate two sets of ESNI keypairs. The server gets one, and the client
+  // gets the public part of the other.
+  CBB key_struct_old;
+  CBB_init(&key_struct_old, 0);
+  std::vector<CBB> priv_keys_old;
+  GenerateEsniKeypairs(&key_struct_old, &priv_keys_old);
+  ASSERT_TRUE(SSL_set_esni_keys(client.get(), CBB_data(&key_struct_old),
+                                CBB_len(&key_struct_old)));
+  CBB key_struct;
+  CBB_init(&key_struct, 0);
+  std::vector<CBB> priv_keys;
+  GenerateEsniKeypairs(&key_struct, &priv_keys);
+  ASSERT_TRUE(
+      ESNIHelperAddEsniPrivateKeys(server.get(), &key_struct, priv_keys));
+
+  BIO *bio1, *bio2;
+  ASSERT_TRUE(BIO_new_bio_pair(&bio1, 0, &bio2, 0));
+  // SSL_set_bio takes ownership.
+  SSL_set_bio(client.get(), bio1, bio1);
+  SSL_set_bio(server.get(), bio2, bio2);
+
+  // Try the handshake. It should fail and we should get some retry keys.
+  uint8_t *retry_keys;
+  size_t retry_keys_len;
+
+  ASSERT_TRUE(CompleteHandshakes(client.get(), server.get()));
+  retry_keys = nullptr;
+  retry_keys_len = 0;
+  SSL_get_esni_retry_keys(client.get(), &retry_keys, &retry_keys_len);
+  ASSERT_NE(retry_keys, nullptr);
+  ASSERT_NE(retry_keys_len, static_cast<size_t>(0));
+
+  // Try the handshake again. We should not get any retry keys.
+  ASSERT_TRUE(SSL_set_esni_keys(client.get(), retry_keys, retry_keys_len));
+  ASSERT_TRUE(CompleteHandshakes(client.get(), server.get()));
+  retry_keys = nullptr;
+  retry_keys_len = 0;
+  SSL_get_esni_retry_keys(client.get(), &retry_keys, &retry_keys_len);
+  ASSERT_EQ(retry_keys, nullptr);
+  ASSERT_EQ(retry_keys_len, static_cast<size_t>(0));
+}
+
+TEST(SSLTest, ESNIKeysDeserialize) {
+  // ------ generated C code ------
+  static const uint8_t kEsniKeysBytes[] = {
+      0xff, 0x3,  0x0,  0x0,  0x0,  0x24, 0x0,  0x1d, 0x0,  0x20,
+      0xed, 0xed, 0xc8, 0x68, 0xc1, 0x71, 0xd6, 0x9e, 0xa9, 0xf0,
+      0xa2, 0xc9, 0xf5, 0xa9, 0xdc, 0xcf, 0xf9, 0xb8, 0xed, 0x15,
+      0x5c, 0xc4, 0x5a, 0xec, 0x6f, 0xb2, 0x86, 0x14, 0xb7, 0x71,
+      0x1b, 0x7c, 0x0,  0x2,  0x13, 0x1,  0x1,  0x4,  0x0,  0x0};
+  static const uint16_t kExpectedVersion = 0xff03;
+  static const std::string kExpectedPublicName = "";
+  static const uint8_t kExpectedKeyShareGroup_0 = 0x1d;
+  static const uint8_t kExpectedKeyExchange_0[] = {
+      0xed, 0xed, 0xc8, 0x68, 0xc1, 0x71, 0xd6, 0x9e, 0xa9, 0xf0, 0xa2,
+      0xc9, 0xf5, 0xa9, 0xdc, 0xcf, 0xf9, 0xb8, 0xed, 0x15, 0x5c, 0xc4,
+      0x5a, 0xec, 0x6f, 0xb2, 0x86, 0x14, 0xb7, 0x71, 0x1b, 0x7c};
+  static const uint16_t kExpectedPaddedLength = 0x104;
+  // ------------------------------
+
+  bssl::UniquePtr<SSL_CTX> client_ctx(SSL_CTX_new(TLS_method()));
+  ASSERT_TRUE(client_ctx);
+  bssl::UniquePtr<SSL> client(SSL_new(client_ctx.get()));
+  ASSERT_TRUE(client);
+  ASSERT_TRUE(SSL_set_tlsext_host_name(client.get(), "foo.example"));
+  SSL_set_enable_esni(client.get(), true);
+
+  // If the current ESNI version does not match the generated C code's ESNI
+  // version, the rest of this test is invalid.
+  ASSERT_EQ(ESNI_VERSION, kExpectedVersion);
+
+  // Send the byte-encoded ESNIKeys through the C parser.
+  ASSERT_TRUE(
+      SSL_set_esni_keys(client.get(), kEsniKeysBytes, sizeof(kEsniKeysBytes)));
+
+  // Check values were deserialized correctly.
+
+  // Compare public_name.
+  ASSERT_EQ(kExpectedPublicName.size(),
+            CBS_len(&client->config->esni_public_name));
+  ASSERT_EQ(0, OPENSSL_memcmp(CBS_data(&client->config->esni_public_name),
+                              kExpectedPublicName.c_str(),
+                              CBS_len(&client->config->esni_public_name)));
+  ASSERT_EQ(client->config->esni_group, kExpectedKeyShareGroup_0);
+
+  ASSERT_EQ(sizeof(kExpectedKeyExchange_0),
+            client->config->esni_server_keyshare.size());
+  ASSERT_EQ(
+      0, OPENSSL_memcmp(client->config->esni_server_keyshare.data(),
+                        kExpectedKeyExchange_0, sizeof(kExpectedKeyExchange_0)));
+
+  ASSERT_EQ(
+      0, strcmp(client->config->esni_cipher->name, "TLS_AES_128_GCM_SHA256"));
+  ASSERT_EQ(client->config->esni_padded_length, kExpectedPaddedLength);
+}
+
 void MoveBIOs(SSL *dest, SSL *src) {
   BIO *rbio = SSL_get_rbio(src);
   BIO_up_ref(rbio);
