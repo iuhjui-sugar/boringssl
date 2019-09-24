@@ -558,4 +558,97 @@ bool tls13_verify_psk_binder(SSL_HANDSHAKE *hs, SSL_SESSION *session,
   return true;
 }
 
+static const char kTLS13LabelESNIKey[] = "esni key";
+static const char kTLS13LabelESNIIV[] = "esni iv";
+
+//TODO(svaldez): Support HRR case.
+bool tls13_derive_esni_secrets(SSL_HANDSHAKE *hs,
+                               Span<const uint8_t> shared_secret) {
+  const UniquePtr<EsniConfig> &esni = hs->config->esni;
+  if (!esni)
+    return false;
+
+  SSL const *ssl = hs->ssl;
+
+  const EVP_MD *digest =
+      ssl_get_handshake_digest(TLS1_3_VERSION, esni->esni_cipher);
+
+  uint8_t zeroes[EVP_MAX_MD_SIZE] = {0};
+  uint8_t zx_buf[EVP_MAX_MD_SIZE];
+  size_t zx_len;
+  if (!HKDF_extract(zx_buf, &zx_len, digest, shared_secret.data(),
+                    shared_secret.size(), zeroes, EVP_MD_size(digest))) {
+    return false;
+  }
+  Span<uint8_t> zx = MakeSpan(zx_buf, zx_len);
+
+  hexdump(__FUNCTION__, "shared_secret", shared_secret.data(),
+          shared_secret.size());
+  hexdump(__FUNCTION__, "zx", zx_buf, zx_len);
+
+  hexdump(__FUNCTION__, "client_keyshare",
+          ssl->config->esni->esni_client_keyshare.data(),
+          ssl->config->esni->esni_client_keyshare.size());
+
+  ScopedCBB esni_cbb;
+  CBB record_digest, keyshare;
+  Array<uint8_t> esni_contents;
+  if (!CBB_init(esni_cbb.get(), 0) ||
+      !CBB_add_u16_length_prefixed(esni_cbb.get(), &record_digest) ||
+      !CBB_add_bytes(&record_digest, esni->esni_record_digest.data(),
+                     esni->esni_record_digest.size()) ||
+      !CBB_add_u16(esni_cbb.get(), esni->esni_group) ||
+      !CBB_add_u16_length_prefixed(esni_cbb.get(), &keyshare) ||
+      !CBB_add_bytes(&keyshare, esni->esni_client_keyshare.data(),
+                     esni->esni_client_keyshare.size()) ||
+      !CBB_add_bytes(esni_cbb.get(), ssl->s3->client_random,
+                     SSL3_RANDOM_SIZE) ||
+      !CBBFinishArray(esni_cbb.get(), &esni_contents)) {
+    return false;
+  }
+
+  hexdump(__FUNCTION__, "esni_contents", esni_contents.data(),
+          esni_contents.size());
+
+  uint8_t esni_hash[EVP_MAX_MD_SIZE];
+  unsigned esni_hash_len;
+  if (!EVP_Digest(esni_contents.data(), esni_contents.size(), esni_hash,
+                  &esni_hash_len, digest, nullptr)) {
+    return false;
+  }
+
+  hexdump(__FUNCTION__, "esni_hash", esni_hash, esni_hash_len);
+
+  const EVP_AEAD *aead;
+  size_t discard;
+  if (!ssl_cipher_get_evp_aead(&aead, &discard, &discard,
+                               esni->esni_cipher, TLS1_3_VERSION,
+                               false)) {
+    return false;
+  }
+
+  // Derive the key and iv.
+  uint8_t key_buf[EVP_AEAD_MAX_KEY_LENGTH];
+  auto key_span = MakeSpan(key_buf, EVP_AEAD_key_length(aead));
+
+  if (!hs->esni_iv.Init(EVP_AEAD_nonce_length(aead)))
+    return false;
+
+  auto iv_span = MakeSpan(hs->esni_iv.data(), hs->esni_iv.size());
+  if (!hkdf_expand_label(key_span, digest, zx,
+                         label_to_span(kTLS13LabelESNIKey),
+                         MakeConstSpan(esni_hash, esni_hash_len)) ||
+      !hkdf_expand_label(iv_span, digest, zx, label_to_span(kTLS13LabelESNIIV),
+                         MakeConstSpan(esni_hash, esni_hash_len))) {
+    return false;
+  }
+
+  hexdump(__FUNCTION__, "key", key_span.data(), key_span.size());
+  hexdump(__FUNCTION__, "iv", iv_span.data(), iv_span.size());
+
+  return EVP_AEAD_CTX_init(hs->esni_aead_ctx.get(), aead, key_span.data(),
+                           key_span.size(), EVP_AEAD_DEFAULT_TAG_LENGTH,
+                           nullptr);
+}
+
 BSSL_NAMESPACE_END

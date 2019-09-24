@@ -180,6 +180,9 @@ struct TestConfig {
   bool expect_pq_experiment_signal = false;
   bool expect_hrr = false;
   bool expect_no_hrr = false;
+  bool esni_force_enable = false;
+  std::string server_esni_keypairs;
+  std::string client_esnikeys;
 
   int argc;
   char **argv;
