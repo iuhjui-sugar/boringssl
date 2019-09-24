@@ -44,6 +44,7 @@ struct Tool {
 static const Tool kTools[] = {
   { "ciphers", Ciphers },
   { "client", Client },
+  { "esni", ESNI },
   { "isfips", IsFIPS },
   { "generate-ed25519", GenerateEd25519Key },
   { "genrsa", GenerateRSAKey },

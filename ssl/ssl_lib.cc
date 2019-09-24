@@ -726,6 +726,7 @@ SSL *SSL_new(SSL_CTX *ctx) {
 
 SSL_CONFIG::SSL_CONFIG(SSL *ssl_arg)
     : ssl(ssl_arg),
+      esni_group(0),
       signed_cert_timestamps_enabled(false),
       ocsp_stapling_enabled(false),
       channel_id_enabled(false),
@@ -734,7 +735,8 @@ SSL_CONFIG::SSL_CONFIG(SSL *ssl_arg)
       handoff(false),
       shed_handshake_config(false),
       ignore_tls13_downgrade(false),
-      jdk11_workaround(false) {
+      jdk11_workaround(false),
+      enable_esni(false) {
   assert(ssl);
 }
 
@@ -2873,6 +2875,333 @@ void SSL_set_jdk11_workaround(SSL *ssl, int enable) {
   ssl->config->jdk11_workaround = !!enable;
 }
 
+void SSL_set_enable_esni(SSL *ssl, int enable) {
+  if (!ssl->config) {
+    return;
+  }
+  ssl->config->enable_esni = !!enable;
+}
+
+// Takes CBS pointing to ESNIKeys.keys field. Returns false when there are
+// multiple keys containing the same group.
+static bool EsniKeysCheckDuplicateGroups(CBS keys) {
+  CBS esni_keyshare_bytes;
+  GrowableArray<uint16_t> groups_seen;
+  uint16_t group;
+  while (CBS_len(&keys) > 0) {
+    if (!CBS_get_u16(&keys, &group) ||
+        !CBS_get_u16_length_prefixed(&keys, &esni_keyshare_bytes)) {
+      return false;
+    }
+
+    for (const uint16_t other_group : groups_seen) {
+      if (other_group == group) {
+        OPENSSL_PUT_ERROR(SSL, SSL_R_ESNI_KEYS_DUPLICATE_GROUP);
+        return false;
+      }
+    }
+    groups_seen.Push(group);
+  }
+  return true;
+}
+
+class ParsedEsniKeys{
+ public:
+  static constexpr bool kAllowUniquePtr = true;
+  ParsedEsniKeys() : wrong_version_(false) {}
+
+  uint16_t version() { return version_; }
+  Span<const uint8_t> public_name() {
+    return MakeConstSpan(CBS_data(&public_name_), CBS_len(&public_name_));
+  }
+  CBS keys() { return keys_; }
+  CBS cipher_suites() { return cipher_suites_; }
+  uint16_t padded_len() { return padded_len_; }
+  CBS extensions() { return extensions_; }
+
+  enum Failure {
+    k_no_failure,
+    k_unspecified_failure,
+    k_wrong_version,
+    k_unsupported_mandatory_extension
+  };
+
+  // Parses top level of ESNIKeys. Primitive values are copied out. The bounds
+  // of length-prefixed values are recorded, but they are not parsed further.
+  Failure Parse(CBS *esni_keys) {
+    const uint8_t *esni_keys_begin = CBS_data(esni_keys);
+
+    if (!CBS_get_u16(esni_keys, &version_) ||
+        !CBS_get_u16_length_prefixed(esni_keys, &public_name_) ||
+        !CBS_get_u16_length_prefixed(esni_keys, &keys_) ||
+        !CBS_get_u16_length_prefixed(esni_keys, &cipher_suites_) ||
+        !CBS_get_u16(esni_keys, &padded_len_) ||
+        !CBS_get_u16_length_prefixed(esni_keys, &extensions_)) {
+      return k_unspecified_failure;
+    }
+    if (version_ != ESNI_VERSION) {
+      wrong_version_ = true;
+      return k_wrong_version;
+    }
+
+    Failure extensions_failure = ValidateExtensions();
+    if (extensions_failure != k_no_failure) {
+      return extensions_failure;
+    }
+
+    // Save bytes so we can compute the hash later.
+    Span<const uint8_t> bytes_span =
+        MakeConstSpan(esni_keys_begin, CBS_data(esni_keys) - esni_keys_begin);
+    if (!esni_keys_bytes_.CopyFrom(bytes_span)) {
+      return k_unspecified_failure;
+    }
+
+    return k_no_failure;
+  }
+
+  bool Hash(const EVP_MD *digest, Array<uint8_t> *out) {
+    hexdump(__FUNCTION__, "esni_keys_bytes_", esni_keys_bytes_.data(),
+            esni_keys_bytes_.size());
+
+    uint8_t esni_digest[EVP_MAX_MD_SIZE];
+    unsigned esni_digest_len;
+    if (!EVP_Digest(esni_keys_bytes_.data(), esni_keys_bytes_.size(),
+                    esni_digest, &esni_digest_len, digest, NULL) ||
+        !out->CopyFrom(Span<uint8_t>(esni_digest, esni_digest_len))) {
+      return false;
+    }
+    return true;
+  }
+
+ private:
+  Failure ValidateExtensions() {
+    while (CBS_len(&extensions_) > 0) {
+      uint16_t extension_type;
+      CBS extension_data;
+      if (!CBS_get_u16(&extensions_, &extension_type) ||
+          !CBS_get_u16_length_prefixed(&extensions_, &extension_data)) {
+        return k_unspecified_failure;
+      }
+
+      // If high-order bit is 1, extension is mandatory. Since we support no
+      // ESNIKeys extensions, mandatory extensions must be rejected.
+      const uint16_t mandatory_bit_mask = 0x8000;
+      if (extension_type & mandatory_bit_mask) {
+        return k_unsupported_mandatory_extension;
+      }
+    }
+    return k_no_failure;
+  }
+
+  bool wrong_version_;
+  Array<uint8_t> esni_keys_bytes_;
+
+  // ESNIKeys fields
+  uint16_t version_;
+  CBS public_name_, keys_, cipher_suites_;
+  uint16_t padded_len_;
+  CBS extensions_;
+};
+
+// Reads ESNIKeys from |esni_keys| until the first one with a matching version.
+static UniquePtr<ParsedEsniKeys> select_esni_keys(
+    Span<const uint8_t> esni_keys_span) {
+  CBS esni_keys(esni_keys_span);
+  while (CBS_len(&esni_keys) > 0) {
+    auto extracted_esni_keys = MakeUnique<ParsedEsniKeys>();
+    switch (extracted_esni_keys->Parse(&esni_keys)) {
+      case ParsedEsniKeys::Failure::k_no_failure:
+        return extracted_esni_keys;
+      case ParsedEsniKeys::Failure::k_unspecified_failure:
+        return nullptr;
+      case ParsedEsniKeys::Failure::k_wrong_version:
+        continue;
+      case ParsedEsniKeys::Failure::k_unsupported_mandatory_extension:
+        OPENSSL_PUT_ERROR(SSL, SSL_R_ESNI_KEYS_UNSUPPORTED_MANDATORY_EXTENSION);
+        return nullptr;
+    }
+  }
+  return nullptr;
+}
+
+int SSL_set_esni_keys(SSL *ssl, const uint8_t *key_struct, size_t key_len) {
+  if (!ssl->config->enable_esni) {
+    return false;
+  }
+
+  UniquePtr<ParsedEsniKeys> selected_esni_keys(
+      select_esni_keys(MakeConstSpan(key_struct, key_len)));
+  if (!selected_esni_keys) {
+    SSL_set_enable_esni(ssl, false);
+    return false;
+  }
+
+  if (!ssl->config->esni_public_name.CopyFrom(
+          selected_esni_keys->public_name())) {
+    return false;
+  }
+  ssl->config->esni_padded_length = selected_esni_keys->padded_len();
+
+  if (!EsniKeysCheckDuplicateGroups(selected_esni_keys->keys()))
+    return false;
+
+  static const uint16_t kDefaultGroups[] = {
+      SSL_CURVE_X25519,
+      SSL_CURVE_SECP256R1,
+      SSL_CURVE_SECP384R1,
+  };
+  Span<const uint16_t> supp = Span<const uint16_t>(kDefaultGroups);
+  if (!ssl->config->supported_group_list.empty()) {
+    supp = ssl->config->supported_group_list;
+  }
+
+  CBS esni_keyshare_bytes;
+  for (uint16_t supp_group : supp) {
+    CBS keys_copy(selected_esni_keys->keys());
+    uint16_t group;
+    while (CBS_len(&keys_copy) > 0) {
+      if (!CBS_get_u16(&keys_copy, &group) ||
+          !CBS_get_u16_length_prefixed(&keys_copy, &esni_keyshare_bytes)) {
+        return false;
+      }
+      if (group == supp_group) {
+        ssl->config->esni_group = supp_group;
+        break;
+      }
+    }
+    if (ssl->config->esni_group != 0) {
+      break;
+    }
+  }
+
+  if (ssl->config->esni_group == 0) {
+    return false;
+  }
+
+  ssl->config->esni_server_keyshare.CopyFrom(esni_keyshare_bytes);
+  ssl->config->esni_cipher =
+      ssl_choose_tls13_cipher(selected_esni_keys->cipher_suites(),
+                              TLS1_3_VERSION, ssl->config->esni_group);
+  if (!ssl->config->esni_cipher) {
+    return false;
+  }
+
+  const EVP_MD *digest =
+      ssl_get_handshake_digest(TLS1_3_VERSION, ssl->config->esni_cipher);
+
+  if (!selected_esni_keys->Hash(digest, &ssl->config->esni_record_digest)) {
+    return false;
+  }
+
+  // Ensure that the retry keys are empty so that a failed retry does not return
+  // any retry keys. Note that |key_struct| might point to data owned by
+  // ssl->s3->esni_received_retry_keys, so we should not deallocate before
+  // |key_struct| is used.
+  ssl->s3->esni_received_retry_keys.Reset();
+
+  return true;
+}
+
+// TODO(svaldez): Support multiple ESNIKeys structs on the server.
+int SSL_add_esni_private_keys(SSL *ssl, const uint8_t *key_struct,
+                              size_t key_len, const uint8_t **privs,
+                              size_t *privs_len) {
+  if (!ssl->config->enable_esni) {
+    return false;
+  }
+
+  Span<const uint8_t> key_struct_span = MakeConstSpan(key_struct, key_len);
+
+  ssl->config->esni_retry_keys.CopyFrom(key_struct_span);
+
+  // Parse ESNIKeys info from |key_struct|
+  ParsedEsniKeys extracted_esni_keys;
+  CBS key_struct_reader(key_struct_span);
+  switch (extracted_esni_keys.Parse(&key_struct_reader)) {
+    case ParsedEsniKeys::Failure::k_no_failure:
+      break;
+    case ParsedEsniKeys::Failure::k_unspecified_failure:
+      return false;
+    case ParsedEsniKeys::Failure::k_wrong_version:
+      return false;
+    case ParsedEsniKeys::Failure::k_unsupported_mandatory_extension:
+      OPENSSL_PUT_ERROR(SSL, SSL_R_ESNI_KEYS_UNSUPPORTED_MANDATORY_EXTENSION);
+      return false;
+  }
+
+  ssl->config->esni_public_name.CopyFrom(extracted_esni_keys.public_name());
+  ssl->config->esni_padded_length = extracted_esni_keys.padded_len();
+
+  // Create a new ESNI keypair
+  ESNI_KEYPAIR keypair;
+  if (!keypair.Init(Span<const uint8_t>(key_struct, key_len))) {
+    return false;
+  }
+
+  CBS keys_copy = extracted_esni_keys.keys();
+  if (!EsniKeysCheckDuplicateGroups(keys_copy)) {
+    return false;
+  }
+
+  // Read each KeyShareEntry out of the ESNIKeys
+  size_t keys_count = 0;
+  CBS esni_keyshare_bytes;
+  uint16_t group;
+  while (CBS_len(&keys_copy) > 0) {
+    if (!CBS_get_u16(&keys_copy, &group) ||
+        !CBS_get_u16_length_prefixed(&keys_copy, &esni_keyshare_bytes) ||
+        !keypair.AddPrivateKey(
+            group,
+            Span<const uint8_t>(privs[keys_count], privs_len[keys_count]))) {
+      return false;
+    }
+    keys_count++;
+  }
+
+  // Save the esni_server_keys in a flexible array
+  if (!ssl->config->esni_server_keys.Push(std::move(keypair))) {
+    return false;
+  }
+
+  return true;
+}
+
+void SSL_get_esni_retry_keys(SSL *ssl, uint8_t **out_retry_keys,
+                             size_t *out_retry_keys_len) {
+  *out_retry_keys = ssl->s3->esni_received_retry_keys.data();
+  *out_retry_keys_len = ssl->s3->esni_received_retry_keys.size();
+}
+
+int SSL_parse_esni_record(const uint8_t *esni_record, size_t esni_record_len,
+                          const uint8_t **out_esni_keys,
+                          size_t *out_esni_keys_len,
+                          const uint8_t **out_dns_extensions,
+                          size_t *out_dns_extensions_len) {
+  CBS esni_record_reader;
+  CBS_init(&esni_record_reader, esni_record, esni_record_len);
+  ParsedEsniKeys extracted_esni_keys;
+  switch (extracted_esni_keys.Parse(&esni_record_reader)) {
+    case ParsedEsniKeys::Failure::k_no_failure:
+      break;
+    case ParsedEsniKeys::Failure::k_unspecified_failure:
+      return false;
+    case ParsedEsniKeys::Failure::k_wrong_version:
+      return false;
+    case ParsedEsniKeys::Failure::k_unsupported_mandatory_extension:
+      OPENSSL_PUT_ERROR(SSL, SSL_R_ESNI_KEYS_UNSUPPORTED_MANDATORY_EXTENSION);
+      return false;
+  }
+
+  // After parsing ESNIKeys, we know its beginning and its length.
+  *out_esni_keys = esni_record;
+  *out_esni_keys_len = CBS_data(&esni_record_reader) - esni_record;
+
+  // Whatever's left in the record is the length-prefixed extensions.
+  *out_dns_extensions = CBS_data(&esni_record_reader);
+  *out_dns_extensions_len = CBS_len(&esni_record_reader);
+  return true;
+}
+
 int SSL_clear(SSL *ssl) {
   if (!ssl->config) {
     return 0;  // SSL_clear may not be used after shedding config.
@@ -3002,4 +3331,14 @@ int SSL_CTX_set_tlsext_status_cb(SSL_CTX *ctx,
 int SSL_CTX_set_tlsext_status_arg(SSL_CTX *ctx, void *arg) {
   ctx->legacy_ocsp_callback_arg = arg;
   return 1;
+}
+
+void hexdump(const char* loc, const char* label, const uint8_t *buf, size_t len) {
+  printf("[%s] %s [size=%zd] {", loc, label, len);
+  for (size_t i=0; i<len; i++) {
+    if (i % 32 == 0)
+      printf("\n\t");
+    printf("%.2x ", buf[i]);
+  }
+  printf("\n}\n");
 }
