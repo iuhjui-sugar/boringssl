@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c5d6d663_2010df00",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-09-27T15:51:03Z",
+      "side": 1,
+      "message": "should this be a string literal? (I really don\u0027t know CMake, maybe this is correct!)",
+      "range": {
+        "startLine": 65,
+        "startChar": 40,
+        "endLine": 65,
+        "endChar": 43
+      },
+      "revId": "258d7f4c2d8181add19f0645970f0f5aef37d2e3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
