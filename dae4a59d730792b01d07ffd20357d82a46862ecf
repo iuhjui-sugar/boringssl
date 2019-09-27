@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5f1526f5_4986988b",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3382,
+      "author": {
+        "id": 9679
+      },
+      "writtenOn": "2019-09-27T12:58:45Z",
+      "side": 1,
+      "message": "Could you please also add a sentinel ssl_early_data_reason_num_entries as the last element? (no need to explicitly specify its value) \n\nThis is required for the UMA API.",
+      "revId": "dae4a59d730792b01d07ffd20357d82a46862ecf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
