@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0fb7ba70_0f8b45b0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2019-09-27T16:20:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b3772f4e_33389a6c",
+      "revId": "063ea2f42dae8596118f5ab15828f26f9d301a33",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1f075a5f_804a6940",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "063ea2f42dae8596118f5ab15828f26f9d301a33",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e88df5e_90c3add2",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 5589,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2019-09-27T16:20:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f075a5f_804a6940",
+      "revId": "063ea2f42dae8596118f5ab15828f26f9d301a33",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -56,6 +92,30 @@
       "revId": "063ea2f42dae8596118f5ab15828f26f9d301a33",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f3d8f4f_68dc1d6c",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 5612,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2019-09-27T16:20:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9d65334_50d09854",
+      "range": {
+        "startLine": 5612,
+        "startChar": 24,
+        "endLine": 5612,
+        "endChar": 34
+      },
+      "revId": "063ea2f42dae8596118f5ab15828f26f9d301a33",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
