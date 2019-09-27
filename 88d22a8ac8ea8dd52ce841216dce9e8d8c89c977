@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "58fd0a40_a0359b34",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-09-27T20:15:05Z",
+      "side": 1,
+      "message": "I adjusted this block a bit as part of the rebase. Looks okay? Just to avoid repeating the getentropy ifdefs yet another time, I\u0027m just defaulting to an early return since wait_for_entropy is purely a debugging aid in the non-urandom cases.",
+      "revId": "88d22a8ac8ea8dd52ce841216dce9e8d8c89c977",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
