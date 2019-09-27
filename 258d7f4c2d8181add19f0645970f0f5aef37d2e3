@@ -22,6 +22,30 @@
       "revId": "258d7f4c2d8181add19f0645970f0f5aef37d2e3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "625902ae_0d68dc78",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-09-27T18:37:55Z",
+      "side": 1,
+      "message": "CMake is more like bash than Python. They\u0027re the same thing[*]. The way if() and any other command works is CMake first blindly evaluates the parameters into a []string. That command then does something with that []string, with some commands being a little magic and affecting control flow.\n\nBut yeah quoted would be a bit more consistent. I\u0027ve switched to that.\n\n[*] Or, mostly, anyway? It seems that built-in functions are allowed to get at a bit of magic, to work around some ambiguities they accidentally put in.\nhttps://cmake.org/cmake/help/v3.1/policy/CMP0054.html",
+      "parentUuid": "c5d6d663_2010df00",
+      "range": {
+        "startLine": 65,
+        "startChar": 40,
+        "endLine": 65,
+        "endChar": 43
+      },
+      "revId": "258d7f4c2d8181add19f0645970f0f5aef37d2e3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
