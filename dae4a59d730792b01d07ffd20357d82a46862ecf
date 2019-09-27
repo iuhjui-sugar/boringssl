@@ -16,6 +16,24 @@
       "revId": "dae4a59d730792b01d07ffd20357d82a46862ecf",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "931bbc4a_eb40025c",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3382,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-09-27T19:54:51Z",
+      "side": 1,
+      "message": "Done. (I think we generally prefer a max value rather than one past the max one, so switch-cases are still reasonable.)",
+      "parentUuid": "5f1526f5_4986988b",
+      "revId": "dae4a59d730792b01d07ffd20357d82a46862ecf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
