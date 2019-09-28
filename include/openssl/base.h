@@ -276,11 +276,18 @@ extern "C" {
 // https://stackoverflow.com/questions/216510/extern-inline
 #if defined(__cplusplus)
 #define OPENSSL_INLINE inline
-#else
+#elif !defined(__clang__)
 // Add OPENSSL_UNUSED so that, should an inline function be emitted via macro
 // (e.g. a |STACK_OF(T)| implementation) in a source file without tripping
 // clang's -Wunused-function.
 #define OPENSSL_INLINE static inline OPENSSL_UNUSED
+#else
+// Clang uses this form because it's reported[1] that, on iOS, the C++ compiler
+// emits weak symbols while the C compiler doesn't, and the different upsets
+// the linker. GCC doesn't accept `weak` with `inline`, however.
+//
+// [1] https://boringssl-review.googlesource.com/c/boringssl/+/37804
+#define OPENSSL_INLINE inline OPENSSL_UNUSED __attribute__((weak))
 #endif
 
 #if defined(BORINGSSL_UNSAFE_FUZZER_MODE) && \
