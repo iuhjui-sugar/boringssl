@@ -283,7 +283,7 @@ extern "C" {
 // Add OPENSSL_UNUSED so that, should an inline function be emitted via macro
 // (e.g. a |STACK_OF(T)| implementation) in a source file without tripping
 // clang's -Wunused-function.
-#define OPENSSL_INLINE static inline OPENSSL_UNUSED
+#define OPENSSL_INLINE __attribute__((weak)) inline OPENSSL_UNUSED
 #endif
 
 #if defined(BORINGSSL_UNSAFE_FUZZER_MODE) && \
