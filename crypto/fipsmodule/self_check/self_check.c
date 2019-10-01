@@ -243,15 +243,21 @@ static EC_KEY *self_test_ecdsa_key(void) {
   return ec_key;
 }
 
+#if defined(OPENSSL_ANDROID)
+static const size_t kModuleDigestSize = SHA256_DIGEST_LENGTH;
+#else
+static const size_t kModuleDigestSize = SHA512_DIGEST_LENGTH;
+#endif
+
 int BORINGSSL_self_test(
-    const uint8_t module_sha512_hash[SHA512_DIGEST_LENGTH]) {
+    const uint8_t module_sha512_hash[kModuleDigestSize]) {
 #if defined(BORINGSSL_FIPS_SELF_TEST_FLAG_FILE)
   // Test whether the flag file exists.
-  char flag_path[sizeof(kFlagPrefix) + 2*SHA512_DIGEST_LENGTH];
+  char flag_path[sizeof(kFlagPrefix) + 2*kModuleDigestSize];
   memcpy(flag_path, kFlagPrefix, sizeof(kFlagPrefix) - 1);
   static const char kHexTable[17] = "0123456789abcdef";
   uint8_t module_hash_sum = 0;
-  for (size_t i = 0; i < SHA512_DIGEST_LENGTH; i++) {
+  for (size_t i = 0; i < kModuleDigestSize; i++) {
     module_hash_sum |= module_sha512_hash[i];
     flag_path[sizeof(kFlagPrefix) - 1 + 2 * i] =
         kHexTable[module_sha512_hash[i] >> 4];
