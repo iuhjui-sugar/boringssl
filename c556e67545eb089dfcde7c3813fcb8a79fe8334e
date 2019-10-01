@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7bc56c27_dbf0eb0a",
+        "filename": "tool/speed.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-01T21:18:23Z",
+      "side": 1,
+      "message": "Style nit: GetJSONFormattedOutput",
+      "range": {
+        "startLine": 89,
+        "startChar": 14,
+        "endLine": 89,
+        "endChar": 36
+      },
+      "revId": "c556e67545eb089dfcde7c3813fcb8a79fe8334e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "151084cb_0a06d51f",
+        "filename": "tool/speed.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-01T21:18:23Z",
+      "side": 1,
+      "message": "Should we just omit it instead?\n\n(Style nit: 2 spaces extra indent.)",
+      "revId": "c556e67545eb089dfcde7c3813fcb8a79fe8334e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1e260e5_d4dd2648",
+        "filename": "tool/speed.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-01T21:18:23Z",
+      "side": 1,
+      "message": "Nit: Reflow the comment (80 chars on this line).",
+      "revId": "c556e67545eb089dfcde7c3813fcb8a79fe8334e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4d99cc6_7ac31e06",
+        "filename": "tool/speed.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1017,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-01T21:18:23Z",
+      "side": 1,
+      "message": "Now that this is a particular named format, WDYT about calling this -json?",
+      "range": {
+        "startLine": 1017,
+        "startChar": 10,
+        "endLine": 1017,
+        "endChar": 26
+      },
+      "revId": "c556e67545eb089dfcde7c3813fcb8a79fe8334e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "558b65d4_48ec7404",
+        "filename": "tool/speed.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1024,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-01T21:18:23Z",
+      "side": 1,
+      "message": "WDYT about making the overall output a valid JSON input, so callers don\u0027t have to split by lines and such? I.e. when the program starts, printf(\"[\\n\"). At the end, printf(\"]\\n\"). Then, at the end of each line, add a comma.",
+      "revId": "c556e67545eb089dfcde7c3813fcb8a79fe8334e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
