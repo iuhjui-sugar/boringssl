@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d2509fa_2e438fa6",
+        "filename": "crypto/fipsmodule/bcm.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-01T18:08:38Z",
+      "side": 1,
+      "message": "linux_fips_noasm_asan (which I believe does self-test without the delocate + integrity check?) is upset about this because result isn\u0027t defined.",
+      "range": {
+        "startLine": 203,
+        "startChar": 57,
+        "endLine": 203,
+        "endChar": 71
+      },
+      "revId": "4dab9e66339f1d1daf78187d5bfda2eb8f6e54de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
