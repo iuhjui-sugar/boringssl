@@ -16,6 +16,24 @@
       "revId": "a31f8993c4db5b68b964f4ca5899b9ea16183296",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92856155_4c9b61c9",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 3960,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2019-10-01T21:47:48Z",
+      "side": 1,
+      "message": "I\u0027ve clarified that the length prefix and contents of dns_extensions are not parsed by this function.",
+      "parentUuid": "8f68a8a1_08bcce64",
+      "revId": "a31f8993c4db5b68b964f4ca5899b9ea16183296",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
