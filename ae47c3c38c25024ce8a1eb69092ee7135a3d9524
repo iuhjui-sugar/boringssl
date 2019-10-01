@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c64c5aff_39686955",
+        "filename": "crypto/fipsmodule/self_check/self_check.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-10-01T18:02:48Z",
+      "side": 1,
+      "message": "Hmm, good point. My original thought was that one might want to unittest the flag behaviour. But I don\u0027t think that\u0027s actually happened and supporting that is making this interface a mess.\n\nHave removed the ability for external callers to pass in the digest. If the London folks are still around, I\u0027ll see whether that\u0027s a problem for them.",
+      "parentUuid": "e3a92959_8e126b9b",
+      "range": {
+        "startLine": 252,
+        "startChar": 4,
+        "endLine": 252,
+        "endChar": 23
+      },
+      "revId": "ae47c3c38c25024ce8a1eb69092ee7135a3d9524",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d26598eb_20a9ca7b",
         "filename": "crypto/fipsmodule/self_check/self_check.c",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "ae47c3c38c25024ce8a1eb69092ee7135a3d9524",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4ca56ca_15b36be5",
+        "filename": "crypto/fipsmodule/self_check/self_check.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-10-01T18:02:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d26598eb_20a9ca7b",
+      "range": {
+        "startLine": 253,
+        "startChar": 18,
+        "endLine": 253,
+        "endChar": 36
+      },
+      "revId": "ae47c3c38c25024ce8a1eb69092ee7135a3d9524",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
