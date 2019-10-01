@@ -200,7 +200,7 @@ BORINGSSL_bcm_power_on_self_test(void) {
   }
 #endif
 
-  if (!BORINGSSL_self_test(BORINGSSL_bcm_text_hash)) {
+  if (!boringssl_fips_self_test(BORINGSSL_bcm_text_hash, sizeof(result))) {
     goto err;
   }
 
