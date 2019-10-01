@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8f68a8a1_08bcce64",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 3960,
+      "author": {
+        "id": 9679
+      },
+      "writtenOn": "2019-10-01T14:16:35Z",
+      "side": 1,
+      "message": "Noting down our discussion of a few minutes ago, should it be clearer what the conditions for \"parse failure\" are here? (In particular, should it be the caller\u0027s job to validate the following?\n(1) that the dns extensions\u0027 length prefix is plausible, and \n(2) that the ESNIRecord contains no additional data after the end of the dns_extensions field)",
+      "revId": "a31f8993c4db5b68b964f4ca5899b9ea16183296",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
