@@ -22,6 +22,30 @@
       "revId": "4dab9e66339f1d1daf78187d5bfda2eb8f6e54de",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de14b88a_3c1deb91",
+        "filename": "crypto/fipsmodule/bcm.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-10-01T18:15:20Z",
+      "side": 1,
+      "message": "Yea, so many #ifdefs in this file :(",
+      "parentUuid": "6d2509fa_2e438fa6",
+      "range": {
+        "startLine": 203,
+        "startChar": 57,
+        "endLine": 203,
+        "endChar": 71
+      },
+      "revId": "4dab9e66339f1d1daf78187d5bfda2eb8f6e54de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
