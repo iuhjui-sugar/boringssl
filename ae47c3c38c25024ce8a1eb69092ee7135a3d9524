@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e3a92959_8e126b9b",
+        "filename": "crypto/fipsmodule/self_check/self_check.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-01T17:25:41Z",
+      "side": 1,
+      "message": "This function is also exposed in openssl/crypto.h, so that would also need to be kept in sync, which is now counting to three. (In the externally-called version do we actually need the hash, or are we just doing the module_hash_sum thing? Maybe we can split into two functions?)",
+      "range": {
+        "startLine": 252,
+        "startChar": 4,
+        "endLine": 252,
+        "endChar": 23
+      },
+      "revId": "ae47c3c38c25024ce8a1eb69092ee7135a3d9524",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d26598eb_20a9ca7b",
+        "filename": "crypto/fipsmodule/self_check/self_check.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-01T17:25:41Z",
+      "side": 1,
+      "message": "Nit: module_hash",
+      "range": {
+        "startLine": 253,
+        "startChar": 18,
+        "endLine": 253,
+        "endChar": 36
+      },
+      "revId": "ae47c3c38c25024ce8a1eb69092ee7135a3d9524",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
