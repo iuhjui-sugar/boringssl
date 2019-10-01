@@ -198,11 +198,15 @@ BORINGSSL_bcm_power_on_self_test(void) {
   if (!check_test(expected, result, sizeof(result), "FIPS integrity test")) {
     goto err;
   }
-#endif
 
-  if (!BORINGSSL_self_test(BORINGSSL_bcm_text_hash)) {
+  if (!boringssl_fips_self_test(BORINGSSL_bcm_text_hash, sizeof(result))) {
     goto err;
   }
+#else
+  if (!BORINGSSL_self_test()) {
+    goto err;
+  }
+#endif  // OPENSSL_ASAN
 
   return;
 
