@@ -13,9 +13,9 @@
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. */
 
 #include <algorithm>
-#include <string>
 #include <functional>
 #include <memory>
+#include <string>
 #include <vector>
 
 #include <assert.h>
@@ -54,6 +54,8 @@ OPENSSL_MSVC_PRAGMA(warning(pop))
 
 #include "../third_party/sike/sike.h"
 
+// g_machine_readable is true if printed output is in an easy-to-parse format.
+static bool g_machine_readable = false;
 
 // TimeResults represents the results of benchmarking a function.
 struct TimeResults {
@@ -62,17 +64,45 @@ struct TimeResults {
   // us is the number of microseconds that elapsed in the time period.
   unsigned us;
 
-  void Print(const std::string &description) {
-    printf("Did %u %s operations in %uus (%.1f ops/sec)\n", num_calls,
-           description.c_str(), us,
-           (static_cast<double>(num_calls) / us) * 1000000);
+  void Print(const std::string &description) const {
+    if (g_machine_readable) {
+      printf("%s", getJSONFormattedOutput(description, 0).c_str());
+    } else {
+      printf("Did %u %s operations in %uus (%.1f ops/sec)\n", num_calls,
+             description.c_str(), us,
+             (static_cast<double>(num_calls) / us) * 1000000);
+    }
   }
 
-  void PrintWithBytes(const std::string &description, size_t bytes_per_call) {
-    printf("Did %u %s operations in %uus (%.1f ops/sec): %.1f MB/s\n",
-           num_calls, description.c_str(), us,
-           (static_cast<double>(num_calls) / us) * 1000000,
-           static_cast<double>(bytes_per_call * num_calls) / us);
+  void PrintWithBytes(const std::string &description,
+                      size_t bytes_per_call) const {
+    if (g_machine_readable) {
+      printf("%s", getJSONFormattedOutput(description, bytes_per_call).c_str());
+    } else {
+      printf("Did %u %s operations in %uus (%.1f ops/sec): %.1f MB/s\n",
+             num_calls, description.c_str(), us,
+             (static_cast<double>(num_calls) / us) * 1000000,
+             static_cast<double>(bytes_per_call * num_calls) / us);
+    }
+  }
+
+  std::string getJSONFormattedOutput(const std::string &description,
+                                     size_t bytes_per_call) const {
+    std::string json_output =
+        std::string("{\"description\": \"") + description +
+        std::string("\", ") +
+        std::string("\"numCalls\": ") + std::to_string(num_calls) +
+        std::string(", ") +
+        std::string("\"timeInMicroseconds\": ") + std::to_string(us) +
+        std::string(", ");
+
+    if (bytes_per_call == 0) {
+        json_output += std::string("\"bytesPerCall\": null}\n");
+    } else {
+      json_output += std::string("\"bytesPerCall\": ") +
+                     std::to_string(bytes_per_call) + std::string("}\n");
+    }
+    return json_output;
   }
 };
 
@@ -274,24 +304,29 @@ static bool SpeedRSAKeyGen(const std::string &selected) {
     }
 
     std::sort(durations.begin(), durations.end());
-    printf("Did %u RSA %d key-gen operations in %uus (%.1f ops/sec)\n",
-           num_calls, size, us,
-           (static_cast<double>(num_calls) / us) * 1000000);
+    const std::string description =
+        std::string("RSA ") + std::to_string(size) + std::string(" key-gen");
+    const TimeResults results = {num_calls, us};
+    results.Print(description);
     const size_t n = durations.size();
     assert(n > 0);
 
-    // |min| and |max| must be stored in temporary variables to avoid an MSVC
-    // bug on x86. There, size_t is a typedef for unsigned, but MSVC's printf
-    // warning tries to retain the distinction and suggest %zu for size_t
-    // instead of %u. It gets confused if std::vector<unsigned> and
-    // std::vector<size_t> are both instantiated. Being typedefs, the two
-    // instantiations are identical, which somehow breaks the size_t vs unsigned
-    // metadata.
-    unsigned min = durations[0];
-    unsigned median = n & 1 ? durations[n / 2]
-                            : (durations[n / 2 - 1] + durations[n / 2]) / 2;
-    unsigned max = durations[n - 1];
-    printf("  min: %uus, median: %uus, max: %uus\n", min, median, max);
+    // Distribution information is useful, but doesn't fit into the standard
+    // format used by |g_machine_readable|.
+    if (!g_machine_readable) {
+      // |min| and |max| must be stored in temporary variables to avoid an MSVC
+      // bug on x86. There, size_t is a typedef for unsigned, but MSVC's printf
+      // warning tries to retain the distinction and suggest %zu for size_t
+      // instead of %u. It gets confused if std::vector<unsigned> and
+      // std::vector<size_t> are both instantiated. Being typedefs, the two
+      // instantiations are identical, which somehow breaks the size_t vs unsigned
+      // metadata.
+      unsigned min = durations[0];
+      unsigned median = n & 1 ? durations[n / 2]
+                              : (durations[n / 2 - 1] + durations[n / 2]) / 2;
+      unsigned max = durations[n - 1];
+      printf("  min: %uus, median: %uus, max: %uus\n", min, median, max);
+    }
   }
 
   return true;
@@ -979,6 +1014,16 @@ static const struct argument kArguments[] = {
         "16,256,1350,8192,16384)",
     },
     {
+        "-machine-readable",
+        kBooleanArgument,
+        "If this flag is set, speed will print the output of each benchmark in "
+        "JSON format as follows: \"{\"description\": "
+        "\"descriptionOfOperation\", \"numCalls\": 1234, "
+        "\"timeInMicroseconds\": 1234567, \"bytesPerCall\": 1234}\". When "
+        "there is no information about the bytes per call for an  operation, "
+        "the JSON field for bytesPerCall will be null.",
+    },
+    {
         "",
         kOptionalArgument,
         "",
@@ -995,6 +1040,10 @@ bool Speed(const std::vector<std::string> &args) {
   std::string selected;
   if (args_map.count("-filter") != 0) {
     selected = args_map["-filter"];
+  }
+
+  if (args_map.count("-machine-readable") != 0) {
+    g_machine_readable = true;
   }
 
   if (args_map.count("-timeout") != 0) {
