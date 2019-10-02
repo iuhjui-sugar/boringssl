@@ -134,7 +134,7 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CLANG)
       set(C_CXX_FLAGS "${C_CXX_FLAGS} -ggdb")
     endif()
 
-    set(C_CXX_FLAGS "${C_CXX_FLAGS} -Wall -fvisibility=hidden -fno-common")
+    set(C_CXX_FLAGS "${C_CXX_FLAGS} -Wall -Wno-vla -fvisibility=hidden -fno-common")
   endif()
 
   if(CLANG)
