@@ -108,6 +108,24 @@
     },
     {
       "key": {
+        "uuid": "0db1006e_94c343b3",
+        "filename": "tool/speed.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-02T19:29:49Z",
+      "side": 1,
+      "message": "Seemed cleaner. I dunno, I think I more often see JSON structures omit optional fields, rather than set them to null. But it doesn\u0027t particularly matter either way. *shrug*",
+      "parentUuid": "25a480ef_35b15d53",
+      "revId": "c556e67545eb089dfcde7c3813fcb8a79fe8334e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a1e260e5_d4dd2648",
         "filename": "tool/speed.cc",
         "patchSetId": 2
