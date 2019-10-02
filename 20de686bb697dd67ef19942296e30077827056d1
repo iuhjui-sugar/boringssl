@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "84053ebf_5d9d4f75",
+        "filename": "tool/speed.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 6975
+      },
+      "writtenOn": "2019-10-02T08:08:16Z",
+      "side": 1,
+      "message": "Depending on our hosts\u0027 tastes, this could be a good place for std::ostringstream in \u003csstream\u003e\n\n    std::ostringstream json_output;\n\n    json_output\n        \u003c\u003c \"{\\n\"\n        \u003c\u003c \"  \\\"description\\\": \\\"\" \u003c\u003c description \u003c\u003c \"\\\",\\n\"\n        \u003c\u003c // etc.\n\n    return json_output.str();",
+      "revId": "20de686bb697dd67ef19942296e30077827056d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0dcc7b0_a677df36",
+        "filename": "tool/speed.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 6975
+      },
+      "writtenOn": "2019-10-02T08:08:16Z",
+      "side": 1,
+      "message": "Probably more idiomatic to just omit this when it\u0027s not applicable.",
+      "revId": "20de686bb697dd67ef19942296e30077827056d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
