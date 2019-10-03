@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "35bd5ff1_e2edcc17",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 3648,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-10-03T19:22:08Z",
+      "side": 1,
+      "message": "Expand on the I/O effects of this call? \"schedules\" suggests that it only enqueues things and that SSL_read/SSL_write calls are needed to actually drive the exchange.",
+      "revId": "adfd6b631b9cab65e8965fb6037c8c03abb0705e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
