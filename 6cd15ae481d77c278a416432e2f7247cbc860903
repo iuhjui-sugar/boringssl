@@ -1,0 +1,152 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "975b3a1a_feb88455",
+        "filename": "ssl/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-03T22:43:17Z",
+      "side": 1,
+      "message": "Nit: I think we usually don\u0027t put the parens after Push().\n\nMaybe also worth adding a sentence like:\n\n// Note, for simplicity, this class currently differs from |std::vector| in that |T| must be efficiently default-constructable. Allocated elements beyond the end of the array are constructed and destructed.",
+      "revId": "6cd15ae481d77c278a416432e2f7247cbc860903",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f8d946a_1584d778",
+        "filename": "ssl/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-03T22:43:17Z",
+      "side": 1,
+      "message": "It might make sense to just omit this one, maybe adding a Reserve(size_t) if you need it. I think I\u0027d typically expect passing in a length to actually create an array of that length, whereas this is just reserves capacity. It\u0027s also kind of weird to call Init without checking the error.\n\nIf it\u0027s just to get the default size of 16, perhaps have MaybeGrow jump straight to 16 if the array is missing?\n\n(Also one-argument constructors should be explicit.)",
+      "revId": "6cd15ae481d77c278a416432e2f7247cbc860903",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c62eb4ea_ba73c4fb",
+        "filename": "ssl/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-03T22:43:17Z",
+      "side": 1,
+      "message": "The default move constructor will move array_ but not reset count_ to zero. Hopefully no one\u0027s using a moved-from GrowableArray and the destructor still works, but we should maintain internal invariants correctly.",
+      "revId": "6cd15ae481d77c278a416432e2f7247cbc860903",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f514fe3_a5f77a2a",
+        "filename": "ssl/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-03T22:43:17Z",
+      "side": 1,
+      "message": "Style: We always include the parentheses.",
+      "range": {
+        "startLine": 386,
+        "startChar": 20,
+        "endLine": 386,
+        "endChar": 21
+      },
+      "revId": "6cd15ae481d77c278a416432e2f7247cbc860903",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c6c426b_d1d09e0d",
+        "filename": "ssl/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-03T22:43:17Z",
+      "side": 1,
+      "message": "Rather than including both of these, just do:\n\n  bool Push(T elem) {\n\nand then std::move out of elem. (Note this does mean the object is moved even if Push fails. But hopefully we don\u0027t care about that?)",
+      "revId": "6cd15ae481d77c278a416432e2f7247cbc860903",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d7f78f48_14c36c6a",
+        "filename": "ssl/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-03T22:43:17Z",
+      "side": 1,
+      "message": "Check for overflow here.",
+      "range": {
+        "startLine": 417,
+        "startChar": 38,
+        "endLine": 417,
+        "endChar": 42
+      },
+      "revId": "6cd15ae481d77c278a416432e2f7247cbc860903",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28316d38_97f502f7",
+        "filename": "ssl/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-03T22:43:17Z",
+      "side": 1,
+      "message": "Nit: size_? Odd that everything calls it \"size\" but then it\u0027s stored as count_.",
+      "revId": "6cd15ae481d77c278a416432e2f7247cbc860903",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "459d6787_874fe111",
+        "filename": "ssl/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-03T22:43:17Z",
+      "side": 1,
+      "message": "Might be worth a comment that array_.size() is just the capacity of the array.",
+      "revId": "6cd15ae481d77c278a416432e2f7247cbc860903",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
