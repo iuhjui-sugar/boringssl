@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "363d989d_546a5ee1",
+        "filename": "ssl/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-04T15:39:05Z",
+      "side": 1,
+      "message": "I don\u0027t think so. I think that requires it to be really boring like int, but we\u0027re okay with unique_ptr\u0027s default state of nullptr and such.\n\nI just meant that your default ctor (and dtor from that state) shouldn\u0027t like allocate a giant object and then do a ton of work. Also that you actually need a default ctor.",
+      "parentUuid": "e522dfb8_7f98ba8a",
+      "revId": "6cd15ae481d77c278a416432e2f7247cbc860903",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9f8d946a_1584d778",
         "filename": "ssl/internal.h",
         "patchSetId": 5
