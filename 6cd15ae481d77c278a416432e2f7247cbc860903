@@ -189,6 +189,24 @@
     },
     {
       "key": {
+        "uuid": "abe5eeb2_522f6316",
+        "filename": "ssl/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2019-10-04T15:22:39Z",
+      "side": 1,
+      "message": "Let me reopen this...\n\nIn the ESNI CL I am trying to make a GrowableArray of ESNI_KEYPAIR, each of which contains Arrays and GrowableArrays.\n\nSince I removed GrowableArray::Push(T \u0026\u0026elem), I have to use ESNI_KEYPAIR\u0027s copy constructor when I push an ESNI_KEYPAIR. The default copy constructor does not exist because Array\u0027s copy constructor has been deleted.\n\nThe way I see it, there are two solutions:\n1. Implement GrowableArray::Push(T \u0026\u0026elem)\n2. Manually implementing a copy constructor for ESNI_KEYPAIR.\n\nWhich one do you think is better?  I\u0027m going with #2 for now.",
+      "parentUuid": "45732824_0090c94b",
+      "revId": "6cd15ae481d77c278a416432e2f7247cbc860903",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d7f78f48_14c36c6a",
         "filename": "ssl/internal.h",
         "patchSetId": 5
