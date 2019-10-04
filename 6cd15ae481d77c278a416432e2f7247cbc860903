@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "555cc930_9a9d4b0c",
+        "filename": "ssl/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2019-10-04T15:46:06Z",
+      "side": 1,
+      "message": "Ah, interesting. This is done then.",
+      "parentUuid": "363d989d_546a5ee1",
+      "revId": "6cd15ae481d77c278a416432e2f7247cbc860903",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f8d946a_1584d778",
         "filename": "ssl/internal.h",
         "patchSetId": 5
@@ -240,6 +258,24 @@
       "revId": "6cd15ae481d77c278a416432e2f7247cbc860903",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9c8afef_db07ea55",
+        "filename": "ssl/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2019-10-04T15:46:06Z",
+      "side": 1,
+      "message": "Argh, disregard this whole tangent. I had some crossed wires in my brain this morning -- I thought my ESNI_KEYPAIR move-assignment operator was a move constructor. This all works as expected.",
+      "parentUuid": "6c9618a2_13a450d4",
+      "revId": "6cd15ae481d77c278a416432e2f7247cbc860903",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
