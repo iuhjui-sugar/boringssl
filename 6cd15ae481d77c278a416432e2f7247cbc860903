@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "e522dfb8_7f98ba8a",
+        "filename": "ssl/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2019-10-04T14:44:29Z",
+      "side": 1,
+      "message": "Added this note.\n\nIs efficiently default-constructible the same as is_trivially_default_constructible?  Should we add a static check?",
+      "parentUuid": "975b3a1a_feb88455",
+      "revId": "6cd15ae481d77c278a416432e2f7247cbc860903",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9f8d946a_1584d778",
         "filename": "ssl/internal.h",
         "patchSetId": 5
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "abcf4013_6842a1f7",
+        "filename": "ssl/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2019-10-04T14:44:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f8d946a_1584d778",
+      "revId": "6cd15ae481d77c278a416432e2f7247cbc860903",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c62eb4ea_ba73c4fb",
         "filename": "ssl/internal.h",
         "patchSetId": 5
@@ -50,6 +86,24 @@
       "revId": "6cd15ae481d77c278a416432e2f7247cbc860903",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e5f708c_d52c6412",
+        "filename": "ssl/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2019-10-04T14:44:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c62eb4ea_ba73c4fb",
+      "revId": "6cd15ae481d77c278a416432e2f7247cbc860903",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -76,6 +130,30 @@
     },
     {
       "key": {
+        "uuid": "f93d08e3_36820348",
+        "filename": "ssl/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2019-10-04T14:44:29Z",
+      "side": 1,
+      "message": "I figure you meant curly braces here.",
+      "parentUuid": "8f514fe3_a5f77a2a",
+      "range": {
+        "startLine": 386,
+        "startChar": 20,
+        "endLine": 386,
+        "endChar": 21
+      },
+      "revId": "6cd15ae481d77c278a416432e2f7247cbc860903",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6c6c426b_d1d09e0d",
         "filename": "ssl/internal.h",
         "patchSetId": 5
@@ -93,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "45732824_0090c94b",
+        "filename": "ssl/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2019-10-04T14:44:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6c6c426b_d1d09e0d",
+      "revId": "6cd15ae481d77c278a416432e2f7247cbc860903",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d7f78f48_14c36c6a",
         "filename": "ssl/internal.h",
         "patchSetId": 5
@@ -104,6 +200,30 @@
       "writtenOn": "2019-10-03T22:43:17Z",
       "side": 1,
       "message": "Check for overflow here.",
+      "range": {
+        "startLine": 417,
+        "startChar": 38,
+        "endLine": 417,
+        "endChar": 42
+      },
+      "revId": "6cd15ae481d77c278a416432e2f7247cbc860903",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c529e9f2_db48ef79",
+        "filename": "ssl/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2019-10-04T14:44:29Z",
+      "side": 1,
+      "message": "Will you check if I did this right?",
+      "parentUuid": "d7f78f48_14c36c6a",
       "range": {
         "startLine": 417,
         "startChar": 38,
@@ -133,6 +253,24 @@
     },
     {
       "key": {
+        "uuid": "9292af80_e176284b",
+        "filename": "ssl/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2019-10-04T14:44:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "28316d38_97f502f7",
+      "revId": "6cd15ae481d77c278a416432e2f7247cbc860903",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "459d6787_874fe111",
         "filename": "ssl/internal.h",
         "patchSetId": 5
@@ -147,6 +285,24 @@
       "revId": "6cd15ae481d77c278a416432e2f7247cbc860903",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c88fade5_6099f563",
+        "filename": "ssl/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2019-10-04T14:44:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "459d6787_874fe111",
+      "revId": "6cd15ae481d77c278a416432e2f7247cbc860903",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
