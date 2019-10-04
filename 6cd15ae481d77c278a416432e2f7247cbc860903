@@ -207,6 +207,24 @@
     },
     {
       "key": {
+        "uuid": "6c9618a2_13a450d4",
+        "filename": "ssl/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-04T15:37:14Z",
+      "side": 1,
+      "message": "Copy constructors are problematic because we currently believe in handling malloc failures. (We should stop believing in that at some point. It\u0027s nonsense...)\n\nBut I\u0027m confused why this is making a difference. If you were relying on Push(T\u0026\u0026), that means you were using ESNI_KEYPAIR\u0027s move constructor instead and calling Push(std::move(keypair)), right? Push(T) would then do the same thing.",
+      "parentUuid": "abe5eeb2_522f6316",
+      "revId": "6cd15ae481d77c278a416432e2f7247cbc860903",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d7f78f48_14c36c6a",
         "filename": "ssl/internal.h",
         "patchSetId": 5
