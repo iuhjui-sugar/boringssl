@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "eb20bc3f_b26c20cc",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 9619
+      },
+      "writtenOn": "2019-10-07T17:19:55Z",
+      "side": 1,
+      "message": "Yeah, I\u0027m just following the local style here.  I assumed there were reasons for doing it this way.",
+      "parentUuid": "293a64ef_ee1e08a1",
+      "range": {
+        "startLine": 129,
+        "startChar": 20,
+        "endLine": 129,
+        "endChar": 21
+      },
+      "revId": "2cdeaef3d8a8a4e66a17e6d35ba90d365b8f88cf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eee1e33e_ca83cb54",
         "filename": "crypto/fipsmodule/rand/urandom.c",
         "patchSetId": 4
