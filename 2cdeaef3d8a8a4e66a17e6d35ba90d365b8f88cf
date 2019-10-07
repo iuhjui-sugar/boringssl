@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "293a64ef_ee1e08a1",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 9681
+      },
+      "writtenOn": "2019-10-07T16:43:35Z",
+      "side": 1,
+      "message": "Why isn\u0027t this included from random.h? Is it because that is conditional on BORINGSSL_FIPS? Should we make the GRND_RANDOM behavior also specific to that?\n\nAnd, super nit: Should we write this as 0x2? (But I guess line 126 already doesn\u0027t use \"0x\").",
+      "range": {
+        "startLine": 129,
+        "startChar": 20,
+        "endLine": 129,
+        "endChar": 21
+      },
+      "revId": "2cdeaef3d8a8a4e66a17e6d35ba90d365b8f88cf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eee1e33e_ca83cb54",
         "filename": "crypto/fipsmodule/rand/urandom.c",
         "patchSetId": 4
@@ -13,6 +36,24 @@
       "writtenOn": "2019-10-07T16:30:25Z",
       "side": 1,
       "message": "(nit: usually when adding one to the length it\u0027s because you\u0027ll write an explicit NUL byte. If there\u0027s another reason, it\u0027s worth a comment because it\u0027s non-obvious.)",
+      "revId": "2cdeaef3d8a8a4e66a17e6d35ba90d365b8f88cf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "876035a1_40a7322f",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 9681
+      },
+      "writtenOn": "2019-10-07T16:43:35Z",
+      "side": 1,
+      "message": "I believe PROP_VALUE_MAX includes the trailing NUL byte, so if it\u0027s for that reason the +1 shouldn\u0027t be needed.",
+      "parentUuid": "eee1e33e_ca83cb54",
       "revId": "2cdeaef3d8a8a4e66a17e6d35ba90d365b8f88cf",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
