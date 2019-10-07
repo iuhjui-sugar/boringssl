@@ -60,6 +60,24 @@
     },
     {
       "key": {
+        "uuid": "aa820cc2_51e74bfa",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 9619
+      },
+      "writtenOn": "2019-10-07T16:45:59Z",
+      "side": 1,
+      "message": "Done.  Verified from Bionic source that (a) PROP_VALUE_MAX doesn\u0027t account for terminator and (b) __system_property_get eventually does memcpy(buffer, value, strlen(value) + 1)",
+      "parentUuid": "eee1e33e_ca83cb54",
+      "revId": "2cdeaef3d8a8a4e66a17e6d35ba90d365b8f88cf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd78bd90_c447fd5a",
         "filename": "crypto/fipsmodule/rand/urandom.c",
         "patchSetId": 4
@@ -74,6 +92,24 @@
       "revId": "2cdeaef3d8a8a4e66a17e6d35ba90d365b8f88cf",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "337d6cbf_d492bcb7",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 9619
+      },
+      "writtenOn": "2019-10-07T16:45:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd78bd90_c447fd5a",
+      "revId": "2cdeaef3d8a8a4e66a17e6d35ba90d365b8f88cf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
