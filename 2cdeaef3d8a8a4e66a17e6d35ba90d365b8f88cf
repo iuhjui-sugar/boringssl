@@ -120,6 +120,24 @@
     },
     {
       "key": {
+        "uuid": "8e6e494a_e5c4f130",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 9619
+      },
+      "writtenOn": "2019-10-07T17:20:18Z",
+      "side": 1,
+      "message": "On closer reading, turns out I was wrong there and non-readonly property values are always less than PROP_VALUE_MAX - 1 in length, so I reverted the +1 change.\n\nStill researching what we need to do to protect against buffer overflow from read-only props.",
+      "parentUuid": "1c97007c_e8ae3e53",
+      "revId": "2cdeaef3d8a8a4e66a17e6d35ba90d365b8f88cf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd78bd90_c447fd5a",
         "filename": "crypto/fipsmodule/rand/urandom.c",
         "patchSetId": 4
