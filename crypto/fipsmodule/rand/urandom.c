@@ -36,6 +36,10 @@
 #endif
 #include <sys/syscall.h>
 
+#if defined(OPENSSL_ANDROID)
+#include <sys/system_properties.h>
+#endif
+
 #if !defined(OPENSSL_ANDROID)
 #define OPENSSL_HAS_GETAUXVAL
 #endif
@@ -98,10 +102,12 @@
 void __msan_unpoison(void *, size_t);
 #endif
 
+DEFINE_BSS_GET(int, extra_getrandom_flags)
+
 static ssize_t boringssl_getrandom(void *buf, size_t buf_len, unsigned flags) {
   ssize_t ret;
   do {
-    ret = syscall(__NR_getrandom, buf, buf_len, flags);
+    ret = syscall(__NR_getrandom, buf, buf_len, flags | *extra_getrandom_flags_bss_get());
   } while (ret == -1 && errno == EINTR);
 
 #if defined(OPENSSL_MSAN)
@@ -114,11 +120,13 @@ static ssize_t boringssl_getrandom(void *buf, size_t buf_len, unsigned flags) {
 
   return ret;
 }
-
 #endif  // EXPECTED_NR_getrandom
 
 #if !defined(GRND_NONBLOCK)
 #define GRND_NONBLOCK 1
+#endif
+#if !defined(GRND_RANDOM)
+#define GRND_RANDOM 2
 #endif
 
 #endif  // OPENSSL_LINUX
@@ -129,6 +137,8 @@ DEFINE_STATIC_MUTEX(rand_lock)
 // The following constants are magic values of |urandom_fd|.
 static const int kUnset = 0;
 static const int kHaveGetrandom = -3;
+
+DEFINE_STATIC_ONCE(rand_once)
 
 // urandom_fd_requested is set by |RAND_set_urandom_fd|. It's protected by
 // |rand_lock|.
@@ -141,9 +151,21 @@ DEFINE_BSS_GET(int, urandom_fd)
 // getrandom_ready is one if |getrandom| had been initialized by the time
 // |init_once| was called and zero otherwise.
 DEFINE_BSS_GET(int, getrandom_ready)
-#endif
 
-DEFINE_STATIC_ONCE(rand_once)
+// On Android, check a system property to decide whether to set |extra_getrandom_flags|
+// otherwise they will default to zero.  If ro.oem_boringcrypto_hwrand is true then
+// |extra_getrandom_flags| will be set to GRND_RANDOM, causing all random data to
+// be drawn from the same source as /dev/random.
+static void maybe_set_extra_getrandom_flags(void) {
+#if defined(BORINGSSL_FIPS) && defined(OPENSSL_ANDROID)
+  char value[PROP_VALUE_MAX];
+  int length = __system_property_get("ro.boringcrypto.hwrand", value);
+  if (length > 0 && strncasecmp(value, "true", length) == 0) {
+    *extra_getrandom_flags_bss_get() = GRND_RANDOM;
+  }
+#endif
+}
+#endif  // USE_NR_getrandom
 
 // init_once initializes the state of this module to values previously
 // requested. This is the only function that modifies |urandom_fd| and
@@ -176,6 +198,7 @@ static void init_once(void) {
 
   if (have_getrandom) {
     *urandom_fd_bss_get() = kHaveGetrandom;
+    maybe_set_extra_getrandom_flags();
     return;
   }
 #endif  // USE_NR_getrandom
