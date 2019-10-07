@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "884bb5c8_68cc88c8",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 9681
+      },
+      "writtenOn": "2019-10-07T15:51:52Z",
+      "side": 1,
+      "message": "I\u0027m not a C programmer, but\n\n1.) since the return value of strncasecmp is not a boolean: wouldn\u0027t it be clearer to say \"0 \u003d\u003d\" rather than \"!\" here?\n\n2.) nit: Does length include the trailing null byte? (If not, then we\u0027d incorrectly recognize \"truefoobar\" as equal to \"true\").",
+      "range": {
+        "startLine": 164,
+        "startChar": 20,
+        "endLine": 164,
+        "endChar": 21
+      },
+      "revId": "b8bbae535cb51dc412ac9fa8e601120efd3e230f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
