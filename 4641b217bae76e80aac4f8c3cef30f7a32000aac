@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "25277f4e_8a5a0e43",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-10-07T15:02:08Z",
+      "side": 1,
+      "message": "static, and also move to just before init_once and just put the definition there.",
+      "revId": "4641b217bae76e80aac4f8c3cef30f7a32000aac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9fae4c9f_edf9a930",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-10-07T15:02:08Z",
+      "side": 1,
+      "message": "This would want to be a DEFINE_BSS_GET, as on L147, and grouped with things like |urandom_fd|.",
+      "revId": "4641b217bae76e80aac4f8c3cef30f7a32000aac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8b72efb_8f8a7ba9",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-10-07T15:02:08Z",
+      "side": 1,
+      "message": "I suspect this check is superfluous: it\u0027s only checking that there\u0027s not a grievous error in |maybe_set_extra_getrandom_flags| and, once that function is defined just above, there\u0027s not much code distance to worry about.",
+      "revId": "4641b217bae76e80aac4f8c3cef30f7a32000aac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
