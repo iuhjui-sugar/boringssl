@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eee1e33e_ca83cb54",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-10-07T16:30:25Z",
+      "side": 1,
+      "message": "(nit: usually when adding one to the length it\u0027s because you\u0027ll write an explicit NUL byte. If there\u0027s another reason, it\u0027s worth a comment because it\u0027s non-obvious.)",
+      "revId": "2cdeaef3d8a8a4e66a17e6d35ba90d365b8f88cf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd78bd90_c447fd5a",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-10-07T16:30:25Z",
+      "side": 1,
+      "message": "(nit: stray line added.)",
+      "revId": "2cdeaef3d8a8a4e66a17e6d35ba90d365b8f88cf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
