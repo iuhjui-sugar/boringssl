@@ -138,6 +138,24 @@
     },
     {
       "key": {
+        "uuid": "39032fa9_2575e846",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 9619
+      },
+      "writtenOn": "2019-10-08T10:52:11Z",
+      "side": 1,
+      "message": "\u003e\u003e Still researching what we need to do to protect against buffer overflow from read-only props.\n\nTested, and in the case of read-only properties whose value length exceeds PROP_VALUE_MAX, an error message is returned instead of the value.  The length of the message is 50 chars (less than PROP_VALUE_MAX), and obviously it will never match \"true\", so there is no extra logic required here.",
+      "parentUuid": "8e6e494a_e5c4f130",
+      "revId": "2cdeaef3d8a8a4e66a17e6d35ba90d365b8f88cf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd78bd90_c447fd5a",
         "filename": "crypto/fipsmodule/rand/urandom.c",
         "patchSetId": 4
