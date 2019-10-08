@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "48589a56_8485a3cb",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 9681
+      },
+      "writtenOn": "2019-10-08T22:22:43Z",
+      "side": 1,
+      "message": "I can\u0027t figure out how \"extra_getrandom_flags_bss_get\" relates to \"extra_getrandom_flags_for_seed\".\n\nIs this supposed to read \"extra_getrandom_flags_for_seed_bss_get\"?",
+      "range": {
+        "startLine": 171,
+        "startChar": 5,
+        "endLine": 171,
+        "endChar": 34
+      },
+      "revId": "4f86f39100a11dbe957ecfdfee54a3b18a0396d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
