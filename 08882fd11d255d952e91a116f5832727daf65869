@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "70c74ea9_a9cf9460",
+        "filename": "ssl/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2019-10-08T20:41:09Z",
+      "side": 1,
+      "message": "None of these should be marked explicit, right?",
+      "parentUuid": "ad4b9b3d_01b77b15",
+      "range": {
+        "startLine": 366,
+        "startChar": 2,
+        "endLine": 366,
+        "endChar": 10
+      },
+      "revId": "08882fd11d255d952e91a116f5832727daf65869",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1ec4c24a_b1f3341b",
         "filename": "ssl/internal.h",
         "patchSetId": 8
@@ -39,6 +63,24 @@
       "revId": "08882fd11d255d952e91a116f5832727daf65869",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef9431f5_2780355c",
+        "filename": "ssl/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2019-10-08T20:41:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ec4c24a_b1f3341b",
+      "revId": "08882fd11d255d952e91a116f5832727daf65869",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "ada8ae39_a2eb36b4",
+        "filename": "ssl/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2019-10-08T20:41:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f6cedc5_30298447",
+      "range": {
+        "startLine": 389,
+        "startChar": 72,
+        "endLine": 389,
+        "endChar": 79
+      },
+      "revId": "08882fd11d255d952e91a116f5832727daf65869",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c81087e2_d9de474e",
         "filename": "ssl/internal.h",
         "patchSetId": 8
@@ -85,6 +151,30 @@
       "revId": "08882fd11d255d952e91a116f5832727daf65869",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc64323b_1093594d",
+        "filename": "ssl/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2019-10-08T20:41:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c81087e2_d9de474e",
+      "range": {
+        "startLine": 401,
+        "startChar": 25,
+        "endLine": 401,
+        "endChar": 32
+      },
+      "revId": "08882fd11d255d952e91a116f5832727daf65869",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "073c4bcc_76e2f191",
+        "filename": "ssl/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2019-10-08T20:41:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0071533f_08910772",
+      "range": {
+        "startLine": 414,
+        "startChar": 8,
+        "endLine": 414,
+        "endChar": 32
+      },
+      "revId": "08882fd11d255d952e91a116f5832727daf65869",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4bc7ec93_dcab8bc0",
         "filename": "ssl/internal.h",
         "patchSetId": 8
@@ -131,6 +245,30 @@
       "revId": "08882fd11d255d952e91a116f5832727daf65869",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94ffd7cc_f0a509eb",
+        "filename": "ssl/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2019-10-08T20:41:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4bc7ec93_dcab8bc0",
+      "range": {
+        "startLine": 438,
+        "startChar": 5,
+        "endLine": 438,
+        "endChar": 8
+      },
+      "revId": "08882fd11d255d952e91a116f5832727daf65869",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "c1f56676_bd517d83",
+        "filename": "ssl/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2019-10-08T20:41:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16f533f0_50773e22",
+      "range": {
+        "startLine": 444,
+        "startChar": 26,
+        "endLine": 444,
+        "endChar": 41
+      },
+      "revId": "08882fd11d255d952e91a116f5832727daf65869",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a51eb824_91045fbf",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 8
@@ -177,6 +339,30 @@
       "revId": "08882fd11d255d952e91a116f5832727daf65869",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8bb91559_88f09d6e",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2019-10-08T20:41:09Z",
+      "side": 1,
+      "message": "Garr Garr Binks?",
+      "parentUuid": "a51eb824_91045fbf",
+      "range": {
+        "startLine": 477,
+        "startChar": 24,
+        "endLine": 477,
+        "endChar": 28
+      },
+      "revId": "08882fd11d255d952e91a116f5832727daf65869",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -203,6 +389,30 @@
     },
     {
       "key": {
+        "uuid": "15692e32_7b701b8c",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2019-10-08T20:41:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee0e893a_5cf03410",
+      "range": {
+        "startLine": 479,
+        "startChar": 25,
+        "endLine": 479,
+        "endChar": 47
+      },
+      "revId": "08882fd11d255d952e91a116f5832727daf65869",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "56c89b3f_f16a1d18",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 8
@@ -217,6 +427,24 @@
       "revId": "08882fd11d255d952e91a116f5832727daf65869",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9f3ccbc_9dbf8cac",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2019-10-08T20:41:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56c89b3f_f16a1d18",
+      "revId": "08882fd11d255d952e91a116f5832727daf65869",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -243,6 +471,30 @@
     },
     {
       "key": {
+        "uuid": "4c0c9772_847ad3cc",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2019-10-08T20:41:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "127376ed_a61a1846",
+      "range": {
+        "startLine": 511,
+        "startChar": 9,
+        "endLine": 511,
+        "endChar": 12
+      },
+      "revId": "08882fd11d255d952e91a116f5832727daf65869",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "911f78f6_acd2dc8e",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 8
@@ -257,6 +509,24 @@
       "revId": "08882fd11d255d952e91a116f5832727daf65869",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d40c1019_dc1280ed",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2019-10-08T20:41:09Z",
+      "side": 1,
+      "message": "Ah, clever!",
+      "parentUuid": "911f78f6_acd2dc8e",
+      "revId": "08882fd11d255d952e91a116f5832727daf65869",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
