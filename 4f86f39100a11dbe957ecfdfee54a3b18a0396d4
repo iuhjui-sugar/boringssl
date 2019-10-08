@@ -22,6 +22,29 @@
       "revId": "4f86f39100a11dbe957ecfdfee54a3b18a0396d4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0e96100_8a493948",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 9681
+      },
+      "writtenOn": "2019-10-08T22:26:29Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this move up to after line 459?",
+      "range": {
+        "startLine": 478,
+        "startChar": 0,
+        "endLine": 478,
+        "endChar": 25
+      },
+      "revId": "4f86f39100a11dbe957ecfdfee54a3b18a0396d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
