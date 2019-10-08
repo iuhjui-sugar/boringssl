@@ -1,0 +1,262 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad4b9b3d_01b77b15",
+        "filename": "ssl/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-08T19:41:32Z",
+      "side": 1,
+      "message": "Copy constructors, etc., aren\u0027t explicit.",
+      "range": {
+        "startLine": 366,
+        "startChar": 2,
+        "endLine": 366,
+        "endChar": 10
+      },
+      "revId": "08882fd11d255d952e91a116f5832727daf65869",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ec4c24a_b1f3341b",
+        "filename": "ssl/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-08T19:41:32Z",
+      "side": 1,
+      "message": "I think this has the same issue as before with leaving |other| in an invalid state with |size_| not matching. There\u0027s a trick you can do to implement move-ctor out of move-assign though.\n\nGrowableArray(GrowableArray \u0026\u0026other) { *this \u003d std::move(other); }",
+      "revId": "08882fd11d255d952e91a116f5832727daf65869",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f6cedc5_30298447",
+        "filename": "ssl/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-08T19:41:32Z",
+      "side": 1,
+      "message": "Push adds |elem| at the end [...]. It returns [...]",
+      "range": {
+        "startLine": 389,
+        "startChar": 72,
+        "endLine": 389,
+        "endChar": 79
+      },
+      "revId": "08882fd11d255d952e91a116f5832727daf65869",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c81087e2_d9de474e",
+        "filename": "ssl/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-08T19:41:32Z",
+      "side": 1,
+      "message": "It updates\n\nOr maybe just:\n\nCopyFrom replaces the contents of the array with a copy |in|. It returns true on success and false on allocation error.\n\n(Caller doesn\u0027t need to know the implementation details.)",
+      "range": {
+        "startLine": 401,
+        "startChar": 25,
+        "endLine": 401,
+        "endChar": 32
+      },
+      "revId": "08882fd11d255d952e91a116f5832727daf65869",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0071533f_08910772",
+        "filename": "ssl/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-08T19:41:32Z",
+      "side": 1,
+      "message": "It doesn\u0027t hugely matter, but I think it\u0027s better to condition on the length than the pointer. (NULL/0 and non-NULL/0 are both valid representations of the empty slice.)",
+      "range": {
+        "startLine": 414,
+        "startChar": 8,
+        "endLine": 414,
+        "endChar": 32
+      },
+      "revId": "08882fd11d255d952e91a116f5832727daf65869",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4bc7ec93_dcab8bc0",
+        "filename": "ssl/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 438,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-08T19:41:32Z",
+      "side": 1,
+      "message": "size_ is [...]. Ditto below.",
+      "range": {
+        "startLine": 438,
+        "startChar": 5,
+        "endLine": 438,
+        "endChar": 8
+      },
+      "revId": "08882fd11d255d952e91a116f5832727daf65869",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16f533f0_50773e22",
+        "filename": "ssl/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-08T19:41:32Z",
+      "side": 1,
+      "message": "kDefaultSize",
+      "range": {
+        "startLine": 444,
+        "startChar": 26,
+        "endLine": 444,
+        "endChar": 41
+      },
+      "revId": "08882fd11d255d952e91a116f5832727daf65869",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a51eb824_91045fbf",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-08T19:41:32Z",
+      "side": 1,
+      "message": "garr sounds like a noise some critter would make. :-)\n\nMaybe just array? Ditto throughout.",
+      "range": {
+        "startLine": 477,
+        "startChar": 24,
+        "endLine": 477,
+        "endChar": 28
+      },
+      "revId": "08882fd11d255d952e91a116f5832727daf65869",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee0e893a_5cf03410",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-08T19:41:32Z",
+      "side": 1,
+      "message": "0u, 1u, and 17u are a bit shorter. :-)",
+      "range": {
+        "startLine": 479,
+        "startChar": 25,
+        "endLine": 479,
+        "endChar": 47
+      },
+      "revId": "08882fd11d255d952e91a116f5832727daf65869",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56c89b3f_f16a1d18",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-08T19:41:32Z",
+      "side": 1,
+      "message": "ASSERT_TRUE on the Push calls. Ditto throughout.",
+      "revId": "08882fd11d255d952e91a116f5832727daf65869",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "127376ed_a61a1846",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-08T19:41:32Z",
+      "side": 1,
+      "message": "I feel like \u0027Foo\u0027 is one of those things that\u0027s an little rude to actually name things. :-)\n\nTagAndArray? And then maybe rename the variables to just elem?",
+      "range": {
+        "startLine": 511,
+        "startChar": 9,
+        "endLine": 511,
+        "endChar": 12
+      },
+      "revId": "08882fd11d255d952e91a116f5832727daf65869",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "911f78f6_acd2dc8e",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-08T19:41:32Z",
+      "side": 1,
+      "message": "This could just be EXPECT_EQ(\u0026foo, \u0026garr_moved[count])",
+      "revId": "08882fd11d255d952e91a116f5832727daf65869",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
