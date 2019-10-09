@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "99737b1f_be17733f",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-09T19:15:21Z",
+      "side": 1,
+      "message": "Nit: 80 chars.",
+      "revId": "b86893be59839e492f0d59edeb655c78c52ee1df",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
