@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1dea3958_9ab50f69",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 664,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-10T16:22:14Z",
+      "side": 1,
+      "message": "const\n\n(We should have made the SSL_CTX ones const too. If you want to do it while you\u0027re in the neighborhood, that\u0027d be awesome. Otherwise I\u0027ll upload a follow-up CL.)",
+      "range": {
+        "startLine": 664,
+        "startChar": 50,
+        "endLine": 664,
+        "endChar": 53
+      },
+      "revId": "6fa6579bd65de52746afc01ead44607c14648467",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
