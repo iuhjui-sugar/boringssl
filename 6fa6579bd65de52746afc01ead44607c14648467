@@ -46,6 +46,30 @@
       "revId": "6fa6579bd65de52746afc01ead44607c14648467",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f9efc56b_7707e4da",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 664,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-10T16:34:17Z",
+      "side": 1,
+      "message": "(Fixed the missing change to the C++ file.)",
+      "parentUuid": "183efb64_e33623fe",
+      "range": {
+        "startLine": 664,
+        "startChar": 50,
+        "endLine": 664,
+        "endChar": 53
+      },
+      "revId": "6fa6579bd65de52746afc01ead44607c14648467",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
