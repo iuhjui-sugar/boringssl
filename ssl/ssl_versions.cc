@@ -357,6 +357,20 @@ int SSL_set_max_proto_version(SSL *ssl, uint16_t version) {
   return set_max_version(ssl->method, &ssl->config->conf_max_version, version);
 }
 
+uint16_t SSL_get_min_proto_version(SSL *ssl) {
+  if (!ssl->config) {
+    return 0;
+  }
+  return ssl->config->conf_min_version;
+}
+
+uint16_t SSL_get_max_proto_version(SSL *ssl) {
+  if (!ssl->config) {
+    return 0;
+  }
+  return ssl->config->conf_max_version;
+}
+
 int SSL_version(const SSL *ssl) {
   return wire_version_to_api(ssl_version(ssl));
 }
