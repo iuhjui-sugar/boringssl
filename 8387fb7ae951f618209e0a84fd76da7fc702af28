@@ -46,6 +46,30 @@
       "revId": "8387fb7ae951f618209e0a84fd76da7fc702af28",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "770e0208_0cfaa374",
+        "filename": "crypto/fipsmodule/FIPS.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-10-11T22:34:20Z",
+      "side": 1,
+      "message": "Updated, thanks.",
+      "parentUuid": "531489af_0c26e3af",
+      "range": {
+        "startLine": 51,
+        "startChar": 47,
+        "endLine": 51,
+        "endChar": 60
+      },
+      "revId": "8387fb7ae951f618209e0a84fd76da7fc702af28",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
