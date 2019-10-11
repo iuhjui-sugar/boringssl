@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7c7bdbd1_2bd7d8dd",
+        "filename": "crypto/ec_extra/ec_derive.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-10-11T16:23:21Z",
+      "side": 1,
+      "message": "Your call because the str functions are perhaps less fragile, but everything\u0027s fixed here so I think most of the NUL-scanning can be avoided:\n\nmemcpy(info, kLabel, sizeof(kLabel) - 1);\nmemcpy(info + sizeof(kLabel) - 1, name, strlen(name) + 1);\n\n(I think compilers are good enough to cache the result of strlen(name) these days.)",
+      "revId": "cb9c7589c2962d541a2ea954f4c148a39e727c98",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e58ce43a_203c22af",
+        "filename": "crypto/ec_extra/ec_derive.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-10-11T16:23:21Z",
+      "side": 1,
+      "message": "bn.h says of |BN_from_montgomery| that \"|a| is assumed to be in the range [0, n), where |n| is the Montgomery modulus\". We\u0027re breaking that here so does that comment need to be updated?",
+      "revId": "cb9c7589c2962d541a2ea954f4c148a39e727c98",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fe426cf_b06c05d2",
+        "filename": "include/openssl/ec_key.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-10-11T16:23:21Z",
+      "side": 1,
+      "message": "from",
+      "range": {
+        "startLine": 199,
+        "startChar": 3,
+        "endLine": 199,
+        "endChar": 9
+      },
+      "revId": "cb9c7589c2962d541a2ea954f4c148a39e727c98",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6f6596b_b7cc9990",
+        "filename": "include/openssl/ec_key.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-10-11T16:23:21Z",
+      "side": 1,
+      "message": "using",
+      "range": {
+        "startLine": 199,
+        "startChar": 26,
+        "endLine": 199,
+        "endChar": 30
+      },
+      "revId": "cb9c7589c2962d541a2ea954f4c148a39e727c98",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
