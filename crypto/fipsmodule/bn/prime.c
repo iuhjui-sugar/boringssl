@@ -671,6 +671,11 @@ int bn_miller_rabin_iteration(int *out_is_possibly_prime, const BIGNUM *b,
   // iterations once |j| = |a|.
   for (int j = 1; j < miller_rabin->w_bits; j++) {
     loop_done |= constant_time_eq_int(j, miller_rabin->a);
+    if (loop_done & ~is_possibly_prime) {
+      // If the loop is done and we haven't seen z = 1 or z = w-1 yet, the
+      // value is composite and we can break in variable time.
+      break;
+    }
 
     // Step 4.5.1.
     if (!BN_mod_mul_montgomery(z, z, z, mont, ctx)) {
