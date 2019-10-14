@@ -70,6 +70,30 @@
       "revId": "56b6c714c9cae5963681ed9dd9f6cabf294e3f80",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "093f916f_7c8208f5",
+        "filename": "crypto/fipsmodule/rand/rand.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-10-14T19:34:17Z",
+      "side": 1,
+      "message": "Ah, good point. Let me fix that up.",
+      "parentUuid": "d46dbe42_a73cca4e",
+      "range": {
+        "startLine": 184,
+        "startChar": 0,
+        "endLine": 184,
+        "endChar": 54
+      },
+      "revId": "56b6c714c9cae5963681ed9dd9f6cabf294e3f80",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
