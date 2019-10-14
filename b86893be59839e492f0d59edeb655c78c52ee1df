@@ -16,6 +16,24 @@
       "revId": "b86893be59839e492f0d59edeb655c78c52ee1df",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d9f7124_fa71827e",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-10-14T18:58:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99737b1f_be17733f",
+      "revId": "b86893be59839e492f0d59edeb655c78c52ee1df",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }

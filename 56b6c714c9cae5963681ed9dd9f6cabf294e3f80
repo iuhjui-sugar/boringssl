@@ -22,6 +22,30 @@
       "revId": "56b6c714c9cae5963681ed9dd9f6cabf294e3f80",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d35b39bc_2e599335",
+        "filename": "crypto/fipsmodule/rand/rand.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-10-14T18:58:07Z",
+      "side": 1,
+      "message": "This block is only defined for FIPS mode, and FIPS is only supported on Linux (at least so far). Thus OPENSSL_URANDOM should be defined and, if we hit a configuration where it\u0027s not, then we would want to ponder it. I.e. if we guarded these calls, we would need an answer about what to replace them with, and that\u0027s not been done on the expectation that one never hits that case.",
+      "parentUuid": "bc262d75_a27a66e2",
+      "range": {
+        "startLine": 184,
+        "startChar": 0,
+        "endLine": 184,
+        "endChar": 54
+      },
+      "revId": "56b6c714c9cae5963681ed9dd9f6cabf294e3f80",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
