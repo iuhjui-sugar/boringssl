@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bc262d75_a27a66e2",
+        "filename": "crypto/fipsmodule/rand/rand.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2019-10-14T18:44:52Z",
+      "side": 1,
+      "message": "This function seems to exist only if OPENSSL_URANDOM, but these two calls to it are not so guarded.  What\u0027s up with that?",
+      "range": {
+        "startLine": 184,
+        "startChar": 0,
+        "endLine": 184,
+        "endChar": 54
+      },
+      "revId": "56b6c714c9cae5963681ed9dd9f6cabf294e3f80",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
