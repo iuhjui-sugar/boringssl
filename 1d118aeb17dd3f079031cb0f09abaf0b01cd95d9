@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c5c2304e_0fdebb1a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-16T22:43:55Z",
+      "side": 1,
+      "message": "It\u0027s also possible that we have RDRAND, the pool was uninitialized in the first non-blocking draw, later it gets initialized, then RDRAND reports an error and we reseed with a proper blocking draw.\n\nDunno how much to care about that possibility.",
+      "revId": "1d118aeb17dd3f079031cb0f09abaf0b01cd95d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
