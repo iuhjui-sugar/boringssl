@@ -1,0 +1,175 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9df23bc8_ccedcd52",
+        "filename": "crypto/CMakeLists.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-16T22:35:33Z",
+      "side": 1,
+      "message": "Add to all_tests.go?",
+      "revId": "40904b99ea94ae678992706caade8d99d03b9b36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4e7f1d6_a931884e",
+        "filename": "crypto/CMakeLists.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-16T22:35:33Z",
+      "side": 1,
+      "message": "generate_build_files.py probably needs an update. (I keep meaning to flatten this all into sources.cmake so we stop needing to be careful about filenames...)",
+      "range": {
+        "startLine": 471,
+        "startChar": 18,
+        "endLine": 471,
+        "endChar": 30
+      },
+      "revId": "40904b99ea94ae678992706caade8d99d03b9b36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29789e9d_9a17d1e4",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-16T22:35:33Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem to be used except when default-constructing an Event. I don\u0027t think std::vector requires types to be default constructable, just moveable. So I think you could instead add a private one-arg constructor for Event to take the Syscall and then fill in the other fields separately.",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 12
+      },
+      "revId": "40904b99ea94ae678992706caade8d99d03b9b36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb51cce7_e090e2d3",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-16T22:35:33Z",
+      "side": 1,
+      "message": "This seemed silly at first, but apparently that\u0027s what strace does too:\n\n\u003e If  :error\u003derrno  option  is  specified,  a fault is injected into a syscall invocation: the syscall number is replaced by -1 which corresponds to an invalid syscall (unless a syscall is specified with :syscall\u003d option), and the error code is specified using a symbolic errno value like ENOSYS or a numeric value within 1..4095 range.\n\nTo that end, perhaps -1 here to match?",
+      "revId": "40904b99ea94ae678992706caade8d99d03b9b36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48092889_712ecb6a",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-16T22:35:33Z",
+      "side": 1,
+      "message": "Unlikely to make a difference, but I believe inject_* will still run the syscall and then mess with the return value afterwards. It seems tidier to run the syscall number swapping code above for all inject cases. Maybe:\n\nint inject_error;  // 0 to not inject anything, otherwise EWHATEVER.\n\nswitch (syscall_number) {\n  NO_GETRANDOM \u003d\u003e ENOSYS, GETRANDOM_ERROR \u003d\u003e EINVAL, etc.\n  ...\n}\n\nif (inject_error !\u003d 0) {\n  // Set syscall number to -1\n}\n\nptrace(PTRACE_SYSCALL) to get to the syscall exit stop.\n\nif (inject_error !\u003d 0) {\n  PTRACE_GETREGS/PTRACE_SETREGS to fill in the error.\n}",
+      "revId": "40904b99ea94ae678992706caade8d99d03b9b36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ea69031_75d9f35c",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-16T22:35:33Z",
+      "side": 1,
+      "message": "This also probably ought to use the same errno injecting mechanism, so we don\u0027t open urandom and then forget about it.",
+      "revId": "40904b99ea94ae678992706caade8d99d03b9b36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0c30143_05d1889f",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-16T22:35:33Z",
+      "side": 1,
+      "message": "Do we also need to word-align the address? (Maybe it landed on a page boundary.) PTRACE_PEEKUSER says yes, but the others don\u0027t, which is odd.",
+      "revId": "40904b99ea94ae678992706caade8d99d03b9b36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdd6e475_126486c9",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-16T22:35:33Z",
+      "side": 1,
+      "message": "Optional: I usually just write [\u0026] to avoid listing things out, but no strong preference if you prefer to be strict.",
+      "range": {
+        "startLine": 364,
+        "startChar": 23,
+        "endLine": 364,
+        "endChar": 53
+      },
+      "revId": "40904b99ea94ae678992706caade8d99d03b9b36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee666b9e_1d6f9c7c",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-16T22:35:33Z",
+      "side": 1,
+      "message": "(You can also ADD_FAILURE() \u003c\u003c \"Expected \" \u003c\u003c ...)",
+      "revId": "40904b99ea94ae678992706caade8d99d03b9b36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
