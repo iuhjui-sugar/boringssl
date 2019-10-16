@@ -56,6 +56,9 @@ func do(outPath, inPath string) error {
 
 	symbols, err := object.Symbols()
 	if err != nil {
+		symbols, err = object.DynamicSymbols()
+	}
+	if err != nil {
 		return errors.New("failed to parse symbols: " + err.Error())
 	}
 
