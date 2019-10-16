@@ -285,32 +285,24 @@ static void wait_for_entropy(void) {
       return;
     }
 
-    uint8_t dummy;
-    ssize_t getrandom_ret =
-        boringssl_getrandom(&dummy, sizeof(dummy), GRND_NONBLOCK);
-    if (getrandom_ret == -1 && errno == EAGAIN) {
-      // Attempt to get the path of the current process to aid in debugging when
-      // something blocks.
-      const char *current_process = "<unknown>";
+    // Attempt to get the path of the current process to aid in debugging when
+    // something blocks.
+    const char *current_process = "<unknown>";
 #if defined(OPENSSL_HAS_GETAUXVAL)
-      const unsigned long getauxval_ret = getauxval(AT_EXECFN);
-      if (getauxval_ret != 0) {
-        current_process = (const char *)getauxval_ret;
-      }
+    const unsigned long getauxval_ret = getauxval(AT_EXECFN);
+    if (getauxval_ret != 0) {
+      current_process = (const char *)getauxval_ret;
+    }
 #endif
 
-      fprintf(
-          stderr,
-          "%s: getrandom indicates that the entropy pool has not been "
-          "initialized. Rather than continue with poor entropy, this process "
-          "will block until entropy is available.\n",
-          current_process);
+    fprintf(stderr,
+            "%s: getrandom indicates that the entropy pool has not been "
+            "initialized. Rather than continue with poor entropy, this process "
+            "will block until entropy is available.\n",
+            current_process);
 
-      getrandom_ret =
-          boringssl_getrandom(&dummy, sizeof(dummy), 0 /* no flags */);
-    }
-
-    if (getrandom_ret != 1) {
+    uint8_t dummy;
+    if (1 != boringssl_getrandom(&dummy, sizeof(dummy), 0 /* no flags */)) {
       perror("getrandom");
       abort();
     }
