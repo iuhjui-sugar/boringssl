@@ -462,6 +462,17 @@ if(USE_CUSTOM_LIBCXX)
   target_link_libraries(crypto libcxx)
 endif()
 
+# urandom_test is a separate binary because it needs to be able to observe the
+# PRNG initialisation, which means that it can't have other tests running before
+# it does.
+add_executable(
+  urandom_test
+
+  fipsmodule/rand/urandom_test.cc
+)
+
+target_link_libraries(urandom_test test_support_lib boringssl_gtest crypto)
+
 add_executable(
   crypto_test
 
