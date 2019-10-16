@@ -399,7 +399,6 @@ static std::vector<Event> TestFunctionPRNGModel(unsigned flags) {
         return;
       }
 
-      ret.push_back(Event::GetRandom(1, GRND_NONBLOCK));
       ret.push_back(Event::GetRandom(1, 0));
       getrandom_ready = true;
     };
