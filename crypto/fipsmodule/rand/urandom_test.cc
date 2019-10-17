@@ -465,6 +465,9 @@ int main(int argc, char **argv) {
 
 #else
 
-int main(int argc, char **argv) { return 0; }
+int main(int argc, char **argv) {
+  printf("PASS\n");
+  return 0;
+}
 
 #endif  // X86_64 && LINUX && !SHARED_LIBRARY
