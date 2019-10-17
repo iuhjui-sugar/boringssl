@@ -285,6 +285,10 @@ static void wait_for_entropy(void) {
       return;
     }
 
+    // Probe the state of the entropy pool again. This will nearly always happen
+    // immediately after the probe in |init_once| and so be superfluous.
+    // However, it can also happen after an RDRAND failure, an unknown amount of
+    // time later, so it's worth double-checking to avoid spamming stderr.
     uint8_t dummy;
     ssize_t getrandom_ret =
         boringssl_getrandom(&dummy, sizeof(dummy), GRND_NONBLOCK);
