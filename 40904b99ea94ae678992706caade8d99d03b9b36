@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "016ae492_e524e406",
+        "filename": "crypto/CMakeLists.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-10-17T17:08:43Z",
+      "side": 1,
+      "message": "Was planning in a follow-up since it\u0027s not quite a trivial change to the .json. See patch at top-of-stack.",
+      "parentUuid": "9df23bc8_ccedcd52",
+      "revId": "40904b99ea94ae678992706caade8d99d03b9b36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f4e7f1d6_a931884e",
         "filename": "crypto/CMakeLists.txt",
         "patchSetId": 4
@@ -39,6 +57,30 @@
       "revId": "40904b99ea94ae678992706caade8d99d03b9b36",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ed010ad_8ea78271",
+        "filename": "crypto/CMakeLists.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-10-17T17:08:43Z",
+      "side": 1,
+      "message": "Good point. Done. (Well, the google3 roll will tell if it really works. Testing on Android might be interesting at some point but would need a follow-up patch to support AArch64.)",
+      "parentUuid": "f4e7f1d6_a931884e",
+      "range": {
+        "startLine": 471,
+        "startChar": 18,
+        "endLine": 471,
+        "endChar": 30
+      },
+      "revId": "40904b99ea94ae678992706caade8d99d03b9b36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "3583d1f8_e37822ea",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-10-17T17:08:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29789e9d_9a17d1e4",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 12
+      },
+      "revId": "40904b99ea94ae678992706caade8d99d03b9b36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eb51cce7_e090e2d3",
         "filename": "crypto/fipsmodule/rand/urandom_test.cc",
         "patchSetId": 4
@@ -79,6 +145,24 @@
       "revId": "40904b99ea94ae678992706caade8d99d03b9b36",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0dd70726_76783bbe",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-10-17T17:08:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb51cce7_e090e2d3",
+      "revId": "40904b99ea94ae678992706caade8d99d03b9b36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -99,6 +183,24 @@
     },
     {
       "key": {
+        "uuid": "056da63e_991a0552",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-10-17T17:08:43Z",
+      "side": 1,
+      "message": "Yep, that\u0027s better. Thanks.",
+      "parentUuid": "48092889_712ecb6a",
+      "revId": "40904b99ea94ae678992706caade8d99d03b9b36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7ea69031_75d9f35c",
         "filename": "crypto/fipsmodule/rand/urandom_test.cc",
         "patchSetId": 4
@@ -116,6 +218,24 @@
     },
     {
       "key": {
+        "uuid": "c2027d80_cd7f204c",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-10-17T17:08:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ea69031_75d9f35c",
+      "revId": "40904b99ea94ae678992706caade8d99d03b9b36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e0c30143_05d1889f",
         "filename": "crypto/fipsmodule/rand/urandom_test.cc",
         "patchSetId": 4
@@ -130,6 +250,24 @@
       "revId": "40904b99ea94ae678992706caade8d99d03b9b36",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdf6f4cd_dd1e157a",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 308,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-10-17T17:08:43Z",
+      "side": 1,
+      "message": "I think x86-64 doesn\u0027t need alignment, as usual. But an unaligned access _could_ span a page. Fixed.",
+      "parentUuid": "e0c30143_05d1889f",
+      "revId": "40904b99ea94ae678992706caade8d99d03b9b36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -156,6 +294,30 @@
     },
     {
       "key": {
+        "uuid": "7fa06e08_e401c9e9",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-10-17T17:08:43Z",
+      "side": 1,
+      "message": "I think listing three is reasonable, but it can get silly long, in which case [\u0026] is good.",
+      "parentUuid": "bdd6e475_126486c9",
+      "range": {
+        "startLine": 364,
+        "startChar": 23,
+        "endLine": 364,
+        "endChar": 53
+      },
+      "revId": "40904b99ea94ae678992706caade8d99d03b9b36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ee666b9e_1d6f9c7c",
         "filename": "crypto/fipsmodule/rand/urandom_test.cc",
         "patchSetId": 4
@@ -170,6 +332,24 @@
       "revId": "40904b99ea94ae678992706caade8d99d03b9b36",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a801d26a_a8a2e1a0",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-10-17T17:08:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee666b9e_1d6f9c7c",
+      "revId": "40904b99ea94ae678992706caade8d99d03b9b36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
