@@ -16,6 +16,24 @@
       "revId": "1d118aeb17dd3f079031cb0f09abaf0b01cd95d9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf531381_647bbca1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-10-17T17:15:47Z",
+      "side": 1,
+      "message": "Hmm, we have no idea really how often RDRAND fails at runtime so we could start randomly writing warnings to stderr. Good point, I\u0027ll drop this and make that thought a comment in the code.",
+      "parentUuid": "c5c2304e_0fdebb1a",
+      "revId": "1d118aeb17dd3f079031cb0f09abaf0b01cd95d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
