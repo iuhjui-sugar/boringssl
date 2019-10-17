@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a1a96a3_d03a137e",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-17T19:08:21Z",
+      "side": 1,
+      "message": "Nit: explicit",
+      "range": {
+        "startLine": 49,
+        "startChar": 1,
+        "endLine": 49,
+        "endChar": 2
+      },
+      "revId": "77bc6921daf8d6d2804f203970067b98f8743c76",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b2aaf4f_91b1da51",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 693,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-17T19:08:21Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "77bc6921daf8d6d2804f203970067b98f8743c76",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
