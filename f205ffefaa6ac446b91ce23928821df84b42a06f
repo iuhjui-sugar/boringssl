@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "392bc6b4_5e0c7835",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-17T22:25:35Z",
+      "side": 1,
+      "message": "Looks like we also need to gate this, or the test expectations, on BORINGSSL_UNSAFE_DETERMINISTIC_MODE.",
+      "revId": "f205ffefaa6ac446b91ce23928821df84b42a06f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
