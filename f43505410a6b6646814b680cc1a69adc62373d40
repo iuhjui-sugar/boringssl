@@ -52,6 +52,24 @@
       "revId": "f43505410a6b6646814b680cc1a69adc62373d40",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a546ec8_54c88370",
+        "filename": "crypto/obj/obj_dat.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 8759,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-10-18T22:03:34Z",
+      "side": 1,
+      "message": "obj_mac.num is an input and output of that script. Either one needs to manually remove it from there before running, or else one needs to run the script _twice_ for things to settle.",
+      "parentUuid": "bcc45cfb_fe14e506",
+      "revId": "f43505410a6b6646814b680cc1a69adc62373d40",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
