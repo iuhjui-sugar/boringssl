@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "81f50eb2_51bf5c83",
+        "filename": "crypto/obj/obj_dat.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 8759,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-18T21:54:32Z",
+      "side": 1,
+      "message": "That\u0027s odd. It wasn\u0027t previously NULL-terminated. Did you rerun the script?",
+      "revId": "f43505410a6b6646814b680cc1a69adc62373d40",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
