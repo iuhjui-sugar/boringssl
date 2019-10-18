@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4010c064_91d2908f",
+        "filename": "crypto/fipsmodule/bcm.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-10-18T18:55:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b08faff6_11cd085e",
+      "revId": "6bedfec3082d3c5795217a0387a13dd44037e87e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5d1dbe85_1a16a1e2",
         "filename": "crypto/fipsmodule/fips_shared.lds",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2019-10-18T17:37:05Z",
       "side": 1,
       "message": "Looks like the standalone Android FIPS config is actually using -ffunction-sections. \nhttps://logs.chromium.org/logs/boringssl/buildbucket/cr-buildbucket.appspot.com/8899241687544657264/+/steps/ninja/0/stdout\n\nLooking through the NDK, it\u0027s always added by the toolchain file, so we probably need to filter it out.",
+      "revId": "6bedfec3082d3c5795217a0387a13dd44037e87e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "052ef426_89f5a2e3",
+        "filename": "crypto/fipsmodule/fips_shared.lds",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-10-18T18:55:02Z",
+      "side": 1,
+      "message": "In AOSP the magic was to add -fno-function-sections and -fno-data-sections rather than to filter them out. (I guess compilers have gotten used to different layers of the build system fighting each other and accommodate it now.)",
+      "parentUuid": "5d1dbe85_1a16a1e2",
       "revId": "6bedfec3082d3c5795217a0387a13dd44037e87e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
