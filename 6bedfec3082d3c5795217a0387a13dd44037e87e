@@ -87,6 +87,24 @@
       "revId": "6bedfec3082d3c5795217a0387a13dd44037e87e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8289b85d_0ec52648",
+        "filename": "crypto/fipsmodule/fips_shared.lds",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-18T20:40:07Z",
+      "side": 1,
+      "message": "Alright, taking it out of the CQ for now. CI will send mail but ah well.\nhttps://boringssl-review.googlesource.com/c/boringssl/+/38364",
+      "parentUuid": "25240cda_f86b9ce5",
+      "revId": "6bedfec3082d3c5795217a0387a13dd44037e87e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
