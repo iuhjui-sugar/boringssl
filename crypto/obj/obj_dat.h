@@ -8756,7 +8756,7 @@ static const ASN1_OBJECT kObjects[NUM_NID] = {
     {"KxANY", "kx-any", NID_kx_any, 0, NULL, 0},
     {"AuthANY", "auth-any", NID_auth_any, 0, NULL, 0},
     {"CECPQ2", "CECPQ2", NID_CECPQ2, 0, NULL, 0},
-    {"CECPQ2b", "CECPQ2b", NID_CECPQ2b, 0, NULL, 0},
+    {NULL, NULL, NID_undef, 0, NULL, 0},
 };
 
 static const unsigned kNIDsInShortNameOrder[] = {
@@ -8819,7 +8819,6 @@ static const unsigned kNIDsInShortNameOrder[] = {
     109 /* CAST5-ECB */,
     111 /* CAST5-OFB */,
     959 /* CECPQ2 */,
-    960 /* CECPQ2b */,
     894 /* CMAC */,
     13 /* CN */,
     141 /* CRLReason */,
@@ -9725,7 +9724,6 @@ static const unsigned kNIDsInLongNameOrder[] = {
     179 /* CA Issuers */,
     785 /* CA Repository */,
     959 /* CECPQ2 */,
-    960 /* CECPQ2b */,
     131 /* Code Signing */,
     783 /* Diffie-Hellman based MAC */,
     382 /* Directory */,
