@@ -34,6 +34,24 @@
       "revId": "f43505410a6b6646814b680cc1a69adc62373d40",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "124002e1_cb58b9aa",
+        "filename": "crypto/obj/obj_dat.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 8759,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-18T22:02:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bcc45cfb_fe14e506",
+      "revId": "f43505410a6b6646814b680cc1a69adc62373d40",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
