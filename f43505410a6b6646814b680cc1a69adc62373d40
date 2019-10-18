@@ -16,6 +16,24 @@
       "revId": "f43505410a6b6646814b680cc1a69adc62373d40",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bcc45cfb_fe14e506",
+        "filename": "crypto/obj/obj_dat.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 8759,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-10-18T21:58:28Z",
+      "side": 1,
+      "message": "Yea, I just edited the .txt file and reran the script. Let me see what happened there.",
+      "parentUuid": "81f50eb2_51bf5c83",
+      "revId": "f43505410a6b6646814b680cc1a69adc62373d40",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
