@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa7ff9c3_00adbda1",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-10-18T20:48:20Z",
+      "side": 1,
+      "message": "Maybe only do for FIPS_SHARED? Otherwise I worry that we\u0027re not reflecting the internal build well, but we know that AOSP is setting theses flags (now). (Delocate already happens to map function sections down to a single .text too.)",
+      "revId": "b8edf3c0c3359adea4cf781d5dcdaa276a8d17be",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
