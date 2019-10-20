@@ -2496,6 +2496,12 @@ char *SSL_get_shared_ciphers(const SSL *ssl, char *buf, int len) {
   return buf;
 }
 
+int SSL_get_shared_sigalgs(SSL *s, int idx, int *psign, int *phash,
+                           int *psignandhash, unsigned char *rsig,
+                           unsigned char *rhash) {
+  return 0;
+}
+
 int SSL_CTX_set_quic_method(SSL_CTX *ctx, const SSL_QUIC_METHOD *quic_method) {
   if (ctx->method->is_dtls) {
     return 0;
