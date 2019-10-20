@@ -4237,6 +4237,19 @@ extern "C" {
 #define SN_CECPQ2 "CECPQ2"
 #define NID_CECPQ2 959
 
+#define SN_id_GostR3410_2012_256 "gost2012_256"
+#define LN_id_GostR3410_2012_256 "GOST R 34.10-2012 with 256 bit modulus"
+#define NID_id_GostR3410_2012_256 960
+#define OBJ_id_GostR3410_2012_256 1L, 2L, 643L, 7L, 1L, 1L, 1L, 1L
+
+#define SN_id_GostR3410_2012_512 "gost2012_512"
+#define LN_id_GostR3410_2012_512 "GOST R 34.10-2012 with 512 bit modulus"
+#define NID_id_GostR3410_2012_512 961
+#define OBJ_id_GostR3410_2012_512 1L, 2L, 643L, 7L, 1L, 1L, 1L, 2L
+
+#define SN_ED448 "ED448"
+#define NID_ED448 1088
+#define OBJ_ED448 1L, 3L, 101L, 113L
 
 #if defined(__cplusplus)
 } /* extern C */
