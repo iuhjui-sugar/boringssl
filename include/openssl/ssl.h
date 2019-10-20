@@ -4086,6 +4086,16 @@ OPENSSL_EXPORT void SSL_set_state(SSL *ssl, int state);
 // pointer to |buf|, or NULL if |len| is less than or equal to zero.
 OPENSSL_EXPORT char *SSL_get_shared_ciphers(const SSL *ssl, char *buf, int len);
 
+// SSL_get_shared_sigalgs() returns information about the shared signature
+// algorithms supported by peer s. The parameter idx indicates the index
+// of the shared signature algorithm to return starting from zero.
+// The signature algorithm NID is written to *psign, the hash NID to
+// *phash and the sign and hash NID to *psignhash. The raw signature
+// and hash values are written to *rsig and *rhash.
+OPENSSL_EXPORT int SSL_get_shared_sigalgs(SSL *s, int idx, int *psign,
+                                          int *phash, int *psignandhash,
+                                          unsigned char *rsig, unsigned char *rhash);
+
 // SSL_MODE_HANDSHAKE_CUTTHROUGH is the same as SSL_MODE_ENABLE_FALSE_START.
 #define SSL_MODE_HANDSHAKE_CUTTHROUGH SSL_MODE_ENABLE_FALSE_START
 
