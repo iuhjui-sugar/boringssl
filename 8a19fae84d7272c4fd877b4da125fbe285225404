@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "20721527_202c5946",
+        "filename": "include/openssl/nid.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 4248,
+      "author": {
+        "id": 9690
+      },
+      "writtenOn": "2019-10-21T21:26:35Z",
+      "side": 1,
+      "message": "opened a PR to Node.js :)",
+      "parentUuid": "610f71b6_580b0abe",
+      "revId": "8a19fae84d7272c4fd877b4da125fbe285225404",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4ea40a67_de0805e0",
         "filename": "include/openssl/nid.h",
         "patchSetId": 4
@@ -33,6 +51,24 @@
       "revId": "8a19fae84d7272c4fd877b4da125fbe285225404",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50597825_ef50dbfc",
+        "filename": "include/openssl/nid.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 4252,
+      "author": {
+        "id": 9690
+      },
+      "writtenOn": "2019-10-21T21:26:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ea40a67_de0805e0",
+      "revId": "8a19fae84d7272c4fd877b4da125fbe285225404",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "02bdd69b_67d60011",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 4128,
+      "author": {
+        "id": 9690
+      },
+      "writtenOn": "2019-10-21T21:26:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97a4cdd8_b6d8b536",
+      "revId": "8a19fae84d7272c4fd877b4da125fbe285225404",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7cb7a1bd_c71c979c",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 4
@@ -67,6 +121,24 @@
       "revId": "8a19fae84d7272c4fd877b4da125fbe285225404",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e1dce3e_2dcbcc73",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 4131,
+      "author": {
+        "id": 9690
+      },
+      "writtenOn": "2019-10-21T21:26:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7cb7a1bd_c71c979c",
+      "revId": "8a19fae84d7272c4fd877b4da125fbe285225404",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
