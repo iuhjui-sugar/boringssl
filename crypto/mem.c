@@ -127,6 +127,8 @@ void OPENSSL_free(void *orig_ptr) {
   sdallocx(ptr, size + OPENSSL_MALLOC_PREFIX, 0 /* flags */);
 }
 
+void *OPENSSL_memdup(void *data, size_t s) { return NULL; }
+
 void *OPENSSL_realloc(void *orig_ptr, size_t new_size) {
   if (orig_ptr == NULL) {
     return OPENSSL_malloc(new_size);
