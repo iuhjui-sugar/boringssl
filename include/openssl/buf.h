@@ -97,7 +97,11 @@ OPENSSL_EXPORT size_t BUF_MEM_grow_clean(BUF_MEM *buf, size_t len);
 // error.
 OPENSSL_EXPORT int BUF_MEM_append(BUF_MEM *buf, const void *in, size_t len);
 
-// BUF_strdup returns an allocated, duplicate of |str|.
+
+// Deprecated functions.
+
+// BUF_strdup returns an allocated, duplicate of |str| or NULL on allocation
+// failure.
 OPENSSL_EXPORT char *BUF_strdup(const char *str);
 
 // BUF_strnlen returns the number of characters in |str|, excluding the NUL
@@ -109,7 +113,8 @@ OPENSSL_EXPORT size_t BUF_strnlen(const char *str, size_t max_len);
 // |size| bytes. The result is always NUL terminated.
 OPENSSL_EXPORT char *BUF_strndup(const char *str, size_t size);
 
-// BUF_memdup returns an allocated, duplicate of |size| bytes from |data|.
+// BUF_memdup returns an allocated, duplicate of |size| bytes from |data| or
+// NULL on allocation failure.
 OPENSSL_EXPORT void *BUF_memdup(const void *data, size_t size);
 
 // BUF_strlcpy acts like strlcpy(3).
