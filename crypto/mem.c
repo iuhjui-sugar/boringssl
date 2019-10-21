@@ -55,8 +55,10 @@
  * [including the GNU Public Licence.] */
 
 #include <openssl/mem.h>
+#include <openssl/err.h>
 
 #include <assert.h>
+#include <limits.h>
 #include <stdarg.h>
 #include <stdio.h>
 
@@ -125,6 +127,20 @@ void OPENSSL_free(void *orig_ptr) {
   size_t size = *(size_t *)ptr;
   OPENSSL_cleanse(ptr, size + OPENSSL_MALLOC_PREFIX);
   sdallocx(ptr, size + OPENSSL_MALLOC_PREFIX, 0 /* flags */);
+}
+
+void *OPENSSL_memdup(void *data, size_t s) {
+  void *ret;
+
+  if (data == NULL || s >= INT_MAX)
+        return NULL;
+
+  ret = OPENSSL_malloc(s);
+  if (ret == NULL) {
+    OPENSSL_PUT_ERROR(SYS, ERR_R_MALLOC_FAILURE);
+    return NULL;
+  }
+  return memcpy(ret, data, s);
 }
 
 void *OPENSSL_realloc(void *orig_ptr, size_t new_size) {
