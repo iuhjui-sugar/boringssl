@@ -82,6 +82,11 @@ OPENSSL_EXPORT void *OPENSSL_malloc(size_t size);
 // memory allocated at |ptr| and frees it.
 OPENSSL_EXPORT void OPENSSL_free(void *ptr);
 
+// OPENSSL_memdup acts like a regular |memdup|, except that memory is
+// allocated by calling OPENSSL_malloc() and should be released
+// by calling OPENSSL_free().
+OPENSSL_EXPORT void *OPENSSL_memdup(void *data, size_t s);
+
 // OPENSSL_realloc returns a pointer to a buffer of |new_size| bytes that
 // contains the contents of |ptr|. Unlike |realloc|, a new buffer is always
 // allocated and the data at |ptr| is always wiped and freed.
