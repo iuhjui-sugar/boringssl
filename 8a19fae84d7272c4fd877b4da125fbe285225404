@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "610f71b6_580b0abe",
+        "filename": "include/openssl/nid.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 4248,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-21T16:02:22Z",
+      "side": 1,
+      "message": "Does Node actually need these? OpenSSL doesn\u0027t even have a GOST implementation. They\u0027re part of some external engine. And per https://github.com/nodejs/node/issues/7651#issuecomment-232877200, Node builds OpenSSL with OPENSSL_NO_GOST.\n\nRather than adding these OIDs, I would suggest sending a patch to Node to either remove the references to these OIDs or at least wrap them in OPENSSL_NO_GOST, which we define. This would be useful for Node too, as it would remove some unnecessary code from their shipped binary.",
+      "revId": "8a19fae84d7272c4fd877b4da125fbe285225404",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ea40a67_de0805e0",
+        "filename": "include/openssl/nid.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 4252,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-21T16:02:22Z",
+      "side": 1,
+      "message": "This file is generated via a mess of things and shouldn\u0027t be edited by hand. See crypto/obj/README.",
+      "revId": "8a19fae84d7272c4fd877b4da125fbe285225404",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97a4cdd8_b6d8b536",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 4128,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-21T16:02:22Z",
+      "side": 1,
+      "message": "That\u0027s not what this function does right now. Just \"SSL_get_shared_sigalgs returns zero\".",
+      "revId": "8a19fae84d7272c4fd877b4da125fbe285225404",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7cb7a1bd_c71c979c",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 4131,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-10-21T16:02:22Z",
+      "side": 1,
+      "message": "80 chars (I just have a key binding to run clang-format).\n\nAlso we usually write uint8_t instead of unsigned char (shorter) and the SSL parameter should be named \u0027ssl\u0027 instead of \u0027s\u0027.",
+      "revId": "8a19fae84d7272c4fd877b4da125fbe285225404",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
