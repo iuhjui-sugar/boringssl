@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "97a8f7a5_795175d0",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-11-05T19:46:28Z",
+      "side": 1,
+      "message": "Hrmf. I definitely got a patch to highlightjs and Gerrit to fix the highlighting here. Seems to have regressed. I\u0027ll file a bug with them.",
+      "range": {
+        "startLine": 120,
+        "startChar": 6,
+        "endLine": 120,
+        "endChar": 10
+      },
+      "revId": "f312ae3aa066b021c549e6caa3e2171255c37385",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
