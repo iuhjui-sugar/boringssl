@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e8826024_f59e0b8e",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 9677
+      },
+      "writtenOn": "2019-11-11T22:53:24Z",
+      "side": 1,
+      "message": "Should this be false? From my understanding, this will result in a vector set that contains a pre-hashed message - which is not what the implementation seems to want.",
+      "revId": "de57994c5287f3371df2c235c45e7633c391c4c1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
