@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9e0ed37a_58022e1a",
+        "filename": "crypto/fipsmodule/modes/gcm_nohw.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-11-11T23:23:47Z",
+      "side": 1,
+      "message": "(Also fixed this comment from patch set 2.)",
+      "range": {
+        "startLine": 197,
+        "startChar": 5,
+        "endLine": 197,
+        "endChar": 9
+      },
+      "revId": "52948e16ae6bcb24cb967878df4e21db6f9638f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
