@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1de96afa_55b099a1",
+        "filename": "crypto/fipsmodule/modes/gcm.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-11-11T23:23:23Z",
+      "side": 1,
+      "message": "The C version isn\u0027t the only implementation just yet because I got cold feet on gcm_gmult_4bit_mmx (which is ABI-tested and initialized with gcm_init_4bit). The later two CLs in the sequence do away with gcm_gmult_4bit_mmx and this function.",
+      "parentUuid": "2250620e_6003ae8e",
+      "revId": "433d9c36cf332f1060acd1b4f7d716043df942fd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b014360a_2a53f278",
         "filename": "crypto/fipsmodule/modes/gcm.c",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "433d9c36cf332f1060acd1b4f7d716043df942fd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d9f81e5_df1cffaf",
+        "filename": "crypto/fipsmodule/modes/gcm.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-11-11T23:23:23Z",
+      "side": 1,
+      "message": "Er, yeah, I missed a spot in https://boringssl-review.googlesource.com/c/34869. Done.",
+      "parentUuid": "b014360a_2a53f278",
+      "revId": "433d9c36cf332f1060acd1b4f7d716043df942fd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
