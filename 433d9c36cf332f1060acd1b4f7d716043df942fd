@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2250620e_6003ae8e",
+        "filename": "crypto/fipsmodule/modes/gcm.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-11-11T22:58:46Z",
+      "side": 1,
+      "message": "Looks like this is non-static because we wanted to ABI-test it, but now the C version is the only implementation so can probably be static, and removed from header + test file.",
+      "revId": "433d9c36cf332f1060acd1b4f7d716043df942fd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b014360a_2a53f278",
+        "filename": "crypto/fipsmodule/modes/gcm.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-11-11T22:58:46Z",
+      "side": 1,
+      "message": "Not new in this change, but this #ifdef seems to be pointless.",
+      "revId": "433d9c36cf332f1060acd1b4f7d716043df942fd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
