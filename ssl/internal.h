@@ -2677,7 +2677,7 @@ struct SSL_CONFIG {
   UniquePtr<STACK_OF(SRTP_PROTECTION_PROFILE)> srtp_profiles;
 
   // verify_mode is a bitmask of |SSL_VERIFY_*| values.
-  uint8_t verify_mode = SSL_VERIFY_NONE;
+  uint8_t verify_mode = SSL_VERIFY_UNSPECIFIED;
 
   // Enable signed certificate time stamps. Currently client only.
   bool signed_cert_timestamps_enabled : 1;
@@ -3142,7 +3142,7 @@ struct ssl_ctx_st {
                        void *arg) = nullptr;
   void *msg_callback_arg = nullptr;
 
-  int verify_mode = SSL_VERIFY_NONE;
+  int verify_mode = SSL_VERIFY_UNSPECIFIED;
   int (*default_verify_callback)(int ok, X509_STORE_CTX *ctx) =
       nullptr;  // called 'verify_callback' in the SSL
 

@@ -652,7 +652,7 @@ void SSL_set_verify(SSL *ssl, int mode,
   if (!ssl->config) {
     return;
   }
-  ssl->config->verify_mode = mode;
+  ssl->config->verify_mode = mode & ~SSL_VERIFY_UNSPECIFIED;
   if (callback != NULL) {
     ssl->config->verify_callback = callback;
   }
@@ -678,7 +678,7 @@ void SSL_CTX_set_cert_verify_callback(SSL_CTX *ctx,
 void SSL_CTX_set_verify(SSL_CTX *ctx, int mode,
                         int (*cb)(int, X509_STORE_CTX *)) {
   check_ssl_ctx_x509_method(ctx);
-  ctx->verify_mode = mode;
+  ctx->verify_mode = mode & ~SSL_VERIFY_UNSPECIFIED;
   ctx->default_verify_callback = cb;
 }
 

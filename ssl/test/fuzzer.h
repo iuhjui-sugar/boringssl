@@ -454,6 +454,7 @@ class TLSFuzzer {
     if (role_ == kServer) {
       SSL_set_accept_state(ssl.get());
     } else {
+      SSL_set_verify(ssl.get(), SSL_VERIFY_NONE, nullptr);
       SSL_set_connect_state(ssl.get());
     }
 
