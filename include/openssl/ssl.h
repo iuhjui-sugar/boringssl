@@ -2289,6 +2289,11 @@ OPENSSL_EXPORT const char *SSL_get_curve_name(uint16_t curve_id);
 // if and only if Channel ID is not negotiated.
 #define SSL_VERIFY_PEER_IF_NO_OBC 0x04
 
+// SSL_VERIFY_UNSPECIFIED is the initial state of an |SSL| or |SSL_CTX|.  It is
+// cleared by calls to |SSL_set_verify|, |SSL_CTX_set_verify|,
+// |SSL_set_accept_state|, or |SSL_set_connect_state|.
+#define SSL_VERIFY_UNSPECIFIED 0x08
+
 // SSL_CTX_set_verify configures certificate verification behavior. |mode| is
 // one of the |SSL_VERIFY_*| values defined above. |callback|, if not NULL, is
 // used to customize certificate verification. See the behavior of
