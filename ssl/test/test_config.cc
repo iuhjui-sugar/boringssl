@@ -1469,7 +1469,7 @@ bssl::UniquePtr<SSL> TestConfig::NewSSL(
   }
   if (use_custom_verify_callback) {
     SSL_set_custom_verify(ssl.get(), mode, CustomVerifyCallback);
-  } else if (mode != SSL_VERIFY_NONE) {
+  } else {
     SSL_set_verify(ssl.get(), mode, NULL);
   }
   if (false_start) {

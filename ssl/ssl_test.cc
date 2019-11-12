@@ -1084,6 +1084,7 @@ static bool GetClientHello(SSL *ssl, std::vector<uint8_t> *out) {
   // Do not configure a reading BIO, but record what's written to a memory BIO.
   BIO_up_ref(bio.get());
   SSL_set_bio(ssl, nullptr /* rbio */, bio.get());
+  SSL_set_verify(ssl, SSL_VERIFY_NONE, nullptr);
   int ret = SSL_connect(ssl);
   if (ret > 0) {
     // SSL_connect should fail without a BIO to write to.
@@ -1697,6 +1698,7 @@ class SSLVersionTest : public ::testing::TestWithParam<VersionParam> {
     ASSERT_TRUE(key_);
     client_ctx_ = CreateContext();
     ASSERT_TRUE(client_ctx_);
+    SSL_CTX_set_verify(client_ctx_.get(), SSL_VERIFY_NONE, nullptr);
     server_ctx_ = CreateContext();
     ASSERT_TRUE(server_ctx_);
     // Set up a server cert. Client certs can be set up explicitly.
@@ -1802,6 +1804,7 @@ TEST_P(SSLVersionTest, OneSidedShutdown) {
 
 TEST(SSLTest, SessionDuplication) {
   bssl::UniquePtr<SSL_CTX> client_ctx(SSL_CTX_new(TLS_method()));
+  SSL_CTX_set_verify(client_ctx.get(), SSL_VERIFY_NONE, nullptr);
   bssl::UniquePtr<SSL_CTX> server_ctx(SSL_CTX_new(TLS_method()));
   ASSERT_TRUE(client_ctx);
   ASSERT_TRUE(server_ctx);
@@ -2648,6 +2651,7 @@ TEST(SSLTest, EarlyCallbackVersionSwitch) {
   ASSERT_TRUE(key);
   ASSERT_TRUE(server_ctx);
   ASSERT_TRUE(client_ctx);
+  SSL_CTX_set_verify(client_ctx.get(), SSL_VERIFY_NONE, nullptr);
   ASSERT_TRUE(SSL_CTX_use_certificate(server_ctx.get(), cert.get()));
   ASSERT_TRUE(SSL_CTX_use_PrivateKey(server_ctx.get(), key.get()));
   ASSERT_TRUE(SSL_CTX_set_max_proto_version(client_ctx.get(), TLS1_3_VERSION));
@@ -3150,6 +3154,7 @@ TEST_P(SSLVersionTest, SmallBuffer) {
         server(SSL_new(server_ctx_.get()));
     ASSERT_TRUE(client);
     ASSERT_TRUE(server);
+    SSL_set_verify(client.get(), SSL_VERIFY_NONE, nullptr);
     SSL_set_connect_state(client.get());
     SSL_set_accept_state(server.get());
 
@@ -3577,6 +3582,7 @@ static void ConnectClientAndServerWithTicketMethod(
   bssl::UniquePtr<SSL> client(SSL_new(client_ctx)), server(SSL_new(server_ctx));
   ASSERT_TRUE(client);
   ASSERT_TRUE(server);
+  SSL_set_verify(client.get(), SSL_VERIFY_NONE, nullptr);
   SSL_set_connect_state(client.get());
   SSL_set_accept_state(server.get());
 
@@ -3778,6 +3784,7 @@ TEST(SSLTest, SealRecord) {
       server_ctx(SSL_CTX_new(TLSv1_2_method()));
   ASSERT_TRUE(client_ctx);
   ASSERT_TRUE(server_ctx);
+  SSL_CTX_set_verify(client_ctx.get(), SSL_VERIFY_NONE, nullptr);
 
   bssl::UniquePtr<X509> cert = GetTestCertificate();
   bssl::UniquePtr<EVP_PKEY> key = GetTestKey();
@@ -3821,6 +3828,7 @@ TEST(SSLTest, SealRecordInPlace) {
       server_ctx(SSL_CTX_new(TLSv1_2_method()));
   ASSERT_TRUE(client_ctx);
   ASSERT_TRUE(server_ctx);
+  SSL_CTX_set_verify(client_ctx.get(), SSL_VERIFY_NONE, nullptr);
 
   bssl::UniquePtr<X509> cert = GetTestCertificate();
   bssl::UniquePtr<EVP_PKEY> key = GetTestKey();
@@ -3859,6 +3867,7 @@ TEST(SSLTest, SealRecordTrailingData) {
       server_ctx(SSL_CTX_new(TLSv1_2_method()));
   ASSERT_TRUE(client_ctx);
   ASSERT_TRUE(server_ctx);
+  SSL_CTX_set_verify(client_ctx.get(), SSL_VERIFY_NONE, nullptr);
 
   bssl::UniquePtr<X509> cert = GetTestCertificate();
   bssl::UniquePtr<EVP_PKEY> key = GetTestKey();
@@ -3898,6 +3907,7 @@ TEST(SSLTest, SealRecordInvalidSpanSize) {
       server_ctx(SSL_CTX_new(TLSv1_2_method()));
   ASSERT_TRUE(client_ctx);
   ASSERT_TRUE(server_ctx);
+  SSL_CTX_set_verify(client_ctx.get(), SSL_VERIFY_NONE, nullptr);
 
   bssl::UniquePtr<X509> cert = GetTestCertificate();
   bssl::UniquePtr<EVP_PKEY> key = GetTestKey();
@@ -4031,6 +4041,7 @@ TEST_P(SSLVersionTest, SSLPending) {
 TEST(SSLTest, ShutdownIgnoresTickets) {
   bssl::UniquePtr<SSL_CTX> ctx(SSL_CTX_new(TLS_method()));
   ASSERT_TRUE(ctx);
+  SSL_CTX_set_verify(ctx.get(), SSL_VERIFY_NONE, nullptr);
   ASSERT_TRUE(SSL_CTX_set_min_proto_version(ctx.get(), TLS1_3_VERSION));
   ASSERT_TRUE(SSL_CTX_set_max_proto_version(ctx.get(), TLS1_3_VERSION));
 
@@ -4125,6 +4136,7 @@ TEST(SSLTest, CertCompression) {
   bssl::UniquePtr<SSL_CTX> server_ctx(SSL_CTX_new(TLS_method()));
   ASSERT_TRUE(client_ctx);
   ASSERT_TRUE(server_ctx);
+  SSL_CTX_set_verify(client_ctx.get(), SSL_VERIFY_NONE, nullptr);
 
   bssl::UniquePtr<X509> cert = GetTestCertificate();
   bssl::UniquePtr<EVP_PKEY> key = GetTestKey();
@@ -4169,6 +4181,7 @@ TEST(SSLTest, Handoff) {
   ASSERT_TRUE(server_ctx);
   ASSERT_TRUE(handshaker_ctx);
 
+  SSL_CTX_set_verify(client_ctx.get(), SSL_VERIFY_NONE, nullptr);
   SSL_CTX_set_handoff_mode(server_ctx.get(), 1);
   ASSERT_TRUE(SSL_CTX_set_max_proto_version(server_ctx.get(), TLS1_2_VERSION));
   ASSERT_TRUE(
@@ -4245,6 +4258,7 @@ TEST(SSLTest, HandoffDeclined) {
   ASSERT_TRUE(client_ctx);
   ASSERT_TRUE(server_ctx);
 
+  SSL_CTX_set_verify(client_ctx.get(), SSL_VERIFY_NONE, nullptr);
   SSL_CTX_set_handoff_mode(server_ctx.get(), 1);
   ASSERT_TRUE(SSL_CTX_set_max_proto_version(server_ctx.get(), TLS1_2_VERSION));
 
@@ -4515,6 +4529,7 @@ TEST(SSLTest, ZeroSizedWiteFlushesHandshakeMessages) {
   ASSERT_TRUE(SSL_CTX_use_PrivateKey(server_ctx.get(), key.get()));
 
   bssl::UniquePtr<SSL_CTX> client_ctx(SSL_CTX_new(TLS_method()));
+  SSL_CTX_set_verify(client_ctx.get(), SSL_VERIFY_NONE, nullptr);
   EXPECT_TRUE(SSL_CTX_set_max_proto_version(client_ctx.get(), TLS1_3_VERSION));
   EXPECT_TRUE(SSL_CTX_set_min_proto_version(client_ctx.get(), TLS1_3_VERSION));
 
@@ -4949,6 +4964,7 @@ class QUICMethodTest : public testing::Test {
     server_ctx_.reset(SSL_CTX_new(TLS_method()));
     ASSERT_TRUE(client_ctx_);
     ASSERT_TRUE(server_ctx_);
+    SSL_CTX_set_verify(client_ctx_.get(), SSL_VERIFY_NONE, nullptr);
 
     bssl::UniquePtr<X509> cert = GetTestCertificate();
     bssl::UniquePtr<EVP_PKEY> key = GetTestKey();
@@ -5010,6 +5026,9 @@ class QUICMethodTest : public testing::Test {
           EXPECT_EQ(client_ret, -1);
           EXPECT_EQ(SSL_get_error(client_.get(), client_ret),
                     SSL_ERROR_WANT_READ);
+          if (SSL_get_error(client_.get(), client_ret) != SSL_ERROR_WANT_READ) {
+            return false;
+          }
         }
       }
 
@@ -5025,6 +5044,9 @@ class QUICMethodTest : public testing::Test {
           EXPECT_EQ(server_ret, -1);
           EXPECT_EQ(SSL_get_error(server_.get(), server_ret),
                     SSL_ERROR_WANT_READ);
+          if (SSL_get_error(server_.get(), server_ret) != SSL_ERROR_WANT_READ) {
+            return false;
+          }
         }
       }
     }
@@ -5657,6 +5679,7 @@ TEST_P(SSLVersionTest, DoubleSSLError) {
 TEST(SSLTest, WriteWhileExplicitRenegotiate) {
   bssl::UniquePtr<SSL_CTX> ctx(SSL_CTX_new(TLS_method()));
   ASSERT_TRUE(ctx);
+  SSL_CTX_set_verify(ctx.get(), SSL_VERIFY_NONE, nullptr);
 
   bssl::UniquePtr<X509> cert = GetTestCertificate();
   bssl::UniquePtr<EVP_PKEY> pkey = GetTestKey();

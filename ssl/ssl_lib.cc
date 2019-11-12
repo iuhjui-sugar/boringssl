@@ -750,11 +750,17 @@ void SSL_free(SSL *ssl) {
 }
 
 void SSL_set_connect_state(SSL *ssl) {
+  if (ssl->config->verify_mode == SSL_VERIFY_UNSPECIFIED) {
+    ssl->config->verify_mode = SSL_VERIFY_PEER;
+  }
   ssl->server = false;
   ssl->do_handshake = ssl_client_handshake;
 }
 
 void SSL_set_accept_state(SSL *ssl) {
+  if (ssl->config->verify_mode == SSL_VERIFY_UNSPECIFIED) {
+    ssl->config->verify_mode = SSL_VERIFY_NONE;
+  }
   ssl->server = true;
   ssl->do_handshake = ssl_server_handshake;
 }
