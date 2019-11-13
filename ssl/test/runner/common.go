@@ -935,6 +935,10 @@ type ProtocolBugs struct {
 	// PacketAdaptor is the packetAdaptor to use to simulate timeouts.
 	PacketAdaptor *packetAdaptor
 
+	// MockQuicTransport is the mockQuicTransport used when testing
+	// QUIC interfaces.
+	MockQuicTransport *mockQuicTransport
+
 	// ReorderHandshakeFragments, if true, causes handshake fragments in
 	// DTLS to overlap and be sent in the wrong order. It also causes
 	// pre-CCS flights to be sent twice. (Post-CCS flights consist of

@@ -34,9 +34,6 @@ OPENSSL_MSVC_PRAGMA(comment(lib, "Ws2_32.lib"))
 
 #include <assert.h>
 #include <inttypes.h>
-#include <string.h>
-#include <time.h>
-
 #include <openssl/aead.h>
 #include <openssl/bio.h>
 #include <openssl/bytestring.h>
@@ -50,6 +47,8 @@ OPENSSL_MSVC_PRAGMA(comment(lib, "Ws2_32.lib"))
 #include <openssl/rand.h>
 #include <openssl/ssl.h>
 #include <openssl/x509.h>
+#include <string.h>
+#include <time.h>
 
 #include <functional>
 #include <memory>
@@ -60,6 +59,7 @@ OPENSSL_MSVC_PRAGMA(comment(lib, "Ws2_32.lib"))
 #include "../internal.h"
 #include "async_bio.h"
 #include "handshake_util.h"
+#include "mock_quic_transport.h"
 #include "packeted_bio.h"
 #include "settings_writer.h"
 #include "test_config.h"
@@ -179,6 +179,9 @@ static int DoRead(SSL *ssl, uint8_t *out, size_t max_out) {
   const TestConfig *config = GetTestConfig(ssl);
   TestState *test_state = GetTestState(ssl);
   int ret;
+  if (test_state->quic_transport) {
+    return test_state->quic_transport->ReadApplicationData(out, max_out);
+  }
   do {
     if (config->async) {
       // The DTLS retransmit logic silently ignores write failures. So the test
@@ -231,8 +234,15 @@ static int DoRead(SSL *ssl, uint8_t *out, size_t max_out) {
 // WriteAll writes |in_len| bytes from |in| to |ssl|, resolving any asynchronous
 // operations. It returns the result of the final |SSL_write| call.
 static int WriteAll(SSL *ssl, const void *in_, size_t in_len) {
+  TestState *test_state = GetTestState(ssl);
   const uint8_t *in = reinterpret_cast<const uint8_t *>(in_);
   int ret;
+  if (test_state->quic_transport) {
+    if (!test_state->quic_transport->WriteApplicationData(in, in_len)) {
+      return 0;
+    }
+    return in_len;
+  }
   do {
     ret = SSL_write(ssl, in, in_len);
     if (ret > 0) {
@@ -731,8 +741,13 @@ static bool DoConnection(bssl::UniquePtr<SSL_SESSION> *out_session,
     GetTestState(ssl.get())->async_bio = async_scoped.get();
     bio = std::move(async_scoped);
   }
-  SSL_set_bio(ssl.get(), bio.get(), bio.get());
-  bio.release();  // SSL_set_bio takes ownership.
+  if (config->is_quic) {
+    GetTestState(ssl.get())->quic_transport.reset(
+        new MockQuicTransport(std::move(bio), ssl.get()));
+  } else {
+    SSL_set_bio(ssl.get(), bio.get(), bio.get());
+    bio.release();  // SSL_set_bio takes ownership.
+  }
 
   bool ret = DoExchange(out_session, &ssl, config, is_resume, false, writer);
   if (!config->is_server && is_resume && config->expect_reject_early_data) {
