@@ -323,6 +323,9 @@ int SSL_export_keying_material(SSL *ssl, uint8_t *out, size_t out_len,
       context = nullptr;
       context_len = 0;
     }
+    if (ssl->s3->exporter_secret_len == 0) {
+      return 0;  // This can happen after a handback.
+    }
     return tls13_export_keying_material(
         ssl, MakeSpan(out, out_len),
         MakeConstSpan(ssl->s3->exporter_secret, ssl->s3->exporter_secret_len),
