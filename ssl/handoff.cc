@@ -181,8 +181,19 @@ static bool apply_remote_features(SSL *ssl, CBS *in) {
   return true;
 }
 
+// uses_disallowed_feature returns true iff |ssl| enables a feature that
+// disqualifies it for split handshakes.
+static bool uses_disallowed_feature(const SSL *ssl) {
+  return ssl->method->is_dtls ||
+         ssl->ctx->pq_experiment_signal ||
+         ssl->ctx->enable_early_data ||
+         ssl->enable_early_data ||
+         (ssl->config->cert && ssl->config->cert->dc) ||
+         ssl->config->quic_transport_params.size() > 0;
+}
+
 bool SSL_apply_handoff(SSL *ssl, Span<const uint8_t> handoff) {
-  if (ssl->method->is_dtls) {
+  if (uses_disallowed_feature(ssl)) {
     return false;
   }
 
@@ -223,7 +234,7 @@ bool SSL_apply_handoff(SSL *ssl, Span<const uint8_t> handoff) {
 }
 
 bool SSL_serialize_handback(const SSL *ssl, CBB *out) {
-  if (!ssl->server || ssl->method->is_dtls) {
+  if (!ssl->server || uses_disallowed_feature(ssl)) {
     return false;
   }
   handback_t type;
@@ -237,11 +248,15 @@ bool SSL_serialize_handback(const SSL *ssl, CBB *out) {
     case state12_finish_server_handshake:
       type = handback_after_handshake;
       break;
+    case state12_tls13:
+      type = handback_tls13;
+      break;
     default:
       return false;
   }
 
   const SSL3_STATE *const s3 = ssl->s3;
+  SSL_HANDSHAKE *hs = s3->hs.get();
   size_t hostname_len = 0;
   if (s3->hostname) {
     hostname_len = strlen(s3->hostname.get());
@@ -249,7 +264,8 @@ bool SSL_serialize_handback(const SSL *ssl, CBB *out) {
 
   Span<const uint8_t> transcript;
   if (type == handback_after_ecdhe ||
-      type == handback_after_session_resumption) {
+      type == handback_after_session_resumption ||
+      type == handback_tls13) {
     transcript = s3->hs->transcript.buffer();
   }
   size_t write_iv_len = 0;
@@ -272,8 +288,15 @@ bool SSL_serialize_handback(const SSL *ssl, CBB *out) {
 
   // TODO(mab): make sure everything is serialized.
   CBB seq, key_share;
-  const SSL_SESSION *session =
-      s3->session_reused ? ssl->session.get() : s3->hs->new_session.get();
+  const SSL_SESSION *session;
+  if (type == handback_tls13) {
+    if (ssl->session) {
+      return false;
+    }
+    session = hs->new_session.get();
+  } else {
+    session = s3->session_reused ? ssl->session.get() : hs->new_session.get();
+  }
   if (!CBB_add_asn1(out, &seq, CBS_ASN1_SEQUENCE) ||
       !CBB_add_asn1_uint64(&seq, kHandbackVersion) ||
       !CBB_add_asn1_uint64(&seq, type) ||
@@ -313,6 +336,27 @@ bool SSL_serialize_handback(const SSL *ssl, CBB *out) {
   if (type == handback_after_ecdhe &&
       !s3->hs->key_shares[0]->Serialize(&key_share)) {
     return false;
+  }
+  if (type == handback_tls13) {
+    if (!CBB_add_asn1_octet_string(&seq,
+                                   hs->client_traffic_secret_0().data(),
+                                   hs->client_traffic_secret_0().size()) ||
+        !CBB_add_asn1_octet_string(&seq,
+                                   hs->server_traffic_secret_0().data(),
+                                   hs->server_traffic_secret_0().size()) ||
+        !CBB_add_asn1_octet_string(&seq,
+                                   hs->client_handshake_secret().data(),
+                                   hs->client_handshake_secret().size()) ||
+        !CBB_add_asn1_octet_string(&seq,
+                                   hs->server_handshake_secret().data(),
+                                   hs->server_handshake_secret().size()) ||
+        !CBB_add_asn1_octet_string(&seq, hs->secret().data(),
+                                   hs->secret().size()) ||
+        !CBB_add_asn1_bool(&seq, s3->used_hello_retry_request) ||
+        !CBB_add_asn1_bool(&seq, hs->accept_psk_mode) ||
+        !CBB_add_asn1_uint64(&seq, static_cast<uint64_t>(s3->ticket_age_skew))) {
+      return false;
+    }
   }
   return CBB_flush(out);
 }
@@ -360,14 +404,15 @@ bool SSL_apply_handback(SSL *ssl, Span<const uint8_t> handback) {
   }
 
   s3->hs = ssl_handshake_new(ssl);
-  if (session_reused) {
+  SSL_HANDSHAKE *hs = s3->hs.get();
+  if (!session_reused || type == handback_tls13) {
+    hs->new_session =
+        SSL_SESSION_parse(&seq, ssl->ctx->x509_method, ssl->ctx->pool);
+    session = hs->new_session.get();
+  } else {
     ssl->session =
         SSL_SESSION_parse(&seq, ssl->ctx->x509_method, ssl->ctx->pool);
     session = ssl->session.get();
-  } else {
-    s3->hs->new_session =
-        SSL_SESSION_parse(&seq, ssl->ctx->x509_method, ssl->ctx->pool);
-    session = s3->hs->new_session.get();
   }
 
   if (!session || !CBS_get_asn1(&seq, &next_proto, CBS_ASN1_OCTETSTRING) ||
@@ -393,6 +438,48 @@ bool SSL_apply_handback(SSL *ssl, Span<const uint8_t> handback) {
   if (!CBS_get_asn1(&seq, &transcript, CBS_ASN1_OCTETSTRING) ||
       !CBS_get_asn1(&seq, &key_share, CBS_ASN1_SEQUENCE)) {
     return false;
+  }
+  if (type == handback_tls13) {
+    CBS client_handshake_secret, server_handshake_secret,
+        client_traffic_secret_0, server_traffic_secret_0, secret;
+    int used_hello_retry_request, accept_psk_mode;
+    uint64_t ticket_age_skew;
+    if (!CBS_get_asn1(&seq, &client_traffic_secret_0, CBS_ASN1_OCTETSTRING) ||
+        !CBS_get_asn1(&seq, &server_traffic_secret_0, CBS_ASN1_OCTETSTRING) ||
+        !CBS_get_asn1(&seq, &client_handshake_secret, CBS_ASN1_OCTETSTRING) ||
+        !CBS_get_asn1(&seq, &server_handshake_secret, CBS_ASN1_OCTETSTRING) ||
+        !CBS_get_asn1(&seq, &secret, CBS_ASN1_OCTETSTRING) ||
+        !CBS_get_asn1_bool(&seq, &used_hello_retry_request) ||
+        !CBS_get_asn1_bool(&seq, &accept_psk_mode) ||
+        !CBS_get_asn1_uint64(&seq, &ticket_age_skew)) {
+      return false;
+    }
+    s3->ticket_age_skew = static_cast<int32_t>(ticket_age_skew);
+    s3->used_hello_retry_request = used_hello_retry_request;
+    hs->accept_psk_mode = accept_psk_mode;
+    hs->ResizeSecrets(CBS_len(&client_traffic_secret_0));
+    if (CBS_len(&client_traffic_secret_0) !=
+            CBS_len(&server_traffic_secret_0) ||
+        CBS_len(&client_traffic_secret_0) !=
+            CBS_len(&client_handshake_secret) ||
+        CBS_len(&client_traffic_secret_0) !=
+            CBS_len(&server_handshake_secret) ||
+        CBS_len(&client_traffic_secret_0) != CBS_len(&secret)) {
+      return false;
+    }
+    memcpy(s3->hs->client_traffic_secret_0().data(),
+           CBS_data(&client_traffic_secret_0),
+           CBS_len(&client_traffic_secret_0));
+    memcpy(s3->hs->server_traffic_secret_0().data(),
+           CBS_data(&server_traffic_secret_0),
+           CBS_len(&server_traffic_secret_0));
+    memcpy(s3->hs->client_handshake_secret().data(),
+           CBS_data(&client_handshake_secret),
+           CBS_len(&client_handshake_secret));
+    memcpy(s3->hs->server_handshake_secret().data(),
+           CBS_data(&server_handshake_secret),
+           CBS_len(&server_handshake_secret));
+    memcpy(s3->hs->secret().data(), CBS_data(&secret), CBS_len(&secret));
   }
 
   ssl->version = session->ssl_version;
@@ -420,6 +507,10 @@ bool SSL_apply_handback(SSL *ssl, Span<const uint8_t> handback) {
       break;
     case handback_after_handshake:
       ssl->s3->hs->state = state12_finish_server_handshake;
+      break;
+    case handback_tls13:
+      ssl->s3->hs->state = state12_tls13;
+      ssl->s3->hs->tls13_state = state13_read_client_certificate;
       break;
     default:
       return false;
@@ -470,8 +561,16 @@ bool SSL_apply_handback(SSL *ssl, Span<const uint8_t> handback) {
                        sizeof(s3->read_sequence)))) {
     return false;
   }
+  if (type == handback_tls13 &&
+      (!tls13_set_traffic_key(ssl, ssl_encryption_handshake, evp_aead_open,
+                              s3->hs->client_handshake_secret()) ||
+       !tls13_set_traffic_key(ssl, ssl_encryption_application, evp_aead_seal,
+                              s3->hs->server_traffic_secret_0()))) {
+    return false;
+  }
   if ((type == handback_after_ecdhe ||
-       type == handback_after_session_resumption) &&
+       type == handback_after_session_resumption ||
+       type == handback_tls13) &&
       (!s3->hs->transcript.Init() ||
        !s3->hs->transcript.InitHash(ssl_protocol_version(ssl),
                                     s3->hs->new_cipher) ||
