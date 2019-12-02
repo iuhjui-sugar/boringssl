@@ -39,6 +39,29 @@
       "revId": "dbf716e873e039b1135b53186aa9896bcf794a89",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "89dcb6b8_2cf3fde1",
+        "filename": "crypto/test/asm/trampoline-ppc.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-02T20:44:38Z",
+      "side": 1,
+      "message": "(As a consequence of the long digression above, this doesn\u0027t actually matter except when we happen to CHECK_ABI a C function. But if we were to ever take advantage of the TOC, this tests that we do it right.)",
+      "range": {
+        "startLine": 160,
+        "startChar": 13,
+        "endLine": 160,
+        "endChar": 58
+      },
+      "revId": "dbf716e873e039b1135b53186aa9896bcf794a89",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
