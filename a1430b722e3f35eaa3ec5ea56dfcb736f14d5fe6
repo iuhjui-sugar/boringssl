@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "280a9007_156b4452",
+        "filename": "util/fipstools/inject_hash/inject_hash.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-12-02T18:30:27Z",
+      "side": 1,
+      "message": "You\u0027re using Lstat, but Lstat returns the mode of the symbolic link, if the argument is a symlink. But the mode of symlinks is ~always 0777, but that\u0027s a bad mode for an output file.",
+      "revId": "a1430b722e3f35eaa3ec5ea56dfcb736f14d5fe6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
