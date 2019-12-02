@@ -2205,10 +2205,14 @@ static bool ext_key_share_add_clienthello(SSL_HANDSHAKE *hs, CBB *out) {
     group_id = groups[0];
 
     if (is_post_quantum_group(group_id) && groups.size() >= 2) {
-      // CECPQ2(b) is not sent as the only initial key share. We'll include the
-      // 2nd preference group too to avoid round-trips.
-      second_group_id = groups[1];
-      assert(second_group_id != group_id);
+      if (getenv("HRR_FOR_PQ")) {
+        group_id = groups[1];
+      } else {
+        // CECPQ2(b) is not sent as the only initial key share. We'll include
+        // the 2nd preference group too to avoid round-trips.
+        second_group_id = groups[1];
+        assert(second_group_id != group_id);
+      }
     }
   }
 
@@ -3219,17 +3223,22 @@ bool ssl_add_clienthello_tlsext(SSL_HANDSHAKE *hs, CBB *out,
       header_len += 4 + padding_len;
     }
 
+    size_t target = 0x200;
+    if (getenv("CLIENTHELLO_SIZE")) {
+      target = atoi(getenv("CLIENTHELLO_SIZE"));
+    }
+
     // Add padding to workaround bugs in F5 terminators. See RFC 7685.
     //
     // NB: because this code works out the length of all existing extensions
     // it MUST always appear last (save for any PSK extension).
-    if (header_len > 0xff && header_len < 0x200) {
+    if (header_len < target) {
       // If our calculations already included a padding extension, remove that
       // factor because we're about to change its length.
       if (padding_len != 0) {
         header_len -= 4 + padding_len;
       }
-      padding_len = 0x200 - header_len;
+      padding_len = target - header_len;
       // Extensions take at least four bytes to encode. Always include at least
       // one byte of data if including the extension. WebSphere Application
       // Server 7.0 is intolerant to the last extension being zero-length. See
