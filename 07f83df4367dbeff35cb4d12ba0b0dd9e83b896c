@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "89ed6f9e_405980d0",
+        "filename": "ssl/ssl_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-12-02T19:44:06Z",
+      "side": 1,
+      "message": "If |!buf_allocated_| then |buf_| is left pointing to |inline_buf_|. That seems fine but, in that case, the initial value for |buf_| can be left unspecified in the header file. On the other hand, the code could unconditionally null-out |buf_| here.",
+      "revId": "07f83df4367dbeff35cb4d12ba0b0dd9e83b896c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
