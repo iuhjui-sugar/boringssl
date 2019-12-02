@@ -324,6 +324,11 @@ int ssl3_flush_flight(SSL *ssl) {
 
   // Write the pending flight.
   while (ssl->s3->pending_flight_offset < ssl->s3->pending_flight->length) {
+    size_t write_len =
+        ssl->s3->pending_flight->length - ssl->s3->pending_flight_offset;
+    if (getenv("MANY_PACKETS") && write_len > 16) {
+      write_len = 16;
+    }
     int ret = BIO_write(
         ssl->wbio.get(),
         ssl->s3->pending_flight->data + ssl->s3->pending_flight_offset,
