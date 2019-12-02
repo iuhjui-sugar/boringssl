@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e4bac6ad_f6463d50",
+        "filename": "crypto/test/asm/trampoline-ppc.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-02T20:42:50Z",
+      "side": 1,
+      "message": "This is the same regex used in ppc-xlate.pl. Clang supports a -mabi flag to toggle between ELFv1 and ELFv2 (see below), but ppc64be on Linux is ELFv1 and ppc64le on Linux ELFv2.",
+      "range": {
+        "startLine": 45,
+        "startChar": 19,
+        "endLine": 45,
+        "endChar": 33
+      },
+      "revId": "dbf716e873e039b1135b53186aa9896bcf794a89",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9eb31368_0c2c2cec",
+        "filename": "crypto/test/asm/trampoline-ppc.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-02T20:42:50Z",
+      "side": 1,
+      "message": "This doesn\u0027t do the addis/addi/.localentry dance because ppc-xlate.pl adds a .localentry itself. It uses .localentry 0, which doesn\u0027t actually set up r2, but this is fine provided:\n\n1. No assembly function does a TOC-relative lookup.\n2. No assembly function calls a C function directly (indirect calls here are ok), which would assume the callee set up the TOC.\n\n(This would also only matter if an assembly function were ever involved in a cross-module call. This never happens in BoringSSL but actually does happen in OpenSSL because they implement AES_encrypt, etc., directly in asm.)\n\n(2) is true. (1) is also true, but only because OpenSSL\u0027s PPC assembly uses more complicated PC-relative lookups.\n\nAll the files are written to support all three of ppc32, ppc64be, and ppc64le ABIs. ppc32 doesn\u0027t have any TOC conventions and uses variations of the x86 call+pop trick. ppc64be uses the legacy ELFv1 ABI which introduces a TOC pointer but sets it up in the caller (function pointers are really pointers to some \"function descriptor\" structure and the calls have an extra indirection). ppc64le uses the new ELFv2 ABI which inlines the TOC setup with the two entry points and such.\n\nThe OpenSSL assembly sticks to the ppc32 scheme, so it doesn\u0027t rely on the TOC.\nhttps://boringssl.googlesource.com/boringssl/+/98ba3bd6e75c01fc6546b008b8797767302abf2b/crypto/fipsmodule/aes/asm/aesp8-ppc.pl#98\nhttps://boringssl.googlesource.com/boringssl/+/98ba3bd6e75c01fc6546b008b8797767302abf2b/crypto/fipsmodule/aes/asm/aesp8-ppc.pl#133\n\nI did confirm via godbolt that clang also omits the TOC pointer setup for functions which neither do PC-relative lookups nor function calls. So the ABI apparently is okay with functions skipping the TOC setup if they don\u0027t need it, which makes all this valid, if less efficient than a proper ppc64le setup.",
+      "revId": "dbf716e873e039b1135b53186aa9896bcf794a89",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
