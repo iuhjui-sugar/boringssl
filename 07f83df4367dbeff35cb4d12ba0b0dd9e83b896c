@@ -16,6 +16,24 @@
       "revId": "07f83df4367dbeff35cb4d12ba0b0dd9e83b896c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "262274ef_a9e4f8aa",
+        "filename": "ssl/ssl_buffer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-02T20:54:34Z",
+      "side": 1,
+      "message": "Let\u0027s null it unconditionally. I think you\u0027re right it doesn\u0027t need to be initialized, but it shouldn\u0027t really cost anything and better not the risk the compiler\u0027s wrath with uninitialized stuff.",
+      "parentUuid": "89ed6f9e_405980d0",
+      "revId": "07f83df4367dbeff35cb4d12ba0b0dd9e83b896c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
