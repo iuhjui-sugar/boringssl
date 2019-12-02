@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8dd85c88_51b0acfb",
+        "filename": "crypto/test/asm/trampoline-ppc.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-02T22:51:05Z",
+      "side": 1,
+      "message": "Oh, I just copied this from another file. Although probably the iOS bit can be removed because iOS on PPC is not a thing.\n\nI believe the issue was that, when linking statically, the linker indeed drops unused object files. But when linking dynamically, you need to prod it before it walks the graph of shared-library-visible symbols and shared-library-private symbols.",
+      "parentUuid": "1ac23382_728947d4",
+      "revId": "dbf716e873e039b1135b53186aa9896bcf794a89",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e4bac6ad_f6463d50",
         "filename": "crypto/test/asm/trampoline-ppc.pl",
         "patchSetId": 1
