@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "1ac23382_728947d4",
+        "filename": "crypto/test/asm/trampoline-ppc.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-12-02T22:05:31Z",
+      "side": 1,
+      "message": "(aside: --gc-sections can\u0027t matter, right? That flag depends on each function going into separate sections but this source doesn\u0027t do that. Instead the whole object file should be discardable by the linker, I think, which is the traditional dead-code elimination that I think GCC/Clang toolchains do by default.)",
+      "revId": "dbf716e873e039b1135b53186aa9896bcf794a89",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e4bac6ad_f6463d50",
         "filename": "crypto/test/asm/trampoline-ppc.pl",
         "patchSetId": 1
