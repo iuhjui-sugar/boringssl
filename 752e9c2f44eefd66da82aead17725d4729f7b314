@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "aa828824_1a6d1d8c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2019-12-03T23:17:20Z",
+      "side": 1,
+      "message": "runner tests it, yes.  It\u0027s not so much that it\u0027s faster is it is easier to debug because it\u0027s all in one process.",
+      "parentUuid": "814d6329_31c27e36",
+      "revId": "752e9c2f44eefd66da82aead17725d4729f7b314",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b0066d4b_fdee72a7",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "752e9c2f44eefd66da82aead17725d4729f7b314",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61f60edd_218e390f",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4188,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2019-12-03T23:17:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0066d4b_fdee72a7",
+      "revId": "752e9c2f44eefd66da82aead17725d4729f7b314",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -56,6 +92,30 @@
       "revId": "752e9c2f44eefd66da82aead17725d4729f7b314",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74e88425_3bf172aa",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4253,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2019-12-03T23:17:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "637ff544_0fb8da94",
+      "range": {
+        "startLine": 4253,
+        "startChar": 4,
+        "endLine": 4253,
+        "endChar": 10
+      },
+      "revId": "752e9c2f44eefd66da82aead17725d4729f7b314",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
