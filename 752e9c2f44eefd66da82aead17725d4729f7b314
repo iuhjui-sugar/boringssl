@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "814d6329_31c27e36",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-03T21:53:03Z",
+      "side": 1,
+      "message": "I would hope runner also tests it. Is the idea just that this is a faster sanity-check?",
+      "revId": "752e9c2f44eefd66da82aead17725d4729f7b314",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0066d4b_fdee72a7",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4188,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-03T21:53:03Z",
+      "side": 1,
+      "message": "Perhaps:\n\nfor (int i \u003d 0; i \u003c 2; i++) {\n  bool is_resume \u003d i \u003e 0;\n  // ... most of the code is the same ...\n  if (is_resume) {\n     config.session \u003d ....\n  }\n  // ... most of the code is the same ...\n  EXPECT_EQ(is_resume, SSL_session_reused(client.get()))\n  // ... most of the code is the same ...\n}",
+      "revId": "752e9c2f44eefd66da82aead17725d4729f7b314",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "637ff544_0fb8da94",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4253,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-03T21:53:03Z",
+      "side": 1,
+      "message": "Nit: ASSERT_TRUE should work too and give nicer GTest output.",
+      "range": {
+        "startLine": 4253,
+        "startChar": 4,
+        "endLine": 4253,
+        "endChar": 10
+      },
+      "revId": "752e9c2f44eefd66da82aead17725d4729f7b314",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
