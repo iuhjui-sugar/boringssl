@@ -16,6 +16,24 @@
       "revId": "a1430b722e3f35eaa3ec5ea56dfcb736f14d5fe6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "99d9dfda_2d9003f6",
+        "filename": "util/fipstools/inject_hash/inject_hash.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 9785
+      },
+      "writtenOn": "2019-12-03T06:18:30Z",
+      "side": 1,
+      "message": "Oh, thanks. replaced it with os.Stat().",
+      "parentUuid": "280a9007_156b4452",
+      "revId": "a1430b722e3f35eaa3ec5ea56dfcb736f14d5fe6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
