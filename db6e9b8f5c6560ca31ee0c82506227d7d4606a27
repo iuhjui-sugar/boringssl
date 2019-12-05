@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e2068721_1a86a96a",
+        "filename": "ssl/ssl_x509.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-12-05T23:47:34Z",
+      "side": 1,
+      "message": "(nit: assert that the flag isn\u0027t set or abort if it is? Don\u0027t see a reason to be silently permissive.)",
+      "revId": "db6e9b8f5c6560ca31ee0c82506227d7d4606a27",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
