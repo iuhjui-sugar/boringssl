@@ -803,23 +803,22 @@ static void poly3_invert_vec(struct poly3 *out, const struct poly3 *in) {
   memcpy(&g_a, &in_reversed.a.v, WORDS_PER_POLY * sizeof(crypto_word_t));
 
   int delta = 1;
+  vec_t delta_is_positive = vec_broadcast_bit(kOne);
 
   for (size_t i = 0; i < (2*(N-1)) - 1; i++) {
     poly3_vec_lshift1(v_s, v_a);
 
-    const crypto_word_t delta_sign_bit = (delta >> (sizeof(delta) * 8 - 1)) & 1;
-    const crypto_word_t delta_is_non_negative = delta_sign_bit - 1;
-    const crypto_word_t delta_is_non_zero = ~constant_time_is_zero_w(delta);
     const vec_t g_has_constant_term = vec_broadcast_bit(g_a[0]);
-    const vec_t mask_w =
-        {delta_is_non_negative & delta_is_non_zero};
-    const vec_t mask = vec_broadcast_bit(mask_w) & g_has_constant_term;
+    const vec_t mask = delta_is_positive & g_has_constant_term;
 
     const vec_t c_a = vec_broadcast_bit(f_a[0] & g_a[0]);
     const vec_t c_s = vec_broadcast_bit((f_s[0] ^ g_s[0]) & c_a);
 
     delta = constant_time_select_int(lsb_to_all(mask[0]), -delta, delta);
+    const vec_t delta_zero_w = {constant_time_is_zero_w(delta)};
+    const vec_t delta_zero = vec_broadcast_bit(delta_zero_w);
     delta++;
+    delta_is_positive = (mask ^ delta_is_positive) | (~mask & delta_zero);
 
     poly3_vec_cswap(f_s, f_a, g_s, g_a, mask);
     poly3_vec_fmsub(g_s, g_a, f_s, f_a, c_s, c_a);
@@ -864,16 +863,13 @@ void HRSS_poly3_invert(struct poly3 *out, const struct poly3 *in) {
   // g is the reversal of |in|.
   poly3_reverse_700(&g, in);
   int delta = 1;
+  crypto_word_t delta_is_positive = CONSTTIME_TRUE_W;
 
   for (size_t i = 0; i < (2*(N-1)) - 1; i++) {
     poly3_lshift1(&v);
 
-    const crypto_word_t delta_sign_bit = (delta >> (sizeof(delta) * 8 - 1)) & 1;
-    const crypto_word_t delta_is_non_negative = delta_sign_bit - 1;
-    const crypto_word_t delta_is_non_zero = ~constant_time_is_zero_w(delta);
     const crypto_word_t g_has_constant_term = lsb_to_all(g.a.v[0]);
-    const crypto_word_t mask =
-        g_has_constant_term & delta_is_non_negative & delta_is_non_zero;
+    const crypto_word_t mask = g_has_constant_term & delta_is_positive;
 
     crypto_word_t c_s, c_a;
     poly3_word_mul(&c_s, &c_a, f.s.v[0], f.a.v[0], g.s.v[0], g.a.v[0]);
@@ -881,7 +877,9 @@ void HRSS_poly3_invert(struct poly3 *out, const struct poly3 *in) {
     c_a = lsb_to_all(c_a);
 
     delta = constant_time_select_int(mask, -delta, delta);
+    const crypto_word_t delta_zero = constant_time_is_zero_w(delta);
     delta++;
+    delta_is_positive = (mask ^ delta_is_positive) | (~mask & delta_zero);
 
     poly3_cswap(&f, &g, mask);
     poly3_fmsub(&g, &f, c_s, c_a);
@@ -1517,21 +1515,20 @@ static void poly_invert_mod2(struct poly *out, const struct poly *in) {
   poly2_mod_phiN(&g);
   poly2_reverse_700(&g, &g);
   int delta = 1;
+  crypto_word_t delta_is_positive = CONSTTIME_TRUE_W;
 
   for (size_t i = 0; i < (2*(N-1)) - 1; i++) {
     poly2_lshift1(&v);
 
-    const crypto_word_t delta_sign_bit = (delta >> (sizeof(delta) * 8 - 1)) & 1;
-    const crypto_word_t delta_is_non_negative = delta_sign_bit - 1;
-    const crypto_word_t delta_is_non_zero = ~constant_time_is_zero_w(delta);
     const crypto_word_t g_has_constant_term = lsb_to_all(g.v[0]);
-    const crypto_word_t mask =
-        g_has_constant_term & delta_is_non_negative & delta_is_non_zero;
+    const crypto_word_t mask = g_has_constant_term & delta_is_positive;
 
     const crypto_word_t c = lsb_to_all(f.v[0] & g.v[0]);
 
     delta = constant_time_select_int(mask, -delta, delta);
+    const crypto_word_t delta_zero = constant_time_is_zero_w(delta);
     delta++;
+    delta_is_positive = (mask ^ delta_is_positive) | (~mask & delta_zero);
 
     poly2_cswap(&f, &g, mask);
     poly2_fmadd(&g, &f, c);
