@@ -1,0 +1,347 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "53d4b1f9_b22667b9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-10T21:39:20Z",
+      "side": 1,
+      "message": "Having not gotten through the paper, I shall take your word on it. :-)",
+      "range": {
+        "startLine": 9,
+        "startChar": 41,
+        "endLine": 9,
+        "endChar": 48
+      },
+      "revId": "51b8dd602716fb53cfcbbcb22629e51cd40598c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "daddacef_cf3b31d5",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 786,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-10T21:39:20Z",
+      "side": 1,
+      "message": "(Didn\u0027t make it all the way through the paper. Just skipped to section 7.1 for now and assumed it\u0027s right.)",
+      "revId": "51b8dd602716fb53cfcbbcb22629e51cd40598c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2e3dc546_ed71e857",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 797,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-10T21:39:20Z",
+      "side": 1,
+      "message": "Nit: r_s and r_a?",
+      "range": {
+        "startLine": 797,
+        "startChar": 25,
+        "endLine": 797,
+        "endChar": 27
+      },
+      "revId": "51b8dd602716fb53cfcbbcb22629e51cd40598c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84406c07_fa955126",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 801,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-10T21:39:20Z",
+      "side": 1,
+      "message": "Nit: f_s",
+      "range": {
+        "startLine": 801,
+        "startChar": 24,
+        "endLine": 801,
+        "endChar": 27
+      },
+      "revId": "51b8dd602716fb53cfcbbcb22629e51cd40598c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "305eac4c_cb6f1760",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 819,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-10T21:39:20Z",
+      "side": 1,
+      "message": "This is casting delta to crypto_word_t and then doing a comparison. It seems this is really computing delta_is_nonzero, which is probably more efficiently done as constant_time_is_zero_w(delta) anyway.",
+      "range": {
+        "startLine": 819,
+        "startChar": 44,
+        "endLine": 819,
+        "endChar": 72
+      },
+      "revId": "51b8dd602716fb53cfcbbcb22629e51cd40598c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a116867c_ac2e7a60",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 820,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-10T21:39:20Z",
+      "side": 1,
+      "message": "The \u0026 kOne is a no-op,isn\u0027t it?",
+      "range": {
+        "startLine": 820,
+        "startChar": 62,
+        "endLine": 820,
+        "endChar": 69
+      },
+      "revId": "51b8dd602716fb53cfcbbcb22629e51cd40598c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2014605_f4f5ddca",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 828,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-10T21:39:20Z",
+      "side": 1,
+      "message": "There\u0027s some silliness here around bit broadcasting. Modulo word-sizes, this lsb_to_all is broadcasting an already-broadcasted bit.\n\nThen we have delta_sign_bit being only valid in the LSB, but the constant_time_* functions broadcast to all bits. And then vec_broadcast_bit is broadcasting it again as a vec_t and then this is broadcasting yet again as a crypto_word_t.\n\nWhat if we computed delta_sign_bit with ~constant_time_msb_w() or the -1 thing below? Then mask_w could be a crypto_word_t and be pre-broadcasted, avoiding the lsb_to_all here. We don\u0027t have a vec_broadcast_word, so there\u0027s an extra broadcast there, but ah well.",
+      "range": {
+        "startLine": 828,
+        "startChar": 37,
+        "endLine": 828,
+        "endChar": 47
+      },
+      "revId": "51b8dd602716fb53cfcbbcb22629e51cd40598c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d6c162f_ea74333f",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 833,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-10T21:39:20Z",
+      "side": 1,
+      "message": "Mostly for myself: this can never underflow because f(0) !\u003d 0 throughout this algorithm (it starts out true, and we only swap if it would stay true). If f(0) !\u003d 0, that means f(0)*f(0) \u003d 1 and so (g-cf)(0) \u003d g(0) - g(0)*f(0)*f(0) \u003d 0.",
+      "revId": "51b8dd602716fb53cfcbbcb22629e51cd40598c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "15165108_30730b2c",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 839,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-10T21:39:20Z",
+      "side": 1,
+      "message": "This assertion requires that we never pass a non-invertible vector into this function. It\u0027s been a while since I remembered how this works... this is fine because we always sample keys out of T+, right?",
+      "revId": "51b8dd602716fb53cfcbbcb22629e51cd40598c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff3ba0d9_ce4e7ece",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 841,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-10T21:39:20Z",
+      "side": 1,
+      "message": "I assume \u0026\u003d 1 does sensible things with vec_t and doesn\u0027t replicate 1 to all lanes or so? I don\u0027t really understand how operations on vector intrinsics work. :-)\n\nActually, are these even needed? f is only passed into lsb_to_all below.",
+      "revId": "51b8dd602716fb53cfcbbcb22629e51cd40598c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f43f98a_1f3385de",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 844,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-10T21:39:20Z",
+      "side": 1,
+      "message": "poly3_mul_const already internally does lsb_to_all. (Noticed this because the non-vector version relies on this already.)",
+      "range": {
+        "startLine": 844,
+        "startChar": 23,
+        "endLine": 844,
+        "endChar": 33
+      },
+      "revId": "51b8dd602716fb53cfcbbcb22629e51cd40598c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41de8cd3_0d8bc8a7",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 844,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-10T21:39:20Z",
+      "side": 1,
+      "message": "Elsewhere this uses vec_get_word. (I forget what platform was the cause.)",
+      "range": {
+        "startLine": 844,
+        "startChar": 40,
+        "endLine": 844,
+        "endChar": 43
+      },
+      "revId": "51b8dd602716fb53cfcbbcb22629e51cd40598c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ec226d5_537d6c13",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-10T21:39:20Z",
+      "side": 1,
+      "message": "Same as above: this is really delta_is_non_zero and may as well be computed as such.",
+      "range": {
+        "startLine": 882,
+        "startChar": 24,
+        "endLine": 882,
+        "endChar": 41
+      },
+      "revId": "51b8dd602716fb53cfcbbcb22629e51cd40598c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33f85614_41ad5217",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-10T21:39:20Z",
+      "side": 1,
+      "message": "lsb_to_all(g.a.v[0])?",
+      "revId": "51b8dd602716fb53cfcbbcb22629e51cd40598c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "585468f0_79517492",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1514,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-10T21:39:20Z",
+      "side": 1,
+      "message": "Section 7.1 talks about inverting mod 3. I assume it generalizes in the natural way?",
+      "revId": "51b8dd602716fb53cfcbbcb22629e51cd40598c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed3cfd80_929863b1",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1540,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-10T21:39:20Z",
+      "side": 1,
+      "message": "(Same comments as above.)",
+      "revId": "51b8dd602716fb53cfcbbcb22629e51cd40598c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c68a8005_baae6c8d",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1555,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-10T21:39:20Z",
+      "side": 1,
+      "message": "I assume we never actually invert an uninvertible thing here either?",
+      "revId": "51b8dd602716fb53cfcbbcb22629e51cd40598c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
