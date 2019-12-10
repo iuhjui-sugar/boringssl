@@ -437,6 +437,37 @@ int CBS_get_asn1_uint64(CBS *cbs, uint64_t *out) {
   return 1;
 }
 
+int CBS_get_asn1_int64(CBS *cbs, int64_t *out) {
+  CBS bytes;
+  if (!CBS_get_asn1(cbs, &bytes, CBS_ASN1_INTEGER)) {
+    return 0;
+  }
+
+  const uint8_t *data = CBS_data(&bytes);
+  size_t len = CBS_len(&bytes);
+
+  if (len == 0 || len > 8) {
+    // An INTEGER is encoded with at least one octet.
+    return 0;
+  }
+
+  if (data[0] == 0 && len > 1 && (data[1] & 0x80) == 0) {
+    // Extra leading zeros.
+    return 0;
+  }
+
+  const int is_negative = (data[0] & 0x80);
+  uint8_t b[8];
+  memset(b, is_negative ? 0xff : 0, sizeof(b));  // Sign-extend.
+  for (size_t i = 0; i < len; i++) {
+    b[i] = data[len - i - 1];
+  }
+  // Probably not legal C++, but I am not smart enough to write legal C++.
+  *out = *((int64_t *) &b);
+
+  return 1;
+}
+
 int CBS_get_asn1_bool(CBS *cbs, int *out) {
   CBS bytes;
   if (!CBS_get_asn1(cbs, &bytes, CBS_ASN1_BOOLEAN) ||
