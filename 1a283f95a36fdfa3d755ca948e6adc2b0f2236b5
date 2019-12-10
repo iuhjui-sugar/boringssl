@@ -1,0 +1,169 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f254a246_b75dc3dc",
+        "filename": "crypto/bytestring/cbb.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-12-10T23:34:08Z",
+      "side": 1,
+      "message": "(Drop comment.)",
+      "revId": "1a283f95a36fdfa3d755ca948e6adc2b0f2236b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e20f7161_23b8a616",
+        "filename": "crypto/bytestring/cbb.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-12-10T23:34:08Z",
+      "side": 1,
+      "message": "I think, technically, this is type punning and the following would be more spec friendly:\n\nunion {\n  int64_t i;\n  uint8_t bytes[8];\n} u;\nu.i \u003d value;\n\nThen work with |u.bytes|",
+      "revId": "1a283f95a36fdfa3d755ca948e6adc2b0f2236b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "523a80d5_c8b4308f",
+        "filename": "crypto/bytestring/cbb.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-12-10T23:34:08Z",
+      "side": 1,
+      "message": "mixing signed (|i|) and unsigned (|start|) here. Either make |start| an int, or else do:\n\nfor (size_t i \u003d start; i \u003c\u003d start; i--)",
+      "revId": "1a283f95a36fdfa3d755ca948e6adc2b0f2236b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dde15995_51f148c8",
+        "filename": "crypto/bytestring/cbb.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-12-10T23:34:08Z",
+      "side": 1,
+      "message": "I don\u0027t know if it\u0027s cleaner, but another thought:\n\nconst uint64_t v \u003d CRYPTO_bswap8(value);\nuint8_t bytes[sizeof(v)];\nmemcpy(bytes, \u0026v, sizeof(v));\n\nsize_t offset \u003d 0;\nwhile (offset \u003c 8 \u0026\u0026 bytes[offset] \u003d\u003d 0xff \u0026\u0026 (bytes[offset+1] \u0026 0x80)) {\n  offset++;\n}\n\nreturn CBB_add_bytes(\u0026child, \u0026bytes[offset], sizeof(bytes) - offset);",
+      "revId": "1a283f95a36fdfa3d755ca948e6adc2b0f2236b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa56ce88_8542ad50",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-12-10T23:34:08Z",
+      "side": 1,
+      "message": "sizeof(int64_t)",
+      "range": {
+        "startLine": 449,
+        "startChar": 24,
+        "endLine": 449,
+        "endChar": 25
+      },
+      "revId": "1a283f95a36fdfa3d755ca948e6adc2b0f2236b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34a93197_76360a36",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-12-10T23:34:08Z",
+      "side": 1,
+      "message": "should also forbid superfluous leading 0xff.",
+      "revId": "1a283f95a36fdfa3d755ca948e6adc2b0f2236b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52b77802_34a9c57a",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-12-10T23:34:08Z",
+      "side": 1,
+      "message": "sizeof(int64_t) to be clear.",
+      "range": {
+        "startLine": 460,
+        "startChar": 12,
+        "endLine": 460,
+        "endChar": 13
+      },
+      "revId": "1a283f95a36fdfa3d755ca948e6adc2b0f2236b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ca2a480_7bed1344",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-12-10T23:34:08Z",
+      "side": 1,
+      "message": "drop comment.\n\n(It\u0027s actually fine. A union is the other option.)",
+      "revId": "1a283f95a36fdfa3d755ca948e6adc2b0f2236b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "922add58_346cdfe8",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-12-10T23:34:08Z",
+      "side": 1,
+      "message": "s/8/sizeof(*out)/",
+      "revId": "1a283f95a36fdfa3d755ca948e6adc2b0f2236b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
