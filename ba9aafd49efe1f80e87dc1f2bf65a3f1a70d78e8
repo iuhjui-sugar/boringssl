@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3ef849aa_ce6a931f",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2019-12-10T21:21:09Z",
+      "side": 1,
+      "message": "SSL_apply_handoff() calls SSL_set_accept_state().  I believe the thinking was that the \"apply\" functions should operate on pristine objects.  So there isn\u0027t a requirement that |server| be set.",
+      "parentUuid": "ffce16b2_e4de0776",
+      "revId": "ba9aafd49efe1f80e87dc1f2bf65a3f1a70d78e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2e9e20fd_8ce35f4a",
         "filename": "ssl/handoff.cc",
         "patchSetId": 3
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "03dda72f_6da204b4",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2019-12-10T21:21:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e9e20fd_8ce35f4a",
+      "revId": "ba9aafd49efe1f80e87dc1f2bf65a3f1a70d78e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "198cf248_44280549",
         "filename": "ssl/handoff.cc",
         "patchSetId": 3
@@ -50,6 +86,24 @@
       "revId": "ba9aafd49efe1f80e87dc1f2bf65a3f1a70d78e8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fab8a02_30faef07",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2019-12-10T21:21:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "198cf248_44280549",
+      "revId": "ba9aafd49efe1f80e87dc1f2bf65a3f1a70d78e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -88,6 +142,24 @@
     },
     {
       "key": {
+        "uuid": "16550222_21f47bd2",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2019-12-10T21:21:09Z",
+      "side": 1,
+      "message": "I\u0027ll just remove the check.  I don\u0027t think it serves a purpose any more.",
+      "parentUuid": "32b29476_973b8c0f",
+      "revId": "ba9aafd49efe1f80e87dc1f2bf65a3f1a70d78e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bc6db4e6_911e7093",
         "filename": "ssl/handoff.cc",
         "patchSetId": 3
@@ -105,6 +177,24 @@
     },
     {
       "key": {
+        "uuid": "7613eba9_d640cf19",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2019-12-10T21:21:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc6db4e6_911e7093",
+      "revId": "ba9aafd49efe1f80e87dc1f2bf65a3f1a70d78e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d94848b5_c3514f61",
         "filename": "ssl/handoff.cc",
         "patchSetId": 3
@@ -119,6 +209,24 @@
       "revId": "ba9aafd49efe1f80e87dc1f2bf65a3f1a70d78e8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8dee07e0_26feba2a",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2019-12-10T21:21:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d94848b5_c3514f61",
+      "revId": "ba9aafd49efe1f80e87dc1f2bf65a3f1a70d78e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -157,6 +265,24 @@
     },
     {
       "key": {
+        "uuid": "2d478ea1_8b387bdf",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2019-12-10T21:21:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9c5672b_160ded7c",
+      "revId": "ba9aafd49efe1f80e87dc1f2bf65a3f1a70d78e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "744aa22f_2ffa1ca9",
         "filename": "ssl/handoff.cc",
         "patchSetId": 3
@@ -171,6 +297,24 @@
       "revId": "ba9aafd49efe1f80e87dc1f2bf65a3f1a70d78e8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2cfdd06_0f8b672b",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2019-12-10T21:21:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "744aa22f_2ffa1ca9",
+      "revId": "ba9aafd49efe1f80e87dc1f2bf65a3f1a70d78e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -197,6 +341,30 @@
     },
     {
       "key": {
+        "uuid": "3b3471d1_0aceebeb",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 471,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2019-12-10T21:21:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4093b70c_5cc520e2",
+      "range": {
+        "startLine": 471,
+        "startChar": 11,
+        "endLine": 471,
+        "endChar": 17
+      },
+      "revId": "ba9aafd49efe1f80e87dc1f2bf65a3f1a70d78e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "98a82fde_e854e139",
         "filename": "ssl/handoff.cc",
         "patchSetId": 3
@@ -220,6 +388,30 @@
     },
     {
       "key": {
+        "uuid": "7b1a6944_c4de2e9b",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2019-12-10T21:21:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "98a82fde_e854e139",
+      "range": {
+        "startLine": 484,
+        "startChar": 12,
+        "endLine": 484,
+        "endChar": 30
+      },
+      "revId": "ba9aafd49efe1f80e87dc1f2bf65a3f1a70d78e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "10ec43d1_74af112c",
         "filename": "ssl/handoff.cc",
         "patchSetId": 3
@@ -231,6 +423,24 @@
       "writtenOn": "2019-12-09T20:34:11Z",
       "side": 1,
       "message": "I believe this works, but note that it only does because these are the first records sent and received at their particular epochs. Otherwise you need to synchronize the sequence numbers too.\n\n0-RTT may be interesting. We currently send those tickets (app data keys) half-RTT, though there\u0027s no particular guarantee that we do. I\u0027m not sure if it makes more sense to cut before the tickets or after. In all other modes, the ticket minting callback runs after handback, so cutting before may be better for consistency.",
+      "revId": "ba9aafd49efe1f80e87dc1f2bf65a3f1a70d78e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3cb2b42_85dc6044",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2019-12-10T21:21:09Z",
+      "side": 1,
+      "message": "\u003e I believe this works, but note that it only does because these are the first records sent and received at their particular epochs. Otherwise you need to synchronize the sequence numbers too.\n\nWould that look like setting s3-\u003eread_sequence and s3-\u003ewrite_sequence, as done above, in the handback_tls13 case?\n\n\u003e 0-RTT may be interesting. We currently send those tickets (app data keys) half-RTT, though there\u0027s no particular guarantee that we do. I\u0027m not sure if it makes more sense to cut before the tickets or after. In all other modes, the ticket minting callback runs after handback, so cutting before may be better for consistency.\n\nI\u0027m afraid I don\u0027t follow all that, because I\u0027ve postponed trying to understand 0RTT and early data in order to get something minimal working.  Can I leave this comment for later or does it have implications for the present commit?",
+      "parentUuid": "10ec43d1_74af112c",
       "revId": "ba9aafd49efe1f80e87dc1f2bf65a3f1a70d78e8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
