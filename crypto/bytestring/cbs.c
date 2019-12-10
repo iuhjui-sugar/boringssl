@@ -437,6 +437,51 @@ int CBS_get_asn1_uint64(CBS *cbs, uint64_t *out) {
   return 1;
 }
 
+int CBS_get_asn1_int64(CBS *cbs, int64_t *out) {
+  CBS bytes;
+  if (!CBS_get_asn1(cbs, &bytes, CBS_ASN1_INTEGER)) {
+    return 0;
+  }
+
+  const uint8_t *data = CBS_data(&bytes);
+  size_t len = CBS_len(&bytes);
+
+  if (len == 0 || len > 8) {
+    // An INTEGER is encoded with at least one octet.
+    return 0;
+  }
+
+  if (data[0] == 0 && len > 1 && (data[1] & 0x80) == 0) {
+    // Extra leading zeros.
+    return 0;
+  }
+
+  uint64_t val = 0;
+  const int is_negative = (data[0] & 0x80);
+  if (is_negative) {
+    // Sign-extend negative number.
+    for (size_t i = 0; i < (8 - len); i++) {
+      val <<= 8;
+      val |= 0xff;
+    }
+  }
+  for (size_t i = 0; i < len; i++) {
+    val <<= 8;
+    val |= data[i];
+  }
+
+  if (is_negative) {
+    val = ~val + 1;
+    assert(val <= (uint64_t)INT64_MIN);
+    *out = (int64_t)-val;
+  } else {
+    assert(val <= (uint64_t)INT64_MAX);
+    *out = (int64_t)val;
+  }
+
+  return 1;
+}
+
 int CBS_get_asn1_bool(CBS *cbs, int *out) {
   CBS bytes;
   if (!CBS_get_asn1(cbs, &bytes, CBS_ASN1_BOOLEAN) ||
