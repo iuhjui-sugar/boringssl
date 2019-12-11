@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "0c2cb5c0_bb716069",
+        "filename": "crypto/bytestring/cbb.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2019-12-11T01:07:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f254a246_b75dc3dc",
+      "revId": "1a283f95a36fdfa3d755ca948e6adc2b0f2236b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e20f7161_23b8a616",
         "filename": "crypto/bytestring/cbb.c",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "1a283f95a36fdfa3d755ca948e6adc2b0f2236b5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9be7be5f_81f963d8",
+        "filename": "crypto/bytestring/cbb.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2019-12-11T01:07:07Z",
+      "side": 1,
+      "message": "Done.  (Though as I understand it, punning is allowed in this direction, i.e. when you\u0027re going to a char type.  Doubtless I have misunderstood.)",
+      "parentUuid": "e20f7161_23b8a616",
+      "revId": "1a283f95a36fdfa3d755ca948e6adc2b0f2236b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "bf6fb09a_6138fb2b",
+        "filename": "crypto/bytestring/cbb.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2019-12-11T01:07:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "523a80d5_c8b4308f",
+      "revId": "1a283f95a36fdfa3d755ca948e6adc2b0f2236b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dde15995_51f148c8",
         "filename": "crypto/bytestring/cbb.c",
         "patchSetId": 3
@@ -67,6 +121,24 @@
       "revId": "1a283f95a36fdfa3d755ca948e6adc2b0f2236b5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19c74226_0f0a8647",
+        "filename": "crypto/bytestring/cbb.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2019-12-11T01:07:07Z",
+      "side": 1,
+      "message": "The union seems okay to me.",
+      "parentUuid": "dde15995_51f148c8",
+      "revId": "1a283f95a36fdfa3d755ca948e6adc2b0f2236b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -93,6 +165,30 @@
     },
     {
       "key": {
+        "uuid": "6ed3c0b0_2eb22199",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2019-12-11T01:07:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa56ce88_8542ad50",
+      "range": {
+        "startLine": 449,
+        "startChar": 24,
+        "endLine": 449,
+        "endChar": 25
+      },
+      "revId": "1a283f95a36fdfa3d755ca948e6adc2b0f2236b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "34a93197_76360a36",
         "filename": "crypto/bytestring/cbs.c",
         "patchSetId": 3
@@ -107,6 +203,24 @@
       "revId": "1a283f95a36fdfa3d755ca948e6adc2b0f2236b5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef890ca5_89011d8b",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2019-12-11T01:07:07Z",
+      "side": 1,
+      "message": "Right you are.  Added a test for that too.",
+      "parentUuid": "34a93197_76360a36",
+      "revId": "1a283f95a36fdfa3d755ca948e6adc2b0f2236b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -133,6 +247,30 @@
     },
     {
       "key": {
+        "uuid": "84e28656_d835e3ae",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2019-12-11T01:07:07Z",
+      "side": 1,
+      "message": "Done, and also used the same union here.",
+      "parentUuid": "52b77802_34a9c57a",
+      "range": {
+        "startLine": 460,
+        "startChar": 12,
+        "endLine": 460,
+        "endChar": 13
+      },
+      "revId": "1a283f95a36fdfa3d755ca948e6adc2b0f2236b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ca2a480_7bed1344",
         "filename": "crypto/bytestring/cbs.c",
         "patchSetId": 3
@@ -150,6 +288,24 @@
     },
     {
       "key": {
+        "uuid": "451d5d31_570d183e",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2019-12-11T01:07:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ca2a480_7bed1344",
+      "revId": "1a283f95a36fdfa3d755ca948e6adc2b0f2236b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "922add58_346cdfe8",
         "filename": "crypto/bytestring/cbs.c",
         "patchSetId": 3
@@ -164,6 +320,24 @@
       "revId": "1a283f95a36fdfa3d755ca948e6adc2b0f2236b5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eef68612_e327de81",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2019-12-11T01:07:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "922add58_346cdfe8",
+      "revId": "1a283f95a36fdfa3d755ca948e6adc2b0f2236b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
