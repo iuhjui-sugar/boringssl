@@ -625,7 +625,7 @@ int EVP_PKEY_CTX_get_rsa_mgf1_md(EVP_PKEY_CTX *ctx, const EVP_MD **out_md) {
                            EVP_PKEY_CTRL_GET_RSA_MGF1_MD, 0, (void*) out_md);
 }
 
-int EVP_PKEY_CTX_set0_rsa_oaep_label(EVP_PKEY_CTX *ctx, uint8_t *label,
+int EVP_PKEY_CTX_set0_rsa_oaep_label(EVP_PKEY_CTX *ctx, unsigned char *label,
                                      size_t label_len) {
   RSA_OAEP_LABEL_PARAMS params = {label, label_len};
   return EVP_PKEY_CTX_ctrl(ctx, EVP_PKEY_RSA, EVP_PKEY_OP_TYPE_CRYPT,
