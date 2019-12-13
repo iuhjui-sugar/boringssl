@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1bb7fc79_c4db9566",
+        "filename": "ssl/test/mock_quic_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 6825
+      },
+      "writtenOn": "2019-12-13T18:58:08Z",
+      "side": 1,
+      "message": "This doesn\u0027t compile on windows (signed/unsigned mismatch). Should I replace std::numeric_limits\u003cint\u003e::max() with INT_MAX, or should I cast the max to unsigned int? (I assume if I cast to resolve the signed/unsigned mismatch, I should cast signed to unsigned.)",
+      "revId": "98f7259ef0fe986ecfebdd7ca147f5d60e1cb845",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
