@@ -1,0 +1,432 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5eb1fd84_f473ad80",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-13T00:04:24Z",
+      "side": 1,
+      "message": "Stray change? (Not sure the old code is right per the style guide either. It\u0027d probably should be the \u003cassert.h\u003e block, then the \u003cfunctional\u003e block, then the \u003copenssl/aead.h\u003e block, then the private headers.)",
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9bcf8af6_4b2128d2",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-13T00:04:24Z",
+      "side": 1,
+      "message": "Nit: Move this block up a line since you don\u0027t use ret.",
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba90a695_7640ff17",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-13T00:04:24Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee19170c_de39dc8a",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-13T00:04:24Z",
+      "side": 1,
+      "message": "SSL_write usually returns -1 on error. That way writing an empty string doesn\u0027t do weird things.",
+      "range": {
+        "startLine": 242,
+        "startChar": 13,
+        "endLine": 242,
+        "endChar": 14
+      },
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43c32567_0f3c3477",
+        "filename": "ssl/test/mock_quic_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-13T00:04:24Z",
+      "side": 1,
+      "message": "Nit: We usually mark everything static instead of use anonymous namespaces.",
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49a1dc57_f7cd20ec",
+        "filename": "ssl/test/mock_quic_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-13T00:04:24Z",
+      "side": 1,
+      "message": "\u003copenssl/span.h\u003e defines Span\u003cuint8_t\u003e which is more fun. :-)",
+      "range": {
+        "startLine": 60,
+        "startChar": 23,
+        "endLine": 60,
+        "endChar": 47
+      },
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1fcbf513_99cdd052",
+        "filename": "ssl/test/mock_quic_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-13T00:04:24Z",
+      "side": 1,
+      "message": "(I\u0027m surprised this is not tripping a signed/unsigned comparison warning.)",
+      "range": {
+        "startLine": 63,
+        "startChar": 11,
+        "endLine": 63,
+        "endChar": 14
+      },
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4dda48b6_cf908697",
+        "filename": "ssl/test/mock_quic_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-13T00:04:24Z",
+      "side": 1,
+      "message": "if (read_secret !\u003d secret)?",
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b888c2d_ebc8ef43",
+        "filename": "ssl/test/mock_quic_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-13T00:04:24Z",
+      "side": 1,
+      "message": "The various QUIC functions should just 0/1 and can be cast into bool directly.",
+      "range": {
+        "startLine": 117,
+        "startChar": 12,
+        "endLine": 117,
+        "endChar": 17
+      },
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1072d23c_7e34bf0e",
+        "filename": "ssl/test/mock_quic_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-13T00:04:24Z",
+      "side": 1,
+      "message": "Nit: clear()?",
+      "range": {
+        "startLine": 129,
+        "startChar": 24,
+        "endLine": 129,
+        "endChar": 34
+      },
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62a61885_4d489480",
+        "filename": "ssl/test/mock_quic_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-13T00:04:24Z",
+      "side": 1,
+      "message": "if (read_secret !\u003d secret)",
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "890340c1_13050eee",
+        "filename": "ssl/test/mock_quic_transport.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-13T00:04:24Z",
+      "side": 1,
+      "message": "Rather than stick size_ts into ints, usually we\u0027d do:\n\n  bool ReadApplicationData(uint8_t *out, size_t *out_len, size_t max_out);\n\nOr perhaps:\n\n  bool ReadApplicationData(bssl::Span\u003cuint8_t\u003e out, size_t *out_len);\n\nEdit: Oh, I guess this comes from the DoRead function in bssl_shim.cc. Hrmf. Things that touch BIO are always a mess with integer types. :-/",
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92a735e5_c1b61f86",
+        "filename": "ssl/test/runner/mock_quic_transport.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-13T00:04:24Z",
+      "side": 1,
+      "message": "Nit: mockQUICTransport and newMockQUICTransport (https://github.com/golang/go/wiki/CodeReviewComments#initialisms)",
+      "range": {
+        "startLine": 28,
+        "startChar": 9,
+        "endLine": 28,
+        "endChar": 13
+      },
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9fca66bf_3c37a6ac",
+        "filename": "ssl/test/runner/mock_quic_transport.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-13T00:04:24Z",
+      "side": 1,
+      "message": "Optional: Does \u0026mockQuicTransport{Conn: conn} work? I find listing fields is a bit clearer, and I imagine the zero value would work here.",
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea128550_d805e9c2",
+        "filename": "ssl/test/runner/mock_quic_transport.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-13T00:04:24Z",
+      "side": 1,
+      "message": "Doesn\u0027t look like you ended up using this or readLength().",
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e553e6bb_04dd576d",
+        "filename": "ssl/test/runner/mock_quic_transport.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-13T00:04:24Z",
+      "side": 1,
+      "message": "Go errors should start lowercase (https://github.com/golang/go/wiki/CodeReviewComments#error-strings)\n\nDitto throughout. Looks like this might be true for panic strings too?",
+      "range": {
+        "startLine": 65,
+        "startChar": 29,
+        "endLine": 65,
+        "endChar": 36
+      },
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df042b20_03078449",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 750,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-13T00:04:24Z",
+      "side": 1,
+      "message": "Since MockQuicTransport makes Read() and Write() panic and otherwise wraps conn, is the purpose of this just to prevent accidental calls? (Not wrong, mostly confirming. Might be worth a quick comment.)",
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7325af21_eb344302",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 4398,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-13T00:04:24Z",
+      "side": 1,
+      "message": "Probably would be handy, but no need to do it here.",
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6d75f4a_14d2e00d",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 4908,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-13T00:04:24Z",
+      "side": 1,
+      "message": "These lines don\u0027t actually do anything yet, right?\n\nI wonder if it\u0027s worth at this point adding vers.supportsProtocol(protocol) or protocol.supportsVersion(vers). Maybe a similar helper for protocol suffixes.",
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ce4c4de_09f086ea",
+        "filename": "ssl/test/test_config.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1141,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-13T00:04:24Z",
+      "side": 1,
+      "message": "Optional: bool to int conversion will also just do the right thing here.",
+      "range": {
+        "startLine": 1141,
+        "startChar": 13,
+        "endLine": 1141,
+        "endChar": 15
+      },
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bcbc5f63_58d3992e",
+        "filename": "ssl/test/test_config.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1158,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-13T00:04:24Z",
+      "side": 1,
+      "message": "Probably worth adding support for this later on so more of the tests work. (No need to do now.)",
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b13aee2_3a035b18",
+        "filename": "ssl/test/test_state.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-13T00:04:24Z",
+      "side": 1,
+      "message": "Nit: I think we usually omit this since unique_ptr initializes to nullptr by default.",
+      "range": {
+        "startLine": 42,
+        "startChar": 51,
+        "endLine": 42,
+        "endChar": 61
+      },
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
