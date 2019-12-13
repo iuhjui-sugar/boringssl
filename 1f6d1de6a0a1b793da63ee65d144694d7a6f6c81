@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "11658e73_9845c3e2",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2019-12-13T01:51:54Z",
+      "side": 1,
+      "message": "This is what clang-format did, but I can put it back to where it was.",
+      "parentUuid": "5eb1fd84_f473ad80",
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9bcf8af6_4b2128d2",
         "filename": "ssl/test/bssl_shim.cc",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "d57ad7c7_8d1079d9",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2019-12-13T01:51:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9bcf8af6_4b2128d2",
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba90a695_7640ff17",
         "filename": "ssl/test/bssl_shim.cc",
         "patchSetId": 1
@@ -50,6 +86,24 @@
       "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f91dab2_c7d93c9e",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2019-12-13T01:51:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba90a695_7640ff17",
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -76,6 +130,30 @@
     },
     {
       "key": {
+        "uuid": "1bcb3633_cd602cbd",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2019-12-13T01:51:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee19170c_de39dc8a",
+      "range": {
+        "startLine": 242,
+        "startChar": 13,
+        "endLine": 242,
+        "endChar": 14
+      },
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "43c32567_0f3c3477",
         "filename": "ssl/test/mock_quic_transport.cc",
         "patchSetId": 1
@@ -87,6 +165,24 @@
       "writtenOn": "2019-12-13T00:04:24Z",
       "side": 1,
       "message": "Nit: We usually mark everything static instead of use anonymous namespaces.",
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "323f33fb_d4066234",
+        "filename": "ssl/test/mock_quic_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2019-12-13T01:51:54Z",
+      "side": 1,
+      "message": "I see anonymous namespaces in async_bio.cc, fuzzer.h, handshaker.cc, packeted_bio.cc, and test_config.cc. How strong is your preference towards marking things static vs using anonymous namespaces?",
+      "parentUuid": "43c32567_0f3c3477",
       "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -116,6 +212,30 @@
     },
     {
       "key": {
+        "uuid": "5d1f6f4b_01b2497f",
+        "filename": "ssl/test/mock_quic_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2019-12-13T01:51:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49a1dc57_f7cd20ec",
+      "range": {
+        "startLine": 60,
+        "startChar": 23,
+        "endLine": 60,
+        "endChar": 47
+      },
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1fcbf513_99cdd052",
         "filename": "ssl/test/mock_quic_transport.cc",
         "patchSetId": 1
@@ -127,6 +247,30 @@
       "writtenOn": "2019-12-13T00:04:24Z",
       "side": 1,
       "message": "(I\u0027m surprised this is not tripping a signed/unsigned comparison warning.)",
+      "range": {
+        "startLine": 63,
+        "startChar": 11,
+        "endLine": 63,
+        "endChar": 14
+      },
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eb76f332_a0daa8ee",
+        "filename": "ssl/test/mock_quic_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2019-12-13T01:51:54Z",
+      "side": 1,
+      "message": "This is cribbed from ReadAll in packetd_bio.cc, but replacing INT_MAX with std::numeric_limits\u003cint\u003e::max(). I\u0027m assuming that\u0027s handling signedness and length checks appropriately.",
+      "parentUuid": "1fcbf513_99cdd052",
       "range": {
         "startLine": 63,
         "startChar": 11,
@@ -156,6 +300,24 @@
     },
     {
       "key": {
+        "uuid": "c6713d9d_556ed4a0",
+        "filename": "ssl/test/mock_quic_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2019-12-13T01:51:54Z",
+      "side": 1,
+      "message": "Didn\u0027t realize I can do that with vectors.",
+      "parentUuid": "4dda48b6_cf908697",
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b888c2d_ebc8ef43",
         "filename": "ssl/test/mock_quic_transport.cc",
         "patchSetId": 1
@@ -176,6 +338,30 @@
       "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e008f0a9_557f8ada",
+        "filename": "ssl/test/mock_quic_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2019-12-13T01:51:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b888c2d_ebc8ef43",
+      "range": {
+        "startLine": 117,
+        "startChar": 12,
+        "endLine": 117,
+        "endChar": 17
+      },
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -202,6 +388,30 @@
     },
     {
       "key": {
+        "uuid": "ed2d22bf_dcc0376a",
+        "filename": "ssl/test/mock_quic_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2019-12-13T01:51:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1072d23c_7e34bf0e",
+      "range": {
+        "startLine": 129,
+        "startChar": 24,
+        "endLine": 129,
+        "endChar": 34
+      },
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "62a61885_4d489480",
         "filename": "ssl/test/mock_quic_transport.cc",
         "patchSetId": 1
@@ -219,6 +429,24 @@
     },
     {
       "key": {
+        "uuid": "8a94e0f9_74d1123e",
+        "filename": "ssl/test/mock_quic_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2019-12-13T01:51:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62a61885_4d489480",
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "890340c1_13050eee",
         "filename": "ssl/test/mock_quic_transport.h",
         "patchSetId": 1
@@ -230,6 +458,24 @@
       "writtenOn": "2019-12-13T00:04:24Z",
       "side": 1,
       "message": "Rather than stick size_ts into ints, usually we\u0027d do:\n\n  bool ReadApplicationData(uint8_t *out, size_t *out_len, size_t max_out);\n\nOr perhaps:\n\n  bool ReadApplicationData(bssl::Span\u003cuint8_t\u003e out, size_t *out_len);\n\nEdit: Oh, I guess this comes from the DoRead function in bssl_shim.cc. Hrmf. Things that touch BIO are always a mess with integer types. :-/",
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09136f72_75c6e90c",
+        "filename": "ssl/test/mock_quic_transport.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2019-12-13T01:51:54Z",
+      "side": 1,
+      "message": "\u003e Rather than stick size_ts into ints, usually we\u0027d do:\n\u003e \n\u003e   bool ReadApplicationData(uint8_t *out, size_t *out_len, size_t max_out);\n\u003e \n\u003e Or perhaps:\n\u003e \n\u003e   bool ReadApplicationData(bssl::Span\u003cuint8_t\u003e out, size_t *out_len);\n\u003e \n\u003e Edit: Oh, I guess this comes from the DoRead function in bssl_shim.cc. Hrmf. Things that touch BIO are always a mess with integer types. :-/\n\nI could change the method signature like that and do the size_t to int conversion in bssl_shim.cc\u0027s DoRead. What\u0027s your preference here?",
+      "parentUuid": "890340c1_13050eee",
       "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -259,6 +505,30 @@
     },
     {
       "key": {
+        "uuid": "20c137ac_c6e935b6",
+        "filename": "ssl/test/runner/mock_quic_transport.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2019-12-13T01:51:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92a735e5_c1b61f86",
+      "range": {
+        "startLine": 28,
+        "startChar": 9,
+        "endLine": 28,
+        "endChar": 13
+      },
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9fca66bf_3c37a6ac",
         "filename": "ssl/test/runner/mock_quic_transport.go",
         "patchSetId": 1
@@ -276,6 +546,24 @@
     },
     {
       "key": {
+        "uuid": "71f4b1c1_94471ecc",
+        "filename": "ssl/test/runner/mock_quic_transport.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2019-12-13T01:51:54Z",
+      "side": 1,
+      "message": "Yes, it works.",
+      "parentUuid": "9fca66bf_3c37a6ac",
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ea128550_d805e9c2",
         "filename": "ssl/test/runner/mock_quic_transport.go",
         "patchSetId": 1
@@ -290,6 +578,24 @@
       "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3948fb8f_9eeac770",
+        "filename": "ssl/test/runner/mock_quic_transport.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2019-12-13T01:51:54Z",
+      "side": 1,
+      "message": "Good catch. Removed.",
+      "parentUuid": "ea128550_d805e9c2",
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -316,6 +622,30 @@
     },
     {
       "key": {
+        "uuid": "157b1d90_e18daad7",
+        "filename": "ssl/test/runner/mock_quic_transport.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2019-12-13T01:51:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e553e6bb_04dd576d",
+      "range": {
+        "startLine": 65,
+        "startChar": 29,
+        "endLine": 65,
+        "endChar": 36
+      },
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "df042b20_03078449",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 1
@@ -330,6 +660,24 @@
       "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c103742a_1bb72559",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 750,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2019-12-13T01:51:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df042b20_03078449",
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -350,6 +698,24 @@
     },
     {
       "key": {
+        "uuid": "c1e40bcd_886353c0",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 4398,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2019-12-13T01:51:54Z",
+      "side": 1,
+      "message": "I plan to follow up on these TODOs and fix whatever issues are needed to get the tests to pass, or explain why QUIC support isn\u0027t needed/doesn\u0027t make sense. (It\u0027s quite possible that errors don\u0027t get handled well when the QUIC transport is used.)",
+      "parentUuid": "7325af21_eb344302",
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c6d75f4a_14d2e00d",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 1
@@ -364,6 +730,24 @@
       "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c7285e3_47b10697",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 4908,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2019-12-13T01:51:54Z",
+      "side": 1,
+      "message": "I\u0027m pretty sure they don\u0027t do anything right now since I\u0027ve disabled these QUIC tests. (I started this CL by putting in QUIC support everywhere I might want it.)\n\nI added a vers.supportsProtocol method - it gets used in 3 places, so that\u0027s probably good enough to justify having its own method.",
+      "parentUuid": "c6d75f4a_14d2e00d",
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -390,6 +774,30 @@
     },
     {
       "key": {
+        "uuid": "5482b3f1_4306aa46",
+        "filename": "ssl/test/test_config.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1141,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2019-12-13T01:51:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ce4c4de_09f086ea",
+      "range": {
+        "startLine": 1141,
+        "startChar": 13,
+        "endLine": 1141,
+        "endChar": 15
+      },
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bcbc5f63_58d3992e",
         "filename": "ssl/test/test_config.cc",
         "patchSetId": 1
@@ -404,6 +812,24 @@
       "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60c9b7f8_f25d5eeb",
+        "filename": "ssl/test/test_config.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1158,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2019-12-13T01:51:54Z",
+      "side": 1,
+      "message": "Added a TODO.",
+      "parentUuid": "bcbc5f63_58d3992e",
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -427,6 +853,30 @@
       "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43c339ac_8e8f2a16",
+        "filename": "ssl/test/test_state.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2019-12-13T01:51:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b13aee2_3a035b18",
+      "range": {
+        "startLine": 42,
+        "startChar": 51,
+        "endLine": 42,
+        "endChar": 61
+      },
+      "revId": "1f6d1de6a0a1b793da63ee65d144694d7a6f6c81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
