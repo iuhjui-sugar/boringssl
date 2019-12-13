@@ -16,6 +16,24 @@
       "revId": "98f7259ef0fe986ecfebdd7ca147f5d60e1cb845",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d42e830_f464a725",
+        "filename": "ssl/test/mock_quic_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-13T20:20:37Z",
+      "side": 1,
+      "message": "No particular preference. INT_MAX is fine I think. Casts are fine too.\n\nBTW, do you have permissions to trigger the CQ? If not, we should fix that...",
+      "parentUuid": "1bb7fc79_c4db9566",
+      "revId": "98f7259ef0fe986ecfebdd7ca147f5d60e1cb845",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
