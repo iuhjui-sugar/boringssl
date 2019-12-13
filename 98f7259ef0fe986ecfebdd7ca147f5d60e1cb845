@@ -34,6 +34,24 @@
       "revId": "98f7259ef0fe986ecfebdd7ca147f5d60e1cb845",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce9ceffb_3b4f0dd0",
+        "filename": "ssl/test/mock_quic_transport.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2019-12-13T20:56:01Z",
+      "side": 1,
+      "message": "I added a cast (so I don\u0027t have to change my #include).\n\nI can +1 CR and CQ in this gerrit instance.",
+      "parentUuid": "8d42e830_f464a725",
+      "revId": "98f7259ef0fe986ecfebdd7ca147f5d60e1cb845",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
