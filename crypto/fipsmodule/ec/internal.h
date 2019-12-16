@@ -313,6 +313,11 @@ int ec_scalar_is_zero(const EC_GROUP *group, const EC_SCALAR *a);
 void ec_scalar_add(const EC_GROUP *group, EC_SCALAR *r, const EC_SCALAR *a,
                    const EC_SCALAR *b);
 
+// ec_scalar_select, in constant time, sets |out| to |a| if |mask| is all ones
+// and |b| if |mask| is all zeros.
+void ec_scalar_select(const EC_GROUP *group, EC_SCALAR *out, BN_ULONG mask,
+                      const EC_SCALAR *a, const EC_SCALAR *b);
+
 // ec_scalar_to_montgomery sets |r| to |a| in Montgomery form.
 void ec_scalar_to_montgomery(const EC_GROUP *group, EC_SCALAR *r,
                              const EC_SCALAR *a);
