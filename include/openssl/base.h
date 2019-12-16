@@ -422,6 +422,8 @@ typedef struct ssl_session_st SSL_SESSION;
 typedef struct ssl_st SSL;
 typedef struct ssl_ticket_aead_method_st SSL_TICKET_AEAD_METHOD;
 typedef struct st_ERR_FNS ERR_FNS;
+typedef struct trust_token_st TRUST_TOKEN;
+typedef struct trust_token_ctx_st TT_CTX;
 typedef struct v3_ext_ctx X509V3_CTX;
 typedef struct x509_attributes_st X509_ATTRIBUTE;
 typedef struct x509_cert_aux_st X509_CERT_AUX;
