@@ -18,16 +18,14 @@
 #include <openssl/err.h>
 #include <openssl/mem.h>
 #include <openssl/nid.h>
+#include <openssl/rand.h>
 #include <openssl/trust_token.h>
 
 #include "../fipsmodule/bn/internal.h"
 #include "../fipsmodule/ec/internal.h"
 
+#include "internal.h"
 
-// Privacy Pass uses a custom elliptic curve construction described in
-// https://eprint.iacr.org/2020/072.pdf (section 7, construction 4). Ths
-// construction provides anonymous tokens with private metadata and validity
-// verification.
 
 // get_h returns a randomly selected point for the Privacy Pass protocol.
 //
@@ -95,6 +93,8 @@ if __name__ == "__main__":
   gen_point(SEED_H)
 */
 
+static const uint8_t kDefaultAdditionalData[32] = {0};
+
 static EC_POINT *get_h(void) {
   EC_GROUP *group = EC_GROUP_new_by_curve_name(NID_secp521r1);
   if (group == NULL) {
@@ -147,7 +147,6 @@ static int generate_keypair(EC_SCALAR *out_x, EC_SCALAR *out_y,
     return 0;
   }
 
-  static const uint8_t kDefaultAdditionalData[32] = {0};
   EC_RAW_POINT tmp1, tmp2;
   EC_POINT *pub = EC_POINT_new(group);
   if (pub == NULL ||
@@ -235,4 +234,199 @@ err:
   EC_POINT_free(pub1);
   EC_POINT_free(pubs);
   return ok;
+}
+
+void PMBTOKEN_PRETOKEN_free(PMBTOKEN_PRETOKEN *pretoken) {
+  OPENSSL_free(pretoken);
+}
+
+void PMBTOKEN_TOKEN_free(PMBTOKEN_TOKEN *token) {
+  OPENSSL_free(token);
+}
+
+static int hash_to_curve(EC_GROUP *group, EC_RAW_POINT *out, uint8_t *in, size_t len) {
+  // TODO: Implement HashToCurve.
+/* Steps: */
+/* 1. u = hash_to_field(msg, 2) */
+/* 2. Q0 = map_to_curve(u[0]) */
+/* 3. Q1 = map_to_curve(u[1]) */
+/* 4. R = Q0 + Q1              # Point addition */
+/* 5. P = clear_cofactor(R) */
+/* 6. return P */
+  *out = get_h()->raw;
+  return 1;
+}
+
+static int hash_t(EC_GROUP *group, EC_RAW_POINT *out,
+                  uint8_t t[PMBTOKEN_NONCE_SIZE]) {
+  uint8_t buf[PMBTOKEN_NONCE_SIZE + 6] = "HashT ";
+  OPENSSL_memcpy(buf+6, t, PMBTOKEN_NONCE_SIZE);
+  return hash_to_curve(group, out, buf, sizeof(buf));
+}
+
+static int hash_s(EC_GROUP *group, EC_RAW_POINT *out, EC_RAW_POINT t,
+                  uint8_t s[PMBTOKEN_NONCE_SIZE]) {
+  EC_POINT *tmp = EC_POINT_new(group);
+  if (tmp == NULL) {
+    OPENSSL_PUT_ERROR(TRUST_TOKEN, ERR_R_MALLOC_FAILURE);
+    return 0;
+  }
+  int ok = 1;
+  tmp->raw = t;
+  CBB cbb, tmp_cbb;
+  uint8_t *buf;
+  size_t len;
+  if (!CBB_init(&cbb, 0) ||
+      !CBB_add_bytes(&cbb, (uint8_t*)"HashS ", 6) ||
+      !CBB_add_u16_length_prefixed(&cbb, &tmp_cbb) ||
+      !EC_POINT_point2cbb(&tmp_cbb, group, tmp, POINT_CONVERSION_UNCOMPRESSED,
+                          NULL) ||
+      !CBB_add_bytes(&cbb, s, PMBTOKEN_NONCE_SIZE) ||
+      !CBB_finish(&cbb, &buf, &len) ||
+      !hash_to_curve(group, out, buf, len)) {
+    OPENSSL_PUT_ERROR(TRUST_TOKEN, ERR_R_MALLOC_FAILURE);
+    ok = 0;
+  }
+
+  EC_POINT_free(tmp);
+  OPENSSL_free(buf);
+  return ok;
+}
+
+int pmbtoken_blind(TRUST_TOKEN_CLIENT *ctx, PMBTOKEN_PRETOKEN **out_pretoken) {
+  PMBTOKEN_PRETOKEN *pretoken =
+      (PMBTOKEN_PRETOKEN *)OPENSSL_malloc(sizeof(PMBTOKEN_PRETOKEN));
+  if (pretoken == NULL) {
+    OPENSSL_PUT_ERROR(TRUST_TOKEN, ERR_R_MALLOC_FAILURE);
+    return 0;
+  }
+
+  RAND_bytes(pretoken->t, sizeof(pretoken->t));
+  if (!ec_random_nonzero_scalar(ctx->group, &pretoken->r,
+                                kDefaultAdditionalData)) {
+    OPENSSL_PUT_ERROR(TRUST_TOKEN, ERR_R_MALLOC_FAILURE);
+    return 0;
+  }
+
+  EC_SCALAR rtmp, rinv;
+  ec_scalar_to_montgomery(ctx->group, &rtmp, &pretoken->r);
+  ec_scalar_inv_montgomery(ctx->group, &rinv, &rtmp);
+  ec_scalar_from_montgomery(ctx->group, &rinv, &rinv);
+
+  if (!hash_t(ctx->group, &pretoken->T, pretoken->t)) {
+    return 0;
+  }
+
+  if (!ec_point_mul_scalar(ctx->group, &pretoken->Tp, &pretoken->T, &rinv)) {
+    return 0;
+  }
+
+  *out_pretoken = pretoken;
+  return 1;
+}
+
+int pmbtoken_sign(TRUST_TOKEN_ISSUER *ctx, uint8_t out_s[PMBTOKEN_NONCE_SIZE],
+                  EC_RAW_POINT *out_Wp, EC_RAW_POINT *out_Wsp, EC_RAW_POINT Tp) {
+  struct trust_token_issuer_key_st key = ctx->keys[ctx->public_metadata];
+  EC_SCALAR xb = key.x0;
+  EC_SCALAR yb = key.y0;
+  if (ctx->private_metadata == 1) {
+    xb = key.x1;
+    yb = key.y1;
+  }
+
+  RAND_bytes(out_s, PMBTOKEN_NONCE_SIZE);
+
+  EC_RAW_POINT Sp;
+  if (!hash_s(ctx->group, &Sp, Tp, out_s)) {
+    return 0;
+  }
+
+  EC_RAW_POINT tmp1, tmp2, tmp3, tmp4;
+  if (!ec_point_mul_scalar(ctx->group, &tmp1, &Tp, &xb) ||
+      !ec_point_mul_scalar(ctx->group, &tmp2, &Sp, &yb) ||
+      !ec_point_mul_scalar(ctx->group, &tmp3, &Tp, &key.xs) ||
+      !ec_point_mul_scalar(ctx->group, &tmp4, &Sp, &key.ys)) {
+    return 0;
+  }
+
+  ctx->group->meth->add(ctx->group, out_Wp, &tmp1, &tmp2);
+  ctx->group->meth->add(ctx->group, out_Wsp, &tmp3, &tmp4);
+
+  // TODO: DLEQ Proofs
+  return 1;
+}
+
+int pmbtoken_unblind(TRUST_TOKEN_CLIENT *ctx, PMBTOKEN_TOKEN **out_token,
+                     uint8_t s[PMBTOKEN_NONCE_SIZE], EC_RAW_POINT Wp,
+                     EC_RAW_POINT Wsp, PMBTOKEN_PRETOKEN *pretoken) {
+  PMBTOKEN_TOKEN *token =
+      (PMBTOKEN_TOKEN *)OPENSSL_malloc(sizeof(PMBTOKEN_TOKEN));
+  if (token == NULL) {
+    OPENSSL_PUT_ERROR(TRUST_TOKEN, ERR_R_MALLOC_FAILURE);
+    return 0;
+  }
+
+  // TODO: Check DLEQ Proofs
+
+  EC_RAW_POINT Sp;
+  if (!hash_s(ctx->group, &Sp, pretoken->Tp, s)) {
+    return 0;
+  }
+
+  OPENSSL_memcpy(token->t, pretoken->t, PMBTOKEN_NONCE_SIZE);
+  if (!ec_point_mul_scalar(ctx->group, &token->S, &Sp, &pretoken->r) ||
+      !ec_point_mul_scalar(ctx->group, &token->W, &Wp, &pretoken->r) ||
+      !ec_point_mul_scalar(ctx->group, &token->Ws, &Wsp, &pretoken->r)) {
+    return 0;
+  }
+
+  *out_token = token;
+  return 1;
+}
+
+int pmbtoken_read(TRUST_TOKEN_ISSUER *ctx, uint8_t *out_private_metadata,
+                  PMBTOKEN_TOKEN *token, uint8_t public_metadata) {
+  struct trust_token_issuer_key_st key = ctx->keys[public_metadata];
+
+  EC_RAW_POINT T;
+  if (!hash_t(ctx->group, &T, token->t)) {
+    return 0;
+  }
+
+  EC_RAW_POINT tmp1, tmp2, calculated;
+  if (!ec_point_mul_scalar(ctx->group, &tmp1, &T, &key.xs) ||
+      !ec_point_mul_scalar(ctx->group, &tmp2, &token->S, &key.ys)) {
+    return 0;
+  }
+
+  ctx->group->meth->add(ctx->group, &calculated, &tmp1, &tmp2);
+
+  // Verify the validity of the token.
+  if (ec_GFp_simple_cmp(ctx->group, &calculated, &token->Ws) != 0) {
+    return 0;
+  }
+
+  // An invalid private metadata bit defaults to '2'.
+  *out_private_metadata = 2;
+
+  // Compare the private metadata bit against a value of '0'.
+  if (ec_point_mul_scalar(ctx->group, &tmp1, &T, &key.x0) &&
+      ec_point_mul_scalar(ctx->group, &tmp2, &token->S, &key.y0)) {
+    ctx->group->meth->add(ctx->group, &calculated, &tmp1, &tmp2);
+    if (ec_GFp_simple_cmp(ctx->group, &calculated, &token->W) == 0) {
+      *out_private_metadata = 0;
+    }
+  }
+
+  // Compare the private metadata bit against a value of '1'.
+  if (ec_point_mul_scalar(ctx->group, &tmp1, &T, &key.x1) &&
+      ec_point_mul_scalar(ctx->group, &tmp2, &token->S, &key.y1)) {
+    ctx->group->meth->add(ctx->group, &calculated, &tmp1, &tmp2);
+    if (ec_GFp_simple_cmp(ctx->group, &calculated, &token->W) == 0) {
+      *out_private_metadata = 1;
+    }
+  }
+
+  return 1;
 }
