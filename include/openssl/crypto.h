@@ -34,7 +34,6 @@ extern "C" {
 
 // crypto.h contains functions for initializing the crypto library.
 
-
 // CRYPTO_library_init initializes the crypto library. It must be called if the
 // library is built with BORINGSSL_NO_STATIC_INITIALIZER. Otherwise, it does
 // nothing and a static initializer is used instead. It is safe to call this
