@@ -16,6 +16,24 @@
       "revId": "93b7a00e71bdf3d48ced7156b04e24585c86d01f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0a9b692_62e8911c",
+        "filename": "crypto/hmac_extra/hmac_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-16T19:58:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f0ce303_3eb47de2",
+      "revId": "93b7a00e71bdf3d48ced7156b04e24585c86d01f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
