@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9f0ce303_3eb47de2",
+        "filename": "crypto/hmac_extra/hmac_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-12-16T18:59:42Z",
+      "side": 1,
+      "message": "ASSERT_LE(tag.size(), out_len);",
+      "revId": "93b7a00e71bdf3d48ced7156b04e24585c86d01f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
