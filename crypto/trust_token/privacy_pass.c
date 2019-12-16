@@ -23,6 +23,7 @@
 #include "../fipsmodule/bn/internal.h"
 #include "../fipsmodule/ec/internal.h"
 
+#include "internal.h"
 
 // Privacy Pass uses a custom elliptic curve construction described in
 // https://eprint.iacr.org/2020/072.pdf (section 7, construction 4). Ths
@@ -235,4 +236,269 @@ err:
   EC_POINT_free(pub1);
   EC_POINT_free(pubs);
   return ok;
+}
+
+int privacy_pass_client_new(TRUST_TOKEN_CLIENT *ctx, uint16_t max_batchsize) {
+  ctx->max_batchsize = max_batchsize;
+  ctx->key_index = 0;
+  return 1;
+}
+
+void privacy_pass_client_free(TRUST_TOKEN_CLIENT *ctx) {}
+
+int privacy_pass_issuer_new(TRUST_TOKEN_ISSUER *ctx, uint16_t max_batchsize) {
+  ctx->max_batchsize = max_batchsize;
+  ctx->key_index = 0;
+  return 1;
+}
+
+void privacy_pass_issuer_free(TRUST_TOKEN_ISSUER *ctx) {}
+
+int privacy_pass_client_begin_issuance(TRUST_TOKEN_CLIENT *ctx, uint8_t **out,
+                                       size_t *out_len, size_t count) {
+  CBB request;
+  if (!CBB_init(&request, 0) ||
+      !CBB_add_u8(&request, 1) ||
+      !CBB_add_u16(&request, count)) {
+    OPENSSL_PUT_ERROR(TRUST_TOKEN, ERR_R_MALLOC_FAILURE);
+    return 0;
+  }
+  for (size_t i = 0; i < count; i++) {
+
+    // Random point
+    // VOPRF_Blind(x)
+    // Add to CBB.
+
+    if (!CBB_add_u32(&request, i * ctx->a)) {
+      OPENSSL_PUT_ERROR(TRUST_TOKEN, ERR_R_MALLOC_FAILURE);
+      return 0;
+    }
+  }
+
+  return CBB_finish(&request, out, out_len);
+}
+
+int privacy_pass_issuer_set_metadata(TRUST_TOKEN_ISSUER *ctx,
+                                     uint8_t public_metadata,
+                                     uint8_t private_metadata) {
+  if (public_metadata >= ctx->key_index || private_metadata > 1) {
+    return 0;
+  }
+  ctx->public_metadata = public_metadata;
+  ctx->private_metadata = private_metadata;
+  return 1;
+}
+
+int privacy_pass_issuer_get_public(TRUST_TOKEN_ISSUER *ctx, uint32_t *out,
+                                   uint8_t public_metadata) {
+  *out = ctx->keys[public_metadata].id;
+  return 1;
+}
+
+int privacy_pass_issuer_issue(TRUST_TOKEN_ISSUER *ctx, uint8_t **out,
+                              size_t *out_len, uint8_t *out_tokens_issued,
+                              const uint8_t *request, size_t request_len,
+                              size_t max_issuance) {
+  CBS in;
+  CBS_init(&in, request, request_len);
+  uint8_t type;
+  if (!CBS_get_u8(&in, &type)) {
+    return 0;
+  }
+
+  CBB response;
+  if (!CBB_init(&response, 0)) {
+    OPENSSL_PUT_ERROR(TRUST_TOKEN, ERR_R_MALLOC_FAILURE);
+    return 0;
+  }
+
+  uint16_t count = 8;
+  if (type == 0) {
+    count = 1;
+
+    // VOPRF_Eval
+  } else if (type == 1) {
+    if (!CBS_get_u16(&in, &count) ||
+        !CBB_add_u16(&response, count)) {
+      return 0;
+    }
+
+    // Batch Eval
+  }
+
+  if (count > max_issuance) {
+    count = max_issuance;
+  }
+
+  for (size_t i = 0; i < count; i++) {
+    uint32_t btoken;
+    if (!CBS_get_u32(&in, &btoken) ||
+        !CBB_add_u32(&response, btoken * ctx->a)) {
+      return 0;
+    }
+  }
+
+  *out_tokens_issued = count;
+
+  if (CBS_len(&in) != 0) {
+    return 0;
+  }
+  return CBB_finish(&response, out, out_len);
+}
+
+STACK_OF(TRUST_TOKEN) *
+    privacy_pass_client_finish_issuance(TRUST_TOKEN_CLIENT *ctx,
+                                        uint32_t *out_id,
+                                        const uint8_t *response,
+                                        size_t response_len) {
+  // TODO
+  CBS in;
+  CBS_init(&in, response, response_len);
+  uint16_t count;
+  if (!CBS_get_u16(&in, &count)) {
+    return NULL;
+  }
+  *out_id = 1;
+  STACK_OF(TRUST_TOKEN) *tokens = sk_TRUST_TOKEN_new_null();
+  for (size_t i = 0; i < count; i++) {
+    uint32_t bstoken;
+    if (!CBS_get_u32(&in, &bstoken)) {
+     return NULL;
+    }
+    uint32_t token = bstoken / ctx->a;
+    TRUST_TOKEN *atoken = (TRUST_TOKEN *)OPENSSL_malloc(sizeof(TRUST_TOKEN));
+    atoken->data = (uint8_t *)OPENSSL_malloc(2);
+    atoken->data[0] = token>>8;
+    atoken->data[1] = token;
+    atoken->len = 2;
+    if (!sk_TRUST_TOKEN_push(tokens, atoken)) {
+      return NULL;
+    }
+  }
+
+  return tokens;
+}
+
+int privacy_pass_client_begin_redemption(TRUST_TOKEN_CLIENT *ctx, uint8_t **out,
+                                         size_t *out_len,
+                                         const TRUST_TOKEN *token) {
+  // TODO
+  if (token->len != 2) {
+    return 0;
+  }
+  CBB request;
+  if (!CBB_init(&request, 0) ||
+      !CBB_add_u32(&request, token->data[0]<<8|token->data[1])) {
+    OPENSSL_PUT_ERROR(TRUST_TOKEN, ERR_R_MALLOC_FAILURE);
+    return 0;
+  }
+
+  return CBB_finish(&request, out, out_len);
+}
+
+int privacy_pass_issuer_redeem(TRUST_TOKEN_ISSUER *ctx, int *result,
+                               TRUST_TOKEN **out_token,
+                               uint8_t *out_public_metadata,
+                               int *out_private_metadata,
+                               const uint8_t *request, size_t request_len) {
+  // TODO
+  CBS in;
+  CBS_init(&in, request, request_len);
+  uint32_t token;
+  if (!CBS_get_u32(&in, &token)) {
+    return 0;
+  }
+
+  TRUST_TOKEN *ret_token = (TRUST_TOKEN *)OPENSSL_malloc(sizeof(TRUST_TOKEN));
+  if (ret_token == NULL) {
+    return 0;
+  }
+  ret_token->data = (uint8_t *)OPENSSL_malloc(4);
+  if (ret_token->data == NULL) {
+    return 0;
+  }
+  ret_token->data[0] = token >> 24;
+  ret_token->data[1] = token >> 16;
+  ret_token->data[2] = token >> 8;
+  ret_token->data[3] = token >> 0;
+  ret_token->len = 4;
+  *out_token = ret_token;
+  *result = (token % ctx->a == 0);
+  *out_public_metadata = 1;
+  *out_private_metadata = 1;
+  return CBS_len(&in) == 0;
+}
+
+int TRUST_TOKEN_CLIENT_add_key(TRUST_TOKEN_CLIENT *ctx, uint32_t id,
+                               const uint8_t *key, size_t key_len) {
+  EC_GROUP *group = EC_GROUP_new_by_curve_name(NID_secp521r1);
+  if (group == NULL) {
+    return 0;
+  }
+
+  if (ctx->key_index == 3) {
+    return 0;
+  }
+  
+  struct privacy_pass_client_key_st key_s = ctx->keys[ctx->key_index];
+
+  key_s.pub0 = EC_POINT_new(group);
+  key_s.pub1 = EC_POINT_new(group);
+  key_s.pubs = EC_POINT_new(group);
+  if (key_s.pub0 == NULL || key_s.pub1 == NULL || key_s.pubs == NULL) {
+    return 0;
+  }
+  
+  CBS cbs, tmp;
+  CBS_init(&cbs, key, key_len);
+  uint32_t key_id;
+  if (!CBS_get_u32(&cbs, &key_id) ||
+      !CBS_get_u16_length_prefixed(&cbs, &tmp) ||
+      !EC_POINT_oct2point(group, key_s.pub0, CBS_data(&tmp), CBS_len(&tmp), NULL) ||
+      !CBS_get_u16_length_prefixed(&cbs, &tmp) ||
+      !EC_POINT_oct2point(group, key_s.pub1, CBS_data(&tmp), CBS_len(&tmp), NULL) ||
+      !CBS_get_u16_length_prefixed(&cbs, &tmp) ||
+      !EC_POINT_oct2point(group, key_s.pubs, CBS_data(&tmp), CBS_len(&tmp), NULL) ||
+      CBS_len(&cbs) != 0) {
+    return 0;
+  }
+
+  ctx->key_index += 1;
+  ctx->a = 17;
+  return 1;
+}
+
+int TRUST_TOKEN_ISSUER_add_key(TRUST_TOKEN_ISSUER *ctx, uint32_t id,
+                               const uint8_t *key, size_t key_len) {
+  EC_GROUP *group = EC_GROUP_new_by_curve_name(NID_secp521r1);
+  if (group == NULL) {
+    return 0;
+  }
+
+  if (ctx->key_index == 3) {
+    return 0;
+  }
+
+  size_t scalar_len = BN_num_bytes(&group->order);
+  
+  CBS cbs, tmp;
+  CBS_init(&cbs, key, key_len);
+  uint32_t key_id;
+  if (!CBS_get_u32(&cbs, &key_id)) {
+    return 0;
+  }
+
+  struct privacy_pass_issuer_key_st key_s = ctx->keys[ctx->key_index];
+  EC_SCALAR *scalars[] = {&key_s.x0, &key_s.y0, &key_s.x1,
+                          &key_s.y1, &key_s.xs, &key_s.ys};
+  for (size_t i = 0; i < OPENSSL_ARRAY_SIZE(scalars); i++) {
+    if (!CBS_get_bytes(&cbs, &tmp, scalar_len)) {
+      return 0;
+    }
+    ec_scalar_from_bytes(group, scalars[i], CBS_data(&tmp), CBS_len(&tmp));
+  }
+
+  ctx->key_index += 1;
+  ctx->a = 17;
+  return 1;
 }
