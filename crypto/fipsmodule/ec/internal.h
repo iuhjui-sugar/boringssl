@@ -446,6 +446,146 @@ struct ec_point_st {
 
 EC_GROUP *ec_group_new(const EC_METHOD *meth);
 
+// ec_bignum_to_felem converts |in| to an |EC_FELEM|. It returns one on success
+// and zero if |in| is out of range.
+int ec_bignum_to_felem(const EC_GROUP *group, EC_FELEM *out, const BIGNUM *in);
+
+// ec_felem_to_bignum converts |in| to a |BIGNUM|. It returns one on success and
+// zero on allocation failure.
+int ec_felem_to_bignum(const EC_GROUP *group, BIGNUM *out, const EC_FELEM *in);
+
+// ec_felem_neg sets |out| to -|a|.
+void ec_felem_neg(const EC_GROUP *group, EC_FELEM *out, const EC_FELEM *a);
+
+// ec_felem_add sets |out| to |a| + |b|.
+void ec_felem_add(const EC_GROUP *group, EC_FELEM *out, const EC_FELEM *a,
+                  const EC_FELEM *b);
+
+// ec_felem_add sets |out| to |a| - |b|.
+void ec_felem_sub(const EC_GROUP *group, EC_FELEM *out, const EC_FELEM *a,
+                  const EC_FELEM *b);
+
+// ec_felem_non_zero_mask returns all ones if |a| is non-zero and all zeros
+// otherwise.
+BN_ULONG ec_felem_non_zero_mask(const EC_GROUP *group, const EC_FELEM *a);
+
+// ec_felem_select, in constant time, sets |out| to |a| if |mask| is all ones
+// and |b| if |mask| is all zeros.
+void ec_felem_select(const EC_GROUP *group, EC_FELEM *out, BN_ULONG mask,
+                     const EC_FELEM *a, const EC_FELEM *b);
+
+// ec_felem_equal returns one if |a| and |b| are equal and zero otherwise. It
+// treats |a| and |b| as public and does *not* run in constant time.
+int ec_felem_equal(const EC_GROUP *group, const EC_FELEM *a, const EC_FELEM *b);
+
+// ec_bignum_to_scalar converts |in| to an |EC_SCALAR| and writes it to
+// |*out|. It returns one on success and zero if |in| is out of range.
+OPENSSL_EXPORT int ec_bignum_to_scalar(const EC_GROUP *group, EC_SCALAR *out,
+                                       const BIGNUM *in);
+
+// ec_scalar_to_bytes serializes |in| as a big-endian bytestring to |out| and
+// sets |*out_len| to the number of bytes written. The number of bytes written
+// is |BN_num_bytes(&group->order)|, which is at most |EC_MAX_BYTES|.
+void ec_scalar_to_bytes(const EC_GROUP *group, uint8_t *out, size_t *out_len,
+                        const EC_SCALAR *in);
+
+// ec_scalar_from_bytes deserializes |in| and stores the resulting scalar over
+// group |group| to |out|. It returns one on success and zero if |in| is
+// invalid.
+int ec_scalar_from_bytes(const EC_GROUP *group, EC_SCALAR *out,
+                         const uint8_t *in, size_t len);
+
+// ec_random_nonzero_scalar sets |out| to a uniformly selected random value from
+// 1 to |group->order| - 1. It returns one on success and zero on error.
+int ec_random_nonzero_scalar(const EC_GROUP *group, EC_SCALAR *out,
+                             const uint8_t additional_data[32]);
+
+// ec_scalar_equal_vartime returns one if |a| and |b| are equal and zero
+// otherwise. Both values are treated as public.
+int ec_scalar_equal_vartime(const EC_GROUP *group, const EC_SCALAR *a,
+                            const EC_SCALAR *b);
+
+// ec_scalar_is_zero returns one if |a| is zero and zero otherwise.
+int ec_scalar_is_zero(const EC_GROUP *group, const EC_SCALAR *a);
+
+// ec_scalar_add sets |r| to |a| + |b|.
+void ec_scalar_add(const EC_GROUP *group, EC_SCALAR *r, const EC_SCALAR *a,
+                   const EC_SCALAR *b);
+
+// ec_scalar_select, in constant time, sets |out| to |a| if |mask| is all ones
+// and |b| if |mask| is all zeros.
+void ec_scalar_select(const EC_GROUP *group, EC_SCALAR *out, BN_ULONG mask,
+                      const EC_SCALAR *a, const EC_SCALAR *b);
+
+// ec_scalar_to_montgomery sets |r| to |a| in Montgomery form.
+void ec_scalar_to_montgomery(const EC_GROUP *group, EC_SCALAR *r,
+                             const EC_SCALAR *a);
+
+// ec_scalar_to_montgomery sets |r| to |a| converted from Montgomery form.
+void ec_scalar_from_montgomery(const EC_GROUP *group, EC_SCALAR *r,
+                               const EC_SCALAR *a);
+
+// ec_scalar_mul_montgomery sets |r| to |a| * |b| where inputs and outputs are
+// in Montgomery form.
+void ec_scalar_mul_montgomery(const EC_GROUP *group, EC_SCALAR *r,
+                              const EC_SCALAR *a, const EC_SCALAR *b);
+
+// ec_scalar_mul_montgomery sets |r| to |a|^-1 where inputs and outputs are in
+// Montgomery form.
+void ec_scalar_inv_montgomery(const EC_GROUP *group, EC_SCALAR *r,
+                              const EC_SCALAR *a);
+
+// ec_scalar_inv_montgomery_vartime performs the same actions as
+// |ec_scalar_inv_montgomery|, but in variable time.
+int ec_scalar_inv_montgomery_vartime(const EC_GROUP *group, EC_SCALAR *r,
+                                     const EC_SCALAR *a);
+
+// ec_point_mul_scalar sets |r| to |p| * |scalar|. Both inputs are considered
+// secret.
+int ec_point_mul_scalar(const EC_GROUP *group, EC_RAW_POINT *r,
+                        const EC_RAW_POINT *p, const EC_SCALAR *scalar);
+
+// ec_point_mul_scalar_base sets |r| to generator * |scalar|. |scalar| is
+// treated as secret.
+int ec_point_mul_scalar_base(const EC_GROUP *group, EC_RAW_POINT *r,
+                             const EC_SCALAR *scalar);
+
+// ec_point_mul_scalar_public sets |r| to
+// generator * |g_scalar| + |p| * |p_scalar|. It assumes that the inputs are
+// public so there is no concern about leaking their values through timing.
+OPENSSL_EXPORT int ec_point_mul_scalar_public(const EC_GROUP *group,
+                                              EC_RAW_POINT *r,
+                                              const EC_SCALAR *g_scalar,
+                                              const EC_RAW_POINT *p,
+                                              const EC_SCALAR *p_scalar);
+
+// ec_cmp_x_coordinate compares the x (affine) coordinate of |p|, mod the group
+// order, with |r|. It returns one if the values match and zero if |p| is the
+// point at infinity of the values do not match.
+int ec_cmp_x_coordinate(const EC_GROUP *group, const EC_RAW_POINT *p,
+                        const EC_SCALAR *r);
+
+// ec_get_x_coordinate_as_scalar sets |*out| to |p|'s x-coordinate, modulo
+// |group->order|. It returns one on success and zero if |p| is the point at
+// infinity.
+int ec_get_x_coordinate_as_scalar(const EC_GROUP *group, EC_SCALAR *out,
+                                  const EC_RAW_POINT *p);
+
+// ec_point_get_affine_coordinate_bytes writes |p|'s affine coordinates to
+// |out_x| and |out_y|, each of which must have at must |max_out| bytes. It sets
+// |*out_len| to the number of bytes written in each buffer. Coordinates are
+// written big-endian and zero-padded to the size of the field.
+//
+// Either of |out_x| or |out_y| may be NULL to omit that coordinate. This
+// function returns one on success and zero on failure.
+int ec_point_get_affine_coordinate_bytes(const EC_GROUP *group, uint8_t *out_x,
+                                         uint8_t *out_y, size_t *out_len,
+                                         size_t max_out, const EC_RAW_POINT *p);
+
+// ec_field_element_to_scalar reduces |r| modulo |group->order|. |r| must
+// previously have been reduced modulo |group->field|.
+int ec_field_element_to_scalar(const EC_GROUP *group, BIGNUM *r);
+
 void ec_GFp_mont_mul(const EC_GROUP *group, EC_RAW_POINT *r,
                      const EC_RAW_POINT *p, const EC_SCALAR *scalar);
 void ec_GFp_mont_mul_base(const EC_GROUP *group, EC_RAW_POINT *r,
