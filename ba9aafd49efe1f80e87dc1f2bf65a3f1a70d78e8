@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "4a1a7c41_8c17531b",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-16T19:05:46Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3ef849aa_ce6a931f",
+      "revId": "ba9aafd49efe1f80e87dc1f2bf65a3f1a70d78e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2e9e20fd_8ce35f4a",
         "filename": "ssl/handoff.cc",
         "patchSetId": 3
@@ -441,6 +459,24 @@
       "side": 1,
       "message": "\u003e I believe this works, but note that it only does because these are the first records sent and received at their particular epochs. Otherwise you need to synchronize the sequence numbers too.\n\nWould that look like setting s3-\u003eread_sequence and s3-\u003ewrite_sequence, as done above, in the handback_tls13 case?\n\n\u003e 0-RTT may be interesting. We currently send those tickets (app data keys) half-RTT, though there\u0027s no particular guarantee that we do. I\u0027m not sure if it makes more sense to cut before the tickets or after. In all other modes, the ticket minting callback runs after handback, so cutting before may be better for consistency.\n\nI\u0027m afraid I don\u0027t follow all that, because I\u0027ve postponed trying to understand 0RTT and early data in order to get something minimal working.  Can I leave this comment for later or does it have implications for the present commit?",
       "parentUuid": "10ec43d1_74af112c",
+      "revId": "ba9aafd49efe1f80e87dc1f2bf65a3f1a70d78e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c424f509_6d2b6a24",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-16T19:05:46Z",
+      "side": 1,
+      "message": "\u003e Would that look like setting s3-\u003eread_sequence and s3-\u003ewrite_sequence, as done above, in the handback_tls13 case?\n\nYup.\n\n\u003e I\u0027m afraid I don\u0027t follow all that, because I\u0027ve postponed trying to understand 0RTT and early data in order to get something minimal working.  Can I leave this comment for later or does it have implications for the present commit?\n\nI think it\u0027s okay to ignore this. The possibilities are:\n\na) Go ahead and serialize read_sequence and write_sequence now.\nb) Wait until adding 0-RTT to serialize them.\nc) Don\u0027t bother serializing them and, for 0-RTT, send the ticket at the frontend side so we consistently send tickets on the same side. (But this may mean prodding at the half-RTT tickets mess.)",
+      "parentUuid": "c3cb2b42_85dc6044",
       "revId": "ba9aafd49efe1f80e87dc1f2bf65a3f1a70d78e8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
