@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "8b0f98d7_e77bf29d",
+        "filename": "crypto/bytestring/cbb.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-12-16T18:38:32Z",
+      "side": 1,
+      "message": "|char*| is magic for type punning, but I\u0027m not sure that |unsigned char*| is. (Although 30 secs of Googling suggests that you\u0027re probably right.)",
+      "parentUuid": "9be7be5f_81f963d8",
+      "revId": "1a283f95a36fdfa3d755ca948e6adc2b0f2236b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "523a80d5_c8b4308f",
         "filename": "crypto/bytestring/cbb.c",
         "patchSetId": 3
