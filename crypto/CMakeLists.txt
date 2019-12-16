@@ -336,6 +336,7 @@ add_library(
   thread_pthread.c
   thread_win.c
   trust_token/privacy_pass.c
+  trust_token/trust_token.c
   x509/a_digest.c
   x509/a_sign.c
   x509/a_strex.c
