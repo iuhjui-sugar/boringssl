@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "20210664_837ec3ae",
+        "filename": "include/openssl/bn.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 952,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-12-16T20:33:19Z",
+      "side": 1,
+      "message": "Looking at internal code search, I see one case where |generation| is correct and one where |validation| is correct. So I would probably default to the latter?",
+      "revId": "72da470f9b7b732ccaaa47a3c80d64d3ddee6ae1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
