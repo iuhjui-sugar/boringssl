@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "988db0ac_d1dbd248",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 2292,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-17T00:37:24Z",
+      "side": 1,
+      "message": "WDYT about SSL_VERIFY_DEFAULT? Then we could just say it means to not request a client certificate as a server, but to verify the server certificate as a client.",
+      "range": {
+        "startLine": 2292,
+        "startChar": 14,
+        "endLine": 2292,
+        "endChar": 25
+      },
+      "revId": "db6e9b8f5c6560ca31ee0c82506227d7d4606a27",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e2068721_1a86a96a",
         "filename": "ssl/ssl_x509.cc",
         "patchSetId": 3
