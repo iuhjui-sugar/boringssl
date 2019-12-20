@@ -65,6 +65,30 @@
     },
     {
       "key": {
+        "uuid": "c1c33764_00634dd3",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 797,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-12-20T20:26:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e3dc546_ed71e857",
+      "range": {
+        "startLine": 797,
+        "startChar": 25,
+        "endLine": 797,
+        "endChar": 27
+      },
+      "revId": "51b8dd602716fb53cfcbbcb22629e51cd40598c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "84406c07_fa955126",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 2
@@ -85,6 +109,30 @@
       "revId": "51b8dd602716fb53cfcbbcb22629e51cd40598c4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d11dc4ef_78fc1e11",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 801,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-12-20T20:26:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84406c07_fa955126",
+      "range": {
+        "startLine": 801,
+        "startChar": 24,
+        "endLine": 801,
+        "endChar": 27
+      },
+      "revId": "51b8dd602716fb53cfcbbcb22629e51cd40598c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -111,6 +159,30 @@
     },
     {
       "key": {
+        "uuid": "8f375371_f35e67cb",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 819,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-12-20T20:26:44Z",
+      "side": 1,
+      "message": "Done. Although note that I was dissatisfied with this delta stuff in general and switched it all around in the next change anyway.",
+      "parentUuid": "305eac4c_cb6f1760",
+      "range": {
+        "startLine": 819,
+        "startChar": 44,
+        "endLine": 819,
+        "endChar": 72
+      },
+      "revId": "51b8dd602716fb53cfcbbcb22629e51cd40598c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a116867c_ac2e7a60",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 2
@@ -134,6 +206,30 @@
     },
     {
       "key": {
+        "uuid": "690de04e_8823cfc9",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 820,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-12-20T20:26:44Z",
+      "side": 1,
+      "message": "Yep.",
+      "parentUuid": "a116867c_ac2e7a60",
+      "range": {
+        "startLine": 820,
+        "startChar": 62,
+        "endLine": 820,
+        "endChar": 69
+      },
+      "revId": "51b8dd602716fb53cfcbbcb22629e51cd40598c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d2014605_f4f5ddca",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 2
@@ -145,6 +241,30 @@
       "writtenOn": "2019-12-10T21:39:20Z",
       "side": 1,
       "message": "There\u0027s some silliness here around bit broadcasting. Modulo word-sizes, this lsb_to_all is broadcasting an already-broadcasted bit.\n\nThen we have delta_sign_bit being only valid in the LSB, but the constant_time_* functions broadcast to all bits. And then vec_broadcast_bit is broadcasting it again as a vec_t and then this is broadcasting yet again as a crypto_word_t.\n\nWhat if we computed delta_sign_bit with ~constant_time_msb_w() or the -1 thing below? Then mask_w could be a crypto_word_t and be pre-broadcasted, avoiding the lsb_to_all here. We don\u0027t have a vec_broadcast_word, so there\u0027s an extra broadcast there, but ah well.",
+      "range": {
+        "startLine": 828,
+        "startChar": 37,
+        "endLine": 828,
+        "endChar": 47
+      },
+      "revId": "51b8dd602716fb53cfcbbcb22629e51cd40598c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89f958d8_361e849c",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 828,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-12-20T20:26:44Z",
+      "side": 1,
+      "message": "I think the answer is to see the next CL, which cleans this up more fundamentally.\n\nThe issues are that: delta_sign_bit does an arithmetic-right-shift, but in an |int|. But |crypto_word_t| might be bigger. So it\u0027s easier to just take the LSB. constant_time_msb_w takes a |crypto_word_t| too and so passing an |int| into there doesn\u0027t always work.\n\nmask_w can be a |crypto_word_t|, but in order to use it here, |g_has_constant_term| needs to be pulled out from vector form into a scalar. Doable, different, but has its own issues.",
+      "parentUuid": "d2014605_f4f5ddca",
       "range": {
         "startLine": 828,
         "startChar": 37,
@@ -191,6 +311,24 @@
     },
     {
       "key": {
+        "uuid": "c73822c3_9788ea9c",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 839,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-12-20T20:26:44Z",
+      "side": 1,
+      "message": "We never invert anything that we didn\u0027t randomly generate. https://eprint.iacr.org/2017/667.pdf says:\n\n\"Φ(n) must be irreducible modulo both p and q. This obviates invertibility tests during key generation\"\n\n\"With the parameters of the previous section, every non-zero element of T is invertible as an element of both S/p and S/q.\"\n\nI don\u0027t think that T+ excludes zero because it\u0027s\n\nT+ \u003d {v ∈ T : \u003cxv,v\u003e ≥ 0}\n\nThus we\u0027re depending on the fact that (1/3)^700 is negligible (about 2^(-1109)).",
+      "parentUuid": "15165108_30730b2c",
+      "revId": "51b8dd602716fb53cfcbbcb22629e51cd40598c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ff3ba0d9_ce4e7ece",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 2
@@ -205,6 +343,24 @@
       "revId": "51b8dd602716fb53cfcbbcb22629e51cd40598c4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83ccfe86_c7df4791",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 841,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-12-20T20:26:44Z",
+      "side": 1,
+      "message": "It will do a per-lane operation I believe. More importantly, it\u0027s pointless as you point out below. Deleted.",
+      "parentUuid": "ff3ba0d9_ce4e7ece",
+      "revId": "51b8dd602716fb53cfcbbcb22629e51cd40598c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -254,6 +410,54 @@
     },
     {
       "key": {
+        "uuid": "2c7e2d06_bcc9a284",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 844,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-12-20T20:26:44Z",
+      "side": 1,
+      "message": "Thanks. Had only fixed this for the non-vec version.",
+      "parentUuid": "9f43f98a_1f3385de",
+      "range": {
+        "startLine": 844,
+        "startChar": 23,
+        "endLine": 844,
+        "endChar": 33
+      },
+      "revId": "51b8dd602716fb53cfcbbcb22629e51cd40598c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4f3c1cc_9bdee390",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 844,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-12-20T20:26:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "41de8cd3_0d8bc8a7",
+      "range": {
+        "startLine": 844,
+        "startChar": 40,
+        "endLine": 844,
+        "endChar": 43
+      },
+      "revId": "51b8dd602716fb53cfcbbcb22629e51cd40598c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ec226d5_537d6c13",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 2
@@ -277,6 +481,30 @@
     },
     {
       "key": {
+        "uuid": "9327fdb8_25bd15b4",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-12-20T20:26:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ec226d5_537d6c13",
+      "range": {
+        "startLine": 882,
+        "startChar": 24,
+        "endLine": 882,
+        "endChar": 41
+      },
+      "revId": "51b8dd602716fb53cfcbbcb22629e51cd40598c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "33f85614_41ad5217",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 2
@@ -291,6 +519,24 @@
       "revId": "51b8dd602716fb53cfcbbcb22629e51cd40598c4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "713497fc_149578d7",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-12-20T20:26:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33f85614_41ad5217",
+      "revId": "51b8dd602716fb53cfcbbcb22629e51cd40598c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -311,6 +557,24 @@
     },
     {
       "key": {
+        "uuid": "63aa17ad_17f81488",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1514,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-12-20T20:26:44Z",
+      "side": 1,
+      "message": "I somewhat managed to convince myself that it would work, coded it up, and it appears to. (I don\u0027t believe it would work so well moving to larger fields but, mod 2, all the requirements still hold plus another one which allows the code to drop a multiply at the end.)",
+      "parentUuid": "585468f0_79517492",
+      "revId": "51b8dd602716fb53cfcbbcb22629e51cd40598c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ed3cfd80_929863b1",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 2
@@ -328,6 +592,24 @@
     },
     {
       "key": {
+        "uuid": "ab782f58_a584280a",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1540,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-12-20T20:26:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed3cfd80_929863b1",
+      "revId": "51b8dd602716fb53cfcbbcb22629e51cd40598c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c68a8005_baae6c8d",
         "filename": "crypto/hrss/hrss.c",
         "patchSetId": 2
@@ -342,6 +624,24 @@
       "revId": "51b8dd602716fb53cfcbbcb22629e51cd40598c4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86f196b3_59bbfab2",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1555,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-12-20T20:26:44Z",
+      "side": 1,
+      "message": "Ditto, although the probability is 2^-700 here.",
+      "parentUuid": "c68a8005_baae6c8d",
+      "revId": "51b8dd602716fb53cfcbbcb22629e51cd40598c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
