@@ -16,6 +16,24 @@
       "revId": "48a1daf0761f052c8f9be3dac1d248eb6237fbc1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0783f59a_b9d6d2ba",
+        "filename": "crypto/fipsmodule/aes/aes_nohw.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2019-12-20T21:10:41Z",
+      "side": 1,
+      "message": "A logical byte with 64-bit words is 64/16 \u003d 4 bits. Logical bytes are probably a terrible name for this. I defined them up in \"Word operations\". It\u0027s the bits that correspond to the bytes in the AES state, rather than bytes in the word itself. Bytes in the word itself aren\u0027t very meaningful when bitsliced, except with 128-bit words where we conveniently have them match up.\n\nThis gives a convenient unit for aes_nohw_shift_left() and means code that needs to shift bytes in the AES state around (the key schedule is a huge pain) have a common unit across the three implementations.",
+      "parentUuid": "92b9f8b2_940fa830",
+      "revId": "48a1daf0761f052c8f9be3dac1d248eb6237fbc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
