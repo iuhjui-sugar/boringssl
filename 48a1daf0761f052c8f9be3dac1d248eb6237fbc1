@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "f338d6c1_e949724c",
+        "filename": "crypto/fipsmodule/aes/aes_nohw.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-12-20T22:47:11Z",
+      "side": 1,
+      "message": "Can we have the proprocessor drop this file (or replace the public API with aborting functions) in some cases? I.e. (AArch64 || PPC64LE) \u0026\u0026 !NO_ASM?\n\n(Only worthwhile if the linker can\u0027t figure that out automatically, which perhaps it can.)",
+      "revId": "48a1daf0761f052c8f9be3dac1d248eb6237fbc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "92b9f8b2_940fa830",
         "filename": "crypto/fipsmodule/aes/aes_nohw.c",
         "patchSetId": 6
@@ -31,6 +48,98 @@
       "side": 1,
       "message": "A logical byte with 64-bit words is 64/16 \u003d 4 bits. Logical bytes are probably a terrible name for this. I defined them up in \"Word operations\". It\u0027s the bits that correspond to the bytes in the AES state, rather than bytes in the word itself. Bytes in the word itself aren\u0027t very meaningful when bitsliced, except with 128-bit words where we conveniently have them match up.\n\nThis gives a convenient unit for aes_nohw_shift_left() and means code that needs to shift bytes in the AES state around (the key schedule is a huge pain) have a common unit across the three implementations.",
       "parentUuid": "92b9f8b2_940fa830",
+      "revId": "48a1daf0761f052c8f9be3dac1d248eb6237fbc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43f42384_007689ac",
+        "filename": "crypto/fipsmodule/aes/aes_nohw.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-12-20T22:47:11Z",
+      "side": 1,
+      "message": "Thanks. Missed \"logical\" and went straight into confusion. Makes a lot more sense now. \"Logical bytes\" makes sense I guess when considering the origin of \"byte\" as the smallest addressable unit, but it\u0027s hard to shake the expectation of it being eight bits. Might have used something more generic like \"runs\", but I don\u0027t really know if that\u0027s better.",
+      "parentUuid": "0783f59a_b9d6d2ba",
+      "revId": "48a1daf0761f052c8f9be3dac1d248eb6237fbc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b095ff33_e07930c4",
+        "filename": "crypto/fipsmodule/aes/aes_nohw.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-12-20T22:47:11Z",
+      "side": 1,
+      "message": "Going to take your word that this does what it says!",
+      "revId": "48a1daf0761f052c8f9be3dac1d248eb6237fbc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9f88592c_435b3670",
+        "filename": "crypto/fipsmodule/aes/aes_nohw.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 992,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-12-20T22:47:11Z",
+      "side": 1,
+      "message": "just \"output\", I think.",
+      "range": {
+        "startLine": 992,
+        "startChar": 47,
+        "endLine": 992,
+        "endChar": 56
+      },
+      "revId": "48a1daf0761f052c8f9be3dac1d248eb6237fbc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f14ea8c_1d3e6001",
+        "filename": "crypto/fipsmodule/aes/aes_nohw.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 1157,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-12-20T22:47:11Z",
+      "side": 1,
+      "message": "just \"for (;;) {\" ?",
+      "revId": "48a1daf0761f052c8f9be3dac1d248eb6237fbc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e55712a_21666ca9",
+        "filename": "crypto/fipsmodule/aes/aes_nohw.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 1217,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2019-12-20T22:47:11Z",
+      "side": 1,
+      "message": "ditto: just \"for (;;) {\" ?",
       "revId": "48a1daf0761f052c8f9be3dac1d248eb6237fbc1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
