@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "71b12beb_9972a11f",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2019-12-27T18:56:45Z",
+      "side": 1,
+      "message": "This is silly, not sure if there\u0027s a better way to return a list of TRUST_TOKENs to the consumer.",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 76
+      },
+      "revId": "a4d74bcaac07f06b72852b6f78f9e587f2a1c928",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
