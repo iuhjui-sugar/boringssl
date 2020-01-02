@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "380c27b3_8cda5c2a",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 805,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-02T22:18:38Z",
+      "side": 1,
+      "message": "A thought: if we stored -delta instead of delta, then delta_is_positive is just the sign bit. Does that end up being more efficient or cleaner?\n\nLooking at the paper, section 7.1 also mentions doing this.",
+      "revId": "1abdfd082f6636e951a658a978cdaefedd86fbfe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1cbd5fd9_683996c8",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 822,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-02T22:18:38Z",
+      "side": 1,
+      "message": "Worth a comment? I had to draw out the cases to convince myself, but then I thought about it after the fact and decided that was unnecessary. (delta++ confused me, but then I realized delta++ cannot make negative into positive or positive into negative, only negative to zero and zero to positive, hence the special case at zero.)",
+      "revId": "1abdfd082f6636e951a658a978cdaefedd86fbfe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96c6ebc2_4a9b4343",
+        "filename": "crypto/hrss/hrss.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 822,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-02T22:18:38Z",
+      "side": 1,
+      "message": "Doesn\u0027t delta_zero imply mask \u003d\u003d 0? So ~mask \u0026 delta_zero is I think the same as delta_zero. (And if we did swap with delta \u003d\u003d 0, it wouldn\u0027t matter because 0 \u003d\u003d -0 and we sample delta_zero post-swap anyway.)\n\n(I think the LHS can likewise be just delta_is_positive \u0026 ~mask, but ^ doesn\u0027t require reasoning about mask or getting at andnot instructions.)\n\nDitto throughout.",
+      "range": {
+        "startLine": 822,
+        "startChar": 54,
+        "endLine": 822,
+        "endChar": 72
+      },
+      "revId": "1abdfd082f6636e951a658a978cdaefedd86fbfe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
