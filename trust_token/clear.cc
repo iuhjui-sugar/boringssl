@@ -43,7 +43,7 @@ static void clear_free(TT_CTX *ctx) {
   OPENSSL_free(ctx->protocol);
 }
 
-static bool clear_client_begin_issuance(TT_CTX *ctx, uint8_t **out, size_t *out_len, size_t count) {
+static bool clear_client_begin_issuance(TT_CTX *ctx, std::vector<uint8_t> *out, size_t count) {
   CLEAR_CTX *cctx = (CLEAR_CTX*)ctx->protocol;
 
   CBB request;
@@ -59,13 +59,21 @@ static bool clear_client_begin_issuance(TT_CTX *ctx, uint8_t **out, size_t *out_
     }
   }
   printf("Clear issuance begin.\n");
-  return CBB_finish(&request, out, out_len);
+
+  uint8_t *der;
+  size_t der_len;
+  if (!CBB_finish(&request, &der, &der_len)) {
+    return false;
+  }
+  out->assign(der, der + der_len);
+  OPENSSL_free(der);
+  return true;
 }
 
-static bool clear_issuer_do_issuance(TT_CTX *ctx, uint8_t **out, size_t *out_len, const uint8_t *request, size_t request_len) {
+static bool clear_issuer_do_issuance(TT_CTX *ctx, std::vector<uint8_t> *out, const std::vector<uint8_t> request) {
   CLEAR_CTX *cctx = (CLEAR_CTX*)ctx->protocol;
 
-  CBS in(bssl::MakeSpan(request, request_len));
+  CBS in(request);
   uint16_t count;
   if (!CBS_get_u16(&in, &count)) {
     return false;
@@ -85,18 +93,26 @@ static bool clear_issuer_do_issuance(TT_CTX *ctx, uint8_t **out, size_t *out_len
     printf("Saw blinded token %d and signed to %d.\n", btoken, btoken * cctx->a);
   }
   printf("Clear issuance do for %d tokens.\n", count);
-  return CBS_len(&in) == 0 && CBB_finish(&response, out, out_len);
+
+  uint8_t *der;
+  size_t der_len;
+  if (CBS_len(&in) != 0 ||
+      !CBB_finish(&response, &der, &der_len)) {
+    return false;
+  }
+  OPENSSL_free(der);
+  out->assign(der, der + der_len);
+  return true;
 }
-static bool clear_client_finish_issuance(TT_CTX *ctx, TRUST_TOKEN ***tokens, size_t *tokens_len, const uint8_t *response, size_t response_len) {
+static bool clear_client_finish_issuance(TT_CTX *ctx, std::vector<TRUST_TOKEN *> *tokens, const std::vector<uint8_t> response) {
   CLEAR_CTX *cctx = (CLEAR_CTX*)ctx->protocol;
 
-  CBS in(bssl::MakeSpan(response, response_len));
+  CBS in(response);
   uint16_t count;
   if (!CBS_get_u16(&in, &count)) {
     return false;
   }
 
-  *tokens = (TRUST_TOKEN**)OPENSSL_malloc(count * sizeof(TRUST_TOKEN*));
   for (size_t i = 0; i < count; i++) {
     uint32_t bstoken;
     if (!CBS_get_u32(&in, &bstoken)) {
@@ -104,15 +120,15 @@ static bool clear_client_finish_issuance(TT_CTX *ctx, TRUST_TOKEN ***tokens, siz
     }
     uint32_t token = bstoken / cctx->a;
     printf("Signed Token: %d\n", token);
-    (*tokens)[i] = (TRUST_TOKEN *)OPENSSL_malloc(sizeof(TRUST_TOKEN));
-    (*tokens)[i]->data = token;
+    TRUST_TOKEN *atoken = (TRUST_TOKEN *)OPENSSL_malloc(sizeof(TRUST_TOKEN));
+    atoken->data = token;
+    tokens->push_back(atoken);
   }
-  *tokens_len = count;
   printf("Clear issuance finish.\n");
   return true;
 }
 
-static bool clear_client_begin_redemption(TT_CTX *ctx, uint8_t **out, size_t *out_len, TRUST_TOKEN *token) {
+static bool clear_client_begin_redemption(TT_CTX *ctx, std::vector<uint8_t> *out, const TRUST_TOKEN *token) {
   CBB request;
   if (!CBB_init(&request, 0) ||
       !CBB_add_u32(&request, token->data)) {
@@ -120,13 +136,20 @@ static bool clear_client_begin_redemption(TT_CTX *ctx, uint8_t **out, size_t *ou
     return false;
   }
   printf("Clear redemption begin.\n");
-  return CBB_finish(&request, out, out_len);
+  uint8_t *der;
+  size_t der_len;
+  if (!CBB_finish(&request, &der, &der_len)) {
+    return false;
+  }
+  OPENSSL_free(der);
+  out->assign(der, der + der_len);
+  return true;
 }
 
-static bool clear_issuer_do_redemption(TT_CTX *ctx, bool *result, const uint8_t *request, size_t request_len) {
+static bool clear_issuer_do_redemption(TT_CTX *ctx, bool *result, const std::vector<uint8_t> request) {
   CLEAR_CTX *cctx = (CLEAR_CTX*)ctx->protocol;
 
-  CBS in(bssl::MakeSpan(request, request_len));
+  CBS in(request);
   uint32_t token;
   if (!CBS_get_u32(&in, &token)) {
     return false;
@@ -152,7 +175,7 @@ static const TRUST_TOKEN_METHOD *TRUST_TOKEN_ClearProtocol(void) {
   return &kClearTrustTokenMethod;
 }
 
-TT_CTX *TRUST_TOKEN_Client_InitClear(uint32_t public_key) {
+TT_CTX *TRUST_TOKEN_Clear_InitClient(uint32_t public_key) {
   TT_CTX *ret = (TT_CTX *)OPENSSL_malloc(sizeof(TT_CTX));
   ret->method = TRUST_TOKEN_ClearProtocol();
   if (!ret->method->tt_new_client(ret)) {
@@ -163,7 +186,7 @@ TT_CTX *TRUST_TOKEN_Client_InitClear(uint32_t public_key) {
   return ret;
 }
 
-TT_CTX *TRUST_TOKEN_Issuer_InitClear(uint32_t private_key) {
+TT_CTX *TRUST_TOKEN_Clear_InitIssuer(uint32_t private_key) {
   TT_CTX *ret = (TT_CTX *)OPENSSL_malloc(sizeof(TT_CTX));
   ret->method = TRUST_TOKEN_ClearProtocol();
   if (!ret->method->tt_new_issuer(ret)) {

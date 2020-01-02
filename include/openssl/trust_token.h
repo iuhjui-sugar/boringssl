@@ -15,6 +15,8 @@
 #ifndef OPENSSL_HEADER_TRUST_TOKEN_H
 #define OPENSSL_HEADER_TRUST_TOKEN_H
 
+#include <vector>
+
 #include <openssl/base.h>
 
 #if defined(__cplusplus)
@@ -27,12 +29,15 @@ struct trust_token_st {
 
 // Initialize a client using the 'cleartext' protocol and public key
 // |public_key|.
-OPENSSL_EXPORT TT_CTX *TRUST_TOKEN_Client_InitClear(uint32_t public_key);
+OPENSSL_EXPORT TT_CTX *TRUST_TOKEN_Clear_InitClient(uint32_t public_key);
 
 // Initialize an issuer using the 'cleartext' protocol and private key
 // |private_key|.
-OPENSSL_EXPORT TT_CTX *TRUST_TOKEN_Issuer_InitClear(uint32_t private_key);
+OPENSSL_EXPORT TT_CTX *TRUST_TOKEN_Clear_InitIssuer(uint32_t private_key);
 
+/* OPENSSL_EXPORT bool TRUST_TOKEN_PrivacyPass_InitKey( */
+/*     uint16_t ciphersuite, std::vector<uint8_t> *priv_key, */
+/*     std::vector<uint8_t> *pub_key); */
 // Initialize a client using the 'PrivacyPass' protocol and public key
 // |public_key|.
 //OPENSSL_EXPORT TT_CTX *TRUST_TOKEN_Client_InitPrivacyPass;
@@ -49,8 +54,8 @@ OPENSSL_EXPORT void TRUST_TOKEN_free(TT_CTX *ctx);
 // that buffer and |*out_len| to its length. The caller takes ownership of the
 // buffer and must call |OPENSSL_free| when done. It returns true on success and
 // false on error.
-OPENSSL_EXPORT bool TRUST_TOKEN_Client_BeginIssuance(TT_CTX *ctx, uint8_t **out,
-                                                     size_t *out_len,
+OPENSSL_EXPORT bool TRUST_TOKEN_Client_BeginIssuance(TT_CTX *ctx,
+                                                     std::vector<uint8_t> *out,
                                                      size_t count);
 
 // TRUST_TOKEN_Issuer_PerformIssuance ingests a |request| for token issuance and
@@ -58,44 +63,35 @@ OPENSSL_EXPORT bool TRUST_TOKEN_Client_BeginIssuance(TT_CTX *ctx, uint8_t **out,
 // response into a newly allocated buffer and setting |*out| to that buffer and
 // |*out_len| to its length. The caller takes ownership of the buffer and must
 // call |OPENSSL_free| when done. It returns true on success and false on error.
-OPENSSL_EXPORT bool TRUST_TOKEN_Issuer_PerformIssuance(TT_CTX *ctx,
-                                                       uint8_t **out,
-                                                       size_t *out_len,
-                                                       const uint8_t *request,
-                                                       size_t request_len);
+OPENSSL_EXPORT bool TRUST_TOKEN_Issuer_PerformIssuance(
+    TT_CTX *ctx, std::vector<uint8_t> *out,
+    const std::vector<uint8_t> request);
 
 // TRUST_TOKEN_Client_FinishIssuance consumes a |response| from the issuer and
 // extracts the tokens, allocating a buffer to store pointers to each token and
 // setting |*tokens| to that buffer and |*tokens_len| to its length. The caller
 // takes ownership of the buffer and must call |OPENSSL_free| when done. It
 // returns true on success and false on error.
-OPENSSL_EXPORT bool TRUST_TOKEN_Client_FinishIssuance(TT_CTX *ctx,
-                                                      TRUST_TOKEN ***tokens,
-                                                      size_t *tokens_len,
-                                                      const uint8_t *response,
-                                                      size_t response_len);
+OPENSSL_EXPORT bool TRUST_TOKEN_Client_FinishIssuance(
+    TT_CTX *ctx, std::vector<TRUST_TOKEN *> *tokens,
+    const std::vector<uint8_t> response);
 
 OPENSSL_EXPORT bool TRUST_TOKEN_Client_BeginRedemption(
-    TT_CTX *ctx, uint8_t **out, size_t *out_len, TRUST_TOKEN *token,
-    uint8_t *data, size_t data_len);
+    TT_CTX *ctx, std::vector<uint8_t> *out, const TRUST_TOKEN *token,
+    const std::vector<uint8_t> data);
 
 // TODO: Add timestamp.
-OPENSSL_EXPORT bool TRUST_TOKEN_Issuer_PerformRedemption(TT_CTX *ctx,
-                                                         uint8_t **out,
-                                                         size_t *out_len,
-                                                         const uint8_t *request,
-                                                         size_t request_len);
+OPENSSL_EXPORT bool TRUST_TOKEN_Issuer_PerformRedemption(
+    TT_CTX *ctx, std::vector<uint8_t> *out, const std::vector<uint8_t> request);
 
-//TODO: Add a way to extract the SRR.
-OPENSSL_EXPORT bool TRUST_TOKEN_Client_FinishRedemption(TT_CTX *ctx,
-                                                        bool *result,
-                                                        const uint8_t *response,
-                                                        size_t response_len);
+// TODO: Add a way to extract the SRR.
+OPENSSL_EXPORT bool TRUST_TOKEN_Client_FinishRedemption(
+    TT_CTX *ctx, bool *result, const std::vector<uint8_t> response);
 
 // Protocol, 
 
-/* // Generates a P521 key. (TODO: Parameterize to support multiple key types).  */
-/* OPENSSL_EXPORT TRUST_TOKEN_Issuer_CreateKey(void); */
+/* // Generates a PrivacyPass key. (TODO: Parameterize to support multiple key types).  */
+/* OPENSSL_EXPORT TRUST_TOKEN_Issuer_CreateKey(id); */
 
 /* PrivateMetadataKeys { */
 /*   PKey *trueKey; */
@@ -107,6 +103,8 @@ OPENSSL_EXPORT bool TRUST_TOKEN_Client_FinishRedemption(TT_CTX *ctx,
 /* }; */
 
 /* TRUST_TOKEN_Issuer_SetMetadataKeys(TT_CTX *ctx, const MetadataKeyConfig *keys, size_t len) - Sets the key to use for this instantiation of PrivacyPass. */
+
+
 
 /* Signing Request Data */
 /* TRUST_TOKEN_GenerateKeypair() → (pub, priv) - Generates a public / private keypair for signing request data. */

@@ -15,6 +15,8 @@
 #ifndef OPENSSL_HEADER_TRUST_TOKEN_INTERNAL_H
 #define OPENSSL_HEADER_TRUST_TOKEN_INTERNAL_H
 
+#include <vector>
+
 #include <openssl/base.h>
 
 #include <openssl/trust_token.h>
@@ -24,11 +26,11 @@ struct TRUST_TOKEN_METHOD {
   bool (*tt_new_client)(TT_CTX *ctx);
   bool (*tt_new_issuer)(TT_CTX *ctx);
   void (*tt_free)(TT_CTX *ctx);
-  bool (*client_begin_issuance)(TT_CTX *ctx, uint8_t **out, size_t *out_len, size_t count);
-  bool (*issuer_do_issuance)(TT_CTX *ctx, uint8_t **out, size_t *out_len, const uint8_t *request, size_t request_len);
-  bool (*client_finish_issuance)(TT_CTX *ctx, TRUST_TOKEN ***tokens, size_t *tokens_len, const uint8_t *response, size_t response_len);
-  bool (*client_begin_redemption)(TT_CTX *ctx, uint8_t **out, size_t *out_len, TRUST_TOKEN *token);
-  bool (*issuer_do_redemption)(TT_CTX *ctx, bool *result, const uint8_t *request, size_t request_len);
+  bool (*client_begin_issuance)(TT_CTX *ctx, std::vector<uint8_t> *out, size_t count);
+  bool (*issuer_do_issuance)(TT_CTX *ctx, std::vector<uint8_t> *out, const std::vector<uint8_t> request);
+  bool (*client_finish_issuance)(TT_CTX *ctx, std::vector<TRUST_TOKEN *> *tokens, const std::vector<uint8_t> response);
+  bool (*client_begin_redemption)(TT_CTX *ctx, std::vector<uint8_t> *out, const TRUST_TOKEN *token);
+  bool (*issuer_do_redemption)(TT_CTX *ctx, bool *result, const std::vector<uint8_t> request);
 };
 
 struct trust_token_ctx_st {

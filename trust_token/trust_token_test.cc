@@ -32,78 +32,30 @@ BSSL_NAMESPACE_BEGIN
 namespace {
 
 TEST(TrustTokenTest, ClearProtocol) {
-  TT_CTX *client = TRUST_TOKEN_Client_InitClear(17);
-  TT_CTX *issuer = TRUST_TOKEN_Issuer_InitClear(42);
+  TT_CTX *client = TRUST_TOKEN_Clear_InitClient(17);
+  TT_CTX *issuer = TRUST_TOKEN_Clear_InitIssuer(42);
 
-  uint8_t *msg, *resp;
-  TRUST_TOKEN **tokens;
-  size_t msg_len, resp_len, tokens_len;
+  std::vector<uint8_t> msg, resp;
+  std::vector<TRUST_TOKEN*> tokens;
 
-  ASSERT_TRUE(TRUST_TOKEN_Client_BeginIssuance(client, &msg, &msg_len, 10));
-  ASSERT_TRUE(TRUST_TOKEN_Issuer_PerformIssuance(issuer, &resp, &resp_len, msg, msg_len));
-  ASSERT_TRUE(TRUST_TOKEN_Client_FinishIssuance(client, &tokens, &tokens_len, resp, resp_len));
+  ASSERT_TRUE(TRUST_TOKEN_Client_BeginIssuance(client, &msg, 10));
+  ASSERT_TRUE(TRUST_TOKEN_Issuer_PerformIssuance(issuer, &resp, msg));
+  ASSERT_TRUE(TRUST_TOKEN_Client_FinishIssuance(client, &tokens, resp));
 
-  OPENSSL_free(msg);
-  OPENSSL_free(resp);
-
-  for (size_t i = 0; i < tokens_len; i++) {
-    if (i % 3 == 0) {
-      tokens[i]->data = i;
-    }
-    ASSERT_TRUE(TRUST_TOKEN_Client_BeginRedemption(client, &msg, &msg_len, tokens[i], nullptr, 0));
-    ASSERT_TRUE(TRUST_TOKEN_Issuer_PerformRedemption(issuer, &resp, &resp_len, msg, msg_len));
+  size_t i = 0;
+  for (TRUST_TOKEN *token : tokens) {
+    ASSERT_TRUE(TRUST_TOKEN_Client_BeginRedemption(client, &msg, token, std::vector<uint8_t>()));
+    ASSERT_TRUE(TRUST_TOKEN_Issuer_PerformRedemption(issuer, &resp, msg));
     bool result = false;
-    ASSERT_TRUE(TRUST_TOKEN_Client_FinishRedemption(client, &result, resp, resp_len));
-    printf("Token #%zu/%zu: %d\n", i+1, tokens_len, tokens[i]->data);
+    ASSERT_TRUE(TRUST_TOKEN_Client_FinishRedemption(client, &result, resp));
+    printf("Token #%zu/%zu: %d\n", ++i, tokens.size(), token->data);
     printf("Result: %d\n", result);
 
-    OPENSSL_free(msg);
-    OPENSSL_free(resp);
-    OPENSSL_free(tokens[i]);
+    OPENSSL_free(token);
   }
 
   TRUST_TOKEN_free(client);
   TRUST_TOKEN_free(issuer);
-  OPENSSL_free(tokens);
-}
-
-TEST(TrustTokenTest, PrivacyPassProtocol) {
-  // TT_CTX *client = TRUST_TOKEN_Client_InitPrivacyPass(ciphersuite, publicKey, batchsize);
-  // TT_CTX *issuer = TRUST_TOKEN_Issuer_InitPrivacyPass(ciphersuite, privateKey, batchsize);
-
-  TT_CTX *client = TRUST_TOKEN_Client_InitClear(17);
-  TT_CTX *issuer = TRUST_TOKEN_Issuer_InitClear(42);
-
-  uint8_t *msg, *resp;
-  TRUST_TOKEN **tokens;
-  size_t msg_len, resp_len, tokens_len;
-
-  ASSERT_TRUE(TRUST_TOKEN_Client_BeginIssuance(client, &msg, &msg_len, 10));
-  ASSERT_TRUE(TRUST_TOKEN_Issuer_PerformIssuance(issuer, &resp, &resp_len, msg, msg_len));
-  ASSERT_TRUE(TRUST_TOKEN_Client_FinishIssuance(client, &tokens, &tokens_len, resp, resp_len));
-
-  OPENSSL_free(msg);
-  OPENSSL_free(resp);
-
-  for (size_t i = 0; i < tokens_len; i++) {
-    if (i % 3 == 0) {
-      tokens[i]->data = i;
-    }
-    ASSERT_TRUE(TRUST_TOKEN_Client_BeginRedemption(client, &msg, &msg_len, tokens[i], nullptr, 0));
-    ASSERT_TRUE(TRUST_TOKEN_Issuer_PerformRedemption(issuer, &resp, &resp_len, msg, msg_len));
-    bool result = false;
-    ASSERT_TRUE(TRUST_TOKEN_Client_FinishRedemption(client, &result, resp, resp_len));
-    printf("Token #%zu/%zu: %d\n", i+1, tokens_len, tokens[i]->data);
-    printf("Result: %d\n", result);
-
-    OPENSSL_free(msg);
-    OPENSSL_free(resp);
-    OPENSSL_free(tokens[i]);
-  }
-
-  TRUST_TOKEN_free(client);
-  TRUST_TOKEN_free(issuer);
-  OPENSSL_free(tokens);
 }
 
 }  // namespace

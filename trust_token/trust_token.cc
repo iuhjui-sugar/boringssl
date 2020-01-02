@@ -29,60 +29,61 @@ void TRUST_TOKEN_free(TT_CTX *ctx) {
   OPENSSL_free(ctx);
 }
 
-bool TRUST_TOKEN_Client_BeginIssuance(TT_CTX *ctx, uint8_t **out,
-                                      size_t *out_len, size_t count) {
-  return ctx->method->client_begin_issuance(ctx, out, out_len, count);
+bool TRUST_TOKEN_Client_BeginIssuance(TT_CTX *ctx, std::vector<uint8_t> *out,
+                                      size_t count) {
+  return ctx->method->client_begin_issuance(ctx, out, count);
 }
 
-bool TRUST_TOKEN_Issuer_PerformIssuance(TT_CTX *ctx, uint8_t **out,
-                                        size_t *out_len, const uint8_t *request,
-                                        size_t request_len) {
-  return ctx->method->issuer_do_issuance(ctx, out, out_len, request,
-                                         request_len);
+bool TRUST_TOKEN_Issuer_PerformIssuance(TT_CTX *ctx, std::vector<uint8_t> *out,
+                                        const std::vector<uint8_t> request) {
+  return ctx->method->issuer_do_issuance(ctx, out, request);
 }
 
-bool TRUST_TOKEN_Client_FinishIssuance(TT_CTX *ctx, TRUST_TOKEN ***tokens,
-                                       size_t *tokens_len,
-                                       const uint8_t *response,
-                                       size_t response_len) {
-  return ctx->method->client_finish_issuance(ctx, tokens, tokens_len, response,
-                                             response_len);
+bool TRUST_TOKEN_Client_FinishIssuance(TT_CTX *ctx,
+                                       std::vector<TRUST_TOKEN *> *tokens,
+                                       const std::vector<uint8_t> response) {
+  return ctx->method->client_finish_issuance(ctx, tokens, response);
 }
 
 
-bool TRUST_TOKEN_Client_BeginRedemption(TT_CTX *ctx, uint8_t **out,
-                                        size_t *out_len, TRUST_TOKEN *token,
-                                        uint8_t *data, size_t data_len) {
-  uint8_t *inner;
-  size_t inner_len;
-  if (!ctx->method->client_begin_redemption(ctx, &inner, &inner_len, token)) {
+bool TRUST_TOKEN_Client_BeginRedemption(TT_CTX *ctx, std::vector<uint8_t> *out,
+                                        const TRUST_TOKEN *token,
+                                        const std::vector<uint8_t> data) {
+  std::vector<uint8_t> inner;
+  if (!ctx->method->client_begin_redemption(ctx, &inner, token)) {
     return false;
   }
   CBB request;
   if (!CBB_init(&request, 0) ||
-      !CBB_add_u16(&request, inner_len) ||
-      !CBB_add_bytes(&request, inner, inner_len) ||
-      !CBB_add_u16(&request, data_len) ||
-      !CBB_add_bytes(&request, data, data_len)) {
+      !CBB_add_u16(&request, inner.size()) ||
+      !CBB_add_bytes(&request, inner.data(), inner.size()) ||
+      !CBB_add_u16(&request, data.size()) ||
+      !CBB_add_bytes(&request, data.data(), data.size())) {
     return false;
   }
-  OPENSSL_free(inner);
-  return CBB_finish(&request, out, out_len);
+  uint8_t *der;
+  size_t der_len;
+  if (!CBB_finish(&request, &der, &der_len)) {
+    return false;
+  }
+  OPENSSL_free(der);
+  out->assign(der, der + der_len);
+  return true;
 }
 
-bool TRUST_TOKEN_Issuer_PerformRedemption(TT_CTX *ctx, uint8_t **out,
-                                          size_t *out_len,
-                                          const uint8_t *request,
-                                          size_t request_len) {
-  CBS in(bssl::MakeSpan(request, request_len));
+bool TRUST_TOKEN_Issuer_PerformRedemption(TT_CTX *ctx,
+                                          std::vector<uint8_t> *out,
+                                          const std::vector<uint8_t> request) {
+  CBS in(request);
   uint16_t inner_request_len;
   if (!CBS_get_u16(&in, &inner_request_len)) {
     return false;
   }
 
+  std::vector<uint8_t> inner;
+  inner.assign(CBS_data(&in), CBS_data(&in) + inner_request_len);
   bool result;
-  if (!ctx->method->issuer_do_redemption(ctx, &result, CBS_data(&in),
-                                         inner_request_len)) {
+  if (!ctx->method->issuer_do_redemption(ctx, &result, inner)) {
     return false;
   }
   CBB response;
@@ -95,11 +96,18 @@ bool TRUST_TOKEN_Issuer_PerformRedemption(TT_CTX *ctx, uint8_t **out,
     // Timestamp + DATA + Signature
   }
 
-  return CBB_finish(&response, out, out_len);
+  uint8_t *der;
+  size_t der_len;
+  if (!CBB_finish(&response, &der, &der_len)) {
+    return false;
+  }
+  OPENSSL_free(der);
+  out->assign(der, der + der_len);
+  return true;
 }
 
-bool TRUST_TOKEN_Client_FinishRedemption(TT_CTX *ctx, bool *result, const uint8_t *response, size_t response_len) {
-  CBS in(bssl::MakeSpan(response, response_len));
+bool TRUST_TOKEN_Client_FinishRedemption(TT_CTX *ctx, bool *result, const std::vector<uint8_t> response) {
+  CBS in(response);
   uint8_t res;
   if (!CBS_get_u8(&in, &res)) {
     return false;
