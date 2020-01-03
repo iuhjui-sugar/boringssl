@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a37b4d65_04bd3195",
+        "filename": "crypto/fipsmodule/aes/aes_nohw.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-03T00:19:42Z",
+      "side": 1,
+      "message": "I believe PPC64LE does include this file because we\u0027re not statically guaranteed vcrypto exists. I believe the only configs that drop it are:\n\n- aarch64 + asm (64-bit Android or iOS)\n- arm + static armcap + NEON + asm (32-bit iOS)\n\nWhen we drop CRYPTO_has_broken_NEON (hoping to tug on that this year), arm + getauxval + compiler-assumed NEON + asm (32-bit Android) will join those ranks.\n\naes.c and e_aes.c also wants aes_nohw_* to be defined everywhere, so we\u0027d risk link errors in sufficiently unoptimized builds. Also crypto_test pulls it in, though we could change that. The reasoning which leads to the code being dropped is:\n\n1. If vpaes_capable() statically returns one (on ARM/AArch64, this is gated on __ARM_NEON__ and __ARM_NEON, modulo hack for CRYPTO_has_broken_NEON on 32-bit), the compiler\u0027s dead code elimination should remove all aes_nohw_* references.\n\n2. The linker observes that aes_nohw_* is no longer referenced and deletes it.\n\nThe reliance on (1) was always there. We relied on dead code elimination so e_aes.c wasn\u0027t a mess of ifdefs.\n\n(2) does rely on -ffunction-sections due to bcm.c. Previously, we had asm implementations for x86, x86_64, and arm, which would not. Other platforms, notably aarch64, should be no worse off than before. Of the asm cases that care, 32-bit iOS without -ffunction-sections may care, but I don\u0027t think 32-bit iOS exists anymore. Post-buggy-NEON 32-bit Android would care, but we\u0027re not post-buggy-NEON yet. In both cases, building with -ffunction-sections or exploding bcm.c into component source files would solve (2).\n\nI\u0027m inclined to leave it as-is. This is a fairly general bcm.c issue. As far as I\u0027m aware, no one noticed size-wise when we moved things to bcm.c, so it seems everyone that cares has -ffunction-sections. Thoughts?",
+      "parentUuid": "f338d6c1_e949724c",
+      "revId": "48a1daf0761f052c8f9be3dac1d248eb6237fbc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "92b9f8b2_940fa830",
         "filename": "crypto/fipsmodule/aes/aes_nohw.c",
         "patchSetId": 6
@@ -89,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "16662ffa_418eb6e5",
+        "filename": "crypto/fipsmodule/aes/aes_nohw.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-03T00:19:42Z",
+      "side": 1,
+      "message": "Left some comments that try to explain it, because everytime I look at it again, my head hurts. :-)",
+      "parentUuid": "b095ff33_e07930c4",
+      "revId": "48a1daf0761f052c8f9be3dac1d248eb6237fbc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f88592c_435b3670",
         "filename": "crypto/fipsmodule/aes/aes_nohw.c",
         "patchSetId": 6
@@ -112,6 +148,30 @@
     },
     {
       "key": {
+        "uuid": "10c4225f_ca2c9018",
+        "filename": "crypto/fipsmodule/aes/aes_nohw.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 992,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-03T00:19:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f88592c_435b3670",
+      "range": {
+        "startLine": 992,
+        "startChar": 47,
+        "endLine": 992,
+        "endChar": 56
+      },
+      "revId": "48a1daf0761f052c8f9be3dac1d248eb6237fbc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5f14ea8c_1d3e6001",
         "filename": "crypto/fipsmodule/aes/aes_nohw.c",
         "patchSetId": 6
@@ -129,6 +189,24 @@
     },
     {
       "key": {
+        "uuid": "afd51285_a603b71d",
+        "filename": "crypto/fipsmodule/aes/aes_nohw.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 1157,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-03T00:19:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f14ea8c_1d3e6001",
+      "revId": "48a1daf0761f052c8f9be3dac1d248eb6237fbc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8e55712a_21666ca9",
         "filename": "crypto/fipsmodule/aes/aes_nohw.c",
         "patchSetId": 6
@@ -143,6 +221,24 @@
       "revId": "48a1daf0761f052c8f9be3dac1d248eb6237fbc1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c57feef7_49cd9b06",
+        "filename": "crypto/fipsmodule/aes/aes_nohw.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 1217,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-03T00:19:42Z",
+      "side": 1,
+      "message": "Done. Reordered things slightly so this is still true even if len % 16 !\u003d 0.",
+      "parentUuid": "8e55712a_21666ca9",
+      "revId": "48a1daf0761f052c8f9be3dac1d248eb6237fbc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }

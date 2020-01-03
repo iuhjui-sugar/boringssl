@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "83311160_a1e68cbd",
+        "filename": "crypto/fipsmodule/aes/aes_nohw.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 282,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-03T00:19:42Z",
+      "side": 1,
+      "message": "(I\u0027m sure there\u0027s a more efficient way to do this whole thing...)",
+      "revId": "ae8efe394aaf19fbaad96ea32e2a11cdee54282d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
