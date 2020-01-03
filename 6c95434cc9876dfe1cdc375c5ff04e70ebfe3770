@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "41a9e1ec_895ec461",
+        "filename": "crypto/test/file_test.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-03T22:48:09Z",
+      "side": 0,
+      "message": "This is a remnant of before we had GTest. There are no callers left.",
+      "range": {
+        "startLine": 167,
+        "startChar": 5,
+        "endLine": 167,
+        "endChar": 21
+      },
+      "revId": "6c95434cc9876dfe1cdc375c5ff04e70ebfe3770",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
