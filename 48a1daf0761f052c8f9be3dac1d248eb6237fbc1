@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "4a005c53_9decfd30",
+        "filename": "crypto/fipsmodule/aes/aes_nohw.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-01-03T16:25:04Z",
+      "side": 1,
+      "message": "I think you\u0027ve convinced me that it\u0027ll be a pain to get this right and that everyone who cares needs to be using function-sections.",
+      "parentUuid": "a37b4d65_04bd3195",
+      "revId": "48a1daf0761f052c8f9be3dac1d248eb6237fbc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "92b9f8b2_940fa830",
         "filename": "crypto/fipsmodule/aes/aes_nohw.c",
         "patchSetId": 6
