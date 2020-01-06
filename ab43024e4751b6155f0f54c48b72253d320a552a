@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3648271b_7c47c520",
+        "filename": "crypto/fipsmodule/rsa/rsa_impl.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-01-06T17:15:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "98e1fe72_784b97f4",
+      "revId": "ab43024e4751b6155f0f54c48b72253d320a552a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3b23b1aa_9c947d45",
         "filename": "crypto/rsa_extra/rsa_test.cc",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "ab43024e4751b6155f0f54c48b72253d320a552a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a9f8252_93b6ac73",
+        "filename": "crypto/rsa_extra/rsa_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1121,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-01-06T17:15:05Z",
+      "side": 1,
+      "message": "(Already in an #if defined(OPENSSL_THREADS) block. Added comments at the end of the #endifs.)",
+      "parentUuid": "3b23b1aa_9c947d45",
+      "revId": "ab43024e4751b6155f0f54c48b72253d320a552a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
