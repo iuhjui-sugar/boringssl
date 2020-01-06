@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8f4dcd3d_ba2fb5d7",
+        "filename": "crypto/fipsmodule/aes/aes_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-06T17:44:54Z",
+      "side": 1,
+      "message": "Done. Renamed words to match.",
+      "parentUuid": "45c8b849_a5e10c06",
+      "range": {
+        "startLine": 430,
+        "startChar": 59,
+        "endLine": 430,
+        "endChar": 63
+      },
+      "revId": "6dac652732fe772dc66a61aa14b8e6a95f0b4439",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "771f1905_3dad96cc",
         "filename": "crypto/fipsmodule/aes/aes_test.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "6dac652732fe772dc66a61aa14b8e6a95f0b4439",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f47aed9_5c910263",
+        "filename": "crypto/fipsmodule/aes/aes_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-06T17:44:54Z",
+      "side": 1,
+      "message": "Done. Went with num_subkey_words since num_key_words sounds like it might be part of key.",
+      "parentUuid": "771f1905_3dad96cc",
+      "range": {
+        "startLine": 448,
+        "startChar": 9,
+        "endLine": 448,
+        "endChar": 17
+      },
+      "revId": "6dac652732fe772dc66a61aa14b8e6a95f0b4439",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "bb21842d_57fd83d5",
+        "filename": "crypto/fipsmodule/aes/aes_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-06T17:44:54Z",
+      "side": 1,
+      "message": "words \u003e 6 is the formulation in the spec, but yeah I think key_bits \u003d\u003d 256 is clearer. Done. (The spec is written to support even more parameters.)",
+      "parentUuid": "91661fc9_99b2e951",
+      "range": {
+        "startLine": 454,
+        "startChar": 15,
+        "endLine": 454,
+        "endChar": 24
+      },
+      "revId": "6dac652732fe772dc66a61aa14b8e6a95f0b4439",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "64f5acb9_62cfd275",
         "filename": "crypto/fipsmodule/aes/aes_test.cc",
         "patchSetId": 2
@@ -91,6 +163,30 @@
       "revId": "6dac652732fe772dc66a61aa14b8e6a95f0b4439",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6640770_3c956439",
+        "filename": "crypto/fipsmodule/aes/aes_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-06T17:44:54Z",
+      "side": 1,
+      "message": "Oops. Fixed.",
+      "parentUuid": "64f5acb9_62cfd275",
+      "range": {
+        "startLine": 616,
+        "startChar": 46,
+        "endLine": 616,
+        "endChar": 51
+      },
+      "revId": "6dac652732fe772dc66a61aa14b8e6a95f0b4439",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
