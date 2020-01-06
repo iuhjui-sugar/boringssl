@@ -1125,8 +1125,13 @@ TEST(RSATest, BlindingCacheConcurrency) {
       RSA_private_key_from_bytes(kKey1, sizeof(kKey1) - 1));
   ASSERT_TRUE(rsa);
 
+#if defined(__has_feature) && __has_feature(thread_sanitizer)
+  constexpr size_t kSignaturesPerThread = 10;
+  constexpr size_t kNumThreads = 10;
+#else
   constexpr size_t kSignaturesPerThread = 100;
   constexpr size_t kNumThreads = 2048;
+#endif
 
   const uint8_t kDummyHash[32] = {0};
   auto worker = [&] {
