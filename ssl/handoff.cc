@@ -336,6 +336,10 @@ bool SSL_serialize_handback(const SSL *ssl, CBB *out) {
                                    hs->client_traffic_secret_0().size()) ||
         !CBB_add_asn1_octet_string(&seq, hs->server_traffic_secret_0().data(),
                                    hs->server_traffic_secret_0().size()) ||
+        !CBB_add_asn1_octet_string(&seq, hs->expected_client_finished().data(),
+                                   hs->expected_client_finished().size()) ||
+        !CBB_add_asn1_octet_string(&seq, hs->early_traffic_secret().data(),
+                                   hs->early_traffic_secret().size()) ||
         !CBB_add_asn1_octet_string(&seq, hs->client_handshake_secret().data(),
                                    hs->client_handshake_secret().size()) ||
         !CBB_add_asn1_octet_string(&seq, hs->server_handshake_secret().data(),
@@ -346,6 +350,10 @@ bool SSL_serialize_handback(const SSL *ssl, CBB *out) {
                                    s3->exporter_secret_len) ||
         !CBB_add_asn1_bool(&seq, s3->used_hello_retry_request) ||
         !CBB_add_asn1_bool(&seq, hs->accept_psk_mode) ||
+        !CBB_add_asn1_uint64(&seq, s3->early_data_reason) ||
+        !CBB_add_asn1_bool(&seq, s3->early_data_accepted) ||
+        !CBB_add_asn1_bool(&seq, hs->early_data_offered) ||
+        !CBB_add_asn1_bool(&seq, s3->skip_early_data) ||
         !CBB_add_asn1_int64(&seq, s3->ticket_age_skew)) {
       return false;
     }
@@ -432,18 +440,27 @@ bool SSL_apply_handback(SSL *ssl, Span<const uint8_t> handback) {
     return false;
   }
   CBS client_handshake_secret, server_handshake_secret, client_traffic_secret_0,
-      server_traffic_secret_0, secret, exporter_secret;
+      server_traffic_secret_0, secret, exporter_secret, early_traffic_secret,
+      expected_client_finished;
   if (type == handback_tls13) {
-    int used_hello_retry_request, accept_psk_mode;
+    int used_hello_retry_request, accept_psk_mode, early_data_accepted,
+        skip_early_data, early_data_offered;
+    uint64_t early_data_reason;
     int64_t ticket_age_skew;
     if (!CBS_get_asn1(&seq, &client_traffic_secret_0, CBS_ASN1_OCTETSTRING) ||
         !CBS_get_asn1(&seq, &server_traffic_secret_0, CBS_ASN1_OCTETSTRING) ||
+        !CBS_get_asn1(&seq, &expected_client_finished, CBS_ASN1_OCTETSTRING) ||
+        !CBS_get_asn1(&seq, &early_traffic_secret, CBS_ASN1_OCTETSTRING) ||
         !CBS_get_asn1(&seq, &client_handshake_secret, CBS_ASN1_OCTETSTRING) ||
         !CBS_get_asn1(&seq, &server_handshake_secret, CBS_ASN1_OCTETSTRING) ||
         !CBS_get_asn1(&seq, &secret, CBS_ASN1_OCTETSTRING) ||
         !CBS_get_asn1(&seq, &exporter_secret, CBS_ASN1_OCTETSTRING) ||
         !CBS_get_asn1_bool(&seq, &used_hello_retry_request) ||
         !CBS_get_asn1_bool(&seq, &accept_psk_mode) ||
+        !CBS_get_asn1_uint64(&seq, &early_data_reason) ||
+        !CBS_get_asn1_bool(&seq, &early_data_accepted) ||
+        !CBS_get_asn1_bool(&seq, &early_data_offered) ||
+        !CBS_get_asn1_bool(&seq, &skip_early_data) ||
         !CBS_get_asn1_int64(&seq, &ticket_age_skew)) {
       return false;
     }
@@ -453,7 +470,19 @@ bool SSL_apply_handback(SSL *ssl, Span<const uint8_t> handback) {
     }
     s3->ticket_age_skew = static_cast<int32_t>(ticket_age_skew);
     s3->used_hello_retry_request = used_hello_retry_request;
+    s3->early_data_reason =
+        static_cast<ssl_early_data_reason_t>(early_data_reason);
+    s3->early_data_accepted = early_data_accepted;
+    if (s3->early_data_accepted) {
+      hs->can_early_write = true;
+      hs->can_early_read = true;
+      hs->in_early_data = true;
+    }
+    hs->early_data_offered = early_data_offered;
+    s3->skip_early_data = skip_early_data;
     hs->accept_psk_mode = accept_psk_mode;
+  } else {
+    s3->early_data_reason = ssl_early_data_protocol_version;
   }
 
   ssl->version = session->ssl_version;
@@ -484,7 +513,9 @@ bool SSL_apply_handback(SSL *ssl, Span<const uint8_t> handback) {
       break;
     case handback_tls13:
       hs->state = state12_tls13;
-      hs->tls13_state = state13_read_client_certificate;
+      hs->tls13_state = s3->early_data_accepted
+                            ? state13_process_end_of_early_data
+                            : state13_read_client_certificate;
       break;
     default:
       return false;
@@ -509,15 +540,12 @@ bool SSL_apply_handback(SSL *ssl, Span<const uint8_t> handback) {
   s3->negotiated_token_binding_param =
       static_cast<uint8_t>(negotiated_token_binding_param);
   hs->next_proto_neg_seen = next_proto_neg_seen;
-  hs->wait = ssl_hs_flush;
+  hs->wait =
+      s3->early_data_accepted ? ssl_hs_read_end_of_early_data : ssl_hs_flush;
   hs->extended_master_secret = extended_master_secret;
   hs->ticket_expected = ticket_expected;
   s3->aead_write_ctx->SetVersionIfNullCipher(ssl->version);
   hs->cert_request = cert_request;
-
-  // TODO(davidben): When handoff for TLS 1.3 is added, serialize
-  // |early_data_reason| and stabilize the constants.
-  s3->early_data_reason = ssl_early_data_protocol_version;
 
   if ((type == handback_after_ecdhe ||
        type == handback_after_session_resumption || type == handback_tls13) &&
@@ -530,6 +558,8 @@ bool SSL_apply_handback(SSL *ssl, Span<const uint8_t> handback) {
     const size_t digest_len = hs->transcript.DigestLen();
     if (digest_len != CBS_len(&client_traffic_secret_0) ||
         digest_len != CBS_len(&server_traffic_secret_0) ||
+        digest_len != CBS_len(&expected_client_finished) ||
+        digest_len != CBS_len(&early_traffic_secret) ||
         digest_len != CBS_len(&client_handshake_secret) ||
         digest_len != CBS_len(&server_handshake_secret) ||
         digest_len != CBS_len(&secret)) {
@@ -540,6 +570,10 @@ bool SSL_apply_handback(SSL *ssl, Span<const uint8_t> handback) {
            CBS_data(&client_traffic_secret_0), digest_len);
     memcpy(hs->server_traffic_secret_0().data(),
            CBS_data(&server_traffic_secret_0), digest_len);
+    memcpy(hs->expected_client_finished().data(),
+           CBS_data(&expected_client_finished), digest_len);
+    memcpy(hs->early_traffic_secret().data(), CBS_data(&early_traffic_secret),
+           digest_len);
     memcpy(hs->client_handshake_secret().data(),
            CBS_data(&client_handshake_secret), digest_len);
     memcpy(hs->server_handshake_secret().data(),
@@ -570,9 +604,15 @@ bool SSL_apply_handback(SSL *ssl, Span<const uint8_t> handback) {
   }
   if (type == handback_tls13 &&
       (!tls13_set_traffic_key(ssl, ssl_encryption_handshake, evp_aead_open,
-                              hs->client_handshake_secret()) ||
+                              s3->early_data_accepted
+                                  ? hs->early_traffic_secret()
+                                  : hs->client_handshake_secret()) ||
        !tls13_set_traffic_key(ssl, ssl_encryption_application, evp_aead_seal,
-                              hs->server_traffic_secret_0()))) {
+                              hs->server_traffic_secret_0()) ||
+       !CBS_copy_bytes(&write_seq, s3->write_sequence,
+                       sizeof(s3->write_sequence)) ||
+       !CBS_copy_bytes(&read_seq, s3->read_sequence,
+                       sizeof(s3->read_sequence)))) {
     return false;
   }
   if (type == handback_after_ecdhe &&
