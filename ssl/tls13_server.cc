@@ -795,6 +795,10 @@ static enum ssl_hs_wait_t do_read_second_client_flight(SSL_HANDSHAKE *hs) {
   }
 
   hs->tls13_state = state13_process_end_of_early_data;
+  if (ssl->s3->early_data_accepted && hs->handback) {
+    return ssl_hs_handback;  // XXX no idea if this makes sense. XXX see above
+                             // for QUIC.
+  }
   return ssl->s3->early_data_accepted ? ssl_hs_read_end_of_early_data
                                       : ssl_hs_ok;
 }
