@@ -128,9 +128,12 @@ bool DeserializeContextState(CBS *cbs, SSL_CTX *ctx) {
 }
 
 bool TestState::Serialize(CBB *cbb) const {
-  CBB out, pending, text;
+  CBB out, pending, text, clock;
   if (!CBB_add_u24_length_prefixed(cbb, &out) ||
       !CBB_add_u16(&out, 0 /* version */) ||
+      !CBB_add_u16_length_prefixed(&out, &clock) ||
+      !CBB_add_bytes(&clock, reinterpret_cast<const uint8_t *>(&g_clock),
+                     sizeof(g_clock)) ||
       !CBB_add_u24_length_prefixed(&out, &pending) ||
       (pending_session &&
        !ssl_session_serialize(pending_session.get(), &pending)) ||
@@ -145,13 +148,12 @@ bool TestState::Serialize(CBB *cbb) const {
 }
 
 std::unique_ptr<TestState> TestState::Deserialize(CBS *cbs, SSL_CTX *ctx) {
-  CBS in, pending_session, text;
+  CBS in, pending_session, text, clock;
   std::unique_ptr<TestState> out_state(new TestState());
   uint16_t version;
   constexpr uint16_t kVersion = 0;
-  if (!CBS_get_u24_length_prefixed(cbs, &in) ||
-      !CBS_get_u16(&in, &version) ||
-      version > kVersion ||
+  if (!CBS_get_u24_length_prefixed(cbs, &in) || !CBS_get_u16(&in, &version) ||
+      version > kVersion || !CBS_get_u16_length_prefixed(&in, &clock) ||
       !CBS_get_u24_length_prefixed(&in, &pending_session) ||
       !CBS_get_u16_length_prefixed(&in, &text)) {
     return nullptr;
@@ -163,6 +165,8 @@ std::unique_ptr<TestState> TestState::Deserialize(CBS *cbs, SSL_CTX *ctx) {
       return nullptr;
     }
   }
+  assert(sizeof(g_clock) == CBS_len(&clock));
+  g_clock = *reinterpret_cast<const struct timeval *>(CBS_data(&clock));
   out_state->msg_callback_text = std::string(
       reinterpret_cast<const char *>(CBS_data(&text)), CBS_len(&text));
   return out_state;
