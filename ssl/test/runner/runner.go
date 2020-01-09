@@ -1653,9 +1653,8 @@ NextTest:
 	for _, test := range tests {
 		if test.protocol != tls ||
 			test.testType != serverTest ||
-			test.config.MaxVersion >= VersionTLS13 ||
-			test.config.MaxVersion < VersionTLS10 ||
-			(test.resumeConfig != nil && (test.resumeConfig.MaxVersion < VersionTLS10 || test.resumeConfig.MaxVersion >= VersionTLS13)) ||
+			strings.Contains(test.name, "DelegatedCredentials") || // XXX
+			strings.Contains(test.name, "QUICTransportParams") || // XXX
 			strings.HasPrefix(test.name, "VersionNegotiation-") {
 			continue
 		}
