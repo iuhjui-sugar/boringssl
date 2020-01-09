@@ -242,23 +242,42 @@ static bool Proxy(BIO *socket, bool async, int control, int rfd, int wfd) {
         return false;
     }
 
-    char readbuf[64];
     if (async) {
       AsyncBioAllowRead(socket, 1);
     }
-    int read = BIO_read(socket, readbuf, sizeof(readbuf));
-    if (read < 1) {
-      fprintf(stderr, "BIO_read failed\n");
-      return false;
-    }
-    ssize_t written = write_eintr(rfd, readbuf, read);
-    if (written == -1) {
-      perror("write");
-      return false;
-    }
-    if (written != read) {
-      fprintf(stderr, "short write (%zu of %d bytes)\n", written, read);
-      return false;
+    // Process one SSL record at a time.  That way, we don't send the handshaker
+    // anything it doesn't want to process.
+    size_t to_read = 5;
+    bool read_header = 0;
+    while (to_read > 0) {
+      char readbuf[64];
+      int read_size = to_read > sizeof(readbuf) ? sizeof(readbuf) : to_read;
+      int read = BIO_read(socket, readbuf, read_size);
+      if (read < 1) {
+        fprintf(stderr, "BIO_read failed\n");
+        return false;
+      }
+      ssize_t written = write_eintr(rfd, readbuf, read);
+      if (written == -1) {
+        perror("write");
+        return false;
+      }
+      if (written != read) {
+        fprintf(stderr, "short write (%zu of %d bytes)\n", written, read);
+        return false;
+      }
+
+      if (read < read_size) {
+        break;
+      }
+
+      if (!read_header) {
+        // assert(readbuf[1] == 3);  // Sanity-check.
+        to_read = (readbuf[3] << 8) + readbuf[4];
+        read_header = true;
+      } else {
+        to_read -= read;
+      }
     }
     // The handshaker blocks on the control channel, so we have to signal
     // it that the data have been written.
