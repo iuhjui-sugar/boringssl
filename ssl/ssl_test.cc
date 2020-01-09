@@ -1574,7 +1574,7 @@ static bool CompleteHandshakes(SSL *client, SSL *server) {
         client_err != SSL_ERROR_WANT_READ &&
         client_err != SSL_ERROR_WANT_WRITE &&
         client_err != SSL_ERROR_PENDING_TICKET) {
-      fprintf(stderr, "Client error: %d\n", client_err);
+      fprintf(stderr, "Client error: %s\n", SSL_error_description(client_err));
       return false;
     }
 
@@ -1584,7 +1584,7 @@ static bool CompleteHandshakes(SSL *client, SSL *server) {
         server_err != SSL_ERROR_WANT_READ &&
         server_err != SSL_ERROR_WANT_WRITE &&
         server_err != SSL_ERROR_PENDING_TICKET) {
-      fprintf(stderr, "Server error: %d\n", server_err);
+      fprintf(stderr, "Server error: %s\n", SSL_error_description(server_err));
       return false;
     }
 
@@ -1630,6 +1630,7 @@ static bool FlushNewSessionTickets(SSL *client, SSL *server) {
 struct ClientConfig {
   SSL_SESSION *session = nullptr;
   std::string servername;
+  bool early_data = false;
 };
 
 static bool ConnectClientAndServer(bssl::UniquePtr<SSL> *out_client,
@@ -1641,6 +1642,9 @@ static bool ConnectClientAndServer(bssl::UniquePtr<SSL> *out_client,
   bssl::UniquePtr<SSL> client(SSL_new(client_ctx)), server(SSL_new(server_ctx));
   if (!client || !server) {
     return false;
+  }
+  if (config.early_data) {
+    SSL_set_early_data_enabled(client.get(), 1);
   }
   SSL_set_connect_state(client.get());
   SSL_set_accept_state(server.get());
@@ -4172,9 +4176,6 @@ TEST(SSLTest, Handoff) {
   SSL_CTX_set_session_cache_mode(client_ctx.get(), SSL_SESS_CACHE_CLIENT);
   SSL_CTX_sess_set_new_cb(client_ctx.get(), SaveLastSession);
   SSL_CTX_set_handoff_mode(server_ctx.get(), 1);
-  ASSERT_TRUE(SSL_CTX_set_max_proto_version(server_ctx.get(), TLS1_2_VERSION));
-  ASSERT_TRUE(
-      SSL_CTX_set_max_proto_version(handshaker_ctx.get(), TLS1_2_VERSION));
   uint8_t keys[48];
   SSL_CTX_get_tlsext_ticket_keys(server_ctx.get(), &keys, sizeof(keys));
   SSL_CTX_set_tlsext_ticket_keys(handshaker_ctx.get(), &keys, sizeof(keys));
@@ -4188,11 +4189,15 @@ TEST(SSLTest, Handoff) {
 
   for (int i = 0; i < 2; ++i) {
     bssl::UniquePtr<SSL> client, server;
-    bool is_resume = i > 0;
+    bool is_resume = i % 2 > 0;
     auto config = ClientConfig();
+    config.early_data = i > 1;
     if (is_resume) {
       ASSERT_TRUE(g_last_session);
       config.session = g_last_session.get();
+    }
+    if (is_resume && config.early_data) {
+      EXPECT_GT(g_last_session->ticket_max_early_data, 0u);
     }
     ASSERT_TRUE(ConnectClientAndServer(&client, &server, client_ctx.get(),
                                        server_ctx.get(), config,
@@ -4200,7 +4205,17 @@ TEST(SSLTest, Handoff) {
 
     int client_ret = SSL_do_handshake(client.get());
     int client_err = SSL_get_error(client.get(), client_ret);
-    ASSERT_EQ(client_err, SSL_ERROR_WANT_READ);
+
+    uint8_t byte_written;
+    if (config.early_data && is_resume) {
+      ASSERT_EQ(client_err, 0);
+      EXPECT_TRUE(SSL_in_early_data(client.get()));
+      // Attempt to write early data.
+      byte_written = 43;
+      EXPECT_EQ(SSL_write(client.get(), &byte_written, 1), 1);
+    } else {
+      ASSERT_EQ(client_err, SSL_ERROR_WANT_READ);
+    }
 
     int server_ret = SSL_do_handshake(server.get());
     int server_err = SSL_get_error(server.get(), server_ret);
@@ -4214,6 +4229,11 @@ TEST(SSLTest, Handoff) {
     ASSERT_TRUE(CBBFinishArray(cbb.get(), &handoff));
 
     bssl::UniquePtr<SSL> handshaker(SSL_new(handshaker_ctx.get()));
+    // Is it right that |enable_early_data| need not be set on |server|?  I
+    // think I'm okay with that: in the handoff code, |serialize_features|
+    // indicates e.g. which ciphers the edge can support, and not which ciphers
+    // just happen to be configured on the edge.
+    SSL_set_early_data_enabled(handshaker.get(), 1);
     ASSERT_TRUE(SSL_apply_handoff(handshaker.get(), handoff));
 
     MoveBIOs(handshaker.get(), server.get());
@@ -4241,15 +4261,21 @@ TEST(SSLTest, Handoff) {
     ASSERT_TRUE(CompleteHandshakes(client.get(), server2.get()));
     EXPECT_EQ(is_resume, SSL_session_reused(client.get()));
 
-    uint8_t byte = 42;
-    EXPECT_EQ(SSL_write(client.get(), &byte, 1), 1);
+    if (config.early_data && is_resume) {
+      // In this case, one byte of early data has already been written above.
+      EXPECT_TRUE(SSL_early_data_accepted(client.get()));
+    } else {
+      byte_written = 42;
+      EXPECT_EQ(SSL_write(client.get(), &byte_written, 1), 1);
+    }
+    uint8_t byte;
     EXPECT_EQ(SSL_read(server2.get(), &byte, 1), 1);
-    EXPECT_EQ(42, byte);
+    EXPECT_EQ(byte_written, byte);
 
-    byte = 43;
+    byte = 44;
     EXPECT_EQ(SSL_write(server2.get(), &byte, 1), 1);
     EXPECT_EQ(SSL_read(client.get(), &byte, 1), 1);
-    EXPECT_EQ(43, byte);
+    EXPECT_EQ(44, byte);
   }
 }
 
