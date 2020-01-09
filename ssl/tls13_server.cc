@@ -716,6 +716,10 @@ static enum ssl_hs_wait_t do_send_server_finished(SSL_HANDSHAKE *hs) {
 static enum ssl_hs_wait_t do_send_half_rtt_ticket(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
 
+  if (ssl->s3->early_data_accepted && hs->handback) {
+    return ssl_hs_handback;
+  }
+
   if (ssl->s3->early_data_accepted) {
     // We defer releasing the early traffic secret to QUIC to this point. First,
     // the early traffic secret is derived before ECDHE, but ECDHE may later
