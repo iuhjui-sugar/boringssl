@@ -1,0 +1,141 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "58bb4a52_2a0920ce",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6950
+      },
+      "writtenOn": "2020-01-12T22:29:53Z",
+      "side": 1,
+      "message": "👍",
+      "revId": "84e3c724419079e28ac7cdc132b3ce4b4ac12f69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "259391b4_86f657a4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 6950
+      },
+      "writtenOn": "2020-01-12T22:29:53Z",
+      "side": 1,
+      "message": "sgtm",
+      "revId": "84e3c724419079e28ac7cdc132b3ce4b4ac12f69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dd533568_54d15fd7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 6950
+      },
+      "writtenOn": "2020-01-12T22:29:53Z",
+      "side": 1,
+      "message": "replied next to TODO",
+      "revId": "84e3c724419079e28ac7cdc132b3ce4b4ac12f69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c8da11d1_ceb866e1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 6950
+      },
+      "writtenOn": "2020-01-12T22:29:53Z",
+      "side": 1,
+      "message": "add \u0027/generated\u0027 to https://chrome-internal.googlesource.com/infradata/config/+/refs/heads/master/configs/luci-config/projects.cfg#61",
+      "revId": "84e3c724419079e28ac7cdc132b3ce4b4ac12f69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5139668_f6dab2a0",
+        "filename": "main.star",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 6950
+      },
+      "writtenOn": "2020-01-12T22:29:53Z",
+      "side": 1,
+      "message": "if you don\u0027t use, just remove it. It won\u0027t cause any breakage.",
+      "range": {
+        "startLine": 86,
+        "startChar": 4,
+        "endLine": 88,
+        "endChar": 51
+      },
+      "revId": "84e3c724419079e28ac7cdc132b3ce4b4ac12f69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b069f09_3ce016dc",
+        "filename": "main.star",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 6950
+      },
+      "writtenOn": "2020-01-12T22:29:53Z",
+      "side": 1,
+      "message": "unused",
+      "range": {
+        "startLine": 118,
+        "startChar": 32,
+        "endLine": 118,
+        "endChar": 64
+      },
+      "revId": "84e3c724419079e28ac7cdc132b3ce4b4ac12f69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4494b14_9367f768",
+        "filename": "main.star",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 6950
+      },
+      "writtenOn": "2020-01-12T22:29:53Z",
+      "side": 1,
+      "message": "optional: if you ever care to add a builder to CQ via CL description (see internal PSA link in https://bugs.chromium.org/p/chromium/issues/detail?id\u003d937080#c34), then do instead:\n\nluci.cq_tryjob_verifier(\n  builder \u003d builder,\n  cq_group \u003d cq_group,\n  includable_only \u003d not enabled,\n)",
+      "range": {
+        "startLine": 160,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 9
+      },
+      "revId": "84e3c724419079e28ac7cdc132b3ce4b4ac12f69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
