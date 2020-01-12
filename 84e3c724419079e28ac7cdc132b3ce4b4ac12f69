@@ -19,6 +19,29 @@
     },
     {
       "key": {
+        "uuid": "b7d1cfc0_9f0b0b32",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 6950
+      },
+      "writtenOn": "2020-01-12T22:32:59Z",
+      "side": 1,
+      "message": "won\u0027t have a difference in practice for your repo, as you only ever trigger on changes to your sole git repo AND you have no DEPS to pull in other repos.\n\nDoc is in https://chromium.googlesource.com/infra/luci/luci-go/+/master/luci_notify/api/config/notify.proto#68",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 50
+      },
+      "revId": "84e3c724419079e28ac7cdc132b3ce4b4ac12f69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "259391b4_86f657a4",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
