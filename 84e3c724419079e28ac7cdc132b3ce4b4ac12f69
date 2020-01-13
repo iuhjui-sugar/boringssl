@@ -93,6 +93,24 @@
     },
     {
       "key": {
+        "uuid": "5ba3f95b_fe16a46e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-13T16:21:37Z",
+      "side": 1,
+      "message": "Thanks! I guess I\u0027ll do that after this lands and then delete the old files.",
+      "parentUuid": "c8da11d1_ceb866e1",
+      "revId": "84e3c724419079e28ac7cdc132b3ce4b4ac12f69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f5139668_f6dab2a0",
         "filename": "main.star",
         "patchSetId": 2
@@ -104,6 +122,30 @@
       "writtenOn": "2020-01-12T22:29:53Z",
       "side": 1,
       "message": "if you don\u0027t use, just remove it. It won\u0027t cause any breakage.",
+      "range": {
+        "startLine": 86,
+        "startChar": 4,
+        "endLine": 88,
+        "endChar": 51
+      },
+      "revId": "84e3c724419079e28ac7cdc132b3ce4b4ac12f69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2571b23_cd4606f1",
+        "filename": "main.star",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-13T16:21:37Z",
+      "side": 1,
+      "message": "Er, how do I tell if we use it? (Either way, I\u0027ll leave this for a follow-up, in the interest of keeping then initial migration as small as possible.)",
+      "parentUuid": "f5139668_f6dab2a0",
       "range": {
         "startLine": 86,
         "startChar": 4,
@@ -139,6 +181,30 @@
     },
     {
       "key": {
+        "uuid": "605db971_5d2e9f24",
+        "filename": "main.star",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-13T16:21:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b069f09_3ce016dc",
+      "range": {
+        "startLine": 118,
+        "startChar": 32,
+        "endLine": 118,
+        "endChar": 64
+      },
+      "revId": "84e3c724419079e28ac7cdc132b3ce4b4ac12f69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d4494b14_9367f768",
         "filename": "main.star",
         "patchSetId": 2
@@ -159,6 +225,30 @@
       "revId": "84e3c724419079e28ac7cdc132b3ce4b4ac12f69",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1a9ef9b_6ead9924",
+        "filename": "main.star",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-13T16:21:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4494b14_9367f768",
+      "range": {
+        "startLine": 160,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 9
+      },
+      "revId": "84e3c724419079e28ac7cdc132b3ce4b4ac12f69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
