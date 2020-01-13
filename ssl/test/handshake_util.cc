@@ -242,24 +242,56 @@ static bool Proxy(BIO *socket, bool async, int control, int rfd, int wfd) {
         return false;
     }
 
-    char readbuf[64];
-    if (async) {
-      AsyncBioAllowRead(socket, 1);
+    // Process one SSL record at a time.  That way, we don't send the handshaker
+    // anything it doesn't want to process, e.g. early data.
+    unsigned char header[5];
+    size_t remaining = sizeof(header);
+    size_t header_bytes_read = 0;
+    while (remaining > 0) {
+      unsigned char readbuf[64];
+      int bytes_to_read =
+          remaining > sizeof(readbuf) ? sizeof(readbuf) : remaining;
+      if (async) {
+        AsyncBioAllowRead(socket, 1);
+      }
+      int bytes_read = BIO_read(socket, readbuf, bytes_to_read);
+      if (bytes_read < 1) {
+        fprintf(stderr, "BIO_read failed\n");
+        return false;
+      }
+      remaining -= bytes_read;
+
+      ssize_t bytes_written = write_eintr(rfd, readbuf, bytes_read);
+      if (bytes_written == -1) {
+        perror("write");
+        return false;
+      }
+      if (bytes_written != bytes_read) {
+        fprintf(stderr, "short write (%zu of %d bytes)\n", bytes_written,
+                bytes_read);
+        return false;
+      }
+
+      if (header_bytes_read == sizeof(header)) {
+        continue;  // We have the header.
+      }
+
+      for (int i = 0; i < bytes_read; i++) {
+        header[header_bytes_read + i] = readbuf[i];
+      }
+      header_bytes_read += bytes_read;
+
+      if (header_bytes_read < sizeof(header)) {
+        continue;  // We still don't have the header.
+      }
+
+      if (header[1] != 3) {
+         fprintf(stderr, "bad header\n");
+         return false;
+      }
+      remaining = (header[3] << 8) + header[4];
     }
-    int read = BIO_read(socket, readbuf, sizeof(readbuf));
-    if (read < 1) {
-      fprintf(stderr, "BIO_read failed\n");
-      return false;
-    }
-    ssize_t written = write_eintr(rfd, readbuf, read);
-    if (written == -1) {
-      perror("write");
-      return false;
-    }
-    if (written != read) {
-      fprintf(stderr, "short write (%zu of %d bytes)\n", written, read);
-      return false;
-    }
+
     // The handshaker blocks on the control channel, so we have to signal
     // it that the data have been written.
     msg = kControlMsgWriteCompleted;
