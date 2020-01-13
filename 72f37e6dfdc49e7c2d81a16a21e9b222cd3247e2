@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "db1b2101_53eb5dcb",
+        "filename": "util/run_android_tests.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-13T19:30:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d7d353f_f1fa646f",
+      "revId": "72f37e6dfdc49e7c2d81a16a21e9b222cd3247e2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f0258257_fe065849",
         "filename": "util/run_android_tests.go",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "726a23f6_fe1e3d6c",
+        "filename": "util/run_android_tests.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-13T19:30:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0258257_fe065849",
+      "revId": "72f37e6dfdc49e7c2d81a16a21e9b222cd3247e2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b376c6a9_885df153",
         "filename": "util/run_android_tests.go",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2020-01-13T19:21:16Z",
       "side": 1,
       "message": "ditto (and a couple of lines below).",
+      "revId": "72f37e6dfdc49e7c2d81a16a21e9b222cd3247e2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee463917_ab659dde",
+        "filename": "util/run_android_tests.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-13T19:30:03Z",
+      "side": 1,
+      "message": "This particular if contraction is a little annoying because apiLevelStr won\u0027t have the right scope. (The others get by because I had to predeclare the variables anyway due to *ndkPath and friends.)",
+      "parentUuid": "b376c6a9_885df153",
       "revId": "72f37e6dfdc49e7c2d81a16a21e9b222cd3247e2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
