@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4d7d353f_f1fa646f",
+        "filename": "util/run_android_tests.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-01-13T19:21:16Z",
+      "side": 1,
+      "message": "nit:\n\nif *ndkPath, ok \u003d cmakeVars[\"ANDROID_NDK\"]; !ok {\n   ...\n}",
+      "revId": "72f37e6dfdc49e7c2d81a16a21e9b222cd3247e2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0258257_fe065849",
+        "filename": "util/run_android_tests.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-01-13T19:21:16Z",
+      "side": 1,
+      "message": "(ditto on if contraction.)",
+      "revId": "72f37e6dfdc49e7c2d81a16a21e9b222cd3247e2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b376c6a9_885df153",
+        "filename": "util/run_android_tests.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-01-13T19:21:16Z",
+      "side": 1,
+      "message": "ditto (and a couple of lines below).",
+      "revId": "72f37e6dfdc49e7c2d81a16a21e9b222cd3247e2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
