@@ -104,6 +104,24 @@
       "revId": "72f37e6dfdc49e7c2d81a16a21e9b222cd3247e2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d77a4a4e_7c3071cd",
+        "filename": "util/run_android_tests.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-01-13T19:31:59Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ee463917_ab659dde",
+      "revId": "72f37e6dfdc49e7c2d81a16a21e9b222cd3247e2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
