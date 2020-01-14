@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b88cbfa4_68c57312",
+        "filename": "ssl/test/handshake_util.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-14T23:00:42Z",
+      "side": 1,
+      "message": "Nit: we usually write uint8_t for bytes, just because it\u0027s shorter. Ditto below.",
+      "range": {
+        "startLine": 247,
+        "startChar": 4,
+        "endLine": 247,
+        "endChar": 17
+      },
+      "revId": "c087947c3c84c9d869b5225b51f3f3dd66dbcbf5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83744ed9_de330a1f",
+        "filename": "ssl/test/handshake_util.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-14T23:00:42Z",
+      "side": 1,
+      "message": "Perhaps:\n  memcpy(header + header_bytes_read, readbuf, bytes_read);\n  header_bytes_read +\u003d bytes_read;\n\nAlternatively, this seems perhaps a little more... obviously memory-safe. :-)\n\nstatic bool proxy_data(BIO *socket, int rfd, bool async, uint8_t *buf, size_t len) {\n  if (async) {\n    AsyncBioAllowRead(socket, len);\n  }\n  while (len \u003e 0) {\n    int bytes_read \u003d BIO_read(socket, buf, len);\n    ...\n    ssize_t bytes_written \u003d write_eintr(rfd, buf, len);\n    ...\n    buf +\u003d bytes_read;\n    len -\u003d bytes_read;\n  }\n  return true;\n}\n\nAnd then this function can just be:\n\n  uint8_t header[5];\n  if (!proxy_data(..., header, sizeof(header))) {\n    return false;\n  }\n  ...\n  size_t remaining \u003d ...;\n  while (remaining \u003e 0) {\n    uint8_t readbuf[64];\n    size_t bytes_to_read \u003d ...;\n    if (!proxy_data(..., readbuf, bytes_to_read)) {\n      return false;\n    }\n  }",
+      "revId": "c087947c3c84c9d869b5225b51f3f3dd66dbcbf5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
