@@ -21,6 +21,15 @@
 
 OPENSSL_MSVC_PRAGMA(warning(push, 3))
 
+#if WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_APP) && \
+    !WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
+#define WIN32_NO_STATUS  // need to define WIN32_NO_STATUS so that subsequent
+#include <windows.h>     // winnt.h includes (via windows.h) will not result
+#undef WIN32_NO_STATUS   // in re-definitions
+#include <bcrypt.h>
+#include <ntstatus.h>
+OPENSSL_MSVC_PRAGMA(comment(lib, "bcrypt.lib"))
+#else
 #include <windows.h>
 
 // #define needed to link in RtlGenRandom(), a.k.a. SystemFunction036.  See the
@@ -29,6 +38,8 @@ OPENSSL_MSVC_PRAGMA(warning(push, 3))
 #define SystemFunction036 NTAPI SystemFunction036
 #include <ntsecapi.h>
 #undef SystemFunction036
+#endif /* WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_APP) && \
+          !WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP) */
 
 OPENSSL_MSVC_PRAGMA(warning(pop))
 
@@ -41,7 +52,18 @@ void CRYPTO_sysrand(uint8_t *out, size_t requested) {
     if (requested < output_bytes_this_pass) {
       output_bytes_this_pass = (ULONG)requested;
     }
+    // On non-UWP configurations, use RtlGenRandom instead of BCryptGenRandom
+    // to avoid accessing resources that may be unavailable inside the
+    // Chromium sandbox. See https://crbug.com/boringssl/307
+#if WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_APP) && \
+    !WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
+    if (BCryptGenRandom(
+            /*hAlgorithm=*/NULL, out, output_bytes_this_pass,
+            BCRYPT_USE_SYSTEM_PREFERRED_RNG) != STATUS_SUCCESS) {
+#else
     if (RtlGenRandom(out, output_bytes_this_pass) == FALSE) {
+#endif /* WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_APP) && \
+          !WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP) */
       abort();
     }
     requested -= output_bytes_this_pass;
