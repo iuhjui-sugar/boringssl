@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6ef63e95_67c50ac2",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-14T21:21:25Z",
+      "side": 1,
+      "message": "These two are a little fussy because they only exist if we accept 0-RTT. The fields do always exist right now, but just as a quirk of how we happened to store those secrets. I don\u0027t think we should burn that quirk into the serialization.",
+      "revId": "0a969d42a2b6397b800e1f5ef1370504525894e2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48a9b07b_807a5225",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-14T21:21:25Z",
+      "side": 1,
+      "message": "skip_early_data, early_data_offered, and early_data_accepted have a host of invariants between each other.\n\nI believe these are the only states possible:\n\n- Client did not offer early data: all three are false\n- Client offered early data and server accepted: early_data_offered is true, early_data_accepted is true, and skip_early_data is false.\n- Client offered early data and server rejected: early_data_offered is true, early_data_accepted is false, and skip_early_data is false.\n\nCould we perhaps make the serialization capture these invariants?",
+      "revId": "0a969d42a2b6397b800e1f5ef1370504525894e2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2591ba34_7777c08c",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 762,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-14T21:21:25Z",
+      "side": 1,
+      "message": "Hrm. Our half-RTT tickets trick does not combine well with 0-RTT. It means that 0-RTT will silently run the ticket encryption callbacks in the handshaker, while it runs in the frontend everything else. The caller may not test the former case very well.\n\nThis is also a quirk of particular implementation strategy that we took (RFC8446 doesn\u0027t actually recommend doing this, just says it\u0027s allowed, originally for some other QUIC flow that was since abandoned, and then we did it because it gave convenient I/O patterns), so I think it\u0027d be preferable to not burn it into the split handshake protocol.\n\nThis is also the only reason expected_client_finished exists.\n\nIt\u0027s probably worth taking some time to think if there\u0027s a better way to carve this up...",
+      "revId": "0a969d42a2b6397b800e1f5ef1370504525894e2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
