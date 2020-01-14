@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "48dd60fb_1982f5d8",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-14T01:21:05Z",
+      "side": 1,
+      "message": "Nit: This can probably fit in the preceding line.",
+      "revId": "612dccbf602511203ad7a8025ee890e635a8fc09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
