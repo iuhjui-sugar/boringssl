@@ -182,6 +182,30 @@
     },
     {
       "key": {
+        "uuid": "4439b351_d0ba54b0",
+        "filename": "main.star",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-15T16:06:42Z",
+      "side": 1,
+      "message": "Oh, that thing, I definitely use it, but whether I still need to given the display in Gerrit or not, I dunno. Some amount of muscle memory. Is the intention that people just use the Gerrit display now?",
+      "parentUuid": "467a591b_29e745ba",
+      "range": {
+        "startLine": 86,
+        "startChar": 4,
+        "endLine": 88,
+        "endChar": 51
+      },
+      "revId": "84e3c724419079e28ac7cdc132b3ce4b4ac12f69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6b069f09_3ce016dc",
         "filename": "main.star",
         "patchSetId": 2
