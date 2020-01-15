@@ -16,6 +16,24 @@
       "revId": "612dccbf602511203ad7a8025ee890e635a8fc09",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6757b1e6_6dc979be",
+        "filename": "util/generate_build_files.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-01-15T16:59:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "48dd60fb_1982f5d8",
+      "revId": "612dccbf602511203ad7a8025ee890e635a8fc09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
