@@ -206,6 +206,30 @@
     },
     {
       "key": {
+        "uuid": "457de5a2_a5250713",
+        "filename": "main.star",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 6950
+      },
+      "writtenOn": "2020-01-15T20:30:33Z",
+      "side": 1,
+      "message": "~yes % \n\nCQ status app displays what was happening from CQ PoV(e.g. which builds CQ is actually waiting for), which Gerrit UI doesn\u0027t. This is the only reason I keep CQ status app alive.",
+      "parentUuid": "4439b351_d0ba54b0",
+      "range": {
+        "startLine": 86,
+        "startChar": 4,
+        "endLine": 88,
+        "endChar": 51
+      },
+      "revId": "84e3c724419079e28ac7cdc132b3ce4b4ac12f69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6b069f09_3ce016dc",
         "filename": "main.star",
         "patchSetId": 2
