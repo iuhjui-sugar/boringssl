@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bf46e7a6_9f1da3b9",
+        "filename": "ssl/test/handshake_util.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2020-01-15T00:50:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b88cbfa4_68c57312",
+      "range": {
+        "startLine": 247,
+        "startChar": 4,
+        "endLine": 247,
+        "endChar": 17
+      },
+      "revId": "c087947c3c84c9d869b5225b51f3f3dd66dbcbf5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "83744ed9_de330a1f",
         "filename": "ssl/test/handshake_util.cc",
         "patchSetId": 1
@@ -39,6 +63,24 @@
       "revId": "c087947c3c84c9d869b5225b51f3f3dd66dbcbf5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8975700f_f8c8a5e9",
+        "filename": "ssl/test/handshake_util.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2020-01-15T00:50:58Z",
+      "side": 1,
+      "message": "Did something close to this.",
+      "parentUuid": "83744ed9_de330a1f",
+      "revId": "c087947c3c84c9d869b5225b51f3f3dd66dbcbf5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
