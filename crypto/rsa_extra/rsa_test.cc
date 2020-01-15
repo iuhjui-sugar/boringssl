@@ -1118,8 +1118,12 @@ TEST(RSATest, Threads) {
   }
 }
 
-#if defined(OPENSSL_X86_64)
 // This test might be excessively slow on slower CPUs.
+#if defined(OPENSSL_X86_64)
+#define MAYBE_BlindingCacheConcurrency BlindingCacheConcurrency
+#else
+#define MAYBE_BlindingCacheConcurrency DISABLED_BlindingCacheConcurrency
+#endif
 TEST(RSATest, BlindingCacheConcurrency) {
   bssl::UniquePtr<RSA> rsa(
       RSA_private_key_from_bytes(kKey1, sizeof(kKey1) - 1));
@@ -1154,6 +1158,5 @@ TEST(RSATest, BlindingCacheConcurrency) {
     thread.join();
   }
 }
-#endif  // X86_64
 
 #endif  // THREADS
