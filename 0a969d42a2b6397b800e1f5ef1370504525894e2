@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5a85278f_066176f8",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2020-01-15T23:28:55Z",
+      "side": 1,
+      "message": "To be clear: are you saying that, for example, |expected_client_finished| could be computed on the proxy side, rather than being transmitted by the handshaker to the proxy?",
+      "parentUuid": "6ef63e95_67c50ac2",
+      "revId": "0a969d42a2b6397b800e1f5ef1370504525894e2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "48a9b07b_807a5225",
         "filename": "ssl/handoff.cc",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "d551adbd_cf4d7928",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2020-01-15T23:28:55Z",
+      "side": 1,
+      "message": "On your account skip_early_data is never true, but that\u0027s false.  :-)\n\nI do think it\u0027s reasonable to try to capture these invariants.  Do you prefer an assert or a handoff-specific enum?",
+      "parentUuid": "48a9b07b_807a5225",
+      "revId": "0a969d42a2b6397b800e1f5ef1370504525894e2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2591ba34_7777c08c",
         "filename": "ssl/tls13_server.cc",
         "patchSetId": 2
@@ -47,6 +83,24 @@
       "writtenOn": "2020-01-14T21:21:25Z",
       "side": 1,
       "message": "Hrm. Our half-RTT tickets trick does not combine well with 0-RTT. It means that 0-RTT will silently run the ticket encryption callbacks in the handshaker, while it runs in the frontend everything else. The caller may not test the former case very well.\n\nThis is also a quirk of particular implementation strategy that we took (RFC8446 doesn\u0027t actually recommend doing this, just says it\u0027s allowed, originally for some other QUIC flow that was since abandoned, and then we did it because it gave convenient I/O patterns), so I think it\u0027d be preferable to not burn it into the split handshake protocol.\n\nThis is also the only reason expected_client_finished exists.\n\nIt\u0027s probably worth taking some time to think if there\u0027s a better way to carve this up...",
+      "revId": "0a969d42a2b6397b800e1f5ef1370504525894e2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef873237_2236f1d2",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 762,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2020-01-15T23:28:55Z",
+      "side": 1,
+      "message": "Agree we should be consistent about where the ticket encryption callback runs.\n\nAre you saying that we no longer have a motivation do do half-RTT tickets at all?",
+      "parentUuid": "2591ba34_7777c08c",
       "revId": "0a969d42a2b6397b800e1f5ef1370504525894e2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
