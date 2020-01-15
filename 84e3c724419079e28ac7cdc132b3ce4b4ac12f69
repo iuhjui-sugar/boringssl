@@ -158,6 +158,30 @@
     },
     {
       "key": {
+        "uuid": "467a591b_29e745ba",
+        "filename": "main.star",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 6950
+      },
+      "writtenOn": "2020-01-15T04:15:34Z",
+      "side": 1,
+      "message": "check your browser history to see if you ever visited the cq status website.\nIf configured, CQ posts a link to the website with \"CQ trying the patch\" message.",
+      "parentUuid": "b2571b23_cd4606f1",
+      "range": {
+        "startLine": 86,
+        "startChar": 4,
+        "endLine": 88,
+        "endChar": 51
+      },
+      "revId": "84e3c724419079e28ac7cdc132b3ce4b4ac12f69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6b069f09_3ce016dc",
         "filename": "main.star",
         "patchSetId": 2
