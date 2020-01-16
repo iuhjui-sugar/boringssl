@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c0e3efdb_445a2397",
+        "filename": "util/all_tests.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-01-16T23:54:05Z",
+      "side": 1,
+      "message": "Why arch limit this?",
+      "revId": "fae8751c0f1cf300dfbfaa9763647c3f08b2071a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
