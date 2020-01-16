@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7bc73d0c_a7c15869",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 9847
+      },
+      "writtenOn": "2020-01-16T21:01:26Z",
+      "side": 1,
+      "message": "can you make the first line of commit message mention something about the change to the rtlgenrandom call?",
+      "revId": "fd9b7416449b60989909f993a14364802d4a139c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3a8d4e9_cdd4a0d6",
+        "filename": "crypto/rand_extra/windows.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 9847
+      },
+      "writtenOn": "2020-01-16T21:01:26Z",
+      "side": 1,
+      "message": "should this not use the WINAPI_FAMILY_PARTITION set of macros?",
+      "revId": "fd9b7416449b60989909f993a14364802d4a139c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67f71868_3788acc2",
+        "filename": "crypto/rand_extra/windows.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 9847
+      },
+      "writtenOn": "2020-01-16T21:01:26Z",
+      "side": 1,
+      "message": "does including \"base/win/windows_types.h\" work here instead of the WIN32_NO_STATUS hack?",
+      "revId": "fd9b7416449b60989909f993a14364802d4a139c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
