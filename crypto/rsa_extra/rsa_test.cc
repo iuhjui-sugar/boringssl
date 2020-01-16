@@ -1118,13 +1118,10 @@ TEST(RSATest, Threads) {
   }
 }
 
-// This test might be excessively slow on slower CPUs.
-#if defined(OPENSSL_X86_64)
-#define MAYBE_BlindingCacheConcurrency BlindingCacheConcurrency
-#else
-#define MAYBE_BlindingCacheConcurrency DISABLED_BlindingCacheConcurrency
-#endif
-TEST(RSATest, MAYBE_BlindingCacheConcurrency) {
+// This test might be excessively slow on slower CPUs or platforms that do not
+// expect server workloads. It is disabled by default and reenabled on some
+// platforms when running tests standalone via all_tests.go.
+TEST(RSATest, DISABLED_BlindingCacheConcurrency) {
   bssl::UniquePtr<RSA> rsa(
       RSA_private_key_from_bytes(kKey1, sizeof(kKey1) - 1));
   ASSERT_TRUE(rsa);

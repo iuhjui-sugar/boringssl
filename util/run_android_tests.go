@@ -245,8 +245,9 @@ func detectOptionsFromCMake() error {
 }
 
 type test struct {
-	args []string
-	env  []string
+	Cmd  []string `json:"cmd"`
+	Env  []string `json:"env"`
+	Arch []string `json:"arch`
 }
 
 func parseTestConfig(filename string) ([]test, error) {
@@ -257,22 +258,11 @@ func parseTestConfig(filename string) ([]test, error) {
 	defer in.Close()
 
 	decoder := json.NewDecoder(in)
-	var result [][]string
+	var result []test
 	if err := decoder.Decode(&result); err != nil {
 		return nil, err
 	}
-
-	tests := make([]test, 0, len(result))
-	for _, args := range result {
-		var env []string
-		for len(args) > 0 && strings.HasPrefix(args[0], "$") {
-			env = append(env, args[0][1:])
-			args = args[1:]
-		}
-		tests = append(tests, test{args: args, env: env})
-	}
-
-	return tests, nil
+	return result, nil
 }
 
 func copyFile(dst, src string) error {
@@ -346,11 +336,11 @@ func main() {
 
 		seenBinary := make(map[string]struct{})
 		for _, test := range tests {
-			if _, ok := seenBinary[test.args[0]]; !ok {
-				binaries = append(binaries, test.args[0])
-				seenBinary[test.args[0]] = struct{}{}
+			if _, ok := seenBinary[test.Cmd[0]]; !ok {
+				binaries = append(binaries, test.Cmd[0])
+				seenBinary[test.Cmd[0]] = struct{}{}
 			}
-			for _, arg := range test.args[1:] {
+			for _, arg := range test.Cmd[1:] {
 				if strings.Contains(arg, "/") {
 					files = append(files, arg)
 				}
