@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "b27aaf9c_49b13fbf",
+        "filename": "util/all_tests.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-16T23:55:56Z",
+      "side": 1,
+      "message": "Bah. This doesn\u0027t actually work because, when running 32-bit binaries, we still run 64-bit Go. I may have to actually sniff at the binary. :-/",
+      "range": {
+        "startLine": 10,
+        "startChar": 14,
+        "endLine": 10,
+        "endChar": 19
+      },
+      "revId": "fae8751c0f1cf300dfbfaa9763647c3f08b2071a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c0e3efdb_445a2397",
         "filename": "util/all_tests.json",
         "patchSetId": 2
@@ -16,6 +39,24 @@
       "revId": "fae8751c0f1cf300dfbfaa9763647c3f08b2071a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f68a91e_8f513f93",
+        "filename": "util/all_tests.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-16T23:55:56Z",
+      "side": 1,
+      "message": "It\u0027s just an extra copy of urandom_test on ARM.",
+      "parentUuid": "c0e3efdb_445a2397",
+      "revId": "fae8751c0f1cf300dfbfaa9763647c3f08b2071a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
