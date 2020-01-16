@@ -50,6 +50,24 @@
       "revId": "fd9b7416449b60989909f993a14364802d4a139c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46b97e6e_7a910edd",
+        "filename": "crypto/rand_extra/windows.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-01-16T22:43:06Z",
+      "side": 1,
+      "message": "(This is BoringSSL: no Chromium headers are available.)",
+      "parentUuid": "67f71868_3788acc2",
+      "revId": "fd9b7416449b60989909f993a14364802d4a139c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
