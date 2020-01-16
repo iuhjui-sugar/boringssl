@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "494d7739_19f7f110",
+        "filename": "crypto/rand_extra/windows.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-16T22:56:56Z",
+      "side": 0,
+      "message": "This and line 37 look like a stray change.",
+      "revId": "612dccbf602511203ad7a8025ee890e635a8fc09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}

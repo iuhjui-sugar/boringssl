@@ -68,6 +68,40 @@
       "revId": "fd9b7416449b60989909f993a14364802d4a139c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "50441bfd_9fe645c1",
+        "filename": "crypto/rand_extra/windows.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-16T22:56:56Z",
+      "side": 1,
+      "message": "I think we probably don\u0027t need most of these comments as they\u0027re clear from context and, one hopes, type-checked by the compiler.\n\n  BCryptGenRandom(NULL, out, output_bytes_this_pass, BCRYPT_USE_SYSTEM_PREFERRED_RNG)\n\nor perhaps the following if we want the NULL to be clear.\n\n  BCryptGenRandom(/*hAlgorithm\u003d*/NULL, out, output_bytes_this_pass, BCRYPT_USE_SYSTEM_PREFERRED_RNG)",
+      "revId": "fd9b7416449b60989909f993a14364802d4a139c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d31a24f2_50c502e5",
+        "filename": "crypto/rand_extra/windows.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-16T22:56:56Z",
+      "side": 1,
+      "message": "Perhaps a comment here, like:\n\nOn non-UWP configurations, use RtlGenRandom instead of BCryptGenRandom to avoid accessing resources that may be unavailable inside the Chromium sandbox. See https://crbug.com/boringssl/307\n\nThat way it\u0027s clear to the reader why we\u0027re not using the normal API everywhere.",
+      "revId": "fd9b7416449b60989909f993a14364802d4a139c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
