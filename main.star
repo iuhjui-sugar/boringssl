@@ -163,15 +163,11 @@ def cq_builder(name, host, *, recipe="boringssl", enabled=True):
         includable_only = not enabled,
     )
 
-# TODO(davidben): Remove the win_toolchain cache from the non-Windows hosts. It
-# is included to preserve behavior in the migration from lucicfg but is
-# unnecessary.
 LINUX_HOST = {
     "dimensions": {
         "os": "Ubuntu-16.04",
         "cpu": "x86-64",
     },
-    "caches": [swarming.cache("win_toolchain")],
 }
 
 MAC_HOST = {
@@ -179,10 +175,7 @@ MAC_HOST = {
         "os": "Mac-10.13",
         "cpu": "x86-64",
     },
-    "caches": [
-        swarming.cache("osx_sdk"),
-        swarming.cache("win_toolchain"),
-    ],
+    "caches": [swarming.cache("osx_sdk")],
 }
 
 WIN_HOST = {
@@ -209,7 +202,6 @@ BULLHEAD_HOST = {
         "device_type": "bullhead",  # Nexus 5X
     },
     "execution_timeout": ANDROID_TIMEOUT,
-    "caches": [swarming.cache("win_toolchain")],
 }
 
 WALLEYE_HOST = {
@@ -217,7 +209,6 @@ WALLEYE_HOST = {
         "device_type": "walleye",  # Pixel 2
     },
     "execution_timeout": ANDROID_TIMEOUT,
-    "caches": [swarming.cache("win_toolchain")],
 }
 
 # TODO(davidben): Switch the BoringSSL recipe to specify most flags in
