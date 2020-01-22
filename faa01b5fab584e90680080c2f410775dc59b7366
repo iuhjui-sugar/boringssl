@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3ff88bd5_bf024c59",
+        "filename": "crypto/rand_extra/windows.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 9842
+      },
+      "writtenOn": "2020-01-22T23:11:44Z",
+      "side": 1,
+      "message": "BCryptGenRandom returns a NTSTATUS. This CL checks for STATUS_SUCCESS that is defined by ntstatus.h. However, ntstatus.h and windows.h commonly define the same 63 macros. WIN32_NO_STATUS has to be used to avoid the redefinition warnings. I\u0027m also not a fan of using this macro, specially because STATUS_SUCCESS value is 0, but this is actually a common practice. I couldn\u0027t find any use of STATUS_SUCCESS in BoringSSL code base.\nI\u0027ve found STATUS_SUCCESS being manually defined in chrome/browser/memory/swap_thrashing_monitor_delegate_win.cc (https://chromium.googlesource.com/chromium/src/+/HEAD/chrome/browser/memory/swap_thrashing_monitor_delegate_win.cc#37) and other places like chromium/chrome/chrome_cleaner/os/nt_internals.h.\nI\u0027m ok with redefining STATUS_SUCCESS here for the UWP code path since I don\u0027t see STATUS_SUCCESS changing from 0 any time soon (if ever).\n\nWhat solution works better for BoringSSL?",
+      "parentUuid": "2883f818_8557c052",
+      "range": {
+        "startLine": 24,
+        "startChar": 42,
+        "endLine": 24,
+        "endChar": 57
+      },
+      "revId": "faa01b5fab584e90680080c2f410775dc59b7366",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fa0559ee_42ac1a6d",
         "filename": "crypto/rand_extra/windows.c",
         "patchSetId": 6
@@ -69,6 +93,30 @@
       "revId": "faa01b5fab584e90680080c2f410775dc59b7366",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f829d263_9d1c2b38",
+        "filename": "crypto/rand_extra/windows.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 9842
+      },
+      "writtenOn": "2020-01-22T23:11:44Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fa0559ee_42ac1a6d",
+      "range": {
+        "startLine": 55,
+        "startChar": 77,
+        "endLine": 55,
+        "endChar": 78
+      },
+      "revId": "faa01b5fab584e90680080c2f410775dc59b7366",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
