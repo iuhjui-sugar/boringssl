@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d9b1caea_49406536",
+        "filename": "crypto/rand_extra/windows.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-01-22T18:18:19Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem to build on our builders. Does windows.h need to be included before WINAPI_FAMILY_PARTITION is used?",
+      "revId": "b6b82a547fd864482509595f71ebba6ecb3c8610",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
