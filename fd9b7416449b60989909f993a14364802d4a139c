@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "0d6f42f8_3d333f8b",
+        "filename": "crypto/rand_extra/windows.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 9842
+      },
+      "writtenOn": "2020-01-22T00:08:53Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d3a8d4e9_cdd4a0d6",
+      "revId": "fd9b7416449b60989909f993a14364802d4a139c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "67f71868_3788acc2",
         "filename": "crypto/rand_extra/windows.c",
         "patchSetId": 3
@@ -71,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "e55401af_eafd1a4c",
+        "filename": "crypto/rand_extra/windows.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 9842
+      },
+      "writtenOn": "2020-01-22T00:08:53Z",
+      "side": 1,
+      "message": "Following Adam\u0027s advice.",
+      "parentUuid": "46b97e6e_7a910edd",
+      "revId": "fd9b7416449b60989909f993a14364802d4a139c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "50441bfd_9fe645c1",
         "filename": "crypto/rand_extra/windows.c",
         "patchSetId": 3
@@ -88,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "d8953399_e13bf57c",
+        "filename": "crypto/rand_extra/windows.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 9842
+      },
+      "writtenOn": "2020-01-22T00:08:53Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "50441bfd_9fe645c1",
+      "revId": "fd9b7416449b60989909f993a14364802d4a139c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d31a24f2_50c502e5",
         "filename": "crypto/rand_extra/windows.c",
         "patchSetId": 3
@@ -102,6 +156,24 @@
       "revId": "fd9b7416449b60989909f993a14364802d4a139c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22db28aa_9408d720",
+        "filename": "crypto/rand_extra/windows.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 9842
+      },
+      "writtenOn": "2020-01-22T00:08:53Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d31a24f2_50c502e5",
+      "revId": "fd9b7416449b60989909f993a14364802d4a139c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
