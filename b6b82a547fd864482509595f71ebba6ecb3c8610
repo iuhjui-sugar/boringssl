@@ -16,6 +16,24 @@
       "revId": "b6b82a547fd864482509595f71ebba6ecb3c8610",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27f121d8_c741c26b",
+        "filename": "crypto/rand_extra/windows.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 9842
+      },
+      "writtenOn": "2020-01-22T20:01:21Z",
+      "side": 1,
+      "message": "It does. Probably I have an include windows.h leaking from another header.\nWill fix.",
+      "parentUuid": "d9b1caea_49406536",
+      "revId": "b6b82a547fd864482509595f71ebba6ecb3c8610",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
