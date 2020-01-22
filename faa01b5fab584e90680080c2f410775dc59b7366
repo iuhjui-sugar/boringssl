@@ -45,6 +45,30 @@
       "revId": "faa01b5fab584e90680080c2f410775dc59b7366",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed34190d_4802e189",
+        "filename": "crypto/rand_extra/windows.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-01-22T22:20:30Z",
+      "side": 1,
+      "message": "(Don\u0027t worry about this. I can reapply them when landing.)",
+      "parentUuid": "fa0559ee_42ac1a6d",
+      "range": {
+        "startLine": 55,
+        "startChar": 77,
+        "endLine": 55,
+        "endChar": 78
+      },
+      "revId": "faa01b5fab584e90680080c2f410775dc59b7366",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
