@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2883f818_8557c052",
+        "filename": "crypto/rand_extra/windows.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-22T22:11:28Z",
+      "side": 1,
+      "message": "What\u0027s the story here? We include windows.h elsewhere in BoringSSL and Chromium without this.",
+      "range": {
+        "startLine": 24,
+        "startChar": 42,
+        "endLine": 24,
+        "endChar": 57
+      },
+      "revId": "faa01b5fab584e90680080c2f410775dc59b7366",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa0559ee_42ac1a6d",
+        "filename": "crypto/rand_extra/windows.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-22T22:11:28Z",
+      "side": 1,
+      "message": "I think you may have lost the formatting changes AGL made here:\nhttps://boringssl-review.googlesource.com/c/boringssl/+/39584/4..5/crypto/rand_extra/windows.c\n\n(Gerrit can be confusing when other people modify your CL. :-) )",
+      "range": {
+        "startLine": 55,
+        "startChar": 77,
+        "endLine": 55,
+        "endChar": 78
+      },
+      "revId": "faa01b5fab584e90680080c2f410775dc59b7366",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
