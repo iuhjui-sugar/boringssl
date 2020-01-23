@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "fb80f533_189c6a2d",
+        "filename": "crypto/rand_extra/windows.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-23T18:45:24Z",
+      "side": 1,
+      "message": "Wow. Lovely.\n\nI guess WIN32_NO_STATUS risks oddities if any of the previous headers include windows.h themselves (though hopefully none of them do). How does Windows expect one to call BCrypt functions? Is the expectation really that you carefully wrap all your windows.h calls with that #define?\n\nSearching around, I see there is also a BCRYPT_SUCCESS macro. It checks for \u003e\u003d 0 rather than !\u003d 0. I see both STATUS_INVALID_HANDLE and STATUS_INVALID_PARAMETER have the high bit set, so presuming NTSTATUS is indeed a LONG, that\u0027d work. I see other constants in nstatus.h don\u0027t have the high bit set, however. Is the expectation then that BCrypt never uses those constants since it\u0027s not a funny kernel driver thing?\n\nwfh, do you know much about this stuff? I figure BoringSSL should do whatever is most sensible + idiomatic here.",
+      "parentUuid": "3ff88bd5_bf024c59",
+      "range": {
+        "startLine": 24,
+        "startChar": 42,
+        "endLine": 24,
+        "endChar": 57
+      },
+      "revId": "faa01b5fab584e90680080c2f410775dc59b7366",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fa0559ee_42ac1a6d",
         "filename": "crypto/rand_extra/windows.c",
         "patchSetId": 6
