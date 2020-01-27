@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7e27be97_e1ec6b5f",
+        "filename": "crypto/rand_extra/windows.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-27T23:24:19Z",
+      "side": 1,
+      "message": "Nit: We sometimes abbreviate these when they get too long. Maybe\n\n#endif  // WINAPI_PARTITION_APP \u0026\u0026 !WINAPI_PARTITION_DESKTOP\n\nDitto below.",
+      "revId": "6eb768b5774391a6bb22f6a015c978997254413d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
