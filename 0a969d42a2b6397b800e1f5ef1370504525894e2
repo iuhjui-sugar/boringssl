@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "c13b1d14_8d243fdb",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-27T23:10:00Z",
+      "side": 1,
+      "message": "I guess I\u0027m saying two things:\n\n1. expected_client_finished and early_traffic_secret don\u0027t make sense at all if 0-RTT isn\u0027t accepted, yet this is always serializing them, which is strange. I think what\u0027s going on here is that you\u0027re serializing Hash.length zeros, but I\u0027m not positive. Hopefully it\u0027s not initialized memory! :-) (That they\u0027re not empty is a weird quirk of how they\u0027re stored.)\n\n2. expected_client_finished is a quirk of us doing half-RTT tickets. If we want the ticket encryption to happen at the edge, we would want to cut before half-RTT tickets anyway, in which case this field wouldn\u0027t exist at all. (Though yeah it should also be computable on the proxy side.)",
+      "parentUuid": "5a85278f_066176f8",
+      "revId": "0a969d42a2b6397b800e1f5ef1370504525894e2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "48a9b07b_807a5225",
         "filename": "ssl/handoff.cc",
         "patchSetId": 2
@@ -72,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "f455aa4a_63b04607",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-27T23:10:00Z",
+      "side": 1,
+      "message": "Er, sorry, that last bullet should say \"early_data_accepted is false, and skip_early_data is true\".\n\nI tried to offer a gut reaction on which of the two I preferred and then went back and forth on it several times, so I think I don\u0027t actually have a preference. :-)\n\nI guess since one of the values is correlated with extra keys (the comment above), that might suggest a tristate enum? I think we only split them up in the handshake because the different bits are resolved at different times.",
+      "parentUuid": "d551adbd_cf4d7928",
+      "revId": "0a969d42a2b6397b800e1f5ef1370504525894e2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2591ba34_7777c08c",
         "filename": "ssl/tls13_server.cc",
         "patchSetId": 2
@@ -101,6 +137,24 @@
       "side": 1,
       "message": "Agree we should be consistent about where the ticket encryption callback runs.\n\nAre you saying that we no longer have a motivation do do half-RTT tickets at all?",
       "parentUuid": "2591ba34_7777c08c",
+      "revId": "0a969d42a2b6397b800e1f5ef1370504525894e2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73c90718_04d9c005",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 762,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-27T23:10:00Z",
+      "side": 1,
+      "message": "\u003e Are you saying that we no longer have a motivation do do half-RTT tickets at all?\n\nUnclear. The original motivation doesn\u0027t apply anymore. The more convenient I/O patterns do apply, but we\u0027ve since deferred NST to the first SSL_write anyway, so we could also do that here. I think if we\u0027d known we were deferring NST, we wouldn\u0027t have bothered with it for 0-RTT.\n\nThat said, QUIC doesn\u0027t want to defer it.\n\nAlthough, there\u0027s when we send NST and whether we compute the ticket before the client Finished. If we don\u0027t compute the ticket early at all, I think that means the ticket doesn\u0027t arrive until the *second* SSL_write because presumably the first SSL_write is in response to the early data. Hrm...\n\nI guess, what I would say is that half-RTT tickets are, at the least, Weird (TM) and so not burning it into the handoff seems prudent. It, as a bonus, makes the ticket encryption callback a little bit more consistent. (Though, per that other thread, RSA key exchange already makes things inconsistent...)",
+      "parentUuid": "ef873237_2236f1d2",
       "revId": "0a969d42a2b6397b800e1f5ef1370504525894e2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
