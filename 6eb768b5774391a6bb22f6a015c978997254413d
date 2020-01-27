@@ -16,6 +16,24 @@
       "revId": "6eb768b5774391a6bb22f6a015c978997254413d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac4a2d23_dbf1b2b9",
+        "filename": "crypto/rand_extra/windows.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 9842
+      },
+      "writtenOn": "2020-01-27T23:56:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7e27be97_e1ec6b5f",
+      "revId": "6eb768b5774391a6bb22f6a015c978997254413d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
