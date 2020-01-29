@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "44644be2_120ac2de",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2020-01-29T00:09:32Z",
+      "side": 1,
+      "message": "OK, changed to remove expected_client_finished and serialize early_traffic_secret conditionally.  Along the way, I added a new state for handback in the early-data case, which seems more consistent.",
+      "parentUuid": "c13b1d14_8d243fdb",
+      "revId": "0a969d42a2b6397b800e1f5ef1370504525894e2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "48a9b07b_807a5225",
         "filename": "ssl/handoff.cc",
         "patchSetId": 2
@@ -108,6 +126,24 @@
     },
     {
       "key": {
+        "uuid": "9f4ab16a_28bd51b1",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2020-01-29T00:09:32Z",
+      "side": 1,
+      "message": "It turns out there are actually four states.  Something to do with Hello Retry Requests: I didn\u0027t look to deeply into it.  If you\u0027re convinced that there should only be three states I can try to fix it in a prefactoring CL.",
+      "parentUuid": "f455aa4a_63b04607",
+      "revId": "0a969d42a2b6397b800e1f5ef1370504525894e2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2591ba34_7777c08c",
         "filename": "ssl/tls13_server.cc",
         "patchSetId": 2
@@ -158,6 +194,24 @@
       "revId": "0a969d42a2b6397b800e1f5ef1370504525894e2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d54bdd2_2075065f",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 762,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2020-01-29T00:09:32Z",
+      "side": 1,
+      "message": "I changed to hand back before generating the session tickets, as we discussed.  Note that this requires an extra flush on the handshaker.",
+      "parentUuid": "73c90718_04d9c005",
+      "revId": "0a969d42a2b6397b800e1f5ef1370504525894e2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
