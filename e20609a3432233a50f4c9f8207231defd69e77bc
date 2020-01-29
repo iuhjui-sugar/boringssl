@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "afbca39d_f6008710",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-29T20:43:44Z",
+      "side": 0,
+      "message": "(Ah yeah, we already stabilized the constants for Chrome UMA purposes anyway.)",
+      "revId": "e20609a3432233a50f4c9f8207231defd69e77bc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

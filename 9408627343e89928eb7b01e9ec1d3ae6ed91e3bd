@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "285c0bf5_9ad76ef1",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-29T20:43:44Z",
+      "side": 1,
+      "message": "Skipped and rejected should be the same thing. The server logic is:\n\nif (client did not offer early data) {\n  early data not offered\n  (no post-ClientHello application records to worry about)\n} else if (server is happy accepting early data) {\n  accept early data\n  (decrypt the post-ClientHello application records)\n} else {\n  reject early data\n  (skip the post-ClientHello application records)\n}\n\nDid you observe a third state?",
+      "revId": "9408627343e89928eb7b01e9ec1d3ae6ed91e3bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23b24d54_a8739144",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-29T20:43:44Z",
+      "side": 1,
+      "message": "Ah, my bad. When I suggested the tristate enum, I hadn\u0027t realized that handback_tls13 and handback_tls13_early_data would be separate states. There\u0027s another invariant here which is that type \u003d\u003d handback_tls13_early_data if and only if early_data \u003d\u003d early_data_accepted.\n\nIn that case, I wonder if we should have:\n\n  type \u003d\u003d handback_tls13 \u003d\u003e {\n      get a skip_early_data boolean;\n      early_data_offered \u003d skip_early_data;\n      early_data_accepted \u003d false;\n  }\n  type \u003d\u003d handshake_tls13_early_data \u003d\u003e {\n      no extra boolean\n      skip_early_data \u003d false;\n      early_data_offered \u003d true;\n      early_data_accepted \u003d true;\n  }\n\nThoughts? (I figure the more invariants that are burned into the serialization, the less hard we have to think about the peer sending garbage inputs.)",
+      "revId": "9408627343e89928eb7b01e9ec1d3ae6ed91e3bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "176b61ab_e1f6cf08",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-29T20:43:44Z",
+      "side": 1,
+      "message": "Spans are the best...",
+      "range": {
+        "startLine": 655,
+        "startChar": 9,
+        "endLine": 655,
+        "endChar": 17
+      },
+      "revId": "9408627343e89928eb7b01e9ec1d3ae6ed91e3bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0ad54f55_efc44aaa",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-29T20:43:44Z",
+      "side": 1,
+      "message": "Hrm. I was going to suggest that the annoying digest_len checks in 605-631 could be CBS_copy_bytes (forgot that function!), but it looks like CBS_copy_bytes is really CBS_consume_N_bytes and, if write_seq is too big, it\u0027ll silently truncate.\n\nA thought: what if you added a little helper function (not attached to name, feel free to change)\n\nstatic bool CopyExact(Span\u003cuint8_t\u003e out, const CBS *in) {\n  if (CBS_len(in) !\u003d out.size()) {\n    return false;\n  }\n  OPENSSL_memcpy(out.data(), CBS_data(in), out.size());\n  return true;\n}\n\nAnd then replaced both of these plus all the secret copies with that. The secrets would then just be:\n\n    const size_t digest_len \u003d hs-\u003etranscript.DigestLen();\n    hs-\u003eResizeSecrets(digest_len);\n    if (!CopyExact(hs-\u003eclient_traffic_secret_0(),\n                   \u0026client_traffic_secret_0) ||\n        !CopyExact(hs-\u003eserver_traffic_secret_0(),\n                   \u0026server_traffic_secret_0) ||\n        // ...\n\nwhich seems much tidier.",
+      "revId": "9408627343e89928eb7b01e9ec1d3ae6ed91e3bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93d761c7_d2ee5809",
+        "filename": "ssl/handshake.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-29T20:43:44Z",
+      "side": 1,
+      "message": "Note this does put it in two separate writes, which is hopefully fine? Right now we manage to pack it all into a single write, which packetizes better. But I suppose the caller can always do that.\n\nAnother option would be if the handoff code serialized the outgoing buffer (does it?). But I think it\u0027s fine as is. Just pointing this out as an observation.",
+      "revId": "9408627343e89928eb7b01e9ec1d3ae6ed91e3bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dded1259_0d7ef0ca",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 720,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-29T20:43:44Z",
+      "side": 1,
+      "message": "May as well move inside the existing conditional.",
+      "revId": "9408627343e89928eb7b01e9ec1d3ae6ed91e3bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
