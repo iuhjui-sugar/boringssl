@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "aa786b12_19ca34b0",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2020-01-30T01:49:12Z",
+      "side": 1,
+      "message": "The state that I am calling \"rejected\" occurs in the following cases:\n\nFAILED (SkipEarlyData-HRR-TLS13-Split)\nFAILED (EarlyData-HRR-Server-TLS13-Split)\nFAILED (EarlyData-HRR-RejectTicket-Server-TLS13-Split)\n\nSo I guess that is the answer?  Rejection of early data in the Hello Retry case is different from rejection of early data because the PSK was wrong?\n\nMaybe we don\u0027t care about the difference between these cases.  I could try to remove it in a prefactoring CL.  Thoughts?",
+      "parentUuid": "285c0bf5_9ad76ef1",
+      "revId": "9408627343e89928eb7b01e9ec1d3ae6ed91e3bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "23b24d54_a8739144",
         "filename": "ssl/handoff.cc",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2020-01-29T20:43:44Z",
       "side": 1,
       "message": "Ah, my bad. When I suggested the tristate enum, I hadn\u0027t realized that handback_tls13 and handback_tls13_early_data would be separate states. There\u0027s another invariant here which is that type \u003d\u003d handback_tls13_early_data if and only if early_data \u003d\u003d early_data_accepted.\n\nIn that case, I wonder if we should have:\n\n  type \u003d\u003d handback_tls13 \u003d\u003e {\n      get a skip_early_data boolean;\n      early_data_offered \u003d skip_early_data;\n      early_data_accepted \u003d false;\n  }\n  type \u003d\u003d handshake_tls13_early_data \u003d\u003e {\n      no extra boolean\n      skip_early_data \u003d false;\n      early_data_offered \u003d true;\n      early_data_accepted \u003d true;\n  }\n\nThoughts? (I figure the more invariants that are burned into the serialization, the less hard we have to think about the peer sending garbage inputs.)",
+      "revId": "9408627343e89928eb7b01e9ec1d3ae6ed91e3bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09044e5b_4dbac025",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2020-01-30T01:49:12Z",
+      "side": 1,
+      "message": "For now, I\u0027ve added a check that the state matches the enum value.  I\u0027ll carry your suggestion farther once we resolve the rejected vs. skipped question.",
+      "parentUuid": "23b24d54_a8739144",
       "revId": "9408627343e89928eb7b01e9ec1d3ae6ed91e3bd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -76,6 +112,24 @@
     },
     {
       "key": {
+        "uuid": "6200efb9_db9165e4",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2020-01-30T01:49:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ad54f55_efc44aaa",
+      "revId": "9408627343e89928eb7b01e9ec1d3ae6ed91e3bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "93d761c7_d2ee5809",
         "filename": "ssl/handshake.cc",
         "patchSetId": 3
@@ -87,6 +141,24 @@
       "writtenOn": "2020-01-29T20:43:44Z",
       "side": 1,
       "message": "Note this does put it in two separate writes, which is hopefully fine? Right now we manage to pack it all into a single write, which packetizes better. But I suppose the caller can always do that.\n\nAnother option would be if the handoff code serialized the outgoing buffer (does it?). But I think it\u0027s fine as is. Just pointing this out as an observation.",
+      "revId": "9408627343e89928eb7b01e9ec1d3ae6ed91e3bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90fb7ac1_fa6fd920",
+        "filename": "ssl/handshake.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2020-01-30T01:49:12Z",
+      "side": 1,
+      "message": "Yes.  My thinking was that at most there is a little more SSL record overhead, and that (as you say) the caller can ensure that the records go on the wire as a single packet.  Does that sound right?",
+      "parentUuid": "93d761c7_d2ee5809",
       "revId": "9408627343e89928eb7b01e9ec1d3ae6ed91e3bd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -107,6 +179,24 @@
       "revId": "9408627343e89928eb7b01e9ec1d3ae6ed91e3bd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5fd17cf_238e1f39",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 720,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2020-01-30T01:49:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dded1259_0d7ef0ca",
+      "revId": "9408627343e89928eb7b01e9ec1d3ae6ed91e3bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
