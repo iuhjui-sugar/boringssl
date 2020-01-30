@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "3c9e422a_189cb760",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-01-30T02:44:16Z",
+      "side": 1,
+      "message": "Ohhhh. Yes, you\u0027re right. So it\u0027s actually four states. Hrmf.\n\nWell, really it\u0027s three because early_data_not_offered and early_data_rejected (w/o skip) should be identical (I think?), but I guess that\u0027d change if someone ever asks for an SSL_get_early_data_offered API or something?\n\nMaybe early_data_rejected_hrr? Or early_data_already_skipped? I dunno. :-)",
+      "parentUuid": "aa786b12_19ca34b0",
+      "revId": "9408627343e89928eb7b01e9ec1d3ae6ed91e3bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "23b24d54_a8739144",
         "filename": "ssl/handoff.cc",
         "patchSetId": 3
