@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "916e7e4c_563e351a",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1668,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-03T20:12:03Z",
+      "side": 1,
+      "message": "I wonder if this and the corresponding check can go away now that SSL 3.0 is gone. Or is this actually checking for MaxVersion \u003d\u003d 0 to denote the default? There\u0027s a config.maxVersion() method which resolves zero appropriately.\n\n(No need to change anything for this CL. Just wondering if there\u0027s a follow-up simplification possible.)",
+      "range": {
+        "startLine": 1668,
+        "startChar": 4,
+        "endLine": 1668,
+        "endChar": 41
+      },
+      "revId": "3912adb7fcc9c2ef346120bcd6d528ecd578a798",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
