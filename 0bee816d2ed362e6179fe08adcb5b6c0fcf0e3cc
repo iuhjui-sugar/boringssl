@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a7f894f_17581c46",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2020-02-03T22:32:10Z",
+      "side": 1,
+      "message": "My compiler disagrees.\n\n../ssl/handoff.cc:519:14: error: suggest parentheses around comparison in operand of ‘!\u003d’ [-Werror\u003dparentheses]",
+      "parentUuid": "ae002e2b_1060b5fb",
+      "range": {
+        "startLine": 519,
+        "startChar": 8,
+        "endLine": 519,
+        "endChar": 9
+      },
+      "revId": "0bee816d2ed362e6179fe08adcb5b6c0fcf0e3cc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fecec0ee_1d09d002",
         "filename": "ssl/handoff.cc",
         "patchSetId": 5
@@ -39,6 +63,24 @@
       "revId": "0bee816d2ed362e6179fe08adcb5b6c0fcf0e3cc",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6776d402_25ee3b9c",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2020-02-03T22:32:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fecec0ee_1d09d002",
+      "revId": "0bee816d2ed362e6179fe08adcb5b6c0fcf0e3cc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }

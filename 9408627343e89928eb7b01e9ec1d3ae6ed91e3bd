@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "415c152c_693ab491",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2020-02-03T22:32:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c9e422a_189cb760",
+      "revId": "9408627343e89928eb7b01e9ec1d3ae6ed91e3bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "23b24d54_a8739144",
         "filename": "ssl/handoff.cc",
         "patchSetId": 3
@@ -105,6 +123,24 @@
       "revId": "9408627343e89928eb7b01e9ec1d3ae6ed91e3bd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4e96e31_8d09c32f",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2020-02-03T22:32:10Z",
+      "side": 1,
+      "message": "(Nothing else to change here, I think, since we\u0027re keeping the four-valued enum.)",
+      "parentUuid": "fe63918f_43fbddef",
+      "revId": "9408627343e89928eb7b01e9ec1d3ae6ed91e3bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
