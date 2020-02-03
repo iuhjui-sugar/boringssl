@@ -90,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "fe63918f_43fbddef",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-03T20:05:44Z",
+      "side": 1,
+      "message": "SGTM",
+      "parentUuid": "09044e5b_4dbac025",
+      "revId": "9408627343e89928eb7b01e9ec1d3ae6ed91e3bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "176b61ab_e1f6cf08",
         "filename": "ssl/handoff.cc",
         "patchSetId": 3
@@ -180,6 +198,24 @@
       "revId": "9408627343e89928eb7b01e9ec1d3ae6ed91e3bd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d949f2e_c5746db2",
+        "filename": "ssl/handshake.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-03T20:05:44Z",
+      "side": 1,
+      "message": "I don\u0027t think there\u0027s even SSL record overhead. Just the packet stuff.",
+      "parentUuid": "90fb7ac1_fa6fd920",
+      "revId": "9408627343e89928eb7b01e9ec1d3ae6ed91e3bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
