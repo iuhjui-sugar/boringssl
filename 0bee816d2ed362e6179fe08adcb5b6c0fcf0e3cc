@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "0b4e74d5_e064ae9f",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-03T23:00:48Z",
+      "side": 1,
+      "message": "Oh, ignore me. I read !\u003d as ||.",
+      "parentUuid": "9a7f894f_17581c46",
+      "range": {
+        "startLine": 519,
+        "startChar": 8,
+        "endLine": 519,
+        "endChar": 9
+      },
+      "revId": "0bee816d2ed362e6179fe08adcb5b6c0fcf0e3cc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fecec0ee_1d09d002",
         "filename": "ssl/handoff.cc",
         "patchSetId": 5
