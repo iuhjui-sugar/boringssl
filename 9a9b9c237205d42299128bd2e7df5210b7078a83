@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "33867c53_d9fb6863",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-02-04T17:03:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "260cd3ac_d620a831",
+      "range": {
+        "startLine": 426,
+        "startChar": 34,
+        "endLine": 426,
+        "endChar": 40
+      },
+      "revId": "9a9b9c237205d42299128bd2e7df5210b7078a83",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "72005f2c_50974dee",
         "filename": "include/openssl/trust_token.h",
         "patchSetId": 15
@@ -39,6 +63,24 @@
       "revId": "9a9b9c237205d42299128bd2e7df5210b7078a83",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a56dde2_721986c3",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-02-04T17:03:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72005f2c_50974dee",
+      "revId": "9a9b9c237205d42299128bd2e7df5210b7078a83",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "e705410e_e75e9921",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-02-04T17:03:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1302420b_7f03b6ce",
+      "revId": "9a9b9c237205d42299128bd2e7df5210b7078a83",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f05603a_c85793b5",
         "filename": "include/openssl/trust_token.h",
         "patchSetId": 15
@@ -76,6 +136,24 @@
     },
     {
       "key": {
+        "uuid": "8a4c6c1d_796afa70",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-02-04T17:03:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f05603a_c85793b5",
+      "revId": "9a9b9c237205d42299128bd2e7df5210b7078a83",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "28ff55a6_95059f04",
         "filename": "include/openssl/trust_token.h",
         "patchSetId": 15
@@ -90,6 +168,24 @@
       "revId": "9a9b9c237205d42299128bd2e7df5210b7078a83",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04b82569_4f91db65",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-02-04T17:03:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "28ff55a6_95059f04",
+      "revId": "9a9b9c237205d42299128bd2e7df5210b7078a83",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -116,6 +212,30 @@
     },
     {
       "key": {
+        "uuid": "f599da44_98a4bb60",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-02-04T17:03:13Z",
+      "side": 1,
+      "message": "This is just for testing the API, will probably delete this before landing.",
+      "parentUuid": "2cf32673_e96a2451",
+      "range": {
+        "startLine": 34,
+        "startChar": 34,
+        "endLine": 34,
+        "endChar": 43
+      },
+      "revId": "9a9b9c237205d42299128bd2e7df5210b7078a83",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5094c472_ea8f7b5d",
         "filename": "include/openssl/trust_token.h",
         "patchSetId": 15
@@ -136,6 +256,30 @@
       "revId": "9a9b9c237205d42299128bd2e7df5210b7078a83",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8bb448c3_90538a8e",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-02-04T17:03:13Z",
+      "side": 1,
+      "message": "Just a dumb API to test the interface. Will delete before landing.",
+      "parentUuid": "5094c472_ea8f7b5d",
+      "range": {
+        "startLine": 36,
+        "startChar": 41,
+        "endLine": 36,
+        "endChar": 46
+      },
+      "revId": "9a9b9c237205d42299128bd2e7df5210b7078a83",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -162,6 +306,30 @@
     },
     {
       "key": {
+        "uuid": "a9fe246c_044064f1",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-02-04T17:03:13Z",
+      "side": 1,
+      "message": "\u0027version\u0027 here is just an ID used to lookup the corresponding key, to allow for versioing of the keys.",
+      "parentUuid": "d5e00cb9_0f7e8d01",
+      "range": {
+        "startLine": 43,
+        "startChar": 17,
+        "endLine": 43,
+        "endChar": 24
+      },
+      "revId": "9a9b9c237205d42299128bd2e7df5210b7078a83",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "72933a00_d2392779",
         "filename": "include/openssl/trust_token.h",
         "patchSetId": 15
@@ -182,6 +350,30 @@
       "revId": "9a9b9c237205d42299128bd2e7df5210b7078a83",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44d20d0c_6f25bda3",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-02-04T17:03:13Z",
+      "side": 1,
+      "message": "Changed to other version.",
+      "parentUuid": "72933a00_d2392779",
+      "range": {
+        "startLine": 44,
+        "startChar": 5,
+        "endLine": 44,
+        "endChar": 17
+      },
+      "revId": "9a9b9c237205d42299128bd2e7df5210b7078a83",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -208,6 +400,30 @@
     },
     {
       "key": {
+        "uuid": "8815d6fe_628917d6",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-02-04T17:03:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df0b9b17_d03fe9a0",
+      "range": {
+        "startLine": 47,
+        "startChar": 15,
+        "endLine": 47,
+        "endChar": 19
+      },
+      "revId": "9a9b9c237205d42299128bd2e7df5210b7078a83",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "42f72a00_0d86630b",
         "filename": "include/openssl/trust_token.h",
         "patchSetId": 15
@@ -231,6 +447,30 @@
     },
     {
       "key": {
+        "uuid": "9663da5f_2efc5a2f",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-02-04T17:03:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42f72a00_0d86630b",
+      "range": {
+        "startLine": 49,
+        "startChar": 62,
+        "endLine": 49,
+        "endChar": 64
+      },
+      "revId": "9a9b9c237205d42299128bd2e7df5210b7078a83",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "54f341da_d3c5c0e5",
         "filename": "include/openssl/trust_token.h",
         "patchSetId": 15
@@ -242,6 +482,30 @@
       "writtenOn": "2020-01-23T19:52:20Z",
       "side": 1,
       "message": "Mostly double-checking, is this a 16-bit value in the protocol?",
+      "range": {
+        "startLine": 65,
+        "startChar": 4,
+        "endLine": 65,
+        "endChar": 12
+      },
+      "revId": "9a9b9c237205d42299128bd2e7df5210b7078a83",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d4ad5b6_2b0db866",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-02-04T17:03:13Z",
+      "side": 1,
+      "message": "Not clearly defined, we arbitrarily choose 16 bits.",
+      "parentUuid": "54f341da_d3c5c0e5",
       "range": {
         "startLine": 65,
         "startChar": 4,
@@ -277,6 +541,30 @@
     },
     {
       "key": {
+        "uuid": "dfe8ff95_9937356e",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-02-04T17:03:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aec774fb_09c9761e",
+      "range": {
+        "startLine": 70,
+        "startChar": 20,
+        "endLine": 70,
+        "endChar": 31
+      },
+      "revId": "9a9b9c237205d42299128bd2e7df5210b7078a83",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2e3e3af6_03a8e299",
         "filename": "include/openssl/trust_token.h",
         "patchSetId": 15
@@ -300,6 +588,30 @@
     },
     {
       "key": {
+        "uuid": "c2e39135_396998c9",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-02-04T17:03:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e3e3af6_03a8e299",
+      "range": {
+        "startLine": 71,
+        "startChar": 70,
+        "endLine": 71,
+        "endChar": 73
+      },
+      "revId": "9a9b9c237205d42299128bd2e7df5210b7078a83",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fbee53d1_933a06aa",
         "filename": "include/openssl/trust_token.h",
         "patchSetId": 15
@@ -317,6 +629,24 @@
     },
     {
       "key": {
+        "uuid": "29003fdd_ba54401a",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-02-04T17:03:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fbee53d1_933a06aa",
+      "revId": "9a9b9c237205d42299128bd2e7df5210b7078a83",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "978cc082_a4e9bb9b",
         "filename": "include/openssl/trust_token.h",
         "patchSetId": 15
@@ -328,6 +658,24 @@
       "writtenOn": "2020-01-23T19:52:20Z",
       "side": 1,
       "message": "Are these always used in a trust tokens operation? I\u0027m wondering if this should just be part of the constructor functions. Or I guess the thinking is you might add lots of them a la SSL* so this way it\u0027s extensible?",
+      "revId": "9a9b9c237205d42299128bd2e7df5210b7078a83",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "732c2423_c97fcb60",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-02-04T17:03:13Z",
+      "side": 1,
+      "message": "These are part of every Trust Token variant, while the constructor functions take in protocol-specific things.",
+      "parentUuid": "978cc082_a4e9bb9b",
       "revId": "9a9b9c237205d42299128bd2e7df5210b7078a83",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -357,6 +705,30 @@
     },
     {
       "key": {
+        "uuid": "79b8a936_c0e454a7",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-02-04T17:03:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da05cbb9_42f3e06a",
+      "range": {
+        "startLine": 99,
+        "startChar": 61,
+        "endLine": 99,
+        "endChar": 69
+      },
+      "revId": "9a9b9c237205d42299128bd2e7df5210b7078a83",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8ff3d829_04ec2af4",
         "filename": "include/openssl/trust_token.h",
         "patchSetId": 15
@@ -377,6 +749,30 @@
       "revId": "9a9b9c237205d42299128bd2e7df5210b7078a83",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "665de084_4cb7bedc",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-02-04T17:03:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ff3d829_04ec2af4",
+      "range": {
+        "startLine": 121,
+        "startChar": 3,
+        "endLine": 122,
+        "endChar": 72
+      },
+      "revId": "9a9b9c237205d42299128bd2e7df5210b7078a83",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -403,6 +799,30 @@
     },
     {
       "key": {
+        "uuid": "995786d8_1adea010",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-02-04T17:03:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d319c78_4d1b1562",
+      "range": {
+        "startLine": 152,
+        "startChar": 39,
+        "endLine": 152,
+        "endChar": 57
+      },
+      "revId": "9a9b9c237205d42299128bd2e7df5210b7078a83",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "13678025_2d3b89ed",
         "filename": "include/openssl/trust_token.h",
         "patchSetId": 15
@@ -417,6 +837,24 @@
       "revId": "9a9b9c237205d42299128bd2e7df5210b7078a83",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20f882f4_7990d324",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-02-04T17:03:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "13678025_2d3b89ed",
+      "revId": "9a9b9c237205d42299128bd2e7df5210b7078a83",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
