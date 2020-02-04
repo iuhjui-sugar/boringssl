@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "76836eac_81e0fadb",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4194,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-04T22:28:43Z",
+      "side": 1,
+      "message": "0-RTT is sufficiently goofy that we probably don\u0027t want to lose coverage of plain resumption.",
+      "revId": "5396b595ecdf65c76e2dac97ef3490af29323d89",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c07855d_c32c9d4d",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4232,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-04T22:28:43Z",
+      "side": 1,
+      "message": "Remnant of development?",
+      "revId": "5396b595ecdf65c76e2dac97ef3490af29323d89",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c44ba803_b1c6dc67",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4264,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-04T22:28:43Z",
+      "side": 1,
+      "message": "Probably worth a comment that the early data was already written above.",
+      "revId": "5396b595ecdf65c76e2dac97ef3490af29323d89",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
