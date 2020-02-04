@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "16d431c3_21bac9fc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-04T19:13:56Z",
+      "side": 1,
+      "message": "Could you add a note as to why this was needed? Both because it\u0027s useful documentation and because I\u0027m actually kind of confused. :-) I think the handoff logic mostly didn\u0027t touch configuration... I gather there was something that cared about it matching?",
+      "revId": "fa076f40ef39b184d6d5ea6888d048586dc90453",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
