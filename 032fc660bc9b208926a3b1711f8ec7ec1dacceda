@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "999c43e2_f0314a81",
+        "filename": "include/openssl/tls1.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-02-04T18:02:11Z",
+      "side": 1,
+      "message": "Could you add the corresponding #define in ssl.h under SSL_AD_CERTIFICATE_REQUIRED?",
+      "revId": "032fc660bc9b208926a3b1711f8ec7ec1dacceda",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
