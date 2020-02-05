@@ -74,6 +74,12 @@ extern "C" {
 // BoringSSL API calls must therefore generally be freed using |OPENSSL_free|
 // unless stated otherwise.
 
+// OPENSSL_set_mem_hooks installs hooks called on each allocation/deallocation.
+// To be called early on, ideally before any allocation happens.
+OPENSSL_EXPORT void OPENSSL_set_mem_hooks(void (*malloc_hook)(void *ptr,
+                                                              size_t size),
+                                          void (*free_hook)(void *ptr,
+                                                            size_t size));
 
 // OPENSSL_malloc acts like a regular |malloc|.
 OPENSSL_EXPORT void *OPENSSL_malloc(size_t size);
