@@ -104,6 +104,19 @@ void sdallocx(void *ptr, size_t size, int flags) {
   free(ptr);
 }
 
+// Memory allocation hooks
+static void (*malloc_hook)(void*, size_t) = NULL;
+static void (*free_hook)(void*, size_t) = NULL;
+
+void OPENSSL_set_mem_hooks(void (*m)(void*, size_t), void (*f)(void*, size_t)) {
+  if (m != NULL) {
+    malloc_hook = m;
+  }
+  if (f != NULL) {
+    free_hook = f;
+  }
+}
+
 void *OPENSSL_malloc(size_t size) {
   void *ptr = malloc(size + OPENSSL_MALLOC_PREFIX);
   if (ptr == NULL) {
@@ -113,6 +126,9 @@ void *OPENSSL_malloc(size_t size) {
   *(size_t *)ptr = size;
 
   __asan_poison_memory_region(ptr, OPENSSL_MALLOC_PREFIX);
+  if (malloc_hook != NULL) {
+    malloc_hook(ptr, size + OPENSSL_MALLOC_PREFIX);
+  }
   return ((uint8_t *)ptr) + OPENSSL_MALLOC_PREFIX;
 }
 
@@ -125,6 +141,9 @@ void OPENSSL_free(void *orig_ptr) {
   __asan_unpoison_memory_region(ptr, OPENSSL_MALLOC_PREFIX);
 
   size_t size = *(size_t *)ptr;
+  if (free_hook != NULL) {
+    free_hook(ptr, size + OPENSSL_MALLOC_PREFIX);
+  }
   OPENSSL_cleanse(ptr, size + OPENSSL_MALLOC_PREFIX);
   sdallocx(ptr, size + OPENSSL_MALLOC_PREFIX, 0 /* flags */);
 }
