@@ -22,6 +22,30 @@
       "revId": "3912adb7fcc9c2ef346120bcd6d528ecd578a798",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5128877d_ce9e0ea6",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 1668,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2020-02-05T20:09:17Z",
+      "side": 1,
+      "message": "I checked and it does not appear to be load-bearing.  But since this whole stanza will go away eventually (with the removal of tls13SplitHandshakeTests) I am gonna leave it alone.",
+      "parentUuid": "916e7e4c_563e351a",
+      "range": {
+        "startLine": 1668,
+        "startChar": 4,
+        "endLine": 1668,
+        "endChar": 41
+      },
+      "revId": "3912adb7fcc9c2ef346120bcd6d528ecd578a798",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
