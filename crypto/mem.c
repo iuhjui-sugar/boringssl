@@ -104,6 +104,25 @@ void sdallocx(void *ptr, size_t size, int flags) {
   free(ptr);
 }
 
+// Memory region tracking and sanitization functions.
+// Defined as weak symbols so that users can override
+#if defined(__GNUC__) || (defined(__clang__) && !defined(_MSC_VER))
+void OPENSSL_track_memory(void*, size_t);
+
+__attribute((weak, noinline))
+#else
+static
+#endif
+void OPENSSL_track_memory(void*, size_t) {}
+#if defined(__GNUC__) || (defined(__clang__) && !defined(_MSC_VER))
+void OPENSSL_sanitize_memory(void*, size_t);
+
+__attribute((weak, noinline))
+#else
+static
+#endif
+void OPENSSL_sanitize_memory(void* ptr, size_t size) {}
+
 void *OPENSSL_malloc(size_t size) {
   if (size + OPENSSL_MALLOC_PREFIX < size) {
     return NULL;
@@ -117,6 +136,7 @@ void *OPENSSL_malloc(size_t size) {
   *(size_t *)ptr = size;
 
   __asan_poison_memory_region(ptr, OPENSSL_MALLOC_PREFIX);
+  OPENSSL_track_memory(ptr, size + OPENSSL_MALLOC_PREFIX);
   return ((uint8_t *)ptr) + OPENSSL_MALLOC_PREFIX;
 }
 
@@ -129,7 +149,8 @@ void OPENSSL_free(void *orig_ptr) {
   __asan_unpoison_memory_region(ptr, OPENSSL_MALLOC_PREFIX);
 
   size_t size = *(size_t *)ptr;
-  OPENSSL_cleanse(ptr, size + OPENSSL_MALLOC_PREFIX);
+  OPENSSL_sanitize_memory(ptr, size + OPENSSL_MALLOC_PREFIX);
+  OPENSSL_cleanse(ptr, size);
   sdallocx(ptr, size + OPENSSL_MALLOC_PREFIX, 0 /* flags */);
 }
 
