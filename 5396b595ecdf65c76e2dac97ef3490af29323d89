@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a8b42d0c_e1f01837",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4194,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2020-02-05T20:21:23Z",
+      "side": 1,
+      "message": "Done.  Hope you don\u0027t think it\u0027s too clever.",
+      "parentUuid": "76836eac_81e0fadb",
+      "revId": "5396b595ecdf65c76e2dac97ef3490af29323d89",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1c07855d_c32c9d4d",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 3
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "1d4f650b_f8c5f54a",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4232,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2020-02-05T20:21:23Z",
+      "side": 1,
+      "message": "I can delete it if you like, but it feels useful to me to preserve both the reasoning and my lack of certainty about the reasoning.  :-)",
+      "parentUuid": "1c07855d_c32c9d4d",
+      "revId": "5396b595ecdf65c76e2dac97ef3490af29323d89",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c44ba803_b1c6dc67",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 3
@@ -50,6 +86,24 @@
       "revId": "5396b595ecdf65c76e2dac97ef3490af29323d89",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92ad7358_5e1c57cf",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4264,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2020-02-05T20:21:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c44ba803_b1c6dc67",
+      "revId": "5396b595ecdf65c76e2dac97ef3490af29323d89",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
