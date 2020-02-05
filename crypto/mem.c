@@ -104,6 +104,26 @@ void sdallocx(void *ptr, size_t size, int flags) {
   free(ptr);
 }
 
+// Memory allocation hooks that are called after the corresponding memory
+// function. I.e. unlike some memory "hooks", they do not replace malloc/free.
+// Defined as weak symbols so that clients can override.
+#if defined(__GNUC__) || (defined(__clang__) && !defined(_MSC_VER))
+void OPENSSL_malloc_hook(void*, size_t);
+
+__attribute((weak, noinline))
+#else
+static
+#endif
+void OPENSSL_malloc_hook(void*, size_t) {}
+#if defined(__GNUC__) || (defined(__clang__) && !defined(_MSC_VER))
+void OPENSSL_free_hook(void*, size_t);
+
+__attribute((weak, noinline))
+#else
+static
+#endif
+void OPENSSL_free_hook(void*, size_t) {}
+
 void *OPENSSL_malloc(size_t size) {
   if (size + OPENSSL_MALLOC_PREFIX < size) {
     return NULL;
@@ -117,6 +137,7 @@ void *OPENSSL_malloc(size_t size) {
   *(size_t *)ptr = size;
 
   __asan_poison_memory_region(ptr, OPENSSL_MALLOC_PREFIX);
+  OPENSSL_malloc_hook(ptr, size + OPENSSL_MALLOC_PREFIX);
   return ((uint8_t *)ptr) + OPENSSL_MALLOC_PREFIX;
 }
 
@@ -129,6 +150,7 @@ void OPENSSL_free(void *orig_ptr) {
   __asan_unpoison_memory_region(ptr, OPENSSL_MALLOC_PREFIX);
 
   size_t size = *(size_t *)ptr;
+  OPENSSL_free_hook(ptr, size + OPENSSL_MALLOC_PREFIX);
   OPENSSL_cleanse(ptr, size + OPENSSL_MALLOC_PREFIX);
   sdallocx(ptr, size + OPENSSL_MALLOC_PREFIX, 0 /* flags */);
 }
