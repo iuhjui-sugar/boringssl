@@ -104,6 +104,14 @@ void sdallocx(void *ptr, size_t size, int flags) {
   free(ptr);
 }
 
+// Memory allocation hooks.
+//
+// These function pointers, if not NULL, will be called *after* the
+// corresponding memory function. I.e. they do not replace the call to
+// malloc/free, as some memory "hooks" do.
+static void (*g_malloc_hook)(void*, size_t) = NULL;
+static void (*g_free_hook)(void*, size_t) = NULL;
+
 void *OPENSSL_malloc(size_t size) {
   void *ptr = malloc(size + OPENSSL_MALLOC_PREFIX);
   if (ptr == NULL) {
@@ -113,6 +121,9 @@ void *OPENSSL_malloc(size_t size) {
   *(size_t *)ptr = size;
 
   __asan_poison_memory_region(ptr, OPENSSL_MALLOC_PREFIX);
+  if (g_malloc_hook != NULL) {
+    g_malloc_hook(ptr, size + OPENSSL_MALLOC_PREFIX);
+  }
   return ((uint8_t *)ptr) + OPENSSL_MALLOC_PREFIX;
 }
 
@@ -125,6 +136,9 @@ void OPENSSL_free(void *orig_ptr) {
   __asan_unpoison_memory_region(ptr, OPENSSL_MALLOC_PREFIX);
 
   size_t size = *(size_t *)ptr;
+  if (g_free_hook != NULL) {
+    g_free_hook(ptr, size + OPENSSL_MALLOC_PREFIX);
+  }
   OPENSSL_cleanse(ptr, size + OPENSSL_MALLOC_PREFIX);
   sdallocx(ptr, size + OPENSSL_MALLOC_PREFIX, 0 /* flags */);
 }
@@ -339,4 +353,14 @@ void *OPENSSL_memdup(const void *data, size_t size) {
 
   OPENSSL_memcpy(ret, data, size);
   return ret;
+}
+
+void OPENSSL_set_mem_hooks(void (*malloc_hook)(void *, size_t),
+                           void (*free_hook)(void *, size_t)) {
+  if (malloc_hook != NULL) {
+    g_malloc_hook = malloc_hook;
+  }
+  if (free_hook != NULL) {
+    g_free_hook = free_hook;
+  }
 }

@@ -144,6 +144,22 @@ OPENSSL_EXPORT size_t OPENSSL_strlcpy(char *dst, const char *src,
 OPENSSL_EXPORT size_t OPENSSL_strlcat(char *dst, const char *src,
                                       size_t dst_size);
 
+// OPENSSL_set_mem_hooks installs function pointers that are called after the
+// corresponding memory function. I.e. unlike some memory "hooks", they do not
+// replace malloc/free.
+//
+// WARNING: this function does not perform locking. Therefore, if this function
+// is called after the process has gone multi-threaded then memory races and
+// thus undefined behaviour may occur.
+//
+// WARNING: some allocations may occur in constructor functions, before this
+// function can be called. Thus |free_hook| may see memory buffers that
+// |malloc_hook| was too late to catch.
+OPENSSL_EXPORT void OPENSSL_set_mem_hooks(void (*malloc_hook)(void *ptr,
+                                                              size_t size),
+                                          void (*free_hook)(void *ptr,
+                                                            size_t size));
+
 
 // Deprecated functions.
 
