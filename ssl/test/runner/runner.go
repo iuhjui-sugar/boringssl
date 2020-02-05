@@ -4880,7 +4880,7 @@ func addStateMachineCoverageTests(config stateMachineTestConfig) {
 		flags: []string{
 			"-cert-file", path.Join(*resourceDir, ed25519CertificateFile),
 			"-key-file", path.Join(*resourceDir, ed25519KeyFile),
-			"-enable-ed25519",
+			"-verify-prefs", strconv.Itoa(int(signatureEd25519)),
 		},
 	})
 
@@ -9719,7 +9719,7 @@ func addSignatureAlgorithmTests() {
 				UseLegacySigningAlgorithm: signatureEd25519,
 			},
 		},
-		flags:         []string{"-enable-ed25519"},
+		flags:         []string{"-verify-prefs", strconv.Itoa(int(signatureEd25519))},
 		shouldFail:    true,
 		expectedError: ":PEER_ERROR_UNSUPPORTED_CERTIFICATE_TYPE:",
 	})
@@ -9748,7 +9748,7 @@ func addSignatureAlgorithmTests() {
 			},
 		},
 		flags: []string{
-			"-enable-ed25519",
+			"-verify-prefs", strconv.Itoa(int(signatureEd25519)),
 			"-require-any-client-certificate",
 		},
 		shouldFail:    true,
