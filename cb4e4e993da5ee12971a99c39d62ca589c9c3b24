@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9cc308d2_fbd24f67",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 4194,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-06T23:35:49Z",
+      "side": 1,
+      "message": "I\u0027m... very confused what\u0027s going on here. This iterates i \u003d 0 and i \u003d 1, right? That means config.early_data is always false.",
+      "revId": "cb4e4e993da5ee12971a99c39d62ca589c9c3b24",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}

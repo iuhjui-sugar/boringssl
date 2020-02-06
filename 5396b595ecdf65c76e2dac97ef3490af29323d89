@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "78e7a320_a1db3af7",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4232,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-06T23:35:49Z",
+      "side": 1,
+      "message": "Well, usually our comments don\u0027t have first-person questions to ourselves. :-) Maybe:\n\n// Note split handshakes determines 0-RTT support, for both the current handshake and newly-issued tickets, entirely by |handshaker|. There is no need to call |SSL_set_early_data_enabled| on |server|.",
+      "parentUuid": "1d4f650b_f8c5f54a",
+      "revId": "5396b595ecdf65c76e2dac97ef3490af29323d89",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c44ba803_b1c6dc67",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 3
