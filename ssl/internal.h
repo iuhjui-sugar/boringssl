@@ -1503,7 +1503,6 @@ enum handback_t {
   handback_after_ecdhe,
   handback_after_handshake,
   handback_tls13,
-  handback_tls13_early_data,
 };
 
 
