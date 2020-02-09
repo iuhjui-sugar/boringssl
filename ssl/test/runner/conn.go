@@ -1133,17 +1133,23 @@ func (c *Conn) writeRecord(typ recordType, data []byte) (n int, err error) {
 		}
 
 		if c.config.Bugs.SendTrailingMessageData != 0 && msgType == c.config.Bugs.SendTrailingMessageData {
-			newData := make([]byte, len(data))
+			// Add a 0 to the body.
+			newData := make([]byte, len(data)+1)
 			copy(newData, data)
 
-			// Add a 0 to the body.
-			newData = append(newData, 0)
 			// Fix the header.
 			newLen := len(newData) - 4
 			newData[1] = byte(newLen >> 16)
 			newData[2] = byte(newLen >> 8)
 			newData[3] = byte(newLen)
 
+			data = newData
+		}
+
+		if c.config.Bugs.TrailingDataWithFinished && msgType == typeFinished {
+			// Add a 0 to the record.
+			newData := make([]byte, len(data)+1)
+			copy(newData, data)
 			data = newData
 		}
 	}
