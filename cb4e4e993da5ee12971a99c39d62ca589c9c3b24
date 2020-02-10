@@ -16,6 +16,24 @@
       "revId": "cb4e4e993da5ee12971a99c39d62ca589c9c3b24",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "359cf5ad_eb9cebc5",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 4194,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2020-02-10T20:09:31Z",
+      "side": 1,
+      "message": "Ah, in my mind I had changed the loop to execute four times, but not in reality.  PTAL.",
+      "parentUuid": "9cc308d2_fbd24f67",
+      "revId": "cb4e4e993da5ee12971a99c39d62ca589c9c3b24",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
