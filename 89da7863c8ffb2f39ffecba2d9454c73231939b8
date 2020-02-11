@@ -1,0 +1,520 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8ef67513_9a9fdd2a",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-11T00:18:50Z",
+      "side": 1,
+      "message": "Is there a spec or so that we can reference somewhere?",
+      "revId": "89da7863c8ffb2f39ffecba2d9454c73231939b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1005f0f_900a7abf",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-11T00:18:50Z",
+      "side": 1,
+      "message": "Nit: trailing whitespace.",
+      "range": {
+        "startLine": 39,
+        "startChar": 57,
+        "endLine": 39,
+        "endChar": 59
+      },
+      "revId": "89da7863c8ffb2f39ffecba2d9454c73231939b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15c4aa61_1fb0f8ec",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-11T00:18:50Z",
+      "side": 1,
+      "message": "Hrm. I would say these ought to be next to where you allocated TRUST_TOKEN_CLIENTs and TRUST_TOKEN_ISSUERs, but the cleartext thing is in the way. Although if the cleartext thing is temporary... :-/",
+      "revId": "89da7863c8ffb2f39ffecba2d9454c73231939b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0aeb0e75_23af9452",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-11T00:18:50Z",
+      "side": 1,
+      "message": "TRUST_TOKEN_CLIENT_new_clear returns a newly-allocated |TRUST_TOKEN_CLIENT| using [...] or NULL on error.\n\nDitto below",
+      "revId": "89da7863c8ffb2f39ffecba2d9454c73231939b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf58e938_cefca85a",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-11T00:18:50Z",
+      "side": 1,
+      "message": "Nit: clang-format here and below",
+      "revId": "89da7863c8ffb2f39ffecba2d9454c73231939b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9428c2d1_960f8066",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-11T00:18:50Z",
+      "side": 1,
+      "message": "That is a mouthful. :-/\n\nTRUST_TOKEN_MAX_PRIVATE_KEY_SIZE and TRUST_TOKEN_MAX_PUBLIC_KEY_SIZE would be much shorter, but for the cleartext protocol. But that\u0027s temporary anyway... WDYT about those names?",
+      "range": {
+        "startLine": 68,
+        "startChar": 8,
+        "endLine": 68,
+        "endChar": 53
+      },
+      "revId": "89da7863c8ffb2f39ffecba2d9454c73231939b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "813b028e_4e629da8",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-11T00:18:50Z",
+      "side": 1,
+      "message": "Is version something the caller specifies arbitrarily, or does it identify a version that we support? If the latter, probably worth defining constants for it.",
+      "range": {
+        "startLine": 72,
+        "startChar": 17,
+        "endLine": 72,
+        "endChar": 24
+      },
+      "revId": "89da7863c8ffb2f39ffecba2d9454c73231939b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "919947e0_ca76c683",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-11T00:18:50Z",
+      "side": 1,
+      "message": "Two high-level naming comments:\n\n1. We usually use \"init\" for initializing some struct that you already have.\n\n2. I\u0027m not a huge fan of the in-band privacy_pass namespacing. I think we usually just have the single level of namespace? Although I guess we do have SSL_quic_max_handshake_flight_len.\n\nMaybe generate_privacy_pass_key? (Or perhaps even generate_key or generate_key_pair if you want to drop privacy_pass.)",
+      "range": {
+        "startLine": 83,
+        "startChar": 30,
+        "endLine": 83,
+        "endChar": 52
+      },
+      "revId": "89da7863c8ffb2f39ffecba2d9454c73231939b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfe37639_211f7bf8",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-11T00:18:50Z",
+      "side": 1,
+      "message": "Nit: I think we usually just call this max_priv_key_len. Ditto for the other \"max_out_foo\" symbols.",
+      "range": {
+        "startLine": 85,
+        "startChar": 11,
+        "endLine": 85,
+        "endChar": 31
+      },
+      "revId": "89da7863c8ffb2f39ffecba2d9454c73231939b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43b3f820_3a097ac6",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-11T00:18:50Z",
+      "side": 1,
+      "message": "generate_key_for_private_metadata?",
+      "range": {
+        "startLine": 101,
+        "startChar": 31,
+        "endLine": 101,
+        "endChar": 69
+      },
+      "revId": "89da7863c8ffb2f39ffecba2d9454c73231939b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34cf4bdf_9a5171e4",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-11T00:18:50Z",
+      "side": 1,
+      "message": "a newly-allocated |TRUST_TOKEN_CLIENT| [...] or NULL on error\n\nDitto for TRUST_TOKEN_ISSUER_new_privacy_pass",
+      "range": {
+        "startLine": 106,
+        "startChar": 49,
+        "endLine": 106,
+        "endChar": 73
+      },
+      "revId": "89da7863c8ffb2f39ffecba2d9454c73231939b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7f47138_bdee2353",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-11T00:18:50Z",
+      "side": 1,
+      "message": "add_privacy_pass_key? Ditto below.",
+      "range": {
+        "startLine": 114,
+        "startChar": 38,
+        "endLine": 114,
+        "endChar": 58
+      },
+      "revId": "89da7863c8ffb2f39ffecba2d9454c73231939b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "abd73855_e9c55e06",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-11T00:18:50Z",
+      "side": 1,
+      "message": "Is the idea that you\u0027d make a single TRUST_TOKEN_CLIENT per operation (so you do a single configure + begin_issuance + finish_issuance operation, or a single configure + begin_redemption + finish_redemption operation), or keep it longer-lived? The begin + finish pairs make me think it\u0027s individual operations, but that\u0027s not totally clear from the docs.",
+      "range": {
+        "startLine": 134,
+        "startChar": 31,
+        "endLine": 134,
+        "endChar": 42
+      },
+      "revId": "89da7863c8ffb2f39ffecba2d9454c73231939b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f168defe_df5a6f03",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-11T00:18:50Z",
+      "side": 1,
+      "message": "Nit: functions :-)",
+      "range": {
+        "startLine": 134,
+        "startChar": 9,
+        "endLine": 134,
+        "endChar": 16
+      },
+      "revId": "89da7863c8ffb2f39ffecba2d9454c73231939b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1732d0c_8df3a770",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-11T00:18:50Z",
+      "side": 1,
+      "message": "It returns [...]",
+      "range": {
+        "startLine": 136,
+        "startChar": 76,
+        "endLine": 136,
+        "endChar": 77
+      },
+      "revId": "89da7863c8ffb2f39ffecba2d9454c73231939b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e6a9e52_f04851e4",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-11T00:18:50Z",
+      "side": 1,
+      "message": "newly-allocated buffer",
+      "range": {
+        "startLine": 141,
+        "startChar": 37,
+        "endLine": 141,
+        "endChar": 60
+      },
+      "revId": "89da7863c8ffb2f39ffecba2d9454c73231939b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "adc6fea3_2c0c26df",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-11T00:18:50Z",
+      "side": 1,
+      "message": "You\u0027d have to use sk_TRUST_TOKEN_pop_free with TRUST_TOKEN_free, right?",
+      "range": {
+        "startLine": 152,
+        "startChar": 30,
+        "endLine": 152,
+        "endChar": 42
+      },
+      "revId": "89da7863c8ffb2f39ffecba2d9454c73231939b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3fc0bcbf_b468757d",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-11T00:18:50Z",
+      "side": 1,
+      "message": "We usually pass these in as pointers. (Or maybe just ptr + len params? I\u0027m not sure how often we actually do pass things in as CBS except when it\u0027s tightly integrated into some length-prefix parsing. I dunno, it\u0027s pretty inconsistent in general.)\n\nDitto throughout.",
+      "range": {
+        "startLine": 156,
+        "startChar": 45,
+        "endLine": 156,
+        "endChar": 48
+      },
+      "revId": "89da7863c8ffb2f39ffecba2d9454c73231939b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55871af7_a6e54379",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-11T00:18:50Z",
+      "side": 1,
+      "message": "setting",
+      "range": {
+        "startLine": 161,
+        "startChar": 29,
+        "endLine": 161,
+        "endChar": 37
+      },
+      "revId": "89da7863c8ffb2f39ffecba2d9454c73231939b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "467fcb62_c243ce8a",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-11T00:18:50Z",
+      "side": 1,
+      "message": "This parameter seems difficult. I imagine the caller is going to call TRUST_TOKEN_CLIENT_finish_issuance and then serialize them (that\u0027s doable since it\u0027s just a byte string) somewhere. Then it\u0027ll grab one and call this function.\n\nBut this specifically wants a TRUST_TOKEN and there\u0027s no way to create one externally if you want to meet the malloc invariants (that the data is an OPENSSL_malloc object). It seems we\u0027d need one of:\n\n1. Some kind of TRUST_TOKEN_new function that just makes random data. This keeps the types all aligned, but means a random copy somewhere which seems mildly odd.\n\n2. The caller stack-allocates a random TRUST_TOKEN, doesn\u0027t call TRUST_TOKEN_free, and uses this as a glorified ptr + len API. This works but makes the type slightly odd.\n\n3. Switch this function to taking a random unowned byte slice (ptr + len or whatever) parameter so it doesn\u0027t care how the data is stored. This gives the caller flexibility, though it does make the input/output types match.\n\nWDYT? (I think my inclination is 3, but I\u0027m open to whichever.)",
+      "revId": "89da7863c8ffb2f39ffecba2d9454c73231939b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4bf3998_de1c56b3",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-11T00:18:50Z",
+      "side": 1,
+      "message": "Same question as before: is this a single operation or multiple ones? Given that issue and redeem are one-off functions and issuers (I assume) need some kind of replay state, I\u0027m guessing this is meant to be one TRUST_TOKEN_ISSUER for the entire lifetime of the issuer.\n\nIn that case, two questions:\n\n1. Have you thought about whether the issuer needs to be thread-safe? Or is just making the whole thing single-threaded good enough? (I assume the access to the replay state needs to be serialized, but maybe the crypto doesn\u0027t?)\n\n2. I assume the replay state is kept in memory. How do you handle service restarts or multi-instance services? Do you need some way to serialize the state, or maybe some callback to offload it to some other system? Does such a callback need to be asynchronous?",
+      "revId": "89da7863c8ffb2f39ffecba2d9454c73231939b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07f3b3dc_f86e0f17",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-11T00:18:50Z",
+      "side": 1,
+      "message": "Nit: functions",
+      "range": {
+        "startLine": 182,
+        "startChar": 9,
+        "endLine": 182,
+        "endChar": 16
+      },
+      "revId": "89da7863c8ffb2f39ffecba2d9454c73231939b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb4bd689_3b45bf41",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-11T00:18:50Z",
+      "side": 1,
+      "message": "It returns one on [...]",
+      "range": {
+        "startLine": 184,
+        "startChar": 75,
+        "endLine": 184,
+        "endChar": 76
+      },
+      "revId": "89da7863c8ffb2f39ffecba2d9454c73231939b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ba48b66_840b93da",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-11T00:18:50Z",
+      "side": 1,
+      "message": "I assume this is one or zero.",
+      "range": {
+        "startLine": 193,
+        "startChar": 55,
+        "endLine": 193,
+        "endChar": 71
+      },
+      "revId": "89da7863c8ffb2f39ffecba2d9454c73231939b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
