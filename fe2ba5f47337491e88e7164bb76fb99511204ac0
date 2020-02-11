@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cf8cc10c_d643ee7b",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2020-02-11T01:07:04Z",
+      "side": 1,
+      "message": "This is the only assert in this file.  If there\u0027s a good reason for that, well and good; otherwise return false?",
+      "range": {
+        "startLine": 261,
+        "startChar": 0,
+        "endLine": 261,
+        "endChar": 62
+      },
+      "revId": "fe2ba5f47337491e88e7164bb76fb99511204ac0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f8cfdb1_e0dd98b6",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 642,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2020-02-11T01:07:04Z",
+      "side": 1,
+      "message": "Maybe rewrite this whole block as a switch(type)?",
+      "range": {
+        "startLine": 642,
+        "startChar": 0,
+        "endLine": 642,
+        "endChar": 3
+      },
+      "revId": "fe2ba5f47337491e88e7164bb76fb99511204ac0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
