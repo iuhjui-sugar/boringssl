@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33e2bc5c_9c688ddf",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 1151,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-02-11T22:03:31Z",
+      "side": 1,
+      "message": "data \u003d append(data, 0)",
+      "revId": "39fd4ec1af7cf47210ca1b926f6f66182af111f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4631eb68_b00de98f",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-02-11T22:03:31Z",
+      "side": 1,
+      "message": "I think just\n\nc.writeRecord(recordTypeHandshake, append(helloBytes, appendToHello))",
+      "revId": "39fd4ec1af7cf47210ca1b926f6f66182af111f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eaef09c1_f6e0b16f",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 814,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-02-11T22:03:31Z",
+      "side": 1,
+      "message": "I think the same line works here:\n\nc.writeRecord(recordTypeHandshake, append(toWrite, typeEncryptedExtensions))",
+      "revId": "39fd4ec1af7cf47210ca1b926f6f66182af111f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cea9f0da_c0eb9a93",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 1700,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-02-11T22:03:31Z",
+      "side": 1,
+      "message": "(append again)",
+      "revId": "39fd4ec1af7cf47210ca1b926f6f66182af111f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
