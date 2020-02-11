@@ -93,6 +93,30 @@
       "revId": "fe2ba5f47337491e88e7164bb76fb99511204ac0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "93e15c95_7161c924",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 642,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2020-02-11T20:50:46Z",
+      "side": 1,
+      "message": "I like it a lot, especially the comments.",
+      "parentUuid": "9c2f0411_1790897a",
+      "range": {
+        "startLine": 642,
+        "startChar": 0,
+        "endLine": 642,
+        "endChar": 3
+      },
+      "revId": "fe2ba5f47337491e88e7164bb76fb99511204ac0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
