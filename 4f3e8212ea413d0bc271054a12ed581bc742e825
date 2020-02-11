@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4ccbd38b_4085ae1a",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-11T00:27:02Z",
+      "side": 0,
+      "message": "Might want a return true here. :-) Maybe also a comment somewhere that we intentionally allow trailing data for extensibility.",
+      "revId": "4f3e8212ea413d0bc271054a12ed581bc742e825",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
