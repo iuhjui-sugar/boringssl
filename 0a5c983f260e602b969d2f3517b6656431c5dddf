@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a81f577_61062ef4",
+        "filename": "ssl/dtls_method.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-11T00:49:29Z",
+      "side": 1,
+      "message": "(In case I\u0027m wrong and it\u0027s reachable, better to silently drop it than carry it over.)",
+      "revId": "0a5c983f260e602b969d2f3517b6656431c5dddf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
