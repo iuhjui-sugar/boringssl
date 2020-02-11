@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "18e88e6c_e0e2ffc8",
+        "filename": "ssl/tls_method.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-11T00:48:50Z",
+      "side": 1,
+      "message": "I was going to add tls_has_unprocessed_handshake_data here and it was really annoying to have tls_ next to a lot of ssl3_. :-)",
+      "revId": "aad3d24b874f5dc948def019a8ba896768a2aa03",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
