@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a3a678f7_0e802745",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-11T20:48:00Z",
+      "side": 1,
+      "message": "I figured an assert would be more likely to trigger a fuzzer report, but happy to return false instead. Done.",
+      "parentUuid": "cf8cc10c_d643ee7b",
+      "range": {
+        "startLine": 261,
+        "startChar": 0,
+        "endLine": 261,
+        "endChar": 62
+      },
+      "revId": "fe2ba5f47337491e88e7164bb76fb99511204ac0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6f8cfdb1_e0dd98b6",
         "filename": "ssl/handoff.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "fe2ba5f47337491e88e7164bb76fb99511204ac0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c2f0411_1790897a",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 642,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-11T20:48:00Z",
+      "side": 1,
+      "message": "Done. There is a bit of duplication, but yeah I think this is a bit clearer. What do you think?",
+      "parentUuid": "6f8cfdb1_e0dd98b6",
+      "range": {
+        "startLine": 642,
+        "startChar": 0,
+        "endLine": 642,
+        "endChar": 3
+      },
+      "revId": "fe2ba5f47337491e88e7164bb76fb99511204ac0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
