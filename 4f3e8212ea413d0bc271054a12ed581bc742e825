@@ -16,6 +16,24 @@
       "revId": "4f3e8212ea413d0bc271054a12ed581bc742e825",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a320d32f_2a79b0b6",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 5645
+      },
+      "writtenOn": "2020-02-11T00:28:09Z",
+      "side": 0,
+      "message": "Doh.  Sorry, I hadn\u0027t checked that in.",
+      "parentUuid": "4ccbd38b_4085ae1a",
+      "revId": "4f3e8212ea413d0bc271054a12ed581bc742e825",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
