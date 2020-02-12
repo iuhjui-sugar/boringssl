@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "713bc065_539c23cd",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 9678
+      },
+      "writtenOn": "2020-02-12T22:58:31Z",
+      "side": 1,
+      "message": "From the design doc: \"Issuance will look like an HTTP POST request with a new structured request header specifying a list of encoded tokens:\n\nSec-Trust-Token: \u003cval\u003e\n\nwhere val is produced by TRUST_TOKEN_Client_BeginIssuance.\"\n\nWill this guarantee that |*out| contains only ASCII characters, or should I base64-encode the output and add the encoding description to the design doc?\n\nThe same question applies to the issuer-side issuance function and the client- and issuer-side redemption functions.",
+      "revId": "f7f638778b99ab37604df807fbf66aa5b30283cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
