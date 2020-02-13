@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a7d1c038_c98954af",
+        "filename": "crypto/fipsmodule/ecdsa/ecdsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 9690
+      },
+      "writtenOn": "2020-02-13T19:27:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12124630_44b932e8",
+      "revId": "ffd9885b62ace50803354e73288a2f30d5acbe46",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba1cb95d_a0bdaaf2",
         "filename": "include/openssl/ecdsa.h",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "ffd9885b62ace50803354e73288a2f30d5acbe46",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "209dd886_e32dd899",
+        "filename": "include/openssl/ecdsa.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 9690
+      },
+      "writtenOn": "2020-02-13T19:27:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba1cb95d_a0bdaaf2",
+      "revId": "ffd9885b62ace50803354e73288a2f30d5acbe46",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
