@@ -16,6 +16,24 @@
       "revId": "f7f638778b99ab37604df807fbf66aa5b30283cb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3aa8b43_04d6a800",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-02-13T14:27:22Z",
+      "side": 1,
+      "message": "Caller is responsible for base64 (or other encoding) the output of all these functions.",
+      "parentUuid": "713bc065_539c23cd",
+      "revId": "f7f638778b99ab37604df807fbf66aa5b30283cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
