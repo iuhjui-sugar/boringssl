@@ -34,6 +34,24 @@
       "revId": "f7f638778b99ab37604df807fbf66aa5b30283cb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fb4865d1_b7248f7c",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 9678
+      },
+      "writtenOn": "2020-02-13T15:54:08Z",
+      "side": 1,
+      "message": "Thanks for clarifying! I\u0027ll update the design doc.",
+      "parentUuid": "e3aa8b43_04d6a800",
+      "revId": "f7f638778b99ab37604df807fbf66aa5b30283cb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
