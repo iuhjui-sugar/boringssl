@@ -846,6 +846,24 @@
     },
     {
       "key": {
+        "uuid": "dd9db2c5_1a993643",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-02-13T14:40:24Z",
+      "side": 1,
+      "message": "Having input/output mismatch seems odd. Did 1 since it seems cleanest from an API (new passing ownership of the buffer?).",
+      "parentUuid": "467fcb62_c243ce8a",
+      "revId": "89da7863c8ffb2f39ffecba2d9454c73231939b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c4bf3998_de1c56b3",
         "filename": "include/openssl/trust_token.h",
         "patchSetId": 17
