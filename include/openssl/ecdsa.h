@@ -111,6 +111,12 @@ OPENSSL_EXPORT void ECDSA_SIG_free(ECDSA_SIG *sig);
 OPENSSL_EXPORT void ECDSA_SIG_get0(const ECDSA_SIG *sig, const BIGNUM **out_r,
                                    const BIGNUM **out_s);
 
+// Accessor for r field of ECDSA_SIG
+OPENSSL_EXPORT const BIGNUM *ECDSA_SIG_get0_r(const ECDSA_SIG *sig);
+
+// Accessor for s field of ECDSA_SIG
+OPENSSL_EXPORT const BIGNUM *ECDSA_SIG_get0_s(const ECDSA_SIG *sig);
+
 // ECDSA_SIG_set0 sets |sig|'s components to |r| and |s|, neither of which may
 // be NULL. On success, it takes ownership of each argument and returns one.
 // Otherwise, it returns zero.
