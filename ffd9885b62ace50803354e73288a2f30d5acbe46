@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "12124630_44b932e8",
+        "filename": "crypto/fipsmodule/ecdsa/ecdsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-13T19:24:01Z",
+      "side": 1,
+      "message": "Nit: Not that we\u0027re remotely good about this, but we may as well have the order in the header and source files match.\n\nTBH I would probably say the source file ordering is good and the header file should list the new accessors first. ECDSA_SIG_get0 is kind of obnoxious to use, so may as well nudge people towards the better ones. :-)",
+      "revId": "ffd9885b62ace50803354e73288a2f30d5acbe46",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba1cb95d_a0bdaaf2",
+        "filename": "include/openssl/ecdsa.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-13T19:24:01Z",
+      "side": 1,
+      "message": "Style nit:\n\n// ECDSA_SIG_get0_r returns the r component of |sig|.\n\n(Documentation should be complete sentences and, matching Go, we start with the name of the function. I\u0027m not sure if there\u0027s a particularly well-defined name for the two halves of an ECDSA signature, but the other functions call them \"components\" so let\u0027s be consistent I guess.)\n\nDitto below.",
+      "revId": "ffd9885b62ace50803354e73288a2f30d5acbe46",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
