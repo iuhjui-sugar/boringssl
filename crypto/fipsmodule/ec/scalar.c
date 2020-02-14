@@ -51,6 +51,23 @@ int ec_random_nonzero_scalar(const EC_GROUP *group, EC_SCALAR *out,
                              additional_data);
 }
 
+size_t ec_scalar_scalar2buf(const EC_GROUP *group, const EC_SCALAR *in, uint8_t *buf,
+                            size_t max_len) {
+  if (in == NULL) {
+    return 0;
+  }
+
+  const size_t len = BN_num_bytes(EC_GROUP_get0_order(group));
+  if (len == 0) {
+    return 0;
+  }
+
+  if (buf != NULL && len <= max_len) {
+    OPENSSL_memcpy(buf, in->bytes, len);
+  }
+  return len;
+}
+
 void ec_scalar_add(const EC_GROUP *group, EC_SCALAR *r, const EC_SCALAR *a,
                    const EC_SCALAR *b) {
   const BIGNUM *order = &group->order;

@@ -284,6 +284,12 @@ int ec_felem_equal(const EC_GROUP *group, const EC_FELEM *a, const EC_FELEM *b);
 OPENSSL_EXPORT int ec_bignum_to_scalar(const EC_GROUP *group, EC_SCALAR *out,
                                        const BIGNUM *in);
 
+// ec_scalar_scalar2buf serializes |in|, at most |max_len| bytes, to |buf|. It
+// returns the number of bytes written or zero on error if |buf| is non-NULL,
+// else the number of bytes needed.
+size_t ec_scalar_scalar2buf(const EC_GROUP *group, const EC_SCALAR *in,
+                            uint8_t *buf, size_t max_len);
+
 // ec_random_nonzero_scalar sets |out| to a uniformly selected random value from
 // 1 to |group->order| - 1. It returns one on success and zero on error.
 int ec_random_nonzero_scalar(const EC_GROUP *group, EC_SCALAR *out,
