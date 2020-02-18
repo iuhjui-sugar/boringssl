@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "de957c79_7cf18e66",
+        "filename": "include/openssl/ecdsa.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-18T21:42:59Z",
+      "side": 1,
+      "message": "ECDSA_SIG_get0_s",
+      "range": {
+        "startLine": 112,
+        "startChar": 3,
+        "endLine": 112,
+        "endChar": 19
+      },
+      "revId": "0747ae6df8a5884e9380ef35d93d09b711e87ded",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
