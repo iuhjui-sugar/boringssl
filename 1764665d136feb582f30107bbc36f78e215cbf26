@@ -1,0 +1,362 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d6fce9a6_db6b8540",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-19T21:48:51Z",
+      "side": 1,
+      "message": "Key generation without doing anything with the keys isn\u0027t really useful... can you describe why we\u0027re just this function?",
+      "revId": "1764665d136feb582f30107bbc36f78e215cbf26",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "82899240_7bc294b2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-19T21:48:51Z",
+      "side": 1,
+      "message": "I assume there will be more of these. File a bug to link things together?",
+      "revId": "1764665d136feb582f30107bbc36f78e215cbf26",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8bad259_6a68136e",
+        "filename": "crypto/CMakeLists.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-19T21:48:51Z",
+      "side": 1,
+      "message": "These should be C files.",
+      "revId": "1764665d136feb582f30107bbc36f78e215cbf26",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33543acb_90f2ef63",
+        "filename": "crypto/err/trust_token.errordata",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-19T21:48:51Z",
+      "side": 1,
+      "message": "Did you forget to run go run make_errors.go, or did something go wrong with the script?",
+      "revId": "1764665d136feb582f30107bbc36f78e215cbf26",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20fbfc01_4ed312b2",
+        "filename": "crypto/fipsmodule/ec/scalar.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-19T21:48:51Z",
+      "side": 1,
+      "message": "A few comments here:\n\n- Outputs before inputs\n\n- This function is guaranteed not to allocate, so we don\u0027t need an error condition.\n\n- This is serializing the scalar in little-endian, whereas most serializations of NIST curves use big-endian. I think it probably makes sense to be consistent here.\n\nPerhaps:\n\nvoid ec_scalar_to_bytes(const EC_GROUP *group, uint8_t *out,\n                        size_t *out_len, const EC_SCALAR *in) {\n  size_t len \u003d BN_num_bytes(\u0026group-\u003eorder);\n  for (size_t i \u003d 0; i \u003c len; i++) {\n    out[len - i - 1] \u003d in-\u003ebytes[i];\n  }\n  *out_len \u003d len;\n}\n\nint ec_scalar_from_bytes(const EC_GROUP *group, EC_SCALAR *out,\n                         const uint8_t *in, size_t len) {\n  if (len !\u003d BN_num_bytes(\u0026group-\u003eorder)) {\n    OPENSSL_PUT_ERROR(EC, EC_R_INVALID_SCALAR);\n    return 0;\n  }\n  // TODO\n}\n\nI\u0027m torn on whether out_len should be an output parameter or a return value. I don\u0027t really like the weird APIs OpenSSL has where we return pointer as an out-param and length as a return value. But it is a bit more typing, so I dunno.",
+      "revId": "1764665d136feb582f30107bbc36f78e215cbf26",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39bd8307_dec14141",
+        "filename": "crypto/trust_token/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-19T21:48:51Z",
+      "side": 1,
+      "message": "Docs",
+      "revId": "1764665d136feb582f30107bbc36f78e215cbf26",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f84f4c78_1b0d61c3",
+        "filename": "crypto/trust_token/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-19T21:48:51Z",
+      "side": 1,
+      "message": "Newline. Also good to get the extern \"C\" bits in, in case you end up wanting to unit test this.",
+      "revId": "1764665d136feb582f30107bbc36f78e215cbf26",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39721b6d_fd3de04b",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-19T21:48:51Z",
+      "side": 1,
+      "message": "Do we usually inline namespace our tests?\n\n(Why is there a newline here and not a newline at the end?)",
+      "revId": "1764665d136feb582f30107bbc36f78e215cbf26",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25ae7496_fa74c15d",
+        "filename": "crypto/trust_token/voprf.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-19T21:48:51Z",
+      "side": 1,
+      "message": "Can you link to a spec as to what\u0027s going on here?",
+      "revId": "1764665d136feb582f30107bbc36f78e215cbf26",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d4e5e5e_45d3275b",
+        "filename": "crypto/trust_token/voprf.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-19T21:48:51Z",
+      "side": 1,
+      "message": "Nit: two lines between #includes and code.",
+      "revId": "1764665d136feb582f30107bbc36f78e215cbf26",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e830a9b0_5c711f34",
+        "filename": "crypto/trust_token/voprf.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-19T21:48:51Z",
+      "side": 1,
+      "message": "How was this value generated? (Include the program in a comment, so we can demonstrate that we do not know the discrete log.)",
+      "revId": "1764665d136feb582f30107bbc36f78e215cbf26",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "798d46a3_2972050e",
+        "filename": "crypto/trust_token/voprf.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-19T21:48:51Z",
+      "side": 1,
+      "message": "This should use byte arrays instead of hex. Alternatively, look at the STATIC_BIGNUM and TOBN macros.",
+      "revId": "1764665d136feb582f30107bbc36f78e215cbf26",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a7a2aa0_17eb4d5e",
+        "filename": "crypto/trust_token/voprf.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-19T21:48:51Z",
+      "side": 1,
+      "message": "All of these operations can fail. (Ideally we\u0027d make all this EC_POINT_RAW, but I guess we\u0027re not really at the point that that\u0027s works everywhere.)",
+      "revId": "1764665d136feb582f30107bbc36f78e215cbf26",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6988d4dc_49a4f5d9",
+        "filename": "crypto/trust_token/voprf.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-19T21:48:51Z",
+      "side": 1,
+      "message": "generate_keypair?",
+      "range": {
+        "startLine": 43,
+        "startChar": 11,
+        "endLine": 43,
+        "endChar": 18
+      },
+      "revId": "1764665d136feb582f30107bbc36f78e215cbf26",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a31ab98_3a4c084a",
+        "filename": "crypto/trust_token/voprf.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-19T21:48:51Z",
+      "side": 1,
+      "message": "Const?",
+      "range": {
+        "startLine": 44,
+        "startChar": 19,
+        "endLine": 44,
+        "endChar": 27
+      },
+      "revId": "1764665d136feb582f30107bbc36f78e215cbf26",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a63472aa_ad97964e",
+        "filename": "crypto/trust_token/voprf.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-19T21:48:51Z",
+      "side": 1,
+      "message": "NULL check",
+      "revId": "1764665d136feb582f30107bbc36f78e215cbf26",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3c8f890_392248fd",
+        "filename": "crypto/trust_token/voprf.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-19T21:48:51Z",
+      "side": 1,
+      "message": "Any reason not to generate into out_x and out_y directly?",
+      "revId": "1764665d136feb582f30107bbc36f78e215cbf26",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e806029d_cbad219e",
+        "filename": "crypto/trust_token/voprf.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-19T21:48:51Z",
+      "side": 1,
+      "message": "I\u0027m not sure what the cutoff for making a struct is, but it\u0027s definitely less than 10. :-P",
+      "revId": "1764665d136feb582f30107bbc36f78e215cbf26",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "286caa57_624e7150",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-19T21:48:51Z",
+      "side": 1,
+      "message": "TRUST_TOKEN isn\u0027t defined anywhere here.",
+      "range": {
+        "startLine": 28,
+        "startChar": 4,
+        "endLine": 28,
+        "endChar": 15
+      },
+      "revId": "1764665d136feb582f30107bbc36f78e215cbf26",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "055e7506_ef4ee312",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-19T21:48:51Z",
+      "side": 1,
+      "message": "This is all temporary, since you haven\u0027t specified much yet, right? And we haven\u0027t even implemented the other functions. Can you document very clearly that this format is subject to change and must not be persisted into any system yet?",
+      "revId": "1764665d136feb582f30107bbc36f78e215cbf26",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
