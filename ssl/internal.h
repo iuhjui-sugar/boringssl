@@ -2150,11 +2150,13 @@ struct SSL_PROTOCOL_METHOD {
   // set_read_state sets |ssl|'s read cipher state to |aead_ctx|. It returns
   // true on success and false if changing the read state is forbidden at this
   // point.
-  bool (*set_read_state)(SSL *ssl, UniquePtr<SSLAEADContext> aead_ctx);
+  bool (*set_read_state)(SSL *ssl, ssl_encryption_level_t level,
+                         UniquePtr<SSLAEADContext> aead_ctx);
   // set_write_state sets |ssl|'s write cipher state to |aead_ctx|. It returns
   // true on success and false if changing the write state is forbidden at this
   // point.
-  bool (*set_write_state)(SSL *ssl, UniquePtr<SSLAEADContext> aead_ctx);
+  bool (*set_write_state)(SSL *ssl, ssl_encryption_level_t level,
+                          UniquePtr<SSLAEADContext> aead_ctx);
 };
 
 // The following wrappers call |open_*| but handle |read_shutdown| correctly.
