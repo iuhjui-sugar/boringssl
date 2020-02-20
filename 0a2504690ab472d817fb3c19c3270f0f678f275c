@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e345f8d6_3da056ef",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-20T22:52:30Z",
+      "side": 1,
+      "message": "This control flow is kind of the worst. :-( Another option would be to break it up into a few blocks, but repeat the ssl-\u003equic_method !\u003d nullptr check. Let me know if you have any preferences. (I think I dislike each of them equally.)\n\nI think what we really want is to hook in at set_read_state and set_write_state, but then we need to move all the key + IV derivation into SSL_PROTOCOL_METHOD and I figured that was too big of a jump for now.",
+      "revId": "0a2504690ab472d817fb3c19c3270f0f678f275c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

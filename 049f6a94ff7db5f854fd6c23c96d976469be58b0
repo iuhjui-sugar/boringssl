@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fb615181_fac276da",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 3155,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-20T22:52:30Z",
+      "side": 0,
+      "message": "Ah hrm. Now that I look at the diff, there is still one use for SSL_quic_write_level. Although QUICHE isn\u0027t actually using it for that... maybe we don\u0027t actually need it? After the handshake, the right level is application data. During the handshake, I imagine all errors basically all come from TLS anyway. (Also the rule is straightforward: do I have hs keys? Okay, use them.)",
+      "range": {
+        "startLine": 3153,
+        "startChar": 71,
+        "endLine": 3155,
+        "endChar": 31
+      },
+      "revId": "049f6a94ff7db5f854fd6c23c96d976469be58b0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
