@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f5ca1948_cdbb94db",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2152,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-02-21T15:01:21Z",
+      "side": 1,
+      "message": "nit: mention what level means/ratchets the encryption level?",
+      "revId": "62e080fc4b5383eebfb811516c369fd8b8f415a2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
