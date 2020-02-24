@@ -16,6 +16,24 @@
       "revId": "62e080fc4b5383eebfb811516c369fd8b8f415a2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb01590f_1f3c0235",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2152,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-24T21:52:22Z",
+      "side": 1,
+      "message": "Done. I left it with the same semantics as now since we haven\u0027t done anything fun with DTLS yet. That\u0027ll probably require more interface work. For now I figured we\u0027d just keep write_level accurate.",
+      "parentUuid": "f5ca1948_cdbb94db",
+      "revId": "62e080fc4b5383eebfb811516c369fd8b8f415a2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
