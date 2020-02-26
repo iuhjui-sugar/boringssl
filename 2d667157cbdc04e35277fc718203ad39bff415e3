@@ -16,6 +16,24 @@
       "revId": "2d667157cbdc04e35277fc718203ad39bff415e3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0889b90e_b605e53a",
+        "filename": "ssl/tls13_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-26T22:56:38Z",
+      "side": 1,
+      "message": ":-P\n\nTrimmed it.",
+      "parentUuid": "9332c37d_e47832be",
+      "revId": "2d667157cbdc04e35277fc718203ad39bff415e3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
