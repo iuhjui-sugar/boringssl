@@ -1,0 +1,575 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3cb62c54_00a8a3de",
+        "filename": "crypto/fipsmodule/ec/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-27T21:16:52Z",
+      "side": 1,
+      "message": "In what format?",
+      "range": {
+        "startLine": 287,
+        "startChar": 22,
+        "endLine": 287,
+        "endChar": 32
+      },
+      "revId": "c884fa05a94f88b7c29ee6f85aba612b44b1c636",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d2b4792_ad347783",
+        "filename": "crypto/fipsmodule/ec/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-27T21:16:52Z",
+      "side": 1,
+      "message": "if |in| is invalid",
+      "range": {
+        "startLine": 293,
+        "startChar": 62,
+        "endLine": 293,
+        "endChar": 71
+      },
+      "revId": "c884fa05a94f88b7c29ee6f85aba612b44b1c636",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "325ba28b_a6a4f2d9",
+        "filename": "crypto/fipsmodule/ec/scalar.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-27T21:16:52Z",
+      "side": 1,
+      "message": "This needs to check the scalar is in range. It also doesn\u0027t initialize the excess bytes at the top of the last word. (I would suggest just memsetting all of out to zero.)\n\nSorry, I should have remembered to write this out in the last comment. The TODO was for myself. :-)",
+      "revId": "c884fa05a94f88b7c29ee6f85aba612b44b1c636",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cab9179e_e41d9ee2",
+        "filename": "crypto/trust_token/privacy_pass.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-27T21:16:52Z",
+      "side": 1,
+      "message": "Did you mean to fill in the point here?",
+      "revId": "c884fa05a94f88b7c29ee6f85aba612b44b1c636",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5338a547_21c7cbcd",
+        "filename": "crypto/trust_token/privacy_pass.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-27T21:16:52Z",
+      "side": 1,
+      "message": "Your indentation and naming are kind of inconsistent. :-)",
+      "revId": "c884fa05a94f88b7c29ee6f85aba612b44b1c636",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cde156fe_ce6fdd40",
+        "filename": "crypto/trust_token/privacy_pass.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-27T21:16:52Z",
+      "side": 1,
+      "message": "Python already provides this. The pow function takes a modulus parameter.\nhttps://docs.python.org/3/library/functions.html#pow\n\n(Incidentally, the usual formulation is a loop to avoid building infinite stack.)",
+      "revId": "c884fa05a94f88b7c29ee6f85aba612b44b1c636",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eef5defe_3234c5bb",
+        "filename": "crypto/trust_token/privacy_pass.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-27T21:16:52Z",
+      "side": 1,
+      "message": "(Not that it matters, but mind making this fit in 80 chars?)",
+      "revId": "c884fa05a94f88b7c29ee6f85aba612b44b1c636",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afcfb17f_2d5efa70",
+        "filename": "crypto/trust_token/privacy_pass.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-27T21:16:52Z",
+      "side": 1,
+      "message": "This is giving you a value between in [0, 2^250), but P is 2^251-1, so this is throwing out (epsilon less than) half of the possible values.\n\nBetter to generate a 251-bit integer in [0, 2^251) and then reject if x \u003e\u003d P (which will never happen).",
+      "revId": "c884fa05a94f88b7c29ee6f85aba612b44b1c636",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a16b504c_3bb43852",
+        "filename": "crypto/trust_token/privacy_pass.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-27T21:16:52Z",
+      "side": 1,
+      "message": "I assume you\u0027re trying to decode compressed coordinates and randomize which y you\u0027ve got? In that case it should be y \u0026 1, not x \u0026 1.\n\n(Also newline.)",
+      "revId": "c884fa05a94f88b7c29ee6f85aba612b44b1c636",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c1520e3_ee3728e4",
+        "filename": "crypto/trust_token/privacy_pass.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-27T21:16:52Z",
+      "side": 1,
+      "message": "tuple",
+      "revId": "c884fa05a94f88b7c29ee6f85aba612b44b1c636",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba3cad03_265c3c63",
+        "filename": "crypto/trust_token/privacy_pass.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-27T21:16:52Z",
+      "side": 1,
+      "message": "This check really ought to be in getY, otherwise getY isn\u0027t actually getting y. Also at this point you\u0027re not really using fastecdsa. :-) You\u0027ve already computed x**3+A*x+B, so all that\u0027s left is checking there was a square root:\n\ndef get_y(x):\n    y2 \u003d (x**3 + A*x + B) % P\n    y \u003d pow(y2, (P+1)/4, P)\n    if (y*y) % P !\u003d y2:\n        raise ValueError(\"point not on curve\")\n    return y",
+      "revId": "c884fa05a94f88b7c29ee6f85aba612b44b1c636",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32c0e202_ba8716f8",
+        "filename": "crypto/trust_token/privacy_pass.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-27T21:16:52Z",
+      "side": 1,
+      "message": "Unimportant nitpick: Was this meant to be Python 3 or Python 2? It\u0027s got the parens, but it doesn\u0027t work in Python 3 because all the strings are unicode strings.",
+      "range": {
+        "startLine": 86,
+        "startChar": 8,
+        "endLine": 86,
+        "endChar": 14
+      },
+      "revId": "c884fa05a94f88b7c29ee6f85aba612b44b1c636",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a738547_5b6403a7",
+        "filename": "crypto/trust_token/privacy_pass.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-27T21:16:52Z",
+      "side": 1,
+      "message": "Not really doing anything with N here",
+      "range": {
+        "startLine": 94,
+        "startChar": 4,
+        "endLine": 94,
+        "endChar": 8
+      },
+      "revId": "c884fa05a94f88b7c29ee6f85aba612b44b1c636",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15a8e740_9262343b",
+        "filename": "crypto/trust_token/privacy_pass.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-27T21:16:52Z",
+      "side": 1,
+      "message": "This isn\u0027t really generating H. Maybe just get_h()?",
+      "range": {
+        "startLine": 97,
+        "startChar": 17,
+        "endLine": 97,
+        "endChar": 22
+      },
+      "revId": "c884fa05a94f88b7c29ee6f85aba612b44b1c636",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5d06691_0563bc9b",
+        "filename": "crypto/trust_token/privacy_pass.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-27T21:16:52Z",
+      "side": 1,
+      "message": "This doesn\u0027t quiiite to the right thing on 32-bit, though we no longer require minimal BIGNUMs so it\u0027s actually fine. The last element should be plain 0x0000003e without the TOBN so you don\u0027t add an extra zero word. Ditto below.",
+      "revId": "c884fa05a94f88b7c29ee6f85aba612b44b1c636",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "307efd4b_a09f22a6",
+        "filename": "crypto/trust_token/privacy_pass.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-27T21:16:52Z",
+      "side": 1,
+      "message": "h?",
+      "range": {
+        "startLine": 121,
+        "startChar": 12,
+        "endLine": 121,
+        "endChar": 14
+      },
+      "revId": "c884fa05a94f88b7c29ee6f85aba612b44b1c636",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4d4d193_3f20e480",
+        "filename": "crypto/trust_token/privacy_pass.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-27T21:16:52Z",
+      "side": 1,
+      "message": "This citation should probably be a file-level comment. Maybe also cite the section. (This is construction 3 in section 6?)",
+      "range": {
+        "startLine": 130,
+        "startChar": 3,
+        "endLine": 130,
+        "endChar": 40
+      },
+      "revId": "c884fa05a94f88b7c29ee6f85aba612b44b1c636",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f458a0f_66e75697",
+        "filename": "crypto/trust_token/privacy_pass.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-27T21:16:52Z",
+      "side": 1,
+      "message": "Nit: I\u0027m not positive, but I think elsewhere we\u0027ve kept the variables lowercase even if they\u0027re points. Though it\u0027s not the most consistent.",
+      "range": {
+        "startLine": 135,
+        "startChar": 12,
+        "endLine": 135,
+        "endChar": 13
+      },
+      "revId": "c884fa05a94f88b7c29ee6f85aba612b44b1c636",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ae24f1f_c33ee3b4",
+        "filename": "crypto/trust_token/privacy_pass.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-27T21:16:52Z",
+      "side": 1,
+      "message": "This function leaks H.",
+      "revId": "c884fa05a94f88b7c29ee6f85aba612b44b1c636",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81e1cd2f_68224882",
+        "filename": "crypto/trust_token/privacy_pass.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-27T21:16:52Z",
+      "side": 1,
+      "message": "This is leaked on error. CBB_zero(\u0026cbb) around here and then, in err, CBB_cleanup(\u0026cbb).\n\nhttps://boringssl.googlesource.com/boringssl/+/HEAD/API-CONVENTIONS.md#stack_allocated-types",
+      "range": {
+        "startLine": 165,
+        "startChar": 6,
+        "endLine": 165,
+        "endChar": 9
+      },
+      "revId": "c884fa05a94f88b7c29ee6f85aba612b44b1c636",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94b5edaa_d60e80e8",
+        "filename": "crypto/trust_token/privacy_pass.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-27T21:16:52Z",
+      "side": 1,
+      "message": "The paper mentions x0, x1, y0, and y1, but not xs and ys. What\u0027s the story here?",
+      "revId": "c884fa05a94f88b7c29ee6f85aba612b44b1c636",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1121360c_3ddd3264",
+        "filename": "crypto/trust_token/privacy_pass.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-27T21:16:52Z",
+      "side": 1,
+      "message": "const EC_SCALAR *scalars",
+      "revId": "c884fa05a94f88b7c29ee6f85aba612b44b1c636",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aacbc4f8_8a1c0be3",
+        "filename": "crypto/trust_token/privacy_pass.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-27T21:16:52Z",
+      "side": 1,
+      "message": "OPENSSL_ARRAY_SIZE(scalars)\n\n(Another option would be to add a small scalar_to_cbb helper function here.)",
+      "range": {
+        "startLine": 188,
+        "startChar": 25,
+        "endLine": 188,
+        "endChar": 26
+      },
+      "revId": "c884fa05a94f88b7c29ee6f85aba612b44b1c636",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8f284df_856e8409",
+        "filename": "crypto/trust_token/privacy_pass.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-27T21:16:52Z",
+      "side": 1,
+      "message": "Most of the time this (and all the others) are going to be that the buffer is too small, not malloc, right?",
+      "range": {
+        "startLine": 190,
+        "startChar": 37,
+        "endLine": 190,
+        "endChar": 57
+      },
+      "revId": "c884fa05a94f88b7c29ee6f85aba612b44b1c636",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f521ff5_35ad176f",
+        "filename": "crypto/trust_token/privacy_pass.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-27T21:16:52Z",
+      "side": 1,
+      "message": "You can just use EC_POINT_point2cbb.",
+      "revId": "c884fa05a94f88b7c29ee6f85aba612b44b1c636",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4c08949_4028256b",
+        "filename": "include/openssl/crypto.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-27T21:16:52Z",
+      "side": 1,
+      "message": "Stray change?",
+      "revId": "c884fa05a94f88b7c29ee6f85aba612b44b1c636",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6258340c_90b8374d",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-27T21:16:52Z",
+      "side": 1,
+      "message": "You mentioned this isn\u0027t implementing VOPRF but the link talks about VOPRF? (If this is implementing something experimental, it should say that and make it clear this is experimental.)\n\nWe should describe things enough that someone reading the documentation knows what this is. The reader shouldn\u0027t need to have context as to what the particular stage our experiment is in.",
+      "range": {
+        "startLine": 30,
+        "startChar": 3,
+        "endLine": 30,
+        "endChar": 84
+      },
+      "revId": "c884fa05a94f88b7c29ee6f85aba612b44b1c636",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ab7c3ac_b9726a0b",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-27T21:16:52Z",
+      "side": 1,
+      "message": "It\u0027s unclear from this whether it\u0027s temporary or not. Suggestion:\n\nWARNING: This API is unstable and the serializations of these keys are subject to change. Keys generated with this function may not be persisted.",
+      "revId": "c884fa05a94f88b7c29ee6f85aba612b44b1c636",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb7d0cc4_9323d9a3",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-27T21:16:52Z",
+      "side": 1,
+      "message": "This function",
+      "range": {
+        "startLine": 48,
+        "startChar": 3,
+        "endLine": 48,
+        "endChar": 5
+      },
+      "revId": "c884fa05a94f88b7c29ee6f85aba612b44b1c636",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
