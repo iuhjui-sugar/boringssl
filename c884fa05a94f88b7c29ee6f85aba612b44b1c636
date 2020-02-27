@@ -310,6 +310,23 @@
     },
     {
       "key": {
+        "uuid": "e3326c7f_e5a4c681",
+        "filename": "crypto/trust_token/privacy_pass.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-02-27T21:20:31Z",
+      "side": 1,
+      "message": "EC_POINT_free(pt);",
+      "revId": "c884fa05a94f88b7c29ee6f85aba612b44b1c636",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c4d4d193_3f20e480",
         "filename": "crypto/trust_token/privacy_pass.c",
         "patchSetId": 5
