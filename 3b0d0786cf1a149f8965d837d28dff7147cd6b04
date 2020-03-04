@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8589999f_107ab0d6",
+        "filename": "crypto/fipsmodule/ec/scalar.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 9894
+      },
+      "writtenOn": "2020-03-04T04:34:45Z",
+      "side": 1,
+      "message": "To follow-up on David\u0027s last comment here, I believe this new behavior is equivalent to the last one wrt. initializing excess bytes at the end.\nI think you want something like:\nOPENSSL_memset(out-\u003ebytes, 0, group-\u003eorder.width * BN_BYTES);",
+      "range": {
+        "startLine": 70,
+        "startChar": 2,
+        "endLine": 70,
+        "endChar": 37
+      },
+      "revId": "3b0d0786cf1a149f8965d837d28dff7147cd6b04",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ada5846b_1cf9b936",
+        "filename": "crypto/trust_token/privacy_pass.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 9894
+      },
+      "writtenOn": "2020-03-04T04:34:45Z",
+      "side": 1,
+      "message": "get_h",
+      "range": {
+        "startLine": 32,
+        "startChar": 3,
+        "endLine": 32,
+        "endChar": 8
+      },
+      "revId": "3b0d0786cf1a149f8965d837d28dff7147cd6b04",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43e406c2_e43fc31d",
+        "filename": "crypto/trust_token/privacy_pass.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 9894
+      },
+      "writtenOn": "2020-03-04T04:34:45Z",
+      "side": 1,
+      "message": "I believe this has not been updated?\n(I get 1234743051939308787253372799798007212979683926694980829943668204503486106518810630511924722292325611253427311923464047364545304196431830383014967865162306253 when I run the Python code - the value in the get_h implementation below does match the Python output though)",
+      "range": {
+        "startLine": 37,
+        "startChar": 6,
+        "endLine": 39,
+        "endChar": 15
+      },
+      "revId": "3b0d0786cf1a149f8965d837d28dff7147cd6b04",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e48ea296_ceae4f5c",
+        "filename": "crypto/trust_token/privacy_pass.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 9894
+      },
+      "writtenOn": "2020-03-04T04:34:45Z",
+      "side": 1,
+      "message": "nit: Maybe we can move this down just before the last if to make the logic more readable?",
+      "range": {
+        "startLine": 193,
+        "startChar": 2,
+        "endLine": 193,
+        "endChar": 14
+      },
+      "revId": "3b0d0786cf1a149f8965d837d28dff7147cd6b04",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6297e78a_a0082c36",
+        "filename": "crypto/trust_token/privacy_pass.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 9894
+      },
+      "writtenOn": "2020-03-04T04:34:45Z",
+      "side": 1,
+      "message": "nit: Only one? :-)",
+      "range": {
+        "startLine": 206,
+        "startChar": 59,
+        "endLine": 206,
+        "endChar": 61
+      },
+      "revId": "3b0d0786cf1a149f8965d837d28dff7147cd6b04",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
