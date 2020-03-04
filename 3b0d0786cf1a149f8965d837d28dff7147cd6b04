@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c6dbda58_583c6cf3",
+        "filename": "crypto/fipsmodule/ec/scalar.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-04T20:14:36Z",
+      "side": 1,
+      "message": "I would probably just do:\n\n  OPENSSL_memset(out, 0, sizeof(EC_SCALAR));\n\nIn theory you only need to zero the last word but whatever. :-) We should make better abstractions for these inline BN_ULONG arrays...",
+      "parentUuid": "8589999f_107ab0d6",
+      "range": {
+        "startLine": 70,
+        "startChar": 2,
+        "endLine": 70,
+        "endChar": 37
+      },
+      "revId": "3b0d0786cf1a149f8965d837d28dff7147cd6b04",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ada5846b_1cf9b936",
         "filename": "crypto/trust_token/privacy_pass.c",
         "patchSetId": 6

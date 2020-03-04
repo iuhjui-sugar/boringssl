@@ -1,0 +1,152 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "251c7d95_1e0c7156",
+        "filename": "crypto/fipsmodule/ec/internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-04T20:14:36Z",
+      "side": 1,
+      "message": "Perhaps add something like:\n\nThe number of bytes written is |BN_num_bytes(\u0026group-\u003eorder)|, which is at most |EC_MAX_BYTES|.\n\nSo the caller knows how much space to reserve.",
+      "range": {
+        "startLine": 288,
+        "startChar": 49,
+        "endLine": 288,
+        "endChar": 50
+      },
+      "revId": "5b8053d8bbc3fc1e01662a687bf7bcb461591aad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e67ec07_3fb6a942",
+        "filename": "crypto/fipsmodule/ec/scalar.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-04T20:14:36Z",
+      "side": 1,
+      "message": "if (!...) {\n OPENSSL_PUT_ERROR(EC, EC_R_INVALID_SCALAR);\n return 0;\n}",
+      "revId": "5b8053d8bbc3fc1e01662a687bf7bcb461591aad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8d16c87_93f72dc6",
+        "filename": "crypto/trust_token/privacy_pass.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-04T20:14:36Z",
+      "side": 1,
+      "message": "x \u003e\u003d P, rather than \u003e P. Also this loop doesn\u0027t actually do anything because you\u0027re not sampling new values. Instead:\n\n  x \u003d 0\n  for i in range(0, b):\n    x \u003d ...\n  if x \u003e\u003d P:\n    raise ValueError(\"x out of range\")\n\n(Not that x \u003e\u003d P will ever happen.)",
+      "revId": "5b8053d8bbc3fc1e01662a687bf7bcb461591aad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8904ceed_613efdf2",
+        "filename": "crypto/trust_token/privacy_pass.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-04T20:14:36Z",
+      "side": 1,
+      "message": "Also not really doing anything with H here. :-)",
+      "range": {
+        "startLine": 95,
+        "startChar": 2,
+        "endLine": 95,
+        "endChar": 6
+      },
+      "revId": "5b8053d8bbc3fc1e01662a687bf7bcb461591aad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "907f9056_fe22ba9e",
+        "filename": "crypto/trust_token/privacy_pass.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-04T20:14:36Z",
+      "side": 1,
+      "message": "(Not that it matters compared to the point multiplications but hopefully we can later clean up the EC_SCALAR / EC_RAW_POINT bits enough that we don\u0027t allocate all these things constantly. Not for this CL obviously.)",
+      "revId": "5b8053d8bbc3fc1e01662a687bf7bcb461591aad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62ada828_37e85a1f",
+        "filename": "crypto/trust_token/privacy_pass.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-04T20:14:36Z",
+      "side": 1,
+      "message": "Nit: You can put these just before line 185.",
+      "revId": "5b8053d8bbc3fc1e01662a687bf7bcb461591aad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0c43850_18b4cf11",
+        "filename": "crypto/trust_token/privacy_pass.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-04T20:14:36Z",
+      "side": 1,
+      "message": "May as well fold this block and the one above together as it\u0027s all serializing the one thing.",
+      "revId": "5b8053d8bbc3fc1e01662a687bf7bcb461591aad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21714c3d_afba9615",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-04T20:14:36Z",
+      "side": 1,
+      "message": "Would this be an accurate description?\n\nTrust Token is an implementation of an experimental mechanism similar to Privacy Pass which allows issuance and redemption of anonymized tokens with limited private metadata.\n\nReferences:\nhttps://eprint.iacr.org/2020/072.pdf\nhttps://github.com/alxdavids/draft-privacy-pass/blob/master/draft-privacy-pass.md\nhttps://github.com/WICG/trust-token-api/blob/master/README.md\n\n(Aside: is it Privacy Pass or PrivacyPass? The link uses two words.)",
+      "revId": "5b8053d8bbc3fc1e01662a687bf7bcb461591aad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
