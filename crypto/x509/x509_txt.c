@@ -198,6 +198,9 @@ const char *X509_verify_cert_error_string(long n)
     case X509_V_ERR_NAME_CONSTRAINTS_WITHOUT_SANS:
         return "Issuer has name constraints but leaf has no SANs";
 
+    case X509_R_VERIFY_CERT_NOT_INCLUDED:
+        return ("Certificate verification is not linked into this binary");
+
     default:
         return "unknown certificate verification error";
     }

@@ -363,6 +363,7 @@ add_library(
   x509/x509_txt.c
   x509/x509_v3.c
   x509/x509_vfy.c
+  x509/x509_verify_cert_impl.c
   x509/x509_vpm.c
   x509/x509cset.c
   x509/x509name.c

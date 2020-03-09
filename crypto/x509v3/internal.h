@@ -49,6 +49,12 @@ OPENSSL_EXPORT int x509v3_looks_like_dns_name(const unsigned char *in,
                                               size_t len);
 
 
+extern int (*X509_verify_cert_impl_p)(X509_STORE_CTX *ctx);
+extern int (*internal_verify_impl_p)(X509_STORE_CTX *ctx);
+
+int X509_verify_cert_impl(X509_STORE_CTX *ctx);
+int internal_verify_impl(X509_STORE_CTX *ctx);
+
 #if defined(__cplusplus)
 }  /* extern C */
 #endif
