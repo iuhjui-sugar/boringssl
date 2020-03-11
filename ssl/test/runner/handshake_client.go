@@ -19,6 +19,8 @@ import (
 	"math/big"
 	"net"
 	"time"
+
+	"boringssl.googlesource.com/boringssl/ssl/test/runner/hpke"
 )
 
 type clientHandshakeState struct {
@@ -74,6 +76,66 @@ func fixClientHellos(hello *clientHelloMsg, in []byte) ([]byte, error) {
 	copy(newHello.keySharesRaw, keyShares)
 
 	return ret, nil
+}
+
+func (c *Conn) echClientGrease() (*encryptedClientHello, error) {
+	randByteBuf := func(size int) ([]byte, error) {
+		buf := make([]byte, size)
+		_, err := io.ReadFull(c.config.rand(), buf)
+		if err != nil {
+			return nil, err
+		}
+		return buf, nil
+	}
+	randChoice := func(slice []uint16) (uint16, error) {
+		if len(slice) == 0 || len(slice) >= 0xff {
+			panic("slice has bad length")
+		}
+		buf, err := randByteBuf(1)
+		if err != nil {
+			return 0, err
+		}
+		return slice[buf[0]%uint8(len(slice))], nil
+	}
+
+	allAEADs := []uint16{hpke.HKDFSHA256, hpke.HKDFSHA384, hpke.HKDFSHA512}
+	allKDFs := []uint16{hpke.AES128GCM, hpke.AES256GCM, hpke.ChaCha20Poly1305}
+
+	aeadID, err := randChoice(allAEADs)
+	if err != nil {
+		return nil, err
+	}
+
+	kdfID, err := randChoice(allKDFs)
+	if err != nil {
+		return nil, err
+	}
+
+	kdf := hpke.NewKDF(kdfID)
+	recordDigest, err := randByteBuf(kdf.Size())
+	if err != nil {
+		return nil, err
+	}
+
+	pubKey, _, err := hpke.GenerateKeyPair()
+	if err != nil {
+		return nil, err
+	}
+
+	// TODO(dmcardle): What is the correct size?
+	const kPaddedLength int = 260
+	encryptedCh, err := randByteBuf(kPaddedLength)
+	if err != nil {
+		return nil, err
+	}
+
+	return &encryptedClientHello{
+		hpkeKDF:      kdfID,
+		hpkeAEAD:     aeadID,
+		recordDigest: recordDigest,
+		enc:          pubKey,
+		encryptedCH:  encryptedCh,
+	}, nil
 }
 
 func (c *Conn) clientHandshake() error {
@@ -150,6 +212,14 @@ func (c *Conn) clientHandshake() error {
 		hello.pskKEModes = []byte{pskDHEKEMode}
 	} else {
 		hello.vers = mapClientHelloVersion(maxVersion, c.isDTLS)
+	}
+
+	if c.config.ECHGreaseEnabled && maxVersion >= VersionTLS13 {
+		ech, err := c.echClientGrease()
+		if err != nil {
+			return err
+		}
+		hello.encryptedClientHello = ech
 	}
 
 	if c.config.Bugs.SendClientVersion != 0 {
