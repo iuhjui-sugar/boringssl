@@ -70,7 +70,7 @@ type Context struct {
 // SetupBaseSenderX25519 corresponds to the spec's SetupBaseS(), but only
 // supports X25519.
 func SetupBaseSenderX25519(kdfID, aeadID uint16, publicKeyR, info []byte, ephemKeygen GenerateKeyPairFunc) (context *Context, enc []byte, err error) {
-	kem := dhkemX25519{}
+	kem := DHKEMX25519{}
 	sharedSecret, enc, err := kem.Encap(publicKeyR, ephemKeygen)
 	if err != nil {
 		return nil, nil, err
@@ -82,7 +82,7 @@ func SetupBaseSenderX25519(kdfID, aeadID uint16, publicKeyR, info []byte, ephemK
 // SetupBaseReceiverX25519 corresponds to the spec's SetupBaseR(), but only
 // supports X25519.
 func SetupBaseReceiverX25519(kdfID, aeadID uint16, enc, secretKeyR, info []byte) (context *Context, err error) {
-	kem := dhkemX25519{}
+	kem := DHKEMX25519{}
 	sharedSecret, err := kem.Decap(enc, secretKeyR)
 	if err != nil {
 		return nil, err
@@ -145,7 +145,7 @@ func newAEAD(aeadID uint16, key []byte) (cipher.AEAD, error) {
 }
 
 func keySchedule(kemID, kdfID, aeadID uint16, sharedSecret, info []byte) (*Context, error) {
-	kdf := newKDF(kdfID)
+	kdf := NewKDF(kdfID)
 	suiteID := buildSuiteID(kemID, kdfID, aeadID)
 	pskIDHash := kdf.LabeledExtract(nil, suiteID, []byte("psk_id_hash"), nil)
 	infoHash := kdf.LabeledExtract(nil, suiteID, []byte("info_hash"), info)
