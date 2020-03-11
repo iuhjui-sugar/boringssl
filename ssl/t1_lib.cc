@@ -117,6 +117,7 @@
 
 #include <openssl/bytestring.h>
 #include <openssl/chacha.h>
+#include <openssl/curve25519.h>
 #include <openssl/digest.h>
 #include <openssl/err.h>
 #include <openssl/evp.h>
@@ -127,6 +128,7 @@
 
 #include "internal.h"
 #include "../crypto/internal.h"
+#include "../crypto/hpke/internal.h"
 
 
 BSSL_NAMESPACE_BEGIN
@@ -582,6 +584,107 @@ static bool ext_sni_add_serverhello(SSL_HANDSHAKE *hs, CBB *out) {
     return false;
   }
 
+  return true;
+}
+
+
+// Encrypted Client Hello (ECH)
+//
+// https://tools.ietf.org/html/draft-ietf-tls-esni-06
+
+// Helper function that appends an "encrypted_client_hello" extension to |out|
+// and updates |hs->ech_state|.
+static bool ext_ech_add_clienthello_grease(SSL_HANDSHAKE *hs, CBB *out) {
+  constexpr uint16_t kAllKDFs[] = {EVP_HPKE_HKDF_SHA256, EVP_HPKE_HKDF_SHA384,
+                                   EVP_HPKE_HKDF_SHA512};
+  constexpr uint16_t kAllAEADs[] = {EVP_HPKE_AEAD_AES_GCM_128,
+                                    EVP_HPKE_AEAD_AES_GCM_256,
+                                    EVP_HPKE_AEAD_CHACHA20POLY1305};
+  size_t kdf_index;
+  RAND_bytes(reinterpret_cast<uint8_t *>(&kdf_index), sizeof(kdf_index));
+  kdf_index %= OPENSSL_ARRAY_SIZE(kAllKDFs);
+  const uint16_t kdf_id = kAllKDFs[kdf_index];
+
+  size_t aead_index;
+  RAND_bytes(reinterpret_cast<uint8_t *>(&aead_index), sizeof(aead_index));
+  aead_index %= OPENSSL_ARRAY_SIZE(kAllAEADs);
+  const uint16_t aead_id = kAllAEADs[aead_index];
+
+  const EVP_MD *kdf = EVP_HPKE_get_kdf(kdf_id);
+  assert(kdf != nullptr);
+
+  Array<uint8_t> record_digest;
+  if (!record_digest.Init(EVP_MD_size(kdf))) {
+    return false;
+  }
+  RAND_bytes(record_digest.data(), record_digest.size());
+
+  uint8_t key_share_pub[X25519_PUBLIC_VALUE_LEN];
+  uint8_t key_share_priv_unused[X25519_PRIVATE_KEY_LEN];
+  X25519_keypair(key_share_pub, key_share_priv_unused);
+
+  // TODO(dmcardle): How are we supposed to use the padded length value?
+  constexpr size_t kPaddedLen = 260;
+  uint8_t encrypted_ch[kPaddedLen];
+  RAND_bytes(encrypted_ch, sizeof(encrypted_ch));
+
+  // Inside the TLS extension contents, write a serialized ClientEncryptedCH.
+  CBB ech_body, record_digest_bb, enc_bb, encrypted_ch_bb;
+  if (!CBB_add_u16(out, TLSEXT_TYPE_encrypted_client_hello) ||
+      !CBB_add_u16_length_prefixed(out, &ech_body) ||
+      !CBB_add_u16(&ech_body, kdf_id) || !CBB_add_u16(&ech_body, aead_id) ||
+      !CBB_add_u16_length_prefixed(&ech_body, &record_digest_bb) ||
+      !CBB_add_bytes(&record_digest_bb, record_digest.data(),
+                     record_digest.size()) ||
+      !CBB_add_u16_length_prefixed(&ech_body, &enc_bb) ||
+      !CBB_add_bytes(&enc_bb, key_share_pub, sizeof(key_share_pub)) ||
+      !CBB_add_u16_length_prefixed(&ech_body, &encrypted_ch_bb) ||
+      !CBB_add_bytes(&encrypted_ch_bb, encrypted_ch, sizeof(encrypted_ch)) ||
+      !CBB_flush(out)) {
+    return false;
+  }
+  hs->ech_state = ssl_hs_ech_sent_grease;
+  return true;
+}
+
+static bool ext_ech_add_clienthello(SSL_HANDSHAKE *hs, CBB *out) {
+  if (hs->max_version < TLS1_3_VERSION) {
+    return true;
+  }
+  if (hs->config->ech_grease_enabled) {
+    return ext_ech_add_clienthello_grease(hs, out);
+  }
+  // Nothing to do, since we don't yet implement the non-GREASE parts of ECH.
+  return true;
+}
+
+static bool ext_ech_parse_serverhello(SSL_HANDSHAKE *hs, uint8_t *out_alert,
+                                       CBS *contents) {
+  if (contents == nullptr) {
+    return true;
+  }
+
+  // Check the "encrypted_client_hello" extension syntactically and abort with
+  // "decode_error" alert if it is invalid.
+  uint16_t cipher_suite;
+  CBS record_digest, enc, encrypted_ch;
+  if (!CBS_get_u16(contents, &cipher_suite) ||
+      !CBS_get_u16_length_prefixed(contents, &record_digest) ||
+      !CBS_get_u16_length_prefixed(contents, &enc) || CBS_len(&enc) == 0 ||
+      !CBS_get_u16_length_prefixed(contents, &encrypted_ch) ||
+      CBS_len(&encrypted_ch) == 0 || CBS_len(contents) > 0) {
+    *out_alert = SSL_AD_DECODE_ERROR;
+    return false;
+  }
+  return true;
+}
+
+static bool ext_ech_parse_clienthello(SSL_HANDSHAKE *hs, uint8_t *out_alert,
+                                       CBS *contents) {
+  return true;
+}
+
+static bool ext_ech_add_serverhello(SSL_HANDSHAKE *hs, CBB *out) {
   return true;
 }
 
@@ -2807,6 +2910,14 @@ static const struct tls_extension kExtensions[] = {
     ext_sni_parse_serverhello,
     ext_sni_parse_clienthello,
     ext_sni_add_serverhello,
+  },
+  {
+    TLSEXT_TYPE_encrypted_client_hello,
+    NULL,
+    ext_ech_add_clienthello,
+    ext_ech_parse_serverhello,
+    ext_ech_parse_clienthello,
+    ext_ech_add_serverhello,
   },
   {
     TLSEXT_TYPE_extended_master_secret,

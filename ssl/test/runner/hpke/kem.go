@@ -26,7 +26,7 @@ const (
 	rfcLabel string = "HPKE-05 "
 )
 
-func newKDF(kdfID uint16) labeledHKDF {
+func NewKDF(kdfID uint16) labeledHKDF {
 	switch kdfID {
 	case HKDFSHA256:
 		return labeledHKDF{h: crypto.SHA256}
@@ -76,21 +76,21 @@ func (h labeledHKDF) LabeledExpand(prk, suiteID, label, info []byte, length int)
 	return key
 }
 
-// dhkemX25519 implements the KEM interface.
-type dhkemX25519 struct{}
+// DHKEMX25519 implements the KEM interface.
+type DHKEMX25519 struct{}
 
 // The KEM ID.
-func (d dhkemX25519) ID() uint16 {
+func (d DHKEMX25519) ID() uint16 {
 	return X25519WithHKDFSHA256
 }
 
 // Length of shared secret produced by this KEM.
-func (d dhkemX25519) SecretSize() int {
+func (d DHKEMX25519) SecretSize() int {
 	return 32
 }
 
 // GenerateKeyPair generates a random key pair.
-func (d dhkemX25519) GenerateKeyPair() (publicKey, secretKeyOut []byte, err error) {
+func (d DHKEMX25519) GenerateKeyPair() (publicKey, secretKeyOut []byte, err error) {
 	// Generate a new private key.
 	var secretKey [curve25519.ScalarSize]byte
 	_, err = rand.Read(secretKey[:])
@@ -110,7 +110,7 @@ func (d dhkemX25519) GenerateKeyPair() (publicKey, secretKeyOut []byte, err erro
 // receiver with the secret key corresponding to |publicKeyR|. Internally,
 // |keygenOptional| is used to generate an ephemeral keypair. If
 // |keygenOptional| is nil, |GenerateKeyPair| will be substituted.
-func (d dhkemX25519) Encap(publicKeyR []byte, keygen GenerateKeyPairFunc) ([]byte, []byte, error) {
+func (d DHKEMX25519) Encap(publicKeyR []byte, keygen GenerateKeyPairFunc) ([]byte, []byte, error) {
 	if keygen == nil {
 		keygen = d.GenerateKeyPair
 	}
@@ -132,7 +132,7 @@ func (d dhkemX25519) Encap(publicKeyR []byte, keygen GenerateKeyPairFunc) ([]byt
 
 // Decap uses the receiver's secret key |secretKeyR| to recover the
 // ephemeral symmetric key contained in |enc|.
-func (d dhkemX25519) Decap(enc, secretKeyR []byte) ([]byte, error) {
+func (d DHKEMX25519) Decap(enc, secretKeyR []byte) ([]byte, error) {
 	dh, err := curve25519.X25519(secretKeyR, enc)
 	if err != nil {
 		return nil, err
@@ -149,8 +149,8 @@ func (d dhkemX25519) Decap(enc, secretKeyR []byte) ([]byte, error) {
 	return d.extractAndExpand(dh, kemContext), nil
 }
 
-func (d dhkemX25519) extractAndExpand(dh []byte, kemContext []byte) []byte {
-	kdf := newKDF(HKDFSHA256)
+func (d DHKEMX25519) extractAndExpand(dh []byte, kemContext []byte) []byte {
+	kdf := NewKDF(HKDFSHA256)
 
 	suite := []byte("KEM")
 	suite = appendBigEndianUint16(suite, d.ID())

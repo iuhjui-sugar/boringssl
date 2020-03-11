@@ -7689,6 +7689,31 @@ func addExtensionTests() {
 		})
 	}
 
+	// Test ECH GREASE.
+	//
+	// TODO(dmcardle): Test that client aborts with "decode_error" alert
+	// when server sends syntactically-invalid "encrypted_client_hello"
+	// extension.
+	testCases = append(testCases, testCase{
+		testType: clientTest,
+		name:     "ECH-GREASE-Client-TLS13",
+		config: Config{
+			MinVersion: VersionTLS13,
+			MaxVersion: VersionTLS13,
+		},
+		flags: []string{"-enable-ech-grease"},
+	})
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "ECH-GREASE-Server-TLS13",
+		config: Config{
+			MinVersion:        VersionTLS13,
+			MaxVersion:        VersionTLS13,
+			EchGreaseEnabled: true,
+		},
+		flags: []string{},
+	})
+
 	testCases = append(testCases, testCase{
 		testType: clientTest,
 		name:     "ClientHelloPadding",

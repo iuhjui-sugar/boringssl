@@ -18,6 +18,7 @@
 #include <openssl/aead.h>
 #include <openssl/base.h>
 #include <openssl/curve25519.h>
+#include "openssl/digest.h"
 
 #if defined(__cplusplus)
 extern "C" {
@@ -45,6 +46,9 @@ extern "C" {
 // |EVP_HPKE_CTX_max_overhead| would ever return for any context.
 #define EVP_HPKE_MAX_OVERHEAD EVP_AEAD_MAX_OVERHEAD
 
+
+const EVP_AEAD *EVP_HPKE_get_aead(uint16_t aead_id);
+const EVP_MD *EVP_HPKE_get_kdf(uint16_t kdf_id);
 
 // Encryption contexts.
 
