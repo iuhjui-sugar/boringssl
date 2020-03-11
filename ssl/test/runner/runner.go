@@ -16139,6 +16139,101 @@ func addDelegatedCredentialTests() {
 	})
 }
 
+func addEncryptedClientHelloTests() {
+	// Test ECH GREASE.
+
+	// Test the client's behavior when the server ignores ECH GREASE.
+	testCases = append(testCases, testCase{
+		testType: clientTest,
+		name:     "ECH-GREASE-Client-TLS13",
+		config: Config{
+			MinVersion: VersionTLS13,
+			MaxVersion: VersionTLS13,
+		},
+		flags: []string{"-enable-ech-grease"},
+	})
+
+	// Test the client's ECH GREASE behavior when responding to server's
+	// HelloRetryRequest. This test implicitly checks that the first and second
+	// ClientHello messages have identical ECH extensions.
+	testCases = append(testCases, testCase{
+		testType: clientTest,
+		name:     "ECH-GREASE-Client-TLS13-HelloRetryRequest",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			MinVersion: VersionTLS13,
+			// P-384 requires a HelloRetryRequest against BoringSSL's default
+			// configuration. Assert this with ExpectMissingKeyShare.
+			CurvePreferences: []CurveID{CurveP384},
+			Bugs: ProtocolBugs{
+				ExpectMissingKeyShare: true,
+			},
+		},
+		// Cover HelloRetryRequest during an ECDHE-PSK resumption.
+		resumeSession: true,
+		flags:         []string{"-enable-ech-grease", "-expect-hrr"},
+	})
+
+	retryConfigValid := echConfig{
+		publicName: "example.com",
+		publicKey:  []byte{1, 2, 3},
+		kemID:      1,
+		cipherSuites: []hpkeCipherSuite{
+			{
+				kdfID:  3,
+				aeadID: 2,
+			},
+		},
+		maxNameLen: 42,
+	}
+
+	retryConfigUnsupportedVersion := []byte{
+		// version
+		0xba, 0xdd,
+		// length
+		0x00, 0x05,
+		// contents
+		0x05, 0x04, 0x03, 0x02, 0x01,
+	}
+
+	// Test that the client accepts a well-formed encrypted_client_hello
+	// extension in response to ECH GREASE. The response includes one ECHConfig
+	// with a supported version and one with an unsupported version.
+	testCases = append(testCases, testCase{
+		testType: clientTest,
+		name:     "ECH-GREASE-Client-TLS13-Retry-Configs",
+		config: Config{
+			MinVersion: VersionTLS13,
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				// Include an additional well-formed ECHConfig with an invalid
+				// version. This ensures the client can iterate over the retry
+				// configs.
+				SendECHRetryConfigs: append(retryConfigValid.marshal(), retryConfigUnsupportedVersion...),
+			},
+		},
+		flags: []string{"-enable-ech-grease"},
+	})
+
+	// Test that the client aborts with a decode_error alert when it receives a
+	// syntactically-invalid encrypted_client_hello extension from the server.
+	testCases = append(testCases, testCase{
+		testType: clientTest,
+		name:     "ECH-GREASE-Client-TLS13-Invalid-Retry-Configs",
+		config: Config{
+			MinVersion: VersionTLS13,
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				SendECHRetryConfigs: []byte{0xba, 0xdd, 0xec, 0xcc},
+			},
+		},
+		flags:              []string{"-enable-ech-grease"},
+		shouldFail:         true,
+		expectedLocalError: "remote error: illegal parameter",
+		expectedError:      ":ERROR_PARSING_EXTENSION:",
+	})
+}
+
 func worker(statusChan chan statusMsg, c chan *testCase, shimPath string, wg *sync.WaitGroup) {
 	defer wg.Done()
 
@@ -16316,6 +16411,7 @@ func main() {
 	addCertCompressionTests()
 	addJDK11WorkaroundTests()
 	addDelegatedCredentialTests()
+	addEncryptedClientHelloTests()
 
 	testCases = append(testCases, convertToSplitHandshakeTests(testCases)...)
 
