@@ -250,6 +250,149 @@ type pskIdentity struct {
 	obfuscatedTicketAge uint32
 }
 
+type hpkeCipherSuite struct {
+	kdfID  uint16
+	aeadID uint16
+}
+
+type echConfig struct {
+	raw []byte
+
+	version      uint16
+	publicName   string
+	publicKey    []byte
+	kemID        uint16
+	cipherSuites []hpkeCipherSuite
+	maxNameLen   uint16
+	extensions   []byte
+}
+
+func (e *echConfig) equal(other *echConfig) bool {
+	if e == other {
+		return true
+	} else if e == nil || other == nil {
+		return false
+	}
+	if e.version != other.version ||
+		e.publicName != other.publicName ||
+		bytes.Equal(e.publicKey, other.publicKey) ||
+		e.kemID != other.kemID {
+		return false
+	}
+	for i, suite := range e.cipherSuites {
+		otherSuite := other.cipherSuites[i]
+		if suite.kdfID != otherSuite.kdfID ||
+			suite.aeadID != otherSuite.aeadID {
+			return false
+		}
+	}
+	return e.maxNameLen == other.maxNameLen &&
+		bytes.Equal(e.extensions, other.extensions)
+}
+
+func (e *echConfig) marshal() []byte {
+	if e.raw != nil {
+		return e.raw
+	}
+	bb := newByteBuilder()
+	bb.addU16(e.version)
+	contents := bb.addU16LengthPrefixed()
+	contents.addU16LengthPrefixed().addBytes([]byte(e.publicName))
+	contents.addU16LengthPrefixed().addBytes(e.publicKey)
+	contents.addU16(e.kemID)
+	cipherSuites := contents.addU16LengthPrefixed()
+	for _, suite := range e.cipherSuites {
+		cipherSuites.addU16(suite.kdfID)
+		cipherSuites.addU16(suite.aeadID)
+	}
+	contents.addU16(e.maxNameLen)
+	contents.addU16LengthPrefixed().addBytes(e.extensions)
+	e.raw = bb.finish()
+	return e.raw
+}
+
+func (e *echConfig) unmarshal(reader *byteReader) bool {
+	e.raw = []byte(*reader)
+
+	var publicNameBytes []byte
+	if !reader.readU16(&e.version) ||
+		!reader.readU16LengthPrefixedBytes(&publicNameBytes) ||
+		len(publicNameBytes) == 0 {
+		return false
+	}
+	e.publicName = string(publicNameBytes)
+	var cipherSuitesReader byteReader
+	if !reader.readU16(&e.kemID) ||
+		!reader.readU16LengthPrefixed(&cipherSuitesReader) ||
+		len(cipherSuitesReader) < 4 {
+		return false
+	}
+	for len(cipherSuitesReader) > 0 {
+		var suite hpkeCipherSuite
+		if !cipherSuitesReader.readU16(&suite.kdfID) ||
+			!cipherSuitesReader.readU16(&suite.aeadID) {
+			return false
+		}
+		e.cipherSuites = append(e.cipherSuites, suite)
+	}
+	return reader.readU16(&e.maxNameLen) &&
+		reader.readU16LengthPrefixedBytes(&e.extensions)
+}
+
+// The contents of a CH "encrypted_client_hello" extension.
+// https://tools.ietf.org/html/draft-ietf-tls-esni-07
+type encryptedClientHello struct {
+	raw          []byte
+	hpkeKDF      uint16
+	hpkeAEAD     uint16
+	recordDigest []byte
+	enc          []byte
+	encryptedCH  []byte
+}
+
+func (e *encryptedClientHello) equal(other *encryptedClientHello) bool {
+	if e == other {
+		return true
+	} else if e == nil || other == nil {
+		return false
+	}
+	return e.hpkeKDF == other.hpkeKDF &&
+		e.hpkeAEAD == other.hpkeAEAD &&
+		bytes.Equal(e.recordDigest, other.recordDigest) &&
+		bytes.Equal(e.enc, other.enc) &&
+		bytes.Equal(e.encryptedCH, other.encryptedCH)
+}
+func (e *encryptedClientHello) marshal() []byte {
+	if e.raw != nil {
+		return e.raw
+	}
+
+	bb := newByteBuilder()
+	bb.addU16(e.hpkeKDF)
+	bb.addU16(e.hpkeAEAD)
+	bb.addU16LengthPrefixed().addBytes(e.recordDigest)
+	bb.addU16LengthPrefixed().addBytes(e.enc)
+	bb.addU16LengthPrefixed().addBytes(e.encryptedCH)
+
+	e.raw = bb.finish()
+	return e.raw
+}
+func (e *encryptedClientHello) unmarshal(data []byte) bool {
+	e.raw = data
+	reader := byteReader(data)
+	if !reader.readU16(&e.hpkeKDF) ||
+		!reader.readU16(&e.hpkeAEAD) ||
+		!reader.readU16LengthPrefixedBytes(&e.recordDigest) ||
+		!reader.readU16LengthPrefixedBytes(&e.enc) ||
+		len(e.enc) == 0 ||
+		!reader.readU16LengthPrefixedBytes(&e.encryptedCH) ||
+		len(e.encryptedCH) == 0 ||
+		len(reader) > 0 {
+		return false
+	}
+	return true
+}
+
 type clientHelloMsg struct {
 	raw                     []byte
 	isDTLS                  bool
@@ -261,6 +404,7 @@ type clientHelloMsg struct {
 	compressionMethods      []uint8
 	nextProtoNeg            bool
 	serverName              string
+	encryptedClientHello    *encryptedClientHello
 	ocspStapling            bool
 	supportedCurves         []CurveID
 	supportedPoints         []uint8
@@ -316,6 +460,7 @@ func (m *clientHelloMsg) equal(i interface{}) bool {
 		bytes.Equal(m.compressionMethods, m1.compressionMethods) &&
 		m.nextProtoNeg == m1.nextProtoNeg &&
 		m.serverName == m1.serverName &&
+		m.encryptedClientHello.equal(m1.encryptedClientHello) &&
 		m.ocspStapling == m1.ocspStapling &&
 		eqCurveIDs(m.supportedCurves, m1.supportedCurves) &&
 		bytes.Equal(m.supportedPoints, m1.supportedPoints) &&
@@ -441,6 +586,12 @@ func (m *clientHelloMsg) marshal() []byte {
 		serverName.addU8(0) // NameType host_name(0)
 		hostName := serverName.addU16LengthPrefixed()
 		hostName.addBytes([]byte(m.serverName))
+	}
+	if m.encryptedClientHello != nil {
+		// https://tools.ietf.org/html/draft-ietf-tls-esni-07
+		extensions.addU16(extensionEncryptedClientHello)
+		echValue := extensions.addU16LengthPrefixed()
+		echValue.addBytes(m.encryptedClientHello.marshal())
 	}
 	if m.ocspStapling {
 		extensions.addU16(extensionStatusRequest)
@@ -763,6 +914,12 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 					m.serverName = string(name)
 				}
 			}
+		case extensionEncryptedClientHello:
+			var ech encryptedClientHello
+			if !ech.unmarshal(body) {
+				return false
+			}
+			m.encryptedClientHello = &ech
 		case extensionNextProtoNeg:
 			if len(body) != 0 {
 				return false
@@ -1231,6 +1388,7 @@ type serverExtensions struct {
 	supportedCurves         []CurveID
 	quicTransportParams     []byte
 	serverNameAck           bool
+	echRetryConfigs         []echConfig
 }
 
 func (m *serverExtensions) marshal(extensions *byteBuilder) {
@@ -1365,6 +1523,13 @@ func (m *serverExtensions) marshal(extensions *byteBuilder) {
 		extensions.addU16(extensionServerName)
 		extensions.addU16(0) // zero length
 	}
+	if len(m.echRetryConfigs) > 0 {
+		extensions.addU16(extensionEncryptedClientHello)
+		bb := extensions.addU16LengthPrefixed()
+		for _, echConfig := range m.echRetryConfigs {
+			bb.addBytes(echConfig.marshal())
+		}
+	}
 }
 
 func (m *serverExtensions) unmarshal(data byteReader, version uint16) bool {
@@ -1473,6 +1638,17 @@ func (m *serverExtensions) unmarshal(data byteReader, version uint16) bool {
 				return false
 			}
 			m.hasEarlyData = true
+		case extensionEncryptedClientHello:
+			for len(body) > 0 {
+				var config echConfig
+				if !config.unmarshal(&body) {
+					return false
+				}
+				m.echRetryConfigs = append(m.echRetryConfigs, config)
+			}
+			if len(body) > 0 {
+				return false
+			}
 		default:
 			// Unknown extensions are illegal from the server.
 			return false

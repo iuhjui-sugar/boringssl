@@ -3396,7 +3396,7 @@ read alert 1 0
 	// Servers should reject QUIC client hellos that have a legacy
 	// session ID.
 	testCases = append(testCases, testCase{
-		name: "QUICCompatibilityMode",
+		name:     "QUICCompatibilityMode",
 		testType: serverTest,
 		protocol: quic,
 		config: Config{
@@ -3405,7 +3405,7 @@ read alert 1 0
 				CompatModeWithQUIC: true,
 			},
 		},
-		shouldFail: true,
+		shouldFail:    true,
 		expectedError: ":UNEXPECTED_COMPATIBILITY_MODE:",
 	})
 }
@@ -7688,6 +7688,62 @@ func addExtensionTests() {
 			},
 		})
 	}
+
+	// Test ECH GREASE.
+	//
+	// TODO(dmcardle): Test that client aborts with "decode_error" alert
+	// when server sends syntactically-invalid "encrypted_client_hello"
+	// extension.
+	testCases = append(testCases, testCase{
+		testType: clientTest,
+		name:     "ECH-GREASE-Client-TLS13",
+		config: Config{
+			MinVersion: VersionTLS13,
+			MaxVersion: VersionTLS13,
+		},
+		flags: []string{"-enable-ech-grease"},
+	})
+	testCases = append(testCases, testCase{
+		testType: clientTest,
+		name:     "ECH-GREASE-Client-TLS13-Invalid-Retry-Configs",
+		config: Config{
+			MinVersion: VersionTLS13,
+			MaxVersion: VersionTLS13,
+			ECHRetryConfigs: []echConfig{
+				{
+					version:    0xff07,
+					publicName: "example.com",
+					publicKey:  []byte{1, 2, 3},
+					kemID:      1,
+					cipherSuites: []hpkeCipherSuite{
+						{
+							kdfID:  3,
+							aeadID: 2,
+						},
+					},
+					maxNameLen: 42,
+				},
+			},
+			Bugs: ProtocolBugs{
+				ECHInvalidRetryConfigs: true,
+			},
+		},
+		flags:              []string{"-enable-ech-grease"},
+		shouldFail:         true,
+		// Why doesn't this work?
+		//expectedError:      ":DECODE_ERROR:",
+		expectedLocalError: "remote error: error decoding message",
+	})
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "ECH-GREASE-Server-TLS13",
+		config: Config{
+			MinVersion:       VersionTLS13,
+			MaxVersion:       VersionTLS13,
+			EchGreaseEnabled: true,
+		},
+		flags: []string{},
+	})
 
 	testCases = append(testCases, testCase{
 		testType: clientTest,
