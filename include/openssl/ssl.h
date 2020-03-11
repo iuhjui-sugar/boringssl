@@ -3974,6 +3974,12 @@ OPENSSL_EXPORT int SSL_used_hello_retry_request(const SSL *ssl);
 // https://bugs.openjdk.java.net/browse/JDK-8213202
 OPENSSL_EXPORT void SSL_set_jdk11_workaround(SSL *ssl, int enable);
 
+// ECHO functions.
+
+// SSL_set_enable_echo_grease configures whether the client may send ECHO GREASE
+// as part of this connection.
+OPENSSL_EXPORT void SSL_set_enable_echo_grease(SSL  *ssl, int enable);
+
 
 // Deprecated functions.
 

@@ -250,6 +250,62 @@ type pskIdentity struct {
 	obfuscatedTicketAge uint32
 }
 
+// The contents of an "encrypted_client_hello" extension.
+// https://tools.ietf.org/html/draft-ietf-tls-esni-06
+type encryptedClientHello struct {
+	raw          []byte
+	present      bool
+	suite        uint16
+	recordDigest []byte
+	enc          []byte
+	encryptedCh  []byte
+}
+
+func (e *encryptedClientHello) equal(i interface{}) bool {
+	e1, ok := i.(*encryptedClientHello)
+	if !ok {
+		return false
+	}
+	return e.present == e1.present &&
+		e.suite == e1.suite &&
+		bytes.Equal(e.recordDigest, e1.recordDigest) &&
+		bytes.Equal(e.enc, e1.enc) &&
+		bytes.Equal(e.encryptedCh, e1.encryptedCh)
+}
+func (e *encryptedClientHello) marshal() []byte {
+	if !e.present {
+		panic("Cannot marshal encryptedClientHello that is not present")
+	}
+	if e.raw != nil {
+		return e.raw
+	}
+
+	bb := newByteBuilder()
+	bb.addU16(e.suite)
+	bb.addU16LengthPrefixed().addBytes(e.recordDigest)
+	bb.addU16LengthPrefixed().addBytes(e.enc)
+	bb.addU16LengthPrefixed().addBytes(e.encryptedCh)
+
+	e.raw = bb.finish()
+	return e.raw
+}
+func (e *encryptedClientHello) unmarshal(reader *byteReader) bool {
+	e.raw = *reader
+
+	if !reader.readU16(&e.suite) ||
+		!reader.readU16LengthPrefixedBytes(&e.recordDigest) ||
+		!reader.readU16LengthPrefixedBytes(&e.enc) ||
+		len(e.enc) == 0 ||
+		!reader.readU16LengthPrefixedBytes(&e.encryptedCh) ||
+		len(e.encryptedCh) == 0 ||
+		len(*reader) > 0 {
+		return false
+	}
+
+	e.present = true
+	return true
+}
+
 type clientHelloMsg struct {
 	raw                     []byte
 	isDTLS                  bool
@@ -261,6 +317,7 @@ type clientHelloMsg struct {
 	compressionMethods      []uint8
 	nextProtoNeg            bool
 	serverName              string
+	encryptedClientHello    encryptedClientHello
 	ocspStapling            bool
 	supportedCurves         []CurveID
 	supportedPoints         []uint8
@@ -316,6 +373,8 @@ func (m *clientHelloMsg) equal(i interface{}) bool {
 		bytes.Equal(m.compressionMethods, m1.compressionMethods) &&
 		m.nextProtoNeg == m1.nextProtoNeg &&
 		m.serverName == m1.serverName &&
+		// TODO(dmcardle): Do we care about structural equality for ECHO?
+		m.encryptedClientHello.present == m1.encryptedClientHello.present &&
 		m.ocspStapling == m1.ocspStapling &&
 		eqCurveIDs(m.supportedCurves, m1.supportedCurves) &&
 		bytes.Equal(m.supportedPoints, m1.supportedPoints) &&
@@ -441,6 +500,12 @@ func (m *clientHelloMsg) marshal() []byte {
 		serverName.addU8(0) // NameType host_name(0)
 		hostName := serverName.addU16LengthPrefixed()
 		hostName.addBytes([]byte(m.serverName))
+	}
+	if m.encryptedClientHello.present {
+		// https://tools.ietf.org/html/draft-ietf-tls-esni-06
+		extensions.addU16(extensionEncryptedClientHello)
+		echoValue := extensions.addU16LengthPrefixed()
+		echoValue.addBytes(m.encryptedClientHello.marshal())
 	}
 	if m.ocspStapling {
 		extensions.addU16(extensionStatusRequest)
@@ -758,6 +823,10 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 				if nameType == 0 {
 					m.serverName = string(name)
 				}
+			}
+		case extensionEncryptedClientHello:
+			if !m.encryptedClientHello.unmarshal(&body) || len(body) != 0 {
+				return false
 			}
 		case extensionNextProtoNeg:
 			if len(body) != 0 {
@@ -1227,6 +1296,7 @@ type serverExtensions struct {
 	supportedCurves         []CurveID
 	quicTransportParams     []byte
 	serverNameAck           bool
+	encryptedClientHello    encryptedClientHello
 }
 
 func (m *serverExtensions) marshal(extensions *byteBuilder) {
@@ -1361,6 +1431,11 @@ func (m *serverExtensions) marshal(extensions *byteBuilder) {
 		extensions.addU16(extensionServerName)
 		extensions.addU16(0) // zero length
 	}
+	if m.encryptedClientHello.present {
+		extensions.addU16(extensionEncryptedClientHello)
+		echoBody := extensions.addU16LengthPrefixed()
+		echoBody.addBytes(m.encryptedClientHello.marshal())
+	}
 }
 
 func (m *serverExtensions) unmarshal(data byteReader, version uint16) bool {
@@ -1448,6 +1523,12 @@ func (m *serverExtensions) unmarshal(data byteReader, version uint16) bool {
 				return false
 			}
 			m.serverNameAck = true
+		case extensionEncryptedClientHello:
+			if !m.encryptedClientHello.unmarshal(&body) || len(body) != 0 {
+				// TODO(dmcardle): send "decode_error"
+				// alert based on this failure?
+				return false
+			}
 		case extensionSupportedPoints:
 			// supported_points is illegal in TLS 1.3.
 			if version >= VersionTLS13 {
