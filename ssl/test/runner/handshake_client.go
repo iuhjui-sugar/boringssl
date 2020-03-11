@@ -76,6 +76,53 @@ func fixClientHellos(hello *clientHelloMsg, in []byte) ([]byte, error) {
 	return ret, nil
 }
 
+func (c *Conn) echoClientGrease() (*encryptedClientHello, error) {
+	// TODO(dmcardle): What do I do with the padded length?
+	kPaddedLength := 260
+
+	suite := mutualCipherSuite(c.config.cipherSuites(), TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256)
+	if suite == nil {
+		return nil, errors.New("tls: no cipher suite available to generate ECHO GREASE")
+	}
+	curve, foundCurve := curveForCurveID(CurveX25519, c.config)
+	if !foundCurve {
+		return nil, errors.New("tls: unable to get curve while generating ECHO GREASE")
+	}
+	pubKey, err := curve.offer(c.config.rand())
+	if err != nil {
+		return nil, errors.New("tls: Failed to offer key x25519ECDHCurve")
+	}
+
+	randByteBuf := func(size int) ([]byte, error) {
+		buf := make([]byte, size)
+		_, err := io.ReadFull(c.config.rand(), buf)
+		if err != nil {
+			c.sendAlert(alertInternalError)
+			return nil, errors.New("tls: short read from Rand: " + err.Error())
+		}
+		return buf, nil
+	}
+
+	recordDigest, err := randByteBuf(suite.hash().Size())
+	if err != nil {
+		return nil, err
+	}
+
+	// TODO(dmcardle): What is the correct size?
+	encryptedCh, err := randByteBuf(kPaddedLength)
+	if err != nil {
+		return nil, err
+	}
+
+	return &encryptedClientHello{
+		present:      true,
+		suite:        suite.id,
+		recordDigest: recordDigest,
+		enc:          pubKey,
+		encryptedCh:  encryptedCh,
+	}, nil
+}
+
 func (c *Conn) clientHandshake() error {
 	if c.config == nil {
 		c.config = defaultConfig()
@@ -138,6 +185,14 @@ func (c *Conn) clientHandshake() error {
 		hello.pskKEModes = []byte{pskDHEKEMode}
 	} else {
 		hello.vers = mapClientHelloVersion(maxVersion, c.isDTLS)
+	}
+
+	if c.config.EchoGreaseEnabled && maxVersion >= VersionTLS13 {
+		echo, err := c.echoClientGrease()
+		if err != nil {
+			return err
+		}
+		hello.encryptedClientHello = *echo
 	}
 
 	if c.config.Bugs.SendClientVersion != 0 {

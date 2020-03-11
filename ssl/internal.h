@@ -1437,6 +1437,11 @@ enum ssl_hs_wait_t {
   ssl_hs_certificate_verify,
 };
 
+enum ssl_hs_echo_state_t {
+  ssl_hs_echo_unknown = 0,
+  ssl_hs_echo_sent_grease = 1,
+};
+
 enum ssl_grease_index_t {
   ssl_grease_cipher = 0,
   ssl_grease_group,
@@ -1554,6 +1559,9 @@ struct SSL_HANDSHAKE {
   // wait contains the operation the handshake is currently blocking on or
   // |ssl_hs_ok| if none.
   enum ssl_hs_wait_t wait = ssl_hs_ok;
+
+  // echo_state indicates the handshake's Encrypted Client Hello state.
+  enum ssl_hs_echo_state_t echo_state = ssl_hs_echo_unknown;
 
   // state is the internal state for the TLS 1.2 and below handshake. Its
   // values depend on |do_handshake| but the starting state is always zero.
@@ -2691,6 +2699,10 @@ struct SSL_CONFIG {
 
   // verify_mode is a bitmask of |SSL_VERIFY_*| values.
   uint8_t verify_mode = SSL_VERIFY_NONE;
+
+  // enable_echo_grease controls whether ECHO GREASE may be sent in the Client
+  // Hello.
+  bool echo_grease_enabled : 1;
 
   // Enable signed certificate time stamps. Currently client only.
   bool signed_cert_timestamps_enabled : 1;
