@@ -124,7 +124,7 @@ static int hpke_extract_and_expand(const EVP_MD *hkdf_md, uint8_t *out_key,
   return 1;
 }
 
-static const EVP_AEAD *hpke_get_aead(uint16_t aead_id) {
+const EVP_AEAD *EVP_HPKE_get_aead(uint16_t aead_id) {
   switch (aead_id) {
     case EVP_HPKE_AEAD_AES_GCM_128:
       return EVP_aead_aes_128_gcm();
@@ -137,7 +137,7 @@ static const EVP_AEAD *hpke_get_aead(uint16_t aead_id) {
   return NULL;
 }
 
-static const EVP_MD *hpke_get_kdf(uint16_t kdf_id) {
+const EVP_MD *EVP_HPKE_get_kdf(uint16_t kdf_id) {
   switch (kdf_id) {
     case EVP_HPKE_HKDF_SHA256:
       return EVP_sha256();
@@ -154,7 +154,7 @@ static int hpke_key_schedule(EVP_HPKE_CTX *hpke, const uint8_t *shared_secret,
                              size_t shared_secret_len, const uint8_t *info,
                              size_t info_len) {
   // Attempt to get an EVP_AEAD*.
-  const EVP_AEAD *aead = hpke_get_aead(hpke->aead_id);
+  const EVP_AEAD *aead = EVP_HPKE_get_aead(hpke->aead_id);
   if (aead == NULL) {
     return 0;
   }
@@ -331,7 +331,7 @@ int EVP_HPKE_CTX_setup_base_s_x25519_for_test(
   hpke->is_sender = 1;
   hpke->kdf_id = kdf_id;
   hpke->aead_id = aead_id;
-  hpke->hkdf_md = hpke_get_kdf(kdf_id);
+  hpke->hkdf_md = EVP_HPKE_get_kdf(kdf_id);
   if (hpke->hkdf_md == NULL) {
     return 0;
   }
@@ -354,7 +354,7 @@ int EVP_HPKE_CTX_setup_base_r_x25519(
   hpke->is_sender = 0;
   hpke->kdf_id = kdf_id;
   hpke->aead_id = aead_id;
-  hpke->hkdf_md = hpke_get_kdf(kdf_id);
+  hpke->hkdf_md = EVP_HPKE_get_kdf(kdf_id);
   if (hpke->hkdf_md == NULL) {
     return 0;
   }
