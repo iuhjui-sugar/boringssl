@@ -117,6 +117,7 @@
 
 #include <openssl/bytestring.h>
 #include <openssl/chacha.h>
+#include <openssl/curve25519.h>
 #include <openssl/digest.h>
 #include <openssl/err.h>
 #include <openssl/evp.h>
@@ -582,6 +583,151 @@ static bool ext_sni_add_serverhello(SSL_HANDSHAKE *hs, CBB *out) {
     return false;
   }
 
+  return true;
+}
+
+
+// Encrypted Client Hello (ECHO)
+//
+// https://tools.ietf.org/html/draft-ietf-tls-esni-06
+
+// Helper function to randomly select a supported ciphersuite.
+static const SSL_CIPHER *ext_echo_pick_ciphersuite_grease() {
+  GrowableArray<const SSL_CIPHER*> candidates;
+
+  for (const SSL_CIPHER &candidate : AllCiphers()) {
+    // TODO(dmcardle): how should we pick the ciphersuite?
+    if (SSL_CIPHER_get_min_version(&candidate) >= TLS1_3_VERSION &&
+        SSL_CIPHER_get_max_version(&candidate) <= TLS1_3_VERSION) {
+      candidates.Push(&candidate);
+    }
+  }
+
+  if (candidates.empty()) {
+    return nullptr;
+  }
+
+  size_t rand_idx;
+  RAND_bytes(reinterpret_cast<uint8_t *>(&rand_idx), sizeof(rand_idx));
+  return candidates[rand_idx % candidates.size()];
+}
+
+// Helper function that appends an "encrypted_client_hello" extension to |out|
+// and updates |hs->echo_state|.
+static bool ext_echo_add_clienthello_grease(SSL_HANDSHAKE *hs, CBB *out) {
+  // TODO(dmcardle): How are we supposed to use the padded length value?
+  constexpr size_t kPaddedLen = 260;
+
+  // Select a supported cipher suite.
+  const SSL_CIPHER *cipher = ext_echo_pick_ciphersuite_grease();
+  if (cipher == nullptr) {
+    return false;
+  }
+
+  // Build contents of the "record_digest" field.
+  const EVP_MD *hash = ssl_get_handshake_digest(TLS1_3_VERSION, cipher);
+  if (hash == nullptr) {
+    return false;
+  }
+  const size_t digest_len = EVP_MD_size(hash);
+  Array<uint8_t> record_digest;
+  if (!record_digest.Init(digest_len)) {
+    return false;
+  }
+  RAND_bytes(record_digest.data(), record_digest.size());
+
+  // Select a named group. For now, it's always X25519.
+  const uint16_t named_group = SSL_CURVE_X25519;
+  const uint16_t named_group_pub_len = X25519_PUBLIC_VALUE_LEN;
+  const uint16_t named_group_priv_len = X25519_PUBLIC_VALUE_LEN;
+
+  // Build the contents of the "enc" field.
+  //
+  // > Set the "enc" field to a randomly-generated valid encapsulated public key
+  // > output by the HPKE KEM.
+  Array<uint8_t> key_share_pub;
+  Array<uint8_t> key_share_priv_unused;
+  if (!key_share_pub.Init(named_group_pub_len) ||
+      !key_share_priv_unused.Init(named_group_priv_len)) {
+    return false;
+  }
+  switch (named_group) {
+    case SSL_CURVE_X25519:
+      X25519_keypair(key_share_pub.data(), key_share_priv_unused.data());
+      break;
+    default:
+      return false;
+  }
+
+  // Build the contents of the "encrypted_client_hello" field.
+  //
+  // >  Set the "encrypted_client_hello" field to a randomly-generated string of
+  // > [TODO] bytes.
+  Array<uint8_t> encrypted_ch;
+  // TODO(dmcardle): Check this use of |kPaddedLen|.
+  if (!encrypted_ch.Init(kPaddedLen)) {
+    return false;
+  }
+  RAND_bytes(encrypted_ch.data(), encrypted_ch.size());
+
+  // Inside the TLS extension contents, write a serialized ClientEncryptedCH.
+  CBB echo_body, record_digest_bb, enc_bb, encrypted_ch_bb;
+  if (!CBB_add_u16(out, TLSEXT_TYPE_encrypted_client_hello) ||
+      !CBB_add_u16_length_prefixed(out, &echo_body) ||
+      !CBB_add_u16(&echo_body, ssl_cipher_get_value(cipher)) ||
+      !CBB_add_u16_length_prefixed(&echo_body, &record_digest_bb) ||
+      !CBB_add_bytes(&record_digest_bb, record_digest.data(),
+                     record_digest.size()) ||
+      !CBB_add_u16_length_prefixed(&echo_body, &enc_bb) ||
+      !CBB_add_bytes(&enc_bb, key_share_pub.data(), key_share_pub.size()) ||
+      !CBB_add_u16_length_prefixed(&echo_body, &encrypted_ch_bb) ||
+      !CBB_add_bytes(&encrypted_ch_bb, encrypted_ch.data(),
+                     encrypted_ch.size()) ||
+      !CBB_flush(out)) {
+    return false;
+  }
+  hs->echo_state = ssl_hs_echo_sent_grease;
+  return true;
+}
+
+static bool ext_echo_add_clienthello(SSL_HANDSHAKE *hs, CBB *out) {
+  if (hs->max_version < TLS1_3_VERSION) {
+    return true;
+  }
+  if (hs->config->enable_echo_grease) {
+    return ext_echo_add_clienthello_grease(hs, out);
+  }
+  // Nothing to do, since we don't yet implement the non-GREASE parts of ECHO.
+  return true;
+}
+
+static bool ext_echo_parse_serverhello(SSL_HANDSHAKE *hs, uint8_t *out_alert,
+                                       CBS *contents) {
+  if (contents == nullptr) {
+    return true;
+  }
+
+  // Check the "encrypted_client_hello" extension syntactically and abort with
+  // "decode_error" alert if it is invalid.
+  uint16_t cipher_suite;
+  CBS record_digest, enc, encrypted_ch;
+  if (!CBS_get_u16(contents, &cipher_suite) ||
+      !CBS_get_u16_length_prefixed(contents, &record_digest) ||
+      !CBS_get_u16_length_prefixed(contents, &enc) || CBS_len(&enc) == 0 ||
+      !CBS_get_u16_length_prefixed(contents, &encrypted_ch) ||
+      CBS_len(&encrypted_ch) == 0 || CBS_len(contents) > 0) {
+    *out_alert = SSL_AD_DECODE_ERROR;
+    return false;
+  }
+  return true;
+}
+
+static bool ext_echo_parse_clienthello(SSL_HANDSHAKE *hs, uint8_t *out_alert,
+                                       CBS *contents) {
+  return true;
+}
+
+static bool ext_echo_add_serverhello(SSL_HANDSHAKE *hs, CBB *out) {
   return true;
 }
 
@@ -2756,6 +2902,14 @@ static const struct tls_extension kExtensions[] = {
     ext_sni_parse_serverhello,
     ext_sni_parse_clienthello,
     ext_sni_add_serverhello,
+  },
+  {
+    TLSEXT_TYPE_encrypted_client_hello,
+    NULL,
+    ext_echo_add_clienthello,
+    ext_echo_parse_serverhello,
+    ext_echo_parse_clienthello,
+    ext_echo_add_serverhello,
   },
   {
     TLSEXT_TYPE_extended_master_secret,
