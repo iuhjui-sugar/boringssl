@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7631a66e_d73010ce",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-03-11T21:13:30Z",
+      "side": 1,
+      "message": "I might be misunderstanding, but shouldn\u0027t these be initialised to NULL, and a constructor function in the impl.c file sets them, so that when the impl.c isn\u0027t linked in people see the failures?",
+      "revId": "1895d14115cc708fce06b3b56ac535e25a4acd9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3dad68b_5ed86efb",
+        "filename": "crypto/x509v3/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-03-11T21:13:30Z",
+      "side": 1,
+      "message": "Note: this is in x509v3/, not x509/. You might have wanted the latter.",
+      "revId": "1895d14115cc708fce06b3b56ac535e25a4acd9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7da90845_5a202b37",
+        "filename": "crypto/x509v3/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-03-11T21:13:30Z",
+      "side": 1,
+      "message": "(nit: there should be one blank line above and two below.)",
+      "revId": "1895d14115cc708fce06b3b56ac535e25a4acd9e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
