@@ -413,6 +413,14 @@ func (hs *serverHandshakeState) doTLS13Handshake() error {
 		return err
 	}
 
+	encryptedExtensions.extensions.echRetryConfigs = config.ECHRetryConfigs
+
+	if config.Bugs.ECHInvalidRetryConfigs {
+		for i := range encryptedExtensions.extensions.echRetryConfigs {
+			encryptedExtensions.extensions.echRetryConfigs[i].raw = []byte{0xba, 0xdd, 0xec, 0xcc}
+		}
+	}
+
 	// Select the cipher suite.
 	var preferenceList, supportedList []uint16
 	if config.PreferServerCipherSuites {
