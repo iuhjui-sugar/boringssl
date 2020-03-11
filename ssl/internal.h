@@ -1449,7 +1449,7 @@ enum ssl_grease_index_t {
   ssl_grease_extension2,
   ssl_grease_version,
   ssl_grease_ticket_extension,
-  ssl_grease_last_index = ssl_grease_ticket_extension,
+  ssl_grease_last_index = ssl_grease_ticket_extension
 };
 
 enum tls12_server_hs_state_t {
@@ -1637,6 +1637,14 @@ struct SSL_HANDSHAKE {
 
   // cookie is the value of the cookie received from the server, if any.
   Array<uint8_t> cookie;
+
+  // ech_config_id is the randomly-generated "config_id" value for ECH GREASE.
+  // In case of HRR, this value should be repeated in the second ClientHello.
+  Array<uint8_t> ech_config_id;
+
+  // ech_key_share_pub is the randomly-generated "enc" value for ECH GREASE.
+  // In case of HRR, this value should be repeated in the second ClientHello.
+  Array<uint8_t> ech_key_share_pub;
 
   // key_share_bytes is the value of the previously sent KeyShare extension by
   // the client in TLS 1.3.
@@ -2731,6 +2739,10 @@ struct SSL_CONFIG {
 
   // verify_mode is a bitmask of |SSL_VERIFY_*| values.
   uint8_t verify_mode = SSL_VERIFY_NONE;
+
+  // ech_grease_enabled controls whether ECH GREASE may be sent in the Client
+  // Hello.
+  bool ech_grease_enabled : 1;
 
   // Enable signed certificate time stamps. Currently client only.
   bool signed_cert_timestamps_enabled : 1;
