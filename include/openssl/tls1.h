@@ -236,6 +236,13 @@ extern "C" {
 // extension number.
 #define TLSEXT_TYPE_delegated_credential 0xff02
 
+// ExtensionType value selected arbitrarily for draft-ietf-tls-esni-06. This is
+// not an IANA defined extension number.
+//
+// TODO(dmcardle): Update this when the ECHO draft selects a value for
+// encrypted_client_hello.
+#define TLSEXT_TYPE_encrypted_client_hello 0xff03
+
 // ExtensionType value from RFC6962
 #define TLSEXT_TYPE_certificate_timestamp 18
 

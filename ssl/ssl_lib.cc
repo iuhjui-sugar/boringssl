@@ -2877,6 +2877,13 @@ void SSL_set_jdk11_workaround(SSL *ssl, int enable) {
   ssl->config->jdk11_workaround = !!enable;
 }
 
+void SSL_set_enable_echo_grease(SSL *ssl, int enable) {
+  if (!ssl->config) {
+    return;
+  }
+  ssl->config->enable_echo_grease = enable;
+}
+
 int SSL_clear(SSL *ssl) {
   if (!ssl->config) {
     return 0;  // SSL_clear may not be used after shedding config.

@@ -7542,6 +7542,31 @@ func addExtensionTests() {
 		})
 	}
 
+	// Test ECHO GREASE.
+	//
+	// TODO(dmcardle): Test that client aborts with "decode_error"
+	// alert when server sends syntactically-invalid
+	// "encrypted_client_hello" extension.
+	testCases = append(testCases, testCase{
+		testType: clientTest,
+		name:     "ECHO-GREASE-Client-TLS13",
+		config: Config{
+			MinVersion: VersionTLS13,
+			MaxVersion: VersionTLS13,
+		},
+		flags: []string{"-enable-echo-grease"},
+	})
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "ECHO-GREASE-Server-TLS13",
+		config: Config{
+			MinVersion:        VersionTLS13,
+			MaxVersion:        VersionTLS13,
+			EchoGreaseEnabled: true,
+		},
+		flags: []string{},
+	})
+
 	testCases = append(testCases, testCase{
 		testType: clientTest,
 		name:     "ClientHelloPadding",
