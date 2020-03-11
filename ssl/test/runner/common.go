@@ -125,6 +125,9 @@ const (
 	extensionQUICTransportParams        uint16 = 0xffa5 // draft-ietf-quic-tls-13
 	extensionChannelID                  uint16 = 30032  // not IANA assigned
 	extensionDelegatedCredentials       uint16 = 0xff02 // not IANA assigned
+	// TODO(dmcardle): Update this when the ECHO draft selects a
+	// value for encrypted_client_hello.
+	extensionEncryptedClientHello uint16 = 0xff03 // not IANA assigned
 )
 
 // TLS signaling cipher suite values
@@ -369,6 +372,11 @@ type Config struct {
 	// certificates unless InsecureSkipVerify is given. It is also included
 	// in the client's handshake to support virtual hosting.
 	ServerName string
+
+	// EchoGreaseEnabled controls whether a client attempts to
+	// send an "encrypted_client_hello" extension with GREASE
+	// content on TLS 1.3 connections.
+	EchoGreaseEnabled bool
 
 	// ClientAuth determines the server's policy for
 	// TLS Client Authentication. The default is NoClientCert.
