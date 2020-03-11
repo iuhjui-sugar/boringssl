@@ -69,6 +69,7 @@ const Flag<bool> kBoolFlags[] = {
     {"-no-tls1", &TestConfig::no_tls1},
     {"-no-ticket", &TestConfig::no_ticket},
     {"-enable-channel-id", &TestConfig::enable_channel_id},
+    {"-enable-ech-grease", &TestConfig::enable_ech_grease},
     {"-shim-writes-first", &TestConfig::shim_writes_first},
     {"-expect-session-miss", &TestConfig::expect_session_miss},
     {"-decline-alpn", &TestConfig::decline_alpn},
@@ -1581,6 +1582,9 @@ bssl::UniquePtr<SSL> TestConfig::NewSSL(
   }
   if (!expect_channel_id.empty() || enable_channel_id) {
     SSL_set_tls_channel_id_enabled(ssl.get(), 1);
+  }
+  if (enable_ech_grease) {
+    SSL_set_enable_ech_grease(ssl.get(), 1);
   }
   if (!send_channel_id.empty()) {
     SSL_set_tls_channel_id_enabled(ssl.get(), 1);
