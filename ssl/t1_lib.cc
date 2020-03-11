@@ -113,10 +113,13 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <algorithm>
 #include <utility>
 
+#include <openssl/aead.h>
 #include <openssl/bytestring.h>
 #include <openssl/chacha.h>
+#include <openssl/curve25519.h>
 #include <openssl/digest.h>
 #include <openssl/err.h>
 #include <openssl/evp.h>
@@ -125,6 +128,7 @@
 #include <openssl/nid.h>
 #include <openssl/rand.h>
 
+#include "../crypto/hpke/internal.h"
 #include "../crypto/internal.h"
 #include "internal.h"
 
@@ -583,6 +587,230 @@ static bool ext_sni_add_serverhello(SSL_HANDSHAKE *hs, CBB *out) {
     return false;
   }
 
+  return true;
+}
+
+// random_size returns a random |size_t| value derived from RAND_bytes. The
+// returned value will be greater than or equal to |min| and less than |max|.
+static size_t random_size(size_t min, size_t max) {
+  assert(min < max);
+  size_t value;
+  RAND_bytes(reinterpret_cast<uint8_t *>(&value), sizeof(value));
+  return value % (max - min) + min;
+}
+
+// round_to_block rounds |n| up to the nearest multiple of |block_size|. If |n|
+// is already divisible by |block_size|, returns |n|.
+static constexpr size_t round_to_block(size_t block_size, size_t n) {
+  return n + ((n % block_size == 0) ? 0 : block_size - n % block_size);
+}
+
+
+// Encrypted Client Hello (ECH)
+//
+// https://tools.ietf.org/html/draft-ietf-tls-esni-08
+
+// Helper function that appends an "encrypted_client_hello" extension to |out|
+// and updates |hs->ech_state|.
+static bool ext_ech_add_clienthello_grease(SSL_HANDSHAKE *hs, CBB *out) {
+  constexpr uint16_t kAllKDFs[] = {EVP_HPKE_HKDF_SHA256, EVP_HPKE_HKDF_SHA384,
+                                   EVP_HPKE_HKDF_SHA512};
+  constexpr uint16_t kAllAEADs[] = {EVP_HPKE_AEAD_AES_GCM_128,
+                                    EVP_HPKE_AEAD_AES_GCM_256,
+                                    EVP_HPKE_AEAD_CHACHA20POLY1305};
+  const size_t kdf_index = random_size(0, OPENSSL_ARRAY_SIZE(kAllKDFs));
+  const uint16_t kdf_id = kAllKDFs[kdf_index];
+
+  const size_t aead_index = random_size(0, OPENSSL_ARRAY_SIZE(kAllAEADs));
+  const uint16_t aead_id = kAllAEADs[aead_index];
+
+  const EVP_MD *kdf = EVP_HPKE_get_kdf(kdf_id);
+  assert(kdf != nullptr);
+
+  const EVP_AEAD *aead = EVP_HPKE_get_aead(aead_id);
+  assert(aead != nullptr);
+
+  uint8_t config_id[EVP_MAX_MD_SIZE];
+  size_t config_id_len = EVP_MD_size(kdf);
+  RAND_bytes(config_id, config_id_len);
+
+  uint8_t key_share_pub[X25519_PUBLIC_VALUE_LEN];
+  uint8_t key_share_priv_unused[X25519_PRIVATE_KEY_LEN];
+  X25519_keypair(key_share_pub, key_share_priv_unused);
+
+  // Pick a random length for "encrypted_ch" and pad to the nearest 32 bytes.
+  //
+  // To estimate the range of plausible lengths for an inner ClientHello, we
+  // will walk through all TLS1.3 ClientHello fields and extensions. For each of
+  // these, we will estimate an inclusive [min, max] range. The sum of all these
+  // ranges will give us a [MIN, MAX] length for the inner ClientHello.
+  //
+  //   Field/Extension                         [min, max]
+  // ---------------------------------------------------------------------
+  //   version                                 [  2,   2]
+  //   random                                  [ 32,  32]
+  //   legacy_session_id                       [ 33,  33]
+  //      * Has a U8 length prefix.
+  //      * Always 32 bytes for TLS 1.3.
+  //   cipher_suites                           [ 35,  35]
+  //      * Has a U16 length prefix.
+  //      * Only include TLS 1.3 ciphers (3).  [  6,   6]
+  //      * Maybe also include a GREASE suite. [  0,   2]
+  //   legacy_compression_methods              [  2,   2]
+  //      * Has a U8 length prefix.
+  //   extensions:                             [  2,   2] (length prefix)
+  //      1. sni.                              [  5, 100] (ext body only)
+  //         * Has at least two U16 length
+  //           prefixes and one NameType byte.
+  //         * Picking 100 as upper bound based
+  //           on histogram of domain lengths.
+  //      2. encrypted_client_hello (empty).
+  //      3. supported_versions.
+  //      4. outer_extensions.
+  //         * U8 length prefix                [  1,   1]
+  //         * N extension IDs (2 bytes each):
+  //           1. key_share                    [  0,   2]
+  //           2. pre_shared_key               [  0,   2]
+  //           3. sigalgs                      [  2,   2]
+  //           4. sct                          [  2,   2]
+  //           5. alpn                         [  2,   2]
+  //           6. supported_groups.            [  0,   2]
+  //           7. status_request.              [  0,   2]
+  //           8. psk_key_exchange_modes.      [  0,   2]
+  //           9. compress_certificate.        [  0,   2]
+  //
+  //      Extension overhead:                  [  8,   8]
+  //        * Each extension body is preceded
+  //          by a U16 identifier and length
+  //          prefix.
+  //
+  //      --- Optional Extensions ---
+  //      1. grease_ext1.                      [  0,   0]
+  //      2. grease_ext2.                      [  0,   1]
+
+  //      Extension overhead:                  [  0,   4]
+  //
+  // ---------------------------------------------------------------------
+  // Plausible lengths for inner ClientHello:  [132, 246]
+
+  constexpr size_t kBlockSize = 32;
+  constexpr size_t kMinEncryptedCHLen = 132;
+  constexpr size_t kMaxEncryptedCHLen = 246;
+
+  uint8_t payload[EVP_MAX_KEY_LENGTH +
+                  round_to_block(kBlockSize, kMaxEncryptedCHLen)];
+  const size_t payload_len =
+      EVP_AEAD_key_length(aead) +
+      round_to_block(kBlockSize,
+                     random_size(kMinEncryptedCHLen, kMaxEncryptedCHLen));
+  assert(payload_len <= OPENSSL_ARRAY_SIZE(payload));
+  RAND_bytes(payload, payload_len);
+
+  // Inside the TLS extension contents, write a serialized ClientEncryptedCH.
+  CBB ech_body, config_id_bb, enc_bb, payload_bb;
+  if (!CBB_add_u16(out, TLSEXT_TYPE_encrypted_client_hello) ||
+      !CBB_add_u16_length_prefixed(out, &ech_body) ||
+      !CBB_add_u16(&ech_body, kdf_id) ||  //
+      !CBB_add_u16(&ech_body, aead_id) ||
+      !CBB_add_u8_length_prefixed(&ech_body, &config_id_bb) ||
+      !CBB_add_bytes(&config_id_bb, config_id, config_id_len) ||
+      !CBB_add_u16_length_prefixed(&ech_body, &enc_bb) ||
+      !CBB_add_bytes(&enc_bb, key_share_pub, sizeof(key_share_pub)) ||
+      !CBB_add_u16_length_prefixed(&ech_body, &payload_bb) ||
+      !CBB_add_bytes(&payload_bb, payload, payload_len) ||
+      !CBB_flush(out)) {
+    return false;
+  }
+  hs->ech_state = ssl_hs_ech_sent_grease;
+  return true;
+}
+
+static bool ext_ech_add_clienthello(SSL_HANDSHAKE *hs, CBB *out) {
+  if (hs->max_version < TLS1_3_VERSION) {
+    return true;
+  }
+  if (hs->config->ech_grease_enabled) {
+    return ext_ech_add_clienthello_grease(hs, out);
+  }
+  // Nothing to do, since we don't yet implement the non-GREASE parts of ECH.
+  return true;
+}
+
+static bool ext_ech_parse_serverhello(SSL_HANDSHAKE *hs, uint8_t *out_alert,
+                                       CBS *contents) {
+  if (contents == NULL) {
+    return true;
+  }
+
+  // If the client only sent GREASE, we must check the extension syntactically
+  // and abort with "decode_error" alert if it is invalid.
+  CBS ech_configs;
+  if (!CBS_get_u16_length_prefixed(contents, &ech_configs) ||
+      CBS_len(&ech_configs) == 0 || //
+      CBS_len(contents) > 0) {
+    *out_alert = SSL_AD_DECODE_ERROR;
+    return false;
+  }
+  while (CBS_len(&ech_configs) > 0) {
+    uint16_t version;
+    CBS ech_config_contents;
+    if (!CBS_get_u16(&ech_configs, &version) ||
+        !CBS_get_u16_length_prefixed(&ech_configs, &ech_config_contents)) {
+      *out_alert = SSL_AD_DECODE_ERROR;
+      return false;
+    }
+
+    // Skip the ECHConfig if it's not a version we support.
+    if (version != TLSEXT_TYPE_encrypted_client_hello) {
+      continue;
+    }
+
+    CBS public_name, public_key;
+    uint16_t kem_id;
+    CBS cipher_suites;
+    uint16_t max_name_len;
+    CBS extensions;
+    if (!CBS_get_u16_length_prefixed(&ech_config_contents, &public_name) ||
+        CBS_len(&public_name) == 0 ||
+        !CBS_get_u16_length_prefixed(&ech_config_contents, &public_key) ||
+        CBS_len(&public_key) == 0 ||
+        !CBS_get_u16(&ech_config_contents, &kem_id) ||
+        !CBS_get_u16_length_prefixed(&ech_config_contents, &cipher_suites) ||
+        CBS_len(&cipher_suites) < 4 || CBS_len(&cipher_suites) % 4 != 0 ||
+        !CBS_get_u16(&ech_config_contents, &max_name_len) ||
+        !CBS_get_u16_length_prefixed(&ech_config_contents, &extensions)) {
+      *out_alert = SSL_AD_DECODE_ERROR;
+      return false;
+    }
+
+    // Verify that no extensions are duplicated.
+    GrowableArray<uint16_t> extension_ids;
+    while (CBS_len(&extensions) > 0) {
+      uint16_t extension_id;
+      CBS body;
+      if (!CBS_get_u16(&extensions, &extension_id) ||
+          !CBS_get_u16_length_prefixed(&extensions, &body)) {
+        *out_alert = SSL_AD_DECODE_ERROR;
+        return false;
+      }
+
+      if (std::find(extension_ids.begin(), extension_ids.end(), extension_id)) {
+        *out_alert = SSL_AD_DECODE_ERROR;
+        return false;
+      }
+
+      extension_ids.Push(extension_id);
+    }
+  }
+  return true;
+}
+
+static bool ext_ech_parse_clienthello(SSL_HANDSHAKE *hs, uint8_t *out_alert,
+                                       CBS *contents) {
+  return true;
+}
+
+static bool ext_ech_add_serverhello(SSL_HANDSHAKE *hs, CBB *out) {
   return true;
 }
 
@@ -2969,6 +3197,14 @@ static const struct tls_extension kExtensions[] = {
     ext_sni_parse_serverhello,
     ext_sni_parse_clienthello,
     ext_sni_add_serverhello,
+  },
+  {
+    TLSEXT_TYPE_encrypted_client_hello,
+    NULL,
+    ext_ech_add_clienthello,
+    ext_ech_parse_serverhello,
+    ext_ech_parse_clienthello,
+    ext_ech_add_serverhello,
   },
   {
     TLSEXT_TYPE_extended_master_secret,
