@@ -403,6 +403,10 @@ func (hs *serverHandshakeState) doTLS13Handshake() error {
 		return err
 	}
 
+	if config.ECHEnabled && len(config.ECHConfigs) > 0 {
+		encryptedExtensions.extensions.echRetryConfigs = config.ECHConfigs
+	}
+
 	// Select the cipher suite.
 	var preferenceList, supportedList []uint16
 	if config.PreferServerCipherSuites {
