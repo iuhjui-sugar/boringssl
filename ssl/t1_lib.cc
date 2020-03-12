@@ -2583,7 +2583,7 @@ static bool ext_quic_transport_params_parse_clienthello(SSL_HANDSHAKE *hs,
                                                         uint8_t *out_alert,
                                                         CBS *contents) {
   SSL *const ssl = hs->ssl;
-  if (!contents || hs->config->quic_transport_params.empty()) {
+  if (!contents || !ssl->quic_method) {
     return true;
   }
   // Ignore the extension before TLS 1.3.
