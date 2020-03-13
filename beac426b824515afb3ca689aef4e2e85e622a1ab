@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1f028a85_dac150a3",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 5675,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-13T18:41:49Z",
+      "side": 1,
+      "message": "Nit: const",
+      "range": {
+        "startLine": 5675,
+        "startChar": 41,
+        "endLine": 5675,
+        "endChar": 44
+      },
+      "revId": "beac426b824515afb3ca689aef4e2e85e622a1ab",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15fe066a_e1a9cf54",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 5676,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-13T18:41:49Z",
+      "side": 1,
+      "message": "Nit: Span\u003cconst uint8_t\u003e will save some sizeofs.",
+      "range": {
+        "startLine": 5675,
+        "startChar": 51,
+        "endLine": 5676,
+        "endChar": 60
+      },
+      "revId": "beac426b824515afb3ca689aef4e2e85e622a1ab",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88354294_e41f621e",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 5688,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-13T18:41:49Z",
+      "side": 1,
+      "message": "Probably less code (and tidier errors) would be:\n\n  void ExpectReceivedTransportParamsEqual(const SSL *ssl, Span\u003cconst uint8_t\u003e expected) {\n    ...\n    SSL_get_peer_quic...;\n    EXPECT_EQ(Bytes(received, received_len), Bytes(expected));\n  }\n\n(We added Bytes before Span\u003cconst uint8_t\u003e and it prints in hex so it\u0027s still vaguely different, though the difference is definitely a bit goofy. :-/ )",
+      "revId": "beac426b824515afb3ca689aef4e2e85e622a1ab",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db153a7f_e3a5c420",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2589,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-13T18:41:49Z",
+      "side": 1,
+      "message": "We can probably remove this check and switch it with an assert. QUIC already implies TLS 1.3 (the versioning logic won\u0027t negotiate anything else).",
+      "revId": "beac426b824515afb3ca689aef4e2e85e622a1ab",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
