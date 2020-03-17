@@ -24,10 +24,12 @@ import (
 
 const tagHandshake = byte('H')
 const tagApplication = byte('A')
+const tagAlert = byte('L')
 
 type mockQUICTransport struct {
 	net.Conn
 	readSecret, writeSecret []byte
+	skipEarlyData           bool
 }
 
 func newMockQUICTransport(conn net.Conn) *mockQUICTransport {
@@ -36,21 +38,32 @@ func newMockQUICTransport(conn net.Conn) *mockQUICTransport {
 
 func (m *mockQUICTransport) read() (byte, []byte, error) {
 	header := make([]byte, 5)
-	if _, err := io.ReadFull(m.Conn, header); err != nil {
-		return 0, nil, err
-	}
-	var length uint32
-	binary.Read(bytes.NewBuffer(header[1:]), binary.BigEndian, &length)
-	secret := make([]byte, len(m.readSecret))
-	if _, err := io.ReadFull(m.Conn, secret); err != nil {
-		return 0, nil, err
-	}
-	if !bytes.Equal(secret, m.readSecret) {
-		return 0, nil, fmt.Errorf("secrets don't match")
-	}
-	out := make([]byte, int(length))
-	if _, err := io.ReadFull(m.Conn, out); err != nil {
-		return 0, nil, err
+	out := []byte{}
+	retryRead := true
+	for retryRead {
+		retryRead = false
+		if _, err := io.ReadFull(m.Conn, header); err != nil {
+			return 0, nil, err
+		}
+		var length uint32
+		binary.Read(bytes.NewBuffer(header[1:]), binary.BigEndian, &length)
+		secret := make([]byte, len(m.readSecret))
+		if _, err := io.ReadFull(m.Conn, secret); err != nil {
+			return 0, nil, err
+		}
+		if !bytes.Equal(secret, m.readSecret) {
+			if !m.skipEarlyData {
+				return 0, nil, fmt.Errorf("secrets don't match: got %x but expected %x", secret, m.readSecret)
+			}
+			retryRead = true
+		}
+		out = make([]byte, int(length))
+		if _, err := io.ReadFull(m.Conn, out); err != nil {
+			return 0, nil, err
+		}
+		if !retryRead && m.skipEarlyData && header[0] == tagHandshake {
+			m.skipEarlyData = false
+		}
 	}
 	return header[0], out, nil
 }
@@ -65,6 +78,8 @@ func (m *mockQUICTransport) readRecord(want recordType) (recordType, *block, err
 		returnType = recordTypeHandshake
 	} else if typ == tagApplication {
 		returnType = recordTypeApplicationData
+	} else if typ == tagAlert {
+		returnType = recordTypeAlert
 	} else {
 		return 0, nil, fmt.Errorf("unknown type %d\n", typ)
 	}
