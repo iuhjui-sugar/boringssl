@@ -23,6 +23,7 @@ namespace {
 
 const uint8_t kTagHandshake = 'H';
 const uint8_t kTagApplication = 'A';
+const uint8_t kTagAlert = 'L';
 
 bool write_header(BIO *bio, uint8_t tag, size_t len) {
   uint8_t header[5];
@@ -147,8 +148,15 @@ int MockQuicTransport::ReadApplicationData(uint8_t *out, size_t max_out) {
     if (tag != kTagHandshake && tag != kTagApplication) {
       return -1;
     }
-    const std::vector<uint8_t> &secret =
-        read_secrets_[ssl_encryption_application];
+    enum ssl_encryption_level_t level;
+    if (tag == kTagHandshake) {
+      level = SSL_quic_read_level(ssl_);
+    } else if (SSL_in_early_data(ssl_)) {
+      level = ssl_encryption_early_data;
+    } else {
+      level = ssl_encryption_application;
+    }
+    const std::vector<uint8_t> &secret = read_secrets_[level];
     std::vector<uint8_t> read_secret(secret.size());
     if (!ReadAll(bio_.get(), bssl::MakeSpan(read_secret))) {
       return -1;
@@ -165,8 +173,19 @@ int MockQuicTransport::ReadApplicationData(uint8_t *out, size_t max_out) {
       return -1;
     }
     if (SSL_provide_quic_data(ssl_, SSL_quic_read_level(ssl_), buf.data(),
-                              buf.size()) != 1 ||
-        SSL_process_quic_post_handshake(ssl_) != 1) {
+                              buf.size()) != 1) {
+      return -1;
+    }
+    if (SSL_in_init(ssl_)) {
+      int ret = SSL_do_handshake(ssl_);
+      if (ret < 0) {
+        int ssl_err = SSL_get_error(ssl_, ret);
+        if (ssl_err == SSL_ERROR_WANT_READ) {
+          continue;
+        }
+        return ret;
+      }
+    } else if (SSL_process_quic_post_handshake(ssl_) != 1) {
       return -1;
     }
   }
@@ -200,8 +219,11 @@ bool MockQuicTransport::WriteHandshakeData(enum ssl_encryption_level_t level,
 }
 
 bool MockQuicTransport::WriteApplicationData(const uint8_t *in, size_t len) {
-  const std::vector<uint8_t> &secret =
-      write_secrets_[ssl_encryption_application];
+  enum ssl_encryption_level_t level = ssl_encryption_application;
+  if (SSL_in_early_data(ssl_) && !SSL_is_server(ssl_)) {
+    level = ssl_encryption_early_data;
+  }
+  std::vector<uint8_t> &secret = write_secrets_[level];
   if (!write_header(bio_.get(), kTagApplication, len) ||
       BIO_write_all(bio_.get(), secret.data(), secret.size()) != 1 ||
       BIO_write_all(bio_.get(), in, len) != 1) {
@@ -211,3 +233,14 @@ bool MockQuicTransport::WriteApplicationData(const uint8_t *in, size_t len) {
 }
 
 bool MockQuicTransport::Flush() { return BIO_flush(bio_.get()); }
+
+bool MockQuicTransport::SendAlert(enum ssl_encryption_level_t level, uint8_t alert) {
+  const std::vector<uint8_t> &secret = write_secrets_[level];
+  uint8_t alert_msg[] = {2, alert};
+  if (!write_header(bio_.get(), kTagAlert, sizeof(alert_msg)) ||
+      BIO_write_all(bio_.get(), secret.data(), secret.size()) != 1 ||
+      BIO_write_all(bio_.get(), alert_msg, sizeof(alert_msg)) != 1) {
+    return false;
+  }
+  return true;
+}
