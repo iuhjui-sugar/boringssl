@@ -1022,7 +1022,7 @@ ResendHelloRetryRequest:
 	}
 
 	// Read end_of_early_data.
-	if encryptedExtensions.extensions.hasEarlyData {
+	if encryptedExtensions.extensions.hasEarlyData && config.Bugs.MockQUICTransport == nil {
 		msg, err := c.readHandshake()
 		if err != nil {
 			return err
