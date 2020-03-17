@@ -24,6 +24,7 @@ import (
 
 const tagHandshake = byte('H')
 const tagApplication = byte('A')
+const tagAlert = byte('L')
 
 type mockQUICTransport struct {
 	net.Conn
@@ -45,12 +46,19 @@ func (m *mockQUICTransport) read() (byte, []byte, error) {
 	if _, err := io.ReadFull(m.Conn, secret); err != nil {
 		return 0, nil, err
 	}
+	skipRead := false
 	if !bytes.Equal(secret, m.readSecret) {
-		return 0, nil, fmt.Errorf("secrets don't match")
+		skipRead = true
+		if header[0] != tagApplication {
+			return 0, nil, fmt.Errorf("secrets don't match: got %x but expected %x", secret, m.readSecret)
+		}
 	}
 	out := make([]byte, int(length))
 	if _, err := io.ReadFull(m.Conn, out); err != nil {
 		return 0, nil, err
+	}
+	if skipRead {
+		return m.read()
 	}
 	return header[0], out, nil
 }
@@ -65,6 +73,8 @@ func (m *mockQUICTransport) readRecord(want recordType) (recordType, *block, err
 		returnType = recordTypeHandshake
 	} else if typ == tagApplication {
 		returnType = recordTypeApplicationData
+	} else if typ == tagAlert {
+		returnType = recordTypeAlert
 	} else {
 		return 0, nil, fmt.Errorf("unknown type %d\n", typ)
 	}
