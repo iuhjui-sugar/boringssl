@@ -39,6 +39,7 @@ class MockQuicTransport {
   int ReadApplicationData(uint8_t *out, size_t max_out);
   bool WriteApplicationData(const uint8_t *in, size_t len);
   bool Flush();
+  bool SendAlert(enum ssl_encryption_level_t level, uint8_t alert);
 
  private:
   bssl::UniquePtr<BIO> bio_;
