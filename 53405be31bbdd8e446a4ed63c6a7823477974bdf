@@ -1,0 +1,377 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1d334275_9943d4c5",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-18T23:22:38Z",
+      "side": 1,
+      "message": "|OPENSSL_malloc|",
+      "range": {
+        "startLine": 47,
+        "startChar": 20,
+        "endLine": 47,
+        "endChar": 34
+      },
+      "revId": "53405be31bbdd8e446a4ed63c6a7823477974bdf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b295414e_f4405289",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-18T23:22:38Z",
+      "side": 1,
+      "message": "Is the intent here to reduce copies from the caller? The caller doesn\u0027t actually allocate their data with OPENSSL_malloc, so they\u0027ll end up needing to do the copy anyway, but it\u0027ll be more tedious. (Or are you envisioning they\u0027ll take a uint8_t **out and feed it in? In that case I\u0027d suggest just giving them a TRUST_TOKEN* to save the trouble.)",
+      "range": {
+        "startLine": 47,
+        "startChar": 58,
+        "endLine": 47,
+        "endChar": 73
+      },
+      "revId": "53405be31bbdd8e446a4ed63c6a7823477974bdf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "166beac3_54587201",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-18T23:22:38Z",
+      "side": 1,
+      "message": "TRUST_TOKEN_CLIENT",
+      "range": {
+        "startLine": 76,
+        "startChar": 53,
+        "endLine": 76,
+        "endChar": 72
+      },
+      "revId": "53405be31bbdd8e446a4ed63c6a7823477974bdf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd94f0ad_b56e3197",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-18T23:22:38Z",
+      "side": 1,
+      "message": "Would it make sense to fold these into the client and issuer sections?",
+      "revId": "53405be31bbdd8e446a4ed63c6a7823477974bdf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "740156ab_cbb3a70b",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-18T23:22:38Z",
+      "side": 1,
+      "message": "the?",
+      "range": {
+        "startLine": 112,
+        "startChar": 49,
+        "endLine": 112,
+        "endChar": 50
+      },
+      "revId": "53405be31bbdd8e446a4ed63c6a7823477974bdf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10401ace_96c76f5e",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-18T23:22:38Z",
+      "side": 1,
+      "message": "How large is this? Would it be reasonable to have the caller supply the space with some constant for the largest size? (Ditto for the other message input/output APIs.)\n\nThis way the C++ consumer can just size a std::vector or a stack buffer, which seems a little less annoying than having to deal with lifetimes.",
+      "range": {
+        "startLine": 121,
+        "startChar": 37,
+        "endLine": 121,
+        "endChar": 59
+      },
+      "revId": "53405be31bbdd8e446a4ed63c6a7823477974bdf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c7e687a_8f683761",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-18T23:22:38Z",
+      "side": 1,
+      "message": "Nit: I think \"consumes |response| from the issuer\" reads better since |response| is a name here. Ditto bellow.",
+      "range": {
+        "startLine": 130,
+        "startChar": 47,
+        "endLine": 130,
+        "endChar": 49
+      },
+      "revId": "53405be31bbdd8e446a4ed63c6a7823477974bdf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4a45479_c4dcb7f2",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-18T23:22:38Z",
+      "side": 1,
+      "message": "How does this value work? (Seconds since UNIX epoch?)",
+      "range": {
+        "startLine": 150,
+        "startChar": 13,
+        "endLine": 150,
+        "endChar": 17
+      },
+      "revId": "53405be31bbdd8e446a4ed63c6a7823477974bdf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5bdd0503_067ef38f",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-18T23:22:38Z",
+      "side": 1,
+      "message": "the?",
+      "range": {
+        "startLine": 168,
+        "startChar": 48,
+        "endLine": 168,
+        "endChar": 49
+      },
+      "revId": "53405be31bbdd8e446a4ed63c6a7823477974bdf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "255af1c0_f867232f",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-18T23:22:38Z",
+      "side": 1,
+      "message": "What are the constraints on public_metadata? It seems, public or private, this would be a tracking vector so I assume it is limited in some way. Are we really allowing 8 bits?",
+      "range": {
+        "startLine": 184,
+        "startChar": 23,
+        "endLine": 184,
+        "endChar": 38
+      },
+      "revId": "53405be31bbdd8e446a4ed63c6a7823477974bdf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "baac7888_9777ba9a",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-18T23:22:38Z",
+      "side": 1,
+      "message": "Same comments about \"a\" in front of variable names here and below.",
+      "range": {
+        "startLine": 191,
+        "startChar": 36,
+        "endLine": 191,
+        "endChar": 47
+      },
+      "revId": "53405be31bbdd8e446a4ed63c6a7823477974bdf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2180cf4b_23a2c898",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-18T23:22:38Z",
+      "side": 1,
+      "message": "Would a size_t make more sense here? I guess the expectation is this limit is tiny, but counts of things in general are size_t. (C silently truncates stuff so small integer inputs can be fun.)",
+      "range": {
+        "startLine": 203,
+        "startChar": 44,
+        "endLine": 203,
+        "endChar": 51
+      },
+      "revId": "53405be31bbdd8e446a4ed63c6a7823477974bdf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e59370c_67c33847",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-18T23:22:38Z",
+      "side": 1,
+      "message": "Nit: Here you wrote \"signed redemption record\" but above it\u0027s \"SRR\".",
+      "range": {
+        "startLine": 207,
+        "startChar": 48,
+        "endLine": 207,
+        "endChar": 72
+      },
+      "revId": "53405be31bbdd8e446a4ed63c6a7823477974bdf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a16a879f_f1208111",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-18T23:22:38Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 224,
+        "startChar": 47,
+        "endLine": 224,
+        "endChar": 50
+      },
+      "revId": "53405be31bbdd8e446a4ed63c6a7823477974bdf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4bc3f64_5a5719b8",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-18T23:22:38Z",
+      "side": 1,
+      "message": "What is a private metadata key? (The output of TRUST_TOKEN_generate_key?)",
+      "range": {
+        "startLine": 225,
+        "startChar": 3,
+        "endLine": 225,
+        "endChar": 23
+      },
+      "revId": "53405be31bbdd8e446a4ed63c6a7823477974bdf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ac50dfc_6b4ba789",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-18T23:22:38Z",
+      "side": 1,
+      "message": "Two newlines before the extern C closing.",
+      "revId": "53405be31bbdd8e446a4ed63c6a7823477974bdf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0393529b_eb6a9289",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-18T23:22:38Z",
+      "side": 1,
+      "message": "Set up deleters so that bssl::UniquePtr works.",
+      "revId": "53405be31bbdd8e446a4ed63c6a7823477974bdf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
