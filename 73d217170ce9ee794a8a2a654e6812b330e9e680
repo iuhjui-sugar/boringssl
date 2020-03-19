@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9e25d260_201e0d29",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1101,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-19T19:38:58Z",
+      "side": 1,
+      "message": "Nit: list? I usually associate \"set\" with unordered, and the cert chain is ordered.",
+      "range": {
+        "startLine": 1101,
+        "startChar": 34,
+        "endLine": 1101,
+        "endChar": 37
+      },
+      "revId": "73d217170ce9ee794a8a2a654e6812b330e9e680",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b1cfe37_475c2adb",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1103,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-19T19:38:58Z",
+      "side": 1,
+      "message": "s/nullptr/NULL/ since it\u0027s a C API?",
+      "range": {
+        "startLine": 1103,
+        "startChar": 34,
+        "endLine": 1103,
+        "endChar": 41
+      },
+      "revId": "73d217170ce9ee794a8a2a654e6812b330e9e680",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
