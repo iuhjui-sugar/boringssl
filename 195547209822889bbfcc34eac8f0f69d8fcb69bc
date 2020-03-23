@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6f88ef7f_f125629e",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 12157,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-23T19:29:12Z",
+      "side": 1,
+      "message": "Optional/follow-up/whichever: Perhaps it\u0027s time to make a protocol.String() method.",
+      "revId": "195547209822889bbfcc34eac8f0f69d8fcb69bc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
