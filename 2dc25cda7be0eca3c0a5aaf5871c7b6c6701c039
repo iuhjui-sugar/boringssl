@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "262c3bec_4259edbf",
+        "filename": "crypto/mem.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-03-23T22:26:30Z",
+      "side": 1,
+      "message": "Why do you need to hook the memory-clearing function? Don\u0027t you just need to track deallocation?",
+      "revId": "2dc25cda7be0eca3c0a5aaf5871c7b6c6701c039",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
