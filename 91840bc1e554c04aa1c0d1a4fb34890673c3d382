@@ -1,0 +1,158 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e569250a_c5da0ec5",
+        "filename": "ssl/test/mock_quic_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-23T18:37:33Z",
+      "side": 1,
+      "message": "Probably better to return -1. I don\u0027t think SSL_do_handshake can return 0 here, but if it does, that way we don\u0027t look like we\u0027re returning EOF.",
+      "range": {
+        "startLine": 186,
+        "startChar": 15,
+        "endLine": 186,
+        "endChar": 18
+      },
+      "revId": "91840bc1e554c04aa1c0d1a4fb34890673c3d382",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da9effe7_200774d3",
+        "filename": "ssl/test/mock_quic_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-23T18:37:33Z",
+      "side": 1,
+      "message": "const",
+      "revId": "91840bc1e554c04aa1c0d1a4fb34890673c3d382",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8299387_eb8a0a9c",
+        "filename": "ssl/test/mock_quic_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-23T18:37:33Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "91840bc1e554c04aa1c0d1a4fb34890673c3d382",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c872fd67_3da62fb2",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 1024,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-23T18:37:33Z",
+      "side": 1,
+      "message": "Hrm. How come we don\u0027t need something similar on the client?",
+      "range": {
+        "startLine": 1024,
+        "startChar": 9,
+        "endLine": 1024,
+        "endChar": 26
+      },
+      "revId": "91840bc1e554c04aa1c0d1a4fb34890673c3d382",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60a40c9b_0591aaf3",
+        "filename": "ssl/test/runner/mock_quic_transport.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-23T18:37:33Z",
+      "side": 1,
+      "message": "(Comment as to what\u0027s going on?)\n\nI\u0027m guessing this is about skipping early data. Would it work to only do it when configured? We could replace the c.skipEarlyData \u003d {true,false} lines with some method call which could mirror the setting on the MockQUICTransport.",
+      "revId": "91840bc1e554c04aa1c0d1a4fb34890673c3d382",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "998a07db_21476268",
+        "filename": "ssl/test/runner/mock_quic_transport.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-23T18:37:33Z",
+      "side": 1,
+      "message": "Not sure if Go does tail call optimization. Wrap it in a loop?",
+      "revId": "91840bc1e554c04aa1c0d1a4fb34890673c3d382",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b5031c3_64e8aaf9",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 5390,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-23T18:37:33Z",
+      "side": 1,
+      "message": "Hrm, this is a bit of a mess of QUIC exceptions. :-(\n\nSo, this originally came about because:\n\n- Renego is TLS-only (We don\u0027t implement it in DTLS)\n- False Start is TLS-only (We don\u0027t implement it in DTLS)\n- V2ClientHello is TLS-only (Doesn\u0027t exist in DTLS)\n- NPN and Channel ID are TLS-only (We don\u0027t implement them in DTLS. We could, but the DTLS final flight retransmission logic assumes the only post-CCS handshake message is Finished.)\n- Shutdown isn\u0027t meaningful in QUIC\n\nOf these, the only thing that applies to QUIC is Channel ID. Maybe it would make more sense to extract the Channel ID tests into their own block, so we don\u0027t need to pepper QUIC exceptions everywhere.",
+      "revId": "91840bc1e554c04aa1c0d1a4fb34890673c3d382",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec5f59c4_50494333",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 5557,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-23T18:37:33Z",
+      "side": 1,
+      "message": "I think this can, instead, iterate over allVersions(config.protocol)",
+      "range": {
+        "startLine": 5557,
+        "startChar": 11,
+        "endLine": 5557,
+        "endChar": 27
+      },
+      "revId": "91840bc1e554c04aa1c0d1a4fb34890673c3d382",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
