@@ -16,6 +16,24 @@
       "revId": "2dc25cda7be0eca3c0a5aaf5871c7b6c6701c039",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b29430c_cf090b72",
+        "filename": "crypto/mem.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 9872
+      },
+      "writtenOn": "2020-03-24T14:37:19Z",
+      "side": 1,
+      "message": "Changed to not include memory-clearing.\nIn Coroner use-case the memory will be zeroed twice.\nBut this is fine.",
+      "parentUuid": "262c3bec_4259edbf",
+      "revId": "2dc25cda7be0eca3c0a5aaf5871c7b6c6701c039",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
