@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5236f1ac_1154115e",
+        "filename": "ssl/test/mock_quic_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-03-25T02:32:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e569250a_c5da0ec5",
+      "range": {
+        "startLine": 186,
+        "startChar": 15,
+        "endLine": 186,
+        "endChar": 18
+      },
+      "revId": "91840bc1e554c04aa1c0d1a4fb34890673c3d382",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da9effe7_200774d3",
         "filename": "ssl/test/mock_quic_transport.cc",
         "patchSetId": 3
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "cde5fc7e_04673935",
+        "filename": "ssl/test/mock_quic_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-03-25T02:32:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da9effe7_200774d3",
+      "revId": "91840bc1e554c04aa1c0d1a4fb34890673c3d382",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d8299387_eb8a0a9c",
         "filename": "ssl/test/mock_quic_transport.cc",
         "patchSetId": 3
@@ -56,6 +98,24 @@
       "revId": "91840bc1e554c04aa1c0d1a4fb34890673c3d382",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2424aa83_dcb771d2",
+        "filename": "ssl/test/mock_quic_transport.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-03-25T02:32:14Z",
+      "side": 1,
+      "message": "Done. (Forgot to run git clang-format.)",
+      "parentUuid": "d8299387_eb8a0a9c",
+      "revId": "91840bc1e554c04aa1c0d1a4fb34890673c3d382",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -82,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "54e554fa_0764c133",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 1024,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-03-25T02:32:14Z",
+      "side": 1,
+      "message": "It appears we don\u0027t have any tests yet that have bogo sending EOED in QUIC. (I.e. the only coverage of early data in QUIC in runner so far is when the client is under test.)",
+      "parentUuid": "c872fd67_3da62fb2",
+      "range": {
+        "startLine": 1024,
+        "startChar": 9,
+        "endLine": 1024,
+        "endChar": 26
+      },
+      "revId": "91840bc1e554c04aa1c0d1a4fb34890673c3d382",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "60a40c9b_0591aaf3",
         "filename": "ssl/test/runner/mock_quic_transport.go",
         "patchSetId": 3
@@ -93,6 +177,24 @@
       "writtenOn": "2020-03-23T18:37:33Z",
       "side": 1,
       "message": "(Comment as to what\u0027s going on?)\n\nI\u0027m guessing this is about skipping early data. Would it work to only do it when configured? We could replace the c.skipEarlyData \u003d {true,false} lines with some method call which could mirror the setting on the MockQUICTransport.",
+      "revId": "91840bc1e554c04aa1c0d1a4fb34890673c3d382",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac949dc9_fe51f028",
+        "filename": "ssl/test/runner/mock_quic_transport.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-03-25T02:32:14Z",
+      "side": 1,
+      "message": "Your guess is correct - it\u0027s to skip early data. This is so EarlyData-Reject0RTT-Client-Reverify, EarlyData-RejectTicket-Client-Reverify, and EarlyData-Reject0RTT-Client-ReverifyFails pass.",
+      "parentUuid": "60a40c9b_0591aaf3",
       "revId": "91840bc1e554c04aa1c0d1a4fb34890673c3d382",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -133,6 +235,24 @@
     },
     {
       "key": {
+        "uuid": "db51b509_c625af01",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 5390,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-03-25T02:32:14Z",
+      "side": 1,
+      "message": "Apologies for the mess that this diff appears to be. Unfortunately git/gerrit didn\u0027t detect that most of the changes are just adding a level of indentation instead of moving large blocks of code around.\n\nIs the mess you\u0027re referring to just the checks in the block starting on line 5389, or something larger?",
+      "parentUuid": "7b5031c3_64e8aaf9",
+      "revId": "91840bc1e554c04aa1c0d1a4fb34890673c3d382",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ec5f59c4_50494333",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 3
@@ -153,6 +273,30 @@
       "revId": "91840bc1e554c04aa1c0d1a4fb34890673c3d382",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2a42aa5_9ae79b95",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 5557,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-03-25T02:32:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ec5f59c4_50494333",
+      "range": {
+        "startLine": 5557,
+        "startChar": 11,
+        "endLine": 5557,
+        "endChar": 27
+      },
+      "revId": "91840bc1e554c04aa1c0d1a4fb34890673c3d382",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
