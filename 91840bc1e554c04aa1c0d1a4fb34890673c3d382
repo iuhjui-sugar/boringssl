@@ -201,6 +201,24 @@
     },
     {
       "key": {
+        "uuid": "5280499d_14cd4050",
+        "filename": "ssl/test/runner/mock_quic_transport.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-03-25T22:47:05Z",
+      "side": 1,
+      "message": "I\u0027ve changed how skipping early data is signaled to the tls Conn object (which allows it to signal to the MockQUICTransport).",
+      "parentUuid": "ac949dc9_fe51f028",
+      "revId": "91840bc1e554c04aa1c0d1a4fb34890673c3d382",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "998a07db_21476268",
         "filename": "ssl/test/runner/mock_quic_transport.go",
         "patchSetId": 3
@@ -215,6 +233,24 @@
       "revId": "91840bc1e554c04aa1c0d1a4fb34890673c3d382",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "212576ed_4bd8bcf7",
+        "filename": "ssl/test/runner/mock_quic_transport.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-03-25T22:47:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "998a07db_21476268",
+      "revId": "91840bc1e554c04aa1c0d1a4fb34890673c3d382",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -250,6 +286,24 @@
       "revId": "91840bc1e554c04aa1c0d1a4fb34890673c3d382",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c96414e_33621141",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 5390,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-03-25T22:47:05Z",
+      "side": 1,
+      "message": "I moved the block of Channel ID tests below here to allow combining two \"if config.protocol !\u003d quic\" blocks together.\n\nFrom looking at the start of addStateMachineCoverageTests, it looks like a lot of this function is set up organizing the tests by features and then by versions (e.g. check basic TLS features, then check client auth, etc.), so each \"by version\" section has its own \"if config.protocol !\u003d quic\" check for the tests that are TLS 1.2 only. If you\u0027d like, I could refactor this so there\u0027s only one \"if config.protocol !\u003d quic\" check, but I don\u0027t know what that would do to the organization of the file.",
+      "parentUuid": "db51b509_c625af01",
+      "revId": "91840bc1e554c04aa1c0d1a4fb34890673c3d382",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
