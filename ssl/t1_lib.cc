@@ -2547,9 +2547,12 @@ static bool ext_token_binding_add_serverhello(SSL_HANDSHAKE *hs, CBB *out) {
 
 static bool ext_quic_transport_params_add_clienthello(SSL_HANDSHAKE *hs,
                                                       CBB *out) {
-  if (hs->config->quic_transport_params.empty() ||
-      hs->max_version <= TLS1_2_VERSION) {
+  if (hs->config->quic_transport_params.empty() && !hs->ssl->quic_method) {
     return true;
+  }
+  if (hs->config->quic_transport_params.empty() || !hs->ssl->quic_method ||
+      hs->max_version <= TLS1_2_VERSION) {
+    return false;
   }
 
   CBB contents;
@@ -2568,10 +2571,14 @@ static bool ext_quic_transport_params_parse_serverhello(SSL_HANDSHAKE *hs,
                                                         CBS *contents) {
   SSL *const ssl = hs->ssl;
   if (contents == nullptr) {
-    return true;
+    if (!ssl->quic_method) {
+      return true;
+    }
+    *out_alert = SSL_AD_MISSING_EXTENSION;
+    return false;
   }
   // QUIC requires TLS 1.3.
-  if (ssl_protocol_version(ssl) < TLS1_3_VERSION) {
+  if (ssl_protocol_version(ssl) < TLS1_3_VERSION || !ssl->quic_method) {
     *out_alert = SSL_AD_UNSUPPORTED_EXTENSION;
     return false;
   }
@@ -2583,8 +2590,16 @@ static bool ext_quic_transport_params_parse_clienthello(SSL_HANDSHAKE *hs,
                                                         uint8_t *out_alert,
                                                         CBS *contents) {
   SSL *const ssl = hs->ssl;
-  if (!contents || !ssl->quic_method) {
-    return true;
+  if (!contents) {
+    if (!ssl->quic_method) {
+      return true;
+    }
+    *out_alert = SSL_AD_MISSING_EXTENSION;
+    return false;
+  }
+  if (!ssl->quic_method) {
+    *out_alert = SSL_AD_UNSUPPORTED_EXTENSION;
+    return false;
   }
   assert(ssl_protocol_version(ssl) == TLS1_3_VERSION);
   return ssl->s3->peer_quic_transport_params.CopyFrom(*contents);
@@ -2592,8 +2607,8 @@ static bool ext_quic_transport_params_parse_clienthello(SSL_HANDSHAKE *hs,
 
 static bool ext_quic_transport_params_add_serverhello(SSL_HANDSHAKE *hs,
                                                       CBB *out) {
-  if (hs->config->quic_transport_params.empty()) {
-    return true;
+  if (!hs->ssl->quic_method || hs->config->quic_transport_params.empty()) {
+    return false;
   }
 
   CBB contents;
