@@ -1244,6 +1244,20 @@ func runTest(test *testCase, shimPath string, mallocNumToFail int64) error {
 		flags = append(flags, "-dtls")
 	} else if test.protocol == quic {
 		flags = append(flags, "-quic")
+		if !strings.Contains(test.name, "QUICTransportParams") {
+			test.config.QUICTransportParams = []byte{1, 2}
+			if test.resumeConfig != nil {
+				test.resumeConfig.QUICTransportParams = []byte{1, 2}
+			}
+			test.expectedQUICTransportParams = []byte{3, 4}
+			flags = append(flags,
+				[]string{
+					"-quic-transport-params",
+					base64.StdEncoding.EncodeToString([]byte{3, 4}),
+					"-expect-quic-transport-params",
+					base64.StdEncoding.EncodeToString([]byte{1, 2}),
+				}...)
+		}
 	}
 
 	var resumeCount int
@@ -7161,6 +7175,21 @@ func addExtensionTests() {
 				},
 				expectedQUICTransportParams: []byte{3, 4},
 			})
+			testCases = append(testCases, testCase{
+				testType: clientTest,
+				protocol: quic,
+				name:     "QUICTransportParams-Client-RejectMissing-" + ver.name,
+				config: Config{
+					MinVersion: ver.version,
+					MaxVersion: ver.version,
+				},
+				flags: []string{
+					"-quic-transport-params",
+					base64.StdEncoding.EncodeToString([]byte{3, 4}),
+				},
+				shouldFail:    true,
+				expectedError: ":MISSING_EXTENSION:",
+			})
 			// Server sends params
 			testCases = append(testCases, testCase{
 				testType: serverTest,
@@ -7179,64 +7208,54 @@ func addExtensionTests() {
 				},
 				expectedQUICTransportParams: []byte{3, 4},
 			})
-		} else {
 			testCases = append(testCases, testCase{
-				testType: clientTest,
-				name:     "QUICTransportParams-Client-NotSent-" + ver.name,
+				testType: serverTest,
+				protocol: quic,
+				name:     "QUICTransportParams-Server-RejectMissing-" + ver.name,
 				config: Config{
 					MinVersion: ver.version,
 					MaxVersion: ver.version,
 				},
 				flags: []string{
-					"-max-version",
-					strconv.Itoa(int(ver.version)),
 					"-quic-transport-params",
 					base64.StdEncoding.EncodeToString([]byte{3, 4}),
 				},
-			})
-			testCases = append(testCases, testCase{
-				testType: clientTest,
-				name:     "QUICTransportParams-Client-Rejected-" + ver.name,
-				config: Config{
-					MinVersion:          ver.version,
-					MaxVersion:          ver.version,
-					QUICTransportParams: []byte{1, 2},
-				},
-				flags: []string{
-					"-quic-transport-params",
-					base64.StdEncoding.EncodeToString([]byte{3, 4}),
-				},
-				shouldFail:    true,
-				expectedError: ":ERROR_PARSING_EXTENSION:",
-			})
-			testCases = append(testCases, testCase{
-				testType: serverTest,
-				name:     "QUICTransportParams-Server-Rejected-" + ver.name,
-				config: Config{
-					MinVersion:          ver.version,
-					MaxVersion:          ver.version,
-					QUICTransportParams: []byte{1, 2},
-				},
-				flags: []string{
-					"-expect-quic-transport-params",
-					base64.StdEncoding.EncodeToString([]byte{1, 2}),
-				},
-				shouldFail:    true,
-				expectedError: "QUIC transport params mismatch",
-			})
-			testCases = append(testCases, testCase{
-				testType: serverTest,
-				name:     "QUICTransportParams-OldServerIgnores-" + ver.name,
-				config: Config{
-					MaxVersion:          VersionTLS13,
-					QUICTransportParams: []byte{1, 2},
-				},
-				flags: []string{
-					"-min-version", ver.shimFlag(tls),
-					"-max-version", ver.shimFlag(tls),
-				},
+				expectedQUICTransportParams: []byte{3, 4},
+				shouldFail:                  true,
+				expectedError:               ":MISSING_EXTENSION:",
 			})
 		}
+		testCases = append(testCases, testCase{
+			testType: clientTest,
+			name:     "QUICTransportParams-Client-NotSent-" + ver.name,
+			config: Config{
+				MinVersion: ver.version,
+				MaxVersion: ver.version,
+			},
+			flags: []string{
+				"-max-version",
+				strconv.Itoa(int(ver.version)),
+				"-quic-transport-params",
+				base64.StdEncoding.EncodeToString([]byte{3, 4}),
+			},
+			shouldFail:    true,
+			expectedError: ":ERROR_ADDING_EXTENSION:",
+		})
+		testCases = append(testCases, testCase{
+			testType: serverTest,
+			name:     "QUICTransportParams-Server-Rejected-" + ver.name,
+			config: Config{
+				MinVersion:          ver.version,
+				MaxVersion:          ver.version,
+				QUICTransportParams: []byte{1, 2},
+			},
+			flags: []string{
+				"-expect-quic-transport-params",
+				base64.StdEncoding.EncodeToString([]byte{1, 2}),
+			},
+			shouldFail:         true,
+			expectedLocalError: "remote error: unsupported extension",
+		})
 
 		// Test ticket behavior.
 
