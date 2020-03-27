@@ -3404,7 +3404,8 @@ func addTestForCipherSuite(suite testCipherSuite, ver tlsVersion, protocol proto
 	// Verify exporters interoperate.
 	exportKeyingMaterial := 1024
 
-	testCases = append(testCases, testCase{
+	tests := []testCase{}
+	tests = append(tests, testCase{
 		testType: serverTest,
 		protocol: protocol,
 		name:     prefix + ver.name + "-" + suite.name + "-server",
@@ -3428,7 +3429,7 @@ func addTestForCipherSuite(suite testCipherSuite, ver tlsVersion, protocol proto
 		exportKeyingMaterial: exportKeyingMaterial,
 	})
 
-	testCases = append(testCases, testCase{
+	tests = append(tests, testCase{
 		testType: clientTest,
 		protocol: protocol,
 		name:     prefix + ver.name + "-" + suite.name + "-client",
@@ -3452,11 +3453,12 @@ func addTestForCipherSuite(suite testCipherSuite, ver tlsVersion, protocol proto
 	})
 
 	if shouldFail {
+		testCases = append(testCases, configureQuicTests(tests)...)
 		return
 	}
 
 	// Ensure the maximum record size is accepted.
-	testCases = append(testCases, testCase{
+	tests = append(tests, testCase{
 		protocol: protocol,
 		name:     prefix + ver.name + "-" + suite.name + "-LargeRecord",
 		config: Config{
@@ -3481,7 +3483,7 @@ func addTestForCipherSuite(suite testCipherSuite, ver tlsVersion, protocol proto
 
 	// TODO(nharper): Consider enabling this test for QUIC.
 	if protocol != quic {
-		testCases = append(testCases, testCase{
+		tests = append(tests, testCase{
 			protocol: protocol,
 			name:     prefix + ver.name + "-" + suite.name + "-BadRecord",
 			config: Config{
@@ -3499,6 +3501,8 @@ func addTestForCipherSuite(suite testCipherSuite, ver tlsVersion, protocol proto
 			expectedError:    expectedError,
 		})
 	}
+
+	testCases = append(testCases, configureQuicTests(tests)...)
 }
 
 func addCipherSuiteTests() {
@@ -5878,7 +5882,33 @@ func addDDoSCallbackTests() {
 	}
 }
 
+// Iterates over the test cases |tests| and for all that have
+// protocol == quic and configures them to set the transport parameters
+// required for QUIC.
+func configureQuicTests(tests []testCase) []testCase {
+
+	for i := range tests {
+		if tests[i].protocol != quic {
+			continue
+		}
+		tests[i].config.QUICTransportParams = []byte{1, 2}
+		if tests[i].resumeConfig != nil {
+			tests[i].resumeConfig.QUICTransportParams = []byte{1, 2}
+		}
+		tests[i].expectedQUICTransportParams = []byte{3, 4}
+		tests[i].flags = append(tests[i].flags,
+			[]string{
+				"-quic-transport-params",
+				base64.StdEncoding.EncodeToString([]byte{3, 4}),
+				"-expect-quic-transport-params",
+				base64.StdEncoding.EncodeToString([]byte{1, 2}),
+			}...)
+	}
+	return tests
+}
+
 func addVersionNegotiationTests() {
+	tests := []testCase{}
 	for _, protocol := range []protocol{tls, dtls, quic} {
 		for _, shimVers := range allVersions(protocol) {
 			// Assemble flags to disable all newer versions on the shim.
@@ -5918,7 +5948,7 @@ func addVersionNegotiationTests() {
 				}
 				serverVers = recordVersionToWire(serverVers, protocol)
 
-				testCases = append(testCases, testCase{
+				tests = append(tests, testCase{
 					protocol: protocol,
 					testType: clientTest,
 					name:     "VersionNegotiation-Client-" + suffix,
@@ -5931,7 +5961,7 @@ func addVersionNegotiationTests() {
 					flags:           flags,
 					expectedVersion: expectedVersion,
 				})
-				testCases = append(testCases, testCase{
+				tests = append(tests, testCase{
 					protocol: protocol,
 					testType: clientTest,
 					name:     "VersionNegotiation-Client2-" + suffix,
@@ -5945,7 +5975,7 @@ func addVersionNegotiationTests() {
 					expectedVersion: expectedVersion,
 				})
 
-				testCases = append(testCases, testCase{
+				tests = append(tests, testCase{
 					protocol: protocol,
 					testType: serverTest,
 					name:     "VersionNegotiation-Server-" + suffix,
@@ -5958,7 +5988,7 @@ func addVersionNegotiationTests() {
 					flags:           flags,
 					expectedVersion: expectedVersion,
 				})
-				testCases = append(testCases, testCase{
+				tests = append(tests, testCase{
 					protocol: protocol,
 					testType: serverTest,
 					name:     "VersionNegotiation-Server2-" + suffix,
@@ -5993,7 +6023,7 @@ func addVersionNegotiationTests() {
 				suffix += "-QUIC"
 			}
 
-			testCases = append(testCases, testCase{
+			tests = append(tests, testCase{
 				protocol: protocol,
 				testType: serverTest,
 				name:     "VersionNegotiationExtension-" + suffix,
@@ -6007,6 +6037,7 @@ func addVersionNegotiationTests() {
 			})
 		}
 	}
+	testCases = append(testCases, configureQuicTests(tests)...)
 
 	// If all versions are unknown, negotiation fails.
 	testCases = append(testCases, testCase{
@@ -6329,6 +6360,7 @@ func addVersionNegotiationTests() {
 }
 
 func addMinimumVersionTests() {
+	tests := []testCase{}
 	for _, protocol := range []protocol{tls, dtls, quic} {
 		for _, shimVers := range allVersions(protocol) {
 			// Assemble flags to disable all older versions on the shim.
@@ -6361,7 +6393,7 @@ func addMinimumVersionTests() {
 					expectedLocalError = "remote error: protocol version not supported"
 				}
 
-				testCases = append(testCases, testCase{
+				tests = append(tests, testCase{
 					protocol: protocol,
 					testType: clientTest,
 					name:     "MinimumVersion-Client-" + suffix,
@@ -6381,7 +6413,7 @@ func addMinimumVersionTests() {
 					expectedError:      expectedError,
 					expectedLocalError: expectedLocalError,
 				})
-				testCases = append(testCases, testCase{
+				tests = append(tests, testCase{
 					protocol: protocol,
 					testType: clientTest,
 					name:     "MinimumVersion-Client2-" + suffix,
@@ -6402,7 +6434,7 @@ func addMinimumVersionTests() {
 					expectedLocalError: expectedLocalError,
 				})
 
-				testCases = append(testCases, testCase{
+				tests = append(tests, testCase{
 					protocol: protocol,
 					testType: serverTest,
 					name:     "MinimumVersion-Server-" + suffix,
@@ -6415,7 +6447,7 @@ func addMinimumVersionTests() {
 					expectedError:      expectedError,
 					expectedLocalError: expectedLocalError,
 				})
-				testCases = append(testCases, testCase{
+				tests = append(tests, testCase{
 					protocol: protocol,
 					testType: serverTest,
 					name:     "MinimumVersion-Server2-" + suffix,
@@ -6431,6 +6463,7 @@ func addMinimumVersionTests() {
 			}
 		}
 	}
+	testCases = append(testCases, configureQuicTests(tests)...)
 }
 
 func addExtensionTests() {
@@ -7161,6 +7194,21 @@ func addExtensionTests() {
 				},
 				expectedQUICTransportParams: []byte{3, 4},
 			})
+			testCases = append(testCases, testCase{
+				testType: clientTest,
+				protocol: quic,
+				name:     "QUICTransportParams-Client-RejectMissing-" + ver.name,
+				config: Config{
+					MinVersion: ver.version,
+					MaxVersion: ver.version,
+				},
+				flags: []string{
+					"-quic-transport-params",
+					base64.StdEncoding.EncodeToString([]byte{3, 4}),
+				},
+				shouldFail:    true,
+				expectedError: ":MISSING_EXTENSION:",
+			})
 			// Server sends params
 			testCases = append(testCases, testCase{
 				testType: serverTest,
@@ -7179,64 +7227,54 @@ func addExtensionTests() {
 				},
 				expectedQUICTransportParams: []byte{3, 4},
 			})
-		} else {
 			testCases = append(testCases, testCase{
-				testType: clientTest,
-				name:     "QUICTransportParams-Client-NotSent-" + ver.name,
+				testType: serverTest,
+				protocol: quic,
+				name:     "QUICTransportParams-Server-RejectMissing-" + ver.name,
 				config: Config{
 					MinVersion: ver.version,
 					MaxVersion: ver.version,
 				},
 				flags: []string{
-					"-max-version",
-					strconv.Itoa(int(ver.version)),
 					"-quic-transport-params",
 					base64.StdEncoding.EncodeToString([]byte{3, 4}),
 				},
-			})
-			testCases = append(testCases, testCase{
-				testType: clientTest,
-				name:     "QUICTransportParams-Client-Rejected-" + ver.name,
-				config: Config{
-					MinVersion:          ver.version,
-					MaxVersion:          ver.version,
-					QUICTransportParams: []byte{1, 2},
-				},
-				flags: []string{
-					"-quic-transport-params",
-					base64.StdEncoding.EncodeToString([]byte{3, 4}),
-				},
-				shouldFail:    true,
-				expectedError: ":ERROR_PARSING_EXTENSION:",
-			})
-			testCases = append(testCases, testCase{
-				testType: serverTest,
-				name:     "QUICTransportParams-Server-Rejected-" + ver.name,
-				config: Config{
-					MinVersion:          ver.version,
-					MaxVersion:          ver.version,
-					QUICTransportParams: []byte{1, 2},
-				},
-				flags: []string{
-					"-expect-quic-transport-params",
-					base64.StdEncoding.EncodeToString([]byte{1, 2}),
-				},
-				shouldFail:    true,
-				expectedError: "QUIC transport params mismatch",
-			})
-			testCases = append(testCases, testCase{
-				testType: serverTest,
-				name:     "QUICTransportParams-OldServerIgnores-" + ver.name,
-				config: Config{
-					MaxVersion:          VersionTLS13,
-					QUICTransportParams: []byte{1, 2},
-				},
-				flags: []string{
-					"-min-version", ver.shimFlag(tls),
-					"-max-version", ver.shimFlag(tls),
-				},
+				expectedQUICTransportParams: []byte{3, 4},
+				shouldFail:                  true,
+				expectedError:               ":MISSING_EXTENSION:",
 			})
 		}
+		testCases = append(testCases, testCase{
+			testType: clientTest,
+			name:     "QUICTransportParams-Client-NotSent-" + ver.name,
+			config: Config{
+				MinVersion: ver.version,
+				MaxVersion: ver.version,
+			},
+			flags: []string{
+				"-max-version",
+				strconv.Itoa(int(ver.version)),
+				"-quic-transport-params",
+				base64.StdEncoding.EncodeToString([]byte{3, 4}),
+			},
+			shouldFail:    true,
+			expectedError: ":ERROR_ADDING_EXTENSION:",
+		})
+		testCases = append(testCases, testCase{
+			testType: serverTest,
+			name:     "QUICTransportParams-Server-Rejected-" + ver.name,
+			config: Config{
+				MinVersion:          ver.version,
+				MaxVersion:          ver.version,
+				QUICTransportParams: []byte{1, 2},
+			},
+			flags: []string{
+				"-expect-quic-transport-params",
+				base64.StdEncoding.EncodeToString([]byte{1, 2}),
+			},
+			shouldFail:         true,
+			expectedLocalError: "remote error: unsupported extension",
+		})
 
 		// Test ticket behavior.
 
@@ -7791,6 +7829,7 @@ func addExtensionTests() {
 }
 
 func addResumptionVersionTests() {
+	tests := []testCase{}
 	for _, sessionVers := range tlsVersions {
 		for _, resumeVers := range tlsVersions {
 			protocols := []protocol{tls}
@@ -7810,7 +7849,7 @@ func addResumptionVersionTests() {
 				}
 
 				if sessionVers.version == resumeVers.version {
-					testCases = append(testCases, testCase{
+					tests = append(tests, testCase{
 						protocol:      protocol,
 						name:          "Resume-Client" + suffix,
 						resumeSession: true,
@@ -7824,7 +7863,7 @@ func addResumptionVersionTests() {
 						expectedResumeVersion: resumeVers.version,
 					})
 				} else {
-					testCases = append(testCases, testCase{
+					tests = append(tests, testCase{
 						protocol:      protocol,
 						name:          "Resume-Client-Mismatch" + suffix,
 						resumeSession: true,
@@ -7844,7 +7883,7 @@ func addResumptionVersionTests() {
 					})
 				}
 
-				testCases = append(testCases, testCase{
+				tests = append(tests, testCase{
 					protocol:      protocol,
 					name:          "Resume-Client-NoResume" + suffix,
 					resumeSession: true,
@@ -7860,7 +7899,7 @@ func addResumptionVersionTests() {
 					expectedResumeVersion: resumeVers.version,
 				})
 
-				testCases = append(testCases, testCase{
+				tests = append(tests, testCase{
 					protocol:      protocol,
 					testType:      serverTest,
 					name:          "Resume-Server" + suffix,
@@ -7881,7 +7920,7 @@ func addResumptionVersionTests() {
 
 				// Repeat the test using session IDs, rather than tickets.
 				if sessionVers.version < VersionTLS13 && resumeVers.version < VersionTLS13 {
-					testCases = append(testCases, testCase{
+					tests = append(tests, testCase{
 						protocol:      protocol,
 						testType:      serverTest,
 						name:          "Resume-Server-NoTickets" + suffix,
@@ -7902,6 +7941,7 @@ func addResumptionVersionTests() {
 			}
 		}
 	}
+	testCases = append(testCases, configureQuicTests(tests)...)
 
 	// Make sure shim ticket mutations are functional.
 	testCases = append(testCases, testCase{

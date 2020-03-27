@@ -5106,6 +5106,11 @@ class QUICMethodTest : public testing::Test {
       transport_->client()->AllowOutOfOrderWrites();
       transport_->server()->AllowOutOfOrderWrites();
     }
+    static const uint8_t transport_params[] = {0};
+    SSL_set_quic_transport_params(client_.get(), transport_params,
+                                  sizeof(transport_params));
+    SSL_set_quic_transport_params(server_.get(), transport_params,
+                                  sizeof(transport_params));
     return true;
   }
 
@@ -5113,6 +5118,14 @@ class QUICMethodTest : public testing::Test {
   // |server_| until each completes once. It returns true on success and false
   // on failure.
   bool CompleteHandshakesForQUIC() {
+    return RunQUICHandshakesAndExpectError(false);
+  }
+
+  // Runs |SSL_do_handshake| on |client_| and |server_| until each completes
+  // once. If |expect_client_error| is true, it will return true only if the
+  // client handshake failed. Otherwise, it returns true if both handshakes
+  // succeed and false otherwise.
+  bool RunQUICHandshakesAndExpectError(bool expect_client_error) {
     bool client_done = false, server_done = false;
     while (!client_done || !server_done) {
       if (!client_done) {
@@ -5125,6 +5138,9 @@ class QUICMethodTest : public testing::Test {
         if (client_ret == 1) {
           client_done = true;
         } else if (client_ret != -1 || client_err != SSL_ERROR_WANT_READ) {
+          if (expect_client_error) {
+            return true;
+          }
           ADD_FAILURE() << "Unexpected client output: " << client_ret << " "
                         << client_err;
           return false;
@@ -5147,7 +5163,7 @@ class QUICMethodTest : public testing::Test {
         }
       }
     }
-    return true;
+    return !expect_client_error;
   }
 
   bssl::UniquePtr<SSL_SESSION> CreateClientSessionForQUIC() {
@@ -5770,6 +5786,17 @@ TEST_F(QUICMethodTest, SetTransportParamsInCallback) {
   ASSERT_TRUE(CompleteHandshakesForQUIC());
   ExpectReceivedTransportParamsEqual(client_.get(), kServerParams);
   ExpectReceivedTransportParamsEqual(server_.get(), kClientParams);
+}
+
+TEST_F(QUICMethodTest, RejectMissingTransportParams) {
+  const SSL_QUIC_METHOD quic_method = DefaultQUICMethod();
+  ASSERT_TRUE(SSL_CTX_set_quic_method(client_ctx_.get(), &quic_method));
+  ASSERT_TRUE(SSL_CTX_set_quic_method(server_ctx_.get(), &quic_method));
+
+  ASSERT_TRUE(CreateClientAndServer());
+  ASSERT_TRUE(SSL_set_quic_transport_params(client_.get(), nullptr, 0));
+  ASSERT_TRUE(SSL_set_quic_transport_params(server_.get(), nullptr, 0));
+  ASSERT_TRUE(RunQUICHandshakesAndExpectError(true));
 }
 
 extern "C" {
