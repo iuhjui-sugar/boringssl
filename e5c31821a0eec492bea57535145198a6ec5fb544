@@ -22,6 +22,30 @@
       "revId": "e5c31821a0eec492bea57535145198a6ec5fb544",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a607bf0d_87623705",
+        "filename": "crypto/mem.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2020-03-30T18:56:05Z",
+      "side": 1,
+      "message": "Thanks. That would have been fun to track down and, by \"fun\", I mean \"aaggggh!\".",
+      "parentUuid": "3ef4554a_2a569394",
+      "range": {
+        "startLine": 123,
+        "startChar": 6,
+        "endLine": 123,
+        "endChar": 32
+      },
+      "revId": "e5c31821a0eec492bea57535145198a6ec5fb544",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
