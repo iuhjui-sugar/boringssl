@@ -16,6 +16,24 @@
       "revId": "9ae40ce9ad7e2b1e0140dc98318bc742e8387f88",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e47c4e0_e2181a10",
+        "filename": "crypto/test/gtest_main.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2020-03-30T21:26:05Z",
+      "side": 0,
+      "message": "See other change to add ABI tests for each AEAD. If you think that covers enough that we can remove doing it for all tests here then perhaps, internally, the ssl_tests can just use the standard GTest main.",
+      "parentUuid": "445ab5db_44f2c174",
+      "revId": "9ae40ce9ad7e2b1e0140dc98318bc742e8387f88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
