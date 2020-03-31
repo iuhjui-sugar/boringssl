@@ -197,6 +197,7 @@ UniquePtr<SSL_SESSION> SSL_SESSION_dup(SSL_SESSION *session, int dup_flags) {
 
   new_session->is_server = session->is_server;
   new_session->ssl_version = session->ssl_version;
+  new_session->is_quic = session->is_quic;
   new_session->sid_ctx_length = session->sid_ctx_length;
   OPENSSL_memcpy(new_session->sid_ctx, session->sid_ctx, session->sid_ctx_length);
 
@@ -357,6 +358,7 @@ int ssl_get_new_session(SSL_HANDSHAKE *hs, int is_server) {
 
   session->is_server = is_server;
   session->ssl_version = ssl->version;
+  session->is_quic = ssl->quic_method != nullptr;
 
   // Fill in the time from the |SSL_CTX|'s clock.
   struct OPENSSL_timeval now;
@@ -596,7 +598,8 @@ int ssl_session_is_context_valid(const SSL_HANDSHAKE *hs,
 
   return session->sid_ctx_length == hs->config->cert->sid_ctx_length &&
          OPENSSL_memcmp(session->sid_ctx, hs->config->cert->sid_ctx,
-                        hs->config->cert->sid_ctx_length) == 0;
+                        hs->config->cert->sid_ctx_length) == 0 &&
+         (hs->ssl->quic_method != nullptr) == session->is_quic;
 }
 
 int ssl_session_is_time_valid(const SSL *ssl, const SSL_SESSION *session) {
@@ -853,7 +856,8 @@ ssl_session_st::ssl_session_st(const SSL_X509_METHOD *method)
       peer_sha256_valid(false),
       not_resumable(false),
       ticket_age_add_valid(false),
-      is_server(false) {
+      is_server(false),
+      is_quic(false) {
   CRYPTO_new_ex_data(&ex_data);
   time = ::time(nullptr);
 }
