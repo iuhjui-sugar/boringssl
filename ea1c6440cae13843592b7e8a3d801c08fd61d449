@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a8fe4bc_a604a6e5",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 40
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-31T19:33:48Z",
+      "side": 1,
+      "message": "Comment removed by: Steven Valdez",
+      "range": {
+        "startLine": 228,
+        "startChar": 47,
+        "endLine": 229,
+        "endChar": 67
+      },
+      "revId": "ea1c6440cae13843592b7e8a3d801c08fd61d449",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
