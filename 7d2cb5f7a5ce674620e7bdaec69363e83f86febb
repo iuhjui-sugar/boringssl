@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "50bb5c79_e6627498",
+        "filename": "crypto/mem.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-31T16:18:39Z",
+      "side": 1,
+      "message": "I think this can just be defined(__ELF__) \u0026\u0026 defined(__GNUC__) or maybe even defined(__ELF__) now.\n\nCome to think of it, we probably never needed the (defined(__clang__) \u0026\u0026 !defined(_MSC_VER)). Non-Windows Clang defines __GNUC__, so the || clang bits are just to catch clang-cl, which we\u0027re then excluding anyway...",
+      "revId": "7d2cb5f7a5ce674620e7bdaec69363e83f86febb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
