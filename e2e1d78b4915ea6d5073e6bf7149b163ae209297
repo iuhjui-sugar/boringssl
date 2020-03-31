@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "025641dc_164f0441",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-03-31T21:57:30Z",
+      "side": 1,
+      "message": "You found my only reason for not checking on the client - testability. With your tip of modifying the struct member, I can test both sides now.",
+      "parentUuid": "fb166249_a7ff778c",
+      "range": {
+        "startLine": 10,
+        "startChar": 15,
+        "endLine": 10,
+        "endChar": 53
+      },
+      "revId": "e2e1d78b4915ea6d5073e6bf7149b163ae209297",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8240dffd_0975c20e",
         "filename": "ssl/ssl_asn1.cc",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "e2e1d78b4915ea6d5073e6bf7149b163ae209297",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d9d4ded_207ca78c",
+        "filename": "ssl/ssl_asn1.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 743,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-03-31T21:57:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8240dffd_0975c20e",
+      "range": {
+        "startLine": 743,
+        "startChar": 34,
+        "endLine": 743,
+        "endChar": 58
+      },
+      "revId": "e2e1d78b4915ea6d5073e6bf7149b163ae209297",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }

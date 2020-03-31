@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "121a1995_adbdfdc3",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 5123,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-03-31T21:57:30Z",
+      "side": 1,
+      "message": "Note: This change is the same as the one in https://boringssl-review.googlesource.com/c/boringssl/+/40384.",
+      "range": {
+        "startLine": 5116,
+        "startChar": 0,
+        "endLine": 5123,
+        "endChar": 66
+      },
+      "revId": "5a55fb8d309542c20cd0df7e7197c62237af30a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
