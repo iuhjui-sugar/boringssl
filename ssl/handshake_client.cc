@@ -409,6 +409,9 @@ static enum ssl_hs_wait_t do_start_connect(SSL_HANDSHAKE *hs) {
         !ssl_session_is_time_valid(ssl, ssl->session.get())) {
       ssl_set_session(ssl, NULL);
     }
+    if ((ssl->quic_method != nullptr) != ssl->session->is_quic) {
+      return ssl_hs_error;
+    }
   }
 
   if (!RAND_bytes(ssl->s3->client_random, sizeof(ssl->s3->client_random))) {
