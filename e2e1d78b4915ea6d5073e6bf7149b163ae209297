@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fb166249_a7ff778c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-31T16:11:29Z",
+      "side": 1,
+      "message": "Any reason not to check on the client too? (You can still test because, while rude, ssl_test.cc does get access to the struct definitions and can flip the is_quic boolean.)",
+      "range": {
+        "startLine": 10,
+        "startChar": 15,
+        "endLine": 10,
+        "endChar": 53
+      },
+      "revId": "e2e1d78b4915ea6d5073e6bf7149b163ae209297",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8240dffd_0975c20e",
+        "filename": "ssl/ssl_asn1.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 743,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-03-31T16:11:29Z",
+      "side": 1,
+      "message": "Apparently the new style is /*default_value\u003d*/0\nhttps://abseil.io/tips/94",
+      "range": {
+        "startLine": 743,
+        "startChar": 34,
+        "endLine": 743,
+        "endChar": 58
+      },
+      "revId": "e2e1d78b4915ea6d5073e6bf7149b163ae209297",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
