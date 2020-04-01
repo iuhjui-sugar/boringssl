@@ -2188,6 +2188,30 @@
       "revId": "52ea92532b2da8cf25b9324c049a9dfaf48e9f66",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b8cdbe85_fb544a8b",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 39
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2020-04-01T20:13:52Z",
+      "side": 1,
+      "message": "Talking with Kevin, merged these two.",
+      "parentUuid": "ab57530e_8d73cf59",
+      "range": {
+        "startLine": 190,
+        "startChar": 19,
+        "endLine": 190,
+        "endChar": 50
+      },
+      "revId": "52ea92532b2da8cf25b9324c049a9dfaf48e9f66",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
