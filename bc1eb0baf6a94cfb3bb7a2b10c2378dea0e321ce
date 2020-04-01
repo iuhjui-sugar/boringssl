@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "27902578_b256c4f5",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 5802,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-01T21:13:43Z",
+      "side": 1,
+      "message": "So it\u0027s clearer why one targets the client and the other the server, maybe a comment like:\n\nTest that the client does not offer the session over QUIC because it believes it is a TCP session. The server believes this is a QUIC session, so if the client offered the session, the server would have resumed it.",
+      "revId": "bc1eb0baf6a94cfb3bb7a2b10c2378dea0e321ce",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
