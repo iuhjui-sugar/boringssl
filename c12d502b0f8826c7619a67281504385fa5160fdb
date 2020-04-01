@@ -1,0 +1,181 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8979d776_b6d3402d",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 3272,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-01T21:31:03Z",
+      "side": 1,
+      "message": "WDYT about having this be the same section as \"QUIC integration\", and then we maybe we just fold the behavior here into the QUIC integration paragraph.\n\nMy thinking is that, since this is now part of the QUIC embedder\u0027s QUIC-specific obligations, having that all in one place seems reasonable? But you\u0027re the QUIC embedder, so I\u0027ll defer to you about what would be simpler.",
+      "revId": "c12d502b0f8826c7619a67281504385fa5160fdb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "321f53c1_5344a807",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 3290,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-01T21:31:03Z",
+      "side": 1,
+      "message": "I think we can drop this sentence now that it\u0027s QUIC-only and mandatory.",
+      "range": {
+        "startLine": 3288,
+        "startChar": 57,
+        "endLine": 3290,
+        "endChar": 34
+      },
+      "revId": "c12d502b0f8826c7619a67281504385fa5160fdb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cabfbb3f_c2223403",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 5800,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-01T21:31:03Z",
+      "side": 1,
+      "message": "I think this only tests the client, since the server won\u0027t get far enough to even see a ServerHello. Maybe have separate tests where one and the other is missing. You\u0027ll probably need separate expect_client_error and expect_server_error booleans, or maybe the handshake function should return an enum { kOK, kClientError, kServerError }?\n\n(We could also this in runner. No preference which.)",
+      "revId": "c12d502b0f8826c7619a67281504385fa5160fdb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be7b67f3_7d65e25b",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2554,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-01T21:31:03Z",
+      "side": 1,
+      "message": "It may be worth a dedicated error code for QUIC connections that forgot to configure parameters, so it\u0027s easier for folks to debug this when they inevitably mess it up.",
+      "revId": "c12d502b0f8826c7619a67281504385fa5160fdb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3928287d_d08b5c42",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2554,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-01T21:31:03Z",
+      "side": 1,
+      "message": "The hs-\u003emax_version check should be impossible to trip because ssl_get_version_range clamps QUIC\u0027s minimum version at TLS 1.3. (Replace with assert?)",
+      "range": {
+        "startLine": 2554,
+        "startChar": 6,
+        "endLine": 2554,
+        "endChar": 39
+      },
+      "revId": "c12d502b0f8826c7619a67281504385fa5160fdb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9984d996_5fcb098c",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2574,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-01T21:31:03Z",
+      "side": 1,
+      "message": "parse_serverhello won\u0027t be called if add_clienthello didn\u0027t install an extension, so I believe this is unreachable and can be an assert. (If it goes wrong, we\u0027ll notice very quickly because no TLS handshakes will work. :D)\n\nDitto with the !ssl-\u003equic_method check below.",
+      "revId": "c12d502b0f8826c7619a67281504385fa5160fdb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90d50f28_8d78ef5b",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2581,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-01T21:31:03Z",
+      "side": 1,
+      "message": "This should be impossible because ssl_get_version_range clamps QUIC\u0027s minimum version at TLS 1.3. (Replace with assert?)",
+      "range": {
+        "startLine": 2581,
+        "startChar": 6,
+        "endLine": 2581,
+        "endChar": 48
+      },
+      "revId": "c12d502b0f8826c7619a67281504385fa5160fdb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "164c9838_dadd768e",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2611,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-01T21:31:03Z",
+      "side": 1,
+      "message": "Ditto about an error for the caller misconfiguration being probably prudent.",
+      "revId": "c12d502b0f8826c7619a67281504385fa5160fdb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "442e0663_61ba5b2c",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 3456,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-01T21:31:03Z",
+      "side": 1,
+      "message": "Mentioned in email, but could we instead just have shim and runner default to configuring some transport parameters if not supplied? That\u0027ll probably involve a lot less fuss. (Only a handful of tests will care about which transport parameter you use.)",
+      "range": {
+        "startLine": 3456,
+        "startChar": 32,
+        "endLine": 3456,
+        "endChar": 50
+      },
+      "revId": "c12d502b0f8826c7619a67281504385fa5160fdb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
