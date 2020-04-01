@@ -307,6 +307,24 @@
     },
     {
       "key": {
+        "uuid": "a65381bf_06a17dcd",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 5390,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-01T19:28:32Z",
+      "side": 1,
+      "message": "Yeah, I\u0027m not sure how this should ultimately be organized. What I was thinking with the Channel ID thing was: say we move Channel ID tests below the others. Even further below the shutdown ones at Patchset 5, line 5680. Now the code looks like\n\nif config.protocol !\u003d dtls {\n   if config.protocol !\u003d quic {\n      renego tests\n      NPN tests\n      False Start tests\n      V2ClientHello\n      shutdown tests\n   }\n   Channel ID tests\n} else {\n  SkipHelloVerifyRequest\n}\n\nAt that point this may as well be...\n\nif config.protocol \u003d\u003d tls {\n   // All of these features at TLS-only\n   renego tests\n   NPN tests\n   False Start tests\n   V2ClientHello\n   shutdown tests\n}\nif config.protocol !\u003d dtls {\n   channel ID tests\n} else {  // Maybe even a separate \u0027if\u0027 rather than \u0027else\u0027 so you don\u0027t have to keep track of that?\n   SkipHelloVerifyRequest\n}\n\nThat way we at least preserve the feature grouping and I think it\u0027s marginally clearer?\n\n-- Stuff below not a request to change this CL, unless you feel inspired --\n\nWe probably do want to rethink the organization here. The original thinking with addStateMachineCoverageTests was that we didn\u0027t need to test both sync and async versions of everything so this just covered all the interesting handshake flows. And then the fragmenting and implicit handshake stuff turned out to also interact weirdly and then we started trying to test DTLS and now QUIC... yeah it\u0027s all gotten a bit out of hand. :-)\n\nThis also was back when the handshake state machine had lots of weird bugs that only happened in async modes. We\u0027re a bit better about this now, but still worth testing. I do wonder if the sync vs async thing should just be done at every test, but then it\u0027s hard to skip individual tests that don\u0027t work in some combos for whatever odd reason.\n\n(Idle thought: we could save ourselves some fuss by automatically skipping any QUIC + MaxVersion: TLS 1.2 tests. But that is a bit magical and maybe we want to test something interesting here?? Like checking QUIC always breaks if TLS 1.2 is off.)\n\nThoughts?",
+      "parentUuid": "6c96414e_33621141",
+      "revId": "91840bc1e554c04aa1c0d1a4fb34890673c3d382",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ec5f59c4_50494333",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 3

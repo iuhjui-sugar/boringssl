@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ae395a57_d5f6ecbb",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 789,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-01T19:28:32Z",
+      "side": 1,
+      "message": "(Oh, I was thinking have setSkipEarlyData set both and then read c.skipEarlyData directly, but this works too.)",
+      "revId": "fd2697fd5666fea112abb6981600a5b6a737559e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f4b2936e_7897bcb1",
+        "filename": "ssl/test/runner/mock_quic_transport.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-01T19:28:32Z",
+      "side": 1,
+      "message": "I think we usually write var out []byte if we don\u0027t care about the value, but the variable can be defined in the loop and retryRead simplified, if we do...\n\n  for {\n    ... io.ReadFull(m.Conn, header) ...\n    ... Read(... \u0026length) ...\n    ... io.ReadFull(m.Conn, secret) ...\n    out :\u003d make([]byte, int(length))\n    ... io.ReadFull(m.Conn, out) ...\n    if !bytes.Equal(secret, m.readSecret) {\n      // (Note this now reads the body before checking the secret,\n      // but that should be fine. Checking the secret is a proxy for\n      // decrypting the ciphertext anyway, which we\u0027d have to read\n      // first. I wonder if we still need the header[0] check too. I\n      // suppose it doesn\u0027t hurt to be more picky.)\n      if m.skipEarlyData \u0026\u0026 header[0] \u003d\u003d tagApplication {\n        continue\n      }\n      return ... fmt.Errorf(...)\n    }\n    m.skipEarlyData \u003d false\n    return header[0], out, nil\n  }\n\nEdit: Before you do that, read the comment on len(m.readSecret). I\u0027m not sure whether or not skipping early data is the right model for QUIC. (Might well be the right model for simplicity here. I\u0027m not sure.)",
+      "revId": "fd2697fd5666fea112abb6981600a5b6a737559e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6228bf92_b90153db",
+        "filename": "ssl/test/runner/mock_quic_transport.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-01T19:28:32Z",
+      "side": 1,
+      "message": "Existing code, but this just be:\n\n  length :\u003d binary.BigEndian.Uint32(header[1:])",
+      "range": {
+        "startLine": 48,
+        "startChar": 2,
+        "endLine": 49,
+        "endChar": 69
+      },
+      "revId": "fd2697fd5666fea112abb6981600a5b6a737559e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36d38a82_bc2f2d7b",
+        "filename": "ssl/test/runner/mock_quic_transport.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-01T19:28:32Z",
+      "side": 1,
+      "message": "We can punt this to later if it\u0027s not a problem yet (TODO?), but it occurs to me this won\u0027t quite work if the client predicted TLS_AES_256_GCM_SHA384 via 0-RTT but the server rejected 0-RTT and selected TLS_AES_128_GCM_SHA256. Then the read secrets will have different sizes, but this function doesn\u0027t know that. Maybe the secret should have a length prefix? Or maybe we include include the 2-byte cipher suite in the header and then include the secret in the body\u0027s length prefix. Then we\u0027re just saying that Encrypt(key, data) \u003d concat(key, data), which is coherent enough.\n\n(Come to think of it, how does this manage to do the trial \"decrypt\" at HRR-based 0-RTT rejects. There we are expecting cleartext handshake records but skip over encrypted records. I think the cipher suite thing above would fix this by way of the cipher suite ID not matching.)\n\nAs I write this, it also occurs to me that real QUIC works differently. Doesn\u0027t real QUIC just stick the encryption level (well, a packet type) in front of each header so you know what level it is? That would suggest that, rather than trial \"decryption\", packets should include the level and you just drop the early data level if skipping early data. Not sure if that would be more or less annoying to do. I guess Go probably doesn\u0027t track levels yet.",
+      "range": {
+        "startLine": 50,
+        "startChar": 25,
+        "endLine": 50,
+        "endChar": 42
+      },
+      "revId": "fd2697fd5666fea112abb6981600a5b6a737559e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
