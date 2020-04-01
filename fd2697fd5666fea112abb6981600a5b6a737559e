@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7a72e7dd_0ec158c5",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 789,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-04-01T23:43:17Z",
+      "side": 1,
+      "message": "That would have required when MockQUICTransport sets its skipEarlyData to false that it propagate to Conn.skipEarlyData somehow - adding this method seemed like the easier approach.",
+      "parentUuid": "ae395a57_d5f6ecbb",
+      "revId": "fd2697fd5666fea112abb6981600a5b6a737559e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f4b2936e_7897bcb1",
         "filename": "ssl/test/runner/mock_quic_transport.go",
         "patchSetId": 5
@@ -33,6 +51,24 @@
       "revId": "fd2697fd5666fea112abb6981600a5b6a737559e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "558f6cb0_7c62879d",
+        "filename": "ssl/test/runner/mock_quic_transport.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-04-01T23:43:17Z",
+      "side": 1,
+      "message": "This code has changed a bit now, after addressing the m.readSecret comment (and changing the wire format of the mockQUICTransport). I think I\u0027ve addressed this comment in changing this code.",
+      "parentUuid": "f4b2936e_7897bcb1",
+      "revId": "fd2697fd5666fea112abb6981600a5b6a737559e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "422b7894_3d17d885",
+        "filename": "ssl/test/runner/mock_quic_transport.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-04-01T23:43:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6228bf92_b90153db",
+      "range": {
+        "startLine": 48,
+        "startChar": 2,
+        "endLine": 49,
+        "endChar": 69
+      },
+      "revId": "fd2697fd5666fea112abb6981600a5b6a737559e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "36d38a82_bc2f2d7b",
         "filename": "ssl/test/runner/mock_quic_transport.go",
         "patchSetId": 5
@@ -79,6 +139,30 @@
       "revId": "fd2697fd5666fea112abb6981600a5b6a737559e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "907ba9a5_9c861815",
+        "filename": "ssl/test/runner/mock_quic_transport.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-04-01T23:43:17Z",
+      "side": 1,
+      "message": "Real QUIC is able to tell what encryption level a packet is before decrypting it. The difficulty of doing that here is plumbing the encryption levels from Go. Instead I\u0027ve taken your suggestion of putting the cipher suite before the secret and having the length of the TLV cover the secret as well as the TLS record.",
+      "parentUuid": "36d38a82_bc2f2d7b",
+      "range": {
+        "startLine": 50,
+        "startChar": 25,
+        "endLine": 50,
+        "endChar": 42
+      },
+      "revId": "fd2697fd5666fea112abb6981600a5b6a737559e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
