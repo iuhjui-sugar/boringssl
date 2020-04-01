@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "4c6c2a2a_b96f53ce",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-01T20:33:39Z",
+      "side": 1,
+      "message": "\u003e I didn\u0027t realize that\u0027s what the context referred to here. This looked like a good place to do the check in one place for both client and server.\n\nI figured. :-) I mean, maybe that\u0027s what it should be? Something something overloads of the word \"context\". But the ordering of events isn\u0027t quite right (see beloW).\n\n\u003e The behavior that I\u0027d prefer is that if a client tries to do cross-protocol resumption, the connection should fail, and if a server receives a ticket that would result in cross-protocol resumption, it should ignore the ticket and do a full connection. Currently I\u0027m getting that behavior.\n\nWell ssl_session_is_context_valid doesn\u0027t quite give that behavior. It gives an error if the client tries to do cross-protocol resumption *and the server accepts it*. If the server denies it (presumably it will), you won\u0027t get an error.\n\nThe history here is the context check was to deal with things with different client cert preferences. It was a server issue. OpenSSL uses the same session cache for all server names (sigh...). If different server names had different client cert prefs, resumption would bypass the prefs.\n\nSo they added a sid_ctx to partition the session cache and made the server fail the connection if you offer across contexts. They also carried that check over to the client but in a weird place, even though clients don\u0027t particularly need to configure sid_ctx in the first place.\nhttps://git.openssl.org/gitweb/?p\u003dopenssl.git;a\u003dcommitdiff;h\u003db4cadc6e1343c01b06613053a90ed2ee85e65090\n\nThen the made the server error non-fatal, but left the client one alone.\nhttps://git.openssl.org/gitweb/?p\u003dopenssl.git;a\u003dcommitdiff;h\u003d8876bc054802b043a3ec95554b6c5873291770be\n\nSo this is all a mess. FWIW, if you were to try to resume a DTLS session at TLS or vice versa, we\u0027ll silently drop the session because the protocol code points don\u0027t overlap.\n\n(I think, in general, my inclination has been to silently drop sessions on parameter mismatch because people keep designing APIs with per-socket variability and a giant session cache in the sky somewhere. Dropping the session cache avoids breaking them when we realize more things need to be checked. But maybe I\u0027m wrong here?)\n\n\u003e would SSL_R_ATTEMPT_TO_REUSE_SESSION_IN_DIFFERENT_CONTEXT be an appropriate error to use or would I want something else for OPENSSL_PUT_ERROR?\n\nIt almost certainly doesn\u0027t matter, but I feel a little weird repurposing an OpenSSL error for a slightly different meaning than originally, in case someone is conditioning on it.",
+      "parentUuid": "6f8682a9_2404f51d",
+      "revId": "5a55fb8d309542c20cd0df7e7197c62237af30a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "121a1995_adbdfdc3",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 3
