@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "2b29294b_97f63a0f",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-01T17:37:27Z",
+      "side": 1,
+      "message": "This is a little odd since \"context\" refers to the odd sid_ctx stuff. TBH I\u0027m not sure if failing with SSL_R_ATTEMPT_TO_REUSE_SESSION_IN_DIFFERENT_CONTEXT is even the correct behavior for it. If nothing else, it\u0027s weird that the error only triggers when the server resumes it, whereas if it\u0027s a client bug, you\u0027d think it\u0027d be a client bug to configure it at all.\n\nMost of our client session validity checks kick way at the start in do_start_connect() in handshake_client.cc, where we silently ignore any sessions which don\u0027t make sense. Perhaps we should just include this check in the same place.\n\nLonger term, ssl_session_is_context_valid() probably should also be moved to do_start_connect()? Whether it should be fatal, I\u0027m not sure. That\u0027s carried over from OpenSSL a while ago. (One potential nuisance is if the client is allowed to reconfigure the sid_ctx in between the two points, but I don\u0027t believe they are.)\n\n(It is a little annoying that the client and server resumption checks are replicated. I guess that\u0027s somewhat to be expected since the client does two kinds of checks: do I bother offering this session at all, based on the *set* of supported parameters, and was the server\u0027s choice of this session valid, based on the *selected* parameters?)\n\nWDYT?",
+      "revId": "5a55fb8d309542c20cd0df7e7197c62237af30a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "121a1995_adbdfdc3",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 3
@@ -13,6 +30,30 @@
       "writtenOn": "2020-03-31T21:57:30Z",
       "side": 1,
       "message": "Note: This change is the same as the one in https://boringssl-review.googlesource.com/c/boringssl/+/40384.",
+      "range": {
+        "startLine": 5116,
+        "startChar": 0,
+        "endLine": 5123,
+        "endChar": 66
+      },
+      "revId": "5a55fb8d309542c20cd0df7e7197c62237af30a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d6b5518d_dfeb4aa7",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 5123,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-01T17:37:27Z",
+      "side": 1,
+      "message": "Ack. Sorry about the tardiness. Will get through the backlog today. (Hopefully. Home network appears to be a little finicky right now.)",
+      "parentUuid": "121a1995_adbdfdc3",
       "range": {
         "startLine": 5116,
         "startChar": 0,
