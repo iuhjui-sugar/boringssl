@@ -16,6 +16,24 @@
       "revId": "7d2cb5f7a5ce674620e7bdaec69363e83f86febb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81f61481_30433808",
+        "filename": "crypto/mem.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2020-04-01T16:05:01Z",
+      "side": 1,
+      "message": "I\u0027ll give __ELF__ \u0026\u0026 __GNUC__ a shot. (Seems more polite to require __GNUC__ if using __attribute__, although maybe we\u0027ll get complaints.)",
+      "parentUuid": "50bb5c79_e6627498",
+      "revId": "7d2cb5f7a5ce674620e7bdaec69363e83f86febb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
