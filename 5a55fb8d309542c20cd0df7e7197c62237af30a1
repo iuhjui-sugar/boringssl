@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "7e4e12bc_d5e14476",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-04-01T21:06:36Z",
+      "side": 1,
+      "message": "The reason of not breaking things when we realize more things need to be checked sounds like a good enough reason to drop the session on the floor instead of failing.",
+      "parentUuid": "4c6c2a2a_b96f53ce",
+      "revId": "5a55fb8d309542c20cd0df7e7197c62237af30a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "121a1995_adbdfdc3",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 3
