@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "6f8682a9_2404f51d",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-04-01T18:32:46Z",
+      "side": 1,
+      "message": "I didn\u0027t realize that\u0027s what the context referred to here. This looked like a good place to do the check in one place for both client and server.\n\nThe behavior that I\u0027d prefer is that if a client tries to do cross-protocol resumption, the connection should fail, and if a server receives a ticket that would result in cross-protocol resumption, it should ignore the ticket and do a full connection. Currently I\u0027m getting that behavior.\n\nGiven that it sounds like this change shouldn\u0027t go in this function, I\u0027ll move it out and have the client and server checks in different places. I\u0027ll move the server check back to ssl_session_is_resumable. What\u0027s your preference on where the client check goes? I can add it to the set of checks in do_start_connect and silently drop the session. I could put the check in that same place, but fail the connection (would SSL_R_ATTEMPT_TO_REUSE_SESSION_IN_DIFFERENT_CONTEXT be an appropriate error to use or would I want something else for OPENSSL_PUT_ERROR?).",
+      "parentUuid": "2b29294b_97f63a0f",
+      "revId": "5a55fb8d309542c20cd0df7e7197c62237af30a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "121a1995_adbdfdc3",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 3
