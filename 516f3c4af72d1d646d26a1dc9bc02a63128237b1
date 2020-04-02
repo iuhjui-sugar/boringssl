@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aa4e249_50beebd1",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 3144,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-02T16:05:17Z",
+      "side": 1,
+      "message": "Perhaps we can shorten this to:\n\nQUIC implementations must additionally configure transport parameters with |SSL_set_quic_transport_params|. |SSL_get_peer_quic_transport_params| may be used to query the value received from the peer. BoringSSL treats transport parameters as an opaque byte string. The caller is responsible for serializing and parsing them. See draft-ietf-quic-transport (section 7.3) for details.\n\nThe \"(Inversely, [...])\" sentence we can probably just stick on SSL_set_quic_transport_params\u0027s documentation like \"It is an error to call this function on non-QUIC connections.\"",
+      "revId": "516f3c4af72d1d646d26a1dc9bc02a63128237b1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "547075ec_8f82934d",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 5113,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-02T16:05:17Z",
+      "side": 1,
+      "message": "Unimportant nitpick (we really should stop pretending we care about malloc failures...):\n\n  if (!SSL_set_quic_... ||\n      (!SSL_set_quic_...) {\n    return false;\n  }",
+      "revId": "516f3c4af72d1d646d26a1dc9bc02a63128237b1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce005564_860e72a2",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 5894,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-02T16:05:17Z",
+      "side": 1,
+      "message": "Rejects\n\n(ditto below)",
+      "range": {
+        "startLine": 5894,
+        "startChar": 29,
+        "endLine": 5894,
+        "endChar": 37
+      },
+      "revId": "516f3c4af72d1d646d26a1dc9bc02a63128237b1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79826cf4_38ebb948",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2554,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-02T16:05:17Z",
+      "side": 1,
+      "message": "Oh, I was thinking something like SSL_R_QUIC_TRANSPORT_PARAMETERS_NOT_CONFIGURED so it says what\u0027s wrong. I guess the problem is we\u0027re also treating it as an error to configure QUIC transport params in TLS and this is using the same codepath for either.\n\nSome possibilities:\n- SSL_R_QUIC_TRANSPORT_PARAMETERS_MISCONFIGURED with a comment? Then it\u0027s at least clear it\u0027s the caller\u0027s fault, and they can get more info if they grep.\n- Separate error codes for each direction? SSL_R_QUIC_TRANSPORT_PARAMETERS_NOT_CONFIGURED / SSL_R_QUIC_TRANSPORT_PARAMETERS_CONFIGURED?\n- Only bother checking the \"missing QUIC params in QUIC\" case and silently ignore QUIC parames in the TLS case?\n\nFWIW, I think we usually just silently ignore unused configs. Like if you set DTLS-only stuff in a TLS connection, we just don\u0027t care. Whether that\u0027s right, I dunno. I think some of it\u0027s a carried over from OpenSSL, and some of it\u0027s just that not caring is less effort given there aren\u0027t very clear when or whether to check in a lot of cases. Examples:\n\n- Comment below about the server\u0027s check not quite working.\n\n- NPN only exists in TLS 1.2, but we can\u0027t reject NPN configs at TLS 1.3 because maybe you also enabled TLS 1.2. We\u0027d have to remember to condition on min_version. But then maybe you configure NPN in code (imagine if Chrome had not removed NPN yet), but allow external callers (e.g. admin policy) to set min_version. Then a minimum of TLS 1.3 would silently break. So, okay maybe we don\u0027t check at all. But QUIC never does TLS 1.2, so maybe we should go back and check the inconsistency in QUIC?",
+      "range": {
+        "startLine": 2554,
+        "startChar": 27,
+        "endLine": 2554,
+        "endChar": 63
+      },
+      "revId": "516f3c4af72d1d646d26a1dc9bc02a63128237b1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "320c4e6f_e0e0fadd",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2613,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-02T16:05:17Z",
+      "side": 1,
+      "message": "Come to think of it, this codepath is impossible: if the TLS client did not send quic_transport_params, we don\u0027t call add_serverhello. If the client did, the logic in parse_clienthello will trip and reject with unsupported_extension earlier. That means we enforce unexpected transport params in one direction, but not the other, which is kinda odd.\n\nhttps://source.chromium.org/chromium/chromium/src/+/master:third_party/boringssl/src/ssl/t1_lib.cc;l\u003d3090-3101;drc\u003d07f9a5f113196414dbed86bb9dea110ee1c40e9f",
+      "range": {
+        "startLine": 2613,
+        "startChar": 6,
+        "endLine": 2613,
+        "endChar": 31
+      },
+      "revId": "516f3c4af72d1d646d26a1dc9bc02a63128237b1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f344063_3873c1e2",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 1247,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-02T16:05:17Z",
+      "side": 1,
+      "message": "Rather than magical test names, what about SendNoQUICTransportParams and -send-no-quic-transport-params options?",
+      "revId": "516f3c4af72d1d646d26a1dc9bc02a63128237b1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
