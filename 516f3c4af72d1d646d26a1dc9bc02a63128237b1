@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9ec0c13a_47c035a5",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 3144,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-04-02T22:20:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7aa4e249_50beebd1",
+      "revId": "516f3c4af72d1d646d26a1dc9bc02a63128237b1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "547075ec_8f82934d",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "516f3c4af72d1d646d26a1dc9bc02a63128237b1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f98814d_7c6048a6",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 5113,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-04-02T22:20:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "547075ec_8f82934d",
+      "revId": "516f3c4af72d1d646d26a1dc9bc02a63128237b1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "d196b958_81b59a4e",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 5894,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-04-02T22:20:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce005564_860e72a2",
+      "range": {
+        "startLine": 5894,
+        "startChar": 29,
+        "endLine": 5894,
+        "endChar": 37
+      },
+      "revId": "516f3c4af72d1d646d26a1dc9bc02a63128237b1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79826cf4_38ebb948",
         "filename": "ssl/t1_lib.cc",
         "patchSetId": 3
@@ -79,6 +139,30 @@
       "revId": "516f3c4af72d1d646d26a1dc9bc02a63128237b1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c874d720_606d9e80",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2554,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-04-02T22:20:44Z",
+      "side": 1,
+      "message": "QUIC_TRANSPORT_PARAMETERS_MISCONFIGURED sounds like a better name. I added comments in the code where that error gets set to help explain whether the issue is they\u0027re not configured when they should be, or they\u0027re configured when they shouldn\u0027t be.\n\nI prefer failing quickly and loudly if something is misconfigured instead of silently ignoring the misconfiguration. The DTLS analogy is apt, though we don\u0027t have to worry about OpenSSL compat issues here. The NPN analogy doesn\u0027t apply, since an SSL will either be doing QUIC (thus need TPs) or not doing QUIC (thus need no TPs).",
+      "parentUuid": "79826cf4_38ebb948",
+      "range": {
+        "startLine": 2554,
+        "startChar": 27,
+        "endLine": 2554,
+        "endChar": 63
+      },
+      "revId": "516f3c4af72d1d646d26a1dc9bc02a63128237b1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -105,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "40a4c5b4_fcc428e1",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2613,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-04-02T22:20:44Z",
+      "side": 1,
+      "message": "Good catch that quic_method will always be set (otherwise it would have been caught in parse_clienthello). The check that TPs aren\u0027t empty is still needed.\n\nAs this code currently is, if the SSL is configured as a server, not configured for QUIC, but does have transport parameters set, then the transport parameters are silently ignored. (parse_clienthello in that case only checks that |contents| are empty and QUIC is not configured.) I added a check to parse_clienthello that checks transport params are also empty when it receives empty transport params and isn\u0027t configured for QUIC. I\u0027m leaving the check that TPs aren\u0027t empty in add_serverhello because I think it\u0027s clearer to check that here than in parse_clienthello.",
+      "parentUuid": "320c4e6f_e0e0fadd",
+      "range": {
+        "startLine": 2613,
+        "startChar": 6,
+        "endLine": 2613,
+        "endChar": 31
+      },
+      "revId": "516f3c4af72d1d646d26a1dc9bc02a63128237b1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2f344063_3873c1e2",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 3
@@ -119,6 +227,24 @@
       "revId": "516f3c4af72d1d646d26a1dc9bc02a63128237b1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7314ef39_11486da8",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 1247,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-04-02T22:20:44Z",
+      "side": 1,
+      "message": "I added skipTransportParamsConfig (open to better/different names) to the testCase struct to check for that instead of checking the test name. SendNoQUICTransportParams doesn\u0027t quite seem right, because it would be used in conjunction with configuring some transport params that will get sent.\n\nI don\u0027t think a flag is needed for the shim because all of the logic for what gets set (or not) should reside in runner.",
+      "parentUuid": "2f344063_3873c1e2",
+      "revId": "516f3c4af72d1d646d26a1dc9bc02a63128237b1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
