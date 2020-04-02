@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "bc8ac299_9c377f6b",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 3272,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-04-02T01:20:27Z",
+      "side": 1,
+      "message": "I\u0027m fine with it all in the QUIC integration section. The intro section seems a bit clunky though when merging the two sections together.",
+      "parentUuid": "8979d776_b6d3402d",
+      "revId": "c12d502b0f8826c7619a67281504385fa5160fdb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "321f53c1_5344a807",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 2
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "4a4b52e2_c517007c",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 3290,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-04-02T01:20:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "321f53c1_5344a807",
+      "range": {
+        "startLine": 3288,
+        "startChar": 57,
+        "endLine": 3290,
+        "endChar": 34
+      },
+      "revId": "c12d502b0f8826c7619a67281504385fa5160fdb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cabfbb3f_c2223403",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 2
@@ -56,6 +98,24 @@
       "revId": "c12d502b0f8826c7619a67281504385fa5160fdb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5227ccb5_069e146c",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 5800,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-04-02T01:20:27Z",
+      "side": 1,
+      "message": "The helper function now takes an enum and I test both client and server.",
+      "parentUuid": "cabfbb3f_c2223403",
+      "revId": "c12d502b0f8826c7619a67281504385fa5160fdb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -99,6 +159,48 @@
     },
     {
       "key": {
+        "uuid": "64c5ffef_f45afc3b",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2554,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-04-02T01:20:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3928287d_d08b5c42",
+      "range": {
+        "startLine": 2554,
+        "startChar": 6,
+        "endLine": 2554,
+        "endChar": 39
+      },
+      "revId": "c12d502b0f8826c7619a67281504385fa5160fdb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ef977753_a61019c2",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2554,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-04-02T01:20:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be7b67f3_7d65e25b",
+      "revId": "c12d502b0f8826c7619a67281504385fa5160fdb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9984d996_5fcb098c",
         "filename": "ssl/t1_lib.cc",
         "patchSetId": 2
@@ -113,6 +215,24 @@
       "revId": "c12d502b0f8826c7619a67281504385fa5160fdb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "462c797b_670a094d",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2574,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-04-02T01:20:27Z",
+      "side": 1,
+      "message": "parse_serverhello is called with a null contents if the extension wasn\u0027t received. If I change this if statement to an assert, it triggers.",
+      "parentUuid": "9984d996_5fcb098c",
+      "revId": "c12d502b0f8826c7619a67281504385fa5160fdb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -139,6 +259,30 @@
     },
     {
       "key": {
+        "uuid": "79a24d27_cc179c78",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2581,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-04-02T01:20:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90d50f28_8d78ef5b",
+      "range": {
+        "startLine": 2581,
+        "startChar": 6,
+        "endLine": 2581,
+        "endChar": 48
+      },
+      "revId": "c12d502b0f8826c7619a67281504385fa5160fdb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "164c9838_dadd768e",
         "filename": "ssl/t1_lib.cc",
         "patchSetId": 2
@@ -153,6 +297,24 @@
       "revId": "c12d502b0f8826c7619a67281504385fa5160fdb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af90000b_c112113a",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2611,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-04-02T01:20:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "164c9838_dadd768e",
+      "revId": "c12d502b0f8826c7619a67281504385fa5160fdb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -176,6 +338,30 @@
       "revId": "c12d502b0f8826c7619a67281504385fa5160fdb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a89e257_1c02fab3",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 3456,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-04-02T01:20:27Z",
+      "side": 1,
+      "message": "Done. When adding the -quic flag, I also do something similar to configureQuicTests (which is now gone) unless the test name contains QUICTransportParams.",
+      "parentUuid": "442e0663_61ba5b2c",
+      "range": {
+        "startLine": 3456,
+        "startChar": 32,
+        "endLine": 3456,
+        "endChar": 50
+      },
+      "revId": "c12d502b0f8826c7619a67281504385fa5160fdb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
