@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "14edb785_0c0e2fd0",
+        "filename": "ssl/test/runner/conn.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 789,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-03T21:48:50Z",
+      "side": 1,
+      "message": "Ah, okay.",
+      "parentUuid": "7a72e7dd_0ec158c5",
+      "revId": "fd2697fd5666fea112abb6981600a5b6a737559e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f4b2936e_7897bcb1",
         "filename": "ssl/test/runner/mock_quic_transport.go",
         "patchSetId": 5

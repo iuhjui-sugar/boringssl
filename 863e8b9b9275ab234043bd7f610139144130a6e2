@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e9943ac7_bf8083f1",
+        "filename": "ssl/test/mock_quic_transport.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-03T21:48:50Z",
+      "side": 1,
+      "message": "(I take it none of the tests enabled yet involve the shim skipping over early data? Guess there isn\u0027t really much point since it wouldn\u0027t actually be testing anything.)",
+      "revId": "863e8b9b9275ab234043bd7f610139144130a6e2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "358473e6_dd575f60",
+        "filename": "ssl/test/mock_quic_transport.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-03T21:48:50Z",
+      "side": 1,
+      "message": "Ah. I guess if we ever get rid of this function, we\u0027ll need to actually route the encryption level up on the Go side.",
+      "range": {
+        "startLine": 92,
+        "startChar": 38,
+        "endLine": 92,
+        "endChar": 57
+      },
+      "revId": "863e8b9b9275ab234043bd7f610139144130a6e2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d879b6e9_f90cc563",
+        "filename": "ssl/test/mock_quic_transport.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-03T21:48:50Z",
+      "side": 1,
+      "message": "This probably deserves a struct rather than a std::pair. :-P Maybe...\n\n  struct EncryptionLevel {\n    uint16_t cipher;\n    std::vector\u003cuint8_t\u003e secret;\n  };\n\n  std::vector\u003cEncryptionLevel\u003e read_levels_;\n  std::vector\u003cEncryptionLevel\u003e write_levels_;",
+      "revId": "863e8b9b9275ab234043bd7f610139144130a6e2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ab979f6_e5416236",
+        "filename": "ssl/test/runner/mock_quic_transport.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-03T21:48:50Z",
+      "side": 1,
+      "message": "Optional: if you move the cipher suite ID out of the length prefix, there\u0027s no need to check for this since it\u0027ll be baked into the header read. MockQuicTransport::ReadHeader would similarly be a little less odd I think.",
+      "revId": "863e8b9b9275ab234043bd7f610139144130a6e2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15f5b680_6a23db01",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-03T21:48:50Z",
+      "side": 1,
+      "message": "Yay confusing UI. I think you might have missed this reply since it was on an older patch set.\nhttps://boringssl-review.googlesource.com/c/boringssl/+/40284/3/ssl/test/runner/runner.go#5390",
+      "revId": "863e8b9b9275ab234043bd7f610139144130a6e2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
