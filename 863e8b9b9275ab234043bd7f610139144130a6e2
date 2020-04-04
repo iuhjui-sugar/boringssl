@@ -59,6 +59,24 @@
     },
     {
       "key": {
+        "uuid": "17ebfcb1_36d8e48f",
+        "filename": "ssl/test/mock_quic_transport.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-04-04T01:46:51Z",
+      "side": 1,
+      "message": "I suppose the \"\u003e\u003e\u003e\" at the end of the type should have been a code smell (:\n\nDone.",
+      "parentUuid": "d879b6e9_f90cc563",
+      "revId": "863e8b9b9275ab234043bd7f610139144130a6e2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ab979f6_e5416236",
         "filename": "ssl/test/runner/mock_quic_transport.go",
         "patchSetId": 6
@@ -76,6 +94,24 @@
     },
     {
       "key": {
+        "uuid": "7ef65237_71f9eb08",
+        "filename": "ssl/test/runner/mock_quic_transport.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-04-04T01:46:51Z",
+      "side": 1,
+      "message": "I moved the cipher suite ID out of the length prefix (and swapped the order, so it\u0027s tag, cipher suite, length, key, data).",
+      "parentUuid": "4ab979f6_e5416236",
+      "revId": "863e8b9b9275ab234043bd7f610139144130a6e2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "15f5b680_6a23db01",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 6
@@ -90,6 +126,24 @@
       "revId": "863e8b9b9275ab234043bd7f610139144130a6e2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7318a9e8_cd4b16ec",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-04-04T01:46:51Z",
+      "side": 1,
+      "message": "Ah, thanks for pointing out that comment. I did indeed miss it.",
+      "parentUuid": "15f5b680_6a23db01",
+      "revId": "863e8b9b9275ab234043bd7f610139144130a6e2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }

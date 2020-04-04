@@ -325,6 +325,24 @@
     },
     {
       "key": {
+        "uuid": "76f67875_35417963",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 5390,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-04-04T01:46:51Z",
+      "side": 1,
+      "message": "I think I\u0027ve done the restructuring you described.",
+      "parentUuid": "a65381bf_06a17dcd",
+      "revId": "91840bc1e554c04aa1c0d1a4fb34890673c3d382",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ec5f59c4_50494333",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 3
