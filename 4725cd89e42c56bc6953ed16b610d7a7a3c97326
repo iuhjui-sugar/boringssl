@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce1447cc_3d3c1c0b",
+        "filename": "ssl/test/mock_quic_transport.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-06T15:25:50Z",
+      "side": 1,
+      "message": "Nit: read_levels_ maybe? It\u0027s a bit more than just secrets now.",
+      "range": {
+        "startLine": 69,
+        "startChar": 37,
+        "endLine": 69,
+        "endChar": 43
+      },
+      "revId": "4725cd89e42c56bc6953ed16b610d7a7a3c97326",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41658e00_6b833eb8",
+        "filename": "ssl/test/runner/mock_quic_transport.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-06T15:25:50Z",
+      "side": 1,
+      "message": "What test needed this? If you send an alert right at a key change, the peer might not be able to read it, but presumably that would happen equally in QUIC and TCP. (Over TCP, we don\u0027t have this escape hatch and instead the alert would fail to decrypt.)",
+      "revId": "4725cd89e42c56bc6953ed16b610d7a7a3c97326",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
