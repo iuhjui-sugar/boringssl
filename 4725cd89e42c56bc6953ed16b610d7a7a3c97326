@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7ff2d646_743c3481",
+        "filename": "ssl/test/mock_quic_transport.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-04-06T18:11:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce1447cc_3d3c1c0b",
+      "range": {
+        "startLine": 69,
+        "startChar": 37,
+        "endLine": 69,
+        "endChar": 43
+      },
+      "revId": "4725cd89e42c56bc6953ed16b610d7a7a3c97326",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "41658e00_6b833eb8",
         "filename": "ssl/test/runner/mock_quic_transport.go",
         "patchSetId": 7
@@ -39,6 +63,24 @@
       "revId": "4725cd89e42c56bc6953ed16b610d7a7a3c97326",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7beebb2_109dd136",
+        "filename": "ssl/test/runner/mock_quic_transport.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-04-06T18:11:26Z",
+      "side": 1,
+      "message": "I think it was QUIC-TLS13-RSA_WITH_3DES_EDE_CBC_SHA-client (and other similar tests) when I was debugging them, because I was getting the wrong error. However, this was a red herring. This isn\u0027t actually needed, so I\u0027ve removed it.",
+      "parentUuid": "41658e00_6b833eb8",
+      "revId": "4725cd89e42c56bc6953ed16b610d7a7a3c97326",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
