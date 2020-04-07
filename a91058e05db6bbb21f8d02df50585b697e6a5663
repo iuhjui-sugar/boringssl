@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eb44f0fa_39da1d5d",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1276,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-07T19:21:52Z",
+      "side": 1,
+      "message": "(There are also some directives to save and restore state, but I don\u0027t remember them off-hand. This works though.)",
+      "revId": "a91058e05db6bbb21f8d02df50585b697e6a5663",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
