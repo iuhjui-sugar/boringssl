@@ -51,6 +51,10 @@ void CRYPTO_sysrand_for_seed(uint8_t *buf, size_t len);
 // it will not block and will instead fill |buf| with all zeros or early
 // /dev/urandom output.
 void CRYPTO_sysrand_if_available(uint8_t *buf, size_t len);
+#else
+OPENSSL_INLINE void CRYPTO_sysrand_if_available(uint8_t *buf, size_t len) {
+  CRYPTO_sysrand(buf, len);
+}
 #endif
 
 // rand_fork_unsafe_buffering_enabled returns whether fork-unsafe buffering has
@@ -105,8 +109,17 @@ OPENSSL_EXPORT void CTR_DRBG_clear(CTR_DRBG_STATE *drbg);
 
 
 #if defined(OPENSSL_X86_64) && !defined(OPENSSL_NO_ASM)
+
 OPENSSL_INLINE int have_rdrand(void) {
   return (OPENSSL_ia32cap_get()[1] & (1u << 30)) != 0;
+}
+
+// have_fast_rdrand returns true if RDRAND is supported and it's reasonably
+// fast. Concretely the latter is defined by whether the chip is Intel (fast) or
+// not (assumed slow).
+OPENSSL_INLINE int have_fast_rdrand(void) {
+  const uint32_t *const ia32cap = OPENSSL_ia32cap_get();
+  return (ia32cap[1] & (1u << 30)) && (ia32cap[0] & (1u << 30));
 }
 
 // CRYPTO_rdrand writes eight bytes of random data from the hardware RNG to
@@ -117,6 +130,17 @@ int CRYPTO_rdrand(uint8_t out[8]);
 // the hardware RNG. The |len| argument must be a multiple of eight. It returns
 // one on success and zero on hardware failure.
 int CRYPTO_rdrand_multiple8_buf(uint8_t *buf, size_t len);
+
+#else  // OPENSSL_X86_64 && !OPENSSL_NO_ASM
+
+OPENSSL_INLINE int have_rdrand(void) {
+  return 0;
+}
+
+OPENSSL_INLINE int have_fast_rdrand(void) {
+  return 0;
+}
+
 #endif  // OPENSSL_X86_64 && !OPENSSL_NO_ASM
 
 
