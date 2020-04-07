@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "af5fcd08_b0c3323c",
+        "filename": "crypto/fipsmodule/rand/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-07T19:39:55Z",
+      "side": 1,
+      "message": "MSVC seems to hate this \u0027return\u0027.",
+      "range": {
+        "startLine": 56,
+        "startChar": 2,
+        "endLine": 56,
+        "endChar": 8
+      },
+      "revId": "974e739f25b2fadfff859607d4b483a0b41d9b15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ab96078_39cf22a3",
+        "filename": "crypto/fipsmodule/rand/rand.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-07T19:39:55Z",
+      "side": 1,
+      "message": "This means we lose fork resistance in some build configs are early boot, even if rand_fork_unsafe_buffering_enabled() is off. Is that the behavior we want? Maybe we can do this flow (fast-RDRAND gate + opportunistic sysrand) only if rand_fork_unsafe_buffering is enabled?\n\nThough this does mean that, with fork-safety off, we need to pick either RDRAND (potentially slow) or sysrand (potentially blocking), which is a nuisance.",
+      "range": {
+        "startLine": 257,
+        "startChar": 6,
+        "endLine": 257,
+        "endChar": 33
+      },
+      "revId": "974e739f25b2fadfff859607d4b483a0b41d9b15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75cbf852_962a7765",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-07T19:39:55Z",
+      "side": 1,
+      "message": "Looks like the symbol is still gated on BORINGSSL_FIPS in the header. (Otherwise it\u0027s an inline wrapper or so?)",
+      "revId": "974e739f25b2fadfff859607d4b483a0b41d9b15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2ccc256_e6b968c7",
+        "filename": "util/all_tests.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-07T19:39:55Z",
+      "side": 1,
+      "message": "Not sure if the syntax supports this, but since the Intel bit doesn\u0027t gate any particular hw capabilities, it seems we\u0027d want to force the Intel bit on in one test and force it off in the other, so we get coverage of both halves independent of the host.\n\n(I guess either way SDE will cover this.)",
+      "revId": "974e739f25b2fadfff859607d4b483a0b41d9b15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
