@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b8beb696_89f5179c",
+        "filename": "crypto/fipsmodule/rand/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2020-04-07T21:44:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af5fcd08_b0c3323c",
+      "range": {
+        "startLine": 56,
+        "startChar": 2,
+        "endLine": 56,
+        "endChar": 8
+      },
+      "revId": "974e739f25b2fadfff859607d4b483a0b41d9b15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ab96078_39cf22a3",
         "filename": "crypto/fipsmodule/rand/rand.c",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2020-04-07T19:39:55Z",
       "side": 1,
       "message": "This means we lose fork resistance in some build configs are early boot, even if rand_fork_unsafe_buffering_enabled() is off. Is that the behavior we want? Maybe we can do this flow (fast-RDRAND gate + opportunistic sysrand) only if rand_fork_unsafe_buffering is enabled?\n\nThough this does mean that, with fork-safety off, we need to pick either RDRAND (potentially slow) or sysrand (potentially blocking), which is a nuisance.",
+      "range": {
+        "startLine": 257,
+        "startChar": 6,
+        "endLine": 257,
+        "endChar": 33
+      },
+      "revId": "974e739f25b2fadfff859607d4b483a0b41d9b15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ee70dd5_32c7146d",
+        "filename": "crypto/fipsmodule/rand/rand.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2020-04-07T21:44:52Z",
+      "side": 1,
+      "message": "We only assure non-blocking in FIPS mode, so we could limit the damage to that.\n\nHow about if |CRYPTO_sysrand_if_available| returns a status about whether it did anything and, if not, we either use RDRAND or a blocking sysrand?\n\n(I hope to augment this with MADV_WIPEONFORK in the future, but this change should stand along for now.)",
+      "parentUuid": "6ab96078_39cf22a3",
       "range": {
         "startLine": 257,
         "startChar": 6,
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "e349b48a_bb03ac7a",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2020-04-07T21:44:52Z",
+      "side": 1,
+      "message": "sysrand_if_available? It\u0027s gated on:\n\n#if defined(OPENSSL_URANDOM) || defined(BORINGSSL_UNSAFE_DETERMINISTIC_MODE)\n\nThus the non-inline version is either provided by urandom.c or deterministic.c. (Might be missing your point.)",
+      "parentUuid": "75cbf852_962a7765",
+      "revId": "974e739f25b2fadfff859607d4b483a0b41d9b15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f2ccc256_e6b968c7",
         "filename": "util/all_tests.json",
         "patchSetId": 3
@@ -79,6 +145,24 @@
       "revId": "974e739f25b2fadfff859607d4b483a0b41d9b15",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6fa3aab6_a2b13d5c",
+        "filename": "util/all_tests.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2020-04-07T21:44:52Z",
+      "side": 1,
+      "message": "Added \u0027|\u0027 prefix to the environment variable and another entry in all_tests.json.",
+      "parentUuid": "f2ccc256_e6b968c7",
+      "revId": "974e739f25b2fadfff859607d4b483a0b41d9b15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
