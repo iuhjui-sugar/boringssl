@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6eecf31d_ed63abb6",
+        "filename": "crypto/fipsmodule/ec/ec.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 825,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-04-07T21:16:54Z",
+      "side": 1,
+      "message": "2",
+      "range": {
+        "startLine": 825,
+        "startChar": 58,
+        "endLine": 825,
+        "endChar": 59
+      },
+      "revId": "facf3e151d8ae11bdd87a2b31ae1c34d0abd0e14",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5178ebc_86159add",
+        "filename": "crypto/fipsmodule/ec/oct.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-04-07T21:16:54Z",
+      "side": 1,
+      "message": "(nit: merge this with the previous conditional?)",
+      "revId": "facf3e151d8ae11bdd87a2b31ae1c34d0abd0e14",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7198cfd_45207b79",
+        "filename": "crypto/fipsmodule/ec/oct.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-04-07T21:16:54Z",
+      "side": 1,
+      "message": "(nit: move |ret| down to around L182.)",
+      "revId": "facf3e151d8ae11bdd87a2b31ae1c34d0abd0e14",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
