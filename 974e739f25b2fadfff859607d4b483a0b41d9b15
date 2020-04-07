@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "b325f68e_71350eba",
+        "filename": "crypto/fipsmodule/rand/rand.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-07T23:05:28Z",
+      "side": 1,
+      "message": "\u003e How about if |CRYPTO_sysrand_if_available| returns a status about whether it did anything and, if not, we either use RDRAND or a blocking sysrand?\n\nI guess that is the desired flow of things, though it does get to be a hairball. If we really don\u0027t want to regress anything, we\u0027d further want no RDRAND + fork-safety on \u003d\u003e block on sysrand. So it\u0027d be something like...\n\n  if (!rdrand_if_fast(...)) {\n    if (rand_fork_unsafe_buffering_enabled()) {\n      OPENSSL_memset(..., 0, ...);\n    } else {\n      if (!CRYPTO_sysrand_if_available(...) \u0026\u0026\n          !rdrand_even_if_slow(...)) {\n        CRYPTO_sysrand(...);\n      }\n    }\n  }\n\nI feel like something went terribly wrong at some point here. :-)\n\n(Oh, that\u0027s why sysrand_if_available wasn\u0027t defined for non-FIPS... in non-FIPS, since we happily take the blocking behavior, there was no need to do anything opportunistically.)",
+      "parentUuid": "1ee70dd5_32c7146d",
+      "range": {
+        "startLine": 257,
+        "startChar": 6,
+        "endLine": 257,
+        "endChar": 33
+      },
+      "revId": "974e739f25b2fadfff859607d4b483a0b41d9b15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "75cbf852_962a7765",
         "filename": "crypto/fipsmodule/rand/urandom.c",
         "patchSetId": 3
@@ -128,6 +152,24 @@
       "revId": "974e739f25b2fadfff859607d4b483a0b41d9b15",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e8c37b9_648f6ced",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-07T23:05:28Z",
+      "side": 1,
+      "message": "Oh, nevermind, I can\u0027t read. (Hrm. With the inline wrapper we probably can get rid of the determinisic.c arm. Anyway...)",
+      "parentUuid": "e349b48a_bb03ac7a",
+      "revId": "974e739f25b2fadfff859607d4b483a0b41d9b15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
