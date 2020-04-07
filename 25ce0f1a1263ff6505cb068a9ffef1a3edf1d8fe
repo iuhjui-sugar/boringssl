@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a1f3bf90_33c97637",
+        "filename": "crypto/fipsmodule/ec/ec.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 858,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-07T20:04:18Z",
+      "side": 1,
+      "message": "(Carried over from ec_GFp_simple_point_set_affine_coordinates.)",
+      "revId": "25ce0f1a1263ff6505cb068a9ffef1a3edf1d8fe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
