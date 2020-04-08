@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "df241a16_7bf62570",
+        "filename": "crypto/ec_extra/hash_to_curve.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-08T19:48:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5db19562_84f618f8",
+      "range": {
+        "startLine": 34,
+        "startChar": 3,
+        "endLine": 34,
+        "endChar": 21
+      },
+      "revId": "6d016429c07385092b0619c8e5e4a47848526cdb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "45813a44_4610fc7e",
         "filename": "crypto/ec_extra/hash_to_curve.c",
         "patchSetId": 7
@@ -39,6 +63,24 @@
       "revId": "6d016429c07385092b0619c8e5e4a47848526cdb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4c450e6_1b68b92e",
+        "filename": "crypto/ec_extra/hash_to_curve.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-08T19:48:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "45813a44_4610fc7e",
+      "revId": "6d016429c07385092b0619c8e5e4a47848526cdb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "a3cb3c36_ae2010e0",
+        "filename": "crypto/ec_extra/hash_to_curve.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-08T19:48:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "60179dca_dd3e4782",
+      "revId": "6d016429c07385092b0619c8e5e4a47848526cdb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "14a4d7e4_0a405a2c",
         "filename": "crypto/ec_extra/hash_to_curve.c",
         "patchSetId": 7
@@ -73,6 +133,24 @@
       "revId": "6d016429c07385092b0619c8e5e4a47848526cdb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e9b0eb2_b5593e17",
+        "filename": "crypto/ec_extra/hash_to_curve.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-08T19:48:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14a4d7e4_0a405a2c",
+      "revId": "6d016429c07385092b0619c8e5e4a47848526cdb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -99,6 +177,30 @@
     },
     {
       "key": {
+        "uuid": "48a6c473_f203c526",
+        "filename": "crypto/ec_extra/hash_to_curve.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-08T19:48:38Z",
+      "side": 1,
+      "message": "Yeah, I wasn\u0027t sure what to do about the ordering. The spec uses expand_message_xmd(msg, DST, len_in_bytes). I moved len_in_bytes to the front because buffer pointers should be close to their lengths and outputs are first. Otherwise, I left msg and DST in their order.\n\nIt then defines hash_to_field(msg, count) with a pile of \"parameters\" including DST and k. Those seem like context parameters and thus ought to be before msg. Also msg is only meaningful relative to DST. Thus here and for the actual exposed function, DST before msg seemed better.\n\nSo then the question is whether we make expand_message_xmd (somewhat) consistent with the spec or other functions. I... don\u0027t feel very strongly here. Thoughts?",
+      "parentUuid": "0fb8fcda_34c1d767",
+      "range": {
+        "startLine": 135,
+        "startChar": 73,
+        "endLine": 135,
+        "endChar": 76
+      },
+      "revId": "6d016429c07385092b0619c8e5e4a47848526cdb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f90403ef_98108a19",
         "filename": "crypto/ec_extra/hash_to_curve.c",
         "patchSetId": 7
@@ -113,6 +215,24 @@
       "revId": "6d016429c07385092b0619c8e5e4a47848526cdb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8d9a357_c8e3937b",
+        "filename": "crypto/ec_extra/hash_to_curve.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-08T19:48:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f90403ef_98108a19",
+      "revId": "6d016429c07385092b0619c8e5e4a47848526cdb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
