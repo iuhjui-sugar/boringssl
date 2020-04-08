@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "cc272f0e_5aee9e8c",
+        "filename": "crypto/fipsmodule/rand/rand.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2020-04-08T16:20:39Z",
+      "side": 1,
+      "message": "Have done this. A fast, dependable RDRAND was a beautiful dream …",
+      "parentUuid": "b325f68e_71350eba",
+      "range": {
+        "startLine": 257,
+        "startChar": 6,
+        "endLine": 257,
+        "endChar": 33
+      },
+      "revId": "974e739f25b2fadfff859607d4b483a0b41d9b15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "75cbf852_962a7765",
         "filename": "crypto/fipsmodule/rand/urandom.c",
         "patchSetId": 3
