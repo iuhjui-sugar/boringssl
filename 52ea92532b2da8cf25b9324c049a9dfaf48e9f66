@@ -295,6 +295,24 @@
     },
     {
       "key": {
+        "uuid": "231458fe_f1ea46ea",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 39
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-08T23:00:19Z",
+      "side": 1,
+      "message": "There. Have a real hash-to-curve. :-P Also an ec_point_from_uncompressed function so this doesn\u0027t need to use EC_POINT.",
+      "parentUuid": "ab854308_7196990f",
+      "revId": "52ea92532b2da8cf25b9324c049a9dfaf48e9f66",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "55d42a7f_73044a32",
         "filename": "crypto/trust_token/pmbtoken.c",
         "patchSetId": 39
@@ -436,6 +454,30 @@
     },
     {
       "key": {
+        "uuid": "ae72240a_77861bb6",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 39
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-08T23:00:19Z",
+      "side": 1,
+      "message": "If we implement a complex algorithm like this, we should have comments describing where it\u0027s from (e.g. in this case a spec reference to the corresponding map_to_curve function), so it\u0027s possible to check what it does, what it guarantees, and what the expected algorithm is.\n\nIt\u0027s also worth implementing the real hash-to-curve because this is a complicated enough algorithm that it\u0027s important to check against a specification\u0027s test vectors. To that end, wait maybe 20 minutes and rebase for a real hash-to-curve in https://boringssl-review.googlesource.com/c/boringssl/+/40589. :-)",
+      "parentUuid": "281c2d5c_4af20597",
+      "range": {
+        "startLine": 248,
+        "startChar": 19,
+        "endLine": 248,
+        "endChar": 23
+      },
+      "revId": "52ea92532b2da8cf25b9324c049a9dfaf48e9f66",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9cc89914_39fac8e2",
         "filename": "crypto/trust_token/pmbtoken.c",
         "patchSetId": 39
@@ -538,6 +580,24 @@
       "revId": "52ea92532b2da8cf25b9324c049a9dfaf48e9f66",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac3e8a3b_1b036212",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 39
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-08T23:00:19Z",
+      "side": 1,
+      "message": "Ah, yes, you\u0027re right. And EC_FELEM is a little fussy since it\u0027s right where curve specializations happen. (But even unspecialized EC_FELEM is better than BIGNUM.) So adding it was maybe not totally trivial. Anyway, you can rebase over my CL to get a real hash-to-curve so this is obsolete now. :-)\n\nFor context, the steps here are roughly:\n\n- hash_to_field requires reducing an out-of-range value. Our usual trick here is Montgomery reduction, which works if the value is large enough. \n\n- map_to_curve involves picking one of two square roots and computing them. To be constant-time, you need to run both of them. First, computing square roots in 3 (mod 4) primes is just an exponentiation, plus a check to see if the square checked out. That gives you both square root and is_square, when you can then \n\n- We hadn\u0027t exposed felem_inv outside code that knows you\u0027re using GFp_mont implementation, but we can do that. Inversion is just an exponentation.\n\n- But exponentations are expensive and there\u0027s a trick to combine the two into one, so we don\u0027t actually need felem_inv and felem_sqrt, but felem_exp. (Appendix D.2.)\n\n- Finally, you need to initialize a few constants. I switched the EC_FELEM initialization code to be based on bytes.\n\n(I\u0027m getting increasingly tempted to do some horrid macro-based curve-specialization thing so the mess that is EC_FELEM can finally be a little rationalized. Really I want templates, but I can probably fake it with macros.)",
+      "parentUuid": "45880c10_da018dfb",
+      "revId": "52ea92532b2da8cf25b9324c049a9dfaf48e9f66",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -1361,6 +1421,24 @@
     },
     {
       "key": {
+        "uuid": "95bf98db_9bbb9db4",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 39
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-08T23:00:19Z",
+      "side": 1,
+      "message": "Oh, I was thinking the helper function would just do the computation, so you could also do it in keygen and pmbtoken_sign. Also because the checking operation below ought to be constant-time anyway.\n\n(Want me to extract a constant-time Jacobian point comparison function out of ec_GFp_simple_cmp? It probably has more optimizations than it actually needs, TBH. Dunno if we can get rid of them altogether because we do compare public keys at times, but public keys are presumably all affine? Except I don\u0027t think we make them affine at keygen and maybe we should...)",
+      "parentUuid": "188713d2_6d06c26c",
+      "revId": "52ea92532b2da8cf25b9324c049a9dfaf48e9f66",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7f80eb59_cfcc0750",
         "filename": "crypto/trust_token/pmbtoken.c",
         "patchSetId": 39
@@ -1898,6 +1976,24 @@
     },
     {
       "key": {
+        "uuid": "ae538062_c88621f7",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 39
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-08T23:00:19Z",
+      "side": 1,
+      "message": "If you\u0027re finding yourself needing to mess with the differences between EC_POINT and EC_RAW_POINT just adjust the low-level abstraction.\n\nOr just rebase now, then you\u0027ll have serializers and parsers that avoid EC_POINT. :-)",
+      "parentUuid": "e8bc736d_30ceb7ed",
+      "revId": "52ea92532b2da8cf25b9324c049a9dfaf48e9f66",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "85ece12a_a9b429b5",
         "filename": "crypto/trust_token/trust_token.c",
         "patchSetId": 39
@@ -2097,6 +2193,30 @@
     },
     {
       "key": {
+        "uuid": "53c263ec_e1bda6c1",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 39
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-08T23:00:19Z",
+      "side": 1,
+      "message": "Both the threading implications and the configuration bits should be documented. (See other headers for examples on how to talk about threads.)\n\nAlso note this wasn\u0027t actually true at the time: TRUST_TOKEN_ISSUER_set_metadata is incompatible with a multi-threaded API.",
+      "parentUuid": "ad6dfdff_645b211e",
+      "range": {
+        "startLine": 152,
+        "startChar": 74,
+        "endLine": 154,
+        "endChar": 14
+      },
+      "revId": "52ea92532b2da8cf25b9324c049a9dfaf48e9f66",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eef06fbb_b3f05c61",
         "filename": "include/openssl/trust_token.h",
         "patchSetId": 39
@@ -2203,6 +2323,30 @@
       "side": 1,
       "message": "Talking with Kevin, merged these two.",
       "parentUuid": "ab57530e_8d73cf59",
+      "range": {
+        "startLine": 190,
+        "startChar": 19,
+        "endLine": 190,
+        "endChar": 50
+      },
+      "revId": "52ea92532b2da8cf25b9324c049a9dfaf48e9f66",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "370301c2_da469c31",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 39
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-08T23:00:19Z",
+      "side": 1,
+      "message": "Different instances for each value isn\u0027t very consistent with a TRUST_TOKEN_ISSUER representing a collection of keys. The two possible private metadata, in particular, seem like they need to be part of the TRUST_TOKEN_ISSUER.\n\nI could imagine us having the API be unaware of public metadata, but that\u0027s not really the structure of this design.",
+      "parentUuid": "b8cdbe85_fb544a8b",
       "range": {
         "startLine": 190,
         "startChar": 19,

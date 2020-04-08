@@ -1,0 +1,237 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "65c533c4_e29d38e6",
+        "filename": "crypto/trust_token/internal.h",
+        "patchSetId": 46
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-08T23:00:19Z",
+      "side": 1,
+      "message": "I believe if you rebase now, you\u0027ll have all the rope you need to avoid allocating EC_POINTs.",
+      "range": {
+        "startLine": 95,
+        "startChar": 2,
+        "endLine": 95,
+        "endChar": 12
+      },
+      "revId": "9beff74e64b50d1f744cc63ae32f48d59bc69534",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be8c4f48_a153b9c7",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 46
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-08T23:00:19Z",
+      "side": 1,
+      "message": "No longer after rebase with ec_point_to_bytes. (Also probably won\u0027t need CBB with a real hash-to-curve since the DST and msg params are separate.)",
+      "revId": "9beff74e64b50d1f744cc63ae32f48d59bc69534",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9f9851f_865ea386",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 46
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-08T23:00:19Z",
+      "side": 1,
+      "message": "(Incidentally, this works because ToMont(0) \u003d 0, so the value you avoid is the same either way and all the other values are just permuted. So you\u0027re uniformly selecting a non-zero scalar in either Montgomery form or normal.)",
+      "revId": "9beff74e64b50d1f744cc63ae32f48d59bc69534",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "af903991_6a2db2b3",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 46
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-08T23:00:19Z",
+      "side": 1,
+      "message": "All these error paths leak pretoken (goto err).",
+      "revId": "9beff74e64b50d1f744cc63ae32f48d59bc69534",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33be3dfc_ee7b183b",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 46
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-08T23:00:19Z",
+      "side": 1,
+      "message": "Better to do something like:\n\n  ((BN_ULONG)0) - (private_metadata \u0026 1)\n\nNo sense in burning a multiply when we can do cheaper operations.",
+      "revId": "9beff74e64b50d1f744cc63ae32f48d59bc69534",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f776708a_789f3ba0",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 46
+      },
+      "lineNbr": 531,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-08T23:00:19Z",
+      "side": 1,
+      "message": "Error paths leak pretoken (goto err).",
+      "revId": "9beff74e64b50d1f744cc63ae32f48d59bc69534",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c1c08fd_ad2f2859",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 46
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-08T23:00:19Z",
+      "side": 1,
+      "message": "Overall nit: the source order doesn\u0027t seem to match the header order. In particular, the client and issuer stuff is interleaved.",
+      "revId": "9beff74e64b50d1f744cc63ae32f48d59bc69534",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81a92ab9_d320d080",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 46
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-08T23:00:19Z",
+      "side": 1,
+      "message": "This leaks ret.",
+      "revId": "9beff74e64b50d1f744cc63ae32f48d59bc69534",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c6d27c79_8aec2982",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 46
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-08T23:00:19Z",
+      "side": 1,
+      "message": "This leaks ret.",
+      "revId": "9beff74e64b50d1f744cc63ae32f48d59bc69534",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0c2ce48_5b8fa401",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 46
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-08T23:00:19Z",
+      "side": 1,
+      "message": "Does this actually install any keys? It\u0027s extracted by value, which means the modifications are never written back to |ctx|. You probably want a pointer.\n\nI\u0027m guessing it ended up working just because the DLEQ proof isn\u0027t checked yet?",
+      "revId": "9beff74e64b50d1f744cc63ae32f48d59bc69534",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2194efd4_48d7d474",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 46
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-08T23:00:19Z",
+      "side": 1,
+      "message": "These don\u0027t appear to be freed anywhere. (Should be moot with EC_RAW_POINT.)\n\nI usually write the free/cleanup function for a struct at the same time as writing the struct itself, treating them as part of the same thing. That way I don\u0027t forget to do things. Likewise I never write \"new\" or declare a pointer without immediately setting up when it\u0027ll be freed, if necessary.",
+      "revId": "9beff74e64b50d1f744cc63ae32f48d59bc69534",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ff6fa72_76637513",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 46
+      },
+      "lineNbr": 679,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-08T23:00:19Z",
+      "side": 1,
+      "message": "This is sufficiently messy that it definitely wants a goto err pattern. :-)\n\nYou can NULL srr_buf and sig_buf immediately after setting *out_srr, etc., so the cleanup block works right. (Alternatively, have the caller supply the buffer. They don\u0027t need to be stack-allocate it necessarily.)\n\nmd_ctx you can either hoist to function scope or, if it\u0027s really tiny, you can do...\n\n\n    EVP_MD_CTX md_ctx;\n    EVP_MD_CTX_init(\u0026md_ctx);\n    int sig_ok \u003d EVP_DigestVerifyInit(\u0026md_ctx, NULL, NULL, NULL, ctx-\u003esrr_key) \u0026\u0026\n                 EVP_DigestVerify(\u0026md_ctx, CBS_data(\u0026sig), CBS_len(\u0026sig),\n                          CBS_data(\u0026srr), CBS_len(\u0026srr));\n    EVP_MD_CTX_cleanup(\u0026md_ctx);\n    if (!sig_ok) {\n      ...\n    }\n\nDitto with the function above.",
+      "revId": "9beff74e64b50d1f744cc63ae32f48d59bc69534",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db762bed_053a3d64",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 46
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-08T23:00:19Z",
+      "side": 1,
+      "message": "Any reason for this to be variable-length?",
+      "range": {
+        "startLine": 177,
+        "startChar": 56,
+        "endLine": 177,
+        "endChar": 76
+      },
+      "revId": "9beff74e64b50d1f744cc63ae32f48d59bc69534",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
