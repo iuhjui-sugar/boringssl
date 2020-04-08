@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fae2531f_9d3335bc",
+        "filename": "crypto/ec_extra/hash_to_curve.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-08T21:04:21Z",
+      "side": 1,
+      "message": "I noticed we could shave 1S + 1M because gxd was already xd^3.",
+      "revId": "1583e0d75a0ff2921d0a385b6ed41197774811a6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
