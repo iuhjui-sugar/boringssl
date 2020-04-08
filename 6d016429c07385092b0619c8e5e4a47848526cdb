@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5db19562_84f618f8",
+        "filename": "crypto/ec_extra/hash_to_curve.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-04-08T18:52:45Z",
+      "side": 1,
+      "message": "(or output too large.)",
+      "range": {
+        "startLine": 34,
+        "startChar": 3,
+        "endLine": 34,
+        "endChar": 21
+      },
+      "revId": "6d016429c07385092b0619c8e5e4a47848526cdb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45813a44_4610fc7e",
+        "filename": "crypto/ec_extra/hash_to_curve.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-04-08T18:52:45Z",
+      "side": 1,
+      "message": "(nit: const for these?)",
+      "revId": "6d016429c07385092b0619c8e5e4a47848526cdb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60179dca_dd3e4782",
+        "filename": "crypto/ec_extra/hash_to_curve.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-04-08T18:52:45Z",
+      "side": 1,
+      "message": "assert(md_size \u003c 256);\n\n(Or maybe static_assert EVP_MAX_MD_SIZE \u003c 256.)",
+      "revId": "6d016429c07385092b0619c8e5e4a47848526cdb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14a4d7e4_0a405a2c",
+        "filename": "crypto/ec_extra/hash_to_curve.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-04-08T18:52:45Z",
+      "side": 1,
+      "message": "// If |out_len| exceeds 16 bits then |i| will wrap below causing an error to be returned.\n\n(This also depends on EVP_MAX_MD_SIZE \u003c 256.)",
+      "revId": "6d016429c07385092b0619c8e5e4a47848526cdb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0fb8fcda_34c1d767",
+        "filename": "crypto/ec_extra/hash_to_curve.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-04-08T18:52:45Z",
+      "side": 1,
+      "message": "(nit: order of |msg| and |dst| parameters is different than for |expand_message_xmd|.)",
+      "range": {
+        "startLine": 135,
+        "startChar": 73,
+        "endLine": 135,
+        "endChar": 76
+      },
+      "revId": "6d016429c07385092b0619c8e5e4a47848526cdb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f90403ef_98108a19",
+        "filename": "crypto/ec_extra/hash_to_curve.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-04-08T18:52:45Z",
+      "side": 1,
+      "message": "add(\u0026tmp, in, in); // 2*in\nadd(out, \u0026tmp, in);  // 3*in?",
+      "revId": "6d016429c07385092b0619c8e5e4a47848526cdb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
