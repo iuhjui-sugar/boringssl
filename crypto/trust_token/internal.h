@@ -68,19 +68,23 @@ PMBTOKEN_PRETOKEN *pmbtoken_blind(void);
 // pmbtoken_sign signs a blinded point based on the configuration of |ctx|
 // and the key specified by |key_id| with a private metadata value of
 // |private_metadata| as per the AT.Sig operation and stores the resulting nonce
-// and points in |*out_s|, |*out_Wp|, and |*out_Wsp|. It returns one on success
+// and points in |*out_s|, |*out_Wp|, and |*out_Wsp| and the resulting DLEQ
+// proof in |*out_proof|. The caller takes ownership of |*out_proof| and is
+// responsible for freeing it using |OPENSSL_free|. It returns one on success
 // and zero on failure.
 int pmbtoken_sign(const TRUST_TOKEN_ISSUER *ctx,
                   uint8_t out_s[PMBTOKEN_NONCE_SIZE], EC_RAW_POINT *out_Wp,
-                  EC_RAW_POINT *out_Wsp, const EC_RAW_POINT *Tp,
+                  EC_RAW_POINT *out_Wsp, uint8_t **out_proof,
+                  size_t *out_proof_len, const EC_RAW_POINT *Tp,
                   uint32_t key_id, uint8_t private_metadata);
 
 // pmbtoken_unblind unblinds the result of an AT.Sig operation as per the final
-// stage of the AT.Usr operation and returns the resulting token.
-PMBTOKEN_TOKEN *pmbtoken_unblind(const uint8_t s[PMBTOKEN_NONCE_SIZE],
-                                 const EC_RAW_POINT *Wp,
-                                 const EC_RAW_POINT *Wsp,
-                                 const PMBTOKEN_PRETOKEN *pretoken);
+// stage of the AT.Usr operation using the keys configured in |ctx| specified by
+// |key_id| and returns the resulting token.
+PMBTOKEN_TOKEN *pmbtoken_unblind(
+    const TRUST_TOKEN_CLIENT *ctx, const uint8_t s[PMBTOKEN_NONCE_SIZE],
+    const EC_RAW_POINT *Wp, const EC_RAW_POINT *Wsp, const uint8_t *proof,
+    size_t proof_len, const PMBTOKEN_PRETOKEN *pretoken, uint32_t key_id);
 
 // pmbtoken_read verifies the validity of a PMBToken |token| using the key
 // specified by |key_id| and stores the value of the private metadata
