@@ -436,6 +436,167 @@ TEST_P(TrustTokenMetadataTest, TooManyRequests) {
   ASSERT_EQ(sk_TRUST_TOKEN_num(tokens.get()), 1UL);
 }
 
+TEST_P(TrustTokenMetadataTest, BadPublicKey) {
+  client.reset(TRUST_TOKEN_CLIENT_new(client_max_batchsize));
+  ASSERT_TRUE(client);
+  issuer.reset(TRUST_TOKEN_ISSUER_new(issuer_max_batchsize));
+  ASSERT_TRUE(issuer);
+
+  for (size_t i = 0; i < 3; i++) {
+    uint8_t priv_key[TRUST_TOKEN_MAX_PRIVATE_KEY_SIZE];
+    uint8_t pub_key[TRUST_TOKEN_MAX_PUBLIC_KEY_SIZE];
+    size_t priv_key_len, pub_key_len, key_index;
+    ASSERT_TRUE(TRUST_TOKEN_generate_key(
+        priv_key, &priv_key_len, TRUST_TOKEN_MAX_PRIVATE_KEY_SIZE, pub_key,
+        &pub_key_len, TRUST_TOKEN_MAX_PUBLIC_KEY_SIZE, KeyID(i)));
+    ASSERT_TRUE(TRUST_TOKEN_CLIENT_add_key(client.get(), &key_index, pub_key,
+                                           pub_key_len));
+    ASSERT_EQ(i, key_index);
+    ASSERT_TRUE(TRUST_TOKEN_generate_key(
+        priv_key, &priv_key_len, TRUST_TOKEN_MAX_PRIVATE_KEY_SIZE, pub_key,
+        &pub_key_len, TRUST_TOKEN_MAX_PUBLIC_KEY_SIZE, KeyID(i)));
+    ASSERT_TRUE(
+        TRUST_TOKEN_ISSUER_add_key(issuer.get(), priv_key, priv_key_len));
+  }
+
+  uint8_t *issue_msg = NULL, *issue_resp = NULL;
+  size_t msg_len, resp_len;
+  ASSERT_TRUE(TRUST_TOKEN_CLIENT_begin_issuance(client.get(), &issue_msg,
+                                                &msg_len, 10));
+  bssl::UniquePtr<uint8_t> free_issue_msg(issue_msg);
+  uint8_t tokens_issued;
+  ASSERT_TRUE(TRUST_TOKEN_ISSUER_issue(
+      issuer.get(), &issue_resp, &resp_len, &tokens_issued, issue_msg, msg_len,
+      std::get<0>(GetParam()), std::get<1>(GetParam()), /*max_issuance=*/1));
+  bssl::UniquePtr<uint8_t> free_msg(issue_resp);
+  size_t key_index;
+  bssl::UniquePtr<STACK_OF(TRUST_TOKEN)> tokens(
+      TRUST_TOKEN_CLIENT_finish_issuance(client.get(), &key_index, issue_resp,
+                                         resp_len));
+  ASSERT_FALSE(tokens);
+}
+
+TEST_P(TrustTokenMetadataTest, TruncatedProof) {
+  ASSERT_NO_FATAL_FAILURE(SetupContexts());
+
+  uint8_t *issue_msg = NULL, *issue_resp = NULL;
+  size_t msg_len, resp_len;
+  ASSERT_TRUE(TRUST_TOKEN_CLIENT_begin_issuance(client.get(), &issue_msg,
+                                                &msg_len, 10));
+  bssl::UniquePtr<uint8_t> free_issue_msg(issue_msg);
+  uint8_t tokens_issued;
+  ASSERT_TRUE(TRUST_TOKEN_ISSUER_issue(
+      issuer.get(), &issue_resp, &resp_len, &tokens_issued, issue_msg, msg_len,
+      std::get<0>(GetParam()), std::get<1>(GetParam()), /*max_issuance=*/1));
+  bssl::UniquePtr<uint8_t> free_msg(issue_resp);
+
+  CBS real_response;
+  CBS_init(&real_response, issue_resp, resp_len);
+  uint16_t count;
+  uint32_t public_metadata;
+  CBB bad_response;
+  if (!CBB_init(&bad_response, 0) ||
+      !CBS_get_u16(&real_response, &count) ||
+      !CBB_add_u16(&bad_response, count) ||
+      !CBS_get_u32(&real_response, &public_metadata) ||
+      !CBB_add_u32(&bad_response, public_metadata)) {
+    CBB_cleanup(&bad_response);
+    ASSERT_TRUE(0);
+  }
+  for (size_t i = 0; i < count; i++) {
+    uint8_t s[PMBTOKEN_NONCE_SIZE];
+    CBS tmp;
+    if (!CBS_copy_bytes(&real_response, s, PMBTOKEN_NONCE_SIZE) ||
+        !CBB_add_bytes(&bad_response, s, PMBTOKEN_NONCE_SIZE) ||
+        !CBS_get_u16_length_prefixed(&real_response, &tmp) ||
+        !CBB_add_u16(&bad_response, CBS_len(&tmp)) ||
+        !CBB_add_bytes(&bad_response, CBS_data(&tmp), CBS_len(&tmp)) ||
+        !CBS_get_u16_length_prefixed(&real_response, &tmp) ||
+        !CBB_add_u16(&bad_response, CBS_len(&tmp)) ||
+        !CBB_add_bytes(&bad_response, CBS_data(&tmp), CBS_len(&tmp)) ||
+        !CBS_get_u16_length_prefixed(&real_response, &tmp) ||
+        !CBB_add_u16(&bad_response, CBS_len(&tmp) - 2) ||
+        !CBB_add_bytes(&bad_response, CBS_data(&tmp), CBS_len(&tmp) - 2)) {
+      CBB_cleanup(&bad_response);
+      ASSERT_TRUE(0);
+    }
+  }
+
+  uint8_t *bad_buf;
+  size_t bad_len;
+  if (!CBB_finish(&bad_response, &bad_buf, &bad_len)) {
+    CBB_cleanup(&bad_response);
+    ASSERT_TRUE(0);
+  }
+  bssl::UniquePtr<uint8_t> free_bad(bad_buf);
+
+  size_t key_index;
+  bssl::UniquePtr<STACK_OF(TRUST_TOKEN)> tokens(
+      TRUST_TOKEN_CLIENT_finish_issuance(client.get(), &key_index, bad_buf, bad_len));
+  ASSERT_FALSE(tokens);
+}
+
+TEST_P(TrustTokenMetadataTest, ExcessDataProof) {
+  ASSERT_NO_FATAL_FAILURE(SetupContexts());
+
+  uint8_t *issue_msg = NULL, *issue_resp = NULL;
+  size_t msg_len, resp_len;
+  ASSERT_TRUE(TRUST_TOKEN_CLIENT_begin_issuance(client.get(), &issue_msg,
+                                                &msg_len, 10));
+  bssl::UniquePtr<uint8_t> free_issue_msg(issue_msg);
+  uint8_t tokens_issued;
+  ASSERT_TRUE(TRUST_TOKEN_ISSUER_issue(
+      issuer.get(), &issue_resp, &resp_len, &tokens_issued, issue_msg, msg_len,
+      std::get<0>(GetParam()), std::get<1>(GetParam()), /*max_issuance=*/1));
+  bssl::UniquePtr<uint8_t> free_msg(issue_resp);
+
+  CBS real_response;
+  CBS_init(&real_response, issue_resp, resp_len);
+  uint16_t count;
+  uint32_t public_metadata;
+  CBB bad_response;
+  if (!CBB_init(&bad_response, 0) ||
+      !CBS_get_u16(&real_response, &count) ||
+      !CBB_add_u16(&bad_response, count) ||
+      !CBS_get_u32(&real_response, &public_metadata) ||
+      !CBB_add_u32(&bad_response, public_metadata)) {
+    CBB_cleanup(&bad_response);
+    ASSERT_TRUE(0);
+  }
+  for (size_t i = 0; i < count; i++) {
+    uint8_t s[PMBTOKEN_NONCE_SIZE];
+    CBS tmp;
+    if (!CBS_copy_bytes(&real_response, s, PMBTOKEN_NONCE_SIZE) ||
+        !CBB_add_bytes(&bad_response, s, PMBTOKEN_NONCE_SIZE) ||
+        !CBS_get_u16_length_prefixed(&real_response, &tmp) ||
+        !CBB_add_u16(&bad_response, CBS_len(&tmp)) ||
+        !CBB_add_bytes(&bad_response, CBS_data(&tmp), CBS_len(&tmp)) ||
+        !CBS_get_u16_length_prefixed(&real_response, &tmp) ||
+        !CBB_add_u16(&bad_response, CBS_len(&tmp)) ||
+        !CBB_add_bytes(&bad_response, CBS_data(&tmp), CBS_len(&tmp)) ||
+        !CBS_get_u16_length_prefixed(&real_response, &tmp) ||
+        !CBB_add_u16(&bad_response, CBS_len(&tmp) + 2) ||
+        !CBB_add_bytes(&bad_response, CBS_data(&tmp), CBS_len(&tmp)) ||
+        !CBB_add_u16(&bad_response, 42)) {
+      CBB_cleanup(&bad_response);
+      ASSERT_TRUE(0);
+    }
+  }
+
+  uint8_t *bad_buf;
+  size_t bad_len;
+  if (!CBB_finish(&bad_response, &bad_buf, &bad_len)) {
+    CBB_cleanup(&bad_response);
+    ASSERT_TRUE(0);
+  }
+  bssl::UniquePtr<uint8_t> free_bad(bad_buf);
+
+  size_t key_index;
+  bssl::UniquePtr<STACK_OF(TRUST_TOKEN)> tokens(
+      TRUST_TOKEN_CLIENT_finish_issuance(client.get(), &key_index, bad_buf, bad_len));
+  ASSERT_FALSE(tokens);
+}
+
 INSTANTIATE_TEST_SUITE_P(
     TrustTokenAllMetadataTest, TrustTokenMetadataTest,
     testing::Combine(testing::Values(TrustTokenProtocolTest::KeyID(0),
