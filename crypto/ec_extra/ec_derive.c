@@ -24,6 +24,51 @@
 
 #include "../fipsmodule/ec/internal.h"
 
+#include "internal.h"
+
+
+BIGNUM *ec_hash_to_scalar(const EC_GROUP *group, const uint8_t *dst,
+                          size_t dst_len, const uint8_t *msg, size_t msg_len, BN_CTX *ctx) {
+  // Generate 128 bits beyond the group order so the bias is at most 2^-128.
+#define EC_KEY_DERIVE_EXTRA_BITS 128
+#define EC_KEY_DERIVE_EXTRA_BYTES (EC_KEY_DERIVE_EXTRA_BITS / 8)
+
+  if (EC_GROUP_order_bits(group) <= EC_KEY_DERIVE_EXTRA_BITS + 8) {
+    // The reduction strategy below requires the group order be large enough.
+    // (The actual bound is a bit tighter, but our curves are much larger than
+    // 128-bit.)
+    OPENSSL_PUT_ERROR(EC, ERR_R_INTERNAL_ERROR);
+    return NULL;
+  }
+
+  uint8_t derived[EC_KEY_DERIVE_EXTRA_BYTES + EC_MAX_BYTES];
+  size_t derived_len = BN_num_bytes(&group->order) + EC_KEY_DERIVE_EXTRA_BYTES;
+  assert(derived_len <= sizeof(derived));
+  if (!HKDF(derived, derived_len, EVP_sha256(), msg, msg_len,
+            /*salt=*/NULL, /*salt_len=*/0, dst, dst_len)) {
+    return NULL;
+  }
+
+  BIGNUM *bn = BN_bin2bn(derived, derived_len, NULL);
+  if (bn == NULL ||
+      // Reduce |priv| with Montgomery reduction. First, convert "from"
+      // Montgomery form to compute |priv| * R^-1 mod |order|. This requires
+      // |priv| be under order * R, which is true if the group order is large
+      // enough. 2^(num_bytes(order)) < 2^8 * order, so:
+      //
+      //    priv < 2^8 * order * 2^128 < order * order < order * R
+      !BN_from_montgomery(bn, bn, group->order_mont, ctx) ||
+      // Multiply by R^2 and do another Montgomery reduction to compute
+      // priv * R^-1 * R^2 * R^-1 = priv mod order.
+      !BN_to_montgomery(bn, bn, group->order_mont, ctx)) {
+    OPENSSL_PUT_ERROR(EC, ERR_R_INTERNAL_ERROR);
+    BN_free(bn);
+    bn = NULL;
+  }
+
+  OPENSSL_cleanse(derived, sizeof(derived));
+  return bn;
+}
 
 EC_KEY *EC_KEY_derive_from_secret(const EC_GROUP *group, const uint8_t *secret,
                                   size_t secret_len) {
@@ -42,42 +87,12 @@ EC_KEY *EC_KEY_derive_from_secret(const EC_GROUP *group, const uint8_t *secret,
   OPENSSL_strlcpy(info, kLabel, sizeof(info));
   OPENSSL_strlcat(info, name, sizeof(info));
 
-  // Generate 128 bits beyond the group order so the bias is at most 2^-128.
-#define EC_KEY_DERIVE_EXTRA_BITS 128
-#define EC_KEY_DERIVE_EXTRA_BYTES (EC_KEY_DERIVE_EXTRA_BITS / 8)
-
-  if (EC_GROUP_order_bits(group) <= EC_KEY_DERIVE_EXTRA_BITS + 8) {
-    // The reduction strategy below requires the group order be large enough.
-    // (The actual bound is a bit tighter, but our curves are much larger than
-    // 128-bit.)
-    OPENSSL_PUT_ERROR(EC, ERR_R_INTERNAL_ERROR);
-    return NULL;
-  }
-
-  uint8_t derived[EC_KEY_DERIVE_EXTRA_BYTES + EC_MAX_BYTES];
-  size_t derived_len = BN_num_bytes(&group->order) + EC_KEY_DERIVE_EXTRA_BYTES;
-  assert(derived_len <= sizeof(derived));
-  if (!HKDF(derived, derived_len, EVP_sha256(), secret, secret_len,
-            /*salt=*/NULL, /*salt_len=*/0, (const uint8_t *)info,
-            strlen(info))) {
-    return NULL;
-  }
-
   EC_KEY *key = EC_KEY_new();
   BN_CTX *ctx = BN_CTX_new();
-  BIGNUM *priv = BN_bin2bn(derived, derived_len, NULL);
+  BIGNUM *priv = ec_hash_to_scalar(group, (const uint8_t *)info, strlen(info),
+                                   secret, secret_len, ctx);
   EC_POINT *pub = EC_POINT_new(group);
-  if (key == NULL || ctx == NULL || priv == NULL || pub == NULL ||
-      // Reduce |priv| with Montgomery reduction. First, convert "from"
-      // Montgomery form to compute |priv| * R^-1 mod |order|. This requires
-      // |priv| be under order * R, which is true if the group order is large
-      // enough. 2^(num_bytes(order)) < 2^8 * order, so:
-      //
-      //    priv < 2^8 * order * 2^128 < order * order < order * R
-      !BN_from_montgomery(priv, priv, group->order_mont, ctx) ||
-      // Multiply by R^2 and do another Montgomery reduction to compute
-      // priv * R^-1 * R^2 * R^-1 = priv mod order.
-      !BN_to_montgomery(priv, priv, group->order_mont, ctx) ||
+  if (key == NULL || ctx == NULL || pub == NULL ||
       !EC_POINT_mul(group, pub, priv, NULL, NULL, ctx) ||
       !EC_KEY_set_group(key, group) || !EC_KEY_set_public_key(key, pub) ||
       !EC_KEY_set_private_key(key, priv)) {
@@ -87,7 +102,6 @@ EC_KEY *EC_KEY_derive_from_secret(const EC_GROUP *group, const uint8_t *secret,
   }
 
 err:
-  OPENSSL_cleanse(derived, sizeof(derived));
   BN_CTX_free(ctx);
   BN_free(priv);
   EC_POINT_free(pub);

@@ -30,6 +30,13 @@ extern "C" {
 // draft-irtf-cfrg-hash-to-curve-06. We currently only implement a P-521 suite,
 // but others can be added as needed.
 
+// ec_hash_to_scalar hashes |msg| to an element modulo the order of |group|
+// using |ctx| and returns a |BIGNUM| representing the element. |dst| is the
+// domain separation tag and must be unique for each protocol.
+BIGNUM *ec_hash_to_scalar(const EC_GROUP *group, const uint8_t *dst,
+                          size_t dst_len, const uint8_t *buf, size_t buf_len,
+                          BN_CTX *ctx);
+
 // ec_hash_to_curve_p521_sha512_sswu hashes |msg| to a point on |group| and
 // writes the result to |out|, implementing the P521_XMD:SHA-512_SSWU_RO_ suite.
 // It returns one on success and zero on error. |dst| is the domain separation
