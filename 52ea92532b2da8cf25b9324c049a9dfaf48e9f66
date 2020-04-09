@@ -313,6 +313,24 @@
     },
     {
       "key": {
+        "uuid": "b2f9968c_6240d4d2",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 39
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-04-09T15:39:49Z",
+      "side": 1,
+      "message": "Removed the EC_POINT portions. Leaving with the existing H for initial testing. Will rotate it out to use hash2curve as a followup.",
+      "parentUuid": "231458fe_f1ea46ea",
+      "revId": "52ea92532b2da8cf25b9324c049a9dfaf48e9f66",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "55d42a7f_73044a32",
         "filename": "crypto/trust_token/pmbtoken.c",
         "patchSetId": 39
@@ -475,6 +493,30 @@
       "revId": "52ea92532b2da8cf25b9324c049a9dfaf48e9f66",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72c5bde6_a3ce50d6",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 39
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-04-09T15:39:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae72240a_77861bb6",
+      "range": {
+        "startLine": 248,
+        "startChar": 19,
+        "endLine": 248,
+        "endChar": 23
+      },
+      "revId": "52ea92532b2da8cf25b9324c049a9dfaf48e9f66",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -1439,6 +1481,24 @@
     },
     {
       "key": {
+        "uuid": "912d3302_1096b959",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 39
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-04-09T15:39:49Z",
+      "side": 1,
+      "message": "Did that, though can\u0027t use this with the keygen computation, since that uses the base point as one of the legs. I guess I could pull that out and manually specify the base point, though we lose a bit of optimizations there?",
+      "parentUuid": "95bf98db_9bbb9db4",
+      "revId": "52ea92532b2da8cf25b9324c049a9dfaf48e9f66",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7f80eb59_cfcc0750",
         "filename": "crypto/trust_token/pmbtoken.c",
         "patchSetId": 39
@@ -1450,6 +1510,24 @@
       "writtenOn": "2020-03-31T19:33:48Z",
       "side": 1,
       "message": "This probably ought to be constant-time, i.e. computing both xT + yS values, doing both comparisons, and then setting *out_private_metadata accordingly.\n\nI don\u0027t think we actually have a constant-time comparison for EC_POINTs right now because that\u0027s not really a thing that comes up in other algorithms. ec_GFp_simple_cmp instead tries to be clever about affine vs. Jacobian coordinates. \n\nWhile we could implement this by converting to affine, that costs an inversion so doing the comparison in Jacobian coordinates is more efficient. Note ec_felem_equal is variable time (want to rename it to ec_felem_equal_vartime to match ec_scalar_equal_vartime?). We could do ec_felem_non_zero_mask and ec_felem_sub or add a constant-time equality function.\n\nThen it\u0027d be something like...\n\n  EC_RAW_POINT W0, W1;\n  if (!mul_x_and_y(ctx-\u003egroup, \u0026W0, \u0026T, \u0026key.x0, \u0026S, \u0026key.y0) ||\n      !mul_x_and_y(ctx-\u003egroup, \u0026W1, \u0026T, \u0026key.x1, \u0026S, \u0026key.y1)) {\n    return 0;\n  }\n\n  BN_ULONG is_zero \u003d ec_point_equal_mask(\u0026W, \u0026W0);\n  BN_ULONG is_one \u003d ec_point_equal_mask(\u0026W, \u0026W1);\n  if (!(is_zero ^ is_one)) {\n    OPENSSL_PUT_ERROR(...);\n    return 0;\n  }\n\n  *out_private_metadata \u003d 1 \u0026 is_one;\n\n(Or maybe it should return plain 1 or 0 instead of masks? Honestly we\u0027re pretty terrible when it comes to consistency of how to represent secret_bool_t. Hopefully someday we\u0027ll have the language support for this.)",
+      "revId": "52ea92532b2da8cf25b9324c049a9dfaf48e9f66",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c42babe_1e65d999",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 39
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-04-09T15:39:49Z",
+      "side": 1,
+      "message": "Annoyingly this actually has 4 different returns:\n\nis_zero \u0026 is_one \u003d Error\nis_zero \u0026 !is_one \u003d 0\n!is_zero \u0026 is_one \u003d 1\n!is_zero \u0026 !is_one \u003d 2\n\nConstant-time compare would be mildly useful, but not sure if there\u0027s a readable way to do this:\n\nif (is_zero \u0026\u0026 is_one) return ERROR;\n*out \u003d 2*((1-is_zero)+(1-is_one)-1) + is_one",
+      "parentUuid": "7f80eb59_cfcc0750",
       "revId": "52ea92532b2da8cf25b9324c049a9dfaf48e9f66",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -1994,6 +2072,24 @@
     },
     {
       "key": {
+        "uuid": "968c0f7e_f80f21bd",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 39
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-04-09T15:39:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae538062_c88621f7",
+      "revId": "52ea92532b2da8cf25b9324c049a9dfaf48e9f66",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "85ece12a_a9b429b5",
         "filename": "crypto/trust_token/trust_token.c",
         "patchSetId": 39
@@ -2214,6 +2310,30 @@
       "revId": "52ea92532b2da8cf25b9324c049a9dfaf48e9f66",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77b0e8d8_21a9e6dd",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 39
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-04-09T15:39:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53c263ec_e1bda6c1",
+      "range": {
+        "startLine": 152,
+        "startChar": 74,
+        "endLine": 154,
+        "endChar": 14
+      },
+      "revId": "52ea92532b2da8cf25b9324c049a9dfaf48e9f66",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {

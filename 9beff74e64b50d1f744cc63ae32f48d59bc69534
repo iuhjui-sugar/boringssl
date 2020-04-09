@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dc4bdbe3_2f3c5d84",
+        "filename": "crypto/trust_token/internal.h",
+        "patchSetId": 46
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-04-09T15:39:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "65c533c4_e29d38e6",
+      "range": {
+        "startLine": 95,
+        "startChar": 2,
+        "endLine": 95,
+        "endChar": 12
+      },
+      "revId": "9beff74e64b50d1f744cc63ae32f48d59bc69534",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "be8c4f48_a153b9c7",
         "filename": "crypto/trust_token/pmbtoken.c",
         "patchSetId": 46
@@ -39,6 +63,24 @@
       "revId": "9beff74e64b50d1f744cc63ae32f48d59bc69534",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccde38cd_afeb45fc",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 46
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-04-09T15:39:49Z",
+      "side": 1,
+      "message": "Still need it to munge the point together with the nonce here.",
+      "parentUuid": "be8c4f48_a153b9c7",
+      "revId": "9beff74e64b50d1f744cc63ae32f48d59bc69534",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -76,6 +118,24 @@
     },
     {
       "key": {
+        "uuid": "17ba002e_7d441e97",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 46
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-04-09T15:39:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af903991_6a2db2b3",
+      "revId": "9beff74e64b50d1f744cc63ae32f48d59bc69534",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "33be3dfc_ee7b183b",
         "filename": "crypto/trust_token/pmbtoken.c",
         "patchSetId": 46
@@ -90,6 +150,24 @@
       "revId": "9beff74e64b50d1f744cc63ae32f48d59bc69534",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3ee5f4e0_713e5066",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 46
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-04-09T15:39:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33be3dfc_ee7b183b",
+      "revId": "9beff74e64b50d1f744cc63ae32f48d59bc69534",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -110,6 +188,24 @@
     },
     {
       "key": {
+        "uuid": "ee7609df_dd89146b",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 46
+      },
+      "lineNbr": 531,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-04-09T15:39:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f776708a_789f3ba0",
+      "revId": "9beff74e64b50d1f744cc63ae32f48d59bc69534",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4c1c08fd_ad2f2859",
         "filename": "crypto/trust_token/trust_token.c",
         "patchSetId": 46
@@ -124,6 +220,24 @@
       "revId": "9beff74e64b50d1f744cc63ae32f48d59bc69534",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0ee92e1_be124a30",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 46
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-04-09T15:39:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c1c08fd_ad2f2859",
+      "revId": "9beff74e64b50d1f744cc63ae32f48d59bc69534",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -144,6 +258,24 @@
     },
     {
       "key": {
+        "uuid": "f55865e0_38df7d1c",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 46
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-04-09T15:39:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81a92ab9_d320d080",
+      "revId": "9beff74e64b50d1f744cc63ae32f48d59bc69534",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c6d27c79_8aec2982",
         "filename": "crypto/trust_token/trust_token.c",
         "patchSetId": 46
@@ -158,6 +290,24 @@
       "revId": "9beff74e64b50d1f744cc63ae32f48d59bc69534",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d0507cc_704ca75d",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 46
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-04-09T15:39:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6d27c79_8aec2982",
+      "revId": "9beff74e64b50d1f744cc63ae32f48d59bc69534",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -178,6 +328,24 @@
     },
     {
       "key": {
+        "uuid": "5feca2bd_9f03ece7",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 46
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-04-09T15:39:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0c2ce48_5b8fa401",
+      "revId": "9beff74e64b50d1f744cc63ae32f48d59bc69534",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2194efd4_48d7d474",
         "filename": "crypto/trust_token/trust_token.c",
         "patchSetId": 46
@@ -195,6 +363,24 @@
     },
     {
       "key": {
+        "uuid": "b0c8b7e0_6cd7c443",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 46
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-04-09T15:39:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2194efd4_48d7d474",
+      "revId": "9beff74e64b50d1f744cc63ae32f48d59bc69534",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7ff6fa72_76637513",
         "filename": "crypto/trust_token/trust_token.c",
         "patchSetId": 46
@@ -209,6 +395,24 @@
       "revId": "9beff74e64b50d1f744cc63ae32f48d59bc69534",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "549b8000_726ce121",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 46
+      },
+      "lineNbr": 679,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-04-09T15:39:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ff6fa72_76637513",
+      "revId": "9beff74e64b50d1f744cc63ae32f48d59bc69534",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -232,6 +436,30 @@
       "revId": "9beff74e64b50d1f744cc63ae32f48d59bc69534",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2f4e807_c8c7b03e",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 46
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-04-09T15:39:49Z",
+      "side": 1,
+      "message": "Different callers might derive this key differently. The key is effectively input to a hash, so its structure isn\u0027t important for the protocol.",
+      "parentUuid": "db762bed_053a3d64",
+      "range": {
+        "startLine": 177,
+        "startChar": 56,
+        "endLine": 177,
+        "endChar": 76
+      },
+      "revId": "9beff74e64b50d1f744cc63ae32f48d59bc69534",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
