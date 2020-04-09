@@ -16,6 +16,8 @@
 #include <openssl/bytestring.h>
 #include <openssl/ec.h>
 #include <openssl/err.h>
+#include <openssl/digest.h>
+#include <openssl/hkdf.h>
 #include <openssl/mem.h>
 #include <openssl/nid.h>
 #include <openssl/rand.h>
@@ -120,6 +122,19 @@ static int get_h(EC_RAW_POINT *out_h) {
   };
 
   return ec_point_from_uncompressed(group, out_h, kH, sizeof(kH));
+}
+
+static int mul_g_and_p(const EC_GROUP *group, EC_RAW_POINT *out,
+                       const EC_RAW_POINT *g, const EC_SCALAR *g_scalar,
+                       const EC_RAW_POINT *p, const EC_SCALAR *p_scalar) {
+  EC_RAW_POINT tmp1, tmp2;
+  if (!ec_point_mul_scalar(group, &tmp1, g, g_scalar) ||
+      !ec_point_mul_scalar(group, &tmp2, p, p_scalar)) {
+    return 0;
+  }
+
+  group->meth->add(group, out, &tmp1, &tmp2);
+  return 1;
 }
 
 // generate_keypair generates a keypair for the PMBTokens construction.
@@ -299,6 +314,99 @@ err:
   return NULL;
 }
 
+/* static int dleq2_generate(uint8_t **out_proof, size_t *out_proof_len, */
+/*                           const EC_RAW_POINT *pub, const EC_RAW_POINT *T, */
+/*                           const EC_RAW_POINT *S, const EC_RAW_POINT *W, */
+/*                           const EC_SCALAR *x, const EC_SCALAR *y) { */
+/*   EC_GROUP *group = EC_GROUP_new_by_curve_name(NID_secp521r1); */
+/*   if (group == NULL) { */
+/*     return 0; */
+/*   } */
+
+/*   EC_RAW_POINT h; */
+/*   if(!get_h(&h)) { */
+/*     return 0; */
+/*   } */
+  
+/*   EC_SCALAR k0, k1; */
+/*   k0 = randomPoint; */
+/*   if (!ec_random_nonzero_scalar(group, &k0, kDefaultAdditionalData) || */
+/*       !ec_random_nonzero_scalar(group, &k1, kDefaultAdditionalData)) { */
+
+/*   } */
+/*   EC_RAW_POINT tmp1, tmp2; */
+/*   if (!mul_g_and_p(group, &kb0, G, k0, H, k1) || */
+/*       !mul_g_and_p(group, &kb1, T, k0, S, k1)) { */
+/*   } */
+
+/*   EC_SCALAR c; */
+/*   ec_hash_to_scalar(group, &scalar, msg, msg_len); */
+  
+/*   // c = H(group, G, H, X, T, S, W, kb0, kb1) */
+/*   // u = k0+c*xb */
+/*   // v = k1+c*yb */
+/* } */
+
+/* static int dleq2_verify(uint8_t *proof, size_t proof_len, */
+/*                         const EC_RAW_POINT *pub, const EC_RAW_POINT *T, */
+/*                         const EC_RAW_POINT *S, const EC_RAW_POINT *W) { */
+/*   EC_GROUP *group = EC_GROUP_new_by_curve_name(NID_secp521r1); */
+/*   if (group == NULL) { */
+/*     return 0; */
+/*   } */
+
+/*   EC_RAW_POINT h; */
+/*   if(!get_h(&h)) { */
+/*     return 0; */
+/*   } */
+  
+/*   EC_SCALAR k0, k1; */
+/*   k0 = randomPoint; */
+/*   if (!ec_random_nonzero_scalar(group, &k0, kDefaultAdditionalData) || */
+/*       !ec_random_nonzero_scalar(group, &k1, kDefaultAdditionalData)) { */
+
+/*   } */
+
+/*   // co */
+/*   // uo */
+/*   // vo  */
+/*   // Ko0 = uo*G+vo*H-co*Xo */
+/*   // Ko1 = uo*T+vo*S-co*W */
+  
+/*   EC_RAW_POINT tmp1, tmp2; */
+/*   if (!mul_g_and_p(group, &kb0, G, k0, H, k1) || */
+/*       !mul_g_and_p(group, &kb1, T, k0, S, k1)) { */
+/*   } */
+
+/*   // cb = H(group, G, H, X, T, S, W, kb0, kb1) */
+/*   // ub = k0+c*xb */
+/*   // vb = k1+c*yb */
+
+  
+/* } */
+
+/* static int dleqor2_generate(uint8_t **out_proof, size_t *out_proof_len, */
+/*                             const EC_RAW_POINT *pub0, const EC_RAW_POINT *pub1, */
+/*                             const EC_RAW_POINT *T, const EC_RAW_POINT *S, */
+/*                             const EC_RAW_POINT *W, const EC_SCALAR *x, */
+/*                             const EC_SCALAR *y, int bit_value) { */
+/*   // group, p, G, H */
+/*   // k0,k1 = Random */
+/*   // Kb=k0*(G;T) + k1*(H;S) */
+/*   // co,uo,vo = Random */
+/*   // Ko = uo*(G;T)+vo*(H;S)-co*(Xo;W) */
+/*   // cs = H(...) */
+/*   // cb = cs-co */
+/*   // ub = k0+cb*xb */
+/*   // vb = k1+cb*yb */
+/*   // (c,u,v) */
+/* } */
+
+/* static int dleqor2_verify(uint8_t *proof, size_t proof_len, */
+/*                           const EC_RAW_POINT *pub0, const EC_RAW_POINT *pub1, */
+/*                           const EC_RAW_POINT *T, const EC_RAW_POINT *S, */
+/*                           const EC_RAW_POINT *W) {} */
+
 int pmbtoken_sign(const TRUST_TOKEN_ISSUER *ctx,
                   uint8_t out_s[PMBTOKEN_NONCE_SIZE], EC_RAW_POINT *out_Wp,
                   EC_RAW_POINT *out_Wsp, const EC_RAW_POINT *Tp,
@@ -320,7 +428,7 @@ int pmbtoken_sign(const TRUST_TOKEN_ISSUER *ctx,
   }
 
   EC_SCALAR xb, yb;
-  BN_ULONG mask = ((BN_ULONG)0) - (private_metadata&1);
+  BN_ULONG mask = ((BN_ULONG)0) - (private_metadata & 1);
   ec_scalar_select(group, &xb, mask, &key->x1, &key->x0);
   ec_scalar_select(group, &yb, mask, &key->y1, &key->y0);
 
@@ -343,6 +451,11 @@ int pmbtoken_sign(const TRUST_TOKEN_ISSUER *ctx,
   group->meth->add(group, out_Wsp, &tmp3, &tmp4);
 
   // TODO: DLEQ Proofs
+  //dleq_generate(out_proofPM,
+  //dleq_generate(out_proof, k, G, Y, M, Z, H3)
+  //EC_SCALAR outx;
+  //uint8_t buf[] = "s";
+  //ec_hash_to_scalar(group, &outx, buf, 1);
   return 1;
 }
 
@@ -380,19 +493,6 @@ PMBTOKEN_TOKEN *pmbtoken_unblind(const uint8_t s[PMBTOKEN_NONCE_SIZE],
 err:
   OPENSSL_free(token);
   return NULL;
-}
-
-static int mul_g_and_p(const EC_GROUP *group, EC_RAW_POINT *out,
-                       const EC_RAW_POINT *g, const EC_SCALAR *g_scalar,
-                       const EC_RAW_POINT *p, const EC_SCALAR *p_scalar) {
-  EC_RAW_POINT tmp1, tmp2;
-  if (!ec_point_mul_scalar(group, &tmp1, g, g_scalar) ||
-      !ec_point_mul_scalar(group, &tmp2, p, p_scalar)) {
-    return 0;
-  }
-
-  group->meth->add(group, out, &tmp1, &tmp2);
-  return 1;
 }
 
 int pmbtoken_read(const TRUST_TOKEN_ISSUER *ctx, uint8_t *out_private_metadata,
