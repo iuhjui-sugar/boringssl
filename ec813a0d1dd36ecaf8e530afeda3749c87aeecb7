@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1ee20f70_ae1349a6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-04-09T18:19:14Z",
+      "side": 1,
+      "message": "Wrapping?",
+      "revId": "ec813a0d1dd36ecaf8e530afeda3749c87aeecb7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
