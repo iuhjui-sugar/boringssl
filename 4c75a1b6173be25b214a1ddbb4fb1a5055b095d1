@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b67455d5_5c65e920",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 48
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 9679
+      },
+      "writtenOn": "2020-04-10T01:17:14Z",
+      "side": 1,
+      "message": "Driveby: units?",
+      "revId": "4c75a1b6173be25b214a1ddbb4fb1a5055b095d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
