@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6ffbecae_e98e21f9",
+        "filename": "crypto/ec_extra/hash_to_curve.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-04-10T17:38:22Z",
+      "side": 1,
+      "message": "Comment should that |k| is the security level.",
+      "revId": "28987cf081a338f3cfaec9ed31f66acf966ea401",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ce0f485_c04de7d0",
+        "filename": "crypto/ec_extra/hash_to_curve.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-04-10T17:38:22Z",
+      "side": 1,
+      "message": "elsewhere in this file a union is used to get a uint8_t* reference. This should be consistent (one way or the other).",
+      "revId": "28987cf081a338f3cfaec9ed31f66acf966ea401",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
