@@ -154,7 +154,8 @@ static int num_bytes_to_derive(size_t *out, const BIGNUM *modulus, unsigned k) {
 }
 
 // hash_to_field implements the operation described in section 5.2
-// of draft-irtf-cfrg-hash-to-curve-06, with count = 2.
+// of draft-irtf-cfrg-hash-to-curve-06, with count = 2. |k| is the security
+// factor.
 static int hash_to_field2(const EC_GROUP *group, const EVP_MD *md,
                           EC_FELEM *out1, EC_FELEM *out2, const uint8_t *dst,
                           size_t dst_len, unsigned k, const uint8_t *msg,
@@ -176,13 +177,17 @@ static int hash_to_scalar(const EC_GROUP *group, const EVP_MD *md,
                           EC_SCALAR *out, const uint8_t *dst, size_t dst_len,
                           unsigned k, const uint8_t *msg, size_t msg_len) {
   size_t L;
-  BN_ULONG words[EC_MAX_WORDS * 2] = {0};
+  union {
+    BN_ULONG words[EC_MAX_WORDS * 2];
+    uint8_t bytes[EC_MAX_BYTES * 2];
+  } buf;
+  OPENSSL_memset(&buf, 0, sizeof(buf));
   if (!num_bytes_to_derive(&L, &group->order, k) ||
-      !expand_message_xmd(md, (uint8_t *)words, L, msg, msg_len, dst,
+      !expand_message_xmd(md, buf.bytes, L, msg, msg_len, dst,
                           dst_len)) {
     return 0;
   }
-  ec_scalar_reduce(group, out, words, 2 * group->order.width);
+  ec_scalar_reduce(group, out, buf.words, 2 * group->order.width);
   return 1;
 }
 
