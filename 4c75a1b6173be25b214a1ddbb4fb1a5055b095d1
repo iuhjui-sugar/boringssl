@@ -16,6 +16,24 @@
       "revId": "4c75a1b6173be25b214a1ddbb4fb1a5055b095d1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e7d918c_f496c0b8",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 48
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-04-10T14:09:12Z",
+      "side": 1,
+      "message": "seconds, will update the comment once davidben publishes the next review pass.",
+      "parentUuid": "b67455d5_5c65e920",
+      "revId": "4c75a1b6173be25b214a1ddbb4fb1a5055b095d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
