@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "22e31633_33ab0fc3",
+        "filename": "crypto/fipsmodule/ec/ec.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 790,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-13T21:21:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0335e6f_18441410",
+      "range": {
+        "startLine": 790,
+        "startChar": 10,
+        "endLine": 790,
+        "endChar": 23
+      },
+      "revId": "5b371f3ab9c38752e2cac692ebcef3d584a8e46e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b44b8348_5195e57d",
         "filename": "crypto/fipsmodule/ec/simple.c",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2020-04-13T19:14:16Z",
       "side": 1,
       "message": "(Some of this could be trimmed for built-in curves as B !\u003d 0, but this is clear and safe.)",
+      "range": {
+        "startLine": 283,
+        "startChar": 26,
+        "endLine": 283,
+        "endChar": 57
+      },
+      "revId": "5b371f3ab9c38752e2cac692ebcef3d584a8e46e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f4fa3918_386c4724",
+        "filename": "crypto/fipsmodule/ec/simple.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-13T21:21:39Z",
+      "side": 1,
+      "message": "Not sure it actually can. If a \u003d (0, 0, 0) and b \u003d (X, Y, Z) on the curve, we compare (X*0, Y*0) \u003d (0*Z^2, 0*Z^3). Maybe it\u0027s sufficient to only check one of them? *shrug* Costs nothing compared to the field operations. :-)",
+      "parentUuid": "b44b8348_5195e57d",
       "range": {
         "startLine": 283,
         "startChar": 26,
