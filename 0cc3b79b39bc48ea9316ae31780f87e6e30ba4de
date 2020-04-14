@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a079d0ac_b7cc08b9",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 49
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "hash2curve is already exported, but it costs an exponentiation, so I\u0027m thinking we still hardcode it as before, but export get_h for testing, and have a test which asserts they match.\n\nThat also means that, if you need to recreate it, it\u0027s fairly straightforward.",
+      "revId": "0cc3b79b39bc48ea9316ae31780f87e6e30ba4de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4632207f_bb63038f",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 49
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "(I guess this isn\u0027t mul_g_and_p because you want mul_scalar_base.)",
+      "revId": "0cc3b79b39bc48ea9316ae31780f87e6e30ba4de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

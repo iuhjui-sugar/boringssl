@@ -1,0 +1,1476 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a237252_1e4ab1f9",
+        "filename": "crypto/fipsmodule/ec/internal.h",
+        "patchSetId": 50
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "Mismerge? I\u0027m guessing my reordering of things messed things up. :-( I believe you want to remove this block and just paste ec_scalar_select up with the other scalar functions.",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "160a5067_3fa20b88",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "You can move this down to line 178 and then replace the generate_keypair block from goto err to return 0.\n\n(Once you start hoisting variables up, you should consistently use goto err. So if generate_keypair needed the goto err, then this should be moved to line 169 to match line 166.)",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4e8d387_183b261a",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "See guidance in\nhttps://tools.ietf.org/html/draft-irtf-cfrg-hash-to-curve-06#section-3.1\n\nI suppose \"PMBT\" does technically meet 1, but maybe \"PMBTokens HashT\". (You could even stick a v0 in there, on the off chance that the name \"PMBTokens\" sticks.)\n\nDitto.",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df1ff9d5_a3fd4708",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "Rather than explicitly including 9 here, just use [] and C will count it for you. Ditto below.",
+      "range": {
+        "startLine": 233,
+        "startChar": 28,
+        "endLine": 233,
+        "endChar": 29
+      },
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d93d1738_d50526e0",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "int ok \u003d 0;\n\nThen ok \u003d 1 at the end. (We also usually call it \u0027ret\u0027.)",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34582c41_f93f30ab",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "Nit: We usually call this \u0027child\u0027. (Or just drop the length prefix. We\u0027re already assuming P-521, so it has fixed length.)",
+      "range": {
+        "startLine": 244,
+        "startChar": 11,
+        "endLine": 244,
+        "endChar": 18
+      },
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4830533_51c2d4dd",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "NULL and then report an error if you don\u0027t find a match?",
+      "range": {
+        "startLine": 315,
+        "startChar": 48,
+        "endLine": 315,
+        "endChar": 61
+      },
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2bf50377_0b7294f6",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "break;",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ddca329_5c9699a6",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "I think this is just a pair of mul_g_and_p calls.",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8113909_cc0f70af",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "TRUST_TOKEN_R_NO_KEYS_CONFIGURED",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "919ed0d2_5e90af40",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "struct trust_token_issuer_key_st *key \u003d \u0026ctx-\u003ekeys[0];\n\nAlthough same comment as above; NULL and then report an error if you don\u0027t find a match?",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45c3e56a_5cd1f532",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "break;",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc0c66b3_cb1ced1f",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "From out-of-band conversation, it sounds like this is actually impossible assuming the key isn\u0027t compromised and tokens are working. In that case, passing \u00272\u0027 down to consumers who have codepaths they will never test seems poor.\n\nAssuming this is the case, let\u0027s do either:\n\n- In constant-time, map 2 to 0. There is a light preference that 0 means REJECT-MUCH-LATER and 1 means ACCEPT-MUCH-LATER, but since this case is impossible, it doesn\u0027t really matter.\n\n- If the metadata bit is invalid, return 0 here. It branches, but we assume this case is impossible anyway, so it doesn\u0027t matter and would rather get some error we can log out of it.",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afc01cbb_fa161c41",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "If you rebase, you\u0027ll have a constant-time comparison now. Something like...\n\n  const int is_W0 \u003d ec_GFp_simple_points_equal(group, \u0026W0, \u0026token-\u003eW);\n  const int is_W1 \u003d ec_GFp_simple_points_equal(group, \u0026W1, \u0026token-\u003eW);\n  const int is_valid \u003d is_W0 ^ is_W1;\n  if (!is_valid) {\n    // I\u0027m assuming here this is truly impossible so it\u0027s okay to just\n    // branch on it. Probably worth a more useful comment than this. :-)\n    OPENSSL_PUT_ERROR(I_FORGET, ERR_R_INTERNAL_ERROR);\n    return 0;\n  }\n\n  *out_private_metadata \u003d is_W1;\n  return 1;\n\n\nIf instead silently mapping 2 to 0, it\u0027s just:\n\n  const int is_W0 \u003d ec_GFp_simple_points_equal(group, \u0026W0, \u0026token-\u003eW);\n  const int is_W1 \u003d ec_GFp_simple_points_equal(group, \u0026W1, \u0026token-\u003eW);\n  // Appropriate comment here.\n  *out_private_metadata \u003d is_W1 \u0026 ~is_W0;\n  return 1;",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23ef71fc_3774bb8b",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "const EC_RAW_POINT *point",
+      "range": {
+        "startLine": 30,
+        "startChar": 56,
+        "endLine": 30,
+        "endChar": 68
+      },
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0783fbd4_cff711d1",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "const",
+      "range": {
+        "startLine": 30,
+        "startChar": 39,
+        "endLine": 30,
+        "endChar": 47
+      },
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "463174a1_9cb0c6f9",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "const. (Also, it\u0027s kind of ambiguous in general, but I\u0027d probably consider the group to be a context parameter and thus before the output.)",
+      "range": {
+        "startLine": 42,
+        "startChar": 58,
+        "endLine": 42,
+        "endChar": 66
+      },
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0848e3c_a9357622",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "80 chars. Alternatively, cbs_get_raw_point.",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c366e767_003e5f1f",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "EVP_PKEY_free(ctx-\u003esrr_key);",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "050a2bb1_69e18c39",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "This and the other error paths leak request. goto err + CBB_cleanup(\u0026request). Note we also need a CBB_cleanup if CBB_finish fails.",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02be9bba_fbf8bb04",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "This function may fail on malloc error. (Yeah, it\u0027s obnoxious. I\u0027d do...)\n\n  if (pretoken \u003d\u003d NULL ||\n      !sk_PMBTOKEN_PRETOKEN_push(ctx-\u003epretokens, pretoken)) {\n    PMBPRETOKEN_free(pretoken);\n    return 0;\n  }\n  if (!cbb_add_raw_point(\u0026request, group, pretoken-\u003eTp)) {\n    return 0;\n  }\n\nOr you could fold them together if you do it in the right order:\n\n  if (pretoken \u003d\u003d NULL ||\n      !cbb_add_raw_point(\u0026request, group, pretoken-\u003eTp) ||\n      !sk_PMBTOKEN_PRETOKEN_push(ctx-\u003epretokens, pretoken)) {\n    PMBPRETOKEN_free(pretoken);\n    return 0;\n  }\n\n(The nuisance is that sk_push takes ownership of the object.)",
+      "range": {
+        "startLine": 154,
+        "startChar": 4,
+        "endLine": 154,
+        "endChar": 29
+      },
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b58537d_640f267e",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "This may fail on error.",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08d461e5_7551d057",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "Error paths will leak tokens (goto err + sk_TRUST_TOKEN_pop_free. In general, free things with goto err if you have more than one error path that needs to free things. Also do it if the function doesn\u0027t fit in a screen.)",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d3f4507_581d3457",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "s/ptoken/pretoken/",
+      "range": {
+        "startLine": 198,
+        "startChar": 23,
+        "endLine": 198,
+        "endChar": 29
+      },
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d0f1523_98fe9c25",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "This will run in O(N^2) time.\n\nGiven this function is wiping ctx-\u003epretokens anyway, why not just sk_PMBTOKEN_PRETOKEN_value(ctx-\u003epretokens, i)? Then ptoken can be a non-owning pointer and we don\u0027t have bug with the error paths.",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6f38096_84af94aa",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "ptoken is leaked on error here.",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7ee909be_84e19446",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "What\u0027s atoken stand for?",
+      "range": {
+        "startLine": 205,
+        "startChar": 17,
+        "endLine": 205,
+        "endChar": 23
+      },
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "363e3fbe_b6e37fda",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "Check for malloc failure.",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f819b82b_1a574a37",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "This error-handling isn\u0027t quite right. If sk_TRUST_TOKEN_push fails, CBB_finish has already deposited data into atoken-\u003edata and atoken-\u003elen, but the free block doesn\u0027t free it.",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f01b5b77_def18127",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "This is shorter and also gets us back to the original state. (Or if it\u0027s a single operation, just leave it alone and free later?)\n\n  sk_PMBTOKEN_PRETOKEN_pop_free(ctx-\u003epretokens, PMBTOKEN_PRETOKEN_free);\n  ctx-\u003epretokens \u003d NULL;",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16d5ed9f_75997e5b",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "Any reason for the extra length prefix here? Seems to be redundant.",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97030bce_39374d95",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "Nit: CBB_add_u16_length_prefixed and add_bytes into that. It\u0027s the same number of lines code, but we\u0027ll if the length doesn\u0027t fit in a u16.",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd0a8970_4f021797",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "CBB_cleanup(\u0026request);",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b9e9c48_cf00e316",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "Fold it up into the if outer above so the CBB_cleanup suggestion works.",
+      "range": {
+        "startLine": 250,
+        "startChar": 9,
+        "endLine": 250,
+        "endChar": 19
+      },
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9010e330_e3e8611e",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "TRUST_TOKEN_R_DECODE_FAILURE",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3693ce1_5ce912b1",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "This is a dangerous API pattern. It leaves *out_srr and friends uninitialized despite returning success. Moreover, the documentation claims that those variables are filled in unconditionally. That means a caller may easily accidentally read from uninitialized memory.\n\nInstead, let\u0027s take the \"successful\" error message out of the API altogether. TRUST_TOKEN_ISSUER can simply fail if it dislikes the token (it will only be sent on client misbehavior anyway), and then the HTTP API can report an error instead (which the client already needs to handle).",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10a65837_28f98d57",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "Nit: Delete blank line.",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "469d894c_d191671a",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "Shorter:\n\n  uint8_t *srr_buf \u003d NULL, *sig_buf \u003d NULL;\n  size_t srr_len, srr_len;\n  if (!CBS_stow(\u0026srr, \u0026srr_buf, \u0026srr_len) ||\n      !CBS_stow(\u0026sig, \u0026sig_buf, \u0026sig_len)) {",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a7d94f2_4b673b7d",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "If the client doesn\u0027t have an SRR key, does it just silently accept every SRR? That seems not great. Why not an error instead?",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b7938c3_99ea2c8e",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "OPENSSL_PUT_ERROR",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f445d4d_00f5cbf1",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "Move to just above the for loop.",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3403b4d0_73cd0d4e",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "Check for error. The scalar can be out of change.",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34b47221_3a6ff3f4",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "EVP_PKEY_free(ctx-\u003esrr_key);",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e747ee7a_a8a247a3",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "OPENSSL_free(ctx-\u003emetadata_key);\nctx-\u003emetadata_key_len \u003d 0;",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67959463_7e9e8a76",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "i",
+      "range": {
+        "startLine": 405,
+        "startChar": 14,
+        "endLine": 405,
+        "endChar": 19
+      },
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4678cdbc_f2cc9070",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "break;",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e069228_92e0e1e9",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "Free on error paths (including CBB_finished).",
+      "range": {
+        "startLine": 419,
+        "startChar": 6,
+        "endLine": 419,
+        "endChar": 14
+      },
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88a007f5_b07b4482",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "These section citations look wrong. This one\u0027s talking about floating point. The text and map ones are talking about indefinite-length, which you\u0027re not encoding. (No indefinite-length anything.)\n\nLooks like everything is 2.1.",
+      "range": {
+        "startLine": 467,
+        "startChar": 40,
+        "endLine": 467,
+        "endChar": 50
+      },
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72281224_995e82ef",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "char since this is actually text.",
+      "range": {
+        "startLine": 489,
+        "startChar": 41,
+        "endLine": 489,
+        "endChar": 48
+      },
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3343f13_9e06ea80",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 490,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "This encoding only works if len \u003c\u003d 23, right?\n\nstatic int add_cbor_int_with_type(CBB *cbb, uint8_t major_type, uint64_t value) {\n   // What you have, but | major_type into the first byte.\n}\n\nThen add_cbor_int is add_cbor_int_with_type(cbb, 0, value). And CBB_add_u8(cbb, BLAH | len) is add_cbor_int_with_type(cbb, BLAH, len).\n\nDitto below.",
+      "range": {
+        "startLine": 490,
+        "startChar": 32,
+        "endLine": 490,
+        "endChar": 35
+      },
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca7d3714_c662f4ca",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "Nit: 0xa0",
+      "range": {
+        "startLine": 495,
+        "startChar": 25,
+        "endLine": 495,
+        "endChar": 29
+      },
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68d1b439_6048d4d4",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 546,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "This will leak on failure. Our APIs are usually such that the caller may assume that you don\u0027t fill in any of the outputs on error. (Indeed they have to assume that because we often don\u0027t zero them at the start.)\n\nInstead, do all the allocations in local variables and then release to output parameters at the end. (Ditto for a lot of the other outputs.)\n\nWe usually do not have functions with this many random allocated outputs for a reason. :-P",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76cc61b0_8e0717ff",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "Trailing whitespace.",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9405480d_d7df2e91",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "Doesn\u0027t look like client_data is ever mutated, so no need to copy.",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7fb50f4_e6494b8a",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "CBB_cleanup(\u0026obfuscator_key);\n\nBetter yet, use SHA256_{Init,Update,Final} and you don\u0027t need to allocate anything at all.\n\n(You\u0027re truncating down to 2 bits, right? And I guess if we deal with the bit \u003d 2 silliness, you\u0027re truncating down to 1 bit. So I guess length extension is not really a concern... :-) )",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "526f5593_dbcaea21",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "This is leaked on error. (Hoist the goto err bits up a block and CBB_cleanup in err.)",
+      "range": {
+        "startLine": 584,
+        "startChar": 6,
+        "endLine": 584,
+        "endChar": 9
+      },
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b518047_b118c39e",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 609,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "Nit: Declare the lengths nearer the pointers. I\u0027d also do uint8_t *srr_buf \u003d NULL, *sig_buf \u003d NULL and likewise with the size_t.",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d2d9730_92bcb11a",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 621,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "Malloc failure.",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a647ce29_5472bc4b",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 50
+      },
+      "lineNbr": 666,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "Ditto about not actually needing to concatenate this.",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3640844_881a9188",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 50
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "What exactly is a trust token? Both the client and issuer seem to have it, but the data stored between the two appears to be different, even down to only one of them filling in key_id.\n\n(I thought we didn\u0027t want key_id exposed on the client because the caller may mistakenly key on that.)",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d8ae2a2_fe5f8d4d",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 50
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "or NULL on allocation failure",
+      "range": {
+        "startLine": 47,
+        "startChar": 56,
+        "endLine": 47,
+        "endChar": 57
+      },
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea819f82_c53dc629",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 50
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "returns a newly-allocated |TRUST_TOKEN| with value |data|.",
+      "range": {
+        "startLine": 47,
+        "startChar": 19,
+        "endLine": 47,
+        "endChar": 44
+      },
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fac915d4_fae2d092",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 50
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "How does this function interact with key_id?",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "456c7456_7120e8db",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 50
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "const",
+      "range": {
+        "startLine": 48,
+        "startChar": 44,
+        "endLine": 48,
+        "endChar": 51
+      },
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3836b411_d2e64945",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 50
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "Nit: Maybe: \"A single |TRUST_TOKEN_CLIENT| can [...]\". (Vertical bars and \"the TRUST_TOKEN_CLIENT\" is odd when you\u0027ve got more than one of them.)",
+      "range": {
+        "startLine": 78,
+        "startChar": 75,
+        "endLine": 79,
+        "endChar": 18
+      },
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "151fbc3b_1d9fdf1b",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 50
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "What is a max batchsize? (Document.)",
+      "range": {
+        "startLine": 82,
+        "startChar": 23,
+        "endLine": 82,
+        "endChar": 36
+      },
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a32af01_ef732b20",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 50
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "Two newlines here instead of three, one newline at line 158 instead of two.",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3091e94_3b06853b",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 50
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "A |TRUST_TOKEN_ISSUER|",
+      "range": {
+        "startLine": 151,
+        "startChar": 74,
+        "endLine": 152,
+        "endChar": 37
+      },
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70aed421_674a7d32",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 50
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "It",
+      "range": {
+        "startLine": 153,
+        "startChar": 15,
+        "endLine": 153,
+        "endChar": 29
+      },
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26ff3cf5_c99aeee0",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 50
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "You\u0027re not actually documenting otherwise right now. (Although see question on TRUST_TOKEN_ISSUER_redeem.)",
+      "range": {
+        "startLine": 155,
+        "startChar": 21,
+        "endLine": 155,
+        "endChar": 50
+      },
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c70faae_8001e66d",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 50
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "Ditto about what is a max_batchsize.",
+      "range": {
+        "startLine": 161,
+        "startChar": 22,
+        "endLine": 161,
+        "endChar": 38
+      },
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df97742b_f97c6755",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 50
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "Nit: It returns zero on errors other than others too (allocation). Also |key| is a name and doesn\u0027t need a definite article.\n\n...or zero on error. This function may fail if |key| can\u0027t be parsed or...",
+      "range": {
+        "startLine": 170,
+        "startChar": 29,
+        "endLine": 170,
+        "endChar": 49
+      },
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "755cc7a2_2b713c2b",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 50
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "It also takes ownership of *out_token.",
+      "range": {
+        "startLine": 212,
+        "startChar": 44,
+        "endLine": 212,
+        "endChar": 53
+      },
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "477a33e1_1f8e7fb3",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 50
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "of each buffer",
+      "range": {
+        "startLine": 212,
+        "startChar": 55,
+        "endLine": 212,
+        "endChar": 67
+      },
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0c8d6df8_fa9e53f0",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 50
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "How will the replay cache work? Is it inside the TRUST_TOKEN_ISSUER, or do we output some string (out_token?) which the caller is expected to install in a replay cache?\n\nIf the former, probably it doesn\u0027t actually want to be const.\n\nIf the latter, document it. (It is also a little odd to check after producing the SRR rather than before. The caller could always toss the SRR, but you\u0027ve still taken the time to generate the signature.)",
+      "range": {
+        "startLine": 215,
+        "startChar": 4,
+        "endLine": 215,
+        "endChar": 9
+      },
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f725050_5e66f135",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 50
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-14T00:59:34Z",
+      "side": 1,
+      "message": "Nit: I see evp.h did this too, but we should either add a newline here or drop the one on line 243.",
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
