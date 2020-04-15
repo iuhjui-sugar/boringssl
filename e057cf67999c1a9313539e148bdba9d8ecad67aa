@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2de35ac1_d2dc1fde",
+        "filename": "util/fipstools/acvp/acvptool/subprocess/subprocess.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T23:09:47Z",
+      "side": 1,
+      "message": "Does this work? At the time we evaluate the RHS, m.primitives is still nil.",
+      "range": {
+        "startLine": 88,
+        "startChar": 112,
+        "endLine": 88,
+        "endChar": 124
+      },
+      "revId": "e057cf67999c1a9313539e148bdba9d8ecad67aa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
