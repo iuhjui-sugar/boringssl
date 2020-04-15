@@ -2987,6 +2987,30 @@
     },
     {
       "key": {
+        "uuid": "244de00f_cc13142f",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 50
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "Sounds good. I do wonder if callbacks would make more sense so you don\u0027t bother wasting cycles on making the SRR, but, eh, we can adjust it if it matters.\n\n(Reasons to want to avoid making the SRR: this provides some built-in DoS protection on the SRR signing key because you\u0027re can only be asked to make as many signatures as tokens you issue. Reasons to not care: ECDSA signatures are a point multiplication and token redemption is several point multiplications already.)",
+      "parentUuid": "3034bda9_0a7ee97e",
+      "range": {
+        "startLine": 215,
+        "startChar": 4,
+        "endLine": 215,
+        "endChar": 9
+      },
+      "revId": "d74115348a37f390695e7e7eb023bb134fd00ef8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3f725050_5e66f135",
         "filename": "include/openssl/trust_token.h",
         "patchSetId": 50

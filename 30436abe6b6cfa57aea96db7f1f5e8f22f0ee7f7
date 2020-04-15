@@ -1,0 +1,357 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7d17e9ef_3493b393",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 54
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "Test what happens if you ask for more keys than the batch size.",
+      "range": {
+        "startLine": 61,
+        "startChar": 68,
+        "endLine": 61,
+        "endChar": 71
+      },
+      "revId": "30436abe6b6cfa57aea96db7f1f5e8f22f0ee7f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bac135fd_d2728513",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 54
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "Nit: Single blank line",
+      "revId": "30436abe6b6cfa57aea96db7f1f5e8f22f0ee7f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68017a81_b5fc1a60",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 54
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "Nit: This can just be a std::vector\u003cuint8_t\u003e pub_data(pub_len), which avoids silliness around memory leaks if an ASSERT_TRUE fails.\n\nAlso, EVP_PKEY APIs are atrocious. :-) You can just ED25519_keypair to generate a keypair and then EVP_PKEY_new_raw_public_key and EVP_PKEY_new_raw_private_key. (May need to pass 32 rather than 64 for the private key size due to silliness around different forms of Ed25519 private key.)\n\nThis should probably be extracted to a helper function or test fixture because all the tests are doing this. (Seems most of the key setup is duplicated, so maybe a test fixture?)",
+      "revId": "30436abe6b6cfa57aea96db7f1f5e8f22f0ee7f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5629b2de_269e9cab",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 54
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "Aren\u0027t these supposed to be at least 32 bytes and random? Ditto throughout.",
+      "revId": "30436abe6b6cfa57aea96db7f1f5e8f22f0ee7f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "138a1ba5_9ffdee0f",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 54
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "Nit: 80 chars (a few of these; just run clang-format over the file).",
+      "revId": "30436abe6b6cfa57aea96db7f1f5e8f22f0ee7f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9651134_d9e1ef16",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 54
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "Use the /*foo\u003d*/ syntax so it\u0027s clear what magic number is what. The public metadata probably even should be a constant since it\u0027s passed into everything.\n\nDitto throughout.",
+      "range": {
+        "startLine": 99,
+        "startChar": 69,
+        "endLine": 100,
+        "endChar": 41
+      },
+      "revId": "30436abe6b6cfa57aea96db7f1f5e8f22f0ee7f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "418a1fdc_31efd589",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 54
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "bssl::UniquePtr\u003cSTACK_OF(TRUST_TOKEN)\u003e tokens(....);\n\nThen you don\u0027t need the pop_free below. Ditto throughout.",
+      "revId": "30436abe6b6cfa57aea96db7f1f5e8f22f0ee7f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22f3d6eb_7360bdb0",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 54
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "Assert this is what\u0027s expected?",
+      "range": {
+        "startLine": 102,
+        "startChar": 56,
+        "endLine": 102,
+        "endChar": 62
+      },
+      "revId": "30436abe6b6cfa57aea96db7f1f5e8f22f0ee7f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86c94ca9_a9e03f3e",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 54
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "Nit: Usually we write:\n\nbssl::UniquePtr\u003cuint8_t\u003e free_msg(msg);\nbssl::UniquePtr\u003cuint8_t\u003e free_resp(resp);\n\nImmediately after the call that initializes them. It\u0027s the same amount of code and that way we don\u0027t leak if an intervening ASSERT_TRUE fails. (It\u0027s so malloc failure testing will work, not that we\u0027ve done those for a loooong while. :-( )\n\nDitto for all the other FOO_free calls here.",
+      "revId": "30436abe6b6cfa57aea96db7f1f5e8f22f0ee7f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07a8e506_a130ca11",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 54
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "Where do this and the numbers below come from? (They seem to also be copy-and-pasted across tests.)",
+      "revId": "30436abe6b6cfa57aea96db7f1f5e8f22f0ee7f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0ad322f8_39a28493",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 54
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "We ought to be asserting on the various outputs here and in TRUST_TOKEN_ISSUER_redeem. (Nothing\u0027s testing the CBOR output, that the server sees the expected client data + redemption time, etc.)",
+      "revId": "30436abe6b6cfa57aea96db7f1f5e8f22f0ee7f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "abcad0e6_b51159a6",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 54
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "(Do corruptions at the nonce not also work?",
+      "revId": "30436abe6b6cfa57aea96db7f1f5e8f22f0ee7f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb57a3d4_d1294aaa",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 54
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "Looks like Protocol could be folded into this one, but maybe I\u0027m wrong?",
+      "range": {
+        "startLine": 217,
+        "startChar": 31,
+        "endLine": 217,
+        "endChar": 48
+      },
+      "revId": "30436abe6b6cfa57aea96db7f1f5e8f22f0ee7f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2a5fec9_d7dc9300",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 54
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "No blank line here.",
+      "revId": "30436abe6b6cfa57aea96db7f1f5e8f22f0ee7f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8559610_5242573f",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 54
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "Declare inside the for loop.",
+      "revId": "30436abe6b6cfa57aea96db7f1f5e8f22f0ee7f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "588d2d79_fde3a7d8",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 54
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "No blank line at line 261, variables are declared right before their use, so move down as appropriate.",
+      "revId": "30436abe6b6cfa57aea96db7f1f5e8f22f0ee7f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e478bc7_a231c631",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 54
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "clang-format",
+      "revId": "30436abe6b6cfa57aea96db7f1f5e8f22f0ee7f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e78bc2d_a2e17142",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 54
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "Check for failure",
+      "range": {
+        "startLine": 302,
+        "startChar": 4,
+        "endLine": 302,
+        "endChar": 39
+      },
+      "revId": "30436abe6b6cfa57aea96db7f1f5e8f22f0ee7f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04ddbf2b_207c2839",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 54
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "We seem to be missing negative tests for if the client hands the server a bad issuance message, and if the server hands the client back bad issuance and redemption messages of various forms.",
+      "revId": "30436abe6b6cfa57aea96db7f1f5e8f22f0ee7f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}

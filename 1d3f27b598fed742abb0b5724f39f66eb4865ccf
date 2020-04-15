@@ -1,0 +1,511 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5287df80_a23b1a9d",
+        "filename": "crypto/trust_token/internal.h",
+        "patchSetId": 53
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "Nit: This line should be a blank line.",
+      "revId": "1d3f27b598fed742abb0b5724f39f66eb4865ccf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20145ef9_8804dde6",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 53
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "Nit: Move ret \u003d 0 also down to when the goto err stuff starts.",
+      "revId": "1d3f27b598fed742abb0b5724f39f66eb4865ccf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1f99670_38adbf96",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 53
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "Nit: trailing whitespace",
+      "revId": "1d3f27b598fed742abb0b5724f39f66eb4865ccf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9102fc3e_69da2ee6",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 53
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "Nit: spaces around ^",
+      "range": {
+        "startLine": 445,
+        "startChar": 28,
+        "endLine": 445,
+        "endChar": 29
+      },
+      "revId": "1d3f27b598fed742abb0b5724f39f66eb4865ccf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea0bfbe3_1cf5f645",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 53
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "80 chars",
+      "revId": "1d3f27b598fed742abb0b5724f39f66eb4865ccf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11e0d6f7_4ba6c695",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 53
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "const",
+      "range": {
+        "startLine": 42,
+        "startChar": 39,
+        "endLine": 42,
+        "endChar": 47
+      },
+      "revId": "1d3f27b598fed742abb0b5724f39f66eb4865ccf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04b84a03_0d2bf4ef",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 53
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "Oh, NULL checks on malloc is weird because malloc(0) (sometimes) returns NULL. Which makes it \"if (len !\u003d 0 \u0026\u0026 ret-\u003edata \u003d\u003d NULL)\".",
+      "revId": "1d3f27b598fed742abb0b5724f39f66eb4865ccf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8754d1a_9cfcfde7",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 53
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "Sorry, only just remembered this. We promise all our free functions cleanly take NULL, so this should have if (token \u003d\u003d NULL) { return; } or so. Ditto for TRUST_TOKEN_CLIENT_free and TRUST_TOKEN_ISSUER_free. This is so goto err blocks work cleanly.\n\n(The pmbtoken.c ones don\u0027t care because OPENSSL_free already checks for NULL.)",
+      "revId": "1d3f27b598fed742abb0b5724f39f66eb4865ccf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9d2acb5_3e94c635",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 53
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "Here we allocate PMBTOKEN_TOKEN while on the issuer side we stack-allocate it. It seems this PMBTOKEN_TOKEN doesn\u0027t actually need to be allocated either, which would simplify the cleanup. (As opposed to the PMBTOKEN_PRETOKEN whose lifetime spans multiple calls.)\n\n(Arguably pmbtoken_blind() could take a PMBTOKEN_PRETOKEN* outparam and leave it to trust_token.c to allocate. The allocation is just because STACK_OF(T) is vector\u003cunique_ptr\u003cT\u003e\u003e instead of vector\u003cT\u003e. But probably not worth it.)",
+      "range": {
+        "startLine": 214,
+        "startChar": 28,
+        "endLine": 214,
+        "endChar": 44
+      },
+      "revId": "1d3f27b598fed742abb0b5724f39f66eb4865ccf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2263d124_75e4b4e2",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 53
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "token_cbb needs a CBB_cleanup.",
+      "revId": "1d3f27b598fed742abb0b5724f39f66eb4865ccf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "922d2a30_2b335f0d",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 53
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "I don\u0027t think this works since trust_token is getting OPENSSL_malloc\u0027d with uninitialized fields. But after CBB_finish, there *is* data you need to free.\n\nIt\u0027s an extra copy, but it might be cleaner to TRUST_TOKEN_new(CBB_data(\u0026token_cbb), CBB_len(\u0026token_cbb)) after you\u0027ve assembled the serialized form. That way it\u0027s not breaking the TRUST_TOKEN_{new,free} abstraction. Or maybe a trust_token_new0 function to take-ownership of an existing buffer. (Although the existing buffer from CBB may have some excess data anyway...)\n\nOther option, but would be a larger change: a lot of this is a symptom of the layering between TRUST_TOKEN and PMBTOKEN being off. The PMBTokens primitive itself should be specifying the serialization, which means pmbtoken_unblind should simply perform this serialization for you, except for the key_id. This is a fixed width-field, so you could just #define the expected size. Then TRUST_TOKEN would add 4 to that for the key_id. It\u0027s all fixed-width, so you could just assemble it on the stack, with no cleanup, and then TRUST_TOKEN_new to copy it into a TRUST_TOKEN at the end.\n\nThat would also avoid this weirdness where PMBTOKEN internally knows it\u0027s using P-521 and TRUST_TOKEN separate knows it\u0027s using P-521. But if the two disagree, you misinterpret EC_RAW_POINTs.\n\nI suppose fixing that layering is somewhat orthogonal to whether you use CBB. This code here also statically knows how much space it actually needs to serialize the point. You could just stack-allocate that.",
+      "revId": "1d3f27b598fed742abb0b5724f39f66eb4865ccf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3a9cb10_45389d03",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 53
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "The problem is the caller hasn\u0027t configured the key, right?",
+      "range": {
+        "startLine": 290,
+        "startChar": 35,
+        "endLine": 290,
+        "endChar": 68
+      },
+      "revId": "1d3f27b598fed742abb0b5724f39f66eb4865ccf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a9ef9fb_fb7f8894",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 53
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "Now that this function is much simpler, we could do...\n\n1. Swap the signature verification with copying the output, since there\u0027s no need to do that yet.\n2. The success case doesn\u0027t have any cleanup to do, so it doesn\u0027t need to fall through to the error block, making it...\n\n\n  if (ctx-\u003esrr_key \u003d\u003d NULL) {\n    ...\n    return 0;\n  }\n\n  if (!CBS_get...) {\n    ...\n    return 0;\n  }\n\n  EVP_MD_CTX md_ctx;\n  EVP_MD_CTX_init(\u0026md_ctx);\n  int sig_ok \u003d EVP_...\n  EVP_MD_CTX_cleanup(\u0026md_ctx);\n  if (!sig_ok) {\n    ...\n    return 0;\n  }\n\n  uint8_t *srr_buf \u003d NULL, *sig_buf \u003d NULL;\n  size_t srr_len, sig_len;\n  if (!CBS_stow(...) ||\n      !CBS_stow(...)) {\n    OPENSSL_free(srr_buf);\n    OPENSSL_free(sig_buf);\n    return 0;\n  }\n\n  *out_srr \u003d srr_buf;\n  ...\n  return 1;\n}",
+      "revId": "1d3f27b598fed742abb0b5724f39f66eb4865ccf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fb25c31_51746509",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 53
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "Should we reject inputs of \u003c 32 bytes, so people don\u0027t mess this up?",
+      "revId": "1d3f27b598fed742abb0b5724f39f66eb4865ccf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7509ee3_fd395bdb",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 53
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "if (CBS_len(\u0026in) !\u003d 0) {\n  ..DECODE_FAILURE..\n}\n\n(Maybe add unit tests for trailing data in each of the input messages.)",
+      "revId": "1d3f27b598fed742abb0b5724f39f66eb4865ccf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71fa7cf4_2155c4e8",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 53
+      },
+      "lineNbr": 500,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "80 chars",
+      "revId": "1d3f27b598fed742abb0b5724f39f66eb4865ccf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1de6773_a6160f09",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 53
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "Perhaps just...\n\n  PMBTOKEN_TOKEN pmbtoken;\n  if (CBS_get_u32(\u0026token_cbs, \u0026public_metadata) \u0026\u0026\n      CBS_copy_bytes(\u0026token_cbs, pmbtoken.t, PMBTOKEN_NONCE_SIZE) \u0026\u0026\n      cbs_get_raw_point(\u0026token_cbs, group, \u0026pmbtoken.S) \u0026\u0026\n      cbs_get_raw_point(\u0026token_cbs, group, \u0026pmbtoken.W) \u0026\u0026\n      cbs_get_raw_point(\u0026token_cbs, group, \u0026pmbtoken.Ws) \u0026\u0026\n      CBS_len(\u0026token_cbs) \u003d\u003d 0 ||\n      !pmbtoken_read(ctx, \u0026private_metadata, \u0026pmbtoken, public_metadata)) {\n    OPENSSL_PUT_ERROR(TRUST_TOKEN, TRUST_TOKEN_R_INVALID_TOKEN);\n    return 0;\n  }",
+      "revId": "1d3f27b598fed742abb0b5724f39f66eb4865ccf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e262fd96_91309955",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 53
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "This gets leaked on error.",
+      "range": {
+        "startLine": 576,
+        "startChar": 6,
+        "endLine": 576,
+        "endChar": 14
+      },
+      "revId": "1d3f27b598fed742abb0b5724f39f66eb4865ccf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac34dae6_8acb66db",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 53
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "I don\u0027t think this construction works. The metadata key is the same for each operation, and the client data is chosen by the client. That means the client can force you to do a two-time pad.\n\nIt could work if client_data is *also* supposed to be dedupped. That, in turn, is kinda weird since we have to maintain two strike registers. Also it\u0027s not clear from this API that the client is expected to use a globally-unique client data value. If the SRR included t, then it would at least be something that\u0027s already unique. But I think that still relies on the strike register since t is chosen by the client?\n\nThe strike register business then turns replay failure from double-spend to confidentiality failure. Perhaps the caller will make their replay cache eventually consistent, on grounds that a little bit of double-spending is okay this is dramatically more performant in a distributed system. That caller would then unwittingly lose confidentiality of the private metadata bit.",
+      "revId": "1d3f27b598fed742abb0b5724f39f66eb4865ccf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acca4b31_ff9b5cb8",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 53
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "You can assume the SHA256, etc., functions are infallible. They\u0027re documented to always return 1. Ditto elsewhere. (I wonder if it makes sense to add a function that includes the hashing and the \u003e\u003e 7. Something like static uint8_t get_metadata_obfuscator(key, etc.).)",
+      "revId": "1d3f27b598fed742abb0b5724f39f66eb4865ccf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6402e23f_9100d0d4",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 53
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "Add a comment linking to the format?",
+      "revId": "1d3f27b598fed742abb0b5724f39f66eb4865ccf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8012b7c_8ca58e2c",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 53
+      },
+      "lineNbr": 659,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "Only one blank line here.",
+      "revId": "1d3f27b598fed742abb0b5724f39f66eb4865ccf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d6395e5_b99ab0a0",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 53
+      },
+      "lineNbr": 666,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "This may fail to allocate.",
+      "revId": "1d3f27b598fed742abb0b5724f39f66eb4865ccf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebe7b281_66ea04b0",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 53
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "This is a double-free.",
+      "revId": "1d3f27b598fed742abb0b5724f39f66eb4865ccf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b1adffe_03d643c4",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 53
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "The key ID was removed from the TRUST_TOKEN, but it seems we have the same issue here: that the client must not compare key equality by key ID, only the entire key, yet we still expose key IDs.",
+      "range": {
+        "startLine": 116,
+        "startChar": 59,
+        "endLine": 117,
+        "endChar": 32
+      },
+      "revId": "1d3f27b598fed742abb0b5724f39f66eb4865ccf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "732bfd29_43c599c5",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 53
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "This clause reads funny to me. Can you actually stack together clauses like this? Perhaps...\n\nTRUST_TOKEN_CLIENT_finish_redemption consumes |response| from the issuer and verifies the SRR. If valid, it returns one and sets |*out_srr| and |*out_srr_len| (respectively, |*out_sig| and |*out_sig_len|) to a newly-allocated buffer containing the SRR (respectively, the SRR signature). Otherwise, it returns zero.",
+      "range": {
+        "startLine": 141,
+        "startChar": 25,
+        "endLine": 142,
+        "endChar": 18
+      },
+      "revId": "1d3f27b598fed742abb0b5724f39f66eb4865ccf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d30a435a_90897cf9",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 53
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-15T20:51:23Z",
+      "side": 1,
+      "message": "s/An instance of a/A/",
+      "range": {
+        "startLine": 153,
+        "startChar": 73,
+        "endLine": 154,
+        "endChar": 16
+      },
+      "revId": "1d3f27b598fed742abb0b5724f39f66eb4865ccf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
