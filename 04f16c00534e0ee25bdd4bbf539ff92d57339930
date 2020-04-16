@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed5b2756_df58a97a",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 59
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-16T21:16:57Z",
+      "side": 1,
+      "message": "Nit: So we\u0027re not hardcoding 7 everywhere.\n\n  // PublicMetadata (or should it be KeyID?) returns the public metadata value associated with key index |i|.\n  static uint32_t PublicMetadata(size_t i) {\n    // Use a different value from the indices to that we do not mix them up.\n    return 7 + i;\n  }\n\nstatic so you can reuse the abstraction in INSTANTIATE_TEST_SUITE_P.",
+      "revId": "04f16c00534e0ee25bdd4bbf539ff92d57339930",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b144af5_701154b2",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 59
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-16T21:16:57Z",
+      "side": 1,
+      "message": "BadKeyID maybe? BadKey would suggest the DLEQ proof didn\u0027t check out.",
+      "range": {
+        "startLine": 271,
+        "startChar": 45,
+        "endLine": 271,
+        "endChar": 48
+      },
+      "revId": "04f16c00534e0ee25bdd4bbf539ff92d57339930",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11212d0e_09cf73ed",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 59
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-16T21:16:57Z",
+      "side": 1,
+      "message": "// We configure the client and the issuer with different key IDs and test\n// that the client notices.\nconst uint32_t kClientKeyID \u003d 0;\nconst uint32_t kIssuerKeyID \u003d 42;\n\nThen use the constants in the below.",
+      "revId": "04f16c00534e0ee25bdd4bbf539ff92d57339930",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2b2ebe4_a15c886a",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 59
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-16T21:16:57Z",
+      "side": 1,
+      "message": "ASSERT_TRUE(priv) and pub.",
+      "revId": "04f16c00534e0ee25bdd4bbf539ff92d57339930",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c3ce4dc_8c4b9f82",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 59
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-16T21:16:57Z",
+      "side": 1,
+      "message": "Supposing you, timing-aside, agree with the replay callback suggestion mind filing a bug for that and add a TODO?",
+      "revId": "04f16c00534e0ee25bdd4bbf539ff92d57339930",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
