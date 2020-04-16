@@ -967,6 +967,30 @@
     },
     {
       "key": {
+        "uuid": "1dd6ccdb_3d51ebe5",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 53
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-04-16T15:54:10Z",
+      "side": 1,
+      "message": "Changed to be key_index.",
+      "parentUuid": "dd25beb8_f51b4352",
+      "range": {
+        "startLine": 116,
+        "startChar": 59,
+        "endLine": 117,
+        "endChar": 32
+      },
+      "revId": "1d3f27b598fed742abb0b5724f39f66eb4865ccf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "732bfd29_43c599c5",
         "filename": "include/openssl/trust_token.h",
         "patchSetId": 53
