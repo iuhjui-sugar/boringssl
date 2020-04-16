@@ -1,0 +1,301 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "31705b01_a47c77c1",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 58
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-16T19:02:27Z",
+      "side": 1,
+      "message": "Hah, so this was actually hiding a deeper bug. :-) Nothing stops a malicious issuer from making up a fake key ID here, which would result in the caller getting uninitialized data. I assume this is because we\u0027re not checking DLEQ proofs yet, so the key ID is purely a fiction for now.\n\nWe should at least check that the key ID is one of the ones the server committed to, even if DLEQ is still a followup. Thus this should be moved up to the top of the function and then you do something like...\n\n  // (I\u0027m guessing the compiler will complain if key_index is not initialized.)\n  size_t key_index \u003d 0;\n  const struct trust_token_client_key_st *key \u003d NULL;\n  for (size_t i \u003d 0; i \u003c ctx-\u003enum_keys; i++) {\n    if (ctx-\u003ekeys[i].id \u003d\u003d key_id) {\n      key_index \u003d i;\n      key \u003d \u0026ctx-\u003ekeys[i];\n      break;\n    }\n  }\n  if (key \u003d\u003d NULL) {\n    OPENSSL_PUT_ERROR(...);\n    return 0;\n  }\n\n  // (And now |key| is initialized for later in the function when we actually check the DLEQ.)\n\n(Add a test for this case.)",
+      "revId": "dabb811c360956284bee860434c436f63c30cefe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "198b6ffa_a1a169cd",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 58
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-16T19:02:27Z",
+      "side": 1,
+      "message": "Move EVP_MD_CTX_init up from line 633 to here, so we don\u0027t call EVP_MD_CTX_cleanup on an uninitalized md_ctx. (Think of the this function as a C++ constructor. It sets up the invariants for the destructor to be safe to call.) Similarly, srr needs a CBB_zero(\u0026srr). (We often get away without CBB_zero because CBB_init is the first operation under goto err. Possibly we should be less lazy about this.)\n\nSee discussion on the zero state in https://boringssl.googlesource.com/boringssl/+/HEAD/API-CONVENTIONS.md",
+      "revId": "dabb811c360956284bee860434c436f63c30cefe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5bee239_af8cba47",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 58
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-16T19:02:27Z",
+      "side": 1,
+      "message": "Nit: Fold this into the block about.",
+      "revId": "dabb811c360956284bee860434c436f63c30cefe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62069660_328a852d",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 58
+      },
+      "lineNbr": 672,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-16T19:02:27Z",
+      "side": 1,
+      "message": "CBB_add_u16_length_prefixed here and for sig_len below, so we get the bounds-checking.",
+      "range": {
+        "startLine": 672,
+        "startChar": 7,
+        "endLine": 672,
+        "endChar": 18
+      },
+      "revId": "dabb811c360956284bee860434c436f63c30cefe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bdbb169_45974ff4",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 58
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-16T19:02:27Z",
+      "side": 1,
+      "message": "Optional: This works, but you don\u0027t need sig_buf separately allocated, so this is a bit tighter for lines 656-here.\n\n  if (!EVP_DigestSignInit(\u0026md_ctx, NULL, NULL, NULL, ctx-\u003esrr_key) ||\n      !EVP_DigestSign(\u0026md_ctx, NULL, \u0026sig_len, srr_buf, srr_len)) {\n    OPENSSL_PUT_ERROR(TRUST_TOKEN, TRUST_TOKEN_R_SRR_SIGNATURE_ERROR);\n    goto err;\n  }\n\n  CBB child;\n  uint8_t *ptr;\n  if (!CBB_add_u16_length_prefixed(\u0026response, \u0026child) ||\n      !CBB_add_bytes(\u0026child, srr_buf, srr_len) ||\n      !CBB_add_u16_length_prefixed(\u0026response, \u0026child) ||\n      !CBB_reserve(\u0026child, \u0026ptr, sig_len) ||\n      !EVP_DigestSign(\u0026md_ctx, ptr, \u0026sig_len, srr_buf, srr_len) ||\n      !CBB_did_write(\u0026child, sig_len)) {",
+      "revId": "dabb811c360956284bee860434c436f63c30cefe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "851532d8_6dfa6607",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 58
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-16T19:02:27Z",
+      "side": 1,
+      "message": "Would it be better for the key IDs to be different values from the indices? Otherwise we\u0027re not testing for which APIs use IDs and which use indices.",
+      "revId": "dabb811c360956284bee860434c436f63c30cefe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec71d923_61fb3b3f",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 58
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-16T19:02:27Z",
+      "side": 1,
+      "message": "ASSERT_TRUE(priv) and ASSERT_TRUE(pub)",
+      "revId": "dabb811c360956284bee860434c436f63c30cefe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "294b2246_37d66fb1",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 58
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-16T19:02:27Z",
+      "side": 1,
+      "message": "Delete",
+      "revId": "dabb811c360956284bee860434c436f63c30cefe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "602720a6_c143bbed",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 58
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-16T19:02:27Z",
+      "side": 1,
+      "message": "GTest is weird. ASSERT_FOO just compiles to a plain return. You then need to wrap this in ASSERT_NO_FATAL_FAILURE. So:\n\n  ASSERT_NO_FATAL_FAILURE(SetupContexts());\n\nDitto throughout. This is basically fake exception handlings. :-)",
+      "range": {
+        "startLine": 101,
+        "startChar": 2,
+        "endLine": 101,
+        "endChar": 15
+      },
+      "revId": "dabb811c360956284bee860434c436f63c30cefe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "537bc6d4_82c0f405",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 58
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-16T19:02:27Z",
+      "side": 1,
+      "message": "Nit: s/free_imsg/free_issue_msg/g across the file. ;-)",
+      "range": {
+        "startLine": 148,
+        "startChar": 27,
+        "endLine": 148,
+        "endChar": 36
+      },
+      "revId": "dabb811c360956284bee860434c436f63c30cefe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fc68b02_610bf8b8",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 58
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-16T19:02:27Z",
+      "side": 1,
+      "message": "What does the caller do with this index and the one from add_key?",
+      "range": {
+        "startLine": 118,
+        "startChar": 59,
+        "endLine": 118,
+        "endChar": 75
+      },
+      "revId": "dabb811c360956284bee860434c436f63c30cefe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91db8478_ff0fd0e6",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 58
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-16T19:02:27Z",
+      "side": 1,
+      "message": "|TRUST_TOKEN|",
+      "range": {
+        "startLine": 211,
+        "startChar": 42,
+        "endLine": 211,
+        "endChar": 47
+      },
+      "revId": "dabb811c360956284bee860434c436f63c30cefe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df4d4a5e_d59dcb1d",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 58
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-16T19:02:27Z",
+      "side": 1,
+      "message": "each output buffer?",
+      "range": {
+        "startLine": 214,
+        "startChar": 57,
+        "endLine": 214,
+        "endChar": 63
+      },
+      "revId": "dabb811c360956284bee860434c436f63c30cefe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "299a431b_df166585",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 58
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-16T19:02:27Z",
+      "side": 1,
+      "message": "I\u0027m not sure this warning is strong enough given how non-obvious the private metadata encoding bug is. (As noted, the natural interpretation of this constraint is that eventual consistency is okay.) I think this should be a separate paragraph and go something along the lines of:\n\n---\nThe caller must keep track of all values of |*out_token| and |*out_client_data| and seen globally before returning the SRR to the client. If either value has been repeated, the caller must discard the SRR and report an error to the caller. Returning an SRR with replayed values allows an attacker to double-spend tokens and query private metadata bits in SRRs.\n\nTODO(svaldez): The private metadata bit should not be leaked on replay. This means callers cannot use eventual consistency to trade off double-spending and distributed system performance. See https://crbug.com/?????.\n---\n\nAnother reason why dedup on client data is poor: while *out_token is fixed-width, the client data has client-specified size and no inherent upper bound. This means an attacker can DoS a replay cache by sending a really big client data. The caller can fix this by hashing it down, but that\u0027s not obvious.\n\nI\u0027m also getting increasingly convinced this is a better API shape (because it means we can force callers to think about this), and changing the APIs, while doable, is a bit of fuss when updating downstream code:\n\nOPENSSL_EXPORT void TRUST_TOKEN_ISSUER_set_replay_callback(\n    TRUST_TOKEN_ISSUER *ctx,\n    int (*cb)(const uint8_t *token, size_t token_len,\n              const uint8_t *client_data, size_t client_data_len,\n              void *cb_data),\n    void *cb_data);\n\nIf we do this, I think we\u0027d move the documentation on replays to this function and then TRUST_TOKEN_ISSUER_redeem should fail if you don\u0027t configure this callback given how important it is. Of course, it doesn\u0027t stop the caller from making it return 1, but that makes it a conscious decision.\n\nI imagine *out_token can be removed altogether at that point, which means TRUST_TOKEN objects no longer are weirdly different between client and issuer. And we don\u0027t release SRRs to the caller that they shouldn\u0027t reveal.\n\nThis also means that, when we fix the client_data dedup bug, we can remove the extra parameter which acts as a reminder to fix the caller to no longer dedup it.",
+      "revId": "dabb811c360956284bee860434c436f63c30cefe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "656c05b9_d771e91b",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 58
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-16T19:02:27Z",
+      "side": 1,
+      "message": "I don\u0027t feel very strongly, but allowing it to return an error does mean we can still make it fallible later if we need it.",
+      "range": {
+        "startLine": 228,
+        "startChar": 8,
+        "endLine": 228,
+        "endChar": 24
+      },
+      "revId": "dabb811c360956284bee860434c436f63c30cefe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
