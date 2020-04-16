@@ -186,6 +186,24 @@
       "revId": "04f16c00534e0ee25bdd4bbf539ff92d57339930",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65a51500_6a9a2cba",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 59
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-16T21:58:48Z",
+      "side": 1,
+      "message": "Ah, good point. Yeah, I guess the question is whether the caller expects to do an RPC to an external service or simply do an eventually-consistent thing. The latter maybe would be synchronous, but the former wants to be async and that gets hairy. :-/",
+      "parentUuid": "d044ab5a_f76cb081",
+      "revId": "04f16c00534e0ee25bdd4bbf539ff92d57339930",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
