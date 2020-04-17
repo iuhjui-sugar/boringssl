@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "eda81bc3_1e22c4ef",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-04-17T15:33:22Z",
+      "side": 1,
+      "message": "Added a comment, not sure about a great way to add asserts?",
+      "parentUuid": "f344e3cb_5ac1cf67",
+      "revId": "58ab796b90c903e7fefbffe22d2cd9e3806f0d3d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c701c8d6_8645d3fb",
         "filename": "crypto/trust_token/trust_token_test.cc",
         "patchSetId": 1
@@ -39,6 +57,30 @@
       "revId": "58ab796b90c903e7fefbffe22d2cd9e3806f0d3d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c1f2740_69e87411",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-04-17T15:33:22Z",
+      "side": 1,
+      "message": "To make kClientData be actual parseable CBOR to ease manual testing. (makes it a string)",
+      "parentUuid": "c701c8d6_8645d3fb",
+      "range": {
+        "startLine": 363,
+        "startChar": 36,
+        "endLine": 363,
+        "endChar": 39
+      },
+      "revId": "58ab796b90c903e7fefbffe22d2cd9e3806f0d3d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
