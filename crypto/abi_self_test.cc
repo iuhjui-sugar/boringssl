@@ -56,6 +56,10 @@ TEST(ABITest, SanityCheck) {
     CHECK_ABI_NO_UNWIND(abi_test_bad_unwind_temporary);
 
 #if defined(OPENSSL_WINDOWS)
+    fprintf(stderr, "abi_test_trampoline = %p\n", &abi_test_trampoline);
+    fprintf(stderr, "abi_test_bad_unwind_epilog = %p\n",
+            &abi_test_bad_unwind_epilog);
+
     // The invalid epilog makes Windows believe the epilog starts later than it
     // actually does. As a result, immediately after the popq, it does not
     // realize the stack has been unwound and repeats the work.

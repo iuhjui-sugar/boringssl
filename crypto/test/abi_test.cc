@@ -555,6 +555,7 @@ static void CheckUnwind(UnwindCursor *cursor) {
       AddUnwindError(cursor, "stack frame is before caller");
       g_in_trampoline = false;
     } else if (g_num_unwind_errors < kMaxUnwindErrors) {
+      fprintf(stderr, "Unwinding from ip=%" PRIx64 "; sp=%" PRIx64"\n", ip, sp);
       for (;;) {
         UnwindStatusOr<bool> step_ret = cursor->Step();
         if (!step_ret.ok()) {
@@ -573,6 +574,15 @@ static void CheckUnwind(UnwindCursor *cursor) {
                          "error recovering stack pointer: ", cur_sp.Error());
           break;
         }
+
+        {
+          UnwindStatusOr<crypto_word_t> cur_ip = cursor->GetIP();
+          fprintf(stderr, "Now sp=%" PRIx64 "\n", cur_sp.ValueOrDie());
+          if (cur_ip.ok()) {
+            fprintf(stderr, "\tip=%" PRIx64 "\n", cur_ip.ValueOrDie());
+          }
+        }
+
         if (IsAncestorStackFrame(cur_sp.ValueOrDie(), g_trampoline_sp)) {
           AddUnwindError(cursor, "unwound past starting frame");
           break;
