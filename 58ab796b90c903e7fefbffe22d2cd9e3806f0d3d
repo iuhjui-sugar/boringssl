@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f344e3cb_5ac1cf67",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-17T15:15:40Z",
+      "side": 1,
+      "message": "Maybe add a comment and some asserts about the ordering. That way we don\u0027t forget when if, say, add a server nonce later.",
+      "revId": "58ab796b90c903e7fefbffe22d2cd9e3806f0d3d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c701c8d6_8645d3fb",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-17T15:15:40Z",
+      "side": 1,
+      "message": "What\u0027s the \\x70 for?",
+      "range": {
+        "startLine": 363,
+        "startChar": 36,
+        "endLine": 363,
+        "endChar": 39
+      },
+      "revId": "58ab796b90c903e7fefbffe22d2cd9e3806f0d3d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
