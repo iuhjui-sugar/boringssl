@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b144c0c2_3c5dbced",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 646,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-17T16:01:40Z",
+      "side": 1,
+      "message": "Regarding the assert, I was just thinking assert(strlen(kMetadataLabel) \u003c strlen(kPublicLabel)) and so on. I guess it doesn\u0027t do the lexicographic part, but I think all your lengths are unique? The thinking was just so that we\u0027d have *something* local to BoringSSL notice if this were wrong, even if it\u0027s pretty ad-hoc.\n\nWe could even go further with...\n\nstatic int cbor_check_map_key_order(const char *a, const char *b) {\n  if (strlen(a) \u003d\u003d strlen(b)) {\n    return strcmp(a, b) \u003c 0;\n  }\n  return strlen(a) \u003c strlen(b);\n}\n\nbut then you\u0027d need to wrap it in !defined(NDEBUG) or tag with OPENSSL_UNUSED so the compiler doesn\u0027t complain about unused statics in release mode. Dunno if that\u0027s worth bothering with.\n\nWe could go *even* further and write a canonical CBOR parser in the test, but I\u0027m guessing that\u0027s more fuss than is worth it. :-)\n\n*shrug*",
+      "revId": "2d64137248ce99b382dcd6154bf7af4e9e7ee0aa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
