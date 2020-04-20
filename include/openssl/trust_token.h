@@ -217,15 +217,10 @@ OPENSSL_EXPORT int TRUST_TOKEN_ISSUER_issue(
 // buffer and must call |OPENSSL_free| when done. It returns one on success or
 // zero on error.
 //
-// The caller must keep track of all values of |*out_token| and
-// |*out_client_data| and seen globally before returning the SRR to the client.
-// If either value has been repeated, the caller must discard the SRR and report
-// an error to the caller. Returning an SRR with replayed values allows an
-// attacker to double-spend tokens and query private metadata bits in SRRs.
-//
-// TODO(svaldez): The private metadata bit should not be leaked on replay. This
-// means callers cannot use eventual consistency to trade off double-spending
-// and distributed system performance. See https://crbug.com/boringssl/328.
+// The caller must keep track of all values of |*out_token| seen globally before
+// returning the SRR to the client. If the value has been reused, the caller
+// must discard the SRR and report an error to the caller. Returning an SRR with
+// replayed values allows an attacker to double-spend tokens.
 OPENSSL_EXPORT int TRUST_TOKEN_ISSUER_redeem(
     const TRUST_TOKEN_ISSUER *ctx, uint8_t **out, size_t *out_len,
     TRUST_TOKEN **out_token, uint8_t **out_client_data,
@@ -234,12 +229,12 @@ OPENSSL_EXPORT int TRUST_TOKEN_ISSUER_redeem(
 
 // TRUST_TOKEN_decode_private_metadata decodes |encrypted_bit| using the
 // private metadata key specified by a |key| buffer of length |key_len| and the
-// client data specified by a |client_data| buffer of length |client_data_len|.
+// token hash specified by a |token_hash| buffer of length |token_hash_len|.
 // |*out_value is set to the decrypted value, either zero or one. It returns one
 // on success and zero on error.
 OPENSSL_EXPORT int TRUST_TOKEN_decode_private_metadata(
     uint8_t *out_value, const uint8_t *key, size_t key_len,
-    const uint8_t *client_data, size_t client_data_len, uint8_t encrypted_bit);
+    const uint8_t *token_hash, size_t token_hash_len, uint8_t encrypted_bit);
 
 
 #if defined(__cplusplus)
