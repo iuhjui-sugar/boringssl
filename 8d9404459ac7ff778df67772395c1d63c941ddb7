@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "143c648f_f49ca6fa",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T23:34:12Z",
+      "side": 1,
+      "message": "pub1",
+      "range": {
+        "startLine": 586,
+        "startChar": 52,
+        "endLine": 586,
+        "endChar": 56
+      },
+      "revId": "8d9404459ac7ff778df67772395c1d63c941ddb7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1471c061_48e036f8",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 707,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T23:34:12Z",
+      "side": 1,
+      "message": "pub1",
+      "range": {
+        "startLine": 707,
+        "startChar": 59,
+        "endLine": 707,
+        "endChar": 63
+      },
+      "revId": "8d9404459ac7ff778df67772395c1d63c941ddb7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c32f618d_9055b368",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T23:34:12Z",
+      "side": 1,
+      "message": "If I\u0027m understanding things right, this results in the both the DLEQ and DLEQOR proof being wrong, right? So we\u0027ll fail at the DLEQ proof and never check DLEQOR.\n\nHow hard would it be to test the DLEQOR proof too? Perhaps we corrupt x0, y0, x1, or y1, but not xs and ys. (A thought: we could run six tests, each one corrupting a different one of the components.)",
+      "revId": "8d9404459ac7ff778df67772395c1d63c941ddb7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61b8064e_b000eac2",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T23:34:12Z",
+      "side": 1,
+      "message": "bssl::ScopedCBB for real_response and bad_response will deal with all the cleanup. Ditto for the function below.\n\nThen all the if lines can just be ASSERT_TRUE(...);",
+      "revId": "8d9404459ac7ff778df67772395c1d63c941ddb7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50a239f4_7d6b2bef",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T23:34:12Z",
+      "side": 1,
+      "message": "80 chars",
+      "revId": "8d9404459ac7ff778df67772395c1d63c941ddb7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
