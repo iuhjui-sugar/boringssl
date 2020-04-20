@@ -1,0 +1,368 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "315ae9b8_2e034957",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T21:19:12Z",
+      "side": 1,
+      "message": "Add some tests for proofs that don\u0027t check out? (Either the DLEQOR proof or the DLEQ proof. Would it work to just lie about various components of the key commitment, or maybe we need to corrupt the proof?)\n\nAlso tests for truncated and excess data in proof.",
+      "revId": "37a81ec66a777aaf9f70e3b6b2b140df4d1568ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "81b9b112_f6e3980e",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T21:19:12Z",
+      "side": 1,
+      "message": "Both of these seem unused.",
+      "revId": "37a81ec66a777aaf9f70e3b6b2b140df4d1568ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "41f943ff_3a89dacd",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T21:19:12Z",
+      "side": 1,
+      "message": "Nit: You use [A;B] on the LHS and (A;B) on the RHS. Also spaces between the operators, at least the outermost level. (Not really the usual style for docs, but ah well.)",
+      "revId": "37a81ec66a777aaf9f70e3b6b2b140df4d1568ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06b57838_bab96dc1",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T21:19:12Z",
+      "side": 1,
+      "message": "1?",
+      "range": {
+        "startLine": 404,
+        "startChar": 34,
+        "endLine": 404,
+        "endChar": 35
+      },
+      "revId": "37a81ec66a777aaf9f70e3b6b2b140df4d1568ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d6eb210_20104b25",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T21:19:12Z",
+      "side": 1,
+      "message": "Nit: I like how each of \"proof\" and \"validity\" are used twice in this sentence. :-) Perhaps just:\n\nGenerate DLEQ2 proof for the validity token.",
+      "revId": "37a81ec66a777aaf9f70e3b6b2b140df4d1568ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a992bb8_42d1807f",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T21:19:12Z",
+      "side": 1,
+      "message": "buf \u003d NULL, otherwise goto err will double-free.\n\n(Think buf.reset(), which both calls free but also nulls the pointer.)\n\nOptional: if, instead, you had functions...\n\nint hash_c_dleq(const EC_GROUP *group, EC_SCALAR *out,\n                const EC_RAW_POINT *X, const EC_SCALAR *T,\n                const EC_SCALAR *S, const EC_SCALAR *W,\n                const EC_RAW_POINT *K0,\n                const EC_RAW_POINT *K1); \n\nint hash_c_dleqor(const EC_GROUP *group, EC_SCALAR *out,\n                  const EC_RAW_POINT *X0, const EC_RAW_POINT *X1,\n                  const EC_SCALAR *T, const EC_SCALAR *S,\n                  const EC_SCALAR *W,\n                  const EC_RAW_POINT *K00, const EC_RAW_POINT *K01,\n                  const EC_RAW_POINT *K10, const EC_RAW_POINT *K11);\n\nThen you could hide one of the CBBs and buf inside this function. Then this function has only has CBB proof and dleq_verify has nothing to free at all. (You could also just give them separate DST strings at that point, though the labels are cool too.)\n\nAnother possibility could be:\n\nint hash_c(const EC_GROUP *group, EC_SCALAR *out, const char *label,\n           const EC_RAW_POINT **points, size_t num_points,\n           const EC_SCALAR **scalars, size_t num_scalars);\n\nThough that would require you declare some temporary arrays on the stack at call sites.",
+      "revId": "37a81ec66a777aaf9f70e3b6b2b140df4d1568ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c86f694_869ca9be",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T21:19:12Z",
+      "side": 1,
+      "message": "Montgomery\n\n(It\u0027s a person\u0027s name.)",
+      "range": {
+        "startLine": 463,
+        "startChar": 55,
+        "endLine": 463,
+        "endChar": 65
+      },
+      "revId": "37a81ec66a777aaf9f70e3b6b2b140df4d1568ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22b8028f_4d736029",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T21:19:12Z",
+      "side": 1,
+      "message": "Nit: Generate DLEQOR2 proof for the private metadata token.",
+      "revId": "37a81ec66a777aaf9f70e3b6b2b140df4d1568ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "731819f4_66bad391",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T21:19:12Z",
+      "side": 1,
+      "message": "(This is including the NUL byte, but arguably that\u0027s a good thing as it\u0027s more obviously prefix-free.)",
+      "range": {
+        "startLine": 535,
+        "startChar": 42,
+        "endLine": 535,
+        "endChar": 63
+      },
+      "revId": "37a81ec66a777aaf9f70e3b6b2b140df4d1568ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "325ece2b_a5407ae8",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T21:19:12Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be pub0 and then pub1? Ditto for the verifier.",
+      "revId": "37a81ec66a777aaf9f70e3b6b2b140df4d1568ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8aaa17f1_6328e874",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 557,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T21:19:12Z",
+      "side": 1,
+      "message": "Montgomery",
+      "range": {
+        "startLine": 557,
+        "startChar": 55,
+        "endLine": 557,
+        "endChar": 65
+      },
+      "revId": "37a81ec66a777aaf9f70e3b6b2b140df4d1568ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce438a5d_542a4ac4",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T21:19:12Z",
+      "side": 1,
+      "message": "Nit: Maybe fold this up with the above and have this say ok \u003d 1? Doesn\u0027t particularly matter, but that way we have the ERR_R_MALLOC_FAILURE or something.\n\n(But I don\u0027t think CBB_finish can actually fail and I\u0027m sure we miss ERR_R_MALLOC_FAILURE all the time. *shrug*.)",
+      "revId": "37a81ec66a777aaf9f70e3b6b2b140df4d1568ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "098de120_c28ec388",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T21:19:12Z",
+      "side": 1,
+      "message": "Nit: Move CBS cbs and this line to just before 617. It\u0027s just a plain struct with no destructor.",
+      "revId": "37a81ec66a777aaf9f70e3b6b2b140df4d1568ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc2df8e8_389d4651",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T21:19:12Z",
+      "side": 1,
+      "message": "The point we declare int ok or int ret should be where returns switch to goto err. Though in this function, we actually don\u0027t need goto err until Hc. If we move all the functions to free down there, you can drop CBB_zero since the first return point is after CBB_init.\n\n(Though note optional comment on line 458. I don\u0027t think this function would have anything to free at all if hash_c were differently abstracted.)",
+      "revId": "37a81ec66a777aaf9f70e3b6b2b140df4d1568ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "625aa3c3_115c7fd4",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 647,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T21:19:12Z",
+      "side": 1,
+      "message": "buf \u003d NULL (same reason as before, same optional alternate as before.)",
+      "revId": "37a81ec66a777aaf9f70e3b6b2b140df4d1568ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b059307_5c9d485d",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T21:19:12Z",
+      "side": 1,
+      "message": "goto err, though I think it doesn\u0027t matter here.",
+      "revId": "37a81ec66a777aaf9f70e3b6b2b140df4d1568ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d52bd567_f30c8cce",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 662,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T21:19:12Z",
+      "side": 1,
+      "message": "|| CBS_len(\u0026cbs) !\u003d 0",
+      "revId": "37a81ec66a777aaf9f70e3b6b2b140df4d1568ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6bfc844a_8d4194cd",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 705,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T21:19:12Z",
+      "side": 1,
+      "message": "goto err (otherwise we leak buf).",
+      "revId": "37a81ec66a777aaf9f70e3b6b2b140df4d1568ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8513a27_a132136e",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 781,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T21:19:12Z",
+      "side": 1,
+      "message": "Nit: I\u0027d suggest putting this up in line 705 and 651. That way dleq_verify either consistently does or doesn\u0027t emit an error.",
+      "revId": "37a81ec66a777aaf9f70e3b6b2b140df4d1568ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5516f58b_14918000",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T21:19:12Z",
+      "side": 1,
+      "message": "Existing line, but is that actually a decode failure? (pmbtoken itself pushes errors, right? Might be able to just goto err without anything else.)",
+      "revId": "37a81ec66a777aaf9f70e3b6b2b140df4d1568ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
