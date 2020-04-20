@@ -234,12 +234,12 @@ OPENSSL_EXPORT int TRUST_TOKEN_ISSUER_redeem(
 
 // TRUST_TOKEN_decode_private_metadata decodes |encrypted_bit| using the
 // private metadata key specified by a |key| buffer of length |key_len| and the
-// client data specified by a |client_data| buffer of length |client_data_len|.
+// token hash specified by a |token_hash| buffer of length |token_hash_len|.
 // |*out_value is set to the decrypted value, either zero or one. It returns one
 // on success and zero on error.
 OPENSSL_EXPORT int TRUST_TOKEN_decode_private_metadata(
     uint8_t *out_value, const uint8_t *key, size_t key_len,
-    const uint8_t *client_data, size_t client_data_len, uint8_t encrypted_bit);
+    const uint8_t *token_hash, size_t token_hash_len, uint8_t encrypted_bit);
 
 
 #if defined(__cplusplus)
