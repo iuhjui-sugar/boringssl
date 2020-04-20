@@ -1,0 +1,385 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "71565aef_b8c0240e",
+        "filename": "crypto/fipsmodule/ec/ec.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 1052,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T14:24:14Z",
+      "side": 1,
+      "message": "Nit: Just one blank line.",
+      "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c906b57_c5e1ff4e",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T14:24:14Z",
+      "side": 1,
+      "message": "\"PMBTokensV0 HashC\" to match.",
+      "range": {
+        "startLine": 321,
+        "startChar": 34,
+        "endLine": 321,
+        "endChar": 43
+      },
+      "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d19a60e_a64fccb1",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T14:24:14Z",
+      "side": 1,
+      "message": "80 chars",
+      "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "611bf8c5_1422fb3a",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T14:24:14Z",
+      "side": 1,
+      "message": "Cite appendix B in a comment, and probably also noting that DLEQ2 is DLEQOR with only one value, unless there\u0027s a better citation for that. Something to compare to and such. :-)",
+      "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f28a68f7_6ca35b84",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T14:24:14Z",
+      "side": 1,
+      "message": "CBB_zero(\u0026cbb)",
+      "range": {
+        "startLine": 356,
+        "startChar": 13,
+        "endLine": 356,
+        "endChar": 16
+      },
+      "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f21bc7b1_692bb7dc",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T14:24:14Z",
+      "side": 1,
+      "message": "Eh, you can assume the generator is never NULL. It\u0027s technically possible for half-constructed custom curves, but those will never make their way into this API and are a dumb OpenSSL thing.",
+      "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9accd5f5_84131a65",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T14:24:14Z",
+      "side": 1,
+      "message": "Const pointer to avoid a copy. Although note comment below on uses of \u0026g.",
+      "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b46fd18_a1180cff",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T14:24:14Z",
+      "side": 1,
+      "message": "If the public keys are needed, better to store them in trust_token_issuer_key_st (no need to change serialization; it can be computed at parse time) so the issuer doesn\u0027t need to recompute it.",
+      "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f883252_902416ce",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T14:24:14Z",
+      "side": 1,
+      "message": "Not that it actually matters but, as a sanity-check, do we want these scalars to be non-zero?",
+      "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "33912e98_6b5fbd7f",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T14:24:14Z",
+      "side": 1,
+      "message": "Nit: Declare cs, us, vs closer to where they\u0027re set.",
+      "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "990a9014_2b368a02",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T14:24:14Z",
+      "side": 1,
+      "message": "Multiplications involving G are better off done with mul_scalar_base to get at base point optimizations[*].\n\nDitto for the other uses of \u0026g in this file. (Are there enough that it makes sense to have two helper functions here? I forget where the name mul_g_and_p came from... maybe mul_twice and mul_twice_base? I dunno. There\u0027s the uses in this file and keygen.)\n\n[*] Well, I think we, uh, don\u0027t have base point optimizations for P-521, but we probably should. We would probably add them when integrating fiat-crypto\u0027s P-521 code. In fact ideally we\u0027d also have base point optimizations for H, but that\u0027d require fussing with the EC_METHOD abstraction to specify the table externally, even though the table is method-specific...",
+      "range": {
+        "startLine": 390,
+        "startChar": 32,
+        "endLine": 390,
+        "endChar": 34
+      },
+      "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d8b92f6_9ced5c0f",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T14:24:14Z",
+      "side": 1,
+      "message": "(Part of me wonders if hash_to_curve should have been a streaming API to avoid this allocation. I guess this is actually a small-ish fixed-width input even though it\u0027s not locally obvious. *shrug*)",
+      "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a893caa5_41c5dc81",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T14:24:14Z",
+      "side": 1,
+      "message": "No need to CBB_cleanup since you already do it in goto err. (Also it\u0027s guaranteed to be a no-op after success CBB_finish. CBB allows for a number of shortcuts, which maybe are too Clever but ah well.)",
+      "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6388926_cacd5359",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T14:24:14Z",
+      "side": 1,
+      "message": "Probably worth a sentence like:\n\nIn each of these products, only one operand is in Montgomery form, so the product does not need to be converted.\n\n(What\u0027s going on here is that ToMont(a) \u003d aR and MulMont(aR, bR) \u003d abR \u003d aR * bR * Rinv. So that means MulMont(a, b) is just a * b * Rinv and MulMont(aR, b) \u003d aR * b * Rinv \u003d ab. Dumb tricks we occasionally use.)",
+      "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e6aa2c7_819e9b31",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T14:24:14Z",
+      "side": 1,
+      "message": "Rather than converting to and from, just store the Montgomery version as cs_mont. May as well save a Montgomery reduction.",
+      "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf7bddb4_77dc115f",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T14:24:14Z",
+      "side": 1,
+      "message": "(Oh man, a public scalar! I think that\u0027s the first time we\u0027ve ever had one.)",
+      "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "73b00d5f_74081802",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T14:24:14Z",
+      "side": 1,
+      "message": "Ditto about just storing the public keys.",
+      "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fb6b26ac_67a56a9e",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T14:24:14Z",
+      "side": 1,
+      "message": "Optional: maybe worth pulling the u*(G;T) + v*(H;S) - ci*(X;W) computation into a helper function? It\u0027s done a *lot* of times between the prover and the verifier and the two proofs and would probably shorten things a bit.",
+      "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77963869_50e329da",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T14:24:14Z",
+      "side": 1,
+      "message": "I see what you mean about this being hairy. :-) I bet larger n would be obnoxious. I guess you\u0027d normalize things back and forth from b \u003d 0 to b \u003d b at various steps.",
+      "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9166f03f_eff21d7a",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T14:24:14Z",
+      "side": 1,
+      "message": "It should be fine because of the different lengths, but there\u0027s probably something to be said for using different DST values for the two DLEQ proofs.",
+      "range": {
+        "startLine": 503,
+        "startChar": 7,
+        "endLine": 503,
+        "endChar": 13
+      },
+      "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bd5070a_5d7232df",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T14:24:14Z",
+      "side": 1,
+      "message": "Ditto about not converting twice and maybe the comment about the MulMont trick.",
+      "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
