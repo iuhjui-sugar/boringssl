@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bfbb45f5_02cbf303",
+        "filename": "crypto/fipsmodule/fork_detect.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-20T16:01:53Z",
+      "side": 1,
+      "message": "I wonder if this, and flag_ptr below, should be volatile given that the value may change via something external to the language. Otherwise the compiler might to some sufficiently fancy escape analysis to prove that the address never leaves the translation unit.",
+      "range": {
+        "startLine": 42,
+        "startChar": 15,
+        "endLine": 42,
+        "endChar": 19
+      },
+      "revId": "0221fa4ed5a0f31d415624155119c776267a5586",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
