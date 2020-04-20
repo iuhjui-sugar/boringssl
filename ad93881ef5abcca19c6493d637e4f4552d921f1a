@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "26099f44_32c8a888",
+        "filename": "crypto/fipsmodule/ec/ec.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 1052,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2020-04-20T15:43:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71565aef_b8c0240e",
+      "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4c906b57_c5e1ff4e",
         "filename": "crypto/trust_token/pmbtoken.c",
         "patchSetId": 4
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "03cec49d_7b4a10c3",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2020-04-20T15:43:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c906b57_c5e1ff4e",
+      "range": {
+        "startLine": 321,
+        "startChar": 34,
+        "endLine": 321,
+        "endChar": 43
+      },
+      "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1d19a60e_a64fccb1",
         "filename": "crypto/trust_token/pmbtoken.c",
         "patchSetId": 4
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "07caad15_347029de",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2020-04-20T15:43:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d19a60e_a64fccb1",
+      "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "611bf8c5_1422fb3a",
         "filename": "crypto/trust_token/pmbtoken.c",
         "patchSetId": 4
@@ -73,6 +133,24 @@
       "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0cbef810_6385f141",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 354,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2020-04-20T15:43:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "611bf8c5_1422fb3a",
+      "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -99,6 +177,30 @@
     },
     {
       "key": {
+        "uuid": "4ce01636_3c59bc28",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2020-04-20T15:43:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f28a68f7_6ca35b84",
+      "range": {
+        "startLine": 356,
+        "startChar": 13,
+        "endLine": 356,
+        "endChar": 16
+      },
+      "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f21bc7b1_692bb7dc",
         "filename": "crypto/trust_token/pmbtoken.c",
         "patchSetId": 4
@@ -113,6 +215,24 @@
       "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b875a29_ddfac2dc",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2020-04-20T15:43:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f21bc7b1_692bb7dc",
+      "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -133,6 +253,24 @@
     },
     {
       "key": {
+        "uuid": "90308256_615fcd65",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2020-04-20T15:43:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9accd5f5_84131a65",
+      "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7b46fd18_a1180cff",
         "filename": "crypto/trust_token/pmbtoken.c",
         "patchSetId": 4
@@ -150,6 +288,24 @@
     },
     {
       "key": {
+        "uuid": "5c1f3857_4b763e39",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2020-04-20T15:43:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b46fd18_a1180cff",
+      "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6f883252_902416ce",
         "filename": "crypto/trust_token/pmbtoken.c",
         "patchSetId": 4
@@ -161,6 +317,24 @@
       "writtenOn": "2020-04-20T14:24:14Z",
       "side": 1,
       "message": "Not that it actually matters but, as a sanity-check, do we want these scalars to be non-zero?",
+      "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "350697f8_cab4b27c",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2020-04-20T15:43:36Z",
+      "side": 1,
+      "message": "I think there ends up being weird forgery attacks if they both end up zero.",
+      "parentUuid": "6f883252_902416ce",
       "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
@@ -184,6 +358,24 @@
     },
     {
       "key": {
+        "uuid": "96495155_0bb91bc6",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 389,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2020-04-20T15:43:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33912e98_6b5fbd7f",
+      "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "990a9014_2b368a02",
         "filename": "crypto/trust_token/pmbtoken.c",
         "patchSetId": 4
@@ -204,6 +396,30 @@
       "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c1b1ca7_1e84f3c7",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2020-04-20T15:43:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "990a9014_2b368a02",
+      "range": {
+        "startLine": 390,
+        "startChar": 32,
+        "endLine": 390,
+        "endChar": 34
+      },
+      "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -241,6 +457,24 @@
     },
     {
       "key": {
+        "uuid": "2435bad0_c02d51ad",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2020-04-20T15:43:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a893caa5_41c5dc81",
+      "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f6388926_cacd5359",
         "filename": "crypto/trust_token/pmbtoken.c",
         "patchSetId": 4
@@ -258,6 +492,24 @@
     },
     {
       "key": {
+        "uuid": "5db9b171_9d175e70",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2020-04-20T15:43:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6388926_cacd5359",
+      "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1e6aa2c7_819e9b31",
         "filename": "crypto/trust_token/pmbtoken.c",
         "patchSetId": 4
@@ -272,6 +524,24 @@
       "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c562b89_e69f20e5",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2020-04-20T15:43:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e6aa2c7_819e9b31",
+      "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -309,6 +579,24 @@
     },
     {
       "key": {
+        "uuid": "1df52f07_4e8f9f1d",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2020-04-20T15:43:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "73b00d5f_74081802",
+      "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fb6b26ac_67a56a9e",
         "filename": "crypto/trust_token/pmbtoken.c",
         "patchSetId": 4
@@ -323,6 +611,24 @@
       "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "826ae546_6ff0b606",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2020-04-20T15:43:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb6b26ac_67a56a9e",
+      "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -366,6 +672,30 @@
     },
     {
       "key": {
+        "uuid": "0cda3bef_e31b1436",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 503,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2020-04-20T15:43:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9166f03f_eff21d7a",
+      "range": {
+        "startLine": 503,
+        "startChar": 7,
+        "endLine": 503,
+        "endChar": 13
+      },
+      "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3bd5070a_5d7232df",
         "filename": "crypto/trust_token/pmbtoken.c",
         "patchSetId": 4
@@ -380,6 +710,24 @@
       "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73fd4a1e_f43b9662",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 522,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2020-04-20T15:43:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3bd5070a_5d7232df",
+      "revId": "ad93881ef5abcca19c6493d637e4f4552d921f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
