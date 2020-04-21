@@ -25,6 +25,11 @@
 #include <openssl/trust_token.h>
 
 
+#if defined(__cplusplus)
+extern "C" {
+#endif
+
+
 // PMBTokens is described in https://eprint.iacr.org/2020/072/20200324:214215
 // and provides anonymous tokens with private metadata. We implement the
 // construction with validity verification, described in appendix H,
@@ -161,5 +166,10 @@ struct trust_token_issuer_st {
   uint8_t *metadata_key;
   size_t metadata_key_len;
 };
+
+
+#if defined(__cplusplus)
+}  // extern C
+#endif
 
 #endif  // OPENSSL_HEADER_TRUST_TOKEN_INTERNAL_H

@@ -35,9 +35,11 @@
 #include <openssl/ec_key.h>
 #include <openssl/evp.h>
 #include <openssl/hrss.h>
+#include <openssl/mem.h>
 #include <openssl/nid.h>
 #include <openssl/rand.h>
 #include <openssl/rsa.h>
+#include <openssl/trust_token.h>
 
 #if defined(OPENSSL_WINDOWS)
 OPENSSL_MSVC_PRAGMA(warning(push, 3))
@@ -49,7 +51,10 @@ OPENSSL_MSVC_PRAGMA(warning(pop))
 #include <time.h>
 #endif
 
+#include "../crypto/ec_extra/internal.h"
+#include "../crypto/fipsmodule/ec/internal.h"
 #include "../crypto/internal.h"
+#include "../crypto/trust_token/internal.h"
 #include "internal.h"
 
 // g_print_json is true if printed output is JSON formatted.
@@ -942,6 +947,138 @@ static bool SpeedHRSS(const std::string &selected) {
   return true;
 }
 
+static bool SpeedHashToCurve(const std::string &selected) {
+  if (!selected.empty() && selected.find("hashtocurve") == std::string::npos) {
+    return true;
+  }
+
+  TimeResults results;
+
+  static const uint8_t kLabel[] = "label";
+  if (!TimeFunction(&results, [&]() -> bool {
+        EC_GROUP *group = EC_GROUP_new_by_curve_name(NID_secp521r1);
+        if (group == NULL) {
+          return false;
+        }
+        EC_RAW_POINT out;
+        uint8_t input[64];
+        RAND_bytes(input, sizeof(input));
+        return ec_hash_to_curve_p521_xmd_sha512_sswu(
+            group, &out, kLabel, sizeof(kLabel), input, sizeof(input));
+      })) {
+    fprintf(stderr, "hashtocurve failed.\n");
+    return false;
+  }
+  results.Print("hash_to_curve_p521_xmd_sha512_sswu");
+
+  if (!TimeFunction(&results, [&]() -> bool {
+        EC_GROUP *group = EC_GROUP_new_by_curve_name(NID_secp521r1);
+        if (group == NULL) {
+          return false;
+        }
+        EC_SCALAR out;
+        uint8_t input[64];
+        RAND_bytes(input, sizeof(input));
+        return ec_hash_to_scalar_p521_xmd_sha512(
+            group, &out, kLabel, sizeof(kLabel), input, sizeof(input));
+      })) {
+    fprintf(stderr, "hashtoscalar failed.\n");
+    return false;
+  }
+  results.Print("hash_to_scalar_p521_xmd_sha512");
+
+  return true;
+}
+
+static bool SpeedTrustToken(const std::string &selected) {
+  if (!selected.empty() && selected.find("trusttoken") == std::string::npos) {
+    return true;
+  }
+
+  TimeResults results;
+
+  if (!TimeFunction(&results, [&]() -> bool {
+        PMBTOKEN_PRETOKEN *pretoken = pmbtoken_blind();
+        int ok = (pretoken != NULL);
+        PMBTOKEN_PRETOKEN_free(pretoken);
+        return ok;
+      })) {
+    fprintf(stderr, "pmbtoken_blind failed.\n");
+    return false;
+  }
+  results.Print("pmbtoken_blind");
+
+  bssl::UniquePtr<TRUST_TOKEN_CLIENT> client(TRUST_TOKEN_CLIENT_new(10));
+  bssl::UniquePtr<TRUST_TOKEN_ISSUER> issuer(TRUST_TOKEN_ISSUER_new(10));
+  uint8_t priv_key[TRUST_TOKEN_MAX_PRIVATE_KEY_SIZE];
+  uint8_t pub_key[TRUST_TOKEN_MAX_PUBLIC_KEY_SIZE];
+  size_t priv_key_len, pub_key_len, key_index;
+  if (!TRUST_TOKEN_generate_key(
+          priv_key, &priv_key_len, TRUST_TOKEN_MAX_PRIVATE_KEY_SIZE, pub_key,
+          &pub_key_len, TRUST_TOKEN_MAX_PUBLIC_KEY_SIZE, 0) ||
+      !TRUST_TOKEN_CLIENT_add_key(client.get(), &key_index, pub_key,
+                                  pub_key_len) ||
+      !TRUST_TOKEN_ISSUER_add_key(issuer.get(), priv_key, priv_key_len)) {
+    fprintf(stderr, "failed to generate trust token key.\n");
+    return false;
+  }
+
+  PMBTOKEN_PRETOKEN *pretoken = pmbtoken_blind();
+
+  if (!TimeFunction(&results, [&]() -> bool {
+        uint8_t s[PMBTOKEN_NONCE_SIZE];
+        EC_RAW_POINT Wp, Wsp;
+        uint8_t *proof = NULL;
+        size_t proof_len;
+        int ok = pmbtoken_sign(issuer.get(), s, &Wp, &Wsp, &proof, &proof_len,
+                               &pretoken->Tp, 0, 0);
+        OPENSSL_free(proof);
+        return ok;
+      })) {
+    fprintf(stderr, "pmbtoken_sign failed.\n");
+    return false;
+  }
+  results.Print("pmbtoken_sign");
+
+  uint8_t s[PMBTOKEN_NONCE_SIZE];
+  EC_RAW_POINT Wp, Wsp;
+  uint8_t *proof = NULL;
+  size_t proof_len;
+  if (!pmbtoken_sign(issuer.get(), s, &Wp, &Wsp, &proof, &proof_len,
+                     &pretoken->Tp, 0, 0)) {
+    fprintf(stderr, "failed to sign trust token.\n");
+    return false;
+  }
+
+  if (!TimeFunction(&results, [&]() -> bool {
+        PMBTOKEN_TOKEN token;
+        return pmbtoken_unblind(&token, &client->keys[key_index], s, &Wp, &Wsp,
+                                proof, proof_len, pretoken);
+      })) {
+    fprintf(stderr, "pmbtoken_unblind failed.\n");
+    return false;
+  }
+  results.Print("pmbtoken_unblind");
+
+  PMBTOKEN_TOKEN token;
+  if (!pmbtoken_unblind(&token, &client->keys[key_index], s, &Wp, &Wsp, proof,
+                        proof_len, pretoken)) {
+    fprintf(stderr, "failed to unblind trust token.\n");
+    return false;
+  }
+
+  if (!TimeFunction(&results, [&]() -> bool {
+        uint8_t private_metadata;
+        return pmbtoken_read(issuer.get(), &private_metadata, &token, 0);
+      })) {
+    fprintf(stderr, "pmbtoken_read failed.\n");
+    return false;
+  }
+  results.Print("pmbtoken_read");
+
+  return true;
+}
+
 static const struct argument kArguments[] = {
     {
         "-filter",
@@ -1071,7 +1208,9 @@ bool Speed(const std::vector<std::string> &args) {
       !SpeedSPAKE2(selected) ||
       !SpeedScrypt(selected) ||
       !SpeedRSAKeyGen(selected) ||
-      !SpeedHRSS(selected)) {
+      !SpeedHRSS(selected) ||
+      !SpeedHashToCurve(selected) ||
+      !SpeedTrustToken(selected)) {
     return false;
   }
   if (g_print_json) {
