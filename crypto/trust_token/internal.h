@@ -33,7 +33,7 @@ extern "C" {
 // PMBTokens is described in https://eprint.iacr.org/2020/072/20200324:214215
 // and provides anonymous tokens with private metadata. We implement the
 // construction with validity verification, described in appendix H,
-// construction 6, using P-521 as the group.
+// construction 6, using P-256 as the group.
 
 // PMBTOKEN_NONCE_SIZE is the size of nonces used as part of the PMBToken
 // protocol.
@@ -91,6 +91,13 @@ void PMBTOKEN_TOKEN_free(PMBTOKEN_TOKEN *token);
 // pmbtoken_compute_public computes the public keypairs from the private
 // keypairs in |key|. It returns one on success and zero on failure.
 int pmbtoken_compute_public(struct trust_token_issuer_key_st *key);
+
+// pmbtoken_h sets |*out_h| to the generator H for PMBTokens. It returns on one
+// on success and zero on failure.
+//
+// This point was generated using hash_to_curve_p256_xmd_sha256_sswu with a DST of
+// "PMBTokensV0 HashH" and a MSG of "generator".
+int pmbtoken_h(EC_RAW_POINT *out_h);
 
 // pmbtoken_blind generates a new blinded pretoken based on the configuration of
 // |ctx| as per the first stage of the AT.Usr operation and returns the

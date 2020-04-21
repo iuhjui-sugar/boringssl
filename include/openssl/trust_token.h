@@ -53,8 +53,8 @@ OPENSSL_EXPORT TRUST_TOKEN *TRUST_TOKEN_new(const uint8_t *data, size_t len);
 // TRUST_TOKEN_free releases memory associated with |token|.
 OPENSSL_EXPORT void TRUST_TOKEN_free(TRUST_TOKEN *token);
 
-#define TRUST_TOKEN_MAX_PRIVATE_KEY_SIZE 512
-#define TRUST_TOKEN_MAX_PUBLIC_KEY_SIZE 512
+#define TRUST_TOKEN_MAX_PRIVATE_KEY_SIZE 256
+#define TRUST_TOKEN_MAX_PUBLIC_KEY_SIZE 256
 
 // TRUST_TOKEN_generate_key creates a new Trust Token keypair labeled with |id|
 // and serializes the private and public keys, writing the private key to
