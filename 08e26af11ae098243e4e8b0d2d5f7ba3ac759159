@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b155838_e12d3197",
+        "filename": "tool/speed.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 965,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-21T19:28:11Z",
+      "side": 1,
+      "message": "This is mixing the PRNG stuff into the benchmarks. I would pull everything but the hash-to-curve itself out of TimeFunction. Ditto below.",
+      "revId": "08e26af11ae098243e4e8b0d2d5f7ba3ac759159",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37b121e2_f5317d1c",
+        "filename": "tool/speed.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 972,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-21T19:28:11Z",
+      "side": 1,
+      "message": "I\u0027d suggest using the actual suite name: P521_XMD:SHA-512_SSWU_RO_\n\nNot sure what to do about the other one since we mostly made it up....",
+      "range": {
+        "startLine": 972,
+        "startChar": 17,
+        "endLine": 972,
+        "endChar": 51
+      },
+      "revId": "08e26af11ae098243e4e8b0d2d5f7ba3ac759159",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "142686cc_9b7c1c4d",
+        "filename": "tool/speed.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1026,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-21T19:28:11Z",
+      "side": 1,
+      "message": "This leaks. :-P",
+      "revId": "08e26af11ae098243e4e8b0d2d5f7ba3ac759159",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3eb56fa6_a5375fb5",
+        "filename": "tool/speed.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1028,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-21T19:28:11Z",
+      "side": 1,
+      "message": "Would it make sense to benchmark the TRUST_TOKEN API itself? That one\u0027s presumably a bit more stable and is ultimately the operation we care about.  (I guess it\u0027s got the SRR stuff in front of it, but hopefully fairly fast in comparison?)",
+      "revId": "08e26af11ae098243e4e8b0d2d5f7ba3ac759159",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
