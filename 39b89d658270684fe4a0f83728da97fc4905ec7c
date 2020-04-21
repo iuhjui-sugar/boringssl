@@ -1,0 +1,164 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "627cd4d6_d044491a",
+        "filename": "tool/speed.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 954,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-21T22:17:46Z",
+      "side": 1,
+      "message": "Nit: move to line 964.",
+      "revId": "39b89d658270684fe4a0f83728da97fc4905ec7c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "034e2eca_298a0de8",
+        "filename": "tool/speed.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 970,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-21T22:17:46Z",
+      "side": 1,
+      "message": "I think this is usually written \"hash-to-curve\". Ditto elsewhere.",
+      "range": {
+        "startLine": 970,
+        "startChar": 21,
+        "endLine": 970,
+        "endChar": 32
+      },
+      "revId": "39b89d658270684fe4a0f83728da97fc4905ec7c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0cab051_dc9dfb78",
+        "filename": "tool/speed.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1004,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-21T22:17:46Z",
+      "side": 1,
+      "message": "Nit: No newline.",
+      "revId": "39b89d658270684fe4a0f83728da97fc4905ec7c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d536ee6_198190c2",
+        "filename": "tool/speed.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1042,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-21T22:17:46Z",
+      "side": 1,
+      "message": "SRR",
+      "range": {
+        "startLine": 1042,
+        "startChar": 52,
+        "endLine": 1042,
+        "endChar": 55
+      },
+      "revId": "39b89d658270684fe4a0f83728da97fc4905ec7c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48ccaec9_1560ee55",
+        "filename": "tool/speed.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1123,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-21T22:17:46Z",
+      "side": 1,
+      "message": "Ah yeah, I guess we need do that, don\u0027t we? :-/",
+      "revId": "39b89d658270684fe4a0f83728da97fc4905ec7c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b0b4cb9_eae7ebaa",
+        "filename": "tool/speed.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1139,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-21T22:17:46Z",
+      "side": 1,
+      "message": "Doesn\u0027t particularly matter, but I probably would have just done:\n\n  const TRUST_TOKEN *token \u003d sk_TRUST_TOKEN_value(tokens.get(), 0);\n\nRemoving things off the front of a vector is an O(N) operation.",
+      "revId": "39b89d658270684fe4a0f83728da97fc4905ec7c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "099a4f59_e9ee3e4e",
+        "filename": "tool/speed.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1178,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-21T22:17:46Z",
+      "side": 1,
+      "message": "Nit: name parameter?",
+      "range": {
+        "startLine": 1178,
+        "startChar": 12,
+        "endLine": 1178,
+        "endChar": 15
+      },
+      "revId": "39b89d658270684fe4a0f83728da97fc4905ec7c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a35278f_3ef83592",
+        "filename": "tool/speed.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1198,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-21T22:17:46Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 1198,
+        "startChar": 33,
+        "endLine": 1198,
+        "endChar": 36
+      },
+      "revId": "39b89d658270684fe4a0f83728da97fc4905ec7c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
