@@ -32,6 +32,7 @@
 #include <openssl/rand.h>
 #include <openssl/trust_token.h>
 
+#include "../ec_extra/internal.h"
 #include "../internal.h"
 #include "internal.h"
 
@@ -40,6 +41,18 @@ BSSL_NAMESPACE_BEGIN
 
 namespace {
 
+TEST(TrustTokenTest, HGenerator) {
+  const uint8_t kHGen[] = "generator";
+  const uint8_t kHLabel[] = "PMBTokensV0 HashH";
+  EC_RAW_POINT calculated_h, real_h;
+  EC_GROUP *group = EC_GROUP_new_by_curve_name(NID_secp384r1);
+  ASSERT_TRUE(group);
+  ASSERT_TRUE(ec_hash_to_curve_p384_xmd_sha512_sswu(
+      group, &calculated_h, kHLabel, sizeof(kHLabel), kHGen, sizeof(kHGen)));
+  ASSERT_TRUE(pmbtoken_h(&real_h));
+  ASSERT_TRUE(ec_GFp_simple_points_equal(group, &calculated_h, &real_h));
+}
+
 TEST(TrustTokenTest, KeyGen) {
   uint8_t priv_key[TRUST_TOKEN_MAX_PRIVATE_KEY_SIZE];
   uint8_t pub_key[TRUST_TOKEN_MAX_PUBLIC_KEY_SIZE];
@@ -47,8 +60,8 @@ TEST(TrustTokenTest, KeyGen) {
   ASSERT_TRUE(TRUST_TOKEN_generate_key(
       priv_key, &priv_key_len, TRUST_TOKEN_MAX_PRIVATE_KEY_SIZE, pub_key,
       &pub_key_len, TRUST_TOKEN_MAX_PUBLIC_KEY_SIZE, 0x0001));
-  ASSERT_EQ(400u, priv_key_len);
-  ASSERT_EQ(409u, pub_key_len);
+  ASSERT_EQ(292u, priv_key_len);
+  ASSERT_EQ(301u, pub_key_len);
 }
 
 class TrustTokenProtocolTest : public ::testing::Test {

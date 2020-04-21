@@ -29,94 +29,24 @@
 #include "internal.h"
 
 
-// get_h returns the generator H for PMBTokens.
-//
-// x: 66591746412783875033873351891229753622964683369847172829242944646280287810
-//    81195403447871073952234683395256591180452378091073292247502091640572714366
-//    588045092
-// y: 12347430519393087872533727997980072129796839266949808299436682045034861065
-//    18810630511924722292325611253427311923464047364545304196431830383014967865
-//    162306253
-//
-// This point was generated with the following Python code.
-
-/*
-import hashlib
-
-SEED_H = 'PrivacyPass H'
-
-A = -3
-B = 0x051953eb9618e1c9a1f929a21a0b68540eea2da725b99b315f3b8b489918ef109e156193951ec7e937b1652c0bd3bb1bf073573df883d2c34f1ef451fd46b503f00
-P = 2**521 - 1
-
-def get_y(x):
-  y2 = (x**3 + A*x + B) % P
-  y = pow(y2, (P+1)/4, P)
-  if (y*y) % P != y2:
-    raise ValueError("point not on curve")
-  return y
-
-def bit(h,i):
-  return (ord(h[i/8]) >> (i%8)) & 1
-
-b = 521
-def decode_point(so):
-  s = hashlib.sha256(so + '0').digest() + hashlib.sha256(so + '1').digest() + \
-      hashlib.sha256(so + '2').digest()
-
-  x = 0
-  for i in range(0,b):
-    x = x + (long(bit(s,i))<<i)
-  if x >= P:
-    raise ValueError("x out of range")
-  y = get_y(x)
-  if y & 1 != bit(s,b-1): y = P-y
-  return (x, y)
-
-
-def gen_point(seed):
-  v = hashlib.sha256(seed).digest()
-  it = 1
-  while True:
-    try:
-      x,y = decode_point(v)
-    except Exception, e:
-      print e
-      it += 1
-      v = hashlib.sha256(v).digest()
-      continue
-    print "Found in %d iterations:" % it
-    print "  x = %d" % x
-    print "  y = %d" % y
-    print " Encoded (hex): (%x, %x)" % (x, y)
-    return (x, y)
-
-if __name__ == "__main__":
-  gen_point(SEED_H)
-*/
-
 static const uint8_t kDefaultAdditionalData[32] = {0};
 
-// TODO(svaldez): Update to use hash2curve to generate H.
-static int get_h(EC_RAW_POINT *out_h) {
-  EC_GROUP *group = EC_GROUP_new_by_curve_name(NID_secp521r1);
+int pmbtoken_h(EC_RAW_POINT *out_h) {
+  EC_GROUP *group = EC_GROUP_new_by_curve_name(NID_secp384r1);
   if (group == NULL) {
     return 0;
   }
 
   static const uint8_t kH[] = {
-      0x04, 0x01, 0xf0, 0xa9, 0xf7, 0x9e, 0xbc, 0x12, 0x6c, 0xef, 0xd1, 0xab,
-      0x29, 0x10, 0x03, 0x6f, 0x4e, 0xf5, 0xbd, 0xeb, 0x0f, 0x6b, 0xc0, 0x5c,
-      0x0e, 0xce, 0xfe, 0x59, 0x45, 0xd1, 0x3e, 0x25, 0x33, 0x7e, 0x4c, 0xda,
-      0x64, 0x53, 0x54, 0x4e, 0xf9, 0x76, 0x0d, 0x6d, 0xc5, 0x39, 0x2a, 0xd4,
-      0xce, 0x84, 0x6e, 0x31, 0xc2, 0x86, 0x21, 0xf9, 0x5c, 0x98, 0xb9, 0x3d,
-      0x01, 0x74, 0x9f, 0xc5, 0x1e, 0x47, 0x24, 0x00, 0x5c, 0x17, 0x62, 0x51,
-      0x7d, 0x32, 0x5e, 0x29, 0xac, 0x52, 0x14, 0x75, 0x6f, 0x36, 0xd9, 0xc7,
-      0xfa, 0xbb, 0xa9, 0x3b, 0x9d, 0x70, 0x49, 0x1e, 0xb4, 0x53, 0xbc, 0x55,
-      0xea, 0xad, 0x8f, 0x26, 0x1d, 0xe0, 0xbc, 0xf3, 0x50, 0x5c, 0x7e, 0x66,
-      0x41, 0xb5, 0x61, 0x70, 0x12, 0x72, 0xac, 0x6a, 0xb0, 0x6e, 0x78, 0x3d,
-      0x17, 0x08, 0xe3, 0xdf, 0x3c, 0xff, 0xa6, 0xa0, 0xea, 0x96, 0x67, 0x92,
-      0xcd,
+      0x04, 0x15, 0xc6, 0xb4, 0x63, 0x01, 0xe4, 0xe7, 0xbd, 0x78, 0x14,
+      0xaf, 0x5a, 0x72, 0x4d, 0x42, 0x4c, 0x66, 0xc9, 0xdf, 0x5e, 0x70,
+      0x2a, 0xa1, 0x3f, 0x3e, 0x75, 0x3c, 0x26, 0xec, 0xf6, 0xad, 0x74,
+      0x67, 0xf8, 0x6f, 0x98, 0xec, 0xaa, 0x84, 0x47, 0xce, 0x49, 0xfe,
+      0x1c, 0x6c, 0xee, 0xe9, 0xf9, 0x1f, 0x63, 0xf6, 0x6e, 0x56, 0x57,
+      0x40, 0x7f, 0xe5, 0xbb, 0x0f, 0xb6, 0x0d, 0x0b, 0xc4, 0x0b, 0xea,
+      0x81, 0x90, 0x04, 0xaf, 0x07, 0xad, 0xee, 0x99, 0x28, 0x51, 0x21,
+      0x99, 0xeb, 0xda, 0xa4, 0x0c, 0x6f, 0xb7, 0xb3, 0x32, 0xf0, 0x11,
+      0xb0, 0x8e, 0x67, 0x63, 0xe0, 0x7e, 0x1f, 0xab, 0xb4
   };
 
   return ec_point_from_uncompressed(group, out_h, kH, sizeof(kH));
@@ -176,7 +106,7 @@ static int mul_add_and_sub(const EC_GROUP *group, EC_RAW_POINT *out_v0,
 static int generate_keypair(EC_SCALAR *out_x, EC_SCALAR *out_y,
                             EC_RAW_POINT *out_pub, const EC_GROUP *group) {
   EC_RAW_POINT h;
-  if (!get_h(&h) ||
+  if (!pmbtoken_h(&h) ||
       !ec_random_nonzero_scalar(group, out_x, kDefaultAdditionalData) ||
       !ec_random_nonzero_scalar(group, out_y, kDefaultAdditionalData) ||
       !mul_twice_base(group, out_pub, out_x, &h, out_y)) {
@@ -203,7 +133,7 @@ int TRUST_TOKEN_generate_key(uint8_t *out_priv_key, size_t *out_priv_key_len,
                              size_t max_priv_key_len, uint8_t *out_pub_key,
                              size_t *out_pub_key_len, size_t max_pub_key_len,
                              uint32_t id) {
-  EC_GROUP *group = EC_GROUP_new_by_curve_name(NID_secp521r1);
+  EC_GROUP *group = EC_GROUP_new_by_curve_name(NID_secp384r1);
   if (group == NULL) {
     return 0;
   }
@@ -272,13 +202,13 @@ void PMBTOKEN_TOKEN_free(PMBTOKEN_TOKEN *token) {
 }
 
 int pmbtoken_compute_public(struct trust_token_issuer_key_st *key) {
-  EC_GROUP *group = EC_GROUP_new_by_curve_name(NID_secp521r1);
+  EC_GROUP *group = EC_GROUP_new_by_curve_name(NID_secp384r1);
   if (group == NULL) {
     return 0;
   }
 
   EC_RAW_POINT h;
-  if (!get_h(&h) ||
+  if (!pmbtoken_h(&h) ||
       !mul_twice_base(group, &key->pubs, &key->xs, &h, &key->ys) ||
       !mul_twice_base(group, &key->pub0, &key->x0, &h, &key->y0) ||
       !mul_twice_base(group, &key->pub1, &key->x1, &h, &key->y1)) {
@@ -293,7 +223,7 @@ int pmbtoken_compute_public(struct trust_token_issuer_key_st *key) {
 static int hash_t(EC_GROUP *group, EC_RAW_POINT *out,
                   const uint8_t t[PMBTOKEN_NONCE_SIZE]) {
   const uint8_t kHashTLabel[] = "PMBTokensV0 HashT";
-  return ec_hash_to_curve_p521_xmd_sha512_sswu(
+  return ec_hash_to_curve_p384_xmd_sha512_sswu(
       group, out, kHashTLabel, sizeof(kHashTLabel), t, PMBTOKEN_NONCE_SIZE);
 }
 
@@ -310,7 +240,7 @@ static int hash_s(EC_GROUP *group, EC_RAW_POINT *out, const EC_RAW_POINT *t,
       !point_to_cbb(&cbb, group, t) ||
       !CBB_add_bytes(&cbb, s, PMBTOKEN_NONCE_SIZE) ||
       !CBB_finish(&cbb, &buf, &len) ||
-      !ec_hash_to_curve_p521_xmd_sha512_sswu(group, out, kHashSLabel,
+      !ec_hash_to_curve_p384_xmd_sha512_sswu(group, out, kHashSLabel,
                                              sizeof(kHashSLabel), buf, len)) {
     OPENSSL_PUT_ERROR(TRUST_TOKEN, ERR_R_MALLOC_FAILURE);
     goto err;
@@ -325,7 +255,7 @@ err:
 }
 
 PMBTOKEN_PRETOKEN *pmbtoken_blind(void) {
-  EC_GROUP *group = EC_GROUP_new_by_curve_name(NID_secp521r1);
+  EC_GROUP *group = EC_GROUP_new_by_curve_name(NID_secp384r1);
   if (group == NULL) {
     return NULL;
   }
@@ -366,7 +296,7 @@ err:
 static int hash_c(const EC_GROUP *group, EC_SCALAR *out, uint8_t *buf,
                   size_t len) {
   const uint8_t kHashCLabel[] = "PMBTokensV0 HashC";
-  return ec_hash_to_scalar_p521_xmd_sha512(group, out, kHashCLabel,
+  return ec_hash_to_scalar_p384_xmd_sha512(group, out, kHashCLabel,
                                            sizeof(kHashCLabel), buf, len);
 }
 
@@ -483,7 +413,7 @@ static int dleq_generate(const EC_GROUP *group, uint8_t **out_proof,
   }
 
   EC_RAW_POINT h;
-  if (!get_h(&h)) {
+  if (!pmbtoken_h(&h)) {
     goto err;
   }
 
@@ -638,7 +568,7 @@ static int dleq_verify(const EC_GROUP *group, const uint8_t *proof,
                        const EC_RAW_POINT *T, const EC_RAW_POINT *S,
                        const EC_RAW_POINT *W, const EC_RAW_POINT *Ws) {
   EC_RAW_POINT h;
-  if (!get_h(&h)) {
+  if (!pmbtoken_h(&h)) {
     return 0;
   }
 
@@ -725,7 +655,7 @@ int pmbtoken_sign(const TRUST_TOKEN_ISSUER *ctx,
                   EC_RAW_POINT *out_Wsp, uint8_t **out_proof,
                   size_t *out_proof_len, const EC_RAW_POINT *Tp,
                   uint32_t key_id, uint8_t private_metadata) {
-  EC_GROUP *group = EC_GROUP_new_by_curve_name(NID_secp521r1);
+  EC_GROUP *group = EC_GROUP_new_by_curve_name(NID_secp384r1);
   if (group == NULL) {
     return 0;
   }
@@ -774,7 +704,7 @@ int pmbtoken_unblind(PMBTOKEN_TOKEN *out_token,
                      const EC_RAW_POINT *Wp, const EC_RAW_POINT *Wsp,
                      const uint8_t *proof, size_t proof_len,
                      const PMBTOKEN_PRETOKEN *pretoken) {
-  EC_GROUP *group = EC_GROUP_new_by_curve_name(NID_secp521r1);
+  EC_GROUP *group = EC_GROUP_new_by_curve_name(NID_secp384r1);
   if (group == NULL) {
     return 0;
   }
@@ -800,7 +730,7 @@ int pmbtoken_unblind(PMBTOKEN_TOKEN *out_token,
 
 int pmbtoken_read(const TRUST_TOKEN_ISSUER *ctx, uint8_t *out_private_metadata,
                   const PMBTOKEN_TOKEN *token, uint32_t key_id) {
-  EC_GROUP *group = EC_GROUP_new_by_curve_name(NID_secp521r1);
+  EC_GROUP *group = EC_GROUP_new_by_curve_name(NID_secp384r1);
   if (group == NULL) {
     return 0;
   }

@@ -101,7 +101,7 @@ void TRUST_TOKEN_CLIENT_free(TRUST_TOKEN_CLIENT *ctx) {
 
 int TRUST_TOKEN_CLIENT_add_key(TRUST_TOKEN_CLIENT *ctx, size_t *out_key_index,
                                const uint8_t *key, size_t key_len) {
-  EC_GROUP *group = EC_GROUP_new_by_curve_name(NID_secp521r1);
+  EC_GROUP *group = EC_GROUP_new_by_curve_name(NID_secp384r1);
   if (group == NULL) {
     return 0;
   }
@@ -139,7 +139,7 @@ int TRUST_TOKEN_CLIENT_set_srr_key(TRUST_TOKEN_CLIENT *ctx, EVP_PKEY *key) {
 
 int TRUST_TOKEN_CLIENT_begin_issuance(TRUST_TOKEN_CLIENT *ctx, uint8_t **out,
                                       size_t *out_len, size_t count) {
-  EC_GROUP *group = EC_GROUP_new_by_curve_name(NID_secp521r1);
+  EC_GROUP *group = EC_GROUP_new_by_curve_name(NID_secp384r1);
   if (group == NULL) {
     return 0;
   }
@@ -183,7 +183,7 @@ STACK_OF(TRUST_TOKEN) *
                                        size_t *out_key_index,
                                        const uint8_t *response,
                                        size_t response_len) {
-  EC_GROUP *group = EC_GROUP_new_by_curve_name(NID_secp521r1);
+  EC_GROUP *group = EC_GROUP_new_by_curve_name(NID_secp384r1);
   if (group == NULL) {
     return 0;
   }
@@ -380,7 +380,7 @@ void TRUST_TOKEN_ISSUER_free(TRUST_TOKEN_ISSUER *ctx) {
 
 int TRUST_TOKEN_ISSUER_add_key(TRUST_TOKEN_ISSUER *ctx, const uint8_t *key,
                                size_t key_len) {
-  EC_GROUP *group = EC_GROUP_new_by_curve_name(NID_secp521r1);
+  EC_GROUP *group = EC_GROUP_new_by_curve_name(NID_secp384r1);
   if (group == NULL) {
     return 0;
   }
@@ -448,7 +448,7 @@ int TRUST_TOKEN_ISSUER_issue(const TRUST_TOKEN_ISSUER *ctx, uint8_t **out,
                              const uint8_t *request, size_t request_len,
                              uint32_t public_metadata, uint8_t private_metadata,
                              size_t max_issuance) {
-  EC_GROUP *group = EC_GROUP_new_by_curve_name(NID_secp521r1);
+  EC_GROUP *group = EC_GROUP_new_by_curve_name(NID_secp384r1);
   if (group == NULL) {
     return 0;
   }
@@ -594,7 +594,7 @@ int TRUST_TOKEN_ISSUER_redeem(const TRUST_TOKEN_ISSUER *ctx, uint8_t **out,
                               uint64_t *out_redemption_time,
                               const uint8_t *request, size_t request_len,
                               uint64_t lifetime) {
-  EC_GROUP *group = EC_GROUP_new_by_curve_name(NID_secp521r1);
+  EC_GROUP *group = EC_GROUP_new_by_curve_name(NID_secp384r1);
   if (group == NULL) {
     return 0;
   }
