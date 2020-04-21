@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "215cedcd_ff6b7004",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-21T02:36:31Z",
+      "side": 1,
+      "message": "Nit: 80 chars at various points in this block. Ditto in ExcessDataProof.",
+      "revId": "c1691be3bb706b92ad73b8a11f2fcc8b5d0fb0ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9391448b_4e459b27",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-21T02:36:31Z",
+      "side": 1,
+      "message": "unique_ptr has an operator-\u003e(), so I believe \u0026issuer-\u003ekeys[0] works.",
+      "range": {
+        "startLine": 567,
+        "startChar": 43,
+        "endLine": 567,
+        "endChar": 57
+      },
+      "revId": "c1691be3bb706b92ad73b8a11f2fcc8b5d0fb0ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
