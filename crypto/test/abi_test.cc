@@ -208,7 +208,8 @@ template <typename... Args>
     WriteFile(stderr_handle, buf, strlen(buf), &unused, nullptr);
   }
 #else
-  write(STDERR_FILENO, buf, strlen(buf));
+  int ret = write(STDERR_FILENO, buf, strlen(buf));
+  (void)ret;
 #endif
   abort();
 }
