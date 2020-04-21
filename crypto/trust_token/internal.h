@@ -33,7 +33,15 @@ extern "C" {
 // PMBTokens is described in https://eprint.iacr.org/2020/072/20200324:214215
 // and provides anonymous tokens with private metadata. We implement the
 // construction with validity verification, described in appendix H,
-// construction 6, using P-521 as the group.
+// construction 6, using P-384 as the group.
+//
+// We use P-384 instead of our usual choice of P-256. See Appendix I which
+// describes two attacks which may affect smaller curves. In particular, p-1 for
+// P-256 is smooth, giving a low complexity for the p-1 attack. P-384's p-1 has
+// a 281-bit prime factor,
+// 3055465788140352002733946906144561090641249606160407884365391979704929268480326390471.
+// This lower-bounds the p-1 attack at O(2^140). The p+1 attack is lower-bounded
+// by O(p^(1/3)) or O(2^128), so we do not need to check the smoothness of p+1.
 
 // PMBTOKEN_NONCE_SIZE is the size of nonces used as part of the PMBToken
 // protocol.
@@ -90,6 +98,13 @@ void PMBTOKEN_TOKEN_free(PMBTOKEN_TOKEN *token);
 // pmbtoken_compute_public computes the public keypairs from the private
 // keypairs in |key|. It returns one on success and zero on failure.
 int pmbtoken_compute_public(struct trust_token_issuer_key_st *key);
+
+// pmbtoken_h sets |*out_h| to the generator H for PMBTokens. It returns on one
+// on success and zero on failure.
+//
+// This point was generated using hash_to_curve_p384_xmd_sha512_sswu with a DST of
+// "PMBTokensV0 HashH" and a MSG of "generator".
+int pmbtoken_h(EC_RAW_POINT *out_h);
 
 // pmbtoken_blind generates a new blinded pretoken based on the configuration of
 // |ctx| as per the first stage of the AT.Usr operation and returns the
