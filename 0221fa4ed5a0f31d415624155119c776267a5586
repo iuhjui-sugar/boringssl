@@ -22,6 +22,30 @@
       "revId": "0221fa4ed5a0f31d415624155119c776267a5586",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c955b0b8_8fd7a7c9",
+        "filename": "crypto/fipsmodule/fork_detect.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2020-04-21T18:07:17Z",
+      "side": 1,
+      "message": "I think that\u0027s a good idea, thanks.\n\nI\u0027ve also moved the environment variable up into urandom_test and exposed a function to set a flag instead: I don\u0027t like an environment variable being able to change security properties because BoringSSL may be used in a suid context. However, secure_getenv doesn\u0027t exist on Android and will probably cause other problems.\n\nAlso, the comment about threading can be a lot shorter if we assume that kernels will clear WIPEONFORK pages in other cases in the future.",
+      "parentUuid": "bfbb45f5_02cbf303",
+      "range": {
+        "startLine": 42,
+        "startChar": 15,
+        "endLine": 42,
+        "endChar": 19
+      },
+      "revId": "0221fa4ed5a0f31d415624155119c776267a5586",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
