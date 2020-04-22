@@ -68,7 +68,7 @@ extern "C" {
 // PMBTOKEN_RESPONSE_SIZE is the size of an issuance response from the issuer.
 // This is s, W', Ws', and the DLEQ proofs.
 #define PMBTOKEN_RESPONSE_SIZE \
-  (PMBTOKEN_NONCE_SIZE + 2 * PMBTOKEN_PREFIXED_POINT_SIZE + PMBTOKEN_PROOF_SIZE)
+  (PMBTOKEN_NONCE_SIZE + 2 * PMBTOKEN_PREFIXED_POINT_SIZE)
 
 // PMBTOKEN_TOKEN_SIZE is the size of an unblinded token. This is t, S, W, and
 // Ws.

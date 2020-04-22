@@ -503,6 +503,41 @@ err:
   return ok;
 }
 
+static int hash_c_batch(const EC_GROUP *group, EC_SCALAR *out,
+                        const EC_RAW_POINT *X, const EC_RAW_POINT *X0,
+                        const EC_RAW_POINT *X1, const EC_RAW_POINT *T,
+                        const EC_RAW_POINT *S, const EC_RAW_POINT *W,
+                        const EC_RAW_POINT *Ws) {
+  static const uint8_t kDLEQ2Label[] = "DLEQ BATCH";
+
+  int ok = 0;
+  CBB cbb;
+  CBB_zero(&cbb);
+  uint8_t *buf = NULL;
+  size_t len;
+  if (!CBB_init(&cbb, 0) ||
+      !CBB_add_bytes(&cbb, kDLEQ2Label, sizeof(kDLEQ2Label)) ||
+      !point_to_cbb(&cbb, group, X) ||
+      !point_to_cbb(&cbb, group, X0) ||
+      !point_to_cbb(&cbb, group, X1) ||
+      !point_to_cbb(&cbb, group, T) ||
+      !point_to_cbb(&cbb, group, S) ||
+      !point_to_cbb(&cbb, group, W) ||
+      !point_to_cbb(&cbb, group, Ws) ||
+      !CBB_finish(&cbb, &buf, &len) ||
+      !hash_c(group, out, buf, len)) {
+    OPENSSL_PUT_ERROR(TRUST_TOKEN, ERR_R_MALLOC_FAILURE);
+    goto err;
+  }
+
+  ok = 1;
+
+err:
+  CBB_cleanup(&cbb);
+  OPENSSL_free(buf);
+  return ok;
+}
+
 // The DLEQ2 and DLEQOR2 constructions are described in appendix B of
 // https://eprint.iacr.org/2020/072/20200324:214215. DLEQ2 is an instance of
 // DLEQOR2 with only one value (n=1).
@@ -772,12 +807,15 @@ int pmbtoken_sign(const PMBTOKEN_ISSUER_KEY *key, uint8_t *out_response,
   }
 
   if (out_response == NULL) {
-    *out_response_len = count * PMBTOKEN_RESPONSE_SIZE;
+    *out_response_len = count * PMBTOKEN_RESPONSE_SIZE + PMBTOKEN_PROOF_SIZE;
     return 1;
-  } else if (*out_response_len != count * PMBTOKEN_RESPONSE_SIZE) {
+  } else if (*out_response_len !=
+             count * PMBTOKEN_RESPONSE_SIZE + PMBTOKEN_PROOF_SIZE) {
     OPENSSL_PUT_ERROR(TRUST_TOKEN, ERR_R_INTERNAL_ERROR);
     return 0;
   }
+
+  EC_RAW_POINT Tp_batch, Sp_batch, Wp_batch, Wsp_batch;
 
   CBS cbs;
   CBS_init(&cbs, request, request_len);
@@ -798,8 +836,7 @@ int pmbtoken_sign(const PMBTOKEN_ISSUER_KEY *key, uint8_t *out_response,
     uint8_t *s = out_token_response;
     uint8_t *out_Wp = out_token_response + PMBTOKEN_NONCE_SIZE;
     uint8_t *out_Wsp = out_Wp + PMBTOKEN_PREFIXED_POINT_SIZE;
-    uint8_t *out_proof = out_Wsp + PMBTOKEN_PREFIXED_POINT_SIZE;
-    assert(out_proof + PMBTOKEN_PROOF_SIZE ==
+    assert(out_Wsp + PMBTOKEN_PREFIXED_POINT_SIZE ==
            out_token_response + PMBTOKEN_RESPONSE_SIZE);
 
     RAND_bytes(s, PMBTOKEN_NONCE_SIZE);
@@ -811,18 +848,44 @@ int pmbtoken_sign(const PMBTOKEN_ISSUER_KEY *key, uint8_t *out_response,
       return 0;
     }
 
+    EC_SCALAR e;
+    if (!hash_c_batch(group, &e, &key->pubs, &key->pub0, &key->pub1, &Tp, &Sp,
+                      &Wp, &Wsp)) {
+      return 0;
+    }
+
+    EC_RAW_POINT Tp_e, Sp_e, Wp_e, Wsp_e;
+    if (!ec_point_mul_scalar(group, &Tp_e, &Tp, &e) ||
+        !ec_point_mul_scalar(group, &Sp_e, &Sp, &e) ||
+        !ec_point_mul_scalar(group, &Wp_e, &Wp, &e) ||
+        !ec_point_mul_scalar(group, &Wsp_e, &Wsp, &e)) {
+      return 0;
+    }
+
+    if (i == 0) {
+      Tp_batch = Tp_e;
+      Sp_batch = Sp_e;
+      Wp_batch = Wp_e;
+      Wsp_batch = Wsp_e;
+    } else {
+      group->meth->add(group, &Tp_batch, &Tp_batch, &Tp_e);
+      group->meth->add(group, &Sp_batch, &Sp_batch, &Sp_e);
+      group->meth->add(group, &Wp_batch, &Wp_batch, &Wp_e);
+      group->meth->add(group, &Wsp_batch, &Wsp_batch, &Wsp_e);
+    }
+
     // Output W', and Ws' to the client.
     if (!encode_prefixed_point(group, out_Wp, &Wp) ||
         !encode_prefixed_point(group, out_Wsp, &Wsp)) {
       return 0;
     }
-
-    if (!dleq_generate(group, out_proof, key, &Tp, &Sp, &Wp, &Wsp,
-                       private_metadata)) {
-      return 0;
-    }
   }
 
+  uint8_t *out_proof = out_response + count * PMBTOKEN_RESPONSE_SIZE;
+  if (!dleq_generate(group, out_proof, key, &Tp_batch, &Sp_batch, &Wp_batch,
+                     &Wsp_batch, private_metadata)) {
+    return 0;
+  }
   return 1;
 }
 
@@ -844,18 +907,19 @@ int pmbtoken_unblind(const PMBTOKEN_CLIENT_KEY *key, uint8_t *out_tokens,
     return 0;
   }
 
+
+  EC_RAW_POINT Tp_batch, Sp_batch, Wp_batch, Wsp_batch;
+
   CBS cbs;
   CBS_init(&cbs, response, response_len);
-
   for (size_t i = 0; i < count; i++) {
     PMBTOKEN_PRETOKEN *pretoken = sk_PMBTOKEN_PRETOKEN_value(pretokens, i);
     uint8_t *out_token = out_tokens + i * PMBTOKEN_TOKEN_SIZE;
-    CBS s, proof;
+    CBS s;
     EC_RAW_POINT Wp, Wsp;
     if (!CBS_get_bytes(&cbs, &s, PMBTOKEN_NONCE_SIZE) ||
         !cbs_get_prefixed_point(&cbs, group, &Wp) ||
-        !cbs_get_prefixed_point(&cbs, group, &Wsp) ||
-        !CBS_get_bytes(&cbs, &proof, PMBTOKEN_PROOF_SIZE)) {
+        !cbs_get_prefixed_point(&cbs, group, &Wsp)) {
       OPENSSL_PUT_ERROR(TRUST_TOKEN, TRUST_TOKEN_R_DECODE_FAILURE);
       return 0;
     }
@@ -865,9 +929,30 @@ int pmbtoken_unblind(const PMBTOKEN_CLIENT_KEY *key, uint8_t *out_tokens,
       return 0;
     }
 
-    if (!dleq_verify(group, CBS_data(&proof), CBS_len(&proof), key, &pretoken->Tp,
-                     &Sp, &Wp, &Wsp)) {
+    EC_SCALAR e;
+    if (!hash_c_batch(group, &e, &key->pubs, &key->pub0, &key->pub1,
+                      &pretoken->Tp, &Sp, &Wp, &Wsp)) {
       return 0;
+    }
+
+    EC_RAW_POINT Tp_e, Sp_e, Wp_e, Wsp_e;
+    if (!ec_point_mul_scalar(group, &Tp_e, &pretoken->Tp, &e) ||
+        !ec_point_mul_scalar(group, &Sp_e, &Sp, &e) ||
+        !ec_point_mul_scalar(group, &Wp_e, &Wp, &e) ||
+        !ec_point_mul_scalar(group, &Wsp_e, &Wsp, &e)) {
+      return 0;
+    }
+
+    if (i == 0) {
+      Tp_batch = Tp_e;
+      Sp_batch = Sp_e;
+      Wp_batch = Wp_e;
+      Wsp_batch = Wsp_e;
+    } else {
+      group->meth->add(group, &Tp_batch, &Tp_batch, &Tp_e);
+      group->meth->add(group, &Sp_batch, &Sp_batch, &Sp_e);
+      group->meth->add(group, &Wp_batch, &Wp_batch, &Wp_e);
+      group->meth->add(group, &Wsp_batch, &Wsp_batch, &Wsp_e);
     }
 
     EC_RAW_POINT S, W, Ws;
@@ -891,7 +976,9 @@ int pmbtoken_unblind(const PMBTOKEN_CLIENT_KEY *key, uint8_t *out_tokens,
       return 0;
     }
   }
-  return CBS_len(&cbs) == 0;
+
+  return dleq_verify(group, CBS_data(&cbs), CBS_len(&cbs), key, &Tp_batch,
+                     &Sp_batch, &Wp_batch, &Wsp_batch);
 }
 
 int pmbtoken_read(const PMBTOKEN_ISSUER_KEY *key,
