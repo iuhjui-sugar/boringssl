@@ -39,18 +39,49 @@ extern "C" {
 // protocol.
 #define PMBTOKEN_NONCE_SIZE 64
 
-// Structure representing a single Trust Token public key with the specified ID.
-struct trust_token_client_key_st {
-  uint32_t id;
+// PMBTOKEN_POINT_SIZE is the size of an encoded point in the curve used by
+// PMBTokens.
+#define PMBTOKEN_POINT_SIZE (1 + 66 * 2)
+
+// PMBTOKEN_PREFIXED_POINT_SIZE is |PMBTOKEN_POINT_SIZE| with a length prefix
+// prepended.
+//
+// TODO(https://crbug.com/boringssl/331): When updating the wire format, remove
+// the redundant length prefix.
+#define PMBTOKEN_PREFIXED_POINT_SIZE (2 + PMBTOKEN_POINT_SIZE)
+
+// PMBTOKEN_SCALAR_SIZE is the size of an encoded scalar in the curve used by
+// PMBTokens.
+#define PMBTOKEN_SCALAR_SIZE 66
+
+// PMBTOKEN_REQUEST_SIZE is the size of an issuance request from the client.
+// This is T'.
+#define PMBTOKEN_REQUEST_SIZE PMBTOKEN_PREFIXED_POINT_SIZE
+
+// PMBTOKEN_PROOF_SIZE is the size of the proof portion of the issuance
+// response. This is nine scalars and an internal length prefix.
+//
+// TODO(https://crbug.com/boringssl/331): When updating the wire format, remove
+// redundant length prefix.
+#define PMBTOKEN_PROOF_SIZE (2 + 9 * PMBTOKEN_SCALAR_SIZE)
+
+// PMBTOKEN_RESPONSE_SIZE is the size of an issuance response from the issuer.
+// This is s, W', Ws', and the DLEQ proofs.
+#define PMBTOKEN_RESPONSE_SIZE \
+  (PMBTOKEN_NONCE_SIZE + 2 * PMBTOKEN_PREFIXED_POINT_SIZE + PMBTOKEN_PROOF_SIZE)
+
+// PMBTOKEN_TOKEN_SIZE is the size of an unblinded token. This is t, S, W, and
+// Ws.
+#define PMBTOKEN_TOKEN_SIZE \
+  (PMBTOKEN_NONCE_SIZE + 3 * PMBTOKEN_PREFIXED_POINT_SIZE)
+
+typedef struct {
   EC_RAW_POINT pub0;
   EC_RAW_POINT pub1;
   EC_RAW_POINT pubs;
-};
+} PMBTOKEN_CLIENT_KEY;
 
-// Structure representing a single Trust Token private key with the specified
-// ID.
-struct trust_token_issuer_key_st {
-  uint32_t id;
+typedef struct {
   EC_SCALAR x0;
   EC_SCALAR y0;
   EC_SCALAR x1;
@@ -60,7 +91,7 @@ struct trust_token_issuer_key_st {
   EC_RAW_POINT pub0;
   EC_RAW_POINT pub1;
   EC_RAW_POINT pubs;
-};
+} PMBTOKEN_ISSUER_KEY;
 
 // PMBTOKEN_PRETOKEN represents the intermediate state a client keeps during a
 // PMBToken issuance operation.
@@ -76,56 +107,75 @@ OPENSSL_EXPORT void PMBTOKEN_PRETOKEN_free(PMBTOKEN_PRETOKEN *token);
 
 DEFINE_STACK_OF(PMBTOKEN_PRETOKEN)
 
-// PMBTOKEN_TOKEN represents the final token generated as part of a PMBToken
-// issuance operation.
-typedef struct pmb_token_st {
-  uint8_t t[PMBTOKEN_NONCE_SIZE];
-  EC_RAW_POINT S;
-  EC_RAW_POINT W;
-  EC_RAW_POINT Ws;
-} PMBTOKEN_TOKEN;
+// pmbtoken_generate_key generates a fresh keypair and writes their serialized
+// forms into |out_private| and |out_public|. It returns one on success and zero
+// on failure.
+int pmbtoken_generate_key(CBB *out_private, CBB *out_public);
 
-// PMBTOKEN_TOKEN_free releases the memory associated with |token|.
-void PMBTOKEN_TOKEN_free(PMBTOKEN_TOKEN *token);
+// pmbtoken_client_key_from_bytes decodes a client key from |in| and sets |key|
+// to the resulting key. It returns one on success and zero
+// on failure.
+int pmbtoken_client_key_from_bytes(PMBTOKEN_CLIENT_KEY *key, const uint8_t *in,
+                                   size_t len);
 
-// pmbtoken_compute_public computes the public keypairs from the private
-// keypairs in |key|. It returns one on success and zero on failure.
-int pmbtoken_compute_public(struct trust_token_issuer_key_st *key);
+// pmbtoken_issuer_key_from_bytes decodes a issuer key from |in| and sets |key|
+// to the resulting key. It returns one on success and zero
+// on failure.
+int pmbtoken_issuer_key_from_bytes(PMBTOKEN_ISSUER_KEY *key, const uint8_t *in,
+                                   size_t len);
 
-// pmbtoken_blind generates a new blinded pretoken based on the configuration of
-// |ctx| as per the first stage of the AT.Usr operation and returns the
-// resulting pretoken.
-PMBTOKEN_PRETOKEN *pmbtoken_blind(void);
+// pmbtoken_blind generates a new issuance request. On success, it returns a
+// newly-allocated |PMBTOKEN_PRETOKEN| and writes a serialized request to the
+// server to |out_request|. On failure, it returns NULL.
+//
+// This function implements the AT.Usr0 operation.
+PMBTOKEN_PRETOKEN *pmbtoken_blind(uint8_t out_request[PMBTOKEN_REQUEST_SIZE]);
 
-// pmbtoken_sign signs a blinded point based on the configuration of |ctx|
-// and the key specified by |key_id| with a private metadata value of
-// |private_metadata| as per the AT.Sig operation and stores the resulting nonce
-// and points in |*out_s|, |*out_Wp|, and |*out_Wsp| and the resulting DLEQ
-// proof in |*out_proof|. The caller takes ownership of |*out_proof| and is
-// responsible for freeing it using |OPENSSL_free|. It returns one on success
-// and zero on failure.
-int pmbtoken_sign(const TRUST_TOKEN_ISSUER *ctx,
-                  uint8_t out_s[PMBTOKEN_NONCE_SIZE], EC_RAW_POINT *out_Wp,
-                  EC_RAW_POINT *out_Wsp, uint8_t **out_proof,
-                  size_t *out_proof_len, const EC_RAW_POINT *Tp,
-                  uint32_t key_id, uint8_t private_metadata);
+// pmbtoken_sign signs |count| tokens in |request| with |key| and a private
+// metadata value of |private_metadata|. If |out_response| is NULL then
+// |*out_response_len| is set to the maximum number of output bytes. Otherwise,
+// it writes the response to |out_response|. It returns one on success and zero
+// on failure.
+//
+// This function implements the AT.Sig operation.
+int pmbtoken_sign(const PMBTOKEN_ISSUER_KEY *key, uint8_t *out_response,
+                  size_t *out_response_len, const uint8_t *request,
+                  size_t request_len, size_t count, uint8_t private_metadata);
 
-// pmbtoken_unblind unblinds the result of an AT.Sig operation as per the final
-// stage of the AT.Usr operation and sets |*out_token| to the resulting token.
-// It returns one on success and zero on failure.
-int pmbtoken_unblind(PMBTOKEN_TOKEN *out_token,
-                     const struct trust_token_client_key_st *key,
-                     const uint8_t s[PMBTOKEN_NONCE_SIZE],
-                     const EC_RAW_POINT *Wp, const EC_RAW_POINT *Wsp,
-                     const uint8_t *proof, size_t proof_len,
-                     const PMBTOKEN_PRETOKEN *pretoken);
+// pmbtoken_unblind processes an issuance response and unblinds the signed
+// tokens. |pretokens| are the pre-tokens returned from the corresponding
+// |pmbtoken_blind| calls. If |out_tokens| is NULL then |*out_tokens_len| is set
+// to the maximum number of output bytes. Otherwise, it writes the resulting
+// tokens to |out_token|. It returns one on success and zero on failure.
+//
+// This function implements the AT.Usr1 operation.
+int pmbtoken_unblind(const PMBTOKEN_CLIENT_KEY *key, uint8_t *out_tokens,
+                     size_t *out_tokens_len,
+                     const STACK_OF(PMBTOKEN_PRETOKEN) * pretokens,
+                     const uint8_t *response, size_t response_len,
+                     size_t count);
 
-// pmbtoken_read verifies the validity of a PMBToken |token| using the key
-// specified by |key_id| and stores the value of the private metadata
-// bit in |*out_private_metadata|. It returns one if the token is valid and zero
-// otherwise.
-int pmbtoken_read(const TRUST_TOKEN_ISSUER *ctx, uint8_t *out_private_metadata,
-                  const PMBTOKEN_TOKEN *token, uint32_t key_id);
+// pmbtoken_read verifies a PMBToken |token| using |key| and stores the nonce
+// and private metadata bit in |out_nonce| and |*out_private_metadata|. It
+// returns one if the token is valid and zero otherwise.
+int pmbtoken_read(const PMBTOKEN_ISSUER_KEY *key,
+                  uint8_t out_nonce[PMBTOKEN_NONCE_SIZE],
+                  uint8_t *out_private_metadata,
+                  const uint8_t token[PMBTOKEN_TOKEN_SIZE]);
+
+
+// Structure representing a single Trust Token public key with the specified ID.
+struct trust_token_client_key_st {
+  uint32_t id;
+  PMBTOKEN_CLIENT_KEY key;
+};
+
+// Structure representing a single Trust Token private key with the specified
+// ID.
+struct trust_token_issuer_key_st {
+  uint32_t id;
+  PMBTOKEN_ISSUER_KEY key;
+};
 
 struct trust_token_client_st {
   // max_batchsize is the maximum supported batchsize.
