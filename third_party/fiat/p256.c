@@ -1055,6 +1055,8 @@ DEFINE_METHOD_FUNCTION(EC_METHOD, EC_GFp_nistp256_method) {
   out->felem_sqr = ec_GFp_mont_felem_sqr;
   out->felem_to_bytes = ec_GFp_mont_felem_to_bytes;
   out->felem_from_bytes = ec_GFp_mont_felem_from_bytes;
+  out->felem_reduce = ec_GFp_mont_felem_reduce;
+  out->felem_exp = ec_GFp_mont_felem_exp;
   out->scalar_inv0_montgomery = ec_simple_scalar_inv0_montgomery;
   out->scalar_to_montgomery_inv_vartime =
       ec_simple_scalar_to_montgomery_inv_vartime;

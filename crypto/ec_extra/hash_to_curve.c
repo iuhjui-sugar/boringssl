@@ -120,7 +120,7 @@ static int num_bytes_to_derive(size_t *out, const BIGNUM *modulus, unsigned k) {
   size_t bits = BN_num_bits(modulus);
   size_t L = (bits + k + 7) / 8;
   // We require 2^(8*L) < 2^(2*bits - 2) <= n^2 so to fit in bounds for
-  // |felem_reduce| and |ec_scalar_refuce|. All defined hash-to-curve suites
+  // |felem_reduce| and |ec_scalar_reduce|. All defined hash-to-curve suites
   // define |k| to be well under this bound. (|k| is usually around half of
   // |p_bits|.)
   if (L * 8 >= 2 * bits - 2 ||
@@ -315,6 +315,48 @@ static int felem_from_u8(const EC_GROUP *group, EC_FELEM *out, uint8_t a) {
   size_t len = BN_num_bytes(&group->field);
   bytes[len - 1] = a;
   return ec_felem_from_bytes(group, out, bytes, len);
+}
+
+static int hash_to_curve_p256_xmd_sswu(const EC_GROUP *group, EC_RAW_POINT *out,
+                                       const uint8_t *dst, size_t dst_len,
+                                       const EVP_MD *md, unsigned k,
+                                       const uint8_t *msg, size_t msg_len) {
+  // See section 8.3 of draft-irtf-cfrg-hash-to-curve-06.
+  if (EC_GROUP_get_curve_name(group) != NID_X9_62_prime256v1) {
+    OPENSSL_PUT_ERROR(EC, EC_R_GROUP_MISMATCH);
+    return 0;
+  }
+
+  static const uint8_t kSqrt1000[] = {
+      0x87, 0x43, 0x8e, 0x5e, 0xd2, 0x76, 0x13, 0xf9, 0xde, 0xb9, 0xdc,
+      0x09, 0x2f, 0x06, 0xaa, 0xf8, 0xd3, 0x83, 0x3f, 0xaa, 0xfb, 0x5a,
+      0x59, 0x1d, 0xc0, 0x04, 0x09, 0x8e, 0xea, 0x05, 0xac, 0xfe
+  };
+
+  // Z = -10, c2 = sqrt(1000)
+  EC_FELEM Z, c2;
+  if (!felem_from_u8(group, &Z, 10) ||
+      !ec_felem_from_bytes(group, &c2, kSqrt1000, sizeof(kSqrt1000))) {
+    return 0;
+  }
+  ec_felem_neg(group, &Z, &Z);
+
+  return hash_to_curve(group, md, &Z, &c2, k, out, dst, dst_len, msg, msg_len);
+}
+
+int ec_hash_to_curve_p256_xmd_sha256_sswu(const EC_GROUP *group,
+                                          EC_RAW_POINT *out, const uint8_t *dst,
+                                          size_t dst_len, const uint8_t *msg,
+                                          size_t msg_len) {
+  return hash_to_curve_p256_xmd_sswu(group, out, dst, dst_len, EVP_sha256(),
+                                     /*k=*/128, msg, msg_len);
+}
+
+int ec_hash_to_scalar_p256_xmd_sha256(const EC_GROUP *group, EC_SCALAR *out,
+                                      const uint8_t *dst, size_t dst_len,
+                                      const uint8_t *msg, size_t msg_len) {
+  return hash_to_scalar(group, EVP_sha256(), out, dst, dst_len, /*k=*/128, msg,
+                        msg_len);
 }
 
 static int hash_to_curve_p521_xmd_sswu(const EC_GROUP *group, EC_RAW_POINT *out,
