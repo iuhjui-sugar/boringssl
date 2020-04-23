@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5b509bc7_c55e0a2e",
+        "filename": "util/compare_benchmarks.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-04-23T16:01:24Z",
+      "side": 1,
+      "message": "s/them/it/",
+      "range": {
+        "startLine": 16,
+        "startChar": 12,
+        "endLine": 16,
+        "endChar": 16
+      },
+      "revId": "71f5c3e537c2df11c7c16afc7855b06a42434d80",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
