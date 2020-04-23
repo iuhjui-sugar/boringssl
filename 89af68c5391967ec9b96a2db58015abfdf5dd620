@@ -45,6 +45,54 @@
       "revId": "89af68c5391967ec9b96a2db58015abfdf5dd620",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2bf1b43b_241b00c6",
+        "filename": "crypto/curve25519/curve25519.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-23T19:14:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "60f55e00_2c974f5e",
+      "range": {
+        "startLine": 16,
+        "startChar": 35,
+        "endLine": 16,
+        "endChar": 36
+      },
+      "revId": "89af68c5391967ec9b96a2db58015abfdf5dd620",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f03c2ef1_71aa8857",
+        "filename": "crypto/curve25519/curve25519.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-23T19:14:51Z",
+      "side": 1,
+      "message": "Haha. I blame my bad mousing skills.",
+      "parentUuid": "3f959096_f416dee3",
+      "range": {
+        "startLine": 16,
+        "startChar": 57,
+        "endLine": 16,
+        "endChar": 60
+      },
+      "revId": "89af68c5391967ec9b96a2db58015abfdf5dd620",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
