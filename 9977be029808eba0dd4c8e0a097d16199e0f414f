@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "de52e71a_61557d87",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-24T21:47:45Z",
+      "side": 1,
+      "message": "Probably in internal.h since that\u0027s where the overall description of PMBTokens lives, but maybe it\u0027s worth adding a sentence for why P-384 as opposed to the more natural default choice of P-256.",
+      "revId": "9977be029808eba0dd4c8e0a097d16199e0f414f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f84a8fae_7f24696b",
         "filename": "crypto/trust_token/pmbtoken.c",
         "patchSetId": 1
