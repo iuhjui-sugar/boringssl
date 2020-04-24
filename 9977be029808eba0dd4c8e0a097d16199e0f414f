@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f84a8fae_7f24696b",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-24T21:36:27Z",
+      "side": 1,
+      "message": "Mind adding a comment describing how this was calculated?",
+      "revId": "9977be029808eba0dd4c8e0a097d16199e0f414f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
