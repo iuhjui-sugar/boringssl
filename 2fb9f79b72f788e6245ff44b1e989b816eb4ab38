@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "01ed2ce9_c7dbb9f9",
+        "filename": "crypto/ec_extra/hash_to_curve.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-24T21:35:23Z",
+      "side": 1,
+      "message": "I\u0027d just inline this function. The only reason for the separation for P-521 was the ref_for_testing variant.",
+      "range": {
+        "startLine": 352,
+        "startChar": 9,
+        "endLine": 352,
+        "endChar": 36
+      },
+      "revId": "2fb9f79b72f788e6245ff44b1e989b816eb4ab38",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b50e50e3_4272f335",
+        "filename": "crypto/ec_extra/hash_to_curve.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-24T21:35:23Z",
+      "side": 1,
+      "message": "Add a curve check here so we don\u0027t pass in the wrong curve. (Rebase to see the corresponding code in the P-521 bits. There should also be curve-check tests for both hash-to-curve and hash-to-scalar which you can add P-384 variants too.)",
+      "revId": "2fb9f79b72f788e6245ff44b1e989b816eb4ab38",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8cc5d60f_f257a617",
+        "filename": "crypto/ec_extra/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-24T21:35:23Z",
+      "side": 1,
+      "message": "Optional: In mine, I removed the \"|dst| is the [...] guidance on this parameter\" sentence from each of the functions and replaced with a section-level comment \"The |dst| parameter in each function is the domain separation tag and must be unique for each protocol. See section 3.1 of the spec for additional guidance on this parameter.\"",
+      "range": {
+        "startLine": 31,
+        "startChar": 50,
+        "endLine": 31,
+        "endChar": 51
+      },
+      "revId": "2fb9f79b72f788e6245ff44b1e989b816eb4ab38",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef6fd1f4_ce637826",
+        "filename": "crypto/ec_extra/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-24T21:35:23Z",
+      "side": 1,
+      "message": "Maybe add to bssl speed?",
+      "revId": "2fb9f79b72f788e6245ff44b1e989b816eb4ab38",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ecde8cf1_422cf73f",
+        "filename": "crypto/fipsmodule/ec/ec_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1138,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-24T21:35:23Z",
+      "side": 1,
+      "message": "The comment only applies to P-521 suites. I did:\n\n// See draft-irtf-cfrg-hash-to-curve-06, appendix G.2.1\n{P-384 tests...},\n\n// See draft-irtf-cfrg-hash-to-curve-06, appendix G.3.1. Note these test\n// |ec_hash_to_curve_p521_xmd_sha512_sswu_ref_for_testing| due to a spec\n// issue. See [...]\n{P-521 tests...},",
+      "revId": "2fb9f79b72f788e6245ff44b1e989b816eb4ab38",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
