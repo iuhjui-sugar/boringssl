@@ -34,6 +34,7 @@
 
 #include "../ec_extra/internal.h"
 #include "../internal.h"
+#include "../test/test_util.h"
 #include "internal.h"
 
 
@@ -50,7 +51,18 @@ TEST(TrustTokenTest, HGenerator) {
   ASSERT_TRUE(ec_hash_to_curve_p384_xmd_sha512_sswu(
       group, &calculated_h, kHLabel, sizeof(kHLabel), kHGen, sizeof(kHGen)));
   ASSERT_TRUE(pmbtoken_h(&real_h));
-  ASSERT_TRUE(ec_GFp_simple_points_equal(group, &calculated_h, &real_h));
+  uint8_t calculated_bytes[1 + 2 * EC_MAX_BYTES];
+  size_t calculated_len =
+      ec_point_to_bytes(group, &calculated_h, POINT_CONVERSION_UNCOMPRESSED,
+                        calculated_bytes, sizeof(calculated_bytes));
+  ASSERT_NE(calculated_len, 0u);
+  uint8_t real_bytes[1 + 2 * EC_MAX_BYTES];
+  size_t real_len =
+      ec_point_to_bytes(group, &real_h, POINT_CONVERSION_UNCOMPRESSED,
+                        real_bytes, sizeof(real_bytes));
+  ASSERT_NE(real_len, 0u);
+  EXPECT_EQ(Bytes(real_bytes, real_len),
+            Bytes(calculated_bytes, calculated_len));
 }
 
 TEST(TrustTokenTest, KeyGen) {
