@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c8aa9e16_0ac90207",
+        "filename": "crypto/trust_token/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-27T20:46:53Z",
+      "side": 1,
+      "message": "The phase \"security level\" appears three times in this sentence. :-) We should cite appendix I, which seems to describe the issue, rather than just saying a \"potential theoretical attack\".\n\nTo make sure I\u0027m understanding it right, there is a p-1 attack of O(sqrt(p/d) + sqrt(d)) which, depending on smoothness, is up to a O(p^(1/4)) attack. The p+1 attack is O(sqrt(p/d) + d) which, depending on smoothness is up to a O(p^(1/3)) attack.\n\np+1 for P-256 and P-384 appear to have a lot of factors, so I\u0027m assuming that you can get close to O(p^(1/3)), which gives O(2^83) for P-256, but P-384 is still O(2^128).\n\nP-256\u0027s p-1 has a 160-bit prime factor, which means the p+1 attack further gets you to O(2^80). P-384\u0027s p-1 has a 334-bit prime factor, which means the p+1 attack only gets you to O(2^166).\n\nIs all this correct?\n\nIf so, perhaps something like \"We use P-384 instead of our usual choice of P-256. See Appendix I for a description of attacks that may affect smaller curves. Note p-1 for P-384 has a 334-bit prime factor, which limits the O(sqrt(p/d) + sqrt(d)) attack.\"\n\nRegarding \"may\" and \"potential\" in your sentence, what exactly is the status of those attacks? The paper says the attack is \"at disposal for the adversary\", but you\u0027ve suggested out-of-band that it\u0027s not actually known. Is the issue just that we\u0027ve reduced it to something else and maybe there\u0027s a better reduction?",
+      "revId": "4c367e9ed74783b85f5aa2e1b1f341a4287bed7c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
