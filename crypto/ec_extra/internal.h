@@ -27,7 +27,7 @@ extern "C" {
 // Hash-to-curve.
 //
 // The following functions implement primitives from
-// draft-irtf-cfrg-hash-to-curve-06. We currently only implement the P-384 and
+// draft-irtf-cfrg-hash-to-curve-07. We currently only implement the P-384 and
 // P-521 suites, but others can be added as needed. The |dst| parameter in each
 // function is the domain separation tag and must be unique for each protocol
 // and between the |hash_to_curve| and |hash_to_scalar| variants. See
@@ -52,15 +52,6 @@ OPENSSL_EXPORT int ec_hash_to_scalar_p384_xmd_sha512(
 // writes the result to |out|, implementing the P521_XMD:SHA-512_SSWU_RO_ suite.
 // It returns one on success and zero on error.
 OPENSSL_EXPORT int ec_hash_to_curve_p521_xmd_sha512_sswu(
-    const EC_GROUP *group, EC_RAW_POINT *out, const uint8_t *dst,
-    size_t dst_len, const uint8_t *msg, size_t msg_len);
-
-// ec_hash_to_curve_p521_xmd_sha512_sswu_ref_for_testing behaves like
-// |ec_hash_to_curve_p521_sha512_sswu| but reproduces a spec issue reflected in
-// the original test vectors.
-//
-// This function is exposed for test purposes and should not be used elsewhere.
-OPENSSL_EXPORT int ec_hash_to_curve_p521_xmd_sha512_sswu_ref_for_testing(
     const EC_GROUP *group, EC_RAW_POINT *out, const uint8_t *dst,
     size_t dst_len, const uint8_t *msg, size_t msg_len);
 
