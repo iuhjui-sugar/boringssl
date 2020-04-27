@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "596cdcd5_a3ce424d",
+        "filename": "crypto/ec_extra/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-27T16:17:43Z",
+      "side": 0,
+      "message": "This paragraph is still needed I think. Maybe also add it to the P-384 hash_to_scalar function.",
+      "revId": "21aede91797e01b7464c22d8241957b543aa729c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
