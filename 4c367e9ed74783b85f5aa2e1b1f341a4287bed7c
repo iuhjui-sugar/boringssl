@@ -16,6 +16,24 @@
       "revId": "4c367e9ed74783b85f5aa2e1b1f341a4287bed7c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2faae389_a4752672",
+        "filename": "crypto/trust_token/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-27T20:52:24Z",
+      "side": 1,
+      "message": "Oh wait, I\u0027m taking p to be the underlying prime of the field and their p is the order of the group, so all my numbers are wrong. One moment...",
+      "parentUuid": "c8aa9e16_0ac90207",
+      "revId": "4c367e9ed74783b85f5aa2e1b1f341a4287bed7c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
