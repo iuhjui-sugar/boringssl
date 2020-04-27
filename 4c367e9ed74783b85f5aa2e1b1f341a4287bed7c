@@ -34,6 +34,24 @@
       "revId": "4c367e9ed74783b85f5aa2e1b1f341a4287bed7c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f344ff1c_55e57c2d",
+        "filename": "crypto/trust_token/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-27T22:37:13Z",
+      "side": 1,
+      "message": "Okay, how about:\n\nWe use P-384 instead of our usual choice of P-256. See Appendix I which describes two attacks which may affect smaller curves. In particular, p-1 for P-256 is smooth, giving a low complexity for the p-1 attack. P-384\u0027s p-1 has a 281-bit prime factor, 3055465788140352002733946906144561090641249606160407884365391979704929268480326390471. This lower-bounds the p-1 attack at O(2^140). The p+1 attack is lower-bounded by O(p^(1/3)) or O(2^128), so we do not need to check the smoothness of p+1.\n\n(I wanted to include the prime factor itself so that we can confirm this later without factoring it.)",
+      "parentUuid": "2faae389_a4752672",
+      "revId": "4c367e9ed74783b85f5aa2e1b1f341a4287bed7c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
