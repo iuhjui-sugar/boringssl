@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "487c9028_168b5b3b",
+        "filename": "crypto/ec_extra/hash_to_curve.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-04-28T14:31:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "447b7b7d_b8178cb8",
+      "revId": "2b0dec7a26c033ed5f0bd81b4fa8877ddd06f45b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dbff882e_2a9519b1",
         "filename": "crypto/fipsmodule/ec/ec_test.cc",
         "patchSetId": 2
@@ -39,6 +57,30 @@
       "revId": "2b0dec7a26c033ed5f0bd81b4fa8877ddd06f45b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a7eacbd_012b6ff5",
+        "filename": "crypto/fipsmodule/ec/ec_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1175,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-04-28T14:31:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dbff882e_2a9519b1",
+      "range": {
+        "startLine": 1174,
+        "startChar": 74,
+        "endLine": 1175,
+        "endChar": 11
+      },
+      "revId": "2b0dec7a26c033ed5f0bd81b4fa8877ddd06f45b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
