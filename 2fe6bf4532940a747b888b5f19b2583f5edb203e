@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "88ec5d8f_d3a0028e",
+        "filename": "crypto/trust_token/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-28T16:09:41Z",
+      "side": 1,
+      "message": "80 chars. Also I think 107 needs an OPENSSL_EXPORT, going by the CL on top\u0027s CQ results.\n\n(Pro tip: I\u0027ve set Gerrit to use an 80 char diff width. That makes 80 char stuff very visible. I usually end up noticing it in self-review. Also I\u0027ve set my editor to draw a line at column 80.)",
+      "revId": "2fe6bf4532940a747b888b5f19b2583f5edb203e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
