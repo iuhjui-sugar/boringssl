@@ -1,0 +1,175 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4d18de62_84b9ddcf",
+        "filename": "crypto/fipsmodule/ec/ec.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-28T17:21:57Z",
+      "side": 1,
+      "message": "Trailing newline",
+      "range": {
+        "startLine": 237,
+        "startChar": 25,
+        "endLine": 237,
+        "endChar": 26
+      },
+      "revId": "d1017863895ebca47275729747db1bf93af8ccb3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "774a3d7b_78d12c87",
+        "filename": "crypto/fipsmodule/ec/p256_p384_common-x86_64.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-28T17:21:57Z",
+      "side": 1,
+      "message": "I believe this function can be replaced with bn_select_words now. (Also trailing whitespace on line 60 and the style for 66-69 isn\u0027t quite right. clang-format is highly recommended.)",
+      "revId": "d1017863895ebca47275729747db1bf93af8ccb3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cca1c6b9_986372bd",
+        "filename": "crypto/fipsmodule/ec/p384-x86_64_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-28T17:21:57Z",
+      "side": 1,
+      "message": "80 chars (although if we replace this asm function with C, it\u0027s less scary and maybe the normal P-384 tests suffice).",
+      "revId": "d1017863895ebca47275729747db1bf93af8ccb3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6e4686b_d48117fa",
+        "filename": "crypto/fipsmodule/ec/p384.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-28T17:21:57Z",
+      "side": 1,
+      "message": "We use the ISC license for files that don\u0027t come from OpenSSL. Could you align this with the other files? Ditto for the other new files.",
+      "revId": "d1017863895ebca47275729747db1bf93af8ccb3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da3c1085_1517f768",
+        "filename": "crypto/fipsmodule/ec/p384.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-28T17:21:57Z",
+      "side": 1,
+      "message": "Gosh that\u0027s a big table. Looks like it\u0027s 330KiB? :-)\n\nAdam, do you have thoughts on our binary size to perf tradeoffs for non-OPENSSL_SMALL code? It\u0027s definitely *way* too large to ship in client code, but that\u0027s what the OPENSSL_SMALL guard is for. (If we wanted, it\u0027d be pretty easy to halve the table size at the cost of 7 doubles. Or 1/3 for 14...)",
+      "revId": "d1017863895ebca47275729747db1bf93af8ccb3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9193d4e_c2ce91b8",
+        "filename": "crypto/fipsmodule/ec/p384.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-28T17:21:57Z",
+      "side": 1,
+      "message": "No space here",
+      "range": {
+        "startLine": 17,
+        "startChar": 32,
+        "endLine": 17,
+        "endChar": 35
+      },
+      "revId": "d1017863895ebca47275729747db1bf93af8ccb3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ede7812e_86ed5a36",
+        "filename": "crypto/fipsmodule/ec/p384.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-28T17:21:57Z",
+      "side": 1,
+      "message": "ecp_nistp384_select_w7_wrap?",
+      "range": {
+        "startLine": 22,
+        "startChar": 3,
+        "endLine": 22,
+        "endChar": 25
+      },
+      "revId": "d1017863895ebca47275729747db1bf93af8ccb3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3734d084_b71d707f",
+        "filename": "crypto/fipsmodule/ec/p384.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-28T17:21:57Z",
+      "side": 1,
+      "message": "Please match the surrounding style: 80 char lines, two space indent, { on the same line as the decl. clang-format is highly recommended.",
+      "revId": "d1017863895ebca47275729747db1bf93af8ccb3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6bff0bca_f4a4b2d2",
+        "filename": "crypto/fipsmodule/ec/p384.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-28T17:21:57Z",
+      "side": 1,
+      "message": "This function is the only assembly one, right? I tried replacing this with C and it was the basically same speed.\n\nstatic inline void ecp_nistp384_select_w7_wrap(EC_RAW_POINT *val,\n                                               const P384_POINT_AFFINE in_t[64],\n                                               int index) {\n  OPENSSL_memset(val, 0, sizeof(EC_RAW_POINT));\n  for (int i \u003d 0; i \u003c 64; i++) {\n    BN_ULONG mask \u003d constant_time_eq_w(i, index - 1);\n    for (int j \u003d 0; j \u003c P384_LIMBS; j++) {\n      val-\u003eX.words[j] |\u003d mask \u0026 in_t[i].X[j];\n    }\n    for (int j \u003d 0; j \u003c P384_LIMBS; j++) {\n      val-\u003eY.words[j] |\u003d mask \u0026 in_t[i].Y[j];\n    }\n  }\n\n  // We set Z to zero if |val| is infinity and |ONE_384| otherwise. |val| was\n  // computed from the table, so it is infinity iff |wvalue \u003e\u003e 1| is zero.\n  copy_conditional(val-\u003eZ.words, ONE_384, is_not_zero(index), P384_LIMBS);\n}",
+      "revId": "d1017863895ebca47275729747db1bf93af8ccb3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
