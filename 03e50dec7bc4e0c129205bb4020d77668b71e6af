@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b7ba19ae_808642e6",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-04-29T17:15:13Z",
+      "side": 1,
+      "message": "key_id",
+      "range": {
+        "startLine": 472,
+        "startChar": 44,
+        "endLine": 472,
+        "endChar": 59
+      },
+      "revId": "03e50dec7bc4e0c129205bb4020d77668b71e6af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
