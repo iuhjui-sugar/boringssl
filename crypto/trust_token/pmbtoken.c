@@ -315,7 +315,7 @@ int pmbtoken_issuer_key_from_bytes(PMBTOKEN_ISSUER_KEY *key, const uint8_t *in,
 static int hash_t(EC_GROUP *group, EC_RAW_POINT *out,
                   const uint8_t t[PMBTOKEN_NONCE_SIZE]) {
   const uint8_t kHashTLabel[] = "PMBTokensV0 HashT";
-  return ec_hash_to_curve_p521_xmd_sha512_sswu(
+  return ec_hash_to_curve_p521_xmd_sha512_sswu_draft06(
       group, out, kHashTLabel, sizeof(kHashTLabel), t, PMBTOKEN_NONCE_SIZE);
 }
 
@@ -332,8 +332,8 @@ static int hash_s(EC_GROUP *group, EC_RAW_POINT *out, const EC_RAW_POINT *t,
       !point_to_cbb(&cbb, group, t) ||
       !CBB_add_bytes(&cbb, s, PMBTOKEN_NONCE_SIZE) ||
       !CBB_finish(&cbb, &buf, &len) ||
-      !ec_hash_to_curve_p521_xmd_sha512_sswu(group, out, kHashSLabel,
-                                             sizeof(kHashSLabel), buf, len)) {
+      !ec_hash_to_curve_p521_xmd_sha512_sswu_draft06(
+          group, out, kHashSLabel, sizeof(kHashSLabel), buf, len)) {
     OPENSSL_PUT_ERROR(TRUST_TOKEN, ERR_R_MALLOC_FAILURE);
     goto err;
   }
@@ -409,8 +409,8 @@ err:
 static int hash_c(const EC_GROUP *group, EC_SCALAR *out, uint8_t *buf,
                   size_t len) {
   const uint8_t kHashCLabel[] = "PMBTokensV0 HashC";
-  return ec_hash_to_scalar_p521_xmd_sha512(group, out, kHashCLabel,
-                                           sizeof(kHashCLabel), buf, len);
+  return ec_hash_to_scalar_p521_xmd_sha512_draft06(
+      group, out, kHashCLabel, sizeof(kHashCLabel), buf, len);
 }
 
 static int scalar_to_cbb(CBB *out, const EC_GROUP *group,
