@@ -16,6 +16,24 @@
       "revId": "31bdb602cad72c94d352b315728b38abd866fde8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d7e89e6_147c73d6",
+        "filename": "crypto/fipsmodule/modes/asm/ghash-x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 870,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-30T22:38:39Z",
+      "side": 1,
+      "message": "Ah yes, you\u0027re right. Thanks!",
+      "parentUuid": "297fb842_dc99c843",
+      "revId": "31bdb602cad72c94d352b315728b38abd866fde8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
