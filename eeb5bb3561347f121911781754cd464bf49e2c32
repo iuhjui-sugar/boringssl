@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab374ec_e50c96d8",
+        "filename": "crypto/fipsmodule/modes/asm/ghash-x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2020-04-30T22:14:18Z",
+      "side": 0,
+      "message": "Like I mentioned in the other CL, I had done a similar removal of variable-time code in this module a long time ago.\n\nI forgot to mention in the comment I left in the other CL that I had also removed this section (lines 133-135) and things worked fine.",
+      "revId": "eeb5bb3561347f121911781754cd464bf49e2c32",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
