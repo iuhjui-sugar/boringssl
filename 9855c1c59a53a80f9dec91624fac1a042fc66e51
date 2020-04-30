@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "c98cdb54_118f78f2",
+        "filename": "crypto/fipsmodule/modes/asm/ghash-x86_64.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2020-04-30T22:10:41Z",
+      "side": 1,
+      "message": "Ah, yes, I see that it is more complicated than I thought. BoringSSL always has $avx\u003d1 and in the $avx\u003d1 case `$Zlo` and `$Zhi` get rebound to different values.",
+      "parentUuid": "8604df53_a8f041b2",
+      "revId": "9855c1c59a53a80f9dec91624fac1a042fc66e51",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "463fd040_0ca39b3e",
         "filename": "crypto/fipsmodule/modes/asm/ghash-x86_64.pl",
         "patchSetId": 4
