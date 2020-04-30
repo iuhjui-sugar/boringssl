@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "8604df53_a8f041b2",
+        "filename": "crypto/fipsmodule/modes/asm/ghash-x86_64.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-30T21:50:05Z",
+      "side": 1,
+      "message": "Looks like $Zlo and $Zhi are still used, but yeah the others are gone.",
+      "parentUuid": "95187382_276c0e28",
+      "revId": "9855c1c59a53a80f9dec91624fac1a042fc66e51",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "463fd040_0ca39b3e",
         "filename": "crypto/fipsmodule/modes/asm/ghash-x86_64.pl",
         "patchSetId": 4
@@ -33,6 +51,24 @@
       "revId": "9855c1c59a53a80f9dec91624fac1a042fc66e51",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d331610_8aa9c39b",
+        "filename": "crypto/fipsmodule/modes/asm/ghash-x86_64.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-30T21:50:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "463fd040_0ca39b3e",
+      "revId": "9855c1c59a53a80f9dec91624fac1a042fc66e51",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -56,6 +92,30 @@
       "revId": "9855c1c59a53a80f9dec91624fac1a042fc66e51",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32a9d805_b64d9909",
+        "filename": "crypto/fipsmodule/modes/asm/ghash-x86_64.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 1311,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-30T21:50:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4616e40b_09c4d734",
+      "range": {
+        "startLine": 1311,
+        "startChar": 1,
+        "endLine": 1311,
+        "endChar": 13
+      },
+      "revId": "9855c1c59a53a80f9dec91624fac1a042fc66e51",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
