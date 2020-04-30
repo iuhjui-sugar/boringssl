@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "95187382_276c0e28",
+        "filename": "crypto/fipsmodule/modes/asm/ghash-x86_64.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2020-04-30T21:29:29Z",
+      "side": 1,
+      "message": "Previously in *ring* I had deleted all the \"common register layout\" section too.",
+      "revId": "9855c1c59a53a80f9dec91624fac1a042fc66e51",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "463fd040_0ca39b3e",
+        "filename": "crypto/fipsmodule/modes/asm/ghash-x86_64.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2020-04-30T21:29:29Z",
+      "side": 1,
+      "message": "`LB()` and `AUTOLOAD()` above are only used by the code that was removed, so they should have been removed too.",
+      "revId": "9855c1c59a53a80f9dec91624fac1a042fc66e51",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4616e40b_09c4d734",
+        "filename": "crypto/fipsmodule/modes/asm/ghash-x86_64.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 1311,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2020-04-30T21:29:29Z",
+      "side": 1,
+      "message": "L7_mask_poly is also dead with this change.",
+      "range": {
+        "startLine": 1311,
+        "startChar": 1,
+        "endLine": 1311,
+        "endChar": 13
+      },
+      "revId": "9855c1c59a53a80f9dec91624fac1a042fc66e51",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
