@@ -22,6 +22,30 @@
       "revId": "03e50dec7bc4e0c129205bb4020d77668b71e6af",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1ef5e48_f4dc8b07",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 472,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-04-30T20:02:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b7ba19ae_808642e6",
+      "range": {
+        "startLine": 472,
+        "startChar": 44,
+        "endLine": 472,
+        "endChar": 59
+      },
+      "revId": "03e50dec7bc4e0c129205bb4020d77668b71e6af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
