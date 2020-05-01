@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1e6ec2ff_1b0abf41",
+        "filename": "crypto/fipsmodule/ec/simple_mul.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-01T00:31:03Z",
+      "side": 1,
+      "message": "I decided \"stride\" was a better name here than \"width\". Hopefully I kept that consistent.",
+      "range": {
+        "startLine": 171,
+        "startChar": 33,
+        "endLine": 171,
+        "endChar": 38
+      },
+      "revId": "3102748124fac182aba47f387adc7ec0e991339a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
