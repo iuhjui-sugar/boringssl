@@ -1,0 +1,251 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8453d222_ab3ae56e",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3147,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-01T21:39:13Z",
+      "side": 1,
+      "message": "Should this be \"decision on whether\"?\n\n(Optional: a shorter version of the first sentence could be \"QUIC additionally imposes restrictions on 0-RTT.\")",
+      "range": {
+        "startLine": 3147,
+        "startChar": 67,
+        "endLine": 3147,
+        "endChar": 74
+      },
+      "revId": "32b612dba124313acab694d07097a4081ae0e776",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f16b1043_ce48e70b",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3158,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-01T21:39:13Z",
+      "side": 1,
+      "message": "This should probably specify that it\u0027s about the server. The client must also check that, on 0-RTT accept, the transport params and HTTP/3 SETTINGS frame are consistent, right? I take it we\u0027re saying this is entirely outside BoringSSL? In that case, we probably should explicitly describe the client responsibilities. If we\u0027re leaving it to the client, perhaps cite sections of the spec so they know what to do.\n\n(Gosh this API takes a lot of words to describe. I wonder if it can be trimmed a bit.)",
+      "range": {
+        "startLine": 3157,
+        "startChar": 0,
+        "endLine": 3158,
+        "endChar": 66
+      },
+      "revId": "32b612dba124313acab694d07097a4081ae0e776",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b4de50e_ec9f5917",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3166,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-01T21:39:13Z",
+      "side": 1,
+      "message": "I like describing it in terms of what the caller needs to do. Perhaps something like:\n\nThe transport parameter check happens automatically with |SSL_set_quic_transport_params|. QUIC servers must application state via |SSL_set_quic_early_data_context| to configure the application protocol check.\n\n(Should we disable 0-RTT if you don\u0027t set this, so folks don\u0027t forget? Or would some applications just not have it?)",
+      "range": {
+        "startLine": 3162,
+        "startChar": 66,
+        "endLine": 3166,
+        "endChar": 0
+      },
+      "revId": "32b612dba124313acab694d07097a4081ae0e776",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90f73f28_e1e5dc6b",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3313,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-01T21:39:13Z",
+      "side": 1,
+      "message": "|SSL|",
+      "range": {
+        "startLine": 3313,
+        "startChar": 54,
+        "endLine": 3313,
+        "endChar": 57
+      },
+      "revId": "32b612dba124313acab694d07097a4081ae0e776",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "389111cf_0123ede6",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3315,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-01T21:39:13Z",
+      "side": 1,
+      "message": "|SSL_do_handshake|",
+      "range": {
+        "startLine": 3315,
+        "startChar": 3,
+        "endLine": 3315,
+        "endChar": 19
+      },
+      "revId": "32b612dba124313acab694d07097a4081ae0e776",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0b4c4bf_384efcc5",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3319,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-01T21:39:13Z",
+      "side": 1,
+      "message": "s/  / /",
+      "range": {
+        "startLine": 3319,
+        "startChar": 71,
+        "endLine": 3319,
+        "endChar": 74
+      },
+      "revId": "32b612dba124313acab694d07097a4081ae0e776",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4a6ef78_a267b572",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3322,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-01T21:39:13Z",
+      "side": 1,
+      "message": "I wonder if we should say explicitly something like:\n\nFor HTTP/3, this should be the serialized server SETTINGS frame.\n\nMore words, but I imagine almost everyone does HTTP/3. :-)",
+      "revId": "32b612dba124313acab694d07097a4081ae0e776",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62291e1e_879dc851",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2744,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-01T21:39:13Z",
+      "side": 1,
+      "message": "|SHA256_DIGEST_LENGTH|",
+      "range": {
+        "startLine": 2744,
+        "startChar": 33,
+        "endLine": 2744,
+        "endChar": 54
+      },
+      "revId": "32b612dba124313acab694d07097a4081ae0e776",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65f0a450_66fe9f81",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2745,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-01T21:39:13Z",
+      "side": 1,
+      "message": "Not that the compiler checks this, but perhaps uint8_t hash_out[SHA256_DIGEST_LENGTH] so it\u0027s at least somewhat documented.",
+      "range": {
+        "startLine": 2745,
+        "startChar": 59,
+        "endLine": 2745,
+        "endChar": 77
+      },
+      "revId": "32b612dba124313acab694d07097a4081ae0e776",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9b3862d_f3038c39",
+        "filename": "ssl/ssl_asn1.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-01T21:39:13Z",
+      "side": 1,
+      "message": "Just a few more tags and we get into multi-byte tag territory!\n\n(It\u0027s fine. CBS supports these nowadays. I\u0027m just amused.)",
+      "range": {
+        "startLine": 196,
+        "startChar": 55,
+        "endLine": 196,
+        "endChar": 57
+      },
+      "revId": "32b612dba124313acab694d07097a4081ae0e776",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d3a275c7_1305d0b7",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1253,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-01T21:39:13Z",
+      "side": 1,
+      "message": "I think we usually don\u0027t condition ssl-\u003eserver on APIs. It\u0027s really annoying, but we don\u0027t actually know if you\u0027re client or server until fairly late. In particular, folks sometimes do...\n\n\n  SSL *ssl \u003d SSL_new(ctx);\n  SSL_set_...(ssl);\n  ...\n  SSL_accept(ssl);  // This implicitly configures it to be a server.\n\n(Yes, this is ridiculous. :( )",
+      "range": {
+        "startLine": 1253,
+        "startChar": 9,
+        "endLine": 1253,
+        "endChar": 24
+      },
+      "revId": "32b612dba124313acab694d07097a4081ae0e776",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}

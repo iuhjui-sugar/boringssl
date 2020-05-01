@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8de58648_90d580ee",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3142,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-01T21:39:13Z",
+      "side": 0,
+      "message": "Do we also need the client to record the parameters from the peer, or is the thinking that it\u0027ll be stored external to BoringSSL?",
+      "revId": "b36f52d187b50dc3e6dbce6aa4200a63fe1dfce6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
