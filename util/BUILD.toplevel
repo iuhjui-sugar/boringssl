@@ -12,7 +12,7 @@
 # OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
 # CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. */
 
-load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library")
+load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library", "cc_test")
 load(
     ":BUILD.generated.bzl",
     "crypto_headers",
@@ -27,6 +27,12 @@ load(
     "ssl_sources",
     "tool_headers",
     "tool_sources",
+)
+load(
+    ":BUILD.generated_tests.bzl",
+    "crypto_test_sources",
+    "ssl_test_sources",
+    "test_support_sources",
 )
 
 licenses(["notice"])
@@ -163,4 +169,37 @@ cc_binary(
     copts = boringssl_copts_cxx,
     visibility = ["//visibility:public"],
     deps = [":ssl"],
+)
+
+cc_library(
+    name = "test_support",
+    testonly = True,
+    srcs = test_support_sources,
+    copts = boringssl_copts_cxx,
+    includes = ["src/include"],
+    deps = [
+        ":crypto",
+    ],
+)
+
+cc_test(
+    name = "crypto_test",
+    srcs = crypto_test_sources,
+    linkstatic = True,
+    deps = [
+        ":crypto",
+        ":test_support",
+        "//third_party/com_google_googletest:gtest",
+    ],
+)
+
+cc_test(
+    name = "ssl_test",
+    srcs = ssl_test_sources,
+    linkstatic = True,
+    deps = [
+        ":ssl",
+        ":test_support",
+        "//third_party/com_google_googletest:gtest",
+    ],
 )
