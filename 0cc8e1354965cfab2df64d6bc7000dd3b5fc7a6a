@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1e427a25_98813bbc",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 590,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-04T22:21:40Z",
+      "side": 1,
+      "message": "Only one newline.",
+      "revId": "0cc8e1354965cfab2df64d6bc7000dd3b5fc7a6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7aae8ca4_897283ae",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-04T22:21:40Z",
+      "side": 1,
+      "message": "Check that the token hash is in the SRR?",
+      "revId": "0cc8e1354965cfab2df64d6bc7000dd3b5fc7a6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee92e8f8_3e071ea5",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-04T22:21:40Z",
+      "side": 1,
+      "message": "Existing issue, but there should be a | here.",
+      "range": {
+        "startLine": 245,
+        "startChar": 63,
+        "endLine": 245,
+        "endChar": 64
+      },
+      "revId": "0cc8e1354965cfab2df64d6bc7000dd3b5fc7a6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "749c02ff_83b046e9",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-04T22:21:40Z",
+      "side": 1,
+      "message": "The SRR field is labelled token-hash rather than nonce. If the intent was to generalize between exp0 and exp1 (and what I presume will be exp2 where we give up on enforcing the SRR structure :-) ), nonce is fine, but we still need to document how to use the function correctly, i.e. what the nonce is.",
+      "range": {
+        "startLine": 245,
+        "startChar": 3,
+        "endLine": 245,
+        "endChar": 8
+      },
+      "revId": "0cc8e1354965cfab2df64d6bc7000dd3b5fc7a6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}

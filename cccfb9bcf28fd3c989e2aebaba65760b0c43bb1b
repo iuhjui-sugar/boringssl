@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "91d6b49d_aec7488d",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-04T22:21:40Z",
+      "side": 0,
+      "message": "This doesn\u0027t quite describe the state of affairs. TRUST_TOKEN_experiment_v0 still has the bug, which means, relative to the API docs, any private metadata bits you encode are leaked and the TRUST_TOKEN_decode_private_metadata function doesn\u0027t actually work.\n\nGiven the exp0 construction isn\u0027t really workable, perhaps it\u0027s better to just document that private metadata isn\u0027t private in exp0. I assume you still need TRUST_TOKEN_decode_private_metadata to extract the correct value for testing purposes, so I guess it should be documented that, in exp0, you use client data instead of token hash?",
+      "revId": "cccfb9bcf28fd3c989e2aebaba65760b0c43bb1b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
