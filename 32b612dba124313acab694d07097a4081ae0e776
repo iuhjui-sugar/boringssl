@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1276fb98_f12cae28",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3147,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-05-04T23:11:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8453d222_ab3ae56e",
+      "range": {
+        "startLine": 3147,
+        "startChar": 67,
+        "endLine": 3147,
+        "endChar": 74
+      },
+      "revId": "32b612dba124313acab694d07097a4081ae0e776",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f16b1043_ce48e70b",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "32b612dba124313acab694d07097a4081ae0e776",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2f905e8_5a7649c1",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3158,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-05-04T23:11:27Z",
+      "side": 1,
+      "message": "\u003e This should probably specify that it\u0027s about the server.\n\nDone.\n\n\u003e The client must also check that, on 0-RTT accept, the transport params and HTTP/3 SETTINGS frame are consistent, right?\n\nI can\u0027t find any language that requires the client MUST check. I added text here suggesting the client check this.",
+      "parentUuid": "f16b1043_ce48e70b",
+      "range": {
+        "startLine": 3157,
+        "startChar": 0,
+        "endLine": 3158,
+        "endChar": 66
+      },
+      "revId": "32b612dba124313acab694d07097a4081ae0e776",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "ec1630ff_393d1e0d",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3166,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-05-04T23:11:27Z",
+      "side": 1,
+      "message": "\u003e I like describing it in terms of what the caller needs to do. Perhaps something like:\n\u003e \n\u003e The transport parameter check happens automatically with |SSL_set_quic_transport_params|. QUIC servers must application state via |SSL_set_quic_early_data_context| to configure the application protocol check.\n\nDone. I also mentioned that these are the only ways to have BoringSSL reject 0-RTT for QUIC reasons.\n\n\u003e (Should we disable 0-RTT if you don\u0027t set this, so folks don\u0027t forget? Or would some applications just not have it?)\n\nThat sounds like a good idea, but there could be applications in the future that don\u0027t need it.",
+      "parentUuid": "9b4de50e_ec9f5917",
+      "range": {
+        "startLine": 3162,
+        "startChar": 66,
+        "endLine": 3166,
+        "endChar": 0
+      },
+      "revId": "32b612dba124313acab694d07097a4081ae0e776",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "90f73f28_e1e5dc6b",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 1
@@ -91,6 +163,30 @@
       "revId": "32b612dba124313acab694d07097a4081ae0e776",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58a326e2_d8848fcd",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3313,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-05-04T23:11:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90f73f28_e1e5dc6b",
+      "range": {
+        "startLine": 3313,
+        "startChar": 54,
+        "endLine": 3313,
+        "endChar": 57
+      },
+      "revId": "32b612dba124313acab694d07097a4081ae0e776",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "b40bdd7c_d9968992",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3315,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-05-04T23:11:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "389111cf_0123ede6",
+      "range": {
+        "startLine": 3315,
+        "startChar": 3,
+        "endLine": 3315,
+        "endChar": 19
+      },
+      "revId": "32b612dba124313acab694d07097a4081ae0e776",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f0b4c4bf_384efcc5",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 1
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "c1223f33_b6034bff",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3319,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-05-04T23:11:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0b4c4bf_384efcc5",
+      "range": {
+        "startLine": 3319,
+        "startChar": 71,
+        "endLine": 3319,
+        "endChar": 74
+      },
+      "revId": "32b612dba124313acab694d07097a4081ae0e776",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d4a6ef78_a267b572",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 1
@@ -154,6 +298,24 @@
       "revId": "32b612dba124313acab694d07097a4081ae0e776",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6b8385b_ef1c9158",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3322,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-05-04T23:11:27Z",
+      "side": 1,
+      "message": "Might as well call out HTTP/3. I also mention H3 in the introductory section.",
+      "parentUuid": "d4a6ef78_a267b572",
+      "revId": "32b612dba124313acab694d07097a4081ae0e776",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -180,6 +342,30 @@
     },
     {
       "key": {
+        "uuid": "c0ae4ea4_1d9e2691",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2744,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-05-04T23:11:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62291e1e_879dc851",
+      "range": {
+        "startLine": 2744,
+        "startChar": 33,
+        "endLine": 2744,
+        "endChar": 54
+      },
+      "revId": "32b612dba124313acab694d07097a4081ae0e776",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "65f0a450_66fe9f81",
         "filename": "ssl/internal.h",
         "patchSetId": 1
@@ -200,6 +386,30 @@
       "revId": "32b612dba124313acab694d07097a4081ae0e776",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c4f94a0_c23e6018",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2745,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-05-04T23:11:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "65f0a450_66fe9f81",
+      "range": {
+        "startLine": 2745,
+        "startChar": 59,
+        "endLine": 2745,
+        "endChar": 77
+      },
+      "revId": "32b612dba124313acab694d07097a4081ae0e776",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -246,6 +456,30 @@
       "revId": "32b612dba124313acab694d07097a4081ae0e776",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2dca601a_2391d014",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1253,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-05-04T23:11:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3a275c7_1305d0b7",
+      "range": {
+        "startLine": 1253,
+        "startChar": 9,
+        "endLine": 1253,
+        "endChar": 24
+      },
+      "revId": "32b612dba124313acab694d07097a4081ae0e776",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }

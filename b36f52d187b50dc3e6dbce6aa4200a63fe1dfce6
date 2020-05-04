@@ -16,6 +16,24 @@
       "revId": "b36f52d187b50dc3e6dbce6aa4200a63fe1dfce6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04fb4873_8de76493",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3142,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-05-04T23:11:27Z",
+      "side": 0,
+      "message": "The client has to manage those external to BoringSSL.",
+      "parentUuid": "8de58648_90d580ee",
+      "revId": "b36f52d187b50dc3e6dbce6aa4200a63fe1dfce6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
