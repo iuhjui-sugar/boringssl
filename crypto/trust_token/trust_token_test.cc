@@ -564,6 +564,16 @@ TEST_P(TrustTokenMetadataTest, TruncatedProof) {
     ASSERT_TRUE(CBB_add_u16(bad_response.get(), CBS_len(&tmp)));
     ASSERT_TRUE(
         CBB_add_bytes(bad_response.get(), CBS_data(&tmp), CBS_len(&tmp)));
+    if (!method()->batched_proof) {
+      ASSERT_TRUE(CBS_get_u16_length_prefixed(&real_response, &tmp));
+      ASSERT_TRUE(CBB_add_u16(bad_response.get(), CBS_len(&tmp) - 2));
+      ASSERT_TRUE(
+          CBB_add_bytes(bad_response.get(), CBS_data(&tmp), CBS_len(&tmp) - 2));
+    }
+  }
+
+  if (method()->batched_proof) {
+    CBS tmp;
     ASSERT_TRUE(CBS_get_u16_length_prefixed(&real_response, &tmp));
     ASSERT_TRUE(CBB_add_u16(bad_response.get(), CBS_len(&tmp) - 2));
     ASSERT_TRUE(
@@ -620,6 +630,17 @@ TEST_P(TrustTokenMetadataTest, ExcessDataProof) {
     ASSERT_TRUE(CBB_add_u16(bad_response.get(), CBS_len(&tmp)));
     ASSERT_TRUE(
         CBB_add_bytes(bad_response.get(), CBS_data(&tmp), CBS_len(&tmp)));
+    if (!method()->batched_proof) {
+      ASSERT_TRUE(CBS_get_u16_length_prefixed(&real_response, &tmp));
+      ASSERT_TRUE(CBB_add_u16(bad_response.get(), CBS_len(&tmp) + 2));
+      ASSERT_TRUE(
+          CBB_add_bytes(bad_response.get(), CBS_data(&tmp), CBS_len(&tmp)));
+      ASSERT_TRUE(CBB_add_u16(bad_response.get(), 42));
+    }
+  }
+
+  if (method()->batched_proof) {
+    CBS tmp;
     ASSERT_TRUE(CBS_get_u16_length_prefixed(&real_response, &tmp));
     ASSERT_TRUE(CBB_add_u16(bad_response.get(), CBS_len(&tmp) + 2));
     ASSERT_TRUE(

@@ -374,6 +374,41 @@ err:
   return ok;
 }
 
+static int hash_c_batch(const PMBTOKEN_METHOD *method, EC_SCALAR *out,
+                        const EC_RAW_POINT *X, const EC_RAW_POINT *X0,
+                        const EC_RAW_POINT *X1, const EC_RAW_POINT *T,
+                        const EC_RAW_POINT *S, const EC_RAW_POINT *W,
+                        const EC_RAW_POINT *Ws) {
+  static const uint8_t kDLEQBatchLabel[] = "DLEQ BATCH";
+
+  int ok = 0;
+  CBB cbb;
+  CBB_zero(&cbb);
+  uint8_t *buf = NULL;
+  size_t len;
+  if (!CBB_init(&cbb, 0) ||
+      !CBB_add_bytes(&cbb, kDLEQBatchLabel, sizeof(kDLEQBatchLabel)) ||
+      !point_to_cbb(&cbb, method->group, X) ||
+      !point_to_cbb(&cbb, method->group, X0) ||
+      !point_to_cbb(&cbb, method->group, X1) ||
+      !point_to_cbb(&cbb, method->group, T) ||
+      !point_to_cbb(&cbb, method->group, S) ||
+      !point_to_cbb(&cbb, method->group, W) ||
+      !point_to_cbb(&cbb, method->group, Ws) ||
+      !CBB_finish(&cbb, &buf, &len) ||
+      !method->hash_c(method->group, out, buf, len)) {
+    OPENSSL_PUT_ERROR(TRUST_TOKEN, ERR_R_MALLOC_FAILURE);
+    goto err;
+  }
+
+  ok = 1;
+
+err:
+  CBB_cleanup(&cbb);
+  OPENSSL_free(buf);
+  return ok;
+}
+
 // The DLEQ2 and DLEQOR2 constructions are described in appendix B of
 // https://eprint.iacr.org/2020/072/20200324:214215. DLEQ2 is an instance of
 // DLEQOR2 with only one value (n=1).
@@ -606,12 +641,14 @@ static int dleq_verify(const PMBTOKEN_METHOD *method, CBS *cbs,
 static int pmbtoken_sign(const PMBTOKEN_METHOD *method,
                          const PMBTOKEN_ISSUER_KEY *key, CBB *cbb, CBS *cbs,
                          size_t num_requested, size_t num_to_issue,
-                         uint8_t private_metadata) {
+                         uint8_t private_metadata, int batched_proof) {
   const EC_GROUP *group = method->group;
   if (num_requested < num_to_issue) {
     OPENSSL_PUT_ERROR(TRUST_TOKEN, ERR_R_INTERNAL_ERROR);
     return 0;
   }
+
+  EC_RAW_POINT Tp_batch, Sp_batch, Wp_batch, Wsp_batch;
 
   for (size_t i = 0; i < num_to_issue; i++) {
     EC_RAW_POINT Tp;
@@ -638,10 +675,54 @@ static int pmbtoken_sign(const PMBTOKEN_METHOD *method,
         !CBB_add_u16_length_prefixed(cbb, &child) ||
         !point_to_cbb(&child, group, &Wp) ||
         !CBB_add_u16_length_prefixed(cbb, &child) ||
-        !point_to_cbb(&child, group, &Wsp) ||
-        !CBB_add_u16_length_prefixed(cbb, &child) ||
-        !dleq_generate(method, &child, key, &Tp, &Sp, &Wp, &Wsp,
-                       private_metadata) ||
+        !point_to_cbb(&child, group, &Wsp)) {
+      return 0;
+    }
+
+    if (batched_proof) {
+      EC_SCALAR e;
+      if (!hash_c_batch(method, &e, &key->pubs, &key->pub0, &key->pub1, &Tp, &Sp,
+                        &Wp, &Wsp)) {
+        return 0;
+      }
+
+      EC_RAW_POINT Tp_e, Sp_e, Wp_e, Wsp_e;
+      if (!ec_point_mul_scalar(group, &Tp_e, &Tp, &e) ||
+          !ec_point_mul_scalar(group, &Sp_e, &Sp, &e) ||
+          !ec_point_mul_scalar(group, &Wp_e, &Wp, &e) ||
+          !ec_point_mul_scalar(group, &Wsp_e, &Wsp, &e)) {
+        return 0;
+      }
+
+      if (i == 0) {
+        Tp_batch = Tp_e;
+        Sp_batch = Sp_e;
+        Wp_batch = Wp_e;
+        Wsp_batch = Wsp_e;
+      } else {
+        group->meth->add(group, &Tp_batch, &Tp_batch, &Tp_e);
+        group->meth->add(group, &Sp_batch, &Sp_batch, &Sp_e);
+        group->meth->add(group, &Wp_batch, &Wp_batch, &Wp_e);
+        group->meth->add(group, &Wsp_batch, &Wsp_batch, &Wsp_e);
+      }
+    } else {
+      if (!CBB_add_u16_length_prefixed(cbb, &child) ||
+          !dleq_generate(method, &child, key, &Tp, &Sp, &Wp, &Wsp,
+                         private_metadata)) {
+        return 0;
+      }
+    }
+
+    if (!CBB_flush(cbb)) {
+      return 0;
+    }
+  }
+
+  if (batched_proof) {
+    CBB proof;
+    if (!CBB_add_u16_length_prefixed(cbb, &proof) ||
+        !dleq_generate(method, &proof, key, &Tp_batch, &Sp_batch, &Wp_batch,
+                       &Wsp_batch, private_metadata) ||
         !CBB_flush(cbb)) {
       return 0;
     }
@@ -661,7 +742,7 @@ static STACK_OF(TRUST_TOKEN) *
     pmbtoken_unblind(const PMBTOKEN_METHOD *method,
                      const PMBTOKEN_CLIENT_KEY *key,
                      const STACK_OF(PMBTOKEN_PRETOKEN) * pretokens, CBS *cbs,
-                     size_t count, uint32_t key_id) {
+                     size_t count, uint32_t key_id, int batched_proof) {
   const EC_GROUP *group = method->group;
   if (count > sk_PMBTOKEN_PRETOKEN_num(pretokens)) {
     OPENSSL_PUT_ERROR(TRUST_TOKEN, TRUST_TOKEN_R_DECODE_FAILURE);
@@ -674,6 +755,8 @@ static STACK_OF(TRUST_TOKEN) *
     return NULL;
   }
 
+  EC_RAW_POINT Tp_batch, Sp_batch, Wp_batch, Wsp_batch;
+
   for (size_t i = 0; i < count; i++) {
     const PMBTOKEN_PRETOKEN *pretoken =
         sk_PMBTOKEN_PRETOKEN_value(pretokens, i);
@@ -683,21 +766,56 @@ static STACK_OF(TRUST_TOKEN) *
     CBS proof;
     if (!CBS_copy_bytes(cbs, s, PMBTOKEN_NONCE_SIZE) ||
         !cbs_get_prefixed_point(cbs, group, &Wp) ||
-        !cbs_get_prefixed_point(cbs, group, &Wsp) ||
-        !CBS_get_u16_length_prefixed(cbs, &proof)) {
+        !cbs_get_prefixed_point(cbs, group, &Wsp)) {
       OPENSSL_PUT_ERROR(TRUST_TOKEN, TRUST_TOKEN_R_DECODE_FAILURE);
       goto err;
     }
 
     EC_RAW_POINT Sp;
-    if (!method->hash_s(group, &Sp, &pretoken->Tp, s) ||
-        !dleq_verify(method, &proof, key, &pretoken->Tp, &Sp, &Wp, &Wsp)) {
+    if (!method->hash_s(group, &Sp, &pretoken->Tp, s)) {
       goto err;
     }
 
-    if (CBS_len(&proof) != 0) {
-      OPENSSL_PUT_ERROR(TRUST_TOKEN, TRUST_TOKEN_R_DECODE_FAILURE);
-      goto err;
+    if (batched_proof) {
+      EC_SCALAR e;
+      if (!hash_c_batch(method, &e, &key->pubs, &key->pub0, &key->pub1,
+                        &pretoken->Tp, &Sp, &Wp, &Wsp)) {
+        return 0;
+      }
+
+      EC_RAW_POINT Tp_e, Sp_e, Wp_e, Wsp_e;
+      if (!ec_point_mul_scalar(group, &Tp_e, &pretoken->Tp, &e) ||
+          !ec_point_mul_scalar(group, &Sp_e, &Sp, &e) ||
+          !ec_point_mul_scalar(group, &Wp_e, &Wp, &e) ||
+          !ec_point_mul_scalar(group, &Wsp_e, &Wsp, &e)) {
+        return 0;
+      }
+
+      if (i == 0) {
+        Tp_batch = Tp_e;
+        Sp_batch = Sp_e;
+        Wp_batch = Wp_e;
+        Wsp_batch = Wsp_e;
+      } else {
+        group->meth->add(group, &Tp_batch, &Tp_batch, &Tp_e);
+        group->meth->add(group, &Sp_batch, &Sp_batch, &Sp_e);
+        group->meth->add(group, &Wp_batch, &Wp_batch, &Wp_e);
+        group->meth->add(group, &Wsp_batch, &Wsp_batch, &Wsp_e);
+      }
+    } else {
+      if(!CBS_get_u16_length_prefixed(cbs, &proof)) {
+        OPENSSL_PUT_ERROR(TRUST_TOKEN, TRUST_TOKEN_R_DECODE_FAILURE);
+        goto err;
+      }
+
+      if (!dleq_verify(method, &proof, key, &pretoken->Tp, &Sp, &Wp, &Wsp)) {
+        goto err;
+      }
+
+      if (CBS_len(&proof) != 0) {
+        OPENSSL_PUT_ERROR(TRUST_TOKEN, TRUST_TOKEN_R_DECODE_FAILURE);
+        goto err;
+      }
     }
 
     EC_RAW_POINT S, W, Ws;
@@ -734,6 +852,16 @@ static STACK_OF(TRUST_TOKEN) *
         !sk_TRUST_TOKEN_push(ret, token)) {
       OPENSSL_PUT_ERROR(TRUST_TOKEN, ERR_R_MALLOC_FAILURE);
       TRUST_TOKEN_free(token);
+      goto err;
+    }
+  }
+
+  if (batched_proof) {
+    CBS proof;
+    if (!CBS_get_u16_length_prefixed(cbs, &proof) ||
+        !dleq_verify(method, &proof, key, &Tp_batch, &Sp_batch, &Wp_batch,
+                     &Wsp_batch) ||
+        CBS_len(&proof) != 0) {
       goto err;
     }
   }
@@ -964,7 +1092,7 @@ int pmbtoken_exp0_sign(const PMBTOKEN_ISSUER_KEY *key, CBB *cbb, CBS *cbs,
     return 0;
   }
   return pmbtoken_sign(&method, key, cbb, cbs, num_requested, num_to_issue,
-                       private_metadata);
+                       private_metadata, /* batched_proof= */ 0);
 }
 
 STACK_OF(TRUST_TOKEN) *
@@ -975,7 +1103,8 @@ STACK_OF(TRUST_TOKEN) *
   if (!pmbtoken_exp0_init_method(&method)) {
     return NULL;
   }
-  return pmbtoken_unblind(&method, key, pretokens, cbs, count, key_id);
+  return pmbtoken_unblind(&method, key, pretokens, cbs, count, key_id,
+                          /* batched_proof= */ 0);
 }
 
 int pmbtoken_exp0_read(const PMBTOKEN_ISSUER_KEY *key,
@@ -1103,7 +1232,7 @@ int pmbtoken_exp1_sign(const PMBTOKEN_ISSUER_KEY *key, CBB *cbb, CBS *cbs,
     return 0;
   }
   return pmbtoken_sign(&method, key, cbb, cbs, num_requested, num_to_issue,
-                       private_metadata);
+                       private_metadata, /* batched_proof= */ 1);
 }
 
 STACK_OF(TRUST_TOKEN) *
@@ -1114,7 +1243,8 @@ STACK_OF(TRUST_TOKEN) *
   if (!pmbtoken_exp1_init_method(&method)) {
     return NULL;
   }
-  return pmbtoken_unblind(&method, key, pretokens, cbs, count, key_id);
+  return pmbtoken_unblind(&method, key, pretokens, cbs, count, key_id,
+                          /* batched_proof= */ 1);
 }
 
 int pmbtoken_exp1_read(const PMBTOKEN_ISSUER_KEY *key,

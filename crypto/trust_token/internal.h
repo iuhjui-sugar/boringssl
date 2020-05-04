@@ -188,6 +188,10 @@ struct trust_token_method_st {
               uint8_t out_nonce[PMBTOKEN_NONCE_SIZE],
               uint8_t *out_private_metadata, const uint8_t *token,
               size_t token_len);
+
+  // batched_proof determines whether PMBToken uses a batched DLEQOR proof when
+  // signing tokens.
+  int batched_proof : 1;
 };
 
 // Structure representing a single Trust Token public key with the specified ID.

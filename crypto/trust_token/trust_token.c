@@ -36,6 +36,7 @@ const TRUST_TOKEN_METHOD *TRUST_TOKEN_experiment_v0(void) {
       pmbtoken_exp0_sign,
       pmbtoken_exp0_unblind,
       pmbtoken_exp0_read,
+      /* batched_proof= */ 0,
   };
   return &kMethod;
 }
@@ -49,6 +50,7 @@ const TRUST_TOKEN_METHOD *TRUST_TOKEN_experiment_v1(void) {
       pmbtoken_exp1_sign,
       pmbtoken_exp1_unblind,
       pmbtoken_exp1_read,
+      /* batched_proof= */ 1,
   };
   return &kMethod;
 }
