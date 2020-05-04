@@ -1,0 +1,186 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d1791c34_a5afd6fd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-04T22:45:03Z",
+      "side": 1,
+      "message": "Want to include some benchmarks? I usually do something like:\n\n  $ git checkout old-commit\n  $ ninja -C whatever bssl \u0026\u0026 cp whatever/tool/bssl{,.old}\n  $ git checkout new-commit\n  $ ninja -C whatever bssl \u0026\u0026 cp whatever/tool/bssl{,.new}\n  $ for s in old new; do whatever/tool/bssl.$s speed -filter/-timeout/etc -json | tee /tmp/results-$s.txt; done\n  $ go run util/compare_benchmarks.go -baseline /tmp/results-old.txt /tmp/results-new.txt\n\nAlthough the various optimizations will probably change the results anyway.",
+      "revId": "d73d5fd87faf0e1cc28ed09d59d6ea41f5614b53",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be5941ba_eb31e2a1",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-04T22:45:03Z",
+      "side": 1,
+      "message": "Hrm. It might make sense to land at least the EC_AFFINE stuff first. That\u0027ll let you avoid inverting the same values over and over and over. :-)",
+      "revId": "d73d5fd87faf0e1cc28ed09d59d6ea41f5614b53",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24488e58_5a16ef85",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 682,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-04T22:45:03Z",
+      "side": 1,
+      "message": "Reference what construction from the paper this is. (We should always cite what we\u0027re implementing, so the reader doesn\u0027t need to rely on out-of-band conversations.)",
+      "revId": "d73d5fd87faf0e1cc28ed09d59d6ea41f5614b53",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f9c208b_a005da65",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-04T22:45:03Z",
+      "side": 1,
+      "message": "80 chars",
+      "revId": "d73d5fd87faf0e1cc28ed09d59d6ea41f5614b53",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "123fe1fa_1a2c97af",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 685,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-04T22:45:03Z",
+      "side": 1,
+      "message": "The construction in the paper hashes _all_ T, S, and W values together, while this one only has each token contribute to its own scalar. Does the batch proof still work if you don\u0027t commit to the whole thing?\n\n(It then has it output multiple scalars, which we can do with multiple hash_to_scalar calls and an index mixed into the input. Or if we wanted to be fancy, we could make hash_to_scalar expose the count parameter and perform slightly fewer hashes. Probably not worth the trouble, but if it survives this far in its final form, I imagine it\u0027ll end up doing that because it\u0027s \"free\" spec-wise.)",
+      "revId": "d73d5fd87faf0e1cc28ed09d59d6ea41f5614b53",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "136c5173_73a0ec0e",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 706,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-04T22:45:03Z",
+      "side": 1,
+      "message": "Not sure what order we want to do this in (maybe we land batching first and then I can figure out the best multiplication strategy?), but could you add a TODO to switch this to a multi-scalar (and probably variable-time since everything\u0027s public) multiplication?\n\n(At that point we\u0027ll likely need to malloc some arrays and, rather than doing it iteratively within the loop, do it all at once at the end. Although, per the comment above, you may need to do this anyway.)",
+      "revId": "d73d5fd87faf0e1cc28ed09d59d6ea41f5614b53",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9c6efce_0ac33de4",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 779,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-04T22:45:03Z",
+      "side": 1,
+      "message": "Reference what construction from the paper this is.",
+      "revId": "d73d5fd87faf0e1cc28ed09d59d6ea41f5614b53",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6b088d5_97ab71f2",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 783,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-04T22:45:03Z",
+      "side": 1,
+      "message": "goto err here and below.",
+      "range": {
+        "startLine": 783,
+        "startChar": 8,
+        "endLine": 783,
+        "endChar": 16
+      },
+      "revId": "d73d5fd87faf0e1cc28ed09d59d6ea41f5614b53",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef11d112_c4846ece",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1235,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-04T22:45:03Z",
+      "side": 1,
+      "message": "/*batched_proof\u003d*/1 (https://abseil.io/tips/94)\n\nThough I might suggest adding it to PMBTOKEN_METHOD, since that\u0027s already passed into everything. One less place we have to keep it consistent.",
+      "range": {
+        "startLine": 1235,
+        "startChar": 41,
+        "endLine": 1235,
+        "endChar": 63
+      },
+      "revId": "d73d5fd87faf0e1cc28ed09d59d6ea41f5614b53",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "142701a0_f13b5c17",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-04T22:45:03Z",
+      "side": 1,
+      "message": "Ditto on comment styling here and below. (Odd that it\u0027s allbunchedtogether unlike the rest of Google style, but I guess it\u0027s trying to fake a Python-style batched_proof\u003d0 syntax.)",
+      "revId": "d73d5fd87faf0e1cc28ed09d59d6ea41f5614b53",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
