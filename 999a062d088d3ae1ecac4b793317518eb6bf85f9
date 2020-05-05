@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "11c58c12_96578c0d",
+        "filename": "util/BUILD.toplevel",
+        "patchSetId": 1
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2020-05-05T21:57:13Z",
+      "side": 1,
+      "message": "This assumes that people have gtest installed in such a directory, which is more of an assumption than we want to make. The generated .bzl files exist to allow people to write their own BUILD files but this default is a minimal one for people who just want to build the library.",
+      "revId": "999a062d088d3ae1ecac4b793317518eb6bf85f9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
