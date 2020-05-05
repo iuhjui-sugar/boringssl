@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a22018e4_ec09ff9b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-05T17:36:14Z",
+      "side": 1,
+      "message": "(Was there a crbug associated with this? I thought there was.)",
+      "revId": "08224330640fa9e343845285b717b1e3fa7a9237",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7edbb5d6_b4a066cf",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-05T17:36:14Z",
+      "side": 1,
+      "message": "This\u0027ll produce better output:\n\n  ASSERT_EQ(Bytes(token_hash), Bytes(srr + 41, sizeof(token_hash)));\n\n(Probably the other memcmps should change too. Quick follow-up change maybe?)",
+      "revId": "08224330640fa9e343845285b717b1e3fa7a9237",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cda00d60_b2abd993",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-05T17:36:14Z",
+      "side": 1,
+      "message": "s/, t/. T/",
+      "range": {
+        "startLine": 249,
+        "startChar": 65,
+        "endLine": 249,
+        "endChar": 69
+      },
+      "revId": "08224330640fa9e343845285b717b1e3fa7a9237",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
