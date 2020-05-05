@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7bc2ef5a_70a7d663",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-05-05T17:58:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a22018e4_ec09ff9b",
+      "revId": "08224330640fa9e343845285b717b1e3fa7a9237",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7edbb5d6_b4a066cf",
         "filename": "crypto/trust_token/trust_token_test.cc",
         "patchSetId": 7
@@ -33,6 +51,24 @@
       "revId": "08224330640fa9e343845285b717b1e3fa7a9237",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8069c960_87c83144",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-05-05T17:58:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7edbb5d6_b4a066cf",
+      "revId": "08224330640fa9e343845285b717b1e3fa7a9237",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -56,6 +92,30 @@
       "revId": "08224330640fa9e343845285b717b1e3fa7a9237",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16f3f37d_3b590688",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-05-05T17:58:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cda00d60_b2abd993",
+      "range": {
+        "startLine": 249,
+        "startChar": 65,
+        "endLine": 249,
+        "endChar": 69
+      },
+      "revId": "08224330640fa9e343845285b717b1e3fa7a9237",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
