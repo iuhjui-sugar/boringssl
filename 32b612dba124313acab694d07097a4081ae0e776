@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "f85dae9e_778d2362",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 3158,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-05T16:31:15Z",
+      "side": 1,
+      "message": "This says the client MUST remember the transport parameters, otherwise it can\u0027t apply them to its initial packets.\nhttps://www.ietf.org/id/draft-ietf-quic-transport-27.html#name-values-of-transport-paramet\n\nI don\u0027t see text that says the client checks the server doesn\u0027t send it garbage, but that seems odd to me. If it\u0027s invalid server behavior, but the client doesn\u0027t enforce it, surely we\u0027d want the client to enforce this, rather than possibly get confused about parameters.\n\nOn the H3 SETTINGS frame, looks like it\u0027s just a SHOULD, since the client is allowed to not remember it at all. Likewise, on the enforcement side, I would imagine any client that picks up the 0-RTT-saved values to want to check.\nhttps://www.ietf.org/id/draft-ietf-quic-http-27.html#section-7.2.4.2\n\nGiven those clients obligations/recommendations, the comment was that we should probably explicitly say that BoringSSL leaves that to the caller, especially since we *don\u0027t* leave the server behavior to the caller.",
+      "parentUuid": "f2f905e8_5a7649c1",
+      "range": {
+        "startLine": 3157,
+        "startChar": 0,
+        "endLine": 3158,
+        "endChar": 66
+      },
+      "revId": "32b612dba124313acab694d07097a4081ae0e776",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9b4de50e_ec9f5917",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 1
