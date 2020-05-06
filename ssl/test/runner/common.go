@@ -1670,6 +1670,10 @@ type ProtocolBugs struct {
 	// DisableDelegatedCredentials, if true, disables client support for delegated
 	// credentials.
 	DisableDelegatedCredentials bool
+
+	// CompatModeWithQUIC, it true, enables TLS 1.3 compatibility mode
+	// when running over QUIC.
+	CompatModeWithQUIC bool
 }
 
 func (c *Config) serverInit() {
