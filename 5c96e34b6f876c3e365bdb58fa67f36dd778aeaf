@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b158c04a_d68bdf8f",
+        "filename": "crypto/fipsmodule/ec/ec_montgomery.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-05-06T15:37:50Z",
+      "side": 1,
+      "message": "This is correct, but \"i\u003cnum\" is a bit weird when you\u0027re really just hitting wrapping. i+1 !\u003d 0?",
+      "range": {
+        "startLine": 227,
+        "startChar": 0,
+        "endLine": 227,
+        "endChar": 42
+      },
+      "revId": "5c96e34b6f876c3e365bdb58fa67f36dd778aeaf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b755f6d9_6ec621dc",
+        "filename": "crypto/fipsmodule/ec/simple.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-05-06T15:37:50Z",
+      "side": 1,
+      "message": "Zbpow or Zbexp, Zb23 seems a bit odd.",
+      "range": {
+        "startLine": 299,
+        "startChar": 16,
+        "endLine": 299,
+        "endChar": 20
+      },
+      "revId": "5c96e34b6f876c3e365bdb58fa67f36dd778aeaf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ddd7a1ba_3f1c4712",
+        "filename": "crypto/fipsmodule/ec/simple.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-05-06T15:37:50Z",
+      "side": 1,
+      "message": "Is this actually better than\ntmp \u003d Y_a*Z_b2\ntmp \u003d tmp*Z\n\n(that way Zb23 is just Zb2)",
+      "range": {
+        "startLine": 305,
+        "startChar": 0,
+        "endLine": 307,
+        "endChar": 0
+      },
+      "revId": "5c96e34b6f876c3e365bdb58fa67f36dd778aeaf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
