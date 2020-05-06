@@ -193,6 +193,11 @@ static enum ssl_hs_wait_t do_select_parameters(SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
+  if (ssl->quic_method != nullptr && client_hello.session_id_len > 0) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_UNEXPECTED_COMPATIBILITY_MODE);
+    ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_HANDSHAKE_FAILURE);
+    return ssl_hs_error;
+  }
   OPENSSL_memcpy(hs->session_id, client_hello.session_id,
                  client_hello.session_id_len);
   hs->session_id_len = client_hello.session_id_len;
