@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "07516914_64751495",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 3331,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-07T23:00:11Z",
+      "side": 1,
+      "message": "Come to think of it, requiring it be called before SSL_do_handshake is probably too strong. I might vary HTTP/3 SETTINGS preferences by SNI, which is perfectly fine. We just need to do it at certificate selection or earlier. Also perhaps we can shorten the text a bit... :-)\n\nHow about:\n\n// SSL_set_quic_early_data_context configures a context string in QUIC servers\n// for accepting early data. If a resumption connection offers early data, the\n// server will check if the value matches that of the connection which minted\n// the ticket. If not, resumption still succeeds, but early data is rejected.\n// For HTTP/3, this should be the serialized server SETTINGS frame.\n//\n// This function may be called before |SSL_do_handshake| or during server\n// certificate selection. It returns 1 on success and zero on error.",
+      "revId": "86c0e5ff77e14189e8e9d9c3879cd185bbf62294",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "620f3b18_6fe22233",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 3334,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-07T23:00:11Z",
+      "side": 1,
+      "message": "(I think this is no longer true. It\u0027s just ignored, which is what most of our APIs do.)",
+      "range": {
+        "startLine": 3333,
+        "startChar": 56,
+        "endLine": 3334,
+        "endChar": 57
+      },
+      "revId": "86c0e5ff77e14189e8e9d9c3879cd185bbf62294",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfed8a31_03bd99d3",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-07T23:00:11Z",
+      "side": 1,
+      "message": "Add the [SHA256_DIGEST_LENGTH] to match the header.",
+      "range": {
+        "startLine": 352,
+        "startChar": 68,
+        "endLine": 352,
+        "endChar": 78
+      },
+      "revId": "86c0e5ff77e14189e8e9d9c3879cd185bbf62294",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
