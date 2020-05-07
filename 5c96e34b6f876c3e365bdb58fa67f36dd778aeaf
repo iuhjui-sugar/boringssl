@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "5c7d67c4_80e508e8",
+        "filename": "crypto/fipsmodule/ec/simple.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-07T16:19:38Z",
+      "side": 1,
+      "message": "(Resolved by way of below.)",
+      "parentUuid": "b755f6d9_6ec621dc",
+      "range": {
+        "startLine": 299,
+        "startChar": 16,
+        "endLine": 299,
+        "endChar": 20
+      },
+      "revId": "5c96e34b6f876c3e365bdb58fa67f36dd778aeaf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ddd7a1ba_3f1c4712",
         "filename": "crypto/fipsmodule/ec/simple.c",
         "patchSetId": 6
@@ -92,6 +116,30 @@
       "revId": "5c96e34b6f876c3e365bdb58fa67f36dd778aeaf",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90ee786f_0cfcb394",
+        "filename": "crypto/fipsmodule/ec/simple.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-07T16:19:38Z",
+      "side": 1,
+      "message": "Yeah, this dates to the original OpenSSL impl. :-) Agreed that we don\u0027t need it. Done.",
+      "parentUuid": "ddd7a1ba_3f1c4712",
+      "range": {
+        "startLine": 305,
+        "startChar": 0,
+        "endLine": 307,
+        "endChar": 0
+      },
+      "revId": "5c96e34b6f876c3e365bdb58fa67f36dd778aeaf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
