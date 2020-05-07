@@ -154,6 +154,24 @@
     },
     {
       "key": {
+        "uuid": "f93147ec_fa1750f4",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-07T20:23:55Z",
+      "side": 1,
+      "message": "My inclination is to split the CL in half, but do whatever strategy works best for you all.\n\nIf it\u0027ll be a requirement in the next QUIC draft and is compatible with the current one, it seems we\u0027d rather get the client half in sooner than later. But it sounds like we want the server half later.\n\nWe could also check the server half in now with a runtime knob which you\u0027d configure based on the QUIC draft (and then retire the runtime knob later). If you all need that, we can do that, though my inclination is it\u0027s probably more fuss than is necessary. :-)\n\n(A runtime knob would be useful if, say, QUICHE supports both QUIC drafts concurrently and you\u0027d like to make sure you never enable the check on an older QUIC draft to avoid breaking clients that don\u0027t upgrade. But my understanding is that there isn\u0027t any actual IETF-QUIC deployment beyond about:flags yet, so I\u0027m guessing you don\u0027t care about that?)",
+      "parentUuid": "27890a27_1785ec0f",
+      "revId": "5c6ad6c7d51dd839e0f75adc06420eb2824a3359",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dc9dfd70_dee88d47",
         "filename": "ssl/tls13_server.cc",
         "patchSetId": 3
