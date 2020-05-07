@@ -190,6 +190,24 @@
     },
     {
       "key": {
+        "uuid": "7539de8f_c380f5aa",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-07T23:02:36Z",
+      "side": 1,
+      "message": "Sounds good. Add me as reviewer when you\u0027re ready. (If you go with just landing it unconditionally later, the CL looks fine.)",
+      "parentUuid": "a0a10280_09e9c801",
+      "revId": "5c6ad6c7d51dd839e0f75adc06420eb2824a3359",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dc9dfd70_dee88d47",
         "filename": "ssl/tls13_server.cc",
         "patchSetId": 3
