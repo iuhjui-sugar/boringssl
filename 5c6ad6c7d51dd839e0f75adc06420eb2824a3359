@@ -172,6 +172,24 @@
     },
     {
       "key": {
+        "uuid": "a0a10280_09e9c801",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-05-07T21:01:10Z",
+      "side": 1,
+      "message": "This is now split in two, with https://boringssl-review.googlesource.com/c/boringssl/+/41264 containing the server half.\n\nI\u0027ll discuss further with the QUIC team how/when we want to handle server-side enforcement.",
+      "parentUuid": "f93147ec_fa1750f4",
+      "revId": "5c6ad6c7d51dd839e0f75adc06420eb2824a3359",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dc9dfd70_dee88d47",
         "filename": "ssl/tls13_server.cc",
         "patchSetId": 3
