@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2e8505c5_b2eedfdb",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-07T16:10:58Z",
+      "side": 1,
+      "message": "This is a little interesting since it\u0027s both disabling compatibility mode and advertising of any TLS 1.2 ID-based sessions. This is fine because QUIC never uses TLS 1.2, and the corresponding server enforcement otherwise doesn\u0027t work. But maybe worth a quick comment like:\n\n// Never send a session ID in QUIC. QUIC doesn\u0027t use TLS 1.2 and disables the TLS 1.3 middlebox compatibility mode.",
+      "revId": "5c6ad6c7d51dd839e0f75adc06420eb2824a3359",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "996744c2_a00fd86d",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 1674,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-07T16:10:58Z",
+      "side": 1,
+      "message": "if",
+      "range": {
+        "startLine": 1674,
+        "startChar": 24,
+        "endLine": 1674,
+        "endChar": 26
+      },
+      "revId": "5c6ad6c7d51dd839e0f75adc06420eb2824a3359",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e8e00eb_a03627d5",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-07T16:10:58Z",
+      "side": 1,
+      "message": "Should we check in handshake_server.go that QUIC ClientHellos never have session IDs?",
+      "revId": "5c6ad6c7d51dd839e0f75adc06420eb2824a3359",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf588b1e_7f0df340",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-07T16:10:58Z",
+      "side": 1,
+      "message": "To confirm: this\u0027ll cause any updated experimental IETF-QUIC servers based on BoringSSL to fail to interop with any existing experimental IETF-QUIC clients based on BoringSSL (or anyone else not turning off compatibility mode). Is this what you want?",
+      "revId": "5c6ad6c7d51dd839e0f75adc06420eb2824a3359",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc9dfd70_dee88d47",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-07T16:10:58Z",
+      "side": 1,
+      "message": "decode_error or illegal_parameter is probably better. No one actually sticks to this but, in theory, handshake_failure is about failure to negotiate common parameters, whereas this would be a protocol error on the other side.",
+      "range": {
+        "startLine": 198,
+        "startChar": 39,
+        "endLine": 198,
+        "endChar": 63
+      },
+      "revId": "5c6ad6c7d51dd839e0f75adc06420eb2824a3359",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
