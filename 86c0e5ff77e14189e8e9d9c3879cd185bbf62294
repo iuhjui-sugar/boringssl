@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "286cef06_7e196a9f",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 3331,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-05-07T23:33:07Z",
+      "side": 1,
+      "message": "Sounds good.",
+      "parentUuid": "07516914_64751495",
+      "revId": "86c0e5ff77e14189e8e9d9c3879cd185bbf62294",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "620f3b18_6fe22233",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 3
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "ae953f53_d013b6e9",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 3334,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-05-07T23:33:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "620f3b18_6fe22233",
+      "range": {
+        "startLine": 3333,
+        "startChar": 56,
+        "endLine": 3334,
+        "endChar": 57
+      },
+      "revId": "86c0e5ff77e14189e8e9d9c3879cd185bbf62294",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bfed8a31_03bd99d3",
         "filename": "ssl/ssl_session.cc",
         "patchSetId": 3
@@ -62,6 +104,30 @@
       "revId": "86c0e5ff77e14189e8e9d9c3879cd185bbf62294",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58aee9a2_39933827",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-05-07T23:33:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bfed8a31_03bd99d3",
+      "range": {
+        "startLine": 352,
+        "startChar": 68,
+        "endLine": 352,
+        "endChar": 78
+      },
+      "revId": "86c0e5ff77e14189e8e9d9c3879cd185bbf62294",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
