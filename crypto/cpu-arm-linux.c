@@ -146,14 +146,19 @@ extern uint32_t OPENSSL_armcap_P;
 static int g_has_broken_neon, g_needs_hwcap2_workaround;
 
 void OPENSSL_cpuid_setup(void) {
-  char *cpuinfo_data;
-  size_t cpuinfo_len;
-  if (!read_file(&cpuinfo_data, &cpuinfo_len, "/proc/cpuinfo")) {
-    return;
-  }
   STRING_PIECE cpuinfo;
-  cpuinfo.data = cpuinfo_data;
-  cpuinfo.len = cpuinfo_len;
+  char *cpuinfo_data = NULL;
+  size_t cpuinfo_len;
+  if (read_file(&cpuinfo_data, &cpuinfo_len, "/proc/cpuinfo")) {
+    cpuinfo.data = cpuinfo_data;
+    cpuinfo.len = cpuinfo_len;
+  } else {
+    // Proceed with an empty /proc/cpuinfo. If |getauxval| works, we will still
+    // detect capabilities. There may be a false positive due to
+    // |crypto_cpuinfo_has_broken_neon|, but this is now rare.
+    cpuinfo.data = NULL;
+    cpuinfo.len = 0;
+  }
 
   // |getauxval| is not available on Android until API level 20. If it is
   // unavailable, read from /proc/self/auxv as a fallback. This is unreadable
