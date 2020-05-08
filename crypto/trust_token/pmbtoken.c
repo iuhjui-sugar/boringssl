@@ -52,6 +52,9 @@ typedef struct {
   // hash_c implements the H_c operation in PMBTokens. It returns one on success
   // and zero on error.
   hash_c_func_t hash_c;
+  // batched_proof determines whether PMBToken uses a batched DLEQOR proof when
+  // signing tokens.
+  int batched_proof : 1;
 } PMBTOKEN_METHOD;
 
 static const uint8_t kDefaultAdditionalData[32] = {0};
@@ -59,7 +62,7 @@ static const uint8_t kDefaultAdditionalData[32] = {0};
 static int pmbtoken_init_method(PMBTOKEN_METHOD *method, int curve_nid,
                                 const uint8_t *h_bytes, size_t h_len,
                                 hash_t_func_t hash_t, hash_s_func_t hash_s,
-                                hash_c_func_t hash_c) {
+                                hash_c_func_t hash_c, int batched_proof) {
   method->group = EC_GROUP_new_by_curve_name(curve_nid);
   if (method->group == NULL) {
     return 0;
@@ -68,6 +71,7 @@ static int pmbtoken_init_method(PMBTOKEN_METHOD *method, int curve_nid,
   method->hash_t = hash_t;
   method->hash_s = hash_s;
   method->hash_c = hash_c;
+  method->batched_proof = batched_proof;
 
   EC_AFFINE h;
   if (!ec_point_from_uncompressed(method->group, &h, h_bytes, h_len)) {
@@ -384,6 +388,43 @@ err:
   return ok;
 }
 
+static int hash_c_batch(const PMBTOKEN_METHOD *method, EC_SCALAR *out,
+                        const EC_AFFINE *X, const EC_AFFINE *X0,
+                        const EC_AFFINE *X1, const CBB *points, size_t count) {
+  static const uint8_t kDLEQBatchLabel[] = "DLEQ BATCH";
+  if (count > 0xffff) {
+    // The protocol supports only two-byte token counts.
+    OPENSSL_PUT_ERROR(TRUST_TOKEN, ERR_R_OVERFLOW);
+    return 0;
+  }
+
+
+  int ok = 0;
+  CBB cbb;
+  CBB_zero(&cbb);
+  uint8_t *buf = NULL;
+  size_t len;
+  if (!CBB_init(&cbb, 0) ||
+      !CBB_add_bytes(&cbb, kDLEQBatchLabel, sizeof(kDLEQBatchLabel)) ||
+      !point_to_cbb(&cbb, method->group, X) ||
+      !point_to_cbb(&cbb, method->group, X0) ||
+      !point_to_cbb(&cbb, method->group, X1) ||
+      !CBB_add_bytes(&cbb, CBB_data(points), CBB_len(points)) ||
+      !CBB_add_u16(&cbb, (uint16_t)count) ||
+      !CBB_finish(&cbb, &buf, &len) ||
+      !method->hash_c(method->group, out, buf, len)) {
+    OPENSSL_PUT_ERROR(TRUST_TOKEN, ERR_R_MALLOC_FAILURE);
+    goto err;
+  }
+
+  ok = 1;
+
+err:
+  CBB_cleanup(&cbb);
+  OPENSSL_free(buf);
+  return ok;
+}
+
 // The DLEQ2 and DLEQOR2 constructions are described in appendix B of
 // https://eprint.iacr.org/2020/072/20200324:214215. DLEQ2 is an instance of
 // DLEQOR2 with only one value (n=1).
@@ -681,12 +722,35 @@ static int pmbtoken_sign(const PMBTOKEN_METHOD *method,
     return 0;
   }
 
+
+  int ret = 0;
+  EC_RAW_POINT *Tps = NULL;
+  EC_RAW_POINT *Sps = NULL;
+  EC_RAW_POINT *Wps = NULL;
+  EC_RAW_POINT *Wsps = NULL;
+  CBB batch_cbb;
+  CBB_zero(&batch_cbb);
+  if (method->batched_proof) {
+    Tps = OPENSSL_malloc(num_to_issue*sizeof(EC_RAW_POINT));
+    Sps = OPENSSL_malloc(num_to_issue*sizeof(EC_RAW_POINT));
+    Wps = OPENSSL_malloc(num_to_issue*sizeof(EC_RAW_POINT));
+    Wsps = OPENSSL_malloc(num_to_issue*sizeof(EC_RAW_POINT));
+    if (!Tps ||
+        !Sps ||
+        !Wps ||
+        !Wsps ||
+        !CBB_init(&batch_cbb, 0)) {
+      OPENSSL_PUT_ERROR(TRUST_TOKEN, ERR_R_MALLOC_FAILURE);
+      goto err;
+    }
+  }
+
   for (size_t i = 0; i < num_to_issue; i++) {
     EC_AFFINE Tp_affine;
     EC_RAW_POINT Tp;
     if (!cbs_get_prefixed_point(cbs, group, &Tp_affine)) {
       OPENSSL_PUT_ERROR(TRUST_TOKEN, TRUST_TOKEN_R_DECODE_FAILURE);
-      return 0;
+      goto err;
     }
     ec_affine_to_jacobian(group, &Tp, &Tp_affine);
 
@@ -720,12 +784,76 @@ static int pmbtoken_sign(const PMBTOKEN_METHOD *method,
         !CBB_add_u16_length_prefixed(cbb, &child) ||
         !point_to_cbb(&child, group, &W_affine[0]) ||
         !CBB_add_u16_length_prefixed(cbb, &child) ||
-        !point_to_cbb(&child, group, &W_affine[1]) ||
-        !CBB_add_u16_length_prefixed(cbb, &child) ||
-        !dleq_generate(method, &child, key, &Tp, &Sp, &W[0], &W[1],
-                       private_metadata) ||
+        !point_to_cbb(&child, group, &W_affine[1])) {
+      goto err;
+    }
+
+    if (!method->batched_proof) {
+      if (!CBB_add_u16_length_prefixed(cbb, &child) ||
+          !dleq_generate(method, &child, key, &Tp, &Sp, &W[0], &W[1],
+                         private_metadata)) {
+        goto err;
+      }
+    } else {
+      EC_AFFINE Sp_affine;
+      if (!point_to_cbb(&batch_cbb, group, &Tp_affine) ||
+          !ec_jacobian_to_affine(group, &Sp_affine, &Sp) ||
+          !point_to_cbb(&batch_cbb, group, &Sp_affine) ||
+          !point_to_cbb(&batch_cbb, group, &W_affine[0]) ||
+          !point_to_cbb(&batch_cbb, group, &W_affine[1])) {
+        OPENSSL_PUT_ERROR(TRUST_TOKEN, ERR_R_MALLOC_FAILURE);
+        goto err;
+      }
+      Tps[i] = Tp;
+      Sps[i] = Sp;
+      Wps[i] = W[0];
+      Wsps[i] = W[1];
+    }
+
+    if (!CBB_flush(cbb)) {
+      goto err;
+    }
+  }
+
+  // The DLEQ batching construction is described in appendix B of
+  // https://eprint.iacr.org/2020/072/20200324:214215.
+  if (method->batched_proof) {
+    EC_RAW_POINT Tp_batch, Sp_batch, Wp_batch, Wsp_batch;
+    for (size_t i = 0; i < num_to_issue; i++) {
+      EC_SCALAR e;
+      if (!hash_c_batch(method, &e, &key->pubs, &key->pub0, &key->pub1,
+                        &batch_cbb, i)) {
+        goto err;
+      }
+
+      EC_RAW_POINT Tp_e, Sp_e, Wp_e, Wsp_e;
+      if (!ec_point_mul_scalar(group, &Tp_e, &Tps[i], &e) ||
+          !ec_point_mul_scalar(group, &Sp_e, &Sps[i], &e) ||
+          !ec_point_mul_scalar(group, &Wp_e, &Wps[i], &e) ||
+          !ec_point_mul_scalar(group, &Wsp_e, &Wsps[i], &e)) {
+        goto err;
+      }
+
+      // TODO: Switch this to a multi-scalar multiplication.
+      if (i == 0) {
+        Tp_batch = Tp_e;
+        Sp_batch = Sp_e;
+        Wp_batch = Wp_e;
+        Wsp_batch = Wsp_e;
+      } else {
+        group->meth->add(group, &Tp_batch, &Tp_batch, &Tp_e);
+        group->meth->add(group, &Sp_batch, &Sp_batch, &Sp_e);
+        group->meth->add(group, &Wp_batch, &Wp_batch, &Wp_e);
+        group->meth->add(group, &Wsp_batch, &Wsp_batch, &Wsp_e);
+      }
+    }
+
+    CBB proof;
+    if (!CBB_add_u16_length_prefixed(cbb, &proof) ||
+        !dleq_generate(method, &proof, key, &Tp_batch, &Sp_batch, &Wp_batch,
+                       &Wsp_batch, private_metadata) ||
         !CBB_flush(cbb)) {
-      return 0;
+      goto err;
     }
   }
 
@@ -733,10 +861,18 @@ static int pmbtoken_sign(const PMBTOKEN_METHOD *method,
   size_t point_len = 1 + 2 * BN_num_bytes(&group->field);
   if (!CBS_skip(cbs, (2 + point_len) * (num_requested - num_to_issue))) {
     OPENSSL_PUT_ERROR(TRUST_TOKEN, TRUST_TOKEN_R_DECODE_FAILURE);
-    return 0;
+    goto err;
   }
 
-  return 1;
+  ret = 1;
+
+err:
+  OPENSSL_free(Tps);
+  OPENSSL_free(Sps);
+  OPENSSL_free(Wps);
+  OPENSSL_free(Wsps);
+  CBB_cleanup(&batch_cbb);
+  return ret;
 }
 
 static STACK_OF(TRUST_TOKEN) *
@@ -750,10 +886,32 @@ static STACK_OF(TRUST_TOKEN) *
     return NULL;
   }
 
+  int ok = 0;
   STACK_OF(TRUST_TOKEN) *ret = sk_TRUST_TOKEN_new_null();
   if (ret == NULL) {
     OPENSSL_PUT_ERROR(TRUST_TOKEN, ERR_R_MALLOC_FAILURE);
     return NULL;
+  }
+
+  EC_RAW_POINT *Tps = NULL;
+  EC_RAW_POINT *Sps = NULL;
+  EC_RAW_POINT *Wps = NULL;
+  EC_RAW_POINT *Wsps = NULL;
+  CBB batch_cbb;
+  CBB_zero(&batch_cbb);
+  if (method->batched_proof) {
+    Tps = OPENSSL_malloc(count*sizeof(EC_RAW_POINT));
+    Sps = OPENSSL_malloc(count*sizeof(EC_RAW_POINT));
+    Wps = OPENSSL_malloc(count*sizeof(EC_RAW_POINT));
+    Wsps = OPENSSL_malloc(count*sizeof(EC_RAW_POINT));
+    if (!Tps ||
+        !Sps ||
+        !Wps ||
+        !Wsps ||
+        !CBB_init(&batch_cbb, 0)) {
+      OPENSSL_PUT_ERROR(TRUST_TOKEN, ERR_R_MALLOC_FAILURE);
+      goto err;
+    }
   }
 
   for (size_t i = 0; i < count; i++) {
@@ -765,8 +923,7 @@ static STACK_OF(TRUST_TOKEN) *
     CBS proof;
     if (!CBS_copy_bytes(cbs, s, PMBTOKEN_NONCE_SIZE) ||
         !cbs_get_prefixed_point(cbs, group, &Wp_affine) ||
-        !cbs_get_prefixed_point(cbs, group, &Wsp_affine) ||
-        !CBS_get_u16_length_prefixed(cbs, &proof)) {
+        !cbs_get_prefixed_point(cbs, group, &Wsp_affine)) {
       OPENSSL_PUT_ERROR(TRUST_TOKEN, TRUST_TOKEN_R_DECODE_FAILURE);
       goto err;
     }
@@ -778,14 +935,38 @@ static STACK_OF(TRUST_TOKEN) *
     ec_affine_to_jacobian(group, &Tp, &pretoken->Tp);
     ec_affine_to_jacobian(group, &Wp, &Wp_affine);
     ec_affine_to_jacobian(group, &Wsp, &Wsp_affine);
-    if (!method->hash_s(group, &Sp, &pretoken->Tp, s) ||
-        !dleq_verify(method, &proof, key, &Tp, &Sp, &Wp, &Wsp)) {
+    if (!method->hash_s(group, &Sp, &pretoken->Tp, s)) {
       goto err;
     }
 
-    if (CBS_len(&proof) != 0) {
-      OPENSSL_PUT_ERROR(TRUST_TOKEN, TRUST_TOKEN_R_DECODE_FAILURE);
-      goto err;
+    if (!method->batched_proof) {
+      if(!CBS_get_u16_length_prefixed(cbs, &proof)) {
+        OPENSSL_PUT_ERROR(TRUST_TOKEN, TRUST_TOKEN_R_DECODE_FAILURE);
+        goto err;
+      }
+
+      if (!dleq_verify(method, &proof, key, &Tp, &Sp, &Wp, &Wsp)) {
+        goto err;
+      }
+
+      if (CBS_len(&proof) != 0) {
+        OPENSSL_PUT_ERROR(TRUST_TOKEN, TRUST_TOKEN_R_DECODE_FAILURE);
+        goto err;
+      }
+    } else {
+      EC_AFFINE Sp_affine;
+      if (!point_to_cbb(&batch_cbb, group, &pretoken->Tp) ||
+          !ec_jacobian_to_affine(group, &Sp_affine, &Sp) ||
+          !point_to_cbb(&batch_cbb, group, &Sp_affine) ||
+          !point_to_cbb(&batch_cbb, group, &Wp_affine) ||
+          !point_to_cbb(&batch_cbb, group, &Wsp_affine)) {
+        OPENSSL_PUT_ERROR(TRUST_TOKEN, ERR_R_MALLOC_FAILURE);
+        goto err;
+      }
+      Tps[i] = Tp;
+      Sps[i] = Sp;
+      Wps[i] = Wp;
+      Wsps[i] = Wsp;
     }
 
     // Unblind the token.
@@ -829,11 +1010,61 @@ static STACK_OF(TRUST_TOKEN) *
     }
   }
 
-  return ret;
+  // The DLEQ batching construction is described in appendix B of
+  // https://eprint.iacr.org/2020/072/20200324:214215.
+  if (method->batched_proof) {
+    EC_RAW_POINT Tp_batch, Sp_batch, Wp_batch, Wsp_batch;
+    for (size_t i = 0; i < count; i++) {
+      EC_SCALAR e;
+      if (!hash_c_batch(method, &e, &key->pubs, &key->pub0, &key->pub1,
+                        &batch_cbb, i)) {
+        goto err;
+      }
+
+      EC_RAW_POINT Tp_e, Sp_e, Wp_e, Wsp_e;
+      if (!ec_point_mul_scalar(group, &Tp_e, &Tps[i], &e) ||
+          !ec_point_mul_scalar(group, &Sp_e, &Sps[i], &e) ||
+          !ec_point_mul_scalar(group, &Wp_e, &Wps[i], &e) ||
+          !ec_point_mul_scalar(group, &Wsp_e, &Wsps[i], &e)) {
+        goto err;
+      }
+
+      // TODO: Switch this to a multi-scalar multiplication.
+      if (i == 0) {
+        Tp_batch = Tp_e;
+        Sp_batch = Sp_e;
+        Wp_batch = Wp_e;
+        Wsp_batch = Wsp_e;
+      } else {
+        group->meth->add(group, &Tp_batch, &Tp_batch, &Tp_e);
+        group->meth->add(group, &Sp_batch, &Sp_batch, &Sp_e);
+        group->meth->add(group, &Wp_batch, &Wp_batch, &Wp_e);
+        group->meth->add(group, &Wsp_batch, &Wsp_batch, &Wsp_e);
+      }
+    }
+
+    CBS proof;
+    if (!CBS_get_u16_length_prefixed(cbs, &proof) ||
+        !dleq_verify(method, &proof, key, &Tp_batch, &Sp_batch, &Wp_batch,
+                     &Wsp_batch) ||
+        CBS_len(&proof) != 0) {
+      goto err;
+    }
+  }
+
+  ok = 1;
 
 err:
-  sk_TRUST_TOKEN_pop_free(ret, TRUST_TOKEN_free);
-  return NULL;
+  OPENSSL_free(Tps);
+  OPENSSL_free(Sps);
+  OPENSSL_free(Wps);
+  OPENSSL_free(Wsps);
+  CBB_cleanup(&batch_cbb);
+  if (!ok) {
+    sk_TRUST_TOKEN_pop_free(ret, TRUST_TOKEN_free);
+    ret = NULL;
+  }
+  return ret;
 }
 
 static int pmbtoken_read(const PMBTOKEN_METHOD *method,
@@ -1018,9 +1249,10 @@ static void pmbtoken_exp0_init_method_impl(void) {
       0xcd,
   };
 
-  pmbtoken_exp0_ok = pmbtoken_init_method(
-      &pmbtoken_exp0_method, NID_secp521r1, kH, sizeof(kH),
-      pmbtoken_exp0_hash_t, pmbtoken_exp0_hash_s, pmbtoken_exp0_hash_c);
+  pmbtoken_exp0_ok =
+      pmbtoken_init_method(&pmbtoken_exp0_method, NID_secp521r1, kH, sizeof(kH),
+                           pmbtoken_exp0_hash_t, pmbtoken_exp0_hash_s,
+                           pmbtoken_exp0_hash_c, /*batched_proof=*/0);
 }
 
 static int pmbtoken_exp0_init_method(void) {
@@ -1157,9 +1389,10 @@ static void pmbtoken_exp1_init_method_impl(void) {
       0x87, 0xc3, 0x95, 0xd0, 0x13, 0xb7, 0x0b, 0x5c, 0xc7,
   };
 
-  pmbtoken_exp1_ok = pmbtoken_init_method(
-      &pmbtoken_exp1_method, NID_secp384r1, kH, sizeof(kH),
-      pmbtoken_exp1_hash_t, pmbtoken_exp1_hash_s, pmbtoken_exp1_hash_c);
+  pmbtoken_exp1_ok =
+      pmbtoken_init_method(&pmbtoken_exp1_method, NID_secp384r1, kH, sizeof(kH),
+                           pmbtoken_exp1_hash_t, pmbtoken_exp1_hash_s,
+                           pmbtoken_exp1_hash_c, /*batched_proof=*/1);
 }
 
 static int pmbtoken_exp1_init_method(void) {
