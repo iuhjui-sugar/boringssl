@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "edc8acca_0f344b7e",
+        "filename": "crypto/fipsmodule/ec/make_tables.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-05-11T16:43:21Z",
+      "side": 1,
+      "message": "nit: 2020",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 34
+      },
+      "revId": "8636ac5c2fa0d30def51a37adbe1cb1e1ae0611f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bcb35638_d43c4d51",
+        "filename": "crypto/fipsmodule/ec/make_tables.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-05-11T16:43:21Z",
+      "side": 1,
+      "message": "to a previous entry",
+      "range": {
+        "startLine": 216,
+        "startChar": 0,
+        "endLine": 218,
+        "endChar": 0
+      },
+      "revId": "8636ac5c2fa0d30def51a37adbe1cb1e1ae0611f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
