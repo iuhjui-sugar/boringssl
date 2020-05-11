@@ -1,0 +1,192 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "58a59e4a_dbd35b99",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-11T22:16:02Z",
+      "side": 1,
+      "message": "Just to make things a little easier to read, might be worth punting the Exp0 entries, since they\u0027re not modified here. :-)",
+      "revId": "95f01f416cd5248e45f56fae183edbffee19531b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7d26b40_a864941b",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-11T22:16:02Z",
+      "side": 1,
+      "message": "This isn\u0027t a count but an index, right?",
+      "range": {
+        "startLine": 393,
+        "startChar": 71,
+        "endLine": 393,
+        "endChar": 76
+      },
+      "revId": "95f01f416cd5248e45f56fae183edbffee19531b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2d1acc3_51a554d8",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-11T22:16:02Z",
+      "side": 1,
+      "message": "May as well stuff these into points ahead of time too.",
+      "revId": "95f01f416cd5248e45f56fae183edbffee19531b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1b14a98_844c8195",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 725,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-11T22:16:02Z",
+      "side": 1,
+      "message": "Nit: Extra newline",
+      "revId": "95f01f416cd5248e45f56fae183edbffee19531b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca6666a0_8116927f",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 733,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-11T22:16:02Z",
+      "side": 1,
+      "message": "(Maybe it\u0027s time to add some malloc wrapper macros...)\n\n  if (num_to_issue \u003e ((size_t)-1) / sizeof(EC_RAW_POINT)) {\n    OPENSSL_PUT_ERROR(TRUST_TOKEN, ERR_R_OVERFLOW);\n    goto err;\n  }\n\nDitto for unblind.",
+      "revId": "95f01f416cd5248e45f56fae183edbffee19531b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b560927_f3286821",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 734,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-11T22:16:02Z",
+      "side": 1,
+      "message": "Nit: spaces\n\nDitto for unblind.",
+      "range": {
+        "startLine": 734,
+        "startChar": 37,
+        "endLine": 734,
+        "endChar": 38
+      },
+      "revId": "95f01f416cd5248e45f56fae183edbffee19531b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aafbf828_cbd23aa3",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-11T22:16:02Z",
+      "side": 1,
+      "message": "Optional: Since we\u0027re already inverting at line 780, this could be folded into line 780\u0027s inversion.\n\n(If we were extra clever, we could batch all the line 780s in one go, but that may be a lot of fuss.)",
+      "revId": "95f01f416cd5248e45f56fae183edbffee19531b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2e1f4a1_56c742db",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 837,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-11T22:16:02Z",
+      "side": 1,
+      "message": "Here you are:\nhttps://boringssl-review.googlesource.com/c/boringssl/+/41285",
+      "revId": "95f01f416cd5248e45f56fae183edbffee19531b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee7bfeab_4843ce81",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 959,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-11T22:16:02Z",
+      "side": 1,
+      "message": "(If we were extra clever, we could batch all these inversions together, but it\u0027s probably a lot of fuss.)",
+      "revId": "95f01f416cd5248e45f56fae183edbffee19531b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5edc07b7_9974d3c3",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-11T22:16:02Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be 1 given you\u0027re only adding one byte? Ditto below. (Better yet, CBB_add_u16_length_prefixed so we don\u0027t have to count.)",
+      "range": {
+        "startLine": 678,
+        "startChar": 66,
+        "endLine": 678,
+        "endChar": 67
+      },
+      "revId": "95f01f416cd5248e45f56fae183edbffee19531b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
