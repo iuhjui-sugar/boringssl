@@ -124,6 +124,16 @@ static int cbs_get_prefixed_point(CBS *cbs, const EC_GROUP *group,
   return 1;
 }
 
+static int mul_public_3(const EC_GROUP *group, EC_RAW_POINT *out,
+                        const EC_RAW_POINT *p0, const EC_SCALAR *scalar0,
+                        const EC_RAW_POINT *p1, const EC_SCALAR *scalar1,
+                        const EC_RAW_POINT *p2, const EC_SCALAR *scalar2) {
+  EC_RAW_POINT points[3] = {*p0, *p1, *p2};
+  EC_SCALAR scalars[3] = {*scalar0, *scalar1, *scalar2};
+  return ec_point_mul_scalar_public_batch(group, out, /*g_scalar=*/NULL, points,
+                                          scalars, 3);
+}
+
 void PMBTOKEN_PRETOKEN_free(PMBTOKEN_PRETOKEN *pretoken) {
   OPENSSL_free(pretoken);
 }
@@ -558,7 +568,9 @@ static int dleq_verify(const PMBTOKEN_METHOD *method, CBS *cbs,
 
   // We verify a DLEQ proof for the validity token and a DLEQOR2 proof for the
   // private metadata token. To allow amortizing Jacobian-to-affine conversions,
-  // we compute Ki for both proofs first.
+  // we compute Ki for both proofs first. Additionally, all inputs to this
+  // function are public, so we can use the faster variable-time
+  // multiplications.
   enum {
     idx_T,
     idx_S,
@@ -584,17 +596,14 @@ static int dleq_verify(const PMBTOKEN_METHOD *method, CBS *cbs,
   }
 
   // Ks = us*(G;T) + vs*(H;S) - cs*(pubs;Ws)
-  //
-  // TODO(davidben): The multiplications in this function are public and can be
-  // switched to a public batch multiplication function if we add one.
   EC_RAW_POINT pubs;
   ec_affine_to_jacobian(group, &pubs, &pub->pubs);
   EC_SCALAR minus_cs;
   ec_scalar_neg(group, &minus_cs, &cs);
-  if (!ec_point_mul_scalar_batch(group, &jacobians[idx_Ks0], g, &us, &method->h,
-                                 &vs, &pubs, &minus_cs) ||
-      !ec_point_mul_scalar_batch(group, &jacobians[idx_Ks1], T, &us, S, &vs, Ws,
-                                 &minus_cs)) {
+  if (!mul_public_3(group, &jacobians[idx_Ks0], g, &us, &method->h, &vs, &pubs,
+                    &minus_cs) ||
+      !mul_public_3(group, &jacobians[idx_Ks1], T, &us, S, &vs, Ws,
+                    &minus_cs)) {
     return 0;
   }
 
@@ -617,15 +626,13 @@ static int dleq_verify(const PMBTOKEN_METHOD *method, CBS *cbs,
   ec_scalar_neg(group, &minus_c0, &c0);
   ec_scalar_neg(group, &minus_c1, &c1);
   if (// K0 = u0*(G;T) + v0*(H;S) - c0*(pub0;W)
-      !ec_point_mul_scalar_batch(group, &jacobians[idx_K00], g, &u0, &method->h,
-                                 &v0, &pub0, &minus_c0) ||
-      !ec_point_mul_scalar_batch(group, &jacobians[idx_K01], T, &u0, S, &v0, W,
-                                 &minus_c0) ||
+      !mul_public_3(group, &jacobians[idx_K00], g, &u0, &method->h, &v0, &pub0,
+                    &minus_c0) ||
+      !mul_public_3(group, &jacobians[idx_K01], T, &u0, S, &v0, W, &minus_c0) ||
       // K1 = u1*(G;T) + v1*(H;S) - c1*(pub1;W)
-      !ec_point_mul_scalar_batch(group, &jacobians[idx_K10], g, &u1, &method->h,
-                                 &v1, &pub1, &minus_c1) ||
-      !ec_point_mul_scalar_batch(group, &jacobians[idx_K11], T, &u1, S, &v1, W,
-                                 &minus_c1)) {
+      !mul_public_3(group, &jacobians[idx_K10], g, &u1, &method->h, &v1, &pub1,
+                    &minus_c1) ||
+      !mul_public_3(group, &jacobians[idx_K11], T, &u1, S, &v1, W, &minus_c1)) {
     return 0;
   }
 
