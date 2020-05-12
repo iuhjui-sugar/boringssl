@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "95969442_595f9568",
+        "filename": "crypto/fipsmodule/ec/make_tables.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-12T18:58:51Z",
+      "side": 1,
+      "message": "Done. (This was originally renamed from the other file, but I guess it has been largely rewritten.)",
+      "parentUuid": "edc8acca_0f344b7e",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 34
+      },
+      "revId": "8636ac5c2fa0d30def51a37adbe1cb1e1ae0611f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bcb35638_d43c4d51",
         "filename": "crypto/fipsmodule/ec/make_tables.go",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "8636ac5c2fa0d30def51a37adbe1cb1e1ae0611f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0120b53f_16eab734",
+        "filename": "crypto/fipsmodule/ec/make_tables.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-12T18:58:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bcb35638_d43c4d51",
+      "range": {
+        "startLine": 216,
+        "startChar": 0,
+        "endLine": 218,
+        "endChar": 0
+      },
+      "revId": "8636ac5c2fa0d30def51a37adbe1cb1e1ae0611f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
