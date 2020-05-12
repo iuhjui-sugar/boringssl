@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "435466f2_3093c9c3",
+        "filename": "crypto/fipsmodule/ec/wnaf.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-05-12T17:36:33Z",
+      "side": 1,
+      "message": "Okay, agreed, we need a macro for this eventually. :/",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 54
+      },
+      "revId": "262a284792e7653a178dd863074ad9f9c04879f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
