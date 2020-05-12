@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f230295a_398b3dbc",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-12T16:37:20Z",
+      "side": 1,
+      "message": "Nit: extra newline",
+      "revId": "e81789fe631ba4af104ab16003f29cb0bf386c11",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3dbaec0c_be365ea4",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 782,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-12T16:37:20Z",
+      "side": 1,
+      "message": "I think this comment can be removed now. (Optional: we could leave batching up all the inversions as a TODO here, though I dunno if we\u0027d get around to it.)",
+      "revId": "e81789fe631ba4af104ab16003f29cb0bf386c11",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1d6d703_5d7ac8f5",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 940,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-12T16:37:20Z",
+      "side": 1,
+      "message": "This comment can also be removed now.",
+      "revId": "e81789fe631ba4af104ab16003f29cb0bf386c11",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
