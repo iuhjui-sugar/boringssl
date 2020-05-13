@@ -16,6 +16,24 @@
       "revId": "b3c8320894b01971911a2489f4467e6658305281",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c3f6a5e_24bcadf4",
+        "filename": "crypto/cpu-arm-linux.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-13T23:53:01Z",
+      "side": 1,
+      "message": "The pointer is initialized so line 216 doesn\u0027t blow up. Although this is generally weird since we only have the separate values because STRING_PIECE  is const. How\u0027s this version instead?",
+      "parentUuid": "9864bffb_c292d7c9",
+      "revId": "b3c8320894b01971911a2489f4467e6658305281",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
