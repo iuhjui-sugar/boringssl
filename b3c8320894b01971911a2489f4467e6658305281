@@ -34,6 +34,24 @@
       "revId": "b3c8320894b01971911a2489f4467e6658305281",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "29c8d3be_e38f3253",
+        "filename": "crypto/cpu-arm-linux.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-05-14T02:20:12Z",
+      "side": 1,
+      "message": "Sorry, was seeing |cpuinfo.len| and |cpuinfo_len| as the same thing :( Carry on (either way).",
+      "parentUuid": "1c3f6a5e_24bcadf4",
+      "revId": "b3c8320894b01971911a2489f4467e6658305281",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
