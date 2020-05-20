@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a76a58e_d6cb77d8",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-20T17:41:14Z",
+      "side": 0,
+      "message": "It doesn\u0027t look like we need this to be non-zero anymore.",
+      "revId": "6182d08344412dff84d63db8d9a384d3d72f9e3a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
