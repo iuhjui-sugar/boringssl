@@ -1,0 +1,380 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "30cbe1e0_659d54d3",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-20T21:07:39Z",
+      "side": 1,
+      "message": "crypto/ doesn\u0027t get to depend on \u003copenssl/ssl.h\u003e. But HPKE doesn\u0027t use TLS code points anyway, right?",
+      "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb178b5d_dba6905a",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-20T21:07:39Z",
+      "side": 1,
+      "message": "extern \"C\" / __cplusplus bits because we\u0027ll need to call this from C++.",
+      "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b0690b9_3cc1ce00",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-20T21:07:39Z",
+      "side": 1,
+      "message": "(I\u0027m assuming these are just notes for discussion rather than a comment to go in the actual header.)",
+      "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6b8ea43b_7bd8c157",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-20T21:07:39Z",
+      "side": 1,
+      "message": "It\u0027s terrible, but these actually should be #define blah.\n\nDefining constants this way will cause every compilation unit to export its own copy of the symbol, which is not what we want. C++ has some better mechanisms here (though it\u0027s still rather a mess), but in C it\u0027s macros.\n\nEdit: Although given we\u0027re not abstracting the KEM, I don\u0027t think we even need these constants. We can ponder how to make it more fancy later.",
+      "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66bd7887_6c6cbc05",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-20T21:07:39Z",
+      "side": 1,
+      "message": "I think I\u0027d just use #defines for code points like this. It\u0027s not a closed set, and any value we get over the wire isn\u0027t guaranteed to stay in range. That means the enum isn\u0027t actually doing much. (Although enums in C are barely enums anyway.)",
+      "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b28011bb_7ca6df64",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-20T21:07:39Z",
+      "side": 1,
+      "message": "The spec actually uses Curve25519 over X25519, but I believe that is a mistake. I\u0027ve filed https://github.com/cfrg/draft-irtf-cfrg-hpke/issues/100\n\nAlso, to make it both shorter and capture the full name, how about EVP_HPKE_DHKEM_X25519_HKDF_SHA256?",
+      "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d68ef54d_9665a2fa",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-20T21:07:39Z",
+      "side": 1,
+      "message": "Not part of public API. They\u0027re an internal implementation detail of HPKE.",
+      "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2bdcd3da_1b5b8f7b",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-20T21:07:39Z",
+      "side": 1,
+      "message": "Not part of public API. KEM machinery is an internal implementation detail of EVP_PKEY_CTX.",
+      "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "566cc63a_611333dd",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-20T21:07:39Z",
+      "side": 1,
+      "message": "I don\u0027t think an EVP_HPKE_CTX needs this. The KEM stuff is done inside the setup functions and then you only retain the resulting secrets.",
+      "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f2fe54e_6c70b345",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-20T21:07:39Z",
+      "side": 1,
+      "message": "EVP_AEAD_CTX already contains the key. Is there a need to store the key on its own?",
+      "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8f5fb52_f4ee522b",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-20T21:07:39Z",
+      "side": 1,
+      "message": "This is a KDF output and is sized by the hash, not the KEM\u0027s raw secret key. (DH outputs always need to go into a KDF, so if any derived key is sized based on DH outputs, something\u0027s wrong.)",
+      "range": {
+        "startLine": 83,
+        "startChar": 26,
+        "endLine": 83,
+        "endChar": 45
+      },
+      "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e74b1936_6af5da8e",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-20T21:07:39Z",
+      "side": 1,
+      "message": "EVP_HPKE_CTX",
+      "range": {
+        "startLine": 85,
+        "startChar": 2,
+        "endLine": 85,
+        "endChar": 14
+      },
+      "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3fd3ba5_248f9b7a",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-20T21:07:39Z",
+      "side": 1,
+      "message": "void\n\nThis should simply bring it to the zero state and nothing else. The actual initialization happens in SetupBase.",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 3
+      },
+      "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f5964e0_69d4b660",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-20T21:07:39Z",
+      "side": 1,
+      "message": "If we\u0027re making the caller aware of which KEM they\u0027re using to the point of having EVP_HPKE_CTX_setup_base_curve25519_s, I think we can leave this out and use X25519_keypair directly.\n\nIf we were abstracting the KEM a bit more, then it might make sense to do something fancier, but eh.",
+      "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2aed3537_ea4058bd",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-20T21:07:39Z",
+      "side": 1,
+      "message": "This function needs to output enc somewhere.",
+      "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57263012_1a843c66",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-20T21:07:39Z",
+      "side": 1,
+      "message": "We usually write these much more in prose. (See existing docs.)",
+      "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4bb3eb1_7316104a",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-20T21:07:39Z",
+      "side": 1,
+      "message": "This uses curve25519, while the scheme ID uses X25519. We should be consistent about whether we use the name from the spec (curve25519) or the name the spec will hopefully be corrected to (X25519).",
+      "range": {
+        "startLine": 110,
+        "startChar": 28,
+        "endLine": 110,
+        "endChar": 38
+      },
+      "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51716042_3f69d483",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-20T21:07:39Z",
+      "side": 1,
+      "message": "EVP_PKEY is overkill for this. Ditto below. (Also it\u0027d just be an EVP_PKEY if using the EVP_PKEY key exchange bits. An EVP_PKEY_CTX is a pending operation and unusable const.) This is part of where we disagree with OpenSSL. They really like EVP_PKEY. I don\u0027t think it\u0027s a good abstraction as it tries to do too much at once.\n\nI\u0027m also not a fan of \"pkR\" and \"skR\" names. They\u0027re not very descriptive. :-)\n\nThis should either just be uint8_t peer_public_value[32], and then uint8_t private_key[32] in the receiver half, or uint8_t* + size_t pairs with the length checked. (For anything that comes from the peer, someone\u0027s going to have to check the length anyway, so abstracting that makes sense. The only long-lived key is skR.)",
+      "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d31a155_5d5670ac",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-20T21:07:39Z",
+      "side": 1,
+      "message": "This isn\u0027t a context for the private key. It\u0027s specifically for the symmetric key encapsulated in |enc|.",
+      "range": {
+        "startLine": 116,
+        "startChar": 3,
+        "endLine": 116,
+        "endChar": 45
+      },
+      "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b1e10b1_2e6193be",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-20T21:07:39Z",
+      "side": 1,
+      "message": "https://boringssl.googlesource.com/boringssl/+/HEAD/STYLE.md#parameters\n\nI might also s/ct/in/ to match EVP_AEAD_CTX_open.",
+      "range": {
+        "startLine": 134,
+        "startChar": 22,
+        "endLine": 135,
+        "endChar": 71
+      },
+      "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
