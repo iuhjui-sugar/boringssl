@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9e0135d8_ac66e302",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 3321,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-05-21T20:45:19Z",
+      "side": 1,
+      "message": "Added the detail about it including Transport Params. I worded it a bit differently to use language similar to what\u0027s in https://quicwg.org/base-drafts/draft-ietf-quic-transport.html#name-values-of-transport-paramet instead of calling out the stateless reset token specifically.",
+      "parentUuid": "2e89e3f0_09e94125",
+      "range": {
+        "startLine": 3319,
+        "startChar": 76,
+        "endLine": 3321,
+        "endChar": 59
+      },
+      "revId": "02ad874ce76a5de6727cc6adc662058d4dd580c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "13f6bb38_c4ff699d",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 2
@@ -39,6 +63,24 @@
       "revId": "02ad874ce76a5de6727cc6adc662058d4dd580c0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44daec48_e4c077ed",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 3324,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-05-21T20:45:19Z",
+      "side": 1,
+      "message": "Added a note in the long header comment. I wasn\u0027t sure whether to word it as \"to support 0-RTT, you must call this function\" (because calling that function is necessary but not sufficient), or \"if you do not call this function, 0-RTT will be disabled\" (requirements are generally easier to understand when worded as \"do X\" instead of \"don\u0027t do Y\").",
+      "parentUuid": "13f6bb38_c4ff699d",
+      "revId": "02ad874ce76a5de6727cc6adc662058d4dd580c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "9e56f634_ff15ea4f",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-05-21T20:45:19Z",
+      "side": 1,
+      "message": "I added a check that the quic_early_data_context must not be empty in quic_ticket_compatible. This code should guarantee that no QUIC+0-RTT+empty context tickets exist, but I\u0027m totally on board with a belt-and-suspenders approach here.",
+      "parentUuid": "cb72ad9e_6eb961e8",
+      "revId": "02ad874ce76a5de6727cc6adc662058d4dd580c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "678c0080_813039f8",
         "filename": "ssl/tls13_server.cc",
         "patchSetId": 2
@@ -73,6 +133,24 @@
       "revId": "02ad874ce76a5de6727cc6adc662058d4dd580c0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3ded265_9fbb35ef",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-05-21T20:45:19Z",
+      "side": 1,
+      "message": "Sure, I have no problem not mutating the caller-supplied config. (This means that a check later down in this function now checks enable_early_data instead of ssl-\u003eenable_early_data.)",
+      "parentUuid": "678c0080_813039f8",
+      "revId": "02ad874ce76a5de6727cc6adc662058d4dd580c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
