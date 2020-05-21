@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2e89e3f0_09e94125",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 3321,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-21T15:39:42Z",
+      "side": 1,
+      "message": "Perhaps:\n\nThis should include the QUIC Transport Parameters, except the stateless reject token, and protocol-specific state. For HTTP/3, this state is the serialized server SETTINGS frame.",
+      "range": {
+        "startLine": 3319,
+        "startChar": 76,
+        "endLine": 3321,
+        "endChar": 59
+      },
+      "revId": "02ad874ce76a5de6727cc6adc662058d4dd580c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13f6bb38_c4ff699d",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 3324,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-21T15:39:42Z",
+      "side": 1,
+      "message": "Probably mention here or in the long header comment that this function is necessary for server 0-RTT in QUIC.",
+      "revId": "02ad874ce76a5de6727cc6adc662058d4dd580c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb72ad9e_6eb961e8",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-21T15:39:42Z",
+      "side": 1,
+      "message": "Should we have a similar check at accepting 0-RTT? (This does guarantee that no QUIC + 0-RTT + empty-context tickets exist. But it seems maybe prudent?)",
+      "revId": "02ad874ce76a5de6727cc6adc662058d4dd580c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "678c0080_813039f8",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-21T15:39:42Z",
+      "side": 1,
+      "message": "Hrm. Should this instead be:\n\n  bool enable_early_data \u003d ssl-\u003eenable_early_data;\n  if (ssl-\u003equic_method \u0026\u0026 ssl-\u003econfig-\u003equic_early_data_context.empty()) {\n    enable_early_data \u003d false;\n  }\n  if (enable_early_data) {\n\nI feel vaguely weird mutating the caller-supplied config.",
+      "revId": "02ad874ce76a5de6727cc6adc662058d4dd580c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
