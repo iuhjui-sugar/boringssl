@@ -32,6 +32,14 @@ if(NOT OPENSSL_NO_ASM)
     enable_language(ASM)
     set(CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} -Wa,--noexecstack")
 
+    if (CMAKE_CROSSCOMPILING AND NOT APPLE AND NOT ANDROID)
+      if(CMAKE_ASM_COMPILER_ID MATCHES "Clang")
+        if(${ARCH} STREQUAL "aarch64" OR ${ARCH} STREQUAL "arm")
+          set(CMAKE_ASM_FLAGS "--target=${CMAKE_C_COMPILER_TARGET} ${CMAKE_ASM_FLAGS}")
+        endif()
+      endif()
+    endif()
+
     # Clang's integerated assembler does not support debug symbols.
     if(NOT CMAKE_ASM_COMPILER_ID MATCHES "Clang")
       set(CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} -Wa,-g")
