@@ -81,6 +81,30 @@
       "revId": "0aa7d4595dd8371c5f5628c89ac63fb3fb0aa32b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cf5d6d8a_4522c8ac",
+        "filename": "crypto/cipher_extra/cipher_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-05-26T17:56:04Z",
+      "side": 1,
+      "message": "I, for one, welcome our new over{lords}.",
+      "parentUuid": "6fe4db0e_13455137",
+      "range": {
+        "startLine": 259,
+        "startChar": 27,
+        "endLine": 259,
+        "endChar": 33
+      },
+      "revId": "0aa7d4595dd8371c5f5628c89ac63fb3fb0aa32b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
