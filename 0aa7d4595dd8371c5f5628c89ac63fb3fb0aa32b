@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d3058622_6a194bd3",
+        "filename": "crypto/cipher_extra/cipher_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-26T17:46:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b5fe3416_5eadedbd",
+      "revId": "0aa7d4595dd8371c5f5628c89ac63fb3fb0aa32b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "54e1b905_79671685",
         "filename": "crypto/cipher_extra/cipher_test.cc",
         "patchSetId": 1
@@ -39,6 +57,30 @@
       "revId": "0aa7d4595dd8371c5f5628c89ac63fb3fb0aa32b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6fe4db0e_13455137",
+        "filename": "crypto/cipher_extra/cipher_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-26T17:46:58Z",
+      "side": 1,
+      "message": "I\u0027d thought it was because the types define constructors, but looks like it\u0027s a \"functional cast\" which is, yeah, another syntax for (size_t)AES_BLOCK_SIZE when your type is a single word.\nhttps://en.cppreference.com/w/cpp/language/explicit_cast\n\nAlthough I see the style guide actually recommends size_t{AES_BLOCK_SIZE} for arithmetic types because apparently the curly braces mean only narrowing conversions are allowed??\nhttps://google.github.io/styleguide/cppguide.html#Casting\n\nThis language...",
+      "parentUuid": "54e1b905_79671685",
+      "range": {
+        "startLine": 259,
+        "startChar": 27,
+        "endLine": 259,
+        "endChar": 33
+      },
+      "revId": "0aa7d4595dd8371c5f5628c89ac63fb3fb0aa32b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
