@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1666f404_50adf5bf",
+        "filename": "crypto/CMakeLists.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-28T18:53:14Z",
+      "side": 1,
+      "message": "Nitpick: no space here.",
+      "range": {
+        "startLine": 35,
+        "startChar": 6,
+        "endLine": 35,
+        "endChar": 7
+      },
+      "revId": "bc259e8966a09ae280864372e5370b3a840ec234",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
