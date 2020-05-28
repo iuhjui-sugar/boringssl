@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "79e1947a_603f2e0a",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2213,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-28T19:17:07Z",
+      "side": 1,
+      "message": "Nit: newline to separate sections",
+      "revId": "6e1fd8b0917f7e65593b0ab3dca2898f24012693",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b26b55f7_ec982a01",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2973,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-28T19:17:07Z",
+      "side": 1,
+      "message": "I think we also want to check SSL_in_init().",
+      "range": {
+        "startLine": 2973,
+        "startChar": 6,
+        "endLine": 2973,
+        "endChar": 7
+      },
+      "revId": "6e1fd8b0917f7e65593b0ab3dca2898f24012693",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b1cc039_73013d72",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 6327,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-28T19:17:07Z",
+      "side": 1,
+      "message": "(I\u0027d probably drop this but doesn\u0027t matter much either way. SSL_get_session is a goofy legacy thing.)",
+      "revId": "6e1fd8b0917f7e65593b0ab3dca2898f24012693",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cdac21ec_7316d8ba",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 6351,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-28T19:17:07Z",
+      "side": 1,
+      "message": "Perhaps just:\n\nbssl::UniquePtr\u003cSSL_SESSION\u003e session(SSL_process_tls13_new_session_ticket(client.get(), kTicket, sizeof(kTicket)));\nASSERT_TRUE(session);\n\nAnd then session.get() below.",
+      "revId": "6e1fd8b0917f7e65593b0ab3dca2898f24012693",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
