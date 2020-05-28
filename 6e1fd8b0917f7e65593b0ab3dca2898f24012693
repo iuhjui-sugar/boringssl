@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7df7e532_87833bb7",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2213,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-28T19:21:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79e1947a_603f2e0a",
+      "revId": "6e1fd8b0917f7e65593b0ab3dca2898f24012693",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b26b55f7_ec982a01",
         "filename": "ssl/ssl_lib.cc",
         "patchSetId": 1
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "2764a88f_4d881c2e",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2973,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-28T19:21:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b26b55f7_ec982a01",
+      "range": {
+        "startLine": 2973,
+        "startChar": 6,
+        "endLine": 2973,
+        "endChar": 7
+      },
+      "revId": "6e1fd8b0917f7e65593b0ab3dca2898f24012693",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2b1cc039_73013d72",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 1
@@ -59,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "b890a63c_428b3122",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 6327,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-28T19:21:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b1cc039_73013d72",
+      "revId": "6e1fd8b0917f7e65593b0ab3dca2898f24012693",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cdac21ec_7316d8ba",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 1
@@ -73,6 +133,24 @@
       "revId": "6e1fd8b0917f7e65593b0ab3dca2898f24012693",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "69511380_17ae06ff",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 6351,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-05-28T19:21:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cdac21ec_7316d8ba",
+      "revId": "6e1fd8b0917f7e65593b0ab3dca2898f24012693",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
