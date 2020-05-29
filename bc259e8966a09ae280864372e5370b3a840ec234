@@ -22,6 +22,30 @@
       "revId": "bc259e8966a09ae280864372e5370b3a840ec234",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c9bbf2d_5435c465",
+        "filename": "crypto/CMakeLists.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 10251
+      },
+      "writtenOn": "2020-05-29T10:48:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1666f404_50adf5bf",
+      "range": {
+        "startLine": 35,
+        "startChar": 6,
+        "endLine": 35,
+        "endChar": 7
+      },
+      "revId": "bc259e8966a09ae280864372e5370b3a840ec234",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
