@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7477f3a6_736754bb",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-05-29T22:53:46Z",
+      "side": 1,
+      "message": "Ah, I guess it isn\u0027t using the TLS code points. The HPKE draft defines the DH KEM variant as DHKEM(Group, KDF), so I thought I should use SSL_CURVE_X25519 for the group.\n\nBut if we\u0027re creating specializing the SetupBaseS/SetupBaseR functions for each group we support, I suppose we don\u0027t even need a type.",
+      "parentUuid": "30cbe1e0_659d54d3",
+      "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eb178b5d_dba6905a",
         "filename": "crypto/hpke/internal.h",
         "patchSetId": 3
@@ -33,6 +51,24 @@
       "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "adbca235_9010908c",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-05-29T22:53:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb178b5d_dba6905a",
+      "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -70,6 +106,24 @@
     },
     {
       "key": {
+        "uuid": "ce20bc06_b0f1c556",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-05-29T22:53:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b8ea43b_7bd8c157",
+      "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "66bd7887_6c6cbc05",
         "filename": "crypto/hpke/internal.h",
         "patchSetId": 3
@@ -84,6 +138,24 @@
       "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f491735b_a71660e5",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-05-29T22:53:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "66bd7887_6c6cbc05",
+      "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -104,6 +176,24 @@
     },
     {
       "key": {
+        "uuid": "778473a3_f8c81607",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-05-29T22:53:46Z",
+      "side": 1,
+      "message": "Ah, fair enough. Leaving it as X25519 and using the name you suggested.",
+      "parentUuid": "b28011bb_7ca6df64",
+      "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d68ef54d_9665a2fa",
         "filename": "crypto/hpke/internal.h",
         "patchSetId": 3
@@ -118,6 +208,24 @@
       "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8ed9e42_ed146948",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-05-29T22:53:46Z",
+      "side": 1,
+      "message": "OK, moving to the .c file.",
+      "parentUuid": "d68ef54d_9665a2fa",
+      "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -138,6 +246,24 @@
     },
     {
       "key": {
+        "uuid": "d990e775_0bfbc4c7",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-05-29T22:53:46Z",
+      "side": 1,
+      "message": "Moving to the .c file.",
+      "parentUuid": "2bdcd3da_1b5b8f7b",
+      "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "566cc63a_611333dd",
         "filename": "crypto/hpke/internal.h",
         "patchSetId": 3
@@ -155,6 +281,24 @@
     },
     {
       "key": {
+        "uuid": "0a92af5f_8e94def9",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-05-29T22:53:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "566cc63a_611333dd",
+      "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6f2fe54e_6c70b345",
         "filename": "crypto/hpke/internal.h",
         "patchSetId": 3
@@ -169,6 +313,24 @@
       "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ccd5ea7_2b2522ab",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-05-29T22:53:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f2fe54e_6c70b345",
+      "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -195,6 +357,30 @@
     },
     {
       "key": {
+        "uuid": "77dbcc76_9553883f",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-05-29T22:53:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8f5fb52_f4ee522b",
+      "range": {
+        "startLine": 83,
+        "startChar": 26,
+        "endLine": 83,
+        "endChar": 45
+      },
+      "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e74b1936_6af5da8e",
         "filename": "crypto/hpke/internal.h",
         "patchSetId": 3
@@ -215,6 +401,30 @@
       "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af1e2f84_13b23453",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-05-29T22:53:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e74b1936_6af5da8e",
+      "range": {
+        "startLine": 85,
+        "startChar": 2,
+        "endLine": 85,
+        "endChar": 14
+      },
+      "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -241,6 +451,30 @@
     },
     {
       "key": {
+        "uuid": "404fa2ef_cbdb031b",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-05-29T22:53:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3fd3ba5_248f9b7a",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 3
+      },
+      "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6f5964e0_69d4b660",
         "filename": "crypto/hpke/internal.h",
         "patchSetId": 3
@@ -255,6 +489,24 @@
       "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d352d434_dcfea562",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-05-29T22:53:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f5964e0_69d4b660",
+      "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -275,6 +527,24 @@
     },
     {
       "key": {
+        "uuid": "9bb12513_b285e9eb",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-05-29T22:53:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2aed3537_ea4058bd",
+      "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "57263012_1a843c66",
         "filename": "crypto/hpke/internal.h",
         "patchSetId": 3
@@ -286,6 +556,24 @@
       "writtenOn": "2020-05-20T21:07:39Z",
       "side": 1,
       "message": "We usually write these much more in prose. (See existing docs.)",
+      "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8583f80e_dac9e2e5",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-05-29T22:53:46Z",
+      "side": 1,
+      "message": "OK, I rewrote the function comments and factored out the common |hpke| and |info| instructions in a paragraph above. Is that okay?",
+      "parentUuid": "57263012_1a843c66",
       "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -315,6 +603,30 @@
     },
     {
       "key": {
+        "uuid": "c298e31d_350bc361",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-05-29T22:53:46Z",
+      "side": 1,
+      "message": "OK, using X25519.",
+      "parentUuid": "a4bb3eb1_7316104a",
+      "range": {
+        "startLine": 110,
+        "startChar": 28,
+        "endLine": 110,
+        "endChar": 38
+      },
+      "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51716042_3f69d483",
         "filename": "crypto/hpke/internal.h",
         "patchSetId": 3
@@ -329,6 +641,24 @@
       "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9357c39_91512e43",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-05-29T22:53:46Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "51716042_3f69d483",
+      "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -355,6 +685,30 @@
     },
     {
       "key": {
+        "uuid": "d204830f_559fbe19",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-05-29T22:53:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d31a155_5d5670ac",
+      "range": {
+        "startLine": 116,
+        "startChar": 3,
+        "endLine": 116,
+        "endChar": 45
+      },
+      "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b1e10b1_2e6193be",
         "filename": "crypto/hpke/internal.h",
         "patchSetId": 3
@@ -375,6 +729,30 @@
       "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af597b86_298496ce",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-05-29T22:53:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b1e10b1_2e6193be",
+      "range": {
+        "startLine": 134,
+        "startChar": 22,
+        "endLine": 135,
+        "endChar": 71
+      },
+      "revId": "fdc8893c2d36ea543f7b33186ef6f092927d1c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
