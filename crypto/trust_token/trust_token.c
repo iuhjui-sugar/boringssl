@@ -27,21 +27,6 @@
 // protocol for issuing and redeeming tokens built on top of the PMBTokens
 // construction.
 
-const TRUST_TOKEN_METHOD *TRUST_TOKEN_experiment_v0(void) {
-  static const TRUST_TOKEN_METHOD kMethod = {
-      pmbtoken_exp0_generate_key,
-      pmbtoken_exp0_client_key_from_bytes,
-      pmbtoken_exp0_issuer_key_from_bytes,
-      pmbtoken_exp0_blind,
-      pmbtoken_exp0_sign,
-      pmbtoken_exp0_unblind,
-      pmbtoken_exp0_read,
-      0 /* don't use token hash */,
-      0 /* don't use batched proof */,
-  };
-  return &kMethod;
-}
-
 const TRUST_TOKEN_METHOD *TRUST_TOKEN_experiment_v1(void) {
   static const TRUST_TOKEN_METHOD kMethod = {
       pmbtoken_exp1_generate_key,

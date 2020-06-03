@@ -44,18 +44,6 @@ BSSL_NAMESPACE_BEGIN
 
 namespace {
 
-TEST(TrustTokenTest, KeyGenExp0) {
-  uint8_t priv_key[TRUST_TOKEN_MAX_PRIVATE_KEY_SIZE];
-  uint8_t pub_key[TRUST_TOKEN_MAX_PUBLIC_KEY_SIZE];
-  size_t priv_key_len, pub_key_len;
-  ASSERT_TRUE(TRUST_TOKEN_generate_key(
-      TRUST_TOKEN_experiment_v0(), priv_key, &priv_key_len,
-      TRUST_TOKEN_MAX_PRIVATE_KEY_SIZE, pub_key, &pub_key_len,
-      TRUST_TOKEN_MAX_PUBLIC_KEY_SIZE, 0x0001));
-  ASSERT_EQ(400u, priv_key_len);
-  ASSERT_EQ(409u, pub_key_len);
-}
-
 TEST(TrustTokenTest, KeyGenExp1) {
   uint8_t priv_key[TRUST_TOKEN_MAX_PRIVATE_KEY_SIZE];
   uint8_t pub_key[TRUST_TOKEN_MAX_PUBLIC_KEY_SIZE];
@@ -91,7 +79,7 @@ TEST(TrustTokenTest, HExp1) {
 }
 
 static std::vector<const TRUST_TOKEN_METHOD *> AllMethods() {
-  return {TRUST_TOKEN_experiment_v0(), TRUST_TOKEN_experiment_v1()};
+  return {TRUST_TOKEN_experiment_v1()};
 }
 
 class TrustTokenProtocolTestBase : public ::testing::Test {

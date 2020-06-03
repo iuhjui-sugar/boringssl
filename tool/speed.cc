@@ -1375,10 +1375,6 @@ bool Speed(const std::vector<std::string> &args) {
       !SpeedRSAKeyGen(selected) ||
       !SpeedHRSS(selected) ||
       !SpeedHashToCurve(selected) ||
-      !SpeedTrustToken("TrustToken-Exp0-Batch1", TRUST_TOKEN_experiment_v0(), 1,
-                       selected) ||
-      !SpeedTrustToken("TrustToken-Exp0-Batch10", TRUST_TOKEN_experiment_v0(),
-                       10, selected) ||
       !SpeedTrustToken("TrustToken-Exp1-Batch1", TRUST_TOKEN_experiment_v1(), 1,
                        selected) ||
       !SpeedTrustToken("TrustToken-Exp1-Batch10", TRUST_TOKEN_experiment_v1(),
