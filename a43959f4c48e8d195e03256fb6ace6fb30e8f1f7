@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "efec6a76_d150fa69",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-06-03T19:17:59Z",
+      "side": 1,
+      "message": "Don\u0027t forget to update if you\u0027re implementing it all here.",
+      "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9596ffbe_65781cac",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-06-03T19:17:59Z",
+      "side": 1,
+      "message": "Probably use some string to match this being a draft version: \"HPKE-DRAFT-04\" or some such?",
+      "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be8e504c_bef21bb3",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-06-03T19:17:59Z",
+      "side": 1,
+      "message": "Maybe do:\n\nint ok \u003d (CBB_... \u0026\u0026\n    CBB_add... \u0026\u0026\n    ... \u0026\u0026\n    HKDF_Extract());\n\ncbb_cleanup\nreturn ok;",
+      "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d322835_d4932436",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-06-03T19:17:59Z",
+      "side": 1,
+      "message": "same as above.",
+      "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b2fe0b8_a6a782ba",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-06-03T19:17:59Z",
+      "side": 1,
+      "message": "nit: const uint8_t kDHExtractLabel[] \u003d \"dh\";\n\nsame elsewhere.",
+      "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65487129_b08a2946",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-06-03T19:17:59Z",
+      "side": 1,
+      "message": "Use strlen if you switch to using inline strings above?",
+      "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c50b2fa1_3d94b9ea",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-06-03T19:17:59Z",
+      "side": 1,
+      "message": "Maybe implement this as taking in any kem/kdf/aead IDs and then create a specific wrapper for X25519-GCM128-SHA256 instead of doing that internally to this.",
+      "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd5ec555_e9deb83b",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-06-03T19:17:59Z",
+      "side": 1,
+      "message": "Maybe worth abandoning the CBB here and just directly indexing into context[].",
+      "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "caf87ce3_2663defe",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-06-03T19:17:59Z",
+      "side": 1,
+      "message": "nit: If you\u0027re keeping CBB, switch to int ok \u003d 0, set ok\u003d1 here, and then fallthrough to CBB_cleanup and return ok;",
+      "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea383c5d_fd27d624",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-06-03T19:17:59Z",
+      "side": 1,
+      "message": "This should return 0 on failure, and 1 on success. Also I think it should be 1 \u003c\u003c (8 * AES_GCM_128_NN) - 1?",
+      "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
