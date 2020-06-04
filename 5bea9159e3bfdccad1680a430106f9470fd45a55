@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b74da765_505e25fe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-04T20:34:05Z",
+      "side": 1,
+      "message": "Mind adding an Update-Note?",
+      "revId": "5bea9159e3bfdccad1680a430106f9470fd45a55",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d23d74e_100b6d34",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-04T20:34:05Z",
+      "side": 1,
+      "message": "This is waiting on cl/314582893, right? So we don\u0027t hold up the roll, ideally wait until that goes in before landing this.",
+      "revId": "5bea9159e3bfdccad1680a430106f9470fd45a55",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}

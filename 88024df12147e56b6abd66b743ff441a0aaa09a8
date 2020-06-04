@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4f8e45d1_054b57c9",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-04T20:34:05Z",
+      "side": 0,
+      "message": "This is now always true.",
+      "revId": "88024df12147e56b6abd66b743ff441a0aaa09a8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8031b8ad_e083101e",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1135,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-04T20:34:05Z",
+      "side": 0,
+      "message": "Want to remove this function while you\u0027re at it? (You should be able to unwind some booleans in the hash-to-curve code too.)",
+      "range": {
+        "startLine": 1135,
+        "startChar": 9,
+        "endLine": 1135,
+        "endChar": 54
+      },
+      "revId": "88024df12147e56b6abd66b743ff441a0aaa09a8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bcaf1275_afc34271",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-04T20:34:05Z",
+      "side": 0,
+      "message": "Probably can delete this sentence by now.",
+      "revId": "88024df12147e56b6abd66b743ff441a0aaa09a8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
