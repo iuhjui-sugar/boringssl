@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "eae20303_011f90bc",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-10T21:31:54Z",
+      "side": 1,
+      "message": "Two blank lines after include block.",
+      "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9596ffbe_65781cac",
         "filename": "crypto/hpke/hpke.c",
         "patchSetId": 13
@@ -47,6 +64,24 @@
       "writtenOn": "2020-06-03T19:17:59Z",
       "side": 1,
       "message": "Maybe do:\n\nint ok \u003d (CBB_... \u0026\u0026\n    CBB_add... \u0026\u0026\n    ... \u0026\u0026\n    HKDF_Extract());\n\ncbb_cleanup\nreturn ok;",
+      "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9106129c_abafd719",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-10T21:31:54Z",
+      "side": 1,
+      "message": "In particular, note it is okay to call CBB_cleanup on a CBB which has failed CBB_init.",
+      "parentUuid": "be8e504c_bef21bb3",
       "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -121,6 +156,23 @@
     },
     {
       "key": {
+        "uuid": "4bf4b14a_c8077419",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-10T21:31:54Z",
+      "side": 1,
+      "message": "Instead of writing everything out {\u0027t\u0027, \u0027e\u0027, \u0027d\u0027, \u0027i\u0027, \u0027o\u0027, \u0027u\u0027, \u0027s\u0027, \u0027l\u0027, \u0027y\u0027}, I\u0027d suggest just using string literals and giving hpke_labeled_extract a const char * parameter.",
+      "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cd5ec555_e9deb83b",
         "filename": "crypto/hpke/hpke.c",
         "patchSetId": 13
@@ -166,6 +218,165 @@
       "writtenOn": "2020-06-03T19:17:59Z",
       "side": 1,
       "message": "This should return 0 on failure, and 1 on success. Also I think it should be 1 \u003c\u003c (8 * AES_GCM_128_NN) - 1?",
+      "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a6d38ad_e8b89298",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-10T21:31:54Z",
+      "side": 1,
+      "message": "0 (Or just || it into the other one.)",
+      "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "629c9d86_94044991",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-10T21:31:54Z",
+      "side": 1,
+      "message": "This doesn\u0027t work for other AEADs (and we definitely need to support other AEADs).\n\nUse EVP_AEAD_MAX_NONCE_LENGTH. Ditto throughout.",
+      "range": {
+        "startLine": 364,
+        "startChar": 16,
+        "endLine": 364,
+        "endChar": 30
+      },
+      "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f12fd9f1_03b65321",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-10T21:31:54Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27269548_fd4c084c",
+        "filename": "crypto/hpke/hpke_test.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-10T21:31:54Z",
+      "side": 1,
+      "message": "This file shouldn\u0027t include ssl bits anyway, but also these spellings doesn\u0027t work standalone.",
+      "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5a082eb_19a3bad1",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-10T21:31:54Z",
+      "side": 1,
+      "message": "Let\u0027s move the design considerations to the commit message so we can make this fit the project\u0027s comment style. Something like:\n\n// Hybrid Public Key Encryption.\n//\n// This module implements the Hybrid Public Key Encryption (HPKE) primitive, as defined in draft-irtf-cfrg-hpke-04.",
+      "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd3ce13a_ec32b0ec",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-10T21:31:54Z",
+      "side": 1,
+      "message": "EVP_HPKE_CTX_init initializes an already-allocated |EVP_HPKE_CTX|.",
+      "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f713fe80_994f4afe",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-10T21:31:54Z",
+      "side": 1,
+      "message": "EVP_HPKE_CTX_cleanup releases memory referenced by |ctx|. |ctx| must have been initialized with |EVP_HPKE_CTX_init|.",
+      "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1eb24a49_7eeee7bd",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-10T21:31:54Z",
+      "side": 1,
+      "message": "We need to be able to support other AEADs, not just AES-128-GCM. In particular, we need ChaCha20-Poly1305 for devices without AES hardware.",
+      "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71ebcd6b_9a6d38a5",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-10T21:31:54Z",
+      "side": 1,
+      "message": "clang-format (line length, extra space)",
       "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
