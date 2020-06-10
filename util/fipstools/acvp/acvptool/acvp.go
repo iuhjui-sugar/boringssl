@@ -375,7 +375,9 @@ func main() {
 
 			resultData := resultBuf.Bytes()
 			resultSize := uint64(len(resultData)) + 32 /* for framing overhead */
-			if resultSize >= server.SizeLimit {
+			if server.SizeLimit > 0 && resultSize >= server.SizeLimit {
+				// The NIST ACVP server is now advertising a limit of -1, suggesting that the
+				// large-upload process may no longer be needed.
 				log.Printf("Result is %d bytes, too much given server limit of %d bytes. Using large-upload process.", resultSize, server.SizeLimit)
 				largeRequestBytes, err := json.Marshal(acvp.LargeUploadRequest{
 					Size: resultSize,
