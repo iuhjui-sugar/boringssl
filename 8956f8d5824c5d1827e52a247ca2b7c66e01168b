@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d3352849_49729a1d",
+        "filename": "crypto/mem.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-11T17:33:27Z",
+      "side": 1,
+      "message": "Nit/optional: !\u003d NULL, to match our usual style? Also, it looks like macOS actually requires !\u003d NULL rather than casting to boolean.\nhttps://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPFrameworks/Concepts/WeakLinking.html\n\n(But the macOS issue is moot since we gate this on ELF and macOS spells it weak_import anyway.)",
+      "revId": "8956f8d5824c5d1827e52a247ca2b7c66e01168b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "431f4e53_a21dbc24",
+        "filename": "crypto/mem.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-11T17:33:27Z",
+      "side": 1,
+      "message": "Do we want to check if all three are provided? Providing only some of the hooks will probably do silly things.",
+      "revId": "8956f8d5824c5d1827e52a247ca2b7c66e01168b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
