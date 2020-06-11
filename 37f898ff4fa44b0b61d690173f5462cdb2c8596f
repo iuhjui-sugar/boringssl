@@ -48,6 +48,29 @@
     },
     {
       "key": {
+        "uuid": "e55731f1_84dbd796",
+        "filename": "crypto/fipsmodule/ec/make_nistp-x86_64-tables.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2020-06-11T17:20:29Z",
+      "side": 1,
+      "message": "Does anybody know why \"we would like to [...] increase the chances of using a large page\"? Is this still a valid statement in a world where both P-256 and P-384 have such huge tables? Perhaps we\u0027d like them both to be on the same huge page instead of separate huge pages? I suggest we just remove that statement from both the P-256 and the P-384 comment.",
+      "range": {
+        "startLine": 48,
+        "startChar": 47,
+        "endLine": 50,
+        "endChar": 44
+      },
+      "revId": "37f898ff4fa44b0b61d690173f5462cdb2c8596f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5148b4f7_d275628f",
         "filename": "crypto/fipsmodule/ec/p256_p384_common-x86_64.h",
         "patchSetId": 7
