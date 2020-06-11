@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "e9acf416_5f881e3e",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-11T19:55:13Z",
+      "side": 1,
+      "message": "Nit: If I\u0027m understanding Server.Login() and the spec right, the server is advertising largeEndpointRequired \u003d false and then sizeConstraint \u003d -1 is just some dummy value in that case.\nhttps://usnistgov.github.io/ACVP/artifacts/draft-fussell-acvp-spec-00.html#rfc.section.9\n\nPerhaps the comment should focus less on the -1 value and say something like \"The NIST ACVP server no longer requires the large-upload process, suggesting it may no longer be needed.\"",
+      "revId": "1b24351fc53cbc584d31b9dc91a57369504d2225",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "38d47377_2b4c5ce5",
         "filename": "util/fipstools/acvp/acvptool/acvp/acvp.go",
         "patchSetId": 1
@@ -13,6 +30,30 @@
       "writtenOn": "2020-06-11T14:40:02Z",
       "side": 1,
       "message": "Currently we\u0027re seeing return values of -1 for SizezLimit/sizeConstraint from the acvp server. I don\u0027t know if the zero comment is correct or not, but the -1 case should probably be addressed here.",
+      "range": {
+        "startLine": 43,
+        "startChar": 65,
+        "endLine": 43,
+        "endChar": 69
+      },
+      "revId": "1b24351fc53cbc584d31b9dc91a57369504d2225",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43134990_7c1bcd14",
+        "filename": "util/fipstools/acvp/acvptool/acvp/acvp.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-11T19:55:13Z",
+      "side": 1,
+      "message": "I believe {largeEndpointRequired: false, sizeConstraint: -1} gets mapped to zero here in Server.Login(), so zero is accurate for this bit.",
+      "parentUuid": "38d47377_2b4c5ce5",
       "range": {
         "startLine": 43,
         "startChar": 65,
