@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e22edcc5_09378151",
+        "filename": "crypto/fipsmodule/ec/ec.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2020-06-11T16:34:34Z",
+      "side": 1,
+      "message": "OPENSSL_NO_ASM and OPENSSL_X86_64 criteria don\u0027t make sense here since there\u0027s no assembly code. What really matters is OPENSSL_SMALL.",
+      "range": {
+        "startLine": 238,
+        "startChar": 4,
+        "endLine": 238,
+        "endChar": 28
+      },
+      "revId": "37f898ff4fa44b0b61d690173f5462cdb2c8596f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2c06bc4_18de396d",
+        "filename": "crypto/fipsmodule/ec/make_nistp-x86_64-tables.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2020-06-11T16:34:34Z",
+      "side": 1,
+      "message": "The comment is already in the Go code because it is embedded in this string. There\u0027s really no reason to duplicate it in every generated file. Instead the comment should be hoisted out of the generated code and put in a shared place.\n\nIn particular, it seems like this comment is mostly the same as the one for P-256, except s/256/384/g and the result of the math (\"55\") is different. It would be great to make it clearer that this is doing the same thing by factoring out the redundancy. I.e. most of this comment should refer to \"curveSize\" instead of \"256\" or \"384\".",
+      "range": {
+        "startLine": 40,
+        "startChar": 27,
+        "endLine": 50,
+        "endChar": 44
+      },
+      "revId": "37f898ff4fa44b0b61d690173f5462cdb2c8596f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5148b4f7_d275628f",
+        "filename": "crypto/fipsmodule/ec/p256_p384_common-x86_64.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2020-06-11T16:34:34Z",
+      "side": 1,
+      "message": "bn_select_words and fiat_p256_cmovznz seem to be using a totally different strategy. I thought the fiat way was using the more tricky method because bn_select_words doesn\u0027t get optimized as well? It would be nice to be consistent. Or, else, it would be nice to have a comment saying we\u0027re using the more conservative approach here because the performance of `copy_conditional` isn\u0027t as critical as the performance of fiat_p256_cmovznz is.",
+      "range": {
+        "startLine": 64,
+        "startChar": 2,
+        "endLine": 65,
+        "endChar": 1
+      },
+      "revId": "37f898ff4fa44b0b61d690173f5462cdb2c8596f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df9394de_ad2712a7",
+        "filename": "crypto/fipsmodule/ec/p384-x86_64-table.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2020-06-11T16:34:34Z",
+      "side": 1,
+      "message": "The make_tables.go script was written by Google and has Copyright Google. I think the generated files should have the same license block as the make_tables.go script. Intel doesn\u0027t own these computed numbers.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 33
+      },
+      "revId": "37f898ff4fa44b0b61d690173f5462cdb2c8596f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b0c87fd_d43c6a87",
+        "filename": "crypto/fipsmodule/ec/p384.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2020-06-11T16:34:34Z",
+      "side": 1,
+      "message": "Is this license right? It looks like there is non-trivial amount of code copied from p256-x86_64.c which has a different license depending on which version of the file you got it from. And in particular Copyright Intel and not Google.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 62
+      },
+      "revId": "37f898ff4fa44b0b61d690173f5462cdb2c8596f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
