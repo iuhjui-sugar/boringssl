@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "38d47377_2b4c5ce5",
+        "filename": "util/fipstools/acvp/acvptool/acvp/acvp.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 10281
+      },
+      "writtenOn": "2020-06-11T14:40:02Z",
+      "side": 1,
+      "message": "Currently we\u0027re seeing return values of -1 for SizezLimit/sizeConstraint from the acvp server. I don\u0027t know if the zero comment is correct or not, but the -1 case should probably be addressed here.",
+      "range": {
+        "startLine": 43,
+        "startChar": 65,
+        "endLine": 43,
+        "endChar": 69
+      },
+      "revId": "1b24351fc53cbc584d31b9dc91a57369504d2225",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
