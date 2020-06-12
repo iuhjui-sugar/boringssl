@@ -987,7 +987,7 @@ static void ec_GFp_nistp224_point_mul(const EC_GROUP *group, EC_RAW_POINT *r,
       ec_GFp_nistp_recode_scalar_bits(&sign, &digit, bits);
 
       // Select the point to add or subtract.
-      p224_select_point(digit, 17, (const p224_felem(*)[3])p_pre_comp, tmp);
+      p224_select_point(digit, 17, p_pre_comp, tmp);
       p224_felem_neg(tmp[3], tmp[1]);  // (X, -Y, Z) is the negative point
       p224_copy_conditional(tmp[1], tmp[3], sign);
 
