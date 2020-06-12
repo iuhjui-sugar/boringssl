@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d88c4b84_43ae3a29",
+        "filename": "crypto/fipsmodule/ec/p224-64.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 869,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-12T17:33:25Z",
+      "side": 1,
+      "message": "uint8_t?",
+      "range": {
+        "startLine": 869,
+        "startChar": 7,
+        "endLine": 869,
+        "endChar": 11
+      },
+      "revId": "7d6a39d44355a6ab18fad401ed2eeb23d1097156",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6cee5b2e_9784bdfa",
+        "filename": "crypto/fipsmodule/ec/p224-64.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 980,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-12T17:33:25Z",
+      "side": 1,
+      "message": "Did you want to make this uint8_t too?",
+      "range": {
+        "startLine": 980,
+        "startChar": 6,
+        "endLine": 980,
+        "endChar": 14
+      },
+      "revId": "7d6a39d44355a6ab18fad401ed2eeb23d1097156",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}

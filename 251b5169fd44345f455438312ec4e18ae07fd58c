@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e3de07bb_c92b634f",
+        "filename": "crypto/fipsmodule/ec/p224-64.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 990,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-12T17:33:25Z",
+      "side": 0,
+      "message": "IIRC this cast was needed for some reason. I guess we\u0027ll see what the CQ thinks...",
+      "range": {
+        "startLine": 990,
+        "startChar": 35,
+        "endLine": 990,
+        "endChar": 59
+      },
+      "revId": "251b5169fd44345f455438312ec4e18ae07fd58c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
