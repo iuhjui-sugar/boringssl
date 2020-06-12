@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5cea4c56_82011bdf",
+        "filename": "crypto/fipsmodule/ec/p224-64.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 869,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2020-06-12T17:58:35Z",
+      "side": 1,
+      "message": "See my other comment about the types of |bits|. I didn\u0027t look at this closely enough at the P-224 code once I realized it is different in trivial but non-obvious ways to the P-256 code w.r.t. what types should be used.",
+      "parentUuid": "d88c4b84_43ae3a29",
+      "range": {
+        "startLine": 869,
+        "startChar": 7,
+        "endLine": 869,
+        "endChar": 11
+      },
+      "revId": "7d6a39d44355a6ab18fad401ed2eeb23d1097156",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6cee5b2e_9784bdfa",
         "filename": "crypto/fipsmodule/ec/p224-64.c",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2020-06-12T17:33:25Z",
       "side": 1,
       "message": "Did you want to make this uint8_t too?",
+      "range": {
+        "startLine": 980,
+        "startChar": 6,
+        "endLine": 980,
+        "endChar": 14
+      },
+      "revId": "7d6a39d44355a6ab18fad401ed2eeb23d1097156",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d4c5bf6_d06277ce",
+        "filename": "crypto/fipsmodule/ec/p224-64.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 980,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2020-06-12T17:58:35Z",
+      "side": 1,
+      "message": "My goal with this CL is to show that code that is compiled in 32-bit mode doesn\u0027t require 64-bit types for the bits. Since p224_64.c is 64-bit only, that concern isn\u0027t an issue.",
+      "parentUuid": "6cee5b2e_9784bdfa",
       "range": {
         "startLine": 980,
         "startChar": 6,
