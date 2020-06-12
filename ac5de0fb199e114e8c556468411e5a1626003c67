@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "189980c7_00e82232",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-12T20:31:40Z",
+      "side": 1,
+      "message": "At one point I was noodling getting -Wconversion passing, though I didn\u0027t end up finishing it. (Also there\u0027s a headache because GCC\u0027s -Wconversion complains requires a cast on uint8_t a, b, c; c \u003d a + b; because a + b technically has type int via integer promotion.)",
+      "revId": "ac5de0fb199e114e8c556468411e5a1626003c67",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f5bb20b2_f92501e4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-12T20:31:40Z",
+      "side": 1,
+      "message": "I don\u0027t know if I\u0027d call it a particular conscious effort. Every use of fiat_p256_limb_t I see feeds into fiat code, which expects the corresponding limb size.\n\nNote that fiat_p256_limb_t and crypto_word_t aren\u0027t the same. The 64-bit fiat code depends on uint128_t, which isn\u0027t always available. (I think at one point we tried making fiat output the MSVC intrinsic and it crashed MSVC.)",
+      "revId": "ac5de0fb199e114e8c556468411e5a1626003c67",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
