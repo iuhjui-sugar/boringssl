@@ -393,7 +393,7 @@ static void fiat_p256_select_point(const fiat_p256_limb_t idx, size_t size,
 }
 
 // fiat_p256_get_bit returns the |i|th bit in |in|
-static char fiat_p256_get_bit(const uint8_t *in, int i) {
+static uint8_t fiat_p256_get_bit(const uint8_t *in, int i) {
   if (i < 0 || i >= 256) {
     return 0;
   }
@@ -498,7 +498,7 @@ static void ec_GFp_nistp256_point_mul(const EC_GROUP *group, EC_RAW_POINT *r,
 
     // do other additions every 5 doublings
     if (i % 5 == 0) {
-      uint64_t bits = fiat_p256_get_bit(scalar->bytes, i + 4) << 5;
+      uint8_t bits = fiat_p256_get_bit(scalar->bytes, i + 4) << 5;
       bits |= fiat_p256_get_bit(scalar->bytes, i + 3) << 4;
       bits |= fiat_p256_get_bit(scalar->bytes, i + 2) << 3;
       bits |= fiat_p256_get_bit(scalar->bytes, i + 1) << 2;
@@ -508,8 +508,7 @@ static void ec_GFp_nistp256_point_mul(const EC_GROUP *group, EC_RAW_POINT *r,
       ec_GFp_nistp_recode_scalar_bits(&sign, &digit, bits);
 
       // select the point to add or subtract, in constant time.
-      fiat_p256_select_point(digit, 17, (const fiat_p256_felem(*)[3])p_pre_comp,
-                             tmp);
+      fiat_p256_select_point(digit, 17, p_pre_comp, tmp);
       fiat_p256_opp(ftmp, tmp[1]);  // (X, -Y, Z) is the negative point.
       fiat_p256_cmovznz(tmp[1], sign, tmp[1], ftmp);
 
