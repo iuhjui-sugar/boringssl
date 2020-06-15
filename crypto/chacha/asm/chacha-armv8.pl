@@ -139,6 +139,7 @@ $code.=<<___;
 .type	ChaCha20_ctr32,%function
 .align	5
 ChaCha20_ctr32:
+	__entry_bp_call
 	cbz	$len,.Labort
 #if __has_feature(hwaddress_sanitizer) && __clang_major__ >= 10
 	adrp	@x[0],:pg_hi21_nc:OPENSSL_armcap_P
@@ -152,6 +153,7 @@ ChaCha20_ctr32:
 	b.ne	ChaCha20_neon
 
 .Lshort:
+	__entry_bp_standard
 	stp	x29,x30,[sp,#-96]!
 	add	x29,sp,#0
 
@@ -272,6 +274,7 @@ $code.=<<___;
 	ldp	x25,x26,[x29,#64]
 	ldp	x27,x28,[x29,#80]
 	ldp	x29,x30,[sp],#96
+	__exit_bp_standard
 .Labort:
 	ret
 
@@ -328,6 +331,7 @@ $code.=<<___;
 	ldp	x25,x26,[x29,#64]
 	ldp	x27,x28,[x29,#80]
 	ldp	x29,x30,[sp],#96
+	__exit_bp_standard
 	ret
 .size	ChaCha20_ctr32,.-ChaCha20_ctr32
 ___
@@ -373,6 +377,7 @@ $code.=<<___;
 .type	ChaCha20_neon,%function
 .align	5
 ChaCha20_neon:
+	__entry_bp_standard
 	stp	x29,x30,[sp,#-96]!
 	add	x29,sp,#0
 
@@ -572,6 +577,7 @@ $code.=<<___;
 	ldp	x25,x26,[x29,#64]
 	ldp	x27,x28,[x29,#80]
 	ldp	x29,x30,[sp],#96
+	__exit_bp_standard
 	ret
 
 .Ltail_neon:
@@ -681,6 +687,7 @@ $code.=<<___;
 	ldp	x25,x26,[x29,#64]
 	ldp	x27,x28,[x29,#80]
 	ldp	x29,x30,[sp],#96
+	__exit_bp_standard
 	ret
 .size	ChaCha20_neon,.-ChaCha20_neon
 ___
@@ -693,6 +700,7 @@ $code.=<<___;
 .type	ChaCha20_512_neon,%function
 .align	5
 ChaCha20_512_neon:
+	__entry_bp_standard
 	stp	x29,x30,[sp,#-96]!
 	add	x29,sp,#0
 
@@ -1112,6 +1120,7 @@ $code.=<<___;
 	ldp	x25,x26,[x29,#64]
 	ldp	x27,x28,[x29,#80]
 	ldp	x29,x30,[sp],#96
+	__exit_bp_standard
 	ret
 .size	ChaCha20_512_neon,.-ChaCha20_512_neon
 ___

@@ -185,6 +185,7 @@ $code.=<<___;
 $func:
 ___
 $code.=<<___	if ($SZ==4);
+	__entry_bp_call
 #ifndef	__KERNEL__
 #if __has_feature(hwaddress_sanitizer) && __clang_major__ >= 10
 	adrp	x16,:pg_hi21_nc:OPENSSL_armcap_P
@@ -197,6 +198,7 @@ $code.=<<___	if ($SZ==4);
 #endif
 ___
 $code.=<<___;
+	__entry_bp_standard
 	stp	x29,x30,[sp,#-128]!
 	add	x29,sp,#0
 
@@ -259,6 +261,7 @@ $code.=<<___;
 	ldp	x25,x26,[x29,#64]
 	ldp	x27,x28,[x29,#80]
 	ldp	x29,x30,[sp],#128
+	__exit_bp_standard
 	ret
 .size	$func,.-$func
 
@@ -350,6 +353,7 @@ $code.=<<___;
 .align	6
 sha256_block_armv8:
 .Lv8_entry:
+	// Armv8.3-A PAuth: even though x30 is pushed to stack it is not popped later.
 	stp		x29,x30,[sp,#-16]!
 	add		x29,sp,#0
 

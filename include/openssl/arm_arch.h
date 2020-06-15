@@ -117,5 +117,62 @@
 // ARMV8_PMULL indicates support for carryless multiplication.
 #define ARMV8_PMULL (1 << 5)
 
+#if defined(__ASSEMBLER__)
+
+// Support macros for
+//   - Armv8.3-A Pointer Authentication and
+//   - Armv8.5-A Branch Target Identification
+// features which require emitting a .note.gnu.property section with the
+// appropriate architecture-dependent feature bits set.
+// Read more: "ELF for the Arm® 64-bit Architecture"
+
+#if (__ARM_FEATURE_BTI_DEFAULT == 1)
+# define __aarch64_feature_bti (1 << 0) // Has Branch Target Identification
+# define __entry_bp_call hint #34 // BTI C
+#else
+# define __aarch64_feature_bti 0 // No Branch Target Identification
+# define __entry_bp_call
+#endif
+
+#if ((__ARM_FEATURE_PAC_DEFAULT & 1) == 1) // Signed with A-key
+# define __aarch64_feature_pac (1 << 1) // Has Pointer Authentication
+# define __entry_bp_standard hint #25 // PACIASP
+# define __exit_bp_standard hint #29 // AUTIASP
+#elif ((__ARM_FEATURE_PAC_DEFAULT & 2) == 2)  // Signed with B-key
+# define __aarch64_feature_pac (1 << 1) // Has Pointer Authentication
+# define __entry_bp_standard hint #27 // PACIBSP
+# define __exit_bp_standard hint #31 // AUTIBSP
+#else
+# define __aarch64_feature_pac 0 // No Pointer Authentication
+# if defined(__ARM_FEATURE_BTI_DEFAULT)
+#  define __entry_bp_standard __entry_bp_call
+# else
+#  define __entry_bp_standard
+# endif
+# define __exit_bp_standard
+#endif
+
+#if (__aarch64_feature_pac != 0) || (__aarch64_feature_bti != 0)
+# define ARMV8_NOTE_GNU_PROPERTY() \
+  .section .note.gnu.property, "a"; \
+  .balign 8; \
+  .long 4; \
+  .long 0x10; \
+  .long 0x5; \
+  .asciz "GNU"; \
+  .long 0xc0000000; /* GNU_PROPERTY_AARCH64_FEATURE_1_AND */ \
+  .long 4; \
+  .long (__aarch64_feature_pac | \
+         __aarch64_feature_bti); \
+  .long 0; \
+
+#else
+# define ARMV8_NOTE_GNU_PROPERTY()
+#endif
+
+// Emit the note section here for assembly files.
+ARMV8_NOTE_GNU_PROPERTY()
+
+#endif  /* defined __ASSEMBLER__ */
 
 #endif  // OPENSSL_HEADER_ARM_ARCH_H
