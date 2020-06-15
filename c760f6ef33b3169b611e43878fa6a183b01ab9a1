@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0f2ab30c_f40726cc",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1444,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-15T15:20:48Z",
+      "side": 1,
+      "message": "Worth flag-protecting or anything? I\u0027m assuming client certs are rare enough that we can just land it and see if it sticks.",
+      "revId": "c760f6ef33b3169b611e43878fa6a183b01ab9a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
