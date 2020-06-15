@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "69c3bd29_e8bb1aa9",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1443,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-06-15T16:08:30Z",
+      "side": 1,
+      "message": "I think just: CRYPTO_BUFFER_init_CBS(leaf, \u0026leaf_cbs);",
+      "revId": "c760f6ef33b3169b611e43878fa6a183b01ab9a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0f2ab30c_f40726cc",
         "filename": "ssl/handshake_server.cc",
         "patchSetId": 1
@@ -13,6 +30,24 @@
       "writtenOn": "2020-06-15T15:20:48Z",
       "side": 1,
       "message": "Worth flag-protecting or anything? I\u0027m assuming client certs are rare enough that we can just land it and see if it sticks.",
+      "revId": "c760f6ef33b3169b611e43878fa6a183b01ab9a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cc174dfc_5fb2c02c",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1444,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-06-15T16:08:30Z",
+      "side": 1,
+      "message": "Let\u0027s see how it goes without a flag, at least.",
+      "parentUuid": "0f2ab30c_f40726cc",
       "revId": "c760f6ef33b3169b611e43878fa6a183b01ab9a1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
