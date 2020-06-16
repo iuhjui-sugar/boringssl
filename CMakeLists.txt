@@ -641,6 +641,10 @@ add_executable(
 
 target_link_libraries(bssl ssl crypto)
 
+if(MINGW)
+  target_link_libraries(bssl wsock32 ws2_32)
+endif()
+		 
 if(NOT MSVC AND NOT ANDROID)
   target_link_libraries(crypto pthread)
 endif()
