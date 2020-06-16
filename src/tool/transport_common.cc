@@ -55,7 +55,9 @@ OPENSSL_MSVC_PRAGMA(warning(push, 3))
 #include <ws2tcpip.h>
 OPENSSL_MSVC_PRAGMA(warning(pop))
 
-typedef int ssize_t;
+namespace boringssl{
+	typedef int ssize_t;
+}
 OPENSSL_MSVC_PRAGMA(comment(lib, "Ws2_32.lib"))
 #endif
 
@@ -421,7 +423,7 @@ class SocketWaiter {
   // it returns false. This method may only be called after |Wait| returned
   // stdin was ready.
   bool ReadStdin(void *out, size_t *out_len, size_t max_out) {
-    ssize_t n;
+    boringssl::ssize_t n;
     do {
       n = read(STDIN_FILENO, out, max_out);
     } while (n == -1 && errno == EINTR);
@@ -739,7 +741,7 @@ bool TransferData(SSL *ssl, int sock) {
           return true;
         }
 
-        ssize_t n;
+        boringssl::ssize_t n;
         do {
           n = BORINGSSL_WRITE(1, buffer, ssl_ret);
         } while (n == -1 && errno == EINTR);
@@ -786,7 +788,7 @@ class SocketLineReader {
         return false;
       }
 
-      ssize_t n;
+      boringssl::ssize_t n;
       do {
         n = recv(sock_, &buf_[buf_len_], sizeof(buf_) - buf_len_, 0);
       } while (n == -1 && errno == EINTR);
@@ -871,7 +873,7 @@ static bool SendAll(int sock, const char *data, size_t data_len) {
   size_t done = 0;
 
   while (done < data_len) {
-    ssize_t n;
+    boringssl::ssize_t n;
     do {
       n = send(sock, &data[done], data_len - done, 0);
     } while (n == -1 && errno == EINTR);

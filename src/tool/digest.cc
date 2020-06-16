@@ -39,7 +39,9 @@ OPENSSL_MSVC_PRAGMA(warning(pop))
 #if !defined(PATH_MAX)
 #define PATH_MAX MAX_PATH
 #endif
-typedef int ssize_t;
+namespace boringssl{
+	typedef int ssize_t;
+}
 #endif
 
 #include <openssl/digest.h>
@@ -143,7 +145,7 @@ static bool SumFile(std::string *out_hex, const EVP_MD *md,
   }
 
   for (;;) {
-    ssize_t n;
+    boringssl::ssize_t n;
 
     do {
       n = BORINGSSL_READ(fd, buf.get(), kBufSize);
