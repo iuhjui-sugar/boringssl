@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "852654ca_9bad6acd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-06-16T18:46:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "efec6a76_d150fa69",
+      "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eae20303_011f90bc",
         "filename": "crypto/hpke/hpke.c",
         "patchSetId": 13
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "c6136ac2_1b384f58",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-06-16T18:46:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eae20303_011f90bc",
+      "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9596ffbe_65781cac",
         "filename": "crypto/hpke/hpke.c",
         "patchSetId": 13
@@ -47,6 +83,24 @@
       "writtenOn": "2020-06-03T19:17:59Z",
       "side": 1,
       "message": "Probably use some string to match this being a draft version: \"HPKE-DRAFT-04\" or some such?",
+      "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01a8e624_27d587f1",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-06-16T18:46:11Z",
+      "side": 1,
+      "message": "Won\u0027t that prevent us from passing the published test vectors?",
+      "parentUuid": "9596ffbe_65781cac",
       "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -88,6 +142,24 @@
     },
     {
       "key": {
+        "uuid": "3e40fb63_8c20beee",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-06-16T18:46:11Z",
+      "side": 1,
+      "message": "Awesome, that is so much less painful.",
+      "parentUuid": "9106129c_abafd719",
+      "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6d322835_d4932436",
         "filename": "crypto/hpke/hpke.c",
         "patchSetId": 13
@@ -105,6 +177,24 @@
     },
     {
       "key": {
+        "uuid": "953382bb_618a3a04",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-06-16T18:46:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d322835_d4932436",
+      "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1b2fe0b8_a6a782ba",
         "filename": "crypto/hpke/hpke.c",
         "patchSetId": 13
@@ -119,6 +209,24 @@
       "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5838e822_854b9aa4",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-06-16T18:46:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b2fe0b8_a6a782ba",
+      "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -173,6 +281,24 @@
     },
     {
       "key": {
+        "uuid": "484810ad_5eb04339",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-06-16T18:46:11Z",
+      "side": 1,
+      "message": "I agree it\u0027s a little odd, but the benefit is that I can just say sizeof, and know that it\u0027s actually the correct length.  Otherwise, when my parameters are a mix of strings and arrays, I have to mix strlen and sizeof. If that mild benefit doesn\u0027t sway you, let me know and I\u0027ll switch to string literals.",
+      "parentUuid": "4bf4b14a_c8077419",
+      "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cd5ec555_e9deb83b",
         "filename": "crypto/hpke/hpke.c",
         "patchSetId": 13
@@ -184,6 +310,24 @@
       "writtenOn": "2020-06-03T19:17:59Z",
       "side": 1,
       "message": "Maybe worth abandoning the CBB here and just directly indexing into context[].",
+      "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21eff91c_40ae7131",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-06-16T18:46:11Z",
+      "side": 1,
+      "message": "Let me explain how I got here. The context is defined in KeySchedule as this:\n\n  ciphersuite \u003d concat(encode_big_endian(kem_id, 2),\n                       encode_big_endian(kdf_id, 2),\n                       encode_big_endian(aead_id, 2))\n  ...\n  context \u003d concat(ciphersuite, mode, pskID_hash, info_hash)\n\nI used CBB for the ciphersuite part to avoid manually translating endianness for kem_id, kdf_id, and aead_id. Then, since I already had a CBB, it was trivial to concat the mode, pskID_hash, and info_hash.",
+      "parentUuid": "cd5ec555_e9deb83b",
       "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -207,6 +351,24 @@
     },
     {
       "key": {
+        "uuid": "2fb6201f_2aed3428",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-06-16T18:46:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "caf87ce3_2663defe",
+      "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ea383c5d_fd27d624",
         "filename": "crypto/hpke/hpke.c",
         "patchSetId": 13
@@ -224,6 +386,24 @@
     },
     {
       "key": {
+        "uuid": "ab5e36f6_9124ce7b",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-06-16T18:46:11Z",
+      "side": 1,
+      "message": "Agh, I flipped the return value.\n\nGood catch; the point is to see if seq has hit the max value of an unsigned NN-bit integer.",
+      "parentUuid": "ea383c5d_fd27d624",
+      "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a6d38ad_e8b89298",
         "filename": "crypto/hpke/hpke.c",
         "patchSetId": 13
@@ -238,6 +418,24 @@
       "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a6539c2_891a1604",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-06-16T18:46:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a6d38ad_e8b89298",
+      "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -264,6 +462,30 @@
     },
     {
       "key": {
+        "uuid": "67572dfe_26f50e67",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-06-16T18:46:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "629c9d86_94044991",
+      "range": {
+        "startLine": 364,
+        "startChar": 16,
+        "endLine": 364,
+        "endChar": 30
+      },
+      "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f12fd9f1_03b65321",
         "filename": "crypto/hpke/hpke.c",
         "patchSetId": 13
@@ -281,6 +503,24 @@
     },
     {
       "key": {
+        "uuid": "1b706d81_86261250",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-06-16T18:46:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f12fd9f1_03b65321",
+      "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "27269548_fd4c084c",
         "filename": "crypto/hpke/hpke_test.cc",
         "patchSetId": 13
@@ -295,6 +535,24 @@
       "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "308da804_81789bb6",
+        "filename": "crypto/hpke/hpke_test.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-06-16T18:46:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27269548_fd4c084c",
+      "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -332,6 +590,24 @@
     },
     {
       "key": {
+        "uuid": "a86e2faf_4e267fc9",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-06-16T18:46:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd3ce13a_ec32b0ec",
+      "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f713fe80_994f4afe",
         "filename": "crypto/hpke/internal.h",
         "patchSetId": 13
@@ -346,6 +622,24 @@
       "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b1136d9_e262bbf4",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-06-16T18:46:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f713fe80_994f4afe",
+      "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -366,6 +660,24 @@
     },
     {
       "key": {
+        "uuid": "d8c69e19_94290638",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-06-16T18:46:11Z",
+      "side": 1,
+      "message": "OK, adding an AEAD param to the setup_s and setup_r functions.",
+      "parentUuid": "1eb24a49_7eeee7bd",
+      "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "71ebcd6b_9a6d38a5",
         "filename": "crypto/hpke/internal.h",
         "patchSetId": 13
@@ -380,6 +692,24 @@
       "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb8b39a7_ecba4397",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-06-16T18:46:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71ebcd6b_9a6d38a5",
+      "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
