@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d0e6f834_edca370a",
+        "filename": "tool/fd.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-06-16T19:34:01Z",
+      "side": 1,
+      "message": "(nit: no space at beginning.)",
+      "revId": "4f5d8511690aebcc5edfd74e3ebf27cec4ab180c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d34876c_4b03e28e",
+        "filename": "tool/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-06-16T19:34:01Z",
+      "side": 1,
+      "message": "Is the default copy constructor omitted in this case? I think [1] says so, but it also says that the defaulted one still exists. Maybe \u003d delete it to be sure?",
+      "revId": "4f5d8511690aebcc5edfd74e3ebf27cec4ab180c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
