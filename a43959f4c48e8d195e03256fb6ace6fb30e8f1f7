@@ -299,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "bd66ef8e_3e976c08",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-06-17T17:23:18Z",
+      "side": 1,
+      "message": "I\u0027ve come around on this. I realized I can make a helper function that writes the bytes of a string to CBB, so now I don\u0027t have to cast all over the place.",
+      "parentUuid": "484810ad_5eb04339",
+      "revId": "a43959f4c48e8d195e03256fb6ace6fb30e8f1f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd5ec555_e9deb83b",
         "filename": "crypto/hpke/hpke.c",
         "patchSetId": 13
