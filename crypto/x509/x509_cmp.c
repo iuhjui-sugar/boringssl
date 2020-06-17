@@ -67,6 +67,7 @@
 #include <openssl/x509v3.h>
 
 #include "../internal.h"
+#include "../x509v3/internal.h"
 
 
 int X509_issuer_and_serial_cmp(const X509 *a, const X509 *b)
@@ -165,6 +166,19 @@ unsigned long X509_subject_name_hash_old(X509 *x)
     return (X509_NAME_hash_old(x->cert_info->subject));
 }
 
+/* clamg_comparison takes the result of a |memcmp|-like comparison and returns
+ * -1, 0, or 1. This allows callers to distinguish a -2 error value from
+ * successfully comparing inputs. */
+static int clamp_comparison(int r) {
+    if (r < 0) {
+        return -1;
+    }
+    if (r > 0) {
+        return 1;
+    }
+    return 0;
+}
+
 /*
  * Compare two certificates: they must be identical for this to work. NB:
  * Although "cmp" operations are generally prototyped to take "const"
@@ -175,23 +189,37 @@ unsigned long X509_subject_name_hash_old(X509 *x)
  */
 int X509_cmp(const X509 *a, const X509 *b)
 {
-    int rv;
     /* ensure hash is valid */
-    X509_check_purpose((X509 *)a, -1, 0);
-    X509_check_purpose((X509 *)b, -1, 0);
+    if (!x509v3_cache_extensions((X509 *)a) ||
+        !x509v3_cache_extensions((X509 *)b)) {
+        /* |X509_cmp| is a comparison function and not defined upstream as
+         * fallible. However, if we fail to serialize and hash |a| or |b|, not
+         * much can be done. This stems from the OpenSSL design flaw in using
+         * the same type to represent both immutable parsed certificates for
+         * verification and mutable partial certificates in the process of being
+         * assembled for issuance.
+         *
+         * We return -2 as an error to be consistent with OpenSSL 1.1.1. This
+         * means |X509_cmp| is not quite a comparison function. Callers, in
+         * practice, appear to only use it for equality. If they used it for
+         * sorting and hit this case, sorting functions typically return some
+         * order, rather than exhibiting truly arbitrary behavior. */
+        return -2;
+    }
 
-    rv = OPENSSL_memcmp(a->sha1_hash, b->sha1_hash, SHA_DIGEST_LENGTH);
+    int rv = OPENSSL_memcmp(a->sha1_hash, b->sha1_hash, SHA_DIGEST_LENGTH);
     if (rv)
-        return rv;
+        return clamp_comparison(rv);
     /* Check for match against stored encoding too */
     if (!a->cert_info->enc.modified && !b->cert_info->enc.modified) {
         rv = (int)(a->cert_info->enc.len - b->cert_info->enc.len);
         if (rv)
-            return rv;
-        return OPENSSL_memcmp(a->cert_info->enc.enc, b->cert_info->enc.enc,
-                              a->cert_info->enc.len);
+            return clamp_comparison(rv);
+        return clamp_comparison(OPENSSL_memcmp(a->cert_info->enc.enc,
+                                               b->cert_info->enc.enc,
+                                               a->cert_info->enc.len));
     }
-    return rv;
+    return clamp_comparison(rv);
 }
 
 int X509_NAME_cmp(const X509_NAME *a, const X509_NAME *b)
@@ -215,10 +243,10 @@ int X509_NAME_cmp(const X509_NAME *a, const X509_NAME *b)
     ret = a->canon_enclen - b->canon_enclen;
 
     if (ret)
-        return ret;
+        return clamp_comparison(ret);
 
-    return OPENSSL_memcmp(a->canon_enc, b->canon_enc, a->canon_enclen);
-
+    return clamp_comparison(
+        OPENSSL_memcmp(a->canon_enc, b->canon_enc, a->canon_enclen));
 }
 
 unsigned long X509_NAME_hash(X509_NAME *x)
