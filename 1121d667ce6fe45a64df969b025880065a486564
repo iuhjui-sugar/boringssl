@@ -16,6 +16,24 @@
       "revId": "1121d667ce6fe45a64df969b025880065a486564",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11ab79a3_4d7e242b",
+        "filename": "crypto/x509/x_x509.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-19T17:32:36Z",
+      "side": 1,
+      "message": "¯\\_(ツ)_/¯\n\nI have no idea what the intention was or what is \"correct\" at this point. The specs are a disaster here.\n\nRFC 5280 is specified in the 1989 ASN.1 syntax, which doesn\u0027t know about extensibility. That means parsers should reject unrecognized fields at the end, which... they do. Chromium will also reject unrecognized versions. The text is also pretty strong about other versions not existing, I think.\n\n   This field describes the version of the encoded certificate.  When\n   extensions are used, as expected in this profile, version MUST be 3\n   (value is 2).  If no extensions are present, but a UniqueIdentifier\n   is present, the version SHOULD be 2 (value is 1); however, the\n   version MAY be 3.  If only basic fields are present, the version\n   SHOULD be 1 (the value is omitted from the certificate as the default\n   value); however, the version MAY be 2 or 3.\n\nhttps://tools.ietf.org/html/rfc5280#section-4.1.2.1\n\nThen again, it goes on to say:\n\n   Implementations SHOULD be prepared to accept any version certificate.\n   At a minimum, conforming implementations MUST recognize version 3\n   certificates\n\nwhich is unclear on whether that means \"any version that exists\" or \"any arbitrary numeric Version value\". The Version field is defined as\n\n   Version  ::\u003d  INTEGER  {  v1(0), v2(1), v3(2)  }\n\nbut I *think* that\u0027s just defining values and not setting a constraint, since it\u0027s curly braces and not parens? I forget.\n\nRFC 5912 then transcribed things into the later 2002 (?) syntax (though IIRC there were some mistakes in there?). That one does know about versions and adds a bunch of new punctuation:\n\n  TBSCertificate  ::\u003d  SEQUENCE  {\n      version         [0]  Version DEFAULT v1,\n      serialNumber         CertificateSerialNumber,\n      signature            AlgorithmIdentifier{SIGNATURE-ALGORITHM,\n                                {SignatureAlgorithms}},\n      issuer               Name,\n      validity             Validity,\n      subject              Name,\n      subjectPublicKeyInfo SubjectPublicKeyInfo,\n      ... ,\n      [[2:               -- If present, version MUST be v2\n      issuerUniqueID  [1]  IMPLICIT UniqueIdentifier OPTIONAL,\n      subjectUniqueID [2]  IMPLICIT UniqueIdentifier OPTIONAL\n      ]],\n      [[3:               -- If present, version MUST be v3 --\n      extensions      [3]  Extensions{{CertExtensions}} OPTIONAL\n      ]], ... }\n\nBut this is a very different type from the RFC 5280 one. The ... is an \"extension marker\" which is described as \"The extension marker, ellipsis, is an indication that extension additions are expected. It makes no statement as to how such additions should be handled other than that they shall not be treated as an error during the decoding process\", which is not all that helpful.\n\nAlso I don\u0027t really understand the relationship between the \"[[2:\" and the version numbers because the encoding of v2 is 1, but surely you\u0027re not supposed to parse the name of the \"v2\" constant.\n\nThey also appear to have changed the comment on issuerUniqueID and subjectUniqueID from \"If present, version MUST be v2 or v3\" to \"If present, version MUST be v2\". I assume that\u0027s another mistake.\n\nThis is a bit moot since the spelling in the 1989 syntax lacks all this, and software will reject extra fields anyway. :-)",
+      "parentUuid": "45b83e8b_ccfff48f",
+      "revId": "1121d667ce6fe45a64df969b025880065a486564",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
