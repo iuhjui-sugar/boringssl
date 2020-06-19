@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3f42fd2a_245f8d3d",
+        "filename": "crypto/x509/x509_cmp.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-19T03:25:08Z",
+      "side": 1,
+      "message": "Leaving as a note to myself to fix tomorrow: This doesn\u0027t really work. The sorting algorithm may get itself confused on valid certificates by transitivity.\n\nThis is terrible, but might work:\n\n- If a \u003d\u003d b, short-circuit all this and report they\u0027re equal.\n\n- All certificates where x509v3_cache_extensions fails sort after (before?) valid ones. If at most one of the two calls failed, sort based on that.\n\n- If a !\u003d b and both cache_extensions calls, return -2 or something since pretending equal bogus certificates are equal seems less safe than pretending they\u0027re equal. (No one actually uses this function for sorting.) The sorting function may get confused there, but hopefully it\u0027ll only get confused relative to those certificates?? (I\u0027m not sure that actually holds.)\n\nAlternatively:\n\n- Rework the a-\u003ecert_info-\u003eenc.enc bits to instead retain the *entire* serialized certificate. Stop comparing by SHA-1 hash and just compare that. If the certificate was produced piecemeal as part of issuance, we can serialize that and if it fails... you shouldn\u0027t be passing such things into X509_cmp.\n\n- TODO: How badly does the above interact with the structs not being opaque?\n\nYet another option:\n\n- All invalid certificates are equal to each other. This is pretty weird, but it was effectively the old behavior...\n\nBasically, everything about this code is terrible. :-(",
+      "revId": "41521910ae4b872fba0a898433a7425c6e06b38e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
