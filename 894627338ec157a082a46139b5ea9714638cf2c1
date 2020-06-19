@@ -16,6 +16,24 @@
       "revId": "894627338ec157a082a46139b5ea9714638cf2c1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3c1137f9_b187e172",
+        "filename": "crypto/x509/algorithm.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-19T21:30:05Z",
+      "side": 1,
+      "message": "rsa_pub_decode enforces it in the SPKI (rsaEncryption OID), while this is about the signature algorithm (sha256WithRSAEncryption OID). Not sure what that state of that is. It would be nice to pick one.\n\nNULL vs empty seems to just be a disaster all around. :-( Even the same OID will have different requirements in different contexts. (IIRC, the SHA-256 OID in PKCS#1 v1.5\u0027s DigestInfo struct unambiguously wants a NULL, but I think the same OID as a hash algorithm in CMS is spec\u0027d to prefer empty.)",
+      "parentUuid": "1513f32e_4458152a",
+      "revId": "894627338ec157a082a46139b5ea9714638cf2c1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
