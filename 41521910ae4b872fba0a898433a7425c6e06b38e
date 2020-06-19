@@ -34,6 +34,24 @@
       "revId": "41521910ae4b872fba0a898433a7425c6e06b38e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4281444a_c34656ee",
+        "filename": "crypto/x509/x509_cmp.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-19T15:14:31Z",
+      "side": 1,
+      "message": "I\u0027ve switched to retaining the old behavior. It\u0027s terrible, but it should be the same degree of terrible as today, so this avoids the risk of having to revert the more useful parts of this CL due to X509_cmp nonsense. Filed https://bugs.chromium.org/p/boringssl/issues/detail?id\u003d355 as follow-up.",
+      "parentUuid": "7e7f7128_f02ba0f1",
+      "revId": "41521910ae4b872fba0a898433a7425c6e06b38e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
