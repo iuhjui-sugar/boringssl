@@ -34,6 +34,24 @@
       "revId": "1121d667ce6fe45a64df969b025880065a486564",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02964854_9dc7f2f4",
+        "filename": "crypto/x509/x_x509.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-19T17:41:05Z",
+      "side": 1,
+      "message": "For more fun, CRLs (TBSCertList and CertificateList) reuse the Version constants from TBSCertificate and Certificate, but I guess they didn\u0027t extend CRLs when they added X.509v2 certificates? So extensions in CRLs are gated on v2(1) rather than v3(2). Which means these value names are counters, not documents, despite being names instead of numbers. I really don\u0027t understand what happened here.\n\n(RFC 5280 even helpfully says \"This memo profiles the X.509 v3 certificate and X.509 v2 certificate revocation list (CRL) for use in the Internet.\")",
+      "parentUuid": "11ab79a3_4d7e242b",
+      "revId": "1121d667ce6fe45a64df969b025880065a486564",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
