@@ -16,6 +16,24 @@
       "revId": "41521910ae4b872fba0a898433a7425c6e06b38e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e7f7128_f02ba0f1",
+        "filename": "crypto/x509/x509_cmp.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-19T03:52:51Z",
+      "side": 1,
+      "message": "I\u0027ll sleep on it, but I\u0027m currently thinking this should go back to the old logic which ignored the error to unblock the rest of this mess. Even if extensions are bad, we\u0027ll typically successfully X509_digest(). If we fail to do that, we\u0027ll do something coherent, if not great.\n\nLong-term, I think X509 objects should retain their full serialization. But lifting enc to X509 from X509_CINF may be tricky. Starting point is probably to fix the handful of callers playing weird games with enc to do something a bit more principled. But unclear if that\u0027s sufficient... the assumption may be buried pretty deeply in X509_sign and X509_verify.\n\nSeparately, we really should be comparing something better than a SHA-1 hash. Fortunately, I don\u0027t think anyone is reaching into x509-\u003esha1_hash right now.",
+      "parentUuid": "3f42fd2a_245f8d3d",
+      "revId": "41521910ae4b872fba0a898433a7425c6e06b38e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
