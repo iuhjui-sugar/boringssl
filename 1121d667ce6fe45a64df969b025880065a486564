@@ -70,6 +70,24 @@
       "revId": "1121d667ce6fe45a64df969b025880065a486564",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "87d9decf_4f3e88a9",
+        "filename": "crypto/x509/x_x509.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-19T18:15:52Z",
+      "side": 1,
+      "message": "Yeah. Or at least we should treat it like a new critical extension, where only a new software + old cert combo works.",
+      "parentUuid": "6bd0ab61_e7aa0274",
+      "revId": "1121d667ce6fe45a64df969b025880065a486564",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
