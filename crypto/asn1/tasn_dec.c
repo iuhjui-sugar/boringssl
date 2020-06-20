@@ -985,7 +985,6 @@ static int asn1_find_end(const unsigned char **in, long len, char inf)
  * constructed type and 'inf' should be set if it is indefinite length.
  */
 
-#ifndef ASN1_MAX_STRING_NEST
 /*
  * This determines how many levels of recursion are permitted in ASN1 string
  * types. If it is not limited stack overflows can occur. If set to zero no
@@ -993,7 +992,6 @@ static int asn1_find_end(const unsigned char **in, long len, char inf)
  * exist that require a value of 1. So 5 should be more than enough.
  */
 # define ASN1_MAX_STRING_NEST 5
-#endif
 
 static int asn1_collect(BUF_MEM *buf, const unsigned char **in, long len,
                         char inf, int tag, int aclass, int depth)
