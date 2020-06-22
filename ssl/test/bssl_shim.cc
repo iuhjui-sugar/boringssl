@@ -1198,6 +1198,11 @@ int main(int argc, char **argv) {
     return 0;
   }
 
+  if (initial_config.wait_for_debugger) {
+    // The debugger will resume the process.
+    raise(SIGSTOP);
+  }
+
   bssl::UniquePtr<SSL_CTX> ssl_ctx;
 
   bssl::UniquePtr<SSL_SESSION> session;
