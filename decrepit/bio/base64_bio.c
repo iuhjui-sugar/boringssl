@@ -518,12 +518,7 @@ static long b64_callback_ctrl(BIO *b, int cmd, bio_info_cb fp) {
   if (b->next_bio == NULL) {
     return 0;
   }
-  switch (cmd) {
-    default:
-      ret = BIO_callback_ctrl(b->next_bio, cmd, fp);
-      break;
-  }
-  return ret;
+  return BIO_callback_ctrl(b->next_bio, cmd, fp);
 }
 
 static const BIO_METHOD b64_method = {
