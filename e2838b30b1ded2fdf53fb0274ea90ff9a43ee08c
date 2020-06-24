@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "21be84e4_1c3f400a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-24T16:32:04Z",
+      "side": 1,
+      "message": "Well, not quite. p256_32.h is full of it, because we need the upper half of 32-bit multiples. Fiat also uses it to extract carry bits. (Does that impact your goals?)",
+      "range": {
+        "startLine": 12,
+        "startChar": 14,
+        "endLine": 13,
+        "endChar": 35
+      },
+      "revId": "e2838b30b1ded2fdf53fb0274ea90ff9a43ee08c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1db6ad1a_73b229a6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-24T16:32:04Z",
+      "side": 1,
+      "message": "That seems reasonable enough (though I don\u0027t think we can really avoid secret u8s existing), but, mostly for context, I\u0027m curious as to what your motivation is. Is your goal to remove some of the constant_time_* functions, or is it to cut down on types when the compilers finally deliver us secret_uint64_t and friends, or something else?",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 34
+      },
+      "revId": "e2838b30b1ded2fdf53fb0274ea90ff9a43ee08c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3325f902_24106d2b",
+        "filename": "crypto/fipsmodule/ec/p224-64.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 1083,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-24T16:32:04Z",
+      "side": 1,
+      "message": "This one is... sometimes a truncation, not that it matters. :-) I don\u0027t believe there are any platforms where size_t \u003e crypto_word_t, and we probably have static asserts to that effect, but 64-bit NaCl had size_t \u003c crypto_word_t. Not sure where 64-bit NaCl is on the path towards disappearing.\n\n(I think 64-bit NaCl was why we ended up separating size_t and crypto_word_t.)",
+      "range": {
+        "startLine": 1083,
+        "startChar": 6,
+        "endLine": 1083,
+        "endChar": 12
+      },
+      "revId": "e2838b30b1ded2fdf53fb0274ea90ff9a43ee08c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
