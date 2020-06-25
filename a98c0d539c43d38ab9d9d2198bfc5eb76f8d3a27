@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "85f07e1b_2d318ec2",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 40
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-06-25T15:54:25Z",
+      "side": 1,
+      "message": "Answered my own question: yes, but let\u0027s wait for https://github.com/cisco/go-hpke/pull/30 to catch up to https://github.com/cfrg/draft-irtf-cfrg-hpke/pull/122.",
+      "revId": "a98c0d539c43d38ab9d9d2198bfc5eb76f8d3a27",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
