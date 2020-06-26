@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0b1a6e90_a6fa6322",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2020-06-26T16:13:18Z",
+      "side": 1,
+      "message": "That\u0027s why I was specific about mentioning the specific file p256.c.\n\nThis does not impact my goals at the end of the day. (The use of 32-bit mode for Fiat for MSVC is a temporary workaround for two bugs, and solving either of them will make it so that fiat limbs are the same type as crypto_word_t: Either we fix the ABI issues (or whatever) for the nistz256 assembly code so that you can use the assembly versions in MSVC and use them even even when we use OPENSSL_SMALL to avoid the big tables, or we can tweak the way we use fiat-generated code so that it will work when targeting Windows even when the rest of the code is compiled with MSVC. I am happy to discuss this elsewhere; I have ideas for both.)",
+      "parentUuid": "21be84e4_1c3f400a",
+      "range": {
+        "startLine": 12,
+        "startChar": 14,
+        "endLine": 13,
+        "endChar": 35
+      },
+      "revId": "e2838b30b1ded2fdf53fb0274ea90ff9a43ee08c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1db6ad1a_73b229a6",
         "filename": "/COMMIT_MSG",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "b65cedbf_4a66f912",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2020-06-26T16:13:18Z",
+      "side": 1,
+      "message": "My goal is to help people understand the minimal requirements for a compiler toolchain to support high-performance real-world crypto code. Part of this is to reduce the number of constant_time_* functions needed. More likely, it means defining a \"core\" set of constant_time_* functions that operate on register-sized values, and then defining any other constant_time_* functions in terms of the \"core\" set.",
+      "parentUuid": "1db6ad1a_73b229a6",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 34
+      },
+      "revId": "e2838b30b1ded2fdf53fb0274ea90ff9a43ee08c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3325f902_24106d2b",
         "filename": "crypto/fipsmodule/ec/p224-64.c",
         "patchSetId": 4
@@ -59,6 +107,30 @@
       "writtenOn": "2020-06-24T16:32:04Z",
       "side": 1,
       "message": "This one is... sometimes a truncation, not that it matters. :-) I don\u0027t believe there are any platforms where size_t \u003e crypto_word_t, and we probably have static asserts to that effect, but 64-bit NaCl had size_t \u003c crypto_word_t. Not sure where 64-bit NaCl is on the path towards disappearing.\n\n(I think 64-bit NaCl was why we ended up separating size_t and crypto_word_t.)",
+      "range": {
+        "startLine": 1083,
+        "startChar": 6,
+        "endLine": 1083,
+        "endChar": 12
+      },
+      "revId": "e2838b30b1ded2fdf53fb0274ea90ff9a43ee08c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cdc4fb34_a05b1e48",
+        "filename": "crypto/fipsmodule/ec/p224-64.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 1083,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2020-06-26T16:13:18Z",
+      "side": 1,
+      "message": "Thanks. I will add a cast.",
+      "parentUuid": "3325f902_24106d2b",
       "range": {
         "startLine": 1083,
         "startChar": 6,
