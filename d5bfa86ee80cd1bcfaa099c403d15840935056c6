@@ -1,0 +1,397 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "723d404b_941c5dcf",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 41
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-26T22:01:55Z",
+      "side": 1,
+      "message": "Two newlines after includes",
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd307c06_26f9d809",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 41
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-26T22:01:55Z",
+      "side": 1,
+      "message": "Probably can be removed at this point?",
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f68c5a1a_8126c858",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 41
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-26T22:01:55Z",
+      "side": 1,
+      "message": "See API-CONVENTIONS.md and other files for the right cleanup pattern with goto err.\nhttps://boringssl.googlesource.com/boringssl/+/HEAD/API-CONVENTIONS.md\n\nThis kind of pattern is very dangerous because it continues to run code after failure. Ditto throughout the file.",
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8050ff30_3594c337",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 41
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-26T22:01:55Z",
+      "side": 1,
+      "message": "These should come from the setup code since they\u0027re specific to the algorithms selected.",
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ef121d3_e080503f",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 41
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-26T22:01:55Z",
+      "side": 1,
+      "message": "Instead of enumerating fields like this, which is error-prone, just memset the entire structure to zero, and then I guess we can EVP_AEAD_CTX_zero(\u0026ctx-\u003eaead_ctx) for completeness, but it\u0027s not necessary.",
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d5ca05c_c315c1e9",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 41
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-26T22:01:55Z",
+      "side": 1,
+      "message": "No need to zero things, only to call cleanup on the one field that takes cleanup. If you want to zero it to clear secrets, the function is OPENSSL_cleanse, but whether it does anything is... complicated. We can chat about this next week.",
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "847d6b84_6e062fc2",
+        "filename": "crypto/hpke/hpke_test.cc",
+        "patchSetId": 41
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-26T22:01:55Z",
+      "side": 1,
+      "message": "Set up a C++ scoper so we don\u0027t need to do this in either tests or the implementation. (Take a look at how the scoper for EVP_MD_CTX is defined in the header. Note you want the stack-allocated one, not the heap-allocated one.)",
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce8a8e33_933b9d80",
+        "filename": "crypto/hpke/hpke_test.cc",
+        "patchSetId": 41
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-26T22:01:55Z",
+      "side": 1,
+      "message": "There are a lot of unused fields in here. For each of them, we should either use them, or drop them from the test files. (For Wycheproof, we do a fairly mechanical conversion, but this is a one-off script that will never be run again after the RFC is done, so we can tailor it to their test vectors.)",
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f35ea0fc_1ad15b9b",
+        "filename": "crypto/hpke/hpke_test.cc",
+        "patchSetId": 41
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-26T22:01:55Z",
+      "side": 1,
+      "message": "Almost all of these are internals, right? Let\u0027s just drop them from the Python script and only test the public API of HPKE. The internals are useful to have around when debugging, but our production implementation shouldn\u0027t have pressures to retain any intermediate state we don\u0027t actually need.",
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be933cd3_88f2fe89",
+        "filename": "crypto/hpke/hpke_test_vectors.txt",
+        "patchSetId": 41
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-26T22:01:55Z",
+      "side": 1,
+      "message": "The instruction block isn\u0027t doing anything. (I see the test just ignores it.) The intent with instruction blocks is to have common attributes between tests. For instance:\n\n[mode \u003d 0]\n[kemID \u003d 32]\n[kdfID \u003d 1]\n[aeadID \u003d 1]\n\nX \u003d 1\nY \u003d 2\n\nX \u003d 3\nY \u003d 4\n\nThis results in two tests, both of which pick up the same set of instructions.",
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0cbefc0_9492a9a6",
+        "filename": "crypto/hpke/hpke_test_vectors.txt",
+        "patchSetId": 41
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-26T22:01:55Z",
+      "side": 1,
+      "message": "Put spaces surrounding the \u003d in the generation script. That will make it a lot easier to read.",
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11380bda_f1b6cb27",
+        "filename": "crypto/hpke/hpke_test_vectors.txt",
+        "patchSetId": 41
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-26T22:01:55Z",
+      "side": 1,
+      "message": "Relying on the duplicate key numbering makes this really hard to tell which plaintexts corresponding to which ciphertexts. Instead, can we include the numbering in the output? Ditto for the exporters.\n\nAnother option could be to rely on the tests being processed in order and have different kinds of blocks for each operation and maintain some state. For instance evp_tests.txt actually sets up named keys. We could have named stateful contexts. Or we could track just a single context pair and if you get a \"new context\" block, you reset them.",
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "555d3bd5_7058a35f",
+        "filename": "crypto/hpke/hpke_test_vectors.txt",
+        "patchSetId": 41
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-26T22:01:55Z",
+      "side": 1,
+      "message": "This is in a different style from all the rest.",
+      "range": {
+        "startLine": 141,
+        "startChar": 0,
+        "endLine": 141,
+        "endChar": 11
+      },
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40e7c0f2_9e443cd8",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 41
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-26T22:01:55Z",
+      "side": 1,
+      "message": "Two newlines after extern \"C\"",
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "804edb54_4793c8aa",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 41
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-26T22:01:55Z",
+      "side": 1,
+      "message": "Why retain this one?",
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "714328b9_339057e8",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 41
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-26T22:01:55Z",
+      "side": 1,
+      "message": "|EVP_HPKE_CTX_setup_base_*|",
+      "range": {
+        "startLine": 90,
+        "startChar": 11,
+        "endLine": 90,
+        "endChar": 35
+      },
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea66466e_1972dd59",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 41
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-26T22:01:55Z",
+      "side": 1,
+      "message": "Its value must be one of the |HPKE_AEAD_*| constants.\n\nThen remove HPKE_AEAD_AES_GCM_256 if you haven\u0027t implemented it. (Edit: Looks like you did and the comment is out of date? This is why it shouldn\u0027t be listed out.)",
+      "range": {
+        "startLine": 93,
+        "startChar": 26,
+        "endLine": 94,
+        "endChar": 36
+      },
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6cbd3c1d_8eef090f",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 41
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-26T22:01:55Z",
+      "side": 1,
+      "message": "uint8_t out_enc[X25519_PUBLIC_VALUE_LEN] and then you can drop this.",
+      "range": {
+        "startLine": 104,
+        "startChar": 19,
+        "endLine": 105,
+        "endChar": 9
+      },
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "12c342a2_2c24616d",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 41
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-26T22:01:55Z",
+      "side": 1,
+      "message": "(Let\u0027s talk about this one next week.)\n\nThis shape of API isn\u0027t ideal for low-level crypto primitives because it forces the caller to pull in all AEADs, even if they only use one or two of them.\n\nNormally, we prefer to arrange for the static linker to be able to drop stuff. (A function which takes an const EVP_MD* doesn\u0027t pull in any hashes.) Unfortunately, we can\u0027t _quite_ take an EVP_AEAD* because HPKE made up its own code points for this. We could give EVP_AEADs NIDs and then have HPKE internally map them. Or we could make EVP_HPKE_AEADs which are, internally, just a combination of code point + EVP_AEAD getter.",
+      "range": {
+        "startLine": 107,
+        "startChar": 43,
+        "endLine": 107,
+        "endChar": 58
+      },
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9968aa9_ca87fb86",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 41
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-26T22:01:55Z",
+      "side": 1,
+      "message": "const",
+      "range": {
+        "startLine": 151,
+        "startChar": 39,
+        "endLine": 151,
+        "endChar": 51
+      },
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a688cde_efb9ade1",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 41
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-26T22:01:55Z",
+      "side": 1,
+      "message": "Two newlines here",
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
