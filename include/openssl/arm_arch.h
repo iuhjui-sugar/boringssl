@@ -62,7 +62,7 @@
 #   define __ARMEL__
 #  endif
 # elif defined(__GNUC__)
-#  if defined(__aarch64__)
+#  if defined(__aarch64__) || defined(_M_ARM64)
 #    define __ARM_ARCH__ 8
 #    if __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__
 #      define __ARMEB__
