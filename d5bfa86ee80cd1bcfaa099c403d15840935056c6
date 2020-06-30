@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d95dc85f_d440223a",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 41
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-06-30T17:45:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "723d404b_941c5dcf",
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bd307c06_26f9d809",
         "filename": "crypto/hpke/hpke.c",
         "patchSetId": 41
@@ -30,6 +48,24 @@
       "writtenOn": "2020-06-26T22:01:55Z",
       "side": 1,
       "message": "Probably can be removed at this point?",
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19c1a9e8_f5e1338a",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 41
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-06-30T17:45:42Z",
+      "side": 1,
+      "message": "I got rid of it yesterday, then needed it again. Let\u0027s keep it around until merge time. Is there a better way to hexdump in crypto/ code?",
+      "parentUuid": "bd307c06_26f9d809",
       "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "86ec5e25_843a98c8",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 41
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-06-30T17:45:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f68c5a1a_8126c858",
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ab2b1a4d_a5807017",
         "filename": "crypto/hpke/hpke.c",
         "patchSetId": 41
@@ -64,6 +118,30 @@
       "writtenOn": "2020-06-26T22:04:59Z",
       "side": 1,
       "message": "This is an array. Did you mean secret_key_ephemeral_len?\n\nThat said, if we find we need to implement a cache in a low-level crypto primitive, the API is wrong. What\u0027s this trying to do?",
+      "range": {
+        "startLine": 296,
+        "startChar": 12,
+        "endLine": 296,
+        "endChar": 32
+      },
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb6a2d17_40d1a665",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 41
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-06-30T17:45:42Z",
+      "side": 1,
+      "message": "Thanks, good catch.\n\nThe intent is to enable the testing harness to inject the skE value.\n\nIt\u0027s not so much a cache, since the caller shouldn\u0027t be calling Encap more than once per context.\n\nIs there a better way to implement this?",
+      "parentUuid": "ab2b1a4d_a5807017",
       "range": {
         "startLine": 296,
         "startChar": 12,
@@ -93,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "c0cb1cfb_25db1b30",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 41
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-06-30T17:45:42Z",
+      "side": 1,
+      "message": "Yes, you\u0027re right.\n\nAlso, I\u0027m eliminating the kem_hkdf_md since it\u0027s always EVP_sha256().",
+      "parentUuid": "8050ff30_3594c337",
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ef121d3_e080503f",
         "filename": "crypto/hpke/hpke.c",
         "patchSetId": 41
@@ -107,6 +203,24 @@
       "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b51a213_0e94615a",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 41
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-06-30T17:45:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ef121d3_e080503f",
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -127,6 +241,24 @@
     },
     {
       "key": {
+        "uuid": "aa4e214c_cff5b2a3",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 41
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-06-30T17:45:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d5ca05c_c315c1e9",
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "847d6b84_6e062fc2",
         "filename": "crypto/hpke/hpke_test.cc",
         "patchSetId": 41
@@ -138,6 +270,24 @@
       "writtenOn": "2020-06-26T22:01:55Z",
       "side": 1,
       "message": "Set up a C++ scoper so we don\u0027t need to do this in either tests or the implementation. (Take a look at how the scoper for EVP_MD_CTX is defined in the header. Note you want the stack-allocated one, not the heap-allocated one.)",
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61351006_7830628f",
+        "filename": "crypto/hpke/hpke_test.cc",
+        "patchSetId": 41
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-06-30T17:45:42Z",
+      "side": 1,
+      "message": "Done.\n\nBy \"implementation\" are you referring to the ECH implementation?",
+      "parentUuid": "847d6b84_6e062fc2",
       "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -161,6 +311,24 @@
     },
     {
       "key": {
+        "uuid": "f2d006e1_18eb4d25",
+        "filename": "crypto/hpke/hpke_test.cc",
+        "patchSetId": 41
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-06-30T17:45:42Z",
+      "side": 1,
+      "message": "Dropping them in the python script.",
+      "parentUuid": "ce8a8e33_933b9d80",
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f35ea0fc_1ad15b9b",
         "filename": "crypto/hpke/hpke_test.cc",
         "patchSetId": 41
@@ -175,6 +343,24 @@
       "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa275dbf_45f040c0",
+        "filename": "crypto/hpke/hpke_test.cc",
+        "patchSetId": 41
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-06-30T17:45:42Z",
+      "side": 1,
+      "message": "OK, cleaned this up a bit.",
+      "parentUuid": "f35ea0fc_1ad15b9b",
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -195,6 +381,24 @@
     },
     {
       "key": {
+        "uuid": "9057a4ad_92100d1a",
+        "filename": "crypto/hpke/hpke_test_vectors.txt",
+        "patchSetId": 41
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-06-30T17:45:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be933cd3_88f2fe89",
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f0cbefc0_9492a9a6",
         "filename": "crypto/hpke/hpke_test_vectors.txt",
         "patchSetId": 41
@@ -212,6 +416,24 @@
     },
     {
       "key": {
+        "uuid": "6ac8ef0f_b8279a2e",
+        "filename": "crypto/hpke/hpke_test_vectors.txt",
+        "patchSetId": 41
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-06-30T17:45:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0cbefc0_9492a9a6",
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "11380bda_f1b6cb27",
         "filename": "crypto/hpke/hpke_test_vectors.txt",
         "patchSetId": 41
@@ -223,6 +445,24 @@
       "writtenOn": "2020-06-26T22:01:55Z",
       "side": 1,
       "message": "Relying on the duplicate key numbering makes this really hard to tell which plaintexts corresponding to which ciphertexts. Instead, can we include the numbering in the output? Ditto for the exporters.\n\nAnother option could be to rely on the tests being processed in order and have different kinds of blocks for each operation and maintain some state. For instance evp_tests.txt actually sets up named keys. We could have named stateful contexts. Or we could track just a single context pair and if you get a \"new context\" block, you reset them.",
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b31d2e86_e88716c9",
+        "filename": "crypto/hpke/hpke_test_vectors.txt",
+        "patchSetId": 41
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-06-30T17:45:42Z",
+      "side": 1,
+      "message": "I just inserted comments to delimit the export tests and encryption tests. WDYT?",
+      "parentUuid": "11380bda_f1b6cb27",
       "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -252,6 +492,30 @@
     },
     {
       "key": {
+        "uuid": "ea5bcd18_a687d395",
+        "filename": "crypto/hpke/hpke_test_vectors.txt",
+        "patchSetId": 41
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-06-30T17:45:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "555d3bd5_7058a35f",
+      "range": {
+        "startLine": 141,
+        "startChar": 0,
+        "endLine": 141,
+        "endChar": 11
+      },
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "40e7c0f2_9e443cd8",
         "filename": "crypto/hpke/internal.h",
         "patchSetId": 41
@@ -269,6 +533,24 @@
     },
     {
       "key": {
+        "uuid": "e8587333_16d56526",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 41
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-06-30T17:45:42Z",
+      "side": 1,
+      "message": "Sorry, my editor keeps undoing this.",
+      "parentUuid": "40e7c0f2_9e443cd8",
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "804edb54_4793c8aa",
         "filename": "crypto/hpke/internal.h",
         "patchSetId": 41
@@ -283,6 +565,24 @@
       "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e4d21dd_ab678364",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 41
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-06-30T17:45:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "804edb54_4793c8aa",
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -309,6 +609,30 @@
     },
     {
       "key": {
+        "uuid": "199914e3_b7169e7d",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 41
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-06-30T17:45:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "714328b9_339057e8",
+      "range": {
+        "startLine": 90,
+        "startChar": 11,
+        "endLine": 90,
+        "endChar": 35
+      },
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ea66466e_1972dd59",
         "filename": "crypto/hpke/internal.h",
         "patchSetId": 41
@@ -332,6 +656,30 @@
     },
     {
       "key": {
+        "uuid": "fa108e15_8a153f0c",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 41
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-06-30T17:45:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea66466e_1972dd59",
+      "range": {
+        "startLine": 93,
+        "startChar": 26,
+        "endLine": 94,
+        "endChar": 36
+      },
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6cbd3c1d_8eef090f",
         "filename": "crypto/hpke/internal.h",
         "patchSetId": 41
@@ -352,6 +700,30 @@
       "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48b44c6b_25606046",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 41
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-06-30T17:45:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6cbd3c1d_8eef090f",
+      "range": {
+        "startLine": 104,
+        "startChar": 19,
+        "endLine": 105,
+        "endChar": 9
+      },
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -401,6 +773,30 @@
     },
     {
       "key": {
+        "uuid": "96a62391_2adebe70",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 41
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-06-30T17:45:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9968aa9_ca87fb86",
+      "range": {
+        "startLine": 151,
+        "startChar": 39,
+        "endLine": 151,
+        "endChar": 51
+      },
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2a688cde_efb9ade1",
         "filename": "crypto/hpke/internal.h",
         "patchSetId": 41
@@ -415,6 +811,24 @@
       "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "558128ab_0cc50c58",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 41
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-06-30T17:45:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a688cde_efb9ade1",
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
