@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "a232d088_ff1d48f6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-30T14:45:53Z",
+      "side": 1,
+      "message": "Yeah, I\u0027ve been thinking we ought to unify the nistz256 and fiat P-256 files since the table strategy and point operations should be independent. That was part of the motivation for tidying up the table generators and what lives in third_party/fiat vs crypto.\n\nThat said, it was more idly waving in that direction than an explicit goal. We\u0027ve, so far, not needed for the big tables on non-x86_64 targets. On OPENSSL_SMALL x86_64 targets, using the assembly would be a nice speed boost without the binary size hit, but the current perf is fine and being able to use formally-verified stuff is nice. *shrug*\n\n32-bit Fiat for MSVC x86_64 is annoying, yeah. I expect we\u0027d want to fix that by tweaking Fiat\u0027s output. Since we first did the Fiat integration, they\u0027ve gotten more flexible at outputting C, so it may be possible to support the MSVC intrinsics. I vaguely recall it crashing MSVC, but things may have since changed.",
+      "parentUuid": "0b1a6e90_a6fa6322",
+      "range": {
+        "startLine": 12,
+        "startChar": 14,
+        "endLine": 13,
+        "endChar": 35
+      },
+      "revId": "e2838b30b1ded2fdf53fb0274ea90ff9a43ee08c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1db6ad1a_73b229a6",
         "filename": "/COMMIT_MSG",
         "patchSetId": 4
@@ -96,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "155018bc_cba05af7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-30T14:45:53Z",
+      "side": 1,
+      "message": "Thanks. Makes sense.",
+      "parentUuid": "b65cedbf_4a66f912",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 34
+      },
+      "revId": "e2838b30b1ded2fdf53fb0274ea90ff9a43ee08c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3325f902_24106d2b",
         "filename": "crypto/fipsmodule/ec/p224-64.c",
         "patchSetId": 4
@@ -140,6 +188,30 @@
       "revId": "e2838b30b1ded2fdf53fb0274ea90ff9a43ee08c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6949304e_e2e73b5a",
+        "filename": "crypto/fipsmodule/ec/p224-64.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 1083,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-30T14:45:53Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "cdc4fb34_a05b1e48",
+      "range": {
+        "startLine": 1083,
+        "startChar": 6,
+        "endLine": 1083,
+        "endChar": 12
+      },
+      "revId": "e2838b30b1ded2fdf53fb0274ea90ff9a43ee08c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
