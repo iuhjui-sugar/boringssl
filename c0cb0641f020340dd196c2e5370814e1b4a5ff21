@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "acb80f00_28bf8e71",
+        "filename": "include/openssl/arm_arch.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-06-30T14:50:32Z",
+      "side": 1,
+      "message": "I\u0027m slightly doubtful that MSVC defines __GNUC__. :-)",
+      "revId": "c0cb0641f020340dd196c2e5370814e1b4a5ff21",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
