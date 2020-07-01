@@ -16,6 +16,24 @@
       "revId": "c0cb0641f020340dd196c2e5370814e1b4a5ff21",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f9ab77b_74d0ccd7",
+        "filename": "include/openssl/arm_arch.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2020-07-01T20:42:52Z",
+      "side": 1,
+      "message": "Fair point 😊",
+      "parentUuid": "acb80f00_28bf8e71",
+      "revId": "c0cb0641f020340dd196c2e5370814e1b4a5ff21",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
