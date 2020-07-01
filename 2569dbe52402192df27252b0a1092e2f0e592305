@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "52e60c83_723a95be",
+        "filename": "util/fipstools/acvp/acvptool/subprocess/kdf.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-01T21:30:36Z",
+      "side": 1,
+      "message": "To double-check: this wasn\u0027t meant to come with a modulewrapper.cc change, since this is meant for another module?",
+      "range": {
+        "startLine": 109,
+        "startChar": 28,
+        "endLine": 109,
+        "endChar": 39
+      },
+      "revId": "2569dbe52402192df27252b0a1092e2f0e592305",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25283a45_46b13449",
+        "filename": "util/fipstools/acvp/acvptool/testmodulewrapper/testmodulewrapper",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-01T21:30:36Z",
+      "side": 1,
+      "message": "Did you mean to check this in?",
+      "revId": "2569dbe52402192df27252b0a1092e2f0e592305",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b52d79ef_cdb70c29",
+        "filename": "util/fipstools/acvp/acvptool/testmodulewrapper/testmodulewrapper.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-01T21:30:36Z",
+      "side": 1,
+      "message": "Should this be \"Argument of length [...]\"?",
+      "range": {
+        "startLine": 169,
+        "startChar": 23,
+        "endLine": 169,
+        "endChar": 42
+      },
+      "revId": "2569dbe52402192df27252b0a1092e2f0e592305",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
