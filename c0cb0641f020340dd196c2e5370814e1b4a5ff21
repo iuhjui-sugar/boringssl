@@ -34,6 +34,24 @@
       "revId": "c0cb0641f020340dd196c2e5370814e1b4a5ff21",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fdd26243_1cfbc383",
+        "filename": "include/openssl/arm_arch.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-01T21:12:45Z",
+      "side": 1,
+      "message": "(marking resolved)",
+      "parentUuid": "9f9ab77b_74d0ccd7",
+      "revId": "c0cb0641f020340dd196c2e5370814e1b4a5ff21",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }

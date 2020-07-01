@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "38b7e486_67665610",
+        "filename": "crypto/fipsmodule/bn/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-01T21:12:45Z",
+      "side": 1,
+      "message": "Nit: Should these also have parens around them? Not sure if there are any edge cases where it makes a difference...",
+      "range": {
+        "startLine": 413,
+        "startChar": 24,
+        "endLine": 413,
+        "endChar": 25
+      },
+      "revId": "e2b7eedeccdde6921374be334740f3bb7cd81a20",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e76bdba_c41770c3",
+        "filename": "crypto/fipsmodule/bn/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-01T21:12:45Z",
+      "side": 1,
+      "message": "Huh. __umulh exists on x86_64 too, but _umul128 does not exist in aarch64.\n\nI guess that makes some sense since aarch doesn\u0027t actually have a two-output multiply instruction. There are separate mul and mulh instructions and, IIRC, the processor tries to be clever if it sees the two in succession or something weird like this??\n\nTo that end, using _umul128 when we can seems reasonable. No sense in risking the compiler getting it wrong.",
+      "range": {
+        "startLine": 416,
+        "startChar": 13,
+        "endLine": 416,
+        "endChar": 20
+      },
+      "revId": "e2b7eedeccdde6921374be334740f3bb7cd81a20",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
