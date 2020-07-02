@@ -16,6 +16,24 @@
       "revId": "ce09599d2b490d67e156afa6de0bb76b326ea0ba",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95d8b89a_9d10d14f",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2020-07-02T20:07:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c03129a_635804cf",
+      "revId": "ce09599d2b490d67e156afa6de0bb76b326ea0ba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
