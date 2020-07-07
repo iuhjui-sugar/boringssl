@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4514300b_e8833f57",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 740,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-07T15:10:57Z",
+      "side": 1,
+      "message": "Nit: We can trim this a hair by doing...\n\n1. Move line 731-735 above the goto err point and have that simply return 0.\n2. Fold the decls in line 724-727 into the allocations here.\n\n  if (num_to_issue \u003e ((size_t)-1) / sizeof(EC_RAW_POINT) ||\n      num_to_issue \u003e ((size_t)-1) / sizeof(EC_SCALAR)) {\n    OPENSSL_PUT_ERROR(TRUST_TOKEN, ERR_R_OVERFLOW);\n    return 0;\n  }\n\n  int ret \u003d 0;\n  EC_RAW_POINT *Tps \u003d OPENSSL_malloc(num_to_issue * sizeof(EC_RAW_POINT));\n  EC_RAW_POINT *Sps \u003d OPENSSL_malloc(num_to_issue * sizeof(EC_RAW_POINT));\n  EC_RAW_POINT *Wps \u003d OPENSSL_malloc(num_to_issue * sizeof(EC_RAW_POINT));\n  EC_RAW_POINT *Wsps \u003d OPENSSL_malloc(num_to_issue * sizeof(EC_RAW_POINT));\n  EC_SCALAR *es \u003d OPENSSL_malloc(num_to_issue * sizeof(EC_SCALAR));\n  CBB batch_cbb;\n  CBB_zero(\u0026batch_cbb);",
+      "revId": "79d66a0917b0705976d34662ac6eb972050cffe4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd322f97_375aeadf",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 805,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-07T15:10:57Z",
+      "side": 1,
+      "message": "This got moved outside the loop rather than inside, which I think is the cause of all the ASan/MSan failures on the CQ.",
+      "revId": "79d66a0917b0705976d34662ac6eb972050cffe4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a4c8151_c9f2e7b7",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 893,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-07T15:10:57Z",
+      "side": 1,
+      "message": "Ditto on folding decls together.",
+      "revId": "79d66a0917b0705976d34662ac6eb972050cffe4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6333e5f3_fe1288c4",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 940,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-07T15:10:57Z",
+      "side": 1,
+      "message": "We can probably replace Tp with Tps[i], etc., to avoid this extra copy and stack allocation.",
+      "revId": "79d66a0917b0705976d34662ac6eb972050cffe4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
