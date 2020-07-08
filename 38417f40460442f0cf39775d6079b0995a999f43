@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e7954654_5f04edaf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10411
+      },
+      "writtenOn": "2020-07-08T23:02:06Z",
+      "side": 1,
+      "message": "I\u0027ve updated some documentation to reflect an implementation detail that I\u0027d like to rely upon in Mundane. Please take a look. Thanks!",
+      "revId": "38417f40460442f0cf39775d6079b0995a999f43",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
