@@ -73,7 +73,9 @@ struct rc4_key_st {
 } /* RC4_KEY */;
 
 // RC4_set_key performs an RC4 key schedule and initialises |rc4key| with |len|
-// bytes of key material from |key|.
+// bytes of key material from |key|. |rc4key| does not reference or take
+// ownership of |key| nor its data; |key| may be discarded after calling this
+// function.
 OPENSSL_EXPORT void RC4_set_key(RC4_KEY *rc4key, unsigned len,
                                 const uint8_t *key);
 
