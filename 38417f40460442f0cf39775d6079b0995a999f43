@@ -16,6 +16,23 @@
       "revId": "38417f40460442f0cf39775d6079b0995a999f43",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8c440b36_55dd94b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-07-08T23:44:49Z",
+      "side": 1,
+      "message": "This is implied by the fact that the argument is const and is convention throughout BoringSSL. I don\u0027t think we want to note it in here because then, why not everywhere else too?",
+      "revId": "38417f40460442f0cf39775d6079b0995a999f43",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
