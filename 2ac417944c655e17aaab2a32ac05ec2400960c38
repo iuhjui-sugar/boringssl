@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ea385bc_5cd396d8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 49
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-07-08T21:09:00Z",
+      "side": 1,
+      "message": "New patchset, PTAL :)\n\n* Dropped the ephemeral secret key cache from EVP_HPKE_CTX.\n* Added a \"_for_test\" variant of EVP_HPKE_CTX_setup_base_x25519_s() so tests can inject the KEM\u0027s ephemeral keypair.\n* Added coverage for the normal EVP_HPKE_CTX_setup_base_x25519_s(), since the test vector runner now exclusively calls the \"_for_test\" variant.\n* Dropped the \"enc\" field from test vectors. It\u0027s the same as \"pkEm\".\n",
+      "revId": "2ac417944c655e17aaab2a32ac05ec2400960c38",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
