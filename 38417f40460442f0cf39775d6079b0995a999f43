@@ -51,6 +51,24 @@
       "revId": "38417f40460442f0cf39775d6079b0995a999f43",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90fb1c77_8242480a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-07-08T23:54:23Z",
+      "side": 1,
+      "message": "If a BoringSSL function takes a pointer but still needs it to live past the return of the function it\u0027ll highlight that in the comments because that\u0027s really weird. There are vast numbers of functions that take pointer arguments in BoringSSL and I can\u0027t think of any that demand that they stay live past function return.\n\n(There\u0027s probably some OpenSSL function that does? But we tag dangerous behaviour in the comments with \"WARNING: \" and a quick grep doesn\u0027t seem to turn any up. The closest is probably the functions that take ownership of their arguments and they aren\u0027t const, and are documented as such.)",
+      "parentUuid": "1ecc6966_517dccf6",
+      "revId": "38417f40460442f0cf39775d6079b0995a999f43",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
