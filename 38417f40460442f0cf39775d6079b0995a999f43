@@ -69,6 +69,24 @@
       "revId": "38417f40460442f0cf39775d6079b0995a999f43",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "066c7d12_1539c6b9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8959
+      },
+      "writtenOn": "2020-07-09T00:29:41Z",
+      "side": 1,
+      "message": "Understood, thanks! I was probably just thinking of the term \"ownership\" through a Rust lens, in which \"ownership\" implies \"responsibility for resource cleanup\", and is distinct from a concept like \"borrowing\", which also allows references to live past a function call, but does not imply a responsibility for resource cleanup.",
+      "parentUuid": "90fb1c77_8242480a",
+      "revId": "38417f40460442f0cf39775d6079b0995a999f43",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
