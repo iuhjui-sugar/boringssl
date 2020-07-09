@@ -105,6 +105,24 @@
       "revId": "38417f40460442f0cf39775d6079b0995a999f43",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "27096f01_b29c06c9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8959
+      },
+      "writtenOn": "2020-07-09T00:39:22Z",
+      "side": 1,
+      "message": "Legacy protocols, amirite? 🤦‍♂️",
+      "parentUuid": "826f2669_53c3f4da",
+      "revId": "38417f40460442f0cf39775d6079b0995a999f43",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
