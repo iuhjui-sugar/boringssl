@@ -51,6 +51,23 @@
       "revId": "6a75c78226f1ad01e9b5690f68fc9e4031da6483",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "046f34c7_50ddd69a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-07-09T14:04:49Z",
+      "side": 1,
+      "message": "Multiple organisations use BoringSSL and need to understand what\u0027s happening in changes. While I have some vague understanding of BTI, many will not so I think, for starters, the change description needs to be 5-10x as long. Some things to include:\n\nWhat\u0027s BTI (URL to longer explanation)\nWhy it\u0027s ok to not guard when running on older CPUs.\nWhat\u0027s the interaction between C code compiled with/without the flag and assembly code that might have it unconditionally.\nWhat hardware supports it for testing (this is esp pertinent and may block support because ARM doesn\u0027t produce tooling like Intel\u0027s SDE).\nWhat compilers are getting the #defines, i.e. which ones you expect to work with.\n\nDitto for pointer tagging.",
+      "revId": "6a75c78226f1ad01e9b5690f68fc9e4031da6483",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
