@@ -123,6 +123,24 @@
       "revId": "38417f40460442f0cf39775d6079b0995a999f43",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ab3cf884_8ee1a165",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-09T15:18:04Z",
+      "side": 1,
+      "message": "The default convention should be documented in https://boringssl.googlesource.com/boringssl/+/HEAD/API-CONVENTIONS.md#ownership-and-lifetime\n\n\u003e Unless otherwise documented, functions do not take ownership of pointer arguments. The pointer typically must remain valid for the duration of the function call. The function may internally copy information from the argument or take a reference, but the caller is free to release its copy or reference at any point after the call completes.\n\n(We use \"take a reference\" to mean increment a refcount and take on responsibility of releasing the refcount later. That section mentions this too. Though, in hindsight, that may not have been the best terminology given C++ and Rust use \"reference\" to mean something entirely different...)",
+      "parentUuid": "27096f01_b29c06c9",
+      "revId": "38417f40460442f0cf39775d6079b0995a999f43",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
