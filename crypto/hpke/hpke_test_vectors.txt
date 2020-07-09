@@ -1,0 +1,503 @@
+kdfID = 1
+aeadID = 1
+info = 4f6465206f6e2061204772656369616e2055726e
+seedR = 7faae9eccfca09b447a9347e4c6d973b9c51f41c8791ef9125d7ed76b8f76906
+seedE = e8987543314fbd759c9cfec9379e93c0a227c073728c281355d44901cada9236
+skRm = f102794b7685646781c302cdd974523599e582ac3653401e754b2b2375df1b5b
+skEm = 7f4a9e9503d98578ba95b6c3ec781fa73196146245c446da79eb41256dcbef23
+pkRm = 3073186728a82c71b8a2c62b6deaf513254f91f18603ae6ea797d9a0d1e0ee58
+pkEm = 6f6a3c97e52b49679f0b93aa24a61e92c2a684bb940dbdd1800c9895d91ac351
+enc = 6f6a3c97e52b49679f0b93aa24a61e92c2a684bb940dbdd1800c9895d91ac351
+keyScheduleContext = 002000010001005f59a87af52c687cb9e55e42cd7be07d4f1714b7c32c1586037310f1042ce238e2315be921bff8bea06dd5e9a1813a3f909b9eb7a8dbd90ac60b906e50ab910d
+outerNonce = 5ca14600d25e13d57d18cde1
+exporterSecret = dd53c936399d1b8f49724b69ef5f71cdb2211bb4a45d1cb36191286d2614d449
+# ---- encryptions[0] ----------------------------------------------
+aad = 436f756e742d30
+ciphertext = 8b0cc5c82b31f40f2e5a86f243fcefc9dd732e3613496fb0167b14b5d491228b94bd59b690aae0a6f3d1556f64
+nonce = 5ca14600d25e13d57d18cde1
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[1] ----------------------------------------------
+aad = 436f756e742d31
+ciphertext = c5e42770a5abe191cb23cf1d6d6125d74f186f8f3204f32beef8a3014213b8945b90940cbc5675833beb3bc6fe
+nonce = 5ca14600d25e13d57d18cde0
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[2] ----------------------------------------------
+aad = 436f756e742d32
+ciphertext = 8e65596720fc42f4e234fe5f7e9a35a2d91e607cfa2005368ba20a383666e6499c5c86f10c008cad2f4fe5cf37
+nonce = 5ca14600d25e13d57d18cde3
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[3] ----------------------------------------------
+aad = 436f756e742d33
+ciphertext = 88eacbdf2201a785eada23b94f85d1b031badcbb4a4c7c9f25bcfae1a75020ff1ea8acd2726a54def96d143101
+nonce = 5ca14600d25e13d57d18cde2
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[4] ----------------------------------------------
+aad = 436f756e742d34
+ciphertext = 317f8d8512b00d63a33a5be25588dde47505dacf32a5782955e1d14e1a83f973719b2fe12a5479085dcf90c98a
+nonce = 5ca14600d25e13d57d18cde5
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[5] ----------------------------------------------
+aad = 436f756e742d35
+ciphertext = f112f588c0f2e5ee4f76bd1d49d73201cfea162ebdcc5a4bce9e4489b3b32f37a609e738abb8950dbf3dfaef80
+nonce = 5ca14600d25e13d57d18cde4
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[6] ----------------------------------------------
+aad = 436f756e742d36
+ciphertext = 1e3509c991fe2dcce23b983df9901fb725b88d141101d0c6a404fcbed225923c9b34c8192fc23f751dc8601bb8
+nonce = 5ca14600d25e13d57d18cde7
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[7] ----------------------------------------------
+aad = 436f756e742d37
+ciphertext = 483be3a907d7ade2e73dd72a324106f960dbdc3cb1a323d29650d863e95d58f33d97f172cfa5c0052b8bdd4281
+nonce = 5ca14600d25e13d57d18cde6
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[8] ----------------------------------------------
+aad = 436f756e742d38
+ciphertext = 0474e5ed2a714b27ee93980543cecae54adefb2257f4bddec91878db7b93ee0677b0bdae8ca78bff7ae5625cd6
+nonce = 5ca14600d25e13d57d18cde9
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[9] ----------------------------------------------
+aad = 436f756e742d39
+ciphertext = 79cf8c08e2d0a9bca98f5bc2194a8d1c8ab88f9c3d93cb7d146a59812eb70dea5c5f1bd49870a18bdf7bcebf7d
+nonce = 5ca14600d25e13d57d18cde8
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- exports[0] ----------------------------------------------
+exportContext = 436f6e746578742d30
+exportLength = 32
+exportValue = db291b1b7c85b91270b316281191ef979c4cc3b9c00ced863cc9c63639eec304
+# ---- exports[1] ----------------------------------------------
+exportContext = 436f6e746578742d31
+exportLength = 32
+exportValue = 1a5e36891b4b9b4d37eb6825d6fccbd64253fa0330ef29ba1b81ee51acccc5a5
+# ---- exports[2] ----------------------------------------------
+exportContext = 436f6e746578742d32
+exportLength = 32
+exportValue = f445891b9184aec5b7698398f5ae1a43f05d13d03993e5d327c2ae1f4b51d82e
+# ---- exports[3] ----------------------------------------------
+exportContext = 436f6e746578742d33
+exportLength = 32
+exportValue = 9e64700b5bedd9ccf477209e67620e3eda8871bf11e298f4dda54194211222d0
+# ---- exports[4] ----------------------------------------------
+exportContext = 436f6e746578742d34
+exportLength = 32
+exportValue = d6569bd080f89b0ce79e3bc93fd7b3863e8939f41b512813319d4e0c8fecd43c
+
+kdfID = 1
+aeadID = 2
+info = 4f6465206f6e2061204772656369616e2055726e
+seedR = faf0ace66af9615843fb6ab797c5d60ba896b6e44164933dddf46ab01ab94a11
+seedE = debff47e75eea040387a8c92830c3a13bf5bdb4c1c76ce17e43551d4f4e05da7
+skRm = 772c167f4e8a9507fe41f1249dd30b21f2ac095b0b65cd9ca8b5f6ad833b6a7d
+skEm = 3227651080e57a60893822e0d5411b13376d4c929b25340b1abcb41f2550f290
+pkRm = f175881e80210250da42598de06c0fb7982f7cb2b6c5ce51ef771d182f09f00e
+pkEm = d8875cccd76af0305746e221f32e197282515bc7308bf3d1df971240011ea737
+enc = d8875cccd76af0305746e221f32e197282515bc7308bf3d1df971240011ea737
+keyScheduleContext = 002000010002001c6907359a7daf67953ca146bcee91341462b6f068c235c0e42eb6c0a39b2f5aea4ccc5c4d1ab53cb3cf7430d10e4517e439bd45970f921cde7bd35842365cb3
+outerNonce = 23f5e1caf13c0c9d1e774c86
+exporterSecret = 93b40d16ac7358796dcb7358d6e7f1e02c80650a34edcae61e9964ef21e945e4
+# ---- encryptions[0] ----------------------------------------------
+aad = 436f756e742d30
+ciphertext = f45481016fce54cd74f68ea040c7adc102986da8bb4cee3080bfcbb608ce644482221a4d729ed70ac86b8faabe
+nonce = 23f5e1caf13c0c9d1e774c86
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[1] ----------------------------------------------
+aad = 436f756e742d31
+ciphertext = 52aaec35ee001769b530b3e392358fb8cc602b73e0bcdb00b1e31030f60e8f0ca87d79ebbb07df8eb2f2b17c1e
+nonce = 23f5e1caf13c0c9d1e774c87
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[2] ----------------------------------------------
+aad = 436f756e742d32
+ciphertext = 7dd91742c52454ccee5642908102cf98a34ccdf0029529651311a3aeb4944cc0ed88173e549a639f7a6b1b73d3
+nonce = 23f5e1caf13c0c9d1e774c84
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[3] ----------------------------------------------
+aad = 436f756e742d33
+ciphertext = e6b1efbb353dd49da6f1f27bed0f37e1e87f0e92500f9c3a9bf3ecbf8e546bc0ab74c11e75c8f90c8c660b996f
+nonce = 23f5e1caf13c0c9d1e774c85
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[4] ----------------------------------------------
+aad = 436f756e742d34
+ciphertext = 945aba8adb54f517bd4c4a2499b7ebec69e65d0a56074df21a8f966122694369591440ba803ebfc4bd49d6b85e
+nonce = 23f5e1caf13c0c9d1e774c82
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[5] ----------------------------------------------
+aad = 436f756e742d35
+ciphertext = 4aceb148e3e7d973be2273a20c4fc684f8a6c265e5ee636b443b8a806e4e1760239a97f51ae70caa55fdf07541
+nonce = 23f5e1caf13c0c9d1e774c83
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[6] ----------------------------------------------
+aad = 436f756e742d36
+ciphertext = 5109eff676bde0e03105394338ba3ea961f75e4d819bae887ec0a0aa679189db29b874725c7f01f27ae7213a8c
+nonce = 23f5e1caf13c0c9d1e774c80
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[7] ----------------------------------------------
+aad = 436f756e742d37
+ciphertext = 01f2631045c51f3326c1fbdd68e37af53b5e2a5e792c1f5cc64a2cea019088461fa4260460d858d89aa96efdfe
+nonce = 23f5e1caf13c0c9d1e774c81
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[8] ----------------------------------------------
+aad = 436f756e742d38
+ciphertext = 0c0e042f9b3e49a7d626d3d07f0052000fc5a8b99b4b01ac1fb250aeff212e63fc17de7208a4c81f3b5f081de6
+nonce = 23f5e1caf13c0c9d1e774c8e
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[9] ----------------------------------------------
+aad = 436f756e742d39
+ciphertext = 84dfa6fe67f1ca3b57de99a1d992a79d968b7a518909a1aebdf89f94ee6c3b5ffa44fc5e7793f7069cbad2fdec
+nonce = 23f5e1caf13c0c9d1e774c8f
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- exports[0] ----------------------------------------------
+exportContext = 436f6e746578742d30
+exportLength = 32
+exportValue = af31889a10b00d54de27671376c49cf6b49c784344d34969f1a2fba6dec9fbcc
+# ---- exports[1] ----------------------------------------------
+exportContext = 436f6e746578742d31
+exportLength = 32
+exportValue = f6cda350133efb15a6f6ff6928db8a1915a764695729d4cd3731ec548312d614
+# ---- exports[2] ----------------------------------------------
+exportContext = 436f6e746578742d32
+exportLength = 32
+exportValue = 6f235e437be458a6f49d7c6e4f4dc613d2ad1dfb9735dc24e3931e000f907dbc
+# ---- exports[3] ----------------------------------------------
+exportContext = 436f6e746578742d33
+exportLength = 32
+exportValue = ba1fbdc5f90a34634e2ccc4ca560573eef7dc41d0b534983967c4cf8f77e9a48
+# ---- exports[4] ----------------------------------------------
+exportContext = 436f6e746578742d34
+exportLength = 32
+exportValue = e7d52269516b68443170535e5d9f7457725fda76767d7b6ff4becfcbe173758f
+
+kdfID = 1
+aeadID = 3
+info = 4f6465206f6e2061204772656369616e2055726e
+seedR = c8f8296677e082ca7f03a57a6d5eb47121c6b5cbe5d9e8ddc0c8deb4bb548070
+seedE = c54622b6fabee9b3605e41bf44e7b7ebea5c018447b55c59f735739695876693
+skRm = e4c638ed6b32e550820218a50e1a652508d9490fbaef96eff03762c977d64b13
+skEm = 982db024dfd2bf4380ed4d0dc6285bb1d6326319e26786fd61768dcfaefb698c
+pkRm = b7ec8d604f555cba0f663d616fd225f4c96e11e19ed43fa0e3a8bed4a7c8a165
+pkEm = 7fe5e15784e403caae72e7712bafd3099cb4f6a214c0d8d12c3654950eb3c278
+enc = 7fe5e15784e403caae72e7712bafd3099cb4f6a214c0d8d12c3654950eb3c278
+keyScheduleContext = 002000010003002ed6ef5e5a1e10b8ce95d98a132e9042fdb39eb661fa2fff0353f29b397c31aceec26b8f681b7d42f5ce9979f35b851fd772d56055040326cc392f2a2bcc5d3b
+outerNonce = 5651f2073955ee575b47a489
+exporterSecret = c2370ff279175a815155b0d764c672237e5820dedbb7d83a0dca4c271a00364b
+# ---- encryptions[0] ----------------------------------------------
+aad = 436f756e742d30
+ciphertext = 6c55c526f4107beaffbfce4f5749d48d748dc5a9729485ef847bea75edc4e246e9ac220ae77fc5996a44eaa3ba
+nonce = 5651f2073955ee575b47a489
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[1] ----------------------------------------------
+aad = 436f756e742d31
+ciphertext = 603bb940ee831cc5e3f0fda07f37161c6de1854966e7544188c6b1329ed1d838cb31f4b8955468b9cdc58f05a4
+nonce = 5651f2073955ee575b47a488
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[2] ----------------------------------------------
+aad = 436f756e742d32
+ciphertext = 1363b79b60a3c634c485ced8d1f3dc06f7ffd4f7b479b4ddf254f1b9219d4a3baa38964dcfc2b1c0dcdc46db46
+nonce = 5651f2073955ee575b47a48b
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[3] ----------------------------------------------
+aad = 436f756e742d33
+ciphertext = 9c9e9751c43ec15fc93bf7c083ea82b570477e670b57d8509d6e7631c81c72c78d27fe703f8895566688f0e3b4
+nonce = 5651f2073955ee575b47a48a
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[4] ----------------------------------------------
+aad = 436f756e742d34
+ciphertext = cc7ba9758550a5ef1ce76626e1523df288e8f43cd0f8b21049f3accb774b4ff60e6c2ae3cdd20427bab37706bf
+nonce = 5651f2073955ee575b47a48d
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[5] ----------------------------------------------
+aad = 436f756e742d35
+ciphertext = c96ec993b74d4cd3a9f54118c27c5549f0e18b08cb877db4f32d457b7fb480598d720e1f72d82b3cb671099a85
+nonce = 5651f2073955ee575b47a48c
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[6] ----------------------------------------------
+aad = 436f756e742d36
+ciphertext = 3c3f0e6aa674c544357c739533b942051b9638340dd79c4614316e8e5fbce44a9a5799e742d43fc806a804f168
+nonce = 5651f2073955ee575b47a48f
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[7] ----------------------------------------------
+aad = 436f756e742d37
+ciphertext = 44b6e5654c1261469ea73879a3f54f183b91f518e0a5f34ebf5da443c29333c93dd8b4347ed0298fd44b4df13d
+nonce = 5651f2073955ee575b47a48e
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[8] ----------------------------------------------
+aad = 436f756e742d38
+ciphertext = f14ff566f72efc59c6f1bd16a80708f4fb57b1a57af729e32e90b40bed27b78cff240efc4a4be7f017d6eb22ba
+nonce = 5651f2073955ee575b47a481
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[9] ----------------------------------------------
+aad = 436f756e742d39
+ciphertext = 5c85b7d46a2dac629f06d6e492cffa3a70dd1d705a21073f55ee0556da7ca822893604769486202b779da17428
+nonce = 5651f2073955ee575b47a480
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- exports[0] ----------------------------------------------
+exportContext = 436f6e746578742d30
+exportLength = 32
+exportValue = bbef9fa73c34fc7cc578a412db865b39867a2871ef9f7443c89d1c6e3a54ed00
+# ---- exports[1] ----------------------------------------------
+exportContext = 436f6e746578742d31
+exportLength = 32
+exportValue = fcb83926c52a91bac6deb07dc7517f08cb7ca4d3aad576ce09a6acfc5057c75c
+# ---- exports[2] ----------------------------------------------
+exportContext = 436f6e746578742d32
+exportLength = 32
+exportValue = e4d6f23d67446345d2c2613ad7274f37e6501e8337afed6e9b7eb50842dc1820
+# ---- exports[3] ----------------------------------------------
+exportContext = 436f6e746578742d33
+exportLength = 32
+exportValue = 4294917cfaf584bdb862ceb68e36d1cbb4a1ee1a6ea4b81422f591e73e366b40
+# ---- exports[4] ----------------------------------------------
+exportContext = 436f6e746578742d34
+exportLength = 32
+exportValue = 3eab53530104a154180746ddedcae06a78e8cfc3379a20dd885a98a138e64014
+
+kdfID = 3
+aeadID = 1
+info = 4f6465206f6e2061204772656369616e2055726e
+seedR = f055c2f132c141399577a1ae9a7733562237029b79b6ad9597a53a35a5c47eb8
+seedE = f3fa319f150b07f8b5b4cc7ea81a15110cc395e396a4a1237d52f95afbd8b852
+skRm = 6e12a3f22480c005578294a7178e280f5d0825b1b60f1e0553ebdaa22a1e70d7
+skEm = eea7879977408359fecc08e12a6a4e0b6eb2053a1c5c9412d6a64bb9ebd02768
+pkRm = 0daeb6a4c44c3d0e7d0cf6b719ac1208c9089e17efcf1d9093540bfb715e1f5a
+pkEm = aec80828846117da863daa0b35e37cef3105571cba16d39b0640816e8091e40f
+enc = aec80828846117da863daa0b35e37cef3105571cba16d39b0640816e8091e40f
+keyScheduleContext = 0020000300010047373f05d58573ca241f94c6c6cf7457d4b8edf9238f310cf1ff672d9f1e6cf1249f2d1d0799e0a1e6fe5c516e05e769250040cdb2b78354a488cdcc2c1f17d44c0a2784a97b2ea34e6f2672ffced994ee825d2dff0ad1485955852e62f4783a38ea6bc0353a313cf8f12683b97d0e1040d203bb2807982dbaefe5b5ce3001bf
+outerNonce = 9c59f36150e0e2620d8a8f18
+exporterSecret = 09da92c9e66580a92aa8429bc8f4de1052d5cbc1114b64fd2a2e900d5e8e58c3d837e88d3f4f681b069a7774e75cbafb51c2e4bc5e92f89ee3aaa53bf3d98159
+# ---- encryptions[0] ----------------------------------------------
+aad = 436f756e742d30
+ciphertext = 278b70d293ee907238724d11920f148cb6131a8a70c7313966d18a92fd064188c74b64cafe4befbed0b2fbc4b0
+nonce = 9c59f36150e0e2620d8a8f18
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[1] ----------------------------------------------
+aad = 436f756e742d31
+ciphertext = 8f27580070beb680739fed908508763e66c5a62b432d0fe07c707c1a3631b648731a88ef30894a7f5cafe76cc7
+nonce = 9c59f36150e0e2620d8a8f19
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[2] ----------------------------------------------
+aad = 436f756e742d32
+ciphertext = 9679984f10a5a26cc66c2dbec8db70eb9a330a50e43dd28748ee85504dec771b637825ae355c1b50bdb2ed3ad0
+nonce = 9c59f36150e0e2620d8a8f1a
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[3] ----------------------------------------------
+aad = 436f756e742d33
+ciphertext = a8f11dd3d80e0ac993e8be26d3ec2bffa054bf89773d992fd385153311179996c6b07e97000e5de5658eecf91f
+nonce = 9c59f36150e0e2620d8a8f1b
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[4] ----------------------------------------------
+aad = 436f756e742d34
+ciphertext = 7df3aecba5843494bd1e69b214fdb596e63e439a9f13a2f64900121492dbf46378f8ad7f5a7c1b41aaa50138a6
+nonce = 9c59f36150e0e2620d8a8f1c
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[5] ----------------------------------------------
+aad = 436f756e742d35
+ciphertext = d0a819c3e02647e359e9df4ed0fd585cefcaa419497cc10592083af6f68a7bd1dc25a2b4b0e9de5964325cbb42
+nonce = 9c59f36150e0e2620d8a8f1d
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[6] ----------------------------------------------
+aad = 436f756e742d36
+ciphertext = 38d0a661701e7ca817788f56ca76200e18e35eb3411b898603cc2720828fc72949fde88342222305687a9ea370
+nonce = 9c59f36150e0e2620d8a8f1e
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[7] ----------------------------------------------
+aad = 436f756e742d37
+ciphertext = 8893547d7b7b85959725bf78fb50c32c258ba40ded33bd10fc17cf36a7fdf9af6a7ecf5c4963864f03b6d33a22
+nonce = 9c59f36150e0e2620d8a8f1f
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[8] ----------------------------------------------
+aad = 436f756e742d38
+ciphertext = 5a6a3f09cdbcf7c3d902673a436651949d0b709d0e72b46681a5fa0a48044af4351aa46647077b4d320ec2ccd1
+nonce = 9c59f36150e0e2620d8a8f10
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[9] ----------------------------------------------
+aad = 436f756e742d39
+ciphertext = 7a5cdbfbdbcf803d9d2076592f767948a5042ee7dc91957820303bec74014c2fe7b17aefc43c0ccf55b760ee77
+nonce = 9c59f36150e0e2620d8a8f11
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- exports[0] ----------------------------------------------
+exportContext = 436f6e746578742d30
+exportLength = 32
+exportValue = 897673925d8ed59eda3835031fd7a34cd533adeb91f9cbffa9ec3dd43cf87705
+# ---- exports[1] ----------------------------------------------
+exportContext = 436f6e746578742d31
+exportLength = 32
+exportValue = 4ef5221078546938ba9d1e9c6c72b705b917746aac2e951109a69c2e5291e637
+# ---- exports[2] ----------------------------------------------
+exportContext = 436f6e746578742d32
+exportLength = 32
+exportValue = 88098881932080ffdddf19e8105214776d23dfa7e84ce22efd20f0b5f9be75ea
+# ---- exports[3] ----------------------------------------------
+exportContext = 436f6e746578742d33
+exportLength = 32
+exportValue = 8c1450545b1de5d7c1d61809ed3bf5e477f3683dca896683463786d4093f7ddb
+# ---- exports[4] ----------------------------------------------
+exportContext = 436f6e746578742d34
+exportLength = 32
+exportValue = 355053cbc725ab9c0bee0abccc4fdd7fe6349307f47ed3496aeaf6ab64dc6295
+
+kdfID = 3
+aeadID = 2
+info = 4f6465206f6e2061204772656369616e2055726e
+seedR = d15d2a3f1019d9f13fdb4a23e007c16289acc3199db8c7bfd9142730e6a4ddb3
+seedE = f6ab64f080c40a7f19d4f88dcc48d98697220118ead4e5154adb80b67cfae64d
+skRm = e3b4c6c9518841a95ddcb534cc99f8f842ab1892bc53945670e7699961201d81
+skEm = 5d26b567a35e036ea5336e1d2faf6f3cf1280cd98c05756d9673f8847b148dce
+pkRm = 40f9455dad20bb6056673387ac6a0535a1c41c537685f4a593c7664b766e390e
+pkEm = 4e46d90a5f65332876e11822aa3d951b665d33f81d1f4e4f3f93328ca3d70614
+enc = 4e46d90a5f65332876e11822aa3d951b665d33f81d1f4e4f3f93328ca3d70614
+keyScheduleContext = 00200003000200ad749ac8921777cd850df5ded8b93dbcfc0bc07d3b20053b47cb9706bd7791bad48cb637cb7b83dba58556623b472c5963e6f273351e934ebccfcea136f4a80aca1c1140d8998b560025aa13564984843b6aad081ac096963d5d8241af0cf321aa3f187b7f4e4c3e5bfe31eaed257a6d6359200d59eade217f9179499b190b0e
+outerNonce = c89ca3e545974f2e02ab7ba4
+exporterSecret = 2d5fdc79403736f70650a60c66941ce4a05d7da608750ef3ae0ec9c00b0277e8fb675e09db3343cd4249bfc99b0648036f78b9c871f314f3b263fa317b9407a7
+# ---- encryptions[0] ----------------------------------------------
+aad = 436f756e742d30
+ciphertext = eb1bdc157af3f259c974c7083bf217c5b705cf33eedaf973359e45c8ace20f14d22e64a1cb66a799fcb7ed56df
+nonce = c89ca3e545974f2e02ab7ba4
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[1] ----------------------------------------------
+aad = 436f756e742d31
+ciphertext = 1e0b03d0d3b6a14632ba763a818d405ddd87ca292431235b13679de75b7b5dbc49a63ba9bf7566e54557650ec7
+nonce = c89ca3e545974f2e02ab7ba5
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[2] ----------------------------------------------
+aad = 436f756e742d32
+ciphertext = a29dbbfeffb3f07ba87f3246d9a841977dfa25e7e057bf22f90e65e31b254142cb6e34e30852b5cd7a58da44c3
+nonce = c89ca3e545974f2e02ab7ba6
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[3] ----------------------------------------------
+aad = 436f756e742d33
+ciphertext = 9cf496a4084d67823315fba1957236eab4a00505210d48d54b2dd2b9758e8d8fe2ff45dc9307bf5945d6c1fa15
+nonce = c89ca3e545974f2e02ab7ba7
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[4] ----------------------------------------------
+aad = 436f756e742d34
+ciphertext = fadf58a2117003f40f4c5a7fca8aaa91e24a249cc8b39ccd8fe66af8446e55f8d98bf9cdaab2b6d277039566ee
+nonce = c89ca3e545974f2e02ab7ba0
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[5] ----------------------------------------------
+aad = 436f756e742d35
+ciphertext = 7aa967579f2f66de06e628cc74ef3c82893059f671a8ec3c4eaebec30f0b0cc275225003a2e3fbfdd67b3c73fc
+nonce = c89ca3e545974f2e02ab7ba1
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[6] ----------------------------------------------
+aad = 436f756e742d36
+ciphertext = 566278469edafac237ea0a15a4a15ec87940e43b2083754fc060a23af72570aabdf45a8c6f527dff8fcee451c3
+nonce = c89ca3e545974f2e02ab7ba2
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[7] ----------------------------------------------
+aad = 436f756e742d37
+ciphertext = acb35fb2edb14386d0633c5885c1ca7e14838760e37c980c62b612c64c356da4bebfbb56ce8b93b3bcd12cc970
+nonce = c89ca3e545974f2e02ab7ba3
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[8] ----------------------------------------------
+aad = 436f756e742d38
+ciphertext = 861b6ea1f4f2aec5df0708faaf0f02ce9fb3060ba8b0e7f7622d025fd95288fd687db3bc2b80071cc515c50c5d
+nonce = c89ca3e545974f2e02ab7bac
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[9] ----------------------------------------------
+aad = 436f756e742d39
+ciphertext = 35b06e9e49e0b27f33b82d4ca8f7c2bb1568f67d1c158f7758cce72458337594346dbc23aa89b14775a582e1b7
+nonce = c89ca3e545974f2e02ab7bad
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- exports[0] ----------------------------------------------
+exportContext = 436f6e746578742d30
+exportLength = 32
+exportValue = 8a0140798c6cb83b5d6fee9ef9b3a35056c3eea21bceaa04656c7aa25d8d4703
+# ---- exports[1] ----------------------------------------------
+exportContext = 436f6e746578742d31
+exportLength = 32
+exportValue = 05b400e802c48dfd33c84b34d65661252293ad4953103a2e7703e76387856842
+# ---- exports[2] ----------------------------------------------
+exportContext = 436f6e746578742d32
+exportLength = 32
+exportValue = 3209f4e22c8cb15fdca85637e5b59f67d0bb64b4ce845d3239854bfaca04e7d7
+# ---- exports[3] ----------------------------------------------
+exportContext = 436f6e746578742d33
+exportLength = 32
+exportValue = f5e7bf508257f8dfcadb09906d06d8c4d8780c31cc8565e6278e1e0f722b6567
+# ---- exports[4] ----------------------------------------------
+exportContext = 436f6e746578742d34
+exportLength = 32
+exportValue = 2ea861a8d941838bc31dfac0d24e6d0e7ecfe917a215f4efc5dc38557ea509ed
+
+kdfID = 3
+aeadID = 3
+info = 4f6465206f6e2061204772656369616e2055726e
+seedR = f25c6854b7c5d38242287253f6b9194f2c4b175b2e80279fcce036a4f64f4e06
+seedE = eda8f04aa45a98de93cbe609c92a731ba9a3ad962abd613815559a6e5cf53351
+skRm = 1ea853bd3ce3b170083eb8c853f8ba5da273de50ce2c8ab4fea52a25d7e52245
+skEm = 38932d6d6f51f21411da885e21f521cfa5ee4c11176cd2fd2ae0d63a4fc9477d
+pkRm = 28c8fa68b77e4784548983cd27572fde235849c7e051d695ce96f06d1a691e5f
+pkEm = 35b2db572b08e92dd53d75a7285e3182390ce71536fc0313e7f9eb40b0deb025
+enc = 35b2db572b08e92dd53d75a7285e3182390ce71536fc0313e7f9eb40b0deb025
+keyScheduleContext = 0020000300030004d657eeb1afc6c88ba18abd84b299d9e3d946298a6419684ef589063085bcfab58e1b9810edc78099ab8b5ce0afd032dd1b7bce92bd8efb321612ae00a4ef2e14f5a8d3337d71b5cac2996e7994b4f15bc6804c6c85b5ba753411b4a37c3324047f2f20465ca57bf005f3ec6c8371b8b7b290edcd975264402b7175ba2a5b38
+outerNonce = bbc34e1979117d9d73dc0772
+exporterSecret = 8c5b04db100474980b4b63fcda6851ac434f4f7eab537f396a11a6c0435266e51ca70053a4430334b598f3384b02cea14d57bb5d1806b558f8dff509c44adef9
+# ---- encryptions[0] ----------------------------------------------
+aad = 436f756e742d30
+ciphertext = 5ead55d1a14e7d68a36ee9c62c3b71ca96f6e7b38d28dc1a1dbcec35e2299a0baecfd522e69d71eaf91288344c
+nonce = bbc34e1979117d9d73dc0772
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[1] ----------------------------------------------
+aad = 436f756e742d31
+ciphertext = 1935321465c1e27383d11495bf9defbba53215aca992cb04039142d86fcc62802f35f99a5adde24b350550a0a8
+nonce = bbc34e1979117d9d73dc0773
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[2] ----------------------------------------------
+aad = 436f756e742d32
+ciphertext = 01489f3e5961aed3ab1e5ef71e1cfc1f72f12cdbb207fb24c7f9da9cabb907512053e83cfcb422dd4208507da6
+nonce = bbc34e1979117d9d73dc0770
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[3] ----------------------------------------------
+aad = 436f756e742d33
+ciphertext = 8d9e73a5bb1053fe10634a334a2a3f0d688531a56a44dc5198f452d66e1c35a71bc41dc85932ace66657138736
+nonce = bbc34e1979117d9d73dc0771
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[4] ----------------------------------------------
+aad = 436f756e742d34
+ciphertext = 0a2ba72bf6e9f4230e98e8c8947439aac4044884bedda7cc60074092829085786f9074e0a8ef3da6a249a3018c
+nonce = bbc34e1979117d9d73dc0776
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[5] ----------------------------------------------
+aad = 436f756e742d35
+ciphertext = 775b3736a099f0427b4855f1f9c3d6727302f3680a255775616248014016e0431a0f429094c5ea13217b7e7f71
+nonce = bbc34e1979117d9d73dc0777
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[6] ----------------------------------------------
+aad = 436f756e742d36
+ciphertext = 8754d81f12d90b20be6c5c75b1839edd76dc734522d12afad4240597f1e0a94447ca51cf3e52ac0a45a62af0ea
+nonce = bbc34e1979117d9d73dc0774
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[7] ----------------------------------------------
+aad = 436f756e742d37
+ciphertext = 42e87db4acc3e50ac0bf845815696f2ea6e376ae4911d56fba891b1849276ab7f31462e0f88057ea097479c9b0
+nonce = bbc34e1979117d9d73dc0775
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[8] ----------------------------------------------
+aad = 436f756e742d38
+ciphertext = 8ced3e75724887f2ecef7c3ba68b0db6134b04650319d17fee260c89ab494fc3aa348cac1e966e06c301736684
+nonce = bbc34e1979117d9d73dc077a
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- encryptions[9] ----------------------------------------------
+aad = 436f756e742d39
+ciphertext = 9770cc1dc64621632ac7ed6425e12125d96ba2cd82927d6ced90c6b9d22b01af7757236e59a1e878e3f3d53547
+nonce = bbc34e1979117d9d73dc077b
+plaintext = 4265617574792069732074727574682c20747275746820626561757479
+# ---- exports[0] ----------------------------------------------
+exportContext = 436f6e746578742d30
+exportLength = 32
+exportValue = b42d4c6d3d138c330c7d5025b6a60bed7b7c60bf49a6fafdbc2200b870ed5a5d
+# ---- exports[1] ----------------------------------------------
+exportContext = 436f6e746578742d31
+exportLength = 32
+exportValue = eeb4f890a6d0b80f6b651c7ac37744e93fc20da9c635ee5209b83f3635e6eb59
+# ---- exports[2] ----------------------------------------------
+exportContext = 436f6e746578742d32
+exportLength = 32
+exportValue = 2899a03b9d108455e99f6c9127a0fbdffc798136ad25277f9495743825073921
+# ---- exports[3] ----------------------------------------------
+exportContext = 436f6e746578742d33
+exportLength = 32
+exportValue = d7f05afc7bd280bb5bcf3aac1ae20b372491cca1719322f98c95c26be2d7cbfd
+# ---- exports[4] ----------------------------------------------
+exportContext = 436f6e746578742d34
+exportLength = 32
+exportValue = 89a0d995d634af4b0354038d166237d93bed8fda2f3c32f4c760a8fc3a6c9406
