@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "084cbf8f_c6dbd90e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-07-10T21:30:15Z",
+      "side": 1,
+      "message": "Hey folks, here\u0027s a Go implementation that passes the current test vectors. In theory, it should be compatible with https://boringssl-review.googlesource.com/c/boringssl/+/41304, but I haven\u0027t verified in practice.\n\nAt least until the test vectors stop changing, I\u0027d like to keep reading from test-vectors.json at runtime.\n\nI\u0027m using golang.org/x/crypto and assuming we\u0027ll land https://boringssl-review.googlesource.com/c/boringssl/+/42044 before this",
+      "revId": "b7e34524ab7fb9e5ed6ffc3ddca43359c573d5f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
