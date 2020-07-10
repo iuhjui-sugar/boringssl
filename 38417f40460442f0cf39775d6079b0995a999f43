@@ -141,6 +141,24 @@
       "revId": "38417f40460442f0cf39775d6079b0995a999f43",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e2f714cf_9aaac733",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10411
+      },
+      "writtenOn": "2020-07-10T23:35:51Z",
+      "side": 1,
+      "message": "FYI, I\u0027m exposing these APIs in Mundane, because RC4 key wrapping is used by the 802.11 Robust Security Network (RSN) protocol for WLAN. 😄",
+      "parentUuid": "ab3cf884_8ee1a165",
+      "revId": "38417f40460442f0cf39775d6079b0995a999f43",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
