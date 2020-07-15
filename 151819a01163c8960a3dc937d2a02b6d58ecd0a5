@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e453d9ed_4feae8d4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10441
+      },
+      "writtenOn": "2020-07-15T03:32:53Z",
+      "side": 1,
+      "message": "Hi Adam and David adding you as reviewers based on instructions at: https://github.com/google/boringssl/blob/master/CONTRIBUTING.md",
+      "revId": "151819a01163c8960a3dc937d2a02b6d58ecd0a5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
