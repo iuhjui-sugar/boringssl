@@ -115,9 +115,14 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
 endif()
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CLANG)
+  if(NOT NO_WERROR)
+    set(C_CXX_FLAGS "-Werror")
+  else()
+    set(C_CXX_FLAGS "-Wno-error")
+  endif()
   # Note clang-cl is odd and sets both CLANG and MSVC. We base our configuration
   # primarily on our normal Clang one.
-  set(C_CXX_FLAGS "-Werror -Wformat=2 -Wsign-compare -Wmissing-field-initializers -Wwrite-strings -Wvla")
+  set(C_CXX_FLAGS "${C_CXX_FLAGS} -Wformat=2 -Wsign-compare -Wmissing-field-initializers -Wwrite-strings -Wvla")
   if(MSVC)
     # clang-cl sets different default warnings than clang. It also treats -Wall
     # as -Weverything, to match MSVC. Instead -W3 is the alias for -Wall.
