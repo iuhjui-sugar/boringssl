@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "001071cc_9001736d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-07-15T16:16:23Z",
+      "side": 1,
+      "message": "The CMake build is our development build but, if you\u0027re using it more widely, then I agree that -Werror can be a problem because it kinda makes each compiler a separate \"language\" with its own rules.\n\nSo I think this is probably ok, but let\u0027s see what David thinks.",
+      "revId": "df87c3b6500060c278f4235aad2355fe51ab02f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
