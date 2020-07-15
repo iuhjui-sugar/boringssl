@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8c95e8f4_a5e73818",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-15T14:42:34Z",
+      "side": 1,
+      "message": "I\u0027m not quite following what the issue is. What\u0027s the relationship between submodules, gRPC, and symlinks? I don\u0027t think git submodules use symlinks, and I thought gRPC was using the master-with-bazel branch these days, which pregenerates everything for you so you don\u0027t need to use this script. If you need the file lists in a different format, we can add it to the script and branch.",
+      "revId": "ae2bbd23e24f77875d8cebf6555deeeeab786324",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
