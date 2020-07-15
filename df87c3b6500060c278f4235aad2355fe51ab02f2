@@ -16,6 +16,47 @@
       "revId": "df87c3b6500060c278f4235aad2355fe51ab02f2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2efef5a0_76abaa44",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-15T16:24:15Z",
+      "side": 1,
+      "message": "I\u0027m good with this, though we did set up a CMake build in master-with-bazel that additionally avoids the perl and Go dependencies. Should we recommend that instead? (Though it\u0027s a little goofy because, realistically, people will expect the default branch to be the one they want.)",
+      "parentUuid": "001071cc_9001736d",
+      "revId": "df87c3b6500060c278f4235aad2355fe51ab02f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a26d4cd0_aa8fb93a",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-15T16:24:15Z",
+      "side": 1,
+      "message": "Maybe gate this flag on it too? MSVC\u0027s warnings can be quite fussy.",
+      "range": {
+        "startLine": 246,
+        "startChar": 36,
+        "endLine": 246,
+        "endChar": 39
+      },
+      "revId": "df87c3b6500060c278f4235aad2355fe51ab02f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
