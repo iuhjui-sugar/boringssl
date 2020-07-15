@@ -622,7 +622,7 @@ def FindCMakeFiles(directory):
   """Returns list of all CMakeLists.txt files recursively in directory."""
   cmakefiles = []
 
-  for (path, _, filenames) in os.walk(directory):
+  for (path, _, filenames) in os.walk(directory, followlinks=True):
     for filename in filenames:
       if filename == 'CMakeLists.txt':
         cmakefiles.append(os.path.join(path, filename))
