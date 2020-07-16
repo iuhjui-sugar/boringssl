@@ -52,6 +52,24 @@
       "revId": "ae2bbd23e24f77875d8cebf6555deeeeab786324",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b0c7f70_ff4c5675",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-16T18:54:39Z",
+      "side": 1,
+      "message": "Would this work?\nhttps://boringssl-review.googlesource.com/c/boringssl/+/42204\n\nThis would drop a sources.json into BoringSSL\u0027s master-with-bazel branch. You can then change gen_build_yaml.py to read that rather than import our generate_build_files.py. It\u0027ll probably be faster too, since you will no longer be regenerating all the asm and then deleting it.\n\nHere\u0027s a sample output you can drop in and test with.\nhttps://paste.googleplex.com/5470649696911360",
+      "parentUuid": "b5d2ebf0_214c5d1e",
+      "revId": "ae2bbd23e24f77875d8cebf6555deeeeab786324",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
