@@ -70,6 +70,24 @@
       "revId": "ae2bbd23e24f77875d8cebf6555deeeeab786324",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f89bb73_e9e9bbfe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10441
+      },
+      "writtenOn": "2020-07-16T19:11:51Z",
+      "side": 1,
+      "message": "This seems likely to help. But would take some more work to integrate/cleanup. \n\nMaybe we can decouple the build system hack, and generating the necessary ASM files for the linked PR?  \n\nI can follow-up with a PR to remove this hack once I had time to cleanup the gRPC part?",
+      "parentUuid": "5b0c7f70_ff4c5675",
+      "revId": "ae2bbd23e24f77875d8cebf6555deeeeab786324",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
