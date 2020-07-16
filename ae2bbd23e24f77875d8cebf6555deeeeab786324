@@ -124,6 +124,24 @@
       "revId": "ae2bbd23e24f77875d8cebf6555deeeeab786324",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20661330_67c1092b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-16T21:10:31Z",
+      "side": 1,
+      "message": "PR is submitted, though I think we need to update the master-with-bazel bot to also output the new file. Then sources.json should start showing up on that branch.",
+      "parentUuid": "34f4a8d8_a3c5c5a3",
+      "revId": "ae2bbd23e24f77875d8cebf6555deeeeab786324",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
