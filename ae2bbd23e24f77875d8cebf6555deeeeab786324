@@ -106,6 +106,24 @@
       "revId": "ae2bbd23e24f77875d8cebf6555deeeeab786324",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34f4a8d8_a3c5c5a3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10441
+      },
+      "writtenOn": "2020-07-16T19:17:18Z",
+      "side": 1,
+      "message": "OK, could you get the other PR submitted, and I\u0027ll try to work with it?",
+      "parentUuid": "482add56_77dfe779",
+      "revId": "ae2bbd23e24f77875d8cebf6555deeeeab786324",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
