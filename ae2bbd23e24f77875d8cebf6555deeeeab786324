@@ -34,6 +34,24 @@
       "revId": "ae2bbd23e24f77875d8cebf6555deeeeab786324",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5d2ebf0_214c5d1e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-16T18:29:26Z",
+      "side": 1,
+      "message": "I see. Looks like gRPC is importing our generate_build_files.py script and doing something weird with it, including injecting some custom printer?\nhttps://github.com/grpc/grpc/blob/master/src/boringssl/gen_build_yaml.py#L130\n\nAnd the symlink itself doesn\u0027t come from us but also from gRPC\u0027s hack.\nhttps://github.com/grpc/grpc/blob/master/src/boringssl/gen_build_yaml.py#L126\n\nSo this CL is a hack to workaround a gRPC hack needed to get another gRPC hack to work. At three levels deep, I think we should reconsider this design. :-) How about, instead, we just dump the file lists to JSON or some other convenient format, have master-with-bazel generate it, and then gRPC can do whatever it likes with that?",
+      "parentUuid": "0f5419db_e51f1d1a",
+      "revId": "ae2bbd23e24f77875d8cebf6555deeeeab786324",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
