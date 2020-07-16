@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "b8f3e7b1_409c84f7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6925
+      },
+      "writtenOn": "2020-07-16T14:30:03Z",
+      "side": 1,
+      "message": "Ok, thanks. In that case it seems something might be broken, as the branch is almost a month old 😊\n\nIn any case I was able to get quiche to build off of master-with-bazel https://github.com/cloudflare/quiche/pull/593 so I\u0027m ok dropping this CL in favour of that.",
+      "parentUuid": "cd029442_67cdbbc0",
+      "revId": "df87c3b6500060c278f4235aad2355fe51ab02f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a26d4cd0_aa8fb93a",
         "filename": "CMakeLists.txt",
         "patchSetId": 1
