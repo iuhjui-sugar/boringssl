@@ -16,6 +16,24 @@
       "revId": "ae2bbd23e24f77875d8cebf6555deeeeab786324",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0f5419db_e51f1d1a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10441
+      },
+      "writtenOn": "2020-07-16T17:27:54Z",
+      "side": 1,
+      "message": "I\u0027m not sure either 😊 For additional context here is my PR to gRPC: https://github.com/grpc/grpc/pull/23483\n\nFor the python build of GRPC.  The GRPC setup.py relies on files listed on \"src/python/grpcio/grpc_core_dependencies.py\" which is generated from a template on \"templates/src/python/grpcio/grpc_core_dependencies.py.template\" which in turn is updated when running \"tools/buildgen/generate_projects.sh\".  Without this change the only files that get found those contained in \"NON_PERL_FILES\" [1].\n\nI was developing on a GCE instance for this, I don\u0027t know if that has something to do with this, but you can compare the results with and without this change relative the PR I posted above with the following steps to see if you have a different outcome:\n```\ngit clone https://github.com/emkornfield/grpc.git\ncd grpc\ngit checkout fg\ngit submodule init\ngit submodule update\nvirtualenv ~/p22\nsource ~/p22/bin/activate\npip install mako\npip install pyyaml\n./tools/buildgen/generate_projects.sh\n```\n\n[1] https://boringssl.googlesource.com/boringssl/+/83b74c6a7a1ad33792be3adf10820ae287de8c40/util/generate_build_files.py#809",
+      "parentUuid": "8c95e8f4_a5e73818",
+      "revId": "ae2bbd23e24f77875d8cebf6555deeeeab786324",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
