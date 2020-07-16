@@ -160,6 +160,24 @@
       "revId": "ae2bbd23e24f77875d8cebf6555deeeeab786324",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72ce6dd8_f49db65c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-07-16T21:22:37Z",
+      "side": 1,
+      "message": "Should be there now: https://boringssl.googlesource.com/boringssl/+/refs/heads/master-with-bazel/sources.json",
+      "parentUuid": "40f7853d_a598d185",
+      "revId": "ae2bbd23e24f77875d8cebf6555deeeeab786324",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
