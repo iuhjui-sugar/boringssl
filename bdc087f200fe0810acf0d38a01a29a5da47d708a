@@ -16,6 +16,589 @@
       "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "692b73ab_c5fcaa5a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 60
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-23T20:29:05Z",
+      "side": 1,
+      "message": "Thanks! I think this is nearly ready.",
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "564e9b92_223b2259",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 60
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-23T20:29:05Z",
+      "side": 1,
+      "message": "This is what clang-format would do anyway and isn\u0027t the right ordering.\n\n#include \u003cassert.h\u003e\n#include \u003cstring.h\u003e\n// BLANK LINE\n#include \u003copenssl/aead.h\u003e\n#include \u003copenssl/bytestring.h\u003e\n#include \u003copenssl/digest.h\u003e\n#include \u003copenssl/err.h\u003e\n#include \u003copenssl/evp.h\u003e\n#include \u003copenssl/hkdf.h\u003e\n#include \u003copenssl/sha.h\u003e\n// BLANK LINE\n#include \"../internal.h\"\n#include \"internal.h\"\n\nWith the blank lines, clang-format does what you\u0027d expect so you don\u0027t need to turn off clang-format.",
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91816743_a74559b8",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 60
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-23T20:29:05Z",
+      "side": 1,
+      "message": "This and line 46 are inconsistent about whether file-local symbols get EVP prefixes. (Since none of the static functions are prefixed, I would suggest we leave these also unprefixed.)",
+      "range": {
+        "startLine": 41,
+        "startChar": 8,
+        "endLine": 41,
+        "endChar": 12
+      },
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e0013a2_848696f3",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 60
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-23T20:29:05Z",
+      "side": 1,
+      "message": "(Hopefully the injectivity issues will be fixed by https://github.com/cfrg/draft-irtf-cfrg-hpke/issues/137 soon enough.)",
+      "range": {
+        "startLine": 48,
+        "startChar": 34,
+        "endLine": 48,
+        "endChar": 41
+      },
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "802343cd_08601f80",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 60
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-23T20:29:05Z",
+      "side": 1,
+      "message": "This should be const uint8_t *zz because you have a zz_len.\n\nThe buffer is not even EVP_MAX_MD_SIZE large in the first place. (This isn\u0027t UB, but only because the array count is irrelevant. If we write \u0027static EVP_MAX_MD_SIZE\u0027, it would be UB, but the language doesn\u0027t really do much with it, so we just decorate these as documentation.)",
+      "range": {
+        "startLine": 164,
+        "startChar": 29,
+        "endLine": 164,
+        "endChar": 62
+      },
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d6eb9b6_f84c43e5",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 60
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-23T20:29:05Z",
+      "side": 1,
+      "message": "Nit/optional: Just so we don\u0027t need to mess with goto err, perhaps just:\n\n  uint8_t context[...];\n  size_t context_len;\n  CBB context_cbb;\n  if (!CBB_init_fixed(\u0026context_cbb, context, sizeof(context)) ||\n      !CBB_add_u8(\u0026context_cbb, EVP_HPKE_MODE_BASE) ||\n      !CBB_add_bytes(\u0026context_cbb, psk_id_hash, psk_id_hash_len) ||\n      !CBB_add_bytes(\u0026context_cbb, info_hash, info_hash_len) ||\n      !CBB_finish(\u0026context_cbb, NULL, \u0026context_len)) {\n    CBB_cleanup(\u0026context_cbb);\n    return 0;\n  }\n\nFrom there you can use context / context_len as with the other buffers and return directly.",
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9fdd75fb_b3792eac",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 60
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-23T20:29:05Z",
+      "side": 1,
+      "message": "SHA256_DIGEST_LENGTH",
+      "range": {
+        "startLine": 272,
+        "startChar": 57,
+        "endLine": 272,
+        "endChar": 72
+      },
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "884b066d_7fe375d0",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 60
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-23T20:29:05Z",
+      "side": 1,
+      "message": "SHA256_DIGEST_LENGTH (it\u0027s important for memory safety that it match out_zz)",
+      "range": {
+        "startLine": 286,
+        "startChar": 53,
+        "endLine": 286,
+        "endChar": 78
+      },
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61666732_68e2b6be",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 60
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-23T20:29:05Z",
+      "side": 1,
+      "message": "SHA256_DIGEST_LENGTH",
+      "range": {
+        "startLine": 293,
+        "startChar": 63,
+        "endLine": 293,
+        "endChar": 78
+      },
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9a3264fa_abf680c7",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 60
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-23T20:29:05Z",
+      "side": 1,
+      "message": "SHA256_DIGEST_LENGTH",
+      "range": {
+        "startLine": 306,
+        "startChar": 54,
+        "endLine": 306,
+        "endChar": 78
+      },
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9672fe23_b3fc6ea9",
+        "filename": "crypto/hpke/hpke_test.cc",
+        "patchSetId": 60
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-23T20:29:05Z",
+      "side": 1,
+      "message": "This shouldn\u0027t need to disable clang-format. If I recall, clang-format\u0027s algorithm is fairly straightforward: sort within blank-line-separate chunks. In previous iterations, this CL was missing the blank lines, but now it\u0027s got them.",
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32984b74_46d8013e",
+        "filename": "crypto/hpke/hpke_test.cc",
+        "patchSetId": 60
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-23T20:29:05Z",
+      "side": 1,
+      "message": "Unused",
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f8ab17c_f44f17b0",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 60
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-23T20:29:05Z",
+      "side": 1,
+      "message": "Rather than giving each group of constants an entire section and then leaving the constants, just do:\n\n// Hybrid Public Key Encryption.\n//\n// [...]\n\n// EVP_HPKE_AEAD_* are AEAD identifiers.\n#define ...\n\n// EVP_HPKE_HKDF_* are HKDF identifiers.\n#define ...",
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fec6e631_020ebb4e",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 60
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-23T20:29:05Z",
+      "side": 1,
+      "message": "This seems a bit restrictive if we ever extend this. I would either drop this sentence or perhaps simply write \"The caller should then use one of the |EVP_HPKE_CTX_setup_*| functions.\"",
+      "range": {
+        "startLine": 64,
+        "startChar": 3,
+        "endLine": 66,
+        "endChar": 38
+      },
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20f865a6_7a3a3077",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 60
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-23T20:29:05Z",
+      "side": 1,
+      "message": "- Extra blank line.\n- Having line 78 in a separate paragraph seems unnecessary.\n- initialized with what?\n\nInstead:\n\n// Setting up HPKE contexts.\n//\n// In each of the following functions, |hpke| must have been initialized |EVP_HPKE_CTX_init|. |kdf_id| selects the KDF for non-KEM HPKE operations and must be one of the |EVP_HPKE_HKDF_*|. |aead_id| selects the AEAD for the \"open\" and \"seal\" operations and must be one of the |EVP_HPKE_AEAD_*| constants.\n//\n// See https://www.ietf.org/id/draft-irtf-cfrg-hpke-04.html#section-5.1.1.",
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8bf286c2_441bbd48",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 60
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-23T20:29:05Z",
+      "side": 1,
+      "message": "To make sure people know to check for errors, maybe add \"Note this function may fail if |peer_public_value| is invalid.\"",
+      "range": {
+        "startLine": 90,
+        "startChar": 73,
+        "endLine": 90,
+        "endChar": 74
+      },
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fe61343_3331256e",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 60
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-23T20:29:05Z",
+      "side": 1,
+      "message": "|out_enc| is not |peer_public_value|. It is the *sender\u0027s* public key or, in the KEM abstraction, the encapsulated shared secret. Thus:\n\nThis function writes the encapsulated shared secret to |out_enc|.\n\nThe reason for this slightly weird naming is the abstraction tries to unify key exchange mechanisms that look like Diffie-Hellman, and those that look more like one side generating some entropy and encrypted to the other. For instance, a lot of the post-quantum KEMs look more like encryption than Diffie-Hellman.",
+      "range": {
+        "startLine": 92,
+        "startChar": 46,
+        "endLine": 92,
+        "endChar": 63
+      },
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "710a0534_56398414",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 60
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-23T20:29:05Z",
+      "side": 1,
+      "message": "|enc| is not a symmetric key.\n\nEVP_HPKE_CTX_setup_base_r_x25519 sets up |hpke| as a recipient context that can decrypt messages. |private_key| is the recipient\u0027s private key |private_key|, and |enc| is the encapsulated shared secret from the sender.",
+      "range": {
+        "startLine": 111,
+        "startChar": 24,
+        "endLine": 111,
+        "endChar": 54
+      },
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b493686f_365534ee",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 60
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-23T20:29:05Z",
+      "side": 1,
+      "message": "\"Note this function may fail if |enc| is invalid.\"",
+      "range": {
+        "startLine": 112,
+        "startChar": 75,
+        "endLine": 112,
+        "endChar": 76
+      },
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2cf17c33_e3af903d",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 60
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-23T20:29:05Z",
+      "side": 1,
+      "message": "Extra blank line.",
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50fa9e31_d94087d6",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 60
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-23T20:29:05Z",
+      "side": 1,
+      "message": "I think you might have missed this comment:\nhttps://boringssl-review.googlesource.com/c/boringssl/+/41304/59/crypto/hpke/internal.h#130\n\nThis should say:\n\nAt most |in_len| bytes are written to |out|. In order to ensure success,\n|max_out_len| should be at least |in_len|. On successful return, |*out_len|\nis set to the the actual number of bytes written.\n\nmin(in_len, max_out_len) does not describe what this function does. That would mean we truncate the output, and we do not.",
+      "range": {
+        "startLine": 134,
+        "startChar": 11,
+        "endLine": 134,
+        "endChar": 36
+      },
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43c4141e_47dc247f",
+        "filename": "crypto/hpke/translate_test_vectors.py",
+        "patchSetId": 60
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-23T20:29:05Z",
+      "side": 1,
+      "message": "keypath\u003d[] at line 34?",
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f958334_cf61da75",
+        "filename": "crypto/hpke/translate_test_vectors.py",
+        "patchSetId": 60
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-23T20:29:05Z",
+      "side": 1,
+      "message": "So, I\u0027m looking at the places where keypath is used, and it looks like this function only ever reads the last element of the keypath anyway. So there\u0027s no need to maintain a list or anything, just parent_key will do.",
+      "range": {
+        "startLine": 42,
+        "startChar": 51,
+        "endLine": 42,
+        "endChar": 58
+      },
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f51e33e0_c323022d",
+        "filename": "crypto/hpke/translate_test_vectors.py",
+        "patchSetId": 60
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-23T20:29:05Z",
+      "side": 1,
+      "message": "This carries a lot of unwritten and unchecked assumptions, despite looking very general-purpose. If it turned out that \"exports\" or \"encryptions\" ever shared keys, or if any cases had missing or extra keys, this script would silently break because it\u0027s relying on per-field renumbering.\n\nThis relates to the earlier comment about not using the automatic duplicate key feature in FileTest. The comments make it more readable, but they carry with them an assumption that\u0027s not checked anywhere.\n\nIf we want to keep the per-field numbering, perhaps a more purpose-built converter (the system assumes limited nesting, so any cases where we use the generality won\u0027t work anyway). Something like this is is much more boring. :-)\n\n  for test in test_vecs:\n    # Filter out the test cases we don\u0027t use.\n    if (test[\"mode\"] !\u003d HPKE_MODE_BASE or\n        test[\"kemID\"] !\u003d HPKE_DHKEM_X25519_SHA256):\n      continue\n \n    for key in (\"kdfID\", \"aeadID\", \"info\", \"skRm\", \"skEm\", \"pkRm\", \"pkEm\"):\n      pieces.append(\"{} \u003d {}\\n\".format(key, str(test[key])))\n \n    for i, enc in enumerate(test[\"encryptions\"]):\n      pieces.append(\"# encryptions[{}]\\n\".format(i))\n      for key in (\"aad\", \"ciphertext\", \"plaintext\"):\n        pieces.append(\"{} \u003d {}\\n\".format(key, str(enc[key])))\n \n    for i, exp in enumerate(test[\"exports\"]):\n      pieces.append(\"# exports[{}]\\n\".format(i))\n      for key in (\"exportContext\", \"exportLength\", \"exportValue\"):\n        pieces.append(\"{} \u003d {}\\n\".format(key, str(exp[key])))\n  \n    pieces.append(\"\\n\")",
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2bc4199c_4c4a6ebb",
+        "filename": "crypto/hpke/translate_test_vectors.py",
+        "patchSetId": 60
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-23T20:29:05Z",
+      "side": 1,
+      "message": "80 chars",
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a1d36d4_72d28e6f",
+        "filename": "crypto/hpke/translate_test_vectors.py",
+        "patchSetId": 60
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-23T20:29:05Z",
+      "side": 1,
+      "message": "It doesn\u0027t look like the script ever passes None in anyway.",
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "858d36af_e5960c42",
+        "filename": "crypto/hpke/translate_test_vectors.py",
+        "patchSetId": 60
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-23T20:29:05Z",
+      "side": 1,
+      "message": "The machinery here still supports mapping, but we don\u0027t actually care about the mapping features. Instead, how about just a set of key names, either just the ones we want to include, or the ones we want to skip.",
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1182418_83edcc2c",
+        "filename": "crypto/hpke/translate_test_vectors.py",
+        "patchSetId": 60
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-23T20:29:05Z",
+      "side": 1,
+      "message": "80 chars",
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2880e26_0a87e239",
+        "filename": "crypto/hpke/translate_test_vectors.py",
+        "patchSetId": 60
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-23T20:29:05Z",
+      "side": 1,
+      "message": "Best not to mix functional patterns (map) with a side-effectful function (dict_modify). I think this should be written as a loop. (That said, see comment above about a more purpose-built converter.)",
+      "range": {
+        "startLine": 120,
+        "startChar": 30,
+        "endLine": 120,
+        "endChar": 41
+      },
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }

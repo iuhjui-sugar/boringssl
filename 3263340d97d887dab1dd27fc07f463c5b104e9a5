@@ -606,6 +606,30 @@
     },
     {
       "key": {
+        "uuid": "86202c29_f7a0474d",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 59
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-23T20:29:05Z",
+      "side": 1,
+      "message": "Hehe. Well, as long as they don\u0027t stick a NUL byte in there, we can weather raw bytes with escape sequences.",
+      "parentUuid": "ff31fdf5_6bc2ffda",
+      "range": {
+        "startLine": 122,
+        "startChar": 49,
+        "endLine": 122,
+        "endChar": 66
+      },
+      "revId": "3263340d97d887dab1dd27fc07f463c5b104e9a5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "666ff868_10b42085",
         "filename": "crypto/hpke/hpke.c",
         "patchSetId": 59
@@ -1076,6 +1100,24 @@
       "revId": "3263340d97d887dab1dd27fc07f463c5b104e9a5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62417580_5cc8acce",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 59
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-23T20:29:05Z",
+      "side": 1,
+      "message": "Discussed in 1:1, so resolving this. Checking is nice just do we don\u0027t have to think about this. From there, whether we check 2^64 vs 2^96, since 2^64 is plenty we do that. Were the bounds lower, we might still make similar decisions, Support it were possible, in a pathological scenario it\u0027s possible to exceed 2^64. I think it\u0027s totally consistent to say we won\u0027t support the pathological scenario, but I\u0027d rather error on unsupported cases than silently break the crypto invariants.",
+      "parentUuid": "fa5716ee_4f5275fb",
+      "revId": "3263340d97d887dab1dd27fc07f463c5b104e9a5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -2529,6 +2571,30 @@
       "side": 1,
       "message": "Done. Should we also have a #define for EVP_HPKE_CTX_MAX_OVERHEAD?",
       "parentUuid": "730951ec_5b562be9",
+      "range": {
+        "startLine": 146,
+        "startChar": 4,
+        "endLine": 146,
+        "endChar": 25
+      },
+      "revId": "3263340d97d887dab1dd27fc07f463c5b104e9a5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43c5308f_29b93814",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 59
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-23T20:29:05Z",
+      "side": 1,
+      "message": "Hrm, probably. (EVP_HPKE_CTX_max_overhead is useful because otherwise it\u0027s hard to tell which AEAD you were using.)",
+      "parentUuid": "6f3e47af_8d200a19",
       "range": {
         "startLine": 146,
         "startChar": 4,
