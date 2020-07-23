@@ -3396,7 +3396,7 @@ read alert 1 0
 	// Servers should reject QUIC client hellos that have a legacy
 	// session ID.
 	testCases = append(testCases, testCase{
-		name: "QUICCompatibilityMode",
+		name:     "QUICCompatibilityMode",
 		testType: serverTest,
 		protocol: quic,
 		config: Config{
@@ -3405,7 +3405,7 @@ read alert 1 0
 				CompatModeWithQUIC: true,
 			},
 		},
-		shouldFail: true,
+		shouldFail:    true,
 		expectedError: ":UNEXPECTED_COMPATIBILITY_MODE:",
 	})
 }
@@ -15648,6 +15648,47 @@ func addDelegatedCredentialTests() {
 	})
 }
 
+func addEncryptedClientHelloTests() {
+	echConfigWithSecret, err := GenerateECHConfigWithSecretKey("foo.example")
+	if err != nil {
+		panic(err)
+	}
+
+	publicEchConfig := *echConfigWithSecret
+	publicEchConfig.secretKey = nil
+
+	// Test sending ECH GREASE from the Go client. By explicitly enabling
+	// ECH, but providing no configs, the client will have no choice but to
+	// send GREASE.
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "ECH-GREASE-Server",
+		config: Config{
+			MinVersion: VersionTLS13,
+			MaxVersion: VersionTLS13,
+			ServerName: "secret.example",
+			EchEnabled: true,
+			EchConfigs: nil,
+		},
+	})
+
+	// Test sending real ECH from the Go client.
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "ECH-Real-Server",
+		config: Config{
+			MinVersion: VersionTLS13,
+			MaxVersion: VersionTLS13,
+			ServerName: "secret.example",
+			EchEnabled: true,
+			EchConfigs: []EchConfig{publicEchConfig},
+		},
+		flags: []string{
+			"-ech-private-key", fmt.Sprintf("%x", echConfigWithSecret.secretKey),
+		},
+	})
+}
+
 func worker(statusChan chan statusMsg, c chan *testCase, shimPath string, wg *sync.WaitGroup) {
 	defer wg.Done()
 
@@ -15800,6 +15841,7 @@ func main() {
 	addCertCompressionTests()
 	addJDK11WorkaroundTests()
 	addDelegatedCredentialTests()
+	addEncryptedClientHelloTests()
 
 	testCases = append(testCases, convertToSplitHandshakeTests(testCases)...)
 
