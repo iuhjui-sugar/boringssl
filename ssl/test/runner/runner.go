@@ -8288,104 +8288,6 @@ func addExtensionTests() {
 		})
 	}
 
-	// Test ECH GREASE.
-
-	// Test the client's behavior when the server ignores ECH GREASE.
-	testCases = append(testCases, testCase{
-		testType: clientTest,
-		name:     "ECH-GREASE-Client-TLS13",
-		config: Config{
-			MinVersion: VersionTLS13,
-			MaxVersion: VersionTLS13,
-		},
-		flags: []string{"-enable-ech-grease"},
-	})
-
-	// Test that the client accepts a well-formed "encrypted_client_hello"
-	// extension in response to ECH GREASE.
-	testCases = append(testCases, testCase{
-		testType: clientTest,
-		name:     "ECH-GREASE-Client-TLS13-Valid-Retry-Configs",
-		config: Config{
-			MinVersion: VersionTLS13,
-			MaxVersion: VersionTLS13,
-			ECHEnabled: true,
-			ECHConfigs: []echConfig{
-				{
-					publicName: "example.com",
-					publicKey:  []byte{1, 2, 3},
-					kemID:      1,
-					cipherSuites: []hpkeCipherSuite{
-						{
-							kdfID:  3,
-							aeadID: 2,
-						},
-					},
-					maxNameLen: 42,
-				},
-			},
-		},
-		flags: []string{"-enable-ech-grease"},
-	})
-
-	// Test that the client aborts with a "decode_error" alert when it
-	// receives a syntactically-invalid "encrypted_client_hello" extension
-	// from the server.
-	testCases = append(testCases, testCase{
-		testType: clientTest,
-		name:     "ECH-GREASE-Client-TLS13-Invalid-Retry-Configs",
-		config: Config{
-			MinVersion: VersionTLS13,
-			MaxVersion: VersionTLS13,
-			ECHEnabled: true,
-			ECHConfigs: []echConfig{
-				{
-					raw: []byte{0xba, 0xdd, 0xec, 0xcc},
-				},
-			},
-		},
-		flags:              []string{"-enable-ech-grease"},
-		shouldFail:         true,
-		expectedLocalError: "remote error: error decoding message",
-	})
-
-	// Test that the client aborts with a "decode_error" alert when one of
-	// the server's retry configs contains a repeated extension ID.
-	testCases = append(testCases, testCase{
-		testType: clientTest,
-		name:     "ECH-GREASE-Client-TLS13-Invalid-Retry-Configs-Duplicated-Extension",
-		config: Config{
-			MinVersion: VersionTLS13,
-			MaxVersion: VersionTLS13,
-			ECHEnabled: true,
-			ECHConfigs: []echConfig{
-				{
-					publicName: "example.com",
-					publicKey:  []byte{1, 2, 3},
-					kemID:      1,
-					cipherSuites: []hpkeCipherSuite{
-						{
-							kdfID:  3,
-							aeadID: 2,
-						},
-					},
-					maxNameLen: 42,
-					extensions: []byte{
-						// baba extension
-						0xba, 0xba, 0x00, 0x02, 0xff, 0xff,
-						// fafa extension
-						0xfa, 0xfa, 0x00, 0x03, 0xee, 0xee, 0xee,
-						// baba extension (second occurrence)
-						0xba, 0xba, 0x00, 0x04, 0xff, 0xff, 0xff, 0xff,
-					},
-				},
-			},
-		},
-		flags:              []string{"-enable-ech-grease"},
-		shouldFail:         true,
-		expectedLocalError: "remote error: error decoding message",
-	})
-
 	testCases = append(testCases, testCase{
 		testType: clientTest,
 		name:     "ClientHelloPadding",
@@ -16280,6 +16182,125 @@ func addDelegatedCredentialTests() {
 	})
 }
 
+func addEncryptedClientHelloTests() {
+	echConfigWithSecret1, err := GenerateECHConfigWithSecretKey("foo.example")
+	if err != nil {
+		panic(err)
+	}
+	publicEchConfig1 := *echConfigWithSecret1
+	publicEchConfig1.secretKey = nil
+
+	echConfigWithSecret2, err := GenerateECHConfigWithSecretKey("foo.example")
+	if err != nil {
+		panic(err)
+	}
+
+	echConfigWithSecretMalformed := *echConfigWithSecret1
+	echConfigWithSecretMalformed.raw = []byte{0xba, 0xdd, 0xec, 0xcc}
+
+	echConfigWithSecretAndDupeExtension := *echConfigWithSecret1
+	echConfigWithSecretAndDupeExtension.extensions = []byte{
+		// baba extension
+		0xba, 0xba, 0x00, 0x02, 0xff, 0xff,
+		// fafa extension
+		0xfa, 0xfa, 0x00, 0x03, 0xee, 0xee, 0xee,
+		// baba extension (second occurrence)
+		0xba, 0xba, 0x00, 0x04, 0xff, 0xff, 0xff, 0xff,
+	}
+
+	// Test sending real ECH from the Go client.
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "ECH-Server",
+		config: Config{
+			MinVersion: VersionTLS13,
+			MaxVersion: VersionTLS13,
+			ServerName: "secret.example",
+			ECHEnabled: true,
+			ECHConfigs: []echConfig{publicEchConfig1},
+		},
+		flags: []string{
+			"-ech-private-key", fmt.Sprintf("%x", echConfigWithSecret1.secretKey),
+		},
+	})
+
+	// Test the server's handling of a non-decryptable ECH (equivalent to
+	// GREASE).
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "ECH-Server-GREASE",
+		config: Config{
+			MinVersion: VersionTLS13,
+			MaxVersion: VersionTLS13,
+			ServerName: "secret.example",
+			ECHEnabled: true,
+			ECHConfigs: []echConfig{publicEchConfig1},
+		},
+		flags: []string{
+			"-ech-private-key", fmt.Sprintf("%x", echConfigWithSecret2.secretKey),
+		},
+	})
+
+	// Test the client's behavior when it sends GREASE and the server does
+	// not respond with retry configs.
+	testCases = append(testCases, testCase{
+		testType: clientTest,
+		name:     "ECH-Client-GREASE-RetryConfigsMissing",
+		config: Config{
+			MinVersion: VersionTLS13,
+			MaxVersion: VersionTLS13,
+		},
+		flags: []string{"-enable-ech-grease"},
+	})
+
+	// Test that the client accepts well-formed retry configs in response to
+	// GREASE.
+	testCases = append(testCases, testCase{
+		testType: clientTest,
+		name:     "ECH-Client-GREASE-RetryConfigsValid",
+		config: Config{
+			MinVersion: VersionTLS13,
+			MaxVersion: VersionTLS13,
+			ECHEnabled: true,
+			ECHConfigs: []echConfig{*echConfigWithSecret1},
+		},
+		flags: []string{"-enable-ech-grease"},
+	})
+
+	// Test that the client aborts with a "decode_error" alert when it
+	// receives a syntactically-invalid "encrypted_client_hello" extension
+	// from the server.
+	testCases = append(testCases, testCase{
+		testType: clientTest,
+		name:     "ECH-Client-GREASE-RetryConfigsInvalid",
+		config: Config{
+			MinVersion: VersionTLS13,
+			MaxVersion: VersionTLS13,
+			ECHEnabled: true,
+			ECHConfigs: []echConfig{echConfigWithSecretMalformed},
+		},
+		flags:              []string{"-enable-ech-grease"},
+		shouldFail:         true,
+		expectedLocalError: "remote error: error decoding message",
+	})
+
+	// Test that the client aborts with a "decode_error" alert when one of
+	// the server's retry configs contains a repeated extension ID.
+	testCases = append(testCases, testCase{
+		testType: clientTest,
+		name:     "ECH-Client-GREASE-RetryConfigsRepeatedExtension",
+		config: Config{
+			MinVersion: VersionTLS13,
+			MaxVersion: VersionTLS13,
+			ECHEnabled: true,
+			ECHConfigs: []echConfig{echConfigWithSecretAndDupeExtension},
+		},
+		flags:              []string{"-enable-ech-grease"},
+		shouldFail:         true,
+		expectedLocalError: "remote error: error decoding message",
+	})
+}
+
 func worker(statusChan chan statusMsg, c chan *testCase, shimPath string, wg *sync.WaitGroup) {
 	defer wg.Done()
 
@@ -16457,6 +16478,7 @@ func main() {
 	addCertCompressionTests()
 	addJDK11WorkaroundTests()
 	addDelegatedCredentialTests()
+	addEncryptedClientHelloTests()
 
 	testCases = append(testCases, convertToSplitHandshakeTests(testCases)...)
 
