@@ -126,6 +126,8 @@ BSSL_NAMESPACE_BEGIN
 
 SSL_HANDSHAKE::SSL_HANDSHAKE(SSL *ssl_arg)
     : ssl(ssl_arg),
+      ech_accept(false),
+      ech_send_retry_configs(false),
       ech_present(false),
       ech_is_inner_present(false),
       scts_requested(false),
@@ -162,6 +164,45 @@ void SSL_HANDSHAKE::ResizeSecrets(size_t hash_len) {
     abort();
   }
   hash_len_ = hash_len;
+}
+
+ssl_hs_wait_t SSL_HANDSHAKE::client_hello(SSLMessage *out_msg,
+                                          SSL_CLIENT_HELLO *out_client_hello) {
+  if (ech_client_hello_buf.size() > 0) {
+    // If the backing buffer is non-empty, the ClientHelloInner has been set.
+    *out_msg = ech_client_hello_msg;
+  } else if (!ssl->method->get_message(ssl, out_msg)) {
+    return ssl_hs_read_message;
+  }
+
+  if (!ssl_client_hello_init(ssl, out_client_hello, *out_msg)) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_CLIENTHELLO_PARSE_FAILED);
+    ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
+    return ssl_hs_error;
+  }
+  return ssl_hs_ok;
+}
+
+bool SSL_HANDSHAKE::set_client_hello_inner(SSL_CLIENT_HELLO *client_hello_inner) {
+  // Build a fake message (with header) and stash it on this handshake.
+  ScopedCBB fake_msg_cbb;
+  CBB client_hello_bb;
+  if (!CBB_init(fake_msg_cbb.get(), 0) ||
+      !CBB_add_u8(fake_msg_cbb.get(), SSL3_MT_CLIENT_HELLO) ||
+      !CBB_add_u24_length_prefixed(fake_msg_cbb.get(), &client_hello_bb) ||
+      !ssl_client_hello_write_for_ech(client_hello_inner, &client_hello_bb) ||
+      !CBB_flush(fake_msg_cbb.get())) {
+    return false;
+  }
+  if (!ech_client_hello_buf.CopyFrom(MakeConstSpan(
+          CBB_data(fake_msg_cbb.get()), CBB_len(fake_msg_cbb.get())))) {
+    return false;
+  }
+  ech_client_hello_msg.is_v2_hello = false;
+  ech_client_hello_msg.type = SSL3_MT_CLIENT_HELLO;
+  ech_client_hello_msg.raw = CBS(ech_client_hello_buf);
+  ech_client_hello_msg.body = MakeConstSpan(ech_client_hello_buf).subspan(4);
+  return true;
 }
 
 UniquePtr<SSL_HANDSHAKE> ssl_handshake_new(SSL *ssl) {
