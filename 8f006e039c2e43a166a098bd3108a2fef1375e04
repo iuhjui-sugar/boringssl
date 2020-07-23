@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8c2e7dbe_343f0cd2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-23T17:33:35Z",
+      "side": 1,
+      "message": "I assume this will fail to pass tests because the actual code is still using the older code point. We also need to confirm that the final version of DC matches what we\u0027ve implemented before using the real code point. I haven\u0027t been following the draft, so probably we ask the Cloudflare folks.",
+      "revId": "8f006e039c2e43a166a098bd3108a2fef1375e04",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
