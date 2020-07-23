@@ -18,10 +18,12 @@
 package hpke
 
 import (
+	"crypto"
 	"crypto/aes"
 	"crypto/cipher"
 	"encoding/binary"
 	"errors"
+	"fmt"
 
 	"golang.org/x/crypto/chacha20poly1305"
 )
@@ -50,6 +52,38 @@ const (
 	hpkeModeBase uint8 = 0
 	hpkeModePSK  uint8 = 1
 )
+
+func AllSupportedAEADs() []uint16 {
+	return []uint16{AES128GCM, AES256GCM, ChaCha20Poly1305}
+}
+
+func AllSupportedKDFs() []uint16 {
+	return []uint16{HKDFSHA256, HKDFSHA384, HKDFSHA512}
+}
+
+func IsSupportedKEM(KEM uint16) bool {
+	return KEM == X25519WithHKDFSHA256
+}
+
+func GetHash(KDF uint16) (crypto.Hash, error) {
+	switch KDF {
+	case HKDFSHA256:
+		return crypto.SHA256, nil
+	case HKDFSHA384:
+		return crypto.SHA384, nil
+	case HKDFSHA512:
+		return crypto.SHA512, nil
+	}
+	var ret crypto.Hash
+	return ret, fmt.Errorf("unknown KDF: %d", KDF)
+}
+
+// IsSupportedCipherSuite returns true iff kdfID and aeadID identify a supported ciphersuite.
+func IsSupportedCipherSuite(KDF, AEAD uint16) bool {
+	supportedKdf := KDF == HKDFSHA256 || KDF == HKDFSHA384 || KDF == HKDFSHA512
+	supportedAead := AEAD == AES128GCM || AEAD == AES256GCM || AEAD == ChaCha20Poly1305
+	return supportedKdf && supportedAead
+}
 
 type GenerateKeyPairFunc func() (public []byte, secret []byte, e error)
 
