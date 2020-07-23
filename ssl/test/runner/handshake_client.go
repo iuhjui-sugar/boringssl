@@ -19,20 +19,24 @@ import (
 	"math/big"
 	"net"
 	"time"
+
+	"boringssl.googlesource.com/boringssl/ssl/test/runner/hpke"
 )
 
 type clientHandshakeState struct {
-	c             *Conn
-	serverHello   *serverHelloMsg
-	hello         *clientHelloMsg
-	suite         *cipherSuite
-	finishedHash  finishedHash
-	keyShares     map[CurveID]ecdhCurve
-	masterSecret  []byte
-	session       *ClientSessionState
-	finishedBytes []byte
-	peerPublicKey crypto.PublicKey
-	skxAlgo       signatureAlgorithm
+	c                 *Conn
+	serverHello       *serverHelloMsg
+	hello             *clientHelloMsg
+	suite             *cipherSuite
+	finishedHash      finishedHash
+	keyShares         map[CurveID]ecdhCurve
+	masterSecret      []byte
+	session           *ClientSessionState
+	finishedBytes     []byte
+	peerPublicKey     crypto.PublicKey
+	skxAlgo           signatureAlgorithm
+	sentECH           *encryptedClientHello
+	serverAcceptedECH bool
 }
 
 func mapClientHelloVersion(vers uint16, isDTLS bool) uint16 {
@@ -412,7 +416,20 @@ NextCipherSuite:
 		hello.sessionId = c.config.Bugs.SendClientHelloSessionID
 	}
 
-	var helloBytes []byte
+	var helloBytes []byte = hello.marshal()
+
+	// TODO(dmcardle): ensure that we are *sending* the outer CH, but
+	// *writing* the inner CH to the transcript in the correct codepaths.
+
+	var innerHello *clientHelloMsg
+	if c.config.EchEnabled {
+		innerHello, err = c.insertECH(hello)
+		if err != nil {
+			return err
+		}
+		hello.raw = nil
+	}
+
 	if c.config.Bugs.SendV2ClientHello {
 		// Test that the peer left-pads random.
 		hello.random[0] = 0
@@ -457,6 +474,7 @@ NextCipherSuite:
 		if appendToHello != 0 {
 			c.writeRecord(recordTypeHandshake, append(helloBytes[:len(helloBytes):len(helloBytes)], appendToHello))
 		} else {
+			// TODO Maintain two transcripts here???
 			c.writeRecord(recordTypeHandshake, helloBytes)
 		}
 	}
@@ -703,14 +721,39 @@ NextCipherSuite:
 		return errors.New("tls: ServerHello did not omit extensions")
 	}
 
+	// TODO(dmcardle) implement trial decryption or ServerHello.Random hack.
+	// Currently, assuming server accepted inner CH.
+
+	// Use the inner client hello bytes if the server accepted ECH.
+	var sentECH *encryptedClientHello
+	if c.config.EchEnabled && innerHello != nil {
+		sentECH = hello.encryptedClientHello
+	}
+
+	// Check if the server accepted our ECH.
+	var serverAcceptedECH bool
+	if sentECH != nil {
+		acceptConfirmation, err := echServerHelloRandom(sentECH.hpkeCipherSuite.KDF, innerHello.random, serverHello.random[0:24])
+		if err != nil {
+			return err
+		}
+		if bytes.Equal(serverHello.random[24:], acceptConfirmation) {
+			serverAcceptedECH = true
+			hello = innerHello
+			helloBytes = innerHello.marshal()
+		}
+	}
+
 	hs := &clientHandshakeState{
-		c:            c,
-		serverHello:  serverHello,
-		hello:        hello,
-		suite:        suite,
-		finishedHash: newFinishedHash(c.wireVersion, c.isDTLS, suite),
-		keyShares:    keyShares,
-		session:      session,
+		c:                 c,
+		serverHello:       serverHello,
+		hello:             hello,
+		suite:             suite,
+		finishedHash:      newFinishedHash(c.wireVersion, c.isDTLS, suite),
+		keyShares:         keyShares,
+		session:           session,
+		sentECH:           sentECH,
+		serverAcceptedECH: serverAcceptedECH,
 	}
 
 	hs.writeHash(helloBytes, hs.c.sendHandshakeSeq-1)
@@ -814,9 +857,116 @@ NextCipherSuite:
 	return nil
 }
 
+// insertECH writes an encrypted ClientHello (or GREASE value) into
+// |hello.encryptedClientHello|. If the config has no compatible ECHConfig, then
+// the value will be GREASE. Otherwise, |hello| will become the outer
+// ClientHello, and |hello.encryptedClientHello| will be the inner ClientHello.
+func (c *Conn) insertECH(hello *clientHelloMsg) (*clientHelloMsg, error) {
+	// Search for an ECHConfig with a supported version and ciphersuite.
+	var compatibleConfig *EchConfig
+	var suite hpkeCipherSuite
+	for i := range c.config.EchConfigs {
+		echConfig := &c.config.EchConfigs[i]
+		if echConfig.version != echVersion ||
+			echConfig.echConfigContents.kem != hpke.X25519WithHKDFSHA256 {
+			continue
+		}
+		for _, cipherSuite := range echConfig.echConfigContents.cipherSuites {
+			if hpke.IsSupportedCipherSuite(cipherSuite.KDF, cipherSuite.AEAD) {
+				compatibleConfig = echConfig
+				suite = cipherSuite
+				break
+			}
+		}
+	}
+	// If we have no available ECHConfig, leave the outer CH alone, but add a
+	// GREASE ECH extension.
+	if compatibleConfig == nil {
+		// The GREASE record digest has the same length as the hash function
+		// associated with the ciphersuite.
+		recordDigest := make([]byte, 32)
+		_, err := io.ReadFull(c.config.rand(), recordDigest)
+		if err != nil {
+			return nil, err
+		}
+		// Build the |enc| value. Since we're using X25519, there's no need to
+		// marshal the key.
+		enc, _, err := hpke.DHKEMX25519{}.GenerateKeyPair()
+		if err != nil {
+			return nil, err
+		}
+		// Generate a random inner CH value.
+		// TODO(dmcardle): pad the value of echLength.
+		echLength := len(hello.marshal())
+		encryptedInnerCH := make([]byte, echLength)
+		_, err = io.ReadFull(c.config.rand(), encryptedInnerCH)
+		if err != nil {
+			return nil, err
+		}
+		hello.encryptedClientHello = &encryptedClientHello{
+			// TODO(dmcardle) stop hardcoding the GREASE ciphersuite.
+			hpkeCipherSuite: hpkeCipherSuite{
+				KDF:  hpke.HKDFSHA256,
+				AEAD: hpke.AES128GCM,
+			},
+			recordDigest:     recordDigest,
+			enc:              enc,
+			encryptedInnerCH: encryptedInnerCH,
+		}
+		return nil, nil
+	}
+
+	// At this point, we have chosen an ECHConfig, so we will build the
+	// inner and outer ClientHellos. The outer ClientHello is |hello|, and
+	// the inner one is |innerHello|.
+	innerHello := *hello
+	hello.serverName = string(compatibleConfig.echConfigContents.publicName)
+	hello.delegatedCredentials = false
+	// TODO(dmcardle): replace more fields?
+
+	// Encrypt the inner ClientHello.
+	ctx, enc, err := hpke.SetupBaseSenderX25519(suite.KDF, suite.AEAD, compatibleConfig.echConfigContents.publicKey, []byte("tls13-ech"), nil)
+	if err != nil {
+		return nil, errors.New("tls: ech: failed to set up client's HPKE sender context")
+	}
+
+	// *******************************************
+	// TODO(dmcardle) save |echHrrKey| somewhere
+	// *******************************************
+	//echHRRKey := ctx.Export([]byte("tls13-ech-hrr-key"), 16)
+
+	// Build the "ech_nonce" extension for the inner CH.
+	innerHello.echNonce = &echNonce{}
+	copy(innerHello.echNonce[:], ctx.Export([]byte("tls13-ech-nonce"), 16))
+
+	// Place an "encrypted_client_hello" extension on the inner ClientHello.
+	innerHello.encryptedClientHello = &encryptedClientHello{empty: true}
+	innerHello.raw = nil
+
+	hash, err := hpke.GetHash(suite.KDF)
+	if err != nil {
+		return nil, err
+	}
+	recordDigest := hash.New()
+	recordDigest.Write(compatibleConfig.Marshal())
+
+	// Place the ECH extension in the outer CH.
+	hello.encryptedClientHello = &encryptedClientHello{
+		hpkeCipherSuite:  suite,
+		recordDigest:     recordDigest.Sum(nil),
+		enc:              enc,
+		encryptedInnerCH: ctx.Seal(nil, innerHello.marshal()),
+	}
+
+	return &innerHello, nil
+}
+
 func (hs *clientHandshakeState) doTLS13Handshake() error {
 	c := hs.c
 
+	fmt.Printf("serverAcceptedECH: %v\n", hs.serverAcceptedECH)
+
+	// TODO(dmcardle): Do we still check session IDs when hs.serverAcceptedECH is true?
 	if !bytes.Equal(hs.hello.sessionId, hs.serverHello.sessionId) {
 		return errors.New("tls: session IDs did not match.")
 	}

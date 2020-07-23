@@ -35,6 +35,8 @@ type serverHandshakeState struct {
 	certsFromClient [][]byte
 	cert            *Certificate
 	finishedBytes   []byte
+	echRetryConfigs []EchConfig
+	echAccepted     *encryptedClientHello
 }
 
 // serverHandshake performs a TLS handshake as a server.
@@ -154,6 +156,54 @@ func (hs *serverHandshakeState) readClientHello() error {
 	}
 	if size := config.Bugs.RequireClientHelloSize; size != 0 && len(hs.clientHello.raw) != size {
 		return fmt.Errorf("tls: ClientHello record size is %d, but expected %d", len(hs.clientHello.raw), size)
+	}
+
+	var echCheckTLS13 bool
+
+	// Before we do anything with |hs.clientHello|, check if it should be
+	// replaced by ECH.
+	if config.EchEnabled && hs.clientHello.encryptedClientHello != nil {
+		ech := hs.clientHello.encryptedClientHello
+
+		// Postpone the version check until we've tentatively negotiated
+		// a TLS version.
+		echCheckTLS13 = true
+
+		var candidateEchConfigs []EchConfig = config.EchConfigs
+
+		// Eliminate candidate ECHConfigs based on the record digest.
+		echConfig, err := ech.findEchConfigUsingRecordDigest(config.EchConfigs)
+		if err == nil {
+			candidateEchConfigs = []EchConfig{*echConfig}
+		}
+
+		// Trial decrypt with each of the candidate ECHConfigs.
+		chInner, nonce, hrrKey, err := ech.trialDecrypt(candidateEchConfigs)
+		if err != nil || chInner.echNonce == nil || !bytes.Equal(chInner.echNonce[:], nonce) {
+			// Temporarily place the retry configs on the handshake.
+			// They will be picked up latery by doTLS13Handshake().
+			hs.echRetryConfigs = config.EchConfigs
+
+			c.sendAlert(alertDecryptError)
+			if err != nil {
+				return err
+			}
+			return errors.New("ech nonce does not match")
+		}
+
+		// I am tentatively implementing the ServerHello.random hack [0]
+		// because it's much easier than doing trial decryption.
+		// [0]: https://github.com/tlswg/draft-ietf-tls-esni/pull/287
+		hs.echAccepted = ech
+
+		// TODO(dmcardle): handle any "outer_extensions" extensions in
+		// the inner CH
+
+		// Replace the outer CH with the decrypted inner CH.
+		hs.clientHello = chInner
+
+		// TODO(dmcardle): Save the hrrKey
+		_ = hrrKey
 	}
 
 	if c.isDTLS && !config.Bugs.SkipHelloVerifyRequest {
@@ -283,6 +333,11 @@ func (hs *serverHandshakeState) readClientHello() error {
 	}
 	c.haveVers = true
 
+	if echCheckTLS13 && c.vers < VersionTLS13 {
+		c.sendAlert(alertHandshakeFailure)
+		return errors.New("ech requires TLS 1.3 or greater")
+	}
+
 	clientProtocol, ok := wireToVersion(c.clientVersion, c.isDTLS)
 
 	// Reject < 1.2 ClientHellos with signature_algorithms.
@@ -395,10 +450,23 @@ func (hs *serverHandshakeState) doTLS13Handshake() error {
 		unencryptedALPN:       config.Bugs.SendUnencryptedALPN,
 	}
 
+	if len(hs.echRetryConfigs) > 0 {
+		hs.hello.extensions.echRetryKeys = hs.echRetryConfigs
+	}
+
 	hs.hello.random = make([]byte, 32)
 	if _, err := io.ReadFull(config.rand(), hs.hello.random); err != nil {
 		c.sendAlert(alertInternalError)
 		return err
+	}
+
+	// Overwrite part of ServerHello.random to signal ECH acceptance to the client.
+	if hs.echAccepted != nil && hs.clientHello.encryptedClientHello.empty {
+		acceptConfirmation, err := echServerHelloRandom(hs.echAccepted.hpkeCipherSuite.KDF, hs.clientHello.random, hs.hello.random[0:24])
+		if err != nil {
+			return err
+		}
+		copy(hs.hello.random[24:], acceptConfirmation)
 	}
 
 	// TLS 1.3 forbids clients from advertising any non-null compression.

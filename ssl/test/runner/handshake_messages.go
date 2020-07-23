@@ -7,7 +7,10 @@ package runner
 import (
 	"bytes"
 	"encoding/binary"
+	"errors"
 	"fmt"
+
+	"boringssl.googlesource.com/boringssl/ssl/test/runner/hpke"
 )
 
 func writeLen(buf []byte, v, size int) {
@@ -298,6 +301,8 @@ type clientHelloMsg struct {
 	pad                     int
 	compressedCertAlgs      []uint16
 	delegatedCredentials    bool
+	encryptedClientHello    *encryptedClientHello
+	echNonce                *echNonce
 }
 
 func (m *clientHelloMsg) equal(i interface{}) bool {
@@ -352,7 +357,9 @@ func (m *clientHelloMsg) equal(i interface{}) bool {
 		m.emptyExtensions == m1.emptyExtensions &&
 		m.pad == m1.pad &&
 		eqUint16s(m.compressedCertAlgs, m1.compressedCertAlgs) &&
-		m.delegatedCredentials == m1.delegatedCredentials
+		m.delegatedCredentials == m1.delegatedCredentials &&
+		m.encryptedClientHello.equal(m1.encryptedClientHello) &&
+		m.echNonce == m1.echNonce
 }
 
 func (m *clientHelloMsg) marshalKeyShares(bb *byteBuilder) {
@@ -601,6 +608,14 @@ func (m *clientHelloMsg) marshal() []byte {
 		for _, sigAlg := range m.signatureAlgorithms {
 			signatureSchemeList.addU16(uint16(sigAlg))
 		}
+	}
+	if m.encryptedClientHello != nil {
+		extensions.addU16(extensionEncryptedClientHello)
+		extensions.addU16LengthPrefixed().addBytes(m.encryptedClientHello.marshal())
+	}
+	if m.echNonce != nil {
+		extensions.addU16(extensionEchNonce)
+		extensions.addU16LengthPrefixed().addBytes(m.echNonce[:])
 	}
 
 	// The PSK extension must be last. See https://tools.ietf.org/html/rfc8446#section-4.2.11
@@ -964,6 +979,19 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 				return false
 			}
 			m.delegatedCredentials = true
+		case extensionEncryptedClientHello:
+			var ech encryptedClientHello
+			if !ech.unmarshal(body) {
+				return false
+			}
+			m.encryptedClientHello = &ech
+		case extensionEchNonce:
+			var nonce echNonce
+			if len(body) != len(nonce) {
+				return false
+			}
+			copy(nonce[:], body)
+			m.echNonce = &nonce
 		}
 
 		if isGREASEValue(extension) {
@@ -973,6 +1001,127 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 
 	return true
 }
+
+type hpkeCipherSuite struct {
+	KDF  uint16
+	AEAD uint16
+}
+
+func (c *hpkeCipherSuite) marshal() []byte {
+	bb := newByteBuilder()
+	bb.addU16(c.KDF)
+	bb.addU16(c.AEAD)
+	return bb.finish()
+}
+
+func (c *hpkeCipherSuite) unmarshal(reader *byteReader) bool {
+	if !reader.readU16(&c.KDF) || !reader.readU16(&c.AEAD) {
+		return false
+	}
+	return true
+}
+
+type encryptedClientHello struct {
+	hpkeCipherSuite  hpkeCipherSuite
+	recordDigest     []byte
+	enc              []byte
+	encryptedInnerCH []byte
+
+	// When |empty| is true, marshaling will produce zero bytes.
+	empty bool
+}
+
+func (e *encryptedClientHello) equal(other *encryptedClientHello) bool {
+	if e == other {
+		return true
+	} else if e == nil || other == nil {
+		return false
+	}
+	return e.hpkeCipherSuite == other.hpkeCipherSuite &&
+		bytes.Equal(e.recordDigest, other.recordDigest) &&
+		bytes.Equal(e.enc, other.enc) &&
+		bytes.Equal(e.encryptedInnerCH, other.encryptedInnerCH)
+}
+
+func (e *encryptedClientHello) marshal() []byte {
+	if e.empty {
+		return nil
+	}
+	bb := newByteBuilder()
+	bb.addBytes(e.hpkeCipherSuite.marshal())
+	bb.addU16LengthPrefixed().addBytes(e.recordDigest)
+	bb.addU16LengthPrefixed().addBytes(e.enc)
+	bb.addU16LengthPrefixed().addBytes(e.encryptedInnerCH)
+	return bb.finish()
+}
+
+func (e *encryptedClientHello) unmarshal(data []byte) bool {
+	if len(data) == 0 {
+		e.empty = true
+		return true
+	}
+	reader := byteReader(data)
+	if !e.hpkeCipherSuite.unmarshal(&reader) ||
+		!reader.readU16LengthPrefixedBytes(&e.recordDigest) ||
+		!reader.readU16LengthPrefixedBytes(&e.enc) ||
+		!reader.readU16LengthPrefixedBytes(&e.encryptedInnerCH) {
+		return false
+	}
+	return true
+}
+
+func (e *encryptedClientHello) findEchConfigUsingRecordDigest(configs []EchConfig) (*EchConfig, error) {
+	var suite hpkeCipherSuite = e.hpkeCipherSuite
+	hash, err := hpke.GetHash(suite.KDF)
+	if err != nil {
+		return nil, err
+	}
+
+	// Find the ECHConfig in |configs| based on |recordDigest|.
+	if len(e.recordDigest) > 0 {
+		for _, candidate := range configs {
+			digest := candidate.hash(hash)
+			if bytes.Equal(digest, e.recordDigest) {
+				return &candidate, nil
+			}
+		}
+	}
+
+	return nil, errors.New("no matching EchConfig")
+}
+
+func (e *encryptedClientHello) trialDecrypt(configs []EchConfig) (chInner *clientHelloMsg, nonce, hrrKey []byte, err error) {
+	for _, config := range configs {
+		secretKeyR := config.secretKey
+		if len(secretKeyR) == 0 {
+			panic("missing secret key for ECHConfig")
+		}
+
+		suite := e.hpkeCipherSuite
+		ctx, err := hpke.SetupBaseReceiverX25519(suite.KDF, suite.AEAD, e.enc, secretKeyR, []byte("tls13-ech"))
+		if err != nil {
+			return nil, nil, nil, err
+		}
+		chInnerBytes, err := ctx.Open(nil, e.encryptedInnerCH)
+		if err != nil {
+			return nil, nil, nil, err
+		}
+		nonce = ctx.Export([]byte("tls13-ech-nonce"), 16)
+		hrrKey = ctx.Export([]byte("tls13-ech-hrr-key"), 16)
+
+		var chInner clientHelloMsg
+		if !chInner.unmarshal(chInnerBytes) {
+			return nil, nil, nil, errors.New("ech failed to unmarshal")
+
+		}
+
+		return &chInner, nonce, hrrKey, nil
+	}
+
+	return nil, nil, nil, errors.New("ech trial decryption failed")
+}
+
+type echNonce [16]byte
 
 type serverHelloMsg struct {
 	raw                   []byte
@@ -1231,6 +1380,7 @@ type serverExtensions struct {
 	supportedCurves         []CurveID
 	quicTransportParams     []byte
 	serverNameAck           bool
+	echRetryKeys            []EchConfig
 }
 
 func (m *serverExtensions) marshal(extensions *byteBuilder) {
@@ -1365,6 +1515,13 @@ func (m *serverExtensions) marshal(extensions *byteBuilder) {
 		extensions.addU16(extensionServerName)
 		extensions.addU16(0) // zero length
 	}
+	if len(m.echRetryKeys) > 0 {
+		extensions.addU16(extensionEncryptedClientHello)
+		retryKeysWriter := extensions.addU16LengthPrefixed()
+		for _, echConfig := range m.echRetryKeys {
+			retryKeysWriter.addBytes(echConfig.Marshal())
+		}
+	}
 }
 
 func (m *serverExtensions) unmarshal(data byteReader, version uint16) bool {
@@ -1473,6 +1630,17 @@ func (m *serverExtensions) unmarshal(data byteReader, version uint16) bool {
 				return false
 			}
 			m.hasEarlyData = true
+		case extensionEncryptedClientHello:
+			var retryKeysReader byteReader
+			if !body.readU16LengthPrefixed(&retryKeysReader) {
+				return false
+			}
+			for len(retryKeysReader) > 0 {
+				var echConfig EchConfig
+				if !echConfig.unmarshal(&retryKeysReader) {
+					return false
+				}
+			}
 		default:
 			// Unknown extensions are illegal from the server.
 			return false

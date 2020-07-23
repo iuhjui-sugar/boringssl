@@ -125,6 +125,8 @@ const (
 	extensionQUICTransportParams        uint16 = 0xffa5 // draft-ietf-quic-tls-13
 	extensionChannelID                  uint16 = 30032  // not IANA assigned
 	extensionDelegatedCredentials       uint16 = 0x22   // draft-ietf-tls-subcerts-06
+	extensionEncryptedClientHello       uint16 = 0xff02
+	extensionEchNonce                   uint16 = 0xff03
 )
 
 // TLS signaling cipher suite values
@@ -235,6 +237,10 @@ const (
 const (
 	keyUpdateNotRequested = 0
 	keyUpdateRequested    = 1
+)
+
+const (
+	echVersion = 0xff07
 )
 
 // ConnectionState records basic TLS details about the connection.
@@ -369,6 +375,15 @@ type Config struct {
 	// certificates unless InsecureSkipVerify is given. It is also included
 	// in the client's handshake to support virtual hosting.
 	ServerName string
+
+	// EchEnabled controls whether Encrypted Client Hello (ECH) is enabled for
+	// the client or the server.
+	EchEnabled bool
+
+	// EchConfigs contains the server's published ECHConfigs. When not empty,
+	// the client will send an encrypted client hello to the server. When empty,
+	// the client will send a GREASE ECH extension (dependent on EchEnabled).
+	EchConfigs []EchConfig
 
 	// ClientAuth determines the server's policy for
 	// TLS Client Authentication. The default is NoClientCert.

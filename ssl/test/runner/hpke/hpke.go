@@ -18,10 +18,12 @@
 package hpke
 
 import (
+	"crypto"
 	"crypto/aes"
 	"crypto/cipher"
 	"encoding/binary"
 	"errors"
+	"fmt"
 
 	"golang.org/x/crypto/chacha20poly1305"
 )
@@ -51,6 +53,38 @@ const (
 	hpkeModePSK  uint8 = 1
 )
 
+func AllSupportedAEADs() []uint16 {
+	return []uint16{AES128GCM, AES256GCM, ChaCha20Poly1305}
+}
+
+func AllSupportedKDFs() []uint16 {
+	return []uint16{HKDFSHA256, HKDFSHA384, HKDFSHA512}
+}
+
+func IsSupportedKEM(KEM uint16) bool {
+	return KEM == X25519WithHKDFSHA256
+}
+
+func GetHash(KDF uint16) (crypto.Hash, error) {
+	switch KDF {
+	case HKDFSHA256:
+		return crypto.SHA256, nil
+	case HKDFSHA384:
+		return crypto.SHA384, nil
+	case HKDFSHA512:
+		return crypto.SHA512, nil
+	}
+	var ret crypto.Hash
+	return ret, fmt.Errorf("unknown KDF: %d", KDF)
+}
+
+// IsSupportedCipherSuite returns true iff kdfID and aeadID identify a supported ciphersuite.
+func IsSupportedCipherSuite(KDF, AEAD uint16) bool {
+	supportedKdf := KDF == HKDFSHA256 || KDF == HKDFSHA384 || KDF == HKDFSHA512
+	supportedAead := AEAD == AES128GCM || AEAD == AES256GCM || AEAD == ChaCha20Poly1305
+	return supportedKdf && supportedAead
+}
+
 type GenerateKeyPairFunc func() (public []byte, secret []byte, e error)
 
 // Context holds the HPKE state for a sender or a receiver.
@@ -71,7 +105,7 @@ type Context struct {
 // SetupBaseSenderX25519 corresponds to the spec's SetupBaseS(), but only
 // supports X25519.
 func SetupBaseSenderX25519(kdfID, aeadID uint16, publicKeyR, info []byte, ephemKeygen GenerateKeyPairFunc) (context *Context, enc []byte, err error) {
-	kem := dhkemX25519{}
+	kem := DHKEMX25519{}
 	sharedSecret, enc, err := kem.Encap(publicKeyR, ephemKeygen)
 	if err != nil {
 		return nil, nil, err
@@ -83,7 +117,7 @@ func SetupBaseSenderX25519(kdfID, aeadID uint16, publicKeyR, info []byte, ephemK
 // SetupBaseReceiverX25519 corresponds to the spec's SetupBaseR(), but only
 // supports X25519.
 func SetupBaseReceiverX25519(kdfID, aeadID uint16, enc, secretKeyR, info []byte) (context *Context, err error) {
-	kem := dhkemX25519{}
+	kem := DHKEMX25519{}
 	sharedSecret, err := kem.Decap(enc, secretKeyR)
 	if err != nil {
 		return nil, err
@@ -94,7 +128,7 @@ func SetupBaseReceiverX25519(kdfID, aeadID uint16, enc, secretKeyR, info []byte)
 // SetupPSKSenderX25519 corresponds to the spec's SetupPSKS(), but only supports
 // X25519.
 func SetupPSKSenderX25519(kdfID, aeadID uint16, publicKeyR, info, psk, pskID []byte, ephemKeygen GenerateKeyPairFunc) (context *Context, enc []byte, err error) {
-	kem := dhkemX25519{}
+	kem := DHKEMX25519{}
 	sharedSecret, enc, err := kem.Encap(publicKeyR, ephemKeygen)
 	if err != nil {
 		return nil, nil, err
@@ -106,7 +140,7 @@ func SetupPSKSenderX25519(kdfID, aeadID uint16, publicKeyR, info, psk, pskID []b
 // SetupPSKReceiverX25519 corresponds to the spec's SetupPSKR(), but only
 // supports X25519.
 func SetupPSKReceiverX25519(kdfID, aeadID uint16, enc, secretKeyR, info, psk, pskID []byte) (context *Context, err error) {
-	kem := dhkemX25519{}
+	kem := DHKEMX25519{}
 	sharedSecret, err := kem.Decap(enc, secretKeyR)
 	if err != nil {
 		return nil, err
