@@ -33,6 +33,9 @@ extern "C" {
 //
 // See https://tools.ietf.org/html/draft-irtf-cfrg-hpke-07.
 
+// EVP_HPKE_DHKEM_* are KEM identifiers.
+#define EVP_HPKE_DHKEM_X25519_HKDF_SHA256 0x0020
+
 // EVP_HPKE_AEAD_* are AEAD identifiers.
 #define EVP_HPKE_AEAD_AES_GCM_128 0x0001
 #define EVP_HPKE_AEAD_AES_GCM_256 0x0002

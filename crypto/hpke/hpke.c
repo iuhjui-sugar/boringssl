@@ -31,9 +31,6 @@
 
 #define KEM_CONTEXT_LEN (2 * X25519_PUBLIC_VALUE_LEN)
 
-// HPKE KEM scheme IDs.
-#define HPKE_DHKEM_X25519_HKDF_SHA256 0x0020
-
 // This is strlen("HPKE") + 3 * sizeof(uint16_t).
 #define HPKE_SUITE_ID_LEN 10
 
@@ -50,8 +47,8 @@ static int add_label_string(CBB *cbb, const char *label) {
 // that the suite_id used outside of the KEM also includes the kdf_id and
 // aead_id.
 static const uint8_t kX25519SuiteID[] = {
-    'K', 'E', 'M', HPKE_DHKEM_X25519_HKDF_SHA256 >> 8,
-    HPKE_DHKEM_X25519_HKDF_SHA256 & 0x00ff};
+    'K', 'E', 'M', EVP_HPKE_DHKEM_X25519_HKDF_SHA256 >> 8,
+    EVP_HPKE_DHKEM_X25519_HKDF_SHA256 & 0x00ff};
 
 // The suite_id for non-KEM pieces of HPKE is defined as concat("HPKE",
 // I2OSP(kem_id, 2), I2OSP(kdf_id, 2), I2OSP(aead_id, 2)).
@@ -60,7 +57,7 @@ static int hpke_build_suite_id(uint8_t out[HPKE_SUITE_ID_LEN], uint16_t kdf_id,
   CBB cbb;
   int ret = CBB_init_fixed(&cbb, out, HPKE_SUITE_ID_LEN) &&
             add_label_string(&cbb, "HPKE") &&
-            CBB_add_u16(&cbb, HPKE_DHKEM_X25519_HKDF_SHA256) &&
+            CBB_add_u16(&cbb, EVP_HPKE_DHKEM_X25519_HKDF_SHA256) &&
             CBB_add_u16(&cbb, kdf_id) &&
             CBB_add_u16(&cbb, aead_id);
   CBB_cleanup(&cbb);
