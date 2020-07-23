@@ -16141,7 +16141,25 @@ func addDelegatedCredentialTests() {
 }
 
 func addEncryptedClientHelloTests() {
+	publicECHConfig, _, err := generateECHConfigWithSecretKey("public.example")
+	if err != nil {
+		panic(err)
+	}
+
 	// Test ECH GREASE.
+
+	// Test the server's handling of a non-decryptable ECH (equivalent to
+	// GREASE).
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "ECH-Server-GREASE",
+		config: Config{
+			MinVersion: VersionTLS13,
+			MaxVersion: VersionTLS13,
+			ServerName: "secret.example",
+			ECHConfigs: []ECHConfig{*publicECHConfig},
+		},
+	})
 
 	// Test the client's behavior when the server ignores ECH GREASE.
 	testCases = append(testCases, testCase{
