@@ -128,6 +128,7 @@ const (
 	extensionDelegatedCredentials       uint16 = 0x22   // draft-ietf-tls-subcerts-06
 	extensionDuplicate                  uint16 = 0xffff // not IANA assigned
 	extensionEncryptedClientHello       uint16 = 0xfe08 // not IANA assigned
+	extensionECHOuterExtensions         uint16 = 0xfd00 // not IANA assigned
 )
 
 // TLS signaling cipher suite values
@@ -338,6 +339,11 @@ type CertCompressionAlg struct {
 	Decompress func(out, in []byte) bool
 }
 
+type ServerECHConfig struct {
+	Config    ECHConfig
+	SecretKey []byte
+}
+
 // A Config structure is used to configure a TLS client or server.
 // After one has been passed to a TLS function it must not be
 // modified. A Config may be reused; the tls package will also not
@@ -382,6 +388,13 @@ type Config struct {
 	// certificates unless InsecureSkipVerify is given. It is also included
 	// in the client's handshake to support virtual hosting.
 	ServerName string
+
+	// ECHConfigs is the list of ECHConfigs known by the client.
+	ECHConfigs []ECHConfig
+
+	// ServerECHConfigs is the server's ECHConfigs and their corresponding
+	// secret keys.
+	ServerECHConfigs []ServerECHConfig
 
 	// ClientAuth determines the server's policy for
 	// TLS Client Authentication. The default is NoClientCert.
