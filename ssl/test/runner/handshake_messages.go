@@ -5,8 +5,14 @@
 package runner
 
 import (
+	"bytes"
+	"crypto"
 	"encoding/binary"
+	"errors"
 	"fmt"
+
+	"boringssl.googlesource.com/boringssl/ssl/test/runner/hpke"
+	"golang.org/x/crypto/hkdf"
 )
 
 func writeLen(buf []byte, v, size int) {
@@ -263,6 +269,37 @@ type echConfig struct {
 	cipherSuites []hpkeCipherSuite
 	maxNameLen   uint16
 	extensions   []byte
+
+	// secretKey is only used by servers. It is not part of the wire format.
+	secretKey []byte
+}
+
+// GenerateECHConfigWithSecretKey constructs a valid ECHConfig and corresponding
+// private key for the server.
+func GenerateECHConfigWithSecretKey(publicName string) (*echConfig, error) {
+	publicKeyR, secretKeyR, err := hpke.GenerateKeyPair()
+	if err != nil {
+		return nil, err
+	}
+	result := echConfig{
+		publicName: publicName,
+		publicKey:  publicKeyR,
+		kemID:      hpke.X25519WithHKDFSHA256,
+		cipherSuites: []hpkeCipherSuite{
+			{
+				kdfID:  hpke.HKDFSHA256,
+				aeadID: hpke.AES256GCM,
+			},
+		},
+		// For real-life purposes, the maxNameLen should be
+		// based on the set of domain names that the server
+		// represents.
+		maxNameLen: 16,
+		extensions: nil,
+
+		secretKey: secretKeyR,
+	}
+	return &result, nil
 }
 
 func (e *echConfig) marshal() []byte {
@@ -270,7 +307,7 @@ func (e *echConfig) marshal() []byte {
 		return e.raw
 	}
 	bb := newByteBuilder()
-	bb.addU16(extensionEncryptedClientHello)
+	bb.addU16(extensionEncryptedClientHello) // version
 	contents := bb.addU16LengthPrefixed()
 	contents.addU16LengthPrefixed().addBytes([]byte(e.publicName))
 	contents.addU16LengthPrefixed().addBytes(e.publicKey)
@@ -289,37 +326,80 @@ func (e *echConfig) marshal() []byte {
 func (e *echConfig) unmarshal(reader *byteReader) bool {
 	e.raw = []byte(*reader)
 
-	var publicNameBytes []byte
 	var version uint16
+	var contents byteReader
+	var publicNameBytes []byte
 	if !reader.readU16(&version) ||
 		version != extensionEncryptedClientHello ||
-		!reader.readU16LengthPrefixedBytes(&publicNameBytes) ||
-		len(publicNameBytes) == 0 {
+		!reader.readU16LengthPrefixed(&contents) ||
+		!contents.readU16LengthPrefixedBytes(&publicNameBytes) ||
+		len(publicNameBytes) == 0 ||
+		!contents.readU16LengthPrefixedBytes(&e.publicKey) ||
+		!contents.readU16(&e.kemID) {
 		return false
 	}
 	e.publicName = string(publicNameBytes)
-	var cipherSuitesReader byteReader
-	if !reader.readU16(&e.kemID) ||
-		!reader.readU16LengthPrefixed(&cipherSuitesReader) ||
-		len(cipherSuitesReader) < 4 {
+
+	var cipherSuites byteReader
+	if !contents.readU16LengthPrefixed(&cipherSuites) ||
+		len(cipherSuites) < 4 {
 		return false
 	}
-	for len(cipherSuitesReader) > 0 {
-		var suite hpkeCipherSuite
-		if !cipherSuitesReader.readU16(&suite.kdfID) ||
-			!cipherSuitesReader.readU16(&suite.aeadID) {
+
+	for len(cipherSuites) > 0 {
+		var cipherSuite hpkeCipherSuite
+		if !cipherSuites.readU16(&cipherSuite.kdfID) ||
+			!cipherSuites.readU16(&cipherSuite.aeadID) {
 			return false
 		}
-		e.cipherSuites = append(e.cipherSuites, suite)
+		e.cipherSuites = append(e.cipherSuites, cipherSuite)
 	}
-	return reader.readU16(&e.maxNameLen) &&
-		reader.readU16LengthPrefixedBytes(&e.extensions)
+
+	if !contents.readU16(&e.maxNameLen) ||
+		!contents.readU16LengthPrefixedBytes(&e.extensions) {
+		return false
+	}
+
+	// Validate the extensions list.
+	extensionsReader := byteReader(e.extensions)
+	seenExtensions := make(map[uint16][]byte)
+	for len(extensionsReader) > 0 {
+		var extensionType uint16
+		var extensionBody []byte
+		if !extensionsReader.readU16(&extensionType) ||
+			!extensionsReader.readU16LengthPrefixedBytes(&extensionBody) {
+			return false
+		}
+
+		_, alreadySeen := seenExtensions[extensionType]
+		if alreadySeen {
+			return false
+		}
+
+		seenExtensions[extensionType] = extensionBody
+	}
+	return true
+}
+
+func (e *echConfig) configID(h crypto.Hash) ([]byte, error) {
+	idReader := hkdf.Expand(h.New, hkdf.Extract(h.New, e.marshal(), nil), []byte("tls ech config id"))
+	idBytes := make([]byte, h.Size())
+	n, err := idReader.Read(idBytes)
+	if err != nil {
+		return nil, err
+	}
+	if n != h.Size() {
+		return nil, fmt.Errorf("incomplete read from configID (%d vs %d bytes)", n, h.Size())
+	}
+	return idBytes, nil
 }
 
 // The contents of a CH "encrypted_client_hello" extension.
 // https://tools.ietf.org/html/draft-ietf-tls-esni-08
 type encryptedClientHello struct {
-	raw      []byte
+	raw   []byte
+	empty bool
+
 	hpkeKDF  uint16
 	hpkeAEAD uint16
 	configID []byte
@@ -330,6 +410,9 @@ type encryptedClientHello struct {
 func (e *encryptedClientHello) marshal() []byte {
 	if e.raw != nil {
 		return e.raw
+	}
+	if e.empty {
+		return nil
 	}
 
 	bb := newByteBuilder()
@@ -342,7 +425,12 @@ func (e *encryptedClientHello) marshal() []byte {
 	e.raw = bb.finish()
 	return e.raw
 }
+
 func (e *encryptedClientHello) unmarshal(data []byte) bool {
+	if len(data) == 0 {
+		e.empty = true
+		return true
+	}
 	e.raw = data
 	reader := byteReader(data)
 	if !reader.readU16(&e.hpkeKDF) ||
@@ -358,6 +446,272 @@ func (e *encryptedClientHello) unmarshal(data []byte) bool {
 	return true
 }
 
+func (e *encryptedClientHello) findMatchingConfig(configs []echConfig) (*echConfig, error) {
+	hash, err := hpke.GetHash(e.hpkeKDF)
+	if err != nil {
+		return nil, err
+	}
+
+	// Find the ECHConfig in |configs| based on |configID|.
+	if len(e.configID) > 0 {
+		for _, candidate := range configs {
+			configID, err := candidate.configID(hash)
+			if err != nil {
+				return nil, err
+			}
+			if bytes.Equal(configID, e.configID) {
+				return &candidate, nil
+			}
+		}
+	}
+	return nil, errors.New("no matching echConfig")
+}
+
+func (e *encryptedClientHello) trialDecrypt(configs []echConfig, chOuterBytes []byte) (chInner *clientHelloMsg, hrrKey []byte, decryptSuccess bool, err error) {
+	chOuterAAD, err := clientHelloRemoveECH(chOuterBytes)
+	if err != nil {
+		return nil, nil, false, fmt.Errorf("ech failed to remove ECH extension: %s", err)
+	}
+	chOuterAAD = chOuterAAD[4:]
+
+	var ctx *hpke.Context
+	var chInnerBytes []byte
+	for _, config := range configs {
+		if len(config.secretKey) == 0 {
+			panic("ech misconfiguration: echConfig missing secretKey")
+		}
+
+		info := newByteBuilder()
+		info.addBytes([]byte("tls ech"))
+		info.addU8(0x00)
+		info.addBytes(config.marshal())
+
+		ctx, err = hpke.SetupBaseReceiverX25519(e.hpkeKDF, e.hpkeAEAD, e.enc, config.secretKey, info.finish())
+		if err != nil {
+			return nil, nil, false, err
+		}
+
+		// Attempt to decrypt the ECH payload with this config. If
+		// decryption failed, just try the next config.
+		chInnerBytes, err = ctx.Open(chOuterAAD, e.payload)
+		if err != nil {
+			err = nil
+			continue
+		}
+
+		// At this point, we've settled on one config.
+		decryptSuccess = true
+		break
+
+	}
+	if !decryptSuccess {
+		return nil, nil, false, nil
+	}
+
+	hrrKey = ctx.Export([]byte("tls ech hrr key"), 16)
+
+	var chInnerTmp clientHelloMsg
+	if !chInnerTmp.unmarshal(chInnerBytes) {
+		err = errors.New("ech failed to unmarshal")
+		return
+	}
+	chInner = &chInnerTmp
+
+	// Process the inner ClientHello's "outer_extensions". If it's not
+	// present, return early and indicate success.
+	if chInner.outerExtensions == nil {
+		return
+	}
+
+	chInnerFullBytes, err := echReconstituteCH(chInner.raw, chOuterBytes)
+	if err != nil {
+		return nil, nil, true, err
+	}
+
+	var chInnerFull clientHelloMsg
+	if !chInnerFull.unmarshal(chInnerFullBytes) {
+		return nil, nil, true, errors.New("failed to unmarshal inner CH with outer extensions")
+	}
+
+	return &chInnerFull, hrrKey, true, err
+}
+
+// clientHelloRemoveECH parses |chBytes| as a ClientHello message and removes
+// the ECH extension. This is useful when computing the ClientHelloOuterAAD.
+func clientHelloRemoveECH(chBytes []byte) ([]byte, error) {
+	// Serialize clientHelloOuter with the "encrypted_client_hello"
+	// extension removed.
+	clientHelloOuterAAD := newByteBuilder()
+	var chOuter clientHelloMsg
+	headerBytes, extensionBytes, ok := chOuter.unmarshalUntilExtensions(chBytes)
+	if !ok {
+		return nil, errors.New("ech failed to unmarshal outer CH")
+	}
+	clientHelloOuterAAD.addBytes(headerBytes)
+	extensionsWriter := clientHelloOuterAAD.addU16LengthPrefixed()
+	extensionReader := byteReader(extensionBytes)
+	for len(extensionReader) > 0 {
+		var extension uint16
+		var body byteReader
+		if !extensionReader.readU16(&extension) ||
+			!extensionReader.readU16LengthPrefixed(&body) {
+			return nil, errors.New("ech failed to unmarshal outer CH")
+		}
+		if extension == extensionEncryptedClientHello {
+			continue
+		}
+		extensionsWriter.addU16(extension)
+		extensionsWriter.addU16LengthPrefixed().addBytes(body)
+	}
+	return clientHelloOuterAAD.finish(), nil
+}
+
+func echReconstituteCH(chInnerBytes, chOuterBytes []byte) ([]byte, error) {
+	// Get the inner ClientHello's extensions.
+	var chInner clientHelloMsg
+	chInnerBeforeExtensionsBytes, chInnerExtensionsBytes, ok := chInner.unmarshalUntilExtensions(chInnerBytes)
+	if !ok {
+		panic("failed to parse inner CH")
+	}
+	chInnerExtensions := byteReader(chInnerExtensionsBytes)
+
+	// Reconstruct the inner CH with extensions from the outer CH. Start by
+	// copying everything before the extensions.
+	chInnerFull := newByteBuilder()
+	chInnerFull.addBytes(chInnerBeforeExtensionsBytes)
+	chInnerFullExtensions := chInnerFull.addU16LengthPrefixed()
+
+	// Construct a map from extension types to extension bodies for the
+	// outer CH.
+	outerExtMap, err := echBuildExtensionMap(chOuterBytes)
+	if err != nil {
+		return nil, err
+	}
+
+	// Walk through the inner CH's extensions.
+	for len(chInnerExtensions) > 0 {
+		var extension uint16
+		var body []byte
+		if !chInnerExtensions.readU16(&extension) ||
+			!chInnerExtensions.readU16LengthPrefixedBytes(&body) {
+			return nil, errors.New("failed to unmarshal inner CH")
+		}
+		// If it's not the "outer_extensions" extension, preserve it.
+		if extension != extensionEchOuterExtensions {
+			chInnerFullExtensions.addU16(extension)
+			chInnerFullExtensions.addU16LengthPrefixed().addBytes(body)
+			continue
+		}
+		// Parse the "outer_extensions" extension. For each requested
+		// extension in chOuterExtensions, copy the extension from the
+		// outer CH to chInnerFull.
+		var outerExts echOuterExtensions
+		if !outerExts.unmarshal(body) {
+			return nil, errors.New("failed to unmarshal extensionEchOuterExtensions")
+		}
+		for _, outerExt := range outerExts.outerExtensions {
+			extBody, ok := outerExtMap[outerExt]
+			if !ok {
+				return nil, errors.New("cannot find required extension in outer CH")
+			}
+			chInnerFullExtensions.addU16(outerExt)
+			chInnerFullExtensions.addU16LengthPrefixed().addBytes(extBody)
+		}
+	}
+	return chInnerFull.finish(), nil
+}
+
+func echBuildExtensionMap(chBytes []byte) (map[uint16][]byte, error) {
+	var ch clientHelloMsg
+	_, chExtensionsBytes, ok := ch.unmarshalUntilExtensions(chBytes)
+	if !ok {
+		return nil, errors.New("failed to parse outer CH")
+	}
+	chExtensions := byteReader(chExtensionsBytes)
+	extMap := make(map[uint16][]byte)
+	for len(chExtensions) > 0 {
+		var extension uint16
+		var body []byte
+		if !chExtensions.readU16(&extension) ||
+			!chExtensions.readU16LengthPrefixedBytes(&body) {
+			return nil, errors.New("failed to unmarshal outer CH")
+		}
+		extMap[extension] = body
+	}
+	return extMap, nil
+}
+
+func echServerAcceptConfirmation(hash crypto.Hash, clientRandom, serverRandomPrefix []byte) ([]byte, error) {
+	if len(serverRandomPrefix) != 24 {
+		panic("serverRandomPrefix must be 24 bytes")
+	}
+	secret := hkdf.Extract(hash.New, clientRandom, nil)
+	acceptConfirmation := hkdfExpandLabel(hash, secret, []byte("ech accept confirmation"), serverRandomPrefix, 8)
+	return acceptConfirmation, nil
+}
+
+// echCanonicalizeExtensionOrder transforms the marshalled Client Hello in
+// |chBytes|, ensuring all extensions named in |extensions| are contiguous.
+func echCanonicalizeExtensionOrder(chBytes []byte, extensions []uint16) ([]byte, error) {
+	var clientHello clientHelloMsg
+	if !clientHello.unmarshal(chBytes) {
+		return nil, errors.New("could not unmarshal ClientHello")
+	}
+	clientHello.prefixExtensions = extensions
+	clientHello.raw = nil
+	return clientHello.marshal(), nil
+}
+
+type echOuterExtensions struct {
+	outerExtensions []uint16
+	hash            []byte
+}
+
+func (e *echOuterExtensions) marshal() []byte {
+	bb := newByteBuilder()
+	outerExtensionsWriter := bb.addU8LengthPrefixed()
+	for _, ext := range e.outerExtensions {
+		outerExtensionsWriter.addU16(ext)
+	}
+	bb.addU8LengthPrefixed().addBytes(e.hash)
+	return bb.finish()
+}
+
+func (e *echOuterExtensions) unmarshal(data []byte) bool {
+	reader := byteReader(data)
+	var extReader byteReader
+	if !reader.readU8LengthPrefixed(&extReader) {
+		return false
+	}
+	for len(extReader) > 0 {
+		var ext uint16
+		if !extReader.readU16(&ext) {
+			return false
+		}
+		e.outerExtensions = append(e.outerExtensions, ext)
+	}
+	if !reader.readU8LengthPrefixedBytes(&e.hash) {
+		return false
+	}
+	return true
+}
+
+func (e *echOuterExtensions) equal(other *echOuterExtensions) bool {
+	if e == other {
+		return true
+	} else if e == nil || other == nil {
+		return false
+	} else if len(e.outerExtensions) != len(other.outerExtensions) {
+		return false
+	}
+	for i, ext := range e.outerExtensions {
+		if ext != other.outerExtensions[i] {
+			return false
+		}
+	}
+	return bytes.Equal(e.hash, other.hash)
+}
+
 type clientHelloMsg struct {
 	raw                     []byte
 	isDTLS                  bool
@@ -369,7 +723,6 @@ type clientHelloMsg struct {
 	compressionMethods      []uint8
 	nextProtoNeg            bool
 	serverName              string
-	encryptedClientHello    *encryptedClientHello
 	ocspStapling            bool
 	supportedCurves         []CurveID
 	supportedPoints         []uint8
@@ -406,6 +759,8 @@ type clientHelloMsg struct {
 	compressedCertAlgs      []uint16
 	delegatedCredentials    bool
 	alpsProtocols           []string
+	encryptedClientHello    *encryptedClientHello
+	outerExtensions         *echOuterExtensions
 	prefixExtensions        []uint16
 }
 
@@ -486,13 +841,6 @@ func (m *clientHelloMsg) marshal() []byte {
 		extensions = append(extensions, extension{
 			id:   extensionServerName,
 			body: serverNameList.finish(),
-		})
-	}
-	if m.encryptedClientHello != nil {
-		// https://tools.ietf.org/html/draft-ietf-tls-esni-08
-		extensions = append(extensions, extension{
-			id:   extensionEncryptedClientHello,
-			body: m.encryptedClientHello.marshal(),
 		})
 	}
 	if m.ocspStapling {
@@ -703,6 +1051,18 @@ func (m *clientHelloMsg) marshal() []byte {
 			body: body.finish(),
 		})
 	}
+	if m.encryptedClientHello != nil {
+		extensions = append(extensions, extension{
+			id:   extensionEncryptedClientHello,
+			body: m.encryptedClientHello.marshal(),
+		})
+	}
+	if m.outerExtensions != nil {
+		extensions = append(extensions, extension{
+			id:   extensionEchOuterExtensions,
+			body: m.outerExtensions.marshal(),
+		})
+	}
 
 	// The PSK extension must be last. See https://tools.ietf.org/html/rfc8446#section-4.2.11
 	if len(m.pskIdentities) > 0 {
@@ -728,6 +1088,12 @@ func (m *clientHelloMsg) marshal() []byte {
 	extMap := make(map[uint16][]byte)
 	for _, ext := range extensions {
 		extMap[ext.id] = ext.body
+	}
+	// Elide each of the extensions named by |m.outerExtensions|.
+	if m.outerExtensions != nil {
+		for _, extID := range m.outerExtensions.outerExtensions {
+			delete(extMap, extID)
+		}
 	}
 	// Write each of the prefix extensions, if we have it.
 	for _, extID := range m.prefixExtensions {
@@ -812,37 +1178,56 @@ func checkDuplicateExtensions(extensions byteReader) bool {
 	return true
 }
 
-func (m *clientHelloMsg) unmarshal(data []byte) bool {
+func (m *clientHelloMsg) unmarshalUntilExtensions(data []byte) ([]byte, []byte, bool) {
 	m.raw = data
 	reader := byteReader(data[4:])
 	if !reader.readU16(&m.vers) ||
 		!reader.readBytes(&m.random, 32) ||
 		!reader.readU8LengthPrefixedBytes(&m.sessionId) ||
 		len(m.sessionId) > 32 {
-		return false
+		return nil, nil, false
 	}
 	if m.isDTLS {
 		if !reader.readU8LengthPrefixedBytes(&m.cookie) ||
 			len(m.cookie) > 32 {
-			return false
+			return nil, nil, false
 		}
 	}
 	var cipherSuites byteReader
 	if !reader.readU16LengthPrefixed(&cipherSuites) ||
 		!reader.readU8LengthPrefixedBytes(&m.compressionMethods) {
-		return false
+		return nil, nil, false
 	}
 
 	m.cipherSuites = make([]uint16, 0, len(cipherSuites)/2)
 	for len(cipherSuites) > 0 {
 		var v uint16
 		if !cipherSuites.readU16(&v) {
-			return false
+			return nil, nil, false
 		}
 		m.cipherSuites = append(m.cipherSuites, v)
 		if v == scsvRenegotiation {
 			m.secureRenegotiation = []byte{}
 		}
+	}
+
+	// ClientHello is optionally followed by extension data
+	if len(reader) == 0 {
+		return nil, nil, true
+	}
+
+	var extensions []byte
+	if !reader.readU16LengthPrefixedBytes(&extensions) {
+		return nil, nil, false
+	}
+
+	return data[:len(data)-len(extensions)-2], extensions, true
+}
+
+func (m *clientHelloMsg) unmarshal(data []byte) bool {
+	_, extensionsBytes, ok := m.unmarshalUntilExtensions(data)
+	if !ok {
+		return false
 	}
 
 	m.nextProtoNeg = false
@@ -862,13 +1247,8 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 	m.delegatedCredentials = false
 	m.alpsProtocols = nil
 
-	if len(reader) == 0 {
-		// ClientHello is optionally followed by extension data
-		return true
-	}
-
-	var extensions byteReader
-	if !reader.readU16LengthPrefixed(&extensions) || len(reader) != 0 || !checkDuplicateExtensions(extensions) {
+	extensions := byteReader(extensionsBytes)
+	if len(extensions) == 0 || !checkDuplicateExtensions(extensions) {
 		return false
 	}
 	for len(extensions) > 0 {
@@ -895,12 +1275,6 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 					m.serverName = string(name)
 				}
 			}
-		case extensionEncryptedClientHello:
-			var ech encryptedClientHello
-			if !ech.unmarshal(body) {
-				return false
-			}
-			m.encryptedClientHello = &ech
 		case extensionNextProtoNeg:
 			if len(body) != 0 {
 				return false
@@ -1114,6 +1488,18 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 				}
 				m.alpsProtocols = append(m.alpsProtocols, string(protocol))
 			}
+		case extensionEncryptedClientHello:
+			var ech encryptedClientHello
+			if !ech.unmarshal(body) {
+				return false
+			}
+			m.encryptedClientHello = &ech
+		case extensionEchOuterExtensions:
+			var outerExts echOuterExtensions
+			if !outerExts.unmarshal(body) {
+				return false
+			}
+			m.outerExtensions = &outerExts
 		}
 
 		if isGREASEValue(extension) {

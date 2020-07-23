@@ -8301,6 +8301,25 @@ func addExtensionTests() {
 		flags: []string{"-enable-ech-grease"},
 	})
 
+	echPublicName := "secret.example"
+	echConfigWithSecret, err := GenerateECHConfigWithSecretKey(echPublicName)
+	if err != nil {
+		panic(err)
+	}
+
+	echConfigWithSecretMalformed := *echConfigWithSecret
+	echConfigWithSecretMalformed.raw = []byte{0xba, 0xdd, 0xec, 0xcc}
+
+	echConfigWithSecretAndDupeExtension := *echConfigWithSecret
+	echConfigWithSecretAndDupeExtension.extensions = []byte{
+		// baba extension
+		0xba, 0xba, 0x00, 0x02, 0xff, 0xff,
+		// fafa extension
+		0xfa, 0xfa, 0x00, 0x03, 0xee, 0xee, 0xee,
+		// baba extension (second occurrence)
+		0xba, 0xba, 0x00, 0x04, 0xff, 0xff, 0xff, 0xff,
+	}
+
 	// Test that the client accepts a well-formed "encrypted_client_hello"
 	// extension in response to ECH GREASE.
 	testCases = append(testCases, testCase{
@@ -8310,20 +8329,7 @@ func addExtensionTests() {
 			MinVersion: VersionTLS13,
 			MaxVersion: VersionTLS13,
 			ECHEnabled: true,
-			ECHConfigs: []echConfig{
-				{
-					publicName: "example.com",
-					publicKey:  []byte{1, 2, 3},
-					kemID:      1,
-					cipherSuites: []hpkeCipherSuite{
-						{
-							kdfID:  3,
-							aeadID: 2,
-						},
-					},
-					maxNameLen: 42,
-				},
-			},
+			ECHConfigs: []echConfig{*echConfigWithSecret},
 		},
 		flags: []string{"-enable-ech-grease"},
 	})
@@ -8338,11 +8344,7 @@ func addExtensionTests() {
 			MinVersion: VersionTLS13,
 			MaxVersion: VersionTLS13,
 			ECHEnabled: true,
-			ECHConfigs: []echConfig{
-				{
-					raw: []byte{0xba, 0xdd, 0xec, 0xcc},
-				},
-			},
+			ECHConfigs: []echConfig{echConfigWithSecretMalformed},
 		},
 		flags:              []string{"-enable-ech-grease"},
 		shouldFail:         true,
@@ -8358,28 +8360,7 @@ func addExtensionTests() {
 			MinVersion: VersionTLS13,
 			MaxVersion: VersionTLS13,
 			ECHEnabled: true,
-			ECHConfigs: []echConfig{
-				{
-					publicName: "example.com",
-					publicKey:  []byte{1, 2, 3},
-					kemID:      1,
-					cipherSuites: []hpkeCipherSuite{
-						{
-							kdfID:  3,
-							aeadID: 2,
-						},
-					},
-					maxNameLen: 42,
-					extensions: []byte{
-						// baba extension
-						0xba, 0xba, 0x00, 0x02, 0xff, 0xff,
-						// fafa extension
-						0xfa, 0xfa, 0x00, 0x03, 0xee, 0xee, 0xee,
-						// baba extension (second occurrence)
-						0xba, 0xba, 0x00, 0x04, 0xff, 0xff, 0xff, 0xff,
-					},
-				},
-			},
+			ECHConfigs: []echConfig{echConfigWithSecretAndDupeExtension},
 		},
 		flags:              []string{"-enable-ech-grease"},
 		shouldFail:         true,
@@ -16280,6 +16261,47 @@ func addDelegatedCredentialTests() {
 	})
 }
 
+func addEncryptedClientHelloTests() {
+	echConfigWithSecret, err := GenerateECHConfigWithSecretKey("foo.example")
+	if err != nil {
+		panic(err)
+	}
+
+	publicEchConfig := *echConfigWithSecret
+	publicEchConfig.secretKey = nil
+
+	// Test sending ECH GREASE from the Go client. By explicitly enabling
+	// ECH, but providing no configs, the client will have no choice but to
+	// send GREASE.
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "ECH-GREASE-Server",
+		config: Config{
+			MinVersion: VersionTLS13,
+			MaxVersion: VersionTLS13,
+			ServerName: "secret.example",
+			ECHEnabled: true,
+			ECHConfigs: nil,
+		},
+	})
+
+	// Test sending real ECH from the Go client.
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "ECH-Real-Server",
+		config: Config{
+			MinVersion: VersionTLS13,
+			MaxVersion: VersionTLS13,
+			ServerName: "secret.example",
+			ECHEnabled: true,
+			ECHConfigs: []echConfig{publicEchConfig},
+		},
+		flags: []string{
+			"-ech-private-key", fmt.Sprintf("%x", echConfigWithSecret.secretKey),
+		},
+	})
+}
+
 func worker(statusChan chan statusMsg, c chan *testCase, shimPath string, wg *sync.WaitGroup) {
 	defer wg.Done()
 
@@ -16457,6 +16479,7 @@ func main() {
 	addCertCompressionTests()
 	addJDK11WorkaroundTests()
 	addDelegatedCredentialTests()
+	addEncryptedClientHelloTests()
 
 	testCases = append(testCases, convertToSplitHandshakeTests(testCases)...)
 

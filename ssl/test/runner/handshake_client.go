@@ -19,6 +19,8 @@ import (
 	"math/big"
 	"net"
 	"time"
+
+	"boringssl.googlesource.com/boringssl/ssl/test/runner/hpke"
 )
 
 type clientHandshakeState struct {
@@ -33,6 +35,7 @@ type clientHandshakeState struct {
 	finishedBytes []byte
 	peerPublicKey crypto.PublicKey
 	skxAlgo       signatureAlgorithm
+	sentECH       *encryptedClientHello
 }
 
 func mapClientHelloVersion(vers uint16, isDTLS bool) uint16 {
@@ -428,6 +431,14 @@ NextCipherSuite:
 		hello.sessionId = c.config.Bugs.SendClientHelloSessionID
 	}
 
+	var innerHello *clientHelloMsg
+	if c.config.ECHEnabled {
+		innerHello, err = c.insertECH(hello)
+		if err != nil {
+			return err
+		}
+	}
+
 	var helloBytes []byte
 	if c.config.Bugs.SendV2ClientHello {
 		// Test that the peer left-pads random.
@@ -721,6 +732,22 @@ NextCipherSuite:
 		return errors.New("tls: ServerHello did not omit extensions")
 	}
 
+	// Check whether the server accepted our ECH. If so, replace |hello| and
+	// |helloBytes| with the inner ClientHello.
+	if innerHello != nil {
+		if !c.config.ECHEnabled {
+			panic("tls: generated inner ClientHello despite ECH being disabled")
+		}
+		acceptConfirmation, err := echServerAcceptConfirmation(suite.hash(), innerHello.random, serverHello.random[0:24])
+		if err != nil {
+			return err
+		}
+		if bytes.Equal(serverHello.random[24:], acceptConfirmation) {
+			hello = innerHello
+			helloBytes = innerHello.marshal()
+		}
+	}
+
 	hs := &clientHandshakeState{
 		c:            c,
 		serverHello:  serverHello,
@@ -729,6 +756,7 @@ NextCipherSuite:
 		finishedHash: newFinishedHash(c.wireVersion, c.isDTLS, suite),
 		keyShares:    keyShares,
 		session:      session,
+		sentECH:      hello.encryptedClientHello,
 	}
 
 	hs.writeHash(helloBytes, hs.c.sendHandshakeSeq-1)
@@ -832,9 +860,132 @@ NextCipherSuite:
 	return nil
 }
 
+// insertECH writes an encrypted ClientHello (or GREASE value) into
+// |hello.encryptedClientHello|. If the config has no compatible ECHConfig, then
+// the value will be GREASE. Otherwise, |hello| will become the outer
+// ClientHello, and |hello.encryptedClientHello| will be the inner ClientHello.
+func (c *Conn) insertECH(hello *clientHelloMsg) (*clientHelloMsg, error) {
+	// Search for an ECHConfig with a supported version and ciphersuite.
+	var compatibleConfig *echConfig
+	var suite hpkeCipherSuite
+	for i := range c.config.ECHConfigs {
+		echConfig := &c.config.ECHConfigs[i]
+		if echConfig.kemID != hpke.X25519WithHKDFSHA256 {
+			continue
+		}
+		for _, cipherSuite := range echConfig.cipherSuites {
+			if hpke.IsSupportedCipherSuite(cipherSuite.kdfID, cipherSuite.aeadID) {
+				compatibleConfig = echConfig
+				suite = cipherSuite
+				break
+			}
+		}
+	}
+	// If we have no available ECHConfig, leave the outer CH alone, but add a
+	// GREASE ECH extension.
+	if compatibleConfig == nil {
+		// The GREASE record digest has the same length as the hash function
+		// associated with the ciphersuite.
+		recordDigest := make([]byte, 32)
+		_, err := io.ReadFull(c.config.rand(), recordDigest)
+		if err != nil {
+			return nil, err
+		}
+		// Build the |enc| value. Since we're using X25519, there's no need to
+		// marshal the key.
+		enc, _, err := hpke.GenerateKeyPair()
+		if err != nil {
+			return nil, err
+		}
+		// Generate a random inner CH value.
+		// TODO(dmcardle): pad the value of echLength.
+		echLength := len(hello.marshal())
+		encryptedInnerCH := make([]byte, echLength)
+		_, err = io.ReadFull(c.config.rand(), encryptedInnerCH)
+		if err != nil {
+			return nil, err
+		}
+		hello.encryptedClientHello = &encryptedClientHello{
+			// TODO(dmcardle) stop hardcoding the GREASE ciphersuite.
+			hpkeKDF:  hpke.HKDFSHA256,
+			hpkeAEAD: hpke.AES128GCM,
+			configID: recordDigest,
+			enc:      enc,
+			payload:  encryptedInnerCH,
+		}
+		return nil, nil
+	}
+
+	// At this point, we have chosen an ECHConfig, so we will build the
+	// inner and outer ClientHellos. The outer ClientHello is |hello|, and
+	// the inner one is |innerHello|.
+	innerHello := *hello
+
+	hello.random = make([]byte, 32)
+	_, err := io.ReadFull(c.config.rand(), hello.random)
+	if err != nil {
+		c.sendAlert(alertInternalError)
+		return nil, errors.New("tls: short read from Rand: " + err.Error())
+	}
+
+	hello.serverName = compatibleConfig.publicName
+	hello.delegatedCredentials = false
+	// TODO(dmcardle): replace more fields?
+
+	info := newByteBuilder()
+	info.addBytes([]byte("tls ech"))
+	info.addU8(0x00)
+	info.addBytes(compatibleConfig.marshal())
+
+	// Encrypt the inner ClientHello.
+	ctx, enc, err := hpke.SetupBaseSenderX25519(suite.kdfID, suite.aeadID, compatibleConfig.publicKey, info.finish(), nil)
+	if err != nil {
+		return nil, errors.New("tls: ech: failed to set up client's HPKE sender context")
+	}
+
+	// *******************************************
+	// TODO(dmcardle) save |echHrrKey| somewhere
+	// *******************************************
+	//echHRRKey := ctx.Export([]byte("tls13-ech-hrr-key"), 16)
+
+	// Place an "encrypted_client_hello" extension on the inner ClientHello.
+	innerHello.encryptedClientHello = &encryptedClientHello{empty: true}
+	innerHello.raw = nil
+
+	// Compute the configID
+	hash, err := hpke.GetHash(suite.kdfID)
+	if err != nil {
+		return nil, err
+	}
+	// Compute Expand(Extract("", config), "tls ech config id", Nh)
+	configID, err := compatibleConfig.configID(hash)
+	if err != nil {
+		return nil, err
+	}
+
+	// Marshal the outer ClientHello without the ECH extension.
+	chOuterAAD := hello.marshal()
+	chOuterAAD = chOuterAAD[4:]
+
+	payload := ctx.Seal(chOuterAAD, innerHello.marshal())
+
+	// Place the ECH extension in the outer CH.
+	hello.encryptedClientHello = &encryptedClientHello{
+		hpkeKDF:  suite.kdfID,
+		hpkeAEAD: suite.aeadID,
+		configID: configID,
+		enc:      enc,
+		payload:  payload,
+	}
+	hello.raw = nil
+
+	return &innerHello, nil
+}
+
 func (hs *clientHandshakeState) doTLS13Handshake() error {
 	c := hs.c
 
+	// TODO(dmcardle): Do we still check session IDs when hs.serverAcceptedECH is true?
 	if !bytes.Equal(hs.hello.sessionId, hs.serverHello.sessionId) {
 		return errors.New("tls: session IDs did not match.")
 	}
