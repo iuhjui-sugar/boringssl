@@ -35,6 +35,8 @@ type serverHandshakeState struct {
 	certsFromClient [][]byte
 	cert            *Certificate
 	finishedBytes   []byte
+	echRetryConfigs []echConfig
+	echAccepted     bool
 }
 
 // serverHandshake performs a TLS handshake as a server.
@@ -156,6 +158,55 @@ func (hs *serverHandshakeState) readClientHello() error {
 		return fmt.Errorf("tls: ClientHello record size is %d, but expected %d", len(hs.clientHello.raw), size)
 	}
 
+	var echCheckTLS13 bool
+
+	// Before we do anything with |hs.clientHello|, check if it should be
+	// replaced by ECH.
+	if len(config.ServerECHConfigs) > 0 && hs.clientHello.encryptedClientHello != nil {
+		ech := hs.clientHello.encryptedClientHello
+
+		if ech.empty {
+			hs.echAccepted = true
+		} else {
+			// Postpone the version check until we've tentatively negotiated
+			// a TLS version.
+			echCheckTLS13 = true
+
+			candidateECHConfigs := config.ECHConfigs
+
+			// Eliminate candidate ECHConfigs based on the record digest.
+			chosenConfig, err := ech.findMatchingConfig(config.ECHConfigs)
+			if err == nil {
+				candidateECHConfigs = []echConfig{*chosenConfig}
+			}
+
+			// Trial decrypt with each of the candidate ECHConfigs.
+			chInner, hrrKey, decryptSuccess, err := ech.trialDecrypt(candidateECHConfigs, hs.clientHello.raw)
+			if err != nil {
+
+				c.sendAlert(alertDecryptError)
+				return fmt.Errorf("error while attempting to decrypt ECH: %s", err)
+			}
+
+			// If none of the candidate ECHConfigs could be used to
+			// decrypt the client's message, ignore the extension
+			// and proceed with the connection using the outer CH.
+			if decryptSuccess {
+				hs.echAccepted = true
+
+				// Replace the outer CH with the decrypted inner CH.
+				hs.clientHello = chInner
+				hs.clientHello.raw = nil
+
+				// TODO(dmcardle): Save the hrrKey
+				_ = hrrKey
+
+			} else {
+				hs.echRetryConfigs = config.ECHConfigs
+			}
+		}
+	}
+
 	if c.isDTLS && !config.Bugs.SkipHelloVerifyRequest {
 		// Per RFC 6347, the version field in HelloVerifyRequest SHOULD
 		// be always DTLS 1.0
@@ -272,6 +323,11 @@ func (hs *serverHandshakeState) readClientHello() error {
 		panic("Could not map wire version")
 	}
 	c.haveVers = true
+
+	if echCheckTLS13 && c.vers < VersionTLS13 {
+		c.sendAlert(alertHandshakeFailure)
+		return errors.New("ech requires TLS 1.3 or greater")
+	}
 
 	clientProtocol, ok := wireToVersion(c.clientVersion, c.isDTLS)
 
@@ -433,6 +489,15 @@ func (hs *serverHandshakeState) doTLS13Handshake() error {
 	hs.hello.cipherSuite = hs.suite.id
 	if c.config.Bugs.SendCipherSuite != 0 {
 		hs.hello.cipherSuite = c.config.Bugs.SendCipherSuite
+	}
+
+	// Overwrite part of ServerHello.random to signal ECH acceptance to the client.
+	if hs.echAccepted {
+		acceptConfirmation, err := echServerAcceptConfirmation(hs.suite.hash(), hs.clientHello.random, hs.hello.random[0:24])
+		if err != nil {
+			return err
+		}
+		copy(hs.hello.random[24:], acceptConfirmation)
 	}
 
 	hs.finishedHash = newFinishedHash(c.wireVersion, c.isDTLS, hs.suite)
