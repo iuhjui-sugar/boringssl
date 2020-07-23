@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "15b796ae_3534a361",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 41
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-07-23T22:58:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19c1a9e8_f5e1338a",
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f68c5a1a_8126c858",
         "filename": "crypto/hpke/hpke.c",
         "patchSetId": 41
@@ -151,6 +169,30 @@
       "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8ebc167f_d3d05803",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 41
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-07-23T22:58:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb6a2d17_40d1a665",
+      "range": {
+        "startLine": 296,
+        "startChar": 12,
+        "endLine": 296,
+        "endChar": 32
+      },
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -291,6 +333,24 @@
       "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f22fe98_bdf8b29a",
+        "filename": "crypto/hpke/hpke_test.cc",
+        "patchSetId": 41
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-07-23T22:58:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61351006_7830628f",
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -463,6 +523,24 @@
       "side": 1,
       "message": "I just inserted comments to delimit the export tests and encryption tests. WDYT?",
       "parentUuid": "11380bda_f1b6cb27",
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d17627b_0d03174a",
+        "filename": "crypto/hpke/hpke_test_vectors.txt",
+        "patchSetId": 41
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-07-23T22:58:03Z",
+      "side": 1,
+      "message": "Raising this again -- would you prefer that we don\u0027t rely on duplicate key numbering in hpke_test.cc?",
+      "parentUuid": "b31d2e86_e88716c9",
       "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
@@ -747,6 +825,30 @@
       "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea016277_79f5edb3",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 41
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-07-23T22:58:03Z",
+      "side": 1,
+      "message": "We decided to punt on this in our 1:1. If binary size is an issue (and/or we end up making HPKE a public API) we should fix this.",
+      "parentUuid": "12c342a2_2c24616d",
+      "range": {
+        "startLine": 107,
+        "startChar": 43,
+        "endLine": 107,
+        "endChar": 58
+      },
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {

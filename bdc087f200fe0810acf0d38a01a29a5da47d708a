@@ -53,6 +53,24 @@
     },
     {
       "key": {
+        "uuid": "86ed73bb_d878dc32",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 60
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-07-23T22:58:03Z",
+      "side": 1,
+      "message": "Oddly, clang-format does remove that blank line whenever I run it. I\u0027ll just stop running clang-format at this point.",
+      "parentUuid": "564e9b92_223b2259",
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "91816743_a74559b8",
         "filename": "crypto/hpke/hpke.c",
         "patchSetId": 60
@@ -73,6 +91,30 @@
       "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2dd88e9_f6f0dc5e",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 60
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-07-23T22:58:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "91816743_a74559b8",
+      "range": {
+        "startLine": 41,
+        "startChar": 8,
+        "endLine": 41,
+        "endChar": 12
+      },
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -122,6 +164,30 @@
     },
     {
       "key": {
+        "uuid": "fd39d14f_ae287cdc",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 60
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-07-23T22:58:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "802343cd_08601f80",
+      "range": {
+        "startLine": 164,
+        "startChar": 29,
+        "endLine": 164,
+        "endChar": 62
+      },
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d6eb9b6_f84c43e5",
         "filename": "crypto/hpke/hpke.c",
         "patchSetId": 60
@@ -136,6 +202,24 @@
       "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f3b0757_324c0ee7",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 60
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-07-23T22:58:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d6eb9b6_f84c43e5",
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -162,6 +246,30 @@
     },
     {
       "key": {
+        "uuid": "506a56b5_5365f009",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 60
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-07-23T22:58:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9fdd75fb_b3792eac",
+      "range": {
+        "startLine": 272,
+        "startChar": 57,
+        "endLine": 272,
+        "endChar": 72
+      },
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "884b066d_7fe375d0",
         "filename": "crypto/hpke/hpke.c",
         "patchSetId": 60
@@ -182,6 +290,30 @@
       "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05d78b43_34393062",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 60
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-07-23T22:58:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "884b066d_7fe375d0",
+      "range": {
+        "startLine": 286,
+        "startChar": 53,
+        "endLine": 286,
+        "endChar": 78
+      },
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -208,6 +340,30 @@
     },
     {
       "key": {
+        "uuid": "3595a3d6_05ef2e5c",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 60
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-07-23T22:58:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61666732_68e2b6be",
+      "range": {
+        "startLine": 293,
+        "startChar": 63,
+        "endLine": 293,
+        "endChar": 78
+      },
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3264fa_abf680c7",
         "filename": "crypto/hpke/hpke.c",
         "patchSetId": 60
@@ -231,6 +387,30 @@
     },
     {
       "key": {
+        "uuid": "53350807_a8214d3e",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 60
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-07-23T22:58:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3264fa_abf680c7",
+      "range": {
+        "startLine": 306,
+        "startChar": 54,
+        "endLine": 306,
+        "endChar": 78
+      },
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9672fe23_b3fc6ea9",
         "filename": "crypto/hpke/hpke_test.cc",
         "patchSetId": 60
@@ -245,6 +425,24 @@
       "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8153e7a5_92e420ad",
+        "filename": "crypto/hpke/hpke_test.cc",
+        "patchSetId": 60
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-07-23T22:58:03Z",
+      "side": 1,
+      "message": "Discussed offline, clang-format apparently changed its default. Anyway, only running clang-format selectively now, rather than on the whole file.",
+      "parentUuid": "9672fe23_b3fc6ea9",
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -265,6 +463,24 @@
     },
     {
       "key": {
+        "uuid": "abf7789b_75f9c6ab",
+        "filename": "crypto/hpke/hpke_test.cc",
+        "patchSetId": 60
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-07-23T22:58:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "32984b74_46d8013e",
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0f8ab17c_f44f17b0",
         "filename": "crypto/hpke/internal.h",
         "patchSetId": 60
@@ -279,6 +495,24 @@
       "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94e6e4cc_e62d6c08",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 60
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-07-23T22:58:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f8ab17c_f44f17b0",
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -305,6 +539,30 @@
     },
     {
       "key": {
+        "uuid": "f1410440_36ba2b2d",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 60
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-07-23T22:58:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fec6e631_020ebb4e",
+      "range": {
+        "startLine": 64,
+        "startChar": 3,
+        "endLine": 66,
+        "endChar": 38
+      },
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "20f865a6_7a3a3077",
         "filename": "crypto/hpke/internal.h",
         "patchSetId": 60
@@ -319,6 +577,24 @@
       "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0c5f969_836ffb35",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 60
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-07-23T22:58:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20f865a6_7a3a3077",
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -345,6 +621,30 @@
     },
     {
       "key": {
+        "uuid": "7cdce24b_2f8d82c8",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 60
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-07-23T22:58:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bf286c2_441bbd48",
+      "range": {
+        "startLine": 90,
+        "startChar": 73,
+        "endLine": 90,
+        "endChar": 74
+      },
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4fe61343_3331256e",
         "filename": "crypto/hpke/internal.h",
         "patchSetId": 60
@@ -365,6 +665,30 @@
       "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6122c6d3_63eb6525",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 60
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-07-23T22:58:03Z",
+      "side": 1,
+      "message": "Whoops, I knew better than that.",
+      "parentUuid": "4fe61343_3331256e",
+      "range": {
+        "startLine": 92,
+        "startChar": 46,
+        "endLine": 92,
+        "endChar": 63
+      },
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -391,6 +715,30 @@
     },
     {
       "key": {
+        "uuid": "f7e37145_88a7e0b5",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 60
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-07-23T22:58:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "710a0534_56398414",
+      "range": {
+        "startLine": 111,
+        "startChar": 24,
+        "endLine": 111,
+        "endChar": 54
+      },
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b493686f_365534ee",
         "filename": "crypto/hpke/internal.h",
         "patchSetId": 60
@@ -414,6 +762,30 @@
     },
     {
       "key": {
+        "uuid": "43ce685a_6181b2f8",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 60
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-07-23T22:58:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b493686f_365534ee",
+      "range": {
+        "startLine": 112,
+        "startChar": 75,
+        "endLine": 112,
+        "endChar": 76
+      },
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2cf17c33_e3af903d",
         "filename": "crypto/hpke/internal.h",
         "patchSetId": 60
@@ -428,6 +800,24 @@
       "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d2247b4_e6b80d44",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 60
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-07-23T22:58:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2cf17c33_e3af903d",
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -454,6 +844,30 @@
     },
     {
       "key": {
+        "uuid": "52329d17_bdf938fd",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 60
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-07-23T22:58:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50fa9e31_d94087d6",
+      "range": {
+        "startLine": 134,
+        "startChar": 11,
+        "endLine": 134,
+        "endChar": 36
+      },
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "43c4141e_47dc247f",
         "filename": "crypto/hpke/translate_test_vectors.py",
         "patchSetId": 60
@@ -468,6 +882,24 @@
       "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6fd7c96_ed29b16a",
+        "filename": "crypto/hpke/translate_test_vectors.py",
+        "patchSetId": 60
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-07-23T22:58:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43c4141e_47dc247f",
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -494,6 +926,30 @@
     },
     {
       "key": {
+        "uuid": "3a0255e7_1817c163",
+        "filename": "crypto/hpke/translate_test_vectors.py",
+        "patchSetId": 60
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-07-23T22:58:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f958334_cf61da75",
+      "range": {
+        "startLine": 42,
+        "startChar": 51,
+        "endLine": 42,
+        "endChar": 58
+      },
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f51e33e0_c323022d",
         "filename": "crypto/hpke/translate_test_vectors.py",
         "patchSetId": 60
@@ -508,6 +964,24 @@
       "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bd5cd15_35c2cf5c",
+        "filename": "crypto/hpke/translate_test_vectors.py",
+        "patchSetId": 60
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-07-23T22:58:03Z",
+      "side": 1,
+      "message": "That\u0027s fair, I think my script mutated a few too many times while I was writing it.",
+      "parentUuid": "f51e33e0_c323022d",
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -528,6 +1002,24 @@
     },
     {
       "key": {
+        "uuid": "39249900_e60e1c9c",
+        "filename": "crypto/hpke/translate_test_vectors.py",
+        "patchSetId": 60
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-07-23T22:58:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2bc4199c_4c4a6ebb",
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0a1d36d4_72d28e6f",
         "filename": "crypto/hpke/translate_test_vectors.py",
         "patchSetId": 60
@@ -542,6 +1034,24 @@
       "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d9fcdce2_830de54f",
+        "filename": "crypto/hpke/translate_test_vectors.py",
+        "patchSetId": 60
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-07-23T22:58:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a1d36d4_72d28e6f",
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -562,6 +1072,24 @@
     },
     {
       "key": {
+        "uuid": "25ec9805_b88185fd",
+        "filename": "crypto/hpke/translate_test_vectors.py",
+        "patchSetId": 60
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-07-23T22:58:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "858d36af_e5960c42",
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b1182418_83edcc2c",
         "filename": "crypto/hpke/translate_test_vectors.py",
         "patchSetId": 60
@@ -576,6 +1104,24 @@
       "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f06da4e0_27d6a46c",
+        "filename": "crypto/hpke/translate_test_vectors.py",
+        "patchSetId": 60
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-07-23T22:58:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1182418_83edcc2c",
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -599,6 +1145,30 @@
       "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ff274b9_5494434e",
+        "filename": "crypto/hpke/translate_test_vectors.py",
+        "patchSetId": 60
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-07-23T22:58:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2880e26_0a87e239",
+      "range": {
+        "startLine": 120,
+        "startChar": 30,
+        "endLine": 120,
+        "endChar": 41
+      },
+      "revId": "bdc087f200fe0810acf0d38a01a29a5da47d708a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }

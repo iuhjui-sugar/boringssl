@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f096607e_b61457f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 61
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-07-23T22:58:03Z",
+      "side": 1,
+      "message": "New patchset! Just a few things left to do. Also, maybe we can wait for draft-05 so we can drop the \"RFCXXXX \" label.",
+      "revId": "7a29b73ae4f4bbada3af632e0f5327223dd9b398",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
