@@ -186,7 +186,9 @@ static enum ssl_hs_wait_t do_select_parameters(SSL_HANDSHAKE *hs) {
   // the common handshake logic. Resolve the remaining non-PSK parameters.
   SSL *const ssl = hs->ssl;
   SSLMessage msg;
-  if (!ssl->method->get_message(ssl, &msg)) {
+  if (hs->ech_client_hello_msg_present) {
+    msg = hs->ech_client_hello_msg;
+  } else if (!ssl->method->get_message(ssl, &msg)) {
     return ssl_hs_read_message;
   }
   SSL_CLIENT_HELLO client_hello;
@@ -337,7 +339,9 @@ static bool quic_ticket_compatible(const SSL_SESSION *session,
 static enum ssl_hs_wait_t do_select_session(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
   SSLMessage msg;
-  if (!ssl->method->get_message(ssl, &msg)) {
+  if (hs->ech_client_hello_msg_present) {
+    msg = hs->ech_client_hello_msg;
+  } else if (!ssl->method->get_message(ssl, &msg)) {
     return ssl_hs_read_message;
   }
   SSL_CLIENT_HELLO client_hello;
@@ -524,7 +528,6 @@ static enum ssl_hs_wait_t do_select_session(SSL_HANDSHAKE *hs) {
 static enum ssl_hs_wait_t do_send_hello_retry_request(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
 
-
   ScopedCBB cbb;
   CBB body, session_id, extensions;
   uint16_t group_id;
@@ -572,6 +575,115 @@ static enum ssl_hs_wait_t do_read_second_client_hello(SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
+  if (hs->ech_accept) {
+    // If we previously accepted the ClientHelloInner, check that the second
+    // ClientHello contains an encrypted_client_hello extension.
+    CBS ech_body;
+    if (!ssl_client_hello_get_extension(&client_hello, &ech_body,
+                                        TLSEXT_TYPE_encrypted_client_hello)) {
+      OPENSSL_PUT_ERROR(SSL, SSL_R_MISSING_EXTENSION);
+      ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_MISSING_EXTENSION);
+      return ssl_hs_error;
+    }
+
+    // Parse a ClientECH out of the extension body.
+    uint16_t kdf_id, aead_id;
+    CBS config_id, enc, payload;
+    if (!CBS_get_u16(&ech_body, &kdf_id) ||  //
+        !CBS_get_u16(&ech_body, &aead_id) ||
+        !CBS_get_u8_length_prefixed(&ech_body, &config_id) ||
+        !CBS_get_u16_length_prefixed(&ech_body, &enc) ||
+        !CBS_get_u16_length_prefixed(&ech_body, &payload)) {
+      OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
+      ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
+      return ssl_hs_error;
+    }
+
+    // Check that ClientECH.cipher_suite is unchanged and that
+    // ClientECH.config_id and ClientECH.enc are empty.
+    if (kdf_id != hs->ech_kdf_id || aead_id != hs->ech_aead_id ||
+        CBS_len(&config_id) > 0 || CBS_len(&enc) > 0) {
+      OPENSSL_PUT_ERROR(SSL, SSL_R_CLIENTHELLO_PARSE_FAILED);
+      ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);
+      return ssl_hs_error;
+    }
+
+    ScopedCBB extensions_without_ech_cbb;
+    if (!CBB_init(extensions_without_ech_cbb.get(), 0)) {
+      return ssl_hs_error;
+    }
+    CBS extensions_reader(
+        MakeConstSpan(client_hello.extensions, client_hello.extensions_len));
+    while (CBS_len(&extensions_reader) > 0) {
+      uint16_t extension_id;
+      CBS extension_body;
+      if (!CBS_get_u16(&extensions_reader, &extension_id) ||
+          !CBS_get_u16_length_prefixed(&extensions_reader, &extension_body)) {
+        return ssl_hs_error;
+      }
+      if (extension_id == TLSEXT_TYPE_encrypted_client_hello) {
+        continue;
+      }
+      if (!CBB_add_u16(extensions_without_ech_cbb.get(), extension_id) ||
+          !CBB_add_u16(extensions_without_ech_cbb.get(),
+                       CBS_len(&extension_body)) ||
+          !CBB_add_bytes(extensions_without_ech_cbb.get(),
+                         CBS_data(&extension_body), CBS_len(&extension_body))) {
+        return ssl_hs_error;
+      }
+    }
+
+    // Construct ClientHelloOuterAAD from the second ClientHelloOuter.
+    SSL_CLIENT_HELLO client_hello_for_aad = client_hello;
+    client_hello_for_aad.extensions =
+        CBB_data(extensions_without_ech_cbb.get());
+    client_hello_for_aad.extensions_len =
+        CBB_len(extensions_without_ech_cbb.get());
+    ScopedCBB ch_outer_aad_cbb;
+    CBB outer_hello_cbb;
+    if (!CBB_init(ch_outer_aad_cbb.get(), 0) ||
+        !CBB_add_u16(ch_outer_aad_cbb.get(), kdf_id) ||
+        !CBB_add_u16(ch_outer_aad_cbb.get(), aead_id) ||
+        !CBB_add_u8(ch_outer_aad_cbb.get(), 0) ||   // Add empty config_id
+        !CBB_add_u16(ch_outer_aad_cbb.get(), 0) ||  // Add empty enc
+        !CBB_add_u24_length_prefixed(ch_outer_aad_cbb.get(),
+                                     &outer_hello_cbb) ||
+        !ssl_client_hello_write(&client_hello_for_aad, &outer_hello_cbb) ||
+        !CBB_flush(ch_outer_aad_cbb.get())) {
+      return ssl_hs_error;
+    }
+
+    // Decrypt the payload with the HPKE context from the first ClientHello.
+    Array<uint8_t> encoded_client_hello_inner;
+    if (!encoded_client_hello_inner.Init(CBS_len(&payload))) {
+      return ssl_hs_error;
+    }
+    size_t encoded_client_hello_inner_len;
+    if (!EVP_HPKE_CTX_open(
+            hs->ech_hpke_ctx.get(), encoded_client_hello_inner.data(),
+            &encoded_client_hello_inner_len, encoded_client_hello_inner.size(),
+            CBS_data(&payload), CBS_len(&payload),
+            CBB_data(ch_outer_aad_cbb.get()),
+            CBB_len(ch_outer_aad_cbb.get()))) {
+      return ssl_hs_error;
+    }
+
+    // Recover the ClientHelloInner from the EncodedClientHelloInner.
+    if (!ssl_client_hello_undo_outer_extensions(
+            &hs->ech_client_hello_msg, &hs->ech_client_hello_buf,
+            encoded_client_hello_inner, &client_hello)) {
+      return ssl_hs_error;
+    }
+
+    assert(hs->ech_accept);
+
+    // Reparse |client_hello| from the buffer owned by |hs|.
+    if (!ssl_client_hello_init(ssl, &client_hello, hs->ech_client_hello_msg)) {
+      return ssl_hs_error;
+    }
+    hs->ech_client_hello_msg_present = true;
+  }
+
   // We perform all our negotiation based on the first ClientHello (for
   // consistency with what |select_certificate_cb| observed), which is in the
   // transcript, so we can ignore most of this second one.
@@ -617,7 +729,7 @@ static enum ssl_hs_wait_t do_read_second_client_hello(SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
-  if (!ssl_hash_message(hs, msg)) {
+  if (!ssl_hash_message(hs, hs->ech_accept ? hs->ech_client_hello_msg : msg)) {
     return ssl_hs_error;
   }
 
@@ -639,10 +751,7 @@ static enum ssl_hs_wait_t do_send_server_hello(SSL_HANDSHAKE *hs) {
   Span<uint8_t> random(ssl->s3->server_random);
   RAND_bytes(random.data(), random.size());
 
-  // If the ClientHello has an ech_is_inner extension, we must be the ECH
-  // backend server. In response to ech_is_inner, we will overwrite part of the
-  // ServerHello.random with the ECH acceptance confirmation.
-  if (hs->ech_is_inner_present) {
+  if (hs->ech_accept) {
     // Construct the ServerHelloECHConf message, which is the same as
     // ServerHello, except the last 8 bytes of its random field are zeroed out.
     Span<uint8_t> random_suffix = random.subspan(24);
