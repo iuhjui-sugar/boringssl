@@ -110,6 +110,7 @@ const (
 	extensionExtendedMasterSecret       uint16 = 23
 	extensionTokenBinding               uint16 = 24
 	extensionCompressedCertAlgs         uint16 = 27
+	extensionDelegatedCredentials       uint16 = 34 // not IANA assigned
 	extensionSessionTicket              uint16 = 35
 	extensionPreSharedKey               uint16 = 41
 	extensionEarlyData                  uint16 = 42
@@ -124,7 +125,6 @@ const (
 	extensionRenegotiationInfo          uint16 = 0xff01
 	extensionQUICTransportParams        uint16 = 0xffa5 // draft-ietf-quic-tls-13
 	extensionChannelID                  uint16 = 30032  // not IANA assigned
-	extensionDelegatedCredentials       uint16 = 0xff02 // not IANA assigned
 )
 
 // TLS signaling cipher suite values
