@@ -245,6 +245,11 @@ const Flag<std::vector<std::pair<std::string, std::string>>>
         {"-application-settings", &TestConfig::application_settings},
 };
 
+const Flag<std::vector<std::pair<std::string, std::string>>>
+    kBase64PairFlags[] = {
+        {"-ech-server-config", &TestConfig::ech_server_configs},
+};
+
 bool ParseFlag(char *flag, int argc, char **argv, int *i,
                bool skip, TestConfig *out_config) {
   bool *bool_field = FindField(out_config, kBoolFlags, flag);
@@ -355,6 +360,47 @@ bool ParseFlag(char *flag, int argc, char **argv, int *i,
     if (!skip) {
       string_pair_vector_field->push_back(std::make_pair(
           std::string(argv[*i], comma - argv[*i]), std::string(comma + 1)));
+    }
+    return true;
+  }
+
+  std::vector<std::pair<std::string, std::string>> *base64_pair_vector_field =
+      FindField(out_config, kBase64PairFlags, flag);
+  if (base64_pair_vector_field) {
+    *i = *i + 1;
+    if (*i >= argc) {
+      fprintf(stderr, "Missing parameter.\n");
+      return false;
+    }
+    const char *comma = strchr(argv[*i], ',');
+    if (!comma) {
+      fprintf(
+          stderr,
+          "Parameter should be a pair of comma-separated base64 strings.\n");
+      return false;
+    }
+    auto pair = std::make_pair(std::string(argv[*i], comma - argv[*i]),
+                               std::string(comma + 1));
+    // Decode each element in |pair|.
+    for (std::string *base64 : {&pair.first, &pair.second}) {
+      size_t len;
+      if (!EVP_DecodedLength(&len, base64->size())) {
+        fprintf(stderr, "Invalid base64: %s.\n", base64->c_str());
+        return false;
+      }
+      std::unique_ptr<uint8_t[]> decoded(new uint8_t[len]);
+      if (!EVP_DecodeBase64(decoded.get(), &len, len,
+                            reinterpret_cast<const uint8_t *>(base64->c_str()),
+                            base64->size())) {
+        fprintf(stderr, "Invalid base64: %s.\n", base64->c_str());
+        return false;
+      }
+      base64->assign(reinterpret_cast<char *>(decoded.get()), len);
+    }
+
+    // Each instance of the flag adds to the list.
+    if (!skip) {
+      base64_pair_vector_field->push_back(pair);
     }
     return true;
   }
@@ -1595,6 +1641,18 @@ bssl::UniquePtr<SSL> TestConfig::NewSSL(
   }
   if (enable_ech_grease) {
     SSL_set_enable_ech_grease(ssl.get(), 1);
+  }
+  for (const std::pair<std::string, std::string> &server_config :
+       ech_server_configs) {
+    const std::string &ech_config = server_config.first;
+    const std::string &ech_private_key = server_config.second;
+    if (!SSL_add_ech_private_key(
+            ssl.get(), reinterpret_cast<const uint8_t *>(ech_config.data()),
+            ech_config.size(),
+            reinterpret_cast<const uint8_t *>(ech_private_key.data()),
+            ech_private_key.size())) {
+      return nullptr;
+    }
   }
   if (!send_channel_id.empty()) {
     SSL_set_tls_channel_id_enabled(ssl.get(), 1);
