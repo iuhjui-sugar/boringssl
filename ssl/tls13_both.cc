@@ -685,4 +685,117 @@ bool tls13_post_handshake(SSL *ssl, const SSLMessage &msg) {
   return false;
 }
 
+
+// Encrypted ClientHello.
+
+bool ECHConfig::Parse(bool *out_incompatible_version, Span<const uint8_t> raw) {
+  *out_incompatible_version = false;
+
+  CBS reader(raw);
+
+  uint16_t version;
+  if (!CBS_get_u16(&reader, &version)) {
+    return false;
+  }
+
+  // Skip the ECHConfig if it's not a version we support.
+  if (version != TLSEXT_TYPE_encrypted_client_hello) {
+    *out_incompatible_version = true;
+    return false;
+  }
+
+  CBS ech_config_contents, public_name, public_key;
+  uint16_t kem_id;
+  CBS cipher_suites;
+  uint16_t max_name_len;
+  CBS extensions;
+  if (!CBS_get_u16_length_prefixed(&reader, &ech_config_contents) ||
+      !CBS_get_u16_length_prefixed(&ech_config_contents, &public_name) ||
+      CBS_len(&public_name) == 0 ||
+      !CBS_get_u16_length_prefixed(&ech_config_contents, &public_key) ||
+      CBS_len(&public_key) == 0 ||
+      !CBS_get_u16(&ech_config_contents, &kem_id) ||
+      !CBS_get_u16_length_prefixed(&ech_config_contents, &cipher_suites) ||
+      CBS_len(&cipher_suites) < 4 ||  //
+      CBS_len(&cipher_suites) % 4 != 0 ||
+      !CBS_get_u16(&ech_config_contents, &max_name_len) ||
+      !CBS_get_u16_length_prefixed(&ech_config_contents, &extensions)) {
+    return false;
+  }
+
+  const size_t num_suites = CBS_len(&cipher_suites) / (2 * sizeof(uint16_t));
+  Array<ECHConfig::ECHCipherSuite> parsed_cipher_suites;
+  parsed_cipher_suites.Init(num_suites);
+
+  for (int cipher_suite_count = 0; CBS_len(&cipher_suites) > 0;
+       cipher_suite_count++) {
+    if (!CBS_get_u16(&cipher_suites,
+                     &parsed_cipher_suites[cipher_suite_count].kdf_id) ||
+        !CBS_get_u16(&cipher_suites,
+                     &parsed_cipher_suites[cipher_suite_count].aead_id)) {
+      return false;
+    }
+  }
+
+  // Parse the list of ECHConfig extensions.
+  GrowableArray<uint16_t> extension_ids;
+  while (CBS_len(&extensions) > 0) {
+    uint16_t extension_id;
+    CBS body;
+    if (!CBS_get_u16(&extensions, &extension_id) ||
+        !CBS_get_u16_length_prefixed(&extensions, &body)) {
+      return false;
+    }
+    // Unsupported mandatory extensions are a parse failure.
+    const uint16_t kMandatoryExtensionMask = 0x8000;
+    if (extension_id & kMandatoryExtensionMask) {
+      return false;
+    }
+    // Duplicated extensions IDs are a parse failure.
+    if (std::find(extension_ids.begin(), extension_ids.end(), extension_id) !=
+        extension_ids.end()) {
+      return false;
+    }
+    extension_ids.Push(extension_id);
+  }
+
+  raw_.CopyFrom(raw);
+  public_name_.CopyFrom(public_name);
+  public_key_.CopyFrom(public_key);
+  kem_id_ = kem_id;
+  cipher_suites_.CopyFrom(parsed_cipher_suites);
+  max_name_length_ = max_name_len;
+
+  // Precompute the config_id.
+  const EVP_MD *hkdf = EVP_HPKE_get_hkdf_md(EVP_HPKE_HKDF_SHA256);
+  if (hkdf == nullptr) {
+    OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
+    return false;
+  }
+  uint8_t config_id_buf[EVP_MAX_MD_SIZE];
+  size_t config_id_len;
+  if (!ConfigID(config_id_buf, &config_id_len, hkdf) ||
+      !config_id_sha256_.CopyFrom(MakeConstSpan(config_id_buf, config_id_len))) {
+    return false;
+  }
+  return true;
+}
+
+bool ECHConfig::ConfigID(Span<uint8_t> out, size_t *out_len,
+                         const EVP_MD *md) const {
+  assert(EVP_MD_size(md) <= out.size());
+
+  uint8_t key[EVP_MAX_KEY_LENGTH];
+  size_t key_len;
+  static const uint8_t info[] = "tls ech config id";
+  if (!HKDF_extract(key, &key_len, md, raw_.data(), raw_.size(), nullptr, 0) ||
+      !HKDF_expand(out.data(), EVP_MD_size(md), md, key, key_len, info,
+                   OPENSSL_ARRAY_SIZE(info) - 1)) {
+    return false;
+  }
+
+  *out_len = EVP_MD_size(md);
+  return true;
+}
+
 BSSL_NAMESPACE_END
