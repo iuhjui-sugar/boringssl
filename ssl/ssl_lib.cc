@@ -153,6 +153,7 @@
 
 #include "internal.h"
 #include "../crypto/internal.h"
+#include "openssl/curve25519.h"
 
 #if defined(OPENSSL_WINDOWS)
 #include <sys/timeb.h>
@@ -2183,6 +2184,45 @@ int SSL_CTX_set_tlsext_servername_callback(
 
 int SSL_CTX_set_tlsext_servername_arg(SSL_CTX *ctx, void *arg) {
   ctx->servername_arg = arg;
+  return 1;
+}
+
+int SSL_add_ech_private_key(SSL *ssl, const uint8_t *ech_config,
+                            size_t ech_config_len, const uint8_t *private_key,
+                            size_t private_key_len) {
+  bssl::ECHConfig parsed_config;
+  bool incompatible_version;
+  if (!parsed_config.Parse(&incompatible_version,
+                           MakeConstSpan(ech_config, ech_config_len))) {
+    return 0;
+  }
+  // If any of this ECHConfig's cipher suites are not supported, error now
+  // rather than during the handshake.
+  if (std::any_of(parsed_config.cipher_suites().cbegin(),
+                  parsed_config.cipher_suites().cend(),
+                  [](const ECHConfig::ECHCipherSuite &suite) -> bool {
+                    return suite.kdf_id != EVP_HPKE_HKDF_SHA256 ||
+                           (suite.aead_id != EVP_HPKE_AEAD_AES_GCM_128 &&
+                            suite.aead_id != EVP_HPKE_AEAD_AES_GCM_256 &&
+                            suite.aead_id != EVP_HPKE_AEAD_CHACHA20POLY1305);
+                  })) {
+    return 0;
+  }
+  // Check that the parsed public key is the right size.
+  if (parsed_config.public_key().size() != X25519_PUBLIC_VALUE_LEN) {
+    return 0;
+  }
+  // Check that the caller's private key is the right size.
+  if (private_key_len != X25519_PRIVATE_KEY_LEN) {
+    return 0;
+  }
+  if (!parsed_config.set_secret_key(
+          MakeConstSpan(private_key, private_key_len))) {
+    return 0;
+  }
+  if (!ssl->ech_configs.Push(std::move(parsed_config))) {
+    return 0;
+  }
   return 1;
 }
 
