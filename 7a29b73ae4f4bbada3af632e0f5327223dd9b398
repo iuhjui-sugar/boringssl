@@ -53,6 +53,24 @@
     },
     {
       "key": {
+        "uuid": "2a998b42_0ada8cb5",
+        "filename": "crypto/hpke/hpke_test.cc",
+        "patchSetId": 61
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-07-24T21:39:12Z",
+      "side": 1,
+      "message": "Ah, good catch. I just stole it from here: https://source.chromium.org/chromium/chromium/src/+/master:third_party/boringssl/src/crypto/curve25519/x25519_test.cc;l\u003d74?q\u003dx25519_test\u0026ss\u003dchromium\u0026originalUrl\u003dhttps:%2F%2Fcodesearch.chromium.org%2F",
+      "parentUuid": "e42f4676_3da5466b",
+      "revId": "7a29b73ae4f4bbada3af632e0f5327223dd9b398",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "08e7e5a6_5fdb2216",
         "filename": "crypto/hpke/internal.h",
         "patchSetId": 61
@@ -67,6 +85,24 @@
       "revId": "7a29b73ae4f4bbada3af632e0f5327223dd9b398",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72506f49_d51ee7d5",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 61
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-07-24T21:39:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "08e7e5a6_5fdb2216",
+      "revId": "7a29b73ae4f4bbada3af632e0f5327223dd9b398",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -93,6 +129,30 @@
     },
     {
       "key": {
+        "uuid": "a38e6125_2ac79466",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 61
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-07-24T21:39:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "73d96967_dc1390de",
+      "range": {
+        "startLine": 130,
+        "startChar": 44,
+        "endLine": 130,
+        "endChar": 45
+      },
+      "revId": "7a29b73ae4f4bbada3af632e0f5327223dd9b398",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "38d06897_f13aa728",
         "filename": "crypto/hpke/internal.h",
         "patchSetId": 61
@@ -107,6 +167,24 @@
       "revId": "7a29b73ae4f4bbada3af632e0f5327223dd9b398",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcd6b291_520844fa",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 61
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-07-24T21:39:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38d06897_f13aa728",
+      "revId": "7a29b73ae4f4bbada3af632e0f5327223dd9b398",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -130,6 +208,30 @@
       "revId": "7a29b73ae4f4bbada3af632e0f5327223dd9b398",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b378c3d_41c3708e",
+        "filename": "crypto/hpke/translate_test_vectors.py",
+        "patchSetId": 61
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-07-24T21:39:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b6bfc961_cad39be1",
+      "range": {
+        "startLine": 44,
+        "startChar": 35,
+        "endLine": 44,
+        "endChar": 77
+      },
+      "revId": "7a29b73ae4f4bbada3af632e0f5327223dd9b398",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }

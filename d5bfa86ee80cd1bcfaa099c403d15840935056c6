@@ -547,6 +547,24 @@
     },
     {
       "key": {
+        "uuid": "12125f0a_338ddd3f",
+        "filename": "crypto/hpke/hpke_test_vectors.txt",
+        "patchSetId": 41
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-07-24T21:39:12Z",
+      "side": 1,
+      "message": "Assuming this doesn\u0027t matter since you gave lgtm :)",
+      "parentUuid": "5d17627b_0d03174a",
+      "revId": "d5bfa86ee80cd1bcfaa099c403d15840935056c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "555d3bd5_7058a35f",
         "filename": "crypto/hpke/hpke_test_vectors.txt",
         "patchSetId": 41
