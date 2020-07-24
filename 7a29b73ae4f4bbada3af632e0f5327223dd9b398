@@ -16,6 +16,120 @@
       "revId": "7a29b73ae4f4bbada3af632e0f5327223dd9b398",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "843af783_b737e314",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 61
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-24T20:12:01Z",
+      "side": 1,
+      "message": "LGTM!",
+      "revId": "7a29b73ae4f4bbada3af632e0f5327223dd9b398",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e42f4676_3da5466b",
+        "filename": "crypto/hpke/hpke_test.cc",
+        "patchSetId": 61
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-24T20:12:01Z",
+      "side": 1,
+      "message": "This is unused. (Is that actually the private key for kSmallOrderPointer? I didn\u0027t think it was...)",
+      "revId": "7a29b73ae4f4bbada3af632e0f5327223dd9b398",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08e7e5a6_5fdb2216",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 61
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-24T20:12:01Z",
+      "side": 1,
+      "message": "Newline here since it\u0027s a new section.",
+      "revId": "7a29b73ae4f4bbada3af632e0f5327223dd9b398",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73d96967_dc1390de",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 61
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-24T20:12:01Z",
+      "side": 1,
+      "message": "Missing period here",
+      "range": {
+        "startLine": 130,
+        "startChar": 44,
+        "endLine": 130,
+        "endChar": 45
+      },
+      "revId": "7a29b73ae4f4bbada3af632e0f5327223dd9b398",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38d06897_f13aa728",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 61
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-24T20:12:01Z",
+      "side": 1,
+      "message": "No need for this paragraph now that it\u0027s in the above paragraph.",
+      "revId": "7a29b73ae4f4bbada3af632e0f5327223dd9b398",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6bfc961_cad39be1",
+        "filename": "crypto/hpke/translate_test_vectors.py",
+        "patchSetId": 61
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-24T20:12:01Z",
+      "side": 1,
+      "message": "Nit: No need for OrderedDict anymore.",
+      "range": {
+        "startLine": 44,
+        "startChar": 35,
+        "endLine": 44,
+        "endChar": 77
+      },
+      "revId": "7a29b73ae4f4bbada3af632e0f5327223dd9b398",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
