@@ -5070,6 +5070,26 @@ class QUICMethodTest : public testing::Test {
     SSL_CTX_set_max_proto_version(server_ctx_.get(), TLS1_3_VERSION);
     SSL_CTX_set_min_proto_version(client_ctx_.get(), TLS1_3_VERSION);
     SSL_CTX_set_max_proto_version(client_ctx_.get(), TLS1_3_VERSION);
+
+    static const uint8_t kALPNProtos[] = {0x03, 'f', 'o', 'o'};
+    ASSERT_EQ(SSL_CTX_set_alpn_protos(client_ctx_.get(), kALPNProtos,
+                                      sizeof(kALPNProtos)),
+              0);
+    static const uint8_t kServerALPNProto[] = {'f', 'o', 'o'};
+    SSL_CTX_set_alpn_select_cb(
+        server_ctx_.get(),
+        [](SSL *ssl, const uint8_t **out, uint8_t *out_len, const uint8_t *in,
+           unsigned in_len, void *arg) -> int {
+          if (in_len != sizeof(kServerALPNProto) + 1 ||
+              OPENSSL_memcmp(in + 1, kServerALPNProto,
+                             sizeof(kServerALPNProto))) {
+            return SSL_TLSEXT_ERR_NOACK;
+          }
+          *out = kServerALPNProto;
+          *out_len = sizeof(kServerALPNProto);
+          return SSL_TLSEXT_ERR_OK;
+        },
+        nullptr);
   }
 
   static MockQUICTransport *TransportFromSSL(const SSL *ssl) {
