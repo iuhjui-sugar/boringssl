@@ -71,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "7cc1faee_90b3794e",
+        "filename": "crypto/hpke/hpke_test.cc",
+        "patchSetId": 61
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-24T21:40:49Z",
+      "side": 1,
+      "message": "Oh, that private_key corresponds to your secret_key_r.",
+      "parentUuid": "2a998b42_0ada8cb5",
+      "revId": "7a29b73ae4f4bbada3af632e0f5327223dd9b398",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "08e7e5a6_5fdb2216",
         "filename": "crypto/hpke/internal.h",
         "patchSetId": 61

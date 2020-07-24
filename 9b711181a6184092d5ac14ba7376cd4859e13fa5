@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "091dd420_e39dedf4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 64
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-24T21:40:49Z",
+      "side": 1,
+      "message": "Super nitpicky nitpick: I don\u0027t think I usually see draft names in quotes. :-) It\u0027s like RFC12345, but less official.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 2
+      },
+      "revId": "9b711181a6184092d5ac14ba7376cd4859e13fa5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3c93f19f_9bbd850d",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 64
