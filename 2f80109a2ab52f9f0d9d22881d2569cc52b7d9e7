@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4bbf609b_a15beae2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-07-27T19:33:04Z",
+      "side": 1,
+      "message": "This CL requires some internal changes concurrently with this one. cl/323415200 shows the changes needed to QUIC\u0027s tls_client_handshaker_test.cc and tls_server_handshaker_test.cc.\n\nI\u0027m assuming no one wants a boringssl roll to require those changes to test files as part of that CL. Options that come to mind for landing this are:\n1) Bump BORINGSSL_API_VERSION\n2) Add a \"enforce QUIC ALPN checks\" API temporarily\n3) Remove the QUIC test cases and add the new versions after the boringssl roll.\n(There might be more options.)\n\nI think option #2 is the cleanest. What do others think?",
+      "revId": "2f80109a2ab52f9f0d9d22881d2569cc52b7d9e7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
