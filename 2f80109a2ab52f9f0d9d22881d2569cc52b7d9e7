@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "45216e7c_c4e82914",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-28T17:52:46Z",
+      "side": 1,
+      "message": "Probably worth an Update-Note with a description of whatever transition plan we decide on.",
+      "revId": "2f80109a2ab52f9f0d9d22881d2569cc52b7d9e7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4bbf609b_a15beae2",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
@@ -54,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "36bcd7f8_37040752",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-28T17:52:46Z",
+      "side": 1,
+      "message": "I\u0027m fine with whichever option. (1) is what we usually do, but it is ifdefs, which isn\u0027t particularly fun.\n\nOne footnote is the google3 roll is currently a little behind due to the X.509 changes recently. That means any steps that wait for BoringSSL rolls might be a little annoying, though we can probably cherry-pick CLs as needed.\n\nAssuming we want to avoid atomic BoringSSL + QUICHE changes (given separate google3 and Chromium version skews, probably prudent), I think (1) would look like.\n\na. Write this CL to unconditionally change things but bump BORINGSSL_API_VERSION. Don\u0027t land it yet.\nb. Land a QUICHE CL to condition test expectations on BORINGSSL_API_VERSION.\nc. Wait for (b) to end up in downstreams.\nd. Land BoringSSL CL.\ne. Wait for (d) to end up in downstreams.\nf. Remove ifdefs added in (b).\n\nI think (2) would look like:\n\na. Land BoringSSL CL to do this, but off by default.\nb. Wait for (a) to end up in downstreams.\nc. Land a QUICHE CL to enable the setting.\nd. Wait for (c) to end up in downstreams.\ne. Land BoringSSL CL to flip the default.\nf. Wait for (e) to end up in downstreams.\ng. Land a QUICHE CL to no longer call the API.\nh. Wait for (g) to end up in downstreams.\ni. Remove BoringSSL API.\n\nWe might be able to optimize the last few steps with some ifdefs along the lines of (1). My inclination is that (1) will be less annoying, but if I\u0027m missing something or if there\u0027re other reasons to prefer (2), I don\u0027t actually care what the plan is as long as we end up in the right end state.\n\nThe joys of multi-sided changes. :-)",
+      "parentUuid": "61890252_75097d08",
+      "revId": "2f80109a2ab52f9f0d9d22881d2569cc52b7d9e7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ab1d034_05532f90",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 3
@@ -65,6 +100,64 @@
       "writtenOn": "2020-07-27T19:38:50Z",
       "side": 1,
       "message": "nit: shouldn\u0027t we make this match certificate_required?\n#define SSL_R_TLSV1_NO_APPLICATION_PROTOCOL 1120",
+      "revId": "2f80109a2ab52f9f0d9d22881d2569cc52b7d9e7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4df3b5f_5b05b653",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 5182,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-28T17:52:46Z",
+      "side": 1,
+      "message": "I think we want both. The errors here are super weird and could do with some comments to document it.\n\nThe 1000+N codes correspond to alerts and mean we *received* such an alert from the peer. The others are ones we generate and are usually finer-grained than the alerts.\n\nTo that end, we seem to have lost the \"ALERT\" in the name with the newer ones. Oops. We should fix that... it makes it marginally less unclear those correspond to alerts. :-(\n\nLet\u0027s keep the ALERT in there for this one, and I\u0027ll see about fixing the old ones. Probably with some compatibility #defines. This is mostly so that, when we receive it, we\u0027ll know how to stringify it.",
+      "parentUuid": "6ab1d034_05532f90",
+      "revId": "2f80109a2ab52f9f0d9d22881d2569cc52b7d9e7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0db17905_1e2d389e",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 5090,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-28T17:52:46Z",
+      "side": 1,
+      "message": "We also have a helper function that implements something sensible. It dates to NPN, so the name is kinda silly, but it works for either.\n\n  return SSL_select_next_proto(out, out_len, in, in_len, kALPNProtos,\n                               sizeof(kALPNProtos)) \u003d\u003d OPENSSL_NPN_NEGOTIATED\n             ? SSL_TLSEXT_ERR_OK\n             : SSL_TLSEXT_ERR_NOACK;",
+      "revId": "2f80109a2ab52f9f0d9d22881d2569cc52b7d9e7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44809582_5e89de58",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1248,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-28T17:52:46Z",
+      "side": 1,
+      "message": "There\u0027s already an SSL pointer, so this can just be ssl-\u003equic_method. Ditto for all the other places in this file.",
+      "range": {
+        "startLine": 1248,
+        "startChar": 52,
+        "endLine": 1248,
+        "endChar": 59
+      },
       "revId": "2f80109a2ab52f9f0d9d22881d2569cc52b7d9e7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
