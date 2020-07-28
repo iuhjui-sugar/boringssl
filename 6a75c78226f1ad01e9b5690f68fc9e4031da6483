@@ -68,6 +68,24 @@
       "revId": "6a75c78226f1ad01e9b5690f68fc9e4031da6483",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dc141ddf_2f68c1e7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10416
+      },
+      "writtenOn": "2020-07-28T11:49:07Z",
+      "side": 1,
+      "message": "Sorry for the late response, been on vacation.\n\nThank you for reviewing this patch.\nPlease let me know if the new commit message is closer to what it should look like.",
+      "parentUuid": "046f34c7_50ddd69a",
+      "revId": "6a75c78226f1ad01e9b5690f68fc9e4031da6483",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
