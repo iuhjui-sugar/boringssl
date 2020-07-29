@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ab0fc31f_f1a7c847",
+        "filename": "util/fipstools/delocate/delocate.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 1233,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-29T20:17:04Z",
+      "side": 1,
+      "message": "Worth also checking that i \u003d\u003d 0?",
+      "revId": "d4939545ba0c1290659c67f03b370cb722844cb6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e574edf_46e32f51",
+        "filename": "util/fipstools/delocate/delocate.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 1251,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-29T20:17:04Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "d4939545ba0c1290659c67f03b370cb722844cb6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85d42d37_7d9569e6",
+        "filename": "util/fipstools/delocate/delocate.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 1274,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-29T20:17:04Z",
+      "side": 1,
+      "message": "This works if the GOT offsets are all 32-bit, but original code seems to allow for a 64-bit offset within the GOT, with the movabs and R_X86_64_GOT64. Should the .Lboringssl_got and Lboringssl_gotoff symbols use .quad instead of .long (seems to control whether we get R_X86_64_GOT32 or R_X86_64_GOT64 relations) and then this just be a plain movq?",
+      "range": {
+        "startLine": 1274,
+        "startChar": 39,
+        "endLine": 1274,
+        "endChar": 45
+      },
+      "revId": "d4939545ba0c1290659c67f03b370cb722844cb6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
