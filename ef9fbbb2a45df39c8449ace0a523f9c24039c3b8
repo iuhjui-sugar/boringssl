@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "31d6828c_b415ca50",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-29T20:38:52Z",
+      "side": 1,
+      "message": "LGTM modulo formatting. (Will hold off on submitting until you say you\u0027re ready for it.)",
+      "revId": "ef9fbbb2a45df39c8449ace0a523f9c24039c3b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b989e12_9748c996",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 5082,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-29T20:38:52Z",
+      "side": 1,
+      "message": "clang-format",
+      "revId": "ef9fbbb2a45df39c8449ace0a523f9c24039c3b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e04f6478_07bfb8e3",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 5082,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-29T20:38:52Z",
+      "side": 1,
+      "message": "Hrmf. Didn\u0027t realize the consts didn\u0027t match. Ah well.",
+      "range": {
+        "startLine": 5082,
+        "startChar": 39,
+        "endLine": 5082,
+        "endChar": 49
+      },
+      "revId": "ef9fbbb2a45df39c8449ace0a523f9c24039c3b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
