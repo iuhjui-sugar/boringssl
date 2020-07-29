@@ -33,6 +33,559 @@
       "revId": "b7e34524ab7fb9e5ed6ffc3ddca43359c573d5f2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d0d50737_fb32cd93",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-29T22:06:21Z",
+      "side": 1,
+      "message": "First round of comments. I\u0027d recommend skimming over these two links, to get a sense of Go style:\nhttps://golang.org/doc/effective_go.html\nhttps://github.com/golang/go/wiki/CodeReviewComments\n",
+      "revId": "b7e34524ab7fb9e5ed6ffc3ddca43359c573d5f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f3f647ab_1394086e",
+        "filename": "go.mod",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-29T22:06:21Z",
+      "side": 1,
+      "message": "If you rebase, you should be able to avoid changing either go.sum or go.mod.",
+      "revId": "b7e34524ab7fb9e5ed6ffc3ddca43359c573d5f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0837d5aa_f3c1fd0a",
+        "filename": "ssl/test/runner/hpke/hpke.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-29T22:06:21Z",
+      "side": 1,
+      "message": "This, at least in its current form, is large enough that probably a new package is warranted. That said, I think a lot of the abstractions here are unnecessary. (I\u0027ve left a few comments to suggest whittling it down.) We\u0027ll see if the new package still makes sense from then?\n\n(It\u0027s mildly annoying to add new packages, but okay if it\u0027s the right thing to do here.)",
+      "revId": "b7e34524ab7fb9e5ed6ffc3ddca43359c573d5f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e594f9e8_d5976275",
+        "filename": "ssl/test/runner/hpke/hpke.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-29T22:06:21Z",
+      "side": 1,
+      "message": "HKDF, SHA, KEM, and everything else should be all-caps.\nhttps://github.com/golang/go/wiki/CodeReviewComments#initialisms\n\nDitto for every name throughout the entire CL. (In general, BoringSSL follows this rule in both C/C++ and Go.)\n\nThis does get a bit awkward for these names here. If HPKE were kind enough to give reasonable names with underscores, I\u0027d have suggested mirroring those, as in crypto/tls, but alas they didn\u0027t:\nhttps://golang.org/pkg/crypto/tls/#pkg-constants\n\nWhen we had to make up our own names, we did it this way:\nhttps://golang.org/pkg/crypto/tls/#SignatureScheme\n\nPerhaps then:\nhpke.AES128GCM (since the spec has already fixed the naming mistake)\nhpke.ChaCha20Poly1305\nhpke.HKDFSHA256\nhpke.X25519WithHKDFSHA256",
+      "revId": "b7e34524ab7fb9e5ed6ffc3ddca43359c573d5f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40d190ec_67845298",
+        "filename": "ssl/test/runner/hpke/hpke.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-29T22:06:21Z",
+      "side": 1,
+      "message": "No need for the Hpke prefix on things because it\u0027s in its own package.\n\nDitto throughout the entire CL.",
+      "range": {
+        "startLine": 29,
+        "startChar": 1,
+        "endLine": 29,
+        "endChar": 5
+      },
+      "revId": "b7e34524ab7fb9e5ed6ffc3ddca43359c573d5f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b22480d6_9409b5aa",
+        "filename": "ssl/test/runner/hpke/hpke.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-29T22:06:21Z",
+      "side": 1,
+      "message": "Go abbreviates function as \"func\" not \"fun\". Looking through the standard library, I see exported function types are either have names like HandlerFunc or just Compressor, FieldFilter, or VersionFixer.",
+      "range": {
+        "startLine": 51,
+        "startChar": 5,
+        "endLine": 51,
+        "endChar": 23
+      },
+      "revId": "b7e34524ab7fb9e5ed6ffc3ddca43359c573d5f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1af7a96d_7059e137",
+        "filename": "ssl/test/runner/hpke/hpke.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-29T22:06:21Z",
+      "side": 1,
+      "message": "This doesn\u0027t appear to be part of the public API, or particularly used in the various setup functions. I think we can do this without particularly complex abstractions here.",
+      "range": {
+        "startLine": 54,
+        "startChar": 5,
+        "endLine": 54,
+        "endChar": 8
+      },
+      "revId": "b7e34524ab7fb9e5ed6ffc3ddca43359c573d5f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4089b159_d21ba1e8",
+        "filename": "ssl/test/runner/hpke/hpke.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-29T22:06:21Z",
+      "side": 1,
+      "message": "Unused",
+      "revId": "b7e34524ab7fb9e5ed6ffc3ddca43359c573d5f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4d4ff26_10281454",
+        "filename": "ssl/test/runner/hpke/hpke.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-29T22:06:21Z",
+      "side": 1,
+      "message": "Context",
+      "range": {
+        "startLine": 75,
+        "startChar": 3,
+        "endLine": 75,
+        "endChar": 6
+      },
+      "revId": "b7e34524ab7fb9e5ed6ffc3ddca43359c573d5f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "019a08a4_bd4bedbb",
+        "filename": "ssl/test/runner/hpke/hpke.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-29T22:06:21Z",
+      "side": 1,
+      "message": "This is never used, just the ID.",
+      "revId": "b7e34524ab7fb9e5ed6ffc3ddca43359c573d5f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb0b51ee_efb1c5b4",
+        "filename": "ssl/test/runner/hpke/hpke.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-29T22:06:21Z",
+      "side": 1,
+      "message": "Remove these. We should just be testing the public API.",
+      "revId": "b7e34524ab7fb9e5ed6ffc3ddca43359c573d5f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9cfd5bc_7f348e43",
+        "filename": "ssl/test/runner/hpke/hpke.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-29T22:06:21Z",
+      "side": 1,
+      "message": "case HpkeAeadAesGcm128, HpkeAeadAesGcm256:",
+      "revId": "b7e34524ab7fb9e5ed6ffc3ddca43359c573d5f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22368259_85fd1fe9",
+        "filename": "ssl/test/runner/hpke/hpke.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-29T22:06:21Z",
+      "side": 1,
+      "message": "Instead, get the AEAD first and then call aead.NonceSize()",
+      "revId": "b7e34524ab7fb9e5ed6ffc3ddca43359c573d5f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "365b1a26_37958a65",
+        "filename": "ssl/test/runner/hpke/hpke_test.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-29T22:06:21Z",
+      "side": 1,
+      "message": "KEM, AEAD, KDF\n\nBut \"for fixed inputs\" is shorter and equally expressive. :-)",
+      "range": {
+        "startLine": 29,
+        "startChar": 36,
+        "endLine": 29,
+        "endChar": 39
+      },
+      "revId": "b7e34524ab7fb9e5ed6ffc3ddca43359c573d5f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffd1a791_d6071116",
+        "filename": "ssl/test/runner/hpke/hpke_test.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-29T22:06:21Z",
+      "side": 1,
+      "message": "TestRoundTrip",
+      "range": {
+        "startLine": 30,
+        "startChar": 5,
+        "endLine": 30,
+        "endChar": 19
+      },
+      "revId": "b7e34524ab7fb9e5ed6ffc3ddca43359c573d5f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf79f167_88c66121",
+        "filename": "ssl/test/runner/hpke/hpke_test.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-29T22:06:21Z",
+      "side": 1,
+      "message": "Drop all the fields that don\u0027t correspond to public API.",
+      "revId": "b7e34524ab7fb9e5ed6ffc3ddca43359c573d5f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9a2deaa_dc5d3318",
+        "filename": "ssl/test/runner/hpke/hpke_test.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-29T22:06:21Z",
+      "side": 1,
+      "message": "TestVectors",
+      "range": {
+        "startLine": 80,
+        "startChar": 3,
+        "endLine": 80,
+        "endChar": 25
+      },
+      "revId": "b7e34524ab7fb9e5ed6ffc3ddca43359c573d5f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10704417_2c0d6044",
+        "filename": "ssl/test/runner/hpke/hpke_test.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-29T22:06:21Z",
+      "side": 1,
+      "message": "Make this path configurable via command-line flag. (See how util/ar/ar_test.go and util/fipstools/delocate/delocate_test.go handle their test data.) Otherwise importing this into the internal repository will be a headache.",
+      "revId": "b7e34524ab7fb9e5ed6ffc3ddca43359c573d5f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a25504d9_72dd7a09",
+        "filename": "ssl/test/runner/hpke/hpke_test.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-29T22:06:21Z",
+      "side": 1,
+      "message": "Subtests may be useful here. Then you can keep an index for the test number and include it in the subtest name.\n\nhttps://golang.org/pkg/testing/#hdr-Subtests_and_Sub_benchmarks",
+      "revId": "b7e34524ab7fb9e5ed6ffc3ddca43359c573d5f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce4fe327_969dfcd6",
+        "filename": "ssl/test/runner/hpke/hpke_test.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-29T22:06:21Z",
+      "side": 1,
+      "message": "Inline this. (It really isn\u0027t a method of \"test vector\", since a test vector is, itself, just unopinionated data.)",
+      "revId": "b7e34524ab7fb9e5ed6ffc3ddca43359c573d5f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0383dfc6_023efa81",
+        "filename": "ssl/test/runner/hpke/hpke_test.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-29T22:06:21Z",
+      "side": 1,
+      "message": "https://github.com/golang/go/wiki/CodeReviewComments#receiver-type for reference, though it should just be inlined.",
+      "range": {
+        "startLine": 100,
+        "startChar": 8,
+        "endLine": 100,
+        "endChar": 22
+      },
+      "revId": "b7e34524ab7fb9e5ed6ffc3ddca43359c573d5f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a7840be_4326e4a5",
+        "filename": "ssl/test/runner/hpke/hpke_test.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-29T22:06:21Z",
+      "side": 1,
+      "message": "Drop all of these but enc because they\u0027re not public API.",
+      "revId": "b7e34524ab7fb9e5ed6ffc3ddca43359c573d5f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "88fed125_87419560",
+        "filename": "ssl/test/runner/hpke/hpke_test.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-29T22:06:21Z",
+      "side": 1,
+      "message": "This is very short and called twice. Just inline it. That we we don\u0027t have methods on plain test vectors.",
+      "range": {
+        "startLine": 135,
+        "startChar": 27,
+        "endLine": 135,
+        "endChar": 30
+      },
+      "revId": "b7e34524ab7fb9e5ed6ffc3ddca43359c573d5f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a90948a1_ca5b0383",
+        "filename": "ssl/test/runner/hpke/hpke_test.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-29T22:06:21Z",
+      "side": 1,
+      "message": "HexString\nhttps://github.com/golang/go/wiki/CodeReviewComments#mixed-caps",
+      "range": {
+        "startLine": 141,
+        "startChar": 3,
+        "endLine": 141,
+        "endChar": 12
+      },
+      "revId": "b7e34524ab7fb9e5ed6ffc3ddca43359c573d5f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fad7279b_50b710c9",
+        "filename": "ssl/test/runner/hpke/hpke_test.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-29T22:06:21Z",
+      "side": 1,
+      "message": "These two lines can just be hex.DecodeString. And then you can just pass data[1:len(data)-1] without an extra line.\n\n\tif len(data) \u003c 2 || data[0] !\u003d \u0027\"\u0027 || data[len(data)-1] !\u003d \u0027\"\u0027 {\n\t\treturn errors.New(\"missing double quotes\")\n\t}\n        var err error\n        *h, err \u003d hex.DecodeString(data[1:len(data)-1])\n        return err",
+      "revId": "b7e34524ab7fb9e5ed6ffc3ddca43359c573d5f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6980bd4_16900829",
+        "filename": "ssl/test/runner/hpke/hpke_test.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-29T22:06:21Z",
+      "side": 1,
+      "message": "Does the test actually stringify this anywhere?",
+      "revId": "b7e34524ab7fb9e5ed6ffc3ddca43359c573d5f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c73976ad_27f309e7",
+        "filename": "ssl/test/runner/hpke/hpke_test.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-29T22:06:21Z",
+      "side": 1,
+      "message": "Inline this at all call sites and include context like:\n\n  receiverCtx, err :\u003d SetupBaseReceiverX25519(h.KdfID, h.AeadID, enc, h.SecretKeyR, h.Info)\n  if err !\u003d nil {\n     t.Errorf(\"Error in SetupBaseReceiverX25519\": %s\", err);\n     return\n  }\n\nIn particular, the return is important (hence the inlining), otherwise the test will just crash.\n\nhttps://github.com/golang/go/wiki/CodeReviewComments#useful-test-failures",
+      "revId": "b7e34524ab7fb9e5ed6ffc3ddca43359c573d5f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7103e9c_804a5417",
+        "filename": "ssl/test/runner/hpke/hpke_test.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-29T22:06:21Z",
+      "side": 1,
+      "message": "Don\u0027t mix fmt.Printf and t.Errorf. That will mess up parallel tests, etc. Instead, just something like:\n\n  if !bytes.Equal(actual, expected) {\n      t.Errorf(\"blah blah \u003d %x; want %x\", actual, expected)\n  }\n\nhttps://github.com/golang/go/wiki/CodeReviewComments#useful-test-failures",
+      "revId": "b7e34524ab7fb9e5ed6ffc3ddca43359c573d5f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79e0fac7_583bfab1",
+        "filename": "ssl/test/runner/hpke/kem.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-29T22:06:21Z",
+      "side": 1,
+      "message": "This abstraction seems redundant when we\u0027ve already got a dhkemX25519 abstraction (which itself seems not terribly necessary?),",
+      "revId": "b7e34524ab7fb9e5ed6ffc3ddca43359c573d5f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
