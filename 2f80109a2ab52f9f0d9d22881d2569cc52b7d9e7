@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9bf4f21b_015e9c29",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-07-29T19:10:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "45216e7c_c4e82914",
+      "revId": "2f80109a2ab52f9f0d9d22881d2569cc52b7d9e7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4bbf609b_a15beae2",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
@@ -89,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "bcab3dac_59289b25",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-07-29T19:10:53Z",
+      "side": 1,
+      "message": "I decided to go with option 1, since it\u0027s quicker and about the same complexity/messiness in the QUIC tests. cl/323415200 is pending with the google3 change.",
+      "parentUuid": "36bcd7f8_37040752",
+      "revId": "2f80109a2ab52f9f0d9d22881d2569cc52b7d9e7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ab1d034_05532f90",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 3
@@ -124,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "f2e44cf9_3a4926fe",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 5182,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-07-29T19:10:53Z",
+      "side": 1,
+      "message": "Added SSL_R_TLSV1_ALERT_NO_APPLICATION_PROTOCOL and corresponding entry in crypto/err/ssl.errordata (but no other references to it).",
+      "parentUuid": "c4df3b5f_5b05b653",
+      "revId": "2f80109a2ab52f9f0d9d22881d2569cc52b7d9e7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0db17905_1e2d389e",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 3
@@ -138,6 +192,24 @@
       "revId": "2f80109a2ab52f9f0d9d22881d2569cc52b7d9e7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b75fb693_5a73f56c",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 5090,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-07-29T19:10:53Z",
+      "side": 1,
+      "message": "Ah, that\u0027s handy. It turns out SSL_select_next_proto takes a uint8_t** as its first arg, but SSL_CTX_set_alpn_select_cb has it const, so I needed to add a const_cast.",
+      "parentUuid": "0db17905_1e2d389e",
+      "revId": "2f80109a2ab52f9f0d9d22881d2569cc52b7d9e7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -161,6 +233,30 @@
       "revId": "2f80109a2ab52f9f0d9d22881d2569cc52b7d9e7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd1f8bef_7f6bbed6",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1248,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-07-29T19:10:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44809582_5e89de58",
+      "range": {
+        "startLine": 1248,
+        "startChar": 52,
+        "endLine": 1248,
+        "endChar": 59
+      },
+      "revId": "2f80109a2ab52f9f0d9d22881d2569cc52b7d9e7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
