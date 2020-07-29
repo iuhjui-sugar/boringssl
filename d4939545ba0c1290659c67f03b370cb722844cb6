@@ -56,6 +56,30 @@
       "revId": "d4939545ba0c1290659c67f03b370cb722844cb6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94e394e6_2aa6c7c0",
+        "filename": "util/fipstools/delocate/delocate.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 1274,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-07-29T20:21:04Z",
+      "side": 1,
+      "message": "Although I guess if your GOT doesn\u0027t fit in 32 bits, it is a bit concerning... :-) But if the compiler was okay with that constraint, I\u0027d have thought it\u0027d use plain movq or even just integrate the constant into the memory reference.",
+      "parentUuid": "85d42d37_7d9569e6",
+      "range": {
+        "startLine": 1274,
+        "startChar": 39,
+        "endLine": 1274,
+        "endChar": 45
+      },
+      "revId": "d4939545ba0c1290659c67f03b370cb722844cb6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
