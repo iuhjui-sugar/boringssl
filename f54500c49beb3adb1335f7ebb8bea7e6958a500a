@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "40150670_5ba31f8f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-08-05T14:48:09Z",
+      "side": 1,
+      "message": "In progress ALPS stuff.",
+      "revId": "f54500c49beb3adb1335f7ebb8bea7e6958a500a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
