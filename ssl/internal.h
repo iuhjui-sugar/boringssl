@@ -1482,6 +1482,7 @@ enum tls13_server_hs_state_t {
   state13_send_half_rtt_ticket,
   state13_read_second_client_flight,
   state13_process_end_of_early_data,
+  state13_read_client_encrypted_extensions,
   state13_read_client_certificate,
   state13_read_client_certificate_verify,
   state13_read_channel_id,
@@ -1656,6 +1657,12 @@ struct SSL_HANDSHAKE {
 
   // peer_key is the peer's ECDH key for a TLS 1.2 client.
   Array<uint8_t> peer_key;
+
+  // local_application_settings, on the server, contains the application
+  // settings to send over the ALPS extension. Unlike the peer value, this is
+  // stored on the handshake structure because we do not need to retain it after
+  // the handshake.
+  Array<uint8_t> local_application_settings;
 
   // negotiated_token_binding_version is used by a server to store the
   // on-the-wire encoding of the Token Binding protocol version to advertise in
@@ -2418,6 +2425,9 @@ struct SSL3_STATE {
   // HelloRetryRequest message.
   bool used_hello_retry_request : 1;
 
+  // has_application_settings indicates whether ALPS was negotiated.
+  bool has_application_settings : 1;
+
   // hs_buf is the buffer of handshake data to process.
   UniquePtr<BUF_MEM> hs_buf;
 
@@ -2488,6 +2498,10 @@ struct SSL3_STATE {
   // ClientHello has been processed. In a client these contain the protocol
   // that the server selected once the ServerHello has been processed.
   Array<uint8_t> alpn_selected;
+
+  // peer_application_settings contains the peer ALPS value for the selected
+  // protocol.
+  Array<uint8_t> peer_application_settings;
 
   // hostname, on the server, is the value of the SNI extension.
   UniquePtr<char> hostname;
@@ -2624,6 +2638,12 @@ struct DTLS1_STATE {
   unsigned timeout_duration_ms = 0;
 };
 
+// An ALPSConfig is a pair of ALPN protocol and settings value to use with ALPS.
+struct ALPSConfig {
+  Array<uint8_t> protocol;
+  Array<uint8_t> settings;
+};
+
 // SSL_CONFIG contains configuration bits that can be shed after the handshake
 // completes.  Objects of this type are not shared; they are unique to a
 // particular |SSL|.
@@ -2689,6 +2709,10 @@ struct SSL_CONFIG {
   // For a client, this contains the list of supported protocols in wire
   // format.
   Array<uint8_t> alpn_client_proto_list;
+
+  // alps_configs contains the list of supported protocols to use with ALPS,
+  // along with their corresponding ALPS values.
+  GrowableArray<ALPSConfig> alps_configs;
 
   // Contains a list of supported Token Binding key parameters.
   Array<uint8_t> token_binding_params;
@@ -3543,8 +3567,17 @@ struct ssl_session_st {
 
   // early_alpn is the ALPN protocol from the initial handshake. This is only
   // stored for TLS 1.3 and above in order to enforce ALPN matching for 0-RTT
-  // resumptions.
+  // resumptions. For the current connection's ALPN protocol, see
+  // |alpn_selected| on |SSL3_STATE|.
   bssl::Array<uint8_t> early_alpn;
+
+  // early_local_application_settings, if |has_early_alps| is true, is the local
+  // ALPS value to use with 0-RTT.
+  bssl::Array<uint8_t> early_local_application_settings;
+
+  // early_peer_application_settings, if |has_early_alps| is true, is the peer ALPS
+  // value to use with 0-RTT.
+  bssl::Array<uint8_t> early_peer_application_settings;
 
   // extended_master_secret is whether the master secret in this session was
   // generated using EMS and thus isn't vulnerable to the Triple Handshake
@@ -3565,6 +3598,10 @@ struct ssl_session_st {
 
   // is_quic indicates whether this session was created using QUIC.
   bool is_quic : 1;
+
+  // has_early_alps indicates whether ALPS is negotiated when this ticket is
+  // used with 0-RTT.
+  bool has_early_alps : 1;
 
   // quic_early_data_context is used to determine whether early data must be
   // rejected when performing a QUIC handshake.

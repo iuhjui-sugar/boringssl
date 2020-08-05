@@ -181,7 +181,8 @@ SSL3_STATE::SSL3_STATE()
       token_binding_negotiated(false),
       alert_dispatch(false),
       renegotiate_pending(false),
-      used_hello_retry_request(false) {}
+      used_hello_retry_request(false),
+      has_application_settings(false) {}
 
 SSL3_STATE::~SSL3_STATE() {}
 
