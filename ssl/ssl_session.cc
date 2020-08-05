@@ -273,6 +273,14 @@ UniquePtr<SSL_SESSION> SSL_SESSION_dup(SSL_SESSION *session, int dup_flags) {
             session->quic_early_data_context)) {
       return nullptr;
     }
+
+    if (!new_session->early_local_alps.CopyFrom(session->early_local_alps)) {
+      return nullptr;
+    }
+
+    if (!new_session->early_peer_alps.CopyFrom(session->early_peer_alps)) {
+      return nullptr;
+    }
   }
 
   // Copy the ticket.

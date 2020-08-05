@@ -426,6 +426,8 @@ static const char *EarlyDataReasonToString(ssl_early_data_reason_t reason) {
       return "ticket_age_skew";
     case ssl_early_data_quic_parameter_mismatch:
       return "quic_parameter_mismatch";
+    case ssl_early_data_alps_mismatch:
+      return "alps_mismatch";
   }
 
   abort();

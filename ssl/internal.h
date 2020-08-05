@@ -1482,6 +1482,7 @@ enum tls13_server_hs_state_t {
   state13_send_half_rtt_ticket,
   state13_read_second_client_flight,
   state13_process_end_of_early_data,
+  state13_read_client_alps,
   state13_read_client_certificate,
   state13_read_client_certificate_verify,
   state13_read_channel_id,
@@ -2414,6 +2415,12 @@ struct SSL3_STATE {
   // HelloRetryRequest message.
   bool used_hello_retry_request : 1;
 
+  // got_alps indicates whether the selected ALPN has ALPS support.
+  bool got_alps : 1;
+
+  // sent_alps indicates whether the server sent ALPS.
+  bool sent_alps : 1;
+
   // hs_buf is the buffer of handshake data to process.
   UniquePtr<BUF_MEM> hs_buf;
 
@@ -2484,6 +2491,12 @@ struct SSL3_STATE {
   // ClientHello has been processed. In a client these contain the protocol
   // that the server selected once the ServerHello has been processed.
   Array<uint8_t> alpn_selected;
+
+  // These point to the local ALPS settings.
+  Array<uint8_t> local_alps_settings;
+
+  // This point to the peer's ALPS settings.
+  Array<uint8_t> peer_alps_settings;
 
   // hostname, on the server, is the value of the SNI extension.
   UniquePtr<char> hostname;
@@ -2685,6 +2698,10 @@ struct SSL_CONFIG {
   // For a client, this contains the list of supported protocols in wire
   // format.
   Array<uint8_t> alpn_client_proto_list;
+
+  // For a client, this contains the list of ALPS supported protocols in wire
+  // format.
+  Array<uint8_t> alps_client_proto_list;
 
   // Contains a list of supported Token Binding key parameters.
   Array<uint8_t> token_binding_params;
@@ -3257,6 +3274,22 @@ struct ssl_ctx_st {
   // format.
   bssl::Array<uint8_t> alpn_client_proto_list;
 
+  // This contains a callback function to select the settings to send for a
+  // specific ALPS supported application.
+  //   out: on successful return, this must point to the raw protocol
+  //        settings.
+  //   out_len: on successful return, this contains the length of |*out|.
+  //   proto: points to the selected ALPN protocol.
+  //   proto_len: the length of |proto|.
+  int (*alps_settings_cb)(SSL *ssl, const uint8_t **out, uint8_t *out_len,
+                          const uint8_t *proto, size_t proto_len,
+                          void *arg) = nullptr;
+  void *alps_settings_cb_arg = nullptr;
+
+  // For a client, this contains the list of ALPS supported protocols in wire
+  // format.
+  bssl::Array<uint8_t> alps_client_proto_list;
+
   // SRTP profiles we are willing to do from RFC 5764
   bssl::UniquePtr<STACK_OF(SRTP_PROTECTION_PROFILE)> srtp_profiles;
 
@@ -3541,6 +3574,13 @@ struct ssl_session_st {
   // stored for TLS 1.3 and above in order to enforce ALPN matching for 0-RTT
   // resumptions.
   bssl::Array<uint8_t> early_alpn;
+
+  // early_local_alps is the the previous local ALPS settings from the initial
+  // handshake.
+  bssl::Array<uint8_t> early_local_alps;
+
+  // early_peer_alps is the peer's ALPS settings from the initial handshake.
+  bssl::Array<uint8_t> early_peer_alps;
 
   // extended_master_secret is whether the master secret in this session was
   // generated using EMS and thus isn't vulnerable to the Triple Handshake

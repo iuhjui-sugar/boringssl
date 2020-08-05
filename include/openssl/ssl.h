@@ -2764,6 +2764,53 @@ OPENSSL_EXPORT void SSL_CTX_set_allow_unknown_alpn_protos(SSL_CTX *ctx,
                                                           int enabled);
 
 
+// Application-Layer Protocol Settings
+//
+// The ALPS extension (vvv-tls-alps) allows exchanging application-layer
+// settings in the TLS handshake for applications negotiated with ALPN.
+
+// SSL_CTX_set_alps_protos sets the client ALPS protocol list on |ctx| to
+// |protos|. |protos| must be in wire-format (i.e. a series of non-empty, 8-bit
+// length-prefixed strings). This list must be a subset of the list configured
+// for ALPN. It returns one on success and zero on failure.
+OPENSSL_EXPORT int SSL_CTX_set_alps_protos(SSL_CTX *ctx, const uint8_t *protos,
+                                           size_t protos_len);
+
+// SSL_set_alps_protos sets the client ALPS protocol list on |ssl| to |protos|.
+// |protos| must be in wire-format (i.e. a series of non-empty, 8-bit
+// length-prefixed strings). This list must be a subset of the list configured
+// for ALPN. It returns one on success and zero on failure.
+OPENSSL_EXPORT int SSL_set_alps_protos(SSL *ssl, const uint8_t *protos,
+                                       size_t protos_len);
+
+// SSL_CTX_set_alps_settings_cb sets a callback function on |ctx| that is called
+// during ClientHello and Finished processing in order to set the settings to
+// send over ALPS for the protocol selected via ALPN.
+//
+// The callback is passed the ALPN protocol in |proto|. It should set |*out| and
+// |*out_len| to the appropriate protocol setting and return |SSL_TLSEXT_ERR_OK|
+// on success. It does not pass ownership of the buffer. Otherwise, it should
+// return |SSL_TLSEXT_ERR_NOACK|. Other |SSL_TLSEXT_ERR_*| values are
+// unimplemented and will be treated as |SSL_TLSEXT_ERR_NOACK|.
+OPENSSL_EXPORT void SSL_CTX_set_alps_settings_cb(
+    SSL_CTX *ctx,
+    int (*cb)(SSL *ssl, const uint8_t **out, uint8_t *out_len,
+              const uint8_t *proto, size_t proto_len, void *arg),
+    void *arg);
+
+// SSL_get0_peer_alps_settings gets the peer's ALPS settings (if any) from
+// |ssl|. On return it sets |*out_data| to point to |*out_len| bytes of the
+// settings. If the server didn't respond with a negotiated protocol then
+// |*out_len| will be zero.
+OPENSSL_EXPORT void SSL_get0_peer_alps_settings(const SSL *ssl,
+                                                const uint8_t **out_data,
+                                                size_t *out_len);
+
+// SSL_is_alps_negotiated returns 1 if ALPS was negotiated on this connection
+// and 0 otherwise.
+OPENSSL_EXPORT int SSL_is_alps_negotiated(const SSL *ssl);
+
+
 // Certificate compression.
 //
 // Certificates in TLS 1.3 can be compressed[1]. BoringSSL supports this as both
@@ -3481,6 +3528,8 @@ enum ssl_early_data_reason_t BORINGSSL_ENUM_INT {
   ssl_early_data_ticket_age_skew = 12,
   // QUIC parameters differ between this connection and the original.
   ssl_early_data_quic_parameter_mismatch = 13,
+  // The application settings did not match the session.
+  ssl_early_data_alps_mismatch = 14,
   // The value of the largest entry.
   ssl_early_data_reason_max_value = ssl_early_data_quic_parameter_mismatch,
 };
@@ -5198,6 +5247,8 @@ BSSL_NAMESPACE_END
 #define SSL_R_QUIC_TRANSPORT_PARAMETERS_MISCONFIGURED 305
 #define SSL_R_UNEXPECTED_COMPATIBILITY_MODE 306
 #define SSL_R_MISSING_ALPN 307
+#define SSL_R_NEGOTIATED_ALPS_WITHOUT_ALPN 308
+#define SSL_R_ALPS_MISMATCH_ON_EARLY_DATA 309
 #define SSL_R_SSLV3_ALERT_CLOSE_NOTIFY 1000
 #define SSL_R_SSLV3_ALERT_UNEXPECTED_MESSAGE 1010
 #define SSL_R_SSLV3_ALERT_BAD_RECORD_MAC 1020

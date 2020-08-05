@@ -131,6 +131,8 @@ BSSL_NAMESPACE_BEGIN
 //     earlyALPN               [26] OCTET STRING OPTIONAL,
 //     isQuic                  [27] BOOLEAN OPTIONAL,
 //     quicEarlyDataHash       [28] OCTET STRING OPTIONAL,
+//     earlyLocalALPS          [29] OCTET STRING OPTIONAL,
+//     earlyPeerALPS           [30] OCTET STRING OPTIONAL,
 // }
 //
 // Note: historically this serialization has included other optional
@@ -194,6 +196,10 @@ static const unsigned kIsQuicTag =
     CBS_ASN1_CONSTRUCTED | CBS_ASN1_CONTEXT_SPECIFIC | 27;
 static const unsigned kQuicEarlyDataContextTag =
     CBS_ASN1_CONSTRUCTED | CBS_ASN1_CONTEXT_SPECIFIC | 28;
+static const unsigned kEarlyLocalALPSTag =
+    CBS_ASN1_CONSTRUCTED | CBS_ASN1_CONTEXT_SPECIFIC | 29;
+static const unsigned kEarlyPeerALPSTag =
+    CBS_ASN1_CONSTRUCTED | CBS_ASN1_CONTEXT_SPECIFIC | 30;
 
 static int SSL_SESSION_to_bytes_full(const SSL_SESSION *in, CBB *cbb,
                                      int for_ticket) {
@@ -406,6 +412,24 @@ static int SSL_SESSION_to_bytes_full(const SSL_SESSION *in, CBB *cbb,
     if (!CBB_add_asn1(&session, &child, kQuicEarlyDataContextTag) ||
         !CBB_add_asn1_octet_string(&child, in->quic_early_data_context.data(),
                                    in->quic_early_data_context.size())) {
+      OPENSSL_PUT_ERROR(SSL, ERR_R_MALLOC_FAILURE);
+      return 0;
+    }
+  }
+
+  if (!in->early_local_alps.empty()) {
+    if (!CBB_add_asn1(&session, &child, kEarlyLocalALPSTag) ||
+        !CBB_add_asn1_octet_string(&child, in->early_local_alps.data(),
+                                   in->early_local_alps.size())) {
+      OPENSSL_PUT_ERROR(SSL, ERR_R_MALLOC_FAILURE);
+      return 0;
+    }
+  }
+
+  if (!in->early_peer_alps.empty()) {
+    if (!CBB_add_asn1(&session, &child, kEarlyPeerALPSTag) ||
+        !CBB_add_asn1_octet_string(&child, in->early_peer_alps.data(),
+                                   in->early_peer_alps.size())) {
       OPENSSL_PUT_ERROR(SSL, ERR_R_MALLOC_FAILURE);
       return 0;
     }
@@ -754,6 +778,10 @@ UniquePtr<SSL_SESSION> SSL_SESSION_parse(CBS *cbs,
                                   /*default_value=*/false) ||
       !SSL_SESSION_parse_octet_string(&session, &ret->quic_early_data_context,
                                       kQuicEarlyDataContextTag) ||
+      !SSL_SESSION_parse_octet_string(&session, &ret->early_local_alps,
+                                      kEarlyLocalALPSTag) ||
+      !SSL_SESSION_parse_octet_string(&session, &ret->early_peer_alps,
+                                      kEarlyPeerALPSTag) ||
       CBS_len(&session) != 0) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_INVALID_SSL_SESSION);
     return nullptr;

@@ -690,6 +690,8 @@ SSL *SSL_new(SSL_CTX *ctx) {
   if (!ssl->config->supported_group_list.CopyFrom(ctx->supported_group_list) ||
       !ssl->config->alpn_client_proto_list.CopyFrom(
           ctx->alpn_client_proto_list) ||
+      !ssl->config->alps_client_proto_list.CopyFrom(
+          ctx->alps_client_proto_list) ||
       !ssl->config->verify_sigalgs.CopyFrom(ctx->verify_sigalgs)) {
     return nullptr;
   }
@@ -2239,6 +2241,45 @@ void SSL_get0_alpn_selected(const SSL *ssl, const uint8_t **out_data,
 
 void SSL_CTX_set_allow_unknown_alpn_protos(SSL_CTX *ctx, int enabled) {
   ctx->allow_unknown_alpn_protos = !!enabled;
+}
+
+int SSL_CTX_set_alps_protos(SSL_CTX *ctx, const uint8_t *protos,
+                            size_t protos_len) {
+  return ctx->alps_client_proto_list.CopyFrom(
+             MakeConstSpan(protos, protos_len));
+}
+
+int SSL_set_alps_protos(SSL *ssl, const uint8_t *protos, size_t protos_len) {
+  if (!ssl->config) {
+    return 0;
+  }
+  return ssl->config->alps_client_proto_list.CopyFrom(
+             MakeConstSpan(protos, protos_len));
+}
+
+void SSL_CTX_set_alps_settings_cb(SSL_CTX *ctx,
+                                  int (*cb)(SSL *ssl, const uint8_t **setting,
+                                            uint8_t *setting_len,
+                                            const uint8_t *proto,
+                                            size_t proto_len, void *arg),
+                                  void *arg) {
+  ctx->alps_settings_cb = cb;
+  ctx->alps_settings_cb_arg = arg;
+}
+
+void SSL_get0_peer_alps_settings(const SSL *ssl, const uint8_t **out_data,
+                                 size_t *out_len) {
+  if (SSL_in_early_data(ssl)) {
+    *out_data = ssl->s3->hs->early_session->early_alpn.data();
+    *out_len = ssl->s3->hs->early_session->early_alpn.size();
+  } else {
+    *out_data = ssl->s3->alpn_selected.data();
+    *out_len = ssl->s3->alpn_selected.size();
+  }
+}
+
+int SSL_is_alps_negotiated(const SSL *ssl) {
+  return ssl->s3->got_alps;
 }
 
 int SSL_CTX_add_cert_compression_alg(SSL_CTX *ctx, uint16_t alg_id,
