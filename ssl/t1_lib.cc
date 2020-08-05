@@ -2795,6 +2795,143 @@ static bool cert_compression_add_serverhello(SSL_HANDSHAKE *hs, CBB *out) {
   return true;
 }
 
+// Application-level Protocol Settings
+//
+// https://tools.ietf.org/html/draft-vvv-tls-aps-00
+
+static bool ext_alps_add_clienthello(SSL_HANDSHAKE *hs, CBB *out) {
+  SSL *const ssl = hs->ssl;
+  if (hs->max_version < TLS1_3_VERSION ||
+      hs->config->alps_client_proto_list.empty() ||
+      ssl->s3->initial_handshake_complete) {
+    return true;
+  }
+
+  CBB contents, proto_list;
+  if (!CBB_add_u16(out, TLSEXT_TYPE_application_settings) ||
+      !CBB_add_u16_length_prefixed(out, &contents) ||
+      !CBB_add_u16_length_prefixed(&contents, &proto_list) ||
+      !CBB_add_bytes(&proto_list, hs->config->alps_client_proto_list.data(),
+                     hs->config->alps_client_proto_list.size()) ||
+      !CBB_flush(out)) {
+    return false;
+  }
+
+  return true;
+}
+
+static bool ext_alps_parse_serverhello(SSL_HANDSHAKE *hs, uint8_t *out_alert,
+                                       CBS *contents) {
+  SSL *const ssl = hs->ssl;
+  if (contents == NULL) {
+    return true;
+  }
+
+  assert(!ssl->s3->initial_handshake_complete);
+  assert(!hs->config->alps_client_proto_list.empty());
+
+  if (ssl->s3->alpn_selected.empty()) {
+    // ALPN must be negotiated.
+    *out_alert = SSL_AD_ILLEGAL_PARAMETER;
+    OPENSSL_PUT_ERROR(SSL, SSL_R_NEGOTIATED_ALPS_WITHOUT_ALPN);
+    return false;
+  }
+
+  // Check that the protocol name is one of the ones we advertised for ALPS.
+  bool found = false;
+  CBS client_protocol_name_list =
+          MakeConstSpan(hs->config->alps_client_proto_list),
+      client_protocol_name;
+  while (CBS_len(&client_protocol_name_list) > 0) {
+    if (!CBS_get_u8_length_prefixed(&client_protocol_name_list,
+                                    &client_protocol_name)) {
+      OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
+      *out_alert = SSL_AD_INTERNAL_ERROR;
+      return false;
+    }
+
+    if (client_protocol_name == MakeConstSpan(ssl->s3->alpn_selected)) {
+      found = true;
+    }
+  }
+  if (!found) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_INVALID_ALPN_PROTOCOL);
+    *out_alert = SSL_AD_ILLEGAL_PARAMETER;
+    return false;
+  }
+
+  CBS setting;
+  if (!CBS_get_u16_length_prefixed(contents, &setting) ||
+      CBS_len(contents) != 0) {
+    *out_alert = SSL_AD_DECODE_ERROR;
+    return false;
+  }
+
+
+  if (!ssl->s3->alps_settings.CopyFrom(setting)) {
+    *out_alert = SSL_AD_INTERNAL_ERROR;
+    return false;
+  }
+  ssl->s3->got_alps = true;
+  return true;
+}
+
+static bool ext_alps_parse_clienthello(SSL_HANDSHAKE *hs, uint8_t *out_alert,
+                                       CBS *contents) {
+  SSL *const ssl = hs->ssl;
+  if (contents == NULL || ssl_protocol_version(hs->ssl) < TLS1_3_VERSION) {
+    // Don't use ALPS unless we're negotiating TLS 1.3 or higher.
+    return true;
+  }
+
+  // Check if the selected ALPN is one advertised with ALPS.
+  CBS alps_list, protocol_name;
+  if (!CBS_get_u16_length_prefixed(contents, &alps_list) ||
+      CBS_len(contents) != 0) {
+    *out_alert = SSL_AD_DECODE_ERROR;
+    return false;
+  }
+  while (CBS_len(&alps_list) > 0) {
+    if (!CBS_get_u8_length_prefixed(&alps_list,
+                                    &protocol_name)) {
+      OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
+      *out_alert = SSL_AD_INTERNAL_ERROR;
+      return false;
+    }
+
+    if (protocol_name == MakeConstSpan(ssl->s3->alpn_selected)) {
+      ssl->s3->got_alps = true;
+    }
+  }
+  return true;
+}
+
+static bool ext_alps_add_serverhello(SSL_HANDSHAKE *hs, CBB *out) {
+  SSL *const ssl = hs->ssl;
+  if (!ssl->s3->got_alps) {
+    return true;
+  }
+  const uint8_t *settings;
+  uint8_t settings_len;
+  if (ssl->ctx->alps_settings_cb == NULL ||
+      ssl->ctx->alps_settings_cb(
+          ssl, &settings, &settings_len, ssl->s3->alpn_selected.data(),
+          ssl->s3->alpn_selected.size(),
+          ssl->ctx->alps_settings_cb_arg) != SSL_TLSEXT_ERR_OK) {
+    return true;
+  }
+
+  CBB contents;
+  if (!CBB_add_u16(out, TLSEXT_TYPE_application_settings) ||
+      !CBB_add_u16_length_prefixed(out, &contents) ||
+      !CBB_add_bytes(&contents, settings, settings_len) ||
+      !CBB_flush(out)) {
+    return false;
+  }
+
+  ssl->s3->sent_alps = true;
+  return true;
+}
 
 // kExtensions contains all the supported extensions.
 static const struct tls_extension kExtensions[] = {
@@ -2975,6 +3112,14 @@ static const struct tls_extension kExtensions[] = {
     forbid_parse_serverhello,
     ext_delegated_credential_parse_clienthello,
     dont_add_serverhello,
+  },
+  {
+    TLSEXT_TYPE_application_settings,
+    NULL,
+    ext_alps_add_clienthello,
+    ext_alps_parse_serverhello,
+    ext_alps_parse_clienthello,
+    ext_alps_add_serverhello,
   },
 };
 

@@ -840,6 +840,25 @@ static enum ssl_hs_wait_t do_process_end_of_early_data(SSL_HANDSHAKE *hs) {
     }
     ssl->method->next_message(ssl);
   }
+  hs->tls13_state = state13_read_client_alps;
+  return ssl_hs_ok;
+}
+
+static enum ssl_hs_wait_t do_read_client_alps(SSL_HANDSHAKE *hs) {
+  SSL *const ssl = hs->ssl;
+  if (ssl->s3->sent_alps) {
+    SSLMessage msg;
+    if (!ssl->method->get_message(ssl, &msg)) {
+      return ssl_hs_read_message;
+    }
+    if (!ssl_check_message_type(ssl, msg, SSL3_MT_CLIENT_APPLICATION_SETTINGS) ||
+        !ssl->s3->alps_settings.CopyFrom(msg.body) ||
+        !ssl_hash_message(hs, msg)) {
+      return ssl_hs_error;
+    }
+
+    ssl->method->next_message(ssl);
+  }
   if (!tls13_set_traffic_key(ssl, ssl_encryption_handshake, evp_aead_open,
                              hs->new_session.get(),
                              hs->client_handshake_secret())) {
@@ -1028,6 +1047,9 @@ enum ssl_hs_wait_t tls13_server_handshake(SSL_HANDSHAKE *hs) {
       case state13_process_end_of_early_data:
         ret = do_process_end_of_early_data(hs);
         break;
+      case state13_read_client_alps:
+        ret = do_read_client_alps(hs);
+        break;
       case state13_read_client_certificate:
         ret = do_read_client_certificate(hs);
         break;
@@ -1084,6 +1106,8 @@ const char *tls13_server_handshake_state(SSL_HANDSHAKE *hs) {
       return "TLS 1.3 server read_second_client_flight";
     case state13_process_end_of_early_data:
       return "TLS 1.3 server process_end_of_early_data";
+    case state13_read_client_alps:
+      return "TLS 1.3 server read_client_alps";
     case state13_read_client_certificate:
       return "TLS 1.3 server read_client_certificate";
     case state13_read_client_certificate_verify:

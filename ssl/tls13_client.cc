@@ -44,6 +44,7 @@ enum client_hs_state_t {
   state_server_certificate_reverify,
   state_read_server_finished,
   state_send_end_of_early_data,
+  state_send_client_alps,
   state_send_client_certificate,
   state_send_client_certificate_verify,
   state_complete_second_flight,
@@ -721,6 +722,35 @@ static enum ssl_hs_wait_t do_send_end_of_early_data(SSL_HANDSHAKE *hs) {
     }
   }
 
+  hs->tls13_state = state_send_client_alps;
+  return ssl_hs_ok;
+}
+
+static enum ssl_hs_wait_t do_send_client_alps(SSL_HANDSHAKE *hs) {
+  SSL *const ssl = hs->ssl;
+
+  if (ssl->s3->got_alps) {
+    const uint8_t *settings = NULL;
+    uint8_t settings_len = 0;
+    if (ssl->ctx->alps_settings_cb != NULL) {
+      if (ssl->ctx->alps_settings_cb(
+              ssl, &settings, &settings_len, ssl->s3->alpn_selected.data(),
+              ssl->s3->alpn_selected.size(),
+              ssl->ctx->alps_settings_cb_arg) != SSL_TLSEXT_ERR_OK) {
+        // Sent an empty settings frame.
+      }
+    }
+
+    ScopedCBB cbb;
+    CBB body;
+    if (!ssl->method->init_message(ssl, cbb.get(), &body,
+                                   SSL3_MT_CLIENT_APPLICATION_SETTINGS) ||
+        !CBB_add_bytes(&body, settings, settings_len) ||
+        !ssl_add_message_cbb(ssl, cbb.get())) {
+      return ssl_hs_error;
+    }
+  }
+
   hs->tls13_state = state_send_client_certificate;
   return ssl_hs_ok;
 }
@@ -863,6 +893,9 @@ enum ssl_hs_wait_t tls13_client_handshake(SSL_HANDSHAKE *hs) {
       case state_send_client_certificate:
         ret = do_send_client_certificate(hs);
         break;
+      case state_send_client_alps:
+        ret = do_send_client_alps(hs);
+        break;
       case state_send_client_certificate_verify:
         ret = do_send_client_certificate_verify(hs);
         break;
@@ -910,6 +943,8 @@ const char *tls13_client_handshake_state(SSL_HANDSHAKE *hs) {
       return "TLS 1.3 client read_server_finished";
     case state_send_end_of_early_data:
       return "TLS 1.3 client send_end_of_early_data";
+    case state_send_client_alps:
+      return "TLS 1.3 client send_client_alps";
     case state_send_client_certificate:
       return "TLS 1.3 client send_client_certificate";
     case state_send_client_certificate_verify:
