@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10955922_2a45a691",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-08-07T17:34:40Z",
+      "side": 1,
+      "message": "New patchset!\n\nI need to update the C implementation to match the latest draft version. Perhaps we can land that first, then rebase this CL and update it to match as well.",
+      "revId": "d0caffc991261488574fa8daed8d15a5a2993da8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
