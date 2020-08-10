@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "633549d4_e7a21a56",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-10T21:41:37Z",
+      "side": 1,
+      "message": "Thanks!",
+      "revId": "835c431422c6746843cb82e1fb3947edce7bc376",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ea54db8d_448ed8f0",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 952,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-10T21:41:37Z",
+      "side": 1,
+      "message": "I believe the new function should have a copy of this paragraph too. (The reason for it is that we drop all this data after the handshake to save memory, and if too early, it may not be filled in yet.)",
+      "revId": "835c431422c6746843cb82e1fb3947edce7bc376",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fc06827_85d30cec",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 956,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-10T21:41:37Z",
+      "side": 1,
+      "message": "One of these days, I\u0027ll get around to reviving my CL to do certificate selection by algorithm within the library and maybe we\u0027ll stop needing all these APIs. :-(",
+      "range": {
+        "startLine": 956,
+        "startChar": 3,
+        "endLine": 956,
+        "endChar": 38
+      },
+      "revId": "835c431422c6746843cb82e1fb3947edce7bc376",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "98ec2ea2_df6e9c9b",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 958,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-10T21:41:37Z",
+      "side": 1,
+      "message": "Nit: 80 char wrap here and on the function prototype. (Looks like you did 81 and 82 chars.)\n\nPro tip: I have an editor shortcut for clang-formating the selection.",
+      "revId": "835c431422c6746843cb82e1fb3947edce7bc376",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be00be36_f3c12561",
+        "filename": "include/openssl/tls1.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-10T21:41:37Z",
+      "side": 1,
+      "message": "Just to confirm (I haven\u0027t been paying attention): it is not expected that there will be wire changes between draft-06 and the final RFC?",
+      "revId": "835c431422c6746843cb82e1fb3947edce7bc376",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2287d046_52a8a416",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1653,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-10T21:41:37Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "835c431422c6746843cb82e1fb3947edce7bc376",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
