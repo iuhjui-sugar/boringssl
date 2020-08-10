@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f3fb7f13_d99d7146",
+        "filename": "util/fipstools/delocate/delocate.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 1233,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2020-08-10T20:27:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab0fc31f_f1a7c847",
+      "revId": "d4939545ba0c1290659c67f03b370cb722844cb6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6e574edf_46e32f51",
         "filename": "util/fipstools/delocate/delocate.go",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "d4939545ba0c1290659c67f03b370cb722844cb6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9961f975_1e3c2a5c",
+        "filename": "util/fipstools/delocate/delocate.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 1251,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2020-08-10T20:27:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e574edf_46e32f51",
+      "revId": "d4939545ba0c1290659c67f03b370cb722844cb6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -80,6 +116,30 @@
       "revId": "d4939545ba0c1290659c67f03b370cb722844cb6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad3be401_c80e03ab",
+        "filename": "util/fipstools/delocate/delocate.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 1274,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2020-08-10T20:27:12Z",
+      "side": 1,
+      "message": "Have added comment to ABI spec where it says that the GOT is 32 bits. I agree that the compiler is supporting 64-bit offsets but that seems crazy and, if proven to be needed, it\u0027s not hard to change in the future. Although other things would seem to have gone wrong with the world in that case!",
+      "parentUuid": "94e394e6_2aa6c7c0",
+      "range": {
+        "startLine": 1274,
+        "startChar": 39,
+        "endLine": 1274,
+        "endChar": 45
+      },
+      "revId": "d4939545ba0c1290659c67f03b370cb722844cb6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
