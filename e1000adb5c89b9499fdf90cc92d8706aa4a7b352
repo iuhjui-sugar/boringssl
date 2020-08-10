@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3c6e97da_d64b9c1f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-08-10T20:06:27Z",
+      "side": 1,
+      "message": "Thank you for greatly expanding on the commit message and sorry for missing the email notification about this before.\n\nI think this is all looking good. I think I\u0027ll rename the defines before landing because a) I don\u0027t think applications are supposed to be defining with double-underscore prefixes as that\u0027s the compiler/system\u0027s namespace and b) I think the names could be a little more descriptive.\n\nBut don\u0027t worry about that, I\u0027ll take care of it.\n\nThree outstanding questions that I still have:\n\nWhile the PAC functions are NOPs on older processors, what about new processors with old operating systems? Will the instructions sign with fixed (zero?) keys, because the OS didn\u0027t configure any, and thus harmlessly function? (Even if that\u0027s not quite what happens, the important question is, does an old operating system on new hardware have any fatal problems with PAC instructions?)\n\nSecondly, the landing-pad instructions are only needed for indirect calls, yes? A PC-relative jump can still target anything? Thus the BTI instructions added here are just in case functions are called via function pointers, PLTs, etc?\n\nThe PAC signing functions are also valid landing pads, but I didn\u0027t see what BTYPEs are covered. \u0027Call\u0027, obviously, but are they treated as \u0027BTI c\u0027 or \u0027BTI jc\u0027? (I don\u0027t think it matters here, I\u0027m just wondering.)",
+      "revId": "e1000adb5c89b9499fdf90cc92d8706aa4a7b352",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
