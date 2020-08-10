@@ -953,6 +953,12 @@ OPENSSL_EXPORT size_t SSL_get0_certificate_types(const SSL *ssl,
 OPENSSL_EXPORT size_t
 SSL_get0_peer_verify_algorithms(const SSL *ssl, const uint16_t **out_sigalgs);
 
+// SSL_get0_peer_delegation_algorithms sets |*out_sigalgs| to an array containing
+// the signature algorithms the peer is willing to use with delegated credentials.
+// It returns the length of the array. If not sent, the empty array is returned.
+OPENSSL_EXPORT size_t
+SSL_get0_peer_delegation_algorithms(const SSL *ssl, const uint16_t **out_sigalgs);
+
 // SSL_certs_clear resets the private key, leaf certificate, and certificate
 // chain of |ssl|.
 OPENSSL_EXPORT void SSL_certs_clear(SSL *ssl);
