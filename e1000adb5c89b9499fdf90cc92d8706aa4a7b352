@@ -16,6 +16,41 @@
       "revId": "e1000adb5c89b9499fdf90cc92d8706aa4a7b352",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c93f95ff_aedbecb7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10431
+      },
+      "writtenOn": "2020-08-10T20:34:54Z",
+      "side": 1,
+      "message": "\u003e But don\u0027t worry about that, I\u0027ll take care of it.\nSuper, thanks.\n\n\u003e Three outstanding questions that I still have:\n\u003e \n\u003e While the PAC functions are NOPs on older processors, what about new processors with old operating systems? Will the instructions sign with fixed (zero?) keys, because the OS didn\u0027t configure any, and thus harmlessly function? (Even if that\u0027s not quite what happens, the important question is, does an old operating system on new hardware have any fatal problems with PAC instructions?)\n\nThe operating system shall set up the keys and enable PAC so with old operating systems the instructions remain NOPs.\n\n\u003e Secondly, the landing-pad instructions are only needed for indirect calls, yes? A PC-relative jump can still target anything?\n\nYes, this is correct. direct calls can\u0027t be redirected therefore they can jump to \"any\" address from BTI point of view.\n\n\u003e Thus the BTI instructions added here are just in case functions are called via function pointers, PLTs, etc?\n\nIn the assembly it is unknown if the address of that function is taken or how it is called from other compilation units so they got landing pad even they called directly only.\n\n\u003e The PAC signing functions are also valid landing pads, but I didn\u0027t see what BTYPEs are covered. \u0027Call\u0027, obviously, but are they treated as \u0027BTI c\u0027 or \u0027BTI jc\u0027? (I don\u0027t think it matters here, I\u0027m just wondering.)\n\nOnly the PACI[A|B]SP are landing pad capable instructions. Two modes are supported by the architecture which can be configures by the BT[0|1] bit. If it is zero which is the default\\current setting it is compatible with \"bti c\". If set to one it could be compatible with \"BTI jc\" but this currently not supported by the kernel and llvm.",
+      "parentUuid": "3c6e97da_d64b9c1f",
+      "revId": "e1000adb5c89b9499fdf90cc92d8706aa4a7b352",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "13e1c83b_b8a9cbbe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10431
+      },
+      "writtenOn": "2020-08-10T20:34:54Z",
+      "side": 1,
+      "message": "let me answer while Tamas enjoy his Holiday ;) ",
+      "revId": "e1000adb5c89b9499fdf90cc92d8706aa4a7b352",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
