@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4b10f205_9c701e2b",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-11T22:23:59Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "b4a123bf1cdfb6ad14b47f837bb8706349aa2129",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be3a63cb_f9361518",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-11T22:23:59Z",
+      "side": 1,
+      "message": "out_shared_secret\n\n(Didn\u0027t check carefully but maybe do a quick grep to see if you caught them all?)",
+      "range": {
+        "startLine": 255,
+        "startChar": 35,
+        "endLine": 255,
+        "endChar": 41
+      },
+      "revId": "b4a123bf1cdfb6ad14b47f837bb8706349aa2129",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
