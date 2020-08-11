@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8603e445_145b1340",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-11T20:42:55Z",
+      "side": 1,
+      "message": "(Acking just to mark comment threads as resolving.)",
+      "revId": "87c85b23bdf64a781f28cfe0bf0cd249b3ae4a89",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
