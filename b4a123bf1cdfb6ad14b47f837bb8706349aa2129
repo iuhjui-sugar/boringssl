@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d7d4441d_c3e80c27",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-08-11T22:27:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b10f205_9c701e2b",
+      "revId": "b4a123bf1cdfb6ad14b47f837bb8706349aa2129",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "be3a63cb_f9361518",
         "filename": "crypto/hpke/hpke.c",
         "patchSetId": 2
@@ -39,6 +57,30 @@
       "revId": "b4a123bf1cdfb6ad14b47f837bb8706349aa2129",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c4df579_96500ff6",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-08-11T22:27:47Z",
+      "side": 1,
+      "message": "Argh, that\u0027s what I get for using vscode\u0027s semantic renaming instead of find/replace.",
+      "parentUuid": "be3a63cb_f9361518",
+      "range": {
+        "startLine": 255,
+        "startChar": 35,
+        "endLine": 255,
+        "endChar": 41
+      },
+      "revId": "b4a123bf1cdfb6ad14b47f837bb8706349aa2129",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
