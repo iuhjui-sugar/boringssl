@@ -16,6 +16,768 @@
       "revId": "d0caffc991261488574fa8daed8d15a5a2993da8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc7abb25_f596ba4d",
+        "filename": "ssl/test/runner/hpke/hpke.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-14T16:54:20Z",
+      "side": 1,
+      "message": "Mind updating to draft-05 to match the C impl?",
+      "revId": "d0caffc991261488574fa8daed8d15a5a2993da8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4f06f45_0a7e24fb",
+        "filename": "ssl/test/runner/hpke/hpke.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-14T16:54:20Z",
+      "side": 1,
+      "message": "ChaCha (lowercase h)",
+      "range": {
+        "startLine": 36,
+        "startChar": 4,
+        "endLine": 36,
+        "endChar": 6
+      },
+      "revId": "d0caffc991261488574fa8daed8d15a5a2993da8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5db5efe_3cc1653c",
+        "filename": "ssl/test/runner/hpke/hpke.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-14T16:54:20Z",
+      "side": 1,
+      "message": "return keySchedule(...)",
+      "range": {
+        "startLine": 76,
+        "startChar": 1,
+        "endLine": 76,
+        "endChar": 15
+      },
+      "revId": "d0caffc991261488574fa8daed8d15a5a2993da8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77baf50b_246941d6",
+        "filename": "ssl/test/runner/hpke/hpke.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-14T16:54:20Z",
+      "side": 1,
+      "message": "SetupBaseR",
+      "range": {
+        "startLine": 83,
+        "startChar": 53,
+        "endLine": 83,
+        "endChar": 63
+      },
+      "revId": "d0caffc991261488574fa8daed8d15a5a2993da8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "586eead6_df4e9a52",
+        "filename": "ssl/test/runner/hpke/hpke.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-14T16:54:20Z",
+      "side": 1,
+      "message": "return keySchedule(...)",
+      "range": {
+        "startLine": 91,
+        "startChar": 1,
+        "endLine": 91,
+        "endChar": 15
+      },
+      "revId": "d0caffc991261488574fa8daed8d15a5a2993da8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea2a1b42_59cd273f",
+        "filename": "ssl/test/runner/hpke/hpke.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-14T16:54:20Z",
+      "side": 1,
+      "message": "This is reasonable large, so use a pointer receiver.",
+      "range": {
+        "startLine": 113,
+        "startChar": 5,
+        "endLine": 113,
+        "endChar": 16
+      },
+      "revId": "d0caffc991261488574fa8daed8d15a5a2993da8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a21f965e_5a8a7add",
+        "filename": "ssl/test/runner/hpke/hpke.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-14T16:54:20Z",
+      "side": 1,
+      "message": "This is a lot of allocations. Instead, Go\u0027s slices lend themselves to a builder-like pattern for free.\n\nfunc appendBigEndianUint16(b []byte, v uint16) []byte {\n  return append(b, byte(v \u003e\u003e 8), byte(v))\n}\n\n(Note encodeBigEndianUint16(v) is just appendBigEndianUint16(nil, v).)\n\nfunc buildSuiteID(kemID, kdfID, aeadID uint16) []byte {\n   ret :\u003d make([]byte, 0, 10)\n   ret \u003d append(ret, \"HPKE\"...)\n   ret \u003d appendBigEndianUint16(ret, kemID)\n   ret \u003d appendBigEndianUint16(ret, kdfID)\n   ret \u003d appendBigEndianUint16(ret, aeadID)\n   return ret\n}",
+      "revId": "d0caffc991261488574fa8daed8d15a5a2993da8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe529920_f81f1463",
+        "filename": "ssl/test/runner/hpke/hpke.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-14T16:54:20Z",
+      "side": 1,
+      "message": "newAEAD",
+      "range": {
+        "startLine": 125,
+        "startChar": 5,
+        "endLine": 125,
+        "endChar": 12
+      },
+      "revId": "d0caffc991261488574fa8daed8d15a5a2993da8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2aff911c_c2f7642e",
+        "filename": "ssl/test/runner/hpke/hpke.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-14T16:54:20Z",
+      "side": 1,
+      "message": "Remove this cast and then make expectedKeyLength just return int.",
+      "range": {
+        "startLine": 126,
+        "startChar": 16,
+        "endLine": 126,
+        "endChar": 19
+      },
+      "revId": "d0caffc991261488574fa8daed8d15a5a2993da8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1bf1f8e_6c289fb7",
+        "filename": "ssl/test/runner/hpke/hpke.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-14T16:54:20Z",
+      "side": 1,
+      "message": "s/Wrong/wrong/ (https://github.com/golang/go/wiki/CodeReviewComments#error-strings) and s/aeadID/AEAD/",
+      "range": {
+        "startLine": 127,
+        "startChar": 26,
+        "endLine": 127,
+        "endChar": 63
+      },
+      "revId": "d0caffc991261488574fa8daed8d15a5a2993da8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55a2c748_e74042f1",
+        "filename": "ssl/test/runner/hpke/hpke.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-14T16:54:20Z",
+      "side": 1,
+      "message": "unsupported AEAD",
+      "range": {
+        "startLine": 147,
+        "startChar": 25,
+        "endLine": 147,
+        "endChar": 36
+      },
+      "revId": "d0caffc991261488574fa8daed8d15a5a2993da8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc325eff_cec9e7a3",
+        "filename": "ssl/test/runner/hpke/hpke.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-14T16:54:20Z",
+      "side": 1,
+      "message": "newNonce and originNonceByte reads like we\u0027re updating the nonce or something, when c.nonce and the output of computeNonce are really two different kinds of things altogether.\n\nTwo possibilities:\n\n  result :\u003d make([]byte, len(c.nonce))\n  nonce :\u003d make([]byte, len(c.baseNonce))",
+      "range": {
+        "startLine": 194,
+        "startChar": 1,
+        "endLine": 194,
+        "endChar": 9
+      },
+      "revId": "d0caffc991261488574fa8daed8d15a5a2993da8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c652695_e8771f89",
+        "filename": "ssl/test/runner/hpke/hpke.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-14T16:54:20Z",
+      "side": 1,
+      "message": "big-endian, ditto below\n\n(Nit: No need to emphasize *end* I think.)",
+      "range": {
+        "startLine": 195,
+        "startChar": 13,
+        "endLine": 195,
+        "endChar": 24
+      },
+      "revId": "d0caffc991261488574fa8daed8d15a5a2993da8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b5629f6_9f71e589",
+        "filename": "ssl/test/runner/hpke/hpke.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-14T16:54:20Z",
+      "side": 1,
+      "message": "Just pass newNonce[len(newNonce)-8:] directly into binary.BigEndian.PutUint64().",
+      "range": {
+        "startLine": 196,
+        "startChar": 1,
+        "endLine": 196,
+        "endChar": 14
+      },
+      "revId": "d0caffc991261488574fa8daed8d15a5a2993da8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "783ec35d_6e0f7226",
+        "filename": "ssl/test/runner/hpke/hpke.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-14T16:54:20Z",
+      "side": 1,
+      "message": "Just call this something like \u0027b\u0027 for byte. It\u0027s a pretty informationless name no matter what we do.\nhttps://github.com/golang/go/wiki/CodeReviewComments#variable-names",
+      "range": {
+        "startLine": 199,
+        "startChar": 8,
+        "endLine": 199,
+        "endChar": 21
+      },
+      "revId": "d0caffc991261488574fa8daed8d15a5a2993da8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48e67ef2_51c9ca47",
+        "filename": "ssl/test/runner/hpke/hpke.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-14T16:54:20Z",
+      "side": 1,
+      "message": "sequence\n\n(I think I\u0027ve usually seen https://github.com/golang/go/wiki/CodeReviewComments#error-strings apply to panic strings as well.)",
+      "range": {
+        "startLine": 208,
+        "startChar": 9,
+        "endLine": 208,
+        "endChar": 17
+      },
+      "revId": "d0caffc991261488574fa8daed8d15a5a2993da8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f6a3a78_83d6fea1",
+        "filename": "ssl/test/runner/hpke/hpke.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-14T16:54:20Z",
+      "side": 1,
+      "message": "unsupported AEAD",
+      "revId": "d0caffc991261488574fa8daed8d15a5a2993da8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e355b8c8_ed921d04",
+        "filename": "ssl/test/runner/hpke/hpke.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-14T16:54:20Z",
+      "side": 1,
+      "message": "byte(n \u003e\u003e 8) and byte(n). No need for the masking. In the former, bit shifts are always defined to drop bits and, in the latter, casts are defined to wrap.\n\n(This is true in C too. I\u0027m not aware of any language with these operations where this isn\u0027t true.)",
+      "range": {
+        "startLine": 229,
+        "startChar": 15,
+        "endLine": 229,
+        "endChar": 38
+      },
+      "revId": "d0caffc991261488574fa8daed8d15a5a2993da8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb9a4bec_66c4f39b",
+        "filename": "ssl/test/runner/hpke/hpke_test.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-14T16:54:20Z",
+      "side": 1,
+      "message": "There\u0027s no reason to print the name of the test. The test output will do it for you. Instead, the error is in the operation that failed.\n\nAlso, lowercase the error strings https://github.com/golang/go/wiki/CodeReviewComments#error-strings\n\nDitto throughout the file.",
+      "range": {
+        "startLine": 39,
+        "startChar": 21,
+        "endLine": 39,
+        "endChar": 34
+      },
+      "revId": "d0caffc991261488574fa8daed8d15a5a2993da8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7e281d10_08ee6e53",
+        "filename": "ssl/test/runner/hpke/hpke_test.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-14T16:54:20Z",
+      "side": 1,
+      "message": "error reading test vectors",
+      "range": {
+        "startLine": 97,
+        "startChar": 11,
+        "endLine": 97,
+        "endChar": 31
+      },
+      "revId": "d0caffc991261488574fa8daed8d15a5a2993da8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e93db6a6_c24ef7f7",
+        "filename": "ssl/test/runner/hpke/hpke_test.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-14T16:54:20Z",
+      "side": 1,
+      "message": "error parsing test vectors",
+      "range": {
+        "startLine": 104,
+        "startChar": 12,
+        "endLine": 104,
+        "endChar": 32
+      },
+      "revId": "d0caffc991261488574fa8daed8d15a5a2993da8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b9f69207_53b7dd33",
+        "filename": "ssl/test/runner/hpke/hpke_test.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-14T16:54:20Z",
+      "side": 1,
+      "message": "testvector isn\u0027t a word. :-P s/testvector/test vector/\n\nThat said, I don\u0027t think you need to include testNum in the first place because you\u0027ve already created a subtest. Instead, per the above comment, the error message should talk about the operation that failed.",
+      "range": {
+        "startLine": 122,
+        "startChar": 23,
+        "endLine": 122,
+        "endChar": 33
+      },
+      "revId": "d0caffc991261488574fa8daed8d15a5a2993da8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36508620_3c1d06a0",
+        "filename": "ssl/test/runner/hpke/kem.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-14T16:54:20Z",
+      "side": 1,
+      "message": "newKDF",
+      "range": {
+        "startLine": 30,
+        "startChar": 5,
+        "endLine": 30,
+        "endChar": 11
+      },
+      "revId": "d0caffc991261488574fa8daed8d15a5a2993da8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb4fd77f_12f39429",
+        "filename": "ssl/test/runner/hpke/kem.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-14T16:54:20Z",
+      "side": 1,
+      "message": "unknown KDF",
+      "revId": "d0caffc991261488574fa8daed8d15a5a2993da8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c039cd1e_d6c17f92",
+        "filename": "ssl/test/runner/hpke/kem.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-14T16:54:20Z",
+      "side": 1,
+      "message": "Size",
+      "range": {
+        "startLine": 47,
+        "startChar": 21,
+        "endLine": 47,
+        "endChar": 23
+      },
+      "revId": "d0caffc991261488574fa8daed8d15a5a2993da8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc21c404_68946a80",
+        "filename": "ssl/test/runner/hpke/kem.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-14T16:54:20Z",
+      "side": 1,
+      "message": "I think better to pass in int here and them just panic or something if it doesn\u0027t fit. (Go uses int where C would use size_t. Note int in Go isn\u0027t 32-bit like C but a signed machine word.)",
+      "range": {
+        "startLine": 54,
+        "startChar": 76,
+        "endLine": 54,
+        "endChar": 82
+      },
+      "revId": "d0caffc991261488574fa8daed8d15a5a2993da8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f7616a5_14049721",
+        "filename": "ssl/test/runner/hpke/kem.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-14T16:54:20Z",
+      "side": 1,
+      "message": "This can only fail if you exceed the maximum output, which is well above anything we\u0027ll pass into LabeledExpand. Better I think to just panic here and keep LabeledExpand infallible.",
+      "revId": "d0caffc991261488574fa8daed8d15a5a2993da8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2bd3b67_a32e7fc4",
+        "filename": "ssl/test/runner/hpke/kem.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-14T16:54:20Z",
+      "side": 1,
+      "message": "The rest of the crypto module uses Size() or FooSize(), so let\u0027s call this SecretSize()",
+      "range": {
+        "startLine": 74,
+        "startChar": 21,
+        "endLine": 74,
+        "endChar": 24
+      },
+      "revId": "d0caffc991261488574fa8daed8d15a5a2993da8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db4b11a0_8ca82a84",
+        "filename": "ssl/test/runner/hpke/kem.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-14T16:54:20Z",
+      "side": 1,
+      "message": "The documentation says \"It is recommended to use the X25519 function with Basepoint instead, as copying into fixed size arrays can lead to unexpected bugs.\"\n\nThus:\n\n  publicKey, err \u003d curve25519.X25519(secretKey[:], curve25519.Basepoint)\n  if err !\u003d nil {\n     return\n  }\n  return publicKey, secretKey[:], nil",
+      "revId": "d0caffc991261488574fa8daed8d15a5a2993da8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6dd986c8_7f7a56b4",
+        "filename": "ssl/test/runner/hpke/kem.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-14T16:54:20Z",
+      "side": 1,
+      "message": "curve25519.X25519 already checks this internally",
+      "revId": "d0caffc991261488574fa8daed8d15a5a2993da8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba12c8ad_556da0db",
+        "filename": "ssl/test/runner/hpke/kem.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-14T16:54:20Z",
+      "side": 1,
+      "message": "Just pass enc into X25519 directly?",
+      "range": {
+        "startLine": 124,
+        "startChar": 1,
+        "endLine": 124,
+        "endChar": 15
+      },
+      "revId": "d0caffc991261488574fa8daed8d15a5a2993da8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebc3b161_54ff30d9",
+        "filename": "ssl/test/runner/hpke/kem.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-14T16:54:20Z",
+      "side": 1,
+      "message": "Why use the constant here, but plain not curve25519.PointSize for publicKeyR? (I\u0027d just write 32 for both. Don\u0027t think it\u0027s really worth the fuss.)",
+      "range": {
+        "startLine": 131,
+        "startChar": 19,
+        "endLine": 131,
+        "endChar": 39
+      },
+      "revId": "d0caffc991261488574fa8daed8d15a5a2993da8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "974c489c_e2989c55",
+        "filename": "ssl/test/runner/hpke/kem.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-14T16:54:20Z",
+      "side": 1,
+      "message": "The documentation says \"It is recommended to use the X25519 function with Basepoint instead, as copying into fixed size arrays can lead to unexpected bugs.\"\n\nThus:\n\n  publicKeyR :\u003d curve25519.X25519(secretKeyR, curve25519.Basepoint)\n\nThat said, this ends up with the same scenario as the C implementation where you do another asymmetric operation by virtue of having the wrong API. (If the sender needs the public half around, the public API should keep it around, either as a separate parameter or as a dedicated key object.)",
+      "revId": "d0caffc991261488574fa8daed8d15a5a2993da8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ddd62fa_0d054f95",
+        "filename": "ssl/test/runner/hpke/kem.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-14T16:54:20Z",
+      "side": 1,
+      "message": "return d.extractAndExpand(dh, kemContext)\n\nThe return values are already tuple you want.",
+      "revId": "d0caffc991261488574fa8daed8d15a5a2993da8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9ec9ae3_4382c69d",
+        "filename": "ssl/test/runner/hpke/kem.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-14T16:54:20Z",
+      "side": 1,
+      "message": "Similar comment as the other suiteID.",
+      "revId": "d0caffc991261488574fa8daed8d15a5a2993da8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0855e3f6_7b419909",
+        "filename": "ssl/test/runner/hpke/kem.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-14T16:54:20Z",
+      "side": 1,
+      "message": "return kdf.LabeledExpand(...)",
+      "revId": "d0caffc991261488574fa8daed8d15a5a2993da8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }

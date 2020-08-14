@@ -1006,6 +1006,24 @@
     },
     {
       "key": {
+        "uuid": "0f083f98_a397c1e7",
+        "filename": "ssl/test/runner/hpke/hpke_test.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-14T16:54:20Z",
+      "side": 1,
+      "message": "I mean, you could just pass %x. :-P https://play.golang.org/p/tGr8EeBt3AZ\n\nI\u0027d rather we not carry it around, especially an ad-hoc format like this.",
+      "parentUuid": "e5a9be10_e9dc2454",
+      "revId": "b7e34524ab7fb9e5ed6ffc3ddca43359c573d5f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c73976ad_27f309e7",
         "filename": "ssl/test/runner/hpke/hpke_test.go",
         "patchSetId": 3
