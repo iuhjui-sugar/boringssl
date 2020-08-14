@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "363c3b26_6bb42b3d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-08-14T21:28:17Z",
+      "side": 1,
+      "message": "Please don\u0027t land yet, however. No potentially-breaking changes until next week\u0027s internal roll completes.",
+      "revId": "0251f493724c4e756d275ad233b015fe6d31afdd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5fee1dc4_3eeb2ff4",
+        "filename": "crypto/dsa/dsa_asn1.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-08-14T21:28:17Z",
+      "side": 1,
+      "message": "... the ...",
+      "range": {
+        "startLine": 72,
+        "startChar": 5,
+        "endLine": 72,
+        "endChar": 6
+      },
+      "revId": "0251f493724c4e756d275ad233b015fe6d31afdd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68c34705_df1ecd78",
+        "filename": "crypto/evp/p_dsa_asn1.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-08-14T21:28:17Z",
+      "side": 1,
+      "message": "\")\" at the end.",
+      "range": {
+        "startLine": 147,
+        "startChar": 39,
+        "endLine": 147,
+        "endChar": 40
+      },
+      "revId": "0251f493724c4e756d275ad233b015fe6d31afdd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a61b0a5_9d9734fc",
+        "filename": "crypto/fipsmodule/rsa/rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-08-14T21:28:17Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 683,
+        "startChar": 54,
+        "endLine": 683,
+        "endChar": 68
+      },
+      "revId": "0251f493724c4e756d275ad233b015fe6d31afdd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
