@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1aabbb0e_e4acd9f5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-17T15:59:35Z",
+      "side": 1,
+      "message": "Ack. (Leaving this thread unresolved until then so I don\u0027t forget.)",
+      "parentUuid": "363c3b26_6bb42b3d",
+      "revId": "0251f493724c4e756d275ad233b015fe6d31afdd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5fee1dc4_3eeb2ff4",
         "filename": "crypto/dsa/dsa_asn1.c",
         "patchSetId": 1
@@ -39,6 +57,30 @@
       "revId": "0251f493724c4e756d275ad233b015fe6d31afdd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e5a313d_9cd294f1",
+        "filename": "crypto/dsa/dsa_asn1.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-17T15:59:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5fee1dc4_3eeb2ff4",
+      "range": {
+        "startLine": 72,
+        "startChar": 5,
+        "endLine": 72,
+        "endChar": 6
+      },
+      "revId": "0251f493724c4e756d275ad233b015fe6d31afdd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "364ff577_ad461124",
+        "filename": "crypto/evp/p_dsa_asn1.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-17T15:59:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68c34705_df1ecd78",
+      "range": {
+        "startLine": 147,
+        "startChar": 39,
+        "endLine": 147,
+        "endChar": 40
+      },
+      "revId": "0251f493724c4e756d275ad233b015fe6d31afdd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8a61b0a5_9d9734fc",
         "filename": "crypto/fipsmodule/rsa/rsa.c",
         "patchSetId": 1
@@ -85,6 +151,30 @@
       "revId": "0251f493724c4e756d275ad233b015fe6d31afdd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b0526cd_bee262c8",
+        "filename": "crypto/fipsmodule/rsa/rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-17T15:59:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a61b0a5_9d9734fc",
+      "range": {
+        "startLine": 683,
+        "startChar": 54,
+        "endLine": 683,
+        "endChar": 68
+      },
+      "revId": "0251f493724c4e756d275ad233b015fe6d31afdd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
