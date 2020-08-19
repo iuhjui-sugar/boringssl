@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "94de6f3f_26f4dbf7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-19T19:41:53Z",
+      "side": 1,
+      "message": "(Missing a CR+2 I think.)",
+      "revId": "801e22d260f776c58f3fb1c4098465a6151c3d57",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
