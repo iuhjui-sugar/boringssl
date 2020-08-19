@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "612930b2_5b57d35f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-08-19T19:31:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1aabbb0e_e4acd9f5",
+      "revId": "0251f493724c4e756d275ad233b015fe6d31afdd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5fee1dc4_3eeb2ff4",
         "filename": "crypto/dsa/dsa_asn1.c",
         "patchSetId": 1
