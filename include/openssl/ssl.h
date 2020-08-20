@@ -3923,6 +3923,26 @@ OPENSSL_EXPORT void SSL_CTX_set_select_certificate_cb(
     SSL_CTX *ctx,
     enum ssl_select_cert_result_t (*cb)(const SSL_CLIENT_HELLO *));
 
+// SSL_CTX_set_late_select_certificate_cb sets a callback that is called on a
+// server at the last possible moment before the server's certificate is needed.
+// This function is only called if a TLS 1.3 handshake is being performed, and
+// it is not called if a session is being resumed. The callback may examine
+// properties of the ClientHello and values that the server has negotiated in
+// its ServerHello and EncryptedExtensions. The callback is also provided with
+// the handshake transcript so far, which goes to the end of EncryptedExtensions
+// (or CertificateRequest if a client certificate is requested).
+//
+// Like SSL_CTX_set_select_certificate_cb, the same |ssl_select_cert_result_t|
+// return values are valid for this callback. Similarly, if the return value
+// indicates that a retry is indicated, |SSL_get_error| will return
+// |SSL_ERROR_PENDING_CERTIFICATE| and the caller should arrange for the
+// high-level operation on |ssl| to be retried at a later time, which will
+// result in another call to |cb|.
+OPENSSL_EXPORT void SSL_CTX_set_late_select_certificate_cb(
+    SSL_CTX *ctx,
+    enum ssl_select_cert_result_t (*cb)(SSL *ssl, const uint8_t *transcript,
+                                        size_t transcript_len));
+
 // SSL_CTX_set_dos_protection_cb sets a callback that is called once the
 // resumption decision for a ClientHello has been made. It can return one to
 // allow the handshake to continue or zero to cause the handshake to abort.

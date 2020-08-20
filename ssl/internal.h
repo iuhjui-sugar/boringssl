@@ -1482,6 +1482,7 @@ enum tls13_server_hs_state_t {
   state13_send_hello_retry_request,
   state13_read_second_client_hello,
   state13_send_server_hello,
+  state13_send_server_certificate,
   state13_send_server_certificate_verify,
   state13_send_server_finished,
   state13_send_half_rtt_ticket,
@@ -3207,6 +3208,9 @@ struct ssl_ctx_st {
   // |ssl_select_cert_result_t| for details of the return values.
   ssl_select_cert_result_t (*select_certificate_cb)(const SSL_CLIENT_HELLO *) =
       nullptr;
+
+  ssl_select_cert_result_t (*late_select_certificate_cb)(
+      SSL *ssl, const uint8_t *transcript, size_t transcript_len) = nullptr;
 
   // dos_protection_cb is called once the resumption decision for a ClientHello
   // has been made. It returns one to continue the handshake or zero to

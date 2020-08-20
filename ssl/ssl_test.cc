@@ -1583,7 +1583,8 @@ static bool CompleteHandshakes(SSL *client, SSL *server) {
     if (server_err != SSL_ERROR_NONE &&
         server_err != SSL_ERROR_WANT_READ &&
         server_err != SSL_ERROR_WANT_WRITE &&
-        server_err != SSL_ERROR_PENDING_TICKET) {
+        server_err != SSL_ERROR_PENDING_TICKET &&
+        server_err != SSL_ERROR_PENDING_CERTIFICATE) {
       fprintf(stderr, "Server error: %s\n", SSL_error_description(server_err));
       return false;
     }
@@ -6586,6 +6587,304 @@ TEST(SSLTest, BIO) {
     EXPECT_EQ(-1, ret);
     EXPECT_TRUE(BIO_should_write(client_bio.get()));
   }
+}
+
+TEST(SSLTest, PrivateKeyMethod) {
+  bssl::UniquePtr<X509> cert = GetTestCertificate();
+  bssl::UniquePtr<EVP_PKEY> key = GetTestKey();
+  ASSERT_TRUE(cert);
+  ASSERT_TRUE(key);
+
+  bssl::UniquePtr<SSL_CTX> server_ctx(SSL_CTX_new(TLS_method()));
+  bssl::UniquePtr<SSL_CTX> client_ctx(SSL_CTX_new(TLS_method()));
+  ASSERT_TRUE(SSL_CTX_use_certificate(server_ctx.get(), cert.get()));
+
+  static const int ex_data_index =
+      SSL_CTX_get_ex_new_index(0, nullptr, nullptr, nullptr, nullptr);
+  SSL_CTX_set_ex_data(server_ctx.get(), ex_data_index, key.get());
+
+  auto private_key_sign = [](SSL *ssl, uint8_t *out, size_t *out_len,
+                             size_t max_out, uint16_t sig_alg,
+                             const uint8_t *in,
+                             size_t in_len) -> ssl_private_key_result_t {
+    EVP_PKEY *private_key = reinterpret_cast<EVP_PKEY *>(
+        SSL_CTX_get_ex_data(SSL_get_SSL_CTX(ssl), ex_data_index));
+    bssl::ScopedEVP_MD_CTX md_ctx;
+    EVP_PKEY_CTX *pctx;
+    if (!EVP_DigestSignInit(md_ctx.get(), &pctx,
+                            SSL_get_signature_algorithm_digest(sig_alg),
+                            nullptr, private_key)) {
+      return ssl_private_key_failure;
+    }
+    if (SSL_is_signature_algorithm_rsa_pss(sig_alg) &&
+        (!EVP_PKEY_CTX_set_rsa_padding(pctx, RSA_PKCS1_PSS_PADDING) ||
+         !EVP_PKEY_CTX_set_rsa_pss_saltlen(pctx, -1))) {
+      return ssl_private_key_failure;
+    }
+    *out_len = max_out;
+    if (!EVP_DigestSign(md_ctx.get(), out, out_len, in, in_len)) {
+      return ssl_private_key_failure;
+    }
+    return ssl_private_key_success;
+  };
+
+  auto private_key_complete = [](SSL *ssl, uint8_t *out, size_t *out_len,
+                                 size_t max_out) -> ssl_private_key_result_t {
+    return ssl_private_key_failure;
+  };
+
+  const SSL_PRIVATE_KEY_METHOD private_key_method = {private_key_sign, nullptr,
+                                                     private_key_complete};
+  SSL_CTX_set_private_key_method(server_ctx.get(), &private_key_method);
+
+  bssl::UniquePtr<SSL> client, server;
+  ASSERT_TRUE(ConnectClientAndServer(&client, &server, client_ctx.get(),
+                                     server_ctx.get()));
+}
+
+struct late_cert_callback_test_state {
+  bssl::UniquePtr<EVP_PKEY> cert_private_key;
+  Array<uint8_t> tbs_value;
+  Array<uint8_t> signature;
+  uint16_t sig_alg;
+};
+
+static CRYPTO_once_t g_late_cert_callback_ex_index_once = CRYPTO_ONCE_INIT;
+static int g_late_cert_callback_test_state_ex_index;
+
+static int late_cert_callback_test_state_get_ex_index() {
+  CRYPTO_once(&g_late_cert_callback_ex_index_once, [] {
+    g_late_cert_callback_test_state_ex_index =
+        SSL_CTX_get_ex_new_index(0, nullptr, nullptr, nullptr, nullptr);
+  });
+  return g_late_cert_callback_test_state_ex_index;
+}
+
+// Generates a certificate message and appends it to |cbb|.
+static bool add_certificate_message(CBB *cbb, const uint8_t *cert_buf,
+                                    size_t cert_buf_len) {
+  CBB body, certificate_list;
+  // Handshake message with HandshakeType certificate.
+  if (!CBB_add_u8(cbb, SSL3_MT_CERTIFICATE) ||
+      !CBB_add_u24_length_prefixed(cbb, &body)) {
+    return false;
+  }
+  // Certificate message, certificate_request_context is empty.
+  if (!CBB_add_u8(&body, 0) ||
+      !CBB_add_u24_length_prefixed(&body, &certificate_list)) {
+    return false;
+  }
+  // Add a CertificateEntry with no extensions to the certificate_list.
+  // TODO: This function should take a cert chain instead of a single cert and
+  // generate multiple CertificateEntry structs, one per cert in the chain.
+  CBB cert_data;
+  if (!CBB_add_u24_length_prefixed(&certificate_list, &cert_data) ||
+      !CBB_add_bytes(&cert_data, cert_buf, cert_buf_len) ||
+      !CBB_add_u16(&certificate_list, 0)) {
+    return false;
+  }
+  if (!CBB_flush(cbb)) {
+    return false;
+  }
+  return true;
+}
+
+// Reimplementation of tls13_get_cert_verify_signature_input.
+static bool get_cert_verify_input(const Array<uint8_t> &transcript,
+                                  const EVP_MD *prf, Array<uint8_t> *out) {
+  ScopedCBB cbb;
+  if (!CBB_init(cbb.get(), 64 + 33 + 1 + 2 * EVP_MAX_MD_SIZE)) {
+    return false;
+  }
+  for (size_t i = 0; i < 64; i++) {
+    if (!CBB_add_u8(cbb.get(), 0x20)) {
+      return false;
+    }
+  }
+  static const char kContext[] = "TLS 1.3, server CertificateVerify";
+  if (!CBB_add_bytes(cbb.get(), reinterpret_cast<const uint8_t *>(kContext),
+                     sizeof(kContext))) {
+    return false;
+  }
+  uint8_t *context_hash;
+  unsigned int context_hash_len;
+  if (!CBB_reserve(cbb.get(), &context_hash, EVP_MAX_MD_SIZE) ||
+      !EVP_Digest(transcript.data(), transcript.size(), context_hash,
+                  &context_hash_len, prf, nullptr) ||
+      !CBB_did_write(cbb.get(), context_hash_len) ||
+      !CBBFinishArray(cbb.get(), out)) {
+    return false;
+  }
+  return true;
+}
+
+// This is a copy of the same function in ssl_x509.cc.
+static UniquePtr<CRYPTO_BUFFER> x509_to_buffer(X509 *x509) {
+  uint8_t *buf = nullptr;
+  int cert_len = i2d_X509(x509, &buf);
+  if (cert_len <= 0) {
+    return 0;
+  }
+  UniquePtr<CRYPTO_BUFFER> buffer(CRYPTO_BUFFER_new(buf, cert_len, nullptr));
+  OPENSSL_free(buf);
+  return buffer;
+}
+
+TEST(SSLTest, LateCertificateCallback) {
+  bssl::UniquePtr<X509> cert = GetTestCertificate();
+  bssl::UniquePtr<EVP_PKEY> key = GetTestKey();
+  bssl::UniquePtr<SSL_CTX> server_ctx(SSL_CTX_new(TLS_method()));
+  bssl::UniquePtr<SSL_CTX> client_ctx(SSL_CTX_new(TLS_method()));
+  ASSERT_TRUE(cert);
+  ASSERT_TRUE(key);
+  ASSERT_TRUE(server_ctx);
+  ASSERT_TRUE(client_ctx);
+  ASSERT_TRUE(SSL_CTX_set_min_proto_version(client_ctx.get(), TLS1_3_VERSION));
+  ASSERT_TRUE(SSL_CTX_set_min_proto_version(server_ctx.get(), TLS1_3_VERSION));
+
+  struct late_cert_callback_test_state test_state;
+  EVP_PKEY_up_ref(key.get());
+  test_state.cert_private_key.reset(key.get());
+
+  // This private key sign operation doesn't actually compute the signature;
+  // instead it checks that the inputs match the ones used in the late cert
+  // callback and returns the signature that was computed in that callback.
+  static auto private_key_sign = [](SSL *ssl, uint8_t *out, size_t *out_len,
+                                    size_t max_out, uint16_t sig_alg,
+                                    const uint8_t *in,
+                                    size_t in_len) -> ssl_private_key_result_t {
+    auto *cb_test_state = reinterpret_cast<late_cert_callback_test_state *>(
+        SSL_CTX_get_ex_data(SSL_get_SSL_CTX(ssl),
+                            late_cert_callback_test_state_get_ex_index()));
+    if (cb_test_state->sig_alg != sig_alg ||
+        cb_test_state->signature.size() > max_out) {
+      return ssl_private_key_failure;
+    }
+    EXPECT_EQ(cb_test_state->tbs_value, MakeSpan(in, in_len));
+    OPENSSL_memcpy(out, cb_test_state->signature.data(),
+                   cb_test_state->signature.size());
+    *out_len = cb_test_state->signature.size();
+    return ssl_private_key_success;
+  };
+
+  static const SSL_PRIVATE_KEY_METHOD private_key_method = {private_key_sign,
+                                                            nullptr, nullptr};
+
+  SSL_CTX_set_ex_data(server_ctx.get(),
+                      late_cert_callback_test_state_get_ex_index(),
+                      &test_state);
+
+  SSL_CTX_set_late_select_certificate_cb(
+      server_ctx.get(),
+      [](SSL *ssl, const uint8_t *transcript_buf,
+         size_t transcript_len) -> ssl_select_cert_result_t {
+        auto *cb_test_state = reinterpret_cast<late_cert_callback_test_state *>(
+            SSL_CTX_get_ex_data(SSL_get_SSL_CTX(ssl),
+                                late_cert_callback_test_state_get_ex_index()));
+        UniquePtr<X509> test_cert = GetTestCertificate();
+
+        // Compute the rest of the transcript.
+        ScopedCBB transcript_cbb;
+        Array<uint8_t> transcript;
+        UniquePtr<CRYPTO_BUFFER> cert_buf = x509_to_buffer(test_cert.get());
+        if (!CBB_init(transcript_cbb.get(), 1024) ||
+            !CBB_add_bytes(transcript_cbb.get(), transcript_buf,
+                           transcript_len) ||
+            !add_certificate_message(transcript_cbb.get(),
+                                     CRYPTO_BUFFER_data(cert_buf.get()),
+                                     CRYPTO_BUFFER_len(cert_buf.get())) ||
+            !CBBFinishArray(transcript_cbb.get(), &transcript)) {
+          return ssl_select_cert_error;
+        }
+
+        // Compute input for signature operation
+        const SSL_CIPHER *cipher = SSL_get_current_cipher(ssl);
+        const EVP_MD *prf_evp_md =
+            EVP_get_digestbynid(SSL_CIPHER_get_prf_nid(cipher));
+        if (!get_cert_verify_input(transcript, prf_evp_md,
+                                   &cb_test_state->tbs_value)) {
+          return ssl_select_cert_error;
+        }
+
+        // Compute signature
+        bssl::ScopedEVP_MD_CTX md_ctx;
+        EVP_PKEY_CTX *pctx;
+        EVP_PKEY *pkey = cb_test_state->cert_private_key.get();
+        cb_test_state->sig_alg = 0;
+
+        const uint16_t *sigalgs;
+        size_t sigalgs_len = SSL_get0_peer_verify_algorithms(ssl, &sigalgs);
+        for (size_t i = 0; i < sigalgs_len; i++) {
+          if (EVP_PKEY_id(pkey) !=
+              SSL_get_signature_algorithm_key_type(sigalgs[i])) {
+            continue;
+          }
+          cb_test_state->sig_alg = sigalgs[i];
+          break;
+        }
+        if (cb_test_state->sig_alg == 0 ||
+            !EVP_DigestSignInit(
+                md_ctx.get(), &pctx,
+                SSL_get_signature_algorithm_digest(cb_test_state->sig_alg),
+                nullptr, pkey)) {
+          return ssl_select_cert_error;
+        }
+        if (SSL_is_signature_algorithm_rsa_pss(cb_test_state->sig_alg) &&
+            (!EVP_PKEY_CTX_set_rsa_padding(pctx, RSA_PKCS1_PSS_PADDING) ||
+             !EVP_PKEY_CTX_set_rsa_pss_saltlen(pctx, -1))) {
+          return ssl_select_cert_error;
+        }
+        Array<uint8_t> sig;
+        sig.Init(EVP_PKEY_size(pkey));
+        size_t sig_len;
+        if (!EVP_DigestSign(md_ctx.get(), sig.data(), &sig_len,
+                            cb_test_state->tbs_value.data(),
+                            cb_test_state->tbs_value.size())) {
+          return ssl_select_cert_error;
+        }
+        cb_test_state->signature.CopyFrom(MakeSpan(sig.data(), sig_len));
+
+        // Set the the certificate and the private key method.
+        SSL_use_certificate(ssl, test_cert.get());
+        SSL_set_private_key_method(ssl, &private_key_method);
+        return ssl_select_cert_success;
+      });
+
+  bssl::UniquePtr<SSL> client, server;
+  ASSERT_TRUE(ConnectClientAndServer(&client, &server, client_ctx.get(),
+                                     server_ctx.get()));
+}
+
+TEST(SSLTest, LateCertificateCallbackAsync) {
+  bssl::UniquePtr<SSL_CTX> server_ctx(SSL_CTX_new(TLS_method()));
+  bssl::UniquePtr<SSL_CTX> client_ctx(SSL_CTX_new(TLS_method()));
+  ASSERT_TRUE(server_ctx);
+  ASSERT_TRUE(client_ctx);
+  ASSERT_TRUE(SSL_CTX_set_min_proto_version(client_ctx.get(), TLS1_3_VERSION));
+  ASSERT_TRUE(SSL_CTX_set_min_proto_version(server_ctx.get(), TLS1_3_VERSION));
+
+  bssl::UniquePtr<X509> cert = GetTestCertificate();
+  bssl::UniquePtr<EVP_PKEY> key = GetTestKey();
+  ASSERT_TRUE(cert);
+  ASSERT_TRUE(key);
+  ASSERT_TRUE(SSL_CTX_use_certificate(server_ctx.get(), cert.get()));
+  ASSERT_TRUE(SSL_CTX_use_PrivateKey(server_ctx.get(), key.get()));
+
+  static int callback_count = 0;
+  SSL_CTX_set_late_select_certificate_cb(
+      server_ctx.get(),
+      [](SSL *ssl, const uint8_t *transcript_buf,
+         size_t transcript_len) -> ssl_select_cert_result_t {
+        callback_count++;
+        if (callback_count == 1) {
+          return ssl_select_cert_retry;
+        }
+        return ssl_select_cert_success;
+      });
+
+  bssl::UniquePtr<SSL> client, server;
+  ASSERT_TRUE(ConnectClientAndServer(&client, &server, client_ctx.get(),
+                                     server_ctx.get()));
 }
 
 }  // namespace

@@ -2802,6 +2802,13 @@ void SSL_CTX_set_select_certificate_cb(
   ctx->select_certificate_cb = cb;
 }
 
+void SSL_CTX_set_late_select_certificate_cb(
+    SSL_CTX *ctx,
+    enum ssl_select_cert_result_t (*cb)(SSL *ssl, const uint8_t *transcript,
+                                        size_t transcript_len)) {
+  ctx->late_select_certificate_cb = cb;
+}
+
 void SSL_CTX_set_dos_protection_cb(SSL_CTX *ctx,
                                    int (*cb)(const SSL_CLIENT_HELLO *)) {
   ctx->dos_protection_cb = cb;

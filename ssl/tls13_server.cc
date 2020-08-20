@@ -719,8 +719,35 @@ static enum ssl_hs_wait_t do_send_server_hello(SSL_HANDSHAKE *hs) {
     }
   }
 
+  hs->tls13_state = state13_send_server_certificate;
+  return ssl_hs_ok;
+}
+
+static enum ssl_hs_wait_t do_send_server_certificate(SSL_HANDSHAKE *hs) {
+  SSL *const ssl = hs->ssl;
+
   // Send the server Certificate message, if necessary.
   if (!ssl->s3->session_reused) {
+    if (ssl->ctx->late_select_certificate_cb != nullptr) {
+      switch (ssl->ctx->late_select_certificate_cb(
+          ssl, hs->transcript.buffer().data(),
+          hs->transcript.buffer().size())) {
+        case ssl_select_cert_retry:
+          return ssl_hs_certificate_selection_pending;
+        case ssl_select_cert_error:
+          OPENSSL_PUT_ERROR(SSL, SSL_R_CONNECTION_REJECTED);
+          ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_HANDSHAKE_FAILURE);
+          return ssl_hs_error;
+        default:
+            /* fallthrough */;
+      }
+      ssl_on_certificate_selected(hs);
+      // Now that the late cert callback has run, the transcript buffer can be
+      // freed (unless handback is in use).
+      if (!hs->handback) {
+        hs->transcript.FreeBuffer();
+      }
+    }
     if (!ssl_has_certificate(hs)) {
       OPENSSL_PUT_ERROR(SSL, SSL_R_NO_CERTIFICATE_SET);
       return ssl_hs_error;
@@ -1102,6 +1129,9 @@ enum ssl_hs_wait_t tls13_server_handshake(SSL_HANDSHAKE *hs) {
       case state13_send_server_hello:
         ret = do_send_server_hello(hs);
         break;
+      case state13_send_server_certificate:
+        ret = do_send_server_certificate(hs);
+        break;
       case state13_send_server_certificate_verify:
         ret = do_send_server_certificate_verify(hs);
         break;
@@ -1166,6 +1196,8 @@ const char *tls13_server_handshake_state(SSL_HANDSHAKE *hs) {
       return "TLS 1.3 server read_second_client_hello";
     case state13_send_server_hello:
       return "TLS 1.3 server send_server_hello";
+    case state13_send_server_certificate:
+      return "TLS 1.3 server send_server_certificate";
     case state13_send_server_certificate_verify:
       return "TLS 1.3 server send_server_certificate_verify";
     case state13_send_half_rtt_ticket:
