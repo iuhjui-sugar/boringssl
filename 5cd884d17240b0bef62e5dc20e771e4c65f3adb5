@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a6dd64c9_bb26bd3f",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1146,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-20T18:57:41Z",
+      "side": 1,
+      "message": "This one, and related, are not in upstream, but it\u0027s compatible and, without it, it\u0027s unclear that these copy rather than take ownership of data.",
+      "range": {
+        "startLine": 1146,
+        "startChar": 44,
+        "endLine": 1146,
+        "endChar": 74
+      },
+      "revId": "5cd884d17240b0bef62e5dc20e771e4c65f3adb5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
