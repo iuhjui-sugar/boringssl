@@ -41,7 +41,9 @@ import (
 )
 
 var (
+	dumpRegcap     = flag.Bool("regcap", false, "Print module capabilities JSON to stdout")
 	configFilename = flag.String("config", "config.json", "Location of the configuration JSON file")
+	jsonInputFile  = flag.String("json", "", "Location of a vector-set input file")
 	runFlag        = flag.String("run", "", "Name of primitive to run tests for")
 	wrapperPath    = flag.String("wrapper", "../../../../build/util/fipstools/acvp/modulewrapper/modulewrapper", "Path to the wrapper binary")
 )
@@ -124,7 +126,7 @@ func TOTP(secret []byte) string {
 type Middle interface {
 	Close()
 	Config() ([]byte, error)
-	Process(algorithm string, vectorSet []byte) ([]byte, error)
+	Process(algorithm string, vectorSet []byte) (interface{}, error)
 }
 
 func loadCachedSessionTokens(server *acvp.Server, cachePath string) error {
@@ -171,6 +173,101 @@ func trimLeadingSlash(s string) string {
 		return s[1:]
 	}
 	return s
+}
+
+// processFile reads a file containing vector sets, at least in the format
+// preferred by our lab, and writes the results to stdout.
+func processFile(filename string, supportedAlgos []map[string]interface{}, middle Middle) error {
+	jsonBytes, err := ioutil.ReadFile(filename)
+	if err != nil {
+		return err
+	}
+
+	var elements []map[string]interface{}
+	if err := json.Unmarshal(jsonBytes, &elements); err != nil {
+		return err
+	}
+
+	// There must be at least a header and one vector set in the file.
+	if len(elements) < 2 {
+		return fmt.Errorf("only %d elements in JSON array", len(elements))
+	}
+	header := elements[0]
+
+	// Build a map of which algorithms our Middle supports.
+	algos := make(map[string]struct{})
+	for _, supportedAlgo := range supportedAlgos {
+		algoInterface, ok := supportedAlgo["algorithm"]
+		if !ok {
+			continue
+		}
+		algo, ok := algoInterface.(string)
+		if !ok {
+			continue
+		}
+		algos[algo] = struct{}{}
+	}
+
+	var result bytes.Buffer
+	result.WriteString("[\n")
+	headerBytes, err := json.MarshalIndent(header, "", "    ")
+	if err != nil {
+		return err
+	}
+	result.Write(headerBytes)
+
+	for i, element := range elements[1:] {
+		algoInterface, ok := element["algorithm"]
+		if !ok {
+			return fmt.Errorf("no algorithm in vector set #%d", i+1)
+		}
+		algo, ok := algoInterface.(string)
+		if !ok {
+			return fmt.Errorf("no algorithm in vector set #%d, found %T", i+1, algoInterface)
+		}
+
+		if _, ok := algos[algo]; !ok {
+			return fmt.Errorf("vector set #%d contains unsupported algorithm %q", i+1, algo)
+		}
+
+		vsInterface, ok := element["vsId"]
+		if !ok {
+			return fmt.Errorf("no ID in vector set #%d", i+1)
+		}
+		vsId, ok := vsInterface.(float64)
+		if !ok {
+			return fmt.Errorf("no ID in vector set #%d, found %T", i+1, vsInterface)
+		}
+
+		vectorsBytes, err := json.Marshal(element)
+		if err != nil {
+			return err
+		}
+
+		replyGroups, err := middle.Process(algo, vectorsBytes)
+		if err != nil {
+			return fmt.Errorf("while processing vector set #%d: %s", i+1, err)
+		}
+
+		group := map[string]interface{}{
+			"vsId":       vsId,
+			"testGroups": replyGroups,
+		}
+		replyBytes, err := json.MarshalIndent(group, "", "    ")
+		if err != nil {
+			return err
+		}
+
+		if i > 0 {
+			result.WriteString(",\n")
+		}
+		result.Write(replyBytes)
+	}
+
+	result.WriteString("]\n")
+	os.Stdout.Write(result.Bytes())
+
+	return nil
 }
 
 func main() {
@@ -227,6 +324,27 @@ func main() {
 	var supportedAlgos []map[string]interface{}
 	if err := json.Unmarshal(configBytes, &supportedAlgos); err != nil {
 		log.Fatalf("failed to parse configuration from Middle: %s", err)
+	}
+
+	if *dumpRegcap {
+		regcap := []map[string]interface{}{
+			map[string]interface{}{"acvVersion": "1.0"},
+			map[string]interface{}{"algorithms": supportedAlgos},
+		}
+		regcapBytes, err := json.MarshalIndent(regcap, "", "    ")
+		if err != nil {
+			log.Fatalf("failed to marshal regcap: %s", err)
+		}
+		os.Stdout.Write(regcapBytes)
+		os.Stdout.WriteString("\n")
+		os.Exit(0)
+	}
+
+	if len(*jsonInputFile) > 0 {
+		if err := processFile(*jsonInputFile, supportedAlgos, middle); err != nil {
+			log.Fatalf("failed to process input file: %s", err)
+		}
+		os.Exit(0)
 	}
 
 	runAlgos := make(map[string]bool)
@@ -370,7 +488,14 @@ func main() {
 			var resultBuf bytes.Buffer
 			resultBuf.Write(headerBytes[:len(headerBytes)-1])
 			resultBuf.WriteString(`,"testGroups":`)
-			resultBuf.Write(replyGroups)
+			replyBytes, err := json.Marshal(replyGroups)
+			if err != nil {
+				log.Printf("Failed to marshal result: %s", err)
+				log.Printf("Deleting test set")
+				server.Delete(url)
+				os.Exit(1)
+			}
+			resultBuf.Write(replyBytes)
 			resultBuf.WriteString("}")
 
 			resultData := resultBuf.Bytes()
