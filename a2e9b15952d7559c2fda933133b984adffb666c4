@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b814b976_02af1762",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-08-25T22:12:23Z",
+      "side": 1,
+      "message": "PTAL! The comments in internal.h need some help.",
+      "revId": "a2e9b15952d7559c2fda933133b984adffb666c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68860f32_de441b08",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-08-25T22:12:23Z",
+      "side": 1,
+      "message": "This and the other other two function bodies are essentially copy/pasted from their Base counterparts. The only thing that differs is the mode, psk, and psk_len. Since I\u0027m only repeating myself twice per setup function, I\u0027m resisting the urge to write internal helper functions AllEncompassingSetupS(_) and AllEncompassingSetupS(_). Is that the right call?",
+      "revId": "a2e9b15952d7559c2fda933133b984adffb666c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
