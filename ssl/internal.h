@@ -150,6 +150,8 @@
 #include <new>
 #include <type_traits>
 #include <utility>
+#include <string>
+#include <vector>
 
 #include <openssl/aead.h>
 #include <openssl/err.h>
@@ -3034,6 +3036,23 @@ void ssl_reset_error_state(SSL *ssl);
 // current state of the error queue.
 void ssl_set_read_error(SSL *ssl);
 
+// ssl_esni_enable return 1 on success, 0 on failure. On success, the socket
+// |ssl| will be configured to use encrypted_server_name TLS extensions over
+// server_name TLS extensions. Caller's must pass the base64 encoded ESNI config
+// from a valid DNS record in |esni_config| and optionally specify the a dummy
+// hostname to be displayed in the server_name extension. If |dummy_hostname| is
+// NULL the server_name TLS extension will not be generated.
+int ssl_esni_enable(SSL *ssl, const char *esni_config,
+                    const char *dummy_hostname);
+
+// ssl_esni_add_clienthello adds an 'encrypted_server_name' extension to |out|
+// if the SSL socket in |hs| has been configured to use ESNI with
+// ssl_esni_enable. If ESNI has not been configured, this routine succeeds with
+// no side effects. If ESNI has been configured, this routine will attempt to
+// add an 'encrypted_server_name' structure to out for the hostname specified in
+// hs->ssl->hostname using the key materails and metadata in hs->ssl->esni.
+int ssl_esni_add_clienthello(SSL_HANDSHAKE *hs, CBB *out);
+
 BSSL_NAMESPACE_END
 
 
@@ -3348,6 +3367,108 @@ struct ssl_ctx_st {
   friend void SSL_CTX_free(SSL_CTX *);
 };
 
+struct esni_config_st {
+  // Specifies if ESNI has been successfully setup on this socket.
+  bool enabled{false};
+
+  // The full base64 decoded ESNI config retrieved from a DNS entry. This
+  // includes public key, suite, and KeyShare information.
+  std::string base64;
+
+  // Do not use, use |raw| instead.
+  std::vector<uint8_t> raw_bytes;
+
+  // Raw ESNI config retrieved via DNS or by file. This includes public key,
+  // suite, and KeyShare information.
+  bssl::Span<uint8_t> raw;
+
+  // Decoded config, ready for consumption.
+  struct {
+    // Upto 512-bit hash of the peer's ESNIConfig.
+    uint8_t hash[64]{0};
+
+    // Length of the peer ESNIConfig hash.
+    unsigned int hash_len{0};
+
+    // Version, this can only be 0xff01
+    uint16_t version{0};
+
+    // First 4 bytes of the SHA256 hash of the ESNIConfig after bytes 2 thru 6
+    // have been zeroed out.
+    uint8_t checksum[4]{0};
+
+    // The first group id extracted from keyshare. There could be more, but ESNI
+    // only plans to use 1 group at the moment.
+    uint16_t group_id{0};
+
+    // The entirity of the peer's keyshare.
+    bssl::Span<uint8_t> keyshare;
+
+    // The first suite id extracted from
+    uint16_t suite_id{0};
+
+    // The entireity of the peer's suite buffer.
+    bssl::Span<uint8_t> suite;
+
+    // How much padding should be applied to the ServerNameList structure.
+    uint16_t padding_len{0};
+
+    // Date before which this config is not valid. This is the unix epoch so the
+    // number of seconds January 1, 1970 00:00 GMT,
+    uint64_t not_before{0};
+
+    // Date before which this config is not valid. This is the unix epoch so the
+    // number of seconds January 1, 1970 00:00 GMT,
+    uint64_t not_after{0};
+
+    // The length of the extension buffer, this will very likely be 0.
+    uint16_t ext_len{0};
+
+    // The entireity of the extension buffer. Currently unsupported.
+    bssl::Span<uint8_t> ext;
+  } config;
+
+  // The dummy SNI hostname used in the TLS server name extension.
+  std::string dummy_hostname;
+
+  // The nonce used to build the inner SNI.
+  uint8_t nonce[16]{0};
+
+  // The keyshare from our emphemeral private key and the peer's ESNI keyshare.
+  // The private key can be retrieved from here with here with
+  // SSLKeyShare::Serialize.
+  bssl::UniquePtr<bssl::SSLKeyShare> keyshare;
+
+  // The ephemeral public key.
+  bssl::Span<uint8_t> public_key;
+
+  // The raw bytes of the ephemeral public key. Do not use, use public_key
+  // instead.
+  std::vector<uint8_t> public_key_bytes;
+
+  // Crypto configuration data.
+  struct {
+    // The cipher specfied (derived from the ESNI config suite_id)
+    const SSL_CIPHER *cipher{nullptr};
+
+    // The group id (derived from the cipher, should be the same as the
+    // ESNIConfig group id).
+    int group_id{0};
+
+    // The aead encryption function (derived from from the cipher)
+    const EVP_AEAD *aead{nullptr};
+
+    // The digest function (derived from cipher).
+    const EVP_MD *digest{nullptr};
+
+    // The key used to encrypt the SNI.
+    uint8_t key[16]{0};
+
+    // The IV used to encrypt the SNI.
+    uint8_t iv[12]{0};
+  } crypto;
+};
+
 struct ssl_st {
   explicit ssl_st(SSL_CTX *ctx_arg);
   ssl_st(const ssl_st &) = delete;
@@ -3435,6 +3556,11 @@ struct ssl_st {
 
   // If enable_early_data is true, early data can be sent and accepted.
   bool enable_early_data : 1;
+
+  // Encrypted server name indication metadata. Fields in this struct specify if
+  // ESNI should be used over SNI, and what the public key and esni
+  // configuration for the domain in question is.
+  esni_config_st esni;
 };
 
 struct ssl_session_st {

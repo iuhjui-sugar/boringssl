@@ -2138,6 +2138,10 @@ int SSL_CTX_set_tlsext_servername_callback(
   return 1;
 }
 
+int SSL_set_tlsext_esni_config(SSL *ssl, const char *esni_config, const char *dummy_hostname) {
+  return ssl_esni_enable(ssl, esni_config, dummy_hostname);
+}
+
 int SSL_CTX_set_tlsext_servername_arg(SSL_CTX *ctx, void *arg) {
   ctx->servername_arg = arg;
   return 1;

@@ -543,6 +543,22 @@ static bool ext_sni_add_clienthello(SSL_HANDSHAKE *hs, CBB *out) {
     return true;
   }
 
+  const char *hostname = ssl->hostname.get();
+  if (ssl->esni.enabled) {
+    // We are doing ESNI. If there is no dummy_hostname the caller wants
+    // to do ESNI but without SNI so we return true (and do not add) a
+    // server_name extension to the client_hello.
+    if (ssl->esni.dummy_hostname.size() == 0) {
+      return true;
+    }
+
+    // There is a dummy hostname, the caller wants to do ESNI with a fake
+    // SNI server_name TLS extension, so change the hostname that will end
+    // up the server_name to the dummy hostname.
+    hostname = ssl->esni.dummy_hostname.c_str();
+  }
+
+  // If we got to here then we are ready to build the SNI extension.
   CBB contents, server_name_list, name;
   if (!CBB_add_u16(out, TLSEXT_TYPE_server_name) ||
       !CBB_add_u16_length_prefixed(out, &contents) ||
@@ -582,6 +598,36 @@ static bool ext_sni_add_serverhello(SSL_HANDSHAKE *hs, CBB *out) {
     return false;
   }
 
+  return true;
+}
+
+static bool ext_esni_add_clienthello(SSL_HANDSHAKE *hs, CBB *out) {
+  if (!hs->ssl->esni.enabled) {
+    return true;
+  }
+  return ssl_esni_add_clienthello(hs, out);
+}
+
+static bool ext_esni_parse_serverhello(SSL_HANDSHAKE *hs, uint8_t *out_alert,
+                                       CBS *contents) {
+  if (!hs->ssl->esni.enabled) {
+    return true;
+  }
+  if ((contents == nullptr) ||
+      (CBS_len(contents) != sizeof(hs->ssl->esni.nonce)) ||
+      (memcmp(CBS_data(contents), hs->ssl->esni.nonce,
+              sizeof(hs->ssl->esni.nonce)) != 0)) {
+    return false;
+  }
+  return true;
+}
+
+static bool ext_esni_parse_clienthello(SSL_HANDSHAKE *hs, uint8_t *out_alert,
+                                       CBS *contents) {
+  return true;
+}
+
+static bool ext_esni_add_serverhello(SSL_HANDSHAKE *hs, CBB *out) {
   return true;
 }
 
@@ -2977,6 +3023,14 @@ static const struct tls_extension kExtensions[] = {
     forbid_parse_serverhello,
     ext_delegated_credential_parse_clienthello,
     dont_add_serverhello,
+  },
+  {
+    TLSEXT_TYPE_esni,
+    NULL,
+    ext_esni_add_clienthello,
+    ext_esni_parse_serverhello,
+    ext_esni_parse_clienthello,
+    ext_esni_add_serverhello,
   },
 };
 

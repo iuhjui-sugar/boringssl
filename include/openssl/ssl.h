@@ -456,6 +456,15 @@ OPENSSL_EXPORT int SSL_get_quiet_shutdown(const SSL *ssl);
 // error was fatal and, if not, when to retry.
 OPENSSL_EXPORT int SSL_get_error(const SSL *ssl, int ret_code);
 
+// SSL_set_tlsext_esni_config returns 1 on success, 0 on failure. On success,
+// |ssl| will be configured to use encrypted_server_name TLS extensions as well
+// as/instead of server_name TLS extensions. Caller's must pass the base64
+// encoded |esni_config| from a valid DNS record. Callers can  optionally
+// specify the a dummy hostname to be displayed in the server_name extension. If
+// |dummy_hostname| is NULL the server_name TLS extension will not be generated.
+OPENSSL_EXPORT int SSL_set_tlsext_esni_config(SSL *ssl, const char *esni_config,
+                                              const char *dummy_hostname);
+
 // SSL_ERROR_NONE indicates the operation succeeded.
 #define SSL_ERROR_NONE 0
 

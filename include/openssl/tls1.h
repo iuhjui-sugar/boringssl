@@ -235,6 +235,9 @@ extern "C" {
 // ExtensionType value from draft-ietf-tls-subcerts.
 #define TLSEXT_TYPE_delegated_credential 0x22
 
+// Added support for draft-ieft-tls-esni-05.
+#define TLSEXT_TYPE_esni 0xffce
+
 // ExtensionType value from RFC6962
 #define TLSEXT_TYPE_certificate_timestamp 18
 

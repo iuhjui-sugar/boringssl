@@ -39,6 +39,7 @@ add_library(
   tls13_client.cc
   tls13_enc.cc
   tls13_server.cc
+  tls13_esni.cc
 )
 
 add_dependencies(ssl global_target)

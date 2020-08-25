@@ -149,6 +149,14 @@ static const struct argument kArguments[] = {
         "Print debug information about the handshake",
     },
     {
+        "-esni-config", kOptionalArgument,
+        "The base64 encoded esni config from a DNS record, e.g. /wGLkQqdACQAHQAgO7GMcYpaVkTrPDf2mQ8A2vOAW0xsDJnUl5eOg+Dg1GUAAhMBAQQAAAAAXmGuoAAAAABeaZegAAA=",
+    },
+    {
+        "-esni-dummy-hostname", kOptionalArgument,
+        "The hostname and port of the server to connect to, e.g. dummy.hostname",
+    },
+    {
         "", kOptionalArgument, "",
     },
 };
@@ -260,6 +268,17 @@ static bool DoConnection(SSL_CTX *ctx,
 
   bssl::UniquePtr<BIO> bio(BIO_new_socket(sock, BIO_CLOSE));
   bssl::UniquePtr<SSL> ssl(SSL_new(ctx));
+
+  if (args_map.count("-esni-config") != 0) {
+    const char *dummy_hostname{nullptr};
+    if (args_map.count("-esni-dummy-hostname") != 0) {
+      dummy_hostname = args_map["-esni-dummy-hostname"].c_str();
+    }
+    
+    if (!SSL_set_tlsext_esni_config(ssl.get(), args_map["-esni-config"].c_str(), dummy_hostname)) {
+      return false;
+    }
+  }
 
   if (args_map.count("-server-name") != 0) {
     SSL_set_tlsext_host_name(ssl.get(), args_map["-server-name"].c_str());
