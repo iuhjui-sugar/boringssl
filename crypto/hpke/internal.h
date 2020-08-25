@@ -29,7 +29,7 @@ extern "C" {
 // Hybrid Public Key Encryption (HPKE) enables a sender to encrypt messages to a
 // receiver with a public key.
 //
-// See https://tools.ietf.org/html/draft-irtf-cfrg-hpke-04.
+// See https://tools.ietf.org/html/draft-irtf-cfrg-hpke-05.
 
 // EVP_HPKE_AEAD_* are AEAD identifiers.
 #define EVP_HPKE_AEAD_AES_GCM_128 0x0001
@@ -78,8 +78,6 @@ OPENSSL_EXPORT void EVP_HPKE_CTX_cleanup(EVP_HPKE_CTX *ctx);
 // must be one of the |EVP_HPKE_HKDF_*| constants. |aead_id| selects the AEAD
 // for the "open" and "seal" operations and must be one of the |EVP_HPKE_AEAD_*"
 // constants."
-//
-// See https://www.ietf.org/id/draft-irtf-cfrg-hpke-04.html#section-5.1.1.
 
 // EVP_HPKE_CTX_setup_base_s_x25519 sets up |hpke| as a sender context that can
 // encrypt for the private key corresponding to |peer_public_value| (the
@@ -113,6 +111,30 @@ OPENSSL_EXPORT int EVP_HPKE_CTX_setup_base_r_x25519(
     const uint8_t public_key[X25519_PUBLIC_VALUE_LEN],
     const uint8_t private_key[X25519_PRIVATE_KEY_LEN], const uint8_t *info,
     size_t info_len);
+
+// TODO(dmcardle) add documentation for PSK setup variants.
+OPENSSL_EXPORT int EVP_HPKE_CTX_setup_psk_s_x25519(
+    EVP_HPKE_CTX *hpke, uint8_t out_enc[X25519_PUBLIC_VALUE_LEN],
+    uint16_t kdf_id, uint16_t aead_id,
+    const uint8_t peer_public_value[X25519_PUBLIC_VALUE_LEN],
+    const uint8_t *info, size_t info_len, const uint8_t *psk, size_t psk_len,
+    const uint8_t *psk_id, size_t psk_id_len);
+
+OPENSSL_EXPORT int EVP_HPKE_CTX_setup_psk_s_x25519_for_test(
+    EVP_HPKE_CTX *hpke, uint16_t kdf_id, uint16_t aead_id,
+    const uint8_t peer_public_value[X25519_PUBLIC_VALUE_LEN],
+    const uint8_t *info, size_t info_len, const uint8_t *psk, size_t psk_len,
+    const uint8_t *psk_id, size_t psk_id_len,
+    const uint8_t ephemeral_private[X25519_PRIVATE_KEY_LEN],
+    const uint8_t ephemeral_public[X25519_PUBLIC_VALUE_LEN]);
+
+OPENSSL_EXPORT int EVP_HPKE_CTX_setup_psk_r_x25519(
+    EVP_HPKE_CTX *hpke, uint16_t kdf_id, uint16_t aead_id,
+    const uint8_t enc[X25519_PUBLIC_VALUE_LEN],
+    const uint8_t public_key[X25519_PUBLIC_VALUE_LEN],
+    const uint8_t private_key[X25519_PRIVATE_KEY_LEN], const uint8_t *info,
+    size_t info_len, const uint8_t *psk, size_t psk_len, const uint8_t *psk_id,
+    size_t psk_id_len);
 
 
 // Using an HPKE context.
