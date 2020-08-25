@@ -33,6 +33,11 @@
 namespace bssl {
 namespace {
 
+enum HpkeMode {
+  Base = 0,
+  Psk = 1,
+};
+
 // HpkeTestVector corresponds to one array member in the published
 // test-vectors.json.
 class HpkeTestVector {
@@ -43,21 +48,48 @@ class HpkeTestVector {
   bool ReadFromFileTest(FileTest *t);
 
   void Verify() const {
-    // Set up the sender.
     ScopedEVP_HPKE_CTX sender_ctx;
-    ASSERT_GT(secret_key_e_.size(), 0u);
-
-    ASSERT_TRUE(EVP_HPKE_CTX_setup_base_s_x25519_for_test(
-        sender_ctx.get(), kdf_id_, aead_id_, public_key_r_.data(), info_.data(),
-        info_.size(), secret_key_e_.data(), public_key_e_.data()));
-
-    // Set up the receiver.
     ScopedEVP_HPKE_CTX receiver_ctx;
 
-    ASSERT_TRUE(EVP_HPKE_CTX_setup_base_r_x25519(
-        receiver_ctx.get(), kdf_id_, aead_id_, public_key_e_.data(),
-        public_key_r_.data(), secret_key_r_.data(), info_.data(),
-        info_.size()));
+    switch (mode_) {
+      case HpkeMode::Base:
+        ASSERT_GT(secret_key_e_.size(), 0u);
+        ASSERT_EQ(psk_.size(), 0u);
+        ASSERT_EQ(psk_id_.size(), 0u);
+
+        // Set up the sender.
+        ASSERT_TRUE(EVP_HPKE_CTX_setup_base_s_x25519_for_test(
+            sender_ctx.get(), kdf_id_, aead_id_, public_key_r_.data(),
+            info_.data(), info_.size(), secret_key_e_.data(),
+            public_key_e_.data()));
+
+        // Set up the receiver.
+        ASSERT_TRUE(EVP_HPKE_CTX_setup_base_r_x25519(
+            receiver_ctx.get(), kdf_id_, aead_id_, public_key_e_.data(),
+            public_key_r_.data(), secret_key_r_.data(), info_.data(),
+            info_.size()));
+        break;
+
+      case HpkeMode::Psk:
+        ASSERT_GT(secret_key_e_.size(), 0u);
+        ASSERT_GT(psk_.size(), 0u);
+        ASSERT_GT(psk_id_.size(), 0u);
+
+        // Set up the sender.
+        ASSERT_TRUE(EVP_HPKE_CTX_setup_psk_s_x25519_for_test(
+            sender_ctx.get(), kdf_id_, aead_id_, public_key_r_.data(),
+            info_.data(), info_.size(), psk_.data(), psk_.size(),
+            psk_id_.data(), psk_id_.size(), secret_key_e_.data(),
+            public_key_e_.data()));
+
+        // Set up the receiver.
+        ASSERT_TRUE(EVP_HPKE_CTX_setup_psk_r_x25519(
+            receiver_ctx.get(), kdf_id_, aead_id_, public_key_e_.data(),
+            public_key_r_.data(), secret_key_r_.data(), info_.data(),
+            info_.size(), psk_.data(), psk_.size(), psk_id_.data(),
+            psk_id_.size()));
+        break;
+    }
 
     VerifyEncryptions(sender_ctx.get(), receiver_ctx.get());
     VerifyExports(sender_ctx.get());
@@ -112,6 +144,7 @@ class HpkeTestVector {
     std::vector<uint8_t> exportValue;
   };
 
+  uint8_t mode_;
   uint16_t kdf_id_;
   uint16_t aead_id_;
   std::vector<uint8_t> context_;
@@ -122,6 +155,9 @@ class HpkeTestVector {
   std::vector<uint8_t> secret_key_r_;
   std::vector<Encryption> encryptions_;
   std::vector<Export> exports_;
+  std::vector<uint8_t> psk_; // Empty when mode is not PSK.
+  std::vector<uint8_t> psk_id_; // Empty when mode is not PSK.
+
 };
 
 // Match FileTest's naming scheme for duplicated attribute names.
@@ -157,7 +193,8 @@ bool FileTestReadInt(FileTest *file_test, T *out, const std::string &key) {
 
 
 bool HpkeTestVector::ReadFromFileTest(FileTest *t) {
-  if (!FileTestReadInt(t, &kdf_id_, "kdf_id") ||
+  if (!FileTestReadInt(t, &mode_, "mode") ||
+      !FileTestReadInt(t, &kdf_id_, "kdf_id") ||
       !FileTestReadInt(t, &aead_id_, "aead_id") ||
       !t->GetBytes(&info_, "info") ||
       !t->GetBytes(&secret_key_r_, "skRm") ||
@@ -165,6 +202,13 @@ bool HpkeTestVector::ReadFromFileTest(FileTest *t) {
       !t->GetBytes(&secret_key_e_, "skEm") ||
       !t->GetBytes(&public_key_e_, "pkEm")) {
     return false;
+  }
+
+  if (mode_ == HpkeMode::Psk) {
+    if (!t->GetBytes(&psk_, "psk") ||
+        !t->GetBytes(&psk_id_, "psk_id")) {
+      return false;
+    }
   }
 
   for (int i = 1; t->HasAttribute(BuildAttrName("aad", i)); i++) {
