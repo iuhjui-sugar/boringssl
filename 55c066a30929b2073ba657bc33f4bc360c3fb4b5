@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c5f83fe8_e75be6c4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-08-25T15:37:44Z",
+      "side": 1,
+      "message": "Thanks for the work! However, I fear that this would not be suitable for BoringSSL. We strongly recommend that outside contributors contact us about any significant contributions ahead of time so that things can be coordinated.\n\nESNI/ECH is a currently a moving target at the IETF and it looks like this is based on draft 05, but things are already on 07. ESNI also has to be shaped concurrently with changes to a client\u0027s DNS stack in order to be effective. At this time, it seems that landing ESNI/ECH support would be premature and it\u0027s also something that probably has to be done in significant consultation with the people who are shaping the draft as well as other parts of the network stack to make this possible.",
+      "revId": "55c066a30929b2073ba657bc33f4bc360c3fb4b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
