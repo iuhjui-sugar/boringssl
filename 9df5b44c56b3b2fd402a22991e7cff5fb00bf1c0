@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4ff600f7_500e185b",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-26T18:18:05Z",
+      "side": 1,
+      "message": "I\u0027m guessing you got this from the spec, but this is unreachable anyway. Maybe just an assert? Saves having to deal with OPENSSL_PUT_ERROR.",
+      "revId": "9df5b44c56b3b2fd402a22991e7cff5fb00bf1c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78756427_c214caf2",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-26T18:18:05Z",
+      "side": 1,
+      "message": "psk_id_len?",
+      "range": {
+        "startLine": 168,
+        "startChar": 26,
+        "endLine": 168,
+        "endChar": 33
+      },
+      "revId": "9df5b44c56b3b2fd402a22991e7cff5fb00bf1c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dac7231c_81197408",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-26T18:18:05Z",
+      "side": 1,
+      "message": "This is actually quite reachable from the caller and not even an internal error, so this should OPENSSL_PUT_ERROR something. (TBH I probably would have just said empty strings are totally valid, if kinda silly, but I guess the spec explicitly prohibits the empty string. Meh.)",
+      "revId": "9df5b44c56b3b2fd402a22991e7cff5fb00bf1c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7011cdc5_45529186",
+        "filename": "crypto/hpke/hpke_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-26T18:18:05Z",
+      "side": 1,
+      "message": "enum class since otherwise Base and Psk get pulled into the parent namespace. Actually I\u0027m surprised HpkeMode::Base below worked with plain enums.\n\nAlso I think kBase and kPsk. (Although we prefer kPSK because acronyms... to that end, HpkeMode and HpkeTestVector probably should have been HPKEMode and HPKETestVector. Oops.)",
+      "revId": "9df5b44c56b3b2fd402a22991e7cff5fb00bf1c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0036e72d_80b3f859",
+        "filename": "crypto/hpke/hpke_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-26T18:18:05Z",
+      "side": 1,
+      "message": "Nit: stray newline",
+      "revId": "9df5b44c56b3b2fd402a22991e7cff5fb00bf1c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "28e7fce3_501fbc18",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-26T18:18:05Z",
+      "side": 1,
+      "message": "Should this mention the PSK?",
+      "revId": "9df5b44c56b3b2fd402a22991e7cff5fb00bf1c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
