@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ea800a5_96eb7192",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-26T23:54:04Z",
+      "side": 1,
+      "message": "Optional: Probably not worth it, but I think the prefix parameter would indent everything to match the leading [.",
+      "range": {
+        "startLine": 213,
+        "startChar": 48,
+        "endLine": 213,
+        "endChar": 50
+      },
+      "revId": "ae3746c1f987e482295c84654c40f8cd8d8f3e32",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c4618bf_21bd6b38",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-26T23:54:04Z",
+      "side": 1,
+      "message": "Optional: Might be able to avoid some of the manual casting and reencoding with json.RawMessage. Something like...\n\n1. Parse jsonBytes into a []json.RawMessage\n2. Round-trip the header a bit (this is mildly annoying, but json.Decoder.Token() is probably overkill.\n3. Parse subsequent json.RawMessage into struct { algorithm string; vsId int }\n4. Pass the original unparsed json.RawMessage back into middle.Process.",
+      "revId": "ae3746c1f987e482295c84654c40f8cd8d8f3e32",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
