@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d0f77168_476c8583",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-08-26T15:20:23Z",
+      "side": 1,
+      "message": "PTAL! This could be squashed into the parent if you\u0027d prefer.",
+      "revId": "087659b1affa8fd70e223fe0a4f3384182b44aef",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
