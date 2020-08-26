@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5d010986_727d5905",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-08-26T19:31:29Z",
+      "side": 1,
+      "message": "Is this a reasonable error to use?",
+      "revId": "6749c9a3fd3795e15136c2524a42e4859a46ab6d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eda65034_8b98b125",
+        "filename": "crypto/hpke/hpke_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-08-26T19:31:29Z",
+      "side": 1,
+      "message": "Should I be checking and/or clearing the error stack?",
+      "revId": "6749c9a3fd3795e15136c2524a42e4859a46ab6d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}

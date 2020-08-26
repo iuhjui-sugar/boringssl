@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "283c8d97_932bad4d",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-08-26T19:31:29Z",
+      "side": 1,
+      "message": "Aha, I see. I\u0027ll make this an assert.",
+      "parentUuid": "4ff600f7_500e185b",
+      "revId": "9df5b44c56b3b2fd402a22991e7cff5fb00bf1c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "78756427_c214caf2",
         "filename": "crypto/hpke/hpke.c",
         "patchSetId": 3
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "d8a616ff_e3c41ab2",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-08-26T19:31:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78756427_c214caf2",
+      "range": {
+        "startLine": 168,
+        "startChar": 26,
+        "endLine": 168,
+        "endChar": 33
+      },
+      "revId": "9df5b44c56b3b2fd402a22991e7cff5fb00bf1c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dac7231c_81197408",
         "filename": "crypto/hpke/hpke.c",
         "patchSetId": 3
@@ -56,6 +98,24 @@
       "revId": "9df5b44c56b3b2fd402a22991e7cff5fb00bf1c0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13d4a9fc_73858d5b",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-08-26T19:31:29Z",
+      "side": 1,
+      "message": "OK, I\u0027m also adding a test to make sure we fail on these mismatching PSK inputs.",
+      "parentUuid": "dac7231c_81197408",
+      "revId": "9df5b44c56b3b2fd402a22991e7cff5fb00bf1c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -76,6 +136,24 @@
     },
     {
       "key": {
+        "uuid": "a2b6939b_aa6c801d",
+        "filename": "crypto/hpke/hpke_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-08-26T19:31:29Z",
+      "side": 1,
+      "message": "Done. Also s/Hpke/HPKE/.",
+      "parentUuid": "7011cdc5_45529186",
+      "revId": "9df5b44c56b3b2fd402a22991e7cff5fb00bf1c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0036e72d_80b3f859",
         "filename": "crypto/hpke/hpke_test.cc",
         "patchSetId": 3
@@ -93,6 +171,24 @@
     },
     {
       "key": {
+        "uuid": "b4052758_a9b41b4d",
+        "filename": "crypto/hpke/hpke_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-08-26T19:31:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0036e72d_80b3f859",
+      "revId": "9df5b44c56b3b2fd402a22991e7cff5fb00bf1c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "28e7fce3_501fbc18",
         "filename": "crypto/hpke/internal.h",
         "patchSetId": 3
@@ -107,6 +203,24 @@
       "revId": "9df5b44c56b3b2fd402a22991e7cff5fb00bf1c0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f7773618_1dfe5aa6",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-08-26T19:31:29Z",
+      "side": 1,
+      "message": "Yep, updated the PSK setup function comments.",
+      "parentUuid": "28e7fce3_501fbc18",
+      "revId": "9df5b44c56b3b2fd402a22991e7cff5fb00bf1c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
