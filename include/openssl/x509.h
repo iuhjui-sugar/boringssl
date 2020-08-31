@@ -541,6 +541,15 @@ OPENSSL_EXPORT X509_CINF *X509_get_cert_info(const X509 *x509);
 // |X509_get_pubkey| instead.
 #define X509_extract_key(x) X509_get_pubkey(x)
 
+// X509_get_pathlen returns path length constraint from the basic constraints
+// extension in |x509|. (See RFC5280, section 4.2.1.9.) It returns -1 if the
+// constraint is not present, or if some extension in |x509| was invalid.
+//
+// Note that decoding an |X509| object will not check for invalid extensions. To
+// detect the error case, call |X509_get_extensions_flags| and check the
+// |EXFLAG_INVALID| bit.
+OPENSSL_EXPORT long X509_get_pathlen(X509 *x509);
+
 // X509_REQ_get_version returns the numerical value of |req|'s version. That is,
 // it returns zero for a v1 request. If |req| is invalid, it may return another
 // value, or -1 on overflow.
@@ -1016,6 +1025,10 @@ OPENSSL_EXPORT const ASN1_TIME *X509_REVOKED_get0_revocationDate(
     const X509_REVOKED *x);
 OPENSSL_EXPORT int X509_REVOKED_set_revocationDate(X509_REVOKED *r,
                                                    ASN1_TIME *tm);
+
+// X509_REVOKED_get0_extensions returns |r|'s extensions.
+OPENSSL_EXPORT const STACK_OF(X509_EXTENSION) *
+    X509_REVOKED_get0_extensions(const X509_REVOKED *r);
 
 OPENSSL_EXPORT X509_CRL *X509_CRL_diff(X509_CRL *base, X509_CRL *newer,
                                        EVP_PKEY *skey, const EVP_MD *md,
