@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "49673703_dc06b2e2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-08-31T16:32:28Z",
+      "side": 1,
+      "message": "Oops, apparently I forgot to compile this. Ignore me for now.",
+      "revId": "38d0c1a74f576890bb725bd18e3a3d8ccc69549b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
