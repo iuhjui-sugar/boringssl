@@ -2561,3 +2561,13 @@ TEST(X509Test, AlgorithmParameters) {
   EXPECT_EQ(ERR_LIB_X509, ERR_GET_LIB(err));
   EXPECT_EQ(X509_R_INVALID_PARAMETER, ERR_GET_REASON(err));
 }
+
+// Unlike upstream OpenSSL, we require a non-null store in
+// |X509_STORE_CTX_init|.
+TEST(X509Test, NullStore) {
+  bssl::UniquePtr<X509> leaf(CertFromPEM(kLeafPEM));
+  ASSERT_TRUE(leaf);
+  bssl::UniquePtr<X509_STORE_CTX> ctx(X509_STORE_CTX_new());
+  ASSERT_TRUE(ctx);
+  EXPECT_FALSE(X509_STORE_CTX_init(ctx.get(), nullptr, leaf.get(), nullptr));
+}
