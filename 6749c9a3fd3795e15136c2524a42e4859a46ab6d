@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fcd83a32_ee313c29",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-01T19:57:51Z",
+      "side": 1,
+      "message": "EVP_R_MISSING_PARAMETERS is normally algorithm parameters. Maybe EVP_R_EMPTY_PRE_SHARED_KEY or EVP_R_EMPTY_PSK.\n\nOur error system is weird. The mechanic is you use the error in the source, then cd crypto/evp; go run ../../util/make_errors.go. But this code doesn\u0027t live in crypto/evp. For now, you can stick this macro somewhere in crypto/evp (next to the other one), maybe with a comment like:\n\n// The HPKE module uses the EVP error namespace but lives in a different directory.\nOPENSSL_DECLARE_ERROR_REASON(EVP, EMPTY_PRE_SHARED_KEY)",
+      "parentUuid": "5d010986_727d5905",
+      "revId": "6749c9a3fd3795e15136c2524a42e4859a46ab6d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eda65034_8b98b125",
         "filename": "crypto/hpke/hpke_test.cc",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2020-08-26T19:31:29Z",
       "side": 1,
       "message": "Should I be checking and/or clearing the error stack?",
+      "revId": "6749c9a3fd3795e15136c2524a42e4859a46ab6d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7518b858_91ce87dc",
+        "filename": "crypto/hpke/hpke_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-01T19:57:51Z",
+      "side": 1,
+      "message": "Maybe. I wouldn\u0027t bother clearing it, but if you want to test the error, seems reasonable.",
+      "parentUuid": "eda65034_8b98b125",
       "revId": "6749c9a3fd3795e15136c2524a42e4859a46ab6d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true

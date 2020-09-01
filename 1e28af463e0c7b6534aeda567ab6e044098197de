@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "384bf18d_8988e8f3",
+        "filename": "crypto/hpke/hpke_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-01T19:57:51Z",
+      "side": 1,
+      "message": "That\u0027s not what this is testing, is it? It seems to just be testing that setup fails if PSK or PSK ID is empty and indeed setup *doesn\u0027t* fail if PSKs mismatch, only decryption. (I had a hard time understanding what this test was doing.)",
+      "revId": "1e28af463e0c7b6534aeda567ab6e044098197de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf73dbfe_1198691e",
+        "filename": "crypto/hpke/hpke_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-01T19:57:51Z",
+      "side": 1,
+      "message": "Nit: Why this comment but note the receiver comment? (FWIW, I\u0027m not sure the comment is terribly useful since you\u0027re calling setup on the sender already. A comment about testing combinations of empty PSK and PSK ID might be more to the point.)",
+      "revId": "1e28af463e0c7b6534aeda567ab6e044098197de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76607504_1395833b",
+        "filename": "crypto/hpke/hpke_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-01T19:57:51Z",
+      "side": 1,
+      "message": "Nit: Might be a little clearer what\u0027s going on if you pass in nullptr rather than kPSK or kPSKID for the pointers.",
+      "range": {
+        "startLine": 426,
+        "startChar": 32,
+        "endLine": 426,
+        "endChar": 36
+      },
+      "revId": "1e28af463e0c7b6534aeda567ab6e044098197de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a14cc224_a54ec768",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-01T19:57:51Z",
+      "side": 1,
+      "message": "sender",
+      "range": {
+        "startLine": 84,
+        "startChar": 18,
+        "endLine": 84,
+        "endChar": 26
+      },
+      "revId": "1e28af463e0c7b6534aeda567ab6e044098197de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23d1d30d_683b5452",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-01T19:57:51Z",
+      "side": 1,
+      "message": "These two paragraphs seem redundant with the functions themselves.",
+      "revId": "1e28af463e0c7b6534aeda567ab6e044098197de",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
