@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6281b06f_ab39058f",
+        "filename": "ssl/test/runner/hpke/hpke.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-01T21:02:16Z",
+      "side": 1,
+      "message": "kem, kdf, aead, since you don\u0027t mean to export them. (The old kemID, etc., names are also fine and maybe preferable given you\u0027re retaining non-ID values too.)",
+      "range": {
+        "startLine": 57,
+        "startChar": 1,
+        "endLine": 57,
+        "endChar": 4
+      },
+      "revId": "844ba438e32e0a9403fcf9cd772287599ceea52a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc67909d_f19da770",
+        "filename": "ssl/test/runner/hpke/hpke.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-01T21:02:16Z",
+      "side": 1,
+      "message": "kdf and aead, since these are variables. (The old kdfID and aeadID names were also fine.)\n\n(The acronym should be consistently-cased, but if it\u0027s the first word in the variable, lowercase is fine.)",
+      "range": {
+        "startLine": 72,
+        "startChar": 27,
+        "endLine": 72,
+        "endChar": 36
+      },
+      "revId": "844ba438e32e0a9403fcf9cd772287599ceea52a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cbcceabb_d9c03646",
+        "filename": "ssl/test/runner/hpke/hpke.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-01T21:02:16Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 84,
+        "startChar": 29,
+        "endLine": 84,
+        "endChar": 38
+      },
+      "revId": "844ba438e32e0a9403fcf9cd772287599ceea52a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06287b18_d9281053",
+        "filename": "ssl/test/runner/hpke/hpke.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-01T21:02:16Z",
+      "side": 1,
+      "message": "kem or kemID, etc.\n\nDitto also for the rest of this file.",
+      "range": {
+        "startLine": 117,
+        "startChar": 18,
+        "endLine": 117,
+        "endChar": 21
+      },
+      "revId": "844ba438e32e0a9403fcf9cd772287599ceea52a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a8a17e7_c5d5f1e6",
+        "filename": "ssl/test/runner/hpke/hpke.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-01T21:02:16Z",
+      "side": 1,
+      "message": "Ah, I see where the aeadID \u003d\u003e AEAD change came from. This comment wasn\u0027t about the variable names but that I think the panic error should talk about the human concept rather than the variable name.",
+      "range": {
+        "startLine": 214,
+        "startChar": 20,
+        "endLine": 214,
+        "endChar": 24
+      },
+      "revId": "844ba438e32e0a9403fcf9cd772287599ceea52a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3f63f6b8_773f9d6a",
+        "filename": "ssl/test/runner/hpke/hpke_test.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-01T21:02:16Z",
+      "side": 1,
+      "message": "Nit: \"decryption %d\"? It\u0027s the decryption operation that failed.",
+      "range": {
+        "startLine": 142,
+        "startChar": 15,
+        "endLine": 142,
+        "endChar": 36
+      },
+      "revId": "844ba438e32e0a9403fcf9cd772287599ceea52a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "01e7d712_b4a7b83a",
+        "filename": "ssl/test/runner/hpke/kem.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-01T21:02:16Z",
+      "side": 1,
+      "message": "Nit: You can just do suite :\u003d []byte(\"KEM\") here and save the extra append step.\n\nOr, if you want to avoid extra allocations. (You can also do this for the other append towers, but some may be annoying to count up.)\n\nsuite :\u003d make([]byte, 0, 5)\nsuite \u003d append(suite, \"KEM\"...)\nsuite \u003d appendBigEndianUint16(suite, d.ID())",
+      "revId": "844ba438e32e0a9403fcf9cd772287599ceea52a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
