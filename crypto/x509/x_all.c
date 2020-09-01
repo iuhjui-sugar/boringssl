@@ -68,6 +68,15 @@
 
 int X509_verify(X509 *x509, EVP_PKEY *pkey)
 {
+#if defined(BORINGSSL_UNSAFE_FUZZER_MODE)
+    // To stop the fuzzer from getting stuck trying to calculate a valid
+    // signature, allow the byte {1} to be a valid signature in fuzzing mode.
+    if ((x509->signature->flags & 0x7) == 0 && signature->length == 1 &&
+        signature->data[0] == 1) {
+      return 1;
+    }
+#endif
+
     if (X509_ALGOR_cmp(x509->sig_alg, x509->cert_info->signature)) {
         OPENSSL_PUT_ERROR(X509, X509_R_SIGNATURE_ALGORITHM_MISMATCH);
         return 0;

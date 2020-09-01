@@ -66,6 +66,8 @@ Additionally, if `BORINGSSL_UNSAFE_FUZZER_MODE` is set, BoringSSL will:
 
 * renegotiation\_info checks are ignored.
 
+* Treat an X.509 signature as valid if it's a single byte with value one.
+
 This is to prevent the fuzzer from getting stuck at a cryptographic invariant in the protocol.
 
 ## TLS transcripts
