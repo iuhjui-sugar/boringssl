@@ -16,6 +16,23 @@
       "revId": "d34b54bc452b9a0b5c45a6c1c49c14a507089597",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cc1d3676_80fd6359",
+        "filename": "crypto/hpke/hpke_test.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-02T21:38:04Z",
+      "side": 1,
+      "message": "This and line 460 are implied by the lib/reason checks. (I\u0027ll go ahead and remove this to save a round-trip.)",
+      "revId": "d34b54bc452b9a0b5c45a6c1c49c14a507089597",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
