@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b846c37b_311eb54c",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-09-02T21:08:54Z",
+      "side": 1,
+      "message": "Jiggled things around a little, but not indenting more probably works a little better.",
+      "parentUuid": "3ea800a5_96eb7192",
+      "range": {
+        "startLine": 213,
+        "startChar": 48,
+        "endLine": 213,
+        "endChar": 50
+      },
+      "revId": "ae3746c1f987e482295c84654c40f8cd8d8f3e32",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2c4618bf_21bd6b38",
         "filename": "util/fipstools/acvp/acvptool/acvp.go",
         "patchSetId": 2
@@ -39,6 +63,24 @@
       "revId": "ae3746c1f987e482295c84654c40f8cd8d8f3e32",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09a104f7_e45821a6",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-09-02T21:08:54Z",
+      "side": 1,
+      "message": "Much nicer, thank you.",
+      "parentUuid": "2c4618bf_21bd6b38",
+      "revId": "ae3746c1f987e482295c84654c40f8cd8d8f3e32",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
