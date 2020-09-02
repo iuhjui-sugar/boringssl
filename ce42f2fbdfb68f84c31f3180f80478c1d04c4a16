@@ -16,6 +16,57 @@
       "revId": "ce42f2fbdfb68f84c31f3180f80478c1d04c4a16",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a18459bf_f68aff8b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-02T19:47:28Z",
+      "side": 1,
+      "message": "Last couple of nitpicks.",
+      "revId": "ce42f2fbdfb68f84c31f3180f80478c1d04c4a16",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9886ce88_8277036d",
+        "filename": "crypto/hpke/hpke_test.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-02T19:47:28Z",
+      "side": 1,
+      "message": "Nit: Move these right before they\u0027re used.",
+      "revId": "ce42f2fbdfb68f84c31f3180f80478c1d04c4a16",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "496d8bd7_e89955a2",
+        "filename": "crypto/hpke/hpke_test.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-02T19:47:28Z",
+      "side": 1,
+      "message": "ERR_GET_REASON isn\u0027t meaningful without checking ERR_GET_LIB. (This is annoyingly tedious.)\n\n  if (!kExpectSuccess) {\n    uint32_t err \u003d ERR_get_error();\n    EXPECT_EQ(ERR_LIB_EVP, ERR_GET_LIB(err));\n    EXPECT_EQ(EVP_R_EMPTY_PSK, ERR_GET_REASON(err));\n  }",
+      "revId": "ce42f2fbdfb68f84c31f3180f80478c1d04c4a16",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
