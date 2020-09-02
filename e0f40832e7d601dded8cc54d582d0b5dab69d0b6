@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba3b3732_8ac2eea3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-09-02T16:50:11Z",
+      "side": 1,
+      "message": "Thanks, David! New patchset.",
+      "revId": "e0f40832e7d601dded8cc54d582d0b5dab69d0b6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

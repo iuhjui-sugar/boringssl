@@ -105,6 +105,24 @@
     },
     {
       "key": {
+        "uuid": "ab17b3dd_69ede2bd",
+        "filename": "ssl/test/runner/hpke/hpke.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-09-02T16:50:11Z",
+      "side": 1,
+      "message": "Reviving this -- do you think hpke should be its own package?",
+      "parentUuid": "0837d5aa_f3c1fd0a",
+      "revId": "b7e34524ab7fb9e5ed6ffc3ddca43359c573d5f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e594f9e8_d5976275",
         "filename": "ssl/test/runner/hpke/hpke.go",
         "patchSetId": 3
@@ -632,6 +650,24 @@
     },
     {
       "key": {
+        "uuid": "7be37a75_83820246",
+        "filename": "ssl/test/runner/hpke/hpke_test.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-09-02T16:50:11Z",
+      "side": 1,
+      "message": "Closing this. I only kept public API fields and Mode.",
+      "parentUuid": "5d0f20f0_91b41d1d",
+      "revId": "b7e34524ab7fb9e5ed6ffc3ddca43359c573d5f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e9a2deaa_dc5d3318",
         "filename": "ssl/test/runner/hpke/hpke_test.go",
         "patchSetId": 3
@@ -1141,6 +1177,24 @@
       "side": 1,
       "message": "OK, I just inlined the x25519PrivateKey abstraction into its callers.\n\nAs for dhkemX25519 -- I see it might be a little strange to hang functions on an empty struct. It\u0027s really just for organization. Would you prefer to drop the empty struct and break out non-dhkemX25519 things into their own files in the hpke package?",
       "parentUuid": "79e0fac7_583bfab1",
+      "revId": "b7e34524ab7fb9e5ed6ffc3ddca43359c573d5f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a4ecef5_ee3e14fc",
+        "filename": "ssl/test/runner/hpke/kem.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-09-02T16:50:11Z",
+      "side": 1,
+      "message": "Also reviving this -- thoughts on the empty struct dhkemX25519?",
+      "parentUuid": "3eea313e_54616c2a",
       "revId": "b7e34524ab7fb9e5ed6ffc3ddca43359c573d5f2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
