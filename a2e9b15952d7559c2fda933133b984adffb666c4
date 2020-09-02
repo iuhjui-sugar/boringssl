@@ -33,6 +33,24 @@
       "revId": "a2e9b15952d7559c2fda933133b984adffb666c4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ffa1850_08b320dc",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 376,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-09-02T16:24:15Z",
+      "side": 1,
+      "message": "Assuming yes, marking resolved :)",
+      "parentUuid": "68860f32_de441b08",
+      "revId": "a2e9b15952d7559c2fda933133b984adffb666c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
