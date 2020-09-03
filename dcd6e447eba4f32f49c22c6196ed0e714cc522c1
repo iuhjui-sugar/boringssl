@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "59ea483a_c6dee6c4",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-09-03T15:05:11Z",
+      "side": 1,
+      "message": "Hi Watson, was there supposed to be a corresponding change on the parsing side?\n\nIt looks like (*clientHelloMsg).unmarshal() still expects an empty extension:\n\n\t\tcase extensionDelegatedCredentials:\n\t\t\tif len(body) !\u003d 0 {\n\t\t\t\treturn false\n\t\t\t}\n\t\t\tm.delegatedCredentials \u003d true\n\nFor context, I\u0027m toying with adding a BoGo self-interop test. When I don\u0027t explicitly disable DC on the client, the server fails to parse the ClientHello because the DC extension is nonempty.",
+      "revId": "dcd6e447eba4f32f49c22c6196ed0e714cc522c1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
