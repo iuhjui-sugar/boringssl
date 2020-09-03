@@ -16,6 +16,24 @@
       "revId": "dcd6e447eba4f32f49c22c6196ed0e714cc522c1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d57125cf_4879c249",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 9381
+      },
+      "writtenOn": "2020-09-03T19:24:06Z",
+      "side": 1,
+      "message": "Oh yes, there absolutely should have been. The server will have to recreate the signature algorithms and see if the credential is in it. I\u0027m not sure I\u0027ll have the cycles to address that.\n\nThe reason this existed unnoticed until now is we never got client side in BoringSSL, so that path wasn\u0027t exercised.",
+      "parentUuid": "59ea483a_c6dee6c4",
+      "revId": "dcd6e447eba4f32f49c22c6196ed0e714cc522c1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
