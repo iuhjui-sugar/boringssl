@@ -24,6 +24,8 @@
 #include <string>
 #include <vector>
 
+#include <gtest/gtest.h>
+
 #include <openssl/span.h>
 
 #include "../internal.h"
@@ -66,6 +68,15 @@ bool DecodeHex(std::vector<uint8_t> *out, const std::string &in);
 
 // EncodeHex returns |in| encoded in hexadecimal.
 std::string EncodeHex(bssl::Span<const uint8_t> in);
+
+// ErrorMatches checks whether the packed error |err| belongs to library |lib|
+// and has reason |reason|. It returns AssertionSuccess() when the error
+// matches. Otherwise, it returns AssertionFailure() with a human-readable
+// message already written to the stream.
+//
+// Callers must evaluate the returned AssertionResult, e.g. with EXPECT_TRUE.
+// This way, the caller's line numbers are preserved in GTest's output.
+testing::AssertionResult ErrorMatches(uint32_t err, int lib, int reason);
 
 
 #endif  // OPENSSL_HEADER_CRYPTO_TEST_TEST_UTIL_H

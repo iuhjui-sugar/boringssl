@@ -16,7 +16,10 @@
 
 #include <ostream>
 
+#include <openssl/err.h>
+
 #include "../internal.h"
+#include "gtest/gtest.h"
 
 
 void hexdump(FILE *fp, const char *msg, const void *in, size_t len) {
@@ -83,3 +86,17 @@ std::string EncodeHex(bssl::Span<const uint8_t> in) {
   return ret;
 }
 
+testing::AssertionResult ErrorMatches(uint32_t err, int lib, int reason) {
+  const uint32_t wanted_err = ERR_PACK(lib, reason);
+  if (ERR_GET_LIB(err) != lib) {
+    return testing::AssertionFailure()
+        << "Expected error lib \"" << ERR_lib_error_string(wanted_err)
+        << "\", got \"" << ERR_lib_error_string(err) << "\".";
+  }
+  if (ERR_GET_REASON(err) != reason) {
+    return testing::AssertionFailure()
+      << "Expected error reason \"" << ERR_reason_error_string(wanted_err)
+      << "\", got \"" << ERR_reason_error_string(err) << "\".";
+  }
+  return testing::AssertionSuccess();
+}
