@@ -24,6 +24,8 @@
 #include <string>
 #include <vector>
 
+#include <gtest/gtest.h>
+
 #include <openssl/span.h>
 
 #include "../internal.h"
@@ -66,6 +68,12 @@ bool DecodeHex(std::vector<uint8_t> *out, const std::string &in);
 
 // EncodeHex returns |in| encoded in hexadecimal.
 std::string EncodeHex(bssl::Span<const uint8_t> in);
+
+// ExpectError uses EXPECT_EQ to verify that |err| corresponds to the given
+// |lib| and |reason|. If callers care to preserve line numbers for error
+// messages, they can call SCOPED_TRACE immediately before calling this
+// function.
+testing::AssertionResult ErrorMatches(uint32_t err, int lib, int reason);
 
 
 #endif  // OPENSSL_HEADER_CRYPTO_TEST_TEST_UTIL_H

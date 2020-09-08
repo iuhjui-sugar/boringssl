@@ -18,6 +18,9 @@ endif()
 if(WIN32)
   target_link_libraries(test_support_lib dbghelp)
 endif()
+
+target_link_libraries(test_support_lib boringssl_gtest)
+
 add_dependencies(test_support_lib global_target)
 
 add_library(
