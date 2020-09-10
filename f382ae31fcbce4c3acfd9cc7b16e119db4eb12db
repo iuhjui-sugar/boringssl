@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3d94f29f_c378582c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-09-10T22:33:21Z",
+      "side": 1,
+      "message": "Hey folks, I\u0027ve updated this CL for draft-07. PTAL!\n\nI\u0027m still a little fuzzy on how we should choose the length of the ClientEncryptedCH.encrypted_ch field.",
+      "revId": "f382ae31fcbce4c3acfd9cc7b16e119db4eb12db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
