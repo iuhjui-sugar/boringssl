@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "18032fcf_9a803fc2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-09-10T23:36:50Z",
+      "side": 1,
+      "message": "I still need to parse/verify retry_keys (ECHConfigs). Definitely did the wrong thing in the C code (see comment), and I need to check what I did in the Go code.\n\n\u003e   If the server sends an \"encrypted_client_hello\" extension, the client\n\u003e   MUST check the extension syntactically and abort the connection with\n\u003e   a \"decode_error\" alert if it is invalid.\n\nhttps://tools.ietf.org/html/draft-ietf-tls-esni-07#section-7.4",
+      "revId": "b9ff5c4eefc3783081f99a100f8c5dff290aacdb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "197b4cf2_4a900d64",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-09-10T23:36:50Z",
+      "side": 1,
+      "message": "Whoops, should be parsing ECHConfigs here, not the ClientEncryptedCH.",
+      "revId": "b9ff5c4eefc3783081f99a100f8c5dff290aacdb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
