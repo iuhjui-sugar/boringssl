@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "725caf3d_b4d38797",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-09-14T19:36:44Z",
+      "side": 1,
+      "message": "Hey David, if you have time for a code review, maybe we could finish off this CL today?",
+      "revId": "ca57d761835f11a60cfa39efdcad722ef211f467",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
