@@ -16,6 +16,218 @@
       "revId": "c635918df1da4e5eba578415a26324da903d0a2f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8557f693_384532dd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-14T20:30:19Z",
+      "side": 1,
+      "message": "Only looked at the API and changes to session state for now. I don\u0027t think the callback shape quite works, though I\u0027m not sure exactly what direction would be best here. (Dunno if you have cycles for this or not. I can pick it up from here, though I would like to run thoughts on the API by you to double-check what would be a reasonable design.)",
+      "revId": "c635918df1da4e5eba578415a26324da903d0a2f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6751074e_b3e9ae32",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2774,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-14T20:30:19Z",
+      "side": 1,
+      "message": "Nit: I don\u0027t think we really use the IETF SHOUTY VERBS in these docs, so maybe just \"must\". Ditto below.",
+      "range": {
+        "startLine": 2774,
+        "startChar": 39,
+        "endLine": 2774,
+        "endChar": 43
+      },
+      "revId": "c635918df1da4e5eba578415a26324da903d0a2f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e26a2aa5_ffbac0b2",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2777,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-14T20:30:19Z",
+      "side": 1,
+      "message": "Guessing this came from the ALPN one, but let\u0027s make this size_t. Perhaps we should fix the ALPN one too where we can. Ditto throughout.",
+      "range": {
+        "startLine": 2777,
+        "startChar": 43,
+        "endLine": 2777,
+        "endChar": 51
+      },
+      "revId": "c635918df1da4e5eba578415a26324da903d0a2f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc13c10a_29caeab3",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2792,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-14T20:30:19Z",
+      "side": 1,
+      "message": "Hrm, this is a little interesting. So this API mirrors the ALPN one in two odd ways:\n\n1. The output length is uint8_t. That was fine for ALPN, which used one-byte lengths, but ALPS settings may be a bit longer and have a two-byte length. But maybe best use size_t and if the caller gives us something too big, CBB while complain as always.\n\n2. It returns a non-owning pointer. This works fine if the callback looks like:\n\n  class SSLSocket {\n    ...\n    int ALPSCallback(..., const uint8_t **out, uint8_t *out_len, ...) {\n      ...\n      *out \u003d alps_setting_.data();\n      *out_len \u003d alps_setting_.size();\n      ...\n    }\n    ...\n    std::vector\u003cuint8_t\u003e alps_setting_;\n  };\n\nBut it doesn\u0027t work if the callback looks more like:\n\n  class SSLSocket {\n    ...\n    int ALPSCallback(..., const uint8_t **out, uint8_t *out_len, ...) {\n      ...\n      std::vector\u003cuint8_t\u003e alps \u003d BuildALPSValue(...);\n      *out \u003d alps.data();\n      *out_len \u003d alps.size();\n      return ...;  // alps has been destroyed. UAF!\n    }\n    ...\n  };\n\nALPN can get away with this because the protocol is most like some program constant and, even if it isn\u0027t, the protocol string is present in the client protocol list, so the caller can always point into it. (Though now I wonder if any language bindings had problems with this API. I see pyOpenSSL has to do something goofy: https://github.com/pyca/pyopenssl/blob/master/src/OpenSSL/SSL.py#L384-L392 )\n\nUnfortunately we don\u0027t have a very good pattern for this sort of thing. We could give the caller a CBB to write into, but that\u0027s a lot of fuss. We could also provide an SSL_set_alps_setting that you only call instead that callback, which is also weird since nothing stops that function from being called outside the callback.\n\nSSL_set_alps_setting does, however, have the advantage that we could just tell the server call it inside the existing ALPN callback, concurrently with protocol selection. Doesn\u0027t work for the client, though see thoughts below.",
+      "range": {
+        "startLine": 2792,
+        "startChar": 15,
+        "endLine": 2792,
+        "endChar": 55
+      },
+      "revId": "c635918df1da4e5eba578415a26324da903d0a2f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1dfff5ae_ffa8e3b2",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2794,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-14T20:30:19Z",
+      "side": 1,
+      "message": "Hrm, this is also a little interesting. By the time this callback runs on the client, it\u0027s already committed to supporting ALPS for this protocol via SSL_CTX_set_alps_protos and should send something, possibly empty if the protocol allows for it.\n\nWhereas, on the server, unless we try to align the APIs (i.e. ask the server to configure the same thing) the server is allowed to not implement ALPS for this protocol. Although I think the server should also be allowed to error too. We don\u0027t error in the ALPN callback on grounds the default protocol is always a thing and the server shouldn\u0027t have a random internal error (though maybe that was too strict). But it\u0027s totally reasonable for a particular ALPN protocol to mandate ALPS, and the server may well hit an internal error assembling a complex payload.\n\nWe could keep the tri-state (yes, decline, error) return and say that decline is mapped to error on the client and not the server. That is also weird.\n\nAn API like Go, where ALPN is just a NextProtos []string on both sides, this is easy. We just augment it with a map[string]string or []ProtocolAndSettingPair. But I guess we made a callback...\n\nGiven the client needs to precommit to a list, I wonder if we should just have it configure a ProtocolAndSettingPair and move on. That leaves us free to tailor the callback to the server (see above). WDYT?",
+      "range": {
+        "startLine": 2793,
+        "startChar": 34,
+        "endLine": 2794,
+        "endChar": 63
+      },
+      "revId": "c635918df1da4e5eba578415a26324da903d0a2f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8bd37e1f_d817f4de",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2801,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-14T20:30:19Z",
+      "side": 1,
+      "message": "Nit: Maybe SSL_get0_peer_alps_settings and say \"peer\" in the docs. That way it\u0027s clear this is what you received, not what you sent.",
+      "range": {
+        "startLine": 2801,
+        "startChar": 3,
+        "endLine": 2801,
+        "endChar": 25
+      },
+      "revId": "c635918df1da4e5eba578415a26324da903d0a2f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78ac5799_f398f69d",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2807,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-14T20:30:19Z",
+      "side": 1,
+      "message": "We probably need an API for whether ALPS was negotiated. Otherwise you cannot distinguish the peer sending an empty settings string (which, depending on protocol, may be valid or may be an error) from the peer not negotiating ALPS.\n\n(Or if BoringSSL knew whether ALPS was unsupported, mandatory, or optional for each protocol, we could do that internally, but that\u0027s a pretty complex type and we\u0027re bad at complex types...)",
+      "revId": "c635918df1da4e5eba578415a26324da903d0a2f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a66c1032_573d187a",
+        "filename": "include/openssl/ssl3.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-14T20:30:19Z",
+      "side": 1,
+      "message": "This is an annoyingly small space, but at least it\u0027s gated on the extension. :-/ Though Victor and I have been talking about jamming EncryptedExtensions in there instead, so that\u0027s another possibility.",
+      "range": {
+        "startLine": 317,
+        "startChar": 44,
+        "endLine": 317,
+        "endChar": 47
+      },
+      "revId": "c635918df1da4e5eba578415a26324da903d0a2f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a96ddf5_7af881b1",
+        "filename": "include/openssl/tls1.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-14T20:30:19Z",
+      "side": 1,
+      "message": "Nit: Might be safer to actually pick a random number. People seem to have a habit of allocating experiments in the 0xff.. range and it\u0027s... kind of small.\n\nHow\u0027s this one? :-)\n\n\u003e\u003e\u003e random.randint(0, 0xffff)\n17513",
+      "range": {
+        "startLine": 241,
+        "startChar": 41,
+        "endLine": 241,
+        "endChar": 47
+      },
+      "revId": "c635918df1da4e5eba578415a26324da903d0a2f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f811607b_6b96db74",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 3578,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-14T20:30:19Z",
+      "side": 1,
+      "message": "I think we actually need to store both the local value and the peer one. Each side is responsible for checking consistency with the local value replaying the peer value. That is:\n\nClient:\n1. If the client-sent ALPS (local) from last time does not match the one we would send for early_alpn, don\u0027t offer 0-RTT.\n2. If the server accepts 0-RTT, act as if you sent the same local ALPS (OK by 1) and received the same server ALPS (peer) as last time.\n\nServer:\n1. Negotiate ALPN and figure out what server ALPS value to send.\n2. If ALPN doesn\u0027t match last time, reject 0-RTT as usual.\n3. If server ALPS (local) doesn\u0027t match last time, reject 0-RTT.\n4. If all checks pass and we accept 0-RTT, act as if you sent the same local ALPS (OK by 3) and received the same client ALPS (peer) as last time.",
+      "revId": "c635918df1da4e5eba578415a26324da903d0a2f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
