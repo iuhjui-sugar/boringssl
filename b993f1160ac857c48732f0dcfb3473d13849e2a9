@@ -16,6 +16,24 @@
       "revId": "b993f1160ac857c48732f0dcfb3473d13849e2a9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ef4b754_9653a4a4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-15T22:15:27Z",
+      "side": 1,
+      "message": "Me too. Though I\u0027m not sad to lose these unions. They\u0027re a little absurd.\n\nThough it occurs to me that I could have just casts \u0026nm to (ASN1_VALUE**). I\u0027m not sure if that\u0027s valid C either, but the generated d2i_FOO and i2d_FOO functions thoroughly rely on this anyway. We also may as well generate and call the generated d2i/i2d functions, but we\u0027d need some macros to generate static versions and, more importantly, implicit tagging wouldn\u0027t quite work. It\u0027s all a mess.\n\nAnnoyingly, I found just enough folks using asn1t.h _and_ referencing ASN1_ITEMs for X509 types that I suspect we\u0027ll be stuck keeping some level of compat with that mess. :-(",
+      "parentUuid": "1e70468e_42c2b4a0",
+      "revId": "b993f1160ac857c48732f0dcfb3473d13849e2a9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
