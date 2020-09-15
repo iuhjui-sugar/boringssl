@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c72116b1_da364f13",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-15T19:13:57Z",
+      "side": 1,
+      "message": "Talked with Steven about API out of band. We settled on some API of the form (name and actual type signature is mine from after the meeting).\n\n int SSL_add_alps_setting(SSL *ssl, const uint8_t *proto, size_t proto_len,\n                          const uint8_t *alps, size_t alps_len);\n\nThe client calls this once for each protocol before the handshake. The server is recommended to do that too, but if it\u0027s doing something really weird, it can call it during the ALPN selection callback, in which case it\u0027s only obligated to assemble the value for the selected protocol.",
+      "revId": "5dbef707a1ca2344efda1b5298881db2bcd0ce35",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
