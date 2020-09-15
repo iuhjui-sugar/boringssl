@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e460a20e_77b23757",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 675,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-09-15T19:51:37Z",
+      "side": 1,
+      "message": "\"is\" between \"length\" and \"calculated\"",
+      "revId": "d0f254e4f7bb3aa0ed016ddeac4b4c2c638bf4cc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "095ad414_d561c2c8",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 686,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-09-15T19:51:37Z",
+      "side": 1,
+      "message": "s/returns//",
+      "revId": "d0f254e4f7bb3aa0ed016ddeac4b4c2c638bf4cc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
