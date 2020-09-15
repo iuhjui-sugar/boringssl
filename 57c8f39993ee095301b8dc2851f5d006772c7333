@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8a1e0833_24cd775f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-09-15T13:25:28Z",
+      "side": 1,
+      "message": "Doing the V2 changes in parts, this should fix some of the formatting, excessive verification.",
+      "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
