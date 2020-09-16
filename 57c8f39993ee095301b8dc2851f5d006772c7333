@@ -16,6 +16,336 @@
       "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "045f752f_fdf48a04",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-16T21:42:35Z",
+      "side": 1,
+      "message": "Looks reasonable. Just some style/comment nits and such.",
+      "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7295692e_d3b15414",
+        "filename": "crypto/trust_token/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-16T21:42:35Z",
+      "side": 1,
+      "message": "Nit: The bit fields are kinda pointless if you don\u0027t group them together. :-)\n\n(I\u0027m also okay not using bitfields. *shrug* I think it\u0027s mostly a libssl thing because there are so many copies of it.)",
+      "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7569bdb_419f90ac",
+        "filename": "crypto/trust_token/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-16T21:42:35Z",
+      "side": 1,
+      "message": "Sounds like there are also key count changes between them. Probably worth mentioning in commit message and header files.",
+      "range": {
+        "startLine": 240,
+        "startChar": 39,
+        "endLine": 240,
+        "endChar": 42
+      },
+      "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6ae9b68a_c48c4317",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-16T21:42:35Z",
+      "side": 1,
+      "message": "If cbs is too small, this will read out of bounds. Instead:\n\n  CBS child;\n  if (!CBS_get_bytes(cbs, \u0026child, plen) ||\n      !ec_point_from_uncompressed(group, out, CBS_data(\u0026child),\n                                  CBS_len(\u0026child))) {\n    return 0;\n  }",
+      "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d89182c_5bfcd496",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-16T21:42:35Z",
+      "side": 1,
+      "message": "80 chars",
+      "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ce3d531_197584b9",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 796,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-16T21:42:35Z",
+      "side": 1,
+      "message": "80 chars",
+      "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "efe148f7_5e98228e",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 854,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-16T21:42:35Z",
+      "side": 1,
+      "message": "curly braces",
+      "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a9ace32_0aee62f3",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 923,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-16T21:42:35Z",
+      "side": 1,
+      "message": "80 chars",
+      "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86e92a01_711cdf87",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 964,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-16T21:42:35Z",
+      "side": 1,
+      "message": "80 chars",
+      "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8adfec89_e1ef2794",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-16T21:42:35Z",
+      "side": 1,
+      "message": "Looks like we still generate keys for private metadata and the client will still happily accept a private metadata token. Just the issuer has code to refuse to issue it. Just to confirm: this is intentional/temporary and will be resolved when switching to Privacy Pass?\n\n(I wonder if it\u0027s worth noting that in the header warning too, since it\u0027s not only unstable, but it doesn\u0027t yet have the privacy properties we ultimately want.)",
+      "range": {
+        "startLine": 55,
+        "startChar": 5,
+        "endLine": 55,
+        "endChar": 35
+      },
+      "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b43b9e30_8002d8db",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-16T21:42:35Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9bf83c66_e06cbb34",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-16T21:42:35Z",
+      "side": 1,
+      "message": "Stray newline?",
+      "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54f64985_037e0503",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-16T21:42:35Z",
+      "side": 1,
+      "message": "curly braces. Ditto for all the other lines for this form.",
+      "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a3ea31a_b9aa8dd3",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-16T21:42:35Z",
+      "side": 1,
+      "message": "Style: token_length, 80 chars, and curlies",
+      "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6c311c0_c4db44a4",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-16T21:42:35Z",
+      "side": 1,
+      "message": "Style: token_length, 80 chars, and curlies",
+      "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c27ec16a_a3d64c1f",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-16T21:42:35Z",
+      "side": 1,
+      "message": "Privacy Pass?\n\nEdit: Ah, it\u0027s still PMBTokens but will be Privacy Pass later? I wonder if it\u0027s worth a note there in either a TODO or the warnings (see below). Otherwise the name is kinda confusing. :-)",
+      "range": {
+        "startLine": 44,
+        "startChar": 3,
+        "endLine": 44,
+        "endChar": 12
+      },
+      "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee059334_5d72ba04",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-16T21:42:35Z",
+      "side": 1,
+      "message": "Since you\u0027re still planning on adding things to this and the above one, maybe add a warning not to use these yet. I think we had similar text for v1 while it was in development.",
+      "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc427e6a_3d0d63a8",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-16T21:42:35Z",
+      "side": 1,
+      "message": "Looking at the implementation, it looks like it still parses out response + sig and then returns the two separately.",
+      "range": {
+        "startLine": 161,
+        "startChar": 15,
+        "endLine": 162,
+        "endChar": 51
+      },
+      "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
