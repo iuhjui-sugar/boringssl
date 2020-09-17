@@ -415,6 +415,16 @@ OPENSSL_EXPORT int BIO_set_mem_buf(BIO *bio, BUF_MEM *b, int take_ownership);
 // default is -1 so that additional data can be written once exhausted.
 OPENSSL_EXPORT int BIO_set_mem_eof_return(BIO *bio, int eof_value);
 
+// BIO_set_write_buf_size reserves |size| bytes of space in the memory BIO. If
+// |size| is smaller than the current amount of data buffered then the excess
+// will be discarded. It returns one on success or zero on error.
+OPENSSL_EXPORT int BIO_set_write_buf_size(BIO *bio, size_t size);
+
+// BIO_get_write_buf_size returns the number of bytes reserved in the internal
+// buffer of |bio|. Note that reserved bytes need not actually be filled, i.e.
+// this is not the number of bytes ready to read.
+OPENSSL_EXPORT size_t BIO_get_write_buf_size(BIO *bio);
+
 
 // File descriptor BIOs.
 //

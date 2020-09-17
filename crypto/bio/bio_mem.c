@@ -249,6 +249,14 @@ static long mem_ctrl(BIO *bio, int cmd, long num, void *ptr) {
     case BIO_C_SET_BUF_MEM_EOF_RETURN:
       bio->num = (int)num;
       break;
+    case BIO_C_SET_WRITE_BUF_SIZE: {
+      const size_t new_size = num;
+      ret = new_size == 0 || BUF_MEM_grow(b, new_size) != 0;
+      break;
+    }
+    case BIO_C_GET_WRITE_BUF_SIZE:
+      ret = (long) b->max;
+      break;
     case BIO_CTRL_INFO:
       ret = (long)b->length;
       if (ptr != NULL) {
@@ -327,4 +335,12 @@ int BIO_set_mem_buf(BIO *bio, BUF_MEM *b, int take_ownership) {
 
 int BIO_set_mem_eof_return(BIO *bio, int eof_value) {
   return BIO_ctrl(bio, BIO_C_SET_BUF_MEM_EOF_RETURN, eof_value, NULL);
+}
+
+int BIO_set_write_buf_size(BIO *bio, size_t size) {
+  return BIO_ctrl(bio, BIO_C_SET_WRITE_BUF_SIZE, (long) size, NULL);
+}
+
+size_t BIO_get_write_buf_size(BIO *bio) {
+  return (size_t) BIO_ctrl(bio, BIO_C_GET_WRITE_BUF_SIZE, 0, NULL);
 }
