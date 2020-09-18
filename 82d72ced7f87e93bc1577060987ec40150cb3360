@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e004eb20_59d1df3b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2020-09-18T23:28:10Z",
+      "side": 1,
+      "message": "Sorry, missed this at the time.\n\nDo you want to skip all signature checking in fuzzing mode? That would hide a bunch of code from the fuzzer. Perhaps define a magic value that is treated as a valid signature to allow the fuzzer to get past this, while still exposing all the usual code too?\n\nI\u0027ve updated the change along those lines. Does this work for you? ",
+      "revId": "82d72ced7f87e93bc1577060987ec40150cb3360",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
