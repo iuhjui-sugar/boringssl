@@ -53,6 +53,24 @@
     },
     {
       "key": {
+        "uuid": "0982e97d_7fb9888c",
+        "filename": "crypto/trust_token/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2020-09-18T14:13:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7295692e_d3b15414",
+      "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e7569bdb_419f90ac",
         "filename": "crypto/trust_token/internal.h",
         "patchSetId": 1
@@ -76,6 +94,30 @@
     },
     {
       "key": {
+        "uuid": "f9547ccb_8f01a9cc",
+        "filename": "crypto/trust_token/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2020-09-18T14:13:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7569bdb_419f90ac",
+      "range": {
+        "startLine": 240,
+        "startChar": 39,
+        "endLine": 240,
+        "endChar": 42
+      },
+      "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ae9b68a_c48c4317",
         "filename": "crypto/trust_token/pmbtoken.c",
         "patchSetId": 1
@@ -90,6 +132,24 @@
       "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f10d6111_1ac67b4a",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2020-09-18T14:13:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ae9b68a_c48c4317",
+      "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -110,6 +170,24 @@
     },
     {
       "key": {
+        "uuid": "01737cf4_1a5937ea",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2020-09-18T14:13:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3d89182c_5bfcd496",
+      "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4ce3d531_197584b9",
         "filename": "crypto/trust_token/pmbtoken.c",
         "patchSetId": 1
@@ -124,6 +202,24 @@
       "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a98aab2b_30e90e19",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 796,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2020-09-18T14:13:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ce3d531_197584b9",
+      "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -144,6 +240,24 @@
     },
     {
       "key": {
+        "uuid": "a6e95a38_6cf6881f",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 854,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2020-09-18T14:13:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "efe148f7_5e98228e",
+      "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a9ace32_0aee62f3",
         "filename": "crypto/trust_token/pmbtoken.c",
         "patchSetId": 1
@@ -158,6 +272,24 @@
       "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aaa1b703_9abeee77",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 923,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2020-09-18T14:13:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a9ace32_0aee62f3",
+      "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -178,6 +310,24 @@
     },
     {
       "key": {
+        "uuid": "1c1d7796_611dd2c5",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 964,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2020-09-18T14:13:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86e92a01_711cdf87",
+      "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8adfec89_e1ef2794",
         "filename": "crypto/trust_token/trust_token.c",
         "patchSetId": 1
@@ -189,6 +339,30 @@
       "writtenOn": "2020-09-16T21:42:35Z",
       "side": 1,
       "message": "Looks like we still generate keys for private metadata and the client will still happily accept a private metadata token. Just the issuer has code to refuse to issue it. Just to confirm: this is intentional/temporary and will be resolved when switching to Privacy Pass?\n\n(I wonder if it\u0027s worth noting that in the header warning too, since it\u0027s not only unstable, but it doesn\u0027t yet have the privacy properties we ultimately want.)",
+      "range": {
+        "startLine": 55,
+        "startChar": 5,
+        "endLine": 55,
+        "endChar": 35
+      },
+      "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dd3fe627_97eee00b",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2020-09-18T14:13:40Z",
+      "side": 1,
+      "message": "Intentional. Once we switch to PrivacyPass, attempting to redeem will break.",
+      "parentUuid": "8adfec89_e1ef2794",
       "range": {
         "startLine": 55,
         "startChar": 5,
@@ -218,6 +392,24 @@
     },
     {
       "key": {
+        "uuid": "9055ffb8_c8cbdae8",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2020-09-18T14:13:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b43b9e30_8002d8db",
+      "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9bf83c66_e06cbb34",
         "filename": "crypto/trust_token/trust_token_test.cc",
         "patchSetId": 1
@@ -232,6 +424,24 @@
       "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe15a879_5596d7b6",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2020-09-18T14:13:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9bf83c66_e06cbb34",
+      "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -252,6 +462,24 @@
     },
     {
       "key": {
+        "uuid": "f6226bbb_dd71a0f0",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2020-09-18T14:13:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54f64985_037e0503",
+      "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8a3ea31a_b9aa8dd3",
         "filename": "crypto/trust_token/trust_token_test.cc",
         "patchSetId": 1
@@ -269,6 +497,24 @@
     },
     {
       "key": {
+        "uuid": "f95a9930_811d0254",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2020-09-18T14:13:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a3ea31a_b9aa8dd3",
+      "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d6c311c0_c4db44a4",
         "filename": "crypto/trust_token/trust_token_test.cc",
         "patchSetId": 1
@@ -283,6 +529,24 @@
       "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1362627_7bba6b09",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2020-09-18T14:13:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6c311c0_c4db44a4",
+      "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -309,6 +573,30 @@
     },
     {
       "key": {
+        "uuid": "25c0500c_800bbefb",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2020-09-18T14:13:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c27ec16a_a3d64c1f",
+      "range": {
+        "startLine": 44,
+        "startChar": 3,
+        "endLine": 44,
+        "endChar": 12
+      },
+      "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ee059334_5d72ba04",
         "filename": "include/openssl/trust_token.h",
         "patchSetId": 1
@@ -323,6 +611,24 @@
       "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14bf5829_e77bc4be",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2020-09-18T14:13:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee059334_5d72ba04",
+      "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -346,6 +652,30 @@
       "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9c6bc7f_7ae37124",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2020-09-18T14:13:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc427e6a_3d0d63a8",
+      "range": {
+        "startLine": 161,
+        "startChar": 15,
+        "endLine": 162,
+        "endChar": 51
+      },
+      "revId": "57c8f39993ee095301b8dc2851f5d006772c7333",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
