@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1313ad06_b3f0f414",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-09-21T15:41:07Z",
+      "side": 1,
+      "message": "This doesn\u0027t actually compile yet, but was wondering if you had opinions about the Trust Token abstraction.",
+      "revId": "3fe8532d9874e835ed252d0de0dd391c318edf98",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
