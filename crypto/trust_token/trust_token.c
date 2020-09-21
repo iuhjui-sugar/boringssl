@@ -43,15 +43,15 @@ const TRUST_TOKEN_METHOD *TRUST_TOKEN_experiment_v1(void) {
   return &kMethod;
 }
 
-const TRUST_TOKEN_METHOD *TRUST_TOKEN_experiment_v2_pp(void) {
+const TRUST_TOKEN_METHOD *TRUST_TOKEN_experiment_v2_voprf(void) {
   static const TRUST_TOKEN_METHOD kMethod = {
-      pmbtoken_exp2_generate_key,
-      pmbtoken_exp2_client_key_from_bytes,
-      pmbtoken_exp2_issuer_key_from_bytes,
-      pmbtoken_exp2_blind,
-      pmbtoken_exp2_sign,
-      pmbtoken_exp2_unblind,
-      pmbtoken_exp2_read,
+      voprf_exp2_generate_key,
+      voprf_exp2_client_key_from_bytes,
+      voprf_exp2_issuer_key_from_bytes,
+      voprf_exp2_blind,
+      voprf_exp2_sign,
+      voprf_exp2_unblind,
+      voprf_exp2_read,
       0, /* has_private_metadata */
       6, /* max_keys */
       0, /* has_srr */
@@ -73,6 +73,10 @@ const TRUST_TOKEN_METHOD *TRUST_TOKEN_experiment_v2_pmb(void) {
       0, /* has_srr */
   };
   return &kMethod;
+}
+
+void TRUST_TOKEN_PRETOKEN_free(TRUST_TOKEN_PRETOKEN *pretoken) {
+  OPENSSL_free(pretoken);
 }
 
 TRUST_TOKEN *TRUST_TOKEN_new(const uint8_t *data, size_t len) {
