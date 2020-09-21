@@ -40,19 +40,16 @@ extern "C" {
 // PMBTokens and P-384.
 OPENSSL_EXPORT const TRUST_TOKEN_METHOD *TRUST_TOKEN_experiment_v1(void);
 
-// TRUST_TOKEN_experiment_v2_pp is an experimental Trust Tokens protocol using
-// PMBTokens (with no private metadata) and P-384 with up to 6 keys, without RR
-// verification.
+// TRUST_TOKEN_experiment_v2_voprf is an experimental Trust Tokens protocol
+// using VOPRFs and P-384 with up to 6 keys, without RR verification.
 //
 // This version is incomplete and should not be used.
-// TODO(svaldez): Update to use the PrivacyPass primitive
-OPENSSL_EXPORT const TRUST_TOKEN_METHOD *TRUST_TOKEN_experiment_v2_pp(void);
+OPENSSL_EXPORT const TRUST_TOKEN_METHOD *TRUST_TOKEN_experiment_v2_voprf(void);
 
 // TRUST_TOKEN_experiment_v2_pmb is an experimental Trust Tokens protocol using
 // PMBTokens and P-384 with up to 3 keys, without RR verification.
 //
 // This version is incomplete and should not be used.
-// TODO(svaldez): Update to use the PrivacyPass primitive
 OPENSSL_EXPORT const TRUST_TOKEN_METHOD *TRUST_TOKEN_experiment_v2_pmb(void);
 
 // trust_token_st represents a single-use token for the Trust Token protocol.
