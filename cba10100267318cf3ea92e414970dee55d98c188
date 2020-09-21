@@ -16,6 +16,24 @@
       "revId": "cba10100267318cf3ea92e414970dee55d98c188",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbe714f0_5f339528",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-09-21T18:02:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3377682_7aeec89c",
+      "revId": "cba10100267318cf3ea92e414970dee55d98c188",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
