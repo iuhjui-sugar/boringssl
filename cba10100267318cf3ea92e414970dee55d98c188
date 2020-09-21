@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a3377682_7aeec89c",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-21T15:53:32Z",
+      "side": 1,
+      "message": "Nit: This TODO isn\u0027t really applicable here.",
+      "revId": "cba10100267318cf3ea92e414970dee55d98c188",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
