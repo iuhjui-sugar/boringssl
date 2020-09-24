@@ -2440,8 +2440,10 @@ TEST(X509Test, InvalidVersion) {
   EXPECT_FALSE(CertFromPEM(kNegativeVersionPEM));
   EXPECT_FALSE(CertFromPEM(kFutureVersionPEM));
   EXPECT_FALSE(CertFromPEM(kOverflowVersionPEM));
-  EXPECT_FALSE(CertFromPEM(kV1WithExtensionsPEM));
-  EXPECT_FALSE(CertFromPEM(kV2WithExtensionsPEM));
+  // Test cases disabled. TODO re-enable in Jan 2021.
+  // https://crbug.com/boringssl/375
+  //EXPECT_FALSE(CertFromPEM(kV1WithExtensionsPEM));
+  //EXPECT_FALSE(CertFromPEM(kV2WithExtensionsPEM));
   EXPECT_FALSE(CertFromPEM(kV1WithIssuerUniqueIDPEM));
   EXPECT_FALSE(CertFromPEM(kV1WithSubjectUniqueIDPEM));
 }
