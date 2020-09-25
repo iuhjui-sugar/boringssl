@@ -16,6 +16,644 @@
       "revId": "fbb367c1c2bfc4400d2aeb8d30340c4e29f6b9ae",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "af32f58a_84bcab0f",
+        "filename": "crypto/trust_token/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-25T20:42:44Z",
+      "side": 1,
+      "message": "Let\u0027s add these to bssl speed, given perf as an issue before.",
+      "revId": "fbb367c1c2bfc4400d2aeb8d30340c4e29f6b9ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32df0173_9590214b",
+        "filename": "crypto/trust_token/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-25T20:42:44Z",
+      "side": 1,
+      "message": "|pubs|, etc.",
+      "range": {
+        "startLine": 149,
+        "startChar": 23,
+        "endLine": 149,
+        "endChar": 24
+      },
+      "revId": "fbb367c1c2bfc4400d2aeb8d30340c4e29f6b9ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55e3f4c9_9d954f54",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-25T20:42:44Z",
+      "side": 1,
+      "message": "(Pro tip: I\u0027ve set my column width in Gerrit to 80 chars, so line length issues are immediately visible. :-) )",
+      "revId": "fbb367c1c2bfc4400d2aeb8d30340c4e29f6b9ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "447586a2_d68d584c",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-25T20:42:44Z",
+      "side": 1,
+      "message": "80 chars",
+      "revId": "fbb367c1c2bfc4400d2aeb8d30340c4e29f6b9ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa6cead8_7f51a01c",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 796,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-25T20:42:44Z",
+      "side": 1,
+      "message": "(Existing but while you\u0027re here, 80 chars.)",
+      "revId": "fbb367c1c2bfc4400d2aeb8d30340c4e29f6b9ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53458589_8876e09a",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 962,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-25T20:42:44Z",
+      "side": 1,
+      "message": "80 chars",
+      "revId": "fbb367c1c2bfc4400d2aeb8d30340c4e29f6b9ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51a70c08_b158ddce",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-25T20:42:44Z",
+      "side": 1,
+      "message": "OK as a follow-up, since the old parser did this too, but shouldn\u0027t we check CBS_len(\u0026in) \u003d\u003d 0 in both the SRR and RR paths?",
+      "revId": "fbb367c1c2bfc4400d2aeb8d30340c4e29f6b9ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "76d32f90_2ac1de1f",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-25T20:42:44Z",
+      "side": 1,
+      "message": "What is the point of this length prefix? It seems this length prefix is redundant. (AIUI, we\u0027re saying RR is some application-specific thing, and if it\u0027s got a signature, that\u0027s cool.)\n\nFrom there if you remove the length prefix, this function is just the identity, which does beg the question whether we need it... :-)",
+      "revId": "fbb367c1c2bfc4400d2aeb8d30340c4e29f6b9ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a519fc5_8ac327aa",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-25T20:42:44Z",
+      "side": 1,
+      "message": "More likely a parsing failure than a malloc failure.",
+      "range": {
+        "startLine": 328,
+        "startChar": 37,
+        "endLine": 328,
+        "endChar": 57
+      },
+      "revId": "fbb367c1c2bfc4400d2aeb8d30340c4e29f6b9ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "871884fd_27e41501",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-25T20:42:44Z",
+      "side": 1,
+      "message": "I believe it\u0027s impossible for rr_buf to be non-NULL when we hit this point, because it\u0027d mean CBS_stow succeeded. To that end, we can even write straight to the output.\n\n  if (!CBS_get_u16_length_prefixed(\u0026in, \u0026rr) ||\n      CBS_len(\u0026in) !\u003d 0 /* Or put this in later if you like... */) {\n    OPENSSL_PUT_ERROR(TRUST_TOKEN, TRUST_TOKEN_R_DECODE_ERROR);\n    return 0;\n  }\n  if (!CBS_stow(\u0026rr, out_rr, out_rr_len)) {\n    OPENSSL_PUT_ERROR(TRUST_TOKEN, ERR_R_MALLOC_FAILURE);  // Or fold above if you want to be lazy about errors.\n    return 0;\n  }\n  *out_sig \u003d NULL;\n  *out_sig_len \u003d 0;",
+      "revId": "fbb367c1c2bfc4400d2aeb8d30340c4e29f6b9ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1313df42_d0878bfd",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 695,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-25T20:42:44Z",
+      "side": 1,
+      "message": "This format is... confusing. This is HTTP structured header syntax and then I guess wrapped inside a 2-byte length prefix? Is the server expected to trim away the length byte prefix itself?\n\nI do wonder if you want to just add TRUST_TOKEN_ISSUER_redeem_raw at this point and have it return, I guess, nonce + private_metadata as output params? And then maybe !has_srr would just ERR_R_SHOULD_NOT_HAVE_BEEN_CALLED on the old APIs.",
+      "revId": "fbb367c1c2bfc4400d2aeb8d30340c4e29f6b9ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9078e5c2_549251fe",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-25T20:42:44Z",
+      "side": 1,
+      "message": "Nit: maybe call these and the typedefs hash_to_group and hash_to_scalar, to match the VOPRF terminology.",
+      "revId": "fbb367c1c2bfc4400d2aeb8d30340c4e29f6b9ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0dd5bad6_58c6c457",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-25T20:42:44Z",
+      "side": 1,
+      "message": "Rather than H2C-ing a new generator, the standard one should do. The draft actually uses the standard ones but is a little confused about it.\n\nNote this means a lot of your mul_scalar calls can be mul_scalar_base. Also I think a lot of the /*g_scalar*/NULL bits actually want to pass that in now. (Not that we have base point optimizations for P-384. But maybe it\u0027s worth tossing in a comb or something. I guess we can benchmark and go from there.)",
+      "range": {
+        "startLine": 53,
+        "startChar": 30,
+        "endLine": 53,
+        "endChar": 66
+      },
+      "revId": "fbb367c1c2bfc4400d2aeb8d30340c4e29f6b9ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0195ac3_172a402d",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-25T20:42:44Z",
+      "side": 1,
+      "message": "Nit: newline",
+      "revId": "fbb367c1c2bfc4400d2aeb8d30340c4e29f6b9ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f638f76e_3689cb5b",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-25T20:42:44Z",
+      "side": 1,
+      "message": "This will accept trailing data, which you probably don\u0027t want. You could do a CBS_len check but at that point it seems you may as well pass in/len into ec_point_from_uncompressed directly.",
+      "revId": "fbb367c1c2bfc4400d2aeb8d30340c4e29f6b9ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e633227_986bd421",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-25T20:42:44Z",
+      "side": 1,
+      "message": "Similar comment as above: this ignores trailing data, but a CBS_len check on \u0026cbs is pretty redundant. May as well pass in and len into ec_scalar_from_bytes directly.",
+      "revId": "fbb367c1c2bfc4400d2aeb8d30340c4e29f6b9ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed730f54_e4a9572c",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-25T20:42:44Z",
+      "side": 1,
+      "message": "80 chars",
+      "revId": "fbb367c1c2bfc4400d2aeb8d30340c4e29f6b9ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00b3eb2f_effa5647",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-25T20:42:44Z",
+      "side": 1,
+      "message": "80 chars",
+      "revId": "fbb367c1c2bfc4400d2aeb8d30340c4e29f6b9ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2e037e0_b7dd4715",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-25T20:42:44Z",
+      "side": 1,
+      "message": "VOPRF calls this P. It doesn\u0027t have a name for Tp, but it seems to call the serialized value blindedToken.\n\nEdit: I guess Evaluate calls the deserialized point BT for blindedToken, so that\u0027s another option.",
+      "range": {
+        "startLine": 198,
+        "startChar": 16,
+        "endLine": 198,
+        "endChar": 18
+      },
+      "revId": "fbb367c1c2bfc4400d2aeb8d30340c4e29f6b9ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "292fe095_79b846c1",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-25T20:42:44Z",
+      "side": 1,
+      "message": "Should be the same either way, but VOPRF calls the blinding value r and the unblinding value r^-1, whereas this (from PMBTokens I assume) uses r^-1 for blinding and r for unblinding.\n\nSince r is ultimately stashed in pretoken-\u003er, I\u0027m thinking we name local variables to match VOPRF, and leave a comment when we stash it into pretoken-\u003er that the naming is flipped. (I left a similar comment below in unblind.)",
+      "revId": "fbb367c1c2bfc4400d2aeb8d30340c4e29f6b9ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20604db8_eb0e9a59",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-25T20:42:44Z",
+      "side": 1,
+      "message": "80 chars",
+      "revId": "fbb367c1c2bfc4400d2aeb8d30340c4e29f6b9ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b732e2d5_0a63650f",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-25T20:42:44Z",
+      "side": 1,
+      "message": "Once switching to the standard generator, note that:\n\n  ec_point_mul_scalar_public_batch(group, out, g_scalar, p0, scalar, 1)\n\nis the same as:\n\n  ec_point_mul_scalar_public(group, out, g_scalar, p0, scalar)\n\nThough I think the second mul_public_2 is still a ec_point_mul_scalar_public_batch if you want the optimization.",
+      "revId": "fbb367c1c2bfc4400d2aeb8d30340c4e29f6b9ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "226dff03_bea1c22b",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-25T20:42:44Z",
+      "side": 1,
+      "message": "80 chars",
+      "revId": "fbb367c1c2bfc4400d2aeb8d30340c4e29f6b9ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "963ef793_81aac3fc",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-25T20:42:44Z",
+      "side": 1,
+      "message": "80 chars",
+      "revId": "fbb367c1c2bfc4400d2aeb8d30340c4e29f6b9ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20f01d36_8b096bbf",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-25T20:42:44Z",
+      "side": 1,
+      "message": "80 chars",
+      "revId": "fbb367c1c2bfc4400d2aeb8d30340c4e29f6b9ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee128a45_8e8a5f3b",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 459,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-25T20:42:44Z",
+      "side": 1,
+      "message": "VOPRF seems to call this BT.",
+      "range": {
+        "startLine": 459,
+        "startChar": 17,
+        "endLine": 459,
+        "endChar": 19
+      },
+      "revId": "fbb367c1c2bfc4400d2aeb8d30340c4e29f6b9ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd63f23d_e0fbc337",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-25T20:42:44Z",
+      "side": 1,
+      "message": "VOPRF seems to call this Z.",
+      "range": {
+        "startLine": 465,
+        "startChar": 37,
+        "endLine": 465,
+        "endChar": 39
+      },
+      "revId": "fbb367c1c2bfc4400d2aeb8d30340c4e29f6b9ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1cb9aaa6_f3efe9fe",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-25T20:42:44Z",
+      "side": 1,
+      "message": "I haven\u0027t looked too closely, but how annoying would it be to align the DLEQ proof with the VOPRF version? It seems to be pretty much the same construction, but with some names changed, a sign flip on c, and more definite hash constructions. I figure matching will be easier for someone to read, and also easier for someone to reimplement if they want to join the experiment. (Probably something to be said for aligning PMBTokens with VOPRF in standaridzation.)\n\nIf we do that, we should probably still use our own DST until https://github.com/cfrg/draft-irtf-cfrg-voprf/issues/143 is resolved. Note also https://github.com/cfrg/draft-irtf-cfrg-voprf/issues/146. (I assume they mean I2OSP(2). The injectivity is a little weird, but I think it\u0027s fine given that the DSTs are suffix-free in practice.)\n\n(Not sure why they serialize the generator, but ah well. It doesn\u0027t harm anything, but I\u0027ve filed https://github.com/cfrg/draft-irtf-cfrg-voprf/issues/147.)",
+      "revId": "fbb367c1c2bfc4400d2aeb8d30340c4e29f6b9ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25b9a230_c78b2462",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-25T20:42:44Z",
+      "side": 1,
+      "message": "80 chars",
+      "revId": "fbb367c1c2bfc4400d2aeb8d30340c4e29f6b9ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9390625f_51690c09",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-25T20:42:44Z",
+      "side": 1,
+      "message": "Looks like VOPRF calls this Z",
+      "range": {
+        "startLine": 566,
+        "startChar": 14,
+        "endLine": 566,
+        "endChar": 23
+      },
+      "revId": "fbb367c1c2bfc4400d2aeb8d30340c4e29f6b9ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6fc595b6_594cee18",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-25T20:42:44Z",
+      "side": 1,
+      "message": "VOPRF seems to call this blindedToken when serialized and, only in Evaluate(), BT when deserialized.",
+      "range": {
+        "startLine": 572,
+        "startChar": 34,
+        "endLine": 572,
+        "endChar": 37
+      },
+      "revId": "fbb367c1c2bfc4400d2aeb8d30340c4e29f6b9ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e515376a_ef9269ac",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-25T20:42:44Z",
+      "side": 1,
+      "message": "Nit: Elsewhere we\u0027ve been matching the case of the values, so I guess N?",
+      "range": {
+        "startLine": 582,
+        "startChar": 17,
+        "endLine": 582,
+        "endChar": 18
+      },
+      "revId": "fbb367c1c2bfc4400d2aeb8d30340c4e29f6b9ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "49fd7c4a_29d87309",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-25T20:42:44Z",
+      "side": 1,
+      "message": "VOPRF calls this r^-1 rather than r but given the name of this is stuck from PMBToken, might be worth a comment that we store r^-1, not r, in pretoken-\u003er.\n\n(I guess if VOPRF is ever extracted into its own module, we\u0027d want to play the union game. But since there\u0027s no need to do that yet, an apologetic comment seems fine. Maybe in a later spec iteration we can align the r vs r^-1 naming between VOPRF and PMBToken.)",
+      "range": {
+        "startLine": 584,
+        "startChar": 49,
+        "endLine": 584,
+        "endChar": 61
+      },
+      "revId": "fbb367c1c2bfc4400d2aeb8d30340c4e29f6b9ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3d2a948_e68c5312",
+        "filename": "tool/speed.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 1082,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-25T20:42:44Z",
+      "side": 1,
+      "message": "80 chars",
+      "revId": "fbb367c1c2bfc4400d2aeb8d30340c4e29f6b9ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
