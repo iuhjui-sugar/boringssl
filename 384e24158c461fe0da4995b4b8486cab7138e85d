@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "261f9321_f5725184",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2436,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2020-09-25T20:01:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9511aad4_05aede55",
+      "revId": "384e24158c461fe0da4995b4b8486cab7138e85d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9b5668d9_30e722b1",
         "filename": "crypto/x509/x_x509.c",
         "patchSetId": 3
@@ -56,6 +74,30 @@
       "revId": "384e24158c461fe0da4995b4b8486cab7138e85d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f95ddec5_1842d9fd",
+        "filename": "crypto/x509/x_x509.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2020-09-25T20:01:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b5668d9_30e722b1",
+      "range": {
+        "startLine": 139,
+        "startChar": 27,
+        "endLine": 139,
+        "endChar": 31
+      },
+      "revId": "384e24158c461fe0da4995b4b8486cab7138e85d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
