@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9082fb39_3c3b9df7",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1934,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-09-25T13:48:33Z",
+      "side": 1,
+      "message": "nit: true",
+      "range": {
+        "startLine": 1934,
+        "startChar": 62,
+        "endLine": 1934,
+        "endChar": 63
+      },
+      "revId": "314cdd167dd4b27300c744a9049ff91cb396e333",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
