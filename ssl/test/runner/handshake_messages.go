@@ -285,19 +285,18 @@ type clientHelloMsg struct {
 	channelIDSupported      bool
 	tokenBindingParams      []byte
 	tokenBindingVersion     uint16
-	npnAfterAlpn            bool
 	extendedMasterSecret    bool
 	srtpProtectionProfiles  []uint16
 	srtpMasterKeyIdentifier string
 	sctListSupported        bool
 	customExtension         string
 	hasGREASEExtension      bool
-	pskBinderFirst          bool
 	omitExtensions          bool
 	emptyExtensions         bool
 	pad                     int
 	compressedCertAlgs      []uint16
 	delegatedCredentials    bool
+	prefixExtensions        []uint16
 }
 
 func (m *clientHelloMsg) equal(i interface{}) bool {
@@ -340,19 +339,18 @@ func (m *clientHelloMsg) equal(i interface{}) bool {
 		m.channelIDSupported == m1.channelIDSupported &&
 		bytes.Equal(m.tokenBindingParams, m1.tokenBindingParams) &&
 		m.tokenBindingVersion == m1.tokenBindingVersion &&
-		m.npnAfterAlpn == m1.npnAfterAlpn &&
 		m.extendedMasterSecret == m1.extendedMasterSecret &&
 		eqUint16s(m.srtpProtectionProfiles, m1.srtpProtectionProfiles) &&
 		m.srtpMasterKeyIdentifier == m1.srtpMasterKeyIdentifier &&
 		m.sctListSupported == m1.sctListSupported &&
 		m.customExtension == m1.customExtension &&
 		m.hasGREASEExtension == m1.hasGREASEExtension &&
-		m.pskBinderFirst == m1.pskBinderFirst &&
 		m.omitExtensions == m1.omitExtensions &&
 		m.emptyExtensions == m1.emptyExtensions &&
 		m.pad == m1.pad &&
 		eqUint16s(m.compressedCertAlgs, m1.compressedCertAlgs) &&
-		m.delegatedCredentials == m1.delegatedCredentials
+		m.delegatedCredentials == m1.delegatedCredentials &&
+		eqUint16s(m.prefixExtensions, m1.prefixExtensions)
 }
 
 func (m *clientHelloMsg) marshalKeyShares(bb *byteBuilder) {
@@ -390,34 +388,20 @@ func (m *clientHelloMsg) marshal() []byte {
 	compressionMethods := hello.addU8LengthPrefixed()
 	compressionMethods.addBytes(m.compressionMethods)
 
-	extensions := hello.addU16LengthPrefixed()
-	if len(m.pskIdentities) > 0 && m.pskBinderFirst {
-		extensions.addU16(extensionPreSharedKey)
-		pskExtension := extensions.addU16LengthPrefixed()
-
-		pskIdentities := pskExtension.addU16LengthPrefixed()
-		for _, psk := range m.pskIdentities {
-			pskIdentities.addU16LengthPrefixed().addBytes(psk.ticket)
-			pskIdentities.addU32(psk.obfuscatedTicketAge)
-		}
-		pskBinders := pskExtension.addU16LengthPrefixed()
-		for _, binder := range m.pskBinders {
-			pskBinders.addU8LengthPrefixed().addBytes(binder)
-		}
+	type ext struct {
+		id   uint16
+		body []byte
 	}
+	var exts []ext
+
 	if m.duplicateExtension {
 		// Add a duplicate bogus extension at the beginning and end.
-		extensions.addU16(0xffff)
-		extensions.addU16(0) // 0-length for empty extension
+		exts = append(exts, ext{id: extensionDuplicate})
 	}
-	if m.nextProtoNeg && !m.npnAfterAlpn {
-		extensions.addU16(extensionNextProtoNeg)
-		extensions.addU16(0) // The length is always 0
+	if m.nextProtoNeg {
+		exts = append(exts, ext{id: extensionNextProtoNeg})
 	}
 	if len(m.serverName) > 0 {
-		extensions.addU16(extensionServerName)
-		serverNameList := extensions.addU16LengthPrefixed()
-
 		// RFC 3546, section 3.1
 		//
 		// struct {
@@ -437,138 +421,168 @@ func (m *clientHelloMsg) marshal() []byte {
 		//     ServerName server_name_list<1..2^16-1>
 		// } ServerNameList;
 
+		serverNameList := newByteBuilder()
 		serverName := serverNameList.addU16LengthPrefixed()
 		serverName.addU8(0) // NameType host_name(0)
 		hostName := serverName.addU16LengthPrefixed()
 		hostName.addBytes([]byte(m.serverName))
+
+		exts = append(exts, ext{
+			id:   extensionServerName,
+			body: serverNameList.finish(),
+		})
 	}
 	if m.ocspStapling {
-		extensions.addU16(extensionStatusRequest)
-		certificateStatusRequest := extensions.addU16LengthPrefixed()
-
+		certificateStatusRequest := newByteBuilder()
 		// RFC 4366, section 3.6
 		certificateStatusRequest.addU8(1) // OCSP type
 		// Two zero valued uint16s for the two lengths.
 		certificateStatusRequest.addU16(0) // ResponderID length
 		certificateStatusRequest.addU16(0) // Extensions length
+		exts = append(exts, ext{
+			id:   extensionStatusRequest,
+			body: certificateStatusRequest.finish(),
+		})
 	}
 	if len(m.supportedCurves) > 0 {
 		// http://tools.ietf.org/html/rfc4492#section-5.1.1
-		extensions.addU16(extensionSupportedCurves)
-		supportedCurvesList := extensions.addU16LengthPrefixed()
+		supportedCurvesList := newByteBuilder()
 		supportedCurves := supportedCurvesList.addU16LengthPrefixed()
 		for _, curve := range m.supportedCurves {
 			supportedCurves.addU16(uint16(curve))
 		}
+		exts = append(exts, ext{
+			id:   extensionSupportedCurves,
+			body: supportedCurvesList.finish(),
+		})
 	}
 	if len(m.supportedPoints) > 0 {
 		// http://tools.ietf.org/html/rfc4492#section-5.1.2
-		extensions.addU16(extensionSupportedPoints)
-		supportedPointsList := extensions.addU16LengthPrefixed()
+		supportedPointsList := newByteBuilder()
 		supportedPoints := supportedPointsList.addU8LengthPrefixed()
 		supportedPoints.addBytes(m.supportedPoints)
+		exts = append(exts, ext{
+			id:   extensionSupportedPoints,
+			body: supportedPointsList.finish(),
+		})
 	}
 	if m.hasKeyShares {
-		extensions.addU16(extensionKeyShare)
-		keyShareList := extensions.addU16LengthPrefixed()
+		keyShareList := newByteBuilder()
 		m.marshalKeyShares(keyShareList)
+		exts = append(exts, ext{
+			id:   extensionKeyShare,
+			body: keyShareList.finish(),
+		})
 	}
 	if len(m.pskKEModes) > 0 {
-		extensions.addU16(extensionPSKKeyExchangeModes)
-		pskModesExtension := extensions.addU16LengthPrefixed()
+		pskModesExtension := newByteBuilder()
 		pskModesExtension.addU8LengthPrefixed().addBytes(m.pskKEModes)
+		exts = append(exts, ext{
+			id:   extensionPSKKeyExchangeModes,
+			body: pskModesExtension.finish(),
+		})
 	}
 	if m.hasEarlyData {
-		extensions.addU16(extensionEarlyData)
-		extensions.addU16(0) // The length is zero.
+		exts = append(exts, ext{id: extensionEarlyData})
 	}
 	if len(m.tls13Cookie) > 0 {
-		extensions.addU16(extensionCookie)
-		body := extensions.addU16LengthPrefixed()
-		body.addU16LengthPrefixed().addBytes(m.tls13Cookie)
+		exts = append(exts, ext{
+			id:   extensionCookie,
+			body: m.tls13Cookie,
+		})
 	}
 	if m.ticketSupported {
 		// http://tools.ietf.org/html/rfc5077#section-3.2
-		extensions.addU16(extensionSessionTicket)
-		sessionTicketExtension := extensions.addU16LengthPrefixed()
-		sessionTicketExtension.addBytes(m.sessionTicket)
+		exts = append(exts, ext{
+			id:   extensionSessionTicket,
+			body: m.sessionTicket,
+		})
 	}
 	if len(m.signatureAlgorithms) > 0 {
 		// https://tools.ietf.org/html/rfc5246#section-7.4.1.4.1
-		extensions.addU16(extensionSignatureAlgorithms)
-		signatureAlgorithmsExtension := extensions.addU16LengthPrefixed()
+		signatureAlgorithmsExtension := newByteBuilder()
 		signatureAlgorithms := signatureAlgorithmsExtension.addU16LengthPrefixed()
 		for _, sigAlg := range m.signatureAlgorithms {
 			signatureAlgorithms.addU16(uint16(sigAlg))
 		}
+		exts = append(exts, ext{
+			id:   extensionSignatureAlgorithms,
+			body: signatureAlgorithmsExtension.finish(),
+		})
 	}
 	if len(m.signatureAlgorithmsCert) > 0 {
-		extensions.addU16(extensionSignatureAlgorithmsCert)
-		signatureAlgorithmsCertExtension := extensions.addU16LengthPrefixed()
+		signatureAlgorithmsCertExtension := newByteBuilder()
 		signatureAlgorithmsCert := signatureAlgorithmsCertExtension.addU16LengthPrefixed()
 		for _, sigAlg := range m.signatureAlgorithmsCert {
 			signatureAlgorithmsCert.addU16(uint16(sigAlg))
 		}
+		exts = append(exts, ext{
+			id:   extensionSignatureAlgorithmsCert,
+			body: signatureAlgorithmsCertExtension.finish(),
+		})
 	}
 	if len(m.supportedVersions) > 0 {
-		extensions.addU16(extensionSupportedVersions)
-		supportedVersionsExtension := extensions.addU16LengthPrefixed()
+		supportedVersionsExtension := newByteBuilder()
 		supportedVersions := supportedVersionsExtension.addU8LengthPrefixed()
 		for _, version := range m.supportedVersions {
 			supportedVersions.addU16(uint16(version))
 		}
+		exts = append(exts, ext{
+			id:   extensionSupportedVersions,
+			body: supportedVersionsExtension.finish(),
+		})
 	}
 	if m.secureRenegotiation != nil {
-		extensions.addU16(extensionRenegotiationInfo)
-		secureRenegoExt := extensions.addU16LengthPrefixed()
-		secureRenego := secureRenegoExt.addU8LengthPrefixed()
-		secureRenego.addBytes(m.secureRenegotiation)
+		secureRenegoExt := newByteBuilder()
+		secureRenegoExt.addU8LengthPrefixed().addBytes(m.secureRenegotiation)
+		exts = append(exts, ext{
+			id:   extensionRenegotiationInfo,
+			body: secureRenegoExt.finish(),
+		})
 	}
 	if len(m.alpnProtocols) > 0 {
 		// https://tools.ietf.org/html/rfc7301#section-3.1
-		extensions.addU16(extensionALPN)
-		alpnExtension := extensions.addU16LengthPrefixed()
-
+		alpnExtension := newByteBuilder()
 		protocolNameList := alpnExtension.addU16LengthPrefixed()
 		for _, s := range m.alpnProtocols {
 			protocolName := protocolNameList.addU8LengthPrefixed()
 			protocolName.addBytes([]byte(s))
 		}
+		exts = append(exts, ext{
+			id:   extensionALPN,
+			body: alpnExtension.finish(),
+		})
 	}
 	if len(m.quicTransportParams) > 0 {
-		extensions.addU16(extensionQUICTransportParams)
-		params := extensions.addU16LengthPrefixed()
-		params.addBytes(m.quicTransportParams)
+		exts = append(exts, ext{
+			id:   extensionQUICTransportParams,
+			body: m.quicTransportParams,
+		})
 	}
 	if m.channelIDSupported {
-		extensions.addU16(extensionChannelID)
-		extensions.addU16(0) // Length is always 0
+		exts = append(exts, ext{id: extensionChannelID})
 	}
 	if m.tokenBindingParams != nil {
-		extensions.addU16(extensionTokenBinding)
-		tokbindExtension := extensions.addU16LengthPrefixed()
+		tokbindExtension := newByteBuilder()
 		tokbindExtension.addU16(m.tokenBindingVersion)
 		tokbindParams := tokbindExtension.addU8LengthPrefixed()
 		tokbindParams.addBytes(m.tokenBindingParams)
-	}
-	if m.nextProtoNeg && m.npnAfterAlpn {
-		extensions.addU16(extensionNextProtoNeg)
-		extensions.addU16(0) // Length is always 0
+		exts = append(exts, ext{
+			id:   extensionTokenBinding,
+			body: tokbindExtension.finish(),
+		})
 	}
 	if m.duplicateExtension {
 		// Add a duplicate bogus extension at the beginning and end.
-		extensions.addU16(0xffff)
-		extensions.addU16(0)
+		exts = append(exts, ext{id: extensionDuplicate})
 	}
 	if m.extendedMasterSecret {
 		// https://tools.ietf.org/html/rfc7627
-		extensions.addU16(extensionExtendedMasterSecret)
-		extensions.addU16(0) // Length is always 0
+		exts = append(exts, ext{id: extensionExtendedMasterSecret})
 	}
 	if len(m.srtpProtectionProfiles) > 0 {
 		// https://tools.ietf.org/html/rfc5764#section-4.1.1
-		extensions.addU16(extensionUseSRTP)
-		useSrtpExt := extensions.addU16LengthPrefixed()
+		useSrtpExt := newByteBuilder()
 
 		srtpProtectionProfiles := useSrtpExt.addU16LengthPrefixed()
 		for _, p := range m.srtpProtectionProfiles {
@@ -576,38 +590,47 @@ func (m *clientHelloMsg) marshal() []byte {
 		}
 		srtpMki := useSrtpExt.addU8LengthPrefixed()
 		srtpMki.addBytes([]byte(m.srtpMasterKeyIdentifier))
+
+		exts = append(exts, ext{
+			id:   extensionUseSRTP,
+			body: useSrtpExt.finish(),
+		})
 	}
 	if m.sctListSupported {
-		extensions.addU16(extensionSignedCertificateTimestamp)
-		extensions.addU16(0) // Length is always 0
+		exts = append(exts, ext{id: extensionSignedCertificateTimestamp})
 	}
 	if l := len(m.customExtension); l > 0 {
-		extensions.addU16(extensionCustom)
-		customExt := extensions.addU16LengthPrefixed()
-		customExt.addBytes([]byte(m.customExtension))
+		exts = append(exts, ext{
+			id:   extensionCustom,
+			body: []byte(m.customExtension),
+		})
 	}
 	if len(m.compressedCertAlgs) > 0 {
-		extensions.addU16(extensionCompressedCertAlgs)
-		body := extensions.addU16LengthPrefixed()
+		body := newByteBuilder()
 		algIDs := body.addU8LengthPrefixed()
 		for _, v := range m.compressedCertAlgs {
 			algIDs.addU16(v)
 		}
+		exts = append(exts, ext{
+			id:   extensionCompressedCertAlgs,
+			body: body.finish(),
+		})
 	}
 	if m.delegatedCredentials {
-		extensions.addU16(extensionDelegatedCredentials)
-		body := extensions.addU16LengthPrefixed()
+		body := newByteBuilder()
 		signatureSchemeList := body.addU16LengthPrefixed()
 		for _, sigAlg := range m.signatureAlgorithms {
 			signatureSchemeList.addU16(uint16(sigAlg))
 		}
+		exts = append(exts, ext{
+			id:   extensionDelegatedCredentials,
+			body: body.finish(),
+		})
 	}
 
 	// The PSK extension must be last. See https://tools.ietf.org/html/rfc8446#section-4.2.11
-	if len(m.pskIdentities) > 0 && !m.pskBinderFirst {
-		extensions.addU16(extensionPreSharedKey)
-		pskExtension := extensions.addU16LengthPrefixed()
-
+	if len(m.pskIdentities) > 0 {
+		pskExtension := newByteBuilder()
 		pskIdentities := pskExtension.addU16LengthPrefixed()
 		for _, psk := range m.pskIdentities {
 			pskIdentities.addU16LengthPrefixed().addBytes(psk.ticket)
@@ -616,6 +639,36 @@ func (m *clientHelloMsg) marshal() []byte {
 		pskBinders := pskExtension.addU16LengthPrefixed()
 		for _, binder := range m.pskBinders {
 			pskBinders.addU8LengthPrefixed().addBytes(binder)
+		}
+		exts = append(exts, ext{
+			id:   extensionPreSharedKey,
+			body: pskExtension.finish(),
+		})
+	}
+
+	// Write each extension in |exts| to the |hello| message, hoisting the
+	// extensions named in |m.prefixExtensions| to the front.
+	extensions := hello.addU16LengthPrefixed()
+	extMap := make(map[uint16]ext)
+	for _, ext := range exts {
+		extMap[ext.id] = ext
+	}
+	// Write each of the prefix extensions, if we have it.
+	for _, extID := range m.prefixExtensions {
+		if ext, ok := extMap[extID]; ok {
+			extensions.addU16(extID)
+			extensions.addU16LengthPrefixed().addBytes(ext.body)
+		}
+	}
+	// Forget each of the prefix extensions.
+	for _, extID := range m.prefixExtensions {
+		delete(extMap, extID)
+	}
+	// Write each of the remaining extensions in their original order.
+	for _, ext := range exts {
+		if _, ok := extMap[ext.id]; ok {
+			extensions.addU16(ext.id)
+			extensions.addU16LengthPrefixed().addBytes(ext.body)
 		}
 	}
 
@@ -1236,7 +1289,7 @@ type serverExtensions struct {
 func (m *serverExtensions) marshal(extensions *byteBuilder) {
 	if m.duplicateExtension {
 		// Add a duplicate bogus extension at the beginning and end.
-		extensions.addU16(0xffff)
+		extensions.addU16(extensionDuplicate)
 		extensions.addU16(0) // length = 0 for empty extension
 	}
 	if m.nextProtoNeg && !m.npnAfterAlpn {
@@ -1286,7 +1339,7 @@ func (m *serverExtensions) marshal(extensions *byteBuilder) {
 	}
 	if m.duplicateExtension {
 		// Add a duplicate bogus extension at the beginning and end.
-		extensions.addU16(0xffff)
+		extensions.addU16(extensionDuplicate)
 		extensions.addU16(0)
 	}
 	if m.extendedMasterSecret {
