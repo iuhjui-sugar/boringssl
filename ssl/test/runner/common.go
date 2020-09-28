@@ -125,6 +125,7 @@ const (
 	extensionQUICTransportParams        uint16 = 0xffa5 // draft-ietf-quic-tls-13
 	extensionChannelID                  uint16 = 30032  // not IANA assigned
 	extensionDelegatedCredentials       uint16 = 0x22   // draft-ietf-tls-subcerts-06
+	extensionBogusDuplicate             uint16 = 0xffff // not IANA assigned
 )
 
 // TLS signaling cipher suite values
@@ -782,9 +783,9 @@ type ProtocolBugs struct {
 	// must specify in the server_name extension.
 	ExpectServerName string
 
-	// SwapNPNAndALPN switches the relative order between NPN and ALPN in
-	// both ClientHello and ServerHello.
-	SwapNPNAndALPN bool
+	// ServerSwapNPNAndALPN switches the relative order between NPN and ALPN
+	// in ServerHello.
+	ServerSwapNPNAndALPN bool
 
 	// ALPNProtocol, if not nil, sets the ALPN protocol that a server will
 	// return.
@@ -1079,6 +1080,14 @@ type ProtocolBugs struct {
 	// RequireClientHelloSize, if not zero, is the required length in bytes
 	// of the ClientHello /record/. This is checked by the server.
 	RequireClientHelloSize int
+
+	// PrefixExtensions alters the order in which ClientHello extensions are
+	// marshalled. All extensions in |PrefixExtensions| appear first.
+	PrefixExtensions []uint16
+
+	// SuffixExtensions alters the order in which ClientHello extensions are
+	// marshalled. All extensions in |SuffixExtensions| appear last.
+	SuffixExtensions []uint16
 
 	// CustomExtension, if not empty, contains the contents of an extension
 	// that will be added to client/server hellos.
@@ -1506,10 +1515,6 @@ type ProtocolBugs struct {
 	// SendExtraPSKBinder, if true, causes the client to send an extra PSK
 	// binder.
 	SendExtraPSKBinder bool
-
-	// PSKBinderFirst, if true, causes the client to send the PSK Binder
-	// extension as the first extension instead of the last extension.
-	PSKBinderFirst bool
 
 	// NoOCSPStapling, if true, causes the client to not request OCSP
 	// stapling.

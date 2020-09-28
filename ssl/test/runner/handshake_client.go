@@ -115,19 +115,18 @@ func (c *Conn) clientHandshake() error {
 		secureRenegotiation:     []byte{},
 		alpnProtocols:           c.config.NextProtos,
 		quicTransportParams:     c.config.QUICTransportParams,
-		duplicateExtension:      c.config.Bugs.DuplicateExtension,
 		channelIDSupported:      c.config.ChannelID != nil,
 		tokenBindingParams:      c.config.TokenBindingParams,
 		tokenBindingVersion:     c.config.TokenBindingVersion,
-		npnAfterAlpn:            c.config.Bugs.SwapNPNAndALPN,
 		extendedMasterSecret:    maxVersion >= VersionTLS10,
 		srtpProtectionProfiles:  c.config.SRTPProtectionProfiles,
 		srtpMasterKeyIdentifier: c.config.Bugs.SRTPMasterKeyIdentifer,
 		customExtension:         c.config.Bugs.CustomExtension,
-		pskBinderFirst:          c.config.Bugs.PSKBinderFirst && !c.config.Bugs.OnlyCorruptSecondPSKBinder,
 		omitExtensions:          c.config.Bugs.OmitExtensions,
 		emptyExtensions:         c.config.Bugs.EmptyExtensions,
 		delegatedCredentials:    !c.config.Bugs.DisableDelegatedCredentials,
+		prefixExtensions:        c.config.Bugs.PrefixExtensions,
+		suffixExtensions:        c.config.Bugs.SuffixExtensions,
 	}
 
 	if maxVersion >= VersionTLS13 {
@@ -607,8 +606,6 @@ NextCipherSuite:
 		}
 
 		hello.hasEarlyData = c.config.Bugs.SendEarlyDataOnSecondClientHello
-		// The first ClientHello may have skipped this due to OnlyCorruptSecondPSKBinder.
-		hello.pskBinderFirst = c.config.Bugs.PSKBinderFirst
 		if c.config.Bugs.OmitPSKsOnSecondClientHello {
 			hello.pskIdentities = nil
 			hello.pskBinders = nil

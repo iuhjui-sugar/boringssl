@@ -1376,7 +1376,7 @@ func (hs *serverHandshakeState) processClientExtensions(serverExtensions *server
 			if hs.clientHello.nextProtoNeg && len(config.NextProtos) > 0 {
 				serverExtensions.nextProtoNeg = true
 				serverExtensions.nextProtos = config.NextProtos
-				serverExtensions.npnAfterAlpn = config.Bugs.SwapNPNAndALPN
+				serverExtensions.npnAfterAlpn = config.Bugs.ServerSwapNPNAndALPN
 			}
 		}
 	}
