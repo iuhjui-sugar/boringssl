@@ -6531,7 +6531,7 @@ func addExtensionTests() {
 			config: Config{
 				MaxVersion: ver.version,
 				Bugs: ProtocolBugs{
-					DuplicateExtension: true,
+					PrefixExtensions: []uint16{extensionBogusDuplicate, extensionServerName, extensionBogusDuplicate},
 				},
 			},
 			shouldFail:         true,
@@ -6784,7 +6784,7 @@ func addExtensionTests() {
 					MaxVersion: ver.version,
 					NextProtos: []string{"foo", "bar", "baz"},
 					Bugs: ProtocolBugs{
-						SwapNPNAndALPN: true,
+						PrefixExtensions: []uint16{extensionALPN, extensionNextProtoNeg},
 					},
 				},
 				flags: []string{
@@ -6820,8 +6820,8 @@ func addExtensionTests() {
 					MaxVersion: ver.version,
 					NextProtos: []string{"foo", "bar", "baz"},
 					Bugs: ProtocolBugs{
-						NegotiateALPNAndNPN: true,
-						SwapNPNAndALPN:      true,
+						NegotiateALPNAndNPN:  true,
+						ServerSwapNPNAndALPN: true,
 					},
 				},
 				flags: []string{
@@ -8414,7 +8414,7 @@ func addResumptionVersionTests() {
 				MaxVersion:    VersionTLS13,
 				DefaultCurves: defaultCurves,
 				Bugs: ProtocolBugs{
-					PSKBinderFirst:             true,
+					PrefixExtensions:           []uint16{extensionPreSharedKey},
 					OnlyCorruptSecondPSKBinder: secondBinder,
 				},
 			},
