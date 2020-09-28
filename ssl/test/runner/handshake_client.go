@@ -100,6 +100,26 @@ func (c *Conn) clientHandshake() error {
 		return errors.New("tls: NextProtos values too large")
 	}
 
+	// Translate the bugs that modify ClientHello extension order into a
+	// list of prefix extensions. The marshal function will try these
+	// extensions before any others, followed by any remaining extensions in
+	// the default order.
+	var prefixExtensions []uint16
+	if c.config.Bugs.PSKBinderFirst && !c.config.Bugs.OnlyCorruptSecondPSKBinder {
+		prefixExtensions = append(prefixExtensions, extensionPreSharedKey)
+	}
+	if c.config.Bugs.DuplicateExtension {
+		prefixExtensions = append(prefixExtensions, extensionBogusDuplicate)
+		// Place an extension we are guaranteed to send in between the
+		// duplicate extensions.
+		prefixExtensions = append(prefixExtensions, extensionSupportedCurves)
+		prefixExtensions = append(prefixExtensions, extensionBogusDuplicate)
+	}
+	if c.config.Bugs.SwapNPNAndALPN {
+		prefixExtensions = append(prefixExtensions, extensionALPN)
+		prefixExtensions = append(prefixExtensions, extensionNextProtoNeg)
+	}
+
 	minVersion := c.config.minVersion(c.isDTLS)
 	maxVersion := c.config.maxVersion(c.isDTLS)
 	hello := &clientHelloMsg{
@@ -115,19 +135,17 @@ func (c *Conn) clientHandshake() error {
 		secureRenegotiation:     []byte{},
 		alpnProtocols:           c.config.NextProtos,
 		quicTransportParams:     c.config.QUICTransportParams,
-		duplicateExtension:      c.config.Bugs.DuplicateExtension,
 		channelIDSupported:      c.config.ChannelID != nil,
 		tokenBindingParams:      c.config.TokenBindingParams,
 		tokenBindingVersion:     c.config.TokenBindingVersion,
-		npnAfterAlpn:            c.config.Bugs.SwapNPNAndALPN,
 		extendedMasterSecret:    maxVersion >= VersionTLS10,
 		srtpProtectionProfiles:  c.config.SRTPProtectionProfiles,
 		srtpMasterKeyIdentifier: c.config.Bugs.SRTPMasterKeyIdentifer,
 		customExtension:         c.config.Bugs.CustomExtension,
-		pskBinderFirst:          c.config.Bugs.PSKBinderFirst && !c.config.Bugs.OnlyCorruptSecondPSKBinder,
 		omitExtensions:          c.config.Bugs.OmitExtensions,
 		emptyExtensions:         c.config.Bugs.EmptyExtensions,
 		delegatedCredentials:    !c.config.Bugs.DisableDelegatedCredentials,
+		prefixExtensions:        prefixExtensions,
 	}
 
 	if maxVersion >= VersionTLS13 {
@@ -608,7 +626,9 @@ NextCipherSuite:
 
 		hello.hasEarlyData = c.config.Bugs.SendEarlyDataOnSecondClientHello
 		// The first ClientHello may have skipped this due to OnlyCorruptSecondPSKBinder.
-		hello.pskBinderFirst = c.config.Bugs.PSKBinderFirst
+		if c.config.Bugs.PSKBinderFirst && c.config.Bugs.OnlyCorruptSecondPSKBinder {
+			hello.prefixExtensions = append(hello.prefixExtensions, extensionPreSharedKey)
+		}
 		if c.config.Bugs.OmitPSKsOnSecondClientHello {
 			hello.pskIdentities = nil
 			hello.pskBinders = nil
