@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c6fc2fac_e834c2b5",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 788,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-09-28T17:13:12Z",
+      "side": 1,
+      "message": "Should I also refactor the marshal() funcs for serverHelloMsg and helloRetryRequestMsg?  I could eliminate ServerSwapNPNAndALPN if all three messages used PrefixExtensions.",
+      "revId": "8ad79857d2f31ce793dd7efdb5c75bd09802049d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a243276d_535aeed3",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 1090,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-09-28T17:13:12Z",
+      "side": 1,
+      "message": "Could actually delete this field, since I haven\u0027t found a use for it in the tests yet.",
+      "range": {
+        "startLine": 1090,
+        "startChar": 1,
+        "endLine": 1090,
+        "endChar": 17
+      },
+      "revId": "8ad79857d2f31ce793dd7efdb5c75bd09802049d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
