@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6adebec2_bfd60704",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-09-29T22:50:20Z",
+      "side": 1,
+      "message": "This change seems to implicitly suggest that installing BoringSSL as a system library is a reasonable thing to do, but that would displace OpenSSL, and we explicitly do not try to be a drop-in OpenSSL replacement at the distro level.\n\nAlso, the CMake build is our development build. It\u0027s not really designed for anything else. Consumer projects use the source lists and configs from util/generate_build_files.py.",
+      "revId": "5d7eae3e8f45d91327c4cbc3a8eaa7be0ee748e9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
