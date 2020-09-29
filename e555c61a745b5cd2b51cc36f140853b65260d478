@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "33c36b28_332d1c62",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2020-09-29T20:54:09Z",
+      "side": 1,
+      "message": "Yes, I just took that from the spec. The lab will have to carefully review these JSON capability definitions when we do testing to ensure that we\u0027re testing enough. (For AES-GCM, giving the full bounds did cause the amount of test vectors to be unworkable, however.)",
+      "parentUuid": "b6eab2e0_3f064d12",
+      "revId": "e555c61a745b5cd2b51cc36f140853b65260d478",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c2ffea95_a39dac26",
         "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
         "patchSetId": 1
@@ -39,6 +57,30 @@
       "revId": "e555c61a745b5cd2b51cc36f140853b65260d478",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d5d4d875_3fa76202",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2020-09-29T20:54:09Z",
+      "side": 1,
+      "message": "I switched this off because I don\u0027t know if we need it, and it caused the results to be so large that the NIST server had problems processing it. But I\u0027ve increased the HTTP timeout and this can now be set to true.",
+      "parentUuid": "c2ffea95_a39dac26",
+      "range": {
+        "startLine": 182,
+        "startChar": 9,
+        "endLine": 182,
+        "endChar": 24
+      },
+      "revId": "e555c61a745b5cd2b51cc36f140853b65260d478",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
