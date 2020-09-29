@@ -465,6 +465,12 @@ if(USE_CUSTOM_LIBCXX)
   target_link_libraries(crypto libcxx)
 endif()
 
+install(TARGETS crypto
+    EXPORT boringssl-targets
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+)
+
 # urandom_test is a separate binary because it needs to be able to observe the
 # PRNG initialisation, which means that it can't have other tests running before
 # it does.

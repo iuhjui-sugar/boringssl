@@ -14,6 +14,8 @@ include(sources.cmake)
 enable_language(C)
 enable_language(CXX)
 
+include(GNUInstallDirs)
+
 # This is a dummy target which all other targets depend on (manually - see other
 # CMakeLists.txt files). This gives us a hook to add any targets which need to
 # run before all other targets.
@@ -627,3 +629,8 @@ add_custom_target(
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
     DEPENDS all_tests bssl_shim handshaker
     USES_TERMINAL)
+
+install(DIRECTORY
+    include/openssl
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)

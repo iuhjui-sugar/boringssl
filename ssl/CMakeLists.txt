@@ -45,6 +45,12 @@ add_dependencies(ssl global_target)
 
 target_link_libraries(ssl crypto)
 
+install(TARGETS ssl
+    EXPORT boringssl-targets
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+)
+
 add_executable(
   ssl_test
 

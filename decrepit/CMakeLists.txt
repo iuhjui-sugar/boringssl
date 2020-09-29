@@ -26,6 +26,12 @@ add_dependencies(decrepit global_target)
 
 target_link_libraries(decrepit crypto ssl)
 
+install(TARGETS decrepit
+    EXPORT boringssl-targets
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+)
+
 add_executable(
   decrepit_test
 
