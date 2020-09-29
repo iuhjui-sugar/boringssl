@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "47375867_5a3faa48",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-29T22:51:08Z",
+      "side": 1,
+      "message": "Changes from yours:\n- Added tests.\n- Implemented the new API we discussed.\n- Implemented the draft-01 changes.\n- Fixed an issue with EncryptedExtensions not being encrypted.\n- Fixed issues around callback order and such.\n\nIt\u0027s late so I haven\u0027t done my usual self-review yet, but it should work? Or at least it passed all the tests I threw at it. Mind giving it a review pass, Steven?",
+      "revId": "6965a95bab001a53ccedcc15908566996b95ebf1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
