@@ -105,6 +105,30 @@
       "revId": "e555c61a745b5cd2b51cc36f140853b65260d478",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "73cfa92d_0330694c",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2020-09-29T23:48:50Z",
+      "side": 1,
+      "message": "No, they do set the IV to nearly 0xff..ff to test the overflow. It\u0027s just that the additional tests increased the number of bytes to the point where the server was taking more than 10 seconds to complete the upload.",
+      "parentUuid": "0048f82a_17f4ef53",
+      "range": {
+        "startLine": 182,
+        "startChar": 9,
+        "endLine": 182,
+        "endChar": 24
+      },
+      "revId": "e555c61a745b5cd2b51cc36f140853b65260d478",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
