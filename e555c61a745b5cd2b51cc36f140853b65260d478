@@ -81,6 +81,30 @@
       "revId": "e555c61a745b5cd2b51cc36f140853b65260d478",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0048f82a_17f4ef53",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-29T21:02:26Z",
+      "side": 1,
+      "message": "...do they try to overflow the hard way rather than just set the IV to 0xff..ff?",
+      "parentUuid": "d5d4d875_3fa76202",
+      "range": {
+        "startLine": 182,
+        "startChar": 9,
+        "endLine": 182,
+        "endChar": 24
+      },
+      "revId": "e555c61a745b5cd2b51cc36f140853b65260d478",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
