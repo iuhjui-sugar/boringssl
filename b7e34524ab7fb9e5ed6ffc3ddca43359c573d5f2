@@ -123,6 +123,24 @@
     },
     {
       "key": {
+        "uuid": "78d944a2_e38616ed",
+        "filename": "ssl/test/runner/hpke/hpke.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-29T23:15:45Z",
+      "side": 1,
+      "message": "Ehh, it is considerably smaller with all the unnecessary abstractions removed, but still probably a little large?",
+      "parentUuid": "ab17b3dd_69ede2bd",
+      "revId": "b7e34524ab7fb9e5ed6ffc3ddca43359c573d5f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e594f9e8_d5976275",
         "filename": "ssl/test/runner/hpke/hpke.go",
         "patchSetId": 3

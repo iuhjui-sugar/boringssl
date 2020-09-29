@@ -16,6 +16,97 @@
       "revId": "ca57d761835f11a60cfa39efdcad722ef211f467",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dbf82966_87865459",
+        "filename": "ssl/test/runner/hpke/kem.go",
+        "patchSetId": 12
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-29T23:15:45Z",
+      "side": 1,
+      "message": "Nit: I think this should go after the type is defined. Otherwise it\u0027s hard to read.",
+      "revId": "ca57d761835f11a60cfa39efdcad722ef211f467",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ea78657c_5c795e97",
+        "filename": "ssl/test/runner/hpke/kem.go",
+        "patchSetId": 12
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-29T23:15:45Z",
+      "side": 1,
+      "message": "This comment is off since it\u0027s not implementing an interface anymore.\n\nI\u0027m not sure wrapping things in a struct like this just for namespacing is very idiomatic. Since we\u0027re not trying to make an actual KEM interface here. If we were, I think we\u0027d want it to look a bit different anyway given the public key recomputation issue below.\n\nInstead, I think you can do:\n\n1. dkhemX25519{}.ID() \u003d\u003e X25519WithHKDFSHA256.\n2. dhkemX25519{}.GenerateKeyPair \u003d\u003e generateX25519KeyPair\n3. dhkemX25519{}.Encap \u003d\u003e x25519Encap\n4. dhkemX25519{}.Decap \u003d\u003e x25519Decap\n5. dhkemX25519{}.extractAndExpand isn\u0027t particularly specific to X25519, so even if we added a KEM abstraction, it wouldn\u0027t be on it. It should just be a free function that takes an ID and output length. Encap and Decap can then pass in some constant you define here or honestly just 32 also fine since it only shows up twice anyway.\n\nActually, since extractAndExpand is only for the spec\u0027s DH KEM construction, which always concatenates the public keys, you may as well pull a little more code in it with:\n\n  func extractAndExpandDHKEM(kemID uint16, dh, enc, publicKeyR []byte, length int) []byte {\n      // Take care of concatenating enc and publicKeyR inside the function.\n  }",
+      "revId": "ca57d761835f11a60cfa39efdcad722ef211f467",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "252bcd25_472f6995",
+        "filename": "ssl/test/runner/hpke/kem.go",
+        "patchSetId": 12
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-29T23:15:45Z",
+      "side": 1,
+      "message": "var kemContext []byte",
+      "range": {
+        "startLine": 125,
+        "startChar": 1,
+        "endLine": 125,
+        "endChar": 30
+      },
+      "revId": "ca57d761835f11a60cfa39efdcad722ef211f467",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2307c540_64b64b68",
+        "filename": "ssl/test/runner/hpke/kem.go",
+        "patchSetId": 12
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-29T23:15:45Z",
+      "side": 1,
+      "message": "This should have a comment since we would never do this in a production implementation and code has a habit of getting everywhere. Something like:\n\n// For simplicity, we recompute the receiver\u0027s public key. A production implementation of HPKE should incorporate it into the receiver key and halve the number of point multiplications needed.",
+      "revId": "ca57d761835f11a60cfa39efdcad722ef211f467",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09f3ece0_dc5990b3",
+        "filename": "ssl/test/runner/hpke/kem.go",
+        "patchSetId": 12
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-29T23:15:45Z",
+      "side": 1,
+      "message": "var kemContext []byte",
+      "revId": "ca57d761835f11a60cfa39efdcad722ef211f467",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
