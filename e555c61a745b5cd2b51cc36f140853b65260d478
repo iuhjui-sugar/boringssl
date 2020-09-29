@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b6eab2e0_3f064d12",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-29T19:18:08Z",
+      "side": 1,
+      "message": "We\u0027re able to encrypt whatever with CTR, right? Is this just arbitrary because otherwise we\u0027ll run too many tests? I notice the spec says {\"Min\": 1, \"Max\": 128, \"Inc\": any}... and I guess this is what happens when you pick 8 for any and adjust min accordingly?\n\nhttps://tools.ietf.org/id/draft-celi-block-ciph-00.html#rfc.section.4.2",
+      "revId": "e555c61a745b5cd2b51cc36f140853b65260d478",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c2ffea95_a39dac26",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-29T19:18:08Z",
+      "side": 1,
+      "message": "What does this correspond to? Spec just says it\u0027s if \"the implementation can handle a counter exceeding the maximum value\", but I don\u0027t know if \"handle\" means wrap or error. I believe AES_ctr128_encrypt will wrap.",
+      "range": {
+        "startLine": 182,
+        "startChar": 9,
+        "endLine": 182,
+        "endChar": 24
+      },
+      "revId": "e555c61a745b5cd2b51cc36f140853b65260d478",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
