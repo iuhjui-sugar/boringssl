@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ff2400a_5915eec8",
+        "filename": "util/fipstools/acvp/acvptool/subprocess/subprocess.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-29T19:26:40Z",
+      "side": 1,
+      "message": "Missing a new file?",
+      "revId": "df69d7cf15ee07e18e3f7ab45fa0bb4026d2e629",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be7a5d86_77598dc2",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 431,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-29T19:26:40Z",
+      "side": 1,
+      "message": "I think the preference is to pass spans by value, since they\u0027re pretty small. And it\u0027s less wordy. :-)\nhttps://abseil.io/tips/93\n\nProbably applies to lines 462-466 and 494-498 too.",
+      "range": {
+        "startLine": 431,
+        "startChar": 25,
+        "endLine": 431,
+        "endChar": 52
+      },
+      "revId": "df69d7cf15ee07e18e3f7ab45fa0bb4026d2e629",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "236d9fb0_2e229aaf",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-29T19:26:40Z",
+      "side": 1,
+      "message": "Optional: This can probably be pulled into AESGCMCommon too. Then the error string below can be consistent between Open and Seal. Though I guess the flip side is it\u0027s harder to generalize to other AEADs.",
+      "revId": "df69d7cf15ee07e18e3f7ab45fa0bb4026d2e629",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
