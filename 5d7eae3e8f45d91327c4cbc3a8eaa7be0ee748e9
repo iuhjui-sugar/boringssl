@@ -16,6 +16,23 @@
       "revId": "5d7eae3e8f45d91327c4cbc3a8eaa7be0ee748e9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "82184297_ceb9abc8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8844
+      },
+      "writtenOn": "2020-09-29T22:54:31Z",
+      "side": 1,
+      "message": "There are situations where I depend on projects that depend on BoringSSL (in this case I am playing with LSQUIC). I do believe that when the big crypto libraries (BoringSSL, LibreSSL, OpenSSL) all work with a project, then it is nice, with CMake, to be able to interchangeably use the one found by `find_package(OPENSSL REQUIRED)`.\n\nBecause BoringSSL is usually not installed on the system, I end up with a superbuild scheme, where I install the libraries into, say, `third_party/install`, and then I point `-DCMAKE_PREFIX_PATH` there. I know that many people use git submodules for dependencies, but I don\u0027t like that, and I think my use-case is valid.\n\nSo the question here is: is there a reason for not having a CMake install target for BoringSSL? :-)",
+      "revId": "5d7eae3e8f45d91327c4cbc3a8eaa7be0ee748e9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
