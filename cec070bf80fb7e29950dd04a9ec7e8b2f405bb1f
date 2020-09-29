@@ -1,0 +1,243 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a89f5858_3b8bae6a",
+        "filename": "crypto/trust_token/internal.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-29T19:08:17Z",
+      "side": 1,
+      "message": "No longer defined?",
+      "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3b57ab2_d285bc2b",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-29T19:08:17Z",
+      "side": 1,
+      "message": "This is such a silly function. :-P",
+      "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d3c0d11a_8b6d4c23",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-29T19:08:17Z",
+      "side": 1,
+      "message": "Oh, that\u0027s where the length prefix came from. :-) Maybe worth a comment, like:\n\n// If the protocol doesn\u0027t use SRRs, TRUST_TOKEN_CLIENT_finish_redemption leaves all SRR validation to the caller.",
+      "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4da44a6_bd247d81",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-29T19:08:17Z",
+      "side": 1,
+      "message": "Since we\u0027re still expecting BoringSSL to construct the SRR, maybe some tests to assert that the HTTP structured headers output is as expected?\n\n(Orrrr we could go do that less fussy new API... ;-) )",
+      "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "141d43dc_922ad8b2",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-29T19:08:17Z",
+      "side": 1,
+      "message": "Not sure I follow what\u0027s going on here. What\u0027s 4?",
+      "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d414d045_4604ca48",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-29T19:08:17Z",
+      "side": 1,
+      "message": "Is this one used? Seems like it isn\u0027t.",
+      "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43db1945_1a0a5295",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-29T19:08:17Z",
+      "side": 1,
+      "message": "I think this is also unused. Though it\u0027s somewhat moot because ec/internal.h pulls it in anyway.",
+      "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4da0191_032774a9",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-29T19:08:17Z",
+      "side": 1,
+      "message": "clang-format",
+      "range": {
+        "startLine": 36,
+        "startChar": 37,
+        "endLine": 36,
+        "endChar": 44
+      },
+      "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c1e13095_944bd8dc",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-29T19:08:17Z",
+      "side": 1,
+      "message": "No longer used.",
+      "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fcb2e0d8_75f8584c",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-29T19:08:17Z",
+      "side": 1,
+      "message": "Super nitpicky nitpick because apparently I always point out these: spec seems to use HashToGroup and HashToScalar here. :-)",
+      "range": {
+        "startLine": 43,
+        "startChar": 34,
+        "endLine": 43,
+        "endChar": 48
+      },
+      "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ed5094f_bcf7e101",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-29T19:08:17Z",
+      "side": 1,
+      "message": "This can be scalar_to_cbb, right? And then if you want you can probably do:\n\n  const EC_GROUP *group \u003d method-\u003egroup;\n  EC_RAW_POINT pub;\n  EC_SCALAR priv;\n  EC_AFFINE pub_affine;\n  if (!ec_random_nonzero_scalar(group, \u0026priv, kDefaultAdditionalData) ||\n      !ec_point_mul_scalar_base(group, \u0026pub, \u0026priv) ||\n      !ec_jacobian_to_affine(group, \u0026pub_affine, \u0026pub)) {\n    OPENSSL_PUT_ERROR(TRUST_TOKEN, TRUST_TOKEN_R_KEYGEN_FAILURE);\n    return 0;\n  }\n\n  if (!scalar_to_cbb(out_private, group, \u0026priv) ||\n      !cbb_add_point(out_public, group, \u0026pub_affine)) {\n    OPENSSL_PUT_ERROR(TRUST_TOKEN, TRUST_TOKEN_R_BUFFER_TOO_SMALL);\n    return 0;\n  }\n\n  return 1;",
+      "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31e730de_879cab16",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-29T19:08:17Z",
+      "side": 1,
+      "message": "r? Looks like we\u0027re still sampling r and then inverting, but just storing rinv somewhere else.",
+      "range": {
+        "startLine": 179,
+        "startChar": 17,
+        "endLine": 179,
+        "endChar": 21
+      },
+      "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "890d01bf_1e25bbe7",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-29T19:08:17Z",
+      "side": 1,
+      "message": "I really should go make infallible EC_group_p384() or EC_p384() functions... PMBTokens needed to deal with an EC_PRECOMP, but this doesn\u0027t actually need CRYPTO_once_t anymore. It\u0027s only forced into it by way of bad APIs on our end. :-/",
+      "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

@@ -410,6 +410,24 @@
     },
     {
       "key": {
+        "uuid": "beebf43f_eefded7b",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 695,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-29T19:08:17Z",
+      "side": 1,
+      "message": "Ack. Although let\u0027s get that API change over with before you end up introducing a third syntax. We\u0027ve got CBOR and HTTP structured headers in here. :-)",
+      "parentUuid": "c81b90ff_5cefdf4d",
+      "revId": "fbb367c1c2bfc4400d2aeb8d30340c4e29f6b9ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9078e5c2_549251fe",
         "filename": "crypto/trust_token/voprf.c",
         "patchSetId": 5
@@ -1050,6 +1068,24 @@
       "revId": "fbb367c1c2bfc4400d2aeb8d30340c4e29f6b9ae",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "861417c0_08566e3f",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 486,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-29T19:08:17Z",
+      "side": 1,
+      "message": "Sounds good. Maybe we can align things in v3 or v4 or so. Looks like the things we\u0027d need are:\n\n- Spec tidies up labels and other issues and stamps out a new version.\n- We add the Finalize() step, or is that optional? Spec doesn\u0027t seem to think it is.\n- Tweak the proof to align with the spec.\n- Tweak the hash inputs to align with the spec.\n- To avoid PMBTokens and VOPRF being very different, align PMBTokens with VOPRF where possible.",
+      "parentUuid": "db74f90d_aea232d4",
+      "revId": "fbb367c1c2bfc4400d2aeb8d30340c4e29f6b9ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
