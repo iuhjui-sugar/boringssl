@@ -238,6 +238,23 @@
       "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ac02f5ca_79aeb45d",
+        "filename": "tool/speed.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1354,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-29T19:10:19Z",
+      "side": 1,
+      "message": "Hrm. I tried building this and running bssl speed -filter trusttoken, but it seems to error now. Interestingly, it seems v1 was broken somehow?? Did this regress something? (If so, probably need a test somewhere.)\n\nDid 989 TrustToken-Exp1-Batch1 generate_key operations in 1033569us (956.9 ops/sec)\nDid 1683 TrustToken-Exp1-Batch1 begin_issuance operations in 1046644us (1608.0 ops/sec)\nDid 170 TrustToken-Exp1-Batch1 issue operations in 1025173us (165.8 ops/sec)\nDid 154 TrustToken-Exp1-Batch1 finish_issuance operations in 1055872us (145.9 ops/sec)\nDid 1521000 TrustToken-Exp1-Batch1 begin_redemption operations in 1000285us (1520566.6 ops/sec)\nDid 624 TrustToken-Exp1-Batch1 redeem operations in 1081652us (576.9 ops/sec)\nTRUST_TOKEN_CLIENT_finish_redemption failed.\n140379131241544:error:20000067:Trust Token functions:OPENSSL_internal:DECODE_ERROR:../crypto/trust_token/trust_token.c:336:",
+      "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
