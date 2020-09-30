@@ -33,6 +33,24 @@
       "revId": "d3410184109d873c0a5638a8d8ba821c2da17f53",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d78cbe4b_36290842",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 5439,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2020-09-30T21:23:21Z",
+      "side": 1,
+      "message": "Reworded comments.",
+      "parentUuid": "5e85c94f_b36a1b91",
+      "revId": "d3410184109d873c0a5638a8d8ba821c2da17f53",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
