@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba76bfb6_3844603e",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 5437,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-30T21:16:52Z",
+      "side": 1,
+      "message": "This works. If you want to test at BoGo too, there\u0027s a resumeRenewedSession parameter.\n\nI was going to suggest adding it to EarlyData-Server-TLS13 or so. Even over TCP, there\u0027s a slightly fussy half-RTT ticket thing we ought to test. But I notice addTLS13HandshakeTests isn\u0027t replicated over QUIC (maybe it should be?), so that wouldn\u0027t help this CL. That all is probably too much to untangle for this CL anyway so... this is just a side comment in case you had thoughts, rather than a request to change anything. :-)",
+      "revId": "d3410184109d873c0a5638a8d8ba821c2da17f53",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5e85c94f_b36a1b91",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 5439,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-30T21:16:52Z",
+      "side": 1,
+      "message": "This comment seems slightly off since ProvideHandshakeData + SSL_process_quic_post_handshake isn\u0027t actually performing a second (third?) handshake. It\u0027s just picking up the ticket.",
+      "revId": "d3410184109d873c0a5638a8d8ba821c2da17f53",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
