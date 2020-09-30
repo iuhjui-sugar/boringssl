@@ -39,6 +39,30 @@
       "revId": "c4d391e6a52aead3c9a9535774fdd0c926010251",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef27fea3_d99494a0",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2020-09-30T19:58:24Z",
+      "side": 1,
+      "message": "Yep, thanks!",
+      "parentUuid": "7a886cf8_2650e937",
+      "range": {
+        "startLine": 566,
+        "startChar": 10,
+        "endLine": 566,
+        "endChar": 11
+      },
+      "revId": "c4d391e6a52aead3c9a9535774fdd0c926010251",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
