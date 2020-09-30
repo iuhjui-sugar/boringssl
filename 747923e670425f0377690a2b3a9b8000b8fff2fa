@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a302a9dd_51570b8f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-30T18:07:05Z",
+      "side": 1,
+      "message": "I\u0027m a little surprised that Trusty reads as Linux in the first place since they\u0027re... not. Do they define __linux__? I suspect the other OPENSSL_LINUX calls have been excluding Trusty anyway on accident. That suggests:\n\n1. Can Trusty stop defining __linux__? From my understanding of Trusty, I don\u0027t see how it makes sense for them to define it at all.\n\n2. If we\u0027re all agreed that (1) is the right path, it sounds like we should hack the OPENSSL_LINUX #define to exclude itself when OPENSSL_TRUSTY is defined, and maybe leave a TODO with a bug link for when this can be removed.",
+      "revId": "747923e670425f0377690a2b3a9b8000b8fff2fa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
