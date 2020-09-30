@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "13e94477_6d22d1c0",
+        "filename": "ssl/test/runner/hpke/kem.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-09-30T19:41:46Z",
+      "side": 1,
+      "message": "This and GenerateKeyPair need to be exposed for the dependent CL that adds ECH GREASE. Figured I might as well reduce churn by doing it in this CL.",
+      "revId": "b855adcff3798676f88f8e31c941793d53b42f14",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}

@@ -89,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "044d34ed_8ef3f7b9",
+        "filename": "ssl/test/runner/hpke/kem.go",
+        "patchSetId": 12
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-09-30T19:41:46Z",
+      "side": 1,
+      "message": "(Actually, I skipped the kemID parameter to extractAndExpand and just hardcoded it.)",
+      "parentUuid": "2ccd69bf_e7d53c8c",
+      "revId": "ca57d761835f11a60cfa39efdcad722ef211f467",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "252bcd25_472f6995",
         "filename": "ssl/test/runner/hpke/kem.go",
         "patchSetId": 12
