@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3353d39a_2994a45c",
+        "filename": "util/fipstools/acvp/acvptool/subprocess/aead.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-30T16:24:03Z",
+      "side": 1,
+      "message": "Worth checking against tagBytes like the key?",
+      "revId": "ec49e76f8b6d5e38d11d4c6c62290ce42fc9de06",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
