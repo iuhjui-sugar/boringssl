@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d32571d7_2ffd85c8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-09-30T20:52:52Z",
+      "side": 1,
+      "message": "Okay, hopefully this fixes the split handshake issues. Changes:\n1. Fixed ssl_early_data_reason_max_value.\n2. I\u0027ve moved the state to SSL_SESSION as we talked about earlier. I did need to slightly reorder the logic on the server but otherwise it wasn\u0027t too bad. This avoids worrying about serializing extra data on SSL3_STATE. (Ugh split handshakes.)",
+      "revId": "f8e5ea88f216f1d0712a7542b762fee6d7227587",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    }
+  ]
+}
