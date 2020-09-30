@@ -33,6 +33,24 @@
       "revId": "5d7eae3e8f45d91327c4cbc3a8eaa7be0ee748e9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2850bc03_5c59c95d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8844
+      },
+      "writtenOn": "2020-09-30T07:42:15Z",
+      "side": 1,
+      "message": "Those are interesting points, thank you!\n\nI was not aware that the CMake build was considered \"development only\". I\u0027ve seen multiple projects (gRPC, LSQUIC) depending on it, maybe that\u0027s also for their development build, but the reality is that if I depend on gRPC and I need to build it for my platform, from sources, chances are that I will be using CMake, right? I am not completely convinced by the idea of forcing people who use CMake to patch BoringSSL just because otherwise it may suggest something that does not want to be suggested. For one, not having an install target almost never means - on the Internet - anything other than \"we don\u0027t use it this way and haven\u0027t felt it was necessary until now\". That\u0027s how I took it with BoringSSL; I knew about it being a replacement for distro OpenSSL thanks to the README.\n\nJust to elaborate on my use-case: I use the install target not to install system-wide, but to install it locally in a consistent way. It is very easy to \"install\" and then \"find_package(OPENSSL REQUIRED)\" with a modified CMAKE_PREFIX_PATH, and that seems fairly elegant to me (as compared to writing custom \"find_*\" stuff in CMakeLists or having BoringSSL as a git submodule). To me, the way it is in BoringSSL suggests that it should be used as a git submodule (and gRPC reinforces that feeling).\n\nAnyway, I can continue patching it myself on my side, it was just not clear to me why BoringSSL did not support that :-).",
+      "parentUuid": "6adebec2_bfd60704",
+      "revId": "5d7eae3e8f45d91327c4cbc3a8eaa7be0ee748e9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
