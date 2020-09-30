@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "c3b268ad_39589dab",
+        "filename": "ssl/test/runner/hpke/kem.go",
+        "patchSetId": 12
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-09-30T19:04:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dbf82966_87865459",
+      "revId": "ca57d761835f11a60cfa39efdcad722ef211f467",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ea78657c_5c795e97",
         "filename": "ssl/test/runner/hpke/kem.go",
         "patchSetId": 12
@@ -50,6 +68,24 @@
       "revId": "ca57d761835f11a60cfa39efdcad722ef211f467",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ccd69bf_e7d53c8c",
+        "filename": "ssl/test/runner/hpke/kem.go",
+        "patchSetId": 12
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-09-30T19:04:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea78657c_5c795e97",
+      "revId": "ca57d761835f11a60cfa39efdcad722ef211f467",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     },
     {
       "key": {
@@ -76,6 +112,30 @@
     },
     {
       "key": {
+        "uuid": "e30be67a_abe84029",
+        "filename": "ssl/test/runner/hpke/kem.go",
+        "patchSetId": 12
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-09-30T19:04:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "252bcd25_472f6995",
+      "range": {
+        "startLine": 125,
+        "startChar": 1,
+        "endLine": 125,
+        "endChar": 30
+      },
+      "revId": "ca57d761835f11a60cfa39efdcad722ef211f467",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2307c540_64b64b68",
         "filename": "ssl/test/runner/hpke/kem.go",
         "patchSetId": 12
@@ -93,6 +153,24 @@
     },
     {
       "key": {
+        "uuid": "2cb3aa94_6bbf21f7",
+        "filename": "ssl/test/runner/hpke/kem.go",
+        "patchSetId": 12
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-09-30T19:04:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2307c540_64b64b68",
+      "revId": "ca57d761835f11a60cfa39efdcad722ef211f467",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "09f3ece0_dc5990b3",
         "filename": "ssl/test/runner/hpke/kem.go",
         "patchSetId": 12
@@ -107,6 +185,24 @@
       "revId": "ca57d761835f11a60cfa39efdcad722ef211f467",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee6bb17a_aab88e3a",
+        "filename": "ssl/test/runner/hpke/kem.go",
+        "patchSetId": 12
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-09-30T19:04:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09f3ece0_dc5990b3",
+      "revId": "ca57d761835f11a60cfa39efdcad722ef211f467",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
