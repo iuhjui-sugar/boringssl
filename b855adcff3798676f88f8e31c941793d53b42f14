@@ -34,6 +34,24 @@
       "revId": "b855adcff3798676f88f8e31c941793d53b42f14",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4e95c35_bb3f1bcd",
+        "filename": "ssl/test/runner/hpke/kem.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-02T21:40:15Z",
+      "side": 1,
+      "message": "Why does runner need to implement ECH GREASE? Runner implements specific things so that we can test how C reacts to it. It also tests that C sends what we expect. It does not need to implement any random selection of values.\n\nFor comparison, note that we do not implement sending GREASE ciphers or anything else in runner. Rather, runner\u0027s knowledge of GREASE is that it can be configured to *require* the client send it, in order to test that, when asked, the client actually does send it.\n\nThe runner is not a TLS implementation, it\u0027s a TLS tester. They\u0027re similar but not the same.",
+      "parentUuid": "73885b6a_67ad831f",
+      "revId": "b855adcff3798676f88f8e31c941793d53b42f14",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
