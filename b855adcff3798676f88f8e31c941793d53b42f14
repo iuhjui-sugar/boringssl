@@ -52,6 +52,24 @@
       "revId": "b855adcff3798676f88f8e31c941793d53b42f14",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d372e320_69a5eb48",
+        "filename": "ssl/test/runner/hpke/kem.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-10-02T22:17:55Z",
+      "side": 1,
+      "message": "I see your point. The server is supposed to respond to bad ECH values in a certain way, but it can\u0027t distinguish GREASE from \"real\" ECH encrypted with the wrong keys. So runner doesn\u0027t need an ECH GREASE implementation.\n\nIf I un-expose NewKDF, should I do the same for the other functions in kem.go? Do we only expose functions that have a present need to be called from outside the package?",
+      "parentUuid": "f4e95c35_bb3f1bcd",
+      "revId": "b855adcff3798676f88f8e31c941793d53b42f14",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
