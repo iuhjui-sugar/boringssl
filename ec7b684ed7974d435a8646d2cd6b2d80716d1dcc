@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a95a524b_33ee36cc",
+        "filename": "util/fipstools/acvp/acvptool/subprocess/aead.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-10-02T21:43:53Z",
+      "side": 1,
+      "message": "Yep. CCM mode sets the tagLen parameter but then there\u0027s no tag field. Empirically, the tag is appended to the plaintext.",
+      "parentUuid": "359d757a_224f8221",
+      "range": {
+        "startLine": 27,
+        "startChar": 1,
+        "endLine": 27,
+        "endChar": 24
+      },
+      "revId": "ec7b684ed7974d435a8646d2cd6b2d80716d1dcc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8176edf6_2dc0044b",
         "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
         "patchSetId": 1
@@ -45,6 +69,30 @@
       "revId": "ec7b684ed7974d435a8646d2cd6b2d80716d1dcc",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f877177_b142cc06",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-10-02T21:43:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8176edf6_2dc0044b",
+      "range": {
+        "startLine": 536,
+        "startChar": 41,
+        "endLine": 536,
+        "endChar": 44
+      },
+      "revId": "ec7b684ed7974d435a8646d2cd6b2d80716d1dcc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
