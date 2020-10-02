@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "359d757a_224f8221",
+        "filename": "util/fipstools/acvp/acvptool/subprocess/aead.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-02T21:30:52Z",
+      "side": 1,
+      "message": "Just to confirm I\u0027m understanding this right: this is a property of how ACVP happens to set up the algorithm, and it turns out ACVP\u0027s AES-CCM believes the ciphertext includes the tag and ACVP\u0027s AES-GCM believes the ciphertext and tag are separate.",
+      "range": {
+        "startLine": 27,
+        "startChar": 1,
+        "endLine": 27,
+        "endChar": 24
+      },
+      "revId": "ec7b684ed7974d435a8646d2cd6b2d80716d1dcc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8176edf6_2dc0044b",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-02T21:30:52Z",
+      "side": 1,
+      "message": "CCM",
+      "range": {
+        "startLine": 536,
+        "startChar": 41,
+        "endLine": 536,
+        "endChar": 44
+      },
+      "revId": "ec7b684ed7974d435a8646d2cd6b2d80716d1dcc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
