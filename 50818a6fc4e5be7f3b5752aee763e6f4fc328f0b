@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "8c224ab5_85969100",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-05T21:59:07Z",
+      "side": 1,
+      "message": "extensions",
+      "range": {
+        "startLine": 395,
+        "startChar": 5,
+        "endLine": 395,
+        "endChar": 9
+      },
+      "revId": "50818a6fc4e5be7f3b5752aee763e6f4fc328f0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "18eb61ed_393c398e",
         "filename": "ssl/test/runner/handshake_messages.go",
         "patchSetId": 8
@@ -19,6 +42,47 @@
         "endLine": 652,
         "endChar": 30
       },
+      "revId": "50818a6fc4e5be7f3b5752aee763e6f4fc328f0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee9b1fab_b6b2a077",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-05T21:59:07Z",
+      "side": 1,
+      "message": "I\u0027d just use []byte. The ID is irrelevant in the map and only gives more invalid cases to worry about. Don\u0027t worry about []byte being nullable. You almost always ignore that anyway.",
+      "parentUuid": "18eb61ed_393c398e",
+      "range": {
+        "startLine": 652,
+        "startChar": 27,
+        "endLine": 652,
+        "endChar": 30
+      },
+      "revId": "50818a6fc4e5be7f3b5752aee763e6f4fc328f0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "055b3159_d8d05fc9",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-05T21:59:07Z",
+      "side": 1,
+      "message": "This should probably have a comment about why you\u0027re doing it separately from the loop:\n\nWe do this after writing the prefix extensions above, so that m.prefixExtensions can contain duplicates.",
       "revId": "50818a6fc4e5be7f3b5752aee763e6f4fc328f0b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
