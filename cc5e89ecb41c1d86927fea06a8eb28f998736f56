@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "b9ad4efb_3ee551f5",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-10-05T21:02:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0a9ec3f_704e3506",
+      "range": {
+        "startLine": 128,
+        "startChar": 1,
+        "endLine": 128,
+        "endChar": 24
+      },
+      "revId": "cc5e89ecb41c1d86927fea06a8eb28f998736f56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "91b3b2e8_6a05fe6e",
         "filename": "ssl/test/runner/handshake_client.go",
         "patchSetId": 4
@@ -127,6 +151,24 @@
       "revId": "cc5e89ecb41c1d86927fea06a8eb28f998736f56",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3f34f3c_3d536cf5",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-10-05T21:02:18Z",
+      "side": 1,
+      "message": "Done!",
+      "parentUuid": "6223eac2_b40f6cf3",
+      "revId": "cc5e89ecb41c1d86927fea06a8eb28f998736f56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }

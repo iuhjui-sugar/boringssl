@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ac53c9dd_5b5ef5cb",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-10-05T21:02:18Z",
+      "side": 1,
+      "message": "Preferences on a name for this?",
+      "revId": "34777a0589f3cdcbb9bdde0f7d7f919a8f4e3f1d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
