@@ -19,6 +19,29 @@
     },
     {
       "key": {
+        "uuid": "b0a9ec3f_704e3506",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-05T18:52:53Z",
+      "side": 1,
+      "message": "Nit: Maybe extensionDuplicate",
+      "range": {
+        "startLine": 128,
+        "startChar": 1,
+        "endLine": 128,
+        "endChar": 24
+      },
+      "revId": "cc5e89ecb41c1d86927fea06a8eb28f998736f56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "91b3b2e8_6a05fe6e",
         "filename": "ssl/test/runner/handshake_client.go",
         "patchSetId": 4
@@ -48,6 +71,23 @@
       "side": 1,
       "message": "TODO: stick an extension we *know* we will include in between the duplicate extensions, like supportedCurves",
       "parentUuid": "91b3b2e8_6a05fe6e",
+      "revId": "cc5e89ecb41c1d86927fea06a8eb28f998736f56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3f8fea4_d4620768",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-05T18:52:53Z",
+      "side": 1,
+      "message": "I don\u0027t like that we end up needing to list the extensions in two places, especially since the extension gets silently omitted if we forget it. Rather than this switch-case, better instead to do...\n\n1. Emit the extensions into some structure that preserves the order. This could be the serialized extension list or a []struct{uint16; []byte}. Something where adding an extension takes minimal work. (Note maps don\u0027t preserve order.)\n\n2. Optional: make a map[uint16][]byte to speed up extension lookups, but honestly asymptotic don\u0027t matter here. But it may make (3) easier to read anyway.\n\n3. For each extension in prefixExtensions:\n   - Look up the extension. If found, emit it.\n   - Maintain a map of emitted extensions (don\u0027t call it specialExts as that doesn\u0027t tell the reader anything)\n\n4. For each extension in the original extension list:\n   - If not already emitted, emit it.\n\n(This does make duplicate extensions a little odd, but I would rather we just emit the duplicate extensions manually, outside of prefixExtensions, than to need to maintain a funny defaultExtensionOrder like this.)",
       "revId": "cc5e89ecb41c1d86927fea06a8eb28f998736f56",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
