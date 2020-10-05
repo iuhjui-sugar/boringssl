@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bc0235a3_7ee104fc",
+        "filename": "ssl/internal.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 3573,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-05T18:39:47Z",
+      "side": 1,
+      "message": "TODO for myself: this has interesting consequences for split handshakes. I think we need a feature list in the handoff message.",
+      "revId": "2b5070c1f01f25d0c1eb135e5c9aab3b6a7c3db0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
