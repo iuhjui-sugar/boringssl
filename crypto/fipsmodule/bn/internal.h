@@ -185,7 +185,8 @@ extern "C" {
 #error "Must define either OPENSSL_32_BIT or OPENSSL_64_BIT"
 #endif
 
-#if !defined(OPENSSL_NO_ASM) && (defined(__GNUC__) || defined(__clang__))
+#if (!defined(OPENSSL_NO_ASM) && (defined(__GNUC__) || defined(__clang__))) && \
+    !(defined(OPENSSL_WINDOWS) && defined(OPENSSL_AARCH64))
 #define BN_CAN_USE_INLINE_ASM
 #endif
 
