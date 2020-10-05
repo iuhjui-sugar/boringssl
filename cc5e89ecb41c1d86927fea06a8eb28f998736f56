@@ -109,6 +109,24 @@
       "revId": "cc5e89ecb41c1d86927fea06a8eb28f998736f56",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6223eac2_b40f6cf3",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-05T18:55:22Z",
+      "side": 1,
+      "message": "Note that \"adding an extension takes minimal work\" means you probably do step 2 as a post-processing step after step 1, rather than have everything extension be added like:\n\n    extensionsByValue[extensionFooBar] \u003d fooBar.finish()\n    extensionOrder \u003d append(extensionOrder, extensionFooBar)\n\n(You could even just serialize the extension list as before and do a post-processing step to apply prefixExtensions. Or you could build some id,value tuples ahead of time.)",
+      "parentUuid": "c3f8fea4_d4620768",
+      "revId": "cc5e89ecb41c1d86927fea06a8eb28f998736f56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
