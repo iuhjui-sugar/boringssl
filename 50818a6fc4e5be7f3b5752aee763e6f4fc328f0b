@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "18eb61ed_393c398e",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-10-05T21:06:23Z",
+      "side": 1,
+      "message": "This could have been []byte or *ext, but I chose to make it a non-nullable type for clarity :)",
+      "range": {
+        "startLine": 652,
+        "startChar": 27,
+        "endLine": 652,
+        "endChar": 30
+      },
+      "revId": "50818a6fc4e5be7f3b5752aee763e6f4fc328f0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
+    }
+  ]
+}
