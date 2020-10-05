@@ -77,6 +77,24 @@
     },
     {
       "key": {
+        "uuid": "3d437881_744f6f1b",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-10-05T18:53:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c99724dd_e8b73e3f",
+      "revId": "cc5e89ecb41c1d86927fea06a8eb28f998736f56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c3f8fea4_d4620768",
         "filename": "ssl/test/runner/handshake_messages.go",
         "patchSetId": 4
