@@ -33,6 +33,24 @@
       "revId": "cc5e89ecb41c1d86927fea06a8eb28f998736f56",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c99724dd_e8b73e3f",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-10-05T16:26:51Z",
+      "side": 1,
+      "message": "TODO: stick an extension we *know* we will include in between the duplicate extensions, like supportedCurves",
+      "parentUuid": "91b3b2e8_6a05fe6e",
+      "revId": "cc5e89ecb41c1d86927fea06a8eb28f998736f56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
