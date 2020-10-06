@@ -68,6 +68,24 @@
       "revId": "f30c0bab66c95a01f20ab4b3902e4dfc9242e2d1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a081c44_79ea6858",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-10-06T15:03:01Z",
+      "side": 1,
+      "message": "Fixed!",
+      "parentUuid": "704472bf_d20049b9",
+      "revId": "f30c0bab66c95a01f20ab4b3902e4dfc9242e2d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
