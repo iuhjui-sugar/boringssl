@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a43e06c9_96f5d0ac",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-06T22:48:36Z",
+      "side": 1,
+      "message": "This won\u0027t notice if the signature is wrong and such, but this is already kind of a headache test-wise. Maybe let\u0027s instead talk about what it\u0027d take to get SRRs out of this API. It doesn\u0027t seem to me like it should be that much work.\n\nI suspect the split version will be easier to unit test too, since you can unit test the serialize functions separately from the functions to extract the data.",
+      "revId": "526896aeccf3c7667c27c9289e1effaf5ab8e67c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce8f2d3f_60c930a0",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-06T22:48:36Z",
+      "side": 1,
+      "message": "Nit: int{sizeof(kExpectedSRR) - 1} per http://go/cstyle/#Casting",
+      "range": {
+        "startLine": 553,
+        "startChar": 10,
+        "endLine": 553,
+        "endChar": 41
+      },
+      "revId": "526896aeccf3c7667c27c9289e1effaf5ab8e67c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36bef9e9_58b53b34",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-06T22:48:36Z",
+      "side": 1,
+      "message": "Optional: would it be better to just say \"containing |response| and leaves all validation to the caller\"? It reads to me like this function still does work, but it... kinda doesn\u0027t.\n\n(Assuming the intent is indeed to get rid of the RR construction inside BoringSSL. That way new code written to just v2 can maybe go with the new flow from the start.)",
+      "range": {
+        "startLine": 166,
+        "startChar": 31,
+        "endLine": 166,
+        "endChar": 48
+      },
+      "revId": "526896aeccf3c7667c27c9289e1effaf5ab8e67c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d325a510_a8d6053c",
+        "filename": "tool/speed.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1362,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-06T22:48:36Z",
+      "side": 1,
+      "message": "(Eyeballing the numbers, looks like dropping private metadata gives us a 2-3x perf win and batching is still about as valuable.)",
+      "revId": "526896aeccf3c7667c27c9289e1effaf5ab8e67c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

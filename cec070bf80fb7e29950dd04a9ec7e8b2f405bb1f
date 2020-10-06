@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "a89f5858_3b8bae6a",
         "filename": "crypto/trust_token/internal.h",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "No longer defined?",
       "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
-      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
-      "unresolved": true
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "263bab92_7158a75c",
         "filename": "crypto/trust_token/internal.h",
@@ -32,10 +33,10 @@
       "message": "Done",
       "parentUuid": "a89f5858_3b8bae6a",
       "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
-      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
-      "unresolved": false
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "e3b57ab2_d285bc2b",
         "filename": "crypto/trust_token/trust_token.c",
@@ -49,10 +50,10 @@
       "side": 1,
       "message": "This is such a silly function. :-P",
       "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
-      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
-      "unresolved": false
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "43563dcd_c1855266",
         "filename": "crypto/trust_token/trust_token.c",
@@ -67,10 +68,10 @@
       "message": "There\u0027s a small chance future extensions might want more weirdness in here, but once we get rid of V1, maybe its worth changing the API here to get rid of it.",
       "parentUuid": "e3b57ab2_d285bc2b",
       "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
-      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
-      "unresolved": false
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "d3c0d11a_8b6d4c23",
         "filename": "crypto/trust_token/trust_token_test.cc",
@@ -84,10 +85,10 @@
       "side": 1,
       "message": "Oh, that\u0027s where the length prefix came from. :-) Maybe worth a comment, like:\n\n// If the protocol doesn\u0027t use SRRs, TRUST_TOKEN_CLIENT_finish_redemption leaves all SRR validation to the caller.",
       "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
-      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
-      "unresolved": true
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "b3e235e7_9210f3f3",
         "filename": "crypto/trust_token/trust_token_test.cc",
@@ -102,10 +103,28 @@
       "message": "Tossed the comment in the header file, did you also want it here?",
       "parentUuid": "d3c0d11a_8b6d4c23",
       "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
-      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
-      "unresolved": true
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8d744f0_6a2415d2",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-06T22:48:36Z",
+      "side": 1,
+      "message": "I was thinking here because it was otherwise weird that a dropped response went unnoticed.\n\n(Hopefully when RRs are extracted entirely, these tests will be a bit simpler. :-) )",
+      "parentUuid": "b3e235e7_9210f3f3",
+      "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "d4da44a6_bd247d81",
         "filename": "crypto/trust_token/trust_token_test.cc",
@@ -119,10 +138,10 @@
       "side": 1,
       "message": "Since we\u0027re still expecting BoringSSL to construct the SRR, maybe some tests to assert that the HTTP structured headers output is as expected?\n\n(Orrrr we could go do that less fussy new API... ;-) )",
       "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
-      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
-      "unresolved": true
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "63e7ee06_21d7cfee",
         "filename": "crypto/trust_token/trust_token_test.cc",
@@ -137,10 +156,10 @@
       "message": "Done",
       "parentUuid": "d4da44a6_bd247d81",
       "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
-      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
-      "unresolved": false
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "141d43dc_922ad8b2",
         "filename": "crypto/trust_token/trust_token_test.cc",
@@ -154,10 +173,10 @@
       "side": 1,
       "message": "Not sure I follow what\u0027s going on here. What\u0027s 4?",
       "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
-      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
-      "unresolved": true
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "b2816959_5e7cd5b6",
         "filename": "crypto/trust_token/trust_token_test.cc",
@@ -172,10 +191,28 @@
       "message": "xs in the key structure, added a comment.",
       "parentUuid": "141d43dc_922ad8b2",
       "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
-      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
-      "unresolved": false
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "83854185_c9709632",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-06T22:48:36Z",
+      "side": 1,
+      "message": "Ah I see. WDYT about s/4th scalar/the 4th entry in |scalars| below/. I was originally confused because I didn\u0027t realize where we were counting things here.",
+      "parentUuid": "b2816959_5e7cd5b6",
+      "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "d414d045_4604ca48",
         "filename": "crypto/trust_token/voprf.c",
@@ -189,10 +226,10 @@
       "side": 1,
       "message": "Is this one used? Seems like it isn\u0027t.",
       "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
-      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
-      "unresolved": true
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "e952c000_09d4a1c7",
         "filename": "crypto/trust_token/voprf.c",
@@ -207,10 +244,10 @@
       "message": "Done",
       "parentUuid": "d414d045_4604ca48",
       "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
-      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
-      "unresolved": false
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "43db1945_1a0a5295",
         "filename": "crypto/trust_token/voprf.c",
@@ -224,10 +261,10 @@
       "side": 1,
       "message": "I think this is also unused. Though it\u0027s somewhat moot because ec/internal.h pulls it in anyway.",
       "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
-      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
-      "unresolved": true
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "734cd283_2fd5941b",
         "filename": "crypto/trust_token/voprf.c",
@@ -242,10 +279,10 @@
       "message": "Done",
       "parentUuid": "43db1945_1a0a5295",
       "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
-      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
-      "unresolved": false
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "d4da0191_032774a9",
         "filename": "crypto/trust_token/voprf.c",
@@ -265,10 +302,10 @@
         "endChar": 44
       },
       "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
-      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
-      "unresolved": true
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "8be20a04_5e0457a4",
         "filename": "crypto/trust_token/voprf.c",
@@ -289,10 +326,10 @@
         "endChar": 44
       },
       "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
-      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
-      "unresolved": false
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "c1e13095_944bd8dc",
         "filename": "crypto/trust_token/voprf.c",
@@ -306,10 +343,10 @@
       "side": 1,
       "message": "No longer used.",
       "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
-      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
-      "unresolved": true
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "8aef2065_3974df0c",
         "filename": "crypto/trust_token/voprf.c",
@@ -324,10 +361,10 @@
       "message": "Done",
       "parentUuid": "c1e13095_944bd8dc",
       "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
-      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
-      "unresolved": false
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "fcb2e0d8_75f8584c",
         "filename": "crypto/trust_token/voprf.c",
@@ -347,10 +384,10 @@
         "endChar": 48
       },
       "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
-      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
-      "unresolved": true
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "905ff43b_56fddbdc",
         "filename": "crypto/trust_token/voprf.c",
@@ -371,10 +408,10 @@
         "endChar": 48
       },
       "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
-      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
-      "unresolved": false
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "9ed5094f_bcf7e101",
         "filename": "crypto/trust_token/voprf.c",
@@ -388,10 +425,10 @@
       "side": 1,
       "message": "This can be scalar_to_cbb, right? And then if you want you can probably do:\n\n  const EC_GROUP *group \u003d method-\u003egroup;\n  EC_RAW_POINT pub;\n  EC_SCALAR priv;\n  EC_AFFINE pub_affine;\n  if (!ec_random_nonzero_scalar(group, \u0026priv, kDefaultAdditionalData) ||\n      !ec_point_mul_scalar_base(group, \u0026pub, \u0026priv) ||\n      !ec_jacobian_to_affine(group, \u0026pub_affine, \u0026pub)) {\n    OPENSSL_PUT_ERROR(TRUST_TOKEN, TRUST_TOKEN_R_KEYGEN_FAILURE);\n    return 0;\n  }\n\n  if (!scalar_to_cbb(out_private, group, \u0026priv) ||\n      !cbb_add_point(out_public, group, \u0026pub_affine)) {\n    OPENSSL_PUT_ERROR(TRUST_TOKEN, TRUST_TOKEN_R_BUFFER_TOO_SMALL);\n    return 0;\n  }\n\n  return 1;",
       "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
-      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
-      "unresolved": true
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "ff377e28_bb1c90e9",
         "filename": "crypto/trust_token/voprf.c",
@@ -406,10 +443,10 @@
       "message": "Done",
       "parentUuid": "9ed5094f_bcf7e101",
       "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
-      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
-      "unresolved": false
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "31e730de_879cab16",
         "filename": "crypto/trust_token/voprf.c",
@@ -429,10 +466,10 @@
         "endChar": 21
       },
       "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
-      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
-      "unresolved": true
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "187593b2_33c7c1ed",
         "filename": "crypto/trust_token/voprf.c",
@@ -453,10 +490,10 @@
         "endChar": 21
       },
       "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
-      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
-      "unresolved": false
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "890d01bf_1e25bbe7",
         "filename": "crypto/trust_token/voprf.c",
@@ -470,10 +507,10 @@
       "side": 1,
       "message": "I really should go make infallible EC_group_p384() or EC_p384() functions... PMBTokens needed to deal with an EC_PRECOMP, but this doesn\u0027t actually need CRYPTO_once_t anymore. It\u0027s only forced into it by way of bad APIs on our end. :-/",
       "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
-      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
-      "unresolved": false
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "ac02f5ca_79aeb45d",
         "filename": "tool/speed.cc",
@@ -487,10 +524,10 @@
       "side": 1,
       "message": "Hrm. I tried building this and running bssl speed -filter trusttoken, but it seems to error now. Interestingly, it seems v1 was broken somehow?? Did this regress something? (If so, probably need a test somewhere.)\n\nDid 989 TrustToken-Exp1-Batch1 generate_key operations in 1033569us (956.9 ops/sec)\nDid 1683 TrustToken-Exp1-Batch1 begin_issuance operations in 1046644us (1608.0 ops/sec)\nDid 170 TrustToken-Exp1-Batch1 issue operations in 1025173us (165.8 ops/sec)\nDid 154 TrustToken-Exp1-Batch1 finish_issuance operations in 1055872us (145.9 ops/sec)\nDid 1521000 TrustToken-Exp1-Batch1 begin_redemption operations in 1000285us (1520566.6 ops/sec)\nDid 624 TrustToken-Exp1-Batch1 redeem operations in 1081652us (576.9 ops/sec)\nTRUST_TOKEN_CLIENT_finish_redemption failed.\n140379131241544:error:20000067:Trust Token functions:OPENSSL_internal:DECODE_ERROR:../crypto/trust_token/trust_token.c:336:",
       "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
-      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
-      "unresolved": true
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
       "key": {
         "uuid": "3ba204e0_8dcca2c7",
         "filename": "tool/speed.cc",
@@ -505,8 +542,7 @@
       "message": "Oops, I missed using the right response length in finish_redemption in speed.cc, and since we weren\u0027t checking it before, it didn\u0027t matter.",
       "parentUuid": "ac02f5ca_79aeb45d",
       "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
-      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
-      "unresolved": false
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
