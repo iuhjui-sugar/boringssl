@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a04026a9_081400f4",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-06T21:23:51Z",
+      "side": 1,
+      "message": "Talking with EKR, this is less of a mess than we thought, but we really ought to clear this up in rfc8446bis. As long as we only look at the first PSK, we don\u0027t care. If we ever look at other PSKs, implement stateless HRR, and/or psk_ke (not happening), things\u0027ll be Fun.",
+      "revId": "1c5f91fb8babac19920164abb79cfe2545401bc5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
