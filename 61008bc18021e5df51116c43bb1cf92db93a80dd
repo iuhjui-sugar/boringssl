@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "ff0155b4_20de33f8",
         "filename": "/PATCHSET_LEVEL",
@@ -14,10 +15,28 @@
       "side": 1,
       "message": "Thanks for the contribution. I\u0027ve left some comments on the change itself below, but I also have some higher-level questions. New assembly platforms are expensive to support, and we typically do not accept things we cannot test, so we\u0027ll need to work out the testing story.\n\n- What toolchains do you intend this code to be used with, and what have you tested this on? Which assembler in particular? (Clang\u0027s assembler? The Microsoft one?)\n\n- I noticed you submitted some changes to generate_build_files.py. Is the intention to enable this assembly in Chromium? Have you run the tests with both the standalone CMake build as well as Chromium\u0027s? Note that Chromium typically builds with LLVM, though I don\u0027t know off-hand which assembler it uses on Windows/ARM64.\n\n- How are you envisioning ongoing support for this platform to work? We do not currently have continuous testing on Windows/ARM64.\n\nAnd some questions specific to Windows/ARM64:\n\n- My understanding is that the Windows/ARM64 ABI is similar to AAPCS64. Have you confirmed there aren\u0027t any deviations? If Windows has any odd requirements, they should be tested (see crypto/test/abi_test.h).\n\n- Windows ABIs tend to have unwind requirements for SEH. I haven\u0027t looked closely at the ARM64 variant. What\u0027s the plan for meeting those requirements for the assembly? (I believe all our ARM64 assembly sets up a frame pointer, per iOS64\u0027s requirements, so hopefully the Windows/ARM64 story can use that property.)",
       "revId": "61008bc18021e5df51116c43bb1cf92db93a80dd",
-      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
-      "unresolved": true
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "578fae29_1e2d4905",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10876
+      },
+      "writtenOn": "2020-10-06T17:55:27Z",
+      "side": 1,
+      "message": "Cool, I\u0027ll answer what I can:\n\n\u003e * What toolchains do you intend this code to be used with, and what have you tested this on? Which assembler in particular? (Clang\u0027s assembler? The Microsoft one?)\n\u003e * I noticed you submitted some changes to generate_build_files.py. Is the intention to enable this assembly in Chromium? Have you run the tests with both the standalone CMake build as well as Chromium\u0027s? Note that Chromium typically builds with LLVM, though I don\u0027t know off-hand which assembler it uses on Windows/ARM64.\n\nWe\u0027re targeting this at Chromium-based things (Edge, Electron etc) on AArch64 Windows, so LLVM and its assembler is the only toolchain we\u0027re thinking about at the moment. We\u0027ve tested all the unit tests that end up Chromium with this change (they all pass). CMake: we\u0027re still looking into the best options for cross-compilation and deciding whether that should be supported (it\u0027s not a normal situation for Windows - you can build the non-assembly version OK on the device itself however). We will try to address this in subsequent patchsets.\n\n\u003e * How are you envisioning ongoing support for this platform to work? We do not currently have continuous testing on Windows/ARM64.\n\nThere\u0027s currently a chromium.fyi bot to check that the compilation\u0027s working [1]. We monitor this bot and we also test the Chromium build on real hardware inside Arm (typically 3-4 times a day). Microsoft also test it on hardware as part of their development for Edge, they do often investigate and fix issues that crop up (e.g. [2]). We haven\u0027t had an update recently from Google about their test strategy on this platform. \n\n\u003e And some questions specific to Windows/ARM64:\n\u003e * My understanding is that the Windows/ARM64 ABI is similar to AAPCS64. Have you confirmed there aren\u0027t any deviations? If Windows has any odd requirements, they should be tested (see crypto/test/abi_test.h).\n\nWindows mostly follows the AAPCS64 with regards to argument passing and return values, it differs in some ways (e.g. it returns x8 to the caller in some cases[3]) but we don\u0027t think these are any cases in BoringSSL that are affected by these ABI differences at this time.\n\n\u003e * Windows ABIs tend to have unwind requirements for SEH. I haven\u0027t looked closely at the ARM64 variant. What\u0027s the plan for meeting those requirements for the assembly? (I believe all our ARM64 assembly sets up a frame pointer, per iOS64\u0027s requirements, so hopefully the Windows/ARM64 story can use that property.)\n\nAArch64 does require .pdata annotations for SEH to work correctly if ASM modifies the stack pointer (documented at [4]). We haven\u0027t implemented this yet. AArch64 on Windows does mandate a frame pointer (which makes things easier), but what will currently happen is that the post mortem dump will reveal the program counter in a BoringSSL ASM routine and the register context (which should usually be enough to diagnose the problem), but Windows itself (e.g. through it\u0027s crash dumps etc) won\u0027t report a precise stack trace (something like breakpad or a connected Visual Studio debugger may give more info though). We will implement full SEH support if there\u0027s a reasonable chance that the optimizations might get merged - we\u0027d really like this to happen (since the performance benefit can be \u003e30x). \n\n[1] https://ci.chromium.org/p/chromium/builders/ci/win32-arm64-rel\n[2] https://source.chromium.org/chromium/chromium/src/+/d5b820e21463e127cfac509d7bfdd27bb894b1ca\n[3] https://docs.microsoft.com/en-us/cpp/build/arm64-windows-abi-conventions?view\u003dvs-2019#return-values\n[4] https://docs.microsoft.com/en-us/cpp/build/arm64-exception-handling?view\u003dvs-2019",
+      "parentUuid": "ff0155b4_20de33f8",
+      "revId": "61008bc18021e5df51116c43bb1cf92db93a80dd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "34b3bac8_2948988f",
         "filename": "crypto/cpu-aarch64-win.c",
@@ -37,10 +56,10 @@
         "endChar": 5
       },
       "revId": "61008bc18021e5df51116c43bb1cf92db93a80dd",
-      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
-      "unresolved": true
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "391822a7_4855b3de",
         "filename": "crypto/cpu-aarch64-win.c",
@@ -54,10 +73,10 @@
       "side": 1,
       "message": "This is missing a newline at the end of the file.",
       "revId": "61008bc18021e5df51116c43bb1cf92db93a80dd",
-      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
-      "unresolved": true
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "9ddc4a99_50104b9b",
         "filename": "crypto/fipsmodule/bn/internal.h",
@@ -71,10 +90,10 @@
       "side": 1,
       "message": "What\u0027s going on here? I would expect clang-cl to handle GCC-style asm just fine, and I would expect MSVC for ARM64 to not define __GNUC__ or __clang__.",
       "revId": "61008bc18021e5df51116c43bb1cf92db93a80dd",
-      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
-      "unresolved": true
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "4d451a05_edf079f9",
         "filename": "crypto/perlasm/arm-xlate.pl",
@@ -88,8 +107,7 @@
       "side": 1,
       "message": "Do you have a pointer to documentation for these directives, as well as MS\u0027s use of the .inst directive below?",
       "revId": "61008bc18021e5df51116c43bb1cf92db93a80dd",
-      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
-      "unresolved": true
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
