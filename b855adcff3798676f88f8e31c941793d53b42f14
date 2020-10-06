@@ -70,6 +70,24 @@
       "revId": "b855adcff3798676f88f8e31c941793d53b42f14",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26e4cc09_521a21c7",
+        "filename": "ssl/test/runner/hpke/kem.go",
+        "patchSetId": 17
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-10-06T16:35:13Z",
+      "side": 1,
+      "message": "Refactored based on our discussion on Monday.\n\n* Eliminated labeledHKDF struct\n* labeledExtract and labeledExpand are plain functions",
+      "parentUuid": "d372e320_69a5eb48",
+      "revId": "b855adcff3798676f88f8e31c941793d53b42f14",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
