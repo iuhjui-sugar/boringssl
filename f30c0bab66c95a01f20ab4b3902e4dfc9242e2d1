@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "32385af7_0331fa43",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-06T14:54:29Z",
+      "side": 1,
+      "message": "(Removing +2\u0027s per Dan\u0027s request.)",
+      "revId": "f30c0bab66c95a01f20ab4b3902e4dfc9242e2d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "be27e081_a04558f0",
         "filename": "ssl/test/runner/handshake_messages.go",
         "patchSetId": 9
