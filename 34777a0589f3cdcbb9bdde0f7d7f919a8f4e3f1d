@@ -34,6 +34,24 @@
       "revId": "34777a0589f3cdcbb9bdde0f7d7f919a8f4e3f1d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a372d4cb_c70a985d",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 7
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-10-06T14:48:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3bdbc1fb_2c657ce1",
+      "revId": "34777a0589f3cdcbb9bdde0f7d7f919a8f4e3f1d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": false
     }
   ]
 }
