@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "420c5084_acfbd4db",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-10-06T20:29:13Z",
+      "side": 1,
+      "message": "Make stack allocated",
+      "revId": "c8473aed97edc006e24931a2a7bc1cd19b61e6b7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da082738_12601b36",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 674,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-10-06T20:29:13Z",
+      "side": 1,
+      "message": "WDYT of this estimate? Did I miss any extensions?\n\nShould I fold alpn into outer_extensions? I\u0027m not 100% clear on how sensitive that field is.\n\nIn a couple places I said \"empirically\" because I\u0027m still using a number obtained from Wireshark. I need to dig into the code and update these.",
+      "range": {
+        "startLine": 674,
+        "startChar": 0,
+        "endLine": 674,
+        "endChar": 57
+      },
+      "revId": "68a440bafb2241fce3ce28eba022f0ec25b2a5c3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
