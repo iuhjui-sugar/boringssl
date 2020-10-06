@@ -16,6 +16,23 @@
       "revId": "f30c0bab66c95a01f20ab4b3902e4dfc9242e2d1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "be27e081_a04558f0",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-10-06T14:54:01Z",
+      "side": 1,
+      "message": "Looks like I dropped one too many length prefixes here.",
+      "revId": "f30c0bab66c95a01f20ab4b3902e4dfc9242e2d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
+      "unresolved": true
     }
   ]
 }
