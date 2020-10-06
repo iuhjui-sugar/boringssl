@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7661f2c2_e5aad260",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 523,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-06T21:22:05Z",
+      "side": 0,
+      "message": "This bug got closed, so I removed references to it in favor of just making it (hopefully) clearer when we need this mess.",
+      "range": {
+        "startLine": 523,
+        "startChar": 32,
+        "endLine": 523,
+        "endChar": 64
+      },
+      "revId": "6222fe767dd911bc2dac62b7cbf170c5b73dee8d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "307fe41f_cacc6269",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 647,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-06T21:22:05Z",
+      "side": 0,
+      "message": "(Moved next to the other early data code. Seemed more consistent.)",
+      "revId": "6222fe767dd911bc2dac62b7cbf170c5b73dee8d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "238a6a90_5167b8ce",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-06T21:22:05Z",
+      "side": 0,
+      "message": "Moved with the other PSK checks.",
+      "revId": "6222fe767dd911bc2dac62b7cbf170c5b73dee8d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
