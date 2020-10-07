@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a1a5c49c_1ea7c02a",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 2216,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-07T17:18:34Z",
+      "side": 1,
+      "message": "I figured this function would ignore the extension, while the caller would check it (since we already had to check interesting things anyway) when adding the extension to the ignoreExtensions list.\n\n(Made the PSK identity check to be stricter since it was easy enough.)",
+      "parentUuid": "d0321d55_afd786ac",
+      "range": {
+        "startLine": 2216,
+        "startChar": 0,
+        "endLine": 2216,
+        "endChar": 88
+      },
+      "revId": "1c5f91fb8babac19920164abb79cfe2545401bc5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "73569668_4d807a85",
         "filename": "ssl/test/runner/handshake_server.go",
         "patchSetId": 1
@@ -54,6 +78,30 @@
       "writtenOn": "2020-10-07T15:59:07Z",
       "side": 1,
       "message": "nit: Sometimes you include ClientHello and sometimes don\u0027t, maybe just drop CLientHello here?",
+      "range": {
+        "startLine": 2242,
+        "startChar": 0,
+        "endLine": 2242,
+        "endChar": 61
+      },
+      "revId": "1c5f91fb8babac19920164abb79cfe2545401bc5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10227f71_eb95f4df",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 2242,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-07T17:18:34Z",
+      "side": 1,
+      "message": "Good point. \"versions did not match\" and \"randoms did not match\" seem they wouldn\u0027t be very descriptive when we see them out of runner. I guess \"cipher suites\" is a little less inconsistent but I agree it should be consistent. I made them all talk about the second ClientHello to match the extensions messages.",
+      "parentUuid": "73569668_4d807a85",
       "range": {
         "startLine": 2242,
         "startChar": 0,
