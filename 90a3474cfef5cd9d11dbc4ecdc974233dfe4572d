@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "450b85f6_5ca62d14",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10901
+      },
+      "writtenOn": "2020-10-07T21:01:19Z",
+      "side": 1,
+      "message": "I am using boringssl as a drop in replacement for OpenSSL on platforms where there is no out of the box SSL library for asio. Right now that seems to be mainly Emscripten, but with that change I can also use it to ship windows binaries with mingw64. \n\nkind regards\nAndreas Pokrny",
+      "revId": "90a3474cfef5cd9d11dbc4ecdc974233dfe4572d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
