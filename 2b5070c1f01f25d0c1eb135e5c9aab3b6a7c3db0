@@ -1,6 +1,53 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d5377f1_282b3412",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-10-07T16:05:03Z",
+      "side": 1,
+      "message": "Wonder if we should add support to the client/server tools?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 9
+      },
+      "revId": "2b5070c1f01f25d0c1eb135e5c9aab3b6a7c3db0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bf39840_3a58eaab",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 2815,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-10-07T16:05:03Z",
+      "side": 1,
+      "message": "Was going to say, can\u0027t you differentiate between *out_data \u003d NULL vs *out_data !\u003d NULL and out_len \u003d 0? But I think malloc(0) weirdness means you can\u0027t?\n\nI guess one alternative is having an extra out param for has_app_seetings, though maybe two separate APIs is cleaner, though worried some consumers might just call get_peer_app_settings without checking has.",
+      "range": {
+        "startLine": 2815,
+        "startChar": 0,
+        "endLine": 2815,
+        "endChar": 70
+      },
+      "revId": "2b5070c1f01f25d0c1eb135e5c9aab3b6a7c3db0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "bc0235a3_7ee104fc",
         "filename": "ssl/internal.h",
@@ -14,8 +61,76 @@
       "side": 1,
       "message": "TODO for myself: this has interesting consequences for split handshakes. I think we need a feature list in the handoff message.",
       "revId": "2b5070c1f01f25d0c1eb135e5c9aab3b6a7c3db0",
-      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
-      "unresolved": true
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8216d14_4efaf3e3",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 3583,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-10-07T16:05:03Z",
+      "side": 1,
+      "message": "nit: SERVERHELLO?",
+      "range": {
+        "startLine": 3583,
+        "startChar": 27,
+        "endLine": 3583,
+        "endChar": 51
+      },
+      "revId": "2b5070c1f01f25d0c1eb135e5c9aab3b6a7c3db0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c95d9b87_370a3c80",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-10-07T16:05:03Z",
+      "side": 1,
+      "message": ":(",
+      "range": {
+        "startLine": 551,
+        "startChar": 0,
+        "endLine": 551,
+        "endChar": 59
+      },
+      "revId": "2b5070c1f01f25d0c1eb135e5c9aab3b6a7c3db0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c522cf44_66b93496",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 6990,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-10-07T16:05:03Z",
+      "side": 1,
+      "message": "Might already have these, but how about tests for:\nClientEE on TLS 1.2.\nExtra data in CLientEE with ALPS expected.",
+      "range": {
+        "startLine": 6990,
+        "startChar": 0,
+        "endLine": 6990,
+        "endChar": 15
+      },
+      "revId": "2b5070c1f01f25d0c1eb135e5c9aab3b6a7c3db0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
