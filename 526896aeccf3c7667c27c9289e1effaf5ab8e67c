@@ -41,6 +41,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c72c5bf1_a3af897a",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-10-07T20:13:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce8f2d3f_60c930a0",
+      "range": {
+        "startLine": 553,
+        "startChar": 10,
+        "endLine": 553,
+        "endChar": 41
+      },
+      "revId": "526896aeccf3c7667c27c9289e1effaf5ab8e67c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36bef9e9_58b53b34",
@@ -54,6 +78,30 @@
       "writtenOn": "2020-10-06T22:48:36Z",
       "side": 1,
       "message": "Optional: would it be better to just say \"containing |response| and leaves all validation to the caller\"? It reads to me like this function still does work, but it... kinda doesn\u0027t.\n\n(Assuming the intent is indeed to get rid of the RR construction inside BoringSSL. That way new code written to just v2 can maybe go with the new flow from the start.)",
+      "range": {
+        "startLine": 166,
+        "startChar": 31,
+        "endLine": 166,
+        "endChar": 48
+      },
+      "revId": "526896aeccf3c7667c27c9289e1effaf5ab8e67c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc69ccfe_3c2283a4",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-10-07T20:13:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36bef9e9_58b53b34",
       "range": {
         "startLine": 166,
         "startChar": 31,

@@ -124,6 +124,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b85791c_bb807621",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-10-07T20:13:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8d744f0_6a2415d2",
+      "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d4da44a6_bd247d81",
@@ -208,6 +226,24 @@
       "side": 1,
       "message": "Ah I see. WDYT about s/4th scalar/the 4th entry in |scalars| below/. I was originally confused because I didn\u0027t realize where we were counting things here.",
       "parentUuid": "b2816959_5e7cd5b6",
+      "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1b5a749_50844c2e",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-10-07T20:13:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83854185_c9709632",
       "revId": "cec070bf80fb7e29950dd04a9ec7e8b2f405bb1f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
