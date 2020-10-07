@@ -14,6 +14,7 @@ include(sources.cmake)
 enable_language(C)
 enable_language(CXX)
 
+option(BORINGSSL_DISABLE_TEST OFF)
 # This is a dummy target which all other targets depend on (manually - see other
 # CMakeLists.txt files). This gives us a hook to add any targets which need to
 # run before all other targets.
@@ -595,8 +596,10 @@ add_library(crypto_test_data OBJECT crypto_test_data.cc)
 
 add_subdirectory(crypto)
 add_subdirectory(ssl)
-add_subdirectory(ssl/test)
-add_subdirectory(tool)
+if(NOT BORINGSSL_DISABLE_TEST)
+  add_subdirectory(ssl/test)
+  add_subdirectory(tool)
+endif()
 add_subdirectory(util/fipstools/cavp)
 add_subdirectory(util/fipstools/acvp/modulewrapper)
 add_subdirectory(decrepit)
@@ -617,13 +620,15 @@ if(UNIX AND NOT APPLE AND NOT ANDROID)
   set(HANDSHAKER_ARGS "-handshaker-path" $<TARGET_FILE:handshaker>)
 endif()
 
-add_custom_target(
-    run_tests
-    COMMAND ${GO_EXECUTABLE} run util/all_tests.go -build-dir
-            ${CMAKE_BINARY_DIR}
-    COMMAND cd ssl/test/runner &&
-            ${GO_EXECUTABLE} test -shim-path $<TARGET_FILE:bssl_shim>
-              ${HANDSHAKER_ARGS} ${RUNNER_ARGS}
-    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-    DEPENDS all_tests bssl_shim handshaker
-    USES_TERMINAL)
+if(NOT BORINGSSL_DISABLE_TEST)
+  add_custom_target(
+      run_tests
+      COMMAND ${GO_EXECUTABLE} run util/all_tests.go -build-dir
+              ${CMAKE_BINARY_DIR}
+      COMMAND cd ssl/test/runner &&
+              ${GO_EXECUTABLE} test -shim-path $<TARGET_FILE:bssl_shim>
+                ${HANDSHAKER_ARGS} ${RUNNER_ARGS}
+      WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+      DEPENDS all_tests bssl_shim handshaker
+      USES_TERMINAL)
+endif()
