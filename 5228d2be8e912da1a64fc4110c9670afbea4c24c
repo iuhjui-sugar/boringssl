@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61bcd0b2_53a7fb8a",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-08T15:37:21Z",
+      "side": 1,
+      "message": "This can also be determined from cipher_func without the parameter using EVP_CIPHER_iv_length(cipher) !\u003d 0.",
+      "revId": "5228d2be8e912da1a64fc4110c9670afbea4c24c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
