@@ -65,6 +65,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1188e6b_796d0643",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 2216,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-10-08T13:19:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a1a5c49c_1ea7c02a",
+      "range": {
+        "startLine": 2216,
+        "startChar": 0,
+        "endLine": 2216,
+        "endChar": 88
+      },
+      "revId": "1c5f91fb8babac19920164abb79cfe2545401bc5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "73569668_4d807a85",
