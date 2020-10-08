@@ -16,6 +16,24 @@
       "message": "(We parsed both messages previously, so we know that they have at least four bytes, right?)",
       "revId": "ae0b43c21fa89a38f76da95fd5519ea0f062fd69",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c8884c0_9d7a7ee1",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 2232,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-08T14:36:49Z",
+      "side": 1,
+      "message": "Yeah.",
+      "parentUuid": "59ed8f51_a9a17cc6",
+      "revId": "ae0b43c21fa89a38f76da95fd5519ea0f062fd69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
