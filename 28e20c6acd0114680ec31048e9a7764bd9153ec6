@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a9ee492_5ad5158b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-10-08T15:29:07Z",
+      "side": 1,
+      "message": "Hmm, I think the trybots may have gotten stuck/cancelled when the parent was merged.",
+      "revId": "28e20c6acd0114680ec31048e9a7764bd9153ec6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
