@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1adb9a5_2b5e8731",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-12T20:57:38Z",
+      "side": 1,
+      "message": "*shrug* I guess we can add it later if it ends up useful for testing things.",
+      "parentUuid": "1d5377f1_282b3412",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 9
+      },
+      "revId": "2b5070c1f01f25d0c1eb135e5c9aab3b6a7c3db0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7bf39840_3a58eaab",
@@ -37,6 +61,30 @@
       "writtenOn": "2020-10-07T16:05:03Z",
       "side": 1,
       "message": "Was going to say, can\u0027t you differentiate between *out_data \u003d NULL vs *out_data !\u003d NULL and out_len \u003d 0? But I think malloc(0) weirdness means you can\u0027t?\n\nI guess one alternative is having an extra out param for has_app_seetings, though maybe two separate APIs is cleaner, though worried some consumers might just call get_peer_app_settings without checking has.",
+      "range": {
+        "startLine": 2815,
+        "startChar": 0,
+        "endLine": 2815,
+        "endChar": 70
+      },
+      "revId": "2b5070c1f01f25d0c1eb135e5c9aab3b6a7c3db0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "340decda_7a8c8416",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 2815,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-12T20:57:38Z",
+      "side": 1,
+      "message": "Yeah, to distinguish via NULL, we\u0027d need to have allocated some non-NULL input.\n\nI don\u0027t feel very strongly here. Two APIs seems simpler though, I dunno, we could have this return three values, either out the actual return value or another out param. The actual return value is... intriguing but maybe weird.\n\nWe could also decide the empty string is forbidden as a settings value. I dunno if that would be too constraining. (E.g. if the client doesn\u0027t have anything to send.)\n\nWDYT?",
+      "parentUuid": "7bf39840_3a58eaab",
       "range": {
         "startLine": 2815,
         "startChar": 0,
@@ -64,6 +112,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5539989f_2589cb70",
+        "filename": "ssl/internal.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 3573,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-12T20:57:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc0235a3_7ee104fc",
+      "revId": "2b5070c1f01f25d0c1eb135e5c9aab3b6a7c3db0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b8216d14_4efaf3e3",
@@ -77,6 +143,30 @@
       "writtenOn": "2020-10-07T16:05:03Z",
       "side": 1,
       "message": "nit: SERVERHELLO?",
+      "range": {
+        "startLine": 3583,
+        "startChar": 27,
+        "endLine": 3583,
+        "endChar": 51
+      },
+      "revId": "2b5070c1f01f25d0c1eb135e5c9aab3b6a7c3db0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "606247a7_4749facf",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 3583,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-12T20:57:38Z",
+      "side": 1,
+      "message": "Oops. I think I might just remove this (copied it over from the ClientHello one) since this is really the EncryptedExtensions most of the time...",
+      "parentUuid": "b8216d14_4efaf3e3",
       "range": {
         "startLine": 3583,
         "startChar": 27,
@@ -123,6 +213,30 @@
       "writtenOn": "2020-10-07T16:05:03Z",
       "side": 1,
       "message": "Might already have these, but how about tests for:\nClientEE on TLS 1.2.\nExtra data in CLientEE with ALPS expected.",
+      "range": {
+        "startLine": 6990,
+        "startChar": 0,
+        "endLine": 6990,
+        "endChar": 15
+      },
+      "revId": "2b5070c1f01f25d0c1eb135e5c9aab3b6a7c3db0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6db9e841_cdc81139",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 6990,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-12T20:57:38Z",
+      "side": 1,
+      "message": "\u003e ClientEE on TLS 1.2.\n\nHrm, where would we stick ClientEE in TLS 1.2 for the test? (I figured we should cover the CEE permutations in TLS 1.3 because we might have messed up that state machine. But accidentally parsing CEE in TLS 1.2 would be kind of weird, in the same way that we don\u0027t test server EE in TLS 1.2)\n\n\u003e Extra data in CLientEE with ALPS expected.\n\nAh yeah. Added a test for unsolicited extensions.",
+      "parentUuid": "c522cf44_66b93496",
       "range": {
         "startLine": 6990,
         "startChar": 0,
