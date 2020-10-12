@@ -3,6 +3,80 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "039af00e_19d3e4a2",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 647,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-12T16:06:19Z",
+      "side": 1,
+      "message": "For TLS 1.3 ClientHellos, this is always filled in and we use 32 bytes to minimize collisions. (Probably could have gotten away with it smaller but we could just take it out.)",
+      "revId": "68a440bafb2241fce3ce28eba022f0ec25b2a5c3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "144f6b5a_86c73ac1",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-12T16:06:19Z",
+      "side": 1,
+      "message": "We only include the TLS 1.3 cipher suites in here, so there\u0027s three of them, maybe plus GREASE.",
+      "revId": "68a440bafb2241fce3ce28eba022f0ec25b2a5c3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d86abbf2_8504b34c",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-12T16:06:19Z",
+      "side": 1,
+      "message": "SNI should be counted separately. Look at a distribution of DNS name lengths and probably think about padding together with it.",
+      "range": {
+        "startLine": 655,
+        "startChar": 53,
+        "endLine": 655,
+        "endChar": 56
+      },
+      "revId": "68a440bafb2241fce3ce28eba022f0ec25b2a5c3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8b4a1c4_56732c96",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-12T16:06:19Z",
+      "side": 1,
+      "message": "Relative to how Chrome configures BoringSSL:\n\nsigalgs, sct, alpn should get compressed.\nsupported_groups, status_request, psk_key_exchange_modes, compress_certificate should be added and compressed.\nencrypted_client_hello (empty), supported_versions should be added and uncompressed.\nkey_share is never omitted\npre_shared_key is never compressed. But for these purposes, act like it\u0027s omitted. We\u0027ll just simulate initial ClientHellos for now.\n\nChrome also sends GREASE which we probably should include on the inside. (Do we want to compress it? Not sure... maybe?)",
+      "revId": "68a440bafb2241fce3ce28eba022f0ec25b2a5c3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "da082738_12601b36",
         "filename": "ssl/t1_lib.cc",
         "patchSetId": 17
