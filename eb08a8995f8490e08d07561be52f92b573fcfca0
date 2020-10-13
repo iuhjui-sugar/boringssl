@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a1da40f_8d6e7a33",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-10-13T15:05:19Z",
+      "side": 1,
+      "message": "As a first pass, does this API look reasonable? I\u0027ll add some tests if so.",
+      "revId": "eb08a8995f8490e08d07561be52f92b573fcfca0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
