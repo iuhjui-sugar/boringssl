@@ -39,6 +39,7 @@ const TRUST_TOKEN_METHOD *TRUST_TOKEN_experiment_v1(void) {
       1, /* has_private_metadata */
       3, /* max_keys */
       1, /* has_srr */
+      1, /* has_timestamps */
   };
   return &kMethod;
 }
@@ -55,6 +56,7 @@ const TRUST_TOKEN_METHOD *TRUST_TOKEN_experiment_v2_voprf(void) {
       0, /* has_private_metadata */
       6, /* max_keys */
       0, /* has_srr */
+      0, /* has_timestamps */
   };
   return &kMethod;
 }
@@ -71,6 +73,7 @@ const TRUST_TOKEN_METHOD *TRUST_TOKEN_experiment_v2_pmb(void) {
       1, /* has_private_metadata */
       3, /* max_keys */
       0, /* has_srr */
+      0, /* has_timestamps */
   };
   return &kMethod;
 }
@@ -303,7 +306,7 @@ int TRUST_TOKEN_CLIENT_begin_redemption(TRUST_TOKEN_CLIENT *ctx, uint8_t **out,
       !CBB_add_bytes(&token_inner, token->data, token->len) ||
       !CBB_add_u16_length_prefixed(&request, &inner) ||
       !CBB_add_bytes(&inner, data, data_len) ||
-      !CBB_add_u64(&request, time) ||
+      (ctx->method->has_timestamps && !CBB_add_u64(&request, time)) ||
       !CBB_finish(&request, out, out_len)) {
     OPENSSL_PUT_ERROR(TRUST_TOKEN, ERR_R_MALLOC_FAILURE);
     CBB_cleanup(&request);
@@ -518,6 +521,73 @@ err:
   return ret;
 }
 
+
+int TRUST_TOKEN_ISSUER_redeem_raw(const TRUST_TOKEN_ISSUER *ctx,
+                                  uint32_t *out_public, uint8_t *out_private,
+                                  TRUST_TOKEN **out_token,
+                                  uint8_t **out_client_data,
+                                  size_t *out_client_data_len,
+                                  const uint8_t *request, size_t request_len) {
+  CBS request_cbs, token_cbs;
+  CBS_init(&request_cbs, request, request_len);
+  if (!CBS_get_u16_length_prefixed(&request_cbs, &token_cbs)) {
+    OPENSSL_PUT_ERROR(TRUST_TOKEN, TRUST_TOKEN_R_DECODE_ERROR);
+    return 0;
+  }
+
+  uint32_t public_metadata = 0;
+  uint8_t private_metadata = 0;
+
+  // Parse the token. If there is an error, treat it as an invalid token.
+  if (!CBS_get_u32(&token_cbs, &public_metadata)) {
+    OPENSSL_PUT_ERROR(TRUST_TOKEN, TRUST_TOKEN_R_INVALID_TOKEN);
+    return 0;
+  }
+
+  const struct trust_token_issuer_key_st *key =
+      trust_token_issuer_get_key(ctx, public_metadata);
+  uint8_t nonce[TRUST_TOKEN_NONCE_SIZE];
+  if (key == NULL ||
+      !ctx->method->read(&key->key, nonce, &private_metadata,
+                         CBS_data(&token_cbs), CBS_len(&token_cbs))) {
+    OPENSSL_PUT_ERROR(TRUST_TOKEN, TRUST_TOKEN_R_INVALID_TOKEN);
+    return 0;
+  }
+
+  CBS client_data;
+  if (!CBS_get_u16_length_prefixed(&request_cbs, &client_data)) {
+    OPENSSL_PUT_ERROR(TRUST_TOKEN, TRUST_TOKEN_R_DECODE_ERROR);
+    return 0;
+  }
+
+  int ok = 0;
+  uint8_t *client_data_buf = NULL;
+  size_t client_data_len = 0;
+  if (!CBS_stow(&client_data, &client_data_buf, &client_data_len)) {
+    OPENSSL_PUT_ERROR(TRUST_TOKEN, ERR_R_MALLOC_FAILURE);
+    goto err;
+  }
+
+  TRUST_TOKEN *token = TRUST_TOKEN_new(nonce, TRUST_TOKEN_NONCE_SIZE);
+  if (token == NULL) {
+    OPENSSL_PUT_ERROR(TRUST_TOKEN, ERR_R_MALLOC_FAILURE);
+    goto err;
+  }
+  *out_public = public_metadata;
+  *out_private = private_metadata;
+  *out_token = token;
+  *out_client_data = client_data_buf;
+  *out_client_data_len = client_data_len;
+
+  ok = 1;
+
+err:
+  if (!ok) {
+    OPENSSL_free(client_data_buf);
+  }
+  return ok;
+}
+
 // https://tools.ietf.org/html/rfc7049#section-2.1
 static int add_cbor_int_with_type(CBB *cbb, uint8_t major_type,
                                   uint64_t value) {
@@ -622,9 +692,10 @@ int TRUST_TOKEN_ISSUER_redeem(const TRUST_TOKEN_ISSUER *ctx, uint8_t **out,
   }
 
   CBS client_data;
-  uint64_t redemption_time;
+  uint64_t redemption_time = 0;
   if (!CBS_get_u16_length_prefixed(&request_cbs, &client_data) ||
-      !CBS_get_u64(&request_cbs, &redemption_time)) {
+      (ctx->method->has_timestamps &&
+       !CBS_get_u64(&request_cbs, &redemption_time))) {
     OPENSSL_PUT_ERROR(TRUST_TOKEN, TRUST_TOKEN_R_DECODE_ERROR);
     goto err;
   }
