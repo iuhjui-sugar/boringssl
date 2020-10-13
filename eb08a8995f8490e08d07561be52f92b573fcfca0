@@ -62,6 +62,30 @@
       },
       "revId": "eb08a8995f8490e08d07561be52f92b573fcfca0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0933df1_06f9ea11",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-13T19:17:36Z",
+      "side": 1,
+      "message": "I think the second \"caller\" is meant to be \"client\". (When we say \"caller\" in BoringSSL API docs, we mean the caller of the function.)",
+      "parentUuid": "43b84577_c06c5c13",
+      "range": {
+        "startLine": 259,
+        "startChar": 39,
+        "endLine": 260,
+        "endChar": 37
+      },
+      "revId": "eb08a8995f8490e08d07561be52f92b573fcfca0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
