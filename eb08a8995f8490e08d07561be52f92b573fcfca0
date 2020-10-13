@@ -20,6 +20,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "23677d1c_3b76c37c",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-13T19:16:13Z",
+      "side": 1,
+      "message": "These two bits don\u0027t actually figure into any of the crypto, right? It\u0027s just a random value that the client passes to begin_redemption and then redeem(_raw) blindly passes them out. Would it make sense to instead take those out? Maybe begin_redemption can be removed in favor of just serializing the token, I dunno.\n\nHaving a timestamp split out seems particularly worrisome because, at least in the old API, it went into the signed expiration time. But without any validation on the value, the client can just pick any expiration time it wants. Seems the timestamp should be based on the server time rather than the client.\n\nAlthough, looking at VOPRF, that actually has an Unblind() + Finalize() pair, so it seems the intent *is* to bind some info string to the token. So maybe we want to keep some notion of client data? (How is VORPF intended to handle replay? I assume you don\u0027t replay-protect the VOPRF output because that can change the info string. But I assumed issuedToken is an internal value. Or is the idea that Unblind and Finalize are actually distinct functions with replay protection sandwiched in between?)",
+      "range": {
+        "startLine": 252,
+        "startChar": 17,
+        "endLine": 254,
+        "endChar": 37
+      },
+      "revId": "eb08a8995f8490e08d07561be52f92b573fcfca0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "43b84577_c06c5c13",
         "filename": "include/openssl/trust_token.h",
         "patchSetId": 1
