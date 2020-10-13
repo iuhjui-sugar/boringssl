@@ -16,6 +16,29 @@
       "message": "As a first pass, does this API look reasonable? I\u0027ll add some tests if so.",
       "revId": "eb08a8995f8490e08d07561be52f92b573fcfca0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43b84577_c06c5c13",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 10016
+      },
+      "writtenOn": "2020-10-13T18:38:42Z",
+      "side": 1,
+      "message": "Confusing sentence. Please disambiguate between the two \"callers\".",
+      "range": {
+        "startLine": 259,
+        "startChar": 39,
+        "endLine": 260,
+        "endChar": 37
+      },
+      "revId": "eb08a8995f8490e08d07561be52f92b573fcfca0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
