@@ -241,6 +241,9 @@ struct trust_token_method_st {
 
   // whether the SRR is part of the protocol.
   int has_srr;
+
+  // whether timestamps are part of the protocol.
+  int has_timestamps;
 };
 
 // Structure representing a single Trust Token public key with the specified ID.
