@@ -77,6 +77,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d633567_4a3832c2",
+        "filename": "crypto/cpu-aarch64-win.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 10871
+      },
+      "writtenOn": "2020-10-14T08:07:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "34b3bac8_2948988f",
+      "range": {
+        "startLine": 29,
+        "startChar": 4,
+        "endLine": 29,
+        "endChar": 5
+      },
+      "revId": "61008bc18021e5df51116c43bb1cf92db93a80dd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "391822a7_4855b3de",
@@ -90,6 +114,24 @@
       "writtenOn": "2020-10-05T21:22:44Z",
       "side": 1,
       "message": "This is missing a newline at the end of the file.",
+      "revId": "61008bc18021e5df51116c43bb1cf92db93a80dd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48e5865d_c0d47f93",
+        "filename": "crypto/cpu-aarch64-win.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 10871
+      },
+      "writtenOn": "2020-10-14T08:07:12Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "391822a7_4855b3de",
       "revId": "61008bc18021e5df51116c43bb1cf92db93a80dd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -113,6 +155,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a59edb01_8cace524",
+        "filename": "crypto/fipsmodule/bn/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 10871
+      },
+      "writtenOn": "2020-10-14T08:07:12Z",
+      "side": 1,
+      "message": "This is due to a clang-cl issue (https://crbug.com/787617) - the assembly function is generated for x86 and x64 so they are not affected, but does not exist in the arm assembly. As we are using clang-cl, __clang__ is defined.",
+      "parentUuid": "9ddc4a99_50104b9b",
+      "revId": "61008bc18021e5df51116c43bb1cf92db93a80dd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4d451a05_edf079f9",
         "filename": "crypto/perlasm/arm-xlate.pl",
         "patchSetId": 1
@@ -124,6 +184,24 @@
       "writtenOn": "2020-10-05T21:22:44Z",
       "side": 1,
       "message": "Do you have a pointer to documentation for these directives, as well as MS\u0027s use of the .inst directive below?",
+      "revId": "61008bc18021e5df51116c43bb1cf92db93a80dd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14b680cc_9ace20cf",
+        "filename": "crypto/perlasm/arm-xlate.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 10871
+      },
+      "writtenOn": "2020-10-14T08:07:12Z",
+      "side": 1,
+      "message": "I based this off of libunwind\u0027s \"assembly.h\", where they do the same thing - I couldn\u0027t find their justification, but it what was needed to make it work.\n\nFor .inst below, I may have made a mistake in understanding the code in clang now I see this pull request: https://reviews.llvm.org/D49935\n\nI assumed that COFF cared about the distinction, but perhaps it doesn\u0027t - will fix.",
+      "parentUuid": "4d451a05_edf079f9",
       "revId": "61008bc18021e5df51116c43bb1cf92db93a80dd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
