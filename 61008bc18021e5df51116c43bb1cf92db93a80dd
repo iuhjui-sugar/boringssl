@@ -173,6 +173,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c4fcdc8a_44485777",
+        "filename": "crypto/fipsmodule/bn/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-14T18:14:48Z",
+      "side": 1,
+      "message": "The clang-cl issue should already be captured by BN_CAN_DIVIDE_ULLONG. clang-cl is, I assume, perfectively capable of GNUC inline asm, so BN_CAN_USE_INLINE_ASM should be defined.\n\nI think I see the issue. It\u0027s that bn_div_words\u0027s compile condition is too tight.\n\nRather than !defined(BN_CAN_DIVIDE_ULLONG) \u0026\u0026 !defined(BN_CAN_USE_INLINE_ASM), it should be:\n\n!defined(BN_CAN_DIVIDE_ULLONG) \u0026\u0026 !(defined(BN_CAN_USE_INLINE_ASM) \u0026\u0026 (defined(OPENSSL_X86) || defined(OPENSSL_X86_64)))\n\nBut this is very tedious, so it may be simpler to emit the function unconditionally, and slap an OPENSSL_UNUSED in front of the function decl to allow for it to be unused.",
+      "parentUuid": "a59edb01_8cace524",
+      "revId": "61008bc18021e5df51116c43bb1cf92db93a80dd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4d451a05_edf079f9",
         "filename": "crypto/perlasm/arm-xlate.pl",
         "patchSetId": 1
