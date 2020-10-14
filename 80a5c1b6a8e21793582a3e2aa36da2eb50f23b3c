@@ -16,6 +16,24 @@
       "message": "I\u0027m still trying to get this to actually run, but it appears that CMake doesn\u0027t support MSVC\u0027s ARM64 assembler at all, which means this will most likely only work in Chromium and not standalone. This means delays in finding out problems (BoringSSL is only rolled into Chromium once a week) and testing gets even more tricky, because what code runs depends on the CPU capabilities of the host. ARM64 thankfully hasn\u0027t developed as many variations yet, but this does need testing with and without ARMv8 crypto extensions. And if we add other optional ARMv8 features, there\u0027ll be more permutations to test.\n\nCan you confirm that you all have done this, and have a plan for testing both configurations continuously? If this were buildable standalone, our GTest runner would be able to simulate some CPU configs with the --cpu flag, but I don\u0027t believe the Chromium embedding of the tests does this. (Downstream consumers are less flexible in their testing environments, so we ideally aim for things to be reproducible in our standalone CI, leaving downstream to mostly check integration-level issues.)\n\nWe\u0027ll probably also need to figure out a story for marking this build configuration as unsupported, to make sure it doesn\u0027t make its way to any non-Chromium BoringSSL consumer.",
       "revId": "80a5c1b6a8e21793582a3e2aa36da2eb50f23b3c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d64c1fdf_817cb3c1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-14T19:52:07Z",
+      "side": 1,
+      "message": "(Flipping resolved bit.)",
+      "parentUuid": "28bba202_c02db485",
+      "revId": "80a5c1b6a8e21793582a3e2aa36da2eb50f23b3c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
