@@ -34,6 +34,24 @@
       "parentUuid": "28bba202_c02db485",
       "revId": "80a5c1b6a8e21793582a3e2aa36da2eb50f23b3c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "523435a9_e7f67f0d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-15T02:20:49Z",
+      "side": 1,
+      "message": "Digging around some more, it looks like MSVC\u0027s ARM64 assembler is based on the armasm dialect, which is totally different from what LLVM implements anyway. (Why oh why must there be so many of these...) We wouldn\u0027t want to support both anyway, so I guess the path is instead to try the clang + CMake build standalone.\n\n(That also mean the .def, etc., question is probably about clang rather than MSVC\u0027s assembler syntax. I\u0027d like to understand what that\u0027s for.)",
+      "parentUuid": "d64c1fdf_817cb3c1",
+      "revId": "80a5c1b6a8e21793582a3e2aa36da2eb50f23b3c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
