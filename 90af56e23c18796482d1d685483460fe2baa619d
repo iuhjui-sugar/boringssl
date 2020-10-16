@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "953e1e50_b6990614",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-16T21:24:51Z",
+      "side": 1,
+      "message": "Want me to set up the CI/CQ to run our Go tests? I suspect using ... will get confused from runner and the go-run-able scripts, but we could have a util/go_tests.txt with a list of places to run, and I\u0027ll teach the recipe to just run go test on those.",
+      "revId": "90af56e23c18796482d1d685483460fe2baa619d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
