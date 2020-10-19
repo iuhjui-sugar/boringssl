@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "771a9655_b53ccfa6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10871
+      },
+      "writtenOn": "2020-10-19T11:29:44Z",
+      "side": 1,
+      "message": "A note to this newest patchset, this is using clang-cl from: https://community.arm.com/developer/tools-software/tools/b/tools-software-ides-blog/posts/native-clang-for-windows-on-arm",
+      "revId": "73b8954cadb62f18a72a0a8270ceedf160204393",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
