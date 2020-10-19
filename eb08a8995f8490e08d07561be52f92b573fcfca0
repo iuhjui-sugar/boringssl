@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "915de8a1_51772ad1",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2020-10-19T16:31:17Z",
+      "side": 1,
+      "message": "Well, Unblind happens at the end of issuance, and Finalize happens at the start of redemption. Maybe there\u0027s an argument that we should bind the clientdata against the token to prevent client replays, though not sure how necessary that is.\n\nRemoving timestamp here, do you think we should just punt it from the whole V2 protocol (and for now just manually calculate the timestamp in redeem until we get rid of that consumer?",
+      "parentUuid": "23677d1c_3b76c37c",
+      "range": {
+        "startLine": 252,
+        "startChar": 17,
+        "endLine": 254,
+        "endChar": 37
+      },
+      "revId": "eb08a8995f8490e08d07561be52f92b573fcfca0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "43b84577_c06c5c13",
         "filename": "include/openssl/trust_token.h",
         "patchSetId": 1
@@ -78,6 +102,30 @@
       "side": 1,
       "message": "I think the second \"caller\" is meant to be \"client\". (When we say \"caller\" in BoringSSL API docs, we mean the caller of the function.)",
       "parentUuid": "43b84577_c06c5c13",
+      "range": {
+        "startLine": 259,
+        "startChar": 39,
+        "endLine": 260,
+        "endChar": 37
+      },
+      "revId": "eb08a8995f8490e08d07561be52f92b573fcfca0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e89c5b23_0306c829",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2020-10-19T16:31:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c0933df1_06f9ea11",
       "range": {
         "startLine": 259,
         "startChar": 39,
