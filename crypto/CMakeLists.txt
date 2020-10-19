@@ -47,17 +47,25 @@ if(NOT OPENSSL_NO_ASM)
       endforeach()
     endif()
   else()
-    if(${ARCH} STREQUAL "x86_64")
-      set(PERLASM_STYLE nasm)
+    if(${ARCH} STREQUAL "aarch64")
+      set(ASM_EXT asm)
+      set(PERLASM_STYLE win64)
+      set(ASM_EXT S)
+      enable_language(ASM)
+      set(CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} -march=armv8-a+crypto")
     else()
-      set(PERLASM_STYLE win32n)
-      set(PERLASM_FLAGS "-DOPENSSL_IA32_SSE2")
-    endif()
-    set(CMAKE_ASM_NASM_FLAGS "${CMAKE_ASM_NASM_FLAGS} -gcv8")
+      if(${ARCH} STREQUAL "x86_64")
+        set(PERLASM_STYLE nasm)
+      else()
+        set(PERLASM_STYLE win32n)
+        set(PERLASM_FLAGS "-DOPENSSL_IA32_SSE2")
+      endif()
+      set(CMAKE_ASM_NASM_FLAGS "${CMAKE_ASM_NASM_FLAGS} -gcv8")
 
-    # On Windows, we use the NASM output, specifically built with Yasm.
-    set(ASM_EXT asm)
-    enable_language(ASM_NASM)
+      # On Windows, we use the NASM output, specifically built with Yasm.
+      set(ASM_EXT asm)
+      enable_language(ASM_NASM)
+    endif()
   endif()
 endif()
 
@@ -106,6 +114,15 @@ if(${ARCH} STREQUAL "arm")
     curve25519/asm/x25519-asm-arm.S
     poly1305/poly1305_arm_asm.S
     test/trampoline-armv4.${ASM_EXT}
+  )
+endif()
+
+if(${ARCH} STREQUAL "ARM64")
+  set(
+    CRYPTO_ARCH_SOURCES
+
+    chacha/chacha-armv8.${ASM_EXT}
+    test/trampoline-armv8.${ASM_EXT}
   )
 endif()
 
@@ -258,6 +275,7 @@ add_library(
   conf/conf.c
   cpu-aarch64-fuchsia.c
   cpu-aarch64-linux.c
+  cpu-aarch64-win.c
   cpu-arm-linux.c
   cpu-arm.c
   cpu-intel.c
