@@ -34,6 +34,132 @@
       "parentUuid": "771a9655_b53ccfa6",
       "revId": "73b8954cadb62f18a72a0a8270ceedf160204393",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fbd1355_3b8677e2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-19T18:59:04Z",
+      "side": 1,
+      "message": "Thanks! I was able to get this building and running last weekend with an earlier version of the patchset, so that should work. That means I should be able to set up a compile-only cross-compile bot so we at least notice compile failures early. (But you all and Microsoft will still need to do regular runtime tests.)",
+      "parentUuid": "f9d409e2_1ee18929",
+      "revId": "73b8954cadb62f18a72a0a8270ceedf160204393",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd9708e0_dae1c08a",
+        "filename": "crypto/CMakeLists.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-19T18:59:04Z",
+      "side": 1,
+      "message": "Delete this line.",
+      "revId": "73b8954cadb62f18a72a0a8270ceedf160204393",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15c771d2_dff53f2d",
+        "filename": "crypto/CMakeLists.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-19T18:59:04Z",
+      "side": 1,
+      "message": "We prefer to put logic in source files rather than the build so they do not need to be kept in sync. What\u0027s going on here is that the arm-xlate.pl is dropping the .arch directives in win64 style. Please fix that and remove this line.",
+      "revId": "73b8954cadb62f18a72a0a8270ceedf160204393",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2bfad28_2385cd24",
+        "filename": "crypto/CMakeLists.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-19T18:59:04Z",
+      "side": 1,
+      "message": "Existing issue, but could you drop the clause about Yasm? We use plain NASM nowadays.",
+      "range": {
+        "startLine": 65,
+        "startChar": 42,
+        "endLine": 65,
+        "endChar": 72
+      },
+      "revId": "73b8954cadb62f18a72a0a8270ceedf160204393",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a517486_4b184c4b",
+        "filename": "crypto/CMakeLists.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-19T18:59:04Z",
+      "side": 1,
+      "message": "This block is unnecessary since ARCH is normalized down to aarch64 anyway.",
+      "revId": "73b8954cadb62f18a72a0a8270ceedf160204393",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2607cac_466247b9",
+        "filename": "crypto/cpu-aarch64-win.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-19T18:59:04Z",
+      "side": 1,
+      "message": "Style nit: newlines between these. (\u003cwindows.h\u003e, \u003copenssl/arm_arch.h\u003e, and \"internal.h\" are separate categories of includes.)",
+      "revId": "73b8954cadb62f18a72a0a8270ceedf160204393",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02392721_2acc6952",
+        "filename": "crypto/fipsmodule/bn/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-19T18:59:04Z",
+      "side": 1,
+      "message": "Can you please fix this as described here?\nhttps://boringssl-review.googlesource.com/c/boringssl/+/43304/1/crypto/fipsmodule/bn/internal.h#189\n\nSpecifically:\n1. Revert the changes to this file.\n2. Remove the preprocessor guards around bn_div_words.\n3. Mark the function OPENSSL_UNUSED, to account for build configurations that don\u0027t use it.",
+      "revId": "73b8954cadb62f18a72a0a8270ceedf160204393",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
