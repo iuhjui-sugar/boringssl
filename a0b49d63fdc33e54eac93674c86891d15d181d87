@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ee054841_41a6ffec",
+        "filename": "crypto/fipsmodule/modes/asm/ghashv8-armx.pl",
+        "patchSetId": 5
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2020-10-20T17:15:29Z",
+      "side": 1,
+      "message": "\u003e I didn\u0027t want to alter generated code other than Armv8.\n\nUnderstandable. It isn\u0027t a huge deal either way.\n\nI think that if we had:\n```\n#if !defined(AARCH64_VALID_CALL_TARGET)\n#define AARCH64_VALID_CALL_TARGET\n#endif\n```\nand the like in the arm_arch.h file, then it would work just fine, and wouldn\u0027t change any non-ARMv8 code gen, while making things easier to read.\n\nLike I said, not a huge deal either way.",
+      "parentUuid": "44e0230e_18990b44",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 35
+      },
+      "revId": "a0b49d63fdc33e54eac93674c86891d15d181d87",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d486291a_210ff7a2",
         "filename": "include/openssl/arm_arch.h",
         "patchSetId": 5
