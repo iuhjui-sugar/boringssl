@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8071edb4_cf4d505c",
+        "filename": "crypto/fipsmodule/modes/asm/ghashv8-armx.pl",
+        "patchSetId": 5
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2020-10-20T02:34:11Z",
+      "side": 1,
+      "message": "It seems to me like it would make more sense to ensure that `AARCH64_VALID_CALL_TARGET` and friends are defined to be no-ops on 32-bit targets, and then avoid guarding all these blocks with `if ($flavour \u003d~ /64/);`",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 35
+      },
+      "revId": "a0b49d63fdc33e54eac93674c86891d15d181d87",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
