@@ -12,12 +12,11 @@
 # OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
 # CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
+import os
 import subprocess
 import sys
 
 import vs_toolchain
-# vs_toolchain adds gyp to sys.path.
-import gyp.MSVSVersion
 
 if len(sys.argv) < 2:
   print >>sys.stderr, "Usage: vs_env.py TARGET_ARCH CMD..."
@@ -26,12 +25,5 @@ if len(sys.argv) < 2:
 target_arch = sys.argv[1]
 cmd = sys.argv[2:]
 
-vs_toolchain.SetEnvironmentAndGetRuntimeDllDirs()
-vs_version = gyp.MSVSVersion.SelectVisualStudioVersion()
-
-# Using shell=True is somewhat ugly, but the alternative is to pull in a copy
-# of the Chromium GN build's setup_toolchain.py which runs the setup script,
-# then 'set', and then parses the environment variables out. (GYP internally
-# does the same thing.)
-sys.exit(subprocess.call(vs_version.SetupScript(target_arch) + ["&&"] + cmd,
-                         shell=True))
+vs_toolchain.SetEnvironmentForCPU(target_arch)
+sys.exit(subprocess.call(cmd))
