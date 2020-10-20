@@ -22,6 +22,52 @@
       },
       "revId": "a0b49d63fdc33e54eac93674c86891d15d181d87",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d486291a_210ff7a2",
+        "filename": "include/openssl/arm_arch.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2020-10-20T02:45:13Z",
+      "side": 1,
+      "message": "My setup is a bit different than what\u0027s normal for BoringSSL, but for me this triggers `-Wundef` when `__ARM_FEATURE_BTI_DEFAULT` isn\u0027t defined, which seems to be the case often.",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 36
+      },
+      "revId": "a0b49d63fdc33e54eac93674c86891d15d181d87",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef2ed948_1b4d787f",
+        "filename": "include/openssl/arm_arch.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2020-10-20T02:45:13Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 137,
+        "startChar": 0,
+        "endLine": 137,
+        "endChar": 64
+      },
+      "revId": "a0b49d63fdc33e54eac93674c86891d15d181d87",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
