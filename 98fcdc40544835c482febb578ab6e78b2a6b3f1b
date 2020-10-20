@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3c3b0e5_a20a3290",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-20T14:00:30Z",
+      "side": 1,
+      "message": "Ideally our build would flag these warnings. I\u0027m guessing the issue is we pass -Wall to C/C++ but not asm. Can you add -Wall to CMAKE_ASM_FLAGS and confirm that would have caught this?",
+      "range": {
+        "startLine": 9,
+        "startChar": 5,
+        "endLine": 9,
+        "endChar": 12
+      },
+      "revId": "98fcdc40544835c482febb578ab6e78b2a6b3f1b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "416f4d29_a4fe29cc",
@@ -14,6 +37,46 @@
       "writtenOn": "2020-10-20T08:44:59Z",
       "side": 1,
       "message": "Please review this small change. Thank you.",
+      "revId": "98fcdc40544835c482febb578ab6e78b2a6b3f1b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45870a46_23574234",
+        "filename": "include/openssl/arm_arch.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-20T14:00:30Z",
+      "side": 1,
+      "message": "Here the pattern is:\n\n#if defined(X)\n#if expr involving X\n...\n#endif\n#endif\n\nWhereas the block above uses:\n\n#if defined(X) \u0026\u0026 expr involving X\n...\n#endif\n\nIs there a reason the two are different? If not, can we make them match?",
+      "revId": "98fcdc40544835c482febb578ab6e78b2a6b3f1b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ededbaa_ea4ecb60",
+        "filename": "include/openssl/arm_arch.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-20T14:00:30Z",
+      "side": 1,
+      "message": "This isn\u0027t a standard property name or anything, just a symbol defined by this file, right? Under what circumstances would this already be defined?",
+      "range": {
+        "startLine": 151,
+        "startChar": 13,
+        "endLine": 151,
+        "endChar": 46
+      },
       "revId": "98fcdc40544835c482febb578ab6e78b2a6b3f1b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
