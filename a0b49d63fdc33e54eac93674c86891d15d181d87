@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "44e0230e_18990b44",
+        "filename": "crypto/fipsmodule/modes/asm/ghashv8-armx.pl",
+        "patchSetId": 5
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 10416
+      },
+      "writtenOn": "2020-10-20T08:51:35Z",
+      "side": 1,
+      "message": "I didn\u0027t want to alter generated code other than Armv8.",
+      "parentUuid": "8071edb4_cf4d505c",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 35
+      },
+      "revId": "a0b49d63fdc33e54eac93674c86891d15d181d87",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d486291a_210ff7a2",
         "filename": "include/openssl/arm_arch.h",
         "patchSetId": 5
@@ -37,6 +61,30 @@
       "writtenOn": "2020-10-20T02:45:13Z",
       "side": 1,
       "message": "My setup is a bit different than what\u0027s normal for BoringSSL, but for me this triggers `-Wundef` when `__ARM_FEATURE_BTI_DEFAULT` isn\u0027t defined, which seems to be the case often.",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 36
+      },
+      "revId": "a0b49d63fdc33e54eac93674c86891d15d181d87",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6c0e4c3_6424358a",
+        "filename": "include/openssl/arm_arch.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 10416
+      },
+      "writtenOn": "2020-10-20T08:51:35Z",
+      "side": 1,
+      "message": "Hi Brian,\n\nSorry for the inconvenience.\nI had the impression that -Wall and friends enabled this check too.\nTrying to fix it in https://boringssl-review.googlesource.com/c/boringssl/+/43524",
+      "parentUuid": "d486291a_210ff7a2",
       "range": {
         "startLine": 129,
         "startChar": 0,
@@ -60,6 +108,30 @@
       "writtenOn": "2020-10-20T02:45:13Z",
       "side": 1,
       "message": "Ditto.",
+      "range": {
+        "startLine": 137,
+        "startChar": 0,
+        "endLine": 137,
+        "endChar": 64
+      },
+      "revId": "a0b49d63fdc33e54eac93674c86891d15d181d87",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5489d29b_ac0bf6cb",
+        "filename": "include/openssl/arm_arch.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 10416
+      },
+      "writtenOn": "2020-10-20T08:51:35Z",
+      "side": 1,
+      "message": "See above.",
+      "parentUuid": "ef2ed948_1b4d787f",
       "range": {
         "startLine": 137,
         "startChar": 0,
