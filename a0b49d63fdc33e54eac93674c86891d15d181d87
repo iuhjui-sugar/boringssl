@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5dd25d01_e0ccf4fe",
+        "filename": "crypto/fipsmodule/modes/asm/ghashv8-armx.pl",
+        "patchSetId": 5
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-20T17:26:50Z",
+      "side": 1,
+      "message": "I don\u0027t feel super strongly about this either way. I think we only have two \"armx\" files that try to abstract AArch32 and AArch64. (I\u0027m kind of impressed/scared that they manage it. There are a lot of differences.) I think they mostly do it ad-hoc rather than relying on support in arm-xlate.pl and arm_arch.h. But I guess it would be less code.\n\nAnother option could be to put the empty #define in the two armx files, which I guess would be somewhere in between. Or we could put it in arm_arch.h with a comment as Brian suggests. Or we could stick with what this CL does. *shrug*",
+      "parentUuid": "ee054841_41a6ffec",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 35
+      },
+      "revId": "a0b49d63fdc33e54eac93674c86891d15d181d87",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d486291a_210ff7a2",
         "filename": "include/openssl/arm_arch.h",
         "patchSetId": 5
