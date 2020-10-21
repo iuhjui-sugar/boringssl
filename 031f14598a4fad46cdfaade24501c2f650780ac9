@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "930f8013_6c68e2b4",
+        "filename": "include/openssl/x509v3.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 658,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-21T23:51:43Z",
+      "side": 1,
+      "message": "Yes, it seems \"DEFAULT\" is the one that errors while \"ERROR_UNKNOWN\" is the one that prints placeholder text. (See unknown_ext_print.) I have no idea.",
+      "revId": "031f14598a4fad46cdfaade24501c2f650780ac9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
