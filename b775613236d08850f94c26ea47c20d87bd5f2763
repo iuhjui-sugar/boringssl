@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef57779f_755d9c9c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-21T21:08:49Z",
+      "side": 1,
+      "message": "Thanks! I just uploaded a minor revision to do whatever clang-format wanted on the formatting and remove some unnecessary parens.",
+      "revId": "b775613236d08850f94c26ea47c20d87bd5f2763",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

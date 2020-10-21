@@ -169,6 +169,30 @@
       },
       "revId": "98fcdc40544835c482febb578ab6e78b2a6b3f1b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97aa304c_35e3317f",
+        "filename": "include/openssl/arm_arch.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-21T21:08:49Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8e908c1d_3a2e7147",
+      "range": {
+        "startLine": 151,
+        "startChar": 13,
+        "endLine": 151,
+        "endChar": 46
+      },
+      "revId": "98fcdc40544835c482febb578ab6e78b2a6b3f1b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
