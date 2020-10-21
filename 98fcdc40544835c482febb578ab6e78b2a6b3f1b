@@ -79,6 +79,30 @@
       },
       "revId": "98fcdc40544835c482febb578ab6e78b2a6b3f1b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d72ee48d_5cb20091",
+        "filename": "include/openssl/arm_arch.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 10416
+      },
+      "writtenOn": "2020-10-21T06:28:28Z",
+      "side": 1,
+      "message": "Yes, this is defined in this file only, it is not standard or anything like that.\nIt is either defined or not within lines 137-149.",
+      "parentUuid": "0ededbaa_ea4ecb60",
+      "range": {
+        "startLine": 151,
+        "startChar": 13,
+        "endLine": 151,
+        "endChar": 46
+      },
+      "revId": "98fcdc40544835c482febb578ab6e78b2a6b3f1b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
