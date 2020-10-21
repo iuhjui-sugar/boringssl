@@ -122,6 +122,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "51e97cbf_26755da0",
+        "filename": "crypto/fipsmodule/modes/asm/ghashv8-armx.pl",
+        "patchSetId": 5
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2020-10-21T20:41:33Z",
+      "side": 1,
+      "message": "Yes, I think it would be better to remove the flavour guards. The reason is DRY: There\u0027s no need to repeat the guard logic over and over when it is inherent in the definitions of the macros.\n\nI don\u0027t think there will be any confusion of whether/how they\u0027d affect the 32-bit versions since they\u0027re named \"AARCH64_*\"",
+      "parentUuid": "a515fa00_cc4d372f",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 35
+      },
+      "revId": "a0b49d63fdc33e54eac93674c86891d15d181d87",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d486291a_210ff7a2",
         "filename": "include/openssl/arm_arch.h",
         "patchSetId": 5
