@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "842b2cb0_010fea89",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 10416
+      },
+      "writtenOn": "2020-10-21T06:48:09Z",
+      "side": 1,
+      "message": "The build system I use passes -Wall. I had to explicitly add -Wundef to trigger this warning.",
+      "parentUuid": "f3c3b0e5_a20a3290",
+      "range": {
+        "startLine": 9,
+        "startChar": 5,
+        "endLine": 9,
+        "endChar": 12
+      },
+      "revId": "98fcdc40544835c482febb578ab6e78b2a6b3f1b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "416f4d29_a4fe29cc",
