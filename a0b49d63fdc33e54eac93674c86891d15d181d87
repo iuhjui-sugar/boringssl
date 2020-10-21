@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a515fa00_cc4d372f",
+        "filename": "crypto/fipsmodule/modes/asm/ghashv8-armx.pl",
+        "patchSetId": 5
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 10416
+      },
+      "writtenOn": "2020-10-21T06:59:19Z",
+      "side": 1,
+      "message": "AARCH64_VALID_CALL_TARGET and friends are always defined, even if they are defined to \u003cempty\u003e because the generated code snippets have these inserted unconditionally by the perl scripts for Armv8. I thought it would look odd to have AARCH64_* in files targeting 32-bit.\n\nI believe the current state is such that simply removing the flavour guards would result in the behaviour described by Brian Smith.\n\nWould removal of the flavour guards be acceptable then?",
+      "parentUuid": "5dd25d01_e0ccf4fe",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 35
+      },
+      "revId": "a0b49d63fdc33e54eac93674c86891d15d181d87",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d486291a_210ff7a2",
         "filename": "include/openssl/arm_arch.h",
         "patchSetId": 5
