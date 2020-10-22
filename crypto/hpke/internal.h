@@ -18,6 +18,7 @@
 #include <openssl/aead.h>
 #include <openssl/base.h>
 #include <openssl/curve25519.h>
+#include <openssl/digest.h>
 
 #if defined(__cplusplus)
 extern "C" {
@@ -30,6 +31,7 @@ extern "C" {
 // receiver with a public key. Optionally, the sender may authenticate its
 // possession of a pre-shared key to the recipient.
 //
+// TODO(dmcardle): Update link when hpke-06 is cut.
 // See https://tools.ietf.org/html/draft-irtf-cfrg-hpke-05.
 
 // EVP_HPKE_AEAD_* are AEAD identifiers.
@@ -55,7 +57,7 @@ typedef struct evp_hpke_ctx_st {
   EVP_AEAD_CTX aead_ctx;
   uint16_t kdf_id;
   uint16_t aead_id;
-  uint8_t nonce[EVP_AEAD_MAX_NONCE_LENGTH];
+  uint8_t base_nonce[EVP_AEAD_MAX_NONCE_LENGTH];
   uint8_t exporter_secret[EVP_MAX_MD_SIZE];
   uint64_t seq;
   int is_sender;
