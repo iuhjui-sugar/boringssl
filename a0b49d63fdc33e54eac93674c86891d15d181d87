@@ -144,6 +144,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac824170_a87ecf20",
+        "filename": "crypto/fipsmodule/modes/asm/ghashv8-armx.pl",
+        "patchSetId": 5
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 10416
+      },
+      "writtenOn": "2020-10-22T12:30:39Z",
+      "side": 1,
+      "message": "https://boringssl-review.googlesource.com/c/boringssl/+/43584",
+      "parentUuid": "51e97cbf_26755da0",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 35
+      },
+      "revId": "a0b49d63fdc33e54eac93674c86891d15d181d87",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d486291a_210ff7a2",
