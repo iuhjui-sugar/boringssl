@@ -16,6 +16,24 @@
       "message": "Optional: math/bits.OnesCount8 is a hair shorter:\n\n   v ^\u003d (bits.OnesCount8(v) \u0026 1) ^ 1\n\nI think you don\u0027t even need the v |\u003d 1 in that case.",
       "revId": "c4f3d99f020c7929884a4bf9a339b516f55b1f54",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29ecd0ff_745c1a82",
+        "filename": "util/fipstools/acvp/acvptool/subprocess/block.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-10-22T21:21:13Z",
+      "side": 1,
+      "message": "thanks!",
+      "parentUuid": "c3cc66c0_f504d38f",
+      "revId": "c4f3d99f020c7929884a4bf9a339b516f55b1f54",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
