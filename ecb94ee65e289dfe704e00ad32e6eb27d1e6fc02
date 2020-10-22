@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe2e0a33_95e1eec3",
+        "filename": "crypto/fipsmodule/rsa/rsa_impl.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 971,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-22T21:36:31Z",
+      "side": 1,
+      "message": "I think I was super lazy and just binary searched when I needed to compute this. :-)",
+      "revId": "ecb94ee65e289dfe704e00ad32e6eb27d1e6fc02",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3210a982_65cb8cf0",
+        "filename": "crypto/rsa_extra/rsa_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 512,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-22T21:36:31Z",
+      "side": 1,
+      "message": "Nit: SCOPED_TRACE(bits)",
+      "revId": "ecb94ee65e289dfe704e00ad32e6eb27d1e6fc02",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
