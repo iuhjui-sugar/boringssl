@@ -496,7 +496,8 @@ TEST(RSATest, GenerateFIPS) {
   bssl::UniquePtr<RSA> rsa(RSA_new());
   ASSERT_TRUE(rsa);
 
-  // RSA_generate_key_fips may only be used for 2048-bit and 3072-bit keys.
+  // RSA_generate_key_fips may only be used for 2048-, 3072-, and 4096-bit
+  // keys.
   EXPECT_FALSE(RSA_generate_key_fips(rsa.get(), 512, nullptr));
   EXPECT_FALSE(RSA_generate_key_fips(rsa.get(), 1024, nullptr));
   EXPECT_FALSE(RSA_generate_key_fips(rsa.get(), 2047, nullptr));
@@ -506,14 +507,12 @@ TEST(RSATest, GenerateFIPS) {
   EXPECT_FALSE(RSA_generate_key_fips(rsa.get(), 4096, nullptr));
   ERR_clear_error();
 
-  // Test that we can generate 2048-bit and 3072-bit RSA keys.
-  ASSERT_TRUE(RSA_generate_key_fips(rsa.get(), 2048, nullptr));
-  EXPECT_EQ(2048u, BN_num_bits(rsa->n));
-
-  rsa.reset(RSA_new());
-  ASSERT_TRUE(rsa);
-  ASSERT_TRUE(RSA_generate_key_fips(rsa.get(), 3072, nullptr));
-  EXPECT_EQ(3072u, BN_num_bits(rsa->n));
+  // Test that we can generate keys of the supported lengths:
+  for (const size_t bits : {2048, 3072, 4096}) {
+    rsa.reset(RSA_new());
+    ASSERT_TRUE(RSA_generate_key_fips(rsa.get(), bits, nullptr));
+    EXPECT_EQ(bits, BN_num_bits(rsa->n));
+  }
 }
 
 TEST(RSATest, BadKey) {
