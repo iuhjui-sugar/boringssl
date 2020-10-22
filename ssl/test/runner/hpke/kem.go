@@ -23,7 +23,7 @@ import (
 )
 
 const (
-	rfcLabel string = "HPKE-05 "
+	rfcLabel string = "HPKE-06 "
 )
 
 func getKDFHash(kdfID uint16) crypto.Hash {

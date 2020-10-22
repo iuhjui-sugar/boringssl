@@ -14,6 +14,7 @@
 
 // Package hpke implements Hybrid Public Key Encryption (HPKE).
 //
+// TODO(dmcardle): Update to hpke-06 once the draft is cut.
 // See https://tools.ietf.org/html/draft-irtf-cfrg-hpke-05.
 package hpke
 
@@ -62,7 +63,7 @@ type Context struct {
 	aead cipher.AEAD
 
 	key            []byte
-	baseNonce      []byte
+	iv             []byte
 	seq            uint64
 	exporterSecret []byte
 }
@@ -193,8 +194,7 @@ func keySchedule(mode uint8, kemID, kdfID, aeadID uint16, sharedSecret, info, ps
 	keyScheduleContext = append(keyScheduleContext, pskIDHash...)
 	keyScheduleContext = append(keyScheduleContext, infoHash...)
 
-	pskHash := labeledExtract(kdfHash, nil, suiteID, []byte("psk_hash"), psk)
-	secret := labeledExtract(kdfHash, pskHash, suiteID, []byte("secret"), sharedSecret)
+	secret := labeledExtract(kdfHash, sharedSecret, suiteID, []byte("secret"), psk)
 	key := labeledExpand(kdfHash, secret, suiteID, []byte("key"), keyScheduleContext, expectedKeyLength(aeadID))
 
 	aead, err := newAEAD(aeadID, key)
@@ -202,7 +202,7 @@ func keySchedule(mode uint8, kemID, kdfID, aeadID uint16, sharedSecret, info, ps
 		return nil, err
 	}
 
-	nonce := labeledExpand(kdfHash, secret, suiteID, []byte("nonce"), keyScheduleContext, aead.NonceSize())
+	iv := labeledExpand(kdfHash, secret, suiteID, []byte("iv"), keyScheduleContext, aead.NonceSize())
 	exporterSecret := labeledExpand(kdfHash, secret, suiteID, []byte("exp"), keyScheduleContext, kdfHash.Size())
 
 	return &Context{
@@ -211,18 +211,18 @@ func keySchedule(mode uint8, kemID, kdfID, aeadID uint16, sharedSecret, info, ps
 		aeadID:         aeadID,
 		aead:           aead,
 		key:            key,
-		baseNonce:      nonce,
+		iv:             iv,
 		seq:            0,
 		exporterSecret: exporterSecret,
 	}, nil
 }
 
 func (c Context) computeNonce() []byte {
-	nonce := make([]byte, len(c.baseNonce))
-	// Write the big-endian |c.seq| value at the *end* of |baseNonce|.
+	nonce := make([]byte, len(c.iv))
+	// Write the big-endian |c.seq| value at the *end* of |iv|.
 	binary.BigEndian.PutUint64(nonce[len(nonce)-8:], c.seq)
-	// XOR the big-endian |seq| with |c.baseNonce|.
-	for i, b := range c.baseNonce {
+	// XOR the big-endian |seq| with |c.iv|.
+	for i, b := range c.iv {
 		nonce[i] ^= b
 	}
 	return nonce
