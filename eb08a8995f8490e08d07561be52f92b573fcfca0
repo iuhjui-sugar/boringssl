@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b2a59d57_aeb3af46",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-22T21:29:30Z",
+      "side": 1,
+      "message": "\u003e Well, Unblind happens at the end of issuance, and Finalize happens at the start of redemption. Maybe there\u0027s an argument that we should bind the clientdata against the token to prevent client replays, though not sure how necessary that is.\n\nOh, I see. Sorry, I confused myself. Ignore that digression. :-) I clearly haven\u0027t wrapped my head around VOPRF being presented as a cooperatively computed function, rather than a PrivacyPass-like primitive.\n\nJust to make sure I\u0027ve unconfused myself, PrivacyPass looks like:\n\nIssuance:\n- Client calls token, blindToken \u003d Blind(input) and sends blindToken\n- Server calls evaluation \u003d Evaluate(blindToken) and sends evaluation\n- Client calls issuedToken \u003d Unblind(token, blindToken, evaluation)\n\nRedemption:\n- Client calls output \u003d Finalize(input, issuedToken, info) and sends all input, info, output values\n- Server calls VerifyFinalize(input, info, output)\n- On success, server checks for duplicates of input (I assume not output since a client can make lots of outputs by varying info)\n\nIs that right?\n\n\u003e Removing timestamp here, do you think we should just punt it from the whole V2 protocol (and for now just manually calculate the timestamp in redeem until we get rid of that consumer?\n\nSeems reasonable to me, though I don\u0027t really know what you all are using all the fields for. I\u0027m just going by some default preferences:\n\n- If BoringSSL doesn\u0027t know what a field is, it\u0027s probably not worth peeling it out and just tossing it into either a general application-supplied info blob, or, if no binding is needed, \n\n- It\u0027s really weird to have an issuer sign over a timestamp that came from the client, with no issuer validation. That just generally makes me suspicious that something isn\u0027t right.",
+      "parentUuid": "915de8a1_51772ad1",
+      "range": {
+        "startLine": 252,
+        "startChar": 17,
+        "endLine": 254,
+        "endChar": 37
+      },
+      "revId": "eb08a8995f8490e08d07561be52f92b573fcfca0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "43b84577_c06c5c13",
         "filename": "include/openssl/trust_token.h",
         "patchSetId": 1
