@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f076173_68d31f6e",
+        "filename": "util/fipstools/acvp/acvptool/subprocess/rsa.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-23T19:42:58Z",
+      "side": 1,
+      "message": "Nit: Worth checking response.E too?",
+      "range": {
+        "startLine": 166,
+        "startChar": 56,
+        "endLine": 166,
+        "endChar": 58
+      },
+      "revId": "99f9c8fce27cf9481124dc4e3465fb0f441e8062",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
