@@ -40,6 +40,10 @@ constexpr uint32_t kLimitedImplementation = 1 << 0;
 constexpr uint32_t kCanTruncateTags = 1 << 1;
 // kVariableNonce indicates that the AEAD supports a variable-length nonce.
 constexpr uint32_t kVariableNonce = 1 << 2;
+// kNondeterministic indicates that the AEAD performs randomised encryption thus
+// one cannot assume that encrypting the same data will result in the same
+// ciphertext.
+constexpr uint32_t kNondeterministic = 1 << 7;
 
 // RequiresADLength encodes an AD length requirement into flags.
 constexpr uint32_t RequiresADLength(size_t length) {
@@ -86,6 +90,12 @@ static const struct KnownAEAD kAEADs[] = {
 
     {"AES_256_GCM_SIV", EVP_aead_aes_256_gcm_siv, "aes_256_gcm_siv_tests.txt",
      0},
+
+    {"AES_128_GCM_RandomNonce", EVP_aead_aes_128_gcm_randnonce,
+     "aes_128_gcm_randnonce_tests.txt", kNondeterministic},
+
+    {"AES_256_GCM_RandomNonce", EVP_aead_aes_256_gcm_randnonce,
+     "aes_256_gcm_randnonce_tests.txt", kNondeterministic},
 
     {"ChaCha20Poly1305", EVP_aead_chacha20_poly1305,
      "chacha20_poly1305_tests.txt", kCanTruncateTags},
@@ -189,7 +199,8 @@ TEST_P(PerAEADTest, TestVector) {
         ctx.get(), aead(), key.data(), key.size(), tag_len, evp_aead_seal));
 
     std::vector<uint8_t> out(in.size() + EVP_AEAD_max_overhead(aead()));
-    if (!t->HasAttribute("NO_SEAL")) {
+    if (!t->HasAttribute("NO_SEAL") &&
+        !(GetParam().flags & kNondeterministic)) {
       size_t out_len;
       ASSERT_TRUE(EVP_AEAD_CTX_seal(ctx.get(), out.data(), &out_len, out.size(),
                                     nonce.data(), nonce.size(), in.data(),
@@ -269,7 +280,8 @@ TEST_P(PerAEADTest, TestExtraInput) {
       "crypto/cipher_extra/test/" + std::string(aead_config.test_vectors);
   FileTestGTest(test_vectors.c_str(), [&](FileTest *t) {
     if (t->HasAttribute("NO_SEAL") ||
-        t->HasAttribute("FAILS")) {
+        t->HasAttribute("FAILS") ||
+        (aead_config.flags & kNondeterministic)) {
       t->SkipCurrent();
       return;
     }
@@ -337,7 +349,8 @@ TEST_P(PerAEADTest, TestVectorScatterGather) {
 
     std::vector<uint8_t> out(in.size());
     std::vector<uint8_t> out_tag(EVP_AEAD_max_overhead(aead()));
-    if (!t->HasAttribute("NO_SEAL")) {
+    if (!t->HasAttribute("NO_SEAL") &&
+        !(aead_config.flags & kNondeterministic)) {
       size_t out_tag_len;
       ASSERT_TRUE(EVP_AEAD_CTX_seal_scatter(
           ctx.get(), out.data(), out_tag.data(), &out_tag_len, out_tag.size(),
@@ -578,8 +591,11 @@ TEST_P(PerAEADTest, AliasedBuffers) {
   ASSERT_TRUE(EVP_AEAD_CTX_seal(ctx.get(), in, &out_len,
                                 sizeof(kPlaintext) + max_overhead, nonce.data(),
                                 nonce_len, in, sizeof(kPlaintext), nullptr, 0));
-  EXPECT_EQ(Bytes(valid_encryption.data(), valid_encryption_len),
-            Bytes(in, out_len));
+
+  if (!(GetParam().flags & kNondeterministic)) {
+    EXPECT_EQ(Bytes(valid_encryption.data(), valid_encryption_len),
+              Bytes(in, out_len));
+  }
 
   OPENSSL_memcpy(in, valid_encryption.data(), valid_encryption_len);
   ASSERT_TRUE(EVP_AEAD_CTX_open(ctx.get(), in, &out_len, valid_encryption_len,
