@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1457ecfa_5b65a7b8",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1410,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-23T19:47:35Z",
+      "side": 1,
+      "message": "Super nitpicky nitpick: I think 1 is actually better than sizeof here, since you wrote \u0026ok rather than plain ok (to decay T[N] into T*). It\u0027s taking the address of a single T, so there\u0027s always going to be one T, independent of the size of T.",
+      "range": {
+        "startLine": 1410,
+        "startChar": 60,
+        "endLine": 1410,
+        "endChar": 70
+      },
+      "revId": "0e196f983576f787b64f140e550576cd3b6618df",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
