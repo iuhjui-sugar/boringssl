@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c170e6e3_6c00deb0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2020-10-26T14:44:46Z",
+      "side": 1,
+      "message": "Added a test for the raw redeem API, should be ready for review.",
+      "revId": "7a94797ac22320db48f0a3e1ab8ac8071ad02590",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
