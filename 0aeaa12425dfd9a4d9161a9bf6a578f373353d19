@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2768c0c_2d85fd8a",
+        "filename": "crypto/fipsmodule/cipher/e_aes.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 943,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-26T20:30:14Z",
+      "side": 1,
+      "message": "I believe all the integer conversions work out, but now that we\u0027re putting it in a variable anyway, may as well make it a size_t.",
+      "range": {
+        "startLine": 943,
+        "startChar": 4,
+        "endLine": 943,
+        "endChar": 11
+      },
+      "revId": "0aeaa12425dfd9a4d9161a9bf6a578f373353d19",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df05415d_35e0aae7",
+        "filename": "crypto/fipsmodule/cipher/e_aes.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1020,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-26T20:30:14Z",
+      "side": 1,
+      "message": "Ditto about size_t",
+      "range": {
+        "startLine": 1020,
+        "startChar": 41,
+        "endLine": 1020,
+        "endChar": 48
+      },
+      "revId": "0aeaa12425dfd9a4d9161a9bf6a578f373353d19",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac5f898a_12200433",
+        "filename": "include/openssl/aead.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-26T20:30:14Z",
+      "side": 1,
+      "message": "EVP_aead_aes_256_gcm_randnonce",
+      "range": {
+        "startLine": 161,
+        "startChar": 3,
+        "endLine": 161,
+        "endChar": 33
+      },
+      "revId": "0aeaa12425dfd9a4d9161a9bf6a578f373353d19",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
