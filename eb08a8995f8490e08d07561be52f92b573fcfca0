@@ -91,6 +91,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9790a456_b41bdb74",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 254,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2020-10-26T14:18:14Z",
+      "side": 1,
+      "message": "The PrivacyPass thing is right.\n\nThe timestamp was mostly for telling the client how long to hold an SRR around for, and we used the client time since otherwise the server could insert entropy via it, now with the generalized changes it doesn\u0027t really serve any purpose.",
+      "parentUuid": "b2a59d57_aeb3af46",
+      "range": {
+        "startLine": 252,
+        "startChar": 17,
+        "endLine": 254,
+        "endChar": 37
+      },
+      "revId": "eb08a8995f8490e08d07561be52f92b573fcfca0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "43b84577_c06c5c13",
         "filename": "include/openssl/trust_token.h",
         "patchSetId": 1
