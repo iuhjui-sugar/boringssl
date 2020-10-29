@@ -34,6 +34,24 @@
       "parentUuid": "1767db4d_7eb7f6a1",
       "revId": "3989c99706bf30054798ff82f1cb010e50e385f5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03e39a69_f29426ef",
+        "filename": ".clang-format",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-29T20:16:34Z",
+      "side": 0,
+      "message": "Ah. That it doesn\u0027t ignore unknown directives is irritating. Maybe they should fix that.\n\nI usually just point my tools at clang-format from my Chromium checkout. And on personal machines without a Chromium checkout, I clone the Chromium buildtools repo and have some script that does git pull \u0026\u0026 download_from_google_storage.py (depot_tools) or whatever. It\u0027s super janky, but it works.\n\nhttps://chromium.googlesource.com/chromium/src/buildtools/",
+      "parentUuid": "c1673d24_f2841f01",
+      "revId": "3989c99706bf30054798ff82f1cb010e50e385f5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e519b266_3f838978",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-29T20:16:34Z",
+      "side": 1,
+      "message": "Noticed one last thing from the updated test... this is strange. In v2, we don\u0027t have a redemption_time, but we\u0027re still filling in this field and adding a lifetime to it. Is that expected?\n\n(Do we need this API to work in v2 at all? Another option would be to say you need to use redeem_raw in v2 and redeem in v1. I dunno if that would work for your purposes.)",
+      "revId": "73f0aca428c751b1d75680bf90ecebd2ee165de2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

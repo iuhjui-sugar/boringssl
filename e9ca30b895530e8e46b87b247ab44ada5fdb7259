@@ -88,6 +88,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c1b4b55_26e13276",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-29T20:16:34Z",
+      "side": 1,
+      "message": "Ack. Although, even if we do binding, I think begin_redemption + redeem_raw isn\u0027t quiiiite the right shape. When you bind stuff, you usually also include contextual information like the protocol label, whereas this API only binds what the client sent.\n\n(I.e. I think you wouldn\u0027t actually send the info string, just whatever protocol-specific bits that the server doesn\u0027t already know.)\n\nBut, whatever, one thing at a time.",
+      "parentUuid": "d8735e29_ff393389",
+      "revId": "e9ca30b895530e8e46b87b247ab44ada5fdb7259",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4d68dd45_1232e178",
