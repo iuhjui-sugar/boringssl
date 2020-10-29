@@ -237,11 +237,18 @@ bool SSLTranscript::Update(Span<const uint8_t> in) {
   return true;
 }
 
-bool SSLTranscript::GetHash(uint8_t *out, size_t *out_len) {
+bool SSLTranscript::GetHash(uint8_t *out, size_t *out_len,
+                            Span<const uint8_t> in_suffix) {
   ScopedEVP_MD_CTX ctx;
   unsigned len;
-  if (!EVP_MD_CTX_copy_ex(ctx.get(), hash_.get()) ||
-      !EVP_DigestFinal_ex(ctx.get(), out, &len)) {
+  if (!EVP_MD_CTX_copy_ex(ctx.get(), hash_.get())) {
+    return false;
+  }
+
+  // Hash the additional bytes from |in_suffix|.
+  EVP_DigestUpdate(ctx.get(), in_suffix.data(), in_suffix.size());
+
+  if (!EVP_DigestFinal_ex(ctx.get(), out, &len)) {
     return false;
   }
   *out_len = len;

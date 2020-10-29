@@ -16246,6 +16246,39 @@ func addEncryptedClientHelloTests() {
 		expectedLocalError: "remote error: error decoding message",
 		expectedError:      ":ERROR_PARSING_EXTENSION:",
 	})
+
+	// Test that the server responds to an empty ECH extension with the acceptance
+	// confirmation.
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "ECH-Server-ECHIsInner",
+		config: Config{
+			MinVersion: VersionTLS13,
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				ECHIsInner: []byte{},
+			},
+		},
+		flags: []string{"-expect-ech-server-accept"},
+	})
+
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "ECH-Server-ECHIsInner-NotEmpty",
+		config: Config{
+			MinVersion: VersionTLS13,
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				ECHIsInner: []byte{42, 42, 42},
+			},
+		},
+		shouldFail:         true,
+		expectedLocalError: "remote error: illegal parameter",
+		expectedError:      ":ERROR_PARSING_EXTENSION:",
+	})
+
+	// TODO(dmcardle) Test that handshake fails when client sends both
+	// encrypted_client_hello and ech_is_inner.
 }
 
 func worker(statusChan chan statusMsg, c chan *testCase, shimPath string, wg *sync.WaitGroup) {

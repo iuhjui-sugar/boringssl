@@ -636,12 +636,49 @@ static enum ssl_hs_wait_t do_read_second_client_hello(SSL_HANDSHAKE *hs) {
 static enum ssl_hs_wait_t do_send_server_hello(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
 
+  RAND_bytes(ssl->s3->server_random, sizeof(ssl->s3->server_random));
+
+  // If the ClientHello has an ech_is_inner extension, we must be the ECH
+  // backend server. In response to ech_is_inner, we will overwrite part of the
+  // ServerHello.random with the ECH acceptance confirmation.
+  if (hs->ech_is_inner_present) {
+    // Construct the ServerHelloECHConf message, which is the same as
+    // ServerHello, except the last 8 bytes of its random field are zeroed out.
+    OPENSSL_memset(ssl->s3->server_random + 24, 0, 8);
+
+    ScopedCBB cbb;
+    CBB body, extensions, session_id;
+    if (!ssl->method->init_message(ssl, cbb.get(), &body,
+                                   SSL3_MT_SERVER_HELLO) ||
+        !CBB_add_u16(&body, TLS1_2_VERSION) ||
+        !CBB_add_bytes(&body, ssl->s3->server_random, SSL3_RANDOM_SIZE) ||
+        !CBB_add_u8_length_prefixed(&body, &session_id) ||
+        !CBB_add_bytes(&session_id, hs->session_id, hs->session_id_len) ||
+        !CBB_add_u16(&body, SSL_CIPHER_get_protocol_id(hs->new_cipher)) ||
+        !CBB_add_u8(&body, 0) ||
+        !CBB_add_u16_length_prefixed(&body, &extensions) ||
+        !ssl_ext_pre_shared_key_add_serverhello(hs, &extensions) ||
+        !ssl_ext_key_share_add_serverhello(hs, &extensions,
+                                           true /* dry_run */) ||
+        !ssl_ext_supported_versions_add_serverhello(hs, &extensions) ||
+        !CBB_flush(cbb.get())) {
+      return ssl_hs_error;
+    }
+
+    if (!tls13_ech_accept_confirmation(
+            hs, bssl::MakeSpan(ssl->s3->server_random, SSL3_RANDOM_SIZE),
+            bssl::MakeConstSpan(CBB_data(cbb.get()), CBB_len(cbb.get())))) {
+      return ssl_hs_error;
+    }
+
+    hs->ech_server_sent_accept = true;
+  }
+
   // Send a ServerHello.
   ScopedCBB cbb;
   CBB body, extensions, session_id;
   if (!ssl->method->init_message(ssl, cbb.get(), &body, SSL3_MT_SERVER_HELLO) ||
       !CBB_add_u16(&body, TLS1_2_VERSION) ||
-      !RAND_bytes(ssl->s3->server_random, sizeof(ssl->s3->server_random)) ||
       !CBB_add_bytes(&body, ssl->s3->server_random, SSL3_RANDOM_SIZE) ||
       !CBB_add_u8_length_prefixed(&body, &session_id) ||
       !CBB_add_bytes(&session_id, hs->session_id, hs->session_id_len) ||
@@ -649,7 +686,8 @@ static enum ssl_hs_wait_t do_send_server_hello(SSL_HANDSHAKE *hs) {
       !CBB_add_u8(&body, 0) ||
       !CBB_add_u16_length_prefixed(&body, &extensions) ||
       !ssl_ext_pre_shared_key_add_serverhello(hs, &extensions) ||
-      !ssl_ext_key_share_add_serverhello(hs, &extensions) ||
+      !ssl_ext_key_share_add_serverhello(hs, &extensions,
+                                         false /* dry_run */) ||
       !ssl_ext_supported_versions_add_serverhello(hs, &extensions) ||
       !ssl_add_message_cbb(ssl, cbb.get())) {
     return ssl_hs_error;

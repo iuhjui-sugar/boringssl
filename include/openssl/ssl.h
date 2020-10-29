@@ -2715,6 +2715,14 @@ OPENSSL_EXPORT int SSL_CTX_set_tlsext_servername_arg(SSL_CTX *ctx, void *arg);
 OPENSSL_EXPORT SSL_CTX *SSL_set_SSL_CTX(SSL *ssl, SSL_CTX *ctx);
 
 
+// Encrypted ClientHello.
+
+// SSL_get_ech_server_accepted, for a server, returns 1 if the server indicated
+// ECH acceptance in its ServerHello message. This may be useful when writing
+// tests but should otherwise not be used.
+OPENSSL_EXPORT int SSL_get_ech_server_accepted(const SSL *ssl);
+
+
 // Application-layer protocol negotiation.
 //
 // The ALPN extension (RFC 7301) allows negotiating different application-layer
