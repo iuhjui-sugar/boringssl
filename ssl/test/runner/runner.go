@@ -16190,6 +16190,11 @@ func addEncryptedClientHelloTests() {
 	publicEchConfig1 := *echConfigWithSecret1
 	publicEchConfig1.secretKey = nil
 
+	echConfigWithSecret2, err := GenerateECHConfigWithSecretKey("public.example")
+	if err != nil {
+		panic(err)
+	}
+
 	echConfigWithSecretMalformed := *echConfigWithSecret1
 	echConfigWithSecretMalformed.raw = []byte{0xba, 0xdd, 0xec, 0xcc}
 
@@ -16216,6 +16221,7 @@ func addEncryptedClientHelloTests() {
 			ECHConfigs: []echConfig{publicEchConfig1},
 		},
 		flags: []string{
+			"-ech-private-key", fmt.Sprintf("%x", echConfigWithSecret1.secretKey),
 			"-expect-server-name", "public.example",
 		},
 	})
@@ -16231,6 +16237,9 @@ func addEncryptedClientHelloTests() {
 			ServerName: "secret.example",
 			ECHEnabled: true,
 			ECHConfigs: []echConfig{publicEchConfig1},
+		},
+		flags: []string{
+			"-ech-private-key", fmt.Sprintf("%x", echConfigWithSecret2.secretKey),
 		},
 	})
 
