@@ -34,6 +34,24 @@
       "parentUuid": "e519b266_3f838978",
       "revId": "73f0aca428c751b1d75680bf90ecebd2ee165de2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b1d4c02_de06d3ac",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-29T21:15:06Z",
+      "side": 1,
+      "message": "What would break if we removed the field? It\u0027s a dictionary, so it\u0027ll still parse as CBOR, and presumably nothing using V2 will be using it, since it\u0027s meaningless.\n\nIf we absolutely do need to fill something in (is something validating that it\u0027s there but dropping it on the floor??), we should probably put in a more explicit placeholder with an explanatory comment.\n\nAlthough I\u0027m also confused about the need to preserve this API for v2. v2 isn\u0027t ready yet, so I assume there are no v2 callers today. Why can\u0027t callers use the new API when integrating v2, while sticking with the old API as needed when using v1? Us pushing things into one API is purely a convenience thing. We could just as easily have given each protocol a distinct API altogether. (I wonder if we should have, given all this. Oh well. :-) )",
+      "parentUuid": "83fa66e0_77c1193b",
+      "revId": "73f0aca428c751b1d75680bf90ecebd2ee165de2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
