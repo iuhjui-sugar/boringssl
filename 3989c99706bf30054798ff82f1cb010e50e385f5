@@ -16,6 +16,24 @@
       "message": "Mismerge?\n\n(Also, we clang-format STACK_OF correct now!!)",
       "revId": "3989c99706bf30054798ff82f1cb010e50e385f5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1673d24_f2841f01",
+        "filename": ".clang-format",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2020-10-29T16:33:20Z",
+      "side": 0,
+      "message": "Yeah, my clang format isn\u0027t new enough so I keep deleting this, but forgot to exclude from the latest push. \u003e_\u003c",
+      "parentUuid": "1767db4d_7eb7f6a1",
+      "revId": "3989c99706bf30054798ff82f1cb010e50e385f5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
