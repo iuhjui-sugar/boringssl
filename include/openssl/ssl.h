@@ -2715,6 +2715,14 @@ OPENSSL_EXPORT int SSL_CTX_set_tlsext_servername_arg(SSL_CTX *ctx, void *arg);
 OPENSSL_EXPORT SSL_CTX *SSL_set_SSL_CTX(SSL *ssl, SSL_CTX *ctx);
 
 
+// Encrypted ClientHello.
+
+// SSL_get_ech_server_accepted, for a server, returns 1 if the server indicated
+// ECH acceptance in its ServerHello message. This may be useful when writing
+// tests but should otherwise not be used.
+OPENSSL_EXPORT int SSL_get_ech_server_accepted(const SSL *ssl);
+
+
 // Application-layer protocol negotiation.
 //
 // The ALPN extension (RFC 7301) allows negotiating different application-layer
@@ -3561,7 +3569,7 @@ OPENSSL_EXPORT const char *SSL_early_data_reason_string(
 //
 // ECH support in BoringSSL is still experimental and under development.
 //
-// See https://tools.ietf.org/html/draft-ietf-tls-esni-08.
+// See https://tools.ietf.org/html/draft-ietf-tls-esni-09.
 
 // SSL_set_enable_ech_grease configures whether the client may send ECH GREASE
 // as part of this connection.

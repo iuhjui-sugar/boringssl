@@ -2549,6 +2549,11 @@ SSL_CTX *SSL_set_SSL_CTX(SSL *ssl, SSL_CTX *ctx) {
   return ssl->ctx.get();
 }
 
+int SSL_get_ech_server_accepted(const SSL *ssl) {
+  SSL_HANDSHAKE *hs = ssl->s3->hs.get();
+  return hs != nullptr && hs->ech_server_sent_accept;
+}
+
 void SSL_set_info_callback(SSL *ssl,
                            void (*cb)(const SSL *ssl, int type, int value)) {
   ssl->info_callback = cb;

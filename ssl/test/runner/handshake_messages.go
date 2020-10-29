@@ -303,6 +303,7 @@ type clientHelloMsg struct {
 	nextProtoNeg            bool
 	serverName              string
 	clientECH               *clientECH
+	echIsInner              []byte
 	ocspStapling            bool
 	supportedCurves         []CurveID
 	supportedPoints         []uint8
@@ -433,6 +434,12 @@ func (m *clientHelloMsg) marshal() []byte {
 		extensions = append(extensions, extension{
 			id:   extensionEncryptedClientHello,
 			body: body.finish(),
+		})
+	}
+	if m.echIsInner != nil {
+		extensions = append(extensions, extension{
+			id:   extensionECHIsInner,
+			body: m.echIsInner,
 		})
 	}
 	if m.ocspStapling {

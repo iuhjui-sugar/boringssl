@@ -56,6 +56,7 @@ const Flag<bool> kBoolFlags[] = {
     {"-quic", &TestConfig::is_quic},
     {"-fallback-scsv", &TestConfig::fallback_scsv},
     {"-enable-ech-grease", &TestConfig::enable_ech_grease},
+    {"-expect-ech-server-accept", &TestConfig::expect_ech_server_accept},
     {"-require-any-client-certificate",
      &TestConfig::require_any_client_certificate},
     {"-false-start", &TestConfig::false_start},
@@ -622,6 +623,11 @@ static void InfoCallback(const SSL *ssl, int type, int val) {
     // must continue to work and |SSL_in_init| must return false.
     if (SSL_in_init(ssl) || SSL_get_session(ssl) == nullptr) {
       fprintf(stderr, "Invalid state for SSL_CB_HANDSHAKE_DONE.\n");
+      abort();
+    }
+    if (GetTestConfig(ssl)->expect_ech_server_accept &&
+        !SSL_get_ech_server_accepted(ssl)) {
+      fprintf(stderr, "Server did not indicate ECH acceptance.\n");
       abort();
     }
     GetTestState(ssl)->handshake_done = true;
