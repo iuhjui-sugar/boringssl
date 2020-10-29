@@ -507,4 +507,20 @@ bool tls13_verify_psk_binder(SSL_HANDSHAKE *hs, SSL_SESSION *session,
   return true;
 }
 
+bool tls13_ech_accept_confirmation(SSL_HANDSHAKE *hs,
+                                   bssl::Span<const uint8_t> ch_random,
+                                   bssl::Span<const uint8_t> sh_random_prefix,
+                                   bssl::Span<uint8_t> out) {
+  size_t extracted_len;
+  uint8_t extracted_key[EVP_MAX_KEY_LENGTH];
+  if (!HKDF_extract(extracted_key, &extracted_len, hs->transcript.Digest(),
+                    ch_random.data(), ch_random.size(), nullptr, 0) ||
+      !hkdf_expand_label(out, hs->transcript.Digest(), extracted_key,
+                         label_to_span("ech accept confirmation"),
+                         sh_random_prefix)) {
+    return false;
+  }
+  return true;
+}
+
 BSSL_NAMESPACE_END
