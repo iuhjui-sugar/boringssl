@@ -128,6 +128,7 @@ const (
 	extensionDelegatedCredentials       uint16 = 0x22   // draft-ietf-tls-subcerts-06
 	extensionDuplicate                  uint16 = 0xffff // not IANA assigned
 	extensionEncryptedClientHello       uint16 = 0xfe09 // not IANA assigned
+	extensionECHIsInner                 uint16 = 0xda09 // not IANA assigned
 )
 
 // TLS signaling cipher suite values
@@ -802,6 +803,11 @@ type ProtocolBugs struct {
 	// SendECHRetryConfigs, if not empty, contains the ECH server's serialized
 	// retry configs.
 	SendECHRetryConfigs []byte
+
+	// ECHIsInner, when non-nil, causes the client to send an ech_is_inner
+	// extension on the ClientHelloOuter message. When nil, the extension will
+	// be omitted.
+	ECHIsInner []byte
 
 	// SwapNPNAndALPN switches the relative order between NPN and ALPN in
 	// both ClientHello and ServerHello.
