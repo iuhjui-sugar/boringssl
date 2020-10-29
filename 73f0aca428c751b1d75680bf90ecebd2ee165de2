@@ -16,6 +16,24 @@
       "message": "Noticed one last thing from the updated test... this is strange. In v2, we don\u0027t have a redemption_time, but we\u0027re still filling in this field and adding a lifetime to it. Is that expected?\n\n(Do we need this API to work in v2 at all? Another option would be to say you need to use redeem_raw in v2 and redeem in v1. I dunno if that would work for your purposes.)",
       "revId": "73f0aca428c751b1d75680bf90ecebd2ee165de2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83fa66e0_77c1193b",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-10-29T20:58:57Z",
+      "side": 1,
+      "message": "We need to keep this API around for v2 for a bit, at least until we\u0027ve migrated callers to the raw API, though we can remove this being valid for V2 after that point. The SRR format needs to be vaguely stable, so we can\u0027t get rid of this field, even though its not currently used for anything.",
+      "parentUuid": "e519b266_3f838978",
+      "revId": "73f0aca428c751b1d75680bf90ecebd2ee165de2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
