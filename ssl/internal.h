@@ -1419,6 +1419,16 @@ bool tls13_verify_psk_binder(SSL_HANDSHAKE *hs, SSL_SESSION *session,
                              const SSLMessage &msg, CBS *binders);
 
 
+// Encrypted Client Hello.
+
+// tls13_ech_accept_confirmation computes the server's ECH acceptance signal,
+// writing it to |out|. It returns true on success, and false on failure.
+bool tls13_ech_accept_confirmation(
+    SSL_HANDSHAKE *hs, bssl::Span<uint8_t> out,
+    bssl::Span<const uint8_t> client_random,
+    bssl::Span<const uint8_t> server_random_prefix);
+
+
 // Handshake functions.
 
 enum ssl_hs_wait_t {
@@ -1719,6 +1729,10 @@ struct SSL_HANDSHAKE {
 
   // key_block is the record-layer key block for TLS 1.2 and earlier.
   Array<uint8_t> key_block;
+
+  // ech_accept_confirmation indicates whether the server should overwrite part
+  // of ServerHello.random with the ECH accept_confirmation value.
+  bool ech_accept_confirmation : 1;
 
   // scts_requested is true if the SCT extension is in the ClientHello.
   bool scts_requested : 1;

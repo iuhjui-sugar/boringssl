@@ -877,6 +877,18 @@ static enum ssl_hs_wait_t do_send_server_hello(SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
+  if (hs->ech_accept_confirmation) {
+    // Compute the ECH accept confirmation signal and overwrite the last 8 bytes
+    // of ServerHello.random.
+    if (!tls13_ech_accept_confirmation(
+            hs, bssl::MakeSpan(ssl->s3->server_random + 24, 8),
+            bssl::MakeConstSpan(ssl->s3->client_random, SSL3_RANDOM_SIZE),
+            bssl::MakeConstSpan(ssl->s3->server_random,
+                                SSL3_RANDOM_SIZE - 8))) {
+      return ssl_hs_error;
+    }
+  }
+
   // Implement the TLS 1.3 anti-downgrade feature.
   if (ssl_supports_version(hs, TLS1_3_VERSION)) {
     if (ssl_protocol_version(ssl) == TLS1_2_VERSION) {

@@ -16246,6 +16246,9 @@ func addEncryptedClientHelloTests() {
 		expectedLocalError: "remote error: error decoding message",
 		expectedError:      ":ERROR_PARSING_EXTENSION:",
 	})
+
+	// TODO(dmcardle): Test that the server responds to an empty ECH extension
+	// with the acceptance signal.
 }
 
 func worker(statusChan chan statusMsg, c chan *testCase, shimPath string, wg *sync.WaitGroup) {

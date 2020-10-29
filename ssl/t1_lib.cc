@@ -744,6 +744,20 @@ static bool ext_ech_parse_serverhello(SSL_HANDSHAKE *hs, uint8_t *out_alert,
   return true;
 }
 
+static bool ext_ech_parse_clienthello(SSL_HANDSHAKE *hs, uint8_t *out_alert,
+                                      CBS *contents) {
+  if (contents == NULL) {
+    return true;
+  }
+  // If there is an empty "encrypted_client_hello" extension, assume we are a
+  // backend ECH server and blindly confirm ECH acceptance.
+  if (CBS_len(contents) == 0) {
+    hs->ech_accept_confirmation = true;
+    return true;
+  }
+  return true;
+}
+
 
 // Renegotiation indication.
 //
@@ -3133,7 +3147,7 @@ static const struct tls_extension kExtensions[] = {
     NULL,
     ext_ech_add_clienthello,
     ext_ech_parse_serverhello,
-    ignore_parse_clienthello,
+    ext_ech_parse_clienthello,
     dont_add_serverhello,
   },
   {
