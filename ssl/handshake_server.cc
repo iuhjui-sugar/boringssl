@@ -581,6 +581,34 @@ static enum ssl_hs_wait_t do_read_client_hello(SSL_HANDSHAKE *hs) {
     return ssl_hs_handoff;
   }
 
+  // If there is an empty "encrypted_client_hello" extension, assume we are a
+  // backend ECH server and blindly confirm ECH acceptance.
+  bool ech_present = false;
+  CBS ech_body;
+  CBS ch_extensions(bssl::MakeConstSpan(client_hello.extensions,
+                                        client_hello.extensions_len));
+  while (CBS_len(&ch_extensions) > 0) {
+    uint16_t extension_id;
+    if (!CBS_get_u16(&ch_extensions, &extension_id) ||
+        !CBS_get_u16_length_prefixed(&ch_extensions, &ech_body)) {
+      return ssl_hs_error;
+    }
+    if (extension_id == TLSEXT_TYPE_encrypted_client_hello) {
+      ech_present = true;
+      break;
+    }
+  }
+  if (ech_present) {
+    if (CBS_len(&ech_body) == 0) {
+      // Assume we are a backend server.
+      hs->ech_accept = true;
+    } else {
+      // TODO(dmcardle) Attempt to decrypt ECH.
+    }
+  }
+
+  // TODO Runner test for ECH acceptance signal to be sent back
+
   uint8_t alert = SSL_AD_DECODE_ERROR;
   if (!extract_sni(hs, &alert, &client_hello)) {
     ssl_send_alert(ssl, SSL3_AL_FATAL, alert);
@@ -875,6 +903,18 @@ static enum ssl_hs_wait_t do_send_server_hello(SSL_HANDSHAKE *hs) {
   ssl->s3->server_random[3] = now.tv_sec;
   if (!RAND_bytes(ssl->s3->server_random + 4, SSL3_RANDOM_SIZE - 4)) {
     return ssl_hs_error;
+  }
+
+  if (hs->ech_accept) {
+    // Compute the ECH accept confirmation signal and overwrite the last 8 bytes
+    // of ServerHello.random.
+    if (!tls13_ech_accept_confirmation(
+            hs,
+            bssl::MakeConstSpan(ssl->s3->client_random, SSL3_RANDOM_SIZE),
+            bssl::MakeConstSpan(ssl->s3->server_random, SSL3_RANDOM_SIZE - 8),
+            bssl::MakeSpan(ssl->s3->server_random + 24, 8))) {
+      return ssl_hs_error;
+    }
   }
 
   // Implement the TLS 1.3 anti-downgrade feature.

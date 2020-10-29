@@ -1419,6 +1419,16 @@ bool tls13_verify_psk_binder(SSL_HANDSHAKE *hs, SSL_SESSION *session,
                              const SSLMessage &msg, CBS *binders);
 
 
+// Encrypted Client Hello.
+
+// tls13_ech_accept_confirmation computes the server's ECH acceptance signal,
+// writing it to |out|. It returns true on success, and false on failure.
+bool tls13_ech_accept_confirmation(SSL_HANDSHAKE *hs,
+                                   bssl::Span<const uint8_t> ch_random,
+                                   bssl::Span<const uint8_t> sh_random_prefix,
+                                   bssl::Span<uint8_t> out);
+
+
 // Handshake functions.
 
 enum ssl_hs_wait_t {
@@ -1641,6 +1651,10 @@ struct SSL_HANDSHAKE {
   // ech_grease contains the bytes of the GREASE ECH extension that was sent in
   // the first ClientHello.
   Array<uint8_t> ech_grease;
+
+  // ech_accept indicates whether the server should overwrite part of
+  // ServerHello.random with the ECH accept_confirmation value.
+  bool ech_accept = false;
 
   // key_share_bytes is the value of the previously sent KeyShare extension by
   // the client in TLS 1.3.
