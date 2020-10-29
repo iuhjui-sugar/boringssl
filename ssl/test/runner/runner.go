@@ -16148,11 +16148,11 @@ func addEncryptedClientHelloTests() {
 
 	// Test ECH GREASE.
 
-	// Test the server's handling of a non-decryptable ECH (equivalent to
-	// GREASE).
+	// Test that ECH-disabled server correctly ignores client's ECH and accepts
+	// the outer ClientHello.
 	testCases = append(testCases, testCase{
 		testType: serverTest,
-		name:     "ECH-Server-GREASE",
+		name:     "ECH-ServerDisabled",
 		config: Config{
 			MinVersion: VersionTLS13,
 			MaxVersion: VersionTLS13,
