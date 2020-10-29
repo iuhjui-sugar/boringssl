@@ -403,11 +403,11 @@ func (hs *serverHandshakeState) doTLS13Handshake() error {
 		return err
 	}
 
-	if config.Bugs.ExpectClientECH && hs.clientHello.clientECH == nil {
+	if config.Bugs.ExpectClientECH && hs.clientHello.encryptedClientHello == nil {
 		return errors.New("tls: expected client to send ClientECH")
 	}
 
-	if hs.clientHello.clientECH != nil && len(config.Bugs.SendECHRetryConfigs) > 0 {
+	if hs.clientHello.encryptedClientHello != nil && len(config.Bugs.SendECHRetryConfigs) > 0 {
 		encryptedExtensions.extensions.echRetryConfigs = config.Bugs.SendECHRetryConfigs
 	}
 
