@@ -16,6 +16,131 @@
       "message": "Ping on this.",
       "revId": "e9ca30b895530e8e46b87b247ab44ada5fdb7259",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "457ee04c_8b92d770",
+        "filename": "crypto/trust_token/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-29T15:43:43Z",
+      "side": 1,
+      "message": "(This is fine separate too, but it seems this is the same as has_srr anyway.)",
+      "revId": "e9ca30b895530e8e46b87b247ab44ada5fdb7259",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c396537_1bbcc7d5",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-29T15:43:43Z",
+      "side": 1,
+      "message": "An observation, but up to you whether you want to act on it. We can always iterate on stuff and whatnot. The actual crypto operation doesn\u0027t look at client_data at all. If you don\u0027t envision it looking at it in the future, we could go further and say that, in the raw API:\n\n- Client doesn\u0027t call TRUST_TOKEN_CLIENT_begin_redemption at all. The client caller just sends token-\u003e{data,len} in whatever application-specific format it likes.\n\n- Issuer reads the token out, in whatever application-specific format it likes, and then returns the nonce.\n\n- client_data is the application\u0027s problem.\n\nReasons we might want to do this:\n\n- Minimal API\n\n- It seems weird to have the client data bound passed in but not bound to anything.\n\nReasons we might not want to do this:\n\n- It\u0027s pretty common to bind a context/info string into things. And IIRC VOPRF does bind such a thing, even though we don\u0027t.\n\nFootnote:\n\n- I think APIs that have a context/info string, rather than building it into the serialization, pass it into the function as a parameter and leave it to the application to communicate the string. This is partly because some of the context string is just pre-agreed on both sides rather than actually sent over the wire. (E.g. the protocol label.)",
+      "revId": "e9ca30b895530e8e46b87b247ab44ada5fdb7259",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d68dd45_1232e178",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-29T15:43:43Z",
+      "side": 1,
+      "message": "Check request_cbs is empty?",
+      "revId": "e9ca30b895530e8e46b87b247ab44ada5fdb7259",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3311a52d_ce22fc33",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-29T15:43:43Z",
+      "side": 1,
+      "message": "Since there isn\u0027t any data to free in the success phase, ok \u003d 1 could just be return 1 and the err block can just be return 0.",
+      "revId": "e9ca30b895530e8e46b87b247ab44ada5fdb7259",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e80258a4_58feabb2",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-29T15:43:43Z",
+      "side": 1,
+      "message": "Testing a non-zero value for the cases that have a timestamp is probably good. Maybe a ternary based on has_timestamp? Ditto throughout.",
+      "revId": "e9ca30b895530e8e46b87b247ab44ada5fdb7259",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "863a8717_423a04f8",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-29T15:43:43Z",
+      "side": 1,
+      "message": "Probably also EXPECT_EQ(1u, sk_TRUST_TOKEN_num(tokens.get())), otherwise this function may return no tokens without us noticing.",
+      "revId": "e9ca30b895530e8e46b87b247ab44ada5fdb7259",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "501f3e7a_f9ec1f20",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-29T15:43:43Z",
+      "side": 1,
+      "message": "Nit: static_cast\u003cuint32_t\u003e maybe.\n\n(Huh, why does public_metadata() return an int given it\u0027s a u32?)",
+      "range": {
+        "startLine": 637,
+        "startChar": 28,
+        "endLine": 637,
+        "endChar": 42
+      },
+      "revId": "e9ca30b895530e8e46b87b247ab44ada5fdb7259",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }

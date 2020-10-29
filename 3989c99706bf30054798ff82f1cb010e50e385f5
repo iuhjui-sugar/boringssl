@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1767db4d_7eb7f6a1",
+        "filename": ".clang-format",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-29T15:43:43Z",
+      "side": 0,
+      "message": "Mismerge?\n\n(Also, we clang-format STACK_OF correct now!!)",
+      "revId": "3989c99706bf30054798ff82f1cb010e50e385f5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
