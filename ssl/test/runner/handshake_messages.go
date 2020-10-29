@@ -291,6 +291,31 @@ type clientECH struct {
 	payload  []byte
 }
 
+func (c *clientECH) unmarshal(data []byte) bool {
+	var reader byteReader = data
+	if !reader.readU16(&c.hpkeKDF) ||
+		!reader.readU16(&c.hpkeAEAD) ||
+		!reader.readU8LengthPrefixedBytes(&c.configID) ||
+		!reader.readU16LengthPrefixedBytes(&c.enc) ||
+		len(c.enc) == 0 ||
+		!reader.readU16LengthPrefixedBytes(&c.payload) ||
+		len(c.payload) == 0 ||
+		len(reader) > 0 {
+		return false
+	}
+	return true
+}
+
+func (c *clientECH) marshal() []byte {
+	body := newByteBuilder()
+	body.addU16(c.hpkeKDF)
+	body.addU16(c.hpkeAEAD)
+	body.addU8LengthPrefixed().addBytes(c.configID)
+	body.addU16LengthPrefixed().addBytes(c.enc)
+	body.addU16LengthPrefixed().addBytes(c.payload)
+	return body.finish()
+}
+
 type clientHelloMsg struct {
 	raw                     []byte
 	isDTLS                  bool
@@ -302,7 +327,8 @@ type clientHelloMsg struct {
 	compressionMethods      []uint8
 	nextProtoNeg            bool
 	serverName              string
-	clientECH               *clientECH
+	encryptedClientHello    []byte
+	echIsInner              []byte
 	ocspStapling            bool
 	supportedCurves         []CurveID
 	supportedPoints         []uint8
@@ -421,18 +447,16 @@ func (m *clientHelloMsg) marshal() []byte {
 			body: serverNameList.finish(),
 		})
 	}
-	if m.clientECH != nil {
-		// https://tools.ietf.org/html/draft-ietf-tls-esni-09
-		body := newByteBuilder()
-		body.addU16(m.clientECH.hpkeKDF)
-		body.addU16(m.clientECH.hpkeAEAD)
-		body.addU8LengthPrefixed().addBytes(m.clientECH.configID)
-		body.addU16LengthPrefixed().addBytes(m.clientECH.enc)
-		body.addU16LengthPrefixed().addBytes(m.clientECH.payload)
-
+	if m.encryptedClientHello != nil {
 		extensions = append(extensions, extension{
 			id:   extensionEncryptedClientHello,
-			body: body.finish(),
+			body: m.encryptedClientHello,
+		})
+	}
+	if m.echIsInner != nil {
+		extensions = append(extensions, extension{
+			id:   extensionECHIsInner,
+			body: m.echIsInner,
 		})
 	}
 	if m.ocspStapling {
@@ -837,17 +861,10 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 			}
 		case extensionEncryptedClientHello:
 			var ech clientECH
-			if !body.readU16(&ech.hpkeKDF) ||
-				!body.readU16(&ech.hpkeAEAD) ||
-				!body.readU8LengthPrefixedBytes(&ech.configID) ||
-				!body.readU16LengthPrefixedBytes(&ech.enc) ||
-				len(ech.enc) == 0 ||
-				!body.readU16LengthPrefixedBytes(&ech.payload) ||
-				len(ech.payload) == 0 ||
-				len(body) > 0 {
+			if !ech.unmarshal(body) {
 				return false
 			}
-			m.clientECH = &ech
+			m.encryptedClientHello = body
 		case extensionNextProtoNeg:
 			if len(body) != 0 {
 				return false
@@ -1267,6 +1284,16 @@ func (m *serverHelloMsg) unmarshal(data []byte) bool {
 	}
 
 	return true
+}
+
+// marshalForECHConf marshals |m|, but zeroes out the last 8 bytes of the
+// ServerHello.random.
+func (m *serverHelloMsg) marshalForECHConf() []byte {
+	serverHelloECHConf := *m
+	serverHelloECHConf.raw = nil
+	serverHelloECHConf.random = make([]byte, 32)
+	copy(serverHelloECHConf.random[:24], m.random)
+	return serverHelloECHConf.marshal()
 }
 
 type encryptedExtensionsMsg struct {
