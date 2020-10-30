@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c73ab60e_5220cb9c",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 712,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-10-30T16:20:07Z",
+      "side": 1,
+      "message": "From discussing out-of-band, it sounds like it\u0027s not quiiiite compatibility with those API callers.\n\nCurrent issuer callers use TRUST_TOKEN_ISSUER_redeem rather than TRUST_TOKEN_ISSUER_redeem_raw. We intend for them to move to TRUST_TOKEN_ISSUER_redeem_raw, at which point they can pick the RR format themselves. But since they want to move to V2 in a jiffy, for expediency, we are temporarily mirroring their current RR format in BoringSSL.\n\nFor compatibility with those callers\u0027 downstream consumers, this current RR format needs to retain an expiry-timestamp field, even though it\u0027s meaningless.\n\nThus, we temporarily make this API also work for V2, and temporarily fill in a zero expiry_time. Once the issuer callers have migrated to redeem_raw, we\u0027ll take away this API or at least disconnect from V2.\n\nThis is probably way too long for a comment, so perhaps:\n\n// The V2 protocol is intended to be used with |TRUST_TOKEN_ISSUER_redeem_raw|. However, we temporarily support it with |TRUST_TOKEN_ISSUER_redeem| to ease the transition for existing issuer callers. Those callers\u0027 consumers currently expect an expiry-timestamp field, so we fill in a placeholder value.\n//\n// TODO(svaldez): After the existing issues have migrated to |TRUST_TOKEN_ISSUER_redeem_raw| remove this logic.\n\nCan we set a bar here? I think we\u0027ve thoroughly established now that BoringSSL knowing about SRRs was a mistake and really not workable. Perhaps we tell them we will not support this API in V3? Going forward, I think we need to go back to our usual bar for inclusion in BoringSSL.",
+      "revId": "37ba53a45d4758faed6e138e565d210a50acbeb8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
