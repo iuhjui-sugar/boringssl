@@ -52,6 +52,24 @@
       "parentUuid": "83fa66e0_77c1193b",
       "revId": "73f0aca428c751b1d75680bf90ecebd2ee165de2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5132ee10_0b921868",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2020-10-30T13:53:11Z",
+      "side": 1,
+      "message": "Setting it to 0 and adding a comment.\n\nThe order of operations is we switch to V2 using the old callers, at some point they update the callers using the redeem API to use the raw redeem API, then once everyone is on the new API we drop the old one.",
+      "parentUuid": "1b1d4c02_de06d3ac",
+      "revId": "73f0aca428c751b1d75680bf90ecebd2ee165de2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
