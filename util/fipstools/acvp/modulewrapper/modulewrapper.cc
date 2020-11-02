@@ -1419,7 +1419,7 @@ static constexpr struct {
     {"SHA-1", 1, Hash<SHA1, SHA_DIGEST_LENGTH>},
     {"SHA2-224", 1, Hash<SHA224, SHA224_DIGEST_LENGTH>},
     {"SHA2-256", 1, Hash<SHA256, SHA256_DIGEST_LENGTH>},
-    {"SHA2-384", 1, Hash<SHA384, SHA256_DIGEST_LENGTH>},
+    {"SHA2-384", 1, Hash<SHA384, SHA384_DIGEST_LENGTH>},
     {"SHA2-512", 1, Hash<SHA512, SHA512_DIGEST_LENGTH>},
     {"AES/encrypt", 2, AES<AES_set_encrypt_key, AES_encrypt>},
     {"AES/decrypt", 2, AES<AES_set_decrypt_key, AES_decrypt>},
