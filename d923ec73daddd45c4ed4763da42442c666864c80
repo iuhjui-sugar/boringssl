@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82f6bdc8_3a738994",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-11-02T18:04:53Z",
+      "side": 1,
+      "message": "Would this work for you all, to replace https://source.chromium.org/chromium/chromium/src/+/master:net/third_party/quiche/src/quic/core/crypto/crypto_utils.cc;drc\u003d3ce62858a46010e55b335b8742efa509b74dae1c;l\u003d738?\n\nI can do the QUICHE CL as a follow-up.",
+      "revId": "d923ec73daddd45c4ed4763da42442c666864c80",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
