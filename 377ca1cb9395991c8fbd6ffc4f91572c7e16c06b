@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6498e3c_7909f081",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1511,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-11-02T15:31:09Z",
+      "side": 1,
+      "message": "Nit: We\u0027d get slightly better error messages with:\n\n  ASSERT_TRUE(EVP_PKEY_get_raw_public_key(pkey.get(), public_value,\n                                          \u0026public_value_size));\n  EXPECT_EQ(Bytes(kExpectedPublicValue),\n            Bytes(public_value, public_value_size));",
+      "revId": "377ca1cb9395991c8fbd6ffc4f91572c7e16c06b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
