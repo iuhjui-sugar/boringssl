@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "16d02e81_4c60f732",
+        "filename": "crypto/fipsmodule/cipher/e_aes.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 943,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2020-11-02T21:15:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2768c0c_2d85fd8a",
+      "range": {
+        "startLine": 943,
+        "startChar": 4,
+        "endLine": 943,
+        "endChar": 11
+      },
+      "revId": "0aeaa12425dfd9a4d9161a9bf6a578f373353d19",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df05415d_35e0aae7",
@@ -47,6 +71,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f85377d7_989e178e",
+        "filename": "crypto/fipsmodule/cipher/e_aes.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1020,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2020-11-02T21:15:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df05415d_35e0aae7",
+      "range": {
+        "startLine": 1020,
+        "startChar": 41,
+        "endLine": 1020,
+        "endChar": 48
+      },
+      "revId": "0aeaa12425dfd9a4d9161a9bf6a578f373353d19",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ac5f898a_12200433",
@@ -60,6 +108,30 @@
       "writtenOn": "2020-10-26T20:30:14Z",
       "side": 1,
       "message": "EVP_aead_aes_256_gcm_randnonce",
+      "range": {
+        "startLine": 161,
+        "startChar": 3,
+        "endLine": 161,
+        "endChar": 33
+      },
+      "revId": "0aeaa12425dfd9a4d9161a9bf6a578f373353d19",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d108656_59eb05e9",
+        "filename": "include/openssl/aead.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2020-11-02T21:15:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac5f898a_12200433",
       "range": {
         "startLine": 161,
         "startChar": 3,
