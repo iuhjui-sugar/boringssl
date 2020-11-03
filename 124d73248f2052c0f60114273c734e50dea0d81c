@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "532b44ad_4ba1f2a6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-11-03T23:17:14Z",
+      "side": 1,
+      "message": "Why allow the explicit value now? Just because some OpenSSL-based code expects to pass it?",
+      "revId": "124d73248f2052c0f60114273c734e50dea0d81c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b7d3cacd_8438fc65",
