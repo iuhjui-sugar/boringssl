@@ -22,6 +22,30 @@
       },
       "revId": "03027008c03370cf2ab9be7a85bba1532c12de1f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74bbbe10_616eed6c",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 945,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-11-03T15:03:18Z",
+      "side": 1,
+      "message": "(Not seeing the period with two spaces after it.)\n\nOh, this is just my pet peeve about X.509\u0027s use of BIT STRING. :-) A BIT STRING is logically a vector\u003cbool\u003e, so there isn\u0027t, a priori, a well-defined transformation way to represent a byte string in it. It\u0027d be ridiculous to use any bit order other than the DER ordering, but I feel like things ought to write it down.\n\nRephrased it slightly. Is this clearer?",
+      "parentUuid": "55f775be_6080f6d2",
+      "range": {
+        "startLine": 943,
+        "startChar": 75,
+        "endLine": 945,
+        "endChar": 34
+      },
+      "revId": "03027008c03370cf2ab9be7a85bba1532c12de1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
