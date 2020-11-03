@@ -46,6 +46,30 @@
       },
       "revId": "03027008c03370cf2ab9be7a85bba1532c12de1f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecc07dc5_12f52f3e",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 945,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-11-03T23:12:52Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "74bbbe10_616eed6c",
+      "range": {
+        "startLine": 943,
+        "startChar": 75,
+        "endLine": 945,
+        "endChar": 34
+      },
+      "revId": "03027008c03370cf2ab9be7a85bba1532c12de1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
