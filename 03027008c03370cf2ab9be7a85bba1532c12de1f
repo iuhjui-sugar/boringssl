@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55f775be_6080f6d2",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 945,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-11-03T00:09:49Z",
+      "side": 1,
+      "message": "nit: only one space after period.\n\nI don\u0027t understand the first highlighted sentence. Maybe \"string\" after \"byte\"?",
+      "range": {
+        "startLine": 943,
+        "startChar": 75,
+        "endLine": 945,
+        "endChar": 34
+      },
+      "revId": "03027008c03370cf2ab9be7a85bba1532c12de1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
