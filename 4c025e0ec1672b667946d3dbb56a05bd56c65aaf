@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0dccbfe7_e8c04d05",
+        "filename": "include/openssl/x509v3.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 661,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-11-03T23:16:17Z",
+      "side": 1,
+      "message": "You have \"return\" twice here, but I think the first one should be \"set\"?",
+      "range": {
+        "startLine": 661,
+        "startChar": 21,
+        "endLine": 661,
+        "endChar": 27
+      },
+      "revId": "4c025e0ec1672b667946d3dbb56a05bd56c65aaf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
