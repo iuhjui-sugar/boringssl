@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "82e02979_a1ffbab7",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2020-11-04T21:34:13Z",
+      "side": 1,
+      "message": "Yep, thanks. Should certainly be UINT32_MAX.",
+      "parentUuid": "f5c4dc7a_817dd5b0",
+      "range": {
+        "startLine": 726,
+        "startChar": 39,
+        "endLine": 726,
+        "endChar": 47
+      },
+      "revId": "256c7d41f7726b954e19677676a6cb8ab368862e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "58bbb068_260bc021",
@@ -47,6 +71,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9383762_41d58501",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 770,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2020-11-04T21:34:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58bbb068_260bc021",
+      "range": {
+        "startLine": 770,
+        "startChar": 54,
+        "endLine": 770,
+        "endChar": 65
+      },
+      "revId": "256c7d41f7726b954e19677676a6cb8ab368862e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a85ef1af_504e2cf5",
@@ -60,6 +108,30 @@
       "writtenOn": "2020-11-04T21:19:11Z",
       "side": 1,
       "message": "Nit: missing a couple spaces",
+      "range": {
+        "startLine": 1160,
+        "startChar": 2,
+        "endLine": 1160,
+        "endChar": 3
+      },
+      "revId": "256c7d41f7726b954e19677676a6cb8ab368862e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06e47cb9_9111744d",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1160,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2020-11-04T21:34:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a85ef1af_504e2cf5",
       "range": {
         "startLine": 1160,
         "startChar": 2,
