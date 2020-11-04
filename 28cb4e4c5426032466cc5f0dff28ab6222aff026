@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf870c47_b8ea291e",
+        "filename": "ssl/internal.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 2745,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-04T21:11:38Z",
+      "side": 1,
+      "message": "Should the default be 0?",
+      "range": {
+        "startLine": 2745,
+        "startChar": 28,
+        "endLine": 2745,
+        "endChar": 29
+      },
+      "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "780441e2_311bf083",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-04T21:11:38Z",
+      "side": 1,
+      "message": "I\u0027m not sure which of these extensions will sometimes be omitted.",
+      "range": {
+        "startLine": 672,
+        "startChar": 0,
+        "endLine": 680,
+        "endChar": 57
+      },
+      "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aba02c20_878302f3",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 796,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-04T21:11:38Z",
+      "side": 1,
+      "message": "Should I be zeroing out the high-order bit? Draft 08 says \"An extension can be tagged as mandatory by using an extension type codepoint with the high order bit set to 1.\" It also says the format is defined in RFC8446 4.2, but I can\u0027t find anything about the high-order bit there.",
+      "range": {
+        "startLine": 796,
+        "startChar": 64,
+        "endLine": 796,
+        "endChar": 76
+      },
+      "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2e52fdc_dcf0624c",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 22
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-04T21:11:38Z",
+      "side": 1,
+      "message": "Do you think BoGo should check for duplicate extensions? Or is this one of those cases where we only implement what we need to test the C code?",
+      "range": {
+        "startLine": 316,
+        "startChar": 39,
+        "endLine": 316,
+        "endChar": 49
+      },
+      "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 {
   "comments": [
     {
+      "unresolved": true,
       "key": {
         "uuid": "ba2845a9_0e458c12",
         "filename": "ssl/t1_lib.cc",
@@ -14,10 +15,10 @@
       "side": 1,
       "message": "Aha, upon careful rereading of draft 07, the length of \"encrypted_ch\" should be the size of the ClientHelloInner message that we *would* send if we had an ECHConfig. TBD.",
       "revId": "8ba09fe4174d9ddbf18c0e497b6c1c3950fc7521",
-      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
-      "unresolved": true
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
       "key": {
         "uuid": "f8cb0cf0_04a5a46b",
         "filename": "ssl/t1_lib.cc",
@@ -32,10 +33,28 @@
       "message": "davidben: We discussed an alternative to literally serializing the CH and using its size. How would we pick the size? Pick a random length hint (L) and compute the length with something like L * (3000 / L)?",
       "parentUuid": "ba2845a9_0e458c12",
       "revId": "8ba09fe4174d9ddbf18c0e497b6c1c3950fc7521",
-      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
-      "unresolved": true
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "808b56f7_9efbc88e",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 627,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-04T21:11:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8cb0cf0_04a5a46b",
+      "revId": "8ba09fe4174d9ddbf18c0e497b6c1c3950fc7521",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
       "key": {
         "uuid": "5968569d_28e38636",
         "filename": "ssl/test/runner/runner.go",
@@ -49,8 +68,7 @@
       "side": 1,
       "message": "Still need the corresponding serverTest.",
       "revId": "8ba09fe4174d9ddbf18c0e497b6c1c3950fc7521",
-      "serverId": "66b711a4-aa9b-3dac-9062-916540830212",
-      "unresolved": true
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }

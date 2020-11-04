@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "49e4220b_36f72926",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 647,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-04T21:11:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "039af00e_19d3e4a2",
+      "revId": "68a440bafb2241fce3ce28eba022f0ec25b2a5c3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "144f6b5a_86c73ac1",
@@ -31,6 +49,24 @@
       "writtenOn": "2020-10-12T16:06:19Z",
       "side": 1,
       "message": "We only include the TLS 1.3 cipher suites in here, so there\u0027s three of them, maybe plus GREASE.",
+      "revId": "68a440bafb2241fce3ce28eba022f0ec25b2a5c3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aee96036_999d5dc1",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-04T21:11:38Z",
+      "side": 1,
+      "message": "OK, I\u0027m marking the GREASE ciphersuite as [0, 2].\n\nLooks like the addition of the GREASE ciphersuite is controlled by ssl-\u003ectx-\u003egrease_enabled /  SSL_CTX_set_grease_enabled(). But Chrome never disables GREASE: https://source.chromium.org/chromium/chromium/src/+/master:net/socket/ssl_client_socket_impl.cc;l\u003d319;drc\u003de84423dd301fa33d4b7f0a680c1fa5c817e99d20\n\nBecause of Chrome\u0027s behavior, do you think I should mark the GREASE ciphersuite as [2,2]?",
+      "parentUuid": "144f6b5a_86c73ac1",
       "revId": "68a440bafb2241fce3ce28eba022f0ec25b2a5c3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -60,6 +96,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2ee0c003_92b1d63e",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-04T21:11:38Z",
+      "side": 1,
+      "message": "It\u0027s been a while, can you expand on the \"counted separately\" part?\n\nI\u0027m picking 100 as the upper bound for server name length. WDYT?",
+      "parentUuid": "d86abbf2_8504b34c",
+      "range": {
+        "startLine": 655,
+        "startChar": 53,
+        "endLine": 655,
+        "endChar": 56
+      },
+      "revId": "68a440bafb2241fce3ce28eba022f0ec25b2a5c3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b8b4a1c4_56732c96",
         "filename": "ssl/t1_lib.cc",
         "patchSetId": 17
@@ -71,6 +131,24 @@
       "writtenOn": "2020-10-12T16:06:19Z",
       "side": 1,
       "message": "Relative to how Chrome configures BoringSSL:\n\nsigalgs, sct, alpn should get compressed.\nsupported_groups, status_request, psk_key_exchange_modes, compress_certificate should be added and compressed.\nencrypted_client_hello (empty), supported_versions should be added and uncompressed.\nkey_share is never omitted\npre_shared_key is never compressed. But for these purposes, act like it\u0027s omitted. We\u0027ll just simulate initial ClientHellos for now.\n\nChrome also sends GREASE which we probably should include on the inside. (Do we want to compress it? Not sure... maybe?)",
+      "revId": "68a440bafb2241fce3ce28eba022f0ec25b2a5c3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98a30050_10a2ad24",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-04T21:11:38Z",
+      "side": 1,
+      "message": "Done. Added rows for grease_ext1 and grease_ext2, but did not compress them.",
+      "parentUuid": "b8b4a1c4_56732c96",
       "revId": "68a440bafb2241fce3ce28eba022f0ec25b2a5c3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -88,6 +166,30 @@
       "writtenOn": "2020-10-06T20:29:13Z",
       "side": 1,
       "message": "WDYT of this estimate? Did I miss any extensions?\n\nShould I fold alpn into outer_extensions? I\u0027m not 100% clear on how sensitive that field is.\n\nIn a couple places I said \"empirically\" because I\u0027m still using a number obtained from Wireshark. I need to dig into the code and update these.",
+      "range": {
+        "startLine": 674,
+        "startChar": 0,
+        "endLine": 674,
+        "endChar": 57
+      },
+      "revId": "68a440bafb2241fce3ce28eba022f0ec25b2a5c3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0041f032_5358f1a9",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 674,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-04T21:11:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da082738_12601b36",
       "range": {
         "startLine": 674,
         "startChar": 0,
