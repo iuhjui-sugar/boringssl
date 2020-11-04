@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8bdcb0a_936a59e3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-11-04T15:40:09Z",
+      "side": 1,
+      "message": "Janis passed in the value explicitly and was confused by the result. They\u0027re identical on the wire and is just some convenience thing in our API, so it seems reasonable for them to behave the same.",
+      "parentUuid": "532b44ad_4ba1f2a6",
+      "revId": "124d73248f2052c0f60114273c734e50dea0d81c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b7d3cacd_8438fc65",
@@ -31,6 +49,30 @@
       "writtenOn": "2020-11-03T22:30:58Z",
       "side": 1,
       "message": "Are you going to define a constant for this?",
+      "range": {
+        "startLine": 1568,
+        "startChar": 57,
+        "endLine": 1568,
+        "endChar": 60
+      },
+      "revId": "124d73248f2052c0f60114273c734e50dea0d81c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "791137ec_fc54bf0d",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1568,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-11-04T15:40:09Z",
+      "side": 1,
+      "message": "Probably in a follow-up. I keep waffling about what to name -2 since it\u0027s... weird.",
+      "parentUuid": "b7d3cacd_8438fc65",
       "range": {
         "startLine": 1568,
         "startChar": 57,
