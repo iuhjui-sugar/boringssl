@@ -3,6 +3,86 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "628dd98a_a3dd4182",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-11-05T21:26:39Z",
+      "side": 1,
+      "message": "Neither of these functions have anything to do with KEMs. This is similar to the comment in the Go implementation. The division between kem.go and hpke.go didn\u0027t actually any sense.\n\n(Don\u0027t split this into its own section in the first place.)",
+      "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7334ccb_d6ab17e2",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-11-05T21:26:39Z",
+      "side": 1,
+      "message": "EVP_HPKE_get_aead returns the AEAD corresponding to |aead_id|, or NULL if |aead_id| is not a known AEAD identifier.\n\n(We do our documentations Go-style, rather than with the subject-less sentences that Google C++ does.)",
+      "range": {
+        "startLine": 222,
+        "startChar": 1,
+        "endLine": 223,
+        "endChar": 59
+      },
+      "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a2162d1_c9e0abd4",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-11-05T21:26:39Z",
+      "side": 1,
+      "message": "In addition to the style comments above, this isn\u0027t right. It\u0027s returning the hash function used with HKDF, not the KDF. Let\u0027s rename this to EVP_HPKE_get_hkdf_md and then:\n\nEVP_HPKE_get_hkdf_md returns the HKDF hash associated with |kdf_id|, or NULL if |kdf_id| is not a known KDF identifier that uses HKDF.",
+      "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a64d388_1dae3998",
+        "filename": "ssl/internal.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 1570,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-11-05T21:26:39Z",
+      "side": 1,
+      "message": "This doesn\u0027t appear to be used anywhere. (It\u0027s also just a boolean.)",
+      "range": {
+        "startLine": 1570,
+        "startChar": 26,
+        "endLine": 1570,
+        "endChar": 35
+      },
+      "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bf870c47_b8ea291e",
         "filename": "ssl/internal.h",
         "patchSetId": 22
@@ -20,6 +100,97 @@
         "endLine": 2745,
         "endChar": 29
       },
+      "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "067aebf6_7378704f",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-11-05T21:26:39Z",
+      "side": 1,
+      "message": "Do not randomize this one. We\u0027re only going to do HKDF_SHA256. Especially before config_ids are truncated, the others are a waste of bytes.",
+      "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f11f6460_4badd9a6",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 624,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-11-05T21:26:39Z",
+      "side": 1,
+      "message": "Randomizing parameters in this way won\u0027t work. It\u0027s a requirement that the first and second ClientHellos are consistent. Making them inconsistent may even result in us breaking future ECH deployments, since how much the server checks is a little unclear.\n\nTake a look at how we do all our other GREASE values. They are all randomized with a consistent per-connection seed.\n\nI probably should write a PR to clarify this in the draft.\n\nTry to think about this whether the spec is right when writing code. Specifications may be wrong, especially drafts. As one of the first implementors, one of our jobs is to look for spec mistakes or ambiguities and fix them. GREASE strategies are especially subtle here. The point is to exercise the expected codepaths in the rest of the ecosystem, but if GREASE triggers the wrong codepaths, we harm the ecosystem rather than support it.",
+      "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b141b14_16319196",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 646,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-11-05T21:26:39Z",
+      "side": 1,
+      "message": "From our previous discussion, remove all the MIN/MAX business entirely from this comment. The only field we care about that varies is SNI and that one should be computed *outside* this mess because of padding and whatnot.\n\nIt\u0027s also important that we not need MIN/MAX because MIN/MAX would not capture this anyway. For instance, in your GREASE computation, MIN/MAX misses that the extension overhead and the extension contents are correlated.",
+      "range": {
+        "startLine": 646,
+        "startChar": 27,
+        "endLine": 646,
+        "endChar": 37
+      },
+      "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2216d029_7ed91725",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-11-05T21:26:39Z",
+      "side": 1,
+      "message": "The ClientHelloOuterAAD design meant this is compressed, so this is only 1 byte.",
+      "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dadeacf0_b93a73d2",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 673,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-11-05T21:26:39Z",
+      "side": 1,
+      "message": "pre_shared_key depends on the server name and even includes a binder, so it will *never* be in this list. When we discussed where the 13K overestimate came from, we talked about how GREASE should be computed assuming we\u0027re not doing resumption and that you shouldn\u0027t include the pre_shared_key extension at all.",
       "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -49,6 +220,121 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a2217ff8_7b495329",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-11-05T21:26:39Z",
+      "side": 1,
+      "message": "I think you mostly flipped each one of them. ;-) See RFC8446 for when each extension is sent.\n\nBut don\u0027t worry about it. A couple of bytes here and there do not matter when we\u0027re randomizing the name length and rounding up to a multiple of 32.",
+      "parentUuid": "780441e2_311bf083",
+      "range": {
+        "startLine": 672,
+        "startChar": 0,
+        "endLine": 680,
+        "endChar": 57
+      },
+      "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41e5237a_b23a2fd4",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 689,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-11-05T21:26:39Z",
+      "side": 1,
+      "message": "We may or may not want to compress these extensions anyway (remember we discussed how that\u0027s a bit of an interesting question) and, more importantly, as noted above, this little bit of slop doesn\u0027t matter much.",
+      "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2dde65ae_538045f6",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 696,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-11-05T21:26:39Z",
+      "side": 1,
+      "message": "Block sizes in cryptography mean something else. Though I\u0027m not sure if we actually need a constant, given the simplified logic below.",
+      "range": {
+        "startLine": 696,
+        "startChar": 19,
+        "endLine": 696,
+        "endChar": 29
+      },
+      "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03711e35_bb8cb2dc",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-11-05T21:26:39Z",
+      "side": 1,
+      "message": "We don\u0027t encode the AEAD key. You may be confusing this with the AEAD\u0027s tag length. (The key is what you encrypt with, the tag is the authenticator. See aead.h for an overview of how AEADs work.)",
+      "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4dabdf9f_33e12f51",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 705,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-11-05T21:26:39Z",
+      "side": 1,
+      "message": "This seems too complicated. Instead of doing a constexpr computation, just round kMinEncryptedCHLen and kMaxEncryptedCHLen ahead of time. Additionally, rather than all of this, you can simply pick a random value from min/32 to max/32, then multiply by 32.",
+      "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d7e2874_42c33042",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 781,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-11-05T21:26:39Z",
+      "side": 1,
+      "message": "Per the comment below, all this code should be removed anyway. But for future reference, this parser is missing a CBS_len(\u0026ech_config_contents) \u003d\u003d 0, to check for trailing data. In general, your code should consume every CBS when the parsing is done.",
+      "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "aba02c20_878302f3",
         "filename": "ssl/t1_lib.cc",
         "patchSetId": 22
@@ -65,6 +351,93 @@
         "startChar": 64,
         "endLine": 796,
         "endChar": 76
+      },
+      "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c91c967b_f2047523",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 796,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-11-05T21:26:39Z",
+      "side": 1,
+      "message": "To answer the immediate question, no, the high order bit is still part of the extension code point. The mandatory vs. non-mandatory decision is made at the time of allocating the extension code point, not sending the extension. (That\u0027s why the spec says it\u0027s a property of the extension type code point, as opposed to saying the codepoints are 15 bits wide.)\n\nHowever, taking multiple steps back, we should delete the bulk of this code. It should not be anywhere near this complex. Remove the extension_ids logic altogether. The point of this callback is that we\u0027ll tolerate retry_configs (any ECH GREASE implementation that breaks on retry_configs is invalid). Everything else is secondary.\n\nThus, we should check the syntax of the extension and nothing else. Everything about actually processing configs should be deleted. (I.e. let\u0027s delete everything from line 763 onwards.) When you actually implement ECH, you\u0027ll need to process ECHConfigs for real, and there\u0027s no sense in having two versions of the parser here.",
+      "parentUuid": "aba02c20_878302f3",
+      "range": {
+        "startLine": 796,
+        "startChar": 64,
+        "endLine": 796,
+        "endChar": 76
+      },
+      "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a165f364_4068e025",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 801,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-11-05T21:26:39Z",
+      "side": 1,
+      "message": "Per comment above, we\u0027ll delete this in the first place but for future reference, we need to handle errors here.\n\nIn general, if you find you need to allocate something in the process of parsing, that\u0027s usually a smell that you\u0027re doing more work than you should.",
+      "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c91302b_f771a825",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 807,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-11-05T21:26:39Z",
+      "side": 1,
+      "message": "Remove this and use ignore_parse_clienthello. We likely will not be using the callback system here anyway. (Or maybe we will for the acceptance signal, I dunno. Anyway, we can do that later.)",
+      "range": {
+        "startLine": 807,
+        "startChar": 12,
+        "endLine": 807,
+        "endChar": 37
+      },
+      "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a68c56f_d230a8e2",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 812,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-11-05T21:26:39Z",
+      "side": 1,
+      "message": "Remove this and use dont_add_serverhello for now. We\u0027ll fill this in and decide whether we\u0027re using the callback system later.",
+      "range": {
+        "startLine": 812,
+        "startChar": 12,
+        "endLine": 812,
+        "endChar": 35
       },
       "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
