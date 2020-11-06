@@ -2715,6 +2715,33 @@ OPENSSL_EXPORT int SSL_CTX_set_tlsext_servername_arg(SSL_CTX *ctx, void *arg);
 OPENSSL_EXPORT SSL_CTX *SSL_set_SSL_CTX(SSL *ssl, SSL_CTX *ctx);
 
 
+// Encrypted ClientHello (draft-ietf-tls-esni-08).
+//
+// Encrypted ClientHello (ECH) enables clients to encrypt the entire ClientHello
+// for the server. The encrypted "inner" ClientHello is stuffed inside an
+// extension on the "outer" ClientHello. This technique can hide sensitive parts
+// of the ClientHello from network adversaries, e.g. Server Name Indication
+// (SNI), so long as those fields are not duplicated in the outer ClientHello.
+//
+// Clients:
+//
+//   TODO(dmcardle): Implement the ECH client.
+//
+// Servers:
+//
+//   Servers must register each desired ECHConfig with its corresponding private
+//   key, by repeatedly calling SSL_add_ech_private_key.
+
+// SSL_add_ech_private_keys adds an ECHConfig in |ech_config| and its
+// corresponding private key in |private_key| to |ssl|. The server uses these
+// keys to decrypt incoming encrypted CHs. The ECHConfig provided in the most
+// recent call to this function are stored as the server's retry keys.
+OPENSSL_EXPORT int SSL_add_ech_private_key(SSL *ssl, const uint8_t *ech_config,
+                                           size_t ech_config_len,
+                                           const uint8_t *private_key,
+                                           size_t private_key_len);
+
+
 // Application-layer protocol negotiation.
 //
 // The ALPN extension (RFC 7301) allows negotiating different application-layer

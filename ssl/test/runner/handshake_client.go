@@ -13,6 +13,7 @@ import (
 	"crypto/rsa"
 	"crypto/subtle"
 	"crypto/x509"
+	"encoding/hex"
 	"errors"
 	"fmt"
 	"io"
@@ -917,6 +918,10 @@ func (c *Conn) insertECH(hello *clientHelloMsg) (innerHelloPtr *clientHelloMsg, 
 	info.addU8(0x00)
 	info.addBytes(compatibleConfig.marshal())
 
+
+	//fmt.Println("HPKE info:")
+	//fmt.Println(hex.Dump(info.finish()))
+
 	// Encrypt the inner ClientHello.
 	ctx, enc, err := hpke.SetupBaseSenderX25519(suite.kdfID, suite.aeadID, compatibleConfig.publicKey, info.finish(), nil)
 	if err != nil {
@@ -944,7 +949,14 @@ func (c *Conn) insertECH(hello *clientHelloMsg) (innerHelloPtr *clientHelloMsg, 
 	chOuterAAD := hello.marshal()
 	chOuterAAD = chOuterAAD[4:]
 
+	fmt.Println("chOuterAAD:")
+	fmt.Println(hex.Dump(chOuterAAD))
+	//fmt.Println("enc:")
+	//fmt.Println(hex.Dump(enc))
+
 	payload := ctx.Seal(chOuterAAD, innerHello.marshal())
+	//fmt.Println("payload:")
+	//fmt.Println(hex.Dump(payload))
 
 	// Place the ECH extension in the outer CH.
 	hello.encryptedClientHello = &encryptedClientHello{
