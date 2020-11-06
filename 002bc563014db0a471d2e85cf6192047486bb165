@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a3138d7_9345fc6a",
+        "filename": "crypto/asn1/tasn_dec.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 796,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-11-06T19:51:09Z",
+      "side": 1,
+      "message": "This function is declared \"static\" above. Add that keyword here too?",
+      "revId": "002bc563014db0a471d2e85cf6192047486bb165",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f3bb7e4_f9da8b11",
+        "filename": "crypto/asn1/tasn_enc.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-11-06T19:51:09Z",
+      "side": 1,
+      "message": "(ditto about reflecting \"static\" at definition.)",
+      "revId": "002bc563014db0a471d2e85cf6192047486bb165",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8451b6b5_35abc460",
+        "filename": "crypto/asn1/tasn_new.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-11-06T19:51:09Z",
+      "side": 1,
+      "message": "static",
+      "revId": "002bc563014db0a471d2e85cf6192047486bb165",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba78072e_1a9a3afa",
+        "filename": "crypto/asn1/tasn_new.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-11-06T19:51:09Z",
+      "side": 1,
+      "message": "static",
+      "revId": "002bc563014db0a471d2e85cf6192047486bb165",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
