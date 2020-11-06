@@ -2185,6 +2185,23 @@ int SSL_CTX_set_tlsext_servername_arg(SSL_CTX *ctx, void *arg) {
   return 1;
 }
 
+int SSL_add_ech_private_key(SSL *ssl, const uint8_t *ech_config,
+                            size_t ech_config_len, const uint8_t *private_key,
+                            size_t private_key_len) {
+  CBS config_reader(MakeConstSpan(ech_config, ech_config_len));
+  bool incompatible_version;
+  bssl::UniquePtr<bssl::ECHConfig> parsed_config =
+      bssl::ECHConfig::Parse(&incompatible_version, &config_reader);
+  if (!parsed_config) {
+    return 0;
+  }
+  parsed_config->set_secret_key(MakeConstSpan(private_key, private_key_len));
+  if (!ssl->ech_configs.Push(std::move(*parsed_config))) {
+    return 0;
+  }
+  return 1;
+}
+
 int SSL_select_next_proto(uint8_t **out, uint8_t *out_len, const uint8_t *peer,
                           unsigned peer_len, const uint8_t *supported,
                           unsigned supported_len) {
@@ -3115,4 +3132,24 @@ int SSL_CTX_set_tlsext_status_cb(SSL_CTX *ctx,
 int SSL_CTX_set_tlsext_status_arg(SSL_CTX *ctx, void *arg) {
   ctx->legacy_ocsp_callback_arg = arg;
   return 1;
+}
+
+void PrintHexdump(const char *label, bssl::Span<const uint8_t> buf) {
+  constexpr size_t kWidth = 16;
+
+  printf("HEXDUMP %s:\n  ", label);
+  size_t i = 0;
+  for (uint8_t byte : buf) {
+    i++;
+    printf("%.2x", byte);
+    if (i % (kWidth/2) == 0) {
+      printf("  ");
+    }
+    if (i % kWidth == 0) {
+      printf("\n  ");
+    } else {
+      printf(" ");
+    }
+  }
+  printf("\n");
 }
