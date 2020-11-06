@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e4879b4_cb76f510",
+        "filename": "crypto/asn1/tasn_dec.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 796,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-11-06T20:38:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3138d7_9345fc6a",
+      "revId": "002bc563014db0a471d2e85cf6192047486bb165",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9f3bb7e4_f9da8b11",
@@ -31,6 +49,24 @@
       "writtenOn": "2020-11-06T19:51:09Z",
       "side": 1,
       "message": "(ditto about reflecting \"static\" at definition.)",
+      "revId": "002bc563014db0a471d2e85cf6192047486bb165",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60c9aa9a_741b4939",
+        "filename": "crypto/asn1/tasn_enc.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-11-06T20:38:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9f3bb7e4_f9da8b11",
       "revId": "002bc563014db0a471d2e85cf6192047486bb165",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -52,6 +88,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "99f1a441_cf6add33",
+        "filename": "crypto/asn1/tasn_new.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-11-06T20:38:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8451b6b5_35abc460",
+      "revId": "002bc563014db0a471d2e85cf6192047486bb165",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ba78072e_1a9a3afa",
@@ -65,6 +119,24 @@
       "writtenOn": "2020-11-06T19:51:09Z",
       "side": 1,
       "message": "static",
+      "revId": "002bc563014db0a471d2e85cf6192047486bb165",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d35d8efd_c0d630d6",
+        "filename": "crypto/asn1/tasn_new.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-11-06T20:38:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba78072e_1a9a3afa",
       "revId": "002bc563014db0a471d2e85cf6192047486bb165",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
