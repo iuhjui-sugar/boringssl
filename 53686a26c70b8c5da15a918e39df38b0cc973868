@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f8b0fd0_31a83dde",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 723,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-11-06T19:23:20Z",
+      "side": 1,
+      "message": "\"or uses |pkey|\u0027s default if |md| is NULL.\"",
+      "range": {
+        "startLine": 723,
+        "startChar": 30,
+        "endLine": 723,
+        "endChar": 66
+      },
+      "revId": "53686a26c70b8c5da15a918e39df38b0cc973868",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a7536ae_09d17731",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-11-06T19:23:20Z",
+      "side": 1,
+      "message": "ditto.",
+      "range": {
+        "startLine": 736,
+        "startChar": 39,
+        "endLine": 736,
+        "endChar": 75
+      },
+      "revId": "53686a26c70b8c5da15a918e39df38b0cc973868",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dff5082a_42bf9297",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 750,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-11-06T19:23:20Z",
+      "side": 1,
+      "message": "ditto.",
+      "range": {
+        "startLine": 750,
+        "startChar": 39,
+        "endLine": 750,
+        "endChar": 75
+      },
+      "revId": "53686a26c70b8c5da15a918e39df38b0cc973868",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ae41e4d_2447cf99",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 765,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-11-06T19:23:20Z",
+      "side": 1,
+      "message": "(ditto.)",
+      "range": {
+        "startLine": 764,
+        "startChar": 44,
+        "endLine": 765,
+        "endChar": 11
+      },
+      "revId": "53686a26c70b8c5da15a918e39df38b0cc973868",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
