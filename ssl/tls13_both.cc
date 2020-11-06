@@ -685,4 +685,136 @@ bool tls13_post_handshake(SSL *ssl, const SSLMessage &msg) {
   return false;
 }
 
+
+// Encrypted ClientHello.
+
+UniquePtr<ECHConfig> ECHConfig::Parse(bool *out_incompatible_version,
+                                      CBS *reader) {
+  PrintHexdump("ECHConfig (raw)",
+               MakeConstSpan(CBS_data(reader), CBS_len(reader)));
+
+  *out_incompatible_version = false;
+
+  uint16_t version;
+  CBS ech_config_contents;
+  if (!CBS_get_u16(reader, &version)) {
+    return nullptr;
+  }
+
+  // Skip the ECHConfig if it's not a version we support.
+  if (version != TLSEXT_TYPE_encrypted_client_hello) {
+    *out_incompatible_version = true;
+    return nullptr;
+  }
+
+  CBS public_name, public_key;
+  uint16_t kem_id;
+  CBS cipher_suites;
+  uint16_t max_name_len;
+  CBS extensions;
+  if (!CBS_get_u16_length_prefixed(reader, &ech_config_contents) ||
+      !CBS_get_u16_length_prefixed(&ech_config_contents, &public_name) ||
+      CBS_len(&public_name) == 0 ||
+      !CBS_get_u16_length_prefixed(&ech_config_contents, &public_key) ||
+      CBS_len(&public_key) == 0 ||
+      !CBS_get_u16(&ech_config_contents, &kem_id) ||
+      !CBS_get_u16_length_prefixed(&ech_config_contents, &cipher_suites) ||
+      CBS_len(&cipher_suites) < 4 ||  //
+      CBS_len(&cipher_suites) % 4 != 0 ||
+      !CBS_get_u16(&ech_config_contents, &max_name_len) ||
+      !CBS_get_u16_length_prefixed(&ech_config_contents, &extensions)) {
+    return nullptr;
+  }
+
+  const size_t num_suites = CBS_len(&cipher_suites) / (2 * sizeof(uint16_t));
+  Array<ECHConfig::ECHCipherSuite> parsed_cipher_suites;
+  parsed_cipher_suites.Init(num_suites);
+
+  int cipher_suite_count = 0;
+  while (CBS_len(&cipher_suites) > 0) {
+    if (!CBS_get_u16(&cipher_suites,
+                     &parsed_cipher_suites[cipher_suite_count].kdf_id) ||
+        !CBS_get_u16(&cipher_suites,
+                     &parsed_cipher_suites[cipher_suite_count].aead_id)) {
+      return nullptr;
+    }
+    cipher_suite_count++;
+  }
+
+  // Parse the list of extensions. Duplicate extension IDs are a fatal error.
+  GrowableArray<uint16_t> extension_ids;
+  while (CBS_len(&extensions) > 0) {
+    uint16_t extension_id;
+    CBS body;
+    if (!CBS_get_u16(&extensions, &extension_id) ||
+        !CBS_get_u16_length_prefixed(&extensions, &body)) {
+      return nullptr;
+    }
+    if (std::find(extension_ids.begin(), extension_ids.end(), extension_id) !=
+        extension_ids.end()) {
+      return nullptr;
+    }
+    extension_ids.Push(extension_id);
+  }
+
+  auto ech_config = MakeUnique<ECHConfig>();
+  ech_config->public_name_.CopyFrom(public_name);
+  ech_config->public_key_.CopyFrom(public_key);
+  ech_config->kem_id_ = kem_id;
+  ech_config->cipher_suites_.CopyFrom(parsed_cipher_suites);
+  ech_config->max_name_length_ = max_name_len;
+  return ech_config;
+}
+
+bool ECHConfig::Serialize(CBB *out) const {
+  CBB contents_bb, public_name_bb, public_key_bb, cipher_suites_bb;
+  if (!CBB_add_u16(out, TLSEXT_TYPE_encrypted_client_hello) ||
+      !CBB_add_u16_length_prefixed(out, &contents_bb) ||
+      !CBB_add_u16_length_prefixed(&contents_bb, &public_name_bb) ||
+      !CBB_add_bytes(&public_name_bb, public_name_.data(),
+                     public_name_.size()) ||
+      !CBB_add_u16_length_prefixed(&contents_bb, &public_key_bb) ||
+      !CBB_add_bytes(&public_key_bb, public_key_.data(), public_key_.size()) ||
+      !CBB_add_u16(&contents_bb, kem_id_) ||
+      !CBB_add_u16_length_prefixed(&contents_bb, &cipher_suites_bb)) {
+    return false;
+  }
+  for (const ECHCipherSuite *suite = cipher_suites_.cbegin();
+       suite != cipher_suites_.cend(); suite++) {
+    if (!CBB_add_u16(&cipher_suites_bb, suite->kdf_id) ||
+        !CBB_add_u16(&cipher_suites_bb, suite->aead_id)) {
+      return false;
+    }
+  }
+  if (!CBB_add_u16(&contents_bb, max_name_length_) ||
+      !CBB_add_u16(&contents_bb, 0)) {
+    return false;
+  }
+  return CBB_flush(out);
+}
+
+bool ECHConfig::ComputeConfigID(Span<uint8_t> out, size_t *out_len,
+                                const EVP_MD *md) const {
+  assert(EVP_MD_size(md) <= out.size());
+
+  ScopedCBB config;
+  if (!CBB_init(config.get(), 0) || //
+      !Serialize(config.get())) {
+    return false;
+  }
+
+  uint8_t key[EVP_MAX_KEY_LENGTH];
+  size_t key_len;
+  static const uint8_t info[] = "tls ech config id";
+  if (!HKDF_extract(key, &key_len, md, CBB_data(config.get()),
+                    CBB_len(config.get()), nullptr, 0) ||
+      !HKDF_expand(out.data(), EVP_MD_size(md), md, key, key_len, info,
+                   OPENSSL_ARRAY_SIZE(info) - 1)) {
+    return false;
+  }
+
+  *out_len = EVP_MD_size(md);
+  return true;
+}
+
 BSSL_NAMESPACE_END

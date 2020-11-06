@@ -644,7 +644,6 @@ type clientHelloMsg struct {
 	compressionMethods      []uint8
 	nextProtoNeg            bool
 	serverName              string
-	clientECH               *clientECH
 	ocspStapling            bool
 	supportedCurves         []CurveID
 	supportedPoints         []uint8
@@ -681,7 +680,7 @@ type clientHelloMsg struct {
 	compressedCertAlgs      []uint16
 	delegatedCredentials    bool
 	alpsProtocols           []string
-	encryptedClientHello    *clientECH
+	clientECH               *clientECH
 	outerExtensions         *echOuterExtensions
 	prefixExtensions        []uint16
 }

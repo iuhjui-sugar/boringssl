@@ -162,8 +162,8 @@ func (hs *serverHandshakeState) readClientHello() error {
 
 	// Before we do anything with |hs.clientHello|, check if it should be
 	// replaced by ECH.
-	if len(config.ServerECHConfigs) > 0 && hs.clientHello.encryptedClientHello != nil {
-		ech := hs.clientHello.encryptedClientHello
+	if len(config.ServerECHConfigs) > 0 && hs.clientHello.clientECH != nil {
+		ech := hs.clientHello.clientECH
 
 		if ech.empty {
 			hs.echAccepted = true
