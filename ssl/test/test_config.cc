@@ -184,7 +184,6 @@ const Flag<std::string> kStringFlags[] = {
     {"-handshaker-path", &TestConfig::handshaker_path},
     {"-delegated-credential", &TestConfig::delegated_credential},
     {"-expect-early-data-reason", &TestConfig::expect_early_data_reason},
-    {"-ech-private-key", &TestConfig::ech_private_key},
 };
 
 // TODO(davidben): When we can depend on C++17 or Abseil, switch this to
@@ -207,6 +206,8 @@ const Flag<std::string> kBase64Flags[] = {
     {"-quic-transport-params", &TestConfig::quic_transport_params},
     {"-expect-quic-transport-params",
      &TestConfig::expect_quic_transport_params},
+    {"-ech-config", &TestConfig::ech_config},
+    {"-ech-private-key", &TestConfig::ech_private_key},
 };
 
 const Flag<int> kIntFlags[] = {
@@ -1586,6 +1587,15 @@ bssl::UniquePtr<SSL> TestConfig::NewSSL(
   }
   if (enable_ech_grease) {
     SSL_set_enable_ech_grease(ssl.get(), 1);
+  }
+  if (!ech_config.empty() && !ech_private_key.empty()) {
+    if (!SSL_add_ech_private_key(
+            ssl.get(), reinterpret_cast<const uint8_t *>(ech_config.data()),
+            ech_config.size(),
+            reinterpret_cast<const uint8_t *>(ech_private_key.data()),
+            ech_private_key.size())) {
+      return nullptr;
+    }
   }
   if (!send_channel_id.empty()) {
     SSL_set_tls_channel_id_enabled(ssl.get(), 1);

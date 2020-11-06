@@ -1423,7 +1423,7 @@ bool tls13_verify_psk_binder(SSL_HANDSHAKE *hs, SSL_SESSION *session,
 
 // tls13_ech_accept_confirmation computes the server's ECH acceptance signal,
 // writing it to |out|. It returns true on success, and false on failure.
-bool tls13_ech_accept_confirmation(SSL_HANDSHAKE *hs,
+bool tls13_ech_accept_confirmation(const EVP_MD* digest,
                                    bssl::Span<const uint8_t> ch_random,
                                    bssl::Span<const uint8_t> sh_random_prefix,
                                    bssl::Span<uint8_t> out);
@@ -1655,6 +1655,10 @@ struct SSL_HANDSHAKE {
   // ech_key_share_pub is the randomly-generated "enc" value for ECH GREASE.
   // In case of HRR, this value should be repeated in the second ClientHello.
   Array<uint8_t> ech_key_share_pub;
+
+  bool ech_client_hello_msg_present = false;
+  Array<uint8_t> ech_client_hello_buf;
+  SSLMessage ech_client_hello_msg;
 
   // key_share_bytes is the value of the previously sent KeyShare extension by
   // the client in TLS 1.3.
@@ -2797,6 +2801,54 @@ struct SSL_CONFIG {
   bool jdk11_workaround : 1;
 };
 
+class ECHConfig {
+ public:
+  struct ECHCipherSuite {
+    uint16_t kdf_id;
+    uint16_t aead_id;
+  };
+
+  ECHConfig() = default;
+  ECHConfig(ECHConfig &&other) = default;
+  ~ECHConfig() = default;
+  ECHConfig &operator=(ECHConfig &&) = default;
+
+  ECHConfig(const ECHConfig &) = delete;
+  ECHConfig &operator=(const ECHConfig &) = delete;
+
+  static UniquePtr<ECHConfig> Parse(bool *out_incompatible_version,
+                                    CBS *reader);
+  bool Serialize(CBB *out) const;
+
+  // |out| must be at least |EVP_MD_size(md)| bytes.
+  bool ComputeConfigID(Span<uint8_t> out, size_t *out_len,
+                       const EVP_MD *md) const;
+
+  Span<const uint8_t> public_name() const { return public_name_; }
+  Span<const uint8_t> public_key() const { return public_key_; }
+  uint16_t kem_id() const { return kem_id_; }
+  const Array<ECHCipherSuite> &cipher_suites() const { return cipher_suites_; }
+  uint16_t max_name_length() const { return max_name_length_; }
+  Span<const uint8_t> secret_key() const { return secret_key_; }
+
+  void set_secret_key(Span<const uint8_t> secret_key) {
+    secret_key_.CopyFrom(secret_key);
+  }
+
+  static constexpr bool kAllowUniquePtr = true;
+
+ private:
+  Array<uint8_t> public_name_;
+  Array<uint8_t> public_key_;
+  uint16_t kem_id_;
+  Array<ECHCipherSuite> cipher_suites_;
+  uint16_t max_name_length_;
+
+  // secret_key is the key corresponding to |public_key|. For clients, it must
+  // be empty. For servers, it must be a valid key.
+  Array<uint8_t> secret_key_;
+};
+
 // From RFC 8446, used in determining PSK modes.
 #define SSL_PSK_DHE_KE 0x1
 
@@ -3463,6 +3515,7 @@ struct ssl_st {
   uint32_t mode = 0;     // API behaviour
   uint32_t max_cert_list = 0;
   bssl::UniquePtr<char> hostname;
+  bssl::GrowableArray<bssl::ECHConfig> ech_configs;
 
   // quic_method is the method table corresponding to the QUIC hooks.
   const SSL_QUIC_METHOD *quic_method = nullptr;
@@ -3634,5 +3687,6 @@ struct ssl_session_st {
   friend void SSL_SESSION_free(SSL_SESSION *);
 };
 
+void PrintHexdump(const char *label, bssl::Span<const uint8_t> buf);
 
 #endif  // OPENSSL_HEADER_SSL_INTERNAL_H

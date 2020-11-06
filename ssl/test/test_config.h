@@ -180,6 +180,7 @@ struct TestConfig {
   bool expect_delegated_credential_used = false;
   std::string delegated_credential;
   std::string expect_early_data_reason;
+  std::string ech_config;
   std::string ech_private_key;
   bool expect_hrr = false;
   bool expect_no_hrr = false;
