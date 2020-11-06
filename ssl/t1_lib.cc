@@ -273,6 +273,26 @@ bool ssl_client_hello_init(const SSL *ssl, SSL_CLIENT_HELLO *out,
   return true;
 }
 
+bool ssl_client_hello_write(const SSL_CLIENT_HELLO *client_hello, CBB *out) {
+  if (!CBB_add_u16(out, client_hello->version) ||
+      !CBB_add_bytes(out, client_hello->random, client_hello->random_len) ||
+      !CBB_add_u8(out, client_hello->session_id_len) ||
+      !CBB_add_bytes(out, client_hello->session_id,
+                     client_hello->session_id_len) ||
+      !CBB_add_u16(out, client_hello->cipher_suites_len) ||
+      !CBB_add_bytes(out, client_hello->cipher_suites,
+                     client_hello->cipher_suites_len) ||
+      !CBB_add_u8(out, client_hello->compression_methods_len) ||
+      !CBB_add_bytes(out, client_hello->compression_methods,
+                     client_hello->compression_methods_len) ||
+      !CBB_add_u16(out, client_hello->extensions_len) ||
+      !CBB_add_bytes(out, client_hello->extensions,
+                     client_hello->extensions_len)) {
+    return false;
+  }
+  return true;
+}
+
 bool ssl_client_hello_get_extension(const SSL_CLIENT_HELLO *client_hello,
                                     CBS *out, uint16_t extension_type) {
   CBS extensions;
@@ -740,11 +760,14 @@ static bool ext_ech_parse_serverhello(SSL_HANDSHAKE *hs, uint8_t *out_alert,
     return false;
   }
   while (CBS_len(&ech_configs) > 0) {
-    // Do a top-level parse of the ECHConfig, stopping before ECHConfigContents.
-    uint16_t version;
-    CBS ech_config_contents;
-    if (!CBS_get_u16(&ech_configs, &version) ||
-        !CBS_get_u16_length_prefixed(&ech_configs, &ech_config_contents)) {
+    // TODO(dmcardle) Should this be a toplevel-only parse?
+    bool incompatible_version;
+    UniquePtr<ECHConfig> ech_config =
+        ECHConfig::Parse(&incompatible_version, &ech_configs);
+    if (incompatible_version) {
+      continue;
+    }
+    if (!ech_config) {
       *out_alert = SSL_AD_DECODE_ERROR;
       return false;
     }

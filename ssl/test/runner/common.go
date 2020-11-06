@@ -1723,6 +1723,9 @@ type ProtocolBugs struct {
 	// CompatModeWithQUIC, if true, enables TLS 1.3 compatibility mode
 	// when running over QUIC.
 	CompatModeWithQUIC bool
+
+	ECHServerMustAcceptOuter bool
+	ECHServerMustAcceptInner bool
 }
 
 func (c *Config) serverInit() {
