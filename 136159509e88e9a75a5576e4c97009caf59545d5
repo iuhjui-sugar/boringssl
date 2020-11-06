@@ -22,6 +22,30 @@
       },
       "revId": "136159509e88e9a75a5576e4c97009caf59545d5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "157d8a60_317e4069",
+        "filename": "crypto/asn1/tasn_dec.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 994,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-11-06T20:37:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b638884_701c026f",
+      "range": {
+        "startLine": 994,
+        "startChar": 1,
+        "endLine": 994,
+        "endChar": 2
+      },
+      "revId": "136159509e88e9a75a5576e4c97009caf59545d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
