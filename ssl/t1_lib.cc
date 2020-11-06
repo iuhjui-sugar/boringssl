@@ -738,7 +738,7 @@ static bool ext_ech_add_clienthello(SSL_HANDSHAKE *hs, CBB *out) {
 
 static bool ext_ech_parse_serverhello(SSL_HANDSHAKE *hs, uint8_t *out_alert,
                                        CBS *contents) {
-  if (contents == NULL) {
+  if (contents == nullptr) {
     return true;
   }
 
@@ -752,53 +752,15 @@ static bool ext_ech_parse_serverhello(SSL_HANDSHAKE *hs, uint8_t *out_alert,
     return false;
   }
   while (CBS_len(&ech_configs) > 0) {
-    uint16_t version;
-    CBS ech_config_contents;
-    if (!CBS_get_u16(&ech_configs, &version) ||
-        !CBS_get_u16_length_prefixed(&ech_configs, &ech_config_contents)) {
-      *out_alert = SSL_AD_DECODE_ERROR;
-      return false;
-    }
-
-    // Skip the ECHConfig if it's not a version we support.
-    if (version != TLSEXT_TYPE_encrypted_client_hello) {
+    bool incompatible_version;
+    UniquePtr<ECHConfig> ech_config =
+        ECHConfig::Parse(&incompatible_version, &ech_configs);
+    if (incompatible_version) {
       continue;
     }
-
-    CBS public_name, public_key;
-    uint16_t kem_id;
-    CBS cipher_suites;
-    uint16_t max_name_len;
-    CBS extensions;
-    if (!CBS_get_u16_length_prefixed(&ech_config_contents, &public_name) ||
-        CBS_len(&public_name) == 0 ||
-        !CBS_get_u16_length_prefixed(&ech_config_contents, &public_key) ||
-        CBS_len(&public_key) == 0 ||
-        !CBS_get_u16(&ech_config_contents, &kem_id) ||
-        !CBS_get_u16_length_prefixed(&ech_config_contents, &cipher_suites) ||
-        CBS_len(&cipher_suites) < 4 || CBS_len(&cipher_suites) % 4 != 0 ||
-        !CBS_get_u16(&ech_config_contents, &max_name_len) ||
-        !CBS_get_u16_length_prefixed(&ech_config_contents, &extensions)) {
+    if (!ech_config) {
       *out_alert = SSL_AD_DECODE_ERROR;
       return false;
-    }
-
-    // Parse the list of extensions. Duplicate extension IDs are a fatal error.
-    GrowableArray<uint16_t> extension_ids;
-    while (CBS_len(&extensions) > 0) {
-      uint16_t extension_id;
-      CBS body;
-      if (!CBS_get_u16(&extensions, &extension_id) ||
-          !CBS_get_u16_length_prefixed(&extensions, &body)) {
-        *out_alert = SSL_AD_DECODE_ERROR;
-        return false;
-      }
-      if (std::find(extension_ids.begin(), extension_ids.end(), extension_id) !=
-          extension_ids.end()) {
-        *out_alert = SSL_AD_DECODE_ERROR;
-        return false;
-      }
-      extension_ids.Push(extension_id);
     }
   }
   return true;
