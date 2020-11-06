@@ -745,6 +745,12 @@ NextCipherSuite:
 		if bytes.Equal(serverHello.random[24:], acceptConfirmation) {
 			hello = innerHello
 			helloBytes = innerHello.marshal()
+
+			if c.config.Bugs.ECHServerMustAcceptOuter {
+				return errors.New("Server accepted the inner ClientHello")
+			}
+		} else if c.config.Bugs.ECHServerMustAcceptInner {
+			return errors.New("Server accepted outer ClientHello")
 		}
 	}
 
@@ -756,7 +762,7 @@ NextCipherSuite:
 		finishedHash: newFinishedHash(c.wireVersion, c.isDTLS, suite),
 		keyShares:    keyShares,
 		session:      session,
-		sentECH:      hello.encryptedClientHello,
+		sentECH:      hello.clientECH,
 		echHRRKey:    echHRRKey,
 	}
 
@@ -924,7 +930,8 @@ func (c *Conn) insertECH(hello *clientHelloMsg) (innerHelloPtr *clientHelloMsg, 
 	echHRRKey = ctx.Export([]byte("tls ech hrr key"), 32)
 
 	// Place an "encrypted_client_hello" extension on the inner ClientHello.
-	innerHello.encryptedClientHello = &clientECH{empty: true}
+	innerHello.clientECH = &clientECH{empty: true}
+	innerHello.sessionId = hello.sessionId
 	innerHello.raw = nil
 
 	// Compute the configID
@@ -945,7 +952,7 @@ func (c *Conn) insertECH(hello *clientHelloMsg) (innerHelloPtr *clientHelloMsg, 
 	payload := ctx.Seal(chOuterAAD, innerHello.marshal())
 
 	// Place the ECH extension in the outer CH.
-	hello.encryptedClientHello = &clientECH{
+	hello.clientECH = &clientECH{
 		hpkeKDF:  suite.kdfID,
 		hpkeAEAD: suite.aeadID,
 		configID: configID,
