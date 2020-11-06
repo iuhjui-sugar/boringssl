@@ -154,6 +154,8 @@
 #include <openssl/bn.h>
 #include <openssl/bytestring.h>
 #include <openssl/cipher.h>
+#include <openssl/digest.h>
+#include <openssl/curve25519.h>
 #include <openssl/ec.h>
 #include <openssl/ecdsa.h>
 #include <openssl/err.h>
@@ -165,11 +167,13 @@
 #include <openssl/rand.h>
 #include <openssl/x509.h>
 
-#include "internal.h"
+#include "../crypto/hpke/internal.h"
 #include "../crypto/internal.h"
+#include "internal.h"
 
 
 BSSL_NAMESPACE_BEGIN
+
 
 bool ssl_client_cipher_list_contains_cipher(
     const SSL_CLIENT_HELLO *client_hello, uint16_t id) {
@@ -207,7 +211,7 @@ static bool negotiate_version(SSL_HANDSHAKE *hs, uint8_t *out_alert,
     }
   } else {
     // Convert the ClientHello version to an equivalent supported_versions
-    // extension.
+    // secretKei extension.
     static const uint8_t kTLSVersions[] = {
         0x03, 0x03,  // TLS 1.2
         0x03, 0x02,  // TLS 1.1
@@ -598,20 +602,199 @@ static enum ssl_hs_wait_t do_read_client_hello(SSL_HANDSHAKE *hs) {
       break;
     }
   }
+  Array<uint8_t> encoded_client_hello_inner;
   if (ech_present) {
     if (CBS_len(&ech_body) == 0) {
       // Assume we are a backend server.
       ssl->s3->ech_accept = true;
     } else {
+      // Parse the ECH extension body.
+      uint16_t kdf_id, aead_id;
+      CBS config_id, enc, payload;
+      if (!CBS_get_u16(&ech_body, &kdf_id) ||
+          !CBS_get_u16(&ech_body, &aead_id) ||
+          !CBS_get_u8_length_prefixed(&ech_body, &config_id) ||
+          !CBS_get_u16_length_prefixed(&ech_body, &enc) ||
+          !CBS_get_u16_length_prefixed(&ech_body, &payload)) {
+        OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
+        ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
+        return ssl_hs_error;
+      }
+
       // Attempt to decrypt ECH.
 
-      // TODO Add public functions for adding ECHConfigs and private keys
+      const EVP_MD *kdf = EVP_HPKE_get_hkdf_md(kdf_id);
+      if (kdf == nullptr) {
+        // We do not support the KDF indicated by |kdf_id|.
+        OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
+        ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
+        return ssl_hs_error;
+      }
 
-      printf("ATTEMPT TO DECRYPT ECH\n");
+      // Narrow candidate ECHConfigs by matching matching against config_id.
+      GrowableArray<const ECHConfig *> candidates;
+      for (const auto &ech_config : ssl->ech_configs) {
+        uint8_t candidate_config_id[EVP_MAX_MD_SIZE];
+        size_t candidate_config_id_len;
+        if (!ech_config.ComputeConfigID(
+            MakeSpan(candidate_config_id,
+                     OPENSSL_ARRAY_SIZE(candidate_config_id)),
+            &candidate_config_id_len,
+            kdf)) {
+          OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
+          ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
+          return ssl_hs_error;
+        }
+
+        if (CBS_len(&config_id) == 0 ||
+            config_id ==
+                MakeConstSpan(candidate_config_id, candidate_config_id_len)) {
+          candidates.Push(&ech_config);
+        }
+      }
+
+      // Trial decryption.
+      bool decrypt_success = false;
+
+      for (OPENSSL_UNUSED const ECHConfig *ech_config : candidates) {
+        if (ech_config->kem_id() != EVP_HPKE_DHKEM_X25519_HKDF_SHA256 ||
+            CBS_len(&enc) != X25519_PUBLIC_VALUE_LEN) {
+          continue;
+        }
+
+        static const uint8_t kInfoLabel[] = "tls ech";
+        ScopedCBB info_bb;
+        if (!CBB_init(info_bb.get(), 0) ||
+            !CBB_add_bytes(info_bb.get(), kInfoLabel,
+                           OPENSSL_ARRAY_SIZE(kInfoLabel) - 1) ||
+            !CBB_add_u8(info_bb.get(), 0) ||
+            !ech_config->Serialize(info_bb.get()) ||
+            !CBB_flush(info_bb.get())) {
+          return ssl_hs_error;
+        }
+
+        ScopedEVP_HPKE_CTX context;
+        if (!EVP_HPKE_CTX_setup_base_r_x25519(
+                context.get(), kdf_id, aead_id, CBS_data(&enc),
+                ech_config->public_key().data(),
+                ech_config->secret_key().data(),
+                CBB_data(info_bb.get()),
+                CBB_len(info_bb.get()))) {
+          continue;
+        }
+
+        // Compute the ClientHelloOuterAAD value. This is just the outer
+        // ClientHello reserialized without the "encrypted_client_hello"
+        // extension.
+        bool ch_reencode_failed = false;
+        ScopedCBB ch_outer_aad_bb;
+        CBB extensions_bb;
+        if (!CBB_init(ch_outer_aad_bb.get(), 0) ||
+            !CBB_add_u16(ch_outer_aad_bb.get(), client_hello.version) ||
+            !CBB_add_bytes(ch_outer_aad_bb.get(), client_hello.random,
+                           client_hello.random_len) ||
+            !CBB_add_u8(ch_outer_aad_bb.get(), client_hello.session_id_len) ||
+            !CBB_add_bytes(ch_outer_aad_bb.get(), client_hello.session_id,
+                           client_hello.session_id_len) ||
+            !CBB_add_u16(ch_outer_aad_bb.get(),
+                         client_hello.cipher_suites_len) ||
+            !CBB_add_bytes(ch_outer_aad_bb.get(), client_hello.cipher_suites,
+                           client_hello.cipher_suites_len) ||
+            !CBB_add_u8(ch_outer_aad_bb.get(),
+                         client_hello.compression_methods_len) ||
+            !CBB_add_bytes(ch_outer_aad_bb.get(),
+                         client_hello.compression_methods,
+                         client_hello.compression_methods_len) ||
+            !CBB_add_u16_length_prefixed(ch_outer_aad_bb.get(),
+                                         &extensions_bb)) {
+          continue; // Skip |ech_config|.
+        }
+        CBS extensions_reader(MakeConstSpan(client_hello.extensions,
+                                            client_hello.extensions_len));
+        while (CBS_len(&extensions_reader) > 0) {
+          uint16_t extension_id;
+          CBS extension_body;
+          if (!CBS_get_u16(&extensions_reader, &extension_id) ||
+              !CBS_get_u16_length_prefixed(&extensions_reader,
+                                           &extension_body)) {
+            ch_reencode_failed = true;
+            break;
+          }
+          if (extension_id == TLSEXT_TYPE_encrypted_client_hello) {
+            continue;
+          }
+          if (!CBB_add_u16(&extensions_bb, extension_id) ||
+              !CBB_add_u16(&extensions_bb, CBS_len(&extension_body)) ||
+              !CBB_add_bytes(&extensions_bb,
+                             CBS_data(&extension_body),
+                             CBS_len(&extension_body))) {
+            ch_reencode_failed = true;
+            break;
+          }
+        }
+        if (ch_reencode_failed || !CBB_flush(ch_outer_aad_bb.get())) {
+          continue; // Skip |ech_config|.
+        }
+        if (!encoded_client_hello_inner.Init(CBS_len(&payload))) {
+          continue;
+        }
+        size_t encoded_client_hello_inner_len;
+        if (!EVP_HPKE_CTX_open(context.get(),
+                               encoded_client_hello_inner.data(),
+                               &encoded_client_hello_inner_len,
+                               encoded_client_hello_inner.size(),
+                               CBS_data(&payload),
+                               CBS_len(&payload),
+                               CBB_data(ch_outer_aad_bb.get()),
+                               CBB_len(ch_outer_aad_bb.get()))) {
+          continue; // Trial decryption failed. Skip |ech_config|.
+        }
+        encoded_client_hello_inner.Shrink(encoded_client_hello_inner_len);
+        decrypt_success = true;
+        break; // Exit the loop because |ech_config| is the one.
+      }
+
+      if (decrypt_success) {
+        // TODO(dmcardle) reconstitute inner CH with "outer_extensions"
+
+        // Parse |encoded_client_hello_inner| as a ClientHello.
+        assert(!encoded_client_hello_inner.empty());
+
+        CBS hello_reader, random, session_id, cipher_suites,
+            compression_methods, extensions;
+        uint16_t version;
+        CBS_init(&hello_reader, encoded_client_hello_inner.data(),
+                 encoded_client_hello_inner.size());
+        if (!CBS_skip(&hello_reader, 4) ||
+            !CBS_get_u16(&hello_reader, &version) ||
+            !CBS_get_bytes(&hello_reader, &random, 32) ||
+            !CBS_get_u8_length_prefixed(&hello_reader, &session_id) ||
+            !CBS_get_u16_length_prefixed(&hello_reader, &cipher_suites) ||
+            !CBS_get_u8_length_prefixed(&hello_reader, &compression_methods) ||
+            !CBS_get_u16_length_prefixed(&hello_reader, &extensions)) {
+          OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
+          ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
+          return ssl_hs_error;
+        }
+
+        // Replace contents of |client_hello| with inner ClientHello.
+        client_hello.client_hello = encoded_client_hello_inner.data();
+        client_hello.client_hello_len = encoded_client_hello_inner.size();
+        // TODO(dmcardle) should we check that version is >= TLS13?
+        client_hello.version = version;
+        client_hello.random = CBS_data(&random);
+        client_hello.random_len = CBS_len(&random);
+        client_hello.session_id = CBS_data(&session_id);
+        client_hello.session_id_len = CBS_len(&session_id);
+        client_hello.cipher_suites = CBS_data(&cipher_suites);
+        client_hello.cipher_suites_len = CBS_len(&cipher_suites);
+        client_hello.compression_methods = CBS_data(&compression_methods);
+        client_hello.compression_methods_len = CBS_len(&compression_methods);
+        client_hello.extensions = CBS_data(&extensions);
+        client_hello.extensions_len = CBS_len(&extensions);
+      }
     }
   }
-
-  // TODO Runner test for ECH acceptance signal to be sent back
 
   uint8_t alert = SSL_AD_DECODE_ERROR;
   if (!extract_sni(hs, &alert, &client_hello)) {
