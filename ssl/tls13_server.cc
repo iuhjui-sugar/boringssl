@@ -186,7 +186,9 @@ static enum ssl_hs_wait_t do_select_parameters(SSL_HANDSHAKE *hs) {
   // the common handshake logic. Resolve the remaining non-PSK parameters.
   SSL *const ssl = hs->ssl;
   SSLMessage msg;
-  if (!ssl->method->get_message(ssl, &msg)) {
+  if (hs->ech_client_hello_msg_present) {
+    msg = hs->ech_client_hello_msg;
+  } else if (!ssl->method->get_message(ssl, &msg)) {
     return ssl_hs_read_message;
   }
   SSL_CLIENT_HELLO client_hello;
@@ -337,7 +339,9 @@ static bool quic_ticket_compatible(const SSL_SESSION *session,
 static enum ssl_hs_wait_t do_select_session(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
   SSLMessage msg;
-  if (!ssl->method->get_message(ssl, &msg)) {
+  if (hs->ech_client_hello_msg_present) {
+    msg = hs->ech_client_hello_msg;
+  } else if (!ssl->method->get_message(ssl, &msg)) {
     return ssl_hs_read_message;
   }
   SSL_CLIENT_HELLO client_hello;
@@ -636,12 +640,27 @@ static enum ssl_hs_wait_t do_read_second_client_hello(SSL_HANDSHAKE *hs) {
 static enum ssl_hs_wait_t do_send_server_hello(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
 
+  RAND_bytes(ssl->s3->server_random, sizeof(ssl->s3->server_random));
+
+  if (hs->ech_accept) {
+    // Compute the ECH accept confirmation signal and overwrite the last 8 bytes
+    // of ServerHello.random.
+    const EVP_MD *digest =
+        ssl_get_handshake_digest(ssl_protocol_version(ssl), hs->new_cipher);
+    if (!tls13_ech_accept_confirmation(
+            digest,
+            bssl::MakeConstSpan(ssl->s3->client_random, SSL3_RANDOM_SIZE),
+            bssl::MakeConstSpan(ssl->s3->server_random, SSL3_RANDOM_SIZE - 8),
+            MakeSpan(ssl->s3->server_random + 24, 8))) {
+      return ssl_hs_error;
+    }
+  }
+
   // Send a ServerHello.
   ScopedCBB cbb;
   CBB body, extensions, session_id;
   if (!ssl->method->init_message(ssl, cbb.get(), &body, SSL3_MT_SERVER_HELLO) ||
       !CBB_add_u16(&body, TLS1_2_VERSION) ||
-      !RAND_bytes(ssl->s3->server_random, sizeof(ssl->s3->server_random)) ||
       !CBB_add_bytes(&body, ssl->s3->server_random, SSL3_RANDOM_SIZE) ||
       !CBB_add_u8_length_prefixed(&body, &session_id) ||
       !CBB_add_bytes(&session_id, hs->session_id, hs->session_id_len) ||
