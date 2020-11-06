@@ -748,6 +748,12 @@ NextCipherSuite:
 		if bytes.Equal(serverHello.random[24:], acceptConfirmation) {
 			hello = innerHello
 			helloBytes = innerHello.marshal()
+
+			if c.config.Bugs.ECHServerMustAcceptOuter {
+				return errors.New("Server accepted the inner ClientHello")
+			}
+		} else if c.config.Bugs.ECHServerMustAcceptInner {
+			return errors.New("Server accepted outer ClientHello")
 		}
 	}
 
@@ -928,6 +934,7 @@ func (c *Conn) insertECH(hello *clientHelloMsg) (innerHelloPtr *clientHelloMsg, 
 
 	// Place an "encrypted_client_hello" extension on the inner ClientHello.
 	innerHello.encryptedClientHello = &encryptedClientHello{empty: true}
+	innerHello.sessionId = hello.sessionId
 	innerHello.raw = nil
 
 	// Compute the configID

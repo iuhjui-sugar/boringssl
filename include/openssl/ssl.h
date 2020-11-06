@@ -4121,10 +4121,28 @@ OPENSSL_EXPORT void SSL_set_jdk11_workaround(SSL *ssl, int enable);
 // connection, such as the ServerName extension.
 //
 // See https://tools.ietf.org/html/draft-ietf-tls-esni-08.
+//
+// Clients:
+//
+//   TODO(dmcardle): Implement the ECH client.
+//
+// Servers:
+//
+//   Servers must register each desired ECHConfig with its corresponding private
+//   key, by repeatedly calling SSL_add_ech_private_key.
 
 // SSL_set_enable_ech_grease configures whether the client may send ECH GREASE
 // as part of this connection.
 OPENSSL_EXPORT void SSL_set_enable_ech_grease(SSL *ssl, int enable);
+
+// SSL_add_ech_private_key adds an ECHConfig in |ech_config| and its
+// corresponding private key in |private_key| to |ssl|. The server uses these
+// keys to decrypt incoming encrypted CHs. The ECHConfig provided in the most
+// recent call to this function are stored as the server's retry keys.
+OPENSSL_EXPORT int SSL_add_ech_private_key(SSL *ssl, const uint8_t *ech_config,
+                                           size_t ech_config_len,
+                                           const uint8_t *private_key,
+                                           size_t private_key_len);
 
 
 // Deprecated functions.
