@@ -16196,7 +16196,11 @@ func addEncryptedClientHelloTests() {
 	}
 
 	echConfigWithSecretMalformed := *echConfigWithSecret1
-	echConfigWithSecretMalformed.raw = []byte{0xba, 0xdd, 0xec, 0xcc}
+	echConfigWithSecretMalformed.raw = []byte{
+		byte(extensionEncryptedClientHello >> 8),
+		byte(extensionEncryptedClientHello & 0xff),
+		0xba, 0xdd, 0xec, 0xcc,
+	}
 
 	echConfigWithSecretAndDupeExtension := *echConfigWithSecret1
 	echConfigWithSecretAndDupeExtension.extensions = []byte{
@@ -16208,8 +16212,14 @@ func addEncryptedClientHelloTests() {
 		0xba, 0xba, 0x00, 0x04, 0xff, 0xff, 0xff, 0xff,
 	}
 
-	// Test ECH-disabled server's handling of a client's ECH. We expect the
-	// outer ClientHello to be accepted.
+	fmt.Printf("SECRET KEY: %x\n", echConfigWithSecret1.secretKey)
+	fmt.Println("ECHCONFIG:")
+	fmt.Println(hex.Dump(echConfigWithSecret1.marshal()))
+
+	// TODO(dmcardle) Test backend server responds to empty ECH extension
+	// with ServerHello.random acceptance signal.
+
+	// Test ECH-enabled server can decrypt client's ECH.
 	testCases = append(testCases, testCase{
 		testType: serverTest,
 		name:     "ECH-Server",
@@ -16219,9 +16229,33 @@ func addEncryptedClientHelloTests() {
 			ServerName: "secret.example",
 			ECHEnabled: true,
 			ECHConfigs: []echConfig{publicEchConfig1},
+			Bugs: ProtocolBugs{
+				ECHServerMustAcceptInner: true,
+			},
 		},
 		flags: []string{
-			"-ech-private-key", fmt.Sprintf("%x", echConfigWithSecret1.secretKey),
+			"-ech-config", base64.StdEncoding.EncodeToString(echConfigWithSecret1.marshal()),
+			"-ech-private-key", base64.StdEncoding.EncodeToString(echConfigWithSecret1.secretKey),
+			"-expect-server-name", "secret.example",
+		},
+	})
+
+	// Test ECH-disabled server's handling of a client's ECH. We expect the
+	// outer ClientHello to be accepted.
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "ECH-Server-Disabled",
+		config: Config{
+			MinVersion: VersionTLS13,
+			MaxVersion: VersionTLS13,
+			ServerName: "secret.example",
+			ECHEnabled: true,
+			ECHConfigs: []echConfig{publicEchConfig1},
+			Bugs: ProtocolBugs{
+				ECHServerMustAcceptOuter: true,
+			},
+		},
+		flags: []string{
 			"-expect-server-name", "public.example",
 		},
 	})
@@ -16237,9 +16271,14 @@ func addEncryptedClientHelloTests() {
 			ServerName: "secret.example",
 			ECHEnabled: true,
 			ECHConfigs: []echConfig{publicEchConfig1},
+			Bugs: ProtocolBugs{
+				ECHServerMustAcceptOuter: true,
+			},
 		},
 		flags: []string{
-			"-ech-private-key", fmt.Sprintf("%x", echConfigWithSecret2.secretKey),
+			"-ech-config", base64.StdEncoding.EncodeToString(echConfigWithSecret2.marshal()),
+			"-ech-private-key", base64.StdEncoding.EncodeToString(echConfigWithSecret2.secretKey),
+			"-expect-server-name", "public.example",
 		},
 	})
 

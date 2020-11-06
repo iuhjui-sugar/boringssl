@@ -740,11 +740,14 @@ static bool ext_ech_parse_serverhello(SSL_HANDSHAKE *hs, uint8_t *out_alert,
     return false;
   }
   while (CBS_len(&ech_configs) > 0) {
-    // Do a top-level parse of the ECHConfig, stopping before ECHConfigContents.
-    uint16_t version;
-    CBS ech_config_contents;
-    if (!CBS_get_u16(&ech_configs, &version) ||
-        !CBS_get_u16_length_prefixed(&ech_configs, &ech_config_contents)) {
+    // TODO(dmcardle) Should this be a toplevel-only parse?
+    bool incompatible_version;
+    UniquePtr<ECHConfig> ech_config =
+        ECHConfig::Parse(&incompatible_version, &ech_configs);
+    if (incompatible_version) {
+      continue;
+    }
+    if (!ech_config) {
       *out_alert = SSL_AD_DECODE_ERROR;
       return false;
     }
