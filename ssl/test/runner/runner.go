@@ -16140,10 +16140,37 @@ func addDelegatedCredentialTests() {
 }
 
 func addEncryptedClientHelloTests() {
-	publicECHConfig, _, err := generateECHConfigWithSecretKey("public.example")
+	publicECHConfig, secretKey, err := generateECHConfigWithSecretKey("public.example")
 	if err != nil {
 		panic(err)
 	}
+	publicECHConfig1, secretKey1, err := generateECHConfigWithSecretKey("public.example")
+	if err != nil {
+		panic(err)
+	}
+
+	// TODO(dmcardle) Test backend server responds to empty ECH extension
+	// with ServerHello.random acceptance signal.
+
+	// Test ECH-enabled server can decrypt client's ECH.
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "ECH-Server",
+		config: Config{
+			MinVersion: VersionTLS13,
+			MaxVersion: VersionTLS13,
+			ServerName: "secret.example",
+			ECHConfigs: []echConfig{*publicECHConfig},
+			Bugs: ProtocolBugs{
+				ECHServerMustAcceptInner: true,
+			},
+		},
+		flags: []string{
+			"-ech-config", base64.StdEncoding.EncodeToString(publicECHConfig.marshal()),
+			"-ech-private-key", base64.StdEncoding.EncodeToString(secretKey),
+			"-expect-server-name", "secret.example",
+		},
+	})
 
 	// Test ECH GREASE.
 
@@ -16157,6 +16184,27 @@ func addEncryptedClientHelloTests() {
 			MaxVersion: VersionTLS13,
 			ServerName: "secret.example",
 			ECHConfigs: []echConfig{*publicECHConfig},
+		},
+	})
+
+	// Test the server's handling of a non-decryptable ECH (equivalent to
+	// GREASE).
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "ECH-Server-GREASE",
+		config: Config{
+			MinVersion: VersionTLS13,
+			MaxVersion: VersionTLS13,
+			ServerName: "secret.example",
+			ECHConfigs: []echConfig{*publicECHConfig},
+			Bugs: ProtocolBugs{
+				ECHServerMustAcceptOuter: true,
+			},
+		},
+		flags: []string{
+			"-ech-config", base64.StdEncoding.EncodeToString(publicECHConfig1.marshal()),
+			"-ech-private-key", base64.StdEncoding.EncodeToString(secretKey1),
+			"-expect-server-name", "public.example",
 		},
 	})
 
