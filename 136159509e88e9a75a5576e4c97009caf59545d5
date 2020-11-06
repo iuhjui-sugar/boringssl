@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b638884_701c026f",
+        "filename": "crypto/asn1/tasn_dec.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 994,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-11-06T19:45:28Z",
+      "side": 1,
+      "message": "(nit: delete space.)",
+      "range": {
+        "startLine": 994,
+        "startChar": 1,
+        "endLine": 994,
+        "endChar": 2
+      },
+      "revId": "136159509e88e9a75a5576e4c97009caf59545d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
