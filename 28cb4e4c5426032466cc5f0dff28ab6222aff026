@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe12e816_db7420ad",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-09T20:01:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "628dd98a_a3dd4182",
+      "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a7334ccb_d6ab17e2",
@@ -31,6 +49,30 @@
       "writtenOn": "2020-11-05T21:26:39Z",
       "side": 1,
       "message": "EVP_HPKE_get_aead returns the AEAD corresponding to |aead_id|, or NULL if |aead_id| is not a known AEAD identifier.\n\n(We do our documentations Go-style, rather than with the subject-less sentences that Google C++ does.)",
+      "range": {
+        "startLine": 222,
+        "startChar": 1,
+        "endLine": 223,
+        "endChar": 59
+      },
+      "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2ba6f58_0d93905c",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-09T20:01:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7334ccb_d6ab17e2",
       "range": {
         "startLine": 222,
         "startChar": 1,
@@ -58,6 +100,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a8ac5f8_3b74e438",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-09T20:01:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a2162d1_c9e0abd4",
+      "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0a64d388_1dae3998",
@@ -71,6 +131,30 @@
       "writtenOn": "2020-11-05T21:26:39Z",
       "side": 1,
       "message": "This doesn\u0027t appear to be used anywhere. (It\u0027s also just a boolean.)",
+      "range": {
+        "startLine": 1570,
+        "startChar": 26,
+        "endLine": 1570,
+        "endChar": 35
+      },
+      "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fee9bec_2c940422",
+        "filename": "ssl/internal.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 1570,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-09T20:01:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a64d388_1dae3998",
       "range": {
         "startLine": 1570,
         "startChar": 26,
@@ -104,6 +188,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb753485_1e8a4bc3",
+        "filename": "ssl/internal.h",
+        "patchSetId": 22
+      },
+      "lineNbr": 2745,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-09T20:01:12Z",
+      "side": 1,
+      "message": "Keeping false by default (in SSL_CONFIG constructor), as we discussed.",
+      "parentUuid": "bf870c47_b8ea291e",
+      "range": {
+        "startLine": 2745,
+        "startChar": 28,
+        "endLine": 2745,
+        "endChar": 29
+      },
+      "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "067aebf6_7378704f",
@@ -121,6 +229,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1facf3d2_be040734",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-09T20:01:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "067aebf6_7378704f",
+      "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f11f6460_4badd9a6",
@@ -134,6 +260,24 @@
       "writtenOn": "2020-11-05T21:26:39Z",
       "side": 1,
       "message": "Randomizing parameters in this way won\u0027t work. It\u0027s a requirement that the first and second ClientHellos are consistent. Making them inconsistent may even result in us breaking future ECH deployments, since how much the server checks is a little unclear.\n\nTake a look at how we do all our other GREASE values. They are all randomized with a consistent per-connection seed.\n\nI probably should write a PR to clarify this in the draft.\n\nTry to think about this whether the spec is right when writing code. Specifications may be wrong, especially drafts. As one of the first implementors, one of our jobs is to look for spec mistakes or ambiguities and fix them. GREASE strategies are especially subtle here. The point is to exercise the expected codepaths in the rest of the ecosystem, but if GREASE triggers the wrong codepaths, we harm the ecosystem rather than support it.",
+      "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a23e5ad1_3a2b1ae5",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 624,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-09T20:01:12Z",
+      "side": 1,
+      "message": "Done. Now using the AES hardware support to determine the AEAD and stashing the other values on |hs|.",
+      "parentUuid": "f11f6460_4badd9a6",
       "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -161,6 +305,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8e4fb84_852f78ce",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 646,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-09T20:01:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b141b14_16319196",
+      "range": {
+        "startLine": 646,
+        "startChar": 27,
+        "endLine": 646,
+        "endChar": 37
+      },
+      "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2216d029_7ed91725",
@@ -178,6 +346,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1b2794b_5969f592",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-09T20:01:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2216d029_7ed91725",
+      "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dadeacf0_b93a73d2",
@@ -191,6 +377,24 @@
       "writtenOn": "2020-11-05T21:26:39Z",
       "side": 1,
       "message": "pre_shared_key depends on the server name and even includes a binder, so it will *never* be in this list. When we discussed where the 13K overestimate came from, we talked about how GREASE should be computed assuming we\u0027re not doing resumption and that you shouldn\u0027t include the pre_shared_key extension at all.",
+      "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b373b4c_cd75c0b2",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 673,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-09T20:01:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dadeacf0_b93a73d2",
       "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -242,6 +446,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8428054e_f8d8bed3",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-09T20:01:12Z",
+      "side": 1,
+      "message": "OK, I\u0027ll just mark each of them as 2 bytes.",
+      "parentUuid": "a2217ff8_7b495329",
+      "range": {
+        "startLine": 672,
+        "startChar": 0,
+        "endLine": 680,
+        "endChar": 57
+      },
+      "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "41e5237a_b23a2fd4",
@@ -255,6 +483,24 @@
       "writtenOn": "2020-11-05T21:26:39Z",
       "side": 1,
       "message": "We may or may not want to compress these extensions anyway (remember we discussed how that\u0027s a bit of an interesting question) and, more importantly, as noted above, this little bit of slop doesn\u0027t matter much.",
+      "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4687727f_6e0114fe",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 689,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-09T20:01:12Z",
+      "side": 1,
+      "message": "Making a note of this, so we don\u0027t leave out the GREASE extensions if we ever revisit this estimate.",
+      "parentUuid": "41e5237a_b23a2fd4",
       "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -282,6 +528,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae2211ff_7a910366",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 696,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-09T20:01:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2dde65ae_538045f6",
+      "range": {
+        "startLine": 696,
+        "startChar": 19,
+        "endLine": 696,
+        "endChar": 29
+      },
+      "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "03711e35_bb8cb2dc",
@@ -299,6 +569,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "76ec04da_da9f69c7",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 703,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-09T20:01:12Z",
+      "side": 1,
+      "message": "As we discussed, now using EVP_AEAD_max_overhead to compute the C/\"ciphertext expansion\" from draft-07 section 6.4.",
+      "parentUuid": "03711e35_bb8cb2dc",
+      "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4dabdf9f_33e12f51",
@@ -312,6 +600,24 @@
       "writtenOn": "2020-11-05T21:26:39Z",
       "side": 1,
       "message": "This seems too complicated. Instead of doing a constexpr computation, just round kMinEncryptedCHLen and kMaxEncryptedCHLen ahead of time. Additionally, rather than all of this, you can simply pick a random value from min/32 to max/32, then multiply by 32.",
+      "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1792f273_ed69dd4d",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 705,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-09T20:01:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4dabdf9f_33e12f51",
       "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -382,6 +688,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "243d9ab1_bfc27287",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 796,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-09T20:01:12Z",
+      "side": 1,
+      "message": "Thanks for the detailed explanation. Deleting this code and adding a comment about this being a top-level parse.",
+      "parentUuid": "c91c967b_f2047523",
+      "range": {
+        "startLine": 796,
+        "startChar": 64,
+        "endLine": 796,
+        "endChar": 76
+      },
+      "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "a165f364_4068e025",
         "filename": "ssl/t1_lib.cc",
         "patchSetId": 22
@@ -420,6 +750,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "11837259_8b3502e9",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 807,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-09T20:01:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c91302b_f771a825",
+      "range": {
+        "startLine": 807,
+        "startChar": 12,
+        "endLine": 807,
+        "endChar": 37
+      },
+      "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2a68c56f_d230a8e2",
@@ -443,6 +797,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b1f95a3_556d0789",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 22
+      },
+      "lineNbr": 812,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-09T20:01:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a68c56f_d230a8e2",
+      "range": {
+        "startLine": 812,
+        "startChar": 12,
+        "endLine": 812,
+        "endChar": 35
+      },
+      "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d2e52fdc_dcf0624c",
@@ -456,6 +834,30 @@
       "writtenOn": "2020-11-04T21:11:38Z",
       "side": 1,
       "message": "Do you think BoGo should check for duplicate extensions? Or is this one of those cases where we only implement what we need to test the C code?",
+      "range": {
+        "startLine": 316,
+        "startChar": 39,
+        "endLine": 316,
+        "endChar": 49
+      },
+      "revId": "28cb4e4c5426032466cc5f0dff28ab6222aff026",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8e2f58c_553432d8",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 22
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-09T20:01:12Z",
+      "side": 1,
+      "message": "Based on the other comment about only doing a top-level parse of the ECHConfigs, I think I can answer my own question with a \"no\".",
+      "parentUuid": "d2e52fdc_dcf0624c",
       "range": {
         "startLine": 316,
         "startChar": 39,
