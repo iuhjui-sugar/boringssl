@@ -1297,35 +1297,35 @@ enum ssl_early_data_reason_t SSL_get_early_data_reason(const SSL *ssl) {
 const char *SSL_early_data_reason_string(enum ssl_early_data_reason_t reason) {
   switch (reason) {
     case ssl_early_data_unknown:
-      return "unknown";
+      return "ssl_early_data_unknown";
     case ssl_early_data_disabled:
-      return "disabled";
+      return "ssl_early_data_disabled";
     case ssl_early_data_accepted:
-      return "accepted";
+      return "ssl_early_data_accepted";
     case ssl_early_data_protocol_version:
-      return "protocol_version";
+      return "ssl_early_data_protocol_version";
     case ssl_early_data_peer_declined:
-      return "peer_declined";
+      return "ssl_early_data_peer_declined";
     case ssl_early_data_no_session_offered:
-      return "no_session_offered";
+      return "ssl_early_data_no_session_offered";
     case ssl_early_data_session_not_resumed:
-      return "session_not_resumed";
+      return "ssl_early_data_session_not_resumed";
     case ssl_early_data_unsupported_for_session:
-      return "unsupported_for_session";
+      return "ssl_early_data_unsupported_for_session";
     case ssl_early_data_hello_retry_request:
-      return "hello_retry_request";
+      return "ssl_early_data_hello_retry_request";
     case ssl_early_data_alpn_mismatch:
-      return "alpn_mismatch";
+      return "ssl_early_data_alpn_mismatch";
     case ssl_early_data_channel_id:
-      return "channel_id";
+      return "ssl_early_data_channel_id";
     case ssl_early_data_token_binding:
-      return "token_binding";
+      return "ssl_early_data_token_binding";
     case ssl_early_data_ticket_age_skew:
-      return "ticket_age_skew";
+      return "ssl_early_data_ticket_age_skew";
     case ssl_early_data_quic_parameter_mismatch:
-      return "quic_parameter_mismatch";
+      return "ssl_early_data_quic_parameter_mismatch";
     case ssl_early_data_alps_mismatch:
-      return "alps_mismatch";
+      return "ssl_early_data_alps_mismatch";
   }
 
   return nullptr;
