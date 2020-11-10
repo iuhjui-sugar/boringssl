@@ -16,6 +16,24 @@
       "message": "Oh oops. I think this alone won\u0027t quite work because some of our tests also use this function and don\u0027t want the prefix. No strong preferences on how we do this. We could...\n\n- Update the test expectations (might upset cross-version tests)\n- Have bssl_shim add the prefix to the flag version before comparing equality\n- Have QUIC add the prefix before returning it",
       "revId": "7d7750754643c7db6575121c03d784c5411a32ab",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a054ae17_c442fd3f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-11-10T16:39:13Z",
+      "side": 1,
+      "message": "Yep, just noticed that runner is using this too. Am trying to switch QUIC to add the prefix instead.",
+      "parentUuid": "5dc3009b_6da8daf7",
+      "revId": "7d7750754643c7db6575121c03d784c5411a32ab",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
