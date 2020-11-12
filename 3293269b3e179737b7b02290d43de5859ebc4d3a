@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b74acba6_0715b058",
+        "filename": "include/openssl/asn1.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-11-12T16:28:55Z",
+      "side": 1,
+      "message": "It happens to be V_ASN1_OCTET_STRING, apparently. But I feel like if anyone actually cares they should use ASN1_OCTET_STRING_new.",
+      "revId": "3293269b3e179737b7b02290d43de5859ebc4d3a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
