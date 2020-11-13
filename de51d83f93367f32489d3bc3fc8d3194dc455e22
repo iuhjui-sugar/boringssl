@@ -70,6 +70,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f575763_9023c05e",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 24
+      },
+      "lineNbr": 4117,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-13T21:38:55Z",
+      "side": 1,
+      "message": "Done. I also moved the function definition in ssl_lib.cc, but I wasn\u0027t 100% sure where to put it.",
+      "parentUuid": "4e9da6a9_06013dd5",
+      "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cbcca6d4_23ed94e8",
@@ -106,6 +124,48 @@
       "writtenOn": "2020-11-12T23:12:39Z",
       "side": 1,
       "message": "We should probably include some text in here like:\n\nECH support in BoringSSL is still experimental and under development.",
+      "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed8abfff_72278834",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 24
+      },
+      "lineNbr": 4121,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-13T21:38:55Z",
+      "side": 1,
+      "message": "Done! Thanks for the context.",
+      "parentUuid": "cbcca6d4_23ed94e8",
+      "range": {
+        "startLine": 4121,
+        "startChar": 27,
+        "endLine": 4121,
+        "endChar": 37
+      },
+      "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d661200b_ddbe2e78",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 24
+      },
+      "lineNbr": 4121,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-13T21:38:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c65b78b6_cdfcd9b7",
       "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -150,6 +210,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "067c36bd_1b86ac92",
+        "filename": "ssl/internal.h",
+        "patchSetId": 24
+      },
+      "lineNbr": 1452,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-13T21:38:55Z",
+      "side": 1,
+      "message": "Yep, that slipped past me. Done.",
+      "parentUuid": "d7360c53_e2278a71",
+      "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c367a470_f5333b84",
@@ -163,6 +241,30 @@
       "writtenOn": "2020-11-12T23:12:39Z",
       "side": 1,
       "message": "ECH doesn\u0027t call these key shares or public keys. It\u0027s enc.\n\nAlso both this and the value above should probably include \"grease\" in the name. They\u0027re not useful for non-GREASE stuff.\n\n(As an aside, Array\u003cT\u003e is... pretty wasteful. It\u0027s 16 bytes plus a malloc. But these values aren\u0027t that much better than 16 bytes to begin with! But this is on the handshake, so I don\u0027t care as much. And not storing it for things that don\u0027t need it is nice. Anyway probably not worth bothering much because we\u0027ll almost certainly target draft-09 and throw this code away.)",
+      "range": {
+        "startLine": 1647,
+        "startChar": 17,
+        "endLine": 1647,
+        "endChar": 34
+      },
+      "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24eb0f75_0ffe0f76",
+        "filename": "ssl/internal.h",
+        "patchSetId": 24
+      },
+      "lineNbr": 1647,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-13T21:38:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c367a470_f5333b84",
       "range": {
         "startLine": 1647,
         "startChar": 17,
@@ -190,6 +292,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c0a49da_f0e2ecff",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-13T21:38:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46e3c3e0_a8124785",
+      "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aa769086_43496c4f",
@@ -203,6 +323,24 @@
       "writtenOn": "2020-11-12T23:12:39Z",
       "side": 1,
       "message": "Remove this, or fix it to match the style. (Though I don\u0027t think this comment is really explaining anything.)",
+      "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfbb8d5f_9889a4db",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-13T21:38:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa769086_43496c4f",
       "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -230,6 +368,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfe713a3_5f440b35",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 621,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-13T21:38:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa6fddc0_39b9be60",
+      "range": {
+        "startLine": 621,
+        "startChar": 22,
+        "endLine": 621,
+        "endChar": 26
+      },
+      "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "15f5b329_9987029a",
@@ -247,6 +409,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d04be50c_0aa1794b",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 627,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-13T21:38:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "15f5b329_9987029a",
+      "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "44e1ef7a_f34a898c",
@@ -260,6 +440,30 @@
       "writtenOn": "2020-11-12T23:12:39Z",
       "side": 1,
       "message": "encrypted_ch doesn\u0027t appear anywhere in the draft. I would say payload, but that\u0027s not right either. (Payload includes the tag.) How about we shorten both this and the following paragraph to:\n\n// To determine a plausible length for the payload, we first estimate the size of a typical EncodedClientHelloInner, with an expected use of outer_extensions. To limit the size, we only consider initial ClientHellos that do not offer resumption.\n\nI think this is enough to introduce the giant table and also explains why we\u0027re not including the PSK extension, which is the only \"why\" bit that we really should be mentioning.",
+      "range": {
+        "startLine": 631,
+        "startChar": 31,
+        "endLine": 631,
+        "endChar": 43
+      },
+      "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a1055de_47c88238",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-13T21:38:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44e1ef7a_f34a898c",
       "range": {
         "startLine": 631,
         "startChar": 31,
@@ -316,6 +520,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "94ad3a3f_eb6dc35b",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 646,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-13T21:38:55Z",
+      "side": 1,
+      "message": "Yes, good catch.",
+      "parentUuid": "89265714_cb77fed9",
+      "range": {
+        "startLine": 646,
+        "startChar": 51,
+        "endLine": 646,
+        "endChar": 53
+      },
+      "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "07a3a2db_ffd5d03d",
@@ -333,6 +561,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2425191b_14840e02",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 647,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-13T21:38:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07a3a2db_ffd5d03d",
+      "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c6457421_2b086e7a",
@@ -346,6 +592,30 @@
       "writtenOn": "2020-11-12T23:12:39Z",
       "side": 1,
       "message": "This is a bit inconsistent about when to number and when to use bullet points. (If you fix the extension overhead computation below, I think everything can be bullet points.)",
+      "range": {
+        "startLine": 653,
+        "startChar": 10,
+        "endLine": 653,
+        "endChar": 12
+      },
+      "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f03a225_7aaf2f5e",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-13T21:38:55Z",
+      "side": 1,
+      "message": "My convention was that I used numbers (starting at 1) when I need to know how many things there were in that list.  But I agree that inlining it is probably easier on the reader.",
+      "parentUuid": "c6457421_2b086e7a",
       "range": {
         "startLine": 653,
         "startChar": 10,
@@ -379,6 +649,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c62cf7d_c4061faa",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-13T21:38:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8ad5a57_0b98ec49",
+      "range": {
+        "startLine": 669,
+        "startChar": 52,
+        "endLine": 669,
+        "endChar": 53
+      },
+      "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3f16f2f0_60dcd8a8",
@@ -396,6 +690,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "093d10dc_5c406bbb",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 689,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-13T21:38:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3f16f2f0_60dcd8a8",
+      "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "81cb869d_f909d0e1",
@@ -409,6 +721,30 @@
       "writtenOn": "2020-11-12T23:12:39Z",
       "side": 1,
       "message": "This won\u0027t give the right range without rounding the values up to a multiple of 32 *first*.",
+      "range": {
+        "startLine": 693,
+        "startChar": 53,
+        "endLine": 693,
+        "endChar": 61
+      },
+      "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8caa2976_28f2fab7",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 693,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-13T21:38:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81cb869d_f909d0e1",
       "range": {
         "startLine": 693,
         "startChar": 53,
@@ -442,6 +778,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f46f29f5_edbcbc36",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-13T21:38:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc7d8ef2_0e8d2437",
+      "range": {
+        "startLine": 697,
+        "startChar": 25,
+        "endLine": 697,
+        "endChar": 28
+      },
+      "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3a30acb5_378f5f13",
@@ -455,6 +815,30 @@
       "writtenOn": "2020-11-12T23:12:39Z",
       "side": 1,
       "message": "One too many spaces",
+      "range": {
+        "startLine": 728,
+        "startChar": 37,
+        "endLine": 728,
+        "endChar": 38
+      },
+      "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c78c20cf_29347935",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-13T21:38:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a30acb5_378f5f13",
       "range": {
         "startLine": 728,
         "startChar": 37,
@@ -482,6 +866,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f55ec426_3baaacbf",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 24
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-13T21:38:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7eb89957_c1362379",
+      "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ca862b32_6665da3a",
@@ -495,6 +897,24 @@
       "writtenOn": "2020-11-12T23:12:39Z",
       "side": 1,
       "message": "Let\u0027s just leave \"public API\" here (not that runner is well-split into a library right now) as just a byte string. Additionally, we ought to be testing things like... if the server gives us an ECHConfig of an unknown version, we don\u0027t explode. That means we need a []byte anyway.\n\nI would also suggest calling this SendECHRetryConfigs and maybe even putting it in ProtocolBugs, not Config. The server should never send retry configs that aren\u0027t its actual configs. But for now, because we\u0027re doing things in a funny order, we\u0027re in that state so it\u0027s a ProtocolBug. (Long-term, I dunno. I could see this going away in favor of the real one, or I could see us retaining this one because we need to test the unknown version.)",
+      "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33fbbaca_1f5584a2",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 24
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-13T21:38:55Z",
+      "side": 1,
+      "message": "I\u0027m adding ProtocolBugs.SendECHRetryConfigs.\n\nThis new SendECHRetryConfigs field means I won\u0027t have to abuse the echConfig.raw field anymore (yay!).\n\nHowever, it seems silly to get rid of the ECHConfigs field. Each test in runner would need to manually serialize its ECHConfigs.\n\nWDYT about keeping the ECHConfigs field?",
+      "parentUuid": "ca862b32_6665da3a",
       "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -522,6 +942,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5beeb87c_a67cb1d3",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 24
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-13T21:38:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94dd9ba1_9140d64e",
+      "range": {
+        "startLine": 321,
+        "startChar": 5,
+        "endLine": 321,
+        "endChar": 25
+      },
+      "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7712f476_e25a5e06",
@@ -535,6 +979,24 @@
       "writtenOn": "2020-11-12T23:12:39Z",
       "side": 1,
       "message": "The business with the raw field is there for the handshake messages because the parse doesn\u0027t capture all the information. We don\u0027t need any of that for this structure. There\u0027s also no need to match the marshal/unmarshal interface because a ClientECH is never encoded standalone. It\u0027s only read from a byteReader and written to a byteBuilder.\n\nFor keyShareEntry and pskIdentity, we didn\u0027t even split them out into functions. Considering ClientECH is parsed in exactly one place and encoded in exactly one place and has just five fields, I think we can just inline it too.",
+      "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9925b30_01f135ce",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 24
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-13T21:38:55Z",
+      "side": 1,
+      "message": "Inlined.",
+      "parentUuid": "7712f476_e25a5e06",
       "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -558,6 +1020,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2ef10931_9edcc693",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 24
+      },
+      "lineNbr": 1386,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-13T21:38:55Z",
+      "side": 1,
+      "message": "Part of the reason I want to keep the echConfig struct around is that the client and server both need to compute the configID, and it\u0027s slightly annoying to do twice.\n\nWDYT about keeping this []echConfig field and an additional []byte field that gets tacked onto the extension body?",
+      "parentUuid": "6ca4cbaa_7f4f8dec",
+      "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "09616e8c_4f1bf59b",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 24
@@ -569,6 +1049,24 @@
       "writtenOn": "2020-11-12T23:12:39Z",
       "side": 1,
       "message": "ECH is complex enough of an extension that I think we should just pull it into its own group.",
+      "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40ef68e2_2f1e2bd9",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 24
+      },
+      "lineNbr": 8291,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-13T21:38:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09616e8c_4f1bf59b",
       "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -596,6 +1094,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "962cc020_fd237dce",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 24
+      },
+      "lineNbr": 8304,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-13T21:38:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "82acacae_7ebb4a65",
+      "range": {
+        "startLine": 8304,
+        "startChar": 47,
+        "endLine": 8304,
+        "endChar": 71
+      },
+      "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1a5fa049_8a590687",
@@ -613,6 +1135,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "96de88da_cbbd8f02",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 24
+      },
+      "lineNbr": 8308,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-13T21:38:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a5fa049_8a590687",
+      "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d015ea47_4161f5ac",
@@ -626,6 +1166,24 @@
       "writtenOn": "2020-11-12T23:12:39Z",
       "side": 1,
       "message": "Also add an expectedError with the shim-side error. That helps target the failure to the right part of the code because alerts are really generic.",
+      "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a15ed0a_791e5e45",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 24
+      },
+      "lineNbr": 8348,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-13T21:38:55Z",
+      "side": 1,
+      "message": "Just changed the alert from decode_error to illegal_parameter as draft-08 specifies and updated the expectedLocalError.\n\nI\u0027m not sure what to put in expectedError. I tried \":ILLEGAL_PARAMETER:\", but it didn\u0027t work. Is ShimConfiguration.ErrorMap never populated unless \"-shim-config\" is specified?\n\nI also tried \"illegal parameter\" hoping for the substring to match stderr, but that didn\u0027t work either.\n\nHow does this part of runTest() work? https://source.chromium.org/chromium/chromium/src/+/master:third_party/boringssl/src/ssl/test/runner/runner.go;l\u003d1584-1585;drc\u003daec1b62b07a4465c3b6747a09ad69c614bc5766b\n\nWhen I run the test, it looks like |stderr| is actually empty.",
+      "parentUuid": "d015ea47_4161f5ac",
       "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
