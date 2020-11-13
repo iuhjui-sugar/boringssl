@@ -204,8 +204,10 @@ const Flag<std::string> kBase64Flags[] = {
     {"-quic-transport-params", &TestConfig::quic_transport_params},
     {"-expect-quic-transport-params",
      &TestConfig::expect_quic_transport_params},
-    {"-ech-config", &TestConfig::ech_config},
-    {"-ech-private-key", &TestConfig::ech_private_key},
+    {"-ech-configs", &TestConfig::ech_configs},
+    {"-ech-config-server", &TestConfig::ech_config_server},
+    {"-ech-config-server-private-key",
+     &TestConfig::ech_config_server_private_key},
 };
 
 const Flag<int> kIntFlags[] = {
@@ -1582,12 +1584,21 @@ bssl::UniquePtr<SSL> TestConfig::NewSSL(
   if (enable_ech_grease) {
     SSL_set_enable_ech_grease(ssl.get(), 1);
   }
-  if (!ech_config.empty() && !ech_private_key.empty()) {
+  if (!ech_configs.empty()) {
+    if (!SSL_set_ech_configs(
+            ssl.get(), reinterpret_cast<const uint8_t *>(ech_configs.data()),
+            ech_configs.size())) {
+      return nullptr;
+    }
+  }
+  if (!ech_config_server.empty() && !ech_config_server_private_key.empty()) {
     if (!SSL_add_ech_private_key(
-            ssl.get(), reinterpret_cast<const uint8_t *>(ech_config.data()),
-            ech_config.size(),
-            reinterpret_cast<const uint8_t *>(ech_private_key.data()),
-            ech_private_key.size())) {
+            ssl.get(),
+            reinterpret_cast<const uint8_t *>(ech_config_server.data()),
+            ech_config_server.size(),
+            reinterpret_cast<const uint8_t *>(
+                ech_config_server_private_key.data()),
+            ech_config_server_private_key.size())) {
       return nullptr;
     }
   }

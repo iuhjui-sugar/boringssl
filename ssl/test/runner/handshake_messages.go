@@ -8,6 +8,7 @@ import (
 	"bytes"
 	"crypto"
 	"encoding/binary"
+	"encoding/hex"
 	"errors"
 	"fmt"
 
@@ -434,6 +435,11 @@ func (e *clientECH) trialDecrypt(configs []ServerECHConfig, chOuterBytes []byte)
 	}
 
 	hrrKey = ctx.Export([]byte("tls ech hrr key"), 16)
+
+	// Add a bogus message header before unmarshalling.
+	chInnerBytes = append([]byte{0, 0, 0, 0}, chInnerBytes...)
+	fmt.Println("chInnerBytes")
+	fmt.Println(hex.Dump(chInnerBytes))
 
 	var chInnerTmp clientHelloMsg
 	if !chInnerTmp.unmarshal(chInnerBytes) {
@@ -1205,6 +1211,10 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 				}
 			}
 		case extensionEncryptedClientHello:
+			if len(body) == 0 {
+				m.clientECH = &clientECH{empty: true}
+				continue
+			}
 			var ech clientECH
 			if !body.readU16(&ech.hpkeKDF) ||
 				!body.readU16(&ech.hpkeAEAD) ||
@@ -1847,8 +1857,7 @@ func (m *serverExtensions) marshal(extensions *byteBuilder) {
 	if len(m.echRetryConfigs) > 0 {
 		extensions.addU16(extensionEncryptedClientHello)
 		body := extensions.addU16LengthPrefixed()
-		echConfigs := body.addU16LengthPrefixed()
-		echConfigs.addBytes(m.echRetryConfigs)
+		body.addBytes(m.echRetryConfigs)
 	}
 }
 
