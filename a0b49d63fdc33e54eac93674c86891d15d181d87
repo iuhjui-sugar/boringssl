@@ -170,6 +170,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f17a054a_b8674192",
+        "filename": "crypto/fipsmodule/sha/asm/sha512-armv8.pl",
+        "patchSetId": 5
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2020-11-13T21:23:56Z",
+      "side": 1,
+      "message": "This is currently within the `if ($SZ\u003d\u003d4)` condition. Shouldn\u0027t this be moved to outside that condition? Otherwise it would be skipped in the definition of the SHA512 version.",
+      "range": {
+        "startLine": 188,
+        "startChar": 0,
+        "endLine": 188,
+        "endChar": 26
+      },
+      "revId": "a0b49d63fdc33e54eac93674c86891d15d181d87",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d486291a_210ff7a2",
         "filename": "include/openssl/arm_arch.h",
         "patchSetId": 5
