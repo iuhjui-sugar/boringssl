@@ -731,10 +731,12 @@ static bool ext_ech_add_clienthello(SSL_HANDSHAKE *hs, CBB *out) {
   if (hs->max_version < TLS1_3_VERSION) {
     return true;
   }
-  if (hs->config->ech_grease_enabled) {
-    return ext_ech_add_clienthello_grease(hs, out);
+  if (hs->ssl->ech_configs.empty() && hs->config->ech_grease_enabled) {
+    if (!ext_ech_add_clienthello_grease(hs, out)) {
+      return false;
+    }
+    return true;
   }
-  // Nothing to do, since we don't yet implement the non-GREASE parts of ECH.
   return true;
 }
 
