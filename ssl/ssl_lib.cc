@@ -1467,13 +1467,6 @@ const char *SSL_error_description(int err) {
   }
 }
 
-void SSL_set_enable_ech_grease(SSL *ssl, int enable) {
-  if (!ssl->config) {
-    return;
-  }
-  ssl->config->ech_grease_enabled = !!enable;
-}
-
 uint32_t SSL_CTX_set_options(SSL_CTX *ctx, uint32_t options) {
   ctx->options |= options;
   return ctx->options;
@@ -2182,6 +2175,26 @@ int SSL_CTX_set_tlsext_servername_callback(
 
 int SSL_CTX_set_tlsext_servername_arg(SSL_CTX *ctx, void *arg) {
   ctx->servername_arg = arg;
+  return 1;
+}
+
+void SSL_set_enable_ech_grease(SSL *ssl, int enable) {
+  if (!ssl->config) {
+    return;
+  }
+  ssl->config->ech_grease_enabled = !!enable;
+}
+
+int SSL_set_ech_configs(SSL *ssl, const uint8_t *ech_configs, size_t ech_configs_len) {
+  CBS reader(MakeConstSpan(ech_configs, ech_configs_len));
+  while (CBS_len(&reader) > 0) {
+    bool incompatible_version;
+    bssl::UniquePtr<bssl::ECHConfig> parsed_config =
+        bssl::ECHConfig::Parse(&incompatible_version, &reader);
+    if (!parsed_config || !ssl->ech_configs.Push(std::move(*parsed_config))) {
+      return 0;
+    }
+  }
   return 1;
 }
 

@@ -3569,6 +3569,14 @@ OPENSSL_EXPORT const char *SSL_early_data_reason_string(
 // as part of this connection.
 OPENSSL_EXPORT void SSL_set_enable_ech_grease(SSL *ssl, int enable);
 
+// SSL_set_ech_configs takes a sequence of ECHConfig structures serialized in
+// |ech_configs| and selects one to use for connections to the server. If none
+// of the ECHConfigs are suitable, this function disables ECH for |ssl| and
+// returns false. When retrying with new ECHConfigs, this function should be
+// called on a new SSL object with the results of SSL_get_ech_retry_configs.
+OPENSSL_EXPORT int SSL_set_ech_configs(SSL *ssl, const uint8_t *ech_configs,
+                                       size_t ech_configs_len);
+
 // SSL_add_ech_private_key adds an ECHConfig in |ech_config| and its
 // corresponding private key in |private_key| to |ssl|. The server uses these
 // keys to decrypt incoming encrypted CHs. The ECHConfig provided in the most
