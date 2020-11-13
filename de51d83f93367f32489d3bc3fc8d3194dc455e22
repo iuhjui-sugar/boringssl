@@ -35,6 +35,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f70659e_d50de95b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-11-13T19:38:40Z",
+      "side": 1,
+      "message": "(Oops, ignore this. Hotkeys get very confused while I was typing a word.)",
+      "parentUuid": "35b06216_70b95fb9",
+      "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4e9da6a9_06013dd5",
