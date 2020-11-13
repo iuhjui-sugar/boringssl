@@ -13,6 +13,7 @@ import (
 	"crypto/rsa"
 	"crypto/subtle"
 	"crypto/x509"
+	"encoding/hex"
 	"errors"
 	"fmt"
 	"io"
@@ -35,7 +36,7 @@ type serverHandshakeState struct {
 	certsFromClient [][]byte
 	cert            *Certificate
 	finishedBytes   []byte
-	echRetryConfigs []echConfig
+	echRetryConfigs []byte
 	echAccepted     bool
 }
 
@@ -160,6 +161,10 @@ func (hs *serverHandshakeState) readClientHello() error {
 
 	var echCheckTLS13 bool
 
+	if len(config.ServerECHConfigs) > 0 && len(config.ECHConfigs) > 0 {
+		panic("config specified both ServerECHConfigs and ECHConfigs")
+	}
+
 	// Before we do anything with |hs.clientHello|, check if it should be
 	// replaced by ECH.
 	if len(config.ServerECHConfigs) > 0 && hs.clientHello.clientECH != nil {
@@ -172,18 +177,17 @@ func (hs *serverHandshakeState) readClientHello() error {
 			// a TLS version.
 			echCheckTLS13 = true
 
-			candidateECHConfigs := config.ECHConfigs
+			candidateECHConfigs := config.ServerECHConfigs
 
 			// Eliminate candidate ECHConfigs based on the record digest.
-			chosenConfig, err := ech.findMatchingConfig(config.ECHConfigs)
+			chosenConfig, err := ech.findMatchingConfig(candidateECHConfigs)
 			if err == nil {
-				candidateECHConfigs = []echConfig{*chosenConfig}
+				candidateECHConfigs = []serverECHConfig{*chosenConfig}
 			}
 
 			// Trial decrypt with each of the candidate ECHConfigs.
 			chInner, hrrKey, decryptSuccess, err := ech.trialDecrypt(candidateECHConfigs, hs.clientHello.raw)
 			if err != nil {
-
 				c.sendAlert(alertDecryptError)
 				return fmt.Errorf("error while attempting to decrypt ECH: %s", err)
 			}
@@ -194,15 +198,19 @@ func (hs *serverHandshakeState) readClientHello() error {
 			if decryptSuccess {
 				hs.echAccepted = true
 
+				chOuter := hs.clientHello
+
 				// Replace the outer CH with the decrypted inner CH.
 				hs.clientHello = chInner
+				// Copy the legacy_session_id field from ClientHelloOuter.
+				hs.clientHello.sessionId = chOuter.sessionId
 				hs.clientHello.raw = nil
 
 				// TODO(dmcardle): Save the hrrKey
 				_ = hrrKey
 
 			} else {
-				hs.echRetryConfigs = config.ECHConfigs
+				hs.echRetryConfigs = config.Bugs.SendECHRetryConfigs
 			}
 		}
 	}
@@ -491,12 +499,21 @@ func (hs *serverHandshakeState) doTLS13Handshake() error {
 		hs.hello.cipherSuite = c.config.Bugs.SendCipherSuite
 	}
 
+	if hs.echAccepted && c.config.Bugs.ECHServerMustAcceptOuter {
+		return errors.New("Server accepted the inner ClientHello")
+	}
+	if !hs.echAccepted && c.config.Bugs.ECHServerMustAcceptInner {
+		return errors.New("Server accepted the outer ClientHello")
+	}
+
 	// Overwrite part of ServerHello.random to signal ECH acceptance to the client.
 	if hs.echAccepted {
 		acceptConfirmation, err := echServerAcceptConfirmation(hs.suite.hash(), hs.clientHello.random, hs.hello.random[0:24])
 		if err != nil {
 			return err
 		}
+		fmt.Println("acceptConfirmation")
+		fmt.Println(hex.Dump(acceptConfirmation))
 		copy(hs.hello.random[24:], acceptConfirmation)
 	}
 
@@ -1447,7 +1464,7 @@ func (hs *serverHandshakeState) processClientExtensions(serverExtensions *server
 		hs.cert = config.getCertificateForName(hs.clientHello.serverName)
 	}
 	if expected := c.config.Bugs.ExpectServerName; expected != "" && expected != hs.clientHello.serverName {
-		return errors.New("tls: unexpected server name")
+		return fmt.Errorf("tls: unexpected server name: expected \"%s\", got \"%s\"", expected, hs.clientHello.serverName)
 	}
 
 	if cert := config.Bugs.RenegotiationCertificate; c.cipherSuite != nil && cert != nil {

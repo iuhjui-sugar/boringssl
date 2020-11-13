@@ -16140,6 +16140,15 @@ func addDelegatedCredentialTests() {
 }
 
 func addEncryptedClientHelloTests() {
+	marshalECHConfigsFunc := func(configs ...*echConfig) []byte {
+		bb := newByteBuilder()
+		body := bb.addU16LengthPrefixed()
+		for _, config := range configs {
+			body.addBytes(config.marshal())
+		}
+		return bb.finish()
+	}
+
 	publicECHConfig, secretKey, err := generateECHConfigWithSecretKey("public.example")
 	if err != nil {
 		panic(err)
@@ -16148,6 +16157,57 @@ func addEncryptedClientHelloTests() {
 	if err != nil {
 		panic(err)
 	}
+
+	testCases = append(testCases, testCase{
+		testType: clientTest,
+		name:     "ECH-Client",
+		config: Config{
+			MinVersion: VersionTLS13,
+			MaxVersion: VersionTLS13,
+			ServerECHConfigs: []serverECHConfig{
+				{
+					config:    *publicECHConfig,
+					secretKey: secretKey,
+				},
+			},
+			Bugs: ProtocolBugs{
+				ExpectServerName:         "secret.example",
+				ECHServerMustAcceptInner: true,
+			},
+		},
+		flags: []string{
+			"-ech-configs", base64.StdEncoding.EncodeToString(marshalECHConfigsFunc(publicECHConfig)),
+			"-host-name", "secret.example",
+		},
+	})
+
+	testCases = append(testCases, testCase{
+		testType: clientTest,
+		name:     "ECH-Client-RetryConfigs",
+		config: Config{
+			MinVersion: VersionTLS13,
+			MaxVersion: VersionTLS13,
+			ServerECHConfigs: []serverECHConfig{
+				{
+					config:    *publicECHConfig1,
+					secretKey: secretKey1,
+				},
+			},
+			Bugs: ProtocolBugs{
+				ExpectServerName:    "public.example",
+				SendECHRetryConfigs: marshalECHConfigsFunc(publicECHConfig1),
+
+				// TODO(dmcardle) this test should check that the client tells
+				// the caller that it needs to retry the connection, and that it
+				// received retry keys.
+
+			},
+		},
+		flags: []string{
+			"-ech-configs", base64.StdEncoding.EncodeToString(marshalECHConfigsFunc(publicECHConfig)),
+			"-host-name", "secret.example",
+		},
+	})
 
 	// TODO(dmcardle) Test backend server responds to empty ECH extension
 	// with ServerHello.random acceptance signal.
@@ -16166,8 +16226,8 @@ func addEncryptedClientHelloTests() {
 			},
 		},
 		flags: []string{
-			"-ech-config", base64.StdEncoding.EncodeToString(publicECHConfig.marshal()),
-			"-ech-private-key", base64.StdEncoding.EncodeToString(secretKey),
+			"-ech-config-server", base64.StdEncoding.EncodeToString(publicECHConfig.marshal()),
+			"-ech-config-server-private-key", base64.StdEncoding.EncodeToString(secretKey),
 			"-expect-server-name", "secret.example",
 		},
 	})
@@ -16202,8 +16262,8 @@ func addEncryptedClientHelloTests() {
 			},
 		},
 		flags: []string{
-			"-ech-config", base64.StdEncoding.EncodeToString(publicECHConfig1.marshal()),
-			"-ech-private-key", base64.StdEncoding.EncodeToString(secretKey1),
+			"-ech-config-server", base64.StdEncoding.EncodeToString(publicECHConfig1.marshal()),
+			"-ech-config-server-private-key", base64.StdEncoding.EncodeToString(secretKey1),
 			"-expect-server-name", "public.example",
 		},
 	})
@@ -16262,6 +16322,13 @@ func addEncryptedClientHelloTests() {
 		0x05, 0x04, 0x03, 0x02, 0x01,
 	}
 
+	// retryConfigsMixed is serialized ECHConfigs that contains one valid retry
+	// config and one with an invalid version.
+	retryConfigsMixed := newByteBuilder()
+	retryConfigsMixedBody := retryConfigsMixed.addU16LengthPrefixed()
+	retryConfigsMixedBody.addBytes(retryConfigValid.marshal())
+	retryConfigsMixedBody.addBytes(retryConfigUnsupportedVersion)
+
 	// Test that the client accepts a well-formed encrypted_client_hello
 	// extension in response to ECH GREASE. The response includes one ECHConfig
 	// with a supported version and one with an unsupported version.
@@ -16275,7 +16342,7 @@ func addEncryptedClientHelloTests() {
 				// Include an additional well-formed ECHConfig with an invalid
 				// version. This ensures the client can iterate over the retry
 				// configs.
-				SendECHRetryConfigs: append(retryConfigValid.marshal(), retryConfigUnsupportedVersion...),
+				SendECHRetryConfigs: retryConfigsMixed.finish(),
 			},
 		},
 		flags: []string{"-enable-ech-grease"},

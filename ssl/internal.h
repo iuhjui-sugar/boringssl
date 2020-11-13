@@ -1555,6 +1555,53 @@ struct DC {
 // handshake.
 bool ssl_signing_with_dc(const SSL_HANDSHAKE *hs);
 
+class ECHConfig {
+ public:
+  struct ECHCipherSuite {
+    uint16_t kdf_id;
+    uint16_t aead_id;
+  };
+
+  ECHConfig() = default;
+  ECHConfig(ECHConfig &&other) = default;
+  ~ECHConfig() = default;
+  ECHConfig &operator=(ECHConfig &&) = default;
+
+  ECHConfig(const ECHConfig &) = delete;
+  ECHConfig &operator=(const ECHConfig &) = delete;
+
+  static UniquePtr<ECHConfig> Parse(bool *out_incompatible_version,
+                                    CBS *reader);
+  bool Serialize(CBB *out) const;
+
+  // |out| must be at least |EVP_MD_size(md)| bytes.
+  bool ComputeConfigID(Span<uint8_t> out, size_t *out_len,
+                       const EVP_MD *md) const;
+
+  Span<const uint8_t> public_name() const { return public_name_; }
+  Span<const uint8_t> public_key() const { return public_key_; }
+  uint16_t kem_id() const { return kem_id_; }
+  const Array<ECHCipherSuite> &cipher_suites() const { return cipher_suites_; }
+  uint16_t max_name_length() const { return max_name_length_; }
+  Span<const uint8_t> secret_key() const { return secret_key_; }
+
+  void set_secret_key(Span<const uint8_t> secret_key) {
+    secret_key_.CopyFrom(secret_key);
+  }
+
+  static constexpr bool kAllowUniquePtr = true;
+
+ private:
+  Array<uint8_t> public_name_;
+  Array<uint8_t> public_key_;
+  uint16_t kem_id_;
+  Array<ECHCipherSuite> cipher_suites_;
+  uint16_t max_name_length_;
+
+  // secret_key is the key corresponding to |public_key|. For clients, it must
+  // be empty. For servers, it must be a valid key.
+  Array<uint8_t> secret_key_;
+};
 
 struct SSL_HANDSHAKE {
   explicit SSL_HANDSHAKE(SSL *ssl);
@@ -1651,6 +1698,17 @@ struct SSL_HANDSHAKE {
   // ech_grease contains the bytes of the GREASE ECH extension that was sent in
   // the first ClientHello.
   Array<uint8_t> ech_grease;
+
+  // ech_retry_configs contains a serialized ECHConfigs structure provided by
+  // the server.
+  Array<uint8_t> ech_retry_configs;
+
+  // ech_sent indicates for the client whether an ECH was sent to the server.
+  bool ech_sent = false;
+
+  // ech_config is the config selected by the client. It is only used by the
+  // client.
+  const ECHConfig* ech_config = nullptr;
 
   bool ech_client_hello_msg_present = false;
   Array<uint8_t> ech_client_hello_buf;
@@ -2794,54 +2852,6 @@ struct SSL_CONFIG {
   // jdk11_workaround is whether to disable TLS 1.3 for JDK 11 clients, as a
   // workaround for https://bugs.openjdk.java.net/browse/JDK-8211806.
   bool jdk11_workaround : 1;
-};
-
-class ECHConfig {
- public:
-  struct ECHCipherSuite {
-    uint16_t kdf_id;
-    uint16_t aead_id;
-  };
-
-  ECHConfig() = default;
-  ECHConfig(ECHConfig &&other) = default;
-  ~ECHConfig() = default;
-  ECHConfig &operator=(ECHConfig &&) = default;
-
-  ECHConfig(const ECHConfig &) = delete;
-  ECHConfig &operator=(const ECHConfig &) = delete;
-
-  static UniquePtr<ECHConfig> Parse(bool *out_incompatible_version,
-                                    CBS *reader);
-  bool Serialize(CBB *out) const;
-
-  // |out| must be at least |EVP_MD_size(md)| bytes.
-  bool ComputeConfigID(Span<uint8_t> out, size_t *out_len,
-                       const EVP_MD *md) const;
-
-  Span<const uint8_t> public_name() const { return public_name_; }
-  Span<const uint8_t> public_key() const { return public_key_; }
-  uint16_t kem_id() const { return kem_id_; }
-  const Array<ECHCipherSuite> &cipher_suites() const { return cipher_suites_; }
-  uint16_t max_name_length() const { return max_name_length_; }
-  Span<const uint8_t> secret_key() const { return secret_key_; }
-
-  void set_secret_key(Span<const uint8_t> secret_key) {
-    secret_key_.CopyFrom(secret_key);
-  }
-
-  static constexpr bool kAllowUniquePtr = true;
-
- private:
-  Array<uint8_t> public_name_;
-  Array<uint8_t> public_key_;
-  uint16_t kem_id_;
-  Array<ECHCipherSuite> cipher_suites_;
-  uint16_t max_name_length_;
-
-  // secret_key is the key corresponding to |public_key|. For clients, it must
-  // be empty. For servers, it must be a valid key.
-  Array<uint8_t> secret_key_;
 };
 
 // From RFC 8446, used in determining PSK modes.

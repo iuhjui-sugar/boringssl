@@ -8,6 +8,7 @@ import (
 	"bytes"
 	"crypto"
 	"encoding/binary"
+	"encoding/hex"
 	"errors"
 	"fmt"
 
@@ -438,7 +439,7 @@ func (e *clientECH) unmarshal(data []byte) bool {
 	return true
 }
 
-func (e *clientECH) findMatchingConfig(configs []echConfig) (*echConfig, error) {
+func (e *clientECH) findMatchingConfig(configs []serverECHConfig) (*serverECHConfig, error) {
 	hash, err := hpke.GetHash(e.hpkeKDF)
 	if err != nil {
 		return nil, err
@@ -447,7 +448,7 @@ func (e *clientECH) findMatchingConfig(configs []echConfig) (*echConfig, error) 
 	// Find the ECHConfig in |configs| based on |configID|.
 	if len(e.configID) > 0 {
 		for _, candidate := range configs {
-			configID, err := candidate.configID(hash)
+			configID, err := candidate.config.configID(hash)
 			if err != nil {
 				return nil, err
 			}
@@ -459,7 +460,7 @@ func (e *clientECH) findMatchingConfig(configs []echConfig) (*echConfig, error) 
 	return nil, errors.New("no matching echConfig")
 }
 
-func (e *clientECH) trialDecrypt(configs []echConfig, chOuterBytes []byte) (chInner *clientHelloMsg, hrrKey []byte, decryptSuccess bool, err error) {
+func (e *clientECH) trialDecrypt(configs []serverECHConfig, chOuterBytes []byte) (chInner *clientHelloMsg, hrrKey []byte, decryptSuccess bool, err error) {
 	chOuterAAD, err := clientHelloRemoveECH(chOuterBytes)
 	if err != nil {
 		return nil, nil, false, fmt.Errorf("ech failed to remove ECH extension: %s", err)
@@ -468,20 +469,23 @@ func (e *clientECH) trialDecrypt(configs []echConfig, chOuterBytes []byte) (chIn
 
 	var ctx *hpke.Context
 	var chInnerBytes []byte
-	for _, config := range configs {
-		if len(config.secretKey) == 0 {
+	for _, serverConfig := range configs {
+		if len(serverConfig.secretKey) == 0 {
 			panic("ech misconfiguration: echConfig missing secretKey")
 		}
 
 		info := newByteBuilder()
 		info.addBytes([]byte("tls ech"))
 		info.addU8(0x00)
-		info.addBytes(config.marshal())
+		info.addBytes(serverConfig.config.marshal())
 
-		ctx, err = hpke.SetupBaseReceiverX25519(e.hpkeKDF, e.hpkeAEAD, e.enc, config.secretKey, info.finish())
+		ctx, err = hpke.SetupBaseReceiverX25519(e.hpkeKDF, e.hpkeAEAD, e.enc, serverConfig.secretKey, info.finish())
 		if err != nil {
 			return nil, nil, false, err
 		}
+
+		fmt.Println("chOuterAAD")
+		fmt.Println(hex.Dump(chOuterAAD))
 
 		// Attempt to decrypt the ECH payload with this config. If
 		// decryption failed, just try the next config.
@@ -501,6 +505,11 @@ func (e *clientECH) trialDecrypt(configs []echConfig, chOuterBytes []byte) (chIn
 	}
 
 	hrrKey = ctx.Export([]byte("tls ech hrr key"), 16)
+
+	// Add a bogus message header before unmarshalling.
+	chInnerBytes = append([]byte{0, 0, 0, 0}, chInnerBytes...)
+	fmt.Println("chInnerBytes")
+	fmt.Println(hex.Dump(chInnerBytes))
 
 	var chInnerTmp clientHelloMsg
 	if !chInnerTmp.unmarshal(chInnerBytes) {
@@ -1272,6 +1281,10 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 				}
 			}
 		case extensionEncryptedClientHello:
+			if len(body) == 0 {
+				m.clientECH = &clientECH{empty: true}
+				continue
+			}
 			var ech clientECH
 			if !body.readU16(&ech.hpkeKDF) ||
 				!body.readU16(&ech.hpkeAEAD) ||
@@ -1914,8 +1927,7 @@ func (m *serverExtensions) marshal(extensions *byteBuilder) {
 	if len(m.echRetryConfigs) > 0 {
 		extensions.addU16(extensionEncryptedClientHello)
 		body := extensions.addU16LengthPrefixed()
-		echConfigs := body.addU16LengthPrefixed()
-		echConfigs.addBytes(m.echRetryConfigs)
+		body.addBytes(m.echRetryConfigs)
 	}
 }
 

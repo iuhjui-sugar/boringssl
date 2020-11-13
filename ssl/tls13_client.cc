@@ -488,6 +488,52 @@ static enum ssl_hs_wait_t do_read_encrypted_extensions(SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
+  if (hs->ech_sent) {
+    // Compute the accept_confirmation and compare to the last 8 bytes of
+    // ServerHello.random.
+    uint8_t accept_confirmation_buf[8];
+    Span<uint8_t> accept_confirmation(accept_confirmation_buf,
+                                      sizeof(accept_confirmation_buf));
+    // Compute the ECH accept confirmation signal and overwrite the last 8 bytes
+    // of ServerHello.random.
+    if (!tls13_ech_accept_confirmation(
+            ssl_get_handshake_digest(ssl_protocol_version(ssl), hs->new_cipher),
+            bssl::MakeConstSpan(ssl->s3->client_random, SSL3_RANDOM_SIZE),
+            bssl::MakeConstSpan(ssl->s3->server_random, SSL3_RANDOM_SIZE - 8),
+            accept_confirmation)) {
+      return ssl_hs_error;
+    }
+
+    PrintHexdump("accept_confirmation", accept_confirmation);
+    PrintHexdump(
+        "server random",
+        MakeConstSpan(ssl->s3->server_random, sizeof(ssl->s3->server_random)));
+
+    const bool server_accepted_ech =
+        accept_confirmation == MakeConstSpan(ssl->s3->server_random + 24, 8);
+
+    if (!server_accepted_ech) {
+      bool found_compatible_config = false;
+      // Parse the ECH retry configs.
+      CBS ech_configs(hs->ech_retry_configs);
+      while (CBS_len(&ech_configs) > 0) {
+        bool incompatible_version;
+        UniquePtr<ECHConfig> parsed_config =
+            ECHConfig::Parse(&incompatible_version, &ech_configs);
+        if (parsed_config && !incompatible_version) {
+          found_compatible_config = true;
+        }
+      }
+
+      // TODO(dmcardle): Send "ech_required" alert
+      ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_UNEXPECTED_MESSAGE);
+      ssl->s3->rwstate = found_compatible_config
+                             ? SSL_ERROR_ECH_NOT_ACCEPTED
+                             : SSL_ERROR_ECH_NO_RETRY_CONFIGS;
+      return ssl_hs_error;
+    }
+  }
+
   if (ssl->s3->early_data_accepted) {
     if (hs->early_session->cipher != hs->new_session->cipher) {
       OPENSSL_PUT_ERROR(SSL, SSL_R_CIPHER_MISMATCH_ON_EARLY_DATA);
@@ -863,6 +909,9 @@ enum ssl_hs_wait_t tls13_client_handshake(SSL_HANDSHAKE *hs) {
     enum ssl_hs_wait_t ret = ssl_hs_error;
     enum client_hs_state_t state =
         static_cast<enum client_hs_state_t>(hs->tls13_state);
+
+    printf("*** ENTERING TLS13 STATE %s\n", tls13_client_handshake_state(hs));
+
     switch (state) {
       case state_read_hello_retry_request:
         ret = do_read_hello_retry_request(hs);
