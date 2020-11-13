@@ -16216,6 +16216,25 @@ func addEncryptedClientHelloTests() {
 	fmt.Println("ECHCONFIG:")
 	fmt.Println(hex.Dump(echConfigWithSecret1.marshal()))
 
+	testCases = append(testCases, testCase{
+		testType: clientTest,
+		name:     "ECH-Client",
+		config: Config{
+			MinVersion: VersionTLS13,
+			MaxVersion: VersionTLS13,
+			ECHEnabled: true,
+			ECHConfigs: []echConfig{*echConfigWithSecret1},
+			Bugs: ProtocolBugs{
+				ExpectServerName:         "secret.example",
+				ECHServerMustAcceptInner: true,
+			},
+		},
+		flags: []string{
+			"-ech-configs", base64.StdEncoding.EncodeToString(publicEchConfig1.marshal()),
+			"-host-name", "secret.example",
+		},
+	})
+
 	// TODO(dmcardle) Test backend server responds to empty ECH extension
 	// with ServerHello.random acceptance signal.
 
@@ -16234,8 +16253,8 @@ func addEncryptedClientHelloTests() {
 			},
 		},
 		flags: []string{
-			"-ech-config", base64.StdEncoding.EncodeToString(echConfigWithSecret1.marshal()),
-			"-ech-private-key", base64.StdEncoding.EncodeToString(echConfigWithSecret1.secretKey),
+			"-ech-config-server", base64.StdEncoding.EncodeToString(echConfigWithSecret1.marshal()),
+			"-ech-config-server-private-key", base64.StdEncoding.EncodeToString(echConfigWithSecret1.secretKey),
 			"-expect-server-name", "secret.example",
 		},
 	})
@@ -16276,8 +16295,8 @@ func addEncryptedClientHelloTests() {
 			},
 		},
 		flags: []string{
-			"-ech-config", base64.StdEncoding.EncodeToString(echConfigWithSecret2.marshal()),
-			"-ech-private-key", base64.StdEncoding.EncodeToString(echConfigWithSecret2.secretKey),
+			"-ech-config-server", base64.StdEncoding.EncodeToString(echConfigWithSecret2.marshal()),
+			"-ech-config-server-private-key", base64.StdEncoding.EncodeToString(echConfigWithSecret2.secretKey),
 			"-expect-server-name", "public.example",
 		},
 	})

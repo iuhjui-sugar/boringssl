@@ -2188,6 +2188,19 @@ void SSL_set_enable_ech_grease(SSL *ssl, int enable) {
   ssl->config->ech_grease_enabled = !!enable;
 }
 
+int SSL_set_ech_configs(SSL *ssl, const uint8_t *ech_configs, size_t ech_configs_len) {
+  CBS reader(MakeConstSpan(ech_configs, ech_configs_len));
+  while (CBS_len(&reader) > 0) {
+    bool incompatible_version;
+    bssl::UniquePtr<bssl::ECHConfig> parsed_config =
+        bssl::ECHConfig::Parse(&incompatible_version, &reader);
+    if (!parsed_config || !ssl->ech_configs.Push(std::move(*parsed_config))) {
+      return 0;
+    }
+  }
+  return 1;
+}
+
 int SSL_add_ech_private_key(SSL *ssl, const uint8_t *ech_config,
                             size_t ech_config_len, const uint8_t *private_key,
                             size_t private_key_len) {

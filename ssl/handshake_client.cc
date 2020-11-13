@@ -167,6 +167,7 @@
 #include <openssl/rand.h>
 #include <openssl/sha.h>
 
+#include "../crypto/hpke/internal.h"
 #include "../crypto/internal.h"
 #include "internal.h"
 
@@ -329,6 +330,237 @@ bool ssl_write_client_hello(SSL_HANDSHAKE *hs) {
     return false;
   }
 
+  if (!hs->ssl->ech_configs.empty()) {
+    assert(!hs->ech_sent_grease);
+
+    // Choose a suitable ECH configuration.
+    const ECHConfig *chosen_config = nullptr;
+    for (const ECHConfig &ech_config : hs->ssl->ech_configs) {
+      if (ech_config.kem_id() != EVP_HPKE_DHKEM_X25519_HKDF_SHA256) {
+        continue;
+      }
+      const Array<ECHConfig::ECHCipherSuite> &suites =
+          ech_config.cipher_suites();
+      for (size_t i = 0; i < suites.size(); i++) {
+        if (EVP_HPKE_get_aead(suites[i].aead_id) != nullptr &&
+            EVP_HPKE_get_hkdf_md(suites[i].kdf_id) != nullptr) {
+          chosen_config = &ech_config;
+          break;
+        }
+      }
+    }
+    if (chosen_config == nullptr) {
+      // There were no compatible configs.
+      // TODO(dmcardle) Should we send ECH GREASE in this case?
+      goto skip_ech;
+    }
+    // Select the cipher suite.
+    // TODO(dmcardle) Do we need fancier logic?
+    const Array<ECHConfig::ECHCipherSuite> &suites =
+        chosen_config->cipher_suites();
+    assert(!chosen_config->cipher_suites().empty());
+    const ECHConfig::ECHCipherSuite* chosen_suite = &suites[0];
+
+    // Construct the EncodedClientHelloInner, replacing the legacy_session_id
+    // with an empty string.
+    // TODO(dmcardle) Compress extensions with "outer_extensions".
+
+    SSLMessage fake_msg;
+    fake_msg.is_v2_hello = true;
+    fake_msg.type = SSL3_MT_CLIENT_HELLO;
+    fake_msg.body = MakeConstSpan(msg).subspan(4);
+
+    SSL_CLIENT_HELLO client_hello_outer;
+    if (!ssl_client_hello_init(ssl, &client_hello_outer, fake_msg)) {
+      return false;
+    }
+
+    SSL_CLIENT_HELLO client_hello_inner = client_hello_outer;
+    // Replace legacy_session_id with an empty string.
+    client_hello_inner.session_id = nullptr;
+    client_hello_inner.session_id_len = 0;
+
+    ScopedCBB encoded_ch_inner;
+    if (!CBB_init(encoded_ch_inner.get(), 0) ||
+        !ssl_client_hello_write(&client_hello_inner, encoded_ch_inner.get())) {
+      return false;
+    }
+
+    ScopedCBB extensions_bb;
+    ScopedCBB extensions_aad_bb;
+    if (!CBB_init(extensions_bb.get(), 0) ||
+        !CBB_init(extensions_aad_bb.get(), 0)) {
+      return false;
+    }
+    bool ext_reencode_failed = false;
+    CBS extensions_reader(MakeConstSpan(client_hello_outer.extensions,
+                                        client_hello_outer.extensions_len));
+    while (CBS_len(&extensions_reader) > 0) {
+      uint16_t extension_id;
+      CBS extension_body;
+      if (!CBS_get_u16(&extensions_reader, &extension_id) ||
+          !CBS_get_u16_length_prefixed(&extensions_reader, &extension_body)) {
+        ext_reencode_failed = true;
+        break;
+      }
+      for (CBB* out : {extensions_bb.get(), extensions_aad_bb.get()}) {
+        // Drop the "encrypted_client_hello" extension for ClientHelloOuterAAD.
+        if (out == extensions_aad_bb.get() &&
+            extension_id == TLSEXT_TYPE_encrypted_client_hello) {
+          continue;
+        }
+        // Replace the server name.
+        if (extension_id == TLSEXT_TYPE_server_name) {
+          CBB contents, server_name_list, name;
+          if (!CBB_add_u16(out, TLSEXT_TYPE_server_name) ||
+              !CBB_add_u16_length_prefixed(out, &contents) ||
+              !CBB_add_u16_length_prefixed(&contents, &server_name_list) ||
+              !CBB_add_u8(&server_name_list, TLSEXT_NAMETYPE_host_name) ||
+              !CBB_add_u16_length_prefixed(&server_name_list, &name) ||
+              !CBB_add_bytes(&name, chosen_config->public_name().data(),
+                             chosen_config->public_name().size()) ||
+              !CBB_flush(out)) {
+            return false;
+          }
+          continue;
+        }
+        if (!CBB_add_u16(out, extension_id) ||
+            !CBB_add_u16(out, CBS_len(&extension_body)) ||
+            !CBB_add_bytes(out, CBS_data(&extension_body),
+                           CBS_len(&extension_body))) {
+          return false;
+        }
+      }
+    }
+    if (ext_reencode_failed) {
+      return false;
+    }
+
+    // Generate a fresh ClientHelloOuter.random.
+    uint8_t outer_random[SSL3_RANDOM_SIZE];
+    RAND_bytes(outer_random, sizeof(outer_random));
+
+    client_hello_outer.random = outer_random;
+    client_hello_outer.random_len = sizeof(outer_random);
+
+    client_hello_outer.extensions = CBB_data(extensions_bb.get());
+    client_hello_outer.extensions_len = CBB_len(extensions_bb.get());
+
+    SSL_CLIENT_HELLO client_hello_outer_aad = client_hello_outer;
+    client_hello_outer_aad.extensions = CBB_data(extensions_aad_bb.get());
+    client_hello_outer_aad.extensions_len = CBB_len(extensions_aad_bb.get());
+
+    ScopedCBB ch_outer_aad_bb;
+    if (!CBB_init(ch_outer_aad_bb.get(), 0) ||
+        !ssl_client_hello_write(&client_hello_outer_aad, ch_outer_aad_bb.get()) ||
+        !CBB_flush(ch_outer_aad_bb.get())) {
+      return false;
+    }
+
+    static const uint8_t kInfoLabel[] = "tls ech";
+    ScopedCBB info_bb;
+    if (!CBB_init(info_bb.get(), 0) ||
+        !CBB_add_bytes(info_bb.get(), kInfoLabel,
+                       OPENSSL_ARRAY_SIZE(kInfoLabel) - 1) ||
+        !CBB_add_u8(info_bb.get(), 0) ||
+        !chosen_config->Serialize(info_bb.get()) || !CBB_flush(info_bb.get())) {
+      return false;
+    }
+
+    uint8_t enc[X25519_PUBLIC_VALUE_LEN];
+    ScopedEVP_HPKE_CTX context;
+    if (!EVP_HPKE_CTX_setup_base_s_x25519(
+            context.get(), enc, chosen_suite->kdf_id, chosen_suite->aead_id,
+            chosen_config->public_key().data(), CBB_data(info_bb.get()),
+            CBB_len(info_bb.get()))) {
+      return false;
+    }
+
+    // TODO(dmcardle) Export HRR Key
+    Array<uint8_t> payload;
+    if (!payload.Init(CBB_len(encoded_ch_inner.get()) +
+                      EVP_HPKE_CTX_max_overhead(context.get()))) {
+      return false;
+    }
+    size_t payload_len;
+    if (!EVP_HPKE_CTX_seal(
+            context.get(), payload.data(), &payload_len, payload.size(),
+            CBB_data(encoded_ch_inner.get()), CBB_len(encoded_ch_inner.get()),
+            CBB_data(ch_outer_aad_bb.get()), CBB_len(ch_outer_aad_bb.get()))) {
+      return false;
+    }
+    payload.Shrink(payload_len);
+
+    PrintHexdump("ch_outer_aad_bb", MakeConstSpan(CBB_data(ch_outer_aad_bb.get()), CBB_len(ch_outer_aad_bb.get())));
+
+    const EVP_MD *kdf = EVP_HPKE_get_hkdf_md(chosen_suite->kdf_id);
+    if (kdf == nullptr) {
+      return false;
+    }
+
+    uint8_t config_id_buf[EVP_MAX_MD_SIZE];
+    size_t config_id_len;
+    Span<uint8_t> config_id =
+        MakeSpan(config_id_buf, OPENSSL_ARRAY_SIZE(config_id_buf));
+    if (!chosen_config->ComputeConfigID(config_id, &config_id_len, kdf)) {
+      return false;
+    }
+    config_id = config_id.subspan(0, config_id_len);
+
+    // Insert the "encrypted_client_hello" extension onto the outer CH.
+    CBS outer_ch_extensions(MakeConstSpan(client_hello_outer.extensions,
+                                          client_hello_outer.extensions_len));
+    ScopedCBB outer_ch_extensions_bb;
+    CBB client_ech_bb;
+    if (!CBB_init(outer_ch_extensions_bb.get(), 0) ||
+        !CBB_add_u16(outer_ch_extensions_bb.get(), TLSEXT_TYPE_encrypted_client_hello) ||
+        !CBB_add_u16_length_prefixed(outer_ch_extensions_bb.get(), &client_ech_bb) ||
+        !CBB_add_u16(&client_ech_bb, chosen_suite->kdf_id) ||
+        !CBB_add_u16(&client_ech_bb, chosen_suite->aead_id) ||
+        !CBB_add_u8(&client_ech_bb, config_id.size()) ||
+        !CBB_add_bytes(&client_ech_bb, config_id.data(), config_id.size()) ||
+        !CBB_add_u16(&client_ech_bb, sizeof(enc)) ||
+        !CBB_add_bytes(&client_ech_bb, enc, sizeof(enc)) ||
+        !CBB_add_u16(&client_ech_bb, payload.size()) ||
+        !CBB_add_bytes(&client_ech_bb, payload.data(), payload.size())) {
+      return false;
+    }
+    while (CBS_len(&outer_ch_extensions) > 0) {
+      uint16_t extension_id;
+      CBS extension_body;
+      if (!CBS_get_u16(&outer_ch_extensions, &extension_id) ||
+          !CBS_get_u16_length_prefixed(&outer_ch_extensions, &extension_body)) {
+        return false;
+      }
+      if (!CBB_add_u16(outer_ch_extensions_bb.get(), extension_id) ||
+          !CBB_add_u16(outer_ch_extensions_bb.get(),
+                       CBS_len(&extension_body)) ||
+          !CBB_add_bytes(outer_ch_extensions_bb.get(),
+                         CBS_data(&extension_body), CBS_len(&extension_body))) {
+        return false;
+      }
+    }
+    if (!CBB_flush(outer_ch_extensions_bb.get())) {
+      return false;
+    }
+    client_hello_outer.extensions = CBB_data(outer_ch_extensions_bb.get());
+    client_hello_outer.extensions_len = CBB_len(outer_ch_extensions_bb.get());
+
+    // TODO(dmcardle) Perhaps ext_ech_add_clienthello should insert the empty
+    // extension (on the inner CH) when we have >0 ECHConfigs?
+
+    // Serialize |client_hello_outer| onto |msg|.
+    ScopedCBB ch_outer_bb;
+    CBB ch_outer_body;
+    if (!ssl->method->init_message(ssl, ch_outer_bb.get(), &ch_outer_body,
+                                   SSL3_MT_CLIENT_HELLO) ||
+        !ssl_client_hello_write(&client_hello_outer, &ch_outer_body) ||
+        !ssl->method->finish_message(ssl, ch_outer_bb.get(), &msg)) {
+      return false;
+    }
+  }
+
+skip_ech:
   return ssl->method->add_message(ssl, std::move(msg));
 }
 

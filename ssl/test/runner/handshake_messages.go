@@ -8,6 +8,7 @@ import (
 	"bytes"
 	"crypto"
 	"encoding/binary"
+	"encoding/hex"
 	"errors"
 	"fmt"
 
@@ -491,6 +492,9 @@ func (e *encryptedClientHello) trialDecrypt(configs []echConfig, chOuterBytes []
 			return nil, nil, false, err
 		}
 
+		fmt.Println("chOuterAAD")
+		fmt.Println(hex.Dump(chOuterAAD))
+
 		// Attempt to decrypt the ECH payload with this config. If
 		// decryption failed, just try the next config.
 		chInnerBytes, err = ctx.Open(chOuterAAD, e.payload)
@@ -509,6 +513,11 @@ func (e *encryptedClientHello) trialDecrypt(configs []echConfig, chOuterBytes []
 	}
 
 	hrrKey = ctx.Export([]byte("tls ech hrr key"), 16)
+
+	fmt.Println("chInnerBytes")
+	fmt.Println(hex.Dump(chInnerBytes))
+	// Add a bogus message header before unmarshalling.
+	chInnerBytes = append([]byte{0, 0, 0, 0}, chInnerBytes...)
 
 	var chInnerTmp clientHelloMsg
 	if !chInnerTmp.unmarshal(chInnerBytes) {

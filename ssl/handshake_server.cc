@@ -745,8 +745,7 @@ static enum ssl_hs_wait_t do_read_client_hello(SSL_HANDSHAKE *hs) {
         uint16_t version;
         CBS_init(&hello_reader, encoded_client_hello_inner.data(),
                  encoded_client_hello_inner.size());
-        if (!CBS_skip(&hello_reader, 4) ||
-            !CBS_get_u16(&hello_reader, &version) ||
+        if (!CBS_get_u16(&hello_reader, &version) ||
             !CBS_get_bytes(&hello_reader, &random, 32) ||
             !CBS_get_u8_length_prefixed(&hello_reader, &session_id) ||
             !CBS_get_u16_length_prefixed(&hello_reader, &cipher_suites) ||

@@ -1648,6 +1648,8 @@ struct SSL_HANDSHAKE {
   // cookie is the value of the cookie received from the server, if any.
   Array<uint8_t> cookie;
 
+  bool ech_sent_grease = false;
+
   // ech_config_id is the randomly-generated "config_id" value for ECH GREASE.
   // In case of HRR, this value should be repeated in the second ClientHello.
   Array<uint8_t> ech_config_id;
