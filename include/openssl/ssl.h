@@ -567,6 +567,16 @@ OPENSSL_EXPORT int SSL_get_error(const SSL *ssl, int ret_code);
 // See also |ssl_renegotiate_explicit|.
 #define SSL_ERROR_WANT_RENEGOTIATE 19
 
+// SSL_ERROR_ECH_NOT_ACCEPTED indicates that the server accepted the
+// ClientHelloOuter rather than the ClientHelloInner. The caller may try again
+// with the new ECHConfigs.
+#define SSL_ERROR_ECH_NOT_ACCEPTED 20
+
+// SSL_ERROR_ECH_NO_RETRY_CONFIGS indicates that the server accepted the
+// ClientHelloOuter rather than the ClientHelloInner, but there are no
+// compatible retry configs available.
+#define SSL_ERROR_ECH_NO_RETRY_CONFIGS 21
+
 // SSL_error_description returns a string representation of |err|, where |err|
 // is one of the |SSL_ERROR_*| constants returned by |SSL_get_error|, or NULL
 // if the value is unrecognized.
@@ -3566,6 +3576,14 @@ OPENSSL_EXPORT const char *SSL_early_data_reason_string(
 // SSL_set_enable_ech_grease configures whether the client may send ECH GREASE
 // as part of this connection.
 OPENSSL_EXPORT void SSL_set_enable_ech_grease(SSL *ssl, int enable);
+
+// SSL_set_ech_configs takes a sequence of ECHConfig structures serialized in
+// |ech_configs| and selects one to use for connections to the server. If none
+// of the ECHConfigs are suitable, this function disables ECH for |ssl| and
+// returns false. When retrying with new ECHConfigs, this function should be
+// called on a new SSL object with the results of SSL_get_ech_retry_configs.
+OPENSSL_EXPORT int SSL_set_ech_configs(SSL *ssl, const uint8_t *ech_configs,
+                                       size_t ech_configs_len);
 
 // SSL_add_ech_private_key adds an ECHConfig in |ech_config| and its
 // corresponding private key in |private_key| to |ssl|. The server uses these

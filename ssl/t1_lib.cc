@@ -730,10 +730,19 @@ static bool ext_ech_add_clienthello(SSL_HANDSHAKE *hs, CBB *out) {
   if (hs->max_version < TLS1_3_VERSION) {
     return true;
   }
-  if (hs->config->ech_grease_enabled) {
+  if (hs->ssl->ech_configs.empty() && hs->config->ech_grease_enabled) {
     return ext_ech_add_clienthello_grease(hs, out);
   }
-  // Nothing to do, since we don't yet implement the non-GREASE parts of ECH.
+  if (!hs->ssl->ech_configs.empty()) {
+    // Write an empty ECH extension. This is required for ClientHelloInner.
+    // Later, we will either overwrite ClientHelloOuter's empty ECH extension or
+    // fail the handshake (e.g. because we did not find a compatible ECHConfig).
+    if (!CBB_add_u16(out, TLSEXT_TYPE_encrypted_client_hello) ||
+        !CBB_add_u16(out, 0)) {
+      return false;
+    }
+    return true;
+  }
   return true;
 }
 
@@ -744,6 +753,11 @@ static bool ext_ech_parse_serverhello(SSL_HANDSHAKE *hs, uint8_t *out_alert,
   }
 
   // If the client only sent GREASE, we must check the extension syntactically.
+  Span<const uint8_t> retry_configs = *contents;
+  PrintHexdump("RetryConfigs", retry_configs);
+
+  // If the client only sent GREASE, we must check the extension syntactically
+  // and abort with "decode_error" alert if it is invalid.
   CBS ech_configs;
   if (!CBS_get_u16_length_prefixed(contents, &ech_configs) ||
       CBS_len(&ech_configs) == 0 ||  //
@@ -761,6 +775,9 @@ static bool ext_ech_parse_serverhello(SSL_HANDSHAKE *hs, uint8_t *out_alert,
       return false;
     }
   }
+
+  printf("****** %s\n", __FUNCTION__);
+  hs->ech_retry_configs.CopyFrom(retry_configs);
   return true;
 }
 
