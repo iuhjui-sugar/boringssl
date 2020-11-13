@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64c52747_b5e0969c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-13T19:59:55Z",
+      "side": 1,
+      "message": "Mostly ready for review. Please ignore encrypted_client_hello_test.go :) It contains the \"self interop test\".",
+      "revId": "4392fe3e3d68bd5007416eb92edd97b8b0fc8fe5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
