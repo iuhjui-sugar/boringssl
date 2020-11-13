@@ -747,10 +747,10 @@ NextCipherSuite:
 			helloBytes = innerHello.marshal()
 
 			if c.config.Bugs.ECHServerMustAcceptOuter {
-				return errors.New("Server accepted the inner ClientHello")
+				return errors.New("server accepted the inner ClientHello")
 			}
 		} else if c.config.Bugs.ECHServerMustAcceptInner {
-			return errors.New("Server accepted outer ClientHello")
+			return errors.New("server accepted the outer ClientHello")
 		}
 	}
 
@@ -946,7 +946,10 @@ func (c *Conn) insertECH(hello *clientHelloMsg) (innerHelloPtr *clientHelloMsg, 
 	chOuterAAD := hello.marshal()
 	chOuterAAD = chOuterAAD[4:]
 
-	payload := ctx.Seal(chOuterAAD, innerHello.marshal())
+	innerHelloBytes := innerHello.marshal()
+	innerHelloBytes = innerHelloBytes[4:]
+
+	payload := ctx.Seal(chOuterAAD, innerHelloBytes)
 
 	// Place the ECH extension in the outer CH.
 	hello.clientECH = &clientECH{
