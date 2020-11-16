@@ -193,6 +193,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "abae39b4_5f106248",
+        "filename": "crypto/fipsmodule/sha/asm/sha512-armv8.pl",
+        "patchSetId": 5
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 10416
+      },
+      "writtenOn": "2020-11-16T14:20:28Z",
+      "side": 1,
+      "message": "PACIASP and PACIBSP are both implicit landing pads and they are compatible with BTI c.\nEven if lines 187-199 (in this file) would be removed there would still be an implicit \"BTI c\" at line 201 (in this file).\n\nShould PAuth be disabled but BTI enabled, AARCH64_SIGN_LINK_REGISTER would be defined to BTI c in arch_arm.h so that a landing pad would be present at line 201 (in this file).\n\nIn case of SHA256:\n$func:\n  bti c\n  adrp\n  ...\n  b.ne .Lv8_entry\n  paciasp // or \"bti c\" if PAuth was disabled\n  ...\n\nIn case of SHA512:\n$func:\n  paciasp // or \"bti c\" if PAuth was disabled\n  ...\n\nI think line 188 could even be moved right after #ifndef __KERNEL__.\n\nDoes this look correct?",
+      "parentUuid": "f17a054a_b8674192",
+      "range": {
+        "startLine": 188,
+        "startChar": 0,
+        "endLine": 188,
+        "endChar": 26
+      },
+      "revId": "a0b49d63fdc33e54eac93674c86891d15d181d87",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "d486291a_210ff7a2",
         "filename": "include/openssl/arm_arch.h",
         "patchSetId": 5
