@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53f5f2b5_85dba4a8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-17T05:37:59Z",
+      "side": 1,
+      "message": "Hey David, no need to review if you\u0027d rather not land this :) ",
+      "revId": "c1cbc5c727f9021523a36356cc91a0ea6195d36f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
