@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ea7d484_191ef9d6",
+        "filename": "crypto/x509/x509_v3.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-11-17T22:02:50Z",
+      "side": 1,
+      "message": "(seems to be stray, but not a problem.)",
+      "revId": "85fa9f7f5528e8258c627cba2db2da0e220f7a06",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
