@@ -921,6 +921,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2d3c176b_fb1cdc90",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 24
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-11-18T21:38:36Z",
+      "side": 1,
+      "message": "Yes, we\u0027ll need some ECHConfigs field. I don\u0027t think this is the one we need because the server configuration needs a private key. (And this particular echConfig structure isn\u0027t suitable for adding a private key because it represents a parsed ECHConfig, not a server ECH configuration.)\n\n\u003e Each test in runner would need to manually serialize its ECHConfigs.\n\nYou can always compute it once and save it somewhere. And later on when we have actual ECH configs, I imagine they\u0027ll be stashed somewhere and you can just pull off the fields you want. We\u0027ll need to do that anyway whether the thing you stash is a byte string or a more complex type.\n\nAlso remember that, in actual ECH tests, we need to pass the configuration to the client with a matching serialization. So we\u0027ll need the byte string version no matter what. But let\u0027s leave this CL with just the things you need for GREASE, get it landed, and then we can work through how to test the real thing. I don\u0027t think it\u0027s worth getting bogged down in speculation like this, when we can do this with a concrete design.",
+      "parentUuid": "33fbbaca_1f5584a2",
+      "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "94dd9ba1_9140d64e",
         "filename": "ssl/test/runner/handshake_messages.go",
         "patchSetId": 24
@@ -1032,6 +1050,24 @@
       "side": 1,
       "message": "Part of the reason I want to keep the echConfig struct around is that the client and server both need to compute the configID, and it\u0027s slightly annoying to do twice.\n\nWDYT about keeping this []echConfig field and an additional []byte field that gets tacked onto the extension body?",
       "parentUuid": "6ca4cbaa_7f4f8dec",
+      "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be7afc01_e26de4f6",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 24
+      },
+      "lineNbr": 1386,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-11-18T21:38:36Z",
+      "side": 1,
+      "message": "I\u0027m not following why it would need to be done twice. Both certainly need to compute it at different times, but that\u0027s what extracting it into a function is for. Or are you envisioning that it would be part of parsing?\n\nI don\u0027t think part of parsing would work anyway. Remember there isn\u0027t a single config_id in a fully general implementation. It depends on the KDF. (Although I think this is probably a mistake and we should fix that. Relatedly, you know how I said we should only support one KDF in an early comment? This is part of why.)\n\nLet\u0027s remove the things that aren\u0027t used by this CL, so that when we get to them, we\u0027ll have something concrete to discuss. I think this CL have gotten too bogged down in abstractions with hypothetical uses. The aim with doing GREASE first was just to plop in something very quick and simple that doesn\u0027t need the full thing. Otherwise, we\u0027d want to do it in the other order so that we have the abstractions already available.",
+      "parentUuid": "2ef10931_9edcc693",
       "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -1184,6 +1220,24 @@
       "side": 1,
       "message": "Just changed the alert from decode_error to illegal_parameter as draft-08 specifies and updated the expectedLocalError.\n\nI\u0027m not sure what to put in expectedError. I tried \":ILLEGAL_PARAMETER:\", but it didn\u0027t work. Is ShimConfiguration.ErrorMap never populated unless \"-shim-config\" is specified?\n\nI also tried \"illegal parameter\" hoping for the substring to match stderr, but that didn\u0027t work either.\n\nHow does this part of runTest() work? https://source.chromium.org/chromium/chromium/src/+/master:third_party/boringssl/src/ssl/test/runner/runner.go;l\u003d1584-1585;drc\u003daec1b62b07a4465c3b6747a09ad69c614bc5766b\n\nWhen I run the test, it looks like |stderr| is actually empty.",
       "parentUuid": "d015ea47_4161f5ac",
+      "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a96ef39c_bc599118",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 24
+      },
+      "lineNbr": 8348,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-11-18T21:38:36Z",
+      "side": 1,
+      "message": "It\u0027s not supposed to be the alert name. It\u0027s the local error code on the BoringSSL side. If you don\u0027t see one, sometimes that\u0027s a bug and you forgot to add one. Though the callbacks should all push ERROR_PARSING_EXTENSION.\n\nAlerts are what you report to the peer. Local errors are what you report the caller. Alerts are limited to the enums the protocol defines. Local errors are what we want. We need to test both. Especially when, e.g., the ECH mismatch flow depends on a particular local error being returned out of the API.",
+      "parentUuid": "0a15ed0a_791e5e45",
       "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
