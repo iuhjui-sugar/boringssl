@@ -937,6 +937,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3c234d3_f01ddb32",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 24
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-19T05:30:18Z",
+      "side": 1,
+      "message": "Sounds good. Now we only have the []byte field on ProtocolBugs.",
+      "parentUuid": "2d3c176b_fb1cdc90",
+      "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "94dd9ba1_9140d64e",
@@ -1068,6 +1086,24 @@
       "side": 1,
       "message": "I\u0027m not following why it would need to be done twice. Both certainly need to compute it at different times, but that\u0027s what extracting it into a function is for. Or are you envisioning that it would be part of parsing?\n\nI don\u0027t think part of parsing would work anyway. Remember there isn\u0027t a single config_id in a fully general implementation. It depends on the KDF. (Although I think this is probably a mistake and we should fix that. Relatedly, you know how I said we should only support one KDF in an early comment? This is part of why.)\n\nLet\u0027s remove the things that aren\u0027t used by this CL, so that when we get to them, we\u0027ll have something concrete to discuss. I think this CL have gotten too bogged down in abstractions with hypothetical uses. The aim with doing GREASE first was just to plop in something very quick and simple that doesn\u0027t need the full thing. Otherwise, we\u0027d want to do it in the other order so that we have the abstractions already available.",
       "parentUuid": "2ef10931_9edcc693",
+      "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb64c694_0133515b",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 24
+      },
+      "lineNbr": 1386,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-19T05:30:18Z",
+      "side": 1,
+      "message": "I was arguing for keeping the echConfig struct, but I suppose you were only asking to get rid of the echRetryConfigs field. By \"twice\" I meant that the client and server both have to do it. I think we were talking about different things :)\n\nThis field is now []byte.",
+      "parentUuid": "be7afc01_e26de4f6",
       "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -1238,6 +1274,24 @@
       "side": 1,
       "message": "It\u0027s not supposed to be the alert name. It\u0027s the local error code on the BoringSSL side. If you don\u0027t see one, sometimes that\u0027s a bug and you forgot to add one. Though the callbacks should all push ERROR_PARSING_EXTENSION.\n\nAlerts are what you report to the peer. Local errors are what you report the caller. Alerts are limited to the enums the protocol defines. Local errors are what we want. We need to test both. Especially when, e.g., the ECH mismatch flow depends on a particular local error being returned out of the API.",
       "parentUuid": "0a15ed0a_791e5e45",
+      "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1625bff5_369eb6dc",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 24
+      },
+      "lineNbr": 8348,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-19T05:30:18Z",
+      "side": 1,
+      "message": "Got it. Using ERROR_PARSING_EXTENSION as the local error.",
+      "parentUuid": "a96ef39c_bc599118",
       "revId": "de51d83f93367f32489d3bc3fc8d3194dc455e22",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }

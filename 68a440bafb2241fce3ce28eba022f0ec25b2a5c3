@@ -71,6 +71,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "adecf041_2404d76c",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-19T05:30:18Z",
+      "side": 1,
+      "message": "I think this question is already answered. I\u0027ve marked the GREASE ciphersuite as taking 2 bytes.",
+      "parentUuid": "aee96036_999d5dc1",
+      "revId": "68a440bafb2241fce3ce28eba022f0ec25b2a5c3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d86abbf2_8504b34c",
@@ -108,6 +126,30 @@
       "side": 1,
       "message": "It\u0027s been a while, can you expand on the \"counted separately\" part?\n\nI\u0027m picking 100 as the upper bound for server name length. WDYT?",
       "parentUuid": "d86abbf2_8504b34c",
+      "range": {
+        "startLine": 655,
+        "startChar": 53,
+        "endLine": 655,
+        "endChar": 56
+      },
+      "revId": "68a440bafb2241fce3ce28eba022f0ec25b2a5c3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da799cc8_bdb23ee4",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-19T05:30:18Z",
+      "side": 1,
+      "message": "Resolving this question as well. We seem to have settled on 100 as the upper bound for server name length.",
+      "parentUuid": "2ee0c003_92b1d63e",
       "range": {
         "startLine": 655,
         "startChar": 53,

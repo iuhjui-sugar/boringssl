@@ -69,6 +69,24 @@
       "message": "Still need the corresponding serverTest.",
       "revId": "8ba09fe4174d9ddbf18c0e497b6c1c3950fc7521",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "679d7403_543f71b5",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 7707,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-11-19T05:30:18Z",
+      "side": 1,
+      "message": "Old comment. Nothing to test on the server side because we are only doing GREASE.",
+      "parentUuid": "5968569d_28e38636",
+      "revId": "8ba09fe4174d9ddbf18c0e497b6c1c3950fc7521",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
