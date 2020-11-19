@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1933037b_854fb6a2",
+        "filename": "include/openssl/asn1.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-11-19T19:54:19Z",
+      "side": 1,
+      "message": "OpenSSL\u0027s docs say you can\u0027t be sure of this. Internally the library does try to be helpful, and I suspect it\u0027s almost always NUL-terminated. But embedded NULs are always possible, and ASN1_STRING_set0 can\u0027t guarantee anything, so probably best to tell callers not to assume this.",
+      "range": {
+        "startLine": 277,
+        "startChar": 67,
+        "endLine": 278,
+        "endChar": 61
+      },
+      "revId": "72029e3e8ed9284b560f5389cc0a0452dd2f4cba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
