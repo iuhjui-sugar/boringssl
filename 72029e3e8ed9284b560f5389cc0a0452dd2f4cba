@@ -1,6 +1,75 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "55c88780_6dc1940c",
+        "filename": "include/openssl/asn1.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-11-19T20:02:24Z",
+      "side": 1,
+      "message": "V_ASN1_INTEGER",
+      "range": {
+        "startLine": 157,
+        "startChar": 28,
+        "endLine": 157,
+        "endChar": 29
+      },
+      "revId": "72029e3e8ed9284b560f5389cc0a0452dd2f4cba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4bff0088_69b42229",
+        "filename": "include/openssl/asn1.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-11-19T20:02:24Z",
+      "side": 1,
+      "message": "V_ASN1_ENUMERATED",
+      "range": {
+        "startLine": 158,
+        "startChar": 31,
+        "endLine": 158,
+        "endChar": 33
+      },
+      "revId": "72029e3e8ed9284b560f5389cc0a0452dd2f4cba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01609f3c_77e5f2df",
+        "filename": "include/openssl/asn1.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-11-19T20:02:24Z",
+      "side": 1,
+      "message": "\"not\"",
+      "range": {
+        "startLine": 242,
+        "startChar": 61,
+        "endLine": 242,
+        "endChar": 63
+      },
+      "revId": "72029e3e8ed9284b560f5389cc0a0452dd2f4cba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "1933037b_854fb6a2",
