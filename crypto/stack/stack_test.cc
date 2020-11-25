@@ -177,6 +177,21 @@ TEST(StackTest, Basic) {
     EXPECT_EQ(sk_TEST_INT_value(sk.get(), i),
               sk_TEST_INT_value(shallow.get(), i));
   }
+  /*for test sk_dup modify
+  for (int i = 0; i < 1000000; i++) {
+    auto new_data = TEST_INT_new(i);
+    ASSERT_TRUE(new_data);
+    ASSERT_TRUE(bssl::PushToStack(shallow.get(), std::move(new_data)));
+  }
+
+  ShallowStack shallow_dup(sk_TEST_INT_dup(shallow.get()));
+  ASSERT_TRUE(shallow_dup);
+  ASSERT_EQ(sk_TEST_INT_num(shallow.get()), sk_TEST_INT_num(shallow_dup.get()));
+  for (size_t i = 0; i < sk_TEST_INT_num(shallow.get()); i++) {
+    EXPECT_EQ(sk_TEST_INT_value(shallow.get(), i),
+              sk_TEST_INT_value(shallow_dup.get(), i));
+  }
+  */
 
   // Deep copies may fail. This should clean up temporaries.
   EXPECT_FALSE(sk_TEST_INT_deep_copy(sk.get(),
