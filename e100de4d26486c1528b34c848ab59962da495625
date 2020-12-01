@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74e6b66a_06be2bae",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-01T21:03:55Z",
+      "side": 1,
+      "message": "(I haven\u0027t actually tested this since apparently the adb keys on my usual device expired and I don\u0027t have physical access to it right now. The CQ will check it compiles and then CI will check that it works.)",
+      "revId": "e100de4d26486c1528b34c848ab59962da495625",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
