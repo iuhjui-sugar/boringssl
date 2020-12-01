@@ -36,6 +36,32 @@ extern "C" {
 void RAND_bytes_with_additional_data(uint8_t *out, size_t out_len,
                                      const uint8_t user_additional_data[32]);
 
+#if defined(BORINGSSL_FIPS)
+
+// We overread from /dev/urandom or RDRAND by a factor of 10 and XOR to whiten.
+#define BORINGSSL_FIPS_OVERREAD 10
+
+// CRYPTO_get_seed_entropy writes |out_entropy_len| bytes of entropy, suitable
+// for seeding a DRBG, to |out_entropy|. This may either draw entropy directly
+// from the CPU/OS, or may use the entropy supplied from outside of the module
+// via |RAND_load_entropy|, depending on the configuration.
+int CRYPTO_get_seed_entropy(uint8_t *out_entropy, size_t out_entropy_len);
+
+#if defined(BORINGSSL_FIPS_PASSIVE_ENTROPY)
+
+// RAND_load_entropy supplies |entropy_len| bytes of entropy to the module.
+// The |from_rdrand| parameter should be true if the entropy was obtained from
+// the CPU.
+void RAND_load_entropy(const uint8_t *entropy, size_t entropy_len,
+                       int from_rdrand);
+
+// RAND_need_entropy is implemented outside of the module and is called when
+// the module is blocked because it has run out of entropy.
+void RAND_need_entropy(size_t bytes_needed);
+
+#endif  // BORINGSSL_FIPS_PASSIVE_ENTROPY
+#endif  // BORINGSSL_FIPS
+
 // CRYPTO_sysrand fills |len| bytes at |buf| with entropy from the operating
 // system.
 void CRYPTO_sysrand(uint8_t *buf, size_t len);
@@ -120,7 +146,8 @@ OPENSSL_EXPORT int CTR_DRBG_generate(CTR_DRBG_STATE *drbg, uint8_t *out,
 OPENSSL_EXPORT void CTR_DRBG_clear(CTR_DRBG_STATE *drbg);
 
 
-#if defined(OPENSSL_X86_64) && !defined(OPENSSL_NO_ASM)
+#if defined(OPENSSL_X86_64) && !defined(OPENSSL_NO_ASM) && \
+    !defined(BORINGSSL_UNSAFE_DETERMINISTIC_MODE)
 
 OPENSSL_INLINE int have_rdrand(void) {
   return (OPENSSL_ia32cap_get()[1] & (1u << 30)) != 0;
