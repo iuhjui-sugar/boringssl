@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b630c875_f1ebe644",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2020-12-01T21:14:39Z",
+      "side": 1,
+      "message": "Does it make sense to follow up on this change with another change that spl",
+      "revId": "3b97245bf0f8b6e887166d7a03d2d4df6f5ad689",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d2466b0_0c2cf65f",
+        "filename": "crypto/fipsmodule/aes/asm/aesv8-armx.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 761,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2020-12-01T21:14:39Z",
+      "side": 1,
+      "message": "If the old code was \"ideal\" and the new code isn\u0027t, and this is a 32-bit-mode only issue, then perhaps we should eventually (perhaps in a follow-up) separate the 32-bit and 64-bit implementations so that the 64-bit mode keeps the optimal implementation",
+      "range": {
+        "startLine": 759,
+        "startChar": 53,
+        "endLine": 761,
+        "endChar": 68
+      },
+      "revId": "3b97245bf0f8b6e887166d7a03d2d4df6f5ad689",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
