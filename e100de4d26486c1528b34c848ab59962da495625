@@ -16,6 +16,29 @@
       "message": "(I haven\u0027t actually tested this since apparently the adb keys on my usual device expired and I don\u0027t have physical access to it right now. The CQ will check it compiles and then CI will check that it works.)",
       "revId": "e100de4d26486c1528b34c848ab59962da495625",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c480cb44_f1dc057e",
+        "filename": "crypto/fipsmodule/aes/asm/aesv8-armx.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 848,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2020-12-01T21:24:12Z",
+      "side": 1,
+      "message": "Sorry, my reading of ARMv8 assembly isn\u0027t the best, but this is writing to `$ivec` now, correct? Previously the implementation wasn\u0027t writing to `$ivec`, AFAICT. And also, the declaration of the function is:\n\n```\nvoid aes_hw_ctr32_encrypt_blocks(const uint8_t *in, uint8_t *out, size_t len,\n                                 const AES_KEY *key, const uint8_t ivec[16]);\n```\nNote  the `const` for the ivec parameter. It seems like this prototype should be changed and also the callers need to be audited to verify that they are still correct.",
+      "range": {
+        "startLine": 848,
+        "startChar": 10,
+        "endLine": 848,
+        "endChar": 20
+      },
+      "revId": "e100de4d26486c1528b34c848ab59962da495625",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
