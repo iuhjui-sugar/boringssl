@@ -16,6 +16,24 @@
       "message": "The interleaving of the different error cases was a little hard to follow. What about just replacing\n\n  if (rsa_generate_key_impl(tmp, bits, e_value, cb)) {\n\nwith:\n\n  if (rsa_generate_key_impl(tmp, bits, e_value, cb) \u0026\u0026\n      (!check_fips || RSA_check_fips(tmp))) {\n\nOr perhaps with all the conditions inverted, for somewhat less idiomatic booleans:\n\nfor (...) {\n  ...\n  if (!rsa_generate_key_impl(...) ||\n      (check_fips \u0026\u0026 !RSA_check_fips(tmp)) {\n    RSA_free(tmp);\n    uint32_t err \u003d ERR_peek_error();\n    // Only retry on |RSA_R_TOO_MANY_ITERATIONS|. This is so a caller-induced\n    // failure in |BN_GENCB_call| is still fatal.\n    if (ERR_GET_LIB(err) \u003d\u003d ERR_LIB_RSA \u0026\u0026\n        ERR_GET_REASON(err) \u003d\u003d RSA_R_TOO_MANY_ITERATIONS) {\n      continue;\n    }\n    return 0;\n  }\n\n  replace_...\n  RSA_free(tmp);\n  return 1;\n}",
       "revId": "adf008e3bf2fe7074ba04e73ceedea4f18c6a40b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b62d891_c589f380",
+        "filename": "crypto/fipsmodule/rsa/rsa_impl.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1335,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-12-01T23:46:14Z",
+      "side": 1,
+      "message": "I worry that failing the RSA_check_fips test and just creating a new key to try again might not be acceptable. See whether you like the latest patchset more. (If not I can easily revert.)",
+      "parentUuid": "7ce4478d_7809e866",
+      "revId": "adf008e3bf2fe7074ba04e73ceedea4f18c6a40b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
