@@ -39,6 +39,30 @@
       },
       "revId": "3b97245bf0f8b6e887166d7a03d2d4df6f5ad689",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "915007d6_9c4f6dc2",
+        "filename": "crypto/fipsmodule/aes/asm/aesv8-armx.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 761,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-01T21:25:06Z",
+      "side": 1,
+      "message": "I suppose \"ideally\" was too strong of a word. I\u0027ll soften it. :-)\n\nThough the new version does seem worse, yeah. I\u0027ll get some benchmarks and try to compare. If it\u0027s the same, it\u0027s probably not worth the fuss. If it\u0027s a measurable regression on 64-bit, I\u0027ll poke upstream. But I doubt it\u0027ll actually be noticeable.",
+      "parentUuid": "2d2466b0_0c2cf65f",
+      "range": {
+        "startLine": 759,
+        "startChar": 53,
+        "endLine": 761,
+        "endChar": 68
+      },
+      "revId": "3b97245bf0f8b6e887166d7a03d2d4df6f5ad689",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
