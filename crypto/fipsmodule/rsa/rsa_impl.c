@@ -1316,8 +1316,9 @@ static void replace_bn_mont_ctx(BN_MONT_CTX **out, BN_MONT_CTX **in) {
   *in = NULL;
 }
 
-int RSA_generate_key_ex(RSA *rsa, int bits, const BIGNUM *e_value,
-                        BN_GENCB *cb) {
+static int RSA_generate_key_ex_maybe_fips(RSA *rsa, int bits,
+                                          const BIGNUM *e_value, BN_GENCB *cb,
+                                          int check_fips) {
   // |rsa_generate_key_impl|'s 2^-20 failure probability is too high at scale,
   // so we run the FIPS algorithm four times, bringing it down to 2^-80. We
   // should just adjust the retry limit, but FIPS 186-4 prescribes that value
@@ -1330,25 +1331,29 @@ int RSA_generate_key_ex(RSA *rsa, int bits, const BIGNUM *e_value,
       return 0;
     }
     if (rsa_generate_key_impl(tmp, bits, e_value, cb)) {
-      replace_bignum(&rsa->n, &tmp->n);
-      replace_bignum(&rsa->e, &tmp->e);
-      replace_bignum(&rsa->d, &tmp->d);
-      replace_bignum(&rsa->p, &tmp->p);
-      replace_bignum(&rsa->q, &tmp->q);
-      replace_bignum(&rsa->dmp1, &tmp->dmp1);
-      replace_bignum(&rsa->dmq1, &tmp->dmq1);
-      replace_bignum(&rsa->iqmp, &tmp->iqmp);
-      replace_bn_mont_ctx(&rsa->mont_n, &tmp->mont_n);
-      replace_bn_mont_ctx(&rsa->mont_p, &tmp->mont_p);
-      replace_bn_mont_ctx(&rsa->mont_q, &tmp->mont_q);
-      replace_bignum(&rsa->d_fixed, &tmp->d_fixed);
-      replace_bignum(&rsa->dmp1_fixed, &tmp->dmp1_fixed);
-      replace_bignum(&rsa->dmq1_fixed, &tmp->dmq1_fixed);
-      replace_bignum(&rsa->inv_small_mod_large_mont,
-                     &tmp->inv_small_mod_large_mont);
-      rsa->private_key_frozen = tmp->private_key_frozen;
+      int ret = 0;
+      if (!check_fips || RSA_check_fips(tmp)) {
+        replace_bignum(&rsa->n, &tmp->n);
+        replace_bignum(&rsa->e, &tmp->e);
+        replace_bignum(&rsa->d, &tmp->d);
+        replace_bignum(&rsa->p, &tmp->p);
+        replace_bignum(&rsa->q, &tmp->q);
+        replace_bignum(&rsa->dmp1, &tmp->dmp1);
+        replace_bignum(&rsa->dmq1, &tmp->dmq1);
+        replace_bignum(&rsa->iqmp, &tmp->iqmp);
+        replace_bn_mont_ctx(&rsa->mont_n, &tmp->mont_n);
+        replace_bn_mont_ctx(&rsa->mont_p, &tmp->mont_p);
+        replace_bn_mont_ctx(&rsa->mont_q, &tmp->mont_q);
+        replace_bignum(&rsa->d_fixed, &tmp->d_fixed);
+        replace_bignum(&rsa->dmp1_fixed, &tmp->dmp1_fixed);
+        replace_bignum(&rsa->dmq1_fixed, &tmp->dmq1_fixed);
+        replace_bignum(&rsa->inv_small_mod_large_mont,
+                       &tmp->inv_small_mod_large_mont);
+        rsa->private_key_frozen = tmp->private_key_frozen;
+        ret = 1;
+      }
       RSA_free(tmp);
-      return 1;
+      return ret;
     }
     uint32_t err = ERR_peek_error();
     RSA_free(tmp);
@@ -1364,6 +1369,12 @@ int RSA_generate_key_ex(RSA *rsa, int bits, const BIGNUM *e_value,
   return 0;
 }
 
+int RSA_generate_key_ex(RSA *rsa, int bits, const BIGNUM *e_value,
+                        BN_GENCB *cb) {
+  return RSA_generate_key_ex_maybe_fips(rsa, bits, e_value, cb,
+                                        /*check_fips=*/0);
+}
+
 int RSA_generate_key_fips(RSA *rsa, int bits, BN_GENCB *cb) {
   // FIPS 186-4 allows 2048-bit and 3072-bit RSA keys (1024-bit and 1536-bit
   // primes, respectively) with the prime generation method we use.
@@ -1377,8 +1388,7 @@ int RSA_generate_key_fips(RSA *rsa, int bits, BN_GENCB *cb) {
   BIGNUM *e = BN_new();
   int ret = e != NULL &&
             BN_set_word(e, RSA_F4) &&
-            RSA_generate_key_ex(rsa, bits, e, cb) &&
-            RSA_check_fips(rsa);
+            RSA_generate_key_ex_maybe_fips(rsa, bits, e, cb, /*check_fips=*/1);
   BN_free(e);
   return ret;
 }
