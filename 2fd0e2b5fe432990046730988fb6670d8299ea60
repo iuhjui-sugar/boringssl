@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f49a68b_73ee7000",
+        "filename": "crypto/poly1305/poly1305_arm.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-12-01T19:09:22Z",
+      "side": 1,
+      "message": "nit: remove |int|.",
+      "revId": "2fd0e2b5fe432990046730988fb6670d8299ea60",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
