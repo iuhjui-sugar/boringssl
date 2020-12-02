@@ -86,6 +86,42 @@
       "parentUuid": "21734064_5218bd48",
       "revId": "249da272349f6cb16c68aa027eb6c12de392feda",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "740b7b2c_6c0f4777",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7650
+      },
+      "writtenOn": "2020-12-02T23:28:14Z",
+      "side": 1,
+      "message": "Absolutely! Looks like I miscalculated for the avx2 frame.",
+      "parentUuid": "21734064_5218bd48",
+      "revId": "249da272349f6cb16c68aa027eb6c12de392feda",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c63b0781_408fc837",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7650
+      },
+      "writtenOn": "2020-12-02T23:28:14Z",
+      "side": 1,
+      "message": "When building with libunwind 1.21 I get this build error:\n\n```\n/usr/bin/c++  -DBORINGSSL_HAVE_LIBUNWIND -DBORINGSSL_IMPLEMENTATION -I../third_party/googletest/include -I../crypto/../include -Werror -Wformat\u003d2 -Wsign-compare -Wmissing-field-initializers -Wwrite-strings -Wvla -ggdb -Wall -fvisibility\u003dhidden -fno-common -Wno-free-nonheap-object -Wimplicit-fallthrough -Wmissing-declarations -std\u003dc++11 -fno-exceptions -fno-rtti -Wshadow -O3 -DNDEBUG -MD -MT crypto/test/CMakeFiles/test_support_lib.dir/abi_test.cc.o -MF crypto/test/CMakeFiles/test_support_lib.dir/abi_test.cc.o.d -o crypto/test/CMakeFiles/test_support_lib.dir/abi_test.cc.o -c ../crypto/test/abi_test.cc\n../crypto/test/abi_test.cc: In function ‘void abi_test::internal::FatalError(Args ...) [with Args \u003d {const char*}]’:\n../crypto/test/abi_test.cc:211:8: error: ignoring return value of ‘ssize_t write(int, const void*, size_t)’, declared with attribute warn_unused_result [-Werror\u003dunused-result]\n  211 |   write(STDERR_FILENO, buf, strlen(buf));\n      |   ~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n../crypto/test/abi_test.cc: In function ‘void abi_test::internal::FatalError(Args ...) [with Args \u003d {const char*, const char*}]’:\n../crypto/test/abi_test.cc:211:8: error: ignoring return value of ‘ssize_t write(int, const void*, size_t)’, declared with attribute warn_unused_result [-Werror\u003dunused-result]\n../crypto/test/abi_test.cc: In function ‘void abi_test::internal::FatalError(Args ...) [with Args \u003d {const char*, const char*, const char*}]’:\n../crypto/test/abi_test.cc:211:8: error: ignoring return value of ‘ssize_t write(int, const void*, size_t)’, declared with attribute warn_unused_result [-Werror\u003dunused-result]\ncc1plus: all warnings being treated as errors\n```\n\nAre there requirements for a specific version?",
+      "parentUuid": "b5fb0cf0_76925b29",
+      "revId": "249da272349f6cb16c68aa027eb6c12de392feda",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
