@@ -71,8 +71,7 @@ union seal_data {
   } out;
 };
 
-#if defined(OPENSSL_X86_64) && !defined(OPENSSL_NO_ASM) && \
-    !defined(OPENSSL_WINDOWS)
+#if defined(OPENSSL_X86_64) && !defined(OPENSSL_NO_ASM)
 static int asm_capable(void) {
   const int sse41_capable = (OPENSSL_ia32cap_P[1] & (1 << 19)) != 0;
   return sse41_capable;
