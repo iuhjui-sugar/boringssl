@@ -122,6 +122,24 @@
       "parentUuid": "b5fb0cf0_76925b29",
       "revId": "249da272349f6cb16c68aa027eb6c12de392feda",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39b28bc3_29f9de12",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-02T23:32:41Z",
+      "side": 1,
+      "message": "I\u0027m just using whatever\u0027s in my Debian install. That error looks like your gcc or glibc is fussier than mine about unused returns values to write(). Does it work to stick a (void) in front?",
+      "parentUuid": "c63b0781_408fc837",
+      "revId": "249da272349f6cb16c68aa027eb6c12de392feda",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
