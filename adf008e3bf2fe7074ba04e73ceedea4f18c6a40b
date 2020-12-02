@@ -34,6 +34,24 @@
       "parentUuid": "7ce4478d_7809e866",
       "revId": "adf008e3bf2fe7074ba04e73ceedea4f18c6a40b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b288eb8_040ea493",
+        "filename": "crypto/fipsmodule/rsa/rsa_impl.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1335,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-02T19:56:14Z",
+      "side": 1,
+      "message": "It won\u0027t actually try again either way, since RSA_check_fips doesn\u0027t set RSA_R_TOO_MANY_ITERATIONS. But the new version works.\n\n(Though we\u0027re already running the keygen algorithm as a unit on retry, so it\u0027d seem weird for it to matter. *shrug*)",
+      "parentUuid": "1b62d891_c589f380",
+      "revId": "adf008e3bf2fe7074ba04e73ceedea4f18c6a40b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }

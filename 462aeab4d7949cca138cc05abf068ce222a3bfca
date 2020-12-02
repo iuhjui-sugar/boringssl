@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f78fe9d8_77a1fdc1",
+        "filename": "crypto/fipsmodule/rsa/rsa_impl.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1379,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-02T19:56:14Z",
+      "side": 1,
+      "message": "Nit: extra space",
+      "range": {
+        "startLine": 1379,
+        "startChar": 0,
+        "endLine": 1379,
+        "endChar": 1
+      },
+      "revId": "462aeab4d7949cca138cc05abf068ce222a3bfca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
