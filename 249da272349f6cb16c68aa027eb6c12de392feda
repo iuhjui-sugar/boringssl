@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7238bd9_d5a4b1b0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7650
+      },
+      "writtenOn": "2020-12-02T22:53:43Z",
+      "side": 1,
+      "message": "Hi Adam, David,\n\nThis addresses https://bugs.chromium.org/p/boringssl/issues/detail?id\u003d384.\n\nAs David noted I should have added CHECK_ABI tests, but I made sure that the current CHECK_ABI tests in `aead_test.cc` do catch bad ABI changes already.",
+      "revId": "249da272349f6cb16c68aa027eb6c12de392feda",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
