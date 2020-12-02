@@ -68,6 +68,24 @@
       "parentUuid": "f7238bd9_d5a4b1b0",
       "revId": "249da272349f6cb16c68aa027eb6c12de392feda",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fedb5661_ea8469b1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-02T22:59:45Z",
+      "side": 1,
+      "message": "(Oops, apparently Gerrit rememberd some draft text. I wrote half of this before I saw your comment above. Ignore this.)",
+      "parentUuid": "21734064_5218bd48",
+      "revId": "249da272349f6cb16c68aa027eb6c12de392feda",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
