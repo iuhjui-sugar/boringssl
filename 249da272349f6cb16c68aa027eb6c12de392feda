@@ -33,6 +33,41 @@
       "message": "The main changes to the .pl file are renaming the numeric labels, and removing usage of 3 source lea, which perl asm seems to hate.",
       "revId": "249da272349f6cb16c68aa027eb6c12de392feda",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21734064_5218bd48",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-02T22:58:46Z",
+      "side": 1,
+      "message": "Given Windows has some slightly fussy ABI requirements (it\u0027s easy to forget to save/restore a register), and this CL touches a lot of CFI bits, could you add some ABI tests for these functions? Let me know if you need any pointers. Roughly, I expect this would look like:\n\n1. Extract the function prototypes",
+      "revId": "249da272349f6cb16c68aa027eb6c12de392feda",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b5fb0cf0_76925b29",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-02T22:58:46Z",
+      "side": 1,
+      "message": "While there are CHECK_ABI wrappers for the AEAD wrappers, I think it\u0027s preferable to also target the functions directly. ABI errors usually get caught by the wrappers, but in some cases they can slip through. (E.g. if the asm fails to restore a register, but some C code in the middle happened to save and restore it anyway.)\n\nIt also looks like there are some mistakes in the CFI annotations. When I try to run with unwind test support, I get errors like these:\n\n[ RUN      ] All/PerAEADTest.ABI/XChaCha20Poly1305\n../crypto/cipher_extra/aead_test.cc:817: Failure\nFailed\nABI failures in aead_ctx_seal(ctx_seal.get(), ciphertext + 1, \u0026ciphertext_len, nonce, plaintext + 1, sizeof(plaintext) - 1, ad, ad_len):\n    unwinding at chacha20_poly1305_seal_avx2+0 (0x00005634c6a2e800): could not unwind to starting frame\n    unwinding at chacha20_poly1305_seal_avx2+3 (0x00005634c6a2e803): could not unwind to starting frame\n    unwinding at chacha20_poly1305_seal_avx2+11 (0x00005634c6a2e80b): could not unwind to starting frame\n    unwinding at chacha20_poly1305_seal_avx2+16 (0x00005634c6a2e810): could not unwind to starting frame\n    unwinding at chacha20_poly1305_seal_avx2+22 (0x00005634c6a2e816): could not unwind to starting frame\n    unwinding at chacha20_poly1305_seal_avx2+28 (0x00005634c6a2e81c): could not unwind to starting frame\n    unwinding at chacha20_poly1305_seal_avx2+36 (0x00005634c6a2e824): could not unwind to starting frame\n    unwinding at chacha20_poly1305_seal_avx2+43 (0x00005634c6a2e82b): could not unwind to starting frame\n    unwinding at chacha20_poly1305_seal_avx2+49 (0x00005634c6a2e831): could not unwind to starting frame\n    unwinding at chacha20_poly1305_seal_avx2+56 (0x00005634c6a2e838): could not unwind to starting frame\n    (additional errors omitted)\n\n../crypto/cipher_extra/aead_test.cc:823: Failure\nFailed\nABI failures in aead_ctx_open(ctx_open.get(), plaintext2 + 1, \u0026plaintext2_len, nonce, ciphertext + 1, ciphertext_len, ad, ad_len):\n    unwinding at chacha20_poly1305_open_avx2+0 (0x00005634c6a2c1c0): could not unwind to starting frame\n    unwinding at chacha20_poly1305_open_avx2+3 (0x00005634c6a2c1c3): could not unwind to starting frame\n    unwinding at chacha20_poly1305_open_avx2+11 (0x00005634c6a2c1cb): could not unwind to starting frame\n    unwinding at chacha20_poly1305_open_avx2+16 (0x00005634c6a2c1d0): could not unwind to starting frame\n    unwinding at chacha20_poly1305_open_avx2+22 (0x00005634c6a2c1d6): could not unwind to starting frame\n    unwinding at chacha20_poly1305_open_avx2+28 (0x00005634c6a2c1dc): could not unwind to starting frame\n    unwinding at chacha20_poly1305_open_avx2+36 (0x00005634c6a2c1e4): could not unwind to starting frame\n    unwinding at chacha20_poly1305_open_avx2+43 (0x00005634c6a2c1eb): could not unwind to starting frame\n    unwinding at chacha20_poly1305_open_avx2+49 (0x00005634c6a2c1f1): could not unwind to starting frame\n    unwinding at chacha20_poly1305_open_avx2+56 (0x00005634c6a2c1f8): could not unwind to starting frame\n    (additional errors omitted)\n\n(The unwind testing is only enabled on Linux if cmake can find a copy of libunwind on your machine.)",
+      "parentUuid": "f7238bd9_d5a4b1b0",
+      "revId": "249da272349f6cb16c68aa027eb6c12de392feda",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
