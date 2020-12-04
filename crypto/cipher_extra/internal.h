@@ -153,7 +153,8 @@ union chacha20_poly1305_seal_data {
   } out;
 };
 
-#if defined(OPENSSL_X86_64) && !defined(OPENSSL_NO_ASM)
+#if (defined(OPENSSL_X86_64) || defined(OPENSSL_AARCH64)) && \
+    !defined(OPENSSL_NO_ASM)
 
 OPENSSL_STATIC_ASSERT(sizeof(union chacha20_poly1305_open_data) == 48,
                       "wrong chacha20_poly1305_open_data size");
@@ -161,8 +162,12 @@ OPENSSL_STATIC_ASSERT(sizeof(union chacha20_poly1305_seal_data) == 48 + 8 + 8,
                       "wrong chacha20_poly1305_seal_data size");
 
 OPENSSL_INLINE int chacha20_poly1305_asm_capable(void) {
+#if defined(OPENSSL_X86_64)
   const int sse41_capable = (OPENSSL_ia32cap_P[1] & (1 << 19)) != 0;
   return sse41_capable;
+#elif defined(OPENSSL_AARCH64)
+  return CRYPTO_is_NEON_capable();
+#endif
 }
 
 // chacha20_poly1305_open is defined in chacha20_poly1305_x86_64.pl. It decrypts
