@@ -16,6 +16,23 @@
       "message": "Ok, I fixed the .cfi directives and added the ABI checks",
       "revId": "9cf448a6c240046c4176fc602edc5b001968cd88",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02d640c0_dbb9c9cf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7650
+      },
+      "writtenOn": "2020-12-04T00:06:15Z",
+      "side": 1,
+      "message": "I also have a dedicated ChaCha20-Poly1035 for aarch64, almost thrice the speed on N1, any interest in that?",
+      "revId": "9cf448a6c240046c4176fc602edc5b001968cd88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
