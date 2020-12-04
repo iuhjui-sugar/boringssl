@@ -71,11 +71,15 @@ union seal_data {
   } out;
 };
 
-#if defined(OPENSSL_X86_64) && !defined(OPENSSL_NO_ASM) && \
-    !defined(OPENSSL_WINDOWS)
+#if (defined(OPENSSL_AARCH64) || defined(OPENSSL_X86_64)) && \
+    !defined(OPENSSL_NO_ASM) && !defined(OPENSSL_WINDOWS)
 static int asm_capable(void) {
+#if defined(OPENSSL_X86_64)
   const int sse41_capable = (OPENSSL_ia32cap_P[1] & (1 << 19)) != 0;
   return sse41_capable;
+#elif defined(OPENSSL_AARCH64)
+  return CRYPTO_is_NEON_capable();
+#endif
 }
 
 OPENSSL_STATIC_ASSERT(sizeof(union open_data) == 48, "wrong open_data size");
