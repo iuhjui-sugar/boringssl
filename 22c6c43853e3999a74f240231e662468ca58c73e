@@ -16,6 +16,360 @@
       "message": "Just added CH1/CH2 consistency for ECH GREASE, plus a runner test that triggers HRR.",
       "revId": "22c6c43853e3999a74f240231e662468ca58c73e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "726e10c5_32b92d2b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 30
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-04T19:45:33Z",
+      "side": 1,
+      "message": "Almost there I think.",
+      "revId": "22c6c43853e3999a74f240231e662468ca58c73e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88d8ebc6_69c966f1",
+        "filename": "ssl/internal.h",
+        "patchSetId": 30
+      },
+      "lineNbr": 2737,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-04T19:45:33Z",
+      "side": 1,
+      "message": "Nit: ClientHello",
+      "range": {
+        "startLine": 2736,
+        "startChar": 71,
+        "endLine": 2737,
+        "endChar": 11
+      },
+      "revId": "22c6c43853e3999a74f240231e662468ca58c73e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df25821a_b4822e9f",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 30
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-04T19:45:33Z",
+      "side": 1,
+      "message": "This should be moved down a level, in the ECH group. It doesn\u0027t have anything to do with server_name. :-P",
+      "revId": "22c6c43853e3999a74f240231e662468ca58c73e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b63b9341_ab49f293",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 30
+      },
+      "lineNbr": 609,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-04T19:45:33Z",
+      "side": 1,
+      "message": "Nit: Might be better to check hs-\u003essl-\u003es3-\u003eused_hello_retry_request. It doesn\u0027t make any actual difference, but it avoids thinking about whether there are non-HRR cases where you didn\u0027t fill in ech_grease or so.",
+      "range": {
+        "startLine": 609,
+        "startChar": 6,
+        "endLine": 609,
+        "endChar": 29
+      },
+      "revId": "22c6c43853e3999a74f240231e662468ca58c73e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2d3f70a_66321ad4",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 30
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-04T19:45:33Z",
+      "side": 1,
+      "message": "No need to allocate: uint8_t ech_config_id[EVP_MAX_MD_SIZE]\n\n(Also okay to assume RAND_bytes never fails. We\u0027re pretty inconsistent about this, but whatever.)",
+      "revId": "22c6c43853e3999a74f240231e662468ca58c73e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1deea4da_b484bb6d",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 30
+      },
+      "lineNbr": 682,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-04T19:45:33Z",
+      "side": 1,
+      "message": "assert(payload_len \u003c sizeof(payload))",
+      "revId": "22c6c43853e3999a74f240231e662468ca58c73e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55c7cf6d_56a456ea",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 30
+      },
+      "lineNbr": 733,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-04T19:45:33Z",
+      "side": 1,
+      "message": "This doesn\u0027t match the comment. (I think the comment is right.)",
+      "range": {
+        "startLine": 733,
+        "startChar": 17,
+        "endLine": 733,
+        "endChar": 41
+      },
+      "revId": "22c6c43853e3999a74f240231e662468ca58c73e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5c5c151_ff3b597d",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 30
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-04T19:45:33Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 742,
+        "startChar": 19,
+        "endLine": 742,
+        "endChar": 43
+      },
+      "revId": "22c6c43853e3999a74f240231e662468ca58c73e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ad43d8e_9bdd9fdb",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 30
+      },
+      "lineNbr": 798,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-04T19:45:33Z",
+      "side": 1,
+      "message": ", if not empty,\n\n(That\u0027s to capture that the default state is to send no retry configs.)",
+      "range": {
+        "startLine": 798,
+        "startChar": 23,
+        "endLine": 798,
+        "endChar": 24
+      },
+      "revId": "22c6c43853e3999a74f240231e662468ca58c73e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8bb59d1_697db8ff",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 30
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-04T19:45:33Z",
+      "side": 1,
+      "message": "This structure still doesn\u0027t seem right. It\u0027s not useful either for a client to consume ECHConfigs, or for a server to produce them, because the extensions block is left unparsed. To that end, any parsing logic on the client side needs to correctly handle critical extensions, and unmarshal doesn\u0027t.\n\nSince the only use here is in runner serializing a plausible ECHConfig, we can drop everything that\u0027s not used for that (extensions, unmarshal, raw) sort out the remainder from there. Instead let\u0027s just start with:\n\n  func MarshalECHConfig(*ECHConfig) []byte\n\nAnd then go from there.",
+      "revId": "22c6c43853e3999a74f240231e662468ca58c73e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab878be8_b5474be2",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 30
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-04T19:45:33Z",
+      "side": 1,
+      "message": "This is a little confusing (looks like you\u0027re building an extension), so let\u0027s add a comment that the version reuses the extension codepoint.",
+      "revId": "22c6c43853e3999a74f240231e662468ca58c73e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7a3693f_47d19e34",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 30
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-04T19:45:33Z",
+      "side": 1,
+      "message": "\u0026\u0026",
+      "range": {
+        "startLine": 406,
+        "startChar": 36,
+        "endLine": 407,
+        "endChar": 4
+      },
+      "revId": "22c6c43853e3999a74f240231e662468ca58c73e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c2887ca_19b67873",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 30
+      },
+      "lineNbr": 16145,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-04T19:45:33Z",
+      "side": 1,
+      "message": "None of these tests, with the exception of the last one somewhat implicitly, actually tests that the client is sending ECH. You could delete the ECH-sending code and everything would still work.\n\nThe way to test this is to add a ProtocolBugs.ExpectClientECH or so, to test that client sent something.",
+      "revId": "22c6c43853e3999a74f240231e662468ca58c73e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa7dc85d_91387313",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 30
+      },
+      "lineNbr": 16173,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-04T19:45:33Z",
+      "side": 1,
+      "message": "Is there anything resumption-specific to test here? The non-HRR test didn\u0027t resume.",
+      "revId": "22c6c43853e3999a74f240231e662468ca58c73e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59350e66_819b975a",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 30
+      },
+      "lineNbr": 16184,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-04T19:45:33Z",
+      "side": 1,
+      "message": "If the aim is to test with a plausible ECH config, this needs to be an actual plausible one. In particular, consider what a real client implementation would look like. There is no meaningful difference between an ECH config of a version you don\u0027t understand, and an ECH config of a good version but with features you don\u0027t understand.\n\nThat means:\n1. It is relevant that the constants are real, so fill in the actual ones from the Go HPKE package.\n2. The constants should match what we aim to implement, so KDF ID 3 (HKDF-SHA512) isn\u0027t useful. It should be HKDF-SHA256.\n3. 1 isn\u0027t a KEM ID. This should be the DHKEM(X25519, HKDF-SHA256) constant.\n4. The public key should be plausible for the KEM ID. I\u0027d suggest generating a real X25519 public key and hardcoding it in there.",
+      "revId": "22c6c43853e3999a74f240231e662468ca58c73e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64230f58_090eec4c",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 30
+      },
+      "lineNbr": 16212,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-04T19:45:33Z",
+      "side": 1,
+      "message": "This isn\u0027t going to do what you expect because of the echConfig.raw business returning the same slice as before. It happens to work, but if you write a second test, they\u0027ll get mixed up.",
+      "range": {
+        "startLine": 16212,
+        "startChar": 32,
+        "endLine": 16212,
+        "endChar": 58
+      },
+      "revId": "22c6c43853e3999a74f240231e662468ca58c73e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76f4bbbd_821d2429",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 30
+      },
+      "lineNbr": 16232,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-04T19:45:33Z",
+      "side": 1,
+      "message": "This doesn\u0027t match the comment. (I think the comment is right.)",
+      "range": {
+        "startLine": 16232,
+        "startChar": 37,
+        "endLine": 16232,
+        "endChar": 54
+      },
+      "revId": "22c6c43853e3999a74f240231e662468ca58c73e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7194620c_ac2bbb5e",
+        "filename": "ssl/test/test_config.cc",
+        "patchSetId": 30
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-04T19:45:33Z",
+      "side": 1,
+      "message": "Nit: Let\u0027s try to ordering between the struct and this file consistent. (Although the ordering in the struct is... pretty arbitrary. Oh well.)",
+      "revId": "22c6c43853e3999a74f240231e662468ca58c73e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
