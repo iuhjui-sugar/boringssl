@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cbd0969_2fc1b44c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 31
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-12-04T21:52:25Z",
+      "side": 1,
+      "message": "Thanks, David. New patchset!",
+      "revId": "79b57705e3d8dc8bb2929e851f1da6d43c6e7716",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7def39ac_212a3103",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 31
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-12-04T21:52:25Z",
+      "side": 1,
+      "message": "Should I make this type public as well?\n\nDo we still care about private types hanging off of public structs when the member itself (cipherSuites) is private?",
+      "range": {
+        "startLine": 261,
+        "startChar": 16,
+        "endLine": 261,
+        "endChar": 31
+      },
+      "revId": "79b57705e3d8dc8bb2929e851f1da6d43c6e7716",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
