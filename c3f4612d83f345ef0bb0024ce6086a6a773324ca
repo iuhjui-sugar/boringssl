@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe07226e_21f5b620",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-07T22:13:24Z",
+      "side": 0,
+      "message": "Looks like this is changing the algorithm from:\n\n  acc0:acc1:acc2 +\u003d t0:t1:0;\n  acc0:acc1:acc2 +\u003d t2:t3:0;\n\nto:\n\n  t2:t3 +\u003d t0:t1;\n  acc0:acc1:acc2 +\u003d t2:t3:0;\n\nAnd in doing so it drops a potential carry in the first addition. Is this necessary for the ABI change, or is it just an unrelated optimization? If it\u0027s an unrelated optimization, can we do this in a separate CL? Ideally with benchmarks and a justification for why t2:t3 + t0:t1 cannot overflow.\n\n(I spent far more time than I\u0027d like chasing after carry bugs in OpenSSL\u0027s poly1305 assembly. I think it\u0027s worth being careful here, short of some massive investment in formal verification tools.)",
+      "revId": "c3f4612d83f345ef0bb0024ce6086a6a773324ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78db87c0_38f0040b",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-07T22:13:24Z",
+      "side": 0,
+      "message": "Did you mean to drop this comment?",
+      "revId": "c3f4612d83f345ef0bb0024ce6086a6a773324ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af105335_f7b899b7",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 822,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-07T22:13:24Z",
+      "side": 0,
+      "message": "Note for self: not really ABI-related, but was unreachable.",
+      "revId": "c3f4612d83f345ef0bb0024ce6086a6a773324ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fee264aa_fabe4ed2",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 847,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-07T22:13:24Z",
+      "side": 0,
+      "message": "Did you mean to drop this comment?",
+      "revId": "c3f4612d83f345ef0bb0024ce6086a6a773324ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

@@ -33,6 +33,342 @@
       "message": "I also have a dedicated ChaCha20-Poly1035 for aarch64, almost thrice the speed on N1, any interest in that?",
       "revId": "9cf448a6c240046c4176fc602edc5b001968cd88",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29d9368c_5bb19b7c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-07T22:13:24Z",
+      "side": 1,
+      "message": "Sorry about the slow response. Assembly is hard to review. I got up to chacha20_poly1305_seal, but I figured it\u0027s probably simplest if I flush the comments I\u0027ve got so far.\n\nAn overall comment: there are a lot of new micro-optimizations in this CL that don\u0027t seem to be ABI-related. Am I right in guessing that you\u0027ve got some private copy of the file and this CL contains a rollup of all the changes thus far? If you\u0027ve got the history in your private copy readily accessible, could you maybe extract some of the earlier changes separately?\n\n(If you don\u0027t have it readily available, I don\u0027t want to ask you to do git gymnastics to reconstruct what you don\u0027t have. Just this would be a lot easier to review if they were in separate CLs. Just easier if I don\u0027t have to simultaneously think about the changes in labels and what each new micro-optimization is doing.)",
+      "revId": "9cf448a6c240046c4176fc602edc5b001968cd88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60cf1292_04216829",
+        "filename": "crypto/cipher_extra/aead_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 833,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-07T22:13:24Z",
+      "side": 1,
+      "message": "You can skip OPENSSL_NO_ASM here. SUPPORTS_ABI_TEST implies it and, more to the point, I think we should try to align with the calling code. The calling code seems to believe:\n\n- asm_capable() and the ASM function names are always safe to utter.\n- If asm_capable() returns 1, you can call the ASM function names.\n- If it returns 0, you cannot call the ASM function names.\n\nThus:\n\n1. Pull asm_capable() from e_chacha20poly1305.c to internal.h as chacha20_poly1305_asm_capable(). When doing so, replace static with OPENSSL_INLINE. It doesn\u0027t really matter but C++ is silly. This is necessarily anyway since the test right now crashes on older CPUs.\n\n2. At the start of this test, write:\n\n     if (!chacha20_poly1305_asm_capable()) {\n       return;\n     }\n\n3. Replace the fallback cases with:\n\nOPENSSL_INLINE void chacha20_poly1305_open(uint8_t *out_plaintext,\n                                   const uint8_t *ciphertext,\n                                   size_t plaintext_len, const uint8_t *ad,\n                                   size_t ad_len, union open_data *aead_data) { abort(); }\n\nThis isn\u0027t super important, but matches what we do in aes/internal.h and makes it more likely failing to guard an API call (as in this test) is noticed. The compiler will statically delete the abort anyway.",
+      "range": {
+        "startLine": 833,
+        "startChar": 40,
+        "endLine": 833,
+        "endChar": 54
+      },
+      "revId": "9cf448a6c240046c4176fc602edc5b001968cd88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2891656a_68f74eb5",
+        "filename": "crypto/cipher_extra/aead_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 835,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-07T22:13:24Z",
+      "side": 1,
+      "message": "When I patch out the AVX2 jumps, I still get unwind errors. Looks like they might only be right in the AVX2 version:\n\nGoogle Test trace:\n../crypto/cipher_extra/aead_test.cc:841: 120\n../crypto/cipher_extra/aead_test.cc:842: Failure\nFailed\nABI failures in chacha20_poly1305_open(buf.get(), buf.get(), len, buf.get(), len % 128, \u0026open_ctx):\n    unwinding at chacha20_poly1305_open+7512 (0x0000561cfcdef618): could not unwind to starting frame\n    unwinding at chacha20_poly1305_open+7520 (0x0000561cfcdef620): could not unwind to starting frame\n    unwinding at chacha20_poly1305_open+7524 (0x0000561cfcdef624): could not unwind to starting frame\n    unwinding at chacha20_poly1305_open+7528 (0x0000561cfcdef628): could not unwind to starting frame\n    unwinding at chacha20_poly1305_open+7533 (0x0000561cfcdef62d): could not unwind to starting frame\n    unwinding at chacha20_poly1305_open+7537 (0x0000561cfcdef631): could not unwind to starting frame\n    unwinding at chacha20_poly1305_open+7541 (0x0000561cfcdef635): could not unwind to starting frame\n    unwinding at chacha20_poly1305_open+7547 (0x0000561cfcdef63b): could not unwind to starting frame\n    unwinding at chacha20_poly1305_open+7552 (0x0000561cfcdef640): could not unwind to starting frame\n    unwinding at chacha20_poly1305_open+7557 (0x0000561cfcdef645): could not unwind to starting frame\n    (additional errors omitted)",
+      "revId": "9cf448a6c240046c4176fc602edc5b001968cd88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67ed3037_61bbaf14",
+        "filename": "crypto/cipher_extra/aead_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 842,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-07T22:13:24Z",
+      "side": 1,
+      "message": "Style nit: 80 chars, here and below.",
+      "revId": "9cf448a6c240046c4176fc602edc5b001968cd88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71e0620a_c39e85f8",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-07T22:13:24Z",
+      "side": 1,
+      "message": "We\u0027re incredibly inconsistent here (I suspect building on a path with spaces just breaks which... is unfortunate), but most of the x86_64.pl files do indeed quote $xlate and $output. Did it not work without that?",
+      "revId": "9cf448a6c240046c4176fc602edc5b001968cd88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0ab7328_d4be21fe",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-07T22:13:24Z",
+      "side": 1,
+      "message": "(This change seems unrelated to ABI, but I agree it does the same thing. Though going forward, if you could keep those changes separate, it would be a lot easier to review.)",
+      "revId": "9cf448a6c240046c4176fc602edc5b001968cd88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf2eebb8_79c2eaa9",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-07T22:13:24Z",
+      "side": 1,
+      "message": "This also doesn\u0027t look ABI-related, though I agree that it\u0027s equivalent to the chain of ja 3f blocks in the old code.",
+      "revId": "9cf448a6c240046c4176fc602edc5b001968cd88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9771c7c_54d787c8",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-07T22:13:24Z",
+      "side": 1,
+      "message": "I think I agree this is probably the same, though if you can separate it out, that would be nice.\n\nThis is also really confusing. If I\u0027m understanding things right, $inp + 160 here has nothing to do with 160 bytes (which would be a problem as there are only 64 bytes left). Rather, you\u0027re using 16*10 to count to 10 ChaCha20 round pairs because this loop interleaves ChaCha20 round pairs with Poly1305 blocks, and so itr2 is repurposes as also a counter there.\n\nCould you add some comments explaining what\u0027s going on here?\n\nAlthough, given the overflow bugs (see below), maybe not use this pattern?",
+      "revId": "9cf448a6c240046c4176fc602edc5b001968cd88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fe8a8ed_9ef21cf3",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 581,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-07T22:13:24Z",
+      "side": 1,
+      "message": "There\u0027s no actual guarantee this pointer won\u0027t overflow (see below) but since this is an equality check rather than a comparison, I think this one isn\u0027t a bug, unlike the instance below, which looks like one.",
+      "revId": "9cf448a6c240046c4176fc602edc5b001968cd88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44ae1828_9eaf31be",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-07T22:13:24Z",
+      "side": 1,
+      "message": "Ditto that I agree it is (mostly) the same, modulo the bug below, but please add a comment, ideally separate it out in another CL, and maybe don\u0027t do this pointer trick given the likelihood of overflow bugs.",
+      "revId": "9cf448a6c240046c4176fc602edc5b001968cd88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8195a55_8bb6f9c7",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-07T22:13:24Z",
+      "side": 1,
+      "message": "This looks like a bug. The comparison here and switching the loop counter to pointers means you\u0027re assuming the pointers don\u0027t overflow. We aren\u0027t quite guaranteed that. We know at least 65 bytes past inp is valid, but the type signature doesn\u0027t guarantee the buffer isn\u0027t right past the end of the address space.\n\nx86_64 doesn\u0027t have a full 64 bits of address space, but glacing through here, it looks like pointers really close to the top of the address space are indeed valid.\nhttps://en.wikipedia.org/wiki/X86-64#Virtual_address_space_details",
+      "range": {
+        "startLine": 605,
+        "startChar": 4,
+        "endLine": 605,
+        "endChar": 6
+      },
+      "revId": "9cf448a6c240046c4176fc602edc5b001968cd88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85c7158f_59f26ecf",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 626,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-07T22:13:24Z",
+      "side": 1,
+      "message": "Ditto. This looks the same, ideally separate it out, definitely add a comment, and fix the overflow bug below. :-P",
+      "revId": "9cf448a6c240046c4176fc602edc5b001968cd88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ce4d07d_dbfc1612",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-07T22:13:24Z",
+      "side": 1,
+      "message": "Same comment about the overflow. We\u0027re guaranteed we can add 129 to the pointer without wrapping around, but not more than that.",
+      "range": {
+        "startLine": 639,
+        "startChar": 4,
+        "endLine": 639,
+        "endChar": 6
+      },
+      "revId": "9cf448a6c240046c4176fc602edc5b001968cd88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44f74e5a_a2ba1649",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-07T22:13:24Z",
+      "side": 1,
+      "message": "Okay, now this one\u0027s actually fine because 160 \u003c 193. :-)",
+      "revId": "9cf448a6c240046c4176fc602edc5b001968cd88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c8493ca_5d94746a",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-07T22:13:24Z",
+      "side": 1,
+      "message": "Agreed that this is the same, since you\u0027ve moved the -1 down to line 730. Though it also seems unrelated to Windows ABI.",
+      "revId": "9cf448a6c240046c4176fc602edc5b001968cd88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8640c5dc_fdb3c2cb",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-07T22:13:24Z",
+      "side": 1,
+      "message": "Nit: tag? (lowercase)",
+      "range": {
+        "startLine": 785,
+        "startChar": 10,
+        "endLine": 785,
+        "endChar": 13
+      },
+      "revId": "9cf448a6c240046c4176fc602edc5b001968cd88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f7fd8eb_8c1e9ab0",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-07T22:13:24Z",
+      "side": 1,
+      "message": "Note to self: continue review from here in next iteration.",
+      "revId": "9cf448a6c240046c4176fc602edc5b001968cd88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4bd2b60_344c45fb",
+        "filename": "crypto/cipher_extra/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-07T22:13:24Z",
+      "side": 1,
+      "message": "Since this is now in a header, let\u0027s name this chacha20_poly1305_open_data. Ditto below.",
+      "range": {
+        "startLine": 128,
+        "startChar": 6,
+        "endLine": 128,
+        "endChar": 15
+      },
+      "revId": "9cf448a6c240046c4176fc602edc5b001968cd88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
