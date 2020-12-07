@@ -18,6 +18,46 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "25dc3d7c_7ec7e217",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 31
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-07T22:47:16Z",
+      "side": 1,
+      "message": "Just some minor nitpicks now. :-)",
+      "revId": "79b57705e3d8dc8bb2929e851f1da6d43c6e7716",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98ad743e_a5772551",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 31
+      },
+      "lineNbr": 799,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-07T22:47:16Z",
+      "side": 1,
+      "message": "We don\u0027t usually quote these.",
+      "range": {
+        "startLine": 799,
+        "startChar": 4,
+        "endLine": 799,
+        "endChar": 5
+      },
+      "revId": "79b57705e3d8dc8bb2929e851f1da6d43c6e7716",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7def39ac_212a3103",
@@ -37,6 +77,70 @@
         "endLine": 261,
         "endChar": 31
       },
+      "revId": "79b57705e3d8dc8bb2929e851f1da6d43c6e7716",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e81efd1b_55703adb",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 31
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-07T22:47:16Z",
+      "side": 1,
+      "message": "Yup, public type and public fields. Private fields of a public struct only make sense if there are functions within the library to construct them. Since this ECHConfig is just a plain struct, it should all be public.",
+      "parentUuid": "7def39ac_212a3103",
+      "range": {
+        "startLine": 261,
+        "startChar": 16,
+        "endLine": 261,
+        "endChar": 31
+      },
+      "revId": "79b57705e3d8dc8bb2929e851f1da6d43c6e7716",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "407407a7_31f91e17",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 31
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-07T22:47:16Z",
+      "side": 1,
+      "message": "We don\u0027t usually quote these.",
+      "range": {
+        "startLine": 267,
+        "startChar": 39,
+        "endLine": 267,
+        "endChar": 40
+      },
+      "revId": "79b57705e3d8dc8bb2929e851f1da6d43c6e7716",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2182da97_30f70317",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 31
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-07T22:47:16Z",
+      "side": 1,
+      "message": "No blank line here.\n\nThis doesn\u0027t explicitly give guidance on how to group it, but these packages are both part of our own module, so no sense in separating them.\nhttps://github.com/golang/go/wiki/CodeReviewComments#imports",
       "revId": "79b57705e3d8dc8bb2929e851f1da6d43c6e7716",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }

@@ -564,6 +564,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9cda2914_1eaf0abb",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 30
+      },
+      "lineNbr": 16173,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-07T22:47:16Z",
+      "side": 1,
+      "message": "The only way to force a key_share-based HRR is to select a group the peer didn\u0027t predict. (That\u0027s just fundamental. If you ask for a key_share-based HRR with a key_share the client already has, the client will complain this is nonsense.)\n\nYou can also trigger a cookie-based HRR with SendHelloRetryRequestCookie.",
+      "parentUuid": "8bcf24ed_e79eb0dd",
+      "revId": "22c6c43853e3999a74f240231e662468ca58c73e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "59350e66_819b975a",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 30
@@ -634,6 +652,30 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "64230f58_090eec4c",
+      "range": {
+        "startLine": 16212,
+        "startChar": 32,
+        "endLine": 16212,
+        "endChar": 58
+      },
+      "revId": "22c6c43853e3999a74f240231e662468ca58c73e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5764f7d6_c4fd1686",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 30
+      },
+      "lineNbr": 16212,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-07T22:47:16Z",
+      "side": 1,
+      "message": "This does work this time, but since it\u0027s often a little unclear whether methods will do this, I think it\u0027s better to write.\n\n  var bothConfigs []byte\n  bothConfigs \u003d append(bothConfigs, MarshalECHConfig(\u0026retryConfigValid)...)\n  bothConfigs \u003d append(bothConfigs, retryConfigUnsupportedVersion...)\n\nJust less to think about.",
+      "parentUuid": "af768ec9_8c3007d4",
       "range": {
         "startLine": 16212,
         "startChar": 32,
