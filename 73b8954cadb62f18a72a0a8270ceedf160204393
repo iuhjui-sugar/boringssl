@@ -54,6 +54,23 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "78864980_43a325a8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10251
+      },
+      "writtenOn": "2020-12-07T14:26:01Z",
+      "side": 1,
+      "message": "Internal reshuffling of personnel meant this fell through the cracks - apologies. I will be picking up this work from Anthony.",
+      "revId": "73b8954cadb62f18a72a0a8270ceedf160204393",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cd9708e0_dae1c08a",
