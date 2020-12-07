@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bcac9284_07c0bda2",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 7650
+      },
+      "writtenOn": "2020-12-07T22:51:19Z",
+      "side": 0,
+      "message": "I could but this is really trivial. T3 cannot be more than 63 bits, and T2 can\u0027t be more than 61 bits (because r1 can only be 60 bits because of the clamping).",
+      "parentUuid": "fe07226e_21f5b620",
+      "revId": "c3f4612d83f345ef0bb0024ce6086a6a773324ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "78db87c0_38f0040b",
         "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
         "patchSetId": 3
