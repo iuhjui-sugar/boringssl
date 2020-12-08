@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24ea5f50_c64eabb0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-08T22:52:18Z",
+      "side": 1,
+      "message": "Oh, I thought this seemed familiar! I previously tried this in https://boringssl-review.googlesource.com/c/boringssl/+/34224 but ran into the iOS armv7 problem. This CL and upstream get around it by only addressing aarch64. Maybe later we can get it out of armv7 because they have no real reason to be there.",
+      "revId": "86445d2c5b83f8388bc0bb06d4801e72d6daefc0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
