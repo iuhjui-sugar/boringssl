@@ -580,6 +580,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "67fb5e1f_b26fc9f9",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 30
+      },
+      "lineNbr": 16173,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-12-08T18:41:49Z",
+      "side": 1,
+      "message": "Makes sense. I\u0027ll just keep the key_share-based HRR if it\u0027s the same to you.",
+      "parentUuid": "9cda2914_1eaf0abb",
+      "revId": "22c6c43853e3999a74f240231e662468ca58c73e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "59350e66_819b975a",
@@ -676,6 +694,30 @@
       "side": 1,
       "message": "This does work this time, but since it\u0027s often a little unclear whether methods will do this, I think it\u0027s better to write.\n\n  var bothConfigs []byte\n  bothConfigs \u003d append(bothConfigs, MarshalECHConfig(\u0026retryConfigValid)...)\n  bothConfigs \u003d append(bothConfigs, retryConfigUnsupportedVersion...)\n\nJust less to think about.",
       "parentUuid": "af768ec9_8c3007d4",
+      "range": {
+        "startLine": 16212,
+        "startChar": 32,
+        "endLine": 16212,
+        "endChar": 58
+      },
+      "revId": "22c6c43853e3999a74f240231e662468ca58c73e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36c8d7c2_54495d92",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 30
+      },
+      "lineNbr": 16212,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-12-08T18:41:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5764f7d6_c4fd1686",
       "range": {
         "startLine": 16212,
         "startChar": 32,

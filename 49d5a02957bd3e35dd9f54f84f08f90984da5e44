@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "519af145_63e52b1b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 32
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-12-08T18:41:49Z",
+      "side": 1,
+      "message": "Woohoo, down to zero unresolved comments :) (New patchset.)",
+      "revId": "49d5a02957bd3e35dd9f54f84f08f90984da5e44",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
