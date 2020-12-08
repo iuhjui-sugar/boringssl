@@ -16,6 +16,24 @@
       "message": "Wrong link? (Guessing it\u0027s https://usnistgov.github.io/ACVP/draft-fussell-acvp-kas-ecc.html)",
       "revId": "7b57dfb3c2a9fa92946a4e8bffccb3840db65de8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a4d2321_d97ab1bb",
+        "filename": "util/fipstools/acvp/acvptool/subprocess/kas.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-12-08T22:53:29Z",
+      "side": 1,
+      "message": "Thanks. (It should actually be a slightly different, but very similar document!)",
+      "parentUuid": "472375d9_5c8cc85a",
+      "revId": "7b57dfb3c2a9fa92946a4e8bffccb3840db65de8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
