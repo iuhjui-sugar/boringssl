@@ -55,6 +55,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "0b411d20_d65dfcaf",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 7650
+      },
+      "writtenOn": "2020-12-08T15:04:17Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "78db87c0_38f0040b",
+      "revId": "c3f4612d83f345ef0bb0024ce6086a6a773324ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "af105335_f7b899b7",
         "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
         "patchSetId": 3
@@ -83,6 +101,24 @@
       "writtenOn": "2020-12-07T22:13:24Z",
       "side": 0,
       "message": "Did you mean to drop this comment?",
+      "revId": "c3f4612d83f345ef0bb0024ce6086a6a773324ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49dea49d_a68c6086",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 847,
+      "author": {
+        "id": 7650
+      },
+      "writtenOn": "2020-12-08T15:04:17Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "fee264aa_fabe4ed2",
       "revId": "c3f4612d83f345ef0bb0024ce6086a6a773324ca",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
