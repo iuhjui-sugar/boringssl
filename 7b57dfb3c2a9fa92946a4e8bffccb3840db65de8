@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "472375d9_5c8cc85a",
+        "filename": "util/fipstools/acvp/acvptool/subprocess/kas.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-08T22:48:13Z",
+      "side": 1,
+      "message": "Wrong link? (Guessing it\u0027s https://usnistgov.github.io/ACVP/draft-fussell-acvp-kas-ecc.html)",
+      "revId": "7b57dfb3c2a9fa92946a4e8bffccb3840db65de8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
