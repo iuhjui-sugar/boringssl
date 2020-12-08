@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f95d19b9_f2a10a3e",
+        "filename": "util/fipstools/acvp/acvptool/subprocess/tlskdf.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-12-08T18:56:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8d84b13_c511dd75",
+      "revId": "8e2643d4128f2fee808a22b16a41b0cd6a137cfd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e9a68fa4_4422c8aa",
@@ -31,6 +49,24 @@
       "writtenOn": "2020-12-08T00:06:12Z",
       "side": 1,
       "message": "Huh. I\u0027d never noticed this was flipped. Just so it\u0027s more obvious this is intentional, maybe worth a comment that TLS 1.2 uses a different order for client and server randoms when computing the master secret and key block.",
+      "revId": "8e2643d4128f2fee808a22b16a41b0cd6a137cfd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "afa0406f_a63cde4f",
+        "filename": "util/fipstools/acvp/acvptool/subprocess/tlskdf.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-12-08T18:56:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9a68fa4_4422c8aa",
       "revId": "8e2643d4128f2fee808a22b16a41b0cd6a137cfd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
