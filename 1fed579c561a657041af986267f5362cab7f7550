@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "187e95e2_41cfd4ae",
+        "filename": "crypto/asn1/tasn_dec.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-08T21:59:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0f80e82_86e3bb35",
+      "revId": "1fed579c561a657041af986267f5362cab7f7550",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36cf9e59_df5e331b",
@@ -31,6 +49,24 @@
       "writtenOn": "2020-12-08T21:49:34Z",
       "side": 1,
       "message": "(ditto about \"multi-strings\".)",
+      "revId": "1fed579c561a657041af986267f5362cab7f7550",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d5ebc83_541d1023",
+        "filename": "crypto/asn1/tasn_enc.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-08T21:59:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36cf9e59_df5e331b",
       "revId": "1fed579c561a657041af986267f5362cab7f7550",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -66,6 +102,24 @@
       "side": 1,
       "message": "Looking at the other return values, I have no idea what 0 / -1 is supposed to be here!",
       "parentUuid": "ddb80289_4ecd0098",
+      "revId": "1fed579c561a657041af986267f5362cab7f7550",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9aa933d6_37649969",
+        "filename": "crypto/asn1/tasn_enc.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-08T21:59:31Z",
+      "side": 1,
+      "message": "I think the operative bit is that line 215 (and probably some other bits) distinguish 0 and -1 and rely on line 133 (and probably some other bits) returning 0 when the field is missing. However, this file is full of unchecked errors and things that return 0 but shouldn\u0027t, so it\u0027s just a mess.",
+      "parentUuid": "7f30b285_22d01993",
       "revId": "1fed579c561a657041af986267f5362cab7f7550",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
