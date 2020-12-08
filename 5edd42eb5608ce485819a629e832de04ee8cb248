@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05ab4bdb_13e378f4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 33
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-08T19:59:11Z",
+      "side": 1,
+      "message": "Fixed some minor nitpicks. LGTM.",
+      "revId": "5edd42eb5608ce485819a629e832de04ee8cb248",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

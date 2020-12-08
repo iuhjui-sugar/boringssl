@@ -16,6 +16,52 @@
       "message": "Woohoo, down to zero unresolved comments :) (New patchset.)",
       "revId": "49d5a02957bd3e35dd9f54f84f08f90984da5e44",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92f36b89_b7fbc789",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 32
+      },
+      "lineNbr": 685,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-08T19:59:11Z",
+      "side": 1,
+      "message": "s/_bb/_cbb/g",
+      "range": {
+        "startLine": 685,
+        "startChar": 35,
+        "endLine": 685,
+        "endChar": 37
+      },
+      "revId": "49d5a02957bd3e35dd9f54f84f08f90984da5e44",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0bb5f05_328b1d67",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 32
+      },
+      "lineNbr": 727,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-08T19:59:11Z",
+      "side": 1,
+      "message": "Not quotes, though I ended up just deleting the clause since it\u0027s clear from code and comes from the overall definition of decode_error.",
+      "range": {
+        "startLine": 727,
+        "startChar": 19,
+        "endLine": 727,
+        "endChar": 21
+      },
+      "revId": "49d5a02957bd3e35dd9f54f84f08f90984da5e44",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
