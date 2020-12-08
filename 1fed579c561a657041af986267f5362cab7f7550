@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddb80289_4ecd0098",
+        "filename": "crypto/asn1/tasn_enc.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-08T20:35:43Z",
+      "side": 1,
+      "message": "The mismatch in return value is weird, but I believe return -1 is correct and this line is actually a mistake. We should probably redo the error-handling. This function uses a zero return for omitted OPTIONAL values. (And omitted non-OPTIONAL values.)",
+      "revId": "1fed579c561a657041af986267f5362cab7f7550",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
