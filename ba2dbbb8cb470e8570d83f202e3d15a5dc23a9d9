@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "801c4c05_d171919e",
+        "filename": "crypto/fipsmodule/rand/rand.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-10T22:42:50Z",
+      "side": 1,
+      "message": "used_cpu",
+      "range": {
+        "startLine": 367,
+        "startChar": 8,
+        "endLine": 367,
+        "endChar": 19
+      },
+      "revId": "ba2dbbb8cb470e8570d83f202e3d15a5dc23a9d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6017100e_383fbb65",
+        "filename": "crypto/fipsmodule/rand/rand.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-10T22:42:50Z",
+      "side": 1,
+      "message": "used_cpu",
+      "range": {
+        "startLine": 407,
+        "startChar": 8,
+        "endLine": 407,
+        "endChar": 19
+      },
+      "revId": "ba2dbbb8cb470e8570d83f202e3d15a5dc23a9d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6c8225d_42f26203",
+        "filename": "crypto/rand_extra/passive.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-10T22:42:50Z",
+      "side": 1,
+      "message": "used_cpu",
+      "range": {
+        "startLine": 29,
+        "startChar": 6,
+        "endLine": 29,
+        "endChar": 17
+      },
+      "revId": "ba2dbbb8cb470e8570d83f202e3d15a5dc23a9d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
