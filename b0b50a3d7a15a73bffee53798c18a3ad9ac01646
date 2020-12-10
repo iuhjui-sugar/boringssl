@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "13e42b43_e1a521c9",
+        "filename": "crypto/fipsmodule/rand/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-12-10T21:44:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc64c493_677dfe9c",
+      "range": {
+        "startLine": 55,
+        "startChar": 4,
+        "endLine": 55,
+        "endChar": 15
+      },
+      "revId": "b0b50a3d7a15a73bffee53798c18a3ad9ac01646",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6ccf22ee_789bb6fb",
@@ -41,6 +65,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee84b450_9756dccd",
+        "filename": "crypto/fipsmodule/rand/rand.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-12-10T21:44:16Z",
+      "side": 1,
+      "message": "Ugh, thanks. Have masked the setting of from_cpu instead.",
+      "parentUuid": "6ccf22ee_789bb6fb",
+      "revId": "b0b50a3d7a15a73bffee53798c18a3ad9ac01646",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e8df6d0f_4597d488",
@@ -54,6 +96,30 @@
       "writtenOn": "2020-12-10T20:33:55Z",
       "side": 1,
       "message": "OPENSSL_memcpy since, in theory {entropy, entropy_len} could be {NULL, 0} for an empty string.",
+      "range": {
+        "startLine": 212,
+        "startChar": 2,
+        "endLine": 212,
+        "endChar": 8
+      },
+      "revId": "b0b50a3d7a15a73bffee53798c18a3ad9ac01646",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0905675_3158cfbf",
+        "filename": "crypto/fipsmodule/rand/rand.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-12-10T21:44:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e8df6d0f_4597d488",
       "range": {
         "startLine": 212,
         "startChar": 2,
@@ -87,6 +153,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8233f4c_c9c6e6d7",
+        "filename": "crypto/fipsmodule/rand/rand.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 264,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-12-10T21:44:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3af7d42_b1ace4ba",
+      "range": {
+        "startLine": 264,
+        "startChar": 21,
+        "endLine": 264,
+        "endChar": 33
+      },
+      "revId": "b0b50a3d7a15a73bffee53798c18a3ad9ac01646",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "50e61ae6_742c1d22",
@@ -100,6 +190,24 @@
       "writtenOn": "2020-12-10T20:33:55Z",
       "side": 1,
       "message": "Maybe worth carrying over the comment from the older version of this:\n\n  // If we used RDRAND, also opportunistically read from the system. This avoids\n  // solely relying on the hardware once the entropy pool has been initialized.\n\n(Was a little confused where it went at first.)",
+      "revId": "b0b50a3d7a15a73bffee53798c18a3ad9ac01646",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12ba0a35_60d6b1ac",
+        "filename": "crypto/fipsmodule/rand/rand.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-12-10T21:44:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50e61ae6_742c1d22",
       "revId": "b0b50a3d7a15a73bffee53798c18a3ad9ac01646",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
