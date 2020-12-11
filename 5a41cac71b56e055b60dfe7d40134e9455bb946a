@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7931351d_1560cbba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-11T18:43:38Z",
+      "side": 1,
+      "message": "Can you elaborate? We build with clang on aarch64 just fine for Android, Linux, and iOS. What platform?",
+      "revId": "5a41cac71b56e055b60dfe7d40134e9455bb946a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04156a56_f45214e9",
+        "filename": "crypto/fipsmodule/bn/div.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-11T18:43:38Z",
+      "side": 1,
+      "message": "Wrap to 80 chars.",
+      "revId": "5a41cac71b56e055b60dfe7d40134e9455bb946a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72622dbd_0c4ca84b",
+        "filename": "crypto/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-11T18:43:38Z",
+      "side": 1,
+      "message": "This isn\u0027t right and will regress performance on all our currently supported aarch64 platforms. Non-MSVC clang is perfectly capable of dividing __uint128_t. What needed this?",
+      "revId": "5a41cac71b56e055b60dfe7d40134e9455bb946a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
