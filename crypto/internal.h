@@ -170,7 +170,7 @@ typedef __uint128_t uint128_t;
 
 // clang-cl supports __uint128_t but modulus and division don't work.
 // https://crbug.com/787617.
-#if !defined(_MSC_VER) || !defined(__clang__)
+#if !defined(_MSC_VER) && !defined(__clang__)
 #define BORINGSSL_CAN_DIVIDE_UINT128
 #endif
 #endif
