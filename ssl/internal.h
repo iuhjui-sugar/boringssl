@@ -1804,6 +1804,10 @@ struct SSL_HANDSHAKE {
   // which implemented TLS 1.3 incorrectly.
   bool apply_jdk11_workaround : 1;
 
+  // QUIC drafts up to and including 32 used a different TLS extension
+  // codepoint to convey QUIC's transport parameters.
+  bool quic_use_legacy_codepoint : 1;
+
   // client_version is the value sent or received in the ClientHello version.
   uint16_t client_version = 0;
 
