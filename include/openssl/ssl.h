@@ -4113,6 +4113,11 @@ OPENSSL_EXPORT int SSL_used_hello_retry_request(const SSL *ssl);
 // https://bugs.openjdk.java.net/browse/JDK-8213202
 OPENSSL_EXPORT void SSL_set_jdk11_workaround(SSL *ssl, int enable);
 
+// SSL_set_quic_use_legacy_codepoint configures whether to use the legacy QUIC
+// extension codepoint 0xffa5 as opposed to the official value 57. Call with
+// |use_legacy| set to 1 to use 0xffa5 and call with 0 to use 57. The default
+// value for this is currently 1 but it will change to 0 at a later date.
+OPENSSL_EXPORT void SSL_set_quic_use_legacy_codepoint(SSL *ssl, int use_legacy);
 
 // Deprecated functions.
 
