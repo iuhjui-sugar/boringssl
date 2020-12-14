@@ -16,6 +16,121 @@
       "message": "I didn\u0027t know where best to add tests, so please let me know where I can do that. I\u0027ve confirmed that this works for QUIC via cl/347069217.",
       "revId": "5a404bd50f522ccf9fc45de14516777ac7bfd48c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1da06548_8df54171",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-14T19:49:13Z",
+      "side": 1,
+      "message": "There are some C++ tests in ssl/ssl_test.cc and then there are test against a Go implementation in ssl/test/.\n\nThe C++ tests are a bit more conventional, but you\u0027re limited to talking to yourself, so it\u0027s hard to test reactions to misbehaviors.\n\nThe Go tests would let you test odd behaviors like a server seeing a ClientHello with the new code point but responding using the old one. Though it\u0027s a bit more involved:\n\n- Add a flag to bssl_shim corresponding to your new API. (See test_config.h and test_config.cc.)\n\n- Add whatever options you need to the Go implementation to do what you want. (Config and ProtocolBugs structs in common.go, TLS implementation in the other Go files.)\n\n- Add the tests you want to runner.go. Search for [\"QUICTransportParams-] for some of the existing ones. (Gosh that file is getting unwieldy.) Also note that any QUIC tests, by default, get some default transport params settings since they\u0027re always necessary. Search for [skipTransportParamsConfig].",
+      "parentUuid": "497dee63_46c887a5",
+      "revId": "5a404bd50f522ccf9fc45de14516777ac7bfd48c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59b74a19_f37eb99b",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 4116,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-14T19:49:13Z",
+      "side": 1,
+      "message": "Would it make more sense to put this with the other QUIC functions? Every QUIC implementor will care about this for now, so it\u0027s not all that obscure.\n\n(And once the final RFC is ready and QUIC implementors don\u0027t care about this function, we\u0027ll probably be ready to remove it in not too long anyway.)",
+      "revId": "5a404bd50f522ccf9fc45de14516777ac7bfd48c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9a641f6_14c4eed8",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 4121,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-14T19:49:13Z",
+      "side": 1,
+      "message": "Nit: Extra newline here. (The documentation generator uses two blank lines between sections.)",
+      "revId": "5a404bd50f522ccf9fc45de14516777ac7bfd48c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df7d7e49_53cd4aee",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2753,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-14T19:49:13Z",
+      "side": 1,
+      "message": "Nit: maybe s/inner/impl/?\n\nNot sure I\u0027ve seen it referred to as \"inner\". Also ECH is introducing a \"ClientHelloInner\", so I figure \"impl\" will be less confusing. Ditto for the other helpers.",
+      "range": {
+        "startLine": 2753,
+        "startChar": 54,
+        "endLine": 2753,
+        "endChar": 59
+      },
+      "revId": "5a404bd50f522ccf9fc45de14516777ac7bfd48c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2356c153_f74bd676",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2804,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-14T19:49:13Z",
+      "side": 1,
+      "message": "This works, though it\u0027s actually a little goofy:\n\nUnsolicited ServerHello (really EncryptedExtensions here) extensions are forbidden, so if we got a non-null contents with the wrong codepoint, this should actually be an error. But remembering to check this in each callback would be tedious, so the callbacks track which extensions were emitted in add_clienthello and enforce this rule.\n\nSo in principle this could be an assert, except we call every callback with NULL when the extension is missing, solicited or not. So I think this can be:\n\n  SSL *const ssl \u003d hs-\u003essl;\n  if (contents \u003d\u003d nullptr) {\n    if (used_legacy_codepoint !\u003d hs-\u003econfig-\u003equic_use_legacy_codepoint) {\n      // Silently ignore because we expect the other QUIC codepoint.\n      return true;\n    }\n    if (!ssl-\u003equic_method) {\n      return true;\n    }\n    *out_alert \u003d SSL_AD_MISSING_EXTENSION;\n    return false;\n  }\n\n  // The extensions parser will check for unsolicited extensions before\n  // calling the callback.\n  assert(ssl-\u003equic_method !\u003d nullptr);\n  assert(ssl_protocol_version(ssl) \u003d\u003d TLS1_3_VERSION);\n  assert(used_legacy_codepoint \u003d\u003d hs-\u003econfig-\u003equic_use_legacy_codepoint);\n\n  return ssl-\u003es3-\u003epeer_quic_transport_params.CopyFrom(*contents);\n\n(Not sure what line 2811 was doing there and line 2815 is impossible.)",
+      "revId": "5a404bd50f522ccf9fc45de14516777ac7bfd48c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20082072_904b5d07",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2829,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-14T19:49:13Z",
+      "side": 1,
+      "message": "Nit: use_legacy_codepoint to match the parameter name. Ditto throughout.",
+      "range": {
+        "startLine": 2829,
+        "startChar": 33,
+        "endLine": 2829,
+        "endChar": 54
+      },
+      "revId": "5a404bd50f522ccf9fc45de14516777ac7bfd48c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
