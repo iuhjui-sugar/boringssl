@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15d16093_6a769063",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-14T21:09:10Z",
+      "side": 1,
+      "message": "Also just good for IWYU purposes.",
+      "revId": "45db9a85d79acb8e06b512b061763e42c2869992",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
