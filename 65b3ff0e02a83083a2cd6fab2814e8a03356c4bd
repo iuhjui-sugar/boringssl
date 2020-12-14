@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "262fc99a_f5761d92",
+        "filename": "crypto/fipsmodule/dh/dh.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2020-12-14T21:30:53Z",
+      "side": 1,
+      "message": "Yes. It\u0027s also dipping into \"contributory behaviour\". One reason to ban this is because it feels wrong for the output not to be unpredictable, but vanilla curve25519 has the same property.\n\nBut the better(?) reason is that you have a subgroup of size two so public keys in that subgroup leak the LSB of the private key.\n\n(But also RFC 5114 groups aren\u0027t safe primes, probably because of stupidity, so DH_check_pub_key still has purpose.)",
+      "parentUuid": "7f759842_93ddf549",
+      "revId": "65b3ff0e02a83083a2cd6fab2814e8a03356c4bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "6922cd82_b18eb36d",
         "filename": "crypto/fipsmodule/dh/dh.c",
         "patchSetId": 3
@@ -31,6 +49,24 @@
       "writtenOn": "2020-12-14T19:03:00Z",
       "side": 1,
       "message": "Well, padding is also preferable side-channel-wise. :-)",
+      "revId": "65b3ff0e02a83083a2cd6fab2814e8a03356c4bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec22cd16_29d0a27f",
+        "filename": "crypto/fipsmodule/dh/dh.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2020-12-14T21:30:53Z",
+      "side": 1,
+      "message": "FIPS does not recognise the existance of side channels 😊",
+      "parentUuid": "6922cd82_b18eb36d",
       "revId": "65b3ff0e02a83083a2cd6fab2814e8a03356c4bd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
