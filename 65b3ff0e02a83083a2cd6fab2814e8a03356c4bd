@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f759842_93ddf549",
+        "filename": "crypto/fipsmodule/dh/dh.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-14T19:03:00Z",
+      "side": 1,
+      "message": "Provided p is a safe prime, this is equivalent to DH_check_pub_key, right? So hopefully it won\u0027t break anyone\u0027s unit tests, unless they were testing with bad DH primes.\n\n(If p is not a safe prime, is this check actually meaningful? You might still end up on a small subgroup somewhere else. Not that it changes whether we need to do it. Mostly curious.)",
+      "revId": "65b3ff0e02a83083a2cd6fab2814e8a03356c4bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6922cd82_b18eb36d",
+        "filename": "crypto/fipsmodule/dh/dh.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-14T19:03:00Z",
+      "side": 1,
+      "message": "Well, padding is also preferable side-channel-wise. :-)",
+      "revId": "65b3ff0e02a83083a2cd6fab2814e8a03356c4bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
