@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92e0ded4_0f77dee5",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 6
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-15T00:58:37Z",
+      "side": 1,
+      "message": "Hah. I sat down to work through the overall invariant in terms of upper bounds with powers of two before noticing you already demonstrated the overall invariant holds. But I got the same as you so that works out. Your argument is simpler. :-)",
+      "range": {
+        "startLine": 193,
+        "startChar": 28,
+        "endLine": 193,
+        "endChar": 74
+      },
+      "revId": "4a32a09b70097ada7db6055922e9e7d09cd119a8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

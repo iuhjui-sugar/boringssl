@@ -72,6 +72,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1dd747e_02fb2f32",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-15T00:58:37Z",
+      "side": 0,
+      "message": "I think I agree with you this holds. Thanks for adding the comments! They were very helpful.\n\n(It\u0027s been a while since I last thought about poly1305, so I had to page all the clamping tricks back in.)",
+      "parentUuid": "2c248807_afae7efb",
+      "revId": "c3f4612d83f345ef0bb0024ce6086a6a773324ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "78db87c0_38f0040b",
