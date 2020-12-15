@@ -16,6 +16,97 @@
       "message": "Ready to review!",
       "revId": "a80f7297d8e32b029f535f58a302ac8bea0136e8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45057abe_6c8ada01",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-15T20:15:59Z",
+      "side": 1,
+      "message": "Rather than write this loop, just call ssl_client_hello_get_extension.\n\nThat said, I think you can just put this in a callback. (But without the TODO since that wouldn\u0027t be done in the callback. And in draft-09, they\u0027ll be separate code points altogether.)\n\nEdit: Oh, another reason to process these in separate places: suppose you see a non-empty ECH extension. You would then decrypt it and *then* look for an empty ECH extension in the resulting ClientHello. So the two operations actually need to happen at different stages.",
+      "revId": "a80f7297d8e32b029f535f58a302ac8bea0136e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4327eed2_fbee9de6",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-15T20:15:59Z",
+      "side": 1,
+      "message": "Mind adding one of those? :-)",
+      "revId": "a80f7297d8e32b029f535f58a302ac8bea0136e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b37b3c39_4ced878f",
+        "filename": "ssl/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 1657,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-15T20:15:59Z",
+      "side": 1,
+      "message": "With the other booleans and as a bitmask. I\u0027d maybe also call this ech_accept_confirmation or maybe ech_is_inner to match the future draft-09 game. (I worry ech_accept sounds too much like we accepted ECH which isn\u0027t *quite* true.)",
+      "revId": "a80f7297d8e32b029f535f58a302ac8bea0136e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4d52a9f_65e0a089",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-15T20:15:59Z",
+      "side": 1,
+      "message": "Nit: client_random and server_random is how we usually refer to these and avoids the appreviation.",
+      "range": {
+        "startLine": 511,
+        "startChar": 61,
+        "endLine": 511,
+        "endChar": 63
+      },
+      "revId": "a80f7297d8e32b029f535f58a302ac8bea0136e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7eb1cb81_ad5a7ffc",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-15T20:15:59Z",
+      "side": 1,
+      "message": "Style nit: outputs before inputs.",
+      "revId": "a80f7297d8e32b029f535f58a302ac8bea0136e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
