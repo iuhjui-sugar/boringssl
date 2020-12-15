@@ -16,6 +16,166 @@
       "message": "Thanks for volunteering, Steven!\n\nThis chain of CLs is admittedly a bit weird. Would you mind doing a quick review on the parent CL as well?",
       "revId": "bc2df08c0f6dadf90e48275d0516bc48055fe13c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45228009_9bd90478",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-15T20:57:20Z",
+      "side": 1,
+      "message": "(Haven\u0027t looked at the meat of the implementation yet, just the public API so far.)",
+      "revId": "bc2df08c0f6dadf90e48275d0516bc48055fe13c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20d713b4_8a2a6a33",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 13
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-15T20:57:20Z",
+      "side": 1,
+      "message": "This and the use of ECHConfig below in (Client)ECHConfigs doesn\u0027t seem like it\u0027d work. An ECHConfig (the spec notion) includes its serialization. Any parsed representation of an already-constructed ECHConfig structure would need to retain that, otherwise things will break.\n\nIn contrast, this ECHConfig (the Go type) that we landed for GREASE was something very different. That was just a template for constructing an ECHConfig.\n\n(This is what I was trying to get at the other day when we were talking about crypto/x509 and how it actually uses the same type for two different purposes. Whatever representation we use, we should be clear on what each type is actually representing where.)",
+      "range": {
+        "startLine": 343,
+        "startChar": 11,
+        "endLine": 343,
+        "endChar": 20
+      },
+      "revId": "bc2df08c0f6dadf90e48275d0516bc48055fe13c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "285397e0_25577c10",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 13
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-15T20:57:20Z",
+      "side": 1,
+      "message": "Nit: ClientECHConfigs maybe?",
+      "range": {
+        "startLine": 393,
+        "startChar": 1,
+        "endLine": 393,
+        "endChar": 11
+      },
+      "revId": "bc2df08c0f6dadf90e48275d0516bc48055fe13c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06d272b2_896b6d8f",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 13
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-15T20:57:20Z",
+      "side": 1,
+      "message": "We\u0027d be implementing AES-128-GCM and ChaCha20-Poly1305. Although this is kind of an odd helper function since we\u0027d need to test how the client reacts to variations in each of these fields anyway. That suggests ECHConfig is probably the right API, and maybe, for tests which don\u0027t are, we generate a single representative one in a global variable at startup and reuse it for all tests.",
+      "revId": "bc2df08c0f6dadf90e48275d0516bc48055fe13c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f9f33ea_6b41dcce",
+        "filename": "ssl/test/runner/hpke/hpke.go",
+        "patchSetId": 13
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-15T20:57:20Z",
+      "side": 1,
+      "message": "Same comment as in the C code, this should be GetHKDFHash.",
+      "range": {
+        "startLine": 58,
+        "startChar": 5,
+        "endLine": 58,
+        "endChar": 12
+      },
+      "revId": "bc2df08c0f6dadf90e48275d0516bc48055fe13c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3ce5444_51c15fda",
+        "filename": "ssl/test/runner/hpke/hpke.go",
+        "patchSetId": 13
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-15T20:57:20Z",
+      "side": 1,
+      "message": "Both for a testing implementation and for a real one, this isn\u0027t really the right way to figure out which HPKE cipher suites to select. (Additionally, from a layering perspective, this kind of cipher suite is an ECH-specific notion. In fact, HPKE\u0027s notion of cipher suite is a triple of all three algorithms.)\n\nFor a real implementation, just because we\u0027ve implemented an algorithm doesn\u0027t mean we want to expose it over TLS.\n\nFor a test implementation, we need to actually test that the shim server correctly implements all the modes we expect them to. That means we actually need to control *which* parameters the Go client implementation uses.\n\nFor both of these, we need a notion of local preferences on the client. In the C implementation, because we generally don\u0027t expose configuration options we don\u0027t need, that notion is implicit and hardcoded, possibly with config options in the future. (Only HKDFSHA256 with AES-128-GCM and ChaCha20-Poly1305 for now.) In Go, because we need the flexibility, we should add a parameter to the Config struct.\n\n(It\u0027s very confusing because the ECHConfig gets passed in externally on both sides, but remember there are always two sides to every parameter negotiation. There\u0027s the peer\u0027s preferences, and there\u0027s our preferences. As a client, the ECHConfig is just the peer\u0027s preferences. The client still needs local preferences. This is where this gets super weird: as a server, the ECHConfig may not be a good representation of the server preferences, but we\u0027re kinda stuck with that.)",
+      "range": {
+        "startLine": 73,
+        "startChar": 5,
+        "endLine": 73,
+        "endChar": 27
+      },
+      "revId": "bc2df08c0f6dadf90e48275d0516bc48055fe13c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1cb9a71_ca5823ce",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 13
+      },
+      "lineNbr": 16152,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-15T20:57:20Z",
+      "side": 1,
+      "message": "What\u0027s this actually testing? There aren\u0027t much of test expectations here. Did you want to assert that we handshaked the outer ClientHello? (What\u0027s the connection to GREASE?)",
+      "revId": "bc2df08c0f6dadf90e48275d0516bc48055fe13c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "971a835a_66955252",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 13
+      },
+      "lineNbr": 16159,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-15T20:57:20Z",
+      "side": 1,
+      "message": "What\u0027s this line doing?",
+      "revId": "bc2df08c0f6dadf90e48275d0516bc48055fe13c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
