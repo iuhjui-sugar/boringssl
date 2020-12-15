@@ -624,6 +624,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "744203fd_a2765753",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-15T00:14:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f7fd8eb_8c1e9ab0",
+      "revId": "9cf448a6c240046c4176fc602edc5b001968cd88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b4bd2b60_344c45fb",

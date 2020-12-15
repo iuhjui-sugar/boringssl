@@ -35,6 +35,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f43c7ef_ac687f12",
+        "filename": "crypto/cipher_extra/aead_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 833,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-15T00:14:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba39bc04_0c85e2ee",
+      "revId": "2685891afd227f26a4f8a86be26a6d45a76aaf97",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0ae2ac92_35b53671",
@@ -48,6 +66,24 @@
       "writtenOn": "2020-12-15T00:08:47Z",
       "side": 1,
       "message": "Nit: Since this is an in-out param, probably best to initialize it to zero inside the loop. (Though it\u0027s fine here since the outputs don\u0027t clobber the pointer inputs.)",
+      "revId": "2685891afd227f26a4f8a86be26a6d45a76aaf97",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56a15118_3053e9ab",
+        "filename": "crypto/cipher_extra/aead_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 837,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-15T00:14:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ae2ac92_35b53671",
       "revId": "2685891afd227f26a4f8a86be26a6d45a76aaf97",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -99,6 +135,24 @@
       "writtenOn": "2020-12-15T00:08:47Z",
       "side": 1,
       "message": "Unused non-local label?",
+      "revId": "2685891afd227f26a4f8a86be26a6d45a76aaf97",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "210c965c_8b0da950",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 5
+      },
+      "lineNbr": 2210,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-15T00:14:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f269e0ca_7f5dfc17",
       "revId": "2685891afd227f26a4f8a86be26a6d45a76aaf97",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -173,6 +227,24 @@
       "writtenOn": "2020-12-15T00:08:47Z",
       "side": 1,
       "message": "Nit: May as well put these in the header too.",
+      "revId": "2685891afd227f26a4f8a86be26a6d45a76aaf97",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "555a6436_b247cbc0",
+        "filename": "crypto/cipher_extra/e_chacha20poly1305.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-15T00:14:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5da5fe02_fc16688c",
       "revId": "2685891afd227f26a4f8a86be26a6d45a76aaf97",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
