@@ -1,0 +1,180 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "781c4761_e127f215",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-15T00:08:47Z",
+      "side": 1,
+      "message": "Thanks! Left a few nitpicks, but they\u0027re trivial enough that I\u0027ll go ahead and fix them to save the round-trip.",
+      "revId": "2685891afd227f26a4f8a86be26a6d45a76aaf97",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba39bc04_0c85e2ee",
+        "filename": "crypto/cipher_extra/aead_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 833,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-15T00:08:47Z",
+      "side": 1,
+      "message": "Nit: It doesn\u0027t really matter, but since the calling code doesn\u0027t gate on x86_64, I\u0027d probably just emit this unconditionally since chacha20_poly1305_asm_capable will catch it.\n\n(That way the aarch64 version doesn\u0027t need a change here. :-) )",
+      "revId": "2685891afd227f26a4f8a86be26a6d45a76aaf97",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ae2ac92_35b53671",
+        "filename": "crypto/cipher_extra/aead_test.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 837,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-15T00:08:47Z",
+      "side": 1,
+      "message": "Nit: Since this is an in-out param, probably best to initialize it to zero inside the loop. (Though it\u0027s fine here since the outputs don\u0027t clobber the pointer inputs.)",
+      "revId": "2685891afd227f26a4f8a86be26a6d45a76aaf97",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1e7fa51_8a53e0a0",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 5
+      },
+      "lineNbr": 1032,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-15T00:08:47Z",
+      "side": 1,
+      "message": "(Verified that the change does the same thing. A switch from jg to ja, but I think ja is correct given size_t. Though either way should be fine since I believe C implicitly promises via ptrdiff_t that buffer lengths fit in ssize_t.)",
+      "revId": "2685891afd227f26a4f8a86be26a6d45a76aaf97",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "353d46eb_771c46ea",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 5
+      },
+      "lineNbr": 1593,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-15T00:08:47Z",
+      "side": 1,
+      "message": "(Agreed this is the same.)",
+      "revId": "2685891afd227f26a4f8a86be26a6d45a76aaf97",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f269e0ca_7f5dfc17",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 5
+      },
+      "lineNbr": 2210,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-15T00:08:47Z",
+      "side": 1,
+      "message": "Unused non-local label?",
+      "revId": "2685891afd227f26a4f8a86be26a6d45a76aaf97",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb9055ee_5c1d9ddf",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 5
+      },
+      "lineNbr": 2256,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-15T00:08:47Z",
+      "side": 1,
+      "message": "(This is different code and all, but the avx2 code assumes bmi2, and I\u0027m assuming that they\u0027re otherwise equivalent and don\u0027t interact with xor_stream_avx2, given you\u0027ve uninterleaved them.)",
+      "revId": "2685891afd227f26a4f8a86be26a6d45a76aaf97",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb08bfde_cb17fe87",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 5
+      },
+      "lineNbr": 2281,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-15T00:08:47Z",
+      "side": 1,
+      "message": "(Checked this is the same as the old code.)",
+      "revId": "2685891afd227f26a4f8a86be26a6d45a76aaf97",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "004b2944_c732533a",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 5
+      },
+      "lineNbr": 2287,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-15T00:08:47Z",
+      "side": 1,
+      "message": "(Ditto re assuming the mulx and normal functions are interchangeable.)",
+      "range": {
+        "startLine": 2287,
+        "startChar": 9,
+        "endLine": 2287,
+        "endChar": 22
+      },
+      "revId": "2685891afd227f26a4f8a86be26a6d45a76aaf97",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5da5fe02_fc16688c",
+        "filename": "crypto/cipher_extra/e_chacha20poly1305.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-15T00:08:47Z",
+      "side": 1,
+      "message": "Nit: May as well put these in the header too.",
+      "revId": "2685891afd227f26a4f8a86be26a6d45a76aaf97",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
