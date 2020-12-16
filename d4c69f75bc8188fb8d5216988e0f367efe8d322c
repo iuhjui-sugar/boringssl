@@ -34,6 +34,24 @@
       "parentUuid": "00ae5b36_27bce24d",
       "revId": "d4c69f75bc8188fb8d5216988e0f367efe8d322c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea1ab23b_9e991dbe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-16T18:25:00Z",
+      "side": 1,
+      "message": "Aha! Okay, I see the issue. It is indeed this CL.\n\nIt used to be the case that parse_clienthello would error if a non-QUIC server saw the extension. Since we don\u0027t call add_serverhello unsolicited, add_serverhello could assume that the ClientHello had the extension and therefore we\u0027re QUIC.\n\nThis CL now has two versions of the code point. Whichever code point we don\u0027t believe in doesn\u0027t get the parse_clienthello erroring behavior, which means the assert is no longer correct.\n\nNothing particularly bad happens if we run past the assert (I think we\u0027d just fail at SSL_R_QUIC_TRANSPORT_PARAMETERS_MISCONFIGURED in weird ways), but it\u0027s still silly.\n\nI think the most immediate fix is to move the use_legacy_codepoint !\u003d hs-\u003econfig-\u003equic_use_legacy_codepoint check to the top of the function. Though it may also make sense to rethink how we deal with non-QUIC servers seeing ClientHellos with the old and new QUIC code points.",
+      "parentUuid": "cde2c05e_d4fe99aa",
+      "revId": "d4c69f75bc8188fb8d5216988e0f367efe8d322c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
