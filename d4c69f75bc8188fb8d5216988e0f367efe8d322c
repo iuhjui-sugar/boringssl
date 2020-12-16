@@ -52,6 +52,24 @@
       "parentUuid": "cde2c05e_d4fe99aa",
       "revId": "d4c69f75bc8188fb8d5216988e0f367efe8d322c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3fbcd78_a63cae35",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-12-16T18:25:38Z",
+      "side": 1,
+      "message": "The exact test-case stops reproducing with the revert included. Could still be a coincidence but, given that the fuzzer found it pretty quickly with this patch included. I think pulling the patch first makes sense but absolutely we need to figure it out too; I just have a lot of meetings and didn\u0027t want to leave it hanging.",
+      "parentUuid": "cde2c05e_d4fe99aa",
+      "revId": "d4c69f75bc8188fb8d5216988e0f367efe8d322c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
