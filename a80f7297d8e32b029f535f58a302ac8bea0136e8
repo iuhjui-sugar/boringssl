@@ -90,6 +90,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5ce400b6_811da240",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2020-12-17T16:42:36Z",
+      "side": 1,
+      "message": "We need tests in this CL to land it. But if you squash the whole thing, we\u0027ll be landing a whole lot of ECH support in BoGo without knowing what tests we\u0027re actually trying to write.\n\nRather, forward just the ech_is_inner and acceptance signal bits and test just that? We need to test this separately from ECH anyway because this logic needs to run even if the server didn\u0027t decrypt things or have ECH configured. This is why we split it into a separate extension in draft-09. It\u0027s really the same thing, but makes the relationship clearer. (Same comment as how the original processing order in this CL wasn\u0027t quite right.)\n\nTo that end, now that draft-09 is stamped, let\u0027s start by getting to draft-09 since the acceptance signal has changed non-trivially anyway.",
+      "parentUuid": "e47d6cd8_eed92df7",
+      "revId": "a80f7297d8e32b029f535f58a302ac8bea0136e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b37b3c39_4ced878f",
         "filename": "ssl/internal.h",
         "patchSetId": 8
