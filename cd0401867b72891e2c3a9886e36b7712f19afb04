@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6682aa3_11a5efea",
+        "filename": "crypto/bytestring/bytestring_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 690,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-12-17T22:30:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a2eb327_9d668a5a",
+      "range": {
+        "startLine": 690,
+        "startChar": 62,
+        "endLine": 690,
+        "endChar": 74
+      },
+      "revId": "cd0401867b72891e2c3a9886e36b7712f19afb04",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9e08ce34_5e825917",
@@ -37,6 +61,30 @@
       "writtenOn": "2020-12-17T20:38:17Z",
       "side": 1,
       "message": "Nit: out_ber_found, and before ber_ok since it\u0027s an output.",
+      "range": {
+        "startLine": 280,
+        "startChar": 41,
+        "endLine": 280,
+        "endChar": 50
+      },
+      "revId": "cd0401867b72891e2c3a9886e36b7712f19afb04",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45c04ef9_85b2dae5",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-12-17T22:30:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e08ce34_5e825917",
       "range": {
         "startLine": 280,
         "startChar": 41,
@@ -70,6 +118,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "292f54ca_a6bb8d53",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-12-17T22:30:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "855f3618_f9523126",
+      "range": {
+        "startLine": 257,
+        "startChar": 62,
+        "endLine": 257,
+        "endChar": 63
+      },
+      "revId": "cd0401867b72891e2c3a9886e36b7712f19afb04",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d93aa93e_0c0ac550",
@@ -93,6 +165,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "79e945b2_03cb418d",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-12-17T22:30:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d93aa93e_0c0ac550",
+      "range": {
+        "startLine": 258,
+        "startChar": 39,
+        "endLine": 258,
+        "endChar": 50
+      },
+      "revId": "cd0401867b72891e2c3a9886e36b7712f19afb04",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a9c81d39_a8eeafdb",
@@ -106,6 +202,30 @@
       "writtenOn": "2020-12-17T20:38:17Z",
       "side": 1,
       "message": "Nit: out_ber_found",
+      "range": {
+        "startLine": 263,
+        "startChar": 53,
+        "endLine": 263,
+        "endChar": 62
+      },
+      "revId": "cd0401867b72891e2c3a9886e36b7712f19afb04",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3508b06_3967b68b",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2020-12-17T22:30:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9c81d39_a8eeafdb",
       "range": {
         "startLine": 263,
         "startChar": 53,
