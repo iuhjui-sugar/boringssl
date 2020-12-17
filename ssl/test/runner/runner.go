@@ -533,8 +533,11 @@ type connectionExpectations struct {
 	// expected to send.
 	peerCertificate *Certificate
 	// quicTransportParams contains the QUIC transport parameters that are to be
-	// sent by the peer.
+	// sent by the peer using codepoint 57.
 	quicTransportParams []byte
+	// quicTransportParams contains the QUIC transport parameters that are to be
+	// sent by the peer using legacy codepoint 0xffa5.
+	quicTransportParamsLegacy []byte
 	// peerApplicationSettings are the expected application settings for the
 	// connection. If nil, no application settings are expected.
 	peerApplicationSettings []byte
@@ -947,6 +950,12 @@ func doExchange(test *testCase, config *Config, conn net.Conn, isResume bool, tr
 		}
 	}
 
+	if len(expectations.quicTransportParamsLegacy) > 0 {
+		if !bytes.Equal(expectations.quicTransportParamsLegacy, connState.QUICTransportParamsLegacy) {
+			return errors.New("Peer did not send expected legacy QUIC transport params")
+		}
+	}
+
 	if test.exportKeyingMaterial > 0 {
 		actual := make([]byte, test.exportKeyingMaterial)
 		if _, err := io.ReadFull(tlsConn, actual); err != nil {
@@ -1300,8 +1309,10 @@ func runTest(statusChan chan statusMsg, test *testCase, shimPath string, mallocN
 		flags = append(flags, "-quic")
 		if !test.skipTransportParamsConfig {
 			test.config.QUICTransportParams = []byte{1, 2}
+			test.config.QUICTransportParamsUseLegacyCodepoint = 0
 			if test.resumeConfig != nil {
 				test.resumeConfig.QUICTransportParams = []byte{1, 2}
+				test.resumeConfig.QUICTransportParamsUseLegacyCodepoint = 0
 			}
 			test.expectations.quicTransportParams = []byte{3, 4}
 			if test.resumeExpectations != nil {
@@ -1313,6 +1324,8 @@ func runTest(statusChan chan statusMsg, test *testCase, shimPath string, mallocN
 					base64.StdEncoding.EncodeToString([]byte{3, 4}),
 					"-expect-quic-transport-params",
 					base64.StdEncoding.EncodeToString([]byte{1, 2}),
+					"-quic_use_legacy_codepoint",
+					strconv.Itoa(test.config.QUICTransportParamsUseLegacyCodepoint),
 				}...)
 		}
 		if !test.skipQUICALPNConfig {
@@ -7819,20 +7832,87 @@ func addExtensionTests() {
 		// Test QUIC transport params
 		if ver.version >= VersionTLS13 {
 			// Client sends params
+			for client_config := 0; client_config <= 1; client_config++ {
+				for server_sends := 0; server_sends <= 3; server_sends++ {
+					name := "QUICTransportParams-Client-"
+					server_transport_params := []byte{3, 4}
+					flags := []string{
+						"-quic-transport-params",
+						base64.StdEncoding.EncodeToString([]byte{1, 2}),
+						"-quic_use_legacy_codepoint", strconv.Itoa(client_config),
+					}
+					expectations := connectionExpectations{
+						quicTransportParams: []byte{1, 2},
+					}
+					shouldFail := false
+					expectedError := ""
+					expectedLocalError := ""
+					if client_config == 1 {
+						name += "Legacy-"
+						expectations = connectionExpectations{
+							quicTransportParamsLegacy: []byte{1, 2},
+						}
+					}
+					if server_sends == 1 {
+						name += "ServerLegacy-"
+					}
+					if server_sends == 2 {
+						name += "ServerBoth-"
+					}
+					if server_sends == 3 {
+						name += "ServerNeither-"
+						server_transport_params = nil
+					}
+					if server_sends != client_config {
+						expectations = connectionExpectations{}
+						shouldFail = true
+						if server_sends == 3 {
+							expectedError = ":MISSING_EXTENSION:"
+						} else {
+							expectedLocalError = "remote error: unsupported extension"
+						}
+					} else {
+						flags = append(flags,
+							[]string{
+								"-expect-quic-transport-params",
+								base64.StdEncoding.EncodeToString(server_transport_params),
+							}...)
+					}
+					testCases = append(testCases, testCase{
+						testType: clientTest,
+						protocol: quic,
+						name:     name + ver.name,
+						config: Config{
+							MinVersion:                            ver.version,
+							MaxVersion:                            ver.version,
+							QUICTransportParams:                   server_transport_params,
+							QUICTransportParamsUseLegacyCodepoint: server_sends,
+						},
+						flags:                     flags,
+						expectations:              expectations,
+						shouldFail:                shouldFail,
+						expectedError:             expectedError,
+						expectedLocalError:        expectedLocalError,
+						skipTransportParamsConfig: true,
+					})
+				}
+			}
 			testCases = append(testCases, testCase{
 				testType: clientTest,
 				protocol: quic,
-				name:     "QUICTransportParams-Client-" + ver.name,
+				name:     "QUICTransportParams-Client-OldTest-" + ver.name,
 				config: Config{
-					MinVersion:          ver.version,
-					MaxVersion:          ver.version,
-					QUICTransportParams: []byte{1, 2},
+					MinVersion:                            ver.version,
+					MaxVersion:                            ver.version,
+					QUICTransportParams:                   []byte{1, 2},
+					QUICTransportParamsUseLegacyCodepoint: 0,
 				},
 				flags: []string{
 					"-quic-transport-params",
 					base64.StdEncoding.EncodeToString([]byte{3, 4}),
 					"-expect-quic-transport-params",
 					base64.StdEncoding.EncodeToString([]byte{1, 2}),
+					"-quic_use_legacy_codepoint", "0",
 				},
 				expectations: connectionExpectations{
 					quicTransportParams: []byte{3, 4},
@@ -7842,93 +7922,190 @@ func addExtensionTests() {
 			testCases = append(testCases, testCase{
 				testType: clientTest,
 				protocol: quic,
-				name:     "QUICTransportParams-Client-RejectMissing-" + ver.name,
+				name:     "QUICTransportParams-Client-Legacy-OldTest-" + ver.name,
 				config: Config{
-					MinVersion: ver.version,
-					MaxVersion: ver.version,
+					MinVersion:                            ver.version,
+					MaxVersion:                            ver.version,
+					QUICTransportParams:                   []byte{1, 2},
+					QUICTransportParamsUseLegacyCodepoint: 1,
 				},
 				flags: []string{
 					"-quic-transport-params",
 					base64.StdEncoding.EncodeToString([]byte{3, 4}),
+					"-expect-quic-transport-params",
+					base64.StdEncoding.EncodeToString([]byte{1, 2}),
+					"-quic_use_legacy_codepoint", "1",
+				},
+				expectations: connectionExpectations{
+					quicTransportParamsLegacy: []byte{3, 4},
+				},
+				skipTransportParamsConfig: true,
+			})
+			testCases = append(testCases, testCase{
+				testType: clientTest,
+				protocol: quic,
+				name:     "QUICTransportParams-Client-RejectMissing-OldTest-" + ver.name,
+				config: Config{
+					MinVersion:                            ver.version,
+					MaxVersion:                            ver.version,
+					QUICTransportParamsUseLegacyCodepoint: 0,
+				},
+				flags: []string{
+					"-quic-transport-params",
+					base64.StdEncoding.EncodeToString([]byte{3, 4}),
+					"-quic_use_legacy_codepoint", "0",
+				},
+				shouldFail:                true,
+				expectedError:             ":MISSING_EXTENSION:",
+				skipTransportParamsConfig: true,
+			})
+			testCases = append(testCases, testCase{
+				testType: clientTest,
+				protocol: quic,
+				name:     "QUICTransportParams-Client-RejectMissing-Legacy-OldTest-" + ver.name,
+				config: Config{
+					MinVersion:                            ver.version,
+					MaxVersion:                            ver.version,
+					QUICTransportParamsUseLegacyCodepoint: 1,
+				},
+				flags: []string{
+					"-quic-transport-params",
+					base64.StdEncoding.EncodeToString([]byte{3, 4}),
+					"-quic_use_legacy_codepoint", "1",
 				},
 				shouldFail:                true,
 				expectedError:             ":MISSING_EXTENSION:",
 				skipTransportParamsConfig: true,
 			})
 			// Server sends params
+			for client_sends := 0; client_sends <= 3; client_sends++ {
+				for server_config := 0; server_config <= 1; server_config++ {
+					name := "QUICTransportParams-Server-"
+					client_transport_params := []byte{1, 2}
+					flags := []string{
+						"-quic-transport-params",
+						base64.StdEncoding.EncodeToString([]byte{3, 4}),
+						"-quic_use_legacy_codepoint", strconv.Itoa(server_config),
+					}
+					expectations := connectionExpectations{
+						quicTransportParams: []byte{3, 4},
+					}
+					shouldFail := false
+					expectedError := ""
+					if server_config == 1 {
+						name += "Legacy-"
+						expectations = connectionExpectations{
+							quicTransportParamsLegacy: []byte{3, 4},
+						}
+					}
+					if client_sends == 1 {
+						name += "ClientLegacy-"
+					}
+					if client_sends == 2 {
+						name += "ClientBoth-"
+					}
+					if client_sends == 3 {
+						name += "ClientNeither-"
+						client_transport_params = nil
+					}
+					if client_sends != 2 && client_sends != server_config {
+						expectations = connectionExpectations{}
+						shouldFail = true
+						expectedError = ":MISSING_EXTENSION:"
+					} else {
+						flags = append(flags,
+							[]string{
+								"-expect-quic-transport-params",
+								base64.StdEncoding.EncodeToString(client_transport_params),
+							}...)
+					}
+					testCases = append(testCases, testCase{
+						testType: serverTest,
+						protocol: quic,
+						name:     name + ver.name,
+						config: Config{
+							MinVersion:                            ver.version,
+							MaxVersion:                            ver.version,
+							QUICTransportParams:                   client_transport_params,
+							QUICTransportParamsUseLegacyCodepoint: client_sends,
+						},
+						flags:                     flags,
+						expectations:              expectations,
+						shouldFail:                shouldFail,
+						expectedError:             expectedError,
+						skipTransportParamsConfig: true,
+					})
+				}
+			}
+		}
+		// Ensure non-QUIC client doesn't send QUIC transport parameters.
+		for client_config := 0; client_config <= 1; client_config++ {
+			name := "QUICTransportParams-Client-NotSentInTLS-"
+			if client_config == 1 {
+				name += "Legacy-"
+			}
 			testCases = append(testCases, testCase{
-				testType: serverTest,
-				protocol: quic,
-				name:     "QUICTransportParams-Server-" + ver.name,
+				testType: clientTest,
+				name:     name + ver.name,
 				config: Config{
-					MinVersion:          ver.version,
-					MaxVersion:          ver.version,
-					QUICTransportParams: []byte{1, 2},
+					MinVersion:                            ver.version,
+					MaxVersion:                            ver.version,
+					QUICTransportParamsUseLegacyCodepoint: client_config,
 				},
 				flags: []string{
+					"-max-version",
+					strconv.Itoa(int(ver.version)),
 					"-quic-transport-params",
 					base64.StdEncoding.EncodeToString([]byte{3, 4}),
-					"-expect-quic-transport-params",
-					base64.StdEncoding.EncodeToString([]byte{1, 2}),
-				},
-				expectations: connectionExpectations{
-					quicTransportParams: []byte{3, 4},
-				},
-				skipTransportParamsConfig: true,
-			})
-			testCases = append(testCases, testCase{
-				testType: serverTest,
-				protocol: quic,
-				name:     "QUICTransportParams-Server-RejectMissing-" + ver.name,
-				config: Config{
-					MinVersion: ver.version,
-					MaxVersion: ver.version,
-				},
-				flags: []string{
-					"-quic-transport-params",
-					base64.StdEncoding.EncodeToString([]byte{3, 4}),
-				},
-				expectations: connectionExpectations{
-					quicTransportParams: []byte{3, 4},
+					"-quic_use_legacy_codepoint", strconv.Itoa(client_config),
 				},
 				shouldFail:                true,
-				expectedError:             ":MISSING_EXTENSION:",
+				expectedError:             ":QUIC_TRANSPORT_PARAMETERS_MISCONFIGURED:",
 				skipTransportParamsConfig: true,
 			})
 		}
-		testCases = append(testCases, testCase{
-			testType: clientTest,
-			name:     "QUICTransportParams-Client-NotSentInTLS-" + ver.name,
-			config: Config{
-				MinVersion: ver.version,
-				MaxVersion: ver.version,
-			},
-			flags: []string{
-				"-max-version",
-				strconv.Itoa(int(ver.version)),
-				"-quic-transport-params",
-				base64.StdEncoding.EncodeToString([]byte{3, 4}),
-			},
-			shouldFail:                true,
-			expectedError:             ":QUIC_TRANSPORT_PARAMETERS_MISCONFIGURED:",
-			skipTransportParamsConfig: true,
-		})
-		testCases = append(testCases, testCase{
-			testType: serverTest,
-			name:     "QUICTransportParams-Server-RejectedInTLS-" + ver.name,
-			config: Config{
-				MinVersion:          ver.version,
-				MaxVersion:          ver.version,
-				QUICTransportParams: []byte{1, 2},
-			},
-			flags: []string{
-				"-expect-quic-transport-params",
-				base64.StdEncoding.EncodeToString([]byte{1, 2}),
-			},
-			shouldFail:                true,
-			expectedLocalError:        "remote error: unsupported extension",
-			skipTransportParamsConfig: true,
-		})
+		// Ensure non-QUIC server rejects codepoint 57 but ignores legacy 0xffa5.
+		for client_sends := 0; client_sends <= 3; client_sends++ {
+			for server_config := 0; server_config <= 1; server_config++ {
+				name := "QUICTransportParams-NonQUICServer-"
+				client_transport_params := []byte{1, 2}
+				shouldFail := false
+				expectedLocalError := ""
+				if server_config == 1 {
+					name += "Legacy-"
+				}
+				if client_sends == 1 {
+					name += "ClientLegacy-"
+				}
+				if client_sends == 2 {
+					name += "ClientBoth-"
+				}
+				if client_sends == 3 {
+					name += "ClientNeither-"
+					client_transport_params = nil
+				}
+				if client_sends == 0 || client_sends == 2 {
+					shouldFail = true
+					expectedLocalError = "remote error: unsupported extension"
+				}
+				testCases = append(testCases, testCase{
+					testType: serverTest,
+					name:     name + ver.name,
+					config: Config{
+						MinVersion:                            ver.version,
+						MaxVersion:                            ver.version,
+						QUICTransportParams:                   client_transport_params,
+						QUICTransportParamsUseLegacyCodepoint: client_sends,
+					},
+					flags: []string{
+						"-quic_use_legacy_codepoint", strconv.Itoa(server_config),
+					},
+					shouldFail:                shouldFail,
+					expectedLocalError:        expectedLocalError,
+					skipTransportParamsConfig: true,
+				})
+			}
+		}
 
 		// Test ticket behavior.
 
