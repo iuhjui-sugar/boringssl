@@ -35,6 +35,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f321ddb6_a0a7b5f7",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-12-17T16:33:43Z",
+      "side": 1,
+      "message": "Done, moved to the callback.",
+      "parentUuid": "45057abe_6c8ada01",
+      "revId": "a80f7297d8e32b029f535f58a302ac8bea0136e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4327eed2_fbee9de6",
@@ -54,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e47d6cd8_eed92df7",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-12-17T16:33:43Z",
+      "side": 1,
+      "message": "Hmm, the next CL adds the BoGo side, which makes it a lot easier to test this (ProtocolBugs.ECHServerMustAcceptInner).\n\nDo you think I should add this test in the next CL? Squash these two CLs?",
+      "parentUuid": "4327eed2_fbee9de6",
+      "revId": "a80f7297d8e32b029f535f58a302ac8bea0136e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b37b3c39_4ced878f",
         "filename": "ssl/internal.h",
         "patchSetId": 8
@@ -65,6 +101,24 @@
       "writtenOn": "2020-12-15T20:15:59Z",
       "side": 1,
       "message": "With the other booleans and as a bitmask. I\u0027d maybe also call this ech_accept_confirmation or maybe ech_is_inner to match the future draft-09 game. (I worry ech_accept sounds too much like we accepted ECH which isn\u0027t *quite* true.)",
+      "revId": "a80f7297d8e32b029f535f58a302ac8bea0136e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c16b4b8_d56d472f",
+        "filename": "ssl/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 1657,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-12-17T16:33:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b37b3c39_4ced878f",
       "revId": "a80f7297d8e32b029f535f58a302ac8bea0136e8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -92,6 +146,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f67d842_9ad5cdff",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-12-17T16:33:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4d52a9f_65e0a089",
+      "range": {
+        "startLine": 511,
+        "startChar": 61,
+        "endLine": 511,
+        "endChar": 63
+      },
+      "revId": "a80f7297d8e32b029f535f58a302ac8bea0136e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7eb1cb81_ad5a7ffc",
@@ -105,6 +183,24 @@
       "writtenOn": "2020-12-15T20:15:59Z",
       "side": 1,
       "message": "Style nit: outputs before inputs.",
+      "revId": "a80f7297d8e32b029f535f58a302ac8bea0136e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3eca7bf_e1b0daf4",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-12-17T16:33:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7eb1cb81_ad5a7ffc",
       "revId": "a80f7297d8e32b029f535f58a302ac8bea0136e8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
