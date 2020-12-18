@@ -444,6 +444,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ede7d889_b7030b3d",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2020-12-18T05:13:25Z",
+      "side": 1,
+      "message": "FWIW, the interleaved x86-64 AES-GCM code has a similar bug that is even commented in the source:\n\n```\n\t# |_aesni_ctr32_ghash_6x| requires |$end0| to point to 2*96 (0xc0)\n\t# bytes before the end of the input. Note, in particular, that this is\n\t# correct even if |$len| is not an even multiple of 96 or 16. XXX: This\n\t# seems to require that |$inp| + |$len| \u003e\u003d 2*96 (0xc0); i.e. |$inp| must\n\t# not be near the very beginning of the address space when |$len| \u003c 2*96\n\t# (0xc0).\n```",
+      "parentUuid": "a6b9f1b7_e57e9af3",
+      "range": {
+        "startLine": 605,
+        "startChar": 4,
+        "endLine": 605,
+        "endChar": 6
+      },
+      "revId": "9cf448a6c240046c4176fc602edc5b001968cd88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "85c7158f_59f26ecf",
