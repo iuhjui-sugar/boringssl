@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4452a8fe_993eaa5f",
+        "filename": "crypto/curve25519/ed25519_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2020-12-18T03:55:42Z",
+      "side": 1,
+      "message": "I created another test vector to make this test a little bit clearer:\n```\n# Control. Same key as above; same message and signature as below, except S is in range.\nPUB \u003d 100fdf47fb94f1536a4f7c3fda27383fa03375a8f527c537e6f1703c47f94f86\nMESSAGE \u003d 6a0bc2b0057cedfc0fa2e3f7f7d39279b30f454a69dfd1117c758d86b19d85e0\nSIG \u003d 0971f86d2c9c78582524a103cb9cf949522ae528f8054dc20107d999be673ff4f58ac9d20ec563133cabc6230b1db8625f8446639ede46ad4df4053000000000\nResult \u003d P\n```\n\nAlso here is the control test vector for the looser test case that existed previously:\n```\n# Control; S is in range.\nMESSAGE \u003d 54657374\nSIG \u003d 7c38e026f29e14aabd059a0f2db8b0cd783040609a8be684db12f82a27774ab07a9155711ecfaf7f99f277bad0c6ae7e39d4eef676573336a5c51eb6f946b30d\nPUB \u003d 7d4d0e7f6153a69b6242b522abbee685fda4420f8834b108c3bdae369ef549fa\nResult \u003d P\n```\n\nI\u0027m not sure how you make the decision about whether to use the data-file-based testing vs. hard-coding the tests in the C++ code as you have here. If you are interested in switching this to a data-file-based test, LMK and I will submit a CL for that.",
+      "revId": "3094902fcdc2db2cc832fa854b9a6a8be383926c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
