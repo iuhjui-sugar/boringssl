@@ -593,7 +593,7 @@ static bool ext_sni_add_serverhello(SSL_HANDSHAKE *hs, CBB *out) {
 
 // Encrypted Client Hello (ECH)
 //
-// https://tools.ietf.org/html/draft-ietf-tls-esni-08
+// https://tools.ietf.org/html/draft-ietf-tls-esni-09
 
 // random_size returns a random value between |min| and |max|, inclusive.
 static size_t random_size(size_t min, size_t max) {
@@ -628,8 +628,8 @@ static bool ext_ech_add_clienthello_grease(SSL_HANDSHAKE *hs, CBB *out) {
   const EVP_AEAD *aead = EVP_HPKE_get_aead(aead_id);
   assert(aead != nullptr);
 
-  uint8_t ech_config_id_buf[EVP_MAX_MD_SIZE];
-  Span<uint8_t> ech_config_id(ech_config_id_buf, EVP_MD_size(kdf));
+  uint8_t ech_config_id_buf[8];
+  Span<uint8_t> ech_config_id(ech_config_id_buf);
   RAND_bytes(ech_config_id.data(), ech_config_id.size());
 
   uint8_t ech_enc[X25519_PUBLIC_VALUE_LEN];
