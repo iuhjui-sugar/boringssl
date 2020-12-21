@@ -108,6 +108,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3e44a78b_6d1e4b90",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 610,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-12-21T22:40:50Z",
+      "side": 1,
+      "message": "OK, I\u0027ve added a tiny parent CL to update the GREASE code to draft-09.\n\nThis CL now adds the draft-09 acceptance behavior.\n\nI\u0027ve added two tests for the ech_is_inner behavior. (1) Backend server accepts when client sends empty ech_is_inner, and (2) handshake fails when client sends nonempty ech_is_inner.\n\nI also want to add a third test that the handshake fails when encrypted_client_hello and ech_is_inner are sent simultaneously.",
+      "parentUuid": "5ce400b6_811da240",
+      "revId": "a80f7297d8e32b029f535f58a302ac8bea0136e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b37b3c39_4ced878f",
         "filename": "ssl/internal.h",
         "patchSetId": 8

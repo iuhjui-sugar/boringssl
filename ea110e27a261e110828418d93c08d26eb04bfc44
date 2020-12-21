@@ -33,6 +33,24 @@
       "message": "Might be a little cleaner to have tls13_ech_accept_confirmation take in const client_random and a pointer to server_random and do all the calculating of what prefix to take and which part of server random to overwrite internally? (in case the spec decides it wants 10 bytes instead of something, then you don\u0027t need to touch the caller)?",
       "revId": "ea110e27a261e110828418d93c08d26eb04bfc44",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cce412e5_0375cbd2",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 880,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2020-12-21T22:40:50Z",
+      "side": 1,
+      "message": "Thanks! This function\u0027s inputs changed significantly in draft-09, but your suggestion was still relevant because the outputs did not change. Realized I should probably be using Span::subspan instead of doing pointer arithmetic, too.",
+      "parentUuid": "db3c90aa_d69680b6",
+      "revId": "ea110e27a261e110828418d93c08d26eb04bfc44",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
