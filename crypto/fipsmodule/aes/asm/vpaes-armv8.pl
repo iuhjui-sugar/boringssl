@@ -58,10 +58,12 @@ $code.=<<___;
 _vpaes_consts:
 .Lk_mc_forward:	// mc_forward
 	.quad	0x0407060500030201, 0x0C0F0E0D080B0A09
+.Lk_mc_forward2:
 	.quad	0x080B0A0904070605, 0x000302010C0F0E0D
 	.quad	0x0C0F0E0D080B0A09, 0x0407060500030201
+.Lk_mc_forward3:
 	.quad	0x000302010C0F0E0D, 0x080B0A0904070605
-.Lk_mc_backward:// mc_backward
+// mc_backward
 	.quad	0x0605040702010003, 0x0E0D0C0F0A09080B
 	.quad	0x020100030E0D0C0F, 0x0A09080B06050407
 	.quad	0x0E0D0C0F0A09080B, 0x0605040702010003
@@ -192,8 +194,8 @@ _vpaes_encrypt_preheat:
 _vpaes_encrypt_core:
 	mov	x9, $key
 	ldr	w8, [$key,#240]			// pull rounds
-	adrp	x11, :pg_hi21:.Lk_mc_forward+16
-	add	x11, x11, :lo12:.Lk_mc_forward+16
+	adrp	x11, :pg_hi21:.Lk_mc_forward2
+	add	x11, x11, :lo12:.Lk_mc_forward2
 						// vmovdqa	.Lk_ipt(%rip),	%xmm2	# iptlo
 	ld1	{v16.2d}, [x9], #16		// vmovdqu	(%r9),	%xmm5		# round0 key
 	and	v1.16b, v7.16b, v17.16b		// vpand	%xmm9,	%xmm0,	%xmm1
@@ -280,8 +282,8 @@ vpaes_encrypt:
 _vpaes_encrypt_2x:
 	mov	x9, $key
 	ldr	w8, [$key,#240]			// pull rounds
-	adrp	x11, :pg_hi21:.Lk_mc_forward+16
-	add	x11, x11, :lo12:.Lk_mc_forward+16
+	adrp	x11, :pg_hi21:.Lk_mc_forward2
+	add	x11, x11, :lo12:.Lk_mc_forward2
 						// vmovdqa	.Lk_ipt(%rip),	%xmm2	# iptlo
 	ld1	{v16.2d}, [x9], #16		// vmovdqu	(%r9),	%xmm5		# round0 key
 	and	v1.16b,  v14.16b,  v17.16b	// vpand	%xmm9,	%xmm0,	%xmm1
@@ -414,8 +416,8 @@ _vpaes_decrypt_core:
 	add	x10, x10, :lo12:.Lk_sr
 	and	x11, x11, #0x30			// and		\$0x30,	%r11
 	add	x11, x11, x10
-	adrp	x10, :pg_hi21:.Lk_mc_forward+48
-	add	x10, x10, :lo12:.Lk_mc_forward+48
+	adrp	x10, :pg_hi21:.Lk_mc_forward3
+	add	x10, x10, :lo12:.Lk_mc_forward3
 
 	ld1	{v16.2d}, [x9],#16		// vmovdqu	(%r9),	%xmm4		# round0 key
 	and	v1.16b, v7.16b, v17.16b		// vpand	%xmm9,	%xmm0,	%xmm1
@@ -527,8 +529,8 @@ _vpaes_decrypt_2x:
 	add	x10, x10, :lo12:.Lk_sr
 	and	x11, x11, #0x30			// and		\$0x30,	%r11
 	add	x11, x11, x10
-	adrp	x10, :pg_hi21:.Lk_mc_forward+48
-	add	x10, x10, :lo12:.Lk_mc_forward+48
+	adrp	x10, :pg_hi21:.Lk_mc_forward3
+	add	x10, x10, :lo12:.Lk_mc_forward3
 
 	ld1	{v16.2d}, [x9],#16		// vmovdqu	(%r9),	%xmm4		# round0 key
 	and	v1.16b,  v14.16b, v17.16b	// vpand	%xmm9,	%xmm0,	%xmm1
@@ -1059,7 +1061,7 @@ _vpaes_schedule_mangle:
 
 .Lschedule_mangle_both:
 	tbl	v3.16b, {v3.16b}, v1.16b	// vpshufb	%xmm1,	%xmm3,	%xmm3
-	add	x8, x8, #64-16			// add	\$-16,	%r8
+	add	x8, x8, #48				// add	\$-16,	%r8
 	and	x8, x8, #~(1<<6)		// and	\$0x30,	%r8
 	st1	{v3.2d}, [$out]			// vmovdqu	%xmm3,	(%rdx)
 	ret
