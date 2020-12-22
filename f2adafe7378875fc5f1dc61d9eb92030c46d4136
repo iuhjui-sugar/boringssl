@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7031064_ba11140b",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 7
+      },
+      "lineNbr": 863,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2020-12-22T21:58:44Z",
+      "side": 1,
+      "message": "This comment is wrong. The actual signature is:\n\n```\nextern void chacha20_poly1305_seal(uint8_t *out_ciphertext,\n                                   const uint8_t *plaintext,\n                                   size_t plaintext_len, const uint8_t *ad,\n                                   size_t ad_len,\n                                   union chacha20_poly1305_seal_data *data);\n```\n\nIn particular, there are separate `out_ciphertext` and `plaintext` parameters, instead of an `in_out` parameter.",
+      "range": {
+        "startLine": 863,
+        "startChar": 0,
+        "endLine": 863,
+        "endChar": 108
+      },
+      "revId": "f2adafe7378875fc5f1dc61d9eb92030c46d4136",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
