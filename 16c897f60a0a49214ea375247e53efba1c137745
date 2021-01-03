@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53487b5c_35e6fa2c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9723
+      },
+      "writtenOn": "2021-01-03T00:46:40Z",
+      "side": 1,
+      "message": "Should I abandon this one?",
+      "revId": "16c897f60a0a49214ea375247e53efba1c137745",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
