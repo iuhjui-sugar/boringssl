@@ -22,6 +22,30 @@
       },
       "revId": "f2adafe7378875fc5f1dc61d9eb92030c46d4136",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2813087e_8b81a717",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 7
+      },
+      "lineNbr": 863,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-05T21:45:09Z",
+      "side": 1,
+      "message": "Thanks! https://boringssl-review.googlesource.com/c/boringssl/+/44864",
+      "parentUuid": "a7031064_ba11140b",
+      "range": {
+        "startLine": 863,
+        "startChar": 0,
+        "endLine": 863,
+        "endChar": 108
+      },
+      "revId": "f2adafe7378875fc5f1dc61d9eb92030c46d4136",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }

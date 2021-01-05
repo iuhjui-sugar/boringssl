@@ -468,6 +468,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "06411781_59e111ba",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-05T21:45:09Z",
+      "side": 1,
+      "message": "Ah, thanks. This one would be an issue if the allocation hit page zero, which I believe is forbidden in most OS\u0027s these days. (Though I need to confirm which.)\n\nWhereas overflow would be about the last page. ptr + len must be valid, so we do have a symmetric guarantee from C that no allocation hits the last *byte*, but that doesn\u0027t translate to pages and I don\u0027t know whether that\u0027s forbidden in practice.\n\nEither way, it\u0027s certainly easier to not have to think about this. :-) I\u0027ve filed https://bugs.chromium.org/p/boringssl/issues/detail?id\u003d392",
+      "parentUuid": "ede7d889_b7030b3d",
+      "range": {
+        "startLine": 605,
+        "startChar": 4,
+        "endLine": 605,
+        "endChar": 6
+      },
+      "revId": "9cf448a6c240046c4176fc602edc5b001968cd88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "85c7158f_59f26ecf",
