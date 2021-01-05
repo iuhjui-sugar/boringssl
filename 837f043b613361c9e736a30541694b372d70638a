@@ -1,0 +1,152 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ecab0e4_cc370d46",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-05T21:15:11Z",
+      "side": 1,
+      "message": "(Didn\u0027t look at the bz2 files and am assuming those work.)",
+      "revId": "837f043b613361c9e736a30541694b372d70638a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "675822e4_ce4835da",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-05T21:15:11Z",
+      "side": 1,
+      "message": "I can separately wrestle with the CI to also run this on the bots, but might take a bit before I catch up on everything.",
+      "revId": "837f043b613361c9e736a30541694b372d70638a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d197a63_aff5f2ae",
+        "filename": "util/fipstools/acvp/acvptool/test/check_expected.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-05T21:15:11Z",
+      "side": 1,
+      "message": "Should we be sticking copyright lines on all these new source files?",
+      "revId": "837f043b613361c9e736a30541694b372d70638a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81572b0f_9c02280f",
+        "filename": "util/fipstools/acvp/acvptool/test/check_expected.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-05T21:15:11Z",
+      "side": 1,
+      "message": "Should this have a buffer size of runtime.NumCPU()? Otherwise all the work distribution needs to happen serially.",
+      "revId": "837f043b613361c9e736a30541694b372d70638a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1629cf1_b42302f6",
+        "filename": "util/fipstools/acvp/acvptool/test/check_expected.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-05T21:15:11Z",
+      "side": 1,
+      "message": "Nit: It can\u0027t happen since workers won\u0027t Done() before close(work) below, but probably prudent to wg.Add(1) before spawning the worker so it\u0027s more obvious Add() comes before Done().",
+      "revId": "837f043b613361c9e736a30541694b372d70638a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d077ed2_d309a870",
+        "filename": "util/fipstools/acvp/acvptool/test/check_expected.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-05T21:15:11Z",
+      "side": 1,
+      "message": "Optional: This works, would it be clearer (and less synchronization traffic) to update it at the end? Perhaps this function doesn\u0027t take numFailed at all and instead returns an error or boolean. Then worker can do\n\nif err :\u003d doTest(test); err !\u003d nil {\n   log.Printf(\"Test failed: %s\", err)\n   atomic.AddUint32(numFailed, 1)\n}\n\n(We could also preserve test.Wrapper in the invocation struct and print invocation.{wrapperName,inPath} or something.)",
+      "revId": "837f043b613361c9e736a30541694b372d70638a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3cdc900_30e1396a",
+        "filename": "util/fipstools/acvp/acvptool/test/trim_vectors.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-05T21:15:11Z",
+      "side": 1,
+      "message": "testGroup?",
+      "range": {
+        "startLine": 23,
+        "startChar": 3,
+        "endLine": 23,
+        "endChar": 12
+      },
+      "revId": "837f043b613361c9e736a30541694b372d70638a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e60d5794_6d095e5c",
+        "filename": "util/fipstools/acvp/acvptool/test/trim_vectors.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-05T21:15:11Z",
+      "side": 1,
+      "message": "s/\"err\"/err/?",
+      "range": {
+        "startLine": 38,
+        "startChar": 8,
+        "endLine": 38,
+        "endChar": 13
+      },
+      "revId": "837f043b613361c9e736a30541694b372d70638a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
