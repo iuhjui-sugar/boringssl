@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e51f4a6_771b33b1",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 630,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-05T20:05:57Z",
+      "side": 1,
+      "message": "Super minor nitpick, I can go ahead and deal with it, but since this is now fixed size, may as well just use the array without the span.",
+      "revId": "2b5a4704a1913716ee7c72d5d990138d0c9ebbe2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
