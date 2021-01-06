@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3a463cf_cde2c94d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-01-06T21:22:02Z",
+      "side": 1,
+      "message": "Hey David, this is ready when you get a chance. PTAL!",
+      "revId": "f0d356fb144db6a16d07137545b76a6f87214b45",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
