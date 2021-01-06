@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15abe3e8_7be56384",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-01-06T23:00:27Z",
+      "side": 1,
+      "message": "Hey David, WDYT of this optimization?\n\nThe times in the description came from my workstation, but this was a bit more severe on my Macbook. The HPKE tests alone were taking ~4 seconds instead of less than 1.",
+      "revId": "79b45d4d19b231d4f183a7c7a6728eb0670d2dd8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
