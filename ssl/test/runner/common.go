@@ -119,11 +119,12 @@ const (
 	extensionCertificateAuthorities     uint16 = 47
 	extensionSignatureAlgorithmsCert    uint16 = 50
 	extensionKeyShare                   uint16 = 51
+	extensionQUICTransportParams        uint16 = 57    // draft-ietf-quic-tls-33 and later
 	extensionCustom                     uint16 = 1234  // not IANA assigned
 	extensionNextProtoNeg               uint16 = 13172 // not IANA assigned
 	extensionApplicationSettings        uint16 = 17513 // not IANA assigned
 	extensionRenegotiationInfo          uint16 = 0xff01
-	extensionQUICTransportParams        uint16 = 0xffa5 // draft-ietf-quic-tls-13
+	extensionQUICTransportParamsLegacy  uint16 = 0xffa5 // draft-ietf-quic-tls-32 and earlier
 	extensionChannelID                  uint16 = 30032  // not IANA assigned
 	extensionDelegatedCredentials       uint16 = 0x22   // draft-ietf-tls-subcerts-06
 	extensionDuplicate                  uint16 = 0xffff // not IANA assigned
@@ -262,6 +263,7 @@ type ConnectionState struct {
 	PeerSignatureAlgorithm     signatureAlgorithm    // algorithm used by the peer in the handshake
 	CurveID                    CurveID               // the curve used in ECDHE
 	QUICTransportParams        []byte                // the QUIC transport params received from the peer
+	QUICTransportParamsLegacy  []byte                // the legacy QUIC transport params received from the peer
 	HasApplicationSettings     bool                  // whether ALPS was negotiated
 	PeerApplicationSettings    []byte                // application settings received from the peer
 }
@@ -508,6 +510,11 @@ type Config struct {
 	// QUICTransportParams, if not empty, will be sent in the QUIC
 	// transport parameters extension.
 	QUICTransportParams []byte
+
+	// QUICTransportParamsUseLegacyCodepoint controls which TLS extension
+	// codepoint is used to convey the QUIC transport parameters. 0 means
+	// use 57, 1 means use legacy value 0xff5a, 2 means use both.
+	QUICTransportParamsUseLegacyCodepoint int
 
 	CertCompressionAlgs map[uint16]CertCompressionAlg
 
