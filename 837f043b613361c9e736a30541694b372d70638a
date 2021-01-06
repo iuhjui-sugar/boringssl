@@ -52,6 +52,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5401054a_892e5e0d",
+        "filename": "util/fipstools/acvp/acvptool/test/check_expected.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2021-01-06T00:14:16Z",
+      "side": 1,
+      "message": "Yes, thank you.",
+      "parentUuid": "8d197a63_aff5f2ae",
+      "revId": "837f043b613361c9e736a30541694b372d70638a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "81572b0f_9c02280f",
@@ -65,6 +83,24 @@
       "writtenOn": "2021-01-05T21:15:11Z",
       "side": 1,
       "message": "Should this have a buffer size of runtime.NumCPU()? Otherwise all the work distribution needs to happen serially.",
+      "revId": "837f043b613361c9e736a30541694b372d70638a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "363760fb_b80b0109",
+        "filename": "util/fipstools/acvp/acvptool/test/check_expected.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2021-01-06T00:14:16Z",
+      "side": 1,
+      "message": "I think it\u0027s fine that the distribution is serialised? If there are any free workers then work will be distributed. But also fine to have a buffer.",
+      "parentUuid": "81572b0f_9c02280f",
       "revId": "837f043b613361c9e736a30541694b372d70638a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -86,6 +122,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b7e6589_4e07bf50",
+        "filename": "util/fipstools/acvp/acvptool/test/check_expected.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2021-01-06T00:14:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c1629cf1_b42302f6",
+      "revId": "837f043b613361c9e736a30541694b372d70638a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8d077ed2_d309a870",
@@ -99,6 +153,24 @@
       "writtenOn": "2021-01-05T21:15:11Z",
       "side": 1,
       "message": "Optional: This works, would it be clearer (and less synchronization traffic) to update it at the end? Perhaps this function doesn\u0027t take numFailed at all and instead returns an error or boolean. Then worker can do\n\nif err :\u003d doTest(test); err !\u003d nil {\n   log.Printf(\"Test failed: %s\", err)\n   atomic.AddUint32(numFailed, 1)\n}\n\n(We could also preserve test.Wrapper in the invocation struct and print invocation.{wrapperName,inPath} or something.)",
+      "revId": "837f043b613361c9e736a30541694b372d70638a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f76acc4a_07feb20d",
+        "filename": "util/fipstools/acvp/acvptool/test/check_expected.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2021-01-06T00:14:16Z",
+      "side": 1,
+      "message": "Yep, thanks. That works better.",
+      "parentUuid": "8d077ed2_d309a870",
       "revId": "837f043b613361c9e736a30541694b372d70638a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -126,6 +198,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cabfc15f_041ad748",
+        "filename": "util/fipstools/acvp/acvptool/test/trim_vectors.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2021-01-06T00:14:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3cdc900_30e1396a",
+      "range": {
+        "startLine": 23,
+        "startChar": 3,
+        "endLine": 23,
+        "endChar": 12
+      },
+      "revId": "837f043b613361c9e736a30541694b372d70638a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e60d5794_6d095e5c",
@@ -139,6 +235,30 @@
       "writtenOn": "2021-01-05T21:15:11Z",
       "side": 1,
       "message": "s/\"err\"/err/?",
+      "range": {
+        "startLine": 38,
+        "startChar": 8,
+        "endLine": 38,
+        "endChar": 13
+      },
+      "revId": "837f043b613361c9e736a30541694b372d70638a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6713497_62a7de3c",
+        "filename": "util/fipstools/acvp/acvptool/test/trim_vectors.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2021-01-06T00:14:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e60d5794_6d095e5c",
       "range": {
         "startLine": 38,
         "startChar": 8,
