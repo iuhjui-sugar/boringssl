@@ -204,12 +204,11 @@ FileTest::ReadResult FileTest::ReadNext() {
       std::tie(key, value) = ParseKeyValue(buf.get(), len);
 
       // Duplicate keys are rewritten to have “/2”, “/3”, … suffixes.
+      attributes_bag_.insert(key);
       std::string mapped_key = key;
-      for (unsigned i = 2; attributes_.count(mapped_key) != 0; i++) {
-        char suffix[32];
-        snprintf(suffix, sizeof(suffix), "/%u", i);
-        suffix[sizeof(suffix)-1] = 0;
-        mapped_key = key + suffix;
+      const size_t num_occurrences = attributes_bag_.count(key);
+      if (num_occurrences > 1) {
+        mapped_key += "/" + std::to_string(num_occurrences);
       }
 
       unused_attributes_.insert(mapped_key);
@@ -317,6 +316,7 @@ void FileTest::ClearTest() {
   start_line_ = 0;
   type_.clear();
   parameter_.clear();
+  attributes_bag_.clear();
   attributes_.clear();
   unused_attributes_.clear();
   unused_instructions_.clear();

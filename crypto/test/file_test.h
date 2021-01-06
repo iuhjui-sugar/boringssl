@@ -221,6 +221,8 @@ class FileTest {
   std::string type_;
   // parameter_ is the value of the first attribute.
   std::string parameter_;
+  // attributes_bag_ contains all attribute names without suffixes.
+  std::multiset<std::string> attributes_bag_;
   // attributes_ contains all attributes in the test, including the first.
   std::map<std::string, std::string> attributes_;
   // instructions_ contains all instructions in scope for the test.
