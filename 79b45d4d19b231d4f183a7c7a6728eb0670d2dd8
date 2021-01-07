@@ -104,6 +104,24 @@
       "parentUuid": "87e85237_ab383592",
       "revId": "79b45d4d19b231d4f183a7c7a6728eb0670d2dd8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60e0414a_fd8063dd",
+        "filename": "crypto/test/file_test.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-07T21:44:22Z",
+      "side": 1,
+      "message": "(Hash lookups would be std::unordered_*.)\n\nAlso, are you using an optimized or unoptimized build? It\u0027s also possible you\u0027re running into contrived things where the STL is expecting something to be optimized away. (Incidentally, unoptimized builds would also want snprintf instead of std::to_string. Anything involving the STL will perform in contrived ways without optimizatinos.)",
+      "parentUuid": "ed6efff1_3fca8229",
+      "revId": "79b45d4d19b231d4f183a7c7a6728eb0670d2dd8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
