@@ -1,0 +1,290 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20c35d7b_56e1e72a",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2847,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-07T19:17:08Z",
+      "side": 1,
+      "message": "Existing bug, but this is missing a return false line. (The alert\u0027s getting overwritten.)\n\nAlso, hrm, let\u0027s leave it for another CL, but I wonder if we should lifted config sanity-checking portion out of the callbacks altogether. It\u0027s kinda weird that QUIC checks at add_serverhello while TCP checks at parse_clienthello. QUIC needs to check later because you might compute transport params late. But TCP will never call add_serverhello, which I guess is why it\u0027s checked earlier... but that seems oddly asymmetric.\n\nMaybe I\u0027ll see if this can be tidied up in a follow-up...",
+      "revId": "90eb433bebb5d92b75da937b5b4571944fd33d15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75102554_3d0a70f2",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-07T19:17:08Z",
+      "side": 1,
+      "message": "Maybe define some constants? (Enums are a bit goofy in Go, but see RSABadValue.)",
+      "revId": "90eb433bebb5d92b75da937b5b4571944fd33d15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7beebae3_5c1e8fd1",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-07T19:17:08Z",
+      "side": 1,
+      "message": "quicTransportParamsLegacy",
+      "range": {
+        "startLine": 538,
+        "startChar": 4,
+        "endLine": 538,
+        "endChar": 23
+      },
+      "revId": "90eb433bebb5d92b75da937b5b4571944fd33d15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "100d427b_606c332e",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1328,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-07T19:17:08Z",
+      "side": 1,
+      "message": "This is kind of odd since the shim only interprets this as a boolean, without the 2 value. It also seems to be a no-op, since this value is guaranteed to be zero when using the defaults. So I think you can just delete these lines and leave legacy codepoint testing to the tests that ask for it.",
+      "revId": "90eb433bebb5d92b75da937b5b4571944fd33d15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a841d439_24ecd25e",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 7835,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-07T19:17:08Z",
+      "side": 1,
+      "message": "You can iterate over booleans by just writing something like:\n\n  for clientConfig :\u003d range []bool{false, true} {\n\n\nEdit: Ah, I see. It\u0027s an integer so you can write server_sends !\u003d client_config later. Hrm. Maybe the integers will be clearer with the constants. *shrug*",
+      "range": {
+        "startLine": 7835,
+        "startChar": 44,
+        "endLine": 7835,
+        "endChar": 46
+      },
+      "revId": "90eb433bebb5d92b75da937b5b4571944fd33d15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1b390dd_a3175d03",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 7835,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-07T19:17:08Z",
+      "side": 1,
+      "message": "Style nit: clientConfig, serverSends, etc. (Go uses camelCase.) Ditto throughout the file.",
+      "range": {
+        "startLine": 7835,
+        "startChar": 7,
+        "endLine": 7835,
+        "endChar": 20
+      },
+      "revId": "90eb433bebb5d92b75da937b5b4571944fd33d15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f97862b_a9542b11",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 7864,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-07T19:17:08Z",
+      "side": 1,
+      "message": "This is kind of odd, since 3 is not actually documented as a valid value for QUICTransportParamsUseLegacyCodepoint (and the code doesn\u0027t try to handle it), but this logic still fills it in. (I guess we could also make 3 be a valid value and another way to omit the extension.)",
+      "revId": "90eb433bebb5d92b75da937b5b4571944fd33d15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33ccd518_3536895a",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 7879,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-07T19:17:08Z",
+      "side": 1,
+      "message": "You can just pass multiple values to append:\n\nflags \u003d append(flags,\n\"-expect-quic-transport-params, base64.StdEncoding.EncodeToString(server_transport_params))",
+      "range": {
+        "startLine": 7879,
+        "startChar": 7,
+        "endLine": 7879,
+        "endChar": 11
+      },
+      "revId": "90eb433bebb5d92b75da937b5b4571944fd33d15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82fa11a2_8a293f53",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 7903,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-07T19:17:08Z",
+      "side": 1,
+      "message": "Do we still need these given the new tests? I guess we need to remember to restore them when unwinding this mess, but keeping around tests called OldTest seems super weird. :-)",
+      "range": {
+        "startLine": 7903,
+        "startChar": 42,
+        "endLine": 7903,
+        "endChar": 49
+      },
+      "revId": "90eb433bebb5d92b75da937b5b4571944fd33d15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3c57278_8ae3ff9c",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 8007,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-07T19:17:08Z",
+      "side": 1,
+      "message": "Ditto about 3 being weird.",
+      "range": {
+        "startLine": 8007,
+        "startChar": 24,
+        "endLine": 8007,
+        "endChar": 25
+      },
+      "revId": "90eb433bebb5d92b75da937b5b4571944fd33d15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9914e68a_274ccbc5",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 8020,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-07T19:17:08Z",
+      "side": 1,
+      "message": "Ditto about appending multiple values.",
+      "range": {
+        "startLine": 8020,
+        "startChar": 7,
+        "endLine": 8020,
+        "endChar": 10
+      },
+      "revId": "90eb433bebb5d92b75da937b5b4571944fd33d15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59450eef_91125e32",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 8053,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-07T19:17:08Z",
+      "side": 1,
+      "message": "I don\u0027t think this line is right since the runner is the server. (Also don\u0027t need it since the server doesn\u0027t get far enough to care.)",
+      "revId": "90eb433bebb5d92b75da937b5b4571944fd33d15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "602ca1ba_d17e0527",
+        "filename": "ssl/test/test_config.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-07T19:17:08Z",
+      "side": 1,
+      "message": "Nit: This was honestly probably a mistake (annoying to grep), but we\u0027ve been using hyphens for the flag names.",
+      "range": {
+        "startLine": 231,
+        "startChar": 7,
+        "endLine": 231,
+        "endChar": 32
+      },
+      "revId": "90eb433bebb5d92b75da937b5b4571944fd33d15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7315c941_eb43d246",
+        "filename": "ssl/test/test_config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-07T19:17:08Z",
+      "side": 1,
+      "message": "Since this threw me off at first, maybe a brief comment that this is 0 or 1 to configure and -1 to leave it at the default?\n\n(I probably ought to better introduce optional\u003cT\u003e into this thing. We have a lot of paired up or expect_no_foo settings mostly as a workaround.)",
+      "revId": "90eb433bebb5d92b75da937b5b4571944fd33d15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
