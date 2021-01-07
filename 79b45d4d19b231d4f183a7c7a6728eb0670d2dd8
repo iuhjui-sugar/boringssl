@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "09ee7578_6a59e6df",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-07T19:41:02Z",
+      "side": 1,
+      "message": "Nice! Yeah, I think we hadn\u0027t cared about this going quadratic before.",
+      "revId": "79b45d4d19b231d4f183a7c7a6728eb0670d2dd8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "15abe3e8_7be56384",
@@ -14,6 +31,23 @@
       "writtenOn": "2021-01-06T23:00:27Z",
       "side": 1,
       "message": "Hey David, WDYT of this optimization?\n\nThe times in the description came from my workstation, but this was a bit more severe on my Macbook. The HPKE tests alone were taking ~4 seconds instead of less than 1.",
+      "revId": "79b45d4d19b231d4f183a7c7a6728eb0670d2dd8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec1609e3_aa2ad301",
+        "filename": "crypto/test/file_test.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-07T19:41:02Z",
+      "side": 1,
+      "message": "This works, but std::multiset ends up storing an extra copy of the name each time. (multiset is actually a multi-set, rather than a map\u003cvalue, count\u003e. Your different values of T may be equivalent for the std::multiset purposes, but meaningfully different in other contexts.)\n\nSince all we actually need is a count, probably a std::map\u003cstd::string, size_t\u003e duplicate_attributes_ or so would be better.",
       "revId": "79b45d4d19b231d4f183a7c7a6728eb0670d2dd8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
