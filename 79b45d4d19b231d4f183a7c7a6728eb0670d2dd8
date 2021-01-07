@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "95119751_24ebaed9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-01-07T21:28:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09ee7578_6a59e6df",
+      "revId": "79b45d4d19b231d4f183a7c7a6728eb0670d2dd8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "15abe3e8_7be56384",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -48,6 +66,24 @@
       "writtenOn": "2021-01-07T19:41:02Z",
       "side": 1,
       "message": "This works, but std::multiset ends up storing an extra copy of the name each time. (multiset is actually a multi-set, rather than a map\u003cvalue, count\u003e. Your different values of T may be equivalent for the std::multiset purposes, but meaningfully different in other contexts.)\n\nSince all we actually need is a count, probably a std::map\u003cstd::string, size_t\u003e duplicate_attributes_ or so would be better.",
+      "revId": "79b45d4d19b231d4f183a7c7a6728eb0670d2dd8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87e85237_ab383592",
+        "filename": "crypto/test/file_test.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-01-07T21:28:17Z",
+      "side": 1,
+      "message": "So, I agree with this in theory, but in practice it seems to negate the performance gain for all crypto tests.  Just measured the times again:\n\n    before -07         86.34s\n    after -07          88.19s\n    multiset\u003cstring\u003e   86.02s\n    map\u003cstring,size_t\u003e 88.36s\n\nCuriously, the map is no worse than the multiset when I only run the HPKE tests.\n\nThe issue might be that we\u0027re doing a few more hash operations with the map vs the multiset. You have to (1) check if the map contains |key|, (2) maybe insert |key|, (3) increment map[key], and (4) get value of map[key].\n\nWith the multiset, we only have to (1) insert |key| and (2) count the number of occurrences of |key|.\n\nI guess it\u0027s not surprising that 3-4 hash ops is slower than 2.  How would you proceed?",
+      "parentUuid": "ec1609e3_aa2ad301",
       "revId": "79b45d4d19b231d4f183a7c7a6728eb0670d2dd8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
