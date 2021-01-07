@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d3a3545_e384ef4f",
+        "filename": "crypto/fipsmodule/ec/ec.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 803,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-07T21:52:35Z",
+      "side": 1,
+      "message": "EC_POINT_get_affine_coordinates_GFp :-P\n\nAlso, I\u0027m impressed clang has a warning for this.",
+      "range": {
+        "startLine": 803,
+        "startChar": 9,
+        "endLine": 803,
+        "endChar": 40
+      },
+      "revId": "81cd4c0948ba2de422183b6a8529f0d98f4d8978",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b5052d6_f2cc9e2e",
+        "filename": "decrepit/cfb/cfb.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-07T21:52:35Z",
+      "side": 1,
+      "message": "Maybe also update cfb_test.cc so we have some coverage. (Looks like F.3.15 is the AES-192 version.)",
+      "revId": "81cd4c0948ba2de422183b6a8529f0d98f4d8978",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
