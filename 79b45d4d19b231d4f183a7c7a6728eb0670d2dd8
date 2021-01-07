@@ -122,6 +122,24 @@
       "parentUuid": "ed6efff1_3fca8229",
       "revId": "79b45d4d19b231d4f183a7c7a6728eb0670d2dd8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13612dbc_bb8e9df8",
+        "filename": "crypto/test/file_test.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-01-07T22:25:15Z",
+      "side": 1,
+      "message": "Aha, you\u0027re absolutely right about std::map being a tree of some sort (does boringssl always use libcxx?). I confused myself by looking at the perf results from my first attempt, where I used unordered_map and saw a lot of time spent on hashing. Duh.\n\nWhen I rely on the map zero-initializing the size_t, performance is even a little better than the multiset. Switching to this and updating stats in the CL description.\n\nI didn\u0027t explicitly pass -DCMAKE_BUILD_TYPE\u003dRelease to cmake, so I suppose I\u0027ve been working with an unoptimized build. But that\u0027s actually what I want, because I\u0027m trying to make tests run faster on debug builds :)\n\nThanks for bearing with me!",
+      "parentUuid": "60e0414a_fd8063dd",
+      "revId": "79b45d4d19b231d4f183a7c7a6728eb0670d2dd8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
