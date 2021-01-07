@@ -56,6 +56,30 @@
       },
       "revId": "f0d356fb144db6a16d07137545b76a6f87214b45",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0090b4e_183802a0",
+        "filename": "crypto/hpke/hpke_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-01-07T19:41:45Z",
+      "side": 1,
+      "message": "Good catch, done.",
+      "parentUuid": "2a328807_66228504",
+      "range": {
+        "startLine": 235,
+        "startChar": 26,
+        "endLine": 235,
+        "endChar": 41
+      },
+      "revId": "f0d356fb144db6a16d07137545b76a6f87214b45",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
