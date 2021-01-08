@@ -50,6 +50,24 @@
       "message": "Another issue: this file uses CRLF line endings instead of LF. (I\u0027ll fix this as well.)",
       "revId": "39495abae8b46d90495b9fa46deb9b1162bed811",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cc1eeae_12236682",
+        "filename": "crypto/cpu-aarch64-win.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-08T23:22:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab88e57a_082c8379",
+      "revId": "39495abae8b46d90495b9fa46deb9b1162bed811",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
