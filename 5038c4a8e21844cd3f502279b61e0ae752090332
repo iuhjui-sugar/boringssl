@@ -1,0 +1,278 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd29ed97_22dab796",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-08T20:12:02Z",
+      "side": 1,
+      "message": "Mostly nitpicks apart form the test.",
+      "revId": "5038c4a8e21844cd3f502279b61e0ae752090332",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "560104fa_88b9484e",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 2723,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-08T20:12:02Z",
+      "side": 1,
+      "message": "This doesn\u0027t end up testing the ECH acceptance signal (just the behavior of a test-only API). It\u0027ll likely confuse caller because this doesn\u0027t report ECH acceptance. Instead, check on the Go side whether C behaved appropriately on the wire:\n\n1. Send a ClientHello with whatever combination of ech_is_inner, etc.\n2. Read the ServerHello and record whether the server sent the ServerHello.random signal.\n3. Assert that the result of (2) matches (1).\n\nThen you don\u0027t need this function.",
+      "revId": "5038c4a8e21844cd3f502279b61e0ae752090332",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ab928ac_3ae01896",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-08T20:12:02Z",
+      "side": 1,
+      "message": "This isn\u0027t a compatible way to extend this structure and will break cross-version tests. (But per comment in ssl.h, we don\u0027t need this at all.)",
+      "revId": "5038c4a8e21844cd3f502279b61e0ae752090332",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd006047_c7395419",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 647,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-08T20:12:02Z",
+      "side": 1,
+      "message": "It\u0027s a little unclear whether this is meant to apply when you negotiate TLS 1.2. It doesn\u0027t particularly matter either way, but the spec and impls should pick the same one.\n\nMy read of the spec is that this rule applies at both versions (which would suggest removing this condition).",
+      "range": {
+        "startLine": 647,
+        "startChar": 6,
+        "endLine": 647,
+        "endChar": 52
+      },
+      "revId": "5038c4a8e21844cd3f502279b61e0ae752090332",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd1d5f99_49c8e79c",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 648,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-08T20:12:02Z",
+      "side": 1,
+      "message": "OPENSSL_PUT_ERROR(SSL, SSL_R_UNEXPECTED_EXTENSION)\n\n(Or its own error code but probably not that important?)",
+      "revId": "5038c4a8e21844cd3f502279b61e0ae752090332",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f53636c5_dcb31244",
+        "filename": "ssl/internal.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 1428,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-08T20:12:02Z",
+      "side": 1,
+      "message": "It doesn\u0027t quite write it to |out|. It skips 24 bytes and then writes it to the remainder of out. I.e. it expects the remainder of out to already have been initialized with a server random value.\n\nWe can either have the comment describe the current code, or we can change the code to match the comment (i.e. this function expects out to be pre-suffixed) and then move the suffixing to the caller. I think I prefer the latter. You already need to compute the suffix when zeroing server_random, and it\u0027s more obvious the server random isn\u0027t being clobbered.\n\ndo_send_server_hello could then look like:\n\n  auto random_suffix \u003d MakeSpan(ssl-\u003es3-\u003eserver_random).subspan(24);\n  OPENSSL_memset(random_suffix.data(), 0, random_suffix.size());\n  ...\n  ... tls13_ech_accept_confirmation(hs, random_suffix, ...) ...\n\nWDYT?",
+      "range": {
+        "startLine": 1428,
+        "startChar": 43,
+        "endLine": 1428,
+        "endChar": 46
+      },
+      "revId": "5038c4a8e21844cd3f502279b61e0ae752090332",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a7a17f5_11dfcdaa",
+        "filename": "ssl/internal.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 1911,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-08T20:12:02Z",
+      "side": 1,
+      "message": "80 chars",
+      "revId": "5038c4a8e21844cd3f502279b61e0ae752090332",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7df1c7a5_7239e295",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 2467,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-08T20:12:02Z",
+      "side": 1,
+      "message": "80 chars",
+      "revId": "5038c4a8e21844cd3f502279b61e0ae752090332",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "387899ba_509cc455",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 16
+      },
+      "lineNbr": 807,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-08T20:12:02Z",
+      "side": 1,
+      "message": "Nit: We\u0027re not super consistent here, but maybe SendECHIsInner just so it\u0027s clear which side this toggles.",
+      "range": {
+        "startLine": 807,
+        "startChar": 4,
+        "endLine": 807,
+        "endChar": 14
+      },
+      "revId": "5038c4a8e21844cd3f502279b61e0ae752090332",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8cceb450_84f0127a",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 16
+      },
+      "lineNbr": 16281,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-08T20:12:02Z",
+      "side": 1,
+      "message": "Mind doing that? :-) You can, for now, just have a toggle to send just garbage bytes. Maybe with a TODO to remove it in favor of just sending a proper ECH extension (with an unrecognized wrong key?) when we check in the actual thing.",
+      "revId": "5038c4a8e21844cd3f502279b61e0ae752090332",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bcb5c73f_468a4457",
+        "filename": "ssl/test/test_config.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 630,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-08T20:12:02Z",
+      "side": 1,
+      "message": "When adding the runner version of the tests, probably should test both that the server does it when expected, and that it *doesn\u0027t* do it when not expected. I.e.:\n\n- ClientHello w/o ech_is_inner \u003d\u003e no ech_is_inner server random\n- ClientHello w/ ech_is_inner and TLS 1.3 \u003d\u003e ech_is_inner server random\n- ClientHello w/o ech_is_inner and TLS 1.2 \u003d\u003e no ech_is_inner server random and instead the downgrade signal is preserved\n\nThat last one is important to avoid breaking one of the anti-downgrade mechanisms:\n\n   The backend server MUST NOT perform this operation if it negotiated\n   TLS 1.2 or below.  Note that doing so would overwrite the downgrade\n   signal for TLS 1.3 (see [RFC8446], Section 4.1.3).",
+      "revId": "5038c4a8e21844cd3f502279b61e0ae752090332",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7feab9d_5a69fff7",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-08T20:12:02Z",
+      "side": 1,
+      "message": "Optional: Rather than adding an optional suffix parameter to GetHash, you could also have used CopyToHashContext. (See existing call in hash_transcript_and_truncated_client_hello.)",
+      "range": {
+        "startLine": 516,
+        "startChar": 30,
+        "endLine": 516,
+        "endChar": 51
+      },
+      "revId": "5038c4a8e21844cd3f502279b61e0ae752090332",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a08c5e98_9ee16710",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 662,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-08T20:12:02Z",
+      "side": 1,
+      "message": "/*dry_run\u003d*/true\nhttps://abseil.io/tips/94",
+      "range": {
+        "startLine": 662,
+        "startChar": 43,
+        "endLine": 662,
+        "endChar": 61
+      },
+      "revId": "5038c4a8e21844cd3f502279b61e0ae752090332",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5baa3a2_8a605f9b",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 690,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-08T20:12:02Z",
+      "side": 1,
+      "message": "/*dry_run\u003d*/false",
+      "range": {
+        "startLine": 690,
+        "startChar": 41,
+        "endLine": 690,
+        "endChar": 60
+      },
+      "revId": "5038c4a8e21844cd3f502279b61e0ae752090332",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
