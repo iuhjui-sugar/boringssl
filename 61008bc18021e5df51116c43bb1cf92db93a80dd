@@ -54,6 +54,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7e11b68_776e0c2e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-08T23:15:12Z",
+      "side": 1,
+      "message": "(Resolving this thread.)",
+      "parentUuid": "00c0a25c_23eb5512",
+      "revId": "61008bc18021e5df51116c43bb1cf92db93a80dd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "34b3bac8_2948988f",
@@ -189,6 +207,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "43483425_b77f8d56",
+        "filename": "crypto/fipsmodule/bn/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-08T23:15:12Z",
+      "side": 1,
+      "message": "(Resolving.)",
+      "parentUuid": "c4fcdc8a_44485777",
+      "revId": "61008bc18021e5df51116c43bb1cf92db93a80dd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4d451a05_edf079f9",
@@ -220,6 +256,24 @@
       "side": 1,
       "message": "I based this off of libunwind\u0027s \"assembly.h\", where they do the same thing - I couldn\u0027t find their justification, but it what was needed to make it work.\n\nFor .inst below, I may have made a mistake in understanding the code in clang now I see this pull request: https://reviews.llvm.org/D49935\n\nI assumed that COFF cared about the distinction, but perhaps it doesn\u0027t - will fix.",
       "parentUuid": "4d451a05_edf079f9",
+      "revId": "61008bc18021e5df51116c43bb1cf92db93a80dd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8876aa3f_823772b2",
+        "filename": "crypto/perlasm/arm-xlate.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-08T23:15:12Z",
+      "side": 1,
+      "message": "I dug around, and it looks like this wasn\u0027t quite right. These directives are part of the GNU assembler syntax for COFF/PE.\nhttps://sourceware.org/binutils/docs/as/Pseudo-Ops.html\n\n.scl specifies the symbol\u0027s storage class, and .type the symbol\u0027s type.\n\nPer https://docs.microsoft.com/en-us/windows/win32/debug/pe-format#coff-symbol-table, 32 is indeed that Microsoft\u0027s toolchain uses for functions.\n\nStorage class 2 is https://docs.microsoft.com/en-us/windows/win32/debug/pe-format#storage-class, IMAGE_SYM_CLASS_EXTERNAL. Poking around the output, this ends up exporting every symbol with a .type, as opposed to just the ones marked .globl. If I remove it, Clang\u0027s assembler seems to handle it correctly with just .globl, so I think the line was unnecessary.\n\nI\u0027ll go ahead and fix this before landing.",
+      "parentUuid": "14b680cc_9ace20cf",
       "revId": "61008bc18021e5df51116c43bb1cf92db93a80dd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }

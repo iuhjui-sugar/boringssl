@@ -16,6 +16,23 @@
       "message": "Comments addressed - PTAL.",
       "revId": "39495abae8b46d90495b9fa46deb9b1162bed811",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64a6edac_b9cd1b51",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-08T23:15:12Z",
+      "side": 1,
+      "message": "Thanks! I\u0027ve managed to build with CMake and run the tests on a local ARM device. I should be able to set up some compile-only bots on BoringSSL at least.\n\nOne remaining issue below with the .def/.scl business, but I\u0027ll upload a new revision with a fix.",
+      "revId": "39495abae8b46d90495b9fa46deb9b1162bed811",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
