@@ -35,6 +35,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6223cbc6_17829e56",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 2723,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-01-11T22:09:30Z",
+      "side": 1,
+      "message": "Removed SSL_get_ech_server_accepted.",
+      "parentUuid": "560104fa_88b9484e",
+      "revId": "5038c4a8e21844cd3f502279b61e0ae752090332",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8ab928ac_3ae01896",
@@ -48,6 +66,24 @@
       "writtenOn": "2021-01-08T20:12:02Z",
       "side": 1,
       "message": "This isn\u0027t a compatible way to extend this structure and will break cross-version tests. (But per comment in ssl.h, we don\u0027t need this at all.)",
+      "revId": "5038c4a8e21844cd3f502279b61e0ae752090332",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d7ac40b_6c996ba1",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-01-11T22:09:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ab928ac_3ae01896",
       "revId": "5038c4a8e21844cd3f502279b61e0ae752090332",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -75,6 +111,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "233ba141_776bfb3f",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 647,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-01-11T22:09:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd006047_c7395419",
+      "range": {
+        "startLine": 647,
+        "startChar": 6,
+        "endLine": 647,
+        "endChar": 52
+      },
+      "revId": "5038c4a8e21844cd3f502279b61e0ae752090332",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fd1d5f99_49c8e79c",
@@ -88,6 +148,24 @@
       "writtenOn": "2021-01-08T20:12:02Z",
       "side": 1,
       "message": "OPENSSL_PUT_ERROR(SSL, SSL_R_UNEXPECTED_EXTENSION)\n\n(Or its own error code but probably not that important?)",
+      "revId": "5038c4a8e21844cd3f502279b61e0ae752090332",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9e4a841_44ef6cb2",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 648,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-01-11T22:09:30Z",
+      "side": 1,
+      "message": "Done. Using SSL_R_UNEXPECTED_EXTENSION.",
+      "parentUuid": "fd1d5f99_49c8e79c",
       "revId": "5038c4a8e21844cd3f502279b61e0ae752090332",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -115,6 +193,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa5a783a_4dadf62d",
+        "filename": "ssl/internal.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 1428,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-01-11T22:09:30Z",
+      "side": 1,
+      "message": "Refactoring code to match the existing comment.",
+      "parentUuid": "f53636c5_dcb31244",
+      "range": {
+        "startLine": 1428,
+        "startChar": 43,
+        "endLine": 1428,
+        "endChar": 46
+      },
+      "revId": "5038c4a8e21844cd3f502279b61e0ae752090332",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0a7a17f5_11dfcdaa",
@@ -128,6 +230,24 @@
       "writtenOn": "2021-01-08T20:12:02Z",
       "side": 1,
       "message": "80 chars",
+      "revId": "5038c4a8e21844cd3f502279b61e0ae752090332",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1a5bb63_f79dc48a",
+        "filename": "ssl/internal.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 1911,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-01-11T22:09:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a7a17f5_11dfcdaa",
       "revId": "5038c4a8e21844cd3f502279b61e0ae752090332",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -149,6 +269,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c52ad17_1df384a4",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 2467,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-01-11T22:09:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7df1c7a5_7239e295",
+      "revId": "5038c4a8e21844cd3f502279b61e0ae752090332",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "387899ba_509cc455",
@@ -162,6 +300,30 @@
       "writtenOn": "2021-01-08T20:12:02Z",
       "side": 1,
       "message": "Nit: We\u0027re not super consistent here, but maybe SendECHIsInner just so it\u0027s clear which side this toggles.",
+      "range": {
+        "startLine": 807,
+        "startChar": 4,
+        "endLine": 807,
+        "endChar": 14
+      },
+      "revId": "5038c4a8e21844cd3f502279b61e0ae752090332",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5916b23d_fbcaf7d7",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 16
+      },
+      "lineNbr": 807,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-01-11T22:09:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "387899ba_509cc455",
       "range": {
         "startLine": 807,
         "startChar": 4,
@@ -206,6 +368,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1094d5f_d013a69c",
+        "filename": "ssl/test/test_config.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 630,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-01-11T22:09:30Z",
+      "side": 1,
+      "message": "Done. Using OmitSupportedVersions as we chatted about.",
+      "parentUuid": "bcb5c73f_468a4457",
+      "revId": "5038c4a8e21844cd3f502279b61e0ae752090332",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f7feab9d_5a69fff7",
@@ -219,6 +399,30 @@
       "writtenOn": "2021-01-08T20:12:02Z",
       "side": 1,
       "message": "Optional: Rather than adding an optional suffix parameter to GetHash, you could also have used CopyToHashContext. (See existing call in hash_transcript_and_truncated_client_hello.)",
+      "range": {
+        "startLine": 516,
+        "startChar": 30,
+        "endLine": 516,
+        "endChar": 51
+      },
+      "revId": "5038c4a8e21844cd3f502279b61e0ae752090332",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ab7497d_403e4a0d",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-01-11T22:09:30Z",
+      "side": 1,
+      "message": "Aha, using this trick now.",
+      "parentUuid": "f7feab9d_5a69fff7",
       "range": {
         "startLine": 516,
         "startChar": 30,
@@ -252,6 +456,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "571d2980_cfefb623",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 662,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-01-11T22:09:30Z",
+      "side": 1,
+      "message": "Oh, cool, I didn\u0027t realize clang-tidy knows this syntax! It seems VSCode is running clang-tidy for me automatically, so this just works.",
+      "parentUuid": "a08c5e98_9ee16710",
+      "range": {
+        "startLine": 662,
+        "startChar": 43,
+        "endLine": 662,
+        "endChar": 61
+      },
+      "revId": "5038c4a8e21844cd3f502279b61e0ae752090332",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c5baa3a2_8a605f9b",
@@ -265,6 +493,30 @@
       "writtenOn": "2021-01-08T20:12:02Z",
       "side": 1,
       "message": "/*dry_run\u003d*/false",
+      "range": {
+        "startLine": 690,
+        "startChar": 41,
+        "endLine": 690,
+        "endChar": 60
+      },
+      "revId": "5038c4a8e21844cd3f502279b61e0ae752090332",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26a9f319_02bd2df8",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 690,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-01-11T22:09:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5baa3a2_8a605f9b",
       "range": {
         "startLine": 690,
         "startChar": 41,

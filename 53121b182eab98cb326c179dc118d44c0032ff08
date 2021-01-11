@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da406558_ad6df0ab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-01-11T22:09:30Z",
+      "side": 1,
+      "message": "Thanks, David! PTAL",
+      "revId": "53121b182eab98cb326c179dc118d44c0032ff08",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9daeef5_33a731c8",
+        "filename": "ssl/test/runner/prf.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-01-11T22:09:30Z",
+      "side": 1,
+      "message": "Looks like Go\u0027s hash.Hash doesn\u0027t not expose a way to copy a hash, so I fell back to re-hashing the entire buffer plus |extraMessages|. Can you think of a cleaner way to do this, maybe without this extra function?",
+      "revId": "53121b182eab98cb326c179dc118d44c0032ff08",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
