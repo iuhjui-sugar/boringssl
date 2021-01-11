@@ -35,6 +35,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "56931260_dd756f45",
+        "filename": "util/fipstools/delocate/delocate.peg",
+        "patchSetId": 3
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-01-11T18:23:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "455b3eb6_8cdca24f",
+      "revId": "d815a5df9287e2f2bf3da5487d7cffae0cbac0c8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2ed20d28_0d6ce284",
@@ -48,6 +66,30 @@
       "writtenOn": "2021-01-08T18:11:45Z",
       "side": 1,
       "message": "Two digits is possible if referring a single element of a vector by bytes (16 bytes in a vector reg). So something like v0.b[15].\n\nAlso, if we optionally want to be tighter, I think we\u0027ll never have both numbers before [bsdhq] or square brackets after and never both. I.e. v0.16b vs v0.8b refers to all 16 vs 8 bytes of v0, and v0.b[15] refers to byte 15 of v0, but v0.16b[15] doesn\u0027t mean anything.\n\nI would have said v0.b also doesn\u0027t mean anything, but I see single structure forms of ld{1-4} has some extra unique syntax. Lovely.\n\nhttps://developer.arm.com/documentation/dui0802/b/A64-SIMD-Vector-Instructions/LD1--vector--single-structure-\nhttps://developer.arm.com/documentation/dui0802/b/A64-SIMD-Vector-Instructions/LD2--vector--single-structure-\nhttps://developer.arm.com/documentation/dui0802/b/A64-SIMD-Vector-Instructions/LD3--vector--single-structure-\nhttps://developer.arm.com/documentation/dui0802/b/A64-SIMD-Vector-Instructions/LD4--vector--single-structure-",
+      "range": {
+        "startLine": 72,
+        "startChar": 63,
+        "endLine": 72,
+        "endChar": 68
+      },
+      "revId": "d815a5df9287e2f2bf3da5487d7cffae0cbac0c8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcd63b28_71ac4ce1",
+        "filename": "util/fipstools/delocate/delocate.peg",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-01-11T18:23:41Z",
+      "side": 1,
+      "message": "\u003e Two digits is possible if referring a single element of a vector by bytes (16 bytes in a vector reg). So something like v0.b[15].\n\nThanks.\n\n\u003e Also, if we optionally want to be tighter, I think we\u0027ll never have both numbers before [bsdhq] or square brackets after and never both. I.e. v0.16b vs v0.8b refers to all 16 vs 8 bytes of v0, and v0.b[15] refers to byte 15 of v0, but v0.16b[15] doesn\u0027t mean anything.\n\nI\u0027m not worried about being tight here. After all, see the rest of the parser :) Since we\u0027re parsing the output of Clang only, I\u0027m happy with this parser only being as tight as needed to function for our needs.",
+      "parentUuid": "2ed20d28_0d6ce284",
       "range": {
         "startLine": 72,
         "startChar": 63,
