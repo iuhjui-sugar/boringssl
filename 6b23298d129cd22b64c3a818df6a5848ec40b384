@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3888845_30ec62de",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-12T23:43:11Z",
+      "side": 1,
+      "message": "Gerrit\u0027s making a mess of this diff and can\u0027t even render it without hanging. This seems to be the only reasonable way to review it:\n\ngit show HEAD^:ssl/test/runner/runner.go | sed -e $\u0027s/^\\t*//\u0027 \u003e /tmp/runner-old.go\ngit show HEAD:ssl/test/runner/runner.go | sed -e $\u0027s/^\\t*//\u0027 \u003e /tmp/runner-new.go\ndiff -u /tmp/runner-{old,new}.go\n\n:-/",
+      "revId": "6b23298d129cd22b64c3a818df6a5848ec40b384",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
