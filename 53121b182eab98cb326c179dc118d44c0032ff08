@@ -35,6 +35,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bafd90ed_08870ae7",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 866,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-01-12T20:04:42Z",
+      "side": 1,
+      "message": "(b) works for me!",
+      "parentUuid": "f7f307f9_fd68ba72",
+      "revId": "53121b182eab98cb326c179dc118d44c0032ff08",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a9daeef5_33a731c8",
@@ -110,6 +128,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d66289ff_164ec49e",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 16319,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-01-12T20:04:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a52f697a_830f2086",
+      "range": {
+        "startLine": 16319,
+        "startChar": 19,
+        "endLine": 16319,
+        "endChar": 25
+      },
+      "revId": "53121b182eab98cb326c179dc118d44c0032ff08",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5c86f307_a9680110",
@@ -127,6 +169,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "28106e1e_c7f99989",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-01-12T20:04:42Z",
+      "side": 1,
+      "message": "That\u0027s fair! Comment added.",
+      "parentUuid": "5c86f307_a9680110",
+      "revId": "53121b182eab98cb326c179dc118d44c0032ff08",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "492d023c_57704fe8",
@@ -140,6 +200,24 @@
       "writtenOn": "2021-01-12T17:18:07Z",
       "side": 1,
       "message": "This is just:\n\n  OPENSSL_memcpy(out.data(), accept_confirmation.data(), out.size());\n\nAlthough, in both the memcpy and loop version, we go out of bounds if out.size() \u003e accept_confirmation.size(). (Which is impossible.) Perhaps:\n\n  if (out.size() \u003e accept_confirmation.size()) {\n    OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);\n    return false;\n  }\n\n  OPENSSL_memcpy(out.data(), accept_confirmation.data(), out.size());",
+      "revId": "53121b182eab98cb326c179dc118d44c0032ff08",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bcc740a0_4b9c2520",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-01-12T20:04:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "492d023c_57704fe8",
       "revId": "53121b182eab98cb326c179dc118d44c0032ff08",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
