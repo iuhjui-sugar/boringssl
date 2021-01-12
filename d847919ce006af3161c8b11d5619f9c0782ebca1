@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69fecc46_c0b486ce",
+        "filename": "ssl/test/mock_quic_transport.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-12T23:38:58Z",
+      "side": 0,
+      "message": "If we receive data at an unexpected level, this function will fail. Conceptually IETF QUIC keeps all the encryption levels open for a time, since early data may be reordered relative to the handshake and there are some goofy bits around ACKs. In practice, it\u0027s mostly lock-step (hence the Go side only tracking one level), but we have BoringSSL enforce that internally and it was easier to model this like the API expects.",
+      "range": {
+        "startLine": 127,
+        "startChar": 37,
+        "endLine": 127,
+        "endChar": 56
+      },
+      "revId": "d847919ce006af3161c8b11d5619f9c0782ebca1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7fcf9d7_6218b2f3",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1108,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-12T23:38:58Z",
+      "side": 0,
+      "message": "Not sure what was going on here. I added a panic and c.out.cipher is never nil at this point.",
+      "range": {
+        "startLine": 1108,
+        "startChar": 50,
+        "endLine": 1108,
+        "endChar": 71
+      },
+      "revId": "d847919ce006af3161c8b11d5619f9c0782ebca1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
