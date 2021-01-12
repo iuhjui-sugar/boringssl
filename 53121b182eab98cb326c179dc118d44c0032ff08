@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f7f307f9_fd68ba72",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 866,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-12T17:18:07Z",
+      "side": 1,
+      "message": "Ah, so this is a little fun. I\u0027m guessing you switched this to a byte array just so you can fill in []byte{1,2,3} in there. I was worried at first that we\u0027d lose syntax-checking of the GREASE extensions, but it\u0027s fine because you\u0027ve parsed it into a throwaway object here.\n\nIt\u0027s probably at least worth a comment to explain what\u0027s going on here. Although, since we\u0027d probably need to go back to an actual *clientECH later (or did you have something else in mind?) and we don\u0027t actually care about sending clientECH syntax errors for this test, some other options to consider:\n\na. The comment thing and then we go back and revise things later.\n\nb. Go back to *clientECH and replace SendEncryptedClientHello []byte with something like SendPlaceholderEncryptedClientHello bool. And then in handshake_client.go, do something like:\n\n  if SendPlaceholderEncryptedClientHello {\n     ch.clientECH \u003d \u0026clientECH{\n       // some arbitrary values because we don\u0027t really care what it is\n     }\n  }\n\nc. Go back to *clientECH and also add an encryptedClientHelloBytes []byte next to it. The unmarshal logic never fills in encryptedClientHelloBytes, while the marshal logic does:\n\n   if m.clientECH !\u003d nil {\n     // write it properly\n   } else if m.encryptedClientHelloBytes !\u003d nil {\n     // make a goofy one\n   }\n\nI think (b) is probably the tidiest, but I don\u0027t feel strongly. In particular, your test is mostly looking at what happens if both extensions appear, rather than looking at syntax errors. I find it usually works best to minimize the number of unrelated errors in a test, so tests don\u0027t accidentally fail as processing order changes.\n\nI mention (c) mostly because it\u0027s a useful pattern if we ever want to both properly parse some extension and allow for sending garbage. (Since unmarshal needs to be able to produce invalid stuff, but marshal should be strict, there\u0027s no requirement that unmarshal be able to parse everything that marshal creates.)",
+      "revId": "53121b182eab98cb326c179dc118d44c0032ff08",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a9daeef5_33a731c8",
         "filename": "ssl/test/runner/prf.go",
         "patchSetId": 18
@@ -31,6 +48,98 @@
       "writtenOn": "2021-01-11T22:09:30Z",
       "side": 1,
       "message": "Looks like Go\u0027s hash.Hash doesn\u0027t not expose a way to copy a hash, so I fell back to re-hashing the entire buffer plus |extraMessages|. Can you think of a cleaner way to do this, maybe without this extra function?",
+      "revId": "53121b182eab98cb326c179dc118d44c0032ff08",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc5aab08_c2a7efe1",
+        "filename": "ssl/test/runner/prf.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-12T17:18:07Z",
+      "side": 1,
+      "message": "Ah fun. Yeah, I don\u0027t see a way to avoid it. :-/ Ah well.",
+      "parentUuid": "a9daeef5_33a731c8",
+      "revId": "53121b182eab98cb326c179dc118d44c0032ff08",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4da66be5_24bf2ee1",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 16282,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-12T17:18:07Z",
+      "side": 1,
+      "message": "(This test is actually redundant with every other TLS 1.3 test, since ExpectServerAcceptECH defaults to false anyway. :-) But no strong feelings on whether we include it for good measure or not.)",
+      "revId": "53121b182eab98cb326c179dc118d44c0032ff08",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a52f697a_830f2086",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 16319,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-12T17:18:07Z",
+      "side": 1,
+      "message": "Super nitpicky nitpick: s/Remove/Replace/\n\n(We\u0027ll still have something which looks like SendECHIsInner, though I wonder if we\u0027ll want to clarify it to be SendECHIsInnerOnOuterClientHello or something like that.)",
+      "range": {
+        "startLine": 16319,
+        "startChar": 19,
+        "endLine": 16319,
+        "endChar": 25
+      },
+      "revId": "53121b182eab98cb326c179dc118d44c0032ff08",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c86f307_a9680110",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-12T17:18:07Z",
+      "side": 1,
+      "message": "Oh huh. That\u0027s actually kinda subtle. Maybe worth a comment to the effect of:\n\n// Per draft-ietf-tls-esni-09, accept_confirmation is computed with Derive-Secret, which derives a secret of size Hash.length. That value is then truncated down to 8 bytes. Note this is not the same as deriving 8 bytes because the target length is included in the derivation.\n\n(My personal heuristic: if, over the course of working on a CL, I have a bug that neither me nor my reviewer notice at first, it\u0027s probably sufficiently non-obvious to deserve a comment. :-) )",
+      "revId": "53121b182eab98cb326c179dc118d44c0032ff08",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "492d023c_57704fe8",
+        "filename": "ssl/tls13_enc.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-12T17:18:07Z",
+      "side": 1,
+      "message": "This is just:\n\n  OPENSSL_memcpy(out.data(), accept_confirmation.data(), out.size());\n\nAlthough, in both the memcpy and loop version, we go out of bounds if out.size() \u003e accept_confirmation.size(). (Which is impossible.) Perhaps:\n\n  if (out.size() \u003e accept_confirmation.size()) {\n    OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);\n    return false;\n  }\n\n  OPENSSL_memcpy(out.data(), accept_confirmation.data(), out.size());",
       "revId": "53121b182eab98cb326c179dc118d44c0032ff08",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
