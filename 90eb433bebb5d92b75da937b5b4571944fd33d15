@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "81bb08e7_343cd491",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 2847,
+      "author": {
+        "id": 9869
+      },
+      "writtenOn": "2021-01-13T21:23:51Z",
+      "side": 1,
+      "message": "Agreed. Leaving this for a separate CL.",
+      "parentUuid": "20c35d7b_56e1e72a",
+      "revId": "90eb433bebb5d92b75da937b5b4571944fd33d15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "75102554_3d0a70f2",
@@ -31,6 +49,24 @@
       "writtenOn": "2021-01-07T19:17:08Z",
       "side": 1,
       "message": "Maybe define some constants? (Enums are a bit goofy in Go, but see RSABadValue.)",
+      "revId": "90eb433bebb5d92b75da937b5b4571944fd33d15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "841145ff_1ed0c37b",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 9869
+      },
+      "writtenOn": "2021-01-13T21:23:51Z",
+      "side": 1,
+      "message": "That is cleaner, done.",
+      "parentUuid": "75102554_3d0a70f2",
       "revId": "90eb433bebb5d92b75da937b5b4571944fd33d15",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -58,6 +94,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "98c1b8f6_85d7f398",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 9869
+      },
+      "writtenOn": "2021-01-13T21:23:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7beebae3_5c1e8fd1",
+      "range": {
+        "startLine": 538,
+        "startChar": 4,
+        "endLine": 538,
+        "endChar": 23
+      },
+      "revId": "90eb433bebb5d92b75da937b5b4571944fd33d15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "100d427b_606c332e",
@@ -71,6 +131,24 @@
       "writtenOn": "2021-01-07T19:17:08Z",
       "side": 1,
       "message": "This is kind of odd since the shim only interprets this as a boolean, without the 2 value. It also seems to be a no-op, since this value is guaranteed to be zero when using the defaults. So I think you can just delete these lines and leave legacy codepoint testing to the tests that ask for it.",
+      "revId": "90eb433bebb5d92b75da937b5b4571944fd33d15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f225f6a9_bb5bfd5c",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1328,
+      "author": {
+        "id": 9869
+      },
+      "writtenOn": "2021-01-13T21:23:51Z",
+      "side": 1,
+      "message": "I fixed this to use the enum properly, but we still need to set this flag because the Go code defaults to the new codepoint whereas the C++ code defaults to the legacy codepoint - I\u0027m planning on switching the C++ default at some point in the near future (not right away to avoid breaking non-Google users) but I\u0027d rather have our tests use the new codepoint.",
+      "parentUuid": "100d427b_606c332e",
       "revId": "90eb433bebb5d92b75da937b5b4571944fd33d15",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -121,6 +199,54 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "481a2af9_55a920b6",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 7835,
+      "author": {
+        "id": 9869
+      },
+      "writtenOn": "2021-01-13T21:23:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d1b390dd_a3175d03",
+      "range": {
+        "startLine": 7835,
+        "startChar": 7,
+        "endLine": 7835,
+        "endChar": 20
+      },
+      "revId": "90eb433bebb5d92b75da937b5b4571944fd33d15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78cf9f43_066ccff4",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 7835,
+      "author": {
+        "id": 9869
+      },
+      "writtenOn": "2021-01-13T21:23:51Z",
+      "side": 1,
+      "message": "Fixed by switching to an enum",
+      "parentUuid": "a841d439_24ecd25e",
+      "range": {
+        "startLine": 7835,
+        "startChar": 44,
+        "endLine": 7835,
+        "endChar": 46
+      },
+      "revId": "90eb433bebb5d92b75da937b5b4571944fd33d15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5f97862b_a9542b11",
@@ -138,6 +264,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5618ea4b_f9702e79",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 7864,
+      "author": {
+        "id": 9869
+      },
+      "writtenOn": "2021-01-13T21:23:51Z",
+      "side": 1,
+      "message": "I made 3 a valid part of the enum",
+      "parentUuid": "5f97862b_a9542b11",
+      "revId": "90eb433bebb5d92b75da937b5b4571944fd33d15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "33ccd518_3536895a",
@@ -151,6 +295,30 @@
       "writtenOn": "2021-01-07T19:17:08Z",
       "side": 1,
       "message": "You can just pass multiple values to append:\n\nflags \u003d append(flags,\n\"-expect-quic-transport-params, base64.StdEncoding.EncodeToString(server_transport_params))",
+      "range": {
+        "startLine": 7879,
+        "startChar": 7,
+        "endLine": 7879,
+        "endChar": 11
+      },
+      "revId": "90eb433bebb5d92b75da937b5b4571944fd33d15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7be4dc33_7000367e",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 7879,
+      "author": {
+        "id": 9869
+      },
+      "writtenOn": "2021-01-13T21:23:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33ccd518_3536895a",
       "range": {
         "startLine": 7879,
         "startChar": 7,
@@ -184,6 +352,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3739c578_f408257f",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 7903,
+      "author": {
+        "id": 9869
+      },
+      "writtenOn": "2021-01-13T21:23:51Z",
+      "side": 1,
+      "message": "Oops I just forgot to remove these, sorry. Done.",
+      "parentUuid": "82fa11a2_8a293f53",
+      "range": {
+        "startLine": 7903,
+        "startChar": 42,
+        "endLine": 7903,
+        "endChar": 49
+      },
+      "revId": "90eb433bebb5d92b75da937b5b4571944fd33d15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e3c57278_8ae3ff9c",
@@ -197,6 +389,30 @@
       "writtenOn": "2021-01-07T19:17:08Z",
       "side": 1,
       "message": "Ditto about 3 being weird.",
+      "range": {
+        "startLine": 8007,
+        "startChar": 24,
+        "endLine": 8007,
+        "endChar": 25
+      },
+      "revId": "90eb433bebb5d92b75da937b5b4571944fd33d15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87a49212_e5459600",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 8007,
+      "author": {
+        "id": 9869
+      },
+      "writtenOn": "2021-01-13T21:23:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3c57278_8ae3ff9c",
       "range": {
         "startLine": 8007,
         "startChar": 24,
@@ -230,6 +446,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a709d01_a6f536f8",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 8020,
+      "author": {
+        "id": 9869
+      },
+      "writtenOn": "2021-01-13T21:23:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9914e68a_274ccbc5",
+      "range": {
+        "startLine": 8020,
+        "startChar": 7,
+        "endLine": 8020,
+        "endChar": 10
+      },
+      "revId": "90eb433bebb5d92b75da937b5b4571944fd33d15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "59450eef_91125e32",
@@ -243,6 +483,24 @@
       "writtenOn": "2021-01-07T19:17:08Z",
       "side": 1,
       "message": "I don\u0027t think this line is right since the runner is the server. (Also don\u0027t need it since the server doesn\u0027t get far enough to care.)",
+      "revId": "90eb433bebb5d92b75da937b5b4571944fd33d15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fdcd2e71_4d316354",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 8053,
+      "author": {
+        "id": 9869
+      },
+      "writtenOn": "2021-01-13T21:23:51Z",
+      "side": 1,
+      "message": "You\u0027re correct. Removed the line.",
+      "parentUuid": "59450eef_91125e32",
       "revId": "90eb433bebb5d92b75da937b5b4571944fd33d15",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -270,6 +528,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f87141bf_e98827b1",
+        "filename": "ssl/test/test_config.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 9869
+      },
+      "writtenOn": "2021-01-13T21:23:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "602ca1ba_d17e0527",
+      "range": {
+        "startLine": 231,
+        "startChar": 7,
+        "endLine": 231,
+        "endChar": 32
+      },
+      "revId": "90eb433bebb5d92b75da937b5b4571944fd33d15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7315c941_eb43d246",
@@ -283,6 +565,24 @@
       "writtenOn": "2021-01-07T19:17:08Z",
       "side": 1,
       "message": "Since this threw me off at first, maybe a brief comment that this is 0 or 1 to configure and -1 to leave it at the default?\n\n(I probably ought to better introduce optional\u003cT\u003e into this thing. We have a lot of paired up or expect_no_foo settings mostly as a workaround.)",
+      "revId": "90eb433bebb5d92b75da937b5b4571944fd33d15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50086cf5_3cf385ad",
+        "filename": "ssl/test/test_config.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 9869
+      },
+      "writtenOn": "2021-01-13T21:23:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7315c941_eb43d246",
       "revId": "90eb433bebb5d92b75da937b5b4571944fd33d15",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
