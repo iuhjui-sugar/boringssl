@@ -1,0 +1,169 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eac55815_3c5df30b",
+        "filename": "util/fipstools/delocate/delocate.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-14T00:28:19Z",
+      "side": 1,
+      "message": "Glancing through https://github.com/ARM-software/abi-aa/blob/master/aaelf64/aaelf64.rst, I don\u0027t see an obviously applicable relocation. I guess the set of relocations is fairly tailored to how things typically work, and we\u0027re doing something weird.",
+      "revId": "ed8ebf0d969ef3d5a30f164c691d117e08bc8b2c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9baf7fd_8e833acd",
+        "filename": "util/fipstools/delocate/delocate.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-14T00:28:19Z",
+      "side": 1,
+      "message": "I also couldn\u0027t find anything. :-/",
+      "revId": "ed8ebf0d969ef3d5a30f164c691d117e08bc8b2c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c69c766_bfbc0f38",
+        "filename": "util/fipstools/delocate/delocate.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-14T00:28:19Z",
+      "side": 1,
+      "message": "I think that\u0027s actually correct of them. The offset isn\u0027t *quite* known until link time.\n\nadrp x0, foo is supposed to stick ClearLo12(foo) into x0. But if it arrived at ClearLo12(foo) by using PC as a base directly, the offset would incorporate PC \u0026 0xfff and require more bits to encode. So it uses a base of ClearLo12(PC) and offset of ClearLo12(foo) - ClearLo12(PC), which can omit the bottom 12 bits.\n\nBut ClearLo12(foo) - ClearLo12(PC) !\u003d ClearLo12(foo - PC). It\u0027ll only know the final value once foo and PC\u0027s offset relative to a page boundary is known.\n\nTo that end, if the text segment is page-aligned, I think it would be valid for the assembler to skip the relocation. Clang\u0027s assembler doesn\u0027t seem to do that, but that seems rare enough that I can\u0027t really blame them for missing the optimization. :-)\n\n(If we did want to preserve adrp, we could probably emit a .p2align 12 and then evaluate the relocation ourselves, either by linking it into a dummy binary or teaching inject_hash.go to parse out the relocation and apply it. And then rethink the rest of this stuff. Probably not worth it.)",
+      "revId": "ed8ebf0d969ef3d5a30f164c691d117e08bc8b2c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f28924a2_6376f67d",
+        "filename": "util/fipstools/delocate/delocate.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-14T00:28:19Z",
+      "side": 1,
+      "message": "This does assume the compiler doesn\u0027t do something weird like:\n\n   // I want to load foo[x0]\n   adrp x1, foo\n   add x1, x1, x0\n   ldr x2, [x1, :lo12:foo]\n\nThis is a strange thing to do, since this is much more natural, and lets you stick an lsl modifier inside the address. But I think both would work.\n\n   adrp x1, foo\n   add x1, x1, :lo12:foo\n   ldr x2, [x1, x0]\n\nThis is somewhat of a stretch, though there\u0027s an analogous add case below that potentially more plausible. I think we can fix this by transforming adrp x1, foo to mov x1, #0 rather than deleting it. Then turn ldr x2, [x1, :lo12:foo] into the equivalent of ldr x2, [x1, foo] instead of the equivalent of ldr x2, [foo].\n\n(I don\u0027t think we need to bother for :got_lo12: because there\u0027s no reason to add an offset to GOT lookup. Indeed there are far fewer :got_lo12: relocations defined than plain :lo12: ones.)",
+      "range": {
+        "startLine": 495,
+        "startChar": 42,
+        "endLine": 495,
+        "endChar": 44
+      },
+      "revId": "ed8ebf0d969ef3d5a30f164c691d117e08bc8b2c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "581d3563_67852856",
+        "filename": "util/fipstools/delocate/delocate.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-14T00:28:19Z",
+      "side": 1,
+      "message": "Nit: Maybe also double-check that targetReg is a w register rather than an x register.",
+      "revId": "ed8ebf0d969ef3d5a30f164c691d117e08bc8b2c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dabf4774_d4633e4b",
+        "filename": "util/fipstools/delocate/delocate.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-14T00:28:19Z",
+      "side": 1,
+      "message": "Similar to the ldr :lo12: case above, this assumes the compiler computes \u0026foo[x0] as\n\n   adrp x1, symbol\n   add x1, x1, :lo12:symbol\n   add x1, x1, x0\n\nInstead of flipping the order as:\n\n   adrp x1, symbol\n   add x1, x1, x0\n   add x1, x1, :lo12:symbol\n\nWe can similarly fix it by making adrp zero the register and still compute the add when incorporating :lo12:symbol / plain symbol.",
+      "revId": "ed8ebf0d969ef3d5a30f164c691d117e08bc8b2c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "339a8285_17586d89",
+        "filename": "util/fipstools/delocate/delocate.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-14T00:28:19Z",
+      "side": 1,
+      "message": "There are a limited number of LO12 relocations listed here (only ADD and LD/ST), so I think we\u0027re safe here in terms of ever seeing others.\nhttps://github.com/ARM-software/abi-aa/blob/master/aaelf64/aaelf64.rst#static-aarch64-relocations\n\nWe might see STR in the ruleARMBaseIndexScale logic above, except I think it can\u0027t happen, between us not handling .data sections in BCM anyway, and the compiler tending to pessimally use GOT-based references for almost all extern symbols.\n\nDunno if something like ldr x0, [x1], :lo12:foo would be possible, but that\u0027s pretty incoherent and I wasn\u0027t able to get clang to emit it.",
+      "revId": "ed8ebf0d969ef3d5a30f164c691d117e08bc8b2c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e274eaeb_8bf6b0e3",
+        "filename": "util/fipstools/delocate/testdata/aarch64-Basic/in.s",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-14T00:28:19Z",
+      "side": 1,
+      "message": "Maybe also test the bss_get generation.",
+      "revId": "ed8ebf0d969ef3d5a30f164c691d117e08bc8b2c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3871960a_0afa96fc",
+        "filename": "util/fipstools/delocate/testdata/aarch64-Basic/in.s",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-14T00:28:19Z",
+      "side": 1,
+      "message": "Probably should be //\n\nDitto throughout.",
+      "range": {
+        "startLine": 4,
+        "startChar": 1,
+        "endLine": 4,
+        "endChar": 2
+      },
+      "revId": "ed8ebf0d969ef3d5a30f164c691d117e08bc8b2c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
