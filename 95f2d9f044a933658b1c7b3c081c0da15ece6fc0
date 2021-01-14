@@ -207,6 +207,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "28e91a20_608ae413",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 7973,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-14T19:12:53Z",
+      "side": 1,
+      "message": "Oh, sorry, the range spelling should be:\n\n  for _, clientConfig :\u003d range blah\n\nThe first one\u0027s the index. :-) A single-element range is really iterating over the length of the slice which is... kind of weird. Not sure why they did that. Symmetry with iterating over maps?",
+      "parentUuid": "f8671ea1_92687523",
+      "revId": "95f2d9f044a933658b1c7b3c081c0da15ece6fc0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2e05258e_9babd9a1",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 3
