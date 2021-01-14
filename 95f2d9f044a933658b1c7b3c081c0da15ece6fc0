@@ -35,6 +35,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "497cc64b_7bce32e8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9869
+      },
+      "writtenOn": "2021-01-14T19:01:16Z",
+      "side": 1,
+      "message": "I did lose some hair over that rebase, but no worries :P",
+      "parentUuid": "78178c0d_0c2cd849",
+      "revId": "95f2d9f044a933658b1c7b3c081c0da15ece6fc0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d4dd4f9f_ed70c21a",
@@ -48,6 +66,24 @@
       "writtenOn": "2021-01-14T18:10:20Z",
       "side": 1,
       "message": "Ah hrm. The missing return false, while existing, means that we\u0027ll sometimes fall through to the return true, and get mildly confused. (Leaving junk on the error queue while returning success.) Probably worth fixing here.\n\n(Sorry, I should have been clearer in that other thread. I\u0027d meant that the return false is probably worth fixing now as it\u0027s just one line, while the SSL_R_QUIC_TRANSPORT_PARAMETERS_MISCONFIGURED refactor is better left for a follow-up.)",
+      "revId": "95f2d9f044a933658b1c7b3c081c0da15ece6fc0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e764b7a_05b7d121",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2870,
+      "author": {
+        "id": 9869
+      },
+      "writtenOn": "2021-01-14T19:01:16Z",
+      "side": 1,
+      "message": "Ah, I had misunderstood. I agree, and I\u0027ve added the return.",
+      "parentUuid": "d4dd4f9f_ed70c21a",
       "revId": "95f2d9f044a933658b1c7b3c081c0da15ece6fc0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -75,6 +111,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a629076_05c435e0",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 9869
+      },
+      "writtenOn": "2021-01-14T19:01:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4b54244_8066ed5f",
+      "range": {
+        "startLine": 344,
+        "startChar": 3,
+        "endLine": 344,
+        "endChar": 7
+      },
+      "revId": "95f2d9f044a933658b1c7b3c081c0da15ece6fc0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "11c2da46_07a6ccae",
@@ -88,6 +148,24 @@
       "writtenOn": "2021-01-14T18:10:20Z",
       "side": 1,
       "message": "Optional: You can actually stick methods on the enum type like this:\n\nfunc (c QuicUseCodepoint) IncludeStandard() bool {\n  return c \u003d\u003d QuicUseCodepointStandard || c \u003d\u003d QuicUseCodepointBoth\n}\n\nfunc (c QuicUseCodepoint) IncludeLegacy() bool {\n  return c \u003d\u003d QuicUseCodepointLegacy || c \u003d\u003d QuicUseCodepointBoth\n}\n\nMight make this and the block in handshake_server.go easier to read.",
+      "revId": "95f2d9f044a933658b1c7b3c081c0da15ece6fc0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d65303e_b86f7628",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 9869
+      },
+      "writtenOn": "2021-01-14T19:01:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11c2da46_07a6ccae",
       "revId": "95f2d9f044a933658b1c7b3c081c0da15ece6fc0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -111,6 +189,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f8671ea1_92687523",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 7973,
+      "author": {
+        "id": 9869
+      },
+      "writtenOn": "2021-01-14T19:01:16Z",
+      "side": 1,
+      "message": "I tried that, but unfortunately that construction makes clientConfig of type int even though it\u0027s explicitly specified as QuicUseCodepoint.\n\nHere\u0027s a repro: https://play.golang.org/p/-8jSohEEx68\n\nAny thoughts?",
+      "parentUuid": "29d00639_832c1626",
+      "revId": "95f2d9f044a933658b1c7b3c081c0da15ece6fc0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2e05258e_9babd9a1",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 3
@@ -122,6 +218,24 @@
       "writtenOn": "2021-01-14T18:10:20Z",
       "side": 1,
       "message": "Optional: There are a lot of versions of this block. Might be worth something like:\n\nfunc (c QuicUseCodepoint) String() string {\n  switch c {\n    case QuicUseCodepointStandard:\n       return \"Standard\"\n    case QuicUseCodepointLegacy:\n       return \"Legacy\"\n    case QuicUseCodepointBoth:\n       return \"Both\"\n    case QuicUseCodepointNeither:\n       return \"Neither\"\n  }\n  panic(\"unknown value\")\n}\n\nAnd then the various tests here can be something like:\n\n  name: fmt.Sprintf(\"QUICTransportParams-Client-Client%s-Server%s-%s\", clientConfig, serverSends, suffix)\n\n(fmt will call the String() method if it exists, so you don\u0027t need to explicitly call it. Though you can.)",
+      "revId": "95f2d9f044a933658b1c7b3c081c0da15ece6fc0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "895122a4_44bf8d98",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 8004,
+      "author": {
+        "id": 9869
+      },
+      "writtenOn": "2021-01-14T19:01:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e05258e_9babd9a1",
       "revId": "95f2d9f044a933658b1c7b3c081c0da15ece6fc0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
