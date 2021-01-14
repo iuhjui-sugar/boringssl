@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddc42919_511b7112",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9869
+      },
+      "writtenOn": "2021-01-14T19:27:00Z",
+      "side": 1,
+      "message": "Thank you so much for helping me take my first steps in Go!",
+      "revId": "dd23e7a2a0b51d3afcb5404151e579aa5d8e293e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
