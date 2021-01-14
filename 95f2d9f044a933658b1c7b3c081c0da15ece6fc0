@@ -16,6 +16,114 @@
       "message": "Thanks for your patience with this!",
       "revId": "95f2d9f044a933658b1c7b3c081c0da15ece6fc0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78178c0d_0c2cd849",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-14T18:10:20Z",
+      "side": 1,
+      "message": "Oh oops. Sorry about sending you down a really messy rebase. :-( Just one missing return false and some style nits.",
+      "revId": "95f2d9f044a933658b1c7b3c081c0da15ece6fc0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4dd4f9f_ed70c21a",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 2870,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-14T18:10:20Z",
+      "side": 1,
+      "message": "Ah hrm. The missing return false, while existing, means that we\u0027ll sometimes fall through to the return true, and get mildly confused. (Leaving junk on the error queue while returning success.) Probably worth fixing here.\n\n(Sorry, I should have been clearer in that other thread. I\u0027d meant that the return false is probably worth fixing now as it\u0027s just one line, while the SSL_R_QUIC_TRANSPORT_PARAMETERS_MISCONFIGURED refactor is better left for a follow-up.)",
+      "revId": "95f2d9f044a933658b1c7b3c081c0da15ece6fc0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4b54244_8066ed5f",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-14T18:10:20Z",
+      "side": 1,
+      "message": "Style nit: Go likes all to keep acronyms all upper in CamelCase. Ditto for the constants themselves.\n\nhttps://github.com/golang/go/wiki/CodeReviewComments#initialisms",
+      "range": {
+        "startLine": 344,
+        "startChar": 3,
+        "endLine": 344,
+        "endChar": 7
+      },
+      "revId": "95f2d9f044a933658b1c7b3c081c0da15ece6fc0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11c2da46_07a6ccae",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-14T18:10:20Z",
+      "side": 1,
+      "message": "Optional: You can actually stick methods on the enum type like this:\n\nfunc (c QuicUseCodepoint) IncludeStandard() bool {\n  return c \u003d\u003d QuicUseCodepointStandard || c \u003d\u003d QuicUseCodepointBoth\n}\n\nfunc (c QuicUseCodepoint) IncludeLegacy() bool {\n  return c \u003d\u003d QuicUseCodepointLegacy || c \u003d\u003d QuicUseCodepointBoth\n}\n\nMight make this and the block in handshake_server.go easier to read.",
+      "revId": "95f2d9f044a933658b1c7b3c081c0da15ece6fc0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29d00639_832c1626",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 7973,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-14T18:10:20Z",
+      "side": 1,
+      "message": "Nit: Maybe better to write these as:\n\n  for clientConfig :\u003d range []QuicUseCodepoint{QuicUseCodepointStandard, QuicUseCodepointLegacy} {\n\nand\n\n  for serverSends :\u003d QuicUseCodepoint(0); serverSends \u003c NumQuicUseCodepoints; serverSends++ {\n\nI think that makes it a bit clearer what\u0027s going on. (Client specifically wants two values, while server wants to iterate over all.)\n\nDitto for the other for loops.",
+      "revId": "95f2d9f044a933658b1c7b3c081c0da15ece6fc0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e05258e_9babd9a1",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 8004,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-14T18:10:20Z",
+      "side": 1,
+      "message": "Optional: There are a lot of versions of this block. Might be worth something like:\n\nfunc (c QuicUseCodepoint) String() string {\n  switch c {\n    case QuicUseCodepointStandard:\n       return \"Standard\"\n    case QuicUseCodepointLegacy:\n       return \"Legacy\"\n    case QuicUseCodepointBoth:\n       return \"Both\"\n    case QuicUseCodepointNeither:\n       return \"Neither\"\n  }\n  panic(\"unknown value\")\n}\n\nAnd then the various tests here can be something like:\n\n  name: fmt.Sprintf(\"QUICTransportParams-Client-Client%s-Server%s-%s\", clientConfig, serverSends, suffix)\n\n(fmt will call the String() method if it exists, so you don\u0027t need to explicitly call it. Though you can.)",
+      "revId": "95f2d9f044a933658b1c7b3c081c0da15ece6fc0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
