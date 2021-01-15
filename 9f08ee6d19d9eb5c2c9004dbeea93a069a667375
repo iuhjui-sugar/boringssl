@@ -16,6 +16,23 @@
       "message": "This is my first patch in this repo. Let me know if any other presubmit scripts is needed at local.\nGoogle internal link is fine for me :)",
       "revId": "9f08ee6d19d9eb5c2c9004dbeea93a069a667375",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a14f5ca9_f7c55ad4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-01-15T19:48:06Z",
+      "side": 1,
+      "message": "(CLA confirmed.)",
+      "revId": "9f08ee6d19d9eb5c2c9004dbeea93a069a667375",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
