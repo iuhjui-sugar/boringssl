@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed60c610_8ddf4986",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 11506
+      },
+      "writtenOn": "2021-01-15T19:45:19Z",
+      "side": 1,
+      "message": "This is my first patch in this repo. Let me know if any other presubmit scripts is needed at local.\nGoogle internal link is fine for me :)",
+      "revId": "9f08ee6d19d9eb5c2c9004dbeea93a069a667375",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
