@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eceb4279_8ff126ec",
+        "filename": "include/openssl/dh.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-01-15T19:18:16Z",
+      "side": 1,
+      "message": "// WARNING: this differs from the usual BoringSSL return-value convention.",
+      "revId": "0ba50b31a8ec88c897faf71ccc65e9269f895fa8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
