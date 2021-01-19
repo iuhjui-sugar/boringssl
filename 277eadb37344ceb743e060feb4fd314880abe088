@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b879c7e_80c001b4",
+        "filename": "util/fipstools/delocate/delocate.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-19T17:02:35Z",
+      "side": 1,
+      "message": "Nit: This comment is a little odd. Sometimes they\u0027re a plain ADR (with a 1MiB limit) and sometimes they\u0027re a function call (without any limit). Though probably the thing to draw attention to is that, rather than loading the page address, we load the full address and cancel the :lo12: adjustment later.",
+      "range": {
+        "startLine": 457,
+        "startChar": 53,
+        "endLine": 457,
+        "endChar": 64
+      },
+      "revId": "277eadb37344ceb743e060feb4fd314880abe088",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e848943_deb51cb3",
+        "filename": "util/fipstools/delocate/delocate.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-19T17:02:35Z",
+      "side": 1,
+      "message": "This assumes the compiler used the same register for the GOT address and the load. (Such as in the test file itself.) Maybe add a mov?\n\nOr we could wipe adrp in GOT cases and d.loadAarch64Address here as before. We\u0027re already assuming no one\u0027s doing arithmetic on the addresses of GOT entries. Though that\u0027s a little asymmetric.",
+      "revId": "277eadb37344ceb743e060feb4fd314880abe088",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

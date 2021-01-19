@@ -189,6 +189,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "d2f4ed58_bf73187a",
+        "filename": "util/fipstools/delocate/delocate.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-19T17:02:35Z",
+      "side": 1,
+      "message": "I think that works, modulo the GOT issue. Tying the full address to adrp instead of :lo12: is certainly simpler w.r.t. having fewer instruction forms to consider.\n\nThough I think they\u0027re equivalent in terms of assumptions made on the code. Either way we\u0027re not completely accurately preserving the split and assuming the generated code makes no particular assumptions on how the address is split up, just that the adrp/:lo12: contributions add up correctly. Given offsets within a page aren\u0027t known until link time, I think that\u0027s probably a reasonable assumption? (Unless maaaaybe the compiler decided to emit OR instead of AND, on the assumption that the bottom bits of adrp\u0027s output are zero???)",
+      "parentUuid": "75c95174_9fab0a50",
+      "revId": "ed8ebf0d969ef3d5a30f164c691d117e08bc8b2c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "339a8285_17586d89",
         "filename": "util/fipstools/delocate/delocate.go",
         "patchSetId": 5
