@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e97003bc_b4e5be6f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-19T22:37:56Z",
+      "side": 1,
+      "message": "There\u0027s also nothing particularly secret in the BIGNUM structure itself. We assume the length and sign bits are public, and by the time you care about zeroization, you\u0027re way beyond caring about pointers leaking ASLR info.",
+      "revId": "328572a94b9ea71e78f0f77c1a5cfcdc7dbe2247",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
