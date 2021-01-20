@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9cff2dc2_74a28a73",
+        "filename": "crypto/fipsmodule/CMakeLists.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-01-20T17:20:16Z",
+      "side": 1,
+      "message": "There might be a better way to call Clang? The issue is that --target isn\u0027t included in CMAKE_C_FLAGS, it\u0027s magic that gets added before exec.",
+      "revId": "ec7e3e983c181002e10b5b4ee2a2c478a71e44d3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
