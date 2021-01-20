@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d267e083_f6614f95",
+        "filename": "crypto/fipsmodule/CMakeLists.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-20T19:13:53Z",
+      "side": 1,
+      "message": "Minor nitpick: since this is asm, probably we want to use CMAKE_ASM_COMPILER, and friends. (Though it should end up usually being the same.)",
+      "range": {
+        "startLine": 129,
+        "startChar": 11,
+        "endLine": 129,
+        "endChar": 12
+      },
+      "revId": "ec7e3e983c181002e10b5b4ee2a2c478a71e44d3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9cff2dc2_74a28a73",
         "filename": "crypto/fipsmodule/CMakeLists.txt",
         "patchSetId": 3
@@ -14,6 +37,47 @@
       "writtenOn": "2021-01-20T17:20:16Z",
       "side": 1,
       "message": "There might be a better way to call Clang? The issue is that --target isn\u0027t included in CMAKE_C_FLAGS, it\u0027s magic that gets added before exec.",
+      "revId": "ec7e3e983c181002e10b5b4ee2a2c478a71e44d3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0d19533_f2fd149a",
+        "filename": "crypto/fipsmodule/CMakeLists.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-20T19:13:53Z",
+      "side": 1,
+      "message": "Do we want to include CMAKE_ASM_FLAGS too? It\u0027s mostly junk that hopefully will be ignored (e.g. -Wa,--noexecstack), but it looks like the Android toolchain passes -DANDROID in there.",
+      "range": {
+        "startLine": 135,
+        "startChar": 30,
+        "endLine": 135,
+        "endChar": 31
+      },
+      "revId": "ec7e3e983c181002e10b5b4ee2a2c478a71e44d3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06c60165_538a5179",
+        "filename": "crypto/fipsmodule/CMakeLists.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-20T19:13:53Z",
+      "side": 1,
+      "message": "Looks like it\u0027s jammed in there quite late. :-/\nhttps://github.com/Kitware/CMake/blob/master/Source/cmRulePlaceholderExpander.cxx#L289-L293\n\nI was going to suggest using CMAKE_ASM_COMPILE_OPTIONS_TARGET, but CMake seems to be unclear on whether they believe it\u0027s public API.\nhttps://gitlab.kitware.com/cmake/cmake/-/issues/21382\n\nInterestingly my Android build believes C uses --target\u003dfoo and ASM uses -target foo. But clang accepts either, so it doesn\u0027t matter.",
+      "parentUuid": "9cff2dc2_74a28a73",
       "revId": "ec7e3e983c181002e10b5b4ee2a2c478a71e44d3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
