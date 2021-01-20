@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "24f3e270_9e67295f",
+        "filename": "crypto/fipsmodule/self_check/self_check.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 781,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-01-20T19:45:44Z",
+      "side": 1,
+      "message": "Is your concern around the fact that the BIGNUM itself is on the stack, or that it\u0027s pointing to static data? (Or both?)\n\nIn my mind static-data BIGNUMs are a valid form of BIGNUM that should work fine everywhere, although now I look at bn_wexpand I see that it errors out in their case rather than handling them. But I\u0027d be inclined to fix that and try and say that static-data is fine unless you know reasons why that property is unviable.\n\nIn terms of passing statck-allocated BIGNUMs, I guess that\u0027s a little weird. That could be revised.",
+      "parentUuid": "4cabd89b_c95acaab",
+      "revId": "7ad7438a7eaf4201ce448fc74560f105f4039418",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "54a0d5e7_a95da855",
         "filename": "crypto/fipsmodule/self_check/self_check.c",
         "patchSetId": 3
