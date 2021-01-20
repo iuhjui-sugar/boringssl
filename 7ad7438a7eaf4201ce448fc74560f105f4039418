@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cabd89b_c95acaab",
+        "filename": "crypto/fipsmodule/self_check/self_check.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 781,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-20T19:33:51Z",
+      "side": 1,
+      "message": "Huh. I guess this works, but it is arguably violating the API contract a little. DH expects to take ownership of the BIGNUM. We\u0027re relying on BIGNUM being funny and, rather than BN_init/BN_cleanup vs BN_new/BN_free, having a single BN_free that dispatches cleanup vs free based on some bit in the BIGNUM.",
+      "revId": "7ad7438a7eaf4201ce448fc74560f105f4039418",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54a0d5e7_a95da855",
+        "filename": "crypto/fipsmodule/self_check/self_check.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 787,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-20T19:33:51Z",
+      "side": 1,
+      "message": "This doesn\u0027t run DH_free in the error path. Not that it\u0027s expected to ever happen, but we seem to be handling the leaks in other error paths. We also don\u0027t handle freeing ffdhe2048_q if BN_set_word(\u0026ffdhe2048_g) fails, though that gets complicated with DH_set0_pqg taking ownership.",
+      "revId": "7ad7438a7eaf4201ce448fc74560f105f4039418",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6c47507_d40d1146",
+        "filename": "crypto/fipsmodule/self_check/self_check.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 789,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-20T19:33:51Z",
+      "side": 1,
+      "message": "Seems this is as much a no-op as the static BIGNUMs. ffdhe2048_q and ffdhe2048_g are the ones that need freeing, but DH_set0_* takes ownership of them.",
+      "revId": "7ad7438a7eaf4201ce448fc74560f105f4039418",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
