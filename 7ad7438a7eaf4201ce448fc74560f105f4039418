@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d4e715af_4e98fa6d",
+        "filename": "crypto/fipsmodule/self_check/self_check.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 781,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-20T20:04:55Z",
+      "side": 1,
+      "message": "I was mostly thinking the stack-allocated BIGNUMs (init vs cleanup) and how it\u0027s weird that BN_free inside DH_free silently behaves in the other mode, where all our other types have a clearer split between FOO_cleanup and FOO_free. Then again, it does work and the assumption that the DH doesn\u0027t stash the BIGNUM somewhere longer-lived is quite solid.\n\nI think I agree the static-data BIGNUMs are less sketchy. It does rely on an unwritten assumption that DH doesn\u0027t try to mutate the BIGNUM, but that seems reasonable enough? Our threading rules plus the existence of get0 getters effectively forbid mutating the BIGNUM. (Though elsewhere in the SSL stack, we have played a little more loose with how X509-related set0 functions relate to the object\u0027s internal representation.)\n\nRe bn_wexpand, static-data would also break if you try to write to the BIGNUM without bn_wexpand. For instance, BN_div_word knows it never makes the magnitude bigger, so it scribbles into the BIGNUM directly. Though those are much more rare.\n\nI dunno, I don\u0027t feel very strongly about any of these. If you think it\u0027s fine, I\u0027m also okay with leaving either or both of these assumptions in.",
+      "parentUuid": "24f3e270_9e67295f",
+      "revId": "7ad7438a7eaf4201ce448fc74560f105f4039418",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "54a0d5e7_a95da855",
         "filename": "crypto/fipsmodule/self_check/self_check.c",
         "patchSetId": 3
