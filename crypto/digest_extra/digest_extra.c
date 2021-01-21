@@ -59,10 +59,12 @@
 #include <string.h>
 
 #include <openssl/asn1.h>
+#include <openssl/blake2.h>
 #include <openssl/bytestring.h>
 #include <openssl/nid.h>
 
 #include "../internal.h"
+#include "../fipsmodule/digest/internal.h"
 
 
 struct nid_to_digest {
@@ -238,3 +240,26 @@ const EVP_MD *EVP_get_digestbyname(const char *name) {
 
   return NULL;
 }
+
+static void blake2b512_init(EVP_MD_CTX *ctx) { BLAKE2B512_Init(ctx->md_data); }
+
+static void blake2b512_update(EVP_MD_CTX *ctx, const void *data, size_t len) {
+  BLAKE2B512_Update(ctx->md_data, data, len);
+}
+
+static void blake2b512_final(EVP_MD_CTX *ctx, uint8_t *md) {
+  BLAKE2B512_Final(md, ctx->md_data);
+}
+
+static const EVP_MD evp_md_blake2b512 = {
+  NID_undef,
+  BLAKE2B512_DIGEST_LENGTH,
+  0,
+  blake2b512_init,
+  blake2b512_update,
+  blake2b512_final,
+  BLAKE2B_CBLOCK,
+  sizeof(BLAKE2B_CTX),
+};
+
+const EVP_MD *EVP_blake2b512(void) { return &evp_md_blake2b512; }
