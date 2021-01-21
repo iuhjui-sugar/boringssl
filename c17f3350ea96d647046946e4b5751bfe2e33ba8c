@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39b51932_03b7d8be",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 11606
+      },
+      "writtenOn": "2021-01-21T20:13:48Z",
+      "side": 1,
+      "message": "Hi,\n\nAny chance we can revisit this decision? I can have an updated version based on the least boringssl release. We just came across a major use boringssl by the Knative project. In order to have Knative also available for s390x we need to do the same for boringssl.\n\nI can provide business case information and more details, here a quick summary:\n\nThe s390x processor architecture is commonly known as mainframes (2 models today: IBM Z and LinuxONE), they are modern platforms that run all Linux distributions available and have a growing open-source ecosystem that includes cloud native software including Kubernetes and CI/CD tooling. In fact, Linux support started more than 20 years ago for s390x. \nThe main benefits of s390x processor architecture relate to high performance and security, as a result of that most mission critical enterprise applications in the world are hosted in s390x. Here are some important facts: \n- 67% of Fortune 100 use IBM Z or LinuxONE \n- 44 of the world’s top 50 banks use IBM Z or LinuxONE \n- 64% enterprises will use IBM Z to run more than half of their critical applications \n- 3.5x increase in installed capacity in past decade. \n\nAppeals to any size, any industry, any business model including AI, ML and Analytics use cases. \nIn fact, cost efficiency ratio per transaction justifies the mainframe across all industry users\n\nIn terms of business case, customers can significantly save with Linux on IBM Z and LinuxONE compared to x86 architectures. \n- Software licensing and maintenance charges will be lower. \n- Simplified administration and smaller server footprint will bring labor savings. \n- Enhanced security features with advanced cryptography. \n- I/O Performance and encryption speeds. \n\nMore business case information: https://www.ibm.com/it-infrastructure/services/it-economics \n \nIndustry reports about value and why enterprises use s390x architectures: \n- IDC White Paper: The business value of the transformative mainframe http://idcdocserv.com/BVWPUS45068619_Exec_Summary \n- IDC White Paper: Building the Open Enterprise: Leveraging Red Hat Enterprise Linux, OpenShift and Ansible on IBM Z https://www.ibm.com/downloads/cas/G2GVJGB6 \n- MIT Technology Review report: Mainframe 2020, a catalyst for transformation\n https://wp.technologyreview.com/wp-content/uploads/2020/09/Mainframe-2020-A-catalyst-for-transformation_0920.pdf \n \n\n",
+      "revId": "c17f3350ea96d647046946e4b5751bfe2e33ba8c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
