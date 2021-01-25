@@ -54,6 +54,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1310674a_b2a19182",
+        "filename": "crypto/fipsmodule/self_check/self_check.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 781,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2021-01-25T19:56:59Z",
+      "side": 1,
+      "message": "I do think that passing in stack-allocated BIGNUMs is a little weird. Have switched then to heap-allocated. (I also think that functions like BN_div should be able to cope with static-data BIGNUMs by allocating and converting to non-static as needed, but not pertinent here.)",
+      "parentUuid": "d4e715af_4e98fa6d",
+      "revId": "7ad7438a7eaf4201ce448fc74560f105f4039418",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "54a0d5e7_a95da855",
