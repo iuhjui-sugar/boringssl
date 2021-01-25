@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb18119d_cd01d4ed",
+        "filename": "crypto/fipsmodule/CMakeLists.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2021-01-25T19:46:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d267e083_f6614f95",
+      "range": {
+        "startLine": 129,
+        "startChar": 11,
+        "endLine": 129,
+        "endChar": 12
+      },
+      "revId": "ec7e3e983c181002e10b5b4ee2a2c478a71e44d3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9cff2dc2_74a28a73",
@@ -78,6 +102,48 @@
       "side": 1,
       "message": "Looks like it\u0027s jammed in there quite late. :-/\nhttps://github.com/Kitware/CMake/blob/master/Source/cmRulePlaceholderExpander.cxx#L289-L293\n\nI was going to suggest using CMAKE_ASM_COMPILE_OPTIONS_TARGET, but CMake seems to be unclear on whether they believe it\u0027s public API.\nhttps://gitlab.kitware.com/cmake/cmake/-/issues/21382\n\nInterestingly my Android build believes C uses --target\u003dfoo and ASM uses -target foo. But clang accepts either, so it doesn\u0027t matter.",
       "parentUuid": "9cff2dc2_74a28a73",
+      "revId": "ec7e3e983c181002e10b5b4ee2a2c478a71e44d3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd468578_76ea5132",
+        "filename": "crypto/fipsmodule/CMakeLists.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2021-01-25T19:46:33Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "06c60165_538a5179",
+      "revId": "ec7e3e983c181002e10b5b4ee2a2c478a71e44d3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a876888c_eb2f2c18",
+        "filename": "crypto/fipsmodule/CMakeLists.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2021-01-25T19:46:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c0d19533_f2fd149a",
+      "range": {
+        "startLine": 135,
+        "startChar": 30,
+        "endLine": 135,
+        "endChar": 31
+      },
       "revId": "ec7e3e983c181002e10b5b4ee2a2c478a71e44d3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
