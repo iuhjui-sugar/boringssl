@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "812f5541_71e5902f",
+        "filename": "crypto/blake2/blake2.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-26T01:52:44Z",
+      "side": 1,
+      "message": "Optional: I was going to suggest wrapping lines 112-129 in if (block_used \u003e 0), so we don\u0027t go through the partial block path for the first block. But I guess we\u0027re copying a block at a time in the loop anyway.\n\nI imagine that, if we ever add asm, we\u0027ll want to swap out the loop, and probably the compiler generates better code for the constant-size memcpy. But I don\u0027t particularly care either way.",
+      "revId": "ae28a35bc41eb517854bb1548c23d819570bdca6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d33747f_42d55a78",
+        "filename": "crypto/blake2/blake2.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-26T01:52:44Z",
+      "side": 1,
+      "message": "Nit: might be worth a comment that block_used can only be 0 or BLAKE2B_CBLOCK as a result of the len check.",
+      "revId": "ae28a35bc41eb517854bb1548c23d819570bdca6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80c1d442_6b751189",
+        "filename": "crypto/blake2/blake2.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-26T01:52:44Z",
+      "side": 1,
+      "message": "Dead code?",
+      "revId": "ae28a35bc41eb517854bb1548c23d819570bdca6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06e6118f_7137aa3d",
+        "filename": "crypto/blake2/blake2_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-26T01:52:44Z",
+      "side": 1,
+      "message": "Maybe also worth testing the streaming mode.\n\n  memset(digest, 0, sizeof(digest));\n  BLAKE2B_CTX b2b;\n  BLAKE2B256_Init(\u0026b2b);\n  for (uint8_t byte : msg) {\n    BLAKE2B256_Update(\u0026b2b, \u0026byte, 1);\n  }\n  BLAKE2B256_Final(digest, \u0026b2b);\n  EXPECT_EQ(Bytes(digest), Bytes(expected)) \u003c\u003c msg.size();",
+      "revId": "ae28a35bc41eb517854bb1548c23d819570bdca6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
