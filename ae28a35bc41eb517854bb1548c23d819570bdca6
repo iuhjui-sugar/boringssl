@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8ceca618_888b634c",
+        "filename": "crypto/blake2/blake2.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-01-26T19:09:57Z",
+      "side": 1,
+      "message": "That\u0027s a good point, but how can block_used be zero? I think it can only be BLAKE2B_CBLOCK, and thus the if can be dropped.",
+      "parentUuid": "2d33747f_42d55a78",
+      "revId": "ae28a35bc41eb517854bb1548c23d819570bdca6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "80c1d442_6b751189",
         "filename": "crypto/blake2/blake2.c",
         "patchSetId": 4
@@ -48,6 +66,24 @@
       "writtenOn": "2021-01-26T01:52:44Z",
       "side": 1,
       "message": "Dead code?",
+      "revId": "ae28a35bc41eb517854bb1548c23d819570bdca6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47c6466e_2501e409",
+        "filename": "crypto/blake2/blake2.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-01-26T19:09:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "80c1d442_6b751189",
       "revId": "ae28a35bc41eb517854bb1548c23d819570bdca6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -65,6 +101,24 @@
       "writtenOn": "2021-01-26T01:52:44Z",
       "side": 1,
       "message": "Maybe also worth testing the streaming mode.\n\n  memset(digest, 0, sizeof(digest));\n  BLAKE2B_CTX b2b;\n  BLAKE2B256_Init(\u0026b2b);\n  for (uint8_t byte : msg) {\n    BLAKE2B256_Update(\u0026b2b, \u0026byte, 1);\n  }\n  BLAKE2B256_Final(digest, \u0026b2b);\n  EXPECT_EQ(Bytes(digest), Bytes(expected)) \u003c\u003c msg.size();",
+      "revId": "ae28a35bc41eb517854bb1548c23d819570bdca6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20755d34_53b6e312",
+        "filename": "crypto/blake2/blake2_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-01-26T19:09:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06e6118f_7137aa3d",
       "revId": "ae28a35bc41eb517854bb1548c23d819570bdca6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
