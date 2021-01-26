@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6568a48e_9bb28b74",
+        "filename": "crypto/fipsmodule/self_check/self_check.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 812,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-26T20:25:36Z",
+      "side": 1,
+      "message": "Assuming you don\u0027t care about freeing the various BIGNUMs and DH objects in the error path? I don\u0027t feel very strongly since it should never happen. Main reason I could think of caring is that BORINGSSL_self_test() is exposed as public API, so it\u0027s not guaranteed that we\u0027ll abort as soon as it fails.\n\nFreeing in the error path is mildly annoying because of how the setters take ownership. If we want to do that, might be worth pulling it into a function similar to self_test_rsa_key().",
+      "revId": "cc6ac5a65cd84bbdc209a6d503c18a798c3a50bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
