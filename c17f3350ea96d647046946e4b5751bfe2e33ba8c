@@ -34,6 +34,24 @@
       "parentUuid": "39b51932_03b7d8be",
       "revId": "c17f3350ea96d647046946e4b5751bfe2e33ba8c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "67aa5e7f_f74138b7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 11606
+      },
+      "writtenOn": "2021-01-27T16:02:16Z",
+      "side": 1,
+      "message": "Hi Adam,  thanks for replying back.\nIBM fully supports open source communities, we provide support for the s390x architecture to a large number of open source projects (hundreds), both in terms of code maintenance as well as availability of resources (VMs) for builds and CI integration.\nMinimum time investment required from your side, I hope you can review with your team.\nBy the way, great to see Knative using Boringssl",
+      "parentUuid": "7fbcc223_368da61c",
+      "revId": "c17f3350ea96d647046946e4b5751bfe2e33ba8c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
