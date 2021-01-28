@@ -691,6 +691,29 @@ static bool GetConfig(const Span<const uint8_t> args[]) {
             "increment": 8
           }]
         }]
+      }, {
+        "algorithm": "ACVP-AES-GMAC",
+        "revision": "1.0",
+        "direction": [
+          "encrypt",
+          "decrypt"
+        ],
+        "keyLen": [
+          128,
+          256
+        ],
+        "ivLen": [
+          96
+        ],
+        "ivGen": "external",
+        "aadLen": [{
+           "min": 0,
+           "max": 4096,
+           "increment": 8
+        }],
+        "tagLen": [
+          128
+        ]
       },
       {
         "algorithm": "kdf-components",
