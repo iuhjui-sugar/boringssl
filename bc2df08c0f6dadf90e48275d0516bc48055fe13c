@@ -35,6 +35,23 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "149d74dc_26efecf0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-01-28T19:40:48Z",
+      "side": 1,
+      "message": "Hey David, I am changing strategies and abandoning this CL. Here\u0027s the \"replacement CL\" I referred to in some comments: https://boringssl-review.googlesource.com/c/boringssl/+/45285\n\nThe reason for the new CL is ergonomics. It was getting difficult to maintain one CL for BoGo client + server, and one for the C server.\n\nSorry for sitting on these comments so long. I\u0027ve resolved most of them in the replacement CL, and added a TODO for the HPKE ciphersuite preferences.\n\nThanks!",
+      "revId": "bc2df08c0f6dadf90e48275d0516bc48055fe13c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "20d713b4_8a2a6a33",
@@ -48,6 +65,30 @@
       "writtenOn": "2020-12-15T20:57:20Z",
       "side": 1,
       "message": "This and the use of ECHConfig below in (Client)ECHConfigs doesn\u0027t seem like it\u0027d work. An ECHConfig (the spec notion) includes its serialization. Any parsed representation of an already-constructed ECHConfig structure would need to retain that, otherwise things will break.\n\nIn contrast, this ECHConfig (the Go type) that we landed for GREASE was something very different. That was just a template for constructing an ECHConfig.\n\n(This is what I was trying to get at the other day when we were talking about crypto/x509 and how it actually uses the same type for two different purposes. Whatever representation we use, we should be clear on what each type is actually representing where.)",
+      "range": {
+        "startLine": 343,
+        "startChar": 11,
+        "endLine": 343,
+        "endChar": 20
+      },
+      "revId": "bc2df08c0f6dadf90e48275d0516bc48055fe13c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57947e1e_1e02321e",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 13
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-01-28T19:40:48Z",
+      "side": 1,
+      "message": "I believe you told me a couple weeks ago to disregard this complaint. Kicking the can down the road for the CL that adds the ECH client and needs BoGo server support.",
+      "parentUuid": "20d713b4_8a2a6a33",
       "range": {
         "startLine": 343,
         "startChar": 11,
@@ -81,6 +122,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a6b7f74_f81e1a7b",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 13
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-01-28T19:40:48Z",
+      "side": 1,
+      "message": "Resolved in the replacement CL.",
+      "parentUuid": "285397e0_25577c10",
+      "range": {
+        "startLine": 393,
+        "startChar": 1,
+        "endLine": 393,
+        "endChar": 11
+      },
+      "revId": "bc2df08c0f6dadf90e48275d0516bc48055fe13c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "06d272b2_896b6d8f",
@@ -98,6 +163,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7c9230e_16ee84b1",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 13
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-01-28T19:40:48Z",
+      "side": 1,
+      "message": "Resolving this in the replacement CL.",
+      "parentUuid": "06d272b2_896b6d8f",
+      "revId": "bc2df08c0f6dadf90e48275d0516bc48055fe13c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7f9f33ea_6b41dcce",
@@ -111,6 +194,30 @@
       "writtenOn": "2020-12-15T20:57:20Z",
       "side": 1,
       "message": "Same comment as in the C code, this should be GetHKDFHash.",
+      "range": {
+        "startLine": 58,
+        "startChar": 5,
+        "endLine": 58,
+        "endChar": 12
+      },
+      "revId": "bc2df08c0f6dadf90e48275d0516bc48055fe13c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbec7074_f020d2d7",
+        "filename": "ssl/test/runner/hpke/hpke.go",
+        "patchSetId": 13
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-01-28T19:40:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f9f33ea_6b41dcce",
       "range": {
         "startLine": 58,
         "startChar": 5,
@@ -144,6 +251,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc92dd88_821dd0d6",
+        "filename": "ssl/test/runner/hpke/hpke.go",
+        "patchSetId": 13
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-01-28T19:40:48Z",
+      "side": 1,
+      "message": "I understand why we need a notion of client-side HPKE ciphersuite preferences, but I haven\u0027t implemented it yet. Adding a TODO(dmcardle) to insertECH() in handshake_client.go in the replacement CL.",
+      "parentUuid": "c3ce5444_51c15fda",
+      "range": {
+        "startLine": 73,
+        "startChar": 5,
+        "endLine": 73,
+        "endChar": 27
+      },
+      "revId": "bc2df08c0f6dadf90e48275d0516bc48055fe13c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b1cb9a71_ca5823ce",
@@ -161,6 +292,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e906e1ab_3100d7dc",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 13
+      },
+      "lineNbr": 16152,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-01-28T19:40:48Z",
+      "side": 1,
+      "message": "I have an improved version of this test named \"ECH-Server-ClientUsedWrongECHConfig\" in the replacement CL. It checks that the server accepts ClientHelloOuter and responds with the correct retry_configs.",
+      "parentUuid": "b1cb9a71_ca5823ce",
+      "revId": "bc2df08c0f6dadf90e48275d0516bc48055fe13c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "971a835a_66955252",
@@ -174,6 +323,24 @@
       "writtenOn": "2020-12-15T20:57:20Z",
       "side": 1,
       "message": "What\u0027s this line doing?",
+      "revId": "bc2df08c0f6dadf90e48275d0516bc48055fe13c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15f44d94_a5de6745",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 13
+      },
+      "lineNbr": 16159,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-01-28T19:40:48Z",
+      "side": 1,
+      "message": "(I think Gerrit comments go right below the line they\u0027re referencing?) The ServerName line is telling the runner client which server name to use in the ClientHelloInner.",
+      "parentUuid": "971a835a_66955252",
       "revId": "bc2df08c0f6dadf90e48275d0516bc48055fe13c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
