@@ -16,6 +16,24 @@
       "message": "Weird that HMAC doesn\u0027t have a similar split, but ah well.",
       "revId": "f75f4ee52b6d17b6f18724fadcc5f43383eba796",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed84d40e_b2b683ea",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-01-28T17:42:34Z",
+      "side": 1,
+      "message": "The answer is that I suspect that it does and that I should follow up with that.\n\nThe ambiguity is around what parts of ACVP have to be implemented inside the module. Obviously JSON parsing doesn\u0027t etc, and I thought that the verification tests were just a different style of test. But others are suggesting that they need to be in the module itself.",
+      "parentUuid": "6feb068c_62cadf8e",
+      "revId": "f75f4ee52b6d17b6f18724fadcc5f43383eba796",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
