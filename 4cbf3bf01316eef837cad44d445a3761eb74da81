@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3366ae5_dbc5f06c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-01-29T21:05:18Z",
+      "side": 1,
+      "message": "(Added a reference to the bug in the commit message.)",
+      "revId": "4cbf3bf01316eef837cad44d445a3761eb74da81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
