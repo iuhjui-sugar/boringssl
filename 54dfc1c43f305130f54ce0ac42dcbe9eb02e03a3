@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5de43d2_02c4a9d5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-02-01T19:01:51Z",
+      "side": 1,
+      "message": "Typically we only support architectures that we can affirmatively support: i.e. have builders for, can test \u0026 debug etc. Given that, we only support architectures that Google has a business need to support. We also try to avoid \"accidental\" support because, even if we never intended it, if something works people develop an expectation that it\u0027ll continue to work and get mad at us if it stops.\n\nOn that basis, we would generally not accept this change, I\u0027m afraid.\n\nHaving said that, I can maybe see an argument that this is so obscure that many of the above concerns are moot, and that VLIW systems are cool and we should include this for fun. I am not sure if I believe that, but perhaps some explanation of your motive here would tip the balance.",
+      "revId": "54dfc1c43f305130f54ce0ac42dcbe9eb02e03a3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
