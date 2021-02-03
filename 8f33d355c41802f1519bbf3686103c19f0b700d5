@@ -259,6 +259,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "84bb41f9_2d7c679a",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 1046,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-03T18:43:14Z",
+      "side": 1,
+      "message": "Actually, I guess you can make a copy of sha256 per the BinaryMarshaler example here https://golang.org/pkg/hash/. Can we definitely state that the runner will only use SHA256 for the ECH HPKE KDF?",
+      "parentUuid": "aba35514_388cda3d",
+      "revId": "8f33d355c41802f1519bbf3686103c19f0b700d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7bc27911_f5ec3321",
         "filename": "ssl/test/runner/hpke/hpke.go",
         "patchSetId": 4
