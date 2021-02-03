@@ -22,6 +22,7 @@
 #include <openssl/bn.h>
 #include <openssl/crypto.h>
 #include <openssl/des.h>
+#include <openssl/dh.h>
 #include <openssl/ecdsa.h>
 #include <openssl/ec_key.h>
 #include <openssl/hmac.h>
@@ -29,7 +30,9 @@
 #include <openssl/rsa.h>
 #include <openssl/sha.h>
 
+#include "../crypto/fipsmodule/bn/internal.h"
 #include "../crypto/fipsmodule/rand/internal.h"
+#include "../crypto/fipsmodule/tls/internal.h"
 #include "../crypto/internal.h"
 
 
@@ -40,6 +43,58 @@ static void hexdump(const void *a, size_t len) {
   }
 
   printf("\n");
+}
+
+static DH *get_rfc7919_2048(void) {
+  // This is the prime from https://tools.ietf.org/html/rfc7919#appendix-A.1,
+  // which is specifically approved for FIPS in appendix D of SP 800-56Ar3.
+  static const BN_ULONG kFFDHE2048Data[] = {
+      TOBN(0xffffffff, 0xffffffff), TOBN(0x886b4238, 0x61285c97),
+      TOBN(0xc6f34a26, 0xc1b2effa), TOBN(0xc58ef183, 0x7d1683b2),
+      TOBN(0x3bb5fcbc, 0x2ec22005), TOBN(0xc3fe3b1b, 0x4c6fad73),
+      TOBN(0x8e4f1232, 0xeef28183), TOBN(0x9172fe9c, 0xe98583ff),
+      TOBN(0xc03404cd, 0x28342f61), TOBN(0x9e02fce1, 0xcdf7e2ec),
+      TOBN(0x0b07a7c8, 0xee0a6d70), TOBN(0xae56ede7, 0x6372bb19),
+      TOBN(0x1d4f42a3, 0xde394df4), TOBN(0xb96adab7, 0x60d7f468),
+      TOBN(0xd108a94b, 0xb2c8e3fb), TOBN(0xbc0ab182, 0xb324fb61),
+      TOBN(0x30acca4f, 0x483a797a), TOBN(0x1df158a1, 0x36ade735),
+      TOBN(0xe2a689da, 0xf3efe872), TOBN(0x984f0c70, 0xe0e68b77),
+      TOBN(0xb557135e, 0x7f57c935), TOBN(0x85636555, 0x3ded1af3),
+      TOBN(0x2433f51f, 0x5f066ed0), TOBN(0xd3df1ed5, 0xd5fd6561),
+      TOBN(0xf681b202, 0xaec4617a), TOBN(0x7d2fe363, 0x630c75d8),
+      TOBN(0xcc939dce, 0x249b3ef9), TOBN(0xa9e13641, 0x146433fb),
+      TOBN(0xd8b9c583, 0xce2d3695), TOBN(0xafdc5620, 0x273d3cf1),
+      TOBN(0xadf85458, 0xa2bb4a9a), TOBN(0xffffffff, 0xffffffff),
+  };
+
+  BIGNUM *const ffdhe2048_p = BN_new();
+  BIGNUM *const ffdhe2048_q = BN_new();
+  BIGNUM *const ffdhe2048_g = BN_new();
+  DH *const dh = DH_new();
+
+  if (!ffdhe2048_p || !ffdhe2048_q || !ffdhe2048_g || !dh) {
+    goto err;
+  }
+
+  bn_set_static_words(ffdhe2048_p, kFFDHE2048Data,
+                      OPENSSL_ARRAY_SIZE(kFFDHE2048Data));
+
+  if (!BN_copy(ffdhe2048_q, ffdhe2048_p) ||
+      !BN_sub_word(ffdhe2048_q, 1) ||
+      BN_div_word(ffdhe2048_q, 2) != 0 ||
+      !BN_set_word(ffdhe2048_g, 2) ||
+      !DH_set0_pqg(dh, ffdhe2048_p, ffdhe2048_q, ffdhe2048_g)) {
+    goto err;
+  }
+
+  return dh;
+
+ err:
+    BN_free(ffdhe2048_p);
+    BN_free(ffdhe2048_q);
+    BN_free(ffdhe2048_g);
+    DH_free(dh);
+    return NULL;
 }
 
 int main(int argc, char **argv) {
@@ -217,6 +272,23 @@ int main(int argc, char **argv) {
     goto err;
   }
 
+  /* Primitive Z Computation */
+  const EC_GROUP *const ec_group = EC_KEY_get0_group(ec_key);
+  EC_POINT *z_point = EC_POINT_new(ec_group);
+  uint8_t z_result[65];
+  printf("About to compute key-agreement Z with P-256:\n");
+  if (!EC_POINT_mul(ec_group, z_point, NULL, EC_KEY_get0_public_key(ec_key),
+                    EC_KEY_get0_private_key(ec_key), NULL) ||
+      !EC_POINT_point2oct(ec_group, z_point, POINT_CONVERSION_UNCOMPRESSED,
+                          z_result, sizeof(z_result), NULL)) {
+    fprintf(stderr, "EC_POINT_mul failed.\n");
+    goto err;
+  }
+  EC_POINT_free(z_point);
+
+  printf("  got ");
+  hexdump(z_result, sizeof(z_result));
+
   /* ECDSA Sign/Verify PWCT */
   printf("About to ECDSA sign ");
   hexdump(kPlaintextSHA256, sizeof(kPlaintextSHA256));
@@ -249,6 +321,36 @@ int main(int argc, char **argv) {
   printf("  generated ");
   hexdump(output, sizeof(output));
   CTR_DRBG_clear(&drbg);
+
+  /* TLS KDF */
+  printf("About to run TLS KDF\n");
+  uint8_t tls_output[32];
+  if (!CRYPTO_tls1_prf(EVP_sha256(), tls_output, sizeof(tls_output), kAESKey,
+                       sizeof(kAESKey), "foo", 3, kPlaintextSHA256,
+                       sizeof(kPlaintextSHA256), kPlaintextSHA256,
+                       sizeof(kPlaintextSHA256))) {
+    fprintf(stderr, "TLS KDF failed.\n");
+    goto err;
+  }
+  printf("  got ");
+  hexdump(tls_output, sizeof(tls_output));
+
+  /* FFDH */
+  printf("About to compute FFDH key-agreement:\n");
+  DH *dh = get_rfc7919_2048();
+  uint8_t dh_result[2048/8];
+  if (!dh ||
+      !DH_generate_key(dh) ||
+      sizeof(dh_result) != DH_size(dh) ||
+      DH_compute_key_padded(dh_result, DH_get0_pub_key(dh), dh) !=
+          sizeof(dh_result)) {
+    fprintf(stderr, "FFDH failed.\n");
+    goto err;
+  }
+  DH_free(dh);
+
+  printf("  got ");
+  hexdump(dh_result, sizeof(dh_result));
 
   printf("PASS\n");
   return 0;
