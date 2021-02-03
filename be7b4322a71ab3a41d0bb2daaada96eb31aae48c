@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa31d9e7_aa9d3e57",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-03T18:30:48Z",
+      "side": 1,
+      "message": "Thanks, David! New patchset.\n\nI had a little trouble eliminating the ECH-specific transcript in runner. Described in a comment in handshake_client.go.",
+      "revId": "be7b4322a71ab3a41d0bb2daaada96eb31aae48c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a69581d_d6c2ce06",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-03T18:30:48Z",
+      "side": 1,
+      "message": "Should this be `hkdf_id`?",
+      "range": {
+        "startLine": 129,
+        "startChar": 26,
+        "endLine": 129,
+        "endChar": 32
+      },
+      "revId": "be7b4322a71ab3a41d0bb2daaada96eb31aae48c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

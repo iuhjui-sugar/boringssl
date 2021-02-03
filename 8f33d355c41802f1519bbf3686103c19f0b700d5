@@ -58,6 +58,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "082de32b_b415b3c3",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 3579,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-03T18:30:48Z",
+      "side": 1,
+      "message": "1. Good catch, I believe this was actually an independent mistake.\n\n2. Agreed that using the last config is weird. That comment was also inaccurate -- I\u0027m actually serializing all ECHConfigs in the order they were registered in |ext_ech_add_serverhello|.\n\n3. Using this text with a few edits. Thanks!",
+      "parentUuid": "67d40408_3b06c18d",
+      "range": {
+        "startLine": 3578,
+        "startChar": 73,
+        "endLine": 3579,
+        "endChar": 15
+      },
+      "revId": "8f33d355c41802f1519bbf3686103c19f0b700d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "696aa5e8_287e0372",
@@ -71,6 +95,24 @@
       "writtenOn": "2021-02-02T23:49:25Z",
       "side": 1,
       "message": "We shouldn\u0027t parse the ClientHello extensions this early. The processing order is to give the caller a chance to reconfigure things in select_certificate_cb before bulk processing has happened.\n\nAlso those callbacks, in general, get to assume the version has been negotiated already. A core invariant like that really shouldn\u0027t differ between based on a boolean. The parse functions also, in general, mutate things (they have stash values and make negotiation decisions) so it\u0027s very risky to call them multiple times, particularly on different ClientHellos. This is in contrast to the serialization callbacks, which generally just write out negotiated state.\n\n(You see this in how the CL end up having to no-op most of the callbacks.) \n\nRather, the flow should be:\n\n- Use ssl_client_hello_get_extension to see if there is an encrypted_client_hello extension. If so, resolve it. Now we either have left the ClientHello alone (using the outer CH), or we\u0027ve replaced it with an inner CH.\n\n- In all subsequent processing, use the resulting CH. In particular, we never call ssl_parse_clienthello_tlsext on the outer ClientHello if we\u0027re actually using the inner one. You mostly ignore the ClientHello that you don\u0027t use.\n\nThat also tidies up the ech_is_inner behavior. You should think about this in terms of a ClientHello dispatcher sitting in front of the main server. ech_is_inner is part of backend server behavior, so it can just run after we\u0027ve decided which ClientHello to use. (It\u0027s possible this\u0027ll need to change the ech_present business, which is fine. I wouldn\u0027t expect the core ECH extension to use callbacks much. Callbacks are generally for independent extensions anyway.)",
+      "revId": "8f33d355c41802f1519bbf3686103c19f0b700d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12267d5e_fecdf405",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 589,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-03T18:30:48Z",
+      "side": 1,
+      "message": "Makes sense! Done.",
+      "parentUuid": "696aa5e8_287e0372",
       "revId": "8f33d355c41802f1519bbf3686103c19f0b700d5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -92,6 +134,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d7bb731_43ad7069",
+        "filename": "ssl/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1698,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-03T18:30:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b86b71ef_cf90efc9",
+      "revId": "8f33d355c41802f1519bbf3686103c19f0b700d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9ec1677e_d108778c",
@@ -109,6 +169,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "caf4b8f3_d5b26a11",
+        "filename": "ssl/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1700,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-03T18:30:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ec1677e_d108778c",
+      "revId": "8f33d355c41802f1519bbf3686103c19f0b700d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc8c4322_acd6e37a",
@@ -122,6 +200,24 @@
       "writtenOn": "2021-02-02T23:49:25Z",
       "side": 1,
       "message": "What\u0027s the difference between this and ech_is_inner_present? (Something called ech_accept should specifically be about accepting ECH, not merely seeing ech_is_inner.)",
+      "revId": "8f33d355c41802f1519bbf3686103c19f0b700d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0e68b17_9a33624c",
+        "filename": "ssl/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1749,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-03T18:30:48Z",
+      "side": 1,
+      "message": "Currently, ech_accept is set to true when the server successfully decrypts the ClientHelloInner and effectively replaces the ClientHelloOuter, or when it\u0027s decided that it\u0027s a backend server (has ech_is_inner and no encrypted_client_hello extension).\n\nNo problem to refactor and only set to true when the server successfully decrypts the ClientHelloInner.",
+      "parentUuid": "dc8c4322_acd6e37a",
       "revId": "8f33d355c41802f1519bbf3686103c19f0b700d5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -145,6 +241,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "aba35514_388cda3d",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 1046,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-03T18:30:48Z",
+      "side": 1,
+      "message": "I\u0027m running into an issue with HRR because calling hs.finishedHash.UpdateForHelloRetryRequest [1] locks in my choice of CHI vs CHO. It actually resets the internal hash.Hash objects, so I can\u0027t really simulate it with deriveSecretPeek.\n\nAlso, I can\u0027t make a throwaway copy of hs.finishedHash at line 1088 because hash.Hash is uncopyable.\n\nOne alternative would be to add a Reset function to finishedHash. We could barrel ahead down the [CHI, HRR, CHI2, SH] path and then reset/rehash [CHO, HRR, CHO2, SH] only if accept_confirmation !\u003d SH.Random[-8:]. But I don\u0027t think this is much more desirable than the current double-transcript approach.\n\nDo you have any better ideas?\n\n[1]: https://source.chromium.org/chromium/chromium/src/+/master:third_party/boringssl/src/ssl/test/runner/prf.go;l\u003d245;drc\u003dc295935a9bf345acb597ffefb69f7e095c3eee72",
+      "parentUuid": "778bc01e_a53d7cfe",
+      "revId": "8f33d355c41802f1519bbf3686103c19f0b700d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7bc27911_f5ec3321",
         "filename": "ssl/test/runner/hpke/hpke.go",
         "patchSetId": 4
@@ -156,6 +270,24 @@
       "writtenOn": "2021-02-02T23:49:25Z",
       "side": 1,
       "message": "Similar comment from the other CL: this should be in TLS, not in the core crypto bit, and, more importantly, we need runner on the client to control which cipher suite to use, so that we test the shim honors all cipher suites it is configured with.\n\nAll this means is adding an ECHCipherSuites parameter to the Config struct. And then, in tests, you can either leave it alone (the test doesn\u0027t care), or specify a particular one (the test wants to test a particular one).",
+      "revId": "8f33d355c41802f1519bbf3686103c19f0b700d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64a3d28e_d658e21b",
+        "filename": "ssl/test/runner/hpke/hpke.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-03T18:30:48Z",
+      "side": 1,
+      "message": "Done.\n\nI added a test that the ECH server still accepts ClientHelloInner when the client used the server\u0027s less-preferred ciphersuite. Not terribly surprising, but I suppose it\u0027s worth checking.\n\nShould I also test the server when the client indicates an HPKE ciphersuite that isn\u0027t supported by the candidate ECHConfigs? I suppose I would need to add \"ForceECHCipherSuite\" to ProtocolBugs, or give the server an ECHConfig with different ciphersuites than the one given to the client.",
+      "parentUuid": "7bc27911_f5ec3321",
       "revId": "8f33d355c41802f1519bbf3686103c19f0b700d5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
