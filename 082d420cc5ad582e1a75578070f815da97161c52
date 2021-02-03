@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5fca319_9596b438",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-03T22:35:57Z",
+      "side": 1,
+      "message": "After fixing the length of config_id, the server interops with the cloudflare-go client!\n\nSpecifically, I manually tested tls-interop-runner\u0027s cloudflare-go endpoint with role\u003dclient against BoringSSL built with this patchset. See https://github.com/xvzcf/tls-interop-runner/blob/main/impl-endpoints/cloudflare-go/run_endpoint.sh#L10\n\nI believe this only tests the happy path where ECH decrypt goes smoothly, and none of the edge cases like HRR and retry configs.",
+      "revId": "082d420cc5ad582e1a75578070f815da97161c52",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38241fb3_2839286c",
+        "filename": "ssl/tls13_both.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-03T22:35:57Z",
+      "side": 1,
+      "message": "Oops, caught a draft-08 vs draft-09 bug. The config_id length is exactly 8 in draft-09.",
+      "range": {
+        "startLine": 775,
+        "startChar": 0,
+        "endLine": 775,
+        "endChar": 27
+      },
+      "revId": "082d420cc5ad582e1a75578070f815da97161c52",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77f1321b_7cf65db4",
+        "filename": "tool/server.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-03T22:35:57Z",
+      "side": 1,
+      "message": "Added two flags to the server tool.",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 41
+      },
+      "revId": "082d420cc5ad582e1a75578070f815da97161c52",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
