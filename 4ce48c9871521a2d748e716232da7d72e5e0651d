@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "176afce2_2241c2af",
+        "filename": "crypto/dh_extra/params.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-03T19:01:54Z",
+      "side": 1,
+      "message": "We can also replace these three lines with:\n\n   if (!BN_lshift1(ffdhe2048_q, ffdhe2048_p) ||\n\nIt loses the parity check, but that\u0027s probably fine? If p were even, we\u0027d explode later on anyway.",
+      "revId": "4ce48c9871521a2d748e716232da7d72e5e0651d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a44ec0ad_d522c270",
+        "filename": "util/fipstools/cavp/test_fips.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-03T19:01:54Z",
+      "side": 1,
+      "message": "Nit: Probably instead of !, checking !\u003d sizeof(z_result) would be better so we notice if the function decided not to fill the buffer.",
+      "range": {
+        "startLine": 230,
+        "startChar": 59,
+        "endLine": 230,
+        "endChar": 60
+      },
+      "revId": "4ce48c9871521a2d748e716232da7d72e5e0651d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
