@@ -277,6 +277,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d3bb515a_84c15df8",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 1046,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-05T23:35:33Z",
+      "side": 1,
+      "message": "Oh! Handy. That\u0027s a really weird way to make a copy, but okay.\n\n\u003e Can we definitely state that the runner will only use SHA256 for the ECH HPKE KDF?\n\nYes, but I\u0027m not sure what the connection is. SHA512 (SHA384 is a truncated SHA512 with different IV) implements it too. The mention of SHA256 is just an example. The doc says all the standard library ones do.",
+      "parentUuid": "84bb41f9_2d7c679a",
+      "revId": "8f33d355c41802f1519bbf3686103c19f0b700d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7bc27911_f5ec3321",
         "filename": "ssl/test/runner/hpke/hpke.go",
         "patchSetId": 4

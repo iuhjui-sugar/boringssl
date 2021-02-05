@@ -3,6 +3,387 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "b049c238_02ae63b2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-05T23:35:33Z",
+      "side": 1,
+      "message": "(Flushing comments.)",
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fde29e53_9d46722c",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-05T23:35:33Z",
+      "side": 1,
+      "message": "So we do want to check the cipher suite, but...\n\n- It should also be checked against the ECHConfig preferences. If the caller provisioned us a ChaCha-only ECHConfig, we shouldn\u0027t accept AES-GCM on it. (A little annoying it\u0027s possible to provision such a thing, but I think we\u0027re stuck with that.)\n\n- We should probably error at *config* time if the ECHConfig implies a feature we don\u0027t understand. Probably? That\u0027s how we handle keys at least. Although this is the first time we\u0027ve had this kind of rich extensible config structure, so I dunno... maybe something we should talk about Monday. Another possibility is we run with it but provide some way for the server to log a warning???\n\n- As part of moving it inside the ECHConfig, it should be a non-fatal error.\nhttps://tlswg.org/draft-ietf-tls-esni/draft-ietf-tls-esni.html#section-7.1-7\n\nReason it needs to be non-fatal is that the client may well send us unrecognized parameters via GREASE or due to some DNS/server mismatch. We want the recovery flow to work in that case. (Most of the time we check this kind of thing, it\u0027s in response to preference advertisement on the same connection, but ECH is weird.)\n\n(If it were fatal, we\u0027d use illegal_parameter instead of decode_error.)",
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee7c3715_7bc992d1",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-05T23:35:33Z",
+      "side": 1,
+      "message": "There\u0027s no need for something two-pass like this. You can simply iterate over all the configs once:\n\n  for (config : ech_configs) {\n    if (config_id !\u003d ech_config.config_id_sha256()) {\n      continue;\n    }\n\n    // Try to decrypt it.\n  }",
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "845dddb5_a1e46668",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-05T23:35:33Z",
+      "side": 1,
+      "message": "This is a DoS vector (a client can cause us to do lots more ECDH operations than usual) and isn\u0027t what the spec says anyway. In the trial decryption mode, the client may still send random config_id anyway, so you don\u0027t look at whether config_id is empty.\n\nRather, this is based on server config, and we\u0027re not implementing that config.",
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37d6ac33_02c6794b",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 636,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-05T23:35:33Z",
+      "side": 1,
+      "message": "(Same deal about ECHConfigs we can\u0027t do anything with. This one especially since we\u0027d just drop it on the floor.)",
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "593a0511_abecdda6",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 648,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-05T23:35:33Z",
+      "side": 1,
+      "message": "80 chars",
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d32d33e9_02d8e798",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 656,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-05T23:35:33Z",
+      "side": 1,
+      "message": "This is a memory error since you\u0027re not using the length. There\u0027s no type-level guarantee that the ECHConfig has a key, or that the key is non-empty. If either is false, this function will go off the end of a buffer or NULL deref.\n\nIn fact, looking at SSL_add_ech_private_key, there isn\u0027t even anything that checks the private key is the size you expect. So a caller who configures an invalid value will succeed and then crash here.\n\nech_config-\u003epublic_key().data() has a similar problem.",
+      "range": {
+        "startLine": 656,
+        "startChar": 47,
+        "endLine": 656,
+        "endChar": 78
+      },
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38f74e10_508ac3e5",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-05T23:35:33Z",
+      "side": 1,
+      "message": "Why is this a deferred non-fatal error? This can only fail if the ClientHello is invalid.",
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b069615c_6de9b72f",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-05T23:35:33Z",
+      "side": 1,
+      "message": "Having both ssl_write_client_hello and ssl_client_hello_write is pretty confusing. :-P",
+      "range": {
+        "startLine": 714,
+        "startChar": 11,
+        "endLine": 714,
+        "endChar": 33
+      },
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4c93554_56f54811",
+        "filename": "ssl/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 2868,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-05T23:35:33Z",
+      "side": 1,
+      "message": "Check for malloc failure and propagate up the callers.",
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6660375_0fe0afc5",
+        "filename": "ssl/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 2891,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-05T23:35:33Z",
+      "side": 1,
+      "message": "This is only 8 bytes and always present, so just store it inline. (The Array is already costing 8 bytes, plus another malloc.)",
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e29764c8_8ee6e7d6",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-05T23:35:33Z",
+      "side": 1,
+      "message": "Elsewhere we don\u0027t bother including this header. At some point I ought to finish migrating all the definitions. (We\u0027re stuck with ssl.h including tls1.h anyway so there\u0027s really no benefit to the separation.)",
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "814e73c9_84c2b305",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-05T23:35:33Z",
+      "side": 1,
+      "message": "This does (slightly) more than undoing outer_extensions. In the spec we call the reverse operation \"Encoding the ClientHelloInner\", so maybe ssl_decode_client_hello_inner?",
+      "range": {
+        "startLine": 277,
+        "startChar": 5,
+        "endLine": 277,
+        "endChar": 43
+      },
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c36a0278_379aeb78",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-05T23:35:33Z",
+      "side": 1,
+      "message": "Probably assert this is empty since we\u0027ve got an EncodedClientHelloInner.",
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c81beb0a_efc83a7e",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-05T23:35:33Z",
+      "side": 1,
+      "message": "This function is a DoS vector. :-( The attacker gets to supply N extensions, each of which takes N time to copy, so we\u0027ll run in O(N^2) time.\nhttps://github.com/tlswg/draft-ietf-tls-esni/issues/378",
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ee692dc_21edc421",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-05T23:35:33Z",
+      "side": 1,
+      "message": "You\u0027re missing this check, which is actually vaguely security-sensitive.\nhttps://tlswg.org/draft-ietf-tls-esni/draft-ietf-tls-esni.html#section-5.1-7\n\n(Without it, claiming that ClientHelloOuterAAD prevents malleability takes a bit more work, since you also have to include that no correct client will reference the removed ECH extension.)",
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d6d5f54_24018d07",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-05T23:35:33Z",
+      "side": 1,
+      "message": "This seems backwards since, by default, fields come from EncodedClientHelloInner, not ClientHelloOuter. E.g. this missed the version value. (Which should now be constant but, since we don\u0027t enforce anything on it, we need to use the inner one.)",
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8569050_a9ccc902",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-05T23:35:33Z",
+      "side": 1,
+      "message": "s/_bb/_cbb/g",
+      "range": {
+        "startLine": 356,
+        "startChar": 20,
+        "endLine": 356,
+        "endChar": 23
+      },
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e29724d8_bae92708",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-05T23:35:33Z",
+      "side": 1,
+      "message": "This function is named pretty generically, but it doesn\u0027t quite reserialize a ClientHello. It misses DTLS and specifically ignores existing pre-serialized ClientHello (relying on callers to break invariants).\n\nThere\u0027s also a subtlety this function misses: the extensions block in a TLS 1.2 ClientHello is optional. You can omit it if it\u0027s empty. TLS 1.3 no longer allows this, since there are mandatory \"extensions\", but SSL_CLIENT_HELLO needs to support TLS 1.2. So that means, parsing and re-encoding a ClientHello with this function won\u0027t even round-trip.\n\n(This is more of the difference between parsed and unparsed forms when you work in contexts that the exact encoding is sensitive.)",
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d162c8dd_53969492",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 827,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-05T23:35:33Z",
+      "side": 1,
+      "message": "Kind of odd to have the ECH extension messing with ech_is_inner\u0027s state. :-)\n\nI also don\u0027t think you need this now that you\u0027re not calling the callbacks twice,\n\n(The init stuff really only comes up in renego, which is a TLS 1.2 thing. We also make can new SSL_HANDSHAKE on renego, so there\u0027s no need to clear those. Looking at the remaining init functions, I suspect we can drop them by fixing their renego interaction...)",
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "165b017d_ae1efef9",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-05T23:35:33Z",
+      "side": 1,
+      "message": "Although we\u0027ve only counted to two rather than three, the code to construct ClientHelloAAD and decrypt given an ECHConfig is really long, so it ought to be extracted and shared between the two ClientHellos.",
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "c2907446_f237118d",
         "filename": "ssl/tls13_server.cc",
         "patchSetId": 8
