@@ -3261,6 +3261,144 @@ bool ssl_negotiate_alps(SSL_HANDSHAKE *hs, uint8_t *out_alert,
   return true;
 }
 
+// Server Certificate Type
+
+static bool ext_server_certificate_type_add_clienthello(SSL_HANDSHAKE *hs,
+                                                        CBB *out) {
+
+  if (hs->max_version <= TLS1_2_VERSION) {
+    return true;
+  }
+
+  if (hs->config->server_certificate_type_list.empty()) {
+    return true;
+  }
+
+  CBB contents, server_certificate_types;
+  if (!CBB_add_u16(out, TLSEXT_TYPE_server_certificate_type) ||
+      !CBB_add_u16_length_prefixed(out, &contents) ||
+      !CBB_add_u8_length_prefixed(&contents, &server_certificate_types) ||
+      !CBB_add_bytes(&server_certificate_types,
+                     hs->config->server_certificate_type_list.data(),
+                     hs->config->server_certificate_type_list.size()) ||
+      !CBB_flush(out)) {
+    return false;
+  }
+
+  return true;
+}
+
+static bool ssl_is_certificate_type_allowed(CBS *certificate_type_list,
+                                            uint8_t certificate_type)
+{
+  uint8_t supported_certificate_type;
+  while (CBS_len(certificate_type_list) > 0) {
+    if (!CBS_get_u8(certificate_type_list,
+                    &supported_certificate_type)) {
+      break;
+    }
+
+    if (supported_certificate_type != certificate_type) {
+      continue;
+    }
+
+    return true;
+  }
+
+  return false;
+}
+
+static bool ext_server_certificate_type_parse_serverhello(SSL_HANDSHAKE *hs,
+                                                          uint8_t *out_alert,
+                                                          CBS *content)
+{
+  if (hs->max_version <= TLS1_2_VERSION ||
+      hs->config->server_certificate_type_list.empty()) {
+    return true;
+  }
+
+  // Strict
+  if (!content) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_UNKNOWN_CERTIFICATE_TYPE);
+    *out_alert = SSL_AD_ILLEGAL_PARAMETER;
+    return false;
+  }
+
+  CBS certificate_type_list =
+    MakeConstSpan(hs->config->server_certificate_type_list);
+
+  uint8_t certificate_type;
+  if (CBS_get_u8(content, &certificate_type) &&
+      ssl_is_certificate_type_allowed(&certificate_type_list,
+                                      certificate_type)) {
+    hs->server_certificate_type = certificate_type;
+    hs->server_certificate_type_negotiated = 1;
+    return true;
+  }
+
+  OPENSSL_PUT_ERROR(SSL, SSL_R_UNKNOWN_CERTIFICATE_TYPE);
+  *out_alert = SSL_AD_ILLEGAL_PARAMETER;
+  return false;
+}
+
+static bool ext_server_certificate_type_parse_clienthello(SSL_HANDSHAKE *hs,
+                                                          uint8_t *out_alert,
+                                                          CBS *content)
+{
+  if (!content) {
+    return true;
+  }
+
+  if (hs->max_version <= TLS1_2_VERSION ||
+      hs->config->server_certificate_type_list.empty()) {
+    return true;
+  }
+
+  CBS certificate_type_list =
+    MakeConstSpan(hs->config->server_certificate_type_list);
+
+  CBS type_list;
+  if (!CBS_get_u8_length_prefixed(content, &type_list)) {
+    type_list.len = 0;
+  }
+
+  uint8_t type;
+  while(CBS_len(&type_list) > 0) {
+    if (!CBS_get_u8(&type_list, &type)) {
+      break;
+    }
+
+    if (!ssl_is_certificate_type_allowed(&certificate_type_list, type)) {
+      continue;
+    }
+
+    hs->server_certificate_type = type;
+    hs->server_certificate_type_negotiated = 1;
+    return true;
+  }
+
+  *out_alert = SSL_AD_ILLEGAL_PARAMETER;
+  return false;
+}
+
+static bool ext_server_certificate_type_add_serverhello(SSL_HANDSHAKE *hs,
+                                                        CBB *out)
+{
+  if (!hs->server_certificate_type_negotiated) {
+    return true;
+  }
+
+  CBB contents;
+  if (!CBB_add_u16(out, TLSEXT_TYPE_server_certificate_type) ||
+      !CBB_add_u16_length_prefixed(out, &contents) ||
+      !CBB_add_u8(&contents, hs->server_certificate_type) ||
+      !CBB_flush(out)) {
+     return false;
+  }
+
+  return true;
+}
+
 // kExtensions contains all the supported extensions.
 static const struct tls_extension kExtensions[] = {
   {
@@ -3473,6 +3611,14 @@ static const struct tls_extension kExtensions[] = {
     // ALPS is negotiated late in |ssl_negotiate_alpn|.
     ignore_parse_clienthello,
     ext_alps_add_serverhello,
+  },
+  {
+    TLSEXT_TYPE_server_certificate_type,
+    NULL,
+    ext_server_certificate_type_add_clienthello,
+    ext_server_certificate_type_parse_serverhello,
+    ext_server_certificate_type_parse_clienthello,
+    ext_server_certificate_type_add_serverhello,
   },
 };
 

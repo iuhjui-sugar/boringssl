@@ -157,6 +157,8 @@ const Flag<bool> kBoolFlags[] = {
     {"-expect-hrr", &TestConfig::expect_hrr},
     {"-expect-no-hrr", &TestConfig::expect_no_hrr},
     {"-wait-for-debugger", &TestConfig::wait_for_debugger},
+    {"-use-raw-public-key-certificate",
+     &TestConfig::use_raw_public_key_certificate},
 };
 
 const Flag<std::string> kStringFlags[] = {
@@ -876,6 +878,34 @@ static bool GetCertificate(SSL *ssl, bssl::UniquePtr<X509> *out_x509,
   return true;
 }
 
+static bool GetRawPublicKeyCertificate(SSL *ssl,
+                                       uint8_t **spki,
+                                       size_t *spki_len,
+                                       bssl::UniquePtr<EVP_PKEY> *out_pkey) {
+  bssl::UniquePtr<X509> x509;
+  bssl::UniquePtr<STACK_OF(X509)> chain;
+
+  if (!GetCertificate(ssl, &x509, &chain, out_pkey)) {
+    return false;
+  }
+  if (!x509) {
+    return true;
+  }
+
+  bssl::UniquePtr<EVP_PKEY> pubkey(X509_get_pubkey(x509.get()));
+  if (!pubkey) {
+    return false;
+  }
+  CBB cbb;
+  if (!CBB_init(&cbb, 0) ||
+      !EVP_marshal_public_key(&cbb, pubkey.get()) ||
+      !CBB_finish(&cbb, spki, spki_len)) {
+    return false;
+  }
+
+  return true;
+}
+
 static bool FromHexDigit(uint8_t *out, char c) {
   if ('0' <= c && c <= '9') {
     *out = c - '0';
@@ -1202,9 +1232,9 @@ static bool InstallCertificate(SSL *ssl) {
     return false;
   }
 
+  const TestConfig *config = GetTestConfig(ssl);
   if (pkey) {
     TestState *test_state = GetTestState(ssl);
-    const TestConfig *config = GetTestConfig(ssl);
     if (config->async || config->handshake_hints) {
       // Install a custom private key if testing asynchronous callbacks, or if
       // testing handshake hints. In the handshake hints case, we wish to check
@@ -1214,6 +1244,16 @@ static bool InstallCertificate(SSL *ssl) {
     } else if (!SSL_use_PrivateKey(ssl, pkey.get())) {
       return false;
     }
+  }
+
+  if (config->use_raw_public_key_certificate) {
+    uint8_t *spki = NULL;
+    size_t spki_len;
+    if (!GetRawPublicKeyCertificate(ssl, &spki, &spki_len, &pkey) || !spki) {
+      return false;
+    }
+    SSL_use_server_raw_public_key_certificate(ssl, spki, spki_len);
+    return true;
   }
 
   if (x509 && !SSL_use_certificate(ssl, x509.get())) {
@@ -1327,9 +1367,20 @@ static const SSL_QUIC_METHOD g_quic_method = {
     SendQuicAlert,
 };
 
+static const SSL_METHOD *x509_method(bool is_dtls) {
+  return is_dtls ? DTLS_method() : TLS_method();
+}
+
+static const SSL_METHOD *nonx509_method(bool is_dtls) {
+  return is_dtls ? DTLS_with_buffers_method() : TLS_with_buffers_method();
+}
+
 bssl::UniquePtr<SSL_CTX> TestConfig::SetupCtx(SSL_CTX *old_ctx) const {
-  bssl::UniquePtr<SSL_CTX> ssl_ctx(
-      SSL_CTX_new(is_dtls ? DTLS_method() : TLS_method()));
+  const SSL_METHOD *method = x509_method(is_dtls);
+  if (use_raw_public_key_certificate) {
+    method = nonx509_method(is_dtls);
+  }
+  bssl::UniquePtr<SSL_CTX> ssl_ctx(SSL_CTX_new(method));
   if (!ssl_ctx) {
     return nullptr;
   }
@@ -1388,7 +1439,7 @@ bssl::UniquePtr<SSL_CTX> TestConfig::SetupCtx(SSL_CTX *old_ctx) const {
     SSL_CTX_set_tlsext_ticket_key_cb(ssl_ctx.get(), TicketKeyCallback);
   }
 
-  if (!use_custom_verify_callback) {
+  if (!use_raw_public_key_certificate && !use_custom_verify_callback) {
     SSL_CTX_set_cert_verify_callback(ssl_ctx.get(), CertVerifyCallback, NULL);
   }
 
@@ -1653,7 +1704,21 @@ bssl::UniquePtr<SSL> TestConfig::NewSSL(
     mode = SSL_VERIFY_PEER | SSL_VERIFY_PEER_IF_NO_OBC |
            SSL_VERIFY_FAIL_IF_NO_PEER_CERT;
   }
-  if (use_custom_verify_callback) {
+  if (use_raw_public_key_certificate) {
+    bssl::UniquePtr<EVP_PKEY> pkey;
+    uint8_t *spki = NULL;
+    size_t spki_len;
+    if (!GetRawPublicKeyCertificate(ssl.get(), &spki, &spki_len,
+                                   /* Not used */ &pkey) || !spki) {
+      return nullptr;
+    }
+    SSL_use_server_raw_public_key_certificate(ssl.get(), spki, spki_len);
+    SSL_set_custom_verify(ssl.get(), mode,
+       [](SSL *ssl, uint8_t *out_alert) -> ssl_verify_result_t {
+         /* Never runs. */
+         return ssl_verify_invalid;
+       });
+  } else if (use_custom_verify_callback) {
     SSL_set_custom_verify(ssl.get(), mode, CustomVerifyCallback);
   } else if (mode != SSL_VERIFY_NONE) {
     SSL_set_verify(ssl.get(), mode, NULL);
