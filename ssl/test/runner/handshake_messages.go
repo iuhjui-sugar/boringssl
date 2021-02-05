@@ -342,6 +342,7 @@ type clientHelloMsg struct {
 	delegatedCredentials      bool
 	alpsProtocols             []string
 	prefixExtensions          []uint16
+	serverCertificateTypes    []uint8
 }
 
 func (m *clientHelloMsg) marshalKeyShares(bb *byteBuilder) {
@@ -653,6 +654,16 @@ func (m *clientHelloMsg) marshal() []byte {
 		}
 		extensions = append(extensions, extension{
 			id:   extensionApplicationSettings,
+			body: body.finish(),
+		})
+	}
+
+	if len(m.serverCertificateTypes) > 0 {
+		body := newByteBuilder()
+		serverCertificateTypes := body.addU8LengthPrefixed()
+		serverCertificateTypes.addBytes(m.serverCertificateTypes)
+		extensions = append(extensions, extension{
+			id:   extensionServerCertificateType,
 			body: body.finish(),
 		})
 	}
@@ -1076,6 +1087,18 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 				}
 				m.alpsProtocols = append(m.alpsProtocols, string(protocol))
 			}
+		case extensionServerCertificateType:
+			var types byteReader
+			if !body.readU8LengthPrefixed(&types) {
+				return false
+			}
+			for len(types) > 0 {
+				var t byte
+				if !types.readU8(&t) {
+					return false
+				}
+				m.serverCertificateTypes = append(m.serverCertificateTypes, t)
+			}
 		}
 
 		if isGREASEValue(extension) {
@@ -1357,6 +1380,8 @@ type serverExtensions struct {
 	applicationSettings       []byte
 	hasApplicationSettings    bool
 	echRetryConfigs           []byte
+	hasServerCertificateType  bool
+	serverCertificateType     uint8
 }
 
 func (m *serverExtensions) marshal(extensions *byteBuilder) {
@@ -1506,6 +1531,11 @@ func (m *serverExtensions) marshal(extensions *byteBuilder) {
 		echConfigs := body.addU16LengthPrefixed()
 		echConfigs.addBytes(m.echRetryConfigs)
 	}
+	if m.hasServerCertificateType {
+		extensions.addU16(extensionServerCertificateType)
+		serverCertificateType := extensions.addU16LengthPrefixed()
+		serverCertificateType.addU8(m.serverCertificateType)
+	}
 }
 
 func (m *serverExtensions) unmarshal(data byteReader, version uint16) bool {
@@ -1568,6 +1598,14 @@ func (m *serverExtensions) unmarshal(data byteReader, version uint16) bool {
 				len(m.tokenBindingParams) != 1 ||
 				len(body) != 0 {
 				return false
+			}
+		case extensionServerCertificateType:
+			if version >= VersionTLS13 {
+				if len(body) == 0 ||
+					!body.readU8(&m.serverCertificateType) {
+					return false
+				}
+				m.hasServerCertificateType = true
 			}
 		case extensionExtendedMasterSecret:
 			if len(body) != 0 {
