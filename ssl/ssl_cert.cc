@@ -343,6 +343,14 @@ bool ssl_has_certificate(const SSL_HANDSHAKE *hs) {
          ssl_has_private_key(hs);
 }
 
+bool ssl_has_raw_public_key_certificate(const SSL_HANDSHAKE *hs) {
+  return hs->ssl->server &&
+         hs->server_certificate_type_negotiated &&
+         hs->server_certificate_type == TLS_CERTIFICATE_TYPE_RAW_PUBLIC_KEY &&
+         !hs->ssl->config->server_raw_public_key_certificate.empty() &&
+         ssl_has_private_key(hs);
+}
+
 bool ssl_parse_cert_chain(uint8_t *out_alert,
                           UniquePtr<STACK_OF(CRYPTO_BUFFER)> *out_chain,
                           UniquePtr<EVP_PKEY> *out_pubkey,
@@ -725,9 +733,18 @@ bool ssl_check_leaf_certificate(SSL_HANDSHAKE *hs, EVP_PKEY *pkey,
 
 bool ssl_on_certificate_selected(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
-  if (!ssl_has_certificate(hs)) {
+  if (!ssl_has_certificate(hs) &&
+      !ssl_has_raw_public_key_certificate(hs)) {
     // Nothing to do.
     return true;
+  }
+
+  if (ssl_has_raw_public_key_certificate(hs) && ssl->server) {
+    CBS spki = MakeConstSpan(
+      ssl->config->server_raw_public_key_certificate.data(),
+      ssl->config->server_raw_public_key_certificate.size());
+    hs->local_pubkey = UniquePtr<EVP_PKEY>(EVP_parse_public_key(&spki));
+    return hs->local_pubkey != NULL;
   }
 
   if (!ssl->ctx->x509_method->ssl_auto_chain_if_needed(hs)) {
@@ -933,6 +950,13 @@ const STACK_OF(CRYPTO_BUFFER) *SSL_get0_peer_certificates(const SSL *ssl) {
   }
 
   return session->certs.get();
+}
+
+const EVP_PKEY *SSL_get0_peer_pubkey(const SSL *ssl) {
+  if (ssl->s3->hs == NULL) {
+    return NULL;
+  }
+  return ssl->s3->hs->peer_pubkey.get();
 }
 
 const STACK_OF(CRYPTO_BUFFER) *SSL_get0_server_requested_CAs(const SSL *ssl) {

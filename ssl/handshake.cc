@@ -151,6 +151,7 @@ SSL_HANDSHAKE::SSL_HANDSHAKE(SSL *ssl_arg)
       handback(false),
       hints_requested(false),
       cert_compression_negotiated(false),
+      server_certificate_type_negotiated(false),
       apply_jdk11_workaround(false) {
   assert(ssl);
 }

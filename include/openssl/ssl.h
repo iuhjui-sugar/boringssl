@@ -1561,6 +1561,10 @@ OPENSSL_EXPORT STACK_OF(X509) *SSL_get_peer_full_cert_chain(const SSL *ssl);
 OPENSSL_EXPORT const STACK_OF(CRYPTO_BUFFER) *
     SSL_get0_peer_certificates(const SSL *ssl);
 
+// SSL_get0_peer_pubkey returns the peer's public key, or NULL if unavailable.
+// The caller does not take ownership of the result.
+OPENSSL_EXPORT const EVP_PKEY *SSL_get0_peer_pubkey(const SSL *ssl);
+
 // SSL_get0_signed_cert_timestamp_list sets |*out| and |*out_len| to point to
 // |*out_len| bytes of SCT information from the server. This is only valid if
 // |ssl| is a client. The SCT information is a SignedCertificateTimestampList
@@ -2842,6 +2846,42 @@ OPENSSL_EXPORT void SSL_get0_peer_application_settings(const SSL *ssl,
 // SSL_has_application_settings returns one if ALPS was negotiated on this
 // connection and zero otherwise.
 OPENSSL_EXPORT int SSL_has_application_settings(const SSL *ssl);
+
+
+// Raw public keys for authentication.
+//
+// Raw public keys can be used in TLS 1.3, instead of an X.509 certificate,
+// to authenticate peers. (RFC7250)
+//
+// The following functions can only be used when |ctx| does not assume X509.
+// (E.g., |ctx| is  the result of |TLS_with_buffers_method|)
+// A custom verifier must be installed with |SSL_CTX_set_custom_verify| or
+// |SSL_set_custom_verify|, otherwise all  connections will fail.
+// (See |SSL_get0_peer_pubkey|)
+
+// SSL_CTX_set_server_raw_public_key_enabled uses raw public keys as the
+// authentication method. It returns one on success and zero on failure.
+// Clients negotiate this method with servers during the handshake.
+// Servers must also call |SSL_CTX_use_raw_public_key_certificate| or
+// |SSL_use_raw_public_key_certificate| to set the public key returned
+// to clients. Servers must also call |SSL_CTX_use_PrivateKey| or
+// |SSL_use_PrivateKey| to set the corresponding private key.
+OPENSSL_EXPORT int SSL_CTX_set_server_raw_public_key_enabled(SSL_CTX *ctx);
+
+// SSL_set_server_raw_public_key_enabled enables the use of raw public
+// keys as the authentication method.
+OPENSSL_EXPORT int SSL_set_server_raw_public_key_enabled(SSL *ssl);
+
+// SSL_CTX_use_raw_public_key_certificate sets |ctx|'s
+// certificate to |raw_public_key| which is an SPKI.
+// It returns one on success and zero on failure.
+OPENSSL_EXPORT int SSL_CTX_use_raw_public_key_certificate(SSL_CTX *ctx,
+    const uint8_t *raw_public_key, size_t raw_public_key_len);
+
+// SSL_use_raw_public_key_certificate sets |ssl|'s certificate
+// to |raw_public_key|. It returns one on success and zero on failure.
+OPENSSL_EXPORT int SSL_use_raw_public_key_certificate(SSL *ssl,
+    const uint8_t *raw_public_key, size_t raw_public_key_len);
 
 
 // Certificate compression.

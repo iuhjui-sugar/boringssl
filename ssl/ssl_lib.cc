@@ -712,6 +712,11 @@ SSL *SSL_new(SSL_CTX *ctx) {
   ssl->config->handoff = ctx->handoff;
   ssl->quic_method = ctx->quic_method;
 
+  ssl->config->server_certificate_type_list.CopyFrom(
+    ctx->server_certificate_type_list);
+  ssl->config->server_raw_public_key_certificate.CopyFrom(
+    ctx->server_raw_public_key_certificate);
+
   if (!ssl->method->ssl_new(ssl.get()) ||
       !ssl->ctx->x509_method->ssl_new(ssl->s3->hs.get())) {
     return nullptr;
@@ -3182,4 +3187,52 @@ int SSL_CTX_set_tlsext_status_cb(SSL_CTX *ctx,
 int SSL_CTX_set_tlsext_status_arg(SSL_CTX *ctx, void *arg) {
   ctx->legacy_ocsp_callback_arg = arg;
   return 1;
+}
+
+int SSL_CTX_set_server_raw_public_key_enabled(SSL_CTX *ctx) {
+  if (!ctx->server_certificate_type_list.Init(1)) {
+    return 0;
+  }
+  ctx->server_certificate_type_list[0] = TLS_CERTIFICATE_TYPE_RAW_PUBLIC_KEY;
+
+  return 1; /* Success */
+}
+
+int SSL_CTX_use_raw_public_key_certificate(SSL_CTX *ctx,
+  const uint8_t *raw_public_key, size_t raw_public_key_len) {
+  if (!ctx->server_raw_public_key_certificate.CopyFrom(
+    MakeConstSpan(raw_public_key, raw_public_key_len))) {
+    return 0;
+  }
+
+  return 1; /* Success */
+}
+
+int SSL_set_server_raw_public_key_enabled(SSL *ssl) {
+  if (!ssl->config) {
+    return 0;
+  }
+
+  if (!ssl->config->server_certificate_type_list.Init(1)) {
+    return 0;
+  }
+  ssl->config->server_certificate_type_list[0] =
+    TLS_CERTIFICATE_TYPE_RAW_PUBLIC_KEY;
+
+  return 1; /* Success */
+
+}
+
+int SSL_use_raw_public_key_certificate(SSL *ssl,
+  const uint8_t *raw_public_key, size_t raw_public_key_len) {
+  if (!ssl->config) {
+    return 0;
+  }
+
+  if (!ssl->config->server_raw_public_key_certificate.CopyFrom(
+    MakeConstSpan(raw_public_key, raw_public_key_len))) {
+    return 0;
+  }
+
+  return 1; /* Success */
 }

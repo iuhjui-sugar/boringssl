@@ -1287,6 +1287,10 @@ int ssl_write_buffer_flush(SSL *ssl);
 // configured.
 bool ssl_has_certificate(const SSL_HANDSHAKE *hs);
 
+// ssl_has_raw_public_key_certificate returns whether a public and
+// private key are configured.
+bool ssl_has_raw_public_key_certificate(const SSL_HANDSHAKE *hs);
+
 // ssl_parse_cert_chain parses a certificate list from |cbs| in the format used
 // by a TLS Certificate message. On success, it advances |cbs| and returns
 // true. Otherwise, it returns false and sets |*out_alert| to an alert to send
@@ -1350,6 +1354,10 @@ bool ssl_check_leaf_certificate(SSL_HANDSHAKE *hs, EVP_PKEY *pkey,
 // It finalizes the certificate and initializes |hs->local_pubkey|. It returns
 // true on success and false on error.
 bool ssl_on_certificate_selected(SSL_HANDSHAKE *hs);
+
+// https://tools.ietf.org/html/rfc8446#section-4.4.2
+#define TLS_CERTIFICATE_TYPE_X509 0
+#define TLS_CERTIFICATE_TYPE_RAW_PUBLIC_KEY 2
 
 
 // TLS 1.3 key derivation.
@@ -1816,6 +1824,8 @@ struct SSL_HANDSHAKE {
   // client's ECH payloads.
   ScopedEVP_HPKE_CTX ech_hpke_ctx;
 
+  uint8_t server_certificate_type;
+
   // server_params, in a TLS 1.2 server, stores the ServerKeyExchange
   // parameters. It has client and server randoms prepended for signing
   // convenience.
@@ -1966,6 +1976,8 @@ struct SSL_HANDSHAKE {
 
   // cert_compression_negotiated is true iff |cert_compression_alg_id| is valid.
   bool cert_compression_negotiated : 1;
+
+  bool server_certificate_type_negotiated : 1;
 
   // apply_jdk11_workaround is true if the peer is probably a JDK 11 client
   // which implemented TLS 1.3 incorrectly.
@@ -2887,6 +2899,9 @@ struct SSL_CONFIG {
   // along with their corresponding ALPS values.
   GrowableArray<ALPSConfig> alps_configs;
 
+  Array<uint8_t> server_certificate_type_list;
+  Array<uint8_t> server_raw_public_key_certificate;
+
   // Contains a list of supported Token Binding key parameters.
   Array<uint8_t> token_binding_params;
 
@@ -3461,6 +3476,9 @@ struct ssl_ctx_st {
   // For a client, this contains the list of supported protocols in wire
   // format.
   bssl::Array<uint8_t> alpn_client_proto_list;
+
+  bssl::Array<uint8_t> server_certificate_type_list;
+  bssl::Array<uint8_t> server_raw_public_key_certificate;
 
   // SRTP profiles we are willing to do from RFC 5764
   bssl::UniquePtr<STACK_OF(SRTP_PROTECTION_PROFILE)> srtp_profiles;
