@@ -860,7 +860,8 @@ static enum ssl_hs_wait_t do_send_server_hello(SSL_HANDSHAKE *hs) {
 
   // Send the server Certificate message, if necessary.
   if (!ssl->s3->session_reused) {
-    if (!ssl_has_certificate(hs)) {
+    if (!ssl_has_certificate(hs) &&
+        !ssl_has_server_raw_public_key_certificate(hs)) {
       OPENSSL_PUT_ERROR(SSL, SSL_R_NO_CERTIFICATE_SET);
       return ssl_hs_error;
     }

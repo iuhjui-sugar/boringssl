@@ -34,6 +34,8 @@ type serverHandshakeState struct {
 	masterSecret    []byte
 	certsFromClient [][]byte
 	cert            *Certificate
+	hasServerCertificateType bool
+	serverCertificateType    uint8
 	finishedBytes   []byte
 }
 
@@ -783,6 +785,18 @@ ResendHelloRetryRequest:
 		encryptedExtensions.extensions.hasEarlyData = true
 	}
 
+	if c.vers >= VersionTLS13 && config.useServerRawPublicKeyCertificate {
+		for _, t := range hs.clientHello.serverCertificateTypes {
+			if t != certificateTypeRawPublicKey {
+				continue
+			}
+			hs.hasServerCertificateType = true
+			hs.serverCertificateType = certificateTypeRawPublicKey
+			encryptedExtensions.extensions.hasServerCertificateType = true
+			encryptedExtensions.extensions.serverCertificateType = certificateTypeRawPublicKey
+		}
+	}
+
 	// Resolve ECDHE and compute the handshake secret.
 	if hs.hello.hasKeyShare {
 		// Once a curve has been selected and a key share identified,
@@ -910,6 +924,17 @@ ResendHelloRetryRequest:
 		}
 		if !config.Bugs.EmptyCertificateList {
 			for i, certData := range hs.cert.Certificate {
+				if hs.hasServerCertificateType &&
+					hs.serverCertificateType == certificateTypeRawPublicKey {
+					cert, err := x509.ParseCertificate(certData)
+					if err != nil {
+						return fmt.Errorf("tls: failed to parse configured certificate: " + err.Error())
+					}
+					certMsg.certificates = append(
+						certMsg.certificates,
+						certificateEntry{data: cert.RawSubjectPublicKeyInfo})
+					break
+				}
 				cert := certificateEntry{
 					data: certData,
 				}
