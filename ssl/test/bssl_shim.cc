@@ -644,7 +644,8 @@ static bool CheckHandshakeProperties(SSL *ssl, bool is_resume,
       return false;
     }
   } else if (!config->is_server || config->require_any_client_certificate) {
-    if (SSL_get_peer_cert_chain(ssl) == nullptr) {
+    if (!config->use_raw_public_key_certificate &&
+        SSL_get_peer_cert_chain(ssl) == nullptr) {
       fprintf(stderr, "Received no peer certificate but expected one.\n");
       return false;
     }
