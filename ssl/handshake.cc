@@ -151,6 +151,7 @@ SSL_HANDSHAKE::SSL_HANDSHAKE(SSL *ssl_arg)
       handback(false),
       hints_requested(false),
       cert_compression_negotiated(false),
+      server_certificate_type_negotiated(false),
       apply_jdk11_workaround(false) {
   assert(ssl);
 }
@@ -374,6 +375,21 @@ enum ssl_verify_result_t ssl_verify_peer_cert(SSL_HANDSHAKE *hs) {
       case ssl_verify_retry:
         break;
     }
+  } else if (hs->server_certificate_type_negotiated &&
+      hs->server_certificate_type == TLS_CERTIFICATE_TYPE_RAW_PUBLIC_KEY) {
+    ret = ssl_verify_invalid;
+    EVP_PKEY *peer_pubkey = hs->peer_pubkey.get();
+    CBS spki = MakeConstSpan(ssl->config->server_raw_public_key_certificate);
+    EVP_PKEY *pubkey = EVP_parse_public_key(&spki);
+    if (!pubkey) {
+      OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
+      alert = SSL_AD_INTERNAL_ERROR;
+    } else if (EVP_PKEY_cmp(peer_pubkey, pubkey) == 1 /* Equal */) {
+      ret = ssl_verify_ok;
+    } else {
+      alert = SSL_AD_BAD_CERTIFICATE;
+    }
+    EVP_PKEY_free(pubkey);
   } else {
     ret = ssl->ctx->x509_method->session_verify_cert_chain(
               hs->new_session.get(), hs, &alert)

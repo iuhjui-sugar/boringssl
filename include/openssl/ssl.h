@@ -1281,6 +1281,32 @@ OPENSSL_EXPORT void SSL_set_private_key_method(
 OPENSSL_EXPORT void SSL_CTX_set_private_key_method(
     SSL_CTX *ctx, const SSL_PRIVATE_KEY_METHOD *key_method);
 
+// SSL_CTX_use_server_raw_public_key_certificate sets |ctx|'s server
+// certificate to |raw_public_key|. On a client it sets the expected
+// certificate presented by the server. On a server it sets the certificate
+// to be presented to clients. It returns one on success and zero on failure.
+// This function can only be used when |ctx| does not assume X509 certificates.
+// (E.g., |ctx| has been created with |TLS_with_buffers_method|)
+// If a custom verifier is set via |SSL_CTX_set_custom_verify| then
+// it is solely responsible for verifying the server's public key.
+// (See |SSL_get0_peer_pubkey|)
+OPENSSL_EXPORT int SSL_CTX_use_server_raw_public_key_certificate(SSL_CTX *ctx,
+    const uint8_t *raw_public_key, unsigned raw_public_key_len);
+
+// SSL_use_server_raw_public_key_certificate sets |ssl|'s server certificate
+// to |raw_public_key|. It returns one on success and zero on failure.
+OPENSSL_EXPORT int SSL_use_server_raw_public_key_certificate(SSL *ssl,
+    const uint8_t *raw_public_key, unsigned raw_public_key_len);
+
+// SSL_CTX_has_server_raw_public_key_certificate returns 1 if |ctx| is
+// configured with a server raw public key certificate and 0 otherwise.
+OPENSSL_EXPORT int SSL_CTX_has_server_raw_public_key_certificate(
+    const SSL_CTX *ctx);
+
+// SSL_has_server_raw_public_key_certificate returns 1 if |ssl| is configured
+// with a server raw public key certificate and 0 otherwise.
+OPENSSL_EXPORT int SSL_has_server_raw_public_key_certificate(const SSL *ssl);
+
 
 // Cipher suites.
 //
@@ -1560,6 +1586,10 @@ OPENSSL_EXPORT STACK_OF(X509) *SSL_get_peer_full_cert_chain(const SSL *ssl);
 // This is the |CRYPTO_BUFFER| variant of |SSL_get_peer_full_cert_chain|.
 OPENSSL_EXPORT const STACK_OF(CRYPTO_BUFFER) *
     SSL_get0_peer_certificates(const SSL *ssl);
+
+// SSL_get0_peer_pubkey returns the peer's public key, or NULL if unavailable.
+// The caller does not take ownership of the result.
+OPENSSL_EXPORT const EVP_PKEY *SSL_get0_peer_pubkey(const SSL *ssl);
 
 // SSL_get0_signed_cert_timestamp_list sets |*out| and |*out_len| to point to
 // |*out_len| bytes of SCT information from the server. This is only valid if
@@ -2842,6 +2872,12 @@ OPENSSL_EXPORT void SSL_get0_peer_application_settings(const SSL *ssl,
 // SSL_has_application_settings returns one if ALPS was negotiated on this
 // connection and zero otherwise.
 OPENSSL_EXPORT int SSL_has_application_settings(const SSL *ssl);
+
+
+// Certificate (Entry) Type.
+
+#define TLS_CERTIFICATE_TYPE_X509 0
+#define TLS_CERTIFICATE_TYPE_RAW_PUBLIC_KEY 2
 
 
 // Certificate compression.

@@ -190,6 +190,7 @@ struct TestConfig {
   bool expect_no_hrr = false;
   bool wait_for_debugger = false;
   std::string quic_early_data_context;
+  bool use_raw_public_key_certificate = false;
 
   int argc;
   char **argv;
