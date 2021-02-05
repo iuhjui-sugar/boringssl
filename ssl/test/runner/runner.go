@@ -864,7 +864,7 @@ func doExchange(test *testCase, config *Config, conn net.Conn, isResume bool, tr
 			tlsConn = Server(conn, config)
 		}
 	} else {
-		config.InsecureSkipVerify = true
+		config.InsecureSkipVerify = !config.useServerRawPublicKeyCertificate
 		if test.protocol == dtls {
 			tlsConn = DTLSClient(conn, config)
 		} else {
@@ -15481,6 +15481,67 @@ func addCertificateTests() {
 	}
 }
 
+func addRawPublicKeyCertificateTests() {
+	testCases = append(testCases, testCase{
+		testType: clientTest,
+		name: "RawPublicKeyCertificate-Client-TLS13",
+		config: Config{
+			MinVersion: VersionTLS13,
+			MaxVersion: VersionTLS13,
+			Certificates: []Certificate{ecdsaP384Certificate},
+			SignSignatureAlgorithms:
+				[]signatureAlgorithm{signatureECDSAWithP384AndSHA384},
+			useServerRawPublicKeyCertificate: true,
+		},
+		flags: []string{
+			"-use-raw-public-key-certificate",
+			"-cert-file", path.Join(*resourceDir, ecdsaP384CertificateFile),
+			"-key-file", path.Join(*resourceDir, ecdsaP384KeyFile),
+		},
+		shouldFail: false,
+	})
+	testCases = append(testCases, testCase{
+		testType: clientTest,
+		name: "RawPublicKeyCertificateMismatch-Client-TLS13",
+		config: Config{
+			MinVersion: VersionTLS13,
+			MaxVersion: VersionTLS13,
+			Certificates: []Certificate{ecdsaP256Certificate}, // Mismatch
+			SignSignatureAlgorithms: []signatureAlgorithm{
+					signatureECDSAWithP256AndSHA256,
+					signatureECDSAWithP384AndSHA384,
+			},
+			useServerRawPublicKeyCertificate: true,
+		},
+		flags: []string{
+			"-use-raw-public-key-certificate",
+			"-cert-file", path.Join(*resourceDir, ecdsaP384CertificateFile),
+			"-key-file", path.Join(*resourceDir, ecdsaP384KeyFile),
+		},
+		shouldFail: true,
+		expectedError: "CERTIFICATE_VERIFY_FAILED",
+	})
+
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name: "RawPublicKeyCertificate-Server-TLS13",
+		config: Config{
+			MinVersion: VersionTLS13,
+			MaxVersion: VersionTLS13,
+			Certificates: []Certificate{ecdsaP384Certificate},
+			VerifySignatureAlgorithms:
+				[]signatureAlgorithm{signatureECDSAWithP384AndSHA384},
+			useServerRawPublicKeyCertificate: true,
+		},
+		flags:  []string{
+			"-use-raw-public-key-certificate",
+			"-cert-file", path.Join(*resourceDir, ecdsaP384CertificateFile),
+			"-key-file", path.Join(*resourceDir, ecdsaP384KeyFile),
+		},
+		shouldFail: false,
+	})
+}
+
 func addRetainOnlySHA256ClientCertTests() {
 	for _, ver := range tlsVersions {
 		// Test that enabling
@@ -17758,6 +17819,7 @@ func main() {
 	addDelegatedCredentialTests()
 	addEncryptedClientHelloTests()
 	addHintMismatchTests()
+	addRawPublicKeyCertificateTests()
 
 	toAppend, err := convertToSplitHandshakeTests(testCases)
 	if err != nil {

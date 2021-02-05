@@ -2257,6 +2257,82 @@ TEST_P(SSLVersionTest, NoPeerCertificate) {
   ASSERT_FALSE(SSL_get0_peer_certificates(server_.get()));
 }
 
+TEST_P(SSLVersionTest, RawPublicKeyCertificate) {
+  if (version() != TLS1_3_VERSION) {
+    return;
+  }
+
+  static bssl::UniquePtr<X509> x509_cert = GetECDSATestCertificate();
+  ASSERT_TRUE(x509_cert);
+  bssl::UniquePtr<EVP_PKEY> pubkey(X509_get_pubkey(x509_cert.get()));
+  ASSERT_TRUE(pubkey);
+  ScopedCBB cbb;
+  ASSERT_TRUE(CBB_init(cbb.get(), 0));
+  ASSERT_TRUE(EVP_marshal_public_key(cbb.get(), pubkey.get()));
+  static uint8_t *spki = NULL;
+  static size_t spki_len;
+  ASSERT_TRUE(CBB_finish(cbb.get(), &spki, &spki_len));
+
+  bssl::UniquePtr<SSL_CTX> server_ctx(SSL_CTX_new(TLS_with_buffers_method()));
+  ASSERT_TRUE(server_ctx);
+  ASSERT_TRUE(SSL_CTX_set_min_proto_version(server_ctx.get(), TLS1_3_VERSION));
+  ASSERT_TRUE(SSL_CTX_set_max_proto_version(server_ctx.get(), TLS1_3_VERSION));
+
+  ASSERT_TRUE(SSL_CTX_set_server_raw_public_key_enabled(server_ctx.get()));
+  static bssl::UniquePtr<EVP_PKEY> key = GetECDSATestKey();
+  ASSERT_TRUE(key);
+  SSL_CTX_set_cert_cb(
+      server_ctx.get(),
+      [](SSL *ssl, void *arg) -> int {
+        if (!SSL_use_PrivateKey(ssl, key.get())) {
+          return 0;
+        }
+        if (!SSL_use_raw_public_key_certificate(ssl, spki,
+                                                spki_len)) {
+          return 0;
+        }
+        return 1;
+      },
+      NULL);
+
+  bssl::UniquePtr<SSL_CTX> client_ctx(SSL_CTX_new(TLS_with_buffers_method()));
+  ASSERT_TRUE(client_ctx);
+  ASSERT_TRUE(SSL_CTX_set_min_proto_version(client_ctx.get(), TLS1_3_VERSION));
+  ASSERT_TRUE(SSL_CTX_set_max_proto_version(client_ctx.get(), TLS1_3_VERSION));
+
+  ASSERT_TRUE(SSL_CTX_set_server_raw_public_key_enabled(client_ctx.get()));
+  SSL_CTX_set_custom_verify(client_ctx.get(),
+    SSL_VERIFY_PEER | SSL_VERIFY_FAIL_IF_NO_PEER_CERT,
+    [](SSL *ssl, uint8_t *out_alert) -> ssl_verify_result_t {
+      const EVP_PKEY *peer_pubkey = SSL_get0_peer_pubkey(ssl);
+      if (!peer_pubkey) {
+        *out_alert = SSL_AD_CERTIFICATE_UNKNOWN;
+        return ssl_verify_invalid;
+      }
+
+      CBS cbs;
+      CBS_init(&cbs, spki, spki_len);
+      EVP_PKEY *expected_pubkey = EVP_parse_public_key(&cbs);
+      if (!expected_pubkey) {
+        *out_alert = SSL_AD_INTERNAL_ERROR;
+        return ssl_verify_invalid;
+      }
+
+      int match = (EVP_PKEY_cmp(peer_pubkey, expected_pubkey) == 1);
+      EVP_PKEY_free(expected_pubkey);
+      if (match) {
+        return ssl_verify_ok;
+      }
+
+      *out_alert = SSL_AD_BAD_CERTIFICATE;
+      return ssl_verify_invalid;
+    });
+
+  bssl::UniquePtr<SSL> client, server;
+  ASSERT_TRUE(ConnectClientAndServer(&client, &server, client_ctx.get(),
+                                     server_ctx.get()));
+}
+
 TEST_P(SSLVersionTest, RetainOnlySHA256OfCerts) {
   uint8_t *cert_der = NULL;
   int cert_der_len = i2d_X509(cert_.get(), &cert_der);
