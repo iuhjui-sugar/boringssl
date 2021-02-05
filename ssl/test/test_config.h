@@ -189,6 +189,8 @@ struct TestConfig {
   bool wait_for_debugger = false;
   std::string quic_early_data_context;
   int early_write_after_message = 0;
+  bool raw_public_key_mode = false;
+  std::string expect_spki;
 
   int argc;
   char **argv;

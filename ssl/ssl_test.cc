@@ -1908,6 +1908,7 @@ struct ClientConfig {
   SSL_SESSION *session = nullptr;
   std::string servername;
   bool early_data = false;
+  void *app_data = nullptr;
 };
 
 static bool ConnectClientAndServer(bssl::UniquePtr<SSL> *out_client,
@@ -1918,6 +1919,9 @@ static bool ConnectClientAndServer(bssl::UniquePtr<SSL> *out_client,
   bssl::UniquePtr<SSL> client, server;
   if (!CreateClientAndServer(&client, &server, client_ctx, server_ctx)) {
     return false;
+  }
+  if (config.app_data) {
+    SSL_set_app_data(client.get(), config.app_data);
   }
   if (config.early_data) {
     SSL_set_early_data_enabled(client.get(), 1);
@@ -2438,10 +2442,11 @@ static bssl::UniquePtr<SSL_SESSION> CreateClientSession(
   return std::move(g_last_session);
 }
 
-static void ExpectSessionReused(SSL_CTX *client_ctx, SSL_CTX *server_ctx,
-                                SSL_SESSION *session, bool want_reused) {
+static void ExpectSessionReused(
+    SSL_CTX *client_ctx, SSL_CTX *server_ctx, SSL_SESSION *session,
+    bool want_reused, const ClientConfig &base_config = ClientConfig()) {
   bssl::UniquePtr<SSL> client, server;
-  ClientConfig config;
+  ClientConfig config = base_config;
   config.session = session;
   EXPECT_TRUE(
       ConnectClientAndServer(&client, &server, client_ctx, server_ctx, config));
@@ -2842,6 +2847,68 @@ TEST_P(SSLVersionTest, DefaultTicketKeyRotation) {
   // But resumption with the newer session still works.
   TRACED_CALL(ExpectSessionReused(client_ctx_.get(), server_ctx_.get(),
                                   new_session.get(), true /* reused */));
+}
+
+TEST_P(SSLVersionTest, RawPublicKeyCertificate) {
+  ASSERT_TRUE(SSL_CTX_set_raw_public_key_mode(client_ctx_.get()));
+  SSL_CTX_set_custom_verify(
+      client_ctx_.get(), SSL_VERIFY_PEER | SSL_VERIFY_FAIL_IF_NO_PEER_CERT,
+      [](SSL *ssl, uint8_t *out_alert) -> ssl_verify_result_t {
+        const EVP_PKEY *peer_pubkey = SSL_get0_peer_pubkey(ssl);
+        if (!peer_pubkey) {
+          *out_alert = SSL_AD_CERTIFICATE_UNKNOWN;
+          return ssl_verify_invalid;
+        }
+
+        if (EVP_PKEY_cmp(reinterpret_cast<EVP_PKEY *>(SSL_get_app_data(ssl)),
+                         peer_pubkey) == 1) {
+          return ssl_verify_ok;
+        }
+
+        *out_alert = SSL_AD_BAD_CERTIFICATE;
+        return ssl_verify_invalid;
+      });
+  SSL_CTX_set_session_cache_mode(client_ctx_.get(), SSL_SESS_CACHE_CLIENT);
+
+  bssl::UniquePtr<EVP_PKEY> wrong_key = GetTestKey();
+  ClientConfig config;
+  config.app_data = wrong_key.get();
+
+  bssl::UniquePtr<SSL> client, server;
+  // Server is not configured for raw public keys.
+  ASSERT_FALSE(ConnectClientAndServer(&client, &server, client_ctx_.get(),
+                                      server_ctx_.get(), config));
+
+  bssl::UniquePtr<EVP_PKEY> key = GetECDSATestKey();
+  bssl::UniquePtr<CRYPTO_BUFFER> dummy(CRYPTO_BUFFER_new(nullptr, 0, nullptr));
+  // Specifying an SPKI when it can be taken from the given key is an error.
+  ASSERT_FALSE(SSL_CTX_set_raw_public_key_and_key(
+      server_ctx_.get(), /*spki=*/dummy.get(), key.get(),
+      /*privkey_method=*/nullptr));
+
+  ASSERT_TRUE(SSL_CTX_set_raw_public_key_and_key(server_ctx_.get(),
+                                                 /*spki=*/nullptr, key.get(),
+                                                 /*privkey_method=*/nullptr));
+
+  // Client is expecting |wrong_key|.
+  ASSERT_FALSE(ConnectClientAndServer(&client, &server, client_ctx_.get(),
+                                      server_ctx_.get(), config));
+
+  if (version() != TLS1_3_VERSION) {
+    return;
+  }
+
+  config.app_data = key.get();
+  ASSERT_TRUE(ConnectClientAndServer(&client, &server, client_ctx_.get(),
+                                     server_ctx_.get(), config));
+
+  bssl::UniquePtr<SSL_SESSION> session =
+      CreateClientSession(client_ctx_.get(), server_ctx_.get(), config);
+  ASSERT_TRUE(session);
+
+  TRACED_CALL(ExpectSessionReused(client_ctx_.get(), server_ctx_.get(),
+                                  session.get(),
+                                  true /* expect session reused */, config));
 }
 
 static int SwitchContext(SSL *ssl, int *out_alert, void *arg) {
