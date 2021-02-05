@@ -138,6 +138,25 @@
  * OTHER ENTITY BASED ON INFRINGEMENT OF INTELLECTUAL PROPERTY RIGHTS OR
  * OTHERWISE.
  */
+/* ====================================================================
+ * Copyright 2020 Apple Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the “Software”),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom
+ * the Software is furnished to do so, subject to the following conditions:
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+ * IN THE SOFTWARE.
+ */
 
 #ifndef OPENSSL_HEADER_SSL_H
 #define OPENSSL_HEADER_SSL_H
@@ -1275,6 +1294,27 @@ OPENSSL_EXPORT void SSL_set_private_key_method(
 // |key_method| must remain valid for the lifetime of |ctx|.
 OPENSSL_EXPORT void SSL_CTX_set_private_key_method(
     SSL_CTX *ctx, const SSL_PRIVATE_KEY_METHOD *key_method);
+
+// SSL_CTX_use_raw_public_key_certificate sets |ctx|'s server certificate to
+// |raw_public_key|. On a client it sets the expected certificate presented
+// by the server. On a server it sets the certificate to be presented to
+// clients. It returns one on success and zero on failure.
+OPENSSL_EXPORT int SSL_CTX_use_server_raw_public_key_certificate(SSL_CTX *ctx,
+    const uint8_t *raw_public_key, unsigned raw_public_key_len);
+
+// SSL_use_certificate sets |ssl|'s server certificate to |raw_public_key|.
+// It returns one on success and zero on failure.
+OPENSSL_EXPORT int SSL_use_server_raw_public_key_certificate(SSL *ssl,
+    const uint8_t *raw_public_key, unsigned raw_public_key_len);
+
+// SSL_CTX_has_server_raw_public_key_certificate returns 1 if |ctx| is
+// configured with a server raw public key certificate and 0 otherwise.
+OPENSSL_EXPORT int SSL_CTX_has_server_raw_public_key_certificate(
+    const SSL_CTX *ctx);
+
+// SSL_has_server_raw_public_key_certificate returns 1 if |ssl| is configured
+// with a server raw public key certificate and 0 otherwise.
+OPENSSL_EXPORT int SSL_has_server_raw_public_key_certificate(const SSL *ssl);
 
 
 // Cipher suites.
@@ -2819,6 +2859,12 @@ OPENSSL_EXPORT void SSL_get0_peer_application_settings(const SSL *ssl,
 // SSL_has_application_settings returns one if ALPS was negotiated on this
 // connection and zero otherwise.
 OPENSSL_EXPORT int SSL_has_application_settings(const SSL *ssl);
+
+
+// Certificate (Entry) Type.
+
+#define TLS_CERTIFICATE_TYPE_X509 0
+#define TLS_CERTIFICATE_TYPE_RAW_PUBLIC_KEY 2
 
 
 // Certificate compression.

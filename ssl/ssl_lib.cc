@@ -137,6 +137,25 @@
  * SPECIFICALLY DISCLAIMS ANY LIABILITY FOR CLAIMS BROUGHT BY YOU OR ANY
  * OTHER ENTITY BASED ON INFRINGEMENT OF INTELLECTUAL PROPERTY RIGHTS OR
  * OTHERWISE. */
+/* ====================================================================
+ * Copyright 2020 Apple Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the “Software”),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom
+ * the Software is furnished to do so, subject to the following conditions:
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+ * IN THE SOFTWARE.
+ */
 
 #include <openssl/ssl.h>
 
@@ -711,6 +730,11 @@ SSL *SSL_new(SSL_CTX *ctx) {
   ssl->config->ocsp_stapling_enabled = ctx->ocsp_stapling_enabled;
   ssl->config->handoff = ctx->handoff;
   ssl->quic_method = ctx->quic_method;
+
+  ssl->config->server_certificate_type_list.CopyFrom(
+    ctx->server_certificate_type_list);
+  ssl->config->server_raw_public_key_certificate.CopyFrom(
+    ctx->server_raw_public_key_certificate);
 
   if (!ssl->method->ssl_new(ssl.get()) ||
       !ssl->ctx->x509_method->ssl_new(ssl->s3->hs.get())) {
@@ -3123,4 +3147,51 @@ int SSL_CTX_set_tlsext_status_cb(SSL_CTX *ctx,
 int SSL_CTX_set_tlsext_status_arg(SSL_CTX *ctx, void *arg) {
   ctx->legacy_ocsp_callback_arg = arg;
   return 1;
+}
+
+int SSL_CTX_use_server_raw_public_key_certificate(SSL_CTX *ctx,
+  const uint8_t *raw_public_key, unsigned raw_public_key_len) {
+  if (!ctx->server_raw_public_key_certificate.CopyFrom(
+    MakeConstSpan(raw_public_key, raw_public_key_len))) {
+    return 0; /* Failure */
+  }
+
+  if (!ctx->server_certificate_type_list.Init(1)) {
+    return 0;
+  }
+  ctx->server_certificate_type_list[0] = TLS_CERTIFICATE_TYPE_RAW_PUBLIC_KEY;
+
+  return 1; /* Success */
+}
+
+int SSL_CTX_has_server_raw_public_key_certificate(const SSL_CTX *ctx) {
+  return !ctx->server_raw_public_key_certificate.empty();
+}
+
+int SSL_use_server_raw_public_key_certificate(SSL *ssl,
+  const uint8_t *raw_public_key, unsigned raw_public_key_len) {
+  if (!ssl->config) {
+    return 0; /* Failure */
+  }
+
+  if (!ssl->config->server_raw_public_key_certificate.CopyFrom(
+    MakeConstSpan(raw_public_key, raw_public_key_len))) {
+    return 0;
+  }
+
+  if (!ssl->config->server_certificate_type_list.Init(1)) {
+    return 0;
+  }
+  ssl->config->server_certificate_type_list[0] =
+    TLS_CERTIFICATE_TYPE_RAW_PUBLIC_KEY;
+
+  return 1; /* Success */
+}
+
+int SSL_has_server_raw_public_key_certificate(const SSL *ssl) {
+  if (!ssl->config) {
+    return 0; /* Failure */
+  }
+
+  return !ssl->config->server_raw_public_key_certificate.empty();
 }

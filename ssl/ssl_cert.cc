@@ -111,6 +111,25 @@
  * Copyright 2002 Sun Microsystems, Inc. ALL RIGHTS RESERVED.
  * ECC cipher suite support in OpenSSL originally developed by
  * SUN MICROSYSTEMS, INC., and contributed to the OpenSSL project. */
+/* ====================================================================
+ * Copyright 2020 Apple Inc.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the “Software”),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom
+ * the Software is furnished to do so, subject to the following conditions:
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+ * IN THE SOFTWARE.
+ */
 
 #include <openssl/ssl.h>
 
@@ -341,6 +360,12 @@ bool ssl_has_certificate(const SSL_HANDSHAKE *hs) {
   return hs->config->cert->chain != nullptr &&
          sk_CRYPTO_BUFFER_value(hs->config->cert->chain.get(), 0) != nullptr &&
          ssl_has_private_key(hs);
+}
+
+bool ssl_has_server_raw_public_key_certificate(const SSL_HANDSHAKE *hs) {
+  return hs->server_certificate_type_negotiated &&
+    hs->server_certificate_type == TLS_CERTIFICATE_TYPE_RAW_PUBLIC_KEY &&
+    ssl_has_private_key(hs);
 }
 
 bool ssl_parse_cert_chain(uint8_t *out_alert,
@@ -727,9 +752,18 @@ bool ssl_check_leaf_certificate(SSL_HANDSHAKE *hs, EVP_PKEY *pkey,
 
 bool ssl_on_certificate_selected(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
-  if (!ssl_has_certificate(hs)) {
+  if (!ssl_has_certificate(hs) &&
+      !ssl_has_server_raw_public_key_certificate(hs)) {
     // Nothing to do.
     return true;
+  }
+
+  if (ssl_has_server_raw_public_key_certificate(hs)) {
+    CBS spki = MakeConstSpan(
+      ssl->config->server_raw_public_key_certificate.data(),
+      ssl->config->server_raw_public_key_certificate.size());
+    hs->local_pubkey = UniquePtr<EVP_PKEY>(EVP_parse_public_key(&spki));
+    return hs->local_pubkey != NULL;
   }
 
   if (!ssl->ctx->x509_method->ssl_auto_chain_if_needed(hs)) {
