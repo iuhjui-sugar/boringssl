@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57214b8c_9e6922a1",
+        "filename": "include/openssl/cipher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-09T23:50:29Z",
+      "side": 1,
+      "message": "This one is... slightly more complicated than that. :-/ It\u0027s true for CTR and GCM. CBC does this messy thing since it needs to buffer up partial blocks, which puts out slightly offset from in.\n\nAlthough in-place chunked CBC also basically doesn\u0027t work:\n\nSuppose you want to in-place CBC encrypt a buffer that\u0027s split into a 17-byte chunk and a 15-byte chunk. The first call would be EncryptUpdate(chunk1, \u0026out1, chunk1, 17) and write 16 bytes. The next call would, in theory, be EncryptUpdate(chunk1 + 16, \u0026out2, chunk2, 15), except it\u0027ll want to write 16 bytes to chunk1 + 16. The caller needs to know to buffer the block and manually redistribute it.\n\nSo... I\u0027m not sure what the right documentation is. :-(",
+      "revId": "9dc2e3669bfe676e83e67c90d3a8025efb83df25",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51e21666_00a4700e",
+        "filename": "include/openssl/cipher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-09T23:50:29Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "9dc2e3669bfe676e83e67c90d3a8025efb83df25",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "000a14e9_00c3499f",
+        "filename": "include/openssl/cipher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-09T23:50:29Z",
+      "side": 1,
+      "message": "(I think this one is true.)",
+      "revId": "9dc2e3669bfe676e83e67c90d3a8025efb83df25",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
