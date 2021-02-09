@@ -171,6 +171,10 @@ OPENSSL_EXPORT int EVP_DecryptInit_ex(EVP_CIPHER_CTX *ctx,
 // of output bytes may be up to |in_len| plus the block length minus one and
 // |out| must have sufficient space. The number of bytes actually output is
 // written to |*out_len|. It returns one on success and zero otherwise.
+//
+// The |in| and |out| arguments may be equal to operate in-place. If the buffers
+// alias in any other way then the result is undefined and probably one or both
+// buffers will be corrupted.
 OPENSSL_EXPORT int EVP_EncryptUpdate(EVP_CIPHER_CTX *ctx, uint8_t *out,
                                      int *out_len, const uint8_t *in,
                                      int in_len);
@@ -188,6 +192,10 @@ OPENSSL_EXPORT int EVP_EncryptFinal_ex(EVP_CIPHER_CTX *ctx, uint8_t *out,
 // output bytes may be up to |in_len| plus the block length minus one and |out|
 // must have sufficient space. The number of bytes actually output is written
 // to |*out_len|. It returns one on success and zero otherwise.
+//
+// The |in| and |out| arguments may be equal to operate in-place. If the buffers
+// alias in any other way then the result is undefined and probably one or both
+// buffers will be corrupted.
 OPENSSL_EXPORT int EVP_DecryptUpdate(EVP_CIPHER_CTX *ctx, uint8_t *out,
                                      int *out_len, const uint8_t *in,
                                      int in_len);
@@ -208,6 +216,10 @@ OPENSSL_EXPORT int EVP_DecryptFinal_ex(EVP_CIPHER_CTX *ctx, unsigned char *out,
 // used. It returns one on success and zero otherwise, unless |EVP_CIPHER_flags|
 // has |EVP_CIPH_FLAG_CUSTOM_CIPHER| set. Then it returns the number of bytes
 // written or -1 on error.
+//
+// The |in| and |out| arguments may be equal to operate in-place. If the buffers
+// alias in any other way then the result is undefined and probably one or both
+// buffers will be corrupted.
 //
 // WARNING: this differs from the usual return value convention when using
 // |EVP_CIPH_FLAG_CUSTOM_CIPHER|.
