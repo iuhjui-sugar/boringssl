@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ee3e9e2_a631a2a2",
+        "filename": "include/openssl/cpu.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-02-09T22:41:15Z",
+      "side": 1,
+      "message": "function name needs updating here.",
+      "range": {
+        "startLine": 119,
+        "startChar": 3,
+        "endLine": 119,
+        "endChar": 30
+      },
+      "revId": "97318a73067b914768175c0a8e1e84437fba3c2f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1108b4bc_4b316616",
+        "filename": "include/openssl/cpu.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-02-09T22:41:15Z",
+      "side": 1,
+      "message": "(ditto.)",
+      "revId": "97318a73067b914768175c0a8e1e84437fba3c2f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
