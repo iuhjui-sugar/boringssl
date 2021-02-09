@@ -35,6 +35,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5629d40b_289e0738",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 613,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-09T23:20:35Z",
+      "side": 1,
+      "message": "First bullet is done.\n\nFor bullet #2, going ahead and erroring at config time. I think this makes more sense.\n\nFor bullet #3, this is no longer a fatal error for the handshake, it just causes trial decryption to fail and we move on to the next ECHConfig.",
+      "parentUuid": "fde29e53_9d46722c",
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ee7c3715_7bc992d1",
@@ -52,6 +70,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0776cf91_69274815",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 618,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-09T23:20:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee7c3715_7bc992d1",
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "845dddb5_a1e46668",
@@ -65,6 +101,24 @@
       "writtenOn": "2021-02-05T23:35:33Z",
       "side": 1,
       "message": "This is a DoS vector (a client can cause us to do lots more ECDH operations than usual) and isn\u0027t what the spec says anyway. In the trial decryption mode, the client may still send random config_id anyway, so you don\u0027t look at whether config_id is empty.\n\nRather, this is based on server config, and we\u0027re not implementing that config.",
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf2819ee_5c0839fe",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-09T23:20:35Z",
+      "side": 1,
+      "message": "Oh, I see. Section 7.1 says:\n\n   Unless specified by the\n   application using (D)TLS or externally configured on both sides,\n   implementations MUST use the first method.\n\nDo you think we should add a function to enable this trial decryption, or just be opinionated and require non-empty config_id?",
+      "parentUuid": "845dddb5_a1e46668",
       "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -103,6 +157,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "202bafed_55738a9f",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 648,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-09T23:20:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "593a0511_abecdda6",
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d32d33e9_02d8e798",
@@ -116,6 +188,30 @@
       "writtenOn": "2021-02-05T23:35:33Z",
       "side": 1,
       "message": "This is a memory error since you\u0027re not using the length. There\u0027s no type-level guarantee that the ECHConfig has a key, or that the key is non-empty. If either is false, this function will go off the end of a buffer or NULL deref.\n\nIn fact, looking at SSL_add_ech_private_key, there isn\u0027t even anything that checks the private key is the size you expect. So a caller who configures an invalid value will succeed and then crash here.\n\nech_config-\u003epublic_key().data() has a similar problem.",
+      "range": {
+        "startLine": 656,
+        "startChar": 47,
+        "endLine": 656,
+        "endChar": 78
+      },
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec4c50f5_8159ebb6",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 656,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-09T23:20:35Z",
+      "side": 1,
+      "message": "Great catch, adding error cases to SSL_add_ech_private_key and asserts right here.",
+      "parentUuid": "d32d33e9_02d8e798",
       "range": {
         "startLine": 656,
         "startChar": 47,
@@ -143,6 +239,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "21b3384d_ae6bcc4d",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-09T23:20:35Z",
+      "side": 1,
+      "message": "No good reason. Fixed.",
+      "parentUuid": "38f74e10_508ac3e5",
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b069615c_6de9b72f",
@@ -156,6 +270,30 @@
       "writtenOn": "2021-02-05T23:35:33Z",
       "side": 1,
       "message": "Having both ssl_write_client_hello and ssl_client_hello_write is pretty confusing. :-P",
+      "range": {
+        "startLine": 714,
+        "startChar": 11,
+        "endLine": 714,
+        "endChar": 33
+      },
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e35a70a_37fadb79",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-09T23:20:35Z",
+      "side": 1,
+      "message": "Renamed to ssl_client_hello_write_for_ech",
+      "parentUuid": "b069615c_6de9b72f",
       "range": {
         "startLine": 714,
         "startChar": 11,
@@ -183,6 +321,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "198c8407_4f9f8389",
+        "filename": "ssl/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 2868,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-09T23:20:35Z",
+      "side": 1,
+      "message": "I did this, but then I opted to eliminate the Array\u003c\u003e. I kept the bool return in case |secret_key.size()| is not 32.",
+      "parentUuid": "f4c93554_56f54811",
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a6660375_0fe0afc5",
@@ -200,6 +356,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ed4f66f_d32128df",
+        "filename": "ssl/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 2891,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-09T23:20:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6660375_0fe0afc5",
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e29764c8_8ee6e7d6",
@@ -213,6 +387,24 @@
       "writtenOn": "2021-02-05T23:35:33Z",
       "side": 1,
       "message": "Elsewhere we don\u0027t bother including this header. At some point I ought to finish migrating all the definitions. (We\u0027re stuck with ssl.h including tls1.h anyway so there\u0027s really no benefit to the separation.)",
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ebc192e_e6c4b76e",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-09T23:20:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e29764c8_8ee6e7d6",
       "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -240,6 +432,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3096db1f_e9e660cf",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-09T23:20:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "814e73c9_84c2b305",
+      "range": {
+        "startLine": 277,
+        "startChar": 5,
+        "endLine": 277,
+        "endChar": 43
+      },
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c36a0278_379aeb78",
@@ -253,6 +469,24 @@
       "writtenOn": "2021-02-05T23:35:33Z",
       "side": 1,
       "message": "Probably assert this is empty since we\u0027ve got an EncodedClientHelloInner.",
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5118c50_90534208",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-09T23:20:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c36a0278_379aeb78",
       "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -274,6 +508,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4e16d9a_5a144bf4",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-09T23:20:35Z",
+      "side": 1,
+      "message": "Done, making use of libc\u0027s qsort and bsearch.",
+      "parentUuid": "c81beb0a_efc83a7e",
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4ee692dc_21edc421",
@@ -291,6 +543,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f84a8133_d81a5628",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-09T23:20:35Z",
+      "side": 1,
+      "message": "Aha, thanks. Now aborting with illegal_parameter when outer_extensions references the encrypted_client_hello extension or an extension that is not present on the ClientHelloOuter.",
+      "parentUuid": "4ee692dc_21edc421",
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3d6d5f54_24018d07",
@@ -304,6 +574,24 @@
       "writtenOn": "2021-02-05T23:35:33Z",
       "side": 1,
       "message": "This seems backwards since, by default, fields come from EncodedClientHelloInner, not ClientHelloOuter. E.g. this missed the version value. (Which should now be constant but, since we don\u0027t enforce anything on it, we need to use the inner one.)",
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8afccd7_5e093372",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-09T23:20:35Z",
+      "side": 1,
+      "message": "I\u0027m getting rid of this shortcut and just constructing the whole SSL_CLIENT_HELLO manually now. How does BoringSSL feel about designated initializers?",
+      "parentUuid": "3d6d5f54_24018d07",
       "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -331,6 +619,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "398b47e5_a288454a",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-09T23:20:35Z",
+      "side": 1,
+      "message": "Ack, this keeps slipping into code I write. Sorry about that.",
+      "parentUuid": "a8569050_a9ccc902",
+      "range": {
+        "startLine": 356,
+        "startChar": 20,
+        "endLine": 356,
+        "endChar": 23
+      },
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e29724d8_bae92708",
@@ -344,6 +656,24 @@
       "writtenOn": "2021-02-05T23:35:33Z",
       "side": 1,
       "message": "This function is named pretty generically, but it doesn\u0027t quite reserialize a ClientHello. It misses DTLS and specifically ignores existing pre-serialized ClientHello (relying on callers to break invariants).\n\nThere\u0027s also a subtlety this function misses: the extensions block in a TLS 1.2 ClientHello is optional. You can omit it if it\u0027s empty. TLS 1.3 no longer allows this, since there are mandatory \"extensions\", but SSL_CLIENT_HELLO needs to support TLS 1.2. So that means, parsing and re-encoding a ClientHello with this function won\u0027t even round-trip.\n\n(This is more of the difference between parsed and unparsed forms when you work in contexts that the exact encoding is sensitive.)",
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00c07791_81d04e44",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-09T23:20:35Z",
+      "side": 1,
+      "message": "Renaming to ssl_client_hello_write_for_ech so readers hopefully make fewer assumptions about it.",
+      "parentUuid": "e29724d8_bae92708",
       "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -365,6 +695,41 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "052fda36_52a7b83e",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 827,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-09T23:20:35Z",
+      "side": 1,
+      "message": "Yep, we don\u0027t need it anymore. Thanks!",
+      "parentUuid": "d162c8dd_53969492",
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e797a449_3c5e4563",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-09T23:20:35Z",
+      "side": 1,
+      "message": "Write handshake helper function for retrieving ClientHello or ClientHelloInner.",
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "165b017d_ae1efef9",
@@ -378,6 +743,24 @@
       "writtenOn": "2021-02-05T23:35:33Z",
       "side": 1,
       "message": "Although we\u0027ve only counted to two rather than three, the code to construct ClientHelloAAD and decrypt given an ECHConfig is really long, so it ought to be extracted and shared between the two ClientHellos.",
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e25c1d2_b93d744a",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-09T23:20:35Z",
+      "side": 1,
+      "message": "Done. This didn\u0027t save as many LOC as I\u0027d have hoped, but at least it\u0027s now easier to spot the difference between the ECH ClientHello wrangling in tls13_server.cc and handshake_server.cc.",
+      "parentUuid": "165b017d_ae1efef9",
       "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
