@@ -295,6 +295,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a2a7b6bb_78f81d01",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 1046,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-10T21:19:37Z",
+      "side": 1,
+      "message": "I had an insight on this -- there\u0027s actually no need to copy the hash.Hash fields of hs.finishedHash, because at the point where echFinishedHash and hs.finishedHash diverge, we have hashed zero messages.\n\nAt least for TLS 1.3, h.hash.New() would be equivalent to a full copy of h.client and h.server. The main thing is that we need a copy of h.secret, h.buffer, and the other primitive fields.\n\nIf I add a PartialCopyForECH() method to finishedHash, we can eliminate the echFinishedHash parameter to doTLS13Handshake as well as the duplicate calls to addEntropy and nextSecret.\n\nDoes that sound worth the effort?",
+      "parentUuid": "d3bb515a_84c15df8",
+      "revId": "8f33d355c41802f1519bbf3686103c19f0b700d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7bc27911_f5ec3321",
         "filename": "ssl/test/runner/hpke/hpke.go",
         "patchSetId": 4
