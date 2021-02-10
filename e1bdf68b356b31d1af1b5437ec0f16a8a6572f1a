@@ -596,6 +596,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3e691f1_ef00cda6",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-10T00:21:45Z",
+      "side": 1,
+      "message": "Ah, I guess MSVC hates this. Just initializing each field individually.",
+      "parentUuid": "a8afccd7_5e093372",
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a8569050_a9ccc902",
