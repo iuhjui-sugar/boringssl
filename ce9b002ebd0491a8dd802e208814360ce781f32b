@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29dff29a_24156b94",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2747,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-10T23:07:36Z",
+      "side": 0,
+      "message": "I removed this sentence because it\u0027s not really true. A callback that returns SSL_TLSEXT_ERR_NOACK isn\u0027t distinguishable from not installing the callback. (Which is good. SSLs may share SSL_CTX, so ideally every callback has a no-op form.)",
+      "range": {
+        "startLine": 2746,
+        "startChar": 40,
+        "endLine": 2747,
+        "endChar": 12
+      },
+      "revId": "ce9b002ebd0491a8dd802e208814360ce781f32b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
