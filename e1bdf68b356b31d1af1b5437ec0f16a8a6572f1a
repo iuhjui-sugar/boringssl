@@ -493,6 +493,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "321df40d_99f58fed",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-10T17:13:47Z",
+      "side": 1,
+      "message": "Ah, I was too literal and added an assert. Just realized it\u0027s a peer-controlled value so we want to fail the decode instead. Would you send an alert in this case?",
+      "parentUuid": "b5118c50_90534208",
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c81beb0a_efc83a7e",
         "filename": "ssl/t1_lib.cc",
         "patchSetId": 8
