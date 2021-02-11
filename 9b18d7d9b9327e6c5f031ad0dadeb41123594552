@@ -50,6 +50,199 @@
       "message": "David got some internal organisation stuff sorted out recently so this is now clearly for him 😊",
       "revId": "9b18d7d9b9327e6c5f031ad0dadeb41123594552",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1726191_0dd219f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-11T23:07:46Z",
+      "side": 1,
+      "message": "Got partway through this. Flushing comments now, but I\u0027ll pick this back up tomorrow.",
+      "revId": "9b18d7d9b9327e6c5f031ad0dadeb41123594552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34775d61_167dc507",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-11T23:07:46Z",
+      "side": 1,
+      "message": "Mostly for my own curiosity: I gather tbl is more efficient than ushr + sli, and the others use shifts because they don\u0027t preserve byte boundaries? Or is to to avoid having to renumber registers?\n\nEdit: Ah yeah I see in x3 and x5, renumbering would be extra annoying.",
+      "revId": "9b18d7d9b9327e6c5f031ad0dadeb41123594552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44dd0f88_f2acc4eb",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-11T23:07:46Z",
+      "side": 1,
+      "message": "Mind bringing over the comments from the x86_64 version of this?",
+      "revId": "9b18d7d9b9327e6c5f031ad0dadeb41123594552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c082fc62_56c95ce0",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-11T23:07:46Z",
+      "side": 1,
+      "message": "For aarch64, we care about our asm being compatible with XOM in some configurations. That means this would need to go in .section .rodata and the ADRs would need an ADRP/pg_hi21/lo12 thing.\n\nhttps://boringssl-review.googlesource.com/c/boringssl/+/35284 is an example.\n\n(I\u0027ve filed https://crbug.com/boringssl/396 to make sure we have test coverage for this. I\u0027m not sure if we\u0027d have noticed...)",
+      "revId": "9b18d7d9b9327e6c5f031ad0dadeb41123594552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6faf4e3_9ec01700",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-11T23:07:46Z",
+      "side": 1,
+      "message": "Just plain sub here? Doesn\u0027t look like you use the flag, since the branch is handled by cbz above.",
+      "range": {
+        "startLine": 335,
+        "startChar": 4,
+        "endLine": 335,
+        "endChar": 8
+      },
+      "revId": "9b18d7d9b9327e6c5f031ad0dadeb41123594552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cc7bed6_d96cd2d3",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-11T23:07:46Z",
+      "side": 1,
+      "message": "Huh. I\u0027m kind of amazed that\u0027s the best way to load a variable number of bytes into registers...",
+      "revId": "9b18d7d9b9327e6c5f031ad0dadeb41123594552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9f28de6_a1bee3dc",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-11T23:07:46Z",
+      "side": 1,
+      "message": "I guess this works, but any reason not to just do usual BL / LR thing? The other functions have .cfi_* annotations, but I think this code won\u0027t work with them.\n\nI also assume the branch predictor will get confused if RET isn\u0027t paired with BL. Alternatively, I suppose you could use a non-RET B, but BL with LR seems clearer and probably something the CPU is better at dealing with.",
+      "revId": "9b18d7d9b9327e6c5f031ad0dadeb41123594552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86a6cdc1_b54da519",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-11T23:07:46Z",
+      "side": 1,
+      "message": "Looking at other files, they tend to fold these to together into\n\n  stp d8, d9, [sp, #-64]!",
+      "revId": "9b18d7d9b9327e6c5f031ad0dadeb41123594552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d954b6ef_84a3e74d",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-11T23:07:46Z",
+      "side": 1,
+      "message": "I\u0027m a little surprised these assemble on Windows ARM, but clang assembler seems to tolerate them so... okay! I wonder if it crashes on them or ignores it.\n\n(We don\u0027t actually have CFI annotations or tests for any of our other files, but CFI for aarch64 sounds reasonable. I should get the tester to work...)\n\nWe also lack CI for Windows/ARM, so I\u0027ve filed https://crbug.com/boringssl/397 to finish that up.",
+      "revId": "9b18d7d9b9327e6c5f031ad0dadeb41123594552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6796aa2_77bee241",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-11T23:07:46Z",
+      "side": 1,
+      "message": "Nit: it\u0027s a little unclear from this comment that it\u0027s the 5th block (which also comes first in counter order) that encrypts R and S and while [A-D][0-3] encrypt plaintext. Maybe:\n\nInitially we prepare 5 ChaCha20 blocks. Four to encrypt up to 4 blocks (256 bytes) of plaintext, and one for the Poly1305 R and S keys. The first four blocks (A0-A3..D0-D3) are computed vertically, the fifth block (A4-D4) horizontally.",
+      "revId": "9b18d7d9b9327e6c5f031ad0dadeb41123594552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80f1d88d_baf02b5f",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-11T23:07:46Z",
+      "side": 1,
+      "message": "(Note to self: continue from here tomorrow.)",
+      "revId": "9b18d7d9b9327e6c5f031ad0dadeb41123594552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
