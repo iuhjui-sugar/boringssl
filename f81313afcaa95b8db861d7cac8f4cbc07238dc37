@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "233b9b18_cb0b3167",
+        "filename": "util/BUILD.toplevel",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-02-12T22:35:26Z",
+      "side": 1,
+      "message": "Does this break everyone until they add bazel_skylib to their workspace? If so, any way to avoid that?",
+      "revId": "f81313afcaa95b8db861d7cac8f4cbc07238dc37",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
