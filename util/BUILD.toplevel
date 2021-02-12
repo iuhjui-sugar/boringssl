@@ -12,6 +12,7 @@
 # OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
 # CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. */
 
+load("@bazel_skylib//lib:selects.bzl", "selects")
 load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library")
 load(
     ":BUILD.generated.bzl",
@@ -54,8 +55,39 @@ config_setting(
 )
 
 config_setting(
-    name = "android",
+    name = "android_legacy",
     values = {"crosstool_top": "//external:android/crosstool"},
+)
+
+config_setting(
+    name = "android_stlport",
+    values = {"crosstool_top": "@androidndk//:toolchain-stlport"},
+)
+
+config_setting(
+    name = "android_libcpp",
+    values = {"crosstool_top": "@androidndk//:toolchain-libcpp"},
+)
+
+config_setting(
+    name = "android_gnu_libstdcpp",
+    values = {"crosstool_top": "@androidndk//:toolchain-gnu-libstdcpp"},
+)
+
+config_setting(
+    name = "android_default",
+    values = {"crosstool_top": "@androidndk//:default-toolchain"},
+)
+
+selects.config_setting_group(
+    name = "android",
+    match_any = [
+        ":android_legacy",
+        ":android_stlport",
+        ":android_libcpp",
+        ":android_gnu_libstdcpp",
+        ":android_default",
+    ],
 )
 
 posix_copts = [
