@@ -211,6 +211,29 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0c5b36d_31795ce1",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-13T04:10:01Z",
+      "side": 1,
+      "message": "This is not a request to change anything for this CL (we\u0027d need to rework the x86_64 and non-asm paths too), just wanted to know your thoughts. I\u0027ve been wondering whether our extra_in goofiness is the best way to do this.\n\nOne idea I had was maybe something like this:\n\n  // Computes (R, S) along with however many blocks of (in, len) fit in the\n  // same batch. Returns the number of bytes consumed.\n  //\n  // Alternative: init also consumes all its input and jumps in the middle of\n  // update. Reason to consider this design is, if we have any hope of using\n  // formal verification tools on our asm, I expect they\u0027ll be opinionated\n  // about control flow and get offended by cross-function jumps.\n  size_t chacha20_poly1305_init(ctx, key, out, in, len, ad, ad_len);\n\n  // Consumes all of (in, len). May assume that only a multiple of 64\n  // bytes have been consumed so far.\n  void chacha20_poly1305_update(ctx, key, out, in, len);\n\n  // Incorporates the length block and writes out the tag. (Should we pass\n  // in ad_len and total_len, just to save asm from the bother of computing\n  // it?)\n  void chacha20_poly1305_finish(ctx, out);\n\nSince in/extra_in may not split at a block boundary, it\u0027s C\u0027s responsibility to buffer up a block at the boundary. Something like:\n\n  size_t todo \u003d len;\n  if (extra_in_len !\u003d 0) {\n     todo \u003d len \u0026 -64;\n  }\n  todo \u003d chacha20_poly1305_init(\u0026ctx, key, out, in, todo, ad, ad_len);\n  in +\u003d todo;\n  out +\u003d todo;\n  len -\u003d todo;\n  \n  todo \u003d len;\n  if (extra_in_len !\u003d 0) {\n    todo \u003d len - (len % 320);\n  }\n  todo \u003d chacha20_poly1305_update(\u0026ctx, key, out, in, todo);\n  in +\u003d todo;\n  out +\u003d todo;\n  len -\u003d todo;\n  \n  if (len !\u003d 0) {\n    char buf[320];\n    memcpy(buf, in, len);\n    todo \u003d min(sizeof(buf) - len, extra_in_len);\n    memcpy(buf + len, extra_in, todo);\n    chacha20_poly1305_update(\u0026ctx, key, buf, buf, len + todo);\n    memcpy(out, buf, len);\n    memcpy(out_tag, buf + len, todo);\n    extra_in +\u003d todo;\n    out_tag +\u003d todo;\n    extra_in_len -\u003d todo;\n  }\n  \n  if (extra_in_len !\u003d 0) {\n    chacha20_poly1305_update(\u0026ctx, out_tag, extra_in, extra_in_len);\n    out_tag +\u003d extra_in_len;\n  }\n\n  chacha20_poly1305_finish(\u0026ctx, out_tag);\n\nOr maybe there\u0027s a better strategy? I figure it saves asm from dealing with block misalignment in poly1305, and might be more efficient us recomputing the block outside. On the other hand, it does add some buffering and transits across the C ABI more. (Might also give room for an IOV-like API later?) And I\u0027m generally a fan of shifting complexity to C if it doesn\u0027t cost us much.\n\nWhat do you think?",
+      "range": {
+        "startLine": 385,
+        "startChar": 69,
+        "endLine": 385,
+        "endChar": 81
+      },
+      "revId": "9b18d7d9b9327e6c5f031ad0dadeb41123594552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a6796aa2_77bee241",
@@ -241,6 +264,121 @@
       "writtenOn": "2021-02-11T23:07:46Z",
       "side": 1,
       "message": "(Note to self: continue from here tomorrow.)",
+      "revId": "9b18d7d9b9327e6c5f031ad0dadeb41123594552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "676d78e0_88f5856e",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-13T04:10:01Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "80f1d88d_baf02b5f",
+      "revId": "9b18d7d9b9327e6c5f031ad0dadeb41123594552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1234421_f7d88fde",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-13T04:10:01Z",
+      "side": 1,
+      "message": "Hehe. This is mildly goofy, but I don\u0027t see a smaller alternative without transiting through GPRs, which I assume would be slower.",
+      "revId": "9b18d7d9b9327e6c5f031ad0dadeb41123594552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "750f7917_078764d1",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 699,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-13T04:10:01Z",
+      "side": 1,
+      "message": "Minor nitpick: it\u0027s possible that only A0-A3 hold 256 bytes, but that\u0027s fine because inl will be in [0, 320) in that case.",
+      "revId": "9b18d7d9b9327e6c5f031ad0dadeb41123594552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea3b247d_b40464b2",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 723,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-13T04:10:01Z",
+      "side": 1,
+      "message": "iteration",
+      "range": {
+        "startLine": 723,
+        "startChar": 53,
+        "endLine": 723,
+        "endChar": 63
+      },
+      "revId": "9b18d7d9b9327e6c5f031ad0dadeb41123594552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f72ef1d_367aecff",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-13T04:10:01Z",
+      "side": 1,
+      "message": "iteration",
+      "range": {
+        "startLine": 763,
+        "startChar": 53,
+        "endLine": 763,
+        "endChar": 63
+      },
+      "revId": "9b18d7d9b9327e6c5f031ad0dadeb41123594552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc5f41cb_e4f5b855",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 770,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-13T04:10:01Z",
+      "side": 1,
+      "message": "Note to self: continue from here next time.",
       "revId": "9b18d7d9b9327e6c5f031ad0dadeb41123594552",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
