@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec5c8561_7ad344cd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-13T04:24:00Z",
+      "side": 1,
+      "message": "Oops, saw this before the revert. A revert\u0027s probably better for midnight on a Friday, but ah well. Hopefully that worked? :-)",
+      "revId": "238a25831e598642befcf056e778c8f166781a97",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
