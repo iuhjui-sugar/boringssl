@@ -234,6 +234,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee7f3681_ab566b47",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-13T04:20:28Z",
+      "side": 1,
+      "message": "\u003e Alternative: init also consumes all its input and jumps in the middle of\n\u003e update. Reason to consider this design is, if we have any hope of using\n\u003e formal verification tools on our asm, I expect they\u0027ll be opinionated\n\u003e about control flow and get offended by cross-function jumps.\n\nOh, I guess the return value idea still doesn\u0027t save us from wanting to share code between init/update because of short inputs. Plus the jump can always be modeled as a tail call if we have a fussy verification tool. So, yeah, probably better to just have init consume all its input?\n\n(I don\u0027t actually have a path towards getting a verification story, so no need to put much thought towards those constraints right now. There\u0027s one candidate I\u0027m idly trying to sniffing at, but it\u0027s unlikely I\u0027ll get anything. These sorts of tools tend not to be usable.)",
+      "parentUuid": "e0c5b36d_31795ce1",
+      "range": {
+        "startLine": 385,
+        "startChar": 69,
+        "endLine": 385,
+        "endChar": 81
+      },
+      "revId": "9b18d7d9b9327e6c5f031ad0dadeb41123594552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a6796aa2_77bee241",
