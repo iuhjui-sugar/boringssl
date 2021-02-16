@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b29cb9b_056da8d9",
+        "filename": "crypto/fipsmodule/cipher/cipher.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-02-16T17:46:54Z",
+      "side": 1,
+      "message": "Not a strong opinion, but it might be simplier and shorter-range just to check if L310 overflows in a dumb way: if (in_len \u003e INT_MAX - out_len).",
+      "revId": "cb98733cb7c3e430872d60a14e59a1754edc9fdf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
