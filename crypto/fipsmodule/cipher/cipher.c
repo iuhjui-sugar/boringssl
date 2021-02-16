@@ -278,11 +278,21 @@ int EVP_EncryptUpdate(EVP_CIPHER_CTX *ctx, uint8_t *out, int *out_len,
       return 1;
     } else {
       j = bl - i;
+      // The total output of the two |ctx->cipher->cipher| calls below is:
+      //
+      //   bl + remaining - (remaining & ctx->block_mask)
+      //
+      // This must not exceed |INT_MAX| to fit in |*out_len|.
+      int remaining = in_len - j;
+      if (remaining - (remaining & ctx->block_mask) > INT_MAX - bl) {
+        OPENSSL_PUT_ERROR(CIPHER, ERR_R_OVERFLOW);
+        return 0;
+      }
       OPENSSL_memcpy(&ctx->buf[i], in, j);
       if (!ctx->cipher->cipher(ctx, out, ctx->buf, bl)) {
         return 0;
       }
-      in_len -= j;
+      in_len = remaining;
       in += j;
       out += bl;
       *out_len = bl;
@@ -380,6 +390,18 @@ int EVP_DecryptUpdate(EVP_CIPHER_CTX *ctx, uint8_t *out, int *out_len,
   assert(b <= sizeof(ctx->final));
 
   if (ctx->final_used) {
+    // |final_used| is only set if |buf_len| is 0. Therefore the maximum length
+    // output from |EVP_EncryptUpdate| is |in_len| rounded down to a block
+    // length. The final output length is:
+    //
+    //   in_len - (in_len & ctx->block_mask) + b
+    //
+    // This must not exceed |INT_MAX| to fit in |*out_len|.
+    assert(ctx->buf_len == 0);
+    if (in_len - (in_len & ctx->block_mask) > INT_MAX - (int)b) {
+      OPENSSL_PUT_ERROR(CIPHER, ERR_R_OVERFLOW);
+      return 0;
+    }
     OPENSSL_memcpy(out, ctx->final, b);
     out += b;
     fix_len = 1;
