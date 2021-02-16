@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71d84065_da756b41",
+        "filename": "crypto/x509/x_attrib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-16T21:32:36Z",
+      "side": 1,
+      "message": "Upstream\u0027s OBJ_nid2obj returns non-const. I kind of wonder if we should go back to that. The problem is const here is simultaneously used for \"you can modify this exported struct\u0027s fields\" and \"you should call ASN1_OBJECT_free on this when you\u0027re done\".\n\nASN1_OBJECT is one of those messy places where we have const immutable objects pretend to be freeable by no-oping their free and dup functions.",
+      "revId": "70933999d24d6497cd82d451fe1e685d55085bc1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
