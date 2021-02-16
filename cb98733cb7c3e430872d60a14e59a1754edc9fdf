@@ -34,6 +34,24 @@
       "parentUuid": "3b29cb9b_056da8d9",
       "revId": "cb98733cb7c3e430872d60a14e59a1754edc9fdf",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b72b32a9_8d981be8",
+        "filename": "crypto/fipsmodule/cipher/cipher.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-02-16T18:32:53Z",
+      "side": 1,
+      "message": "I think simple wins here. Either checking at the top for any possible overflow, or catching it at the point of overflow and returning an error.",
+      "parentUuid": "c88f09f7_d44d4e8c",
+      "revId": "cb98733cb7c3e430872d60a14e59a1754edc9fdf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
