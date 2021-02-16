@@ -16,6 +16,24 @@
       "message": "Not a strong opinion, but it might be simplier and shorter-range just to check if L310 overflows in a dumb way: if (in_len \u003e INT_MAX - out_len).",
       "revId": "cb98733cb7c3e430872d60a14e59a1754edc9fdf",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c88f09f7_d44d4e8c",
+        "filename": "crypto/fipsmodule/cipher/cipher.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-16T18:03:37Z",
+      "side": 1,
+      "message": "I guess the question is whether we want the EVP_CIPHER_CTX to still be functional / any output to be written when you pass in something too large. Right now they seem to be trying to do that.\n\nWe also can avoid trying to calculate this precisely and instead just say, up at the top, that, if block_size \u003e 1, in_len + block_size cannot overflow.\n\n(Also don\u0027t feel strongly.)",
+      "parentUuid": "3b29cb9b_056da8d9",
+      "revId": "cb98733cb7c3e430872d60a14e59a1754edc9fdf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
