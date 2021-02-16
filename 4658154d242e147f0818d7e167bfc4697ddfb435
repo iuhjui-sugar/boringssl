@@ -16,6 +16,24 @@
       "message": "Thanks! Just as a casual pass:\n\nWe haven\u0027t added copyright headers for contributions under CLA before. There do exist some NASCAR-shirts of copyright headers in some of the OpenSSL-derived files, but that\u0027s due to OpenSSL\u0027s history. At some point we hope to relicense to follow OpenSSL\u0027s new license and drop all those.\n\nI wanted to mention that in case it\u0027s a deal-breaker that we wouldn\u0027t include more header text. Contributors do retain copyright, but we\u0027re not carrying the change-log of that in every file.\n\n\nAlso, there aren\u0027t any tests. We would want runner/ tests before adding this although runner/ is a somewhat obscure lump of Go code so we could do that if you\u0027re not familiar with it.",
       "revId": "4658154d242e147f0818d7e167bfc4697ddfb435",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0db6faf_7ba39cb1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-02-16T19:02:06Z",
+      "side": 1,
+      "message": "(p.s. one thing that other projects have done is to write \"The Foo Authors\" in a common header and have an AUTHORS file at the top-level to which copyright holders are added. That is something that we could switch to doing.\n\nFor example: https://source.chromium.org/chromium/chromium/src/+/master:chrome/common/auto_start_linux.cc and https://source.chromium.org/chromium/chromium/src/+/master:AUTHORS.)",
+      "parentUuid": "6e5b59c3_1fc2ed1a",
+      "revId": "4658154d242e147f0818d7e167bfc4697ddfb435",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
