@@ -41,6 +41,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "641b6496_14115b9e",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 3582,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-18T16:52:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bec1300f_22ab2ea5",
+      "range": {
+        "startLine": 3582,
+        "startChar": 53,
+        "endLine": 3582,
+        "endChar": 69
+      },
+      "revId": "a0fccea27555c6d24a1cef6aa92ceb385c7fe8db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c404098d_f3ecb175",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-02-17T23:43:15Z",
       "side": 1,
       "message": "!ec_client_hello_buf_.empty()",
+      "range": {
+        "startLine": 171,
+        "startChar": 6,
+        "endLine": 171,
+        "endChar": 27
+      },
+      "revId": "a0fccea27555c6d24a1cef6aa92ceb385c7fe8db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "593f7190_7d915738",
+        "filename": "ssl/handshake.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-18T16:52:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c404098d_f3ecb175",
       "range": {
         "startLine": 171,
         "startChar": 6,
@@ -81,6 +129,41 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "879dfcff_cb01af1b",
+        "filename": "ssl/handshake.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-18T16:52:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4ab8a93_ceaf9dce",
+      "revId": "a0fccea27555c6d24a1cef6aa92ceb385c7fe8db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7a5f34f_bf5696e2",
+        "filename": "ssl/handshake.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-18T16:52:57Z",
+      "side": 1,
+      "message": "s/bb/cbb",
+      "revId": "a0fccea27555c6d24a1cef6aa92ceb385c7fe8db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ed46ac94_c8e4bf4d",
@@ -94,6 +177,24 @@
       "writtenOn": "2021-02-17T23:43:15Z",
       "side": 1,
       "message": "This abstraction can\u0027t be called so late in the function. The public API says that it is allowed to return a retry value (although it turns out it never will), yet retrying will behave incorrectly since we\u0027re rerun the logic about. That\u0027s why we always grab the SSLMessage at the very start of the function.\n\nInstead, let\u0027s fix this abstraction to only return success/failure. It\u0027s not actually possible to be retryable here since you\u0027ve already read in the ClientHello. So replace the ssl_hs_read_message return value with something like:\n\n  // The message has already been read, so this cannot fail.\n  OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);\n  return false;",
+      "revId": "a0fccea27555c6d24a1cef6aa92ceb385c7fe8db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12c23aec_bf9f71ad",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 665,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-18T16:52:57Z",
+      "side": 1,
+      "message": "OK, client_hello() [well, GetClientHello] now returns a bool.",
+      "parentUuid": "ed46ac94_c8e4bf4d",
       "revId": "a0fccea27555c6d24a1cef6aa92ceb385c7fe8db",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -115,6 +216,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f357af22_5c0733c4",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 797,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-18T16:52:57Z",
+      "side": 1,
+      "message": "OK, just returning ssl_hs_error now.",
+      "parentUuid": "49bdb7c2_4a1aa0d3",
+      "revId": "a0fccea27555c6d24a1cef6aa92ceb385c7fe8db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d975aab9_d8255266",
@@ -128,6 +247,24 @@
       "writtenOn": "2021-02-17T23:43:15Z",
       "side": 1,
       "message": "Let\u0027s match the existing code. I\u0027ve intentionally just left everything on SSL_HANDSHAKE public for now.\n\nThe problem is that SSL_HANDSHAKE has not been thought through w.r.t. C++ visibility yet. At the end of the day, the random functions that take an SSL_HANDSHAKE* should have access to the struct\u0027s internals. If we did this properly, they\u0027d all be methods on SSL_HANDSHAKE, at which point the public/private boundary will be very different. (Although it\u0027s important for the static linker to drop client/server code when unused, so that\u0027ll take some thinking.)\n\nThis ResizeSecrets business is a weird special case because I didn\u0027t want code to accidentally touch the full-sized buffers. But none of that applies to the fields you\u0027re adding.",
+      "revId": "a0fccea27555c6d24a1cef6aa92ceb385c7fe8db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12f1b0fb_e7437175",
+        "filename": "ssl/internal.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 1676,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-18T16:52:57Z",
+      "side": 1,
+      "message": "Making these fields public.",
+      "parentUuid": "d975aab9_d8255266",
       "revId": "a0fccea27555c6d24a1cef6aa92ceb385c7fe8db",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -149,6 +286,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb9dfe4d_aa82b1d4",
+        "filename": "ssl/internal.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 1682,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-18T16:52:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd217136_fdfd69c6",
+      "revId": "a0fccea27555c6d24a1cef6aa92ceb385c7fe8db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cb58e3d2_5a7165ce",
@@ -166,6 +321,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "460d930d_1eb33f48",
+        "filename": "ssl/internal.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 1690,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-18T16:52:57Z",
+      "side": 1,
+      "message": "Aha, because client_hello() calls ssl-\u003emethod-\u003eget_message(), its documentation should inherit its properties.\n\nI added a sentence here stating that it must only be called when the current message is a ClientHello.",
+      "parentUuid": "cb58e3d2_5a7165ce",
+      "revId": "a0fccea27555c6d24a1cef6aa92ceb385c7fe8db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "408b2207_2c379b02",
@@ -179,6 +352,24 @@
       "writtenOn": "2021-02-17T23:43:15Z",
       "side": 1,
       "message": "These should be UpperCamelCase per Google C++ style. (Only very simple getters and setters are unix_style(), and these are extremely care from that.) Or match existing code and have some free functions until we\u0027ve sorted out what to do here.",
+      "revId": "a0fccea27555c6d24a1cef6aa92ceb385c7fe8db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5691f8b_5967f73c",
+        "filename": "ssl/internal.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 1692,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-18T16:52:57Z",
+      "side": 1,
+      "message": "Done, just UpperCamelCasing them.",
+      "parentUuid": "408b2207_2c379b02",
       "revId": "a0fccea27555c6d24a1cef6aa92ceb385c7fe8db",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -206,6 +397,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "99aa0d5e_05a70a79",
+        "filename": "ssl/internal.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 1698,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-18T16:52:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9dac6873_ebde1900",
+      "range": {
+        "startLine": 1698,
+        "startChar": 30,
+        "endLine": 1698,
+        "endChar": 46
+      },
+      "revId": "a0fccea27555c6d24a1cef6aa92ceb385c7fe8db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0c2e96ad_85019687",
@@ -219,6 +434,24 @@
       "writtenOn": "2021-02-17T23:43:15Z",
       "side": 1,
       "message": "Same comment as in handshake_server.cc, this abstraction does not work. Any time you return an ssl_hs_wait_t, you need to be retry-safe, and this is not retry-safe. (Decrypting a second ClientHello is not idempotent. Even if it were, we would not do it at every state machine iteration.)",
+      "revId": "a0fccea27555c6d24a1cef6aa92ceb385c7fe8db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab8f385c_51ee3bfe",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 14
+      },
+      "lineNbr": 620,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-18T16:52:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c2e96ad_85019687",
       "revId": "a0fccea27555c6d24a1cef6aa92ceb385c7fe8db",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }

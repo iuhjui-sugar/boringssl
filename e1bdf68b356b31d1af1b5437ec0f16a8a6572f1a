@@ -125,6 +125,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "600534e0_d4655066",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 622,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-18T16:52:57Z",
+      "side": 1,
+      "message": "The answer is no, we won\u0027t support trial decryption :)",
+      "parentUuid": "bf2819ee_5c0839fe",
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "37d6ac33_02c6794b",
         "filename": "ssl/handshake_server.cc",
         "patchSetId": 8
