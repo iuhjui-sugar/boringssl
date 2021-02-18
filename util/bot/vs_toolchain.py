@@ -34,9 +34,8 @@ def SetEnvironmentForCPU(cpu):
     # Old-style paths were relative to the win_sdk\bin directory.
     json_relative_dir = os.path.join(sdk_dir, 'bin')
   else:
-    # New-style paths are relative to the toolchain directory, which is the
-    # parent of the SDK directory.
-    json_relative_dir = os.path.split(sdk_dir)[0]
+    # New-style paths are relative to the toolchain directory.
+    json_relative_dir = toolchain_data['path']
   for k in env:
     entries = [os.path.join(*([json_relative_dir] + e)) for e in env[k]]
     # clang-cl wants INCLUDE to be ;-separated even on non-Windows,
@@ -47,6 +46,7 @@ def SetEnvironmentForCPU(cpu):
   env['PATH'] = env['PATH'] + os.pathsep + os.environ['PATH']
 
   for k, v in env.items():
+    print("Setting env %s=%s" % (k, v))
     os.environ[k] = v
 
 
@@ -61,6 +61,14 @@ def FindDepotTools():
 def _GetDesiredVsToolchainHashes(version):
   """Load a list of SHA1s corresponding to the toolchains that we want installed
   to build with."""
+
+  # TODO(davidben): Remove this. This is just to make it easier to test whether
+  # the 2019 toolchain works for ARM64.
+  if version == '2017':
+    version = '2019'
+  if version == '2015':
+    version = '2017'
+
   if version == '2015':
     # Update 3 final with 10.0.15063.468 SDK and no vctip.exe.
     return ['f53e4598951162bad6330f7a167486c7ae5db1e5']
@@ -69,6 +77,10 @@ def _GetDesiredVsToolchainHashes(version):
     # Debuggers, and 10.0.17134 version of d3dcompiler_47.dll, with ARM64
     # libraries.
     return ['418b3076791776573a815eb298c8aa590307af63']
+  if version == '2019':
+    # VS 2019 16.61 with 10.0.19041 SDK, and 10.0.17134 version of
+    # d3dcompiler_47.dll, with ARM64 libraries and UWP support.
+    return ['20d5f2553f']
   raise Exception('Unsupported VS version %s' % version)
 
 
