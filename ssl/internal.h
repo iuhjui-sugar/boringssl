@@ -152,6 +152,7 @@
 #include <utility>
 
 #include <openssl/aead.h>
+#include <openssl/curve25519.h>
 #include <openssl/err.h>
 #include <openssl/lhash.h>
 #include <openssl/mem.h>
@@ -161,6 +162,7 @@
 
 #include "../crypto/err/internal.h"
 #include "../crypto/internal.h"
+#include "../crypto/hpke/internal.h"
 
 
 #if defined(OPENSSL_WINDOWS)
@@ -1554,6 +1556,80 @@ struct DC {
 // handshake.
 bool ssl_signing_with_dc(const SSL_HANDSHAKE *hs);
 
+class ECHConfig {
+ public:
+  struct ECHCipherSuite {
+    uint16_t kdf_id;
+    uint16_t aead_id;
+
+    bool operator==(const ECHCipherSuite &other) const {
+      return kdf_id == other.kdf_id && aead_id == other.aead_id;
+    }
+  };
+
+  ECHConfig() : secret_key_present_(false), config_id_sha256_present_(false) {}
+  ECHConfig(ECHConfig &&other) = default;
+  ~ECHConfig() = default;
+  ECHConfig &operator=(ECHConfig &&) = default;
+
+  ECHConfig(const ECHConfig &) = delete;
+  ECHConfig &operator=(const ECHConfig &) = delete;
+
+  // Parse reads one ECHConfig out of |raw|. Returns true on success and false
+  // on error. If the parse fails, |*out_incompatible_version| indicates whether
+  // the reason was version incompatibility.
+  bool Parse(bool *out_incompatible_version, Span<const uint8_t> raw);
+
+  Span<const uint8_t> raw() const { return raw_; }
+  Span<const uint8_t> public_name() const { return public_name_; }
+  Span<const uint8_t> public_key() const { return public_key_; }
+  uint16_t kem_id() const { return kem_id_; }
+  const Array<ECHCipherSuite> &cipher_suites() const { return cipher_suites_; }
+  uint16_t max_name_length() const { return max_name_length_; }
+  Span<const uint8_t> secret_key() const {
+    assert(secret_key_present_);
+    return MakeConstSpan(secret_key_, sizeof(secret_key_));
+  }
+  Span<const uint8_t> config_id_sha256() const {
+    assert(config_id_sha256_present_);
+    return MakeConstSpan(config_id_sha256_, sizeof(config_id_sha256_));
+  }
+
+  // set_secret_key stores a copy of the given |secret_key|, which must must be
+  // a valid X25519 private key. It returns true on success and false on error.
+  bool set_secret_key(Span<const uint8_t> secret_key) {
+    if (secret_key.size() != sizeof(secret_key_)) {
+      return false;
+    }
+    OPENSSL_memcpy(secret_key_, secret_key.data(), secret_key.size());
+    secret_key_present_ = true;
+    return true;
+  }
+
+ private:
+  // ConfigID computes the config_id for this ECHConfig. Returns true on success
+  // and false on error.
+  bool ConfigID(Span<uint8_t> out, const EVP_MD *md) const;
+
+  Array<uint8_t> raw_;
+  Span<const uint8_t> public_name_;
+  Span<const uint8_t> public_key_;
+  uint16_t kem_id_;
+  Array<ECHCipherSuite> cipher_suites_;
+  uint16_t max_name_length_;
+
+  // secret_key_ is the key corresponding to |public_key|. For clients, it must
+  // be empty (|secret_key_present_ == false|). For servers, it must be a valid
+  // X25519 private key.
+  uint8_t secret_key_[X25519_PRIVATE_KEY_LEN];
+
+  // config_id_ stores the precomputed result of |ConfigID| for
+  // |EVP_HPKE_HKDF_SHA256|.
+  uint8_t config_id_sha256_[8];
+
+  bool secret_key_present_ : 1;
+  bool config_id_sha256_present_ : 1;
+};
 
 struct SSL_HANDSHAKE {
   explicit SSL_HANDSHAKE(SSL *ssl);
@@ -1598,6 +1674,23 @@ struct SSL_HANDSHAKE {
 
  public:
   void ResizeSecrets(size_t hash_len);
+
+  // GetClientHello, on the server, returns either the normal ClientHello
+  // message or the ClientHelloInner if it has been set with
+  // |SetClientHelloInner|. This function should only be called when the current
+  // message is a ClientHello. It returns true on success and false on error.
+  //
+  // Note that fields of the returned |out_msg| and |out_client_hello| point
+  // into a handshake-owned buffer, so their lifetimes should not exceed this
+  // SSL_HANDSHAKE.
+  bool GetClientHello(SSLMessage *out_msg, SSL_CLIENT_HELLO *out_client_hello);
+
+  // SetClientHelloInner, on the server, copies the contents of
+  // |client_hello_inner| to a handshake-owned buffer. Future calls to
+  // |GetClientHello| will return the ClientHelloInner from
+  // |client_hello_inner|. This function returns true on success and false on
+  // error.
+  bool SetClientHelloInner(const SSL_CLIENT_HELLO *client_hello_inner);
 
   Span<uint8_t> secret() { return MakeSpan(secret_, hash_len_); }
   Span<uint8_t> early_traffic_secret() {
@@ -1651,6 +1744,10 @@ struct SSL_HANDSHAKE {
   // the first ClientHello.
   Array<uint8_t> ech_grease;
 
+  // ech_client_hello_buf_, on the server, contains the bytes of the
+  // reconstructed ClientHelloInner message.
+  Array<uint8_t> ech_client_hello_buf_;
+
   // key_share_bytes is the value of the previously sent KeyShare extension by
   // the client in TLS 1.3.
   Array<uint8_t> key_share_bytes;
@@ -1686,6 +1783,10 @@ struct SSL_HANDSHAKE {
   // compression algorithm for this client. It is only valid if
   // |cert_compression_negotiated| is true.
   uint16_t cert_compression_alg_id;
+
+  // ech_hpke_ctx, on the server, is the HPKE context used to decrypt the
+  // client's ECH payloads.
+  ScopedEVP_HPKE_CTX ech_hpke_ctx;
 
   // server_params, in a TLS 1.2 server, stores the ServerKeyExchange
   // parameters. It has client and server randoms prepended for signing
@@ -1728,6 +1829,15 @@ struct SSL_HANDSHAKE {
 
   // key_block is the record-layer key block for TLS 1.2 and earlier.
   Array<uint8_t> key_block;
+
+  // ech_accept, on the server, indicates whether the server should overwrite
+  // part of ServerHello.random with the ECH accept_confirmation value.
+  bool ech_accept : 1;
+
+  // ech_send_retry_configs, on the server, indicates whether the server should
+  // include an encrypted_client_hello extension containing valid ECHConfigs in
+  // the ServerHello.
+  bool ech_send_retry_configs : 1;
 
   // ech_present, on the server, indicates whether the ClientHello contained an
   // encrypted_client_hello extension.
@@ -1996,12 +2106,41 @@ bool ssl_log_secret(const SSL *ssl, const char *label,
 bool ssl_client_hello_init(const SSL *ssl, SSL_CLIENT_HELLO *out,
                            const SSLMessage &msg);
 
+// ssl_decode_client_hello_inner recovers the full ClientHelloInner from the
+// EncodedClientHelloInner |encoded_client_hello_inner| by replacing its
+// outer_extensions extension with the referenced extensions from the
+// ClientHelloOuter |client_hello_outer|. If successful, the recovered
+// ClientHelloInner can be retrieved by calling |SSL_HANDSHAKE::client_hello| on
+// |hs|. It returns true on success and false on failure.
+bool ssl_decode_client_hello_inner(
+    SSL_HANDSHAKE *hs, Span<const uint8_t> encoded_client_hello_inner,
+    const SSL_CLIENT_HELLO *client_hello_outer);
+
+// ssl_client_hello_decrypt attempts to decrypt the given |payload| into
+// |out_encoded_client_hello_inner|. The decrypted value should be an
+// EncodedClientHelloInner. It returns false if any fatal errors occur and true
+// otherwise, regardless of whether the decrypt was successful. If the decrypt
+// succeeds, |out_encoded_client_hello_inner| will be non-empty.
+bool ssl_client_hello_decrypt(EVP_HPKE_CTX *hpke_ctx,
+                              Array<uint8_t> *out_encoded_client_hello_inner,
+                              const SSL_CLIENT_HELLO *client_hello_outer,
+                              ECHConfig::ECHCipherSuite suite,
+                              Span<const uint8_t> config_id,
+                              Span<const uint8_t> enc,
+                              Span<const uint8_t> payload);
+
+// ssl_client_hello_write_for_ech serializes |client_hello| into |out|. It
+// serializes individual fields, starting with |client_hello->version| and
+// ignores the |client_hello->client_hello| field. It returns true on success
+// and false on failure.
+bool ssl_client_hello_write_for_ech(const SSL_CLIENT_HELLO *client_hello,
+                                    CBB *out);
+
 bool ssl_client_hello_get_extension(const SSL_CLIENT_HELLO *client_hello,
                                     CBS *out, uint16_t extension_type);
 
 bool ssl_client_cipher_list_contains_cipher(
     const SSL_CLIENT_HELLO *client_hello, uint16_t id);
-
 
 // GREASE.
 
@@ -3458,6 +3597,7 @@ struct ssl_st {
   uint32_t mode = 0;     // API behaviour
   uint32_t max_cert_list = 0;
   bssl::UniquePtr<char> hostname;
+  bssl::GrowableArray<bssl::ECHConfig> ech_configs;
 
   // quic_method is the method table corresponding to the QUIC hooks.
   const SSL_QUIC_METHOD *quic_method = nullptr;
@@ -3630,6 +3770,5 @@ struct ssl_session_st {
   ~ssl_session_st();
   friend void SSL_SESSION_free(SSL_SESSION *);
 };
-
 
 #endif  // OPENSSL_HEADER_SSL_INTERNAL_H

@@ -3573,6 +3573,37 @@ OPENSSL_EXPORT const char *SSL_early_data_reason_string(
 // as part of this connection.
 OPENSSL_EXPORT void SSL_set_enable_ech_grease(SSL *ssl, int enable);
 
+// SSL_add_ech_private_key adds an ECHConfig in |ech_config| and its
+// corresponding private key in |private_key| to |ssl|. It returns one on
+// success and zero on error. |ssl|, as a server, uses these keys to decrypt
+// incoming encrypted ClientHello messages.
+//
+// This function should be called successively to register each ECHConfig in
+// decreasing order of preference. This configuration must be completed before
+// the handshake starts.
+//
+// The configured ECHConfigs should also be advertised out-of-band via DNS (see
+// draft-ietf-dnsop-svcb-https). Before advertising an ECHConfig in DNS,
+// deployments should ensure all instances of the service are configured with
+// the ECHConfig and corresponding private key.
+//
+// If there is a mismatch, |ssl| will complete the handshake using the cleartext
+// ClientHello and send updated ECHConfigs to the client. The client will then
+// retry to recover, but with a latency penalty. This recovery flow depends on
+// the public name in the ECHConfig. Before advertising an ECHConfig in DNS,
+// deployments must ensure all instances of the service can present a valid
+// certificate for the public name.
+//
+// BoringSSL negotiates ECH before certificate selection callbacks are called,
+// including |SSL_CTX_set_select_certificate_cb|. If ECH is negotiated, the
+// reported |SSL_CLIENT_HELLO| structure and |SSL_get_servername| function will
+// transparently reflect the inner ClientHello. Callers should select parameters
+// based on these values to correctly handle ECH as well as the recovery flow.
+OPENSSL_EXPORT int SSL_add_ech_private_key(SSL *ssl, const uint8_t *ech_config,
+                                           size_t ech_config_len,
+                                           const uint8_t *private_key,
+                                           size_t private_key_len);
+
 
 // Alerts.
 //
