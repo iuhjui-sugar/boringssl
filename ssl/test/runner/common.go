@@ -130,6 +130,7 @@ const (
 	extensionDuplicate                  uint16 = 0xffff // not IANA assigned
 	extensionEncryptedClientHello       uint16 = 0xfe09 // not IANA assigned
 	extensionECHIsInner                 uint16 = 0xda09 // not IANA assigned
+	extensionECHOuterExtensions         uint16 = 0xfd00 // not IANA assigned
 )
 
 // TLS signaling cipher suite values
@@ -422,6 +423,18 @@ type Config struct {
 	// certificates unless InsecureSkipVerify is given. It is also included
 	// in the client's handshake to support virtual hosting.
 	ServerName string
+
+	// ClientECHConfigs is the list of ClientECHConfigs known by the client.
+	ClientECHConfigs []ECHConfig
+
+	// ECHCipherSuites is the list of HPKE cipher suites in decreasing order of
+	// preference. If empty, the default will be used.
+	ECHCipherSuites []HPKECipherSuite
+
+	// ECHOuterExtensions is the list of extensions that the client will
+	// compress with the ech_outer_extensions extension. If nil or empty slice,
+	// no extensions will be compressed.
+	ECHOuterExtensions []uint16
 
 	// ClientAuth determines the server's policy for
 	// TLS Client Authentication. The default is NoClientCert.
@@ -843,23 +856,39 @@ type ProtocolBugs struct {
 	// encrypted_client_hello extension containing a ClientECH structure.
 	ExpectClientECH bool
 
+	// ForceClientECHCipherSuite, when non-nil, causes the client to override
+	// the HPKE cipher suite of the selected ECHConfig.
+	ForceClientECHCipherSuite *HPKECipherSuite
+
 	// ExpectServerAcceptECH causes the client to expect that the server will
 	// indicate ECH acceptance in the ServerHello.
 	ExpectServerAcceptECH bool
+
+	// ExpectECHRetryConfigs, when non-nil, contains the expected bytes of the
+	// ServerHello's encrypted_client_hello extension.
+	ExpectECHRetryConfigs []byte
 
 	// SendECHRetryConfigs, if not empty, contains the ECH server's serialized
 	// retry configs.
 	SendECHRetryConfigs []byte
 
-	// SendEncryptedClientHello, when true, causes the client to send a
-	// placeholder encrypted_client_hello extension on the ClientHelloOuter
-	// message.
-	SendPlaceholderEncryptedClientHello bool
-
 	// SendECHIsInner, when non-nil, causes the client to send an ech_is_inner
 	// extension on the ClientHelloOuter message. When nil, the extension will
 	// be omitted.
 	SendECHIsInner []byte
+
+	// SendECHOuterExtensions, if not empty, causes the client to replace the
+	// contents of the ClientHelloInner's ech_outer_extensions extension. This
+	// does not affect the order of extensions on the ClientHelloOuter.
+	SendECHOuterExtensions []uint16
+
+	// OmitClientHelloInnerECHIsInner, when true, causes the client to omit the
+	// ech_is_inner extension on the ClientHelloInner message.
+	OmitClientHelloInnerECHIsInner bool
+
+	// TruncateClientECHEnc, when true, causes the client to send a shortened
+	// ClientECH.enc value in its encrypted_client_hello extension.
+	TruncateClientECHEnc bool
 
 	// SwapNPNAndALPN switches the relative order between NPN and ALPN in
 	// both ClientHello and ServerHello.
