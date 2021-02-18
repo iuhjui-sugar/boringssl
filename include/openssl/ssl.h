@@ -567,6 +567,16 @@ OPENSSL_EXPORT int SSL_get_error(const SSL *ssl, int ret_code);
 // See also |ssl_renegotiate_explicit|.
 #define SSL_ERROR_WANT_RENEGOTIATE 19
 
+// SSL_ERROR_ECH_NOT_ACCEPTED indicates that the server accepted the
+// ClientHelloOuter rather than the ClientHelloInner. The caller may try again
+// with the new ECHConfigs.
+#define SSL_ERROR_ECH_NOT_ACCEPTED 20
+
+// SSL_ERROR_ECH_NO_RETRY_CONFIGS indicates that the server accepted the
+// ClientHelloOuter rather than the ClientHelloInner, but there are no
+// compatible retry configs available.
+#define SSL_ERROR_ECH_NO_RETRY_CONFIGS 21
+
 // SSL_error_description returns a string representation of |err|, where |err|
 // is one of the |SSL_ERROR_*| constants returned by |SSL_get_error|, or NULL
 // if the value is unrecognized.
@@ -3589,6 +3599,27 @@ OPENSSL_EXPORT const char *SSL_early_data_reason_string(
 // as part of this connection.
 OPENSSL_EXPORT void SSL_set_enable_ech_grease(SSL *ssl, int enable);
 
+// SSL_set_ech_configs takes a sequence of ECHConfig structures serialized in
+// |ech_configs| and selects one to use for connections to the server. If none
+// of the ECHConfigs are suitable, the client will not attempt to send ECH, but
+// it may send ECH GREASE if it has been enabled with SSL_set_enable_ech_grease.
+// When retrying with new ECHConfigs, this function should be called on a new
+// SSL object with the results of |SSL_get_ech_retry_config_list|.
+//
+// TODO(dmcardle) rename with "list" convention and to indicate that this is
+// only for clients, not servers.
+OPENSSL_EXPORT int SSL_set_ech_configs(SSL *ssl, const uint8_t *ech_configs,
+                                       size_t ech_configs_len);
+
+// SSL_get_ech_retry_config_list, for a client, returns the list of ECHConfig
+// values sent by the server. If the server did not send back any retry configs,
+// it will write NULL to |*out_config_list| and zero to |*out_config_list_len|.
+// Note that the pointer returned in |out_config_list| has the same lifetime as
+// |ssl|.
+OPENSSL_EXPORT void SSL_get_ech_retry_config_list(const SSL *ssl,
+                                                  const uint8_t **out_config_list,
+                                                  size_t *out_config_list_len);
+
 // SSL_ECH_SERVER_CONFIG_LIST_new returns a newly-allocated
 // |SSL_ECH_SERVER_CONFIG_LIST| or NULL on error.
 OPENSSL_EXPORT SSL_ECH_SERVER_CONFIG_LIST *SSL_ECH_SERVER_CONFIG_LIST_new(void);
@@ -5368,6 +5399,9 @@ BSSL_NAMESPACE_END
 #define SSL_R_UNSUPPORTED_ECH_SERVER_CONFIG 312
 #define SSL_R_ECH_SERVER_WOULD_HAVE_NO_RETRY_CONFIGS 313
 #define SSL_R_INVALID_CLIENT_HELLO_INNER 314
+#define SSL_R_ECH_CONFIG_NO_COMPATIBLE_CIPHER_SUITE 315
+#define SSL_R_ECH_CONFIG_UNSUPPORTED_EXTENSION 316
+#define SSL_R_NO_SUITABLE_ECH_CONFIG 317
 #define SSL_R_SSLV3_ALERT_CLOSE_NOTIFY 1000
 #define SSL_R_SSLV3_ALERT_UNEXPECTED_MESSAGE 1010
 #define SSL_R_SSLV3_ALERT_BAD_RECORD_MAC 1020

@@ -206,6 +206,9 @@ const Flag<std::string> kBase64Flags[] = {
     {"-quic-transport-params", &TestConfig::quic_transport_params},
     {"-expect-quic-transport-params",
      &TestConfig::expect_quic_transport_params},
+    {"-ech-configs", &TestConfig::ech_configs},
+    {"-expect-ech-retry-config-list",
+     &TestConfig::expect_ech_retry_config_list},
 };
 
 const Flag<int> kIntFlags[] = {
@@ -1636,6 +1639,13 @@ bssl::UniquePtr<SSL> TestConfig::NewSSL(
             "-ech-server-config, -ech-server-key, and -ech-is-retry-config "
             "flags must match.\n");
     return nullptr;
+  }
+  if (!ech_configs.empty()) {
+    if (!SSL_set_ech_configs(
+            ssl.get(), reinterpret_cast<const uint8_t *>(ech_configs.data()),
+            ech_configs.size())) {
+      return nullptr;
+    }
   }
   if (!ech_server_configs.empty()) {
     bssl::UniquePtr<SSL_ECH_SERVER_CONFIG_LIST> config_list(

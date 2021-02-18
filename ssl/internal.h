@@ -1510,11 +1510,70 @@ bool ssl_client_hello_decrypt(
     uint16_t kdf_id, uint16_t aead_id, Span<const uint8_t> config_id,
     Span<const uint8_t> enc, Span<const uint8_t> payload);
 
+class ECHClientConfig {
+ public:
+  static constexpr bool kAllowUniquePtr = true;
+
+  ECHClientConfig() = default;
+  ECHClientConfig(ECHClientConfig &&other) = default;
+  ~ECHClientConfig() = default;
+  ECHClientConfig &operator=(ECHClientConfig &&) = default;
+
+  // Init parses one ECHConfig from |reader|. It returns true on success and
+  // false on error.
+  //
+  // First, it attempts a top-level parse of the ECHConfig to determine its
+  // version. If this step fails, it errors. If the step succeeds, but the
+  // version is unsupported, it returns success, but sets |*out_suitable| to
+  // false.
+  //
+  // If the version is supported, it attempts to parse the ECHConfig's contents.
+  // If this step fails, it errors. If the KEM is incompatible or all of the
+  // cipher suites are incompatible, it returns success, but sets
+  // |*out_suitable| to false.
+  bool Init(CBS *reader, bool *out_suitable);
+
+  Span<const uint8_t> raw() const { return raw_; }
+  Span<const uint8_t> public_name() const { return public_name_; }
+  Span<const uint8_t> public_key() const { return public_key_; }
+  uint16_t max_name_length() const { return max_name_length_; }
+  Span<const uint8_t> config_id_sha256() const {
+    assert(initialized_);
+    return MakeConstSpan(config_id_sha256_, sizeof(config_id_sha256_));
+  }
+  uint16_t chosen_kdf_id() const { return kdf_id_; }
+  uint16_t chosen_aead_id() const { return aead_id_; }
+
+ private:
+  // ConfigID computes the config_id for this ECHConfig. Returns true on success
+  // and false on error.
+  bool ConfigID(Span<uint8_t> out, const EVP_MD *md) const;
+
+  Array<uint8_t> raw_;
+  Span<const uint8_t> public_name_;
+  Span<const uint8_t> public_key_;
+  uint16_t max_name_length_;
+  uint16_t kdf_id_;
+  uint16_t aead_id_;
+
+  // config_id_ stores the precomputed result of |ConfigID| for
+  // |EVP_HPKE_HKDF_SHA256|.
+  uint8_t config_id_sha256_[8];
+
+  bool initialized_ = false;
+};
+
+bool ssl_encrypt_client_hello(SSL_HANDSHAKE *hs,
+                              Array<uint8_t> *out_client_hello_outer,
+                              const ECHClientConfig *config,
+                              Span<const uint8_t> client_hello_inner);
+
+
 // tls13_ech_accept_confirmation computes the server's ECH acceptance signal,
 // writing it to |out|. It returns true on success, and false on failure.
-bool tls13_ech_accept_confirmation(
-    SSL_HANDSHAKE *hs, bssl::Span<uint8_t> out,
-    bssl::Span<const uint8_t> server_hello_ech_conf);
+bool tls13_ech_accept_confirmation(SSL_HANDSHAKE *hs, bssl::Span<uint8_t> out,
+                                   bool ignore_prior_messages,
+                                   bssl::Span<const uint8_t> messages);
 
 
 // Delegated credentials.
@@ -1754,6 +1813,9 @@ struct SSL_HANDSHAKE {
   // ech_client_hello_buf, on the server, contains the bytes of the
   // reconstructed ClientHelloInner message.
   Array<uint8_t> ech_client_hello_buf;
+  Array<uint8_t> ech_previous_client_hello_buf;
+
+  Array<uint8_t> client_ech;
 
   // key_share_bytes is the value of the previously sent KeyShare extension by
   // the client in TLS 1.3.
@@ -1843,7 +1905,8 @@ struct SSL_HANDSHAKE {
   Array<uint8_t> key_block;
 
   // ech_accept, on the server, indicates whether the server should overwrite
-  // part of ServerHello.random with the ECH accept_confirmation value.
+  // part of ServerHello.random with the ECH accept_confirmation value. On the
+  // client, it indicates whether the server accepted ClientHelloInner.
   bool ech_accept : 1;
 
   // ech_present, on the server, indicates whether the ClientHello contained an
@@ -1853,6 +1916,10 @@ struct SSL_HANDSHAKE {
   // ech_is_inner_present, on the server, indicates whether the ClientHello
   // contained an ech_is_inner extension.
   bool ech_is_inner_present : 1;
+
+  // client_sent_ech, on the client, indicates whether the client sent a
+  // non-GREASE ECH to the server.
+  bool client_sent_ech : 1;
 
   // scts_requested is true if the SCT extension is in the ClientHello.
   bool scts_requested : 1;
@@ -3129,8 +3196,11 @@ bool tls1_set_curves_list(Array<uint16_t> *out_group_ids, const char *curves);
 // ssl_add_clienthello_tlsext writes ClientHello extensions to |out|. It returns
 // true on success and false on failure. The |header_len| argument is the length
 // of the ClientHello written so far and is used to compute the padding length.
-// (It does not include the record header.)
-bool ssl_add_clienthello_tlsext(SSL_HANDSHAKE *hs, CBB *out, size_t header_len);
+// (It does not include the record header.) The |is_client_hello_outer| argument
+// is true when the the caller is building a ClientHelloOuter message for ECH;
+// otherwise, it is false.
+bool ssl_add_clienthello_tlsext(SSL_HANDSHAKE *hs, CBB *out, size_t header_len,
+                                bool is_client_hello_outer);
 
 bool ssl_add_serverhello_tlsext(SSL_HANDSHAKE *hs, CBB *out);
 bool ssl_parse_clienthello_tlsext(SSL_HANDSHAKE *hs,
@@ -3526,6 +3596,12 @@ struct ssl_st {
   // handshake completes.  (If you have the |SSL_HANDSHAKE| object at hand, use
   // that instead, and skip the null check.)
   bssl::UniquePtr<bssl::SSL_CONFIG> config;
+
+  bssl::UniquePtr<bssl::ECHClientConfig> ech_config;
+
+  // ech_retry_configs, on the client, contains the retry_configs sent back by
+  // the server after it failed to decrypt the client's ECH.
+  bssl::Array<uint8_t> ech_retry_configs;
 
   // version is the protocol version.
   uint16_t version = 0;

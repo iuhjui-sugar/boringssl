@@ -17240,6 +17240,92 @@ func addEncryptedClientHelloTests() {
 			expectedLocalError: "remote error: illegal parameter",
 			expectedError:      ":UNEXPECTED_EXTENSION:",
 		})
+
+		// Test the client's ability to send ECH. The server decrypts and
+		// accepts the ClientHelloInner.
+		testCases = append(testCases, testCase{
+			testType: clientTest,
+			protocol: protocol,
+			name:     prefix + "ECH-Client",
+			config: Config{
+				MinVersion: VersionTLS13,
+				MaxVersion: VersionTLS13,
+				ServerECHConfigs: []ServerECHConfig{
+					{
+						ECHConfig: *publicECHConfig,
+						SecretKey: secretKey,
+					},
+				},
+				Bugs: ProtocolBugs{
+					ExpectServerName: "secret.example",
+				},
+			},
+			flags: []string{
+				"-ech-configs", base64.StdEncoding.EncodeToString(MarshalECHConfigList(publicECHConfig)),
+				"-host-name", "secret.example",
+			},
+			expectations: connectionExpectations{
+				echAccepted: true,
+			},
+		})
+
+		// Test the client's behavior when it sends ECH, but the server accepts
+		// the ClientHelloOuter and responds with retry configs.
+		testCases = append(testCases, testCase{
+			testType: clientTest,
+			protocol: protocol,
+			name:     prefix + "ECH-Client-RetryConfigs",
+			config: Config{
+				MinVersion: VersionTLS13,
+				MaxVersion: VersionTLS13,
+				ServerECHConfigs: []ServerECHConfig{
+					{
+						ECHConfig: *publicECHConfig1,
+						SecretKey: secretKey1,
+					},
+				},
+				Bugs: ProtocolBugs{
+					ExpectServerName:    "public.example",
+					SendECHRetryConfigs: MarshalECHConfigList(publicECHConfig1),
+				},
+			},
+			flags: []string{
+				"-ech-configs", base64.StdEncoding.EncodeToString(MarshalECHConfigList(publicECHConfig)),
+				"-host-name", "secret.example",
+				"-expect-ech-retry-config-list", base64.StdEncoding.EncodeToString(MarshalECHConfigList(publicECHConfig1)),
+			},
+		})
+
+		// Test the client can recover from the server's HRR, sending a second
+		// ECH where the ClientHelloInner is accepted.
+		testCases = append(testCases, testCase{
+			testType: clientTest,
+			protocol: protocol,
+			name:     prefix + "ECH-Client-HRR",
+			config: Config{
+				MinVersion:       VersionTLS13,
+				MaxVersion:       VersionTLS13,
+				CurvePreferences: []CurveID{CurveP384},
+				ServerECHConfigs: []ServerECHConfig{
+					{
+						ECHConfig: *publicECHConfig,
+						SecretKey: secretKey,
+					},
+				},
+				Bugs: ProtocolBugs{
+					ExpectServerName:    "secret.example",
+					SendECHRetryConfigs: MarshalECHConfigList(publicECHConfig),
+				},
+			},
+			resumeSession: true,
+			flags: []string{
+				"-ech-configs", base64.StdEncoding.EncodeToString(MarshalECHConfigList(publicECHConfig)),
+				"-host-name", "secret.example",
+			},
+			expectations: connectionExpectations{
+				echAccepted: true,
+			},
+		})
 	}
 }
 

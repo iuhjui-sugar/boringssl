@@ -507,17 +507,25 @@ bool tls13_verify_psk_binder(SSL_HANDSHAKE *hs, SSL_SESSION *session,
   return true;
 }
 
-bool tls13_ech_accept_confirmation(
-    SSL_HANDSHAKE *hs, bssl::Span<uint8_t> out,
-    bssl::Span<const uint8_t> server_hello_ech_conf) {
+bool tls13_ech_accept_confirmation(SSL_HANDSHAKE *hs, bssl::Span<uint8_t> out,
+                                   bool ignore_prior_messages,
+                                   bssl::Span<const uint8_t> messages) {
   // Compute the hash of the transcript concatenated with
   // |server_hello_ech_conf| without modifying |hs->transcript|.
+  ScopedEVP_MD_CTX ctx;
+
+  if (ignore_prior_messages) {
+    if (!EVP_DigestInit(ctx.get(), hs->transcript.Digest())) {
+      return false;
+    }
+  } else if (!hs->transcript.CopyToHashContext(ctx.get(),
+                                               hs->transcript.Digest())) {
+    return false;
+  }
+
   uint8_t context_hash[EVP_MAX_MD_SIZE];
   unsigned context_hash_len;
-  ScopedEVP_MD_CTX ctx;
-  if (!hs->transcript.CopyToHashContext(ctx.get(), hs->transcript.Digest()) ||
-      !EVP_DigestUpdate(ctx.get(), server_hello_ech_conf.data(),
-                        server_hello_ech_conf.size()) ||
+  if (!EVP_DigestUpdate(ctx.get(), messages.data(), messages.size()) ||
       !EVP_DigestFinal_ex(ctx.get(), context_hash, &context_hash_len)) {
     return false;
   }

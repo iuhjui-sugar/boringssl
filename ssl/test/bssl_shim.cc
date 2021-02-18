@@ -56,6 +56,7 @@ OPENSSL_MSVC_PRAGMA(comment(lib, "Ws2_32.lib"))
 #include <string>
 #include <vector>
 
+#include "../../crypto/test/test_util.h"
 #include "../../crypto/internal.h"
 #include "../internal.h"
 #include "async_bio.h"
@@ -1092,6 +1093,19 @@ static bool DoExchange(bssl::UniquePtr<SSL_SESSION> *out_session,
 
   if (out_session) {
     *out_session = std::move(GetTestState(ssl)->new_session);
+  }
+
+  if (!config->is_server) {
+    const uint8_t *ech_retry;
+    size_t ech_retry_len;
+    SSL_get_ech_retry_config_list(ssl, &ech_retry, &ech_retry_len);
+    if (config->expect_ech_retry_config_list !=
+        std::string(reinterpret_cast<const char *>(ech_retry), ech_retry_len)) {
+      fprintf(stderr, "Unexpected ECH retry config list\n");
+      hexdump(stderr, "Expected: ", config->expect_ech_retry_config_list.data(),
+              config->expect_ech_retry_config_list.size());
+      hexdump(stderr, "Received: ", ech_retry, ech_retry_len - 1);
+    }
   }
 
   ret = DoShutdown(ssl);

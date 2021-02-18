@@ -737,6 +737,7 @@ static enum ssl_hs_wait_t do_send_server_hello(SSL_HANDSHAKE *hs) {
     // record layer header.
     if (!tls13_ech_accept_confirmation(
             hs, random_suffix,
+            /*ignore_prior_messages=*/false,
             bssl::MakeConstSpan(CBB_data(cbb.get()), CBB_len(cbb.get())))) {
       return ssl_hs_error;
     }
