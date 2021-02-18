@@ -29,6 +29,7 @@
 #include <openssl/bio.h>
 #include <openssl/cipher.h>
 #include <openssl/crypto.h>
+#include <openssl/curve25519.h>
 #include <openssl/err.h>
 #include <openssl/hmac.h>
 #include <openssl/pem.h>
@@ -1438,6 +1439,152 @@ TEST(SSLTest, AddClientCA) {
   EXPECT_EQ(0, X509_NAME_cmp(sk_X509_NAME_value(list, 0), name1));
   EXPECT_EQ(0, X509_NAME_cmp(sk_X509_NAME_value(list, 1), name2));
   EXPECT_EQ(0, X509_NAME_cmp(sk_X509_NAME_value(list, 2), name1));
+}
+
+// kECHConfig contains a serialized ECHConfig value.
+static const uint8_t kECHConfig[] = {
+    // version
+    0xfe, 0x09,
+    // length
+    0x00, 0x42,
+    // contents.public_name
+    0x00, 0x0e, 0x70, 0x75, 0x62, 0x6c, 0x69, 0x63, 0x2e, 0x65, 0x78, 0x61,
+    0x6d, 0x70, 0x6c, 0x65,
+    // contents.public_key
+    0x00, 0x20, 0xa6, 0x9a, 0x41, 0x48, 0x5d, 0x32, 0x96, 0xa4, 0xe0, 0xc3,
+    0x6a, 0xee, 0xf6, 0x63, 0x0f, 0x59, 0x32, 0x6f, 0xdc, 0xff, 0x81, 0x29,
+    0x59, 0xa5, 0x85, 0xd3, 0x9b, 0x3b, 0xde, 0x98, 0x55, 0x5c,
+    // contents.kem_id
+    0x00, 0x20,
+    // contents.cipher_suites
+    0x00, 0x08, 0x00, 0x01, 0x00, 0x01, 0x00, 0x01, 0x00, 0x03,
+    // contents.maximum_name_length
+    0x00, 0x10,
+    // contents.extensions
+    0x00, 0x00};
+
+// kECHConfigPrivateKey is a valid X25519 private key that corresponds to the
+// public value encoded in |kECHConfig|.
+const uint8_t kECHConfigPrivateKey[X25519_PRIVATE_KEY_LEN] = {
+    0xbc, 0xb5, 0x51, 0x29, 0x31, 0x10, 0x30, 0xc9, 0xed, 0x26, 0xde,
+    0xd4, 0xb3, 0xdf, 0x3a, 0xce, 0x06, 0x8a, 0xee, 0x17, 0xab, 0xce,
+    0xd7, 0xdb, 0xf3, 0x11, 0xe5, 0xa8, 0xf3, 0xb1, 0x8e, 0x24};
+
+TEST(SSLTest, ECHServerConfigList) {
+  // kWrongPrivateKey is an unrelated, but valid X25519 private key.
+  const uint8_t kWrongPrivateKey[X25519_PRIVATE_KEY_LEN] = {
+      0xbb, 0xfe, 0x08, 0xf7, 0x31, 0xde, 0x9c, 0x8a, 0xf2, 0x06, 0x4a,
+      0x18, 0xd7, 0x8b, 0x79, 0x31, 0xe2, 0x53, 0xdd, 0x63, 0x8f, 0x58,
+      0x42, 0xda, 0x21, 0x0e, 0x61, 0x97, 0x29, 0xcc, 0x17, 0x71};
+
+  bssl::UniquePtr<SSL_CTX> ctx(SSL_CTX_new(TLS_method()));
+  ASSERT_TRUE(ctx);
+
+  bssl::UniquePtr<SSL_ECH_SERVER_CONFIG_LIST> config_list(
+      SSL_ECH_SERVER_CONFIG_LIST_new());
+
+  // Adding an ECHConfig with the wrong private key is an error.
+  ASSERT_FALSE(SSL_ECH_SERVER_CONFIG_LIST_add(
+      config_list.get(), /*is_retry_config=*/1, kECHConfig, sizeof(kECHConfig),
+      kWrongPrivateKey, sizeof(kWrongPrivateKey)));
+  uint32_t err = ERR_get_error();
+  EXPECT_EQ(ERR_LIB_SSL, ERR_GET_LIB(err));
+  EXPECT_EQ(SSL_R_ECH_SERVER_CONFIG_AND_PRIVATE_KEY_MISMATCH,
+            ERR_GET_REASON(err));
+  ERR_clear_error();
+
+  // Adding an ECHConfig with the matching private key succeeds.
+  ASSERT_TRUE(SSL_ECH_SERVER_CONFIG_LIST_add(
+      config_list.get(), /*is_retry_config=*/1, kECHConfig, sizeof(kECHConfig),
+      kECHConfigPrivateKey, sizeof(kECHConfigPrivateKey)));
+
+  ASSERT_TRUE(
+      SSL_CTX_set1_ech_server_config_list(ctx.get(), config_list.get()));
+
+  // Build a new config list and replace the old one on |ctx|.
+  bssl::UniquePtr<SSL_ECH_SERVER_CONFIG_LIST> next_config_list(
+      SSL_ECH_SERVER_CONFIG_LIST_new());
+  ASSERT_TRUE(SSL_ECH_SERVER_CONFIG_LIST_add(
+      next_config_list.get(), /*is_retry_config=*/1, kECHConfig,
+      sizeof(kECHConfig), kECHConfigPrivateKey, sizeof(kECHConfigPrivateKey)));
+  ASSERT_TRUE(
+      SSL_CTX_set1_ech_server_config_list(ctx.get(), next_config_list.get()));
+}
+
+TEST(SSLTest, ECHServerConfigListTruncatedPublicKey) {
+  // ech_config contains a serialized ECHConfig value. Its public key has been
+  // truncated to produce an error in |SSL_ECH_SERVER_CONFIG_LIST_add|.
+  static const uint8_t ech_config[] = {
+      // version
+      0xfe, 0x09,
+      // length
+      0x00, 0x41,
+      // contents.public_name
+      0x00, 0x0e, 0x70, 0x75, 0x62, 0x6c, 0x69, 0x63, 0x2e, 0x65, 0x78, 0x61,
+      0x6d, 0x70, 0x6c, 0x65,
+      // contents.public_key
+      0x00, 0x1f, 0xa6, 0x9a, 0x41, 0x48, 0x5d, 0x32, 0x96, 0xa4, 0xe0, 0xc3,
+      0x6a, 0xee, 0xf6, 0x63, 0x0f, 0x59, 0x32, 0x6f, 0xdc, 0xff, 0x81, 0x29,
+      0x59, 0xa5, 0x85, 0xd3, 0x9b, 0x3b, 0xde, 0x98, 0x55,
+      // contents.kem_id
+      0x00, 0x20,
+      // contents.cipher_suites
+      0x00, 0x08, 0x00, 0x01, 0x00, 0x01, 0x00, 0x01, 0x00, 0x03,
+      // contents.maximum_name_length
+      0x00, 0x10,
+      // contents.extensions
+      0x00, 0x00};
+
+  // private_key is a valid X25519 private key, but it does not (and cannot)
+  // correspond to the truncated public value in |ech_config|.
+  static const uint8_t private_key[X25519_PRIVATE_KEY_LEN] = {
+      0xbc, 0xb5, 0x51, 0x29, 0x31, 0x10, 0x30, 0xc9, 0xed, 0x26, 0xde,
+      0xd4, 0xb3, 0xdf, 0x3a, 0xce, 0x06, 0x8a, 0xee, 0x17, 0xab, 0xce,
+      0xd7, 0xdb, 0xf3, 0x11, 0xe5, 0xa8, 0xf3, 0xb1, 0x8e, 0x24};
+
+  bssl::UniquePtr<SSL_CTX> ctx(SSL_CTX_new(TLS_method()));
+  ASSERT_TRUE(ctx);
+
+  bssl::UniquePtr<SSL_ECH_SERVER_CONFIG_LIST> config_list(
+      SSL_ECH_SERVER_CONFIG_LIST_new());
+  ASSERT_FALSE(SSL_ECH_SERVER_CONFIG_LIST_add(
+      config_list.get(), /*is_retry_config=*/1, ech_config, sizeof(ech_config),
+      private_key, sizeof(private_key)));
+
+  uint32_t err = ERR_peek_error();
+  EXPECT_EQ(ERR_LIB_SSL, ERR_GET_LIB(err));
+  EXPECT_EQ(SSL_R_UNSUPPORTED_ECH_SERVER_CONFIG, ERR_GET_REASON(err));
+  ERR_clear_error();
+}
+
+// Test that |SSL_CTX_set1_ech_server_config_list| fails when the config list
+// has no retry configs.
+TEST(SSLTest, ECHServerConfigsWithoutRetryConfigs) {
+  bssl::UniquePtr<SSL_CTX> ctx(SSL_CTX_new(TLS_method()));
+  ASSERT_TRUE(ctx);
+
+  bssl::UniquePtr<SSL_ECH_SERVER_CONFIG_LIST> config_list(
+      SSL_ECH_SERVER_CONFIG_LIST_new());
+
+  // Adding an ECHConfig with the matching private key succeeds.
+  ASSERT_TRUE(SSL_ECH_SERVER_CONFIG_LIST_add(
+      config_list.get(), /*is_retry_config=*/0, kECHConfig, sizeof(kECHConfig),
+      kECHConfigPrivateKey, sizeof(kECHConfigPrivateKey)));
+
+  ASSERT_FALSE(
+      SSL_CTX_set1_ech_server_config_list(ctx.get(), config_list.get()));
+  uint32_t err = ERR_peek_error();
+  EXPECT_EQ(ERR_LIB_SSL, ERR_GET_LIB(err));
+  EXPECT_EQ(SSL_R_ECH_SERVER_WOULD_HAVE_NO_RETRY_CONFIGS, ERR_GET_REASON(err));
+  ERR_clear_error();
+
+  // Add the same ECHConfig to the list, but this time mark it as a retry
+  // config.
+  ASSERT_TRUE(SSL_ECH_SERVER_CONFIG_LIST_add(
+      config_list.get(), /*is_retry_config=*/1, kECHConfig, sizeof(kECHConfig),
+      kECHConfigPrivateKey, sizeof(kECHConfigPrivateKey)));
+  ASSERT_TRUE(
+      SSL_CTX_set1_ech_server_config_list(ctx.get(), config_list.get()));
 }
 
 static void AppendSession(SSL_SESSION *session, void *arg) {
