@@ -245,6 +245,11 @@ const Flag<std::vector<std::pair<std::string, std::string>>>
         {"-application-settings", &TestConfig::application_settings},
 };
 
+const Flag<std::vector<std::tuple<std::string, std::string, bool>>>
+    kBase64Base64BoolTupleFlags[] = {
+        {"-ech-server-config", &TestConfig::ech_server_configs},
+};
+
 bool ParseFlag(char *flag, int argc, char **argv, int *i,
                bool skip, TestConfig *out_config) {
   bool *bool_field = FindField(out_config, kBoolFlags, flag);
@@ -347,14 +352,72 @@ bool ParseFlag(char *flag, int argc, char **argv, int *i,
     }
     const char *comma = strchr(argv[*i], ',');
     if (!comma) {
-      fprintf(stderr,
-              "Parameter should be a pair of comma-separated strings.\n");
+      fprintf(
+          stderr,
+          "Parameter should be a comma-separated triple composed of two base64 "
+          "strings followed by \"true\" or \"false\".\n");
       return false;
     }
     // Each instance of the flag adds to the list.
     if (!skip) {
       string_pair_vector_field->push_back(std::make_pair(
           std::string(argv[*i], comma - argv[*i]), std::string(comma + 1)));
+    }
+    return true;
+  }
+
+  std::vector<std::tuple<std::string, std::string, bool>>
+      *base64_base64_bool_tuple_vector_field =
+          FindField(out_config, kBase64Base64BoolTupleFlags, flag);
+  if (base64_base64_bool_tuple_vector_field) {
+    *i = *i + 1;
+    if (*i >= argc) {
+      fprintf(stderr, "Missing parameter.\n");
+      return false;
+    }
+    const char *comma = strchr(argv[*i], ',');
+    if (!comma) {
+      fprintf(
+          stderr,
+          "Parameter should be a pair of comma-separated base64 strings.\n");
+      return false;
+    }
+    const char *comma2 = strchr(comma + 1, ',');
+    if (!comma2) {
+      fprintf(
+          stderr,
+          "Parameter should be a pair of comma-separated base64 strings.\n");
+      return false;
+    }
+    std::string bool_str = std::string(comma2 + 1);
+    if (bool_str != "true" && bool_str != "false") {
+      fprintf(stderr, "Boolean must be 'true' or 'false'. Got: %s\n",
+              bool_str.c_str());
+      return false;
+    }
+    auto tuple = std::make_tuple(std::string(argv[*i], comma - argv[*i]),
+                                 std::string(comma + 1, comma2 - (comma + 1)),
+                                 bool_str == "true");
+    // Decode each of the base64 strings in |tuple|.
+    for (std::string *base64 : {&std::get<0>(tuple), &std::get<1>(tuple)}) {
+      size_t len;
+      if (!EVP_DecodedLength(&len, base64->size())) {
+        fprintf(stderr, "Invalid base64: %s.\n", base64->c_str());
+        return false;
+      }
+      std::unique_ptr<uint8_t[]> decoded(new uint8_t[len]);
+      if (!EVP_DecodeBase64(decoded.get(), &len, len,
+                            reinterpret_cast<const uint8_t *>(base64->c_str()),
+                            base64->size())) {
+        fprintf(stderr, "Invalid base64: %s.\n", base64->c_str());
+        return false;
+      }
+      base64->assign(reinterpret_cast<char *>(decoded.get()), len);
+    }
+
+    // Each instance of the flag adds to the list.
+    if (!skip) {
+      base64_base64_bool_tuple_vector_field->push_back(tuple);
     }
     return true;
   }
@@ -1595,6 +1658,31 @@ bssl::UniquePtr<SSL> TestConfig::NewSSL(
   if (enable_ech_grease) {
     SSL_set_enable_ech_grease(ssl.get(), 1);
   }
+
+  if (!ech_server_configs.empty()) {
+    bssl::UniquePtr<SSL_ECH_SERVER_CONFIG_LIST> config_list(
+        SSL_ECH_SERVER_CONFIG_LIST_new());
+
+    for (const auto &tuple : ech_server_configs) {
+      const std::string &ech_config = std::get<0>(tuple);
+      const std::string &ech_private_key = std::get<1>(tuple);
+      const bool is_retry_config = std::get<2>(tuple);
+
+      if (!SSL_ECH_SERVER_CONFIG_LIST_add(
+              config_list.get(), is_retry_config,
+              reinterpret_cast<const uint8_t *>(ech_config.data()),
+              ech_config.size(),
+              reinterpret_cast<const uint8_t *>(ech_private_key.data()),
+              ech_private_key.size())) {
+        return nullptr;
+      }
+    }
+
+    if (!SSL_CTX_set1_ech_server_config_list(ssl_ctx, config_list.get())) {
+      return nullptr;
+    }
+  }
+
   if (!send_channel_id.empty()) {
     SSL_set_tls_channel_id_enabled(ssl.get(), 1);
     if (!async) {
