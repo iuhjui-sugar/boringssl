@@ -154,6 +154,8 @@
 #include <openssl/bn.h>
 #include <openssl/bytestring.h>
 #include <openssl/cipher.h>
+#include <openssl/curve25519.h>
+#include <openssl/digest.h>
 #include <openssl/ec.h>
 #include <openssl/ecdsa.h>
 #include <openssl/err.h>
@@ -167,6 +169,8 @@
 
 #include "internal.h"
 #include "../crypto/internal.h"
+#include "../crypto/hpke/internal.h"
+#include "openssl/base.h"
 
 
 BSSL_NAMESPACE_BEGIN
@@ -581,9 +585,139 @@ static enum ssl_hs_wait_t do_read_client_hello(SSL_HANDSHAKE *hs) {
     return ssl_hs_handoff;
   }
 
+  // If the ClientHello contains an encrypted_client_hello extension (and no
+  // ech_is_inner extension), act as a client-facing server and attempt to
+  // decrypt the ClientHelloInner.
+  CBS ech_body;
+  if (ssl_client_hello_get_extension(&client_hello, &ech_body,
+                                      TLSEXT_TYPE_encrypted_client_hello)) {
+    CBS unused;
+    if (ssl_client_hello_get_extension(&client_hello, &unused,
+                                       TLSEXT_TYPE_ech_is_inner)) {
+      OPENSSL_PUT_ERROR(SSL, SSL_R_UNEXPECTED_EXTENSION);
+      ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);
+      return ssl_hs_error;
+    }
+
+    // Parse a ClientECH out of the extension body.
+    ECHConfig::ECHCipherSuite suite;
+    CBS config_id, enc, payload;
+    if (!CBS_get_u16(&ech_body, &suite.kdf_id) ||
+        !CBS_get_u16(&ech_body, &suite.aead_id) ||
+        !CBS_get_u8_length_prefixed(&ech_body, &config_id) ||
+        !CBS_get_u16_length_prefixed(&ech_body, &enc) ||
+        !CBS_get_u16_length_prefixed(&ech_body, &payload) ||
+        CBS_len(&ech_body) != 0) {
+      OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
+      ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
+      return ssl_hs_error;
+    }
+
+    UniquePtr<SSL_ECH_SERVER_CONFIGS> ech_server_configs;
+    {
+      MutexReadLock lock(&ssl->ctx->lock);
+      ech_server_configs = UpRef(ssl->ctx->ech_server_configs);
+    }
+
+    if (ech_server_configs) {
+      Array<uint8_t> encoded_client_hello_inner;
+      for (const ECHConfig &ech_config : ech_server_configs->configs) {
+        // Check that the client-specified config_id matches this |ech_config|'s
+        // config_id before attempting to decrypt.
+        if (config_id != ech_config.config_id_sha256()) {
+          continue;
+        }
+
+        // Check that the client's HPKE ciphersuite is supported by
+        // |ech_config|.
+        const Array<ECHConfig::ECHCipherSuite> &config_suites =
+            ech_config.cipher_suites();
+        if (std::find(config_suites.cbegin(), config_suites.cend(), suite) ==
+            config_suites.cend()) {
+          continue;
+        }
+
+        static const uint8_t kInfoLabel[] = "tls ech";
+        Span<const uint8_t> ech_config_raw = ech_config.raw();
+        ScopedCBB info_cbb;
+        if (!CBB_init(info_cbb.get(),
+                      sizeof(kInfoLabel) + ech_config_raw.size()) ||
+            !CBB_add_bytes(info_cbb.get(), kInfoLabel,
+                           sizeof(kInfoLabel) /* includes trailing NUL */) ||
+            !CBB_add_bytes(info_cbb.get(), ech_config_raw.data(),
+                           ech_config_raw.size())) {
+          return ssl_hs_error;
+        }
+
+        // Set up a fresh HPKE context for each decryption attempt.
+        hs->ech_hpke_ctx.Reset();
+
+        if (ech_config.public_key().size() != X25519_PUBLIC_VALUE_LEN ||
+            ech_config.secret_key().size() != X25519_PRIVATE_KEY_LEN) {
+          OPENSSL_PUT_ERROR(SSL, SSL_R_BAD_LENGTH);
+          return ssl_hs_error;
+        }
+
+        if (CBS_len(&enc) != X25519_PUBLIC_VALUE_LEN ||
+            !EVP_HPKE_CTX_setup_base_r_x25519(
+                hs->ech_hpke_ctx.get(), suite.kdf_id, suite.aead_id,
+                CBS_data(&enc), ech_config.public_key().data(),
+                ech_config.secret_key().data(), CBB_data(info_cbb.get()),
+                CBB_len(info_cbb.get()))) {
+          // This is non-fatal, so drop any potentially misleading errors.
+          ERR_clear_error();
+          continue;
+        }
+        bool is_decrypt_error;
+        if (!ssl_client_hello_decrypt(hs->ech_hpke_ctx.get(),
+                                      &encoded_client_hello_inner,
+                                      &is_decrypt_error, &client_hello, suite,
+                                      config_id, enc, payload)) {
+          if (is_decrypt_error) {
+            // Try another ECHConfig.
+            ERR_clear_error();
+            continue;
+          }
+          return ssl_hs_error;
+        }
+
+        // Recover the ClientHelloInner from the EncodedClientHelloInner.
+        if (!ssl_decode_client_hello_inner(hs, encoded_client_hello_inner,
+                                           &client_hello)) {
+          return ssl_hs_error;
+        }
+
+        // Load the ClientHelloInner into |client_hello|.
+        if (!hs->GetClientHello(&msg, &client_hello)) {
+          return ssl_hs_error;
+        }
+
+        hs->ech_accept = true;
+        break;
+      }
+    }
+
+    // If we did not set |hs->ech_accept| to true, we will send the current
+    // ECHConfigs as retry_configs in the ServerHello's encrypted extensions.
+    // Proceed with the ClientHelloOuter.
+  }
+
   uint8_t alert = SSL_AD_DECODE_ERROR;
   if (!extract_sni(hs, &alert, &client_hello)) {
     ssl_send_alert(ssl, SSL3_AL_FATAL, alert);
+    return ssl_hs_error;
+  }
+
+  hs->state = state12_read_client_hello_after_ech;
+  return ssl_hs_ok;
+}
+
+static enum ssl_hs_wait_t do_read_client_hello_after_ech(SSL_HANDSHAKE *hs) {
+  SSL *const ssl = hs->ssl;
+
+  SSLMessage msg_unused;
+  SSL_CLIENT_HELLO client_hello;
+  if (!hs->GetClientHello(&msg_unused, &client_hello)) {
     return ssl_hs_error;
   }
 
@@ -614,6 +748,7 @@ static enum ssl_hs_wait_t do_read_client_hello(SSL_HANDSHAKE *hs) {
     hs->apply_jdk11_workaround = true;
   }
 
+  uint8_t alert = SSL_AD_DECODE_ERROR;
   if (!negotiate_version(hs, &alert, &client_hello)) {
     ssl_send_alert(ssl, SSL3_AL_FATAL, alert);
     return ssl_hs_error;
@@ -657,11 +792,6 @@ static enum ssl_hs_wait_t do_read_client_hello(SSL_HANDSHAKE *hs) {
 static enum ssl_hs_wait_t do_select_certificate(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
 
-  SSLMessage msg;
-  if (!ssl->method->get_message(ssl, &msg)) {
-    return ssl_hs_read_message;
-  }
-
   // Call |cert_cb| to update server certificates if required.
   if (hs->config->cert->cert_cb != NULL) {
     int rv = hs->config->cert->cert_cb(ssl, hs->config->cert->cert_cb_arg);
@@ -703,8 +833,9 @@ static enum ssl_hs_wait_t do_select_certificate(SSL_HANDSHAKE *hs) {
 
   ssl->s3->early_data_reason = ssl_early_data_protocol_version;
 
+  SSLMessage msg_unused;
   SSL_CLIENT_HELLO client_hello;
-  if (!ssl_client_hello_init(ssl, &client_hello, msg)) {
+  if (!hs->GetClientHello(&msg_unused, &client_hello)) {
     return ssl_hs_error;
   }
 
@@ -1693,6 +1824,9 @@ enum ssl_hs_wait_t ssl_server_handshake(SSL_HANDSHAKE *hs) {
       case state12_read_client_hello:
         ret = do_read_client_hello(hs);
         break;
+      case state12_read_client_hello_after_ech:
+        ret = do_read_client_hello_after_ech(hs);
+        break;
       case state12_select_certificate:
         ret = do_select_certificate(hs);
         break;
@@ -1773,6 +1907,8 @@ const char *ssl_server_handshake_state(SSL_HANDSHAKE *hs) {
       return "TLS server start_accept";
     case state12_read_client_hello:
       return "TLS server read_client_hello";
+    case state12_read_client_hello_after_ech:
+      return "TLS server read_client_hello_after_ech";
     case state12_select_certificate:
       return "TLS server select_certificate";
     case state12_tls13:

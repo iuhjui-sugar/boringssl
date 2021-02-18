@@ -28,6 +28,7 @@
 #include <openssl/stack.h>
 
 #include "../crypto/internal.h"
+#include "../crypto/hpke/internal.h"
 #include "internal.h"
 
 
@@ -186,13 +187,8 @@ static enum ssl_hs_wait_t do_select_parameters(SSL_HANDSHAKE *hs) {
   // the common handshake logic. Resolve the remaining non-PSK parameters.
   SSL *const ssl = hs->ssl;
   SSLMessage msg;
-  if (!ssl->method->get_message(ssl, &msg)) {
-    return ssl_hs_read_message;
-  }
   SSL_CLIENT_HELLO client_hello;
-  if (!ssl_client_hello_init(ssl, &client_hello, msg)) {
-    OPENSSL_PUT_ERROR(SSL, SSL_R_CLIENTHELLO_PARSE_FAILED);
-    ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
+  if (!hs->GetClientHello(&msg, &client_hello)) {
     return ssl_hs_error;
   }
 
@@ -337,13 +333,8 @@ static bool quic_ticket_compatible(const SSL_SESSION *session,
 static enum ssl_hs_wait_t do_select_session(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
   SSLMessage msg;
-  if (!ssl->method->get_message(ssl, &msg)) {
-    return ssl_hs_read_message;
-  }
   SSL_CLIENT_HELLO client_hello;
-  if (!ssl_client_hello_init(ssl, &client_hello, msg)) {
-    OPENSSL_PUT_ERROR(SSL, SSL_R_CLIENTHELLO_PARSE_FAILED);
-    ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
+  if (!hs->GetClientHello(&msg, &client_hello)) {
     return ssl_hs_error;
   }
 
@@ -524,7 +515,6 @@ static enum ssl_hs_wait_t do_select_session(SSL_HANDSHAKE *hs) {
 static enum ssl_hs_wait_t do_send_hello_retry_request(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
 
-
   ScopedCBB cbb;
   CBB body, session_id, extensions;
   uint16_t group_id;
@@ -570,6 +560,63 @@ static enum ssl_hs_wait_t do_read_second_client_hello(SSL_HANDSHAKE *hs) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_CLIENTHELLO_PARSE_FAILED);
     ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
     return ssl_hs_error;
+  }
+
+  if (hs->ech_accept) {
+    // If we previously accepted the ClientHelloInner, check that the second
+    // ClientHello contains an encrypted_client_hello extension.
+    CBS ech_body;
+    if (!ssl_client_hello_get_extension(&client_hello, &ech_body,
+                                        TLSEXT_TYPE_encrypted_client_hello)) {
+      OPENSSL_PUT_ERROR(SSL, SSL_R_MISSING_EXTENSION);
+      ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_MISSING_EXTENSION);
+      return ssl_hs_error;
+    }
+
+    // Parse a ClientECH out of the extension body.
+    ECHConfig::ECHCipherSuite suite;
+    CBS config_id, enc, payload;
+    if (!CBS_get_u16(&ech_body, &suite.kdf_id) ||
+        !CBS_get_u16(&ech_body, &suite.aead_id) ||
+        !CBS_get_u8_length_prefixed(&ech_body, &config_id) ||
+        !CBS_get_u16_length_prefixed(&ech_body, &enc) ||
+        !CBS_get_u16_length_prefixed(&ech_body, &payload)) {
+      OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
+      ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECODE_ERROR);
+      return ssl_hs_error;
+    }
+
+    // Check that ClientECH.cipher_suite is unchanged and that
+    // ClientECH.config_id and ClientECH.enc are empty.
+    if (suite.kdf_id != EVP_HPKE_CTX_get_kdf_id(hs->ech_hpke_ctx.get()) ||
+        suite.aead_id != EVP_HPKE_CTX_get_aead_id(hs->ech_hpke_ctx.get()) ||
+        CBS_len(&config_id) > 0 || CBS_len(&enc) > 0) {
+      OPENSSL_PUT_ERROR(SSL, SSL_R_CLIENTHELLO_PARSE_FAILED);
+      ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);
+      return ssl_hs_error;
+    }
+
+    // Decrypt the payload with the HPKE context from the first ClientHello.
+    Array<uint8_t> encoded_client_hello_inner;
+    bool unused;
+    if (!ssl_client_hello_decrypt(
+            hs->ech_hpke_ctx.get(), &encoded_client_hello_inner,
+            &unused, &client_hello, suite, config_id, enc, payload)) {
+      // We are locked into the ECHConfig used by the first ClientHello, so we
+      // have no recourse when decryption fails.
+      return ssl_hs_error;
+    }
+
+    // Recover the ClientHelloInner from the EncodedClientHelloInner.
+    if (!ssl_decode_client_hello_inner(hs, encoded_client_hello_inner,
+                                       &client_hello)) {
+      return ssl_hs_error;
+    }
+
+    // Reparse |client_hello| from the buffer owned by |hs|.
+    if (!hs->GetClientHello(&msg, &client_hello)) {
+      return ssl_hs_error;
+    }
   }
 
   // We perform all our negotiation based on the first ClientHello (for
@@ -639,10 +686,7 @@ static enum ssl_hs_wait_t do_send_server_hello(SSL_HANDSHAKE *hs) {
   Span<uint8_t> random(ssl->s3->server_random);
   RAND_bytes(random.data(), random.size());
 
-  // If the ClientHello has an ech_is_inner extension, we must be the ECH
-  // backend server. In response to ech_is_inner, we will overwrite part of the
-  // ServerHello.random with the ECH acceptance confirmation.
-  if (hs->ech_is_inner_present) {
+  if (hs->ech_accept || hs->ech_is_inner_present) {
     // Construct the ServerHelloECHConf message, which is the same as
     // ServerHello, except the last 8 bytes of its random field are zeroed out.
     Span<uint8_t> random_suffix = random.subspan(24);
