@@ -3589,6 +3589,61 @@ OPENSSL_EXPORT const char *SSL_early_data_reason_string(
 // as part of this connection.
 OPENSSL_EXPORT void SSL_set_enable_ech_grease(SSL *ssl, int enable);
 
+// SSL_ECH_SERVER_CONFIG_LIST_new returns a newly-allocated
+// |SSL_ECH_SERVER_CONFIG_LIST| or NULL on error.
+OPENSSL_EXPORT SSL_ECH_SERVER_CONFIG_LIST *SSL_ECH_SERVER_CONFIG_LIST_new(void);
+
+// SSL_ECH_SERVER_CONFIG_LIST_up_ref increments the reference count of |list|.
+OPENSSL_EXPORT void SSL_ECH_SERVER_CONFIG_LIST_up_ref(
+    SSL_ECH_SERVER_CONFIG_LIST *list);
+
+// SSL_ECH_SERVER_CONFIG_LIST_free releases memory associated with |list|.
+OPENSSL_EXPORT void SSL_ECH_SERVER_CONFIG_LIST_free(
+    SSL_ECH_SERVER_CONFIG_LIST *list);
+
+// SSL_ECH_SERVER_CONFIG_LIST_add appends an ECHConfig in |ech_config| and its
+// corresponding private key in |private_key| to |list|. When |is_retry_config|
+// is non-zero, this config is eligible to be returned to the client as one of
+// the retry configs, though |list| must be set on an |SSL_CTX| for this to
+// happen. It returns one on success and zero on error.
+//
+// This function should be called successively to register each ECHConfig in
+// decreasing order of preference. This configuration must be completed before
+// setting |list| on an |SSL_CTX| with |SSL_CTX_set1_ech_server_config_list|.
+// After that point, |list| is immutable; no more ECHConfig values may be added.
+OPENSSL_EXPORT int SSL_ECH_SERVER_CONFIG_LIST_add(
+    SSL_ECH_SERVER_CONFIG_LIST *list, int is_retry_config,
+    const uint8_t *ech_config, size_t ech_config_len,
+    const uint8_t *private_key, size_t private_key_len);
+
+// SSL_CTX_set1_ech_server_config_list atomically sets the refcounted |list|
+// onto |ctx|, releasing the old list. |SSL| objects associated with |ctx|, as
+// servers, will use |list| to decrypt incoming encrypted ClientHello messages.
+// Once |list| has been passed to this function, it is immutable. Unlike most
+// |SSL_CTX| configuration functions, this function may be called even if |ctx|
+// already has associated connections on multiple threads. This may be used to
+// rotate keys in a long-lived server process.
+//
+// The configured ECHConfigs should also be advertised out-of-band via DNS (see
+// draft-ietf-dnsop-svcb-https). Before advertising an ECHConfig in DNS,
+// deployments should ensure all instances of the service are configured with
+// the ECHConfig and corresponding private key.
+//
+// If there is a mismatch, |SSL| objects associated with |ctx| will complete the
+// handshake using the cleartext ClientHello and send updated ECHConfigs to the
+// client. The client will then retry to recover, but with a latency penalty.
+// This recovery flow depends on the public name in the ECHConfig. Before
+// advertising an ECHConfig in DNS, deployments must ensure all instances of the
+// service can present a valid certificate for the public name.
+//
+// BoringSSL negotiates ECH before certificate selection callbacks are called,
+// including |SSL_CTX_set_select_certificate_cb|. If ECH is negotiated, the
+// reported |SSL_CLIENT_HELLO| structure and |SSL_get_servername| function will
+// transparently reflect the inner ClientHello. Callers should select parameters
+// based on these values to correctly handle ECH as well as the recovery flow.
+OPENSSL_EXPORT void SSL_CTX_set1_ech_server_config_list(
+    SSL_CTX *ctx, SSL_ECH_SERVER_CONFIG_LIST *list);
+
 
 // Alerts.
 //
@@ -4960,6 +5015,10 @@ BSSL_NAMESPACE_BEGIN
 BORINGSSL_MAKE_DELETER(SSL, SSL_free)
 BORINGSSL_MAKE_DELETER(SSL_CTX, SSL_CTX_free)
 BORINGSSL_MAKE_UP_REF(SSL_CTX, SSL_CTX_up_ref)
+BORINGSSL_MAKE_DELETER(SSL_ECH_SERVER_CONFIG_LIST,
+                       SSL_ECH_SERVER_CONFIG_LIST_free)
+BORINGSSL_MAKE_UP_REF(SSL_ECH_SERVER_CONFIG_LIST,
+                      SSL_ECH_SERVER_CONFIG_LIST_up_ref)
 BORINGSSL_MAKE_DELETER(SSL_SESSION, SSL_SESSION_free)
 BORINGSSL_MAKE_UP_REF(SSL_SESSION, SSL_SESSION_up_ref)
 
@@ -5293,6 +5352,9 @@ BSSL_NAMESPACE_END
 #define SSL_R_NO_APPLICATION_PROTOCOL 307
 #define SSL_R_NEGOTIATED_ALPS_WITHOUT_ALPN 308
 #define SSL_R_ALPS_MISMATCH_ON_EARLY_DATA 309
+#define SSL_R_ECH_SERVER_CONFIG_AND_PRIVATE_KEY_MISMATCH 310
+#define SSL_R_ECH_SERVER_CONFIG_UNSUPPORTED_EXTENSION 311
+#define SSL_R_UNSUPPORTED_ECH_SERVER_CONFIG 312
 #define SSL_R_SSLV3_ALERT_CLOSE_NOTIFY 1000
 #define SSL_R_SSLV3_ALERT_UNEXPECTED_MESSAGE 1010
 #define SSL_R_SSLV3_ALERT_BAD_RECORD_MAC 1020

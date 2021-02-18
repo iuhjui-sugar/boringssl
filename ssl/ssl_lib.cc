@@ -146,6 +146,7 @@
 
 #include <openssl/bytestring.h>
 #include <openssl/crypto.h>
+#include <openssl/curve25519.h>
 #include <openssl/err.h>
 #include <openssl/lhash.h>
 #include <openssl/mem.h>
@@ -2184,6 +2185,56 @@ int SSL_CTX_set_tlsext_servername_callback(
 int SSL_CTX_set_tlsext_servername_arg(SSL_CTX *ctx, void *arg) {
   ctx->servername_arg = arg;
   return 1;
+}
+
+SSL_ECH_SERVER_CONFIG_LIST *SSL_ECH_SERVER_CONFIG_LIST_new() {
+  UniquePtr<SSL_ECH_SERVER_CONFIG_LIST> ret =
+      MakeUnique<SSL_ECH_SERVER_CONFIG_LIST>();
+  if (!ret) {
+    return nullptr;
+  }
+  return ret.release();
+}
+
+void SSL_ECH_SERVER_CONFIG_LIST_up_ref(SSL_ECH_SERVER_CONFIG_LIST *configs) {
+  CRYPTO_refcount_inc(&configs->references);
+}
+
+void SSL_ECH_SERVER_CONFIG_LIST_free(SSL_ECH_SERVER_CONFIG_LIST *configs) {
+  if (configs == nullptr ||
+      !CRYPTO_refcount_dec_and_test_zero(&configs->references)) {
+    return;
+  }
+
+  configs->~ssl_ech_server_config_list_st();
+  OPENSSL_free(configs);
+}
+
+int SSL_ECH_SERVER_CONFIG_LIST_add(SSL_ECH_SERVER_CONFIG_LIST *configs,
+                                   int is_retry_config,
+                                   const uint8_t *ech_config,
+                                   size_t ech_config_len,
+                                   const uint8_t *private_key,
+                                   size_t private_key_len) {
+  ECHServerConfig parsed_config;
+  if (!parsed_config.Init(MakeConstSpan(ech_config, ech_config_len),
+                          MakeConstSpan(private_key, private_key_len),
+                          !!is_retry_config)) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
+    return 0;
+  }
+  if (!configs->configs.Push(std::move(parsed_config))) {
+    OPENSSL_PUT_ERROR(SSL, ERR_R_MALLOC_FAILURE);
+    return 0;
+  }
+  return 1;
+}
+
+void SSL_CTX_set1_ech_server_config_list(SSL_CTX *ctx,
+                                         SSL_ECH_SERVER_CONFIG_LIST *list) {
+  UniquePtr<SSL_ECH_SERVER_CONFIG_LIST> owned_list = UpRef(list);
+  MutexWriteLock lock(&ctx->lock);
+  ctx->ech_server_config_list.swap(owned_list);
 }
 
 int SSL_select_next_proto(uint8_t **out, uint8_t *out_len, const uint8_t *peer,
