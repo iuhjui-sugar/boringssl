@@ -16,6 +16,29 @@
       "message": "Thanks, David! New patchset.",
       "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1473e82_7f2163ee",
+        "filename": "ssl/internal.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 1749,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-02-18T19:46:19Z",
+      "side": 1,
+      "message": "delete underscore since this field is public",
+      "range": {
+        "startLine": 1749,
+        "startChar": 37,
+        "endLine": 1749,
+        "endChar": 38
+      },
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
