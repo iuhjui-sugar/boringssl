@@ -16,6 +16,7 @@
 
 #include <memory>
 
+#include <openssl/bytestring.h>
 #include <openssl/err.h>
 #include <openssl/rand.h>
 #include <openssl/ssl.h>
@@ -56,6 +57,16 @@ static const struct argument kArguments[] = {
         "PEM-encoded file containing the leaf certificate and optional "
         "certificate chain. This is taken from the -key argument if this "
         "argument is not provided.",
+    },
+    {
+        "-echconfig-key", kOptionalArgument,
+        "File containing the private key corresponding to the ECHConfig.",
+    },
+    {
+        "-echconfigs", kOptionalArgument,
+        "File containing the ECHConfigs. This is taken from the -echconfig-key "
+        "argument if this argument is not provided. We assume the file "
+        "contains exactly one ECHConfig with a U16 length prefix.",
     },
     {
         "-ocsp-response", kOptionalArgument, "OCSP response file to send",
@@ -261,6 +272,41 @@ bool Server(const std::vector<std::string> &args) {
     }
   }
 
+  std::vector<uint8_t> echconfig_key_data;
+  std::vector<uint8_t> echconfigs_data;
+  CBS echconfigs_body;
+  if (args_map.count("-echconfig-key") != 0) {
+    std::string echconfig_key = args_map["-echconfig-key"];
+    std::string echconfig = echconfig_key + ".public";
+    if (args_map.count("-echconfigs") != 0) {
+      echconfig = args_map["-echconfigs"];
+    }
+
+    // Load the ECH private key.
+    ScopedFILE echconfig_key_file(fopen(echconfig_key.c_str(), "rb"));
+    if (echconfig_key_file == nullptr ||
+        !ReadAll(&echconfig_key_data, echconfig_key_file.get())) {
+      fprintf(stderr, "Error reading %s\n", echconfig_key.c_str());
+      return false;
+    }
+
+    // Load the ECHConfig.
+    ScopedFILE echconfigs_file(fopen(echconfig.c_str(), "rb"));
+    if (echconfigs_file == nullptr ||
+        !ReadAll(&echconfigs_data, echconfigs_file.get())) {
+      fprintf(stderr, "Error reading %s\n", echconfig.c_str());
+      return false;
+    }
+
+    // Strip the length prefix.
+    CBS echconfigs_reader(echconfigs_data);
+    if (!CBS_get_u16_length_prefixed(&echconfigs_reader, &echconfigs_body) ||
+        CBS_len(&echconfigs_reader) != 0) {
+      fprintf(stderr, "Error parsing ECHConfigs from %s\n", echconfig.c_str());
+      return false;
+    }
+  }
+
   if (args_map.count("-cipher") != 0 &&
       !SSL_CTX_set_strict_cipher_list(ctx.get(), args_map["-cipher"].c_str())) {
     fprintf(stderr, "Failed setting cipher list\n");
@@ -318,6 +364,24 @@ bool Server(const std::vector<std::string> &args) {
         ctx.get(), [](X509_STORE_CTX *store, void *arg) -> int { return 1; },
         nullptr);
   }
+
+  // We are assuming that |echconfigs_body| contains exactly one ECHConfig.
+  if (args_map.count("-echconfig-key") != 0) {
+    bssl::UniquePtr<SSL_ECH_SERVER_CONFIGS> configs(
+        SSL_ECH_SERVER_CONFIGS_new());
+    int ret = SSL_ECH_SERVER_CONFIGS_add(
+        configs.get(),
+        /*is_retry_config=*/1, CBS_data(&echconfigs_body),
+        CBS_len(&echconfigs_body), echconfig_key_data.data(),
+        echconfig_key_data.size());
+    if (ret != 1) {
+      fprintf(stderr, "Error setting server's ECHConfig and private key\n");
+      return false;
+    }
+    SSL_CTX_set1_ech_server_configs(ctx.get(), configs.get());
+  }
+
+
 
   Listener listener;
   if (!listener.Init(args_map["-accept"])) {
