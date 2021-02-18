@@ -412,6 +412,7 @@ func (hs *serverHandshakeState) doTLS13Handshake() error {
 	}
 
 	if hs.clientHello.clientECH != nil && len(config.Bugs.SendECHRetryConfigs) > 0 {
+		encryptedExtensions.extensions.hasECHRetryConfigs = true
 		encryptedExtensions.extensions.echRetryConfigs = config.Bugs.SendECHRetryConfigs
 	}
 
