@@ -16,6 +16,8 @@ import (
 	"strings"
 	"sync"
 	"time"
+
+	"boringssl.googlesource.com/boringssl/ssl/test/runner/hpke"
 )
 
 const (
@@ -130,6 +132,7 @@ const (
 	extensionDuplicate                  uint16 = 0xffff // not IANA assigned
 	extensionEncryptedClientHello       uint16 = 0xfe09 // not IANA assigned
 	extensionECHIsInner                 uint16 = 0xda09 // not IANA assigned
+	extensionECHOuterExtensions         uint16 = 0xfd00 // not IANA assigned
 )
 
 // TLS signaling cipher suite values
@@ -422,6 +425,19 @@ type Config struct {
 	// certificates unless InsecureSkipVerify is given. It is also included
 	// in the client's handshake to support virtual hosting.
 	ServerName string
+
+	// ClientECHConfig, when non-nil, is the ECHConfig the client will use to
+	// attempt ECH.
+	ClientECHConfig *ECHConfig
+
+	// ECHCipherSuites, for the client, is the list of HPKE cipher suites in
+	// decreasing order of preference. If empty, the default will be used.
+	ECHCipherSuites []HPKECipherSuite
+
+	// ECHOuterExtensions is the list of extensions that the client will
+	// compress with the ech_outer_extensions extension. If empty, no extensions
+	// will be compressed.
+	ECHOuterExtensions []uint16
 
 	// ClientAuth determines the server's policy for
 	// TLS Client Authentication. The default is NoClientCert.
@@ -843,23 +859,40 @@ type ProtocolBugs struct {
 	// encrypted_client_hello extension containing a ClientECH structure.
 	ExpectClientECH bool
 
+	// ForceClientECHCipherSuite, when non-nil, causes the client to use the
+	// specified cipher suite for ECH, independent of the selected ECHConfig's
+	// preferences.
+	ForceClientECHCipherSuite *HPKECipherSuite
+
 	// ExpectServerAcceptECH causes the client to expect that the server will
 	// indicate ECH acceptance in the ServerHello.
 	ExpectServerAcceptECH bool
+
+	// ExpectECHRetryConfigs, when non-nil, contains the expected bytes of the
+	// server's retry configs.
+	ExpectECHRetryConfigs []byte
 
 	// SendECHRetryConfigs, if not empty, contains the ECH server's serialized
 	// retry configs.
 	SendECHRetryConfigs []byte
 
-	// SendEncryptedClientHello, when true, causes the client to send a
-	// placeholder encrypted_client_hello extension on the ClientHelloOuter
-	// message.
-	SendPlaceholderEncryptedClientHello bool
-
 	// SendECHIsInner, when non-nil, causes the client to send an ech_is_inner
 	// extension on the ClientHelloOuter message. When nil, the extension will
 	// be omitted.
 	SendECHIsInner []byte
+
+	// SendECHOuterExtensions, if not empty, causes the client to replace the
+	// contents of the ClientHelloInner's ech_outer_extensions extension. This
+	// does not affect the order of extensions on the ClientHelloOuter.
+	SendECHOuterExtensions []uint16
+
+	// OmitClientHelloInnerECHIsInner, when true, causes the client to omit the
+	// ech_is_inner extension on the ClientHelloInner message.
+	OmitClientHelloInnerECHIsInner bool
+
+	// TruncateClientECHEnc, when true, causes the client to send a shortened
+	// ClientECH.enc value in its encrypted_client_hello extension.
+	TruncateClientECHEnc bool
 
 	// SwapNPNAndALPN switches the relative order between NPN and ALPN in
 	// both ClientHello and ServerHello.
@@ -1878,6 +1911,19 @@ func (c *Config) defaultCurves() map[CurveID]bool {
 		defaultCurves[curveID] = true
 	}
 	return defaultCurves
+}
+
+var defaultECHCipherSuitePreferences = []HPKECipherSuite{
+	{KDF: hpke.HKDFSHA256, AEAD: hpke.AES128GCM},
+	{KDF: hpke.HKDFSHA256, AEAD: hpke.AES256GCM},
+	{KDF: hpke.HKDFSHA256, AEAD: hpke.ChaCha20Poly1305},
+}
+
+func (c *Config) echCipherSuitePreferences() []HPKECipherSuite {
+	if c == nil || len(c.ECHCipherSuites) == 0 {
+		return defaultECHCipherSuitePreferences
+	}
+	return c.ECHCipherSuites
 }
 
 func wireToVersion(vers uint16, isDTLS bool) (uint16, bool) {

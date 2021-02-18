@@ -121,6 +121,10 @@ type Conn struct {
 	// handshake data may be received until the next flight or epoch change.
 	seenHandshakePackEnd bool
 
+	// serverAcceptedECH, on the client, indicates whether the client believes
+	// the server accepted its ECH based on the server's accept_confirmation.
+	serverAcceptedECH bool
+
 	tmp [16]byte
 }
 
