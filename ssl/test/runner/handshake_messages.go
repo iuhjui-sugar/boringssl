@@ -5,8 +5,11 @@
 package runner
 
 import (
+	"crypto"
 	"encoding/binary"
 	"fmt"
+
+	"golang.org/x/crypto/hkdf"
 )
 
 func writeLen(buf []byte, v, size int) {
@@ -281,6 +284,20 @@ func MarshalECHConfig(e *ECHConfig) []byte {
 	return bb.finish()
 }
 
+func (e *ECHConfig) configID(h crypto.Hash) ([]byte, error) {
+	configIDLength := 8
+	idReader := hkdf.Expand(h.New, hkdf.Extract(h.New, MarshalECHConfig(e), nil), []byte("tls ech config id"))
+	idBytes := make([]byte, configIDLength)
+	n, err := idReader.Read(idBytes)
+	if err != nil {
+		return nil, err
+	}
+	if n != configIDLength {
+		return nil, fmt.Errorf("incomplete read from configID (%d vs %d bytes)", n, h.Size())
+	}
+	return idBytes, nil
+}
+
 // The contents of a CH "encrypted_client_hello" extension.
 // https://tools.ietf.org/html/draft-ietf-tls-esni-09
 type clientECH struct {
@@ -341,6 +358,7 @@ type clientHelloMsg struct {
 	compressedCertAlgs        []uint16
 	delegatedCredentials      bool
 	alpsProtocols             []string
+	outerExtensions           []uint16
 	prefixExtensions          []uint16
 }
 
@@ -440,6 +458,17 @@ func (m *clientHelloMsg) marshal() []byte {
 		extensions = append(extensions, extension{
 			id:   extensionECHIsInner,
 			body: m.echIsInner,
+		})
+	}
+	if m.outerExtensions != nil {
+		body := newByteBuilder()
+		extensionsList := body.addU8LengthPrefixed()
+		for _, extID := range m.outerExtensions {
+			extensionsList.addU16(extID)
+		}
+		extensions = append(extensions, extension{
+			id:   extensionECHOuterExtensions,
+			body: body.finish(),
 		})
 	}
 	if m.ocspStapling {
@@ -681,6 +710,12 @@ func (m *clientHelloMsg) marshal() []byte {
 	extMap := make(map[uint16][]byte)
 	for _, ext := range extensions {
 		extMap[ext.id] = ext.body
+	}
+	// Elide each of the extensions named by |m.outerExtensions|.
+	if m.outerExtensions != nil {
+		for _, extID := range m.outerExtensions {
+			delete(extMap, extID)
+		}
 	}
 	// Write each of the prefix extensions, if we have it.
 	for _, extID := range m.prefixExtensions {
@@ -1357,6 +1392,7 @@ type serverExtensions struct {
 	applicationSettings       []byte
 	hasApplicationSettings    bool
 	echRetryConfigs           []byte
+	hasECHRetryConfigs        bool
 }
 
 func (m *serverExtensions) marshal(extensions *byteBuilder) {
@@ -1500,11 +1536,9 @@ func (m *serverExtensions) marshal(extensions *byteBuilder) {
 		extensions.addU16(extensionApplicationSettings)
 		extensions.addU16LengthPrefixed().addBytes(m.applicationSettings)
 	}
-	if len(m.echRetryConfigs) > 0 {
+	if m.hasECHRetryConfigs {
 		extensions.addU16(extensionEncryptedClientHello)
-		body := extensions.addU16LengthPrefixed()
-		echConfigs := body.addU16LengthPrefixed()
-		echConfigs.addBytes(m.echRetryConfigs)
+		extensions.addU16LengthPrefixed().addBytes(m.echRetryConfigs)
 	}
 }
 
@@ -1620,21 +1654,24 @@ func (m *serverExtensions) unmarshal(data byteReader, version uint16) bool {
 			m.hasApplicationSettings = true
 			m.applicationSettings = body
 		case extensionEncryptedClientHello:
+			if version < VersionTLS13 {
+				return false
+			}
+			m.hasECHRetryConfigs = true
+			m.echRetryConfigs = body
+
+			// Validate the ECHConfig with a top-level parse.
 			var echConfigs byteReader
 			if !body.readU16LengthPrefixed(&echConfigs) {
 				return false
 			}
 			for len(echConfigs) > 0 {
-				// Validate the ECHConfig with a top-level parse.
-				echConfigReader := echConfigs
 				var version uint16
 				var contents byteReader
-				if !echConfigReader.readU16(&version) ||
-					!echConfigReader.readU16LengthPrefixed(&contents) {
+				if !echConfigs.readU16(&version) ||
+					!echConfigs.readU16LengthPrefixed(&contents) {
 					return false
 				}
-
-				m.echRetryConfigs = contents
 			}
 			if len(body) > 0 {
 				return false
