@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51ff08dd_030a5018",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 11881
+      },
+      "writtenOn": "2021-02-19T23:43:41Z",
+      "side": 1,
+      "message": "Is there a reason to not expose these in the header? I need the same values in the trusty app, and while I do have to duplicate them into another header there, I\u0027d at least like to static_assert that they match.",
+      "revId": "7194084820626ce7f02d933db3d1c511b7ef3b5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
