@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d2f9ce0b_e0fd22d3",
+        "filename": "util/bot/cmake-linux64.tar.gz.sha1",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-19T00:32:05Z",
+      "side": 1,
+      "message": "Hahaha. Apparently the binaries I build on my workstation don\u0027t work with the bots anymore. Will poke at rebuilding them tomorrow.\n\nOr maybe a good time to switch to Chrome infra\u0027s CIPD thing...",
+      "revId": "c6bfbe1a8afbbe2bfdde2bb5bb3075e8d5588fb7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
