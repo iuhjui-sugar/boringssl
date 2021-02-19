@@ -8,42 +8,30 @@
 #
 # https://chromium.googlesource.com/infra/infra/
 
-"""Can be used to point environment variable to hermetic Go toolset.
-
-Usage (on linux and mac):
-$ eval `./env.py`
-$ go version
-
-Or it can be used to wrap a command:
+"""Used to wrap a command:
 
 $ ./env.py go version
 """
 
 assert __name__ == '__main__'
 
-import imp
 import os
 import subprocess
 import sys
 
-# Do not want to mess with sys.path, load the module directly.
-bootstrap = imp.load_source(
-    'bootstrap', os.path.join(os.path.dirname(__file__), 'bootstrap.py'))
+# /path/to/util/bot
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-old = os.environ.copy()
-new = bootstrap.prepare_go_environ()
+def get_go_environ(goroot):
+  env = os.environ.copy()
+  env['GOROOT'] = goroot
+  gobin = os.path.join(goroot, 'bin')
+  path = env['PATH'].split(os.pathsep)
+  if gobin not in path:
+    env['PATH'] = os.pathsep.join([gobin] + path)
+  return env
 
-if len(sys.argv) == 1:
-  for key, value in sorted(new.iteritems()):
-    if old.get(key) != value:
-      print 'export %s="%s"' % (key, value)
-else:
-  exe = sys.argv[1]
-  if exe == 'python':
-    exe = sys.executable
-  else:
-    # Help Windows to find the executable in new PATH, do it only when
-    # executable is referenced by name (and not by path).
-    if os.sep not in exe:
-      exe = bootstrap.find_executable(exe, [bootstrap.WORKSPACE])
-  sys.exit(subprocess.call([exe] + sys.argv[2:], env=new))
+# TODO(davidben): Now that we use CIPD to fetch Go, this script does not do
+# much. Switch to setting up GOROOT and PATH in the recipe?
+env = get_go_environ(os.path.join(ROOT, 'golang'))
+sys.exit(subprocess.call(sys.argv[1:], env=env))
