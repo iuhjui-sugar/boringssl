@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be1b272b_2675d13a",
+        "filename": "crypto/fipsmodule/ecdsa/ecdsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-02-23T21:37:06Z",
+      "side": 1,
+      "message": "nit: scalars are usually written first. So \"k * generator\".",
+      "range": {
+        "startLine": 214,
+        "startChar": 36,
+        "endLine": 214,
+        "endChar": 49
+      },
+      "revId": "4cfec28a2d4f3dcc28cfa8aff7f694b0b62e321b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51ec3c06_9de08d59",
+        "filename": "crypto/fipsmodule/ecdsa/ecdsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-02-23T21:37:06Z",
+      "side": 1,
+      "message": "This can only happen if m + priv_key*r \u003d\u003d 0, right? (Fine to check it here though.)",
+      "revId": "4cfec28a2d4f3dcc28cfa8aff7f694b0b62e321b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
