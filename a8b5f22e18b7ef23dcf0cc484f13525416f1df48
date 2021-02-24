@@ -20,6 +20,343 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ed4e5a1f_e04fd6a9",
+        "filename": "include/openssl/tls1.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T21:18:06Z",
+      "side": 1,
+      "message": "Nit: ech_outer_extensions to match the new name.",
+      "range": {
+        "startLine": 260,
+        "startChar": 19,
+        "endLine": 260,
+        "endChar": 20
+      },
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae89d342_1dd70b01",
+        "filename": "ssl/handshake.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T21:18:06Z",
+      "side": 1,
+      "message": "Nit: I\u0027d just call these cbb and body. It\u0027s not even a fake message. This is the actual message that we\u0027ll be using.",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "880fba00_3927311c",
+        "filename": "ssl/handshake.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T21:18:06Z",
+      "side": 1,
+      "message": "ssl-\u003emethod-\u003einit_message(fake_msg_cbb.get(), \u0026client_hello_cbb, SSL3_MT_CLIENT_HELLO)\n\nIt\u0027s shorter and, if we ever do DTLS, it\u0027ll be... still not quite correct but closer. (We\u0027ll probably need a variant of init_message to use the recv sequence number instead of the send sequence number... although I kinda suspect using the send one on accident will work because there\u0027s only one message in the HRR flight.)",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94a058c3_048e8e4e",
+        "filename": "ssl/handshake.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T21:18:06Z",
+      "side": 1,
+      "message": "This ends up doing a copy. In general, CBB_finish is probably what you want over CBB_data/CBB_len. Typically you\u0027re going to do something with the buffer you created, which means you need to move it out of the CBB. CBB_data/CBB_len is just when you didn\u0027t want to do anything with the data beyond throw it away.\n\nCBB_finish is a little tedious to use (C API). If this were a normal CBB, you could call CBBFinishArray which is a small bssl::Array wrapper. But if you use the init_message hook, that should be paired with ssl-\u003emethod-\u003efinish_message.\n\nAlso that means we can drop the CBB_flush call because CBB_finish does it for you.",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07044e3a_3f3543aa",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T21:18:06Z",
+      "side": 1,
+      "message": "Looks like the code doesn\u0027t match the comment here. I guess that means we should add one extra check to this block:\n\n  CBS unused;\n  if (ssl_client_hello_get_extension(\u0026client_hello, \u0026unused,\n                                      TLSEXT_TYPE_ech_is_inner)) {\n    OPENSSL_PUT_ERROR(SSL, SSL_R_UNEXPECTED_EXTENSION);\n    ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);\n    return ssl_hs_error;\n  }\n\nAnd I really ought to go do the sum type thing so this is less code... ideally this would be:\n\n  CBS unused;\n  if (ssl_client_hello_get_extension(\u0026client_hello, \u0026unused,\n                                      TLSEXT_TYPE_ech_is_inner)) {\n    OPENSSL_PUT_ERROR(SSL, SSL_R_UNEXPECTED_EXTENSION);\n    return SSLError(SSL_AD_ILLEGAL_PARAMETER);\n  }\n\n(Or maybe even a macro to fold in the PUT_ERROR, but I haven\u0027t found a formulation I like... too easy to mix up SSL_R_ and SSL_AD_.)",
+      "range": {
+        "startLine": 587,
+        "startChar": 69,
+        "endLine": 588,
+        "endChar": 28
+      },
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53cc2041_d13da181",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 600,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T21:18:06Z",
+      "side": 1,
+      "message": "|| CBS_len(\u0026ech_body) !\u003d 0\n\n(Funnily enough, I was just in a thread on rfc8446bis that this was a compliance requirement to all extensions parsing... :-) )",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3e299ee_021ad6d4",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 624,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T21:18:06Z",
+      "side": 1,
+      "message": "s/_bb/_cbb/g\n\nI feel like this comes up a lot. Maybe grep for _bb across all your branches?",
+      "range": {
+        "startLine": 624,
+        "startChar": 20,
+        "endLine": 624,
+        "endChar": 24
+      },
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff060b83_ba05d5a1",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 625,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T21:18:06Z",
+      "side": 1,
+      "message": "sizeof(kInfoLabel) + ech_config_raw.size()",
+      "range": {
+        "startLine": 625,
+        "startChar": 34,
+        "endLine": 625,
+        "endChar": 36
+      },
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4599a6e6_903ee6ed",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 627,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T21:18:06Z",
+      "side": 1,
+      "message": "sizeof since this is bytes.",
+      "range": {
+        "startLine": 627,
+        "startChar": 25,
+        "endLine": 627,
+        "endChar": 43
+      },
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7ef5c34_2c468c4f",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 628,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T21:18:06Z",
+      "side": 1,
+      "message": "Nit: You don\u0027t actually need the - 1 since you\u0027re adding the NUL back in. I\u0027d just write:\n\n !CBB_add_bytes(info_bb.get(), kInfoLabel,\n                         sizeof(kInfoLabel) /* include trailing NUL */)",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac4d732c_3e140e90",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 631,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T21:18:06Z",
+      "side": 1,
+      "message": "No need to flush if you don\u0027t have child CBBs.",
+      "range": {
+        "startLine": 631,
+        "startChar": 9,
+        "endLine": 631,
+        "endChar": 35
+      },
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3efe1499_fb1ba236",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T21:18:06Z",
+      "side": 1,
+      "message": "This is pretty error-prone since it is not locally obvious that that these invariant should. In fact, the invariant on ech_config.public_key() isn\u0027t even part of the type. It\u0027s part of the ssl_lib.cc bit.\n\nI would just do runtime checks and not think about it too hard (see below). Though this is another symptom of using the same type for client and server ECHConfigs. Elsewhere in our EVP_PKEY, RSA, and EC_KEY types, I think we\u0027ve largely concluded that was a mistake. Might be worth doing something else where too.",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9dce2a2e_54f70e26",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T21:18:06Z",
+      "side": 1,
+      "message": "This never checks the size of |enc|, so this is an out-of-bounds read. It\u0027s even attacker-reachable, so when you fix this, make sure to include a test.\n\nThe rule is: whenever you go from std::span\u003cT\u003e (ptr/len) to std::span\u003cT, N\u003e (T[N] param), check the size. That means either:\n\n  if (CBS_len(\u0026enc) !\u003d X25519_PUBLIC_VALUE_LEN ||\n      !EVP_HPKE_CTX_setup_base_r_x25519(\n\nOr:\n\nSwitch EVP_HPKE_CTX_setup_base_r_x25519 to take std::span\u003cT\u003e (ptr + len) and have the check inside HPKE.\n\n(I\u0027m fine with either. The fixed-width params may have been too clever in hindsight, especially if we ever generalize them to multiple KEM types.)",
+      "range": {
+        "startLine": 640,
+        "startChar": 14,
+        "endLine": 640,
+        "endChar": 28
+      },
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a540cda9_2602e13d",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T21:18:06Z",
+      "side": 1,
+      "message": "ERR_clear_error(), so we don\u0027t leave crap on the error queue. (Strictly speaking, this might fail either due to internal error or because |enc| was invalid, but it\u0027s not really worth trying to distinguish those cases.)",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47037095_f38edc91",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 648,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T21:18:06Z",
+      "side": 1,
+      "message": "Oh, I hadn\u0027t realized that you return success on decryption failure. I don\u0027t think that quite works. The HRR code gets a little weird, and it\u0027s perfectly valid for decryption to successfully return the empty string. (That should fall through to ssl_decode_client_hello_inner and give a fatal error there.)\n\nI\u0027d suggest:\n\n- Have ssl_client_hello_decrypt return false on decryption failure, but take an out_param: *out_is_decrypt_error or so. Use that to decide whether to make it fatal or not.\n\n- I was going to suggest having a bool decrypted_ech for the check in line 656 below, but you actually already have hs-\u003eech_accept. We can also just lift the ssl_decode_client_hello_inner calls into the loop. Combined with the suggestion below, I think the entire 656-6783 block melts away.\n\n  if (!ssl_client_hello_decrypt(...)) {\n    if (is_decrypt_error) {\n      // Try another ECHConfig. Note we will attempt trial decryption with\n      // at most one key if all active ECHConfigs have distinct config_ids.\n      ERR_clear_error();\n      continue;\n    }\n    return ssl_hs_error;\n  }\n\n  if (!ssl_decode_client_hello(...) ||\n      !hs-\u003eGetClientHello(\u0026msg, \u0026client_hello)) {\n    return ssl_hs_error;\n  }\n  break;",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd8adf64_d906a8f8",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 672,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T21:18:06Z",
+      "side": 1,
+      "message": "I don\u0027t think we actually need this variable. I would think you could just, in the callback, check for if (!hs-\u003eech_accept). That means that, \n\n(In fact, you might not even need to do that. On ech_accept, by the time we actually run the callbacks, you\u0027ll be looking at the inner ClientHello, which doesn\u0027t have an ECH extension. Though I guess it\u0027s really a question of what is the \"correct\" behavior if the inner ClientHello itself contains a *different* ECH extension. Which... I don\u0027t know. Maybe we want to add some extra rules to prohibit this ludicrous case?)",
+      "range": {
+        "startLine": 672,
+        "startChar": 10,
+        "endLine": 672,
+        "endChar": 32
+      },
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1621532_648726ff",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 686,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T21:18:06Z",
+      "side": 1,
+      "message": "I think this violates the reentrancy rules, sort of. (Can you add a test for this? look into how the async tests work). If the callback requests a retry, the next time around, we\u0027ll decrypt ECH again. While that is (maybe?) idempotent, it\u0027s pretty expensive.\n\nSo... congratulations, you get to add a new state. :-) Add it just before this callback. We could also add it just before extract_sni, but no sense in running that code twice when we don\u0027t need to.",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a1473e82_7f2163ee",
         "filename": "ssl/internal.h",
         "patchSetId": 15
@@ -37,6 +374,444 @@
         "endLine": 1749,
         "endChar": 38
       },
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c38c2de_7e04a984",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 2193,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T21:18:06Z",
+      "side": 1,
+      "message": "No namespace prefix.",
+      "range": {
+        "startLine": 2193,
+        "startChar": 2,
+        "endLine": 2193,
+        "endChar": 8
+      },
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca1ad211_cda4aace",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 2198,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T21:18:06Z",
+      "side": 1,
+      "message": "(From what we talked about, it\u0027s a little weird to check cipher suites like this, but also not check extensions. But I\u0027ll check with Adam what he thinks we should do here and follow up on what to do her more broadly.)",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df00d008_80bdec95",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 2209,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T21:18:06Z",
+      "side": 1,
+      "message": "This and all the others need OPENSSL_PUT_ERROR. This one in particular needs a descriptive error. We need it to be such that people can actually understand what happened if they ran into it since this is a little subtle and may be confusing.",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "134f1663_d020bfaf",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 2210,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T21:18:06Z",
+      "side": 1,
+      "message": "It takes more code to use any_of with a lambda than just writing the loop.\n\n  for (const auto \u0026suite : parsed_config.cipher_suites()) {\n    if (.....) {\n      return 0;\n    }\n  }",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff80ff23_7b2a9f5f",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 2212,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T21:18:06Z",
+      "side": 1,
+      "message": "Check that we\u0027re even doing X25519 before this.",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c898925c_f98c24bb",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T21:18:06Z",
+      "side": 1,
+      "message": "Given the now second DoS issue we\u0027ve run into with this function, I think we need to extract this into a fuzzer:\n\n- Make this not do I/O or depend heavily on SSL state. Instead, it should take an out_alert parameter (see elsewhere for pattern). This is something the CL should be doing with helper functions anyway because ssl_send_alert does I/O and we want to be pushing I/O out of the handshake. And then we\u0027ll switch that to SSLError.\n\n- Rather than taking an SSL_CLIENT_HELLO in SetClientHello, take a bssl::Array (move semantics) and have this function output a bssl::Array. This is, again, to not depend heavily on SSL state. This is worth doing anyway per comment below about HRR.\n\n- At that point, SetClientHello is simply ech_client_hello_buf_ \u003d std::move(your_array) and probably doesn\u0027t need to exist.\n\n- Keep the function internal in ssl/internal.h and mark it OPENSSL_EXPORT\n\n- Add a fuzzer in fuzz. If it needs a dummy SSL* to know about TLS vs. DTLS, that\u0027s fine, but it should otherwise be pure function.\n\nThis and all the tests needed may be enough that it\u0027s worth moving the outer_extensions mess to a follow-up CL so we can land the basic version sooner.",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "025b96c9_a084ff4d",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T21:18:06Z",
+      "side": 1,
+      "message": "Missing OPENSSL_PUT_ERRORs throughout. (Always OPENSSL_PUT_ERROR when initiating an error.)",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "723ff234_93faae7f",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T21:18:06Z",
+      "side": 1,
+      "message": "Just fold this into the bit above.",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8908a0f7_21d759eb",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T21:18:06Z",
+      "side": 1,
+      "message": "Nit: Could just call this \u0027Extension\u0027. :-)",
+      "range": {
+        "startLine": 317,
+        "startChar": 35,
+        "endLine": 317,
+        "endChar": 48
+      },
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6085ed12_96bf22bd",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T21:18:06Z",
+      "side": 1,
+      "message": "Another DoS issue: we need to check for duplicates. (Add a test.)",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "036c26b4_009606b0",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T21:18:06Z",
+      "side": 1,
+      "message": "s/ech_/",
+      "range": {
+        "startLine": 368,
+        "startChar": 20,
+        "endLine": 368,
+        "endChar": 24
+      },
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c3a5a98_0d41b436",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T21:18:06Z",
+      "side": 1,
+      "message": "|| CBS_len(\u0026extension_body) !\u003d 0, to check for trailing data.",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ec1abb0_b1b1842f",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T21:18:06Z",
+      "side": 1,
+      "message": "Nit: Maybe just result-\u003ebody.{data,size}().",
+      "range": {
+        "startLine": 407,
+        "startChar": 26,
+        "endLine": 407,
+        "endChar": 41
+      },
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "060245d1_5f786314",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T21:18:06Z",
+      "side": 1,
+      "message": "Rather than doing all this, why not just parse EncodedClientHelloInner with ssl_client_hello_init? We\u0027ll need to change the SSLMessage input to just msg.body, but that\u0027s fine.\n\nThen you can just fill in the session_id bit and leave the rest at their EncodedClientHelloInner defaults.",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b32b6a09_86dc0c02",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T21:18:06Z",
+      "side": 1,
+      "message": "So it looks like both places that call this function (decompression and AAD) end up doing an extra copy of the extensions. What if we instead called this:\n\nbool ssl_client_hello_write_without_extensions() and this just skipped the extensions block. Then the decompression looks something like this:\n\n  SSL_CLIENT_HELLO client_hello_inner;\n  if (!ssl_client_hello_init(ssl, \u0026client_hello_inner,\n                             encoded_client_hello_inner)) {\n    return false;\n  }\n  // TLS 1.3 ClientHellos must have extensions, and the session ID\n  // comes from ClientHelloOuter.\n  if (client_hello_inner.session_id_len !\u003d 0 ||\n      client_hello_inner.extensions_len \u003d\u003d 0) {\n    return false;\n  }\n  client_hello_inner-\u003esession_id \u003d client_hello_outer-\u003esession_id;\n  client_hello_inner-\u003esession_id_len \u003d client_hello_outer-\u003esession_id_len;\n\n  ScopedCBB cbb;\n  CBB body, extensions;\n  if (!ssl-\u003emethod-\u003einit_message(cbb.get(), \u0026body, SSL3_MT_CLIENT_HELLO)) ||\n      !ssl_client_hello_write_without_extensions(\n          \u0026client_hello_inner, \u0026body) ||\n      !CBB_add_u16_length_prefixed(\u0026body, \u0026extensions)) {\n    return false;\n  }\n\n  // Now do the extension rewriting loop and write straight into |extensions|, reading from client_hello_inner-\u003eextensions.\n\n  // Get bssl::Array out and then return it to the caller for cleaner fuzzing.\n  if (!ssl-\u003emethod-\u003efinish_message(...))\n\nClientHelloAAD similarly can just write the non-extension bits and then serialize the extensions in without the extra copy.",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c416e108_9e1decd6",
+        "filename": "ssl/tls13_both.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 691,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T21:18:06Z",
+      "side": 1,
+      "message": "Since we\u0027re making this C++-y, let\u0027s put the class in its own file, like we did with SSLTranscript.",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb8b5cfa_085f4d1d",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T21:18:06Z",
+      "side": 1,
+      "message": "Nit: Let\u0027s add a ech_client_hello_buf_.Reset() here, since we\u0027re also dropping the underlying message in the non-ECH path.",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7273bfc_43845ea2",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T21:18:06Z",
+      "side": 1,
+      "message": "|| CBS_len(\u0026ech_body) !\u003d 0",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb13d9a0_e41abd16",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T21:18:06Z",
+      "side": 1,
+      "message": "Send decrypt_error alert.",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b76b9b60_9688e263",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T21:18:06Z",
+      "side": 1,
+      "message": "Same comment about the error conditions here. Here\u0027s where returning false on the error case is useful. You just ignore the extra boolean output.",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c00776f0_dd265437",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T21:18:06Z",
+      "side": 1,
+      "message": "Ditto about dropping the buffer. (Alternatively, if we can just keep the second ClientHello in a local variable, that\u0027d be cool. But possibly tricky given the need to have a SSLMessage... which we don\u0027t actually need because of transcript.Update() but this is probably getting too fussy.)",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0f3f4b3_1e1ad9d2",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T21:18:06Z",
+      "side": 1,
+      "message": "I don\u0027t think we need to change this. It should happen for free because we run the callbacks based on the inner ClientHello, which has an ech_is_inner. And if the inner ClientHello doesn\u0027t have ech_is_inner, we shouldn\u0027t do this suffix thing. Whether we also should fail the connection, I dunno. Either way, we should pick one and test it.\n\n(This is part of why I suggested doing ech_is_inner via callbacks. I\u0027d like for the inner vs outer mess to just fall out for free. Indeed you\u0027d expect that because of how split mode works.)",
+      "range": {
+        "startLine": 688,
+        "startChar": 6,
+        "endLine": 688,
+        "endChar": 24
+      },
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec6c6a49_1db69b99",
+        "filename": "tool/server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T21:18:06Z",
+      "side": 1,
+      "message": "This format is confusing. Why is there a length prefix at all if we\u0027ve already gotten as far as dividing them up and associating them with keys?",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c587cbc1_0c18b04c",
+        "filename": "tool/server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T21:18:06Z",
+      "side": 1,
+      "message": "This should be return false because it\u0027ll only happen if the config is wrong.\n\n(result \u003d false; continue only makes sense for SSL_accept because a single connection failing isn\u0027t a fatal error.)",
       "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
