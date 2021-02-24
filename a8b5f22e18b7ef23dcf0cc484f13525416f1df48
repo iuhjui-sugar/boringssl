@@ -420,6 +420,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "31c21ec2_071e6e41",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 2198,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T23:21:15Z",
+      "side": 1,
+      "message": "Okay, synced with Adam:\n\n- We should have a boolean parameter so the server can pick which keys are retry keys.\n\n- This function should fail if there\u0027s any byte in the ECHConfig that we don\u0027t understand. That means there is probably no point in sharing client/server ECHConfig parsers. At that point it might even make sense to have separate types.\n\n- We should put this on the SSL_CTX. Some possibilities:\n\nThere is an internal ref-counted ECHServerConfigs structure. SSL_CTX keeps two: a pending one and an immutable actual one.\n\n   SSL_CTX_add_ech_private_key();  // add to pending\n   SSL_CTX_add_ech_private_key();  // add to pending\n   SSL_CTX_commit_ech_private_keys();  // lock{replace actual with pending}\n\nConnections take the lock and grab a copy (with upref) of the actual one.\n\nAlternate is same as above, but there is no pending value. The ref-counted structure is public as an SSL_ECH_SERVER_CONFIGS type. There is no commit function. The add function is a method of SSL_ECH_SERVER_CONFIGS. The caller creates an SSL_ECH_SERVER_CONFIGS, fills it in, and then calls SSL_CTX_set_ech_server_configs to atomically swap out the pointer.\n\nI *think* prefer the second option since it\u0027s less of a goofy internal state machine, but either seems fine.\n\n(Okay to punt this last one initially. I can help out with that since our story for making ref-counted and *especially* exposed types is kind of ad-hoc and weird.)",
+      "parentUuid": "ca1ad211_cda4aace",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "df00d008_80bdec95",
         "filename": "ssl/ssl_lib.cc",
         "patchSetId": 15
