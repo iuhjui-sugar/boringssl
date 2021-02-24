@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "89e6a733_fabe2bca",
+        "filename": "crypto/fipsmodule/ecdsa/ecdsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T00:03:18Z",
+      "side": 1,
+      "message": "Dunno, I could go either way. We don\u0027t capture, at the type system, that EC_KEYs have private keys or even groups since OpenSSL makes empty objects exist everywhere. But saying you should know whether you have a private key is also defensible.",
+      "parentUuid": "f0cb622f_737b17ae",
+      "revId": "32a32b3206beb8e832b1a3231649dcba651f1df7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "80d30ac4_117ec475",
@@ -48,6 +66,30 @@
       "writtenOn": "2021-02-23T21:43:14Z",
       "side": 1,
       "message": "This changed from \u003e\u003d, but why? Originally it was checking that SHA-512 produced enough output to be an additional-data input.",
+      "range": {
+        "startLine": 316,
+        "startChar": 45,
+        "endLine": 316,
+        "endChar": 47
+      },
+      "revId": "32a32b3206beb8e832b1a3231649dcba651f1df7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "690e35e5_3855fe8e",
+        "filename": "crypto/fipsmodule/ecdsa/ecdsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-24T00:03:18Z",
+      "side": 1,
+      "message": "Reverted. I\u0027d convinced myself that SHA-512 being bigger was also a problem, but I think I was confused. (I think I thought the array was sized to [32] rather than [SHA512]?)",
+      "parentUuid": "da20d295_f064c137",
       "range": {
         "startLine": 316,
         "startChar": 45,
