@@ -53,6 +53,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f239b74_84a19bf5",
+        "filename": "crypto/fipsmodule/ecdsa/ecdsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-25T21:55:42Z",
+      "side": 1,
+      "message": "(Forgot to mark this done, but it is done.)",
+      "parentUuid": "80d30ac4_117ec475",
+      "revId": "32a32b3206beb8e832b1a3231649dcba651f1df7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "da20d295_f064c137",
