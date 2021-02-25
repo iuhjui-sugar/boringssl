@@ -81,6 +81,24 @@
       "parentUuid": "51ec3c06_9de08d59",
       "revId": "4cfec28a2d4f3dcc28cfa8aff7f694b0b62e321b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d94d03be_d87afaa0",
+        "filename": "crypto/fipsmodule/ecdsa/ecdsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-25T21:03:31Z",
+      "side": 1,
+      "message": "(Resolving thread.)",
+      "parentUuid": "b40092c9_f8f3bf6b",
+      "revId": "4cfec28a2d4f3dcc28cfa8aff7f694b0b62e321b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
