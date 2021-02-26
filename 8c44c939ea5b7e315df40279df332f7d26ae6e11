@@ -1,6 +1,52 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "0fc95afa_c3ed6616",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1036,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-02-26T17:39:43Z",
+      "side": 1,
+      "message": "s/output/argument/",
+      "range": {
+        "startLine": 1036,
+        "startChar": 55,
+        "endLine": 1036,
+        "endChar": 61
+      },
+      "revId": "8c44c939ea5b7e315df40279df332f7d26ae6e11",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d5d2f98_2bdcde89",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1131,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-02-26T17:39:43Z",
+      "side": 1,
+      "message": "s/output/argument/",
+      "range": {
+        "startLine": 1131,
+        "startChar": 54,
+        "endLine": 1131,
+        "endChar": 60
+      },
+      "revId": "8c44c939ea5b7e315df40279df332f7d26ae6e11",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "1ed8d4a6_ba7bff33",
@@ -14,6 +60,29 @@
       "writtenOn": "2021-02-26T16:49:57Z",
       "side": 1,
       "message": "(Unlike certs and CRLs, there\u0027s only one signature algorithm field in a CSR.)",
+      "revId": "8c44c939ea5b7e315df40279df332f7d26ae6e11",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d76e25cc_a31b26ec",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1188,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-02-26T17:39:43Z",
+      "side": 1,
+      "message": "s/output/argument/",
+      "range": {
+        "startLine": 1188,
+        "startChar": 54,
+        "endLine": 1188,
+        "endChar": 60
+      },
       "revId": "8c44c939ea5b7e315df40279df332f7d26ae6e11",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
