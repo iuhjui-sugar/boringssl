@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7d7c48d9_68a15a5b",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1036,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-26T19:40:13Z",
+      "side": 1,
+      "message": "Maybe \"Either output pointer may be NULL\", to match X509_get0_uids? I wanted to capture that out_* may be NULL but not x509.",
+      "parentUuid": "0fc95afa_c3ed6616",
+      "range": {
+        "startLine": 1036,
+        "startChar": 55,
+        "endLine": 1036,
+        "endChar": 61
+      },
+      "revId": "8c44c939ea5b7e315df40279df332f7d26ae6e11",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1d5d2f98_2bdcde89",
         "filename": "include/openssl/x509.h",
         "patchSetId": 1
@@ -37,6 +61,30 @@
       "writtenOn": "2021-02-26T17:39:43Z",
       "side": 1,
       "message": "s/output/argument/",
+      "range": {
+        "startLine": 1131,
+        "startChar": 54,
+        "endLine": 1131,
+        "endChar": 60
+      },
+      "revId": "8c44c939ea5b7e315df40279df332f7d26ae6e11",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36f5d56f_a60f0748",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1131,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-26T19:40:13Z",
+      "side": 1,
+      "message": "(ditto)",
+      "parentUuid": "1d5d2f98_2bdcde89",
       "range": {
         "startLine": 1131,
         "startChar": 54,
@@ -77,6 +125,30 @@
       "writtenOn": "2021-02-26T17:39:43Z",
       "side": 1,
       "message": "s/output/argument/",
+      "range": {
+        "startLine": 1188,
+        "startChar": 54,
+        "endLine": 1188,
+        "endChar": 60
+      },
+      "revId": "8c44c939ea5b7e315df40279df332f7d26ae6e11",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff3288cd_a179d2fb",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1188,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-26T19:40:13Z",
+      "side": 1,
+      "message": "(ditto)",
+      "parentUuid": "d76e25cc_a31b26ec",
       "range": {
         "startLine": 1188,
         "startChar": 54,
