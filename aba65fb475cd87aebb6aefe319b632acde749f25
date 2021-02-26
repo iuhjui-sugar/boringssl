@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "197835b9_ca0eb4d7",
+        "filename": "crypto/x509v3/v3_purp.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-02-26T17:37:19Z",
+      "side": 1,
+      "message": "Haha!",
+      "range": {
+        "startLine": 442,
+        "startChar": 7,
+        "endLine": 442,
+        "endChar": 39
+      },
+      "revId": "aba65fb475cd87aebb6aefe319b632acde749f25",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6798835c_f8a8c90f",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-02-26T17:37:19Z",
+      "side": 1,
+      "message": "Totally your call: one could have X509_CRLV2_VERSION and X509_REQV1_VERSION.",
+      "revId": "aba65fb475cd87aebb6aefe319b632acde749f25",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
