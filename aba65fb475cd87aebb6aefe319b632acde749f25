@@ -39,6 +39,24 @@
       "message": "Totally your call: one could have X509_CRLV2_VERSION and X509_REQV1_VERSION.",
       "revId": "aba65fb475cd87aebb6aefe319b632acde749f25",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "202b9e25_2853a542",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-26T18:03:41Z",
+      "side": 1,
+      "message": "Ah good point. I could go either way on this.\n\nAn argument for one enum would be that RFC5280 does use the same Version enum and describes these as \"X.509 v3 certificate\" and \"X.509 v2 certificate revocation list\". That suggests X.509 believes versions are a cross-X.509 thing.\n\nAn argument for several enums is this is ridiculous and is probably better thought of as separate version numbers per type of object, despite RFC5280\u0027s delusions.\n\nWDYT?",
+      "parentUuid": "6798835c_f8a8c90f",
+      "revId": "aba65fb475cd87aebb6aefe319b632acde749f25",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
