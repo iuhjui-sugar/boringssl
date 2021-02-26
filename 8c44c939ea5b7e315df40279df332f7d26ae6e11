@@ -48,6 +48,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ebb1571_bc0f39f2",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1036,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-02-26T19:43:27Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7d7c48d9_68a15a5b",
+      "range": {
+        "startLine": 1036,
+        "startChar": 55,
+        "endLine": 1036,
+        "endChar": 61
+      },
+      "revId": "8c44c939ea5b7e315df40279df332f7d26ae6e11",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1d5d2f98_2bdcde89",
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "(ditto)",
       "parentUuid": "1d5d2f98_2bdcde89",
+      "range": {
+        "startLine": 1131,
+        "startChar": 54,
+        "endLine": 1131,
+        "endChar": 60
+      },
+      "revId": "8c44c939ea5b7e315df40279df332f7d26ae6e11",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15c645c6_8c700905",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1131,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-02-26T19:43:27Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "36f5d56f_a60f0748",
       "range": {
         "startLine": 1131,
         "startChar": 54,
@@ -149,6 +197,30 @@
       "side": 1,
       "message": "(ditto)",
       "parentUuid": "d76e25cc_a31b26ec",
+      "range": {
+        "startLine": 1188,
+        "startChar": 54,
+        "endLine": 1188,
+        "endChar": 60
+      },
+      "revId": "8c44c939ea5b7e315df40279df332f7d26ae6e11",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45a97383_ada6a922",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1188,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-02-26T19:43:27Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ff3288cd_a179d2fb",
       "range": {
         "startLine": 1188,
         "startChar": 54,
