@@ -75,6 +75,24 @@
       "parentUuid": "202b9e25_2853a542",
       "revId": "aba65fb475cd87aebb6aefe319b632acde749f25",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fdf74dca_a63f5178",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 586,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-02-26T18:32:18Z",
+      "side": 1,
+      "message": "Eh, I guess I\u0027ll leave it as-is. We can always define more constants later (not like any of this is type-safe), and I kinda suspect OpenSSL will prefer to aggressively follow the ASN.1 schema.",
+      "parentUuid": "263957cb_a9d60457",
+      "revId": "aba65fb475cd87aebb6aefe319b632acde749f25",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
