@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "22bbaee3_7aa29f49",
+        "filename": "crypto/pkcs8/pkcs8_x509.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1193,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-01T19:26:51Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "24b7f9be_9b029132",
+      "range": {
+        "startLine": 1193,
+        "startChar": 47,
+        "endLine": 1193,
+        "endChar": 51
+      },
+      "revId": "2bbb1c7032a5f1b31ec50c019289bce391d5b776",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a5f451a1_f85ec274",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-03-01T18:23:44Z",
       "side": 1,
       "message": ",",
+      "range": {
+        "startLine": 1204,
+        "startChar": 16,
+        "endLine": 1204,
+        "endChar": 17
+      },
+      "revId": "2bbb1c7032a5f1b31ec50c019289bce391d5b776",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b22c55b5_0e0ec065",
+        "filename": "crypto/pkcs8/pkcs8_x509.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1204,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-01T19:26:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a5f451a1_f85ec274",
       "range": {
         "startLine": 1204,
         "startChar": 16,
