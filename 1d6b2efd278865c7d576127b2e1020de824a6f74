@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3e3d023_e8c94379",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-03-01T18:29:30Z",
+      "side": 1,
+      "message": "And, of course, \"val\" isn\u0027t short for something obvious like \"value\", but \"validity\"...",
+      "revId": "1d6b2efd278865c7d576127b2e1020de824a6f74",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
