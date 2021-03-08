@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62f8a1e7_4475e689",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-08T18:05:01Z",
+      "side": 1,
+      "message": "New patchset!\n\nWould you prefer that I split the fuzzer and corpus into another CL?\n\nTo skirt around the MSan issue with the lambda comparator for qsort/bsearch, I promoted the lambda to a static function in t1_lib.cc. I am still not sure why I was getting the `use-of-uninitialized-value` error, nor am I sure why I saw a one-off failure in \"MinimumVersion-Client-TLS1-TLS1-TLS\" on Friday.",
+      "revId": "8455113ad67a02971e916dd0b5fa6d674b049f8c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

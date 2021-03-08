@@ -527,6 +527,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf2ac844_1986997e",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-08T18:05:01Z",
+      "side": 1,
+      "message": "Closing as I\u0027ve adopted the out_alert parameter pattern.",
+      "parentUuid": "321df40d_99f58fed",
+      "revId": "e1bdf68b356b31d1af1b5437ec0f16a8a6572f1a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c81beb0a_efc83a7e",

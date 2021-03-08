@@ -16,6 +16,69 @@
       "message": "Partially responded to your comments, just uploading this so you can take a look at the refcounting.",
       "revId": "af85d5de08d9824b369f7c0f4ddf9a87ee1ac6d5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d924a74_9e14104e",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 3637,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-08T18:05:01Z",
+      "side": 1,
+      "message": "Add a comment explaining that |configs| is immutable after you\u0027ve sent it into the setter function.",
+      "revId": "af85d5de08d9824b369f7c0f4ddf9a87ee1ac6d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af2d950f_47c2d1c4",
+        "filename": "tool/server.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-08T18:05:01Z",
+      "side": 1,
+      "message": "Leaks the |configs|. Move up where we build the SSL_CTX.",
+      "range": {
+        "startLine": 401,
+        "startChar": 0,
+        "endLine": 402,
+        "endChar": 17
+      },
+      "revId": "af85d5de08d9824b369f7c0f4ddf9a87ee1ac6d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba3d65e1_4ef4eab1",
+        "filename": "tool/server.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-08T18:05:01Z",
+      "side": 1,
+      "message": "rename SSL_CTX_set_one_ech_server_configs \n\nhttps://boringssl.googlesource.com/boringssl/+/HEAD/API-CONVENTIONS.md#ownership-and-lifetime",
+      "range": {
+        "startLine": 405,
+        "startChar": 18,
+        "endLine": 405,
+        "endChar": 36
+      },
+      "revId": "af85d5de08d9824b369f7c0f4ddf9a87ee1ac6d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }

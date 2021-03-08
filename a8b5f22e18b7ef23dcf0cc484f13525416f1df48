@@ -873,6 +873,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "af7a717e_dd958790",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 2209,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-08T18:05:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df00d008_80bdec95",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "134f1663_d020bfaf",
@@ -886,6 +904,24 @@
       "writtenOn": "2021-02-24T21:18:06Z",
       "side": 1,
       "message": "It takes more code to use any_of with a lambda than just writing the loop.\n\n  for (const auto \u0026suite : parsed_config.cipher_suites()) {\n    if (.....) {\n      return 0;\n    }\n  }",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "893bedf6_6de34925",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 2210,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-08T18:05:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "134f1663_d020bfaf",
       "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -907,6 +943,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61a2ccd8_ab470d6d",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 2212,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-08T18:05:01Z",
+      "side": 1,
+      "message": "Done. This is now the parse function\u0027s responsibility, since we\u0027re specializing it for server configs.",
+      "parentUuid": "ff80ff23_7b2a9f5f",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c898925c_f98c24bb",
@@ -920,6 +974,24 @@
       "writtenOn": "2021-02-24T21:18:06Z",
       "side": 1,
       "message": "Given the now second DoS issue we\u0027ve run into with this function, I think we need to extract this into a fuzzer:\n\n- Make this not do I/O or depend heavily on SSL state. Instead, it should take an out_alert parameter (see elsewhere for pattern). This is something the CL should be doing with helper functions anyway because ssl_send_alert does I/O and we want to be pushing I/O out of the handshake. And then we\u0027ll switch that to SSLError.\n\n- Rather than taking an SSL_CLIENT_HELLO in SetClientHello, take a bssl::Array (move semantics) and have this function output a bssl::Array. This is, again, to not depend heavily on SSL state. This is worth doing anyway per comment below about HRR.\n\n- At that point, SetClientHello is simply ech_client_hello_buf_ \u003d std::move(your_array) and probably doesn\u0027t need to exist.\n\n- Keep the function internal in ssl/internal.h and mark it OPENSSL_EXPORT\n\n- Add a fuzzer in fuzz. If it needs a dummy SSL* to know about TLS vs. DTLS, that\u0027s fine, but it should otherwise be pure function.\n\nThis and all the tests needed may be enough that it\u0027s worth moving the outer_extensions mess to a follow-up CL so we can land the basic version sooner.",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "054bd2d8_23a0d660",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-08T18:05:01Z",
+      "side": 1,
+      "message": "Done, kept the dummy SSL* for ssl-\u003emethod. I can split the fuzzer stuff into a followup CL if the corpus is getting in your way.",
+      "parentUuid": "c898925c_f98c24bb",
       "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -941,6 +1013,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "478c9189_d44413a3",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-08T18:05:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "025b96c9_a084ff4d",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "723ff234_93faae7f",
@@ -954,6 +1044,24 @@
       "writtenOn": "2021-02-24T21:18:06Z",
       "side": 1,
       "message": "Just fold this into the bit above.",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "046f51d6_7f6d73d3",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-08T18:05:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "723ff234_93faae7f",
       "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -981,6 +1089,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5b5d876_b6f829d3",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-08T18:05:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8908a0f7_21d759eb",
+      "range": {
+        "startLine": 317,
+        "startChar": 35,
+        "endLine": 317,
+        "endChar": 48
+      },
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6085ed12_96bf22bd",
@@ -994,6 +1126,24 @@
       "writtenOn": "2021-02-24T21:18:06Z",
       "side": 1,
       "message": "Another DoS issue: we need to check for duplicates. (Add a test.)",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "992fdcbd_4ec9e352",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-08T18:05:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6085ed12_96bf22bd",
       "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -1023,6 +1173,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c7c12932_870303b1",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-08T18:05:01Z",
+      "side": 1,
+      "message": "Looks like the current name of the extension is \"ech_outer_extensions\". Did you think I was referring to a variable?",
+      "parentUuid": "036c26b4_009606b0",
+      "range": {
+        "startLine": 368,
+        "startChar": 20,
+        "endLine": 368,
+        "endChar": 24
+      },
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4c3a5a98_0d41b436",
         "filename": "ssl/t1_lib.cc",
         "patchSetId": 15
@@ -1034,6 +1208,24 @@
       "writtenOn": "2021-02-24T21:18:06Z",
       "side": 1,
       "message": "|| CBS_len(\u0026extension_body) !\u003d 0, to check for trailing data.",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6ef32c6_7ada7eda",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-08T18:05:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c3a5a98_0d41b436",
       "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -1061,6 +1253,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e89aecaf_fc06b7e3",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-08T18:05:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ec1abb0_b1b1842f",
+      "range": {
+        "startLine": 407,
+        "startChar": 26,
+        "endLine": 407,
+        "endChar": 41
+      },
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "060245d1_5f786314",
@@ -1078,6 +1294,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ebfc033_2b542800",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 416,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-08T18:05:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "060245d1_5f786314",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b32b6a09_86dc0c02",
@@ -1091,6 +1325,24 @@
       "writtenOn": "2021-02-24T21:18:06Z",
       "side": 1,
       "message": "So it looks like both places that call this function (decompression and AAD) end up doing an extra copy of the extensions. What if we instead called this:\n\nbool ssl_client_hello_write_without_extensions() and this just skipped the extensions block. Then the decompression looks something like this:\n\n  SSL_CLIENT_HELLO client_hello_inner;\n  if (!ssl_client_hello_init(ssl, \u0026client_hello_inner,\n                             encoded_client_hello_inner)) {\n    return false;\n  }\n  // TLS 1.3 ClientHellos must have extensions, and the session ID\n  // comes from ClientHelloOuter.\n  if (client_hello_inner.session_id_len !\u003d 0 ||\n      client_hello_inner.extensions_len \u003d\u003d 0) {\n    return false;\n  }\n  client_hello_inner-\u003esession_id \u003d client_hello_outer-\u003esession_id;\n  client_hello_inner-\u003esession_id_len \u003d client_hello_outer-\u003esession_id_len;\n\n  ScopedCBB cbb;\n  CBB body, extensions;\n  if (!ssl-\u003emethod-\u003einit_message(cbb.get(), \u0026body, SSL3_MT_CLIENT_HELLO)) ||\n      !ssl_client_hello_write_without_extensions(\n          \u0026client_hello_inner, \u0026body) ||\n      !CBB_add_u16_length_prefixed(\u0026body, \u0026extensions)) {\n    return false;\n  }\n\n  // Now do the extension rewriting loop and write straight into |extensions|, reading from client_hello_inner-\u003eextensions.\n\n  // Get bssl::Array out and then return it to the caller for cleaner fuzzing.\n  if (!ssl-\u003emethod-\u003efinish_message(...))\n\nClientHelloAAD similarly can just write the non-extension bits and then serialize the extensions in without the extra copy.",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9208104a_3a99d6f4",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-08T18:05:01Z",
+      "side": 1,
+      "message": "Done (decompression and AAD).\n\nUgh, imperative languages... I prefer the clarity of the way I had it written, but I also see the appeal of having the computer do less work :)",
+      "parentUuid": "b32b6a09_86dc0c02",
       "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -1147,6 +1399,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4626a0b0_56702c85",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-08T18:05:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb8b5cfa_085f4d1d",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d7273bfc_43845ea2",
@@ -1160,6 +1430,24 @@
       "writtenOn": "2021-02-24T21:18:06Z",
       "side": 1,
       "message": "|| CBS_len(\u0026ech_body) !\u003d 0",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "920e2936_21919194",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-08T18:05:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7273bfc_43845ea2",
       "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -1181,6 +1469,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "318093aa_66f5c4dd",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-08T18:05:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb13d9a0_e41abd16",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b76b9b60_9688e263",
@@ -1194,6 +1500,24 @@
       "writtenOn": "2021-02-24T21:18:06Z",
       "side": 1,
       "message": "Same comment about the error conditions here. Here\u0027s where returning false on the error case is useful. You just ignore the extra boolean output.",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ad686cc_c7e74a04",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-08T18:05:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b76b9b60_9688e263",
       "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -1215,6 +1539,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e5696e9_f409d86a",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-08T18:05:01Z",
+      "side": 1,
+      "message": "Done, resetting the buffer here.\n\nI\u0027m going to punt on keeping the second ClientHello(Inner) in a local variable. It\u0027s mentally simpler to reuse the GetClientHello function, but I see your point that we don\u0027t really need to use the handshake-owned buffer.",
+      "parentUuid": "c00776f0_dd265437",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f0f3f4b3_1e1ad9d2",
@@ -1228,6 +1570,30 @@
       "writtenOn": "2021-02-24T21:18:06Z",
       "side": 1,
       "message": "I don\u0027t think we need to change this. It should happen for free because we run the callbacks based on the inner ClientHello, which has an ech_is_inner. And if the inner ClientHello doesn\u0027t have ech_is_inner, we shouldn\u0027t do this suffix thing. Whether we also should fail the connection, I dunno. Either way, we should pick one and test it.\n\n(This is part of why I suggested doing ech_is_inner via callbacks. I\u0027d like for the inner vs outer mess to just fall out for free. Indeed you\u0027d expect that because of how split mode works.)",
+      "range": {
+        "startLine": 688,
+        "startChar": 6,
+        "endLine": 688,
+        "endChar": 24
+      },
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34b45acf_a062c426",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-08T18:05:01Z",
+      "side": 1,
+      "message": "Yep, you\u0027re right, |hs-\u003eech_is_inner_present| is sufficient here.\n\nI opted to fail the connection when ech_is_inner is missing from ClientHelloInner. Added a test with a name that\u0027s entirely too long: ECH-Server-ClientHelloInner-ECHIsInner-Absent.",
+      "parentUuid": "f0f3f4b3_1e1ad9d2",
       "range": {
         "startLine": 688,
         "startChar": 6,
@@ -1257,6 +1623,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "58d5aede_2467014b",
+        "filename": "tool/server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-08T18:05:01Z",
+      "side": 1,
+      "message": "I was just taking the path of least resistance when integrating with tls-interop-runner (won\u0027t upload a PR until this CL lands).\n\nTheir code was already writing base64-encoded ECHConfigs and private keys, but I didn\u0027t think we had a base64 decoder here. I just added a few lines to tls-interop-runner that calls their MarshalECHConfigs function and writes the raw bytes to a file.\n\nWould you rather we change it to \"-echconfig\" and drop the length prefix?\n\nIf we ever wanted to support \u003e1 ECHConfig values with associated private keys, would we completely revamp the arg parsing here? Or would we unmarshal the (ECHConfig, private key) pairs out of a blob argument?",
+      "parentUuid": "ec6c6a49_1db69b99",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c587cbc1_0c18b04c",
         "filename": "tool/server.cc",
         "patchSetId": 15
@@ -1268,6 +1652,24 @@
       "writtenOn": "2021-02-24T21:18:06Z",
       "side": 1,
       "message": "This should be return false because it\u0027ll only happen if the config is wrong.\n\n(result \u003d false; continue only makes sense for SSL_accept because a single connection failing isn\u0027t a fatal error.)",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3b0cd3d_f382a9b2",
+        "filename": "tool/server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-08T18:05:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c587cbc1_0c18b04c",
       "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
