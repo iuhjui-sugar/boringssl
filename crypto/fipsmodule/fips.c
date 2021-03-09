@@ -14,9 +14,9 @@
 
 #include <openssl/crypto.h>
 
+#include "../internal.h"
+#include "delocate.h"
 
-// This file exists in order to give the fipsmodule target, in non-FIPS mode,
-// something to compile.
 
 int FIPS_mode(void) {
 #if defined(BORINGSSL_FIPS) && !defined(OPENSSL_ASAN)
@@ -27,3 +27,23 @@ int FIPS_mode(void) {
 }
 
 int FIPS_mode_set(int on) { return on == FIPS_mode(); }
+
+typedef CRYPTO_refcount_t counters_array_t[fips_counter_max + 1];
+DEFINE_BSS_GET(counters_array_t, counters_array);
+
+size_t FIPS_read_counter(enum fips_counter_t counter) {
+  if (0 <= counter && counter <= fips_counter_max) {
+    return (*counters_array_bss_get())[counter];
+  }
+
+  abort();
+}
+
+void boringssl_fips_inc_counter(enum fips_counter_t counter) {
+  if (0 <= counter && counter <= fips_counter_max) {
+    CRYPTO_refcount_inc(&(*counters_array_bss_get())[counter]);
+    return;
+  }
+
+  abort();
+}

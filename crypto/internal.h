@@ -109,6 +109,7 @@
 #ifndef OPENSSL_HEADER_CRYPTO_INTERNAL_H
 #define OPENSSL_HEADER_CRYPTO_INTERNAL_H
 
+#include <openssl/crypto.h>
 #include <openssl/ex_data.h>
 #include <openssl/stack.h>
 #include <openssl/thread.h>
@@ -825,6 +826,8 @@ void BORINGSSL_FIPS_abort(void) __attribute__((noreturn));
 // nor written and tests will always be run.
 int boringssl_fips_self_test(const uint8_t *module_hash,
                              size_t module_hash_len);
+
+void boringssl_fips_inc_counter(enum fips_counter_t counter);
 
 
 #if defined(__cplusplus)
