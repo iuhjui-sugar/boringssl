@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7f104fb6_b17a3e1c",
+        "filename": "crypto/fipsmodule/fips.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-09T23:18:44Z",
+      "side": 1,
+      "message": "Actually... would a thread-local satisfy this? (The monitoring would need to sample from a thread that was doing work.)",
+      "parentUuid": "2e15c1e2_ad74f4c4",
+      "revId": "2b4ef74ff9fc764cd84dc8d375d8aeafa6d2b6d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2f75105a_a93956fe",
         "filename": "crypto/fipsmodule/fips.c",
         "patchSetId": 1
