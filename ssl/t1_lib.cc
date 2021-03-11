@@ -604,6 +604,7 @@ static size_t random_size(size_t min, size_t max) {
 }
 
 static bool ext_ech_add_clienthello_grease(SSL_HANDSHAKE *hs, CBB *out) {
+  return false;
   // If we are responding to the server's HelloRetryRequest, we repeat the bytes
   // of the first ECH GREASE extension.
   if (hs->ssl->s3->used_hello_retry_request) {
