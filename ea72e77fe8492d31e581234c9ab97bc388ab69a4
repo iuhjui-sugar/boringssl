@@ -41,6 +41,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "983f091f_a2a3cf71",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-12T00:03:17Z",
+      "side": 1,
+      "message": "Using backticks for consistency with Adam\u0027s suggested text below.",
+      "parentUuid": "a69d38d5_164745c6",
+      "range": {
+        "startLine": 57,
+        "startChar": 93,
+        "endLine": 57,
+        "endChar": 94
+      },
+      "revId": "ea72e77fe8492d31e581234c9ab97bc388ab69a4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9b4c284e_14ff174d",
@@ -54,6 +78,24 @@
       "writtenOn": "2021-03-11T23:47:52Z",
       "side": 1,
       "message": "Too chatty for our style:\n\n\"RR trace recorded. Replay with `rr replay`.\"",
+      "revId": "ea72e77fe8492d31e581234c9ab97bc388ab69a4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4d663a8_8e3cb128",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 16910,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-12T00:03:17Z",
+      "side": 1,
+      "message": "Done. Thanks, Adam!",
+      "parentUuid": "9b4c284e_14ff174d",
       "revId": "ea72e77fe8492d31e581234c9ab97bc388ab69a4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
