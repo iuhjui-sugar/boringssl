@@ -1,0 +1,798 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eceb98bf_6158713d",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 3594,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "WDYT about SSL_ECH_SERVER_CONFIG_LIST to match the new naming?\n\n(Not sure what the right variable name should be... list? I guess it could even be ECHServerConfig and ECHServerConfigEntry, but that\u0027s probably confusing.)",
+      "range": {
+        "startLine": 3594,
+        "startChar": 15,
+        "endLine": 3594,
+        "endChar": 37
+      },
+      "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a873d47_979e1032",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 3608,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "|SSL_CTX| here and two lines later. Also |SSL_CTX_set1_ech_server_configs|.",
+      "range": {
+        "startLine": 3608,
+        "startChar": 3,
+        "endLine": 3608,
+        "endChar": 10
+      },
+      "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ca341bc_a94295b6",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 3622,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "|SSL|. Also below in the paragraph.",
+      "range": {
+        "startLine": 3622,
+        "startChar": 56,
+        "endLine": 3622,
+        "endChar": 59
+      },
+      "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48695727_e0bd532c",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 3622,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "Nit: I\u0027d maybe just say releasing the old configs.",
+      "range": {
+        "startLine": 3622,
+        "startChar": 10,
+        "endLine": 3622,
+        "endChar": 42
+      },
+      "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45404b86_885cedba",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 3625,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "Over up in SSL_CTX, we have a note that says, once shared, functions that change a the SSL_CTX\u0027s configuration cannot be used. It\u0027s probably worth adding a sentence like:\n\nUnlike most |SSL_CTX| configuration functions, this function may be called even if |ctx| already has associated connections on multiple threads. This may be used to rotate keys in a long-lived server process.",
+      "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08c7e2ba_4d59e8ab",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "Other uses of SSL_R_BAD_LENGTH are about the length passed to SSL_write. (Before reusing an error in libssl, I check how it was previously used. A lot of the names come from OpenSSL.)\n\nThis didn\u0027t get caught at the type level (see comment), but we should fix that. Then this becomes ERR_R_INTERNAL_ERROR, but let\u0027s instead make EVP_HPKE_CTX_setup_base_r_x25519 take ptr/len pairs and have it check the size internally. Then this just gets folded into EVP_HPKE_CTX_setup_base_r_x25519. In particular, we have a caller that wants to use this, and I want to file off this sharp edge before making the API public.\n\nAlso since we have the external user, let\u0027s do that in a separate CL so we can land it earlier. (I can do it too, but I figure you\u0027d have to deal with a messy rebase either way.)",
+      "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f2a527f_550100c8",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 665,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "This isn\u0027t about avoiding misleading stuff. Whenever we ignore an error, we ERR_clear_error.\n\nThis comment should just say something like:\n\n  // Ignore the error and try other configs.",
+      "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb0cf082_5aed596c",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 795,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "ech_accept, so we\u0027re less sensitive to when things happen to get dropped.",
+      "range": {
+        "startLine": 795,
+        "startChar": 12,
+        "endLine": 795,
+        "endChar": 39
+      },
+      "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f566364_32a00379",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "Does the spec say the client-facing server should check this? (Also should have a spec issue.)",
+      "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f10d9484_8455fcfc",
+        "filename": "ssl/internal.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 3453,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "ech_server_configs contains ...",
+      "range": {
+        "startLine": 3453,
+        "startChar": 5,
+        "endLine": 3453,
+        "endChar": 8
+      },
+      "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d8278c8_10523610",
+        "filename": "ssl/ssl_echconfig.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "The name of this file is kind of weird. If it\u0027s named after a class, the class no longer matches and the lack of underscore between ech and config doesn\u0027t make sense.\n\nThat said, note comment in t1_lib.cc about just putting most of the ECH stuff into its own file.",
+      "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f787ecfe_70e4bb67",
+        "filename": "ssl/ssl_echconfig.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "Google C++ style does not indent inside namespaces. But BoringSSL style also prefers static over anonymous namespaces anyway.",
+      "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f0f880b_16c7ed44",
+        "filename": "ssl/ssl_echconfig.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "Now that we\u0027ve separated the client and server parsers, do we still need this output param? Incompatible version is just another case of unsupported ECHConfig.",
+      "range": {
+        "startLine": 29,
+        "startChar": 28,
+        "endLine": 29,
+        "endChar": 59
+      },
+      "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba11bfe7_75ce21ea",
+        "filename": "ssl/ssl_echconfig.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "This comment isn\u0027t right. We\u0027re not skipping it.",
+      "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45f391e9_a5084d50",
+        "filename": "ssl/ssl_echconfig.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "This isn\u0027t really a decode error, but a config we don\u0027t support. The fact that we want to fully understand the ECHConfig that comes in is subtle enough to need both a comment its own error codes. Let\u0027s replace SSL_R_ECH_SERVER_CONFIG_UNSUPPORTED_CIPHERSUITE with SSL_R_UNSUPPORTED_ECH_SERVER_CONFIG and use that for those checks. And then add a comment explaining why we are parsing it the way we are.",
+      "range": {
+        "startLine": 48,
+        "startChar": 27,
+        "endLine": 48,
+        "endChar": 45
+      },
+      "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4279edb4_85fe6e9f",
+        "filename": "ssl/ssl_echconfig.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "Fold this and line 54 into line 52. Fold lines 53 and 55 together.",
+      "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "006f558e_4ab3345b",
+        "filename": "ssl/ssl_echconfig.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "There\u0027s no harm in checking this, but it\u0027s also not necessary because line 88 will notice.",
+      "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a20b82a4_f3756726",
+        "filename": "ssl/ssl_echconfig.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "CBS_len(\u0026ech_config_contents) !\u003d 0",
+      "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0eea14fe_3400919c",
+        "filename": "ssl/ssl_echconfig.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "This is implementing the \"no unsupported extensions\" check, by way of noting there aren\u0027t any extensions we support anyway.\n\nThat\u0027s subtle enough that it\u0027s probably worth a comment and an error code other than SSL_R_DECODE_ERROR. (See note above on error codes.)",
+      "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c220c6ae_6a26329e",
+        "filename": "ssl/ssl_echconfig.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "Nit: This error is usually about something bad the peer did. I think this slightly subtle thing around ECHConfigs should have a separate set of errors. (See note above.)",
+      "range": {
+        "startLine": 74,
+        "startChar": 27,
+        "endLine": 74,
+        "endChar": 44
+      },
+      "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75c9db4d_27223066",
+        "filename": "ssl/ssl_echconfig.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": ".",
+      "range": {
+        "startLine": 78,
+        "startChar": 49,
+        "endLine": 78,
+        "endChar": 50
+      },
+      "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7572f29c_2a17ce43",
+        "filename": "ssl/ssl_echconfig.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "Let\u0027s check the size of this here. Let\u0027s also check it matches the private key using X25519_public_from_private? Dunno. We normally like to check consistency on parse and now that we have an ECHServerConfig object, it\u0027s no longer a per-connection cost.",
+      "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "422565f0_d2cbd2cc",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 2230,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "Now that we\u0027ve cleanly separated out the server configs, let\u0027s move all of these bits into the ECHServerConfig::Parse. How about renaming Parse() to Init() and then having it just take all three parameters?",
+      "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f2b3fe0_92d80541",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 2245,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "(Hah, I like how this even calls SSL_ECH_SERVER_CONFIGS_free outside of the lock. I suspect we\u0027re a little lazy about this in other functions.)",
+      "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d36fc0b0_03a94a30",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "These aren\u0027t called stubs anymore. (The structure contains the entire extension anyway, so \"stub\" didn\u0027t make much sense.)\n\nDitto for the rest of the file.",
+      "range": {
+        "startLine": 146,
+        "startChar": 21,
+        "endLine": 146,
+        "endChar": 25
+      },
+      "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a89a728_93a51096",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "Lifted out, it\u0027s kinda confusing to have this in a file that\u0027s otherwise devoted to generic extension handling. What if we put the various ECH functions into the file you\u0027re adding anyway (ssl_echconfig.cc), and name it ech.cc?\n\nAlso, on reflection, let\u0027s keep it as a lambda by just doing something like:\n\n#if defined(OPENSSL_MSAN)\n#define NO_SANITIZE_MEMORY __attribute__((no_sanitize(\"memory\")))\n#else\n#define NO_SANITIZE_MEMORY\n#endif\n\n...\n\n  // Disable MSan for this lambda. MSan\u0027s libc interceptors do not handle \n  |bsearch|. See b/182583130.\n  [](const void *a, const void *b) NO_SANITIZE_MEMORY { ... }\n\nThis makes me kinda sad but ah well. At least we have a bug to point at.",
+      "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c586ea7d_8f59e6c3",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "Nit: Just plain body. Ditto with the function prototype.",
+      "range": {
+        "startLine": 230,
+        "startChar": 47,
+        "endLine": 230,
+        "endChar": 55
+      },
+      "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9baeb872_3e89dc42",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "I think this can just be static. It\u0027s only used by the two ECH functions.",
+      "range": {
+        "startLine": 294,
+        "startChar": 5,
+        "endLine": 294,
+        "endChar": 46
+      },
+      "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53ceed2a_04c2c273",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "Span\u003cconst uint8_t\u003e. There\u0027s no reason to transfer ownership here.",
+      "range": {
+        "startLine": 314,
+        "startChar": 35,
+        "endLine": 314,
+        "endChar": 49
+      },
+      "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "507560f7_8e4cda35",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 345,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "ech_outer_extensions",
+      "range": {
+        "startLine": 345,
+        "startChar": 23,
+        "endLine": 345,
+        "endChar": 39
+      },
+      "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8bf63f4_a3c0c60a",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "This comment is pretty long. I think we can tone it down dramatically:\n\n// Sort the extensions in ClientHelloOuter, so outer_extensions may be processed in O(n*log(n)) time, rather than O(n^2).",
+      "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e44be371_841cf613",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 413,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "s/full_extensions/extensions/, but I think we can replace this simply with:\n\n  // Replace ech_outer_extensions with the corresponding outer extensions.",
+      "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74bc48c1_1600e670",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "Just add a bool copied to struct Extension, and set it to true when we copy it.\n\n(We actually already had compare_uint16_t and parse_u16_array in this file, but there\u0027s no need to use it.)",
+      "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71088021_826f6d24",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "Nit: I think we can remove this and the three comments below. They\u0027re just restating the code.\n\nhttps://google.github.io/styleguide/cppguide.html#Implementation_Comments",
+      "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "211b2020_645f7297",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "Not really true with the prefix. Perhaps s/This is just/The ClientHello portion is/\n\nOr perhaps even just \"See draft-ietf-tls-esni-09, section 5.2.\"",
+      "range": {
+        "startLine": 507,
+        "startChar": 44,
+        "endLine": 507,
+        "endChar": 56
+      },
+      "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e2bca6e_e3a57061",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 1058,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "This is *probably fine*, but let\u0027s query and stash the config onto SSL_HANDSHAKE just the once. That way we ensure we behave self-consistently within a connection.\n\nSuppose the client use key 2, but we only know about key 1. We fail to decrypt and then later on go to this code. But, by the time we get here, the server has had the new keys installed. We\u0027ll now say \"key 2 was no good... but you can retry with key 2\", which may confuse the client.",
+      "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db9d242d_69d6d553",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 1060,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "empty()",
+      "range": {
+        "startLine": 1060,
+        "startChar": 34,
+        "endLine": 1060,
+        "endChar": 45
+      },
+      "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a821c4cb_96a90270",
+        "filename": "ssl/test/test_config.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 1661,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "We\u0027ll want to test both retry and non-retry configs.",
+      "range": {
+        "startLine": 1661,
+        "startChar": 14,
+        "endLine": 1661,
+        "endChar": 35
+      },
+      "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88eddb5d_bfeef437",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "SSL_R_DECODE_ERROR",
+      "range": {
+        "startLine": 596,
+        "startChar": 29,
+        "endLine": 596,
+        "endChar": 59
+      },
+      "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cba9fd2e_54f0bdd6",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 608,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "I think we can remove this, or just say \"Decryption failure is fatal in the second ClientHello.\"\n\nNo recourse sounds like we\u0027re failing to recover from something, but there\u0027s nothing meaningful to recover.",
+      "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

@@ -510,6 +510,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4129d8d8_91b34c5c",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 637,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "We ended up doing ECHServerConfig, although it\u0027s still not enforced at a type level. (See comment.) :-P",
+      "parentUuid": "ef902ba0_1c977e3c",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9dce2a2e_54f70e26",
@@ -664,6 +682,30 @@
       "side": 1,
       "message": "Dropping the SSL_HANDSHAKE::ech_send_retry_configs bit.\n\nI am going to continue checking the value of ech_accept in ext_ech_add_serverhello(). Just checked the spec, I guess it doesn\u0027t disallow nested ECH?",
       "parentUuid": "dd8adf64_d906a8f8",
+      "range": {
+        "startLine": 672,
+        "startChar": 10,
+        "endLine": 672,
+        "endChar": 32
+      },
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f57be26_1c6ae79d",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 672,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "Yeah, we should be filing spec issues to disambiguate a lot of this. I\u0027ll take care of that.",
+      "parentUuid": "0a43d10f_20104fce",
       "range": {
         "startLine": 672,
         "startChar": 10,
@@ -852,6 +894,24 @@
       "side": 1,
       "message": "I\u0027ve gone ahead and implemented the second option.\n\nUploading a partially-complete patchset so you can take a look at this during our meeting.",
       "parentUuid": "31c21ec2_071e6e41",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e72b2f58_49843129",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 2198,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "Thanks! (Closing thread.)",
+      "parentUuid": "999d847a_f14ceefe",
       "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -1185,6 +1245,30 @@
       "side": 1,
       "message": "Looks like the current name of the extension is \"ech_outer_extensions\". Did you think I was referring to a variable?",
       "parentUuid": "036c26b4_009606b0",
+      "range": {
+        "startLine": 368,
+        "startChar": 20,
+        "endLine": 368,
+        "endChar": 24
+      },
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e5698ed_a787a97d",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "I was looking at the TLSEXT_TYPE_outer_extensions constant, but apparently left a comment on the wrong one. :-)",
+      "parentUuid": "c7c12932_870303b1",
       "range": {
         "startLine": 368,
         "startChar": 20,
@@ -1635,6 +1719,24 @@
       "side": 1,
       "message": "I was just taking the path of least resistance when integrating with tls-interop-runner (won\u0027t upload a PR until this CL lands).\n\nTheir code was already writing base64-encoded ECHConfigs and private keys, but I didn\u0027t think we had a base64 decoder here. I just added a few lines to tls-interop-runner that calls their MarshalECHConfigs function and writes the raw bytes to a file.\n\nWould you rather we change it to \"-echconfig\" and drop the length prefix?\n\nIf we ever wanted to support \u003e1 ECHConfig values with associated private keys, would we completely revamp the arg parsing here? Or would we unmarshal the (ECHConfig, private key) pairs out of a blob argument?",
       "parentUuid": "ec6c6a49_1db69b99",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f603b181_405ec970",
+        "filename": "tool/server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-12T20:57:26Z",
+      "side": 1,
+      "message": "I think our interface being self-consistent is more important than optimizing for tls-interop-runner. The issue here is that, taking an ECHConfigList but a single private key doesn\u0027t make much sense. So, with this API, yeah, taking a single ECHConfig makes more sense. From the server caller\u0027s perspective, the individual ECHConfigs are actually separate, as opposed to the client caller which can simplify it down to a single ECHConfigList blob.\n\nWhat exactly is tls-interop-runner presenting us with?\n\n(We do have a base64 decoder, though it\u0027s not the most friendly to use.)",
+      "parentUuid": "58d5aede_2467014b",
       "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
