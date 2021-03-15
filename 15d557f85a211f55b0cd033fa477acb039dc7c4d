@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "00d77cfc_30f461e2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-15T22:12:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b3598905_3a816e11",
+      "range": {
+        "startLine": 20,
+        "startChar": 62,
+        "endLine": 20,
+        "endChar": 63
+      },
+      "revId": "15d557f85a211f55b0cd033fa477acb039dc7c4d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "15c7cb8f_72ece38d",
@@ -47,6 +71,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a2db374_d8fa7614",
+        "filename": "include/openssl/asn1.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-15T22:12:29Z",
+      "side": 1,
+      "message": "Done, although trimmed it done a bit.",
+      "parentUuid": "15c7cb8f_72ece38d",
+      "range": {
+        "startLine": 356,
+        "startChar": 23,
+        "endLine": 356,
+        "endChar": 31
+      },
+      "revId": "15d557f85a211f55b0cd033fa477acb039dc7c4d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "07480131_71f0ad9e",
@@ -60,6 +108,30 @@
       "writtenOn": "2021-03-15T20:11:15Z",
       "side": 1,
       "message": "if",
+      "range": {
+        "startLine": 400,
+        "startChar": 54,
+        "endLine": 400,
+        "endChar": 56
+      },
+      "revId": "15d557f85a211f55b0cd033fa477acb039dc7c4d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ad17741_a7c92599",
+        "filename": "include/openssl/asn1.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-15T22:12:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07480131_71f0ad9e",
       "range": {
         "startLine": 400,
         "startChar": 54,
