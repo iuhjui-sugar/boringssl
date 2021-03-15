@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e14969a_20fdc47b",
+        "filename": "crypto/crypto_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-15T21:04:49Z",
+      "side": 1,
+      "message": "Nit: Maybe as well use EVP_EncryptInit_ex.",
+      "range": {
+        "startLine": 62,
+        "startChar": 43,
+        "endLine": 62,
+        "endChar": 52
+      },
+      "revId": "276d48162ed8e21f8d4fe8aced4280354cc6112a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
