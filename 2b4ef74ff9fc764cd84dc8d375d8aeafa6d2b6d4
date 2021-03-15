@@ -35,6 +35,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0af2a40_69e69d93",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-03-15T20:14:17Z",
+      "side": 1,
+      "message": "Oops!",
+      "parentUuid": "adea6d54_5fe0fcdb",
+      "revId": "2b4ef74ff9fc764cd84dc8d375d8aeafa6d2b6d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2e15c1e2_ad74f4c4",
@@ -102,6 +120,24 @@
       "side": 1,
       "message": "I guess it\u0027s a question of what are the expectations on the test. Globals over thread locals make sense if the test isn\u0027t responsible for whether the API uses a worker thread. Is it responsible for ensuring that, after the test-level synchronization, *no* background thread calls into BoringSSL at all?\n\nIf we say no, the test will flakily pass when it should have failed, so saying yes isn\u0027t wrong. But being sure about random background work also seems hard for sufficiently high-level APIs. I dunno, maybe it makes a TLS server, knows a TLS connection happened, but isn\u0027t confident the server\u0027s not doing other work elsewhere?\n\nData races are UB, so my inclination would be to synchronize it. If leave it unsynchronized, probably mention in the docs that the caller is responsible for this.\n\n(Anecdotally, I\u0027ve had to add locks in Chromium code to fix TSan flakes where test wants to read a variable written by a callback on a worker thread. I was reasonably sure, at the point of the read, it was impossible to concurrently write. My guess was TSan couldn\u0027t see happens-before relationships that cross process boundaries.)",
       "parentUuid": "3847d828_fdf127b0",
+      "revId": "2b4ef74ff9fc764cd84dc8d375d8aeafa6d2b6d4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1857c629_960ebb43",
+        "filename": "crypto/fipsmodule/fips.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-03-15T20:14:17Z",
+      "side": 1,
+      "message": "Ok, have switched to thread locals. Lets see if that works out well enough.",
+      "parentUuid": "bd082980_5cc18753",
       "revId": "2b4ef74ff9fc764cd84dc8d375d8aeafa6d2b6d4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
