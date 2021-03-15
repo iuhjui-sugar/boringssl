@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fd3f27f_947c15fa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-15T22:37:05Z",
+      "side": 1,
+      "message": "Almost exclusively test refactoring. :-)",
+      "revId": "bdfb40a1efffdffbf05d5f390ccfd5f5c61cfb0a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d23a97a_c928a70e",
+        "filename": "ssl/test/runner/key_agreement.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-15T22:37:05Z",
+      "side": 1,
+      "message": "I tried the /*foo\u003d*/ pattern, but go fmt gets offended. It\u0027ll even turn:\n\n   foo, /*bar\u003d*/baz\n\ninto:\n\n  foo /*bar\u003d*/, baz",
+      "range": {
+        "startLine": 68,
+        "startChar": 47,
+        "endLine": 68,
+        "endChar": 59
+      },
+      "revId": "bdfb40a1efffdffbf05d5f390ccfd5f5c61cfb0a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
