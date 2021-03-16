@@ -16,6 +16,29 @@
       "message": "Just whipped this up. Not sure what you\u0027ll think about the comment style :) ",
       "revId": "c43f5adc3424c5e5b884c572c4fa6ff1a37a840d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e33fe99_7b902cfb",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-16T14:33:00Z",
+      "side": 1,
+      "message": "I guess this doesn\u0027t really capture the requirement.\n\nThe length should be \u003e\u003d X25519_PUBLIC_VALUE_LEN or else the function will fail. Is there a concise way to express that for each of the new length parameters?",
+      "range": {
+        "startLine": 102,
+        "startChar": 27,
+        "endLine": 102,
+        "endChar": 34
+      },
+      "revId": "c43f5adc3424c5e5b884c572c4fa6ff1a37a840d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
