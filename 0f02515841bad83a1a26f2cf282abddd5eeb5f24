@@ -16,6 +16,63 @@
       "message": "Another option would be to use arc4random everywhere, which has been around in FreeBSD for a very long time.  https://www.freebsd.org/cgi/man.cgi?query\u003darc4random\n\nI don\u0027t really have an opinion on which interface is best for Boring, so I tried to just be consistent with what is implemented for macOS.",
       "revId": "0f02515841bad83a1a26f2cf282abddd5eeb5f24",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75ca1a12_18453e26",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-03-16T17:39:00Z",
+      "side": 1,
+      "message": "This condition occurs three times. Could you #define FREEBSD_GETRANDOM and use that in the other two places?",
+      "revId": "0f02515841bad83a1a26f2cf282abddd5eeb5f24",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd59b4c8_5592471a",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-03-16T17:39:00Z",
+      "side": 1,
+      "message": "getrandom_flags?",
+      "range": {
+        "startLine": 342,
+        "startChar": 40,
+        "endLine": 342,
+        "endChar": 41
+      },
+      "revId": "0f02515841bad83a1a26f2cf282abddd5eeb5f24",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e25a9926_58bbd3eb",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-03-16T17:39:00Z",
+      "side": 1,
+      "message": "Can you move this #define into urandom.c, at the top? It\u0027s only used there so nicer to concentrate the logic. (Can then drop the BORINGSSL_ prefix.)",
+      "revId": "0f02515841bad83a1a26f2cf282abddd5eeb5f24",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
