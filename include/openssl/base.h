@@ -166,6 +166,12 @@ extern "C" {
 #endif
 #endif
 
+#if defined(__FreeBSD__)
+#define OPENSSL_FREEBSD
+// On FreeBSD, /dev/urandom blocks at system startup until entropy is available.
+#define BORINGSSL_URANDOM_BLOCKS_FOR_ENTROPY
+#endif
+
 // BoringSSL requires platform's locking APIs to make internal global state
 // thread-safe, including the PRNG. On some single-threaded embedded platforms,
 // locking APIs may not exist, so this dependency may be disabled with the
