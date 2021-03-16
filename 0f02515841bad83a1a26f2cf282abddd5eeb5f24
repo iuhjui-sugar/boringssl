@@ -35,6 +35,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6ccf8aa_1259dcc7",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 9580
+      },
+      "writtenOn": "2021-03-16T19:06:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75ca1a12_18453e26",
+      "revId": "0f02515841bad83a1a26f2cf282abddd5eeb5f24",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cd59b4c8_5592471a",
@@ -58,6 +76,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "898e1179_cdb8b399",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 9580
+      },
+      "writtenOn": "2021-03-16T19:06:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cd59b4c8_5592471a",
+      "range": {
+        "startLine": 342,
+        "startChar": 40,
+        "endLine": 342,
+        "endChar": 41
+      },
+      "revId": "0f02515841bad83a1a26f2cf282abddd5eeb5f24",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e25a9926_58bbd3eb",
@@ -71,6 +113,24 @@
       "writtenOn": "2021-03-16T17:39:00Z",
       "side": 1,
       "message": "Can you move this #define into urandom.c, at the top? It\u0027s only used there so nicer to concentrate the logic. (Can then drop the BORINGSSL_ prefix.)",
+      "revId": "0f02515841bad83a1a26f2cf282abddd5eeb5f24",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d4d1b04_2f65b695",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 9580
+      },
+      "writtenOn": "2021-03-16T19:06:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e25a9926_58bbd3eb",
       "revId": "0f02515841bad83a1a26f2cf282abddd5eeb5f24",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
