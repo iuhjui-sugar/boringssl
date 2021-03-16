@@ -62,6 +62,10 @@
 #include <sys/random.h>
 #endif
 
+#if defined(OPENSSL_FREEBSD) && __FreeBSD__ >= 12
+#include <sys/random.h>
+#endif
+
 #include <openssl/thread.h>
 #include <openssl/mem.h>
 
@@ -176,6 +180,12 @@ static void init_once(void) {
   }
 #endif
 
+#if defined(OPENSSL_FREEBSD) && __FreeBSD__ >= 12
+  // getrandom and getentropy are supported in FreeBSD 12 and up.
+  *urandom_fd_bss_get() = kHaveGetrandom;
+  return;
+#endif
+
   // Android FIPS builds must support getrandom.
 #if defined(BORINGSSL_FIPS) && defined(OPENSSL_ANDROID)
   perror("getrandom not found");
@@ -256,11 +266,11 @@ static void wait_for_entropy(void) {
     return;
   }
 
-#if defined(BORINGSSL_FIPS)
-  // In FIPS mode we ensure that the kernel has sufficient entropy before
-  // continuing. This is automatically handled by getrandom, which requires
-  // that the entropy pool has been initialised, but for urandom we have to
-  // poll.
+#if defined(BORINGSSL_FIPS) && !defined(BORINGSSL_URANDOM_BLOCKS_FOR_ENTROPY)
+  // In FIPS mode on platforms where urandom doesn't block at startup, we ensure
+  // that the kernel has sufficient entropy before continuing. This is
+  // automatically handled by getrandom, which requires that the entropy pool
+  // has been initialised, but for urandom we have to poll.
   for (;;) {
     int entropy_bits;
     if (ioctl(fd, RNDGETENTCNT, &entropy_bits)) {
@@ -277,7 +287,7 @@ static void wait_for_entropy(void) {
 
     usleep(250000);
   }
-#endif  // BORINGSSL_FIPS
+#endif  // BORINGSSL_FIPS && !BORINGSSL_URANDOM_BLOCKS_FOR_ENTROPY
 }
 
 // fill_with_entropy writes |len| bytes of entropy into |out|. It returns one
@@ -328,6 +338,8 @@ static int fill_with_entropy(uint8_t *out, size_t len, int block, int seed) {
         fprintf(stderr, "urandom fd corrupt.\n");
         abort();
       }
+#elif defined(OPENSSL_FREEBSD) && __FreeBSD__ >=  12
+      r = getrandom(out, len, /*flags=*/0);
 #else  // USE_NR_getrandom
       fprintf(stderr, "urandom fd corrupt.\n");
       abort();
