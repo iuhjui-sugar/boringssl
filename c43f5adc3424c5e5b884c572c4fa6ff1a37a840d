@@ -39,6 +39,30 @@
       },
       "revId": "c43f5adc3424c5e5b884c572c4fa6ff1a37a840d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89df4394_c73e000e",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-16T15:37:31Z",
+      "side": 1,
+      "message": "The requirement isn\u0027t right anyway. :-P All of these should be exact equalities. X25519 public values are 32 bytes long. A 33-byte input is just as incorrect as a 31-byte input.",
+      "parentUuid": "9e33fe99_7b902cfb",
+      "range": {
+        "startLine": 102,
+        "startChar": 27,
+        "endLine": 102,
+        "endChar": 34
+      },
+      "revId": "c43f5adc3424c5e5b884c572c4fa6ff1a37a840d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
