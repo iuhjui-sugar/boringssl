@@ -41,6 +41,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5e6fce1_26314be1",
+        "filename": "ssl/ssl_privkey.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-16T17:51:15Z",
+      "side": 1,
+      "message": "Done. I think this was a no-op because the curve being NID_undef means that TLS 1.3 would fail line 185 anyway. But we should mark it false here too.",
+      "parentUuid": "0c066b6e_738c5deb",
+      "range": {
+        "startLine": 132,
+        "startChar": 59,
+        "endLine": 132,
+        "endChar": 63
+      },
+      "revId": "bdfb40a1efffdffbf05d5f390ccfd5f5c61cfb0a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7d23a97a_c928a70e",
@@ -111,6 +135,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8429c237_3b6bacb8",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 9968,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-16T17:51:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8c0563f_f24fdd44",
+      "range": {
+        "startLine": 9968,
+        "startChar": 7,
+        "endLine": 9968,
+        "endChar": 67
+      },
+      "revId": "bdfb40a1efffdffbf05d5f390ccfd5f5c61cfb0a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "42d6393e_67ee8463",
@@ -124,6 +172,24 @@
       "writtenOn": "2021-03-16T16:50:30Z",
       "side": 1,
       "message": "Move up to L9957 and merge the version \u003e\u003d 1.3 condition? (I think L9963 can merge in too.)",
+      "revId": "bdfb40a1efffdffbf05d5f390ccfd5f5c61cfb0a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8de989d_dde4f001",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 9974,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-16T17:51:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42d6393e_67ee8463",
       "revId": "bdfb40a1efffdffbf05d5f390ccfd5f5c61cfb0a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
