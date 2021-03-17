@@ -16,6 +16,24 @@
       "message": "This is FIPS stuff, but FIPS isn\u0027t supported in the Windows build. The \"self test\" function only exists for FIPS/NAIP compliance and shouldn\u0027t be used otherwise.",
       "revId": "3171de057f29d3d96d3a7754428713dffa1ab164",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9aad6e71_34a8259b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9580
+      },
+      "writtenOn": "2021-03-17T22:24:34Z",
+      "side": 1,
+      "message": "The pattern I had was something like \n\n  if (user_wants_fips_mode) {\n    CHECK_EQ(FIPS_mode(), 1);\n    CHECK_EQ(BORINGSSL_self_test(), 1);\n  }\n\nI would also be happy if the function returned just return 0 if !BORINGSSL_FIPS -- would you prefer that?\n\nI\u0027m just trying to avoid lots of additional #defines -- hopefully the application code shouldn\u0027t have to know about Boring\u0027s compile time flags, or Boring\u0027s FIPS impl rules.",
+      "parentUuid": "d2c1dd64_07bb182c",
+      "revId": "3171de057f29d3d96d3a7754428713dffa1ab164",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
