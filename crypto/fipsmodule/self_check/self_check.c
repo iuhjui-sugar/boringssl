@@ -37,10 +37,6 @@
 #include "../tls/internal.h"
 
 
-// MSVC wants to put a NUL byte at the end of non-char arrays and so cannot
-// compile this.
-#if !defined(_MSC_VER)
-
 #if defined(BORINGSSL_FIPS) && defined(OPENSSL_ANDROID)
 // FIPS builds on Android will test for flag files, named after the module hash,
 // in /dev/boringssl/selftest/. If such a flag file exists, it's assumed that
@@ -319,10 +315,18 @@ int boringssl_fips_self_test(
   }
 #endif // BORINGSSL_FIPS_SELF_TEST_FLAG_FILE
 
-  static const uint8_t kAESKey[16] = "BoringCrypto Key";
+  static const uint8_t kAESKey[16] = {
+      'B', 'o', 'r', 'i', 'n', 'g', 'C', 'r', 'y', 'p', 't', 'o', ' ', 'K', 'e',
+      'y'
+  };
   static const uint8_t kAESIV[16] = {0};
-  static const uint8_t kPlaintext[64] =
-      "BoringCryptoModule FIPS KAT Encryption and Decryption Plaintext!";
+  static const uint8_t kPlaintext[64] = {
+      'B', 'o', 'r', 'i', 'n', 'g', 'C', 'r', 'y', 'p', 't', 'o', 'M', 'o', 'd',
+      'u', 'l', 'e', ' ', 'F', 'I', 'P', 'S', ' ', 'K', 'A', 'T', ' ', 'E', 'n',
+      'c', 'r', 'y', 'p', 't', 'i', 'o', 'n', ' ', 'a', 'n', 'd', ' ', 'D', 'e',
+      'c', 'r', 'y', 'p', 't', 'i', 'o', 'n', ' ', 'P', 'l', 'a', 'i', 'n', 't',
+      'e', 'x', 't', '!'
+  };
   static const uint8_t kAESCBCCiphertext[64] = {
       0x87, 0x2d, 0x98, 0xc2, 0xcc, 0x31, 0x5b, 0x41, 0xe0, 0xfa, 0x7b,
       0x0a, 0x71, 0xc0, 0x42, 0xbf, 0x4f, 0x61, 0xd0, 0x0d, 0x58, 0x8c,
@@ -350,10 +354,10 @@ int boringssl_fips_self_test(
       0x00
 #endif
   };
-  static const DES_cblock kDESKey1 = {"BCMDESK1"};
-  static const DES_cblock kDESKey2 = {"BCMDESK2"};
-  static const DES_cblock kDESKey3 = {"BCMDESK3"};
-  static const DES_cblock kDESIV = {"BCMDESIV"};
+  static const DES_cblock kDESKey1 = {{'B', 'C', 'M', 'D', 'E', 'S', 'K', '1'}};
+  static const DES_cblock kDESKey2 = {{'B', 'C', 'M', 'D', 'E', 'S', 'K', '2'}};
+  static const DES_cblock kDESKey3 = {{'B', 'C', 'M', 'D', 'E', 'S', 'K', '3'}};
+  static const DES_cblock kDESIV = {{'B', 'C', 'M', 'D', 'E', 'S', 'I', 'V'}};
   static const uint8_t kDESCiphertext[64] = {
       0xa4, 0x30, 0x7a, 0x4c, 0x1f, 0x60, 0x16, 0xd7, 0x4f, 0x41, 0xe1,
       0xbb, 0x27, 0xc4, 0x27, 0x37, 0xd4, 0x7f, 0xb9, 0x10, 0xf8, 0xbc,
@@ -428,10 +432,20 @@ int boringssl_fips_self_test(
       0x00
 #endif
   };
-  const uint8_t kDRBGEntropy[48] =
-      "BCM Known Answer Test DBRG Initial Entropy      ";
-  const uint8_t kDRBGPersonalization[18] = "BCMPersonalization";
-  const uint8_t kDRBGAD[16] = "BCM DRBG KAT AD ";
+  const uint8_t kDRBGEntropy[48] = {
+      'B', 'C', 'M', ' ', 'K', 'n', 'o', 'w', 'n', ' ', 'A', 'n', 's', 'w', 'e',
+      'r', ' ', 'T', 'e', 's', 't', ' ', 'D', 'B', 'R', 'G', ' ', 'I', 'n', 'i',
+      't', 'i', 'a', 'l', ' ', 'E', 'n', 't', 'r', 'o', 'p', 'y', ' ', ' ', ' ',
+      ' ', ' ', ' '
+  };
+  const uint8_t kDRBGPersonalization[18] = {
+      'B', 'C', 'M', 'P', 'e', 'r', 's', 'o', 'n', 'a', 'l', 'i', 'z', 'a', 't',
+      'i', 'o', 'n'
+  };
+  const uint8_t kDRBGAD[16] = {
+      'B', 'C', 'M', ' ', 'D', 'R', 'B', 'G', ' ', 'K', 'A', 'T', ' ', 'A', 'D',
+      ' '
+  };
   const uint8_t kDRBGOutput[64] = {
       0x1d, 0x63, 0xdf, 0x05, 0x51, 0x49, 0x22, 0x46, 0xcd, 0x9b, 0xc5,
       0xbb, 0xf1, 0x5d, 0x44, 0xae, 0x13, 0x78, 0xb1, 0xe4, 0x7c, 0xf1,
@@ -445,8 +459,12 @@ int boringssl_fips_self_test(
       0x00
 #endif
   };
-  const uint8_t kDRBGEntropy2[48] =
-      "BCM Known Answer Test DBRG Reseed Entropy       ";
+  const uint8_t kDRBGEntropy2[48] = {
+      'B', 'C', 'M', ' ', 'K', 'n', 'o', 'w', 'n', ' ', 'A', 'n', 's', 'w', 'e',
+      'r', ' ', 'T', 'e', 's', 't', ' ', 'D', 'B', 'R', 'G', ' ', 'R', 'e', 's',
+      'e', 'e', 'd', ' ', 'E', 'n', 't', 'r', 'o', 'p', 'y', ' ', ' ', ' ', ' ',
+      ' ', ' ', ' '
+  };
   const uint8_t kDRBGReseedOutput[64] = {
       0xa4, 0x77, 0x05, 0xdb, 0x14, 0x11, 0x76, 0x71, 0x42, 0x5b, 0xd8,
       0xd7, 0xa5, 0x4f, 0x8b, 0x39, 0xf2, 0x10, 0x4a, 0x50, 0x5b, 0xa2,
@@ -864,5 +882,3 @@ err:
 int BORINGSSL_self_test(void) {
   return boringssl_fips_self_test(NULL, 0);
 }
-
-#endif  // !_MSC_VER
