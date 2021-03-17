@@ -16,6 +16,24 @@
       "message": "Stray removal? (Double blank lines between sections are intentional.)",
       "revId": "04b3213d43492b6c9e0434d8e2a4530a9938f958",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6c23612_01641485",
+        "filename": "ssl/internal.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 2005,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-17T16:17:26Z",
+      "side": 0,
+      "message": "Yep, accidental. Thanks for catching it.",
+      "parentUuid": "b0316a7f_cf6e94c7",
+      "revId": "04b3213d43492b6c9e0434d8e2a4530a9938f958",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }

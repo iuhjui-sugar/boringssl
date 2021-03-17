@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9b04171_3dd83540",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-17T16:17:26Z",
+      "side": 1,
+      "message": "New patchset, PTAL!",
+      "revId": "0c90efcf9c05ca928f6c2af50703122e3bbd958a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba73d314_b3cf0a38",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-17T16:17:26Z",
+      "side": 1,
+      "message": "There\u0027s not much point in freeing this early, since the SSL_CTX outlives the handshake, right? I suppose if the SSL_CTX\u0027s configs were replaced and |hs| were the remaining owner, it could save some memory. There\u0027s probably a multiple orders-of-magnitude difference between key rotation frequency and SSL_HANDSHAKE malloc/free frequency, though. WDYT?",
+      "range": {
+        "startLine": 617,
+        "startChar": 6,
+        "endLine": 617,
+        "endChar": 32
+      },
+      "revId": "0c90efcf9c05ca928f6c2af50703122e3bbd958a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1d936ee_155c68bd",
+        "filename": "ssl/internal.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 1591,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-17T16:17:26Z",
+      "side": 1,
+      "message": "Technically we could drop this accessor, as well as |kem_id| and |max_name_length|. If we did that, there\u0027s no reason to keep the fields around either, I suppose. WDYT?",
+      "range": {
+        "startLine": 1591,
+        "startChar": 22,
+        "endLine": 1591,
+        "endChar": 33
+      },
+      "revId": "0c90efcf9c05ca928f6c2af50703122e3bbd958a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "336c3c01_a51c42e6",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-17T16:17:26Z",
+      "side": 1,
+      "message": "I realized that as written, this would serialize an empty ECHConfigs value if there are \u003e0 server configs, but none of them are retry configs. This is not allowed per the type definition `ECHConfig ECHConfigs\u003c1..2^16-1\u003e;`. Do you think it\u0027s worth writing a test?",
+      "range": {
+        "startLine": 758,
+        "startChar": 0,
+        "endLine": 759,
+        "endChar": 53
+      },
+      "revId": "0c90efcf9c05ca928f6c2af50703122e3bbd958a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

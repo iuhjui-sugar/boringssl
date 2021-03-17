@@ -716,6 +716,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f02fb3e6_63d10596",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 672,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-17T16:17:26Z",
+      "side": 1,
+      "message": "Great, I\u0027ll close this then.",
+      "parentUuid": "4f57be26_1c6ae79d",
+      "range": {
+        "startLine": 672,
+        "startChar": 10,
+        "endLine": 672,
+        "endChar": 32
+      },
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b1621532_648726ff",
@@ -1737,6 +1761,24 @@
       "side": 1,
       "message": "I think our interface being self-consistent is more important than optimizing for tls-interop-runner. The issue here is that, taking an ECHConfigList but a single private key doesn\u0027t make much sense. So, with this API, yeah, taking a single ECHConfig makes more sense. From the server caller\u0027s perspective, the individual ECHConfigs are actually separate, as opposed to the client caller which can simplify it down to a single ECHConfigList blob.\n\nWhat exactly is tls-interop-runner presenting us with?\n\n(We do have a base64 decoder, though it\u0027s not the most friendly to use.)",
       "parentUuid": "58d5aede_2467014b",
+      "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdf38343_9c646f8e",
+        "filename": "tool/server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-17T16:17:26Z",
+      "side": 1,
+      "message": "tls-interop-runner gives us basically the mirror image (modulo base64) of these flags. It writes a file containing a base64-encoded ECHConfigList, which only contains one ECHConfig. It also writes a file containing the corresponding private key.\n\nI\u0027ll just change \"-echconfigs\" to \"-echconfig\" and say it does not have the length prefix. It won\u0027t be a problem to write the necessary glue code in tls-interop-runner.\n\nI\u0027m punting on the issue of multiple ECHConfig/key pairs.",
+      "parentUuid": "f603b181_405ec970",
       "revId": "a8b5f22e18b7ef23dcf0cc484f13525416f1df48",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
