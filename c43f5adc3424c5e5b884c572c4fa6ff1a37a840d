@@ -87,6 +87,30 @@
       },
       "revId": "c43f5adc3424c5e5b884c572c4fa6ff1a37a840d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95cb150c_ff58af82",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-17T19:50:48Z",
+      "side": 1,
+      "message": "Ah I see. I think, for all but out_enc_len, it\u0027s fine to just omit it:\n\nFor peer_public_value_len and enc_len, this API is saying it\u0027s not the caller\u0027s responsibility to ensure it\u0027s the right size. You may well get one of the wrong size over the wire. Rather, we\u0027re saying this function is responsible for dealing with it, so it\u0027s not your problem. I.e. no need to say anything.\n\nFor private_key_len, the caller is already supposed to pick the X25519 key they want, which is a stronger requirement than the length anyway. (Though it happens the only deserialization error in X25519 is the length.)\n\nSome for ephemeral_private_len and ephemeral_public_len, where the caller is already supposed to make them a corresponding keypair. (We should probably say that.)\n\nThat leaves out_enc / out_enc_len, which is a buffer the caller allocates. The caller needs to know the size so they know how much space to provide, so we should talk about it. We can say this function will fail if out_enc_len is not blah blah bytes.\n\nIn other APIs, we actually pass in three parameters:\n\n  uint8_t *out_enc,\n  size_t *out_enc_len,\n  size_t max_enc_len,\n\nCombined with EVP_BLAH_MAX_BLAH constants.\n\nThis is particularly useful for variable-length outputs (doesn\u0027t apply here) or when the same API captures multiple algorithms. The latter doesn\u0027t apply here, but I\u0027m thinking I might introduce an EVP_HPKE_KEM_KEY abstraction as part of exporting the API, so we can bundle the public and private bits.",
+      "parentUuid": "28e4cb98_02703e91",
+      "range": {
+        "startLine": 102,
+        "startChar": 27,
+        "endLine": 102,
+        "endChar": 34
+      },
+      "revId": "c43f5adc3424c5e5b884c572c4fa6ff1a37a840d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
