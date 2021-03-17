@@ -1552,6 +1552,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5bffd807_2acf7c50",
+        "filename": "ssl/test/test_config.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 1661,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-17T23:30:45Z",
+      "side": 1,
+      "message": "SGTM.",
+      "parentUuid": "0c761004_ad1d83a4",
+      "range": {
+        "startLine": 1661,
+        "startChar": 14,
+        "endLine": 1661,
+        "endChar": 35
+      },
+      "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "88eddb5d_bfeef437",

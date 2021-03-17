@@ -20,6 +20,114 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "11094cd4_5628be4f",
+        "filename": "ssl/encrypted_client_hello.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-17T23:30:45Z",
+      "side": 1,
+      "message": "Two blank lines after includes.",
+      "revId": "0c90efcf9c05ca928f6c2af50703122e3bbd958a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e0ef873_71523338",
+        "filename": "ssl/encrypted_client_hello.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-17T23:30:45Z",
+      "side": 1,
+      "message": "So the request for a comment here was to discuss the \u0027why\u0027 (catch deployment errors), not \u0027how\u0027 (check we understand every byte). This is still the \u0027how\u0027. Something like:\n\n// Parse the ECHConfig, rejecting all unsupported parameters or extensions. Unlike most server options, ECH\u0027s server configuration is serialized and configured in both the server and DNS. If the caller configures an unsupported parameter, this is a deployment error. We fail early to catch this error.",
+      "revId": "0c90efcf9c05ca928f6c2af50703122e3bbd958a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23bafa77_3545dbb1",
+        "filename": "ssl/encrypted_client_hello.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-17T23:30:45Z",
+      "side": 1,
+      "message": "CBS_len(\u0026reader) !\u003d 0\n\n(See comment on header.)",
+      "revId": "0c90efcf9c05ca928f6c2af50703122e3bbd958a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ad8e8be_fc474689",
+        "filename": "ssl/encrypted_client_hello.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-17T23:30:45Z",
+      "side": 1,
+      "message": "Nit: With the overall explanatory comment above, I think this can simply be:\n\n// We do not support any ECHConfig extensions, so |extensions| must be empty.",
+      "revId": "0c90efcf9c05ca928f6c2af50703122e3bbd958a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b62d82a_67a41386",
+        "filename": "ssl/encrypted_client_hello.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-17T23:30:45Z",
+      "side": 1,
+      "message": "This is EVP_sha256(). No point going through this function or checking for null.",
+      "range": {
+        "startLine": 391,
+        "startChar": 16,
+        "endLine": 391,
+        "endChar": 20
+      },
+      "revId": "0c90efcf9c05ca928f6c2af50703122e3bbd958a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca3c6607_c0129706",
+        "filename": "ssl/encrypted_client_hello.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-17T23:30:45Z",
+      "side": 1,
+      "message": "Nit: I think we can just remove this. :-)",
+      "revId": "0c90efcf9c05ca928f6c2af50703122e3bbd958a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ba73d314_b3cf0a38",
         "filename": "ssl/handshake_server.cc",
         "patchSetId": 19
@@ -36,6 +144,110 @@
         "startChar": 6,
         "endLine": 617,
         "endChar": 32
+      },
+      "revId": "0c90efcf9c05ca928f6c2af50703122e3bbd958a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "712697a2_621b904c",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-17T23:30:45Z",
+      "side": 1,
+      "message": "Yeah, I wouldn\u0027t worry about it. Even freeing ech_client_hello_buf isn\u0027t *really* important. It just seemed appropriate given the way the GetClientHello() accessor worked.",
+      "parentUuid": "ba73d314_b3cf0a38",
+      "range": {
+        "startLine": 617,
+        "startChar": 6,
+        "endLine": 617,
+        "endChar": 32
+      },
+      "revId": "0c90efcf9c05ca928f6c2af50703122e3bbd958a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70219b32_0c5c2721",
+        "filename": "ssl/internal.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 1577,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-17T23:30:45Z",
+      "side": 1,
+      "message": "(I forget C++\u0027s rules. Do you need to list these explicitly? I would think the defaults work out.)",
+      "revId": "0c90efcf9c05ca928f6c2af50703122e3bbd958a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6094aa37_004115f5",
+        "filename": "ssl/internal.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 1580,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-17T23:30:45Z",
+      "side": 1,
+      "message": "Are these necessary? bssl::Array already will make it non-copyable.",
+      "revId": "0c90efcf9c05ca928f6c2af50703122e3bbd958a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3f213b1_0ba24a0b",
+        "filename": "ssl/internal.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 1582,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-17T23:30:45Z",
+      "side": 1,
+      "message": "First, some naming:\n\ns/raw/ech_config/g or something. \"raw\" isn\u0027t really meaningful to the Init function. (It reads like it\u0027s the raw serialization of the whole ECHServerConfig.)\n\nWe also usually say private key, not secret key, for asymmetric algorithms. (Compare git grep private.key and git grep secret.key.)\n\nMore importantly, reading *one* ECHConfig out of |raw| will do the wrong thing and silently ignore bugs. It needs to *parse* |raw| as an ECHConfig. I.e., trailing data is forbidden.\n\n// Init initializes the ECHServerConfig with a serialized ECHConfig from |ech_config|, |private_key| as the private key. It returns true on success and false if the configuration was invalid or unsupported.",
+      "range": {
+        "startLine": 1582,
+        "startChar": 10,
+        "endLine": 1582,
+        "endChar": 29
+      },
+      "revId": "0c90efcf9c05ca928f6c2af50703122e3bbd958a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60422aaf_8516eaba",
+        "filename": "ssl/internal.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 1586,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-17T23:30:45Z",
+      "side": 1,
+      "message": "This is an implementation detail and I don\u0027t think needs to be here, especially since this is an internal header and far from the code that needs a \u0027how\u0027 comment. \"was invalid or unsupported\" above takes care of this.",
+      "range": {
+        "startLine": 1583,
+        "startChar": 49,
+        "endLine": 1586,
+        "endChar": 75
       },
       "revId": "0c90efcf9c05ca928f6c2af50703122e3bbd958a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
@@ -66,6 +278,87 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f839722a_fce059e8",
+        "filename": "ssl/internal.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 1591,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-17T23:30:45Z",
+      "side": 1,
+      "message": "+1 to dropping the unused stuff.",
+      "parentUuid": "e1d936ee_155c68bd",
+      "range": {
+        "startLine": 1591,
+        "startChar": 22,
+        "endLine": 1591,
+        "endChar": 33
+      },
+      "revId": "0c90efcf9c05ca928f6c2af50703122e3bbd958a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7df64a5f_a70b1e61",
+        "filename": "ssl/internal.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 1598,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-17T23:30:45Z",
+      "side": 1,
+      "message": "No need for sizeof. There\u0027s an array-based overload. (In fact you probably don\u0027t even need MakeConstSpan.)\n\nDitto for config_id_sha256() below.",
+      "range": {
+        "startLine": 1598,
+        "startChar": 36,
+        "endLine": 1598,
+        "endChar": 57
+      },
+      "revId": "0c90efcf9c05ca928f6c2af50703122e3bbd958a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6858f78_a70741c6",
+        "filename": "ssl/internal.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 1615,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-17T23:30:45Z",
+      "side": 1,
+      "message": "Rather than making a copy, I think this can be\n\n  Span\u003cconst uint8_t\u003e cipher_suites_;\n\nAnd then you can replace the cipher_suites() accessor with\n\n  bool ECHServerConfig::SupportsCipherSuite(uint16_t kdf_id, uint16_t aead_id) {\n    CBS cbs \u003d cipher_suites_;\n    while (CBS_len(\u0026cbs) !\u003d 0) {\n      uint16_t supported_kdf_id, supported_aead_id\n      if (!CBS_get_u16(\u0026cbs, \u0026supported_kdf_id) ||\n          !CBS_get_u16(\u0026cbs, \u0026supported_aead_id)) {\n        return false;\n      }\n      if (kdf_id \u003d\u003d supported_kdf_id \u0026\u0026 aead_id \u003d\u003d supported_aead_id) {\n        return true;\n      }\n    }\n    return false;\n  }\n\nI suspect this also means we don\u0027t need an ECHCipherSuite type.",
+      "revId": "0c90efcf9c05ca928f6c2af50703122e3bbd958a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "925cd306_ed955862",
+        "filename": "ssl/internal.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 1628,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-17T23:30:45Z",
+      "side": 1,
+      "message": "This should be a single initialized_ boolean.\n\nWith a server-specific type, we can capture invariants: every server ECH config has all of these fields. And then we have a bit of silliness due to C++\u0027s infallible constructors, so you have the initialized state and the uninitialized state. Thus, only one boolean.\n\n(This is similar to how the HPKE CL used to have a lot of booleans and now we got rid of them. Option types are handy, but only when they match invariants. In this case, this is really an Option\u003cECHServerConfig\u003e.)",
+      "revId": "0c90efcf9c05ca928f6c2af50703122e3bbd958a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "336c3c01_a51c42e6",
         "filename": "ssl/t1_lib.cc",
         "patchSetId": 19
@@ -83,6 +376,47 @@
         "endLine": 759,
         "endChar": 53
       },
+      "revId": "0c90efcf9c05ca928f6c2af50703122e3bbd958a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d108cf2_c3508968",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-17T23:30:45Z",
+      "side": 1,
+      "message": "Oh, there\u0027s a deeper problem here. Completing the handshake without an extension here means you are telling the client to turn ECH off. So this implementation will look like it works, but as soon as you have any key mismatches, clients start leaking secrets. That\u0027s a problem.\n\nInstead, omitting retry configs should be a configuration error. Unfortunately we can\u0027t do it in add, since maybe retry configs will come later. Maybe set1 should check and return an error? (And yes, as this is security-sensitive, it definitely needs a test. Probably in ssl_test.cc. No need for runner here.)",
+      "parentUuid": "336c3c01_a51c42e6",
+      "range": {
+        "startLine": 758,
+        "startChar": 0,
+        "endLine": 759,
+        "endChar": 53
+      },
+      "revId": "0c90efcf9c05ca928f6c2af50703122e3bbd958a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d73b44b3_9e3d8d19",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-17T23:30:45Z",
+      "side": 1,
+      "message": "We\u0027re not actually using count here. This can just be bool has_retry_config and a break here. But per comment above, this should be moved elsewhere anyway.",
       "revId": "0c90efcf9c05ca928f6c2af50703122e3bbd958a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
