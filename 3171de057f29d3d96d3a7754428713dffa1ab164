@@ -52,6 +52,24 @@
       "parentUuid": "9aad6e71_34a8259b",
       "revId": "3171de057f29d3d96d3a7754428713dffa1ab164",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a7f7dcc_d6a962ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9580
+      },
+      "writtenOn": "2021-03-17T22:36:14Z",
+      "side": 1,
+      "message": "We might eventually have a requirement to expose a hook that runs the self test on demand, so adding an impl that returns 0.",
+      "parentUuid": "5871bdc7_3f2315b7",
+      "revId": "3171de057f29d3d96d3a7754428713dffa1ab164",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
