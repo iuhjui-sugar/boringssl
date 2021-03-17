@@ -63,6 +63,30 @@
       },
       "revId": "c43f5adc3424c5e5b884c572c4fa6ff1a37a840d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28e4cb98_02703e91",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-17T16:32:59Z",
+      "side": 1,
+      "message": "Alright, I\u0027ve switched to strict equality.\n\nThe documentation still doesn\u0027t say quite what I want. The functions actually check the lengths for you. It\u0027s not that the length must equal X, it\u0027s that the length should be X or else the function will fail. Do function comments ever express this nuance?",
+      "parentUuid": "89df4394_c73e000e",
+      "range": {
+        "startLine": 102,
+        "startChar": 27,
+        "endLine": 102,
+        "endChar": 34
+      },
+      "revId": "c43f5adc3424c5e5b884c572c4fa6ff1a37a840d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
