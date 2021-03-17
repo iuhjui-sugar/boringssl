@@ -34,6 +34,24 @@
       "parentUuid": "d2c1dd64_07bb182c",
       "revId": "3171de057f29d3d96d3a7754428713dffa1ab164",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5871bdc7_3f2315b7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-03-17T22:27:21Z",
+      "side": 1,
+      "message": "Returning zero on Windows would be fine. (But not for !FIPS in general, sadly.)\n\nBut, if FIPS_mode returns 1, the self-test has _already_ been run. I think you can delete the explicit call.",
+      "parentUuid": "9aad6e71_34a8259b",
+      "revId": "3171de057f29d3d96d3a7754428713dffa1ab164",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
