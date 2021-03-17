@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2c1dd64_07bb182c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-03-17T22:16:39Z",
+      "side": 1,
+      "message": "This is FIPS stuff, but FIPS isn\u0027t supported in the Windows build. The \"self test\" function only exists for FIPS/NAIP compliance and shouldn\u0027t be used otherwise.",
+      "revId": "3171de057f29d3d96d3a7754428713dffa1ab164",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
