@@ -16,6 +16,24 @@
       "message": "Let\u0027s add a few tests for inputs that are the wrong size.",
       "revId": "9596b0439f30a2e9558d2b1a5ab4e76f80e8fe00",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5646d848_a8f69c82",
+        "filename": "crypto/hpke/hpke_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-18T16:07:08Z",
+      "side": 1,
+      "message": "Done. Not sure this is the best way to organize the tests, but I believe I covered all permutations of modes and length-sensitive parameters.",
+      "parentUuid": "0715a830_fa1a404e",
+      "revId": "9596b0439f30a2e9558d2b1a5ab4e76f80e8fe00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
