@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fbb93eac_25dd163e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-18T18:01:31Z",
+      "side": 1,
+      "message": "We\u0027re the only ones who run this script, so this okay for you? I mostly use editors where I don\u0027t cd around, so this scheme is as convenient for me. I can probably make the CWD detection work if you\u0027d prefer.",
+      "range": {
+        "startLine": 10,
+        "startChar": 11,
+        "endLine": 10,
+        "endChar": 48
+      },
+      "revId": "4d894bc017543cd2284c83b7d7507f965d7a3c27",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
