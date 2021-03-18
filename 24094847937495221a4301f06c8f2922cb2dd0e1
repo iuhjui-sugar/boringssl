@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fab8e9a_d645c01d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 21
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-18T20:56:12Z",
+      "side": 1,
+      "message": "New patchset, hopefully won\u0027t collide with your in-progress review :)",
+      "revId": "24094847937495221a4301f06c8f2922cb2dd0e1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
