@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1417f71_4e6f3096",
+        "filename": "fuzz/decode_client_hello_inner.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-18T22:24:28Z",
+      "side": 1,
+      "message": "This looks good!\n\nCorpus in a follow-up SGTM. We should also, in a follow-up, integrate ECH with fuzzer mode. I can take of that, so you can focus on finishing up the client.",
+      "parentUuid": "fe1c2416_df723644",
+      "range": {
+        "startLine": 28,
+        "startChar": 39,
+        "endLine": 28,
+        "endChar": 46
+      },
+      "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eceb98bf_6158713d",
@@ -395,6 +419,24 @@
       "side": 1,
       "message": "The client\u0027s ClientHelloInner MUST have an ech_is_inner extension https://tools.ietf.org/html/draft-ietf-tls-esni-09#section-6.1\n\nBut yeah, I don\u0027t see a requirement for the client-facing server to check it.\n\nI figure you\u0027d still like to check this even if the spec didn\u0027t mandate it, so I\u0027m leaving it in.",
       "parentUuid": "7f566364_32a00379",
+      "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbadebdf_d1760d1a",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-18T22:24:28Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "74027069_d255498e",
       "revId": "197b022ec5fdcdbe6eaf220a62ffd311184e9bcb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },

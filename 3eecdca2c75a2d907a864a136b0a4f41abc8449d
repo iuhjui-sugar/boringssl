@@ -16,6 +16,98 @@
       "message": "(Flushing some initial comments at end of day.)",
       "revId": "3eecdca2c75a2d907a864a136b0a4f41abc8449d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "552f89e7_32f25414",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-18T22:24:28Z",
+      "side": 1,
+      "message": "Nit: Drop \" context\" here and below. |hpke| is a noun, so \"returns |hpke|\u0027s configured AEAD\".",
+      "range": {
+        "startLine": 241,
+        "startChar": 46,
+        "endLine": 241,
+        "endChar": 54
+      },
+      "revId": "3eecdca2c75a2d907a864a136b0a4f41abc8449d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee811c84_dfb02672",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 3606,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-18T22:24:28Z",
+      "side": 1,
+      "message": "Nit: Not a huge fan of the \"eligible\" wording because it sounds like it\u0027s always safe to set is_retry_config. Let\u0027s s/is eligible to/will/. This is also not so important but I prefer s/one of the retry configs/on configuration mismatch/.\n\nI started suggesting we should talk about how you decide which configs to use, but I guess that\u0027s partly in, so maybe we just add \"See also |SSL_CTX_set1_ech_server_config_list|.\"",
+      "range": {
+        "startLine": 3606,
+        "startChar": 28,
+        "endLine": 3606,
+        "endChar": 45
+      },
+      "revId": "3eecdca2c75a2d907a864a136b0a4f41abc8449d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "def7239a_af7aba65",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 3608,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-18T22:24:28Z",
+      "side": 1,
+      "message": "Nit: No need for this clause. Mentioning it just for this parameter is a little confusing since it reads like it applies to all of them.",
+      "range": {
+        "startLine": 3607,
+        "startChar": 20,
+        "endLine": 3608,
+        "endChar": 9
+      },
+      "revId": "3eecdca2c75a2d907a864a136b0a4f41abc8449d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4d50eb0_33c860c1",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 3631,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-18T22:24:28Z",
+      "side": 1,
+      "message": "(Last set of comments on this file, I promise!) Rereading this and thinking about retry configs, I think I failed to capture one detail: you want to put *one* rotation\u0027s worth of configs in DNS, but *many* rotations\u0027 worth of configs in the server. Let\u0027s add:\n\nOnly the most recent fully deployed ECHConfigs should be advertised in DNS. |list| may contain a newer sets if those ECHConfigs are mid deployment. It should also contain older sets, until the DNS change has rolled out and the old records have expired from caches.\n\n(Man, this function\u0027s docs are looong.)",
+      "range": {
+        "startLine": 3630,
+        "startChar": 46,
+        "endLine": 3631,
+        "endChar": 2
+      },
+      "revId": "3eecdca2c75a2d907a864a136b0a4f41abc8449d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }

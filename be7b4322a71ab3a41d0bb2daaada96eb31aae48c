@@ -39,6 +39,30 @@
       },
       "revId": "be7b4322a71ab3a41d0bb2daaada96eb31aae48c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75133e6f_547a8b44",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-18T22:24:28Z",
+      "side": 1,
+      "message": "(Hah, Gerrit ported this old comment over).\n\nNah, this is \"kdf\". This identifier specifies the entire KDF. The reason EVP_HPKE_get_hkdf_md is \"hkdf\" is because it returns just the digest and we need to specify HKDF for it to be meaningful.\n\nHow to tell:\n\nImagine if we added HKDFv2. HKDFv2 is like HKDF in that it\u0027s parametrized by a hash. Or maybe it\u0027s not parametrized by a hash but by a block cipher like AES-128! HPKE would then add HKDFv2_SHA256 code points. EVP_HPKE_CTX_get_(h)kdf_id could return those code points without any fuss.\n\nHowever, EVP_HPKE_get_(h)kdf_md would not be reusable for HKDFv2 because all the callers expect to pass that digest into HKDF, not HKDFv2. If HKDFv2 isn\u0027t hash-parametrized, there might not even be anything to return.",
+      "parentUuid": "6a69581d_d6c2ce06",
+      "range": {
+        "startLine": 129,
+        "startChar": 26,
+        "endLine": 129,
+        "endChar": 32
+      },
+      "revId": "be7b4322a71ab3a41d0bb2daaada96eb31aae48c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
