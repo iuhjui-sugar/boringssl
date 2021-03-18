@@ -16,6 +16,183 @@
       "message": "New patchset!",
       "revId": "18d42dd91203332e59746d5383041114eda385c6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5281c208_23152700",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-18T18:47:53Z",
+      "side": 1,
+      "message": "So this is really silly (noticed it looking at the test), but it\u0027s not quiiite that the buffer is too small. :-(\n\nI\u0027ve got a CL out to make make_errors.go work so you can define new errors. Maybe EVP_R_INVALID_BUFFER_SIZE? Kinda silly but ah well.",
+      "range": {
+        "startLine": 327,
+        "startChar": 27,
+        "endLine": 327,
+        "endChar": 49
+      },
+      "revId": "18d42dd91203332e59746d5383041114eda385c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eae58f3f_40d3ff3c",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-18T18:47:53Z",
+      "side": 1,
+      "message": "Nit: No need for this check. This function itself doesn\u0027t make assumptions and just passes it into for_test.",
+      "revId": "18d42dd91203332e59746d5383041114eda385c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee3d8dec_94a390da",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-18T18:47:53Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 420,
+        "startChar": 27,
+        "endLine": 420,
+        "endChar": 49
+      },
+      "revId": "18d42dd91203332e59746d5383041114eda385c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "717320fe_e714eadc",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-18T18:47:53Z",
+      "side": 1,
+      "message": "INVALID_PEER_KEY on this?\n\nIn so far as it\u0027s worth distinguishing these errors at all (maybe not, now that you can make new ones), I think the only useful thing to call out is \"peer thing was wrong\" vs \"caller\u0027s thing was wrong\".\n\nAlternatively, once we can define new errors, we can probably use something less \"peer thing was wrong\" sounding than DECODE_ERROR.",
+      "range": {
+        "startLine": 479,
+        "startChar": 6,
+        "endLine": 479,
+        "endChar": 13
+      },
+      "revId": "18d42dd91203332e59746d5383041114eda385c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95084fd9_ca5c6559",
+        "filename": "crypto/hpke/hpke_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-18T18:47:53Z",
+      "side": 1,
+      "message": "Pretty sure that\u0027s a perfectly fine public key, just one that we don\u0027t know the private half for. Ditto elsewhere.\n\nTo write a good test, we should use a valid public key, so we can distinguish between failures from the public key vs. other things. As it turns out, I believe this is valid (only source of invalidness would be the 8 low order ones... I don\u0027t think this is one? you can check and see if it succeeds when the buffer\u0027s the right size, or generate a real one), so you can just remove the comment. :-)",
+      "revId": "18d42dd91203332e59746d5383041114eda385c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a559f5d6_64cdc870",
+        "filename": "crypto/hpke/hpke_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-18T18:47:53Z",
+      "side": 1,
+      "message": "This should use a real keypair because the API contract of the function says they need to match. Just remove the \u003d {...} and add a call to X25519_keypair.",
+      "revId": "18d42dd91203332e59746d5383041114eda385c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a24e7f0_1fe1fb3d",
+        "filename": "crypto/hpke/hpke_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-18T18:47:53Z",
+      "side": 1,
+      "message": "This comment doesn\u0027t make sense since the whole point is it\u0027s not testing a real X25519 key. :-)",
+      "revId": "18d42dd91203332e59746d5383041114eda385c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8ff79bb_03a67814",
+        "filename": "crypto/hpke/hpke_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-18T18:47:53Z",
+      "side": 1,
+      "message": "public_key/private_key should be a real keypair.",
+      "revId": "18d42dd91203332e59746d5383041114eda385c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06e591de_034d5fd8",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-18T18:47:53Z",
+      "side": 1,
+      "message": "Nit: one and zero since this is int.",
+      "range": {
+        "startLine": 109,
+        "startChar": 36,
+        "endLine": 109,
+        "endChar": 40
+      },
+      "revId": "18d42dd91203332e59746d5383041114eda385c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
