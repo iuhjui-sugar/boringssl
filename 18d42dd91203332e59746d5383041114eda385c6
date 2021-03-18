@@ -41,6 +41,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "004c76f6_b4a04b91",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-18T22:04:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5281c208_23152700",
+      "range": {
+        "startLine": 327,
+        "startChar": 27,
+        "endLine": 327,
+        "endChar": 49
+      },
+      "revId": "18d42dd91203332e59746d5383041114eda385c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eae58f3f_40d3ff3c",
@@ -58,6 +82,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6343cdb4_8ba0de1f",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-18T22:04:48Z",
+      "side": 1,
+      "message": "Done, fixed in the PSK variant as well.",
+      "parentUuid": "eae58f3f_40d3ff3c",
+      "revId": "18d42dd91203332e59746d5383041114eda385c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ee3d8dec_94a390da",
@@ -71,6 +113,30 @@
       "writtenOn": "2021-03-18T18:47:53Z",
       "side": 1,
       "message": "Ditto.",
+      "range": {
+        "startLine": 420,
+        "startChar": 27,
+        "endLine": 420,
+        "endChar": 49
+      },
+      "revId": "18d42dd91203332e59746d5383041114eda385c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "874b6f8b_bcd61e29",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-18T22:04:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee3d8dec_94a390da",
       "range": {
         "startLine": 420,
         "startChar": 27,
@@ -106,6 +172,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2965f68d_814906f0",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-18T22:04:48Z",
+      "side": 1,
+      "message": "OK, using INVALID_PEER_KEY here.\n\nI\u0027m punting on changing the error for incorrect public_key_len/private_key_len. How about INVALID_HPKE_KEY_PAIR?",
+      "parentUuid": "717320fe_e714eadc",
+      "range": {
+        "startLine": 479,
+        "startChar": 6,
+        "endLine": 479,
+        "endChar": 13
+      },
+      "revId": "18d42dd91203332e59746d5383041114eda385c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "95084fd9_ca5c6559",
         "filename": "crypto/hpke/hpke_test.cc",
         "patchSetId": 3
@@ -117,6 +207,24 @@
       "writtenOn": "2021-03-18T18:47:53Z",
       "side": 1,
       "message": "Pretty sure that\u0027s a perfectly fine public key, just one that we don\u0027t know the private half for. Ditto elsewhere.\n\nTo write a good test, we should use a valid public key, so we can distinguish between failures from the public key vs. other things. As it turns out, I believe this is valid (only source of invalidness would be the 8 low order ones... I don\u0027t think this is one? you can check and see if it succeeds when the buffer\u0027s the right size, or generate a real one), so you can just remove the comment. :-)",
+      "revId": "18d42dd91203332e59746d5383041114eda385c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59d68b94_d2791dbe",
+        "filename": "crypto/hpke/hpke_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-18T22:04:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "95084fd9_ca5c6559",
       "revId": "18d42dd91203332e59746d5383041114eda385c6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -138,6 +246,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5b4c906_8783ad84",
+        "filename": "crypto/hpke/hpke_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 508,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-18T22:04:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a559f5d6_64cdc870",
+      "revId": "18d42dd91203332e59746d5383041114eda385c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1a24e7f0_1fe1fb3d",
@@ -151,6 +277,24 @@
       "writtenOn": "2021-03-18T18:47:53Z",
       "side": 1,
       "message": "This comment doesn\u0027t make sense since the whole point is it\u0027s not testing a real X25519 key. :-)",
+      "revId": "18d42dd91203332e59746d5383041114eda385c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f82ae5b2_c7e8512e",
+        "filename": "crypto/hpke/hpke_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-18T22:04:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a24e7f0_1fe1fb3d",
       "revId": "18d42dd91203332e59746d5383041114eda385c6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -172,6 +316,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "12fdccfe_90f04b0e",
+        "filename": "crypto/hpke/hpke_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-18T22:04:48Z",
+      "side": 1,
+      "message": "Done. I opted to do another X25519_keypair() to get a valid |enc| value.",
+      "parentUuid": "b8ff79bb_03a67814",
+      "revId": "18d42dd91203332e59746d5383041114eda385c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "06e591de_034d5fd8",
@@ -185,6 +347,30 @@
       "writtenOn": "2021-03-18T18:47:53Z",
       "side": 1,
       "message": "Nit: one and zero since this is int.",
+      "range": {
+        "startLine": 109,
+        "startChar": 36,
+        "endLine": 109,
+        "endChar": 40
+      },
+      "revId": "18d42dd91203332e59746d5383041114eda385c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "211da048_7716e793",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-18T22:04:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06e591de_034d5fd8",
       "range": {
         "startLine": 109,
         "startChar": 36,
