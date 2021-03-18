@@ -571,6 +571,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9f44c9b8_767395bc",
+        "filename": "ssl/internal.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 1598,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-18T21:06:01Z",
+      "side": 1,
+      "message": "Argh, trybots are turning red in patchset 21. I think this is why I originally used MakeConstSpan. Do you understand why this is failing on some linux trybots and not others?\n\nhttps://ci.chromium.org/p/boringssl/builders/try/linux/b8852388810208849536?\n\n```\n/usr/bin/c++  -DBORINGSSL_ALLOW_CXX_RUNTIME -DBORINGSSL_DISPATCH_TEST -DBORINGSSL_IMPLEMENTATION -I../third_party/googletest/include -I../ssl/../include -Werror -Wformat\u003d2 -Wsign-compare -Wmissing-field-initializers -Wwrite-strings -Wvla -ggdb -Wall -fvisibility\u003dhidden -fno-common -Wno-free-nonheap-object -Wmissing-declarations -std\u003dc++11 -Wshadow -MD -MT ssl/CMakeFiles/ssl.dir/d1_lib.cc.o -MF ssl/CMakeFiles/ssl.dir/d1_lib.cc.o.d -o ssl/CMakeFiles/ssl.dir/d1_lib.cc.o -c ../ssl/d1_lib.cc\nIn file included from ../ssl/d1_lib.cc:68:0:\n../ssl/internal.h: In member function ‘bssl::Span\u003cconst unsigned char\u003e bssl::ECHServerConfig::secret_key() const’:\n../ssl/internal.h:1583:12: error: could not convert ‘(const uint8_t*)(\u0026((const bssl::ECHServerConfig*)this)-\u003ebssl::ECHServerConfig::secret_key_)’ from ‘const uint8_t* {aka const unsigned char*}’ to ‘bssl::Span\u003cconst unsigned char\u003e’\n     return secret_key_;\n            ^\n../ssl/internal.h: In member function ‘bssl::Span\u003cconst unsigned char\u003e bssl::ECHServerConfig::config_id_sha256() const’:\n../ssl/internal.h:1587:12: error: could not convert ‘(const uint8_t*)(\u0026((const bssl::ECHServerConfig*)this)-\u003ebssl::ECHServerConfig::config_id_sha256_)’ from ‘const uint8_t* {aka const unsigned char*}’ to ‘bssl::Span\u003cconst unsigned char\u003e’\n     return config_id_sha256_;\n            ^\n```",
+      "parentUuid": "0fdc0b70_3f0acc64",
+      "range": {
+        "startLine": 1598,
+        "startChar": 36,
+        "endLine": 1598,
+        "endChar": 57
+      },
+      "revId": "0c90efcf9c05ca928f6c2af50703122e3bbd958a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f6858f78_a70741c6",
         "filename": "ssl/internal.h",
         "patchSetId": 19
