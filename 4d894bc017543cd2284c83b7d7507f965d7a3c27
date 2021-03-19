@@ -22,6 +22,30 @@
       },
       "revId": "4d894bc017543cd2284c83b7d7507f965d7a3c27",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65f9c1f2_696be39b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-03-19T16:39:02Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fbb93eac_25dd163e",
+      "range": {
+        "startLine": 10,
+        "startChar": 11,
+        "endLine": 10,
+        "endChar": 48
+      },
+      "revId": "4d894bc017543cd2284c83b7d7507f965d7a3c27",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
