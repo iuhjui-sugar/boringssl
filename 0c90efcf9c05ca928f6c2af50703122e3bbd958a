@@ -428,6 +428,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d58d5d04_35956868",
+        "filename": "ssl/internal.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 1582,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-19T16:44:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "441640e4_e0fbcdfd",
+      "range": {
+        "startLine": 1582,
+        "startChar": 10,
+        "endLine": 1582,
+        "endChar": 29
+      },
+      "revId": "0c90efcf9c05ca928f6c2af50703122e3bbd958a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "60422aaf_8516eaba",
@@ -631,6 +655,30 @@
       "side": 1,
       "message": "Darn. Well, MakeConstSpan it is then. :-(\n\nI\u0027ve seen some mysterious differences between GCC and Clang here and I don\u0027t understand why. I just put in MakeConstSpan as needed to shut it up. Hopefully someday we can abseil and maybe they\u0027re better at it than we are...",
       "parentUuid": "9f44c9b8_767395bc",
+      "range": {
+        "startLine": 1598,
+        "startChar": 36,
+        "endLine": 1598,
+        "endChar": 57
+      },
+      "revId": "0c90efcf9c05ca928f6c2af50703122e3bbd958a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3941e5a8_04841198",
+        "filename": "ssl/internal.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 1598,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-19T16:44:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ad5501bb_26686ac0",
       "range": {
         "startLine": 1598,
         "startChar": 36,

@@ -58,6 +58,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ace50cd_6874d76b",
+        "filename": "fuzz/decode_client_hello_inner.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-19T16:44:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2f3710d_e22eafdf",
+      "range": {
+        "startLine": 48,
+        "startChar": 2,
+        "endLine": 48,
+        "endChar": 7
+      },
+      "revId": "24094847937495221a4301f06c8f2922cb2dd0e1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1e9397a1_9017ef55",
@@ -71,6 +95,30 @@
       "writtenOn": "2021-03-18T22:24:28Z",
       "side": 1,
       "message": "No need for std::move now that it\u0027s a span.",
+      "range": {
+        "startLine": 50,
+        "startChar": 10,
+        "endLine": 50,
+        "endChar": 20
+      },
+      "revId": "24094847937495221a4301f06c8f2922cb2dd0e1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bec4f784_54aa4bd2",
+        "filename": "fuzz/decode_client_hello_inner.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-19T16:44:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e9397a1_9017ef55",
       "range": {
         "startLine": 50,
         "startChar": 10,
@@ -104,6 +152,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "322ca63b_b7c0e55f",
+        "filename": "ssl/encrypted_client_hello.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-19T16:44:27Z",
+      "side": 1,
+      "message": "Oh neat, I didn\u0027t realize it was safe to reuse the CBB.",
+      "parentUuid": "be0e1b0b_7289e7eb",
+      "range": {
+        "startLine": 41,
+        "startChar": 23,
+        "endLine": 41,
+        "endChar": 51
+      },
+      "revId": "24094847937495221a4301f06c8f2922cb2dd0e1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d569cb7c_8ad82ae1",
@@ -121,6 +193,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "70357046_b1ef94b7",
+        "filename": "ssl/encrypted_client_hello.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-19T16:44:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d569cb7c_8ad82ae1",
+      "revId": "24094847937495221a4301f06c8f2922cb2dd0e1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "89753b0b_cde112d4",
@@ -134,6 +224,24 @@
       "writtenOn": "2021-03-18T22:24:28Z",
       "side": 1,
       "message": "It looks like we somewhat messed this up with DCs, but the header does try to section things a bit. Can you move this along with the other functions defined in encrypted_client_hello.cc into their own \"Encrypted ClientHello\" section.\n\nNo strong feelings about the ordering. Feel free to forward declare types as needed.",
+      "revId": "24094847937495221a4301f06c8f2922cb2dd0e1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d44decab_f35dffe9",
+        "filename": "ssl/internal.h",
+        "patchSetId": 21
+      },
+      "lineNbr": 1560,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-19T16:44:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89753b0b_cde112d4",
       "revId": "24094847937495221a4301f06c8f2922cb2dd0e1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -161,6 +269,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef28b362_ccdf86a4",
+        "filename": "ssl/internal.h",
+        "patchSetId": 21
+      },
+      "lineNbr": 2083,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-19T16:44:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75f1fff8_ddb358f0",
+      "range": {
+        "startLine": 2081,
+        "startChar": 42,
+        "endLine": 2083,
+        "endChar": 8
+      },
+      "revId": "24094847937495221a4301f06c8f2922cb2dd0e1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ab2df758_f3231488",
@@ -174,6 +306,24 @@
       "writtenOn": "2021-03-18T22:24:28Z",
       "side": 1,
       "message": "The null check actually doesn\u0027t do anything, but neither does the UniquePtr. Maybe even just:\n\n  return New\u003cSSL_ECH_SERVER_CONFIG_LIST\u003e()\n\n(Gosh it fields weird to do a bare new...)",
+      "revId": "24094847937495221a4301f06c8f2922cb2dd0e1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c84aaafa_74ed31ba",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 2196,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-19T16:44:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab2df758_f3231488",
       "revId": "24094847937495221a4301f06c8f2922cb2dd0e1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -195,6 +345,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "241cd859_56038d9b",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 788,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-19T16:44:27Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "48d1ffb1_f81b7393",
+      "revId": "24094847937495221a4301f06c8f2922cb2dd0e1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9be9278d_3cb78b0a",
@@ -212,6 +380,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4efdb842_487c1584",
+        "filename": "tool/server.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-19T16:44:27Z",
+      "side": 1,
+      "message": "I kind of copied the behavior of \"-cert\" and \"-key\" here. I described it (incompletely) in the \"-echconfig\" help string. Fixing that now.",
+      "parentUuid": "9be9278d_3cb78b0a",
+      "revId": "24094847937495221a4301f06c8f2922cb2dd0e1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5d43b33f_1a691178",
@@ -225,6 +411,24 @@
       "writtenOn": "2021-03-18T22:24:28Z",
       "side": 1,
       "message": "Rather than check this in two places, just move this logic into line 298. Then we also can declare echconfig_key and echconfig where they\u0027re first used.",
+      "revId": "24094847937495221a4301f06c8f2922cb2dd0e1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e98704df_282d09cf",
+        "filename": "tool/server.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-19T16:44:27Z",
+      "side": 1,
+      "message": "Ah, much better. I think this was an artifact of originally setting the ECHConfigs on the |SSL| object.",
+      "parentUuid": "5d43b33f_1a691178",
       "revId": "24094847937495221a4301f06c8f2922cb2dd0e1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }

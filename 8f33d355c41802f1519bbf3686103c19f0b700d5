@@ -311,6 +311,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f33c5d13_ac0ea92b",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 1046,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-19T16:44:27Z",
+      "side": 1,
+      "message": "I\u0027ll close this as it\u0027s purely about a performance optimization for tests, and we already have something that works.",
+      "parentUuid": "a2a7b6bb_78f81d01",
+      "revId": "8f33d355c41802f1519bbf3686103c19f0b700d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7bc27911_f5ec3321",
