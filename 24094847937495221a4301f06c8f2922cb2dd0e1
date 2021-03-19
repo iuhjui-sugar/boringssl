@@ -363,6 +363,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "66ba6076_4f3df784",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 788,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-19T16:55:56Z",
+      "side": 1,
+      "message": "Darn, you were right. Had to remove |wrote_retry_config|.",
+      "parentUuid": "241cd859_56038d9b",
+      "revId": "24094847937495221a4301f06c8f2922cb2dd0e1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9be9278d_3cb78b0a",
