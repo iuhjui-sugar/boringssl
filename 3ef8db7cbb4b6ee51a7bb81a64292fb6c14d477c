@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30bf0255_f7856a68",
+        "filename": "ssl/encrypted_client_hello.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-19T17:35:28Z",
+      "side": 1,
+      "message": "Forgot to add a |CBB_flush| after this change.",
+      "range": {
+        "startLine": 39,
+        "startChar": 2,
+        "endLine": 39,
+        "endChar": 10
+      },
+      "revId": "3ef8db7cbb4b6ee51a7bb81a64292fb6c14d477c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
