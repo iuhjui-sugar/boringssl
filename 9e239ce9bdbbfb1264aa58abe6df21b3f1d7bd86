@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "350d1eb6_e0cf520e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 24
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-19T20:18:34Z",
+      "side": 1,
+      "message": "I should double check this before committing.",
+      "range": {
+        "startLine": 14,
+        "startChar": 53,
+        "endLine": 14,
+        "endChar": 66
+      },
+      "revId": "9e239ce9bdbbfb1264aa58abe6df21b3f1d7bd86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8ffc52f_9af6c7c4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 24
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-19T20:18:34Z",
+      "side": 1,
+      "message": "Can probably drop this as well as the [1] and [2] links below..",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 33
+      },
+      "revId": "9e239ce9bdbbfb1264aa58abe6df21b3f1d7bd86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
