@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71b492a0_2d9ad445",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-19T16:53:16Z",
+      "side": 1,
+      "message": "Just did a little git gymnastics, but there\u0027s no difference between patchsets 4 and 6.",
+      "revId": "165f6554035549139e00ed3f5a46ebbdfb9c168e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
