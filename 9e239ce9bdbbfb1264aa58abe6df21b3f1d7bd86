@@ -45,6 +45,29 @@
       },
       "revId": "9e239ce9bdbbfb1264aa58abe6df21b3f1d7bd86",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5cd6afd5_84e9e6bb",
+        "filename": "ssl/test/test_config.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 1660,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-19T21:52:03Z",
+      "side": 1,
+      "message": "Update the \"-ech-server-config\" flag type to be Flag\u003cstd::vector\u003cstd::tuple\u003cstd::string, std::string, bool\u003e\u003e\u003e, and test both cases of is_retry_config in runner.",
+      "range": {
+        "startLine": 1660,
+        "startChar": 14,
+        "endLine": 1660,
+        "endChar": 35
+      },
+      "revId": "9e239ce9bdbbfb1264aa58abe6df21b3f1d7bd86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
