@@ -36,6 +36,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "96e05378_cda44270",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-03-22T19:40:55Z",
+      "side": 1,
+      "message": "I think this is a good change because we may fail to ban it. Just throwing an idea out for the possible future.",
+      "parentUuid": "cd7f80dd_8020dabd",
+      "revId": "ea45797802ecc0803f05a72057d9bf476a8c7c9b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9d18b790_37cd5c04",
