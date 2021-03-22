@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f9436ac_3c3546eb",
+        "filename": "ssl/test/test_config.cc",
+        "patchSetId": 25
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-22T19:25:49Z",
+      "side": 1,
+      "message": "I am disgusted by this parsing code, but I didn\u0027t see a nicer way to do it without a bunch of refactoring.",
+      "range": {
+        "startLine": 383,
+        "startChar": 4,
+        "endLine": 383,
+        "endChar": 48
+      },
+      "revId": "8f767e77c757d3ac1b68d1c7bf551fecffff9721",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
