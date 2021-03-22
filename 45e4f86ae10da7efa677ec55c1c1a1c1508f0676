@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4331be3_e6bb46d1",
+        "filename": "crypto/x509/x509_req.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-22T21:05:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c2197d1d_25a3a170",
+      "range": {
+        "startLine": 187,
+        "startChar": 16,
+        "endLine": 187,
+        "endChar": 17
+      },
+      "revId": "45e4f86ae10da7efa677ec55c1c1a1c1508f0676",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "18fd7f10_e17f8a21",
@@ -47,6 +71,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e365eb52_adec165f",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1244,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-22T21:05:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18fd7f10_e17f8a21",
+      "range": {
+        "startLine": 1244,
+        "startChar": 18,
+        "endLine": 1244,
+        "endChar": 57
+      },
+      "revId": "45e4f86ae10da7efa677ec55c1c1a1c1508f0676",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df220755_261f6733",
@@ -60,6 +108,30 @@
       "writtenOn": "2021-03-22T17:07:42Z",
       "side": 1,
       "message": "left-over words?",
+      "range": {
+        "startLine": 1248,
+        "startChar": 68,
+        "endLine": 1249,
+        "endChar": 13
+      },
+      "revId": "45e4f86ae10da7efa677ec55c1c1a1c1508f0676",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56cbe765_3c423caa",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1249,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-22T21:05:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df220755_261f6733",
       "range": {
         "startLine": 1248,
         "startChar": 68,
