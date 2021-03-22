@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd7f80dd_8020dabd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-22T19:38:05Z",
+      "side": 1,
+      "message": "It\u0027s not always an ASN.1 struct (e.g. ECDSA uses the X9.62 point format), but I have never seen anything actually use the BIT STRING. This BIT STRING and the one in the signature seem to have just been a mistake.\n\nI\u0027d be quite on board with rejecting it in parse, though Chromium\u0027s verifier doesn\u0027t do this. (They do, like us, check it when we actually extract a key or verify a signature. But callers that only cares about parsing won\u0027t notice.) And we seem to be having a hard time tightening the parser right now. :-/\n\nBut between no one ever using the BIT STRING and parsing unknown key types being rare, I suspect we can get away with it?",
+      "parentUuid": "173bbd56_18f1f000",
+      "revId": "ea45797802ecc0803f05a72057d9bf476a8c7c9b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9d18b790_37cd5c04",
@@ -31,6 +49,30 @@
       "writtenOn": "2021-03-22T17:10:20Z",
       "side": 1,
       "message": ": after \"Note\"",
+      "range": {
+        "startLine": 1608,
+        "startChar": 3,
+        "endLine": 1608,
+        "endChar": 7
+      },
+      "revId": "ea45797802ecc0803f05a72057d9bf476a8c7c9b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ca36b66_d18336aa",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1608,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-22T19:38:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d18b790_37cd5c04",
       "range": {
         "startLine": 1608,
         "startChar": 3,
