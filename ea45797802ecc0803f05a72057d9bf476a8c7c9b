@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "173bbd56_18f1f000",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-03-22T17:10:20Z",
+      "side": 1,
+      "message": "Could we get away with just rejecting all certificates where the public key contains a fractional number of bits? It\u0027s an ASN.1 struct so doesn\u0027t DER round up even in the case of 2047-bit RSA and the like?",
+      "revId": "ea45797802ecc0803f05a72057d9bf476a8c7c9b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d18b790_37cd5c04",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1608,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-03-22T17:10:20Z",
+      "side": 1,
+      "message": ": after \"Note\"",
+      "range": {
+        "startLine": 1608,
+        "startChar": 3,
+        "endLine": 1608,
+        "endChar": 7
+      },
+      "revId": "ea45797802ecc0803f05a72057d9bf476a8c7c9b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
