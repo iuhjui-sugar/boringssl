@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "316cfb3a_4f5856a6",
+        "filename": "crypto/fipsmodule/modes/cbc.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-03-22T17:17:42Z",
+      "side": 1,
+      "message": "I get this having read the commit message, but I don\u0027t think I would in isolation. Maybe:\n\n// Avoid |ivec| \u003d\u003d |iv| in the memcpy below, which is not legal in C.",
+      "revId": "e1bacc32c7062013b31f61658d07cbce360db10b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffdea328_f0ee065b",
+        "filename": "crypto/fipsmodule/modes/cbc.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-03-22T17:17:42Z",
+      "side": 1,
+      "message": "(ditto)",
+      "revId": "e1bacc32c7062013b31f61658d07cbce360db10b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
