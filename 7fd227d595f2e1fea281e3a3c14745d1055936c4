@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccafcdf1_be823e25",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-23T15:34:12Z",
+      "side": 1,
+      "message": "Thanks! I\u0027ve been meaning to take a pass over our scripts, so this saves me a bit of effort.",
+      "revId": "7fd227d595f2e1fea281e3a3c14745d1055936c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
