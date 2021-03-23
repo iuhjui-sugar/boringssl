@@ -49,6 +49,103 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "12a02543_687ef545",
+        "filename": "ssl/internal.h",
+        "patchSetId": 24
+      },
+      "lineNbr": 2099,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-23T22:41:08Z",
+      "side": 1,
+      "message": "Oh sorry, I was unclear. I meant these functions should probably go in the ECH block.",
+      "revId": "9e239ce9bdbbfb1264aa58abe6df21b3f1d7bd86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9879f09_7bd631e8",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 1474,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-23T22:41:08Z",
+      "side": 1,
+      "message": "Nit: Maybe other_private_key or wrong_private_key? Helps communicate what it\u0027s for better than private_key_1.",
+      "range": {
+        "startLine": 1474,
+        "startChar": 5,
+        "endLine": 1474,
+        "endChar": 18
+      },
+      "revId": "9e239ce9bdbbfb1264aa58abe6df21b3f1d7bd86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc1660ac_ff219746",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 1501,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-23T22:41:08Z",
+      "side": 1,
+      "message": "80 chars",
+      "revId": "9e239ce9bdbbfb1264aa58abe6df21b3f1d7bd86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "089e7c30_19726bbf",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 1509,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-23T22:41:08Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "9e239ce9bdbbfb1264aa58abe6df21b3f1d7bd86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ace15e10_63d49efc",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 1559,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-23T22:41:08Z",
+      "side": 1,
+      "message": "no \"no \" :-)",
+      "range": {
+        "startLine": 1559,
+        "startChar": 7,
+        "endLine": 1559,
+        "endChar": 12
+      },
+      "revId": "9e239ce9bdbbfb1264aa58abe6df21b3f1d7bd86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5cd6afd5_84e9e6bb",
         "filename": "ssl/test/test_config.cc",
         "patchSetId": 24
@@ -90,6 +187,23 @@
         "endLine": 1660,
         "endChar": 35
       },
+      "revId": "9e239ce9bdbbfb1264aa58abe6df21b3f1d7bd86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85737c7f_8e0bb154",
+        "filename": "ssl/test/test_config.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 1660,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-23T22:41:08Z",
+      "side": 1,
+      "message": "We still should probably test having both around. The tuple\u003cbool, string, string\u003e idea sounds good. Having two lists probably also works?",
       "revId": "9e239ce9bdbbfb1264aa58abe6df21b3f1d7bd86",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }

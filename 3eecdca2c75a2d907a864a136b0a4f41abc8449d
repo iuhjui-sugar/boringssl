@@ -112,6 +112,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4551447a_2aef87d1",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 20
+      },
+      "lineNbr": 3606,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-23T22:41:08Z",
+      "side": 1,
+      "message": "Looks good.\n\nI suspect we could spend more unbounded time wordsmithing that documentation, but now that the rest of the impl is good, let\u0027s leave it. :-) We can always follow up if we think of improvements or learn from people trying to use it.",
+      "parentUuid": "1437c8a4_b0e5fd0d",
+      "range": {
+        "startLine": 3606,
+        "startChar": 28,
+        "endLine": 3606,
+        "endChar": 45
+      },
+      "revId": "3eecdca2c75a2d907a864a136b0a4f41abc8449d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "def7239a_af7aba65",

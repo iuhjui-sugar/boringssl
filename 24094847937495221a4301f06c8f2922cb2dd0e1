@@ -418,6 +418,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ca4f1ff4_f5442587",
+        "filename": "tool/server.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-23T22:41:08Z",
+      "side": 1,
+      "message": "Oh, if it\u0027s for consistency with -cert and -key, that\u0027s because those parse PEM files and PEM files can contain lots of things concatenated.\n\nThe story here is PEM is a very lax format. You ignore any non-PEM data and also PEM blocks of the wrong type. So it\u0027s common enough for folks to have a single file with both the cert and the key concatenated. The formats we\u0027re parsing don\u0027t do that, hence separate files. (I don\u0027t feel strongly, but if the aim was consistency with -cert/-key, probably better to just specify it separately.)",
+      "parentUuid": "4efdb842_487c1584",
+      "revId": "24094847937495221a4301f06c8f2922cb2dd0e1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5d43b33f_1a691178",
         "filename": "tool/server.cc",
         "patchSetId": 21

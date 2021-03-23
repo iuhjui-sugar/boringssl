@@ -1,0 +1,363 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84d3df5e_34eeb996",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 27
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-23T22:41:08Z",
+      "side": 1,
+      "message": "(Didn\u0027t have time to do a full pass over this. Forgot I had some interview feedback to write up. :-( )",
+      "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40f5f791_9ca0f72d",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 27
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-23T22:41:08Z",
+      "side": 1,
+      "message": "Probably should mention that it\u0027s just for the client.",
+      "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe0d4a0d_de5adba6",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 27
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-23T22:41:08Z",
+      "side": 1,
+      "message": "Just \"If empty\". (nil is empty.)",
+      "range": {
+        "startLine": 435,
+        "startChar": 57,
+        "endLine": 435,
+        "endChar": 75
+      },
+      "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4781fd3d_4a966d4d",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 27
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-23T22:41:08Z",
+      "side": 1,
+      "message": "ECHConfigs have multiple cipher suites. I think what you mean is for the client to use a specified cipher suite, independent of the selected ECHConfig\u0027s preferences.",
+      "range": {
+        "startLine": 860,
+        "startChar": 4,
+        "endLine": 860,
+        "endChar": 52
+      },
+      "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c507d8bc_2eba7013",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 27
+      },
+      "lineNbr": 868,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-23T22:41:08Z",
+      "side": 1,
+      "message": "There\u0027s no ServerHello ECH extension. It\u0027s on EncryptedExtensions. Maybe rather than talking about it in terms of the extension, let\u0027s just talk about it in terms of retry configs.",
+      "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c68913db_7dabbb2e",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 27
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-23T22:41:08Z",
+      "side": 1,
+      "message": "This sentence confuses me. Outer extensions should not affect the order of the ClientHelloOuter extensions in the first place. (Indeed we want those to be independent so we can test reorderings.)",
+      "range": {
+        "startLine": 881,
+        "startChar": 71,
+        "endLine": 882,
+        "endChar": 68
+      },
+      "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2f6c8e0_370f2d08",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 27
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-23T22:41:08Z",
+      "side": 1,
+      "message": "If we do this here, runner is unable to express cases where the ClientHelloOuter order is different from the ClientHelloInner order. That\u0027s a problem for tests. We should only do this on the inner ClientHello.",
+      "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0acf7e77_b9cbd404",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 27
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-23T22:41:08Z",
+      "side": 1,
+      "message": "This will get unwieldy very fast. Instead, this function can read from c.config directly.",
+      "range": {
+        "startLine": 454,
+        "startChar": 60,
+        "endLine": 454,
+        "endChar": 140
+      },
+      "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1a7badf_836f08b4",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 27
+      },
+      "lineNbr": 798,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-23T22:41:08Z",
+      "side": 1,
+      "message": "This doesn\u0027t look right. secondInnerHello might exist, but ECH might not be accepted. This seems to put the wrong value in the transcript.\n\nNow that I look at it again, I think I see where this strategy got tripped up. This CL is making two finishedHashes, but purely for managing the confirmation value. Instead, think of this as doing two handshakes in parallel and figure out which one to proceed with. That is:\n\n- Have two finishedHash objects as before, but one is for the outer handshake and one is for the inner handshake.\n\n- Now that we know exactly which messages go into which, just write the right ones immediately rather than deferring.\n\n- hs.finishedHash is, say, the outer one and hs.innerFinishedHash is the ClientHelloInner one or so.\n\n- Now there are no parameters to doTLS13Handshake()\n\n- Bring back deriveSecretPeek() so we can compute both the confirmation value and the actual handshake secret with the same finishedHash.\n\n- Once we\u0027ve figured out which handshake we\u0027re running, we can swap out hs.finishedHash for hs.innnerFinishedHash as needed and continue as before.\n\nThat should hopefully be clearer and align better with what\u0027s actually going on. In particular, when we fix the HRR issue, we need to test inner and outer ClientHellos with different cipher suite and key share preferences. But, in order to test that, we need to be able to clearly manage which state corresponds to which connection. The current strategy cannot handle that cleanly.",
+      "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ecd3305_b6f36dec",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 27
+      },
+      "lineNbr": 907,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-23T22:41:08Z",
+      "side": 1,
+      "message": "This doesn\u0027t really capture the fact that the outer and inner ClientHellos can nearly *arbitrarily* differ. In particular, we want to make sure the server is actually using the correct ClientHello, so it\u0027s useful to have  differ between the two. This is similar to how, in the production implementation, we don\u0027t want to do this by patching up the two ClientHellos since that misses important details about which is and isn\u0027t sensitive.",
+      "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0fccf81c_068209bf",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 27
+      },
+      "lineNbr": 909,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-23T22:41:08Z",
+      "side": 1,
+      "message": "Using lambdas like this for control flow throw me off. Make a helper function, or just use labeled break/continue.",
+      "range": {
+        "startLine": 909,
+        "startChar": 29,
+        "endLine": 909,
+        "endChar": 66
+      },
+      "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ce914fe_fe83f57c",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 27
+      },
+      "lineNbr": 918,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-23T22:41:08Z",
+      "side": 1,
+      "message": "The usual pattern in Config is to have a method that resolves into the default preferences. See curvePreferences() and cipherSuites().",
+      "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59675590_30404862",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 27
+      },
+      "lineNbr": 921,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-23T22:41:08Z",
+      "side": 1,
+      "message": "We don\u0027t really need to support multiple ClientECHConfigs like this, but if we were to, looping in this order seems pretty strange. Usually things like versions and keys will take precedence.",
+      "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8a9f540_ec71056b",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 27
+      },
+      "lineNbr": 934,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-23T22:41:08Z",
+      "side": 1,
+      "message": "This logic is currently getting rerun between the two ClientHellos, when instead we should reuse the HPKE context we already have. That suggests to me that, rather than an in/out parameter, setting up the HPKE context and actually using it should be two separate operations. And then the initial vs HRR call sites can just call both or just one as needed.",
+      "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ec48912_98fb9496",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 27
+      },
+      "lineNbr": 1132,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-23T22:41:08Z",
+      "side": 1,
+      "message": "It looks like we\u0027re currently relying on this code to check for ECH accept vs. reject, which doesn\u0027t work here because TLS 1.2 implicit rejects ECH and we don\u0027t notice.\n\nUsually what we do is make this into a connection property, and assert that the connection property matches that we expected. Here, however, since we have to fill in a placeholder value for the ClientHello we didn\u0027t use, it may be easier to just force one or the other.",
+      "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80b75a4a_aa9f5384",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 27
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-23T22:41:08Z",
+      "side": 1,
+      "message": "Hopefully we can get rid of this soon. It\u0027s really annoying. :-)",
+      "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69e2748c_852dd08f",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 27
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-23T22:41:08Z",
+      "side": 1,
+      "message": "Just like we did elsewhere, just panic on error here. This function is infallible when we pass in a length that\u0027s known to be small.",
+      "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffdf9f6b_d42e7af1",
+        "filename": "ssl/test/runner/hpke/hpke.go",
+        "patchSetId": 27
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-23T22:41:08Z",
+      "side": 1,
+      "message": "0\n\ncrypto.Hash is an int.",
+      "range": {
+        "startLine": 68,
+        "startChar": 8,
+        "endLine": 68,
+        "endChar": 11
+      },
+      "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "427494a5_ca6200c8",
+        "filename": "ssl/test/test_config.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-23T22:41:08Z",
+      "side": 1,
+      "message": "This and the message below are no longer quite right.",
+      "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
