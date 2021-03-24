@@ -35,6 +35,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "809ec314_5afee12b",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 27
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-24T22:54:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40f5f791_9ca0f72d",
+      "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fe0d4a0d_de5adba6",
@@ -48,6 +66,30 @@
       "writtenOn": "2021-03-23T22:41:08Z",
       "side": 1,
       "message": "Just \"If empty\". (nil is empty.)",
+      "range": {
+        "startLine": 435,
+        "startChar": 57,
+        "endLine": 435,
+        "endChar": 75
+      },
+      "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1e81426_f8dfa954",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 27
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-24T22:54:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe0d4a0d_de5adba6",
       "range": {
         "startLine": 435,
         "startChar": 57,
@@ -81,6 +123,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b483be2_92ef8343",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 27
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-24T22:54:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4781fd3d_4a966d4d",
+      "range": {
+        "startLine": 860,
+        "startChar": 4,
+        "endLine": 860,
+        "endChar": 52
+      },
+      "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c507d8bc_2eba7013",
@@ -94,6 +160,24 @@
       "writtenOn": "2021-03-23T22:41:08Z",
       "side": 1,
       "message": "There\u0027s no ServerHello ECH extension. It\u0027s on EncryptedExtensions. Maybe rather than talking about it in terms of the extension, let\u0027s just talk about it in terms of retry configs.",
+      "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0807c136_d9dc7d19",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 27
+      },
+      "lineNbr": 868,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-24T22:54:17Z",
+      "side": 1,
+      "message": "Ah, I thought that \"ServerHello extensions\" referred to both the extensions directly on the ServerHello and the EncryptedExtensions. Regardless, there\u0027s no need to be vague here.",
+      "parentUuid": "c507d8bc_2eba7013",
       "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -123,6 +207,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d456b1fe_49063d5e",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 27
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-24T22:54:17Z",
+      "side": 1,
+      "message": "This is a little subtle, let me try to explain how I meant this to work.\n\n|Config.ECHOuterExtensions| is how you choose which extensions to compress in the EncodedClientHelloInner. For ergonomics, it does the necessary reordering at marshalling time to make this work.\n\nSeparately, |ProtocolBugs.SendECHOuterExtensions| controls/overrides the contents of the extension, but does not cause extension reordering.\n\nTo write a test where EncodedClientHelloInner.outer_extensions is in a different order than the true ClientHelloInner\u0027s extensions, you just specify Config.ECHOuterExtensions\u003d[extA, extB] and ProtocolBugs.SendECHOuterExtensions\u003d[extB, extA]. (In fact, I just added a test that does this: \"ECH-Server-OuterExtensions-OrderMismatch\".)\n\nDoes that design make sense? Do you have a better config/bugs interface in mind?",
+      "parentUuid": "c68913db_7dabbb2e",
+      "range": {
+        "startLine": 881,
+        "startChar": 71,
+        "endLine": 882,
+        "endChar": 68
+      },
+      "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e2f6c8e0_370f2d08",
         "filename": "ssl/test/runner/handshake_client.go",
         "patchSetId": 27
@@ -134,6 +242,24 @@
       "writtenOn": "2021-03-23T22:41:08Z",
       "side": 1,
       "message": "If we do this here, runner is unable to express cases where the ClientHelloOuter order is different from the ClientHelloInner order. That\u0027s a problem for tests. We should only do this on the inner ClientHello.",
+      "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f55b679d_6a7ecc94",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 27
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-24T22:54:17Z",
+      "side": 1,
+      "message": "[see my response in common.go]",
+      "parentUuid": "e2f6c8e0_370f2d08",
       "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -161,6 +287,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5303b2a6_441e7cd7",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 27
+      },
+      "lineNbr": 454,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-24T22:54:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0acf7e77_b9cbd404",
+      "range": {
+        "startLine": 454,
+        "startChar": 60,
+        "endLine": 454,
+        "endChar": 140
+      },
+      "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b1a7badf_836f08b4",
@@ -178,6 +328,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "60507b6b_93f6ac40",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 27
+      },
+      "lineNbr": 798,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-24T22:54:17Z",
+      "side": 1,
+      "message": "Ah, that\u0027s much better. I also caught a mistake (and added a test). I was not hashing the right version of the second ClientHelloInner; I should have cleared its outer_extensions before marshalling it.",
+      "parentUuid": "b1a7badf_836f08b4",
+      "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9ecd3305_b6f36dec",
@@ -191,6 +359,24 @@
       "writtenOn": "2021-03-23T22:41:08Z",
       "side": 1,
       "message": "This doesn\u0027t really capture the fact that the outer and inner ClientHellos can nearly *arbitrarily* differ. In particular, we want to make sure the server is actually using the correct ClientHello, so it\u0027s useful to have  differ between the two. This is similar to how, in the production implementation, we don\u0027t want to do this by patching up the two ClientHellos since that misses important details about which is and isn\u0027t sensitive.",
+      "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79746d25_b88bb520",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 27
+      },
+      "lineNbr": 907,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-24T22:54:17Z",
+      "side": 1,
+      "message": "The main difference right now is that the server names differ, but I suppose a buggy server might just reach into the ClientHelloInner for individual extensions it wants.\n\nWould you be satisfied by exposing some one-off Config knobs for altering the ClientHelloInner? Or do you want to add a more generic capability?",
+      "parentUuid": "9ecd3305_b6f36dec",
       "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -218,6 +404,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "153ed2e1_c16c325b",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 27
+      },
+      "lineNbr": 909,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-24T22:54:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0fccf81c_068209bf",
+      "range": {
+        "startLine": 909,
+        "startChar": 29,
+        "endLine": 909,
+        "endChar": 66
+      },
+      "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9ce914fe_fe83f57c",
@@ -231,6 +441,24 @@
       "writtenOn": "2021-03-23T22:41:08Z",
       "side": 1,
       "message": "The usual pattern in Config is to have a method that resolves into the default preferences. See curvePreferences() and cipherSuites().",
+      "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0e2919f_0c90b1bc",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 27
+      },
+      "lineNbr": 918,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-24T22:54:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ce914fe_fe83f57c",
       "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -252,6 +480,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c8fd71e_f2d7c830",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 27
+      },
+      "lineNbr": 921,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-24T22:54:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59675590_30404862",
+      "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f8a9f540_ec71056b",
@@ -269,6 +515,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4723d014_919a057c",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 27
+      },
+      "lineNbr": 934,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-24T22:54:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8a9f540_ec71056b",
+      "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8ec48912_98fb9496",
@@ -282,6 +546,24 @@
       "writtenOn": "2021-03-23T22:41:08Z",
       "side": 1,
       "message": "It looks like we\u0027re currently relying on this code to check for ECH accept vs. reject, which doesn\u0027t work here because TLS 1.2 implicit rejects ECH and we don\u0027t notice.\n\nUsually what we do is make this into a connection property, and assert that the connection property matches that we expected. Here, however, since we have to fill in a placeholder value for the ClientHello we didn\u0027t use, it may be easier to just force one or the other.",
+      "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5477bfdd_1c249a34",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 27
+      },
+      "lineNbr": 1132,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-24T22:54:17Z",
+      "side": 1,
+      "message": "OK, added a boolean to the Conn and now I\u0027m checking it outside of this TLS 1.3-specific code.",
+      "parentUuid": "8ec48912_98fb9496",
       "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -320,6 +602,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e014ccc4_ee7a2805",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 27
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-24T22:54:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "69e2748c_852dd08f",
+      "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ffdf9f6b_d42e7af1",
@@ -343,6 +643,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "901fda99_bf38a462",
+        "filename": "ssl/test/runner/hpke/hpke.go",
+        "patchSetId": 27
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-24T22:54:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ffdf9f6b_d42e7af1",
+      "range": {
+        "startLine": 68,
+        "startChar": 8,
+        "endLine": 68,
+        "endChar": 11
+      },
+      "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "427494a5_ca6200c8",
@@ -356,6 +680,24 @@
       "writtenOn": "2021-03-23T22:41:08Z",
       "side": 1,
       "message": "This and the message below are no longer quite right.",
+      "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02892dbc_c575c3ec",
+        "filename": "ssl/test/test_config.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-24T22:54:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "427494a5_ca6200c8",
       "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }

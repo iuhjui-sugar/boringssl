@@ -434,6 +434,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2cd29f2_cd55d87f",
+        "filename": "tool/server.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-24T22:54:17Z",
+      "side": 1,
+      "message": "This is actually fully-specified in the help string now. If you don\u0027t care either way, I\u0027ll leave this behavior in :)",
+      "parentUuid": "ca4f1ff4_f5442587",
+      "revId": "24094847937495221a4301f06c8f2922cb2dd0e1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5d43b33f_1a691178",

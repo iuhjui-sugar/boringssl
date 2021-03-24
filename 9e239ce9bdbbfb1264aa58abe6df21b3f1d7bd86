@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1721c860_1d0e8d0b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 24
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-24T22:54:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "350d1eb6_e0cf520e",
+      "range": {
+        "startLine": 14,
+        "startChar": 53,
+        "endLine": 14,
+        "endChar": 66
+      },
+      "revId": "9e239ce9bdbbfb1264aa58abe6df21b3f1d7bd86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f8ffc52f_9af6c7c4",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-03-19T20:18:34Z",
       "side": 1,
       "message": "Can probably drop this as well as the [1] and [2] links below..",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 33
+      },
+      "revId": "9e239ce9bdbbfb1264aa58abe6df21b3f1d7bd86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "100f87bf_84600ebc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 24
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-24T22:54:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8ffc52f_9af6c7c4",
       "range": {
         "startLine": 16,
         "startChar": 0,
@@ -64,6 +112,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "04109f44_083ece7b",
+        "filename": "ssl/internal.h",
+        "patchSetId": 24
+      },
+      "lineNbr": 2099,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-24T22:54:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12a02543_687ef545",
+      "revId": "9e239ce9bdbbfb1264aa58abe6df21b3f1d7bd86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e9879f09_7bd631e8",
@@ -77,6 +143,30 @@
       "writtenOn": "2021-03-23T22:41:08Z",
       "side": 1,
       "message": "Nit: Maybe other_private_key or wrong_private_key? Helps communicate what it\u0027s for better than private_key_1.",
+      "range": {
+        "startLine": 1474,
+        "startChar": 5,
+        "endLine": 1474,
+        "endChar": 18
+      },
+      "revId": "9e239ce9bdbbfb1264aa58abe6df21b3f1d7bd86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5090e85_11dcaca9",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 1474,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-24T22:54:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9879f09_7bd631e8",
       "range": {
         "startLine": 1474,
         "startChar": 5,
@@ -104,6 +194,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "df59c771_e18d0d9b",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 1501,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-24T22:54:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cc1660ac_ff219746",
+      "revId": "9e239ce9bdbbfb1264aa58abe6df21b3f1d7bd86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "089e7c30_19726bbf",
@@ -121,6 +229,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "274a0081_a78a7cdc",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 1509,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-24T22:54:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "089e7c30_19726bbf",
+      "revId": "9e239ce9bdbbfb1264aa58abe6df21b3f1d7bd86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ace15e10_63d49efc",
@@ -134,6 +260,30 @@
       "writtenOn": "2021-03-23T22:41:08Z",
       "side": 1,
       "message": "no \"no \" :-)",
+      "range": {
+        "startLine": 1559,
+        "startChar": 7,
+        "endLine": 1559,
+        "endChar": 12
+      },
+      "revId": "9e239ce9bdbbfb1264aa58abe6df21b3f1d7bd86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b5b5c96_7e938a2d",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 1559,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-24T22:54:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ace15e10_63d49efc",
       "range": {
         "startLine": 1559,
         "startChar": 7,
@@ -204,6 +354,24 @@
       "writtenOn": "2021-03-23T22:41:08Z",
       "side": 1,
       "message": "We still should probably test having both around. The tuple\u003cbool, string, string\u003e idea sounds good. Having two lists probably also works?",
+      "revId": "9e239ce9bdbbfb1264aa58abe6df21b3f1d7bd86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6317434_26620b54",
+        "filename": "ssl/test/test_config.cc",
+        "patchSetId": 24
+      },
+      "lineNbr": 1660,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-24T22:54:17Z",
+      "side": 1,
+      "message": "Must have missed this comment on a previous patchset, resolving it now.",
+      "parentUuid": "85737c7f_8e0bb154",
       "revId": "9e239ce9bdbbfb1264aa58abe6df21b3f1d7bd86",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
