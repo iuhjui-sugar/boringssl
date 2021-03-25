@@ -533,7 +533,9 @@ static enum ssl_hs_wait_t do_select_session(SSL_HANDSHAKE *hs) {
 
 static enum ssl_hs_wait_t do_send_hello_retry_request(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
-
+  if (hs->hints_requested) {
+    return ssl_hs_hints_ready;
+  }
 
   ScopedCBB cbb;
   CBB body, session_id, extensions;
@@ -647,7 +649,19 @@ static enum ssl_hs_wait_t do_send_server_hello(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
 
   Span<uint8_t> random(ssl->s3->server_random);
-  RAND_bytes(random.data(), random.size());
+
+  SSL_HANDSHAKE_HINTS *const hints = hs->hints.get();
+  if (hints && !hs->hints_requested &&
+      hints->server_random.size() == random.size()) {
+    OPENSSL_memcpy(random.data(), hints->server_random.data(), random.size());
+  } else {
+    RAND_bytes(random.data(), random.size());
+    if (hints && hs->hints_requested) {
+      if (!hints->server_random.CopyFrom(random)) {
+        return ssl_hs_error;
+      }
+    }
+  }
 
   // If the ClientHello has an ech_is_inner extension, we must be the ECH
   // backend server. In response to ech_is_inner, we will overwrite part of the
@@ -806,6 +820,10 @@ static enum ssl_hs_wait_t do_send_server_certificate_verify(SSL_HANDSHAKE *hs) {
 
 static enum ssl_hs_wait_t do_send_server_finished(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
+  if (hs->hints_requested) {
+    return ssl_hs_hints_ready;
+  }
+
   if (!tls13_add_finished(hs) ||
       // Update the secret to the master secret and derive traffic keys.
       !tls13_advance_key_schedule(

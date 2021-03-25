@@ -2462,16 +2462,36 @@ bool ssl_ext_key_share_parse_clienthello(SSL_HANDSHAKE *hs, bool *out_found,
     return true;
   }
 
-  // Compute the DH secret.
   Array<uint8_t> secret;
-  ScopedCBB public_key;
-  UniquePtr<SSLKeyShare> key_share = SSLKeyShare::Create(group_id);
-  if (!key_share ||
-      !CBB_init(public_key.get(), 32) ||
-      !key_share->Accept(public_key.get(), &secret, out_alert, peer_key) ||
-      !CBBFinishArray(public_key.get(), &hs->ecdh_public_key)) {
-    *out_alert = SSL_AD_ILLEGAL_PARAMETER;
-    return false;
+  SSL_HANDSHAKE_HINTS *const hints = hs->hints.get();
+  if (hints && !hs->hints_requested && hints->key_share_group_id == group_id &&
+      !hints->key_share_secret.empty()) {
+    // Copy DH secret from hints.
+    if (!hs->ecdh_public_key.CopyFrom(hints->key_share_public_key) ||
+        !secret.CopyFrom(hints->key_share_secret)) {
+      *out_alert = SSL_AD_INTERNAL_ERROR;
+      return false;
+    }
+  } else {
+    // Compute the DH secret.
+    ScopedCBB public_key;
+    UniquePtr<SSLKeyShare> key_share = SSLKeyShare::Create(group_id);
+    if (!key_share ||
+        !CBB_init(public_key.get(), 32) ||
+        !key_share->Accept(public_key.get(), &secret, out_alert, peer_key) ||
+        !CBBFinishArray(public_key.get(), &hs->ecdh_public_key)) {
+      *out_alert = SSL_AD_ILLEGAL_PARAMETER;
+      return false;
+    }
+
+    if (hints && hs->hints_requested) {
+      hints->key_share_group_id = group_id;
+      if (!hints->key_share_public_key.CopyFrom(hs->ecdh_public_key) ||
+          !hints->key_share_secret.CopyFrom(secret)) {
+        *out_alert = SSL_AD_INTERNAL_ERROR;
+        return false;
+      }
+    }
   }
 
   *out_secret = std::move(secret);
@@ -4046,6 +4066,7 @@ enum ssl_ticket_aead_result_t ssl_process_ticket(
     SSL_HANDSHAKE *hs, UniquePtr<SSL_SESSION> *out_session,
     bool *out_renew_ticket, Span<const uint8_t> ticket,
     Span<const uint8_t> session_id) {
+  SSL *const ssl = hs->ssl;
   *out_renew_ticket = false;
   out_session->reset();
 
@@ -4054,9 +4075,20 @@ enum ssl_ticket_aead_result_t ssl_process_ticket(
     return ssl_ticket_aead_ignore_ticket;
   }
 
+  // The |decrypted_psk| and |ignore_psk| hints only apply to the PSK extension,
+  // not TLS 1.2. We check the version to determine which this is.
+  const bool is_psk = ssl_protocol_version(ssl) >= TLS1_3_VERSION;
+
   Array<uint8_t> plaintext;
   enum ssl_ticket_aead_result_t result;
-  if (hs->ssl->session_ctx->ticket_aead_method != NULL) {
+  SSL_HANDSHAKE_HINTS *const hints = hs->hints.get();
+  if (is_psk && hints && !hs->hints_requested &&
+      !hints->decrypted_psk.empty()) {
+    result = plaintext.CopyFrom(hints->decrypted_psk) ? ssl_ticket_aead_success
+                                                      : ssl_ticket_aead_error;
+  } else if (is_psk && hints && !hs->hints_requested && hints->ignore_psk) {
+    result = ssl_ticket_aead_ignore_ticket;
+  } else if (ssl->session_ctx->ticket_aead_method != NULL) {
     result = ssl_decrypt_ticket_with_method(hs, &plaintext, out_renew_ticket,
                                             ticket);
   } else {
@@ -4065,13 +4097,22 @@ enum ssl_ticket_aead_result_t ssl_process_ticket(
     // length should be well under the minimum size for the session material and
     // HMAC.
     if (ticket.size() < SSL_TICKET_KEY_NAME_LEN + EVP_MAX_IV_LENGTH) {
-      return ssl_ticket_aead_ignore_ticket;
-    }
-    if (hs->ssl->session_ctx->ticket_key_cb != NULL) {
+      result = ssl_ticket_aead_ignore_ticket;
+    } else if (ssl->session_ctx->ticket_key_cb != NULL) {
       result =
           ssl_decrypt_ticket_with_cb(hs, &plaintext, out_renew_ticket, ticket);
     } else {
       result = ssl_decrypt_ticket_with_ticket_keys(hs, &plaintext, ticket);
+    }
+  }
+
+  if (is_psk && hints && hs->hints_requested) {
+    if (result == ssl_ticket_aead_ignore_ticket) {
+      hints->ignore_psk = true;
+    } else if (result == ssl_ticket_aead_success) {
+      if (!hints->decrypted_psk.CopyFrom(plaintext)) {
+        return ssl_ticket_aead_error;
+      }
     }
   }
 
@@ -4081,7 +4122,7 @@ enum ssl_ticket_aead_result_t ssl_process_ticket(
 
   // Decode the session.
   UniquePtr<SSL_SESSION> session(SSL_SESSION_from_bytes(
-      plaintext.data(), plaintext.size(), hs->ssl->ctx.get()));
+      plaintext.data(), plaintext.size(), ssl->ctx.get()));
   if (!session) {
     ERR_clear_error();  // Don't leave an error on the queue.
     return ssl_ticket_aead_ignore_ticket;
