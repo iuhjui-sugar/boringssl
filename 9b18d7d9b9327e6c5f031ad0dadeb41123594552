@@ -120,6 +120,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "40ef1c6c_d6bc528f",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 7650
+      },
+      "writtenOn": "2021-03-25T12:35:56Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "44dd0f88_f2acc4eb",
+      "revId": "9b18d7d9b9327e6c5f031ad0dadeb41123594552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c082fc62_56c95ce0",
@@ -137,6 +155,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9bbd2e1_a3187b15",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 7650
+      },
+      "writtenOn": "2021-03-25T12:35:56Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c082fc62_56c95ce0",
+      "revId": "9b18d7d9b9327e6c5f031ad0dadeb41123594552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6faf4e3_9ec01700",
@@ -150,6 +186,30 @@
       "writtenOn": "2021-02-11T23:07:46Z",
       "side": 1,
       "message": "Just plain sub here? Doesn\u0027t look like you use the flag, since the branch is handled by cbz above.",
+      "range": {
+        "startLine": 335,
+        "startChar": 4,
+        "endLine": 335,
+        "endChar": 8
+      },
+      "revId": "9b18d7d9b9327e6c5f031ad0dadeb41123594552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88af3dbe_ee30105a",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 7650
+      },
+      "writtenOn": "2021-03-25T12:35:56Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b6faf4e3_9ec01700",
       "range": {
         "startLine": 335,
         "startChar": 4,
@@ -196,6 +256,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8e51ee2c_aacb9c8b",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 7650
+      },
+      "writtenOn": "2021-03-25T12:35:56Z",
+      "side": 1,
+      "message": "I completely agree that BL/LR is so much better, the reason I\u0027m avoiding it is that I don\u0027t understand the ARMv8 calling conventions well enough to generate the required .cfi_* annotations, and it looks like it also requires storing the stack pointer.\n\nI don\u0027t think branch predictors should have any troubles here TBH.",
+      "parentUuid": "a9f28de6_a1bee3dc",
+      "revId": "9b18d7d9b9327e6c5f031ad0dadeb41123594552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "86a6cdc1_b54da519",
         "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
         "patchSetId": 2
@@ -207,6 +285,24 @@
       "writtenOn": "2021-02-11T23:07:46Z",
       "side": 1,
       "message": "Looking at other files, they tend to fold these to together into\n\n  stp d8, d9, [sp, #-64]!",
+      "revId": "9b18d7d9b9327e6c5f031ad0dadeb41123594552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1dc9f05_1734a248",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 7650
+      },
+      "writtenOn": "2021-03-25T12:35:56Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "86a6cdc1_b54da519",
       "revId": "9b18d7d9b9327e6c5f031ad0dadeb41123594552",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -292,6 +388,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "34b4add3_823d8223",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 395,
+      "author": {
+        "id": 7650
+      },
+      "writtenOn": "2021-03-25T12:35:56Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a6796aa2_77bee241",
+      "revId": "9b18d7d9b9327e6c5f031ad0dadeb41123594552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "80f1d88d_baf02b5f",
@@ -361,6 +475,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "898fe45f_6ca6bbe7",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 699,
+      "author": {
+        "id": 7650
+      },
+      "writtenOn": "2021-03-25T12:35:56Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "750f7917_078764d1",
+      "revId": "9b18d7d9b9327e6c5f031ad0dadeb41123594552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ea3b247d_b40464b2",
@@ -384,6 +516,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4f236b3_cb6b992d",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 723,
+      "author": {
+        "id": 7650
+      },
+      "writtenOn": "2021-03-25T12:35:56Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ea3b247d_b40464b2",
+      "range": {
+        "startLine": 723,
+        "startChar": 53,
+        "endLine": 723,
+        "endChar": 63
+      },
+      "revId": "9b18d7d9b9327e6c5f031ad0dadeb41123594552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f72ef1d_367aecff",
@@ -397,6 +553,30 @@
       "writtenOn": "2021-02-13T04:10:01Z",
       "side": 1,
       "message": "iteration",
+      "range": {
+        "startLine": 763,
+        "startChar": 53,
+        "endLine": 763,
+        "endChar": 63
+      },
+      "revId": "9b18d7d9b9327e6c5f031ad0dadeb41123594552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a904215a_d673f49e",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 763,
+      "author": {
+        "id": 7650
+      },
+      "writtenOn": "2021-03-25T12:35:56Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4f72ef1d_367aecff",
       "range": {
         "startLine": 763,
         "startChar": 53,
