@@ -274,6 +274,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f7bc59b4_67151616",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-25T17:40:08Z",
+      "side": 1,
+      "message": "I believe the calling convention would be:\n\n- .Lpoly_hash_ad_internal just has .cfi_startproc and .cfi_endproc, since it doesn\u0027t save or restore registers itself.\n\n- Replace `ret $itr2` with plain `ret` to use LR.\n\n- Drop the `adr $itr2` stuff and call with `bl .Lpoly_hash_ad_internal`. (I guess the `cbnz $adl` bit will need to tweaked slightly too.)\n\n- Replace the open/seal prologs with:\n\n    stp x29, x30, [sp, #-80]!\n.cfi_def_cfa_offset 80\n.cfi_offset w39, -72\n.cfi_offset w29, -80\n    mov x29, sp\n# We probably could do .cfi_def_cfa w29, 80 at this point, but since\n# we don\u0027t actually use the frame pointer like that, it\u0027s probably not\n# worth bothering.\n    stp\td8, d9, [sp, #16]\n    stp\td10, d11, [sp, #32]\n    stp\td12, d13, [sp, #48]\n    stp\td14, d15, [sp, #64]\n.cfi_offset b15, -8\n.cfi_offset b14, -16\n.cfi_offset b13, -24\n.cfi_offset b12, -32\n.cfi_offset b11, -40\n.cfi_offset b10, -48\n.cfi_offset b9, -56\n.cfi_offset b8, -64\n   \n- Replace the epilogs with:\n\n    ldp\td8, d9, [sp, #16]\n    ldp\td10, d11, [sp, #32]\n    ldp\td12, d13, [sp, #48]\n    ldp\td14, d15, [sp, #64]\n.cfi_restore b15\n.cfi_restore b14\n.cfi_restore b13\n.cfi_restore b12\n.cfi_restore b11\n.cfi_restore b10\n.cfi_restore b9\n.cfi_restore b8\n    ldp x29, x30, [sp], 80\n.cfi_restore w29\n.cfi_restore w30\n.cfi_def_cfa_offset 0\n    ret\n\nThe Apple ARM64 calling convention mandates using frame pointers, so I suspect that doing this is technically required anyway.\n\nNB: I have no idea why the registers are named b15 and w30. I couldn\u0027t find a reference for either. I assume you\u0027re right about b15 and godbolt says clang outputs w30. Interestingly, gcc outputs just plain 30, so I guess dropping the w prefix also works?",
+      "parentUuid": "8e51ee2c_aacb9c8b",
+      "revId": "9b18d7d9b9327e6c5f031ad0dadeb41123594552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "86a6cdc1_b54da519",
         "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
         "patchSetId": 2
