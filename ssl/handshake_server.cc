@@ -701,6 +701,12 @@ static enum ssl_hs_wait_t do_select_certificate(SSL_HANDSHAKE *hs) {
     return ssl_hs_ok;
   }
 
+  // TODO(davidben): Also compute hints for TLS 1.2. When doing so, update the
+  // check in bssl_shim.cc to test this.
+  if (hs->hints_requested) {
+    return ssl_hs_hints_ready;
+  }
+
   ssl->s3->early_data_reason = ssl_early_data_protocol_version;
 
   SSL_CLIENT_HELLO client_hello;
