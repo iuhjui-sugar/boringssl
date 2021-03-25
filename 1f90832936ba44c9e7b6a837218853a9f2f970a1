@@ -33,6 +33,24 @@
       "message": "The linux-fuzz trybot is failing with this output:\n\n```\nFAILED (ECH-Server-OuterExtensions-OrderMismatch-Split)\nbad error (wanted \u0027:DECRYPTION_FAILED_OR_BAD_RECORD_MAC:\u0027 / \u0027local error: bad record MAC\u0027): local error \u0027crypto/rsa: verification error\u0027, child error \u0027exit status 1\u0027, stdout:\n\nstderr:\nSSL error: SYSCALL\nConnection 1 failed.\n```\n\nShould I condition the expected error on the |fuzzer| flag in runner.go?",
       "revId": "1f90832936ba44c9e7b6a837218853a9f2f970a1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ac29d4e_b19d5ab8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 28
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-25T15:55:36Z",
+      "side": 1,
+      "message": "(I did this in the latest patchset, but I\u0027m curious what you\u0027ll think.)",
+      "parentUuid": "d5135d5f_f58c554e",
+      "revId": "1f90832936ba44c9e7b6a837218853a9f2f970a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
