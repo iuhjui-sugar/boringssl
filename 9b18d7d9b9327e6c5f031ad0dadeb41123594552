@@ -290,6 +290,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2abb3ba_1a6a7163",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 7650
+      },
+      "writtenOn": "2021-03-26T19:20:35Z",
+      "side": 1,
+      "message": "I created a similarly laid out function in Rust and copied the llvm generated cfi_* directives. It seems that llvm thinks epilog is not required at all, as well as storing sp, despite there being a bl call in the middle.",
+      "parentUuid": "f7bc59b4_67151616",
+      "revId": "9b18d7d9b9327e6c5f031ad0dadeb41123594552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "86a6cdc1_b54da519",
