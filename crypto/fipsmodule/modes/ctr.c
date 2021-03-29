@@ -102,7 +102,7 @@ void CRYPTO_ctr128_encrypt(const uint8_t *in, uint8_t *out, size_t len,
   while (len >= 16) {
     (*block)(ivec, ecount_buf, key);
     ctr128_inc(ivec);
-    for (n = 0; n < 16; n += sizeof(size_t)) {
+    for (n = 0; n < 16; n += sizeof(crypto_word_t)) {
       store_word_le(out + n,
                     load_word_le(in + n) ^ load_word_le(ecount_buf + n));
     }
