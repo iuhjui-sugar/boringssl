@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8afec399_aa4e2f85",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12351
+      },
+      "writtenOn": "2021-03-30T05:18:53Z",
+      "side": 1,
+      "message": "www.samvklnet.com",
+      "revId": "ab14a4a44042cc1623d287a4e8e3b88df752c344",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
