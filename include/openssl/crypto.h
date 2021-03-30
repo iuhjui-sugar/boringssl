@@ -74,6 +74,11 @@ OPENSSL_EXPORT void CRYPTO_pre_sandbox_init(void);
 // which case it returns one.
 OPENSSL_EXPORT int FIPS_mode(void);
 
+// FIPS_paa_enabled returns true if OPENSSL_NO_ASM was _not_ defined during
+// building. I.e. assembly code to call cryptographic processor instructions
+// is enabled.
+OPENSSL_EXPORT int FIPS_paa_enabled(void);
+
 // fips_counter_t denotes specific APIs/algorithms. A counter is maintained for
 // each in FIPS mode so that tests can be written to assert that the expected,
 // FIPS functions are being called by a certain peice of code.

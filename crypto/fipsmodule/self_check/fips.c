@@ -28,6 +28,14 @@ int FIPS_mode(void) {
 
 int FIPS_mode_set(int on) { return on == FIPS_mode(); }
 
+int FIPS_paa_enabled(void) {
+#if defined(OPENSSL_NO_ASM)
+  return 0;
+#else
+  return 1;
+#endif
+}
+
 #if defined(BORINGSSL_FIPS_COUNTERS)
 
 size_t FIPS_read_counter(enum fips_counter_t counter) {
