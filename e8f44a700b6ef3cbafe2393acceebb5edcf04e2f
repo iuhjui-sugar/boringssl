@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fd9fab1_2b8d30ab",
+        "filename": "crypto/fipsmodule/self_check/fips.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-30T23:28:35Z",
+      "side": 1,
+      "message": "Don\u0027t we already have CRYPTO_has_asm()? Or does it need to be in the module?",
+      "revId": "e8f44a700b6ef3cbafe2393acceebb5edcf04e2f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9dbe9425_22eb256b",
+        "filename": "util/fipstools/acvp/modulewrapper/main.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-30T23:28:35Z",
+      "side": 1,
+      "message": "(Thought we didn\u0027t support FIPS on the 32-bit platforms either.)",
+      "revId": "e8f44a700b6ef3cbafe2393acceebb5edcf04e2f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
