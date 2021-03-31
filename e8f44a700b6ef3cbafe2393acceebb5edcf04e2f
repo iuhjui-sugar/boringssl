@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "01b3a3a0_b6ba42ca",
+        "filename": "crypto/fipsmodule/self_check/fips.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2021-03-31T18:41:19Z",
+      "side": 1,
+      "message": "Ha, totally forgot about that even though it\u0027s just above. That works, thanks.",
+      "parentUuid": "3fd9fab1_2b8d30ab",
+      "revId": "e8f44a700b6ef3cbafe2393acceebb5edcf04e2f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9dbe9425_22eb256b",
@@ -31,6 +49,24 @@
       "writtenOn": "2021-03-30T23:28:35Z",
       "side": 1,
       "message": "(Thought we didn\u0027t support FIPS on the 32-bit platforms either.)",
+      "revId": "e8f44a700b6ef3cbafe2393acceebb5edcf04e2f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f0f673f_308e879d",
+        "filename": "util/fipstools/acvp/modulewrapper/main.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2021-03-31T18:41:19Z",
+      "side": 1,
+      "message": "We validate 32-bit ARM for Android. We\u0027ve never done 32-bit Intel though so removed that.",
+      "parentUuid": "9dbe9425_22eb256b",
       "revId": "e8f44a700b6ef3cbafe2393acceebb5edcf04e2f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
