@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd8e65a4_3d65dfe8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-03-31T19:34:05Z",
+      "side": 1,
+      "message": "I suspect I won\u0027t actually need this for the thing I did this for, but this still seems cleaner? Happy to punt from tower if you prefer the old one.",
+      "revId": "2137da23679fb28a8b5dede2b16b4006fc17a8ce",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
