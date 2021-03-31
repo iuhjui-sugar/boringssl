@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7f64fdc_61c90a95",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 4117,
+      "author": {
+        "id": 12366
+      },
+      "writtenOn": "2021-03-31T16:29:17Z",
+      "side": 1,
+      "message": "What about ssl_ticket_aead_error? Should we also record it in hints?",
+      "range": {
+        "startLine": 4108,
+        "startChar": 0,
+        "endLine": 4117,
+        "endChar": 3
+      },
+      "revId": "0b36bb6a84a4c1a0a9ea9c0f3cc53fe9e7bd0002",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ffb4d9a_ba2173b5",
+        "filename": "ssl/test/handshake_util.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 12366
+      },
+      "writtenOn": "2021-03-31T16:29:17Z",
+      "side": 1,
+      "message": "nit: Since they are used as out params, \"ScopedProcess\" and \"ScopedFD\" may not be the best name because \"Scoped\" typically means function(or block) scoped. How about call them \"OwnedFoo\", \"AutoCloseFoo\", \"FooDestroyer\" or something along those lines?",
+      "range": {
+        "startLine": 382,
+        "startChar": 28,
+        "endLine": 382,
+        "endChar": 70
+      },
+      "revId": "0b36bb6a84a4c1a0a9ea9c0f3cc53fe9e7bd0002",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d36312a7_76f37a53",
+        "filename": "ssl/test/handshake_util.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 12366
+      },
+      "writtenOn": "2021-03-31T16:29:17Z",
+      "side": 1,
+      "message": "nit: Since we are not using the term \u0027handback\u0027 anymore, how about kControlMsgHandshakeHints?",
+      "range": {
+        "startLine": 560,
+        "startChar": 9,
+        "endLine": 560,
+        "endChar": 28
+      },
+      "revId": "0b36bb6a84a4c1a0a9ea9c0f3cc53fe9e7bd0002",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71af345c_8170e2cf",
+        "filename": "ssl/test/handshaker.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 12366
+      },
+      "writtenOn": "2021-03-31T16:29:17Z",
+      "side": 1,
+      "message": "Q: If this is an \"expected\" error, will this error message cause the runner to think the test has failed?",
+      "range": {
+        "startLine": 184,
+        "startChar": 4,
+        "endLine": 185,
+        "endChar": 66
+      },
+      "revId": "0b36bb6a84a4c1a0a9ea9c0f3cc53fe9e7bd0002",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ab4daae_539f3f07",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 16668,
+      "author": {
+        "id": 12366
+      },
+      "writtenOn": "2021-03-31T16:29:17Z",
+      "side": 1,
+      "message": "Thanks a lot for adding these tests!",
+      "range": {
+        "startLine": 16668,
+        "startChar": 0,
+        "endLine": 16668,
+        "endChar": 29
+      },
+      "revId": "0b36bb6a84a4c1a0a9ea9c0f3cc53fe9e7bd0002",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fb0a109_d220e909",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 16747,
+      "author": {
+        "id": 12366
+      },
+      "writtenOn": "2021-03-31T16:29:17Z",
+      "side": 1,
+      "message": "Remove \u0027it\u0027.",
+      "range": {
+        "startLine": 16747,
+        "startChar": 41,
+        "endLine": 16747,
+        "endChar": 44
+      },
+      "revId": "0b36bb6a84a4c1a0a9ea9c0f3cc53fe9e7bd0002",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01c383c6_ac6ceb17",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 16769,
+      "author": {
+        "id": 12366
+      },
+      "writtenOn": "2021-03-31T16:29:17Z",
+      "side": 1,
+      "message": "\"may have\"?",
+      "range": {
+        "startLine": 16769,
+        "startChar": 29,
+        "endLine": 16769,
+        "endChar": 35
+      },
+      "revId": "0b36bb6a84a4c1a0a9ea9c0f3cc53fe9e7bd0002",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
