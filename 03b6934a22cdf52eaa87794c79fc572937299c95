@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "708b9311_607edfbe",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 31
+      },
+      "lineNbr": 16913,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-03-31T21:36:58Z",
+      "side": 1,
+      "message": "David, I added this test, but I wonder if this is not what you asked me to do.  I basically tried to reproduce the behavior you described in https://github.com/tlswg/draft-ietf-tls-esni/issues/408",
+      "range": {
+        "startLine": 16913,
+        "startChar": 13,
+        "endLine": 16913,
+        "endChar": 33
+      },
+      "revId": "03b6934a22cdf52eaa87794c79fc572937299c95",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
