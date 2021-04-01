@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b18eb8f_b3906a84",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9692
+      },
+      "writtenOn": "2021-04-01T17:13:54Z",
+      "side": 1,
+      "message": "This cleans up most of the V1 APIs. Still need to do a rename from redeem_raw to redeem as a second step. Some callers in google3 to cleanup that use the old API that are deprecated, so probably don\u0027t merge yet.",
+      "revId": "f7f78eeeb4667fad29b055c3b95ecb4cb3537b3c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
