@@ -1044,16 +1044,6 @@ static bool SpeedTrustToken(std::string name, const TRUST_TOKEN_METHOD *method,
     return false;
   }
 
-  TRUST_TOKEN_CLIENT_set_srr_key(client.get(), pub.get());
-  TRUST_TOKEN_ISSUER_set_srr_key(issuer.get(), priv.get());
-  uint8_t metadata_key[32];
-  RAND_bytes(metadata_key, sizeof(metadata_key));
-  if (!TRUST_TOKEN_ISSUER_set_metadata_key(issuer.get(), metadata_key,
-                                           sizeof(metadata_key))) {
-    fprintf(stderr, "failed to generate trust token metadata key.\n");
-    return false;
-  }
-
   if (!TimeFunction(&results, [&]() -> bool {
         uint8_t *issue_msg = NULL;
         size_t msg_len;
@@ -1140,14 +1130,13 @@ static bool SpeedTrustToken(std::string name, const TRUST_TOKEN_METHOD *method,
   const TRUST_TOKEN *token = sk_TRUST_TOKEN_value(tokens.get(), 0);
 
   const uint8_t kClientData[] = "\x70TEST CLIENT DATA";
-  uint64_t kRedemptionTime = 13374242;
 
   if (!TimeFunction(&results, [&]() -> bool {
         uint8_t *redeem_msg = NULL;
         size_t redeem_msg_len;
         int ok = TRUST_TOKEN_CLIENT_begin_redemption(
             client.get(), &redeem_msg, &redeem_msg_len, token, kClientData,
-            sizeof(kClientData) - 1, kRedemptionTime);
+            sizeof(kClientData) - 1);
         OPENSSL_free(redeem_msg);
         return ok;
       })) {
@@ -1160,24 +1149,21 @@ static bool SpeedTrustToken(std::string name, const TRUST_TOKEN_METHOD *method,
   size_t redeem_msg_len;
   if (!TRUST_TOKEN_CLIENT_begin_redemption(
           client.get(), &redeem_msg, &redeem_msg_len, token, kClientData,
-          sizeof(kClientData) - 1, kRedemptionTime)) {
+          sizeof(kClientData) - 1)) {
     fprintf(stderr, "TRUST_TOKEN_CLIENT_begin_redemption failed.\n");
     return false;
   }
   bssl::UniquePtr<uint8_t> free_redeem_msg(redeem_msg);
 
   if (!TimeFunction(&results, [&]() -> bool {
-        uint8_t *redeem_resp = NULL;
-        size_t redeem_resp_len;
         TRUST_TOKEN *rtoken = NULL;
         uint8_t *client_data = NULL;
         size_t client_data_len;
-        uint64_t redemption_time;
-        int ok = TRUST_TOKEN_ISSUER_redeem(
-            issuer.get(), &redeem_resp, &redeem_resp_len, &rtoken, &client_data,
-            &client_data_len, &redemption_time, redeem_msg, redeem_msg_len,
-            /*lifetime=*/600);
-        OPENSSL_free(redeem_resp);
+        uint32_t out_public_metadata = 0;
+        uint8_t out_private_metadata = 0;
+        int ok = TRUST_TOKEN_ISSUER_redeem_raw(
+            issuer.get(), &out_public_metadata, &out_private_metadata, &rtoken,
+            &client_data, &client_data_len, redeem_msg, msg_len);
         OPENSSL_free(client_data);
         TRUST_TOKEN_free(rtoken);
         return ok;
@@ -1187,37 +1173,20 @@ static bool SpeedTrustToken(std::string name, const TRUST_TOKEN_METHOD *method,
   }
   results.Print(name + " redeem");
 
-  uint8_t *redeem_resp = NULL;
-  size_t redeem_resp_len;
   TRUST_TOKEN *rtoken = NULL;
   uint8_t *client_data = NULL;
   size_t client_data_len;
-  uint64_t redemption_time;
-  if (!TRUST_TOKEN_ISSUER_redeem(issuer.get(), &redeem_resp, &redeem_resp_len,
-                                 &rtoken, &client_data, &client_data_len,
-                                 &redemption_time, redeem_msg, redeem_msg_len,
-                                 /*lifetime=*/600)) {
+  uint32_t out_public_metadata = 0;
+  uint8_t out_private_metadata = 0;
+
+  if (!TRUST_TOKEN_ISSUER_redeem_raw(
+          issuer.get(), &out_public_metadata, &out_private_metadata, &rtoken,
+          &client_data, &client_data_len, redeem_msg, msg_len)) {
     fprintf(stderr, "TRUST_TOKEN_ISSUER_redeem failed.\n");
     return false;
   }
-  bssl::UniquePtr<uint8_t> free_redeem_resp(redeem_resp);
   bssl::UniquePtr<uint8_t> free_client_data(client_data);
   bssl::UniquePtr<TRUST_TOKEN> free_rtoken(rtoken);
-
-  if (!TimeFunction(&results, [&]() -> bool {
-        uint8_t *srr = NULL, *sig = NULL;
-        size_t srr_len, sig_len;
-        int ok = TRUST_TOKEN_CLIENT_finish_redemption(
-            client.get(), &srr, &srr_len, &sig, &sig_len, redeem_resp,
-            redeem_resp_len);
-        OPENSSL_free(srr);
-        OPENSSL_free(sig);
-        return ok;
-      })) {
-    fprintf(stderr, "TRUST_TOKEN_CLIENT_finish_redemption failed.\n");
-    return false;
-  }
-  results.Print(name + " finish_redemption");
 
   return true;
 }
@@ -1372,10 +1341,6 @@ bool Speed(const std::vector<std::string> &args) {
       !SpeedRSAKeyGen(selected) ||
       !SpeedHRSS(selected) ||
       !SpeedHashToCurve(selected) ||
-      !SpeedTrustToken("TrustToken-Exp1-Batch1", TRUST_TOKEN_experiment_v1(), 1,
-                       selected) ||
-      !SpeedTrustToken("TrustToken-Exp1-Batch10", TRUST_TOKEN_experiment_v1(),
-                       10, selected) ||
       !SpeedTrustToken("TrustToken-Exp2VOPRF-Batch1",
                        TRUST_TOKEN_experiment_v2_voprf(), 1, selected) ||
       !SpeedTrustToken("TrustToken-Exp2VOPRF-Batch10",

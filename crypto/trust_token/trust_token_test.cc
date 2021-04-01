@@ -44,18 +44,6 @@ BSSL_NAMESPACE_BEGIN
 
 namespace {
 
-TEST(TrustTokenTest, KeyGenExp1) {
-  uint8_t priv_key[TRUST_TOKEN_MAX_PRIVATE_KEY_SIZE];
-  uint8_t pub_key[TRUST_TOKEN_MAX_PUBLIC_KEY_SIZE];
-  size_t priv_key_len, pub_key_len;
-  ASSERT_TRUE(TRUST_TOKEN_generate_key(
-      TRUST_TOKEN_experiment_v1(), priv_key, &priv_key_len,
-      TRUST_TOKEN_MAX_PRIVATE_KEY_SIZE, pub_key, &pub_key_len,
-      TRUST_TOKEN_MAX_PUBLIC_KEY_SIZE, 0x0001));
-  ASSERT_EQ(292u, priv_key_len);
-  ASSERT_EQ(301u, pub_key_len);
-}
-
 TEST(TrustTokenTest, KeyGenExp2VOPRF) {
   uint8_t priv_key[TRUST_TOKEN_MAX_PRIVATE_KEY_SIZE];
   uint8_t pub_key[TRUST_TOKEN_MAX_PUBLIC_KEY_SIZE];
@@ -78,28 +66,6 @@ TEST(TrustTokenTest, KeyGenExp2PMB) {
       TRUST_TOKEN_MAX_PUBLIC_KEY_SIZE, 0x0001));
   ASSERT_EQ(292u, priv_key_len);
   ASSERT_EQ(295u, pub_key_len);
-}
-
-// Test that H in |TRUST_TOKEN_experiment_v1| was computed correctly.
-TEST(TrustTokenTest, HExp1) {
-  const EC_GROUP *group = EC_GROUP_new_by_curve_name(NID_secp384r1);
-  ASSERT_TRUE(group);
-
-  const uint8_t kHGen[] = "generator";
-  const uint8_t kHLabel[] = "PMBTokens Experiment V1 HashH";
-
-  bssl::UniquePtr<EC_POINT> expected_h(EC_POINT_new(group));
-  ASSERT_TRUE(expected_h);
-  ASSERT_TRUE(ec_hash_to_curve_p384_xmd_sha512_sswu_draft07(
-      group, &expected_h->raw, kHLabel, sizeof(kHLabel), kHGen, sizeof(kHGen)));
-  uint8_t expected_bytes[1 + 2 * EC_MAX_BYTES];
-  size_t expected_len =
-      EC_POINT_point2oct(group, expected_h.get(), POINT_CONVERSION_UNCOMPRESSED,
-                         expected_bytes, sizeof(expected_bytes), nullptr);
-
-  uint8_t h[97];
-  ASSERT_TRUE(pmbtoken_exp1_get_h_for_testing(h));
-  EXPECT_EQ(Bytes(h), Bytes(expected_bytes, expected_len));
 }
 
 // Test that H in |TRUST_TOKEN_experiment_v2_pmb| was computed correctly.
@@ -126,7 +92,6 @@ TEST(TrustTokenTest, HExp2) {
 
 static std::vector<const TRUST_TOKEN_METHOD *> AllMethods() {
   return {
-    TRUST_TOKEN_experiment_v1(),
     TRUST_TOKEN_experiment_v2_voprf(),
     TRUST_TOKEN_experiment_v2_pmb()
   };
@@ -174,12 +139,6 @@ class TrustTokenProtocolTestBase : public ::testing::Test {
     bssl::UniquePtr<EVP_PKEY> pub(
         EVP_PKEY_new_raw_public_key(EVP_PKEY_ED25519, nullptr, public_key, 32));
     ASSERT_TRUE(pub);
-
-    TRUST_TOKEN_CLIENT_set_srr_key(client.get(), pub.get());
-    TRUST_TOKEN_ISSUER_set_srr_key(issuer.get(), priv.get());
-    RAND_bytes(metadata_key, sizeof(metadata_key));
-    ASSERT_TRUE(TRUST_TOKEN_ISSUER_set_metadata_key(issuer.get(), metadata_key,
-                                                    sizeof(metadata_key)));
   }
 
   const TRUST_TOKEN_METHOD *method_;
@@ -225,18 +184,18 @@ TEST_P(TrustTokenProtocolTest, InvalidToken) {
     // Corrupt the token.
     token->data[0] ^= 0x42;
 
-    uint8_t *redeem_msg = NULL, *redeem_resp = NULL;
+    uint8_t *redeem_msg = NULL;
     ASSERT_TRUE(TRUST_TOKEN_CLIENT_begin_redemption(
-        client.get(), &redeem_msg, &msg_len, token, NULL, 0, 0));
+        client.get(), &redeem_msg, &msg_len, token, NULL, 0));
     bssl::UniquePtr<uint8_t> free_redeem_msg(redeem_msg);
     TRUST_TOKEN *rtoken;
     uint8_t *client_data;
     size_t client_data_len;
-    uint64_t redemption_time;
-    ASSERT_FALSE(TRUST_TOKEN_ISSUER_redeem(
-        issuer.get(), &redeem_resp, &resp_len, &rtoken, &client_data,
-        &client_data_len, &redemption_time, redeem_msg, msg_len, 600));
-    bssl::UniquePtr<uint8_t> free_redeem_resp(redeem_resp);
+    uint32_t out_public_metadata = 0;
+    uint8_t out_private_metadata = 0;
+    ASSERT_FALSE(TRUST_TOKEN_ISSUER_redeem_raw(
+        issuer.get(), &out_public_metadata, &out_private_metadata, &rtoken,
+        &client_data, &client_data_len, redeem_msg, msg_len));
   }
 }
 
@@ -325,80 +284,22 @@ TEST_P(TrustTokenProtocolTest, TruncatedRedemptionRequest) {
 
   for (TRUST_TOKEN *token : tokens.get()) {
     const uint8_t kClientData[] = "\x70TEST CLIENT DATA";
-    uint64_t kRedemptionTime = (method()->has_srr ? 13374242 : 0);
 
-    uint8_t *redeem_msg = NULL, *redeem_resp = NULL;
+    uint8_t *redeem_msg = NULL;
     ASSERT_TRUE(TRUST_TOKEN_CLIENT_begin_redemption(
         client.get(), &redeem_msg, &msg_len, token, kClientData,
-        sizeof(kClientData) - 1, kRedemptionTime));
+        sizeof(kClientData) - 1));
     bssl::UniquePtr<uint8_t> free_redeem_msg(redeem_msg);
     msg_len = 10;
 
     TRUST_TOKEN *rtoken;
     uint8_t *client_data;
     size_t client_data_len;
-    uint64_t redemption_time;
-    ASSERT_FALSE(TRUST_TOKEN_ISSUER_redeem(
-        issuer.get(), &redeem_resp, &resp_len, &rtoken, &client_data,
-        &client_data_len, &redemption_time, redeem_msg, msg_len, 600));
-  }
-}
-
-TEST_P(TrustTokenProtocolTest, TruncatedRedemptionResponse) {
-  ASSERT_NO_FATAL_FAILURE(SetupContexts());
-
-  uint8_t *issue_msg = NULL, *issue_resp = NULL;
-  size_t msg_len, resp_len;
-  ASSERT_TRUE(TRUST_TOKEN_CLIENT_begin_issuance(client.get(), &issue_msg,
-                                                &msg_len, 10));
-  bssl::UniquePtr<uint8_t> free_issue_msg(issue_msg);
-  size_t tokens_issued;
-  ASSERT_TRUE(TRUST_TOKEN_ISSUER_issue(
-      issuer.get(), &issue_resp, &resp_len, &tokens_issued, issue_msg, msg_len,
-      /*public_metadata=*/KeyID(0), /*private_metadata=*/0,
-      /*max_issuance=*/10));
-  bssl::UniquePtr<uint8_t> free_msg(issue_resp);
-  size_t key_index;
-  bssl::UniquePtr<STACK_OF(TRUST_TOKEN)> tokens(
-      TRUST_TOKEN_CLIENT_finish_issuance(client.get(), &key_index, issue_resp,
-                                         resp_len));
-  ASSERT_TRUE(tokens);
-
-  for (TRUST_TOKEN *token : tokens.get()) {
-    const uint8_t kClientData[] = "\x70TEST CLIENT DATA";
-    uint64_t kRedemptionTime = 0;
-
-    uint8_t *redeem_msg = NULL, *redeem_resp = NULL;
-    ASSERT_TRUE(TRUST_TOKEN_CLIENT_begin_redemption(
-        client.get(), &redeem_msg, &msg_len, token, kClientData,
-        sizeof(kClientData) - 1, kRedemptionTime));
-    bssl::UniquePtr<uint8_t> free_redeem_msg(redeem_msg);
-    TRUST_TOKEN *rtoken;
-    uint8_t *client_data;
-    size_t client_data_len;
-    uint64_t redemption_time;
-    ASSERT_TRUE(TRUST_TOKEN_ISSUER_redeem(
-        issuer.get(), &redeem_resp, &resp_len, &rtoken, &client_data,
-        &client_data_len, &redemption_time, redeem_msg, msg_len, 600));
-    bssl::UniquePtr<uint8_t> free_redeem_resp(redeem_resp);
-    bssl::UniquePtr<uint8_t> free_client_data(client_data);
-    bssl::UniquePtr<TRUST_TOKEN> free_rtoken(rtoken);
-
-    ASSERT_EQ(redemption_time, kRedemptionTime);
-    ASSERT_EQ(Bytes(kClientData, sizeof(kClientData) - 1),
-              Bytes(client_data, client_data_len));
-    resp_len = 10;
-
-    // If the protocol doesn't use SRRs, TRUST_TOKEN_CLIENT_finish_redemtpion
-    // leaves all SRR validation to the caller.
-    uint8_t *srr = NULL, *sig = NULL;
-    size_t srr_len, sig_len;
-    bool expect_failure = !method()->has_srr;
-    ASSERT_EQ(expect_failure, TRUST_TOKEN_CLIENT_finish_redemption(
-                                  client.get(), &srr, &srr_len, &sig, &sig_len,
-                                  redeem_resp, resp_len));
-    bssl::UniquePtr<uint8_t> free_srr(srr);
-    bssl::UniquePtr<uint8_t> free_sig(sig);
+    uint32_t out_public_metadata = 0;
+    uint8_t out_private_metadata = 0;
+    ASSERT_FALSE(TRUST_TOKEN_ISSUER_redeem_raw(
+        issuer.get(), &out_public_metadata, &out_private_metadata, &rtoken,
+        &client_data, &client_data_len, redeem_msg, msg_len));
   }
 }
 
@@ -437,13 +338,6 @@ TEST_P(TrustTokenProtocolTest, IssuedWithBadKeyID) {
   bssl::UniquePtr<EVP_PKEY> pub(
       EVP_PKEY_new_raw_public_key(EVP_PKEY_ED25519, nullptr, public_key, 32));
   ASSERT_TRUE(pub);
-
-  TRUST_TOKEN_CLIENT_set_srr_key(client.get(), pub.get());
-  TRUST_TOKEN_ISSUER_set_srr_key(issuer.get(), priv.get());
-  RAND_bytes(metadata_key, sizeof(metadata_key));
-  ASSERT_TRUE(TRUST_TOKEN_ISSUER_set_metadata_key(issuer.get(), metadata_key,
-                                                  sizeof(metadata_key)));
-
 
   uint8_t *issue_msg = NULL, *issue_resp = NULL;
   size_t msg_len, resp_len;
@@ -499,109 +393,27 @@ TEST_P(TrustTokenMetadataTest, SetAndGetMetadata) {
 
   for (TRUST_TOKEN *token : tokens.get()) {
     const uint8_t kClientData[] = "\x70TEST CLIENT DATA";
-    uint64_t kRedemptionTime = (method()->has_srr ? 13374242 : 0);
 
-    const uint8_t kExpectedSRRV1[] =
-        "\xa4\x68\x6d\x65\x74\x61\x64\x61\x74\x61\xa2\x66\x70\x75\x62\x6c\x69"
-        "\x63\x00\x67\x70\x72\x69\x76\x61\x74\x65\x00\x6a\x74\x6f\x6b\x65\x6e"
-        "\x2d\x68\x61\x73\x68\x58\x20\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-        "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-        "\x00\x00\x00\x00\x00\x6b\x63\x6c\x69\x65\x6e\x74\x2d\x64\x61\x74\x61"
-        "\x70\x54\x45\x53\x54\x20\x43\x4c\x49\x45\x4e\x54\x20\x44\x41\x54\x41"
-        "\x70\x65\x78\x70\x69\x72\x79\x2d\x74\x69\x6d\x65\x73\x74\x61\x6d\x70"
-        "\x1a\x00\xcc\x15\x7a";
-
-    const uint8_t kExpectedSRRV2[] =
-        "\xa4\x68\x6d\x65\x74\x61\x64\x61\x74\x61\xa2\x66\x70\x75\x62\x6c\x69"
-        "\x63\x00\x67\x70\x72\x69\x76\x61\x74\x65\x00\x6a\x74\x6f\x6b\x65\x6e"
-        "\x2d\x68\x61\x73\x68\x58\x20\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-        "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-        "\x00\x00\x00\x00\x00\x6b\x63\x6c\x69\x65\x6e\x74\x2d\x64\x61\x74\x61"
-        "\x70\x54\x45\x53\x54\x20\x43\x4c\x49\x45\x4e\x54\x20\x44\x41\x54\x41"
-        "\x70\x65\x78\x70\x69\x72\x79\x2d\x74\x69\x6d\x65\x73\x74\x61\x6d\x70"
-        "\x00";
-
-    const uint8_t *expected_srr = kExpectedSRRV1;
-    size_t expected_srr_len = sizeof(kExpectedSRRV1) - 1;
-    if (!method()->has_srr) {
-      expected_srr = kExpectedSRRV2;
-      expected_srr_len = sizeof(kExpectedSRRV2) - 1;
-    }
-
-    uint8_t *redeem_msg = NULL, *redeem_resp = NULL;
+    uint8_t *redeem_msg = NULL;
     ASSERT_TRUE(TRUST_TOKEN_CLIENT_begin_redemption(
         client.get(), &redeem_msg, &msg_len, token, kClientData,
-        sizeof(kClientData) - 1, kRedemptionTime));
+        sizeof(kClientData) - 1));
     bssl::UniquePtr<uint8_t> free_redeem_msg(redeem_msg);
     TRUST_TOKEN *rtoken;
     uint8_t *client_data;
     size_t client_data_len;
-    uint64_t redemption_time;
-    ASSERT_TRUE(TRUST_TOKEN_ISSUER_redeem(
-        issuer.get(), &redeem_resp, &resp_len, &rtoken, &client_data,
-        &client_data_len, &redemption_time, redeem_msg, msg_len, 600));
-    bssl::UniquePtr<uint8_t> free_redeem_resp(redeem_resp);
+    uint32_t out_public_metadata = 0;
+    uint8_t out_private_metadata = 0;
+    ASSERT_TRUE(TRUST_TOKEN_ISSUER_redeem_raw(
+        issuer.get(), &out_public_metadata, &out_private_metadata, &rtoken,
+        &client_data, &client_data_len, redeem_msg, msg_len));
     bssl::UniquePtr<uint8_t> free_client_data(client_data);
     bssl::UniquePtr<TRUST_TOKEN> free_rtoken(rtoken);
+    ASSERT_EQ(public_metadata(), (int)out_public_metadata);
+    ASSERT_EQ(private_metadata(), out_private_metadata);
 
-    ASSERT_EQ(redemption_time, kRedemptionTime);
     ASSERT_EQ(Bytes(kClientData, sizeof(kClientData) - 1),
               Bytes(client_data, client_data_len));
-
-    uint8_t *srr = NULL, *sig = NULL;
-    size_t srr_len, sig_len;
-    ASSERT_TRUE(TRUST_TOKEN_CLIENT_finish_redemption(
-        client.get(), &srr, &srr_len, &sig, &sig_len, redeem_resp, resp_len));
-    bssl::UniquePtr<uint8_t> free_srr(srr);
-    bssl::UniquePtr<uint8_t> free_sig(sig);
-
-    if (!method()->has_srr) {
-      size_t b64_len;
-      ASSERT_TRUE(EVP_EncodedLength(&b64_len, expected_srr_len));
-      b64_len -= 1;
-      const char kSRRHeader[] = "body=:";
-      ASSERT_LT(sizeof(kSRRHeader) - 1 + b64_len, srr_len);
-
-      ASSERT_EQ(Bytes(kSRRHeader, sizeof(kSRRHeader) - 1),
-                Bytes(srr, sizeof(kSRRHeader) - 1));
-      uint8_t *decoded_srr =
-          (uint8_t *)OPENSSL_malloc(expected_srr_len + 2);
-      ASSERT_TRUE(decoded_srr);
-      ASSERT_LE(
-          int(expected_srr_len),
-          EVP_DecodeBlock(decoded_srr, srr + sizeof(kSRRHeader) - 1, b64_len));
-      srr = decoded_srr;
-      srr_len = expected_srr_len;
-      free_srr.reset(srr);
-    }
-
-    const uint8_t kTokenHashDSTLabel[] = "TrustTokenV0 TokenHash";
-    uint8_t token_hash[SHA256_DIGEST_LENGTH];
-    SHA256_CTX sha_ctx;
-    SHA256_Init(&sha_ctx);
-    SHA256_Update(&sha_ctx, kTokenHashDSTLabel, sizeof(kTokenHashDSTLabel));
-    SHA256_Update(&sha_ctx, token->data, token->len);
-    SHA256_Final(token_hash, &sha_ctx);
-
-    // Check the token hash is in the SRR.
-    ASSERT_EQ(Bytes(token_hash), Bytes(srr + 41, sizeof(token_hash)));
-
-    uint8_t decode_private_metadata;
-    ASSERT_TRUE(TRUST_TOKEN_decode_private_metadata(
-        method(), &decode_private_metadata, metadata_key,
-        sizeof(metadata_key), token_hash, sizeof(token_hash), srr[27]));
-    ASSERT_EQ(srr[18], public_metadata());
-    ASSERT_EQ(decode_private_metadata, private_metadata());
-
-    // Clear out the metadata bits.
-    srr[18] = 0;
-    srr[27] = 0;
-
-    // Clear out the token hash.
-    OPENSSL_memset(srr + 41, 0, sizeof(token_hash));
-
-    ASSERT_EQ(Bytes(expected_srr, expected_srr_len),
-              Bytes(srr, srr_len));
   }
 }
 
@@ -632,12 +444,11 @@ TEST_P(TrustTokenMetadataTest, RawSetAndGetMetadata) {
 
   for (TRUST_TOKEN *token : tokens.get()) {
     const uint8_t kClientData[] = "\x70TEST CLIENT DATA";
-    uint64_t kRedemptionTime = (method()->has_srr ? 13374242 : 0);
 
     uint8_t *redeem_msg = NULL;
     ASSERT_TRUE(TRUST_TOKEN_CLIENT_begin_redemption(
         client.get(), &redeem_msg, &msg_len, token, kClientData,
-        sizeof(kClientData) - 1, kRedemptionTime));
+        sizeof(kClientData) - 1));
     bssl::UniquePtr<uint8_t> free_redeem_msg(redeem_msg);
     uint32_t public_value;
     uint8_t private_value;
@@ -645,8 +456,8 @@ TEST_P(TrustTokenMetadataTest, RawSetAndGetMetadata) {
     uint8_t *client_data;
     size_t client_data_len;
     ASSERT_TRUE(TRUST_TOKEN_ISSUER_redeem_raw(
-        issuer.get(), &public_value, &private_value, &rtoken,
-        &client_data, &client_data_len, redeem_msg, msg_len));
+        issuer.get(), &public_value, &private_value, &rtoken, &client_data,
+        &client_data_len, redeem_msg, msg_len));
     bssl::UniquePtr<uint8_t> free_client_data(client_data);
     bssl::UniquePtr<TRUST_TOKEN> free_rtoken(rtoken);
 
@@ -717,9 +528,6 @@ TEST_P(TrustTokenMetadataTest, TruncatedProof) {
   const EC_GROUP *group = EC_GROUP_new_by_curve_name(NID_secp384r1);
   size_t token_length =
       TRUST_TOKEN_NONCE_SIZE + 2 * (1 + 2 * BN_num_bytes(&group->field));
-  if (method() == TRUST_TOKEN_experiment_v1()) {
-    token_length += 4;
-  }
   if (method() == TRUST_TOKEN_experiment_v2_voprf()) {
     token_length = 1 + 2 * BN_num_bytes(&group->field);
   }
@@ -780,9 +588,6 @@ TEST_P(TrustTokenMetadataTest, ExcessDataProof) {
   const EC_GROUP *group = EC_GROUP_new_by_curve_name(NID_secp384r1);
   size_t token_length =
       TRUST_TOKEN_NONCE_SIZE + 2 * (1 + 2 * BN_num_bytes(&group->field));
-  if (method() == TRUST_TOKEN_experiment_v1()) {
-    token_length += 4;
-  }
   if (method() == TRUST_TOKEN_experiment_v2_voprf()) {
     token_length = 1 + 2 * BN_num_bytes(&group->field);
   }

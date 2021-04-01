@@ -90,31 +90,6 @@ DEFINE_STACK_OF(TRUST_TOKEN_PRETOKEN)
 // construction 6.
 
 // The following functions implement the corresponding |TRUST_TOKENS_METHOD|
-// functions for |TRUST_TOKENS_experiment_v1|'s PMBTokens construction which
-// uses P-384.
-int pmbtoken_exp1_generate_key(CBB *out_private, CBB *out_public);
-int pmbtoken_exp1_client_key_from_bytes(TRUST_TOKEN_CLIENT_KEY *key,
-                                        const uint8_t *in, size_t len);
-int pmbtoken_exp1_issuer_key_from_bytes(TRUST_TOKEN_ISSUER_KEY *key,
-                                        const uint8_t *in, size_t len);
-STACK_OF(TRUST_TOKEN_PRETOKEN) * pmbtoken_exp1_blind(CBB *cbb, size_t count);
-int pmbtoken_exp1_sign(const TRUST_TOKEN_ISSUER_KEY *key, CBB *cbb, CBS *cbs,
-                       size_t num_requested, size_t num_to_issue,
-                       uint8_t private_metadata);
-STACK_OF(TRUST_TOKEN) *
-    pmbtoken_exp1_unblind(const TRUST_TOKEN_CLIENT_KEY *key,
-                          const STACK_OF(TRUST_TOKEN_PRETOKEN) * pretokens,
-                          CBS *cbs, size_t count, uint32_t key_id);
-int pmbtoken_exp1_read(const TRUST_TOKEN_ISSUER_KEY *key,
-                       uint8_t out_nonce[TRUST_TOKEN_NONCE_SIZE],
-                       uint8_t *out_private_metadata, const uint8_t *token,
-                       size_t token_len);
-
-// pmbtoken_exp1_get_h_for_testing returns H in uncompressed coordinates. This
-// function is used to confirm H was computed as expected.
-OPENSSL_EXPORT int pmbtoken_exp1_get_h_for_testing(uint8_t out[97]);
-
-// The following functions implement the corresponding |TRUST_TOKENS_METHOD|
 // functions for |TRUST_TOKENS_experiment_v2|'s PMBTokens construction which
 // uses P-384.
 int pmbtoken_exp2_generate_key(CBB *out_private, CBB *out_public);
@@ -238,9 +213,6 @@ struct trust_token_method_st {
 
   // max keys that can be configured.
   size_t max_keys;
-
-  // whether the SRR is part of the protocol.
-  int has_srr;
 };
 
 // Structure representing a single Trust Token public key with the specified ID.
@@ -271,9 +243,6 @@ struct trust_token_client_st {
 
   // pretokens is the intermediate state during an active issuance.
   STACK_OF(TRUST_TOKEN_PRETOKEN)* pretokens;
-
-  // srr_key is the public key used to verify the signature of the SRR.
-  EVP_PKEY *srr_key;
 };
 
 
@@ -290,14 +259,6 @@ struct trust_token_issuer_st {
 
   // num_keys is the number of keys currently configured.
   size_t num_keys;
-
-  // srr_key is the private key used to sign the SRR.
-  EVP_PKEY *srr_key;
-
-  // metadata_key is the secret material used to encode the private metadata bit
-  // in the SRR.
-  uint8_t *metadata_key;
-  size_t metadata_key_len;
 };
 
 
