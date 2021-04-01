@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a90858a5_ba8c9c1b",
+        "filename": "ssl/handshake.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 577,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-04-01T16:04:15Z",
+      "side": 1,
+      "message": "Your call, but should this be an assert?",
+      "revId": "1ad104352846e33823e74bbdf67598e572fdea78",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
