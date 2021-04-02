@@ -127,6 +127,17 @@ static pthread_once_t g_thread_local_init_once = PTHREAD_ONCE_INIT;
 static pthread_key_t g_thread_local_key;
 static int g_thread_local_key_created = 0;
 
+#if defined(__GNUC__) || defined(__clang__)
+// main_thread_destructor is called when the main thread exits.
+static void main_thread_destructor(void) __attribute__((destructor, unused));
+static void main_thread_destructor(void) {
+  if (g_thread_local_key_created) {
+    // Release the thread local data on the main thread to avoid LSan crashes.
+    thread_local_destructor(pthread_getspecific(g_thread_local_key));
+  }
+}
+#endif
+
 static void thread_local_init(void) {
   g_thread_local_key_created =
       pthread_key_create(&g_thread_local_key, thread_local_destructor) == 0;
