@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49414fe3_d4ae496a",
+        "filename": "crypto/fipsmodule/modes/gcm.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-02T15:13:11Z",
+      "side": 1,
+      "message": "(Not related to load/store functions, but this appears to be checking whether bit operations on u64 efficient, so I believe crypto_word_t is correct.)",
+      "revId": "258df98abf77a931a0d73b3e74acb5ad23176275",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28ded4f1_e157bca8",
+        "filename": "crypto/fipsmodule/modes/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-02T15:13:11Z",
+      "side": 1,
+      "message": "It might be helpful to look at https://boringssl-review.googlesource.com/c/boringssl/+/46425/ when reviewing, since that has to touch every reference to these two symbols.",
+      "range": {
+        "startLine": 78,
+        "startChar": 28,
+        "endLine": 78,
+        "endChar": 40
+      },
+      "revId": "258df98abf77a931a0d73b3e74acb5ad23176275",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
