@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "1768c9e6_2da434f0",
+        "filename": "crypto/fipsmodule/modes/gcm.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-04-02T16:28:37Z",
+      "side": 1,
+      "message": "Honestly I doubt having the 32-bit version is worthwhile. I suspect it generated slightly better code when Andy or whomever first tried it.",
+      "parentUuid": "49414fe3_d4ae496a",
+      "revId": "258df98abf77a931a0d73b3e74acb5ad23176275",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "28ded4f1_e157bca8",
         "filename": "crypto/fipsmodule/modes/internal.h",
         "patchSetId": 3
