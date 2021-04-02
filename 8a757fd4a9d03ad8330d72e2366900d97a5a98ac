@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9bb68bb7_0bb1a6f5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-04-02T23:01:45Z",
+      "side": 1,
+      "message": "This seems like a dangerous change to work around an LSan bug, what if other destructor functions try to use BoringSSL? Memory may still be reachable at process exit via globals, and thread-local storage is effectively a global. So I\u0027m not sure if we want this I\u0027m afraid.",
+      "revId": "8a757fd4a9d03ad8330d72e2366900d97a5a98ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
