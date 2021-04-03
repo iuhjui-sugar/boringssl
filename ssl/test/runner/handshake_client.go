@@ -52,7 +52,9 @@ func mapClientHelloVersion(vers uint16, isDTLS bool) uint16 {
 	panic("Unknown ClientHello version.")
 }
 
-func fixClientHellos(hello *clientHelloMsg, in []byte) ([]byte, error) {
+// replaceClientHello returns a new clientHelloMsg which serializes to |in|, but
+// with enough fields copied from |hello| that the handshake will complete.
+func replaceClientHello(hello *clientHelloMsg, in []byte) (*clientHelloMsg, error) {
 	ret := append([]byte{}, in...)
 	newHello := new(clientHelloMsg)
 	if !newHello.unmarshal(ret) {
@@ -75,7 +77,7 @@ func fixClientHellos(hello *clientHelloMsg, in []byte) ([]byte, error) {
 	// |newHello.keySharesRaw| aliases |ret|.
 	copy(newHello.keySharesRaw, keyShares)
 
-	return ret, nil
+	return newHello, nil
 }
 
 func (c *Conn) clientHandshake() error {
@@ -446,38 +448,37 @@ NextCipherSuite:
 		hello.sessionID = c.config.Bugs.SendClientHelloSessionID
 	}
 
+	// PSK binders must be computed after the rest of the ClientHello is
+	// constructed.
+	if len(hello.pskIdentities) > 0 {
+		version := session.wireVersion
+		// We may have a pre-1.3 session if SendBothTickets is
+		// set.
+		if session.vers < VersionTLS13 {
+			version = VersionTLS13
+		}
+		generatePSKBinders(version, hello, session, []byte{}, []byte{}, c.config)
+	}
+
+	if c.config.Bugs.SendClientHelloWithFixes != nil {
+		hello, err = replaceClientHello(hello, c.config.Bugs.SendClientHelloWithFixes)
+		if err != nil {
+			return err
+		}
+	}
+
 	var helloBytes []byte
 	if c.config.Bugs.SendV2ClientHello {
-		// Test that the peer left-pads random.
+		hello.isV2ClientHello = true
+		// The V2ClientHello "challenge" field is variable-length and is
+		// left-padded to become the SSL3/TLS random. Test this behavior by
+		// forcing the left padding.
 		hello.random[0] = 0
-		v2Hello := &v2ClientHelloMsg{
-			vers:         hello.vers,
-			cipherSuites: hello.cipherSuites,
-			// No session resumption for V2ClientHello.
-			sessionID: nil,
-			challenge: hello.random[1:],
-		}
-		helloBytes = v2Hello.marshal()
+		hello.v2Challenge = hello.random[1:]
+		helloBytes = hello.marshal()
 		c.writeV2Record(helloBytes)
 	} else {
-		if len(hello.pskIdentities) > 0 {
-			version := session.wireVersion
-			// We may have a pre-1.3 session if SendBothTickets is
-			// set.
-			if session.vers < VersionTLS13 {
-				version = VersionTLS13
-			}
-			generatePSKBinders(version, hello, session, []byte{}, []byte{}, c.config)
-		}
-		if c.config.Bugs.SendClientHelloWithFixes != nil {
-			helloBytes, err = fixClientHellos(hello, c.config.Bugs.SendClientHelloWithFixes)
-			if err != nil {
-				return err
-			}
-		} else {
-			helloBytes = hello.marshal()
-		}
-
+		helloBytes = hello.marshal()
 		var appendToHello byte
 		if c.config.Bugs.PartialClientFinishedWithClientHello {
 			appendToHello = typeFinished
