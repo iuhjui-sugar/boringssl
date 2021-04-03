@@ -34,6 +34,24 @@
       "parentUuid": "9bb68bb7_0bb1a6f5",
       "revId": "8a757fd4a9d03ad8330d72e2366900d97a5a98ac",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "003a6dab_3fd39cf7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-03T16:02:56Z",
+      "side": 1,
+      "message": "Agreed. IIRC, destructors don\u0027t get run in any well-defined order. I suspect this\u0027ll also break in FIPS mode with the other main thread destructor we run in rand.c, depending on what order the linker happens to put them in.\n\nLots of projects use BoringSSL with LSan. If it\u0027s a recent Clang change, maybe we can bisect and just get that fixed? I know LSan\u0027s runtime has code to sniff at thread-locals, and we\u0027ve not had this issue before, so it seems like this is supposed to work.",
+      "parentUuid": "9f1096b7_9ad6fe77",
+      "revId": "8a757fd4a9d03ad8330d72e2366900d97a5a98ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
