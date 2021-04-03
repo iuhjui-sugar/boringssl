@@ -16560,6 +16560,7 @@ func addEncryptedClientHelloTests() {
 				ExpectServerAcceptECH: true,
 			},
 		},
+		resumeSession: true,
 	})
 
 	// Test that server fails the handshake when it sees a nonempty ech_is_inner
@@ -16590,6 +16591,7 @@ func addEncryptedClientHelloTests() {
 				ExpectServerAcceptECH: false,
 			},
 		},
+		resumeSession: true,
 	})
 
 	// Test that a TLS 1.3 server that receives an ech_is_inner extension can
