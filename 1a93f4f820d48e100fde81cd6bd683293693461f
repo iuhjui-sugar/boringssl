@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c907191_a80db49e",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-03T16:15:48Z",
+      "side": 0,
+      "message": "I imagine this will cause a bit of trouble with downstream code, even if they\u0027re not using V2, since we\u0027re changing the type signature without changing the name. Some options:\n\n- Keep the code as-is and include in the Update-Note to atomically remove the \u0027time\u0027 parameter with this update.\n\n- Bump BORINGSSL_API_VERSION so we can prep ifdef changes in callers ahead of time.\n\n- Leave time in for now, get the V1 removal through, and then do some combination of the above as a follow-up.\n\nAlternatively... it occurs to me that, since this CL is removing finish_redemption, begin_redemption is now kind of a weird name. I wonder if the long-term name should be without \"begin\". Would plain \"redeem\" work?\n\nIf a new name makes sense, that suggests another strategy:\n\n- Introduce $NEW_NAME_HERE without the time parameter.\n\n- Keep begin_redemption as-is. Have it just call $NEW_NAME_HERE and document that callers should switch to that.\n\n- Remove the old function.\n\nOr we could rename and remove the parameter atomically with an Update-Note. (Since the any of the fixes here are trivial and I think everything can be updated atomically, I\u0027m equally fine with any of the above.)",
+      "range": {
+        "startLine": 155,
+        "startChar": 4,
+        "endLine": 155,
+        "endChar": 17
+      },
+      "revId": "1a93f4f820d48e100fde81cd6bd683293693461f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

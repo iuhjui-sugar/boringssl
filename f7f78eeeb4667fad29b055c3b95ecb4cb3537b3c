@@ -16,6 +16,92 @@
       "message": "This cleans up most of the V1 APIs. Still need to do a rename from redeem_raw to redeem as a second step. Some callers in google3 to cleanup that use the old API that are deprecated, so probably don\u0027t merge yet.",
       "revId": "f7f78eeeb4667fad29b055c3b95ecb4cb3537b3c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14fea017_d55044fc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-03T16:15:48Z",
+      "side": 1,
+      "message": "Yay less code! :D",
+      "revId": "f7f78eeeb4667fad29b055c3b95ecb4cb3537b3c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9972ee53_b945f29c",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-03T16:15:48Z",
+      "side": 1,
+      "message": "How annoying would it be to just switch public_metadata() in the test fixture from uint32_t to int? I forget if there was a reason that was an int.",
+      "range": {
+        "startLine": 412,
+        "startChar": 33,
+        "endLine": 412,
+        "endChar": 38
+      },
+      "revId": "f7f78eeeb4667fad29b055c3b95ecb4cb3537b3c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7acfb03_ef83944d",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-03T16:15:48Z",
+      "side": 1,
+      "message": "(Probably worth renaming this to plain \u0027redeem\u0027 at some point, but maybe in the next cycle. :-) )",
+      "range": {
+        "startLine": 206,
+        "startChar": 19,
+        "endLine": 206,
+        "endChar": 48
+      },
+      "revId": "f7f78eeeb4667fad29b055c3b95ecb4cb3537b3c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bcad6fa_bf71dc2d",
+        "filename": "tool/speed.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1171,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-03T16:15:48Z",
+      "side": 1,
+      "message": "Nit: s/redeem/redeem_raw/, ditto below",
+      "range": {
+        "startLine": 1171,
+        "startChar": 21,
+        "endLine": 1171,
+        "endChar": 46
+      },
+      "revId": "f7f78eeeb4667fad29b055c3b95ecb4cb3537b3c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
