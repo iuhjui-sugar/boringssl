@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "114a8a9f_11cc14fc",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 1309,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-04-06T20:54:59Z",
+      "side": 0,
+      "message": "Got it, we no longer clear out the |raw| field, so |m.marshal()| returns a byte-identical serialization.",
+      "range": {
+        "startLine": 1309,
+        "startChar": 26,
+        "endLine": 1309,
+        "endChar": 29
+      },
+      "revId": "12dda8935b9e843bf649bbd38bf0cde359c8af74",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
