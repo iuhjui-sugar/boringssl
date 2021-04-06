@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4321d2c_a81cab26",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-06T18:08:00Z",
+      "side": 1,
+      "message": "The spec only mentions the left-padding mode, but I figure it\u0027s not worth chasing this down beyond maybe getting rid of V2ClientHello entirely.\n\nTo that end, maybe it\u0027s time to measure this again? We last checked four years ago:\nhttps://boringssl-review.googlesource.com/13340\nhttps://boringssl-review.googlesource.com/17251",
+      "revId": "dfed9c28400bd51eb1a5f3755ef3dfb728586a5a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
