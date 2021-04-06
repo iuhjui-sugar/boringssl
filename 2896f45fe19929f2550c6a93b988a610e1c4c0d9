@@ -229,6 +229,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "04da11d5_49a8634e",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 27
+      },
+      "lineNbr": 882,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-06T00:01:13Z",
+      "side": 1,
+      "message": "SendECHOuterExtensions mostly ends up testing unrelated behavior because both sides are deriving different keys. The behavior we want is that ECHOuterExtensions reorders the extensions in ClientHelloInner but *not* ClientHelloOuter. The new version of the tests does this.",
+      "parentUuid": "d456b1fe_49063d5e",
+      "range": {
+        "startLine": 881,
+        "startChar": 71,
+        "endLine": 882,
+        "endChar": 68
+      },
+      "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e2f6c8e0_370f2d08",
@@ -377,6 +401,24 @@
       "side": 1,
       "message": "The main difference right now is that the server names differ, but I suppose a buggy server might just reach into the ClientHelloInner for individual extensions it wants.\n\nWould you be satisfied by exposing some one-off Config knobs for altering the ClientHelloInner? Or do you want to add a more generic capability?",
       "parentUuid": "9ecd3305_b6f36dec",
+      "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc0750bb_d4bb5ec7",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 27
+      },
+      "lineNbr": 907,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-06T00:01:13Z",
+      "side": 1,
+      "message": "I added a MinimalClientHelloOuter option.",
+      "parentUuid": "79746d25_b88bb520",
       "revId": "2896f45fe19929f2550c6a93b988a610e1c4c0d9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },

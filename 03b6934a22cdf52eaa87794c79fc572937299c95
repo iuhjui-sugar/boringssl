@@ -22,6 +22,30 @@
       },
       "revId": "03b6934a22cdf52eaa87794c79fc572937299c95",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d99b44b7_1782d8c4",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 31
+      },
+      "lineNbr": 16913,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-06T00:01:13Z",
+      "side": 1,
+      "message": "The aim was to write a test for ECH 0-RTT behavior on the server. So rather than a case that we know won\u0027t work (where the ECH server doesn\u0027t even think 0-RTT is going on), we should test that ECH doesn\u0027t impede 0-RTT. I\u0027ve removed this and replaced it with 0-RTT tests (and fixed various bugs in the tests).",
+      "parentUuid": "708b9311_607edfbe",
+      "range": {
+        "startLine": 16913,
+        "startChar": 13,
+        "endLine": 16913,
+        "endChar": 33
+      },
+      "revId": "03b6934a22cdf52eaa87794c79fc572937299c95",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }

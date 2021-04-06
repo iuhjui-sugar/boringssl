@@ -16,6 +16,24 @@
       "message": "TODO(dmcardle) add a doc comment if we want to keep this",
       "revId": "1cbc734f17d2d7d560ba7f45ab18defb298e512a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a74a902_6e8b37ca",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 30
+      },
+      "lineNbr": 867,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-06T00:01:13Z",
+      "side": 1,
+      "message": "(Removed.)",
+      "parentUuid": "ae4e97d0_f5487b93",
+      "revId": "1cbc734f17d2d7d560ba7f45ab18defb298e512a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }

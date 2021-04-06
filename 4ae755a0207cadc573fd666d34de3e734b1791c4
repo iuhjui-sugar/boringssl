@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36e98b78_7245f1f5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 33
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-06T00:01:13Z",
+      "side": 1,
+      "message": "Reworked the tests (there were some bugs around HRRs and PSKs) and added a bunch of cases. Along the way, I put it on top of a bunch of cleanup work on runner which should hopefully make the two ClientHellos easier to juggle. Dan, want to look over the changes I made?",
+      "revId": "4ae755a0207cadc573fd666d34de3e734b1791c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

@@ -51,6 +51,24 @@
       "parentUuid": "d5135d5f_f58c554e",
       "revId": "1f90832936ba44c9e7b6a837218853a9f2f970a1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72334233_79750d52",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 28
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-06T00:01:13Z",
+      "side": 1,
+      "message": "Looks like you\u0027ve done this already, but we usually modify the shim config.",
+      "parentUuid": "9ac29d4e_b19d5ab8",
+      "revId": "1f90832936ba44c9e7b6a837218853a9f2f970a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
