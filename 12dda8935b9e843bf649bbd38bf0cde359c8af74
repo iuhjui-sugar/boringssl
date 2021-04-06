@@ -22,6 +22,30 @@
       },
       "revId": "12dda8935b9e843bf649bbd38bf0cde359c8af74",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f607e5e_cfd7eecb",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 1309,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-06T20:56:00Z",
+      "side": 0,
+      "message": "Yeah. We generally use msg.marshal() to get back the original serialization for transcripts and such.",
+      "parentUuid": "114a8a9f_11cc14fc",
+      "range": {
+        "startLine": 1309,
+        "startChar": 26,
+        "endLine": 1309,
+        "endChar": 29
+      },
+      "revId": "12dda8935b9e843bf649bbd38bf0cde359c8af74",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
