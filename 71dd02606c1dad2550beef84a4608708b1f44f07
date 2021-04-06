@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52cd6449_68e3bee8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-04-06T14:09:25Z",
+      "side": 1,
+      "message": "Good catch. This is a holdover from draft-irtf-cfrg-hpke-04.",
+      "revId": "71dd02606c1dad2550beef84a4608708b1f44f07",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
