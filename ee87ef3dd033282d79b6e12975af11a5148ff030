@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f759715_fa2c41f3",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 851,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-06T18:09:53Z",
+      "side": 1,
+      "message": "(We were previously missing this check.)",
+      "revId": "ee87ef3dd033282d79b6e12975af11a5148ff030",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
