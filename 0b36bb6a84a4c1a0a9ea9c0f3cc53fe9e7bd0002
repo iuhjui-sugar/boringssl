@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c7095a8_ca016342",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 4117,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-07T00:57:03Z",
+      "side": 1,
+      "message": "I don\u0027t think so. ssl_ticket_aead_error means we hit some internal error while trying to decrypt the ticket and we abort the conneciton. That\u0027s analogous to if the signature failed. If the ticket was bad, it\u0027s always ssl_ticket_aead_ignore_ticket, which means to continue with a full resumption.\n\n(Although we may want to ponder the error-handling story in general. Something to talk about next meeting perhaps.)",
+      "parentUuid": "c7f64fdc_61c90a95",
+      "range": {
+        "startLine": 4108,
+        "startChar": 0,
+        "endLine": 4117,
+        "endChar": 3
+      },
+      "revId": "0b36bb6a84a4c1a0a9ea9c0f3cc53fe9e7bd0002",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6ffb4d9a_ba2173b5",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-03-31T16:29:17Z",
       "side": 1,
       "message": "nit: Since they are used as out params, \"ScopedProcess\" and \"ScopedFD\" may not be the best name because \"Scoped\" typically means function(or block) scoped. How about call them \"OwnedFoo\", \"AutoCloseFoo\", \"FooDestroyer\" or something along those lines?",
+      "range": {
+        "startLine": 382,
+        "startChar": 28,
+        "endLine": 382,
+        "endChar": 70
+      },
+      "revId": "0b36bb6a84a4c1a0a9ea9c0f3cc53fe9e7bd0002",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d027ba3a_6dd3314d",
+        "filename": "ssl/test/handshake_util.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-07T00:57:03Z",
+      "side": 1,
+      "message": "Hrm. We call it ScopedFoo everywhere else, but that\u0027s a good point that it\u0027s not really a great name. Oops. (bssl::UniquePtr was similarly probably misnamed since we also use it for refcounted types.)\n\nI\u0027m inclined to leave it as-is for consistency with everything else, but let\u0027s see what AGL things.",
+      "parentUuid": "6ffb4d9a_ba2173b5",
       "range": {
         "startLine": 382,
         "startChar": 28,
@@ -70,6 +118,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9514e7bb_b2b32cff",
+        "filename": "ssl/test/handshake_util.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 560,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-07T00:57:03Z",
+      "side": 1,
+      "message": "Renamed to kControlMsgDone. :-)",
+      "parentUuid": "d36312a7_76f37a53",
+      "range": {
+        "startLine": 560,
+        "startChar": 9,
+        "endLine": 560,
+        "endChar": 28
+      },
+      "revId": "0b36bb6a84a4c1a0a9ea9c0f3cc53fe9e7bd0002",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "71af345c_8170e2cf",
@@ -83,6 +155,30 @@
       "writtenOn": "2021-03-31T16:29:17Z",
       "side": 1,
       "message": "Q: If this is an \"expected\" error, will this error message cause the runner to think the test has failed?",
+      "range": {
+        "startLine": 184,
+        "startChar": 4,
+        "endLine": 185,
+        "endChar": 66
+      },
+      "revId": "0b36bb6a84a4c1a0a9ea9c0f3cc53fe9e7bd0002",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "405f70a2_17fc1d9b",
+        "filename": "ssl/test/handshaker.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-07T00:57:03Z",
+      "side": 1,
+      "message": "That\u0027s a good point. The split handshakes version gets by because the handshaker actually reports the error but, here, it\u0027s the shim. Done.\n\nI\u0027m a little worried the silent errors will make this hard to debug, but I guess we can revise this as needed. (E.g. we could add a string parameter to kControlMsgError and print it when needed.)",
+      "parentUuid": "71af345c_8170e2cf",
       "range": {
         "startLine": 184,
         "startChar": 4,
@@ -139,6 +235,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8674d379_8077c9a3",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 16747,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-07T00:57:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5fb0a109_d220e909",
+      "range": {
+        "startLine": 16747,
+        "startChar": 41,
+        "endLine": 16747,
+        "endChar": 44
+      },
+      "revId": "0b36bb6a84a4c1a0a9ea9c0f3cc53fe9e7bd0002",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "01c383c6_ac6ceb17",
@@ -152,6 +272,30 @@
       "writtenOn": "2021-03-31T16:29:17Z",
       "side": 1,
       "message": "\"may have\"?",
+      "range": {
+        "startLine": 16769,
+        "startChar": 29,
+        "endLine": 16769,
+        "endChar": 35
+      },
+      "revId": "0b36bb6a84a4c1a0a9ea9c0f3cc53fe9e7bd0002",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c772eac3_b86c8e3a",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 16769,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-07T00:57:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01c383c6_ac6ceb17",
       "range": {
         "startLine": 16769,
         "startChar": 29,
