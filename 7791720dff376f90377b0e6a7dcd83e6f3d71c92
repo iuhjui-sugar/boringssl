@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6091621_7b244bb4",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-04-07T17:50:11Z",
+      "side": 1,
+      "message": "Pretty sure this comment will frustrate you when you come to read it in 12+ months time :) I think it\u0027s missing the \"why\" of it.",
+      "revId": "7791720dff376f90377b0e6a7dcd83e6f3d71c92",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecc8aded_1b28aa38",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-04-07T17:50:11Z",
+      "side": 1,
+      "message": "This variable is called ret, but is not returned.",
+      "range": {
+        "startLine": 58,
+        "startChar": 1,
+        "endLine": 58,
+        "endChar": 4
+      },
+      "revId": "7791720dff376f90377b0e6a7dcd83e6f3d71c92",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98896be9_b88e4a8b",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-04-07T17:50:11Z",
+      "side": 1,
+      "message": "The function comment says that fields are copied from hello, but they\u0027re moving in the other direction here.",
+      "revId": "7791720dff376f90377b0e6a7dcd83e6f3d71c92",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bd684d6_58f1353d",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-04-07T17:50:11Z",
+      "side": 1,
+      "message": "(not a change in this CL, but these arguments are probably better written as \"nil\".)",
+      "range": {
+        "startLine": 460,
+        "startChar": 46,
+        "endLine": 460,
+        "endChar": 54
+      },
+      "revId": "7791720dff376f90377b0e6a7dcd83e6f3d71c92",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
