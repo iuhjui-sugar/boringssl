@@ -16,6 +16,24 @@
       "message": "So we still support v2compat hello messages as a server? Crumbs.",
       "revId": "b3bcdff7a87a2ded494b75033095965fbe829551",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "138e7f45_cef1e74e",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 5631,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-07T21:54:01Z",
+      "side": 1,
+      "message": "Yeah. We measured things four years ago, but it was still necessary then:\nhttps://boringssl-review.googlesource.com/13340\nhttps://boringssl-review.googlesource.com/17251\n\nMaybe time to try again? :-)",
+      "parentUuid": "0491219d_8e6b0769",
+      "revId": "b3bcdff7a87a2ded494b75033095965fbe829551",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
