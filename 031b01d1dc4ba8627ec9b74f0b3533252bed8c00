@@ -16,6 +16,40 @@
       "message": "Just reviewed the changes in patchsets 32..36, and made a few smaller changes in 37.\n\nThanks for all those changes to the tests, David! I think that\u0027s a lot cleaner, and covers more cases now.\n",
       "revId": "031b01d1dc4ba8627ec9b74f0b3533252bed8c00",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ba640d4_bf204db8",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 37
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-07T22:17:52Z",
+      "side": 1,
+      "message": "(This ended up being redundant with similar comments AGL left in an earlier CL.)",
+      "revId": "031b01d1dc4ba8627ec9b74f0b3533252bed8c00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "08c4f022_b28ed9f7",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 37
+      },
+      "lineNbr": 16893,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-07T22:17:52Z",
+      "side": 1,
+      "message": "Oh oops. I actually meant to remove this anyway since it\u0027s handled by the HRR loop.",
+      "revId": "031b01d1dc4ba8627ec9b74f0b3533252bed8c00",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }

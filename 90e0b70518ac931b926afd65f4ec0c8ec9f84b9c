@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70c69060_8fe26747",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 40
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-07T22:17:52Z",
+      "side": 1,
+      "message": "Oops, I made a mess of the rebase, but I think it\u0027s sorted out now? Going to let the CQ confirm though...",
+      "revId": "90e0b70518ac931b926afd65f4ec0c8ec9f84b9c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
