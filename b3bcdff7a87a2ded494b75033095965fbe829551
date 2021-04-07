@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0491219d_8e6b0769",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 5631,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-04-07T17:52:30Z",
+      "side": 1,
+      "message": "So we still support v2compat hello messages as a server? Crumbs.",
+      "revId": "b3bcdff7a87a2ded494b75033095965fbe829551",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
