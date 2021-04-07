@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63941ebb_5882c816",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 1793,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-04-07T18:00:36Z",
+      "side": 1,
+      "message": "This variable name should make it clear _who_ supports TLS 1.3. (Us or them.)",
+      "range": {
+        "startLine": 1793,
+        "startChar": 4,
+        "endLine": 1793,
+        "endChar": 17
+      },
+      "revId": "12dda8935b9e843bf649bbd38bf0cde359c8af74",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
