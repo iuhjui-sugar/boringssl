@@ -104,6 +104,24 @@
       "parentUuid": "301f1c68_89815e75",
       "revId": "7724f2a2f05b94041ab6483cf8bc44153ef92e03",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e22506c_223d5dde",
+        "filename": "crypto/cipher_extra/tls_cbc.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-04-08T20:27:25Z",
+      "side": 1,
+      "message": "Ack. Figured uninit() \u0026 0 would be fine, but you\u0027re right that *SAN might not be happy about that. LGTM.",
+      "parentUuid": "0cdf94dc_dd6b40ef",
+      "revId": "7724f2a2f05b94041ab6483cf8bc44153ef92e03",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
