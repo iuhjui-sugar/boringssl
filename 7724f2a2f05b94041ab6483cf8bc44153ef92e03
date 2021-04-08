@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b85e3fa3_b7bc37a9",
+        "filename": "crypto/cipher_extra/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-08T17:45:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14cfa5ea_7ffad972",
+      "revId": "7724f2a2f05b94041ab6483cf8bc44153ef92e03",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eb4d5edd_17ec7dd1",
@@ -35,6 +53,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e002a9f_83d4a88c",
+        "filename": "crypto/cipher_extra/tls_cbc.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-08T17:45:22Z",
+      "side": 1,
+      "message": "Done. (Wrote this code before those functions. :-) )",
+      "parentUuid": "eb4d5edd_17ec7dd1",
+      "revId": "7724f2a2f05b94041ab6483cf8bc44153ef92e03",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "301f1c68_89815e75",
@@ -48,6 +84,24 @@
       "writtenOn": "2021-04-08T17:10:23Z",
       "side": 1,
       "message": "Looks like block is always written and so doesn\u0027t need a zero initialisation?",
+      "revId": "7724f2a2f05b94041ab6483cf8bc44153ef92e03",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0cdf94dc_dd6b40ef",
+        "filename": "crypto/cipher_extra/tls_cbc.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-08T17:45:22Z",
+      "side": 1,
+      "message": "It\u0027s *almost* always written. :-/ If max_len \u003c SHA_CBLOCK, we\u0027ll only fill in part of the block. The zeroing loop would then set the uninitialized bytes to uninit() \u0026 0 \u003d 0. Not sure how defined that actually is but I think MSan has gotten upset about this before.\n\nThis is really an indication that the logic is slightly less clever than it could be. When the block is not filled in all the way, the unfilled in bytes have (almost!) publicly known zero value and don\u0027t need a constant-time selection. But that gets messy because the first byte past the end is 0x80 if len \u003d\u003d max_len[0]. For more fun, it\u0027s possible the first byte past the end is in the block after max_len[1], which is why I had to keep incrementing input_idx.\n\nAccounting for all three of in[i]|0x80|0x00, 0x80|0x00, and 0x00 cases got kinda messy and this inefficiency is at most one block anyway, so I just wrote it in the most straightforward way I could think of.\n\n[0] This is not actually possible in TLS since we know publicly that the secret length is 1 + SHA_DIGEST_LENGTH short. Which... I guess means we could compute a tighter max_len with more work. Not sure it matters since max_len is rounded up to a block anyway.\n\n[1] Also not actually possible in TLS. I had this bug and only caught it in the standalone unit tests. In TLS, max_len mod 8 (gcd of AES and 3DES block size) is fixed because CBC is always rounded to a block, the MAC has fixed size, the HMAC prefix has fixed size, and the AAD has fixed size.",
+      "parentUuid": "301f1c68_89815e75",
       "revId": "7724f2a2f05b94041ab6483cf8bc44153ef92e03",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
