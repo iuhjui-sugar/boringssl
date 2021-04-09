@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c20dd078_a52cef5f",
+        "filename": "crypto/cipher_extra/tls_cbc.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2021-04-09T18:27:44Z",
+      "side": 1,
+      "message": "Doesn\u0027t GCC\u0027s behavior imply that the `constant_time_*` functions, at least the ones used here, don\u0027t actually do what they\u0027re supposed to? I wouldn\u0027t expect to see different results from `constant_time_XXX(x, y)` and constant_time_XXX(x, value_barrier_w(y))` to have any difference otherwise.\n\nOr else, perhaps the `value_barrier_w()` really should be applied within the computation of block_start? I.e. maybe the value_barrier_w isn\u0027t in the best place.",
+      "revId": "669ffe64a498a16ed8a339758c3abedcbb3d9522",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
