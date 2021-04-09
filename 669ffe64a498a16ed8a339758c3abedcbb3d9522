@@ -34,6 +34,24 @@
       "parentUuid": "c20dd078_a52cef5f",
       "revId": "669ffe64a498a16ed8a339758c3abedcbb3d9522",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53fadd15_b98d8b8b",
+        "filename": "crypto/cipher_extra/tls_cbc.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-09T19:10:47Z",
+      "side": 1,
+      "message": "\u003e I traced through execution at the problematic point with GCC and printed all the shadow registers to confirm the secret component of the leaked \"secret\" was a register that got cancelled out.\n\nEr, I used GDB, not GCC. Also, did you know Valgrind has a GDB server in it? It\u0027s pretty nifty! :-)",
+      "parentUuid": "b6980fab_0097f674",
+      "revId": "669ffe64a498a16ed8a339758c3abedcbb3d9522",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
