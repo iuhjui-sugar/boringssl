@@ -16,6 +16,24 @@
       "message": "Doesn\u0027t GCC\u0027s behavior imply that the `constant_time_*` functions, at least the ones used here, don\u0027t actually do what they\u0027re supposed to? I wouldn\u0027t expect to see different results from `constant_time_XXX(x, y)` and constant_time_XXX(x, value_barrier_w(y))` to have any difference otherwise.\n\nOr else, perhaps the `value_barrier_w()` really should be applied within the computation of block_start? I.e. maybe the value_barrier_w isn\u0027t in the best place.",
       "revId": "669ffe64a498a16ed8a339758c3abedcbb3d9522",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6980fab_0097f674",
+        "filename": "crypto/cipher_extra/tls_cbc.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-09T19:09:13Z",
+      "side": 1,
+      "message": "I may not be following, but I think you misunderstand the issue. In the loop, we have\n\n- Public values: j, block_start, input_idx, idx, block\n- Secret values: is_in_bounds, is_padding_byte, len\n\nWith and without the value barrier, GCC is not actually violating the constant-time guarantee. What\u0027s going on is that constant_time_lt(a, b) internally computes a - b. GCC appears to have an optimization where, if a loop has multiple values that can be divided into loop_counter + loop_invariant_value, it will compute all the loop-invariant values once and then rely on the loop counter increment to shift all of them.\n\nFor example, it might transform this into.\n\n   loop j from block_start to SHA_CBLOCK\n   idx \u003d j + (input_idx - block_start)\n   idx - len \u003d j + (input_idx - block_start - len)\n   j \u003d j + 0\n\nThis is a fine decomposition and does not upset valgrind. The public values are made up of public components. However, it would be just as valid to transform this into:\n\n  loop j\u0027 from block_start - len to SHA_CBLOCK - len\n  idx \u003d j\u0027 + (input_idx - block_start + len)\n  idx - len \u003d j\u0027 + (input_idx - block_start)\n  j \u003d j\u0027 + len\n\nThis is arguably still fine (well, as fine as anything ever is given we have no hard CPU-level guarantees), but it confuses taint-tracking analysis of constant-time because j, a public value that gets leaked, is now computed as the sum of two secret values. It just happens that that these two secret values have a public relation and add to a public value.\n\nGCC is doing something along these lines. I\u0027ve probably omitted some public offset that went into j\u0027, and presumably it\u0027s computing \u0026block[j] rather than j, but whatever. I traced through execution at the problematic point with GCC and printed all the shadow registers to confirm the secret component of the leaked \"secret\" was a register that got cancelled out.\n\nAs for the suggestion, applying value_barrier_w to computing block_start would not work. First of all, it\u0027s public, so adding that would just be weird. More important, GCC does not need to know any properties of block_start to perform this transformation. I believe value barrier on len is actually inhibiting this optimization by tricking GCC into thinking len might change in the loop. (I\u0027m actually a little confused why it\u0027s doing that, TBH. We\u0027re somewhat intentionally using non-volatile empty asm blocks because loop-invariant code motion is normally a fine constant-time preserving optimization.)\n\nAs to whether any of the constant_time functions are guaranteeing what we want, of course they aren\u0027t. :-) We have no compiler-level promises of any sort. Value barriers are a completely unsound hack until some real support materializes in compilers.",
+      "parentUuid": "c20dd078_a52cef5f",
+      "revId": "669ffe64a498a16ed8a339758c3abedcbb3d9522",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
