@@ -52,6 +52,24 @@
       "parentUuid": "b6980fab_0097f674",
       "revId": "669ffe64a498a16ed8a339758c3abedcbb3d9522",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "733ded81_887b3a66",
+        "filename": "crypto/cipher_extra/tls_cbc.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-09T19:17:43Z",
+      "side": 1,
+      "message": "\u003e I believe value barrier on len is actually inhibiting this optimization by tricking GCC into thinking len might change in the loop.\n\nAnother theory is that, by forcing GCC to stuff len into a register at *some* point in the computation, it\u0027s making less annoying decisions in which offsets to shift into the loop counter.\n\n(Happy to consider a better place to put this, or another strategy, if you have ideas. But we\u0027re only ever going to trade off a hacky unsound workaround for another hacky unsound workaround that is hopefully less fragile.)",
+      "parentUuid": "53fadd15_b98d8b8b",
+      "revId": "669ffe64a498a16ed8a339758c3abedcbb3d9522",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
