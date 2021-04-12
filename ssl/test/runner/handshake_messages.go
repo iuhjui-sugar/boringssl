@@ -296,14 +296,37 @@ func MarshalECHConfigList(configs ...*ECHConfig) []byte {
 	return bb.finish()
 }
 
+type ServerECHConfig struct {
+	ECHConfig ECHConfig
+	SecretKey []byte
+}
+
 // The contents of a CH "encrypted_client_hello" extension.
-// https://tools.ietf.org/html/draft-ietf-tls-esni-09
+// https://tools.ietf.org/html/draft-ietf-tls-esni-10
 type clientECH struct {
 	hpkeKDF  uint16
 	hpkeAEAD uint16
 	configID uint8
 	enc      []byte
 	payload  []byte
+}
+
+type echOuterExtensions []uint16
+
+func (e *echOuterExtensions) unmarshal(data []byte) bool {
+	reader := byteReader(data)
+	var extReader byteReader
+	if !reader.readU8LengthPrefixed(&extReader) {
+		return false
+	}
+	for len(extReader) > 0 {
+		var ext uint16
+		if !extReader.readU16(&ext) {
+			return false
+		}
+		*e = append(*e, ext)
+	}
+	return true
 }
 
 type clientHelloMsg struct {
@@ -839,37 +862,137 @@ func checkDuplicateExtensions(extensions byteReader) bool {
 	return true
 }
 
-func (m *clientHelloMsg) unmarshal(data []byte) bool {
+// unmarshalUntilExtensions parses a ClientHello message from |data| up to the
+// optional extensions.
+func (m *clientHelloMsg) unmarshalUntilExtensions(data []byte) (beforeExtensions []byte, extensions byteReader, ok bool) {
 	m.raw = data
 	reader := byteReader(data[4:])
 	if !reader.readU16(&m.vers) ||
 		!reader.readBytes(&m.random, 32) ||
 		!reader.readU8LengthPrefixedBytes(&m.sessionID) ||
 		len(m.sessionID) > 32 {
-		return false
+		return nil, nil, false
 	}
 	if m.isDTLS {
 		if !reader.readU8LengthPrefixedBytes(&m.cookie) ||
 			len(m.cookie) > 32 {
-			return false
+			return nil, nil, false
 		}
 	}
 	var cipherSuites byteReader
 	if !reader.readU16LengthPrefixed(&cipherSuites) ||
 		!reader.readU8LengthPrefixedBytes(&m.compressionMethods) {
-		return false
+		return nil, nil, false
 	}
 
 	m.cipherSuites = make([]uint16, 0, len(cipherSuites)/2)
 	for len(cipherSuites) > 0 {
 		var v uint16
 		if !cipherSuites.readU16(&v) {
-			return false
+			return nil, nil, false
 		}
 		m.cipherSuites = append(m.cipherSuites, v)
 		if v == scsvRenegotiation {
 			m.secureRenegotiation = []byte{}
 		}
+	}
+
+	// ClientHello is optionally followed by extension data
+	if !reader.readU16LengthPrefixed(&extensions) {
+		return nil, nil, false
+	}
+	if len(reader) == 0 {
+		return data[:len(data)-len(extensions)-2], extensions, true
+	}
+	return nil, nil, false
+}
+
+// decodeClientHelloInner reconstructs the ClientHelloInner message from an
+// EncodedClientHelloInner in |encoded| and a ClientHelloOuter in |outer|. The
+// ClientHelloInner's session ID is copied from the ClientHelloOuter. If
+// present, the ClientHelloInner's outer_extensions extension is replaced with
+// the relevant extensions from the ClientHelloOuter.
+func (m *clientHelloMsg) decodeClientHelloInner(encoded []byte, outer []byte) bool {
+	var outerPartial clientHelloMsg
+	_, outerExtensions, ok := outerPartial.unmarshalUntilExtensions(outer)
+	if !ok {
+		return false
+	}
+	var encodedPartial clientHelloMsg
+	_, extensions, ok := encodedPartial.unmarshalUntilExtensions(encoded)
+	if !ok {
+		return false
+	}
+
+	// Synthesize the serialized ClientHelloInner, then unmarshal. This way,
+	// |m.raw| will exactly match the recovered ClientHelloInner.
+	inner := newByteBuilder()
+	inner.addU8(typeClientHello)
+	innerBody := inner.addU24LengthPrefixed()
+	innerBody.addU16(encodedPartial.vers)
+	innerBody.addBytes(encodedPartial.random)
+	innerBody.addU8LengthPrefixed().addBytes(outerPartial.sessionID)
+	if encodedPartial.isDTLS {
+		cookie := innerBody.addU8LengthPrefixed()
+		cookie.addBytes(encodedPartial.cookie)
+	}
+	cipherSuites := innerBody.addU16LengthPrefixed()
+	for _, suite := range encodedPartial.cipherSuites {
+		cipherSuites.addU16(suite)
+	}
+	compressionMethods := innerBody.addU8LengthPrefixed()
+	compressionMethods.addBytes(encodedPartial.compressionMethods)
+	innerExtensions := innerBody.addU16LengthPrefixed()
+
+	// Build a lookup map from ClientHelloOuter extension codepoints to bodies.
+	outerExtensionsMap := make(map[uint16][]byte)
+	outerExtensionsReader := byteReader(outerExtensions)
+	for len(outerExtensionsReader) > 0 {
+		var extension uint16
+		var body []byte
+		if !outerExtensionsReader.readU16(&extension) ||
+			!outerExtensionsReader.readU16LengthPrefixedBytes(&body) {
+			return false
+		}
+		outerExtensionsMap[extension] = body
+	}
+
+	extensionsReader := byteReader(extensions)
+	for len(extensionsReader) > 0 {
+		var extension uint16
+		var body []byte
+		if !extensions.readU16(&extension) ||
+			!extensions.readU16LengthPrefixedBytes(&body) {
+			return false
+		}
+		if extension != extensionECHOuterExtensions {
+			innerExtensions.addU16(extension)
+			innerExtensions.addU16LengthPrefixed().addBytes(body)
+			continue
+		}
+		// Parse the "outer_extensions" extension and append each referenced
+		// extension from the ClientHelloOuter to the ClientHelloInner.
+		var outerExts echOuterExtensions
+		if !outerExts.unmarshal(body) {
+			return false
+		}
+		for _, outerExt := range outerExts {
+			outerBody, ok := outerExtensionsMap[outerExt]
+			if !ok {
+				return false
+			}
+			innerExtensions.addU16(outerExt)
+			innerExtensions.addU16LengthPrefixed().addBytes(outerBody)
+		}
+	}
+
+	return m.unmarshal(inner.finish())
+}
+
+func (m *clientHelloMsg) unmarshal(data []byte) bool {
+	_, extensions, ok := m.unmarshalUntilExtensions(data)
+	if !ok {
+		return false
 	}
 
 	m.nextProtoNeg = false
@@ -889,13 +1012,7 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 	m.delegatedCredentials = false
 	m.alpsProtocols = nil
 
-	if len(reader) == 0 {
-		// ClientHello is optionally followed by extension data
-		return true
-	}
-
-	var extensions byteReader
-	if !reader.readU16LengthPrefixed(&extensions) || len(reader) != 0 || !checkDuplicateExtensions(extensions) {
+	if !checkDuplicateExtensions(extensions) {
 		return false
 	}
 	for len(extensions) > 0 {
@@ -935,6 +1052,12 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 				return false
 			}
 			m.clientECH = &ech
+		case extensionECHOuterExtensions:
+			var outerExts echOuterExtensions
+			if !outerExts.unmarshal(body) {
+				return false
+			}
+			m.outerExtensions = outerExts
 		case extensionNextProtoNeg:
 			if len(body) != 0 {
 				return false
