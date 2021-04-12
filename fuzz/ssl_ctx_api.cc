@@ -19,6 +19,7 @@
 
 #include <assert.h>
 
+#include <openssl/base.h>
 #include <openssl/bytestring.h>
 #include <openssl/err.h>
 #include <openssl/evp.h>
@@ -220,6 +221,7 @@ struct GlobalState {
   bssl::UniquePtr<EVP_PKEY> pkey_;
   bssl::UniquePtr<X509> cert_;
   bssl::UniquePtr<STACK_OF(X509)> certs_;
+  bssl::UniquePtr<SSL_ECH_SERVER_CONFIG_LIST> ech_server_config_list_;
 };
 
 static GlobalState g_state;
@@ -248,6 +250,18 @@ static bool GetVector(std::vector<T> *out, CBS *cbs) {
   out->resize(num);
   out->shrink_to_fit();  // Ensure ASan notices out-of-bounds reads.
   OPENSSL_memcpy(out->data(), CBS_data(&child), num * sizeof(T));
+  return true;
+}
+
+template <typename T>
+static bool GetPOD(T *out, CBS *cbs) {
+  static_assert(std::is_pod<T>::value,
+                "GetPOD may only be called on POD types");
+  CBS raw;
+  if (!CBS_get_bytes(cbs, &raw, sizeof(T))) {
+    return false;
+  }
+  OPENSSL_memcpy(out, CBS_data(&raw), sizeof(T));
   return true;
 }
 
@@ -490,6 +504,33 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t *buf, size_t len) {
           return;
         }
         SSL_CTX_set1_sigalgs_list(ctx, sigalgs.c_str());
+      },
+      [](SSL_CTX *ctx, CBS *cbs) {
+        g_state.ech_server_config_list_.reset(SSL_ECH_SERVER_CONFIG_LIST_new());
+      },
+      [](SSL_CTX *ctx, CBS *cbs) {
+        if (g_state.ech_server_config_list_ == nullptr) {
+          return;
+        }
+        int is_retry_config;
+        CBS ech_config, private_key;
+        if (!GetPOD(&is_retry_config, cbs) ||
+            !CBS_get_u16_length_prefixed(cbs, &ech_config) ||
+            !CBS_get_bytes(cbs, &private_key, CBS_len(cbs))) {
+          return;
+        }
+        SSL_ECH_SERVER_CONFIG_LIST_add(
+            g_state.ech_server_config_list_.get(), is_retry_config,
+            CBS_data(&ech_config), CBS_len(&ech_config), CBS_data(&private_key),
+            CBS_len(&private_key));
+      },
+      [](SSL_CTX *ctx, CBS *cbs) {
+        if (g_state.ech_server_config_list_ == nullptr) {
+          return;
+        }
+        SSL_CTX_set1_ech_server_config_list(
+            ctx, g_state.ech_server_config_list_.get());
+        g_state.ech_server_config_list_.reset();
       },
   };
 
