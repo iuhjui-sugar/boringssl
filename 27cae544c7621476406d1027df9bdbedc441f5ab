@@ -16,6 +16,24 @@
       "message": "This is more of a code dump than a CL, sorry about that. I plan to clean it up a little bit this week, and separate it as I mentioned in the commit description.",
       "revId": "27cae544c7621476406d1027df9bdbedc441f5ab",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddcdcf39_cd9e3c2a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-04-12T22:43:08Z",
+      "side": 1,
+      "message": "I went ahead and split out the ssl/test/runner code from this CL\u0027s first patchset into https://boringssl-review.googlesource.com/c/boringssl/+/46786/1",
+      "parentUuid": "9c15c8b7_11b2bc0c",
+      "revId": "27cae544c7621476406d1027df9bdbedc441f5ab",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
