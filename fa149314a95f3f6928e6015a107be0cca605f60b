@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb61247e_54084d22",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-04-12T16:31:44Z",
+      "side": 1,
+      "message": "Should I run \"refresh_ssl_corpora.sh\" and upload a followup CL?",
+      "revId": "fa149314a95f3f6928e6015a107be0cca605f60b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14085288_9861c69c",
+        "filename": "fuzz/ssl_ctx_api.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-04-12T16:31:44Z",
+      "side": 1,
+      "message": "Do you mind if I define this helper function with only 1 caller?",
+      "range": {
+        "startLine": 257,
+        "startChar": 12,
+        "endLine": 257,
+        "endChar": 18
+      },
+      "revId": "fa149314a95f3f6928e6015a107be0cca605f60b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
