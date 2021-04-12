@@ -35,6 +35,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "78dec69f_1e604516",
+        "filename": "fuzz/ssl_ctx_api.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-04-12T22:15:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c073b0f_5934abe6",
+      "revId": "b2fd7f26725ce81bf7802de9e81d3adcacb3bf2f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "89f79033_dc6201cd",
@@ -48,6 +66,24 @@
       "writtenOn": "2021-04-12T18:40:36Z",
       "side": 1,
       "message": "Oh! Sorry, I missed this from the first patchset. Neither this nor the original version which consumed all of cbs for the private key are right. Notice how, in line 528, the entire cbs is passed into the function.\n\nThe calling convention for these functions is you consume off however much you need with a self-delimited structure. You can\u0027t unconditionally grab the rest of the input, or you\u0027ll break subsequent function calls.\n\nThat means this needs to use CBS_get_uN_length_prefixed for *both* the ech_config and private_key fields, and leave the remainder of cbs for other functions.",
+      "revId": "b2fd7f26725ce81bf7802de9e81d3adcacb3bf2f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "544ae4f6_3a0537a6",
+        "filename": "fuzz/ssl_ctx_api.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-04-12T22:15:11Z",
+      "side": 1,
+      "message": "Gotcha, thanks for catching that.",
+      "parentUuid": "89f79033_dc6201cd",
       "revId": "b2fd7f26725ce81bf7802de9e81d3adcacb3bf2f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
