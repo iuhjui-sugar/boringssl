@@ -54,6 +54,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b71e5872_d919bf68",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-12T18:41:40Z",
+      "side": 1,
+      "message": "I suspect that corpus was just the result of running the fuzzer a bit and checking a minified corpus in. That\u0027s something the fuzzer infrastructure can do on its own, so I\u0027d just leave that alone.",
+      "parentUuid": "013ddbb2_f1fbc0c2",
+      "revId": "fa149314a95f3f6928e6015a107be0cca605f60b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "14085288_9861c69c",
