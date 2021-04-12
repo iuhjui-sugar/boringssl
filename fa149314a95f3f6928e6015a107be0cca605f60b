@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "013ddbb2_f1fbc0c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-04-12T18:17:30Z",
+      "side": 1,
+      "message": "Sorry, I really am asking\n\n* How is this fuzzer\u0027s corpus generated?\n* Should I regenerate the corpus?",
+      "parentUuid": "2f3c20bf_1bc8dac1",
+      "revId": "fa149314a95f3f6928e6015a107be0cca605f60b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "14085288_9861c69c",
         "filename": "fuzz/ssl_ctx_api.cc",
         "patchSetId": 2
@@ -85,6 +103,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "411a2b52_1e5dad3a",
+        "filename": "fuzz/ssl_ctx_api.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-04-12T18:17:30Z",
+      "side": 1,
+      "message": "OK, I suppose I don\u0027t need the full genericity of this GetPOD function. Doesn\u0027t the GetVector function suffer from the same multiple-representations problem?",
+      "parentUuid": "61477af8_198d2cd6",
+      "range": {
+        "startLine": 257,
+        "startChar": 12,
+        "endLine": 257,
+        "endChar": 18
+      },
+      "revId": "fa149314a95f3f6928e6015a107be0cca605f60b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a35db641_ca3eb5d2",
         "filename": "fuzz/ssl_ctx_api.cc",
         "patchSetId": 2
@@ -96,6 +138,24 @@
       "writtenOn": "2021-04-12T16:47:36Z",
       "side": 1,
       "message": "This is needlessly reducing fuzzing coverage by forcing the fuzzer hit this function before hitting the following one. (There is zero fuzzing benefit in testing SSL_ECH_SERVER_CONFIG_LIST_new standalone.)\n\nInstead, fold this into the function below.",
+      "revId": "fa149314a95f3f6928e6015a107be0cca605f60b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ef699d3_df485f1e",
+        "filename": "fuzz/ssl_ctx_api.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-04-12T18:17:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a35db641_ca3eb5d2",
       "revId": "fa149314a95f3f6928e6015a107be0cca605f60b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -117,6 +177,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1078e576_75f5c6ba",
+        "filename": "fuzz/ssl_ctx_api.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-04-12T18:17:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2feab6a7_8c70cef3",
+      "revId": "fa149314a95f3f6928e6015a107be0cca605f60b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b2be3341_aa15ea45",
@@ -134,6 +212,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "842bbb85_1fccdeaf",
+        "filename": "fuzz/ssl_ctx_api.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-04-12T18:17:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2be3341_aa15ea45",
+      "revId": "fa149314a95f3f6928e6015a107be0cca605f60b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d77a567c_b1e4ea6f",
@@ -147,6 +243,24 @@
       "writtenOn": "2021-04-12T16:47:36Z",
       "side": 1,
       "message": "This causes the size of the SSL_ECH_SERVER_CONFIG_LIST to grow each time we call this. That\u0027s working as intended w.r.t. the API, but it means we need to stop the fuzzer from going into space.\n\nElsewhere we use kMaxExpensiveAPIs to bound the list, but it\u0027s probably better to just fold it into the following function because the fuzzing benefit of exploring different sizes of config lists is fairly minimal. It\u0027s really the config parser that\u0027s interesting.\n\nIn particular, since SSL_ECH_SERVER_CONFIG_LIST_add checks the public and private keys against each other, we\u0027ll approximately never actually install an ECH config. That\u0027s fine because we\u0027re mostly interested in the server ECHConfig parser, but it means there\u0027s not much point in trying to test things beyond that.",
+      "revId": "fa149314a95f3f6928e6015a107be0cca605f60b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05ab7319_041adfe5",
+        "filename": "fuzz/ssl_ctx_api.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-04-12T18:17:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d77a567c_b1e4ea6f",
       "revId": "fa149314a95f3f6928e6015a107be0cca605f60b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
