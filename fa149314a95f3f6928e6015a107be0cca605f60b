@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f3c20bf_1bc8dac1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-12T16:47:36Z",
+      "side": 1,
+      "message": "The script won\u0027t do anything for this fuzzer.",
+      "parentUuid": "fb61247e_54084d22",
+      "revId": "fa149314a95f3f6928e6015a107be0cca605f60b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "14085288_9861c69c",
@@ -37,6 +55,98 @@
         "endLine": 257,
         "endChar": 18
       },
+      "revId": "fa149314a95f3f6928e6015a107be0cca605f60b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61477af8_198d2cd6",
+        "filename": "fuzz/ssl_ctx_api.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-12T16:47:36Z",
+      "side": 1,
+      "message": "The helper isn\u0027t what we want to do here anyway because is_retry_config is just a boolean.\n\nIt\u0027s also not quite right since POD types may have trap representations. POD does not imply all bit patterns are valid. (Even pointers are POD.)",
+      "parentUuid": "14085288_9861c69c",
+      "range": {
+        "startLine": 257,
+        "startChar": 12,
+        "endLine": 257,
+        "endChar": 18
+      },
+      "revId": "fa149314a95f3f6928e6015a107be0cca605f60b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a35db641_ca3eb5d2",
+        "filename": "fuzz/ssl_ctx_api.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-12T16:47:36Z",
+      "side": 1,
+      "message": "This is needlessly reducing fuzzing coverage by forcing the fuzzer hit this function before hitting the following one. (There is zero fuzzing benefit in testing SSL_ECH_SERVER_CONFIG_LIST_new standalone.)\n\nInstead, fold this into the function below.",
+      "revId": "fa149314a95f3f6928e6015a107be0cca605f60b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2feab6a7_8c70cef3",
+        "filename": "fuzz/ssl_ctx_api.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-12T16:47:36Z",
+      "side": 1,
+      "message": "Nit: Better to make the private key the length-prefixed thing and the config the remainder. The private key is the less complex structure and the one we\u0027re less interested in.\n\n(TBH we could probably even hard-code a random value.)",
+      "revId": "fa149314a95f3f6928e6015a107be0cca605f60b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2be3341_aa15ea45",
+        "filename": "fuzz/ssl_ctx_api.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-12T16:47:36Z",
+      "side": 1,
+      "message": "This line is exactly the same as private_key \u003d cbs. Just use cbs directly.",
+      "revId": "fa149314a95f3f6928e6015a107be0cca605f60b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d77a567c_b1e4ea6f",
+        "filename": "fuzz/ssl_ctx_api.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-12T16:47:36Z",
+      "side": 1,
+      "message": "This causes the size of the SSL_ECH_SERVER_CONFIG_LIST to grow each time we call this. That\u0027s working as intended w.r.t. the API, but it means we need to stop the fuzzer from going into space.\n\nElsewhere we use kMaxExpensiveAPIs to bound the list, but it\u0027s probably better to just fold it into the following function because the fuzzing benefit of exploring different sizes of config lists is fairly minimal. It\u0027s really the config parser that\u0027s interesting.\n\nIn particular, since SSL_ECH_SERVER_CONFIG_LIST_add checks the public and private keys against each other, we\u0027ll approximately never actually install an ECH config. That\u0027s fine because we\u0027re mostly interested in the server ECHConfig parser, but it means there\u0027s not much point in trying to test things beyond that.",
       "revId": "fa149314a95f3f6928e6015a107be0cca605f60b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
