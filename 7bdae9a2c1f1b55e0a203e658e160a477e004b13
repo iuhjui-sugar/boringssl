@@ -16,6 +16,23 @@
       "message": "New patchset!",
       "revId": "7bdae9a2c1f1b55e0a203e658e160a477e004b13",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45069172_f4cb922b",
+        "filename": "fuzz/ssl_ctx_api.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-12T22:36:00Z",
+      "side": 1,
+      "message": "Oh, one last comment (I\u0027ll just go fix this), every header includes base.h, so we usually don\u0027t include it explicitly outside of forward decls.",
+      "revId": "7bdae9a2c1f1b55e0a203e658e160a477e004b13",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
