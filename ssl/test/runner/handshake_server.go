@@ -13,11 +13,14 @@ import (
 	"crypto/rsa"
 	"crypto/subtle"
 	"crypto/x509"
+	"encoding/hex"
 	"errors"
 	"fmt"
 	"io"
 	"math/big"
 	"time"
+
+	"boringssl.googlesource.com/boringssl/ssl/test/runner/hpke"
 )
 
 // serverHandshakeState contains details of a server handshake in progress.
@@ -35,6 +38,10 @@ type serverHandshakeState struct {
 	certsFromClient [][]byte
 	cert            *Certificate
 	finishedBytes   []byte
+	echRetryConfigs []byte
+	echAccepted     bool
+	echHpkeContext  *hpke.Context
+	clientECH       *clientECH
 }
 
 // serverHandshake performs a TLS handshake as a server.
@@ -168,6 +175,72 @@ func (hs *serverHandshakeState) readClientHello() error {
 		return fmt.Errorf("tls: ClientHello record size is %d, but expected %d", len(hs.clientHello.raw), size)
 	}
 
+	var echCheckTLS13 bool
+	if len(config.ServerECHConfigs) > 0 && config.ClientECHConfig != nil {
+		panic("config specified both ServerECHConfigs and ClientECHConfig")
+	}
+
+	// Before we do anything with |hs.clientHello|, check if it should be
+	// replaced by ECH.
+	if len(config.ServerECHConfigs) > 0 && (hs.clientHello.clientECH != nil || hs.clientHello.echIsInner != nil) {
+		hs.clientECH = hs.clientHello.clientECH
+
+		if hs.clientHello.echIsInner != nil {
+			hs.echAccepted = true
+			c.echAccepted = true
+		} else {
+			// Postpone the version check until we've tentatively negotiated
+			// a TLS version.
+			echCheckTLS13 = true
+
+			candidateECHConfigs := config.ServerECHConfigs
+
+			// Eliminate candidate ECHConfigs based on the record digest.
+			chosenConfig, err := hs.clientECH.findMatchingConfig(config.ServerECHConfigs)
+			if err == nil {
+				candidateECHConfigs = []ServerECHConfig{*chosenConfig}
+			}
+
+			// Trial decrypt with each of the candidate ECHConfigs.
+			var clientHelloInner *clientHelloMsg
+			var decryptSuccess bool
+			clientHelloInner, hs.echHpkeContext, decryptSuccess, err = hs.clientECH.trialDecrypt(candidateECHConfigs, hs.clientHello.raw, nil)
+			if err != nil {
+				c.sendAlert(alertDecryptError)
+				return fmt.Errorf("error while attempting to decrypt ECH: %s", err)
+			}
+
+			// If none of the candidate ECHConfigs could be used to decrypt the
+			// client's message, ignore the extension and proceed with the
+			// connection using the outer CH.
+			if decryptSuccess {
+				hs.echAccepted = true
+				c.echAccepted = true
+
+				// chOuter := hs.clientHello
+
+				fmt.Println("**** replacing outer CH with clientHelloInner")
+				fmt.Println(hex.Dump(clientHelloInner.marshal()[4:]))
+				// // Replace the outer CH with the decrypted inner CH.
+				hs.clientHello = clientHelloInner
+				// // Copy the legacy_session_id field from ClientHelloOuter.
+				// hs.clientHello.sessionID = chOuter.sessionID
+				// //hs.clientHello.raw = nil
+			} else {
+				if len(config.Bugs.SendECHRetryConfigs) > 0 {
+					hs.echRetryConfigs = config.Bugs.SendECHRetryConfigs
+				} else {
+					echConfigs := newByteBuilder()
+					echConfigsBody := echConfigs.addU16LengthPrefixed()
+					for _, serverECHConfig := range config.ServerECHConfigs {
+						echConfigsBody.addBytes(MarshalECHConfig(&serverECHConfig.ECHConfig))
+					}
+					hs.echRetryConfigs = echConfigs.finish()
+				}
+			}
+		}
+	}
+
 	if c.isDTLS && !config.Bugs.SkipHelloVerifyRequest {
 		// Per RFC 6347, the version field in HelloVerifyRequest SHOULD
 		// be always DTLS 1.0
@@ -284,6 +357,11 @@ func (hs *serverHandshakeState) readClientHello() error {
 		panic("Could not map wire version")
 	}
 	c.haveVers = true
+
+	if echCheckTLS13 && c.vers < VersionTLS13 {
+		c.sendAlert(alertHandshakeFailure)
+		return errors.New("ech requires TLS 1.3 or greater")
+	}
 
 	clientProtocol, ok := wireToVersion(c.clientVersion, c.isDTLS)
 
@@ -454,7 +532,12 @@ func (hs *serverHandshakeState) doTLS13Handshake() error {
 	}
 
 	hs.finishedHash = newFinishedHash(c.wireVersion, c.isDTLS, hs.suite)
-	hs.finishedHash.discardHandshakeBuffer()
+
+	fmt.Printf("*** ECH accepted? %v\n", hs.echAccepted)
+	if !hs.echAccepted {
+		// Only keep the buffer if we need to compute ech_accept_confirmation.
+		hs.finishedHash.discardHandshakeBuffer()
+	}
 	hs.writeClientHash(hs.clientHello.marshal())
 
 	supportedCurve := false
@@ -620,8 +703,14 @@ ResendHelloRetryRequest:
 		sendHelloRetryRequest = false
 	}
 
+	fmt.Println("###### sendHelloRetryRequest:", sendHelloRetryRequest)
 	if sendHelloRetryRequest {
 		hs.finishedHash.UpdateForHelloRetryRequest()
+
+		// TODO(dmcardle) do the right thing for ECH here
+
+		//oldClientHelloBytes := hs.clientHello.marshal()
+
 		hs.writeServerHash(helloRetryRequest.marshal())
 		if c.config.Bugs.PartialServerHelloWithHelloRetryRequest {
 			data := helloRetryRequest.marshal()
@@ -649,6 +738,41 @@ ResendHelloRetryRequest:
 			c.sendAlert(alertUnexpectedMessage)
 			return unexpectedMessageError(newClientHello, newMsg)
 		}
+
+		fmt.Println("##### hs.echAccepted:", hs.echAccepted)
+		fmt.Println("##### hs.clientECH:", hs.clientECH)
+		if hs.echAccepted && hs.clientECH != nil {
+			if newClientHello.clientECH == nil {
+				c.sendAlert(alertMissingExtension)
+				return fmt.Errorf("tls: second ClientHelloOuter had no encrypted_client_hello extension")
+			}
+
+			if newClientHello.clientECH.hpkeAEAD != hs.clientECH.hpkeAEAD ||
+				newClientHello.clientECH.hpkeKDF != hs.clientECH.hpkeKDF {
+				c.sendAlert(alertIllegalParameter)
+				return fmt.Errorf("tls: second ECH ciphersuite changed in second ClientHelloOuter")
+			}
+			if len(newClientHello.clientECH.configID) != 0 {
+				c.sendAlert(alertIllegalParameter)
+				return fmt.Errorf("tls: second ClientECH had non-empty config_id")
+			}
+			if len(newClientHello.clientECH.enc) != 0 {
+				c.sendAlert(alertIllegalParameter)
+				return fmt.Errorf("tls: second ClientECH had non-empty enc")
+			}
+
+			// Reuse the previous ECH HPKE context to decrypt the payload.
+			var clientHelloInner *clientHelloMsg
+			var decryptSuccess bool
+			clientHelloInner, _, decryptSuccess, err = newClientHello.clientECH.trialDecrypt(config.ServerECHConfigs, hs.clientHello.raw, hs.echHpkeContext)
+			if err != nil || !decryptSuccess {
+				c.sendAlert(alertDecryptError)
+				return fmt.Errorf("tls: failed to decrypt second ECH (%s)", err)
+			}
+
+			newClientHello = clientHelloInner
+		}
+
 		hs.writeClientHash(newClientHello.marshal())
 
 		if config.Bugs.ExpectNoTLS13PSKAfterHRR && len(newClientHello.pskIdentities) > 0 {
@@ -749,6 +873,7 @@ ResendHelloRetryRequest:
 			}
 		}
 		if encryptedExtensions.extensions.hasEarlyData {
+			// TODO(dmcardle) should this happen after computing ech_accept_confirmation?
 			earlyTrafficSecret := hs.finishedHash.deriveSecret(earlyTrafficLabel)
 			c.earlyExporterSecret = hs.finishedHash.deriveSecret(earlyExporterLabel)
 
@@ -815,6 +940,7 @@ ResendHelloRetryRequest:
 		}
 		hs.finishedHash.nextSecret()
 		hs.finishedHash.addEntropy(ecdheSecret)
+
 		hs.hello.hasKeyShare = true
 
 		curveID := selectedCurve
@@ -841,6 +967,15 @@ ResendHelloRetryRequest:
 		hs.finishedHash.nextSecret()
 		hs.finishedHash.addEntropy(hs.finishedHash.zeroSecret())
 	}
+
+	// Overwrite part of ServerHello.random to signal ECH acceptance to the client.
+	if hs.echAccepted {
+		echAcceptConfirmation := hs.finishedHash.deriveSecretPeek([]byte("ech accept confirmation"), hs.hello.marshalForECHConf())
+		copy(hs.hello.random[24:], echAcceptConfirmation)
+		hs.hello.raw = nil
+	}
+	// Discard the buffer after computing ech_accept_confirmation.
+	hs.finishedHash.discardHandshakeBuffer()
 
 	// Send unencrypted ServerHello.
 	helloBytes := hs.hello.marshal()
@@ -1392,7 +1527,7 @@ func (hs *serverHandshakeState) processClientExtensions(serverExtensions *server
 		hs.cert = config.getCertificateForName(hs.clientHello.serverName)
 	}
 	if expected := c.config.Bugs.ExpectServerName; expected != "" && expected != hs.clientHello.serverName {
-		return errors.New("tls: unexpected server name")
+		return fmt.Errorf("tls: unexpected server name: expected \"%s\", got \"%s\"", expected, hs.clientHello.serverName)
 	}
 
 	if cert := config.Bugs.RenegotiationCertificate; c.cipherSuite != nil && cert != nil {
@@ -2172,6 +2307,8 @@ func (hs *serverHandshakeState) writeServerHash(msg []byte) {
 }
 
 func (hs *serverHandshakeState) writeClientHash(msg []byte) {
+	fmt.Println("*** writeClientHash")
+	fmt.Println(hex.Dump(msg))
 	// writeClientHash is called after readHandshake.
 	hs.finishedHash.WriteHandshake(msg, hs.c.recvHandshakeSeq-1)
 }
