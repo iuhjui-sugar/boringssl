@@ -43,6 +43,9 @@ struct TestConfig {
   std::vector<std::string> ech_server_configs;
   std::vector<std::string> ech_server_keys;
   std::vector<int> ech_is_retry_config;
+  // TODO(dmcardle) make ech_configs a std::vector<std::string>?
+  std::string ech_configs;
+  std::string expect_ech_retry_config_list;
   std::string expect_certificate_types;
   bool require_any_client_certificate = false;
   std::string advertise_npn;

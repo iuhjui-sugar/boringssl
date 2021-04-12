@@ -1468,6 +1468,53 @@ const char *SSL_error_description(int err) {
   }
 }
 
+int SSL_set_ech_configs(SSL *ssl, const uint8_t *ech_configs,
+                        size_t ech_configs_len) {
+  CBS reader(MakeConstSpan(ech_configs, ech_configs_len));
+  CBS body;
+  if (!CBS_get_u16_length_prefixed(&reader, &body) ||  //
+      CBS_len(&reader) != 0) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
+    return 0;
+  }
+  // Parse all the ECHConfig values from |body|. Save the first suitable config
+  // in |chosen_config|.
+  UniquePtr<ECHClientConfig> chosen_config;
+  while (CBS_len(&body) > 0) {
+    ECHClientConfig config;
+    bool suitable;
+    if (!config.Init(&body, &suitable)) {
+      OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
+      return 0;
+    }
+    if (suitable && !chosen_config) {
+      chosen_config = MakeUnique<ECHClientConfig>(std::move(config));
+    }
+  }
+  if (CBS_len(&body) != 0) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
+    return 0;
+  }
+  if (!chosen_config) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_NO_SUITABLE_ECH_CONFIG);
+    return 0;
+  }
+  ssl->ech_config = std::move(chosen_config);
+  return 1;
+}
+
+void SSL_get_ech_retry_config_list(const SSL *ssl,
+                                   const uint8_t **out_config_list,
+                                   size_t *out_config_list_len) {
+  *out_config_list = nullptr;
+  *out_config_list_len = 0;
+
+  if (!ssl->ech_retry_configs.empty()) {
+    *out_config_list = ssl->ech_retry_configs.data();
+    *out_config_list_len = ssl->ech_retry_configs.size();
+  }
+}
+
 void SSL_set_enable_ech_grease(SSL *ssl, int enable) {
   if (!ssl->config) {
     return;

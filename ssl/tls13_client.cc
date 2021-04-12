@@ -29,6 +29,7 @@
 
 #include "../crypto/internal.h"
 #include "internal.h"
+#include "openssl/ssl3.h"
 
 
 BSSL_NAMESPACE_BEGIN
@@ -305,6 +306,7 @@ static enum ssl_hs_wait_t do_read_server_hello(SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
+
   OPENSSL_memcpy(ssl->s3->server_random, CBS_data(&server_random),
                  SSL3_RANDOM_SIZE);
 
@@ -411,17 +413,6 @@ static enum ssl_hs_wait_t do_read_server_hello(SSL_HANDSHAKE *hs) {
   size_t hash_len =
       EVP_MD_size(ssl_get_handshake_digest(ssl_protocol_version(ssl), cipher));
 
-  // Set up the key schedule and incorporate the PSK into the running secret.
-  if (ssl->s3->session_reused) {
-    if (!tls13_init_key_schedule(
-            hs, MakeConstSpan(hs->new_session->secret,
-                              hs->new_session->secret_length))) {
-      return ssl_hs_error;
-    }
-  } else if (!tls13_init_key_schedule(hs, MakeConstSpan(kZeroes, hash_len))) {
-    return ssl_hs_error;
-  }
-
   if (!have_key_share) {
     // We do not support psk_ke and thus always require a key share.
     OPENSSL_PUT_ERROR(SSL, SSL_R_MISSING_KEY_SHARE);
@@ -429,7 +420,7 @@ static enum ssl_hs_wait_t do_read_server_hello(SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
-  // Resolve ECDHE and incorporate it into the secret.
+  // Resolve ECDHE.
   Array<uint8_t> dhe_secret;
   alert = SSL_AD_DECODE_ERROR;
   if (!ssl_ext_key_share_parse_serverhello(hs, &dhe_secret, &alert,
@@ -438,10 +429,96 @@ static enum ssl_hs_wait_t do_read_server_hello(SSL_HANDSHAKE *hs) {
     return ssl_hs_error;
   }
 
-  if (!tls13_advance_key_schedule(hs, dhe_secret) ||
-      !ssl_hash_message(hs, msg) ||
-      !tls13_derive_handshake_secrets(hs)) {
-    return ssl_hs_error;
+  for (int i = 0; i < 2; i++) {
+    // Set up the key schedule and incorporate the PSK into the running secret.
+    if (ssl->s3->session_reused) {
+      if (!tls13_init_key_schedule(
+              hs, MakeConstSpan(hs->new_session->secret,
+                                hs->new_session->secret_length))) {
+        return ssl_hs_error;
+      }
+    } else if (!tls13_init_key_schedule(hs, MakeConstSpan(kZeroes, hash_len))) {
+      return ssl_hs_error;
+    }
+
+    // Incorporate ECDHE into the secret.
+    if (!tls13_advance_key_schedule(hs, dhe_secret) ||
+        !ssl_hash_message(hs, msg) || !tls13_derive_handshake_secrets(hs)) {
+      return ssl_hs_error;
+    }
+
+    // Break out of the loop if ECH acceptance is trivially resolved.
+    if (hs->ech_accept || !hs->ssl->ech_config) {
+      break;
+    }
+
+    SSLMessage client_hello_inner_msg;
+    SSL_CLIENT_HELLO client_hello_inner_ignored;
+    if (!hs->GetClientHello(&client_hello_inner_msg,
+                            &client_hello_inner_ignored)) {
+      return ssl_hs_error;
+    }
+
+    // Find the beginning of the last 8 bytes of the ServerHello.random. Skip
+    // the Handshake header, the ServerHello.legacy_version, and the first 24
+    // bytes of ServerHello.random.
+    const size_t kAcceptConfirmationOffset = 4 + 2 + 24;
+    CBS server_hello_ech_conf_suffix(msg.raw);
+    CBS server_hello_ech_conf_prefix;
+    if (!CBS_get_bytes(&server_hello_ech_conf_suffix,
+                       &server_hello_ech_conf_prefix,
+                       kAcceptConfirmationOffset) ||
+        !CBS_skip(&server_hello_ech_conf_suffix, 8)) {
+      return ssl_hs_error;
+    }
+
+    // Concatenate ClientHelloInner...ServerHelloECHConf.
+    //
+    // TODO(dmcardle) needs to handle HRR.
+    ScopedCBB messages_cbb;
+    if (!CBB_init(messages_cbb.get(), 0) ||
+        !CBB_add_bytes(messages_cbb.get(),
+                       hs->ech_previous_client_hello_buf.data(),
+                       hs->ech_previous_client_hello_buf.size()) ||
+        // TODO(dmcardle) write previous ServerHelloECHConf here? Alternatively,
+        // store |messages_cbb| on the handshake and append to it here.
+        !CBB_add_bytes(messages_cbb.get(),
+                       CBS_data(&client_hello_inner_msg.raw),
+                       CBS_len(&client_hello_inner_msg.raw)) ||
+        !CBB_add_bytes(messages_cbb.get(),
+                       CBS_data(&server_hello_ech_conf_prefix),
+                       CBS_len(&server_hello_ech_conf_prefix)) ||
+        !CBB_add_bytes(messages_cbb.get(), kZeroes, 8) ||
+        !CBB_add_bytes(messages_cbb.get(),
+                       CBS_data(&server_hello_ech_conf_suffix),
+                       CBS_len(&server_hello_ech_conf_suffix))) {
+      return ssl_hs_error;
+    }
+    uint8_t ech_accept_confirmation[8];
+    if (!tls13_ech_accept_confirmation(
+            hs, ech_accept_confirmation,
+            /*ignore_prior_messages=*/true,
+            MakeConstSpan(CBB_data(messages_cbb.get()),
+                          CBB_len(messages_cbb.get())))) {
+      return ssl_hs_error;
+    }
+
+    // If the server accepted ClientHelloOuter, we're done.
+    if (ech_accept_confirmation !=
+        Span<const uint8_t>(server_random).subspan(24)) {
+      assert(hs->ech_accept == false);
+      break;
+    }
+
+    // Reset the transcript and write the ClientHelloInner instead of the
+    // ClientHelloOuter.
+    if (!hs->transcript.Init() ||
+        !hs->transcript.Update(client_hello_inner_msg.raw)) {
+      return ssl_hs_error;
+    }
+
+    assert(!hs->ech_accept);
+    hs->ech_accept = true;
   }
 
   // If currently sending early data over TCP, we defer installing client
@@ -863,6 +940,9 @@ enum ssl_hs_wait_t tls13_client_handshake(SSL_HANDSHAKE *hs) {
     enum ssl_hs_wait_t ret = ssl_hs_error;
     enum client_hs_state_t state =
         static_cast<enum client_hs_state_t>(hs->tls13_state);
+
+    printf("*** ENTERING TLS13 STATE %s\n", tls13_client_handshake_state(hs));
+
     switch (state) {
       case state_read_hello_retry_request:
         ret = do_read_hello_retry_request(hs);

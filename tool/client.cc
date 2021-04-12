@@ -64,6 +64,12 @@ static const struct argument kArguments[] = {
         "-server-name", kOptionalArgument, "The server name to advertise",
     },
     {
+        "-enable-ech-grease", kBooleanArgument, "Enable ECH GREASE",
+    },
+    {
+        "-client-ech-configs", kOptionalArgument, "Path to file containing serialized ECHConfigs",
+    },
+    {
         "-select-next-proto", kOptionalArgument,
         "An NPN protocol to select if the server supports NPN",
     },
@@ -263,6 +269,45 @@ static bool DoConnection(SSL_CTX *ctx,
 
   if (args_map.count("-server-name") != 0) {
     SSL_set_tlsext_host_name(ssl.get(), args_map["-server-name"].c_str());
+  }
+
+  if (args_map.count("-enable-ech-grease") != 0) {
+    SSL_set_enable_ech_grease(ssl.get(), 1);
+  }
+
+  if (args_map.count("-client-ech-configs") != 0) {
+    // Read the entire ECHConfigs file.
+    bssl::UniquePtr<BIO> echconfigs_bio(BIO_new(BIO_s_file()));
+    if (!echconfigs_bio ||
+        !BIO_read_filename(echconfigs_bio.get(),
+                           args_map["-client-ech-configs"].c_str())) {
+      fprintf(stderr, "Error opening ECHConfigs file\n");
+      return false;
+    }
+    bssl::ScopedCBB cbb;
+    if (!CBB_init(cbb.get(), 0)) {
+      fprintf(stderr, "Error reading ECHConfigs\n");
+      return false;
+    }
+    while (true) {
+      uint8_t chunk[4096];
+      const int bytes_read =
+          BIO_read(echconfigs_bio.get(), chunk, OPENSSL_ARRAY_SIZE(chunk));
+      if (bytes_read == 0) {  // Reached EOF.
+        break;
+      }
+      if (bytes_read <= 0 ||  //
+          !CBB_add_bytes(cbb.get(), chunk, bytes_read)) {
+        fprintf(stderr, "Error reading ECHConfigs\n");
+        return false;
+      }
+    }
+
+    if (!SSL_set_ech_configs(ssl.get(), CBB_data(cbb.get()),
+                             CBB_len(cbb.get()))) {
+      fprintf(stderr, "Error setting ECHConfigs\n");
+      return false;
+    }
   }
 
   if (args_map.count("-session-in") != 0) {

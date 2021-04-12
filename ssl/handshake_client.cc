@@ -313,7 +313,8 @@ bool ssl_write_client_hello(SSL_HANDSHAKE *hs) {
   if (!ssl_write_client_cipher_list(hs, &body) ||
       !CBB_add_u8(&body, 1 /* one compression method */) ||
       !CBB_add_u8(&body, 0 /* null compression */) ||
-      !ssl_add_clienthello_tlsext(hs, &body, header_len + CBB_len(&body))) {
+      !ssl_add_clienthello_tlsext(hs, &body, header_len + CBB_len(&body),
+                                  /*is_client_hello_outer=*/false)) {
     return false;
   }
 
@@ -324,9 +325,31 @@ bool ssl_write_client_hello(SSL_HANDSHAKE *hs) {
 
   // Now that the length prefixes have been computed, fill in the placeholder
   // PSK binder.
-  if (hs->needs_psk_binder &&
-      !tls13_write_psk_binder(hs, MakeSpan(msg))) {
+  if (hs->needs_psk_binder && !tls13_write_psk_binder(hs, MakeSpan(msg))) {
     return false;
+  }
+
+  if (hs->ssl->ech_config) {
+    assert(hs->ech_grease.empty());  // We did not send ECH GREASE.
+
+    // Build the ClientHelloOuter.
+    Array<uint8_t> outer_msg;
+    if (!ssl_encrypt_client_hello(hs, &outer_msg, hs->ssl->ech_config.get(),
+                                  MakeConstSpan(msg))) {
+      return false;
+    }
+
+
+    // Save the ClientHelloInner so we can produce the correct transcript when
+    // the server accepts ClientHelloInner.
+    if (hs->client_sent_ech) {
+      assert(hs->ech_previous_client_hello_buf.empty());
+      hs->ech_previous_client_hello_buf = std::move(hs->ech_client_hello_buf);
+    }
+    hs->ech_client_hello_buf = std::move(msg);
+    hs->client_sent_ech = true;
+
+    return ssl->method->add_message(ssl, std::move(outer_msg));
   }
 
   return ssl->method->add_message(ssl, std::move(msg));
@@ -551,6 +574,7 @@ static enum ssl_hs_wait_t do_read_hello_verify_request(SSL_HANDSHAKE *hs) {
 }
 
 static enum ssl_hs_wait_t do_read_server_hello(SSL_HANDSHAKE *hs) {
+  printf("**** %s\n", __FUNCTION__);
   SSL *const ssl = hs->ssl;
   SSLMessage msg;
   if (!ssl->method->get_message(ssl, &msg)) {
