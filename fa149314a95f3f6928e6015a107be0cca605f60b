@@ -125,6 +125,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cf16fc2_53934e53",
+        "filename": "fuzz/ssl_ctx_api.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-12T18:40:36Z",
+      "side": 1,
+      "message": "Oh, yeah that probably should probably be is_integral or something.\n\nThe issue isn\u0027t multiple representations. C defines trap representations which are UB if you use. And even without trap representations, GetVector/GetPOD on a pointer type is clearly not okay. We can\u0027t allow the fuzzer to go down those routes or it\u0027ll crash in bugs in the fuzzer rather than bugs in our code.\n\n(Strictly speaking, C even allows integers to have trap representations if signed, though I think we don\u0027t believe in those platforms. :-) )\n\nWe have that for lists just because we end up needing to do several of those. For individual values, we already have CBS_get_u* functions.",
+      "parentUuid": "411a2b52_1e5dad3a",
+      "range": {
+        "startLine": 257,
+        "startChar": 12,
+        "endLine": 257,
+        "endChar": 18
+      },
+      "revId": "fa149314a95f3f6928e6015a107be0cca605f60b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a35db641_ca3eb5d2",
