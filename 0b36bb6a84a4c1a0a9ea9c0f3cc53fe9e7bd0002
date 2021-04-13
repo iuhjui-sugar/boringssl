@@ -95,6 +95,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "083bff59_342f6151",
+        "filename": "ssl/test/handshake_util.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-04-13T17:28:51Z",
+      "side": 1,
+      "message": "I think we should stick with the \u0027Scoped\u0027 name in this CL. If we want to change that then it should be a different CL.",
+      "parentUuid": "d027ba3a_6dd3314d",
+      "range": {
+        "startLine": 382,
+        "startChar": 28,
+        "endLine": 382,
+        "endChar": 70
+      },
+      "revId": "0b36bb6a84a4c1a0a9ea9c0f3cc53fe9e7bd0002",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d36312a7_76f37a53",
