@@ -16,6 +16,24 @@
       "message": "Should the commit message be expanded? Based on the current one it sounds like we tried to skip early data whenever there was an HRR, but surely there are quite a lot of HRRs w/o early data and things just wouldn\u0027t have worked if that interpretation is correct?",
       "revId": "435d58f26f7c1184b95baa735ababed53b9d4963",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9376abf_987dda6c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-13T16:11:00Z",
+      "side": 1,
+      "message": "Skipping early data just means skipping over undecryptable[*] records after the ClientHello. If you do it more than you should, there won\u0027t be any interop problems. It\u0027s just less strict than it ought to be.\n\n[*] Well, for HRR \"undecryptable\" is a little goofy because the expected record is cleartext. But we do a trial \"decryption\" by checking the outer content type.",
+      "parentUuid": "d0fb7d91_d8ed7c42",
+      "revId": "435d58f26f7c1184b95baa735ababed53b9d4963",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
