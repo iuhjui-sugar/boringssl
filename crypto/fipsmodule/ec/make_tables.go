@@ -32,6 +32,55 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error writing p256_table.h: %s\n", err)
 		os.Exit(1)
 	}
+
+	if err := writeP256AARCH64Table("p256-aarch64-table.h"); err != nil {
+		fmt.Fprintf(os.Stderr, "Error writing p256-aarch64-table.h: %s\n", err)
+		os.Exit(1)
+	}
+}
+
+func writeP256AARCH64Table(path string) error {
+	curve := elliptic.P256()
+	tables := make([][][2]*big.Int, 0, 37)
+	for shift := 0; shift < 256; shift += 7 {
+		row := makeMultiples(curve, 64, shift)
+		tables = append(tables, row)
+	}
+
+	f, err := os.Create(path)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+	const fileHeader = `/*
+* Copyright 2021 Cloudflare Inc. All rights reserved.
+* Permission to use, copy, modify, and/or distribute this software for any
+* purpose with or without fee is hereby granted, provided that the above
+* copyright notice and this permission notice appear in all copies.
+*
+* THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+* WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+* MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
+* SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+* WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION
+* OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
+* CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. */
+
+// This is the precomputed constant time table for the code in
+// p256-x86_64.c when using ARM v8 intrinsics.
+
+static const alignas(4096) uint8_t ecp_nistz256_precomputed[37][4096] =
+`
+	if _, err := f.WriteString(fileHeader); err != nil {
+		return err
+	}
+	if err := writeMauledTables(f, curve, tables); err != nil {
+		return err
+	}
+	if _, err := f.WriteString(";\n"); err != nil {
+		return err
+	}
+	return nil
 }
 
 func writeP256X86_64Table(path string) error {
@@ -402,5 +451,68 @@ func writeTables(w io.Writer, curve elliptic.Curve, tables [][][2]*big.Int, isRo
 	if _, err := io.WriteString(w, "}"); err != nil {
 		return err
 	}
+	return nil
+}
+
+func writeMauledTables(w io.Writer, curve elliptic.Curve, tables [][][2]*big.Int) error {
+	// This algorithm was derived from study of the Perl that is part of ecp_nistz256-armv8.pl in OpenSSL.
+	// We have to convert the table into 37 arrays of 1024 32 bit words.
+	// Each array represents 64 points as an x coordinate then a y coordinate in little-endian.
+
+	// The arrays are then byte transposed in a funny order to make up for lack of convenient vector shuffles on ARM.
+	io.WriteString(w, "{\n")
+	for k := 0; k < 37; k++ {
+		if k > 0 {
+			fmt.Fprintf(w, ",\n")
+		}
+		if err := writeMauledPointList(w, curve, tables[k], 4, 16); err != nil {
+			return err
+		}
+	}
+
+	io.WriteString(w, "}")
+	return nil
+}
+
+func writeMauledPointList(w io.Writer, curve elliptic.Curve, tables [][2]*big.Int, indent int, wrap int) error {
+	// Each coordinate is 8 32 bit words
+	// Each point is 16 32 bit words
+
+	// TODO: this matched bigIntToU32s, but is funny looking
+	wordTable := make([]uint64, 1024)
+	byteTable := make([]uint64, 4*1024)
+	for i := 0; i < 64; i++ {
+		for j := 0; j < 2; j++ {
+			val := toMontgomery(curve, tables[i][j])
+			words := bigIntToU32s(curve, val)
+			copy(wordTable[i*16+j*8:], words)
+		}
+	}
+	curr := 0
+	for i := 0; i < 64; i++ {
+		for j := 0; j < 64; j++ {
+			byteTable[curr] = (wordTable[j*16+i/4] >> ((i % 4) * 8)) & 0xff
+			curr++
+		}
+	}
+	writeIndent(w, indent)
+	io.WriteString(w, "{\n")
+	writeIndent(w, indent+4)
+	for i := 0; i < len(byteTable); i++ {
+		if i > 0 {
+			if i%wrap == 0 {
+				io.WriteString(w, ",\n")
+				if err := writeIndent(w, indent+4); err != nil {
+					return err
+				}
+			} else {
+				io.WriteString(w, ", ")
+			}
+		}
+		fmt.Fprintf(w, "0x%02x", byteTable[i])
+	}
+	io.WriteString(w, "\n")
+	writeIndent(w, indent)
+	io.WriteString(w, "}")
 	return nil
 }

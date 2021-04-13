@@ -30,7 +30,7 @@ extern "C" {
 #endif
 
 
-#if !defined(OPENSSL_NO_ASM) && defined(OPENSSL_X86_64) && \
+#if !defined(OPENSSL_NO_ASM) && (defined(OPENSSL_X86_64) || defined(OPENSSL_AARCH64)) && \
     !defined(OPENSSL_SMALL)
 
 // P-256 field operations.
@@ -117,17 +117,25 @@ typedef struct {
   BN_ULONG Y[P256_LIMBS];
 } P256_POINT_AFFINE;
 
+
+#if defined(OPENSSL_X86_64)
+typedef P256_POINT_AFFINE PRECOMP256_ROW[64];
+#else
+typedef uint8_t PRECOMP256_ROW[4096];
+#endif
 // ecp_nistz256_select_w5 sets |*val| to |in_t[index-1]| if 1 <= |index| <= 16
 // and all zeros (the point at infinity) if |index| is 0. This is done in
 // constant time.
 void ecp_nistz256_select_w5(P256_POINT *val, const P256_POINT in_t[16],
                             int index);
 
+// ecp_nistz256_scatter_w5 sets |in_t[index-1]| to val
+void ecp_nistz256_scatter_w5( P256_POINT in_t[16], P256_POINT *val, int index);
 // ecp_nistz256_select_w7 sets |*val| to |in_t[index-1]| if 1 <= |index| <= 64
 // and all zeros (the point at infinity) if |index| is 0. This is done in
 // constant time.
 void ecp_nistz256_select_w7(P256_POINT_AFFINE *val,
-                            const P256_POINT_AFFINE in_t[64], int index);
+                            const PRECOMP256_ROW in_t, int index);
 
 // ecp_nistz256_point_double sets |r| to |a| doubled.
 void ecp_nistz256_point_double(P256_POINT *r, const P256_POINT *a);
