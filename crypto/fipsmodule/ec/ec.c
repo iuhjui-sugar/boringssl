@@ -246,7 +246,7 @@ DEFINE_METHOD_FUNCTION(struct built_in_curves, OPENSSL_built_in_curves) {
   out->curves[2].param_len = 32;
   out->curves[2].params = kP256Params;
   out->curves[2].method =
-#if !defined(OPENSSL_NO_ASM) && defined(OPENSSL_X86_64) && \
+#if !defined(OPENSSL_NO_ASM) && (defined(OPENSSL_X86_64) || defined(OPENSSL_AARCH64)) && \
     !defined(OPENSSL_SMALL)
       EC_GFp_nistz256_method();
 #else
@@ -1051,7 +1051,7 @@ int ec_point_mul_scalar(const EC_GROUP *group, EC_RAW_POINT *r,
   // Check the result is on the curve to defend against fault attacks or bugs.
   // This has negligible cost compared to the multiplication.
   if (!ec_GFp_simple_is_on_curve(group, r)) {
-    OPENSSL_PUT_ERROR(EC, ERR_R_INTERNAL_ERROR);
+     OPENSSL_PUT_ERROR(EC, ERR_R_INTERNAL_ERROR);
     return 0;
   }
 

@@ -34,10 +34,8 @@
 #include "p256-x86_64.h"
 
 
-#if !defined(OPENSSL_NO_ASM) && defined(OPENSSL_X86_64) && \
+#if !defined(OPENSSL_NO_ASM) && (defined(OPENSSL_X86_64) || defined(OPENSSL_AARCH64)) && \
     !defined(OPENSSL_SMALL)
-
-typedef P256_POINT_AFFINE PRECOMP256_ROW[64];
 
 // One converted into the Montgomery domain
 static const BN_ULONG ONE[P256_LIMBS] = {
@@ -45,8 +43,25 @@ static const BN_ULONG ONE[P256_LIMBS] = {
     TOBN(0xffffffff, 0xffffffff), TOBN(0x00000000, 0xfffffffe),
 };
 
+#if defined(OPENSSL_X86_64)
 // Precomputed tables for the default generator
 #include "p256-x86_64-table.h"
+#elif defined(OPENSSL_AARCH64)
+#include "p256-aarch64-table.h"
+#else
+#error "Failure to select a table for the architecture"
+#endif
+
+#if defined(OPENSSL_X86_64)
+// This function isn't in the x86_64 assembly
+// Stores point at index-1 in table
+void ecp_nistz256_scatter_w5(P256_POINT table[], P256_POINT*val,  int index){
+  OPENSSL_memcpy(table[index - 1].X, val->X, P256_LIMBS * sizeof(BN_ULONG));
+  OPENSSL_memcpy(table[index - 1].Y, val->Y, P256_LIMBS * sizeof(BN_ULONG));
+  OPENSSL_memcpy(table[index - 1].Z, val->Z, P256_LIMBS * sizeof(BN_ULONG));
+}
+
+#endif // OPENSSL_X86_64
 
 // Recode window to a signed digit, see |ec_GFp_nistp_recode_scalar_bits| in
 // util.c for details
@@ -201,6 +216,7 @@ static void ecp_nistz256_windowed_mul(const EC_GROUP *group, P256_POINT *r,
   // add no more than 63 bytes of overhead. Thus, |table| should require
   // ~1599 ((96 * 16) + 63) bytes of stack space.
   alignas(64) P256_POINT table[16];
+  alignas(64) P256_POINT temp[5];
   uint8_t p_str[33];
   OPENSSL_memcpy(p_str, p_scalar->bytes, 32);
   p_str[32] = 0;
@@ -210,25 +226,41 @@ static void ecp_nistz256_windowed_mul(const EC_GROUP *group, P256_POINT *r,
   // table.
   P256_POINT *row = table;
   assert(group->field.width == P256_LIMBS);
-  OPENSSL_memcpy(row[1 - 1].X, p->X.words, P256_LIMBS * sizeof(BN_ULONG));
-  OPENSSL_memcpy(row[1 - 1].Y, p->Y.words, P256_LIMBS * sizeof(BN_ULONG));
-  OPENSSL_memcpy(row[1 - 1].Z, p->Z.words, P256_LIMBS * sizeof(BN_ULONG));
+  OPENSSL_memcpy(temp[1 - 1].X, p->X.words, P256_LIMBS * sizeof(BN_ULONG));
+  OPENSSL_memcpy(temp[1 - 1].Y, p->Y.words, P256_LIMBS * sizeof(BN_ULONG));
+  OPENSSL_memcpy(temp[1 - 1].Z, p->Z.words, P256_LIMBS * sizeof(BN_ULONG));
 
-  ecp_nistz256_point_double(&row[2 - 1], &row[1 - 1]);
-  ecp_nistz256_point_add(&row[3 - 1], &row[2 - 1], &row[1 - 1]);
-  ecp_nistz256_point_double(&row[4 - 1], &row[2 - 1]);
-  ecp_nistz256_point_double(&row[6 - 1], &row[3 - 1]);
-  ecp_nistz256_point_double(&row[8 - 1], &row[4 - 1]);
-  ecp_nistz256_point_double(&row[12 - 1], &row[6 - 1]);
-  ecp_nistz256_point_add(&row[5 - 1], &row[4 - 1], &row[1 - 1]);
-  ecp_nistz256_point_add(&row[7 - 1], &row[6 - 1], &row[1 - 1]);
-  ecp_nistz256_point_add(&row[9 - 1], &row[8 - 1], &row[1 - 1]);
-  ecp_nistz256_point_add(&row[13 - 1], &row[12 - 1], &row[1 - 1]);
-  ecp_nistz256_point_double(&row[14 - 1], &row[7 - 1]);
-  ecp_nistz256_point_double(&row[10 - 1], &row[5 - 1]);
-  ecp_nistz256_point_add(&row[15 - 1], &row[14 - 1], &row[1 - 1]);
-  ecp_nistz256_point_add(&row[11 - 1], &row[10 - 1], &row[1 - 1]);
-  ecp_nistz256_point_double(&row[16 - 1], &row[8 - 1]);
+  ecp_nistz256_scatter_w5  (row, &temp[0], 1);
+  ecp_nistz256_point_double(&temp[1], &temp[0]);              /*1+1=2  */
+  ecp_nistz256_scatter_w5  (row, &temp[1], 2);
+  ecp_nistz256_point_add   (&temp[2], &temp[1], &temp[0]);    /*2+1=3  */
+  ecp_nistz256_scatter_w5  (row, &temp[2], 3);
+  ecp_nistz256_point_double(&temp[1], &temp[1]);              /*2*2=4  */
+  ecp_nistz256_scatter_w5  (row, &temp[1], 4);
+  ecp_nistz256_point_double(&temp[2], &temp[2]);              /*2*3=6  */
+  ecp_nistz256_scatter_w5  (row, &temp[2], 6);
+  ecp_nistz256_point_add   (&temp[3], &temp[1], &temp[0]);    /*4+1=5  */
+  ecp_nistz256_scatter_w5  (row, &temp[3], 5);
+  ecp_nistz256_point_add   (&temp[4], &temp[2], &temp[0]);    /*6+1=7  */
+  ecp_nistz256_scatter_w5  (row, &temp[4], 7);
+  ecp_nistz256_point_double(&temp[1], &temp[1]);              /*2*4=8  */
+  ecp_nistz256_scatter_w5  (row, &temp[1], 8);
+  ecp_nistz256_point_double(&temp[2], &temp[2]);              /*2*6=12 */
+  ecp_nistz256_scatter_w5  (row, &temp[2], 12);
+  ecp_nistz256_point_double(&temp[3], &temp[3]);              /*2*5=10 */
+  ecp_nistz256_scatter_w5  (row, &temp[3], 10);
+  ecp_nistz256_point_double(&temp[4], &temp[4]);              /*2*7=14 */
+  ecp_nistz256_scatter_w5  (row, &temp[4], 14);
+  ecp_nistz256_point_add   (&temp[2], &temp[2], &temp[0]);    /*12+1=13*/
+  ecp_nistz256_scatter_w5  (row, &temp[2], 13);
+  ecp_nistz256_point_add   (&temp[3], &temp[3], &temp[0]);    /*10+1=11*/
+  ecp_nistz256_scatter_w5  (row, &temp[3], 11);
+  ecp_nistz256_point_add   (&temp[4], &temp[4], &temp[0]);    /*14+1=15*/
+  ecp_nistz256_scatter_w5  (row, &temp[4], 15);
+  ecp_nistz256_point_add   (&temp[2], &temp[1], &temp[0]);    /*8+1=9  */
+  ecp_nistz256_scatter_w5  (row, &temp[2], 9);
+  ecp_nistz256_point_double(&temp[1], &temp[1]);              /*2*8=16 */
+  ecp_nistz256_scatter_w5  (row, &temp[1], 16);
 
   BN_ULONG tmp[P256_LIMBS];
   alignas(32) P256_POINT h;
@@ -378,8 +410,7 @@ static void ecp_nistz256_points_mul_public(const EC_GROUP *group,
   // is infinity and |ONE| otherwise. |p| was computed from the table, so it
   // is infinity iff |wvalue >> 1| is zero.
   if ((wvalue >> 1) != 0) {
-    OPENSSL_memcpy(&p.a, &ecp_nistz256_precomputed[0][(wvalue >> 1) - 1],
-                   sizeof(p.a));
+    ecp_nistz256_select_w7(&p.a, ecp_nistz256_precomputed[0], wvalue >> 1);
     OPENSSL_memcpy(&p.p.Z, ONE, sizeof(p.p.Z));
   } else {
     OPENSSL_memset(&p.a, 0, sizeof(p.a));
@@ -396,10 +427,8 @@ static void ecp_nistz256_points_mul_public(const EC_GROUP *group,
     if ((wvalue >> 1) == 0) {
       continue;
     }
-
-    OPENSSL_memcpy(&t.a, &ecp_nistz256_precomputed[i][(wvalue >> 1) - 1],
-                   sizeof(p.a));
-
+    ecp_nistz256_select_w7(&t.a, ecp_nistz256_precomputed[i], wvalue >> 1);
+      
     if ((wvalue & 1) == 1) {
       ecp_nistz256_neg(t.a.Y, t.a.Y);
     }
@@ -551,7 +580,7 @@ static void ecp_nistz256_inv0_mod_ord(const EC_GROUP *group, EC_SCALAR *out,
     ecp_nistz256_ord_mul_mont(out->words, out->words, table[kChain[i].i]);
   }
 }
-
+#ifdef OPENSSL_X864_64
 static int ecp_nistz256_scalar_to_montgomery_inv_vartime(const EC_GROUP *group,
                                                  EC_SCALAR *out,
                                                  const EC_SCALAR *in) {
@@ -569,6 +598,13 @@ static int ecp_nistz256_scalar_to_montgomery_inv_vartime(const EC_GROUP *group,
   ec_scalar_to_montgomery(group, out, out);
   return 1;
 }
+#else
+static int ecp_nistz256_scalar_to_montgomery_inv_vartime(const EC_GROUP *group,
+                                                 EC_SCALAR *out,
+                                                 const EC_SCALAR *in) {
+    return ec_simple_scalar_to_montgomery_inv_vartime(group, out, in);
+}
+#endif // OPENSSL_X86_64
 
 static int ecp_nistz256_cmp_x_coordinate(const EC_GROUP *group,
                                          const EC_RAW_POINT *p,
