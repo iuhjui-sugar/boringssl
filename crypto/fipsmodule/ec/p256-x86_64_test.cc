@@ -36,9 +36,10 @@
 
 // Disable tests if BORINGSSL_SHARED_LIBRARY is defined. These tests need access
 // to internal functions.
-#if !defined(OPENSSL_NO_ASM) && defined(OPENSSL_X86_64) && \
+#if !defined(OPENSSL_NO_ASM) && (defined(OPENSSL_X86_64)|| defined(OPENSSL_AARCH64))  && \
     !defined(OPENSSL_SMALL) && !defined(BORINGSSL_SHARED_LIBRARY)
 
+#if defined(OPENSSL_X86_64)
 TEST(P256_X86_64Test, SelectW5) {
   // Fill a table with some garbage input.
   alignas(64) P256_POINT table[16];
@@ -98,6 +99,9 @@ TEST(P256_X86_64Test, SelectW7) {
   CHECK_ABI(ecp_nistz256_select_w7, &val, table, 42);
 }
 
+#endif // OPENSSL_X86_64
+
+#ifdef OPENSSL_X86_64
 TEST(P256_X86_64Test, BEEU) {
   if ((OPENSSL_ia32cap_P[1] & (1 << 28)) == 0) {
     // No AVX support; cannot run the BEEU code.
@@ -164,6 +168,7 @@ TEST(P256_X86_64Test, BEEU) {
     }
   }
 }
+#endif // OPENSSL_X86_64
 
 static bool GetFieldElement(FileTest *t, BN_ULONG out[P256_LIMBS],
                             const char *name) {
