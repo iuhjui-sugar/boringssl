@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bae6ffcc_b541da7e",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 902,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-04-14T20:53:19Z",
+      "side": 1,
+      "message": "OfferSessionInClientHelloOuter is not obviously involved here?",
+      "revId": "ed5d48283291b47dea2e0dda835f5a0bcc04353e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9159d0d_30974453",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 818,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-04-14T20:53:19Z",
+      "side": 1,
+      "message": "should this be inside the `if len(*transcriptDir) !\u003d 0` condition, above?",
+      "revId": "ed5d48283291b47dea2e0dda835f5a0bcc04353e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
