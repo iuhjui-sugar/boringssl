@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c0c2947_334c5926",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 3740,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-15T21:22:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52713d76_76c91ef4",
+      "range": {
+        "startLine": 3740,
+        "startChar": 64,
+        "endLine": 3740,
+        "endChar": 78
+      },
+      "revId": "4a8072ea52090c4dd0c265002813c3a3f9c70db5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "777b486f_082a0568",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-04-13T17:28:51Z",
       "side": 1,
       "message": "s/at/in/",
+      "range": {
+        "startLine": 3764,
+        "startChar": 19,
+        "endLine": 3764,
+        "endChar": 21
+      },
+      "revId": "4a8072ea52090c4dd0c265002813c3a3f9c70db5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f9782f2_f7c87b45",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 3764,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-15T21:22:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "777b486f_082a0568",
       "range": {
         "startLine": 3764,
         "startChar": 19,
@@ -70,6 +118,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e4f688f_b3b5c362",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 3772,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-15T21:22:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44722ec6_e4a7a605",
+      "range": {
+        "startLine": 3772,
+        "startChar": 32,
+        "endLine": 3772,
+        "endChar": 34
+      },
+      "revId": "4a8072ea52090c4dd0c265002813c3a3f9c70db5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5ee36877_44ab3412",
@@ -83,6 +155,30 @@
       "writtenOn": "2021-04-13T17:28:51Z",
       "side": 1,
       "message": "I would clarify this word: trusted to what extent? Remote code execution? (Probably not, but not a crazy interpretation given how \"trusted\" is used elsewhere.)",
+      "range": {
+        "startLine": 3819,
+        "startChar": 13,
+        "endLine": 3819,
+        "endChar": 20
+      },
+      "revId": "4a8072ea52090c4dd0c265002813c3a3f9c70db5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c9b7da4_f58ce27a",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 3819,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-15T21:22:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ee36877_44ab3412",
       "range": {
         "startLine": 3819,
         "startChar": 13,
@@ -110,6 +206,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "650cc3e8_0548e1cc",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-15T21:22:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4149d1c8_8e300020",
+      "revId": "4a8072ea52090c4dd0c265002813c3a3f9c70db5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d0f4b73a_a670a0ae",
@@ -123,6 +237,24 @@
       "writtenOn": "2021-04-13T17:28:51Z",
       "side": 1,
       "message": "merge with previous block",
+      "revId": "4a8072ea52090c4dd0c265002813c3a3f9c70db5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1a5a3d8_7cbda01f",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-15T21:22:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0f4b73a_a670a0ae",
       "revId": "4a8072ea52090c4dd0c265002813c3a3f9c70db5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -150,6 +282,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4063534_e267b21d",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 881,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-15T21:22:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84f644bc_2059af50",
+      "range": {
+        "startLine": 881,
+        "startChar": 11,
+        "endLine": 881,
+        "endChar": 16
+      },
+      "revId": "4a8072ea52090c4dd0c265002813c3a3f9c70db5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "225403aa_b2c06bce",
@@ -163,6 +319,30 @@
       "writtenOn": "2021-04-13T17:28:51Z",
       "side": 1,
       "message": "0 (and below)",
+      "range": {
+        "startLine": 895,
+        "startChar": 11,
+        "endLine": 895,
+        "endChar": 16
+      },
+      "revId": "4a8072ea52090c4dd0c265002813c3a3f9c70db5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cf31717_64e2f03f",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 895,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-15T21:22:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "225403aa_b2c06bce",
       "range": {
         "startLine": 895,
         "startChar": 11,
@@ -198,6 +378,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "641aacfe_6bf036a0",
+        "filename": "ssl/handoff.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 964,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-15T21:22:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aabee95f_f67e15eb",
+      "range": {
+        "startLine": 964,
+        "startChar": 9,
+        "endLine": 964,
+        "endChar": 13
+      },
+      "revId": "4a8072ea52090c4dd0c265002813c3a3f9c70db5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "82f15641_a8fc5419",
         "filename": "ssl/handshake.cc",
         "patchSetId": 4
@@ -209,6 +413,24 @@
       "writtenOn": "2021-04-13T17:28:51Z",
       "side": 1,
       "message": "(should hs-\u003ewait be set to an error state so that this is only returned once? Trying to advance the handshake after HINTS_READY is a programming error, no? Your call.)",
+      "revId": "4a8072ea52090c4dd0c265002813c3a3f9c70db5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "376402a2_b285161a",
+        "filename": "ssl/handshake.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 695,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-15T21:22:41Z",
+      "side": 1,
+      "message": "It\u0027ll just keep running HINTS_READY, which I think matches our other errors. It doesn\u0027t really apply in this case, but since SSL_read and SSL_write may both internally drive SSL_do_handshake and callers tend to drive SSL_read and SSL_write independently, it\u0027s pretty easy to pump the handshake twice in a row. (I think even Chromium does this sometimes.) So the handshake state machine tries to sticky its error conditions.",
+      "parentUuid": "82f15641_a8fc5419",
       "revId": "4a8072ea52090c4dd0c265002813c3a3f9c70db5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -226,6 +448,30 @@
       "writtenOn": "2021-04-13T17:28:51Z",
       "side": 1,
       "message": "Outside what? (And again in this paragraph).",
+      "range": {
+        "startLine": 1570,
+        "startChar": 60,
+        "endLine": 1570,
+        "endChar": 67
+      },
+      "revId": "4a8072ea52090c4dd0c265002813c3a3f9c70db5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00a9b4fd_f08256f7",
+        "filename": "ssl/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1570,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-15T21:22:41Z",
+      "side": 1,
+      "message": "Rewrote this paragraph and put most of the text on |hints| and |hints_requested| below.",
+      "parentUuid": "719df9a5_667bd4b5",
       "range": {
         "startLine": 1570,
         "startChar": 60,
@@ -259,6 +505,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b25627c0_170a64ee",
+        "filename": "ssl/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 1853,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-15T21:22:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bbc59c90_3bbe7a81",
+      "range": {
+        "startLine": 1853,
+        "startChar": 59,
+        "endLine": 1853,
+        "endChar": 60
+      },
+      "revId": "4a8072ea52090c4dd0c265002813c3a3f9c70db5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "77751048_6f56b4af",
@@ -272,6 +542,24 @@
       "writtenOn": "2021-04-13T17:28:51Z",
       "side": 1,
       "message": "Suggested:\n\n// Tickets in TLS 1.3 are tied into pre-shared keys (PSKs), unlike in TLS 1.2 where\n// that concept doesn\u0027t exist. The |decrypted_psk| and |ignore_psk| hints only apply to PSKs.",
+      "revId": "4a8072ea52090c4dd0c265002813c3a3f9c70db5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "492b017f_a2a7d50f",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 4078,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-15T21:22:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77751048_6f56b4af",
       "revId": "4a8072ea52090c4dd0c265002813c3a3f9c70db5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -293,6 +581,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9929866d_c94487b0",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 4113,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-15T21:22:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f76b633f_5909c389",
+      "revId": "4a8072ea52090c4dd0c265002813c3a3f9c70db5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "35aada5b_2986e8cc",
@@ -306,6 +612,30 @@
       "writtenOn": "2021-04-13T17:28:51Z",
       "side": 1,
       "message": "is 1MB a good maximum for a hints structure?",
+      "range": {
+        "startLine": 561,
+        "startChar": 23,
+        "endLine": 561,
+        "endChar": 31
+      },
+      "revId": "4a8072ea52090c4dd0c265002813c3a3f9c70db5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d49fc3e_93378fb4",
+        "filename": "ssl/test/handshake_util.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-15T21:22:41Z",
+      "side": 1,
+      "message": "*shrug* Should be comparable to, if not smaller, than the handback structure which used 1MiB. I just got the buffer size from the handback code. It\u0027s probably too high for both, but ah well.",
+      "parentUuid": "35aada5b_2986e8cc",
       "range": {
         "startLine": 561,
         "startChar": 23,
@@ -341,6 +671,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "37646759_f185d8a5",
+        "filename": "ssl/test/handshake_util.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-15T21:22:41Z",
+      "side": 1,
+      "message": "Well size of ClientHello and capabilities are probably unrelated, so I just added 256 bytes.",
+      "parentUuid": "a1c4231c_b451f1d3",
+      "range": {
+        "startLine": 678,
+        "startChar": 29,
+        "endLine": 678,
+        "endChar": 59
+      },
+      "revId": "4a8072ea52090c4dd0c265002813c3a3f9c70db5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "ea20f26c_4405bafb",
         "filename": "ssl/test/handshake_util.cc",
         "patchSetId": 4
@@ -352,6 +706,24 @@
       "writtenOn": "2021-04-13T17:28:51Z",
       "side": 1,
       "message": "doesn\u0027t Span interop with CBS more seamlessly than this?",
+      "revId": "4a8072ea52090c4dd0c265002813c3a3f9c70db5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0dd3b2e2_20fc063b",
+        "filename": "ssl/test/handshake_util.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-15T21:22:41Z",
+      "side": 1,
+      "message": "CBS, but not CBB. :-/",
+      "parentUuid": "ea20f26c_4405bafb",
       "revId": "4a8072ea52090c4dd0c265002813c3a3f9c70db5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -369,6 +741,24 @@
       "writtenOn": "2021-04-13T17:28:51Z",
       "side": 1,
       "message": "merge with previous condition.",
+      "revId": "4a8072ea52090c4dd0c265002813c3a3f9c70db5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d172b88_692c2549",
+        "filename": "ssl/test/handshake_util.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-15T21:22:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e4640ef_e34e941d",
       "revId": "4a8072ea52090c4dd0c265002813c3a3f9c70db5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -396,6 +786,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d3fbb3d_0f0ee829",
+        "filename": "ssl/tls13_both.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-15T21:22:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99d4fa2e_7c677727",
+      "range": {
+        "startLine": 602,
+        "startChar": 49,
+        "endLine": 602,
+        "endChar": 72
+      },
+      "revId": "4a8072ea52090c4dd0c265002813c3a3f9c70db5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cb237825_ec5cd994",
@@ -409,6 +823,24 @@
       "writtenOn": "2021-04-13T17:28:51Z",
       "side": 1,
       "message": "merge with above.",
+      "revId": "4a8072ea52090c4dd0c265002813c3a3f9c70db5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2aa5e08a_046cb465",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 660,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-15T21:22:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cb237825_ec5cd994",
       "revId": "4a8072ea52090c4dd0c265002813c3a3f9c70db5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
