@@ -16,6 +16,24 @@
       "message": "Does the print function not buffer then, while the statement did?",
       "revId": "15961379e6b2682d73c3cb8f8016a09d04257c77",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b6f18fd_3a1aa3d0",
+        "filename": "util/bot/update_clang.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-15T19:10:07Z",
+      "side": 0,
+      "message": "Not sure. It just disappeared from upstream\u0027s version of the file, so I followed suit.\nhttps://source.chromium.org/chromium/chromium/src/+/master:tools/clang/scripts/update.py\n\nI suspect it doesn\u0027t matter because of the sys.stdout.flush() calls anyway. Main reason the flushing is important is the CI tends to kill processes if they spin and don\u0027t output for too long.\n\nUpstream\u0027s file also almost[*] doesn\u0027t depend on Chromium\u0027s bits anymore, so we might be able to avoid maintaining it in favor of DEPSing something. But I\u0027ve left it alone for now.\n\n[*] https://source.chromium.org/chromium/chromium/src/+/master:tools/clang/scripts/update.py;l\u003d250-259;bpv\u003d0",
+      "parentUuid": "7503b9ee_4a18f2ca",
+      "revId": "15961379e6b2682d73c3cb8f8016a09d04257c77",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
