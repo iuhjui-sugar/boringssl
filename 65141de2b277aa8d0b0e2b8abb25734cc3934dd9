@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fa379d6_f577a21c",
+        "filename": "crypto/x509/x509_att.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-19T18:26:33Z",
+      "side": 1,
+      "message": "Upstream added a NULL check to attr. Since it wasn\u0027t there previously, I haven\u0027t imported it.",
+      "revId": "65141de2b277aa8d0b0e2b8abb25734cc3934dd9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
