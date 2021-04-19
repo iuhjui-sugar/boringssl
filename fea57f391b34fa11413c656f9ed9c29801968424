@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb0d49a0_05ed9cda",
+        "filename": "crypto/x509/x509_req.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-19T18:16:31Z",
+      "side": 1,
+      "message": "Although this says \"type\", it returns the nth value in attr. \"type\" refers to the ASN1_TYPE, which is the representation of an ASN.1 value of unknown type. This makes perfect sense and isn\u0027t at all confusing. :-)",
+      "range": {
+        "startLine": 180,
+        "startChar": 41,
+        "endLine": 180,
+        "endChar": 45
+      },
+      "revId": "fea57f391b34fa11413c656f9ed9c29801968424",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
