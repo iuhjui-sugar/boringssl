@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8faeb1f_6ecf32e7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 11766
+      },
+      "writtenOn": "2021-04-19T21:26:40Z",
+      "side": 1,
+      "message": "Addressed the initial feedback by adding tests in Go and reverting to the original copyright headers.",
+      "revId": "55a440421f4c3b0aa9788ab71a49548f4e80559e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
