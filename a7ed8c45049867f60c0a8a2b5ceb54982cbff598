@@ -16,6 +16,24 @@
       "message": "Oh right. Of course that\u0027d be a problem. Hrmf. The fd numbers being low end up being a nuisance in trying to apply the permutation... I guess we need to either create the fds in the right order, or be clever about setting up the fds. :-/",
       "revId": "a7ed8c45049867f60c0a8a2b5ceb54982cbff598",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "542a84a0_a4b792aa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-04-20T20:43:41Z",
+      "side": 1,
+      "message": "Doesn\u0027t posix_spawn take care of doing the permutation? I don\u0027t understand the original motivation for changing them, nor why the builders dislike this. (Works for me!)\n\n(In order to do a roll, I might back out the hints change for now if this is going to be more complex then it looked.)",
+      "parentUuid": "daf35df9_0a830a1c",
+      "revId": "a7ed8c45049867f60c0a8a2b5ceb54982cbff598",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
