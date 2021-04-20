@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "daf35df9_0a830a1c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-20T20:27:48Z",
+      "side": 1,
+      "message": "Oh right. Of course that\u0027d be a problem. Hrmf. The fd numbers being low end up being a nuisance in trying to apply the permutation... I guess we need to either create the fds in the right order, or be clever about setting up the fds. :-/",
+      "revId": "a7ed8c45049867f60c0a8a2b5ceb54982cbff598",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
