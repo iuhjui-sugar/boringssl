@@ -36,6 +36,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf2ca7bb_43e95338",
+        "filename": "crypto/x509/x509_att.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-20T18:30:34Z",
+      "side": 0,
+      "message": "I got uneasy relying on code inspection, so I wrote some tests in https://boringssl-review.googlesource.com/c/boringssl/+/46984/. They seem to check out. Also this function is horrible.",
+      "parentUuid": "5d92bb82_c849725c",
+      "revId": "fea57f391b34fa11413c656f9ed9c29801968424",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8143df6c_bb72777f",
