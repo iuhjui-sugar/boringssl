@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7a7c80e_3d57a052",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-04-20T22:31:42Z",
+      "side": 1,
+      "message": "Thanks!",
+      "revId": "14733c18263973135249b445677002ff05d31c9b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ade9272_d6827e4b",
+        "filename": "ssl/test/handshake_util.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-04-20T22:31:42Z",
+      "side": 1,
+      "message": "... |temp_fds| maps from fd number in the parent process to a temporary fd number in the child process.",
+      "revId": "14733c18263973135249b445677002ff05d31c9b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
