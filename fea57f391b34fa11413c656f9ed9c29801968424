@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d92bb82_c849725c",
+        "filename": "crypto/x509/x509_att.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-04-20T16:31:38Z",
+      "side": 0,
+      "message": "This seems too subtle to be worth deviating from upstream about. If this is what they\u0027re doing, so be it.",
+      "parentUuid": "b6d2e018_d6ee0b06",
+      "revId": "fea57f391b34fa11413c656f9ed9c29801968424",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8143df6c_bb72777f",
@@ -31,6 +49,24 @@
       "writtenOn": "2021-04-19T18:26:33Z",
       "side": 0,
       "message": "(See comment in other x509_att.c.)",
+      "revId": "fea57f391b34fa11413c656f9ed9c29801968424",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4b5187a_896d25ed",
+        "filename": "crypto/x509/x_attrib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-04-20T16:31:38Z",
+      "side": 0,
+      "message": "Ack",
+      "parentUuid": "8143df6c_bb72777f",
       "revId": "fea57f391b34fa11413c656f9ed9c29801968424",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
