@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa47e39c_229221b9",
+        "filename": "util/fipstools/delocate/delocate.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-21T21:28:09Z",
+      "side": 1,
+      "message": "If we end up needing to rewrite anything with mapLocalSymbol, we\u0027ll end up erasing the shift and the parentheses.\n\nI think we\u0027re partly not noticing this because we don\u0027t rewrite local symbols in the first file, only subsequent ones. The only test which rewrites local symbols is x86_64-LabelRewrite. If I put a \u003e\u003e2 in x86_64-LabelRewrite/in2.s, this CL rewrites it to:\n\n# WAS .quad (.L2-.L1)\u003e\u003e2\n        .quad   .L2_BCM_1-.L1_BCM_1",
+      "revId": "d1f2c84f8a6fb35170c8f84e951db737a30d6f8a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
