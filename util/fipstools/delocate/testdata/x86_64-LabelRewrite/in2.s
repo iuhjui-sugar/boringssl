@@ -12,3 +12,8 @@
 	.uleb128 .L2-.L1
 	.sleb128 .L2-.L1
 
+# .byte was not parsed as a symbol-containing directive on the
+# assumption that it's too small to hold a pointer. But Clang
+# will store offsets in it.
+.byte   (.LBB231_40-.LBB231_19)>>2
+.byte   421

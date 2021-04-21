@@ -283,7 +283,12 @@ func (d *delocation) processLabelContainingDirective(statement, directive *node3
 	assertNodeType(node, ruleSymbolArgs)
 
 	var args []string
+	var shift string
 	for node = skipWS(node.up); node != nil; node = skipWS(node.next) {
+		if node.pegRule == ruleSymbolShift {
+			shift = d.contents(node)
+			continue
+		}
 		assertNodeType(node, ruleSymbolArg)
 		arg := node.up
 		var mapped string
@@ -310,7 +315,11 @@ func (d *delocation) processLabelContainingDirective(statement, directive *node3
 		d.writeNode(statement)
 	} else {
 		d.writeCommentedNode(statement)
-		d.output.WriteString("\t" + name + "\t" + strings.Join(args, ", ") + "\n")
+		if len(shift) > 0 {
+			d.output.WriteString("\t" + name + "\t(" + strings.Join(args, ", ") + ")" + shift + "\n")
+		} else {
+			d.output.WriteString("\t" + name + "\t" + strings.Join(args, ", ") + "\n")
+		}
 	}
 
 	if name == ".localentry" {
