@@ -18,9 +18,12 @@ load(
     "crypto_headers",
     "crypto_internal_headers",
     "crypto_sources",
+    "crypto_sources_ios_aarch64",
+    "crypto_sources_linux_aarch64",
     "crypto_sources_linux_ppc64le",
     "crypto_sources_linux_x86_64",
     "crypto_sources_mac_x86_64",
+    "crypto_sources_win_x86_64",
     "fips_fragments",
     "ssl_headers",
     "ssl_internal_headers",
@@ -32,6 +35,21 @@ load(
 licenses(["notice"])
 
 exports_files(["LICENSE"])
+
+config_setting(
+    name = "ios_arm64",
+    values = {"cpu": "ios_arm64"},
+)
+
+config_setting(
+    name = "ios_arm64e",
+    values = {"cpu": "ios_arm64e"},
+)
+
+config_setting(
+    name = "linux_aarch64",
+    values = {"cpu": "aarch64"},
+)
 
 config_setting(
     name = "linux_x86_64",
@@ -103,20 +121,26 @@ posix_copts = [
 ]
 
 boringssl_copts = select({
+    ":ios_arm64": posix_copts,
+    ":ios_arm64e": posix_copts,
+    ":linux_aarch64": posix_copts,
     ":linux_ppc64le": posix_copts,
     ":linux_x86_64": posix_copts,
     ":mac_x86_64": posix_copts,
     ":windows_x86_64": [
         "-DWIN32_LEAN_AND_MEAN",
-        "-DOPENSSL_NO_ASM",
     ],
     "//conditions:default": ["-DOPENSSL_NO_ASM"],
 })
 
 crypto_sources_asm = select({
+    ":ios_arm64": crypto_sources_ios_aarch64,
+    ":ios_arm64e": crypto_sources_ios_aarch64,
+    ":linux_aarch64": crypto_sources_linux_aarch64,
     ":linux_ppc64le": crypto_sources_linux_ppc64le,
     ":linux_x86_64": crypto_sources_linux_x86_64,
     ":mac_x86_64": crypto_sources_mac_x86_64,
+    ":windows_x86_64": crypto_sources_win_x86_64,
     "//conditions:default": [],
 })
 
@@ -129,6 +153,9 @@ posix_copts_c11 = [
 ]
 
 boringssl_copts_c11 = boringssl_copts + select({
+    ":ios_arm64": posix_copts_c11,
+    ":ios_arm64e": posix_copts_c11,
+    ":linux_aarch64": posix_copts_c11,
     ":linux_ppc64le": posix_copts_c11,
     ":linux_x86_64": posix_copts_c11,
     ":mac_x86_64": posix_copts_c11,
@@ -142,6 +169,9 @@ posix_copts_cxx = [
 ]
 
 boringssl_copts_cxx = boringssl_copts + select({
+    ":ios_arm64": posix_copts_cxx,
+    ":ios_arm64e": posix_copts_cxx,
+    ":linux_aarch64": posix_copts_cxx,
     ":linux_ppc64le": posix_copts_cxx,
     ":linux_x86_64": posix_copts_cxx,
     ":mac_x86_64": posix_copts_cxx,
