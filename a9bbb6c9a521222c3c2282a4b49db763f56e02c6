@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4c97c2e_c3bac2ab",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1293,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-04-21T20:28:22Z",
+      "side": 1,
+      "message": "|X509_ATTRIBUTE_set1_data(_, type, bytes, len)|\n\n(otherwise I wasn\u0027t quite sure how set1_data was determining things.)\n\nMaybe rename |type| to |attrtype| to match set1_data and avoid having a |type| argument that doesn\u0027t determine the attribute type. (Same consideration for next two funcs.) If you choose to do that, the current wording for \"is determined by\" makes more sense and probably doesn\u0027t need to be changed.",
+      "revId": "a9bbb6c9a521222c3c2282a4b49db763f56e02c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
