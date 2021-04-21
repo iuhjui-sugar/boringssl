@@ -43,6 +43,10 @@ foo:
 
 	bl bss_symbol_bss_get
 
+	# Regression test for a two-digit index.
+	ld1 { v1.b }[10], [x9]
+
+
 local_function:
 
 // BSS data
@@ -50,4 +54,9 @@ local_function:
 .section .bss.bss_symbol,"aw",@nobits
 bss_symbol:
 .word 0
+# .byte was not parsed as a symbol-containing directive on the
+# assumption that it's too small to hold a pointer. But Clang
+# will store offsets in it.
+.byte   (.LBB231_40-.LBB231_19)>>2
+.byte	421
 .size bss_symbol, 4

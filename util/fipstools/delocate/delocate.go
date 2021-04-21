@@ -284,6 +284,9 @@ func (d *delocation) processLabelContainingDirective(statement, directive *node3
 
 	var args []string
 	for node = skipWS(node.up); node != nil; node = skipWS(node.next) {
+		if node.pegRule == ruleSymbolShift {
+			continue
+		}
 		assertNodeType(node, ruleSymbolArg)
 		arg := node.up
 		var mapped string
