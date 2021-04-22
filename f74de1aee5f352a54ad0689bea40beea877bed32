@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5dccc877_fa25c5e2",
+        "filename": "util/fipstools/delocate/delocate.peg",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-22T16:18:00Z",
+      "side": 1,
+      "message": "Hopefully we don\u0027t later have to support (foo\u003e\u003e2)-(bar\u003e\u003e2). :-)",
+      "revId": "f74de1aee5f352a54ad0689bea40beea877bed32",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
