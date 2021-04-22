@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f91d13e_465b460a",
+        "filename": "include/openssl/obj.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-04-22T16:37:03Z",
+      "side": 1,
+      "message": "s/encoding/encoded/, I think.",
+      "revId": "693c3b1c509d1a32c0a3b5deaf624be38c30d36c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f7c8c41_9392dd52",
+        "filename": "include/openssl/obj.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-04-22T16:37:03Z",
+      "side": 1,
+      "message": "(same)",
+      "revId": "693c3b1c509d1a32c0a3b5deaf624be38c30d36c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
