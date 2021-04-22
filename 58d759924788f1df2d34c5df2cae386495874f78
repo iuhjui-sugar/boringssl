@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "575a7697_fbf25cd6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5885
+      },
+      "writtenOn": "2021-04-22T10:03:47Z",
+      "side": 1,
+      "message": "Tested as a patch in Envoy, so we know that it doesn\u0027t break Linux-aarch64 builds (https://github.com/envoyproxy/envoy/pull/16104), and it seems to work fine for the original reporter (https://github.com/envoyproxy/envoy/issues/16105#issuecomment-824624873).",
+      "revId": "58d759924788f1df2d34c5df2cae386495874f78",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
