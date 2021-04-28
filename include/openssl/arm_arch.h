@@ -124,7 +124,67 @@
 //   - Armv8.5-A Branch Target Identification
 // features which require emitting a .note.gnu.property section with the
 // appropriate architecture-dependent feature bits set.
-// Read more: "ELF for the Arm® 64-bit Architecture"
+//
+// |AARCH64_SIGN_LINK_REGISTER| and |AARCH64_VALIDATE_LINK_REGISTER| expand to
+// PACIxSP and AUTIxSP, respectively. |AARCH64_SIGN_LINK_REGISTER| should be
+// used immediately before saving the LR register (x30) to the stack.
+// |AARCH64_VALIDATE_LINK_REGISTER| should be used immediately after restoring
+// it. The SP register must have the same value at these two points. For
+// example:
+//
+//   .global f
+//   f:
+//     AARCH64_SIGN_LINK_REGISTER
+//     stp x29, x30, [sp, #-96]!
+//     mov x29, sp
+//     ...
+//     ldp x29, x30, [sp], #96
+//     AARCH64_VALIDATE_LINK_REGISTER
+//     ret
+//
+// |AARCH64_VALID_CALL_TARGET| expands to BTI 'c'. Either it, or
+// |AARCH64_SIGN_LINK_REGISTER|, must be used at every point that may be an
+// indirect call target. In particular, all symbols exported from a file must
+// begin with either of these macros. For example, a leaf function may not need
+// a stack frame and instead set |AARCH64_VALID_CALL_TARGET|:
+//
+//   .globl return_zero
+//   return_zero:
+//     AARCH64_VALID_CALL_TARGET
+//     mov x0, #0
+//     ret
+//
+// A non-leaf function which does not immediately save the LR register and
+// allocate stack may need to use both macros because the
+// |AARCH64_SIGN_LINK_REGISTER| call appears late.
+//
+//   .globl maybe_use_stack
+//   maybe_use_stack:
+//     AARCH64_VALID_CALL_TARGET
+//     cbz x0, .Learly_return
+//     AARCH64_SIGN_LINK_REGISTER
+//     stp x29, x30, [sp, #-96]!
+//     mov x29, sp
+//     ...
+//     ldp x29, x30, [sp], #96
+//     AARCH64_VALIDATE_LINK_REGISTER
+//  .Learly_return:
+//     ret
+//
+// These annotations are only required with indirect calls. Private symbols that
+// are only the target of direct calls do not require annotations. Also note
+// that |AARCH64_VALID_CALL_TARGET| is only valid for indirect calls (BLR), not
+// indirect jumps (BR). Indirect jumps in assembly are currently not supported
+// and would require a macro for BTI 'j'.
+//
+// Although not necessary, it is safe to use these macros in 32-bit ARM
+// assembly. This simplifies dual 32-bit and 64-bit files.
+//
+// References:
+// - "ELF for the Arm® 64-bit Architecture"
+//   https://github.com/ARM-software/abi-aa/blob/master/aaelf64/aaelf64.rst
+// - "Providing protection for complex software"
+//   https://developer.arm.com/architectures/learn-the-architecture/providing-protection-for-complex-software
 
 #if defined(__ARM_FEATURE_BTI_DEFAULT) && __ARM_FEATURE_BTI_DEFAULT == 1
 #define GNU_PROPERTY_AARCH64_BTI (1 << 0)   // Has Branch Target Identification
