@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0814f619_e62ed232",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6950
+      },
+      "writtenOn": "2021-04-28T22:14:35Z",
+      "side": 1,
+      "message": "this CL *may* cause disruption (though I don\u0027t expect any), manifesting in purple builds with some permission denied error. We can coordinate the landing of this s.t.:\n * I can watch our logs for any errors, and revert / fix permissions as needed\n * I or you can send CQ dry run on some CL on your development branch",
+      "revId": "3fe644cf676afb71eecdf9a59362bd40b1c9cbb7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
