@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "185bac27_ea9a09ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6950
+      },
+      "writtenOn": "2021-04-28T22:16:20Z",
+      "side": 1,
+      "message": "PTAL. Given that your project is simple in its try|ci setup, if 10% works, I think it\u0027s safe to go to 100% quickly.",
+      "revId": "2a9eaffb31485503f29a447c7dc4492736afcf2e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
