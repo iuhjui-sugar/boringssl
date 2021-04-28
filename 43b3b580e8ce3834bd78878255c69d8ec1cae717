@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fa71a88_8c835745",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 11766
+      },
+      "writtenOn": "2021-04-28T00:01:33Z",
+      "side": 1,
+      "message": "Happy to address all feedback but it sounds like it\u0027s more efficient if we don\u0027t spend too much time on styling. Up to you. If there\u0027s a comment I\u0027ll make adjustments.\n\nOk for clients to defer checking to the validation function.\nWe still need a way to tell clients to request raw public key authentication.\n\nWe also need a way to tell servers to send a raw public key instead of a certificate.\n\nWould the following make more sense?\n// For clients to request a raw public key.\nSSL_CTX_set_server_raw_public_key_enabled(ctx)\n\n// For servers to respond with a raw public key.\n// Future: Also for clients to respond with a raw public key.\nSSL_CTX_use_raw_public_key(ctx, key, len)\n\n// Future: For servers to request a raw public key.\n// SSL_CTX_set_client_raw_public_key_enabled(ctx)",
+      "parentUuid": "78bd1820_d497c498",
+      "revId": "43b3b580e8ce3834bd78878255c69d8ec1cae717",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c3b9a5a4_0e8526ad",
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9853e830_5e251705",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 1284,
+      "author": {
+        "id": 11766
+      },
+      "writtenOn": "2021-04-28T00:01:33Z",
+      "side": 1,
+      "message": "Yes",
+      "parentUuid": "c3b9a5a4_0e8526ad",
+      "revId": "43b3b580e8ce3834bd78878255c69d8ec1cae717",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "df92a30c_69b68895",
         "filename": "include/openssl/ssl.h",
         "patchSetId": 6
@@ -48,6 +84,30 @@
       "writtenOn": "2021-04-27T22:57:56Z",
       "side": 1,
       "message": "Is the word \"certificate\" needed in these APIs?",
+      "range": {
+        "startLine": 1293,
+        "startChar": 19,
+        "endLine": 1293,
+        "endChar": 64
+      },
+      "revId": "43b3b580e8ce3834bd78878255c69d8ec1cae717",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abb6b5ad_10f0dc9d",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 1293,
+      "author": {
+        "id": 11766
+      },
+      "writtenOn": "2021-04-28T00:01:33Z",
+      "side": 1,
+      "message": "This public key goes in a Certificate message and also wanted it to look like SSL_CTX_use_certificate.\nOpen to suggestions.",
+      "parentUuid": "df92a30c_69b68895",
       "range": {
         "startLine": 1293,
         "startChar": 19,
@@ -81,6 +141,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9c4bd52_c94d392e",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 1294,
+      "author": {
+        "id": 11766
+      },
+      "writtenOn": "2021-04-28T00:01:33Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c7346c6a_cde5794b",
+      "range": {
+        "startLine": 1294,
+        "startChar": 35,
+        "endLine": 1294,
+        "endChar": 43
+      },
+      "revId": "43b3b580e8ce3834bd78878255c69d8ec1cae717",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a4223137_5501bbef",
@@ -94,6 +178,24 @@
       "writtenOn": "2021-04-27T22:57:56Z",
       "side": 1,
       "message": "The two blank lines above indicate the start of a section in our hacky documentation generator. You might want to create a section for raw public key, as done for ALPN just above at line 2832?\n\nI don\u0027t see that these defines are used in the public interface? ssl/internal.h can be used for anything used internally.",
+      "revId": "43b3b580e8ce3834bd78878255c69d8ec1cae717",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8b76f3a_d2385403",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 2877,
+      "author": {
+        "id": 11766
+      },
+      "writtenOn": "2021-04-28T00:01:33Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a4223137_5501bbef",
       "revId": "43b3b580e8ce3834bd78878255c69d8ec1cae717",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -115,6 +217,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "553eeea1_0a7d218e",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 3320,
+      "author": {
+        "id": 11766
+      },
+      "writtenOn": "2021-04-28T00:01:33Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7afdef9d_fc17ba9d",
+      "revId": "43b3b580e8ce3834bd78878255c69d8ec1cae717",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4482b34b_abb4fd89",
@@ -128,6 +248,24 @@
       "writtenOn": "2021-04-27T22:57:56Z",
       "side": 1,
       "message": "if (CBS_len(content) !\u003d 1) {\n  // https://tools.ietf.org/html/rfc7250#section-4.2\n  // Only a single value is allowed.\n  *out_alert \u003d SSL_AD_ILLEGAL_PARAMETER;\n  return false;\n}",
+      "revId": "43b3b580e8ce3834bd78878255c69d8ec1cae717",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "733bef42_405bc63e",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 3329,
+      "author": {
+        "id": 11766
+      },
+      "writtenOn": "2021-04-28T00:01:33Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4482b34b_abb4fd89",
       "revId": "43b3b580e8ce3834bd78878255c69d8ec1cae717",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -149,6 +287,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "495e0603_2e8d7461",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 3361,
+      "author": {
+        "id": 11766
+      },
+      "writtenOn": "2021-04-28T00:01:33Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "851f22c2_c2fcf41d",
+      "revId": "43b3b580e8ce3834bd78878255c69d8ec1cae717",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d12d65a2_ae0016e8",
@@ -162,6 +318,24 @@
       "writtenOn": "2021-04-27T22:57:56Z",
       "side": 1,
       "message": "This is a little too clever for this code I\u0027m afraid. Also, the loop below will fail the connection if no recognised certificate types are seen. I haven\u0027t seen the whole change yet, but we wouldn\u0027t want to break clients that are sending superfluous extensions just advertising that they want X.509 certs.",
+      "revId": "43b3b580e8ce3834bd78878255c69d8ec1cae717",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85292cf4_5bbdc0af",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 3362,
+      "author": {
+        "id": 11766
+      },
+      "writtenOn": "2021-04-28T00:01:33Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d12d65a2_ae0016e8",
       "revId": "43b3b580e8ce3834bd78878255c69d8ec1cae717",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
