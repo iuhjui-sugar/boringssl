@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3222de18_a855b7fe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6950
+      },
+      "writtenOn": "2021-04-28T22:10:24Z",
+      "side": 1,
+      "message": "ptal \u0026 submit if LGTM.",
+      "revId": "c94ee96c11bc77513f286158efeeb7dd18c5c904",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
