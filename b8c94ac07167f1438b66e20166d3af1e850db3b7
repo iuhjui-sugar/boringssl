@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "a70846a0_9daa1c7a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10416
+      },
+      "writtenOn": "2021-04-29T09:47:01Z",
+      "side": 1,
+      "message": "Thank you for adding this thorough description.\nIt all looks good to me.",
+      "parentUuid": "37bad735_2c8b2fb6",
+      "revId": "b8c94ac07167f1438b66e20166d3af1e850db3b7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "57ac5708_8f72cea1",
         "filename": "include/openssl/arm_arch.h",
         "patchSetId": 2
@@ -31,6 +49,24 @@
       "writtenOn": "2021-04-28T22:14:57Z",
       "side": 1,
       "message": "It\u0027s unclear to me if merely lifting SIGN_LINK_REGISTER earlier would be a problem, but our files do it this way, so I\u0027ve documented it.",
+      "revId": "b8c94ac07167f1438b66e20166d3af1e850db3b7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ade261fb_5cc36636",
+        "filename": "include/openssl/arm_arch.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 10416
+      },
+      "writtenOn": "2021-04-29T09:47:01Z",
+      "side": 1,
+      "message": "In this case, replacing AARCH64_VALID_CALL_TARGET with AARCH64_SIGN_LINK_REGISTER would work, but then AARCH64_VALIDATE_LINK_REGISTER must be moved just before the \u0027ret\u0027. This is because the code would always sign the LR.\n\n//   .globl maybe_use_stack\n//   maybe_use_stack:\n//     AARCH64_SIGN_LINK_REGISTER\n//     cbz x0, .Learly_return\n//     stp x29, x30, [sp, #-96]!\n//     mov x29, sp\n//     ...\n//     ldp x29, x30, [sp], #96\n//  .Learly_return:\n//     AARCH64_VALIDATE_LINK_REGISTER\n//     ret\n\nI think this small difference speaks for itself, however, I would leave the example as-is, it is a good one.",
+      "parentUuid": "57ac5708_8f72cea1",
       "revId": "b8c94ac07167f1438b66e20166d3af1e850db3b7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
