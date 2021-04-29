@@ -16,6 +16,23 @@
       "message": "ptal \u0026 submit if LGTM. LMK if you have any questions.",
       "revId": "ae787c891842710991ed259ea43095fe7ceb83d6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "472d0084_45e1b3e9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-29T14:52:01Z",
+      "side": 1,
+      "message": "rubber stamp lgtm",
+      "revId": "ae787c891842710991ed259ea43095fe7ceb83d6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
