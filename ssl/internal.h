@@ -1460,13 +1460,12 @@ class ECHServerConfig {
     assert(initialized_);
     return MakeConstSpan(private_key_, sizeof(private_key_));
   }
-  Span<const uint8_t> config_id_sha256() const {
-    assert(initialized_);
-    return MakeConstSpan(config_id_sha256_, sizeof(config_id_sha256_));
-  }
   bool is_retry_config() const {
     assert(initialized_);
     return is_retry_config_;
+  }
+  uint8_t config_id() const {
+    return config_id_;
   }
 
  private:
@@ -1479,9 +1478,7 @@ class ECHServerConfig {
   // X25519 private key.
   uint8_t private_key_[X25519_PRIVATE_KEY_LEN];
 
-  // config_id_ stores the precomputed result of |ConfigID| for
-  // |EVP_HPKE_HKDF_SHA256|.
-  uint8_t config_id_sha256_[8];
+  uint8_t config_id_;
 
   bool is_retry_config_ : 1;
   bool initialized_ : 1;
@@ -1507,7 +1504,7 @@ OPENSSL_EXPORT bool ssl_decode_client_hello_inner(
 bool ssl_client_hello_decrypt(
     EVP_HPKE_CTX *hpke_ctx, Array<uint8_t> *out_encoded_client_hello_inner,
     bool *out_is_decrypt_error, const SSL_CLIENT_HELLO *client_hello_outer,
-    uint16_t kdf_id, uint16_t aead_id, Span<const uint8_t> config_id,
+    uint16_t kdf_id, uint16_t aead_id, const uint8_t config_id,
     Span<const uint8_t> enc, Span<const uint8_t> payload);
 
 // tls13_ech_accept_confirmation computes the server's ECH acceptance signal,
