@@ -33,6 +33,24 @@
       "message": "rslgtm\n\n(The CQ doesn\u0027t work for the infra/config branch since it doesn\u0027t know what to do with this... is there a standard setup for infra/config we should be using?)",
       "revId": "c94ee96c11bc77513f286158efeeb7dd18c5c904",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cbc5682_38e41e58",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6950
+      },
+      "writtenOn": "2021-04-29T15:23:57Z",
+      "side": 1,
+      "message": "thnaks!\n\nwrt CQ for infra/config:\n\napproach 1: v8-style https://chromium.googlesource.com/v8/v8/+/refs/heads/infra/config/cq.star#11\n (you can add simple PRESUBMIT.py to run lucicfg validation, e.g. https://chromium.googlesource.com/v8/v8/+/refs/heads/infra/config/PRESUBMIT.py)\n\napproach 2: you can also move this config into your master or main branch, e.g. this is what chromium does https://chromium.googlesource.com/chromium/src/+/main/infra/config\nbut many teams don\u0027t like it because it pollutes the main repo and adds noise to the commit log.\n\nmy recommendation is to do what V8 did.",
+      "parentUuid": "490d52b6_fc88121c",
+      "revId": "c94ee96c11bc77513f286158efeeb7dd18c5c904",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
