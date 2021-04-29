@@ -15,8 +15,6 @@
 #include <openssl/base.h>
 #include "../fipsmodule/rand/internal.h"
 
-#if defined(BORINGSSL_FIPS_PASSIVE_ENTROPY)
-
 // RAND_need_entropy is called by the FIPS module when it has blocked because of
 // a lack of entropy. This signal is used as an indication to feed it more.
 void RAND_need_entropy(size_t bytes_needed) {
@@ -30,5 +28,3 @@ void RAND_need_entropy(size_t bytes_needed) {
   CRYPTO_get_seed_entropy(buf, todo, &used_cpu);
   RAND_load_entropy(buf, todo, used_cpu);
 }
-
-#endif  // BORINGSSL_FIPS_PASSIVE_ENTROPY
