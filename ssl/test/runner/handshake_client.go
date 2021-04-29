@@ -823,7 +823,7 @@ NextCipherSuite:
 		if err != nil {
 			return nil, err
 		}
-		if err := hs.encryptClientHello(hello, innerHello, c.config.ClientECHConfig.configID(hash), echEnc); err != nil {
+		if err := hs.encryptClientHello(hello, innerHello, c.config.ClientECHConfig.ConfigID, echEnc); err != nil {
 			return nil, err
 		}
 		if c.config.Bugs.CorruptEncryptedClientHello {
@@ -878,7 +878,7 @@ func (hs *clientHandshakeState) encryptClientHello(hello, innerHello *clientHell
 	aad := newByteBuilder()
 	aad.addU16(hs.echHPKEContext.KDF())
 	aad.addU16(hs.echHPKEContext.AEAD())
-	aad.addU8LengthPrefixed().addBytes(configID)
+	aad.addU8(configID)
 	aad.addU16LengthPrefixed().addBytes(enc)
 	hello.marshalForOuterAAD(aad.addU24LengthPrefixed())
 
