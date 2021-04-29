@@ -69,6 +69,24 @@
       "parentUuid": "57ac5708_8f72cea1",
       "revId": "b8c94ac07167f1438b66e20166d3af1e850db3b7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "413e793a_6852b97b",
+        "filename": "include/openssl/arm_arch.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-29T15:07:29Z",
+      "side": 1,
+      "message": "Oh, interesting. Does PACIxSP modifies LR in a way that breaks RET and we need AUTIxSP to undo it? I.e., clearly every VALIDATE clearly needs to have a corresponding SIGN. Must every SIGN have a corresponding VALIDATE?\n\nI wonder if it\u0027d be an easier convention to always stick PACIxSP at the top of non-leaf functions, and then always stick AUTIxSP right before ret or tail call. Or is the issue that convention would break this pattern:\n\n.globl foo\nfoo:\n  AARCH64_SIGN_LINK_REGISTER\n  cmp x0, #16\n  b.lt .Lfoo_small  // Special-case small inputs\n  stp x29, x30, [sp, #-96]!\n  mov x29, sp\n  ...\n  ldp x29, x30, [sp], #96\n  AARCH64_VALIDATE_LINK_REGISTER\n  ret\n\n.Lfoo_small:\n  // .Lfoo_small is a boring leaf function and doesn\u0027t think it needs to\n  // use any of the macros, but it unwittingly does an unpaired SIGN\n  // because the early tail call in foo left a signed LR lying around.\n  mov x0, #0\n  ret",
+      "parentUuid": "ade261fb_5cc36636",
+      "revId": "b8c94ac07167f1438b66e20166d3af1e850db3b7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
