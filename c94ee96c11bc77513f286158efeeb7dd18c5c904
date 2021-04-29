@@ -16,6 +16,23 @@
       "message": "ptal \u0026 submit if LGTM.",
       "revId": "c94ee96c11bc77513f286158efeeb7dd18c5c904",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "490d52b6_fc88121c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-29T14:41:25Z",
+      "side": 1,
+      "message": "rslgtm\n\n(The CQ doesn\u0027t work for the infra/config branch since it doesn\u0027t know what to do with this... is there a standard setup for infra/config we should be using?)",
+      "revId": "c94ee96c11bc77513f286158efeeb7dd18c5c904",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
