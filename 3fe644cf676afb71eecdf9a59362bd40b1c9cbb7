@@ -33,6 +33,24 @@
       "message": "rubber stamp lgtm",
       "revId": "3fe644cf676afb71eecdf9a59362bd40b1c9cbb7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d9eb23b_62c62427",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-29T14:53:19Z",
+      "side": 1,
+      "message": "Sounds good. Will wait a bit to make sure it\u0027s gone through and kick off a test CL.",
+      "parentUuid": "0814f619_e62ed232",
+      "revId": "3fe644cf676afb71eecdf9a59362bd40b1c9cbb7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
