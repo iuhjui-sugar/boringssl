@@ -33,6 +33,194 @@
       "message": "(David hopes to get back to this tomorrow.)",
       "revId": "79e97ac06c5cf83d804605bfe678bf1573e272a7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e87da62_61ac0d27",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-30T01:07:15Z",
+      "side": 1,
+      "message": "Took a while to swap back in what this file was doing. :-( I think it\u0027s pretty likely at this point that we\u0027ll just have to take it up from here after your last day. Ah well. I\u0027ve gotten through most of it, so hopefully it should be fine.\n\nI can finish it up and make the actual changes. But if you could answer a couple of the comment threads below, that\u0027d be really helpful. Specifically:\n\n1. Whether the idea for simpler extra_in calling convention seems reasonable to you.\n\n2. What\u0027s going on with the eq condition code for the final reduction. (Seems we should be checking the carry flag.)\n\nThanks!",
+      "revId": "79e97ac06c5cf83d804605bfe678bf1573e272a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c43ac7d0_973b1451",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-30T01:07:15Z",
+      "side": 1,
+      "message": "Why not just cbz $adl, .Lpoly_hash_ad_ret at the top?\n\n(Even that\u0027s redundant with the b.lt .L_poly_hash_ad_tail + line 344, but I guess that\u0027s a few more branches?)",
+      "revId": "79e97ac06c5cf83d804605bfe678bf1573e272a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "219651d1_6919daa9",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-30T01:07:15Z",
+      "side": 1,
+      "message": "Inconsistent use of spaces vs. tabs in these preambles.",
+      "range": {
+        "startLine": 374,
+        "startChar": 7,
+        "endLine": 374,
+        "endChar": 8
+      },
+      "revId": "79e97ac06c5cf83d804605bfe678bf1573e272a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "218c6006_d924ac99",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-30T01:07:15Z",
+      "side": 1,
+      "message": "No longer used.",
+      "revId": "79e97ac06c5cf83d804605bfe678bf1573e272a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbc9ea9d_21dbc5f8",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 808,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-30T01:07:15Z",
+      "side": 1,
+      "message": "Oof. I believe this is correct, but boy do we need a better calling convention.",
+      "revId": "79e97ac06c5cf83d804605bfe678bf1573e272a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aeb9c2ed_4489641f",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 885,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-30T01:07:15Z",
+      "side": 1,
+      "message": "Is this correct? That checks PSTATE.Z, which I think is if $t2 \u003d\u003d 0. Don\u0027t we want cs/hs? (Looks like ARM sets the carry flag when there *isn\u0027t* a borrow, so cs instead of cc?) Unless I\u0027m completely confused. The corresponding x86_64 code also checks the carry flag.\n\nOr is it just that $acc is bounded tightly enough that $acc2 - $t2 - borrow can only be zero or underflow? Still it doing the more accurate check seems clearer.\n\nIf this is indeed a bug, we should make sure our tests cover this case.",
+      "range": {
+        "startLine": 885,
+        "startChar": 28,
+        "endLine": 885,
+        "endChar": 30
+      },
+      "revId": "79e97ac06c5cf83d804605bfe678bf1573e272a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee568dbe_62b0102a",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 899,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-30T01:07:15Z",
+      "side": 1,
+      "message": "Inconsistent tabs vs. spaces.",
+      "range": {
+        "startLine": 899,
+        "startChar": 0,
+        "endLine": 899,
+        "endChar": 1
+      },
+      "revId": "79e97ac06c5cf83d804605bfe678bf1573e272a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cff58e12_638d9243",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 936,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-30T01:07:15Z",
+      "side": 1,
+      "message": "Maybe worth a comment here, like:\n\nOnly the first 32 bytes of the third block (counter \u003d 0) are needed, so skip updating $C2 and $D2.",
+      "revId": "79e97ac06c5cf83d804605bfe678bf1573e272a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2244d0fd_53c8112f",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 957,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-30T01:07:15Z",
+      "side": 1,
+      "message": "Note to self: start here tomorrow.",
+      "revId": "79e97ac06c5cf83d804605bfe678bf1573e272a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d1d5f7b_80249bb0",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 1487,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-30T01:07:15Z",
+      "side": 1,
+      "message": "Ditto about eq being odd here.",
+      "revId": "79e97ac06c5cf83d804605bfe678bf1573e272a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }

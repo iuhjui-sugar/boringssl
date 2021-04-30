@@ -310,6 +310,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cfe9ce02_701c852e",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-30T01:07:15Z",
+      "side": 1,
+      "message": "Let\u0027s use the preamble I provided above. This new one isn\u0027t quite right.\n\nI\u0027m not sure what Rust is doing, but both GCC and Clang update x29:\nhttps://godbolt.org/z/cz4zsv1cT\n\nThe point isn\u0027t to save sp, but to update x29 to point to the new frame record. If you skip this, you effectively drop an entry from the list and there was no point in saving the frame record anyway.\n\nAAPCS64 allows different platforms to set different rules here, but platforms are allowed to mandate that all non-tail functions be present in the list. Since it\u0027s both the most straightforward and most compatible option, we do that.\nhttps://github.com/ARM-software/abi-aa/blob/master/aapcs64/aapcs64.rst#623the-frame-pointer\n\nThe other difference between my suggestion and the CL is whether the frame record is at the top or bottom of the stack. AAPCS64 says it doesn\u0027t matter, and indeed GCC and Clang seem to do different things once vector registers are involved.\n\nHowever, all of our other aarch64 assembly puts the frame record at the top of the stack by using the x29/x30 STP with a pre-index stack allocation. aarch64 has plenty of registers, so let\u0027s stick to convention.\n\nIn particular, this file is missing the PAC and BTI macros, and it\u0027s a bit more involved if your first instruction isn\u0027t the x29/x30 STP. I\u0027ve uploaded https://boringssl-review.googlesource.com/c/boringssl/+/47204 to document the correct use of those macros a bit better.\n\nIncidentally, now that I understand the BTI stuff better, that\u0027s another reason to stick to BL/RET over an ad-hoc BR call. BR requires a BTI \u0027j\u0027 annotation, which we do not currently wrap. (BTI special cases RET, which is why call sites don\u0027t require annotations.)",
+      "parentUuid": "e2abb3ba_1a6a7163",
+      "revId": "9b18d7d9b9327e6c5f031ad0dadeb41123594552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "86a6cdc1_b54da519",
         "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
         "patchSetId": 2
@@ -397,6 +415,30 @@
       "side": 1,
       "message": "\u003e Alternative: init also consumes all its input and jumps in the middle of\n\u003e update. Reason to consider this design is, if we have any hope of using\n\u003e formal verification tools on our asm, I expect they\u0027ll be opinionated\n\u003e about control flow and get offended by cross-function jumps.\n\nOh, I guess the return value idea still doesn\u0027t save us from wanting to share code between init/update because of short inputs. Plus the jump can always be modeled as a tail call if we have a fussy verification tool. So, yeah, probably better to just have init consume all its input?\n\n(I don\u0027t actually have a path towards getting a verification story, so no need to put much thought towards those constraints right now. There\u0027s one candidate I\u0027m idly trying to sniffing at, but it\u0027s unlikely I\u0027ll get anything. These sorts of tools tend not to be usable.)",
       "parentUuid": "e0c5b36d_31795ce1",
+      "range": {
+        "startLine": 385,
+        "startChar": 69,
+        "endLine": 385,
+        "endChar": 81
+      },
+      "revId": "9b18d7d9b9327e6c5f031ad0dadeb41123594552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90d94d68_b969db4d",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-30T01:07:15Z",
+      "side": 1,
+      "message": "While you\u0027re still around, Vlad, do you have thoughts on this? (Not for this file, but it seems worth doing afterwards.)",
+      "parentUuid": "ee7f3681_ab566b47",
       "range": {
         "startLine": 385,
         "startChar": 69,
@@ -636,6 +678,24 @@
       "writtenOn": "2021-02-13T04:10:01Z",
       "side": 1,
       "message": "Note to self: continue from here next time.",
+      "revId": "9b18d7d9b9327e6c5f031ad0dadeb41123594552",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68758911_ee8ab746",
+        "filename": "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 770,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-30T01:07:15Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "dc5f41cb_e4f5b855",
       "revId": "9b18d7d9b9327e6c5f031ad0dadeb41123594552",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
