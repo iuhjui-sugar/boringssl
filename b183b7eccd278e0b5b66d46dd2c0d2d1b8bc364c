@@ -1,0 +1,135 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ed3d882_fef51d06",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-30T22:15:11Z",
+      "side": 1,
+      "message": "Bug: 275",
+      "revId": "b183b7eccd278e0b5b66d46dd2c0d2d1b8bc364c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd020770_dc252432",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-30T22:15:11Z",
+      "side": 1,
+      "message": "Thanks!",
+      "revId": "b183b7eccd278e0b5b66d46dd2c0d2d1b8bc364c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "541b7963_df2690d3",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1507,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-30T22:15:11Z",
+      "side": 1,
+      "message": "No need for const on the variables themselves here.\n\nIIRC, it even does something weird because void f(int) and void f(const int) are the same type. I want to say the rule ends up being that you put it on the definition but not the decl?? Anyway, not worth the fuss.",
+      "range": {
+        "startLine": 1507,
+        "startChar": 39,
+        "endLine": 1507,
+        "endChar": 45
+      },
+      "revId": "b183b7eccd278e0b5b66d46dd2c0d2d1b8bc364c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49216ce1_e94c528d",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 1520,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-30T22:15:11Z",
+      "side": 1,
+      "message": "c.config.ClientECHConfig.ConfigID\n\n(Or maybe we should omit the parameter and just have encryptClientHello set it? I guess we might want a bug to flip it...)",
+      "range": {
+        "startLine": 1520,
+        "startChar": 54,
+        "endLine": 1520,
+        "endChar": 55
+      },
+      "revId": "b183b7eccd278e0b5b66d46dd2c0d2d1b8bc364c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "adda9321_e5d2ed3d",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-30T22:15:11Z",
+      "side": 1,
+      "message": "Stray comment?",
+      "revId": "b183b7eccd278e0b5b66d46dd2c0d2d1b8bc364c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ae0eaf3_dd72bbcd",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-30T22:15:11Z",
+      "side": 1,
+      "message": "We probably should update runner.go to fill in something non-zero in here.",
+      "revId": "b183b7eccd278e0b5b66d46dd2c0d2d1b8bc364c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f389781_f4987bcd",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-30T22:15:11Z",
+      "side": 1,
+      "message": "We should also check that config_id matched (spec even says to), although it\u0027s annoying that it\u0027s not readily available. :-/ Might need to stash it?",
+      "revId": "b183b7eccd278e0b5b66d46dd2c0d2d1b8bc364c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
