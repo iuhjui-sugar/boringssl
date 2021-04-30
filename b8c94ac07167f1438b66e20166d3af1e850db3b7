@@ -105,6 +105,24 @@
       "parentUuid": "413e793a_6852b97b",
       "revId": "b8c94ac07167f1438b66e20166d3af1e850db3b7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e59cbb7d_bdba311c",
+        "filename": "include/openssl/arm_arch.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-30T15:13:00Z",
+      "side": 1,
+      "message": "Thank you! That makes sense. I\u0027ve updated the documentation with this constraint and made the two-macro example clearer. (The jump to ret version could arguably go either way, though I think stapling them to stp/ldp is the simplest convention anyway.)",
+      "parentUuid": "8f2202da_db09484a",
+      "revId": "b8c94ac07167f1438b66e20166d3af1e850db3b7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
