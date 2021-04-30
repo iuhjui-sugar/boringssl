@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f69dbae_552c6c3c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-30T20:08:25Z",
+      "side": 1,
+      "message": "Thanks! I think, to be tidy, probably worth squashing this with the ECH CL, but I can take care of that along with the minor internal.h thing.",
+      "revId": "58bc1c47df3ac2b370e954d51409fa219f811a47",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ccbe7ad_1460a8dc",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-30T20:08:25Z",
+      "side": 1,
+      "message": "(Huh. Without the space they\u0027re going to need to make sure the labels are all prefix-free. Oh well.)",
+      "range": {
+        "startLine": 73,
+        "startChar": 33,
+        "endLine": 73,
+        "endChar": 34
+      },
+      "revId": "58bc1c47df3ac2b370e954d51409fa219f811a47",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
