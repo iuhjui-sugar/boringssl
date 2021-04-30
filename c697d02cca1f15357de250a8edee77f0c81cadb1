@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "778bbb1b_9920dc93",
+        "filename": "crypto/fipsmodule/rand/rand.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-04-30T15:43:20Z",
+      "side": 1,
+      "message": "Hopefully the extra contention won\u0027t be an issue. :-)",
+      "range": {
+        "startLine": 197,
+        "startChar": 20,
+        "endLine": 197,
+        "endChar": 39
+      },
+      "revId": "c697d02cca1f15357de250a8edee77f0c81cadb1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
