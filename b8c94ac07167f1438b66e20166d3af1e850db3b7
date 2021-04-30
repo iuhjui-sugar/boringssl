@@ -87,6 +87,24 @@
       "parentUuid": "ade261fb_5cc36636",
       "revId": "b8c94ac07167f1438b66e20166d3af1e850db3b7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f2202da_db09484a",
+        "filename": "include/openssl/arm_arch.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 10416
+      },
+      "writtenOn": "2021-04-30T11:58:30Z",
+      "side": 1,
+      "message": "PACIxSP modifies LR in the register (amends a PAC code to it based on a key and SP as seed). This means that whenever LR gets signed, it must be unsigned before using it the next time.\n\nI think the general approach is to say that\n  1. LR should be signed sometimes before pushing it to the stack.\n     Rationale: the \"threat\" being considered here is that something overwrites\n     LR in memory which is then later popped and used.\n  2. A signed LR should be authenticated before using it.\n\nIn the above example foo_small will fault when it tries to return because LR is signed - as you wrote.\n\n\u003e  wonder if it\u0027d be an easier convention to always stick PACIxSP at the top of non-leaf functions, and then always stick AUTIxSP right before ret or tail call\n\nFollowing this convention, the above code would look like this, wouldn\u0027t it?\n\n.globl foo\nfoo:\n\n  AARCH64_SIGN_LINK_REGISTER\n  cmp x0, #16\n  AARCH64_VALIDATE_LINK_REGISTER\n  b.lt .Lfoo_small\n  AARCH64_SIGN_LINK_REGISTER\n  stp x29, x30, [sp, #-96]!\n  mov x29, sp\n  ...\n  ldp x29, x30, [sp], #96\n  AARCH64_VALIDATE_LINK_REGISTER\n  ret\n.Lfoo_small:\n  mov x0, #0\n  ret\n\nor\n\n.globl foo\nfoo:\n\n  AARCH64_SIGN_LINK_REGISTER\n  cmp x0, #16\n  b.lt .Lfoo_small\n  stp x29, x30, [sp, #-96]!\n  mov x29, sp\n  ...\n  ldp x29, x30, [sp], #96\n  AARCH64_VALIDATE_LINK_REGISTER\n  ret\n.Lfoo_small:\n  mov x0, #0\n  AARCH64_VALIDATE_LINK_REGISTER\n  ret\n\nIt would be better though to write:\n\n.globl foo\nfoo:\n\n  AARCH64_VALID_CALL_TARGET\n  cmp x0, #16\n  b.lt .Lfoo_small\n  AARCH64_SIGN_LINK_REGISTER\n  stp x29, x30, [sp, #-96]!\n  mov x29, sp\n  ...\n  ldp x29, x30, [sp], #96\n  AARCH64_VALIDATE_LINK_REGISTER\n  ret\n.Lfoo_small:\n  mov x0, #0\n  ret",
+      "parentUuid": "413e793a_6852b97b",
+      "revId": "b8c94ac07167f1438b66e20166d3af1e850db3b7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
