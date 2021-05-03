@@ -52,6 +52,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b65c1871_e5fc94b0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7650
+      },
+      "writtenOn": "2021-05-03T20:59:36Z",
+      "side": 1,
+      "message": "You are more than welcome to take over. I would help as much as I could, but this patch is submitted under the Cloudflare CLA, so not sure how it would work from legal standpoint, you obviously can do whatever you want with the submitted code and finish it. I will also lose access to all the ARM machines that we had.",
+      "parentUuid": "4e87da62_61ac0d27",
+      "revId": "79e97ac06c5cf83d804605bfe678bf1573e272a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c43ac7d0_973b1451",
