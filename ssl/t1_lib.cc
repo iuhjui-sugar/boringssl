@@ -618,13 +618,10 @@ static bool ext_ech_add_clienthello_grease(SSL_HANDSHAKE *hs, CBB *out) {
     return true;
   }
 
-  constexpr uint16_t kdf_id = EVP_HPKE_HKDF_SHA256;
-  const uint16_t aead_id = EVP_has_aes_hardware()
-                               ? EVP_HPKE_AEAD_AES_128_GCM
-                               : EVP_HPKE_AEAD_CHACHA20POLY1305;
-  const EVP_AEAD *aead = EVP_HPKE_get_aead(aead_id);
-  assert(aead != nullptr);
-
+  const uint16_t kdf_id = EVP_HPKE_HKDF_SHA256;
+  const uint16_t aead_id = EVP_has_aes_hardware() ? EVP_HPKE_AES_128_GCM
+                                                  : EVP_HPKE_CHACHA20_POLY1305;
+  const size_t aead_overhead = 16;  // Both AEADs have a 16-byte tag.
   uint8_t ech_config_id;
   RAND_bytes(&ech_config_id, 1);
 
@@ -673,7 +670,7 @@ static bool ext_ech_add_clienthello_grease(SSL_HANDSHAKE *hs, CBB *out) {
 
   uint8_t payload[EVP_AEAD_MAX_OVERHEAD + 192];
   const size_t payload_len =
-      EVP_AEAD_max_overhead(aead) + 32 * random_size(96 / 32, 192 / 32);
+      aead_overhead + 32 * random_size(96 / 32, 192 / 32);
   assert(payload_len <= sizeof(payload));
   RAND_bytes(payload, payload_len);
 
@@ -768,8 +765,8 @@ static bool ext_ech_add_serverhello(SSL_HANDSHAKE *hs, CBB *out) {
     if (!config.is_retry_config()) {
       continue;
     }
-    if (!CBB_add_bytes(&retry_configs, config.raw().data(),
-                       config.raw().size())) {
+    if (!CBB_add_bytes(&retry_configs, config.ech_config().data(),
+                       config.ech_config().size())) {
       return false;
     }
   }
