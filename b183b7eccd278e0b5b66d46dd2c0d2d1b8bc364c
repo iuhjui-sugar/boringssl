@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "545ae34a_c43ffb9c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2021-05-03T14:24:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ed3d882_fef51d06",
+      "revId": "b183b7eccd278e0b5b66d46dd2c0d2d1b8bc364c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "cd020770_dc252432",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
@@ -58,6 +76,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bfd9916_46567ba7",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1507,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2021-05-03T14:24:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "541b7963_df2690d3",
+      "range": {
+        "startLine": 1507,
+        "startChar": 39,
+        "endLine": 1507,
+        "endChar": 45
+      },
+      "revId": "b183b7eccd278e0b5b66d46dd2c0d2d1b8bc364c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "49216ce1_e94c528d",
@@ -71,6 +113,30 @@
       "writtenOn": "2021-04-30T22:15:11Z",
       "side": 1,
       "message": "c.config.ClientECHConfig.ConfigID\n\n(Or maybe we should omit the parameter and just have encryptClientHello set it? I guess we might want a bug to flip it...)",
+      "range": {
+        "startLine": 1520,
+        "startChar": 54,
+        "endLine": 1520,
+        "endChar": 55
+      },
+      "revId": "b183b7eccd278e0b5b66d46dd2c0d2d1b8bc364c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e02eb06_a579a4ea",
+        "filename": "ssl/test/runner/handshake_client.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 1520,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2021-05-03T14:24:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49216ce1_e94c528d",
       "range": {
         "startLine": 1520,
         "startChar": 54,
@@ -98,6 +164,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bf0f74d_f20761e3",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2021-05-03T14:24:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "adda9321_e5d2ed3d",
+      "revId": "b183b7eccd278e0b5b66d46dd2c0d2d1b8bc364c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5ae0eaf3_dd72bbcd",
@@ -115,6 +199,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "da1c426f_e052e7fc",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2021-05-03T14:24:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ae0eaf3_dd72bbcd",
+      "revId": "b183b7eccd278e0b5b66d46dd2c0d2d1b8bc364c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f389781_f4987bcd",
@@ -128,6 +230,24 @@
       "writtenOn": "2021-04-30T22:15:11Z",
       "side": 1,
       "message": "We should also check that config_id matched (spec even says to), although it\u0027s annoying that it\u0027s not readily available. :-/ Might need to stash it?",
+      "revId": "b183b7eccd278e0b5b66d46dd2c0d2d1b8bc364c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6be9fbf_bab313ff",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 5945
+      },
+      "writtenOn": "2021-05-03T14:24:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f389781_f4987bcd",
       "revId": "b183b7eccd278e0b5b66d46dd2c0d2d1b8bc364c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
