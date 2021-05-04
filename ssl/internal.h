@@ -1464,13 +1464,8 @@ class ECHServerConfig {
 
  private:
   Array<uint8_t> ech_config_;
-  Span<const uint8_t> public_key_;
   Span<const uint8_t> cipher_suites_;
-
-  // private_key_ is the key corresponding to |public_key|. For clients, it must
-  // be empty (|private_key_present_ == false|). For servers, it must be a valid
-  // X25519 private key.
-  uint8_t private_key_[X25519_PRIVATE_KEY_LEN];
+  EVP_HPKE_KEY key_;
 
   uint8_t config_id_;
 
