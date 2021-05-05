@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62e408b7_97b22eef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-05-05T20:15:35Z",
+      "side": 1,
+      "message": "This is the first in a tower of CLs. It may be a bit overkill, I dunno. Context is there\u0027s a request to export it, so I figure I\u0027d make the API a bit more futureproof first. End state is https://boringssl-review.googlesource.com/c/boringssl/+/47331/2/include/openssl/hpke.h if you want to see if that\u0027s reasonable.",
+      "revId": "09461ff2290e459726fb2a82f45512bda048831b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
