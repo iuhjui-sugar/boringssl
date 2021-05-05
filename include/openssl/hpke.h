@@ -35,11 +35,9 @@ extern "C" {
 
 // Parameters.
 //
-// An HPKE context is parameterized by KEM, KDF, and AEAD algorithms.
-
-typedef struct evp_hpke_kem_st EVP_HPKE_KEM;
-typedef struct evp_hpke_kdf_st EVP_HPKE_KDF;
-typedef struct evp_hpke_aead_st EVP_HPKE_AEAD;
+// An HPKE context is parameterized by KEM, KDF, and AEAD algorithms,
+// represented by |EVP_HPKE_KEM|, |EVP_HPKE_KDF|, and |EVP_HPKE_AEAD| types,
+// respectively.
 
 // The following constants are KEM identifiers.
 #define EVP_HPKE_DHKEM_X25519_HKDF_SHA256 0x0020
@@ -81,8 +79,6 @@ OPENSSL_EXPORT uint16_t EVP_HPKE_AEAD_id(const EVP_HPKE_AEAD *aead);
 // An HPKE recipient maintains a long-term KEM key. This library represents keys
 // with the |EVP_HPKE_KEY| type.
 
-typedef struct evp_hpke_key_st EVP_HPKE_KEY;
-
 // EVP_HPKE_KEY_init decodes |priv_key| as a private key for |kem| and
 // initializes |key| with the result. It returns one on success and zero if
 // |priv_key| was invalid.
@@ -105,9 +101,10 @@ OPENSSL_EXPORT int EVP_HPKE_KEY_public_key(const EVP_HPKE_KEY *key,
 
 
 // Encryption contexts.
-
-// An |EVP_HPKE_CTX| is an HPKE encryption context.
-typedef struct evp_hpke_ctx_st EVP_HPKE_CTX;
+//
+// An HPKE encryption context is represented by the |EVP_HPKE_CTX| type. It is
+// a stack-allocatable type which must be place in the zero state with
+// |EVP_HPKE_CTX_init| before use.
 
 // EVP_HPKE_CTX_init initializes an already-allocated |EVP_HPKE_CTX|. The caller
 // should then use one of the |EVP_HPKE_CTX_setup_*| functions.
@@ -118,9 +115,6 @@ OPENSSL_EXPORT void EVP_HPKE_CTX_init(EVP_HPKE_CTX *ctx);
 // EVP_HPKE_CTX_cleanup releases memory referenced by |ctx|. |ctx| must have
 // been initialized with |EVP_HPKE_CTX_init|.
 OPENSSL_EXPORT void EVP_HPKE_CTX_cleanup(EVP_HPKE_CTX *ctx);
-
-
-// Setting up HPKE contexts.
 
 // EVP_HPKE_MAX_ENC_LENGTH is the maximum length of "enc", the encapsulated
 // shared secret, for all supported KEMs in this library.
@@ -169,6 +163,9 @@ OPENSSL_EXPORT int EVP_HPKE_CTX_setup_base_r(
 
 
 // Using an HPKE context.
+//
+// Once set up, callers may encrypt or decrypt with an |EVP_HPKE_CTX| using the
+// following functions.
 
 // EVP_HPKE_CTX_open uses the HPKE context |hpke| to authenticate |in_len| bytes
 // from |in| and |ad_len| bytes from |ad| and to decrypt at most |in_len| bytes
