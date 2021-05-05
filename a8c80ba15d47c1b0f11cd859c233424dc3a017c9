@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27ef06a8_9d7840f2",
+        "filename": "ssl/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1472,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-05-05T20:21:57Z",
+      "side": 0,
+      "message": "(This comment is out of date. It\u0027s from an earlier iteration of the patchset, and I missed it in review.)",
+      "revId": "a8c80ba15d47c1b0f11cd859c233424dc3a017c9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
