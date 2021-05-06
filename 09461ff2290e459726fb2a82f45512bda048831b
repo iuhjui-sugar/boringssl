@@ -16,6 +16,29 @@
       "message": "This is the first in a tower of CLs. It may be a bit overkill, I dunno. Context is there\u0027s a request to export it, so I figure I\u0027d make the API a bit more futureproof first. End state is https://boringssl-review.googlesource.com/c/boringssl/+/47331/2/include/openssl/hpke.h if you want to see if that\u0027s reasonable.",
       "revId": "09461ff2290e459726fb2a82f45512bda048831b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "772f571a_0ba9902a",
+        "filename": "crypto/hpke/hpke_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-05-06T14:01:29Z",
+      "side": 1,
+      "message": "Nice! Today I learned about SCOPED_TRACE :)",
+      "range": {
+        "startLine": 280,
+        "startChar": 4,
+        "endLine": 280,
+        "endChar": 16
+      },
+      "revId": "09461ff2290e459726fb2a82f45512bda048831b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
