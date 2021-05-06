@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba8b6f00_b35efb44",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-05-06T17:24:31Z",
+      "side": 1,
+      "message": "I see that this is going to be exported in a couple of CLs so I\u0027m going to be awkward here as-if this were already a public API:\n\nThere\u0027s no function to clear an EVP_HPKE_KEY. Sure, it\u0027s a no-op with X25519, but might an EVP_HPKE_KEY have pointers in the future?\n\nWhat\u0027s with setup_base_s? It\u0027s taken from the RFC, but shouldn\u0027t it be \u0027init_sender\u0027 if this is an API for use by people who probably haven\u0027t read the RFC? Likewise \u0027init_receiver\u0027?\n\nI pondered whether there should be separate sender and receiver context types, but probably that\u0027s more extra boilerplate than it\u0027s worth.",
+      "revId": "61ac44a3a3f6925c96ae52fae9a9000e20730ea1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
