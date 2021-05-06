@@ -34,6 +34,24 @@
       "parentUuid": "ba8b6f00_b35efb44",
       "revId": "61ac44a3a3f6925c96ae52fae9a9000e20730ea1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0b75f57_eba4acea",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-05-06T19:44:15Z",
+      "side": 1,
+      "message": "No strong preference but if you\u0027re just looking for some answer I\u0027d go with: EVP_HPKE_CTX_zero and EVP_HPKE_CTX_setup_{sender,recipient}",
+      "parentUuid": "038dbbfd_3d4ce23b",
+      "revId": "61ac44a3a3f6925c96ae52fae9a9000e20730ea1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
