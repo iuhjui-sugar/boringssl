@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ac16150_12cfee3d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-05-06T14:29:37Z",
+      "side": 1,
+      "message": "Are each of these words adjectives?\n\nI might say \"Revise the deterministic for_test variant of HPKE\u0027s SetupBaseS\".",
+      "range": {
+        "startLine": 7,
+        "startChar": 11,
+        "endLine": 7,
+        "endChar": 37
+      },
+      "revId": "51f724e1672598a11444dd137937cf5e9f7cdc21",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7138052_98eac770",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-05-06T14:29:37Z",
+      "side": 1,
+      "message": "I notice we\u0027re not doing the magic bitmasking that X25519_keypair does. I gather that the purpose is to intentionally/deterministically break noncompliant implementations, so perhaps this is unimportant here because |seed| is ephemeral. Is that right?",
+      "range": {
+        "startLine": 309,
+        "startChar": 2,
+        "endLine": 309,
+        "endChar": 12
+      },
+      "revId": "51f724e1672598a11444dd137937cf5e9f7cdc21",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
