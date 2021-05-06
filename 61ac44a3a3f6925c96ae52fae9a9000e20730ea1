@@ -16,6 +16,24 @@
       "message": "I see that this is going to be exported in a couple of CLs so I\u0027m going to be awkward here as-if this were already a public API:\n\nThere\u0027s no function to clear an EVP_HPKE_KEY. Sure, it\u0027s a no-op with X25519, but might an EVP_HPKE_KEY have pointers in the future?\n\nWhat\u0027s with setup_base_s? It\u0027s taken from the RFC, but shouldn\u0027t it be \u0027init_sender\u0027 if this is an API for use by people who probably haven\u0027t read the RFC? Likewise \u0027init_receiver\u0027?\n\nI pondered whether there should be separate sender and receiver context types, but probably that\u0027s more extra boilerplate than it\u0027s worth.",
       "revId": "61ac44a3a3f6925c96ae52fae9a9000e20730ea1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "038dbbfd_3d4ce23b",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-05-06T19:40:52Z",
+      "side": 1,
+      "message": "Ah yeah, we probably should just make it a full stack-allocated type to be safe. We won\u0027t need to cleanup with P-256 (this does assume static EC_GROUPs are static, but we should just promise that...). I could believe wanting to allocate for some post-quantum scheme to cut down on stack usage.\n\nOn naming, yeah the R and S thing is pretty obnoxious. I keep losing track of which is which in the tests too. One nuisance with init is it collides with the infallible EVP_HPKE_CTX_init. Though I can rename that. We\u0027re a little inconsistent on naming here:\n\n- Sometimes, EVP_MD_CTX_init infallibly takes you into the zero state, then EVP_DigestInit_ex fallibly goes from the zero state to a usable object.\n\n- Sometimes, CBB_zero and EVP_AEAD_CTX_zero infallibly take you to the zero state, then CBB_init and EVP_AEAD_CTX_init fallibly gives you a usable object.\n\n- Sometimes it\u0027s required to go to the zero state before calling the second function (EVP_DigestInit_ex will explode if you don\u0027t call EVP_MD_CTX_init), but that means re-initializing objects are a bit clearer. While other times, the second function works from uninitialized and the zero state is optional, which is sometimes convenient for C (our scopers in C++ go to the zero state and it matters less). However, as a consequence, things break if you try to re-initialize an object.\n\nPreferences? If we look like EVP_AEAD_CTX, I can do EVP_HPKE_CTX_zero with EVP_HPKE_CTX_init_{sender,recipient}. If we look like EVP_MD_CTX, I can do EVP_HPKE_CTX_init and EVP_HPKE_CTX_setup_{sender,recipient}.\n\nOr perhaps EVP_HPKE_CTX_zero and EVP_HPKE_CTX_setup_{sender,recipient} so we still vaguely align with the specification in \"setup\".\n\nI guess EVP_HPKE_KEY needs something similar. I\u0027ll align with whatever we decide for EVP_HPKE_CTX.",
+      "parentUuid": "ba8b6f00_b35efb44",
+      "revId": "61ac44a3a3f6925c96ae52fae9a9000e20730ea1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
