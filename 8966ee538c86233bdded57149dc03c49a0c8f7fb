@@ -39,6 +39,30 @@
       },
       "revId": "8966ee538c86233bdded57149dc03c49a0c8f7fb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e20fa89d_ffdfa346",
+        "filename": "crypto/hpke/hpke_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-05-06T17:46:47Z",
+      "side": 1,
+      "message": "As far as I can tell, the compiler\u0027s wrong. But I\u0027ve just zero-initialized it to silence it. It\u0027s sometimes wrong about these things.",
+      "parentUuid": "76c8bc6e_33d20c09",
+      "range": {
+        "startLine": 164,
+        "startChar": 10,
+        "endLine": 164,
+        "endChar": 14
+      },
+      "revId": "8966ee538c86233bdded57149dc03c49a0c8f7fb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
