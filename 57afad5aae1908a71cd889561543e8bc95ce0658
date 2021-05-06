@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b19444a9_9587a104",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-05-06T19:29:26Z",
+      "side": 1,
+      "message": "I think the constants are still useful for code like the GREASE bits which don\u0027t actually care about the implementations themselves.",
+      "parentUuid": "d0c85270_a6d230ea",
+      "range": {
+        "startLine": 47,
+        "startChar": 8,
+        "endLine": 47,
+        "endChar": 28
+      },
+      "revId": "57afad5aae1908a71cd889561543e8bc95ce0658",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "79aff153_10517286",
@@ -47,6 +71,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "54d6502e_f4947f4a",
+        "filename": "ssl/encrypted_client_hello.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-05-06T19:29:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79aff153_10517286",
+      "range": {
+        "startLine": 468,
+        "startChar": 34,
+        "endLine": 468,
+        "endChar": 38
+      },
+      "revId": "57afad5aae1908a71cd889561543e8bc95ce0658",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "650182c2_462ab9ba",
@@ -60,6 +108,30 @@
       "writtenOn": "2021-05-06T15:05:45Z",
       "side": 1,
       "message": "Replace with aead_overhead?",
+      "range": {
+        "startLine": 671,
+        "startChar": 18,
+        "endLine": 671,
+        "endChar": 39
+      },
+      "revId": "57afad5aae1908a71cd889561543e8bc95ce0658",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9debaedd_ef8ab5f4",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-05-06T19:29:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "650182c2_462ab9ba",
       "range": {
         "startLine": 671,
         "startChar": 18,
