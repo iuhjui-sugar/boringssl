@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb75ad0a_d02c5861",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-05-06T14:08:29Z",
+      "side": 1,
+      "message": "lgtm % compiler warning",
+      "revId": "8966ee538c86233bdded57149dc03c49a0c8f7fb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76c8bc6e_33d20c09",
+        "filename": "crypto/hpke/hpke_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-05-06T14:08:29Z",
+      "side": 1,
+      "message": "Looks like the compiler\u0027s worried this is uninitialized.",
+      "range": {
+        "startLine": 164,
+        "startChar": 10,
+        "endLine": 164,
+        "endChar": 14
+      },
+      "revId": "8966ee538c86233bdded57149dc03c49a0c8f7fb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
