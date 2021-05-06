@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dcca5b14_ef24c573",
+        "filename": "include/openssl/hpke.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-05-06T13:56:02Z",
+      "side": 1,
+      "message": "s/place/placed\n\nOr maybe \"set to the zero state\"?",
+      "range": {
+        "startLine": 106,
+        "startChar": 42,
+        "endLine": 106,
+        "endChar": 47
+      },
+      "revId": "3cb8c7d239cc9247ed0c580d450f56e6d946fcce",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
