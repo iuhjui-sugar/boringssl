@@ -52,6 +52,24 @@
       "parentUuid": "038dbbfd_3d4ce23b",
       "revId": "61ac44a3a3f6925c96ae52fae9a9000e20730ea1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2dedf10_2f243ee6",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-05-07T18:37:58Z",
+      "side": 1,
+      "message": "Done. How\u0027s this? I aligned with EVP_AEAD_CTX which is a bit more loose when it comes to whether the zero state is required.\n\nThis also required indirecting ECHServerConfig over in libssl with a unique_ptr to make it movable. Not a huge deal, though it may be worth pondering a convention for movable stack-allocated types someday. (Maybe EVP_FOO_CTX_swap?)",
+      "parentUuid": "d0b75f57_eba4acea",
+      "revId": "61ac44a3a3f6925c96ae52fae9a9000e20730ea1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
