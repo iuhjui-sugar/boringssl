@@ -38,6 +38,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "223397cf_653f55e7",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-05-10T21:26:46Z",
+      "side": 1,
+      "message": "(Leaving alone per offline discussion.)",
+      "parentUuid": "a996a580_1cb132d0",
+      "revId": "31ddffe73b4c66b9542f1f0a77fbf084b4dfa69a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "2c47f381_c923f7f4",
         "filename": "crypto/hpke/internal.h",
         "patchSetId": 5
@@ -73,6 +91,30 @@
       "side": 1,
       "message": "HPKE seems to use \"recipient\". Though, hilariously, they do use \"receiver\" at one point in the document.\nhttps://cfrg.github.io/draft-irtf-cfrg-hpke/draft-irtf-cfrg-hpke.html#section-3\n\nI also find \"receiver\" more natural but figured we ought to match the spec. Although we can also suggest the spec use \"receiver\" to align better with \"sender\". It doesn\u0027t appear in any KDF labels, so we can get them to change now if we want.",
       "parentUuid": "2c47f381_c923f7f4",
+      "range": {
+        "startLine": 179,
+        "startChar": 38,
+        "endLine": 179,
+        "endChar": 47
+      },
+      "revId": "31ddffe73b4c66b9542f1f0a77fbf084b4dfa69a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae694eb7_d91e84ec",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-05-10T21:26:46Z",
+      "side": 1,
+      "message": "Filed https://github.com/cfrg/draft-irtf-cfrg-hpke/issues/219 upstream about the one point of inconsistency. Figure we\u0027ll stick with recipient for now, and if they change, we\u0027ll change with them.",
+      "parentUuid": "437a51f1_7ec5e62b",
       "range": {
         "startLine": 179,
         "startChar": 38,
