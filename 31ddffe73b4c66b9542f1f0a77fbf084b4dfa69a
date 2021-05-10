@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9df7dbb7_45f19cba",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-05-10T17:09:33Z",
+      "side": 1,
+      "message": "Note that _zero is needed first. (Also for the setup_* functions below.)",
+      "revId": "31ddffe73b4c66b9542f1f0a77fbf084b4dfa69a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c47f381_c923f7f4",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-05-10T17:09:33Z",
+      "side": 1,
+      "message": "(Your call, but isn\u0027t the counter-party to a \"sender\" a \"receiver\"?)",
+      "range": {
+        "startLine": 179,
+        "startChar": 38,
+        "endLine": 179,
+        "endChar": 47
+      },
+      "revId": "31ddffe73b4c66b9542f1f0a77fbf084b4dfa69a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
