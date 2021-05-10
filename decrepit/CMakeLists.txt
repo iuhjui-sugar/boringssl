@@ -11,6 +11,7 @@ add_library(
   des/cfb64ede.c
   dh/dh_decrepit.c
   dsa/dsa_decrepit.c
+  ec/ec_custom.c
   evp/dss1.c
   evp/evp_do_all.c
   obj/obj_decrepit.c

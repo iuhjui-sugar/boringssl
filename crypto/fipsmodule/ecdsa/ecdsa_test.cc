@@ -94,7 +94,7 @@ static bssl::UniquePtr<EC_GROUP> NewSecp160r1Group() {
   }
 
   bssl::UniquePtr<EC_GROUP> group(
-      EC_GROUP_new_curve_GFp(p.get(), a.get(), b.get(), nullptr));
+      ec_group_new_curve_GFp(p.get(), a.get(), b.get(), nullptr));
   if (!group) {
     return nullptr;
   }
@@ -102,7 +102,7 @@ static bssl::UniquePtr<EC_GROUP> NewSecp160r1Group() {
   if (!g ||
       !EC_POINT_set_affine_coordinates_GFp(group.get(), g.get(), x.get(),
                                            y.get(), nullptr) ||
-      !EC_GROUP_set_generator(group.get(), g.get(), n.get(), BN_value_one())) {
+      !ec_group_set_generator(group.get(), g.get(), n.get(), BN_value_one())) {
     return nullptr;
   }
   return group;
@@ -351,7 +351,7 @@ static bssl::UniquePtr<EC_GROUP> MakeCustomClone(const EC_GROUP *group) {
     return nullptr;
   }
   bssl::UniquePtr<EC_GROUP> ret(
-      EC_GROUP_new_curve_GFp(p.get(), a.get(), b.get(), ctx.get()));
+      ec_group_new_curve_GFp(p.get(), a.get(), b.get(), ctx.get()));
   if (!ret) {
     return nullptr;
   }
@@ -359,7 +359,7 @@ static bssl::UniquePtr<EC_GROUP> MakeCustomClone(const EC_GROUP *group) {
   if (!g ||
       !EC_POINT_set_affine_coordinates_GFp(ret.get(), g.get(), x.get(), y.get(),
                                            ctx.get()) ||
-      !EC_GROUP_set_generator(ret.get(), g.get(), EC_GROUP_get0_order(group),
+      !ec_group_set_generator(ret.get(), g.get(), EC_GROUP_get0_order(group),
                               BN_value_one())) {
     return nullptr;
   }

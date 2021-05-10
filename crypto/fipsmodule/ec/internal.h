@@ -624,6 +624,13 @@ struct ec_point_st {
 } /* EC_POINT */;
 
 EC_GROUP *ec_group_new(const EC_METHOD *meth);
+OPENSSL_EXPORT EC_GROUP *ec_group_new_curve_GFp(const BIGNUM *p,
+                                                const BIGNUM *a,
+                                                const BIGNUM *b, BN_CTX *ctx);
+OPENSSL_EXPORT int ec_group_set_generator(EC_GROUP *group,
+                                          const EC_POINT *generator,
+                                          const BIGNUM *order,
+                                          const BIGNUM *cofactor);
 
 void ec_GFp_mont_mul(const EC_GROUP *group, EC_RAW_POINT *r,
                      const EC_RAW_POINT *p, const EC_SCALAR *scalar);

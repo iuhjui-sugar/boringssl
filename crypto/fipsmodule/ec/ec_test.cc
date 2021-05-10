@@ -267,13 +267,13 @@ TEST(ECTest, ArbitraryCurve) {
   ASSERT_TRUE(order);
 
   bssl::UniquePtr<EC_GROUP> group(
-      EC_GROUP_new_curve_GFp(p.get(), a.get(), b.get(), ctx.get()));
+      ec_group_new_curve_GFp(p.get(), a.get(), b.get(), ctx.get()));
   ASSERT_TRUE(group);
   bssl::UniquePtr<EC_POINT> generator(EC_POINT_new(group.get()));
   ASSERT_TRUE(generator);
   ASSERT_TRUE(EC_POINT_set_affine_coordinates_GFp(
       group.get(), generator.get(), gx.get(), gy.get(), ctx.get()));
-  ASSERT_TRUE(EC_GROUP_set_generator(group.get(), generator.get(), order.get(),
+  ASSERT_TRUE(ec_group_set_generator(group.get(), generator.get(), order.get(),
                                      BN_value_one()));
 
   // |group| should not have a curve name.
@@ -301,13 +301,13 @@ TEST(ECTest, ArbitraryCurve) {
 
   // Make a second instance of |group|.
   bssl::UniquePtr<EC_GROUP> group2(
-      EC_GROUP_new_curve_GFp(p.get(), a.get(), b.get(), ctx.get()));
+      ec_group_new_curve_GFp(p.get(), a.get(), b.get(), ctx.get()));
   ASSERT_TRUE(group2);
   bssl::UniquePtr<EC_POINT> generator2(EC_POINT_new(group2.get()));
   ASSERT_TRUE(generator2);
   ASSERT_TRUE(EC_POINT_set_affine_coordinates_GFp(
       group2.get(), generator2.get(), gx.get(), gy.get(), ctx.get()));
-  ASSERT_TRUE(EC_GROUP_set_generator(group2.get(), generator2.get(),
+  ASSERT_TRUE(ec_group_set_generator(group2.get(), generator2.get(),
                                      order.get(), BN_value_one()));
 
   EXPECT_EQ(0, EC_GROUP_cmp(group.get(), group.get(), NULL));
@@ -315,13 +315,13 @@ TEST(ECTest, ArbitraryCurve) {
 
   // group3 uses the wrong generator.
   bssl::UniquePtr<EC_GROUP> group3(
-      EC_GROUP_new_curve_GFp(p.get(), a.get(), b.get(), ctx.get()));
+      ec_group_new_curve_GFp(p.get(), a.get(), b.get(), ctx.get()));
   ASSERT_TRUE(group3);
   bssl::UniquePtr<EC_POINT> generator3(EC_POINT_new(group3.get()));
   ASSERT_TRUE(generator3);
   ASSERT_TRUE(EC_POINT_set_affine_coordinates_GFp(
       group3.get(), generator3.get(), x.get(), y.get(), ctx.get()));
-  ASSERT_TRUE(EC_GROUP_set_generator(group3.get(), generator3.get(),
+  ASSERT_TRUE(ec_group_set_generator(group3.get(), generator3.get(),
                                      order.get(), BN_value_one()));
 
   EXPECT_NE(0, EC_GROUP_cmp(group.get(), group3.get(), NULL));
@@ -337,13 +337,13 @@ TEST(ECTest, ArbitraryCurve) {
   ASSERT_TRUE(bn_resize_words(order.get(), 32));
 
   bssl::UniquePtr<EC_GROUP> group4(
-      EC_GROUP_new_curve_GFp(p.get(), a.get(), b.get(), ctx.get()));
+      ec_group_new_curve_GFp(p.get(), a.get(), b.get(), ctx.get()));
   ASSERT_TRUE(group4);
   bssl::UniquePtr<EC_POINT> generator4(EC_POINT_new(group4.get()));
   ASSERT_TRUE(generator4);
   ASSERT_TRUE(EC_POINT_set_affine_coordinates_GFp(
       group4.get(), generator4.get(), gx.get(), gy.get(), ctx.get()));
-  ASSERT_TRUE(EC_GROUP_set_generator(group4.get(), generator4.get(),
+  ASSERT_TRUE(ec_group_set_generator(group4.get(), generator4.get(),
                                      order.get(), BN_value_one()));
 
   EXPECT_EQ(0, EC_GROUP_cmp(group.get(), group4.get(), NULL));
@@ -354,13 +354,13 @@ TEST(ECTest, ArbitraryCurve) {
   ASSERT_TRUE(BN_sub(a.get(), a.get(), p.get()));
   ASSERT_TRUE(BN_add(b.get(), b.get(), p.get()));
   bssl::UniquePtr<EC_GROUP> group5(
-      EC_GROUP_new_curve_GFp(p.get(), a.get(), b.get(), NULL));
+      ec_group_new_curve_GFp(p.get(), a.get(), b.get(), NULL));
   ASSERT_TRUE(group5);
   bssl::UniquePtr<EC_POINT> generator5(EC_POINT_new(group5.get()));
   ASSERT_TRUE(generator5);
   ASSERT_TRUE(EC_POINT_set_affine_coordinates_GFp(
       group5.get(), generator5.get(), gx.get(), gy.get(), ctx.get()));
-  ASSERT_TRUE(EC_GROUP_set_generator(group5.get(), generator5.get(),
+  ASSERT_TRUE(ec_group_set_generator(group5.get(), generator5.get(),
                                      order.get(), BN_value_one()));
 
   EXPECT_EQ(0, EC_GROUP_cmp(group.get(), group.get(), NULL));
@@ -455,14 +455,14 @@ TEST(ECTest, BrainpoolP256r1) {
   ASSERT_TRUE(p && a && b && x && y && n && d && qx && qy);
 
   bssl::UniquePtr<EC_GROUP> group(
-      EC_GROUP_new_curve_GFp(p.get(), a.get(), b.get(), nullptr));
+      ec_group_new_curve_GFp(p.get(), a.get(), b.get(), nullptr));
   ASSERT_TRUE(group);
   bssl::UniquePtr<EC_POINT> g(EC_POINT_new(group.get()));
   ASSERT_TRUE(g);
   ASSERT_TRUE(EC_POINT_set_affine_coordinates_GFp(group.get(), g.get(), x.get(),
                                                   y.get(), nullptr));
   ASSERT_TRUE(
-      EC_GROUP_set_generator(group.get(), g.get(), n.get(), BN_value_one()));
+      ec_group_set_generator(group.get(), g.get(), n.get(), BN_value_one()));
 
   bssl::UniquePtr<EC_POINT> q(EC_POINT_new(group.get()));
   ASSERT_TRUE(q);

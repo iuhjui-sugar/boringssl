@@ -30,6 +30,7 @@
 #include <openssl/nid.h>
 #include <openssl/sha.h>
 
+#include "../fipsmodule/ec/internal.h"
 #include "../test/file_test.h"
 #include "../test/test_util.h"
 #include "../test/wycheproof_util.h"
@@ -236,7 +237,7 @@ static bssl::UniquePtr<EC_GROUP> MakeCustomGroup() {
     return nullptr;
   }
   bssl::UniquePtr<EC_GROUP> group(
-      EC_GROUP_new_curve_GFp(p.get(), a.get(), b.get(), ctx.get()));
+      ec_group_new_curve_GFp(p.get(), a.get(), b.get(), ctx.get()));
   if (!group) {
     return nullptr;
   }
@@ -244,7 +245,7 @@ static bssl::UniquePtr<EC_GROUP> MakeCustomGroup() {
   if (!generator ||
       !EC_POINT_set_affine_coordinates_GFp(group.get(), generator.get(),
                                            x.get(), y.get(), ctx.get()) ||
-      !EC_GROUP_set_generator(group.get(), generator.get(), order.get(),
+      !ec_group_set_generator(group.get(), generator.get(), order.get(),
                               BN_value_one())) {
     return nullptr;
   }

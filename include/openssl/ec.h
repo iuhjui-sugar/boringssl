@@ -324,6 +324,10 @@ OPENSSL_EXPORT int EC_POINT_mul(const EC_GROUP *group, EC_POINT *r,
 // return |NID_undef|.
 //
 // Avoid using arbitrary curves and use |EC_GROUP_new_by_curve_name| instead.
+//
+// Note: this function isn't provided by default. See decrepit/ec. It is listed
+// here to avoid having to patch 3rd-party code that expects to get it from
+// ec.h
 OPENSSL_EXPORT EC_GROUP *EC_GROUP_new_curve_GFp(const BIGNUM *p,
                                                 const BIGNUM *a,
                                                 const BIGNUM *b, BN_CTX *ctx);
@@ -332,6 +336,10 @@ OPENSSL_EXPORT EC_GROUP *EC_GROUP_new_curve_GFp(const BIGNUM *p,
 // must have the given order and cofactor. It may only be used with |EC_GROUP|
 // objects returned by |EC_GROUP_new_curve_GFp| and may only be used once on
 // each group. |generator| must have been created using |group|.
+//
+// Note: this function isn't provided by default. See decrepit/ec. It is listed
+// here to avoid having to patch 3rd-party code that expects to get it from
+// ec.h
 OPENSSL_EXPORT int EC_GROUP_set_generator(EC_GROUP *group,
                                           const EC_POINT *generator,
                                           const BIGNUM *order,

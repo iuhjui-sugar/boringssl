@@ -301,8 +301,9 @@ EC_GROUP *ec_group_new(const EC_METHOD *meth) {
   return ret;
 }
 
-static int ec_group_set_generator(EC_GROUP *group, const EC_AFFINE *generator,
-                                  const BIGNUM *order) {
+static int ec_group_set_generator_internal(EC_GROUP *group,
+                                           const EC_AFFINE *generator,
+                                           const BIGNUM *order) {
   assert(group->generator == NULL);
 
   if (!BN_copy(&group->order, order)) {
@@ -346,7 +347,7 @@ static int ec_group_set_generator(EC_GROUP *group, const EC_AFFINE *generator,
   return 1;
 }
 
-EC_GROUP *EC_GROUP_new_curve_GFp(const BIGNUM *p, const BIGNUM *a,
+EC_GROUP *ec_group_new_curve_GFp(const BIGNUM *p, const BIGNUM *a,
                                  const BIGNUM *b, BN_CTX *ctx) {
   if (BN_num_bytes(p) > EC_MAX_BYTES) {
     OPENSSL_PUT_ERROR(EC, EC_R_INVALID_FIELD);
@@ -387,13 +388,13 @@ err:
   return ret;
 }
 
-int EC_GROUP_set_generator(EC_GROUP *group, const EC_POINT *generator,
+int ec_group_set_generator(EC_GROUP *group, const EC_POINT *generator,
                            const BIGNUM *order, const BIGNUM *cofactor) {
   if (group->curve_name != NID_undef || group->generator != NULL ||
       generator->group != group) {
-    // |EC_GROUP_set_generator| may only be used with |EC_GROUP|s returned by
-    // |EC_GROUP_new_curve_GFp| and may only used once on each group.
-    // |generator| must have been created from |EC_GROUP_new_curve_GFp|, not a
+    // |ec_group_set_generator| may only be used with |EC_GROUP|s returned by
+    // |ec_group_new_curve_GFp| and may only used once on each group.
+    // |generator| must have been created from |ec_group_new_curve_GFp|, not a
     // copy, so that |generator->group->generator| is set correctly.
     OPENSSL_PUT_ERROR(EC, ERR_R_SHOULD_NOT_HAVE_BEEN_CALLED);
     return 0;
@@ -428,7 +429,7 @@ int EC_GROUP_set_generator(EC_GROUP *group, const EC_POINT *generator,
 
   EC_AFFINE affine;
   if (!ec_jacobian_to_affine(group, &affine, &generator->raw) ||
-      !ec_group_set_generator(group, &affine, order)) {
+      !ec_group_set_generator_internal(group, &affine, order)) {
     goto err;
   }
 
@@ -476,7 +477,7 @@ static EC_GROUP *ec_group_new_from_data(const struct built_in_curve *curve) {
     goto err;
   }
 
-  if (!ec_group_set_generator(group, &G, order)) {
+  if (!ec_group_set_generator_internal(group, &G, order)) {
     goto err;
   }
 
@@ -576,7 +577,7 @@ EC_GROUP *EC_GROUP_dup(const EC_GROUP *a) {
     return (EC_GROUP *)a;
   }
 
-  // Groups are logically immutable (but for |EC_GROUP_set_generator| which must
+  // Groups are logically immutable (but for |ec_group_set_generator| which must
   // be called early on), so we simply take a reference.
   EC_GROUP *group = (EC_GROUP *)a;
   CRYPTO_refcount_inc(&group->references);
@@ -1187,7 +1188,7 @@ int ec_get_x_coordinate_as_scalar(const EC_GROUP *group, EC_SCALAR *out,
   //                     p  < 2×order
   //
   // Additionally, one can manually check this property for built-in curves. It
-  // is enforced for legacy custom curves in |EC_GROUP_set_generator|.
+  // is enforced for legacy custom curves in |ec_group_set_generator|.
 
   // The above does not guarantee |group->field| is not one word larger than
   // |group->order|, so read one extra carry word.
