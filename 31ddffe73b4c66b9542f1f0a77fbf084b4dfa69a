@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "a996a580_1cb132d0",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-05-10T17:30:28Z",
+      "side": 1,
+      "message": "Oh, this is the question of which convention we want. In EVP_MD_CTX, you need to EVP_MD_CTX_init because EVP_DigestInit_ex expects invariants to hold. In EVP_AEAD_CTX and CBB, EVP_AEAD_CTX_init and CBB_init will happily take garbage inputs, and we added _zero later so you could do it more systematically.\n\nRight now I\u0027ve stuck with the EVP_AEAD_CTX and CBB convention (so _zero is not needed), since we\u0027re also using their \"zero\" naming. But I suspect the convenience here matters less now that we\u0027ve got the C++ scopers.\n\nDo you have a preferred convention?",
+      "parentUuid": "9df7dbb7_45f19cba",
+      "revId": "31ddffe73b4c66b9542f1f0a77fbf084b4dfa69a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "2c47f381_c923f7f4",
@@ -31,6 +49,30 @@
       "writtenOn": "2021-05-10T17:09:33Z",
       "side": 1,
       "message": "(Your call, but isn\u0027t the counter-party to a \"sender\" a \"receiver\"?)",
+      "range": {
+        "startLine": 179,
+        "startChar": 38,
+        "endLine": 179,
+        "endChar": 47
+      },
+      "revId": "31ddffe73b4c66b9542f1f0a77fbf084b4dfa69a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "437a51f1_7ec5e62b",
+        "filename": "crypto/hpke/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-05-10T17:30:28Z",
+      "side": 1,
+      "message": "HPKE seems to use \"recipient\". Though, hilariously, they do use \"receiver\" at one point in the document.\nhttps://cfrg.github.io/draft-irtf-cfrg-hpke/draft-irtf-cfrg-hpke.html#section-3\n\nI also find \"receiver\" more natural but figured we ought to match the spec. Although we can also suggest the spec use \"receiver\" to align better with \"sender\". It doesn\u0027t appear in any KDF labels, so we can get them to change now if we want.",
+      "parentUuid": "2c47f381_c923f7f4",
       "range": {
         "startLine": 179,
         "startChar": 38,
