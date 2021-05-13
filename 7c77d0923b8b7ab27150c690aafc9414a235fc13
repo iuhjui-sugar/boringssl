@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58613c9c_142cb865",
+        "filename": "include/openssl/rsa.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-05-13T23:05:37Z",
+      "side": 1,
+      "message": "Is this is too strong of a statement? It seems clearly bad for ECDSA since it\u0027ll silently truncate. And completely making up padding for RSA is problematic. But I don\u0027t know about mixing otherwise standard RSA schemes but skipping the prehash.",
+      "revId": "7c77d0923b8b7ab27150c690aafc9414a235fc13",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
