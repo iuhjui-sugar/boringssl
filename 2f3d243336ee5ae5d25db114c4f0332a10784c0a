@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72f2d751_5fb56725",
+        "filename": "ssl/s3_pkt.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-05-13T19:11:16Z",
+      "side": 1,
+      "message": "The types in this function are kind of all over the place. It\u0027s all old OpenSSL code and still uses the BIO int calling convention. I figure we can at least size_t this and maybe later I\u0027ll have cycles to revisit this path.",
+      "range": {
+        "startLine": 166,
+        "startChar": 4,
+        "endLine": 166,
+        "endChar": 10
+      },
+      "revId": "2f3d243336ee5ae5d25db114c4f0332a10784c0a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
