@@ -16,6 +16,24 @@
       "message": "If std::min/max are in play, then this is nw \u003d std::min(max_send_fragment, n).\n\n(Then\n\nconst size_t nw \u003d ... and remove the decl on L143, and maybe a little along that line.)",
       "revId": "f3076017f22ee68b69408adcfb4535c4e72c5324",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76d4933e_6f2d9fe3",
+        "filename": "ssl/s3_pkt.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-05-14T20:26:29Z",
+      "side": 1,
+      "message": "Done. Added another size_t cast for now, but I\u0027ve left a TODO to fix up the types around here.",
+      "parentUuid": "3dd147bf_d7ac12fe",
+      "revId": "f3076017f22ee68b69408adcfb4535c4e72c5324",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
