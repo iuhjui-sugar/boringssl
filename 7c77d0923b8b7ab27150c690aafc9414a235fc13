@@ -34,6 +34,24 @@
       "parentUuid": "58613c9c_142cb865",
       "revId": "7c77d0923b8b7ab27150c690aafc9414a235fc13",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "617d40d3_940ede48",
+        "filename": "include/openssl/rsa.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-05-14T18:56:28Z",
+      "side": 1,
+      "message": "Yes, if e\u003d3 and the padded version of digest is a cube, then the cube root is a signature. That seems pretty bad.",
+      "parentUuid": "e2a4ebfb_fc508b0a",
+      "revId": "7c77d0923b8b7ab27150c690aafc9414a235fc13",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
