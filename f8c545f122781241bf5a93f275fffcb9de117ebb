@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b953ae79_83361567",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-05-14T21:40:07Z",
+      "side": 1,
+      "message": "Self-review: write a test for this.",
+      "range": {
+        "startLine": 19,
+        "startChar": 18,
+        "endLine": 19,
+        "endChar": 26
+      },
+      "revId": "f8c545f122781241bf5a93f275fffcb9de117ebb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f92f2aa_d59d5259",
+        "filename": "ssl/s3_pkt.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-05-14T21:40:07Z",
+      "side": 1,
+      "message": "Self-review: don\u0027t think it matters, but this should be return 1 with *out_bytes_written \u003d 0.",
+      "revId": "f8c545f122781241bf5a93f275fffcb9de117ebb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "beb633b9_ccbcc852",
+        "filename": "ssl/s3_pkt.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-05-14T21:40:07Z",
+      "side": 1,
+      "message": "Self-review: if in.empty() but we have a pending_flight (deferred NewSessionTicket) to write, we\u0027ll stash an empty span into pending_write and still run through this.\n\nThis is intentional in that we want SSL_write(NULL, 0) to flush NewSessionTicket, but if that flush fails partway through and the next retry has \u003e 0 bytes, we\u0027ll trip SSL_R_BAD_RETRY. I think that should skip the pointer check should skip the pointer check if the buffer is empty.\n\nMight be better as a follow-up CL. Also write a test.\n\n(Ugh, this API...)",
+      "revId": "f8c545f122781241bf5a93f275fffcb9de117ebb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
