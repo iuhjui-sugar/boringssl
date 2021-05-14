@@ -126,10 +126,11 @@
 
 BSSL_NAMESPACE_BEGIN
 
-static int do_tls_write(SSL *ssl, int type, const uint8_t *in, unsigned len);
+static int do_tls_write(SSL *ssl, size_t *out_bytes_written, uint8_t type,
+                        Span<const uint8_t> in);
 
-int tls_write_app_data(SSL *ssl, bool *out_needs_handshake, const uint8_t *in,
-                       int len) {
+int tls_write_app_data(SSL *ssl, bool *out_needs_handshake,
+                       size_t *out_bytes_written, Span<const uint8_t> in) {
   assert(ssl_can_write(ssl));
   assert(!ssl->s3->aead_write_ctx->is_null_cipher());
 
@@ -140,33 +141,29 @@ int tls_write_app_data(SSL *ssl, bool *out_needs_handshake, const uint8_t *in,
     return -1;
   }
 
-  // TODO(davidben): Switch this logic to |size_t| and |bssl::Span|.
-  assert(ssl->s3->wnum <= INT_MAX);
-  unsigned tot = ssl->s3->wnum;
-  ssl->s3->wnum = 0;
-
-  // Ensure that if we end up with a smaller value of data to write out than
-  // the the original len from a write which didn't complete for non-blocking
-  // I/O and also somehow ended up avoiding the check for this in
-  // tls_write_pending/SSL_R_BAD_WRITE_RETRY as it must never be possible to
-  // end up with (len-tot) as a large number that will then promptly send
-  // beyond the end of the users buffer ... so we trap and report the error in
-  // a way the user will notice.
-  if (len < 0 || (size_t)len < tot) {
+  size_t total_bytes_written = ssl->s3->unreported_bytes_written;
+  if (in.size() < total_bytes_written) {
+    // This can happen if the caller disables |SSL_MODE_ENABLE_PARTIAL_WRITE|,
+    // asks us to write some input of length N, we successfully encrypt M bytes
+    // and write it, but fail to write the rest. We will report
+    // |SSL_ERROR_WANT_WRITE|. If the caller then retries with fewer than M
+    // bytes, we cannot satisfy that request. The caller is required to always
+    // retry with at least as many bytes as the previous attempt.
     OPENSSL_PUT_ERROR(SSL, SSL_R_BAD_LENGTH);
     return -1;
   }
 
+  ssl->s3->unreported_bytes_written = 0;
+  in = in.subspan(total_bytes_written);
+
   const int is_early_data_write =
       !ssl->server && SSL_in_early_data(ssl) && ssl->s3->hs->can_early_write;
-
-  unsigned n = len - tot;
   for (;;) {
     size_t max_send_fragment = ssl->max_send_fragment;
     if (is_early_data_write) {
       SSL_HANDSHAKE *hs = ssl->s3->hs.get();
       if (hs->early_data_written >= hs->early_session->ticket_max_early_data) {
-        ssl->s3->wnum = tot;
+        ssl->s3->unreported_bytes_written = total_bytes_written;
         hs->can_early_write = false;
         *out_needs_handshake = true;
         return -1;
@@ -176,32 +173,38 @@ int tls_write_app_data(SSL *ssl, bool *out_needs_handshake, const uint8_t *in,
                                     hs->early_data_written});
     }
 
-    const size_t nw = std::min(max_send_fragment, size_t{n});
-    int ret = do_tls_write(ssl, SSL3_RT_APPLICATION_DATA, &in[tot], nw);
+    const size_t to_write = std::min(max_send_fragment, in.size());
+    size_t bytes_written;
+    int ret = do_tls_write(ssl, &bytes_written, SSL3_RT_APPLICATION_DATA,
+                           in.subspan(0, to_write));
     if (ret <= 0) {
-      ssl->s3->wnum = tot;
+      ssl->s3->unreported_bytes_written = total_bytes_written;
       return ret;
     }
 
+    // Note |bytes_written| may be less than |to_write| if there was a pending
+    // record from a smaller write attempt.
+    assert(bytes_written <= to_write);
+    total_bytes_written += bytes_written;
+    in = in.subspan(bytes_written);
     if (is_early_data_write) {
-      ssl->s3->hs->early_data_written += ret;
+      ssl->s3->hs->early_data_written += bytes_written;
     }
 
-    if (ret == (int)n || (ssl->mode & SSL_MODE_ENABLE_PARTIAL_WRITE)) {
-      return tot + ret;
+    if (in.empty() || (ssl->mode & SSL_MODE_ENABLE_PARTIAL_WRITE)) {
+      *out_bytes_written = total_bytes_written;
+      return 1;
     }
-
-    n -= ret;
-    tot += ret;
   }
 }
 
-static int tls_write_pending(SSL *ssl, int type, const uint8_t *in,
-                             unsigned int len) {
-  if (ssl->s3->wpend_tot > (int)len ||
+static int tls_write_pending(SSL *ssl, size_t *out_bytes_written, uint8_t type,
+                             Span<const uint8_t> in) {
+  assert(ssl->s3->has_pending_write);
+  if (ssl->s3->pending_write.size() > in.size() ||
       (!(ssl->mode & SSL_MODE_ACCEPT_MOVING_WRITE_BUFFER) &&
-       ssl->s3->wpend_buf != in) ||
-      ssl->s3->wpend_type != type) {
+       ssl->s3->pending_write.data() != in.data()) ||
+      ssl->s3->pending_write_type != type) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_BAD_WRITE_RETRY);
     return -1;
   }
@@ -210,19 +213,22 @@ static int tls_write_pending(SSL *ssl, int type, const uint8_t *in,
   if (ret <= 0) {
     return ret;
   }
-  ssl->s3->wpend_pending = false;
-  return ssl->s3->wpend_ret;
+  *out_bytes_written = ssl->s3->pending_write.size();
+  ssl->s3->has_pending_write = false;
+  ssl->s3->pending_write = {};
+  return 1;
 }
 
 // do_tls_write writes an SSL record of the given type.
-static int do_tls_write(SSL *ssl, int type, const uint8_t *in, unsigned len) {
+static int do_tls_write(SSL *ssl, size_t *out_bytes_written, uint8_t type,
+                        Span<const uint8_t> in) {
   // If there is still data from the previous record, flush it.
-  if (ssl->s3->wpend_pending) {
-    return tls_write_pending(ssl, type, in, len);
+  if (ssl->s3->has_pending_write) {
+    return tls_write_pending(ssl, out_bytes_written, type, in);
   }
 
   SSLBuffer *buf = &ssl->s3->write_buffer;
-  if (len > SSL3_RT_MAX_PLAIN_LENGTH || buf->size() > 0) {
+  if (in.size() > SSL3_RT_MAX_PLAIN_LENGTH || buf->size() > 0) {
     OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
     return -1;
   }
@@ -238,9 +244,10 @@ static int do_tls_write(SSL *ssl, int type, const uint8_t *in, unsigned len) {
   }
 
   size_t max_out = flight_len;
-  if (len > 0) {
-    const size_t max_ciphertext_len = len + SSL_max_seal_overhead(ssl);
-    if (max_ciphertext_len < len || max_out + max_ciphertext_len < max_out) {
+  if (!in.empty()) {
+    const size_t max_ciphertext_len = in.size() + SSL_max_seal_overhead(ssl);
+    if (max_ciphertext_len < in.size() ||
+        max_out + max_ciphertext_len < max_out) {
       OPENSSL_PUT_ERROR(SSL, ERR_R_OVERFLOW);
       return -1;
     }
@@ -269,10 +276,10 @@ static int do_tls_write(SSL *ssl, int type, const uint8_t *in, unsigned len) {
     buf->DidWrite(flight_len);
   }
 
-  if (len > 0) {
+  if (!in.empty()) {
     size_t ciphertext_len;
     if (!tls_seal_record(ssl, buf->remaining().data(), &ciphertext_len,
-                         buf->remaining().size(), type, in, len)) {
+                         buf->remaining().size(), type, in.data(), in.size())) {
       return -1;
     }
     buf->DidWrite(ciphertext_len);
@@ -282,16 +289,14 @@ static int do_tls_write(SSL *ssl, int type, const uint8_t *in, unsigned len) {
   // acknowledgments.
   ssl->s3->key_update_pending = false;
 
-  // Memorize arguments so that tls_write_pending can detect bad write retries
+  // Memorize arguments so that |tls_write_pending| can detect bad write retries
   // later.
-  ssl->s3->wpend_tot = len;
-  ssl->s3->wpend_buf = in;
-  ssl->s3->wpend_type = type;
-  ssl->s3->wpend_ret = len;
-  ssl->s3->wpend_pending = true;
+  ssl->s3->pending_write = in;
+  ssl->s3->pending_write_type = type;
+  ssl->s3->has_pending_write = true;
 
   // We now just need to write the buffer.
-  return tls_write_pending(ssl, type, in, len);
+  return tls_write_pending(ssl, out_bytes_written, type, in);
 }
 
 ssl_open_record_t tls_open_app_data(SSL *ssl, Span<uint8_t> *out,
@@ -429,10 +434,13 @@ int tls_dispatch_alert(SSL *ssl) {
       return 0;
     }
   } else {
-    int ret = do_tls_write(ssl, SSL3_RT_ALERT, &ssl->s3->send_alert[0], 2);
+    size_t bytes_written;
+    int ret =
+        do_tls_write(ssl, &bytes_written, SSL3_RT_ALERT, ssl->s3->send_alert);
     if (ret <= 0) {
       return ret;
     }
+    assert(bytes_written == 2);
   }
 
   ssl->s3->alert_dispatch = false;
