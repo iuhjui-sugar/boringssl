@@ -710,6 +710,7 @@ static bool ext_ech_add_clienthello(SSL_HANDSHAKE *hs, CBB *out) {
 
 static bool ext_ech_parse_serverhello(SSL_HANDSHAKE *hs, uint8_t *out_alert,
                                       CBS *contents) {
+  printf("####### ext_ech_parse_serverhello\n");
   if (contents == NULL) {
     return true;
   }

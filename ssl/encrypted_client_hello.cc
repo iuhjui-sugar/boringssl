@@ -321,7 +321,8 @@ bool ssl_client_hello_decrypt(
     OPENSSL_PUT_ERROR(SSL, ERR_R_MALLOC_FAILURE);
     return false;
   }
-  size_t encoded_client_hello_inner_len;
+  size_t encoded_client_hello_inner_len = 0;
+#if !defined(BORINGSSL_UNSAFE_FUZZER_MODE)
   if (!EVP_HPKE_CTX_open(hpke_ctx, out_encoded_client_hello_inner->data(),
                          &encoded_client_hello_inner_len,
                          out_encoded_client_hello_inner->size(), payload.data(),
@@ -331,6 +332,9 @@ bool ssl_client_hello_decrypt(
     OPENSSL_PUT_ERROR(SSL, SSL_R_DECRYPTION_FAILED);
     return false;
   }
+#else
+  encoded_client_hello_inner_len = 100;
+#endif
   out_encoded_client_hello_inner->Shrink(encoded_client_hello_inner_len);
   return true;
 }

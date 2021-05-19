@@ -48,4 +48,6 @@ static const uint16_t kHandbackTag = 4;
 // kHintsTag is followed by the output of |SSL_serialize_handshake_hints|.
 static const uint16_t kHintsTag = 5;
 
+static const uint16_t kECHServerConfigTag = 6;
+
 #endif  // HEADER_SSL_TEST_FUZZER_TAGS

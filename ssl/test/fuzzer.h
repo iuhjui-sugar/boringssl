@@ -524,6 +524,44 @@ class TLSFuzzer {
           break;
         }
 
+        case kECHServerConfigTag: {
+          if (role_ == kClient) {
+            break;
+          }
+          printf("****** kECHServerConfigTag\n");
+          CBS configs;
+          if (!CBS_get_u24_length_prefixed(cbs, &configs)) {
+            return nullptr;
+          }
+          bssl::UniquePtr<SSL_ECH_SERVER_CONFIG_LIST> config_list(
+              SSL_ECH_SERVER_CONFIG_LIST_new());
+          if (!config_list) {
+            return nullptr;
+          }
+          while (CBS_len(&configs) > 0) {
+            CBS ech_config, ech_private_key;
+            uint8_t is_retry_config;
+            if (!CBS_get_u24_length_prefixed(&configs, &ech_config) ||
+                !CBS_get_u24_length_prefixed(&configs, &ech_private_key) ||
+                !CBS_get_u8(&configs, &is_retry_config)) {
+              return nullptr;
+            }
+            printf("****** SSL_ECH_SERVER_CONFIG_LIST_add\n");
+            if (!SSL_ECH_SERVER_CONFIG_LIST_add(
+                    config_list.get(), !!is_retry_config, CBS_data(&ech_config),
+                    CBS_len(&ech_config), CBS_data(&ech_private_key),
+                    CBS_len(&ech_private_key))) {
+              return nullptr;
+            }
+          }
+          printf("****** SSL_CTX_set1_ech_server_config_list\n");
+          if (!SSL_CTX_set1_ech_server_config_list(ctx_.get(),
+                                                   config_list.get())) {
+            return nullptr;
+          }
+          break;
+        }
+
         default:
           return nullptr;
       }
