@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "f27b1c65_62d093aa",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 636,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-05-20T18:30:31Z",
+      "side": 1,
+      "message": "Mini nit: I might say `2*4` for consistency with the outer_extensions multiplication below.",
+      "range": {
+        "startLine": 636,
+        "startChar": 9,
+        "endLine": 636,
+        "endChar": 12
+      },
+      "revId": "c28fffef7d276a964269b2c2ac629bc30017b128",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "17e16009_a3864cb5",
@@ -18,6 +41,29 @@
         "startLine": 642,
         "startChar": 39,
         "endLine": 642,
+        "endChar": 49
+      },
+      "revId": "c28fffef7d276a964269b2c2ac629bc30017b128",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98a7d95b_6d00058c",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-05-20T18:30:31Z",
+      "side": 1,
+      "message": "Looks like we never actually pad to a block size. Are we assuming that servers\u0027 maximum_name_lengths are uniformly distributed?\n\nAlso, do we care about the case that `random_size(96, 196) \u003d\u003d 96`?  Looks like `SSL_set_tlsext_host_name` rejects empty names, so should we bump up the minimum length to 1?",
+      "range": {
+        "startLine": 651,
+        "startChar": 29,
+        "endLine": 651,
         "endChar": 49
       },
       "revId": "c28fffef7d276a964269b2c2ac629bc30017b128",
