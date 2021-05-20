@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f98684e_8fd803ef",
+        "filename": "ssl/test/fuzzer_tags.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-05-20T20:48:49Z",
+      "side": 1,
+      "message": "I don\u0027t entirely understand what to do with this env variable.  I ran the server fuzzer with it enabled, but I see \"Error parsing parameters.\" on stderr pretty frequently -- does that indicate that the transcripts are not compatible?",
+      "range": {
+        "startLine": 27,
+        "startChar": 44,
+        "endLine": 27,
+        "endChar": 66
+      },
+      "revId": "c05d10cdd05ce8bebc63fe8b9b5f5e390db9295a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
