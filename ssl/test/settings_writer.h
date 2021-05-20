@@ -36,6 +36,7 @@ struct SettingsWriter {
   bool WriteHandoff(bssl::Span<const uint8_t> handoff);
   bool WriteHandback(bssl::Span<const uint8_t> handback);
   bool WriteHints(bssl::Span<const uint8_t> hints);
+  bool WriteECHServerConfig(bssl::Span<const uint8_t> config);;
 
  private:
   bool WriteData(uint16_t tag, bssl::Span<const uint8_t> data);

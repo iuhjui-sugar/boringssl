@@ -1298,6 +1298,44 @@ int main(int argc, char **argv) {
     }
     bool ok = DoConnection(&session, ssl_ctx.get(), config, &retry_config,
                            is_resume, offer_session.get(), &writer);
+
+    if (!config->ech_server_configs.empty()) {
+      assert(config->ech_server_configs.size() ==
+             config->ech_server_keys.size());
+      assert(config->ech_server_configs.size() ==
+             config->ech_is_retry_config.size());
+
+      // Write the ECH server configs.
+      bssl::ScopedCBB configs;
+      if (!CBB_init(configs.get(), 64)) {
+        fprintf(stderr, "Error writing settings.\n");
+        return 1;
+      }
+
+      for (size_t j = 0; j < config->ech_server_configs.size(); j++) {
+        const std::string &ech_server_config = config->ech_server_configs[j];
+        const std::string &ech_key = config->ech_server_keys[j];
+        uint8_t is_retry_config = !!config->ech_is_retry_config[j];
+
+        CBB cbb;
+        if (!CBB_add_u24_length_prefixed(configs.get(), &cbb) ||
+            !CBB_add_bytes(
+                &cbb,
+                reinterpret_cast<const uint8_t *>(ech_server_config.data()),
+                ech_server_config.size()) ||
+            !CBB_add_u24_length_prefixed(configs.get(), &cbb) ||
+            !CBB_add_bytes(&cbb,
+                           reinterpret_cast<const uint8_t *>(ech_key.data()),
+                           ech_key.size()) ||
+            !CBB_add_u8(configs.get(), is_retry_config) ||
+            !CBB_flush(configs.get())) {
+          fprintf(stderr, "Error writing settings.\n");
+          return 1;
+        }
+      }
+      writer.WriteECHServerConfig(
+          bssl::MakeConstSpan(CBB_data(configs.get()), CBB_len(configs.get())));
+    }
     if (!writer.Commit()) {
       fprintf(stderr, "Error writing settings.\n");
       return 1;
