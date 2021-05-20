@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "fd621adb_44200d00",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 636,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-05-20T18:42:45Z",
+      "side": 1,
+      "message": "Done, except I think I prefer count*size rather than size*count.",
+      "parentUuid": "f27b1c65_62d093aa",
+      "range": {
+        "startLine": 636,
+        "startChar": 9,
+        "endLine": 636,
+        "endChar": 12
+      },
+      "revId": "c28fffef7d276a964269b2c2ac629bc30017b128",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "17e16009_a3864cb5",
         "filename": "ssl/t1_lib.cc",
         "patchSetId": 1
@@ -60,6 +84,30 @@
       "writtenOn": "2021-05-20T18:30:31Z",
       "side": 1,
       "message": "Looks like we never actually pad to a block size. Are we assuming that servers\u0027 maximum_name_lengths are uniformly distributed?\n\nAlso, do we care about the case that `random_size(96, 196) \u003d\u003d 96`?  Looks like `SSL_set_tlsext_host_name` rejects empty names, so should we bump up the minimum length to 1?",
+      "range": {
+        "startLine": 651,
+        "startChar": 29,
+        "endLine": 651,
+        "endChar": 49
+      },
+      "revId": "c28fffef7d276a964269b2c2ac629bc30017b128",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27d1deaf_2d08eaf5",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-05-20T18:42:45Z",
+      "side": 1,
+      "message": "\u003e Looks like we never actually pad to a block size. Are we assuming that servers\u0027 maximum_name_lengths are uniformly distributed?\n\nRight, the point of this change is to no longer do that because it was inconsistent with the draft\u0027s recommending padding scheme.\n\n\u003e Also, do we care about the case that `random_size(96, 196) \u003d\u003d 96`?  Looks like `SSL_set_tlsext_host_name` rejects empty names, so should we bump up the minimum length to 1?\n\nEh, if we\u0027re going to try to simulate things at that level, 1 is too short. Really what we need is a distribution on maximum_name_length, which we don\u0027t have. But I think what we really should do is issue #433, round the final payload, and make all this moot.",
+      "parentUuid": "98a7d95b_6d00058c",
       "range": {
         "startLine": 651,
         "startChar": 29,
