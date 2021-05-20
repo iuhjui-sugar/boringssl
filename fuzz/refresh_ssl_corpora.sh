@@ -94,6 +94,13 @@ echo Recording non-fuzzer-mode transcripts
     -deterministic)
 
 
+# Test some transcripts.
+
+BORINGSSL_FUZZER_DEBUG=1 "$fuzzer_mode_build_dir/fuzz/server" \
+  "$fuzzer_mode_transcripts"/tls/server/*-ECH-Server-* 2>&1 >/dev/null | \
+  (! grep "Handshake failed")
+
+
 # Minimize the existing corpora.
 
 minimize_corpus() {
