@@ -140,6 +140,30 @@
       },
       "revId": "c28fffef7d276a964269b2c2ac629bc30017b128",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d9fa9f6_95ad0e71",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-05-20T18:45:27Z",
+      "side": 1,
+      "message": "On reflection, I made up a minimum maximum_name_length of 32. Although this is probably off because people are more likely to pick nice round numbers than not.",
+      "parentUuid": "105b4015_de068c1a",
+      "range": {
+        "startLine": 651,
+        "startChar": 29,
+        "endLine": 651,
+        "endChar": 49
+      },
+      "revId": "c28fffef7d276a964269b2c2ac629bc30017b128",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
