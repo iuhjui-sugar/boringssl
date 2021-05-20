@@ -96,6 +96,10 @@ bool SettingsWriter::WriteHints(bssl::Span<const uint8_t> hints) {
   return WriteData(kHintsTag, hints);
 }
 
+bool SettingsWriter::WriteECHServerConfig(bssl::Span<const uint8_t> config) {
+  return WriteData(kECHServerConfigTag, config);
+}
+
 bool SettingsWriter::WriteData(uint16_t tag, bssl::Span<const uint8_t> data) {
   if (path_.empty()) {
     return true;

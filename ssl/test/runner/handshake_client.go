@@ -23,6 +23,8 @@ import (
 	"boringssl.googlesource.com/boringssl/ssl/test/runner/hpke"
 )
 
+const echBadPayloadByte = 0xff
+
 type clientHandshakeState struct {
 	c                 *Conn
 	serverHello       *serverHelloMsg
@@ -823,7 +825,11 @@ NextCipherSuite:
 			return nil, err
 		}
 		if c.config.Bugs.CorruptEncryptedClientHello {
-			hello.clientECH.payload[0] ^= 1
+			if c.config.Bugs.NullAllCiphers {
+				hello.clientECH.payload = []byte{echBadPayloadByte}
+			} else {
+				hello.clientECH.payload[0] ^= 1
+			}
 		}
 	}
 
@@ -880,6 +886,10 @@ func (hs *clientHandshakeState) encryptClientHello(hello, innerHello *clientHell
 
 	encodedInner := innerHello.marshalForEncodedInner()
 	payload := hs.echHPKEContext.Seal(encodedInner, aad.finish())
+
+	if c.config.Bugs.NullAllCiphers {
+		payload = encodedInner
+	}
 
 	// Place the ECH extension in the outer CH.
 	hello.clientECH = &clientECH{
@@ -1525,7 +1535,11 @@ func (hs *clientHandshakeState) applyHelloRetryRequest(helloRetryRequest *helloR
 				return err
 			}
 			if c.config.Bugs.CorruptSecondEncryptedClientHello {
-				hello.clientECH.payload[0] ^= 1
+				if c.config.Bugs.NullAllCiphers {
+					hello.clientECH.payload = []byte{echBadPayloadByte}
+				} else {
+					hello.clientECH.payload[0] ^= 1
+				}
 			}
 		}
 	}
