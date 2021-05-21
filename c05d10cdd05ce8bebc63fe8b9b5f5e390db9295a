@@ -22,6 +22,30 @@
       },
       "revId": "c05d10cdd05ce8bebc63fe8b9b5f5e390db9295a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b05b95b_88cb2b8a",
+        "filename": "ssl/test/fuzzer_tags.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-05-21T20:41:31Z",
+      "side": 1,
+      "message": "Oh, I\u0027d forgotten about that. Are you just running the fuzzer with this on (i.e. generating new inputs), or are you running it on recorded transcripts?\n\nIf you\u0027re generating new inputs, that\u0027s expected. The fuzzer will naturally spend a lot of time exploring invalid inputs. The point of this flag is to run it on the record transcripts and tells you whether the handshake succeeded. The reason it\u0027s a flag is that those aren\u0027t errors. Anything it prints out is a perfectly valid behavior for the fuzzer, but we\u0027d like to distinguish between a fuzzer that can never explore a handshake and one that can.\n\nWe\u0027ll still see some failed handshakes on record transcripts (some tests are supposed to fail, and sometimes we expect non-portability), so this requires understanding each case you\u0027re looking at. But the point is to confirm that a transcript from the runner does actually drive the fuzzer to roughly the same place most of the time. And so you should confirm that various successful handshake transcripts go through cleanly.",
+      "parentUuid": "7f98684e_8fd803ef",
+      "range": {
+        "startLine": 27,
+        "startChar": 44,
+        "endLine": 27,
+        "endChar": 66
+      },
+      "revId": "c05d10cdd05ce8bebc63fe8b9b5f5e390db9295a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }

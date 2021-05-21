@@ -34,6 +34,57 @@
       "parentUuid": "43cfa0b0_2a1c1707",
       "revId": "bea8d53f1e8f4519473720b7ebb1f9271f52dc2a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5fda5e0_0f7e159b",
+        "filename": "ssl/encrypted_client_hello.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-05-21T20:41:31Z",
+      "side": 1,
+      "message": "Nit: I\u0027d replace both of these comments with:\n\n// In fuzzer mode, disable encryption to improve coverage. We reserve a short input to signal decryption failure, so the fuzzer can explore fallback to ClientHelloOuter.\n\n(Explaining \"why\" instead of \"what\".)",
+      "revId": "bea8d53f1e8f4519473720b7ebb1f9271f52dc2a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d013c4b4_11bf082a",
+        "filename": "ssl/encrypted_client_hello.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-05-21T20:41:31Z",
+      "side": 1,
+      "message": "Nit: No need for ERR_R_MALLOC_FAILURE. Most of the wrappers here push it automatically.\n\n(It\u0027s just that OPENSSL_malloc itself can\u0027t because that would cause the error static to recurse infinitely.)",
+      "revId": "bea8d53f1e8f4519473720b7ebb1f9271f52dc2a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e03e4500_a7568dca",
+        "filename": "ssl/test/fuzzer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-05-21T20:41:31Z",
+      "side": 1,
+      "message": "Ah yeah, this is what we were talking about the other day about just statically enabling features. It\u0027s a trade-off between coverage and how much time we want the fuzzer to waste on things. This does allow the fuzzer to explore different variations on ECHConfigs (e.g. if it has a crash that only manifests with AES-only ECHConfigs), but it also means the fuzzer will waste a lot of time trying invalid syntaxes for ECHConfig.\n\nIt\u0027s actually even worse for this fuzzer, because the chances of the fuzzer finding matching X25519 public and private key pairs is nil. We also already have ssl_ctx_api covering the ECHConfig server parser itself.\n\nSo instead match the rest of this file, by configuring static ECHConfigs. If we want to test a few variations like an AES-only ECHConfig, we can load both of them and give them different config IDs. But, TBH, just the one is probably fine.\n\nFuzzer mode should smooth over most variations between the runner and fuzzer ECHConfigs, though better to make those static and make it match.",
+      "revId": "bea8d53f1e8f4519473720b7ebb1f9271f52dc2a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
