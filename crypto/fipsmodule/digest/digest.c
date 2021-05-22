@@ -177,6 +177,14 @@ int EVP_MD_CTX_copy_ex(EVP_MD_CTX *out, const EVP_MD_CTX *in) {
   return 1;
 }
 
+void EVP_MD_CTX_move(EVP_MD_CTX *out, EVP_MD_CTX *in) {
+  EVP_MD_CTX_cleanup(out);
+  // While not guaranteed, but |EVP_MD_CTX| is currently safe to move with
+  // |memcpy|, so copy the bytes.
+  OPENSSL_memcpy(out, in, sizeof(EVP_MD_CTX));
+  OPENSSL_memset(in, 0, sizeof(EVP_MD_CTX));
+}
+
 int EVP_MD_CTX_copy(EVP_MD_CTX *out, const EVP_MD_CTX *in) {
   EVP_MD_CTX_init(out);
   return EVP_MD_CTX_copy_ex(out, in);
