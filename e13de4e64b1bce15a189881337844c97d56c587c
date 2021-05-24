@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e48b5777_ce74a933",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-05-24T16:55:08Z",
+      "side": 1,
+      "message": "Based on patchset 5 of parent: https://boringssl-review.googlesource.com/c/boringssl/+/47624/5",
+      "revId": "e13de4e64b1bce15a189881337844c97d56c587c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
