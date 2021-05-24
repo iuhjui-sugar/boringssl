@@ -46,6 +46,30 @@
       },
       "revId": "9eb0a50ef4c895fedcffd70295a9db983c7e16f8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e865971c_60184bba",
+        "filename": "fuzz/refresh_ssl_corpora.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-05-24T16:54:29Z",
+      "side": 1,
+      "message": "Gotcha. To confirm, I do see some tests passing without \"Handshake failed\" messages.",
+      "parentUuid": "1aee2a42_45779f14",
+      "range": {
+        "startLine": 100,
+        "startChar": 40,
+        "endLine": 100,
+        "endChar": 54
+      },
+      "revId": "9eb0a50ef4c895fedcffd70295a9db983c7e16f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
