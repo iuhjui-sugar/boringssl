@@ -16170,7 +16170,7 @@ var echCiphers = []echCipher{
 // generateECHConfigWithSecretKey constructs a valid ECHConfig and corresponding
 // private key for the server. If the cipher list is empty, all ciphers are
 // included.
-func generateECHConfigWithSecretKey(publicName string, ciphers []HPKECipherSuite) (*ECHConfig, []byte, error) {
+func generateECHConfigWithSecretKey(publicName string, ciphers []HPKECipherSuite, configID uint8) (*ECHConfig, []byte, error) {
 	publicKeyR, secretKeyR, err := hpke.GenerateKeyPair()
 	if err != nil {
 		return nil, nil, err
@@ -16182,7 +16182,7 @@ func generateECHConfigWithSecretKey(publicName string, ciphers []HPKECipherSuite
 		}
 	}
 	result := ECHConfig{
-		ConfigID:     42,
+		ConfigID:     configID,
 		PublicName:   publicName,
 		PublicKey:    publicKeyR,
 		KEM:          hpke.X25519WithHKDFSHA256,
@@ -16196,19 +16196,23 @@ func generateECHConfigWithSecretKey(publicName string, ciphers []HPKECipherSuite
 }
 
 func addEncryptedClientHelloTests() {
-	publicECHConfig, secretKey, err := generateECHConfigWithSecretKey("public.example", nil)
+	publicECHConfig, secretKey, err := generateECHConfigWithSecretKey("public.example", nil, 0)
 	if err != nil {
 		panic(err)
 	}
-	publicECHConfig1, secretKey1, err := generateECHConfigWithSecretKey("public.example", nil)
+	publicECHConfig1, secretKey1, err := generateECHConfigWithSecretKey("public.example", nil, 1)
 	if err != nil {
 		panic(err)
 	}
-	publicECHConfig2, secretKey2, err := generateECHConfigWithSecretKey("public.example", nil)
+	publicECHConfig2, secretKey2, err := generateECHConfigWithSecretKey("public.example", nil, 2)
 	if err != nil {
 		panic(err)
 	}
-	publicECHConfig3, secretKey3, err := generateECHConfigWithSecretKey("public.example", nil)
+	publicECHConfig3, secretKey3, err := generateECHConfigWithSecretKey("public.example", nil, 3)
+	if err != nil {
+		panic(err)
+	}
+	publicECHConfig4WithConfigID3, secretKey4, err := generateECHConfigWithSecretKey("public.example", nil, 3)
 	if err != nil {
 		panic(err)
 	}
@@ -16530,6 +16534,30 @@ func addEncryptedClientHelloTests() {
 			},
 		})
 
+		// Test ECH-enabled server with two ECHConfigs that have the same config
+		// ID can decrypt client's ECH when it uses the second ECHConfig.
+		testCases = append(testCases, testCase{
+			testType: serverTest,
+			protocol: protocol,
+			name:     prefix + "ECH-Server-RepeatedConfigID",
+			config: Config{
+				ServerName:      "secret.example",
+				ClientECHConfig: publicECHConfig4WithConfigID3,
+			},
+			flags: []string{
+				"-ech-server-config", base64.StdEncoding.EncodeToString(MarshalECHConfig(publicECHConfig3)),
+				"-ech-server-key", base64.StdEncoding.EncodeToString(secretKey3),
+				"-ech-is-retry-config", "1",
+				"-ech-server-config", base64.StdEncoding.EncodeToString(MarshalECHConfig(publicECHConfig4WithConfigID3)),
+				"-ech-server-key", base64.StdEncoding.EncodeToString(secretKey4),
+				"-ech-is-retry-config", "1",
+				"-expect-server-name", "secret.example",
+			},
+			expectations: connectionExpectations{
+				echAccepted: true,
+			},
+		})
+
 		// Test all supported ECH cipher suites.
 		for i, cipher := range echCiphers {
 			otherCipher := echCiphers[0]
@@ -16560,7 +16588,7 @@ func addEncryptedClientHelloTests() {
 
 			// Test that the ECH server rejects the specified cipher if not
 			// listed in its ECHConfig.
-			config, key, err := generateECHConfigWithSecretKey("public.example", []HPKECipherSuite{otherCipher.cipher})
+			config, key, err := generateECHConfigWithSecretKey("public.example", []HPKECipherSuite{otherCipher.cipher}, 42)
 			if err != nil {
 				panic(err)
 			}
