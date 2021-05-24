@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57477a34_8a342615",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-05-24T20:41:40Z",
+      "side": 1,
+      "message": "David, PTAL :) Switched the existing tests to use different config IDs and added a test that explicitly covers repeated config IDs.",
+      "revId": "a85da9fe4e9ff15e9c045e5e77d8c62ee2500f8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
