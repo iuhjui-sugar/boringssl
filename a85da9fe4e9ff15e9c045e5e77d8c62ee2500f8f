@@ -16,6 +16,52 @@
       "message": "David, PTAL :) Switched the existing tests to use different config IDs and added a test that explicitly covers repeated config IDs.",
       "revId": "a85da9fe4e9ff15e9c045e5e77d8c62ee2500f8f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e65b970_fcada9fb",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 16199,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-05-24T22:07:58Z",
+      "side": 1,
+      "message": "Let\u0027s not use zero here, at least not for the default config. We tend to zero-initialize stuff so if we failed to save something, it\u0027s the most likely candidate for what we\u0027d use instead.\n\nAlso I believe the fuzzer bits you just landed prefer that most tests use config_id \u003d 42. :-) We should keep that and the corpus in sync.",
+      "range": {
+        "startLine": 16199,
+        "startChar": 90,
+        "endLine": 16199,
+        "endChar": 91
+      },
+      "revId": "a85da9fe4e9ff15e9c045e5e77d8c62ee2500f8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b2c3f76_5cd7cbf1",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 16215,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-05-24T22:07:58Z",
+      "side": 1,
+      "message": "Not that it really matters, but why match 3 when you can match the default one? It\u0027s also kinda long. How about...\n\n1. Drop the \"public\" and \"secret\" so just echConfig and key. The prefixes weren\u0027t carrying any weight. (See go/go-style/decisions#repetitive-with-type and go/go-style/decisions#repetitive-in-context) Probably drop it from generateECHConfigWithSecretKey for consistency. Perhaps generateECHConfigWithKey or generateServerECHConfig.\n\n2. Now that the names are shorter, perhaps echConfigRepeatID and keyRepeatID?",
+      "range": {
+        "startLine": 16215,
+        "startChar": 1,
+        "endLine": 16215,
+        "endChar": 30
+      },
+      "revId": "a85da9fe4e9ff15e9c045e5e77d8c62ee2500f8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
