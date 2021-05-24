@@ -157,6 +157,24 @@
       "parentUuid": "e03e4500_a7568dca",
       "revId": "bea8d53f1e8f4519473720b7ebb1f9271f52dc2a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9110f59_ec0e701c",
+        "filename": "ssl/test/fuzzer.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-05-24T16:00:52Z",
+      "side": 1,
+      "message": "\u003e a variety of ECHConfigs\n\nWe can do it by loading both of them and give them different config IDs. Dunno how important that is though.\n\n\u003e temporality/raciness of switching out the server\u0027s ECHConfigs\n\nThe fuzzers don\u0027t test this anyway. It\u0027s single-threaded and all the config happens at the start. We test that sort of thing with multi-threaded tests in ssl_test.cc and TSan. (I\u0027ll make a note to do that once there\u0027s a client.)",
+      "parentUuid": "8efd2d17_19674ed8",
+      "revId": "bea8d53f1e8f4519473720b7ebb1f9271f52dc2a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }

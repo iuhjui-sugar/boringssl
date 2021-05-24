@@ -70,6 +70,30 @@
       },
       "revId": "c05d10cdd05ce8bebc63fe8b9b5f5e390db9295a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec79967b_e466c35c",
+        "filename": "ssl/test/fuzzer_tags.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-05-24T16:00:52Z",
+      "side": 1,
+      "message": "There isn\u0027t much of a workflow right now. I just manually ran a bunch when I first added this machinery, and then manually run a few interesting cases when I need to add a new kind of fuzzer mode hook. It definitely could use some work, yeah. :-)",
+      "parentUuid": "65325ba5_16b75dd3",
+      "range": {
+        "startLine": 27,
+        "startChar": 44,
+        "endLine": 27,
+        "endChar": 66
+      },
+      "revId": "c05d10cdd05ce8bebc63fe8b9b5f5e390db9295a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }

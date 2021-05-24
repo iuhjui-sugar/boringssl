@@ -22,6 +22,30 @@
       },
       "revId": "9eb0a50ef4c895fedcffd70295a9db983c7e16f8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1aee2a42_45779f14",
+        "filename": "fuzz/refresh_ssl_corpora.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-05-24T16:00:52Z",
+      "side": 1,
+      "message": "Yeah, I didn\u0027t automate it because of things like that. Automating it would be nice, but automating things isn\u0027t very useful when the automation fails anyway. (Plus this script is currently kind of noisy.) Let\u0027s work through this separately.",
+      "parentUuid": "07b85b4c_a1cc8b9a",
+      "range": {
+        "startLine": 100,
+        "startChar": 40,
+        "endLine": 100,
+        "endChar": 54
+      },
+      "revId": "9eb0a50ef4c895fedcffd70295a9db983c7e16f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
