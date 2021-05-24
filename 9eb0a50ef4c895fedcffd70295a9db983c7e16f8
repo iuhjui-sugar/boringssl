@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07b85b4c_a1cc8b9a",
+        "filename": "fuzz/refresh_ssl_corpora.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-05-24T15:16:57Z",
+      "side": 1,
+      "message": "This is certainly an incomplete list of transcripts to test, but do you think it makes sense to test the transcripts here? After all, they\u0027re already generated and conveniently sitting in $fuzzer_mode_transcripts.\n\n(FYI, this test actually fails because of TLS-ECH-Server-CorruptSecondEncryptedClientHello-0. However, that test expects the handshake to fail, so it should probably be excluded here.)",
+      "range": {
+        "startLine": 100,
+        "startChar": 40,
+        "endLine": 100,
+        "endChar": 54
+      },
+      "revId": "9eb0a50ef4c895fedcffd70295a9db983c7e16f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
