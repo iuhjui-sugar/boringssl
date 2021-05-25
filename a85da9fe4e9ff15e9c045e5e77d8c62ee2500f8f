@@ -41,6 +41,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "03183590_0d162b29",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 16199,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-05-25T14:45:02Z",
+      "side": 1,
+      "message": "SGTM.",
+      "parentUuid": "4e65b970_fcada9fb",
+      "range": {
+        "startLine": 16199,
+        "startChar": 90,
+        "endLine": 16199,
+        "endChar": 91
+      },
+      "revId": "a85da9fe4e9ff15e9c045e5e77d8c62ee2500f8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9b2c3f76_5cd7cbf1",
@@ -54,6 +78,30 @@
       "writtenOn": "2021-05-24T22:07:58Z",
       "side": 1,
       "message": "Not that it really matters, but why match 3 when you can match the default one? It\u0027s also kinda long. How about...\n\n1. Drop the \"public\" and \"secret\" so just echConfig and key. The prefixes weren\u0027t carrying any weight. (See go/go-style/decisions#repetitive-with-type and go/go-style/decisions#repetitive-in-context) Probably drop it from generateECHConfigWithSecretKey for consistency. Perhaps generateECHConfigWithKey or generateServerECHConfig.\n\n2. Now that the names are shorter, perhaps echConfigRepeatID and keyRepeatID?",
+      "range": {
+        "startLine": 16215,
+        "startChar": 1,
+        "endLine": 16215,
+        "endChar": 30
+      },
+      "revId": "a85da9fe4e9ff15e9c045e5e77d8c62ee2500f8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "832f2b69_fceceeaf",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 16215,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-05-25T14:45:02Z",
+      "side": 1,
+      "message": "Done. Opting for generateECHConfigWithKey over generateServerECHConfig because we will probably have a type name ECHServerConfig for the Go client.",
+      "parentUuid": "9b2c3f76_5cd7cbf1",
       "range": {
         "startLine": 16215,
         "startChar": 1,
