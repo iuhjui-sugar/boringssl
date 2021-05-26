@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a4afdcb_a3654b4a",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1024,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-05-26T23:00:17Z",
+      "side": 1,
+      "message": "Nit: Maybe just plain session_id? In the full handshake case, it\u0027s not echoed.",
+      "range": {
+        "startLine": 1024,
+        "startChar": 22,
+        "endLine": 1024,
+        "endChar": 39
+      },
+      "revId": "9942438192c16dc276da38cb6b0a42ca9fc0a029",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b96a1fae_57beb738",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 6571,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-05-26T23:00:17Z",
+      "side": 1,
+      "message": "Hopefully we can move them off of this, after working with them on what they were even trying to do with that value.\n\nOutside of tests, it\u0027s unlikely that you\u0027d usefully rely on this. In handshakes that use IDs instead of tickets, whether the ID was resumed or newly-issued, you\u0027ll have client_id \u003d\u003d server_id, so this doesn\u0027t tell you anything. In handshakes that use tickets instead of IDs, you\u0027ll have client_id \u003d\u003d server_id on resumption but server_id \u003d\u003d \"\" on full handshakes. Plus, normally you only are on one side or the other, not both.\n\nMore commonly, I see code mess with session IDs by checking old_connection_id \u003d\u003d new_connection_id. That relies just on the client\u0027s placeholder because it never worked on the server for ticket-based resumptions. And, even with the client placeholder, it doesn\u0027t work in TLS 1.3 because we get the tickets later.",
+      "revId": "9942438192c16dc276da38cb6b0a42ca9fc0a029",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
