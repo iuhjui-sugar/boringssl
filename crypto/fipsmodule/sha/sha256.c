@@ -112,27 +112,16 @@ uint8_t *SHA256(const uint8_t *data, size_t len,
   return out;
 }
 
-int SHA224_Update(SHA256_CTX *ctx, const void *data, size_t len) {
-  return SHA256_Update(ctx, data, len);
-}
-
-int SHA224_Final(uint8_t out[SHA224_DIGEST_LENGTH], SHA256_CTX *ctx) {
-  // SHA224_Init sets |ctx->md_len| to |SHA224_DIGEST_LENGTH|, so this has a
-  // smaller output.
-  return SHA256_Final(out, ctx);
-}
-
 #define DATA_ORDER_IS_BIG_ENDIAN
 
 #define HASH_CTX SHA256_CTX
 #define HASH_CBLOCK 64
-#define HASH_DIGEST_LENGTH 32
 
 // Note that FIPS180-2 discusses "Truncation of the Hash Function Output."
 // default: case below covers for it. It's not clear however if it's permitted
 // to truncate to amount of bytes not divisible by 4. I bet not, but if it is,
 // then default: case shall be extended. For reference. Idea behind separate
-// cases for pre-defined lenghts is to let the compiler decide if it's
+// cases for pre-defined lengths is to let the compiler decide if it's
 // appropriate to unroll small loops.
 //
 // TODO(davidben): The small |md_len| case is one of the few places a low-level
@@ -141,12 +130,6 @@ int SHA224_Final(uint8_t out[SHA224_DIGEST_LENGTH], SHA256_CTX *ctx) {
   do {                                                      \
     unsigned int nn;                                        \
     switch ((c)->md_len) {                                  \
-      case SHA224_DIGEST_LENGTH:                            \
-        for (nn = 0; nn < SHA224_DIGEST_LENGTH / 4; nn++) { \
-          CRYPTO_store_u32_be((s), (c)->h[nn]);             \
-          (s) += 4;                                         \
-        }                                                   \
-        break;                                              \
       case SHA256_DIGEST_LENGTH:                            \
         for (nn = 0; nn < SHA256_DIGEST_LENGTH / 4; nn++) { \
           CRYPTO_store_u32_be((s), (c)->h[nn]);             \
@@ -166,6 +149,7 @@ int SHA224_Final(uint8_t out[SHA224_DIGEST_LENGTH], SHA256_CTX *ctx) {
   } while (0)
 
 
+#define HASH_DIGEST_LENGTH SHA256_DIGEST_LENGTH
 #define HASH_UPDATE SHA256_Update
 #define HASH_TRANSFORM SHA256_Transform
 #define HASH_FINAL SHA256_Final
@@ -174,6 +158,51 @@ int SHA224_Final(uint8_t out[SHA224_DIGEST_LENGTH], SHA256_CTX *ctx) {
 static void sha256_block_data_order(uint32_t *state, const uint8_t *in,
                                     size_t num);
 #endif
+
+#include "../digest/md32_common.h"
+
+#undef HASH_DIGEST_LENGTH
+#define HASH_DIGEST_LENGTH SHA224_DIGEST_LENGTH
+#undef HASH_UPDATE
+#define HASH_UPDATE SHA224_Update
+#undef HASH_TRANSFORM
+#define HASH_TRANSFORM SHA224_Transform
+#undef HASH_FINAL
+#define HASH_FINAL SHA224_Final
+
+#undef HASH_MAKE_STRING
+// Note that FIPS180-2 discusses "Truncation of the Hash Function Output."
+// default: case below covers for it. It's not clear however if it's permitted
+// to truncate to amount of bytes not divisible by 4. I bet not, but if it is,
+// then default: case shall be extended. For reference. Idea behind separate
+// cases for pre-defined lengths is to let the compiler decide if it's
+// appropriate to unroll small loops.
+//
+// TODO(davidben): The small |md_len| case is one of the few places a low-level
+// hash 'final' function can fail. This should never happen.
+#define HASH_MAKE_STRING(c, s)                              \
+  do {                                                      \
+    unsigned int nn;                                        \
+    switch ((c)->md_len) {                                  \
+      case SHA224_DIGEST_LENGTH:                            \
+        for (nn = 0; nn < SHA224_DIGEST_LENGTH / 4; nn++) { \
+          CRYPTO_store_u32_be((s), (c)->h[nn]);             \
+          (s) += 4;                                         \
+        }                                                   \
+        break;                                              \
+      default:                                              \
+        if ((c)->md_len > SHA224_DIGEST_LENGTH) {           \
+          return 0;                                         \
+        }                                                   \
+        for (nn = 0; nn < (c)->md_len / 4; nn++) {          \
+          CRYPTO_store_u32_be((s), (c)->h[nn]);             \
+          (s) += 4;                                         \
+        }                                                   \
+        break;                                              \
+    }                                                       \
+  } while (0)
+
+void SHA224_Transform(SHA256_CTX* c, const uint8_t data[HASH_CBLOCK]);
 
 #include "../digest/md32_common.h"
 
