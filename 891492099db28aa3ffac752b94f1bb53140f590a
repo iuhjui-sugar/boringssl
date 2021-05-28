@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa6fdae0_791f9aad",
+        "filename": "crypto/fipsmodule/digest/md32_common.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-05-28T21:11:32Z",
+      "side": 1,
+      "message": "I\u0027m not super happy with the number of parameters here. Or their names, for that matter, but I figured matching the recommended struct names was probably good? I tried a CRYPTO_MD32_UPDATE macro, but it\u0027s rather long for a macro. We could also resolve the immediate issue by adding a HASH_FINAL_IS_UNSIZED macro, but this header always felt a little weird.\n\nThoughts?",
+      "revId": "891492099db28aa3ffac752b94f1bb53140f590a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
