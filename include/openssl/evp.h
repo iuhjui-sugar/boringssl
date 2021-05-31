@@ -156,6 +156,8 @@ OPENSSL_EXPORT int EVP_PKEY_type(int nid);
 // returned lower-level objects are considered to also mutate the |EVP_PKEY| and
 // may not be called concurrently with other operations on the |EVP_PKEY|.
 
+OPENSSL_EXPORT void *EVP_PKEY_get0(const EVP_PKEY *pkey);
+
 OPENSSL_EXPORT int EVP_PKEY_set1_RSA(EVP_PKEY *pkey, RSA *key);
 OPENSSL_EXPORT int EVP_PKEY_assign_RSA(EVP_PKEY *pkey, RSA *key);
 OPENSSL_EXPORT RSA *EVP_PKEY_get0_RSA(const EVP_PKEY *pkey);

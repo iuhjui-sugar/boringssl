@@ -224,6 +224,10 @@ int EVP_PKEY_type(int nid) {
   return meth->pkey_id;
 }
 
+void *EVP_PKEY_get0(const EVP_PKEY *pkey) {
+  return pkey->pkey.ptr;
+}
+
 int EVP_PKEY_set1_RSA(EVP_PKEY *pkey, RSA *key) {
   if (EVP_PKEY_assign_RSA(pkey, key)) {
     RSA_up_ref(key);
