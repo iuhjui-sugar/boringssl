@@ -33,6 +33,24 @@
       "message": "Confirmed that this resolves the build failure I saw w/ gcc 11.",
       "revId": "1055ae2e91da0e91182235954e9f9d2fd9c7031d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "315471b1_362bbb9f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-01T18:37:53Z",
+      "side": 1,
+      "message": "Checked SHA-1 and SHA-256 with GCC and clang. Seems to be a wash.",
+      "parentUuid": "3277e2b8_59d4775d",
+      "revId": "1055ae2e91da0e91182235954e9f9d2fd9c7031d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
