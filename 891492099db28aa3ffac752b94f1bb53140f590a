@@ -51,6 +51,24 @@
       "message": "I know that I\u0027m not helping your argument count, but could the endianness be a boolean argument? Hopefully the compiler would dead-code eliminate the other path.\n(Optional; your call.)",
       "revId": "891492099db28aa3ffac752b94f1bb53140f590a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f45e8233_553e2c36",
+        "filename": "crypto/fipsmodule/digest/md32_common.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-01T17:33:32Z",
+      "side": 1,
+      "message": "Done. Yeah, the argument count is getting a bit much, but it does avoid some duplication.",
+      "parentUuid": "e28f9617_cffe23ed",
+      "revId": "891492099db28aa3ffac752b94f1bb53140f590a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
