@@ -16,6 +16,24 @@
       "message": "This function looks *extremely* dangerous, given it exposes the key as a random void* type and assumes the caller knows what type the data is stored as. What is Node doing with this API?",
       "revId": "42451c4dc08d193a24de67d5ba7ea7b26b85d653",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3c9339c_99d7ea86",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-01T17:25:33Z",
+      "side": 1,
+      "message": "(Discussed out of band.)\n\nOkay, looks like this comes from https://github.com/nodejs/node/commit/6a7eb32c5bcd92f490a57f2cd12d52e1db881d17 which is actually unreachable in BoringSSL anyway because OpenSSL_version_num() \u003e\u003d 0x1010105fL. So we could even make this abort() for all Node cares. This is all very silly... I think Node probably shouldn\u0027t have bothered hacking around the missing feature in older 1.1.1 releases. Ah well.\n\nThe main thing I\u0027m worried about is callers calling this on random key types like Ed25519 and the compiler won\u0027t notice that they\u0027re casting it to a different type than OpenSSL uses. So I think something like this would be preferable:\n\nvoid *EVP_PKEY_get0(const EVP_PKEY *pkey) {\n  switch (pkey-\u003etype) {\n    case EVP_PKEY_RSA:\n      return EVP_PKEY_get0_RSA(pkey);\n    // case EVP_PKEY_EC ...\n    default:\n      // This function only supports key types where the value\n      // is already exported with the same type as OpenSSL. This\n      // avoids problems if our internal representation does not\n      // match the type the caller expects from OpenSSL.\n      return NULL;\n  }\n}\n\nHowever, since Node actually doesn\u0027t need any of them, maybe we start with just:\n\n1. Link to that Node commit in the commit message, so it\u0027s easier to keep track of what it was added for.\n\n2. Move EVP_PKEY_get0 to the deprecated section of evp.h with a documentation comment like:\n\n  // EVP_PKEY_get0 returns NULL. This function is provided for compatibility with\n  // OpenSSL but does not return anything. Use the typed |EVP_PKEY_get0_*|\n  // functions instead.\n  void *EVP_PKEY_get0(const EVP_PKEY *pkey);\n\n3. Make the implementation return NULL with a comment like:\n\n  void *EVP_PKEY_get0(const EVP_PKEY *pkey) {\n    // Node references, but never calls this function, so for now we return NULL.\n    // If other projects require complete support, call |EVP_PKEY_get0_RSA|, etc.,\n    // rather than reading |pkey-\u003epkey.ptr| directly. This avoids problems if our\n    // internal representation does not match the type the caller expects from\n    // OpenSSL.\n    return NULL;\n  }",
+      "parentUuid": "01793087_b97415cb",
+      "revId": "42451c4dc08d193a24de67d5ba7ea7b26b85d653",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
