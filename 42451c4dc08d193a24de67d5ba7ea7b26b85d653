@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01793087_b97415cb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-01T14:29:00Z",
+      "side": 1,
+      "message": "This function looks *extremely* dangerous, given it exposes the key as a random void* type and assumes the caller knows what type the data is stored as. What is Node doing with this API?",
+      "revId": "42451c4dc08d193a24de67d5ba7ea7b26b85d653",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
