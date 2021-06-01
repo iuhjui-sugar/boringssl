@@ -16,6 +16,23 @@
       "message": "LGTM.\n\n(Worth eyeballing a SHA-256 speed output in Release mode to ensure that nothing terrible is happening in the compiler.)",
       "revId": "1055ae2e91da0e91182235954e9f9d2fd9c7031d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18a8c815_6c2ee29b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8714
+      },
+      "writtenOn": "2021-06-01T18:22:51Z",
+      "side": 1,
+      "message": "Confirmed that this resolves the build failure I saw w/ gcc 11.",
+      "revId": "1055ae2e91da0e91182235954e9f9d2fd9c7031d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
