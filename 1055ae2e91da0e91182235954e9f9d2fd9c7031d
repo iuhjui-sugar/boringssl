@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3277e2b8_59d4775d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-01T17:54:35Z",
+      "side": 1,
+      "message": "LGTM.\n\n(Worth eyeballing a SHA-256 speed output in Release mode to ensure that nothing terrible is happening in the compiler.)",
+      "revId": "1055ae2e91da0e91182235954e9f9d2fd9c7031d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
