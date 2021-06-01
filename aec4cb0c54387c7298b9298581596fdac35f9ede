@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4da4fb8c_19f5f1c4",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-01T21:15:37Z",
+      "side": 1,
+      "message": "Dunno if we\u0027ll need this, but just in case. Maybe, later on, when QUICHE drops the draft versions and starts relying on the default, it can do something like this if it wants, I dunno.\n\n#if BORINGSSL_API_VERSION \u003c 15\n#error \"BoringSSL too old\"\n#endif",
+      "revId": "aec4cb0c54387c7298b9298581596fdac35f9ede",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
