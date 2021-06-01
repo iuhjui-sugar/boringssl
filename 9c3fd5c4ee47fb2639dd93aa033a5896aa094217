@@ -34,6 +34,24 @@
       "parentUuid": "d9979fc5_e4020b62",
       "revId": "9c3fd5c4ee47fb2639dd93aa033a5896aa094217",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad094d1b_5efe0d44",
+        "filename": "crypto/fipsmodule/sha/sha256.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 8714
+      },
+      "writtenOn": "2021-06-01T18:21:18Z",
+      "side": 1,
+      "message": "Yup, at head I get:\n/home/peter/boringssl/crypto/fipsmodule/sha/sha256.c:122:10: error: \u0027SHA256_Final\u0027 accessing 32 bytes in a region of size 28 [-Werror\u003dstringop-overflow\u003d]\n\nAfter cherry-picking that change, the error is gone.\nAnd getting rid of the magic undef wonkiness is an improvement anyway.\nI\u0027ll just drop this change in favor of that one.",
+      "parentUuid": "7e1defa7_52de84bf",
+      "revId": "9c3fd5c4ee47fb2639dd93aa033a5896aa094217",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
