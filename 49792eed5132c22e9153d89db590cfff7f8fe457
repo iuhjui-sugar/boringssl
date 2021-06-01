@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b384a8cc_7ad6508e",
+        "filename": "crypto/fipsmodule/sha/sha1.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-01T17:14:48Z",
+      "side": 1,
+      "message": "(nit: you only used a single blank line in the other files.)",
+      "revId": "49792eed5132c22e9153d89db590cfff7f8fe457",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
