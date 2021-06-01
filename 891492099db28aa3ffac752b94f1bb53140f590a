@@ -16,6 +16,41 @@
       "message": "I\u0027m not super happy with the number of parameters here. Or their names, for that matter, but I figured matching the recommended struct names was probably good? I tried a CRYPTO_MD32_UPDATE macro, but it\u0027s rather long for a macro. We could also resolve the immediate issue by adding a HASH_FINAL_IS_UNSIZED macro, but this header always felt a little weird.\n\nThoughts?",
       "revId": "891492099db28aa3ffac752b94f1bb53140f590a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d423bce9_4824f195",
+        "filename": "crypto/fipsmodule/digest/md32_common.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-01T17:24:50Z",
+      "side": 1,
+      "message": "It\u0027s more arguments than ideal, but it\u0027s a purely internal function. I don\u0027t have a better idea!",
+      "parentUuid": "fa6fdae0_791f9aad",
+      "revId": "891492099db28aa3ffac752b94f1bb53140f590a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e28f9617_cffe23ed",
+        "filename": "crypto/fipsmodule/digest/md32_common.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-01T17:24:50Z",
+      "side": 1,
+      "message": "I know that I\u0027m not helping your argument count, but could the endianness be a boolean argument? Hopefully the compiler would dead-code eliminate the other path.\n(Optional; your call.)",
+      "revId": "891492099db28aa3ffac752b94f1bb53140f590a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
