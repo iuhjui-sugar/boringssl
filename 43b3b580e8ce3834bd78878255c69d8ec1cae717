@@ -71,6 +71,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffbe4a80_d39b084b",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 1284,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-01T17:26:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9853e830_5e251705",
+      "revId": "43b3b580e8ce3834bd78878255c69d8ec1cae717",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df92a30c_69b68895",
@@ -132,6 +150,30 @@
       "side": 1,
       "message": "I wonder if it would be better to do two things related to the new API here:\n\n1) Change the signature to take the private key and the public key and so mimic the same signature as SSL_CTX_set_chain_and_key (https://commondatastorage.googleapis.com/chromium-boringssl-docs/ssl.h.html#SSL_CTX_set_chain_and_key). Beside mimic the \"newer APIs\" it would also make it clear that a private key must be set as well and so make it less error-prone to use.\n\n2) Change it to not take an uint8_t* and unsigned but use an CRYPTO_BUFFER*. This would first of make it more consistent again with SSL_CTX_set_chain_and_key and also allow people to use CRYPTO_BUFFER_POOL for situation when the bytes representation needs to be recreated frequently etc.\n\nThe same comments would also be true for the methods that take an SSL*.",
       "parentUuid": "abb6b5ad_10f0dc9d",
+      "range": {
+        "startLine": 1293,
+        "startChar": 19,
+        "endLine": 1293,
+        "endChar": 64
+      },
+      "revId": "43b3b580e8ce3834bd78878255c69d8ec1cae717",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0864d816_5acc2e42",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 1293,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-01T17:26:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e52e71e_a76252fc",
       "range": {
         "startLine": 1293,
         "startChar": 19,
