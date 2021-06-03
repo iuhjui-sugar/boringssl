@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c681dce3_e54fa937",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-03T15:59:06Z",
+      "side": 1,
+      "message": "Thanks! Oh the joys of perl scripts. I suppose this\u0027ll still break if the filename contains quotes, but so it goes. :-)",
+      "revId": "21728aecae706caf63f39773c97fe5bfc81ebba3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
