@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5242324_2d621506",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 926,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-04T21:09:41Z",
+      "side": 0,
+      "message": "(This was a spec bug. It\u0027s empty in second ClientHellos because we\u0027re just reusing the context.)",
+      "revId": "829d796bc8144001fec9e1bce8805eed26acabd0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
