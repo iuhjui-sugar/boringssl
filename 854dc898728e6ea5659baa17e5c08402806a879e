@@ -34,6 +34,24 @@
       "parentUuid": "31dd0629_9bf12eeb",
       "revId": "854dc898728e6ea5659baa17e5c08402806a879e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73893510_773cd479",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-07T19:55:31Z",
+      "side": 1,
+      "message": "\u003e ...\n\nSure thing. If it\u0027s easier in the code, go for it.\n\n\u003e Incidentally, what was the reason for CreateCertificate returning *Certificate?\n\nIt returns a []byte (https://pkg.go.dev/crypto/x509#CreateCertificate). Did you mean why doesn\u0027t it return a *Certificate?\n\nIt probably could have done, I think I figured that most people would want to output it rather than spend time parsing it back in.",
+      "parentUuid": "721b170b_36e28ee9",
+      "revId": "854dc898728e6ea5659baa17e5c08402806a879e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
