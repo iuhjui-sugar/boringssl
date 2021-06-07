@@ -16,6 +16,24 @@
       "message": "The commit message says that it\u0027s patterned after x590/Certificate, but the Create functions in that pattern return a []byte, not. a *Certificate. This ends up returning a copy of template, but with Raw filled in. Is that useful? Uses of this function so far seem to just pull .Raw right back out.\n\n(Your call. If this is actually a better function type, go for it.)",
       "revId": "854dc898728e6ea5659baa17e5c08402806a879e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "721b170b_36e28ee9",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-07T17:53:42Z",
+      "side": 1,
+      "message": "When passed into the shim side, we just send the bytes down. When passed into the runner side, the ClientECHConfig field currently takes a pre-parsed ECHConfig. Likewise with the server version in https://boringssl-review.googlesource.com/c/boringssl/+/47967/\n\nI could pass in bytes and have the library internally parse it back, but I figure we already have the fields pre-extracted anyway. (And less code to rewrite. :-) )\n\nThat said, the pre-extracted version does mean I have to cheat with returning a copy with Raw filled in, rather than parsing the []byte back out. In the client impl (still need to upload), I need to be able to make serialized ECHConfigs with various mistakes and test that the client doesn\u0027t attempt to offer ECH.\n\nIncidentally, what was the reason for CreateCertificate returning *Certificate? Unlike this code, presumably CreateCertificate will never output a syntax error.",
+      "parentUuid": "31dd0629_9bf12eeb",
+      "revId": "854dc898728e6ea5659baa17e5c08402806a879e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
