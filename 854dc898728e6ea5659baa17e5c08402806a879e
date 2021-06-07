@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31dd0629_9bf12eeb",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-07T16:53:28Z",
+      "side": 1,
+      "message": "The commit message says that it\u0027s patterned after x590/Certificate, but the Create functions in that pattern return a []byte, not. a *Certificate. This ends up returning a copy of template, but with Raw filled in. Is that useful? Uses of this function so far seem to just pull .Raw right back out.\n\n(Your call. If this is actually a better function type, go for it.)",
+      "revId": "854dc898728e6ea5659baa17e5c08402806a879e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
