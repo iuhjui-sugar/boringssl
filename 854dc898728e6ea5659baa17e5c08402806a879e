@@ -52,6 +52,24 @@
       "parentUuid": "721b170b_36e28ee9",
       "revId": "854dc898728e6ea5659baa17e5c08402806a879e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85eef54a_b72ab8c0",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-07T20:35:49Z",
+      "side": 1,
+      "message": "\u003e Did you mean why doesn\u0027t it return a *Certificate?\n\nErr, yes, that one.",
+      "parentUuid": "73893510_773cd479",
+      "revId": "854dc898728e6ea5659baa17e5c08402806a879e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
