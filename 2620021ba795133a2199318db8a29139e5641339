@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e21f3ae_ea53d45d",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-08T16:00:32Z",
+      "side": 1,
+      "message": "should the server do something if the clientECH wasn\u0027t found?",
+      "revId": "2620021ba795133a2199318db8a29139e5641339",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb84419e_301240ac",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-08T16:00:32Z",
+      "side": 1,
+      "message": "s/ed//",
+      "range": {
+        "startLine": 441,
+        "startChar": 47,
+        "endLine": 441,
+        "endChar": 49
+      },
+      "revId": "2620021ba795133a2199318db8a29139e5641339",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51cad4ed_adc5ecbe",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-08T16:00:32Z",
+      "side": 1,
+      "message": "Totally up to you, but I started by expecting the sum of the two lengths, rather than the length of all the extensions less the length of the ECH extension. I.e. I came up with:\n\n(helloOuter.echExtensionStart - helloOuter.extensionStart - 2) + (len(helloOuter.raw) - helloOuter.echExtensionEnd)\n\n... then rearranged to confirm that what you wrote was the same, then figured out how you thought about it to get that arrangement.",
+      "revId": "2620021ba795133a2199318db8a29139e5641339",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
