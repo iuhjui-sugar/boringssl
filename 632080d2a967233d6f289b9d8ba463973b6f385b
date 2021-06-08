@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ec6ddf9_a5e126a0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-08T18:25:27Z",
+      "side": 1,
+      "message": "Thoughts? This ended up being less useful for the follow-up CL than I expected, so I think this is mostly an API question now. I can make it work either way.",
+      "revId": "632080d2a967233d6f289b9d8ba463973b6f385b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
