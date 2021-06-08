@@ -36,6 +36,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "00122774_76e1d5bc",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-08T16:33:13Z",
+      "side": 1,
+      "message": "But if clientECH !\u003d nil the for loop can still fail to find a match and that\u0027ll be ignored. Just wanted to check that is intended.",
+      "parentUuid": "8ae25be2_ce2553a3",
+      "revId": "2620021ba795133a2199318db8a29139e5641339",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cb84419e_301240ac",
