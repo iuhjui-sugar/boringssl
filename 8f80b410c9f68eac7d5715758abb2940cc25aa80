@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5b368541_84634977",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 1341,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-08T18:38:54Z",
+      "side": 0,
+      "message": "Unused and redundant with the 1.2- and 1.3-specific ones.",
+      "revId": "8f80b410c9f68eac7d5715758abb2940cc25aa80",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6705bd8_62c3e6dc",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 1254,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-08T18:38:54Z",
+      "side": 0,
+      "message": "The IANA registry is listed in decimal, so that seems a bit more convenient for debugging.",
+      "range": {
+        "startLine": 1254,
+        "startChar": 43,
+        "endLine": 1254,
+        "endChar": 48
+      },
+      "revId": "8f80b410c9f68eac7d5715758abb2940cc25aa80",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

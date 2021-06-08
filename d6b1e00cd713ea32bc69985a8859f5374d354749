@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "426f8ccf_73bd073b",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 2462,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-08T18:38:54Z",
+      "side": 1,
+      "message": "Entirely pointless optimization that\u0027ll give QUIC a tiiiiny amount of room back. :-)",
+      "revId": "d6b1e00cd713ea32bc69985a8859f5374d354749",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
