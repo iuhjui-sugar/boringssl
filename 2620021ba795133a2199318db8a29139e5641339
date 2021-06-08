@@ -54,6 +54,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "473a3cf5_a2f08773",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-08T17:07:59Z",
+      "side": 1,
+      "message": "Ah yeah, that\u0027s also intended. That\u0027s the trick in real servers that makes GREASE work. (Though it does mean errors are a little obnoxious to diagnose. :-/ )",
+      "parentUuid": "00122774_76e1d5bc",
+      "revId": "2620021ba795133a2199318db8a29139e5641339",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cb84419e_301240ac",
