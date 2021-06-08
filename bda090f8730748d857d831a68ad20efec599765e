@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fd8a20a_ed7fb2b1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-08T18:20:19Z",
+      "side": 1,
+      "message": "I wonder if we can drop this by now...",
+      "revId": "bda090f8730748d857d831a68ad20efec599765e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
