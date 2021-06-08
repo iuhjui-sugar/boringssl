@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "546992c1_9e8e510e",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 3617,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-08T18:29:29Z",
+      "side": 1,
+      "message": "Figure this can be a warning (or error?) in servers.",
+      "revId": "7cc71983fe23ecf89e22fc473d9b8103873c7ac7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5a5b609_91459cd3",
+        "filename": "ssl/internal.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-08T18:29:29Z",
+      "side": 1,
+      "message": "(Ranged-for wants const-overloaded begin() rather than cbegin().)",
+      "revId": "7cc71983fe23ecf89e22fc473d9b8103873c7ac7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
