@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6445cf2_8e4132d4",
+        "filename": "ssl/handshake.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-09T19:18:42Z",
+      "side": 1,
+      "message": "_impl is an unfortunate name for something that\u0027s not implementing some abstract interface.\n\nHow about grease_index_to_value?",
+      "range": {
+        "startLine": 442,
+        "startChar": 16,
+        "endLine": 442,
+        "endChar": 41
+      },
+      "revId": "cbf38c289f31ee524fd1f2bfa1d009b4b6ad9011",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
