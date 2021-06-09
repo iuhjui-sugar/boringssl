@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb6fbaeb_50a1fe77",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-09T22:44:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b0638f1_1ea947ee",
+      "range": {
+        "startLine": 11,
+        "startChar": 31,
+        "endLine": 11,
+        "endChar": 32
+      },
+      "revId": "3a837d7e2ff32bc56ea79d9aae7ea8d8e8583088",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c90683a4_f5c22555",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-06-09T18:59:15Z",
       "side": 1,
       "message": "idempotent?",
+      "range": {
+        "startLine": 505,
+        "startChar": 62,
+        "endLine": 505,
+        "endChar": 71
+      },
+      "revId": "3a837d7e2ff32bc56ea79d9aae7ea8d8e8583088",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8004647_b7086397",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-09T22:44:05Z",
+      "side": 1,
+      "message": "Currently going for not mutating |hs| at all, which is slightly stronger (since const doesn\u0027t capture idempotence). Though we could relax it to idempotent if we need to. Rephrased a bit since \"immutable\" describing a function is odd.",
+      "parentUuid": "c90683a4_f5c22555",
       "range": {
         "startLine": 505,
         "startChar": 62,
@@ -64,6 +112,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c435f69d_8de22e31",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1715,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-09T22:44:05Z",
+      "side": 1,
+      "message": "Nah, just a mistake.",
+      "parentUuid": "15a36731_cb463371",
+      "revId": "3a837d7e2ff32bc56ea79d9aae7ea8d8e8583088",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "47d4c325_d386ac01",
@@ -77,6 +143,24 @@
       "writtenOn": "2021-06-09T18:59:15Z",
       "side": 1,
       "message": "const?",
+      "revId": "3a837d7e2ff32bc56ea79d9aae7ea8d8e8583088",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05c85e36_988de73c",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2489,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-09T22:44:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47d4c325_d386ac01",
       "revId": "3a837d7e2ff32bc56ea79d9aae7ea8d8e8583088",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
