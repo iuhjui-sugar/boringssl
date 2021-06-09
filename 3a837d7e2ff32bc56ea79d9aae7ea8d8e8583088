@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b0638f1_1ea947ee",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-09T18:59:15Z",
+      "side": 1,
+      "message": "..ed",
+      "range": {
+        "startLine": 11,
+        "startChar": 31,
+        "endLine": 11,
+        "endChar": 32
+      },
+      "revId": "3a837d7e2ff32bc56ea79d9aae7ea8d8e8583088",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c90683a4_f5c22555",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-09T18:59:15Z",
+      "side": 1,
+      "message": "idempotent?",
+      "range": {
+        "startLine": 505,
+        "startChar": 62,
+        "endLine": 505,
+        "endChar": 71
+      },
+      "revId": "3a837d7e2ff32bc56ea79d9aae7ea8d8e8583088",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15a36731_cb463371",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1715,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-09T18:59:15Z",
+      "side": 1,
+      "message": "You didn\u0027t const this. Is that because it\u0027s not yet const-ready? (Wasn\u0027t immediately obvious what\u0027s non-const in this function if so.)",
+      "revId": "3a837d7e2ff32bc56ea79d9aae7ea8d8e8583088",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47d4c325_d386ac01",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2489,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-09T18:59:15Z",
+      "side": 1,
+      "message": "const?",
+      "revId": "3a837d7e2ff32bc56ea79d9aae7ea8d8e8583088",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
