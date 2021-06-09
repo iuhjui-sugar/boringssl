@@ -562,6 +562,7 @@ ssl_ctx_st::ssl_ctx_st(const SSL_METHOD *ssl_method)
       signed_cert_timestamps_enabled(false),
       channel_id_enabled(false),
       grease_enabled(false),
+      permute_extensions(false),
       allow_unknown_alpn_protos(false),
       false_start_allowed_without_alpn(false),
       handoff(false),
@@ -2913,6 +2914,10 @@ void SSL_CTX_set_retain_only_sha256_of_client_certs(SSL_CTX *ctx, int enabled) {
 
 void SSL_CTX_set_grease_enabled(SSL_CTX *ctx, int enabled) {
   ctx->grease_enabled = !!enabled;
+}
+
+void SSL_CTX_set_permute_extensions(SSL_CTX *ctx, int enabled) {
+  ctx->permute_extensions = !!enabled;
 }
 
 int32_t SSL_get_ticket_age_skew(const SSL *ssl) {
