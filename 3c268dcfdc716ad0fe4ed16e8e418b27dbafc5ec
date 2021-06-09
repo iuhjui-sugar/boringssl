@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "183cc373_47e448c6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-09T19:41:32Z",
+      "side": 1,
+      "message": "Just uploaded a new version that drops DoH and just uses UDP Do53 to query HTTPS records. Do you think I should have used TCP in case the response exceeds 512 bytes?\n\nPTAL!",
+      "revId": "3c268dcfdc716ad0fe4ed16e8e418b27dbafc5ec",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "049cbafa_2bd24f60",
+        "filename": "util/fetch_echconfigs.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-09T19:41:32Z",
+      "side": 1,
+      "message": "Done. Grabbed the copyright header from runner.go and updated the year -- is there anything like Chromium\u0027s tools/boilerplate.py that I should have used instead?",
+      "parentUuid": "1fda89f9_6e2711ee",
+      "revId": "c1cbc5c727f9021523a36356cc91a0ea6195d36f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "422ef107_1da91290",
         "filename": "util/fetch_echconfigs.go",
         "patchSetId": 2
@@ -65,6 +83,30 @@
       "writtenOn": "2021-06-02T18:28:54Z",
       "side": 1,
       "message": "Nit: I\u0027d write this as \"The domain to fetch HTTPS records from (required).\"",
+      "range": {
+        "startLine": 26,
+        "startChar": 42,
+        "endLine": 26,
+        "endChar": 93
+      },
+      "revId": "c1cbc5c727f9021523a36356cc91a0ea6195d36f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8202351b_0386ca34",
+        "filename": "util/fetch_echconfigs.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-09T19:41:32Z",
+      "side": 1,
+      "message": "I tried to unmangle the sentence. PTAL!",
+      "parentUuid": "422ef107_1da91290",
       "range": {
         "startLine": 26,
         "startChar": 42,
@@ -88,6 +130,30 @@
       "writtenOn": "2021-06-02T18:28:54Z",
       "side": 1,
       "message": "ECHConfigList",
+      "range": {
+        "startLine": 27,
+        "startChar": 59,
+        "endLine": 27,
+        "endChar": 69
+      },
+      "revId": "c1cbc5c727f9021523a36356cc91a0ea6195d36f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd280acf_01dda783",
+        "filename": "util/fetch_echconfigs.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-09T19:41:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6e5271b_7dac4b7e",
       "range": {
         "startLine": 27,
         "startChar": 59,
@@ -144,6 +210,54 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b83e0ea0_2795bbe5",
+        "filename": "util/fetch_echconfigs.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-09T19:41:32Z",
+      "side": 1,
+      "message": "Made the resolver a flag with a default of \"8.8.8.8:53\".",
+      "parentUuid": "b4228669_d013506a",
+      "range": {
+        "startLine": 47,
+        "startChar": 29,
+        "endLine": 47,
+        "endChar": 38
+      },
+      "revId": "c1cbc5c727f9021523a36356cc91a0ea6195d36f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "230f72a9_34aff74c",
+        "filename": "util/fetch_echconfigs.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-09T19:41:32Z",
+      "side": 1,
+      "message": "This is n/a now that I\u0027ve dropped DoH and serialize DNS queries with dnsmessage.",
+      "parentUuid": "7a81f5cb_0fa93468",
+      "range": {
+        "startLine": 47,
+        "startChar": 70,
+        "endLine": 47,
+        "endChar": 76
+      },
+      "revId": "c1cbc5c727f9021523a36356cc91a0ea6195d36f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f1d8de22_65be5cd6",
@@ -157,6 +271,24 @@
       "writtenOn": "2021-06-02T18:28:54Z",
       "side": 1,
       "message": "Functions shouldn\u0027t both return errors and log them. That\u0027ll result in logging things twice. Instead, only return the error. Where you want to wrap the error, simply do:\n\n  return nil, fmt.Errorf(\"http request failed: %s\", err)",
+      "revId": "c1cbc5c727f9021523a36356cc91a0ea6195d36f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25d4447d_71be0d9a",
+        "filename": "util/fetch_echconfigs.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-09T19:41:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f1d8de22_65be5cd6",
       "revId": "c1cbc5c727f9021523a36356cc91a0ea6195d36f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -178,6 +310,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "84df7c1a_a2a5bc0f",
+        "filename": "util/fetch_echconfigs.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-09T19:41:32Z",
+      "side": 1,
+      "message": "Yep, now using the new UnknownResource type from dnsmessage.",
+      "parentUuid": "aa35f733_6c28e8f7",
+      "revId": "c1cbc5c727f9021523a36356cc91a0ea6195d36f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5068c416_c293e2e0",
@@ -191,6 +341,24 @@
       "writtenOn": "2021-06-02T18:28:54Z",
       "side": 1,
       "message": "Since this function is otherwise not printing stuff, let\u0027s move this up to the caller.",
+      "revId": "c1cbc5c727f9021523a36356cc91a0ea6195d36f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "757ef30c_ff8f6069",
+        "filename": "util/fetch_echconfigs.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-09T19:41:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5068c416_c293e2e0",
       "revId": "c1cbc5c727f9021523a36356cc91a0ea6195d36f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -218,6 +386,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "16c830db_f66bd18b",
+        "filename": "util/fetch_echconfigs.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-09T19:41:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d3c6274_28f87534",
+      "range": {
+        "startLine": 193,
+        "startChar": 4,
+        "endLine": 193,
+        "endChar": 22
+      },
+      "revId": "c1cbc5c727f9021523a36356cc91a0ea6195d36f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f8e7257a_7daab069",
@@ -235,6 +427,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ffa27b1_5e293430",
+        "filename": "util/fetch_echconfigs.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-09T19:41:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8e7257a_7daab069",
+      "revId": "c1cbc5c727f9021523a36356cc91a0ea6195d36f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "04b8d0d5_a4e09443",
@@ -248,6 +458,24 @@
       "writtenOn": "2021-06-02T18:28:54Z",
       "side": 1,
       "message": "os.Exit(1)",
+      "revId": "c1cbc5c727f9021523a36356cc91a0ea6195d36f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1aba8aad_3e13ecb6",
+        "filename": "util/fetch_echconfigs.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-09T19:41:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04b8d0d5_a4e09443",
       "revId": "c1cbc5c727f9021523a36356cc91a0ea6195d36f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
