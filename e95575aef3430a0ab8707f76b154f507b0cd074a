@@ -16,6 +16,463 @@
       "message": "David should take a look at this. I think I\u0027ve addressed the thoughts that I had, but I\u0027m not confident that I\u0027ve considered all the interactions.",
       "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04241cad_85e852ce",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 1575,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-09T21:42:32Z",
+      "side": 1,
+      "message": "API-wise, handing back an EVP_PKEY is a little interesting because if you compare the SPKI by fingerprint, you\u0027re relying on our serialization always matching what the server sent us. This is... mostly true since we\u0027re a pretty strict DER parser. But I can think of at least one variation: we\u0027ll parse P-256 compressed coordinates, but write them back out uncompressed.\n\nIf we want to be fully analogous to certificates, we usually stick authentication information in SSL_SESSION and allow it to be queried even after the handshake. Keeping it around also means that things like SSL_CTX_set_reverify_on_resume() work as expected.\n\n(To that end, should clients even allow cross-resumption between X.509 mode and raw public key mode? Seems that could cause some confusion.)",
+      "range": {
+        "startLine": 1575,
+        "startChar": 31,
+        "endLine": 1575,
+        "endChar": 51
+      },
+      "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8056696_cafc1752",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 2868,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-09T21:42:32Z",
+      "side": 1,
+      "message": "Nit: I\u0027ve mostly tried to extrapolate from your original code on comment style, though my impression was we don\u0027t use \"you\" very often in documentation.",
+      "range": {
+        "startLine": 2868,
+        "startChar": 15,
+        "endLine": 2868,
+        "endChar": 18
+      },
+      "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4de3801_e10fadf2",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 2878,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-09T21:42:32Z",
+      "side": 1,
+      "message": "\"It returns\"\n\nDitto below. (Although, do we actually need to make these functions fallible? They just set a boolean somewhere.)",
+      "range": {
+        "startLine": 2878,
+        "startChar": 48,
+        "endLine": 2878,
+        "endChar": 55
+      },
+      "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "600db85b_3244b76f",
+        "filename": "ssl/ssl_cert.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-09T21:42:32Z",
+      "side": 1,
+      "message": "We should probably also check for trailing data:\n\n  !parsed || CBS_len(\u0026skip_bytes) !\u003d 0",
+      "range": {
+        "startLine": 337,
+        "startChar": 15,
+        "endLine": 337,
+        "endChar": 18
+      },
+      "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85de2a9e_56af3bad",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-09T21:42:32Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b17a65c3_38c15ee3",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 3095,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-09T21:42:32Z",
+      "side": 1,
+      "message": "If you set max_version \u003d TLS 1.2 and client_requires_raw_public_key, we\u0027ll likely do something very silly. (See below.)",
+      "range": {
+        "startLine": 3095,
+        "startChar": 6,
+        "endLine": 3095,
+        "endChar": 39
+      },
+      "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8232ee11_f724c11e",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 3117,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-09T21:42:32Z",
+      "side": 1,
+      "message": "TLS 1.2 vs TLS 1.3 here is a bit interesting...\n\nThis will transparently parse both the TLS 1.2 and the TLS 1.3 version, which is actually correct. But we\u0027ve only implemented the TLS 1.3 flow, and I think the TLS 1.2 handshake will just run through the old X.509-based logic and get confused.\n\nWe should probably check for TLS 1.2 somewhere. Not sure exactly where. If we send a ClientHello offering {TLS 1.2, TLS 1.3} + raw_public_keys, it is perfectly valid for the server to call our bluff with TLS 1.2 + raw_public_keys. So really even offering TLS 1.2 was wrong.\n\nOne thought is making SSL_CTX_set_raw_public_key_mode() transparently set min_version to TLS 1.3, like we do for QUIC in ssl_get_version_range(). But that means we\u0027ll have a hard time adding TLS 1.2 support if that ever comes up. If we care about that, we can instead punt that to the caller, say it\u0027s the caller\u0027s responsibility to set the min version, and fail the handshake in add_clienthello or wherever if we detect an inconsistency.",
+      "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c589e95_cf6846bf",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 3143,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-09T21:42:32Z",
+      "side": 1,
+      "message": "(Okay, I\u0027ve really got to add an SSLError type so this trio of lines can be a single line or something. Though I guess we\u0027d need a macro to replace OPENSSL_PUT_ERROR...)",
+      "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "672e030d_1f3965d3",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 3161,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-09T21:42:32Z",
+      "side": 1,
+      "message": "At this point, we should already have picked the version, so I think this should check ssl_protocol_version. If our max_version is TLS1_3_VERSION, but the client sent is a TLS 1.2 ClientHello, I think we still want to run through this logic.",
+      "range": {
+        "startLine": 3161,
+        "startChar": 18,
+        "endLine": 3161,
+        "endChar": 33
+      },
+      "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61403ea7_137c7a1c",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 3178,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-09T21:42:32Z",
+      "side": 1,
+      "message": "Optional: since these are bytes, we can also do this very silly thing:\n\n  if (OPENSSL_memchr(CBS_data(\u0026cert_types), server_has, CBS_len(\u0026cert_types) \u003d\u003d nullptr)",
+      "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa0ee938_62057b94",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 3194,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-09T21:42:32Z",
+      "side": 1,
+      "message": "Optional: What if we wrote something like this. I kinda like the formulation of missing extension just inheriting a default.\n\n  uint8_t default_cert_type \u003d TLS_CERTIFICATE_TYPE_X509;\n  CBS cert_types;\n  CBS_init(\u0026cert_types, \u0026default_cert_type, 1);\n  if (content !\u003d nullptr) {\n    CBS child;\n    if (!CBS_get_u8_length_prefixed(content, \u0026child) ||\n        CBS_len(content) !\u003d 0 ||\n        CBS_len(\u0026child) \u003d\u003d 0) {\n      return false;\n    }\n    cert_types \u003d child;\n  }\n\n  if (OPENSSL_memchr(CBS_data(\u0026cert_types), server_has, CBS_len(\u0026cert_types) \u003d\u003d nullptr) {\n    // The client requested a certificate we do not support.\n    OPENSSL_PUT_ERROR(SSL, SSL_R_UNKNOWN_CERTIFICATE_TYPE);\n    *out_alert \u003d SSL_AD_ILLEGAL_PARAMETER;\n    return false;\n  }\n  \n  // We only support non-X.509 certificate types with TLS 1.3.\n  if (server_Has !\u003d TLS_CERTIFICATE_TYPE_X509 \u0026\u0026\n      ssl_protocol_version(hs-\u003essl) \u003c TLS1_3_VERSION) {\n    OPENSSL_PUT_ERROR(SSL, SSL_R_UNSUPPORTED_PROTOCOL);\n    *out_alert \u003d SSL_AD_PROTOCOL_VERSION;\n  }\n\n  return true;",
+      "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71a59dd2_9f3b444d",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-09T21:42:32Z",
+      "side": 1,
+      "message": "For",
+      "range": {
+        "startLine": 412,
+        "startChar": 33,
+        "endLine": 412,
+        "endChar": 38
+      },
+      "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a925fd7_9d28e1d6",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 1159,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-09T21:42:32Z",
+      "side": 1,
+      "message": "Since these are just bytes, we could just do:\n\n  if !body.readU8LengthPrefixedBytes(\u0026m.serverCertificateTypes) || len(body) !\u003d 0 {\n    return false\n  }",
+      "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38eb0710_ebd8e737",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 1652,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-09T21:42:32Z",
+      "side": 1,
+      "message": "This\u0027ll silently ignore the extension in TLS 1.2 ServerHello. Probably we should error on it, so we\u0027ll notice if the shim sticks them in TLS 1.2 for some reason.",
+      "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb212ff1_89fa0a29",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 797,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-09T21:42:32Z",
+      "side": 1,
+      "message": "Optional: This is sliiiightly silly, but it works to write this as:\n\n  if bytes.IndexByte(hs.clientHello.serverCertificateTypes, certificateTypeRawPublicKey) { ... }",
+      "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b0158d4_43afce4a",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 936,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-09T21:42:32Z",
+      "side": 1,
+      "message": "%s?",
+      "range": {
+        "startLine": 936,
+        "startChar": 70,
+        "endLine": 936,
+        "endChar": 71
+      },
+      "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a2ffb82_d80d50d0",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 941,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-09T21:42:32Z",
+      "side": 1,
+      "message": "While kinda silly for raw public keys, I believe OCSP stapling and SCT lists are meant to be orthogonal for raw public keys. We should probably test that we behave correctly when both are enabled.\n\nI wonder if a two-pass thing would work better. Though it does mean having to loop after the fact...\n\n   if hs.hasServerCertificateType \u0026\u0026 hs.serverCertificateType \u003d\u003d certificateTypeRawPublicKey {\n     cert, err :\u003d x509.ParseCertificate(certData)\n     if err !\u003d nil {\n       return fmt.Errorf(\"tls: failed to parse configured certificate: %s\",  err)\n     }\n     certMsg.certificates \u003d []certificateEntry{{data: cert.RawSubjectPublicKeyInfo}}\n   } else {\n     for i, certData :\u003d range hs.cert.Certificate {\n        certMsg.certificates \u003d append(certMsg.certificates, certificateEntry{\n          data: certData\n        })\n     }\n   }\n   if hs.clientHello.ocspStapling \u0026\u0026 !c.config.Bugs.NoOCSPStapling {\n     certMsg.certificates[0].ocspResponse \u003d hs.cert.OCSPStaple\n   }\n   // ...\n   for i :\u003d 1; i \u003c len(certMsg.certificates); i++ {\n     if config.Bugs.SendOCSPOnIntermediates !\u003d nil {\n       certMsg.certificates[i].ocspResponse \u003d config.Bugs.SendOCSPOnIntermediates\n     }\n     // ...\n   }",
+      "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f08035fc_d8b1ea76",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 15112,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-09T21:42:32Z",
+      "side": 1,
+      "message": "While kinda pointless since SPKIs are pretty compact, maybe worth a test combining raw public key + cert compression, to make sure we don\u0027t get totally confused. (They should compose naturally.)",
+      "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfcea794_d98d6ea7",
+        "filename": "ssl/test/test_config.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1248,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-09T21:42:32Z",
+      "side": 1,
+      "message": "SPKIOf?",
+      "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a43ce53_2a5859c2",
+        "filename": "ssl/tls13_both.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-09T21:42:32Z",
+      "side": 1,
+      "message": "|| CBS_len(\u0026certificate) !\u003d 0",
+      "range": {
+        "startLine": 215,
+        "startChar": 16,
+        "endLine": 215,
+        "endChar": 18
+      },
+      "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b02976f_5a24142f",
+        "filename": "ssl/tls13_both.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-09T21:42:32Z",
+      "side": 1,
+      "message": "Completely ignoring extensions, including unsolicited extensions seems not ideal. Maybe we could reshuffle this a bit so that we still run though that logic?",
+      "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8d1f24b_25248fef",
+        "filename": "ssl/tls13_both.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-09T21:42:32Z",
+      "side": 1,
+      "message": "clang-format",
+      "range": {
+        "startLine": 440,
+        "startChar": 0,
+        "endLine": 440,
+        "endChar": 4
+      },
+      "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14a349cd_cca58d4f",
+        "filename": "ssl/tls13_both.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-09T21:42:32Z",
+      "side": 1,
+      "message": "Existing issue, but this should be\n\n  ssl-\u003emethod-\u003efinish_message(ssl, cbb, \u0026msg)\n\nIt\u0027s the same for TLS, but in DTLS that\u0027s where we fill in the duplicate copy of the length. If we ever implement DTLS 1.3, this\u0027ll matter.\n\n(ssl_add_message_cbb is a convenience function over finish_message + add_message, because you almost never need to mess with the serialized structure. But for the few times you do, it\u0027s available.)",
+      "range": {
+        "startLine": 441,
+        "startChar": 9,
+        "endLine": 441,
+        "endChar": 23
+      },
+      "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
