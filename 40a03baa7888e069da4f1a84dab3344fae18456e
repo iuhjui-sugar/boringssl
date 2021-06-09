@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c319c476_32c43b5b",
+        "filename": "crypto/fipsmodule/digest/digest.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-09T19:10:02Z",
+      "side": 1,
+      "message": "EVP_MD_CTX_init(in), just in case it\u0027s not always just a zeroisation?",
+      "range": {
+        "startLine": 184,
+        "startChar": 2,
+        "endLine": 184,
+        "endChar": 44
+      },
+      "revId": "40a03baa7888e069da4f1a84dab3344fae18456e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
