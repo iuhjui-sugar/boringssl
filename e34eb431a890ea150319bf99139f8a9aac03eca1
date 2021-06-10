@@ -1,0 +1,301 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71af610a_8e8c136f",
+        "filename": "ssl/encrypted_client_hello.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-10T21:19:58Z",
+      "side": 1,
+      "message": "SSL_R_DECODE_ERROR is pushed in other parse-error paths; should they be consistent?",
+      "revId": "e34eb431a890ea150319bf99139f8a9aac03eca1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1980aca9_29a87dc8",
+        "filename": "ssl/encrypted_client_hello.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-10T21:19:58Z",
+      "side": 1,
+      "message": "out-\u003ekem_id isn\u0027t checked to see if we support it. Should it be?\n\n(I see that it\u0027ll ultimately be checked against the key. Perhaps comment that here?)",
+      "revId": "e34eb431a890ea150319bf99139f8a9aac03eca1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b952637_8270c942",
+        "filename": "ssl/encrypted_client_hello.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-10T21:19:58Z",
+      "side": 1,
+      "message": "Unknown mandatory extensions set *out_supported to false. Should unknown extensions in general? (I.e. why does one return false and the other not?)",
+      "revId": "e34eb431a890ea150319bf99139f8a9aac03eca1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "332238f2_76fd94ee",
+        "filename": "ssl/encrypted_client_hello.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-10T21:19:58Z",
+      "side": 1,
+      "message": "parse_ech_config seems to push DECODE_ERROR itself. Did you want to concentrate them here? (No problem to push twice for a better \"backtrace\" though.)",
+      "revId": "e34eb431a890ea150319bf99139f8a9aac03eca1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "509e3c93_c28925db",
+        "filename": "ssl/encrypted_client_hello.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-10T21:19:58Z",
+      "side": 1,
+      "message": "sizeof(kInfoLabel)",
+      "range": {
+        "startLine": 614,
+        "startChar": 34,
+        "endLine": 614,
+        "endChar": 35
+      },
+      "revId": "e34eb431a890ea150319bf99139f8a9aac03eca1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57116d36_991cd53b",
+        "filename": "ssl/encrypted_client_hello.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-10T21:19:58Z",
+      "side": 1,
+      "message": "CBB_flush too? Doesn\u0027t matter now, but would be a surprise if there were pending lengths in a later iteration of ECH. (Unsure if this makes sense.)",
+      "revId": "e34eb431a890ea150319bf99139f8a9aac03eca1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2d3dcde_cb731b2a",
+        "filename": "ssl/encrypted_client_hello.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-10T21:19:58Z",
+      "side": 1,
+      "message": "Is it ok that |hs-\u003eselected_ech_config| may be left non-NULL if |inner_transport.Init()| fails? (Haven\u0027t read all the code yet but, if so, could also move L630 to L621 and merge ifs.)",
+      "revId": "e34eb431a890ea150319bf99139f8a9aac03eca1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0d3c973_ca9d2900",
+        "filename": "ssl/internal.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 1515,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-10T21:19:58Z",
+      "side": 1,
+      "message": "internally",
+      "range": {
+        "startLine": 1515,
+        "startChar": 43,
+        "endLine": 1515,
+        "endChar": 51
+      },
+      "revId": "e34eb431a890ea150319bf99139f8a9aac03eca1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e443197d_f9a14561",
+        "filename": "ssl/internal.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 1516,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-10T21:19:58Z",
+      "side": 1,
+      "message": "It doesn\u0027t actually zero |server_hello| and the zero bytes aren\u0027t necessarily at the end, right? How about \"This function handles the fact that eight bytes of |server_hello| need to be replaced with zeros before hashing.\"?",
+      "range": {
+        "startLine": 1515,
+        "startChar": 59,
+        "endLine": 1516,
+        "endChar": 17
+      },
+      "revId": "e34eb431a890ea150319bf99139f8a9aac03eca1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b1d0bf2_a7ab144a",
+        "filename": "ssl/internal.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 1527,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-10T21:19:58Z",
+      "side": 1,
+      "message": "... \"or not\"?",
+      "range": {
+        "startLine": 1527,
+        "startChar": 22,
+        "endLine": 1527,
+        "endChar": 23
+      },
+      "revId": "e34eb431a890ea150319bf99139f8a9aac03eca1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ab1ca37_d7979cb2",
+        "filename": "ssl/internal.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 1530,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-10T21:19:58Z",
+      "side": 1,
+      "message": "seems truncated.",
+      "range": {
+        "startLine": 1530,
+        "startChar": 16,
+        "endLine": 1530,
+        "endChar": 19
+      },
+      "revId": "e34eb431a890ea150319bf99139f8a9aac03eca1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94674ed9_d77ef8ba",
+        "filename": "ssl/internal.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 1541,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-10T21:19:58Z",
+      "side": 1,
+      "message": "s/.../for inclusion/",
+      "range": {
+        "startLine": 1541,
+        "startChar": 37,
+        "endLine": 1541,
+        "endChar": 47
+      },
+      "revId": "e34eb431a890ea150319bf99139f8a9aac03eca1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3497372_63d0161d",
+        "filename": "ssl/internal.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 3248,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-10T21:19:58Z",
+      "side": 1,
+      "message": "types?",
+      "range": {
+        "startLine": 3248,
+        "startChar": 49,
+        "endLine": 3248,
+        "endChar": 56
+      },
+      "revId": "e34eb431a890ea150319bf99139f8a9aac03eca1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9067f08_67ddd37f",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 3378,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-10T21:19:58Z",
+      "side": 1,
+      "message": "why?",
+      "revId": "e34eb431a890ea150319bf99139f8a9aac03eca1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "660274d0_bf6f4a8b",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 767,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-10T21:19:58Z",
+      "side": 1,
+      "message": "Below you write 24 as |SSL3_RANDOM_SIZE - 8|. There\u0027s also a lot of 8 hanging around. How about putting L776 and tls13_enc.cc:538 into \"size_t ech_confirmation_signal_hello_offset(const SSL*)\" and define an ECH_CONFIRMATION_SIGNAL_LEN \u003d 8?",
+      "revId": "e34eb431a890ea150319bf99139f8a9aac03eca1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
