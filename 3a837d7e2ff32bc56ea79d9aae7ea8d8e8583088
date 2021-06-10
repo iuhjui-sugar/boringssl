@@ -95,6 +95,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "46cc11e7_fd78bfe6",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-10T16:27:34Z",
+      "side": 1,
+      "message": "s.g.",
+      "parentUuid": "a8004647_b7086397",
+      "range": {
+        "startLine": 505,
+        "startChar": 62,
+        "endLine": 505,
+        "endChar": 71
+      },
+      "revId": "3a837d7e2ff32bc56ea79d9aae7ea8d8e8583088",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "15a36731_cb463371",
