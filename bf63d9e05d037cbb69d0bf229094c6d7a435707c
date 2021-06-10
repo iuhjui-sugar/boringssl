@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "579ab457_f50c6785",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-10T17:08:33Z",
+      "side": 1,
+      "message": "require",
+      "range": {
+        "startLine": 11,
+        "startChar": 58,
+        "endLine": 11,
+        "endChar": 66
+      },
+      "revId": "bf63d9e05d037cbb69d0bf229094c6d7a435707c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "163f8e72_2fd837b4",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-10T17:08:33Z",
+      "side": 1,
+      "message": "This argument isn\u0027t used, and the KEM is currently available as |key-\u003ekem| anyway.",
+      "range": {
+        "startLine": 45,
+        "startChar": 61,
+        "endLine": 45,
+        "endChar": 64
+      },
+      "revId": "bf63d9e05d037cbb69d0bf229094c6d7a435707c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "400cb453_91eab18a",
+        "filename": "include/openssl/hpke.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-10T17:08:33Z",
+      "side": 1,
+      "message": "Add |EVP_HPKE_KEY_generate| as a possibility too? (Or |_copy|?)",
+      "range": {
+        "startLine": 83,
+        "startChar": 27,
+        "endLine": 83,
+        "endChar": 44
+      },
+      "revId": "bf63d9e05d037cbb69d0bf229094c6d7a435707c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e916b815_a1db498e",
+        "filename": "include/openssl/hpke.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-10T17:08:33Z",
+      "side": 1,
+      "message": "So it\u0027ll call |EVP_HPKE_KEY_zero| on failure in the future, when it can fail?",
+      "range": {
+        "startLine": 94,
+        "startChar": 63,
+        "endLine": 94,
+        "endChar": 70
+      },
+      "revId": "bf63d9e05d037cbb69d0bf229094c6d7a435707c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2023e5db_9f2045a5",
+        "filename": "include/openssl/hpke.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-10T17:08:33Z",
+      "side": 1,
+      "message": "which key? |dst| presumably, but specify?",
+      "range": {
+        "startLine": 94,
+        "startChar": 11,
+        "endLine": 94,
+        "endChar": 18
+      },
+      "revId": "bf63d9e05d037cbb69d0bf229094c6d7a435707c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

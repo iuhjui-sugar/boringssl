@@ -16,6 +16,24 @@
       "message": "Thoughts? This ended up being less useful for the follow-up CL than I expected, so I think this is mostly an API question now. I can make it work either way.",
       "revId": "632080d2a967233d6f289b9d8ba463973b6f385b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "034678a2_c6df4e87",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-10T17:08:33Z",
+      "side": 1,
+      "message": "No strong feelings either way. Whichever you think best, with a slight bias towards not reworking stuff unnecessarily.",
+      "parentUuid": "8ec6ddf9_a5e126a0",
+      "revId": "632080d2a967233d6f289b9d8ba463973b6f385b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
