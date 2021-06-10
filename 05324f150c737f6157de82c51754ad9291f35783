@@ -384,6 +384,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2d3173dd_3d8a1a57",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-10T19:45:10Z",
+      "side": 1,
+      "message": "Ah, I was mistaken. Looks like the server is repeating our question in its response. RFC8499 section 4 discusses this behavior, and describes the added complications when there are CNAMEs in the response. https://datatracker.ietf.org/doc/html/rfc8499#section-4\n\n```\n      However, this creates a kind of confusion because the response to\n      a query that results in CNAME processing contains in the echoed\n      Question section one QNAME (the name in the original query) and a\n      second QNAME that is in the data field of the last CNAME.  The\n      confusion comes from the iterative/recursive mode of resolution,\n      which finally returns an answer that need not actually have the\n      same owner name as the QNAME contained in the original query.\n```\n\nIf there are any CNAMEs involved, it\u0027s not guaranteed that the response\u0027s question will have the same QNAME as our query.  However, RFC8499 wraps up the QNAME discussion with this:\n\n```\n      In general use today, QNAME almost always means what is defined\n      above as \"QNAME (original)\".\n```\n\nI\u0027m happy to expect the original QNAME in the response.  WDYT?",
+      "parentUuid": "3a10527b_f6acf6ea",
+      "range": {
+        "startLine": 102,
+        "startChar": 2,
+        "endLine": 102,
+        "endChar": 3
+      },
+      "revId": "05324f150c737f6157de82c51754ad9291f35783",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "820a5c69_0a4038a5",
         "filename": "util/fetch_ech_config_list.go",
         "patchSetId": 5

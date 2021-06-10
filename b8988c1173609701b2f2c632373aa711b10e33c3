@@ -35,6 +35,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e46553c_732d3e64",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-10T19:45:10Z",
+      "side": 1,
+      "message": "No, I don\u0027t believe it provides any real protection against packet injection. A MITM could trivially copy the ID into malicious responses. It\u0027s just meant to match up responses to their originating queries.\n\nFrom RFC1035 4.1.1:\n\n```\nID              A 16 bit identifier assigned by the program that\n                generates any kind of query.  This identifier is copied\n                the corresponding reply and can be used by the requester\n                to match up replies to outstanding queries.\n```\n\nI think the only property it requires is uniqueness WRT in-flight queries, and since we issue exactly one query, that\u0027s trivially satisfied by zero.",
+      "parentUuid": "10db8b3d_13ebd5d3",
+      "revId": "b8988c1173609701b2f2c632373aa711b10e33c3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "96bf9345_cb1ef6de",
@@ -48,6 +66,24 @@
       "writtenOn": "2021-06-10T16:59:45Z",
       "side": 1,
       "message": "This check isn\u0027t consistent with the parsing code. The parsing code accepts empty svcParamValue, which makes sense since some values may be empty. But if we see an empty httpsKeyECH, this code will misinterpret the entry as missing. Either we should reject empty values (does the spec say you do this at the HTTPS record level?), or we should tolerate them here and maintain a `var found bool` or so.",
+      "revId": "b8988c1173609701b2f2c632373aa711b10e33c3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8db346d3_38a78c8c",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-10T19:45:10Z",
+      "side": 1,
+      "message": "The HTTPS spec does allow for empty SvcParamValues, but we know that ECHConfigList starts with a length prefix. Therefore an empty \"ech\" value is malformed.",
+      "parentUuid": "96bf9345_cb1ef6de",
       "revId": "b8988c1173609701b2f2c632373aa711b10e33c3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -69,6 +105,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0d0d9da_2b16ba3a",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-10T19:45:10Z",
+      "side": 1,
+      "message": "I\u0027m going ahead with the additional bool return value and believing that |found| implies |echConfigList !\u003d nil|.",
+      "parentUuid": "0d97402d_c8f0e25a",
+      "revId": "b8988c1173609701b2f2c632373aa711b10e33c3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fcf0b796_201b846f",
@@ -86,6 +140,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6660939_9f4892c9",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-10T19:45:10Z",
+      "side": 1,
+      "message": "I wanted hexdumps for visual inspection, and I can\u0027t personally read base64 :P \n\nI\u0027ll maintain a separate counter for this, but based on your next comment, it seems we have a larger problem to deal with: representing the provenance of the records.",
+      "parentUuid": "fcf0b796_201b846f",
+      "revId": "b8988c1173609701b2f2c632373aa711b10e33c3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5fdb14f6_3d283f96",
@@ -99,6 +171,24 @@
       "writtenOn": "2021-06-10T16:59:45Z",
       "side": 1,
       "message": "I\u0027m not sure this works. If we\u0027re trying to handle domains with multiple HTTPS records, merely saving all the configs in separate files won\u0027t work. The server would only have multiple records, with potentially different ECH keys, if it\u0027s doing a multi-CDN thing, or multiple protocols, etc. That would mean that the TargetName, port, and/or ALPN protocol are important to connect to it, but this script discards and hides the information. That means, when we go to use this script, we have no way to tell which file is usable.",
+      "revId": "b8988c1173609701b2f2c632373aa711b10e33c3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04fd1907_b6ea539e",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-10T19:45:10Z",
+      "side": 1,
+      "message": "OK, I see a few options:\n\n(1) Fully parse each HTTPS record and print an index to stdout. The user can select the one they want when calling the bssl client. (Or we could use base64 and the user can copy/paste it.)\n\n(2) Offload the choice of ECHConfigList to the bssl client. This is probably a non-starter because we\u0027d need yet-another serialization. Or JSON/protobufs/etc.\n\n(3) Choose one ECHConfigList to use in this script.  If we make the wrong choice, it might not be obvious what went wrong when the connection fails.\n\nI\u0027m leaning towards (1). Which would you prefer?",
+      "parentUuid": "5fdb14f6_3d283f96",
       "revId": "b8988c1173609701b2f2c632373aa711b10e33c3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
