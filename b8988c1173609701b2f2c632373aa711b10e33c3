@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fb0cc08_db0a93e9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-10T15:57:23Z",
+      "side": 1,
+      "message": "Thanks for the review, David. The new patchset has a few additional changes beyond what you asked for:\n\n* Auto-canonicalizing the domain name (adding trailing dot) to be nice to the command-line user.\n* Now processes all HTTPS records in the response.\n* Command-line -out-file has changed to -out-dir, so we can write N ECHConfigList values to disk without potentially bombing the current dir.\n",
+      "revId": "b8988c1173609701b2f2c632373aa711b10e33c3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

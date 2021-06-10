@@ -35,6 +35,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "78e577f6_ca7c4515",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-10T15:57:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89a02a2b_5b16676e",
+      "revId": "05324f150c737f6157de82c51754ad9291f35783",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "910f7f17_07ba753e",
@@ -48,6 +66,30 @@
       "writtenOn": "2021-06-09T23:13:48Z",
       "side": 1,
       "message": "I assume that\u0027s not what the field is intended for. :-)\n\nThis seems to use a random number over UDP:\nhttps://source.chromium.org/chromium/chromium/src/+/main:net/dns/dns_transaction.cc;drc\u003dc06511a314747fab345af58b8523eec1b36caf05;l\u003d1232\n\nOver DoH, this seems to use zero, but I guess we\u0027re using UDP now:\nhttps://source.chromium.org/chromium/chromium/src/+/main:net/dns/dns_transaction.cc;drc\u003dc06511a314747fab345af58b8523eec1b36caf05;l\u003d581\n\nAnd then this mDNS logic seems to use zero:\nhttps://source.chromium.org/chromium/chromium/src/+/main:net/dns/mdns_client_impl.cc;l\u003d224;drc\u003dc06511a314747fab345af58b8523eec1b36caf05?q\u003dquestion\u0026ss\u003dchromium%2Fchromium%2Fsrc:net%2Fdns%2F\n\nI take it then we want a random number here?",
+      "range": {
+        "startLine": 62,
+        "startChar": 23,
+        "endLine": 62,
+        "endChar": 29
+      },
+      "revId": "05324f150c737f6157de82c51754ad9291f35783",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db60542a_0b84b8ce",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-10T15:57:23Z",
+      "side": 1,
+      "message": "Yep, it\u0027s technically supposed to be random, and it\u0027s supposed to be repeated in the response header. I can use a random number here and actually check the response :)",
+      "parentUuid": "910f7f17_07ba753e",
       "range": {
         "startLine": 62,
         "startChar": 23,
@@ -75,6 +117,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "70cf6528_1c8e0e0d",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-10T15:57:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "390bab97_55fd7cff",
+      "revId": "05324f150c737f6157de82c51754ad9291f35783",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fa117a7b_10c6c26a",
@@ -88,6 +148,30 @@
       "writtenOn": "2021-06-09T23:13:48Z",
       "side": 1,
       "message": "Nit: Since domain comes from the command-line, panicking on error seems slightly rude. (Although it looks like NewName just checks a length and not much else.)",
+      "range": {
+        "startLine": 73,
+        "startChar": 22,
+        "endLine": 73,
+        "endChar": 33
+      },
+      "revId": "05324f150c737f6157de82c51754ad9291f35783",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21e061fb_31818a61",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-10T15:57:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa117a7b_10c6c26a",
       "range": {
         "startLine": 73,
         "startChar": 22,
@@ -115,6 +199,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ffab35b_809b22eb",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-10T15:57:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6232cef6_d0a15ddc",
+      "revId": "05324f150c737f6157de82c51754ad9291f35783",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1bddd43e_47325e01",
@@ -128,6 +230,30 @@
       "writtenOn": "2021-06-09T23:13:48Z",
       "side": 1,
       "message": "If the response is not exactly 512 bytes, won\u0027t this leave trailing zeros in the answer? It seems this should be:\n\nn, err \u003d conn.Read(response)\nif err !\u003d nil {\n  ...\n}\nresponse \u003d response[:n]",
+      "range": {
+        "startLine": 92,
+        "startChar": 1,
+        "endLine": 92,
+        "endChar": 2
+      },
+      "revId": "05324f150c737f6157de82c51754ad9291f35783",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6a96f27_fb075022",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-10T15:57:23Z",
+      "side": 1,
+      "message": "Good catch. I think this wasn\u0027t caught because I\u0027m aborting when I grab the first HTTPS record.\n\nIt occurs to me that the tool should handle multiple HTTPS records (e.g. what if there\u0027s an AliasForm and a ServiceForm?).  Adding this in the next patchset.",
+      "parentUuid": "1bddd43e_47325e01",
       "range": {
         "startLine": 92,
         "startChar": 1,
@@ -161,6 +287,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0e789e8_a81efa82",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-10T15:57:23Z",
+      "side": 1,
+      "message": "Yep, technically we should. Doing that.",
+      "parentUuid": "0db0be0c_b3982064",
+      "range": {
+        "startLine": 98,
+        "startChar": 4,
+        "endLine": 98,
+        "endChar": 5
+      },
+      "revId": "05324f150c737f6157de82c51754ad9291f35783",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "54d5587d_9e3c2560",
@@ -174,6 +324,30 @@
       "writtenOn": "2021-06-09T23:13:48Z",
       "side": 1,
       "message": "Is the expectation that you ignore all the answers like this?",
+      "range": {
+        "startLine": 102,
+        "startChar": 2,
+        "endLine": 102,
+        "endChar": 3
+      },
+      "revId": "05324f150c737f6157de82c51754ad9291f35783",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f920142d_61b57bc3",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-10T15:57:23Z",
+      "side": 1,
+      "message": "Yes, I believe there should be zero questions in the server\u0027s response.",
+      "parentUuid": "54d5587d_9e3c2560",
       "range": {
         "startLine": 102,
         "startChar": 2,
@@ -207,6 +381,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2abf781_1210b173",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-10T15:57:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "820a5c69_0a4038a5",
+      "range": {
+        "startLine": 137,
+        "startChar": 67,
+        "endLine": 138,
+        "endChar": 37
+      },
+      "revId": "05324f150c737f6157de82c51754ad9291f35783",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c4c2d6ca_86ac7f7a",
@@ -220,6 +418,24 @@
       "writtenOn": "2021-06-09T23:13:48Z",
       "side": 1,
       "message": "Link to section in the spec.",
+      "revId": "05324f150c737f6157de82c51754ad9291f35783",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f9a493c_d44edb9b",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-10T15:57:23Z",
+      "side": 1,
+      "message": "Linked to the \"Wire Format\" section.",
+      "parentUuid": "c4c2d6ca_86ac7f7a",
       "revId": "05324f150c737f6157de82c51754ad9291f35783",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -241,6 +457,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "53d9e01b_8df6a3fd",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-10T15:57:23Z",
+      "side": 1,
+      "message": "Aha, I was trying to avoid adding a dependency. I didn\u0027t realize we already had it!",
+      "parentUuid": "401fe69c_de9af44f",
+      "revId": "05324f150c737f6157de82c51754ad9291f35783",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "144392ea_4c0a1e9a",
@@ -254,6 +488,24 @@
       "writtenOn": "2021-06-09T23:13:48Z",
       "side": 1,
       "message": "if err :\u003d binary.Read(...); err !\u003d nil {",
+      "revId": "05324f150c737f6157de82c51754ad9291f35783",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b57488ce_c0939fbd",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-10T15:57:23Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "144392ea_4c0a1e9a",
       "revId": "05324f150c737f6157de82c51754ad9291f35783",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -275,6 +527,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ae2cb81_9bc7723d",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-10T15:57:23Z",
+      "side": 1,
+      "message": "Yes, priority 0 is AliasMode. I\u0027ll add a specific error to extractECHConfigList(). I\u0027m actually going to interpret this function\u0027s errors as non-fatal because I want to support multiple HTTPS records, and this tool is low-stakes enough that I\u0027m willing to tolerate some malformed HTTPS records in the response.",
+      "parentUuid": "a3c2a86e_1f5376e1",
+      "revId": "05324f150c737f6157de82c51754ad9291f35783",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f859e210_cfabf9e5",
@@ -288,6 +558,24 @@
       "writtenOn": "2021-06-09T23:13:48Z",
       "side": 1,
       "message": "if err :\u003d ...; err !\u003d nil {",
+      "revId": "05324f150c737f6157de82c51754ad9291f35783",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f4e4fe4_9315c2aa",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-10T15:57:23Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f859e210_cfabf9e5",
       "revId": "05324f150c737f6157de82c51754ad9291f35783",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -309,6 +597,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "659262a5_f7374646",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-10T15:57:23Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a3898695_5113ccca",
+      "revId": "05324f150c737f6157de82c51754ad9291f35783",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e573a626_4ba371c0",
@@ -322,6 +628,24 @@
       "writtenOn": "2021-06-09T23:13:48Z",
       "side": 1,
       "message": "if err :\u003d ...; err !\u003d nil {",
+      "revId": "05324f150c737f6157de82c51754ad9291f35783",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64c7bbbf_44335ec5",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-10T15:57:23Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e573a626_4ba371c0",
       "revId": "05324f150c737f6157de82c51754ad9291f35783",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -343,6 +667,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "27d12196_e24d3765",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-10T15:57:23Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d5f64cd6_dc057445",
+      "revId": "05324f150c737f6157de82c51754ad9291f35783",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3a5241b9_60e8a1bd",
@@ -356,6 +698,24 @@
       "writtenOn": "2021-06-09T23:13:48Z",
       "side": 1,
       "message": "return nil, fmt.Errorf(...)",
+      "revId": "05324f150c737f6157de82c51754ad9291f35783",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a472d9a9_5e2f0295",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-10T15:57:23Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3a5241b9_60e8a1bd",
       "revId": "05324f150c737f6157de82c51754ad9291f35783",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -377,6 +737,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "849a2da0_1261ccfa",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-10T15:57:23Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f3370ac9_c57d4445",
+      "revId": "05324f150c737f6157de82c51754ad9291f35783",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b9f553d8_68e1a01e",
@@ -394,6 +772,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eab50de4_c3d12800",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-10T15:57:23Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b9f553d8_68e1a01e",
+      "revId": "05324f150c737f6157de82c51754ad9291f35783",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2cc75c23_14ed4318",
@@ -407,6 +803,24 @@
       "writtenOn": "2021-06-09T23:13:48Z",
       "side": 1,
       "message": "log.Printf(\"Failed to write file: %s\\n\", err) to be consistent",
+      "revId": "05324f150c737f6157de82c51754ad9291f35783",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe4d6011_ebe4fbc8",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-10T15:57:23Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2cc75c23_14ed4318",
       "revId": "05324f150c737f6157de82c51754ad9291f35783",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
