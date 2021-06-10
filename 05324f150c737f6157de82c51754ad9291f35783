@@ -360,6 +360,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3a10527b_f6acf6ea",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-10T16:59:45Z",
+      "side": 1,
+      "message": "Are DNS clients supposed to check for zero questions or skip over them? If the server response is meant to have zero questions, I would expect clients to check for zero questions.\n\nThat said, when I run the script, I actually get one question here. It seems zero questions isn\u0027t right? Do you have a spec reference? Seems we\u0027re running into enough questions here that the code should link to a spec and then we can implement the protocol as intended.",
+      "parentUuid": "f920142d_61b57bc3",
+      "range": {
+        "startLine": 102,
+        "startChar": 2,
+        "endLine": 102,
+        "endChar": 3
+      },
+      "revId": "05324f150c737f6157de82c51754ad9291f35783",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "820a5c69_0a4038a5",
         "filename": "util/fetch_ech_config_list.go",
         "patchSetId": 5

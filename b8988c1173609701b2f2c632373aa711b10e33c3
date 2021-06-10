@@ -16,6 +16,91 @@
       "message": "Thanks for the review, David. The new patchset has a few additional changes beyond what you asked for:\n\n* Auto-canonicalizing the domain name (adding trailing dot) to be nice to the command-line user.\n* Now processes all HTTPS records in the response.\n* Command-line -out-file has changed to -out-dir, so we can write N ECHConfigList values to disk without potentially bombing the current dir.\n",
       "revId": "b8988c1173609701b2f2c632373aa711b10e33c3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10db8b3d_13ebd5d3",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-10T16:59:45Z",
+      "side": 1,
+      "message": "Are we trying to get unpredictability out of this? If so, this should be crypto/rand. If not, does 0 work? My understanding is that we add entropy to DNS queries and check against the answer as a loose defense against packet injection, since Do53 isn\u0027t secured.",
+      "revId": "b8988c1173609701b2f2c632373aa711b10e33c3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96bf9345_cb1ef6de",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-10T16:59:45Z",
+      "side": 1,
+      "message": "This check isn\u0027t consistent with the parsing code. The parsing code accepts empty svcParamValue, which makes sense since some values may be empty. But if we see an empty httpsKeyECH, this code will misinterpret the entry as missing. Either we should reject empty values (does the spec say you do this at the HTTPS record level?), or we should tolerate them here and maintain a `var found bool` or so.",
+      "revId": "b8988c1173609701b2f2c632373aa711b10e33c3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d97402d_c8f0e25a",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-10T16:59:45Z",
+      "side": 1,
+      "message": "This is so that we continue looping if we get an AliasForm or if there aren\u0027t any ECH fields in the SvcParam list? But that means that syntax errors get ignored, which seems off. Usually syntax errors are fatal.\n\nTo distinguish between errors, you can have some specific error values or types that you look for (for an example, see how the \"io\" package has some values already https://golang.org/pkg/io/#pkg-variables, but we can always define our own), or this function can return three outputs like (echConfigList []byte, found bool, err error), which is effectively modeling Result\u003cOptional\u003cECHConfigList\u003e\u003e.",
+      "revId": "b8988c1173609701b2f2c632373aa711b10e33c3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcf0b796_201b846f",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-10T16:59:45Z",
+      "side": 1,
+      "message": "This isn\u0027t the ith ECHConfigList, is it? It\u0027s the ECHConfigList in the ith record.\n\nAlthough it seems we could avoid this if, rather than printing a hexdump, we printed something like base64, and then newlines would already separate things.",
+      "revId": "b8988c1173609701b2f2c632373aa711b10e33c3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fdb14f6_3d283f96",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-10T16:59:45Z",
+      "side": 1,
+      "message": "I\u0027m not sure this works. If we\u0027re trying to handle domains with multiple HTTPS records, merely saving all the configs in separate files won\u0027t work. The server would only have multiple records, with potentially different ECH keys, if it\u0027s doing a multi-CDN thing, or multiple protocols, etc. That would mean that the TargetName, port, and/or ALPN protocol are important to connect to it, but this script discards and hides the information. That means, when we go to use this script, we have no way to tell which file is usable.",
+      "revId": "b8988c1173609701b2f2c632373aa711b10e33c3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
