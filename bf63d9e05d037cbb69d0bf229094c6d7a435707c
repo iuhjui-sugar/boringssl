@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "26c4789f_4bc3bf62",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-11T14:51:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "579ab457_f50c6785",
+      "range": {
+        "startLine": 11,
+        "startChar": 58,
+        "endLine": 11,
+        "endChar": 66
+      },
+      "revId": "bf63d9e05d037cbb69d0bf229094c6d7a435707c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "163f8e72_2fd837b4",
@@ -47,6 +71,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "650d9d8a_9f1d8a38",
+        "filename": "crypto/hpke/hpke.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-11T14:51:18Z",
+      "side": 1,
+      "message": "Removed. Also removed from init_key.",
+      "parentUuid": "163f8e72_2fd837b4",
+      "range": {
+        "startLine": 45,
+        "startChar": 61,
+        "endLine": 45,
+        "endChar": 64
+      },
+      "revId": "bf63d9e05d037cbb69d0bf229094c6d7a435707c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "400cb453_91eab18a",
@@ -60,6 +108,30 @@
       "writtenOn": "2021-06-10T17:08:33Z",
       "side": 1,
       "message": "Add |EVP_HPKE_KEY_generate| as a possibility too? (Or |_copy|?)",
+      "range": {
+        "startLine": 83,
+        "startChar": 27,
+        "endLine": 83,
+        "endChar": 44
+      },
+      "revId": "bf63d9e05d037cbb69d0bf229094c6d7a435707c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "560a4a0f_69494e1d",
+        "filename": "include/openssl/hpke.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-11T14:51:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "400cb453_91eab18a",
       "range": {
         "startLine": 83,
         "startChar": 27,
@@ -106,6 +178,54 @@
       "writtenOn": "2021-06-10T17:08:33Z",
       "side": 1,
       "message": "which key? |dst| presumably, but specify?",
+      "range": {
+        "startLine": 94,
+        "startChar": 11,
+        "endLine": 94,
+        "endChar": 18
+      },
+      "revId": "bf63d9e05d037cbb69d0bf229094c6d7a435707c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3878c4d0_b91f25a9",
+        "filename": "include/openssl/hpke.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-11T14:51:18Z",
+      "side": 1,
+      "message": "malloc failure I suppose. The only way for us to ever need EVP_HPKE_KEY_cleanup is if EVP_HPKE_KEY contains some allocations, which would then mean copying could malloc and thus fail.\n\n(I guess if we stick a post-quantum thing in there, we might not want to increase the struct size by that much.)",
+      "parentUuid": "e916b815_a1db498e",
+      "range": {
+        "startLine": 94,
+        "startChar": 63,
+        "endLine": 94,
+        "endChar": 70
+      },
+      "revId": "bf63d9e05d037cbb69d0bf229094c6d7a435707c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3313822e_722cfffe",
+        "filename": "include/openssl/hpke.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-11T14:51:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2023e5db_9f2045a5",
       "range": {
         "startLine": 94,
         "startChar": 11,

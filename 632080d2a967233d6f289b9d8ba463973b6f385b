@@ -34,6 +34,24 @@
       "parentUuid": "8ec6ddf9_a5e126a0",
       "revId": "632080d2a967233d6f289b9d8ba463973b6f385b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7089e9f_384bdf94",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-11T14:51:18Z",
+      "side": 1,
+      "message": "*shrug* I guess I\u0027ve already done the following CLs this way. :-)",
+      "parentUuid": "034678a2_c6df4e87",
+      "revId": "632080d2a967233d6f289b9d8ba463973b6f385b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
