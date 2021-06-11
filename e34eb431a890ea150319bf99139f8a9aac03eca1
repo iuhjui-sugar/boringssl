@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "825ca7bb_656c9b87",
+        "filename": "ssl/encrypted_client_hello.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 367,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-11T17:24:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71af610a_8e8c136f",
+      "revId": "e34eb431a890ea150319bf99139f8a9aac03eca1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1980aca9_29a87dc8",
@@ -31,6 +49,24 @@
       "writtenOn": "2021-06-10T21:19:58Z",
       "side": 1,
       "message": "out-\u003ekem_id isn\u0027t checked to see if we support it. Should it be?\n\n(I see that it\u0027ll ultimately be checked against the key. Perhaps comment that here?)",
+      "revId": "e34eb431a890ea150319bf99139f8a9aac03eca1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83c6a168_4a6b3ed6",
+        "filename": "ssl/encrypted_client_hello.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-11T17:24:48Z",
+      "side": 1,
+      "message": "Added a comment. Yeah, I figured it was analogous to the cipher suite check, which needed to be done outside this function since it differs between client and server. Also doing the check at the same place why go from ID to EVP_HPKE_KEM seems most natural.",
+      "parentUuid": "1980aca9_29a87dc8",
       "revId": "e34eb431a890ea150319bf99139f8a9aac03eca1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -52,6 +88,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b172443e_cdef92e6",
+        "filename": "ssl/encrypted_client_hello.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-11T17:24:48Z",
+      "side": 1,
+      "message": "Doesn\u0027t particularly matter since it fails either way, but yeah I guess that\u0027s more natural and less code. Done.",
+      "parentUuid": "1b952637_8270c942",
+      "revId": "e34eb431a890ea150319bf99139f8a9aac03eca1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "332238f2_76fd94ee",
@@ -69,6 +123,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9727e714_2d9c95c2",
+        "filename": "ssl/encrypted_client_hello.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 447,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-11T17:24:48Z",
+      "side": 1,
+      "message": "Oh, this was just for the CBS_len and I was lazy. Fixed. (Something something, I really should add a proper error type to better track initiating vs propagating errors.)",
+      "parentUuid": "332238f2_76fd94ee",
+      "revId": "e34eb431a890ea150319bf99139f8a9aac03eca1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "509e3c93_c28925db",
@@ -82,6 +154,30 @@
       "writtenOn": "2021-06-10T21:19:58Z",
       "side": 1,
       "message": "sizeof(kInfoLabel)",
+      "range": {
+        "startLine": 614,
+        "startChar": 34,
+        "endLine": 614,
+        "endChar": 35
+      },
+      "revId": "e34eb431a890ea150319bf99139f8a9aac03eca1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6145823b_351953cd",
+        "filename": "ssl/encrypted_client_hello.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 614,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-11T17:24:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "509e3c93_c28925db",
       "range": {
         "startLine": 614,
         "startChar": 34,
@@ -126,6 +222,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "346cea7d_1d9c6a6b",
+        "filename": "ssl/encrypted_client_hello.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 633,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-11T17:24:48Z",
+      "side": 1,
+      "message": "The handshake immediately fail, but yeah may as well avoid an inconsistent state. Fixed.",
+      "parentUuid": "f2d3dcde_cb731b2a",
+      "revId": "e34eb431a890ea150319bf99139f8a9aac03eca1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d0d3c973_ca9d2900",
@@ -139,6 +253,30 @@
       "writtenOn": "2021-06-10T21:19:58Z",
       "side": 1,
       "message": "internally",
+      "range": {
+        "startLine": 1515,
+        "startChar": 43,
+        "endLine": 1515,
+        "endChar": 51
+      },
+      "revId": "e34eb431a890ea150319bf99139f8a9aac03eca1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ade77d5_d80b0c27",
+        "filename": "ssl/internal.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 1515,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-11T17:24:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0d3c973_ca9d2900",
       "range": {
         "startLine": 1515,
         "startChar": 43,
@@ -172,6 +310,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cffef9bc_41694d3a",
+        "filename": "ssl/internal.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 1516,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-11T17:24:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e443197d_f9a14561",
+      "range": {
+        "startLine": 1515,
+        "startChar": 59,
+        "endLine": 1516,
+        "endChar": 17
+      },
+      "revId": "e34eb431a890ea150319bf99139f8a9aac03eca1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6b1d0bf2_a7ab144a",
@@ -185,6 +347,30 @@
       "writtenOn": "2021-06-10T21:19:58Z",
       "side": 1,
       "message": "... \"or not\"?",
+      "range": {
+        "startLine": 1527,
+        "startChar": 22,
+        "endLine": 1527,
+        "endChar": 23
+      },
+      "revId": "e34eb431a890ea150319bf99139f8a9aac03eca1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d7ce122_5a7ef3f3",
+        "filename": "ssl/internal.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 1527,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-11T17:24:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b1d0bf2_a7ab144a",
       "range": {
         "startLine": 1527,
         "startChar": 22,
@@ -218,6 +404,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "09627135_b4f29cd7",
+        "filename": "ssl/internal.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 1530,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-11T17:24:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ab1ca37_d7979cb2",
+      "range": {
+        "startLine": 1530,
+        "startChar": 16,
+        "endLine": 1530,
+        "endChar": 19
+      },
+      "revId": "e34eb431a890ea150319bf99139f8a9aac03eca1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "94674ed9_d77ef8ba",
@@ -231,6 +441,30 @@
       "writtenOn": "2021-06-10T21:19:58Z",
       "side": 1,
       "message": "s/.../for inclusion/",
+      "range": {
+        "startLine": 1541,
+        "startChar": 37,
+        "endLine": 1541,
+        "endChar": 47
+      },
+      "revId": "e34eb431a890ea150319bf99139f8a9aac03eca1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53c5c52e_fe452019",
+        "filename": "ssl/internal.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 1541,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-11T17:24:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94674ed9_d77ef8ba",
       "range": {
         "startLine": 1541,
         "startChar": 37,
@@ -264,6 +498,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b32710db_6e727910",
+        "filename": "ssl/internal.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 3248,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-11T17:24:48Z",
+      "side": 1,
+      "message": "I guess all three types and both outputs. :-) The intent was to say that both |out| and |out_encoded| will need their binders updated. Rephrased.",
+      "parentUuid": "e3497372_63d0161d",
+      "range": {
+        "startLine": 3248,
+        "startChar": 49,
+        "endLine": 3248,
+        "endChar": 56
+      },
+      "revId": "e34eb431a890ea150319bf99139f8a9aac03eca1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e9067f08_67ddd37f",
@@ -281,6 +539,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9db92ca6_bef55c32",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 3378,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-11T17:24:48Z",
+      "side": 1,
+      "message": "Because the draft says to. :-) It\u0027s so that there\u0027s at least 32 bytes of length ambiguity because observing a length of RoundUp(max_len, 32) means you know the length was in [max_len + 1, RoundUp(max_len, 32)] which is a potentially small range.\n\nThat said, I\u0027m about to change this in https://github.com/tlswg/draft-ietf-tls-esni/pull/443/files, which ends up losing this property.\n\nIn the meantime, added some comments to explain what\u0027s going on.",
+      "parentUuid": "e9067f08_67ddd37f",
+      "revId": "e34eb431a890ea150319bf99139f8a9aac03eca1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "660274d0_bf6f4a8b",
@@ -294,6 +570,24 @@
       "writtenOn": "2021-06-10T21:19:58Z",
       "side": 1,
       "message": "Below you write 24 as |SSL3_RANDOM_SIZE - 8|. There\u0027s also a lot of 8 hanging around. How about putting L776 and tls13_enc.cc:538 into \"size_t ech_confirmation_signal_hello_offset(const SSL*)\" and define an ECH_CONFIRMATION_SIGNAL_LEN \u003d 8?",
+      "revId": "e34eb431a890ea150319bf99139f8a9aac03eca1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c95af08_f1577597",
+        "filename": "ssl/tls13_server.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 767,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-11T17:24:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "660274d0_bf6f4a8b",
       "revId": "e34eb431a890ea150319bf99139f8a9aac03eca1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
