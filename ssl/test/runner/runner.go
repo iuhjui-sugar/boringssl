@@ -12899,6 +12899,7 @@ func makePerMessageTests() []perMessageTest {
 			messageType: typeClientHello,
 			test: testCase{
 				testType: serverTest,
+				protocol: protocol,
 				name:     "TLS13-ClientHello" + suffix,
 				config: Config{
 					MaxVersion: VersionTLS13,
@@ -12909,7 +12910,8 @@ func makePerMessageTests() []perMessageTest {
 		ret = append(ret, perMessageTest{
 			messageType: typeServerHello,
 			test: testCase{
-				name: "TLS13-ServerHello" + suffix,
+				name:     "TLS13-ServerHello" + suffix,
+				protocol: protocol,
 				config: Config{
 					MaxVersion: VersionTLS13,
 				},
@@ -12919,7 +12921,8 @@ func makePerMessageTests() []perMessageTest {
 		ret = append(ret, perMessageTest{
 			messageType: typeEncryptedExtensions,
 			test: testCase{
-				name: "TLS13-EncryptedExtensions" + suffix,
+				name:     "TLS13-EncryptedExtensions" + suffix,
+				protocol: protocol,
 				config: Config{
 					MaxVersion: VersionTLS13,
 				},
@@ -12929,7 +12932,8 @@ func makePerMessageTests() []perMessageTest {
 		ret = append(ret, perMessageTest{
 			messageType: typeCertificateRequest,
 			test: testCase{
-				name: "TLS13-CertificateRequest" + suffix,
+				name:     "TLS13-CertificateRequest" + suffix,
+				protocol: protocol,
 				config: Config{
 					MaxVersion: VersionTLS13,
 					ClientAuth: RequireAnyClientCert,
@@ -12940,7 +12944,8 @@ func makePerMessageTests() []perMessageTest {
 		ret = append(ret, perMessageTest{
 			messageType: typeCertificate,
 			test: testCase{
-				name: "TLS13-ServerCertificate" + suffix,
+				name:     "TLS13-ServerCertificate" + suffix,
+				protocol: protocol,
 				config: Config{
 					MaxVersion: VersionTLS13,
 				},
@@ -12950,7 +12955,8 @@ func makePerMessageTests() []perMessageTest {
 		ret = append(ret, perMessageTest{
 			messageType: typeCertificateVerify,
 			test: testCase{
-				name: "TLS13-ServerCertificateVerify" + suffix,
+				name:     "TLS13-ServerCertificateVerify" + suffix,
+				protocol: protocol,
 				config: Config{
 					MaxVersion: VersionTLS13,
 				},
@@ -12960,7 +12966,8 @@ func makePerMessageTests() []perMessageTest {
 		ret = append(ret, perMessageTest{
 			messageType: typeFinished,
 			test: testCase{
-				name: "TLS13-ServerFinished" + suffix,
+				name:     "TLS13-ServerFinished" + suffix,
+				protocol: protocol,
 				config: Config{
 					MaxVersion: VersionTLS13,
 				},
@@ -12971,6 +12978,7 @@ func makePerMessageTests() []perMessageTest {
 			messageType: typeCertificate,
 			test: testCase{
 				testType: serverTest,
+				protocol: protocol,
 				name:     "TLS13-ClientCertificate" + suffix,
 				config: Config{
 					Certificates: []Certificate{rsaCertificate},
@@ -12984,6 +12992,7 @@ func makePerMessageTests() []perMessageTest {
 			messageType: typeCertificateVerify,
 			test: testCase{
 				testType: serverTest,
+				protocol: protocol,
 				name:     "TLS13-ClientCertificateVerify" + suffix,
 				config: Config{
 					Certificates: []Certificate{rsaCertificate},
@@ -12997,6 +13006,7 @@ func makePerMessageTests() []perMessageTest {
 			messageType: typeFinished,
 			test: testCase{
 				testType: serverTest,
+				protocol: protocol,
 				name:     "TLS13-ClientFinished" + suffix,
 				config: Config{
 					MaxVersion: VersionTLS13,
@@ -13004,18 +13014,22 @@ func makePerMessageTests() []perMessageTest {
 			},
 		})
 
-		ret = append(ret, perMessageTest{
-			messageType: typeEndOfEarlyData,
-			test: testCase{
-				testType: serverTest,
-				name:     "TLS13-EndOfEarlyData" + suffix,
-				config: Config{
-					MaxVersion: VersionTLS13,
+		// Only TLS uses EndOfEarlyData.
+		if protocol == tls {
+			ret = append(ret, perMessageTest{
+				messageType: typeEndOfEarlyData,
+				test: testCase{
+					testType: serverTest,
+					protocol: protocol,
+					name:     "TLS13-EndOfEarlyData" + suffix,
+					config: Config{
+						MaxVersion: VersionTLS13,
+					},
+					resumeSession: true,
+					earlyData:     true,
 				},
-				resumeSession: true,
-				earlyData:     true,
-			},
-		})
+			})
+		}
 	}
 
 	return ret
@@ -13034,10 +13048,16 @@ func addWrongMessageTypeTests() {
 		t.test.expectedLocalError = "remote error: unexpected message"
 
 		if t.test.config.MaxVersion >= VersionTLS13 && t.messageType == typeServerHello {
-			// In TLS 1.3, a bad ServerHello means the client sends
-			// an unencrypted alert while the server expects
-			// encryption, so the alert is not readable by runner.
-			t.test.expectedLocalError = "local error: bad record MAC"
+			// In TLS 1.3, if the server believes it has sent ServerHello,
+			// but the client cannot process it, the client will send an
+			// unencrypted alert while the server expects encryption. In TLS,
+			// this is a decryption failure. In QUIC, the encryption levels
+			// do not match.
+			if t.test.protocol == quic {
+				t.test.expectedLocalError = "received record at initial encryption level, but expected handshake"
+			} else {
+				t.test.expectedLocalError = "local error: bad record MAC"
+			}
 		}
 
 		testCases = append(testCases, t.test)
@@ -13057,10 +13077,16 @@ func addTrailingMessageDataTests() {
 		t.test.expectedLocalError = "remote error: error decoding message"
 
 		if t.test.config.MaxVersion >= VersionTLS13 && t.messageType == typeServerHello {
-			// In TLS 1.3, a bad ServerHello means the client sends
-			// an unencrypted alert while the server expects
-			// encryption, so the alert is not readable by runner.
-			t.test.expectedLocalError = "local error: bad record MAC"
+			// In TLS 1.3, if the server believes it has sent ServerHello,
+			// but the client cannot process it, the client will send an
+			// unencrypted alert while the server expects encryption. In TLS,
+			// this is a decryption failure. In QUIC, the encryption levels
+			// do not match.
+			if t.test.protocol == quic {
+				t.test.expectedLocalError = "received record at initial encryption level, but expected handshake"
+			} else {
+				t.test.expectedLocalError = "local error: bad record MAC"
+			}
 		}
 
 		if t.messageType == typeFinished {
@@ -18265,6 +18291,12 @@ func checkTests() {
 				if !found {
 					panic(fmt.Sprintf("The name of test %q suggests that it's version specific, but the test does not reference %s", test.name, ver.name))
 				}
+			}
+		}
+
+		for _, protocol := range []protocol{tls, dtls, quic} {
+			if strings.Contains("-"+test.name+"-", "-"+protocol.String()+"-") && test.protocol != protocol {
+				panic(fmt.Sprintf("The name of test %q suggests that it tests %q, but the test does not reference it", test.name, protocol))
 			}
 		}
 	}
