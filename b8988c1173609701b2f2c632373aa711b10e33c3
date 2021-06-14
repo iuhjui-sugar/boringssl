@@ -191,6 +191,24 @@
       "parentUuid": "5fdb14f6_3d283f96",
       "revId": "b8988c1173609701b2f2c632373aa711b10e33c3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c17f741_1c0a8ba3",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-14T19:26:53Z",
+      "side": 1,
+      "message": "Based on our chat, opted for (1).",
+      "parentUuid": "04fd1907_b6ea539e",
+      "revId": "b8988c1173609701b2f2c632373aa711b10e33c3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }

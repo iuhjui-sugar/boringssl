@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "669e130a_8967861b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-14T19:26:53Z",
+      "side": 1,
+      "message": "New patchset!\n\nNow parsing and pretty-printing HTTPS records, and stating the path where the extracted ECHConfigLists were written.\n\nExample run:\n\n```\n$ go run util/fetch_ech_config_list.go -name crypto.cloudflare.com -out-dir foo\nHTTPS SvcPriority:1 TargetName:\"\"\n  * alpn: [\"h2\"]\n  * ipv4hint:\n    - 162.159.135.79\n    - 162.159.136.79\n  * ech: 0048fe0a00449f002000204752fd876e18b66636c9bfb7af02ec84e2b761486ff65e2720fc8d0d87a6f84b00040001000100000013636c6f7564666c6172652d65736e692e636f6d0000\n  * ipv6hint:\n    - 2606:4700:7::a29f:874f\n    - 2606:4700:7::a29f:884f\n\nWrote extracted ECHConfigList to \"foo/ech-config-list-0\"\n```",
+      "revId": "c6b1b8e6d9c4c6b817ea4041cb6dd5b9822d60f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
