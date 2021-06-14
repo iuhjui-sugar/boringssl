@@ -16,6 +16,24 @@
       "message": "Are we planning on using this in Chrome? If so, then I worry that it will be ineffective. Per-connection permutations means that many issues will be resolved by reloading the page. I.e. the breakage will be noise and will not be intense enough to cause anything to get fixed.\n\nIt seems that we might get better results if a permutation seed can be passed in by the application and Chrome sets that based on branch number / major version / build timestamp / something.",
       "revId": "448d7699464b0d52c89dfe6462eccf62099a5384",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a7713e9_851a73dd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-14T17:47:12Z",
+      "side": 1,
+      "message": "I guess it depends on what we\u0027re trying to mitigate.\n\nFor systems assuming some field is at a fixed byte offset, there are probably enough possible positions that randomizing per-connection will work. (I\u0027m assuming that false negative rates below, say, 1/4 are good enough that reloading won\u0027t be enough to hide it.) Systems assuming a particular extension order probably also are fine. For those cases, I suspect per-connection is also preferable because, for new development, it\u0027ll be very obvious that you can\u0027t just pick a fixed offset or key on extension order.\n\nOn the flip side, if some server accidentally relies on the relative order of two extensions like ALPN before NPN, I agree that randomizing per-connection won\u0027t be effective and stickiness at the version level would be preferable.\n\n(Either would be easy enough to implement.)\n\ndschinazi, do you have thoughts here?",
+      "parentUuid": "a5230bad_62a461fe",
+      "revId": "448d7699464b0d52c89dfe6462eccf62099a5384",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
