@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5230bad_62a461fe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-14T17:35:11Z",
+      "side": 1,
+      "message": "Are we planning on using this in Chrome? If so, then I worry that it will be ineffective. Per-connection permutations means that many issues will be resolved by reloading the page. I.e. the breakage will be noise and will not be intense enough to cause anything to get fixed.\n\nIt seems that we might get better results if a permutation seed can be passed in by the application and Chrome sets that based on branch number / major version / build timestamp / something.",
+      "revId": "448d7699464b0d52c89dfe6462eccf62099a5384",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
