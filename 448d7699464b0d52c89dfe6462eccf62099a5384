@@ -34,6 +34,24 @@
       "parentUuid": "a5230bad_62a461fe",
       "revId": "448d7699464b0d52c89dfe6462eccf62099a5384",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5a6f72c_1627952b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9869
+      },
+      "writtenOn": "2021-06-14T19:51:36Z",
+      "side": 1,
+      "message": "I\u0027m mainly interested in mitigating SNI-extraction middleboxes that inspect the ClientHello. For this use-case, a per-connection seed is best because a middlebox developer using Wireshark will see different SNI placement in every connection. In practice, those QUIC middleboxes generally fail open (they don\u0027t block connections when they fail to extract the SNI) so there would be no user-visible failure and refresh in either strategy.\n\nI agree that per-connection seeds don\u0027t solve the issue of servers that rely on specific ordering, but it also doesn\u0027t make it worse.",
+      "parentUuid": "4a7713e9_851a73dd",
+      "revId": "448d7699464b0d52c89dfe6462eccf62099a5384",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
