@@ -1832,6 +1832,10 @@ struct SSL_HANDSHAKE {
   // ech_client_bytes contains the ECH extension to send in the ClientHello.
   Array<uint8_t> ech_client_bytes;
 
+  // ech_retry_configs, on the client, contains the retry configs from the
+  // server as a serialized ECHConfigList.
+  Array<uint8_t> ech_retry_configs;
+
   // ech_client_hello_buf, on the server, contains the bytes of the
   // reconstructed ClientHelloInner message.
   Array<uint8_t> ech_client_hello_buf;
@@ -1871,8 +1875,8 @@ struct SSL_HANDSHAKE {
   uint16_t cert_compression_alg_id;
 
   // ech_hpke_ctx is the HPKE context used in ECH. On the server, it is
-  // initialized if |ech_accept| is true. On the client, it is initialized if
-  // |selected_ech_config| is not nullptr.
+  // initialized if |ech_status| is |ssl_ech_accepted|. On the client, it is
+  // initialized if |selected_ech_config| is not nullptr.
   ScopedEVP_HPKE_CTX ech_hpke_ctx;
 
   // server_params, in a TLS 1.2 server, stores the ServerKeyExchange
@@ -2573,6 +2577,16 @@ enum ssl_shutdown_t {
   ssl_shutdown_error = 2,
 };
 
+enum ssl_ech_status_t {
+  // ssl_ech_none indicates ECH was not offered, or we have not gotten far
+  // enough in the handshake to determine the status.
+  ssl_ech_none,
+  // ssl_ech_accepted indicates the server accepted ECH.
+  ssl_ech_accepted,
+  // ssl_ech_rejected indicates the server was offered ECH but rejected it.
+  ssl_ech_rejected,
+};
+
 struct SSL3_STATE {
   static constexpr bool kAllowUniquePtr = true;
 
@@ -2635,8 +2649,8 @@ struct SSL3_STATE {
   // key_update_count is the number of consecutive KeyUpdates received.
   uint8_t key_update_count = 0;
 
-  // ech_accept indicates whether ECH was accepted by the server.
-  bool ech_accept : 1;
+  // ech_status indicates whether ECH was accepted by the server.
+  ssl_ech_status_t ech_status = ssl_ech_none;
 
   // skip_early_data instructs the record layer to skip unexpected early data
   // messages when 0RTT is rejected.
