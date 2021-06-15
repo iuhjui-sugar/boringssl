@@ -2154,6 +2154,145 @@ TEST(SSLTest, ECHPublicName) {
   EXPECT_TRUE(ssl_is_valid_ech_public_name(str_to_span("4294967296")));
 }
 
+// When using the built-in verifier, test that |SSL_get0_ech_name_override| is
+// applied automatically.
+TEST(SSLTest, ECHBuiltinVerifier) {
+  // These test certificates generated with the following Go program.
+  /* clang-format off
+func main() {
+  notBefore := time.Date(2000, time.January, 1, 0, 0, 0, 0, time.UTC)
+  notAfter := time.Date(2099, time.January, 1, 0, 0, 0, 0, time.UTC)
+  rootKey, _ := ecdsa.GenerateKey(elliptic.P256(), rand.Reader)
+  rootTemplate := &x509.Certificate{
+    SerialNumber:          big.NewInt(1),
+    Subject:               pkix.Name{CommonName: "Test CA"},
+    NotBefore:             notBefore,
+    NotAfter:              notAfter,
+    BasicConstraintsValid: true,
+    IsCA:                  true,
+  }
+  rootDER, _ := x509.CreateCertificate(rand.Reader, rootTemplate, rootTemplate, &rootKey.PublicKey, rootKey)
+  root, _ := x509.ParseCertificate(rootDER)
+  pem.Encode(os.Stdout, &pem.Block{Type: "CERTIFICATE", Bytes: rootDER})
+  leafKey, _ := ecdsa.GenerateKey(elliptic.P256(), rand.Reader)
+  leafKeyDER, _ := x509.MarshalPKCS8PrivateKey(leafKey)
+  pem.Encode(os.Stdout, &pem.Block{Type: "PRIVATE KEY", Bytes: leafKeyDER})
+  for i, name := range []string{"public.example", "secret.example"} {
+    leafTemplate := &x509.Certificate{
+      SerialNumber:          big.NewInt(int64(i) + 2),
+      Subject:               pkix.Name{CommonName: name},
+      NotBefore:             notBefore,
+      NotAfter:              notAfter,
+      BasicConstraintsValid: true,
+      DNSNames:              []string{name},
+    }
+    leafDER, _ := x509.CreateCertificate(rand.Reader, leafTemplate, root, &leafKey.PublicKey, rootKey)
+    pem.Encode(os.Stdout, &pem.Block{Type: "CERTIFICATE", Bytes: leafDER})
+  }
+}
+clang-format on */
+  bssl::UniquePtr<X509> root = CertFromPEM(R"(
+-----BEGIN CERTIFICATE-----
+MIIBRzCB7aADAgECAgEBMAoGCCqGSM49BAMCMBIxEDAOBgNVBAMTB1Rlc3QgQ0Ew
+IBcNMDAwMTAxMDAwMDAwWhgPMjA5OTAxMDEwMDAwMDBaMBIxEDAOBgNVBAMTB1Rl
+c3QgQ0EwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAAT5JUjrI1DAxSpEl88UkmJw
+tAJqxo/YrSFo9V3MkcNkfTixi5p6MUtO8DazhEgekBcd2+tBAWtl7dy0qpvTqx92
+ozIwMDAPBgNVHRMBAf8EBTADAQH/MB0GA1UdDgQWBBTw6ftkexAI6o4r5FntJIfL
+GU5F4zAKBggqhkjOPQQDAgNJADBGAiEAiiNowddQeHZaZFIygwe6RW5/WG4sUXWC
+dkyl9CQzRaYCIQCFS1EvwZbZtMny27fYm1eeYciY0TkJTEi34H1KwyzzIA==
+-----END CERTIFICATE-----
+)");
+  ASSERT_TRUE(root);
+  bssl::UniquePtr<EVP_PKEY> leaf_key = KeyFromPEM(R"(
+-----BEGIN PRIVATE KEY-----
+MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgj5WKHwHnziiyPauf
+7QukxTwtTyGZkk8qNdms4puJfxqhRANCAARNrkhxabALDlJrHtvkuDwvCWUF/oVC
+hr6PDITHi1lDlJzvVT4aXBH87sH2n2UV5zpx13NHkq1bIC8eRT8eOIe0
+-----END PRIVATE KEY-----
+)");
+  ASSERT_TRUE(leaf_key);
+  bssl::UniquePtr<X509> leaf_public = CertFromPEM(R"(
+-----BEGIN CERTIFICATE-----
+MIIBaDCCAQ6gAwIBAgIBAjAKBggqhkjOPQQDAjASMRAwDgYDVQQDEwdUZXN0IENB
+MCAXDTAwMDEwMTAwMDAwMFoYDzIwOTkwMTAxMDAwMDAwWjAZMRcwFQYDVQQDEw5w
+dWJsaWMuZXhhbXBsZTBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABE2uSHFpsAsO
+Umse2+S4PC8JZQX+hUKGvo8MhMeLWUOUnO9VPhpcEfzuwfafZRXnOnHXc0eSrVsg
+Lx5FPx44h7SjTDBKMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAU8On7ZHsQCOqO
+K+RZ7SSHyxlOReMwGQYDVR0RBBIwEIIOcHVibGljLmV4YW1wbGUwCgYIKoZIzj0E
+AwIDSAAwRQIhANqZRhDR/+QL05hsWXMYEwaiHifd9iakKoFEhKFchcF3AiBRAeXw
+wRGGT6+iPmTYM6N5/IDyAb5B9Ke38O6lLEsUwA==
+-----END CERTIFICATE-----
+)");
+  ASSERT_TRUE(leaf_public);
+  bssl::UniquePtr<X509> leaf_secret = CertFromPEM(R"(
+-----BEGIN CERTIFICATE-----
+MIIBaTCCAQ6gAwIBAgIBAzAKBggqhkjOPQQDAjASMRAwDgYDVQQDEwdUZXN0IENB
+MCAXDTAwMDEwMTAwMDAwMFoYDzIwOTkwMTAxMDAwMDAwWjAZMRcwFQYDVQQDEw5z
+ZWNyZXQuZXhhbXBsZTBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABE2uSHFpsAsO
+Umse2+S4PC8JZQX+hUKGvo8MhMeLWUOUnO9VPhpcEfzuwfafZRXnOnHXc0eSrVsg
+Lx5FPx44h7SjTDBKMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAU8On7ZHsQCOqO
+K+RZ7SSHyxlOReMwGQYDVR0RBBIwEIIOc2VjcmV0LmV4YW1wbGUwCgYIKoZIzj0E
+AwIDSQAwRgIhAPQdIz1xCFkc9WuSkxOxJDpywZiEp9SnKcxJ9nwrlRp3AiEA+O3+
+XRqE7XFhHL+7TNC2a9OOAjQsEF137YPWo+rhgko=
+-----END CERTIFICATE-----
+)");
+  ASSERT_TRUE(leaf_secret);
+
+  bssl::UniquePtr<SSL_ECH_KEYS> keys = MakeTestECHKeys();
+  ASSERT_TRUE(keys);
+  bssl::UniquePtr<SSL_ECH_KEYS> wrong_keys = MakeTestECHKeys();
+  ASSERT_TRUE(wrong_keys);
+  bssl::UniquePtr<SSL_CTX> server_ctx =
+      CreateContextWithTestCertificate(TLS_method());
+  ASSERT_TRUE(server_ctx);
+  bssl::UniquePtr<SSL_CTX> client_ctx(SSL_CTX_new(TLS_method()));
+  ASSERT_TRUE(client_ctx);
+
+  // Configure the client to verify certificates and expect the secret name.
+  // This is the name the client is trying to connect to. If ECH is rejected,
+  // BoringSSL will internally override this setting with the public name.
+  bssl::UniquePtr<X509_STORE> store(X509_STORE_new());
+  ASSERT_TRUE(store);
+  ASSERT_TRUE(X509_STORE_add_cert(store.get(), root.get()));
+  SSL_CTX_set_cert_store(client_ctx.get(), store.release());
+  SSL_CTX_set_verify(client_ctx.get(), SSL_VERIFY_PEER, nullptr);
+  static const char kSecretName[] = "secret.example";
+  ASSERT_TRUE(X509_VERIFY_PARAM_set1_host(SSL_CTX_get0_param(client_ctx.get()),
+                                          kSecretName, strlen(kSecretName)));
+
+  // For simplicity, we only run through a pair of representative scenarios here
+  // and rely on runner.go to verify that |SSL_get0_ech_name_override| behaves
+  // correctly.
+  for (bool accept_ech : {false, true}) {
+    SCOPED_TRACE(accept_ech);
+    for (bool use_leaf_secret : {false, true}) {
+      SCOPED_TRACE(use_leaf_secret);
+
+      // The server will reject ECH when configured with the wrong keys.
+      ASSERT_TRUE(SSL_CTX_set1_ech_keys(
+          server_ctx.get(), accept_ech ? keys.get() : wrong_keys.get()));
+
+      bssl::UniquePtr<SSL> client, server;
+      ASSERT_TRUE(CreateClientAndServer(&client, &server, client_ctx.get(),
+                                        server_ctx.get()));
+      ASSERT_TRUE(InstallECHConfigList(client.get(), keys.get()));
+
+      // Configure the server with the selected certificate.
+      ASSERT_TRUE(SSL_use_certificate(server.get(), use_leaf_secret
+                                                        ? leaf_secret.get()
+                                                        : leaf_public.get()));
+      ASSERT_TRUE(SSL_use_PrivateKey(server.get(), leaf_key.get()));
+
+      // The handshake may fail due to name mismatch or ECH reject. We check
+      // |SSL_get_verify_result| to confirm the handshake got far enough.
+      CompleteHandshakes(client.get(), server.get());
+      EXPECT_EQ(accept_ech == use_leaf_secret ? X509_V_OK
+                                              : X509_V_ERR_HOSTNAME_MISMATCH,
+                SSL_get_verify_result(client.get()));
+    }
+  }
+}
+
 #if defined(OPENSSL_THREADS)
 // Test that the server ECH config can be swapped out while the |SSL_CTX| is
 // in use on other threads. This test is intended to be run with TSan.
