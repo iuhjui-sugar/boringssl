@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e67df4e4_9f761966",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-15T22:27:16Z",
+      "side": 1,
+      "message": "Thoughts? I\u0027ve implemented it, since it\u0027s just code, but it\u0027s pretty awful. :-)",
+      "revId": "c5c3f55a34b3340e8f6b7825aef74086b540bf76",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
