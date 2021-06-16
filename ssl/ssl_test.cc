@@ -5427,7 +5427,8 @@ TEST_P(SSLVersionTest, SessionCacheThreads) {
     }
   }
 
-  // Hit the maximum session cache size across multiple threads
+  // Hit the maximum session cache size across multiple threads, to test the
+  // size enforcement logic.
   size_t limit = SSL_CTX_sess_number(server_ctx_.get()) + 2;
   SSL_CTX_sess_set_cache_size(server_ctx_.get(), limit);
   {
@@ -5442,6 +5443,53 @@ TEST_P(SSLVersionTest, SessionCacheThreads) {
       thread.join();
     }
     EXPECT_EQ(SSL_CTX_sess_number(server_ctx_.get()), limit);
+  }
+
+  // Reset the session cache, this time with a mock clock.
+  ASSERT_NO_FATAL_FAILURE(ResetContexts());
+  SSL_CTX_set_options(server_ctx_.get(), SSL_OP_NO_TICKET);
+  SSL_CTX_set_session_cache_mode(client_ctx_.get(), SSL_SESS_CACHE_BOTH);
+  SSL_CTX_set_session_cache_mode(server_ctx_.get(), SSL_SESS_CACHE_BOTH);
+  SSL_CTX_set_current_time_cb(server_ctx_.get(), CurrentTimeCallback);
+
+  // Make a session at an arbitrary start time.
+  g_current_time.tv_sec = 1000;
+  session1 = CreateClientSession(client_ctx_.get(), server_ctx_.get());
+  ASSERT_TRUE(session1);
+
+  // Expire the session and make a new one.
+  g_current_time.tv_sec += 100 * SSL_DEFAULT_SESSION_TIMEOUT;
+  session2 = CreateClientSession(client_ctx_.get(), server_ctx_.get());
+  ASSERT_TRUE(session2);
+
+  // Every 256 connections, we flush stale sessions from the session cache. Test
+  // this logic is correctly synchronized with other connection attempts.
+  static const int kNumConnections = 256;
+  {
+    std::vector<std::thread> threads;
+    threads.emplace_back([&] {
+      for (int i = 0; i < kNumConnections; i++) {
+        connect_with_session(nullptr);
+      }
+    });
+    threads.emplace_back([&] {
+      for (int i = 0; i < kNumConnections; i++) {
+        connect_with_session(nullptr);
+      }
+    });
+    threads.emplace_back([&] {
+      for (int i = 0; i < kNumConnections; i++) {
+        connect_with_session(session1.get());
+      }
+    });
+    threads.emplace_back([&] {
+      for (int i = 0; i < kNumConnections; i++) {
+        connect_with_session(session2.get());
+      }
+    });
+    for (auto &thread : threads) {
+      thread.join();
+    }
   }
 }
 
