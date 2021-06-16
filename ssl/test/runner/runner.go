@@ -1539,19 +1539,37 @@ func runTest(statusChan chan statusMsg, test *testCase, shimPath string, mallocN
 		conn.Close()
 	}
 
+	nextTicketKey := config.SessionTicketKey
 	for i := 0; err == nil && i < resumeCount; i++ {
 		var resumeConfig Config
 		if test.resumeConfig != nil {
 			resumeConfig = *test.resumeConfig
-			if !test.newSessionsOnResume {
-				resumeConfig.SessionTicketKey = config.SessionTicketKey
-				resumeConfig.ClientSessionCache = config.ClientSessionCache
-				resumeConfig.ServerSessionCache = config.ServerSessionCache
-			}
 			resumeConfig.Rand = config.Rand
 		} else {
 			resumeConfig = config
 		}
+
+		if test.newSessionsOnResume {
+			resumeConfig.ClientSessionCache = nil
+			resumeConfig.ServerSessionCache = nil
+			_, err = resumeConfig.rand().Read(resumeConfig.SessionTicketKey[:])
+			if err != nil {
+				break
+			}
+		} else {
+			resumeConfig.ClientSessionCache = config.ClientSessionCache
+			resumeConfig.ServerSessionCache = config.ServerSessionCache
+			// Rotate the ticket keys between each connection, with each connection
+			// encrypting with next connection's keys. This ensures that we test
+			// the renewed sessions.
+			resumeConfig.SessionTicketKey = nextTicketKey
+			_, err = resumeConfig.rand().Read(nextTicketKey[:])
+			if err != nil {
+				break
+			}
+			resumeConfig.Bugs.EncryptSessionTicketKey = &nextTicketKey
+		}
+
 		var connResume net.Conn
 		connResume, err = acceptOrWait(listener, waitChan)
 		if err == nil {
