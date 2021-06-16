@@ -58,6 +58,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6649e71b_d6533d7d",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-16T20:41:54Z",
+      "side": 1,
+      "message": "Aha. I changed the pointer to a value, so now I can do away with the explicit call to this function.",
+      "parentUuid": "43d8706e_392a358a",
+      "range": {
+        "startLine": 68,
+        "startChar": 22,
+        "endLine": 68,
+        "endChar": 28
+      },
+      "revId": "c6b1b8e6d9c4c6b817ea4041cb6dd5b9822d60f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "acd32a54_b2e36ad4",
@@ -75,6 +99,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "29d21ca1_19e3df3a",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-16T20:41:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "acd32a54_b2e36ad4",
+      "revId": "c6b1b8e6d9c4c6b817ea4041cb6dd5b9822d60f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7f6512a7_321f5c9a",
@@ -88,6 +130,30 @@
       "writtenOn": "2021-06-16T18:56:33Z",
       "side": 1,
       "message": "len(h.mandatory) !\u003d 0, ditto for all the other slices below.\n\nI guess len(h.ech) vs. h.ech !\u003d nil is a little tricky, let\u0027s just check for empty inputs in the parser and avoid caring about nil here.",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 22
+      },
+      "revId": "c6b1b8e6d9c4c6b817ea4041cb6dd5b9822d60f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02e4164a_d738227a",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-16T20:41:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f6512a7_321f5c9a",
       "range": {
         "startLine": 70,
         "startChar": 4,
@@ -121,6 +187,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2885498c_92a0000a",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-16T20:41:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4fa1def_4e08cd47",
+      "range": {
+        "startLine": 97,
+        "startChar": 4,
+        "endLine": 97,
+        "endChar": 26
+      },
+      "revId": "c6b1b8e6d9c4c6b817ea4041cb6dd5b9822d60f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4dd79803_cb13d5c9",
@@ -134,6 +224,24 @@
       "writtenOn": "2021-06-16T18:56:33Z",
       "side": 1,
       "message": "Reject empty svcParamValue:\nhttps://mikebishop.github.io/dns-alt-svc/draft-ietf-dnsop-svcb-https.html#section-7-3",
+      "revId": "c6b1b8e6d9c4c6b817ea4041cb6dd5b9822d60f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "690d0258_446eb675",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-16T20:41:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4dd79803_cb13d5c9",
       "revId": "c6b1b8e6d9c4c6b817ea4041cb6dd5b9822d60f8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -161,6 +269,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "baadab70_9f1c87bd",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-16T20:41:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cdf63a37_c7cb32e7",
+      "range": {
+        "startLine": 274,
+        "startChar": 7,
+        "endLine": 274,
+        "endChar": 19
+      },
+      "revId": "c6b1b8e6d9c4c6b817ea4041cb6dd5b9822d60f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3141fac2_bb9a642d",
@@ -174,6 +306,24 @@
       "writtenOn": "2021-06-16T18:56:33Z",
       "side": 1,
       "message": "noDefaultALPN isn\u0027t an ALPN list. This should simply be a bool and then\n\n  case httpsKeyNoDefaultALPN:\n    if !svcParamValue.Empty() {\n      return httpsRecord{}, errors.New(\"malformed HTTPS record\")\n     }\n     record.noDefaultALPN \u003d true",
+      "revId": "c6b1b8e6d9c4c6b817ea4041cb6dd5b9822d60f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ea6ae57_5f0400cc",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-16T20:41:54Z",
+      "side": 1,
+      "message": "Argh, thanks. I should have read that more closely, I was thinking of way back when they were sort of twin params and you computed the set difference.",
+      "parentUuid": "3141fac2_bb9a642d",
       "revId": "c6b1b8e6d9c4c6b817ea4041cb6dd5b9822d60f8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -201,6 +351,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e7241b7_1ada3b00",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-16T20:41:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0151135b_393138d2",
+      "range": {
+        "startLine": 292,
+        "startChar": 45,
+        "endLine": 292,
+        "endChar": 46
+      },
+      "revId": "c6b1b8e6d9c4c6b817ea4041cb6dd5b9822d60f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb4d7ac7_d8feb567",
@@ -214,6 +388,24 @@
       "writtenOn": "2021-06-16T18:56:33Z",
       "side": 1,
       "message": "Reject empty svcParamValue:\nhttps://mikebishop.github.io/dns-alt-svc/draft-ietf-dnsop-svcb-https.html#section-6.4-2",
+      "revId": "c6b1b8e6d9c4c6b817ea4041cb6dd5b9822d60f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e2e785c_693ee3b7",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-16T20:41:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb4d7ac7_d8feb567",
       "revId": "c6b1b8e6d9c4c6b817ea4041cb6dd5b9822d60f8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -241,6 +433,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "659ae8fd_a7934494",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-16T20:41:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09930a54_550df3a2",
+      "range": {
+        "startLine": 305,
+        "startChar": 7,
+        "endLine": 305,
+        "endChar": 23
+      },
+      "revId": "c6b1b8e6d9c4c6b817ea4041cb6dd5b9822d60f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4954e5b1_b86a06d8",
@@ -254,6 +470,24 @@
       "writtenOn": "2021-06-16T18:56:33Z",
       "side": 1,
       "message": "Nit: Just move this into the record :\u003d httpsRecord{ ... } block. No need to make it conditional like this. (See also comment above to use len(...) !\u003d 0.)",
+      "revId": "c6b1b8e6d9c4c6b817ea4041cb6dd5b9822d60f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44eac5b1_60d1fabf",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-16T20:41:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4954e5b1_b86a06d8",
       "revId": "c6b1b8e6d9c4c6b817ea4041cb6dd5b9822d60f8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -281,6 +515,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b11c1d2_2605b710",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-16T20:41:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "31de3fdb_85ade586",
+      "range": {
+        "startLine": 343,
+        "startChar": 29,
+        "endLine": 343,
+        "endChar": 33
+      },
+      "revId": "c6b1b8e6d9c4c6b817ea4041cb6dd5b9822d60f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5c204e47_9e449163",
@@ -294,6 +552,24 @@
       "writtenOn": "2021-06-16T18:56:33Z",
       "side": 1,
       "message": "This reads like we ran into an error, when the HTTPS record could just not include an ECHConfigList.",
+      "revId": "c6b1b8e6d9c4c6b817ea4041cb6dd5b9822d60f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e08af37b_ead16ca1",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-16T20:41:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c204e47_9e449163",
       "revId": "c6b1b8e6d9c4c6b817ea4041cb6dd5b9822d60f8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -315,6 +591,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "37a929b9_c1c3cbf4",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-16T20:41:54Z",
+      "side": 1,
+      "message": "Agreed, let\u0027s not worry about parsing the ECHConfigList here.",
+      "parentUuid": "caa9a605_4a1c0e7f",
+      "revId": "c6b1b8e6d9c4c6b817ea4041cb6dd5b9822d60f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d61784ff_cdb140b0",
@@ -332,6 +626,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5bb7d932_0c1e59a8",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-16T20:41:54Z",
+      "side": 1,
+      "message": "Yeah, I suppose there\u0027s no need for the fancy hexdump.",
+      "parentUuid": "d61784ff_cdb140b0",
+      "revId": "c6b1b8e6d9c4c6b817ea4041cb6dd5b9822d60f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8e6cb120_22c277b2",
@@ -345,6 +657,30 @@
       "writtenOn": "2021-06-16T18:56:33Z",
       "side": 1,
       "message": "Nit: I think we can just say \"Wrote ECHConfigList to %q\"",
+      "range": {
+        "startLine": 379,
+        "startChar": 22,
+        "endLine": 379,
+        "endChar": 31
+      },
+      "revId": "c6b1b8e6d9c4c6b817ea4041cb6dd5b9822d60f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f8bd900_c5f0cdab",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-16T20:41:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e6cb120_22c277b2",
       "range": {
         "startLine": 379,
         "startChar": 22,

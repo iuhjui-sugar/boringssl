@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fed8da3_ab2bbd6f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-06-16T20:41:54Z",
+      "side": 1,
+      "message": "Thanks, David. New patchset.",
+      "revId": "b4cca03976ec1c0bbd30877edf9e7779e1cd1d5a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
