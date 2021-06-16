@@ -22,6 +22,30 @@
       },
       "revId": "ab7122b98161049b6e064fb78c13ddf8c8207e04",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec2828e9_65c762d2",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-16T18:56:33Z",
+      "side": 1,
+      "message": "Eh, it\u0027s fine. This isn\u0027t production code or anything.",
+      "parentUuid": "b9fa65f8_96f0e5f0",
+      "range": {
+        "startLine": 265,
+        "startChar": 2,
+        "endLine": 265,
+        "endChar": 17
+      },
+      "revId": "ab7122b98161049b6e064fb78c13ddf8c8207e04",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }

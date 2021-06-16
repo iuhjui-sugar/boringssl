@@ -406,6 +406,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b35571a_2a8c3311",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-16T18:56:33Z",
+      "side": 1,
+      "message": "Talking to Eric, it sounds like we expect an exact match in Chrome\u0027s implementation:\nhttps://source.chromium.org/chromium/chromium/src/+/main:net/dns/dns_response.cc;drc\u003d38b4657edd4e8d0d2accdb8964c35f5ee843a75c;l\u003d405\nhttps://datatracker.ietf.org/doc/html/rfc1035#section-7.3\n\nLooks like you\u0027ve done that so... cool! :-)",
+      "parentUuid": "2d3173dd_3d8a1a57",
+      "range": {
+        "startLine": 102,
+        "startChar": 2,
+        "endLine": 102,
+        "endChar": 3
+      },
+      "revId": "05324f150c737f6157de82c51754ad9291f35783",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "820a5c69_0a4038a5",

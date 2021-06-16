@@ -16,6 +16,343 @@
       "message": "New patchset!\n\nNow parsing and pretty-printing HTTPS records, and stating the path where the extracted ECHConfigLists were written.\n\nExample run:\n\n```\n$ go run util/fetch_ech_config_list.go -name crypto.cloudflare.com -out-dir foo\nHTTPS SvcPriority:1 TargetName:\"\"\n  * alpn: [\"h2\"]\n  * ipv4hint:\n    - 162.159.135.79\n    - 162.159.136.79\n  * ech: 0048fe0a00449f002000204752fd876e18b66636c9bfb7af02ec84e2b761486ff65e2720fc8d0d87a6f84b00040001000100000013636c6f7564666c6172652d65736e692e636f6d0000\n  * ipv6hint:\n    - 2606:4700:7::a29f:874f\n    - 2606:4700:7::a29f:884f\n\nWrote extracted ECHConfigList to \"foo/ech-config-list-0\"\n```",
       "revId": "c6b1b8e6d9c4c6b817ea4041cb6dd5b9822d60f8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d442dbde_ccefcbbb",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-16T18:56:33Z",
+      "side": 1,
+      "message": "This is self-consistent and all (we\u0027d be saying it\u0027s on the human reader of this parsed structure to check mandatory fields), though the intended use of \"mandatory\" is that if you see an unknown mandatory field, you should ignore that RR and use another one.",
+      "revId": "c6b1b8e6d9c4c6b817ea4041cb6dd5b9822d60f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43d8706e_392a358a",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-16T18:56:33Z",
+      "side": 1,
+      "message": "The standard way to spell this is String(), from the Stringer interface.",
+      "range": {
+        "startLine": 68,
+        "startChar": 22,
+        "endLine": 68,
+        "endChar": 28
+      },
+      "revId": "c6b1b8e6d9c4c6b817ea4041cb6dd5b9822d60f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acd32a54_b2e36ad4",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-16T18:56:33Z",
+      "side": 1,
+      "message": "Make a strings.Builder and write to that. (It implements io.Writer, so you can fmt.Fprintf to it.)",
+      "revId": "c6b1b8e6d9c4c6b817ea4041cb6dd5b9822d60f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f6512a7_321f5c9a",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-16T18:56:33Z",
+      "side": 1,
+      "message": "len(h.mandatory) !\u003d 0, ditto for all the other slices below.\n\nI guess len(h.ech) vs. h.ech !\u003d nil is a little tricky, let\u0027s just check for empty inputs in the parser and avoid caring about nil here.",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 22
+      },
+      "revId": "c6b1b8e6d9c4c6b817ea4041cb6dd5b9822d60f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4fa1def_4e08cd47",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-16T18:56:33Z",
+      "side": 1,
+      "message": "len(h.unknownParams) !\u003d 0\n\n(When just reading, a nil map behaves just like an empty one.)",
+      "range": {
+        "startLine": 97,
+        "startChar": 4,
+        "endLine": 97,
+        "endChar": 26
+      },
+      "revId": "c6b1b8e6d9c4c6b817ea4041cb6dd5b9822d60f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4dd79803_cb13d5c9",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-16T18:56:33Z",
+      "side": 1,
+      "message": "Reject empty svcParamValue:\nhttps://mikebishop.github.io/dns-alt-svc/draft-ietf-dnsop-svcb-https.html#section-7-3",
+      "revId": "c6b1b8e6d9c4c6b817ea4041cb6dd5b9822d60f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdf63a37_c7cb32e7",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-16T18:56:33Z",
+      "side": 1,
+      "message": "Reject empty svcParamValue:\nhttps://mikebishop.github.io/dns-alt-svc/draft-ietf-dnsop-svcb-https.html#section-6.1-6",
+      "range": {
+        "startLine": 274,
+        "startChar": 7,
+        "endLine": 274,
+        "endChar": 19
+      },
+      "revId": "c6b1b8e6d9c4c6b817ea4041cb6dd5b9822d60f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3141fac2_bb9a642d",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-16T18:56:33Z",
+      "side": 1,
+      "message": "noDefaultALPN isn\u0027t an ALPN list. This should simply be a bool and then\n\n  case httpsKeyNoDefaultALPN:\n    if !svcParamValue.Empty() {\n      return httpsRecord{}, errors.New(\"malformed HTTPS record\")\n     }\n     record.noDefaultALPN \u003d true",
+      "revId": "c6b1b8e6d9c4c6b817ea4041cb6dd5b9822d60f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0151135b_393138d2",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-16T18:56:33Z",
+      "side": 1,
+      "message": "|| !svcParamValue.Empty()",
+      "range": {
+        "startLine": 292,
+        "startChar": 45,
+        "endLine": 292,
+        "endChar": 46
+      },
+      "revId": "c6b1b8e6d9c4c6b817ea4041cb6dd5b9822d60f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb4d7ac7_d8feb567",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-16T18:56:33Z",
+      "side": 1,
+      "message": "Reject empty svcParamValue:\nhttps://mikebishop.github.io/dns-alt-svc/draft-ietf-dnsop-svcb-https.html#section-6.4-2",
+      "revId": "c6b1b8e6d9c4c6b817ea4041cb6dd5b9822d60f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09930a54_550df3a2",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-16T18:56:33Z",
+      "side": 1,
+      "message": "Reject empty svcParamValue:\nhttps://mikebishop.github.io/dns-alt-svc/draft-ietf-dnsop-svcb-https.html#section-6.4-2",
+      "range": {
+        "startLine": 305,
+        "startChar": 7,
+        "endLine": 305,
+        "endChar": 23
+      },
+      "revId": "c6b1b8e6d9c4c6b817ea4041cb6dd5b9822d60f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4954e5b1_b86a06d8",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-16T18:56:33Z",
+      "side": 1,
+      "message": "Nit: Just move this into the record :\u003d httpsRecord{ ... } block. No need to make it conditional like this. (See also comment above to use len(...) !\u003d 0.)",
+      "revId": "c6b1b8e6d9c4c6b817ea4041cb6dd5b9822d60f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31de3fdb_85ade586",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-16T18:56:33Z",
+      "side": 1,
+      "message": "0755\n\n(0777 and relying on umask is also fine, but since you\u0027ve used 0644 below, 0755 is the analogous one.)",
+      "range": {
+        "startLine": 343,
+        "startChar": 29,
+        "endLine": 343,
+        "endChar": 33
+      },
+      "revId": "c6b1b8e6d9c4c6b817ea4041cb6dd5b9822d60f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c204e47_9e449163",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-16T18:56:33Z",
+      "side": 1,
+      "message": "This reads like we ran into an error, when the HTTPS record could just not include an ECHConfigList.",
+      "revId": "c6b1b8e6d9c4c6b817ea4041cb6dd5b9822d60f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "caa9a605_4a1c0e7f",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-16T18:56:33Z",
+      "side": 1,
+      "message": "No need for \"By definition\". Also this can just be in parseHTTPSRecord. But, more importantly, we\u0027re not actually checking ECHConfigList syntax here (which was intentional; we wanted that to be in TLS), so I think all we really need to check is empty inputs, to avoid the nil vs. empty silliness.",
+      "revId": "c6b1b8e6d9c4c6b817ea4041cb6dd5b9822d60f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d61784ff_cdb140b0",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-16T18:56:33Z",
+      "side": 1,
+      "message": "Aren\u0027t we already printing this in record.string()?",
+      "revId": "c6b1b8e6d9c4c6b817ea4041cb6dd5b9822d60f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e6cb120_22c277b2",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-16T18:56:33Z",
+      "side": 1,
+      "message": "Nit: I think we can just say \"Wrote ECHConfigList to %q\"",
+      "range": {
+        "startLine": 379,
+        "startChar": 22,
+        "endLine": 379,
+        "endChar": 31
+      },
+      "revId": "c6b1b8e6d9c4c6b817ea4041cb6dd5b9822d60f8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
