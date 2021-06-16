@@ -70,6 +70,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "afaa9470_a46829d5",
+        "filename": "util/fetch_echconfigs.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-16T21:14:39Z",
+      "side": 1,
+      "message": "(Nah, we don\u0027t have a script.)",
+      "parentUuid": "049cbafa_2bd24f60",
+      "revId": "c1cbc5c727f9021523a36356cc91a0ea6195d36f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "422ef107_1da91290",

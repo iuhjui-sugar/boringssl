@@ -16,6 +16,63 @@
       "message": "Thanks, David. New patchset.",
       "revId": "b4cca03976ec1c0bbd30877edf9e7779e1cd1d5a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a6afb77_4a784de8",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-16T21:14:39Z",
+      "side": 1,
+      "message": "Go can figure out this is unreachable.",
+      "revId": "b4cca03976ec1c0bbd30877edf9e7779e1cd1d5a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40ddcb42_94234fc0",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-16T21:14:39Z",
+      "side": 1,
+      "message": "Tweaked the errors to be a bit more specific.",
+      "range": {
+        "startLine": 273,
+        "startChar": 38,
+        "endLine": 273,
+        "endChar": 60
+      },
+      "revId": "b4cca03976ec1c0bbd30877edf9e7779e1cd1d5a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31ec7a06_eabbabd0",
+        "filename": "util/fetch_ech_config_list.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-16T21:14:39Z",
+      "side": 1,
+      "message": "This ends up checking the first time, but it turns out that\u0027s correct because httpsKeyMandatory \u003d\u003d 0. Though this also means the key \u003d\u003d httpsKeyMandatory isn\u0027t necessary. I\u0027ve replaced this with a comment.",
+      "revId": "b4cca03976ec1c0bbd30877edf9e7779e1cd1d5a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
