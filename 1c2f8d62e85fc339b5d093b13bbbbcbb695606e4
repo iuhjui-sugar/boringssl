@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "74fd6d19_d1c0fa7c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-16T20:24:00Z",
+      "side": 1,
+      "message": "Right now anything that goes in SNI implicitly runs through whatever the caller believes is valid for a DNS name. E.g. in a browser, it needs to successfully transit our URL parser and DNS stack. The public name goes straight from DNS response to the ClientHello. The application doesn\u0027t see it until we get to certificate verification. So this is a new capability, but whether it matters is another question...\n\nAt minimum, ECH needs to have opinions that the public_name is a DNS string and not some random other SAN type, since it ultimately directs the string into certificate verification. (Although it could say that while disavowing syntax checking.) Beyond that, occasionally people get very excited about being able to trick a local memcached into thinking some newline in the ClientHello is a command. I think that problem needs a more robust solution (e.g. a range of TCP ports the browser promises to stay away from), but checking syntax does avert some of that noise.\n\nUnfortunately, once you go down that rabbithole, the IP address thing comes up, and that\u0027s just a mess. :-(",
+      "parentUuid": "2c63cd7f_44248bc5",
+      "range": {
+        "startLine": 10,
+        "startChar": 53,
+        "endLine": 11,
+        "endChar": 62
+      },
+      "revId": "1c2f8d62e85fc339b5d093b13bbbbcbb695606e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "a50709ce_fc87fef1",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-06-16T18:01:39Z",
       "side": 1,
       "message": "did you mean \"include\"? I think DNS syntax does exclude IPv4 literals because labels can\u0027t start with a digit?\n\nLater: ok, DNS started off by saying that leading digits were bad (https://datatracker.ietf.org/doc/html/rfc1035#section-2.3.1) but I guess updated that (https://datatracker.ietf.org/doc/html/rfc5890#section-2.3.1).",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 7
+      },
+      "revId": "1c2f8d62e85fc339b5d093b13bbbbcbb695606e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4181132_0677327d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-16T20:24:00Z",
+      "side": 1,
+      "message": "Yeah, I\u0027ve definitely seen DNS names with leading digits, sadly. If they kept that rule, it would have avoided a lot of fuss!\n\nAlthough maybe we should round the WHATWG rules up to the RFC1035 rules and just check for leading digits, rather than running that entire ridiculous algorithm...",
+      "parentUuid": "a50709ce_fc87fef1",
       "range": {
         "startLine": 15,
         "startChar": 0,
