@@ -50,6 +50,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "89334be8_5ca0f9a0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-17T17:18:42Z",
+      "side": 1,
+      "message": "\u003e Occasionally people get very excited about being able to trick a local memcached into thinking some newline in the ClientHello is a command.\n\nAren\u0027t tickets a bit of a problem then? (I guess we only accept them from validated connections though.)\n\nI think the argument that I can buy is that public names won\u0027t be validated in the normal course of things but matter when you need to switch off ECH, which is probably a bad day for you already. When doing so you don\u0027t want to find that your public name was set to \"???\\n\" or something and you never noticed because it never mattered before.\n\nSo I can see an argument for wanting to guide the ecosystem a little. But the full IP-address parsing is quite a lot? On the other hand, I do bang on about the importance of major implementations being strict in order to guide the ecosystem.",
+      "parentUuid": "74fd6d19_d1c0fa7c",
+      "range": {
+        "startLine": 10,
+        "startChar": 53,
+        "endLine": 11,
+        "endChar": 62
+      },
+      "revId": "1c2f8d62e85fc339b5d093b13bbbbcbb695606e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "a50709ce_fc87fef1",
         "filename": "/COMMIT_MSG",
         "patchSetId": 4

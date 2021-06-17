@@ -16,6 +16,24 @@
       "message": "Thoughts? I\u0027ve implemented it, since it\u0027s just code, but it\u0027s pretty awful. :-)",
       "revId": "c5c3f55a34b3340e8f6b7825aef74086b540bf76",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c55fa92_72fd38bb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-17T17:18:42Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e67df4e4_9f761966",
+      "revId": "c5c3f55a34b3340e8f6b7825aef74086b540bf76",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
