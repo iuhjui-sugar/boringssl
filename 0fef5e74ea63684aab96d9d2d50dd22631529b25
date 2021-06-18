@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30d66979_d4414e3b",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 792,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-18T23:45:57Z",
+      "side": 1,
+      "message": "This check isn\u0027t strictly necessary because, if we offer ECH, we\u0027ll drop any sessions from TLS 1.2 and below. That means that ssl-\u003esession (the ClientHelloInner\u0027s session) is TLS 1.3 and up, so the SSL_R_OLD_SESSION_VERSION_NOT_RETURNED will always fail.\n\nI changed this so all the related checks were closer together, but then I added this condition anyway because SSL_R_SERVER_ECHOED_INVALID_SESSION_ID is a bit more accurate for this situation than SSL_R_OLD_SESSION_VERSION_NOT_RETURNED.",
+      "range": {
+        "startLine": 792,
+        "startChar": 31,
+        "endLine": 792,
+        "endChar": 74
+      },
+      "revId": "0fef5e74ea63684aab96d9d2d50dd22631529b25",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

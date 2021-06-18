@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b318791_a081b3c7",
+        "filename": "ssl/ssl_x509.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-18T23:45:57Z",
+      "side": 1,
+      "message": "(X509_VERIFY_PARAM has separate APIs for DNS names and IP addresses, so we don\u0027t need to worry about the input getting misinterpreted here.)",
+      "revId": "23f8388fde16eef9d0fbd6fa411d19060b64cf1c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0a8b0a2_44bbcc3a",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 812,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-18T23:45:57Z",
+      "side": 1,
+      "message": "Confusingly, this retry config has nothing to do with the ECH retry config. (This one is because 0-RTT reject can change all the parameters, so we model it as the old connection failing and then you try to make a new connection.)",
+      "range": {
+        "startLine": 812,
+        "startChar": 13,
+        "endLine": 812,
+        "endChar": 25
+      },
+      "revId": "23f8388fde16eef9d0fbd6fa411d19060b64cf1c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
