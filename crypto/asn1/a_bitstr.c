@@ -65,64 +65,81 @@
 #include "../internal.h"
 
 
-int ASN1_BIT_STRING_set(ASN1_BIT_STRING *x, unsigned char *d, int len)
+int ASN1_BIT_STRING_set(ASN1_BIT_STRING *x, const unsigned char *d, int len)
 {
     return ASN1_STRING_set(x, d, len);
 }
 
+static int asn1_bit_string_length(const ASN1_BIT_STRING *str,
+                                  uint8_t *out_padding_bits) {
+    int len = str->length;
+    if (str->flags & ASN1_STRING_FLAG_BITS_LEFT) {
+        // If the string is already empty, it cannot have padding bits.
+        *out_padding_bits = len == 0 ? 0 : str->flags & 0x07;
+        return len;
+    }
+
+    // TODO(davidben): If we move this logic to |ASN1_BIT_STRING_set_bit|, can
+    // we remove this representation?
+    while (len > 0 && str->data[len - 1] == 0) {
+        len--;
+    }
+    if (len == 0) {
+        *out_padding_bits = 0;
+    } else {
+        uint8_t last = str->data[len - 1];
+        if (last & 0x01) {
+            *out_padding_bits = 0;
+        } else if (last & 0x02) {
+            *out_padding_bits = 1;
+        } else if (last & 0x04) {
+            *out_padding_bits = 2;
+        } else if (last & 0x08) {
+            *out_padding_bits = 3;
+        } else if (last & 0x10) {
+            *out_padding_bits = 4;
+        } else if (last & 0x20) {
+            *out_padding_bits = 5;
+        } else if (last & 0x40) {
+            *out_padding_bits = 6;
+        } else {
+            assert(last & 0x80);
+            *out_padding_bits = 7;
+        }
+    }
+    return len;
+}
+
+int ASN1_BIT_STRING_num_bytes(const ASN1_BIT_STRING *str, size_t *out) {
+    uint8_t padding_bits;
+    int len = asn1_bit_string_length(str, &padding_bits);
+    if (padding_bits != 0) {
+        return 0;
+    }
+    *out = len;
+    return 1;
+}
+
 int i2c_ASN1_BIT_STRING(const ASN1_BIT_STRING *a, unsigned char **pp)
 {
-    int ret, j, bits, len;
-    unsigned char *p, *d;
+    if (a == NULL) {
+        return 0;
+    }
 
-    if (a == NULL)
-        return (0);
+    uint8_t bits;
+    int len = asn1_bit_string_length(a, &bits);
+    int ret = 1 + len;
+    if (pp == NULL) {
+        return ret;
+    }
 
-    len = a->length;
-
+    uint8_t *p = *pp;
+    *(p++) = bits;
+    OPENSSL_memcpy(p, a->data, len);
     if (len > 0) {
-        if (a->flags & ASN1_STRING_FLAG_BITS_LEFT) {
-            bits = (int)a->flags & 0x07;
-        } else {
-            for (; len > 0; len--) {
-                if (a->data[len - 1])
-                    break;
-            }
-            j = a->data[len - 1];
-            if (j & 0x01)
-                bits = 0;
-            else if (j & 0x02)
-                bits = 1;
-            else if (j & 0x04)
-                bits = 2;
-            else if (j & 0x08)
-                bits = 3;
-            else if (j & 0x10)
-                bits = 4;
-            else if (j & 0x20)
-                bits = 5;
-            else if (j & 0x40)
-                bits = 6;
-            else if (j & 0x80)
-                bits = 7;
-            else
-                bits = 0;       /* should not happen */
-        }
-    } else
-        bits = 0;
-
-    ret = 1 + len;
-    if (pp == NULL)
-        return (ret);
-
-    p = *pp;
-
-    *(p++) = (unsigned char)bits;
-    d = a->data;
-    OPENSSL_memcpy(p, d, len);
+        p[len - 1] &= (0xff << bits);
+    }
     p += len;
-    if (len > 0)
-        p[-1] &= (0xff << bits);
     *pp = p;
     return (ret);
 }
@@ -250,22 +267,21 @@ int ASN1_BIT_STRING_get_bit(const ASN1_BIT_STRING *a, int n)
  * which is not specified in 'flags', 1 otherwise.
  * 'len' is the length of 'flags'.
  */
-int ASN1_BIT_STRING_check(const ASN1_BIT_STRING *a,
-                          unsigned char *flags, int flags_len)
-{
-    int i, ok;
-    /* Check if there is one bit set at all. */
-    if (!a || !a->data)
-        return 1;
+int ASN1_BIT_STRING_check(const ASN1_BIT_STRING *a, const unsigned char *flags,
+                          int flags_len) {
+  int i, ok;
+  /* Check if there is one bit set at all. */
+  if (!a || !a->data)
+    return 1;
 
-    /*
-     * Check each byte of the internal representation of the bit string.
-     */
-    ok = 1;
-    for (i = 0; i < a->length && ok; ++i) {
-        unsigned char mask = i < flags_len ? ~flags[i] : 0xff;
-        /* We are done if there is an unneeded bit set. */
-        ok = (a->data[i] & mask) == 0;
-    }
-    return ok;
+  /*
+   * Check each byte of the internal representation of the bit string.
+   */
+  ok = 1;
+  for (i = 0; i < a->length && ok; ++i) {
+    unsigned char mask = i < flags_len ? ~flags[i] : 0xff;
+    /* We are done if there is an unneeded bit set. */
+    ok = (a->data[i] & mask) == 0;
+  }
+  return ok;
 }
