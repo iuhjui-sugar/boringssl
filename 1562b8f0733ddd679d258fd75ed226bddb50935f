@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfe3879d_e86a7a54",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 1676,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-21T20:23:42Z",
+      "side": 1,
+      "message": "Having both localError and localErr is a little silly, though it matches childError and childErr below.",
+      "range": {
+        "startLine": 1676,
+        "startChar": 2,
+        "endLine": 1676,
+        "endChar": 23
+      },
+      "revId": "1562b8f0733ddd679d258fd75ed226bddb50935f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
