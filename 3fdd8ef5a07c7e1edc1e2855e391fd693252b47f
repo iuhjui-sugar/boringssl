@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46de733f_d0b5a542",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 842,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-21T17:51:10Z",
+      "side": 1,
+      "message": "The \"_lock\" is communicating that the function is called with a lock held, yes? If so, I think \"_locked\" is a more common suffix for that.\n\nLater: I see that _lock is already used above. I think a function called \"remove_session_lock\" removes a session lock and is very different from \"remove_session_locked\"!",
+      "revId": "3fdd8ef5a07c7e1edc1e2855e391fd693252b47f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2083f87a_6a7fdaf7",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 852,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-21T17:51:10Z",
+      "side": 1,
+      "message": "Isn\u0027t a release() superfluous if the next line is a reset()?",
+      "revId": "3fdd8ef5a07c7e1edc1e2855e391fd693252b47f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b05a9fc_25c31f40",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 899,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-21T17:51:10Z",
+      "side": 1,
+      "message": "I think |SSL_CTX_flush_sessions| is badly named because a \"flush\" suggests removing all sessions. Your call, but ponder calling this flag \"remove_expired_sessions\".",
+      "revId": "3fdd8ef5a07c7e1edc1e2855e391fd693252b47f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
