@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "378b07f0_dd3f542b",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1555,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-21T20:22:02Z",
+      "side": 1,
+      "message": "Ah yeah that is very confusing. This is an issue with the existing doExchange() flow, but it has gotten quite far over time. Stuck a commit at the bottom to clean this up in https://boringssl-review.googlesource.com/c/boringssl/+/48186/. Does that look better?",
+      "parentUuid": "d52181c5_80018188",
+      "revId": "b23b3d8bc6f6442b90098aa08ef60c8dbd1fbc2e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f6330f7e_83e86d4e",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 1
@@ -31,6 +49,24 @@
       "writtenOn": "2021-06-21T16:44:24Z",
       "side": 1,
       "message": "(ditto.)",
+      "revId": "b23b3d8bc6f6442b90098aa08ef60c8dbd1fbc2e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f81ef6a0_704814b6",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1567,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-21T20:22:02Z",
+      "side": 1,
+      "message": "(See above)",
+      "parentUuid": "f6330f7e_83e86d4e",
       "revId": "b23b3d8bc6f6442b90098aa08ef60c8dbd1fbc2e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
