@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9afb06e_d1a96fc2",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 842,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-21T20:23:54Z",
+      "side": 1,
+      "message": "Renamed to add_session_locked and, for now, renamed remove_session_lock to plain remove_session, since it\u0027s sometimes locked and sometimes not. I think there\u0027s a bit more work to do here[*], but I\u0027m getting a little deep down this rabbithole. :-)\n\n[*] timeout_doall_arg should just call remove_session, remove_session shouldn\u0027t call user code under a lock, it\u0027s silly that add_session_locked\u0027s call to remove_session does two lookups into the hash table, and lh_doall\u0027s re-entrancy story is... slightly questionable.",
+      "parentUuid": "46de733f_d0b5a542",
+      "revId": "3fdd8ef5a07c7e1edc1e2855e391fd693252b47f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2083f87a_6a7fdaf7",
@@ -35,6 +53,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "099127a5_160c04e1",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 852,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-21T20:23:54Z",
+      "side": 1,
+      "message": "release() is so we \"leak\" the value owned by session, since lh_SSL_SESSION_insert took ownership.",
+      "parentUuid": "2083f87a_6a7fdaf7",
+      "revId": "3fdd8ef5a07c7e1edc1e2855e391fd693252b47f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4b05a9fc_25c31f40",
@@ -48,6 +84,24 @@
       "writtenOn": "2021-06-21T17:51:10Z",
       "side": 1,
       "message": "I think |SSL_CTX_flush_sessions| is badly named because a \"flush\" suggests removing all sessions. Your call, but ponder calling this flag \"remove_expired_sessions\".",
+      "revId": "3fdd8ef5a07c7e1edc1e2855e391fd693252b47f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a5027a04_006d0bff",
+        "filename": "ssl/ssl_session.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 899,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-21T20:23:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b05a9fc_25c31f40",
       "revId": "3fdd8ef5a07c7e1edc1e2855e391fd693252b47f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
