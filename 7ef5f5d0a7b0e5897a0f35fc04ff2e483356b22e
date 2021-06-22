@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "ee014058_a1dec408",
+        "filename": "crypto/asn1/a_bitstr.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-22T23:03:11Z",
+      "side": 1,
+      "message": "\u003e I\u0027m assuming that the answer is \"because that\u0027s what OpenSSL does\"\n\nIs it ever not? :-)\n\n\u003e but it\u0027s a little weird\n\nAgreed. It\u0027s \"fine\" because every time one is constructed from c2i_ASN1_BIT_STRING, it\u0027ll have that flag. But if you ASN1_BIT_STRING_new() and ASN1_(BIT_)STRING_set, we\u0027ll happily drop the trailing zeros silently. If you\u0027re trying to construct a keyUsage string, I suppose that\u0027s the right behavior. Otherwise, not so much.\n\nWe may have a path out of this if we make ASN1_BIT_STRING_set_bit(), at set time, update the saved flags \u0026 7, unlike today where it just clears the ASN1_STRING_FLAG_BITS_LEFT and relies on i2c_ASN1_BIT_STRING() to trim it down. But I don\u0027t know if there\u0027s other code relying on the behavior of this flag when constructing BIT STRINGs.",
+      "parentUuid": "dfb04d2e_91c95e45",
+      "revId": "7ef5f5d0a7b0e5897a0f35fc04ff2e483356b22e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "0b3555f7_2ee4b5e6",
         "filename": "crypto/asn1/a_bitstr.c",
         "patchSetId": 4
@@ -31,6 +49,24 @@
       "writtenOn": "2021-06-22T22:13:01Z",
       "side": 1,
       "message": "Your call. Could be:\n\nwhile ((last \u0026 0x01) \u003d\u003d 0) {\n  *out_padding_bits++;\n  last \u003e\u003e\u003d 1;\n}",
+      "revId": "7ef5f5d0a7b0e5897a0f35fc04ff2e483356b22e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cd27caf_f39cfa96",
+        "filename": "crypto/asn1/a_bitstr.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-22T23:03:11Z",
+      "side": 1,
+      "message": "Ah yeah a loop is better. Though I\u0027ve rewritten it slightly just so it slightly more obviously doesn\u0027t infinite loop. :-)",
+      "parentUuid": "0b3555f7_2ee4b5e6",
       "revId": "7ef5f5d0a7b0e5897a0f35fc04ff2e483356b22e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -48,6 +84,30 @@
       "writtenOn": "2021-06-22T22:13:01Z",
       "side": 1,
       "message": "restriction",
+      "range": {
+        "startLine": 316,
+        "startChar": 25,
+        "endLine": 316,
+        "endChar": 36
+      },
+      "revId": "7ef5f5d0a7b0e5897a0f35fc04ff2e483356b22e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41e7a259_89fc6026",
+        "filename": "include/openssl/asn1.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-22T23:03:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2df93b4f_fe97b07b",
       "range": {
         "startLine": 316,
         "startChar": 25,
