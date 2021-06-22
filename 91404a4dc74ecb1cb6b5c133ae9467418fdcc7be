@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b84c397_572e5b88",
+        "filename": "crypto/x509/a_verify.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-22T16:37:36Z",
+      "side": 1,
+      "message": "Preserved for now. Unfortunately, this function is called externally in places, though I think we should probably take a pass and make every function that takes, say, ASN1_BIT_STRING typedef just return an error when the string\u0027s runtime type doesn\u0027t match the typedef name.",
+      "revId": "91404a4dc74ecb1cb6b5c133ae9467418fdcc7be",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
