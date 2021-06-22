@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfb04d2e_91c95e45",
+        "filename": "crypto/asn1/a_bitstr.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-22T22:13:01Z",
+      "side": 1,
+      "message": "I\u0027m assuming that the answer is \"because that\u0027s what OpenSSL does\", but it\u0027s a little weird that this function trims trailing zero bytes _unless_ ASN1_STRING_FLAG_BITS_LEFT is set.",
+      "revId": "7ef5f5d0a7b0e5897a0f35fc04ff2e483356b22e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b3555f7_2ee4b5e6",
+        "filename": "crypto/asn1/a_bitstr.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-22T22:13:01Z",
+      "side": 1,
+      "message": "Your call. Could be:\n\nwhile ((last \u0026 0x01) \u003d\u003d 0) {\n  *out_padding_bits++;\n  last \u003e\u003e\u003d 1;\n}",
+      "revId": "7ef5f5d0a7b0e5897a0f35fc04ff2e483356b22e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2df93b4f_fe97b07b",
+        "filename": "include/openssl/asn1.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-06-22T22:13:01Z",
+      "side": 1,
+      "message": "restriction",
+      "range": {
+        "startLine": 316,
+        "startChar": 25,
+        "endLine": 316,
+        "endChar": 36
+      },
+      "revId": "7ef5f5d0a7b0e5897a0f35fc04ff2e483356b22e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
