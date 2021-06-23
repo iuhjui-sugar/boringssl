@@ -1636,6 +1636,7 @@ func runTest(statusChan chan statusMsg, test *testCase, shimPath string, mallocN
 	if err != nil {
 		return err
 	}
+	statusChan <- statusMsg{test: test, statusType: statusShimStarted, pid: shim.cmd.Process.Pid}
 	defer shim.close()
 
 	localErr := doExchanges(test, shim, resumeCount, &transcripts)
@@ -13277,7 +13278,7 @@ func addTLS13HandshakeTests() {
 
 	testCases = append(testCases, testCase{
 		testType: serverTest,
-		name:     "ShortSessionID-TLS13",
+		name:     "Server-ShortSessionID-TLS13",
 		config: Config{
 			MaxVersion: VersionTLS13,
 			Bugs: ProtocolBugs{
@@ -13288,13 +13289,68 @@ func addTLS13HandshakeTests() {
 
 	testCases = append(testCases, testCase{
 		testType: serverTest,
-		name:     "FullSessionID-TLS13",
+		name:     "Server-FullSessionID-TLS13",
 		config: Config{
 			MaxVersion: VersionTLS13,
 			Bugs: ProtocolBugs{
 				SendClientHelloSessionID: make([]byte, 32),
 			},
 		},
+	})
+
+	// The server should reject ClientHellos whose session IDs are too long.
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "Server-TooLongSessionID-TLS13",
+		config: Config{
+			MaxVersion: VersionTLS13,
+			Bugs: ProtocolBugs{
+				SendClientHelloSessionID: make([]byte, 33),
+			},
+		},
+		shouldFail:         true,
+		expectedError:      ":DECODE_ERROR:",
+		expectedLocalError: "remote error: error decoding message",
+	})
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "Server-TooLongSessionID-TLS12",
+		config: Config{
+			MaxVersion: VersionTLS12,
+			Bugs: ProtocolBugs{
+				SendClientHelloSessionID: make([]byte, 33),
+			},
+		},
+		shouldFail:         true,
+		expectedError:      ":DECODE_ERROR:",
+		expectedLocalError: "remote error: error decoding message",
+	})
+
+	// Test that server session IDs up to 32 are allowed, but beyond 32, they
+	// are rejected.
+	testCases = append(testCases, testCase{
+		name: "Client-ShortSessionID",
+		config: Config{
+			MaxVersion:             VersionTLS12,
+			SessionTicketsDisabled: true,
+			Bugs: ProtocolBugs{
+				NewSessionIDLength: 1,
+			},
+		},
+		resumeSession: true,
+	})
+	testCases = append(testCases, testCase{
+		name: "Client-TooLongSessionID",
+		config: Config{
+			MaxVersion:             VersionTLS12,
+			SessionTicketsDisabled: true,
+			Bugs: ProtocolBugs{
+				NewSessionIDLength: 33,
+			},
+		},
+		shouldFail:         true,
+		expectedError:      ":DECODE_ERROR:",
+		expectedLocalError: "remote error: error decoding message",
 	})
 
 	// Test that the client sends a fake session ID in TLS 1.3. We cover both
