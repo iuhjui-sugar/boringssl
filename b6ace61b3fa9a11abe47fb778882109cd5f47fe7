@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b97c2dde_53eee700",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 3562,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-23T18:47:49Z",
+      "side": 1,
+      "message": "Yeah, it\u0027s to make the GREASE handshakes and ClientHelloOuter handshakes look the same. And I guess in protocols like QUIC, if we omit ALPN, the outer handshake won\u0027t complete on fallback. We don\u0027t know a priori what settings are necessary for the application to complete an outer handshake and which the caller considers sensitive.\n\n(Whether all this is the right trade-off, I dunno. This extension in general is... surprisingly fussy.)",
+      "parentUuid": "f5d1f21c_eac7076a",
+      "range": {
+        "startLine": 3561,
+        "startChar": 65,
+        "endLine": 3562,
+        "endChar": 7
+      },
+      "revId": "b6ace61b3fa9a11abe47fb778882109cd5f47fe7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eefaf5f6_a7fafdde",
@@ -47,6 +71,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9b19707_976bb0ba",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 13
+      },
+      "lineNbr": 3590,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-23T18:47:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eefaf5f6_a7fafdde",
+      "range": {
+        "startLine": 3590,
+        "startChar": 25,
+        "endLine": 3590,
+        "endChar": 44
+      },
+      "revId": "b6ace61b3fa9a11abe47fb778882109cd5f47fe7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3ab6a433_e7d6608b",
@@ -60,6 +108,30 @@
       "writtenOn": "2021-06-23T18:08:13Z",
       "side": 1,
       "message": "offering",
+      "range": {
+        "startLine": 1001,
+        "startChar": 37,
+        "endLine": 1001,
+        "endChar": 42
+      },
+      "revId": "b6ace61b3fa9a11abe47fb778882109cd5f47fe7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d627a7e1_b319d6b5",
+        "filename": "ssl/encrypted_client_hello.cc",
+        "patchSetId": 13
+      },
+      "lineNbr": 1001,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-23T18:47:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ab6a433_e7d6608b",
       "range": {
         "startLine": 1001,
         "startChar": 37,
