@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66f952f0_5e08489f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-24T17:35:07Z",
+      "side": 1,
+      "message": "(Tweaked slightly to hopefully unbreak fuzzer mode.)",
+      "revId": "89d5d96098c5cedba75d2ba6d58d11803932add7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
