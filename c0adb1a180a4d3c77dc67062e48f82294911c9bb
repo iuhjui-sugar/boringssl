@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da0281a4_ddff9af5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-25T21:17:35Z",
+      "side": 1,
+      "message": "Oh, sorry. Gerrit is a little fun and turns every commit into a separate review. It\u0027s very flexible if you like to use Git, but surprising otherwise. You\u0027ll want to squash your fix into your parent commit and preserve the \"Change-Id\" line.\n\nIf you\u0027re not very familiar with Git, one way to do this is:\n\n  git reset HEAD^       # Keep working tree the same but rewind to the old commit\n  git commit -a --amend # Amend the changes instead",
+      "revId": "c0adb1a180a4d3c77dc67062e48f82294911c9bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
