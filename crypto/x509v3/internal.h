@@ -58,7 +58,7 @@ int x509v3_cache_extensions(X509 *x);
 // it decodes an IPv4 address, it writes the result to the first four bytes of
 // |ipout| and returns four. If it decodes an IPv6 address, it writes the result
 // to all 16 bytes of |ipout| and returns 16. Otherwise, it returns zero.
-int x509v3_a2i_ipadd(unsigned char ipout[16], const char *ipasc);
+int x509v3_a2i_ipadd(unsigned char *ipout, const char *ipasc);
 
 
 #if defined(__cplusplus)
