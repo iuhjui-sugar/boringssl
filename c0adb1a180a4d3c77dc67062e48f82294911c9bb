@@ -34,6 +34,24 @@
       "parentUuid": "da0281a4_ddff9af5",
       "revId": "c0adb1a180a4d3c77dc67062e48f82294911c9bb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29c1b0f8_23957ed0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-25T21:51:29Z",
+      "side": 1,
+      "message": "No worries. I think everyone runs into this when they first use Gerrit. :-)",
+      "parentUuid": "ed46c58d_b2940c0f",
+      "revId": "c0adb1a180a4d3c77dc67062e48f82294911c9bb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
