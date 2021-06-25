@@ -34,6 +34,24 @@
       "parentUuid": "97f08e20_c5acf4e1",
       "revId": "7b71e4cec94df72d26426cf4dcc09532061c94e0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e9d14f3_60632cd6",
+        "filename": "crypto/x509v3/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-25T21:53:24Z",
+      "side": 1,
+      "message": "Thanks!\n\nOur tooling links commit messages to their bug numbers with a \"Bug: 419\" line. Also we usually do the Git thing where the first line is a summary and the remaining lines are a longer description. But I\u0027ll go ahead and fix that to save some round-trips.",
+      "parentUuid": "e6f7b111_f9ddcbe7",
+      "revId": "7b71e4cec94df72d26426cf4dcc09532061c94e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
