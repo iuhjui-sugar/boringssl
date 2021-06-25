@@ -16,6 +16,24 @@
       "message": "Thanks! Though I\u0027d actually suggest we fix the function rather than the prototype. (For extra fun, we can even decorate ipv6_from_asc with [16] and ipv4_from_asc with [4].) The contract of the API is that the caller must provide at least 16 bytes, otherwise we\u0027ll write out of bytes, so writing it down seems useful. Even if only very new GCCs actually notice this right now.",
       "revId": "7b71e4cec94df72d26426cf4dcc09532061c94e0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6f7b111_f9ddcbe7",
+        "filename": "crypto/x509v3/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 12826
+      },
+      "writtenOn": "2021-06-25T21:37:22Z",
+      "side": 1,
+      "message": "I changed the signatures as suggested.",
+      "parentUuid": "97f08e20_c5acf4e1",
+      "revId": "7b71e4cec94df72d26426cf4dcc09532061c94e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
