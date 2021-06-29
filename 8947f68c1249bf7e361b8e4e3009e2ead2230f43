@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1b6be77_4ef58c13",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-06-29T14:23:16Z",
+      "side": 1,
+      "message": "Oops. More reason to get Go tests running in CI I guess.",
+      "revId": "8947f68c1249bf7e361b8e4e3009e2ead2230f43",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
