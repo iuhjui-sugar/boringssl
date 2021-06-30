@@ -898,13 +898,12 @@ static bool SpeedHRSS(const std::string &selected) {
   TimeResults results;
 
   if (!TimeFunction(&results, []() -> bool {
-    struct HRSS_public_key pub;
-    struct HRSS_private_key priv;
-    uint8_t entropy[HRSS_GENERATE_KEY_BYTES];
-    RAND_bytes(entropy, sizeof(entropy));
-    HRSS_generate_key(&pub, &priv, entropy);
-    return true;
-  })) {
+        struct HRSS_public_key pub;
+        struct HRSS_private_key priv;
+        uint8_t entropy[HRSS_GENERATE_KEY_BYTES];
+        RAND_bytes(entropy, sizeof(entropy));
+        return HRSS_generate_key(&pub, &priv, entropy);
+      })) {
     fprintf(stderr, "Failed to time HRSS_generate_key.\n");
     return false;
   }
@@ -915,16 +914,17 @@ static bool SpeedHRSS(const std::string &selected) {
   struct HRSS_private_key priv;
   uint8_t key_entropy[HRSS_GENERATE_KEY_BYTES];
   RAND_bytes(key_entropy, sizeof(key_entropy));
-  HRSS_generate_key(&pub, &priv, key_entropy);
+  if (!HRSS_generate_key(&pub, &priv, key_entropy)) {
+    return false;
+  }
 
   uint8_t ciphertext[HRSS_CIPHERTEXT_BYTES];
   if (!TimeFunction(&results, [&pub, &ciphertext]() -> bool {
-    uint8_t entropy[HRSS_ENCAP_BYTES];
-    uint8_t shared_key[HRSS_KEY_BYTES];
-    RAND_bytes(entropy, sizeof(entropy));
-    HRSS_encap(ciphertext, shared_key, &pub, entropy);
-    return true;
-  })) {
+        uint8_t entropy[HRSS_ENCAP_BYTES];
+        uint8_t shared_key[HRSS_KEY_BYTES];
+        RAND_bytes(entropy, sizeof(entropy));
+        return HRSS_encap(ciphertext, shared_key, &pub, entropy);
+      })) {
     fprintf(stderr, "Failed to time HRSS_encap.\n");
     return false;
   }
@@ -932,10 +932,10 @@ static bool SpeedHRSS(const std::string &selected) {
   results.Print("HRSS encap");
 
   if (!TimeFunction(&results, [&priv, &ciphertext]() -> bool {
-    uint8_t shared_key[HRSS_KEY_BYTES];
-    HRSS_decap(shared_key, &priv, ciphertext, sizeof(ciphertext));
-    return true;
-  })) {
+        uint8_t shared_key[HRSS_KEY_BYTES];
+        return HRSS_decap(shared_key, &priv, ciphertext, sizeof(ciphertext));
+        return true;
+      })) {
     fprintf(stderr, "Failed to time HRSS_encap.\n");
     return false;
   }
