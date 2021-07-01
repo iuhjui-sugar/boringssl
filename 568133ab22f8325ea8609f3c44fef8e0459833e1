@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56f10d94_1226d827",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-07-01T21:33:16Z",
+      "side": 1,
+      "message": "Oops! That was an oversight, or I\u0027d have called it out. No objections to just putting the check back in OPENSSL_strhash if that ends up easier. Though I guess keeping the checks out of low-level functions is on brand for us.",
+      "range": {
+        "startLine": 9,
+        "startChar": 47,
+        "endLine": 9,
+        "endChar": 55
+      },
+      "revId": "568133ab22f8325ea8609f3c44fef8e0459833e1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40ae7c0e_48186b2c",
+        "filename": "crypto/conf/conf_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-07-01T21:33:16Z",
+      "side": 1,
+      "message": "Looks like we need to OPENSSL_EXPORT all the conf.h functions.",
+      "range": {
+        "startLine": 40,
+        "startChar": 15,
+        "endLine": 40,
+        "endChar": 32
+      },
+      "revId": "568133ab22f8325ea8609f3c44fef8e0459833e1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
