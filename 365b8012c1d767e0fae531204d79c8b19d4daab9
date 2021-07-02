@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fad66f13_4e235c1b",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1528,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-07-02T16:36:22Z",
+      "side": 1,
+      "message": "What if |loc| is positive, but out of bounds?",
+      "revId": "365b8012c1d767e0fae531204d79c8b19d4daab9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5225eee4_5ff6d762",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1564,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-07-02T16:36:22Z",
+      "side": 1,
+      "message": "(ditto.)",
+      "revId": "365b8012c1d767e0fae531204d79c8b19d4daab9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b26e0a7_b8dadff5",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1617,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-07-02T16:36:22Z",
+      "side": 1,
+      "message": "(ditto, and below.)",
+      "revId": "365b8012c1d767e0fae531204d79c8b19d4daab9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
