@@ -69,6 +69,30 @@
       },
       "revId": "568133ab22f8325ea8609f3c44fef8e0459833e1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "94b90b86_63c143ef",
+        "filename": "crypto/conf/conf_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-07-02T18:49:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40ae7c0e_48186b2c",
+      "range": {
+        "startLine": 40,
+        "startChar": 15,
+        "endLine": 40,
+        "endChar": 32
+      },
+      "revId": "568133ab22f8325ea8609f3c44fef8e0459833e1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
