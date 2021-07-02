@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7be11a8d_855e33f9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-07-02T16:45:21Z",
+      "side": 1,
+      "message": "Yes, this is weird and it seems best to contain it within CONF.",
+      "parentUuid": "56f10d94_1226d827",
+      "range": {
+        "startLine": 9,
+        "startChar": 47,
+        "endLine": 9,
+        "endChar": 55
+      },
+      "revId": "568133ab22f8325ea8609f3c44fef8e0459833e1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "40ae7c0e_48186b2c",
