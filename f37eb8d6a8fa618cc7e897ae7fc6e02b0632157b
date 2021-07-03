@@ -33,6 +33,23 @@
       "message": "tx79",
       "revId": "f37eb8d6a8fa618cc7e897ae7fc6e02b0632157b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82e6a37b_6c5c77b9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12866
+      },
+      "writtenOn": "2021-07-03T20:04:51Z",
+      "side": 1,
+      "message": "40744: Include mem.h for |CRYPTO_memcmp| | https://boringssl-review.googlesource.com/c/boringssl/+/40744",
+      "revId": "f37eb8d6a8fa618cc7e897ae7fc6e02b0632157b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
