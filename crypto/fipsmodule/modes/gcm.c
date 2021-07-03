@@ -152,6 +152,13 @@ void CRYPTO_ghash_init(gmult_func *out_mult, ghash_func *out_hash,
   OPENSSL_memcpy(out_key, H.c, 16);
 
 #if defined(GHASH_ASM_X86_64)
+  if (crypto_gcm_avx512_enabled()) {
+    gcm_init_avx512(out_table, H.u);
+    *out_mult = gcm_gmult_avx512;
+    *out_hash = gcm_ghash_avx512;
+    *out_is_avx = 3;
+    return;
+  }
   if (crypto_gcm_clmul_enabled()) {
     if (((OPENSSL_ia32cap_get()[1] >> 22) & 0x41) == 0x41) {  // AVX+MOVBE
       gcm_init_avx(out_table, H.u);
@@ -226,6 +233,7 @@ void CRYPTO_gcm128_init_key(GCM128_KEY *gcm_key, const AES_KEY *aes_key,
                     gcm_key->Htable, &is_avx, ghash_key);
 
   gcm_key->use_aesni_gcm_crypt = (is_avx && block_is_hwaes) ? 1 : 0;
+  gcm_key->use_aes_gcm_crypt_avx512 = ((is_avx > 2) && block_is_hwaes) ? 1 : 0;
 }
 
 void CRYPTO_gcm128_setiv(GCM128_CONTEXT *ctx, const AES_KEY *key,
@@ -243,6 +251,13 @@ void CRYPTO_gcm128_setiv(GCM128_CONTEXT *ctx, const AES_KEY *key,
   ctx->len.u[1] = 0;  // message length
   ctx->ares = 0;
   ctx->mres = 0;
+
+#if defined(AESNI_GCM)
+  if (ctx->gcm_key.use_aes_gcm_crypt_avx512) {
+    gcm_setiv_avx512(key, ctx, iv, len);
+    return;
+  }
+#endif
 
   uint32_t ctr;
   if (len == 12) {
@@ -537,6 +552,13 @@ int CRYPTO_gcm128_encrypt_ctr32(GCM128_CONTEXT *ctx, const AES_KEY *key,
     ctx->ares = 0;
   }
 
+#if defined(AESNI_GCM)
+  if (ctx->gcm_key.use_aes_gcm_crypt_avx512 && len > 0) {
+    aes_gcm_encrypt_avx512(key, ctx, &ctx->mres, in, len, out);
+    return 1;
+  }
+#endif
+
   unsigned n = ctx->mres;
   if (n) {
     while (n && len) {
@@ -622,6 +644,13 @@ int CRYPTO_gcm128_decrypt_ctr32(GCM128_CONTEXT *ctx, const AES_KEY *key,
     GCM_MUL(ctx, Xi);
     ctx->ares = 0;
   }
+
+#if defined(AESNI_GCM)
+  if (ctx->gcm_key.use_aes_gcm_crypt_avx512 && len > 0) {
+    aes_gcm_decrypt_avx512(key, ctx, &ctx->mres, in, len, out);
+    return 1;
+  }
+#endif
 
   unsigned n = ctx->mres;
   if (n) {
@@ -726,6 +755,17 @@ int crypto_gcm_clmul_enabled(void) {
   const uint32_t *ia32cap = OPENSSL_ia32cap_get();
   return (ia32cap[0] & (1 << 24)) &&  // check FXSR bit
          (ia32cap[1] & (1 << 1));     // check PCLMULQDQ bit
+#else
+  return 0;
+#endif
+}
+
+int crypto_gcm_avx512_enabled(void) {
+#if defined(GHASH_ASM_X86_64)
+  const uint32_t *ia32cap = OPENSSL_ia32cap_get();
+  return (ia32cap[2] & (1u << 16)) &&         // check AVX512F bit
+         (ia32cap[3] & (1u << (41 - 32))) &&  // check VAES bit
+         (ia32cap[3] & (1u << (42 - 32)));    // check VPCLMULQDQ bit
 #else
   return 0;
 #endif
