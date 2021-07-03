@@ -191,6 +191,7 @@ extern unsigned long OPENSSL_ppc64le_hwcap2;
 //   3: aes_hw_set_encrypt_key
 //   4: vpaes_encrypt
 //   5: vpaes_set_encrypt_key
+//   6: aes_gcm_encrypt_avx512
 extern uint8_t BORINGSSL_function_hit[7];
 #endif  // BORINGSSL_DISPATCH_TEST
 

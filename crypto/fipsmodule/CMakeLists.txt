@@ -4,6 +4,7 @@ if(ARCH STREQUAL "x86_64")
   set(
     BCM_ASM_SOURCES
 
+    aes-gcm-avx512.${ASM_EXT}
     aesni-gcm-x86_64.${ASM_EXT}
     aesni-x86_64.${ASM_EXT}
     ghash-ssse3-x86_64.${ASM_EXT}
@@ -81,6 +82,7 @@ if(ARCH STREQUAL "ppc64le")
 endif()
 
 perlasm(aesni-gcm-x86_64.${ASM_EXT} modes/asm/aesni-gcm-x86_64.pl)
+perlasm(aes-gcm-avx512.${ASM_EXT} modes/asm/aes-gcm-avx512.pl)
 perlasm(aesni-x86_64.${ASM_EXT} aes/asm/aesni-x86_64.pl)
 perlasm(aesni-x86.${ASM_EXT} aes/asm/aesni-x86.pl)
 perlasm(aesp8-ppc.${ASM_EXT} aes/asm/aesp8-ppc.pl)
