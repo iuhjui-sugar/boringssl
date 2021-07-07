@@ -36,6 +36,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ab2ec0d_e66ff5b2",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1528,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-07-07T16:35:45Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fa8f3487_2da24c9d",
+      "revId": "365b8012c1d767e0fae531204d79c8b19d4daab9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5225eee4_5ff6d762",
