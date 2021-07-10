@@ -20,7 +20,8 @@
 
 #include "internal.h"
 
-#if defined(OPENSSL_URANDOM)
+// Trusty provides its own urandom-like interface
+#if defined(OPENSSL_URANDOM) && !defined(OPENSSL_TRUSTY)
 
 #include <assert.h>
 #include <errno.h>
