@@ -108,6 +108,8 @@
 
 #if defined(BORINGSSL_FIPS)
 
+#if !defined(OPENSSL_TRUSTY)
+
 #if !defined(OPENSSL_ASAN)
 
 // These symbols are filled in by delocate.go (in static builds) or a linker
@@ -255,6 +257,8 @@ BORINGSSL_bcm_power_on_self_test(void) {
 err:
   BORINGSSL_FIPS_abort();
 }
+
+#endif  // OPENSSL_TRUSTY
 
 void BORINGSSL_FIPS_abort(void) {
   for (;;) {

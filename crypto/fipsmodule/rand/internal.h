@@ -65,7 +65,7 @@ void RAND_need_entropy(size_t bytes_needed);
 // system.
 void CRYPTO_sysrand(uint8_t *buf, size_t len);
 
-#if defined(OPENSSL_URANDOM)
+#if defined(OPENSSL_URANDOM) || defined(OPENSSL_TRUSTY)
 // CRYPTO_init_sysrand initializes long-lived resources needed to draw entropy
 // from the operating system.
 void CRYPTO_init_sysrand(void);
