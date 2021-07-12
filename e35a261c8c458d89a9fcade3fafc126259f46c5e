@@ -72,6 +72,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "34a9e758_2c58eed4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 11882
+      },
+      "writtenOn": "2021-07-12T23:18:53Z",
+      "side": 1,
+      "message": "Sure, is there a particular place to best do that?",
+      "parentUuid": "133fb718_988415af",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 70
+      },
+      "revId": "e35a261c8c458d89a9fcade3fafc126259f46c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "ff53415d_d8581668",
@@ -102,6 +126,24 @@
       "writtenOn": "2021-07-12T22:45:40Z",
       "side": 1,
       "message": "nit: list the OSes together and keep DETERMINISTIC_MODE at the end.",
+      "revId": "e35a261c8c458d89a9fcade3fafc126259f46c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "011a328f_cf3e7b0b",
+        "filename": "crypto/fipsmodule/rand/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 11882
+      },
+      "writtenOn": "2021-07-12T23:18:53Z",
+      "side": 1,
+      "message": "Reverted this bit back to the original.",
+      "parentUuid": "a1ff23fb_f679cacc",
       "revId": "e35a261c8c458d89a9fcade3fafc126259f46c5e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -137,6 +179,24 @@
       "side": 1,
       "message": "We want OPENSSL_URANDOM to be defined for Trusty, as we want separate CRYPTO_sysrand and CRYPTO_sysrand_for_seed APIs. Alternatively we can change how CRYPTO_sysrando_for_seed is guarded, I guess?",
       "parentUuid": "bb0f5a48_bb1bb731",
+      "revId": "e35a261c8c458d89a9fcade3fafc126259f46c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be46c977_5852d8df",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 11882
+      },
+      "writtenOn": "2021-07-12T23:18:53Z",
+      "side": 1,
+      "message": "Changed the guard for the declaration of CRYPTO_sysrand_for_seed instead.",
+      "parentUuid": "c4e7b96f_8f156140",
       "revId": "e35a261c8c458d89a9fcade3fafc126259f46c5e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
