@@ -48,6 +48,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "133fb718_988415af",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-07-12T23:10:02Z",
+      "side": 1,
+      "message": "These requirements need to be enumerated otherwise we\u0027ll (perhaps silently) break them in the future. CRYPTO_sysrand_for_seed, for example, is a complex accommodation for some Android vendors and might go away in the future.",
+      "parentUuid": "fc762995_718a6ca9",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 70
+      },
+      "revId": "e35a261c8c458d89a9fcade3fafc126259f46c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "ff53415d_d8581668",
