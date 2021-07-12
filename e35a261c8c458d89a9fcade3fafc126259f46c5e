@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d683f047_04749c3e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-07-12T22:45:40Z",
+      "side": 1,
+      "message": "But what does \"enabling\" FIPS mode mean without the self-tests? They are required as part of FIPS.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 70
+      },
+      "revId": "e35a261c8c458d89a9fcade3fafc126259f46c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1ff23fb_f679cacc",
+        "filename": "crypto/fipsmodule/rand/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-07-12T22:45:40Z",
+      "side": 1,
+      "message": "nit: list the OSes together and keep DETERMINISTIC_MODE at the end.",
+      "revId": "e35a261c8c458d89a9fcade3fafc126259f46c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb0f5a48_bb1bb731",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-07-12T22:45:40Z",
+      "side": 1,
+      "message": "The internal.h already stops OPENSSL_URANDOM being defined. Isn\u0027t that sufficient here?",
+      "revId": "e35a261c8c458d89a9fcade3fafc126259f46c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
