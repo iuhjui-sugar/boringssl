@@ -26,6 +26,47 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fc762995_718a6ca9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 11882
+      },
+      "writtenOn": "2021-07-12T23:04:41Z",
+      "side": 1,
+      "message": "It seems there\u0027s some changes that FIPS mode does which we probably want. I don\u0027t think we have the resources to do the POST for every process though.\n\nMost importantly, CRYPTO_sysrand_for_seed is only used in FIPS mode.",
+      "parentUuid": "d683f047_04749c3e",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 70
+      },
+      "revId": "e35a261c8c458d89a9fcade3fafc126259f46c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff53415d_d8581668",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 11882
+      },
+      "writtenOn": "2021-07-12T23:04:41Z",
+      "side": 1,
+      "message": "The primary intent here is to be able to separate seeding entropy from additional entropy pulled each time rand_bytes is called. Our hardware source of randomness is slow, if available, so we can\u0027t be gathering hardware entropy on every rand_bytes, but we do want to use it for seeding. Is there a better way to do this?",
+      "revId": "e35a261c8c458d89a9fcade3fafc126259f46c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a1ff23fb_f679cacc",
         "filename": "crypto/fipsmodule/rand/internal.h",
         "patchSetId": 1
@@ -54,6 +95,24 @@
       "writtenOn": "2021-07-12T22:45:40Z",
       "side": 1,
       "message": "The internal.h already stops OPENSSL_URANDOM being defined. Isn\u0027t that sufficient here?",
+      "revId": "e35a261c8c458d89a9fcade3fafc126259f46c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4e7b96f_8f156140",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 11882
+      },
+      "writtenOn": "2021-07-12T23:04:41Z",
+      "side": 1,
+      "message": "We want OPENSSL_URANDOM to be defined for Trusty, as we want separate CRYPTO_sysrand and CRYPTO_sysrand_for_seed APIs. Alternatively we can change how CRYPTO_sysrando_for_seed is guarded, I guess?",
+      "parentUuid": "bb0f5a48_bb1bb731",
       "revId": "e35a261c8c458d89a9fcade3fafc126259f46c5e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
