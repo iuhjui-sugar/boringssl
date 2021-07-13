@@ -120,6 +120,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5783c2f_949ea4d6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 11882
+      },
+      "writtenOn": "2021-07-13T01:13:33Z",
+      "side": 1,
+      "message": "I\u0027ve updated the commit message to be clearer about what the requirements are here. Eventually we probably do want to properly support FIPS mode, considering that Android builds with it enabled, but it isn\u0027t specifically a requirement on its own right now.",
+      "parentUuid": "d8aa2858_80da4c99",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 70
+      },
+      "revId": "e35a261c8c458d89a9fcade3fafc126259f46c5e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "ff53415d_d8581668",
