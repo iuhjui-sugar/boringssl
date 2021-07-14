@@ -45,6 +45,7 @@ static const Tool kTools[] = {
   { "ciphers", Ciphers },
   { "client", Client },
   { "isfips", IsFIPS },
+  { "generate-ech-files", GenerateECHFiles},
   { "generate-ed25519", GenerateEd25519Key },
   { "genrsa", GenerateRSAKey },
   { "md5sum", MD5Sum },
