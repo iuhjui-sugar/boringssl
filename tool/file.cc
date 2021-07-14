@@ -13,6 +13,7 @@
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. */
 
 #include <stdio.h>
+#include <string.h>
 
 #include <algorithm>
 #include <vector>
@@ -47,4 +48,19 @@ bool ReadAll(std::vector<uint8_t> *out, FILE *file) {
       out->resize(cap);
     }
   }
+}
+
+bool WriteToFile(const std::string &path, const uint8_t *in,
+                        size_t in_len) {
+  ScopedFILE file(fopen(path.c_str(), "wb"));
+  if (!file) {
+    fprintf(stderr, "Failed to open '%s': %s\n", path.c_str(), strerror(errno));
+    return false;
+  }
+  if (fwrite(in, in_len, 1, file.get()) != 1) {
+    fprintf(stderr, "Failed to write to '%s': %s\n", path.c_str(),
+            strerror(errno));
+    return false;
+  }
+  return true;
 }
