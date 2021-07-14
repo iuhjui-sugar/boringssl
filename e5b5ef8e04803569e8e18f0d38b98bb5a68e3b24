@@ -328,6 +328,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "55a008a5_0581d39d",
+        "filename": "crypto/hrss/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-07-14T21:20:45Z",
+      "side": 1,
+      "message": "Ah. Rust does [`Foo`] which seems tedious and overlaps with other syntax. I always figured we can also just parse out names from code samples. Any code that parses as a name may as well link to that name.\n\nAlso the pipes can get little awkward in more mathy code since they look like absolute value. :-)",
+      "parentUuid": "b303b967_23b22c33",
+      "range": {
+        "startLine": 59,
+        "startChar": 31,
+        "endLine": 59,
+        "endChar": 32
+      },
+      "revId": "e5b5ef8e04803569e8e18f0d38b98bb5a68e3b24",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3223b84b_7ff412d1",
@@ -365,6 +389,30 @@
       "side": 1,
       "message": "My worry is that \"success\" is ambiguous. Does it mean that malloc didn\u0027t fail (it does) or that the ciphertext was actually decoded? Have tried to expand on that.",
       "parentUuid": "3223b84b_7ff412d1",
+      "range": {
+        "startLine": 82,
+        "startChar": 28,
+        "endLine": 82,
+        "endChar": 79
+      },
+      "revId": "e5b5ef8e04803569e8e18f0d38b98bb5a68e3b24",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2506360_254389d7",
+        "filename": "include/openssl/hrss.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-07-14T21:20:45Z",
+      "side": 1,
+      "message": "Oh whoops, totally missed that. New version looks reasonable.\n\nIt is odd that we have so many different variations on this. In P-256, we just treat publicly invalid inputs as an error, and expect callers to handle this.\n\nX25519 is a complete function, but only after you\u0027ve ensured the input is 32 bytes. Callers usually report an error there. We do for TLS. Beyond that, X25519 is happy to mask off the high bit, accept non-canonical inputs, and do something useful with it. But it has an optional failure return for contributory behavior, which TLS checks but I think no longer requires in 1.3? (I forget.)\n\nAnd then this function takes a variable-length input, but \"accepts\" invalid ciphertexts, even to the point of invalid lengths, feeding the variable-length thing to the HMAC (but still injective). Except since TLS needs to divide up into an X25519 and HRSS half, we end up checking the length anyway and treating that as an error. Whereas a non-hybrid HRSS user might leave it to the function and do something else.\n\n*shrug* I suppose easiest is to leave it alone here. Hopefully whenever something is standardized here, we\u0027ll all agree on something. :-)",
+      "parentUuid": "85ce9f2c_7a5ba001",
       "range": {
         "startLine": 82,
         "startChar": 28,
