@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3eadb400_873b7cd9",
+        "filename": "tool/generate_ech_files.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-07-14T21:23:56Z",
+      "side": 1,
+      "message": "Need to think about this interface a little more. Currently, the only way you can generate an ECHConfigList with multiple ECHConfigs is by passing in comma-separated public names here.  Perhaps it only makes sense to include multiple ECHConfigs when your server can simultaneously support different ECH versions.",
+      "range": {
+        "startLine": 49,
+        "startChar": 8,
+        "endLine": 49,
+        "endChar": 24
+      },
+      "revId": "2b1ac3d7926beaf0a12822b117d467d031a8eec4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
