@@ -86,6 +86,24 @@
       "parentUuid": "004c92c3_a167234f",
       "revId": "bfc63dbd8d764a12ef56f0716580619efa872dae",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dacc7471_d15fc658",
+        "filename": "crypto/rand_extra/deterministic.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 11882
+      },
+      "writtenOn": "2021-07-15T18:56:22Z",
+      "side": 1,
+      "message": "I believe the problem is that the inline definition will override anything we try to link it against?",
+      "parentUuid": "25afd0dd_08abd0fd",
+      "revId": "bfc63dbd8d764a12ef56f0716580619efa872dae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
