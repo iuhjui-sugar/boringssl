@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d88ec92c_92f043b2",
+        "filename": "crypto/rand_extra/fuchsia.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-07-15T19:55:06Z",
+      "side": 1,
+      "message": "Nit: 2 spaces",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 4
+      },
+      "revId": "9b2b47974cf384eb34bba2889ad99a1ac1cf5494",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80e1d1d3_41d6f793",
+        "filename": "crypto/rand_extra/windows.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-07-15T19:55:06Z",
+      "side": 1,
+      "message": "Nit: 2 spaces",
+      "revId": "9b2b47974cf384eb34bba2889ad99a1ac1cf5494",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
