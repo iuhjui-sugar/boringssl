@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2893e150_37e0d09b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 11882
+      },
+      "writtenOn": "2021-07-15T17:39:48Z",
+      "side": 1,
+      "message": "Not sure if this needs to be stacked on top of the hrss change, but LGTM. This will do what we need for Trusty, thanks.",
+      "revId": "bfc63dbd8d764a12ef56f0716580619efa872dae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4319a95a_b900a857",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 11882
+      },
+      "writtenOn": "2021-07-15T17:39:48Z",
+      "side": 1,
+      "message": "Nit: did this need to move?",
+      "revId": "bfc63dbd8d764a12ef56f0716580619efa872dae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
