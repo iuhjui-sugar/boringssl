@@ -33,6 +33,23 @@
       "message": "Nit: did this need to move?",
       "revId": "bfc63dbd8d764a12ef56f0716580619efa872dae",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "004c92c3_a167234f",
+        "filename": "crypto/rand_extra/deterministic.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-07-15T18:17:51Z",
+      "side": 1,
+      "message": "rand/internal.h currently believes that only OPENSSL_URANDOM gets to define  CRYPTO_sysrand_if_available. We probably need to update that too.",
+      "revId": "bfc63dbd8d764a12ef56f0716580619efa872dae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
