@@ -140,6 +140,24 @@
       "parentUuid": "dacc7471_d15fc658",
       "revId": "bfc63dbd8d764a12ef56f0716580619efa872dae",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdd097e2_97b13340",
+        "filename": "crypto/rand_extra/deterministic.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-07-15T19:44:41Z",
+      "side": 1,
+      "message": "Oh, Trusty isn\u0027t defining OPENSSL_URANDOM. Sorry, I saw it in the #if line but it\u0027s negated. Let me move this back.",
+      "parentUuid": "8bcffc08_785687f5",
+      "revId": "bfc63dbd8d764a12ef56f0716580619efa872dae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
