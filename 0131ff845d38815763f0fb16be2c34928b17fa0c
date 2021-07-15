@@ -22,6 +22,30 @@
       },
       "revId": "0131ff845d38815763f0fb16be2c34928b17fa0c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64ca394f_171f1b01",
+        "filename": "crypto/hrss/asm/poly_rq_mul.S",
+        "patchSetId": 5
+      },
+      "lineNbr": 4793,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2021-07-15T18:50:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3cf81617_bc84b876",
+      "range": {
+        "startLine": 4793,
+        "startChar": 5,
+        "endLine": 4793,
+        "endChar": 9
+      },
+      "revId": "0131ff845d38815763f0fb16be2c34928b17fa0c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }

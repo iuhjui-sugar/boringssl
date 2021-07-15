@@ -421,6 +421,30 @@
       },
       "revId": "e5b5ef8e04803569e8e18f0d38b98bb5a68e3b24",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8f76fc5_0669e925",
+        "filename": "include/openssl/hrss.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2021-07-15T18:50:17Z",
+      "side": 1,
+      "message": "The hope is always to write an maximally infallible function, I guess, and then reality chips away at it.",
+      "parentUuid": "a2506360_254389d7",
+      "range": {
+        "startLine": 82,
+        "startChar": 28,
+        "endLine": 82,
+        "endChar": 79
+      },
+      "revId": "e5b5ef8e04803569e8e18f0d38b98bb5a68e3b24",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
