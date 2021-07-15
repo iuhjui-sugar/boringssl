@@ -16,6 +16,23 @@
       "message": "Hi folks, took a stab at adding this tool.\n\nWDYT of the command-line interface? The description includes a tiny demo, but there are a couple more flags that it doesn\u0027t cover.",
       "revId": "afa8193ac56d6c76cfccc4d8f80740f29f956b69",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c06f267_5ddfbc6d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-07-15T20:31:11Z",
+      "side": 1,
+      "message": "Just looking at the description and glancing over things so far:\n\nWhen would someone setting up ECH need to provide multiple public names? A separate public name means a completely ECH deployment altogether. In that case, it seems you should just call the command multiple times.\n\nIt looks like the multiple public names are then combined into a single ECHConfigList, but that doesn\u0027t make much sense. The ECHConfigList should not contain ECHConfigs from different deployments. The point of having multiple ECHConfigs is if you have different key types or different versions, and you\u0027d like to tell the client to select the one it can use. (We\u0027re not in this situation because we only have one key type and one version.) It would be extremely unlikely for them to have different public names.\n\nAnd then for config IDs, picking them at random is odd. That makes avoiding collisions more complex. Simpler would be to assign them sequentially and loop around. If we only care about generating one of them with this tool, just have an option for the caller to specify it.",
+      "revId": "afa8193ac56d6c76cfccc4d8f80740f29f956b69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
