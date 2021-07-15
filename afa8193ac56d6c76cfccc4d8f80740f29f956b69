@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18853beb_0ed46c3d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-07-15T20:01:50Z",
+      "side": 1,
+      "message": "Hi folks, took a stab at adding this tool.\n\nWDYT of the command-line interface? The description includes a tiny demo, but there are a couple more flags that it doesn\u0027t cover.",
+      "revId": "afa8193ac56d6c76cfccc4d8f80740f29f956b69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
