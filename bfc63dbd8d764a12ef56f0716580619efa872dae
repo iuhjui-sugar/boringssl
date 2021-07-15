@@ -53,6 +53,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6f7f5df_352d561a",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-07-15T19:09:27Z",
+      "side": 1,
+      "message": "I guess it matches the rand/internal.h order. Just that order is slightly weird due to a similar question of who is responsible for each function. :-)",
+      "parentUuid": "8b2f4758_5d683430",
+      "revId": "bfc63dbd8d764a12ef56f0716580619efa872dae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "004c92c3_a167234f",
@@ -102,6 +120,24 @@
       "side": 1,
       "message": "I believe the problem is that the inline definition will override anything we try to link it against?",
       "parentUuid": "25afd0dd_08abd0fd",
+      "revId": "bfc63dbd8d764a12ef56f0716580619efa872dae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bcffc08_785687f5",
+        "filename": "crypto/rand_extra/deterministic.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-07-15T19:09:27Z",
+      "side": 1,
+      "message": "Right. I assumed from patch set 2 (though I guess patch set 3 undoes it), the intent was for each platform to be responsible for CRYPTO_sysrand_for_seed.",
+      "parentUuid": "dacc7471_d15fc658",
       "revId": "bfc63dbd8d764a12ef56f0716580619efa872dae",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
