@@ -35,6 +35,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b2f4758_5d683430",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-07-15T18:53:37Z",
+      "side": 1,
+      "message": "No, but it was odd to have it in the middle of the sysrand functions.",
+      "parentUuid": "4319a95a_b900a857",
+      "revId": "bfc63dbd8d764a12ef56f0716580619efa872dae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "004c92c3_a167234f",
@@ -48,6 +66,24 @@
       "writtenOn": "2021-07-15T18:17:51Z",
       "side": 1,
       "message": "rand/internal.h currently believes that only OPENSSL_URANDOM gets to define  CRYPTO_sysrand_if_available. We probably need to update that too.",
+      "revId": "bfc63dbd8d764a12ef56f0716580619efa872dae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25afd0dd_08abd0fd",
+        "filename": "crypto/rand_extra/deterministic.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-07-15T18:53:37Z",
+      "side": 1,
+      "message": "It\u0027s actually already setup for this and has the inline fallback to CRYPTO_sysrand, so no need to do that in windows.c etc.",
+      "parentUuid": "004c92c3_a167234f",
       "revId": "bfc63dbd8d764a12ef56f0716580619efa872dae",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
