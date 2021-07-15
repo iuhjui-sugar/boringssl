@@ -22,6 +22,30 @@
       },
       "revId": "2b1ac3d7926beaf0a12822b117d467d031a8eec4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e34b898_2b11bcbc",
+        "filename": "tool/generate_ech_files.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-07-15T19:43:27Z",
+      "side": 1,
+      "message": "Now I\u0027m basically exposing the inputs to SSL_marshal_ech_config that the user may wish to play with.  This probably doesn\u0027t cover all use cases, but it does cover the possibility of a frontend that understands ECH and wants to support different anonymity sets.",
+      "parentUuid": "3eadb400_873b7cd9",
+      "range": {
+        "startLine": 49,
+        "startChar": 8,
+        "endLine": 49,
+        "endChar": 24
+      },
+      "revId": "2b1ac3d7926beaf0a12822b117d467d031a8eec4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
