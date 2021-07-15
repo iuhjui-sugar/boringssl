@@ -33,6 +33,24 @@
       "message": "Just looking at the description and glancing over things so far:\n\nWhen would someone setting up ECH need to provide multiple public names? A separate public name means a completely ECH deployment altogether. In that case, it seems you should just call the command multiple times.\n\nIt looks like the multiple public names are then combined into a single ECHConfigList, but that doesn\u0027t make much sense. The ECHConfigList should not contain ECHConfigs from different deployments. The point of having multiple ECHConfigs is if you have different key types or different versions, and you\u0027d like to tell the client to select the one it can use. (We\u0027re not in this situation because we only have one key type and one version.) It would be extremely unlikely for them to have different public names.\n\nAnd then for config IDs, picking them at random is odd. That makes avoiding collisions more complex. Simpler would be to assign them sequentially and loop around. If we only care about generating one of them with this tool, just have an option for the caller to specify it.",
       "revId": "afa8193ac56d6c76cfccc4d8f80740f29f956b69",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f2aca47_b5b72943",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-07-15T21:25:29Z",
+      "side": 1,
+      "message": "\u003e When would someone setting up ECH need to provide multiple public names?\n\nI thought we once talked about cloud providers possibly wanting different anonymity sets because different customers may object to being lumped together.\n\nAgreed, it doesn\u0027t actually make sense to combine multiple deployments in an ECHConfigList.\n\n\n\u003e And then for config IDs, picking them at random is odd. That makes avoiding collisions more complex. Simpler would be to assign them sequentially and loop around. If we only care about generating one of them with this tool, just have an option for the caller to specify it.\n\nYeah, that is fine too.  I was trying to follow the advice in draft-ietf-tls-esni-10 that the byte should be selected randomly.\n\nIf there\u0027s no reason to generate an ECHConfigList with \u003e1 configs, I can go ahead and simplify this a bit :)",
+      "parentUuid": "4c06f267_5ddfbc6d",
+      "revId": "afa8193ac56d6c76cfccc4d8f80740f29f956b69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
