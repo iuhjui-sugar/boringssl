@@ -51,6 +51,24 @@
       "parentUuid": "4c06f267_5ddfbc6d",
       "revId": "afa8193ac56d6c76cfccc4d8f80740f29f956b69",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3463542a_50a98544",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-07-16T15:15:10Z",
+      "side": 1,
+      "message": "Simplified, only generating one ECHConfig now.",
+      "parentUuid": "4f2aca47_b5b72943",
+      "revId": "afa8193ac56d6c76cfccc4d8f80740f29f956b69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
