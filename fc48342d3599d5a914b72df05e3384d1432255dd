@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "628b9b3d_9cd450d4",
+        "filename": "tool/CMakeLists.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-07-19T21:01:18Z",
+      "side": 1,
+      "message": "TODO: rename to generate_ech.cc",
+      "range": {
+        "startLine": 13,
+        "startChar": 2,
+        "endLine": 13,
+        "endChar": 20
+      },
+      "revId": "fc48342d3599d5a914b72df05e3384d1432255dd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
