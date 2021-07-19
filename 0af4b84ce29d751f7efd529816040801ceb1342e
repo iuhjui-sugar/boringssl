@@ -1,0 +1,215 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5cee2db8_04401f99",
+        "filename": "tool/file.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-07-19T18:47:28Z",
+      "side": 1,
+      "message": "Formatting. But also let\u0027s take a bssl::Span\u003cconst uint8_t\u003e",
+      "revId": "0af4b84ce29d751f7efd529816040801ceb1342e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e844643_25fbe261",
+        "filename": "tool/generate_ech_files.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-07-19T18:47:28Z",
+      "side": 1,
+      "message": "s/public_name/public name/\n\n(I think it\u0027s better for the documentation to be in terms of what the field does, rather than the structure.)",
+      "revId": "0af4b84ce29d751f7efd529816040801ceb1342e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b45403c3_0387957c",
+        "filename": "tool/generate_ech_files.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-07-19T18:47:28Z",
+      "side": 1,
+      "message": "The config ID for the new ECHConfig, from 0 to 255. Config IDs may be reused, but should be unique among active configs on a server for performance.",
+      "revId": "0af4b84ce29d751f7efd529816040801ceb1342e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7283e438_ce13653d",
+        "filename": "tool/generate_ech_files.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-07-19T18:47:28Z",
+      "side": 1,
+      "message": "The length of the longest name in the anonymity set, to guide client padding.",
+      "revId": "0af4b84ce29d751f7efd529816040801ceb1342e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "766416ac_93d85097",
+        "filename": "tool/generate_ech_files.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-07-19T18:47:28Z",
+      "side": 1,
+      "message": "We already have a GetUnsigned function. See genrsa for how it\u0027s used. (We could make that a template, but it\u0027s easy enough to just check against uint8_t.)",
+      "revId": "0af4b84ce29d751f7efd529816040801ceb1342e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b5c2537_4f0d9743",
+        "filename": "tool/generate_ech_files.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-07-19T18:47:28Z",
+      "side": 1,
+      "message": "This keeps changing type and indeed is about to become a uint8_t. The API intentionally takes a size_t because it\u0027s just a general length. Then it checks the bounds internally.\n\nBut this may as well just use the existing GetUnsigned() function because size_t vs unsigned don\u0027t *really* matter here.",
+      "range": {
+        "startLine": 79,
+        "startChar": 2,
+        "endLine": 79,
+        "endChar": 10
+      },
+      "revId": "0af4b84ce29d751f7efd529816040801ceb1342e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "598aa157_f498ab79",
+        "filename": "tool/generate_ech_files.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-07-19T18:47:28Z",
+      "side": 1,
+      "message": "Nit: Drop all the _r suffixes. There isn\u0027t a sender to disambiguate against. (It\u0027s also not really the right terminology for KEMs. The sender doesn\u0027t really have a public/private keypair in the first place.)",
+      "range": {
+        "startLine": 88,
+        "startChar": 20,
+        "endLine": 88,
+        "endChar": 22
+      },
+      "revId": "0af4b84ce29d751f7efd529816040801ceb1342e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d348265d_1665fe58",
+        "filename": "tool/generate_ech_files.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-07-19T18:47:28Z",
+      "side": 1,
+      "message": "Nit: Doesn\u0027t really matter, but if we ever add a -kem flag later, using EVP_HPKE_MAX_PUBLIC_KEY_LENGTH and EVP_HPKE_MAX_PRIVATE_KEY_LENGTH will be a little tidier. You also don\u0027t need a curve25519.h include that way.",
+      "revId": "0af4b84ce29d751f7efd529816040801ceb1342e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87daa3d3_9cb4f457",
+        "filename": "tool/generate_ech_files.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-07-19T18:47:28Z",
+      "side": 1,
+      "message": "Nit: SSL_marshal_ech_config will always initialize this and ech_config_len on the success paths.",
+      "range": {
+        "startLine": 100,
+        "startChar": 21,
+        "endLine": 100,
+        "endChar": 31
+      },
+      "revId": "0af4b84ce29d751f7efd529816040801ceb1342e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57e45f23_cfc0c6a7",
+        "filename": "tool/generate_ech_files.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-07-19T18:47:28Z",
+      "side": 1,
+      "message": "Let\u0027s pass these as command-line flags instead.",
+      "revId": "0af4b84ce29d751f7efd529816040801ceb1342e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4713cc39_bc824633",
+        "filename": "tool/tool.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-07-19T18:47:28Z",
+      "side": 1,
+      "message": "How about generate-ech-config or just generate-ech? generate-ech-files is a little vague.",
+      "range": {
+        "startLine": 48,
+        "startChar": 5,
+        "endLine": 48,
+        "endChar": 23
+      },
+      "revId": "0af4b84ce29d751f7efd529816040801ceb1342e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
