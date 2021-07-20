@@ -16,6 +16,7 @@
 #include <vector>
 
 #include <limits.h>
+#include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -92,13 +93,16 @@ bool GetUnsigned(unsigned *out, const std::string &arg_name,
     return false;
   }
 
+  errno = 0;
   char *endptr;
   unsigned long int num = strtoul(value.c_str(), &endptr, 10);
-  if (*endptr ||
-      num > UINT_MAX) {
+  if (num == ULONG_MAX && errno == ERANGE) {
     return false;
   }
+  if (*endptr != 0 || num > UINT_MAX) {
+    return false;
+  }
+  *out = static_cast<unsigned>(num);
 
-  *out = num;
   return true;
 }
