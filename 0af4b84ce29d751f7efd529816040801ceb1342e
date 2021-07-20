@@ -249,6 +249,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3db01cc5_98f73f23",
+        "filename": "tool/generate_ech_files.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 9581
+      },
+      "writtenOn": "2021-07-20T15:58:57Z",
+      "side": 1,
+      "message": "OK, removed the uint16_t bounds check, just converting to size_t now with static_cast.  Now I\u0027m wondering if this static_cast is safe.  Are there any platforms where sizeof(unsigned) \u003e sizeof(size_t)?",
+      "parentUuid": "5b54c9a5_c8e3b929",
+      "range": {
+        "startLine": 79,
+        "startChar": 2,
+        "endLine": 79,
+        "endChar": 10
+      },
+      "revId": "0af4b84ce29d751f7efd529816040801ceb1342e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "598aa157_f498ab79",
         "filename": "tool/generate_ech_files.cc",
         "patchSetId": 7
