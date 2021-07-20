@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4230da0_506a948d",
+        "filename": "tool/generate_ech.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-07-20T16:25:52Z",
+      "side": 1,
+      "message": "Nit: This clause seems redundant.",
+      "range": {
+        "startLine": 41,
+        "startChar": 40,
+        "endLine": 41,
+        "endChar": 70
+      },
+      "revId": "b694e1920e69c2bf8f5b11b88d956f26b349eb3a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7bfdeeb_c8e5fd48",
+        "filename": "tool/generate_ech.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-07-20T16:25:52Z",
+      "side": 1,
+      "message": "Nit: Drop \"u8\". From the caller\u0027s perspective, this is just an integer.",
+      "range": {
+        "startLine": 52,
+        "startChar": 13,
+        "endLine": 52,
+        "endChar": 15
+      },
+      "revId": "b694e1920e69c2bf8f5b11b88d956f26b349eb3a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28415233_8a508659",
+        "filename": "tool/generate_ech.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-07-20T16:25:52Z",
+      "side": 1,
+      "message": "Nit: I usually use \"_u\" as the suffix for unsigned types, just so it\u0027s a little shorter. Although since the variables are each used only once, may as well drop the suffix and move the casts into the SSL_marshal_ech_config call.",
+      "revId": "b694e1920e69c2bf8f5b11b88d956f26b349eb3a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

@@ -178,6 +178,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6f480ed7_483b12ca",
+        "filename": "tool/generate_ech_files.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-07-20T16:25:52Z",
+      "side": 1,
+      "message": "Hrm, yeah that relies on unsigned long being strictly larger than unsigned, which isn\u0027t actually true on Windows, or on 32-bit. I see ERANGE is also defined on Windows, so that\u0027s fine.\nhttps://docs.microsoft.com/en-us/cpp/c-runtime-library/reference/strtoul-strtoul-l-wcstoul-wcstoul-l?view\u003dmsvc-160\n\nWant to make a fix for that? :-) Note that, as with any other uses of errno, successful functions typically leave it alone. That means if you\u0027re using errno to detect an error (as opposed to reading it after you already know something failed), you must set errno to zero before calling the function.",
+      "parentUuid": "3d7ff3a9_2cfcf1f2",
+      "revId": "0af4b84ce29d751f7efd529816040801ceb1342e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0b5c2537_4f0d9743",
         "filename": "tool/generate_ech_files.cc",
         "patchSetId": 7
@@ -261,6 +279,30 @@
       "side": 1,
       "message": "OK, removed the uint16_t bounds check, just converting to size_t now with static_cast.  Now I\u0027m wondering if this static_cast is safe.  Are there any platforms where sizeof(unsigned) \u003e sizeof(size_t)?",
       "parentUuid": "5b54c9a5_c8e3b929",
+      "range": {
+        "startLine": 79,
+        "startChar": 2,
+        "endLine": 79,
+        "endChar": 10
+      },
+      "revId": "0af4b84ce29d751f7efd529816040801ceb1342e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0bded222_d2fb87a0",
+        "filename": "tool/generate_ech_files.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-07-20T16:25:52Z",
+      "side": 1,
+      "message": "None that we care about. But for casts where the destination type is larger, the Google C++ style guide says to use size_t{max_name_len_unsigned}, which won\u0027t compile if it doesn\u0027t fit.\nhttps://google.github.io/styleguide/cppguide.html#Casting",
+      "parentUuid": "3db01cc5_98f73f23",
       "range": {
         "startLine": 79,
         "startChar": 2,
