@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "282c34e8_e212af15",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 11882
+      },
+      "writtenOn": "2021-07-22T17:55:48Z",
+      "side": 1,
+      "message": "Ack per offline discussion, not needed.",
+      "parentUuid": "3513129a_6e7d1718",
+      "revId": "1386b3a53c922865d28321e56966207eb9256c37",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5cc3c9f5_b4ef2565",
