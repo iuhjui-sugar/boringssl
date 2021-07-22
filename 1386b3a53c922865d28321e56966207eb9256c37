@@ -53,6 +53,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "89cd9803_4f87eb94",
+        "filename": "util/fipstools/acvp/acvptool/subprocess/hkdf.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-07-22T20:15:47Z",
+      "side": 1,
+      "message": "Done. (Had I been working off that one things would have made a little more sense!)",
+      "parentUuid": "5cc3c9f5_b4ef2565",
+      "revId": "1386b3a53c922865d28321e56966207eb9256c37",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8657e258_3c708261",
@@ -66,6 +84,24 @@
       "writtenOn": "2021-07-22T01:00:09Z",
       "side": 1,
       "message": "Are we just ignoring the KDF configuration from the test group? It looks like that should be the authoritative source according to this random bit from a issue: https://github.com/usnistgov/ACVP/issues/1085#issuecomment-740104833",
+      "revId": "1386b3a53c922865d28321e56966207eb9256c37",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "efb13161_816a439d",
+        "filename": "util/fipstools/acvp/acvptool/subprocess/hkdf.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-07-22T20:15:47Z",
+      "side": 1,
+      "message": "Ok, if NIST plan on removing the fields then let\u0027s get ahead of that. Since you have to parse the test case params, it didn\u0027t seem worth worrying about the (otherwise superfluous) group config.",
+      "parentUuid": "8657e258_3c708261",
       "revId": "1386b3a53c922865d28321e56966207eb9256c37",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -89,6 +125,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "031c4a18_47d7931d",
+        "filename": "util/fipstools/acvp/acvptool/testmodulewrapper/testmodulewrapper.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-07-22T20:15:47Z",
+      "side": 1,
+      "message": "I think we shouldn\u0027t include \"||l\" for HKDF because HKDF, as a primitive, doesn\u0027t encoding the output length in the HMAC inputs. Or rather, if \"||l\" is a requirement I\u0027d prefer to hit an objection/error somewhere because it wouldn\u0027t quite be HKDF that we\u0027re testing at that point.",
+      "parentUuid": "5ad2ce19_18b67258",
+      "revId": "1386b3a53c922865d28321e56966207eb9256c37",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "b27243b3_6410f77e",
         "filename": "util/fipstools/acvp/acvptool/testmodulewrapper/testmodulewrapper.go",
         "patchSetId": 2
@@ -100,6 +154,24 @@
       "writtenOn": "2021-07-22T01:00:09Z",
       "side": 1,
       "message": "I have no idea what the supported lengths should be here, but if you think this looks good, it\u0027s fine with me.",
+      "revId": "1386b3a53c922865d28321e56966207eb9256c37",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a7f823c_930afafc",
+        "filename": "util/fipstools/acvp/acvptool/testmodulewrapper/testmodulewrapper.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-07-22T20:15:47Z",
+      "side": 1,
+      "message": "If your lab says to do something different, then we should do that. But this seems like a reasonable set of values.",
+      "parentUuid": "b27243b3_6410f77e",
       "revId": "1386b3a53c922865d28321e56966207eb9256c37",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
