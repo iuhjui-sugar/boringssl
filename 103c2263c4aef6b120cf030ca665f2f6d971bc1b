@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "178faae7_529d015f",
+        "filename": "util/fipstools/acvp/acvptool/subprocess/hkdf.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-07-23T17:55:07Z",
+      "side": 1,
+      "message": "This is a very... interesting definition of a KDF.",
+      "revId": "103c2263c4aef6b120cf030ca665f2f6d971bc1b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
