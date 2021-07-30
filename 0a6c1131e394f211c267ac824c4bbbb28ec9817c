@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c69efffc_f3d1fd0e",
+        "filename": "crypto/hrss/asm/poly_rq_mul.S",
+        "patchSetId": 2
+      },
+      "lineNbr": 734,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-07-30T22:37:45Z",
+      "side": 1,
+      "message": "I guess, if we ever port this Windows, we\u0027ll need to remember to redo this, but whatever.",
+      "revId": "0a6c1131e394f211c267ac824c4bbbb28ec9817c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
