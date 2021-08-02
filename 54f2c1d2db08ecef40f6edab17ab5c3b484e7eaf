@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea20a83a_1ad141da",
+        "filename": "include/openssl/asn1.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-08-02T16:54:21Z",
+      "side": 1,
+      "message": "represents",
+      "range": {
+        "startLine": 469,
+        "startChar": 27,
+        "endLine": 469,
+        "endChar": 36
+      },
+      "revId": "54f2c1d2db08ecef40f6edab17ab5c3b484e7eaf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e38b25f1_6e6729ab",
+        "filename": "include/openssl/asn1.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-08-02T16:54:21Z",
+      "side": 1,
+      "message": "... but not always. I.e. this is contradicted by the end of the paragraph.",
+      "range": {
+        "startLine": 569,
+        "startChar": 67,
+        "endLine": 570,
+        "endChar": 41
+      },
+      "revId": "54f2c1d2db08ecef40f6edab17ab5c3b484e7eaf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3de7dfec_341c0d17",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 864,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-08-02T16:54:21Z",
+      "side": 1,
+      "message": "Are |s| and |t| the wrong way around here? It sounds like if (X509_cmp_time(s, t) \u003c 0) does the opposite of what one would expect. If so, worth pointing out more directly.",
+      "revId": "54f2c1d2db08ecef40f6edab17ab5c3b484e7eaf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
