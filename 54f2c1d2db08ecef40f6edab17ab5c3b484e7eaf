@@ -110,6 +110,24 @@
       "message": "Are |s| and |t| the wrong way around here? It sounds like if (X509_cmp_time(s, t) \u003c 0) does the opposite of what one would expect. If so, worth pointing out more directly.",
       "revId": "54f2c1d2db08ecef40f6edab17ab5c3b484e7eaf",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09bd265d_4b640588",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 864,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-08-02T19:06:17Z",
+      "side": 1,
+      "message": "(Oops, missed this. Addressing...)",
+      "parentUuid": "3de7dfec_341c0d17",
+      "revId": "54f2c1d2db08ecef40f6edab17ab5c3b484e7eaf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
