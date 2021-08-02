@@ -128,6 +128,24 @@
       "parentUuid": "3de7dfec_341c0d17",
       "revId": "54f2c1d2db08ecef40f6edab17ab5c3b484e7eaf",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f2c6395_456ad913",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 864,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-08-02T19:14:46Z",
+      "side": 1,
+      "message": "The function is (mostly) normal. I just mixed it up. I think I got confused because the return value is flipped, but that\u0027s to cancel out ASN1_TIME_diff computing b - a instead of a - b. Although I also got the equality case wrong. You might want to double-check I didn\u0027t get that confused.\n\nI did go add a warning about the zero return, as that\u0027s already a little bizarre.",
+      "parentUuid": "09bd265d_4b640588",
+      "revId": "54f2c1d2db08ecef40f6edab17ab5c3b484e7eaf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
