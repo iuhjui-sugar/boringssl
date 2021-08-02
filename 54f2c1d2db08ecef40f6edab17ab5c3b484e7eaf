@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f1e0849_a30d74e2",
+        "filename": "include/openssl/asn1.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-08-02T19:05:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea20a83a_1ad141da",
+      "range": {
+        "startLine": 469,
+        "startChar": 27,
+        "endLine": 469,
+        "endChar": 36
+      },
+      "revId": "54f2c1d2db08ecef40f6edab17ab5c3b484e7eaf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e38b25f1_6e6729ab",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-08-02T16:54:21Z",
       "side": 1,
       "message": "... but not always. I.e. this is contradicted by the end of the paragraph.",
+      "range": {
+        "startLine": 569,
+        "startChar": 67,
+        "endLine": 570,
+        "endChar": 41
+      },
+      "revId": "54f2c1d2db08ecef40f6edab17ab5c3b484e7eaf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8d68720_4315782f",
+        "filename": "include/openssl/asn1.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-08-02T19:05:52Z",
+      "side": 1,
+      "message": "Done. This maybe-object-reuse calling conventions are so tedious to describe...",
+      "parentUuid": "e38b25f1_6e6729ab",
       "range": {
         "startLine": 569,
         "startChar": 67,
