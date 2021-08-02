@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2021770f_c2998806",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-08-02T16:25:06Z",
+      "side": 1,
+      "message": "Hopefully the CQ doesn\u0027t report that Windows handles timestamps in some totally incompatible way and we need to implement our own gmtime! :-)",
+      "revId": "75df34b9e311b2e4e4d7102f485e194031720cca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
