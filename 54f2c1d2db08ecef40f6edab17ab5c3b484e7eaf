@@ -146,6 +146,24 @@
       "parentUuid": "09bd265d_4b640588",
       "revId": "54f2c1d2db08ecef40f6edab17ab5c3b484e7eaf",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d6b0ec5_75bf2c82",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 864,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-08-03T15:58:52Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1f2c6395_456ad913",
+      "revId": "54f2c1d2db08ecef40f6edab17ab5c3b484e7eaf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
