@@ -22,6 +22,30 @@
       },
       "revId": "aa17a161e50fe866e37359249494ebd7763a9b7d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8b2aceeb_2b5d0147",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-08-03T21:30:24Z",
+      "side": 1,
+      "message": "Oh oops, I meant \"as in the X.509 CHOICE type\". Added missing word.",
+      "parentUuid": "d6d9a6fc_2a38857f",
+      "range": {
+        "startLine": 15,
+        "startChar": 61,
+        "endLine": 15,
+        "endChar": 62
+      },
+      "revId": "aa17a161e50fe866e37359249494ebd7763a9b7d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
