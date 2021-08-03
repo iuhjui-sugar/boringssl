@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4bac711_f306b231",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-08-03T21:31:42Z",
+      "side": 1,
+      "message": "Pfft. It\u0027s failing because the Windows gmtime only works between years 1970 to 3000. So I guess the question is whether we want to implement our own gmtime. Seems poor for this to be platform-dependent. :-/\n\nI might just add some exceptions and file a bug with a TODO.",
+      "revId": "7b70e79bd3e3346158e631d68250909472fc8039",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
