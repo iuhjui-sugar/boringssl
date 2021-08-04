@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "05d4a7e6_1bec3874",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-08-04T16:33:52Z",
+      "side": 1,
+      "message": "CQ willing, added a workaround for Windows.",
+      "revId": "59b41dfc19c808a0800f59253e06571987464527",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
