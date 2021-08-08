@@ -759,20 +759,10 @@ typedef struct ASN1_ENCODING_st {
   unsigned alias_only_on_next_parse : 1;
 } ASN1_ENCODING;
 
-#define STABLE_FLAGS_MALLOC 0x01
-#define STABLE_NO_MASK 0x02
 #define DIRSTRING_TYPE                                            \
   (B_ASN1_PRINTABLESTRING | B_ASN1_T61STRING | B_ASN1_BMPSTRING | \
    B_ASN1_UTF8STRING)
 #define PKCS9STRING_TYPE (DIRSTRING_TYPE | B_ASN1_IA5STRING)
-
-typedef struct asn1_string_table_st {
-  int nid;
-  long minsize;
-  long maxsize;
-  unsigned long mask;
-  unsigned long flags;
-} ASN1_STRING_TABLE;
 
 // size limits: this stuff is taken straight from RFC2459
 
@@ -1163,10 +1153,6 @@ OPENSSL_EXPORT ASN1_STRING *ASN1_STRING_set_by_NID(ASN1_STRING **out,
                                                    const unsigned char *in,
                                                    int inlen, int inform,
                                                    int nid);
-OPENSSL_EXPORT ASN1_STRING_TABLE *ASN1_STRING_TABLE_get(int nid);
-OPENSSL_EXPORT int ASN1_STRING_TABLE_add(int, long, long, unsigned long,
-                                         unsigned long);
-OPENSSL_EXPORT void ASN1_STRING_TABLE_cleanup(void);
 
 // ASN1 template functions
 
