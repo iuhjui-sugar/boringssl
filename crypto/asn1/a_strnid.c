@@ -56,7 +56,7 @@
 
 #include <openssl/asn1.h>
 
-#include <stdlib.h>             /* For bsearch */
+#include <stdlib.h>
 #include <string.h>
 
 #include <openssl/err.h>
@@ -64,10 +64,6 @@
 #include <openssl/obj.h>
 #include <openssl/stack.h>
 
-DEFINE_STACK_OF(ASN1_STRING_TABLE)
-
-static STACK_OF(ASN1_STRING_TABLE) *stable = NULL;
-static void st_free(ASN1_STRING_TABLE *tbl);
 
 void ASN1_STRING_set_default_mask(unsigned long mask)
 {
@@ -82,6 +78,18 @@ int ASN1_STRING_set_default_mask_asc(const char *p)
 {
     return 1;
 }
+
+typedef struct {
+  int nid;
+  long minsize;
+  long maxsize;
+  unsigned long mask;
+  unsigned long flags;
+} ASN1_STRING_TABLE;
+
+#define STABLE_NO_MASK 0x02
+
+static ASN1_STRING_TABLE *ASN1_STRING_TABLE_get(int nid);
 
 /*
  * The following function generates an ASN1_STRING based on limits in a
@@ -101,6 +109,9 @@ ASN1_STRING *ASN1_STRING_set_by_NID(ASN1_STRING **out,
         out = &str;
     tbl = ASN1_STRING_TABLE_get(nid);
     if (tbl) {
+        /* TODO(davidben): With table registration and the global mask removed,
+         * each |nid| corresponds to exactly one string type and this function
+         * can be simplified. If the removals stick, follow-up here. */
         mask = tbl->mask;
         if (!(tbl->flags & STABLE_NO_MASK))
             mask &= B_ASN1_UTF8STRING;
@@ -157,12 +168,6 @@ static const ASN1_STRING_TABLE tbl_standard[] = {
     {NID_ms_csp_name, -1, -1, B_ASN1_BMPSTRING, STABLE_NO_MASK}
 };
 
-static int sk_table_cmp(const ASN1_STRING_TABLE **a,
-                        const ASN1_STRING_TABLE **b)
-{
-    return (*a)->nid - (*b)->nid;
-}
-
 static int table_cmp(const void *in_a, const void *in_b)
 {
     const ASN1_STRING_TABLE *a = in_a;
@@ -172,76 +177,11 @@ static int table_cmp(const void *in_a, const void *in_b)
 
 ASN1_STRING_TABLE *ASN1_STRING_TABLE_get(int nid)
 {
-    int found;
-    size_t idx;
-    ASN1_STRING_TABLE *ttmp;
     ASN1_STRING_TABLE fnd;
     fnd.nid = nid;
-
-    ttmp =
-        bsearch(&fnd, tbl_standard,
-                sizeof(tbl_standard) / sizeof(ASN1_STRING_TABLE),
-                sizeof(ASN1_STRING_TABLE), table_cmp);
-    if (ttmp)
-        return ttmp;
-    if (!stable)
-        return NULL;
-    sk_ASN1_STRING_TABLE_sort(stable);
-    found = sk_ASN1_STRING_TABLE_find(stable, &idx, &fnd);
-    if (!found)
-        return NULL;
-    return sk_ASN1_STRING_TABLE_value(stable, idx);
-}
-
-int ASN1_STRING_TABLE_add(int nid,
-                          long minsize, long maxsize, unsigned long mask,
-                          unsigned long flags)
-{
-    ASN1_STRING_TABLE *tmp;
-    char new_nid = 0;
-    flags &= ~STABLE_FLAGS_MALLOC;
-    if (!stable)
-        stable = sk_ASN1_STRING_TABLE_new(sk_table_cmp);
-    if (!stable) {
-        OPENSSL_PUT_ERROR(ASN1, ERR_R_MALLOC_FAILURE);
-        return 0;
-    }
-    if (!(tmp = ASN1_STRING_TABLE_get(nid))) {
-        tmp = OPENSSL_malloc(sizeof(ASN1_STRING_TABLE));
-        if (!tmp) {
-            OPENSSL_PUT_ERROR(ASN1, ERR_R_MALLOC_FAILURE);
-            return 0;
-        }
-        tmp->flags = flags | STABLE_FLAGS_MALLOC;
-        tmp->nid = nid;
-        tmp->minsize = tmp->maxsize = -1;
-        new_nid = 1;
-    } else
-        tmp->flags = (tmp->flags & STABLE_FLAGS_MALLOC) | flags;
-    if (minsize != -1)
-        tmp->minsize = minsize;
-    if (maxsize != -1)
-        tmp->maxsize = maxsize;
-    tmp->mask = mask;
-    if (new_nid)
-        sk_ASN1_STRING_TABLE_push(stable, tmp);
-    return 1;
-}
-
-void ASN1_STRING_TABLE_cleanup(void)
-{
-    STACK_OF(ASN1_STRING_TABLE) *tmp;
-    tmp = stable;
-    if (!tmp)
-        return;
-    stable = NULL;
-    sk_ASN1_STRING_TABLE_pop_free(tmp, st_free);
-}
-
-static void st_free(ASN1_STRING_TABLE *tbl)
-{
-    if (tbl->flags & STABLE_FLAGS_MALLOC)
-        OPENSSL_free(tbl);
+    return bsearch(&fnd, tbl_standard,
+                   sizeof(tbl_standard) / sizeof(ASN1_STRING_TABLE),
+                   sizeof(ASN1_STRING_TABLE), table_cmp);
 }
 
 #ifdef STRING_TABLE_TEST
