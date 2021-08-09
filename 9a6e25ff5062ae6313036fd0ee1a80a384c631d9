@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36ad5f78_5790e3dc",
+        "filename": "include/openssl/asn1.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1152,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-08-09T17:49:52Z",
+      "side": 1,
+      "message": "I\u0027ll document this later, supposing this stuff sticks. And if not I guess I\u0027ll write an even longer comment. :-)",
+      "revId": "9a6e25ff5062ae6313036fd0ee1a80a384c631d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
