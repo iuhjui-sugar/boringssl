@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14507a92_5d4d60fd",
+        "filename": "crypto/asn1/a_mbstr.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-08-10T19:22:34Z",
+      "side": 1,
+      "message": "What\u0027s going on is that normally the check happens here. But this assumes that, if mask !\u003d 0, then either B_ASN1_UNIVERSALSTRING or B_ASN1_UTF8STRING is set, which means the block below can skip checking B_ASN1_UTF8STRING.",
+      "revId": "78a0834675a198a03d3f987debe488dd41ba0712",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
