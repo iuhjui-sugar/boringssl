@@ -34,6 +34,24 @@
       "parentUuid": "a67eae2e_49718488",
       "revId": "8c2362bb3baebe61407ccfac8f4f039646ba79bc",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fee84e0_e7d3f864",
+        "filename": "include/openssl/asn1.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-08-10T17:53:44Z",
+      "side": 1,
+      "message": "Ack. (New revision not yet uploaded though.)",
+      "parentUuid": "a970c0f3_68e989c4",
+      "revId": "8c2362bb3baebe61407ccfac8f4f039646ba79bc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
