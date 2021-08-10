@@ -16,6 +16,24 @@
       "message": "Looks like there\u0027s a caller in google3? Maybe no-op it instead?",
       "revId": "ad2231e75f7786d72ccb167ea2e1d19a220729b7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61260e2b_5628fac0",
+        "filename": "include/openssl/asn1.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1167,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-08-10T17:31:35Z",
+      "side": 0,
+      "message": "That caller seems to have been extracted into a library and made its way all over the place. A no-op would be losing the size bounds. Chasing this down is probably more effort than is worth it, so I\u0027m thinking I\u0027ll just document this and make it thread-safe.",
+      "parentUuid": "4a4a81a4_05124440",
+      "revId": "ad2231e75f7786d72ccb167ea2e1d19a220729b7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
