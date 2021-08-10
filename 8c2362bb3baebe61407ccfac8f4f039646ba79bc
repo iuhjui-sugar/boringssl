@@ -16,6 +16,24 @@
       "message": "Does B_ASN1_UTF8STRING not work?",
       "revId": "8c2362bb3baebe61407ccfac8f4f039646ba79bc",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a970c0f3_68e989c4",
+        "filename": "include/openssl/asn1.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-08-10T17:49:26Z",
+      "side": 1,
+      "message": "Oh, interesting. I\u0027d missed this. Gosh this is weird. So B_ASN1_UTF8STRING works in that there\u0027s no harm in passing the bit in, and indeed ASN1_STRING_set_by_NID passes it in all the time. But ASN1_mbstring_copy never actually looks at that bit, it just uses UTF8String if none match.\n\nThat is... probably a bug, TBH. That means that if you call ASN1_STRING_set_by_NID(NID_countryName) with a string that doesn\u0027t fit in PrintableString (countryName only allows PrintableString... I think it\u0027s a two-letter country code), rather than returning an error, we\u0027ll silently fill in UTF8String.\n\nI\u0027ll document it with B_ASN1_UTF8STRING and leave a TODO to remove that behavior.",
+      "parentUuid": "a67eae2e_49718488",
+      "revId": "8c2362bb3baebe61407ccfac8f4f039646ba79bc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
