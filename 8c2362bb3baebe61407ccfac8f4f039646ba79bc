@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a67eae2e_49718488",
+        "filename": "include/openssl/asn1.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-08-10T17:17:57Z",
+      "side": 1,
+      "message": "Does B_ASN1_UTF8STRING not work?",
+      "revId": "8c2362bb3baebe61407ccfac8f4f039646ba79bc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
