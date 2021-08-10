@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a4a81a4_05124440",
+        "filename": "include/openssl/asn1.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1167,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-08-10T17:25:56Z",
+      "side": 0,
+      "message": "Looks like there\u0027s a caller in google3? Maybe no-op it instead?",
+      "revId": "ad2231e75f7786d72ccb167ea2e1d19a220729b7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
