@@ -102,6 +102,7 @@ static void __asan_unpoison_memory_region(const void *addr, size_t size) {}
 // provided in, say, libc.so, we still won't use it because that's dynamically
 // linked. This isn't an ideal result, but its helps in some cases.
 WEAK_SYMBOL_FUNC(void, sdallocx, (void *ptr, size_t size, int flags));
+WEAK_SYMBOL_FUNC(void*, mallocx, (size_t size, int flags));
 
 // The following three functions can be defined to override default heap
 // allocation and freeing. If defined, it is the responsibility of
@@ -136,7 +137,12 @@ void *OPENSSL_malloc(size_t size) {
     return NULL;
   }
 
-  void *ptr = malloc(size + OPENSSL_MALLOC_PREFIX);
+  void *ptr = NULL;
+  if (mallocx) {
+    ptr = mallocx(size + OPENSSL_MALLOC_PREFIX, 0 /* flags */);
+  } else {
+    ptr = malloc(size + OPENSSL_MALLOC_PREFIX);
+  }
   if (ptr == NULL) {
     return NULL;
   }
