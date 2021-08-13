@@ -34,6 +34,24 @@
       "parentUuid": "e8c8617e_d916b8e6",
       "revId": "da6d6d312d471b83b0d9e73060bab2b0cc0f0905",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e619006b_feb9051d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-08-13T17:25:48Z",
+      "side": 1,
+      "message": "Sorry, I copied the internal link there where I meant to copy the public one. Here\u0027s the correct link: https://github.com/google/tcmalloc/blob/master/tcmalloc/libc_override_redefine.h#L52\n\nWe desire the better performance with tcmalloc specifically since tcmalloc is generally used by the products that consume BoringSSL. I think guarding sdallocx support as in https://boringssl-review.googlesource.com/c/boringssl/+/48885 is probably the best answer here as our consumers who care about that little bit of optimisation can set that define. Does that work for you?",
+      "parentUuid": "e8c8617e_d916b8e6",
+      "revId": "da6d6d312d471b83b0d9e73060bab2b0cc0f0905",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
