@@ -52,6 +52,24 @@
       "parentUuid": "e8c8617e_d916b8e6",
       "revId": "da6d6d312d471b83b0d9e73060bab2b0cc0f0905",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e48081c9_5c2c3b81",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13151
+      },
+      "writtenOn": "2021-08-13T17:54:26Z",
+      "side": 1,
+      "message": "Never mind, I figured out the external link, with some searches.\n\nYeah that should work. I believe I did tried remove sdallocx while I was investigating the crash and it worked. Will verify the patch later.\nThanks.",
+      "parentUuid": "e619006b_feb9051d",
+      "revId": "da6d6d312d471b83b0d9e73060bab2b0cc0f0905",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
