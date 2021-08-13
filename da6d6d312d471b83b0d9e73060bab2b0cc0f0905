@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8c8617e_d916b8e6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-08-13T00:04:01Z",
+      "side": 1,
+      "message": "\"mixed used\" of two different allocators sounds like a broken build configuration? Since it violates ODR (https://en.cppreference.com/w/cpp/language/definition), I think it\u0027s undefined behaviour and crashes are to be expected.\n\nHaving said that, it\u0027s possible that we could take small changes to accomodate.\n\nIn this case I\u0027m not sure it\u0027s possible. tcmalloc (newer versions at least) *does* define sdallocx: http://google3/third_party/tcmalloc/libc_override_redefine.h?l\u003d52\u0026rcl\u003d312094776\n\nIt sounds like older versions didn\u0027t because you\u0027re seeing that sdallocx is being handled by jemalloc. But if we take this patch then mallocx would be handled by jemalloc and sdmallocx would be handled by tcmalloc in the future. Same problem, other way around.\n\nThe only coherent solution might be to update tcmalloc to a version that handles sdmallocx, or else BoringSSL has to not call either mallocx nor sdmallocx.",
+      "revId": "da6d6d312d471b83b0d9e73060bab2b0cc0f0905",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
