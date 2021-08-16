@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9418ea1a_d3ab92eb",
+        "filename": "crypto/mem.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-08-16T19:55:52Z",
+      "side": 1,
+      "message": "If we\u0027re going as far as to gate it on a preprocessor bit, do we still need to make it a weak pointer? Maybe we should just call the function at that point.",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 16
+      },
+      "revId": "b7153f16fb004952c3e22ebe3cbd40bb2e17d63a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
