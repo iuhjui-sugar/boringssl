@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba95a9c2_377d8946",
+        "filename": "ssl/handshake.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-08-18T22:23:30Z",
+      "side": 1,
+      "message": "how do you feel about:\n\nif (!ext-\u003eallowed) {\n  assert(!ignore_unknown);\n}",
+      "revId": "577023c747342e7251cb76f62db90cd794540c8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
