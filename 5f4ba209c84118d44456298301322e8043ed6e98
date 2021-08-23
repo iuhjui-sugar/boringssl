@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47d21fac_4d9701a2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-08-23T16:43:19Z",
+      "side": 1,
+      "message": "Well this\u0027ll be exciting for consumers :)",
+      "revId": "5f4ba209c84118d44456298301322e8043ed6e98",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
