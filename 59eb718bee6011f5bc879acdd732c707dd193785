@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "363678c2_4fb89d37",
+        "filename": "crypto/x509v3/v3_utl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-08-24T20:27:06Z",
+      "side": 1,
+      "message": "Oh fun. I believe that is a bug, because the callers are actually relying on append_ia5 to free the string for you. Great. Will poke at this.",
+      "parentUuid": "9f0b375d_f49cfe78",
+      "revId": "59eb718bee6011f5bc879acdd732c707dd193785",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "df1b01c4_d36c5d59",
