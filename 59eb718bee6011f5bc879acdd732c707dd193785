@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f0b375d_f49cfe78",
+        "filename": "crypto/x509v3/v3_utl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-08-24T20:23:12Z",
+      "side": 1,
+      "message": "(not suggesting a change in this CL, or perhaps at all.)\n\nIn the new failure case where emtmp fails to allocate, this stack is \"leaked\". (I.e. the caller gets the pointer, but it seems a bit sharp to expect them to free it if the function failed.)",
+      "revId": "59eb718bee6011f5bc879acdd732c707dd193785",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df1b01c4_d36c5d59",
+        "filename": "crypto/x509v3/v3_utl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 662,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-08-24T20:23:12Z",
+      "side": 1,
+      "message": "In this case, even if you passed in an existing stack, it\u0027ll delete it for you!",
+      "revId": "59eb718bee6011f5bc879acdd732c707dd193785",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
