@@ -38,6 +38,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "92da6b08_f3a2e455",
+        "filename": "crypto/x509v3/v3_utl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 645,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-08-24T20:31:27Z",
+      "side": 1,
+      "message": "Fixed the immediate issue, but in our copious spare time, we probably need to take a pass over this file.",
+      "parentUuid": "363678c2_4fb89d37",
+      "revId": "59eb718bee6011f5bc879acdd732c707dd193785",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "df1b01c4_d36c5d59",
         "filename": "crypto/x509v3/v3_utl.c",
         "patchSetId": 1
