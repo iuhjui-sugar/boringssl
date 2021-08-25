@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "faf9a089_3455169e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-08-25T17:31:36Z",
+      "side": 1,
+      "message": "Not sure I can say \"looks _good_\" about this code, but looks reasonable given the context.",
+      "revId": "55fdfd272cbdc73ed5ecd0cbe63f4ff662ef1782",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f5589a0_30486629",
+        "filename": "include/openssl/x509v3.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-08-25T17:31:36Z",
+      "side": 1,
+      "message": "or",
+      "range": {
+        "startLine": 487,
+        "startChar": 59,
+        "endLine": 487,
+        "endChar": 61
+      },
+      "revId": "55fdfd272cbdc73ed5ecd0cbe63f4ff662ef1782",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91089c4a_0d91b8de",
+        "filename": "include/openssl/x509v3.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-08-25T17:31:36Z",
+      "side": 1,
+      "message": "... of ...",
+      "range": {
+        "startLine": 501,
+        "startChar": 47,
+        "endLine": 501,
+        "endChar": 48
+      },
+      "revId": "55fdfd272cbdc73ed5ecd0cbe63f4ff662ef1782",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c29342ad_71108399",
+        "filename": "include/openssl/x509v3.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-08-25T17:31:36Z",
+      "side": 1,
+      "message": "or",
+      "range": {
+        "startLine": 502,
+        "startChar": 73,
+        "endLine": 502,
+        "endChar": 75
+      },
+      "revId": "55fdfd272cbdc73ed5ecd0cbe63f4ff662ef1782",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
