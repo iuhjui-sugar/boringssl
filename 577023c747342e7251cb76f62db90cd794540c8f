@@ -16,6 +16,24 @@
       "message": "how do you feel about:\n\nif (!ext-\u003eallowed) {\n  assert(!ignore_unknown);\n}",
       "revId": "577023c747342e7251cb76f62db90cd794540c8f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87d4f3e1_1a54ba8f",
+        "filename": "ssl/handshake.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-08-25T23:51:33Z",
+      "side": 1,
+      "message": "Done. I actually trip this in the ECH CL, but it\u0027s actually for silly reasons and arguably was a bug. Fixed.",
+      "parentUuid": "ba95a9c2_377d8946",
+      "revId": "577023c747342e7251cb76f62db90cd794540c8f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
