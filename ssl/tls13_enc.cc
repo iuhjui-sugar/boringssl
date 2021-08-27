@@ -541,7 +541,7 @@ bool ssl_ech_accept_confirmation(const SSL_HANDSHAKE *hs, Span<uint8_t> out,
                                  Span<const uint8_t> client_random,
                                  const SSLTranscript &transcript, bool is_hrr,
                                  Span<const uint8_t> msg, size_t offset) {
-  // See draft-ietf-tls-esni-12, sections 7.2 and 7.2.1.
+  // See draft-ietf-tls-esni-13, sections 7.2 and 7.2.1.
   static const uint8_t kZeros[EVP_MAX_MD_SIZE] = {0};
 
   // We hash |msg|, with the last |ECH_CONFIRMATION_SIGNAL_LEN| bytes
