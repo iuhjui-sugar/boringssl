@@ -1735,7 +1735,7 @@ TEST(SSLTest, MarshalECHConfig) {
 
   static const uint8_t kECHConfig[] = {
       // version
-      0xfe, 0x0c,
+      0xfe, 0x0d,
       // length
       0x00, 0x41,
       // contents.config_id
