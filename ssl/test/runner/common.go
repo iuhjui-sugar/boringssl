@@ -128,7 +128,7 @@ const (
 	extensionChannelID                  uint16 = 30032  // not IANA assigned
 	extensionDelegatedCredentials       uint16 = 0x22   // draft-ietf-tls-subcerts-06
 	extensionDuplicate                  uint16 = 0xffff // not IANA assigned
-	extensionEncryptedClientHello       uint16 = 0xfe0c // not IANA assigned
+	extensionEncryptedClientHello       uint16 = 0xfe0d // not IANA assigned
 	extensionECHOuterExtensions         uint16 = 0xfd00 // not IANA assigned
 )
 
@@ -242,7 +242,7 @@ const (
 	keyUpdateRequested    = 1
 )
 
-// draft-ietf-tls-esni-12, sections 7.2 and 7.2.1.
+// draft-ietf-tls-esni-13, sections 7.2 and 7.2.1.
 const echAcceptConfirmationLength = 8
 
 // ConnectionState records basic TLS details about the connection.

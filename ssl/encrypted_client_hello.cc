@@ -141,7 +141,7 @@ bool ssl_decode_client_hello_inner(
       return false;
     }
 
-    // Expand ech_outer_extensions. See draft-ietf-tls-esni-12, Appendix B.
+    // Expand ech_outer_extensions. See draft-ietf-tls-esni-13, Appendix B.
     CBS ext_list;
     if (!CBS_get_u8_length_prefixed(&extension, &ext_list) ||
         CBS_len(&ext_list) == 0 || CBS_len(&extension) != 0) {
@@ -197,7 +197,7 @@ bool ssl_decode_client_hello_inner(
     return false;
   }
 
-  // Check the ClientHelloInner. See draft-ietf-tls-esni-12, section 7.1.
+  // Check the ClientHelloInner. See draft-ietf-tls-esni-13, section 7.1.
   if (!ssl_client_hello_init(ssl, &client_hello_inner,
                              MakeConstSpan(CBB_data(&body), CBB_len(&body))) ||
       !ssl_client_hello_get_extension(&client_hello_inner, &extension,
@@ -249,7 +249,7 @@ bool ssl_client_hello_decrypt(EVP_HPKE_CTX *hpke_ctx, Array<uint8_t> *out,
   *out_is_decrypt_error = false;
 
   // The ClientHelloOuterAAD is |client_hello_outer| with the payload replaced
-  // with zeros. See draft-ietf-tls-esni-12, section 5.2.
+  // with zeros. See draft-ietf-tls-esni-13, section 5.2.
   Array<uint8_t> aad;
   if (!aad.CopyFrom(MakeConstSpan(client_hello_outer->client_hello,
                                   client_hello_outer->client_hello_len))) {
@@ -336,6 +336,9 @@ static bool parse_ipv4_number(Span<const uint8_t> in, uint32_t *out) {
 
 static bool is_ipv4_address(Span<const uint8_t> in) {
   // See https://url.spec.whatwg.org/#concept-ipv4-parser
+  //
+  // TODO(https://crbug.com/boringssl/275): Revise this, and maybe the spec, per
+  // https://groups.google.com/a/chromium.org/g/blink-dev/c/7QN5nxjwIfM/m/q9dw9MxoAwAJ
   uint32_t numbers[4];
   size_t num_numbers = 0;
   while (!in.empty()) {
@@ -375,7 +378,7 @@ static bool is_ipv4_address(Span<const uint8_t> in) {
 }
 
 bool ssl_is_valid_ech_public_name(Span<const uint8_t> public_name) {
-  // See draft-ietf-tls-esni-12, Section 4 and RFC 5890, Section 2.3.1. The
+  // See draft-ietf-tls-esni-13, Section 4 and RFC 5890, Section 2.3.1. The
   // public name must be a dot-separated sequence of LDH labels and not begin or
   // end with a dot.
   auto copy = public_name;
@@ -752,7 +755,7 @@ static bool setup_ech_grease(SSL_HANDSHAKE *hs) {
   //
   // The server_name extension has an overhead of 9 bytes. For now, arbitrarily
   // estimate maximum_name_length to be between 32 and 100 bytes. Then round up
-  // to a multiple of 32, to match draft-ietf-tls-esni-12, section 6.1.3.
+  // to a multiple of 32, to match draft-ietf-tls-esni-13, section 6.1.3.
   const size_t payload_len =
       32 * random_size(128 / 32, 224 / 32) + aead_overhead(aead);
   bssl::ScopedCBB cbb;
@@ -780,7 +783,7 @@ bool ssl_encrypt_client_hello(SSL_HANDSHAKE *hs, Span<const uint8_t> enc) {
   }
 
   // Construct ClientHelloInner and EncodedClientHelloInner. See
-  // draft-ietf-tls-esni-12, sections 5.1 and 6.1.
+  // draft-ietf-tls-esni-13, sections 5.1 and 6.1.
   ScopedCBB cbb, encoded_cbb;
   CBB body;
   bool needs_psk_binder;
@@ -821,7 +824,7 @@ bool ssl_encrypt_client_hello(SSL_HANDSHAKE *hs, Span<const uint8_t> enc) {
     return false;
   }
 
-  // Pad the EncodedClientHelloInner. See draft-ietf-tls-esni-12, section 6.1.3.
+  // Pad the EncodedClientHelloInner. See draft-ietf-tls-esni-13, section 6.1.3.
   size_t padding_len = 0;
   size_t maximum_name_length = hs->selected_ech_config->maximum_name_length;
   if (ssl->hostname) {
@@ -842,9 +845,9 @@ bool ssl_encrypt_client_hello(SSL_HANDSHAKE *hs, Span<const uint8_t> enc) {
     return false;
   }
 
-  // Encrypt |encoded|. See draft-ietf-tls-esni-12, section 6.1.1. First,
+  // Encrypt |encoded|. See draft-ietf-tls-esni-13, section 6.1.1. First,
   // assemble the extension with a placeholder value for ClientHelloOuterAAD.
-  // See draft-ietf-tls-esni-12, section 5.2.
+  // See draft-ietf-tls-esni-13, section 5.2.
   const EVP_HPKE_KDF *kdf = EVP_HPKE_CTX_kdf(hs->ech_hpke_ctx.get());
   const EVP_HPKE_AEAD *aead = EVP_HPKE_CTX_aead(hs->ech_hpke_ctx.get());
   size_t payload_len = encoded.size() + aead_overhead(aead);
@@ -982,7 +985,7 @@ int SSL_marshal_ech_config(uint8_t **out, size_t *out_len, uint8_t config_id,
     return 0;
   }
 
-  // See draft-ietf-tls-esni-12, section 4.
+  // See draft-ietf-tls-esni-13, section 4.
   ScopedCBB cbb;
   CBB contents, child;
   uint8_t *public_key;
