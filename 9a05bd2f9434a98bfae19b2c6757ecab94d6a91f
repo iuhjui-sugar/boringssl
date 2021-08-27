@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f995d860_130a190f",
+        "filename": "crypto/fipsmodule/rsa/rsa.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 762,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-08-27T23:13:29Z",
+      "side": 1,
+      "message": "The reason this is more than a 2x win is that all these calls involving e actually skip almost all their iterations. e is publicly upper-bounded at one word. Only the iqmp call below had a full 2N-bit product.\n\n(I suspect, if we called freeze_private_key here and used Montgomery reduction, we\u0027d speed things up a bit further.)",
+      "revId": "9a05bd2f9434a98bfae19b2c6757ecab94d6a91f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
