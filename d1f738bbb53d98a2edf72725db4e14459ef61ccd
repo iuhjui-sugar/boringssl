@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25282050_1dfdf867",
+        "filename": "include/openssl/asn1.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1121,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-08-30T18:09:15Z",
+      "side": 1,
+      "message": "It",
+      "range": {
+        "startLine": 1121,
+        "startChar": 76,
+        "endLine": 1121,
+        "endChar": 78
+      },
+      "revId": "d1f738bbb53d98a2edf72725db4e14459ef61ccd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
