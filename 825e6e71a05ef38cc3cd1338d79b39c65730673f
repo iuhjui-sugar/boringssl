@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73196bf6_f8035e88",
+        "filename": "ssl/encrypted_client_hello.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-08-30T18:06:00Z",
+      "side": 1,
+      "message": "Needs some renaming. You\u0027ve got |extension|/|extensions|, |extensions_cbb|, and |outer_extensions| going at the same time.\n\n|inner_extensions| / |inner_extension|, |out_extensions|, and |outer_extensions|? (I was wondering about \"reconstituted_extensions\" but that\u0027s pretty long.)",
+      "revId": "825e6e71a05ef38cc3cd1338d79b39c65730673f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ffa5e20c_4653d5c5",
+        "filename": "ssl/encrypted_client_hello.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-08-30T18:06:00Z",
+      "side": 1,
+      "message": "\"... with |payload| (which must point within |client_hello_outer-\u003eextensions) replaced with zeros.\"",
+      "revId": "825e6e71a05ef38cc3cd1338d79b39c65730673f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
