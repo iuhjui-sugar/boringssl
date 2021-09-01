@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "506901a8_4a19fa64",
+        "filename": "ssl/encrypted_client_hello.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-09-01T18:41:22Z",
+      "side": 1,
+      "message": "nit: \"//\" to break the line",
+      "range": {
+        "startLine": 89,
+        "startChar": 33,
+        "endLine": 89,
+        "endChar": 34
+      },
+      "revId": "b76ace96c179fc98335628108dcbc42d1a96d519",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
