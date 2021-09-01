@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ac87ce86_26a4d55b",
+        "filename": "ssl/encrypted_client_hello.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-09-01T17:03:40Z",
+      "side": 1,
+      "message": "WDYT about this version? I did extensions \u003d\u003e inner_extensions.\n\nNext, extension and client_hello_inner were slightly weird because they contained both EncodedClientHelloInner and ClientHelloInner. So inner_extension was true, but slightly weird. I\u0027ve instead pulled the ClientHelloInner validity check into a separate function, since it\u0027s a nice standalone operation. Helps scope the variable names.\n\nFrom there, extension/inner_extension only ever contains the ech_outer_extensions extension (which, confusingly, is an encoded_inner extension containing a list of outer extensions to reference), so I named it ext_list_wrapper to mirror ext_list.\n\nHaving both out_extensions and outer_extensions be two characters off seemed a little odd. I figure the \"_cbb\" suffix indicates it\u0027s a CBB and we no longer have a plain \u0027extensions\u0027 variable to confuse it with. So I\u0027ve left that alone for now, but I can rename it if you prefer.",
+      "parentUuid": "73196bf6_f8035e88",
+      "revId": "825e6e71a05ef38cc3cd1338d79b39c65730673f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ffa5e20c_4653d5c5",
         "filename": "ssl/encrypted_client_hello.cc",
         "patchSetId": 15
@@ -31,6 +49,24 @@
       "writtenOn": "2021-08-30T18:06:00Z",
       "side": 1,
       "message": "\"... with |payload| (which must point within |client_hello_outer-\u003eextensions) replaced with zeros.\"",
+      "revId": "825e6e71a05ef38cc3cd1338d79b39c65730673f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96c03fa1_a69d7a00",
+        "filename": "ssl/encrypted_client_hello.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-09-01T17:03:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ffa5e20c_4653d5c5",
       "revId": "825e6e71a05ef38cc3cd1338d79b39c65730673f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
