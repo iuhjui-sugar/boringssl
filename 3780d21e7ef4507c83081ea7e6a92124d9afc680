@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49a563ce_bc3890af",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-09-01T19:44:58Z",
+      "side": 1,
+      "message": "Oops, missed a word and apparently only CR+2 is sticky on this Gerrit, not CR+1.",
+      "revId": "3780d21e7ef4507c83081ea7e6a92124d9afc680",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
