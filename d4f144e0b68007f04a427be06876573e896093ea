@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69748efd_ed18c01d",
+        "filename": "crypto/mem.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-09-02T22:39:24Z",
+      "side": 1,
+      "message": "Given the Ruby situation, is that actually true? Seems it picks up dynamically linked stuff just fine.\n\n(Leaving this alone or as a follow-up, since this is a revert, is also reasonable.)",
+      "revId": "d4f144e0b68007f04a427be06876573e896093ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
