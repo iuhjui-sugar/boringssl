@@ -16,6 +16,24 @@
       "message": "Given the Ruby situation, is that actually true? Seems it picks up dynamically linked stuff just fine.\n\n(Leaving this alone or as a follow-up, since this is a revert, is also reasonable.)",
       "revId": "d4f144e0b68007f04a427be06876573e896093ea",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df07bd5a_307abfb1",
+        "filename": "crypto/mem.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-09-03T17:10:59Z",
+      "side": 1,
+      "message": "Fair point. Perhaps I misunderstood how weak symbols worked with dynamic libraries.\n\nGoing to land as-is to make it a clean revert and will follow up.",
+      "parentUuid": "69748efd_ed18c01d",
+      "revId": "d4f144e0b68007f04a427be06876573e896093ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
