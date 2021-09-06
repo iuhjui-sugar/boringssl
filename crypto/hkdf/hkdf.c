@@ -19,6 +19,7 @@
 
 #include <openssl/err.h>
 #include <openssl/hmac.h>
+#include <openssl/mem.h>
 
 #include "../internal.h"
 
@@ -29,14 +30,20 @@ int HKDF(uint8_t *out_key, size_t out_len, const EVP_MD *digest,
   // https://tools.ietf.org/html/rfc5869#section-2
   uint8_t prk[EVP_MAX_MD_SIZE];
   size_t prk_len;
+  int ret = 0;
 
   if (!HKDF_extract(prk, &prk_len, digest, secret, secret_len, salt,
                     salt_len) ||
       !HKDF_expand(out_key, out_len, digest, prk, prk_len, info, info_len)) {
-    return 0;
+    ret = 0;
+    goto out;
   }
 
-  return 1;
+  ret = 1;
+
+out:
+  OPENSSL_cleanse(prk, sizeof(prk));
+  return ret;
 }
 
 int HKDF_extract(uint8_t *out_key, size_t *out_len, const EVP_MD *digest,
@@ -104,6 +111,7 @@ int HKDF_expand(uint8_t *out_key, size_t out_len, const EVP_MD *digest,
   ret = 1;
 
 out:
+  OPENSSL_cleanse(previous, sizeof(previous));
   HMAC_CTX_cleanup(&hmac);
   if (ret != 1) {
     OPENSSL_PUT_ERROR(HKDF, ERR_R_HMAC_LIB);
