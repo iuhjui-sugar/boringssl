@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a680166d_34c7d7df",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13281
+      },
+      "writtenOn": "2021-09-06T15:59:16Z",
+      "side": 1,
+      "message": "I noticed HMAC_CTX_cleanup() was cleansing the context memory, but other sensitive intermediates were not being cleansed. I couldn\u0027t find documentation to describe the general policy regarding memory cleansing in boringssl, would a change like this be suitable? Are there likely to be many other similar cases?",
+      "revId": "58d30fbc7564b0a44e95a43c1c44e19028a3347a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
