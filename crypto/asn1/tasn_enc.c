@@ -549,6 +549,11 @@ static int asn1_ex_i2c(ASN1_VALUE **pval, unsigned char *cout, int *out_omit,
         /* If MSTRING type set the underlying type */
         strtmp = (ASN1_STRING *)*pval;
         utype = strtmp->type;
+        if (utype < 0 && utype != V_ASN1_OTHER) {
+            /* MSTRINGs can have type -1 when default-constructed. */
+            OPENSSL_PUT_ERROR(ASN1, ASN1_R_WRONG_TYPE);
+            return -1;
+        }
         /* Negative INTEGER and ENUMERATED values use |ASN1_STRING| type values
          * that do not match their corresponding utype values. INTEGERs cannot
          * participate in MSTRING types, but ENUMERATEDs can.
@@ -569,6 +574,11 @@ static int asn1_ex_i2c(ASN1_VALUE **pval, unsigned char *cout, int *out_omit,
         ASN1_TYPE *typ;
         typ = (ASN1_TYPE *)*pval;
         utype = typ->type;
+        if (utype < 0 && utype != V_ASN1_OTHER) {
+            /* |ASN1_TYPE|s can have type -1 when default-constructed. */
+            OPENSSL_PUT_ERROR(ASN1, ASN1_R_WRONG_TYPE);
+            return -1;
+        }
         *putype = utype;
         pval = &typ->value.asn1_value;
     } else
