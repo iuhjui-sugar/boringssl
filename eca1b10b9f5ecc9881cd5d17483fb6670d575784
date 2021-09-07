@@ -16,6 +16,24 @@
       "message": "Don\u0027t quite land this one yet. I have a couple downstream tests to fix. Should be clear in a few days.",
       "revId": "eca1b10b9f5ecc9881cd5d17483fb6670d575784",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd17e79b_7990daf0",
+        "filename": "crypto/asn1/tasn_enc.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 556,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-09-07T19:21:03Z",
+      "side": 1,
+      "message": "Specifically this depends on cl/395303412 and cl/395276774.",
+      "parentUuid": "5351b260_4e8f0ab1",
+      "revId": "eca1b10b9f5ecc9881cd5d17483fb6670d575784",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
