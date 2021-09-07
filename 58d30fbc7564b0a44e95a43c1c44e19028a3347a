@@ -16,6 +16,23 @@
       "message": "I noticed HMAC_CTX_cleanup() was cleansing the context memory, but other sensitive intermediates were not being cleansed. I couldn\u0027t find documentation to describe the general policy regarding memory cleansing in boringssl, would a change like this be suitable? Are there likely to be many other similar cases?",
       "revId": "58d30fbc7564b0a44e95a43c1c44e19028a3347a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81636e6a_bdd5f09d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-09-07T18:14:48Z",
+      "side": 1,
+      "message": "Our position is that cleaning the stack and registers is not generally possible in C/C++. The compiler is free to split stack variables into multiple variables, copy them around, spill registers to the stack, etc. Cleaning stack buffers suggests that something is being achieved when probably it won\u0027t actually erase all the secrets.\n\nThe heap is different and clearing heap buffers is at least meaningfully defined. Thus BoringSSL systematically clears all heap buffers before free().\n\nSo we\u0027re unlikely to take specific changes like this to clear stack variables, but nor do we go around deliberately removing the ones that OpenSSL has. (We recognise that it does leave the code in a superficially ambiguous state.)",
+      "revId": "58d30fbc7564b0a44e95a43c1c44e19028a3347a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
