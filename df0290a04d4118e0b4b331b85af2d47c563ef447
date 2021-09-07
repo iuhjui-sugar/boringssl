@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "855c1aa5_c0f4c03c",
+        "filename": "crypto/asn1/asn1_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-09-07T18:35:06Z",
+      "side": 1,
+      "message": "This makes sure we don\u0027t break i2c returning a non-omitted zero. (Though I think we have plenty of other tests covering that case.)",
+      "revId": "df0290a04d4118e0b4b331b85af2d47c563ef447",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
