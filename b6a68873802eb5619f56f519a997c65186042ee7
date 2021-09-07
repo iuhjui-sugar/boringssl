@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5cccc034_8c21c46e",
+        "filename": "util/fipstools/acvp/acvptool/testmodulewrapper/hmac_drbg.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-09-07T15:29:34Z",
+      "side": 1,
+      "message": "Nit: copyright header",
+      "revId": "b6a68873802eb5619f56f519a997c65186042ee7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9313a35_170ba962",
+        "filename": "util/fipstools/acvp/acvptool/testmodulewrapper/hmac_drbg.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-09-07T15:29:34Z",
+      "side": 1,
+      "message": "copy\u0027s truncating behavior means I think we can replace 80-85 with:\n\n  done +\u003d copy(out[done:], drbg.v[:])",
+      "revId": "b6a68873802eb5619f56f519a997c65186042ee7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9852d74a_7d482536",
+        "filename": "util/fipstools/acvp/acvptool/testmodulewrapper/testmodulewrapper.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-09-07T15:29:34Z",
+      "side": 1,
+      "message": "This seems to clobber the first call\u0027s output with the second. Or is that what we\u0027re meant to do? (I see modulewrapper.cc does it too, so I guess that\u0027s what we\u0027re meant to do.)",
+      "revId": "b6a68873802eb5619f56f519a997c65186042ee7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
