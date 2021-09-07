@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6375d105_265f7012",
+        "filename": "crypto/asn1/tasn_fre.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-09-07T18:45:04Z",
+      "side": 1,
+      "message": "This very weird indentation is a consequence of OpenSSL not indenting case lines relative to switch. (It\u0027s not visible in some of the other files because the default block partially hides it.) I found some instances of it upstream, so it seems to be the OpenSSL style.\n\nAt some point, we should probably just clang-format the remaining directories. With upstream patches 1.1.1-based and us distantly 1.0.2-based, I mostly rewrite them when applying anyway.",
+      "revId": "2b0a7325a70cfde1ab6b43e516269cd262bf4f70",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
