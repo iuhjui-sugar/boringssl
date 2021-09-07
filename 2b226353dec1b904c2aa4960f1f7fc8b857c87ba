@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9700b2d0_b9c17acb",
+        "filename": "crypto/x509/x_x509.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-09-07T18:42:09Z",
+      "side": 1,
+      "message": "This was previously relying on i2d_FOO(NULL) returning zero.",
+      "revId": "2b226353dec1b904c2aa4960f1f7fc8b857c87ba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
