@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30247a3f_585e0836",
+        "filename": "crypto/asn1/tasn_enc.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-09-08T21:03:25Z",
+      "side": 1,
+      "message": "(It actually wouldn\u0027t, but nevermind that. It\u0027s perfectly valid to implicitly tag a type that is itself explicitly or implicitly tagged. We just need for the parameter to win over the one in the template.)",
+      "range": {
+        "startLine": 285,
+        "startChar": 7,
+        "endLine": 285,
+        "endChar": 16
+      },
+      "revId": "57d804a09790458e3ec5db0fb4f6c7f30ab51f78",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
