@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63e9ed34_f4d44b86",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-09-08T21:45:06Z",
+      "side": 1,
+      "message": "Why oh why must OpenSSL keep adding these ad-hoc cached fields that are sometimes present and sometimes not... :-/\n\nMerely adding the field and never initializing it is a little strange. It should get freed when the RSA_PSS_PARAMS is freed. RSA_PSS_PARAMS is (currently) defined via this goofy callback system (see rsa_pss_cb in OpenSSL).\n\nLooks like maskHash itself is filled in as part of rsa_pss_decode. The relevant bit for Node seems to be that, when an RSA object is constructed from an id-RSASSA-PSS key (which we don\u0027t support), the RSA_PSS_PARAMS hanging off the RSA object, accessible via RSA_get0_pss_params.\n\nI\u0027m guessing we also need RSA_get0_pss_params. It\u0027s fine to just return NULL because we don\u0027t support id-RSASSA-PSS keys. So I think we should do the following:\n\n1. Free maskHash. There\u0027s nothing to free, but since the struct is public, we ought to behave the way OpenSSL does.\n\n2. Add RSA_get0_pss_params and have it return NULL, with a comment that we don\u0027t support id-RSASSA-PSS keys. Maybe also a note that, if we ever do add support, the RSA_PSS_PARAMS object must have maskHash cached.\n\n3. Add a comment on maskHash like:\n\n  // OpenSSL caches the MGF hash on RSA_PSS_PARAMS in some case. None of the cases apply to BoringSSL, but Node expects the field to be present.\n\nDoes that sound reasonable? Let me know if any of this doesn\u0027t make sense and you need more explanation. (RSA-PSS was standardized very badly and is orders of magnitude more complex than it has any business being.)",
+      "revId": "341f9ca18ed52bf6145794412fd651a416355717",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
