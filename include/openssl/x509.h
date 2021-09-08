@@ -1892,6 +1892,7 @@ typedef struct rsa_pss_params_st {
   X509_ALGOR *maskGenAlgorithm;
   ASN1_INTEGER *saltLength;
   ASN1_INTEGER *trailerField;
+  X509_ALGOR *maskHash;
 } RSA_PSS_PARAMS;
 
 DECLARE_ASN1_FUNCTIONS(RSA_PSS_PARAMS)
