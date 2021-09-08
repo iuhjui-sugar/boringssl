@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "068497b6_3d64ef20",
+        "filename": "crypto/asn1/tasn_enc.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-09-08T20:36:33Z",
+      "side": 1,
+      "message": "Turns out it\u0027s not always zero, due to bugs elsewhere. I\u0027ve left a longer TODO and will pile a CL on the top of the stack to address it.",
+      "parentUuid": "2e9ecb0d_2b1accb0",
+      "revId": "f43992bb51635400f89357c263541d65c8d2f20b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "d0aa66da_31adcf43",
         "filename": "crypto/asn1/tasn_enc.c",
         "patchSetId": 1
@@ -52,6 +70,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d56fffb1_bdd738e1",
+        "filename": "crypto/asn1/tasn_enc.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-09-08T20:36:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "60cb01bc_05625a72",
+      "revId": "f43992bb51635400f89357c263541d65c8d2f20b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f9383cf8_9cf9f4f8",
@@ -65,6 +101,24 @@
       "writtenOn": "2021-09-08T17:25:53Z",
       "side": 1,
       "message": "optional: assert(p - buf \u003c\u003d skcontlen);\n\n(I think that should always be true.)",
+      "revId": "f43992bb51635400f89357c263541d65c8d2f20b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca99eabf_a2642bbf",
+        "filename": "crypto/asn1/tasn_enc.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-09-08T20:36:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9383cf8_9cf9f4f8",
       "revId": "f43992bb51635400f89357c263541d65c8d2f20b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
