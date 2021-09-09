@@ -67,6 +67,16 @@
 extern "C" {
 #endif
 
+typedef struct rsa_pss_params_st {
+  X509_ALGOR *hashAlgorithm;
+  X509_ALGOR *maskGenAlgorithm;
+  ASN1_INTEGER *saltLength;
+  ASN1_INTEGER *trailerField;
+  // OpenSSL caches the MGF hash on RSA_PSS_PARAMS in some cases.
+  // None of the cases apply to BoringSSL, but Node expects the
+  // field to be present.
+  X509_ALGOR *maskHash;
+} RSA_PSS_PARAMS;
 
 // rsa.h contains functions for handling encryption and signature using RSA.
 
@@ -139,6 +149,13 @@ OPENSSL_EXPORT void RSA_get0_key(const RSA *rsa, const BIGNUM **out_n,
 // factors. If |rsa| is a public key, they will be set to NULL.
 OPENSSL_EXPORT void RSA_get0_factors(const RSA *rsa, const BIGNUM **out_p,
                                      const BIGNUM **out_q);
+
+// RSA_get0_pss_params is used to retrieve the RSA-PSS parameters. BoringSSL
+// does not currently support id-RSASSA-PSS keys, so this will always return
+// NULL.
+// 
+// If support should be added, the RSA_PSS_PARAMS object must have maskHash cached.
+OPENSSL_EXPORT RSA_PSS_PARAMS *RSA_get0_pss_params(const RSA *r);
 
 // RSA_get0_crt_params sets |*out_dmp1|, |*out_dmq1|, and |*out_iqmp|, if
 // non-NULL, to |rsa|'s CRT parameters. These are d (mod p-1), d (mod q-1) and
