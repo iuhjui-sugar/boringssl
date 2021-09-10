@@ -17,7 +17,7 @@ add_dependencies(bssl_shim global_target)
 
 target_link_libraries(bssl_shim test_support_lib ssl crypto)
 
-if(UNIX AND NOT APPLE AND NOT ANDROID)
+if(UNIX AND NOT APPLE AND NOT ANDROID AND NOT CMAKE_SYSTEM_NAME STREQUAL "FreeBSD")
   add_executable(
     handshaker
 

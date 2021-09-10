@@ -599,7 +599,7 @@ if(FUZZ)
   add_subdirectory(fuzz)
 endif()
 
-if(UNIX AND NOT APPLE AND NOT ANDROID)
+if(UNIX AND NOT APPLE AND NOT ANDROID AND NOT CMAKE_SYSTEM_NAME STREQUAL "FreeBSD")
   set(HANDSHAKER_ARGS "-handshaker-path" $<TARGET_FILE:handshaker>)
 endif()
 
