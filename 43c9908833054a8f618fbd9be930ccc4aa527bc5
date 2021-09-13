@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70f17e83_1f48985c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-09-13T15:10:10Z",
+      "side": 1,
+      "message": "Haha oops, thanks! Arithmetic error. :-)\n\nI\u0027ll go tighten up the comment slightly, but otherwise this looks good.\n\n(There\u0027s actually a much older citation for the 1/4 bound, which comes from the paper that originally derived the values for uniformly-distributed primes. But this one works too.)",
+      "revId": "43c9908833054a8f618fbd9be930ccc4aa527bc5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
