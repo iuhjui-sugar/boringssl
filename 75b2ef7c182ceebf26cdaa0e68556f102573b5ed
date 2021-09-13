@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a658121_11964437",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-09-13T15:18:39Z",
+      "side": 1,
+      "message": "(Rephrased commit message slightly, just to match the usual git style. The first line is usually kept short.)",
+      "revId": "75b2ef7c182ceebf26cdaa0e68556f102573b5ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
