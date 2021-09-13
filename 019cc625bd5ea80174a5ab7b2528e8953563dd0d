@@ -52,6 +52,24 @@
       "parentUuid": "1d5797b3_66881faa",
       "revId": "019cc625bd5ea80174a5ab7b2528e8953563dd0d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4234ee9a_4ac51620",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13323
+      },
+      "writtenOn": "2021-09-13T17:17:05Z",
+      "side": 1,
+      "message": "Haha thanks, I thought I\u0027d have a little bit of time to write a comment before anyone came across my CL, but you were very quick!\n\n\u003e Definitely agreed that increasing to 64 was the right answer. This was just an arithmetic mistake on my part. The silly thing is that testing adversarial prime numbers doesn\u0027t *actually* come up much. Where it does, it\u0027s probably a sign someone\u0027s doing something wrong.\n\n\u003e In TLS DHE, with the server-supplied group, actually running an online primality test would be prohibitively expensive. Instead, you either live with non-contributory behavior, or just delete those ciphers altogether. (We did the latter.) I expect the same tradeoffs apply to any other protocol that mistakenly did this.\n\nThanks for your comments, and I totally agree with your sentiment. I\u0027m glad you agree with the choice to go with 64. I just wanted to make sure that any performance changes would be highlighted, so you could evaluate accordingly.\n\n\u003e In correct incarnations of FFDH, protocols should, like ECDH, have well-known named groups. Then the peer can\u0027t supply groups in the first place and the whole point is moot. Although, still better to move to ECDH because FFDH is slow.\n\nPerhaps this fix (and resulting slower parameter checking) may even help motivate those using non-standard groups to switch to ECDH ;)\n\n\u003e (Well, we mostly do, but hard to make guarantees about all uses of a public API for all time.)\n\nExactly!",
+      "parentUuid": "1e9b56b2_384e230f",
+      "revId": "019cc625bd5ea80174a5ab7b2528e8953563dd0d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
