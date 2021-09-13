@@ -34,6 +34,24 @@
       "parentUuid": "b2ea84fc_a44e5820",
       "revId": "019cc625bd5ea80174a5ab7b2528e8953563dd0d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e9b56b2_384e230f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-09-13T16:48:10Z",
+      "side": 1,
+      "message": "\u003e we don\u0027t know how our callers are using it\n\n(Well, we mostly do, but hard to make guarantees about all uses of a public API for all time.)",
+      "parentUuid": "1d5797b3_66881faa",
+      "revId": "019cc625bd5ea80174a5ab7b2528e8953563dd0d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
