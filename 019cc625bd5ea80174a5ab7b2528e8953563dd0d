@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2ea84fc_a44e5820",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13323
+      },
+      "writtenOn": "2021-09-13T16:27:28Z",
+      "side": 1,
+      "message": "Upon reviewing the primality testing procedures within BoringSSL, I noticed that the variable which defines the number of rounds of Miller-Rabin testing (BN_prime_checks_for_validation) is erroneous, as the false-positive rate given within the documentation does not match the number of Miller-Rabin rounds performed. The documentation correctly states that the worst case false-positive rate for a single MR iteration is 1/4, yet then goes on to claim that 32 iterations are set to achieve a false-positive rate of at most 2^{-128}.\n\nThis commit therefore fixes the number of iterations defined by BN_prime_checks_for_validation  to be 64, to correctly achieve a false-positive rate of (1/4)^64 \u003d 2^{-128}. While this will induce a performance decrease (MR cost scales linearly in the number of rounds) I feel that it is important to deliver the false-positive rate advertised at 2^{-128}. I’ve added in a reference https://eprint.iacr.org/2018/749 to give a description of where the 1/4 comes from, and a background in primality testing in adversarial conditions. \n\nAnother option considered was to leave the number of rounds at 32 (to maintain performance), and instead modify the documentation to reflect that the test has a worst-case bound of 2^{-64} – however, I feel that this does not support the idea of a secure, misuse-resistant API. While 32 rounds is likely a safe number to use when testing prime parameters for use in Diffie-Hellman – as seen in the primality test test vectors https://github.com/google/boringssl/blob/94b477cea5057d9372984a311aba9276f737f748/third_party/wycheproof_testvectors/primality_test.json#L807-L848 (see https://eprint.iacr.org/2019/032 for more on this) – it does not provide an adequate security level when testing non-random prime numbers for other applications. Given the scope and use of BoringSSL, I feel that it is better to provide a secure primality testing API that works well in all use-cases, than to expect the user to understand when and where this test is safe to use.\n",
+      "revId": "019cc625bd5ea80174a5ab7b2528e8953563dd0d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
