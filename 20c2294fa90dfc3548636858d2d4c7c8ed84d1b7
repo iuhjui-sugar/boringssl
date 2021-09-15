@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0202ac89_fbcd8f24",
+        "filename": "crypto/crypto_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-09-15T21:46:18Z",
+      "side": 1,
+      "message": "Nit: `using CounterArray \u003d size_t[fips_counter_max + 1]` is more C++-y.",
+      "revId": "20c2294fa90dfc3548636858d2d4c7c8ed84d1b7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56d7a439_0e772d4a",
+        "filename": "crypto/crypto_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-09-15T21:46:18Z",
+      "side": 1,
+      "message": "Optional: Might be easier to debug issues if we write something like:\n\n  EXPECT_EQ(after[counter] , before[counter] + expected_delta) \u003c\u003c counter;\n\n(And then this function returns void.)",
+      "revId": "20c2294fa90dfc3548636858d2d4c7c8ed84d1b7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b157e5c_beec6476",
+        "filename": "include/openssl/crypto.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-09-15T21:46:18Z",
+      "side": 1,
+      "message": "Any reason not to use the same counters? I assume none of the callers actually care which of the two APIs are called. This way an underlying library can switch from EVP_CIPHER to EVP_AEAD without breaking the tests above it.",
+      "range": {
+        "startLine": 87,
+        "startChar": 2,
+        "endLine": 87,
+        "endChar": 35
+      },
+      "revId": "20c2294fa90dfc3548636858d2d4c7c8ed84d1b7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
