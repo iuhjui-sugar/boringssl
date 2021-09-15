@@ -74,6 +74,8 @@ OPENSSL_EXPORT void CRYPTO_pre_sandbox_init(void);
 // which case it returns one.
 OPENSSL_EXPORT int FIPS_mode(void);
 
+#define BORINGSSL_FIPS_COUNTERS
+
 // fips_counter_t denotes specific APIs/algorithms. A counter is maintained for
 // each in FIPS mode so that tests can be written to assert that the expected,
 // FIPS functions are being called by a certain peice of code.
@@ -82,8 +84,10 @@ enum fips_counter_t {
   fips_counter_evp_aes_256_gcm = 1,
   fips_counter_evp_aes_128_ctr = 2,
   fips_counter_evp_aes_256_ctr = 3,
+  fips_counter_evp_aead_aes_128_gcm = 4,
+  fips_counter_evp_aead_aes_256_gcm = 5,
 
-  fips_counter_max = 3,
+  fips_counter_max = 5,
 };
 
 // FIPS_read_counter returns a counter of the number of times the specific
