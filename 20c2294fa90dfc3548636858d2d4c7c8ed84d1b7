@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "72b6e59f_35297899",
+        "filename": "crypto/crypto_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-09-15T22:02:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0202ac89_fbcd8f24",
+      "revId": "20c2294fa90dfc3548636858d2d4c7c8ed84d1b7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "56d7a439_0e772d4a",
@@ -35,6 +53,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "839dd254_1beeaa3b",
+        "filename": "crypto/crypto_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-09-15T22:02:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56d7a439_0e772d4a",
+      "revId": "20c2294fa90dfc3548636858d2d4c7c8ed84d1b7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1b157e5c_beec6476",
@@ -48,6 +84,30 @@
       "writtenOn": "2021-09-15T21:46:18Z",
       "side": 1,
       "message": "Any reason not to use the same counters? I assume none of the callers actually care which of the two APIs are called. This way an underlying library can switch from EVP_CIPHER to EVP_AEAD without breaking the tests above it.",
+      "range": {
+        "startLine": 87,
+        "startChar": 2,
+        "endLine": 87,
+        "endChar": 35
+      },
+      "revId": "20c2294fa90dfc3548636858d2d4c7c8ed84d1b7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0af8d2e_103c7851",
+        "filename": "include/openssl/crypto.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-09-15T22:02:42Z",
+      "side": 1,
+      "message": "Hmm. I\u0027m not sure what the right answer will turn out to be, but your upgrade case is something that we want to make easy, so fair enough. Done.",
+      "parentUuid": "1b157e5c_beec6476",
       "range": {
         "startLine": 87,
         "startChar": 2,
