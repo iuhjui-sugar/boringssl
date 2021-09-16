@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a84d849_e18c103b",
+        "filename": "util/fipstools/acvp/acvptool/testmodulewrapper/cts_test.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-09-16T21:26:38Z",
+      "side": 1,
+      "message": "Should this be aes.BlockSize? (Seems the minimum that works is a full block in the implementation.)",
+      "range": {
+        "startLine": 32,
+        "startChar": 10,
+        "endLine": 32,
+        "endChar": 27
+      },
+      "revId": "93fdf2d08979b8eafdd9f5f9a160dab0ca5326b0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18b7ca69_a4926cf9",
+        "filename": "util/fipstools/acvp/acvptool/testmodulewrapper/testmodulewrapper.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-09-16T21:26:38Z",
+      "side": 1,
+      "message": "Optional: Does this work?\n\nplaintext :\u003d make([]byte, len(origPlaintext) + (-len(origPlaintext)%aes.BlockSize)\ncopy(plaintext, origPlaintext)",
+      "revId": "93fdf2d08979b8eafdd9f5f9a160dab0ca5326b0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28b0fffb_65cd4302",
+        "filename": "util/fipstools/acvp/acvptool/testmodulewrapper/testmodulewrapper.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-09-16T21:26:38Z",
+      "side": 1,
+      "message": "Optional: Does CryptBlocks allow running in-place?",
+      "revId": "93fdf2d08979b8eafdd9f5f9a160dab0ca5326b0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b14f3f6_915eae26",
+        "filename": "util/fipstools/acvp/acvptool/testmodulewrapper/testmodulewrapper.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-09-16T21:26:38Z",
+      "side": 1,
+      "message": "Ditto about modulo stuff.",
+      "revId": "93fdf2d08979b8eafdd9f5f9a160dab0ca5326b0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "daeac436_27ee5014",
+        "filename": "util/fipstools/acvp/acvptool/testmodulewrapper/testmodulewrapper.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-09-16T21:26:38Z",
+      "side": 1,
+      "message": "Seems this would go out of bounds if len(origCiphertext) \u003c aes.BlockSize. Should we check for this somewhere and give a more useful error?\n\nEdit: Oh, I see, it\u0027s checked in the caller. No strong opinions as to whether it ought to be here.",
+      "revId": "93fdf2d08979b8eafdd9f5f9a160dab0ca5326b0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8196d4f_3c4942e1",
+        "filename": "util/fipstools/acvp/acvptool/testmodulewrapper/testmodulewrapper.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-09-16T21:26:38Z",
+      "side": 1,
+      "message": "Optional: This probably also could work in-place but seems a bit fussy.",
+      "revId": "93fdf2d08979b8eafdd9f5f9a160dab0ca5326b0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
