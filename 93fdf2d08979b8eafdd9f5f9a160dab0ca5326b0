@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "86390467_5ce65181",
+        "filename": "util/fipstools/acvp/acvptool/testmodulewrapper/cts_test.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2021-09-16T21:58:05Z",
+      "side": 1,
+      "message": "Ah, yes. Thanks. (The spec is completely unclear on what the minimum input size is but I found that ACVP thinks that it\u0027s a block.)",
+      "parentUuid": "0a84d849_e18c103b",
+      "range": {
+        "startLine": 32,
+        "startChar": 10,
+        "endLine": 32,
+        "endChar": 27
+      },
+      "revId": "93fdf2d08979b8eafdd9f5f9a160dab0ca5326b0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "18b7ca69_a4926cf9",
@@ -37,6 +61,24 @@
       "writtenOn": "2021-09-16T21:26:38Z",
       "side": 1,
       "message": "Optional: Does this work?\n\nplaintext :\u003d make([]byte, len(origPlaintext) + (-len(origPlaintext)%aes.BlockSize)\ncopy(plaintext, origPlaintext)",
+      "revId": "93fdf2d08979b8eafdd9f5f9a160dab0ca5326b0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "26f933da_36a63284",
+        "filename": "util/fipstools/acvp/acvptool/testmodulewrapper/testmodulewrapper.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2021-09-16T21:58:05Z",
+      "side": 1,
+      "message": "No, but it\u0027s a good idea. A negative number mod 16 is negative in Go so that ends up smaller. Casting to uint works, but ends up rather complex-looking. Have pulled out a roundUp function and used this pattern though. Thanks.",
+      "parentUuid": "18b7ca69_a4926cf9",
       "revId": "93fdf2d08979b8eafdd9f5f9a160dab0ca5326b0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -58,6 +100,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e9d33a9_6d5a3cf2",
+        "filename": "util/fipstools/acvp/acvptool/testmodulewrapper/testmodulewrapper.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2021-09-16T21:58:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "28b0fffb_65cd4302",
+      "revId": "93fdf2d08979b8eafdd9f5f9a160dab0ca5326b0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7b14f3f6_915eae26",
@@ -71,6 +131,24 @@
       "writtenOn": "2021-09-16T21:26:38Z",
       "side": 1,
       "message": "Ditto about modulo stuff.",
+      "revId": "93fdf2d08979b8eafdd9f5f9a160dab0ca5326b0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "083b330a_ddd9fe8a",
+        "filename": "util/fipstools/acvp/acvptool/testmodulewrapper/testmodulewrapper.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2021-09-16T21:58:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b14f3f6_915eae26",
       "revId": "93fdf2d08979b8eafdd9f5f9a160dab0ca5326b0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -92,6 +170,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8137ea35_011df252",
+        "filename": "util/fipstools/acvp/acvptool/testmodulewrapper/testmodulewrapper.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2021-09-16T21:58:05Z",
+      "side": 1,
+      "message": "Have duplicated the check in case this code is ever used elsewhere in the future.",
+      "parentUuid": "daeac436_27ee5014",
+      "revId": "93fdf2d08979b8eafdd9f5f9a160dab0ca5326b0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a8196d4f_3c4942e1",
@@ -105,6 +201,24 @@
       "writtenOn": "2021-09-16T21:26:38Z",
       "side": 1,
       "message": "Optional: This probably also could work in-place but seems a bit fussy.",
+      "revId": "93fdf2d08979b8eafdd9f5f9a160dab0ca5326b0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20dda96f_2b636e3e",
+        "filename": "util/fipstools/acvp/acvptool/testmodulewrapper/testmodulewrapper.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 417,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2021-09-16T21:58:05Z",
+      "side": 1,
+      "message": "Ack. Yea, I just don\u0027t think it\u0027s worth optimising for here since this is a unittest for the ACVP code.",
+      "parentUuid": "a8196d4f_3c4942e1",
       "revId": "93fdf2d08979b8eafdd9f5f9a160dab0ca5326b0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
