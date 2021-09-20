@@ -16,6 +16,24 @@
       "message": "The (minimal) OPENSSL_FREEBSD define is for one specific, Google-internal use. In general we don\u0027t take code that we don\u0027t have builders for and can\u0027t test. Therefore, unless this is part of that specific use, we would likely decline, I\u0027m afraid.",
       "revId": "dde101cc395c0a9fc49b9ff55eaa0f887f23875a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c85a59ad_43fa3bd7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13321
+      },
+      "writtenOn": "2021-09-20T11:31:42Z",
+      "side": 1,
+      "message": "I don\u0027t understand what you mean. A lot a software use boringssl and it doesn\u0027t build on FreeBSD aarch64. Feel free to close this review if you only support linux.",
+      "parentUuid": "6d537ea3_dd516295",
+      "revId": "dde101cc395c0a9fc49b9ff55eaa0f887f23875a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
