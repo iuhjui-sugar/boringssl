@@ -34,6 +34,24 @@
       "parentUuid": "6d537ea3_dd516295",
       "revId": "dde101cc395c0a9fc49b9ff55eaa0f887f23875a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01fca109_dd42d5c6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-09-20T16:25:16Z",
+      "side": 1,
+      "message": "It\u0027s not that we only support Linux, but that we want to be careful about people developing expectations about what we support by what happens to work. The core BoringSSL team don\u0027t develop on FreeBSD and can\u0027t maintain this code. We do have a group within Google who are on the hook for dealing with FreeBSD, but only in a specific case so I was asking whether you were working with them on that.\n\nIt sounds like not. As such, I\u0027m afraid this would be a contribution that we can\u0027t review, test, nor maintain. Nothing against FreeBSD, but we have to be quite strict about expanding scope. Generally such requests have to come from within Google so that they can answer questions about who, five years from now, will be funding test infrastructure etc.",
+      "parentUuid": "c85a59ad_43fa3bd7",
+      "revId": "dde101cc395c0a9fc49b9ff55eaa0f887f23875a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
