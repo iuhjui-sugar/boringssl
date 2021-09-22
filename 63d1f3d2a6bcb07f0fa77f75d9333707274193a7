@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48c5e512_2795fa1d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7285
+      },
+      "writtenOn": "2021-09-22T05:10:04Z",
+      "side": 1,
+      "message": "Hey David, I thought that I might try out writing some code for you.  Much easier contributing here than for NSS :)",
+      "revId": "63d1f3d2a6bcb07f0fa77f75d9333707274193a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
