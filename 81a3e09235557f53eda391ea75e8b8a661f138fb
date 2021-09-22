@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "84a7fea7_78013a22",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2021-09-22T22:04:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57b8fa97_40d964a8",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 27
+      },
+      "revId": "81a3e09235557f53eda391ea75e8b8a661f138fb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ab1e12a6_da3f20e2",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-09-22T20:48:32Z",
       "side": 1,
       "message": "Nit: should this be called pkcs7_add_signed_data or something now? We\u0027re no longer just bundling stuff and it\u0027s SignedData-specific.",
+      "range": {
+        "startLine": 47,
+        "startChar": 4,
+        "endLine": 47,
+        "endChar": 16
+      },
+      "revId": "81a3e09235557f53eda391ea75e8b8a661f138fb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed2b71fb_f496bd59",
+        "filename": "crypto/pkcs7/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2021-09-22T22:04:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab1e12a6_da3f20e2",
       "range": {
         "startLine": 47,
         "startChar": 4,
@@ -64,6 +112,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "244fffb1_ff1edee5",
+        "filename": "crypto/pkcs7/pkcs7_x509.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2021-09-22T22:04:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df297791_a293ceee",
+      "revId": "81a3e09235557f53eda391ea75e8b8a661f138fb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "306bb829_1cce3b5f",
@@ -77,6 +143,24 @@
       "writtenOn": "2021-09-22T20:48:32Z",
       "side": 1,
       "message": "Optional: 4096 seems probably small enough to stack-allocate?",
+      "revId": "81a3e09235557f53eda391ea75e8b8a661f138fb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10bd410d_fc652ecf",
+        "filename": "crypto/pkcs7/pkcs7_x509.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2021-09-22T22:04:04Z",
+      "side": 1,
+      "message": "It\u0027s a little large for the stack. Very unlikely to be an issue in the context of sign-file.c, but stack space is more limited these days. Since it\u0027s already written as a malloc, I think I\u0027ll leave it as-is. (Not performance critical.)",
+      "parentUuid": "306bb829_1cce3b5f",
       "revId": "81a3e09235557f53eda391ea75e8b8a661f138fb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -117,6 +201,24 @@
       "writtenOn": "2021-09-22T20:48:32Z",
       "side": 1,
       "message": "Probably should update the header.",
+      "revId": "81a3e09235557f53eda391ea75e8b8a661f138fb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b93fca1_d282866f",
+        "filename": "crypto/pkcs7/pkcs7_x509.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 469,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2021-09-22T22:04:04Z",
+      "side": 1,
+      "message": "Of course, thanks!",
+      "parentUuid": "1de62dea_10ece63d",
       "revId": "81a3e09235557f53eda391ea75e8b8a661f138fb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
