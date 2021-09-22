@@ -69,20 +69,58 @@
 
 const EVP_CIPHER *EVP_get_cipherbynid(int nid) {
   switch (nid) {
-    case NID_rc2_cbc:
-      return EVP_rc2_cbc();
-    case NID_rc2_40_cbc:
-      return EVP_rc2_40_cbc();
+    case NID_rc4:
+      return EVP_rc4();
+    case NID_des_cbc:
+      return EVP_des_cbc();
+    case NID_des_ede3_ecb:
+      return EVP_des_ede3();
     case NID_des_ede3_cbc:
       return EVP_des_ede3_cbc();
-    case NID_des_ede_cbc:
-      return EVP_des_cbc();
     case NID_aes_128_cbc:
       return EVP_aes_128_cbc();
+    case NID_aes_128_cfb128:
+      return EVP_aes_128_cfb128();
     case NID_aes_192_cbc:
       return EVP_aes_192_cbc();
     case NID_aes_256_cbc:
       return EVP_aes_256_cbc();
+    case NID_aes_256_cfb128:
+      return EVP_aes_256_cfb128();
+    case NID_aes_128_ctr:
+      return EVP_aes_128_ctr();
+    case NID_aes_192_ctr:
+      return EVP_aes_192_ctr();
+    case NID_aes_256_ctr:
+      return EVP_aes_256_ctr();
+    case NID_aes_128_ecb:
+      return EVP_aes_128_ecb();
+    case NID_aes_192_ecb:
+      return EVP_aes_192_ecb();
+    case NID_aes_256_ecb:
+      return EVP_aes_256_ecb();
+    case NID_aes_128_gcm:
+      return EVP_aes_128_gcm();
+    case NID_aes_192_gcm:
+      return EVP_aes_192_gcm();
+    case NID_aes_256_gcm:
+      return EVP_aes_256_gcm();
+    case NID_aes_128_ofb128:
+      return EVP_aes_128_ofb();
+    case NID_aes_192_ofb128:
+      return EVP_aes_192_ofb();
+    case NID_aes_256_ofb128:
+      return EVP_aes_256_ofb();
+    case NID_des_ecb:
+      return EVP_des_ecb();
+    case NID_des_ede_ecb:
+      return EVP_des_ede();
+    case NID_des_ede_cbc:
+      return EVP_des_ede_cbc();
+    case NID_rc2_cbc:
+      return EVP_rc2_cbc();
+    case NID_rc2_40_cbc:
+      return EVP_rc2_40_cbc();
     default:
       return NULL;
   }
