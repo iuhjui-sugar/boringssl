@@ -230,7 +230,11 @@ ssl_open_record_t tls_open_record(SSL *ssl, uint8_t *out_type,
   }
 
   bool version_ok;
-  if (ssl->s3->aead_read_ctx->is_null_cipher()) {
+  if (ssl->s3->have_version && ssl_protocol_version(ssl) >= TLS1_3_VERSION) {
+    // RFC 8446; Section 5.1:
+    // legacy_record_version "MUST be ignored for all purposes".
+    version_ok = true;
+  } else if (ssl->s3->aead_read_ctx->is_null_cipher()) {
     // Only check the first byte. Enforcing beyond that can prevent decoding
     // version negotiation failure alerts.
     version_ok = (version >> 8) == SSL3_VERSION_MAJOR;

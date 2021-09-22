@@ -15246,7 +15246,7 @@ func addPeekTests() {
 func addRecordVersionTests() {
 	for _, ver := range tlsVersions {
 		// Test that the record version is enforced.
-		testCases = append(testCases, testCase{
+		tc := testCase{
 			name: "CheckRecordVersion-" + ver.name,
 			config: Config{
 				MinVersion: ver.version,
@@ -15255,9 +15255,13 @@ func addRecordVersionTests() {
 					SendRecordVersion: 0x03ff,
 				},
 			},
-			shouldFail:    true,
-			expectedError: ":WRONG_VERSION_NUMBER:",
-		})
+			shouldFail: false,
+		}
+		if ver.version < VersionTLS13 {
+			tc.shouldFail = true
+			tc.expectedError = ":WRONG_VERSION_NUMBER:"
+		}
+		testCases = append(testCases, tc)
 
 		// Test that the ClientHello may use any record version, for
 		// compatibility reasons.
