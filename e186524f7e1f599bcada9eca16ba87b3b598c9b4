@@ -16,6 +16,23 @@
       "message": "Dear Adam and David,\n\nPlease review this change, we think it might cause serious issues in the future.\nLooks like the tests we ran did not exercise the \u0027len \u003d 0\u0027 path.\n\nKind regards,\nTamas",
       "revId": "e186524f7e1f599bcada9eca16ba87b3b598c9b4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbe7e0e5_7a3e7147",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-09-23T15:02:41Z",
+      "side": 1,
+      "message": "I agree this change is correct, so I\u0027ll merge it, but this issue is not closed yet.\n\nFortunately, I believe this codepath is not actually reachable outside of tests. We don\u0027t, currently, apply vpaes_cbc_encrypt in AES_cbc_encrypt, only the EVP_CIPHER interface (possibly a missed optimization), and the EVP_CIPHER interface returns before calling this function if the input is zero.\n\nNonetheless, this issue raises some questions about what testing was done in ARM\u0027s original contribution. While not reachable from EVP_CIPHER, the AESTest.ABI test exercises the vpaes_cbc_encrypt(0) codepath, independent of CPU capabilities. Did you all run all the unit tests under an environment that enables this code?\n\nI think this also underscores why it\u0027s so critical to have continuous, automated testing before we accept new ARM assembly annotations like this in the future. We also need to correct this instance. For x86, we have the SDE tool. What tools does ARM provide here?",
+      "revId": "e186524f7e1f599bcada9eca16ba87b3b598c9b4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
