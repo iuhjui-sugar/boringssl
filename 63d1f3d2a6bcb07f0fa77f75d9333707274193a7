@@ -16,6 +16,23 @@
       "message": "Hey David, I thought that I might try out writing some code for you.  Much easier contributing here than for NSS :)",
       "revId": "63d1f3d2a6bcb07f0fa77f75d9333707274193a7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1cf90605_d393a591",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-09-23T20:44:03Z",
+      "side": 1,
+      "message": "We\u0027re discussing this in an email thread, but just noting here for posterity:\n\nThe RFC 8446 reference talks about TLSPlaintext records, whereas TLSCiphertext is pretty clear about it being 0x0303, both in prose and abstract syntax.\n\nBut this wouldn\u0027t resolve the compatibility issue because AAD includes the record header. So rather than ignore the header, we need to \"fix\" it back to 0x0303 and authenticate that value instead. This seems sufficiently awful that I\u0027m not sure if it\u0027s what we want to do. :-/",
+      "revId": "63d1f3d2a6bcb07f0fa77f75d9333707274193a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
