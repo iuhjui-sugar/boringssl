@@ -16,6 +16,23 @@
       "message": "Oops, this isn\u0027t actually syncing the two. This entry, and EVP_aes_128_cfb128, should be removed. Not only is it not in EVP_get_cipherbyname, it\u0027s not in libcrypto at all. It\u0027s part of libdecrepit.\n\nLet me try a different version, that\u0027ll be more obviously kept in sync in the future...",
       "revId": "729d01e1501d2d8789238360eba3978591aea30e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39617a6c_d3b8f0e0",
+        "filename": "crypto/cipher_extra/cipher_extra.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-09-24T16:11:37Z",
+      "side": 1,
+      "message": "(Looks like this is another one that wasn\u0027t in EVP_get_cipherbyname.)",
+      "revId": "729d01e1501d2d8789238360eba3978591aea30e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
