@@ -33,6 +33,24 @@
       "message": "I agree this change is correct, so I\u0027ll merge it, but this issue is not closed yet.\n\nFortunately, I believe this codepath is not actually reachable outside of tests. We don\u0027t, currently, apply vpaes_cbc_encrypt in AES_cbc_encrypt, only the EVP_CIPHER interface (possibly a missed optimization), and the EVP_CIPHER interface returns before calling this function if the input is zero.\n\nNonetheless, this issue raises some questions about what testing was done in ARM\u0027s original contribution. While not reachable from EVP_CIPHER, the AESTest.ABI test exercises the vpaes_cbc_encrypt(0) codepath, independent of CPU capabilities. Did you all run all the unit tests under an environment that enables this code?\n\nI think this also underscores why it\u0027s so critical to have continuous, automated testing before we accept new ARM assembly annotations like this in the future. We also need to correct this instance. For x86, we have the SDE tool. What tools does ARM provide here?",
       "revId": "e186524f7e1f599bcada9eca16ba87b3b598c9b4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b926331a_890a3c1b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10416
+      },
+      "writtenOn": "2021-09-27T15:17:06Z",
+      "side": 1,
+      "message": "Dear David,\n\nHere is what we have been doing to test this - and all related - changes.\n\nWe setup a CI job to build and run BoringSSL unit tests on Android using Arm\u0027s FVP model. FVP provides architecturally correct modelling of Arm CPUs. For reference: https://developer.arm.com/tools-and-software/simulation-models\n\nWe used fvp_mini target: https://android-review.googlesource.com/c/device/generic/goldfish/+/1354904\n\nWe made sure with additional testing that the model does Pointer Authentication according to the specification. We also manually introduced spot-check-like  \"missing\" signing or authenticating instructions at various places in BoringSSL\u0027s assembly to see if those paths are really taken and that the tests we are running actually fail. Unfortunately, we failed to exercise this code path like this.\n\nI looked into our CI jobs and found that AESTest.ABI test is turned off for Android: #if defined(SUPPORTS_ABI_TEST) is not true (here: https://boringssl.googlesource.com/boringssl/+/master/crypto/fipsmodule/aes/aes_test.cc#274) Seems like it is because BORINGSSL_SHARED_LIBRARY is defined. We haven\u0027t realized this was happening. Should this be changed to GTEST_SKIP() instead?\n\nKind regards,\nTamas",
+      "parentUuid": "dbe7e0e5_7a3e7147",
+      "revId": "e186524f7e1f599bcada9eca16ba87b3b598c9b4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
