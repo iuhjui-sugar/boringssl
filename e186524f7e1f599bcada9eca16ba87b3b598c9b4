@@ -51,6 +51,24 @@
       "parentUuid": "dbe7e0e5_7a3e7147",
       "revId": "e186524f7e1f599bcada9eca16ba87b3b598c9b4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca198923_0c1c9b70",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-09-28T19:24:17Z",
+      "side": 1,
+      "message": "Ah, that explains it. Yeah, the assembly symbols are not exported out of the shared library, which is why we can only run ABI tests in static library builds. Our standalone CI mostly tests the static library builds. Thanks for the clarification!\n\nI\u0027ll look into getting FVP set up into our CI. Sounds like we need to do that.",
+      "parentUuid": "b926331a_890a3c1b",
+      "revId": "e186524f7e1f599bcada9eca16ba87b3b598c9b4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
