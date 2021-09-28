@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3a885f8_c298c4da",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-09-28T17:01:22Z",
+      "side": 1,
+      "message": "Given that they\u0027ve been wrong for so long, perhaps we don\u0027t need them? (Ignore if there\u0027s a user.)",
+      "revId": "5ae9bbe91ba7a0d25ac8614a066478113f6eccc6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
