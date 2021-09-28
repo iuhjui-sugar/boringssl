@@ -639,6 +639,10 @@ static void err_set_error_data(char *data) {
   error->data = data;
 }
 
+void ERR_set_error_data(char *data) {
+  err_set_error_data(data);
+}
+
 void ERR_put_error(int library, int unused, int reason, const char *file,
                    unsigned line) {
   ERR_STATE *const state = err_get_state();
