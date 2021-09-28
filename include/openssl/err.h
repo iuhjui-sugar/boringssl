@@ -412,6 +412,7 @@ OPENSSL_EXPORT char *ERR_error_string(uint32_t packed_error, char *buf);
 // it's using OpenSSL.
 #define ERR_TXT_STRING ERR_FLAG_STRING
 
+OPENSSL_EXPORT void ERR_set_error_data(char *data);
 
 // Private functions.
 
