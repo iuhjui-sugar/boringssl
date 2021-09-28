@@ -16,6 +16,24 @@
       "message": "Given that they\u0027ve been wrong for so long, perhaps we don\u0027t need them? (Ignore if there\u0027s a user.)",
       "revId": "5ae9bbe91ba7a0d25ac8614a066478113f6eccc6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "674959d1_56da21c3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-09-28T17:32:59Z",
+      "side": 1,
+      "message": "Apparently rust-openssl uses them. :-/",
+      "parentUuid": "b3a885f8_c298c4da",
+      "revId": "5ae9bbe91ba7a0d25ac8614a066478113f6eccc6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
