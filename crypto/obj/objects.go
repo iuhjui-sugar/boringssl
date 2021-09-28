@@ -713,6 +713,17 @@ func writeData(path string, objs *objects) error {
 	return ioutil.WriteFile(path, []byte(formatted), 0666)
 }
 
+func writeRustConstants(path string, objs *objects) error {
+	var b bytes.Buffer
+	for nid, obj := range objs.byNID {
+		if len(obj.name) == 0 {
+			continue
+		}
+                fmt.Fprintf(&b, "pub const NID_%s: libc::c_int = %d;\n", obj.name, nid)
+	}
+	return ioutil.WriteFile(path, b.Bytes(), 0666)
+}
+
 func main() {
 	objs, err := readObjects("obj_mac.num", "objects.txt")
 	if err != nil {
@@ -734,4 +745,9 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error writing data: %s\n", err)
 		os.Exit(1)
 	}
+	if err := writeRustConstants("nid.rs", objs); err != nil {
+		fmt.Fprintf(os.Stderr, "Error writing Rust NID constants: %s\n", err)
+		os.Exit(1)
+	}
+
 }
