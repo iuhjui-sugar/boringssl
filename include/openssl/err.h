@@ -160,6 +160,9 @@ OPENSSL_EXPORT void ERR_free_strings(void);
 
 
 // Reading and formatting errors.
+//
+// NOTE: If changing these macros, update the Rust code lib.rs to keep the
+// encoding consistent.
 
 // ERR_GET_LIB returns the library code for the error. This is one of
 // the |ERR_LIB_*| values.
@@ -418,6 +421,7 @@ OPENSSL_EXPORT char *ERR_error_string(uint32_t packed_error, char *buf);
 #define ERR_TXT_STRING ERR_FLAG_STRING
 #define ERR_TXT_MALLOCED ERR_FLAG_MALLOCED
 
+OPENSSL_EXPORT void ERR_set_error_data(char *data);
 
 // Private functions.
 
