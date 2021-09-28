@@ -418,7 +418,6 @@ OPENSSL_EXPORT char *ERR_error_string(uint32_t packed_error, char *buf);
 #define ERR_TXT_STRING ERR_FLAG_STRING
 #define ERR_TXT_MALLOCED ERR_FLAG_MALLOCED
 
-
 // Private functions.
 
 // ERR_clear_system_error clears the system's error value (i.e. errno).
