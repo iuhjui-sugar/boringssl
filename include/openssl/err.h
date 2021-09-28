@@ -160,7 +160,6 @@ OPENSSL_EXPORT void ERR_free_strings(void);
 
 
 // Reading and formatting errors.
-
 // ERR_GET_LIB returns the library code for the error. This is one of
 // the |ERR_LIB_*| values.
 #define ERR_GET_LIB(packed_error) ((int)(((packed_error) >> 24) & 0xff))
@@ -417,7 +416,6 @@ OPENSSL_EXPORT char *ERR_error_string(uint32_t packed_error, char *buf);
 // using OpenSSL.
 #define ERR_TXT_STRING ERR_FLAG_STRING
 #define ERR_TXT_MALLOCED ERR_FLAG_MALLOCED
-
 
 // Private functions.
 
