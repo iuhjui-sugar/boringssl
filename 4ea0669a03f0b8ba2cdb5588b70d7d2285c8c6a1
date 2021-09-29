@@ -50,6 +50,24 @@
       "message": "Haha, maybe this shouldn\u0027t be fixed. Unless we can send an upstream patch to NIST 😊",
       "revId": "4ea0669a03f0b8ba2cdb5588b70d7d2285c8c6a1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "209cf08b_55b2460a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-09-29T18:15:49Z",
+      "side": 1,
+      "message": "Yeah. NIST test vectors are (presumably!) generated from an independent implementation, so it\u0027s nice to keep them as-is. Though it\u0027s clearly a typo in the input. Maybe it\u0027s worth adding comments that this is actually keylen\u003eblocklen.",
+      "parentUuid": "3c428580_dffc69ba",
+      "revId": "4ea0669a03f0b8ba2cdb5588b70d7d2285c8c6a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
