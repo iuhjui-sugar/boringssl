@@ -22,6 +22,30 @@
       },
       "revId": "099cae12a0815b4d0df9dcc1d663b54bfd85f92d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48db7970_9269acdd",
+        "filename": "crypto/hmac_extra/hmac_tests.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5220
+      },
+      "writtenOn": "2021-09-29T19:12:05Z",
+      "side": 1,
+      "message": "I had the same thought as I was writing that. I\u0027ll change it to \"a misleading input.\"",
+      "parentUuid": "dae0787e_b4d3284b",
+      "range": {
+        "startLine": 36,
+        "startChar": 80,
+        "endLine": 36,
+        "endChar": 91
+      },
+      "revId": "099cae12a0815b4d0df9dcc1d663b54bfd85f92d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
