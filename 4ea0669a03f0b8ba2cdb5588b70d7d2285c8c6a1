@@ -16,6 +16,23 @@
       "message": "Hah. Looks like these date to b8c792dc43cbb8585dd5ee90a8b07bc11f6f10f5 in OpenSSL. I\u0027ll send upstream an equivalent.",
       "revId": "4ea0669a03f0b8ba2cdb5588b70d7d2285c8c6a1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c7f92b0_7b31720d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-09-29T18:10:15Z",
+      "side": 1,
+      "message": "Oh, apparently these come from NIST. hrm...\nhttps://csrc.nist.gov/csrc/media/projects/cryptographic-standards-and-guidelines/documents/examples/hmac_sha256.pdf",
+      "revId": "4ea0669a03f0b8ba2cdb5588b70d7d2285c8c6a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
