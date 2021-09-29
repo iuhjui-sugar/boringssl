@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dae0787e_b4d3284b",
+        "filename": "crypto/hmac_extra/hmac_tests.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-09-29T18:41:19Z",
+      "side": 1,
+      "message": "Nit: maybe s/an incorrect description/a misleading input/? Ditto throughout.\n\nSaying \"description\" was odd because it\u0027s actually the input string, not a mere description. But then \"incorrect input\" was odd because the input is perfectly correct for the output. Just that, when read in English, it is not self-describing.",
+      "range": {
+        "startLine": 36,
+        "startChar": 80,
+        "endLine": 36,
+        "endChar": 91
+      },
+      "revId": "099cae12a0815b4d0df9dcc1d663b54bfd85f92d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
