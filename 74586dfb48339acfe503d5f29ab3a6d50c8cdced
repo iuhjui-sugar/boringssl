@@ -33,6 +33,24 @@
       "message": "Thanks, but a changing like this will need a regression test, and indeed testing it is actually kind of interesting due to https://bugs.chromium.org/p/boringssl/issues/detail?id\u003d441. (Easy fix though.)\n\nI\u0027ll upload a CL today, with the requisite tests.\n\nThe root problem here is the OpenSSL verifier doesn\u0027t have a real path-builder, and neither with nor without trusted_first is quite right. There are scenarios that break with trusted_first and scenarios that break without it. It happens that trusted_first is the one we want for the recent scenario, but I\u0027m talking with our PKI experts to make sure we don\u0027t risk other problems. (Fortunately, doing some testing with OpenSSL, it looks like it might be okay, or at least, no worse off than OpenSSL already is, so we probably can do this minimal change.)",
       "revId": "74586dfb48339acfe503d5f29ab3a6d50c8cdced",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f337f5b_1c476cd6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13401
+      },
+      "writtenOn": "2021-10-01T19:52:49Z",
+      "side": 1,
+      "message": "Alright! I\u0027ll abandon this CL for now and keep an eye out for yours. 👍 Thanks for the extra context too!",
+      "parentUuid": "26db8a2a_ce5ee67d",
+      "revId": "74586dfb48339acfe503d5f29ab3a6d50c8cdced",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
