@@ -1,0 +1,163 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6fa5330_e156a411",
+        "filename": "crypto/obj/objects.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 719,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-10-01T16:45:03Z",
+      "side": 1,
+      "message": "This opens the file, but |out| is never used. Instead the code is writing to a buffer and using ioutil.WriteFile, which is a WriteStringToFile-like function. I think you can drop this bit of the function.",
+      "revId": "701fd066a7db636629cebad813b2050bc0e29970",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1d624af_ede6cca6",
+        "filename": "crypto/obj/objects.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-10-01T16:45:03Z",
+      "side": 1,
+      "message": "replace:\n\n[]byte(b.String())\n\nwith:\n\nb.Bytes()",
+      "revId": "701fd066a7db636629cebad813b2050bc0e29970",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b0b9025_65fba15f",
+        "filename": "crypto/obj/objects.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 733,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-10-01T16:45:03Z",
+      "side": 1,
+      "message": "nit: only one line between functions.",
+      "revId": "701fd066a7db636629cebad813b2050bc0e29970",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a541ea9c_470e5d5a",
+        "filename": "rust/CMakeLists.txt",
+        "patchSetId": 11
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-10-01T16:45:03Z",
+      "side": 1,
+      "message": "Is this a \"for now\" thing, or the intended long-term target?",
+      "range": {
+        "startLine": 15,
+        "startChar": 28,
+        "endLine": 15,
+        "endChar": 35
+      },
+      "revId": "701fd066a7db636629cebad813b2050bc0e29970",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c48523ee_52e07444",
+        "filename": "rust/CMakeLists.txt",
+        "patchSetId": 11
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-10-01T16:45:03Z",
+      "side": 1,
+      "message": "Why this one? What are the considerations for whether others should be included?",
+      "revId": "701fd066a7db636629cebad813b2050bc0e29970",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85c18669_595bdfc3",
+        "filename": "rust/README.txt",
+        "patchSetId": 11
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-10-01T16:45:03Z",
+      "side": 1,
+      "message": "Either line-break at 80 chars, or only line-break between paragraphs.",
+      "revId": "701fd066a7db636629cebad813b2050bc0e29970",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57316e14_a6d9b738",
+        "filename": "rust/build.rs",
+        "patchSetId": 11
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-10-01T16:45:03Z",
+      "side": 1,
+      "message": "Am I correct in thinking that this means that the Rust bindings assume a static library? If so, do we want to disable them in the top-level CMake file when building shared libraries?",
+      "revId": "701fd066a7db636629cebad813b2050bc0e29970",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58220e62_3f77f990",
+        "filename": "rust/src/lib.rs",
+        "patchSetId": 11
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-10-01T16:45:03Z",
+      "side": 1,
+      "message": "Why these two? These are really obscure constants.",
+      "revId": "701fd066a7db636629cebad813b2050bc0e29970",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb77c1ef_574f69c6",
+        "filename": "rust/src/lib.rs",
+        "patchSetId": 11
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-10-01T16:45:03Z",
+      "side": 1,
+      "message": "Is this because they are macros and can\u0027t be called from Rust? If so then we should add a comment in err.h to mention that Rust needs to be updated if we re-jig the encoding.",
+      "revId": "701fd066a7db636629cebad813b2050bc0e29970",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
