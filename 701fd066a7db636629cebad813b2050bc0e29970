@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac7077b0_44b7e73a",
+        "filename": "crypto/obj/objects.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 719,
+      "author": {
+        "id": 13386
+      },
+      "writtenOn": "2021-10-01T18:23:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6fa5330_e156a411",
+      "revId": "701fd066a7db636629cebad813b2050bc0e29970",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a1d624af_ede6cca6",
@@ -31,6 +49,24 @@
       "writtenOn": "2021-10-01T16:45:03Z",
       "side": 1,
       "message": "replace:\n\n[]byte(b.String())\n\nwith:\n\nb.Bytes()",
+      "revId": "701fd066a7db636629cebad813b2050bc0e29970",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d5eb71d_497f546d",
+        "filename": "crypto/obj/objects.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 13386
+      },
+      "writtenOn": "2021-10-01T18:23:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a1d624af_ede6cca6",
       "revId": "701fd066a7db636629cebad813b2050bc0e29970",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -52,6 +88,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d9f5909_53f15b71",
+        "filename": "crypto/obj/objects.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 733,
+      "author": {
+        "id": 13386
+      },
+      "writtenOn": "2021-10-01T18:23:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7b0b9025_65fba15f",
+      "revId": "701fd066a7db636629cebad813b2050bc0e29970",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a541ea9c_470e5d5a",
@@ -65,6 +119,30 @@
       "writtenOn": "2021-10-01T16:45:03Z",
       "side": 1,
       "message": "Is this a \"for now\" thing, or the intended long-term target?",
+      "range": {
+        "startLine": 15,
+        "startChar": 28,
+        "endLine": 15,
+        "endChar": 35
+      },
+      "revId": "701fd066a7db636629cebad813b2050bc0e29970",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c5d28e7_5dabbb67",
+        "filename": "rust/CMakeLists.txt",
+        "patchSetId": 11
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 13386
+      },
+      "writtenOn": "2021-10-01T18:23:18Z",
+      "side": 1,
+      "message": "I actually already fixed the thing needing that, so removed!",
+      "parentUuid": "a541ea9c_470e5d5a",
       "range": {
         "startLine": 15,
         "startChar": 28,
@@ -94,6 +172,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "46be9ca0_047b212e",
+        "filename": "rust/CMakeLists.txt",
+        "patchSetId": 11
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 13386
+      },
+      "writtenOn": "2021-10-01T18:23:18Z",
+      "side": 1,
+      "message": "The reason I passed that was simply it generates the same style of code that openssl-sys uses for that. Since we control both sides (Rust/C++) there isn\u0027t any real upside or downside to using it, I was just going for easy compatibility",
+      "parentUuid": "c48523ee_52e07444",
+      "revId": "701fd066a7db636629cebad813b2050bc0e29970",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "85c18669_595bdfc3",
         "filename": "rust/README.txt",
         "patchSetId": 11
@@ -105,6 +201,24 @@
       "writtenOn": "2021-10-01T16:45:03Z",
       "side": 1,
       "message": "Either line-break at 80 chars, or only line-break between paragraphs.",
+      "revId": "701fd066a7db636629cebad813b2050bc0e29970",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb65fe41_489586d6",
+        "filename": "rust/README.txt",
+        "patchSetId": 11
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 13386
+      },
+      "writtenOn": "2021-10-01T18:23:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85c18669_595bdfc3",
       "revId": "701fd066a7db636629cebad813b2050bc0e29970",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -139,6 +253,24 @@
       "writtenOn": "2021-10-01T16:45:03Z",
       "side": 1,
       "message": "Why these two? These are really obscure constants.",
+      "revId": "701fd066a7db636629cebad813b2050bc0e29970",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54f88298_d0144079",
+        "filename": "rust/src/lib.rs",
+        "patchSetId": 11
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 13386
+      },
+      "writtenOn": "2021-10-01T18:23:18Z",
+      "side": 1,
+      "message": "They are both constants used by rust-openssl and #DEFINE\u0027d so not picked up by bindgen.",
+      "parentUuid": "58220e62_3f77f990",
       "revId": "701fd066a7db636629cebad813b2050bc0e29970",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
