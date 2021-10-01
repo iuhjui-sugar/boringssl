@@ -242,6 +242,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3275b55e_468ebf0f",
+        "filename": "rust/build.rs",
+        "patchSetId": 11
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 13386
+      },
+      "writtenOn": "2021-10-01T18:29:19Z",
+      "side": 1,
+      "message": "yup, that\u0027s exactly what it is. I tweaked it so that if we are building with a shared library we don\u0027t add the build.rs to the crate at all. That\u0027ll require someone building in a shared config to manually ensure it links against bssl but that\u0027s likely wise since shared linking has some pitfalls in this context. WDYT?",
+      "parentUuid": "57316e14_a6d9b738",
+      "revId": "701fd066a7db636629cebad813b2050bc0e29970",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "58220e62_3f77f990",
         "filename": "rust/src/lib.rs",
         "patchSetId": 11
@@ -288,6 +306,24 @@
       "writtenOn": "2021-10-01T16:45:03Z",
       "side": 1,
       "message": "Is this because they are macros and can\u0027t be called from Rust? If so then we should add a comment in err.h to mention that Rust needs to be updated if we re-jig the encoding.",
+      "revId": "701fd066a7db636629cebad813b2050bc0e29970",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1ace7ec_98e68e0d",
+        "filename": "rust/src/lib.rs",
+        "patchSetId": 11
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 13386
+      },
+      "writtenOn": "2021-10-01T18:29:19Z",
+      "side": 1,
+      "message": "yup! I added a comment to err.h",
+      "parentUuid": "eb77c1ef_574f69c6",
       "revId": "701fd066a7db636629cebad813b2050bc0e29970",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
