@@ -328,8 +328,11 @@ enum ssl_verify_result_t BORINGSSL_ENUM_INT;
 // CRYPTO_THREADID is a dummy value.
 typedef int CRYPTO_THREADID;
 
+// An |ASN1_NULL| is an opaque structure. asn1.h represents NULL values as an
+// opaque |ASN1_NULL*| pointer with arbitrary value.
+typedef struct asn1_null_st ASN1_NULL;
+
 typedef int ASN1_BOOLEAN;
-typedef int ASN1_NULL;
 typedef struct ASN1_ITEM_st ASN1_ITEM;
 typedef struct asn1_object_st ASN1_OBJECT;
 typedef struct asn1_pctx_st ASN1_PCTX;
