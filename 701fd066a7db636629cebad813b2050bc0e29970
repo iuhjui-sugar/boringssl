@@ -190,6 +190,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "88bfd956_cbfa3296",
+        "filename": "rust/CMakeLists.txt",
+        "patchSetId": 11
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-10-05T18:07:29Z",
+      "side": 1,
+      "message": "I\u0027m afraid I\u0027ve no idea what that means!\n\nWhat would be the considerations for adding/deleting entries in the future? Is this enum simply listed because it was needed by Rust code currently and other enums haven\u0027t been so far?",
+      "parentUuid": "46be9ca0_047b212e",
+      "revId": "701fd066a7db636629cebad813b2050bc0e29970",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "85c18669_595bdfc3",
         "filename": "rust/README.txt",
         "patchSetId": 11
@@ -289,6 +307,24 @@
       "side": 1,
       "message": "They are both constants used by rust-openssl and #DEFINE\u0027d so not picked up by bindgen.",
       "parentUuid": "58220e62_3f77f990",
+      "revId": "701fd066a7db636629cebad813b2050bc0e29970",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "027a094e_9aed80c9",
+        "filename": "rust/src/lib.rs",
+        "patchSetId": 11
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-10-05T18:07:29Z",
+      "side": 1,
+      "message": "PKCS12_DEFAULT_ITER? Am I looking in the right place here?: https://github.com/sfackler/rust-openssl/blob/master/openssl/src/pkcs12.rs#L88\n\nThat code is probably run-time broken with BoringSSL because PKCS#12 is one of the worst formats ever to have existed in an RFC. That ok?\n\n(We will probably follow up and make this more robust, but it\u0027s not a blocker for landing.)",
+      "parentUuid": "54f88298_d0144079",
       "revId": "701fd066a7db636629cebad813b2050bc0e29970",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
