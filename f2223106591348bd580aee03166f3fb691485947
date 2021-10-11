@@ -16,6 +16,154 @@
       "message": "Why?",
       "revId": "f2223106591348bd580aee03166f3fb691485947",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "494c6f0e_765c2ff1",
+        "filename": "crypto/obj/nid.rs",
+        "patchSetId": 14
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-10-11T17:54:04Z",
+      "side": 1,
+      "message": "I suppose generating this via script works too, but can bindgen really not parse a plain header file with #define integer constants?\n\nI see the call to bindgen and other build bits involve a lot of extra complexity to bypass bindgen\u0027s default behavior. What was wrong with the default behavior?",
+      "revId": "f2223106591348bd580aee03166f3fb691485947",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16fbcf1c_b748d6ae",
+        "filename": "include/openssl/err.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-10-11T17:54:04Z",
+      "side": 1,
+      "message": "Is there a way to do this automatically? I\u0027d suggest switching them to inline functions, but apparently bindgen doesn\u0027t know how to bind those.\nhttps://github.com/rust-lang/rust-bindgen/issues/1090\n\nThe Python cffi bindings system lets you write down the C type signature of a function-like macro, and then it\u0027ll generate C code based on that. Can we do something similar here? Like maybe integrate a C file into the Rust-specific parts that just define a \n\nint ERR_get_lib_rust(uint32_t packed_err) { return ERR_GET_LIB(packed_err); }\n\nAnd then you can bind that.",
+      "revId": "f2223106591348bd580aee03166f3fb691485947",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2e35ec2_2b312ae7",
+        "filename": "include/openssl/err.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-10-11T17:54:04Z",
+      "side": 1,
+      "message": "Two blank lines between sections, and documentation.\n\nAlthough this doesn\u0027t even match OpenSSL or rust-openssl, which has a flags parameter. Where did you get this prototype from?",
+      "revId": "f2223106591348bd580aee03166f3fb691485947",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8df920c0_1c4cbc62",
+        "filename": "rust/README.txt",
+        "patchSetId": 14
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-10-11T17:54:04Z",
+      "side": 1,
+      "message": "s/boringssl/BoringSSL/g\ns/Boringssl/BoringSSL/g",
+      "range": {
+        "startLine": 4,
+        "startChar": 63,
+        "endLine": 4,
+        "endChar": 72
+      },
+      "revId": "f2223106591348bd580aee03166f3fb691485947",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "318efc13_05f59989",
+        "filename": "rust/README.txt",
+        "patchSetId": 14
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-10-11T17:54:04Z",
+      "side": 1,
+      "message": "LLVM",
+      "range": {
+        "startLine": 7,
+        "startChar": 206,
+        "endLine": 7,
+        "endChar": 210
+      },
+      "revId": "f2223106591348bd580aee03166f3fb691485947",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d938314_f4e8fd14",
+        "filename": "rust/build.rs",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-10-11T17:54:04Z",
+      "side": 1,
+      "message": "Nit: Most of the various new files here probably need copyright headers.",
+      "revId": "f2223106591348bd580aee03166f3fb691485947",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef7beb4b_16eb7592",
+        "filename": "rust/src/bn.rs",
+        "patchSetId": 14
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-10-11T17:54:04Z",
+      "side": 1,
+      "message": "Why c_ulonglong and c_uint? bn.h uses uint32_t and uint64_t. They are... hopefully the same, but better to bind the actual types. target_pointer_width is also the wrong condition. We\u0027ve historically had to support architectures (x86_64 NaCl) with 32-bit pointers and 64-bit multipliers.\n\nCan we pick up the real definition from bn.h instead. Is the issue that BN_ULONG is a #define instead of a typedef? We can just switch it to a typedef if that would help...",
+      "revId": "f2223106591348bd580aee03166f3fb691485947",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24796df7_753430f4",
+        "filename": "rust/wrapper.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-10-11T17:54:04Z",
+      "side": 1,
+      "message": "Why do you need this header? Consumers of the library should not be reaching into internals.",
+      "revId": "f2223106591348bd580aee03166f3fb691485947",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
