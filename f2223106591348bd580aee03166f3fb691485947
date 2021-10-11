@@ -151,6 +151,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e09121f6_ade762e1",
+        "filename": "rust/src/lib.rs",
+        "patchSetId": 14
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-10-11T18:08:37Z",
+      "side": 1,
+      "message": "Both of these these should either be exported from the C headers or not exported:\n\nPKCS12_DEFAULT_ITER has a corresponding concept in BoringSSL. We should just export the constant, rather than getting it out of sync.\n\nDTLS1_COOKIE_LENGTH is ABI-sensitive. It is the implicit bound on the DTLS cookie generation callback\u0027s output buffer. That should be defined in BoringSSL, not Rust code. Otherwise, getting it out of sync is an ABI failure.\n\nThat said, we don\u0027t support the DTLS cookie generation callback in the first place, so I\u0027m confused why we need this. If you had to patch out the cookie generation callback, surely you can just as easily patch out the reference to DTLS1_COOKIE_LENGTH. If you didn\u0027t patch it out... how is this building?",
+      "revId": "f2223106591348bd580aee03166f3fb691485947",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "24796df7_753430f4",
         "filename": "rust/wrapper.h",
         "patchSetId": 14
