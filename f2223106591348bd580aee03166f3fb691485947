@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d58f8715_0612f1d5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-10-11T18:15:56Z",
+      "side": 1,
+      "message": "Oh, one high-level question: how do we test this? In the long run, I think we need to have something on our CI and CQ that exercise this path. Hopefully we can reuse the toolchain from Chromium and Android. But it looks like this also doesn\u0027t do much standalone, so would we need to test it against some package? Should there be some basic tests in Rust to make sure things mostly work?\n\n(Would you have the cycles to pick up some of that, or is that something we\u0027ll have to do? I don\u0027t know how familiar you are with all the LUCI stuff.)",
+      "revId": "f2223106591348bd580aee03166f3fb691485947",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f861e8b7_b9841e07",
         "filename": "crypto/err/err.c",
         "patchSetId": 14
