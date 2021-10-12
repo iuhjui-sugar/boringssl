@@ -140,6 +140,33 @@ __declspec(allocate(".CRT$XCU")) void(*library_init_constructor)(void) =
 static void do_library_init(void) __attribute__ ((constructor));
 #endif
 
+#if defined(OPENSSL_ANDROID) && defined(BORINGSSL_NO_STATIC_INITIALIZER)
+// It's possible that |do_library_init| isn't called anywhere because the
+// application doesn't call |CRYPTO_library_init| and we don't need a static
+// initialiser because of |OPENSSL_NO_ASM| or the like.
+//
+// But we would still like the tag to be included in Android builds. Therefore
+// override -fdata-sections and force |kBoringSSLBinaryTag| into the
+// primary .rodata section, which will survive the linker doing -gc-sections.
+// Then make the variable non-static so that the compiler doesn't discard it
+// from the object file.
+#define BINARY_TAG_STATIC
+BINARY_TAG_STATIC const uint8_t kBoringSSLBinaryTag[18]
+    __attribute__((section(".rodata")));
+#else
+// Otherwise make the variable static, but it'll be referenced from
+// |do_library_init|.
+#define BINARY_TAG_STATIC static
+#endif
+
+BINARY_TAG_STATIC const uint8_t kBoringSSLBinaryTag[18] = {
+    // 16 bytes of magic tag.
+    0x8c, 0x62, 0x20, 0x0b, 0xd2, 0xa0, 0x72, 0x58,
+    0x44, 0xa8, 0x96, 0x69, 0xad, 0x55, 0x7e, 0xec,
+    // Current source iteration. Incremented ~monthly.
+    1, 0,
+};
+
 // do_library_init is the actual initialization function. If
 // BORINGSSL_NO_STATIC_INITIALIZER isn't defined, this is set as a static
 // initializer. Otherwise, it is called by CRYPTO_library_init.
@@ -149,6 +176,11 @@ static void OPENSSL_CDECL do_library_init(void) {
 #if defined(NEED_CPUID)
   OPENSSL_cpuid_setup();
 #endif
+
+  // At the time of writing, this is sufficient to stop GCC, Clang, and MSVC
+  // from discarding |kBoringSSLBinaryTag| as dead code.
+  uint8_t unused = *(volatile uint8_t *)kBoringSSLBinaryTag;
+  (void) unused;
 }
 
 void CRYPTO_library_init(void) {
