@@ -149,6 +149,24 @@ static void OPENSSL_CDECL do_library_init(void) {
 #if defined(NEED_CPUID)
   OPENSSL_cpuid_setup();
 #endif
+
+  // The following is a magic tag that can be used for grepping binaries to see
+  // if BoringSSL is included. It consists of a random 16-byte value which is
+  // considered to be universally unique, followed by a uint16_t that we'll
+  // increment periodically
+
+  static const uint8_t kTag[] = {
+      // 16 bytes of magic tag.
+      0x8c, 0x62, 0x20, 0x0b, 0xd2, 0xa0, 0x72, 0x58,
+      0x44, 0xa8, 0x96, 0x69, 0xad, 0x55, 0x7e, 0xec,
+      // Current source iteration. Incremented ~monthly.
+      1, 0,
+  };
+
+  // At the time of writing, this is sufficient to stop GCC, Clang, and MSVC
+  // from discarding |kTag| as dead code.
+  uint8_t unused = *(volatile uint8_t *)kTag;
+  (void) unused;
 }
 
 void CRYPTO_library_init(void) {
