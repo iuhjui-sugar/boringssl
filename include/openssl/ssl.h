@@ -675,6 +675,10 @@ OPENSSL_EXPORT uint16_t SSL_get_max_proto_version(const SSL *ssl);
 // is negotiated, the result is undefined.
 OPENSSL_EXPORT int SSL_version(const SSL *ssl);
 
+// SSL_CTX_set_record_protocol_version returns whether |version| is zero.
+OPENSSL_EXPORT int SSL_CTX_set_record_protocol_version(SSL_CTX *ctx,
+                                                       int version);
+
 
 // Options.
 //
