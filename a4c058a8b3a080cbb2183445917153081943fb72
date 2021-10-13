@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "002c66c0_ec4cf8b4",
+        "filename": "crypto/crypto.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-10-13T16:56:54Z",
+      "side": 1,
+      "message": "Given this bit, we might need to thread this through a couple more places to make it reliably visible. (Or maybe the above cases are good enough and we don\u0027t care?)\n\n(Unrelatedly, it is kind of silly how, if we BORINGSSL_NO_STATIC_INITIALIZER because there\u0027s nothing to initialize, we emit a pthread_once. Probably some work to be done in this area...)",
+      "revId": "a4c058a8b3a080cbb2183445917153081943fb72",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35ed0a30_e57d4056",
+        "filename": "crypto/crypto.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-10-13T16:56:54Z",
+      "side": 1,
+      "message": "Probably worth specifying little-endian here. Good chance the folks consuming won\u0027t just read it with memcpy.",
+      "range": {
+        "startLine": 155,
+        "startChar": 56,
+        "endLine": 155,
+        "endChar": 64
+      },
+      "revId": "a4c058a8b3a080cbb2183445917153081943fb72",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d947d32_4a154c45",
+        "filename": "crypto/crypto.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-10-13T16:56:54Z",
+      "side": 1,
+      "message": "Nit: period",
+      "range": {
+        "startLine": 156,
+        "startChar": 26,
+        "endLine": 156,
+        "endChar": 27
+      },
+      "revId": "a4c058a8b3a080cbb2183445917153081943fb72",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
