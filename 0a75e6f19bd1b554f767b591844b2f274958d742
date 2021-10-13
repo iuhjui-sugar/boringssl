@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7bde0a9_ced3936a",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 680,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-10-13T16:48:12Z",
+      "side": 1,
+      "message": "Maybe move this under \"Low-level record-layer state\"? It\u0027s not really related to protocol versions.",
+      "revId": "0a75e6f19bd1b554f767b591844b2f274958d742",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
