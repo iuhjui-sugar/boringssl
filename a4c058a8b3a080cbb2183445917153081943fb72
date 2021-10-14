@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "30e8f20b_3a8fdd3a",
+        "filename": "crypto/crypto.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-10-14T21:42:28Z",
+      "side": 1,
+      "message": "Ugh, sorry, should have actually read the code around this comment rather than just replying.\n\nNO_ASM is a bit of a worry. That seems like the sort of thing that people would set to make the build easier. PTAL at the next hack that came to mind.",
+      "parentUuid": "3090b5e0_2b3d4d04",
+      "revId": "a4c058a8b3a080cbb2183445917153081943fb72",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "35ed0a30_e57d4056",
         "filename": "crypto/crypto.c",
         "patchSetId": 1
