@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3090b5e0_2b3d4d04",
+        "filename": "crypto/crypto.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-10-14T20:12:51Z",
+      "side": 1,
+      "message": "If the condition in line 24 is false, then we know we don\u0027t have any assembly to run or CPUID-like data to gather. In that case, we don\u0027t actually emit the static initializer (no point). Since the caller didn\u0027t request BORINGSSL_NO_STATIC_INITIALIZER, they aren\u0027t on the hook for CRYPTO_library_init either.\n\n(BORINGSSL_NO_STATIC_INITIALIZER is also a huge pain for Chromium unit tests. A while ago I had vague ambitions to pthread_once it instead. But I never got around to doing that. :-) )",
+      "parentUuid": "a282736a_c3b0b619",
+      "revId": "a4c058a8b3a080cbb2183445917153081943fb72",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "35ed0a30_e57d4056",
         "filename": "crypto/crypto.c",
         "patchSetId": 1
