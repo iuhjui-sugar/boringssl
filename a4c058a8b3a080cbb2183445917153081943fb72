@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a282736a_c3b0b619",
+        "filename": "crypto/crypto.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2021-10-14T19:59:29Z",
+      "side": 1,
+      "message": "Are you suggesting that this function might be discarded by the linker? I was trying to avoid that. If there\u0027s a static initialiser then the linker will include it and, if not, someone else is on the hook for calling CRYPTO_library_init, which will include it. So I think it\u0027ll always be present, no?",
+      "parentUuid": "002c66c0_ec4cf8b4",
+      "revId": "a4c058a8b3a080cbb2183445917153081943fb72",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "35ed0a30_e57d4056",
         "filename": "crypto/crypto.c",
         "patchSetId": 1
@@ -31,6 +49,30 @@
       "writtenOn": "2021-10-13T16:56:54Z",
       "side": 1,
       "message": "Probably worth specifying little-endian here. Good chance the folks consuming won\u0027t just read it with memcpy.",
+      "range": {
+        "startLine": 155,
+        "startChar": 56,
+        "endLine": 155,
+        "endChar": 64
+      },
+      "revId": "a4c058a8b3a080cbb2183445917153081943fb72",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6f9ac95_f0d38a61",
+        "filename": "crypto/crypto.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2021-10-14T19:59:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35ed0a30_e57d4056",
       "range": {
         "startLine": 155,
         "startChar": 56,
@@ -54,6 +96,30 @@
       "writtenOn": "2021-10-13T16:56:54Z",
       "side": 1,
       "message": "Nit: period",
+      "range": {
+        "startLine": 156,
+        "startChar": 26,
+        "endLine": 156,
+        "endChar": 27
+      },
+      "revId": "a4c058a8b3a080cbb2183445917153081943fb72",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48a9901b_ef177e6c",
+        "filename": "crypto/crypto.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2021-10-14T19:59:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d947d32_4a154c45",
       "range": {
         "startLine": 156,
         "startChar": 26,
