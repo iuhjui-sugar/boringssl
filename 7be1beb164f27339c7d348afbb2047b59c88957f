@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be786969_f64e7adc",
+        "filename": "crypto/asn1/asn1_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-10-15T20:44:27Z",
+      "side": 1,
+      "message": "... that ...",
+      "range": {
+        "startLine": 108,
+        "startChar": 51,
+        "endLine": 108,
+        "endChar": 52
+      },
+      "revId": "7be1beb164f27339c7d348afbb2047b59c88957f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
