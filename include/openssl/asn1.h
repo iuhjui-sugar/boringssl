@@ -1303,11 +1303,6 @@ typedef struct ASN1_ENCODING_st {
   unsigned alias_only_on_next_parse : 1;
 } ASN1_ENCODING;
 
-// Declarations for template structures: for full definitions
-// see asn1t.h
-typedef struct ASN1_TEMPLATE_st ASN1_TEMPLATE;
-typedef struct ASN1_TLC_st ASN1_TLC;
-
 // Declare ASN1 functions: the implement macro in in asn1t.h
 
 #define DECLARE_ASN1_FUNCTIONS(type) DECLARE_ASN1_FUNCTIONS_name(type, type)
