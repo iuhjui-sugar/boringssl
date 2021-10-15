@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3693caa_36668625",
+        "filename": "include/openssl/asn1.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-10-15T20:42:00Z",
+      "side": 1,
+      "message": "free",
+      "range": {
+        "startLine": 229,
+        "startChar": 14,
+        "endLine": 229,
+        "endChar": 17
+      },
+      "revId": "2a16a2b04ff9e46868764c3923f3a259747ecdc8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48fea8a5_7c11beb9",
+        "filename": "include/openssl/asn1.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-10-15T20:42:00Z",
+      "side": 1,
+      "message": "... that ...",
+      "range": {
+        "startLine": 256,
+        "startChar": 50,
+        "endLine": 256,
+        "endChar": 51
+      },
+      "revId": "2a16a2b04ff9e46868764c3923f3a259747ecdc8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6ff2dbc_74d8482a",
+        "filename": "include/openssl/asn1.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-10-15T20:42:00Z",
+      "side": 1,
+      "message": "drop comma",
+      "range": {
+        "startLine": 262,
+        "startChar": 23,
+        "endLine": 262,
+        "endChar": 24
+      },
+      "revId": "2a16a2b04ff9e46868764c3923f3a259747ecdc8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be9fb4de_c3fdfddf",
+        "filename": "include/openssl/asn1.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-10-15T20:42:00Z",
+      "side": 1,
+      "message": "add comma",
+      "range": {
+        "startLine": 268,
+        "startChar": 47,
+        "endLine": 268,
+        "endChar": 48
+      },
+      "revId": "2a16a2b04ff9e46868764c3923f3a259747ecdc8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0277480_dd6e590a",
+        "filename": "include/openssl/asn1.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-10-15T20:42:00Z",
+      "side": 1,
+      "message": "read",
+      "range": {
+        "startLine": 296,
+        "startChar": 65,
+        "endLine": 296,
+        "endChar": 72
+      },
+      "revId": "2a16a2b04ff9e46868764c3923f3a259747ecdc8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
