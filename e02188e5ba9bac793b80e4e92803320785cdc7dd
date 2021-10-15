@@ -22,6 +22,30 @@
       },
       "revId": "e02188e5ba9bac793b80e4e92803320785cdc7dd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a9b72db_dc328b06",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-10-15T20:14:52Z",
+      "side": 1,
+      "message": "Oops, meant to say TLS 1.3. It\u0027s the \"TLS 1.3 is available, but not by default\" comment that\u0027s out of date.",
+      "parentUuid": "f844c22b_9cc3c3a5",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 69
+      },
+      "revId": "e02188e5ba9bac793b80e4e92803320785cdc7dd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
