@@ -22,6 +22,30 @@
       },
       "revId": "7be1beb164f27339c7d348afbb2047b59c88957f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86842b35_b7c162a2",
+        "filename": "crypto/asn1/asn1_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-10-15T21:17:10Z",
+      "side": 1,
+      "message": "Done. Also elaborated a bit.",
+      "parentUuid": "be786969_f64e7adc",
+      "range": {
+        "startLine": 108,
+        "startChar": 51,
+        "endLine": 108,
+        "endChar": 52
+      },
+      "revId": "7be1beb164f27339c7d348afbb2047b59c88957f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
