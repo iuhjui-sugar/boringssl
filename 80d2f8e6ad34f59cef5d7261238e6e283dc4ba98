@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a735d309_17eeb596",
+        "filename": "include/openssl/asn1.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 1217,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-10-18T17:54:25Z",
+      "side": 1,
+      "message": "Added these sentences after this came up chatting with Ryan.",
+      "range": {
+        "startLine": 1213,
+        "startChar": 50,
+        "endLine": 1217,
+        "endChar": 2
+      },
+      "revId": "80d2f8e6ad34f59cef5d7261238e6e283dc4ba98",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
