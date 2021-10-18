@@ -16,6 +16,24 @@
       "message": "Do we know at this point that the padding bits are zero? (Maybe BER allows noise in them and semantically-equal BIT STRINGS would appear unequal here?)",
       "revId": "73903dcf1c210a582e3022cd70d7035a03bfaa10",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3e94152_810271cb",
+        "filename": "crypto/asn1/asn1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-10-18T17:53:44Z",
+      "side": 1,
+      "message": "BER does allow noise, c2i_ASN1_BIT_STRING allows it (for now...). But it masks it off in the internal representation.\n\nIf the caller manually constructed something ridiculous then, yeah, we\u0027ll compare semantically-equal (by i2c) BIT STRINGS as unequal. Though ASN1_BIT_STRING_set_bit will get confused in this case, so maybe we can just say this isn\u0027t a valid state? We already have this behavior and no one\u0027s noticed.\n\nAdded a sentence to asn1.h.",
+      "parentUuid": "282c1971_9c4736ae",
+      "revId": "73903dcf1c210a582e3022cd70d7035a03bfaa10",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
