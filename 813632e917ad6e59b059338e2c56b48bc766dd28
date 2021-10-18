@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01129aa7_74bc88b8",
+        "filename": "crypto/asn1/asn_pack.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-10-18T16:22:28Z",
+      "side": 1,
+      "message": "Isn\u0027t this function simpler if |ASN1_item_i2d| is called before worrying about |out|?",
+      "revId": "813632e917ad6e59b059338e2c56b48bc766dd28",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
