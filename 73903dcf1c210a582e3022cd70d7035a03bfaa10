@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "282c1971_9c4736ae",
+        "filename": "crypto/asn1/asn1_lib.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-10-18T16:26:22Z",
+      "side": 1,
+      "message": "Do we know at this point that the padding bits are zero? (Maybe BER allows noise in them and semantically-equal BIT STRINGS would appear unequal here?)",
+      "revId": "73903dcf1c210a582e3022cd70d7035a03bfaa10",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
