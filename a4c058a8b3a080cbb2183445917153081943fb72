@@ -92,6 +92,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "33915d59_84873f95",
+        "filename": "crypto/crypto.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2021-10-19T23:22:36Z",
+      "side": 1,
+      "message": "\u003e Hrm. Not sure that works either. If this .o file isn\u0027t referenced, it doesn\u0027t get pulled in.\n\nUgh yes. Also, if you build everything with -fdata-sections then there is no primary .rodata section and my __attribute__ trick doesn\u0027t work either.\n\nHow about this: just reference it from OPENSSL_malloc. If you\u0027re using so little of BoringSSL that there\u0027s no allocation then you escape it, but so it goes.",
+      "parentUuid": "a004ebd1_80339c24",
+      "revId": "a4c058a8b3a080cbb2183445917153081943fb72",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "35ed0a30_e57d4056",
         "filename": "crypto/crypto.c",
         "patchSetId": 1
