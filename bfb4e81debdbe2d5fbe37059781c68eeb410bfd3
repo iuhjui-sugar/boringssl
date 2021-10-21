@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9713aeb3_69aa130f",
+        "filename": "main.star",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-10-21T19:19:07Z",
+      "side": 1,
+      "message": "(The formatter wanted an extra line here.)",
+      "revId": "bfb4e81debdbe2d5fbe37059781c68eeb410bfd3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0d3a41a_3c54cbe4",
+        "filename": "main.star",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-10-21T19:19:07Z",
+      "side": 1,
+      "message": "(Also formatter.)",
+      "revId": "bfb4e81debdbe2d5fbe37059781c68eeb410bfd3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
