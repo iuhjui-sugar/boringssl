@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7aad3f72_156cdc29",
+        "filename": "crypto/pool/pool.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-10-25T16:50:25Z",
+      "side": 1,
+      "message": "\"does not\" increment refcounts? Or am I confused?",
+      "revId": "9900cf52ff95d55d63da3bdea39f7805eecf4f4d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
