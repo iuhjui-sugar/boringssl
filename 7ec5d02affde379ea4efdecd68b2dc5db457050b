@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af6a4ba1_789f2072",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-10-26T19:10:21Z",
+      "side": 1,
+      "message": "Hopefully the CQ is happy. (It is a little annoying that we don\u0027t have a standalone config that matches Chromium components build, but we\u0027d need to build a single libboringssl.so.)",
+      "revId": "7ec5d02affde379ea4efdecd68b2dc5db457050b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
