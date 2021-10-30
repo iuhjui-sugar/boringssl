@@ -16,6 +16,24 @@
       "message": "This paragraph doesn\u0027t make sense to me!",
       "revId": "3a8097e75eb6f79010e8691ff390daebdfc1a26f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a58c6ede_88b3a384",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-10-30T03:37:47Z",
+      "side": 1,
+      "message": "Nor me. I think this is what I meant to type.",
+      "parentUuid": "232e39b4_192b9b63",
+      "revId": "3a8097e75eb6f79010e8691ff390daebdfc1a26f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
