@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4fc319b_5f4437c9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13531
+      },
+      "writtenOn": "2021-11-04T18:47:26Z",
+      "side": 1,
+      "message": "lgtm!",
+      "revId": "58b8631ba764d36ba08506d8b08aa81d2dd0d9c2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd048081_2e3440b9",
+        "filename": "main.star",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 13531
+      },
+      "writtenOn": "2021-11-04T18:47:26Z",
+      "side": 1,
+      "message": "note that this isn\u0027t necessary any more (it\u0027s a no-op now)",
+      "range": {
+        "startLine": 13,
+        "startChar": 40,
+        "endLine": 13,
+        "endChar": 44
+      },
+      "revId": "58b8631ba764d36ba08506d8b08aa81d2dd0d9c2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
