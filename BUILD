@@ -14,6 +14,13 @@
 
 load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library")
 load(
+    ":prefix.bzl",
+    "boringssl_prefixed_library",
+    "generate_symbol_list",
+    "make_prefix_headers",
+    "symbol_prefix",
+)
+load(
     ":BUILD.generated.bzl",
     "crypto_headers",
     "crypto_internal_headers",
@@ -33,6 +40,11 @@ load(
 licenses(["notice"])
 
 exports_files(["LICENSE"])
+
+symbol_prefix(
+    name = "boringssl_prefix",
+    build_setting_default = "",
+)
 
 config_setting(
     name = "linux_aarch64",
@@ -180,6 +192,28 @@ cc_library(
 )
 
 cc_library(
+    name = "prefixed_crypto",
+    srcs = crypto_sources + crypto_internal_headers + crypto_sources_asm,
+    hdrs = crypto_headers + fips_fragments,
+    copts = boringssl_copts_c11,
+    includes = ["src/include"],
+    linkopts = select({
+        # Android supports pthreads, but does not provide a libpthread
+        # to link against.
+        ":android_legacy": [],
+        ":android_stlport": [],
+        ":android_libcpp": [],
+        ":android_gnu_libstdcpp": [],
+        ":android_default": [],
+        ":mac_x86_64": [],
+        ":windows_x86_64": ["-defaultlib:advapi32.lib"],
+        "//conditions:default": ["-lpthread"],
+    }),
+    visibility = ["//visibility:public"],
+    deps = [":prefix_headers"],
+)
+
+cc_library(
     name = "ssl",
     srcs = ssl_sources + ssl_internal_headers,
     hdrs = ssl_headers,
@@ -197,4 +231,14 @@ cc_binary(
     copts = boringssl_copts_cxx,
     visibility = ["//visibility:public"],
     deps = [":ssl"],
+)
+
+generate_symbol_list(
+    name = "symbols",
+    srcs = [":crypto"],
+)
+
+make_prefix_headers(
+    name = "prefix_headers",
+    symbols = ":symbols",
 )
