@@ -33,6 +33,23 @@
       "message": "This change supports https://fuchsia-review.googlesource.com/c/mundane/+/605325.  Merging this change into boringssl means `symbol_prefix.patch` can be removed from mundane/605325.",
       "revId": "93cd454197a72c4bfbe4d7ac4a21b314cacdb69b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da9ad547_36d5d51f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-11-11T17:24:08Z",
+      "side": 1,
+      "message": "(A minor procedural thing, this branch is auto-generated from files in the master branch, so CLs here don\u0027t actually work. But we can sort that out after working out whether this makes any sense at all.)\n\nCan you expand on what this is for? We can have a VC if that\u0027d be helpful. (Design discussions over code review are sometimes weird.)\n\nThe build prefixes mechanism is experimental and not really supported. There are a whole bunch of places where it\u0027s known to break, since we\u0027re going well beyond C\u0027s support for modularity. It really was just a hack added to support some weird Cargo-specific usage scenario Mundane was interested in. Honestly, we should probably retire that in Mundane, given the Cargo ecosystem hasn\u0027t really picked it up, and no one\u0027s staffed the follow-on work to make the prefixing mechanism actually sound (if that\u0027s even possible).\nhttps://crates.io/crates/mundane/reverse_dependencies\n\nWhen we added it, the intent was that Fuchsia and other Google projects would *not* use that build mode. In a more typical Google monorepo-like setup, as used with Bazel, we do not want to multiply link BoringSSL. Rather, we have the single BoringSSL in that monorepo and simply link to that directly.",
+      "revId": "93cd454197a72c4bfbe4d7ac4a21b314cacdb69b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
