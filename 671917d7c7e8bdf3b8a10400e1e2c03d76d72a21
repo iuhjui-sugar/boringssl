@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1188700b_d61b210a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6700
+      },
+      "writtenOn": "2021-11-12T21:22:19Z",
+      "side": 1,
+      "message": "Wasn\u0027t sure about changing PKCS7_bundle_certificates to be implemented on top of PKCS7_bundle_raw_certificates vs keeping them separate. The amount of duplicated code in pkcs7_bundle_raw_certificates_cb is pretty small so it felt easier to just keep separate.",
+      "revId": "671917d7c7e8bdf3b8a10400e1e2c03d76d72a21",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
