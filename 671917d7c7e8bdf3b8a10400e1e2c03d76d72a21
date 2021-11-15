@@ -33,6 +33,24 @@
       "message": "Nit: This can just be inside the for loop, as in C++.\n\n(The style has shifted a bit here. We originally did the C89-style decls at the top, but now we\u0027re more C++/C99-style and declare variables when they\u0027re used.)",
       "revId": "671917d7c7e8bdf3b8a10400e1e2c03d76d72a21",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fab1d377_6081b288",
+        "filename": "crypto/pkcs7/pkcs7.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 6700
+      },
+      "writtenOn": "2021-11-15T16:42:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7726655_43262248",
+      "revId": "671917d7c7e8bdf3b8a10400e1e2c03d76d72a21",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
