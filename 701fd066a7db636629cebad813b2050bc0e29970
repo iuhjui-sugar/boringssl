@@ -206,6 +206,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "742807d4_c44157b3",
+        "filename": "rust/CMakeLists.txt",
+        "patchSetId": 11
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 13386
+      },
+      "writtenOn": "2021-11-18T16:45:34Z",
+      "side": 1,
+      "message": "The consideration would simply be the preferred style in which the translation code gets generated. rust-openssl uses this particular enum in this style so we \"rustify\" it instead of generating constants",
+      "parentUuid": "88bfd956_cbfa3296",
+      "revId": "701fd066a7db636629cebad813b2050bc0e29970",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "85c18669_595bdfc3",
@@ -276,6 +294,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "49575ca9_2cf690bb",
+        "filename": "rust/build.rs",
+        "patchSetId": 11
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 13386
+      },
+      "writtenOn": "2021-11-18T16:45:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3275b55e_468ebf0f",
+      "revId": "701fd066a7db636629cebad813b2050bc0e29970",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "58220e62_3f77f990",
@@ -324,6 +360,24 @@
       "writtenOn": "2021-10-05T18:07:29Z",
       "side": 1,
       "message": "PKCS12_DEFAULT_ITER? Am I looking in the right place here?: https://github.com/sfackler/rust-openssl/blob/master/openssl/src/pkcs12.rs#L88\n\nThat code is probably run-time broken with BoringSSL because PKCS#12 is one of the worst formats ever to have existed in an RFC. That ok?\n\n(We will probably follow up and make this more robust, but it\u0027s not a blocker for landing.)",
+      "parentUuid": "54f88298_d0144079",
+      "revId": "701fd066a7db636629cebad813b2050bc0e29970",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2811a8f_a0f19d12",
+        "filename": "rust/src/lib.rs",
+        "patchSetId": 11
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 13386
+      },
+      "writtenOn": "2021-11-18T16:45:34Z",
+      "side": 1,
+      "message": "Done",
       "parentUuid": "54f88298_d0144079",
       "revId": "701fd066a7db636629cebad813b2050bc0e29970",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"

@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8f8ebc98_c76d470a",
+        "filename": "crypto/err/err.c",
+        "patchSetId": 14
+      },
+      "lineNbr": 642,
+      "author": {
+        "id": 13386
+      },
+      "writtenOn": "2021-11-18T16:45:34Z",
+      "side": 1,
+      "message": "rust-openssl relies on this function existing, but boringssl doesn\u0027t expose it in the headers (and doesn\u0027t maintain the ERR_ convention).  I don\u0027t know the history of these error functions, is there a better way?",
+      "parentUuid": "f861e8b7_b9841e07",
+      "revId": "f2223106591348bd580aee03166f3fb691485947",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "494c6f0e_765c2ff1",
         "filename": "crypto/obj/nid.rs",
         "patchSetId": 14
@@ -48,6 +66,24 @@
       "writtenOn": "2021-10-11T17:54:04Z",
       "side": 1,
       "message": "I suppose generating this via script works too, but can bindgen really not parse a plain header file with #define integer constants?\n\nI see the call to bindgen and other build bits involve a lot of extra complexity to bypass bindgen\u0027s default behavior. What was wrong with the default behavior?",
+      "revId": "f2223106591348bd580aee03166f3fb691485947",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "138acbe4_1fb6bdcb",
+        "filename": "crypto/obj/nid.rs",
+        "patchSetId": 14
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 13386
+      },
+      "writtenOn": "2021-11-18T16:45:34Z",
+      "side": 1,
+      "message": "hah, the only reason I did it this way was because you suggested it when we were talking about NIDs :)\n\nI ripped it all out and have it generating from the headers now.",
+      "parentUuid": "494c6f0e_765c2ff1",
       "revId": "f2223106591348bd580aee03166f3fb691485947",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -109,6 +145,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5bca2d71_6659c131",
+        "filename": "rust/README.txt",
+        "patchSetId": 14
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 13386
+      },
+      "writtenOn": "2021-11-18T16:45:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8df920c0_1c4cbc62",
+      "range": {
+        "startLine": 4,
+        "startChar": 63,
+        "endLine": 4,
+        "endChar": 72
+      },
+      "revId": "f2223106591348bd580aee03166f3fb691485947",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "318efc13_05f59989",
@@ -122,6 +182,30 @@
       "writtenOn": "2021-10-11T17:54:04Z",
       "side": 1,
       "message": "LLVM",
+      "range": {
+        "startLine": 7,
+        "startChar": 206,
+        "endLine": 7,
+        "endChar": 210
+      },
+      "revId": "f2223106591348bd580aee03166f3fb691485947",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "804b6e11_ce20f124",
+        "filename": "rust/README.txt",
+        "patchSetId": 14
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 13386
+      },
+      "writtenOn": "2021-11-18T16:45:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "318efc13_05f59989",
       "range": {
         "startLine": 7,
         "startChar": 206,
@@ -149,6 +233,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a99206d8_e0dfda71",
+        "filename": "rust/build.rs",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13386
+      },
+      "writtenOn": "2021-11-18T16:45:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d938314_f4e8fd14",
+      "revId": "f2223106591348bd580aee03166f3fb691485947",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ef7beb4b_16eb7592",
@@ -162,6 +264,24 @@
       "writtenOn": "2021-10-11T17:54:04Z",
       "side": 1,
       "message": "Why c_ulonglong and c_uint? bn.h uses uint32_t and uint64_t. They are... hopefully the same, but better to bind the actual types. target_pointer_width is also the wrong condition. We\u0027ve historically had to support architectures (x86_64 NaCl) with 32-bit pointers and 64-bit multipliers.\n\nCan we pick up the real definition from bn.h instead. Is the issue that BN_ULONG is a #define instead of a typedef? We can just switch it to a typedef if that would help...",
+      "revId": "f2223106591348bd580aee03166f3fb691485947",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95157825_5de55675",
+        "filename": "rust/src/bn.rs",
+        "patchSetId": 14
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 13386
+      },
+      "writtenOn": "2021-11-18T16:45:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef7beb4b_16eb7592",
       "revId": "f2223106591348bd580aee03166f3fb691485947",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -183,6 +303,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6afa080e_af74f422",
+        "filename": "rust/src/lib.rs",
+        "patchSetId": 14
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 13386
+      },
+      "writtenOn": "2021-11-18T16:45:34Z",
+      "side": 1,
+      "message": "I could indeed just patch out the callback!",
+      "parentUuid": "e09121f6_ade762e1",
+      "revId": "f2223106591348bd580aee03166f3fb691485947",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "24796df7_753430f4",
@@ -196,6 +334,24 @@
       "writtenOn": "2021-10-11T17:54:04Z",
       "side": 1,
       "message": "Why do you need this header? Consumers of the library should not be reaching into internals.",
+      "revId": "f2223106591348bd580aee03166f3fb691485947",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6263328d_895ee321",
+        "filename": "rust/wrapper.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 13386
+      },
+      "writtenOn": "2021-11-18T16:45:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "24796df7_753430f4",
       "revId": "f2223106591348bd580aee03166f3fb691485947",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
