@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f49977d_47d65f20",
+        "filename": "rust/src/lib.rs",
+        "patchSetId": 16
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-11-19T18:08:58Z",
+      "side": 1,
+      "message": "Here, one less manual thing. :-)\nhttps://boringssl-review.googlesource.com/c/boringssl/+/50505",
+      "revId": "1ecf4a8a0d185c1de54113bea4fad245956b65ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

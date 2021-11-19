@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cea06ef2_5abeeb93",
+        "filename": "crypto/err/err.c",
+        "patchSetId": 14
+      },
+      "lineNbr": 642,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-11-19T18:08:58Z",
+      "side": 1,
+      "message": "rust-openssl does not appear to rely on this function, since it\u0027s not what\u0027s in OpenSSL. Rather, it has a separate openssl_errors crate which uses:\n\n  void ERR_set_error_data(char *data, int flags)\n\nIt then sometimes passes in an OPENSSL_malloc\u0027d buffer with flags ERR_TXT_STRING|ERR_TXT_MALLOCED and other times passes in a pointer to a \u0027static string with only flags ERR_TXT_STRING.\n\nThat is not something BoringSSL\u0027s version of the error queue supports right now. We dropped most of that machinery in https://boringssl-review.googlesource.com/21004\n\nWe could put it back if needed, or have ERR_set_error_data transparently make a malloc\u0027d copy of i, but external callers adding stuff to the error queue is not common. I would hope Rust projects have richer error systems available and don\u0027t need to muck about with OpenSSL\u0027s rather odd one.\n\nIt looks like the only use of this function is in a separate crate, and basically not used by anything.\nhttps://docs.rs/openssl-errors/0.2.0/openssl_errors/\nhttps://crates.io/crates/openssl-errors/reverse_dependencies\n\nDo we need this crate? Can we just omit openssl_errors to start with?",
+      "parentUuid": "8f8ebc98_c76d470a",
+      "revId": "f2223106591348bd580aee03166f3fb691485947",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "494c6f0e_765c2ff1",
         "filename": "crypto/obj/nid.rs",
         "patchSetId": 14
@@ -84,6 +102,24 @@
       "side": 1,
       "message": "hah, the only reason I did it this way was because you suggested it when we were talking about NIDs :)\n\nI ripped it all out and have it generating from the headers now.",
       "parentUuid": "494c6f0e_765c2ff1",
+      "revId": "f2223106591348bd580aee03166f3fb691485947",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc8238a7_07ed5016",
+        "filename": "crypto/obj/nid.rs",
+        "patchSetId": 14
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-11-19T18:08:58Z",
+      "side": 1,
+      "message": "\u003e hah, the only reason I did it this way was because you suggested it when we were talking about NIDs :)\n\nOh, hah, sorry that was a miscommunication. What I meant was that you should replace the manual NID allocation from an earlier patch set with running the script. (Which you\u0027ve done.) Didn\u0027t have any particular opinion as to how the C #defines made their way to Rust, though using bindgen does seem simplest.",
+      "parentUuid": "138acbe4_1fb6bdcb",
       "revId": "f2223106591348bd580aee03166f3fb691485947",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
