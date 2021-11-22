@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "52480a5d_fad87ea1",
+        "filename": "crypto/err/err.c",
+        "patchSetId": 14
+      },
+      "lineNbr": 642,
+      "author": {
+        "id": 13386
+      },
+      "writtenOn": "2021-11-22T21:21:51Z",
+      "side": 1,
+      "message": "It\u0027s not just openssl-errors, `openssl/src/errors.rs` is what uses ERR_set_error_data for `openssl/ssl/callbacks.rs` which puts errors into (open|boring)ssl during callbacks. It\u0027s not so much being used for external projects as for rust-openssl itself",
+      "parentUuid": "cea06ef2_5abeeb93",
+      "revId": "f2223106591348bd580aee03166f3fb691485947",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "494c6f0e_765c2ff1",
         "filename": "crypto/obj/nid.rs",
         "patchSetId": 14
