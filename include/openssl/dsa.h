@@ -394,6 +394,16 @@ OPENSSL_EXPORT DSA *DSA_generate_parameters(int bits, unsigned char *seed,
                                             void (*callback)(int, int, void *),
                                             void *cb_arg);
 
+// DSA_clear_flags does nothing.
+OPENSSL_EXPORT void DSA_clear_flags(DSA *dsa, int flags);
+
+// DSA_set_flags does nothing.
+OPENSSL_EXPORT void DSA_set_flags(DSA *dsa, int flags);
+
+// DSA_FLAG_CACHE_MONT_P is a dummy define to allow some third-party code to
+// compile.
+#define DSA_FLAG_CACHE_MONT_P 0
+
 
 struct dsa_st {
   long version;

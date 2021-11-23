@@ -965,3 +965,6 @@ err:
   DH_free(ret);
   return NULL;
 }
+
+void DSA_clear_flags(DSA *dsa, int flags) {}
+void DSA_set_flags(DSA *dsa, int flags) {}
