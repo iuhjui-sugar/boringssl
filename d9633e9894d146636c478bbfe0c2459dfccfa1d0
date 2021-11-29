@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24ba3385_952f76c6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-11-29T22:47:19Z",
+      "side": 1,
+      "message": "This should reduce some of the BIND patches.",
+      "revId": "d9633e9894d146636c478bbfe0c2459dfccfa1d0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
