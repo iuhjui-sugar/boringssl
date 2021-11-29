@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b07fadb2_4d5aaad1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-11-29T19:09:18Z",
+      "side": 1,
+      "message": "The CQ, as far as I know, was never set up on this branch. But that Gerrit doesn\u0027t know you and I are OWNERS here is a little interesting. I think it\u0027s because of the OWNERS file.\n\n+tandrii, mind stamping this to appease the OWNERS check? Hopefully this\u0027ll be the last time we have to bother you.",
+      "revId": "4025986d4c3c3210df316d4eafd0e2613f924f5d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
