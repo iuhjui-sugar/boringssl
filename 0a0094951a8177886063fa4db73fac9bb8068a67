@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a251502_ca69293b",
+        "filename": "include/openssl/dsa.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 405,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-11-29T17:55:17Z",
+      "side": 1,
+      "message": "Looks like it\u0027s specifically old BIND. Newer BIND has deleted DSA support (yay!).\n\nMentioned this in the other CL (missed this hadn\u0027t landed yet), but one minor risk: a third-party package calling DSA_clear_flags(dsa, DSA_FLAG_CACHE_MONT_P) might be assuming that, with DSA_FLAG_CACHE_MONT_P off, mutating a DSA object after use works again. (Mutating RSA and DSA objects after use normally gets all the internal state out of sync.) Omitting the symbol means anyone doing that won\u0027t compile.\n\nFortunately, BIND doesn\u0027t appear to be relying on this. Looks like this dates to 2000, as a workaround for some thread-safety issues in OpenSSL\u0027s lazy initialization at the time.\n\nAnyway, I\u0027m fine to land this as-is. If it comes up, we can probably fix the setters to clear the state. Alternative would be patch this #define into BIND more locally and then retire the patch when updating it. Your call.",
+      "revId": "0a0094951a8177886063fa4db73fac9bb8068a67",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
