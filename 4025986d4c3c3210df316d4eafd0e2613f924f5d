@@ -90,6 +90,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6095df2c_4582b8bf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6950
+      },
+      "writtenOn": "2021-11-30T17:59:06Z",
+      "side": 1,
+      "message": "Yep, you can\u0027t bypass OWNERS check any more, by design. I recommend go/git-admin-bug",
+      "parentUuid": "95af88ba_1d590327",
+      "revId": "4025986d4c3c3210df316d4eafd0e2613f924f5d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "87c014a7_2f9d6ff1",
