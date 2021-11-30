@@ -54,6 +54,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "724311ce_d9ae3776",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-11-30T16:13:27Z",
+      "side": 1,
+      "message": "\u003e 1) CQ was set up -- see inline comment.\n\nHuh. I suspect that recipe won\u0027t do anything useful here. :-)\n\n\u003e So, I suggest you change the OWNERS to include other people.\n\nYup, this CL does that.\n\n\u003e oh, and I can\u0027t even fully LGTM here... \n\nSigh. Okay, well, I\u0027ll just manually submit this. It\u0027ll probably trigger a warning, but we\u0027ll deal with it. Misconfiguration.",
+      "parentUuid": "54b5394f_5bf3ea6e",
+      "revId": "4025986d4c3c3210df316d4eafd0e2613f924f5d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "87c014a7_2f9d6ff1",
