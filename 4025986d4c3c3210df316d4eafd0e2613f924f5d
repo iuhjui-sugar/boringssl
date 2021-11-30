@@ -16,6 +16,41 @@
       "message": "The CQ, as far as I know, was never set up on this branch. But that Gerrit doesn\u0027t know you and I are OWNERS here is a little interesting. I think it\u0027s because of the OWNERS file.\n\n+tandrii, mind stamping this to appease the OWNERS check? Hopefully this\u0027ll be the last time we have to bother you.",
       "revId": "4025986d4c3c3210df316d4eafd0e2613f924f5d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd6d2f6d_5c1e8be0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6950
+      },
+      "writtenOn": "2021-11-30T13:19:36Z",
+      "side": 1,
+      "message": "LGTM %\n1) CQ was set up -- see inline comment.\n2) although I genuinely admire the work you do on BoringSSL + really miss my old team already, I will likely be slow to respond going forward (http://go/tandrii-quest-v3). So, I suggest you change the OWNERS to include other people.",
+      "parentUuid": "b07fadb2_4d5aaad1",
+      "revId": "4025986d4c3c3210df316d4eafd0e2613f924f5d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87c014a7_2f9d6ff1",
+        "filename": "main.star",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 6950
+      },
+      "writtenOn": "2021-11-30T13:19:36Z",
+      "side": 1,
+      "message": "CQ is set up for this branch, too, though not necessarily intentionally",
+      "revId": "4025986d4c3c3210df316d4eafd0e2613f924f5d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
