@@ -89,6 +89,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad442710_d0544f96",
+        "filename": "crypto/err/err.c",
+        "patchSetId": 14
+      },
+      "lineNbr": 642,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-11-30T20:37:39Z",
+      "side": 1,
+      "message": "It looks like it is actually for external projects. rust-openssl, rather than using Rust\u0027s own error system, exposes the OpenSSL error type as public API for externally-supplied callbacks.\n\nThis is not a good public API, but ah well. It\u0027s easier just to implement this function than fix the Rust ecosystem. :-) https://boringssl-review.googlesource.com/c/boringssl/+/50625 should do so, but correctly.",
+      "parentUuid": "52480a5d_fad87ea1",
+      "revId": "f2223106591348bd580aee03166f3fb691485947",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "494c6f0e_765c2ff1",
