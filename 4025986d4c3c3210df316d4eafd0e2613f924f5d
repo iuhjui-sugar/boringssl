@@ -108,6 +108,23 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8daee2a1_64f82179",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6950
+      },
+      "writtenOn": "2021-11-30T17:59:30Z",
+      "side": 1,
+      "message": "ah, wait, my @chromium.org is the OWNER! I\u0027ll stamp with that account in a second.",
+      "revId": "4025986d4c3c3210df316d4eafd0e2613f924f5d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "87c014a7_2f9d6ff1",
