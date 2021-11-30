@@ -125,6 +125,23 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6ad9c4b_781d39e9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7100
+      },
+      "writtenOn": "2021-11-30T18:00:26Z",
+      "side": 1,
+      "message": "this account can\u0027t CR+2, but i think CR+1 should be enough for OWNERS.",
+      "revId": "4025986d4c3c3210df316d4eafd0e2613f924f5d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "87c014a7_2f9d6ff1",
