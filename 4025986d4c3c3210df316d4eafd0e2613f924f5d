@@ -36,6 +36,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "54b5394f_5bf3ea6e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6950
+      },
+      "writtenOn": "2021-11-30T13:20:22Z",
+      "side": 1,
+      "message": "oh, and I can\u0027t even fully LGTM here... probably because I\u0027m no longer a super-duper git admin.",
+      "parentUuid": "bd6d2f6d_5c1e8be0",
+      "revId": "4025986d4c3c3210df316d4eafd0e2613f924f5d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "87c014a7_2f9d6ff1",
@@ -49,6 +67,24 @@
       "writtenOn": "2021-11-30T13:19:36Z",
       "side": 1,
       "message": "CQ is set up for this branch, too, though not necessarily intentionally",
+      "revId": "4025986d4c3c3210df316d4eafd0e2613f924f5d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3351f539_5d447bc7",
+        "filename": "main.star",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 6950
+      },
+      "writtenOn": "2021-11-30T13:20:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "87c014a7_2f9d6ff1",
       "revId": "4025986d4c3c3210df316d4eafd0e2613f924f5d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
