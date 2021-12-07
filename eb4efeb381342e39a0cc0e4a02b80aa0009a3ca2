@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9a7ade7_0f88de64",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2647,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-12-07T16:25:53Z",
+      "side": 1,
+      "message": "Nit: Any reason not to put this next to SSL_set1_host? Seems they\u0027re somewhat aligned.",
+      "revId": "eb4efeb381342e39a0cc0e4a02b80aa0009a3ca2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f83fad0_99140e98",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 8067,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-12-07T16:25:53Z",
+      "side": 1,
+      "message": "Sigh. One more thing to see if we can get rid of, I suppose.",
+      "revId": "eb4efeb381342e39a0cc0e4a02b80aa0009a3ca2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
