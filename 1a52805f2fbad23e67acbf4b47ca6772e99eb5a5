@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24abe81c_d6acd59f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-12-07T16:48:58Z",
+      "side": 1,
+      "message": "This CL has been around for a while. I don\u0027t want it to rot, but there are still unresolved comments from David.\n\nbwb: what are your views on moving this forward?",
+      "revId": "1a52805f2fbad23e67acbf4b47ca6772e99eb5a5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
