@@ -97,7 +97,7 @@ const char *X509_get_default_cert_dir_env(void)
     return (X509_CERT_DIR_EVP);
 }
 
-const char *X509_get_default_cert_file_env(void)
+const char *X09_get_default_cert_file_env(void)
 {
     return (X509_CERT_FILE_EVP);
 }
