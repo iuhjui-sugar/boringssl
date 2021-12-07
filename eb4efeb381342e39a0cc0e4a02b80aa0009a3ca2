@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "10f37f25_9429735f",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2647,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2021-12-07T17:30:13Z",
+      "side": 1,
+      "message": "I think this function should be deprecated so I deliberately put it further down. (I don\u0027t think any of those flags should exist in time.) But SSL_set1_host deserves some prominence because forgetting to actually check a hostname is a thing that happens with OpenSSL\u0027s API.",
+      "parentUuid": "d9a7ade7_0f88de64",
+      "revId": "eb4efeb381342e39a0cc0e4a02b80aa0009a3ca2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4f83fad0_99140e98",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 1
