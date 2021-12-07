@@ -38,6 +38,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "9f84031b_d909bb90",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2647,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-12-07T17:31:48Z",
+      "side": 1,
+      "message": "Hehe, sounds good. (I\u0027ve kicked off a job to see if we can force X509_CHECK_FLAG_NO_PARTIAL_WILDCARDS, so one less use.)",
+      "parentUuid": "10f37f25_9429735f",
+      "revId": "eb4efeb381342e39a0cc0e4a02b80aa0009a3ca2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4f83fad0_99140e98",
         "filename": "ssl/ssl_test.cc",
         "patchSetId": 1
