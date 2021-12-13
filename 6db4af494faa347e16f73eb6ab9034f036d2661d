@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa6d5ee6_7ef9bd65",
+        "filename": "include/openssl/x509v3.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 900,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-12-13T22:16:24Z",
+      "side": 1,
+      "message": "Set value to zero?",
+      "range": {
+        "startLine": 900,
+        "startChar": 48,
+        "endLine": 900,
+        "endChar": 52
+      },
+      "revId": "6db4af494faa347e16f73eb6ab9034f036d2661d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
