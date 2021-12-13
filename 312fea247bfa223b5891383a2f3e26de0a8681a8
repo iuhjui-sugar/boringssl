@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "117757c2_1a7c1aa3",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 3756,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-12-13T22:15:06Z",
+      "side": 1,
+      "message": "nit: blank line following.",
+      "revId": "312fea247bfa223b5891383a2f3e26de0a8681a8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06b3f988_82bb48dc",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 3800,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-12-13T22:15:06Z",
+      "side": 1,
+      "message": "Wouldn\u0027t an |add1| function *not* take ownership of the given reference?",
+      "revId": "312fea247bfa223b5891383a2f3e26de0a8681a8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
