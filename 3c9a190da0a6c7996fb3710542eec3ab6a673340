@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fee8d53d_8910ffa6",
+        "filename": "include/openssl/bio.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-12-15T18:59:42Z",
+      "side": 1,
+      "message": "\"number\" following non-negative? (I think it still works when omitted, but there\u0027s \"number\" above.)",
+      "revId": "3c9a190da0a6c7996fb3710542eec3ab6a673340",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd66ba3c_5a8d809f",
+        "filename": "include/openssl/bio.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-12-15T18:59:42Z",
+      "side": 1,
+      "message": "This is horrifying.",
+      "range": {
+        "startLine": 519,
+        "startChar": 46,
+        "endLine": 521,
+        "endChar": 37
+      },
+      "revId": "3c9a190da0a6c7996fb3710542eec3ab6a673340",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
