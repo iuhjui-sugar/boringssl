@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "7de52276_6b9e895d",
+        "filename": "include/openssl/bio.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-12-15T19:12:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fee8d53d_8910ffa6",
+      "revId": "3c9a190da0a6c7996fb3710542eec3ab6a673340",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "cd66ba3c_5a8d809f",
         "filename": "include/openssl/bio.h",
         "patchSetId": 2
@@ -31,6 +49,30 @@
       "writtenOn": "2021-12-15T18:59:42Z",
       "side": 1,
       "message": "This is horrifying.",
+      "range": {
+        "startLine": 519,
+        "startChar": 46,
+        "endLine": 521,
+        "endChar": 37
+      },
+      "revId": "3c9a190da0a6c7996fb3710542eec3ab6a673340",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86d98361_e961b136",
+        "filename": "include/openssl/bio.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-12-15T19:12:45Z",
+      "side": 1,
+      "message": "Sure is! It\u0027s even documented upstream. :-(\nhttps://www.openssl.org/docs/man1.1.1/man3/BIO_tell.html",
+      "parentUuid": "cd66ba3c_5a8d809f",
       "range": {
         "startLine": 519,
         "startChar": 46,
