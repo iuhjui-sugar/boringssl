@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1462c80e_bc7a8511",
+        "filename": "ssl/test/test_config.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-12-15T22:56:45Z",
+      "side": 1,
+      "message": "(This triggers the C++11 rule that function-local statics get thread-safe initialization.)",
+      "revId": "9f5ac7db97df0162b48571e37a97387dec4615fe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
