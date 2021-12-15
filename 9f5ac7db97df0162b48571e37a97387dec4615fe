@@ -1,6 +1,40 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "170527bf_f955e3d3",
+        "filename": "ssl/test/test_config.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-12-15T22:59:37Z",
+      "side": 1,
+      "message": "static assert that the limits of T are within the limits of atoi? (Or switch to strtoul or such that has wider limits?)",
+      "revId": "9f5ac7db97df0162b48571e37a97387dec4615fe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "177b7a79_8c0ab7b8",
+        "filename": "ssl/test/test_config.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2021-12-15T22:59:37Z",
+      "side": 1,
+      "message": "(ditto about limits.)",
+      "revId": "9f5ac7db97df0162b48571e37a97387dec4615fe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "1462c80e_bc7a8511",
