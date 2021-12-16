@@ -16,6 +16,24 @@
       "message": "I think strtoull ignores leading \u0027-\u0027. Maybe check for that explicitly and return false if found?",
       "revId": "401f77df191325185800d5c43dfe8df1cd54471d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b65b8804_48363516",
+        "filename": "ssl/test/test_config.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-12-16T21:33:04Z",
+      "side": 1,
+      "message": "Apparently it allows them and wraps around.\nhttps://en.cppreference.com/w/cpp/string/byte/strtoul\n\nAdded an explicit check. Why is parsing an integer so hard?",
+      "parentUuid": "26695e99_e3ff15d9",
+      "revId": "401f77df191325185800d5c43dfe8df1cd54471d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
