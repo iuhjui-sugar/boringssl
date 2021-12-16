@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "80715173_9edc0ec5",
+        "filename": "ssl/test/test_config.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-12-16T16:14:53Z",
+      "side": 1,
+      "message": "Switched to strtoull. Also added separate signed/unsigned branches because comparing signed vs. unsigned will probably do something silly if we ever tried uint64_t.",
+      "parentUuid": "170527bf_f955e3d3",
+      "revId": "9f5ac7db97df0162b48571e37a97387dec4615fe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "177b7a79_8c0ab7b8",
@@ -31,6 +49,24 @@
       "writtenOn": "2021-12-15T22:59:37Z",
       "side": 1,
       "message": "(ditto about limits.)",
+      "revId": "9f5ac7db97df0162b48571e37a97387dec4615fe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6c9e3a2_3d255b89",
+        "filename": "ssl/test/test_config.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2021-12-16T16:14:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "177b7a79_8c0ab7b8",
       "revId": "9f5ac7db97df0162b48571e37a97387dec4615fe",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
