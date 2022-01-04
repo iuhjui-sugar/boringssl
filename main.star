@@ -478,6 +478,23 @@ both_builders(
 both_builders("mac", MAC_HOST, category = "mac", short_name = "dbg")
 both_builders("mac_rel", MAC_HOST, category = "mac", short_name = "rel")
 both_builders("mac_small", MAC_HOST, category = "mac", short_name = "sm")
+
+# We don't currently have ARM64 Macs in the flex pools, so limit coverage to
+# compile-only.
+# TODO(davidben): Replace this with actual ARM64 Macs when available.
+both_builders(
+    "mac_arm64_compile",
+    MAC_HOST,
+    category = "mac",
+    short_name = "arm64",
+    properties = {
+        "cmake_args": {
+            "CMAKE_OSX_ARCHITECTURES": "arm64",
+        },
+        "run_unit_tests": False,
+        "run_ssl_tests": False,
+    },
+)
 both_builders("win32", WIN_HOST, category = "win|32", short_name = "dbg")
 both_builders("win32_rel", WIN_HOST, category = "win|32", short_name = "rel")
 ci_builder(
