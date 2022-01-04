@@ -16,6 +16,24 @@
       "message": "Let\u0027s hold on landing this until we get at least an ARM Mac compile-only bot. That should be easy to do without requesting new hardware, though I\u0027m also going to request new hardware.",
       "revId": "69e59be39349f4da895d10576a198e64d320a982",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b52992c3_cbd18681",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-01-04T22:45:11Z",
+      "side": 1,
+      "message": "https://boringssl-review.googlesource.com/c/boringssl/+/50825\n\nThough it occurs to me this is, most likely, identical to iOS + ARM64. Ah well. :-)",
+      "parentUuid": "47598475_5779c3a7",
+      "revId": "69e59be39349f4da895d10576a198e64d320a982",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
