@@ -177,6 +177,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "58ff0bac_e7ae1aaf",
+        "filename": "include/openssl/err.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 13386
+      },
+      "writtenOn": "2022-01-04T18:16:23Z",
+      "side": 1,
+      "message": "It\u0027s not quite as elegant in Rust, but I linked in a C file so that we can avoid duplications.",
+      "parentUuid": "16fbcf1c_b748d6ae",
+      "revId": "f2223106591348bd580aee03166f3fb691485947",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b2e35ec2_2b312ae7",
@@ -190,6 +208,24 @@
       "writtenOn": "2021-10-11T17:54:04Z",
       "side": 1,
       "message": "Two blank lines between sections, and documentation.\n\nAlthough this doesn\u0027t even match OpenSSL or rust-openssl, which has a flags parameter. Where did you get this prototype from?",
+      "revId": "f2223106591348bd580aee03166f3fb691485947",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "031ffc64_9e423fcb",
+        "filename": "include/openssl/err.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 419,
+      "author": {
+        "id": 13386
+      },
+      "writtenOn": "2022-01-04T18:16:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2e35ec2_2b312ae7",
       "revId": "f2223106591348bd580aee03166f3fb691485947",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
