@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0fb019f_57d450d8",
+        "filename": "crypto/fipsmodule/sha/asm/sha512-armv8.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 456,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-01-04T22:27:31Z",
+      "side": 1,
+      "message": "Other than eval and unsha256, I don\u0027t know why these various transforms aren\u0027t just applied to the source directly. For some reason, despite this file being aarch64-only (i.e. it\u0027s not an \"armx\" file), OpenSSL still used the 32-bit register names and fixes it up after the fact.",
+      "revId": "dc7be68b789ad42409d1064ab5df2cf7a7c69b5b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
