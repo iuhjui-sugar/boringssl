@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1ffff2e_a85e0cdb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-01-05T17:07:59Z",
+      "side": 1,
+      "message": "I think \"them\" means \"__ARME[LB]__\", but I had to think about it for a second. Worth being explicit here, I think.",
+      "range": {
+        "startLine": 17,
+        "startChar": 54,
+        "endLine": 17,
+        "endChar": 58
+      },
+      "revId": "e7e93eb6e9548e75d627229f96c2e8b27cfcbaa2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
