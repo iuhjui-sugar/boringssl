@@ -33,6 +33,24 @@
       "message": "This is slightly ridiculous. The loop invariant for .Loop_hw is that, at each point, we\u0027ve already read the next block into @MSG. Then this line, combined with line 516, interleaves reading the next block with the final 8 double-rounds.\n\nBut that means, if we\u0027re at the final block, we overread! We\u0027re saved by line 477, which rewinds $inp by a block at the last iteration. I guess this avoids duplicating the code.\n\nFrustratingly, neither DynamoRIO nor valgrind actually implement the SHA-512 extensions, so I can\u0027t confirm this. :-/ Our tests do not appear to be sensitive enough to notice an overread like this. Maybe we should write tests for buffers that start and end right at a page, or something of that sort.",
       "revId": "9b1138888c6be65be551ee62c4c6d33aa1965813",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0ed4844_005f0e48",
+        "filename": "crypto/fipsmodule/sha/asm/sha512-armv8.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-01-05T17:15:15Z",
+      "side": 1,
+      "message": "Update on this: I managed to put together a patch that makes valgrind understand SHA-512 extensions (will upstream). Confirmed this doesn\u0027t trip valgrind and that removing the CSEL does trip it.",
+      "parentUuid": "c6a9d3a0_67497265",
+      "revId": "9b1138888c6be65be551ee62c4c6d33aa1965813",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
