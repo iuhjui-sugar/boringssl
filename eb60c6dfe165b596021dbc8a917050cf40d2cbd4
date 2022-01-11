@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8864c1a7_45eded1c",
+        "filename": "rust/CMakeLists.txt",
+        "patchSetId": 24
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-01-11T16:01:58Z",
+      "side": 1,
+      "message": "Ugh. Yeah that\u0027s definitely not okay. This means the build will break every time glibc adds a new function that utters `long double`. We\u0027ll need to find a different story here.\n\nDoes bindgen not support filtering by files? That seems the obvious way to do this.",
+      "parentUuid": "e6c7940e_af4242ad",
+      "revId": "eb60c6dfe165b596021dbc8a917050cf40d2cbd4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b0fb97fa_9459ec99",
         "filename": "rust/README.txt",
         "patchSetId": 24
