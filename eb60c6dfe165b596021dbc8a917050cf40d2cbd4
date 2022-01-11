@@ -35,6 +35,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6c7940e_af4242ad",
+        "filename": "rust/CMakeLists.txt",
+        "patchSetId": 24
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 13386
+      },
+      "writtenOn": "2022-01-11T15:02:27Z",
+      "side": 1,
+      "message": "these are random glibc symbols that are getting pulled in. added a larger comment",
+      "parentUuid": "a00a1b1b_ced46414",
+      "revId": "eb60c6dfe165b596021dbc8a917050cf40d2cbd4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b0fb97fa_9459ec99",
@@ -52,6 +70,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "04d3b5bf_82539c03",
+        "filename": "rust/README.txt",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13386
+      },
+      "writtenOn": "2022-01-11T15:02:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0fb97fa_9459ec99",
+      "revId": "eb60c6dfe165b596021dbc8a917050cf40d2cbd4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4ac4f8a0_a78a8b4e",
@@ -65,6 +101,30 @@
       "writtenOn": "2022-01-07T23:15:35Z",
       "side": 1,
       "message": "Our ERR_get_error and friends all return uint32_t (unsigned), and indeed lib.rs expects them to be uint32_t inputs.\n\nThe int32_t return type is interesting... I hadn\u0027t realized we made those be ints, but I guess that\u0027s what they are! Though to match the C code, we should probably write that as \u0027int\u0027 rather than int32_t\u0027.\n\nGiven we\u0027ve already managed one mismatch, I don\u0027t suppose it\u0027s possible for there to be a corresponding C header (perhaps even just wrapper.h?) that this file includes and bindgen consumes? That will ensure the Rust transcriptions match.",
+      "range": {
+        "startLine": 10,
+        "startChar": 25,
+        "endLine": 10,
+        "endChar": 32
+      },
+      "revId": "eb60c6dfe165b596021dbc8a917050cf40d2cbd4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f90575c_87e3a6df",
+        "filename": "rust/err_compat.c",
+        "patchSetId": 24
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 13386
+      },
+      "writtenOn": "2022-01-11T15:02:27Z",
+      "side": 1,
+      "message": "eeek, awkward mismatch. Yeah, doing it with bindgen now.",
+      "parentUuid": "4ac4f8a0_a78a8b4e",
       "range": {
         "startLine": 10,
         "startChar": 25,
