@@ -71,6 +71,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f00ed4dc_69f4720b",
+        "filename": "rust/CMakeLists.txt",
+        "patchSetId": 24
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 13386
+      },
+      "writtenOn": "2022-01-11T19:39:03Z",
+      "side": 1,
+      "message": "Discussed offline, comment extended with general plan.",
+      "parentUuid": "8864c1a7_45eded1c",
+      "revId": "eb60c6dfe165b596021dbc8a917050cf40d2cbd4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b0fb97fa_9459ec99",
