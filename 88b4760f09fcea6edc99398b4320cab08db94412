@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "83a817d3_518d4205",
+        "filename": "rust/CMakeLists.txt",
+        "patchSetId": 26
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 13386
+      },
+      "writtenOn": "2022-01-13T20:55:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c1d01b5_600e40b6",
+      "revId": "88b4760f09fcea6edc99398b4320cab08db94412",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d4db223f_472be486",
@@ -41,6 +59,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5b21312_63ff804b",
+        "filename": "rust/CMakeLists.txt",
+        "patchSetId": 26
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 13386
+      },
+      "writtenOn": "2022-01-13T20:55:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4db223f_472be486",
+      "range": {
+        "startLine": 30,
+        "startChar": 26,
+        "endLine": 30,
+        "endChar": 31
+      },
+      "revId": "88b4760f09fcea6edc99398b4320cab08db94412",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "79a02e42_b57a54cf",
@@ -54,6 +96,30 @@
       "writtenOn": "2022-01-13T20:06:26Z",
       "side": 1,
       "message": "Nit: We can probably drop this clause, given allowlist_recursively both exists and is on by default.",
+      "range": {
+        "startLine": 33,
+        "startChar": 17,
+        "endLine": 33,
+        "endChar": 85
+      },
+      "revId": "88b4760f09fcea6edc99398b4320cab08db94412",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "efb9100f_5d6ba32d",
+        "filename": "rust/CMakeLists.txt",
+        "patchSetId": 26
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 13386
+      },
+      "writtenOn": "2022-01-13T20:55:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79a02e42_b57a54cf",
       "range": {
         "startLine": 33,
         "startChar": 17,
