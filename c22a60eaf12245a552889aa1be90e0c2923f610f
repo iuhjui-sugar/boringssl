@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75dfcd6a_c33c7ded",
+        "filename": "crypto/x509/x509_lu.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-01-13T17:31:15Z",
+      "side": 1,
+      "message": "Huh. Surprised our lack of X509_OBJECT_new and X509_OBJECT_free hasn\u0027t come up yet. Ah well.",
+      "revId": "c22a60eaf12245a552889aa1be90e0c2923f610f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
