@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c1d01b5_600e40b6",
+        "filename": "rust/CMakeLists.txt",
+        "patchSetId": 26
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-01-13T20:06:26Z",
+      "side": 1,
+      "message": "Doesn\u0027t seem err_compat.c even exists anymore. (Did you mean to have both an err_compat.c and err_compat.h?)\n\nA thought: we could even just call this wrapper.c or rust_wrapper.c, and have it be where we toss all the random inlines we need later, not just the err ones.\n\n(Aside: it\u0027d be really great if bindgen just generated this automatically, but that\u0027s for future I suppose. :-) )",
+      "revId": "88b4760f09fcea6edc99398b4320cab08db94412",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4db223f_472be486",
+        "filename": "rust/CMakeLists.txt",
+        "patchSetId": 26
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-01-13T20:06:26Z",
+      "side": 1,
+      "message": "Nit: folks\u0027",
+      "range": {
+        "startLine": 30,
+        "startChar": 26,
+        "endLine": 30,
+        "endChar": 31
+      },
+      "revId": "88b4760f09fcea6edc99398b4320cab08db94412",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79a02e42_b57a54cf",
+        "filename": "rust/CMakeLists.txt",
+        "patchSetId": 26
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-01-13T20:06:26Z",
+      "side": 1,
+      "message": "Nit: We can probably drop this clause, given allowlist_recursively both exists and is on by default.",
+      "range": {
+        "startLine": 33,
+        "startChar": 17,
+        "endLine": 33,
+        "endChar": 85
+      },
+      "revId": "88b4760f09fcea6edc99398b4320cab08db94412",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
