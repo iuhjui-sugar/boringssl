@@ -16,6 +16,24 @@
       "message": "I guess this does work, but can we split this into a .c and .h file? Having Rust see what is effectively a .c file in .h name is a little odd. Normally a function body in a header would need to be marked inline, and then we run into the root complication here that bindgen doesn\u0027t play well with inlines.\n\n(I\u0027m actually a little surprised this is building, since we enable the warning that requires function prototypes on everything. Maybe the flags aren\u0027t getting passed down?)",
       "revId": "8254801884a5d1699547b3071dd79bb42a6cea6f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc922211_dc82f49d",
+        "filename": "rust/CMakeLists.txt",
+        "patchSetId": 28
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 13386
+      },
+      "writtenOn": "2022-01-19T17:25:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0fd61379_6998bcd3",
+      "revId": "8254801884a5d1699547b3071dd79bb42a6cea6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
