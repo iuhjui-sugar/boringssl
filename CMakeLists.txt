@@ -52,12 +52,6 @@ if(NOT GO_EXECUTABLE)
   message(FATAL_ERROR "Could not find Go")
 endif()
 
-if(NOT BINDGEN_EXECUTABLE)
-  message("Could not find bindgen. Not generating Rust bindings.")
-else()
-  add_subdirectory(rust)
-endif()
-
 if(USE_CUSTOM_LIBCXX)
   set(BORINGSSL_ALLOW_CXX_RUNTIME 1)
 endif()
@@ -613,6 +607,14 @@ if(FUZZ)
   endif()
 
   add_subdirectory(fuzz)
+endif()
+
+if(RUST_BINDINGS)
+  if(NOT BINDGEN_EXECUTABLE)
+    message(FATAL_ERROR "Could not find bindgen but was asked to generate Rust bindings.")
+  else()
+    add_subdirectory(rust)
+  endif()
 endif()
 
 if(UNIX AND NOT APPLE AND NOT ANDROID)
