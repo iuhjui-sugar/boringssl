@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "5e344ed6_66fc8384",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 13386
+      },
+      "writtenOn": "2022-01-21T15:46:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f91dc2c_47f733f9",
+      "revId": "96375f3ca0451adcd54d2404dd1f6e691249731a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "f3bb78fd_61de8d98",
         "filename": "CMakeLists.txt",
         "patchSetId": 1
@@ -48,6 +66,24 @@
       "writtenOn": "2022-01-20T21:08:22Z",
       "side": 1,
       "message": "This isn\u0027t quite right, since macOS also counts as \"UNIX\". Unfortunately, detecting Linux seems to be a bit tricky. UNIX AND NOT APPLE will... mostly target ELF targets, but it\u0027s probably still not right to use \"linux\" on, say, FreeBSD. Elsewhere, we check if CMAKE_SYSTEM_NAME is Linux. That\u0027s probably the thing to do here.\n\nNote that CMAKE_SYSTEM_NAME on \"Android\" is not \"Linux\" but Android. But that\u0027s probably desirable, because the target name for Android is aarch64-linux-android. It uses a different libc and I think there are some slight differences in places.\n\nAnother option is to just make the caller specify it, and it\u0027s their problem if they don\u0027t match.",
+      "revId": "96375f3ca0451adcd54d2404dd1f6e691249731a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "325a42be_c820d4e1",
+        "filename": "rust/CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 13386
+      },
+      "writtenOn": "2022-01-21T15:46:50Z",
+      "side": 1,
+      "message": "yeah, made it so caller just has to handle it",
+      "parentUuid": "be0b8725_e0c25543",
       "revId": "96375f3ca0451adcd54d2404dd1f6e691249731a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
