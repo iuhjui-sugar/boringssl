@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "07138c73_c0868844",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-01-24T15:51:06Z",
+      "side": 1,
+      "message": "Thanks! Didn\u0027t know about that one. We\u0027ve been gradually switching from int to bool in libssl, but it was a very manual thing. Clearly I missed a bunch.",
+      "revId": "e6de1781f603d61276d4782899b39397cb4c7380",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
