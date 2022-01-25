@@ -34,6 +34,24 @@
       "parentUuid": "6e5441c3_90abec01",
       "revId": "23a03aef62d5884e4566f8c359fee792bd1fb8ec",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "378d90b0_47e82f83",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-01-25T15:54:49Z",
+      "side": 1,
+      "message": "Okay, well, let\u0027s try it! :-) I vaguely remember someone filed an issue along these lines on Windows, but I can\u0027t find it now and I don\u0027t remember what the conclusion was. Worst case, something will notice and we go back and switch these to escape sequences.",
+      "parentUuid": "e331f6bf_ba8975f1",
+      "revId": "23a03aef62d5884e4566f8c359fee792bd1fb8ec",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
