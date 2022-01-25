@@ -16,6 +16,24 @@
       "message": "char8_t was such a terrible idea. :-( \u003cinsert usual rant that UTF-8 is a property of the sequence of code units, not the code unit itself\u003e.\n\nDo non-ASCII characters work reliably in a non-u8 literal? Wondering if those need to turn into byte escape sequences.",
       "revId": "23a03aef62d5884e4566f8c359fee792bd1fb8ec",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e331f6bf_ba8975f1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 12021
+      },
+      "writtenOn": "2022-01-25T06:42:06Z",
+      "side": 1,
+      "message": "They do as long as the file isn\u0027t going to be interpreted as UTF-16 or something weird like that.",
+      "parentUuid": "6e5441c3_90abec01",
+      "revId": "23a03aef62d5884e4566f8c359fee792bd1fb8ec",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
