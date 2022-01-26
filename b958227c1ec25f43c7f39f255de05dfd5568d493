@@ -34,6 +34,23 @@
       "parentUuid": "e4357eda_d94de36a",
       "revId": "b958227c1ec25f43c7f39f255de05dfd5568d493",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be38a57b_4f455a12",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-01-26T20:36:09Z",
+      "side": 1,
+      "message": "Thanks! I\u0027ll leave this for AGL to also review, but (with some help from Jade Philipoom) I agree this also computes the square root.\n\nAlthough those three multiplications and two squarings don\u0027t seem to show up at all amidst the rest of signature verification. I suppose it\u0027s a hair less code to run. :-)",
+      "revId": "b958227c1ec25f43c7f39f255de05dfd5568d493",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
