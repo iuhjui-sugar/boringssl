@@ -51,6 +51,24 @@
       "message": "Thanks! I\u0027ll leave this for AGL to also review, but (with some help from Jade Philipoom) I agree this also computes the square root.\n\nAlthough those three multiplications and two squarings don\u0027t seem to show up at all amidst the rest of signature verification. I suppose it\u0027s a hair less code to run. :-)",
       "revId": "b958227c1ec25f43c7f39f255de05dfd5568d493",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "016d9455_a1e678da",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13841
+      },
+      "writtenOn": "2022-01-26T22:53:07Z",
+      "side": 1,
+      "message": "Thanks, David.\n\nThe dominant cost in computing the square root is still the computation of w^((p-5)/8).  Saving 3 mults and 2 squares makes little difference next to w^((p-5)/8), so I think your observation that the performance of sig-verify is about the same makes sense.  But, it is still nice to simplify the code a little :-)",
+      "parentUuid": "be38a57b_4f455a12",
+      "revId": "b958227c1ec25f43c7f39f255de05dfd5568d493",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
