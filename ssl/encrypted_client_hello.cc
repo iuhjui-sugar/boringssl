@@ -203,6 +203,12 @@ bool ssl_decode_client_hello_inner(
         OPENSSL_PUT_ERROR(SSL, SSL_R_DECODE_ERROR);
         return false;
       }
+      // The ECH extension itself is not in the AAD and may not be referenced.
+      if (want == TLSEXT_TYPE_encrypted_client_hello) {
+        *out_alert = SSL_AD_ILLEGAL_PARAMETER;
+        OPENSSL_PUT_ERROR(SSL, SSL_R_OUTER_EXTENSION_NOT_FOUND);
+        return false;
+      }
       // Seek to |want| in |outer_extensions|. |ext_list| is required to match
       // ClientHelloOuter in order.
       uint16_t found;

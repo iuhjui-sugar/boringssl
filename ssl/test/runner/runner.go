@@ -16843,7 +16843,7 @@ func addEncryptedClientHelloTests() {
 				},
 				shouldFail:         true,
 				expectedLocalError: "remote error: illegal parameter",
-				expectedError:      ":DECODE_ERROR:",
+				expectedError:      ":OUTER_EXTENSION_NOT_FOUND:",
 			})
 
 			// Test that the server rejects a references to the ECH extension in
@@ -16871,7 +16871,7 @@ func addEncryptedClientHelloTests() {
 				},
 				shouldFail:         true,
 				expectedLocalError: "remote error: illegal parameter",
-				expectedError:      ":DECODE_ERROR:",
+				expectedError:      ":OUTER_EXTENSION_NOT_FOUND:",
 			})
 		}
 
