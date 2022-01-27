@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f289ab0_0dbd1632",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-01-27T17:25:04Z",
+      "side": 1,
+      "message": "I should just pick a day and finally do this...",
+      "range": {
+        "startLine": 565,
+        "startChar": 34,
+        "endLine": 565,
+        "endChar": 65
+      },
+      "revId": "4498c653ca42101cafc58db856c09497e60d1309",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
