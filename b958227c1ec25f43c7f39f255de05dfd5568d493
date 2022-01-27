@@ -87,6 +87,23 @@
       "parentUuid": "016d9455_a1e678da",
       "revId": "b958227c1ec25f43c7f39f255de05dfd5568d493",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f48bab0f_1a348d2b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-01-27T19:48:59Z",
+      "side": 1,
+      "message": "Thanks Jade and David.",
+      "revId": "b958227c1ec25f43c7f39f255de05dfd5568d493",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
