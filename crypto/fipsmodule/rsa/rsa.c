@@ -76,6 +76,8 @@
 #include "internal.h"
 
 
+// Sample change 3.
+
 // RSA_R_BLOCK_TYPE_IS_NOT_02 is part of the legacy SSLv23 padding scheme.
 // Cryptography.io depends on this error code.
 OPENSSL_DECLARE_ERROR_REASON(RSA, BLOCK_TYPE_IS_NOT_02)

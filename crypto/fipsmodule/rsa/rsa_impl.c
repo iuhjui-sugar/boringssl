@@ -66,6 +66,8 @@
 #include <openssl/thread.h>
 #include <openssl/type_check.h>
 
+// Sample change 1, modified.
+
 #include "internal.h"
 #include "../bn/internal.h"
 #include "../../internal.h"
@@ -1406,6 +1408,8 @@ int RSA_generate_key_fips(RSA *rsa, int bits, BN_GENCB *cb) {
   BN_free(e);
   return ret;
 }
+
+// Sample change 2.
 
 DEFINE_METHOD_FUNCTION(RSA_METHOD, RSA_default_method) {
   // All of the methods are NULL to make it easier for the compiler/linker to
