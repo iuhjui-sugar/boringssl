@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bdb19ae_d194680c",
+        "filename": "crypto/fipsmodule/rsa/rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-02-01T16:01:06Z",
+      "side": 1,
+      "message": "Comment on unchanged file.",
+      "revId": "ad96fde305cfabd194da571acd852bf7dc712344",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "563961a4_dc63353a",
+        "filename": "crypto/fipsmodule/rsa/rsa_impl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-02-01T16:01:06Z",
+      "side": 1,
+      "message": "Comment in area that changed.",
+      "revId": "ad96fde305cfabd194da571acd852bf7dc712344",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b7d3907_edd1804a",
+        "filename": "crypto/fipsmodule/rsa/rsa_impl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-02-01T16:01:06Z",
+      "side": 1,
+      "message": "Comment in the middle of context.",
+      "revId": "ad96fde305cfabd194da571acd852bf7dc712344",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0048571_66a2925a",
+        "filename": "crypto/fipsmodule/rsa/rsa_impl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1412,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-02-01T16:01:06Z",
+      "side": 1,
+      "message": "Comment in area that didn\u0027t change.",
+      "revId": "ad96fde305cfabd194da571acd852bf7dc712344",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
