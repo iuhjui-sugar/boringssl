@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e161ca1c_2c4d6f88",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-02-02T21:27:55Z",
+      "side": 1,
+      "message": "Some mysterious issue correlated with VS2015. Parking this for a month or two, at which point we\u0027ll have dropped VS2015 support.",
+      "revId": "ae7293b0c9b5e1008869a03fed1c5b4240859e06",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
