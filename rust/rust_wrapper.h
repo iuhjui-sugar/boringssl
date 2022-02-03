@@ -21,14 +21,12 @@
 extern "C" {
 #endif
 
-
 // The following functions are wrappers over inline functions and macros in
 // BoringSSL, which bindgen cannot currently correctly bind. These wrappers
 // ensure changes to the functions remain in lockstep with the Rust versions.
-int ERR_GET_LIB_RUST(uint32_t packed_error);
-int ERR_GET_REASON_RUST(uint32_t packed_error);
-int ERR_GET_FUNC_RUST(uint32_t packed_error);
-
+int ERR_GET_LIB_MACRO(uint32_t packed_error);
+int ERR_GET_REASON_MACRO(uint32_t packed_error);
+int ERR_GET_FUNC_MACRO(uint32_t packed_error);
 
 #if defined(__cplusplus)
 }  // extern C

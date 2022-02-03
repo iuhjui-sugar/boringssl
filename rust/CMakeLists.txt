@@ -1,4 +1,5 @@
 # additional interop for things like macros and inlined functions
+include_directories(../include)
 add_library(
   rust_wrapper
   STATIC
@@ -49,6 +50,7 @@ add_custom_target(
 
 # move files into build directory
 configure_file("src/lib.rs" "src/lib.rs")
+configure_file("tests/integration_test.rs" "tests/integration_test.rs")
 
 if(NOT BUILD_SHARED_LIBS)
   configure_file("build.rs" "build.rs" COPYONLY)
