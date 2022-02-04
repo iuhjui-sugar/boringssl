@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80e3506c_8dc1dd90",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5885
+      },
+      "writtenOn": "2022-02-04T09:04:06Z",
+      "side": 1,
+      "message": "Tested on Linux/x86_64, Linux/aarch64 (cross-compiled with bazel-zig-cc), and  macOS/x86_64 to verify that there are no build failures and that the correct assembly files are used for the build.",
+      "revId": "65dd15d4e4a95f03ed2015ec6bd933e1a34232f1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
