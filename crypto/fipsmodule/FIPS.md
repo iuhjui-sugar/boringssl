@@ -20,22 +20,11 @@ CAVP results are calculated by `util/fipstools/cavp`, but that binary is almost 
 1. `-oracle-bin`: points to the location of `util/fipstools/cavp`
 2. `-no-fax`: this is needed to suppress checking of the FAX files, which are only included in sample sets.
 
-## Breaking power-on and continuous tests
+## Breaking known-answer and continuous tests
 
-In order to demonstrate failures of the various FIPS 140 tests, BoringSSL can be built in ways that will trigger such failures. This is controlled by passing `-DFIPS_BREAK_TEST=`(test to break) to CMake, where the following tests can be specified:
+Each known-answer test (KAT) uses a unique, random input value. `util/fipstools/break-kat.go` contains a listing of those values and can be used to corrupt a given test in a binary. Since changes to the KAT input values will invalidate the integrity test, `BORINGSSL\_FIPS_BREAK\_INTEGRITY\_TEST\_FOR\_KAT\_TESTING` can be defined to disable it for the purposes of testing.
 
-1. AES\_CBC
-1. AES\_GCM
-1. DES
-1. SHA\_1
-1. SHA\_256
-1. SHA\_512
-1. RSA\_SIG
-1. ECDSA\_SIG
-1. DRBG
-1. RSA\_PWCT
-1. ECDSA\_PWCT
-1. TLS\_KDF
+Some FIPS tests cannot be broken by replacing a known string in the binary. For those, #defines can be set in `crypto/fipsmodule/break-fips-test.h`. The script `util/fipstools/build-fips-break-test-binaries.sh` will build different `test\_fips` binaries for each of the possible values. One of them is `BORINGSSL\_FIPS\_BREAK\_INTEGRITY\_TEST\_FOR\_KAT\_TESTING`, i.e. is suitable for then breaking the KAT tests.
 
 ## Breaking the integrity test
 

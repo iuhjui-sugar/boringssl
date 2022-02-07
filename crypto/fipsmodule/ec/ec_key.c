@@ -79,6 +79,7 @@
 
 #include "internal.h"
 #include "../delocate.h"
+#include "../break-fips-test.h"
 #include "../../internal.h"
 
 
