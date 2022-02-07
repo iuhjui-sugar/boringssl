@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cdbee5d_c5fa26e2",
+        "filename": "util/BUILD.toplevel",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-02-07T21:07:21Z",
+      "side": 1,
+      "message": "The naming is confusing. Follow-up CL fixes the naming, at the cost of some downstream churn.",
+      "revId": "99805de6e93c60cf6bf7d4e49d9b8664d6159b7d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
