@@ -35,7 +35,7 @@ for define in $DEFINES; do
   cp $HEADER.orig $HEADER
 
   mkdir -p out-$define
-  cp build/util/fipstools/cavp/test_fips out-$define
+  cp build/util/fipstools/test_fips out-$define
 done
 
 rm $HEADER.orig
