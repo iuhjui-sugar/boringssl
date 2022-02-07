@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f949e13b_e1f020ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-02-07T21:06:44Z",
+      "side": 1,
+      "message": "This broke some builds. See https://boringssl-review.googlesource.com/c/boringssl/+/51305 for fix.",
+      "revId": "c5179c693097d0c47b7646543bc7156e894275f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
