@@ -5,4 +5,4 @@ authors = ["Benjamin Brittain <bwb@google.com>", "David Drysdale <drysdale@googl
 edition = "2018"
 
 [dependencies]
-libc = "0.2"
+libc = { version = "0.2", default-features = false }

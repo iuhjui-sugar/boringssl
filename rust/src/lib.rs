@@ -21,6 +21,7 @@
 //! - an `init()` function
 //! - Rust equivalents to function-like preprocessor macros defined in the
 //!   BoringSSL headers (as bindgen doesn't cope with them).
+#![no_std]
 
 #![allow(non_upper_case_globals)]
 #![allow(non_camel_case_types)]

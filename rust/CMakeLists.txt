@@ -16,6 +16,9 @@ set(COMMAND ${BINDGEN_EXECUTABLE} "wrapper.h"
             --size_t-is-usize
             --default-macro-constant-type="signed"
             --rustified-enum="point_conversion_form_t"
+            # Map C types to the versions in the `libc` crate rather than to
+            # those in `std::os::raw`, to allow the generated code to be `no_std`.
+            --ctypes-prefix="libc"
             # These are not BoringSSL symbols, they are from glibc
             # and are not relevant to the build besides throwing warnings
             # about their 'long double' (aka u128) not being FFI safe.
