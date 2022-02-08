@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00d260b4_60325a80",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-02-08T15:55:59Z",
+      "side": 1,
+      "message": "Do we want to land this half concurrently/alongside the change to make the tests lazy? (Not sure how far along that one is.) I assume we\u0027ll have some trouble updating BoringSSL in Android in between this CL and the one that makes the tests lazy.",
+      "range": {
+        "startLine": 12,
+        "startChar": 24,
+        "endLine": 13,
+        "endChar": 55
+      },
+      "revId": "a0e5c83013847beb907e11369a0f75723ebded7c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
