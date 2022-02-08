@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5bf42d13_ec2244a9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-02-08T16:37:39Z",
+      "side": 1,
+      "message": "Oh, this might actually make tidying some build stuff easier! Right now test_support_lib is in this weird state where its headers depend on GTest but its sources cannot. Might play with that after all this is done.",
+      "revId": "3932a631558d7d0d577f3cd7b09cd916b42a3d32",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f30227b9_f87c2687",
+        "filename": "util/fipstools/CMakeLists.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-02-08T16:37:39Z",
+      "side": 1,
+      "message": "I don\u0027t think test_fips actually uses test_support_lib. It was linked into cavp for file_test.",
+      "revId": "3932a631558d7d0d577f3cd7b09cd916b42a3d32",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
