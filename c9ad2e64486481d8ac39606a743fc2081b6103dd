@@ -16,6 +16,24 @@
       "message": "(Just wanted to note that there are no reviewers set for these changes. If they\u0027re actually ready to review, please post and say or else nobody will see them. Thanks!)",
       "revId": "c9ad2e64486481d8ac39606a743fc2081b6103dd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65fc197e_510e28e5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 11500
+      },
+      "writtenOn": "2022-02-08T17:41:51Z",
+      "side": 1,
+      "message": "Thanks for checking -- I was holding off asking for a review until I figure out how/if this will fit with the higher-level rust-openssl crate, in case changes are needed.",
+      "parentUuid": "2aad46c2_28fbd196",
+      "revId": "c9ad2e64486481d8ac39606a743fc2081b6103dd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
