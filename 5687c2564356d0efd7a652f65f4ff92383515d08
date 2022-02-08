@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e12a6cb0_d26de127",
+        "filename": "crypto/fipsmodule/FIPS.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-02-08T16:35:31Z",
+      "side": 1,
+      "message": "Nit: This underscore isn\u0027t escaped.\n\n(Do you actually need to escape underscores if wrapped in backticks? I thought it was only a problem for free-floating symbols.)",
+      "range": {
+        "startLine": 25,
+        "startChar": 272,
+        "endLine": 25,
+        "endChar": 273
+      },
+      "revId": "5687c2564356d0efd7a652f65f4ff92383515d08",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fdad7d38_946f0a6b",
+        "filename": "crypto/fipsmodule/bcm.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-02-08T16:35:31Z",
+      "side": 1,
+      "message": "This works, but looks like check_test just prints some stuff, so we could also run check_test and ifdef out the `goto err`.",
+      "revId": "5687c2564356d0efd7a652f65f4ff92383515d08",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a194dbba_e7378f90",
+        "filename": "crypto/fipsmodule/break-fips-test.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-02-08T16:35:31Z",
+      "side": 1,
+      "message": "If we need to gate this on a build flag anyway, would an environment variable work? Something like...\n\n```\n#if defined(BORINGSSL_FIPS_BREAK_FIPS_TESTS)\nstatic inline int break_fips_test(const char *env) {\n  return getenv(env) !\u003d NULL;\n}\n#else\nstatic inline int break_fips_test(const char *env) {\n  return 0;\n}\n#endif\n```\n\nThen we only need to build it once, and no need to mess with headers.",
+      "revId": "5687c2564356d0efd7a652f65f4ff92383515d08",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a4f2cd5_94c9a9d8",
+        "filename": "crypto/fipsmodule/self_check/self_check.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-02-08T16:35:31Z",
+      "side": 1,
+      "message": "The ECDSA_SIG serialization stuff isn\u0027t currently in the FIPS module. Looks like we don\u0027t have CBS/CBB or any CBS/CBB users in there at all. I think that\u0027s why we previously checked r and s separately.\n\nIf it\u0027s useful, I think I have a patch lying around to make the low-level ECDSA code output a byte string in the fixed-width r/s concatenation format, and then the entirety of ECDSA_SIG was outside.\n\nThe motivation at the time was to just push BIGNUM out to the edges a tad further, but I wasn\u0027t convinced it was worth bothering when none of our APIs actually exposed fixed-width r/s. Might also get mallocs out of ECDSA signing if we made CBB_init_fixed not always malloc.",
+      "revId": "5687c2564356d0efd7a652f65f4ff92383515d08",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfa33a8f_89f63944",
+        "filename": "util/fipstools/break-kat.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-02-08T16:35:31Z",
+      "side": 1,
+      "message": "Any reason not to use the flag package? (Positional arguments still work. You just need to use `flag.Args`, or `flag.Arg` and `flag.NArg`.)",
+      "revId": "5687c2564356d0efd7a652f65f4ff92383515d08",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
