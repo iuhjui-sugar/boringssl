@@ -22,6 +22,23 @@
       },
       "revId": "a0e5c83013847beb907e11369a0f75723ebded7c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f0252d6_1e91ef10",
+        "filename": "crypto/fipsmodule/self_check/self_check.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-02-08T15:58:28Z",
+      "side": 1,
+      "message": "A thought: once we make these tests lazy, do we still need to avoid drawing entropy here?",
+      "revId": "a0e5c83013847beb907e11369a0f75723ebded7c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
