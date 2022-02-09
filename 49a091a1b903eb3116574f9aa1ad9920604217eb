@@ -16,6 +16,23 @@
       "message": "PTAL and land.",
       "revId": "49a091a1b903eb3116574f9aa1ad9920604217eb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89218c04_83e7ded7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-02-09T20:47:05Z",
+      "side": 1,
+      "message": "rubber stamp LGTM",
+      "revId": "49a091a1b903eb3116574f9aa1ad9920604217eb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
