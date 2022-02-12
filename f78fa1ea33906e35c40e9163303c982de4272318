@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0564fc2_bd4a2c01",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13941
+      },
+      "writtenOn": "2022-02-12T22:05:19Z",
+      "side": 1,
+      "message": "\u003e Abandoned\n\u003e \n\u003e upload got confused.\ndd978784d7cc2564d6916135cca94a2e3a62ed5c)\n",
+      "revId": "f78fa1ea33906e35c40e9163303c982de4272318",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
