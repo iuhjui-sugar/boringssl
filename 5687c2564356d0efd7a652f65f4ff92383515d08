@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "22d0ca52_ec49e7de",
+        "filename": "crypto/fipsmodule/FIPS.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-02-14T22:51:29Z",
+      "side": 1,
+      "message": "Let\u0027s try without escaping. We can always fix it later if it doesn\u0027t work.",
+      "parentUuid": "e12a6cb0_d26de127",
+      "range": {
+        "startLine": 25,
+        "startChar": 272,
+        "endLine": 25,
+        "endChar": 273
+      },
+      "revId": "5687c2564356d0efd7a652f65f4ff92383515d08",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fdad7d38_946f0a6b",
@@ -37,6 +61,24 @@
       "writtenOn": "2022-02-08T16:35:31Z",
       "side": 1,
       "message": "This works, but looks like check_test just prints some stuff, so we could also run check_test and ifdef out the `goto err`.",
+      "revId": "5687c2564356d0efd7a652f65f4ff92383515d08",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a27d2d7d_4753f824",
+        "filename": "crypto/fipsmodule/bcm.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-02-14T22:51:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fdad7d38_946f0a6b",
       "revId": "5687c2564356d0efd7a652f65f4ff92383515d08",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -58,6 +100,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d831b1a_5a89075b",
+        "filename": "crypto/fipsmodule/break-fips-test.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-02-14T22:51:29Z",
+      "side": 1,
+      "message": "That is a better idea. Thanks!",
+      "parentUuid": "a194dbba_e7378f90",
+      "revId": "5687c2564356d0efd7a652f65f4ff92383515d08",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0a4f2cd5_94c9a9d8",
@@ -75,6 +135,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "22cbd3be_c9738868",
+        "filename": "crypto/fipsmodule/self_check/self_check.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-02-14T22:51:29Z",
+      "side": 1,
+      "message": "I\u0027m not sure that it matters, but let\u0027s not worry about it. I don\u0027t want to rework ECDSA itself in this change, which is already large enough, so I added some crappy serialisation functions.",
+      "parentUuid": "0a4f2cd5_94c9a9d8",
+      "revId": "5687c2564356d0efd7a652f65f4ff92383515d08",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dfa33a8f_89f63944",
@@ -88,6 +166,24 @@
       "writtenOn": "2022-02-08T16:35:31Z",
       "side": 1,
       "message": "Any reason not to use the flag package? (Positional arguments still work. You just need to use `flag.Args`, or `flag.Arg` and `flag.NArg`.)",
+      "revId": "5687c2564356d0efd7a652f65f4ff92383515d08",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e0e71fd_6bfe61a4",
+        "filename": "util/fipstools/break-kat.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-02-14T22:51:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dfa33a8f_89f63944",
       "revId": "5687c2564356d0efd7a652f65f4ff92383515d08",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
