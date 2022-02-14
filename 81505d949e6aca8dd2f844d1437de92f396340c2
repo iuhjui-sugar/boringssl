@@ -16,6 +16,24 @@
       "message": "I\u0027m assuming it\u0027s okay to test HMAC-SHA-256 + SHA-512 when doing an HMAC-SHA-512?",
       "revId": "81505d949e6aca8dd2f844d1437de92f396340c2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "593aa79a_6ca86209",
+        "filename": "crypto/fipsmodule/bcm.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-02-14T21:08:06Z",
+      "side": 1,
+      "message": "I checked before and my reading of the requirements is that it is.",
+      "parentUuid": "02e4928f_527458ee",
+      "revId": "81505d949e6aca8dd2f844d1437de92f396340c2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
