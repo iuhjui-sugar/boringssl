@@ -261,6 +261,8 @@ size_t rsa_default_size(const RSA *rsa) {
 
 int RSA_encrypt(RSA *rsa, size_t *out_len, uint8_t *out, size_t max_out,
                 const uint8_t *in, size_t in_len, int padding) {
+  boringssl_ensure_rsa_self_test();
+
   if (!rsa_check_public_key(rsa)) {
     return 0;
   }
@@ -595,6 +597,8 @@ static int mod_exp(BIGNUM *r0, const BIGNUM *I, RSA *rsa, BN_CTX *ctx);
 
 int RSA_verify_raw(RSA *rsa, size_t *out_len, uint8_t *out, size_t max_out,
                    const uint8_t *in, size_t in_len, int padding) {
+  boringssl_ensure_rsa_self_test();
+
   if (!rsa_check_public_key(rsa)) {
     return 0;
   }
@@ -688,6 +692,8 @@ err:
 
 int rsa_default_private_transform(RSA *rsa, uint8_t *out, const uint8_t *in,
                                   size_t len) {
+  boringssl_ensure_rsa_self_test();
+
   if (rsa->n == NULL || rsa->d == NULL) {
     OPENSSL_PUT_ERROR(RSA, RSA_R_VALUE_MISSING);
     return 0;
@@ -1324,6 +1330,8 @@ static void replace_bn_mont_ctx(BN_MONT_CTX **out, BN_MONT_CTX **in) {
 static int RSA_generate_key_ex_maybe_fips(RSA *rsa, int bits,
                                           const BIGNUM *e_value, BN_GENCB *cb,
                                           int check_fips) {
+  boringssl_ensure_rsa_self_test();
+
   RSA *tmp = NULL;
   uint32_t err;
   int ret = 0;
