@@ -636,6 +636,7 @@ typedef enum {
   OPENSSL_THREAD_LOCAL_ERR = 0,
   OPENSSL_THREAD_LOCAL_RAND,
   OPENSSL_THREAD_LOCAL_FIPS_COUNTERS,
+  OPENSSL_THREAD_LOCAL_FIPS_LAZY_SELF_TESTS,
   OPENSSL_THREAD_LOCAL_TEST,
   NUM_OPENSSL_THREAD_LOCALS,
 } thread_local_data_t;
@@ -939,6 +940,11 @@ static inline uint64_t CRYPTO_rotr_u64(uint64_t value, int shift) {
 void BORINGSSL_FIPS_abort(void) __attribute__((noreturn));
 
 #endif  // FIPS
+
+// boringssl_ensure_rsa_self_test checks whether the RSA self-test has been run
+// in this address space. If not, it runs it and crashes the address space if
+// unsuccessful.
+void boringssl_ensure_rsa_self_test(void);
 
 // boringssl_self_test_sha256 performs a SHA-256 KAT.
 int boringssl_self_test_sha256(void);

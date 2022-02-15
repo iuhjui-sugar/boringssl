@@ -296,27 +296,54 @@ err:
   return NULL;
 }
 
-static int boringssl_self_test_slow(void) {
-  int ret = 0;
-  RSA *rsa_key = NULL;
-  EC_KEY *ec_key = NULL;
-  EC_GROUP *ec_group = NULL;
-  EC_POINT *ec_point_in = NULL;
-  EC_POINT *ec_point_out = NULL;
-  BIGNUM *ec_scalar = NULL;
-  ECDSA_SIG *sig = NULL;
-  DH *dh = NULL;
-  BIGNUM *ffdhe2048_value = NULL;
+
+// Lazy self-tests
+//
+// Self tests that are slow are deferred until the corresponding algorithm is
+// actually exercised. In order to allow the self-test not to block, waiting for itself,
+// a thread-local array records whether a given self-test is currently running.
+
+typedef enum {
+  FIPS_LAZY_SELF_TEST_RSA = 0,
+  NUM_LAZY_SELF_TESTS,
+} lazy_self_test_t;
+
+static int is_lazy_self_test_running(lazy_self_test_t test) {
+  const int *const flags =
+      CRYPTO_get_thread_local(OPENSSL_THREAD_LOCAL_FIPS_LAZY_SELF_TESTS);
+  return flags && flags[test];
+}
+
+static void set_lazy_self_test_running(lazy_self_test_t test, int is_running) {
+  int *flags =
+      CRYPTO_get_thread_local(OPENSSL_THREAD_LOCAL_FIPS_LAZY_SELF_TESTS);
+  if (!flags) {
+    flags = OPENSSL_malloc(sizeof(int) * NUM_LAZY_SELF_TESTS);
+    if (!flags) {
+      return;
+    }
+
+    memset(flags, 0, sizeof(int) * NUM_LAZY_SELF_TESTS);
+    if (!CRYPTO_set_thread_local(OPENSSL_THREAD_LOCAL_FIPS_LAZY_SELF_TESTS,
+                                 flags, OPENSSL_free)) {
+      return;
+    }
+  }
+
+  flags[test] = is_running;
+}
+
+static void boringssl_self_test_rsa(void) {
+  set_lazy_self_test_running(FIPS_LAZY_SELF_TEST_RSA, 1);
+
+  int ok = 0;
   uint8_t output[256];
 
-  rsa_key = self_test_rsa_key();
+  RSA *const rsa_key = self_test_rsa_key();
   if (rsa_key == NULL) {
-    fprintf(stderr, "RSA KeyGen failed\n");
+    fprintf(stderr, "RSA key construction failed\n");
     goto err;
   }
-  // Disable blinding for the power-on tests because it's not needed and
-  // triggers an entropy draw.
-  rsa_key->flags |= RSA_FLAG_NO_BLINDING;
 
   // RSA Sign KAT
 
@@ -395,6 +422,40 @@ static int boringssl_self_test_slow(void) {
     fprintf(stderr, "RSA-verify KAT failed.\n");
     goto err;
   }
+
+  ok = 1;
+
+err:
+  set_lazy_self_test_running(FIPS_LAZY_SELF_TEST_RSA, 0);
+  RSA_free(rsa_key);
+
+  if (!ok) {
+    BORINGSSL_FIPS_abort();
+  }
+}
+
+DEFINE_STATIC_ONCE(g_self_test_once_rsa);
+void boringssl_ensure_rsa_self_test(void) {
+  if (!is_lazy_self_test_running(FIPS_LAZY_SELF_TEST_RSA)) {
+    CRYPTO_once(g_self_test_once_rsa_bss_get(), boringssl_self_test_rsa);
+  }
+}
+
+
+// Startup self tests.
+//
+// These tests are run at process start.
+
+static int boringssl_self_test_slow(void) {
+  int ret = 0;
+  EC_KEY *ec_key = NULL;
+  EC_GROUP *ec_group = NULL;
+  EC_POINT *ec_point_in = NULL;
+  EC_POINT *ec_point_out = NULL;
+  BIGNUM *ec_scalar = NULL;
+  ECDSA_SIG *sig = NULL;
+  DH *dh = NULL;
+  BIGNUM *ffdhe2048_value = NULL;
 
   ec_key = self_test_ecdsa_key();
   if (ec_key == NULL) {
@@ -572,7 +633,6 @@ static int boringssl_self_test_slow(void) {
   ret = 1;
 
 err:
-  RSA_free(rsa_key);
   EC_KEY_free(ec_key);
   EC_POINT_free(ec_point_in);
   EC_POINT_free(ec_point_out);

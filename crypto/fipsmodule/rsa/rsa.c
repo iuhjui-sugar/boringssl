@@ -291,8 +291,9 @@ int RSA_set0_crt_params(RSA *rsa, BIGNUM *dmp1, BIGNUM *dmq1, BIGNUM *iqmp) {
 
 int RSA_public_encrypt(size_t flen, const uint8_t *from, uint8_t *to, RSA *rsa,
                        int padding) {
-  size_t out_len;
+  boringssl_ensure_rsa_self_test();
 
+  size_t out_len;
   if (!RSA_encrypt(rsa, &out_len, to, RSA_size(rsa), from, flen, padding)) {
     return -1;
   }
@@ -306,6 +307,8 @@ int RSA_public_encrypt(size_t flen, const uint8_t *from, uint8_t *to, RSA *rsa,
 
 int RSA_sign_raw(RSA *rsa, size_t *out_len, uint8_t *out, size_t max_out,
                  const uint8_t *in, size_t in_len, int padding) {
+  boringssl_ensure_rsa_self_test();
+
   if (rsa->meth->sign_raw) {
     return rsa->meth->sign_raw(rsa, out_len, out, max_out, in, in_len, padding);
   }
@@ -315,8 +318,9 @@ int RSA_sign_raw(RSA *rsa, size_t *out_len, uint8_t *out, size_t max_out,
 
 int RSA_private_encrypt(size_t flen, const uint8_t *from, uint8_t *to, RSA *rsa,
                         int padding) {
-  size_t out_len;
+  boringssl_ensure_rsa_self_test();
 
+  size_t out_len;
   if (!RSA_sign_raw(rsa, &out_len, to, RSA_size(rsa), from, flen, padding)) {
     return -1;
   }
@@ -330,6 +334,8 @@ int RSA_private_encrypt(size_t flen, const uint8_t *from, uint8_t *to, RSA *rsa,
 
 int RSA_decrypt(RSA *rsa, size_t *out_len, uint8_t *out, size_t max_out,
                 const uint8_t *in, size_t in_len, int padding) {
+  boringssl_ensure_rsa_self_test();
+
   if (rsa->meth->decrypt) {
     return rsa->meth->decrypt(rsa, out_len, out, max_out, in, in_len, padding);
   }
@@ -339,8 +345,9 @@ int RSA_decrypt(RSA *rsa, size_t *out_len, uint8_t *out, size_t max_out,
 
 int RSA_private_decrypt(size_t flen, const uint8_t *from, uint8_t *to, RSA *rsa,
                         int padding) {
-  size_t out_len;
+  boringssl_ensure_rsa_self_test();
 
+  size_t out_len;
   if (!RSA_decrypt(rsa, &out_len, to, RSA_size(rsa), from, flen, padding)) {
     return -1;
   }
@@ -354,8 +361,9 @@ int RSA_private_decrypt(size_t flen, const uint8_t *from, uint8_t *to, RSA *rsa,
 
 int RSA_public_decrypt(size_t flen, const uint8_t *from, uint8_t *to, RSA *rsa,
                        int padding) {
-  size_t out_len;
+  boringssl_ensure_rsa_self_test();
 
+  size_t out_len;
   if (!RSA_verify_raw(rsa, &out_len, to, RSA_size(rsa), from, flen, padding)) {
     return -1;
   }
@@ -526,21 +534,21 @@ int RSA_add_pkcs1_prefix(uint8_t **out_msg, size_t *out_msg_len,
 
 int RSA_sign(int hash_nid, const uint8_t *digest, unsigned digest_len,
              uint8_t *out, unsigned *out_len, RSA *rsa) {
-  const unsigned rsa_size = RSA_size(rsa);
-  int ret = 0;
-  uint8_t *signed_msg = NULL;
-  size_t signed_msg_len = 0;
-  int signed_msg_is_alloced = 0;
-  size_t size_t_out_len;
+  boringssl_ensure_rsa_self_test();
 
   if (rsa->meth->sign) {
     return rsa->meth->sign(hash_nid, digest, digest_len, out, out_len, rsa);
   }
 
+  int ret = 0;
+  uint8_t *signed_msg = NULL;
+  size_t signed_msg_len = 0;
+  int signed_msg_is_alloced = 0;
+  size_t size_t_out_len;
   if (!RSA_add_pkcs1_prefix(&signed_msg, &signed_msg_len,
                             &signed_msg_is_alloced, hash_nid, digest,
                             digest_len) ||
-      !RSA_sign_raw(rsa, &size_t_out_len, out, rsa_size, signed_msg,
+      !RSA_sign_raw(rsa, &size_t_out_len, out, RSA_size(rsa), signed_msg,
                     signed_msg_len, RSA_PKCS1_PADDING)) {
     goto err;
   }
@@ -580,6 +588,8 @@ int RSA_sign_pss_mgf1(RSA *rsa, size_t *out_len, uint8_t *out, size_t max_out,
 
 int RSA_verify(int hash_nid, const uint8_t *digest, size_t digest_len,
                const uint8_t *sig, size_t sig_len, RSA *rsa) {
+  boringssl_ensure_rsa_self_test();
+
   if (rsa->n == NULL || rsa->e == NULL) {
     OPENSSL_PUT_ERROR(RSA, RSA_R_VALUE_MISSING);
     return 0;
@@ -922,6 +932,8 @@ cleanup:
 
 int RSA_private_transform(RSA *rsa, uint8_t *out, const uint8_t *in,
                           size_t len) {
+  boringssl_ensure_rsa_self_test();
+
   if (rsa->meth->private_transform) {
     return rsa->meth->private_transform(rsa, out, in, len);
   }
