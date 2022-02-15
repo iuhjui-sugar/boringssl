@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b649dd87_173c0ab0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-02-15T21:54:23Z",
+      "side": 1,
+      "message": "(Missed you hadn\u0027t added me as a reviewer yet, but have some early comments. :-) )",
+      "revId": "ca02a140e4b05280f94c2b57297bf1871e89e9a5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fdbbf19f_924a4377",
+        "filename": "crypto/fipsmodule/self_check/self_check.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-02-15T21:54:23Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "ca02a140e4b05280f94c2b57297bf1871e89e9a5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17c272c3_b41cffc8",
+        "filename": "crypto/fipsmodule/self_check/self_check.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-02-15T21:54:23Z",
+      "side": 1,
+      "message": ":-( Is it a requirement that the self-test run the exact same functions as the public API (and thus requiring this sort of re-entrant silliness). Could we instead split the functions up into:\n\n  RSA_verify\n  RSA_verify_no_self_test (internal)\n  RSA_verify_raw\n  RSA_verify_raw_no_self_test (internal)\n  RSA_sign\n  RSA_sign_no_self_test (internal)\n  RSA_sign_raw\n  RSA_sign_raw_no_self_test (internal)\n\nIt\u0027s a lot of wrappers, since every function in between the self-test-called API and the low-level API needs to be split. But, at least for RSA, doesn\u0027t seem to be too bad?",
+      "revId": "ca02a140e4b05280f94c2b57297bf1871e89e9a5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1d45f98_8b70d2e5",
+        "filename": "crypto/fipsmodule/self_check/self_check.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-02-15T21:54:23Z",
+      "side": 1,
+      "message": "If this operation fails, seems we\u0027ll recurse indefinitely.",
+      "revId": "ca02a140e4b05280f94c2b57297bf1871e89e9a5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
