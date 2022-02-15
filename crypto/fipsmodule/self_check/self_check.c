@@ -296,27 +296,79 @@ err:
   return NULL;
 }
 
-static int boringssl_self_test_slow(void) {
+
+// Lazy self-tests
+//
+// Self tests that are slow are deferred until the corresponding algorithm is
+// actually exercised, in FIPS mode. (In non-FIPS mode these tests are only run
+// when requested by |BORINGSSL_self_test|.)
+//
+// In order to allow the self-test not to block, waiting for itself,
+// a thread-local array records whether a given self-test is currently running.
+
+static int boringssl_self_test_rsa(void);
+
+#if defined(BORINGSSL_FIPS)
+
+typedef enum {
+  FIPS_LAZY_SELF_TEST_RSA = 0,
+  NUM_LAZY_SELF_TESTS,
+} lazy_self_test_t;
+
+static int is_lazy_self_test_running(lazy_self_test_t test) {
+  const int *const flags =
+      CRYPTO_get_thread_local(OPENSSL_THREAD_LOCAL_FIPS_LAZY_SELF_TESTS);
+  return flags && flags[test];
+}
+
+static void set_lazy_self_test_running(lazy_self_test_t test, int is_running) {
+  int *flags =
+      CRYPTO_get_thread_local(OPENSSL_THREAD_LOCAL_FIPS_LAZY_SELF_TESTS);
+  if (!flags) {
+    flags = OPENSSL_malloc(sizeof(int) * NUM_LAZY_SELF_TESTS);
+    if (!flags) {
+      return;
+    }
+
+    memset(flags, 0, sizeof(int) * NUM_LAZY_SELF_TESTS);
+    if (!CRYPTO_set_thread_local(OPENSSL_THREAD_LOCAL_FIPS_LAZY_SELF_TESTS,
+                                 flags, OPENSSL_free)) {
+      return;
+    }
+  }
+
+  flags[test] = is_running;
+}
+
+static void run_self_test_rsa(void) {
+  set_lazy_self_test_running(FIPS_LAZY_SELF_TEST_RSA, 1);
+  const int ok = boringssl_self_test_rsa();
+  set_lazy_self_test_running(FIPS_LAZY_SELF_TEST_RSA, 0);
+
+  if (!ok) {
+    BORINGSSL_FIPS_abort();
+  }
+}
+
+DEFINE_STATIC_ONCE(g_self_test_once_rsa);
+
+void boringssl_ensure_rsa_self_test(void) {
+  if (!is_lazy_self_test_running(FIPS_LAZY_SELF_TEST_RSA)) {
+    CRYPTO_once(g_self_test_once_rsa_bss_get(), run_self_test_rsa);
+  }
+}
+
+#endif  // BORINGSSL_FIPS
+
+static int boringssl_self_test_rsa(void) {
   int ret = 0;
-  RSA *rsa_key = NULL;
-  EC_KEY *ec_key = NULL;
-  EC_GROUP *ec_group = NULL;
-  EC_POINT *ec_point_in = NULL;
-  EC_POINT *ec_point_out = NULL;
-  BIGNUM *ec_scalar = NULL;
-  ECDSA_SIG *sig = NULL;
-  DH *dh = NULL;
-  BIGNUM *ffdhe2048_value = NULL;
   uint8_t output[256];
 
-  rsa_key = self_test_rsa_key();
+  RSA *const rsa_key = self_test_rsa_key();
   if (rsa_key == NULL) {
-    fprintf(stderr, "RSA KeyGen failed\n");
+    fprintf(stderr, "RSA key construction failed\n");
     goto err;
   }
-  // Disable blinding for the power-on tests because it's not needed and
-  // triggers an entropy draw.
-  rsa_key->flags |= RSA_FLAG_NO_BLINDING;
 
   // RSA Sign KAT
 
@@ -395,6 +447,30 @@ static int boringssl_self_test_slow(void) {
     fprintf(stderr, "RSA-verify KAT failed.\n");
     goto err;
   }
+
+  ret = 1;
+
+err:
+  RSA_free(rsa_key);
+
+  return ret;
+}
+
+
+// Startup self tests.
+//
+// These tests are run at process start when in FIPS mode.
+
+static int boringssl_self_test_slow(void) {
+  int ret = 0;
+  EC_KEY *ec_key = NULL;
+  EC_GROUP *ec_group = NULL;
+  EC_POINT *ec_point_in = NULL;
+  EC_POINT *ec_point_out = NULL;
+  BIGNUM *ec_scalar = NULL;
+  ECDSA_SIG *sig = NULL;
+  DH *dh = NULL;
+  BIGNUM *ffdhe2048_value = NULL;
 
   ec_key = self_test_ecdsa_key();
   if (ec_key == NULL) {
@@ -572,7 +648,6 @@ static int boringssl_self_test_slow(void) {
   ret = 1;
 
 err:
-  RSA_free(rsa_key);
   EC_KEY_free(ec_key);
   EC_POINT_free(ec_point_in);
   EC_POINT_free(ec_point_out);
@@ -644,7 +719,7 @@ int boringssl_self_test_hmac_sha256(void) {
                     "HMAC-SHA-256 KAT");
 }
 
-int BORINGSSL_self_test(void) {
+static int boringssl_self_test_fast(void) {
   static const uint8_t kAESKey[16] = "BoringCrypto Key";
   static const uint8_t kAESIV[16] = {0};
 
@@ -862,12 +937,34 @@ int BORINGSSL_self_test(void) {
     goto err;
   }
 
-  ret = boringssl_self_test_slow();
+  ret = 1;
 
 err:
   EVP_AEAD_CTX_cleanup(&aead_ctx);
 
   return ret;
 }
+
+int BORINGSSL_self_test(void) {
+  if (!boringssl_self_test_fast() ||
+      !boringssl_self_test_slow() ||
+      // When requested to run self tests, also run the lazy tests.
+      !boringssl_self_test_rsa()) {
+    return 0;
+  }
+
+  return 1;
+}
+
+#if defined(BORINGSSL_FIPS)
+int boringssl_self_test_startup(void) {
+  if (!boringssl_self_test_fast() ||
+      !boringssl_self_test_slow()) {
+    return 0;
+  }
+
+  return 1;
+}
+#endif
 
 #endif  // !_MSC_VER
