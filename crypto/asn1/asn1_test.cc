@@ -103,6 +103,80 @@ TEST(ASN1Test, IntegerSetting) {
   }
 }
 
+TEST(ASN1Test, IntegerCompare) {
+  std::vector<uint8_t> kSorted[] = {
+      // -2^64 - 1
+      {0x02, 0x09, 0xfe, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff},
+      // -2^64
+      {0x02, 0x09, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},
+      // -2^64 + 1
+      {0x02, 0x09, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01},
+      // -257
+      {0x02, 0x02, 0xfe, 0xff},
+      // -256
+      {0x02, 0x02, 0xff, 0x00},
+      // -255
+      {0x02, 0x02, 0xff, 0x01},
+      // -129
+      {0x02, 0x02, 0xff, 0x7f},
+      // -128
+      {0x02, 0x01, 0x80},
+      // -127
+      {0x02, 0x01, 0x81},
+      // -1
+      {0x02, 0x01, 0xff},
+      // 0
+      {0x02, 0x01, 0x00},
+      // 1
+      {0x02, 0x01, 0x01},
+      // 127
+      {0x02, 0x01, 0x7f},
+      // 128
+      {0x02, 0x02, 0x00, 0x80},
+      // 129
+      {0x02, 0x02, 0x00, 0x81},
+      // 255
+      {0x02, 0x02, 0x00, 0xff},
+      // 256
+      {0x02, 0x02, 0x01, 0x00},
+      // 257
+      {0x02, 0x02, 0x01, 0x01},
+      // 2^64 - 1
+      {0x02, 0x09, 0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff},
+      // 2^64
+      {0x02, 0x09, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},
+      // 2^64 + 1
+      {0x02, 0x09, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01},
+  };
+  for (size_t i = 0; i < OPENSSL_ARRAY_SIZE(kSorted); i++) {
+    SCOPED_TRACE(Bytes(kSorted[i]));
+    const uint8_t *ptr = kSorted[i].data();
+    bssl::UniquePtr<ASN1_INTEGER> a(
+        d2i_ASN1_INTEGER(nullptr, &ptr, kSorted[i].size()));
+    ASSERT_TRUE(a);
+    for (size_t j = 0; j < OPENSSL_ARRAY_SIZE(kSorted); j++) {
+      SCOPED_TRACE(Bytes(kSorted[j]));
+      ptr = kSorted[j].data();
+      bssl::UniquePtr<ASN1_INTEGER> b(
+          d2i_ASN1_INTEGER(nullptr, &ptr, kSorted[j].size()));
+      ASSERT_TRUE(b);
+
+      // |ASN1_INTEGER_cmp| should compare numerically. |ASN1_STRING_cmp| does
+      // not but should preserve equality.
+      if (i < j) {
+        EXPECT_LT(ASN1_INTEGER_cmp(a.get(), b.get()), 0);
+        EXPECT_NE(ASN1_STRING_cmp(a.get(), b.get()), 0);
+      } else if (i > j) {
+        EXPECT_GT(ASN1_INTEGER_cmp(a.get(), b.get()), 0);
+        EXPECT_NE(ASN1_STRING_cmp(a.get(), b.get()), 0);
+      } else {
+        EXPECT_EQ(ASN1_INTEGER_cmp(a.get(), b.get()), 0);
+        EXPECT_EQ(ASN1_STRING_cmp(a.get(), b.get()), 0);
+      }
+    }
+  }
+}
+
 // |obj| and |i2d_func| require different template parameters because C++ may
 // deduce, say, |ASN1_STRING*| via |obj| and |const ASN1_STRING*| via
 // |i2d_func|. Template argument deduction then fails. The language is not able
