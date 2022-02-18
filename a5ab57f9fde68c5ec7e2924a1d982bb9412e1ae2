@@ -16,6 +16,29 @@
       "message": "(Ping.)",
       "revId": "a5ab57f9fde68c5ec7e2924a1d982bb9412e1ae2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f1228d0_dbbd7091",
+        "filename": "crypto/fipsmodule/self_check/self_check.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-02-18T19:36:04Z",
+      "side": 1,
+      "message": "(Assuming the idea is this function will melt away and we\u0027re temporarily staging it in boringssl_self_test_slow to keep track of what needs to be made lazy.)",
+      "range": {
+        "startLine": 424,
+        "startChar": 11,
+        "endLine": 424,
+        "endChar": 35
+      },
+      "revId": "a5ab57f9fde68c5ec7e2924a1d982bb9412e1ae2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
