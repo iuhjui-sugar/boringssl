@@ -39,6 +39,30 @@
       },
       "revId": "a5ab57f9fde68c5ec7e2924a1d982bb9412e1ae2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53a1f9fd_67d796ca",
+        "filename": "crypto/fipsmodule/self_check/self_check.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2022-02-19T13:08:04Z",
+      "side": 1,
+      "message": "Yep, each coming change should remove a chunk of it until it\u0027s gone.",
+      "parentUuid": "6f1228d0_dbbd7091",
+      "range": {
+        "startLine": 424,
+        "startChar": 11,
+        "endLine": 424,
+        "endChar": 35
+      },
+      "revId": "a5ab57f9fde68c5ec7e2924a1d982bb9412e1ae2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
