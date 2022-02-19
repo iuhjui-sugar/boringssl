@@ -16,6 +16,24 @@
       "message": "Hello, I came here from https://github.com/google/perf_data_converter/issues/115.\n\nIn upstream perf_data_converter, we fetch boringssl through bazel and the master-with-bazel branch on github, and depend on crypto. Looks like the new fips_break_test.h is missing from a BUILD file somewhere? Here maybe: https://github.com/google/boringssl/blob/master-with-bazel/BUILD.generated.bzl#L130 ?",
       "revId": "d04c32a3d81f222d4bfa08160edaa9e979e4d8f2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbc8a6ca_25a6b950",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2022-02-19T13:23:43Z",
+      "side": 1,
+      "message": "Thank you for the comment! This should be fixed when https://boringssl-review.googlesource.com/c/boringssl/+/51485 lands, although we don\u0027t actually have builders for the Bazel configuration (as you\u0027ve noticed).",
+      "parentUuid": "ee54bf15_0584cead",
+      "revId": "d04c32a3d81f222d4bfa08160edaa9e979e4d8f2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
