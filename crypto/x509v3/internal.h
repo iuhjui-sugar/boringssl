@@ -70,13 +70,13 @@ extern "C" {
 #endif
 
 
-// x509v3_bytes_to_hex encodes |len| bytes from |buffer| to hex and returns a
+// x509v3_bytes_to_hex encodes |len| bytes from |in| to hex and returns a
 // newly-allocated NUL-terminated string containing the result, or NULL on
 // allocation error.
 //
 // Note this function was historically named |hex_to_string| in OpenSSL, not
 // |string_to_hex|.
-char *x509v3_bytes_to_hex(const unsigned char *buffer, long len);
+OPENSSL_EXPORT char *x509v3_bytes_to_hex(const uint8_t *in, size_t len);
 
 // x509v3_hex_string_to_bytes decodes |str| in hex and returns a newly-allocated
 // array containing the result, or NULL on error. On success, it sets |*len| to
@@ -130,7 +130,6 @@ DEFINE_STACK_OF(X509_POLICY_DATA)
 
 /*
  * This structure and the field names correspond to the Policy 'node' of
- * RFC 3280. NB this structure contains no pointers to parent or child data:
  * X509_POLICY_NODE contains that. This means that the main policy data can
  * be kept static and cached with the certificate.
  */
