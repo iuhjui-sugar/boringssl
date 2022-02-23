@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc2da1d1_7417f10b",
+        "filename": "crypto/fipsmodule/modes/gcm.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 725,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-02-23T18:27:58Z",
+      "side": 1,
+      "message": "(Unclear if this is necessary, but I left it alone.)",
+      "range": {
+        "startLine": 725,
+        "startChar": 9,
+        "endLine": 725,
+        "endChar": 31
+      },
+      "revId": "f49aba5ddae773668628e5e287df17e0aff249ec",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
