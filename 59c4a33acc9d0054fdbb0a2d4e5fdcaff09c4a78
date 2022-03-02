@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d1b1c8e_7ac83377",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14076
+      },
+      "writtenOn": "2022-03-02T09:03:05Z",
+      "side": 1,
+      "message": "Hi, I was trying to use the rust bindings (just for testing) and encountered this problem. PTAL?",
+      "revId": "59c4a33acc9d0054fdbb0a2d4e5fdcaff09c4a78",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
