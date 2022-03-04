@@ -16,6 +16,23 @@
       "message": "Hi, I was trying to use the rust bindings (just for testing) and encountered this problem. PTAL?",
       "revId": "59c4a33acc9d0054fdbb0a2d4e5fdcaff09c4a78",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e2608ee_911991e0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-03-04T19:41:24Z",
+      "side": 1,
+      "message": "drysdale: Would you be able to take a look at this, now that bwb is gone? I suspect neither AGL nor I really have the expertise to fully review this directory yet.",
+      "revId": "59c4a33acc9d0054fdbb0a2d4e5fdcaff09c4a78",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
