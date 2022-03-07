@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d2cf328_d357cbc3",
+        "filename": "crypto/asn1/a_int.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-03-07T18:50:32Z",
+      "side": 1,
+      "message": "(I assume that -0 is an invalid state and that we don\u0027t need to worry about it here.)",
+      "revId": "3fb23bf7a2607a6aab6c0325a142efbc2bd7321d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
