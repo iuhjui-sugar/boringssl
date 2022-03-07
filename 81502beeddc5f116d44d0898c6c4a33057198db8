@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e58a7d44_ba0a26a5",
+        "filename": "include/openssl/thread.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-03-07T15:59:52Z",
+      "side": 0,
+      "message": "Not really applicable since we already get pthread_rwlock_t without pthread.h. I believe we just need \u003csys/types.h\u003e for that.",
+      "range": {
+        "startLine": 83,
+        "startChar": 31,
+        "endLine": 83,
+        "endChar": 40
+      },
+      "revId": "81502beeddc5f116d44d0898c6c4a33057198db8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
