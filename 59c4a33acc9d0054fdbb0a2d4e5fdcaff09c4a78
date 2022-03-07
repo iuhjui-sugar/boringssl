@@ -51,6 +51,41 @@
       "parentUuid": "8d1b1c8e_7ac83377",
       "revId": "59c4a33acc9d0054fdbb0a2d4e5fdcaff09c4a78",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba2c885b_1f74042d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14076
+      },
+      "writtenOn": "2022-03-07T08:29:00Z",
+      "side": 1,
+      "message": "Overriding dependencies using the [patch] section might work but my understanding is that the [patch] section is to work around problems which happen when publishing crates [1]. I think most developers use `path` in the [dependencies] section for relative dependencies like:\n```\n[dependencies]\nbssl-sys \u003d { path \u003d \"../src/boringssl/build/rust\" }\n```\n\nI think using CARGO_MANIFEST_DIR is a common way to specify relative directories in `build.rs` for -sys crates. For example, windows-rs[2] and sdl2[3]. \n\n[1] https://doc.rust-lang.org/cargo/reference/overriding-dependencies.html\n[2] https://github.com/microsoft/windows-rs/blob/master/crates/targets/x86_64_msvc/build.rs\n[3] https://github.com/Rust-SDL2/rust-sdl2/blob/master/sdl2-sys/build.rs",
+      "parentUuid": "feeffc5f_314372c1",
+      "revId": "59c4a33acc9d0054fdbb0a2d4e5fdcaff09c4a78",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9ffa8ba_c44d6a0d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14076
+      },
+      "writtenOn": "2022-03-07T08:29:00Z",
+      "side": 1,
+      "message": "Thank you for review!",
+      "revId": "59c4a33acc9d0054fdbb0a2d4e5fdcaff09c4a78",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
