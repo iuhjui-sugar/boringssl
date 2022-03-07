@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "be42d178_3abd4f29",
+        "filename": "crypto/x509v3/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-03-07T21:43:17Z",
+      "side": 1,
+      "message": "Yeah, the comment is you\u0027d think it went\n\nhex_to_string \u003d\u003e x509v3_hex_to_bytes\nstring_to_hex \u003d\u003e x509v3_bytes_to_hex\n\nBut it was actually the other way around. Rephrased the comment.",
+      "parentUuid": "764bc348_62137c4f",
+      "revId": "91a4d36f783297dcf4557320f68b9a646b07e867",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "e4721c28_e0fc894e",
         "filename": "crypto/x509v3/v3_utl.c",
         "patchSetId": 2
