@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fae74408_45fd7bef",
+        "filename": "crypto/asn1/a_int.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-03-07T19:21:59Z",
+      "side": 1,
+      "message": "sizeof(uint64_t)",
+      "range": {
+        "startLine": 316,
+        "startChar": 20,
+        "endLine": 316,
+        "endChar": 21
+      },
+      "revId": "189e9eea4a0980aa059406f05ef1346c8aced5da",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23af94be_26929ca7",
+        "filename": "crypto/asn1/a_int.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-03-07T19:21:59Z",
+      "side": 1,
+      "message": "sizeof(uint64_t)",
+      "range": {
+        "startLine": 320,
+        "startChar": 16,
+        "endLine": 320,
+        "endChar": 17
+      },
+      "revId": "189e9eea4a0980aa059406f05ef1346c8aced5da",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27dbf567_056f4ca1",
+        "filename": "crypto/asn1/a_int.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-03-07T19:21:59Z",
+      "side": 1,
+      "message": "sizeof(buf)",
+      "range": {
+        "startLine": 321,
+        "startChar": 25,
+        "endLine": 321,
+        "endChar": 26
+      },
+      "revId": "189e9eea4a0980aa059406f05ef1346c8aced5da",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cedf56dc_ca47d848",
+        "filename": "crypto/asn1/a_int.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-03-07T19:21:59Z",
+      "side": 1,
+      "message": ":(",
+      "range": {
+        "startLine": 377,
+        "startChar": 11,
+        "endLine": 377,
+        "endChar": 13
+      },
+      "revId": "189e9eea4a0980aa059406f05ef1346c8aced5da",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
