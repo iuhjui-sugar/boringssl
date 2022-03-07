@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e6dadd3_71f67f4a",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-03-07T19:03:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d70608b6_8a4ddf16",
+      "revId": "7e518baf3803fb3f336e231fd1962b9d6d4bd39c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b27fc6a8_7aa94909",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-03-07T17:54:24Z",
       "side": 1,
       "message": "`out_ber_found` is optional but `out_indefinite` isn\u0027t. Should they behave the same?",
+      "revId": "7e518baf3803fb3f336e231fd1962b9d6d4bd39c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9860ff5_e03fc5bb",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-03-07T19:03:53Z",
+      "side": 1,
+      "message": "I figure not specifying `out_ber_found` is plausible because you may not care about distinguishing BER and DER. Probably most callers are like this... we only have it because our BER to DER rewriter uses it in an optimization.\n\nBut ignoring `out_indefinite` can either mean you didn\u0027t think to handle indefinite-length elements, or you\u0027re detecting it yourself with the old 0x80 suffix thing. The latter should be replaced with the explicit output, because it\u0027s confusing. The former seems like it\u0027d always be a bug, because you\u0027d misinterpret the header-only output as an empty element.",
+      "parentUuid": "b27fc6a8_7aa94909",
       "revId": "7e518baf3803fb3f336e231fd1962b9d6d4bd39c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
