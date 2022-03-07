@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "764bc348_62137c4f",
+        "filename": "crypto/x509v3/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-03-07T18:20:36Z",
+      "side": 1,
+      "message": "It\u0027s not called `string_to_hex` here either :)",
+      "revId": "91a4d36f783297dcf4557320f68b9a646b07e867",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4721c28_e0fc894e",
+        "filename": "crypto/x509v3/v3_utl.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-03-07T18:20:36Z",
+      "side": 1,
+      "message": "(We shouldn\u0027t change it, but uppercase hex is the dumbest thing: reduces visual differences between characters for no gain.)",
+      "revId": "91a4d36f783297dcf4557320f68b9a646b07e867",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
