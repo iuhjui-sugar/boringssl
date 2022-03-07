@@ -33,6 +33,24 @@
       "message": "drysdale: Would you be able to take a look at this, now that bwb is gone? I suspect neither AGL nor I really have the expertise to fully review this directory yet.",
       "revId": "59c4a33acc9d0054fdbb0a2d4e5fdcaff09c4a78",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "feeffc5f_314372c1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 11500
+      },
+      "writtenOn": "2022-03-07T07:34:55Z",
+      "side": 1,
+      "message": "I can well believe there are build environment oddities given the way the Rust bindings get built, but a minimal test crate (see below) works for me with Cargo.  \n\nHowever, that might be because I\u0027ve got something pre-configured in my environment -- what does building the example below give for you?  Is your build environment a \"normal\" open-source Cargo setup?\n\n```\n% more Cargo.toml src/main.rs \n::::::::::::::\nCargo.toml\n::::::::::::::\n[package]\nname \u003d \"bssl-dep\"\nversion \u003d \"0.1.0\"\nedition \u003d \"2018\"\n[dependencies]\nbssl-sys \u003d \"*\"\nhex \u003d \"0.4\"\n[patch.crates-io]\nbssl-sys \u003d { path \u003d \"../src/boringssl/build/rust\"}\n::::::::::::::\nsrc/main.rs\n::::::::::::::\nfn main() {\n    // SHA-256 of a message.\n    bssl_sys::init();\n    let msg \u003d [0x00u8];\n    let mut tag \u003d [0; bssl_sys::SHA256_DIGEST_LENGTH as usize];\n    let result \u003d unsafe { bssl_sys::SHA256(msg.as_ptr(), msg.len(), tag.as_mut_ptr()) };\n    assert_eq!(result, tag.as_mut_ptr());\n    println!(\"SHA256({}) \u003d {}\", hex::encode(\u0026msg), hex::encode(tag));\n}\n\n% cargo run\n    Finished dev [unoptimized + debuginfo] target(s) in 0.01s\n     Running `target/debug/bssl-dep`\nSHA256(00) \u003d 6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d\n```",
+      "parentUuid": "8d1b1c8e_7ac83377",
+      "revId": "59c4a33acc9d0054fdbb0a2d4e5fdcaff09c4a78",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
