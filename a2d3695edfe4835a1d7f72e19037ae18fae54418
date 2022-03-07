@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da34d07a_7dee751b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-03-07T19:58:04Z",
+      "side": 1,
+      "message": "Thanks! I just made two small tweaks. (Normally we\u0027d ask the CL author to make the change, but it was just formatting stuff, so I went ahead and did it.) The fist is some special commit message tag we use to close the bug, and the second was a minor formatting nitpick.",
+      "revId": "a2d3695edfe4835a1d7f72e19037ae18fae54418",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
