@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3dd22462_6e2e974a",
+        "filename": "crypto/asn1/a_int.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-03-07T19:14:53Z",
+      "side": 1,
+      "message": "sizeof(uint64_t)",
+      "range": {
+        "startLine": 281,
+        "startChar": 16,
+        "endLine": 281,
+        "endChar": 17
+      },
+      "revId": "a0dd1cf9208cbbd7a693d1f9858eb48b31eb0517",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
