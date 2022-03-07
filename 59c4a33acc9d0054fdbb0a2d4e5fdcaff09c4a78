@@ -86,6 +86,24 @@
       "message": "Thank you for review!",
       "revId": "59c4a33acc9d0054fdbb0a2d4e5fdcaff09c4a78",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "401f842c_175931c4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 11500
+      },
+      "writtenOn": "2022-03-07T15:12:58Z",
+      "side": 1,
+      "message": "Using `path` in `[dependencies]` instead of a `[patch.crates-io]` section also works fine for my local build, so I\u0027m still wondering if your environment is setup differently somehow -- e.g. is Windows involved (given that you mention Windows-specific crates)?\n\n(https://github.com/rust-lang/rust/issues/42869 might be relevant if that were the case)",
+      "parentUuid": "ba2c885b_1f74042d",
+      "revId": "59c4a33acc9d0054fdbb0a2d4e5fdcaff09c4a78",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
