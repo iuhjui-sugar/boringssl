@@ -140,6 +140,24 @@
       "parentUuid": "f4c6fa13_1cd90839",
       "revId": "59c4a33acc9d0054fdbb0a2d4e5fdcaff09c4a78",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e74fb49e_fef760ee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14076
+      },
+      "writtenOn": "2022-03-08T08:19:38Z",
+      "side": 1,
+      "message": "No problem, thank you for careful review! Also thank you for adding the binding :)",
+      "parentUuid": "8e3b7936_198e5ab5",
+      "revId": "59c4a33acc9d0054fdbb0a2d4e5fdcaff09c4a78",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
