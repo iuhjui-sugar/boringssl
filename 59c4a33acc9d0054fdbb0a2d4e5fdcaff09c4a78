@@ -122,6 +122,24 @@
       "parentUuid": "401f842c_175931c4",
       "revId": "59c4a33acc9d0054fdbb0a2d4e5fdcaff09c4a78",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e3b7936_198e5ab5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 11500
+      },
+      "writtenOn": "2022-03-08T07:50:25Z",
+      "side": 1,
+      "message": "Thanks for the build details; on experimentation, it seems that Cargo\u0027s relative path behaviour changes depending on whether the `path` for the dependency is beneath the current directory or not -- which is a new discovery for me!\n\n(e.g. doing `mv third_party/ ../temp_third_party \u0026\u0026 sed -i.bak \u0027s@third_party@../temp_third_party@\u0027 Cargo.toml \u0026\u0026 cargo build` on your setup gives a working build)\n\nSorry for the back-and-forth -- now that I understand why I wasn\u0027t seeing the problem, the solution LGTM.",
+      "parentUuid": "f4c6fa13_1cd90839",
+      "revId": "59c4a33acc9d0054fdbb0a2d4e5fdcaff09c4a78",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
