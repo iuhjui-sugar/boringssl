@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "72e7a63a_e64b2249",
+        "filename": "crypto/pkcs8/pkcs12_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-03-08T19:53:05Z",
+      "side": 1,
+      "message": "Mind running this test through clang-format?",
+      "revId": "2591da5513a807a77bf2b1ff86ef60bc6886ec88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6fc07c2d_cfedd506",
         "filename": "crypto/pkcs8/pkcs12_test.cc",
         "patchSetId": 2
@@ -37,6 +54,57 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b8dae1d4_8931def2",
+        "filename": "crypto/pkcs8/pkcs8_x509.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1006,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-03-08T19:53:05Z",
+      "side": 1,
+      "message": "We normally try not to distinguish {NULL, 0} from {non-NULL, 0} when it comes to slices, just because so much code uses {NULL, 0} to specify the empty string.\n\nHaving an int has_name parameter would be kinda overkill though. Fortunately, RFC2985 says that friendlyName cannot be empty, so we could just check name_len !\u003d 0. Although that has some cascading effects elsewhere. (See comments below...)",
+      "revId": "2591da5513a807a77bf2b1ff86ef60bc6886ec88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5d619a9_282c752a",
+        "filename": "crypto/pkcs8/pkcs8_x509.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1064,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-03-08T19:53:05Z",
+      "side": 1,
+      "message": "If we make add_bag_attributes use name_len !\u003d 0, we\u0027ll treat name\u003dNULL and name\u003d\"\" as no friendlyName, whereas previously we emitted an invalid empty string.\n\nThe result wasn\u0027t valid anyway, so it doesn\u0027t matter, but maybe we should reject that? (Or we can just silently ignore it...)",
+      "revId": "2591da5513a807a77bf2b1ff86ef60bc6886ec88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05fb19ac_a1d039e6",
+        "filename": "crypto/pkcs8/pkcs8_x509.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1065,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-03-08T19:53:05Z",
+      "side": 1,
+      "message": "Precedence between the caller-supplied name and the built-in one is... interesting. I need to verify this beyond just code inspection, but it looks like OpenSSL does:\n\n- If name !\u003d NULL \u0026\u0026 alias !\u003d NULL, first add alias, then add name as a duplicate.\n- When parsing a PKCS#12 file, take the first one.\n\nWhich means actually the alias takes precedent! This makes no sense, so I wonder if just returning an error makes sense.",
+      "revId": "2591da5513a807a77bf2b1ff86ef60bc6886ec88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3e91b369_3a77d6d2",
         "filename": "crypto/pkcs8/pkcs8_x509.c",
         "patchSetId": 2
@@ -48,6 +116,41 @@
       "writtenOn": "2022-03-08T19:20:35Z",
       "side": 1,
       "message": "I think this needs to be set to zero initially. `X509_alias_get0` doesn\u0027t write to it unless it returns non-NULL.",
+      "revId": "2591da5513a807a77bf2b1ff86ef60bc6886ec88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a1399c6_6a812f97",
+        "filename": "crypto/pkcs8/pkcs8_x509.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1066,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-03-08T19:53:05Z",
+      "side": 1,
+      "message": "Yikes. I guess you\u0027re suppose to check for whether the alias was NULL? That\u0027ll also interact with a name_len !\u003d 0 check above. Maybe we should just fix this function. I can see about doing that...\n\nThat also makes the difference between no alias vs empty alias kinda unclear (although empty friendlyName is *not* allowed, nothing\u0027s stopping X509_CERT_AUX from having an empty alias). You can kinda use whether the pointer is NULL because empty ASN1_STRINGs almost never have NULL pointers, but only almost never.\n\nMaybe we should just declare in the public API (as yet undocumented, but I\u0027ll see about fixing that) that empty vs. missing is the same as far as the caller is concerned?",
+      "parentUuid": "3e91b369_3a77d6d2",
+      "revId": "2591da5513a807a77bf2b1ff86ef60bc6886ec88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa58a128_99ce6db3",
+        "filename": "crypto/pkcs8/pkcs8_x509.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1164,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-03-08T19:53:05Z",
+      "side": 1,
+      "message": "Partially an existing issue, because we never wrote down that PKCS12_get_key_and_certs gives you certs with things attached, but let\u0027s document it now.\n\nOtherwise a caller might do something like:\n1. PKCS12_get_key_and_certs to get X509 objects\n2. Check the X509 objects over (e.g. look at the serialization) and decide they\u0027re satisfied\n3. Call PKCS12_create to reserialize them\n4. Oops! Some extra data, not in the certificate proper, made it in from step 1.\n\nI\u0027m thinking just a couple sentences like, on PKCS12_get_key_and_certs and PKCS12_parse:\n\nAny friendlyName attributes (RFC 2985) in the PKCS#12 structure will be returned on the |X509| objects as aliases. See also |X509_alias_get0|.\n\nAnd then on PKCS12_create, something like:\n\nIf |cert| or |chain| have associated aliases (see |X509_alias_set1|), they will included in the output as friendlyName attributes (RFC 2985). It is an error to specify both an alias on |cert| and a non-NULL |name| parameter.",
       "revId": "2591da5513a807a77bf2b1ff86ef60bc6886ec88",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
