@@ -104,6 +104,24 @@
       "parentUuid": "ba2c885b_1f74042d",
       "revId": "59c4a33acc9d0054fdbb0a2d4e5fdcaff09c4a78",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4c6fa13_1cd90839",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14076
+      },
+      "writtenOn": "2022-03-08T04:10:43Z",
+      "side": 1,
+      "message": "I use Ubuntu to build the crate. I guess your setup (`../src/boringssl/build/rust`) happens to resolve relative paths into correct ones? Here is the commands I used and errors I got:\n\n```\n$ cargo new boringssl-submodule\n$ mkdir boringssl-submodule/third_party\n$ cd boringssl-submodule/third_party\n$ git submodule add https://boringssl.googlesource.com/boringssl\n$ mkdir boringssl/build\n$ cd boringssl/build\n$ cmake -GNinja -DRUST_BINDINGS\u003dx86_64-unknown-linux-gnu ..\n$ ninja\n$ cd ../../..\n$ vim Cargo.toml\n# (Add `bssl-sys \u003d { path \u003d \"third_party/boringssl/build/rust\" }` to dependencies)\n$ cargo build\n   Compiling bssl-sys v0.1.0 (/home/bashi/tmp/boringssl-submodule/third_party/boringssl/build/rust)\nerror: could not find native static library `crypto`, perhaps an -L flag is missing?\n\nerror: could not compile `bssl-sys` due to previous error\n```",
+      "parentUuid": "401f842c_175931c4",
+      "revId": "59c4a33acc9d0054fdbb0a2d4e5fdcaff09c4a78",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
