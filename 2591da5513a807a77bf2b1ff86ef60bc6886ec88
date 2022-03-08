@@ -194,6 +194,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8b0235d5_e5877f5a",
+        "filename": "crypto/pkcs8/pkcs8_x509.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1066,
+      "author": {
+        "id": 5180
+      },
+      "writtenOn": "2022-03-08T20:25:52Z",
+      "side": 1,
+      "message": "I\u0027m not sure I quite follow what the desired end-state is here, since regrettably it\u0027s not simply adopting `std::span` here :-)\n\nHappy to implement whatever the preference is though.",
+      "parentUuid": "5a1399c6_6a812f97",
+      "revId": "2591da5513a807a77bf2b1ff86ef60bc6886ec88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "aa58a128_99ce6db3",
         "filename": "crypto/pkcs8/pkcs8_x509.c",
         "patchSetId": 2
