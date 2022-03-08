@@ -158,6 +158,24 @@
       "parentUuid": "8e3b7936_198e5ab5",
       "revId": "59c4a33acc9d0054fdbb0a2d4e5fdcaff09c4a78",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0fb3c73_067e2032",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 11500
+      },
+      "writtenOn": "2022-03-08T08:54:26Z",
+      "side": 1,
+      "message": "\u003e Also thank you for adding the binding :)\n\nThat wasn\u0027t me, that was bwb@ (who\u0027s since left Google)",
+      "parentUuid": "e74fb49e_fef760ee",
+      "revId": "59c4a33acc9d0054fdbb0a2d4e5fdcaff09c4a78",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
