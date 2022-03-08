@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3b1c79e3_edd01cb6",
+        "filename": "crypto/pkcs8/pkcs12_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 603,
+      "author": {
+        "id": 5180
+      },
+      "writtenOn": "2022-03-08T20:24:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72e7a63a_e64b2249",
+      "revId": "2591da5513a807a77bf2b1ff86ef60bc6886ec88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6fc07c2d_cfedd506",
@@ -35,6 +53,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "730f0c37_2ae090ad",
+        "filename": "crypto/pkcs8/pkcs12_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 5180
+      },
+      "writtenOn": "2022-03-08T20:24:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6fc07c2d_cfedd506",
+      "revId": "2591da5513a807a77bf2b1ff86ef60bc6886ec88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5a85673c_57bc483f",
@@ -48,6 +84,24 @@
       "writtenOn": "2022-03-08T19:20:35Z",
       "side": 1,
       "message": "Can this be `const unsigned char*`? We\u0027ll probably want to fix the constness of `X509_alias_get0` in the future.",
+      "revId": "2591da5513a807a77bf2b1ff86ef60bc6886ec88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a268db17_04cadb5a",
+        "filename": "crypto/pkcs8/pkcs12_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 5180
+      },
+      "writtenOn": "2022-03-08T20:24:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a85673c_57bc483f",
       "revId": "2591da5513a807a77bf2b1ff86ef60bc6886ec88",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -151,6 +205,24 @@
       "writtenOn": "2022-03-08T19:53:05Z",
       "side": 1,
       "message": "Partially an existing issue, because we never wrote down that PKCS12_get_key_and_certs gives you certs with things attached, but let\u0027s document it now.\n\nOtherwise a caller might do something like:\n1. PKCS12_get_key_and_certs to get X509 objects\n2. Check the X509 objects over (e.g. look at the serialization) and decide they\u0027re satisfied\n3. Call PKCS12_create to reserialize them\n4. Oops! Some extra data, not in the certificate proper, made it in from step 1.\n\nI\u0027m thinking just a couple sentences like, on PKCS12_get_key_and_certs and PKCS12_parse:\n\nAny friendlyName attributes (RFC 2985) in the PKCS#12 structure will be returned on the |X509| objects as aliases. See also |X509_alias_get0|.\n\nAnd then on PKCS12_create, something like:\n\nIf |cert| or |chain| have associated aliases (see |X509_alias_set1|), they will included in the output as friendlyName attributes (RFC 2985). It is an error to specify both an alias on |cert| and a non-NULL |name| parameter.",
+      "revId": "2591da5513a807a77bf2b1ff86ef60bc6886ec88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2fc766f_d29e2a4d",
+        "filename": "crypto/pkcs8/pkcs8_x509.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1164,
+      "author": {
+        "id": 5180
+      },
+      "writtenOn": "2022-03-08T20:24:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa58a128_99ce6db3",
       "revId": "2591da5513a807a77bf2b1ff86ef60bc6886ec88",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
