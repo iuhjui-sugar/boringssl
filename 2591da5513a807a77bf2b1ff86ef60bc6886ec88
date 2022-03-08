@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fc07c2d_cfedd506",
+        "filename": "crypto/pkcs8/pkcs12_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-03-08T19:20:35Z",
+      "side": 1,
+      "message": "(nit: 80 chars.)",
+      "revId": "2591da5513a807a77bf2b1ff86ef60bc6886ec88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a85673c_57bc483f",
+        "filename": "crypto/pkcs8/pkcs12_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 635,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-03-08T19:20:35Z",
+      "side": 1,
+      "message": "Can this be `const unsigned char*`? We\u0027ll probably want to fix the constness of `X509_alias_get0` in the future.",
+      "revId": "2591da5513a807a77bf2b1ff86ef60bc6886ec88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e91b369_3a77d6d2",
+        "filename": "crypto/pkcs8/pkcs8_x509.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1066,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-03-08T19:20:35Z",
+      "side": 1,
+      "message": "I think this needs to be set to zero initially. `X509_alias_get0` doesn\u0027t write to it unless it returns non-NULL.",
+      "revId": "2591da5513a807a77bf2b1ff86ef60bc6886ec88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
