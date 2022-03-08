@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "256e7dbc_19485598",
+        "filename": "crypto/asn1/a_int.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-03-08T18:20:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fae74408_45fd7bef",
+      "range": {
+        "startLine": 316,
+        "startChar": 20,
+        "endLine": 316,
+        "endChar": 21
+      },
+      "revId": "189e9eea4a0980aa059406f05ef1346c8aced5da",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "23af94be_26929ca7",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-03-07T19:21:59Z",
       "side": 1,
       "message": "sizeof(uint64_t)",
+      "range": {
+        "startLine": 320,
+        "startChar": 16,
+        "endLine": 320,
+        "endChar": 17
+      },
+      "revId": "189e9eea4a0980aa059406f05ef1346c8aced5da",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa47a0c3_32843cbe",
+        "filename": "crypto/asn1/a_int.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-03-08T18:20:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23af94be_26929ca7",
       "range": {
         "startLine": 320,
         "startChar": 16,
@@ -72,6 +120,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "1934976f_d8f94c00",
+        "filename": "crypto/asn1/a_int.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-03-08T18:20:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27dbf567_056f4ca1",
+      "range": {
+        "startLine": 321,
+        "startChar": 25,
+        "endLine": 321,
+        "endChar": 26
+      },
+      "revId": "189e9eea4a0980aa059406f05ef1346c8aced5da",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "cedf56dc_ca47d848",
         "filename": "crypto/asn1/a_int.c",
         "patchSetId": 5
@@ -83,6 +155,30 @@
       "writtenOn": "2022-03-07T19:21:59Z",
       "side": 1,
       "message": ":(",
+      "range": {
+        "startLine": 377,
+        "startChar": 11,
+        "endLine": 377,
+        "endChar": 13
+      },
+      "revId": "189e9eea4a0980aa059406f05ef1346c8aced5da",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03554c1d_a327e8bb",
+        "filename": "crypto/asn1/a_int.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 377,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-03-08T18:20:57Z",
+      "side": 1,
+      "message": "Yup. :-(",
+      "parentUuid": "cedf56dc_ca47d848",
       "range": {
         "startLine": 377,
         "startChar": 11,
