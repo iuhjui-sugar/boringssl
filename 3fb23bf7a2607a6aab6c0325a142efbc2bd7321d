@@ -16,6 +16,24 @@
       "message": "(I assume that -0 is an invalid state and that we don\u0027t need to worry about it here.)",
       "revId": "3fb23bf7a2607a6aab6c0325a142efbc2bd7321d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5606d51_bb598d06",
+        "filename": "crypto/asn1/a_int.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-03-08T15:43:00Z",
+      "side": 1,
+      "message": "Yeah the comparison functions will completely misinterpret -0 and non-minimal ASN1_INTEGERs. The subsequent CLs touch on this slightly, but I haven\u0027t tried to make non-minimal ASN1_INTEGERs work.",
+      "parentUuid": "3d2cf328_d357cbc3",
+      "revId": "3fb23bf7a2607a6aab6c0325a142efbc2bd7321d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
