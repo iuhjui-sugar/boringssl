@@ -176,6 +176,23 @@
       "parentUuid": "e74fb49e_fef760ee",
       "revId": "59c4a33acc9d0054fdbb0a2d4e5fdcaff09c4a78",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "374034dc_0c447bc5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-03-08T21:41:21Z",
+      "side": 1,
+      "message": "rubber stamp lgtm :-)",
+      "revId": "59c4a33acc9d0054fdbb0a2d4e5fdcaff09c4a78",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
