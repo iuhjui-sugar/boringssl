@@ -16,6 +16,24 @@
       "message": "Why is this true? Couldn\u0027t in-\u003elength be INT_MAX and pad be 1? (worth a comment.)",
       "revId": "7f2052e0bef3b08dffee3d2e81329002b468939b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "62843c97_c76a1c3f",
+        "filename": "crypto/asn1/a_int.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-03-08T17:13:37Z",
+      "side": 1,
+      "message": "This directory is made entirely of overflows, hence this nonsense.\nhttps://boringssl.googlesource.com/boringssl/+/refs/heads/master/crypto/asn1/tasn_dec.c#177\nhttps://boringssl.googlesource.com/boringssl/+/refs/heads/master/crypto/asn1/asn1_lib.c#132\nhttps://boringssl.googlesource.com/boringssl/+/refs/heads/master/crypto/asn1/a_int.c#202\n\nBut, yeah, let\u0027s try to do better where we can. Maybe someday it\u0027ll be clean. :-) Added an overflow check.",
+      "parentUuid": "ce7dc631_c93d3db6",
+      "revId": "7f2052e0bef3b08dffee3d2e81329002b468939b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
