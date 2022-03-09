@@ -16,6 +16,23 @@
       "message": "drysdale@: PTAL?\n\nI got another build failure on my macbook (aarch64-apple-darwin). Here is the error:\n\n```\n$ ninja\n[1/429] Building C object rust/CMakeFiles/rust_wrapper.dir/rust_wrapper.c.o\nFAILED: rust/CMakeFiles/rust_wrapper.dir/rust_wrapper.c.o \n/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc -DBORINGSSL_DISPATCH_TEST -DBORINGSSL_IMPLEMENTATION -I/Users/bashi/work/boringssl-test/boringssl/third_party/googletest/include -Werror -Wformat\u003d2 -Wsign-compare -Wmissing-field-initializers -Wwrite-strings -Wvla -Wshadow -ggdb -Wall -fvisibility\u003dhidden -fno-common -Wnewline-eof -fcolor-diagnostics -Wimplicit-fallthrough -Wmissing-prototypes -Wold-style-definition -Wstrict-prototypes -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.1.sdk -MD -MT rust/CMakeFiles/rust_wrapper.dir/rust_wrapper.c.o -MF rust/CMakeFiles/rust_wrapper.dir/rust_wrapper.c.o.d -o rust/CMakeFiles/rust_wrapper.dir/rust_wrapper.c.o -c /Users/bashi/work/boringssl-test/boringssl/rust/rust_wrapper.c\nIn file included from /Users/bashi/work/boringssl-test/boringssl/rust/rust_wrapper.c:15:\n/Users/bashi/work/boringssl-test/boringssl/rust/rust_wrapper.h:18:10: fatal error: \u0027openssl/err.h\u0027 file not found\n#include \u003copenssl/err.h\u003e\n         ^~~~~~~~~~~~~~~\n1 error generated.\n[12/429] cd /Users/bashi/work/boringssl-test/b... -- -I../include --target\u003daarch64-apple-darwin\nninja: build stopped: subcommand failed.\n```\n",
       "revId": "cb717891aa07b699b5af034eeee1cfe21839ff10",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a84890c7_46052d6d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 11500
+      },
+      "writtenOn": "2022-03-09T08:04:18Z",
+      "side": 1,
+      "message": "Ah, sorry, I forgot to mention that I\u0027d already seen this problem -- your fix (plus other tweaks) is included in https://boringssl-review.googlesource.com/c/boringssl/+/51285.\n\nMaybe re-awaken that CL in preference to this one?\n",
+      "revId": "cb717891aa07b699b5af034eeee1cfe21839ff10",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
