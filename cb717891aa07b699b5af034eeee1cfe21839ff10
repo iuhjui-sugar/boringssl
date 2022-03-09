@@ -33,6 +33,24 @@
       "message": "Ah, sorry, I forgot to mention that I\u0027d already seen this problem -- your fix (plus other tweaks) is included in https://boringssl-review.googlesource.com/c/boringssl/+/51285.\n\nMaybe re-awaken that CL in preference to this one?\n",
       "revId": "cb717891aa07b699b5af034eeee1cfe21839ff10",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "176e803d_a43df9c9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14076
+      },
+      "writtenOn": "2022-03-09T08:40:23Z",
+      "side": 1,
+      "message": "Ah I wasn\u0027t aware of the CL. The CL looks great! I\u0027ll abandon this CL.",
+      "parentUuid": "a84890c7_46052d6d",
+      "revId": "cb717891aa07b699b5af034eeee1cfe21839ff10",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
