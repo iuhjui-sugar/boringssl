@@ -1,3 +1,6 @@
+# the following rust_wrapper needs header files
+include_directories(../include)
+
 # additional interop for things like macros and inlined functions
 add_library(
   rust_wrapper
