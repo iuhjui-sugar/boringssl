@@ -16,6 +16,69 @@
       "message": "Thoughts?",
       "revId": "bdbe1d02786092e0197437e2f9abaa5aab764eba",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "929b0333_60ca161a",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 957,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-03-10T21:10:34Z",
+      "side": 1,
+      "message": "by",
+      "range": {
+        "startLine": 957,
+        "startChar": 37,
+        "endLine": 957,
+        "endChar": 39
+      },
+      "revId": "bdbe1d02786092e0197437e2f9abaa5aab764eba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c1d1899_1558f2b9",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 963,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-03-10T21:10:34Z",
+      "side": 1,
+      "message": "by",
+      "range": {
+        "startLine": 963,
+        "startChar": 37,
+        "endLine": 963,
+        "endChar": 39
+      },
+      "revId": "bdbe1d02786092e0197437e2f9abaa5aab764eba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89af604a_637408e8",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 997,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-03-10T21:10:34Z",
+      "side": 1,
+      "message": "If this is really what clang-format does then let\u0027s leave it, but looks weird.",
+      "revId": "bdbe1d02786092e0197437e2f9abaa5aab764eba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
