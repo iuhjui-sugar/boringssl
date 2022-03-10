@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c1da6b1_3596e027",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-03-10T20:59:02Z",
+      "side": 1,
+      "message": "(Double checking the CLA status here.)",
+      "revId": "cc4e43d7fd19b112d4d94321da4f5aaea58db5b0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
