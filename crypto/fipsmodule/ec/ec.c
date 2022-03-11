@@ -224,7 +224,7 @@ DEFINE_METHOD_FUNCTION(struct built_in_curves, OPENSSL_built_in_curves) {
   out->curves[0].comment = "NIST P-521";
   out->curves[0].param_len = 66;
   out->curves[0].params = kP521Params;
-  out->curves[0].method = EC_GFp_mont_method();
+  out->curves[0].method = EC_GFp_nistp521_method();
 
   // 1.3.132.0.34
   static const uint8_t kOIDP384[] = {0x2b, 0x81, 0x04, 0x00, 0x22};
