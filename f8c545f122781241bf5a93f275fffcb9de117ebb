@@ -24,6 +24,23 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7474542_7ff6dd7d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14171
+      },
+      "writtenOn": "2022-03-15T15:38:29Z",
+      "side": 1,
+      "message": "I triggered on the behaviour change for BAD_LENGTH that I noticed before reading your description and then read through the whole thing ;) It looks good to me, \nand FWIW in Libre the BAD_LENGTH check got hoisted earlier a long time ago so\nI think your assessment is correct. ",
+      "revId": "f8c545f122781241bf5a93f275fffcb9de117ebb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1f92f2aa_d59d5259",
