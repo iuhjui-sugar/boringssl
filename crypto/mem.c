@@ -180,11 +180,15 @@ void OPENSSL_free(void *orig_ptr) {
 
   size_t size = *(size_t *)ptr;
   OPENSSL_cleanse(ptr, size + OPENSSL_MALLOC_PREFIX);
+#if defined(OPENSSL_ASAN)
+  free(ptr);
+#else
   if (sdallocx) {
     sdallocx(ptr, size + OPENSSL_MALLOC_PREFIX, 0 /* flags */);
   } else {
     free(ptr);
   }
+#endif
 }
 
 void *OPENSSL_realloc(void *orig_ptr, size_t new_size) {
