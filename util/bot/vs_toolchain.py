@@ -62,6 +62,9 @@ def FindDepotTools():
 def _GetDesiredVsToolchainHashes(version):
   """Load a list of SHA1s corresponding to the toolchains that we want installed
   to build with."""
+  # FIXME: Don't submit this with this line. I'm adding it for now just to test
+  # that the vs2019 one works.
+  version = '2019'
   if version == '2015':
     # Update 3 final with 10.0.15063.468 SDK and no vctip.exe.
     return ['f53e4598951162bad6330f7a167486c7ae5db1e5']
@@ -70,6 +73,10 @@ def _GetDesiredVsToolchainHashes(version):
     # Debuggers, and 10.0.17134 version of d3dcompiler_47.dll, with ARM64
     # libraries.
     return ['418b3076791776573a815eb298c8aa590307af63']
+  if version == '2019':
+    # VS 2019 16.61 with 10.0.19041 SDK, and 10.0.20348 version of
+    # d3dcompiler_47.dll, with ARM64 libraries and UWP support.
+    return ['3bda71a11e']
   raise Exception('Unsupported VS version %s' % version)
 
 
