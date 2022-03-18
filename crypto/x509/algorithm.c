@@ -64,6 +64,14 @@
 
 #include "internal.h"
 
+// Don't support certain hashes in X509
+static int x509_digest_ok(int digest_nid) {
+  if (digest_nid == NID_md4)
+    return 0;
+  if (digest_nid == NID_md5)
+    return 0;
+  return 1;
+}
 
 int x509_digest_sign_algorithm(EVP_MD_CTX *ctx, X509_ALGOR *algor) {
   EVP_PKEY *pkey = EVP_PKEY_CTX_get0_pkey(ctx->pctx);
@@ -115,7 +123,8 @@ int x509_digest_verify_init(EVP_MD_CTX *ctx, const X509_ALGOR *sigalg,
   /* Convert the signature OID into digest and public key OIDs. */
   int sigalg_nid = OBJ_obj2nid(sigalg->algorithm);
   int digest_nid, pkey_nid;
-  if (!OBJ_find_sigid_algs(sigalg_nid, &digest_nid, &pkey_nid)) {
+  if (!OBJ_find_sigid_algs(sigalg_nid, &digest_nid, &pkey_nid) ||
+      !x509_digest_ok(digest_nid)) {
     OPENSSL_PUT_ERROR(ASN1, ASN1_R_UNKNOWN_SIGNATURE_ALGORITHM);
     return 0;
   }
@@ -154,7 +163,7 @@ int x509_digest_verify_init(EVP_MD_CTX *ctx, const X509_ALGOR *sigalg,
 
   /* Otherwise, initialize with the digest from the OID. */
   const EVP_MD *digest = EVP_get_digestbynid(digest_nid);
-  if (digest == NULL) {
+  if (digest == NULL || !x509_digest_ok(digest_nid)) {
     OPENSSL_PUT_ERROR(ASN1, ASN1_R_UNKNOWN_MESSAGE_DIGEST_ALGORITHM);
     return 0;
   }
