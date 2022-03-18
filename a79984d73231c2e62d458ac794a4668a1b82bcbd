@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d534488_68369fed",
+        "filename": "util/fipstools/test_fips.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-03-18T22:13:33Z",
+      "side": 1,
+      "message": "This does mean the test_fips binary won\u0027t do anything useful. But I don\u0027t think we run it in CI anywhere (should we?), so will defer to you whether this is okay. :-)",
+      "revId": "a79984d73231c2e62d458ac794a4668a1b82bcbd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
