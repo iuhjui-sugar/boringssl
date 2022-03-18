@@ -152,3 +152,9 @@ TEST(Crypto, QueryAlgorithmStatus) {
   EXPECT_FALSE(FIPS_query_algorithm_status("FakeEncrypt"));
   EXPECT_FALSE(FIPS_query_algorithm_status(""));
 }
+
+TEST(Crypto, OnDemandIntegrityTest) {
+#if defined(BORINGSSL_FIPS)
+  BORINGSSL_integrity_test();
+#endif
+}
