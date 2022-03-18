@@ -41,6 +41,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "22a53dd2_6cd27c11",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 957,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-03-18T19:05:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "929b0333_60ca161a",
+      "range": {
+        "startLine": 957,
+        "startChar": 37,
+        "endLine": 957,
+        "endChar": 39
+      },
+      "revId": "bdbe1d02786092e0197437e2f9abaa5aab764eba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0c1d1899_1558f2b9",
@@ -64,6 +88,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fdd8c42_94beaffb",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 963,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-03-18T19:05:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c1d1899_1558f2b9",
+      "range": {
+        "startLine": 963,
+        "startChar": 37,
+        "endLine": 963,
+        "endChar": 39
+      },
+      "revId": "bdbe1d02786092e0197437e2f9abaa5aab764eba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "89af604a_637408e8",
@@ -77,6 +125,24 @@
       "writtenOn": "2022-03-10T21:10:34Z",
       "side": 1,
       "message": "If this is really what clang-format does then let\u0027s leave it, but looks weird.",
+      "revId": "bdbe1d02786092e0197437e2f9abaa5aab764eba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04bd2aae_242ab35a",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 997,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-03-18T19:05:48Z",
+      "side": 1,
+      "message": "Yeah. It\u0027s because the function returns a function pointer and C decls are incomprehensible.\n\nWe should probably have a typedef, but this function is not threadsafe and seems to be unused. How about I just remove it in a separate CL. :-)",
+      "parentUuid": "89af604a_637408e8",
       "revId": "bdbe1d02786092e0197437e2f9abaa5aab764eba",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
