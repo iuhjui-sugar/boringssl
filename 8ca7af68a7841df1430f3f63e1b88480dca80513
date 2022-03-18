@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c2908f97_31ba2c70",
+        "filename": "include/openssl/crypto.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-03-18T22:11:18Z",
+      "side": 1,
+      "message": "Nit: since it\u0027s an int, \"one\" here, and probably include the \"and zero otherwise\".\n\n(...I wonder if we can get away with C99 bool at this point.)",
+      "range": {
+        "startLine": 175,
+        "startChar": 39,
+        "endLine": 175,
+        "endChar": 43
+      },
+      "revId": "8ca7af68a7841df1430f3f63e1b88480dca80513",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
