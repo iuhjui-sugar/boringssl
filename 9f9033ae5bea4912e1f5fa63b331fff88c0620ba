@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88faf159_d0a1d56b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-03-18T20:56:09Z",
+      "side": 1,
+      "message": "Supporting new architectures is quite a burden. We need build machines in data centers for running automated tests, probably access to devices for debugging etc. It\u0027s a decision made at a broader company level given the investment needed. As such, I\u0027m afraid that we don\u0027t accept changes like this unless there\u0027s a clear business case.",
+      "revId": "9f9033ae5bea4912e1f5fa63b331fff88c0620ba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
