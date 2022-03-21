@@ -33,6 +33,23 @@
       "message": "(CLA approved.)",
       "revId": "cc4e43d7fd19b112d4d94321da4f5aaea58db5b0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "adcf5463_bb9a1c81",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-03-21T18:55:04Z",
+      "side": 1,
+      "message": "We need to give this more careful review, but our disposition is that we want to take this change.",
+      "revId": "cc4e43d7fd19b112d4d94321da4f5aaea58db5b0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
