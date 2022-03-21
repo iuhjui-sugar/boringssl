@@ -22,6 +22,30 @@
       },
       "revId": "89c39329e4b1f54e304275e76940a58bf60d86f7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47ab083d_0e4d1d39",
+        "filename": "include/openssl/crypto.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2022-03-21T18:43:33Z",
+      "side": 1,
+      "message": "I don\u0027t think it\u0027s worth making the function always exist: nobody should ever call it.\n\nI think if you\u0027re building with ASAN then it\u0027s not FIPS mode, but have added words in the comment to nail that down.",
+      "parentUuid": "e6e6d5c0_858ca721",
+      "range": {
+        "startLine": 65,
+        "startChar": 46,
+        "endLine": 65,
+        "endChar": 47
+      },
+      "revId": "89c39329e4b1f54e304275e76940a58bf60d86f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
