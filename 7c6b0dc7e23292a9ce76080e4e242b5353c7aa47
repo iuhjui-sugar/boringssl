@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4715271_02f72c92",
+        "filename": "third_party/fiat/LICENSE",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-03-21T20:19:37Z",
+      "side": 1,
+      "message": "(They seem to have updated the file in 2020, but not since then.)",
+      "range": {
+        "startLine": 3,
+        "startChar": 19,
+        "endLine": 3,
+        "endChar": 23
+      },
+      "revId": "7c6b0dc7e23292a9ce76080e4e242b5353c7aa47",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
