@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a173fba_b8583e0b",
+        "filename": "crypto/curve25519/curve25519.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-03-21T20:42:47Z",
+      "side": 1,
+      "message": "This is pretty annoying. I\u0027ll ask the fiat-crypto folks if they can tag their functions `__attribute__((unused))` or something. Or maybe just mark all of them `static inline` because that shuts the warning up, and I doubt the compiler is doing anything with the `inline` marker.",
+      "revId": "7bec36e4641fbedfb28281d67bdf9ec4bf966cfe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
