@@ -16,6 +16,24 @@
       "message": "Supporting new architectures is quite a burden. We need build machines in data centers for running automated tests, probably access to devices for debugging etc. It\u0027s a decision made at a broader company level given the investment needed. As such, I\u0027m afraid that we don\u0027t accept changes like this unless there\u0027s a clear business case.",
       "revId": "9f9033ae5bea4912e1f5fa63b331fff88c0620ba",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9020d20_65686a6f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14176
+      },
+      "writtenOn": "2022-03-21T02:03:20Z",
+      "side": 1,
+      "message": "V8 is ported,chromium‘s submodulars just need altered a little to fit it, and define architecture support it easily，I have fit chromium and run it ok on loongarch (CPU 3A5000) in version 96. openssl only alter file [include/openssl/base.h] to support it like gn、abseil ..\n\nhttps://gn-review.googlesource.com/c/gn/+/12660\n\nhttps://github.com/abseil/abseil-cpp/pull/1110\n\nv8 is supported by loong64 manufacturers:\n\nhttps://bugs.chromium.org/p/v8/issues/detail?id\u003d12008",
+      "parentUuid": "88faf159_d0a1d56b",
+      "revId": "9f9033ae5bea4912e1f5fa63b331fff88c0620ba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
