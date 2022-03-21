@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "940c32f2_c6cd77a2",
+        "filename": "crypto/x509/algorithm.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-03-21T18:50:34Z",
+      "side": 1,
+      "message": "Style-wise: we don\u0027t aggressively update existing code, but new code shouldn\u0027t use \"braceless\" ifs. I.e. don\u0027t omit the { }, even for single-statement bodies.\n\n(The following is totally optional:)\n\nWith the braces, this is a little vertically sparse so I\u0027d consider either:\n\n`return digest_nid !\u003d NID_md4 \u0026\u0026 digest_nid !\u003d NID_md5`\n\nor:\n\n```\nswitch (digest_nid) {\n  case NID_md4:\n  case NID_md5:\n    return 0;\n}\nreturn 1;\n```",
+      "revId": "033872b698d09fce18a34e66a2593227f3b8a240",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37a0cb5d_8ed17079",
+        "filename": "crypto/x509/algorithm.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-03-21T18:50:34Z",
+      "side": 1,
+      "message": "Style-wise: generally don\u0027t mix declaration and initialisation. So this would usually be:\n\n```\nconst int digest_nid \u003d EVP_MD_type(digest);\nint sign_nid;\n```\n\n(Again, we don\u0027t aggressively update the style in crypto/x509, so this file is a poor style example. But new code tries to follow our usual rules unless it\u0027s too abrupt in the context.)",
+      "revId": "033872b698d09fce18a34e66a2593227f3b8a240",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
