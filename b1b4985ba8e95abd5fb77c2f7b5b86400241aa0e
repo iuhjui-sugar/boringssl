@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02ff5410_537202a0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-03-21T15:37:33Z",
+      "side": 1,
+      "message": "This was accidentally done on wrong branch from wrong machine. Superseded by 52026",
+      "revId": "b1b4985ba8e95abd5fb77c2f7b5b86400241aa0e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
