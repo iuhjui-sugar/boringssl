@@ -36,11 +36,24 @@
 // Various pre-computed constants.
 #include "./curve25519_tables.h"
 
+#if defined(OPENSSL_NO_ASM)
+#define FIAT_25519_NO_ASM
+#endif
+
+#if defined(__GNUC__) || defined(__clang__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-function"
+#endif
+
 #if defined(BORINGSSL_CURVE25519_64BIT)
 #include "../../third_party/fiat/curve25519_64.h"
 #else
 #include "../../third_party/fiat/curve25519_32.h"
 #endif  // BORINGSSL_CURVE25519_64BIT
+
+#if defined(__GNUC__) || defined(__clang__)
+#pragma GCC diagnostic pop
+#endif
 
 
 // Low-level intrinsic operations
