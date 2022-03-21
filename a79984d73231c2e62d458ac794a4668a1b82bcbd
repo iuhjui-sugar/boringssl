@@ -16,6 +16,24 @@
       "message": "This does mean the test_fips binary won\u0027t do anything useful. But I don\u0027t think we run it in CI anywhere (should we?), so will defer to you whether this is okay. :-)",
       "revId": "a79984d73231c2e62d458ac794a4668a1b82bcbd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2172811c_40aabdfb",
+        "filename": "util/fipstools/test_fips.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2022-03-21T18:43:27Z",
+      "side": 1,
+      "message": "This is deliberate so that I remember to set a version number for each validation!\n\n(I don\u0027t believe that test_fips is run automatically anywhere. At least, I\u0027m hoping not so that this check works.)",
+      "parentUuid": "5d534488_68369fed",
+      "revId": "a79984d73231c2e62d458ac794a4668a1b82bcbd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
