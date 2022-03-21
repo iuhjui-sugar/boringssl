@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6e6d5c0_858ca721",
+        "filename": "include/openssl/crypto.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-03-21T16:01:24Z",
+      "side": 1,
+      "message": "Well, FIPS mode and not ASan.\n\n(I suppose we could just make it always exist and happen to fail if not applicable. Dunno if that\u0027s worth the fuss.)",
+      "range": {
+        "startLine": 65,
+        "startChar": 46,
+        "endLine": 65,
+        "endChar": 47
+      },
+      "revId": "89c39329e4b1f54e304275e76940a58bf60d86f7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
