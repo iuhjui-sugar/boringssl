@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dbb0499d_d50c843c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-03-21T18:53:53Z",
+      "side": 1,
+      "message": "Thanks for the change! While the case for P-384 is closer, I strongly suspect that P-521 isn\u0027t worth the code size. P-521 mostly exists because 2^521 is a lovely Mersenne prime, rather than that it makes practical sense. Even behind !OPENSSL_SMALL, I suspect this isn\u0027t worth the bytes.",
+      "revId": "4f52e290db3d7c82db7811afc9ff45bb0ebc2b4b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
