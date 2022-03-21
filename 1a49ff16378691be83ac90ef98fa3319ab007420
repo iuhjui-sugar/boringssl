@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "527f7013_f78517db",
+        "filename": "include/openssl/ec_key.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-03-21T16:03:55Z",
+      "side": 1,
+      "message": "Maybe worth adding some comment in the implementation, to make sure we remember that check\u0027s relevant. (Does it matter that EC_KEY_check_key doesn\u0027t support boringssl_fips_break_test?)",
+      "revId": "1a49ff16378691be83ac90ef98fa3319ab007420",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
