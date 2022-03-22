@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "804e3160_771041d4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-03-22T14:36:41Z",
+      "side": 1,
+      "message": "Hold on this for a moment. Going to see if upstream\u0027s fix avoids the unused function woes. If so, let\u0027s wait for them to merge it.\nhttps://github.com/mit-plv/fiat-crypto/pull/1165",
+      "revId": "7bec36e4641fbedfb28281d67bdf9ec4bf966cfe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "5a173fba_b8583e0b",
