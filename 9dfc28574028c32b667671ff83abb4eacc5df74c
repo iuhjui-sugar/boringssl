@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77c73608_2ac88d95",
+        "filename": "crypto/bio/printf.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-03-22T21:31:57Z",
+      "side": 0,
+      "message": "The only reason we even need to worry about vsnprintf and the complexity here is the desire to save a malloc and splatter it into a stack buffer. Should we consider not bothering and just always allocating to simplify this? It\u0027s 2022, malloc isn\u0027t slow unless we really want it to be.",
+      "revId": "9dfc28574028c32b667671ff83abb4eacc5df74c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
