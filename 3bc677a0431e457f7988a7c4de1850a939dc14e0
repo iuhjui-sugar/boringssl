@@ -50,6 +50,24 @@
       "message": "Oh fun. Can we add a comment here, something like:\n\n  // ASan knows to intercept malloc and free, but not sdallocx.\n  \n(Does this also affect MSan, or is it just ASan that cares?)",
       "revId": "3bc677a0431e457f7988a7c4de1850a939dc14e0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59572e56_30a1dfd5",
+        "filename": "crypto/mem.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 14186
+      },
+      "writtenOn": "2022-03-23T04:04:16Z",
+      "side": 1,
+      "message": "david, you could see the issue below:\nhttps://github.com/jemalloc/jemalloc/issues/2194\nASAN is the feature by compiler, it could check memory issue.so it has asan malloc/asan free.\n\nI think MSan just check not initialize memory, don\u0027t achieve it self malloc/free function.\n\nI will change the code by some note.",
+      "parentUuid": "78153b7e_9cac73f6",
+      "revId": "3bc677a0431e457f7988a7c4de1850a939dc14e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
