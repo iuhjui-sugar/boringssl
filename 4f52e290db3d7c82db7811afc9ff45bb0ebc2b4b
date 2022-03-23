@@ -16,6 +16,24 @@
       "message": "Thanks for the change! While the case for P-384 is closer, I strongly suspect that P-521 isn\u0027t worth the code size. P-521 mostly exists because 2^521 is a lovely Mersenne prime, rather than that it makes practical sense. Even behind !OPENSSL_SMALL, I suspect this isn\u0027t worth the bytes.",
       "revId": "4f52e290db3d7c82db7811afc9ff45bb0ebc2b4b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07f2bc06_84e22017",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14146
+      },
+      "writtenOn": "2022-03-23T16:56:54Z",
+      "side": 1,
+      "message": "Hi Adam, thank you for considering our changes! While I agree P-521 is rarely used and doesn\u0027t make much practical sense, AWS-LC has customers that use it and they need it to be as performant as possible. That\u0027s the reason we started working on it in AWS-LC. If your concern is about the precomputed table size (which is ~62KB in this change), we could consider going even lower; for example, ~38KB table would incur around 10% performance penalty which is not too bad. If the code size itself is the problem I\u0027d be glad to explore possible solutions.\n\np.s. is there some limit to the binary size increase we should be aware of for future changes?",
+      "parentUuid": "dbb0499d_d50c843c",
+      "revId": "4f52e290db3d7c82db7811afc9ff45bb0ebc2b4b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
