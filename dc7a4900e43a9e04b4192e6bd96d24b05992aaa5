@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4729449c_a514e13f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-03-23T03:53:03Z",
+      "side": 1,
+      "message": "LGTM to land. A change like this would typically come with a test, i.e. an MD4- and MD5-signed X.509 PEM blob in x509_test.cc and we check that the expected error is returned when trying to verify it. It will take some work to create such certificates however, so I think it\u0027s reasonable to defer to a separate CL.",
+      "revId": "dc7a4900e43a9e04b4192e6bd96d24b05992aaa5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
