@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "97f3fb94_b6ef2a44",
+        "filename": "crypto/bio/printf.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-03-23T19:46:51Z",
+      "side": 0,
+      "message": "We occasionally have folks who seem oddly intent on making malloc slow, but yeah we can assume malloc is fast enough for this function\u0027s purposes. :-)\n\nThough, does libc provide a way to measure the size without just calling vsnprintf? Or were you thinking we vsnprintf(NULL, 0, ...) initially and then just always allocate?",
+      "parentUuid": "77c73608_2ac88d95",
+      "revId": "9dfc28574028c32b667671ff83abb4eacc5df74c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "662fafc7_f6ab81e5",
         "filename": "crypto/bio/printf.c",
         "patchSetId": 2
@@ -31,6 +49,24 @@
       "writtenOn": "2022-03-23T19:32:57Z",
       "side": 0,
       "message": "Do we have a test that hits the truncation case? I.e. if Windows was still broken, would we notice?",
+      "revId": "9dfc28574028c32b667671ff83abb4eacc5df74c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fd2c0d3_3dc75d10",
+        "filename": "crypto/bio/printf.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-03-23T19:46:51Z",
+      "side": 0,
+      "message": "Yup, BIOTest.Printf. (That said, we don\u0027t actually have Windows 7 in CI/CQ, just Windows 10. Chromium hopefully still does?)",
+      "parentUuid": "662fafc7_f6ab81e5",
       "revId": "9dfc28574028c32b667671ff83abb4eacc5df74c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
