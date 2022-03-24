@@ -211,6 +211,11 @@ void CRYPTO_poly1305_update(poly1305_state *statep, const uint8_t *in,
   }
 #endif
 
+  // Work around a C language bug. See https://crbug.com/1019588.
+  if (in_len == 0) {
+    return;
+  }
+
   if (state->buf_used) {
     size_t todo = 16 - state->buf_used;
     if (todo > in_len) {
