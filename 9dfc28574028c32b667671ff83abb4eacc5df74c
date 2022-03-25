@@ -54,6 +54,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e97165f8_583dda0d",
+        "filename": "crypto/bio/printf.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-03-25T16:07:05Z",
+      "side": 0,
+      "message": "Ah I see. I guess that would get rid of the out_malloced bit.\n\n*shrug* Yeah, let\u0027s sort this out separately. I noticed ERR_add_error_dataf also has a fixed buffer. If we added a vasprintf-like function, we could use it there, at which point we may as well use it here too.",
+      "parentUuid": "e903a782_778f4c01",
+      "revId": "9dfc28574028c32b667671ff83abb4eacc5df74c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "662fafc7_f6ab81e5",
@@ -85,6 +103,24 @@
       "side": 0,
       "message": "Yup, BIOTest.Printf. (That said, we don\u0027t actually have Windows 7 in CI/CQ, just Windows 10. Chromium hopefully still does?)",
       "parentUuid": "662fafc7_f6ab81e5",
+      "revId": "9dfc28574028c32b667671ff83abb4eacc5df74c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3395f1b_305e0736",
+        "filename": "crypto/bio/printf.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-03-25T16:07:05Z",
+      "side": 0,
+      "message": "(resolving)",
+      "parentUuid": "5fd2c0d3_3dc75d10",
       "revId": "9dfc28574028c32b667671ff83abb4eacc5df74c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
