@@ -16,6 +16,29 @@
       "message": "Alex: there are unresolved comments here. Were you awaiting David taking another pass?",
       "revId": "dd009a745df71ac54ee074988ff92ff48286cc14",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3fbcf92e_37281ffe",
+        "filename": "include/openssl/pkcs8.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-03-25T17:49:29Z",
+      "side": 1,
+      "message": "Well, we\u0027ve now said it\u0027s an error but we haven\u0027t actually implemented that yet. :-)\n\nTo define an error, just add a new OPENSSL_PUT_ERROR call with PKCS8_R_SOME_THING_HERE and `go run util/make_errors.go pkcs8`.",
+      "range": {
+        "startLine": 226,
+        "startChar": 74,
+        "endLine": 227,
+        "endChar": 11
+      },
+      "revId": "dd009a745df71ac54ee074988ff92ff48286cc14",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
