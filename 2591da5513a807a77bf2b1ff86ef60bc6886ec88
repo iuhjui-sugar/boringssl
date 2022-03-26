@@ -123,6 +123,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d618ae58_cfe3ed8c",
+        "filename": "crypto/pkcs8/pkcs8_x509.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1006,
+      "author": {
+        "id": 5180
+      },
+      "writtenOn": "2022-03-26T02:18:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b8dae1d4_8931def2",
+      "revId": "2591da5513a807a77bf2b1ff86ef60bc6886ec88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c5d619a9_282c752a",
@@ -171,6 +189,24 @@
       "writtenOn": "2022-03-08T19:53:05Z",
       "side": 1,
       "message": "Precedence between the caller-supplied name and the built-in one is... interesting. I need to verify this beyond just code inspection, but it looks like OpenSSL does:\n\n- If name !\u003d NULL \u0026\u0026 alias !\u003d NULL, first add alias, then add name as a duplicate.\n- When parsing a PKCS#12 file, take the first one.\n\nWhich means actually the alias takes precedent! This makes no sense, so I wonder if just returning an error makes sense.",
+      "revId": "2591da5513a807a77bf2b1ff86ef60bc6886ec88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "290b6032_4e4cc63c",
+        "filename": "crypto/pkcs8/pkcs8_x509.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1065,
+      "author": {
+        "id": 5180
+      },
+      "writtenOn": "2022-03-26T02:18:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05fb19ac_a1d039e6",
       "revId": "2591da5513a807a77bf2b1ff86ef60bc6886ec88",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -242,6 +278,24 @@
       "side": 1,
       "message": "Ah sorry, forgot to follow-up here.\n\nSo X509_alias_get0\u0027s bad behavior is now fixed. No harm in initializing it to zero, but also shouldn\u0027t be necessary anymore.\n\nBeyond that, I was thinking we make add_bag_attributes based on name_len !\u003d 0 rather than name !\u003d NULL. That is, it make it morally take a span\u003cconst char\u003e, not an optional\u003cspan\u003cconst char\u003e\u003e because name !\u003d NULL doesn\u0027t really work as the latter anyway. (Empty spans in C are too often {NULL, 0}.)\n\nIt is, admittedly, a little weird that NULL and \"\" will now both omit it, but our old behavior on \"\" was to generate a syntax error anyway. X509_alias_get0 isn\u0027t *really* capable of returning optional\u003cspan\u003cconst char\u003e\u003e for the same reason.\n\nSo I\u0027m thinking just say empty and omitted are the same thing and not think too hard about it. :-)",
       "parentUuid": "8b0235d5_e5877f5a",
+      "revId": "2591da5513a807a77bf2b1ff86ef60bc6886ec88",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab3be478_d772f630",
+        "filename": "crypto/pkcs8/pkcs8_x509.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1066,
+      "author": {
+        "id": 5180
+      },
+      "writtenOn": "2022-03-26T02:18:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96ff4b5b_b52b6e83",
       "revId": "2591da5513a807a77bf2b1ff86ef60bc6886ec88",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
