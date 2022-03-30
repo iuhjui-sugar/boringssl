@@ -50,6 +50,57 @@
       "message": "We need to give this more careful review, but our disposition is that we want to take this change.",
       "revId": "cc4e43d7fd19b112d4d94321da4f5aaea58db5b0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "629d90c0_f18c28d4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2022-03-30T20:24:35Z",
+      "side": 1,
+      "message": "Ready to land modulo license question. (Other question is not blocking.)",
+      "revId": "cc4e43d7fd19b112d4d94321da4f5aaea58db5b0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1fbb0a5_068fc153",
+        "filename": "crypto/fipsmodule/ec/asm/p256-armv8-asm.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 1590,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2022-03-30T20:24:35Z",
+      "side": 1,
+      "message": "We were curious about the motivations for this. Did you find OpenSSL\u0027s version of this function (under the \"gather\" name) to be slower and thus rewrote it?\n\n(Perhaps we have drifted from OpenSSL to the point where the functions are doing something different now?)",
+      "revId": "cc4e43d7fd19b112d4d94321da4f5aaea58db5b0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e86a3f6_afc29807",
+        "filename": "crypto/fipsmodule/ec/asm/p256_beeu-armv8-asm.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2022-03-30T20:24:35Z",
+      "side": 1,
+      "message": "Sorry for not noticing this earlier. We use an ISC license for new things in BoringSSL and, while we\u0027ll probably switch to Apache at some point, this would be the first non-test Apache code. Under the CLA, I think we could just change this to ISC, but I wanted to check with you first.",
+      "revId": "cc4e43d7fd19b112d4d94321da4f5aaea58db5b0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
