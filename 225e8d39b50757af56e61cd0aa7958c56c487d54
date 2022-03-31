@@ -16,6 +16,24 @@
       "message": "Haha, amazing. I guess this means `obase` was always unused. And yet OpenSSL\u0027s docs say:\n\n\u003e X509_NAME_print() prints out I\u003cname\u003e to I\u003cbp\u003e indenting each line by I\u003cobase\u003e characters. Multiple lines are used if the output (including indent) exceeds 80 characters.\n\nBut it\u0027s similarly unused upstream too. Looks like they broke it way back in 2007:\nhttps://github.com/openssl/openssl/commit/92ada7cc529b08a0c8fc1eb7c2b70f2df4580647\n\nOh well. :-)",
       "revId": "225e8d39b50757af56e61cd0aa7958c56c487d54",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db4f2015_8b0d78cc",
+        "filename": "crypto/x509/t_x509.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 14271
+      },
+      "writtenOn": "2022-03-31T18:13:13Z",
+      "side": 0,
+      "message": "In fact going by the commit message that code was *already* unreachable, 15 years ago. Taking a cursory glance over it it seems that\u0027s because `first` is initialized to 1, and the only line that sets it to any other value only runs in a block guarded by the condition `!first`.\n\nQuite possibly that errant(?) \u0027!\u0027 operator is a one-character bug that prevented any of this code from ever having any effect. If true, this bug has been present since *at least 1998*: https://github.com/openssl/openssl/commit/d02b48c63a58ea4367a0e905979f140b7d090f86#diff-d2b66b4a7d48fdec8287a64759bc1c5582a7e737540d1418fa792cf2d6aba368R353",
+      "parentUuid": "69524a70_0d50d6aa",
+      "revId": "225e8d39b50757af56e61cd0aa7958c56c487d54",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
