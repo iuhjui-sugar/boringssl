@@ -34,6 +34,24 @@
       "parentUuid": "69524a70_0d50d6aa",
       "revId": "225e8d39b50757af56e61cd0aa7958c56c487d54",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45a4f5a1_e3498fac",
+        "filename": "crypto/x509/t_x509.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-03-31T18:24:37Z",
+      "side": 0,
+      "message": "Oh wow, you\u0027re right. For more fun, this function seems to be about taking X509_NAME_oneline\u0027s output and using \", \" instead of \"/\". But I suspect it misses a bunch of cases because not every attribute name is 1-2 uppercase letters. And there may be some escaping thing going on?\n\nI suspect this should be replaced with a call to X509_NAME_print_ex with some appropriate flags. But I haven\u0027t had a chance to study what that function is doing and compare it to X509_NAME_oneline. That probably should also be an X509_NAME_print_ex call.\n\nAnyway, I\u0027ve filed https://github.com/openssl/openssl/issues/18004 to at least update OpenSSL\u0027s docs on the wrapping thing.",
+      "parentUuid": "db4f2015_8b0d78cc",
+      "revId": "225e8d39b50757af56e61cd0aa7958c56c487d54",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
