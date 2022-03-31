@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69524a70_0d50d6aa",
+        "filename": "crypto/x509/t_x509.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-03-31T14:26:32Z",
+      "side": 0,
+      "message": "Haha, amazing. I guess this means `obase` was always unused. And yet OpenSSL\u0027s docs say:\n\n\u003e X509_NAME_print() prints out I\u003cname\u003e to I\u003cbp\u003e indenting each line by I\u003cobase\u003e characters. Multiple lines are used if the output (including indent) exceeds 80 characters.\n\nBut it\u0027s similarly unused upstream too. Looks like they broke it way back in 2007:\nhttps://github.com/openssl/openssl/commit/92ada7cc529b08a0c8fc1eb7c2b70f2df4580647\n\nOh well. :-)",
+      "revId": "225e8d39b50757af56e61cd0aa7958c56c487d54",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
