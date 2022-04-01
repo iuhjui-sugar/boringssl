@@ -201,6 +201,32 @@ TEST(HRSS, Random) {
   }
 }
 
+TEST(HRSS, NoWritesToConstData) {
+  uint8_t generate_key_entropy[HRSS_GENERATE_KEY_BYTES];
+  RAND_bytes(generate_key_entropy, sizeof(generate_key_entropy));
+  HRSS_public_key pub_orig;
+  HRSS_private_key priv_orig;
+  OPENSSL_memset(&pub_orig, 0xa3, sizeof(pub_orig));
+  OPENSSL_memset(&priv_orig, 0x3a, sizeof(priv_orig));
+  ASSERT_TRUE(HRSS_generate_key(&pub_orig, &priv_orig, generate_key_entropy));
+
+  uint8_t ciphertext[HRSS_CIPHERTEXT_BYTES];
+  uint8_t shared_key[HRSS_KEY_BYTES];
+  uint8_t encap_entropy[HRSS_ENCAP_BYTES];
+  RAND_bytes(encap_entropy, sizeof(encap_entropy));
+  HRSS_public_key pub;
+  OPENSSL_memcpy(&pub, &pub_orig, sizeof(pub));
+  ASSERT_TRUE(HRSS_encap(ciphertext, shared_key, &pub, encap_entropy));
+
+  ASSERT_EQ(OPENSSL_memcmp(&pub, &pub_orig, sizeof(pub)), 0);
+
+  HRSS_private_key priv;
+  OPENSSL_memcpy(&priv, &priv_orig, sizeof(priv));
+  ASSERT_TRUE(HRSS_decap(shared_key, &priv, ciphertext, sizeof(ciphertext)));
+
+  ASSERT_EQ(OPENSSL_memcmp(&priv, &priv_orig, sizeof(priv)), 0);
+}
+
 TEST(HRSS, Golden) {
   uint8_t generate_key_entropy[HRSS_GENERATE_KEY_BYTES];
   for (unsigned i = 0; i < HRSS_SAMPLE_BYTES; i++) {
