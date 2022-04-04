@@ -16,6 +16,41 @@
       "message": "If we\u0027re adding install targets, could we also set up export and generating BoringSSLConfig.cmake (and BoringSSLTargets.cmake) file? This is standard practice for modern CMake projects.\n\nSee https://cliutils.gitlab.io/modern-cmake/chapters/install/installing.html and https://cliutils.gitlab.io/modern-cmake/chapters/install/exporting.html for examples.",
       "revId": "95355075aba31f534a26bc4313f1abdc19fe8473",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f92d7b8_d8a75450",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14301
+      },
+      "writtenOn": "2022-04-04T23:30:32Z",
+      "side": 1,
+      "message": "Ah, good point; this would provide the OpenSSL targets directly rather than relying on FindOpenSSL to autodetect them correctly.",
+      "parentUuid": "107515c0_3a5d8f25",
+      "revId": "95355075aba31f534a26bc4313f1abdc19fe8473",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c15744a_9f84cd76",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14301
+      },
+      "writtenOn": "2022-04-04T23:30:32Z",
+      "side": 1,
+      "message": "I\u0027ll also need to actually try compiling something against the installed directory; I realized later today that this doesn\u0027t include any of the headers.",
+      "revId": "95355075aba31f534a26bc4313f1abdc19fe8473",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
