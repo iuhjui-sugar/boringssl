@@ -51,6 +51,24 @@
       "message": "I\u0027ll also need to actually try compiling something against the installed directory; I realized later today that this doesn\u0027t include any of the headers.",
       "revId": "95355075aba31f534a26bc4313f1abdc19fe8473",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12210f33_1d9eb320",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7200
+      },
+      "writtenOn": "2022-04-04T23:45:09Z",
+      "side": 1,
+      "message": "I was going to ask about that.\n\nTypically, you\u0027d set those on the target with:\n```\nset_target_properties(${target} PROPERTIES PUBLIC_HEADER ${headers})\n```\n\nIn the `install` rule you would then set:\n```\ninstall(\n  ...\n  PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}\n)\n```",
+      "parentUuid": "5c15744a_9f84cd76",
+      "revId": "95355075aba31f534a26bc4313f1abdc19fe8473",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
