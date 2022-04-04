@@ -435,6 +435,7 @@ add_library(
   ${CRYPTO_ARCH_SOURCES}
   ${CRYPTO_FIPS_OBJECTS}
 )
+install(TARGETS crypto)
 
 if(FIPS_SHARED)
   # Rewrite libcrypto.so to inject the correct module hash value. This assumes
