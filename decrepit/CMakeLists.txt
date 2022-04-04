@@ -21,6 +21,7 @@ add_library(
   x509/x509_decrepit.c
   xts/xts.c
 )
+install(TARGETS decrepit)
 
 add_dependencies(decrepit global_target)
 
