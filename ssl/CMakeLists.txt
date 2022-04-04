@@ -41,6 +41,7 @@ add_library(
   tls13_enc.cc
   tls13_server.cc
 )
+install(TARGETS ssl)
 
 add_dependencies(ssl global_target)
 
