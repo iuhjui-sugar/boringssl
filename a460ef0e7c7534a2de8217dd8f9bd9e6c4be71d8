@@ -16,6 +16,24 @@
       "message": "Haven\u0027t looked at this yet (late in the day), but this seems to be breaking on Arm for some reason (mac_arm64). NEON stuff I\u0027m guessing.",
       "revId": "a460ef0e7c7534a2de8217dd8f9bd9e6c4be71d8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5983ae54_7db5e7b3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-04-05T22:27:16Z",
+      "side": 1,
+      "message": "Actually, I had forgotten that you can\u0027t memcpy an HRSS_public/private_key. Because the pointer is aligned internally, if you memcpy to an area of memory with a different alignment, it can break. So the test should have made the copy but worked with the originals.",
+      "parentUuid": "e74fca8a_01cca37c",
+      "revId": "a460ef0e7c7534a2de8217dd8f9bd9e6c4be71d8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
