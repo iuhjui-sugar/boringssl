@@ -87,6 +87,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "64d5d2d3_851e7e8e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-04-07T16:51:47Z",
+      "side": 1,
+      "message": "There\u0027s an ISC example here: https://boringssl.googlesource.com/boringssl/+/27ffcc6e19bbafddf1b59ec0bc6df2904de7eb2c/LICENSE#143\n\n(Note that we\u0027ll probably relicense under Apache 2.0 at some point to match upstream OpenSSL and I believe the CLA permits us to do that in the future.)",
+      "parentUuid": "79122b3f_2bd92e5a",
+      "revId": "cc4e43d7fd19b112d4d94321da4f5aaea58db5b0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c1fbb0a5_068fc153",
