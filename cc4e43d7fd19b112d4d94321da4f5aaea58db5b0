@@ -69,6 +69,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "79122b3f_2bd92e5a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14081
+      },
+      "writtenOn": "2022-04-07T16:47:20Z",
+      "side": 1,
+      "message": "Thanks, Adam. Sorry for the delay; I\u0027ll upload a patch soon with slightly improved select functions and the license changes. However, I\u0027m not sure about the verbage of ISC, would you please point me to an example?",
+      "parentUuid": "629d90c0_f18c28d4",
+      "revId": "cc4e43d7fd19b112d4d94321da4f5aaea58db5b0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c1fbb0a5_068fc153",
