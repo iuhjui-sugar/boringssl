@@ -16,6 +16,24 @@
       "message": "Optional: Worth adding a TSan regression test? The C++11 threading APIs make this pretty nice. (Grep for tests gated by OPENSSL_THREADS.)\n\nTo run locally, I do:\n-DTSAN\u003d1\n-DCMAKE_TOOLCHAIN_FILE\u003dsome/toolchain/file/for/clang\n-DUSE_CUSTOM_LIBCXX\u003d1\n\nThe last one requires util/bot/libcxx and util/bot/libcxxabi to contain the repos from DEPS. I just have them manually cloned in my checkout because I\u0027ve no idea how to convince gclient to adopt an existing repo.",
       "revId": "732a3ca2ffc023adf0e38c73959b2333357c473a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "681734f7_ad71d0aa",
+        "filename": "crypto/hrss/hrss_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2022-04-08T18:11:08Z",
+      "side": 1,
+      "message": "Seemingly we already have such tests internally, thus this change :) I\u0027m going to wimp out at the amount of setup needed there and rely on the internal test. NIST keep promising to obsolete this code Any Week Now Honest too.",
+      "parentUuid": "50b803db_73a84d9b",
+      "revId": "732a3ca2ffc023adf0e38c73959b2333357c473a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
