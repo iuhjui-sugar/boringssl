@@ -124,6 +124,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0260930d_2241a37b",
+        "filename": "crypto/fipsmodule/ec/asm/p256-armv8-asm.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 1590,
+      "author": {
+        "id": 14081
+      },
+      "writtenOn": "2022-04-08T15:24:57Z",
+      "side": 1,
+      "message": "My understanding is that Shay Gueron and Vlad Krasnov had replaced the gather-scatter techniques with the select functions in x86_64 code. OpenSSL team first accepted them, then found the performance to be worse on non-SIMD processors so they reverted back to gather-scatter techniques and wrote the Arm code to follow. BoringSSL kept them in the x86_64 assembly code.\n\nReference: In my initial investigation of the history of the x86_64 code, this link was alive https://rt.openssl.org/Ticket/Display.html?id\u003d3149\u0026user\u003dguest\u0026pass\u003dguest, which is no longer the case.\nFragments of the conversation, unfortunately without the patches, can be found in:\n- https://groups.google.com/g/mailing.openssl.dev/c/q6qitLHf874\n- https://groups.google.com/g/mailing.openssl.dev/c/TZ0P25zFVoM/m/vyAMqow3E2sJ\n- https://groups.google.com/g/mailing.openssl.dev/c/bRjH9eSBNbM/m/2bG3cVzL5yQJ\n- https://groups.google.com/g/mailing.openssl.dev/c/eygo0LdPbMk/m/fPQgO2OWlRYJ\n(I had saved one of the patches from the original review link).\n\nOn another note, I had first implemented them exactly as in x86_64 up until you asked about them, Adam, which reminded me that I had experimented with another way to write them, using the BIT instruction instead of the AND/OR combination. It is one of the instructions that can be guaranteed to be constant-time by the DIT setting in https://developer.arm.com/documentation/ddi0595/2021-06/AArch64-Registers/DIT--Data-Independent-Timing.\nI updated the commit message with the slightly better performance measurement.",
+      "parentUuid": "c1fbb0a5_068fc153",
+      "revId": "cc4e43d7fd19b112d4d94321da4f5aaea58db5b0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3e86a3f6_afc29807",
         "filename": "crypto/fipsmodule/ec/asm/p256_beeu-armv8-asm.pl",
         "patchSetId": 2
