@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e7ed7527_9bf2a408",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14301
+      },
+      "writtenOn": "2022-04-11T20:51:51Z",
+      "side": 1,
+      "message": "This change sets up the install by scanning properties of the existing CMake targets; as those can build, there shouldn\u0027t be any install-specific maintenance needed to keep the install script working.\n\nFor more confidence, you might try configuring a builder to run an install step after building. It\u0027s unlikely that that would successfully complete, but produce a broken install.\n\nThis whole thing is also kinda just a nice-to-have from our POV; it\u0027s fairly easy to work around breakages in this, but it makes our builders proportionally that more hairy, since we have to play CMake ourselves.",
+      "parentUuid": "3fa56fc3_d4993b9d",
+      "revId": "1479e537ff96324ec05ede64eef25a60de7da5e2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "686c2ef8_cc54d65f",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-04-11T18:39:43Z",
       "side": 1,
       "message": "Could you drop this? `decrepit` really shouldn\u0027t be used outside of very specific contexts.",
+      "revId": "1479e537ff96324ec05ede64eef25a60de7da5e2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "080a46c2_4013c3b7",
+        "filename": "decrepit/CMakeLists.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 14301
+      },
+      "writtenOn": "2022-04-11T20:51:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "686c2ef8_cc54d65f",
       "revId": "1479e537ff96324ec05ede64eef25a60de7da5e2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
