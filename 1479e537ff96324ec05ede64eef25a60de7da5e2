@@ -105,6 +105,24 @@
       "parentUuid": "927c8b3c_ad7290f4",
       "revId": "1479e537ff96324ec05ede64eef25a60de7da5e2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cce2549_0eaf0e33",
+        "filename": "decrepit/CMakeLists.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-04-11T22:16:48Z",
+      "side": 1,
+      "message": "Sorry, brain fart there.",
+      "parentUuid": "071b3733_4825c77b",
+      "revId": "1479e537ff96324ec05ede64eef25a60de7da5e2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
