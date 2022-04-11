@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fa56fc3_d4993b9d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-04-11T18:39:43Z",
+      "side": 1,
+      "message": "(Note: one outstanding comment.)\n\nOne other thought, that need not be blocking: any thing that we should do to test this? I.e. when we change our CMake and break you, how might we discover that faster than you emailing us?",
+      "revId": "1479e537ff96324ec05ede64eef25a60de7da5e2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "686c2ef8_cc54d65f",
+        "filename": "decrepit/CMakeLists.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-04-11T18:39:43Z",
+      "side": 1,
+      "message": "Could you drop this? `decrepit` really shouldn\u0027t be used outside of very specific contexts.",
+      "revId": "1479e537ff96324ec05ede64eef25a60de7da5e2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
