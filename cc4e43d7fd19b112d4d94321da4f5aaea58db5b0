@@ -140,6 +140,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5ad8037_85ce7ef0",
+        "filename": "crypto/fipsmodule/ec/asm/p256-armv8-asm.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 1590,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-04-11T18:43:17Z",
+      "side": 1,
+      "message": "Thanks!",
+      "parentUuid": "0260930d_2241a37b",
+      "revId": "cc4e43d7fd19b112d4d94321da4f5aaea58db5b0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3e86a3f6_afc29807",
@@ -153,6 +171,24 @@
       "writtenOn": "2022-03-30T20:24:35Z",
       "side": 1,
       "message": "Sorry for not noticing this earlier. We use an ISC license for new things in BoringSSL and, while we\u0027ll probably switch to Apache at some point, this would be the first non-test Apache code. Under the CLA, I think we could just change this to ISC, but I wanted to check with you first.",
+      "revId": "cc4e43d7fd19b112d4d94321da4f5aaea58db5b0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fc42363_eb37cf80",
+        "filename": "crypto/fipsmodule/ec/asm/p256_beeu-armv8-asm.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-04-11T18:43:17Z",
+      "side": 1,
+      "message": "(Resolved.)",
+      "parentUuid": "3e86a3f6_afc29807",
       "revId": "cc4e43d7fd19b112d4d94321da4f5aaea58db5b0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
