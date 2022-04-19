@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "67728b6d_25e359d2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-04-19T00:01:56Z",
+      "side": 1,
+      "message": "(Just noting that this is the next change in the queue.)",
+      "revId": "7e107bd52ffd2f880ec86a71e3d8edc36a1763cf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
