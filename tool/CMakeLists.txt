@@ -1,3 +1,5 @@
+include(GNUInstallDirs)
+
 include_directories(../include)
 
 add_executable(
@@ -21,7 +23,7 @@ add_executable(
   tool.cc
   transport_common.cc
 )
-install(TARGETS bssl)
+install(TARGETS bssl DESTINATION ${CMAKE_INSTALL_BINDIR})
 
 add_dependencies(bssl global_target)
 
