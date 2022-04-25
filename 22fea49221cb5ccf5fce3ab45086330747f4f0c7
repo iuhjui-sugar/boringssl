@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae853d13_32293ef2",
+        "filename": "crypto/cipher_extra/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2022-04-25T18:55:25Z",
+      "side": 1,
+      "message": "(Will update these comments in a follow-up CL. We used to be able to patch pending CLs but the tooling gets unhappy about that these days.)",
+      "revId": "22fea49221cb5ccf5fce3ab45086330747f4f0c7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
