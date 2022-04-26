@@ -16,6 +16,24 @@
       "message": "Looks good, thanks! Would you mind expanding a little on what\u0027s going on in the CL description before landing?",
       "revId": "1cffda81b25b8b6b5174ebd1330635eb6fc53c7f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6405deef_a9ab62eb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14301
+      },
+      "writtenOn": "2022-04-26T16:11:26Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "0b99cba4_be366676",
+      "revId": "1cffda81b25b8b6b5174ebd1330635eb6fc53c7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
