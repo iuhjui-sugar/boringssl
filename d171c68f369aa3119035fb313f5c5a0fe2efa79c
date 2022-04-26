@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b0bbfc1_ab3c9da7",
+        "filename": "crypto/curve25519/curve25519.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1885,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-04-26T15:13:10Z",
+      "side": 1,
+      "message": "Strictly speaking this comment is now in the wrong place as this static function is not the one that is documented.",
+      "revId": "d171c68f369aa3119035fb313f5c5a0fe2efa79c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
