@@ -39,6 +39,30 @@
       },
       "revId": "38e77cf3bd08b657a515b6d9cc56460d6482dbb3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4857ab63_c33be190",
+        "filename": "crypto/asn1/a_strex.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-04-27T21:58:29Z",
+      "side": 1,
+      "message": "Oops. Fixed. And it seems we don\u0027t have a test for this case, so fixing that too.\n\nAlthough apparently the test passed either way because ASN1_mbstring_ncopy checks for unrecognized encoding. Also added a missing error code for this case.",
+      "parentUuid": "24556889_40bd478f",
+      "range": {
+        "startLine": 465,
+        "startChar": 0,
+        "endLine": 465,
+        "endChar": 21
+      },
+      "revId": "38e77cf3bd08b657a515b6d9cc56460d6482dbb3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
