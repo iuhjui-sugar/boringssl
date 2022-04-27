@@ -73,7 +73,7 @@ extern "C" {
 
 
 typedef struct ASN1_TEMPLATE_st ASN1_TEMPLATE;
-typedef struct ASN1_TLC_st ASN1_TLC;
+typedef void ASN1_TLC;
 
 /* Macro to obtain ASN1_ADB pointer from a type (only used internally) */
 #define ASN1_ADB_ptr(iptr) ((const ASN1_ADB *)(iptr))
@@ -508,20 +508,6 @@ const char *sname;		/* Structure name */
 #define ASN1_ITYPE_EXTERN		0x4
 
 #define ASN1_ITYPE_MSTRING		0x5
-
-/* Cache for ASN1 tag and length, so we
- * don't keep re-reading it for things
- * like CHOICE
- */
-
-struct ASN1_TLC_st{
-	char valid;	/* Values below are valid */
-	int ret;	/* return value */
-	long plen;	/* length */
-	int ptag;	/* class value */
-	int pclass;	/* class value */
-	int hdrlen;	/* header length */
-};
 
 /* Typedefs for ASN1 function pointers */
 
