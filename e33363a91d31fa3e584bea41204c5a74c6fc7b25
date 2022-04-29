@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cd1007a0_e0940a99",
+        "filename": "crypto/asn1/tasn_dec.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-04-29T16:10:54Z",
+      "side": 1,
+      "message": "We really wanted to do that, the problem is that this ASN1_TLC is part of the OpenSSL 3 API, and documented as being handed to the extern funcs which aren\u0027t strictly guaranteed to be null safe. it is documented as \"you get a pointer to it\". \n\nSo there\u0027s a few options here - pass a pointer to a zeroed static like I\u0027m doing, \nput one on the stack and zero it or mark it invalid. (set ctx-\u003evalid \u003d 0)\n\nOr just call the extern_func with NULL and hope the extern func folks deal with it correctly (because prayer and clean living works well with this API?)\n\nYou got a preference?",
+      "parentUuid": "39a77d08_faf0432b",
+      "revId": "e33363a91d31fa3e584bea41204c5a74c6fc7b25",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cf8e2d3b_46ffd58e",
         "filename": "crypto/asn1/tasn_dec.c",
         "patchSetId": 1
