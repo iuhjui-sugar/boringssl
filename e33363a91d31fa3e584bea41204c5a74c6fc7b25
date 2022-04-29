@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c3112b1b_fcf5bfa9",
+        "filename": "crypto/asn1/tasn_dec.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-04-29T16:30:39Z",
+      "side": 1,
+      "message": "Eh, extern funcs are rare (I count zero in code search), so I\u0027d just go with the NULL and see how it goes.\n\nAlso the only way I can think of for folks to care about NULL ASN1_TLC is if they reach into the struct instead of passing it back to us. But if they reach into the struct, this CL is already potentially breaking because they might expect cached values in the struct.\n\n(To that end, deleting the struct definition and leaving it opaque would make such folks fail to compile and get noticed sooner...)",
+      "parentUuid": "cd1007a0_e0940a99",
+      "revId": "e33363a91d31fa3e584bea41204c5a74c6fc7b25",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cf8e2d3b_46ffd58e",
         "filename": "crypto/asn1/tasn_dec.c",
         "patchSetId": 1
