@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ef67b41_3c924e40",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-04-29T17:39:59Z",
+      "side": 1,
+      "message": "Your patch sets are all identical. :-) Did you remember to `git add` or `git commit -a` when amending your commit?",
+      "revId": "74de084ee4ff4735d2eff5efa3df808f42e6fa91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
