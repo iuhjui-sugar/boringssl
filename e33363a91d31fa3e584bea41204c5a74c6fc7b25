@@ -194,6 +194,30 @@
       },
       "revId": "e33363a91d31fa3e584bea41204c5a74c6fc7b25",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddb0b40b_03a69d52",
+        "filename": "crypto/asn1/tasn_dec.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 686,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-04-29T18:22:25Z",
+      "side": 1,
+      "message": "Yeah makes sense.",
+      "parentUuid": "198142c9_d7a255c4",
+      "range": {
+        "startLine": 686,
+        "startChar": 18,
+        "endLine": 686,
+        "endChar": 20
+      },
+      "revId": "e33363a91d31fa3e584bea41204c5a74c6fc7b25",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
