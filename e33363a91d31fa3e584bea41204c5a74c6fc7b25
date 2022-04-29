@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "542ce694_0c3eee28",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-04-29T15:48:34Z",
+      "side": 1,
+      "message": "So fooling around in the other side in Libre, the Cache here appears to not help performance at all with repeated parsings of certificates. \n\nThis can be followed on with a CBB/CBS conversion of asn1_check_tlen.",
+      "revId": "e33363a91d31fa3e584bea41204c5a74c6fc7b25",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
