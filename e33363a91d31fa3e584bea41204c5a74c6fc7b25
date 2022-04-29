@@ -170,6 +170,30 @@
       },
       "revId": "e33363a91d31fa3e584bea41204c5a74c6fc7b25",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "198142c9_d7a255c4",
+        "filename": "crypto/asn1/tasn_dec.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 686,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-04-29T18:05:43Z",
+      "side": 1,
+      "message": "\u003e Like trying to parse a cert where the outermost SEQUENCE is missing the constructed bit.\n\nAh, sorry, that wasn\u0027t quite right. It\u0027d have to be with d2i_ASN1_TYPE (ANY). This codepath is used when a SEQUENCE is parsed as a \"primitive\". That\u0027s not normally how it works, but ASN1_TYPE works by jamming SEQUENCE and SET into this codepath.",
+      "parentUuid": "9faa6fd0_277b6511",
+      "range": {
+        "startLine": 686,
+        "startChar": 18,
+        "endLine": 686,
+        "endChar": 20
+      },
+      "revId": "e33363a91d31fa3e584bea41204c5a74c6fc7b25",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
