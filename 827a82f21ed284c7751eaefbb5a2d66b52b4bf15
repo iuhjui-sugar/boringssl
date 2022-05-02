@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12a36934_c69db439",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-02T21:59:06Z",
+      "side": 1,
+      "message": "Guess we should run these in CI. :-) Though our runner \"test\" setup might make that a little trickier than it needs to be.",
+      "revId": "827a82f21ed284c7751eaefbb5a2d66b52b4bf15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
