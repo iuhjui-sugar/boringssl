@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3089d10f_7884ede5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-05-05T14:28:08Z",
+      "side": 1,
+      "message": "A glorius all deletions change. Hearty endorsement.",
+      "revId": "ff3795b48c6c5f5f52d3fa1c851f74fa7a253af9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
