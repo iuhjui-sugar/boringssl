@@ -16,6 +16,24 @@
       "message": "This seems a bit awkward - is there a reason for not always making additional_data args 3 and 4 and then making the reseed data 5 and 6 only if we are doing WithReseed?",
       "revId": "ba9e38c18e1702e0aa4ade59e69ec8a14c1bc601",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2606dc6e_9130fb87",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1429,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-05-05T18:07:00Z",
+      "side": 1,
+      "message": "It\u0027s a fair point. The answer is that this reflects the order in the ACVP protocol and I probably didn\u0027t think hard enough originally. But there are other users now and reordering would mess with them. (I\u0027m not totally sure if we need to support the non-reseed mode now. It might be that the server will only ask us to reseed if we support it, but I\u0027m not confident and it\u0027s expensive to find out later.)",
+      "parentUuid": "dc815042_e68e822e",
+      "revId": "ba9e38c18e1702e0aa4ade59e69ec8a14c1bc601",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
