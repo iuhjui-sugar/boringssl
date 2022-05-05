@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc815042_e68e822e",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1429,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-05-05T14:32:20Z",
+      "side": 1,
+      "message": "This seems a bit awkward - is there a reason for not always making additional_data args 3 and 4 and then making the reseed data 5 and 6 only if we are doing WithReseed?",
+      "revId": "ba9e38c18e1702e0aa4ade59e69ec8a14c1bc601",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
