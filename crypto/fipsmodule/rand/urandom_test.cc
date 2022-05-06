@@ -16,6 +16,7 @@
 #include <stdlib.h>
 
 #include <openssl/rand.h>
+#include <openssl/ctrdrbg.h>
 
 #include "internal.h"
 #include "getrandom_fillin.h"
