@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "84a8e080_5018722a",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2285,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-05-09T23:09:38Z",
+      "side": 1,
+      "message": "Mention that this value will be sanity capped, even if the function returns one?",
+      "revId": "aa4624405e61e4fada24df9f7b610b0582bd62f9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69f96622_9c4a7935",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 3454,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-05-09T23:09:38Z",
+      "side": 1,
+      "message": "Could this be a uint8_t or uint16_t and put next to the uint16_ts for packing?",
+      "revId": "aa4624405e61e4fada24df9f7b610b0582bd62f9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
