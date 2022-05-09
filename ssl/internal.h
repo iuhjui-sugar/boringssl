@@ -3448,6 +3448,11 @@ struct ssl_ctx_st {
   // 1.3, in seconds.
   uint32_t session_psk_dhe_timeout = SSL_DEFAULT_SESSION_PSK_DHE_TIMEOUT;
 
+  // num_tickets is the number of tickets to send immediately after the TLS 1.3
+  // handshake. TLS 1.3 recommends single-use tickets so, by default, issue two
+  /// in case the client makes several connections before getting a renewal.
+  size_t num_tickets = 2;
+
   // If this callback is not null, it will be called each time a session id is
   // added to the cache.  If this function returns 1, it means that the
   // callback will do a SSL_SESSION_free() when it has finished using it.

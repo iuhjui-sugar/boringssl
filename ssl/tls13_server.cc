@@ -17,6 +17,7 @@
 #include <assert.h>
 #include <string.h>
 
+#include <algorithm>
 #include <tuple>
 
 #include <openssl/aead.h>
@@ -131,15 +132,16 @@ static bool add_new_session_tickets(SSL_HANDSHAKE *hs, bool *out_sent_tickets) {
     return true;
   }
 
-  // TLS 1.3 recommends single-use tickets, so issue multiple tickets in case
-  // the client makes several connections before getting a renewal.
-  static const int kNumTickets = 2;
+  // Cap the number of tickets arbitrarily to 16. We use a one-byte nonce, and
+  // there is no point in sending so many tickets.
+  constexpr size_t kMaxTickets = 16;
 
   // Rebase the session timestamp so that it is measured from ticket
   // issuance.
   ssl_session_rebase_time(ssl, hs->new_session.get());
 
-  for (int i = 0; i < kNumTickets; i++) {
+  size_t num_tickets = std::min(ssl->session_ctx->num_tickets, kMaxTickets);
+  for (size_t i = 0; i < num_tickets; i++) {
     UniquePtr<SSL_SESSION> session(
         SSL_SESSION_dup(hs->new_session.get(), SSL_SESSION_INCLUDE_NONAUTH));
     if (!session) {
@@ -160,7 +162,8 @@ static bool add_new_session_tickets(SSL_HANDSHAKE *hs, bool *out_sent_tickets) {
           ssl->quic_method != nullptr ? 0xffffffff : kMaxEarlyDataAccepted;
     }
 
-    static_assert(kNumTickets < 256, "Too many tickets");
+    static_assert(kMaxTickets < 256, "Too many tickets");
+    assert(i < 256);
     uint8_t nonce[] = {static_cast<uint8_t>(i)};
 
     ScopedCBB cbb;

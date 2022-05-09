@@ -3025,6 +3025,11 @@ SSL_SESSION *SSL_process_tls13_new_session_ticket(SSL *ssl, const uint8_t *buf,
   return session.release();
 }
 
+int SSL_CTX_set_num_tickets(SSL_CTX *ctx, size_t num_tickets) {
+  ctx->num_tickets = num_tickets;
+  return 1;
+}
+
 int SSL_set_tlsext_status_type(SSL *ssl, int type) {
   if (!ssl->config) {
     return 0;
