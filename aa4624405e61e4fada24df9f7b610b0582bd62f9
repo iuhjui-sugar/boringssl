@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "69f1a3fe_ebba68c4",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 2285,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-10T15:09:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84a8e080_5018722a",
+      "revId": "aa4624405e61e4fada24df9f7b610b0582bd62f9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "69f96622_9c4a7935",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-05-09T23:09:38Z",
       "side": 1,
       "message": "Could this be a uint8_t or uint16_t and put next to the uint16_ts for packing?",
+      "revId": "aa4624405e61e4fada24df9f7b610b0582bd62f9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "694ad0f7_4b7f72b9",
+        "filename": "ssl/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 3454,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-10T15:09:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "69f96622_9c4a7935",
       "revId": "aa4624405e61e4fada24df9f7b610b0582bd62f9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
