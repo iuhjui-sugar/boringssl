@@ -20,6 +20,10 @@
 
 #if defined(BORINGSSL_FIPS)
 #include <unistd.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <sys/un.h>
+#include <errno.h>
 #endif
 
 #include <openssl/chacha.h>
@@ -162,10 +166,62 @@ static int rdrand(uint8_t *buf, size_t len) {
 
 #if defined(BORINGSSL_FIPS)
 
+#if defined(OPENSSL_ANDROID)
+
+static int get_seed_from_daemon(uint8_t *out_entropy, size_t out_entropy_len) {
+  uint8_t buffer[496];
+  if (out_entropy_len > sizeof(buffer)) {
+    return 0;
+  }
+
+  const int sock = socket(AF_UNIX, SOCK_STREAM, 0);
+  if (sock < 0) {
+    return 0;
+  }
+
+  int ret = 0;
+  struct sockaddr_un sun;
+  memset(&sun, 0, sizeof(sun));
+  sun.sun_family = AF_UNIX;
+  static const char kSocketPath[] = "/dev/socket/prng_seeder";
+  OPENSSL_memcpy(sun.sun_path, kSocketPath, sizeof(kSocketPath));
+
+  if (connect(sock, (struct sockaddr *)&sun, sizeof(sun))) {
+    goto out;
+  }
+
+  ssize_t n;
+  do {
+    n = read(sock, buffer, sizeof(buffer));
+  } while (n == -1 && errno == EINTR);
+
+  if (n != sizeof(buffer)) {
+    goto out;
+  }
+
+  assert(out_entropy_len <= sizeof(buffer));
+  OPENSSL_memcpy(out_entropy, buffer, out_entropy_len);
+  ret = 1;
+
+out:
+  close(sock);
+  return ret;
+}
+
+#else
+
+static int get_seed_from_daemon(uint8_t *out_entropy, size_t out_entropy_len) {
+  return 0;
+}
+
+#endif  // OPENSSL_ANDROID
+
 void CRYPTO_get_seed_entropy(uint8_t *out_entropy, size_t out_entropy_len,
                              int *out_need_additional_input) {
   *out_need_additional_input = 0;
-  if (have_rdrand() && rdrand(out_entropy, out_entropy_len)) {
+
+  if (get_seed_from_daemon(out_entropy, out_entropy_len) ||
+      (have_rdrand() && rdrand(out_entropy, out_entropy_len))) {
     *out_need_additional_input = 1;
   } else {
     CRYPTO_sysrand_for_seed(out_entropy, out_entropy_len);
