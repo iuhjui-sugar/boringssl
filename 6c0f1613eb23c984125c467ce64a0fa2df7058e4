@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb2ff4a7_40ece265",
+        "filename": "crypto/fipsmodule/ec/ec.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1198,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-10T14:21:12Z",
+      "side": 1,
+      "message": "Strictly speaking, `bytes` is guaranteed to fit in `EC_MAX_WORDS`, but `order-\u003ewidth + 1` is not. Sizing the output to `order-\u003ewidth + 1` means we don\u0027t need the goofy conditional in determining `carry`.",
+      "revId": "6c0f1613eb23c984125c467ce64a0fa2df7058e4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
