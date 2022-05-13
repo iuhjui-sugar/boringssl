@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c196fb75_6b56ab70",
+        "filename": "include/openssl/aead.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-13T19:29:47Z",
+      "side": 1,
+      "message": "doc.go doesn\u0027t yet understand backticks, only vertical bars.\n\n(Should we write a script to just convert all of those? Backticks seem to have gained favor, and are a bit less visually heavy than bars. A regex would be a little scary, but I can make a comment-aware parser.)",
+      "range": {
+        "startLine": 215,
+        "startChar": 36,
+        "endLine": 215,
+        "endChar": 37
+      },
+      "revId": "19c371020110a53ca1dd83ee12174f3a344a36ce",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
