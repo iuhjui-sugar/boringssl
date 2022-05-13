@@ -67,6 +67,7 @@
 #include <openssl/sha.h>
 
 #include "internal.h"
+#include "../service_indicator/internal.h"
 #include "../../internal.h"
 
 
@@ -146,18 +147,16 @@ int RSA_padding_check_PKCS1_type_1(uint8_t *out, size_t *out_len,
 }
 
 static int rand_nonzero(uint8_t *out, size_t len) {
-  if (!RAND_bytes(out, len)) {
-    return 0;
-  }
+  FIPS_service_indicator_lock_state();
+  RAND_bytes(out, len);
 
   for (size_t i = 0; i < len; i++) {
     while (out[i] == 0) {
-      if (!RAND_bytes(out + i, 1)) {
-        return 0;
-      }
+      RAND_bytes(out + i, 1);
     }
   }
 
+  FIPS_service_indicator_unlock_state();
   return 1;
 }
 
@@ -275,6 +274,7 @@ static int PKCS1_MGF1(uint8_t *out, size_t len, const uint8_t *seed,
   int ret = 0;
   EVP_MD_CTX ctx;
   EVP_MD_CTX_init(&ctx);
+  FIPS_service_indicator_lock_state();
 
   size_t md_len = EVP_MD_size(md);
 
@@ -310,6 +310,7 @@ static int PKCS1_MGF1(uint8_t *out, size_t len, const uint8_t *seed,
 
 err:
   EVP_MD_CTX_cleanup(&ctx);
+  FIPS_service_indicator_unlock_state();
   return ret;
 }
 
@@ -346,23 +347,25 @@ int RSA_padding_add_PKCS1_OAEP_mgf1(uint8_t *to, size_t to_len,
   uint8_t *seed = to + 1;
   uint8_t *db = to + mdlen + 1;
 
+  uint8_t *dbmask = NULL;
+  int ret = 0;
+  FIPS_service_indicator_lock_state();
   if (!EVP_Digest(param, param_len, db, NULL, md, NULL)) {
-    return 0;
+    goto out;
   }
   OPENSSL_memset(db + mdlen, 0, emlen - from_len - 2 * mdlen - 1);
   db[emlen - from_len - mdlen - 1] = 0x01;
   OPENSSL_memcpy(db + emlen - from_len - mdlen, from, from_len);
   if (!RAND_bytes(seed, mdlen)) {
-    return 0;
+    goto out;
   }
 
-  uint8_t *dbmask = OPENSSL_malloc(emlen - mdlen);
+  dbmask = OPENSSL_malloc(emlen - mdlen);
   if (dbmask == NULL) {
     OPENSSL_PUT_ERROR(RSA, ERR_R_MALLOC_FAILURE);
-    return 0;
+    goto out;
   }
 
-  int ret = 0;
   if (!PKCS1_MGF1(dbmask, emlen - mdlen, seed, mdlen, mgf1md)) {
     goto out;
   }
@@ -381,6 +384,7 @@ int RSA_padding_add_PKCS1_OAEP_mgf1(uint8_t *to, size_t to_len,
 
 out:
   OPENSSL_free(dbmask);
+  FIPS_service_indicator_unlock_state();
   return ret;
 }
 
@@ -410,6 +414,7 @@ int RSA_padding_check_PKCS1_OAEP_mgf1(uint8_t *out, size_t *out_len,
   }
 
   size_t dblen = from_len - mdlen - 1;
+  FIPS_service_indicator_lock_state();
   db = OPENSSL_malloc(dblen);
   if (db == NULL) {
     OPENSSL_PUT_ERROR(RSA, ERR_R_MALLOC_FAILURE);
@@ -470,6 +475,7 @@ int RSA_padding_check_PKCS1_OAEP_mgf1(uint8_t *out, size_t *out_len,
   OPENSSL_memcpy(out, db + one_index, mlen);
   *out_len = mlen;
   OPENSSL_free(db);
+  FIPS_service_indicator_unlock_state();
   return 1;
 
 decoding_err:
@@ -478,6 +484,7 @@ decoding_err:
   OPENSSL_PUT_ERROR(RSA, RSA_R_OAEP_DECODING_ERROR);
  err:
   OPENSSL_free(db);
+  FIPS_service_indicator_unlock_state();
   return 0;
 }
 
@@ -501,6 +508,7 @@ int RSA_verify_PKCS1_PSS_mgf1(const RSA *rsa, const uint8_t *mHash,
   }
 
   hLen = EVP_MD_size(Hash);
+  FIPS_service_indicator_lock_state();
 
   // Negative sLen has special meanings:
   //	-1	sLen == hLen
@@ -578,6 +586,7 @@ int RSA_verify_PKCS1_PSS_mgf1(const RSA *rsa, const uint8_t *mHash,
 err:
   OPENSSL_free(DB);
   EVP_MD_CTX_cleanup(&ctx);
+  FIPS_service_indicator_unlock_state();
 
   return ret;
 }
@@ -595,6 +604,7 @@ int RSA_padding_add_PKCS1_PSS_mgf1(const RSA *rsa, unsigned char *EM,
     mgf1Hash = Hash;
   }
 
+  FIPS_service_indicator_lock_state();
   hLen = EVP_MD_size(Hash);
 
   if (BN_is_zero(rsa->n)) {
@@ -690,6 +700,7 @@ int RSA_padding_add_PKCS1_PSS_mgf1(const RSA *rsa, unsigned char *EM,
 
 err:
   OPENSSL_free(salt);
+  FIPS_service_indicator_unlock_state();
 
   return ret;
 }
