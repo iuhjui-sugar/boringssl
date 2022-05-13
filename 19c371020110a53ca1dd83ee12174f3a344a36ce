@@ -22,6 +22,30 @@
       },
       "revId": "19c371020110a53ca1dd83ee12174f3a344a36ce",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "addf0b50_738b7964",
+        "filename": "include/openssl/aead.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-05-13T19:59:50Z",
+      "side": 1,
+      "message": "Backticks out of habit in Chromium. Now that Chromium has gone with backticks, maybe we should align, yea.",
+      "parentUuid": "c196fb75_6b56ab70",
+      "range": {
+        "startLine": 215,
+        "startChar": 36,
+        "endLine": 215,
+        "endChar": 37
+      },
+      "revId": "19c371020110a53ca1dd83ee12174f3a344a36ce",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
