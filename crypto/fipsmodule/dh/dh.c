@@ -64,9 +64,10 @@
 #include <openssl/mem.h>
 #include <openssl/thread.h>
 
-#include "internal.h"
 #include "../../internal.h"
 #include "../bn/internal.h"
+#include "../service_indicator/internal.h"
+#include "internal.h"
 
 
 #define OPENSSL_DH_MAX_MODULUS_BITS 10000
@@ -383,6 +384,8 @@ int DH_compute_key_hashed(DH *dh, uint8_t *out, size_t *out_len,
     return 0;
   }
 
+  FIPS_service_indicator_lock_state();
+
   int ret = 0;
   const size_t dh_len = DH_size(dh);
   uint8_t *shared_bytes = OPENSSL_malloc(dh_len);
@@ -399,6 +402,8 @@ int DH_compute_key_hashed(DH *dh, uint8_t *out, size_t *out_len,
       out_len_unsigned != digest_len) {
     goto err;
   }
+
+  FIPS_service_indicator_unlock_state();
 
   *out_len = digest_len;
   ret = 1;
