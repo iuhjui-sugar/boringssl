@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7067614_a7d86d4f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-13T20:19:01Z",
+      "side": 1,
+      "message": "I\u0027ll ask on the bug to confirm this resolves it for them. And running CQ to make sure it works for the platforms we test on.",
+      "revId": "2cadd76b70ce84e09a28c696d5fa37a86271607c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da566e83_ccc8ce0e",
+        "filename": "crypto/asn1/time_support.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-13T20:19:01Z",
+      "side": 1,
+      "message": "!defined(_POSIX_C_SOURCE)\n\nWe can probably also just merge it into the one above as defined(__linux__) \u0026\u0026 !defined(_POSIX_C_SOURCE)",
+      "revId": "2cadd76b70ce84e09a28c696d5fa37a86271607c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
