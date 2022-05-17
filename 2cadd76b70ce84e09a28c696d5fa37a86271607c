@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "00e6c8c6_028835f5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-17T19:32:42Z",
+      "side": 1,
+      "message": "Haven\u0027t heard back from them, though I guess it is pretty obvious this would fix FreeBSD and we probably don\u0027t need to wait on them?",
+      "parentUuid": "b7067614_a7d86d4f",
+      "revId": "2cadd76b70ce84e09a28c696d5fa37a86271607c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "da566e83_ccc8ce0e",
