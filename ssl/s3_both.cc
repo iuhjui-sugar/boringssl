@@ -692,7 +692,7 @@ class CipherScorer {
 };
 
 const SSL_CIPHER *ssl_choose_tls13_cipher(CBS cipher_suites, uint16_t version,
-                                          uint16_t group_id) {
+                                          uint16_t group_id, bool only_fips) {
   if (CBS_len(&cipher_suites) % 2 != 0) {
     return nullptr;
   }
@@ -712,6 +712,11 @@ const SSL_CIPHER *ssl_choose_tls13_cipher(CBS cipher_suites, uint16_t version,
     if (candidate == nullptr ||
         SSL_CIPHER_get_min_version(candidate) > version ||
         SSL_CIPHER_get_max_version(candidate) < version) {
+      continue;
+    }
+
+    if (only_fips && (candidate->algorithm_enc != SSL_AES128GCM &&
+                      candidate->algorithm_enc != SSL_AES256GCM)) {
       continue;
     }
 

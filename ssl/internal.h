@@ -660,10 +660,10 @@ bool ssl_cipher_requires_server_key_exchange(const SSL_CIPHER *cipher);
 size_t ssl_cipher_get_record_split_len(const SSL_CIPHER *cipher);
 
 // ssl_choose_tls13_cipher returns an |SSL_CIPHER| corresponding with the best
-// available from |cipher_suites| compatible with |version| and |group_id|. It
-// returns NULL if there isn't a compatible cipher.
+// available from |cipher_suites| compatible with |version|, |group_id|, and
+// |only_fips|. It returns NULL if there isn't a compatible cipher.
 const SSL_CIPHER *ssl_choose_tls13_cipher(CBS cipher_suites, uint16_t version,
-                                          uint16_t group_id);
+                                          uint16_t group_id, bool only_fips);
 
 
 // Transcript layer.
@@ -3087,6 +3087,10 @@ struct SSL_CONFIG {
 
   // permute_extensions is whether to permute extensions when sending messages.
   bool permute_extensions : 1;
+
+  // only_fips_cipher_suites_in_tls13 constrains the selection of cipher suites
+  // in TLS 1.3 such that only FIPS approved ones will be selected.
+  bool only_fips_cipher_suites_in_tls13 : 1;
 };
 
 // From RFC 8446, used in determining PSK modes.
@@ -3693,6 +3697,10 @@ struct ssl_ctx_st {
 
   // If enable_early_data is true, early data can be sent and accepted.
   bool enable_early_data : 1;
+
+  // only_fips_cipher_suites_in_tls13 constrains the selection of cipher suites
+  // in TLS 1.3 such that only FIPS approved ones will be selected.
+  bool only_fips_cipher_suites_in_tls13 : 1;
 
  private:
   ~ssl_ctx_st();
