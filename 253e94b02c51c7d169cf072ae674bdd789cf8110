@@ -1,0 +1,260 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bed13321_0ad11dd7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-19T19:04:05Z",
+      "side": 1,
+      "message": "My schedule this week\u0027s been rather a mess, but did an initial pass over the important files. (I haven\u0027t looked at most of the calls peppered into the library yet.)",
+      "revId": "253e94b02c51c7d169cf072ae674bdd789cf8110",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42934496_f5b3c569",
+        "filename": "crypto/fipsmodule/service_indicator/internal.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-19T19:04:05Z",
+      "side": 1,
+      "message": "I\u0027m still confused by this... doesn\u0027t that imply that, rather than locking, we should have separate indicators for each algorithm? (So basically our existing counters.)\n\nOtherwise it seems hard to determine what counts as an \"unapproved primitive\" that would need to lock the state. For instance, Ed25519 is not an approved primitive, or even in the FIPS module, but internally calls SHA-512. Or maybe some random function happens to call SHA-512.",
+      "revId": "253e94b02c51c7d169cf072ae674bdd789cf8110",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd35ac50_bc371d64",
+        "filename": "crypto/fipsmodule/service_indicator/internal.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-19T19:04:05Z",
+      "side": 1,
+      "message": "FIPS_service_indicator_update_state?",
+      "range": {
+        "startLine": 47,
+        "startChar": 37,
+        "endLine": 47,
+        "endChar": 72
+      },
+      "revId": "253e94b02c51c7d169cf072ae674bdd789cf8110",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "986a32bd_fd86d2c6",
+        "filename": "crypto/fipsmodule/service_indicator/service_indicator.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-19T19:04:05Z",
+      "side": 1,
+      "message": "If a tree falls in a forest... :-)",
+      "revId": "253e94b02c51c7d169cf072ae674bdd789cf8110",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5014ba4_e2efbc85",
+        "filename": "crypto/fipsmodule/service_indicator/service_indicator.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-19T19:04:05Z",
+      "side": 1,
+      "message": "Nit: This isn\u0027t a doc comment, just a regular comment, so I think this should also have pipes?",
+      "range": {
+        "startLine": 94,
+        "startChar": 3,
+        "endLine": 94,
+        "endChar": 36
+      },
+      "revId": "253e94b02c51c7d169cf072ae674bdd789cf8110",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "367f3276_a617956f",
+        "filename": "crypto/fipsmodule/service_indicator/service_indicator.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-19T19:04:05Z",
+      "side": 1,
+      "message": "That is all of them, but I suppose explicitly checking is easier. :-P",
+      "revId": "253e94b02c51c7d169cf072ae674bdd789cf8110",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b40fb28_fc08304c",
+        "filename": "crypto/fipsmodule/service_indicator/service_indicator.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-19T19:04:05Z",
+      "side": 1,
+      "message": "We don\u0027t support RSA-PSS SPKIs, so we can drop this one. (They\u0027re the ridiculous ones that describe a complex matcher on the PSS parameters.)",
+      "range": {
+        "startLine": 204,
+        "startChar": 31,
+        "endLine": 204,
+        "endChar": 64
+      },
+      "revId": "253e94b02c51c7d169cf072ae674bdd789cf8110",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cbbeb93_71333932",
+        "filename": "crypto/fipsmodule/service_indicator/service_indicator.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-19T19:04:05Z",
+      "side": 1,
+      "message": "Do we need to check other PSS parameters, or do those not matter here? (The padding will tell you if it\u0027s PSS and then there are getters for PSS params.)",
+      "revId": "253e94b02c51c7d169cf072ae674bdd789cf8110",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e41acb8d_540146dd",
+        "filename": "crypto/fipsmodule/service_indicator/service_indicator.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-19T19:04:05Z",
+      "side": 1,
+      "message": "Seems `break; default: break;` can all be dropped. Ditto below.",
+      "revId": "253e94b02c51c7d169cf072ae674bdd789cf8110",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ae8ddd1_1ad9462e",
+        "filename": "crypto/internal.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-19T19:04:05Z",
+      "side": 1,
+      "message": "This service indicator seems to be doing basically the same thing as the FIPS counters. Can we retire the counters in favor of this thing?",
+      "revId": "253e94b02c51c7d169cf072ae674bdd789cf8110",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94db1314_a499c413",
+        "filename": "include/openssl/service_indicator.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-19T19:04:05Z",
+      "side": 1,
+      "message": "`extern \"C++\" {` because sometimes people wrap our headers in `extern \"C\"` (they really shouldn\u0027t but...)\n\nAlso guard with BORINGSSL_NO_CXX because apparently we have some people who pull in our headers from C++ files, using toolchains that don\u0027t meet our C++ requirements.\n\nAlthough we should probably look over everyone doing this now and see if they actually still need it. I hope toolchains have moved forward by now.",
+      "revId": "253e94b02c51c7d169cf072ae674bdd789cf8110",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bfc6d06_15566217",
+        "filename": "include/openssl/service_indicator.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-19T19:04:05Z",
+      "side": 1,
+      "message": "If this is now C++, should we just use a proper enum?",
+      "revId": "253e94b02c51c7d169cf072ae674bdd789cf8110",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74ad63fa_01f9dabe",
+        "filename": "include/openssl/service_indicator.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-19T19:04:05Z",
+      "side": 1,
+      "message": "To confirm, the aim is to make all this be public API?",
+      "revId": "253e94b02c51c7d169cf072ae674bdd789cf8110",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35db3450_a1e1fd0c",
+        "filename": "include/openssl/service_indicator.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-19T19:04:05Z",
+      "side": 1,
+      "message": "FIPSIndicatorHelper(const FIPSIndicatorHelper\u0026) \u003d delete;\nFIPSIndicatorHelper \u0026operator\u003d(const FIPSIndicatorHelper\u0026) \u003d delete;\n\nto make it non-copyable (and non-moveable).",
+      "revId": "253e94b02c51c7d169cf072ae674bdd789cf8110",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
