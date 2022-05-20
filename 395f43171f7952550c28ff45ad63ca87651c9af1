@@ -1,0 +1,220 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45a81aec_284b2bab",
+        "filename": "crypto/evp/digestsign.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-20T20:04:02Z",
+      "side": 1,
+      "message": "Hrm, that does make the prospect of someday versioning BCM separately much harder. Ah well. We can probably figure something out if that comes up. I\u0027ve got some ideas...\n\nI take it we can\u0027t do this at the level of functions like RSA_sign_pss_mgf1 and RSA_sign? Would we also need to change modulewrapper.cc to call the EVP APIs? Does this also mean EVP_PKEY_sign / EVP_PKEY_verify (sign or verify a pre-hashed digest) don\u0027t count as approved?",
+      "revId": "395f43171f7952550c28ff45ad63ca87651c9af1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3dab0a1_0ba2842b",
+        "filename": "crypto/fipsmodule/cipher/e_aes.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 1124,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-20T20:04:02Z",
+      "side": 1,
+      "message": "We can\u0027t just put this in the core open_gather function? I thought all the weird rules only applied on encryption, where FIPS has opinions on nonce selection. Decryption is exactly the same between the \"TLS\" version and the normal one.",
+      "revId": "395f43171f7952550c28ff45ad63ca87651c9af1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2a1121e_3c06fd86",
+        "filename": "crypto/fipsmodule/cipher/e_aes.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 1353,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-20T20:04:02Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "395f43171f7952550c28ff45ad63ca87651c9af1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de83a7d0_30c15d4c",
+        "filename": "crypto/fipsmodule/cipher/e_aes.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 1464,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-20T20:04:02Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "395f43171f7952550c28ff45ad63ca87651c9af1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb297b39_e48805a0",
+        "filename": "crypto/fipsmodule/rsa/padding.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-20T20:04:02Z",
+      "side": 1,
+      "message": "May as well make this return void if we\u0027re dropping the RAND_bytes check.",
+      "range": {
+        "startLine": 149,
+        "startChar": 7,
+        "endLine": 149,
+        "endChar": 10
+      },
+      "revId": "395f43171f7952550c28ff45ad63ca87651c9af1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ae6046f_25ed6d4c",
+        "filename": "crypto/fipsmodule/rsa/rsa_impl.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-20T20:04:02Z",
+      "side": 1,
+      "message": "Nit: These already got a bit out of order, but mind running clang-format here to re-sort this?",
+      "revId": "395f43171f7952550c28ff45ad63ca87651c9af1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6acddca_414084c3",
+        "filename": "crypto/fipsmodule/service_indicator/service_indicator.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-20T20:04:02Z",
+      "side": 1,
+      "message": "This is a little weird because the function itself doesn\u0027t return an error. So, if we somehow manage to hit this path, we\u0027ll either fail later on and push two errors to the error queue, or we\u0027ll somehow succeed anyway and leave some unconsumed junk in the error queue.\n\n...for that matter, if any of the get functions fail, we\u0027ll also leave stuff in the error queue. Maybe these all need to be `goto err` with an `ERR_clear_error()` call.",
+      "revId": "395f43171f7952550c28ff45ad63ca87651c9af1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "304e2977_ba084b66",
+        "filename": "crypto/fipsmodule/service_indicator/service_indicator.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-20T20:04:02Z",
+      "side": 1,
+      "message": "Also MGF-1 hash \u003d\u003d signing hash (EVP_PKEY_CTX_get_rsa_mgf1_md)\n\nOnce we also add that, I think the chaining may be getting a little hard to read. :-) Perhaps:\n\n```\nint padding;\nif (!EVP_PKEY_CTX_get_rsa_padding(pctx, padding)) {\n  return;\n}\nif (padding \u003d\u003d RSA_PKCS1_PSS_PADDING) {\n  int salt_len;\n  const EVP_MD *mgf1_md;\n  if (!EVP_PKEY_CTX_get_rsa_pss_saltlen(pctx, \u0026salt_len) ||\n      !EVP_PKEY_CTX_get_rsa_mgf1_md(pctx, \u0026mgf1_md) ||\n      (salt_len !\u003d -1 \u0026\u0026 salt_len !\u003d (int)EVP_MD_size(pctx_md)) ||\n      EVP_MD_type(mgf1_md) !\u003d md_type) {\n    return;\n  }\n}\n```",
+      "revId": "395f43171f7952550c28ff45ad63ca87651c9af1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fa24760_cf4d75b7",
+        "filename": "crypto/fipsmodule/service_indicator/service_indicator_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-20T20:04:02Z",
+      "side": 1,
+      "message": "Should we switch these, or does it not matter?",
+      "range": {
+        "startLine": 43,
+        "startChar": 37,
+        "endLine": 43,
+        "endChar": 65
+      },
+      "revId": "395f43171f7952550c28ff45ad63ca87651c9af1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0102d3b_1db3faa9",
+        "filename": "crypto/fipsmodule/sha/sha256.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-20T20:04:02Z",
+      "side": 1,
+      "message": "Hah, good thing we made these functions no longer generated by macros! :-)",
+      "revId": "395f43171f7952550c28ff45ad63ca87651c9af1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3eee322f_0c446d5a",
+        "filename": "crypto/fipsmodule/sha/sha512.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-20T20:04:02Z",
+      "side": 1,
+      "message": "There\u0027s a random call to SHA512 deep in ecdsa.c, as part of generating the nonce. Will that also need a lock, for folks who call ECDSA_sign outside of EVP? Or is that function out of scope for being not a primitive?\n\nFor that matter, the nonce generation has a RAND_bytes call too. As will any blinding we ever add. (If we could have a few separate counters, this would all go away...)",
+      "revId": "395f43171f7952550c28ff45ad63ca87651c9af1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "640b3b5d_f4628a4d",
+        "filename": "include/openssl/service_indicator.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-20T20:04:02Z",
+      "side": 1,
+      "message": "In the bssl namespace and with a type name? (So the wrappers don\u0027t have to use int.)",
+      "revId": "395f43171f7952550c28ff45ad63ca87651c9af1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "53efea21_1b3db299",
+        "filename": "crypto/fipsmodule/service_indicator/internal.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-20T20:04:02Z",
+      "side": 1,
+      "message": "I guess this means we need to be careful about every function inside the module that happens to call into another function that believes it\u0027s approved? I dunno, the requirements are pretty ridiculous, but it\u0027d be nice to have something we can vaguely understand the rules for. :-) (Well, also having a \"lock\" operation means a lot more `goto err` blocks, which is mildly annoying. But if that\u0027s the way to do it, okay.)\n\nHow does this apply to a function like EC_KEY_check_fips? It\u0027s not itself a cryptographic primitive, but it triggers ECDSA signatures under the hood. Or is the rule something like: \"Of the functions in the module that might be a primitive, there must be a way to tell if it was used in an approved manner. If this is not applicable for the function, it can do whatever it likes to the counter because there\u0027s nothing to query.\"",
+      "parentUuid": "07cc7986_00ad7044",
+      "revId": "253e94b02c51c7d169cf072ae674bdd789cf8110",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bd35ac50_bc371d64",
         "filename": "crypto/fipsmodule/service_indicator/internal.h",
         "patchSetId": 9
@@ -405,6 +423,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "eb81c761_0a1691bc",
+        "filename": "include/openssl/service_indicator.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-20T20:04:02Z",
+      "side": 1,
+      "message": "If it depends on C++ anyway, this could also just be a function that takes a lambda. Something like:\n\n```\ntemplate \u003ctypename Func\u003e\nauto CallServiceAndCheckApproved(int *out_approved, const Func \u0026f) {\n  FIPSIndicatorHelper helper(out_approved);\n  return f();\n}\n```",
+      "revId": "253e94b02c51c7d169cf072ae674bdd789cf8110",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "74ad63fa_01f9dabe",
         "filename": "include/openssl/service_indicator.h",
         "patchSetId": 9
@@ -434,6 +469,24 @@
       "side": 1,
       "message": "Nobody (except our tests) should ever call it, but the module has to expose the indicator.",
       "parentUuid": "74ad63fa_01f9dabe",
+      "revId": "253e94b02c51c7d169cf072ae674bdd789cf8110",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cef189a0_bd442dba",
+        "filename": "include/openssl/service_indicator.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-20T20:04:02Z",
+      "side": 1,
+      "message": "Are FIPS_service_indicator_before_call / FIPS_service_indicator_after_call sufficient to expose the indicator, or do we need the C++ wrapper to interpret it?\n\nIf the C++ wrapper isn\u0027t necessary, we could also just stick this into a test support (like a header in crypto/test), or just in the one file that uses it, and avoid making that into public API.",
+      "parentUuid": "b95a3366_0aa51cc9",
       "revId": "253e94b02c51c7d169cf072ae674bdd789cf8110",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
