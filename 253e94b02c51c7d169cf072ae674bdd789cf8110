@@ -35,6 +35,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "07cc7986_00ad7044",
+        "filename": "crypto/fipsmodule/service_indicator/internal.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2022-05-20T00:11:03Z",
+      "side": 1,
+      "message": "\u003e Otherwise it seems hard to determine what counts as an \"unapproved primitive\" that would need to lock the state.\n\nThe intent of the caller is the function that is called across the module boundary. So if the boundary-crossing call was \"SHA512\" then it\u0027s approved. But if it was \"ED25519_sign\" then the fact that SHA-512 was called within it doesn\u0027t count.\n\n(More practically, the point is not to be useful, the point is to meet the requirements. It mightn\u0027t make sense.)",
+      "parentUuid": "42934496_f5b3c569",
+      "revId": "253e94b02c51c7d169cf072ae674bdd789cf8110",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bd35ac50_bc371d64",
@@ -48,6 +66,30 @@
       "writtenOn": "2022-05-19T19:04:05Z",
       "side": 1,
       "message": "FIPS_service_indicator_update_state?",
+      "range": {
+        "startLine": 47,
+        "startChar": 37,
+        "endLine": 47,
+        "endChar": 72
+      },
+      "revId": "253e94b02c51c7d169cf072ae674bdd789cf8110",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10cba18a_78e5b9e6",
+        "filename": "crypto/fipsmodule/service_indicator/internal.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2022-05-20T00:11:03Z",
+      "side": 1,
+      "message": "Done, thanks.",
+      "parentUuid": "bd35ac50_bc371d64",
       "range": {
         "startLine": 47,
         "startChar": 37,
@@ -100,6 +142,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "124b3cf3_699885d0",
+        "filename": "crypto/fipsmodule/service_indicator/service_indicator.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2022-05-20T00:11:03Z",
+      "side": 1,
+      "message": "Done. (And moved into the function so that it\u0027s clearly not a doc comment.)",
+      "parentUuid": "c5014ba4_e2efbc85",
+      "range": {
+        "startLine": 94,
+        "startChar": 3,
+        "endLine": 94,
+        "endChar": 36
+      },
+      "revId": "253e94b02c51c7d169cf072ae674bdd789cf8110",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "367f3276_a617956f",
         "filename": "crypto/fipsmodule/service_indicator/service_indicator.c",
         "patchSetId": 9
@@ -138,6 +204,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f86e40a_6840e71f",
+        "filename": "crypto/fipsmodule/service_indicator/service_indicator.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2022-05-20T00:11:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b40fb28_fc08304c",
+      "range": {
+        "startLine": 204,
+        "startChar": 31,
+        "endLine": 204,
+        "endChar": 64
+      },
+      "revId": "253e94b02c51c7d169cf072ae674bdd789cf8110",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6cbbeb93_71333932",
@@ -151,6 +241,24 @@
       "writtenOn": "2022-05-19T19:04:05Z",
       "side": 1,
       "message": "Do we need to check other PSS parameters, or do those not matter here? (The padding will tell you if it\u0027s PSS and then there are getters for PSS params.)",
+      "revId": "253e94b02c51c7d169cf072ae674bdd789cf8110",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef167275_b89f9632",
+        "filename": "crypto/fipsmodule/service_indicator/service_indicator.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2022-05-20T00:11:03Z",
+      "side": 1,
+      "message": "Hmm, good point. ACVP is only testing saltLen\u003d\u003dhashLen. Have restricted things accordingly.",
+      "parentUuid": "6cbbeb93_71333932",
       "revId": "253e94b02c51c7d169cf072ae674bdd789cf8110",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -172,6 +280,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "51e2a63c_76157cb0",
+        "filename": "crypto/fipsmodule/service_indicator/service_indicator.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2022-05-20T00:11:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e41acb8d_540146dd",
+      "revId": "253e94b02c51c7d169cf072ae674bdd789cf8110",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7ae8ddd1_1ad9462e",
@@ -185,6 +311,24 @@
       "writtenOn": "2022-05-19T19:04:05Z",
       "side": 1,
       "message": "This service indicator seems to be doing basically the same thing as the FIPS counters. Can we retire the counters in favor of this thing?",
+      "revId": "253e94b02c51c7d169cf072ae674bdd789cf8110",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "256c6eb6_1f30b95d",
+        "filename": "crypto/internal.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2022-05-20T00:11:03Z",
+      "side": 1,
+      "message": "The service indicator shouldn\u0027t actually be used. I rather separate the mandatory interface from the interface that we want to support real users with, to be honest. Otherwise yet more needs pile into the service indicator and the Venn diagram gets tighter.",
+      "parentUuid": "7ae8ddd1_1ad9462e",
       "revId": "253e94b02c51c7d169cf072ae674bdd789cf8110",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -206,6 +350,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e5ed834_9d9cc223",
+        "filename": "include/openssl/service_indicator.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2022-05-20T00:11:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94db1314_a499c413",
+      "revId": "253e94b02c51c7d169cf072ae674bdd789cf8110",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8bfc6d06_15566217",
@@ -219,6 +381,24 @@
       "writtenOn": "2022-05-19T19:04:05Z",
       "side": 1,
       "message": "If this is now C++, should we just use a proper enum?",
+      "revId": "253e94b02c51c7d169cf072ae674bdd789cf8110",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a730f471_6eabaf01",
+        "filename": "include/openssl/service_indicator.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2022-05-20T00:11:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8bfc6d06_15566217",
       "revId": "253e94b02c51c7d169cf072ae674bdd789cf8110",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -240,6 +420,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b95a3366_0aa51cc9",
+        "filename": "include/openssl/service_indicator.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2022-05-20T00:11:03Z",
+      "side": 1,
+      "message": "Nobody (except our tests) should ever call it, but the module has to expose the indicator.",
+      "parentUuid": "74ad63fa_01f9dabe",
+      "revId": "253e94b02c51c7d169cf072ae674bdd789cf8110",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "35db3450_a1e1fd0c",
@@ -253,6 +451,24 @@
       "writtenOn": "2022-05-19T19:04:05Z",
       "side": 1,
       "message": "FIPSIndicatorHelper(const FIPSIndicatorHelper\u0026) \u003d delete;\nFIPSIndicatorHelper \u0026operator\u003d(const FIPSIndicatorHelper\u0026) \u003d delete;\n\nto make it non-copyable (and non-moveable).",
+      "revId": "253e94b02c51c7d169cf072ae674bdd789cf8110",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d2d2319_64369403",
+        "filename": "include/openssl/service_indicator.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2022-05-20T00:11:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35db3450_a1e1fd0c",
       "revId": "253e94b02c51c7d169cf072ae674bdd789cf8110",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
