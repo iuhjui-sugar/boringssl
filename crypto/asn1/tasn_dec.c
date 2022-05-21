@@ -62,6 +62,7 @@
 #include <openssl/asn1t.h>
 #include <openssl/err.h>
 #include <openssl/mem.h>
+#include <openssl/bytestring.h>
 
 #include "../internal.h"
 #include "internal.h"
@@ -786,9 +787,9 @@ static int asn1_ex_c2i(ASN1_VALUE **pval, const unsigned char *cont, int len,
     case V_ASN1_PRINTABLESTRING:
     case V_ASN1_T61STRING:
     case V_ASN1_VIDEOTEXSTRING:
-    case V_ASN1_IA5STRING:
     case V_ASN1_UTCTIME:
     case V_ASN1_GENERALIZEDTIME:
+    case V_ASN1_IA5STRING:
     case V_ASN1_GRAPHICSTRING:
     case V_ASN1_VISIBLESTRING:
     case V_ASN1_GENERALSTRING:
@@ -806,6 +807,19 @@ static int asn1_ex_c2i(ASN1_VALUE **pval, const unsigned char *cont, int len,
         if (utype == V_ASN1_UNIVERSALSTRING && (len & 3)) {
             OPENSSL_PUT_ERROR(ASN1, ASN1_R_UNIVERSALSTRING_IS_WRONG_LENGTH);
             goto err;
+        }
+        if ((utype == V_ASN1_UTCTIME) || utype == V_ASN1_GENERALIZEDTIME) {
+	  CBS cbs;
+	  CBS_init(&cbs, cont, (size_t)len);
+	  int is_utctime;
+	  if (!CBS_parse_rfc5280_time(&cbs, &is_utctime, NULL)) {
+	    OPENSSL_PUT_ERROR(ASN1, ASN1_R_INVALID_TIME_FORMAT);
+	    goto err;
+	  }
+	  if (is_utctime && utype != V_ASN1_UTCTIME) {
+	    OPENSSL_PUT_ERROR(ASN1, ASN1_R_INVALID_TIME_FORMAT);
+	    goto err;
+	  }
         }
         /* All based on ASN1_STRING and handled the same */
         if (!*pval) {
