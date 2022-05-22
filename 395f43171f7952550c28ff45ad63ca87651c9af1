@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "07095b43_58eb8d88",
+        "filename": "crypto/evp/digestsign.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2022-05-22T23:07:48Z",
+      "side": 1,
+      "message": "The reason to do it here is because we need to know the hash used in order to decide if something is approved. That\u0027s fine in RSA_sign etc, but it doesn\u0027t work for ECDSA. I think this is the best place where we have that information, but it does mean pull some/all of it into the module after this.\n\n(And EVP_PKEY_sign couldn\u0027t be approved in general because you could use it to do RSA-BLAKE3 or something.)",
+      "parentUuid": "45a81aec_284b2bab",
+      "revId": "395f43171f7952550c28ff45ad63ca87651c9af1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a3dab0a1_0ba2842b",
         "filename": "crypto/fipsmodule/cipher/e_aes.c",
         "patchSetId": 10
@@ -31,6 +49,24 @@
       "writtenOn": "2022-05-20T20:04:02Z",
       "side": 1,
       "message": "We can\u0027t just put this in the core open_gather function? I thought all the weird rules only applied on encryption, where FIPS has opinions on nonce selection. Decryption is exactly the same between the \"TLS\" version and the normal one.",
+      "revId": "395f43171f7952550c28ff45ad63ca87651c9af1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c65ce603_6057155b",
+        "filename": "crypto/fipsmodule/cipher/e_aes.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 1124,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2022-05-22T23:07:48Z",
+      "side": 1,
+      "message": "That\u0027s a good point, thank you.",
+      "parentUuid": "a3dab0a1_0ba2842b",
       "revId": "395f43171f7952550c28ff45ad63ca87651c9af1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -52,6 +88,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "306c2e95_bfa467c2",
+        "filename": "crypto/fipsmodule/cipher/e_aes.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 1353,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2022-05-22T23:07:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2a1121e_3c06fd86",
+      "revId": "395f43171f7952550c28ff45ad63ca87651c9af1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de83a7d0_30c15d4c",
@@ -65,6 +119,24 @@
       "writtenOn": "2022-05-20T20:04:02Z",
       "side": 1,
       "message": "Nit: 80 chars",
+      "revId": "395f43171f7952550c28ff45ad63ca87651c9af1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21073555_769b4014",
+        "filename": "crypto/fipsmodule/cipher/e_aes.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 1464,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2022-05-22T23:07:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de83a7d0_30c15d4c",
       "revId": "395f43171f7952550c28ff45ad63ca87651c9af1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -92,6 +164,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31115b4a_eef5738f",
+        "filename": "crypto/fipsmodule/rsa/padding.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2022-05-22T23:07:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bb297b39_e48805a0",
+      "range": {
+        "startLine": 149,
+        "startChar": 7,
+        "endLine": 149,
+        "endChar": 10
+      },
+      "revId": "395f43171f7952550c28ff45ad63ca87651c9af1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6ae6046f_25ed6d4c",
@@ -105,6 +201,24 @@
       "writtenOn": "2022-05-20T20:04:02Z",
       "side": 1,
       "message": "Nit: These already got a bit out of order, but mind running clang-format here to re-sort this?",
+      "revId": "395f43171f7952550c28ff45ad63ca87651c9af1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6db37c43_4a47d3ec",
+        "filename": "crypto/fipsmodule/rsa/rsa_impl.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2022-05-22T23:07:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ae6046f_25ed6d4c",
       "revId": "395f43171f7952550c28ff45ad63ca87651c9af1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -126,6 +240,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "63838b1b_9162958c",
+        "filename": "crypto/fipsmodule/service_indicator/service_indicator.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2022-05-22T23:07:48Z",
+      "side": 1,
+      "message": "Thanks, that\u0027s a good point. This was from Amazon but I failed to remove it. Have switched to `goto err` with `ERR_clear_error`. (The other *_verify_service_indicator functions are calling sufficiently-infallible functions that I don\u0027t think we need to worry about this for them.)",
+      "parentUuid": "e6acddca_414084c3",
+      "revId": "395f43171f7952550c28ff45ad63ca87651c9af1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "304e2977_ba084b66",
@@ -143,6 +275,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d202a22_a422c25e",
+        "filename": "crypto/fipsmodule/service_indicator/service_indicator.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2022-05-22T23:07:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "304e2977_ba084b66",
+      "revId": "395f43171f7952550c28ff45ad63ca87651c9af1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9fa24760_cf4d75b7",
@@ -156,6 +306,30 @@
       "writtenOn": "2022-05-20T20:04:02Z",
       "side": 1,
       "message": "Should we switch these, or does it not matter?",
+      "range": {
+        "startLine": 43,
+        "startChar": 37,
+        "endLine": 43,
+        "endChar": 65
+      },
+      "revId": "395f43171f7952550c28ff45ad63ca87651c9af1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88356949_eefee9f0",
+        "filename": "crypto/fipsmodule/service_indicator/service_indicator_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2022-05-22T23:07:48Z",
+      "side": 1,
+      "message": "I didn\u0027t see a need to switch. Seemed petty to do so.",
+      "parentUuid": "9fa24760_cf4d75b7",
       "range": {
         "startLine": 43,
         "startChar": 37,
@@ -200,6 +374,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b084eae0_534fb67b",
+        "filename": "crypto/fipsmodule/sha/sha512.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2022-05-22T23:07:48Z",
+      "side": 1,
+      "message": "I think a more sustainable answer is more along the lines of splitting internal and external functions. I.e. DRBG_generate can be an external function that sets the flag but, internally, we should have drbg_generate (or something) that doesn\u0027t. Then rand_bytes can exist that doesn\u0027t set the flag etc and a lot of the locking should disappear.\n\nBut we need to get moving with this 140-3 and digesting Amazon\u0027s changes into this has already taken a bunch of time.\n\nI think for ECDSA_sign you\u0027re correct and that we need to lock around that. I\u0027ve added that for now. Ultimately that\u0027ll hopefully not be needed.\n\nLater: I looked to see why the ECDSA lock/unlock was missed and found that I\u0027d messed up keeping all the changes in AWS-LC straight and had missed a couple of other cases too.",
+      "parentUuid": "3eee322f_0c446d5a",
+      "revId": "395f43171f7952550c28ff45ad63ca87651c9af1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "640b3b5d_f4628a4d",
@@ -213,6 +405,24 @@
       "writtenOn": "2022-05-20T20:04:02Z",
       "side": 1,
       "message": "In the bssl namespace and with a type name? (So the wrappers don\u0027t have to use int.)",
+      "revId": "395f43171f7952550c28ff45ad63ca87651c9af1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9e937e5_002ecf4a",
+        "filename": "include/openssl/service_indicator.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2022-05-22T23:07:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "640b3b5d_f4628a4d",
       "revId": "395f43171f7952550c28ff45ad63ca87651c9af1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
