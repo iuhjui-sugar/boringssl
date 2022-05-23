@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d1ce0059_ed4ce95f",
+        "filename": "crypto/evp/digestsign.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-23T17:01:00Z",
+      "side": 1,
+      "message": "Ack. From chatting offline, ECDSA_sign hash has an unused type parameter which was originally the NID of the digest. Stamping as-is, but I suspect reusing that will be less of a headache than transitively moving EVP into the module.\n\n(We could even check the input length matches the parameter if we want to, but I suspect we need to keep zero working, if unapproved.)",
+      "parentUuid": "07095b43_58eb8d88",
+      "revId": "395f43171f7952550c28ff45ad63ca87651c9af1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a3dab0a1_0ba2842b",
         "filename": "crypto/fipsmodule/cipher/e_aes.c",
         "patchSetId": 10

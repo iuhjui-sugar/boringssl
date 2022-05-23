@@ -1,0 +1,478 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2fbc661_00ffe9a0",
+        "filename": "crypto/fipsmodule/cipher/cipher.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-23T17:01:00Z",
+      "side": 1,
+      "message": "Yeesh. Getting rather tempted to size_t all the internals.",
+      "revId": "104611f92263dc143ad11b15fb3a3fe5a1950bb4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f29748f_56df04b3",
+        "filename": "crypto/fipsmodule/dh/dh.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-23T17:01:00Z",
+      "side": 1,
+      "message": "This needs to be after `err:`, otherwise we leave the indicator locked if any of the above fails.\n\n(The joys of the lock/unlock strategy. :) )",
+      "revId": "104611f92263dc143ad11b15fb3a3fe5a1950bb4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c93a4a53_ce43a81a",
+        "filename": "crypto/fipsmodule/service_indicator/service_indicator_test.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-23T17:01:00Z",
+      "side": 1,
+      "message": "Am assuming this and the derive thing is because we haven\u0027t gotten to that part yet?",
+      "revId": "104611f92263dc143ad11b15fb3a3fe5a1950bb4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0567ee9f_258ee597",
+        "filename": "crypto/fipsmodule/service_indicator/service_indicator_test.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-23T17:01:00Z",
+      "side": 1,
+      "message": "Am assuming we\u0027re intentionally keeping this in here so Amazon only have to patch one line? (The alternative is we patch all those out, and then Amazon just have to maintain patches for the extra entries in the table. I presume this constant is always true for them, so they wouldn\u0027t need to patch in all the GTEST_SKIP() bits.)",
+      "range": {
+        "startLine": 62,
+        "startChar": 18,
+        "endLine": 62,
+        "endChar": 42
+      },
+      "revId": "104611f92263dc143ad11b15fb3a3fe5a1950bb4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01ac10e3_102e886a",
+        "filename": "crypto/fipsmodule/service_indicator/service_indicator_test.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-23T17:01:00Z",
+      "side": 1,
+      "message": "Any reason we\u0027re putting this in namespace bssl but not the subclasses or tests themselves?\n\n(Not sure how much namespaces of tests actually matter. I probably would have not bothered with a namespace because I\u0027m lazy. :-) I think I\u0027ve seen all combinations of no namespace, anonymous namespace, the code\u0027s namespace, and anonymous namespace inside the code\u0027s namespace. Usually wrapping the whole test file.)",
+      "revId": "104611f92263dc143ad11b15fb3a3fe5a1950bb4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b2826fe_be70764a",
+        "filename": "crypto/fipsmodule/service_indicator/service_indicator_test.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-23T17:01:00Z",
+      "side": 1,
+      "message": "bssl::UniquePtr\u003cDH\u003e\n\nAlso all the `goto err` can use `bssl::UniquePtr`.",
+      "range": {
+        "startLine": 95,
+        "startChar": 6,
+        "endLine": 95,
+        "endChar": 11
+      },
+      "revId": "104611f92263dc143ad11b15fb3a3fe5a1950bb4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f1eeb21_56db4566",
+        "filename": "crypto/fipsmodule/service_indicator/service_indicator_test.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-23T17:01:00Z",
+      "side": 1,
+      "message": "There\u0027s a STATIC_BIGNUM macro, but I suppose that\u0027s only compatible with DH_set0_key because BN_free is super magic.\n\nThis does copy the contents, but it\u0027s a bit tidier...\n\n```\nbssl::UniquePtr\u003cDH\u003e GetDH() {\n  // kFFDHE2048PrivateKeyData is a 225-bit value. (225 because that\u0027s the\n  // minimum private key size in\n  // https://tools.ietf.org/html/rfc7919#appendix-A.1.)\n  static const uint8_t kFFDHE2048PrivateKey[] \u003d {\n      0x01, 0x91, 0x17, 0x3f, 0x2a, 0x05, 0x70, 0x18, 0x7e, 0xc4,\n      0x22, 0xee, 0xb7, 0x0a, 0x15, 0x2f, 0x39, 0x64, 0x58, 0xf3,\n      0xb8, 0x18, 0x7b, 0xe3, 0x6b, 0xd3, 0x8a, 0x4f, 0xa1};\n  bssl::UniquePtr\u003cBIGNUM\u003e priv(\n      BN_bin2bn(kFFDHE2048PrivateKey, sizeof(kFFDHE2048PrivateKey), nullptr));\n  if (!priv) {\n    return nullptr;\n  }\n  bssl::UniquePtr\u003cDH\u003e dh(DH_new());\n  if (!dh || !DH_set0_key(dh.get(), nullptr, priv.get())) {\n    return nullptr;\n  }\n  priv.release();  // |DH_set0_key| takes ownership on success.\n  return dh;\n}\n```",
+      "revId": "104611f92263dc143ad11b15fb3a3fe5a1950bb4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f906d50c_10110d36",
+        "filename": "crypto/fipsmodule/service_indicator/service_indicator_test.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 523,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-23T17:01:00Z",
+      "side": 1,
+      "message": "(Probably not worth the trouble to change, but I mostly write these std::vector\u003cuint8_t\u003e these days, so all the constants don\u0027t need to be pulled out.)",
+      "revId": "104611f92263dc143ad11b15fb3a3fe5a1950bb4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "877059b8_7269a5d1",
+        "filename": "crypto/fipsmodule/service_indicator/service_indicator_test.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 632,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-23T17:01:00Z",
+      "side": 1,
+      "message": "Style nit: This is an odd mix of OpenSSL style and C++ style. :-) PErhaps just AEADServiceIndicatorTest? Ditto for the other test fixtures.",
+      "range": {
+        "startLine": 632,
+        "startChar": 6,
+        "endLine": 632,
+        "endChar": 11
+      },
+      "revId": "104611f92263dc143ad11b15fb3a3fe5a1950bb4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5e14674_bede67b8",
+        "filename": "crypto/fipsmodule/service_indicator/service_indicator_test.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 830,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-23T17:01:00Z",
+      "side": 1,
+      "message": "Optional nit: This works just fine, but bssl::Span\u003cconst uint8_t\u003e would the pointers and arrows. (The input parameters may as well also be spans.)",
+      "revId": "104611f92263dc143ad11b15fb3a3fe5a1950bb4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c5df0e9_6bb4ec7c",
+        "filename": "crypto/fipsmodule/service_indicator/service_indicator_test.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 847,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-23T17:01:00Z",
+      "side": 1,
+      "message": "EVP_Cipher is... a little complicated. Actually this might mean we want to change the EVP_Cipher_verify_service_indicator call in EVP_Cipher too? It\u0027s less a one-shot function, and more exposing an implementation detail of CipherUpdate/CipherFinal.\n\nFor CTR, it\u0027s just the same as Update. For CBC, it\u0027s like Update/Final without the padding. But for GCM, it\u0027s exposing the internal calling convention of Update/Final and the GCM implementation. Take a look at how `aes_gcm_cipher` handles `in \u003d\u003d NULL`.\n\nAlthough AES-GCM does not need the buffer up blocks and can perform all the encryption steps in Update, it needs a call to Final to actually compute or check the tag. And then it happens that Final is implemented by calling the internal `cipher` function with NULL input, which `aes_gcm_cipher` uses to drive the tag check or tag computation. (The `EVP_CIPHER` AES-GCM believes in a detached tag, so tag computation on encryption works by stashing it inside the `EVP_CIPHER_CTX` and you have to pull it out with some ctrl call.)\n\nWhich means that if we see `EVP_Cipher` for AES-GCM with a non-NULL `in`, the operation has not actually completed yet. But this is a truly awful API. Perhaps we should just declare `EVP_Cipher` never produces an approved operation and folks should stop calling it? (And maybe the public API should just start failing...) We probably should at least say this for \"custom\" ciphers... it\u0027s well-defined enough for CTR and CBC, I suppose.\n\nCorollary: passing `in \u003d\u003d NULL` into CipherUpdate with AES-GCM is completely broken and will trick it into running CipherFinal.",
+      "revId": "104611f92263dc143ad11b15fb3a3fe5a1950bb4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e37a418_4b00d193",
+        "filename": "crypto/fipsmodule/service_indicator/service_indicator_test.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1406,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-23T17:01:00Z",
+      "side": 1,
+      "message": "(Well, NID_secp256k1 is not actually creatible. :) )",
+      "revId": "104611f92263dc143ad11b15fb3a3fe5a1950bb4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "602cebdc_608605d7",
+        "filename": "crypto/fipsmodule/service_indicator/service_indicator_test.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1489,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-23T17:01:00Z",
+      "side": 1,
+      "message": "Took me a while to parse \"Remove reference to private key in generated key\". Perhaps just \"See if |EC_KEY_check_fips| still returns approval with only the public component.\"",
+      "revId": "104611f92263dc143ad11b15fb3a3fe5a1950bb4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1161770_2d6000bc",
+        "filename": "crypto/fipsmodule/service_indicator/service_indicator_test.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1512,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-23T17:01:00Z",
+      "side": 1,
+      "message": "Much as I like scopers, this can probably just be `EVP_PKEY_free(raw)` (and maybe s/raw/pkey/) as we\u0027re not doing anything with the key anyway. :-)",
+      "range": {
+        "startLine": 1510,
+        "startChar": 0,
+        "endLine": 1512,
+        "endChar": 18
+      },
+      "revId": "104611f92263dc143ad11b15fb3a3fe5a1950bb4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d18facc_fb343fa9",
+        "filename": "crypto/fipsmodule/service_indicator/service_indicator_test.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1533,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-23T17:01:00Z",
+      "side": 1,
+      "message": "ASSERT_TRUE",
+      "range": {
+        "startLine": 1533,
+        "startChar": 2,
+        "endLine": 1533,
+        "endChar": 21
+      },
+      "revId": "104611f92263dc143ad11b15fb3a3fe5a1950bb4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24d79f18_37b3d56a",
+        "filename": "crypto/fipsmodule/service_indicator/service_indicator_test.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1593,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-23T17:01:00Z",
+      "side": 1,
+      "message": "ASSERT_TRUE",
+      "range": {
+        "startLine": 1593,
+        "startChar": 2,
+        "endLine": 1593,
+        "endChar": 21
+      },
+      "revId": "104611f92263dc143ad11b15fb3a3fe5a1950bb4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21f613e7_58faa651",
+        "filename": "crypto/fipsmodule/service_indicator/service_indicator_test.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1638,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-23T17:01:00Z",
+      "side": 1,
+      "message": "Does it make sense for us to carry this, if we\u0027ll never even compile it? (They\u0027d have to send us patches, or maintain a delta, if they ever need to change it.) Might be easiest for AWSLC to just carry this one as a patch.\n\n(Looks like it\u0027s because they support a EVP_MD_CTX_set_pkey_ctx?)",
+      "revId": "104611f92263dc143ad11b15fb3a3fe5a1950bb4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "224966e4_ea390075",
+        "filename": "crypto/fipsmodule/service_indicator/service_indicator_test.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1643,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-23T17:01:00Z",
+      "side": 1,
+      "message": "ecdsa_test_vector",
+      "range": {
+        "startLine": 1643,
+        "startChar": 25,
+        "endLine": 1643,
+        "endChar": 40
+      },
+      "revId": "104611f92263dc143ad11b15fb3a3fe5a1950bb4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b0f9448_40e4d321",
+        "filename": "crypto/fipsmodule/service_indicator/service_indicator_test.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1888,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-23T17:01:00Z",
+      "side": 1,
+      "message": "Nit: Move decls to use.",
+      "revId": "104611f92263dc143ad11b15fb3a3fe5a1950bb4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac51158a_b98c0504",
+        "filename": "crypto/fipsmodule/service_indicator/service_indicator_test.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1896,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-23T17:01:00Z",
+      "side": 1,
+      "message": "Do we actually care that it\u0027s non-zero? I mean, probably it\u0027ll be non-zero from just running all the other tests, but that assumption is flaky.\n\nWe even have lock_state around the slow self-tests. I suppose we don\u0027t lock_state around the fast ones, but presumably it\u0027d be just as valid to treat every self-test as slow (we only don\u0027t because we don\u0027t want pthread_once overhead), in which case the self-test will not guarantee it\u0027s non-zero.\n\n(Not that this actually matters, but it seems we could drop the check and most of the long comment. :-) )",
+      "range": {
+        "startLine": 1895,
+        "startChar": 16,
+        "endLine": 1896,
+        "endChar": 15
+      },
+      "revId": "104611f92263dc143ad11b15fb3a3fe5a1950bb4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3261b80_db17a740",
+        "filename": "crypto/fipsmodule/service_indicator/service_indicator_test.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 1899,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-23T17:01:00Z",
+      "side": 1,
+      "message": ".",
+      "range": {
+        "startLine": 1899,
+        "startChar": 56,
+        "endLine": 1899,
+        "endChar": 57
+      },
+      "revId": "104611f92263dc143ad11b15fb3a3fe5a1950bb4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e0b9eee_0beb5c36",
+        "filename": "crypto/fipsmodule/service_indicator/service_indicator_test.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 2053,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-23T17:01:00Z",
+      "side": 1,
+      "message": "Nit: s/j/i/ across this test? I\u0027m assuming the original code had a loop around this.",
+      "range": {
+        "startLine": 2053,
+        "startChar": 14,
+        "endLine": 2053,
+        "endChar": 15
+      },
+      "revId": "104611f92263dc143ad11b15fb3a3fe5a1950bb4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b85b9a28_c8b90681",
+        "filename": "crypto/fipsmodule/service_indicator/service_indicator_test.cc",
+        "patchSetId": 11
+      },
+      "lineNbr": 2419,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-23T17:01:00Z",
+      "side": 1,
+      "message": "If the tests have a BORINGSSL_FIPS ifdef anyway, and no one\u0027s meant to  use these functions, do we actually need these APIs to report anything in non-FIPS mode?",
+      "revId": "104611f92263dc143ad11b15fb3a3fe5a1950bb4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0c5cf8b_df17d25b",
+        "filename": "include/openssl/service_indicator.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-23T17:01:00Z",
+      "side": 1,
+      "message": "Optional: You can drop the parens here when they\u0027re empty. Option 2 in this link.\nhttps://en.cppreference.com/w/cpp/language/lambda",
+      "range": {
+        "startLine": 54,
+        "startChar": 5,
+        "endLine": 54,
+        "endChar": 7
+      },
+      "revId": "104611f92263dc143ad11b15fb3a3fe5a1950bb4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

@@ -89,6 +89,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7615eec_5ee27483",
+        "filename": "crypto/fipsmodule/service_indicator/internal.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-23T17:01:00Z",
+      "side": 1,
+      "message": "Ack.\n\n\u003e EC_KEY_check_fips I think falls into \"services that use approved (including allowed) security functions or processes in an approved manner\". Also, it\u0027s clearly, by the name, a FIPS-related security function, no?\n\nAh yeah, I guess that one\u0027s straightforward. I could imagine us having some random utility function that does a generally non-approved thing that happens to use do an approved thing as one of the steps. But I can\u0027t think of examples off-hand, so maybe this is contrived.",
+      "parentUuid": "72fbb840_60194597",
+      "revId": "253e94b02c51c7d169cf072ae674bdd789cf8110",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bd35ac50_bc371d64",
@@ -470,6 +488,24 @@
       "side": 1,
       "message": "Yea, but it involves writing a lot of [] all through the tests. I don\u0027t actually want anyone to use this functions so don\u0027t want to skew too far from Amazon\u0027s API just yet.",
       "parentUuid": "eb81c761_0a1691bc",
+      "revId": "253e94b02c51c7d169cf072ae674bdd789cf8110",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12d56fdd_e32f404f",
+        "filename": "include/openssl/service_indicator.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-23T17:01:00Z",
+      "side": 1,
+      "message": "Fair enough. (I usually prefer lambdas over macros when possible. :-) It costs a little bit of line noise, `[\u0026]{ ... }`, but not too much and we gain much better typechecking for it.)",
+      "parentUuid": "86d8de0b_557b88c3",
       "revId": "253e94b02c51c7d169cf072ae674bdd789cf8110",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
