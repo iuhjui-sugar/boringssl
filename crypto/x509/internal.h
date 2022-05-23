@@ -220,7 +220,6 @@ struct X509_crl_st {
   ASN1_INTEGER *crl_number;
   ASN1_INTEGER *base_crl_number;
   unsigned char crl_hash[SHA256_DIGEST_LENGTH];
-  STACK_OF(GENERAL_NAMES) *issuers;
 } /* X509_CRL */;
 
 struct X509_VERIFY_PARAM_st {

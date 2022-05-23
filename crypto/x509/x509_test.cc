@@ -4289,3 +4289,35 @@ TEST(X509Test, NamePrint) {
     EXPECT_EQ(buf, truncated);
   }
 }
+
+// kIndirectCRL is like |kRevokedCRL|, except the issuer doesn't match. Instead,
+// the certificate entry has a certificate issuer extension to specify
+// |kCRLTestLeaf|'s issuer.
+static const char kIndirectCRL[] = R"(
+-----BEGIN X509 CRL-----
+MIIB4zCBzAIBATANBgkqhkiG9w0BAQsFADARMQ8wDQYDVQQKDAZDUkwgQ0EXDTE2
+MDkyNjE1MTI0NFoXDTE2MTAyNjE1MTI0NFowdzB1AgIQABcNMTYwOTI2MTUxMjI2
+WjBgMF4GA1UdHQEB/wRUMFKkUDBOMQswCQYDVQQGEwJVUzETMBEGA1UECAwKQ2Fs
+aWZvcm5pYTEWMBQGA1UEBwwNTW91bnRhaW4gVmlldzESMBAGA1UECgwJQm9yaW5n
+U1NMoA4wDDAKBgNVHRQEAwIBAjANBgkqhkiG9w0BAQsFAAOCAQEAlBmjOA3Fs5UC
+q3GbyPEzHkfAabL0HqOQaCP12btmvIf/z8kcjMGHmjjPt85dHbI4Ak/G9wtRT4E/
+j9i5KML+6yfhRyUTUJKIK/kbqgkj06uuYWuFipURlpDBcm81RzZaMQvmlN5YKfzZ
+V/clLX6mJiXpNQg6zjhj6wBAMI9ZfwVHmCjRqnwVmCULTybvuTmkryGBqREwmSbH
+FFjg5ixG/ztwzON/Ly78aJ8Bql6ktCl9+/gh6VJcoZ0qL8V8aT8+Ghfi+zrXM8S9
+BmLQ9n0fQe0wzKrDZh14EK4sb7zmOzFHSxm3eEXyS98gOd4cjsc3ymNk88S4jpnL
+RtIVxZB+SQ==
+-----END X509 CRL-----
+)";
+
+TEST(X509Test, kIndirectCRL) {
+  bssl::UniquePtr<X509_CRL> crl = CRLFromPEM(kIndirectCRL);
+  ASSERT_TRUE(crl);
+  bssl::UniquePtr<X509> leaf = CertFromPEM(kCRLTestLeaf);
+  ASSERT_TRUE(leaf);
+
+  // TODO(davidben): Integrate this with the other CRL tests, with a valid
+  // signature and whatever is needed to specify an indirect CRL. For now, this
+  // test is primarily to ensure we parse the certificate issuer field
+  // correctly.
+  EXPECT_EQ(1, X509_CRL_get0_by_cert(crl.get(), nullptr, leaf.get()));
+}
