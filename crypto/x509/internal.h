@@ -203,6 +203,8 @@ typedef struct {
 
 DECLARE_ASN1_FUNCTIONS(X509_CRL_INFO)
 
+typedef struct x509_crl_method_st X509_CRL_METHOD;
+
 struct X509_crl_st {
   // actual signature
   X509_CRL_INFO *crl;
@@ -221,8 +223,6 @@ struct X509_crl_st {
   ASN1_INTEGER *base_crl_number;
   unsigned char crl_hash[SHA256_DIGEST_LENGTH];
   STACK_OF(GENERAL_NAMES) *issuers;
-  const X509_CRL_METHOD *meth;
-  void *meth_data;
 } /* X509_CRL */;
 
 struct X509_VERIFY_PARAM_st {
