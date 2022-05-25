@@ -117,8 +117,8 @@ static void pkey_ec_cleanup(EVP_PKEY_CTX *ctx) {
 
 static int pkey_ec_sign(EVP_PKEY_CTX *ctx, uint8_t *sig, size_t *siglen,
                         const uint8_t *tbs, size_t tbslen) {
-  unsigned int sltmp;
   EC_KEY *ec = ctx->pkey->pkey.ec;
+  EC_PKEY_CTX *dctx = ctx->data;
 
   if (!sig) {
     *siglen = ECDSA_size(ec);
@@ -128,7 +128,9 @@ static int pkey_ec_sign(EVP_PKEY_CTX *ctx, uint8_t *sig, size_t *siglen,
     return 0;
   }
 
-  if (!ECDSA_sign(0, tbs, tbslen, sig, &sltmp, ec)) {
+  int md_type = dctx->md != NULL ? EVP_MD_type(dctx->md) : NID_undef;
+  unsigned int sltmp;
+  if (!ECDSA_sign(md_type, tbs, tbslen, sig, &sltmp, ec)) {
     return 0;
   }
   *siglen = (size_t)sltmp;
@@ -137,7 +139,9 @@ static int pkey_ec_sign(EVP_PKEY_CTX *ctx, uint8_t *sig, size_t *siglen,
 
 static int pkey_ec_verify(EVP_PKEY_CTX *ctx, const uint8_t *sig, size_t siglen,
                           const uint8_t *tbs, size_t tbslen) {
-  return ECDSA_verify(0, tbs, tbslen, sig, siglen, ctx->pkey->pkey.ec);
+  EC_PKEY_CTX *dctx = ctx->data;
+  int md_type = dctx->md != NULL ? EVP_MD_type(dctx->md) : NID_undef;
+  return ECDSA_verify(md_type, tbs, tbslen, sig, siglen, ctx->pkey->pkey.ec);
 }
 
 static int pkey_ec_derive(EVP_PKEY_CTX *ctx, uint8_t *key,
