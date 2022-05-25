@@ -71,8 +71,9 @@ extern "C" {
 // ECDSA_sign signs |digest_len| bytes from |digest| with |key| and writes the
 // resulting signature to |sig|, which must have |ECDSA_size(key)| bytes of
 // space. On successful exit, |*sig_len| is set to the actual number of bytes
-// written. The |type| argument should be zero. It returns one on success and
-// zero otherwise.
+// written. The |type| argument should be the |NID_*| constant correspending to
+// the hash function used to compute |digest|, or 0 to leave it unspecified. It
+// returns one on success and zero otherwise.
 //
 // WARNING: |digest| must be the output of some hash function on the data to be
 // signed. Passing unhashed inputs will not result in a secure signature scheme.
@@ -81,9 +82,10 @@ OPENSSL_EXPORT int ECDSA_sign(int type, const uint8_t *digest,
                               unsigned int *sig_len, const EC_KEY *key);
 
 // ECDSA_verify verifies that |sig_len| bytes from |sig| constitute a valid
-// signature by |key| of |digest|. (The |type| argument should be zero.) It
-// returns one on success or zero if the signature is invalid or an error
-// occurred.
+// signature by |key| of |digest|. The |type| argument should be the |NID_*|
+// constant correspending to the hash function used to compute |digest|, or 0 to
+// leave it unspecified. It returns one on success or zero if the signature is
+// invalid or an error occurred.
 //
 // WARNING: |digest| must be the output of some hash function on the data to be
 // verified. Passing unhashed inputs will not result in a secure signature

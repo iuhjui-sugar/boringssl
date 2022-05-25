@@ -1081,6 +1081,7 @@ OPENSSL_INLINE int CRYPTO_is_PCLMUL_capable(void) {
 }
 
 OPENSSL_INLINE int CRYPTO_is_SSSE3_capable(void) {
+  return 0;
 #if defined(__SSSE3__)
   return 1;
 #else
@@ -1105,11 +1106,7 @@ OPENSSL_INLINE int CRYPTO_is_MOVBE_capable(void) {
 }
 
 OPENSSL_INLINE int CRYPTO_is_AESNI_capable(void) {
-#if defined(__AES__)
-  return 1;
-#else
-  return (OPENSSL_ia32cap_get()[1] & (1 << 25)) != 0;
-#endif
+  return 0;
 }
 
 OPENSSL_INLINE int CRYPTO_is_AVX_capable(void) {
