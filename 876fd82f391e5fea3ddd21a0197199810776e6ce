@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e973df69_867658fa",
+        "filename": "crypto/x509v3/v3_bitst.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-05-25T16:33:17Z",
+      "side": 1,
+      "message": "I don\u0027t mind this but I don\u0027t think the macro adds to readability over just repeating the initializer with the correct elements",
+      "revId": "876fd82f391e5fea3ddd21a0197199810776e6ce",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8883612_58686a3f",
+        "filename": "crypto/x509v3/v3_ia5.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-05-25T16:33:17Z",
+      "side": 1,
+      "message": "Hooray for nuking randomly made public API macros ;)",
+      "revId": "876fd82f391e5fea3ddd21a0197199810776e6ce",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
