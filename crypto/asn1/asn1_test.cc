@@ -901,6 +901,43 @@ static std::string ASN1StringToStdString(const ASN1_STRING *str) {
                      ASN1_STRING_get0_data(str) + ASN1_STRING_length(str));
 }
 
+static int asn1_generalizedtime_cmp_time_t(const ASN1_UTCTIME *s, time_t t)
+{
+    struct tm stm, ttm;
+    int day, sec;
+
+    if (!asn1_generalizedtime_to_tm(&stm, s))
+        return -2;
+
+    if (!OPENSSL_gmtime(&t, &ttm))
+        return -2;
+
+    if (!OPENSSL_gmtime_diff(&day, &sec, &ttm, &stm))
+        return -2;
+
+    if (day > 0)
+        return 1;
+    if (day < 0)
+        return -1;
+    if (sec > 0)
+        return 1;
+    if (sec < 0)
+        return -1;
+    return 0;
+}
+
+static bool ASN1Time_check_time_t(const ASN1_TIME *t, time_t time) {
+  switch (ASN1_STRING_type(t)) {
+    case V_ASN1_GENERALIZEDTIME:
+    {
+      return asn1_generalizedtime_cmp_time_t((ASN1_GENERALIZEDTIME *) t, time) == 0;
+    }
+    case V_ASN1_UTCTIME:
+      return ASN1_UTCTIME_cmp_time_t((ASN1_UTCTIME *) t, time) == 0;
+  }
+  return false;
+}
+z
 TEST(ASN1Test, SetTime) {
   static const struct {
     time_t time;
@@ -939,6 +976,7 @@ TEST(ASN1Test, SetTime) {
       ASSERT_TRUE(utc);
       EXPECT_EQ(V_ASN1_UTCTIME, ASN1_STRING_type(utc.get()));
       EXPECT_EQ(t.utc, ASN1StringToStdString(utc.get()));
+      EXPECT_TRUE(ASN1Time_check_time_t(utc.get(), t.time));
     } else {
       EXPECT_FALSE(utc);
     }
@@ -949,6 +987,7 @@ TEST(ASN1Test, SetTime) {
       ASSERT_TRUE(generalized);
       EXPECT_EQ(V_ASN1_GENERALIZEDTIME, ASN1_STRING_type(generalized.get()));
       EXPECT_EQ(t.generalized, ASN1StringToStdString(generalized.get()));
+      EXPECT_TRUE(ASN1Time_check_time_t(generalized.get(), t.time));
     } else {
       EXPECT_FALSE(generalized);
     }
@@ -959,9 +998,11 @@ TEST(ASN1Test, SetTime) {
       if (t.utc) {
         EXPECT_EQ(V_ASN1_UTCTIME, ASN1_STRING_type(choice.get()));
         EXPECT_EQ(t.utc, ASN1StringToStdString(choice.get()));
+	EXPECT_TRUE(ASN1Time_check_time_t(choice.get(), t.time));
       } else {
         EXPECT_EQ(V_ASN1_GENERALIZEDTIME, ASN1_STRING_type(choice.get()));
         EXPECT_EQ(t.generalized, ASN1StringToStdString(choice.get()));
+	EXPECT_TRUE(ASN1Time_check_time_t(choice.get(), t.time));
       }
     } else {
       EXPECT_FALSE(choice);
