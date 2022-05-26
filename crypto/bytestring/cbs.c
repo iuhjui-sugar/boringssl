@@ -1,4 +1,4 @@
-/* Copyright (c) 2014, Google Inc.
+/*A Copyright (c) 2014, Google Inc.
  *
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -18,10 +18,13 @@
 #include <assert.h>
 #include <inttypes.h>
 #include <string.h>
+#include <ctype.h>
 
 #include "internal.h"
 #include "../internal.h"
 
+#define GENTIME_LENGTH 15
+#define UTCTIME_LENGTH 13
 
 void CBS_init(CBS *cbs, const uint8_t *data, size_t len) {
   cbs->data = data;
@@ -722,4 +725,123 @@ char *CBS_asn1_oid_to_text(const CBS *cbs) {
 err:
   CBB_cleanup(&cbb);
   return NULL;
+}
+
+static int cbs_get_two_digits(CBS *cbs, int *out) {
+  unsigned char first_digit, second_digit;
+  if (!CBS_get_u8(cbs, &first_digit)) {
+    return 0;
+  }
+  if (!isdigit(first_digit)) {
+      return 0;
+  }
+  if (!CBS_get_u8(cbs, &second_digit)) {
+    return 0;
+  }
+  if (!isdigit(second_digit)) {
+    return 0;
+  }
+  *out = (first_digit - '0') * 10 + (second_digit - '0');
+  return 1;
+}
+
+int CBS_parse_rfc5280_time(const CBS *cbs, int *is_utctime, struct tm *tm) {
+  int year, month, day, hour, min, sec, i;
+  CBS copy = *cbs;
+  size_t length = CBS_len(&copy);
+  uint8_t z;
+
+  switch (length) {
+  case GENTIME_LENGTH:
+    if (is_utctime != NULL) {
+      *is_utctime = 0;
+    }
+    // Extract the century.
+    if (!cbs_get_two_digits(&copy, &i)) {
+	return 0;
+    }
+    year = i * 100;
+    if (!cbs_get_two_digits(&copy, &i)) {
+	return 0;
+    }
+    year += i;
+    // TODO(bbe) Should we enforce this?
+    // if ((year >= 1950) && (year < 2050)) {
+    // return 0; // A UTCtime should have been used.
+    // }
+    break;
+  case UTCTIME_LENGTH:
+    if (is_utctime != NULL) {
+      *is_utctime = 1;
+    }
+    year = 1900;
+    if (!cbs_get_two_digits(&copy, &i)) {
+	return 0;
+    }
+    year += i;
+    if (year < 1950) {
+      year += 100;
+    }
+    if (year >= 2050) {
+      return 0; // A Generalized time must be used.
+    }
+    break;
+  default:
+    return 0; // Reject invalid lengths.
+  }
+  if (year < 0 | year > 9999) {
+    return 0; // Reject invalid years.
+  }
+  if (!cbs_get_two_digits(&copy, &month)) {
+    return 0;
+  }
+  if (month < 1 || month > 12) {
+    return 0; // Reject invalid months.
+  }
+  if (!cbs_get_two_digits(&copy, &day)) {
+    return 0;
+  }
+  if (day < 1 || day > 31) {
+    return 0; // Reject invalid days.
+  }
+  if (!cbs_get_two_digits(&copy, &hour)) {
+    return 0;
+  }
+  if (hour < 0 || hour > 23) {
+    return 0; // Reject invalid hours.
+  }
+  if (!cbs_get_two_digits(&copy, &min)) {
+    return 0;
+  }
+  if (min < 0 || min > 59) {
+    return 0; // Reject invalid minutes.
+  }
+  if (!cbs_get_two_digits(&copy, &sec)) {
+    return 0;
+  }
+  // We do not accept leap seconds.
+  if (sec < 0 || sec > 59) {
+    return 0; // Reject invalid seconds
+  }
+  if (!CBS_get_u8(&copy, &z)) {
+    return 0;
+  }
+  if (z != 'Z')
+    return 0;  // We must have a time zone of 'Z' on the end.
+
+  assert(CBS_len(&copy) == 0);
+
+  // TODO(bbe) really ASN1_TIME should just keep one of these
+  // instead of being an ASN1_STRING;
+  if (tm != NULL) {
+    // Fill in the tm with what we validated.
+    tm->tm_year = year - 1900;
+    tm->tm_mon = month - 1;
+    tm->tm_mday = day;
+    tm->tm_hour = hour;
+    tm->tm_min = min;
+    tm->tm_sec = sec;
+  }
+
+  return 1;
 }
