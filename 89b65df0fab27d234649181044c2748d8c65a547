@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d7d553a_221e7137",
+        "filename": "include/openssl/cipher.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-26T21:15:17Z",
+      "side": 1,
+      "message": "That it does this is totally absurd (looks like you can\u0027t even set it to NULL), but I guess that\u0027s the behavior. :-/\n\nI\u0027m thinking EVP_EncryptUpdate_ex should just not do this at all and we have a separate EVP_UpdateAAD for this case.",
+      "range": {
+        "startLine": 179,
+        "startChar": 61,
+        "endLine": 180,
+        "endChar": 14
+      },
+      "revId": "89b65df0fab27d234649181044c2748d8c65a547",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
