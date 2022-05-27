@@ -901,6 +901,41 @@ static std::string ASN1StringToStdString(const ASN1_STRING *str) {
                      ASN1_STRING_get0_data(str) + ASN1_STRING_length(str));
 }
 
+static int asn1_generalizedtime_cmp_time_t(const ASN1_UTCTIME *s, time_t t) {
+  struct tm stm, ttm;
+  int day, sec;
+
+  if (!asn1_generalizedtime_to_tm(&stm, s))
+    return -2;
+
+  if (!OPENSSL_gmtime(&t, &ttm))
+    return -2;
+
+  if (!OPENSSL_gmtime_diff(&day, &sec, &ttm, &stm))
+    return -2;
+
+  if (day > 0)
+    return 1;
+  if (day < 0)
+    return -1;
+  if (sec > 0)
+    return 1;
+  if (sec < 0)
+    return -1;
+  return 0;
+}
+
+static bool ASN1Time_check_time_t(const ASN1_TIME *t, time_t time) {
+  switch (ASN1_STRING_type(t)) {
+    case V_ASN1_GENERALIZEDTIME:
+      return asn1_generalizedtime_cmp_time_t((ASN1_GENERALIZEDTIME *)t, time) ==
+             0;
+    case V_ASN1_UTCTIME:
+      return ASN1_UTCTIME_cmp_time_t((ASN1_UTCTIME *)t, time) == 0;
+  }
+  return false;
+}
+
 TEST(ASN1Test, SetTime) {
   static const struct {
     time_t time;
@@ -939,6 +974,7 @@ TEST(ASN1Test, SetTime) {
       ASSERT_TRUE(utc);
       EXPECT_EQ(V_ASN1_UTCTIME, ASN1_STRING_type(utc.get()));
       EXPECT_EQ(t.utc, ASN1StringToStdString(utc.get()));
+      EXPECT_TRUE(ASN1Time_check_time_t(utc.get(), t.time));
     } else {
       EXPECT_FALSE(utc);
     }
@@ -949,6 +985,7 @@ TEST(ASN1Test, SetTime) {
       ASSERT_TRUE(generalized);
       EXPECT_EQ(V_ASN1_GENERALIZEDTIME, ASN1_STRING_type(generalized.get()));
       EXPECT_EQ(t.generalized, ASN1StringToStdString(generalized.get()));
+      EXPECT_TRUE(ASN1Time_check_time_t(generalized.get(), t.time));
     } else {
       EXPECT_FALSE(generalized);
     }
@@ -963,9 +1000,34 @@ TEST(ASN1Test, SetTime) {
         EXPECT_EQ(V_ASN1_GENERALIZEDTIME, ASN1_STRING_type(choice.get()));
         EXPECT_EQ(t.generalized, ASN1StringToStdString(choice.get()));
       }
+      EXPECT_TRUE(ASN1Time_check_time_t(choice.get(), t.time));
     } else {
       EXPECT_FALSE(choice);
     }
+  }
+}
+
+TEST(ASN1Test, BogusTime) {
+  static const struct {
+    const char *timestring;
+  } kBogusTimeTests[] = {
+      {""},
+      {"Z"},
+      {"0000"},
+      {"9999Z"},
+      {"00000000000000000000000000000Z"},
+      {"19491231235959"},
+      {"19500101000000.001Z"},
+      {"500101000000"},
+      {"500101000000.001Z"},
+      {"-1970010100000Z"},
+      {"7a0101000000Z"},
+  };
+  for (const auto &t : kBogusTimeTests) {
+    SCOPED_TRACE(t.timestring);
+    CBS cbs;
+    CBS_init(&cbs, (const uint8_t *)t.timestring, strlen(t.timestring));
+    EXPECT_TRUE(CBS_parse_rfc5280_time(&cbs, NULL, NULL) == 0);
   }
 }
 
