@@ -1,0 +1,477 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cccba392_e998ebfc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-27T18:59:52Z",
+      "side": 1,
+      "message": "You can just write a single line, `Bug: 427, 491`. I actually don\u0027t know the system will parse the two separate lines like that...",
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "623265ef_a5603fd8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-27T18:59:52Z",
+      "side": 1,
+      "message": "Thanks!",
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e72e89b_bc17c8e3",
+        "filename": "crypto/asn1/a_gentm.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-27T18:59:52Z",
+      "side": 1,
+      "message": "Style nit: sort includes",
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0231e0c_14364110",
+        "filename": "crypto/asn1/a_gentm.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-27T18:59:52Z",
+      "side": 1,
+      "message": "Style-wise, this file is a bit of a mess, since it\u0027s still in OpenSSL style with the four-space indents. Probably best to keep that consistent for the time being. Although may as well get the curly braces in now. (Ditto for the other crypto/asn1 changes.)\n\nDo you want me to just upload the clang-format tower now, or would you rather I want until this CL is clear?",
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e321deb9_655f9cd3",
+        "filename": "crypto/asn1/asn1_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 904,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-27T18:59:52Z",
+      "side": 1,
+      "message": "ASN1_GENERALIZEDTIME",
+      "range": {
+        "startLine": 904,
+        "startChar": 49,
+        "endLine": 904,
+        "endChar": 61
+      },
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aaf5407d_66e02394",
+        "filename": "crypto/asn1/asn1_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 908,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-27T18:59:52Z",
+      "side": 1,
+      "message": "This is really gross, but any non-public symbol we reference from tests will need to be tagged OPENSSL_EXPORT in the header (it\u0027s in crypto/asn1/internal.h).\n\n(Gross as it is, we mostly just add the OPENSSL_EXPORTs whenever they come up. We currently just treat public header files are the main visibility ACL, with symbol visibility just being a tidiness thing.)",
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4ff4462_db206ac4",
+        "filename": "crypto/asn1/asn1_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 908,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-27T18:59:52Z",
+      "side": 1,
+      "message": "Style nit: Curly braces. We also like to declare our variables right before they\u0027re used, and to chain related statements together. So something like:\n\n```\n  struct tm stm, ttm;\n  int day, sec;\n  if (!asn1_generalized_time_to_tm(\u0026stm, s) ||\n      !OPENSSL_gmtime(\u0026t, \u0026ttm) ||\n      !OPENSSL_gmtime_diff(\u0026day, \u0026sec, \u0026ttm, \u0026stm)) {\n    return -2;\n  }\n```",
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0947985_8b6efbee",
+        "filename": "crypto/asn1/asn1_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 925,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-27T18:59:52Z",
+      "side": 1,
+      "message": "We\u0027re only using this to check for equality anyway, I guess as part of testing asn1_generalizedtime_to_tm. What if we just made this function something like `bool GeneralizedTimeEqualsTimeT(...)` and then this can just end with `return day \u003d\u003d 0 \u0026\u0026 sec \u003d\u003d 0`, and the `return -2` can just be `return false`.\n\nAlternatively, it seems we only actually use asn1_generalizedtime_to_tm in ASN1_TIME_diff... maybe we should be writing tests for that? That\u0027d avoid the silly OPENSSL_EXPORT thing.\n\nAlternatively alternatively, upstream has ASN1_TIME_cmp_time_t. We could just add that as public API. It\u0027s no more objectionable than the existing UTCTime one and probably someone will eventually try to use it.",
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be3e1bd1_aaca4c82",
+        "filename": "crypto/asn1/asn1_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 931,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-27T18:59:52Z",
+      "side": 1,
+      "message": "No need to cast these. They\u0027re all typedefs for the same type. Ditto for the line below.",
+      "range": {
+        "startLine": 931,
+        "startChar": 45,
+        "endLine": 931,
+        "endChar": 69
+      },
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b93bc738_ac712b72",
+        "filename": "crypto/asn1/asn1_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1024,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-27T18:59:52Z",
+      "side": 1,
+      "message": "Maybe also include a test that we reject other time zone and such.",
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a070a745_6e466305",
+        "filename": "crypto/asn1/tasn_dec.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 819,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-27T18:59:52Z",
+      "side": 1,
+      "message": "If utype \u003d\u003d V_ASN1_GENERALIZEDTIME, we also require !is_utctime, right?\n\nThis makes me think CBS_parse_rfc5280_time might not be the right API... it determines GeneralizedTime vs UTCTime based on content length, but you never actually determine it from that. You actually determine it from the tag. That\u0027s something only the caller of the function knows. Even in this function, when we go to parse a Time CHOICE, that decision is made earlier. (It\u0027s in the MSTRING business.)\n\nPerhaps we should just have separate UTCTime and GeneralizedTime functions, with the GeneralizedTime one noting that it enforces the additional RFC 5280 restriction. (I think UTCTime\u0027s DER restrictions and RFC 5280 restrictions are the same?)\n\n(I think a function like CBS_parse_rfc5280_time would probably want to parse the tag too. But since tasn_dec.c believes it\u0027s responsible for parsing that, we need the content version.)",
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "adfc744a_3a195133",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-27T18:59:52Z",
+      "side": 1,
+      "message": "Nit: We usually write uint8_t instead of unsigned char. It\u0027s shorter.\n\n(Yes, yes, they\u0027re not guaranteed to be the same type, but they\u0027re the same on every platform we build on. :-) C has such a messy relationship with bytes...)",
+      "range": {
+        "startLine": 731,
+        "startChar": 2,
+        "endLine": 731,
+        "endChar": 15
+      },
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62874c2d_61cb5764",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-27T18:59:52Z",
+      "side": 1,
+      "message": "Style nit: two-space indents, no tabs. (clang-format should do the trick.)\n\nAlso, we usually just chain all these together with ||s:\n\n```\n  if (!CBS_get_u8(cbs, \u0026first_digit) ||\n      !isdigit(first_digit) ||\n      !CBS_get_u8(cbs, \u0026second_digit) ||\n      !isdigit(second_digit)) {\n    return 0;\n  }\n```",
+      "range": {
+        "startLine": 736,
+        "startChar": 0,
+        "endLine": 736,
+        "endChar": 5
+      },
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1050d982_d6d87419",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 749,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-27T18:59:52Z",
+      "side": 1,
+      "message": "Nit: `i` makes me think of an index variable... maybe `tmp`?",
+      "range": {
+        "startLine": 749,
+        "startChar": 40,
+        "endLine": 749,
+        "endChar": 42
+      },
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "492de2d5_baf161bf",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 751,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-27T18:59:52Z",
+      "side": 1,
+      "message": "Nit: This is only used once, so may as well inline it into `switch (CBS_len(\u0026copy))`",
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b58e3c5e_80e0bfae",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-27T18:59:52Z",
+      "side": 1,
+      "message": "Style nit: We like to indent the case statements by two.\nhttps://google.github.io/styleguide/cppguide.html#Loops_and_Switch_Statements\n\n(Or just run clang-format. :-))",
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67bd29fb_c2ff4df7",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 768,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-27T18:59:52Z",
+      "side": 1,
+      "message": "I don\u0027t think we can in this function because it\u0027s also used to parse plain GeneralizedTime, not just the Time CHOICE. (CCV also doesn\u0027t enforce it for the Time CHOICE, but I dunno if we have any data on whether we can.)",
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c402b0f0_a8cb6e47",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 792,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-27T18:59:52Z",
+      "side": 1,
+      "message": "||\n\nAlthough, I think this is actually impossible. The year parsers above aren\u0027t capable of producing negative numbers or values greater than 9999.",
+      "range": {
+        "startLine": 792,
+        "startChar": 15,
+        "endLine": 792,
+        "endChar": 16
+      },
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ebe8825_a025a1c9",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 796,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-27T18:59:52Z",
+      "side": 1,
+      "message": "Style nit: I think we can just chain all these together with ||\n\n```\nif (!cbs_get_two_digits(\u0026copy, \u0026month) ||\n    month \u003c 1 || mount \u003e 12 ||\n    !cbs_get_two_digits(\u0026copy, \u0026hour) ||\n    ...\n```",
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "221f13de_458f6bb1",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 805,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-27T18:59:52Z",
+      "side": 1,
+      "message": "Think it\u0027s worth checking the day against the month? (Looks like CCV does that, including checking if it\u0027s a leap year.)",
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "978d400e_25f1dd41",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 822,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-27T18:59:52Z",
+      "side": 1,
+      "message": "(Are leap seconds actually forbidden? I guess the old code wouldn\u0027t accept them, so may as well continue with that.)",
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6683447e_4c2611f2",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 835,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-27T18:59:52Z",
+      "side": 1,
+      "message": "I think we\u0027re probably stuck with this one. ASN1_TIME being the same type as ASN1_STRING, and the internal ASN1_STRING representation are *extremely* exposed in the public API. :-(",
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "080fb1c8_45ac6b0c",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-27T18:59:52Z",
+      "side": 1,
+      "message": "CBS_parse_rfc5280_time",
+      "range": {
+        "startLine": 356,
+        "startChar": 3,
+        "endLine": 356,
+        "endChar": 28
+      },
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fd224ca_21407983",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-27T18:59:52Z",
+      "side": 1,
+      "message": "Nit: Time, UTCTime, and GeneralizedTime to match the styling used in the ASN.1 spec.",
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3821124f_cd736a6c",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-27T18:59:52Z",
+      "side": 1,
+      "message": "is_utctime :-)\n\nStyle nit: We usually write out params like `out_is_utctime` and `out_tm`. It helps document that they\u0027re output parameters, and also means that, inside the function, you can freely maintain an `int is_utctime` without clashing with the `int *out_is_utctime`.",
+      "range": {
+        "startLine": 364,
+        "startChar": 63,
+        "endLine": 364,
+        "endChar": 73
+      },
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
