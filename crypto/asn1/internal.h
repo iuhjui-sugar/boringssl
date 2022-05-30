@@ -216,6 +216,9 @@ typedef struct {
 OPENSSL_EXPORT void asn1_get_string_table_for_testing(
     const ASN1_STRING_TABLE **out_ptr, size_t *out_len);
 
+OPENSSL_EXPORT int asn1_generalizedtime_to_tm(struct tm *tm,
+                                              const ASN1_GENERALIZEDTIME *d);
+OPENSSL_EXPORT int asn1_utctime_to_tm(struct tm *tm, const ASN1_UTCTIME *d);
 
 #if defined(__cplusplus)
 }  /* extern C */
