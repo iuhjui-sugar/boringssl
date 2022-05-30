@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "eec8d5ad_f57513ee",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-05-30T17:24:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cccba392_e998ebfc",
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "623265ef_a5603fd8",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 7
@@ -52,6 +70,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3969cfbf_f43444df",
+        "filename": "crypto/asn1/a_gentm.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-05-30T17:24:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3e72e89b_bc17c8e3",
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a0231e0c_14364110",
@@ -69,6 +105,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6b1e2b5_297e5385",
+        "filename": "crypto/asn1/a_gentm.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-05-30T17:24:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0231e0c_14364110",
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e321deb9_655f9cd3",
@@ -82,6 +136,30 @@
       "writtenOn": "2022-05-27T18:59:52Z",
       "side": 1,
       "message": "ASN1_GENERALIZEDTIME",
+      "range": {
+        "startLine": 904,
+        "startChar": 49,
+        "endLine": 904,
+        "endChar": 61
+      },
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b55c2303_d81dc51f",
+        "filename": "crypto/asn1/asn1_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 904,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-05-30T17:24:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e321deb9_655f9cd3",
       "range": {
         "startLine": 904,
         "startChar": 49,
@@ -126,6 +204,42 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc376896_cac40e8a",
+        "filename": "crypto/asn1/asn1_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 908,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-05-30T17:24:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4ff4462_db206ac4",
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3bf7da2c_d716412e",
+        "filename": "crypto/asn1/asn1_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 908,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-05-30T17:24:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aaf5407d_66e02394",
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b0947985_8b6efbee",
@@ -139,6 +253,24 @@
       "writtenOn": "2022-05-27T18:59:52Z",
       "side": 1,
       "message": "We\u0027re only using this to check for equality anyway, I guess as part of testing asn1_generalizedtime_to_tm. What if we just made this function something like `bool GeneralizedTimeEqualsTimeT(...)` and then this can just end with `return day \u003d\u003d 0 \u0026\u0026 sec \u003d\u003d 0`, and the `return -2` can just be `return false`.\n\nAlternatively, it seems we only actually use asn1_generalizedtime_to_tm in ASN1_TIME_diff... maybe we should be writing tests for that? That\u0027d avoid the silly OPENSSL_EXPORT thing.\n\nAlternatively alternatively, upstream has ASN1_TIME_cmp_time_t. We could just add that as public API. It\u0027s no more objectionable than the existing UTCTime one and probably someone will eventually try to use it.",
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fb5f63d_99b537f9",
+        "filename": "crypto/asn1/asn1_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 925,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-05-30T17:24:38Z",
+      "side": 1,
+      "message": "I just gave up and collapsed it down.",
+      "parentUuid": "b0947985_8b6efbee",
       "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -166,6 +298,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b39bf593_bec7c680",
+        "filename": "crypto/asn1/asn1_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 931,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-05-30T17:24:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be3e1bd1_aaca4c82",
+      "range": {
+        "startLine": 931,
+        "startChar": 45,
+        "endLine": 931,
+        "endChar": 69
+      },
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b93bc738_ac712b72",
@@ -179,6 +335,24 @@
       "writtenOn": "2022-05-27T18:59:52Z",
       "side": 1,
       "message": "Maybe also include a test that we reject other time zone and such.",
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f44e734b_00bda833",
+        "filename": "crypto/asn1/asn1_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 1024,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-05-30T17:24:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b93bc738_ac712b72",
       "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -200,6 +374,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "91325b91_59ec3d33",
+        "filename": "crypto/asn1/tasn_dec.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 819,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-05-30T17:24:38Z",
+      "side": 1,
+      "message": "Actually it makes more sense here to just specify the type. Anywhere we call it\nwe should know what we want.",
+      "parentUuid": "a070a745_6e466305",
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "adfc744a_3a195133",
@@ -213,6 +405,30 @@
       "writtenOn": "2022-05-27T18:59:52Z",
       "side": 1,
       "message": "Nit: We usually write uint8_t instead of unsigned char. It\u0027s shorter.\n\n(Yes, yes, they\u0027re not guaranteed to be the same type, but they\u0027re the same on every platform we build on. :-) C has such a messy relationship with bytes...)",
+      "range": {
+        "startLine": 731,
+        "startChar": 2,
+        "endLine": 731,
+        "endChar": 15
+      },
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "339212e3_32d28768",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-05-30T17:24:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "adfc744a_3a195133",
       "range": {
         "startLine": 731,
         "startChar": 2,
@@ -246,6 +462,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9752d3b_6e5e9634",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-05-30T17:24:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62874c2d_61cb5764",
+      "range": {
+        "startLine": 736,
+        "startChar": 0,
+        "endLine": 736,
+        "endChar": 5
+      },
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1050d982_d6d87419",
@@ -259,6 +499,30 @@
       "writtenOn": "2022-05-27T18:59:52Z",
       "side": 1,
       "message": "Nit: `i` makes me think of an index variable... maybe `tmp`?",
+      "range": {
+        "startLine": 749,
+        "startChar": 40,
+        "endLine": 749,
+        "endChar": 42
+      },
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d959bdd_880abcb6",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 749,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-05-30T17:24:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1050d982_d6d87419",
       "range": {
         "startLine": 749,
         "startChar": 40,
@@ -286,6 +550,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "69a27e2d_298af99c",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 751,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-05-30T17:24:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "492de2d5_baf161bf",
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b58e3c5e_80e0bfae",
@@ -303,6 +585,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "976efbf1_de2509ea",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-05-30T17:24:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b58e3c5e_80e0bfae",
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "67bd29fb_c2ff4df7",
@@ -316,6 +616,24 @@
       "writtenOn": "2022-05-27T18:59:52Z",
       "side": 1,
       "message": "I don\u0027t think we can in this function because it\u0027s also used to parse plain GeneralizedTime, not just the Time CHOICE. (CCV also doesn\u0027t enforce it for the Time CHOICE, but I dunno if we have any data on whether we can.)",
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "54ba1cea_86fb6753",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 768,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-05-30T17:24:38Z",
+      "side": 1,
+      "message": "Well, I do from experience - libre is picky.  We\u0027ll get away with it in certificate validation these days.  We won\u0027t in OCSP. So we would more or less need to know if we were coming from X509 cert land, or in an OCSP response...\n\nFor now we can just accept them and decide later if we want to pull on the shiny jackboots when parsing times out of certificates and pick it up at a higher level.",
+      "parentUuid": "67bd29fb_c2ff4df7",
       "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -343,6 +661,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f730f141_08f8fbe3",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 792,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-05-30T17:24:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c402b0f0_a8cb6e47",
+      "range": {
+        "startLine": 792,
+        "startChar": 15,
+        "endLine": 792,
+        "endChar": 16
+      },
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1ebe8825_a025a1c9",
@@ -356,6 +698,24 @@
       "writtenOn": "2022-05-27T18:59:52Z",
       "side": 1,
       "message": "Style nit: I think we can just chain all these together with ||\n\n```\nif (!cbs_get_two_digits(\u0026copy, \u0026month) ||\n    month \u003c 1 || mount \u003e 12 ||\n    !cbs_get_two_digits(\u0026copy, \u0026hour) ||\n    ...\n```",
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83cd3f80_f36470bf",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 796,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-05-30T17:24:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ebe8825_a025a1c9",
       "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -377,6 +737,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "44c293ed_aa2919a8",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 805,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-05-30T17:24:38Z",
+      "side": 1,
+      "message": "yeah, why not. and add tests for same including leap year.",
+      "parentUuid": "221f13de_458f6bb1",
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "978d400e_25f1dd41",
@@ -390,6 +768,24 @@
       "writtenOn": "2022-05-27T18:59:52Z",
       "side": 1,
       "message": "(Are leap seconds actually forbidden? I guess the old code wouldn\u0027t accept them, so may as well continue with that.)",
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d560672_4ba9b87f",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 822,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-05-30T17:24:38Z",
+      "side": 1,
+      "message": "Yeah the old code did not accept them either. I figure the most likely use\nof putting a leap second in a certificate is something bad, other than accidentally legitimate.",
+      "parentUuid": "978d400e_25f1dd41",
       "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -411,6 +807,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b9a7a99_a9a04207",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 835,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-05-30T17:24:38Z",
+      "side": 1,
+      "message": "I know. but i can dream can\u0027t I?",
+      "parentUuid": "6683447e_4c2611f2",
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "080fb1c8_45ac6b0c",
@@ -424,6 +838,30 @@
       "writtenOn": "2022-05-27T18:59:52Z",
       "side": 1,
       "message": "CBS_parse_rfc5280_time",
+      "range": {
+        "startLine": 356,
+        "startChar": 3,
+        "endLine": 356,
+        "endChar": 28
+      },
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7ff8f86_34b3ac1e",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-05-30T17:24:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "080fb1c8_45ac6b0c",
       "range": {
         "startLine": 356,
         "startChar": 3,
@@ -469,6 +907,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9862d080_368b1a4c",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-05-30T17:24:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72ccea1b_01fdcf35",
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3821124f_cd736a6c",
@@ -482,6 +938,30 @@
       "writtenOn": "2022-05-27T18:59:52Z",
       "side": 1,
       "message": "is_utctime :-)\n\nStyle nit: We usually write out params like `out_is_utctime` and `out_tm`. It helps document that they\u0027re output parameters, and also means that, inside the function, you can freely maintain an `int is_utctime` without clashing with the `int *out_is_utctime`.",
+      "range": {
+        "startLine": 364,
+        "startChar": 63,
+        "endLine": 364,
+        "endChar": 73
+      },
+      "revId": "54f07a133b9a171fe6e4e74712bc4742415c3c6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff2e1e14_0c9697f4",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-05-30T17:24:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3821124f_cd736a6c",
       "range": {
         "startLine": 364,
         "startChar": 63,
