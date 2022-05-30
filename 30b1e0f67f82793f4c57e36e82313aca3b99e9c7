@@ -16,6 +16,23 @@
       "message": "(I would have liked to have read this over again, but it\u0027s 5pm here and time has run out.)",
       "revId": "30b1e0f67f82793f4c57e36e82313aca3b99e9c7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8568544_7455dfb0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2022-05-30T23:32:26Z",
+      "side": 1,
+      "message": "(Post-vacation ping.)",
+      "revId": "30b1e0f67f82793f4c57e36e82313aca3b99e9c7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
