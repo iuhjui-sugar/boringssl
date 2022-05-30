@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "116b4adb_4ce4160c",
+        "filename": "crypto/asn1/a_strex.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-05-30T21:26:34Z",
+      "side": 1,
+      "message": "Well this block is replacing some truly artisinal perl. I suppose even \"It\u0027s tradition that makes it ok\" isn\u0027t good enough to keep it around ;)\n\nIt\u0027s going to a farm where it can frolic an play with all the other perl scripts right?",
+      "revId": "cc30fc87a8cf63ca3547a2a4fe9fe71c8b72e337",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
