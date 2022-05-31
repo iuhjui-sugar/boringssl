@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c30fc5b9_25006832",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1113,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-05-31T14:50:43Z",
+      "side": 1,
+      "message": "A little confused why this didn\u0027t come with a corresponding change to GetConfig, but I don\u0027t see CCM listed at all there, so I guess that\u0027s elsewhere?",
+      "revId": "99bc84b7da063ddfbe385d0fa9b59f7055d45bec",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
