@@ -901,6 +901,29 @@ static std::string ASN1StringToStdString(const ASN1_STRING *str) {
                      ASN1_STRING_get0_data(str) + ASN1_STRING_length(str));
 }
 
+static bool ASN1Time_check_time_t(const ASN1_TIME *s, time_t t) {
+  struct tm stm, ttm;
+  int day, sec;
+
+  switch (ASN1_STRING_type(s)) {
+    case V_ASN1_GENERALIZEDTIME:
+      if (!asn1_generalizedtime_to_tm(&stm, s))
+        return false;
+      break;
+    case V_ASN1_UTCTIME:
+      if (!asn1_utctime_to_tm(&stm, s))
+        return false;
+      break;
+    default:
+      return 0;
+  }
+  if (!OPENSSL_gmtime(&t, &ttm) ||
+      !OPENSSL_gmtime_diff(&day, &sec, &ttm, &stm)) {
+    return false;
+  }
+  return (day == 0 && sec ==0);
+}
+
 TEST(ASN1Test, SetTime) {
   static const struct {
     time_t time;
@@ -911,6 +934,7 @@ TEST(ASN1Test, SetTime) {
     {-631152000, "19500101000000Z", "500101000000Z"},
     {0, "19700101000000Z", "700101000000Z"},
     {981173106, "20010203040506Z", "010203040506Z"},
+    {951804000, "20000229060000Z", "000229060000Z"},
 #if defined(OPENSSL_64_BIT)
     // TODO(https://crbug.com/boringssl/416): These cases overflow 32-bit
     // |time_t| and do not consistently work on 32-bit platforms. For now,
@@ -939,6 +963,7 @@ TEST(ASN1Test, SetTime) {
       ASSERT_TRUE(utc);
       EXPECT_EQ(V_ASN1_UTCTIME, ASN1_STRING_type(utc.get()));
       EXPECT_EQ(t.utc, ASN1StringToStdString(utc.get()));
+      EXPECT_TRUE(ASN1Time_check_time_t(utc.get(), t.time));
     } else {
       EXPECT_FALSE(utc);
     }
@@ -949,6 +974,7 @@ TEST(ASN1Test, SetTime) {
       ASSERT_TRUE(generalized);
       EXPECT_EQ(V_ASN1_GENERALIZEDTIME, ASN1_STRING_type(generalized.get()));
       EXPECT_EQ(t.generalized, ASN1StringToStdString(generalized.get()));
+      EXPECT_TRUE(ASN1Time_check_time_t(generalized.get(), t.time));
     } else {
       EXPECT_FALSE(generalized);
     }
@@ -963,9 +989,100 @@ TEST(ASN1Test, SetTime) {
         EXPECT_EQ(V_ASN1_GENERALIZEDTIME, ASN1_STRING_type(choice.get()));
         EXPECT_EQ(t.generalized, ASN1StringToStdString(choice.get()));
       }
+      EXPECT_TRUE(ASN1Time_check_time_t(choice.get(), t.time));
     } else {
       EXPECT_FALSE(choice);
     }
+  }
+}
+
+TEST(ASN1Test, BogusTime) {
+  static const struct {
+    const char *timestring;
+  } kBogusTimeTests[] = {
+      {""},
+      {"curl -sSf https://sh.rustup.rs | sudo sh"},
+      {"Z"},
+      {"0000"},
+      {"9999Z"},
+      {"00000000000000000000000000000Z"},
+      {"19491231235959"},
+      {"19500101000000+0600"},
+      {"500101000000.001Z"},
+      {"500101000000+6"},
+      {"-1970010100000Z"},
+      {"7a0101000000Z"},
+      {"20500101000000-6"},
+      {"20500101000000.001"},
+      {"20500229000000Z"},
+      {"220229000000Z"},
+      {"20500132000000Z"},
+      {"220132000000Z"},
+      {"20500332000000Z"},
+      {"220332000000Z"},
+      {"20500532000000Z"},
+      {"220532000000Z"},
+      {"20500732000000Z"},
+      {"220732000000Z"},
+      {"20500832000000Z"},
+      {"220832000000Z"},
+      {"20501032000000Z"},
+      {"221032000000Z"},
+      {"20501232000000Z"},
+      {"221232000000Z"},
+      {"20500431000000Z"},
+      {"220431000000Z"},
+      {"20500631000000Z"},
+      {"220631000000Z"},
+      {"20500931000000Z"},
+      {"220931000000Z"},
+      {"20501131000000Z"},
+      {"221131000000Z"},
+      {"20501100000000Z"},
+      {"221100000000Z"},
+    };
+  static const struct {
+    const char *timestring;
+  } kShouldBeBogusUTCTZTests[] = {
+    { "480711220333-0700" },
+    { "140704000000-0700" },
+    { "460311174630-0700" },
+    { "140704000000-0700" },
+    { "480222202332-0500" },
+    { "140704000000-0700" },
+    { "480726113216-0700" },
+  };
+  static const struct {
+    const char *timestring;
+  } kBogusGenTZTests[] = {
+    { "20480711220333-0700" },
+    { "20140704000000-0700" },
+    { "20460311174630-0700" },
+    { "20140704000000-0700" },
+    { "20480222202332-0500" },
+    { "20140704000000-0700" },
+    { "20480726113216-0700" },
+  };
+  for (const auto &t : kBogusTimeTests) {
+    SCOPED_TRACE(t.timestring);
+    CBS cbs;
+    CBS_init(&cbs, (const uint8_t *)t.timestring, strlen(t.timestring));
+    EXPECT_TRUE(CBS_parse_rfc5280_time(&cbs, V_ASN1_GENERALIZEDTIME, NULL) == 0);
+    EXPECT_TRUE(CBS_parse_rfc5280_time(&cbs, V_ASN1_UTCTIME, NULL) == 0);
+  }
+  for (const auto &t : kShouldBeBogusUTCTZTests) {
+    SCOPED_TRACE(t.timestring);
+    CBS cbs;
+    CBS_init(&cbs, (const uint8_t *)t.timestring, strlen(t.timestring));
+    EXPECT_TRUE(CBS_parse_rfc5280_time(&cbs, V_ASN1_GENERALIZEDTIME, NULL) == 0);
+    EXPECT_TRUE(CBS_parse_rfc5280_time(&cbs, V_ASN1_UTCTIME, NULL) == 1);
+  }
+  for (const auto &t : kBogusGenTZTests) {
+    SCOPED_TRACE(t.timestring);
+    CBS cbs;
+    CBS_init(&cbs, (const uint8_t *)t.timestring, strlen(t.timestring));
+    EXPECT_TRUE(CBS_parse_rfc5280_time(&cbs, V_ASN1_GENERALIZEDTIME, NULL) == 0);
+    EXPECT_TRUE(CBS_parse_rfc5280_time(&cbs, V_ASN1_UTCTIME, NULL) == 0);
   }
 }
 
