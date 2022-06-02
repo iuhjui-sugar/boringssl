@@ -33,6 +33,23 @@
       "message": "(Post-vacation ping.)",
       "revId": "30b1e0f67f82793f4c57e36e82313aca3b99e9c7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "983ee5a4_1970ad35",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-06-02T15:50:26Z",
+      "side": 1,
+      "message": "(Poking because Cloud are asking about this.)",
+      "revId": "30b1e0f67f82793f4c57e36e82313aca3b99e9c7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
