@@ -16,6 +16,23 @@
       "message": "Build and ran $ go run util/all_tests.go on HiFive Unmatched development board. All tests passed.",
       "revId": "a9ddd64bfdcf758ee61991d0d44b6a6fe38b9358",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "531b9bbd_88df11d3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-06-02T15:52:31Z",
+      "side": 1,
+      "message": "Our policy is that supported architectures have a Google business reason behind them and that we have builders / hardware to fix any issues.\n\nIn the case of RISC-V, I suspect a request for support is likely to come from within Google sooner rather than later, so this might be inevitable. But do you happen to be working with a Google team that is motivating this change?",
+      "revId": "a9ddd64bfdcf758ee61991d0d44b6a6fe38b9358",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
