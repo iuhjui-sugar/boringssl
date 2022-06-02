@@ -46,6 +46,30 @@
       },
       "revId": "89b65df0fab27d234649181044c2748d8c65a547",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43461002_22162348",
+        "filename": "include/openssl/cipher.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-02T20:55:19Z",
+      "side": 1,
+      "message": "I guess that\u0027s whether this is written as \"this function does A, unless B then it does C\" or \"to do C, call this function with B\". I figured the former fit slightly better just to resolve the contradiction with the first paragraph, which doesn\u0027t allow for a NULL `out`. Though it is true that the former style leaves the \"how do I achieve C\" question answered more indirectly.",
+      "parentUuid": "d109ba48_e6ed8529",
+      "range": {
+        "startLine": 179,
+        "startChar": 61,
+        "endLine": 180,
+        "endChar": 14
+      },
+      "revId": "89b65df0fab27d234649181044c2748d8c65a547",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ],
   "submitRequirementResults": [
