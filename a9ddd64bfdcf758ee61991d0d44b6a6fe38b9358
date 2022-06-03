@@ -33,6 +33,24 @@
       "message": "Our policy is that supported architectures have a Google business reason behind them and that we have builders / hardware to fix any issues.\n\nIn the case of RISC-V, I suspect a request for support is likely to come from within Google sooner rather than later, so this might be inevitable. But do you happen to be working with a Google team that is motivating this change?",
       "revId": "a9ddd64bfdcf758ee61991d0d44b6a6fe38b9358",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f155f9e_deb8fece",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14516
+      },
+      "writtenOn": "2022-06-03T00:53:00Z",
+      "side": 1,
+      "message": "I have been submitting a few patches here and there, mainly driven by my work to port Chromium browser for RISC-V. I recently requested an infra support on RISC-V via this bug request: https://bugs.chromium.org/p/chromium/issues/detail?id\u003d1331190, since most of the components within Chromium src required depot_tools. So that\u0027s pretty much my engagement with the Google team. Do you have any suggestion that I can do which can help to speed up the support from Google on RISC-V?",
+      "parentUuid": "531b9bbd_88df11d3",
+      "revId": "a9ddd64bfdcf758ee61991d0d44b6a6fe38b9358",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
