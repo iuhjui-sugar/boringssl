@@ -22,6 +22,30 @@
       },
       "revId": "dd7a320e0e1caae122595176a1fae9eac97995ed",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c93f31a8_64f5308a",
+        "filename": "crypto/fipsmodule/bn/exponentiation.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 1050,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-03T19:38:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4364293c_fa015ebb",
+      "range": {
+        "startLine": 1050,
+        "startChar": 28,
+        "endLine": 1050,
+        "endChar": 29
+      },
+      "revId": "dd7a320e0e1caae122595176a1fae9eac97995ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
