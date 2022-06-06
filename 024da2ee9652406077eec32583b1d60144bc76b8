@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eebfc729_75943c61",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-06T17:33:40Z",
+      "side": 1,
+      "message": "Ah yeah I keep meaning to add a build mode for this...",
+      "revId": "024da2ee9652406077eec32583b1d60144bc76b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
