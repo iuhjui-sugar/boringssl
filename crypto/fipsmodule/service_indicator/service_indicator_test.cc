@@ -1045,9 +1045,8 @@ TEST(ServiceIndicatorTest, RSAKeyGen) {
   bssl::UniquePtr<RSA> rsa(RSA_new());
   ASSERT_TRUE(rsa);
 
-  // |RSA_generate_key_fips| may only be used for 2048-, 3072-, and 4096-bit
-  // keys.
-  for (const size_t bits : {512, 1024, 3071, 4095}) {
+  // |RSA_generate_key_fips| may only be used for 2048- to 4096-bit keys.
+  for (const size_t bits : {512, 1024, 2047, 4097}) {
     SCOPED_TRACE(bits);
 
     rsa.reset(RSA_new());
@@ -1057,7 +1056,7 @@ TEST(ServiceIndicatorTest, RSAKeyGen) {
   }
 
   // Test that we can generate keys of the supported lengths:
-  for (const size_t bits : {2048, 3072, 4096}) {
+  for (const size_t bits : {2048, 2560, 4096}) {
     SCOPED_TRACE(bits);
 
     rsa.reset(RSA_new());
@@ -1131,10 +1130,8 @@ static const struct RSATestVector kRSATestVectors[] = {
      FIPSStatus::NOT_APPROVED},
     {2048, &EVP_md5, false, FIPSStatus::NOT_APPROVED, FIPSStatus::NOT_APPROVED},
     {3071, &EVP_md5, true, FIPSStatus::NOT_APPROVED, FIPSStatus::NOT_APPROVED},
-    {3071, &EVP_sha256, false, FIPSStatus::NOT_APPROVED,
-     FIPSStatus::NOT_APPROVED},
-    {3071, &EVP_sha512, true, FIPSStatus::NOT_APPROVED,
-     FIPSStatus::NOT_APPROVED},
+    {3071, &EVP_sha256, false, FIPSStatus::APPROVED, FIPSStatus::APPROVED},
+    {3071, &EVP_sha512, true, FIPSStatus::APPROVED, FIPSStatus::APPROVED},
     {4096, &EVP_md5, false, FIPSStatus::NOT_APPROVED, FIPSStatus::NOT_APPROVED},
 
     // RSA test cases that are approved.
