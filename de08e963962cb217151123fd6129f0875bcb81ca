@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6de144e5_f87fb45a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-06-07T12:16:37Z",
+      "side": 1,
+      "message": "Could you contact me internally with details of what effort motivates this? We certainly want to support the needs of any Google projects, but we would like to keep some track of them.",
+      "revId": "de08e963962cb217151123fd6129f0875bcb81ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
