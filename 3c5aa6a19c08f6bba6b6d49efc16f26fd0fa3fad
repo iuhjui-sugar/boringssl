@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0999d113_6a352e79",
+        "filename": "crypto/evp/p_hkdf.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-06-07T23:12:55Z",
+      "side": 1,
+      "message": "(Do we know that dst-\u003edata is NULL at this point. I.e. that we aren\u0027t leaking memory?)",
+      "revId": "3c5aa6a19c08f6bba6b6d49efc16f26fd0fa3fad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bc6571c_2891ec4e",
+        "filename": "crypto/evp/p_hkdf.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-06-07T23:12:55Z",
+      "side": 1,
+      "message": "\"replacing\"",
+      "range": {
+        "startLine": 178,
+        "startChar": 9,
+        "endLine": 178,
+        "endChar": 17
+      },
+      "revId": "3c5aa6a19c08f6bba6b6d49efc16f26fd0fa3fad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
