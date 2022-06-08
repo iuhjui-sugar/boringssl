@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d65ac67_51532ee2",
+        "filename": "crypto/evp/p_hkdf.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-08T16:14:33Z",
+      "side": 1,
+      "message": "Yeah, we only call this on a freshly-made EVP_PKEY_CTX, via EVP_PKEY_CTX_dup. Also all the other ones do this, so it seems to be the pattern.\n\n(The silly thing is I suspect no one ever calls this function. EVP_PKEY_CTX_dup isn\u0027t used outside the library. It\u0027s just used internally when copying an EVP_MD_CTX. But since we reuse EVP_MD_CTX for hashing and signing, it\u0027s not immediately obvious we can break that.)",
+      "parentUuid": "0999d113_6a352e79",
+      "revId": "3c5aa6a19c08f6bba6b6d49efc16f26fd0fa3fad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9bc6571c_2891ec4e",
@@ -31,6 +49,30 @@
       "writtenOn": "2022-06-07T23:12:55Z",
       "side": 1,
       "message": "\"replacing\"",
+      "range": {
+        "startLine": 178,
+        "startChar": 9,
+        "endLine": 178,
+        "endChar": 17
+      },
+      "revId": "3c5aa6a19c08f6bba6b6d49efc16f26fd0fa3fad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b516ce57_45fd1d3e",
+        "filename": "crypto/evp/p_hkdf.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-08T16:14:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9bc6571c_2891ec4e",
       "range": {
         "startLine": 178,
         "startChar": 9,
