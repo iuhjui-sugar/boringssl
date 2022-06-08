@@ -69,6 +69,24 @@
       "parentUuid": "3f155f9e_deb8fece",
       "revId": "a9ddd64bfdcf758ee61991d0d44b6a6fe38b9358",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "672764fe_b227d93e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-06-08T16:31:05Z",
+      "side": 1,
+      "message": "It doesn\u0027t appear that Chromium is planning on setting up builders for RISC-V, which isn\u0027t great. But it seems likely to me that Google will need RISC-V support in the future and that waiting until it\u0027s pressing has downsides. So let me check with the team about waving some of the usual requirements here.",
+      "parentUuid": "3f155f9e_deb8fece",
+      "revId": "a9ddd64bfdcf758ee61991d0d44b6a6fe38b9358",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
