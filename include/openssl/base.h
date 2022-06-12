@@ -109,6 +109,10 @@ extern "C" {
 #define OPENSSL_64_BIT
 #elif defined(__riscv) && __SIZEOF_POINTER__ == 4
 #define OPENSSL_32_BIT
+#elif defined(__ia64__)
+#define OPENSSL_64_BIT
+#elif defined(__sh__)
+#define OPENSSL_32_BIT
 #elif defined(__pnacl__)
 #define OPENSSL_32_BIT
 #define OPENSSL_PNACL
