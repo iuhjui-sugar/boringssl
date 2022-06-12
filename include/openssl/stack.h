@@ -105,6 +105,13 @@ typedef void *(*stack_copy_func)(void *ptr);
 // functions will be passed a type-specific wrapper to call it correctly.
 typedef int (*stack_cmp_func)(const void **a, const void **b);
 
+// The following function types call the above type-erased signatures with the
+// true types.
+typedef void (*stack_call_free_func)(stack_free_func, void *);
+typedef void *(*stack_call_copy_func)(stack_copy_func, void *);
+typedef int (*stack_call_cmp_func)(stack_cmp_func, const void **,
+                                   const void **);
+
 // stack_st contains an array of pointers. It is not designed to be used
 // directly, rather the wrapper macros should be used.
 typedef struct stack_st {
@@ -161,8 +168,7 @@ OPENSSL_EXPORT void sk_free(_STACK *sk);
 // |sk_pop_free_ex| as a workaround for existing code calling an older version
 // of |sk_pop_free|.
 OPENSSL_EXPORT void sk_pop_free_ex(_STACK *sk,
-                                   void (*call_free_func)(stack_free_func,
-                                                          void *),
+                                   stack_call_free_func call_free_func,
                                    stack_free_func free_func);
 
 // sk_insert inserts |p| into the stack at index |where|, moving existing
@@ -192,8 +198,7 @@ OPENSSL_EXPORT void *sk_delete_ptr(_STACK *sk, const void *p);
 // OpenSSL's sk_find will implicitly sort |sk| if it has a comparison function
 // defined.
 OPENSSL_EXPORT int sk_find(const _STACK *sk, size_t *out_index, const void *p,
-                           int (*call_cmp_func)(stack_cmp_func, const void **,
-                                                const void **));
+                           stack_call_cmp_func call_cmp_func);
 
 // sk_shift removes and returns the first element in the stack, or returns NULL
 // if the stack is empty.
@@ -214,7 +219,7 @@ OPENSSL_EXPORT _STACK *sk_dup(const _STACK *sk);
 // sk_sort sorts the elements of |sk| into ascending order based on the
 // comparison function. The stack maintains a |sorted| flag and sorting an
 // already sorted stack is a no-op.
-OPENSSL_EXPORT void sk_sort(_STACK *sk);
+OPENSSL_EXPORT void sk_sort(_STACK *sk, stack_call_cmp_func call_cmp_func);
 
 // sk_is_sorted returns one if |sk| is known to be sorted and zero
 // otherwise.
@@ -227,10 +232,11 @@ OPENSSL_EXPORT stack_cmp_func sk_set_cmp_func(_STACK *sk, stack_cmp_func comp);
 // sk_deep_copy performs a copy of |sk| and of each of the non-NULL elements in
 // |sk| by using |copy_func|. If an error occurs, |free_func| is used to free
 // any copies already made and NULL is returned.
-OPENSSL_EXPORT _STACK *sk_deep_copy(
-    const _STACK *sk, void *(*call_copy_func)(stack_copy_func, void *),
-    stack_copy_func copy_func, void (*call_free_func)(stack_free_func, void *),
-    stack_free_func free_func);
+OPENSSL_EXPORT _STACK *sk_deep_copy(const _STACK *sk,
+                                    stack_call_copy_func call_copy_func,
+                                    stack_copy_func copy_func,
+                                    stack_call_free_func call_free_func,
+                                    stack_free_func free_func);
 
 
 // Deprecated functions.
@@ -276,7 +282,16 @@ BSSL_NAMESPACE_END
 #define BORINGSSL_DEFINE_STACK_TRAITS(name, type, is_const)
 #endif
 
+// We disable MSVC C4191 in this macro, which warns when pointers are cast to
+// the wrong type. While the cast itself is valid, it is often a bug because
+// calling it through the cast is UB. However, we never actually call functions
+// as |stack_cmp_func|. The type is just a type-erased function pointer. (C
+// does not guarantee function pointers fit in |void*|, and GCC will warn on
+// this.) Thus we just disable the false positive warning.
 #define BORINGSSL_DEFINE_STACK_OF_IMPL(name, ptrtype, constptrtype)            \
+  OPENSSL_MSVC_PRAGMA(warning(push))                                           \
+  OPENSSL_MSVC_PRAGMA(warning(disable: 4191))                                  \
+                                                                               \
   DECLARE_STACK_OF(name)                                                       \
                                                                                \
   typedef void (*stack_##name##_free_func)(ptrtype);                           \
@@ -375,7 +390,7 @@ BSSL_NAMESPACE_END
   }                                                                            \
                                                                                \
   OPENSSL_INLINE void sk_##name##_sort(STACK_OF(name) *sk) {                   \
-    sk_sort((_STACK *)sk);                                                     \
+    sk_sort((_STACK *)sk, sk_##name##_call_cmp_func);                          \
   }                                                                            \
                                                                                \
   OPENSSL_INLINE int sk_##name##_is_sorted(const STACK_OF(name) *sk) {         \
@@ -396,7 +411,9 @@ BSSL_NAMESPACE_END
         (const _STACK *)sk, sk_##name##_call_copy_func,                        \
         (stack_copy_func)copy_func, sk_##name##_call_free_func,                \
         (stack_free_func)free_func);                                           \
-  }
+  }                                                                            \
+                                                                               \
+  OPENSSL_MSVC_PRAGMA(warning(pop))
 
 // DEFINE_NAMED_STACK_OF defines |STACK_OF(name)| to be a stack whose elements
 // are |type| *.
