@@ -16,6 +16,23 @@
       "message": "BTW. Currently boringssl builds OK for many Arches for Debian:\n- https://buildd.debian.org/status/package.php?p\u003dandroid-platform-external-boringssl\n\nBuild log and test log can be checked by, for example:\n- [sh4] https://buildd.debian.org/status/fetch.php?pkg\u003dandroid-platform-external-boringssl\u0026arch\u003dsh4\u0026ver\u003d13%7Epreview2-2\u0026stamp\u003d1654612683\u0026raw\u003d0\n- [ia64] https://buildd.debian.org/status/fetch.php?pkg\u003dandroid-platform-external-boringssl\u0026arch\u003dia64\u0026ver\u003d13%7Epreview2-2\u0026stamp\u003d1654598989\u0026raw\u003d0",
       "revId": "c937530e8d55743b04fadd5d220a338cf3b5bb94",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea806b12_d5438a04",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-06-13T13:32:16Z",
+      "side": 1,
+      "message": "To try and avoid getting Hyrum\u0027s Law\u0027ed into a situation where a population of users are depending on support for a platform that we cannot support, we only build on platforms where we have access to development hardware and (strongly preferably) continuous builders to run the tests. Generally that requires some business case from within Google to justify the costs. As such, I\u0027m afraid that we don\u0027t generally take patches of this sort.",
+      "revId": "c937530e8d55743b04fadd5d220a338cf3b5bb94",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
