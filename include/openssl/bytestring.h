@@ -18,6 +18,7 @@
 #include <openssl/base.h>
 
 #include <openssl/span.h>
+#include <time.h>
 
 #if defined(__cplusplus)
 extern "C" {
@@ -352,6 +353,14 @@ OPENSSL_EXPORT int CBS_is_unsigned_asn1_integer(const CBS *cbs);
 // |OPENSSL_free|.
 OPENSSL_EXPORT char *CBS_asn1_oid_to_text(const CBS *cbs);
 
+// CBS_parse_rfc5280_time returns one if |cbs| is a valid ASN.1
+// TIME body within the limitations imposed by RFC 5280 for |type|,
+// and zero otherwise. |type| must be specified as either
+// V_ASN1_GENERALIZEDTIME, or V_ASN1_UTCTIME to indicate the format
+// of ASN.1 time that is expected to be parsed. On success, if |tm| is
+// non-NULL |*tm| will be set to the validated time value.
+OPENSSL_EXPORT int CBS_parse_rfc5280_time(const CBS *cbs, int type,
+					  struct tm *out_tm);
 
 // CRYPTO ByteBuilder.
 //
