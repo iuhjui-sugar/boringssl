@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06e5d28c_486fb044",
+        "filename": "include/openssl/stack.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-13T21:29:53Z",
+      "side": 1,
+      "message": "The doc generator skips \"Private functions\", so this whole section will be omitted in the docs.",
+      "revId": "66a6b9a83ea0dbdba3975eeecac515054e7e2063",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
