@@ -4373,3 +4373,119 @@ TEST(X509Test, Print) {
          40:86
 )");
 }
+
+static const char kCertMD4[] =
+    "-----BEGIN CERTIFICATE-----\n"
+    "MIIDMjCCApugAwIBAgICEAAwDQYJKoZIhvcNAQEDBQAwbzELMAkGA1UEBhMCQ0Ex\n"
+    "CzAJBgNVBAgTAkFCMREwDwYDVQQHEwhFZG1vbnRvbjEPMA0GA1UEChMGR29vZ2xl\n"
+    "MRIwEAYDVQQLEwlCb3JpbmdTU0wxGzAZBgNVBAMTEkZvenppZSB0aGUgQmVhciBD\n"
+    "QTAeFw0yMjA2MTQxOTMzMTNaFw0zMjA0MjIxOTMzMTNaMGwxCzAJBgNVBAYTAkNB\n"
+    "MQswCQYDVQQIEwJBQjERMA8GA1UEBxMIRWRtb250b24xDzANBgNVBAoTBkdvb2ds\n"
+    "ZTESMBAGA1UECxMJQm9yaW5nU1NMMRgwFgYDVQQDEw9Td2VkaXNoIENoZWYgQ0Ew\n"
+    "gZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAMax7RiNYpmbdq/Q0CjwWfOi/GRl\n"
+    "s8UTn8fzKOnFNmNxkKmcUP+xFcVlSXJSnuXb1KPmYztAdTCc96mZXMcYxZN5v/ek\n"
+    "0STi0uIaCAobalFvNrCPHYSUBXsdRv/xVQpsbIIdroih748jzQVbGenUERiDEWea\n"
+    "kiS61UaJMYYbnJevAgMBAAGjgd8wgdwwHQYDVR0OBBYEFBryLGwykgTod01ZlkIm\n"
+    "6yh8uwmfMIGsBgNVHSMEgaQwgaGAFPdBQDmZChQvn5a3RfLYqrk2s8EeoXOkcTBv\n"
+    "MQswCQYDVQQGEwJDQTELMAkGA1UECBMCQUIxETAPBgNVBAcTCEVkbW9udG9uMQ8w\n"
+    "DQYDVQQKEwZHb29nbGUxEjAQBgNVBAsTCUJvcmluZ1NTTDEbMBkGA1UEAxMSRm96\n"
+    "emllIHRoZSBCZWFyIENBghR8uZoDwvL4VXZAFWD4WcoA/+rQ5zAMBgNVHRMEBTAD\n"
+    "AQH/MA0GCSqGSIb3DQEBAwUAA4GBAD/pUIPQJTcOOvzMfxZWK1D39FfnAJAL6ayV\n"
+    "Fn64jNxJh7zA4/CUNagsWqJLld8kbnEuE8UoI/6zS1jXqIYJP6wbLEBvtCMNFRwO\n"
+    "kFV1m8teKlWI4nnzJ8ApPEAifzZ6mcplskCzw+2BzcK1TFmmVLSVzTok80wO6GKy\n"
+    "Tmkxrx0N\n"
+    "-----END CERTIFICATE-----";
+
+static const char kCertMD5[] =
+    "-----BEGIN CERTIFICATE-----\n"
+    "MIIDMjCCApugAwIBAgICEAAwDQYJKoZIhvcNAQEEBQAwbzELMAkGA1UEBhMCQ0Ex\n"
+    "CzAJBgNVBAgTAkFCMREwDwYDVQQHEwhFZG1vbnRvbjEPMA0GA1UEChMGR29vZ2xl\n"
+    "MRIwEAYDVQQLEwlCb3JpbmdTU0wxGzAZBgNVBAMTEktlcm1pdCBUaGUgRnJvZyBD\n"
+    "QTAeFw0yMjA2MTQxOTI3MTNaFw0zMjA0MjIxOTI3MTNaMGwxCzAJBgNVBAYTAkNB\n"
+    "MQswCQYDVQQIEwJBQjERMA8GA1UEBxMIRWRtb250b24xDzANBgNVBAoTBkdvb2ds\n"
+    "ZTESMBAGA1UECxMJQm9yaW5nU1NMMRgwFgYDVQQDEw9Td2VkaXNoIENoZWYgQ0Ew\n"
+    "gZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBALhczU4j1q8bKT1PO6kdAAYagbpZ\n"
+    "IhSXoAdsR5UGwJUfu2qMvB5Vp1O5x7yE8u7UKDVdhVx3B6BseLYscXoGyf7uNnTD\n"
+    "k2kXDFJ7JlW9HoO1CwQ0KfylLvzYrw3hhGBx6o7dvaxnWhr9HKMUjGk1+YNGqa6e\n"
+    "VBwol0FR0PIESoClAgMBAAGjgd8wgdwwHQYDVR0OBBYEFA6Vac7mDYEcah14Huz3\n"
+    "4+Va8hVNMIGsBgNVHSMEgaQwgaGAFGutvCOyRCq2nCdQGWRNJ0fAOvHNoXOkcTBv\n"
+    "MQswCQYDVQQGEwJDQTELMAkGA1UECBMCQUIxETAPBgNVBAcTCEVkbW9udG9uMQ8w\n"
+    "DQYDVQQKEwZHb29nbGUxEjAQBgNVBAsTCUJvcmluZ1NTTDEbMBkGA1UEAxMSS2Vy\n"
+    "bWl0IFRoZSBGcm9nIENBghR1UvJHawJBYfA6dlw3th2rJsJtaTAMBgNVHRMEBTAD\n"
+    "AQH/MA0GCSqGSIb3DQEBBAUAA4GBAAu29ez2JvK1odXp19Opc/WYyCp8bHfykF/j\n"
+    "zW/A97RB5w2EgHoEOeBOgKPY/JJoQ+MiDLTN5/tXi2rhg8ldyxGKIxfhNKjZJmLp\n"
+    "euZsfDT/RqZ6MwtO7YmDWx2W48FjyDX3jqR6N4G3Pp2H7nKwjhOBA6UNGhbYHji1\n"
+    "QL7acJ0c\n"
+    "-----END CERTIFICATE-----";
+
+static const char kCertSHA1[] =
+    "-----BEGIN CERTIFICATE-----\n"
+    "MIIDGzCCAoSgAwIBAgICEAAwDQYJKoZIhvcNAQEFBQAwajELMAkGA1UEBhMCQ0Ex\n"
+    "CzAJBgNVBAgTAkFCMREwDwYDVQQHEwhFZG1vbnRvbjEPMA0GA1UEChMGR29vZ2xl\n"
+    "MRIwEAYDVQQLEwlCb3JpbmdTU0wxFjAUBgNVBAMTDU1pc3MgUGlnZ3kgQ0EwHhcN\n"
+    "MjIwNjE0MTkzNTQwWhcNMzIwNDIyMTkzNTQwWjBsMQswCQYDVQQGEwJDQTELMAkG\n"
+    "A1UECBMCQUIxETAPBgNVBAcTCEVkbW9udG9uMQ8wDQYDVQQKEwZHb29nbGUxEjAQ\n"
+    "BgNVBAsTCUJvcmluZ1NTTDEYMBYGA1UEAxMPU3dlZGlzaCBDaGVmIENBMIGfMA0G\n"
+    "CSqGSIb3DQEBAQUAA4GNADCBiQKBgQC+ttHDk1tOJ00IUfrRjDsfLcwotZe9DtAt\n"
+    "ZGe7BupTRxXjezHyiOsdGyFsOGciBCU2tA7SQ37Pj74XOEfUPJXAxI7hu3U27iQJ\n"
+    "4qnFbUv64Or9juucgQKIQbuGH7DlOthwLI584X9JTk8vrgFZYfquyv0fpHdo1fkb\n"
+    "w/2lhlXsZwIDAQABo4HNMIHKMB0GA1UdDgQWBBTCqrq9dMt9rk2I59vVSnLe3leO\n"
+    "yDCBmgYDVR0jBIGSMIGPgBQ7LydEQdu2RsH/Ts45Rk8C/61niaFzpHEwbzELMAkG\n"
+    "A1UEBhMCQ0ExCzAJBgNVBAgTAkFCMREwDwYDVQQHEwhFZG1vbnRvbjEPMA0GA1UE\n"
+    "ChMGR29vZ2xlMRIwEAYDVQQLEwlCb3JpbmdTU0wxGzAZBgNVBAMTEkZvenppZSB0\n"
+    "aGUgQmVhciBDQYICEAEwDAYDVR0TBAUwAwEB/zANBgkqhkiG9w0BAQUFAAOBgQCp\n"
+    "WeByOKSTVUAp56rCFcxxFb9KpRHZOrDNx+BpBLPSAFixjvDIWzKm5yM3cgkZiYxI\n"
+    "HLXLeG3VKNvRPh4fWi17sotaFiVf4TWNje7QL1DVn7j8BP6+7AjCWWukpf0HLmjf\n"
+    "rhpH0P0bT1jY+4JgA4JY4frB37SPZqLnj+DXuTZxeQ==\n"
+    "-----END CERTIFICATE-----";
+
+static void do_great_evil(const EVP_MD *md, uint32_t flags) {
+  EVP_MD *trust_me;
+
+  trust_me = (EVP_MD *) md;
+  EVP_MD_set_flags(trust_me, flags);
+}
+
+
+TEST(X509Test, WeakCertMd4) {
+  bssl::UniquePtr<X509> cert(CertFromPEM(kCertMD4));
+  ASSERT_TRUE(cert);
+  bssl::UniquePtr<EVP_PKEY> pkey(X509_get_pubkey(cert.get()));
+  ASSERT_TRUE(pkey);
+  EXPECT_FALSE(X509_verify(cert.get(), pkey.get()));
+  uint32_t err = ERR_get_error();
+  EXPECT_EQ(ERR_LIB_ASN1, ERR_GET_LIB(err));
+  EXPECT_EQ(ASN1_R_DIGEST_AND_KEY_TYPE_NOT_SUPPORTED, ERR_GET_REASON(err));
+}
+
+TEST(X509Test, WeakCertMd5) {
+  bssl::UniquePtr<X509> cert(CertFromPEM(kCertMD5));
+  ASSERT_TRUE(cert);
+  bssl::UniquePtr<EVP_PKEY> pkey(X509_get_pubkey(cert.get()));
+  ASSERT_TRUE(pkey);
+  EXPECT_FALSE(X509_verify(cert.get(), pkey.get()));
+  uint32_t err = ERR_get_error();
+  EXPECT_EQ(ERR_LIB_ASN1, ERR_GET_LIB(err));
+  EXPECT_EQ(ASN1_R_DIGEST_AND_KEY_TYPE_NOT_SUPPORTED, ERR_GET_REASON(err));
+}
+
+TEST(X509Test, WeakCertSHA1) {
+  bssl::UniquePtr<X509> cert(CertFromPEM(kCertSHA1));
+  ASSERT_TRUE(cert);
+  bssl::UniquePtr<EVP_PKEY> pkey(X509_get_pubkey(cert.get()));
+  ASSERT_TRUE(pkey);
+  EXPECT_FALSE(X509_verify(cert.get(), pkey.get()));
+  uint32_t err = ERR_get_error();
+  EXPECT_EQ(ERR_LIB_ASN1, ERR_GET_LIB(err));
+  EXPECT_EQ(ASN1_R_DIGEST_AND_KEY_TYPE_NOT_SUPPORTED, ERR_GET_REASON(err));
+}
+
+TEST(X509Test, WeakCertAllowingSHA1) {
+  uint32_t flags = 0;
+  do_great_evil(EVP_sha1(), flags);
+  bssl::UniquePtr<X509> cert(CertFromPEM(kCertSHA1));
+  ASSERT_TRUE(cert);
+  bssl::UniquePtr<EVP_PKEY> pkey(X509_get_pubkey(cert.get()));
+  ASSERT_TRUE(pkey);
+  //  EXPECT_TRUE(X509_verify(cert.get(), pkey.get()));
+}

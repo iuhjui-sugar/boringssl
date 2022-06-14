@@ -72,6 +72,9 @@ int EVP_MD_nid(const EVP_MD *md) { return EVP_MD_type(md); }
 
 uint32_t EVP_MD_flags(const EVP_MD *md) { return md->flags; }
 
+// Don't look Ethel.
+void EVP_MD_set_flags(EVP_MD *md, uint32_t flags) { md->flags = flags; }
+
 size_t EVP_MD_size(const EVP_MD *md) { return md->md_size; }
 
 size_t EVP_MD_block_size(const EVP_MD *md) { return md->block_size; }

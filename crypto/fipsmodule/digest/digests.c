@@ -90,7 +90,7 @@ static void md4_final(EVP_MD_CTX *ctx, uint8_t *out) {
 DEFINE_METHOD_FUNCTION(EVP_MD, EVP_md4) {
   out->type = NID_md4;
   out->md_size = MD4_DIGEST_LENGTH;
-  out->flags = 0;
+  out->flags = EVP_MD_FLAG_FORBID_IN_X509;
   out->init = md4_init;
   out->update = md4_update;
   out->final = md4_final;
@@ -114,7 +114,7 @@ static void md5_final(EVP_MD_CTX *ctx, uint8_t *out) {
 DEFINE_METHOD_FUNCTION(EVP_MD, EVP_md5) {
   out->type = NID_md5;
   out->md_size = MD5_DIGEST_LENGTH;
-  out->flags = 0;
+  out->flags = EVP_MD_FLAG_FORBID_IN_X509;
   out->init = md5_init;
   out->update = md5_update;
   out->final = md5_final;
@@ -138,7 +138,7 @@ static void sha1_final(EVP_MD_CTX *ctx, uint8_t *md) {
 DEFINE_METHOD_FUNCTION(EVP_MD, EVP_sha1) {
   out->type = NID_sha1;
   out->md_size = SHA_DIGEST_LENGTH;
-  out->flags = 0;
+  out->flags = EVP_MD_FLAG_FORBID_IN_X509;
   out->init = sha1_init;
   out->update = sha1_update;
   out->final = sha1_final;

@@ -202,6 +202,12 @@ OPENSSL_EXPORT int EVP_MD_type(const EVP_MD *md);
 // values, ORed together.
 OPENSSL_EXPORT uint32_t EVP_MD_flags(const EVP_MD *md);
 
+// EVP_MD_set_flags sets the flags for |md| to be |flags| The flags
+// must be a set of |EVP_MD_FLAG_*| values, ORed together. Changing
+// flags can result in security impacting adverse behaviour, so the
+// use of this function is strongly discouraged.
+OPENSSL_EXPORT void EVP_MD_set_flags(EVP_MD *md, uint32_t flags);
+
 // EVP_MD_size returns the digest size of |md|, in bytes.
 OPENSSL_EXPORT size_t EVP_MD_size(const EVP_MD *md);
 
@@ -222,6 +228,11 @@ OPENSSL_EXPORT size_t EVP_MD_block_size(const EVP_MD *md);
 // (XOF). This flag is defined for compatibility and will never be set in any
 // |EVP_MD| in BoringSSL.
 #define EVP_MD_FLAG_XOF 4
+
+// EVP_MD_FLAG_FORBID_IN_X509 indicates that the digest is not to be recognized
+// for use in X.509 certificates. This is used to disallow the use of weak
+// digests in certificates in BoringSSL.
+#define EVP_MD_FLAG_FORBID_IN_X509 8
 
 
 // Digest operation accessors.

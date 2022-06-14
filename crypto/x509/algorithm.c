@@ -65,10 +65,8 @@
 #include "internal.h"
 
 /* Restrict the digests that are allowed in X509 certificates */
-static int x509_digest_nid_ok(const int digest_nid) {
-  switch (digest_nid) {
-    case NID_md4:
-    case NID_md5:
+static int x509_digest_ok(const EVP_MD *md) {
+  if (EVP_MD_flags(md) & EVP_MD_FLAG_FORBID_IN_X509) {
       return 0;
   }
   return 1;
@@ -104,10 +102,9 @@ int x509_digest_sign_algorithm(EVP_MD_CTX *ctx, X509_ALGOR *algor) {
     return 0;
   }
 
-  const int digest_nid = EVP_MD_type(digest);
   int sign_nid;
-  if (!x509_digest_nid_ok(digest_nid) ||
-      !OBJ_find_sigid_by_algs(&sign_nid, digest_nid,
+  if (!x509_digest_ok(digest) ||
+      !OBJ_find_sigid_by_algs(&sign_nid, EVP_MD_type(digest),
                               EVP_PKEY_id(pkey))) {
     OPENSSL_PUT_ERROR(ASN1, ASN1_R_DIGEST_AND_KEY_TYPE_NOT_SUPPORTED);
     return 0;
@@ -134,12 +131,6 @@ int x509_digest_verify_init(EVP_MD_CTX *ctx, const X509_ALGOR *sigalg,
   /* Check the public key OID matches the public key type. */
   if (pkey_nid != EVP_PKEY_id(pkey)) {
     OPENSSL_PUT_ERROR(ASN1, ASN1_R_WRONG_PUBLIC_KEY_TYPE);
-    return 0;
-  }
-
-  /* Check for permitted digest algorithms */
-  if (!x509_digest_nid_ok(digest_nid)) {
-    OPENSSL_PUT_ERROR(ASN1, ASN1_R_DIGEST_AND_KEY_TYPE_NOT_SUPPORTED);
     return 0;
   }
 
@@ -173,6 +164,12 @@ int x509_digest_verify_init(EVP_MD_CTX *ctx, const X509_ALGOR *sigalg,
   const EVP_MD *digest = EVP_get_digestbynid(digest_nid);
   if (digest == NULL) {
     OPENSSL_PUT_ERROR(ASN1, ASN1_R_UNKNOWN_MESSAGE_DIGEST_ALGORITHM);
+    return 0;
+  }
+
+  /* Check for permitted digest algorithms */
+  if (!x509_digest_ok(digest)) {
+    OPENSSL_PUT_ERROR(ASN1, ASN1_R_DIGEST_AND_KEY_TYPE_NOT_SUPPORTED);
     return 0;
   }
 
