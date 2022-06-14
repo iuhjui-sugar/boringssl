@@ -37,6 +37,8 @@ typedef int (*hash_s_func_t)(const EC_GROUP *group, EC_RAW_POINT *out,
                              const uint8_t s[TRUST_TOKEN_NONCE_SIZE]);
 typedef int (*hash_c_func_t)(const EC_GROUP *group, EC_SCALAR *out,
                              uint8_t *buf, size_t len);
+typedef int (*hash_to_scalar_func_t)(const EC_GROUP *group, EC_SCALAR *out,
+                                     uint8_t *buf, size_t len);
 
 typedef struct {
   const EC_GROUP *group;
@@ -52,6 +54,9 @@ typedef struct {
   // hash_c implements the H_c operation in PMBTokens. It returns one on success
   // and zero on error.
   hash_c_func_t hash_c;
+  // hash_to_scalar implements the HashToScalar operation for PMBTokens. It
+  // returns one on success and zero on error.
+  hash_to_scalar_func_t hash_to_scalar;
   int prefix_point : 1;
 } PMBTOKEN_METHOD;
 
@@ -60,7 +65,9 @@ static const uint8_t kDefaultAdditionalData[32] = {0};
 static int pmbtoken_init_method(PMBTOKEN_METHOD *method, int curve_nid,
                                 const uint8_t *h_bytes, size_t h_len,
                                 hash_t_func_t hash_t, hash_s_func_t hash_s,
-                                hash_c_func_t hash_c, int prefix_point) {
+                                hash_c_func_t hash_c,
+                                hash_to_scalar_func_t hash_to_scalar,
+                                int prefix_point) {
   method->group = EC_GROUP_new_by_curve_name(curve_nid);
   if (method->group == NULL) {
     return 0;
@@ -69,6 +76,7 @@ static int pmbtoken_init_method(PMBTOKEN_METHOD *method, int curve_nid,
   method->hash_t = hash_t;
   method->hash_s = hash_s;
   method->hash_c = hash_c;
+  method->hash_to_scalar = hash_to_scalar;
   method->prefix_point = prefix_point;
 
   EC_AFFINE h;
@@ -100,6 +108,57 @@ static int generate_keypair(const PMBTOKEN_METHOD *method, EC_SCALAR *out_x,
     return 0;
   }
   return 1;
+}
+
+static int generate_fixed_keypair(const PMBTOKEN_METHOD *method,
+                                  EC_SCALAR *out_x, EC_SCALAR *out_y,
+                                  EC_RAW_POINT *out_pub, const uint8_t *seed,
+                                  size_t seed_len, uint8_t pair_id) {
+  static const uint8_t kKeygenXLabel[] = "TrustTokenPMBTokenKeyGenX";
+  static const uint8_t kKeygenYLabel[] = "TrustTokenPMBTokenKeyGenY";
+
+  int ok = 0;
+  CBB cbb;
+  CBB_zero(&cbb);
+  uint8_t *buf = NULL;
+  size_t len;
+  if (!CBB_init(&cbb, 0) ||
+      !CBB_add_bytes(&cbb, kKeygenXLabel, sizeof(kKeygenXLabel)) ||
+      !CBB_add_bytes(&cbb, seed, seed_len) ||
+      !CBB_add_u8(&cbb, pair_id) ||
+      !CBB_finish(&cbb, &buf, &len) ||
+      !method->hash_to_scalar(method->group, out_x, buf, len)) {
+    OPENSSL_PUT_ERROR(TRUST_TOKEN, TRUST_TOKEN_R_KEYGEN_FAILURE);
+    goto err;
+  }
+
+  CBB_cleanup(&cbb);
+  OPENSSL_free(buf);
+
+  CBB_zero(&cbb);
+  if (!CBB_init(&cbb, 0) ||
+      !CBB_add_bytes(&cbb, kKeygenYLabel, sizeof(kKeygenYLabel)) ||
+      !CBB_add_bytes(&cbb, seed, seed_len) ||
+      !CBB_finish(&cbb, &buf, &len) ||
+      !method->hash_to_scalar(method->group, out_y, buf, len)) {
+    OPENSSL_PUT_ERROR(TRUST_TOKEN, TRUST_TOKEN_R_KEYGEN_FAILURE);
+    goto err;
+  }
+
+
+  if (!ec_point_mul_scalar_precomp(method->group, out_pub, &method->g_precomp,
+                                   out_x, &method->h_precomp, out_y, NULL,
+                                   NULL)) {
+    OPENSSL_PUT_ERROR(TRUST_TOKEN, ERR_R_MALLOC_FAILURE);
+    goto err;
+  }
+
+  ok = 1;
+
+err:
+  CBB_cleanup(&cbb);
+  OPENSSL_free(buf);
+  return ok;
 }
 
 static int point_to_cbb(CBB *out, const EC_GROUP *group,
@@ -173,6 +232,48 @@ static int pmbtoken_generate_key(const PMBTOKEN_METHOD *method,
   if (!generate_keypair(method, &x0, &y0, &pub[0]) ||
       !generate_keypair(method, &x1, &y1, &pub[1]) ||
       !generate_keypair(method, &xs, &ys, &pub[2])) {
+    OPENSSL_PUT_ERROR(TRUST_TOKEN, TRUST_TOKEN_R_KEYGEN_FAILURE);
+    return 0;
+  }
+
+  const EC_SCALAR *scalars[] = {&x0, &y0, &x1, &y1, &xs, &ys};
+  size_t scalar_len = BN_num_bytes(&group->order);
+  for (size_t i = 0; i < OPENSSL_ARRAY_SIZE(scalars); i++) {
+    uint8_t *buf;
+    if (!CBB_add_space(out_private, &buf, scalar_len)) {
+      OPENSSL_PUT_ERROR(TRUST_TOKEN, TRUST_TOKEN_R_BUFFER_TOO_SMALL);
+      return 0;
+    }
+    ec_scalar_to_bytes(group, buf, &scalar_len, scalars[i]);
+  }
+
+  EC_AFFINE pub_affine[3];
+  if (!ec_jacobian_to_affine_batch(group, pub_affine, pub, 3)) {
+    return 0;
+  }
+
+  if (!cbb_add_prefixed_point(out_public, group, &pub_affine[0],
+                              method->prefix_point) ||
+      !cbb_add_prefixed_point(out_public, group, &pub_affine[1],
+                              method->prefix_point) ||
+      !cbb_add_prefixed_point(out_public, group, &pub_affine[2],
+                              method->prefix_point)) {
+    OPENSSL_PUT_ERROR(TRUST_TOKEN, TRUST_TOKEN_R_BUFFER_TOO_SMALL);
+    return 0;
+  }
+
+  return 1;
+}
+
+static int pmbtoken_generate_fixed_key(const PMBTOKEN_METHOD *method,
+                                       CBB *out_private, CBB *out_public,
+                                       const uint8_t *seed, size_t seed_len) {
+  const EC_GROUP *group = method->group;
+  EC_RAW_POINT pub[3];
+  EC_SCALAR x0, y0, x1, y1, xs, ys;
+  if (!generate_fixed_keypair(method, &x0, &y0, &pub[0], seed, seed_len, 0) ||
+      !generate_fixed_keypair(method, &x1, &y1, &pub[1], seed, seed_len, 1) ||
+      !generate_fixed_keypair(method, &xs, &ys, &pub[2], seed, seed_len, 2)) {
     OPENSSL_PUT_ERROR(TRUST_TOKEN, TRUST_TOKEN_R_KEYGEN_FAILURE);
     return 0;
   }
@@ -1140,6 +1241,13 @@ static int pmbtoken_exp1_hash_c(const EC_GROUP *group, EC_SCALAR *out,
       group, out, kHashCLabel, sizeof(kHashCLabel), buf, len);
 }
 
+static int pmbtoken_exp1_hash_to_scalar(const EC_GROUP *group, EC_SCALAR *out,
+                                        uint8_t *buf, size_t len) {
+  const uint8_t kHashLabel[] = "PMBTokens Experiment V1 HashToScalar";
+  return ec_hash_to_scalar_p384_xmd_sha512_draft07(
+      group, out, kHashLabel, sizeof(kHashLabel), buf, len);
+}
+
 static int pmbtoken_exp1_ok = 0;
 static PMBTOKEN_METHOD pmbtoken_exp1_method;
 static CRYPTO_once_t pmbtoken_exp1_method_once = CRYPTO_ONCE_INIT;
@@ -1159,10 +1267,10 @@ static void pmbtoken_exp1_init_method_impl(void) {
       0x87, 0xc3, 0x95, 0xd0, 0x13, 0xb7, 0x0b, 0x5c, 0xc7,
   };
 
-  pmbtoken_exp1_ok =
-      pmbtoken_init_method(&pmbtoken_exp1_method, NID_secp384r1, kH, sizeof(kH),
-                           pmbtoken_exp1_hash_t, pmbtoken_exp1_hash_s,
-                           pmbtoken_exp1_hash_c, 1);
+  pmbtoken_exp1_ok = pmbtoken_init_method(
+      &pmbtoken_exp1_method, NID_secp384r1, kH, sizeof(kH),
+      pmbtoken_exp1_hash_t, pmbtoken_exp1_hash_s, pmbtoken_exp1_hash_c,
+      pmbtoken_exp1_hash_to_scalar, 1);
 }
 
 static int pmbtoken_exp1_init_method(void) {
@@ -1180,6 +1288,16 @@ int pmbtoken_exp1_generate_key(CBB *out_private, CBB *out_public) {
   }
 
   return pmbtoken_generate_key(&pmbtoken_exp1_method, out_private, out_public);
+}
+
+int pmbtoken_exp1_generate_fixed_key(CBB *out_private, CBB *out_public,
+                                     const uint8_t *seed, size_t seed_len) {
+  if (!pmbtoken_exp1_init_method()) {
+    return 0;
+  }
+
+  return pmbtoken_generate_fixed_key(&pmbtoken_exp1_method, out_private,
+                                     out_public, seed, seed_len);
 }
 
 int pmbtoken_exp1_client_key_from_bytes(TRUST_TOKEN_CLIENT_KEY *key,
@@ -1290,6 +1408,13 @@ static int pmbtoken_exp2_hash_c(const EC_GROUP *group, EC_SCALAR *out,
       group, out, kHashCLabel, sizeof(kHashCLabel), buf, len);
 }
 
+static int pmbtoken_exp2_hash_to_scalar(const EC_GROUP *group, EC_SCALAR *out,
+                                        uint8_t *buf, size_t len) {
+  const uint8_t kHashLabel[] = "PMBTokens Experiment V2 HashToScalar";
+  return ec_hash_to_scalar_p384_xmd_sha512_draft07(
+      group, out, kHashLabel, sizeof(kHashLabel), buf, len);
+}
+
 static int pmbtoken_exp2_ok = 0;
 static PMBTOKEN_METHOD pmbtoken_exp2_method;
 static CRYPTO_once_t pmbtoken_exp2_method_once = CRYPTO_ONCE_INIT;
@@ -1309,10 +1434,10 @@ static void pmbtoken_exp2_init_method_impl(void) {
       0x25, 0x62, 0xbf, 0x59, 0xb2, 0xd2, 0x3d, 0x71, 0xff
   };
 
-  pmbtoken_exp2_ok =
-      pmbtoken_init_method(&pmbtoken_exp2_method, NID_secp384r1, kH, sizeof(kH),
-                           pmbtoken_exp2_hash_t, pmbtoken_exp2_hash_s,
-                           pmbtoken_exp2_hash_c, 0);
+  pmbtoken_exp2_ok = pmbtoken_init_method(
+      &pmbtoken_exp2_method, NID_secp384r1, kH, sizeof(kH),
+      pmbtoken_exp2_hash_t, pmbtoken_exp2_hash_s, pmbtoken_exp2_hash_c,
+      pmbtoken_exp2_hash_to_scalar, 0);
 }
 
 static int pmbtoken_exp2_init_method(void) {
@@ -1330,6 +1455,16 @@ int pmbtoken_exp2_generate_key(CBB *out_private, CBB *out_public) {
   }
 
   return pmbtoken_generate_key(&pmbtoken_exp2_method, out_private, out_public);
+}
+
+int pmbtoken_exp2_generate_fixed_key(CBB *out_private, CBB *out_public,
+                                     const uint8_t *seed, size_t seed_len) {
+  if (!pmbtoken_exp2_init_method()) {
+    return 0;
+  }
+
+  return pmbtoken_generate_fixed_key(&pmbtoken_exp2_method, out_private,
+                                     out_public, seed, seed_len);
 }
 
 int pmbtoken_exp2_client_key_from_bytes(TRUST_TOKEN_CLIENT_KEY *key,
