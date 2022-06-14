@@ -16,6 +16,24 @@
       "message": "(I think David is best to do the overall review, but just jumping in with a thought about API naming. Elsewhere I think we\u0027ve named things \"_from_seed\" or \"_from_secret\" for functions like this[1]. Those are stable derivations, however. Perhaps this is \"_from_seed_for_testing\"?)\n\n[1] https://commondatastorage.googleapis.com/chromium-boringssl-docs/ec_key.h.html#EC_KEY_derive_from_secret",
       "revId": "e48359192d28950f95a21ade4fd6b1e1b989e2ba",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36310194_b39ddcad",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2022-06-14T17:41:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eaf73eae_534946a9",
+      "revId": "e48359192d28950f95a21ade4fd6b1e1b989e2ba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
