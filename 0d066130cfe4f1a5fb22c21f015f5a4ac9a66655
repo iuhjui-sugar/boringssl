@@ -1,0 +1,437 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aced42f5_c9d4c899",
+        "filename": "crypto/asn1/a_gentm.c",
+        "patchSetId": 28
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-14T22:23:28Z",
+      "side": 1,
+      "message": "Nit: We usually prefer to declare variables near their use (a la C99), so just move this to immediately before line 75. Ditto in crypto/asn1/a_utctm.c.",
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49aa78df_12f8b458",
+        "filename": "crypto/asn1/a_gentm.c",
+        "patchSetId": 28
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-14T22:23:28Z",
+      "side": 1,
+      "message": "While you\u0027re here, want to remove these silly parens? :-)",
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0a2d2e5_0df34b09",
+        "filename": "crypto/asn1/asn1_test.cc",
+        "patchSetId": 28
+      },
+      "lineNbr": 911,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-14T22:23:28Z",
+      "side": 1,
+      "message": "Style nit: curly braces.",
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e507989f_ebc08c2b",
+        "filename": "crypto/asn1/asn1_test.cc",
+        "patchSetId": 28
+      },
+      "lineNbr": 924,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-14T22:23:28Z",
+      "side": 1,
+      "message": "Style nit: no need for parens here",
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2607a9ba_77561951",
+        "filename": "crypto/asn1/asn1_test.cc",
+        "patchSetId": 28
+      },
+      "lineNbr": 999,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-14T22:23:28Z",
+      "side": 1,
+      "message": "Since this is testing a CBS function and doesn\u0027t actually use crypto/asn1, maybe move to crypto/bytestring/bytestring_test.cc.",
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f77ffca_ed98e6b4",
+        "filename": "crypto/asn1/asn1_test.cc",
+        "patchSetId": 28
+      },
+      "lineNbr": 1046,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-14T22:23:28Z",
+      "side": 1,
+      "message": "clang-format\n\nI think the first block\u0027s indent is right, but not the others?",
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b451b6b5_52c81cef",
+        "filename": "crypto/asn1/asn1_test.cc",
+        "patchSetId": 28
+      },
+      "lineNbr": 1079,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-14T22:23:28Z",
+      "side": 1,
+      "message": "Style nit: 80 chars, but we can just write\n\n```\nEXPECT_FALSE(CBS_parse_whatever);\nEXPECT_TRUE(CBS_parse_whatever);\n```\n\nOr:\n\n```\nEXPECT_EQ(CBS_parse_whatever, 0);\nEXPECT_EQ(CBS_parse_whatever, 1);\n```\n\nTBH I\u0027ve always written the former out of laziness, even though that technically doesn\u0027t notice if it returns 2 for true. But whichever.",
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8661588_7bb471c5",
+        "filename": "crypto/asn1/asn1_test.cc",
+        "patchSetId": 28
+      },
+      "lineNbr": 1082,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-14T22:23:28Z",
+      "side": 1,
+      "message": "Style nit: I\u0027d probably interleave these with the tables. Declaring things close to where they\u0027re used and whatnot.",
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0368219b_cfc2f93f",
+        "filename": "crypto/asn1/asn1_test.cc",
+        "patchSetId": 28
+      },
+      "lineNbr": 1100,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-14T22:23:28Z",
+      "side": 1,
+      "message": "accept",
+      "range": {
+        "startLine": 1100,
+        "startChar": 23,
+        "endLine": 1100,
+        "endChar": 30
+      },
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7003090_7f6d7fed",
+        "filename": "crypto/asn1/asn1_test.cc",
+        "patchSetId": 28
+      },
+      "lineNbr": 1101,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-14T22:23:28Z",
+      "side": 1,
+      "message": "Style nit: 80 chars.",
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff0650a5_f5e0ebdd",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 28
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-14T22:23:28Z",
+      "side": 1,
+      "message": "Style nit: Sort includes within a block (clang-format will do that too).",
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97c4cd21_45350e3e",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 28
+      },
+      "lineNbr": 821,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-14T22:23:28Z",
+      "side": 1,
+      "message": "Style nit: `switch (tz) {`\n\nAny file that\u0027s already two space indent you can assume is under clang-format\u0027s purview. It\u0027s just the four space ones that are weird.",
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0753c11_557a280e",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 28
+      },
+      "lineNbr": 829,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-14T22:23:28Z",
+      "side": 1,
+      "message": "Style nit: Period at the end of the sentence and two spaces before `//` on this line. (I\u0027m actually not sure if the style guide says it, but I\u0027ve observed clang-format do that and clang-format is all-knowing.)\n\nDitto below.",
+      "range": {
+        "startLine": 829,
+        "startChar": 13,
+        "endLine": 829,
+        "endChar": 15
+      },
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29acac59_9e45a95d",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 28
+      },
+      "lineNbr": 833,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-14T22:23:28Z",
+      "side": 1,
+      "message": "timezone",
+      "range": {
+        "startLine": 833,
+        "startChar": 28,
+        "endLine": 833,
+        "endChar": 35
+      },
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d70d2d13_61bdb105",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 28
+      },
+      "lineNbr": 834,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-14T22:23:28Z",
+      "side": 1,
+      "message": "Nits: s/UTC times/UTCTimes/. We\u0027re specifically taking about the ASN.1 UTCTime type, rather than the general notion of times in UTC.\n\nAlso s/notbefore/notBefore/ and s/notafter/notAfter/ because X.509 styles them in that goofy way.\n\nAlso we can probably wrap this in fewer lines. (We use 80 chars and this still has some 8-ish more left to go.)",
+      "range": {
+        "startLine": 833,
+        "startChar": 64,
+        "endLine": 834,
+        "endChar": 10
+      },
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94e4d19c_63433ac7",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 28
+      },
+      "lineNbr": 841,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-14T22:23:28Z",
+      "side": 1,
+      "message": "The context itself is internal, but let\u0027s include something like: \"See cl/237068815\" so we can find the context later.",
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56550e7d_d02dd587",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 28
+      },
+      "lineNbr": 843,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-14T22:23:28Z",
+      "side": 1,
+      "message": "Colon after the `)`, so `TODO(bbe): ...`",
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "933c61ed_b140b53b",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 28
+      },
+      "lineNbr": 845,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-14T22:23:28Z",
+      "side": 1,
+      "message": "(We might be able to do something slightly goofy like:\n\n- We\u0027ll tolerate it on parse\n- But when we go to extract a `struct tm` out of it, we\u0027ll error.\n\nIt\u0027s annoying to defer the error like that, but I *think* the project in question isn\u0027t sensitive to that part of our code. Anyway, something for later.)",
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80e65666_4d4af416",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 28
+      },
+      "lineNbr": 849,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-14T22:23:28Z",
+      "side": 1,
+      "message": "Curly braces",
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ed21242_0b801c74",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 28
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-14T22:23:28Z",
+      "side": 1,
+      "message": "Curly braces",
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c854f0e_b16950d2",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 28
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-14T22:23:28Z",
+      "side": 1,
+      "message": "It doesn\u0027t *quite* implement that with the time zone thing. :-/\n\nA thought... since other folks might call this new API that have no reason to care, maybe it should just take `int allow_timezone_offset` to control it. crypto/asn1 will set it to 1 and others can use 0.\n\nWe could even switch CCV\u0027s parser to it!",
+      "range": {
+        "startLine": 357,
+        "startChar": 47,
+        "endLine": 357,
+        "endChar": 55
+      },
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1540ee33_4e928739",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 28
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-14T22:23:28Z",
+      "side": 1,
+      "message": "How about we just do two functions? This avoids needing a crypto/bytestring -\u003e crypto/asn1 dependency, and also avoids answering silly questions like \"what happens if you pass in some other number?\"\n\n(Internally it can call some helper with like `int is_utctime` or whatever.)",
+      "range": {
+        "startLine": 358,
+        "startChar": 22,
+        "endLine": 360,
+        "endChar": 47
+      },
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee874f6f_aa7075b2",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 28
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-14T22:23:28Z",
+      "side": 1,
+      "message": "clang-format (spaces instead of tabs)",
+      "range": {
+        "startLine": 363,
+        "startChar": 0,
+        "endLine": 363,
+        "endChar": 5
+      },
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
