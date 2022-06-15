@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "33dd3851_8a4fdba8",
+        "filename": "crypto/asn1/a_gentm.c",
+        "patchSetId": 28
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T16:34:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aced42f5_c9d4c899",
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "49aa78df_12f8b458",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-06-14T22:23:28Z",
       "side": 1,
       "message": "While you\u0027re here, want to remove these silly parens? :-)",
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48e8e7eb_84e8631c",
+        "filename": "crypto/asn1/a_gentm.c",
+        "patchSetId": 28
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T16:34:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49aa78df_12f8b458",
       "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -52,6 +88,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2e63bdc_129d2f46",
+        "filename": "crypto/asn1/asn1_test.cc",
+        "patchSetId": 28
+      },
+      "lineNbr": 911,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T16:34:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c0a2d2e5_0df34b09",
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e507989f_ebc08c2b",
@@ -65,6 +119,24 @@
       "writtenOn": "2022-06-14T22:23:28Z",
       "side": 1,
       "message": "Style nit: no need for parens here",
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9660fd5e_51836c43",
+        "filename": "crypto/asn1/asn1_test.cc",
+        "patchSetId": 28
+      },
+      "lineNbr": 924,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T16:34:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e507989f_ebc08c2b",
       "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -86,6 +158,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "52378422_d492e885",
+        "filename": "crypto/asn1/asn1_test.cc",
+        "patchSetId": 28
+      },
+      "lineNbr": 999,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T16:34:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2607a9ba_77561951",
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1f77ffca_ed98e6b4",
@@ -99,6 +189,24 @@
       "writtenOn": "2022-06-14T22:23:28Z",
       "side": 1,
       "message": "clang-format\n\nI think the first block\u0027s indent is right, but not the others?",
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11de680b_4db08d26",
+        "filename": "crypto/asn1/asn1_test.cc",
+        "patchSetId": 28
+      },
+      "lineNbr": 1046,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T16:34:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f77ffca_ed98e6b4",
       "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -120,6 +228,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba62c9c3_7494ac5c",
+        "filename": "crypto/asn1/asn1_test.cc",
+        "patchSetId": 28
+      },
+      "lineNbr": 1079,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T16:34:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b451b6b5_52c81cef",
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a8661588_7bb471c5",
@@ -133,6 +259,24 @@
       "writtenOn": "2022-06-14T22:23:28Z",
       "side": 1,
       "message": "Style nit: I\u0027d probably interleave these with the tables. Declaring things close to where they\u0027re used and whatnot.",
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da91db9e_10717e87",
+        "filename": "crypto/asn1/asn1_test.cc",
+        "patchSetId": 28
+      },
+      "lineNbr": 1082,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T16:34:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8661588_7bb471c5",
       "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -160,6 +304,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a0945812_4a618772",
+        "filename": "crypto/asn1/asn1_test.cc",
+        "patchSetId": 28
+      },
+      "lineNbr": 1100,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T16:34:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0368219b_cfc2f93f",
+      "range": {
+        "startLine": 1100,
+        "startChar": 23,
+        "endLine": 1100,
+        "endChar": 30
+      },
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c7003090_7f6d7fed",
@@ -173,6 +341,24 @@
       "writtenOn": "2022-06-14T22:23:28Z",
       "side": 1,
       "message": "Style nit: 80 chars.",
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88779201_14dffb60",
+        "filename": "crypto/asn1/asn1_test.cc",
+        "patchSetId": 28
+      },
+      "lineNbr": 1101,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T16:34:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7003090_7f6d7fed",
       "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -194,6 +380,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "29a3c31c_06bc9d1a",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 28
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T16:34:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff0650a5_f5e0ebdd",
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "97c4cd21_45350e3e",
@@ -211,6 +415,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc523135_5563bc75",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 28
+      },
+      "lineNbr": 821,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T16:34:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "97c4cd21_45350e3e",
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e0753c11_557a280e",
@@ -224,6 +446,30 @@
       "writtenOn": "2022-06-14T22:23:28Z",
       "side": 1,
       "message": "Style nit: Period at the end of the sentence and two spaces before `//` on this line. (I\u0027m actually not sure if the style guide says it, but I\u0027ve observed clang-format do that and clang-format is all-knowing.)\n\nDitto below.",
+      "range": {
+        "startLine": 829,
+        "startChar": 13,
+        "endLine": 829,
+        "endChar": 15
+      },
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09cca57b_918cc213",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 28
+      },
+      "lineNbr": 829,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T16:34:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0753c11_557a280e",
       "range": {
         "startLine": 829,
         "startChar": 13,
@@ -257,6 +503,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1c15d1d_f0fe00cf",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 28
+      },
+      "lineNbr": 833,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T16:34:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29acac59_9e45a95d",
+      "range": {
+        "startLine": 833,
+        "startChar": 28,
+        "endLine": 833,
+        "endChar": 35
+      },
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d70d2d13_61bdb105",
@@ -270,6 +540,30 @@
       "writtenOn": "2022-06-14T22:23:28Z",
       "side": 1,
       "message": "Nits: s/UTC times/UTCTimes/. We\u0027re specifically taking about the ASN.1 UTCTime type, rather than the general notion of times in UTC.\n\nAlso s/notbefore/notBefore/ and s/notafter/notAfter/ because X.509 styles them in that goofy way.\n\nAlso we can probably wrap this in fewer lines. (We use 80 chars and this still has some 8-ish more left to go.)",
+      "range": {
+        "startLine": 833,
+        "startChar": 64,
+        "endLine": 834,
+        "endChar": 10
+      },
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d62f880_6567ca04",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 28
+      },
+      "lineNbr": 834,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T16:34:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d70d2d13_61bdb105",
       "range": {
         "startLine": 833,
         "startChar": 64,
@@ -297,6 +591,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e2afe5a_f2c70739",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 28
+      },
+      "lineNbr": 841,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T16:34:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "94e4d19c_63433ac7",
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "56550e7d_d02dd587",
@@ -310,6 +622,24 @@
       "writtenOn": "2022-06-14T22:23:28Z",
       "side": 1,
       "message": "Colon after the `)`, so `TODO(bbe): ...`",
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b504875c_a36e501d",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 28
+      },
+      "lineNbr": 843,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T16:34:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "56550e7d_d02dd587",
       "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -348,6 +678,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c07fb9b_5e0afa71",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 28
+      },
+      "lineNbr": 849,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T16:34:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "80e65666_4d4af416",
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1ed21242_0b801c74",
@@ -365,6 +713,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c73fc6b1_c53246b1",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 28
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T16:34:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1ed21242_0b801c74",
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8c854f0e_b16950d2",
@@ -378,6 +744,30 @@
       "writtenOn": "2022-06-14T22:23:28Z",
       "side": 1,
       "message": "It doesn\u0027t *quite* implement that with the time zone thing. :-/\n\nA thought... since other folks might call this new API that have no reason to care, maybe it should just take `int allow_timezone_offset` to control it. crypto/asn1 will set it to 1 and others can use 0.\n\nWe could even switch CCV\u0027s parser to it!",
+      "range": {
+        "startLine": 357,
+        "startChar": 47,
+        "endLine": 357,
+        "endChar": 55
+      },
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9fdf13ed_4012a85c",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 28
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T16:34:17Z",
+      "side": 1,
+      "message": "Yeah, split to two functions with a flag on each allowing for the four digit timzeons.",
+      "parentUuid": "8c854f0e_b16950d2",
       "range": {
         "startLine": 357,
         "startChar": 47,
@@ -411,6 +801,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f19ff192_0bd06e64",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 28
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T16:34:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1540ee33_4e928739",
+      "range": {
+        "startLine": 358,
+        "startChar": 22,
+        "endLine": 360,
+        "endChar": 47
+      },
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ee874f6f_aa7075b2",
@@ -424,6 +838,30 @@
       "writtenOn": "2022-06-14T22:23:28Z",
       "side": 1,
       "message": "clang-format (spaces instead of tabs)",
+      "range": {
+        "startLine": 363,
+        "startChar": 0,
+        "endLine": 363,
+        "endChar": 5
+      },
+      "revId": "0d066130cfe4f1a5fb22c21f015f5a4ac9a66655",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66033553_a0752bd0",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 28
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T16:34:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee874f6f_aa7075b2",
       "range": {
         "startLine": 363,
         "startChar": 0,
