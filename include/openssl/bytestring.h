@@ -18,6 +18,7 @@
 #include <openssl/base.h>
 
 #include <openssl/span.h>
+#include <time.h>
 
 #if defined(__cplusplus)
 extern "C" {
@@ -352,6 +353,23 @@ OPENSSL_EXPORT int CBS_is_unsigned_asn1_integer(const CBS *cbs);
 // |OPENSSL_free|.
 OPENSSL_EXPORT char *CBS_asn1_oid_to_text(const CBS *cbs);
 
+// CBS_parse_generalized_time returns one if |cbs| is a valid ASN.1
+// GeneralizedTime within the limitations imposed by RFC 5280. If
+// |allow_timezone_offset| is non-zero four digit numeric timezone offsets
+// which would not be allowed by RFC 5280 are permitted. Zero is returned
+// on failure. On success, if |out_tm| is non-NULL |*out_tm| will be set to
+// the validated time value, adjusted for any timezone offset if present.
+OPENSSL_EXPORT int CBS_parse_generalized_time(const CBS *cbs, struct tm *out_tm,
+                                              int allow_timzeone_offset);
+
+// CBS_parse_utc_time returns one if |cbs| is a valid ASN.1 UTCTime body within
+// the limitations imposed by RFC 5280. If |allow_timezone_offset| is non-zero
+// four digit numeric timezone offsets which would not be allowed by RFC 5280
+// are permitted. Zero is returned on failure. On success, if |out_tm| is
+// non-NULL |*out_tm| will be set to the validated time value, adjusted for any
+// timezone offset if present.
+OPENSSL_EXPORT int CBS_parse_utc_time(const CBS *cbs, struct tm *out_tm,
+                                      int allow_timzeone_offset);
 
 // CRYPTO ByteBuilder.
 //
