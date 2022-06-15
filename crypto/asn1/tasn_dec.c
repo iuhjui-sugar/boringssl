@@ -62,6 +62,7 @@
 #include <openssl/asn1t.h>
 #include <openssl/err.h>
 #include <openssl/mem.h>
+#include <openssl/bytestring.h>
 
 #include "../internal.h"
 #include "internal.h"
@@ -821,6 +822,22 @@ static int asn1_ex_c2i(ASN1_VALUE **pval, const unsigned char *cont, int len,
             OPENSSL_PUT_ERROR(ASN1, ASN1_R_UNIVERSALSTRING_IS_WRONG_LENGTH);
             goto err;
         }
+        if (utype == V_ASN1_UTCTIME) {
+	  CBS cbs;
+	  CBS_init(&cbs, cont, (size_t)len);
+	  if (!CBS_parse_UTC_time(&cbs, 1, NULL)) {
+	    OPENSSL_PUT_ERROR(ASN1, ASN1_R_INVALID_TIME_FORMAT);
+	    goto err;
+	  }
+        }
+        if (utype == V_ASN1_GENERALIZEDTIME) {
+	  CBS cbs;
+	  CBS_init(&cbs, cont, (size_t)len);
+	  if (!CBS_parse_generalized_time(&cbs, 0, NULL)) {
+	    OPENSSL_PUT_ERROR(ASN1, ASN1_R_INVALID_TIME_FORMAT);
+	    goto err;
+	  }
+        }
         /* All based on ASN1_STRING and handled the same */
         if (!*pval) {
             stmp = ASN1_STRING_type_new(utype);
@@ -840,7 +857,7 @@ static int asn1_ex_c2i(ASN1_VALUE **pval, const unsigned char *cont, int len,
             goto err;
         }
         break;
-    }
+}
     /* If ASN1_ANY and NULL type fix up value */
     if (typ && (utype == V_ASN1_NULL))
         typ->value.ptr = NULL;

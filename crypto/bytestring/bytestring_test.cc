@@ -20,13 +20,14 @@
 
 #include <gtest/gtest.h>
 
+#include <openssl/asn1.h>
 #include <openssl/bytestring.h>
 #include <openssl/crypto.h>
 #include <openssl/span.h>
 
-#include "internal.h"
 #include "../internal.h"
 #include "../test/test_util.h"
+#include "internal.h"
 
 
 TEST(CBSTest, Skip) {
@@ -483,12 +484,7 @@ TEST(CBBTest, DiscardChild) {
   bssl::UniquePtr<uint8_t> scoper(buf);
 
   static const uint8_t kExpected[] = {
-        0xaa,
-        0,
-        1, 0xbb,
-        0, 2, 0xcc, 0xcc,
-        0, 0, 3, 0xdd, 0xdd, 0xdd,
-        1, 0xff,
+      0xaa, 0, 1, 0xbb, 0, 2, 0xcc, 0xcc, 0, 0, 3, 0xdd, 0xdd, 0xdd, 1, 0xff,
   };
   EXPECT_EQ(Bytes(kExpected), Bytes(buf, buf_len));
 }
@@ -512,7 +508,7 @@ TEST(CBBTest, Misuse) {
   EXPECT_FALSE(CBB_add_u8_length_prefixed(&child, &contents));
   EXPECT_FALSE(CBB_add_u16_length_prefixed(&child, &contents));
   EXPECT_FALSE(CBB_add_asn1(&child, &contents, 1));
-  EXPECT_FALSE(CBB_add_bytes(&child, (const uint8_t*) "a", 1));
+  EXPECT_FALSE(CBB_add_bytes(&child, (const uint8_t *)"a", 1));
 
   ASSERT_TRUE(CBB_finish(cbb.get(), &buf, &buf_len));
   bssl::UniquePtr<uint8_t> scoper(buf);
@@ -523,15 +519,41 @@ TEST(CBBTest, Misuse) {
 TEST(CBBTest, ASN1) {
   static const uint8_t kExpected[] = {
       // SEQUENCE { 1 2 3 }
-      0x30, 3, 1, 2, 3,
+      0x30,
+      3,
+      1,
+      2,
+      3,
       // [4 CONSTRUCTED] { 4 5 6 }
-      0xa4, 3, 4, 5, 6,
+      0xa4,
+      3,
+      4,
+      5,
+      6,
       // [APPLICATION 30 PRIMITIVE] { 7 8 9 }
-      0x5e, 3, 7, 8, 9,
+      0x5e,
+      3,
+      7,
+      8,
+      9,
       // [APPLICATION 31 PRIMITIVE] { 10 11 12 }
-      0x5f, 0x1f, 3, 10, 11, 12,
+      0x5f,
+      0x1f,
+      3,
+      10,
+      11,
+      12,
       // [PRIVATE 2^29-1 CONSTRUCTED] { 13 14 15 }
-      0xff, 0x81, 0xff, 0xff, 0xff, 0x7f, 3, 13, 14, 15,
+      0xff,
+      0x81,
+      0xff,
+      0xff,
+      0xff,
+      0x7f,
+      3,
+      13,
+      14,
+      15,
   };
   uint8_t *buf;
   size_t buf_len;
@@ -545,13 +567,9 @@ TEST(CBBTest, ASN1) {
       CBB_add_asn1(cbb.get(), &contents,
                    CBS_ASN1_CONTEXT_SPECIFIC | CBS_ASN1_CONSTRUCTED | 4));
   ASSERT_TRUE(CBB_add_bytes(&contents, (const uint8_t *)"\x04\x05\x06", 3));
-  ASSERT_TRUE(
-      CBB_add_asn1(cbb.get(), &contents,
-                   CBS_ASN1_APPLICATION | 30));
+  ASSERT_TRUE(CBB_add_asn1(cbb.get(), &contents, CBS_ASN1_APPLICATION | 30));
   ASSERT_TRUE(CBB_add_bytes(&contents, (const uint8_t *)"\x07\x08\x09", 3));
-  ASSERT_TRUE(
-      CBB_add_asn1(cbb.get(), &contents,
-                   CBS_ASN1_APPLICATION | 31));
+  ASSERT_TRUE(CBB_add_asn1(cbb.get(), &contents, CBS_ASN1_APPLICATION | 31));
   ASSERT_TRUE(CBB_add_bytes(&contents, (const uint8_t *)"\x0a\x0b\x0c", 3));
   ASSERT_TRUE(
       CBB_add_asn1(cbb.get(), &contents,
@@ -815,10 +833,10 @@ static const ASN1Uint64Test kASN1Uint64Tests[] = {
     {127, "\x02\x01\x7f", 3},
     {128, "\x02\x02\x00\x80", 4},
     {0xdeadbeef, "\x02\x05\x00\xde\xad\xbe\xef", 7},
-    {UINT64_C(0x0102030405060708),
-     "\x02\x08\x01\x02\x03\x04\x05\x06\x07\x08", 10},
+    {UINT64_C(0x0102030405060708), "\x02\x08\x01\x02\x03\x04\x05\x06\x07\x08",
+     10},
     {UINT64_C(0xffffffffffffffff),
-      "\x02\x09\x00\xff\xff\xff\xff\xff\xff\xff\xff", 11},
+     "\x02\x09\x00\xff\xff\xff\xff\xff\xff\xff\xff", 11},
 };
 
 struct ASN1InvalidUint64Test {
@@ -1049,7 +1067,7 @@ TEST(CBSTest, BitString) {
       {0x00, 0xff},                                // 8 bits
       {0x06, 0xff, 0xff, 0xff, 0xff, 0xff, 0xc0},  // 42 bits
   };
-  for (const auto& test : kValidBitStrings) {
+  for (const auto &test : kValidBitStrings) {
     SCOPED_TRACE(Bytes(test.data(), test.size()));
     CBS cbs;
     CBS_init(&cbs, test.data(), test.size());
@@ -1067,7 +1085,7 @@ TEST(CBSTest, BitString) {
       // All unused bits must be cleared.
       {0x06, 0xff, 0xc1},
   };
-  for (const auto& test : kInvalidBitStrings) {
+  for (const auto &test : kInvalidBitStrings) {
     SCOPED_TRACE(Bytes(test.data(), test.size()));
     CBS cbs;
     CBS_init(&cbs, test.data(), test.size());
@@ -1101,7 +1119,7 @@ TEST(CBSTest, BitString) {
       {{0x06, 0x0f, 0x40}, 16, false},
       {{0x06, 0x0f, 0x40}, 1000, false},
   };
-  for (const auto& test : kBitTests) {
+  for (const auto &test : kBitTests) {
     SCOPED_TRACE(Bytes(test.in.data(), test.in.size()));
     SCOPED_TRACE(test.bit);
     CBS cbs;
@@ -1210,13 +1228,13 @@ TEST(CBBTest, FlushASN1SetOf) {
   const struct {
     std::vector<uint8_t> in, out;
   } kValidInputs[] = {
-    // No elements.
-    {{}, {}},
-    // One element.
-    {{0x30, 0x00}, {0x30, 0x00}},
-    // Two identical elements.
-    {{0x30, 0x00, 0x30, 0x00}, {0x30, 0x00, 0x30, 0x00}},
-    // clang-format off
+      // No elements.
+      {{}, {}},
+      // One element.
+      {{0x30, 0x00}, {0x30, 0x00}},
+      // Two identical elements.
+      {{0x30, 0x00, 0x30, 0x00}, {0x30, 0x00, 0x30, 0x00}},
+      // clang-format off
     {{0x30, 0x02, 0x00, 0x00,
       0x30, 0x00,
       0x01, 0x00,
@@ -1235,7 +1253,7 @@ TEST(CBBTest, FlushASN1SetOf) {
       0x30, 0x02, 0x00, 0x00,
       0x30, 0x03, 0x00, 0x00, 0x00,
       0x30, 0x03, 0x00, 0x00, 0x01}},
-    // clang-format on
+      // clang-format on
   };
 
   for (const auto &t : kValidInputs) {
@@ -1259,9 +1277,9 @@ TEST(CBBTest, FlushASN1SetOf) {
   }
 
   const std::vector<uint8_t> kInvalidInputs[] = {
-    {0x30},
-    {0x30, 0x01},
-    {0x30, 0x00, 0x30, 0x00, 0x30, 0x01},
+      {0x30},
+      {0x30, 0x01},
+      {0x30, 0x00, 0x30, 0x00, 0x30, 0x01},
   };
 
   for (const auto &t : kInvalidInputs) {
@@ -1458,17 +1476,17 @@ TEST(CBBTest, Unicode) {
   }
 
   static const uint32_t kBadCodePoints[] = {
-    // Surrogate pairs.
-    0xd800,
-    0xdfff,
-    // Non-characters.
-    0xfffe,
-    0xffff,
-    0xfdd0,
-    0x1fffe,
-    0x1ffff,
-    // Too big.
-    0x110000,
+      // Surrogate pairs.
+      0xd800,
+      0xdfff,
+      // Non-characters.
+      0xfffe,
+      0xffff,
+      0xfdd0,
+      0x1fffe,
+      0x1ffff,
+      // Too big.
+      0x110000,
   };
   bssl::ScopedCBB cbb;
   ASSERT_TRUE(CBB_init(cbb.get(), 0));
@@ -1492,4 +1510,119 @@ TEST(CBBTest, Unicode) {
   EXPECT_EQ(3u, cbb_get_utf8_len(0xffff));
   EXPECT_EQ(4u, cbb_get_utf8_len(0x10000));
   EXPECT_EQ(4u, cbb_get_utf8_len(0x10ffff));
+}
+
+TEST(ASN1Test, BogusTime) {
+  static const struct {
+    const char *timestring;
+  } kBogusTimeTests[] = {
+      {""},
+      {"curl -sSf https://sh.rustup.rs | sudo sh"},
+      {"Z"},
+      {"0000"},
+      {"9999Z"},
+      {"00000000000000000000000000000Z"},
+      {"19491231235959"},
+      {"500101000000.001Z"},
+      {"500101000000+6"},
+      {"-1970010100000Z"},
+      {"7a0101000000Z"},
+      {"20500101000000-6"},
+      {"20500101000000.001"},
+      {"20500229000000Z"},
+      {"220229000000Z"},
+      {"20500132000000Z"},
+      {"220132000000Z"},
+      {"20500332000000Z"},
+      {"220332000000Z"},
+      {"20500532000000Z"},
+      {"220532000000Z"},
+      {"20500732000000Z"},
+      {"220732000000Z"},
+      {"20500832000000Z"},
+      {"220832000000Z"},
+      {"20501032000000Z"},
+      {"221032000000Z"},
+      {"20501232000000Z"},
+      {"221232000000Z"},
+      {"20500431000000Z"},
+      {"220431000000Z"},
+      {"20500631000000Z"},
+      {"220631000000Z"},
+      {"20500931000000Z"},
+      {"220931000000Z"},
+      {"20501131000000Z"},
+      {"221131000000Z"},
+      {"20501100000000Z"},
+      {"221100000000Z"},
+      {"19500101000000+0600"},
+  };
+  static const struct {
+    const char *timestring;
+  } kShouldBeBogusUTCTZTests[] = {
+      {"480711220333-0700"}, {"140704000000-0700"}, {"480222202332-0500"},
+      {"480726113216-0000"}, {"480726113216-2359"},
+  };
+  static const struct {
+    const char *timestring;
+  } kBogusUTCTZTests[] = {
+      {"480711220333-0160"},
+      {"140704000000-9999"},
+      {"480222202332-2400"},
+  };
+  static const struct {
+    const char *timestring;
+  } kShouldBeBogusGenTZTests[] = {
+      {"20480711220333-0000"},
+      {"20140704000000-0100"},
+      {"20460311174630-0300"},
+      {"20140704000000-2359"},
+  };
+  static const struct {
+    const char *timestring;
+  } kBogusGenTZTests[] = {
+      {"20480222202332-2400"},
+      {"20140704000000-9999"},
+      {"20480726113216-0160"},
+  };
+  for (const auto &t : kBogusTimeTests) {
+    SCOPED_TRACE(t.timestring);
+    CBS cbs;
+    CBS_init(&cbs, (const uint8_t *)t.timestring, strlen(t.timestring));
+    EXPECT_FALSE(CBS_parse_generalized_time(&cbs, 0,NULL));
+    EXPECT_FALSE(CBS_parse_UTC_time(&cbs, 1,NULL));
+  }
+  for (const auto &t : kShouldBeBogusUTCTZTests) {
+    SCOPED_TRACE(t.timestring);
+    CBS cbs;
+    CBS_init(&cbs, (const uint8_t *)t.timestring, strlen(t.timestring));
+    EXPECT_FALSE(CBS_parse_generalized_time(&cbs, 0, NULL));
+    EXPECT_FALSE(CBS_parse_generalized_time(&cbs, 1, NULL));
+    EXPECT_TRUE(CBS_parse_UTC_time(&cbs, 1, NULL));
+    EXPECT_FALSE(CBS_parse_UTC_time(&cbs, 0, NULL));
+  }
+  for (const auto &t : kBogusUTCTZTests) {
+    SCOPED_TRACE(t.timestring);
+    CBS cbs;
+    CBS_init(&cbs, (const uint8_t *)t.timestring, strlen(t.timestring));
+    EXPECT_FALSE(CBS_parse_generalized_time(&cbs, 0, NULL));
+    EXPECT_FALSE(CBS_parse_UTC_time(&cbs, 1, NULL));
+  }
+  for (const auto &t : kShouldBeBogusGenTZTests) {
+    SCOPED_TRACE(t.timestring);
+    CBS cbs;
+    CBS_init(&cbs, (const uint8_t *)t.timestring, strlen(t.timestring));
+    EXPECT_FALSE(CBS_parse_generalized_time(&cbs, 0, NULL));
+    EXPECT_TRUE(CBS_parse_generalized_time(&cbs, 1, NULL));
+    EXPECT_FALSE(CBS_parse_UTC_time(&cbs, 1, NULL));
+    EXPECT_FALSE(CBS_parse_UTC_time(&cbs, 0, NULL));
+  }
+  for (const auto &t : kBogusGenTZTests) {
+    SCOPED_TRACE(t.timestring);
+    CBS cbs;
+    CBS_init(&cbs, (const uint8_t *)t.timestring, strlen(t.timestring));
+    EXPECT_FALSE(CBS_parse_generalized_time(&cbs, 0, NULL));
+    EXPECT_FALSE(CBS_parse_UTC_time(&cbs, 1, NULL));
+  }
+
 }
