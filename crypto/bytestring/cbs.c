@@ -12,15 +12,18 @@
  * OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. */
 
-#include <openssl/mem.h>
+#include <openssl/asn1.h>
 #include <openssl/bytestring.h>
+#include <openssl/mem.h>
 
 #include <assert.h>
+#include <ctype.h>
 #include <inttypes.h>
 #include <string.h>
 
-#include "internal.h"
+#include "../asn1/internal.h"
 #include "../internal.h"
+#include "internal.h"
 
 
 void CBS_init(CBS *cbs, const uint8_t *data, size_t len) {
@@ -44,13 +47,9 @@ int CBS_skip(CBS *cbs, size_t len) {
   return cbs_get(cbs, &dummy, len);
 }
 
-const uint8_t *CBS_data(const CBS *cbs) {
-  return cbs->data;
-}
+const uint8_t *CBS_data(const CBS *cbs) { return cbs->data; }
 
-size_t CBS_len(const CBS *cbs) {
-  return cbs->len;
-}
+size_t CBS_len(const CBS *cbs) { return cbs->len; }
 
 int CBS_stow(const CBS *cbs, uint8_t **out_ptr, size_t *out_len) {
   OPENSSL_free(*out_ptr);
@@ -72,7 +71,7 @@ int CBS_strdup(const CBS *cbs, char **out_ptr) {
   if (*out_ptr != NULL) {
     OPENSSL_free(*out_ptr);
   }
-  *out_ptr = OPENSSL_strndup((const char*)cbs->data, cbs->len);
+  *out_ptr = OPENSSL_strndup((const char *)cbs->data, cbs->len);
   return (*out_ptr != NULL);
 }
 
@@ -154,9 +153,7 @@ int CBS_get_u32le(CBS *cbs, uint32_t *out) {
   return 1;
 }
 
-int CBS_get_u64(CBS *cbs, uint64_t *out) {
-  return cbs_get_u(cbs, out, 8);
-}
+int CBS_get_u64(CBS *cbs, uint64_t *out) { return cbs_get_u(cbs, out, 8); }
 
 int CBS_get_u64le(CBS *cbs, uint64_t *out) {
   if (!cbs_get_u(cbs, out, 8)) {
@@ -327,7 +324,7 @@ static int cbs_get_any_asn1_element(CBS *cbs, CBS *out, unsigned *out_tag,
   // 8.1.3.
   if ((length_byte & 0x80) == 0) {
     // Short form length.
-    len = ((size_t) length_byte) + header_len;
+    len = ((size_t)length_byte) + header_len;
     if (out_header_len != NULL) {
       *out_header_len = header_len;
     }
@@ -406,7 +403,7 @@ int CBS_get_any_asn1(CBS *cbs, CBS *out, unsigned *out_tag) {
 }
 
 int CBS_get_any_asn1_element(CBS *cbs, CBS *out, unsigned *out_tag,
-                                    size_t *out_header_len) {
+                             size_t *out_header_len) {
   return cbs_get_any_asn1_element(cbs, out, out_tag, out_header_len, NULL, NULL,
                                   /*ber_ok=*/0);
 }
@@ -507,8 +504,7 @@ int CBS_get_asn1_int64(CBS *cbs, int64_t *out) {
 
 int CBS_get_asn1_bool(CBS *cbs, int *out) {
   CBS bytes;
-  if (!CBS_get_asn1(cbs, &bytes, CBS_ASN1_BOOLEAN) ||
-      CBS_len(&bytes) != 1) {
+  if (!CBS_get_asn1(cbs, &bytes, CBS_ASN1_BOOLEAN) || CBS_len(&bytes) != 1) {
     return 0;
   }
 
@@ -568,8 +564,7 @@ int CBS_get_optional_asn1_uint64(CBS *cbs, uint64_t *out, unsigned tag,
     return 0;
   }
   if (present) {
-    if (!CBS_get_asn1_uint64(&child, out) ||
-        CBS_len(&child) != 0) {
+    if (!CBS_get_asn1_uint64(&child, out) || CBS_len(&child) != 0) {
       return 0;
     }
   } else {
@@ -589,8 +584,7 @@ int CBS_get_optional_asn1_bool(CBS *cbs, int *out, unsigned tag,
     uint8_t boolean;
 
     if (!CBS_get_asn1(&child, &child2, CBS_ASN1_BOOLEAN) ||
-        CBS_len(&child2) != 1 ||
-        CBS_len(&child) != 0) {
+        CBS_len(&child2) != 1 || CBS_len(&child) != 0) {
       return 0;
     }
 
@@ -611,8 +605,7 @@ int CBS_get_optional_asn1_bool(CBS *cbs, int *out, unsigned tag,
 int CBS_is_valid_asn1_bitstring(const CBS *cbs) {
   CBS in = *cbs;
   uint8_t num_unused_bits;
-  if (!CBS_get_u8(&in, &num_unused_bits) ||
-      num_unused_bits > 7) {
+  if (!CBS_get_u8(&in, &num_unused_bits) || num_unused_bits > 7) {
     return 0;
   }
 
@@ -693,15 +686,13 @@ char *CBS_asn1_oid_to_text(const CBS *cbs) {
         !add_decimal(&cbb, v - 80)) {
       goto err;
     }
-  } else if (!add_decimal(&cbb, v / 40) ||
-             !CBB_add_u8(&cbb, '.') ||
+  } else if (!add_decimal(&cbb, v / 40) || !CBB_add_u8(&cbb, '.') ||
              !add_decimal(&cbb, v % 40)) {
     goto err;
   }
 
   while (CBS_len(&copy) != 0) {
-    if (!parse_base128_integer(&copy, &v) ||
-        !CBB_add_u8(&cbb, '.') ||
+    if (!parse_base128_integer(&copy, &v) || !CBB_add_u8(&cbb, '.') ||
         !add_decimal(&cbb, v)) {
       goto err;
     }
@@ -709,8 +700,7 @@ char *CBS_asn1_oid_to_text(const CBS *cbs) {
 
   uint8_t *txt;
   size_t txt_len;
-  if (!CBB_add_u8(&cbb, '\0') ||
-      !CBB_finish(&cbb, &txt, &txt_len)) {
+  if (!CBB_add_u8(&cbb, '\0') || !CBB_finish(&cbb, &txt, &txt_len)) {
     goto err;
   }
 
@@ -719,4 +709,161 @@ char *CBS_asn1_oid_to_text(const CBS *cbs) {
 err:
   CBB_cleanup(&cbb);
   return NULL;
+}
+
+static int cbs_get_two_digits(CBS *cbs, int *out) {
+  uint8_t first_digit, second_digit;
+  if (!CBS_get_u8(cbs, &first_digit)) {
+    return 0;
+  }
+  if (!isdigit(first_digit)) {
+    return 0;
+  }
+  if (!CBS_get_u8(cbs, &second_digit)) {
+    return 0;
+  }
+  if (!isdigit(second_digit)) {
+    return 0;
+  }
+  *out = (first_digit - '0') * 10 + (second_digit - '0');
+  return 1;
+}
+
+static int is_valid_day(int year, int month, int day) {
+  if (day < 1) {
+    return 0;
+  }
+  switch (month) {
+    case 1:
+    case 3:
+    case 5:
+    case 7:
+    case 8:
+    case 10:
+    case 12:
+      return day <= 31;
+    case 4:
+    case 6:
+    case 9:
+    case 11:
+      return day <= 30;
+    case 2:
+      if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
+        return day <= 29;
+      } else {
+        return day <= 28;
+      }
+    default:
+      return 0;
+  }
+}
+
+static int CBS_parse_rfc5280_time_internal(const CBS *cbs, int is_gentime,
+                                           int allow_timezone_offset,
+                                           struct tm *out_tm) {
+  int year, month, day, hour, min, sec, tmp;
+  int offset_sign = 0;
+  int offset_seconds = 0;
+  CBS copy = *cbs;
+  uint8_t tz;
+
+  if (is_gentime) {
+      if (!cbs_get_two_digits(&copy, &tmp)) {
+        return 0;
+      }
+      year = tmp * 100;
+      if (!cbs_get_two_digits(&copy, &tmp)) {
+        return 0;
+      }
+      year += tmp;
+  } else {
+      year = 1900;
+      if (!cbs_get_two_digits(&copy, &tmp)) {
+        return 0;
+      }
+      year += tmp;
+      if (year < 1950) {
+        year += 100;
+      }
+      if (year >= 2050) {
+        return 0;  // A Generalized time must be used.
+      }
+  }
+  if (!cbs_get_two_digits(&copy, &month) || month < 1 ||
+      month > 12 ||  // Reject invalid months.
+      !cbs_get_two_digits(&copy, &day) ||
+      !is_valid_day(year, month, day) ||  // Reject invalid days.
+      !cbs_get_two_digits(&copy, &hour) ||
+      hour > 23 ||  // Reject invalid hours.
+      !cbs_get_two_digits(&copy, &min) ||
+      min > 59 ||  // Reject invalid minutes.
+      !cbs_get_two_digits(&copy, &sec) || sec > 59 || !CBS_get_u8(&copy, &tz)) {
+    return 0;
+  }
+
+  switch (tz) {
+    case 'Z':
+      break;  // We correctly have 'Z' on the end as per spec.
+    case '+':
+      offset_sign = 1;
+      break;  // Should not be allowed per RFC 5280.
+    case '-':
+      offset_sign = -1;
+      break;  // Should not be allowed per RFC 5280.
+    default:
+      return 0;  // Reject anything else after the time.
+  }
+  // If allow_timezone_offset is non-zero, allow for a four digit timezone
+  // offset to be specified even though this is not allowed by RFC 5280. We are
+  // permissive of this for UTCTimes due to the unfortunate existence of
+  // artisinally rolled long lived certificates that were baked into places that
+  // are now difficult to change. These certificates were generated with the
+  // 'openssl' command that permissively allowed the creation of certificates
+  // with notBefore and notAfter times specified as strings for direct
+  // certificate inclusion on the command line. For context see cl/237068815.
+  //
+  // TODO(bbe): This has been expunged from public web-pki as the ecosystem has
+  // managed to encourage CA compliance with standards. We should find a way to
+  // get rid of this or make it off by default.
+  if (offset_sign != 0) {
+    if (!allow_timezone_offset) {
+      return 0;
+    }
+    int offset_hours, offset_minutes;
+    if (!cbs_get_two_digits(&copy, &offset_hours) ||
+        offset_hours > 23 ||  // Reject invalid hours.
+        !cbs_get_two_digits(&copy, &offset_minutes) ||
+        offset_minutes > 59) {  // Reject invalid minutes.
+      return 0;
+    }
+    offset_seconds = offset_sign * (offset_hours * 3600 + offset_minutes * 60);
+  }
+
+  if (CBS_len(&copy) != 0) {
+    return 0;  // Reject invalid lengths.
+  }
+
+  if (out_tm != NULL) {
+    // Fill in the tm fields corresponding to what we validated.
+    out_tm->tm_year = year - 1900;
+    out_tm->tm_mon = month - 1;
+    out_tm->tm_mday = day;
+    out_tm->tm_hour = hour;
+    out_tm->tm_min = min;
+    out_tm->tm_sec = sec;
+    if (offset_seconds && !OPENSSL_gmtime_adj(out_tm, 0, offset_seconds)) {
+      return 0;
+    }
+  }
+  return 1;
+}
+
+int CBS_parse_generalized_time(const CBS *cbs, struct tm *out_tm,
+                               int allow_timezone_offset) {
+  return CBS_parse_rfc5280_time_internal(cbs, 1, allow_timezone_offset, out_tm);
+}
+
+int CBS_parse_utc_time(const CBS *cbs, struct tm *out_tm,
+                       int allow_timezone_offset) {
+  return CBS_parse_rfc5280_time_internal(cbs, 0, allow_timezone_offset, out_tm);
 }
