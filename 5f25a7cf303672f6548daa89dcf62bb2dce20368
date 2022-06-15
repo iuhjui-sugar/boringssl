@@ -1,0 +1,403 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9cf5c9b_12b54948",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 30
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-15T20:55:35Z",
+      "side": 1,
+      "message": "Thanks! Last round of comments. Just style nitpicks.",
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "250b0045_011c5bbd",
+        "filename": "crypto/asn1/a_gentm.c",
+        "patchSetId": 30
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-15T20:55:35Z",
+      "side": 1,
+      "message": "When it\u0027s not obvious from the call site, we\u0027ve started using the syntax from https://abseil.io/tips/94 and https://clang.llvm.org/extra/clang-tidy/checks/bugprone-argument-comment.html, so something like `/*allow_timezone_offset\u003d*/0`.\n\nTo that end, I\u0027ve filed https://crbug.com/boringssl/500 so we actually get something useful out of that specific syntax.",
+      "range": {
+        "startLine": 74,
+        "startChar": 42,
+        "endLine": 74,
+        "endChar": 44
+      },
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcfa6c4d_e64fb513",
+        "filename": "crypto/asn1/a_utctm.c",
+        "patchSetId": 30
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-15T20:55:35Z",
+      "side": 1,
+      "message": "`/*allow_timezone_offset\u003d*/1`",
+      "range": {
+        "startLine": 74,
+        "startChar": 34,
+        "endLine": 74,
+        "endChar": 35
+      },
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a9333d0_e0555e18",
+        "filename": "crypto/asn1/tasn_dec.c",
+        "patchSetId": 30
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-15T20:55:35Z",
+      "side": 1,
+      "message": "Style nit: sort includes",
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09757fc3_7f7e6dcf",
+        "filename": "crypto/asn1/tasn_dec.c",
+        "patchSetId": 30
+      },
+      "lineNbr": 826,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-15T20:55:35Z",
+      "side": 1,
+      "message": "Style nit: At least until we clang-format it, this file does four space indents.",
+      "range": {
+        "startLine": 826,
+        "startChar": 0,
+        "endLine": 826,
+        "endChar": 1
+      },
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ade9930_4a00a525",
+        "filename": "crypto/asn1/tasn_dec.c",
+        "patchSetId": 30
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-15T20:55:35Z",
+      "side": 1,
+      "message": "Stray change? (Looks like we lost indent here.)",
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84554259_74974cb7",
+        "filename": "crypto/bytestring/bytestring_test.cc",
+        "patchSetId": 30
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-15T20:55:35Z",
+      "side": 1,
+      "message": "Usually I just clang-format the selected region with an editor feature, but it seems that\u0027s being a headache so, sure, let\u0027s just clang-format the lot. Some of the changes are a little odd, but whatever.",
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b4b84bf_142defaa",
+        "filename": "crypto/bytestring/bytestring_test.cc",
+        "patchSetId": 30
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-15T20:55:35Z",
+      "side": 1,
+      "message": "No longer needed",
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d192e5ff_e37dddbb",
+        "filename": "crypto/bytestring/bytestring_test.cc",
+        "patchSetId": 30
+      },
+      "lineNbr": 1515,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-15T20:55:35Z",
+      "side": 1,
+      "message": "CBSTest",
+      "range": {
+        "startLine": 1515,
+        "startChar": 5,
+        "endLine": 1515,
+        "endChar": 13
+      },
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e2e8317_053b858b",
+        "filename": "crypto/bytestring/bytestring_test.cc",
+        "patchSetId": 30
+      },
+      "lineNbr": 1520,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-15T20:55:35Z",
+      "side": 1,
+      "message": "Heehee. Maybe like \"invalid time\" just to avoid confusing everyone who greps for code. :-)",
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e2077f0_02d9eeb7",
+        "filename": "crypto/bytestring/bytestring_test.cc",
+        "patchSetId": 30
+      },
+      "lineNbr": 1592,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-15T20:55:35Z",
+      "side": 1,
+      "message": "space after comma, here and on the line below. (Or just rerun clang-format. :) )\n\nAlso `/*allow_timezone_offset\u003d*/0`, etc. throughout.",
+      "range": {
+        "startLine": 1592,
+        "startChar": 49,
+        "endLine": 1592,
+        "endChar": 52
+      },
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02b9dae4_d0f7ae59",
+        "filename": "crypto/bytestring/bytestring_test.cc",
+        "patchSetId": 30
+      },
+      "lineNbr": 1627,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-15T20:55:35Z",
+      "side": 1,
+      "message": "Style nit: Delete this blank line.",
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dcd645a2_a738ddad",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 30
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-15T20:55:35Z",
+      "side": 1,
+      "message": "No longer needed.",
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3e4cc4d_9f4dbc2b",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 30
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-15T20:55:35Z",
+      "side": 1,
+      "message": "Style nit: We usually put two blank lines between includes and code. (I dunno, Adam did it originally and I just carried it over. :-) )",
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "102afa7d_982dc33a",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 30
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-15T20:55:35Z",
+      "side": 1,
+      "message": "Oh hmm. I guess this is where we annoyingly disagree with clang-format when we\u0027re chaining \"statements\" via `||`\nhttps://groups.google.com/a/google.com/g/boringssl/c/dKY1eHoKvoA/m/4reAIyBECgAJ\n\nWould it be a hassle to either:\na) Just undo those changes from clang-format and pick up the formatting on the new code. (This is mostly a \"do you like to use `git add -p` question.)\nOr...\nb) Stick a `//` at the end of \"incorrectly\" joined lines to force clang-format to do what we want.\n\nIf this is too tedious, I can also do it.",
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8dcb94d_a1a4900a",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 30
+      },
+      "lineNbr": 826,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-15T20:55:35Z",
+      "side": 1,
+      "message": "Should we move this comment to a_utm.c, since that\u0027s the one setting this to true?",
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4dc155ac_dcf4b625",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 30
+      },
+      "lineNbr": 828,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-15T20:55:35Z",
+      "side": 1,
+      "message": "Style nit: Move to line 832.",
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7740342_9297d7aa",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 30
+      },
+      "lineNbr": 841,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-15T20:55:35Z",
+      "side": 1,
+      "message": "Style nit: curly braces",
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78aa0159_beb84542",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 30
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-15T20:55:35Z",
+      "side": 1,
+      "message": "s/timezeone/timezone/g\ns/timzeone/timezone/g\n\n(I think there are four misspellings in this file? Also line 367 isn\u0027t quite 80 chars, but if you fix the misspelling, that should also fix the line length.)",
+      "range": {
+        "startLine": 358,
+        "startChar": 10,
+        "endLine": 358,
+        "endChar": 19
+      },
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26da4153_ec1453b2",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 30
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-15T20:55:35Z",
+      "side": 1,
+      "message": "Style nit: we usually do context, then output, then input.\nhttps://boringssl.googlesource.com/boringssl/+/HEAD/STYLE.md#parameters\n\nTBH \"context\" is kinda ambiguous, but I\u0027d probably flip allow_timezone_offset and out_tm.",
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06a815a4_085895b7",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 30
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-15T20:55:35Z",
+      "side": 1,
+      "message": "utc",
+      "range": {
+        "startLine": 366,
+        "startChar": 13,
+        "endLine": 366,
+        "endChar": 16
+      },
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
