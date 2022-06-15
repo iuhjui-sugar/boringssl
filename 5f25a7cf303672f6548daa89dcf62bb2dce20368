@@ -339,6 +339,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e67f10e1_5d72e022",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 30
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-15T20:57:08Z",
+      "side": 1,
+      "message": "GeneralizedTime (and then we can drop \"for a GeneralizedTime\")",
+      "range": {
+        "startLine": 356,
+        "startChar": 67,
+        "endLine": 356,
+        "endChar": 72
+      },
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "78aa0159_beb84542",
         "filename": "include/openssl/bytestring.h",
         "patchSetId": 30
@@ -355,6 +378,29 @@
         "startChar": 10,
         "endLine": 358,
         "endChar": 19
+      },
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54259973_c7ec8f9d",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 30
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-15T20:57:08Z",
+      "side": 1,
+      "message": "out_tm. Ditto for the other one on this line.",
+      "range": {
+        "startLine": 360,
+        "startChar": 28,
+        "endLine": 360,
+        "endChar": 30
       },
       "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
@@ -395,6 +441,52 @@
         "startChar": 13,
         "endLine": 366,
         "endChar": 16
+      },
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d55f5080_4e98b027",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 30
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-15T20:57:08Z",
+      "side": 1,
+      "message": "UTCTime (and then we can drop \"for a UTCTime\")",
+      "range": {
+        "startLine": 366,
+        "startChar": 60,
+        "endLine": 366,
+        "endChar": 64
+      },
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "762d983a_635a58a5",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 30
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-15T20:57:08Z",
+      "side": 1,
+      "message": "out_tm. Ditto for the other one on this line.",
+      "range": {
+        "startLine": 369,
+        "startChar": 72,
+        "endLine": 369,
+        "endChar": 74
       },
       "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
