@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ff42263_217326ad",
+        "filename": "ssl/ssl_file.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-15T17:17:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c69338ff_00f4bd9d",
+      "range": {
+        "startLine": 151,
+        "startChar": 5,
+        "endLine": 151,
+        "endChar": 17
+      },
+      "revId": "7605ef63063b55dc3f083caf7a8781588e79e962",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e72790be_249688c9",
@@ -37,6 +61,24 @@
       "writtenOn": "2022-06-14T17:54:59Z",
       "side": 1,
       "message": "Not sure that public members in a struct should be named with underscores at the end? But your call; not important.",
+      "revId": "7605ef63063b55dc3f083caf7a8781588e79e962",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d45d4f71_46e7328b",
+        "filename": "ssl/ssl_file.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-15T17:17:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e72790be_249688c9",
       "revId": "7605ef63063b55dc3f083caf7a8781588e79e962",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
