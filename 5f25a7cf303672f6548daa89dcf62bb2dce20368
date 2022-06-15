@@ -41,6 +41,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cc3a6eb_76e93647",
+        "filename": "crypto/asn1/a_gentm.c",
+        "patchSetId": 30
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T22:04:34Z",
+      "side": 1,
+      "message": "oh, I like this..",
+      "parentUuid": "250b0045_011c5bbd",
+      "range": {
+        "startLine": 74,
+        "startChar": 42,
+        "endLine": 74,
+        "endChar": 44
+      },
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fcfa6c4d_e64fb513",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-06-15T20:55:35Z",
       "side": 1,
       "message": "`/*allow_timezone_offset\u003d*/1`",
+      "range": {
+        "startLine": 74,
+        "startChar": 34,
+        "endLine": 74,
+        "endChar": 35
+      },
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4982463_1cf4ef1d",
+        "filename": "crypto/asn1/a_utctm.c",
+        "patchSetId": 30
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T22:04:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fcfa6c4d_e64fb513",
       "range": {
         "startLine": 74,
         "startChar": 34,
@@ -81,6 +129,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "30085269_b4dfe284",
+        "filename": "crypto/asn1/tasn_dec.c",
+        "patchSetId": 30
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T22:04:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a9333d0_e0555e18",
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "09757fc3_7f7e6dcf",
@@ -104,6 +170,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b21bdf9e_64eea4b7",
+        "filename": "crypto/asn1/tasn_dec.c",
+        "patchSetId": 30
+      },
+      "lineNbr": 826,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T22:04:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09757fc3_7f7e6dcf",
+      "range": {
+        "startLine": 826,
+        "startChar": 0,
+        "endLine": 826,
+        "endChar": 1
+      },
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3ade9930_4a00a525",
@@ -117,6 +207,24 @@
       "writtenOn": "2022-06-15T20:55:35Z",
       "side": 1,
       "message": "Stray change? (Looks like we lost indent here.)",
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a2d7398_3efa4615",
+        "filename": "crypto/asn1/tasn_dec.c",
+        "patchSetId": 30
+      },
+      "lineNbr": 860,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T22:04:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ade9930_4a00a525",
       "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -155,6 +263,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1b67839_316944ab",
+        "filename": "crypto/bytestring/bytestring_test.cc",
+        "patchSetId": 30
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T22:04:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b4b84bf_142defaa",
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d192e5ff_e37dddbb",
@@ -168,6 +294,30 @@
       "writtenOn": "2022-06-15T20:55:35Z",
       "side": 1,
       "message": "CBSTest",
+      "range": {
+        "startLine": 1515,
+        "startChar": 5,
+        "endLine": 1515,
+        "endChar": 13
+      },
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c6fd62f_c3114060",
+        "filename": "crypto/bytestring/bytestring_test.cc",
+        "patchSetId": 30
+      },
+      "lineNbr": 1515,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T22:04:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d192e5ff_e37dddbb",
       "range": {
         "startLine": 1515,
         "startChar": 5,
@@ -195,6 +345,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe9d5206_314331e1",
+        "filename": "crypto/bytestring/bytestring_test.cc",
+        "patchSetId": 30
+      },
+      "lineNbr": 1520,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T22:04:34Z",
+      "side": 1,
+      "message": "I was wondering when you\u0027d notice this.. It\u0027s fun to make people\u0027s days more surreal, but maybe too much fun.",
+      "parentUuid": "3e2e8317_053b858b",
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7e2077f0_02d9eeb7",
@@ -208,6 +376,30 @@
       "writtenOn": "2022-06-15T20:55:35Z",
       "side": 1,
       "message": "space after comma, here and on the line below. (Or just rerun clang-format. :) )\n\nAlso `/*allow_timezone_offset\u003d*/0`, etc. throughout.",
+      "range": {
+        "startLine": 1592,
+        "startChar": 49,
+        "endLine": 1592,
+        "endChar": 52
+      },
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fdf0d3a4_39d396ea",
+        "filename": "crypto/bytestring/bytestring_test.cc",
+        "patchSetId": 30
+      },
+      "lineNbr": 1592,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T22:04:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e2077f0_02d9eeb7",
       "range": {
         "startLine": 1592,
         "startChar": 49,
@@ -235,6 +427,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fea16f86_7318b750",
+        "filename": "crypto/bytestring/bytestring_test.cc",
+        "patchSetId": 30
+      },
+      "lineNbr": 1627,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T22:04:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02b9dae4_d0f7ae59",
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dcd645a2_a738ddad",
@@ -252,6 +462,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "672eaaab_99d03b6e",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 30
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T22:04:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dcd645a2_a738ddad",
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f3e4cc4d_9f4dbc2b",
@@ -265,6 +493,24 @@
       "writtenOn": "2022-06-15T20:55:35Z",
       "side": 1,
       "message": "Style nit: We usually put two blank lines between includes and code. (I dunno, Adam did it originally and I just carried it over. :-) )",
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6e804e6_2faccdc1",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 30
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T22:04:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f3e4cc4d_9f4dbc2b",
       "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -288,6 +534,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "292cde5c_9cc80f5d",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 30
+      },
+      "lineNbr": 566,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T22:04:34Z",
+      "side": 1,
+      "message": "not onerous at all.. git show...patch -R, hack patch, patch again.;)",
+      "parentUuid": "102afa7d_982dc33a",
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a8dcb94d_a1a4900a",
         "filename": "crypto/bytestring/cbs.c",
         "patchSetId": 30
@@ -299,6 +563,24 @@
       "writtenOn": "2022-06-15T20:55:35Z",
       "side": 1,
       "message": "Should we move this comment to a_utm.c, since that\u0027s the one setting this to true?",
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "789d6618_87364cb3",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 30
+      },
+      "lineNbr": 826,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T22:04:34Z",
+      "side": 1,
+      "message": "It\u0027s also set to true in tasn_dec.c - which is why I just kept it here to have it\nin once place.",
+      "parentUuid": "a8dcb94d_a1a4900a",
       "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -320,6 +602,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3b7fd51_cf1b9ffe",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 30
+      },
+      "lineNbr": 828,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T22:04:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4dc155ac_dcf4b625",
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d7740342_9297d7aa",
@@ -337,6 +637,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "10bf1246_2f2f8d6e",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 30
+      },
+      "lineNbr": 841,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T22:04:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7740342_9297d7aa",
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e67f10e1_5d72e022",
@@ -350,6 +668,30 @@
       "writtenOn": "2022-06-15T20:57:08Z",
       "side": 1,
       "message": "GeneralizedTime (and then we can drop \"for a GeneralizedTime\")",
+      "range": {
+        "startLine": 356,
+        "startChar": 67,
+        "endLine": 356,
+        "endChar": 72
+      },
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebbb1b41_33e6d995",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 30
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T22:04:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e67f10e1_5d72e022",
       "range": {
         "startLine": 356,
         "startChar": 67,
@@ -383,6 +725,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ecca7a9_e69e691f",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 30
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T22:04:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78aa0159_beb84542",
+      "range": {
+        "startLine": 358,
+        "startChar": 10,
+        "endLine": 358,
+        "endChar": 19
+      },
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "54259973_c7ec8f9d",
@@ -406,6 +772,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e1154401_09eb4862",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 30
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T22:04:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54259973_c7ec8f9d",
+      "range": {
+        "startLine": 360,
+        "startChar": 28,
+        "endLine": 360,
+        "endChar": 30
+      },
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "26da4153_ec1453b2",
@@ -419,6 +809,24 @@
       "writtenOn": "2022-06-15T20:55:35Z",
       "side": 1,
       "message": "Style nit: we usually do context, then output, then input.\nhttps://boringssl.googlesource.com/boringssl/+/HEAD/STYLE.md#parameters\n\nTBH \"context\" is kinda ambiguous, but I\u0027d probably flip allow_timezone_offset and out_tm.",
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4062ea5e_84d35c11",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 30
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T22:04:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "26da4153_ec1453b2",
       "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -469,6 +877,54 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d6ee936_989ebccd",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 30
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T22:04:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06a815a4_085895b7",
+      "range": {
+        "startLine": 366,
+        "startChar": 13,
+        "endLine": 366,
+        "endChar": 16
+      },
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "881b987b_83bbe284",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 30
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T22:04:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d55f5080_4e98b027",
+      "range": {
+        "startLine": 366,
+        "startChar": 60,
+        "endLine": 366,
+        "endChar": 64
+      },
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "762d983a_635a58a5",
@@ -482,6 +938,30 @@
       "writtenOn": "2022-06-15T20:57:08Z",
       "side": 1,
       "message": "out_tm. Ditto for the other one on this line.",
+      "range": {
+        "startLine": 369,
+        "startChar": 72,
+        "endLine": 369,
+        "endChar": 74
+      },
+      "revId": "5f25a7cf303672f6548daa89dcf62bb2dce20368",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48005dfb_6075871e",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 30
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-06-15T22:04:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "762d983a_635a58a5",
       "range": {
         "startLine": 369,
         "startChar": 72,
