@@ -1,0 +1,192 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db125d72_b26365c0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 36
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-16T15:07:18Z",
+      "side": 1,
+      "message": "LGTM!",
+      "revId": "06f2600e0e81a9203f4b9e02539662c468fe5212",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ec024e7_8baa8d32",
+        "filename": "crypto/asn1/internal.h",
+        "patchSetId": 36
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-16T15:07:18Z",
+      "side": 1,
+      "message": "Style nit: clang-format",
+      "revId": "06f2600e0e81a9203f4b9e02539662c468fe5212",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6899bae_f314d605",
+        "filename": "crypto/asn1/tasn_dec.c",
+        "patchSetId": 36
+      },
+      "lineNbr": 833,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-16T15:07:18Z",
+      "side": 1,
+      "message": "Stray tab here. :-)\n\n(They show up in Gerrit as »)",
+      "range": {
+        "startLine": 833,
+        "startChar": 0,
+        "endLine": 833,
+        "endChar": 1
+      },
+      "revId": "06f2600e0e81a9203f4b9e02539662c468fe5212",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3926e868_15af4d41",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 36
+      },
+      "lineNbr": 782,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-16T15:07:18Z",
+      "side": 1,
+      "message": "I would have suggested we move all these variables closer to use, but I suppose it\u0027s technically fewer lines to put `year, ..., tmp` on one line. :-)\n\nBut I think `offset_sign` and `offset_seconds` are worth pushing down so their starting value is clearer. How about...\n\n```\nint year, ...all the main parsing vars..., tmp;\nCBS copy \u003d *cbs;\nuint8_t tz;\nif (is_gentime) {\n  ...\n} else {\n  ...\n}\nif (!cbs_get_two_digits...\n  return 0;\n}\n\nint offset_sign \u003d 0;\nswitch (tz) {\n  ... compute offset_sign\n}\n\nint offset_seconds \u003d 0;\nif (offset_sign !\u003d 0) {\n  ... compute offset seconds ...\n}\n```",
+      "revId": "06f2600e0e81a9203f4b9e02539662c468fe5212",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efe82bd0_d1813f3d",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 36
+      },
+      "lineNbr": 784,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-16T15:07:18Z",
+      "side": 1,
+      "message": "two space indents here and in the else block.",
+      "range": {
+        "startLine": 784,
+        "startChar": 2,
+        "endLine": 784,
+        "endChar": 6
+      },
+      "revId": "06f2600e0e81a9203f4b9e02539662c468fe5212",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eea6c057_1989464b",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 36
+      },
+      "lineNbr": 859,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-16T15:07:18Z",
+      "side": 1,
+      "message": "It occurs to me `struct tm` has a few other fields (tm_wday, tm_yday, and tm_isdst). Computing those sounds annoying, so let\u0027s just do a `memset(out_tm, 0, sizeof(struct tm))`, combined with a note in the header that we do not fill in tm_wday and tm_yday.\n\n(Since this is always UTC, memsetting tm_isdst to zero would... actually be correct.)",
+      "revId": "06f2600e0e81a9203f4b9e02539662c468fe5212",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7311fb2a_195176b3",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 36
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-16T15:07:18Z",
+      "side": 1,
+      "message": "A little bit of final wordsmithing:\n\n```\n// CBS_parse_generalized_time returns one if |cbs| is a valid DER-encoded, ASN.1\n// GeneralizedTime body within the limitations imposed by RFC 5280, or zero\n// otherwise. If |allow_timezone_offset| is non-zero, four-digit timezone\n// offsets, which would not be allowed by DER, are permitted. On success, if\n// |out_tm| is non-NULL, |*out_tm| will be set to the corresponding time in UTC.\n// This function does not compute |out_tm-\u003etm_wday| or |out_tm-\u003etm_yday|.\n```\n\n(Added some commas, turns out the timezone thing is actually from DER itself, not just 5280, folded the zero return into the first sentence. I also dropped \"numeric\" because it\u0027s redundant with \"four-digit\" and, skimming X.680 and at least Wikipedia\u0027s summary of ISO 8601, I think only numeric offsets are defined in the first place. Though we do need to specify four-digit because BER permits omitting a zero minute offset. Finally, noted the tm_wday/tm_yday thing from the other file.)",
+      "revId": "06f2600e0e81a9203f4b9e02539662c468fe5212",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75ec0350_6f131174",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 36
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-16T15:07:18Z",
+      "side": 1,
+      "message": "allow_timezone_offset",
+      "range": {
+        "startLine": 363,
+        "startChar": 50,
+        "endLine": 363,
+        "endChar": 71
+      },
+      "revId": "06f2600e0e81a9203f4b9e02539662c468fe5212",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1fbbc9d_48126c3b",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 36
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-16T15:07:18Z",
+      "side": 1,
+      "message": "Same as above:\n\n```\n// CBS_parse_utc_time returns one if |cbs| is a valid DER-encoded, ASN.1\n// UTCTime body within the limitations imposed by RFC 5280, or zero otherwise.\n// If |allow_timezone_offset| is non-zero, four-digit timezone offsets, which\n// would not be allowed by DER, are permitted. On success, if |out_tm| is\n// non-NULL, |*out_tm| will be set to the corresponding time in UTC. This\n// function does not compute |out_tm-\u003etm_wday| or |out_tm-\u003etm_yday|.\n```",
+      "revId": "06f2600e0e81a9203f4b9e02539662c468fe5212",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f044516d_87f0a4d3",
+        "filename": "include/openssl/bytestring.h",
+        "patchSetId": 36
+      },
+      "lineNbr": 372,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-16T15:07:18Z",
+      "side": 1,
+      "message": "allow_timezone_offset",
+      "revId": "06f2600e0e81a9203f4b9e02539662c468fe5212",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
