@@ -18,6 +18,23 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7bcfa772_4dd4dc12",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2022-06-21T18:57:33Z",
+      "side": 1,
+      "message": "Haven\u0027t updated the test data since it\u0027ll change again if there are more changes.",
+      "revId": "6e696e299cc49dcb702819009abd94a1fa3314df",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d7b8a843_598a4135",
@@ -31,6 +48,24 @@
       "writtenOn": "2022-06-21T18:42:04Z",
       "side": 1,
       "message": "Nit: This is injective either way, but maybe stick pair_id in front, since we\u0027ve already got other prefixes. Jst slightly more obviously injective.",
+      "revId": "6e696e299cc49dcb702819009abd94a1fa3314df",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a2a7ae0_2433109b",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2022-06-21T18:57:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7b8a843_598a4135",
       "revId": "6e696e299cc49dcb702819009abd94a1fa3314df",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -52,6 +87,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ef57306_989e0b1e",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2022-06-21T18:57:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55109e4c_993d2f48",
+      "revId": "6e696e299cc49dcb702819009abd94a1fa3314df",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b9b8867e_e58575b2",
@@ -69,6 +122,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d19eb7fd_4553e93a",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2022-06-21T18:57:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9b8867e_e58575b2",
+      "revId": "6e696e299cc49dcb702819009abd94a1fa3314df",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0aaa25e2_360ba634",
@@ -82,6 +153,24 @@
       "writtenOn": "2022-06-21T18:42:04Z",
       "side": 1,
       "message": "Maybe we can share a little bit of code. Lines 286 through 312 and line 150. Something like:\n\n- Move the public key computation out of generate_keypair{,_from_secret} so the respective functions are only concerned with the scalars.\n\n- Then have a common function that just takes the six scalars, computes the public halves, and serializes it all.\n\nTBH, we could also just have generate_key generate a large fixed seed and then call the derivation function. But I suppose that\u0027s probably a bit more math than necessary?",
+      "revId": "6e696e299cc49dcb702819009abd94a1fa3314df",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5fc098b5_e0508d20",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2022-06-21T18:57:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0aaa25e2_360ba634",
       "revId": "6e696e299cc49dcb702819009abd94a1fa3314df",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -126,6 +215,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c177956d_00e61c79",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2022-06-21T18:57:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f824a2bf_ae3f1fb2",
+      "revId": "6e696e299cc49dcb702819009abd94a1fa3314df",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a45a7a7_a58e5a96",
@@ -143,6 +250,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "da2b5a13_8cb52a1c",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2022-06-21T18:57:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a45a7a7_a58e5a96",
+      "revId": "6e696e299cc49dcb702819009abd94a1fa3314df",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d49cc3f8_ae56eda0",
@@ -156,6 +281,30 @@
       "writtenOn": "2022-06-21T18:42:04Z",
       "side": 1,
       "message": "Perhaps s/generate/derive/, to be clear this is not generating a new one.\n\nDitto for the internal functions.",
+      "range": {
+        "startLine": 106,
+        "startChar": 19,
+        "endLine": 106,
+        "endChar": 55
+      },
+      "revId": "6e696e299cc49dcb702819009abd94a1fa3314df",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bfba3d7_8b220f97",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2022-06-21T18:57:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d49cc3f8_ae56eda0",
       "range": {
         "startLine": 106,
         "startChar": 19,
