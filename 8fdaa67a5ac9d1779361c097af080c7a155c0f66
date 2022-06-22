@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "45f590ed_4ac5a49b",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2022-06-22T14:37:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4fa017e0_1a426c0d",
+      "range": {
+        "startLine": 96,
+        "startChar": 3,
+        "endLine": 96,
+        "endChar": 19
+      },
+      "revId": "8fdaa67a5ac9d1779361c097af080c7a155c0f66",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a37e827a_12f6f1bd",
@@ -37,6 +61,24 @@
       "writtenOn": "2022-06-21T20:52:45Z",
       "side": 1,
       "message": "Optional: Is this helper even carrying its weight at this point? Might be easier to just call ec_random_nonzero_scalar the six times. Whichever you think is cleaner.",
+      "revId": "8fdaa67a5ac9d1779361c097af080c7a155c0f66",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02f4ef15_055324ca",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2022-06-22T14:37:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a37e827a_12f6f1bd",
       "revId": "8fdaa67a5ac9d1779361c097af080c7a155c0f66",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -58,6 +100,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f4af360_c5d80201",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2022-06-22T14:37:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b78a4d6a_8cb22680",
+      "revId": "8fdaa67a5ac9d1779361c097af080c7a155c0f66",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c5778061_32ba6cde",
@@ -75,6 +135,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0b94335_a8ebb356",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2022-06-22T14:37:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c5778061_32ba6cde",
+      "revId": "8fdaa67a5ac9d1779361c097af080c7a155c0f66",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1e752bd1_aab0dac3",
@@ -88,6 +166,24 @@
       "writtenOn": "2022-06-21T20:52:45Z",
       "side": 1,
       "message": "Nit: clang-format",
+      "revId": "8fdaa67a5ac9d1779361c097af080c7a155c0f66",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c03cd8b_2be666d7",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2022-06-22T14:37:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e752bd1_aab0dac3",
       "revId": "8fdaa67a5ac9d1779361c097af080c7a155c0f66",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }

@@ -216,6 +216,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbe3ca43_545fa348",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2022-06-22T14:37:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3447d839_3ad0c847",
+      "range": {
+        "startLine": 84,
+        "startChar": 54,
+        "endLine": 84,
+        "endChar": 59
+      },
+      "revId": "6e696e299cc49dcb702819009abd94a1fa3314df",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f824a2bf_ae3f1fb2",
