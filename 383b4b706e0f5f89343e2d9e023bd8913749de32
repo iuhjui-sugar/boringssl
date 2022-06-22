@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32407271_26044931",
+        "filename": "util/fipstools/test-break-kat.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-22T21:06:04Z",
+      "side": 1,
+      "message": "Do we care about 80 chars in the shell? https://google.github.io/styleguide/shellguide.html#s5.2-line-length-and-long-strings seems to think so, but I\u0027ve never actually read that document, so I\u0027ve no idea if we\u0027ve been following it.",
+      "revId": "383b4b706e0f5f89343e2d9e023bd8913749de32",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
