@@ -377,7 +377,8 @@ class FileLineReader : public FileTest::LineReader {
       return FileTest::kReadError;
     }
 
-    if (fgets(out, len, file_) == nullptr) {
+    len = std::max(len, size_t{INT_MAX});
+    if (fgets(out, static_cast<int>(len), file_) == nullptr) {
       return feof(file_) ? FileTest::kReadEOF : FileTest::kReadError;
     }
 
