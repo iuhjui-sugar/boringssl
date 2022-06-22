@@ -34,6 +34,24 @@
       "parentUuid": "744479b2_7f910abd",
       "revId": "5729bee1ca32c628f5b47121751546c46e9f4a99",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3e1e25b_710b71c9",
+        "filename": "crypto/fipsmodule/self_check/fips.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-22T19:58:05Z",
+      "side": 1,
+      "message": "Oh missed it was a branch. LGTM.",
+      "parentUuid": "7241542e_5d17335a",
+      "revId": "5729bee1ca32c628f5b47121751546c46e9f4a99",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
