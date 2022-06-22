@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "744479b2_7f910abd",
+        "filename": "crypto/fipsmodule/self_check/fips.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-22T19:00:05Z",
+      "side": 1,
+      "message": "The docs say this returns zero if \"if the build isn\u0027t exactly at a verified version\". Is the idea that we\u0027ll revert this immediately afterwards?\n\nShould this only return non-zero if BORINGSSL_FIPS?",
+      "revId": "5729bee1ca32c628f5b47121751546c46e9f4a99",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
