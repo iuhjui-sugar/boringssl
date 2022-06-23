@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ec46184_0ed02acb",
+        "filename": "crypto/fipsmodule/modes/cbc.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-23T13:24:37Z",
+      "side": 1,
+      "message": "I\u0027m almost tempted to rewrite these byte-by-byte and use restrict. The compiler is much better at this than we are and this is tedious. The only problem is our aliasing rules are slightly goofy because we allow buffers to be equal. Also would need compiler-specific code to get restrict in C++ in the future.",
+      "revId": "5ca51f7ad8289c28f6ada0007151d078d5b2aaab",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd9b8977_5173585a",
+        "filename": "crypto/fipsmodule/cipher/e_aes.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1303,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-23T13:24:37Z",
+      "side": 0,
+      "message": "Not actually a union but I was grepping for bswap. Most bwap calls can probably be replace with these load/store functions for less code.",
+      "revId": "8c3e980899d006d8b786d125674506b87a3985b1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
