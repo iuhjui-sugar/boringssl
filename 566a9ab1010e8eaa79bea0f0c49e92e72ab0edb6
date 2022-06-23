@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4dc4dfe5_03b06b49",
+        "filename": "crypto/x509/a_sign.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-23T14:24:30Z",
+      "side": 0,
+      "message": "Removed this since it\u0027s not just about compatibility.",
+      "revId": "566a9ab1010e8eaa79bea0f0c49e92e72ab0edb6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
