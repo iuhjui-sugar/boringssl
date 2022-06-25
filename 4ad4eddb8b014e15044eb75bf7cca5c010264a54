@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5273ae8e_440724c8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-06-25T21:23:49Z",
+      "side": 1,
+      "message": "Well, that\u0027s ridiculous. I think, because you hit the rebase button, it doesn\u0027t think your review counts towards the number anymore. Let\u0027s see if it\u0027s satisfied be me pressing the button.",
+      "revId": "4ad4eddb8b014e15044eb75bf7cca5c010264a54",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
