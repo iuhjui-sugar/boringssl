@@ -447,7 +447,7 @@ static const char *const kLibraryNames[ERR_NUM_LIBS] = {
     "HMAC routines",                // ERR_LIB_HMAC
     "Digest functions",             // ERR_LIB_DIGEST
     "Cipher functions",             // ERR_LIB_CIPHER
-    "HKDF functions",               // ERR_LIB_HKDF
+    "HKDF functions",               // ERR_LIB_KDF
     "Trust Token functions",        // ERR_LIB_TRUST_TOKEN
     "User defined functions",       // ERR_LIB_USER
 };
