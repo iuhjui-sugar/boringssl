@@ -14,7 +14,7 @@
 
 // Package subprocess contains functionality to talk to a modulewrapper for
 // testing of various algorithm implementations.
-//go:build local
+//go:build cloud
 
 package subprocess
 
@@ -23,9 +23,9 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io"
 	"os"
 	"os/exec"
+	"syscall"
 )
 
 // Transactable provides an interface to allow test injection of transactions
@@ -37,9 +37,9 @@ type Transactable interface {
 // Subprocess is a "middle" layer that interacts with a FIPS module via running
 // a command and speaking a simple protocol over stdin/stdout.
 type Subprocess struct {
-	cmd        *exec.Cmd
-	stdin      io.WriteCloser
-	stdout     io.ReadCloser
+	cmd *exec.Cmd
+	stdin      *os.File
+	stdout     *os.File
 	primitives map[string]primitive
 }
 
@@ -47,16 +47,26 @@ type Subprocess struct {
 func New(path string) (*Subprocess, error) {
 	cmd := exec.Command(path)
 	cmd.Stderr = os.Stderr
-	stdin, err := cmd.StdinPipe()
-	if err != nil {
-		return nil, err
-	}
-	stdout, err := cmd.StdoutPipe()
-	if err != nil {
-		return nil, err
-	}
+	if _, err := os.Stat("/tmp/fifo_stdin"); err != nil {
 
+		err = syscall.Mkfifo("/tmp/fifo_stdin", syscall.S_IRUSR|syscall.S_IWUSR|syscall.S_IRGRP)
+		if err != nil {
+			return nil, err
+		}
+		err = syscall.Mkfifo("/tmp/fifo_stdout", syscall.S_IRUSR|syscall.S_IWUSR|syscall.S_IWGRP)
+		if err != nil {
+			return nil, err
+		}
+	}
 	if err := cmd.Start(); err != nil {
+		return nil, err
+	}
+	stdin, err := os.OpenFile("/tmp/fifo_stdin", os.O_WRONLY, syscall.S_IRUSR|syscall.S_IWUSR|syscall.S_IRGRP)
+	if err != nil {
+		return nil, err
+	}
+	stdout, err := os.OpenFile("/tmp/fifo_stdout", os.O_RDONLY, syscall.S_IRUSR|syscall.S_IWUSR|syscall.S_IWGRP)
+	if err != nil {
 		return nil, err
 	}
 
@@ -65,7 +75,7 @@ func New(path string) (*Subprocess, error) {
 
 // NewWithIO returns a new Subprocess middle layer with the given ReadCloser and
 // WriteCloser. The returned Subprocess will call Wait on the Cmd when closed.
-func NewWithIO(cmd *exec.Cmd, in io.WriteCloser, out io.ReadCloser) *Subprocess {
+func NewWithIO(cmd *exec.Cmd, in *os.File, out *os.File) *Subprocess {
 	m := &Subprocess{
 		cmd:    cmd,
 		stdin:  in,
@@ -148,7 +158,7 @@ func (m *Subprocess) Transact(cmd string, expectedResults int, args ...[]byte) (
 	}
 
 	buf = buf[:4]
-	if _, err := io.ReadFull(m.stdout, buf); err != nil {
+	if _, err := m.stdout.Read(buf); err != nil {
 		return nil, err
 	}
 
@@ -158,7 +168,7 @@ func (m *Subprocess) Transact(cmd string, expectedResults int, args ...[]byte) (
 	}
 
 	buf = make([]byte, 4*numResults)
-	if _, err := io.ReadFull(m.stdout, buf); err != nil {
+	if _, err := m.stdout.Read(buf); err != nil {
 		return nil, err
 	}
 
@@ -172,7 +182,7 @@ func (m *Subprocess) Transact(cmd string, expectedResults int, args ...[]byte) (
 	}
 
 	results := make([]byte, resultsLength)
-	if _, err := io.ReadFull(m.stdout, results); err != nil {
+	if _, err := m.stdout.Read(results); err != nil {
 		return nil, err
 	}
 
