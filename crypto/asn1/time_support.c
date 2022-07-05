@@ -78,16 +78,16 @@ struct tm *OPENSSL_gmtime(const time_t *time, struct tm *result) {
 }
 
 // Convert date to and from julian day Uses Fliegel & Van Flandern algorithm
-static long date_to_julian(int y, int m, int d) {
+static int64_t date_to_julian(int y, int m, int d) {
   return (1461 * (y + 4800 + (m - 14) / 12)) / 4 +
          (367 * (m - 2 - 12 * ((m - 14) / 12))) / 12 -
          (3 * ((y + 4900 + (m - 14) / 12) / 100)) / 4 + d - 32075;
 }
 
-static void julian_to_date(long jd, int *y, int *m, int *d) {
-  long L = jd + 68569;
-  long n = (4 * L) / 146097;
-  long i, j;
+static void julian_to_date(int64_t jd, int *y, int *m, int *d) {
+  int64_t L = jd + 68569;
+  int64_t n = (4 * L) / 146097;
+  int64_t i, j;
 
   L = L - (146097 * n + 3) / 4;
   i = (4000 * (L + 1)) / 1461001;
@@ -100,10 +100,10 @@ static void julian_to_date(long jd, int *y, int *m, int *d) {
 }
 
 // Convert tm structure and offset into julian day and seconds
-static int julian_adj(const struct tm *tm, int off_day, long offset_sec,
-                      long *pday, int *psec) {
+static int julian_adj(const struct tm *tm, int off_day, int64_t offset_sec,
+                      int64_t *pday, int *psec) {
   int offset_hms, offset_day;
-  long time_jd;
+  int64_t time_jd;
   int time_year, time_month, time_day;
   // split offset into days and day seconds
   offset_day = offset_sec / SECS_PER_DAY;
@@ -143,7 +143,7 @@ static int julian_adj(const struct tm *tm, int off_day, long offset_sec,
 
 int OPENSSL_gmtime_adj(struct tm *tm, int off_day, long offset_sec) {
   int time_sec, time_year, time_month, time_day;
-  long time_jd;
+  int64_t time_jd;
 
   // Convert time and offset into julian day and seconds
   if (!julian_adj(tm, off_day, offset_sec, &time_jd, &time_sec)) {
@@ -174,7 +174,7 @@ int OPENSSL_gmtime_adj(struct tm *tm, int off_day, long offset_sec) {
 int OPENSSL_gmtime_diff(int *out_days, int *out_secs, const struct tm *from,
                         const struct tm *to) {
   int from_sec, to_sec, diff_sec;
-  long from_jd, to_jd, diff_day;
+  int64_t from_jd, to_jd, diff_day;
 
   if (!julian_adj(from, 0, 0, &from_jd, &from_sec)) {
     return 0;
