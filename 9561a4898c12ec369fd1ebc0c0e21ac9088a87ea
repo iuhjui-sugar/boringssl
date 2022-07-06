@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "919741ed_ea53ad5a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-07-06T23:34:15Z",
+      "side": 1,
+      "message": "Could you describe what you\u0027re trying to do here? Creating FIDOs in /tmp is a little odd.\n\nIf you just want to direct the command stream over the network then a simple modulewrapper should be able to do that.",
+      "revId": "9561a4898c12ec369fd1ebc0c0e21ac9088a87ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
