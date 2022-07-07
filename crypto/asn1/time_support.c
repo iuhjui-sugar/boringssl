@@ -55,27 +55,12 @@
  * (eay@cryptsoft.com).  This product includes software written by Tim
  * Hudson (tjh@cryptsoft.com). */
 
-#if defined(__linux__) && !defined(_POSIX_C_SOURCE)
-#define _POSIX_C_SOURCE 201410L  // for gmtime_r
-#endif
-
 #include "internal.h"
 
 #include <time.h>
 
 
 #define SECS_PER_DAY (24 * 60 * 60)
-
-struct tm *OPENSSL_gmtime(const time_t *time, struct tm *result) {
-#if defined(OPENSSL_WINDOWS)
-  if (gmtime_s(result, time)) {
-    return NULL;
-  }
-  return result;
-#else
-  return gmtime_r(time, result);
-#endif
-}
 
 // Convert date to and from julian day Uses Fliegel & Van Flandern algorithm
 static long date_to_julian(int y, int m, int d) {
