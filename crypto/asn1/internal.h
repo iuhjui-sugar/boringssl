@@ -74,6 +74,9 @@ extern "C" {
 // OPENSSL_gmtime wraps |gmtime_r|. See the manual page for that function.
 OPENSSL_EXPORT struct tm *OPENSSL_gmtime(const time_t *time, struct tm *result);
 
+// OPENSSL_timegm mimics the nonstandard timegm() function.
+OPENSSL_EXPORT time_t OPENSSL_timegm(struct tm *tm);
+
 // OPENSSL_gmtime_adj updates |tm| by adding |offset_day| days and |offset_sec|
 // seconds.
 int OPENSSL_gmtime_adj(struct tm *tm, int offset_day, long offset_sec);

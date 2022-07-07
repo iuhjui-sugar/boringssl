@@ -918,7 +918,7 @@ static bool ASN1Time_check_time_t(const ASN1_TIME *s, time_t t) {
       }
       break;
     default:
-      return 0;
+      return false;
   }
   if (!OPENSSL_gmtime(&t, &ttm) ||
       !OPENSSL_gmtime_diff(&day, &sec, &ttm, &stm)) {
@@ -985,6 +985,7 @@ TEST(ASN1Test, SetTime) {
       EXPECT_EQ(V_ASN1_UTCTIME, ASN1_STRING_type(utc.get()));
       EXPECT_EQ(t.utc, ASN1StringToStdString(utc.get()));
       EXPECT_TRUE(ASN1Time_check_time_t(utc.get(), t.time));
+      EXPECT_EQ(ASN1_TIME_to_time_t(utc.get()), t.time);
       EXPECT_EQ(PrintStringToBIO(utc.get(), &ASN1_UTCTIME_print), t.printed);
       EXPECT_EQ(PrintStringToBIO(utc.get(), &ASN1_TIME_print), t.printed);
     } else {
@@ -998,6 +999,7 @@ TEST(ASN1Test, SetTime) {
       EXPECT_EQ(V_ASN1_GENERALIZEDTIME, ASN1_STRING_type(generalized.get()));
       EXPECT_EQ(t.generalized, ASN1StringToStdString(generalized.get()));
       EXPECT_TRUE(ASN1Time_check_time_t(generalized.get(), t.time));
+      EXPECT_EQ(ASN1_TIME_to_time_t(generalized.get()), t.time);
       EXPECT_EQ(
           PrintStringToBIO(generalized.get(), &ASN1_GENERALIZEDTIME_print),
           t.printed);
@@ -1018,6 +1020,7 @@ TEST(ASN1Test, SetTime) {
         EXPECT_EQ(t.generalized, ASN1StringToStdString(choice.get()));
       }
       EXPECT_TRUE(ASN1Time_check_time_t(choice.get(), t.time));
+      EXPECT_EQ(ASN1_TIME_to_time_t(choice.get()), t.time);
     } else {
       EXPECT_FALSE(choice);
     }
