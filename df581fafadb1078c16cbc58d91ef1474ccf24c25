@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b8b63b5_b30a38a4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-08T19:52:06Z",
+      "side": 1,
+      "message": "The joys of api\u0027s that say delete that do not, and say pop_free that do not.. \n\nLGTM",
+      "revId": "df581fafadb1078c16cbc58d91ef1474ccf24c25",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
