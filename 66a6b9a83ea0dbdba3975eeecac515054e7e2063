@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "077e7bef_3fb1715a",
+        "filename": "include/openssl/stack.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-08T17:14:12Z",
+      "side": 1,
+      "message": "The macros are confusingly named. `DECLARE_STACK_OF(T)` forward-declares the type `STACK_OF(T)`. `DEFINE_STACK_OF(T)` adds the declarations (and definitions because it\u0027s all inline) for the `sk_T_whatever` functions. We often stick that in `T`\u0027s header, so that consumers don\u0027t have to do this.\n\nAlthough now that I look at that text, I see it doesn\u0027t say anything of the sort! Revised to match what it actually does. Looks better?",
+      "parentUuid": "7388939b_a726c2b7",
+      "range": {
+        "startLine": 92,
+        "startChar": 73,
+        "endLine": 93,
+        "endChar": 60
+      },
+      "revId": "66a6b9a83ea0dbdba3975eeecac515054e7e2063",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f8efbb24_428c3548",
         "filename": "include/openssl/stack.h",
         "patchSetId": 2
@@ -37,6 +61,30 @@
       "writtenOn": "2022-06-16T20:28:05Z",
       "side": 1,
       "message": "needs a comma here (preferable) or else should drop the comma in \", or \u003e 0\".",
+      "range": {
+        "startLine": 128,
+        "startChar": 54,
+        "endLine": 128,
+        "endChar": 55
+      },
+      "revId": "66a6b9a83ea0dbdba3975eeecac515054e7e2063",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b1d7387_62105068",
+        "filename": "include/openssl/stack.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-08T17:14:12Z",
+      "side": 1,
+      "message": "Done (I just pulled all this text up from the old versions. :P)",
+      "parentUuid": "f8efbb24_428c3548",
       "range": {
         "startLine": 128,
         "startChar": 54,
@@ -70,6 +118,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfa02ac0_81bcaf52",
+        "filename": "include/openssl/stack.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-08T17:14:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14aa65ea_f8e3debb",
+      "range": {
+        "startLine": 138,
+        "startChar": 16,
+        "endLine": 138,
+        "endChar": 20
+      },
+      "revId": "66a6b9a83ea0dbdba3975eeecac515054e7e2063",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cee8f0d8_8e07e591",
@@ -93,6 +165,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a52e94ad_dafcc0b5",
+        "filename": "include/openssl/stack.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-08T17:14:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cee8f0d8_8e07e591",
+      "range": {
+        "startLine": 188,
+        "startChar": 48,
+        "endLine": 188,
+        "endChar": 61
+      },
+      "revId": "66a6b9a83ea0dbdba3975eeecac515054e7e2063",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f2a2d7b4_3002d72c",
@@ -106,6 +202,30 @@
       "writtenOn": "2022-06-16T20:28:05Z",
       "side": 1,
       "message": "\"removes and returns\"",
+      "range": {
+        "startLine": 206,
+        "startChar": 17,
+        "endLine": 206,
+        "endChar": 36
+      },
+      "revId": "66a6b9a83ea0dbdba3975eeecac515054e7e2063",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbee8512_5c66361c",
+        "filename": "include/openssl/stack.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-08T17:14:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2a2d7b4_3002d72c",
       "range": {
         "startLine": 206,
         "startChar": 17,
