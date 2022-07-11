@@ -50,6 +50,23 @@
       "message": "Document it here. if |ex| is NULL no action is performed.",
       "revId": "6d6b2218da4cdb5c12dd261d828ac33832392f5c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe345f36_157e9f2c",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1100,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-11T21:44:35Z",
+      "side": 1,
+      "message": "Aren\u0027t the allocate if NULL api\u0027s fun?\n\nIt returns an |X509_EXTENSION| on success, and NULL on error... \u003cnid stuff\u003e\n\nIf |ex| and |*ex| are both non-NULL, |*ex| is used to hold the result, otherwise a new object is allocated. If |ex| is non-NULL and |*ex| is NULL, |*ex| is set to point to the newly allocated result, in addition to returning the result.",
+      "revId": "6d6b2218da4cdb5c12dd261d828ac33832392f5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
