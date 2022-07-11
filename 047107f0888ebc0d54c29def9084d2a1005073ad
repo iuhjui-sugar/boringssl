@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd60ce17_364108ad",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-11T20:38:34Z",
+      "side": 1,
+      "message": "So for the opposite action we are using the verb \"parse\". I don\u0027t strictly object to \"marshal\" as the opposite, but should we just say \"serialize\" or \"encode\" ? \n\nAnything fit better as the opposite of parse?",
+      "revId": "047107f0888ebc0d54c29def9084d2a1005073ad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
