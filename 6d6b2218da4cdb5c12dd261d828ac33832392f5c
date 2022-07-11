@@ -16,6 +16,40 @@
       "message": "This last sentence seems superfluous, all our blah_woof_free\u0027s are NULL safe,\nwhich we should document with those functions and not repeat it everywhere something could return NULL",
       "revId": "6d6b2218da4cdb5c12dd261d828ac33832392f5c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a94ebb54_9e977ac6",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-11T21:26:47Z",
+      "side": 1,
+      "message": "Same as above.",
+      "revId": "6d6b2218da4cdb5c12dd261d828ac33832392f5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8176e448_dbfe4e02",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1074,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-11T21:26:47Z",
+      "side": 1,
+      "message": "Document it here. if |ex| is NULL no action is performed.",
+      "revId": "6d6b2218da4cdb5c12dd261d828ac33832392f5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
