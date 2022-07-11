@@ -34,6 +34,24 @@
       "parentUuid": "fd60ce17_364108ad",
       "revId": "047107f0888ebc0d54c29def9084d2a1005073ad",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ed066a6_8b8de049",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-11T21:03:30Z",
+      "side": 1,
+      "message": "Oh yeah.. EVP.. lol",
+      "parentUuid": "39392db3_960f4fff",
+      "revId": "047107f0888ebc0d54c29def9084d2a1005073ad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
