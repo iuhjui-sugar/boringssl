@@ -16,6 +16,24 @@
       "message": "So for the opposite action we are using the verb \"parse\". I don\u0027t strictly object to \"marshal\" as the opposite, but should we just say \"serialize\" or \"encode\" ? \n\nAnything fit better as the opposite of parse?",
       "revId": "047107f0888ebc0d54c29def9084d2a1005073ad",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39392db3_960f4fff",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-11T20:53:36Z",
+      "side": 1,
+      "message": "We\u0027ve been using marshal for the other functions. I think came about because I think I asked Adam for a verb many many years ago and he picked this one. :-)\n\nI think it\u0027s from Go? Though Go uses \"unmarshal\" instead of \"parse\", which is a bit unconventional. (And then there\u0027s Kerberos who uses \"parse\" but \"unparse\".)",
+      "parentUuid": "fd60ce17_364108ad",
+      "revId": "047107f0888ebc0d54c29def9084d2a1005073ad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
