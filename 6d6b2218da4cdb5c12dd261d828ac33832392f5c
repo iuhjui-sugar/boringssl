@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76a0ec8f_f0ba5ec0",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-11T21:24:41Z",
+      "side": 1,
+      "message": "This last sentence seems superfluous, all our blah_woof_free\u0027s are NULL safe,\nwhich we should document with those functions and not repeat it everywhere something could return NULL",
+      "revId": "6d6b2218da4cdb5c12dd261d828ac33832392f5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
