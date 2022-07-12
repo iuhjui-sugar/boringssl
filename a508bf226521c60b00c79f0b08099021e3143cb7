@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "420ae7a7_c2163a31",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-12T15:48:24Z",
+      "side": 1,
+      "message": "Mostly because I want to see if the Auto-Submit thing works now.",
+      "revId": "a508bf226521c60b00c79f0b08099021e3143cb7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
