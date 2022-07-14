@@ -33,6 +33,23 @@
       "message": "I am following the CONTRIBUTING document to submit one change request. Could you please help kindly review and approve this request? This change is used to make the boringssl works on AIX/OS400 IBM systems. thanks.",
       "revId": "127a32d3c82e78e44fe6b1546ef250d07cb577af",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b9cf9d1_b2e60de9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2022-07-14T16:22:19Z",
+      "side": 1,
+      "message": "We generally require access to development hardware, continuous integration builders, and a business case before committing to support new platforms. If you\u0027re working with a Google team that needs OS400 support, please ask them to contact me internally. Otherwise I\u0027m afraid that we are unlikely to adopt OS400 support.\n\n(Also, is this platform big-endian? BoringSSL won\u0027t work on such platforms.)",
+      "revId": "127a32d3c82e78e44fe6b1546ef250d07cb577af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
