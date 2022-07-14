@@ -16,6 +16,24 @@
       "message": "This desperately needs a comment indicating that while it contains an X509_NAME it can still be const because the name does not participate in serialization.",
       "revId": "3301350490f0a139081cca5569b201cbc55046b0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a16b548_5ccbe355",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1625,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-14T22:49:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83dcd507_96916dd1",
+      "revId": "3301350490f0a139081cca5569b201cbc55046b0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
