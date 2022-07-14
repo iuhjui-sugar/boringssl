@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4cc08fa_d3c0cbcc",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-14T22:49:14Z",
+      "side": 1,
+      "message": "We document that in API-CONVENTIONS.md. I think I originally had that in there so it\u0027s more obvious that `X509_EXTENSION_free(X509_delete_ext(x, loc))` was safe, but yeah let\u0027s remove it from here.",
+      "parentUuid": "76a0ec8f_f0ba5ec0",
+      "revId": "6d6b2218da4cdb5c12dd261d828ac33832392f5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a94ebb54_9e977ac6",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-07-11T21:26:47Z",
       "side": 1,
       "message": "Same as above.",
+      "revId": "6d6b2218da4cdb5c12dd261d828ac33832392f5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0b8950d_45b4ca57",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-14T22:49:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a94ebb54_9e977ac6",
       "revId": "6d6b2218da4cdb5c12dd261d828ac33832392f5c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -52,6 +88,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a919d496_fc79b42f",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1074,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-14T22:49:14Z",
+      "side": 1,
+      "message": "We mention it for all free functions here, though it is a little buried there.\nhttps://boringssl.googlesource.com/boringssl/+/HEAD/API-CONVENTIONS.md#heap_allocated-types\n\nI\u0027ll leave this alone for now, just for consistency with all our other free functions. If we want to add that (not wrong), probably should do it across the board.",
+      "parentUuid": "8176e448_dbfe4e02",
+      "revId": "6d6b2218da4cdb5c12dd261d828ac33832392f5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fe345f36_157e9f2c",
@@ -65,6 +119,24 @@
       "writtenOn": "2022-07-11T21:44:35Z",
       "side": 1,
       "message": "Aren\u0027t the allocate if NULL api\u0027s fun?\n\nIt returns an |X509_EXTENSION| on success, and NULL on error... \u003cnid stuff\u003e\n\nIf |ex| and |*ex| are both non-NULL, |*ex| is used to hold the result, otherwise a new object is allocated. If |ex| is non-NULL and |*ex| is NULL, |*ex| is set to point to the newly allocated result, in addition to returning the result.",
+      "revId": "6d6b2218da4cdb5c12dd261d828ac33832392f5c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c7d05b7_4d161f39",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1100,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-14T22:49:14Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "fe345f36_157e9f2c",
       "revId": "6d6b2218da4cdb5c12dd261d828ac33832392f5c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
