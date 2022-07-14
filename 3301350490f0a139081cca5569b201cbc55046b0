@@ -34,6 +34,24 @@
       "parentUuid": "83dcd507_96916dd1",
       "revId": "3301350490f0a139081cca5569b201cbc55046b0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46da1d30_7c7b5578",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1625,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-14T22:49:37Z",
+      "side": 1,
+      "message": "Good call. Done, though I added it in the C file just because the comment will quickly disappear once we expand that macro.",
+      "parentUuid": "83dcd507_96916dd1",
+      "revId": "3301350490f0a139081cca5569b201cbc55046b0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
