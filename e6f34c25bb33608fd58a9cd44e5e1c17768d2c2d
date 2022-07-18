@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "24895d44_c0b551d4",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2022-07-18T20:34:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90dbc491_648762f4",
+      "revId": "e6f34c25bb33608fd58a9cd44e5e1c17768d2c2d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8e2472c0_2122906a",
@@ -31,6 +49,30 @@
       "writtenOn": "2022-07-18T17:49:53Z",
       "side": 1,
       "message": "Nit: OPENSSL_HEADER_CTRDRBG_H",
+      "range": {
+        "startLine": 15,
+        "startChar": 23,
+        "endLine": 15,
+        "endChar": 27
+      },
+      "revId": "e6f34c25bb33608fd58a9cd44e5e1c17768d2c2d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f9ce384_9b3e490a",
+        "filename": "include/openssl/ctrdrbg.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2022-07-18T20:34:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e2472c0_2122906a",
       "range": {
         "startLine": 15,
         "startChar": 23,
@@ -58,6 +100,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1095a107_805950a5",
+        "filename": "include/openssl/ctrdrbg.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2022-07-18T20:34:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4c54e934_c3c6c6db",
+      "revId": "e6f34c25bb33608fd58a9cd44e5e1c17768d2c2d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "edbf47e5_aefc221d",
@@ -81,6 +141,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "598db47d_ae073208",
+        "filename": "include/openssl/ctrdrbg.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2022-07-18T20:34:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "edbf47e5_aefc221d",
+      "range": {
+        "startLine": 29,
+        "startChar": 48,
+        "endLine": 29,
+        "endChar": 49
+      },
+      "revId": "e6f34c25bb33608fd58a9cd44e5e1c17768d2c2d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b0ebc077_bc5203e0",
@@ -94,6 +178,30 @@
       "writtenOn": "2022-07-18T17:49:53Z",
       "side": 1,
       "message": "Does it make sense to just make CTR_DRBG_new() take in those parameters and call CTR_DRBG_init for you? Slightly easier to use and avoids exposing the empty state in public API.",
+      "range": {
+        "startLine": 30,
+        "startChar": 34,
+        "endLine": 31,
+        "endChar": 27
+      },
+      "revId": "e6f34c25bb33608fd58a9cd44e5e1c17768d2c2d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16033cc4_375834f4",
+        "filename": "include/openssl/ctrdrbg.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5070
+      },
+      "writtenOn": "2022-07-18T20:34:53Z",
+      "side": 1,
+      "message": "Ah, thanks. That\u0027s a good idea. Done. (And CTR_DRBG_init moved back to internal.h to avoid confusing people about the external interface.)",
+      "parentUuid": "b0ebc077_bc5203e0",
       "range": {
         "startLine": 30,
         "startChar": 34,
