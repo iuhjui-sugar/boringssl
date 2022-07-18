@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eecd54d6_c543550e",
+        "filename": "util/fipstools/break-tests.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-18T15:54:54Z",
+      "side": 1,
+      "message": "Actually, what\u0027s the relationship between this script and util/fipstools/test-break-kat.sh? Do we need both?",
+      "revId": "6e67ad917ab1786bbf992a4a7f5a88cb69f24de0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
