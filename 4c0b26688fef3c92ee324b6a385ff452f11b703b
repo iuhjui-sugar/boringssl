@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76df0c71_4f3f0e03",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-07-18T20:05:26Z",
+      "side": 1,
+      "message": "(You uploaded a new revision but didn\u0027t publish any comments. Note that you need to hit the \"Reply\" button in Gerrit to send anything.)",
+      "revId": "4c0b26688fef3c92ee324b6a385ff452f11b703b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
