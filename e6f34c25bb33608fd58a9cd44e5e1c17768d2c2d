@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90dbc491_648762f4",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-18T17:49:53Z",
+      "side": 1,
+      "message": "Nit: sort",
+      "revId": "e6f34c25bb33608fd58a9cd44e5e1c17768d2c2d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e2472c0_2122906a",
+        "filename": "include/openssl/ctrdrbg.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-18T17:49:53Z",
+      "side": 1,
+      "message": "Nit: OPENSSL_HEADER_CTRDRBG_H",
+      "range": {
+        "startLine": 15,
+        "startChar": 23,
+        "endLine": 15,
+        "endChar": 27
+      },
+      "revId": "e6f34c25bb33608fd58a9cd44e5e1c17768d2c2d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c54e934_c3c6c6db",
+        "filename": "include/openssl/ctrdrbg.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-18T17:49:53Z",
+      "side": 1,
+      "message": "I guess we\u0027re not putting this in doc.config right now, but the docs tool expects a header-level comment. (I think it also expects sections + a section-level comment.)",
+      "revId": "e6f34c25bb33608fd58a9cd44e5e1c17768d2c2d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edbf47e5_aefc221d",
+        "filename": "include/openssl/ctrdrbg.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-18T17:49:53Z",
+      "side": 1,
+      "message": "or NULL on allocation failure.",
+      "range": {
+        "startLine": 29,
+        "startChar": 48,
+        "endLine": 29,
+        "endChar": 49
+      },
+      "revId": "e6f34c25bb33608fd58a9cd44e5e1c17768d2c2d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0ebc077_bc5203e0",
+        "filename": "include/openssl/ctrdrbg.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-18T17:49:53Z",
+      "side": 1,
+      "message": "Does it make sense to just make CTR_DRBG_new() take in those parameters and call CTR_DRBG_init for you? Slightly easier to use and avoids exposing the empty state in public API.",
+      "range": {
+        "startLine": 30,
+        "startChar": 34,
+        "endLine": 31,
+        "endChar": 27
+      },
+      "revId": "e6f34c25bb33608fd58a9cd44e5e1c17768d2c2d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
