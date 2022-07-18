@@ -236,20 +236,26 @@ func processFile(filename string, supportedAlgos []map[string]interface{}, middl
 
 	var result bytes.Buffer
 	result.WriteString("[")
+	// Build result in result_tmp to compare with locally stored result which was created after a last successful run
+	var result_tmp bytes.Buffer
+	result_tmp.WriteString("[")
 
 	if header != nil {
 		headerBytes, err := json.MarshalIndent(header, "", "    ")
+		headerBytes_tmp, err := json.Marshal(header)
 		if err != nil {
 			return err
 		}
 		result.Write(headerBytes)
 		result.WriteString(",")
+		result_tmp.Write(headerBytes_tmp)
+		result_tmp.WriteString(",")
 	}
 
 	for i, element := range elements {
 		var commonFields struct {
-			Algo string `json:"algorithm"`
 			ID   uint64 `json:"vsId"`
+			Algo string `json:"algorithm"`
 		}
 		if err := json.Unmarshal(element, &commonFields); err != nil {
 			return fmt.Errorf("failed to extract common fields from vector set #%d", i+1)
@@ -270,18 +276,41 @@ func processFile(filename string, supportedAlgos []map[string]interface{}, middl
 			"testGroups": replyGroups,
 		}
 		replyBytes, err := json.MarshalIndent(group, "", "    ")
+
+		// try to keep result_tmp format same as locally stored result which was uploaded to NIST in a last successful run
+		headerBytes, err := json.Marshal(commonFields)
+		result_tmp.Write(headerBytes[:len(headerBytes)-1])
+		result_tmp.WriteString(`,"testGroups":`)
+		replyBytes_tmp, err := json.Marshal(replyGroups)
 		if err != nil {
 			return err
 		}
 
 		if i != 0 {
 			result.WriteString(",")
+			result_tmp.WriteString(",")
 		}
 		result.Write(replyBytes)
+		result_tmp.Write(replyBytes_tmp)
 	}
-
 	result.WriteString("]\n")
 	os.Stdout.Write(result.Bytes())
+	result_tmp.WriteString("}")
+	result_tmp.WriteString("]")
+
+	// Open locally stored result file which has the same name as the <algo-id>.txt
+	PreFetchedResult := strings.ReplaceAll(filename, "json", "txt")
+	PreFetchedResultBytes, err := ioutil.ReadFile(PreFetchedResult)
+	if err != nil {
+		log.Fatalf("failed to read pre-fetched result from file %q: %s", PreFetchedResult, err)
+		return err
+	}
+	// compare result_tmp with the stored result
+	if bytes.Equal(result_tmp.Bytes(), PreFetchedResultBytes) {
+		log.Printf("Test passed")
+	} else {
+		log.Printf("Test Failed")
+	}
 
 	return nil
 }
@@ -506,6 +535,23 @@ func main() {
 			"time":          time.Now().Format(time.RFC3339),
 		})
 	}
+	// Create buffers for filename, result, and test-vector
+	var vectorsFilename bytes.Buffer
+	var resultBufLocal bytes.Buffer
+	var vectorsBytesLocal bytes.Buffer
+
+	// Build local copy of the fetched test-vector set
+	vectorsBytesLocal.WriteString("[\n")
+	group := map[string]interface{}{
+		"acvVersion": "1.0",
+	}
+	tempVectorsBytes, err := json.Marshal(group)
+	vectorsBytesLocal.Write(tempVectorsBytes)
+
+	// Build local copy of the result
+	resultBufLocal.WriteString(`[{"acvVersion":"1.0"},`)
+	// Build the filename as the <algo-id>.json/txt in the path "test/vectors"
+	vectorsFilename.WriteString("test/vectors/")
 
 	for _, setURL := range result.VectorSetURLs {
 		firstTime := true
@@ -539,6 +585,11 @@ func main() {
 				os.Stdout.Write(vectorsBytes)
 				break
 			}
+			// Build local copy of the fetched test-vector set
+			vectorsBytesLocal.WriteString(",\n")
+			vectorsBytesLocal.Write(vectorsBytes)
+			// Write <algo-id> as the filename
+			vectorsFilename.WriteString(vectors.Algo)
 
 			replyGroups, err := middle.Process(vectors.Algo, vectorsBytes)
 			if err != nil {
@@ -571,6 +622,10 @@ func main() {
 			}
 			resultBuf.Write(replyBytes)
 			resultBuf.WriteString("}")
+
+			// Build local copy of the result
+			resultBufLocal.Write(resultBuf.Bytes())
+			resultBufLocal.WriteString("]")
 
 			resultData := resultBuf.Bytes()
 			resultSize := uint64(len(resultData)) + 32 /* for framing overhead */
@@ -629,6 +684,7 @@ func main() {
 		os.Stdout.WriteString("]\n")
 		os.Exit(0)
 	}
+	vectorsBytesLocal.WriteString("]\n")
 
 FetchResults:
 	for {
@@ -639,6 +695,21 @@ FetchResults:
 
 		if results.Passed {
 			log.Print("Test passed")
+			// Save test-vectors in <algo-id>.json file only when the Test passes
+			// so that we can run using the local copy wihtout fetching from the NIST again
+			vectorsFilename.WriteString(".json")
+			filename := vectorsFilename.String()
+			err := ioutil.WriteFile(filename, vectorsBytesLocal.Bytes(), 0644)
+			if err != nil {
+				log.Fatalf("failed to write fetched vectors to file %q: %s", filename, err)
+			}
+
+			// Save results as well in <algo-id>.txt file to compare the result when run locally
+			filename = strings.ReplaceAll(filename, "json", "txt")
+			ioutil.WriteFile(filename, resultBufLocal.Bytes(), 0644)
+			if err != nil {
+				log.Fatalf("failed to write verified results to file %q: %s", filename, err)
+			}
 			break
 		}
 
