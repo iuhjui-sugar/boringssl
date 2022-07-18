@@ -16,6 +16,24 @@
       "message": "Actually, what\u0027s the relationship between this script and util/fipstools/test-break-kat.sh? Do we need both?",
       "revId": "6e67ad917ab1786bbf992a4a7f5a88cb69f24de0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21d8ff8f_24a8cfea",
+        "filename": "util/fipstools/break-tests.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-07-18T20:04:23Z",
+      "side": 1,
+      "message": "This is the manual one for stepping a lab through the process, while the other runs all the KATs to check that the breakage does, in fact, break. We need this one somewhere. We could replace the latter with this one, but then someone needs to manually check the output.",
+      "parentUuid": "eecd54d6_c543550e",
+      "revId": "6e67ad917ab1786bbf992a4a7f5a88cb69f24de0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
