@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "984caac5_be5b46d8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-19T15:14:23Z",
+      "side": 1,
+      "message": "Hah. Looks like it\u0027s because OpenSSL uses TLS1(_3)_RFC_ to refer to the RFC names. I guess we can fill in the rest of those constants if we find anyone actually uses them. Right now those are just string literals in the table.",
+      "revId": "9f955cf8382493ee9d7328f3f98e0afbcc3656b0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a544158c_be8e1451",
+        "filename": "include/openssl/tls1.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-19T15:14:23Z",
+      "side": 1,
+      "message": "Probably should either delete or uncomment them. Actually I don\u0027t see any uses of the old constants, so we could just delete them and try it.",
+      "revId": "9f955cf8382493ee9d7328f3f98e0afbcc3656b0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
