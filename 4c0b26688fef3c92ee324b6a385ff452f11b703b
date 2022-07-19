@@ -33,6 +33,24 @@
       "message": "Added comments",
       "revId": "4c0b26688fef3c92ee324b6a385ff452f11b703b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42a4cbc8_18756d37",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-07-19T14:00:43Z",
+      "side": 1,
+      "message": "This was the only comment added :) Could you email describing your project\u0027s needs?",
+      "parentUuid": "afbee3f2_8e8e3ecc",
+      "revId": "4c0b26688fef3c92ee324b6a385ff452f11b703b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
