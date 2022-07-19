@@ -51,6 +51,24 @@
       "parentUuid": "afbee3f2_8e8e3ecc",
       "revId": "4c0b26688fef3c92ee324b6a385ff452f11b703b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae7ba30a_46b03e44",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14496
+      },
+      "writtenOn": "2022-07-19T16:58:27Z",
+      "side": 1,
+      "message": "Ohh my bad! I thought you are asking for a description on what Patchset 2 is about.\nSure I will update the commit message with the project needs.",
+      "parentUuid": "42a4cbc8_18756d37",
+      "revId": "4c0b26688fef3c92ee324b6a385ff452f11b703b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
