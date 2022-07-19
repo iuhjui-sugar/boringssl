@@ -16,6 +16,23 @@
       "message": "(You uploaded a new revision but didn\u0027t publish any comments. Note that you need to hit the \"Reply\" button in Gerrit to send anything.)",
       "revId": "4c0b26688fef3c92ee324b6a385ff452f11b703b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "afbee3f2_8e8e3ecc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14496
+      },
+      "writtenOn": "2022-07-19T06:24:01Z",
+      "side": 1,
+      "message": "Added comments",
+      "revId": "4c0b26688fef3c92ee324b6a385ff452f11b703b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
