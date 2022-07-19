@@ -33,6 +33,24 @@
       "message": "Probably should either delete or uncomment them. Actually I don\u0027t see any uses of the old constants, so we could just delete them and try it.",
       "revId": "9f955cf8382493ee9d7328f3f98e0afbcc3656b0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa313ab7_dd435ba1",
+        "filename": "include/openssl/tls1.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 641,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-19T15:21:50Z",
+      "side": 1,
+      "message": "Yeah, I had intended those to be uncommented. fixed.",
+      "parentUuid": "a544158c_be8e1451",
+      "revId": "9f955cf8382493ee9d7328f3f98e0afbcc3656b0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
