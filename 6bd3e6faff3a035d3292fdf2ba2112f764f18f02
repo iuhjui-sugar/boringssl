@@ -16,6 +16,24 @@
       "message": "It seems that the existing -fetch option (https://boringssl.googlesource.com/boringssl/+/refs/heads/master/util/fipstools/acvp/ACVP.md#running-test-sessions) does what you need here?",
       "revId": "6bd3e6faff3a035d3292fdf2ba2112f764f18f02",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57c940ed_ffcd1e5d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14496
+      },
+      "writtenOn": "2022-07-20T17:46:22Z",
+      "side": 1,
+      "message": "Hi Adam, -fetch option will only fetch the test-vectors and NOT expected results. With this change we are storing the fetched test-vectors during -run option and also results which we upload to the NIST Server at the end of -run option. This way we can be sure that the result corresponds to the stored test-vector. This can be later used with -json option to test an algorithm without NIST server. \nThis requirement came because we are planning to run ACVP daily and want to differentiate test cases failure because of NIST config change OR because of regression on device side implementation. Also it will help us not get banned by NIST for running so many test cases on a daily basis.",
+      "parentUuid": "0bb5420d_248117f8",
+      "revId": "6bd3e6faff3a035d3292fdf2ba2112f764f18f02",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
