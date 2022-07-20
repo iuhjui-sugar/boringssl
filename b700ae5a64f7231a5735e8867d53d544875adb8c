@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bff84be9_fefe356d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-20T23:49:25Z",
+      "side": 1,
+      "message": ":-(",
+      "revId": "b700ae5a64f7231a5735e8867d53d544875adb8c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc872a79_a9961dd7",
+        "filename": "crypto/rand_extra/passive.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-20T23:49:25Z",
+      "side": 1,
+      "message": "Maybe an enum?",
+      "revId": "b700ae5a64f7231a5735e8867d53d544875adb8c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f594cf7_99cdfe48",
+        "filename": "crypto/rand_extra/passive.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-20T23:49:25Z",
+      "side": 1,
+      "message": "I worry a little that we have no test coverage for this path. If we have to change how RAND_need_entropy works, we might not notice we need to split this into two different calls. prng_seeder presumably won\u0027t be aware of our local ENTROPY_READ_LEN constant or anything.\n\nMaybe this function shouldn\u0027t use ENTROPY_READ_LEN but a separate constant. If we change our entropy reading strategy ENTROPY_READ_LEN, that won\u0027t change the Android daemon. And I guess we can start with just a static_assert that they match. If they ever mismatch, we can call it a couple of times or do whatever makes sense.\n\nHow hard would it be to make the urandom_test.cc strace machinery to cover this? I guess we\u0027d need to make it run on aarch64, which might be a bit of fuss.",
+      "revId": "b700ae5a64f7231a5735e8867d53d544875adb8c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f2b00a6_d5b1fb1b",
+        "filename": "crypto/rand_extra/passive.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-20T23:49:25Z",
+      "side": 1,
+      "message": "Did you mean to check g_should_use_socket_tristate here? use_socket_tristate is a local so this second check is redundant as-is.",
+      "range": {
+        "startLine": 100,
+        "startChar": 8,
+        "endLine": 100,
+        "endChar": 27
+      },
+      "revId": "b700ae5a64f7231a5735e8867d53d544875adb8c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
