@@ -3904,18 +3904,18 @@ TEST_P(SSLVersionTest, AutoChain) {
                           {cert_.get(), cert_.get()}));
 }
 
-static bool ExpectBadWriteRetry() {
+static bool ExpectSingleError(int lib, int reason) {
+  const char *expected = ERR_reason_error_string(ERR_PACK(lib, reason));
   int err = ERR_get_error();
-  if (ERR_GET_LIB(err) != ERR_LIB_SSL ||
-      ERR_GET_REASON(err) != SSL_R_BAD_WRITE_RETRY) {
+  if (ERR_GET_LIB(err) != lib || ERR_GET_REASON(err) != reason) {
     char buf[ERR_ERROR_STRING_BUF_LEN];
     ERR_error_string_n(err, buf, sizeof(buf));
-    fprintf(stderr, "Wanted SSL_R_BAD_WRITE_RETRY, got: %s.\n", buf);
+    fprintf(stderr, "Wanted %s, got: %s.\n", expected, buf);
     return false;
   }
 
   if (ERR_peek_error() != 0) {
-    fprintf(stderr, "Unexpected error following SSL_R_BAD_WRITE_RETRY.\n");
+    fprintf(stderr, "Unexpected error following %s.\n", expected);
     return false;
   }
 
@@ -3931,8 +3931,6 @@ TEST_P(SSLVersionTest, SSLWriteRetry) {
     SCOPED_TRACE(enable_partial_write);
 
     // Connect a client and server.
-    ASSERT_TRUE(UseCertAndKey(client_ctx_.get()));
-
     ASSERT_TRUE(Connect());
 
     if (enable_partial_write) {
@@ -3951,9 +3949,7 @@ TEST_P(SSLVersionTest, SSLWriteRetry) {
         ASSERT_EQ(SSL_get_error(client_.get(), ret), SSL_ERROR_WANT_WRITE);
         break;
       }
-
       ASSERT_EQ(ret, 5);
-
       count++;
     }
 
@@ -3966,14 +3962,14 @@ TEST_P(SSLVersionTest, SSLWriteRetry) {
     ASSERT_EQ(SSL_get_error(client_.get(),
                             SSL_write(client_.get(), data, kChunkLen - 1)),
               SSL_ERROR_SSL);
-    ASSERT_TRUE(ExpectBadWriteRetry());
+    ASSERT_TRUE(ExpectSingleError(ERR_LIB_SSL, SSL_R_BAD_WRITE_RETRY));
 
     // Retrying with a different buffer pointer is not legal.
     char data2[] = "hello";
     ASSERT_EQ(SSL_get_error(client_.get(),
                             SSL_write(client_.get(), data2, kChunkLen)),
               SSL_ERROR_SSL);
-    ASSERT_TRUE(ExpectBadWriteRetry());
+    ASSERT_TRUE(ExpectSingleError(ERR_LIB_SSL, SSL_R_BAD_WRITE_RETRY));
 
     // With |SSL_MODE_ACCEPT_MOVING_WRITE_BUFFER|, the buffer may move.
     SSL_set_mode(client_.get(), SSL_MODE_ACCEPT_MOVING_WRITE_BUFFER);
@@ -3985,7 +3981,7 @@ TEST_P(SSLVersionTest, SSLWriteRetry) {
     ASSERT_EQ(SSL_get_error(client_.get(),
                             SSL_write(client_.get(), data2, kChunkLen - 1)),
               SSL_ERROR_SSL);
-    ASSERT_TRUE(ExpectBadWriteRetry());
+    ASSERT_TRUE(ExpectSingleError(ERR_LIB_SSL, SSL_R_BAD_WRITE_RETRY));
 
     // Retrying with a larger buffer is legal.
     ASSERT_EQ(SSL_get_error(client_.get(),
@@ -4013,6 +4009,79 @@ TEST_P(SSLVersionTest, SSLWriteRetry) {
 
     // Check the last write was correct. The data will be spread over two
     // records, so SSL_read returns twice.
+    ASSERT_EQ(SSL_read(server_.get(), buf, sizeof(buf)), kChunkLen);
+    ASSERT_EQ(OPENSSL_memcmp(buf, "hello", kChunkLen), 0);
+    ASSERT_EQ(SSL_read(server_.get(), buf, sizeof(buf)), 1);
+    ASSERT_EQ(buf[0], '!');
+
+    // Cap the maximum record size.
+    SSL_set_max_send_fragment(client_.get(), kChunkLen);
+
+    // Fill the transport buffer again.
+    count = 0;
+    for (;;) {
+      int ret = SSL_write(client_.get(), data, kChunkLen);
+      if (ret <= 0) {
+        ASSERT_EQ(SSL_get_error(client_.get(), ret), SSL_ERROR_WANT_WRITE);
+        break;
+      }
+      ASSERT_EQ(ret, 5);
+      count++;
+    }
+
+    // Read one record. There is now space in the transport buffer for only one
+    // record.
+    ASSERT_EQ(SSL_read(server_.get(), buf, sizeof(buf)), kChunkLen);
+    ASSERT_EQ(OPENSSL_memcmp(buf, "hello", kChunkLen), 0);
+    count--;
+
+    // A write of "hello!" will be split into two records. The first will be
+    // successfully written to the buffer, while the second will block.
+    int ret = SSL_write(client_.get(), data, kChunkLen + 1);
+    if (enable_partial_write) {
+      // If partial writes are allowed, the write will succeed partially.
+      ASSERT_EQ(ret, kChunkLen);
+
+      // Make room for another record.
+      ASSERT_EQ(SSL_read(server_.get(), buf, sizeof(buf)), kChunkLen);
+      ASSERT_EQ(OPENSSL_memcmp(buf, "hello", kChunkLen), 0);
+      count--;
+
+      // Finish writing the input.
+      ASSERT_EQ(SSL_write(client_.get(), data + kChunkLen, 1), 1);
+    } else {
+      // Otherwise, although the first record made it to the buffer, the second
+      // is blocked.
+      ASSERT_EQ(ret, -1);
+      ASSERT_EQ(SSL_get_error(client_.get(), -1), SSL_ERROR_WANT_WRITE);
+
+      // Make room for another record.
+      ASSERT_EQ(SSL_read(server_.get(), buf, sizeof(buf)), kChunkLen);
+      ASSERT_EQ(OPENSSL_memcmp(buf, "hello", kChunkLen), 0);
+      count--;
+
+      // Retrying with fewer bytes than previously attempted is an error. If the
+      // input length is less than the number of bytes successfully written, the
+      // check happens at a different point, with a different error.
+      //
+      // TODO(davidben): Use the same error?
+      ASSERT_EQ(SSL_get_error(client_.get(),
+                              SSL_write(client_.get(), data, kChunkLen - 1)),
+                SSL_ERROR_SSL);
+      ASSERT_TRUE(ExpectSingleError(ERR_LIB_SSL, SSL_R_BAD_LENGTH));
+
+      // Complete the write with the correct retry.
+      // Finish writing the input.
+      ASSERT_EQ(SSL_write(client_.get(), data, kChunkLen + 1), kChunkLen + 1);
+    }
+
+    // Drain the input and ensure everything was written correctly.
+    for (unsigned i = 0; i < count; i++) {
+      ASSERT_EQ(SSL_read(server_.get(), buf, sizeof(buf)), kChunkLen);
+      ASSERT_EQ(OPENSSL_memcmp(buf, "hello", kChunkLen), 0);
+    }
+
+    // The final write is spread over two records.
     ASSERT_EQ(SSL_read(server_.get(), buf, sizeof(buf)), kChunkLen);
     ASSERT_EQ(OPENSSL_memcmp(buf, "hello", kChunkLen), 0);
     ASSERT_EQ(SSL_read(server_.get(), buf, sizeof(buf)), 1);
