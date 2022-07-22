@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "358ccefe_0cef8584",
+        "filename": "ssl/s3_pkt.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-22T23:56:12Z",
+      "side": 1,
+      "message": "Got rid of the helper function because it seemed silly to set up wpend_* only to immediately double-check it.",
+      "revId": "39ec10171439a611ec33e0429d487ff7ad72f1e1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
