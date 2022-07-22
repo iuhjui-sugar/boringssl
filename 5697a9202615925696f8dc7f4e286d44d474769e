@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "826b861d_4af2da53",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13956
+      },
+      "writtenOn": "2022-07-22T19:03:25Z",
+      "side": 1,
+      "message": "pretty good I\u0027d tell ya!",
+      "revId": "5697a9202615925696f8dc7f4e286d44d474769e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
