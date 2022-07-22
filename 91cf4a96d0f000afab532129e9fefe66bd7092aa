@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed0b1d88_eaf10648",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-22T15:08:21Z",
+      "side": 1,
+      "message": "Kill it with fire.  LGTM. ",
+      "revId": "91cf4a96d0f000afab532129e9fefe66bd7092aa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
