@@ -16,6 +16,24 @@
       "message": "Self-review: this actually doesn\u0027t do anything because SSL_set_max_send_fragment internally bumps it up to at least 512. Figure out what\u0027s up here...",
       "revId": "335b4f592e6775fc6233d77896fd1da79c9d4498",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "22b30b91_e595a848",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 4019,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-24T18:36:58Z",
+      "side": 1,
+      "message": "Ah, answer is we weren\u0027t relying on max_send_fragment anyway, only the unfinished write from the previous round.",
+      "parentUuid": "ea6e3e87_40aaa960",
+      "revId": "335b4f592e6775fc6233d77896fd1da79c9d4498",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
