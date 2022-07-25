@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e472444_caef7c8d",
+        "filename": "ssl/s3_pkt.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-25T18:52:42Z",
+      "side": 1,
+      "message": "I think we\u0027ve now changed what this is returning?",
+      "revId": "9004b44432b14f335fc6d4687a8f9fd6371d0b98",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd0f1653_34a95577",
+        "filename": "ssl/s3_pkt.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-25T18:52:42Z",
+      "side": 1,
+      "message": "This used to return a number of bytes, and is now returning a success indicator. This function probably needs some docs",
+      "revId": "9004b44432b14f335fc6d4687a8f9fd6371d0b98",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88600d30_04cf8e15",
+        "filename": "ssl/s3_pkt.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-25T18:52:42Z",
+      "side": 1,
+      "message": "This really desperately needs to say what it returns on success, given the historical proximity to things returning int\u0027s for size_t\u0027s.",
+      "revId": "9004b44432b14f335fc6d4687a8f9fd6371d0b98",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d878e6d8_0bf8b9f0",
+        "filename": "ssl/s3_pkt.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-25T18:52:42Z",
+      "side": 1,
+      "message": "IMO you should use a different variable from what the number from bio is coming back as here. so you end up doing something like ret \u003d success ? 1 : bio_value or something equivalent.. reusing this is hard on my eyes.",
+      "revId": "9004b44432b14f335fc6d4687a8f9fd6371d0b98",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
