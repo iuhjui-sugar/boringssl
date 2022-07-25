@@ -16,6 +16,23 @@
       "message": "go/handshake-hints has some context on this mechanism. Feel free to grab on chat or VC or whatever if you need some context. It\u0027s a little hairy, but replaces an even more hairy thing. :-)",
       "revId": "43716861f4979e2bd0eb6b4c6c67ae20381f5985",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa59fa40_93c90611",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 996,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-25T20:33:13Z",
+      "side": 1,
+      "message": "how pedantic we wanna be here? (now.tv_sec \u003e\u003e 0) \u0026 0xFF",
+      "revId": "43716861f4979e2bd0eb6b4c6c67ae20381f5985",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
