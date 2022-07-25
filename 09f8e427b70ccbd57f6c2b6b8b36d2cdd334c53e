@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c79a418d_6c5396d5",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 8362,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-25T16:01:15Z",
+      "side": 1,
+      "message": "Do we expect it to be possible here to allow the new session ticket to get through with repeated 0 length write attempts (instead of repeated 1 byte writes with real data) after this SSL_ERROR_WANT_WRITE?",
+      "revId": "09f8e427b70ccbd57f6c2b6b8b36d2cdd334c53e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
