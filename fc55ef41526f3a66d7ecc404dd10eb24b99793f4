@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "524ddf93_5a600376",
+        "filename": "ssl/tls13_both.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-25T18:17:15Z",
+      "side": 1,
+      "message": "Hints mess moved into ssl_private_key_sign.",
+      "revId": "fc55ef41526f3a66d7ecc404dd10eb24b99793f4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

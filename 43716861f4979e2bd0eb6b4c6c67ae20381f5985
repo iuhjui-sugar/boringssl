@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac069125_25e22bc2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-25T18:17:15Z",
+      "side": 1,
+      "message": "go/handshake-hints has some context on this mechanism. Feel free to grab on chat or VC or whatever if you need some context. It\u0027s a little hairy, but replaces an even more hairy thing. :-)",
+      "revId": "43716861f4979e2bd0eb6b4c6c67ae20381f5985",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
