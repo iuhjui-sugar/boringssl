@@ -217,3 +217,11 @@ int ASN1_TIME_diff(int *out_days, int *out_seconds, const ASN1_TIME *from,
   }
   return OPENSSL_gmtime_diff(out_days, out_seconds, &tm_from, &tm_to);
 }
+
+time_t ASN1_TIME_to_time_t(const ASN1_TIME *t) {
+  struct tm tm;
+  if (!asn1_time_to_tm(&tm, t)) {
+    return -1;
+  }
+  return OPENSSL_timegm(&tm);
+}

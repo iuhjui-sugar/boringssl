@@ -918,7 +918,7 @@ static bool ASN1Time_check_time_t(const ASN1_TIME *s, time_t t) {
       }
       break;
     default:
-      return 0;
+      return false;
   }
   if (!OPENSSL_gmtime(&t, &ttm) ||
       !OPENSSL_gmtime_diff(&day, &sec, &ttm, &stm)) {
@@ -955,6 +955,8 @@ TEST(ASN1Test, SetTime) {
     {0, "19700101000000Z", "700101000000Z", "Jan  1 00:00:00 1970 GMT"},
     {981173106, "20010203040506Z", "010203040506Z", "Feb  3 04:05:06 2001 GMT"},
     {951804000, "20000229060000Z", "000229060000Z", "Feb 29 06:00:00 2000 GMT"},
+    // NASA says this is the correct time for posterity.
+    {-16751025, "19690621025615Z", "690621025615Z", "Jun 21 02:56:15 1969 GMT"},
 #if defined(OPENSSL_64_BIT)
     // TODO(https://crbug.com/boringssl/416): These cases overflow 32-bit
     // |time_t| and do not consistently work on 32-bit platforms. For now,
@@ -985,6 +987,7 @@ TEST(ASN1Test, SetTime) {
       EXPECT_EQ(V_ASN1_UTCTIME, ASN1_STRING_type(utc.get()));
       EXPECT_EQ(t.utc, ASN1StringToStdString(utc.get()));
       EXPECT_TRUE(ASN1Time_check_time_t(utc.get(), t.time));
+      EXPECT_EQ(ASN1_TIME_to_time_t(utc.get()), t.time);
       EXPECT_EQ(PrintStringToBIO(utc.get(), &ASN1_UTCTIME_print), t.printed);
       EXPECT_EQ(PrintStringToBIO(utc.get(), &ASN1_TIME_print), t.printed);
     } else {
@@ -998,6 +1001,7 @@ TEST(ASN1Test, SetTime) {
       EXPECT_EQ(V_ASN1_GENERALIZEDTIME, ASN1_STRING_type(generalized.get()));
       EXPECT_EQ(t.generalized, ASN1StringToStdString(generalized.get()));
       EXPECT_TRUE(ASN1Time_check_time_t(generalized.get(), t.time));
+      EXPECT_EQ(ASN1_TIME_to_time_t(generalized.get()), t.time);
       EXPECT_EQ(
           PrintStringToBIO(generalized.get(), &ASN1_GENERALIZEDTIME_print),
           t.printed);
@@ -1018,6 +1022,7 @@ TEST(ASN1Test, SetTime) {
         EXPECT_EQ(t.generalized, ASN1StringToStdString(choice.get()));
       }
       EXPECT_TRUE(ASN1Time_check_time_t(choice.get(), t.time));
+      EXPECT_EQ(ASN1_TIME_to_time_t(choice.get()), t.time);
     } else {
       EXPECT_FALSE(choice);
     }
