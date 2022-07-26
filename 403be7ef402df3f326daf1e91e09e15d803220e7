@@ -1,0 +1,129 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5e618f4_2d31e054",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-26T21:44:00Z",
+      "side": 1,
+      "message": "Our CI builders for Android FIPS are currently down (https://crbug.com/1347592), so I\u0027m assuming you\u0027ve run these manually.",
+      "revId": "403be7ef402df3f326daf1e91e09e15d803220e7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "389ccb1c_f4c9a365",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-26T21:44:00Z",
+      "side": 1,
+      "message": "Unnecessary `break` after `return`.",
+      "revId": "403be7ef402df3f326daf1e91e09e15d803220e7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7afa8dda_51479fba",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-26T21:44:00Z",
+      "side": 1,
+      "message": "`regs_set_ret` is only ever called right after `regs_read`. Maybe fold them togetheR?",
+      "revId": "403be7ef402df3f326daf1e91e09e15d803220e7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5369c20b_f725981b",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-26T21:44:00Z",
+      "side": 1,
+      "message": "Nit: I assume this also works:\n\n`struct user_regs_struct regs \u003d orig_regs-\u003eregs;`\n\nDitto below.",
+      "revId": "403be7ef402df3f326daf1e91e09e15d803220e7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38077f92_dcf558d5",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-26T21:44:00Z",
+      "side": 1,
+      "message": "Definedness here is a little unclear. C++ doesn\u0027t allow any kind of union-based type-punning, but pointer casts are allowed to type pun through a character type. But I think it\u0027s easier to not think about this and write it as:\n\n\n```\n  uint64_t word;\n  if (offset \u003d\u003d 0 \u0026\u0026 todo \u003d\u003d 8) {\n    word \u003d CRYPTO_load_u64_le(src);\n  } else {\n    uint8_t bytes[8];\n    CRYPTO_store_u64_le(\n        bytes, ptrace(PTRACE_PEEKDATA, child_pid,\n                      reinterpret_cast\u003cvoid *\u003e(aligned_addr), nullptr));\n    memcpy(\u0026bytes[offset], src, todo);\n    word \u003d CRYPTO_load_u64_le(bytes);\n  }\n```",
+      "revId": "403be7ef402df3f326daf1e91e09e15d803220e7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "369c1bda_298d6f19",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-26T21:44:00Z",
+      "side": 1,
+      "message": "`ASSERT_GT(socket_read_bytes, 0)` perhaps",
+      "revId": "403be7ef402df3f326daf1e91e09e15d803220e7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52abf20f_dee07b52",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-26T21:44:00Z",
+      "side": 1,
+      "message": "Nit: `static_cast\u003cint\u003e(regs.args[0]) \u003d\u003d sock_fd` might be better. The SysV AMD64 calling convention, at least, says that the syscall convention is the same as the userspace one. I never found anything definitive, but when I was playing around with compilers, it looked like arguments are sign-extended up to 32-bits, but the upper 32-bits are unused.\n\nI can\u0027t find a definition of the aarch64 syscall convention, but assuming it uses registers in the same way as the userspace one, AAPCS64 says all unused bits are undefined.\n\nCasting to `int` means we work independent of what\u0027s in there.",
+      "range": {
+        "startLine": 521,
+        "startChar": 28,
+        "endLine": 521,
+        "endChar": 75
+      },
+      "revId": "403be7ef402df3f326daf1e91e09e15d803220e7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
