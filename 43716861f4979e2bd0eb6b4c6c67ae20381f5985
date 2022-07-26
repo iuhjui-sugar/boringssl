@@ -33,6 +33,24 @@
       "message": "how pedantic we wanna be here? (now.tv_sec \u003e\u003e 0) \u0026 0xFF",
       "revId": "43716861f4979e2bd0eb6b4c6c67ae20381f5985",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad36e30d_2103eaad",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 996,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-26T21:52:39Z",
+      "side": 1,
+      "message": "Hehe. I\u0027ll raise you a CRYPTO_store_u32_be. :-)\n\nAlso with an explicit cast to uint32_t so that, if we ever turn on -Wconversion, it won\u0027t flag that.",
+      "parentUuid": "fa59fa40_93c90611",
+      "revId": "43716861f4979e2bd0eb6b4c6c67ae20381f5985",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
