@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e14a029_49ee7814",
+        "filename": "util/fipstools/break-tests.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-07-26T10:21:11Z",
+      "side": 1,
+      "message": "The binaries are built in FIPS mode, but the module isn\u0027t inside them because Android uses the shared-library configuration, right?",
+      "revId": "9548e16e4ec98939485963fa3a0687530e846415",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b060f426_30fa416c",
+        "filename": "util/fipstools/break-tests.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-07-26T10:21:11Z",
+      "side": 1,
+      "message": "nit: just for consistency with other scripts, could the `then` be merged into the previous line by appending `; then` to them?",
+      "revId": "9548e16e4ec98939485963fa3a0687530e846415",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60870d33_37328a88",
+        "filename": "util/fipstools/break-tests.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-07-26T10:21:11Z",
+      "side": 1,
+      "message": "(ditto about `then`.)",
+      "revId": "9548e16e4ec98939485963fa3a0687530e846415",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
