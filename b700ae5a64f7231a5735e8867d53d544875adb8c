@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d776e09f_1b7f41be",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-07-26T10:08:16Z",
+      "side": 1,
+      "message": "Yea.",
+      "parentUuid": "bff84be9_fefe356d",
+      "revId": "b700ae5a64f7231a5735e8867d53d544875adb8c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cc872a79_a9961dd7",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-07-20T23:49:25Z",
       "side": 1,
       "message": "Maybe an enum?",
+      "revId": "b700ae5a64f7231a5735e8867d53d544875adb8c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e6f3df5_e08e7a7e",
+        "filename": "crypto/rand_extra/passive.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-07-26T10:08:16Z",
+      "side": 1,
+      "message": "That\u0027s better, thanks.",
+      "parentUuid": "cc872a79_a9961dd7",
       "revId": "b700ae5a64f7231a5735e8867d53d544875adb8c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -52,6 +88,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e502a60_f22aeff9",
+        "filename": "crypto/rand_extra/passive.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-07-26T10:08:16Z",
+      "side": 1,
+      "message": "The Android daemon looks like it might end up in init itself, and thus really doesn\u0027t want to be parsing, holding sockets in a state machine etc. Thus it writes exactly the expected number of bytes and, yea, if we need yet more in the future then we\u0027ll need two connections or something.\n\nSplitting the constant makes sense. I had some of urandom_test done but it looked like Android might need this patch before I left so I uploaded as is. Since I\u0027ve had a chance to flesh out the urandom_test bits now, I\u0027ve included them here.",
+      "parentUuid": "2f594cf7_99cdfe48",
+      "revId": "b700ae5a64f7231a5735e8867d53d544875adb8c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9f2b00a6_d5b1fb1b",
@@ -65,6 +119,30 @@
       "writtenOn": "2022-07-20T23:49:25Z",
       "side": 1,
       "message": "Did you mean to check g_should_use_socket_tristate here? use_socket_tristate is a local so this second check is redundant as-is.",
+      "range": {
+        "startLine": 100,
+        "startChar": 8,
+        "endLine": 100,
+        "endChar": 27
+      },
+      "revId": "b700ae5a64f7231a5735e8867d53d544875adb8c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa696395_237c74b6",
+        "filename": "crypto/rand_extra/passive.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-07-26T10:08:16Z",
+      "side": 1,
+      "message": "Indeed, thank you.",
+      "parentUuid": "9f2b00a6_d5b1fb1b",
       "range": {
         "startLine": 100,
         "startChar": 8,
