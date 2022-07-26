@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "205f37bb_0645d3e1",
+        "filename": "util/fipstools/break-tests.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 9619
+      },
+      "writtenOn": "2022-07-26T10:54:43Z",
+      "side": 1,
+      "message": "No, we made the decision during the first evaluation that the static version of libcrypto is non-FIPS and is not allowed to be used for anything inside the security boundary. It\u0027s a separate, non-FIPS build target (libcrypto_static) with very limited visibility and static linking of libcrypto is disabled. We then went through a long process and changed pretty much everything that used to statically link libcrypto to dynamically link it.\n\nIt\u0027s been a while so I forget whether this was due to technical limitations (i.e. we couldn\u0027t get the integrity checks working on static builds) or system health reasons (our FIPS 140-2 flag files wouldn\u0027t work). \n\nAnyway, I\u0027ll clarify the wording.\n\nWill also have another revision later today which runs the break tests controlled by environment variables (RSA_PWCT, ECDSA_PWCT, CRNG).",
+      "parentUuid": "9e14a029_49ee7814",
+      "revId": "9548e16e4ec98939485963fa3a0687530e846415",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b060f426_30fa416c",
         "filename": "util/fipstools/break-tests.sh",
         "patchSetId": 1
