@@ -72,6 +72,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "509e1809_a5c389a8",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-27T18:43:56Z",
+      "side": 1,
+      "message": "I think the issue may just be that those builders lack getrandom support. I started a fix (simulate getrandom like we do the socket), but any fix I make will be flying blind, so reverting for now sounds good.",
+      "parentUuid": "cb766223_99372b8f",
+      "revId": "403be7ef402df3f326daf1e91e09e15d803220e7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "389ccb1c_f4c9a365",
