@@ -36,6 +36,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a887d2f_9245010f",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-27T18:27:43Z",
+      "side": 1,
+      "message": "Seems to have broken even non-FIPS Android. :-) Will stare at it, though I don\u0027t have an easy way to test an Android phone right now.",
+      "parentUuid": "71fd1632_2621a1f8",
+      "revId": "403be7ef402df3f326daf1e91e09e15d803220e7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "389ccb1c_f4c9a365",
