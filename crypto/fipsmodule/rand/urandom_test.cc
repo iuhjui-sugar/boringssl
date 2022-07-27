@@ -454,7 +454,10 @@ static void GetTrace(std::vector<Event> *out_trace, unsigned flags,
     bool is_urandom_ioctl = false;
     uintptr_t ioctl_output_addr = 0;
     bool is_socket_read = false;
-    uint64_t socket_read_bytes = 0;
+    size_t socket_read_bytes = 0;
+    bool is_getrandom = false;
+    uintptr_t getrandom_addr = 0;
+    size_t getrandom_bytes = 0;
     // force_result is unset to indicate that the system call should run
     // normally. Otherwise it's, e.g. -EINVAL, to indicate that the system call
     // should not run and that the given value should be injected on return.
@@ -471,8 +474,11 @@ static void GetTrace(std::vector<Event> *out_trace, unsigned flags,
             force_result = -EAGAIN;
           }
         }
-        out_trace->push_back(
-            Event::GetRandom(/*length=*/regs.args[1], /*flags=*/regs.args[2]));
+        is_getrandom = true;
+        getrandom_addr = regs.args[0];
+        getrandom_bytes = regs.args[1];
+        out_trace->push_back(Event::GetRandom(/*length=*/getrandom_bytes,
+                                              /*flags=*/regs.args[2]));
         break;
 
       case __NR_openat:
@@ -619,6 +625,17 @@ static void GetTrace(std::vector<Event> *out_trace, unsigned flags,
       memcpy_to_remote(child_pid, regs.args[1], entropy, socket_read_bytes);
 
       ASSERT_TRUE(regs_set_ret(child_pid, socket_read_bytes));
+    } else if (is_getrandom) {
+      // Simulate a response from getrandom since it might not be running on the
+      // current system.
+      std::vector<uint8_t> entropy(getrandom_bytes);
+      for (size_t i = 0; i < entropy.size(); i++) {
+        entropy[i] = i & 0xff;
+      }
+      memcpy_to_remote(child_pid, getrandom_addr, entropy.data(),
+                       entropy.size());
+
+      ASSERT_TRUE(regs_set_ret(child_pid, getrandom_bytes));
     }
   }
 }
