@@ -54,6 +54,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb766223_99372b8f",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-07-27T18:42:23Z",
+      "side": 1,
+      "message": "Nor I 😞\n\nLet\u0027s revert as it\u0027ll be Friday before I\u0027m done flying. prb will probably try the fips-20220613 branch tomorrow which includes this change and maybe he\u0027ll figure it out.",
+      "parentUuid": "3a887d2f_9245010f",
+      "revId": "403be7ef402df3f326daf1e91e09e15d803220e7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "389ccb1c_f4c9a365",
