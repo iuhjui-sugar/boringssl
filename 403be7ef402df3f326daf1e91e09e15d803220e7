@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "71fd1632_2621a1f8",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-07-27T08:16:32Z",
+      "side": 1,
+      "message": "Yea, by commenting out the ANDROID guards and testing on AArch64 Linux.",
+      "parentUuid": "e5e618f4_2d31e054",
+      "revId": "403be7ef402df3f326daf1e91e09e15d803220e7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "389ccb1c_f4c9a365",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-07-26T21:44:00Z",
       "side": 1,
       "message": "Unnecessary `break` after `return`.",
+      "revId": "403be7ef402df3f326daf1e91e09e15d803220e7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "78c0bf35_a7b03644",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-07-27T08:16:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "389ccb1c_f4c9a365",
       "revId": "403be7ef402df3f326daf1e91e09e15d803220e7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -52,6 +88,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e99996d1_4360b74a",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-07-27T08:16:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7afa8dda_51479fba",
+      "revId": "403be7ef402df3f326daf1e91e09e15d803220e7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5369c20b_f725981b",
@@ -65,6 +119,24 @@
       "writtenOn": "2022-07-26T21:44:00Z",
       "side": 1,
       "message": "Nit: I assume this also works:\n\n`struct user_regs_struct regs \u003d orig_regs-\u003eregs;`\n\nDitto below.",
+      "revId": "403be7ef402df3f326daf1e91e09e15d803220e7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e864fda3_eb52ddfa",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-07-27T08:16:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5369c20b_f725981b",
       "revId": "403be7ef402df3f326daf1e91e09e15d803220e7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -86,6 +158,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e42e2f01_e3fb466e",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-07-27T08:16:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38077f92_dcf558d5",
+      "revId": "403be7ef402df3f326daf1e91e09e15d803220e7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "369c1bda_298d6f19",
@@ -103,6 +193,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "af53b8ec_c46fc1da",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-07-27T08:16:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "369c1bda_298d6f19",
+      "revId": "403be7ef402df3f326daf1e91e09e15d803220e7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "52abf20f_dee07b52",
@@ -116,6 +224,30 @@
       "writtenOn": "2022-07-26T21:44:00Z",
       "side": 1,
       "message": "Nit: `static_cast\u003cint\u003e(regs.args[0]) \u003d\u003d sock_fd` might be better. The SysV AMD64 calling convention, at least, says that the syscall convention is the same as the userspace one. I never found anything definitive, but when I was playing around with compilers, it looked like arguments are sign-extended up to 32-bits, but the upper 32-bits are unused.\n\nI can\u0027t find a definition of the aarch64 syscall convention, but assuming it uses registers in the same way as the userspace one, AAPCS64 says all unused bits are undefined.\n\nCasting to `int` means we work independent of what\u0027s in there.",
+      "range": {
+        "startLine": 521,
+        "startChar": 28,
+        "endLine": 521,
+        "endChar": 75
+      },
+      "revId": "403be7ef402df3f326daf1e91e09e15d803220e7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5691ff5f_84b2c76a",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 521,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-07-27T08:16:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52abf20f_dee07b52",
       "range": {
         "startLine": 521,
         "startChar": 28,
