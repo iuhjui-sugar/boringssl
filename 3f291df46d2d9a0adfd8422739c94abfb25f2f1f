@@ -35,6 +35,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "03608848_8cf96af0",
+        "filename": "crypto/asn1/internal.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-27T19:43:19Z",
+      "side": 1,
+      "message": "yeah, I was being myopic on the old timegm() api. no need for that.",
+      "parentUuid": "20a21d3a_d9dfed50",
+      "revId": "3f291df46d2d9a0adfd8422739c94abfb25f2f1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a1ae532c_db1791ac",
@@ -48,6 +66,30 @@
       "writtenOn": "2022-07-27T00:52:20Z",
       "side": 1,
       "message": "const",
+      "range": {
+        "startLine": 83,
+        "startChar": 37,
+        "endLine": 83,
+        "endChar": 50
+      },
+      "revId": "3f291df46d2d9a0adfd8422739c94abfb25f2f1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2735166e_95071791",
+        "filename": "crypto/asn1/internal.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-27T19:43:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a1ae532c_db1791ac",
       "range": {
         "startLine": 83,
         "startChar": 37,
@@ -81,6 +123,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ede44c74_6555539f",
+        "filename": "crypto/asn1/internal.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-27T19:43:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2cb477f7_b411a985",
+      "range": {
+        "startLine": 94,
+        "startChar": 29,
+        "endLine": 94,
+        "endChar": 33
+      },
+      "revId": "3f291df46d2d9a0adfd8422739c94abfb25f2f1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "20f2efb7_2f779e51",
@@ -94,6 +160,24 @@
       "writtenOn": "2022-07-27T00:52:20Z",
       "side": 1,
       "message": "Style nit: No need for the empty `//` above and below. Thought I\u0027d probably keep a blank line between the comment and the includes, so it more obviously describes the overall file and not the includes.",
+      "revId": "3f291df46d2d9a0adfd8422739c94abfb25f2f1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad648306_051088f5",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-27T19:43:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20f2efb7_2f779e51",
       "revId": "3f291df46d2d9a0adfd8422739c94abfb25f2f1f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -121,6 +205,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de97743f_6d0fdc34",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-27T19:43:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14677b5f_12c8895e",
+      "range": {
+        "startLine": 31,
+        "startChar": 3,
+        "endLine": 31,
+        "endChar": 10
+      },
+      "revId": "3f291df46d2d9a0adfd8422739c94abfb25f2f1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3d56b84c_970f993a",
@@ -134,6 +242,24 @@
       "writtenOn": "2022-07-27T00:52:20Z",
       "side": 1,
       "message": "I assume the callers will check the bounds, but should we add some asserts to help document this? Maybe just some simple bounds on the year.\n\nAlternatively: all the call sites of `posix_time_from_utc` are actually this pair:\n\n```\n  if (!is_valid_tm(tm)) {\n    return -1;\n  }\n  int64_t posix_time \u003d\n      posix_time_from_utc(tm-\u003etm_year + 1900, tm-\u003etm_mon + 1, tm-\u003etm_mday,\n                          tm-\u003etm_hour, tm-\u003etm_min, tm-\u003etm_sec);\n```\n\nwhich is basically `OPENSSL_timegm`, except for the `time_t` business. We could just combine those into one function, and then it\u0027s a bit more locally obvious that the bounds are okay. Something like:\n\n```\nstatic int posix_time_from_utc(int64_t *out, const struct tm *tm) {\n  int year \u003d tm-\u003etm_year + 1900;\n  int month \u003d tm-\u003etm_mon + 1;\n  if (!is_valid_date(year, mont, tm-\u003etm_mday) ||\n      !is_valid_time(tm-\u003etm_hour, tm-\u003etm_min, tm-\u003etm_sec)) {\n    return 0;\n  }\n  \n  if (month \u003c\u003d 2) { ...\n}\n```\n\nAs a bonus, `OPENSSL_gmtime_diff` and `OPENSSL_gmtime_adj` would be tidier.\n\n(Related: If we decide to just use `int64_t` over `time_t`, this function could simply be `OPENSSL_timegm`. But I\u0027m not sure how I feel on that.)",
+      "revId": "3f291df46d2d9a0adfd8422739c94abfb25f2f1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9055ba7_4bc10cb1",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-27T19:43:19Z",
+      "side": 1,
+      "message": "So, like the idea but kind of desired keeping the oopy tm/time_t mess in the OPENSSL_blah functions, and keeping this all effectively pure date computation.\n\nHowever, that\u0027s ok, if I just call the same validation done for the tm, and extract out the epoch_time range validation, and I like the result a lot better. \n\nAs for time_t vs int64, I think I\u0027d prefer to keep these tm and time_t evoking names for that purpose. I think we can *think* about converting our own uses to int64 if we end up wanting that, and just adding some subtly different wrappers\nto just give us int64 if/when we want that.",
+      "parentUuid": "3d56b84c_970f993a",
       "revId": "3f291df46d2d9a0adfd8422739c94abfb25f2f1f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -155,6 +281,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "985ddc48_48b8ed2d",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-27T19:43:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a74f3a1_582a9e2a",
+      "revId": "3f291df46d2d9a0adfd8422739c94abfb25f2f1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ee3f6207_20cb35b0",
@@ -168,6 +312,24 @@
       "writtenOn": "2022-07-27T00:52:20Z",
       "side": 1,
       "message": "Nit: 80 chars. But also let\u0027s make this a static_assert. Ditto with the one below.\n\n(Comment probably doesn\u0027t really add anything. ;-) )",
+      "revId": "3f291df46d2d9a0adfd8422739c94abfb25f2f1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fb669fd_1845a8ff",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-27T19:43:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee3f6207_20cb35b0",
       "revId": "3f291df46d2d9a0adfd8422739c94abfb25f2f1f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -195,6 +357,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce757690_7ac53e73",
+        "filename": "include/openssl/asn1.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 1383,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-27T19:43:19Z",
+      "side": 1,
+      "message": "I think that\u0027s actually the visit from the bad idea bears, since it pushes\nthe validation of \"is time_t bad or not\" onto consumers like go.. instead\nlet us realize we are not slaves to the timegm api, and just make this return\nsuccess or failure.",
+      "parentUuid": "b667c566_f5968b88",
+      "range": {
+        "startLine": 1383,
+        "startChar": 17,
+        "endLine": 1383,
+        "endChar": 23
+      },
+      "revId": "3f291df46d2d9a0adfd8422739c94abfb25f2f1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "99f04bfc_53cfc91e",
@@ -208,6 +394,24 @@
       "writtenOn": "2022-07-27T00:52:20Z",
       "side": 1,
       "message": "Since -1 is a perfectly legal time_t, and even within our 0000-9999 bounds, perhaps:\n\n  OPENSSL_EXPORT int ASN1_TIME_to_time_t(const ASN1_TIME *t, time_t *out);",
+      "revId": "3f291df46d2d9a0adfd8422739c94abfb25f2f1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45b6fc90_d5b39e2e",
+        "filename": "include/openssl/asn1.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 1384,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-27T19:43:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "99f04bfc_53cfc91e",
       "revId": "3f291df46d2d9a0adfd8422739c94abfb25f2f1f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
