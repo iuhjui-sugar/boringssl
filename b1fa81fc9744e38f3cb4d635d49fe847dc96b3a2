@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a32264da_3e418aec",
+        "filename": "crypto/fipsmodule/rand/rand.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-07-27T07:08:44Z",
+      "side": 1,
+      "message": "Nothing so fancy: I just thought it was easier to understand if the memory layout was the same in both paths!",
+      "parentUuid": "d46e3f06_15f15eaa",
+      "revId": "b1fa81fc9744e38f3cb4d635d49fe847dc96b3a2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9b974310_bde133f1",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-07-18T20:40:45Z",
       "side": 1,
       "message": "Maybe also worth an:\n\n  assert(entropy_len \u003d\u003d BORINGSSL_FIPS_OVERREAD * CTR_DRBG_ENTROPY_LEN);\n\nNow that it\u0027s not static.",
+      "revId": "b1fa81fc9744e38f3cb4d635d49fe847dc96b3a2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d646e528_a85731cf",
+        "filename": "crypto/fipsmodule/rand/rand.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-07-27T07:08:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b974310_bde133f1",
       "revId": "b1fa81fc9744e38f3cb4d635d49fe847dc96b3a2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
