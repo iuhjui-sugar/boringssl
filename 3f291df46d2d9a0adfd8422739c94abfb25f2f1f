@@ -1,0 +1,215 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "353ff2b3_cb602f5a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-27T00:52:20Z",
+      "side": 1,
+      "message": "Had to head out for the day before I finished looking over posix_time.c, but this is much less terrifying than I was expecting!",
+      "revId": "3f291df46d2d9a0adfd8422739c94abfb25f2f1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20a21d3a_d9dfed50",
+        "filename": "crypto/asn1/internal.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-27T00:52:20Z",
+      "side": 1,
+      "message": "Similar to the asn1.h comment, it\u0027s a little unfortunate that we can\u0027t tell the difference between actual time -1 and error. (Whereas I guess the real functions can, albeit via a very roundabout `errno \u003d 0; timegm(...); if (errno !\u003d 0)` check.)\n\nI dunno, `int` return with a `time_t *` out param? It\u0027s a bit more tedious but does work. (My kingdom for sum types...)",
+      "revId": "3f291df46d2d9a0adfd8422739c94abfb25f2f1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1ae532c_db1791ac",
+        "filename": "crypto/asn1/internal.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-27T00:52:20Z",
+      "side": 1,
+      "message": "const",
+      "range": {
+        "startLine": 83,
+        "startChar": 37,
+        "endLine": 83,
+        "endChar": 50
+      },
+      "revId": "3f291df46d2d9a0adfd8422739c94abfb25f2f1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2cb477f7_b411a985",
+        "filename": "crypto/asn1/internal.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-27T00:52:20Z",
+      "side": 1,
+      "message": "Both",
+      "range": {
+        "startLine": 94,
+        "startChar": 29,
+        "endLine": 94,
+        "endChar": 33
+      },
+      "revId": "3f291df46d2d9a0adfd8422739c94abfb25f2f1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20f2efb7_2f779e51",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-27T00:52:20Z",
+      "side": 1,
+      "message": "Style nit: No need for the empty `//` above and below. Thought I\u0027d probably keep a blank line between the comment and the includes, so it more obviously describes the overall file and not the includes.",
+      "revId": "3f291df46d2d9a0adfd8422739c94abfb25f2f1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14677b5f_12c8895e",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-27T00:52:20Z",
+      "side": 1,
+      "message": "Not that it matters, but may as well link to the https version. Ditto throughout. :-)",
+      "range": {
+        "startLine": 31,
+        "startChar": 3,
+        "endLine": 31,
+        "endChar": 10
+      },
+      "revId": "3f291df46d2d9a0adfd8422739c94abfb25f2f1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3d56b84c_970f993a",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-27T00:52:20Z",
+      "side": 1,
+      "message": "I assume the callers will check the bounds, but should we add some asserts to help document this? Maybe just some simple bounds on the year.\n\nAlternatively: all the call sites of `posix_time_from_utc` are actually this pair:\n\n```\n  if (!is_valid_tm(tm)) {\n    return -1;\n  }\n  int64_t posix_time \u003d\n      posix_time_from_utc(tm-\u003etm_year + 1900, tm-\u003etm_mon + 1, tm-\u003etm_mday,\n                          tm-\u003etm_hour, tm-\u003etm_min, tm-\u003etm_sec);\n```\n\nwhich is basically `OPENSSL_timegm`, except for the `time_t` business. We could just combine those into one function, and then it\u0027s a bit more locally obvious that the bounds are okay. Something like:\n\n```\nstatic int posix_time_from_utc(int64_t *out, const struct tm *tm) {\n  int year \u003d tm-\u003etm_year + 1900;\n  int month \u003d tm-\u003etm_mon + 1;\n  if (!is_valid_date(year, mont, tm-\u003etm_mday) ||\n      !is_valid_time(tm-\u003etm_hour, tm-\u003etm_min, tm-\u003etm_sec)) {\n    return 0;\n  }\n  \n  if (month \u003c\u003d 2) { ...\n}\n```\n\nAs a bonus, `OPENSSL_gmtime_diff` and `OPENSSL_gmtime_adj` would be tidier.\n\n(Related: If we decide to just use `int64_t` over `time_t`, this function could simply be `OPENSSL_timegm`. But I\u0027m not sure how I feel on that.)",
+      "revId": "3f291df46d2d9a0adfd8422739c94abfb25f2f1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a74f3a1_582a9e2a",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-27T00:52:20Z",
+      "side": 1,
+      "message": "Style nit: curly braces",
+      "revId": "3f291df46d2d9a0adfd8422739c94abfb25f2f1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee3f6207_20cb35b0",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-27T00:52:20Z",
+      "side": 1,
+      "message": "Nit: 80 chars. But also let\u0027s make this a static_assert. Ditto with the one below.\n\n(Comment probably doesn\u0027t really add anything. ;-) )",
+      "revId": "3f291df46d2d9a0adfd8422739c94abfb25f2f1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b667c566_f5968b88",
+        "filename": "include/openssl/asn1.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 1383,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-27T00:52:20Z",
+      "side": 1,
+      "message": "A thought: (I\u0027m not sure which way we should go on this...) We could just make this function return `int64_t`, in which case it always returns a valid value. I guess we could call it `ASN1_TIME_to_posix` or `ASN1_TIME_to_unix` since it won\u0027t *technically* be a `time_t` anymore.\n\nThat means this function would still work even if your `time_t` is obnoxiously 32-bit. What do you think?",
+      "range": {
+        "startLine": 1383,
+        "startChar": 17,
+        "endLine": 1383,
+        "endChar": 23
+      },
+      "revId": "3f291df46d2d9a0adfd8422739c94abfb25f2f1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99f04bfc_53cfc91e",
+        "filename": "include/openssl/asn1.h",
+        "patchSetId": 16
+      },
+      "lineNbr": 1384,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-27T00:52:20Z",
+      "side": 1,
+      "message": "Since -1 is a perfectly legal time_t, and even within our 0000-9999 bounds, perhaps:\n\n  OPENSSL_EXPORT int ASN1_TIME_to_time_t(const ASN1_TIME *t, time_t *out);",
+      "revId": "3f291df46d2d9a0adfd8422739c94abfb25f2f1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
