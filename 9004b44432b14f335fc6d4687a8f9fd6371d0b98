@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4a38d02b_28c19842",
+        "filename": "ssl/s3_pkt.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-27T23:25:01Z",
+      "side": 1,
+      "message": "By \"this\", did you mean `is_early_data_write` or the overall function? Don\u0027t think `is_early_data_write` changed. (Flipped it to bool where I\u0027m here though.)\n\nOverall function did change, yeah. See reply below for where the comment is.",
+      "parentUuid": "0e472444_caef7c8d",
+      "revId": "9004b44432b14f335fc6d4687a8f9fd6371d0b98",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fd0f1653_34a95577",
         "filename": "ssl/s3_pkt.cc",
         "patchSetId": 5
@@ -31,6 +49,24 @@
       "writtenOn": "2022-07-25T18:52:42Z",
       "side": 1,
       "message": "This used to return a number of bytes, and is now returning a success indicator. This function probably needs some docs",
+      "revId": "9004b44432b14f335fc6d4687a8f9fd6371d0b98",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a2314b7_5302cc33",
+        "filename": "ssl/s3_pkt.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-27T23:25:01Z",
+      "side": 1,
+      "message": "It\u0027s a little roundabout, but the docs are in `write_app_data` on `SSL_PROTOCOL_METHOD` in ssl/internal.h. This is the TLS implementation of that function.\n\n(I keep meaning to just make this a C++ base class like `SSLTransport` or `SSLRecordLayer` with virtual methods that `TLSTransport` and `DTLSTransport` override, but that\u0027ll require a bit more surgery.)",
+      "parentUuid": "fd0f1653_34a95577",
       "revId": "9004b44432b14f335fc6d4687a8f9fd6371d0b98",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -52,6 +88,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "09f4039b_c35c515e",
+        "filename": "ssl/s3_pkt.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-27T23:25:01Z",
+      "side": 1,
+      "message": "Oops, added in the missing \"and returns one\". :-)",
+      "parentUuid": "88600d30_04cf8e15",
+      "revId": "9004b44432b14f335fc6d4687a8f9fd6371d0b98",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d878e6d8_0bf8b9f0",
@@ -65,6 +119,24 @@
       "writtenOn": "2022-07-25T18:52:42Z",
       "side": 1,
       "message": "IMO you should use a different variable from what the number from bio is coming back as here. so you end up doing something like ret \u003d success ? 1 : bio_value or something equivalent.. reusing this is hard on my eyes.",
+      "revId": "9004b44432b14f335fc6d4687a8f9fd6371d0b98",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25f2f693_eeb8d1b4",
+        "filename": "ssl/s3_pkt.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-27T23:25:01Z",
+      "side": 1,
+      "message": "I think this use of `ret` and the other one are actually the same type. In fact they both come from `ssl_write_buffer_flush`. They\u0027re both 1 for success and \u003c\u003d 0 for error, with \u003c\u003d 0 coming from the BIO.\n\nSince EOF on write makes no sense, it really should just be a bool, but we\u0027ll need to do https://bugs.chromium.org/p/boringssl/issues/detail?id\u003d503 first. Right now we try to passthrough random errors like -42. I think we can get away with not doing that, but still need to try it. If we do manage it, then this function will just return `bool` and this code can just be:\n\n```\nif (!ssl_write_buffer_flush(ssl)) {\n  return false;\n}\n```",
+      "parentUuid": "d878e6d8_0bf8b9f0",
       "revId": "9004b44432b14f335fc6d4687a8f9fd6371d0b98",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
