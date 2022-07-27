@@ -477,7 +477,10 @@ static void GetTrace(std::vector<Event> *out_trace, unsigned flags,
     bool is_opening_urandom = false;
     bool is_socket_call = false;
     bool is_socket_read = false;
-    uint64_t socket_read_bytes = 0;
+    size_t socket_read_bytes = 0;
+    bool is_getrandom = false;
+    uintptr_t getrandom_addr = 0;
+    size_t getrandom_bytes = 0;
     // force_result is unset to indicate that the system call should run
     // normally. Otherwise it's, e.g. -EINVAL, to indicate that the system call
     // should not run and that the given value should be injected on return.
@@ -494,8 +497,11 @@ static void GetTrace(std::vector<Event> *out_trace, unsigned flags,
             force_result = -EAGAIN;
           }
         }
-        out_trace->push_back(
-            Event::GetRandom(/*length=*/regs.args[1], /*flags=*/regs.args[2]));
+        is_getrandom = true;
+        getrandom_addr = regs.args[0];
+        getrandom_bytes = regs.args[1];
+        out_trace->push_back(Event::GetRandom(/*length=*/getrandom_bytes,
+                                              /*flags=*/regs.args[2]));
         break;
 
       case __NR_openat:
@@ -621,6 +627,17 @@ static void GetTrace(std::vector<Event> *out_trace, unsigned flags,
       memcpy_to_remote(child_pid, regs.args[1], entropy, socket_read_bytes);
 
       ASSERT_TRUE(regs_set_ret(child_pid, socket_read_bytes));
+    } else if (is_getrandom) {
+      // Simulate a response from getrandom since it might not be available on
+      // the current system.
+      std::vector<uint8_t> entropy(getrandom_bytes);
+      for (size_t i = 0; i < entropy.size(); i++) {
+        entropy[i] = i & 0xff;
+      }
+      memcpy_to_remote(child_pid, getrandom_addr, entropy.data(),
+                       entropy.size());
+
+      ASSERT_TRUE(regs_set_ret(child_pid, getrandom_bytes));
     }
   }
 }
@@ -778,13 +795,6 @@ static void CheckInvariants(const std::vector<Event> &events) {
 // urandom.c, at least to the limits of the the |Event| type.
 TEST(URandomTest, Test) {
   char buf[256];
-
-  // Some Android systems lack getrandom.
-  uint8_t scratch[1];
-  const bool has_getrandom =
-      (syscall(__NR_getrandom, scratch, sizeof(scratch), GRND_NONBLOCK) != -1 ||
-       errno != ENOSYS);
-
 #define TRACE_FLAG(flag)                                         \
   snprintf(buf, sizeof(buf), #flag ": %d", (flags & flag) != 0); \
   SCOPED_TRACE(buf);
@@ -795,10 +805,6 @@ TEST(URandomTest, Test) {
       // These cases are meaningless unless the code will try to use the entropy
       // daemon.
       continue;
-    }
-
-    if (!has_getrandom && !(flags & NO_GETRANDOM)) {
-        continue;
     }
 
     TRACE_FLAG(NO_GETRANDOM);
