@@ -217,3 +217,19 @@ int ASN1_TIME_diff(int *out_days, int *out_seconds, const ASN1_TIME *from,
   }
   return OPENSSL_gmtime_diff(out_days, out_seconds, &tm_from, &tm_to);
 }
+
+int ASN1_TIME_to_time_t(const ASN1_TIME *t, time_t *out_time) {
+  struct tm tm;
+  if (!asn1_time_to_tm(&tm, t)) {
+    return 0;
+  }
+  return OPENSSL_timegm(&tm, out_time);
+}
+
+int ASN1_TIME_to_posix(const ASN1_TIME *t, int64_t *out_time) {
+  struct tm tm;
+  if (!asn1_time_to_tm(&tm, t)) {
+    return 0;
+  }
+  return OPENSSL_tm_to_posix(&tm, out_time);
+}

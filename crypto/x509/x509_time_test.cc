@@ -146,7 +146,7 @@ static TestData kX509CmpTests[] = {
         "170217180154+0100",
         V_ASN1_UTCTIME,
         0,
-        0,
+        1,
     },
     {
         // Extra digits.
@@ -213,6 +213,16 @@ static TestData kX509CmpTests[] = {
     },
 };
 
+TEST(X509TimeTest, TestCmpTimeCurrent) {
+  time_t now = time(NULL);
+  // Pick a day earlier and later, relative to any system clock.
+  bssl::UniquePtr<ASN1_TIME> asn1_before(ASN1_TIME_adj(NULL, now, -1, 0));
+  bssl::UniquePtr<ASN1_TIME> asn1_after(ASN1_TIME_adj(NULL, now, 1, 0));
+
+  ASSERT_EQ(-1, X509_cmp_time(asn1_before.get(), NULL));
+  ASSERT_EQ(1, X509_cmp_time(asn1_after.get(), NULL));
+}
+
 TEST(X509TimeTest, TestCmpTime) {
   for (auto &test : kX509CmpTests) {
     SCOPED_TRACE(test.data);
@@ -227,14 +237,4 @@ TEST(X509TimeTest, TestCmpTime) {
     EXPECT_EQ(test.expected,
               X509_cmp_time(&t, &test.cmp_time));
   }
-}
-
-TEST(X509TimeTest, TestCmpTimeCurrent) {
-  time_t now = time(NULL);
-  // Pick a day earlier and later, relative to any system clock.
-  bssl::UniquePtr<ASN1_TIME> asn1_before(ASN1_TIME_adj(NULL, now, -1, 0));
-  bssl::UniquePtr<ASN1_TIME> asn1_after(ASN1_TIME_adj(NULL, now, 1, 0));
-
-  ASSERT_EQ(-1, X509_cmp_time(asn1_before.get(), NULL));
-  ASSERT_EQ(1, X509_cmp_time(asn1_after.get(), NULL));
 }
