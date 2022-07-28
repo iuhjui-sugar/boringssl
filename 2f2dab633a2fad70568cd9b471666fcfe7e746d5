@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "210ec2aa_bc6e8842",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 23
+      },
+      "lineNbr": 1875,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-28T21:55:23Z",
+      "side": 1,
+      "message": "I couldn\u0027t help myself. and it proved to me that it was nice to have an int64_t version as well as the time_t version.  Now time comparisons no longer allocate.",
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
