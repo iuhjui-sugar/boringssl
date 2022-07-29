@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3bbbe6f0_48803b97",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-29T23:01:43Z",
+      "side": 1,
+      "message": "Is that quite true? /dev/urandom is never used on FIPS Android, but non-FIPS Android still has that fallback. (This test also runs outside FIPS mode.)\n\nThis test output looks a lot like we were expecting getrandom but got /dev/urandom.\nhttps://logs.chromium.org/logs/boringssl/buildbucket/cr-buildbucket/8807470057942124641/+/u/unit_tests/stdout\n\nAs an alternative to simulating getrandom, we could also say that our CI requires getrandom-capable Androids, and we only test the urandom codepath via this thing. I\u0027d have to adjust our CI a bit though. Expecting to have pre-getrandom machines in CI indefinitely is a bit unreasonable anyway.",
+      "revId": "ef79667a9304703958d97314f571c47ae8383c3c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
