@@ -37,6 +37,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "31479520_d84d59b2",
+        "filename": "crypto/asn1/asn1_test.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 960,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-29T16:32:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e153dce_f8713dc1",
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "f8d97be5_799de8e3",
         "filename": "crypto/asn1/asn1_test.cc",
         "patchSetId": 23
@@ -69,6 +87,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "12022ae0_b2489b75",
+        "filename": "crypto/asn1/asn1_test.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 979,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-29T16:32:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "88e14e1d_f8a0f6b4",
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "23e41b25_3fa3e658",
@@ -86,6 +122,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb3c7f10_474d9049",
+        "filename": "crypto/asn1/internal.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-29T16:32:53Z",
+      "side": 1,
+      "message": "Aha.. I figured it out, my emacs \"esc-q\" reformat is doing a *different* thing than clang-format with a TAB.. grrr",
+      "parentUuid": "23e41b25_3fa3e658",
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "707ecd15_8dc1fa3e",
@@ -99,6 +153,30 @@
       "writtenOn": "2022-07-29T02:36:35Z",
       "side": 1,
       "message": "POSIX",
+      "range": {
+        "startLine": 73,
+        "startChar": 42,
+        "endLine": 73,
+        "endChar": 47
+      },
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a25d29ba_287e56dd",
+        "filename": "crypto/asn1/internal.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-29T16:32:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "707ecd15_8dc1fa3e",
       "range": {
         "startLine": 73,
         "startChar": 42,
@@ -132,6 +210,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cd2e682_a812f9be",
+        "filename": "crypto/asn1/internal.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-29T16:32:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3b6f1f1_df874d13",
+      "range": {
+        "startLine": 74,
+        "startChar": 3,
+        "endLine": 74,
+        "endChar": 8
+      },
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8f2a00ed_6c859cea",
@@ -145,6 +247,30 @@
       "writtenOn": "2022-07-29T02:36:35Z",
       "side": 1,
       "message": "Out of date sentence. \"It returns one on success and zero on error, I imagine.\"",
+      "range": {
+        "startLine": 75,
+        "startChar": 23,
+        "endLine": 76,
+        "endChar": 15
+      },
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df3def28_c58b5aee",
+        "filename": "crypto/asn1/internal.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-29T16:32:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f2a00ed_6c859cea",
       "range": {
         "startLine": 75,
         "startChar": 23,
@@ -178,6 +304,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "11823103_7227b5d0",
+        "filename": "crypto/asn1/internal.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-29T16:32:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b035675_cbecfd6e",
+      "range": {
+        "startLine": 77,
+        "startChar": 39,
+        "endLine": 77,
+        "endChar": 44
+      },
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "690a92bb_5d414afe",
@@ -201,6 +351,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "91fc5320_dfaeb8cc",
+        "filename": "crypto/asn1/internal.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-29T16:32:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "690a92bb_5d414afe",
+      "range": {
+        "startLine": 80,
+        "startChar": 16,
+        "endLine": 80,
+        "endChar": 21
+      },
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "78e2340d_de37e639",
@@ -214,6 +388,30 @@
       "writtenOn": "2022-07-29T02:36:35Z",
       "side": 1,
       "message": "which",
+      "range": {
+        "startLine": 85,
+        "startChar": 52,
+        "endLine": 85,
+        "endChar": 57
+      },
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38d50f99_1764bb40",
+        "filename": "crypto/asn1/internal.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-29T16:32:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78e2340d_de37e639",
       "range": {
         "startLine": 85,
         "startChar": 52,
@@ -312,6 +510,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "655773f8_700a13a0",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 23
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-29T16:32:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62b74b5c_66ecdc84",
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "82c434e1_8711fc0b",
         "filename": "crypto/asn1/posix_time.c",
         "patchSetId": 23
@@ -344,6 +560,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7a653e7_36341df4",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 23
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-29T16:32:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a1968b4_0526b38d",
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ff0270d3_d264688c",
@@ -357,6 +591,24 @@
       "writtenOn": "2022-07-29T02:36:35Z",
       "side": 1,
       "message": "No particular preference on which (and I\u0027m sure the compiler will optimize it regardless), but I\u0027m curious why, here, you wrote `leftover_seconds -\u003d *out_hours * SECS_PER_HOUR`, but in line 116, you used `%`. (And same in line 138 I suppose.)\n\nPerhaps `leftover_seconds %\u003d SECS_PER_HOUR` just to be consistent?",
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99ef576e_c81dcd85",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 23
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-29T16:32:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff0270d3_d264688c",
       "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -378,6 +630,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ab18bf7_923c0188",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 23
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-29T16:32:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4ac972e_88e4b66a",
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7d20588c_84e76357",
@@ -391,6 +661,24 @@
       "writtenOn": "2022-07-29T02:36:35Z",
       "side": 1,
       "message": "I think this can just be:\n\n```\n  return posix_time_from_utc(....., out);\n```",
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "caeed436_3cd1dfe1",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 23
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-29T16:32:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d20588c_84e76357",
       "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -418,6 +706,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ec84799_1f81e03d",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 23
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-29T16:32:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "143727ea_9b1fb985",
+      "range": {
+        "startLine": 163,
+        "startChar": 19,
+        "endLine": 163,
+        "endChar": 22
+      },
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9e002d21_63d71176",
@@ -431,6 +743,24 @@
       "writtenOn": "2022-07-29T02:36:35Z",
       "side": 1,
       "message": "Ditto re already having a comment in the header.",
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "976c0406_4e11003a",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 23
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-29T16:32:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e002d21_63d71176",
       "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -452,6 +782,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7dcd59a_6a91c82d",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 23
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-29T16:32:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8439d253_d1509f9e",
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "928afe39_bfe69de4",
@@ -469,6 +817,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "76d5a509_ae3cdd5c",
+        "filename": "crypto/x509/x509_time_test.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-29T16:32:53Z",
+      "side": 1,
+      "message": "Which basically tells me that the car stuff that contains the certs we care about with nonstandard timezones are *not* using our X509_vfy, but are using us for unit tests. (I don\u0027t think this is that surprising, since I think they\u0027re using Java).\n\nSo after thinking about this, I\u0027ve plumbed the allow_timezone_offset flag through\nand set it to 0 in the new API, leaving as 1 in the old, which allows us to both\nlet the stuff we care about call comparison functions on certs and preserve existing more strict behaviour of X509_cmp_time. \n\nI stuck a big comment in overtop of the functions explaining why.",
+      "parentUuid": "928afe39_bfe69de4",
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "651ac6ff_0ee8eabd",
@@ -482,6 +848,24 @@
       "writtenOn": "2022-07-29T02:36:35Z",
       "side": 1,
       "message": "Stray change? (Probably tidier to keep kX509CmpTests close to TestCmpTime. Not sure why we didn\u0027t just define that inside the test...)",
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f535e15e_efbaf46e",
+        "filename": "crypto/x509/x509_time_test.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-29T16:32:53Z",
+      "side": 1,
+      "message": "Yeah, this was a stray accident from debugging.",
+      "parentUuid": "651ac6ff_0ee8eabd",
       "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -538,6 +922,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ded60e7a_c9fa2131",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 23
+      },
+      "lineNbr": 1877,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-29T16:32:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c28ecc8_c99fcab8",
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c27431ed_750b4d7b",
@@ -551,6 +953,24 @@
       "writtenOn": "2022-07-29T02:36:35Z",
       "side": 1,
       "message": "Super nitpicky nitpick: we can fit this on just one line. (clang-format\u0027s smart enough to reflow long comments, so you can always punt it to that.)",
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f44500bf_5040d45c",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 23
+      },
+      "lineNbr": 1883,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-29T16:32:53Z",
+      "side": 1,
+      "message": "I think this is somehow emacs with the clang-format setting wraps the lines shorter.. shrug.",
+      "parentUuid": "c27431ed_750b4d7b",
       "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -572,6 +992,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5a3e45e_07d95f02",
+        "filename": "include/openssl/asn1.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 1384,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-29T16:32:53Z",
+      "side": 1,
+      "message": "I think we need this for issue 501 - I\u0027d rather trust we do this right than\nworry about the consumers doing it right. Internally we are using the other\none for time comparisons.  (I did update the description)",
+      "parentUuid": "a77a47f1_41184b14",
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e090beaf_35b870bb",
@@ -585,6 +1023,30 @@
       "writtenOn": "2022-07-29T02:36:35Z",
       "side": 1,
       "message": "POSIX time\n\nOr maybe \"number of seconds past the UNIX epoch\".",
+      "range": {
+        "startLine": 1386,
+        "startChar": 40,
+        "endLine": 1386,
+        "endChar": 46
+      },
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b434084_25400e19",
+        "filename": "include/openssl/asn1.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 1386,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-29T16:32:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e090beaf_35b870bb",
       "range": {
         "startLine": 1386,
         "startChar": 40,

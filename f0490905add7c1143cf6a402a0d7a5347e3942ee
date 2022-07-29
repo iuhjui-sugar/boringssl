@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0313ff5a_30746105",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-29T16:32:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e4bfd75e_9722a013",
+      "range": {
+        "startLine": 31,
+        "startChar": 10,
+        "endLine": 31,
+        "endChar": 12
+      },
+      "revId": "f0490905add7c1143cf6a402a0d7a5347e3942ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fc0ae299_6fae159e",
@@ -37,6 +61,24 @@
       "writtenOn": "2022-07-29T02:36:35Z",
       "side": 1,
       "message": "Style nit: two extra spaces, but how about just:\n\n  // 0000-01-01 00:00:00 UTC to 9999-12-31 23:59:59 UTC\n  return -62167219200 \u003c\u003d time \u0026\u0026 time \u003c\u003d 253402300799;",
+      "revId": "f0490905add7c1143cf6a402a0d7a5347e3942ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a5a9c5c_64d6c46d",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-29T16:32:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc0ae299_6fae159e",
       "revId": "f0490905add7c1143cf6a402a0d7a5347e3942ee",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -64,6 +106,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "673a065c_1019627a",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-29T16:32:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "490922c2_917a9259",
+      "range": {
+        "startLine": 110,
+        "startChar": 28,
+        "endLine": 110,
+        "endChar": 29
+      },
+      "revId": "f0490905add7c1143cf6a402a0d7a5347e3942ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e2e514ac_0f370bd7",
@@ -77,6 +143,24 @@
       "writtenOn": "2022-07-29T02:36:35Z",
       "side": 1,
       "message": "Probably want int32_t and INT32_MAX / INT32_MIN, to align with the static_assert. (Not that I\u0027ve ever seen a platform where int wasn\u0027t 32-bit.)\n\nI was going to suggest writing this...\n\n```\n  if ((time_t)posix_time \u003d\u003d posix_time) {\n    return 0;\n  }\n```\n\n...but it looks like conversion to signed types is implementation-defined, probably because C wasn\u0027t confident in two\u0027s complement. :-/\n\nAlthough GCC and MSVC both define it to work:\nhttps://gcc.gnu.org/onlinedocs/gcc/Integers-implementation.html#Integers-implementation\nhttps://docs.microsoft.com/en-us/cpp/c-language/demotion-of-integers?view\u003dmsvc-170\n\nIn C++, it is also defined to work, since they\u0027ve already dropped the non-two\u0027s-complement reprs.\nhttps://eel.is/c++draft/conv.integral\n\nC23 is slated to drop it too, but I can\u0027t tell if they\u0027ve followed C++ on conversions yet. Based on this paper (section 4.1), it looks like they aren\u0027t going to.\nhttps://www.open-std.org/jtc1/sc22/wg14/www/docs/n2330.pdf\n\nAnd apparently I wrote `asn1_string_get_long` in a way that relies on this anyway, so we arguably already require the compiler do this. So... whichever you prefer.",
+      "revId": "f0490905add7c1143cf6a402a0d7a5347e3942ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1194cca1_9e13cb0c",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-29T16:32:53Z",
+      "side": 1,
+      "message": "I went with the sizeof hack, since the sizeofs will be constant and I count on a sane compiler to optimize away the whole check on a 64 bit platform, which isnt\u0027 the case with the other one.",
+      "parentUuid": "e2e514ac_0f370bd7",
       "revId": "f0490905add7c1143cf6a402a0d7a5347e3942ee",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -104,6 +188,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e514a8ed_2fcd8613",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-29T16:32:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a45316fe_e052ebe6",
+      "range": {
+        "startLine": 189,
+        "startChar": 20,
+        "endLine": 189,
+        "endChar": 22
+      },
+      "revId": "f0490905add7c1143cf6a402a0d7a5347e3942ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "df4738be_c7ee8815",
@@ -117,6 +225,30 @@
       "writtenOn": "2022-07-29T02:36:35Z",
       "side": 1,
       "message": "clang-format (needs one more space)",
+      "range": {
+        "startLine": 203,
+        "startChar": 21,
+        "endLine": 203,
+        "endChar": 22
+      },
+      "revId": "f0490905add7c1143cf6a402a0d7a5347e3942ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2439afa1_bb1910a2",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-29T16:32:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df4738be_c7ee8815",
       "range": {
         "startLine": 203,
         "startChar": 21,
