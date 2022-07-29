@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e887afe0_e2cf7008",
+        "filename": "crypto/asn1/a_time.c",
+        "patchSetId": 30
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-29T21:57:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa3ce3c1_1d2fdffe",
+      "range": {
+        "startLine": 226,
+        "startChar": 53,
+        "endLine": 226,
+        "endChar": 57
+      },
+      "revId": "cbdd2e97c350c116b3849c7780c93f889e4e2481",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c6a66d1b_c6956140",
@@ -94,6 +118,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3638fd6_46f6c9f4",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 30
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-29T21:57:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77aa0bc7_e020a49e",
+      "revId": "cbdd2e97c350c116b3849c7780c93f889e4e2481",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ba17fd80_0e17d670",
@@ -107,6 +149,24 @@
       "writtenOn": "2022-07-29T21:47:13Z",
       "side": 1,
       "message": "It occurs to me it can also fail because of the timezone nonsense. So maybe we should just drop this comment and concede this function is still fallible. :-(\n\n(In that case, also drop \"for historical reasons\".)",
+      "revId": "cbdd2e97c350c116b3849c7780c93f889e4e2481",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8f826b9_4c8792f2",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 30
+      },
+      "lineNbr": 1877,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-29T21:57:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba17fd80_0e17d670",
       "revId": "cbdd2e97c350c116b3849c7780c93f889e4e2481",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
