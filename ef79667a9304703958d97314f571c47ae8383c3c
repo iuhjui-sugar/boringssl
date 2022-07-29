@@ -70,6 +70,24 @@
       "parentUuid": "43aec694_1c6d7f61",
       "revId": "ef79667a9304703958d97314f571c47ae8383c3c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14a8e18b_a7c8aa7e",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-29T23:58:51Z",
+      "side": 1,
+      "message": "Eh, I\u0027m on west coast time right now anyway. Here, have a config change:\nhttps://boringssl-review.googlesource.com/c/boringssl/+/53725\n\nThat should make it available under \"choose tryjobs\". With luck, it\u0027ll even work!",
+      "parentUuid": "e9a641d4_a20df23f",
+      "revId": "ef79667a9304703958d97314f571c47ae8383c3c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
