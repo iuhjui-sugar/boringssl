@@ -2267,6 +2267,53 @@ TEST(ASN1Test, StringEncoding) {
   }
 }
 
+// Exhaustively test POSIX time conversions for every day across the millenium.
+TEST(ASN1Test, POSIXTime) {
+  const int kDaysInMonth[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+  // Test the epoch explicitly, to confirm our baseline is correct.
+  struct tm civil_time;
+  ASSERT_TRUE(OPENSSL_posix_to_tm(0, &civil_time));
+  ASSERT_EQ(civil_time.tm_year + 1900, 1970);
+  ASSERT_EQ(civil_time.tm_mon + 1, 1);
+  ASSERT_EQ(civil_time.tm_mday, 1);
+  ASSERT_EQ(civil_time.tm_hour, 0);
+  ASSERT_EQ(civil_time.tm_min, 0);
+  ASSERT_EQ(civil_time.tm_sec, 0);
+
+  int64_t posix_time = -11676096000;  // Sat, 01 Jan 1600 00:00:00 +0000
+  for (int year = 1600; year < 3000; year++) {
+    SCOPED_TRACE(year);
+    bool is_leap_year = (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
+    for (int month = 1; month <= 12; month++) {
+      SCOPED_TRACE(month);
+      int days = kDaysInMonth[month - 1];
+      if (month == 2 && is_leap_year) {
+        days++;
+      }
+      for (int day = 1; day <= days; day++) {
+        SCOPED_TRACE(day);
+        SCOPED_TRACE(posix_time);
+
+        ASSERT_TRUE(OPENSSL_posix_to_tm(posix_time, &civil_time));
+        ASSERT_EQ(civil_time.tm_year + 1900, year);
+        ASSERT_EQ(civil_time.tm_mon + 1, month);
+        ASSERT_EQ(civil_time.tm_mday, day);
+        ASSERT_EQ(civil_time.tm_hour, 0);
+        ASSERT_EQ(civil_time.tm_min, 0);
+        ASSERT_EQ(civil_time.tm_sec, 0);
+
+        int64_t posix_time_computed;
+        ASSERT_TRUE(OPENSSL_tm_to_posix(&civil_time, &posix_time_computed));
+        ASSERT_EQ(posix_time_computed, posix_time);
+
+        // Advance to the next day.
+        posix_time += 24 * 60 * 60;
+      }
+    }
+  }
+}
+
 // The ASN.1 macros do not work on Windows shared library builds, where usage of
 // |OPENSSL_EXPORT| is a bit stricter.
 #if !defined(OPENSSL_WINDOWS) || !defined(BORINGSSL_SHARED_LIBRARY)
