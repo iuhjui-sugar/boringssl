@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d43f092_032bd143",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 28
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 14726
+      },
+      "writtenOn": "2022-07-29T17:13:57Z",
+      "side": 1,
+      "message": "for all these in64_t to int outputs, cast to int, or check that the value fits in `int` before casting?",
+      "range": {
+        "startLine": 134,
+        "startChar": 0,
+        "endLine": 134,
+        "endChar": 61
+      },
+      "revId": "33dd6190c50be0b6c476fc98fb074f644740ea0d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d95d525_0b3d54b7",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 28
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 14726
+      },
+      "writtenOn": "2022-07-29T17:13:57Z",
+      "side": 1,
+      "message": "this might make a nice helper fn",
+      "range": {
+        "startLine": 168,
+        "startChar": 6,
+        "endLine": 169,
+        "endChar": 57
+      },
+      "revId": "33dd6190c50be0b6c476fc98fb074f644740ea0d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db7d7c42_c73d1868",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 28
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 14726
+      },
+      "writtenOn": "2022-07-29T17:13:57Z",
+      "side": 1,
+      "message": "cast this?",
+      "revId": "33dd6190c50be0b6c476fc98fb074f644740ea0d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c7cc1ba_fb6b0edf",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 28
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 14726
+      },
+      "writtenOn": "2022-07-29T17:13:57Z",
+      "side": 1,
+      "message": "cast these?",
+      "range": {
+        "startLine": 224,
+        "startChar": 14,
+        "endLine": 224,
+        "endChar": 21
+      },
+      "revId": "33dd6190c50be0b6c476fc98fb074f644740ea0d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ae9efb19_a40543ea",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 26
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 14726
+      },
+      "writtenOn": "2022-07-29T17:13:57Z",
+      "side": 1,
+      "message": "int64_t{} to avoid implicit conversions?",
+      "range": {
+        "startLine": 74,
+        "startChar": 9,
+        "endLine": 74,
+        "endChar": 21
+      },
+      "revId": "6ee08fb318b4e03749cd3f45b01cf5d4c7f91494",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
