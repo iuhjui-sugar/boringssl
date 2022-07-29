@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6a66d1b_c6956140",
+        "filename": "crypto/asn1/a_time.c",
+        "patchSetId": 30
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-29T19:48:51Z",
+      "side": 1,
+      "message": "Should I be permissive in this one for things like go?  - We use the posix one internally?",
+      "revId": "cbdd2e97c350c116b3849c7780c93f889e4e2481",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
