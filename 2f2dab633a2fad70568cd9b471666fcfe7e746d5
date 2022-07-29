@@ -3,6 +3,491 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "8dfc7793_af239334",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 23
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-29T02:36:35Z",
+      "side": 1,
+      "message": "Okay, got through the file! Left some comments, but 90% of them are minor style nits.",
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e153dce_f8713dc1",
+        "filename": "crypto/asn1/asn1_test.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 960,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-29T02:36:35Z",
+      "side": 1,
+      "message": "Actually not sure what this comment is referring to. :-) This is to make sure we don\u0027t get confused on (time_t)-1?\n\nPerhaps:\n// -1 is sometimes used as an error value. Ensure we correctly handle it.",
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8d97be5_799de8e3",
+        "filename": "crypto/asn1/asn1_test.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 965,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-29T02:36:35Z",
+      "side": 1,
+      "message": "Probably not far from being able to restore these now, but I guess it requires us go further in on the time_t vs int64_t question, so I guess we can postpone that one. :-)",
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88e14e1d_f8a0f6b4",
+        "filename": "crypto/asn1/asn1_test.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 979,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-29T02:36:35Z",
+      "side": 1,
+      "message": "I think we can delete this, now that we\u0027ve *completely* given up on libc.",
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23e41b25_3fa3e658",
+        "filename": "crypto/asn1/internal.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-29T02:36:35Z",
+      "side": 1,
+      "message": "I think we can reflow these comments slightly. Looks like they\u0027re currently hitting 72 columns, but we use 80. (clang-format can do it, but you sometimes need to force it by first joining two lines together and then running it. Or whatever your editor\u0027s reflow feature is.)",
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "707ecd15_8dc1fa3e",
+        "filename": "crypto/asn1/internal.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-29T02:36:35Z",
+      "side": 1,
+      "message": "POSIX",
+      "range": {
+        "startLine": 73,
+        "startChar": 42,
+        "endLine": 73,
+        "endChar": 47
+      },
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3b6f1f1_df874d13",
+        "filename": "crypto/asn1/internal.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-29T02:36:35Z",
+      "side": 1,
+      "message": "which",
+      "range": {
+        "startLine": 74,
+        "startChar": 3,
+        "endLine": 74,
+        "endChar": 8
+      },
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f2a00ed_6c859cea",
+        "filename": "crypto/asn1/internal.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-29T02:36:35Z",
+      "side": 1,
+      "message": "Out of date sentence. \"It returns one on success and zero on error, I imagine.\"",
+      "range": {
+        "startLine": 75,
+        "startChar": 23,
+        "endLine": 76,
+        "endChar": 15
+      },
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b035675_cbecfd6e",
+        "filename": "crypto/asn1/internal.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-29T02:36:35Z",
+      "side": 1,
+      "message": "Just plain `int64_t time`. I don\u0027t think non-pointer `const` in function signatures does anything (and I vaguely recall hitting some problem with MSVC when we had them).",
+      "range": {
+        "startLine": 77,
+        "startChar": 39,
+        "endLine": 77,
+        "endChar": 44
+      },
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "690a92bb_5d414afe",
+        "filename": "crypto/asn1/internal.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-29T02:36:35Z",
+      "side": 1,
+      "message": "POSIX",
+      "range": {
+        "startLine": 80,
+        "startChar": 16,
+        "endLine": 80,
+        "endChar": 21
+      },
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78e2340d_de37e639",
+        "filename": "crypto/asn1/internal.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-29T02:36:35Z",
+      "side": 1,
+      "message": "which",
+      "range": {
+        "startLine": 85,
+        "startChar": 52,
+        "endLine": 85,
+        "endChar": 57
+      },
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7854e95e_cdadf21d",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 23
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-29T02:36:35Z",
+      "side": 1,
+      "message": "(Reverified this expression for 1-12 myself.)",
+      "range": {
+        "startLine": 97,
+        "startChar": 6,
+        "endLine": 97,
+        "endChar": 57
+      },
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83fe883e_d87d6f02",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 23
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-29T02:36:35Z",
+      "side": 1,
+      "message": "(Didn\u0027t try to recalculate this number, but any one unit test should be sufficient to verify it.)",
+      "range": {
+        "startLine": 100,
+        "startChar": 51,
+        "endLine": 100,
+        "endChar": 57
+      },
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a45b593_eac94373",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 23
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-29T02:36:35Z",
+      "side": 1,
+      "message": "(Confirmed this number is  365 * 400 + 100 - 4 + 1.)",
+      "range": {
+        "startLine": 100,
+        "startChar": 29,
+        "endLine": 100,
+        "endChar": 35
+      },
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62b74b5c_66ecdc84",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 23
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-29T02:36:35Z",
+      "side": 1,
+      "message": "Style nit: two spaces too many indent (or clang-format)",
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82c434e1_8711fc0b",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 23
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-29T02:36:35Z",
+      "side": 1,
+      "message": "I verified this expression with the following program:\n\n```\n#include \u003cstdlib.h\u003e\n#include \u003cstdint.h\u003e\n#include \u003cstdio.h\u003e\n\nint64_t year_of_era_naive(int64_t day_of_era) {\n  for (int64_t year \u003d 0; year \u003c 400; year++) {\n    int64_t days \u003d 365;\n    // The era starts March 1st, so leap days are determined by the next year.\n    int64_t next_year \u003d year + 1;\n    if ((next_year % 4 \u003d\u003d 0 \u0026\u0026 next_year % 100 !\u003d 0) || next_year % 400 \u003d\u003d 0) {\n      days++;\n    }\n    if (day_of_era \u003c days) {\n      return year;\n    }\n    day_of_era -\u003d days;\n  }\n  // This should not happen.\n  abort();\n}\n\nint64_t year_of_era(int64_t day_of_era) {\n  return (day_of_era - day_of_era / 1460 + day_of_era / 36524 - day_of_era / 146096) / 365;\n}\n\nint main() {\n  for (int64_t day_of_era \u003d 0; day_of_era \u003c 146097; day_of_era++) {\n    int64_t got \u003d year_of_era(day_of_era);\n    int64_t want \u003d year_of_era_naive(day_of_era);\n    if (got !\u003d want) {\n      fprintf(stderr, \"year_of_era(%lld) \u003d %lld, but should be %lld.\\n\", day_of_era, got, want);\n      abort();\n    }\n  }\n  return 0;\n}\n```",
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a1968b4_0526b38d",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 23
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-29T02:36:35Z",
+      "side": 1,
+      "message": "I was going to write another little program to confirm this, as a review strategy, and then I realized I may as well just actually write it as a unit test...\n\nHere\u0027s something to fold into this CL. (I figure just copy it in and land it as one CL.)\nhttps://boringssl-review.googlesource.com/c/boringssl/+/53685",
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff0270d3_d264688c",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 23
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-29T02:36:35Z",
+      "side": 1,
+      "message": "No particular preference on which (and I\u0027m sure the compiler will optimize it regardless), but I\u0027m curious why, here, you wrote `leftover_seconds -\u003d *out_hours * SECS_PER_HOUR`, but in line 116, you used `%`. (And same in line 138 I suppose.)\n\nPerhaps `leftover_seconds %\u003d SECS_PER_HOUR` just to be consistent?",
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4ac972e_88e4b66a",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 23
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-29T02:36:35Z",
+      "side": 1,
+      "message": "If the function\u0027s already documented in the header, we usually don\u0027t re-documented it in the source. Ditto for the one following it.",
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d20588c_84e76357",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 23
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-29T02:36:35Z",
+      "side": 1,
+      "message": "I think this can just be:\n\n```\n  return posix_time_from_utc(....., out);\n```",
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "143727ea_9b1fb985",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 23
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-29T02:36:35Z",
+      "side": 1,
+      "message": "Style nit: clang-format",
+      "range": {
+        "startLine": 163,
+        "startChar": 19,
+        "endLine": 163,
+        "endChar": 22
+      },
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e002d21_63d71176",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 23
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-29T02:36:35Z",
+      "side": 1,
+      "message": "Ditto re already having a comment in the header.",
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8439d253_d1509f9e",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 23
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-29T02:36:35Z",
+      "side": 1,
+      "message": "Nit: Just for consistency across the two outputs, maybe move this to after the overflow check.",
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "928afe39_bfe69de4",
+        "filename": "crypto/x509/x509_time_test.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-29T02:36:35Z",
+      "side": 1,
+      "message": "Oh, that\u0027s interesting. So, the old code was actually slightly more strict than the new one. Although we\u0027d parse such things, the old code would reject those times at verification time. Whereas the new code is more self-consistent, but more permissive.\n\nPerhaps worth pondering which way to go on that one.",
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "651ac6ff_0ee8eabd",
+        "filename": "crypto/x509/x509_time_test.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-29T02:36:35Z",
+      "side": 1,
+      "message": "Stray change? (Probably tidier to keep kX509CmpTests close to TestCmpTime. Not sure why we didn\u0027t just define that inside the test...)",
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "210ec2aa_bc6e8842",
         "filename": "crypto/x509/x509_vfy.c",
         "patchSetId": 23
@@ -14,6 +499,98 @@
       "writtenOn": "2022-07-28T21:55:23Z",
       "side": 1,
       "message": "I couldn\u0027t help myself. and it proved to me that it was nice to have an int64_t version as well as the time_t version.  Now time comparisons no longer allocate.",
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "508ade6d_76399782",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 23
+      },
+      "lineNbr": 1875,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-29T02:36:35Z",
+      "side": 1,
+      "message": "Nice!",
+      "parentUuid": "210ec2aa_bc6e8842",
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c28ecc8_c99fcab8",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 23
+      },
+      "lineNbr": 1877,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-29T02:36:35Z",
+      "side": 1,
+      "message": "Well... we sadly don\u0027t have anything stopping someone from constructing (via ASN1_STRING_set), an ASN1_TIME that\u0027s invalid. :-(\n\nPerhaps:\n\n  // The parser will reject invalid |ASN1_TIME|s, so this can only fail if the caller manually constructed an invalid one.",
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c27431ed_750b4d7b",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 23
+      },
+      "lineNbr": 1883,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-29T02:36:35Z",
+      "side": 1,
+      "message": "Super nitpicky nitpick: we can fit this on just one line. (clang-format\u0027s smart enough to reflow long comments, so you can always punt it to that.)",
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a77a47f1_41184b14",
+        "filename": "include/openssl/asn1.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 1384,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-29T02:36:35Z",
+      "side": 1,
+      "message": "I do wonder if we actually need both of these functions... in so far as they\u0027re different, we may want to note that this one may fail if your |time_t| is 32-bit, while the other one supports everything from years 0000 to 9999.",
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e090beaf_35b870bb",
+        "filename": "include/openssl/asn1.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 1386,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-29T02:36:35Z",
+      "side": 1,
+      "message": "POSIX time\n\nOr maybe \"number of seconds past the UNIX epoch\".",
+      "range": {
+        "startLine": 1386,
+        "startChar": 40,
+        "endLine": 1386,
+        "endChar": 46
+      },
       "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }

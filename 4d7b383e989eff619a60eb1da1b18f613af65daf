@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51893fc6_86f7c887",
+        "filename": "crypto/asn1/internal.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-29T02:36:35Z",
+      "side": 0,
+      "message": "We usually put two newlines after extern C.",
+      "revId": "4d7b383e989eff619a60eb1da1b18f613af65daf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
