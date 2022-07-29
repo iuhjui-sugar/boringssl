@@ -52,6 +52,24 @@
       "parentUuid": "c11b7f01_b8b580d8",
       "revId": "ef79667a9304703958d97314f571c47ae8383c3c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9a641d4_a20df23f",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-07-29T23:50:01Z",
+      "side": 1,
+      "message": "Ah, that explains it. I ran the CQ to see if the FIPS mode worked and was happy when it passed everything! I\u0027ll try manual testing next week with a real Android phone and a non-FIPS build.\n\nAlso, it\u0027s the weekend: don\u0027t worry about CQ stuff for a while.",
+      "parentUuid": "43aec694_1c6d7f61",
+      "revId": "ef79667a9304703958d97314f571c47ae8383c3c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
