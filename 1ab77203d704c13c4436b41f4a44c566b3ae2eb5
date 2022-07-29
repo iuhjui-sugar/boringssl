@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a82daf95_74112799",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-29T19:14:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51c1fcfc_12fe858d",
+      "revId": "1ab77203d704c13c4436b41f4a44c566b3ae2eb5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c175b456_b7cf27d1",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-07-29T17:00:10Z",
       "side": 1,
       "message": "Same here, another one for future readers.",
+      "revId": "1ab77203d704c13c4436b41f4a44c566b3ae2eb5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aae59394_a77f2aa0",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-29T19:14:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c175b456_b7cf27d1",
       "revId": "1ab77203d704c13c4436b41f4a44c566b3ae2eb5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
