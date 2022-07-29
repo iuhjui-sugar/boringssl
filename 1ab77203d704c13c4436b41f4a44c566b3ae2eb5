@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51c1fcfc_12fe858d",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-29T17:00:10Z",
+      "side": 1,
+      "message": "The assert isn\u0027t strictly necessary, but let\u0027s make life a bit easier on any future reviewers.",
+      "revId": "1ab77203d704c13c4436b41f4a44c566b3ae2eb5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c175b456_b7cf27d1",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 27
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-07-29T17:00:10Z",
+      "side": 1,
+      "message": "Same here, another one for future readers.",
+      "revId": "1ab77203d704c13c4436b41f4a44c566b3ae2eb5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
