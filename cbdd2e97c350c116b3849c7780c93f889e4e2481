@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "fa3ce3c1_1d2fdffe",
+        "filename": "crypto/asn1/a_time.c",
+        "patchSetId": 30
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-29T21:47:13Z",
+      "side": 1,
+      "message": "its",
+      "range": {
+        "startLine": 226,
+        "startChar": 53,
+        "endLine": 226,
+        "endChar": 57
+      },
+      "revId": "cbdd2e97c350c116b3849c7780c93f889e4e2481",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c6a66d1b_c6956140",
         "filename": "crypto/asn1/a_time.c",
         "patchSetId": 30
@@ -32,6 +55,58 @@
       "side": 1,
       "message": "My justification in my head for this one is that the \"permissiveness\" we do here is really only one special case of many, to handle the car certs, so I don\u0027t think having it for new stuff really makes sense.",
       "parentUuid": "c6a66d1b_c6956140",
+      "revId": "cbdd2e97c350c116b3849c7780c93f889e4e2481",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b41ea666_0f4e90ec",
+        "filename": "crypto/asn1/a_time.c",
+        "patchSetId": 30
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-29T21:47:13Z",
+      "side": 1,
+      "message": "Agreed.",
+      "parentUuid": "c881085c_721cd4b4",
+      "revId": "cbdd2e97c350c116b3849c7780c93f889e4e2481",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77aa0bc7_e020a49e",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 30
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-29T21:47:13Z",
+      "side": 1,
+      "message": "Nit: just over 80 chars. clang-format should appease it.\n\n(I\u0027ve configured Gerrit to display code at 80 column width, which is how I keep noticing these. :-) )",
+      "revId": "cbdd2e97c350c116b3849c7780c93f889e4e2481",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba17fd80_0e17d670",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 30
+      },
+      "lineNbr": 1877,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-29T21:47:13Z",
+      "side": 1,
+      "message": "It occurs to me it can also fail because of the timezone nonsense. So maybe we should just drop this comment and concede this function is still fallible. :-(\n\n(In that case, also drop \"for historical reasons\".)",
       "revId": "cbdd2e97c350c116b3849c7780c93f889e4e2481",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }

@@ -165,6 +165,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "065e3399_d7d3e419",
+        "filename": "crypto/asn1/posix_time.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-29T21:47:13Z",
+      "side": 1,
+      "message": "sizeof hacks works for me, though I think a compiler will optimize both away. In the `(time_t)posix_time !\u003d posix_time` version (I wrote `\u003d\u003d` but it should have been `!\u003d`), it compiles to `(int64_t)posix_time !\u003d posix_time` which is always false, so the compiler will delete it.",
+      "parentUuid": "1194cca1_9e13cb0c",
+      "revId": "f0490905add7c1143cf6a402a0d7a5347e3942ee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a45316fe_e052ebe6",

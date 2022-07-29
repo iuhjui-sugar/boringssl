@@ -853,6 +853,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a14969a9_992b1718",
+        "filename": "crypto/x509/x509_time_test.cc",
+        "patchSetId": 23
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-29T21:47:13Z",
+      "side": 1,
+      "message": "\u003e Which basically tells me that the car stuff that contains the certs we care about with nonstandard timezones are *not* using our X509_vfy, but are using us for unit tests. (I don\u0027t think this is that surprising, since I think they\u0027re using Java).\n\nIt\u0027s even more gross than that. Conscrypt calls into d2i_X509 to parse certificates, but doesn\u0027t actually use the verification code. It has its own Java thing on top. However, as part of that parser, it needs to extract timestamps, which it\u0027s currently hand-implemented.\n\nChatting out-of-band, we\u0027ll keep the new ones strict for now and leave Conscrypt alone. If we ever feel like fixing that up, we can give then an ASN1_TIME_to_posix_buggy or have them reimplement timezone offsets.",
+      "parentUuid": "76d5a509_ae3cdd5c",
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "651ac6ff_0ee8eabd",
@@ -1024,6 +1042,24 @@
       "side": 1,
       "message": "I think we need this for issue 501 - I\u0027d rather trust we do this right than\nworry about the consumers doing it right. Internally we are using the other\none for time comparisons.  (I did update the description)",
       "parentUuid": "a77a47f1_41184b14",
+      "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "331f0c78_104b814e",
+        "filename": "include/openssl/asn1.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 1384,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-29T21:47:13Z",
+      "side": 1,
+      "message": "Looking at the link in 501 again, I think they actually want the int64_t version anyway. That code doesn\u0027t actually utter time_t. :-) But yeah, if the caller actually wants time_t, having us do the job isn\u0027t wrong.",
+      "parentUuid": "e5a3e45e_07d95f02",
       "revId": "2f2dab633a2fad70568cd9b471666fcfe7e746d5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
