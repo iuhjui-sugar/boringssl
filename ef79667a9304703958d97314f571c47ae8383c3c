@@ -34,6 +34,24 @@
       "parentUuid": "3bbbe6f0_48803b97",
       "revId": "ef79667a9304703958d97314f571c47ae8383c3c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43aec694_1c6d7f61",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-07-29T23:43:37Z",
+      "side": 1,
+      "message": "We don\u0027t actually run Android tests on CQ, only post-commit CI. :-(\n\nMany many CI iterations ago, there was some mysterious reason that infra couldn\u0027t figure out that it didn\u0027t work. I suspect we can make it work now? There even are machines in the pool... I can go configure some and see if it works...",
+      "parentUuid": "c11b7f01_b8b580d8",
+      "revId": "ef79667a9304703958d97314f571c47ae8383c3c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
