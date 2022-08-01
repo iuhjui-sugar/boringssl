@@ -88,6 +88,24 @@
       "parentUuid": "e9a641d4_a20df23f",
       "revId": "ef79667a9304703958d97314f571c47ae8383c3c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0f6b1f1_28cda9fa",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-01T16:39:13Z",
+      "side": 1,
+      "message": "Looks like the plain Android try jobs work (and confirm those builders are still unhappy), but the FIPS ones don\u0027t because we don\u0027t have newer devices available there. I can see about requesting some.",
+      "parentUuid": "14a8e18b_a7c8aa7e",
+      "revId": "ef79667a9304703958d97314f571c47ae8383c3c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
