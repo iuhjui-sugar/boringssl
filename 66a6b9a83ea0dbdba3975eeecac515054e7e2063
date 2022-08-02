@@ -48,6 +48,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c1a8681_25dd99cf",
+        "filename": "include/openssl/stack.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-08-02T23:07:39Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "077e7bef_3fb1715a",
+      "range": {
+        "startLine": 92,
+        "startChar": 73,
+        "endLine": 93,
+        "endChar": 60
+      },
+      "revId": "66a6b9a83ea0dbdba3975eeecac515054e7e2063",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f8efbb24_428c3548",
