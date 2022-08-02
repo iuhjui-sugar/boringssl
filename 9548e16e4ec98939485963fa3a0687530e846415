@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "279f9aa7_70053774",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9619
+      },
+      "writtenOn": "2022-08-02T12:59:06Z",
+      "side": 1,
+      "message": "Sorry about that, been fighting different fires for a couple of days.  Will have an update with your suggestions RSN.",
+      "parentUuid": "25fe21c5_11692f71",
+      "revId": "9548e16e4ec98939485963fa3a0687530e846415",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9e14a029_49ee7814",
