@@ -16,6 +16,24 @@
       "message": "nit: s/0/nullptr/",
       "revId": "b309b480613fc4c09e1f5ec75d96a1d390d40114",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f50adc12_f166fb74",
+        "filename": "ssl/ssl_file.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-02T21:57:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "18f43476_10642b90",
+      "revId": "b309b480613fc4c09e1f5ec75d96a1d390d40114",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
