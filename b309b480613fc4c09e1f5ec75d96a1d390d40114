@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18f43476_10642b90",
+        "filename": "ssl/ssl_file.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-08-02T21:50:33Z",
+      "side": 1,
+      "message": "nit: s/0/nullptr/",
+      "revId": "b309b480613fc4c09e1f5ec75d96a1d390d40114",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
