@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "25fe21c5_11692f71",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-08-02T12:44:39Z",
+      "side": 1,
+      "message": "(Going to land this as-is because if I push an update myself these days, Gerrit won\u0027t let me land it.)",
+      "revId": "9548e16e4ec98939485963fa3a0687530e846415",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9e14a029_49ee7814",
