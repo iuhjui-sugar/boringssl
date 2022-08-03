@@ -102,6 +102,17 @@ set(
   crypto/x509/test/many_names1.pem
   crypto/x509/test/many_names2.pem
   crypto/x509/test/many_names3.pem
+  crypto/x509/test/pss_sha1_explicit.pem
+  crypto/x509/test/pss_sha1.pem
+  crypto/x509/test/pss_sha224.pem
+  crypto/x509/test/pss_sha256_explicit_trailer.pem
+  crypto/x509/test/pss_sha256_wrong_trailer.pem
+  crypto/x509/test/pss_sha256_mgf1_sha384.pem
+  crypto/x509/test/pss_sha256_omit_nulls.pem
+  crypto/x509/test/pss_sha256.pem
+  crypto/x509/test/pss_sha256_salt31.pem
+  crypto/x509/test/pss_sha384.pem
+  crypto/x509/test/pss_sha512.pem
   crypto/x509/test/some_names1.pem
   crypto/x509/test/some_names2.pem
   crypto/x509/test/some_names3.pem

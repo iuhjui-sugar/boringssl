@@ -120,9 +120,7 @@ static RSA_PSS_PARAMS *rsa_pss_decode(const X509_ALGOR *alg,
 
 // allocate and set algorithm ID from EVP_MD, default SHA1
 static int rsa_md_to_algor(X509_ALGOR **palg, const EVP_MD *md) {
-  if (EVP_MD_type(md) == NID_sha1) {
-    return 1;
-  }
+  assert(EVP_MD_type(md) != NID_sha1);
   *palg = X509_ALGOR_new();
   if (*palg == NULL) {
     return 0;
@@ -162,33 +160,39 @@ err:
   return 0;
 }
 
-// convert algorithm ID to EVP_MD, default SHA1
+static int is_allowed_pss_md(const EVP_MD *md) {
+  int md_type = EVP_MD_type(md);
+  return md_type == NID_sha256 || md_type == NID_sha384 ||
+         md_type == NID_sha512;
+}
+
 static const EVP_MD *rsa_algor_to_md(X509_ALGOR *alg) {
-  const EVP_MD *md;
   if (!alg) {
-    return EVP_sha1();
+    // If omitted, PSS defaults to SHA-1, which we do not allow.
+    OPENSSL_PUT_ERROR(X509, X509_R_INVALID_PSS_PARAMETERS);
+    return NULL;
   }
-  md = EVP_get_digestbyobj(alg->algorithm);
-  if (md == NULL) {
+  const EVP_MD *md = EVP_get_digestbyobj(alg->algorithm);
+  if (md == NULL || !is_allowed_pss_md(md)) {
     OPENSSL_PUT_ERROR(X509, X509_R_INVALID_PSS_PARAMETERS);
   }
   return md;
 }
 
-// convert MGF1 algorithm ID to EVP_MD, default SHA1
 static const EVP_MD *rsa_mgf1_to_md(const X509_ALGOR *alg,
-                                    X509_ALGOR *maskHash) {
-  const EVP_MD *md;
+                                    const X509_ALGOR *maskHash) {
   if (!alg) {
-    return EVP_sha1();
+    // If omitted, PSS defaults to MGF-1 with SHA-1, which we do not allow.
+    OPENSSL_PUT_ERROR(X509, X509_R_INVALID_PSS_PARAMETERS);
+    return NULL;
   }
   // Check mask and lookup mask hash algorithm
   if (OBJ_obj2nid(alg->algorithm) != NID_mgf1 || maskHash == NULL) {
     OPENSSL_PUT_ERROR(X509, X509_R_INVALID_PSS_PARAMETERS);
     return NULL;
   }
-  md = EVP_get_digestbyobj(maskHash->algorithm);
-  if (md == NULL) {
+  const EVP_MD *md = EVP_get_digestbyobj(maskHash->algorithm);
+  if (md == NULL || !is_allowed_pss_md(md)) {
     OPENSSL_PUT_ERROR(X509, X509_R_INVALID_PSS_PARAMETERS);
     return NULL;
   }
@@ -204,18 +208,14 @@ int x509_rsa_ctx_to_pss(EVP_MD_CTX *ctx, X509_ALGOR *algor) {
     return 0;
   }
 
-  EVP_PKEY *pk = EVP_PKEY_CTX_get0_pkey(ctx->pctx);
+  if (sigmd != mgf1md || !is_allowed_pss_md(sigmd)) {
+    OPENSSL_PUT_ERROR(X509, X509_R_INVALID_PSS_PARAMETERS);
+    return 0;
+  }
+  int md_len = EVP_MD_size(sigmd);
   if (saltlen == -1) {
-    saltlen = EVP_MD_size(sigmd);
-  } else if (saltlen == -2) {
-    // TODO(davidben): Forbid this mode. The world has largely standardized on
-    // salt length matching hash length.
-    saltlen = EVP_PKEY_size(pk) - EVP_MD_size(sigmd) - 2;
-    if (((EVP_PKEY_bits(pk) - 1) & 0x7) == 0) {
-      saltlen--;
-    }
-  } else if (saltlen != (int)EVP_MD_size(sigmd)) {
-    // We only allow salt length matching hash length and, for now, the -2 case.
+    saltlen = md_len;
+  } else if (saltlen != md_len) {
     OPENSSL_PUT_ERROR(X509, X509_R_INVALID_PSS_PARAMETERS);
     return 0;
   }
@@ -227,11 +227,11 @@ int x509_rsa_ctx_to_pss(EVP_MD_CTX *ctx, X509_ALGOR *algor) {
     goto err;
   }
 
-  if (saltlen != 20) {
-    pss->saltLength = ASN1_INTEGER_new();
-    if (!pss->saltLength || !ASN1_INTEGER_set(pss->saltLength, saltlen)) {
-      goto err;
-    }
+  assert(saltlen != 20);
+  pss->saltLength = ASN1_INTEGER_new();
+  if (!pss->saltLength ||  //
+      !ASN1_INTEGER_set(pss->saltLength, saltlen)) {
+    goto err;
   }
 
   if (!rsa_md_to_algor(&pss->hashAlgorithm, sigmd) ||
@@ -273,20 +273,25 @@ int x509_rsa_pss_to_ctx(EVP_MD_CTX *ctx, const X509_ALGOR *sigalg,
     goto err;
   }
 
+  // We require the MGF-1 and signing hashes to match.
+  if (mgf1md != md) {
+    OPENSSL_PUT_ERROR(X509, X509_R_INVALID_PSS_PARAMETERS);
+    goto err;
+  }
+
+  // We require the salt length be the hash length.
   int saltlen = 20;
   if (pss->saltLength != NULL) {
     saltlen = ASN1_INTEGER_get(pss->saltLength);
-
-    // Could perform more salt length sanity checks but the main
-    // RSA routines will trap other invalid values anyway.
-    if (saltlen < 0) {
-      OPENSSL_PUT_ERROR(X509, X509_R_INVALID_PSS_PARAMETERS);
-      goto err;
-    }
+  }
+  if (saltlen != (int)EVP_MD_size(md)) {
+    OPENSSL_PUT_ERROR(X509, X509_R_INVALID_PSS_PARAMETERS);
+    goto err;
   }
 
-  // low-level routines support only trailer field 0xbc (value 1)
-  // and PKCS#1 says we should reject any other value anyway.
+  // The trailer field must be 1 (0xbc). This value is DEFAULT, so the structure
+  // is required to omit it in DER. Although a syntax error, we also tolerate an
+  // explicitly-encoded value. See the certificates in cl/362617931.
   if (pss->trailerField != NULL && ASN1_INTEGER_get(pss->trailerField) != 1) {
     OPENSSL_PUT_ERROR(X509, X509_R_INVALID_PSS_PARAMETERS);
     goto err;
