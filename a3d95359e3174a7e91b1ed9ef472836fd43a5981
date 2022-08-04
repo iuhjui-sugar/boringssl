@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2b409b0_72f02f3b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 14761
+      },
+      "writtenOn": "2022-08-04T16:15:56Z",
+      "side": 1,
+      "message": "Thanks for updating with these changes Suresh. It looks like both the `-fetch` and `-json` features are contained here in this change. Can you break them out into two (possibly dependent) Gerrit changes? This will make it easier to review.",
+      "revId": "a3d95359e3174a7e91b1ed9ef472836fd43a5981",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1d2cc20_952ec6de",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 14761
+      },
+      "writtenOn": "2022-08-04T16:15:56Z",
+      "side": 1,
+      "message": "Link to Bug: here.",
+      "revId": "a3d95359e3174a7e91b1ed9ef472836fd43a5981",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
