@@ -16,6 +16,23 @@
       "message": "Uploading the first working patch for the local ACVP test case storage and execution.\nTODO:\nNeed to restrict users from specifying -result_out flag without -test_out flag to make sure they get corresponding expected results.\n",
       "revId": "801a2cabea8135a95ad98c26f96880fa6dfb5aa1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4ec1e5f8_6ebd2c90",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14496
+      },
+      "writtenOn": "2022-08-04T09:22:59Z",
+      "side": 1,
+      "message": "How to use:\n# Fetch a test vector and it\u0027s expected result from the Demo server\n\u003e ACVP_PLATFORM\u003d\u003cplatform\u003e ACVP_TERM\u003d\u003cdevice tty\u003e ./acvptool -wrapper /path/to/middleware/executable -fetch \u003calgo_id\u003e -test_out algo_vector.json -result_out algo_result.json\n\n# Run a locally stored vector file and also check for pass/fail with locally stored expected result\n\u003e ACVP_PLATFORM\u003d\u003cplatform\u003e ACVP_TERM\u003d\u003cdevice_tty\u003e ./acvptool -wrapper /path/to/middleware/executable -json algo_vector.json -result_in algo_result.json",
+      "revId": "801a2cabea8135a95ad98c26f96880fa6dfb5aa1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
