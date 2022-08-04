@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51c51601_11e2aae9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14496
+      },
+      "writtenOn": "2022-08-04T08:25:58Z",
+      "side": 1,
+      "message": "Uploading the first working patch for the local ACVP test case storage and execution.\nTODO:\nNeed to restrict users from specifying -result_out flag without -test_out flag to make sure they get corresponding expected results.\n",
+      "revId": "801a2cabea8135a95ad98c26f96880fa6dfb5aa1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
