@@ -48,6 +48,8 @@ var (
 	jsonResultFile = flag.String("result_in", "", "Location of an expected result vector-set input file")
 	runFlag        = flag.String("run", "", "Name of primitive to run tests for")
 	fetchFlag      = flag.String("fetch", "", "Name of primitive to fetch vectors for")
+	test_outFlag   = flag.String("test_out", "", "Location of a vector-set output file")
+	result_outFlag = flag.String("result_out", "", "Location of a result vector-set output file")
 	wrapperPath    = flag.String("wrapper", "../../../../build/util/fipstools/acvp/modulewrapper/modulewrapper", "Path to the wrapper binary")
 )
 
@@ -437,13 +439,32 @@ func main() {
 	}
 
 	var requestedAlgosFlag string
+	var testFileFlag string
+	var resultFileFlag string
 	if len(*runFlag) > 0 && len(*fetchFlag) > 0 {
 		log.Fatalf("cannot specify both -run and -fetch")
 	}
+
 	if len(*runFlag) > 0 {
 		requestedAlgosFlag = *runFlag
 	} else {
 		requestedAlgosFlag = *fetchFlag
+	}
+
+	if len(*test_outFlag) > 0 {
+		if len(*fetchFlag) > 0 {
+			testFileFlag = *test_outFlag
+		} else {
+			log.Fatalf("cannot specify -test_out flag without -fetch flag")
+		}
+	}
+
+	if len(*result_outFlag) > 0 {
+		if len(*test_outFlag) > 0 {
+			resultFileFlag = *result_outFlag
+		} else {
+			log.Fatalf("cannot specify -result_out flag without -test_out flag")
+		}
 	}
 
 	runAlgos := make(map[string]bool)
@@ -577,6 +598,41 @@ func main() {
 			if len(*fetchFlag) > 0 {
 				os.Stdout.WriteString(",\n")
 				os.Stdout.Write(vectorsBytes)
+			}
+			if len(*test_outFlag) > 0 {
+				var vectorsBytesBuffer bytes.Buffer
+				vectorsBytesBuffer.WriteString("[\n")
+				vectorsBytesBuffer.Write(vectorsBytes)
+				vectorsBytesBuffer.WriteString("]\n")
+				ioutil.WriteFile(testFileFlag, vectorsBytesBuffer.Bytes(), 0644)
+			}
+			// fetch result
+			if len(*result_outFlag) > 0 {
+				for {
+					fetchResultBytes, err := server.GetBytes(trimLeadingSlash(setURL) + "/expected")
+					if err != nil {
+						log.Fatalf("Failed to fetch result set %q: %s", setURL, err)
+					}
+
+					var fetchResult acvp.Vectors
+					if err := json.Unmarshal(fetchResultBytes, &fetchResult); err != nil {
+						log.Fatalf("Failed to parse result set from %q: %s", setURL, err)
+					}
+
+					if retry := fetchResult.Retry; retry > 0 {
+						log.Printf("Server requested %d seconds delay", retry)
+						if retry > 10 {
+							retry = 10
+						}
+						time.Sleep(time.Duration(retry) * time.Second)
+						continue
+					}
+
+					ioutil.WriteFile(resultFileFlag, fetchResultBytes, 0644)
+					break
+				}
+			}
+			if len(*fetchFlag) > 0 {
 				break
 			}
 
