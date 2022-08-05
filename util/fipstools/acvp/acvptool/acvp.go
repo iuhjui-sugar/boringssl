@@ -45,6 +45,7 @@ var (
 	dumpRegcap     = flag.Bool("regcap", false, "Print module capabilities JSON to stdout")
 	configFilename = flag.String("config", "config.json", "Location of the configuration JSON file")
 	jsonInputFile  = flag.String("json", "", "Location of a vector-set input file")
+	jsonResultFile = flag.String("result_in", "", "Location of an expected result vector-set input file")
 	runFlag        = flag.String("run", "", "Name of primitive to run tests for")
 	fetchFlag      = flag.String("fetch", "", "Name of primitive to fetch vectors for")
 	wrapperPath    = flag.String("wrapper", "../../../../build/util/fipstools/acvp/modulewrapper/modulewrapper", "Path to the wrapper binary")
@@ -235,7 +236,6 @@ func processFile(filename string, supportedAlgos []map[string]interface{}, middl
 	}
 
 	var result bytes.Buffer
-	result.WriteString("[")
 
 	if header != nil {
 		headerBytes, err := json.MarshalIndent(header, "", "    ")
@@ -248,8 +248,10 @@ func processFile(filename string, supportedAlgos []map[string]interface{}, middl
 
 	for i, element := range elements {
 		var commonFields struct {
-			Algo string `json:"algorithm"`
-			ID   uint64 `json:"vsId"`
+			ID     uint64 `json:"vsId"`
+			Algo   string `json:"algorithm"`
+			Rev    string `json:"revision"`
+			IsSamp bool   `json:"isSample"`
 		}
 		if err := json.Unmarshal(element, &commonFields); err != nil {
 			return fmt.Errorf("failed to extract common fields from vector set #%d", i+1)
@@ -267,6 +269,9 @@ func processFile(filename string, supportedAlgos []map[string]interface{}, middl
 
 		group := map[string]interface{}{
 			"vsId":       commonFields.ID,
+			"algorithm":  commonFields.Algo,
+			"revision":   commonFields.Rev,
+			"isSample":   commonFields.IsSamp,
 			"testGroups": replyGroups,
 		}
 		replyBytes, err := json.MarshalIndent(group, "", "    ")
@@ -278,12 +283,74 @@ func processFile(filename string, supportedAlgos []map[string]interface{}, middl
 			result.WriteString(",")
 		}
 		result.Write(replyBytes)
+
 	}
 
-	result.WriteString("]\n")
 	os.Stdout.Write(result.Bytes())
 
+	if len(*jsonResultFile) > 0 {
+		ActualJSON := bytes.ToLower(result.Bytes())
+		expectedBytes, err := ioutil.ReadFile(*jsonResultFile)
+		if err != nil {
+			return fmt.Errorf("Read expected result from:")
+		}
+
+		var header []json.RawMessage
+		var headerEle json.RawMessage
+
+		if err := json.Unmarshal(expectedBytes, &header); err != nil {
+			return fmt.Errorf("Unmarshal header from expected result:%s", err)
+		}
+		headerEle = header[0]
+
+		headerBytes, err := json.MarshalIndent(headerEle, "", "    ")
+		if err != nil {
+			return fmt.Errorf("Marshal header element: %s", err)
+		}
+
+		var expectedResults []TestSuite
+		if err := json.Unmarshal(expectedBytes, &expectedResults); err != nil {
+			return fmt.Errorf("Unmarshal expected result:%s", err)
+		}
+		//expectedResults[0] is the header part hence we start from [1:]
+		expectedResults = expectedResults[1:]
+
+		var expectedJSONBytes bytes.Buffer
+
+		expectedJSONBytes.Write(headerBytes)
+
+		for _, expectedResult := range expectedResults {
+
+			expectedJSON, err := json.MarshalIndent(expectedResult, "", "    ")
+			if err != nil {
+				return fmt.Errorf("Marshal expected result: %s", err)
+			}
+			expectedJSONBytes.WriteString(",")
+			expectedJSONBytes.Write(expectedJSON)
+
+		}
+		expectedJSONBytesFinal := bytes.ToLower(expectedJSONBytes.Bytes())
+
+		if bytes.Equal(ActualJSON, expectedJSONBytesFinal) {
+
+			log.Printf("Test passed")
+		} else {
+			log.Printf("Test failed")
+		}
+		//os.Stdout.Write(ActualJSON)
+		//os.Stdout.Write(expectedJSONBytesFinal)
+	}
 	return nil
+}
+
+// TestSuite contains the results from all tests.
+
+type TestSuite struct {
+	Algorithm  string           `json:"algorithm"`
+	IsSample   bool             `json:"isSample"`
+	Revision   string           `json:"revision"`
+	TestGroups *json.RawMessage `json:"testGroups"`
+	VsID       uint64           `json:"vsId"`
 }
 
 func main() {
