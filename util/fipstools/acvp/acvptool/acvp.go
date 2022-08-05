@@ -47,6 +47,8 @@ var (
 	jsonInputFile  = flag.String("json", "", "Location of a vector-set input file")
 	runFlag        = flag.String("run", "", "Name of primitive to run tests for")
 	fetchFlag      = flag.String("fetch", "", "Name of primitive to fetch vectors for")
+	testOutFlag    = flag.String("test_out", "", "Location of a vector-set output file")
+	resultOutFlag  = flag.String("result_out", "", "Location of a result vector-set output file")
 	wrapperPath    = flag.String("wrapper", "../../../../build/util/fipstools/acvp/modulewrapper/modulewrapper", "Path to the wrapper binary")
 )
 
@@ -406,6 +408,18 @@ func main() {
 		requestedAlgosFlag = *fetchFlag
 	}
 
+	if len(*testOutFlag) > 0 {
+		if len(*fetchFlag) == 0 {
+			log.Fatalf("cannot specify -test_out flag without -fetch flag")
+		}
+	}
+
+	if len(*resultOutFlag) > 0 {
+		if len(*testOutFlag) == 0 {
+			log.Fatalf("cannot specify -result_out flag without -test_out flag")
+		}
+	}
+
 	runAlgos := make(map[string]bool)
 	if len(requestedAlgosFlag) > 0 {
 		for _, substr := range strings.Split(requestedAlgosFlag, ",") {
@@ -537,6 +551,41 @@ func main() {
 			if len(*fetchFlag) > 0 {
 				os.Stdout.WriteString(",\n")
 				os.Stdout.Write(vectorsBytes)
+			}
+			if len(*testOutFlag) > 0 {
+				var vectorsBytesBuffer bytes.Buffer
+				vectorsBytesBuffer.WriteString("[\n")
+				vectorsBytesBuffer.Write(vectorsBytes)
+				vectorsBytesBuffer.WriteString("]\n")
+				ioutil.WriteFile(*testOutFlag, vectorsBytesBuffer.Bytes(), 0644)
+			}
+			// fetch result
+			if len(*resultOutFlag) > 0 {
+				for {
+					fetchResultBytes, err := server.GetBytes(trimLeadingSlash(setURL) + "/expected")
+					if err != nil {
+						log.Fatalf("Failed to fetch result set %q: %s", setURL, err)
+					}
+
+					var fetchResult acvp.Vectors
+					if err := json.Unmarshal(fetchResultBytes, &fetchResult); err != nil {
+						log.Fatalf("Failed to parse result set from %q: %s", setURL, err)
+					}
+
+					if retry := fetchResult.Retry; retry > 0 {
+						log.Printf("Server requested %d seconds delay", retry)
+						if retry > 10 {
+							retry = 10
+						}
+						time.Sleep(time.Duration(retry) * time.Second)
+						continue
+					}
+
+					ioutil.WriteFile(*resultOutFlag, fetchResultBytes, 0644)
+					break
+				}
+			}
+			if len(*fetchFlag) > 0 {
 				break
 			}
 
