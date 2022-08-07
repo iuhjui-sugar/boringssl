@@ -20,6 +20,91 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2d443d81_d2781f60",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 14761
+      },
+      "writtenOn": "2022-08-07T21:30:23Z",
+      "side": 1,
+      "message": "The naming convention in Golang is to use snakeCase (ie: no underscores) for variable names.",
+      "revId": "024f3d3046300ccaa78b6bd51621cb72584a89ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "636b267c_0d48a8a3",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 14761
+      },
+      "writtenOn": "2022-08-07T21:30:23Z",
+      "side": 1,
+      "message": "Same.",
+      "revId": "024f3d3046300ccaa78b6bd51621cb72584a89ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92e91d62_37a91ba2",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 14761
+      },
+      "writtenOn": "2022-08-07T21:30:23Z",
+      "side": 1,
+      "message": "Can you remove this variable and use `*testOutFlag` in its place?",
+      "revId": "024f3d3046300ccaa78b6bd51621cb72584a89ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b113be1e_993d2afc",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 14761
+      },
+      "writtenOn": "2022-08-07T21:30:23Z",
+      "side": 1,
+      "message": "Same.",
+      "revId": "024f3d3046300ccaa78b6bd51621cb72584a89ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6864ec0b_a28b3f8d",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 14761
+      },
+      "writtenOn": "2022-08-07T21:30:23Z",
+      "side": 1,
+      "message": "Prefer to avoid unnecessary whitespace changes.",
+      "revId": "024f3d3046300ccaa78b6bd51621cb72584a89ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6ca840d4_6b414d5a",
         "filename": "util/fipstools/acvp/acvptool/acvp.go",
         "patchSetId": 6
