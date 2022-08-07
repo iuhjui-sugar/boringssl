@@ -16,6 +16,40 @@
       "message": "Split into two different commits",
       "revId": "024f3d3046300ccaa78b6bd51621cb72584a89ca",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ca840d4_6b414d5a",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 14761
+      },
+      "writtenOn": "2022-08-07T21:21:25Z",
+      "side": 1,
+      "message": "If there is more than one entry in `result.VectorSetURLs` this will overwrite all contents from previous loop iterations, keeping only the last.",
+      "revId": "024f3d3046300ccaa78b6bd51621cb72584a89ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be4f355b_838b2c80",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 14761
+      },
+      "writtenOn": "2022-08-07T21:21:25Z",
+      "side": 1,
+      "message": "Same as above.",
+      "revId": "024f3d3046300ccaa78b6bd51621cb72584a89ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
