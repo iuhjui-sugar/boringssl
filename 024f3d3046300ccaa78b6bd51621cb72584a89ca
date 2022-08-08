@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "33a1ef7a_73a2ef92",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 14496
+      },
+      "writtenOn": "2022-08-08T14:03:51Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2d443d81_d2781f60",
+      "revId": "024f3d3046300ccaa78b6bd51621cb72584a89ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "636b267c_0d48a8a3",
         "filename": "util/fipstools/acvp/acvptool/acvp.go",
         "patchSetId": 6
@@ -48,6 +66,24 @@
       "writtenOn": "2022-08-07T21:30:23Z",
       "side": 1,
       "message": "Same.",
+      "revId": "024f3d3046300ccaa78b6bd51621cb72584a89ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b36c867_2715a5b4",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 14496
+      },
+      "writtenOn": "2022-08-08T14:03:51Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "636b267c_0d48a8a3",
       "revId": "024f3d3046300ccaa78b6bd51621cb72584a89ca",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -71,6 +107,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6f6098aa_cf7ecb04",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 14496
+      },
+      "writtenOn": "2022-08-08T14:03:51Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "92e91d62_37a91ba2",
+      "revId": "024f3d3046300ccaa78b6bd51621cb72584a89ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b113be1e_993d2afc",
         "filename": "util/fipstools/acvp/acvptool/acvp.go",
         "patchSetId": 6
@@ -82,6 +136,24 @@
       "writtenOn": "2022-08-07T21:30:23Z",
       "side": 1,
       "message": "Same.",
+      "revId": "024f3d3046300ccaa78b6bd51621cb72584a89ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea022c26_34f678b5",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 14496
+      },
+      "writtenOn": "2022-08-08T14:03:51Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b113be1e_993d2afc",
       "revId": "024f3d3046300ccaa78b6bd51621cb72584a89ca",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -105,6 +177,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "55b5a19f_139f8deb",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 14496
+      },
+      "writtenOn": "2022-08-08T14:03:51Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6864ec0b_a28b3f8d",
+      "revId": "024f3d3046300ccaa78b6bd51621cb72584a89ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6ca840d4_6b414d5a",
         "filename": "util/fipstools/acvp/acvptool/acvp.go",
         "patchSetId": 6
@@ -122,6 +212,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7d491594_e192d5e1",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 14496
+      },
+      "writtenOn": "2022-08-08T14:03:51Z",
+      "side": 1,
+      "message": "Ack, need to check if it repeats or not. Since the changes are working it may not be repeating and we only have one URL in the list.",
+      "parentUuid": "6ca840d4_6b414d5a",
+      "revId": "024f3d3046300ccaa78b6bd51621cb72584a89ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "be4f355b_838b2c80",
         "filename": "util/fipstools/acvp/acvptool/acvp.go",
         "patchSetId": 6
@@ -133,6 +241,24 @@
       "writtenOn": "2022-08-07T21:21:25Z",
       "side": 1,
       "message": "Same as above.",
+      "revId": "024f3d3046300ccaa78b6bd51621cb72584a89ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b32cfb4_9bfc0779",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 591,
+      "author": {
+        "id": 14496
+      },
+      "writtenOn": "2022-08-08T14:03:51Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "be4f355b_838b2c80",
       "revId": "024f3d3046300ccaa78b6bd51621cb72584a89ca",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
