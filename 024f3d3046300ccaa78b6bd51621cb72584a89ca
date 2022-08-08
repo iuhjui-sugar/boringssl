@@ -230,6 +230,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "abc1ebce_374128ce",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 14761
+      },
+      "writtenOn": "2022-08-08T14:59:02Z",
+      "side": 1,
+      "message": "When running `-fetch` for RSA, my client receives two vector sets.",
+      "parentUuid": "7d491594_e192d5e1",
+      "revId": "024f3d3046300ccaa78b6bd51621cb72584a89ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "be4f355b_838b2c80",
         "filename": "util/fipstools/acvp/acvptool/acvp.go",
         "patchSetId": 6
