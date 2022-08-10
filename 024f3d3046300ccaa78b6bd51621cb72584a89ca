@@ -248,6 +248,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "51f18048_f6e29668",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 6
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 14496
+      },
+      "writtenOn": "2022-08-10T10:56:48Z",
+      "side": 1,
+      "message": "You are right, if an algorithm has more than one configuration such as in RSA and ECDSA, it will receive that many test vectors and current code will overwrite the previous test vector. What do you suggest, should we store both the test vectors and corresponding results?",
+      "parentUuid": "abc1ebce_374128ce",
+      "revId": "024f3d3046300ccaa78b6bd51621cb72584a89ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "be4f355b_838b2c80",
         "filename": "util/fipstools/acvp/acvptool/acvp.go",
         "patchSetId": 6
