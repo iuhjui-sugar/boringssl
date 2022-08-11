@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3831a4fd_191fde29",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 14761
+      },
+      "writtenOn": "2022-08-11T16:41:46Z",
+      "side": 1,
+      "message": "I think that providing a `-test_out` flag should direct test vectors to a file only and not mirror them to Stdout. See below for a way to do this.",
+      "range": {
+        "startLine": 478,
+        "startChar": 8,
+        "endLine": 478,
+        "endChar": 20
+      },
+      "revId": "d5e91328120732594cd7494c25ff8da2560b9344",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5a43842_89a58297",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 14761
+      },
+      "writtenOn": "2022-08-11T16:41:46Z",
+      "side": 1,
+      "message": "Rather than having an intermediate `bytes.Buffer` for testOut and resultOut, you can conditionally open the files here and write directly to them as you go. This also allows you to write outputs once to either the test vector output file or Stdout as determined by the `-test_out` flag.\n\nEx:\n```\n    testOutFile :\u003d os.Stdout\n    if len(*testOut) \u003e 0 {\n        if len(*fetchFlag) \u003d\u003d 0 {\n            log.Fatalf(\"cannot specify -test_out flag without -fetch flag\")\n        }\n        testOutFile, err \u003d os.OpenFile(*testOut, os.O_WRONLY | os.O_CREATE | os.O_TRUNC, 0644)\n        if err !\u003d nil {\n            log.Fatalf(\"Open test file at %s: %v\", *testOut, err)\n        }\n        defer testOutFile.Close()\n    }\n```\n\nAnd do the same for resultOut below.",
+      "range": {
+        "startLine": 478,
+        "startChar": 0,
+        "endLine": 482,
+        "endChar": 2
+      },
+      "revId": "d5e91328120732594cd7494c25ff8da2560b9344",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e106334_12f9542e",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 488,
+      "author": {
+        "id": 14761
+      },
+      "writtenOn": "2022-08-11T16:41:46Z",
+      "side": 1,
+      "message": "```\n    var resultOutFile *os.File\n    if len(*resultOut) \u003e 0 {\n        if len(*fetchFlag) \u003d\u003d 0 {\n            log.Fatalf(\"cannot specify -result_out flag without -fetch flag\")\n        }\n        resultOutFile, err \u003d os.OpenFile(*resultOut, os.O_WRONLY | os.O_CREATE | os.O_TRUNC, 0644)\n        if err !\u003d nil {\n            log.Fatalf(\"Open result file at %s: %v\", *resultOut, err)\n        }\n        defer resultOutFile.Close()\n    }\n```",
+      "range": {
+        "startLine": 484,
+        "startChar": 0,
+        "endLine": 488,
+        "endChar": 2
+      },
+      "revId": "d5e91328120732594cd7494c25ff8da2560b9344",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "263721d7_4b65ccc2",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 14761
+      },
+      "writtenOn": "2022-08-11T16:41:46Z",
+      "side": 1,
+      "message": "This is copied from the block above. Refactor to remove the duplication.",
+      "range": {
+        "startLine": 591,
+        "startChar": 0,
+        "endLine": 595,
+        "endChar": 2
+      },
+      "revId": "d5e91328120732594cd7494c25ff8da2560b9344",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00a33edb_033b525d",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 11
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 14761
+      },
+      "writtenOn": "2022-08-11T16:41:46Z",
+      "side": 1,
+      "message": "Write directly to `testOutFile` and `resultOutFile` instead of intermediate buffers.",
+      "range": {
+        "startLine": 599,
+        "startChar": 0,
+        "endLine": 605,
+        "endChar": 37
+      },
+      "revId": "d5e91328120732594cd7494c25ff8da2560b9344",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
