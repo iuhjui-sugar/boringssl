@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52030b3b_1d8f870e",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1384,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-08-12T20:31:53Z",
+      "side": 1,
+      "message": "Do we want to handle SSL_ERROR_ZERO_RETURN and assert(false)?",
+      "revId": "33bf6c24b8b5aadee648359c4b6b9aa8a4f2543b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
