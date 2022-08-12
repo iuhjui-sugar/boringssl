@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ce80347_a46d1efc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14761
+      },
+      "writtenOn": "2022-08-12T16:19:26Z",
+      "side": 1,
+      "message": "Looks good Suresh. This change has been useful for me during RSA testing.",
+      "revId": "20a067d962fa2130927346408eba3ae3536a2a81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11a7c8f2_5fc803a2",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 12
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 14761
+      },
+      "writtenOn": "2022-08-12T16:19:26Z",
+      "side": 1,
+      "message": "Since this is only used once (passed into `json.MarshalIndent()`) you can create it inline instead of declaring a dedicated variable.\n\nEx:\n```\nheaderBytes, err :\u003d json.MarshalIndent(map[string]interface{}{\n\t\t\t\"url\":           url,\n\t\t\t\"vectorSetUrls\": result.VectorSetURLs,\n\t\t\t\"time\":          time.Now().Format(time.RFC3339),\n\t\t      }, \"\", \"    \")\n```",
+      "range": {
+        "startLine": 596,
+        "startChar": 2,
+        "endLine": 596,
+        "endChar": 7
+      },
+      "revId": "20a067d962fa2130927346408eba3ae3536a2a81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
