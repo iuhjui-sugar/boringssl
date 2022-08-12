@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e3f4fb9_41ef4622",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-08-12T20:32:31Z",
+      "side": 1,
+      "message": "(unexpected end of sentence.)",
+      "range": {
+        "startLine": 12,
+        "startChar": 21,
+        "endLine": 12,
+        "endChar": 24
+      },
+      "revId": "4b85f403bdbf7d859938487ce43302f76ab8e828",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10cb05df_5aa3d014",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-08-12T20:32:31Z",
+      "side": 1,
+      "message": "(Sorry, this has been sitting in draft-state all this time!)",
+      "revId": "4b85f403bdbf7d859938487ce43302f76ab8e828",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a15206a_256d67f2",
+        "filename": "crypto/x509/rsa_pss.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-08-12T20:32:31Z",
+      "side": 1,
+      "message": "your call, but this seems a bit superfluous given the previous line.",
+      "revId": "4b85f403bdbf7d859938487ce43302f76ab8e828",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f6bf347_7ba7c387",
+        "filename": "crypto/x509/rsa_pss.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-08-12T20:32:31Z",
+      "side": 1,
+      "message": "(ditto.)",
+      "revId": "4b85f403bdbf7d859938487ce43302f76ab8e828",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
