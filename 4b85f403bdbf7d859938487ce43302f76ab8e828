@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "09325689_78577be6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-13T00:08:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e3f4fb9_41ef4622",
+      "range": {
+        "startLine": 12,
+        "startChar": 21,
+        "endLine": 12,
+        "endChar": 24
+      },
+      "revId": "4b85f403bdbf7d859938487ce43302f76ab8e828",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "10cb05df_5aa3d014",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 7
@@ -60,6 +84,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "615739fc_7076ff86",
+        "filename": "crypto/x509/rsa_pss.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-13T00:08:41Z",
+      "side": 1,
+      "message": "Replaced with a comment about ignoring the DEFAULT/omitted case.",
+      "parentUuid": "7a15206a_256d67f2",
+      "revId": "4b85f403bdbf7d859938487ce43302f76ab8e828",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4f6bf347_7ba7c387",
         "filename": "crypto/x509/rsa_pss.c",
         "patchSetId": 7
@@ -71,6 +113,24 @@
       "writtenOn": "2022-08-12T20:32:31Z",
       "side": 1,
       "message": "(ditto.)",
+      "revId": "4b85f403bdbf7d859938487ce43302f76ab8e828",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "95a59f3d_5ef51deb",
+        "filename": "crypto/x509/rsa_pss.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-13T00:08:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f6bf347_7ba7c387",
       "revId": "4b85f403bdbf7d859938487ce43302f76ab8e828",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
