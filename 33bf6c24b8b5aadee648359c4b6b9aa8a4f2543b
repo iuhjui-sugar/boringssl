@@ -16,6 +16,24 @@
       "message": "Do we want to handle SSL_ERROR_ZERO_RETURN and assert(false)?",
       "revId": "33bf6c24b8b5aadee648359c4b6b9aa8a4f2543b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f2cd89d_cb783bef",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1384,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-13T00:05:37Z",
+      "side": 1,
+      "message": "The implementation of SSL_write_ex will actually be to merge the ret \u003d\u003d 0 and ret \u003d\u003d -1 cases anyway. The reason to rejigger all this is that SSL_write_ex returns 0 on error, which means 0 now can mean either EOF or error. Strictly speaking, we don\u0027t need to allow -1 to mean EOF, but OpenSSL ended up just no longer distinguishing 0 and -1 in SSL_get_error at all (except I think they got some of these shutdown edge cases wrong).\n\nHaven\u0027t uploaded that mostly because it seems weird to have SSL_write_ex without SSL_read_ex and I still need to finish up SSL_read_ex.",
+      "parentUuid": "52030b3b_1d8f870e",
+      "revId": "33bf6c24b8b5aadee648359c4b6b9aa8a4f2543b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
