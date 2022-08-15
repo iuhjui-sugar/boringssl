@@ -34,6 +34,24 @@
       "parentUuid": "52030b3b_1d8f870e",
       "revId": "33bf6c24b8b5aadee648359c4b6b9aa8a4f2543b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd112ade_3741077b",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1384,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-08-15T19:10:26Z",
+      "side": 1,
+      "message": "I think this means \"not yet, it\u0027ll be handled in a future CL\". SGTM.",
+      "parentUuid": "6f2cd89d_cb783bef",
+      "revId": "33bf6c24b8b5aadee648359c4b6b9aa8a4f2543b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
