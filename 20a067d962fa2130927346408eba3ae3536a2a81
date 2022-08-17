@@ -39,6 +39,30 @@
       },
       "revId": "20a067d962fa2130927346408eba3ae3536a2a81",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba099c6d_1ae39f59",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 12
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 14496
+      },
+      "writtenOn": "2022-08-17T07:19:37Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "11a7c8f2_5fc803a2",
+      "range": {
+        "startLine": 596,
+        "startChar": 2,
+        "endLine": 596,
+        "endChar": 7
+      },
+      "revId": "20a067d962fa2130927346408eba3ae3536a2a81",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
