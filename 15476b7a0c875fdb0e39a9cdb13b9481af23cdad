@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0de6b87e_90747cf2",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 13
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 14521
+      },
+      "writtenOn": "2022-08-17T21:28:21Z",
+      "side": 1,
+      "message": "What happens if testOutFlag isn\u0027t defined?  It looks like we would try to write to an unopened file.  I would expect acvptool to print to stdout.",
+      "revId": "15476b7a0c875fdb0e39a9cdb13b9481af23cdad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0cf634a_6c53be36",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 13
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 14521
+      },
+      "writtenOn": "2022-08-17T21:28:21Z",
+      "side": 1,
+      "message": "Could these three if statements be combined?\n```\nif len(*fetchFlag) \u003e 0 {\n...\nif len(*resultOutFlag) \u003e 0 {\n...\n}\nbreak;\n}\n```",
+      "range": {
+        "startLine": 639,
+        "startChar": 3,
+        "endLine": 671,
+        "endChar": 4
+      },
+      "revId": "15476b7a0c875fdb0e39a9cdb13b9481af23cdad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b96ec76_6286eecf",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 13
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 14521
+      },
+      "writtenOn": "2022-08-17T21:28:21Z",
+      "side": 1,
+      "message": "What happens if testOutFlag isn\u0027t defined?  It looks like we would try to write to an unopened file.  I would expect acvptool to print to stdout.",
+      "revId": "15476b7a0c875fdb0e39a9cdb13b9481af23cdad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
