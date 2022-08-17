@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d88c5b13_d50b1cb3",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 13
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 14761
+      },
+      "writtenOn": "2022-08-17T21:31:04Z",
+      "side": 1,
+      "message": "See line 478: `testOutFile :\u003d os.Stdout`",
+      "parentUuid": "0de6b87e_90747cf2",
+      "revId": "15476b7a0c875fdb0e39a9cdb13b9481af23cdad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e0cf634a_6c53be36",
         "filename": "util/fipstools/acvp/acvptool/acvp.go",
         "patchSetId": 13
