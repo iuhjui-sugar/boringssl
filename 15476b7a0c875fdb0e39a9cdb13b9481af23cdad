@@ -74,6 +74,24 @@
       "message": "What happens if testOutFlag isn\u0027t defined?  It looks like we would try to write to an unopened file.  I would expect acvptool to print to stdout.",
       "revId": "15476b7a0c875fdb0e39a9cdb13b9481af23cdad",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68b5220a_fcccc43c",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 13
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 14496
+      },
+      "writtenOn": "2022-08-18T06:25:50Z",
+      "side": 1,
+      "message": "It will print to stdout as the value is initialized with os.StdOut and overwritten when the testoutflag is provided.",
+      "parentUuid": "2b96ec76_6286eecf",
+      "revId": "15476b7a0c875fdb0e39a9cdb13b9481af23cdad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
