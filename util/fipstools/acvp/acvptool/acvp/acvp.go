@@ -638,10 +638,11 @@ type TestSession struct {
 }
 
 type Vectors struct {
-	Retry    uint64 `json:"retry,omitempty"`
-	ID       uint64 `json:"vsId"`
-	Algo     string `json:"algorithm,omitempty"`
-	Revision string `json:"revision,omitempty"`
+	Retry        uint64 `json:"retry,omitempty"`
+	ID           uint64 `json:"vsId"`
+	Algo         string `json:"algorithm,omitempty"`
+	Revision     string `json:"revision,omitempty"`
+	ShowExpected bool   `json:"showExpected, omitempty"`
 }
 
 type LargeUploadRequest struct {
@@ -660,4 +661,9 @@ type SessionResults struct {
 		URL    string `json:"vectorSetUrl,omitempty"`
 		Status string `json:"status"`
 	} `json:"results"`
+}
+
+type VectorResults struct {
+	ACVPVersion       string           `json:"acvpVersion,omitempty"`
+	CorrectionResults *json.RawMessage `json:"results,omitempty"`
 }

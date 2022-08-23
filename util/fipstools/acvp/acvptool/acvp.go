@@ -678,8 +678,9 @@ func main() {
 			}
 
 			headerBytes, err := json.Marshal(acvp.Vectors{
-				ID:   vectors.ID,
-				Algo: vectors.Algo,
+				ID:           vectors.ID,
+				Algo:         vectors.Algo,
+				ShowExpected: true,
 			})
 			if err != nil {
 				log.Printf("Failed to marshal result: %s", err)
@@ -771,6 +772,14 @@ FetchResults:
 
 		if results.Passed {
 			log.Print("Test passed")
+			for _, setURL := range result.VectorSetURLs {
+				var corrections acvp.VectorResults
+				if err := server.Get(&corrections, trimLeadingSlash(setURL)+"/results"); err != nil {
+					log.Fatalf("Failed to fetch session results: %s", err)
+				}
+
+				log.Fatalf("Server accepted results: %#v", corrections)
+			}
 			break
 		}
 
@@ -782,6 +791,13 @@ FetchResults:
 			}
 		}
 
-		log.Fatalf("Server did not accept results: %#v", results)
+		for _, setURL := range result.VectorSetURLs {
+			var corrections acvp.VectorResults
+			if err := server.Get(&corrections, trimLeadingSlash(setURL)+"/results"); err != nil {
+				log.Fatalf("Failed to fetch session results: %s", err)
+			}
+
+			log.Fatalf("Server did not accept results, please check log file for hint on failed test cases: %#v", corrections)
+		}
 	}
 }
