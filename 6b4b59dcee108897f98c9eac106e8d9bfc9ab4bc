@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc47ff6a_6d67f012",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-24T14:07:34Z",
+      "side": 1,
+      "message": "Thanks! I guess https://boringssl.googlesource.com/boringssl/+/4566bb5fe517f7f141b5fe935c559fc4311af35d%5E%21/include/openssl/base.h wasn\u0027t actually needed then. :-)",
+      "revId": "6b4b59dcee108897f98c9eac106e8d9bfc9ab4bc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
