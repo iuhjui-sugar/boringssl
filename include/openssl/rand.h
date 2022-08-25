@@ -28,6 +28,15 @@ extern "C" {
 // RAND_bytes writes |len| bytes of random data to |buf| and returns one.
 OPENSSL_EXPORT int RAND_bytes(uint8_t *buf, size_t len);
 
+// RAND_getentropy writes |len| bytes of random data from a system
+// entropy source to |buf| It returns 1 on success and zero on
+// error. It is an error to request more than 256 bytes.
+// RAND_bytes should normally be used instead of this function.
+// This function should only be used for seed values or where
+// malloc() can not be called.
+// This function is not FIPS compliant.
+OPENSSL_EXPORT int RAND_getentropy(uint8_t *buf, size_t len);
+
 // RAND_cleanup frees any resources used by the RNG. This is not safe if other
 // threads might still be calling |RAND_bytes|.
 OPENSSL_EXPORT void RAND_cleanup(void);
