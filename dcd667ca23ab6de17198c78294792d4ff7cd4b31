@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5af11d1f_aab37232",
+        "filename": "crypto/fipsmodule/rand/rand.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 474,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-08-25T23:57:08Z",
+      "side": 1,
+      "message": "always { } in BoringSSL.",
+      "revId": "dcd667ca23ab6de17198c78294792d4ff7cd4b31",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2f156dc_8b9f1cec",
+        "filename": "include/openssl/rand.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-08-25T23:57:08Z",
+      "side": 1,
+      "message": "\"length of entropy that\"",
+      "range": {
+        "startLine": 35,
+        "startChar": 3,
+        "endLine": 35,
+        "endChar": 22
+      },
+      "revId": "dcd667ca23ab6de17198c78294792d4ff7cd4b31",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
