@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be643e69_da2952af",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-26T18:52:58Z",
+      "side": 1,
+      "message": "To link to the Chromium bug, add:\n\nBug: chromium:1295105\n\n(The full syntax is project:number, and if you omit the project, it defaults to boringssl for us, and chromium for Chromium.)",
+      "revId": "0b3c962c3e20fe845d9facf5216573190757a74d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e565bdc_cb93bc1c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-26T18:52:58Z",
+      "side": 1,
+      "message": "Seems reasonable, though we should confirm this is indeed what dcheng wants.",
+      "revId": "0b3c962c3e20fe845d9facf5216573190757a74d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "168f0e7a_a83c93aa",
+        "filename": "include/openssl/rand.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-26T18:52:58Z",
+      "side": 1,
+      "message": "Nit: |abort| will render as fixed-width in the docs generator. (One of these days we should mass convert this to backticks. They seem to have won out over the vertical bars we use.) Ditto for abort(), RAND_bytes, and malloc() below.",
+      "range": {
+        "startLine": 30,
+        "startChar": 3,
+        "endLine": 30,
+        "endChar": 10
+      },
+      "revId": "0b3c962c3e20fe845d9facf5216573190757a74d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
