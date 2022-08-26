@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "a5c05a29_bc034ec0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-08-26T19:04:20Z",
+      "side": 1,
+      "message": "Aha.. I wanted to do that and didn\u0027t know how ;)",
+      "parentUuid": "be643e69_da2952af",
+      "revId": "0b3c962c3e20fe845d9facf5216573190757a74d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "7e565bdc_cb93bc1c",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 6
@@ -48,6 +66,30 @@
       "writtenOn": "2022-08-26T18:52:58Z",
       "side": 1,
       "message": "Nit: |abort| will render as fixed-width in the docs generator. (One of these days we should mass convert this to backticks. They seem to have won out over the vertical bars we use.) Ditto for abort(), RAND_bytes, and malloc() below.",
+      "range": {
+        "startLine": 30,
+        "startChar": 3,
+        "endLine": 30,
+        "endChar": 10
+      },
+      "revId": "0b3c962c3e20fe845d9facf5216573190757a74d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4826372_e1a22686",
+        "filename": "include/openssl/rand.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-08-26T19:04:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "168f0e7a_a83c93aa",
       "range": {
         "startLine": 30,
         "startChar": 3,
