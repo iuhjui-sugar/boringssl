@@ -16,6 +16,63 @@
       "message": "looks reasonable to me, thanks!",
       "revId": "8d9298493586f217e81127d42207c6502636dea7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7d29d10_1c6c9394",
+        "filename": "include/openssl/rand.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-29T16:07:54Z",
+      "side": 1,
+      "message": "Super nitpicky nitpick, this can be reflowed *slightly* tighter. Looks like this got wrapped at 72 chars rather than 80.\n\n```\n// RAND_bytes writes |len| bytes of random data to |buf| and returns one. In the\n// event that sufficient random data can not be obtained, |abort| is called.\n```",
+      "revId": "8d9298493586f217e81127d42207c6502636dea7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25485053_fb21374e",
+        "filename": "include/openssl/rand.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-29T16:07:54Z",
+      "side": 1,
+      "message": "Looking at malloc calls a bit more carefully, we\u0027ve got:\n\nurandom.c:\n- syscall(__NR_getrandom): OK\n- __system_property_get: OK; Android FIPS only, seems to just be a std::map lookup under the hood\n- OPENSSL_strcasecmp: OK\n- __builtin_available: ???; macOS only. This is interesting because it calls into this mess under the hood. https://github.com/llvm/llvm-project/blob/main/compiler-rt/lib/builtins/os_version_check.c.\n- open: OK\n- perror: ???; does that malloc under the hood? I don\u0027t actually know\n- abort: OK\n- fcntl: OK\n- getauxval: OK I hope?\n- fprintf: ???; does that malloc under the hood?\n- ioctl: OK (FIPS only anyway)\n- usleep: OK (FIPS only anyway)\n- getentropy: OK\n- read: OK\n- pthread_once: OK (one hopes)\n\nfuchsia.c:\n- zx_cprng_draw: OK; just a syscall\n\nwindows.c:\n- RtlGenRandom: OK; hopefully close to a syscall\n- BCryptGenRandom: ???; only in UWP configurations, so doesn\u0027t affect Chromium, but I think this might call into all kinds of Windows provider goop, hopefully doesn\u0027t call malloc proper\n\nSome of the ???s are a little worrisome. In particular, I\u0027m not sure this is actually malloc-free on macOS. Admittedly, I think we just barely sneak by for Chromium because we set the minimum OS version to 10.13 (https://crbug.com/1322548), which, AIUI, statically deletes the check. Apple has some very interesting compiler support for their version checks. But \"malloc free if you set your minimum macOS version to at least 10.12\" is a weird API promise for us to make here.",
+      "range": {
+        "startLine": 39,
+        "startChar": 28,
+        "endLine": 39,
+        "endChar": 54
+      },
+      "revId": "8d9298493586f217e81127d42207c6502636dea7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf06cea9_740548f1",
+        "filename": "include/openssl/rand.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-29T16:07:54Z",
+      "side": 1,
+      "message": "Ditto on reflowing the text at 80 instead of 72.",
+      "revId": "8d9298493586f217e81127d42207c6502636dea7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
