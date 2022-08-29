@@ -1,0 +1,187 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25f443c6_daf8bfe1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-29T13:49:50Z",
+      "side": 1,
+      "message": "Thanks!",
+      "revId": "410f5e2e3bf00f78cb3c341f2309bcf0a5ebfefb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ff5efff_6c6bb551",
+        "filename": "crypto/cpu_aarch64_freebsd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-29T13:49:50Z",
+      "side": 1,
+      "message": "Since it\u0027s a new file, probably should use the current year",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "410f5e2e3bf00f78cb3c341f2309bcf0a5ebfefb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef6d7729_af923cdf",
+        "filename": "crypto/cpu_aarch64_freebsd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-29T13:49:50Z",
+      "side": 1,
+      "message": "I believe this\u0027ll break all non-FreeBSD platforms because you\u0027re defining OPENSSL_cpuid_setup on all OPENSSL_AARCH64 targets, not just OPENSSL_FREEBSD. Also, to be consistent with the other platforms, we ought to honor OPENSSL_STATIC_ARMCAP. So:\n\n```\n#include \"internal.h\"\n\n#if defined(OPENSSL_AARCH64) \u0026\u0026 defined(OPENSSL_FREEBSD) \u0026\u0026 \\\n    !defined(OPENSSL_STATIC_ARMCAP)\n    \n#include \u003csys/types.h\u003e\n#include \u003cmachine/_stdint.h\u003e\n#include \u003cmachine/armreg.h\u003e\n\n#include \u003copenssl/arm_arch.h\u003e\n\n\n#ifndef ID_AA64ISAR0_AES_VAL\n#define ID_AA64ISAR0_AES_VAL ID_AA64ISAR0_AES\n#endif\n#ifndef ID_AA64ISAR0_SHA1_VAL\n#define ID_AA64ISAR0_SHA1_VAL ID_AA64ISAR0_SHA1\n#endif\n#ifndef ID_AA64ISAR0_SHA2_VAL\n#define ID_AA64ISAR0_SHA2_VAL ID_AA64ISAR0_SHA2\n#endif\n\nextern uint32_t OPENSSL_armcap_P;\n\nvoid OPENSSL_cpuid_setup(void) {\n  ...\n```",
+      "revId": "410f5e2e3bf00f78cb3c341f2309bcf0a5ebfefb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3fd3860_aaba9654",
+        "filename": "crypto/cpu_aarch64_freebsd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-29T13:49:50Z",
+      "side": 1,
+      "message": "Are these compatibility defines for older versions of FreeBSD? Do you have a pointer to what versions introduced the new ones and whether the old ones are deprecated?",
+      "revId": "410f5e2e3bf00f78cb3c341f2309bcf0a5ebfefb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f06412a_7e846643",
+        "filename": "crypto/cpu_aarch64_freebsd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-29T13:49:50Z",
+      "side": 1,
+      "message": "Style nit: We do C99-style variable declarations, so this can just be:\n\n  uint64_t id_aa64isar0 \u003d READ_SPECIALREG(id_aa64isar0_el1);",
+      "revId": "410f5e2e3bf00f78cb3c341f2309bcf0a5ebfefb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "394414dd_59a1ee71",
+        "filename": "crypto/cpu_aarch64_freebsd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-29T13:49:50Z",
+      "side": 1,
+      "message": "I don\u0027t suppose there\u0027s documentation on how you\u0027re intended to use this? Based on the names, I\u0027m guessing FreeBSD\u0027s API is just the Arm registers. In that case, this check should be a \u003e\u003d, in case Arm introduces a new level of AES support.\n\nSee discussion at:\nhttps://bugs.fuchsia.dev/p/fuchsia/issues/detail?id\u003d90759#c1\nhttps://bugs.fuchsia.dev/p/fuchsia/issues/detail?id\u003d93666",
+      "range": {
+        "startLine": 51,
+        "startChar": 41,
+        "endLine": 51,
+        "endChar": 43
+      },
+      "revId": "410f5e2e3bf00f78cb3c341f2309bcf0a5ebfefb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8651097d_eb5dd1e3",
+        "filename": "crypto/cpu_aarch64_freebsd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-29T13:49:50Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 54,
+        "startChar": 42,
+        "endLine": 54,
+        "endChar": 44
+      },
+      "revId": "410f5e2e3bf00f78cb3c341f2309bcf0a5ebfefb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7bff8e0_482ddbe6",
+        "filename": "crypto/cpu_arm_freebsd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-29T13:49:50Z",
+      "side": 1,
+      "message": "Ditto about current year.",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "410f5e2e3bf00f78cb3c341f2309bcf0a5ebfefb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85372c49_91ef6e56",
+        "filename": "crypto/cpu_arm_freebsd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-29T13:49:50Z",
+      "side": 1,
+      "message": "Style nit: We usually write `sizeof(hwcap)`. Ditto below.",
+      "range": {
+        "startLine": 30,
+        "startChar": 33,
+        "endLine": 30,
+        "endChar": 39
+      },
+      "revId": "410f5e2e3bf00f78cb3c341f2309bcf0a5ebfefb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
