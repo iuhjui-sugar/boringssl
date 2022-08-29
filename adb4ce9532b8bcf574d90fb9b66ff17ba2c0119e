@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "54a25d38_d311a93b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-29T19:03:44Z",
+      "side": 1,
+      "message": "Oh, Gerrit is confusing. You need to preserve the \u0027Change-Id\u0027 line when amending the commit so it links the new upload with your old review request. But that\u0027s okay, we can just land this one. :-)",
+      "revId": "adb4ce9532b8bcf574d90fb9b66ff17ba2c0119e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
