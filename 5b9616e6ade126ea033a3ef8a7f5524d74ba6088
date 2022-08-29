@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a94533f5_717587f4",
+        "filename": "crypto/CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-29T18:48:41Z",
+      "side": 1,
+      "message": "Ah, handy. Thanks! I would suggest we just drop this condition, since CMake is taking care of it, but it looks like find_package(Threads) doesn\u0027t work on Android. (It indeed causes errors on my system.)\nhttps://stackoverflow.com/questions/5990661/cmake-find-packagethreads-for-android-cross-compilation\n\nBut it looks like it should work on Windows just fine. So let\u0027s at least drop the `NOT WIN32` condition and simplify things tiny bit.",
+      "revId": "5b9616e6ade126ea033a3ef8a7f5524d74ba6088",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
