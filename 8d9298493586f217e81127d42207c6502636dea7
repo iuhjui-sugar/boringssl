@@ -35,6 +35,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f53e11f_3a6b0eb1",
+        "filename": "include/openssl/rand.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-08-29T18:44:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7d29d10_1c6c9394",
+      "revId": "8d9298493586f217e81127d42207c6502636dea7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "25485053_fb21374e",
@@ -58,6 +76,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e07b27fd_237c0476",
+        "filename": "include/openssl/rand.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-08-29T18:44:11Z",
+      "side": 1,
+      "message": "perror and fprintf should be fine. the only thing that will call malloc in there is asprintf and friends. I\u0027ve modified the wording slightly to indicate that boringssl won\u0027t be calling malloc directly.",
+      "parentUuid": "25485053_fb21374e",
+      "range": {
+        "startLine": 39,
+        "startChar": 28,
+        "endLine": 39,
+        "endChar": 54
+      },
+      "revId": "8d9298493586f217e81127d42207c6502636dea7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bf06cea9_740548f1",
@@ -71,6 +113,24 @@
       "writtenOn": "2022-08-29T16:07:54Z",
       "side": 1,
       "message": "Ditto on reflowing the text at 80 instead of 72.",
+      "revId": "8d9298493586f217e81127d42207c6502636dea7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7576f6d5_b6bac8b1",
+        "filename": "include/openssl/rand.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-08-29T18:44:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf06cea9_740548f1",
       "revId": "8d9298493586f217e81127d42207c6502636dea7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
