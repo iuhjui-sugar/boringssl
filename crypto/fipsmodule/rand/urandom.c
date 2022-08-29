@@ -190,8 +190,14 @@ static void init_once(void) {
   return;
 #endif
 
-  // Android FIPS builds must support getrandom.
-#if defined(BORINGSSL_FIPS) && defined(OPENSSL_ANDROID)
+  // FIPS builds must support getrandom.
+  //
+  // TODO(davidben): Historically, only Android FIPS builds required getrandom,
+  // while Linux FIPS builds had a /dev/urandom fallback. This fallback uses
+  // RNDGETENTCNT as a poor approximation for getrandom's blocking behavior,
+  // which blocks unnecessarily. If the getrandom survives until March 2023,
+  // delete the RNDGETENTCNT code.
+#if defined(BORINGSSL_FIPS)
   perror("getrandom not found");
   abort();
 #endif

@@ -356,6 +356,17 @@ static std::vector<Event> TestFunctionPRNGModel(unsigned flags) {
   std::function<bool(bool, size_t)> sysrand;
 
   if (flags & NO_GETRANDOM) {
+    if (is_fips) {
+      // FIPS builds require getrandom.
+      //
+      // TODO(davidben): There is unreachable test code for handling
+      // RNDGETENTCNT and URANDOM_NOT_READY, to test older FIPS /dev/urandom
+      // logic. After March 2023, if we have not needed to restore that logic,
+      // unwind it all.
+      ret.push_back(Event::Abort());
+      return ret;
+    }
+
     ret.push_back(Event::Open("/dev/urandom"));
     if (flags & NO_URANDOM) {
       ret.push_back(Event::Abort());
