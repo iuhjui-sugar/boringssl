@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2c2cd48e_a0bf9b60",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-30T16:29:42Z",
+      "side": 1,
+      "message": "Ah, thanks! Is there a preferred one to use from the FreeBSD side? It seems NSS\u0027s FreeBSD support uses the register, but I don\u0027t have any particular preference.",
+      "parentUuid": "c1c6ddf3_b5892e88",
+      "revId": "410f5e2e3bf00f78cb3c341f2309bcf0a5ebfefb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4ff5efff_6c6bb551",
         "filename": "crypto/cpu_aarch64_freebsd.c",
         "patchSetId": 1
