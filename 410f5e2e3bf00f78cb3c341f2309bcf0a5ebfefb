@@ -53,6 +53,41 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f09fa0a_750891b5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14886
+      },
+      "writtenOn": "2022-08-30T17:35:02Z",
+      "side": 1,
+      "message": "Added a review.  I am the author of the cpu_arm_freebsd.c part of the patch set.",
+      "revId": "410f5e2e3bf00f78cb3c341f2309bcf0a5ebfefb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25dea1ba_a5913c8a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14886
+      },
+      "writtenOn": "2022-08-30T17:35:02Z",
+      "side": 1,
+      "message": "FreeBSD traps and emulates accesses to the normally privileged CPU feature registers on AArch64.  This permits user space applications to directly query for CPU features through the registers.  The main advantage of this approach is that it is forwards compatible, being able to detect presence of CPU features even if the kernel does not yet provide a HWCAP feature bit for the presence.\n\nI personally prefer to use the registers as that eliminates the variable of how the kernel has mangled the presence of features into HWCAP feature bits, but if you have a different preference in your project, this can be changed.",
+      "parentUuid": "2c2cd48e_a0bf9b60",
+      "revId": "410f5e2e3bf00f78cb3c341f2309bcf0a5ebfefb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4ff5efff_6c6bb551",
@@ -209,6 +244,30 @@
       "writtenOn": "2022-08-29T13:49:50Z",
       "side": 1,
       "message": "Style nit: We usually write `sizeof(hwcap)`. Ditto below.",
+      "range": {
+        "startLine": 30,
+        "startChar": 33,
+        "endLine": 30,
+        "endChar": 39
+      },
+      "revId": "410f5e2e3bf00f78cb3c341f2309bcf0a5ebfefb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3af80b96_90370e48",
+        "filename": "crypto/cpu_arm_freebsd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 14886
+      },
+      "writtenOn": "2022-08-30T17:35:02Z",
+      "side": 1,
+      "message": "Will change that in a revision of the patch.  Please note two subtle details: (a) elf_aux_info can fail in which case the buffer is not updated.  This causes OPENSSL_cpuid_setup to detect \"no features present,\" but does not raise an error.  If raising an error is preferred, I can try and update the code accordingly.  (b) I have omitted special handling for one CPU type from the Linux variant of the code as it looked complicated and the CPU in question does not seem to be used outside of smartphones.  I can try to put it into the FreeBSD variant if required.",
+      "parentUuid": "85372c49_91ef6e56",
       "range": {
         "startLine": 30,
         "startChar": 33,
