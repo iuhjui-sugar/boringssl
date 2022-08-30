@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "962d9046_11f7cc71",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 4178,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-08-30T20:16:05Z",
+      "side": 1,
+      "message": "So, I think this is the right approach, but have we thought about what custom callbacks need to do to ensure they are acting on the desired versions? In the past these would have (in theory assuming they have done it \"right\") known they were operating on the in progress session, they now will see the consistent established session, but 1) do they have a way to look at the nascent session until it is established? and 2) this effectively makes any such callback have to carry #if OPENSSL_IS_BORINGSSL code in their callback.. We ok with that?",
+      "revId": "9ae3715de18fef6b5c0154d3ba4a3f2ac0e64198",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
