@@ -18,6 +18,23 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1c6ddf3_b5892e88",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14881
+      },
+      "writtenOn": "2022-08-30T16:04:01Z",
+      "side": 1,
+      "message": "For the AArch64 code you should be able to use HWCAPS in a similar way to the 32-bit Arm code. The kernel will set them based on the ID registers in such a way that the register userspace can see and the HWCAP are consistent.",
+      "revId": "410f5e2e3bf00f78cb3c341f2309bcf0a5ebfefb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4ff5efff_6c6bb551",
