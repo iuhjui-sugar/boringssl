@@ -34,6 +34,24 @@
       "parentUuid": "962d9046_11f7cc71",
       "revId": "9ae3715de18fef6b5c0154d3ba4a3f2ac0e64198",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fcc29c6_df29a232",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 4178,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-08-30T22:56:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4495a661_3183956c",
+      "revId": "9ae3715de18fef6b5c0154d3ba4a3f2ac0e64198",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
