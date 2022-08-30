@@ -16,6 +16,24 @@
       "message": "So, I think this is the right approach, but have we thought about what custom callbacks need to do to ensure they are acting on the desired versions? In the past these would have (in theory assuming they have done it \"right\") known they were operating on the in progress session, they now will see the consistent established session, but 1) do they have a way to look at the nascent session until it is established? and 2) this effectively makes any such callback have to carry #if OPENSSL_IS_BORINGSSL code in their callback.. We ok with that?",
       "revId": "9ae3715de18fef6b5c0154d3ba4a3f2ac0e64198",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4495a661_3183956c",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 4178,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-30T22:51:15Z",
+      "side": 1,
+      "message": "I mostly figured it wouldn\u0027t come up and, if it does, we can probably see how it evolves and add APIs if they\u0027re needed, or just lock those properties from changing if we can get away with it. Agreed that a mess of OPENSSL_IS_BORINGSSL ifdefs in the ecosystem would be a bad outcome.\n\nWe don\u0027t allow renegotiation by default at all. Unless you call SSL_set_renegotiate_mode, which is BoringSSL-only, it won\u0027t happen. So that limits the callers that might come across this at all.\n\nWe also don\u0027t allow renegotiation on the server in any context, and most interesting callbacks are server callbacks. That also limits the cases where this might come up.\n\nSearching for \"callback\" in ssl.h and looking at the client ones, we\u0027ve got:\n\n- Cert selection callbacks. That one will get called on renego, but APIs like SSL_get_client_CA_list will return the pending ones, so that\u0027s fine. (We don\u0027t even retain the CA list after the handshake.)\n\n- SSL_CTX_sess_set_new_cb applies to the client, but we don\u0027t allow renego handshakes to participate in session resumption, so those won\u0027t get called on renego. (And if they did, they\u0027re called right at the end of the handshake, so this one should be fine.)\n\n- Cert verify callbacks. We don\u0027t call those on renego anymore; our story is we forbid the server leaf cert from changing, and then copy auth info (chain, OCSP, etc) from the initial handshake.\n\n- NPN protocol selection callback. I don\u0027t think we allow those on renego, but also we should get rid of NPN anyway.\n\n- PSK client callback. That one might come up... dunno if anyone would want to query handshake properties in that.\n\n- SSL_CTX_set_msg_callback and SSL_CTX_set_info_callback. Mostly a debugging callbacks, though yeah if someone queries handshake properties in their debugging callback it might be a little weird.\n\n- SSL_CTX_set_keylog_callback. Don\u0027t see a reason to query handshake properties in that one.\n\n- SSL_CTX_set_current_time_cb. Ditto. Also we should replace that to not use struct timeval. On Windows it\u0027s not 2038-clean because Windows only uses timeval in their sockets API to express durations.\n\nThe rest seem to be server callbacks. So I think it\u0027s unlikely to actually come up.",
+      "parentUuid": "962d9046_11f7cc71",
+      "revId": "9ae3715de18fef6b5c0154d3ba4a3f2ac0e64198",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
