@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81438b6c_9344c0c3",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-08-30T20:21:33Z",
+      "side": 1,
+      "message": "(update comment since the RNDGETENTCNT is disappearing.)",
+      "revId": "f3101764375389d76f85dfd4be489a109c7d9474",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "428e65e6_1074e8a6",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-08-30T20:21:33Z",
+      "side": 1,
+      "message": "Could we also remove this block since it should be unreachable now? (Then URANDOM_BLOCKS_FOR_ENTROPY can be removed too.)\n\nIt _could_ make reverting slightly harder, but carrying dead code seems funky.",
+      "revId": "f3101764375389d76f85dfd4be489a109c7d9474",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
