@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6d77bd0_38ca69a4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-30T18:02:09Z",
+      "side": 1,
+      "message": "Oh, mind adding \u0027Bug: 505\u0027 on a line here? That\u0027ll associate the change with the bug you filed.",
+      "revId": "410f5e2e3bf00f78cb3c341f2309bcf0a5ebfefb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "25f443c6_daf8bfe1",
@@ -84,6 +101,42 @@
       "side": 1,
       "message": "FreeBSD traps and emulates accesses to the normally privileged CPU feature registers on AArch64.  This permits user space applications to directly query for CPU features through the registers.  The main advantage of this approach is that it is forwards compatible, being able to detect presence of CPU features even if the kernel does not yet provide a HWCAP feature bit for the presence.\n\nI personally prefer to use the registers as that eliminates the variable of how the kernel has mangled the presence of features into HWCAP feature bits, but if you have a different preference in your project, this can be changed.",
       "parentUuid": "2c2cd48e_a0bf9b60",
+      "revId": "410f5e2e3bf00f78cb3c341f2309bcf0a5ebfefb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73ef8ef7_95dea55e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-30T18:02:09Z",
+      "side": 1,
+      "message": "Ah, I suppose Sergey should probably have checked with you before uploading this then. :-) I\u0027ll leave this thread unresolved so we remember to get a CLA on file from you before landing this.\n\nSergey, are you the author of cpu_aarch64_freebsd.c?",
+      "parentUuid": "2f09fa0a_750891b5",
+      "revId": "410f5e2e3bf00f78cb3c341f2309bcf0a5ebfefb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a763517_1c74cdf3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-30T18:02:09Z",
+      "side": 1,
+      "message": "Sounds good. Let\u0027s stick with registers then! No preference here. Since AArch64 believes this is the OS\u0027s responsibility, I\u0027m happy to defer to what the OS thinks is the preferred mechanism.\n\nWe use getauxval on Linux because, until recently[0], it was the only way to query it. Were we to switch to the register, we\u0027d have to figure out when it\u0027s available relative to getauxval and it seems easier to just stick with the thing that we know works. Though, yeah, life sure would have been simpler if everyone just trapped the register access.\n\n[0] https://docs.kernel.org/arm64/cpu-feature-registers.html",
+      "parentUuid": "25dea1ba_a5913c8a",
       "revId": "410f5e2e3bf00f78cb3c341f2309bcf0a5ebfefb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -268,6 +321,30 @@
       "side": 1,
       "message": "Will change that in a revision of the patch.  Please note two subtle details: (a) elf_aux_info can fail in which case the buffer is not updated.  This causes OPENSSL_cpuid_setup to detect \"no features present,\" but does not raise an error.  If raising an error is preferred, I can try and update the code accordingly.  (b) I have omitted special handling for one CPU type from the Linux variant of the code as it looked complicated and the CPU in question does not seem to be used outside of smartphones.  I can try to put it into the FreeBSD variant if required.",
       "parentUuid": "85372c49_91ef6e56",
+      "range": {
+        "startLine": 30,
+        "startChar": 33,
+        "endLine": 30,
+        "endChar": 39
+      },
+      "revId": "410f5e2e3bf00f78cb3c341f2309bcf0a5ebfefb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e955210d_d9149e1b",
+        "filename": "crypto/cpu_arm_freebsd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-30T18:02:09Z",
+      "side": 1,
+      "message": "(a) Ah, good to know. In most configurations this is called inside a static initializer, so there\u0027s not really much useful we can do on error anyway. What you\u0027ve got seems reasonable.\n\n(b) Nah, definitely a good call on omitting that. That thing is just a headache. :-) It may be time for us to retire that code too.",
+      "parentUuid": "3af80b96_90370e48",
       "range": {
         "startLine": 30,
         "startChar": 33,
