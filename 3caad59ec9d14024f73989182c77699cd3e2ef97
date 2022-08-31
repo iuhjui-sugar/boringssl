@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3a1cd46_5f03ca6e",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 770,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-08-31T20:51:51Z",
+      "side": 1,
+      "message": "The JDK downgrade indicator is currently tested for at TLS 1.3 level and expected to be accepted at TLS 1.2.",
+      "range": {
+        "startLine": 770,
+        "startChar": 10,
+        "endLine": 770,
+        "endChar": 76
+      },
+      "revId": "3caad59ec9d14024f73989182c77699cd3e2ef97",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
