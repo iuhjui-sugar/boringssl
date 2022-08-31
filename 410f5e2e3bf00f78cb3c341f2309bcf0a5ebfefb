@@ -159,6 +159,23 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8aa5422_dd7c31f9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13321
+      },
+      "writtenOn": "2022-08-31T07:27:13Z",
+      "side": 1,
+      "message": "I wonder why https://boringssl-review.googlesource.com/c/boringssl/+/49425 was rejected and this review accepted?",
+      "revId": "410f5e2e3bf00f78cb3c341f2309bcf0a5ebfefb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4ff5efff_6c6bb551",
