@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f82fed7d_4aa2ae27",
+        "filename": "crypto/fipsmodule/rsa/padding.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-31T18:13:08Z",
+      "side": 1,
+      "message": "Apparently this buffer is implicitly bound by RSA_size(rsa), which is quite gross but I guess that\u0027s the API we\u0027ve got. :-/",
+      "range": {
+        "startLine": 491,
+        "startChar": 30,
+        "endLine": 491,
+        "endChar": 47
+      },
+      "revId": "f97bf3179d4cc4c14ec95c9ab372fb2ba97e4236",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f9d9d18_bf1b289f",
+        "filename": "crypto/fipsmodule/rsa/padding.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-31T18:13:08Z",
+      "side": 1,
+      "message": "I didn\u0027t really care for this magically assuming the check does something sensible even if sLen \u003d\u003d -2. Also because negative numbers and size_t aren\u0027t friends.",
+      "range": {
+        "startLine": 528,
+        "startChar": 7,
+        "endLine": 528,
+        "endChar": 17
+      },
+      "revId": "f97bf3179d4cc4c14ec95c9ab372fb2ba97e4236",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
