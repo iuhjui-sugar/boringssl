@@ -69,6 +69,24 @@
       "parentUuid": "428e65e6_1074e8a6",
       "revId": "f3101764375389d76f85dfd4be489a109c7d9474",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d8ff1bc_4de75df7",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-31T20:00:33Z",
+      "side": 1,
+      "message": "Updated the commit message to reflect this.",
+      "parentUuid": "33f43d89_a125003e",
+      "revId": "f3101764375389d76f85dfd4be489a109c7d9474",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
