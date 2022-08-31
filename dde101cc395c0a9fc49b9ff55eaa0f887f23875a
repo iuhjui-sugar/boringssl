@@ -52,6 +52,24 @@
       "parentUuid": "c85a59ad_43fa3bd7",
       "revId": "dde101cc395c0a9fc49b9ff55eaa0f887f23875a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "926d8130_2db9aaa7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14851
+      },
+      "writtenOn": "2022-08-31T10:51:45Z",
+      "side": 1,
+      "message": "I do support security/boringssl port in FreeBSD ports tree for several months.  FreeBSD project has pretty good infrastructure to build and test.  Also, usually I commit updates for security/boringssl port on daily basis. Hope that can help with support BoringSSL on FreeBSD.",
+      "parentUuid": "01fca109_dd42d5c6",
+      "revId": "dde101cc395c0a9fc49b9ff55eaa0f887f23875a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
