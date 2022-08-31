@@ -753,22 +753,25 @@ static enum ssl_hs_wait_t do_read_server_hello(SSL_HANDSHAKE *hs) {
                  SSL3_RANDOM_SIZE);
 
   // Enforce the TLS 1.3 anti-downgrade feature.
-  if (!ssl->s3->initial_handshake_complete &&
-      ssl_supports_version(hs, TLS1_3_VERSION)) {
-    static_assert(
-        sizeof(kTLS12DowngradeRandom) == sizeof(kTLS13DowngradeRandom),
-        "downgrade signals have different size");
-    static_assert(
-        sizeof(kJDK11DowngradeRandom) == sizeof(kTLS13DowngradeRandom),
-        "downgrade signals have different size");
-    auto suffix =
-        MakeConstSpan(ssl->s3->server_random, sizeof(ssl->s3->server_random))
-            .subspan(SSL3_RANDOM_SIZE - sizeof(kTLS13DowngradeRandom));
-    if (suffix == kTLS12DowngradeRandom || suffix == kTLS13DowngradeRandom ||
-        suffix == kJDK11DowngradeRandom) {
-      OPENSSL_PUT_ERROR(SSL, SSL_R_TLS13_DOWNGRADE);
-      ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);
-      return ssl_hs_error;
+  if (!ssl->s3->initial_handshake_complete) {
+    uint16_t min_version, max_version;
+    if (ssl_get_version_range(hs, &min_version, &max_version)) {
+      static_assert(
+          sizeof(kTLS12DowngradeRandom) == sizeof(kTLS13DowngradeRandom),
+          "downgrade signals have different size");
+      static_assert(
+          sizeof(kJDK11DowngradeRandom) == sizeof(kTLS13DowngradeRandom),
+          "downgrade signals have different size");
+      auto suffix =
+          MakeConstSpan(ssl->s3->server_random, sizeof(ssl->s3->server_random))
+              .subspan(SSL3_RANDOM_SIZE - sizeof(kTLS13DowngradeRandom));
+      if ((max_version >= TLS1_2_VERSION && suffix == kTLS12DowngradeRandom) ||
+          (max_version >= TLS1_3_VERSION && suffix == kTLS13DowngradeRandom) ||
+          (max_version >= TLS1_3_VERSION && suffix == kJDK11DowngradeRandom)) {
+        OPENSSL_PUT_ERROR(SSL, SSL_R_TLS13_DOWNGRADE);
+        ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);
+        return ssl_hs_error;
+      }
     }
   }
 
