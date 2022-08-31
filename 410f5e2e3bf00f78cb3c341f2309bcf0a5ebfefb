@@ -143,6 +143,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5a6cdaaa_399c2eef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14851
+      },
+      "writtenOn": "2022-08-31T00:05:45Z",
+      "side": 1,
+      "message": "David, actually I\u0027m not the author, but I have https://bugs.freebsd.org/bugzilla/show_bug.cgi?id\u003d242388",
+      "parentUuid": "73ef8ef7_95dea55e",
+      "revId": "410f5e2e3bf00f78cb3c341f2309bcf0a5ebfefb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4ff5efff_6c6bb551",
         "filename": "crypto/cpu_aarch64_freebsd.c",
         "patchSetId": 1
@@ -194,6 +212,24 @@
       "writtenOn": "2022-08-29T13:49:50Z",
       "side": 1,
       "message": "Are these compatibility defines for older versions of FreeBSD? Do you have a pointer to what versions introduced the new ones and whether the old ones are deprecated?",
+      "revId": "410f5e2e3bf00f78cb3c341f2309bcf0a5ebfefb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c35b653e_707b7310",
+        "filename": "crypto/cpu_aarch64_freebsd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 14851
+      },
+      "writtenOn": "2022-08-31T00:05:45Z",
+      "side": 1,
+      "message": "There are three versions are supported at the moment: 12.3, 13.0 (till the end of August), 13.1, and FreeBSD-CURRENT (aka upcoming 14.0).",
+      "parentUuid": "b3fd3860_aaba9654",
       "revId": "410f5e2e3bf00f78cb3c341f2309bcf0a5ebfefb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
