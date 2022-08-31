@@ -753,8 +753,7 @@ static enum ssl_hs_wait_t do_read_server_hello(SSL_HANDSHAKE *hs) {
                  SSL3_RANDOM_SIZE);
 
   // Enforce the TLS 1.3 anti-downgrade feature.
-  if (!ssl->s3->initial_handshake_complete &&
-      ssl_supports_version(hs, TLS1_3_VERSION)) {
+  if (!ssl->s3->initial_handshake_complete) {
     static_assert(
         sizeof(kTLS12DowngradeRandom) == sizeof(kTLS13DowngradeRandom),
         "downgrade signals have different size");
@@ -763,10 +762,17 @@ static enum ssl_hs_wait_t do_read_server_hello(SSL_HANDSHAKE *hs) {
         "downgrade signals have different size");
     auto suffix =
         MakeConstSpan(ssl->s3->server_random, sizeof(ssl->s3->server_random))
-            .subspan(SSL3_RANDOM_SIZE - sizeof(kTLS13DowngradeRandom));
-    if (suffix == kTLS12DowngradeRandom || suffix == kTLS13DowngradeRandom ||
-        suffix == kJDK11DowngradeRandom) {
-      OPENSSL_PUT_ERROR(SSL, SSL_R_TLS13_DOWNGRADE);
+            .last(sizeof(kTLS13DowngradeRandom));
+    if ((hs->max_version >= TLS1_2_VERSION &&
+         ssl_protocol_version(ssl) < TLS1_2_VERSION &&
+         suffix == kTLS12DowngradeRandom) ||
+        (hs->max_version >= TLS1_3_VERSION &&
+         suffix == kTLS13DowngradeRandom) ||
+        (hs->max_version >= TLS1_3_VERSION &&
+         suffix == kJDK11DowngradeRandom)) {
+      OPENSSL_PUT_ERROR(SSL, hs->max_version == TLS1_2_VERSION
+                                 ? SSL_R_TLS12_DOWNGRADE
+                                 : SSL_R_TLS13_DOWNGRADE);
       ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);
       return ssl_hs_error;
     }

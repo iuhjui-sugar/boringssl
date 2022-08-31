@@ -1813,10 +1813,6 @@ type ProtocolBugs struct {
 	// that many bytes.
 	PadClientHello int
 
-	// SendTLS13DowngradeRandom, if true, causes the server to send the
-	// TLS 1.3 anti-downgrade signal.
-	SendTLS13DowngradeRandom bool
-
 	// IgnoreTLS13DowngradeRandom, if true, causes the client to ignore the
 	// TLS 1.3 anti-downgrade signal.
 	IgnoreTLS13DowngradeRandom bool
