@@ -35,6 +35,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a28f12f_07b26890",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 758,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-08-31T22:00:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86690207_7f4e1da6",
+      "revId": "3caad59ec9d14024f73989182c77699cd3e2ef97",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5cf2b557_039fe1b6",
@@ -48,6 +66,30 @@
       "writtenOn": "2022-08-31T21:12:40Z",
       "side": 1,
       "message": "We\u0027ve since added Span::last. Also spans work on arrays, so I suspect this can be:\n\n```\nauto suffix \u003d MakeConstSpan(ssl-\u003es3-\u003eserver_random).last(sizeof(kTLS13DowngradeRandom));\n```",
+      "range": {
+        "startLine": 767,
+        "startChar": 15,
+        "endLine": 767,
+        "endChar": 72
+      },
+      "revId": "3caad59ec9d14024f73989182c77699cd3e2ef97",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81b9381c_29010aab",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 767,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-08-31T22:00:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5cf2b557_039fe1b6",
       "range": {
         "startLine": 767,
         "startChar": 15,
@@ -88,6 +130,24 @@
       "writtenOn": "2022-08-31T21:12:40Z",
       "side": 1,
       "message": "I think this might also need to check `ssl_protocol_version(ssl) \u003c TLS1_2_VERSION`. RFC 8446 says you only reject this value if negotiating TLS 1.1 or below. (Although it shouldn\u0027t matter because the server\u0027s not supposed to send this in that case.)",
+      "revId": "3caad59ec9d14024f73989182c77699cd3e2ef97",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbb986f9_15222f05",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 768,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-08-31T22:00:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44c7a555_1a40f287",
       "revId": "3caad59ec9d14024f73989182c77699cd3e2ef97",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -152,6 +212,30 @@
       "writtenOn": "2022-08-31T21:12:40Z",
       "side": 1,
       "message": "Hmm, this error isn\u0027t quite accurate for kTLS12DowngradeRandom anymore, though I don\u0027t know how much it\u0027s worth caring. :-/",
+      "range": {
+        "startLine": 771,
+        "startChar": 31,
+        "endLine": 771,
+        "endChar": 52
+      },
+      "revId": "3caad59ec9d14024f73989182c77699cd3e2ef97",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0f353ed_2c57852e",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-08-31T22:00:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6118b18_300ac27d",
       "range": {
         "startLine": 771,
         "startChar": 31,
