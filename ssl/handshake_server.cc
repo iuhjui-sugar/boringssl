@@ -1001,22 +1001,23 @@ static enum ssl_hs_wait_t do_send_server_hello(SSL_HANDSHAKE *hs) {
     }
   }
 
-  // Implement the TLS 1.3 anti-downgrade feature.
-  if (ssl_supports_version(hs, TLS1_3_VERSION)) {
-    if (ssl_protocol_version(ssl) == TLS1_2_VERSION) {
-      if (hs->apply_jdk11_workaround) {
-        // JDK 11 implements the TLS 1.3 downgrade signal, so we cannot send it
-        // here. However, the signal is only effective if all TLS 1.2
-        // ServerHellos produced by the server are marked. Thus we send a
-        // different non-standard signal for the time being, until JDK 11.0.2 is
-        // released and clients have updated.
-        copy_suffix(ssl->s3->server_random, kJDK11DowngradeRandom);
-      } else {
-        copy_suffix(ssl->s3->server_random, kTLS13DowngradeRandom);
-      }
+  // Implement the TLS 1.3 / 1.2 anti-downgrade feature.
+  if (ssl_protocol_version(ssl) == TLS1_2_VERSION &&
+      hs->max_version >= TLS1_3_VERSION) {
+    if (hs->apply_jdk11_workaround) {
+      // JDK 11 implements the TLS 1.3 downgrade signal, so we cannot send
+      // it here. However, the signal is only effective if all TLS 1.2
+      // ServerHellos produced by the server are marked. Thus we send a
+      // different non-standard signal for the time being, until JDK 11.0.2
+      // is released and clients have updated.
+      copy_suffix(ssl->s3->server_random, kJDK11DowngradeRandom);
     } else {
-      copy_suffix(ssl->s3->server_random, kTLS12DowngradeRandom);
+      copy_suffix(ssl->s3->server_random, kTLS13DowngradeRandom);
     }
+  }
+  if (ssl_protocol_version(ssl) <= TLS1_1_VERSION &&
+      hs->max_version >= TLS1_2_VERSION) {
+    copy_suffix(ssl->s3->server_random, kTLS12DowngradeRandom);
   }
 
   Span<const uint8_t> session_id;

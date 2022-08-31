@@ -1422,16 +1422,13 @@ func (hs *serverHandshakeState) processClientHello() (isResume bool, err error) 
 		return false, err
 	}
 
-	_, supportsTLS13 := c.config.isSupportedVersion(VersionTLS13, false)
 
 	// Signal downgrades in the server random, per RFC 8446, section 4.1.3.
-	if supportsTLS13 || config.Bugs.SendTLS13DowngradeRandom {
-		if c.vers <= VersionTLS12 && config.maxVersion(c.isDTLS) >= VersionTLS13 {
-			copy(hs.hello.random[len(hs.hello.random)-8:], downgradeTLS13)
-		}
-		if c.vers <= VersionTLS11 && config.maxVersion(c.isDTLS) == VersionTLS12 {
-			copy(hs.hello.random[len(hs.hello.random)-8:], downgradeTLS12)
-		}
+	if c.vers <= VersionTLS12 && config.maxVersion(c.isDTLS) >= VersionTLS13 {
+		copy(hs.hello.random[len(hs.hello.random)-8:], downgradeTLS13)
+	}
+	if c.vers <= VersionTLS11 && config.maxVersion(c.isDTLS) >= VersionTLS12 {
+		copy(hs.hello.random[len(hs.hello.random)-8:], downgradeTLS12)
 	}
 	if config.Bugs.SendJDK11DowngradeRandom {
 		copy(hs.hello.random[len(hs.hello.random)-8:], downgradeJDK11)

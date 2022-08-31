@@ -6488,16 +6488,21 @@ func addVersionNegotiationTests() {
 		expectedError: ":UNSUPPORTED_PROTOCOL:",
 	})
 
-	// Test TLS 1.3's downgrade signal.
+	// Test TLS 1.3 and 1.2 downgrade signal.
 	var downgradeTests = []struct {
 		name            string
-		version         uint16
+		max             uint16
+	        version         uint16
 		clientShimError string
+                error           string
 	}{
-		{"TLS12", VersionTLS12, "tls: downgrade from TLS 1.3 detected"},
-		{"TLS11", VersionTLS11, "tls: downgrade from TLS 1.2 detected"},
+		{"TLS13-TLS12", VersionTLS13, VersionTLS12, "tls: downgrade from TLS 1.3 detected", "TLS13_DOWNGRADE"},
+		{"TLS13-TLS11", VersionTLS13, VersionTLS11, "tls: downgrade from TLS 1.2 detected", "TLS12_DOWNGRADE"},
 		// TLS 1.0 does not have a dedicated value.
-		{"TLS10", VersionTLS10, "tls: downgrade from TLS 1.2 detected"},
+		{"TLS13-TLS10", VersionTLS13, VersionTLS10, "tls: downgrade from TLS 1.2 detected", "TLS12_DOWNGRADE"},
+		{"TLS12-TLS11", VersionTLS12, VersionTLS11, "tls: downgrade from TLS 1.2 detected", "TLS12_DOWNGRADE"},
+		// TLS 1.0 does not have a dedicated value.
+		{"TLS12-TLS10", VersionTLS12, VersionTLS10, "tls: downgrade from TLS 1.2 detected", "TLS12_DOWNGRADE"},
 	}
 
 	for _, test := range downgradeTests {
@@ -6505,6 +6510,7 @@ func addVersionNegotiationTests() {
 		testCases = append(testCases, testCase{
 			name: "Downgrade-" + test.name + "-Client",
 			config: Config{
+                        	MaxVersion: test.max,
 				Bugs: ProtocolBugs{
 					NegotiateVersion: test.version,
 				},
@@ -6513,7 +6519,7 @@ func addVersionNegotiationTests() {
 				version: test.version,
 			},
 			shouldFail:         true,
-			expectedError:      ":TLS13_DOWNGRADE:",
+			expectedError:      test.error,
 			expectedLocalError: "remote error: illegal parameter",
 		})
 
@@ -6522,6 +6528,7 @@ func addVersionNegotiationTests() {
 			testType: serverTest,
 			name:     "Downgrade-" + test.name + "-Server",
 			config: Config{
+                        	MaxVersion: test.max,
 				Bugs: ProtocolBugs{
 					SendSupportedVersions: []uint16{test.version},
 				},
