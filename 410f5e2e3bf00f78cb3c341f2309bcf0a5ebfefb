@@ -213,6 +213,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dabe2488_1d7b41fc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14851
+      },
+      "writtenOn": "2022-08-31T19:18:32Z",
+      "side": 1,
+      "message": "I believe that everybody on this review has already submitted the CLA, Mikaël Urankar has done that in https://boringssl-review.googlesource.com/c/boringssl/+/49425, Robert has done also, and I\u0027m done.  Does anybody else need to submit the CLA?",
+      "parentUuid": "17700ad6_c1cc3492",
+      "revId": "410f5e2e3bf00f78cb3c341f2309bcf0a5ebfefb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4ff5efff_6c6bb551",
         "filename": "crypto/cpu_aarch64_freebsd.c",
         "patchSetId": 1
