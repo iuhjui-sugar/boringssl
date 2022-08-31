@@ -176,6 +176,41 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "91705624_036821a1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-08-31T19:01:58Z",
+      "side": 1,
+      "message": "It has become more likely that FreeBSD on Aarch64 will become a pertinent OS for us, although it remains the case that we have no builders for this platform and so we want to keep the code commitment minimal because we don\u0027t want to be breaking any supported platforms.",
+      "parentUuid": "e8aa5422_dd7c31f9",
+      "revId": "410f5e2e3bf00f78cb3c341f2309bcf0a5ebfefb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17700ad6_c1cc3492",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-08-31T19:01:58Z",
+      "side": 1,
+      "message": "I think it\u0027s clear from the comments that this submission, while submitted under the CLA, might not have met point (4): https://cla.developers.google.com/about/google-individual\n\nWe do need CLAs for submissions, however! It provides provide legal clarity and our lawyers are firm about this. We would not be able to move forward here unless the authors have signed the CLA and comment on this CL clearly expressing their desire that the code is submitted under the CLA. (I.e. the code must be \"intentionally submitted by You to Google\".)\n\nSorry about the paperwork, but I\u0027ve no ability to be flexible on these points.",
+      "revId": "410f5e2e3bf00f78cb3c341f2309bcf0a5ebfefb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4ff5efff_6c6bb551",
