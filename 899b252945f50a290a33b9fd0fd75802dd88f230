@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d992237_01534e41",
+        "filename": "crypto/fipsmodule/cipher/cipher.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-08-31T18:37:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da12dd5e_6ce84420",
+      "revId": "899b252945f50a290a33b9fd0fd75802dd88f230",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c73f24a4_2ecdcf32",
@@ -35,6 +53,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "09575532_ce817957",
+        "filename": "crypto/fipsmodule/cipher/cipher.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-08-31T18:37:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c73f24a4_2ecdcf32",
+      "revId": "899b252945f50a290a33b9fd0fd75802dd88f230",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d418aa7b_9c222068",
@@ -48,6 +84,24 @@
       "writtenOn": "2022-08-31T18:07:10Z",
       "side": 1,
       "message": "Might be worth explaining why we need a poison bit. Perhaps:\n\n// If the first call to |cipher| succeeds and the second fails, |ctx| may be left in an indeterminate state. We set a poison bit on failure to ensure callers do not continue to use the object in this state.",
+      "revId": "899b252945f50a290a33b9fd0fd75802dd88f230",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51b7973a_abbab6d6",
+        "filename": "crypto/fipsmodule/cipher/cipher.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-08-31T18:37:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d418aa7b_9c222068",
       "revId": "899b252945f50a290a33b9fd0fd75802dd88f230",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
