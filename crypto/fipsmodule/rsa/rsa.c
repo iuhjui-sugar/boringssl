@@ -526,19 +526,23 @@ int RSA_add_pkcs1_prefix(uint8_t **out_msg, size_t *out_msg_len,
 }
 
 int rsa_sign_no_self_test(int hash_nid, const uint8_t *digest,
-                          unsigned digest_len, uint8_t *out, unsigned *out_len,
+                          size_t digest_len, uint8_t *out, unsigned *out_len,
                           RSA *rsa) {
+  if (rsa->meth->sign) {
+    if (digest_len > UINT_MAX) {
+      OPENSSL_PUT_ERROR(RSA, RSA_R_INVALID_MESSAGE_LENGTH);
+      return 0;
+    }
+    return rsa->meth->sign(hash_nid, digest, (unsigned)digest_len, out, out_len,
+                           rsa);
+  }
+
   const unsigned rsa_size = RSA_size(rsa);
   int ret = 0;
   uint8_t *signed_msg = NULL;
   size_t signed_msg_len = 0;
   int signed_msg_is_alloced = 0;
   size_t size_t_out_len;
-
-  if (rsa->meth->sign) {
-    return rsa->meth->sign(hash_nid, digest, digest_len, out, out_len, rsa);
-  }
-
   if (!RSA_add_pkcs1_prefix(&signed_msg, &signed_msg_len,
                             &signed_msg_is_alloced, hash_nid, digest,
                             digest_len) ||
@@ -563,7 +567,7 @@ err:
   return ret;
 }
 
-int RSA_sign(int hash_nid, const uint8_t *digest, unsigned digest_len,
+int RSA_sign(int hash_nid, const uint8_t *digest, size_t digest_len,
              uint8_t *out, unsigned *out_len, RSA *rsa) {
   boringssl_ensure_rsa_self_test();
 
