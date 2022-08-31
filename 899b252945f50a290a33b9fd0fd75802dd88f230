@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da12dd5e_6ce84420",
+        "filename": "crypto/fipsmodule/cipher/cipher.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-31T18:07:10Z",
+      "side": 1,
+      "message": "We probably need to unpoison the structure in this function. You\u0027re allowed to reuse an EVP_CIPHER_CTX for multiple operations (this way you don\u0027t compute the AES key schedule more than once) by passing in NULL to cipher and key. And you can also reuse the EVP_CIPHER_CTX for a completely unrelated operation by passing in non-NULL values, though that one doesn\u0027t have much of a legitimate use case.\n\nIn particular, if one operation failed because of bad input, the caller may legitimately try to decrypt other inputs with the same key.",
+      "revId": "899b252945f50a290a33b9fd0fd75802dd88f230",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c73f24a4_2ecdcf32",
+        "filename": "crypto/fipsmodule/cipher/cipher.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-31T18:07:10Z",
+      "side": 1,
+      "message": "Nit: No need for blank line here.",
+      "revId": "899b252945f50a290a33b9fd0fd75802dd88f230",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d418aa7b_9c222068",
+        "filename": "crypto/fipsmodule/cipher/cipher.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-31T18:07:10Z",
+      "side": 1,
+      "message": "Might be worth explaining why we need a poison bit. Perhaps:\n\n// If the first call to |cipher| succeeds and the second fails, |ctx| may be left in an indeterminate state. We set a poison bit on failure to ensure callers do not continue to use the object in this state.",
+      "revId": "899b252945f50a290a33b9fd0fd75802dd88f230",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
