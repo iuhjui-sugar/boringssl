@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28469553_e70ebe43",
+        "filename": "crypto/fipsmodule/dh/dh.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-08-31T21:22:35Z",
+      "side": 1,
+      "message": "I believe you, but the documentation in bn.h doesn\u0027t reflect this. it probably needs to be updated to say this, rendering comments like this unnecessary, especially when BN_bn2bin returns size_t and BN_bn2bin_padded returns int... bleah.",
+      "range": {
+        "startLine": 371,
+        "startChar": 0,
+        "endLine": 371,
+        "endChar": 45
+      },
+      "revId": "96b6b2de4e444059a992af481b02476b084b18b7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
