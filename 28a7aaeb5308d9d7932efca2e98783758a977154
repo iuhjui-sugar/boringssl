@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e4a8c0c_cbb4b760",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-31T19:59:31Z",
+      "side": 1,
+      "message": "A lot of this is kinda gross. :-/",
+      "revId": "28a7aaeb5308d9d7932efca2e98783758a977154",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12fb7190_cf562c92",
+        "filename": "crypto/fipsmodule/aes/aes_nohw.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1195,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-31T19:59:31Z",
+      "side": 1,
+      "message": "I originally changed `i` to `uint32_t`, but I think the cast is actually correct because this is a ctr32 implementation. Even if there were more than 2^32 blocks, it would be defined to truncate.",
+      "revId": "28a7aaeb5308d9d7932efca2e98783758a977154",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17b433e3_f9ccc6ae",
+        "filename": "crypto/fipsmodule/bn/div_extra.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-31T19:59:31Z",
+      "side": 1,
+      "message": "This\u0027ll fit in uint32_t because the proof checked out. :-)",
+      "revId": "28a7aaeb5308d9d7932efca2e98783758a977154",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12316f4a_9ef6bcac",
+        "filename": "crypto/fipsmodule/cipher/e_aes.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 563,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-31T19:59:31Z",
+      "side": 1,
+      "message": "This should never happen because the EVP_CIPHER interface can only pass in int. Not sure why this is size_t input and int output, but we should replace this calling convention.",
+      "revId": "28a7aaeb5308d9d7932efca2e98783758a977154",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

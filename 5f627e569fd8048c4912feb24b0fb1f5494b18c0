@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b4f89cb_636debfa",
+        "filename": "crypto/fipsmodule/bn/shift.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-31T19:59:31Z",
+      "side": 0,
+      "message": "unsigned for bit counts is pretty pervasive, but I switched this to size_t at least just so that other functions can pass size_t into it without worry.",
+      "range": {
+        "startLine": 261,
+        "startChar": 55,
+        "endLine": 261,
+        "endChar": 63
+      },
+      "revId": "5f627e569fd8048c4912feb24b0fb1f5494b18c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
