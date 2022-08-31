@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca2ae6ca_ace19483",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 757,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-31T21:12:40Z",
+      "side": 0,
+      "message": "These are actually conditioned on TLS 1.3 in two ways. Here, but also the server won\u0027t send them unless TLS 1.3 is enabled.",
+      "revId": "ebd8b8965c74ab06bb91f7a00b23822e1f1f26ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

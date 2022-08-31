@@ -1,6 +1,97 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f0e3be6_3a10ab43",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-31T21:12:40Z",
+      "side": 1,
+      "message": "Probably should add an Update-Note since this does change our TLS behavior.\n\nThinking aloud...\n\nHopefully the compatibility implications are pretty minimal... in theory can cases this breaks would already have broken via Finished hash. Errors may shift from one value to another though. And I guess if there are any more of those weird server-random-copying middleboxes, but hopefully we\u0027ve flushed them out.\n\nAlso it shouldn\u0027t affect anything who\u0027s already enabled TLS 1.3, or who\u0027s already negotiating TLS 1.2+. (So, e.g., zero behavior change in Chrome.)",
+      "revId": "3caad59ec9d14024f73989182c77699cd3e2ef97",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86690207_7f4e1da6",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 758,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-31T21:12:40Z",
+      "side": 1,
+      "message": "Rather than call this (which technically can fail if no versions are enabled), versions get frozen early on in `hs-\u003e{min,max}_version`. You can just read those.",
+      "revId": "3caad59ec9d14024f73989182c77699cd3e2ef97",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5cf2b557_039fe1b6",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 767,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-31T21:12:40Z",
+      "side": 1,
+      "message": "We\u0027ve since added Span::last. Also spans work on arrays, so I suspect this can be:\n\n```\nauto suffix \u003d MakeConstSpan(ssl-\u003es3-\u003eserver_random).last(sizeof(kTLS13DowngradeRandom));\n```",
+      "range": {
+        "startLine": 767,
+        "startChar": 15,
+        "endLine": 767,
+        "endChar": 72
+      },
+      "revId": "3caad59ec9d14024f73989182c77699cd3e2ef97",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9993baa4_c8f4e110",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 768,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-31T21:12:40Z",
+      "side": 1,
+      "message": "Mind adding a test for this in runner.go? If you search for \":TLS13_DOWNGRADE:\", you\u0027ll find the existing ones.",
+      "revId": "3caad59ec9d14024f73989182c77699cd3e2ef97",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44c7a555_1a40f287",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 768,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-31T21:12:40Z",
+      "side": 1,
+      "message": "I think this might also need to check `ssl_protocol_version(ssl) \u003c TLS1_2_VERSION`. RFC 8446 says you only reject this value if negotiating TLS 1.1 or below. (Although it shouldn\u0027t matter because the server\u0027s not supposed to send this in that case.)",
+      "revId": "3caad59ec9d14024f73989182c77699cd3e2ef97",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "f3a1cd46_5f03ca6e",
@@ -19,6 +110,53 @@
         "startChar": 10,
         "endLine": 770,
         "endChar": 76
+      },
+      "revId": "3caad59ec9d14024f73989182c77699cd3e2ef97",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e419f03_9aaabc45",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 770,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-31T21:12:40Z",
+      "side": 1,
+      "message": "Yeah, it was meant to be an analog to kTLS13DowngradeRandom.",
+      "parentUuid": "f3a1cd46_5f03ca6e",
+      "range": {
+        "startLine": 770,
+        "startChar": 10,
+        "endLine": 770,
+        "endChar": 76
+      },
+      "revId": "3caad59ec9d14024f73989182c77699cd3e2ef97",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6118b18_300ac27d",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 771,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-08-31T21:12:40Z",
+      "side": 1,
+      "message": "Hmm, this error isn\u0027t quite accurate for kTLS12DowngradeRandom anymore, though I don\u0027t know how much it\u0027s worth caring. :-/",
+      "range": {
+        "startLine": 771,
+        "startChar": 31,
+        "endLine": 771,
+        "endChar": 52
       },
       "revId": "3caad59ec9d14024f73989182c77699cd3e2ef97",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
