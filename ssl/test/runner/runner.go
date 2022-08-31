@@ -6493,11 +6493,12 @@ func addVersionNegotiationTests() {
 		name            string
 		version         uint16
 		clientShimError string
+                error           string
 	}{
-		{"TLS12", VersionTLS12, "tls: downgrade from TLS 1.3 detected"},
-		{"TLS11", VersionTLS11, "tls: downgrade from TLS 1.2 detected"},
+		{"TLS12", VersionTLS12, "tls: downgrade from TLS 1.3 detected", "TLS13_DOWNGRADE"},
+		{"TLS11", VersionTLS11, "tls: downgrade from TLS 1.2 detected", "TLS12_DOWNGRADE"},
 		// TLS 1.0 does not have a dedicated value.
-		{"TLS10", VersionTLS10, "tls: downgrade from TLS 1.2 detected"},
+		{"TLS10", VersionTLS10, "tls: downgrade from TLS 1.2 detected", "TLS12_DOWNGRADE"},
 	}
 
 	for _, test := range downgradeTests {
@@ -6513,7 +6514,7 @@ func addVersionNegotiationTests() {
 				version: test.version,
 			},
 			shouldFail:         true,
-			expectedError:      ":TLS13_DOWNGRADE:",
+			expectedError:      test.error,
 			expectedLocalError: "remote error: illegal parameter",
 		})
 
