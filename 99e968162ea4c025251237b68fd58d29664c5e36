@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "08509522_309bfa0f",
+        "filename": "crypto/x509v3/v3_utl.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1262,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-01T20:44:14Z",
+      "side": 1,
+      "message": "I was confused about this at first, but I think what\u0027s happening is:\n\n* `::` gets parsed as `{\u0027\u0027, \u0027\u0027, \u0027\u0027}`, three zeros\n* `1::` gets parsed as `{\u00271\u0027, \u0027\u0027, \u0027\u0027}`, two zeros\n* `1::2` gets parsed as `{\u00271\u0027, \u0027\u0027, \u00272\u0027}`, one zero\n\nAnd so these checks reject inputs like `1:::2` or `1:`.",
+      "revId": "99e968162ea4c025251237b68fd58d29664c5e36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00ae4992_b5cd2923",
+        "filename": "crypto/x509v3/v3_utl.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1302,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-01T20:44:14Z",
+      "side": 1,
+      "message": "Otherwise `zero_cnt` can, in theory, get as high as `SSIZE_MAX / 2` or so.",
+      "revId": "99e968162ea4c025251237b68fd58d29664c5e36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

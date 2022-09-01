@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59c9a4e8_7710fa65",
+        "filename": "crypto/x509v3/v3_utl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1236,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-01T20:44:14Z",
+      "side": 0,
+      "message": "Removed this because it\u0027s not actually a sanity check. These checks are distinct from what ipv6_cb guarantees.",
+      "revId": "19009c51bff0706362e824f66a0b189326a1c27d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
