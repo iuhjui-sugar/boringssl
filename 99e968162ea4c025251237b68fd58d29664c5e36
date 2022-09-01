@@ -3,6 +3,23 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "f2fe305a_57f681a0",
+        "filename": "crypto/x509v3/v3_utl.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1249,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-09-01T20:54:04Z",
+      "side": 1,
+      "message": "nit: the else disappeared here, which is fine, but it\u0027s still on L1255. (I guess you might think of this as a different of chain of conditions, even thought it\u0027s still the same variable, so marking as optional.)",
+      "revId": "99e968162ea4c025251237b68fd58d29664c5e36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "08509522_309bfa0f",
         "filename": "crypto/x509v3/v3_utl.c",
         "patchSetId": 2
