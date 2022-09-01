@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "957c01b3_57c2fbc1",
+        "filename": "crypto/x509v3/v3_utl.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1249,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-01T21:04:18Z",
+      "side": 1,
+      "message": "Restored. It isn\u0027t necessary for this one, unlike the others, but fair enough it is over the same variable. Also moved the comment in just to match the others.",
+      "parentUuid": "f2fe305a_57f681a0",
+      "revId": "99e968162ea4c025251237b68fd58d29664c5e36",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "08509522_309bfa0f",
         "filename": "crypto/x509v3/v3_utl.c",
         "patchSetId": 2
