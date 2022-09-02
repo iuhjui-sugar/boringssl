@@ -33,6 +33,24 @@
       "message": "Reasonably certain this would trigger UB: The `ctx` on the stack isn\u0027t initialized at this point, so `EVP_MD_CTX_cleanup` will read random stuff from the stack (leading to a wild-free)",
       "revId": "7c5560f2d98dca7c71a102c7171728f1fab114b5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59d98e43_cc117d81",
+        "filename": "crypto/x509/a_sign.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 6630
+      },
+      "writtenOn": "2022-09-02T20:39:41Z",
+      "side": 1,
+      "message": "Thanks! Fixed.",
+      "parentUuid": "70555722_9aa471f0",
+      "revId": "7c5560f2d98dca7c71a102c7171728f1fab114b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
