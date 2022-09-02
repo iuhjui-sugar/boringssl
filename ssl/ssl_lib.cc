@@ -1086,6 +1086,12 @@ int SSL_write(SSL *ssl, const void *buf, int num) {
         MakeConstSpan(static_cast<const uint8_t *>(buf),
                       static_cast<size_t>(num)));
   } while (needs_handshake);
+  if (bytes_written) {
+    // We have made progress, reset the update count, in case the other end
+    // decides that we made enough progress to legitimately request a key
+    // update.
+    ssl->s3->key_update_count = 0;
+  }
   return ret <= 0 ? ret : static_cast<int>(bytes_written);
 }
 
