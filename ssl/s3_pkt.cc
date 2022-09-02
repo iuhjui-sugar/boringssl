@@ -304,6 +304,9 @@ static int do_tls_write(SSL *ssl, size_t *out_bytes_written, uint8_t type,
   }
 
   *out_bytes_written = in.size();
+  if (type == SSL3_RT_APPLICATION_DATA) {
+    ssl->s3->written_records_since_last_key_update++;
+  }
   return 1;
 }
 
