@@ -127,6 +127,14 @@ BSSL_NAMESPACE_BEGIN
 // forever.
 static const uint8_t kMaxEmptyRecords = 32;
 
+// kMinRecordWritesBetweenKeyUpdateRequests is the minumum number of application
+// write records that must be processed between seeing a KeyUpdate message from
+// our peer for us to believe that our connection is making progress, and not
+// being subjected to a denial of service.  If we send
+// kMinRecordWritesBetweenKeyUpdateRequests write records without seeing a key
+// update request from a peer, we reset key_update_count counter to 0.
+static const uint64_t kMinRecordWritesBetweenKeyUpdateRequests = 256;
+
 // kMaxEarlyDataSkipped is the maximum number of rejected early data bytes that
 // will be skipped. Without this limit an attacker could send records at a
 // faster rate than we can process and cause trial decryption to loop forever.
@@ -399,6 +407,10 @@ static bool do_seal_record(SSL *ssl, uint8_t *out_prefix, uint8_t *out,
 
   if (extra_in_len) {
     out_prefix[0] = SSL3_RT_APPLICATION_DATA;
+    if (ssl->s3->written_records_since_last_key_update_request++ >
+        kMinRecordWritesBetweenKeyUpdateRequests) {
+      ssl->s3->key_update_count = 0;
+    }
   } else {
     out_prefix[0] = type;
   }
