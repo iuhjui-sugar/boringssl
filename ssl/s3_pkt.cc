@@ -125,6 +125,13 @@
 
 
 BSSL_NAMESPACE_BEGIN
+// kMinRecordWritesBetweenKeyUpdateRequests is the minumum number of application
+// write records that must be processed between seeing a KeyUpdate message from
+// our peer for us to believe that our connection is making progress, and not
+// being subjected to a denial of service.  If we send
+// kMinRecordWritesBetweenKeyUpdateRequests write records without seeing a key
+// update request from a peer, we reset key_update_count counter to 0.
+static const uint64_t kMinRecordWritesBetweenKeyUpdateRequests = 256;
 
 static int do_tls_write(SSL *ssl, size_t *out_bytes_written, uint8_t type,
                         Span<const uint8_t> in);
@@ -304,6 +311,11 @@ static int do_tls_write(SSL *ssl, size_t *out_bytes_written, uint8_t type,
   }
 
   *out_bytes_written = in.size();
+  if (type == SSL3_RT_APPLICATION_DATA &&
+      ssl->s3->written_records_since_last_key_update_request++ >=
+          kMinRecordWritesBetweenKeyUpdateRequests) {
+    ssl->s3->key_update_count = 0;
+  }
   return 1;
 }
 
