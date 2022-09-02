@@ -37,6 +37,12 @@ BSSL_NAMESPACE_BEGIN
 // without being able to return application data.
 static const uint8_t kMaxKeyUpdates = 32;
 
+// kMinRecordWritesBetweenKeyUpdate is the minumum number of application data
+// records after which we would believe a peer could reasonably send a key
+// update.  We allow for an additional buffered key update messages if records
+// have been written between key update messages being processed.
+static const uint64_t kMinRecordWritesBetweenKeyUpdate = 256;
+
 const uint8_t kHelloRetryRequest[SSL3_RANDOM_SIZE] = {
     0xcf, 0x21, 0xad, 0x74, 0xe5, 0x9a, 0x61, 0x11, 0xbe, 0x1d, 0x8c,
     0x02, 0x1e, 0x65, 0xb8, 0x91, 0xc2, 0xa2, 0x11, 0x16, 0x7a, 0xbb,
@@ -677,7 +683,14 @@ static bool tls13_receive_key_update(SSL *ssl, const SSLMessage &msg) {
 
 bool tls13_post_handshake(SSL *ssl, const SSLMessage &msg) {
   if (msg.type == SSL3_MT_KEY_UPDATE) {
-    ssl->s3->key_update_count++;
+    if (ssl->s3->written_records_since_last_key_update >=
+        kMinRecordWritesBetweenKeyUpdate) {
+      ssl->s3->written_records_since_last_key_update -=
+          kMinRecordWritesBetweenKeyUpdate;
+    } else {
+      ssl->s3->key_update_count++;
+      ssl->s3->written_records_since_last_key_update = 0;
+    }
     if (ssl->quic_method != nullptr ||
         ssl->s3->key_update_count > kMaxKeyUpdates) {
       OPENSSL_PUT_ERROR(SSL, SSL_R_TOO_MANY_KEY_UPDATES);
