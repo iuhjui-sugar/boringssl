@@ -52,6 +52,24 @@
       "parentUuid": "543ca1ea_3b3b4e87",
       "revId": "b8e784e69f2af690fd2c5e9b8bd273512637d866",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32260641_40dad6d9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-02T18:09:16Z",
+      "side": 1,
+      "message": "I think I found the autoroller that triggered this... it seems to already support configuring the default bug prefix and was just misconfigured. I\u0027ll send them a CL to fix that.",
+      "parentUuid": "c9da8b7a_b1018266",
+      "revId": "b8e784e69f2af690fd2c5e9b8bd273512637d866",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
