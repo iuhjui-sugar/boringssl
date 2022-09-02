@@ -25,6 +25,7 @@ import (
 type aead struct {
 	algo                    string
 	tagMergedWithCiphertext bool
+    gmacMode bool
 }
 
 type aeadVectorSet struct {
@@ -191,9 +192,10 @@ func (a *aead) Process(vectorSet []byte, m Transactable) (interface{}, error) {
 				}
 				passed := result[0][0] == 1
 				testResp.Passed = &passed
-				if passed {
+				if passed && a.gmacMode == false {
 					plaintextHex := hex.EncodeToString(result[1])
 					testResp.PlaintextHex = &plaintextHex
+					testResp.Passed = nil
 				}
 			}
 
