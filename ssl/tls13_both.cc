@@ -677,7 +677,13 @@ static bool tls13_receive_key_update(SSL *ssl, const SSLMessage &msg) {
 
 bool tls13_post_handshake(SSL *ssl, const SSLMessage &msg) {
   if (msg.type == SSL3_MT_KEY_UPDATE) {
-    ssl->s3->key_update_count++;
+    // Increase the seen key_update_count only when we do not have an
+    // outstanding key update response in process, since we will ignore extra
+    // update requests during this time anyway. The other side will get our
+    // response eventually (RFC 8446 section 4.6.3)
+    if (!ssl->s3->key_update_pending) {
+      ssl->s3->key_update_count++;
+    }
     if (ssl->quic_method != nullptr ||
         ssl->s3->key_update_count > kMaxKeyUpdates) {
       OPENSSL_PUT_ERROR(SSL, SSL_R_TOO_MANY_KEY_UPDATES);
