@@ -16,6 +16,24 @@
       "message": "In PDFium, we added `BUG_PREFIX: pdfium:` to codereview.settings, so `git cl upload` will try to add the prefix automatically. Thus avoiding bots getting confused and adding comments to crbug.com/NNN.",
       "revId": "b8e784e69f2af690fd2c5e9b8bd273512637d866",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "543ca1ea_3b3b4e87",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-02T14:20:39Z",
+      "side": 1,
+      "message": "Oh lovely.\n\nI suspect that won\u0027t actually do anything. We don\u0027t usually use `git cl upload` when working on BoringSSL, just pushing to `refs/for/whatever` directly. (`git cl upload`\u0027s CL-per-branch workflow makes chained CLs rather tedious.)\n\nBots getting confused is a bit irksome though. We could get in the habit of writing `boringssl:516` instead, though it\u0027s more typing. I don\u0027t suppose we can fix those bots? bugdroid itself seems to generally believe in per-repo defaults, so it seems weird to just workaround some other component interpreting it incorrectly. :-/",
+      "parentUuid": "86288dbe_15c57808",
+      "revId": "b8e784e69f2af690fd2c5e9b8bd273512637d866",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
