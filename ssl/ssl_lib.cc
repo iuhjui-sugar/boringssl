@@ -167,6 +167,12 @@
 
 BSSL_NAMESPACE_BEGIN
 
+// kMinRecordsPerKeyUpdate is the number of application data records we need
+// to process to allow for an additional key update request from our peer.
+// Without this limit an attacker could force unbounded processing without being
+// able to return application data.
+static const uint64_t kMinRecordsPerKeyUpdate = 256;
+
 static_assert(SSL3_RT_MAX_ENCRYPTED_OVERHEAD >=
                   SSL3_RT_SEND_MAX_ENCRYPTED_OVERHEAD,
               "max overheads are inconsistent");
@@ -1023,7 +1029,11 @@ static int ssl_read_impl(SSL *ssl) {
     }
     if (!retry) {
       assert(!ssl->s3->pending_app_data.empty());
-      ssl->s3->key_update_count = 0;
+      if (ssl->s3->read_sequence >=
+          ssl->s3->key_update_read_seq + kMinRecordsPerKeyUpdate) {
+        ssl->s3->key_update_read_seq = ssl->s3->read_sequence;
+        ssl->s3->key_update_budget++;
+      }
     }
   }
 
@@ -1102,6 +1112,11 @@ int SSL_write(SSL *ssl, const void *buf, int num) {
         MakeConstSpan(static_cast<const uint8_t *>(buf),
                       static_cast<size_t>(num)));
   } while (needs_handshake);
+  if (ssl->s3->write_sequence >=
+      ssl->s3->key_update_write_seq + kMinRecordsPerKeyUpdate) {
+    ssl->s3->key_update_write_seq = ssl->s3->write_sequence;
+    ssl->s3->key_update_budget++;
+  }
   return ret <= 0 ? ret : static_cast<int>(bytes_written);
 }
 

@@ -7765,6 +7765,65 @@ TEST(SSLTest, BIO) {
   }
 }
 
+TEST(SSLTest, KeyUpdateSpew) {
+  bssl::UniquePtr<SSL_CTX> client_ctx(SSL_CTX_new(TLS_method()));
+  bssl::UniquePtr<SSL_CTX> server_ctx(
+      CreateContextWithTestCertificate(TLS_method()));
+  ASSERT_TRUE(client_ctx);
+  ASSERT_TRUE(server_ctx);
+
+  // For simplicity, get the handshake out of the way first.
+  bssl::UniquePtr<SSL> client, server;
+  ASSERT_TRUE(ConnectClientAndServer(&client, &server, client_ctx.get(),
+                                     server_ctx.get()));
+
+  uint8_t buf[5];
+  // 32 key updates should work.
+  for (int i = 0; i < 32; i++) {
+    EXPECT_TRUE(SSL_key_update(server.get(), SSL_KEY_UPDATE_NOT_REQUESTED));
+    EXPECT_EQ(0, SSL_write(server.get(), nullptr, 0));
+  }
+  EXPECT_EQ(5, SSL_write(server.get(), "world", 5));
+  ASSERT_EQ(5, SSL_read(client.get(), buf, sizeof(buf)));
+  EXPECT_EQ(Bytes("world"), Bytes(buf));
+
+  // After 256 records, we allow another key update
+  for (int i = 0; i < 256; i++) {
+    EXPECT_EQ(5, SSL_write(client.get(), "world", 5));
+    ASSERT_EQ(5, SSL_read(server.get(), buf, sizeof(buf)));
+    EXPECT_EQ(Bytes("world"), Bytes(buf));
+  }
+  EXPECT_TRUE(SSL_key_update(server.get(), SSL_KEY_UPDATE_NOT_REQUESTED));
+  EXPECT_EQ(0, SSL_write(server.get(), nullptr, 0));
+  EXPECT_EQ(5, SSL_write(server.get(), "world", 5));
+  ASSERT_EQ(5, SSL_read(client.get(), buf, sizeof(buf)));
+  EXPECT_EQ(Bytes("world"), Bytes(buf));
+
+  // After another 512 records we allow two more key updates.
+  for (int i = 0; i < 512; i++) {
+    EXPECT_EQ(5, SSL_write(client.get(), "world", 5));
+    ASSERT_EQ(5, SSL_read(server.get(), buf, sizeof(buf)));
+    EXPECT_EQ(Bytes("world"), Bytes(buf));
+  }
+  EXPECT_TRUE(SSL_key_update(server.get(), SSL_KEY_UPDATE_NOT_REQUESTED));
+  EXPECT_EQ(0, SSL_write(server.get(), nullptr, 0));
+  EXPECT_TRUE(SSL_key_update(server.get(), SSL_KEY_UPDATE_NOT_REQUESTED));
+  EXPECT_EQ(0, SSL_write(server.get(), nullptr, 0));
+  EXPECT_EQ(5, SSL_write(server.get(), "world", 5));
+  ASSERT_EQ(5, SSL_read(client.get(), buf, sizeof(buf)));
+
+  // A further key update should not work - we have no budget.
+  EXPECT_TRUE(SSL_key_update(server.get(), SSL_KEY_UPDATE_NOT_REQUESTED));
+  EXPECT_EQ(0, SSL_write(server.get(), nullptr, 0));
+  EXPECT_EQ(5, SSL_write(server.get(), "world", 5));
+  ASSERT_EQ(-1, SSL_read(client.get(), buf, sizeof(buf)));
+  EXPECT_EQ(SSL_ERROR_SSL, SSL_get_error(client.get(), -1));
+  uint32_t err = ERR_get_error();
+  EXPECT_EQ(ERR_LIB_SSL, ERR_GET_LIB(err));
+  EXPECT_EQ(SSL_R_TOO_MANY_KEY_UPDATES, ERR_GET_REASON(err));
+}
+
+
 TEST(SSLTest, ALPNConfig) {
   bssl::UniquePtr<SSL_CTX> ctx(SSL_CTX_new(TLS_method()));
   ASSERT_TRUE(ctx);

@@ -2702,8 +2702,20 @@ struct SSL3_STATE {
   // received.
   uint8_t warning_alert_count = 0;
 
-  // key_update_count is the number of consecutive KeyUpdates received.
-  uint8_t key_update_count = 0;
+  // key_update_budget is the number of KeyUpdates we will accept. It is
+  // increased by one for every 256 application layer records read or written,
+  // and decreased by one every key update request that we process. The
+  // connection is terminated with TOO_MANY_KEY_UPDATES if we receive a key
+  // update with a budget of 0. The initial value is 32 to allow for protocol
+  // tests that expect to be able to test multiple key updates up front, and
+  // to allow for peers who would like to send a few at the start.
+  uint64_t key_update_budget = 32;
+
+  // key_update_read_seq and key_update_write_seq are used for tracking
+  // updates to the key update budget, recording the last sequence number
+  // for which the budget increased.
+  uint64_t key_update_read_seq = 0;
+  uint64_t key_update_write_seq = 0;
 
   // ech_status indicates whether ECH was accepted by the server.
   ssl_ech_status_t ech_status = ssl_ech_none;
