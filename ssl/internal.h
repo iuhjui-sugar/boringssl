@@ -2707,6 +2707,11 @@ struct SSL3_STATE {
   // key_update_count is the number of consecutive KeyUpdates received.
   uint8_t key_update_count = 0;
 
+  // written_records_since_last_key_update_request is the number of application
+  // data records we have written since last receiving a key update request from
+  // our peer.
+  uint64_t written_records_since_last_key_update = 0;
+
   // ech_status indicates whether ECH was accepted by the server.
   ssl_ech_status_t ech_status = ssl_ech_none;
 

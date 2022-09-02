@@ -1008,6 +1008,7 @@ static int ssl_read_impl(SSL *ssl) {
     if (!retry) {
       assert(!ssl->s3->pending_app_data.empty());
       ssl->s3->key_update_count = 0;
+      ssl->s3->written_records_since_last_key_update = 0;
     }
   }
 
