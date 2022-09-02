@@ -34,6 +34,24 @@
       "parentUuid": "86288dbe_15c57808",
       "revId": "b8e784e69f2af690fd2c5e9b8bd273512637d866",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9da8b7a_b1018266",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 14897
+      },
+      "writtenOn": "2022-09-02T17:21:18Z",
+      "side": 1,
+      "message": "Oh, I assumed BUG_PREFIX would have saved that typing.\n\nThe issue comes from the bots that then do DEPS rolls in other repos. They would need to learn how to add the prefix.",
+      "parentUuid": "543ca1ea_3b3b4e87",
+      "revId": "b8e784e69f2af690fd2c5e9b8bd273512637d866",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
