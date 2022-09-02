@@ -216,6 +216,10 @@ int X509_REVOKED_set_serialNumber(X509_REVOKED *revoked,
                                   const ASN1_INTEGER *serial) {
   ASN1_INTEGER *in;
 
+  if (serial->type != V_ASN1_INTEGER) {
+    return 0;
+  }
+
   if (revoked == NULL) {
     return 0;
   }
