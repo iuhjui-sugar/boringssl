@@ -70,6 +70,24 @@
       "parentUuid": "c9da8b7a_b1018266",
       "revId": "b8e784e69f2af690fd2c5e9b8bd273512637d866",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49041476_a3937961",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-02T18:26:49Z",
+      "side": 1,
+      "message": "Ah, nevermind, I misunderstood what that option was doing. It\u0027s a missing feature in the autoroller. Filed https://bugs.chromium.org/p/skia/issues/detail?id\u003d13719",
+      "parentUuid": "32260641_40dad6d9",
+      "revId": "b8e784e69f2af690fd2c5e9b8bd273512637d866",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
