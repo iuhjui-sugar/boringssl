@@ -4806,3 +4806,23 @@ TEST(X509Test, NameEntry) {
   X509_NAME_ENTRY_free(X509_NAME_delete_entry(name.get(), 1));
   check_name("CN=Name,O=Org");
 }
+
+// Tests that non-integer types are rejected when passed as an argument to
+// X509_set_serialNumber().
+TEST(X509Test, SetSerialNumberChecksASN1StringType) {
+  size_t data_len;
+  bssl::UniquePtr<uint8_t> data;
+  ASSERT_TRUE(PEMToDER(&data, &data_len, kRootCAPEM));
+
+  bssl::UniquePtr<CRYPTO_BUFFER> buf(
+      CRYPTO_BUFFER_new(data.get(), data_len, nullptr));
+  ASSERT_TRUE(buf);
+
+  bssl::UniquePtr<X509> root(X509_parse_from_buffer(buf.get()));
+  ASSERT_TRUE(root);
+
+  // Passing an IA5String to X509_set_serialNumber() should fail.
+  bssl::UniquePtr<ASN1_IA5STRING> str(ASN1_IA5STRING_new());
+  int r = X509_set_serialNumber(root.get(), str.get());
+  ASSERT_EQ(r, 0);
+}

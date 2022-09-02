@@ -67,6 +67,9 @@
 int ASN1_item_sign(const ASN1_ITEM *it, X509_ALGOR *algor1, X509_ALGOR *algor2,
                    ASN1_BIT_STRING *signature, void *asn, EVP_PKEY *pkey,
                    const EVP_MD *type) {
+  if (signature->type != V_ASN1_BIT_STRING) {
+    return 0;
+  }
   EVP_MD_CTX ctx;
   EVP_MD_CTX_init(&ctx);
   if (!EVP_DigestSignInit(&ctx, NULL, type, NULL, pkey)) {
@@ -82,6 +85,10 @@ int ASN1_item_sign_ctx(const ASN1_ITEM *it, X509_ALGOR *algor1,
   EVP_PKEY *pkey;
   unsigned char *buf_in = NULL, *buf_out = NULL;
   size_t inl = 0, outl = 0;
+
+  if (signature->type != V_ASN1_BIT_STRING) {
+    goto err;
+  }
 
   pkey = EVP_PKEY_CTX_get0_pkey(ctx->pctx);
 
