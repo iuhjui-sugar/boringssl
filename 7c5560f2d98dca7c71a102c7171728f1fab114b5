@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6bb7798a_24b41ea5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6630
+      },
+      "writtenOn": "2022-09-02T19:32:42Z",
+      "side": 1,
+      "message": "davidben, PTAL? Let me know if you\u0027d prefer to do them all comprehensively in one CL instead of piecemeal, or if you\u0027d prefer more of them to be tested, or if I did anything silly :)",
+      "revId": "7c5560f2d98dca7c71a102c7171728f1fab114b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

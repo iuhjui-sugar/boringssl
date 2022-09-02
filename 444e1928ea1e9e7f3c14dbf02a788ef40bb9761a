@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83fdaf3c_8cd8d82f",
+        "filename": "crypto/x509/a_sign.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 6630
+      },
+      "writtenOn": "2022-09-02T19:32:42Z",
+      "side": 1,
+      "message": "I\u0027m a little puzzled by this one because ASN1_item_verify appears to deliberately accept non-V_ASN1_BIT_STRING signatures.",
+      "range": {
+        "startLine": 67,
+        "startChar": 4,
+        "endLine": 67,
+        "endChar": 18
+      },
+      "revId": "444e1928ea1e9e7f3c14dbf02a788ef40bb9761a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
