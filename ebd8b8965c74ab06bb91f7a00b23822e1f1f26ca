@@ -34,6 +34,24 @@
       "parentUuid": "b196a67e_eb9131cb",
       "revId": "ebd8b8965c74ab06bb91f7a00b23822e1f1f26ca",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40de53b9_d6ef0c8f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-06T19:00:23Z",
+      "side": 1,
+      "message": "Managed to reproduce it. I believe this is a Node bug. They\u0027ve got a pretty intense reentrancy issue in their TLS logic around EOF.\n\nI\u0027ll send them a patch after I\u0027ve dug a bit to figure out the best fix. Will also send them patches for a few other mistakes and silly things I noticed while trying to get BoringSSL building.",
+      "parentUuid": "d9113bef_ab0aeb87",
+      "revId": "ebd8b8965c74ab06bb91f7a00b23822e1f1f26ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
