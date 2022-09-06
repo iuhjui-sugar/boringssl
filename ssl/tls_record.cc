@@ -417,7 +417,6 @@ static bool do_seal_record(SSL *ssl, uint8_t *out_prefix, uint8_t *out,
       !ssl_record_sequence_update(ssl->s3->write_sequence, 8)) {
     return false;
   }
-
   ssl_do_msg_callback(ssl, 1 /* write */, SSL3_RT_HEADER, header);
   return true;
 }
