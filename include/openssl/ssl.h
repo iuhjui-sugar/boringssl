@@ -705,6 +705,10 @@ OPENSSL_EXPORT int SSL_version(const SSL *ssl);
 // |BIO|. Instead, the MTU is configured with |SSL_set_mtu|.
 #define SSL_OP_NO_QUERY_MTU 0x00001000L
 
+// SSL_OP_NO_AUTO_KEY_UPDATE disables automatic requesting of key updates when
+// possible, both at the start of a session and every 2^22 TLS records.
+#define SSL_OP_NO_AUTO_KEY_UPDATE 0x00002000L
+
 // SSL_OP_NO_TICKET disables session ticket support (RFC 5077).
 #define SSL_OP_NO_TICKET 0x00004000L
 
