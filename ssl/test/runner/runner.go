@@ -1188,7 +1188,7 @@ func doExchange(test *testCase, config *Config, conn net.Conn, isResume bool, tr
 			}
 		}
 
-		if seen := tlsConn.keyUpdateSeen; seen != test.expectUnsolicitedKeyUpdate {
+             	if seen := tlsConn.keyUpdateSeen; seen != test.expectUnsolicitedKeyUpdate {
 			return fmt.Errorf("keyUpdateSeen (%t) != expectUnsolicitedKeyUpdate", seen)
 		}
 	}
@@ -3046,6 +3046,7 @@ read alert 1 0
 					SendLargeRecords: true,
 				},
 			},
+			expectUnsolicitedKeyUpdate: true,
 			messageLen: 8192,
 		},
 		{
@@ -3073,6 +3074,7 @@ read alert 1 0
 					SendLargeRecords: true,
 				},
 			},
+			expectUnsolicitedKeyUpdate: true,
 			messageLen: 16383,
 		},
 		{
@@ -3278,7 +3280,7 @@ read alert 1 0
 			config: Config{
 				MaxVersion: VersionTLS13,
 				Bugs: ProtocolBugs{
-					RejectUnsolicitedKeyUpdate: true,
+					RejectUnsolicitedKeyUpdate: false,
 				},
 			},
 			// Test the shim receiving many KeyUpdates in a row.
@@ -3294,7 +3296,7 @@ read alert 1 0
 			config: Config{
 				MaxVersion: VersionTLS13,
 				Bugs: ProtocolBugs{
-					RejectUnsolicitedKeyUpdate: true,
+					RejectUnsolicitedKeyUpdate: false,
 				},
 			},
 			// Test the shim receiving many KeyUpdates in a row.
