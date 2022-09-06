@@ -126,6 +126,13 @@
 
 BSSL_NAMESPACE_BEGIN
 
+// kTlsMaxRecordsBeforeKeyUpdate is the maximum number of TLS records will we
+// write before updating our traffic key, if it is possible to do so. Currently
+// this is only possible with TLS 1.3. This default limit is set to be under
+// the AES-GCM limit, but we apply it to all ciphers for simplicity and to ensure
+// the ecosystem tolerates re-keys.
+static const uint64_t kTlsMaxRecordsBeforeKeyUpdate = (1 << 22);
+
 static int do_tls_write(SSL *ssl, size_t *out_bytes_written, uint8_t type,
                         Span<const uint8_t> in);
 
@@ -304,6 +311,26 @@ static int do_tls_write(SSL *ssl, size_t *out_bytes_written, uint8_t type,
   }
 
   *out_bytes_written = in.size();
+  if (!(ssl->options & SSL_OP_NO_AUTO_KEY_UPDATE) &&
+      ssl->ctx->quic_method == nullptr && ssl->do_handshake != nullptr &&
+      ssl->s3->initial_handshake_complete &&
+      ssl_protocol_version(ssl) >= TLS1_3_VERSION &&
+      !ssl->s3->key_update_pending) {
+    // We rotate our traffic key after the first application data
+    // write. This will exercise other stacks to ensure they tolerate a key
+    // rotation without error. We wait for the second application record to
+    // attempt to avoid causing problems with applications that may not yet
+    // be expecting it before any data is sent, and to avoid widespread
+    // churn in protocol level tests that don't normally expect to see it
+    // early.
+    if ((ssl->s3->do_initial_key_update && type == SSL3_RT_APPLICATION_DATA &&
+         SSL_get_write_sequence(ssl) > 2) ||
+        SSL_get_write_sequence(ssl) >= kTlsMaxRecordsBeforeKeyUpdate) {
+      if (tls13_add_key_update(ssl, SSL_KEY_UPDATE_NOT_REQUESTED)) {
+        ssl->s3->do_initial_key_update = false;
+      }
+    }
+  }
   return 1;
 }
 
