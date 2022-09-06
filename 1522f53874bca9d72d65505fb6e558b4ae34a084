@@ -52,6 +52,23 @@
       "parentUuid": "bbe00ac7_97d73595",
       "revId": "1522f53874bca9d72d65505fb6e558b4ae34a084",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93c0ce56_924a8f46",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14301
+      },
+      "writtenOn": "2022-09-06T22:14:29Z",
+      "side": 1,
+      "message": "LGTM for CMake-isms, at least to my level of understanding.",
+      "revId": "1522f53874bca9d72d65505fb6e558b4ae34a084",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
