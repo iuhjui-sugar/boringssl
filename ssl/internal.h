@@ -2707,6 +2707,10 @@ struct SSL3_STATE {
   // key_update_count is the number of consecutive KeyUpdates received.
   uint8_t key_update_count = 0;
 
+  // record_count_since_key_update_request is the number of TLS records
+  // processed since the last automatic key update request.
+  uint64_t record_count_since_key_update_request = 0;
+
   // ech_status indicates whether ECH was accepted by the server.
   ssl_ech_status_t ech_status = ssl_ech_none;
 
@@ -3408,6 +3412,11 @@ void ssl_reset_error_state(SSL *ssl);
 // ssl_set_read_error sets |ssl|'s read half into an error state, saving the
 // current state of the error queue.
 void ssl_set_read_error(SSL *ssl);
+
+// ssl_key_update_if_possible queues a key update message to rotate the
+// traffic key and request our peer to change their traffic key, if
+// possible.
+void ssl_key_update_if_possible(SSL *ssl);
 
 BSSL_NAMESPACE_END
 

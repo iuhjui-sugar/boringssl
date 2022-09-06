@@ -455,6 +455,16 @@ static void ssl_maybe_shed_handshake_config(SSL *ssl) {
   ssl->config.reset();
 }
 
+void ssl_key_update_if_possible(SSL *ssl) {
+  if (!(ssl->options & SSL_OP_NO_AUTO_KEY_UPDATE) &&
+      ssl->do_handshake != NULL && ssl->ctx->quic_method == nullptr &&
+      ssl->s3->initial_handshake_complete &&
+      ssl_protocol_version(ssl) >= TLS1_3_VERSION &&
+      !ssl->s3->key_update_pending) {
+    (void)tls13_add_key_update(ssl, SSL_KEY_UPDATE_REQUESTED);
+  }
+}
+
 void SSL_set_handoff_mode(SSL *ssl, bool on) {
   if (!ssl->config) {
     return;

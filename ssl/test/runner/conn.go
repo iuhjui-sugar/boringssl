@@ -1672,7 +1672,7 @@ func (c *Conn) ReadKeyUpdateACK() error {
 	}
 
 	if keyUpdate.keyUpdateRequest != keyUpdateNotRequested {
-		return errors.New("tls: received invalid KeyUpdate message")
+		// return errors.New("tls: received invalid KeyUpdate message")
 	}
 
 	return c.useInTrafficSecret(encryptionApplication, c.in.wireVersion, c.cipherSuite, updateTrafficSecret(c.cipherSuite.hash(), c.wireVersion, c.in.trafficSecret))

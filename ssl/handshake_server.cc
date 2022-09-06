@@ -1844,7 +1844,9 @@ static enum ssl_hs_wait_t do_finish_server_handshake(SSL_HANDSHAKE *hs) {
   if (has_new_session) {
     ssl_update_cache(ssl);
   }
-
+  // Premptively queue a key update to ensure this can work with our peer if
+  // we request one later.
+  ssl_key_update_if_possible(ssl);
   hs->state = state12_done;
   return ssl_hs_ok;
 }
