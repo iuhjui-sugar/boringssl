@@ -22,6 +22,30 @@
       },
       "revId": "d02595b7a7fb8676d25445edc0bd3ce59a519650",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66bfd5c9_22266c2f",
+        "filename": "crypto/mem.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-06T19:06:13Z",
+      "side": 1,
+      "message": "The upstream semantics are that, if the secure heap isn\u0027t initialized, OPENSSL_secure_malloc and friends just act as if you called OPENSSL_malloc. I think the idea is you can just write code that calls these functions without thinking too hard about whether the secure heap is there.\n\nNode seems to do this to allocate, of all things, some buffers for random UUIDs?? And then they either initialize the secure heap or not based on some off-by-default command-line flag.",
+      "parentUuid": "724f392e_95c92972",
+      "range": {
+        "startLine": 252,
+        "startChar": 0,
+        "endLine": 252,
+        "endChar": 71
+      },
+      "revId": "d02595b7a7fb8676d25445edc0bd3ce59a519650",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
