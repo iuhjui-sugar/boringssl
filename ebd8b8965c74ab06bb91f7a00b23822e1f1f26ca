@@ -16,6 +16,24 @@
       "message": "This seems to have broken TLS in Node.js - most TLS tests now fail with:\n\n```\n{ \n  library: \u0027invalid library (0)\u0027,\n  function: \u0027OPENSSL_internal\u0027,\n  reason: \u0027invalid library (0)\u0027,\n  code: \u0027ERR_SSL_INVALID_LIBRARY_(0)\u0027\n}\n```\n\nhttps://app.circleci.com/pipelines/github/electron/electron/57497/workflows/997b61b7-0864-45cd-9050-cbe88e419944/jobs/1307060\n\nIs there something on the Node.js side that should be changed to account for this? I\u0027m less familiar with this area of the code, though it appears to be the change at line 1322 in ssl/ssl_lib causing the issue.",
       "revId": "ebd8b8965c74ab06bb91f7a00b23822e1f1f26ca",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9113bef_ab0aeb87",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-06T14:16:10Z",
+      "side": 1,
+      "message": "Oh, interesting. Thanks for the report! I\u0027ll look into that. It could be that Node is doing something strange here, or it could be that I missed something in making this change.",
+      "parentUuid": "b196a67e_eb9131cb",
+      "revId": "ebd8b8965c74ab06bb91f7a00b23822e1f1f26ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
