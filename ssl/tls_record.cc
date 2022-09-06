@@ -134,6 +134,11 @@ static const uint8_t kMaxEmptyRecords = 32;
 // in plaintext.
 static const size_t kMaxEarlyDataSkipped = 16384;
 
+// kTlsMaxRecordsBeforeKeyUpdate is the maximum number of TLS records will we
+// process before requesting a transport key update, if it is possible to do
+// so. Currently this is only possible with TLS 1.3.
+static const uint64_t kTlsMaxRecordsBeforeKeyUpdate = (1 << 22);
+
 // kMaxWarningAlerts is the number of consecutive warning alerts that will be
 // processed.
 static const uint8_t kMaxWarningAlerts = 4;
@@ -399,6 +404,10 @@ static bool do_seal_record(SSL *ssl, uint8_t *out_prefix, uint8_t *out,
 
   if (extra_in_len) {
     out_prefix[0] = SSL3_RT_APPLICATION_DATA;
+    if (ssl->s3->do_initial_key_update) {
+        ssl->s3->do_initial_key_update = false;
+        ssl->s3->written_record_count_since_key_update = kTlsMaxRecordsBeforeKeyUpdate;
+    }
   } else {
     out_prefix[0] = type;
   }
@@ -417,8 +426,12 @@ static bool do_seal_record(SSL *ssl, uint8_t *out_prefix, uint8_t *out,
       !ssl_record_sequence_update(ssl->s3->write_sequence, 8)) {
     return false;
   }
-
   ssl_do_msg_callback(ssl, 1 /* write */, SSL3_RT_HEADER, header);
+  if (ssl->s3->written_record_count_since_key_update++ >=
+          kTlsMaxRecordsBeforeKeyUpdate &&
+      ssl_key_update_if_possible(ssl)) {
+    ssl->s3->written_record_count_since_key_update = 0;
+  }
   return true;
 }
 
