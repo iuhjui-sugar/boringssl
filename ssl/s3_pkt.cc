@@ -126,6 +126,11 @@
 
 BSSL_NAMESPACE_BEGIN
 
+// kTlsMaxRecordsBeforeKeyUpdate is the maximum number of TLS records will we
+// process before requesting a transport key update, if it is possible to do
+// so. Currently this is only possible with TLS 1.3.
+static const uint64_t kTlsMaxRecordsBeforeKeyUpdate = (1 << 22);
+
 static int do_tls_write(SSL *ssl, size_t *out_bytes_written, uint8_t type,
                         Span<const uint8_t> in);
 
@@ -304,6 +309,16 @@ static int do_tls_write(SSL *ssl, size_t *out_bytes_written, uint8_t type,
   }
 
   *out_bytes_written = in.size();
+  if (!(ssl->options & SSL_OP_NO_AUTO_KEY_UPDATE)) {
+    if ((ssl->s3->do_initial_key_update && type == SSL3_RT_APPLICATION_DATA) ||
+        ssl->s3->written_record_count_since_key_update++ >=
+        kTlsMaxRecordsBeforeKeyUpdate) {
+      if (ssl_key_update_if_possible(ssl)) {
+        ssl->s3->do_initial_key_update = false;
+        ssl->s3->written_record_count_since_key_update = 0;
+      }
+    }
+  }
   return 1;
 }
 

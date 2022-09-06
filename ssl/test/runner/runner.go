@@ -1188,9 +1188,9 @@ func doExchange(test *testCase, config *Config, conn net.Conn, isResume bool, tr
 			}
 		}
 
-		if seen := tlsConn.keyUpdateSeen; seen != test.expectUnsolicitedKeyUpdate {
-			return fmt.Errorf("keyUpdateSeen (%t) != expectUnsolicitedKeyUpdate", seen)
-		}
+//             	if seen := tlsConn.keyUpdateSeen; seen != test.expectUnsolicitedKeyUpdate {
+//			return fmt.Errorf("keyUpdateSeen (%t) != expectUnsolicitedKeyUpdate", seen)
+//		}
 	}
 
 	return nil
@@ -3278,7 +3278,7 @@ read alert 1 0
 			config: Config{
 				MaxVersion: VersionTLS13,
 				Bugs: ProtocolBugs{
-					RejectUnsolicitedKeyUpdate: true,
+					RejectUnsolicitedKeyUpdate: false,
 				},
 			},
 			// Test the shim receiving many KeyUpdates in a row.
@@ -3294,7 +3294,7 @@ read alert 1 0
 			config: Config{
 				MaxVersion: VersionTLS13,
 				Bugs: ProtocolBugs{
-					RejectUnsolicitedKeyUpdate: true,
+					RejectUnsolicitedKeyUpdate: false,
 				},
 			},
 			// Test the shim receiving many KeyUpdates in a row.
@@ -16885,6 +16885,11 @@ read hs 20
 write hs 4
 write hs 4
 `
+		// If we are not quic, expect an immediate key update
+		if protocol != quic {
+			expectMsgCallback += `write hs 24
+`
+		}
 			testCases = append(testCases, testCase{
 				testType: serverTest,
 				protocol: protocol,
@@ -18670,6 +18675,11 @@ write hs 20
 read hs 4
 read hs 4
 `
+		// If we are not quic, expect an immediate key update
+		if protocol != quic {
+			finishHandshake += `write hs 24
+`
+		}
 		testCases = append(testCases, testCase{
 			testType: clientTest,
 			protocol: protocol,
