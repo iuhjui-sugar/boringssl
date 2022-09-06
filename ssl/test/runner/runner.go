@@ -668,6 +668,11 @@ type testCase struct {
 	// with any of the fields that send a KeyUpdate otherwise any received
 	// KeyUpdate might not be as unsolicited as expected.
 	expectUnsolicitedKeyUpdate bool
+	// tolerateUnsolicitedKeyUpdate makes the test expect a zero or more KeyUpdate
+	// messages while reading data from the shim. Don't use this in combination
+	// with any of the fields that send a KeyUpdate otherwise any received
+	// KeyUpdate might not be as unsolicited as expected.
+	tolerateUnsolicitedKeyUpdate bool
 	// expectMessageDropped, if true, means the test message is expected to
 	// be dropped by the client rather than echoed back.
 	expectMessageDropped bool
@@ -1188,7 +1193,7 @@ func doExchange(test *testCase, config *Config, conn net.Conn, isResume bool, tr
 			}
 		}
 
-		if seen := tlsConn.keyUpdateSeen; seen != test.expectUnsolicitedKeyUpdate {
+             	if seen := tlsConn.keyUpdateSeen; seen != test.expectUnsolicitedKeyUpdate && !test.tolerateUnsolicitedKeyUpdate {
 			return fmt.Errorf("keyUpdateSeen (%t) != expectUnsolicitedKeyUpdate", seen)
 		}
 	}
@@ -3046,6 +3051,7 @@ read alert 1 0
 					SendLargeRecords: true,
 				},
 			},
+			expectUnsolicitedKeyUpdate: true,
 			messageLen: 8192,
 		},
 		{
@@ -3073,6 +3079,7 @@ read alert 1 0
 					SendLargeRecords: true,
 				},
 			},
+			expectUnsolicitedKeyUpdate: true,
 			messageLen: 16383,
 		},
 		{
@@ -3278,7 +3285,7 @@ read alert 1 0
 			config: Config{
 				MaxVersion: VersionTLS13,
 				Bugs: ProtocolBugs{
-					RejectUnsolicitedKeyUpdate: true,
+					RejectUnsolicitedKeyUpdate: false,
 				},
 			},
 			// Test the shim receiving many KeyUpdates in a row.
@@ -3294,7 +3301,7 @@ read alert 1 0
 			config: Config{
 				MaxVersion: VersionTLS13,
 				Bugs: ProtocolBugs{
-					RejectUnsolicitedKeyUpdate: true,
+					RejectUnsolicitedKeyUpdate: false,
 				},
 			},
 			// Test the shim receiving many KeyUpdates in a row.
@@ -3633,6 +3640,8 @@ func addTestForCipherSuite(suite testCipherSuite, ver tlsVersion, protocol proto
 	var cert Certificate
 	var certFile string
 	var keyFile string
+        var keyUpdate bool
+        var testName string
 	if hasComponent(suite.name, "ECDSA") {
 		cert = ecdsaP256Certificate
 		certFile = ecdsaP256CertificateFile
@@ -3732,9 +3741,20 @@ func addTestForCipherSuite(suite testCipherSuite, ver tlsVersion, protocol proto
 	}
 
 	// Ensure the maximum record size is accepted.
+
+	// Some tests send multiple writes, and therefore will see a
+	// key update.
+	testName = prefix + ver.name + "-" + suite.name + "-LargeRecord"
+	if (testName == "TLS-TLS13-CHACHA20_POLY1305_SHA256-LargeRecord" ||
+            testName == "TLS-TLS13-AES_128_GCM_SHA256-LargeRecord" ||
+            testName == "TLS-TLS13-AES_256_GCM_SHA384-LargeRecord") {
+	    keyUpdate = true
+        } else {
+	    keyUpdate = false
+	}
 	testCases = append(testCases, testCase{
 		protocol: protocol,
-		name:     prefix + ver.name + "-" + suite.name + "-LargeRecord",
+		name:   testName,
 		config: Config{
 			MinVersion:           ver.version,
 			MaxVersion:           ver.version,
@@ -3743,6 +3763,7 @@ func addTestForCipherSuite(suite testCipherSuite, ver tlsVersion, protocol proto
 			PreSharedKey:         []byte(psk),
 			PreSharedKeyIdentity: pskIdentity,
 		},
+                expectUnsolicitedKeyUpdate: keyUpdate,
 		flags:      flags,
 		messageLen: maxPlaintext,
 	})
@@ -4884,6 +4905,7 @@ func addStateMachineCoverageTests(config stateMachineTestConfig) {
 						ExpectEarlyData: [][]byte{[]byte(shimInitialWrite[:2])},
 					},
 				},
+                                tolerateUnsolicitedKeyUpdate: true,
 				resumeShimPrefix: shimInitialWrite[2:],
 				resumeSession:    true,
 				earlyData:        true,
@@ -11091,6 +11113,7 @@ func addExportTrafficSecretsTests() {
 				MinVersion:   VersionTLS13,
 				CipherSuites: []uint16{cipherSuite.id},
 			},
+			tolerateUnsolicitedKeyUpdate: true,
 			exportTrafficSecrets: true,
 		})
 	}
@@ -13424,6 +13447,7 @@ func addTLS13HandshakeTests() {
 			MaxVersion: VersionTLS13,
 			MinVersion: VersionTLS13,
 		},
+		tolerateUnsolicitedKeyUpdate: true,
 		messageCount:  2,
 		resumeSession: true,
 		earlyData:     true,
@@ -13445,6 +13469,7 @@ func addTLS13HandshakeTests() {
 				UseFirstSessionTicket: true,
 			},
 		},
+		tolerateUnsolicitedKeyUpdate: true,
 		messageCount:  2,
 		resumeSession: true,
 		earlyData:     true,
