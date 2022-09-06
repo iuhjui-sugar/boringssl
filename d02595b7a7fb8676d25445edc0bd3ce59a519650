@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "724f392e_95c92972",
+        "filename": "crypto/mem.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-09-06T19:02:12Z",
+      "side": 1,
+      "message": "I kinda think this should just return (and be documented to return) NULL, not call malloc anyway.",
+      "range": {
+        "startLine": 252,
+        "startChar": 0,
+        "endLine": 252,
+        "endChar": 71
+      },
+      "revId": "d02595b7a7fb8676d25445edc0bd3ce59a519650",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
