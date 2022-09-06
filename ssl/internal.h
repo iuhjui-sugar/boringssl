@@ -2704,6 +2704,10 @@ struct SSL3_STATE {
   // key_update_count is the number of consecutive KeyUpdates received.
   uint8_t key_update_count = 0;
 
+  // do_initial_key_update is set to true if we should change our traffic key
+  // on our first attmpt to write, if possible.
+  bool do_initial_key_update = true;
+
   // ech_status indicates whether ECH was accepted by the server.
   ssl_ech_status_t ech_status = ssl_ech_none;
 
