@@ -551,7 +551,6 @@ if(USE_CUSTOM_LIBCXX)
   set_target_properties(libcxxabi PROPERTIES COMPILE_FLAGS "-Wno-missing-prototypes -Wno-implicit-fallthrough")
   # libc++abi depends on libc++ internal headers.
   set_property(TARGET libcxxabi APPEND PROPERTY INCLUDE_DIRECTORIES "${CMAKE_SOURCE_DIR}/util/bot/libcxx/src")
-  install(TARGETS libcxxabi EXPORT OpenSSLTargets)
 
   add_library(libcxx ${LIBCXX_SOURCES})
   if(ASAN OR MSAN OR TSAN)
@@ -567,7 +566,6 @@ if(USE_CUSTOM_LIBCXX)
     -DLIBCXX_BUILDING_LIBCXXABI
   )
   target_link_libraries(libcxx libcxxabi)
-  install(TARGETS libcxx EXPORT OpenSSLTargets DESTINATION ${CMAKE_INSTALL_LIBDIR})
 endif()
 
 # Add minimal googletest targets. The provided one has many side-effects, and
