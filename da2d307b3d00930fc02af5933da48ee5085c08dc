@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be6086d1_5beccdef",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-07T16:51:33Z",
+      "side": 1,
+      "message": "Probably worth an\n\nUpdate-Note: Various X.509 functions will now fail given the wrong ASN1_STRING subtype.\n\nIt\u0027s mostly just a reminder to our future selves that, if something goes wrong, this might be it.",
+      "revId": "da2d307b3d00930fc02af5933da48ee5085c08dc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f634633_44258c8a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-07T16:51:33Z",
+      "side": 1,
+      "message": "Thanks!",
+      "revId": "da2d307b3d00930fc02af5933da48ee5085c08dc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fe43146_413096cb",
+        "filename": "crypto/x509/a_sign.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-07T16:51:33Z",
+      "side": 1,
+      "message": "Not a request for a change, but this thing where this function is obligated to EVP_MD_CTX_cleanup(ctx) in all codepaths is so confusing. Wonder if we can tidy that up...",
+      "range": {
+        "startLine": 84,
+        "startChar": 34,
+        "endLine": 84,
+        "endChar": 49
+      },
+      "revId": "da2d307b3d00930fc02af5933da48ee5085c08dc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ce180bd_b631e09e",
+        "filename": "crypto/x509/x509_set.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-07T16:51:33Z",
+      "side": 1,
+      "message": "We should probably add an error to the error queue, at least for functions where NULL means something failed[*]. Perhaps `OPENSSL_PUT_ERROR(ASN1, ASN1_R_WRONG_TYPE)`?\n\nDitto for the various others.\n\n[*] E.g. probably not for `X509_find_by_issuer_and_serial`. That one seems to return NULL to mean \"nothing went wrong, I just couldn\u0027t find any match\". Which is of course undocumented. Maybe I\u0027ll go document that real quick...",
+      "revId": "da2d307b3d00930fc02af5933da48ee5085c08dc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ca55155_34a06b7f",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4822,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-07T16:51:33Z",
+      "side": 1,
+      "message": "bssl::UniquePtr\u003cX509\u003e root \u003d CertFromPEM(kRootCAPEM);\n\nA little shorter. :-)",
+      "revId": "da2d307b3d00930fc02af5933da48ee5085c08dc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75eb6d44_470d72f1",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4825,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-07T16:51:33Z",
+      "side": 1,
+      "message": "ASSERT_TRUE(str);\n\nHonestly, we should probably give up on this, but in theory BoringSSL believes mallocs are fallible and I\u0027ve been trying to write the tests to not crash. In theory we\u0027ve got these malloc tests that exhaustively look for issues in malloc handling, but I don\u0027t think we\u0027ve run them for *years* because they take O(N^2) time.",
+      "revId": "da2d307b3d00930fc02af5933da48ee5085c08dc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
