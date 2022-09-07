@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3661d0ec_7201e2d6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-07T19:50:06Z",
+      "side": 1,
+      "message": "Nevermind. CQ hates this. That\u0027s... mildly annoying. Maybe we should just disable install in those configs? Ah well, I\u0027ll leave it alone for now.",
+      "revId": "2f52a5dfa2e575ffe191726516d58d762e9ea85d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
