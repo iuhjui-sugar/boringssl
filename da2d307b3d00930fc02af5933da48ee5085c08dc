@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "a907ea92_33873698",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 6630
+      },
+      "writtenOn": "2022-09-07T22:54:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be6086d1_5beccdef",
+      "revId": "da2d307b3d00930fc02af5933da48ee5085c08dc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "3f634633_44258c8a",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 3
@@ -75,6 +93,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4d23bb0_4225586b",
+        "filename": "crypto/x509/x509_set.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 6630
+      },
+      "writtenOn": "2022-09-07T22:54:32Z",
+      "side": 1,
+      "message": "Done, please double-check I got this right. The distinction isn\u0027t totally clear to me but I think crl_lookup and X509_find_by_issuer_and_serial are the cases where NULL/0 doesn\u0027t necessarily mean error.",
+      "parentUuid": "4ce180bd_b631e09e",
+      "revId": "da2d307b3d00930fc02af5933da48ee5085c08dc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3ca55155_34a06b7f",
@@ -92,6 +128,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "053bd674_b4a71873",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4822,
+      "author": {
+        "id": 6630
+      },
+      "writtenOn": "2022-09-07T22:54:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3ca55155_34a06b7f",
+      "revId": "da2d307b3d00930fc02af5933da48ee5085c08dc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "75eb6d44_470d72f1",
@@ -105,6 +159,24 @@
       "writtenOn": "2022-09-07T16:51:33Z",
       "side": 1,
       "message": "ASSERT_TRUE(str);\n\nHonestly, we should probably give up on this, but in theory BoringSSL believes mallocs are fallible and I\u0027ve been trying to write the tests to not crash. In theory we\u0027ve got these malloc tests that exhaustively look for issues in malloc handling, but I don\u0027t think we\u0027ve run them for *years* because they take O(N^2) time.",
+      "revId": "da2d307b3d00930fc02af5933da48ee5085c08dc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87692181_97b7311c",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 4825,
+      "author": {
+        "id": 6630
+      },
+      "writtenOn": "2022-09-07T22:54:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75eb6d44_470d72f1",
       "revId": "da2d307b3d00930fc02af5933da48ee5085c08dc",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
