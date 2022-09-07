@@ -22,6 +22,30 @@
       },
       "revId": "96b6b2de4e444059a992af481b02476b084b18b7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b61b9d5_808f74b3",
+        "filename": "crypto/fipsmodule/dh/dh.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-07T20:24:17Z",
+      "side": 1,
+      "message": "Yeah, BIGNUM and size types are kind of a crap shoot right now. Probably will require a bit more work to make it uniform, even within the library. Added a note to BN_num_bytes.\n\n(BN_bn2bin_padded returns int because it\u0027s just a 0/1 success. It doesn\u0027t need to report how many bytes it wrote because it\u0027ll only ever write exactly len bytes.)",
+      "parentUuid": "28469553_e70ebe43",
+      "range": {
+        "startLine": 371,
+        "startChar": 0,
+        "endLine": 371,
+        "endChar": 45
+      },
+      "revId": "96b6b2de4e444059a992af481b02476b084b18b7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
