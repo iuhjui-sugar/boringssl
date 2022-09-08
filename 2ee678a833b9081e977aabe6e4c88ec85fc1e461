@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f04b0687_35ab7e67",
+        "filename": "ssl/s3_pkt.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-08T18:41:04Z",
+      "side": 1,
+      "message": "s/Requests//\n\n(Similar comment as on the other file about how this is counting both kinds of KeyUpdates.)",
+      "range": {
+        "startLine": 128,
+        "startChar": 35,
+        "endLine": 128,
+        "endChar": 43
+      },
+      "revId": "2ee678a833b9081e977aabe6e4c88ec85fc1e461",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c1193b1_37de4ecb",
+        "filename": "ssl/s3_pkt.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-08T18:41:04Z",
+      "side": 1,
+      "message": "Nit: Perhaps \"application data records that must be written\"?",
+      "range": {
+        "startLine": 129,
+        "startChar": 3,
+        "endLine": 129,
+        "endChar": 39
+      },
+      "revId": "2ee678a833b9081e977aabe6e4c88ec85fc1e461",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1fda187_4e0d0618",
+        "filename": "ssl/s3_pkt.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-08T18:41:04Z",
+      "side": 1,
+      "message": "KeyUpdate",
+      "range": {
+        "startLine": 132,
+        "startChar": 75,
+        "endLine": 133,
+        "endChar": 17
+      },
+      "revId": "2ee678a833b9081e977aabe6e4c88ec85fc1e461",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56f6d92d_27758edb",
+        "filename": "ssl/s3_pkt.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-08T18:41:04Z",
+      "side": 1,
+      "message": "We probably don\u0027t need this to be a whole uint64_t if we made it a saturating counter. (Where it\u0027s easy to do, trimming away a few bytes of per-connection memory does at up on a server with gobs and gobs of connections.)\n\nThough, speaking of saturation, won\u0027t this cause us to, once we\u0027ve hit 256 records, switch to a mode where we reset after every record?\n\nEdit: Oh, I guess this resetting after every record is a no-op when key_update_count is zero and the only way to get to non-zero is to hit tls13_post_handshake and reset written_records_since_last_key_update_request. So I think, effectively, \u003e\u003d 256, \u003d\u003d 256, and even something with wraparound are all identical and we can avoid actually counting past 256 in all manner of ways.\n\nNot sure what the cleanest way to express that is. The \"kinda saturated, but not actually\" behavior is a bit confusing. An idle thought, what if we did:\n\n```\n  if (key_update_count \u003e 0) {\n    record_counter++;\n    if (record_counter \u003e limit) {\n      key_update_count \u003d 0;\n      record_counter \u003d 0;\n    }\n  }\n```\n\nNot sure if that\u0027s better. It\u0027s more code, but it makes it a little more explicit why we can\u0027t actually exceed the limit here.\n\nActually, now that I think about it, I\u0027m actually not sure we want to reset the reset record_counter on each KeyUpdate. I\u0027ll follow-up on this in chat since we\u0027ll probably need a higher bandwidth medium. :-)",
+      "revId": "2ee678a833b9081e977aabe6e4c88ec85fc1e461",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47aab4dd_936016a2",
+        "filename": "ssl/s3_pkt.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-08T18:41:04Z",
+      "side": 1,
+      "message": "ssl_test.cc would probably be the easiest place to add a test for this. Configuring complex sequences of reads and writes in runner.go tends to be a hassle.\n\nI think if you bounce SSL_key_update() and SSL_write(0) you can trigger a KeyUpdate.",
+      "revId": "2ee678a833b9081e977aabe6e4c88ec85fc1e461",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50084bcd_3d1a25a7",
+        "filename": "ssl/tls13_both.cc",
+        "patchSetId": 12
+      },
+      "lineNbr": 681,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-08T18:41:04Z",
+      "side": 1,
+      "message": "The name doesn\u0027t quite match when this is reset. This bit runs on all KeyUpdates, whether the server requested that we also send one or not.",
+      "revId": "2ee678a833b9081e977aabe6e4c88ec85fc1e461",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
