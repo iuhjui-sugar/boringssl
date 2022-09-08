@@ -1,0 +1,141 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16350c8e_035d573b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-08T22:12:18Z",
+      "side": 1,
+      "message": "(We should add tests for this mechanism itself too, but I\u0027m guessing that\u0027s still pending.)",
+      "revId": "6febb0929868c6dfde145d79b38fd4f30df45677",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e1cf84f_5fda9872",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 710,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-08T22:12:18Z",
+      "side": 1,
+      "message": "We probably need this, at least for now, off by default and then opt-in. And then once it successfully rolls out on Chrome and/or servers, we can flip the default.\n\nTo that end, I\u0027ve usually just made SSL_set_whatever_feature or SSL_CTX_set_whatever_feature APIs over the options bitmask. It\u0027s a bit more tedious, but it\u0027s easier for us to change the defaults afterwards, and we don\u0027t need to worry about things like someone hardcoding these constants or running out of bits.",
+      "revId": "6febb0929868c6dfde145d79b38fd4f30df45677",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26249bb6_015a3daf",
+        "filename": "ssl/internal.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 2712,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-08T22:12:18Z",
+      "side": 1,
+      "message": "We actually track this already, albeit in a somewhat tedious form. It\u0027s just the sequence number. :-)\n\n...though perhaps we should just store the sequence number as uint64_t, to make it less tedious. This `ssl_record_sequence_update` function is really just a more annoying way to write `++`! There\u0027s a minor quibble that DTLS really has a uint48_t sequence number and a uint16_t epoch, but we can just check a different overflow cutoff.\n\n(If you want to do that, I might suggest doing it in a separate CL and rebase this one on top, just so it\u0027s easier to review.)",
+      "range": {
+        "startLine": 2712,
+        "startChar": 11,
+        "endLine": 2712,
+        "endChar": 48
+      },
+      "revId": "6febb0929868c6dfde145d79b38fd4f30df45677",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd74ea2e_2f174377",
+        "filename": "ssl/internal.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 2716,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-08T22:12:18Z",
+      "side": 1,
+      "message": "Nit: To reduce per-connection, we like to use bitfields for booleans below. Sadly, we can\u0027t write `bool do_initial_key_update : 1 \u003d true;` until C++20. I don\u0027t know why they did it that way, but if you dig around, you can find the constructor that initializes them in a separate file.",
+      "revId": "6febb0929868c6dfde145d79b38fd4f30df45677",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a9379ea_3f6704d6",
+        "filename": "ssl/s3_pkt.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-08T22:12:18Z",
+      "side": 1,
+      "message": "The limits vary by cipher suite. Like if we believed in renegotiation (definitely not!), we\u0027d want to set a very threshold to renegotiate on 3DES.\n\nFor TLS 1.3, we just have AES-GCM and ChaCha20-Poly1305. Of these, the spec gives the 2^20ish number for AES-GCM, but ChaCha20-Poly1305 doesn\u0027t need a rekey at all because the sequence number wraparound happens first.\nhttps://www.rfc-editor.org/rfc/rfc8446#section-5.5\n\n(Though I guess that begs the question, do we do the initial KeyUpdate for ChaCha, even if we\u0027ll never need to do it in the steady state? I\u0027m tempted to say yes, just to ensure we fully test the ecosystem on that initial message.)",
+      "revId": "6febb0929868c6dfde145d79b38fd4f30df45677",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5d3f7c2_119a859c",
+        "filename": "ssl/s3_pkt.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-08T22:12:18Z",
+      "side": 1,
+      "message": "This is mostly an issue with our own tests, right? Because our public API, short of the various debug callbacks and maybe some low-level functions to inspect sequence numbers, doesn\u0027t really let callers see that a KeyUpdate happened anyway. That means external tests probably won\u0027t be affected.\n\nMaybe we can fix this by just doing a tidier job with the KeyUpdate testing. Like perhaps the default for tests should be to not opine on unsolicited KeyUpdates, since we now believe BoringSSL might just unilaterally send them a bunch. And then tests that are specifically about key update can do some combination of turn off the feature or update their assertions?\n\n(Making it off by default would also make this moot. Though I suppose it\u0027s kicking the can down the road if we aim to enable it by default later.)",
+      "range": {
+        "startLine": 324,
+        "startChar": 12,
+        "endLine": 324,
+        "endChar": 17
+      },
+      "revId": "6febb0929868c6dfde145d79b38fd4f30df45677",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5de317bb_654f52dd",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 3304,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-08T22:12:18Z",
+      "side": 1,
+      "message": "These are the only two tests which set this field, so this amounts to just removing this ProtocolBug. So I guess we should either convince ourselves this wasn\u0027t necessary, or replace it with an updated thing.\n\nIt dates to https://boringssl-review.googlesource.com/14744. Not sure what past me\u0027s was thinking, but I suspect it was trying to assert the coalescing mechanism worked? The comment talks about testing the shim receiving lots of KeyUpdates in a row. If our test works by sending a pile of KeyUpdates and then the message, we should expect just the one KeyUpdate in response.\n\nSo maybe this should be an ExpectOneUnsolicitedKeyUpdate? Or maybe tracking solicitedness is too complicated and we should just have an expectKeyUpdateCount? Or maybe these tests should just disable the feature because it gets in the way of testing this thing? (That second one is intriguing...)",
+      "range": {
+        "startLine": 3304,
+        "startChar": 5,
+        "endLine": 3304,
+        "endChar": 31
+      },
+      "revId": "6febb0929868c6dfde145d79b38fd4f30df45677",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
