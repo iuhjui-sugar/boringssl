@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3d4907c_5e6b601a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-09T20:23:51Z",
+      "side": 1,
+      "message": "Looks like you lost the Update-Note from patchset 7.",
+      "revId": "4818748fbc0b0def6a6ac4e5445fd632ca38f92c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bfd9d9c_e83ca470",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-09T20:23:51Z",
+      "side": 1,
+      "message": "Looks good! Just needs some tests. :-)",
+      "revId": "4818748fbc0b0def6a6ac4e5445fd632ca38f92c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "acda342f_944a8285",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 8
+      },
+      "lineNbr": 1430,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-09T20:23:51Z",
+      "side": 1,
+      "message": "This is an issue with the existing code, but I think this actually should be \u003e\u003d. I.e. if we negotiate TLS 1.1 and the max version was TLS 1.3, we\u0027re supposed to send downgradeTLS12, not downgradeTLS13.",
+      "range": {
+        "startLine": 1430,
+        "startChar": 58,
+        "endLine": 1430,
+        "endChar": 60
+      },
+      "revId": "4818748fbc0b0def6a6ac4e5445fd632ca38f92c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
