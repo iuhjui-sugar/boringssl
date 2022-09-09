@@ -82,6 +82,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5108313f_128902a7",
+        "filename": "ssl/internal.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 2712,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-09T21:56:02Z",
+      "side": 1,
+      "message": "Hehe, that works I suppose. Still think we should make those uint64_t, but we can do that separately. :-)",
+      "parentUuid": "fce3d451_7a156b55",
+      "range": {
+        "startLine": 2712,
+        "startChar": 11,
+        "endLine": 2712,
+        "endChar": 48
+      },
+      "revId": "6febb0929868c6dfde145d79b38fd4f30df45677",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fd74ea2e_2f174377",
@@ -136,6 +160,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "18dcc1c7_856588b0",
+        "filename": "ssl/s3_pkt.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-09T21:56:02Z",
+      "side": 1,
+      "message": "Fair enough. Mind adding a comment to that effect? Just so it\u0027s clear that we\u0027ve set this to be under the AES-GCM limit but we\u0027re applying it to all ciphers for simplicity / to ensure the ecosystem tolerates rekeys.",
+      "parentUuid": "5e50171d_716b5698",
+      "revId": "6febb0929868c6dfde145d79b38fd4f30df45677",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a5d3f7c2_119a859c",
         "filename": "ssl/s3_pkt.cc",
         "patchSetId": 18
@@ -183,6 +225,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a77d3f5a_47c1c069",
+        "filename": "ssl/s3_pkt.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-09T21:56:02Z",
+      "side": 1,
+      "message": "\u003e Well, I think it\u0027s *also* going to be an issue for \"things that don\u0027t expect the key to get changed before receiving some application data with the initial key\"\n\nOh, that\u0027s a good point. Folks sometimes extract keys to feed into other record layers and whatnot. Is that what you were thinking of, or something else?\n\nThough anyone doing that one already needs to contend with the deferred NewSessionTicket that we leave in the write buffer... I\u0027m actually not sure how folks deal with that. I could imagine either doing the hand-off in the middle of the connection, or SSL_write(0) to flush things.\n\nIf they do it more in the middle of the connection, they could be unlucky and hit the second record too. That makes me think we just need a uniform answer for this case, rather than risk a flaky failure. Some thoughts:\n\na. We could say you have to turn off automatic key updates if you care about this invariant. Not a huge fan of that one.\n\nb. We could say SSL_get_traffic_keys and SSL_get_read_sequence always corresponds to the *next* record, but you have to SSL_write(0) to make sure there\u0027s nothing buffered up internally. Given the NewSessionTicket case, we\u0027re basically already saying that, except people might today rely on not having to do that in the middle of the connection.\n\nc. We could, rather than queuing up the KeyUpdate immediately *after* a record, do it right *before* we write an app data record. That way folks extracting keys never need to worry about us secretly queuing up a KeyUpdate right after their operation.\n\nThoughts?",
+      "parentUuid": "94fb9807_ea6b8032",
+      "range": {
+        "startLine": 324,
+        "startChar": 12,
+        "endLine": 324,
+        "endChar": 17
+      },
+      "revId": "6febb0929868c6dfde145d79b38fd4f30df45677",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5de317bb_654f52dd",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 18
@@ -218,6 +284,30 @@
       "side": 1,
       "message": "Yeah but expectUnsolicitedKeyUpdate is already expectAt LeastOneUnsolicitedKeyUpdate... :) which is why I had to add the tolerate one because it was a pain to differentiate between a bag of tests that sometimes hit it and sometimes did not.",
       "parentUuid": "5de317bb_654f52dd",
+      "range": {
+        "startLine": 3304,
+        "startChar": 5,
+        "endLine": 3304,
+        "endChar": 31
+      },
+      "revId": "6febb0929868c6dfde145d79b38fd4f30df45677",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "beaa9960_6af62991",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 18
+      },
+      "lineNbr": 3304,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-09T21:56:02Z",
+      "side": 1,
+      "message": "Oh, by ExpectOneUnsolicitedKeyUpdate, I meant you get a budget of one unsolicited KeyUpdate before we start actually counting it as a failure.\n\nThough I kinda suspect \"maybe tracking solicitedness is too complicated and we should just have an expectKeyUpdateCount\" is the way to go. It sounds simpler.",
+      "parentUuid": "4110787a_d270aefb",
       "range": {
         "startLine": 3304,
         "startChar": 5,
