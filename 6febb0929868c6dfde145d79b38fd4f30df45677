@@ -58,6 +58,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fce3d451_7a156b55",
+        "filename": "ssl/internal.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 2712,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-09-09T02:23:07Z",
+      "side": 1,
+      "message": "Well, or I could just use SSL_get_write_sequence();",
+      "parentUuid": "26249bb6_015a3daf",
+      "range": {
+        "startLine": 2712,
+        "startChar": 11,
+        "endLine": 2712,
+        "endChar": 48
+      },
+      "revId": "6febb0929868c6dfde145d79b38fd4f30df45677",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fd74ea2e_2f174377",
@@ -88,6 +112,24 @@
       "writtenOn": "2022-09-08T22:12:18Z",
       "side": 1,
       "message": "The limits vary by cipher suite. Like if we believed in renegotiation (definitely not!), we\u0027d want to set a very threshold to renegotiate on 3DES.\n\nFor TLS 1.3, we just have AES-GCM and ChaCha20-Poly1305. Of these, the spec gives the 2^20ish number for AES-GCM, but ChaCha20-Poly1305 doesn\u0027t need a rekey at all because the sequence number wraparound happens first.\nhttps://www.rfc-editor.org/rfc/rfc8446#section-5.5\n\n(Though I guess that begs the question, do we do the initial KeyUpdate for ChaCha, even if we\u0027ll never need to do it in the steady state? I\u0027m tempted to say yes, just to ensure we fully test the ecosystem on that initial message.)",
+      "revId": "6febb0929868c6dfde145d79b38fd4f30df45677",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e50171d_716b5698",
+        "filename": "ssl/s3_pkt.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-09-09T02:23:07Z",
+      "side": 1,
+      "message": "yeah, and my thought here was kind of, well, if we\u0027re going to do the initial message anyway, there\u0027s no real harm in re-keying after 2^22 records, even with chacha.",
+      "parentUuid": "3a9379ea_3f6704d6",
       "revId": "6febb0929868c6dfde145d79b38fd4f30df45677",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
