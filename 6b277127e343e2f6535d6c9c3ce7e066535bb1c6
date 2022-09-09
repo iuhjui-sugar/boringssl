@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "00a5a478_8e4c2280",
+        "filename": "crypto/test/file_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-09T20:45:05Z",
+      "side": 1,
+      "message": "Well, that\u0027s embarrassing. That should have been min. :-)",
+      "range": {
+        "startLine": 381,
+        "startChar": 15,
+        "endLine": 381,
+        "endChar": 18
+      },
+      "revId": "6b277127e343e2f6535d6c9c3ce7e066535bb1c6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
