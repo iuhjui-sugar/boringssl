@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d124b3c_ec68e4bc",
+        "filename": "crypto/x509/x509_lu.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-09T15:43:01Z",
+      "side": 1,
+      "message": "Hilarious. I think this and `X509_LOOKUP_by_fingerprint` and `X509_LOOKUP_by_alias` are not only never used, but also guaranteed to not return anything, because none of our existing `X509_LOOKUP`s implement the functions.\n\nNot a comment for this CL, but I might follow this up with deleting some stuff. :-)",
+      "revId": "50c9fa3c4f26250dccd9fe0a3c8d3ed3b3ab38ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

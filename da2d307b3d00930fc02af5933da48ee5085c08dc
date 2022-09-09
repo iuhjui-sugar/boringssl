@@ -111,6 +111,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5670b2f_6b554072",
+        "filename": "crypto/x509/x509_set.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-09T15:43:01Z",
+      "side": 1,
+      "message": "I think that\u0027s right. And yeah this would probably be easier if we\u0027d gotten to documenting those functions. :-/",
+      "parentUuid": "b4d23bb0_4225586b",
+      "revId": "da2d307b3d00930fc02af5933da48ee5085c08dc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3ca55155_34a06b7f",
