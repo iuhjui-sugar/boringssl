@@ -55,7 +55,7 @@ OPENSSL_MSVC_PRAGMA(warning(push, 3))
 #include <ws2tcpip.h>
 OPENSSL_MSVC_PRAGMA(warning(pop))
 
-OPENSSL_MSVC_PRAGMA(comment(lib, "Ws2_32.lib"))
+OPENSSL_MSVC_PRAGMA(comment(lib, "WS2_32.Lib"))
 #endif
 
 #include <openssl/err.h>

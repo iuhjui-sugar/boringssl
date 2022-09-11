@@ -69,7 +69,7 @@ OPENSSL_MSVC_PRAGMA(warning(push, 3))
 #include <winsock2.h>
 OPENSSL_MSVC_PRAGMA(warning(pop))
 
-OPENSSL_MSVC_PRAGMA(comment(lib, "Ws2_32.lib"))
+OPENSSL_MSVC_PRAGMA(comment(lib, "WS2_32.Lib"))
 #endif
 
 #include "internal.h"
