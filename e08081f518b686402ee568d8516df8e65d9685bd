@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82da6938_eda2f66f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-12T14:08:32Z",
+      "side": 1,
+      "message": "Hmm, this is the spelling used by https://docs.microsoft.com/en-us/windows/win32/winsock/creating-a-basic-winsock-application\n\nIt\u0027s also the casing used at the bottom of references like this one:\nhttps://docs.microsoft.com/en-us/windows/win32/api/Winsock2/nf-winsock2-connect\n\nWhere\u0027s the other casing from? Does cross-compiling for Windows even work case-sensitively? I know, for Chromium, our Windows cross-compiles have to use a ciopfs because the Windows SDK doesn\u0027t even work case-sensitively.\n\nhttps://chromium.googlesource.com/chromium/src/+/HEAD/docs/win_cross.md\nhttps://source.chromium.org/chromium/chromium/src/+/main:build/vs_toolchain.py;drc\u003d73a09d1a67a9bab66eba08b51372f431ab709b2d;l\u003d494",
+      "revId": "e08081f518b686402ee568d8516df8e65d9685bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
