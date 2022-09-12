@@ -303,6 +303,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f9c76b78_14e54eab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-09-12T16:56:22Z",
+      "side": 1,
+      "message": "CLA confirmed. Could Mikaël comment to confirm their intent to submit under the CLA?",
+      "parentUuid": "251dde2b_d5c9087f",
+      "revId": "410f5e2e3bf00f78cb3c341f2309bcf0a5ebfefb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4ff5efff_6c6bb551",
         "filename": "crypto/cpu_aarch64_freebsd.c",
         "patchSetId": 1
