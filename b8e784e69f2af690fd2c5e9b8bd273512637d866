@@ -88,6 +88,24 @@
       "parentUuid": "32260641_40dad6d9",
       "revId": "b8e784e69f2af690fd2c5e9b8bd273512637d866",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab7199e7_c499a44d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-13T16:31:46Z",
+      "side": 1,
+      "message": "Okay, I think that roller is now fixed! And there\u0027s a config option to fix it if it comes up in another incarnation of that roller.",
+      "parentUuid": "49041476_a3937961",
+      "revId": "b8e784e69f2af690fd2c5e9b8bd273512637d866",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
