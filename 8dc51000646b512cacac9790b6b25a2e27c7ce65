@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e898109b_f5eec285",
+        "filename": "crypto/fipsmodule/rsa/rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-14T00:04:41Z",
+      "side": 1,
+      "message": "Changing this type to size_t would break existing uses of RSA_METHOD. Given digests are short, doesn\u0027t seem worth wrestling with it. (That time is probably better spent trying to unwind RSA_METHOD.)",
+      "range": {
+        "startLine": 536,
+        "startChar": 45,
+        "endLine": 536,
+        "endChar": 64
+      },
+      "revId": "8dc51000646b512cacac9790b6b25a2e27c7ce65",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
