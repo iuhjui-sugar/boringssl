@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddb29029_b723f17c",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-14T00:06:52Z",
+      "side": 1,
+      "message": "My kingdom for a proper `Optional[int]` type in Go.",
+      "revId": "92214dbb63ccb349df0d110f442d0054d7951661",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
