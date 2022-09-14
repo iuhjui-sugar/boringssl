@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80acda80_4d2dd585",
+        "filename": "crypto/x509/asn1_gen.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-14T16:55:06Z",
+      "side": 1,
+      "message": "This is *amazing* but I\u0027ll deal with it in a separate CL:\n- strtoul, which returns unsigned long, is being saved as a long anyway.\n- Then they check for negative values, nevermind that we were, again, calling strtoul\n- This function takes a (ptr, len) tuple but then passes it into a NUL-terminated strtoul, which *doesn\u0027t know the bounds*. Only reason this can\u0027t go out-of-bounds is this function can only be called on strings that are, ultimately, NUL-terminated.\n- strtoul is a mess because it\u0027s defined to return 0xff..ff instead when passed \"-1\", rather than it being an error.\n\nRight answer might be to just write our own, but ugh. :-(",
+      "revId": "4c75a75f07e84f3aec913652a8c9d26f31bf0ddc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
