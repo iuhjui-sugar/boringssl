@@ -52,6 +52,24 @@
       "parentUuid": "3fa778f8_58a81cc8",
       "revId": "e08081f518b686402ee568d8516df8e65d9685bd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02f67d84_6fac5ebc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14937
+      },
+      "writtenOn": "2022-09-15T16:36:20Z",
+      "side": 1,
+      "message": "Yeah, I really don\u0027t know why Microsoft exercises the case-insensitivity so much. I found up to 4 different casings for certain libraries.\n\nI know that using a case-insensitive filesystem is preferred, for my own tests I\u0027m currently using ext4\u0027s case-insensitive directory feature, but all of this is not very portable when other people need to build my code.\n\nThat LLVM feature however looks like exactly what I need. I\u0027m already using its counterpart for headers (ivfsoverlay), I did not know that a variant for the linker made it into LLVM 15. Tell thakis I said thanks!",
+      "parentUuid": "f7106b2f_cd6f1ab8",
+      "revId": "e08081f518b686402ee568d8516df8e65d9685bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
