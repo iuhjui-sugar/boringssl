@@ -34,6 +34,24 @@
       "parentUuid": "82da6938_eda2f66f",
       "revId": "e08081f518b686402ee568d8516df8e65d9685bd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7106b2f_cd6f1ab8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-15T15:28:07Z",
+      "side": 1,
+      "message": "Interesting. It\u0027s bizarre to me that Microsoft would use a different casing from their documentation, but I suppose the expectation with the Windows SDK is that you use it with a case-insensitive filesystem.\n\nTo that end, I asked our Windows cross-compiling expert (+thakis) who says using consistently the Windows SDK case-insensitively is the preferred approach. Chromium uses a cpiofs mount. In particular, if there are other files with different casings of the pragma, you\u0027ll still run into problems. Given the spelling we use is the officially documented spelling from Microsoft, it\u0027s odd to try to standardize on a different one.\n\nHe also points out this change, which may provide the feature you want, if you\u0027re using the compiler-level features instead of a mount.\nhttps://reviews.llvm.org/D125800",
+      "parentUuid": "3fa778f8_58a81cc8",
+      "revId": "e08081f518b686402ee568d8516df8e65d9685bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
