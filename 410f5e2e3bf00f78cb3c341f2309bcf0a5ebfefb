@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "0a3fe94d_ca87a8fb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 14851
+      },
+      "writtenOn": "2022-09-16T19:26:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6d77bd0_38ca69a4",
+      "revId": "410f5e2e3bf00f78cb3c341f2309bcf0a5ebfefb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "25f443c6_daf8bfe1",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -394,6 +412,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "48832b76_f4dba3bf",
+        "filename": "crypto/cpu_aarch64_freebsd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 14851
+      },
+      "writtenOn": "2022-09-16T19:26:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ff5efff_6c6bb551",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "410f5e2e3bf00f78cb3c341f2309bcf0a5ebfefb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ef6d7729_af923cdf",
@@ -459,6 +501,24 @@
       "writtenOn": "2022-08-29T13:49:50Z",
       "side": 1,
       "message": "Style nit: We do C99-style variable declarations, so this can just be:\n\n  uint64_t id_aa64isar0 \u003d READ_SPECIALREG(id_aa64isar0_el1);",
+      "revId": "410f5e2e3bf00f78cb3c341f2309bcf0a5ebfefb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e07ade8_4b3da15c",
+        "filename": "crypto/cpu_aarch64_freebsd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 14851
+      },
+      "writtenOn": "2022-09-16T19:26:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f06412a_7e846643",
       "revId": "410f5e2e3bf00f78cb3c341f2309bcf0a5ebfefb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -593,6 +653,30 @@
       "side": 1,
       "message": "(a) Ah, good to know. In most configurations this is called inside a static initializer, so there\u0027s not really much useful we can do on error anyway. What you\u0027ve got seems reasonable.\n\n(b) Nah, definitely a good call on omitting that. That thing is just a headache. :-) It may be time for us to retire that code too.",
       "parentUuid": "3af80b96_90370e48",
+      "range": {
+        "startLine": 30,
+        "startChar": 33,
+        "endLine": 30,
+        "endChar": 39
+      },
+      "revId": "410f5e2e3bf00f78cb3c341f2309bcf0a5ebfefb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fdd1069_2066c1d3",
+        "filename": "crypto/cpu_arm_freebsd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 14851
+      },
+      "writtenOn": "2022-09-16T19:26:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e955210d_d9149e1b",
       "range": {
         "startLine": 30,
         "startChar": 33,
