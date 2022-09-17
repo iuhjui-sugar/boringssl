@@ -16,6 +16,24 @@
       "message": "See discussion in https://boringssl-review.googlesource.com/c/boringssl/+/51905",
       "revId": "c3703098547f7edf323b90e4acd234c5eba32453",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50bde403_4afcfe31",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14951
+      },
+      "writtenOn": "2022-09-17T07:14:50Z",
+      "side": 1,
+      "message": "I didn\u0027t notice that commit, any one is ok to review, thanks for your reply.",
+      "parentUuid": "1c7c6297_135960f9",
+      "revId": "c3703098547f7edf323b90e4acd234c5eba32453",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
