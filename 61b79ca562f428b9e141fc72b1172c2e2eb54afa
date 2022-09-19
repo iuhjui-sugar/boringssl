@@ -16,6 +16,41 @@
       "message": "Hello,\n\ncould you please go ahead and review the recently uploaded patch.\n\nThank you.",
       "revId": "61b79ca562f428b9e141fc72b1172c2e2eb54afa",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a40b40e5_ee51033a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14886
+      },
+      "writtenOn": "2022-09-19T21:13:17Z",
+      "side": 1,
+      "message": "LGTM.",
+      "revId": "61b79ca562f428b9e141fc72b1172c2e2eb54afa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb3c7fd1_fc2eb27e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14886
+      },
+      "writtenOn": "2022-09-19T21:13:17Z",
+      "side": 1,
+      "message": "LGTM.",
+      "parentUuid": "079f8eed_c1d32a4e",
+      "revId": "61b79ca562f428b9e141fc72b1172c2e2eb54afa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
