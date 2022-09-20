@@ -506,6 +506,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbf906b2_e29b1808",
+        "filename": "crypto/cpu_aarch64_freebsd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 13321
+      },
+      "writtenOn": "2022-09-20T07:39:32Z",
+      "side": 1,
+      "message": "12.X doesn\u0027t have ID_AA64ISAR0_AES_VAL defined.\n13.1 has ID_AA64ISAR0_AES_VAL defined.",
+      "parentUuid": "d36bd72a_8c1820da",
+      "revId": "410f5e2e3bf00f78cb3c341f2309bcf0a5ebfefb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8f06412a_7e846643",
