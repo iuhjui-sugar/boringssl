@@ -524,6 +524,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f5ee36b_870a0c3e",
+        "filename": "crypto/cpu_aarch64_freebsd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 14851
+      },
+      "writtenOn": "2022-09-20T13:42:31Z",
+      "side": 1,
+      "message": "Mikaël,\n\nwould you mind to submit a new version of the patch, thank you.",
+      "parentUuid": "fbf906b2_e29b1808",
+      "revId": "410f5e2e3bf00f78cb3c341f2309bcf0a5ebfefb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8f06412a_7e846643",
