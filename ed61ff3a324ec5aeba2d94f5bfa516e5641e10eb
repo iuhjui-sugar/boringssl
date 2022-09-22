@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "352e9796_6d6b789c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-22T21:23:59Z",
+      "side": 1,
+      "message": "(Looked over the diff from 18 to 20, though it sounds like we still have a few other changes to chew on?)",
+      "revId": "ed61ff3a324ec5aeba2d94f5bfa516e5641e10eb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c5679c1_be5379a2",
+        "filename": "ssl/s3_pkt.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-22T21:23:59Z",
+      "side": 1,
+      "message": "Style nits: No need for parens here, and line 132 is a hair longer than 80 chars. :-)",
+      "revId": "ed61ff3a324ec5aeba2d94f5bfa516e5641e10eb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8d1dca3_f037e782",
+        "filename": "ssl/s3_pkt.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-22T21:23:59Z",
+      "side": 1,
+      "message": "Not need to check for `ssl-\u003edo_handshake`. If we\u0027ve gotten this far and this is null, something has gone *horribly* wrong. :-)",
+      "range": {
+        "startLine": 315,
+        "startChar": 42,
+        "endLine": 315,
+        "endChar": 69
+      },
+      "revId": "ed61ff3a324ec5aeba2d94f5bfa516e5641e10eb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f794a4dc_8214d8c5",
+        "filename": "ssl/s3_pkt.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-22T21:23:59Z",
+      "side": 1,
+      "message": "I think key_update_pending is impossible here. See line 300. :-) Though I think we actually don\u0027t need to check this either way. The sequence numbers will reflect whatever the next record we encrypt is. So, if key_update_pending were somehow true, that\u0027d mean we just did a KeyUpdate and queued it up for write, but haven\u0027t flushed it yet. That means we\u0027ll have just reset the sequence number.",
+      "range": {
+        "startLine": 318,
+        "startChar": 6,
+        "endLine": 318,
+        "endChar": 33
+      },
+      "revId": "ed61ff3a324ec5aeba2d94f5bfa516e5641e10eb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

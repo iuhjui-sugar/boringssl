@@ -106,6 +106,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a02c264_9ea67d64",
+        "filename": "ssl/internal.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 2712,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-22T21:23:59Z",
+      "side": 1,
+      "message": "Here you go. :-)\nhttps://boringssl-review.googlesource.com/c/boringssl/+/54505",
+      "parentUuid": "5108313f_128902a7",
+      "range": {
+        "startLine": 2712,
+        "startChar": 11,
+        "endLine": 2712,
+        "endChar": 48
+      },
+      "revId": "6febb0929868c6dfde145d79b38fd4f30df45677",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fd74ea2e_2f174377",
