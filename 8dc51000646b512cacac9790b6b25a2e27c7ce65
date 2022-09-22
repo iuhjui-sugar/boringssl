@@ -46,6 +46,30 @@
       },
       "revId": "8dc51000646b512cacac9790b6b25a2e27c7ce65",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "292bf8fd_fbc15745",
+        "filename": "crypto/fipsmodule/rsa/rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 536,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-22T22:23:59Z",
+      "side": 1,
+      "message": "Hmm. I guess the question is which side of the RSA/RSA_METHOD divide you believe is \"responsible\" for checking hash_nid/digest_len consistency.\n\nI pulled the hash_nid/digest_len check out of RSA_add_pkcs1_prefix, but then I felt mildly weird imposing opinions on what hash_nids the RSA_METHOD supported. (Not that there\u0027s really any chance of them supporting ones we don\u0027t.) And just checking EVP_MAX_MD_SIZE feels kinda weird. It actually is also imposing an opinion since that max size is based on our currently supported set... at which point we should just check the length matches.\n\nI dunno, preferences? Just checking UINT_MAX is a bit more \"pure\" in terms of the RSA_METHOD just implementing the RSASSA-PKCS1-v1_5 API, but checking is a bit tighter.\n\nReally RSA_METHOD is just a terrible API, but nevermind that. :-) One of these days, it\u0027d be nice to rework or just remove all that stuff. (Chrome used to use it, but we\u0027ve long since stopped.)",
+      "parentUuid": "541a22a4_53060267",
+      "range": {
+        "startLine": 536,
+        "startChar": 45,
+        "endLine": 536,
+        "endChar": 64
+      },
+      "revId": "8dc51000646b512cacac9790b6b25a2e27c7ce65",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
