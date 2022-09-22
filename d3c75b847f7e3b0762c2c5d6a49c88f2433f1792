@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0570df93_c6e8515e",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 770,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-22T18:59:14Z",
+      "side": 1,
+      "message": "Hmm. I think the ssl_protocol_version checks here aren\u0027t *quite* right. These scenarios should still flag as downgrade:\n\n- Client supports TLS 1.3\n- Client sees kTLS12DowngradeRandom (intended for TLS 1.1)\n- Protocol version is TLS 1.2\n\nAs well as:\n\n- Client supports TLS 1.3\n- Client sees kTLS13DowngradeRandom (intended for TLS 1.2)\n- Protocol version is TLS 1.1\n\nPer the spec: \"TLS 1.3 clients receiving a ServerHello indicating TLS 1.2 or below MUST check that the last 8 bytes are not equal to either of these values\". I.e. the value isn\u0027t then cross-referenced against the negotiated version.\n\nI think we actually need to flag those because, without it, I don\u0027t think downgrade protection actually works.\n\nThis whole thing is a workaround for ServerKeyExchange not covering the whole transcript. In particular, it doesn\u0027t cover the version. So the attacker could try to present a TLS 1.2 signature at TLS 1.1 or vice versa, provided their sigalgs overlap... which they do at ECDSA. ECDSA/SHA-1 is a TLS 1.2 sigalg (though we disable it) and it is also the sigalg that TLS 1.0/1.1 uses.\n\nSo I think this should actually be:\n\n```\nif (hs-\u003emax_version \u003e\u003d TLS1_3_VERSION \u0026\u0026\n    // (protocol_version \u003c TLS1_2_VERSION is implicit because\n    // this is the TLS 1.2 path)\n    (suffix \u003d\u003d kTLS13DowngradeRandom ||\n     suffix \u003d\u003d kJDK11DowngradeRandom ||\n     suffix \u003d\u003d kTLS12DowngradeRandom)) {\n  OPENSSL_PUT_ERROR(SSL, SSL_R_TLS13_DOWNGRADE);\n  ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);\n  return ssl_hs_error;\n}\nif (hs-\u003eversion \u003e\u003d TLS1_2_VERSION \u0026\u0026\n    ssl_protocol_version(ssl) \u003c\u003d TLS1_1_VERSION \u0026\u0026\n    suffix \u003d\u003d kTLS12DowngradeVersion) {\n  OPENSSL_PUT_ERROR(SSL, SSL_R_TLS12_DOWNGRADE);\n  ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);\n  return ssl_hs_error;\n}\n```\n\nAlthough, now that I write this out, I\u0027m not sure this downgrade protection scheme even does anything meaningful for TLS 1.2 clients, under this \"replay sig at wrong version\" attack. Because there\u0027s nothing stopping me from just taking a TLS 1.2 ECDSA/SHA-1 ServerHello (which won\u0027t have the marker) and claiming it\u0027s TLS 1.1. The signature will still check out.\n\nI\u0027ll ask around about that, but I suppose we can implement what\u0027s in the spec for now...",
+      "revId": "d3c75b847f7e3b0762c2c5d6a49c88f2433f1792",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7afb30e5_b694976a",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 6513,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-22T18:59:14Z",
+      "side": 1,
+      "message": "This\u0027ll adjust what the test server sends in ServerHello, or what the test client enforces, but it won\u0027t actually change `hs-\u003emax_version` on the shim (code under test) client or server, so I\u0027m not sure if it\u0027s actually testing the new code. (There are -max-version and -min-version flags for that.)",
+      "revId": "d3c75b847f7e3b0762c2c5d6a49c88f2433f1792",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
