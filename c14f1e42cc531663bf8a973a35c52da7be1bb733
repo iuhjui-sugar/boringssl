@@ -16,6 +16,23 @@
       "message": "I forgot ASN1_STRING was so terrible. :-(",
       "revId": "c14f1e42cc531663bf8a973a35c52da7be1bb733",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0585fb41_b7c4dcac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-23T19:09:11Z",
+      "side": 1,
+      "message": "Actually, I should write a unit test for a couple of these...",
+      "revId": "c14f1e42cc531663bf8a973a35c52da7be1bb733",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
