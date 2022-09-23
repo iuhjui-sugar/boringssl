@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "dc458f30_8fd481aa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-23T19:14:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e202e9f0_424dabc4",
+      "range": {
+        "startLine": 10,
+        "startChar": 15,
+        "endLine": 10,
+        "endChar": 19
+      },
+      "revId": "c14f1e42cc531663bf8a973a35c52da7be1bb733",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "2ea63c2c_49de3bf7",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -54,6 +78,24 @@
       "writtenOn": "2022-09-23T19:09:11Z",
       "side": 1,
       "message": "Actually, I should write a unit test for a couple of these...",
+      "revId": "c14f1e42cc531663bf8a973a35c52da7be1bb733",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97007d26_9575c6ad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-23T19:14:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0585fb41_b7c4dcac",
       "revId": "c14f1e42cc531663bf8a973a35c52da7be1bb733",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -89,6 +131,24 @@
       "side": 1,
       "message": "(Ah, this is probably what the commit message is talking about. I assume `ASN1_INTEGER_cmp` does something non-crashy with unexpected types?)",
       "parentUuid": "1bfdfdcc_8d674202",
+      "revId": "c14f1e42cc531663bf8a973a35c52da7be1bb733",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a1e9447_8fd4481a",
+        "filename": "crypto/x509/x_crl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-23T19:14:45Z",
+      "side": 1,
+      "message": "Yeah, it won\u0027t crash. Although what it does is pretty incoherent because it interprets an arbitrary other ASN1_STRING as the ASN1_INTEGER/ASN1_ENUMERATED sign-and-magnitude thing. I dunno, could go either way there.",
+      "parentUuid": "5e167871_e937024a",
       "revId": "c14f1e42cc531663bf8a973a35c52da7be1bb733",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
