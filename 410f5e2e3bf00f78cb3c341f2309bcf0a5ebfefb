@@ -389,6 +389,42 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c648a5af_b5f6b862",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14851
+      },
+      "writtenOn": "2022-09-25T14:00:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f9c76b78_14e54eab",
+      "revId": "410f5e2e3bf00f78cb3c341f2309bcf0a5ebfefb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0de917ac_583aadf7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14851
+      },
+      "writtenOn": "2022-09-25T14:00:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a6cdaaa_399c2eef",
+      "revId": "410f5e2e3bf00f78cb3c341f2309bcf0a5ebfefb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4ff5efff_6c6bb551",
@@ -449,6 +485,24 @@
       "writtenOn": "2022-08-29T13:49:50Z",
       "side": 1,
       "message": "I believe this\u0027ll break all non-FreeBSD platforms because you\u0027re defining OPENSSL_cpuid_setup on all OPENSSL_AARCH64 targets, not just OPENSSL_FREEBSD. Also, to be consistent with the other platforms, we ought to honor OPENSSL_STATIC_ARMCAP. So:\n\n```\n#include \"internal.h\"\n\n#if defined(OPENSSL_AARCH64) \u0026\u0026 defined(OPENSSL_FREEBSD) \u0026\u0026 \\\n    !defined(OPENSSL_STATIC_ARMCAP)\n    \n#include \u003csys/types.h\u003e\n#include \u003cmachine/_stdint.h\u003e\n#include \u003cmachine/armreg.h\u003e\n\n#include \u003copenssl/arm_arch.h\u003e\n\n\n#ifndef ID_AA64ISAR0_AES_VAL\n#define ID_AA64ISAR0_AES_VAL ID_AA64ISAR0_AES\n#endif\n#ifndef ID_AA64ISAR0_SHA1_VAL\n#define ID_AA64ISAR0_SHA1_VAL ID_AA64ISAR0_SHA1\n#endif\n#ifndef ID_AA64ISAR0_SHA2_VAL\n#define ID_AA64ISAR0_SHA2_VAL ID_AA64ISAR0_SHA2\n#endif\n\nextern uint32_t OPENSSL_armcap_P;\n\nvoid OPENSSL_cpuid_setup(void) {\n  ...\n```",
+      "revId": "410f5e2e3bf00f78cb3c341f2309bcf0a5ebfefb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c38c74d1_e8e961eb",
+        "filename": "crypto/cpu_aarch64_freebsd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 14851
+      },
+      "writtenOn": "2022-09-25T14:00:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef6d7729_af923cdf",
       "revId": "410f5e2e3bf00f78cb3c341f2309bcf0a5ebfefb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -600,6 +654,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f8781249_504ed9c3",
+        "filename": "crypto/cpu_aarch64_freebsd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 14851
+      },
+      "writtenOn": "2022-09-25T14:00:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "394414dd_59a1ee71",
+      "range": {
+        "startLine": 51,
+        "startChar": 41,
+        "endLine": 51,
+        "endChar": 43
+      },
+      "revId": "410f5e2e3bf00f78cb3c341f2309bcf0a5ebfefb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8651097d_eb5dd1e3",
@@ -613,6 +691,30 @@
       "writtenOn": "2022-08-29T13:49:50Z",
       "side": 1,
       "message": "Ditto.",
+      "range": {
+        "startLine": 54,
+        "startChar": 42,
+        "endLine": 54,
+        "endChar": 44
+      },
+      "revId": "410f5e2e3bf00f78cb3c341f2309bcf0a5ebfefb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b2c30f8a_441b678f",
+        "filename": "crypto/cpu_aarch64_freebsd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 14851
+      },
+      "writtenOn": "2022-09-25T14:00:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8651097d_eb5dd1e3",
       "range": {
         "startLine": 54,
         "startChar": 42,

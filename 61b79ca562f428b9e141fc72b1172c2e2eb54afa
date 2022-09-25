@@ -51,6 +51,23 @@
       "parentUuid": "079f8eed_c1d32a4e",
       "revId": "61b79ca562f428b9e141fc72b1172c2e2eb54afa",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b25dbd0_b7470d53",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14851
+      },
+      "writtenOn": "2022-09-25T14:00:31Z",
+      "side": 1,
+      "message": "Mark all unresolved comments as resolved.\n\nDiscussed with: Mikaël Urankar",
+      "revId": "61b79ca562f428b9e141fc72b1172c2e2eb54afa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
