@@ -68,6 +68,23 @@
       "message": "Mark all unresolved comments as resolved.\n\nDiscussed with: Mikaël Urankar",
       "revId": "61b79ca562f428b9e141fc72b1172c2e2eb54afa",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "625c3e36_217bebee",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14851
+      },
+      "writtenOn": "2022-09-27T21:37:52Z",
+      "side": 1,
+      "message": "Hello,\nhope you\u0027re doing well.\n\nDear Adam and David,\ncould you please take a look on the updated patch.\nThank you.",
+      "revId": "61b79ca562f428b9e141fc72b1172c2e2eb54afa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
