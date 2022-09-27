@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d39db8b2_bb5be8ef",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-09-27T16:06:33Z",
+      "side": 1,
+      "message": "This does change the behaviour on the limit with a garbage record. I am pretty sure we don\u0027t care, but this will give us an ERR_R_OVERFLOW in this case instead of SSL_R_DECRYPTION_FAILED_OR_BAD_RECORD_MAC.\n\nI think the change of behaviour is fine, but if not you could move this\ndown to where we increment it to keep it the same.",
+      "range": {
+        "startLine": 278,
+        "startChar": 25,
+        "endLine": 278,
+        "endChar": 31
+      },
+      "revId": "0804e0ba0529fa0590f130ff710315b6a1a14986",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36815921_5bb04a6a",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-09-27T16:06:33Z",
+      "side": 1,
+      "message": "Nit - I personally prefer the (thing \u003d\u003d UINT64_MAX) rather than the (thing + 1 \u003d\u003d 0) paradigm - Although we should probably pick one and be consistent rather than doing it by individual whim in every place.",
+      "range": {
+        "startLine": 279,
+        "startChar": 0,
+        "endLine": 279,
+        "endChar": 37
+      },
+      "revId": "0804e0ba0529fa0590f130ff710315b6a1a14986",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eefa3848_2c004268",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-09-27T16:06:33Z",
+      "side": 1,
+      "message": "same here regarding error behaviour change nit..",
+      "revId": "0804e0ba0529fa0590f130ff710315b6a1a14986",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
