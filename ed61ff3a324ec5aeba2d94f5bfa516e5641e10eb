@@ -35,6 +35,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "94a798b1_93602465",
+        "filename": "ssl/s3_pkt.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-09-28T20:44:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c5679c1_be5379a2",
+      "revId": "ed61ff3a324ec5aeba2d94f5bfa516e5641e10eb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f8d1dca3_f037e782",
@@ -58,6 +76,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "85e242ac_e650605b",
+        "filename": "ssl/s3_pkt.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-09-28T20:44:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8d1dca3_f037e782",
+      "range": {
+        "startLine": 315,
+        "startChar": 42,
+        "endLine": 315,
+        "endChar": 69
+      },
+      "revId": "ed61ff3a324ec5aeba2d94f5bfa516e5641e10eb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f794a4dc_8214d8c5",
@@ -71,6 +113,30 @@
       "writtenOn": "2022-09-22T21:23:59Z",
       "side": 1,
       "message": "I think key_update_pending is impossible here. See line 300. :-) Though I think we actually don\u0027t need to check this either way. The sequence numbers will reflect whatever the next record we encrypt is. So, if key_update_pending were somehow true, that\u0027d mean we just did a KeyUpdate and queued it up for write, but haven\u0027t flushed it yet. That means we\u0027ll have just reset the sequence number.",
+      "range": {
+        "startLine": 318,
+        "startChar": 6,
+        "endLine": 318,
+        "endChar": 33
+      },
+      "revId": "ed61ff3a324ec5aeba2d94f5bfa516e5641e10eb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56209cc5_95ef5688",
+        "filename": "ssl/s3_pkt.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-09-28T20:44:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f794a4dc_8214d8c5",
       "range": {
         "startLine": 318,
         "startChar": 6,
