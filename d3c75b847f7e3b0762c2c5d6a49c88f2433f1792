@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "29c08120_14cb284c",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 770,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-09-28T18:18:24Z",
+      "side": 1,
+      "message": "If I can just take thee regular serverhello without the marker and slap a 1.1 version in it, there\u0027s probably not much point to implementing this at all.",
+      "parentUuid": "0570df93_c6e8515e",
+      "revId": "d3c75b847f7e3b0762c2c5d6a49c88f2433f1792",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7afb30e5_b694976a",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 10
