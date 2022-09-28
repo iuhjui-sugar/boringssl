@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "115083cb_b755668f",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 770,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-28T18:19:35Z",
+      "side": 1,
+      "message": "Agreed. Let\u0027s park this unless the email thread comes back with a reason why this is actually useful.",
+      "parentUuid": "29c08120_14cb284c",
+      "revId": "d3c75b847f7e3b0762c2c5d6a49c88f2433f1792",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7afb30e5_b694976a",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 10
