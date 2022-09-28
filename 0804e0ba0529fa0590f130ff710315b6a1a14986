@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1af35ac_25da4e73",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-28T18:07:04Z",
+      "side": 1,
+      "message": "Yeah, I changed that somewhat intentionally because if we hit the limit and we *somehow* called this function again, we\u0027ll technically repeat a nonce.\n\nWe make handshake and read errors sticky, so I think this is moot here. Interestingly, we never made the write error sticky, so I guess this does kinda fix a bug there.",
+      "parentUuid": "d39db8b2_bb5be8ef",
+      "range": {
+        "startLine": 278,
+        "startChar": 25,
+        "endLine": 278,
+        "endChar": 31
+      },
+      "revId": "0804e0ba0529fa0590f130ff710315b6a1a14986",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36815921_5bb04a6a",
@@ -47,6 +71,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "80efcadd_787a7564",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-28T18:07:04Z",
+      "side": 1,
+      "message": "We\u0027ve usually done the latter, though I don\u0027t know if we\u0027re that consistent. Part of me wants to just import base/numerics from Chromium. :-)",
+      "parentUuid": "36815921_5bb04a6a",
+      "range": {
+        "startLine": 279,
+        "startChar": 0,
+        "endLine": 279,
+        "endChar": 37
+      },
+      "revId": "0804e0ba0529fa0590f130ff710315b6a1a14986",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eefa3848_2c004268",
@@ -60,6 +108,24 @@
       "writtenOn": "2022-09-27T16:06:33Z",
       "side": 1,
       "message": "same here regarding error behaviour change nit..",
+      "revId": "0804e0ba0529fa0590f130ff710315b6a1a14986",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "91d98e67_88cea0e3",
+        "filename": "ssl/tls_record.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-28T18:07:04Z",
+      "side": 1,
+      "message": "Ditto.",
+      "parentUuid": "eefa3848_2c004268",
       "revId": "0804e0ba0529fa0590f130ff710315b6a1a14986",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
