@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbc9456c_7688b98a",
+        "filename": "ssl/internal.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 2708,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-29T18:54:21Z",
+      "side": 1,
+      "message": "KeyUpdate\n\nAlthough, looks like this isn\u0027t quite accurate? It\u0027s reset:\n\n- When we receive any application data\n- When we receive a KeyUpdate (request or otherwise), unless it was a \"free\" KeyUpdate that we received via this counter.\n\nIt\u0027s also subtracted from when we consume a KeyUpdate.\n\nThough I\u0027m struggling to come up with a clear description of what that is. It also complicates the meaning of key_update_count. Maybe some variant on key_update_budget?? Not sure what key_update_count should be called at that point.\n\nThoughts?",
+      "range": {
+        "startLine": 2708,
+        "startChar": 57,
+        "endLine": 2708,
+        "endChar": 75
+      },
+      "revId": "d99f1e0f4e6840970ea97dcd9df58670d776587e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8098c020_7cd3b009",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 1011,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-29T18:54:21Z",
+      "side": 1,
+      "message": "To make sure I understand: we reset this because, if we receive any data, we assume we\u0027re reading and therefore don\u0027t need to allow for KeyUpdate storms when we\u0027re not reading?\n\nDoes that work? I think there might be some stuff getting out of sync here.\n\nLet\u0027s say we\u0027re an HTTP/1.1 server and the peer (client) implements pipelining. (Or similar protocol.) They send `GET /giant/resource` and then follow that up with `GET /small/resource`. This is small enough that it fits in transport buffers.\n\nWe read `GET /giant/resource` and spew a ton of data at the client. We don\u0027t read the next one because HTTP/1.1 servers typically don\u0027t keep training the read pipe while they\u0027re writing. While we\u0027re spewing data, the client decides to send us a bunch of KeyUpdates.\n\nWe finish spewing data and read `GET /small/resource`. We then write a tiny amount of data, not enough to get this counter up. Then we read again and pick up the KeyUpdates triggered by /giant/resource. But there\u0027s only a `/small/resource`\u0027s worth of budget to cover a `/giant/resource`\u0027s worth of KeyUpdates.\n\n(I\u0027m still kinda dubious whether this kind of peer behavior should be considered \"legitimate\". A client like this likely has a DoS bug itself because a malicious server can just refuse to read, but send enough data to queue up KeyUpdates. At some point, that\u0027ll exceed the transport buffer and just start building up in memory on the client, without bound.)\n\nTo the comment about trying to come up with clear descriptions of these counters, I think if we remove this, our KeyUpdate policy becomes moderately clear:\n\n- You are allowed to give me one 1 KeyUpdate every N records I write\n- You are allowed to accompany every record you write with up to 32 KeyUpdates, outside of the above budget\n\n(I wonder if 32 needs to be quite that high if we\u0027ve also got the write-based budget. I guess there\u0027s also time-based rotations. Though arguably even this CL doesn\u0027t really handle time-based rotations. Suppose it\u0027s an idle HTTP/2 connection but the peer still wakes up every 30 seconds to send a KeyUpdate. 16 minutes later, it\u0027ll break. But idle connections are also expected to close whenever, so that\u0027s not *that* big of a deal.)",
+      "revId": "d99f1e0f4e6840970ea97dcd9df58670d776587e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96d1d78f_9112f35a",
+        "filename": "ssl/tls13_both.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-29T18:54:21Z",
+      "side": 1,
+      "message": "Probably need to update this comment now.",
+      "revId": "d99f1e0f4e6840970ea97dcd9df58670d776587e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
