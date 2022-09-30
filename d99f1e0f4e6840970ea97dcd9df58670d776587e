@@ -43,6 +43,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2f47d792_9ed205c8",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 1011,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-09-30T15:48:13Z",
+      "side": 1,
+      "message": "Never resetting it does leave us in the situation where a long lived connection could have a bunch of writes and then be kept spinning, although theoretically not indefinetely.  So one thought here is as you suggest, remove it with the description as you suggest - we could probably also drop it to \"you are allowed to accompany every record you write with a Key Update\" - instead of 32. which sort of make sense and effectively makes it symmetric - then this could simply become \"key_update_budget\" increasing by 1 for every record received from the peer and 1 every 256 records we write to the peer..  I am somewhat concerened about the unbounded growth in this case although again that more or less makes it symmetric.. We could also go as far as making it the same both ways, one for every 256 records read or written... I think that\u0027s still reasonable..",
+      "parentUuid": "8098c020_7cd3b009",
+      "revId": "d99f1e0f4e6840970ea97dcd9df58670d776587e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "96d1d78f_9112f35a",
         "filename": "ssl/tls13_both.cc",
         "patchSetId": 18
