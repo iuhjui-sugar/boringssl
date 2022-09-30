@@ -61,6 +61,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e2573ef2_fb65ac5f",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 1011,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-09-30T16:28:53Z",
+      "side": 1,
+      "message": "\u003e Never resetting it does leave us in the situation where a long lived connection could have a bunch of writes and then be kept spinning, although theoretically not indefinetely.\n\nThat\u0027s true, though I think that\u0027s also true without the reset. The peer can just not write anything. Though I suppose it is limited by how much you\u0027re willing to write in response to one \"request\". But, I dunno, suppose, in HTTP/2, I ask for max_streams `GET /giant/resource` in parallel.\n\nSo I figure we have to either decide we\u0027re okay with this, probably by setting 256 to be a large enough number, or not do an approach like this one. My understanding was we\u0027d decided 256 was a large enough number that we wouldn\u0027t *actually* care. (256 full-size records is a budget of one KeyUpdate per 4MiB. A KeyUpdate is, what, 26 bytes? Let\u0027s call it 32. So if we send 1TiB, you\u0027re allowed to turn around and reply with a storm of 8MiB of KeyUpdates. Dunno how terrible we\u0027d consider that to be, though we can tune that by increasing 256 if we don\u0027t like it.)\n\n\u003e we could probably also drop it to \"you are allowed to accompany every record you write with a Key Update\" - instead of 32. which sort of make sense and effectively makes it symmetric - then this could simply become \"key_update_budget\" increasing by 1 for every record received from the peer and 1 every 256 records we write to the peer.. I am somewhat concerened about the unbounded growth in this case although again that more or less makes it symmetric.. We could also go as far as making it the same both ways, one for every 256 records read or written... I think that\u0027s still reasonable..\n\nYeah, I guess the unbounded growth comes from our whether the read rule is cumulative or not. Our current rule is you can accompany a record with 32 KeyUpdates, but, if you decline to, *it won\u0027t build up*. Whereas the write budget is somewhat inherently cumulative because it comes off a different stream.\n\nUnlike the write one, I don\u0027t think we *need* to make the read budget cumulative. But the symmetry is quite attractive since it lets us keep a single `key_update_budget` counter. Dunno. Either sounds promising. I guessing changing the read budget carries a bit of a risk, but sending 32 KeyUpdates with every record is pretty absurd.",
+      "parentUuid": "2f47d792_9ed205c8",
+      "revId": "d99f1e0f4e6840970ea97dcd9df58670d776587e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "96d1d78f_9112f35a",
         "filename": "ssl/tls13_both.cc",
         "patchSetId": 18
