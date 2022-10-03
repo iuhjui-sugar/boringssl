@@ -16,6 +16,24 @@
       "message": "Sorry, since this is an internal tool for our validations it\u0027s not subject to the same commitments as BoringSSL itself. I don\u0027t think that we have the time to code review this into shape. (For example: -fetch writes to stdout. If you want to put it into a file, normally one would use a redirect for that.) Fetching the expected vectors is a reasonable feature request: is that something you need?",
       "revId": "8057feaa1b2682f67b2a09e82fd46f09860d6f4b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d2707ac_e8d51722",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14761
+      },
+      "writtenOn": "2022-10-03T21:56:29Z",
+      "side": 1,
+      "message": "Thanks for the reply Adam. Yes we are trying to fetch the test vectors and the expected results with this change. Hence the optionality of writing both to separate files, while preserving the original behavior of writing test vectors to stdout when no arguments are given. Having the expected results (with the understanding that some are non-deterministic, ex: keygen) was useful for debugging our ACVP framework. What sort of interface would you prefer to see for this feature?",
+      "parentUuid": "16b421ad_802805d4",
+      "revId": "8057feaa1b2682f67b2a09e82fd46f09860d6f4b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
