@@ -16,6 +16,24 @@
       "message": "You should be able to get rid of this now too...",
       "revId": "64393b57e8734b92a6ba784bcfc02b1aa01e5ff2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "976436f4_066de966",
+        "filename": "include/openssl/dh.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-10-04T22:00:40Z",
+      "side": 0,
+      "message": "Hmm, yeah I suppose no one\u0027s using it. Removed.",
+      "parentUuid": "b4728084_546f61b6",
+      "revId": "64393b57e8734b92a6ba784bcfc02b1aa01e5ff2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
