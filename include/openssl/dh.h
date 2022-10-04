@@ -330,31 +330,6 @@ OPENSSL_EXPORT int DH_compute_key(uint8_t *out, const BIGNUM *peers_key,
                                   DH *dh);
 
 
-struct dh_st {
-  BIGNUM *p;
-  BIGNUM *g;
-  BIGNUM *pub_key;   // g^x mod p
-  BIGNUM *priv_key;  // x
-
-  // priv_length contains the length, in bits, of the private value. If zero,
-  // the private value will be the same length as |p|.
-  unsigned priv_length;
-
-  CRYPTO_MUTEX method_mont_p_lock;
-  BN_MONT_CTX *method_mont_p;
-
-  // Place holders if we want to do X9.42 DH
-  BIGNUM *q;
-  BIGNUM *j;
-  unsigned char *seed;
-  int seedlen;
-  BIGNUM *counter;
-
-  int flags;
-  CRYPTO_refcount_t references;
-};
-
-
 #if defined(__cplusplus)
 }  // extern C
 
