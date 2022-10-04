@@ -36,6 +36,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "246fecb0_66d3aef3",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 13
+      },
+      "lineNbr": 640,
+      "author": {
+        "id": 14496
+      },
+      "writtenOn": "2022-10-04T09:54:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d88c5b13_d50b1cb3",
+      "revId": "15476b7a0c875fdb0e39a9cdb13b9481af23cdad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e0cf634a_6c53be36",
@@ -83,6 +101,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "83331fed_922ce4bb",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 13
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 14496
+      },
+      "writtenOn": "2022-10-04T09:54:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aafa6525_0b6e383c",
+      "range": {
+        "startLine": 639,
+        "startChar": 3,
+        "endLine": 671,
+        "endChar": 4
+      },
+      "revId": "15476b7a0c875fdb0e39a9cdb13b9481af23cdad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2b96ec76_6286eecf",
@@ -114,6 +156,24 @@
       "side": 1,
       "message": "It will print to stdout as the value is initialized with os.StdOut and overwritten when the testoutflag is provided.",
       "parentUuid": "2b96ec76_6286eecf",
+      "revId": "15476b7a0c875fdb0e39a9cdb13b9481af23cdad",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8428a276_bdbb03eb",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 13
+      },
+      "lineNbr": 759,
+      "author": {
+        "id": 14496
+      },
+      "writtenOn": "2022-10-04T09:54:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68b5220a_fcccc43c",
       "revId": "15476b7a0c875fdb0e39a9cdb13b9481af23cdad",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
