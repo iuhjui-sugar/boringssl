@@ -1634,8 +1634,18 @@ OPENSSL_EXPORT STACK_OF(X509) *SSL_get_peer_full_cert_chain(const SSL *ssl);
 // verification. The caller does not take ownership of the result.
 //
 // This is the |CRYPTO_BUFFER| variant of |SSL_get_peer_full_cert_chain|.
-OPENSSL_EXPORT const STACK_OF(CRYPTO_BUFFER) *
-    SSL_get0_peer_certificates(const SSL *ssl);
+OPENSSL_EXPORT const STACK_OF(CRYPTO_BUFFER) *SSL_get0_peer_certificates(
+    const SSL *ssl);
+
+// SSL_get0_peer_pubkey returns the peer's public key during a handshake, or
+// NULL if unavailable. The caller does not take ownership of the result.
+OPENSSL_EXPORT const EVP_PKEY *SSL_get0_peer_pubkey(const SSL *ssl);
+
+// SSL_get0_unparsed_peer_pubkey returns the peer's unparsed public key during a
+// handshake, or NULL if unavailable. The caller does not take ownership
+// of the result.
+OPENSSL_EXPORT const CRYPTO_BUFFER *SSL_get0_unparsed_peer_pubkey(
+    const SSL *ssl);
 
 // SSL_get0_signed_cert_timestamp_list sets |*out| and |*out_len| to point to
 // |*out_len| bytes of SCT information from the server. This is only valid if
@@ -3033,6 +3043,49 @@ OPENSSL_EXPORT void SSL_get0_peer_application_settings(const SSL *ssl,
 // SSL_has_application_settings returns one if ALPS was negotiated on this
 // connection and zero otherwise.
 OPENSSL_EXPORT int SSL_has_application_settings(const SSL *ssl);
+
+
+// Raw public keys for authentication (RFC 7250).
+//
+// Raw public keys can be used in TLS 1.3, instead of an X.509 certificate,
+// to authenticate peers. BoringSSL only supports clients authenticating servers
+// with such keys and not the other way around. Configuring an SSL_CTX/SSL for
+// raw public keys is mutually exclusive with X.509 certificates. I.e. A server
+// cannot be initialized with both |SSL_set_raw_public_key_and_key| and
+// |SSL_set_chain_and_key| and present either a raw public key or X.509
+// certificate chain depending on the client. A server can be configured with
+// |SSL_CTX_set_select_certificate_cb| to install a callback to switch between
+// them, however.
+
+// SSL_CTX_set_raw_public_key_mode indicates that |ctx| wishes to receive a raw
+// public key from a server rather than an X.509 certificate chain. Clients
+// should install a custom verifier with |SSL_CTX_set_custom_verify| or
+// |SSL_set_custom_verify| to verify the server's public key, which can be
+// obtained via |SSL_get0_peer_pubkey| or |SSL_get0_unparsed_peer_pubkey|. This
+// is only supported for client connections currently and only with TLSv1.3.
+OPENSSL_EXPORT void SSL_CTX_set_raw_public_key_mode(SSL_CTX *ctx);
+
+// SSL_set_raw_public_key_mode acts the same as
+// |SSL_CTX_set_raw_public_key_mode|, but on an |SSL|.
+// It returns one on success and zero on error.
+OPENSSL_EXPORT int SSL_set_raw_public_key_mode(SSL *ssl);
+
+// SSL_CTX_set_raw_public_key_and_key sets a raw public key (in
+// SubjectPublicKeyInfo format) and the corresponding private key for a TLS
+// server. References to the given |CRYPTO_BUFFER| and |EVP_PKEY| objects are
+// added as needed. Exactly one of |privkey| or |privkey_method| may be
+// non-NULL. |spki| must be non-NULL iff |privkey_method| is, otherwise the
+// public key will be generated from |privkey|. It returns one on success and
+// zero on error.
+OPENSSL_EXPORT int SSL_CTX_set_raw_public_key_and_key(
+    SSL_CTX *ctx, CRYPTO_BUFFER *spki, EVP_PKEY *privkey,
+    const SSL_PRIVATE_KEY_METHOD *privkey_method);
+
+// SSL_set_raw_public_key_and_key acts like |SSL_CTX_set_raw_public_key_and_key|
+// except that it acts on |ssl|.
+OPENSSL_EXPORT int SSL_set_raw_public_key_and_key(
+    SSL *ssl, CRYPTO_BUFFER *spki, EVP_PKEY *privkey,
+    const SSL_PRIVATE_KEY_METHOD *privkey_method);
 
 
 // Certificate compression.
