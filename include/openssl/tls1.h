@@ -200,6 +200,9 @@ extern "C" {
 // ExtensionType value from RFC 7685
 #define TLSEXT_TYPE_padding 21
 
+// ExtensionType value from RFC7250
+#define TLSEXT_TYPE_server_certificate_type 20
+
 // ExtensionType value from RFC 7627
 #define TLSEXT_TYPE_extended_master_secret 23
 
