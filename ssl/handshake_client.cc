@@ -941,7 +941,8 @@ static enum ssl_hs_wait_t do_read_server_certificate(SSL_HANDSHAKE *hs) {
 
   CBS body = msg.body;
   uint8_t alert = SSL_AD_DECODE_ERROR;
-  if (!ssl_parse_cert_chain(&alert, &hs->new_session->certs, &hs->peer_pubkey,
+  if (!ssl_parse_cert_chain(&alert, &hs->new_session->certs,
+                            &hs->new_session->peer_pubkey,
                             NULL, &body, ssl->ctx->pool)) {
     ssl_send_alert(ssl, SSL3_AL_FATAL, alert);
     return ssl_hs_error;
@@ -956,7 +957,7 @@ static enum ssl_hs_wait_t do_read_server_certificate(SSL_HANDSHAKE *hs) {
   }
 
   if (!ssl_check_leaf_certificate(
-          hs, hs->peer_pubkey.get(),
+          hs, hs->new_session->peer_pubkey.get(),
           sk_CRYPTO_BUFFER_value(hs->new_session->certs.get(), 0))) {
     ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_ILLEGAL_PARAMETER);
     return ssl_hs_error;
@@ -1174,7 +1175,7 @@ static enum ssl_hs_wait_t do_read_server_key_exchange(SSL_HANDSHAKE *hs) {
       }
       hs->new_session->peer_signature_algorithm = signature_algorithm;
     } else if (!tls1_get_legacy_signature_algorithm(&signature_algorithm,
-                                                    hs->peer_pubkey.get())) {
+                                         hs->new_session->peer_pubkey.get())) {
       OPENSSL_PUT_ERROR(SSL, SSL_R_PEER_ERROR_UNSUPPORTED_CERTIFICATE_TYPE);
       ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_UNSUPPORTED_CERTIFICATE);
       return ssl_hs_error;
@@ -1206,7 +1207,7 @@ static enum ssl_hs_wait_t do_read_server_key_exchange(SSL_HANDSHAKE *hs) {
     }
 
     if (!ssl_public_key_verify(ssl, signature, signature_algorithm,
-                               hs->peer_pubkey.get(), transcript_data)) {
+                    hs->new_session->peer_pubkey.get(), transcript_data)) {
       // bad signature
       OPENSSL_PUT_ERROR(SSL, SSL_R_BAD_SIGNATURE);
       ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECRYPT_ERROR);
@@ -1404,7 +1405,7 @@ static enum ssl_hs_wait_t do_send_client_key_exchange(SSL_HANDSHAKE *hs) {
                                        : key_usage_digital_signature;
     if (!ssl_cert_check_key_usage(&leaf_cbs, intended_use)) {
       if (hs->config->enforce_rsa_key_usage ||
-          EVP_PKEY_id(hs->peer_pubkey.get()) != EVP_PKEY_RSA) {
+          EVP_PKEY_id(hs->new_session->peer_pubkey.get()) != EVP_PKEY_RSA) {
         return ssl_hs_error;
       }
       ERR_clear_error();
@@ -1454,7 +1455,7 @@ static enum ssl_hs_wait_t do_send_client_key_exchange(SSL_HANDSHAKE *hs) {
       return ssl_hs_error;
     }
 
-    RSA *rsa = EVP_PKEY_get0_RSA(hs->peer_pubkey.get());
+    RSA *rsa = EVP_PKEY_get0_RSA(hs->new_session->peer_pubkey.get());
     if (rsa == NULL) {
       OPENSSL_PUT_ERROR(SSL, ERR_R_INTERNAL_ERROR);
       return ssl_hs_error;

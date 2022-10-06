@@ -198,6 +198,8 @@ struct TestConfig {
   int early_write_after_message = 0;
   bool fips_202205 = false;
   bool wpa_202304 = false;
+  bool raw_public_key_mode = false;
+  std::string expect_spki;
 
   std::vector<const char*> handshaker_args;
 

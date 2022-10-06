@@ -565,6 +565,14 @@ func (hs *clientHandshakeState) createClientHello(innerHello *clientHelloMsg, ec
 		hello.vers = mapClientHelloVersion(maxVersion, c.isDTLS)
 	}
 
+	if maxVersion >= VersionTLS13 && c.config.useServerRawPublicKeyCertificate {
+		hello.serverCertificateTypes = []uint8{certificateTypeRawPublicKey}
+	}
+
+	if c.config.Bugs.ServerCertificateTypes != nil {
+		hello.serverCertificateTypes = c.config.Bugs.ServerCertificateTypes
+	}
+
 	if c.config.Bugs.SendClientVersion != 0 {
 		hello.vers = c.config.Bugs.SendClientVersion
 	}
@@ -1270,11 +1278,22 @@ func (hs *clientHandshakeState) doTLS13Handshake(msg any) error {
 			}
 		}
 
-		if err := hs.verifyCertificates(certMsg); err != nil {
-			return err
+		ex := encryptedExtensions.extensions
+		if c.config.useServerRawPublicKeyCertificate {
+			if !ex.hasServerCertificateType || ex.serverCertificateType != certificateTypeRawPublicKey {
+				c.sendAlert(alertUnsupportedCertificate)
+				return errors.New("tls: server did not support raw public keys")
+			}
+			if err := hs.verifyRawPublicKeyCertificates(certMsg); err != nil {
+				return err
+			}
+		} else {
+			if err := hs.verifyCertificates(certMsg); err != nil {
+				return err
+			}
+			c.ocspResponse = certMsg.certificates[0].ocspResponse
+			c.sctList = certMsg.certificates[0].sctList
 		}
-		c.ocspResponse = certMsg.certificates[0].ocspResponse
-		c.sctList = certMsg.certificates[0].sctList
 
 		msg, err = c.readHandshake()
 		if err != nil {
@@ -1793,6 +1812,50 @@ func delegatedCredentialSignedMessage(credBytes []byte, algorithm signatureAlgor
 	ret = append(ret, credBytes...)
 
 	return ret
+}
+
+func (hs *clientHandshakeState) verifyRawPublicKeyCertificates(certMsg *certificateMsg) error {
+	c := hs.c
+
+	if len(certMsg.certificates) != 1 {
+		c.sendAlert(alertIllegalParameter)
+		return errors.New("tls: incorrect number of certificates")
+	}
+
+	leafSPKI := certMsg.certificates[0].data
+
+	if !c.config.InsecureSkipVerify {
+		expectedCert, err := x509.ParseCertificate(c.config.Certificates[0].Certificate[0])
+		if err != nil {
+			c.sendAlert(alertInternalError)
+			return errors.New("tls: failed to parse configured certificate: " + err.Error())
+		}
+		expectedSPKI := expectedCert.RawSubjectPublicKeyInfo
+
+		if !bytes.Equal(expectedSPKI, leafSPKI) {
+			c.sendAlert(alertBadCertificate)
+			return errors.New("tls: raw public key verification failed")
+		}
+	}
+
+	leafPublicKey, err := x509.ParsePKIXPublicKey(leafSPKI)
+	if err != nil {
+		c.sendAlert(alertBadCertificate)
+		return errors.New("tls: failed to parse raw public key certificate from server: " + err.Error())
+	}
+
+	switch leafPublicKey.(type) {
+	case *rsa.PublicKey, *ecdsa.PublicKey, ed25519.PublicKey:
+		break
+	default:
+		c.sendAlert(alertUnsupportedCertificate)
+		return fmt.Errorf("tls: server's certificate contains an unsupported type of public key: %T", leafPublicKey)
+	}
+
+	c.peerCertificates = nil
+	hs.peerPublicKey = leafPublicKey
+
+	return nil
 }
 
 func (hs *clientHandshakeState) verifyCertificates(certMsg *certificateMsg) error {

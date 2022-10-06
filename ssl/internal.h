@@ -1311,6 +1311,10 @@ int ssl_write_buffer_flush(SSL *ssl);
 // configured.
 bool ssl_has_certificate(const SSL_HANDSHAKE *hs);
 
+// ssl_has_raw_public_key returns whether a raw public key is configured on
+// |hs|.
+bool ssl_has_raw_public_key(const SSL_HANDSHAKE *hs);
+
 // ssl_parse_cert_chain parses a certificate list from |cbs| in the format used
 // by a TLS Certificate message. On success, it advances |cbs| and returns
 // true. Otherwise, it returns false and sets |*out_alert| to an alert to send
@@ -1375,6 +1379,10 @@ bool ssl_check_leaf_certificate(SSL_HANDSHAKE *hs, EVP_PKEY *pkey,
 // It finalizes the certificate and initializes |hs->local_pubkey|. It returns
 // true on success and false on error.
 bool ssl_on_certificate_selected(SSL_HANDSHAKE *hs);
+
+// https://tools.ietf.org/html/rfc8446#section-4.4.2
+#define TLS_CERTIFICATE_TYPE_X509 0
+#define TLS_CERTIFICATE_TYPE_RAW_PUBLIC_KEY 2
 
 
 // TLS 1.3 key derivation.
@@ -1942,9 +1950,6 @@ struct SSL_HANDSHAKE {
   // local_pubkey is the public key we are authenticating as.
   UniquePtr<EVP_PKEY> local_pubkey;
 
-  // peer_pubkey is the public key parsed from the peer's leaf certificate.
-  UniquePtr<EVP_PKEY> peer_pubkey;
-
   // new_session is the new mutable session being established by the current
   // handshake. It should not be cached.
   UniquePtr<SSL_SESSION> new_session;
@@ -2392,7 +2397,7 @@ struct CERT {
   // chain contains the certificate chain, with the leaf at the beginning. The
   // first element of |chain| may be NULL to indicate that the leaf certificate
   // has not yet been set.
-  //   If |chain| != NULL -> len(chain) >= 1
+  //   If |chain| != NULL -> len(chain) >= 1 && spki == NULL
   //   If |chain[0]| == NULL -> len(chain) >= 2.
   //   |chain[1..]| != NULL
   UniquePtr<STACK_OF(CRYPTO_BUFFER)> chain;
@@ -2419,6 +2424,11 @@ struct CERT {
   // x509_method contains pointers to functions that might deal with |X509|
   // compatibility, or might be a no-op, depending on the application.
   const SSL_X509_METHOD *x509_method = nullptr;
+
+  // spki contains the SubjectPublicKeyInfo of the configured private key. This
+  // is only set if the |CERT| is configured for raw public keys. This implies
+  // that |chain| is nullptr.
+  UniquePtr<CRYPTO_BUFFER> spki;
 
   // sigalgs, if non-empty, is the set of signature algorithms supported by
   // |privatekey| in decreasing order of preference.
@@ -3153,6 +3163,10 @@ struct SSL_CONFIG {
   // of support for AES hw. The value is only considered if |aes_hw_override| is
   // true.
   bool aes_hw_override_value : 1;
+
+  // client_requires_raw_public_key is true if the client demands to receive a
+  // raw public key (rather than an X.509 certificate chain) from the server.
+  bool client_requires_raw_public_key : 1;
 };
 
 // From RFC 8446, used in determining PSK modes.
@@ -3762,6 +3776,10 @@ struct ssl_ctx_st {
   // |aes_hw_override| is true.
   bool aes_hw_override_value : 1;
 
+  // client_requires_raw_public_key is true if the client demands to receive a
+  // raw public key (rather than an X.509 certificate chain) from the server.
+  bool client_requires_raw_public_key : 1;
+
  private:
   ~ssl_ctx_st();
   friend OPENSSL_EXPORT void SSL_CTX_free(SSL_CTX *);
@@ -3895,6 +3913,10 @@ struct ssl_session_st {
   // certs contains the certificate chain from the peer, starting with the leaf
   // certificate.
   bssl::UniquePtr<STACK_OF(CRYPTO_BUFFER)> certs;
+
+  bssl::UniquePtr<EVP_PKEY> peer_pubkey;
+
+  bssl::UniquePtr<CRYPTO_BUFFER> raw_peer_pubkey;
 
   const bssl::SSL_X509_METHOD *x509_method = nullptr;
 

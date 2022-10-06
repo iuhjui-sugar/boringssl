@@ -163,6 +163,7 @@ UniquePtr<CERT> ssl_cert_dup(CERT *cert) {
 
   ret->privatekey = UpRef(cert->privatekey);
   ret->key_method = cert->key_method;
+  ret->spki = UpRef(cert->spki);
 
   if (!ret->sigalgs.CopyFrom(cert->sigalgs)) {
     return nullptr;
@@ -297,8 +298,54 @@ static int cert_set_chain_and_key(
 
   cert->privatekey = UpRef(privkey);
   cert->key_method = privkey_method;
+  cert->spki.reset();
 
   cert->chain = std::move(certs_sk);
+  return 1;
+}
+
+static int cert_set_raw_public_key_and_key(
+    CERT *cert, CRYPTO_BUFFER *spki, EVP_PKEY *privkey,
+    const SSL_PRIVATE_KEY_METHOD *privkey_method) {
+  if ((privkey_method != nullptr) != (spki != nullptr) ||
+      (privkey_method == nullptr && privkey == nullptr)) {
+    OPENSSL_PUT_ERROR(SSL, ERR_R_PASSED_NULL_PARAMETER);
+    return 0;
+  }
+
+  if (privkey != nullptr && privkey_method != nullptr) {
+    OPENSSL_PUT_ERROR(SSL, SSL_R_CANNOT_HAVE_BOTH_PRIVKEY_AND_METHOD);
+    return 0;
+  }
+
+  if (privkey != nullptr) {
+    ScopedCBB cbb;
+    uint8_t *spki_bytes;
+    size_t spki_bytes_len;
+    if (!CBB_init(cbb.get(), /*initial_capacity=*/512) ||
+        !EVP_marshal_public_key(cbb.get(), privkey) ||
+        !CBB_finish(cbb.get(), &spki_bytes, &spki_bytes_len)) {
+      return 0;
+    }
+    cert->spki.reset(
+        CRYPTO_BUFFER_new(spki_bytes, spki_bytes_len, /*pool=*/nullptr));
+    OPENSSL_free(spki_bytes);
+  } else {
+    CBS spki_bytes =
+        MakeConstSpan(CRYPTO_BUFFER_data(spki), CRYPTO_BUFFER_len(spki));
+    bssl::UniquePtr<EVP_PKEY> parsed(EVP_parse_public_key(&spki_bytes));
+    if (!parsed || CBS_len(&spki_bytes) != 0) {
+      return 0;
+    }
+    cert->spki = UpRef(spki);
+  }
+
+  cert->privatekey = UpRef(privkey);
+  cert->key_method = privkey_method;
+  cert->chain.reset();
+
+  cert->x509_method->cert_clear(cert);
+
   return 1;
 }
 
@@ -340,6 +387,12 @@ bool ssl_set_cert(CERT *cert, UniquePtr<CRYPTO_BUFFER> buffer) {
 bool ssl_has_certificate(const SSL_HANDSHAKE *hs) {
   return hs->config->cert->chain != nullptr &&
          sk_CRYPTO_BUFFER_value(hs->config->cert->chain.get(), 0) != nullptr &&
+         ssl_has_private_key(hs);
+}
+
+bool ssl_has_raw_public_key(const SSL_HANDSHAKE *hs) {
+  return hs->ssl->server &&               //
+         hs->config->cert->spki.get() &&  //
          ssl_has_private_key(hs);
 }
 
@@ -721,6 +774,19 @@ bool ssl_check_leaf_certificate(SSL_HANDSHAKE *hs, EVP_PKEY *pkey,
 
 bool ssl_on_certificate_selected(SSL_HANDSHAKE *hs) {
   SSL *const ssl = hs->ssl;
+  CERT *const cert = ssl->config->cert.get();
+
+  if (ssl_has_raw_public_key(hs) && ssl->server) {
+    if (cert->privatekey) {
+      hs->local_pubkey = UpRef(cert->privatekey);
+    } else {
+      CBS spki = MakeConstSpan(CRYPTO_BUFFER_data(cert->spki.get()),
+                               CRYPTO_BUFFER_len(cert->spki.get()));
+      hs->local_pubkey = UniquePtr<EVP_PKEY>(EVP_parse_public_key(&spki));
+    }
+    return hs->local_pubkey != NULL;
+  }
+
   if (!ssl_has_certificate(hs)) {
     // Nothing to do.
     return true;
@@ -732,10 +798,10 @@ bool ssl_on_certificate_selected(SSL_HANDSHAKE *hs) {
 
   CBS leaf;
   CRYPTO_BUFFER_init_CBS(
-      sk_CRYPTO_BUFFER_value(hs->config->cert->chain.get(), 0), &leaf);
+      sk_CRYPTO_BUFFER_value(cert->chain.get(), 0), &leaf);
 
   if (ssl_signing_with_dc(hs)) {
-    hs->local_pubkey = UpRef(hs->config->cert->dc->pkey);
+    hs->local_pubkey = UpRef(cert->dc->pkey);
   } else {
     hs->local_pubkey = ssl_cert_parse_pubkey(&leaf);
   }
@@ -887,6 +953,20 @@ int SSL_CTX_set_chain_and_key(SSL_CTX *ctx, CRYPTO_BUFFER *const *certs,
                                 privkey_method);
 }
 
+int SSL_set_raw_public_key_and_key(
+    SSL *ssl, CRYPTO_BUFFER *spki, EVP_PKEY *privkey,
+    const SSL_PRIVATE_KEY_METHOD *privkey_method) {
+  return cert_set_raw_public_key_and_key(ssl->config->cert.get(), spki, privkey,
+                                         privkey_method);
+}
+
+int SSL_CTX_set_raw_public_key_and_key(
+    SSL_CTX *ctx, CRYPTO_BUFFER *spki, EVP_PKEY *privkey,
+    const SSL_PRIVATE_KEY_METHOD *privkey_method) {
+  return cert_set_raw_public_key_and_key(ctx->cert.get(), spki, privkey,
+                                         privkey_method);
+}
+
 const STACK_OF(CRYPTO_BUFFER)* SSL_CTX_get0_chain(const SSL_CTX *ctx) {
   return ctx->cert->chain.get();
 }
@@ -930,6 +1010,25 @@ const STACK_OF(CRYPTO_BUFFER) *SSL_get0_peer_certificates(const SSL *ssl) {
 
   return session->certs.get();
 }
+
+const EVP_PKEY *SSL_get0_peer_pubkey(const SSL *ssl) {
+  SSL_SESSION *session = SSL_get_session(ssl);
+  if (session == NULL) {
+    return NULL;
+  }
+
+  return session->peer_pubkey.get();
+}
+
+const CRYPTO_BUFFER *SSL_get0_raw_peer_pubkey(const SSL *ssl) {
+  SSL_SESSION *session = SSL_get_session(ssl);
+  if (session == NULL) {
+    return NULL;
+  }
+
+  return session->raw_peer_pubkey.get();
+}
+
 
 const STACK_OF(CRYPTO_BUFFER) *SSL_get0_server_requested_CAs(const SSL *ssl) {
   if (ssl->s3->hs == NULL) {

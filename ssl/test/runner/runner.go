@@ -865,7 +865,7 @@ func doExchange(test *testCase, config *Config, conn net.Conn, isResume bool, tr
 			tlsConn = Server(conn, config)
 		}
 	} else {
-		config.InsecureSkipVerify = true
+		config.InsecureSkipVerify = !config.useServerRawPublicKeyCertificate
 		if test.protocol == dtls {
 			tlsConn = DTLSClient(conn, config)
 		} else {
@@ -15395,6 +15395,137 @@ func addCertificateTests() {
 	}
 }
 
+func addRawPublicKeyCertificateTests() {
+	const unknownCertType = ":UNKNOWN_CERTIFICATE_TYPE:"
+	var extValueTests = []struct {
+		serverCertificateTypes []uint8
+		expectedError          string
+	}{
+		// Explicitly requesting X.509 should be fine.
+		{[]uint8{certificateTypeX509}, ""},
+		// ... even when mixed with unknown types.
+		{[]uint8{80, certificateTypeX509, 81, 82}, ""},
+		// ... even when mixed with a request for raw public keys.
+		{[]uint8{certificateTypeRawPublicKey, certificateTypeX509, 81, 82}, ""},
+		{[]uint8{certificateTypeX509, certificateTypeRawPublicKey, 81, 82}, ""},
+		// Requesting only unknown certificate types should cause an error.
+		{[]uint8{80, 81, 82}, unknownCertType},
+		// ... as should requesting a raw public key when the server is configured
+		// for X.509.
+		{[]uint8{certificateTypeRawPublicKey}, unknownCertType},
+		// Listing no types is an error.
+		{[]uint8{}, unknownCertType},
+	}
+
+	for i, test := range extValueTests {
+		testCases = append(testCases, testCase{
+			testType: serverTest,
+			name:     "RawPublicKey-Server-ExtValue-" + strconv.Itoa(i),
+			config: Config{
+				MinVersion: VersionTLS13,
+				MaxVersion: VersionTLS13,
+				Bugs: ProtocolBugs{
+					ServerCertificateTypes: test.serverCertificateTypes,
+				},
+			},
+			shouldFail:    len(test.expectedError) != 0,
+			expectedError: test.expectedError,
+		})
+	}
+
+	// An X.509 client should be rejected by a raw-public-key server.
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "RawPublicKey-Server-TLS13X509Client",
+		config: Config{
+			MinVersion: VersionTLS13,
+			MaxVersion: VersionTLS13,
+		},
+		flags: []string{
+			"-raw-public-key-mode",
+		},
+		shouldFail:    true,
+		expectedError: unknownCertType,
+	})
+
+	testCases = append(testCases, testCase{
+		testType: serverTest,
+		name:     "RawPublicKey-Server",
+		config: Config{
+			MinVersion:                       VersionTLS13,
+			MaxVersion:                       VersionTLS13,
+			Certificates:                     []Certificate{ecdsaP384Certificate},
+			VerifySignatureAlgorithms:        []signatureAlgorithm{signatureECDSAWithP384AndSHA384},
+			useServerRawPublicKeyCertificate: true,
+		},
+		flags: []string{
+			"-raw-public-key-mode",
+			"-cert-file", path.Join(*resourceDir, ecdsaP384CertificateFile),
+			"-key-file", path.Join(*resourceDir, ecdsaP384KeyFile),
+		},
+	})
+
+	leaf, _ := x509.ParseCertificate(ecdsaP384Certificate.Certificate[0])
+	base64SPKI := base64.StdEncoding.EncodeToString(leaf.RawSubjectPublicKeyInfo)
+	wrongLeaf, _ := x509.ParseCertificate(ecdsaP256Certificate.Certificate[0])
+	wrongBase64SPKI := base64.StdEncoding.EncodeToString(wrongLeaf.RawSubjectPublicKeyInfo)
+
+	for _, ok := range []bool{false, true} {
+		expectedSPKI, suffix, expectedError := base64SPKI, "", ""
+		if !ok {
+			expectedSPKI = wrongBase64SPKI
+			suffix = "-Mismatch"
+			expectedError = ":CERTIFICATE_VERIFY_FAILED:"
+		}
+
+		testCases = append(testCases, testCase{
+			testType: clientTest,
+			name:     "RawPublicKey-Client" + suffix,
+			config: Config{
+				MinVersion:                       VersionTLS13,
+				MaxVersion:                       VersionTLS13,
+				Certificates:                     []Certificate{ecdsaP384Certificate},
+				SignSignatureAlgorithms:          []signatureAlgorithm{signatureECDSAWithP384AndSHA384},
+				useServerRawPublicKeyCertificate: true,
+			},
+			flags: []string{
+				"-raw-public-key-mode",
+				"-verify-peer",
+				"-use-custom-verify-callback",
+				"-expect-spki", expectedSPKI,
+			},
+			shouldFail:    !ok,
+			expectedError: expectedError,
+		})
+	}
+
+	// Read the server's raw public key in a CompressedCertificate message.
+	testCases = append(testCases, testCase{
+		testType: clientTest,
+		name:     "RawPublicKey-Client-With-Compression",
+		config: Config{
+			MinVersion:                       VersionTLS13,
+			MaxVersion:                       VersionTLS13,
+			Certificates:                     []Certificate{ecdsaP384Certificate},
+			SignSignatureAlgorithms:          []signatureAlgorithm{signatureECDSAWithP384AndSHA384},
+			useServerRawPublicKeyCertificate: true,
+			CertCompressionAlgs: map[uint16]CertCompressionAlg{
+				expandingCompressionAlgID: expandingCompression,
+			},
+			Bugs: ProtocolBugs{
+					ExpectedCompressedCert: expandingCompressionAlgID,
+			},
+		},
+		flags: []string{
+			"-raw-public-key-mode",
+			"-verify-peer",
+			"-use-custom-verify-callback",
+			"-expect-spki", base64SPKI,
+			"-install-cert-compression-algs",
+		},
+	})
+}
+
 func addRetainOnlySHA256ClientCertTests() {
 	for _, ver := range tlsVersions {
 		// Test that enabling
@@ -19669,6 +19800,7 @@ func main() {
 	addEncryptedClientHelloTests()
 	addHintMismatchTests()
 	addCompliancePolicyTests()
+	addRawPublicKeyCertificateTests()
 
 	toAppend, err := convertToSplitHandshakeTests(testCases)
 	if err != nil {
