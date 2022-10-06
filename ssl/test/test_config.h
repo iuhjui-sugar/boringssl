@@ -194,6 +194,8 @@ struct TestConfig {
   std::string quic_early_data_context;
   int early_write_after_message = 0;
   bool fips_202205 = false;
+  bool raw_public_key_mode = false;
+  std::string expect_spki;
 
   int argc;
   char **argv;

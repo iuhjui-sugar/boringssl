@@ -524,7 +524,8 @@ ssl_ctx_st::ssl_ctx_st(const SSL_METHOD *ssl_method)
       false_start_allowed_without_alpn(false),
       handoff(false),
       enable_early_data(false),
-      only_fips_cipher_suites_in_tls13(false) {
+      only_fips_cipher_suites_in_tls13(false),
+      client_requires_raw_public_key(false) {
   CRYPTO_MUTEX_init(&lock);
   CRYPTO_new_ex_data(&ex_data);
 }
@@ -673,6 +674,9 @@ SSL *SSL_new(SSL_CTX *ctx) {
   ssl->config->handoff = ctx->handoff;
   ssl->quic_method = ctx->quic_method;
 
+  ssl->config->client_requires_raw_public_key =
+      ctx->client_requires_raw_public_key;
+
   if (!ssl->method->ssl_new(ssl.get()) ||
       !ssl->ctx->x509_method->ssl_new(ssl->s3->hs.get())) {
     return nullptr;
@@ -693,7 +697,8 @@ SSL_CONFIG::SSL_CONFIG(SSL *ssl_arg)
       shed_handshake_config(false),
       jdk11_workaround(false),
       quic_use_legacy_codepoint(false),
-      permute_extensions(false) {
+      permute_extensions(false),
+      client_requires_raw_public_key(false) {
   assert(ssl);
 }
 
@@ -3103,6 +3108,19 @@ int SSL_CTX_set_tlsext_status_cb(SSL_CTX *ctx,
 
 int SSL_CTX_set_tlsext_status_arg(SSL_CTX *ctx, void *arg) {
   ctx->legacy_ocsp_callback_arg = arg;
+  return 1;
+}
+
+void SSL_CTX_set_raw_public_key_mode(SSL_CTX *ctx) {
+  ctx->client_requires_raw_public_key = true;
+  return;
+}
+
+int SSL_set_raw_public_key_mode(SSL *ssl) {
+  if (ssl->server || !ssl->config) {
+    return 0;
+  }
+  ssl->config->client_requires_raw_public_key = true;
   return 1;
 }
 
