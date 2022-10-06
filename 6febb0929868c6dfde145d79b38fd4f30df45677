@@ -315,6 +315,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d0b09b83_4b1735f6",
+        "filename": "ssl/s3_pkt.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-10-06T22:00:05Z",
+      "side": 1,
+      "message": "Revisiting it a bit - \"It doesn\u0027t matter\" - either way (doing it right before, or after) the other end effectively gets the same thing - they poll the socket and do a read, and get a key update before the next record - it matters not that we sent it after the last record or before this one... \n\nThe interesting part here is only for the \"let\u0027s send one early to turn this on and test it\" - we (and I suspect others) have a pile of tests effectively testing bytes we expect early on in the handshake process. so to avoid having to rototill all those and still get the benefit from \"making sure it will work later\" - I think I\u0027m just back to waiting for the second application record since it will get exercised in practice and not break all the early tests.",
+      "parentUuid": "bbaf9ecd_2ea1f9e4",
+      "range": {
+        "startLine": 324,
+        "startChar": 12,
+        "endLine": 324,
+        "endChar": 17
+      },
+      "revId": "6febb0929868c6dfde145d79b38fd4f30df45677",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5de317bb_654f52dd",
         "filename": "ssl/test/runner/runner.go",
         "patchSetId": 18
