@@ -56,6 +56,30 @@
       },
       "revId": "9a56bff879ce6391752ca12970e2961bb78e9e7c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9670ed9_8b654a87",
+        "filename": "crypto/bytestring/cbb.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 678,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-10-06T19:13:20Z",
+      "side": 1,
+      "message": "Looking above I take it back, we\u0027re strictly working from two different sets of allocations.",
+      "parentUuid": "f0b58bb9_74d8ce5a",
+      "range": {
+        "startLine": 678,
+        "startChar": 2,
+        "endLine": 678,
+        "endChar": 79
+      },
+      "revId": "9a56bff879ce6391752ca12970e2961bb78e9e7c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
