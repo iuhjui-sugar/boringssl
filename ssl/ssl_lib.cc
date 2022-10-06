@@ -537,7 +537,8 @@ ssl_ctx_st::ssl_ctx_st(const SSL_METHOD *ssl_method)
       handoff(false),
       enable_early_data(false),
       aes_hw_override(false),
-      aes_hw_override_value(false) {
+      aes_hw_override_value(false),
+      client_requires_raw_public_key(false) {
   CRYPTO_MUTEX_init(&lock);
   CRYPTO_new_ex_data(&ex_data);
 }
@@ -687,6 +688,9 @@ SSL *SSL_new(SSL_CTX *ctx) {
   ssl->config->handoff = ctx->handoff;
   ssl->quic_method = ctx->quic_method;
 
+  ssl->config->client_requires_raw_public_key =
+      ctx->client_requires_raw_public_key;
+
   if (!ssl->method->ssl_new(ssl.get()) ||
       !ssl->ctx->x509_method->ssl_new(ssl->s3->hs.get())) {
     return nullptr;
@@ -707,7 +711,8 @@ SSL_CONFIG::SSL_CONFIG(SSL *ssl_arg)
       shed_handshake_config(false),
       jdk11_workaround(false),
       quic_use_legacy_codepoint(false),
-      permute_extensions(false) {
+      permute_extensions(false),
+      client_requires_raw_public_key(false) {
   assert(ssl);
 }
 
@@ -3237,6 +3242,19 @@ int SSL_CTX_set1_curves_list(SSL_CTX *ctx, const char *curves) {
 
 int SSL_set1_curves_list(SSL *ssl, const char *curves) {
   return SSL_set1_groups_list(ssl, curves);
+}
+
+void SSL_CTX_set_raw_public_key_mode(SSL_CTX *ctx) {
+  ctx->client_requires_raw_public_key = true;
+  return;
+}
+
+int SSL_set_raw_public_key_mode(SSL *ssl) {
+  if (ssl->server || !ssl->config) {
+    return 0;
+  }
+  ssl->config->client_requires_raw_public_key = true;
+  return 1;
 }
 
 namespace fips202205 {

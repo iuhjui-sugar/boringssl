@@ -1313,7 +1313,8 @@ static enum ssl_hs_wait_t do_read_client_certificate(SSL_HANDSHAKE *hs) {
 
   CBS certificate_msg = msg.body;
   uint8_t alert = SSL_AD_DECODE_ERROR;
-  if (!ssl_parse_cert_chain(&alert, &hs->new_session->certs, &hs->peer_pubkey,
+  if (!ssl_parse_cert_chain(&alert, &hs->new_session->certs,
+                            &hs->new_session->peer_pubkey,
                             hs->config->retain_only_sha256_of_client_certs
                                 ? hs->new_session->peer_sha256
                                 : nullptr,
@@ -1585,7 +1586,7 @@ static enum ssl_hs_wait_t do_read_client_certificate_verify(SSL_HANDSHAKE *hs) {
 
   // Only RSA and ECDSA client certificates are supported, so a
   // CertificateVerify is required if and only if there's a client certificate.
-  if (!hs->peer_pubkey) {
+  if (!hs->new_session->peer_pubkey) {
     hs->transcript.FreeBuffer();
     hs->state = state12_read_change_cipher_spec;
     return ssl_hs_ok;
@@ -1626,7 +1627,7 @@ static enum ssl_hs_wait_t do_read_client_certificate_verify(SSL_HANDSHAKE *hs) {
     }
     hs->new_session->peer_signature_algorithm = signature_algorithm;
   } else if (!tls1_get_legacy_signature_algorithm(&signature_algorithm,
-                                                  hs->peer_pubkey.get())) {
+                                         hs->new_session->peer_pubkey.get())) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_PEER_ERROR_UNSUPPORTED_CERTIFICATE_TYPE);
     ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_UNSUPPORTED_CERTIFICATE);
     return ssl_hs_error;
@@ -1641,7 +1642,8 @@ static enum ssl_hs_wait_t do_read_client_certificate_verify(SSL_HANDSHAKE *hs) {
   }
 
   if (!ssl_public_key_verify(ssl, signature, signature_algorithm,
-                             hs->peer_pubkey.get(), hs->transcript.buffer())) {
+                             hs->new_session->peer_pubkey.get(),
+                             hs->transcript.buffer())) {
     OPENSSL_PUT_ERROR(SSL, SSL_R_BAD_SIGNATURE);
     ssl_send_alert(ssl, SSL3_AL_FATAL, SSL_AD_DECRYPT_ERROR);
     return ssl_hs_error;
