@@ -92,6 +92,12 @@ const (
 	typeMessageHash           uint8 = 254
 )
 
+// TLS certificate type extension values.
+const (
+	certificateTypeX509         uint8 = 0
+	certificateTypeRawPublicKey uint8 = 2
+)
+
 // TLS compression types.
 const (
 	compressionNone uint8 = 0
@@ -107,6 +113,7 @@ const (
 	extensionUseSRTP                    uint16 = 14
 	extensionALPN                       uint16 = 16
 	extensionSignedCertificateTimestamp uint16 = 18
+	extensionServerCertificateType      uint16 = 20 // RFC7250
 	extensionPadding                    uint16 = 21
 	extensionExtendedMasterSecret       uint16 = 23
 	extensionCompressedCertAlgs         uint16 = 27
@@ -408,6 +415,14 @@ type Config struct {
 	// to present to the other side of the connection.
 	// Server configurations must include at least one certificate.
 	Certificates []Certificate
+
+	// useServerRawPublicKeyCertificate indicates, for TLS 1.3 only, that raw
+	// public keys should be used. For servers, the DER-encoded X.509
+	// SubjectPublicKeyInfo field of Certificates[0].Certificate[0] will be the
+	// CertificateEntry of Certificate messages, not including any
+	// CertificateEntry extensions. For clients, the field should be used to
+	// verify the server's Certificate message.
+	useServerRawPublicKeyCertificate bool
 
 	// NameToCertificate maps from a certificate name to an element of
 	// Certificates. Note that a certificate name can be of the form
@@ -1921,6 +1936,10 @@ type ProtocolBugs struct {
 	// EncryptSessionTicketKey, if non-nil, is the ticket key to use when
 	// encrypting tickets.
 	EncryptSessionTicketKey *[32]byte
+
+	// ServerCertificateTypes, if not nil, contains the contents of the server
+	// certificate types extension sent by a client, or echoed by a server.
+	ServerCertificateTypes []uint8
 }
 
 func (c *Config) serverInit() {
