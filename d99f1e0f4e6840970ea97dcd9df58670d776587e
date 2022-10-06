@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d057544_462b9e77",
+        "filename": "ssl/internal.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 2708,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-10-06T21:02:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bbc9456c_7688b98a",
+      "range": {
+        "startLine": 2708,
+        "startChar": 57,
+        "endLine": 2708,
+        "endChar": 75
+      },
+      "revId": "d99f1e0f4e6840970ea97dcd9df58670d776587e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8098c020_7cd3b009",
@@ -77,6 +101,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5580cfa1_a5c63497",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 1011,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-10-06T21:02:41Z",
+      "side": 1,
+      "message": "I\u0027ve gone the symmetric route, with a fixed budget starting at 32, which increases for every 256 records processed, and decreases every key update we process.",
+      "parentUuid": "e2573ef2_fb65ac5f",
+      "revId": "d99f1e0f4e6840970ea97dcd9df58670d776587e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "96d1d78f_9112f35a",
@@ -90,6 +132,24 @@
       "writtenOn": "2022-09-29T18:54:21Z",
       "side": 1,
       "message": "Probably need to update this comment now.",
+      "revId": "d99f1e0f4e6840970ea97dcd9df58670d776587e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0efecfb_ef7d8a09",
+        "filename": "ssl/tls13_both.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-10-06T21:02:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96d1d78f_9112f35a",
       "revId": "d99f1e0f4e6840970ea97dcd9df58670d776587e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
