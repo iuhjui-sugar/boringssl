@@ -417,6 +417,8 @@ std::vector<Flag> SortedFlags() {
               &TestConfig::early_write_after_message),
       BoolFlag("-fips-202205", &TestConfig::fips_202205),
       BoolFlag("-wpa-202304", &TestConfig::wpa_202304),
+      BoolFlag("-raw-public-key-mode", &TestConfig::raw_public_key_mode),
+      Base64Flag("-expect-spki", &TestConfig::expect_spki),
   };
   std::sort(flags.begin(), flags.end(), [](const Flag &a, const Flag &b) {
     return strcmp(a.name, b.name) < 0;
@@ -836,6 +838,17 @@ static int AlpnSelectCallback(SSL *ssl, const uint8_t **out, uint8_t *outlen,
   return SSL_TLSEXT_ERR_OK;
 }
 
+static bssl::Array<uint8_t> SPKIBytes(const EVP_PKEY *pkey) {
+  bssl::ScopedCBB cbb;
+  bssl::Array<uint8_t> spki_bytes;
+  if (!CBB_init(cbb.get(), /*initial_capacity=*/512) ||
+      !EVP_marshal_public_key(cbb.get(), pkey) ||
+      !bssl::CBBFinishArray(cbb.get(), &spki_bytes)) {
+    abort();
+  }
+  return spki_bytes;
+}
+
 static bool CheckVerifyCallback(SSL *ssl) {
   const TestConfig *config = GetTestConfig(ssl);
   if (!config->expect_ocsp_response.empty()) {
@@ -860,6 +873,16 @@ static bool CheckVerifyCallback(SSL *ssl) {
           std::string(name_override, name_override_len)) {
     fprintf(stderr, "ECH name did not match expected value.\n");
     return false;
+  }
+  if (!config->expect_spki.empty()) {
+    const bssl::Array<uint8_t> spki_bytes =
+        SPKIBytes(SSL_get0_peer_pubkey(ssl));
+    if (config->expect_spki.size() != spki_bytes.size() ||
+        OPENSSL_memcmp(config->expect_spki.data(), spki_bytes.data(),
+                       spki_bytes.size()) != 0) {
+      fprintf(stderr, "Incorrect SPKI observed\n");
+      return false;
+    }
   }
 
   if (GetTestState(ssl)->cert_verified) {
@@ -1276,17 +1299,42 @@ static bool InstallCertificate(SSL *ssl) {
     return false;
   }
 
+  const TestConfig *config = GetTestConfig(ssl);
+
   if (pkey) {
     TestState *test_state = GetTestState(ssl);
-    const TestConfig *config = GetTestConfig(ssl);
-    if (config->async || config->handshake_hints) {
-      // Install a custom private key if testing asynchronous callbacks, or if
-      // testing handshake hints. In the handshake hints case, we wish to check
-      // that hints only mismatch when allowed.
+    // Install a custom private key if testing asynchronous callbacks, or if
+    // testing handshake hints. In the handshake hints case, we wish to check
+    // that hints only mismatch when allowed.
+    const bool use_private_key_method =
+        config->async || config->handshake_hints;
+    if (use_private_key_method) {
       test_state->private_key = std::move(pkey);
-      SSL_set_private_key_method(ssl, &g_async_private_key_method);
-    } else if (!SSL_use_PrivateKey(ssl, pkey.get())) {
-      return false;
+    }
+
+    if (config->raw_public_key_mode) {
+      if (use_private_key_method) {
+        bssl::ScopedCBB cbb;
+        bssl::Array<uint8_t> spki_bytes;
+        if (!CBB_init(cbb.get(), /*initial_capacity=*/512) ||
+            !EVP_marshal_public_key(cbb.get(), test_state->private_key.get()) ||
+            !bssl::CBBFinishArray(cbb.get(), &spki_bytes)) {
+          return 0;
+        }
+        bssl::UniquePtr<CRYPTO_BUFFER> spki(CRYPTO_BUFFER_new(
+            spki_bytes.data(), spki_bytes.size(), /*pool=*/nullptr));
+        return SSL_set_raw_public_key_and_key(ssl, spki.get(), /*pkey=*/nullptr,
+                                              &g_async_private_key_method);
+      } else {
+        return SSL_set_raw_public_key_and_key(ssl, nullptr, pkey.get(),
+                                              nullptr);
+      }
+    } else {
+      if (use_private_key_method) {
+        SSL_set_private_key_method(ssl, &g_async_private_key_method);
+      } else if (!SSL_use_PrivateKey(ssl, pkey.get())) {
+        return false;
+      }
     }
   }
 
@@ -1758,6 +1806,10 @@ bssl::UniquePtr<SSL> TestConfig::NewSSL(
     // certificates were requested is easy.
     mode = SSL_VERIFY_PEER | SSL_VERIFY_PEER_IF_NO_OBC |
            SSL_VERIFY_FAIL_IF_NO_PEER_CERT;
+  }
+  if (!is_server && raw_public_key_mode &&
+      !SSL_set_raw_public_key_mode(ssl.get())) {
+    return nullptr;
   }
   if (use_custom_verify_callback) {
     SSL_set_custom_verify(ssl.get(), mode, CustomVerifyCallback);

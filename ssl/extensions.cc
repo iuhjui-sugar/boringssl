@@ -3043,6 +3043,136 @@ bool ssl_negotiate_alps(SSL_HANDSHAKE *hs, uint8_t *out_alert,
   return true;
 }
 
+// Server Certificate Type
+//
+// https://datatracker.ietf.org/doc/html/rfc7250#section-3
+
+static bool ext_server_certificate_type_add_clienthello(const SSL_HANDSHAKE *hs,
+                                                        CBB *out,
+                                                        CBB *out_compressible,
+                                                        ssl_client_hello_type_t type) {
+  if (hs->max_version < TLS1_3_VERSION ||
+      !hs->config->client_requires_raw_public_key) {
+    return true;
+  }
+
+  CBB contents, server_certificate_types;
+  if (!CBB_add_u16(out, TLSEXT_TYPE_server_certificate_type) ||
+      !CBB_add_u16_length_prefixed(out, &contents) ||
+      !CBB_add_u8_length_prefixed(&contents, &server_certificate_types) ||
+      !CBB_add_u8(&server_certificate_types,
+                  TLS_CERTIFICATE_TYPE_RAW_PUBLIC_KEY) ||
+      !CBB_flush(out)) {
+    return false;
+  }
+
+  return true;
+}
+
+static bool ext_server_certificate_type_parse_serverhello(SSL_HANDSHAKE *hs,
+                                                          uint8_t *out_alert,
+                                                          CBS *content) {
+  if (hs->ssl->s3->session_reused) {
+    return true;
+  }
+
+  if (hs->config->client_requires_raw_public_key && !content) {
+    // If a raw public key was demanded then the server must negotiate it.
+    goto err;
+  }
+
+  if (!content) {
+    return true;
+  }
+
+  // We should never have sent a server certificate type extension unless
+  // configured to demand a raw public key.
+  assert(hs->config->client_requires_raw_public_key);
+
+  uint8_t certificate_type;
+  if (!CBS_get_u8(content, &certificate_type) ||
+      certificate_type != TLS_CERTIFICATE_TYPE_RAW_PUBLIC_KEY ||
+      CBS_len(content) != 0) {
+    // Only a single value is allowed and, if we require a raw public key, the
+    // server must support that.
+    goto err;
+  }
+
+  return true;
+
+err:
+  OPENSSL_PUT_ERROR(SSL, SSL_R_UNKNOWN_CERTIFICATE_TYPE);
+  *out_alert = SSL_AD_ILLEGAL_PARAMETER;
+  return false;
+}
+
+static uint8_t ssl_server_configured_certificate_type(const SSL_HANDSHAKE *hs) {
+  assert(hs->ssl->server);
+
+  if (ssl_has_raw_public_key(hs)) {
+    return TLS_CERTIFICATE_TYPE_RAW_PUBLIC_KEY;
+  } else {
+    return TLS_CERTIFICATE_TYPE_X509;
+  }
+}
+
+static bool ext_server_certificate_type_parse_clienthello(SSL_HANDSHAKE *hs,
+                                                          uint8_t *out_alert,
+                                                          CBS *content) {
+  const uint8_t server_has = ssl_server_configured_certificate_type(hs);
+
+  if (!content || ssl_protocol_version(hs->ssl) < TLS1_3_VERSION) {
+    if (server_has == TLS_CERTIFICATE_TYPE_X509) {
+      return true;
+    }
+
+    // The default is X.509, so if the server is configured with a raw public
+    // key then the client must support TLS 1.3 and indicate support for raw
+    // public keys.
+    goto err;
+  }
+
+  CBS cert_types;
+  if (!CBS_get_u8_length_prefixed(content, &cert_types) ||
+      CBS_len(content) != 0) {
+    goto err;
+  }
+
+  while (CBS_len(&cert_types) > 0) {
+    uint8_t supported_cert_type;
+    if (!CBS_get_u8(&cert_types, &supported_cert_type)) {
+      goto err;
+    }
+
+    if (supported_cert_type == server_has) {
+      return true;
+    }
+  }
+
+  // No certificate type recognised.
+err:
+  OPENSSL_PUT_ERROR(SSL, SSL_R_UNKNOWN_CERTIFICATE_TYPE);
+  *out_alert = SSL_AD_ILLEGAL_PARAMETER;
+  return false;
+}
+
+static bool ext_server_certificate_type_add_serverhello(SSL_HANDSHAKE *hs,
+                                                        CBB *out) {
+  if (hs->ssl->s3->session_reused) {
+    return true;
+  }
+
+  CBB cert_types;
+  if (!CBB_add_u16(out, TLSEXT_TYPE_server_certificate_type) ||
+      !CBB_add_u16_length_prefixed(out, &cert_types) ||
+      !CBB_add_u8(&cert_types, ssl_server_configured_certificate_type(hs)) ||
+      !CBB_flush(out)) {
+    return false;
+  }
+
+  return true;
+}
+
 // kExtensions contains all the supported extensions.
 static const struct tls_extension kExtensions[] = {
   {
@@ -3215,6 +3345,13 @@ static const struct tls_extension kExtensions[] = {
     // ALPS is negotiated late in |ssl_negotiate_alpn|.
     ignore_parse_clienthello,
     ext_alps_add_serverhello,
+  },
+  {
+    TLSEXT_TYPE_server_certificate_type,
+    ext_server_certificate_type_add_clienthello,
+    ext_server_certificate_type_parse_serverhello,
+    ext_server_certificate_type_parse_clienthello,
+    ext_server_certificate_type_add_serverhello,
   },
 };
 

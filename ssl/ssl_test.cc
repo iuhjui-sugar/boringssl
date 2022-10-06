@@ -3757,6 +3757,77 @@ TEST_P(SSLVersionTest, DefaultTicketKeyRotation) {
                                   new_session.get(), true /* reused */));
 }
 
+TEST_P(SSLVersionTest, RawPublicKeyCertificate) {
+  SSL_CTX_set_raw_public_key_mode(client_ctx_.get());
+  SSL_CTX_set_custom_verify(
+      client_ctx_.get(), SSL_VERIFY_PEER | SSL_VERIFY_FAIL_IF_NO_PEER_CERT,
+      [](SSL *ssl, uint8_t *out_alert) -> ssl_verify_result_t {
+        const EVP_PKEY *peer_pubkey = SSL_get0_peer_pubkey(ssl);
+        const CRYPTO_BUFFER *unparsed_peer_pubkey =
+                                SSL_get0_unparsed_peer_pubkey(ssl);
+
+        CBS parsed;
+        CRYPTO_BUFFER_init_CBS(unparsed_peer_pubkey, &parsed);
+        const EVP_PKEY *parsed_pubkey = EVP_parse_public_key(&parsed);
+
+        if (!peer_pubkey || !parsed_pubkey) {
+          *out_alert = SSL_AD_CERTIFICATE_UNKNOWN;
+          return ssl_verify_invalid;
+        }
+
+        SSL_CTX *ctx = SSL_get_SSL_CTX(ssl);
+        if (EVP_PKEY_cmp(reinterpret_cast<EVP_PKEY *>SSL_CTX_get_app_data(ctx),
+                         peer_pubkey) == 1 && EVP_PKEY_cmp(parsed_pubkey,
+                         peer_pubkey) == 1) {
+          return ssl_verify_ok;
+        }
+
+        *out_alert = SSL_AD_BAD_CERTIFICATE;
+        return ssl_verify_invalid;
+      });
+  SSL_CTX_set_session_cache_mode(client_ctx_.get(), SSL_SESS_CACHE_CLIENT);
+
+  ClientConfig config;
+  bssl::UniquePtr<SSL> client, server;
+  // Server is not configured for raw public keys.
+  ASSERT_FALSE(ConnectClientAndServer(&client, &server, client_ctx_.get(),
+                                      server_ctx_.get(), config));
+
+  bssl::UniquePtr<EVP_PKEY> key = GetECDSATestKey();
+  bssl::UniquePtr<CRYPTO_BUFFER> dummy(CRYPTO_BUFFER_new(nullptr, 0, nullptr));
+  // Specifying an SPKI when it can be taken from the given key is an error.
+  ASSERT_FALSE(SSL_CTX_set_raw_public_key_and_key(
+      server_ctx_.get(), /*spki=*/dummy.get(), key.get(),
+      /*privkey_method=*/nullptr));
+
+  ASSERT_TRUE(SSL_CTX_set_raw_public_key_and_key(server_ctx_.get(),
+                                                 /*spki=*/nullptr, key.get(),
+                                                 /*privkey_method=*/nullptr));
+
+  // Client is expecting |wrong_key|.
+  bssl::UniquePtr<EVP_PKEY> wrong_key = GetTestKey();
+  ASSERT_TRUE(wrong_key);
+  SSL_CTX_set_app_data(client_ctx_.get(), wrong_key.get());
+  ASSERT_FALSE(ConnectClientAndServer(&client, &server, client_ctx_.get(),
+                                      server_ctx_.get(), config));
+
+  if (version() != TLS1_3_VERSION) {
+    return;
+  }
+
+  SSL_CTX_set_app_data(client_ctx_.get(), key.get());
+  ASSERT_TRUE(ConnectClientAndServer(&client, &server, client_ctx_.get(),
+                                     server_ctx_.get(), config));
+
+  bssl::UniquePtr<SSL_SESSION> session =
+      CreateClientSession(client_ctx_.get(), server_ctx_.get(), config);
+  ASSERT_TRUE(session);
+
+  TRACED_CALL(ExpectSessionReused(client_ctx_.get(), server_ctx_.get(),
+                                  session.get(),
+                                  true /* expect session reused */));
+}
+
 static int SwitchContext(SSL *ssl, int *out_alert, void *arg) {
   SSL_CTX *ctx = reinterpret_cast<SSL_CTX *>(arg);
   SSL_set_SSL_CTX(ssl, ctx);

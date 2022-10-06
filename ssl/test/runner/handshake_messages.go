@@ -204,6 +204,7 @@ type clientHelloMsg struct {
 	echPayloadStart int
 	echPayloadEnd   int
 	rawExtensions   []byte
+	serverCertificateTypes    []uint8
 }
 
 func (m *clientHelloMsg) marshalKeyShares(bb *cryptobyte.Builder) {
@@ -522,6 +523,16 @@ func (m *clientHelloMsg) marshalBody(hello *cryptobyte.Builder, typ clientHelloT
 		extensions = append(extensions, extension{
 			id:   extensionApplicationSettings,
 			body: body.BytesOrPanic(),
+		})
+	}
+
+	if m.serverCertificateTypes != nil {
+		body := newByteBuilder()
+		serverCertificateTypes := body.addU8LengthPrefixed()
+		serverCertificateTypes.addBytes(m.serverCertificateTypes)
+		extensions = append(extensions, extension{
+			id:   extensionServerCertificateType,
+			body: body.finish(),
 		})
 	}
 
@@ -1032,6 +1043,10 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 				}
 				m.alpsProtocols = append(m.alpsProtocols, string(protocol))
 			}
+		case extensionServerCertificateType:
+			if !body.readU8LengthPrefixedBytes(&m.serverCertificateTypes) || len(body) != 0 {
+				return false
+			}
 		}
 
 		if isGREASEValue(extension) {
@@ -1413,6 +1428,8 @@ type serverExtensions struct {
 	applicationSettings       []byte
 	hasApplicationSettings    bool
 	echRetryConfigs           []byte
+	hasServerCertificateType  bool
+	serverCertificateType     uint8
 }
 
 func (m *serverExtensions) marshal(extensions *cryptobyte.Builder) {
@@ -1543,6 +1560,11 @@ func (m *serverExtensions) marshal(extensions *cryptobyte.Builder) {
 		extensions.AddUint16(extensionEncryptedClientHello)
 		addUint16LengthPrefixedBytes(extensions, m.echRetryConfigs)
 	}
+	if m.hasServerCertificateType {
+		extensions.addU16(extensionServerCertificateType)
+		serverCertificateType := extensions.addU16LengthPrefixed()
+		serverCertificateType.addU8(m.serverCertificateType)
+	}
 }
 
 func (m *serverExtensions) unmarshal(data cryptobyte.String, version uint16) bool {
@@ -1599,6 +1621,14 @@ func (m *serverExtensions) unmarshal(data cryptobyte.String, version uint16) boo
 				return false
 			}
 			m.channelIDRequested = true
+		case extensionServerCertificateType:
+			if version < VersionTLS13 {
+				return false
+			}
+			if !body.readU8(&m.serverCertificateType) || len(body) != 0 {
+				return false
+			}
+			m.hasServerCertificateType = true
 		case extensionExtendedMasterSecret:
 			if len(body) != 0 {
 				return false
