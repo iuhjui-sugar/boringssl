@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "977de39f_6405d387",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-10-06T14:35:33Z",
+      "side": 1,
+      "message": "Thoughts? I\u0027m not a huge fan of making CBB more finicky, though I tried to pay for some of the complexity increase with some cleanup (many operations can now be expressed in terms of CBB_add_space).\n\nThe thinking is, if we do this, then we don\u0027t have to pay an allocation + CBB_cleanup cost to converting random things to CBB like https://boringssl-review.googlesource.com/c/boringssl/+/54646/ Less of a big deal in C++, but in C it\u0027s a little tedious to have to clean up the object because we need to `goto err` the function.",
+      "revId": "9a56bff879ce6391752ca12970e2961bb78e9e7c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
