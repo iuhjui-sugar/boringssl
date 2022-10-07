@@ -85,6 +85,108 @@
       "message": "Hello,\nhope you\u0027re doing well.\n\nDear Adam and David,\ncould you please take a look on the updated patch.\nThank you.",
       "revId": "61b79ca562f428b9e141fc72b1172c2e2eb54afa",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8b9538e_04b2ed18",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-10-07T15:34:48Z",
+      "side": 1,
+      "message": "A free more things to fix and then I think this\u0027ll be good. Thanks!",
+      "revId": "61b79ca562f428b9e141fc72b1172c2e2eb54afa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8616d47e_0613f91c",
+        "filename": "crypto/cpu_aarch64_freebsd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-10-07T15:34:48Z",
+      "side": 1,
+      "message": "I notice that https://boringssl-review.googlesource.com/c/boringssl/+/49425/1/crypto/cpu-aarch64-freebsd.c doesn\u0027t include _stdint.h, and the underscore prefix reads a lot like a private header to me.\n\nIs _stdint.h really supposed to be included as a public header? Do you have a pointer to documentation for which headers are meant to be included to use this FreeBSD API?\n\n(At a glance, this machine/_stdint.h seems to just be an implementation detail of \u003cstdint.h\u003e? If so, sure seems like you should have written \u003cstdint.h\u003e instead. Except \u003cstdint.h\u003e is core enough that we just assume our \u003copenssl/base.h\u003e header already includes it. You can just omit it.)",
+      "revId": "61b79ca562f428b9e141fc72b1172c2e2eb54afa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f8019f2_d175b908",
+        "filename": "crypto/cpu_aarch64_freebsd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-10-07T15:34:48Z",
+      "side": 1,
+      "message": "Style nit: We usually sort our includes within blocks. (Recent clang-format should do this automatically.)",
+      "revId": "61b79ca562f428b9e141fc72b1172c2e2eb54afa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "716d5b7b_ef7891c3",
+        "filename": "crypto/cpu_aarch64_freebsd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-10-07T15:34:48Z",
+      "side": 1,
+      "message": "This is redundant with the copy on line 37. Copy-paste error?",
+      "revId": "61b79ca562f428b9e141fc72b1172c2e2eb54afa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5315678d_335e6b90",
+        "filename": "crypto/cpu_aarch64_freebsd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-10-07T15:34:48Z",
+      "side": 1,
+      "message": "Based on Mikaël\u0027s comments, let\u0027s add a comment here:\n\n// ID_AA64ISAR0_*_VAL are defined starting FreeBSD 13.0. When FreeBSD 12.x is out of support, these compatibility macros can be removed.",
+      "revId": "61b79ca562f428b9e141fc72b1172c2e2eb54afa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe7d53e6_1788617c",
+        "filename": "crypto/cpu_arm_freebsd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-10-07T15:34:48Z",
+      "side": 1,
+      "message": "Style nit: We usually sort includes within a block.",
+      "revId": "61b79ca562f428b9e141fc72b1172c2e2eb54afa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
