@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bec100cc_170ab965",
+        "filename": "ssl/s3_pkt.cc",
+        "patchSetId": 21
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-10-07T21:51:52Z",
+      "side": 1,
+      "message": "The error-handling weirdness I\u0027m referencing: if tls13_add_key_update failed, it\u0027s a malloc failure or something. We might also be in some weird state if ssl_add_message_cbb succeeded but tls13_rotate_traffic_key failed! So this should probably just be fatal. But it\u0027s kinda odd to stick a fatal error if we *just* succeeded in the write anyway. :-)\n\n(To that end... that\u0027s a good reason why non-I/O failures on the write path should be as sticky as the read path. Probably need to spend some time on that one...)",
+      "revId": "30d7b2cdc8cfd77f5b86932140e258bb70e88e7e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
