@@ -37,6 +37,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "38ce438f_6b7d8249",
+        "filename": "crypto/bytestring/cbb.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-10-07T18:59:35Z",
+      "side": 1,
+      "message": "Is it work making this `void` now and cleaning up the checks?",
+      "revId": "9a56bff879ce6391752ca12970e2961bb78e9e7c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc17cd2e_25cc3bbb",
+        "filename": "crypto/bytestring/cbb.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-10-07T18:59:35Z",
+      "side": 1,
+      "message": "CBB_zero?",
+      "revId": "9a56bff879ce6391752ca12970e2961bb78e9e7c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f0b58bb9_74d8ce5a",
         "filename": "crypto/bytestring/cbb.c",
         "patchSetId": 4
