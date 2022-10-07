@@ -16,6 +16,24 @@
       "message": "continue? It used to be a break, but that was breaking out of the retry loop, that\u0027s since moved into getVectorsWithRetry. Now it\u0027s impacting the VectorSetURLs iteration.",
       "revId": "f0be032b1ea974649d53378397b05a84aabfabc0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04e02637_7f15534d",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-10-07T18:40:17Z",
+      "side": 1,
+      "message": "Yep, thanks!",
+      "parentUuid": "ec6fa81c_5b32b25a",
+      "revId": "f0be032b1ea974649d53378397b05a84aabfabc0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
