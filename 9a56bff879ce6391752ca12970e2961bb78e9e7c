@@ -35,6 +35,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1ed2c10_0e9728dd",
+        "filename": "crypto/bytestring/bytestring_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-10-07T22:04:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5cc460a7_a9cf1127",
+      "revId": "9a56bff879ce6391752ca12970e2961bb78e9e7c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "38ce438f_6b7d8249",
@@ -52,6 +70,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd85b369_27b079c2",
+        "filename": "crypto/bytestring/cbb.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-10-07T22:04:20Z",
+      "side": 1,
+      "message": "There are some callers outside the library. Probably not worth the churn.",
+      "parentUuid": "38ce438f_6b7d8249",
+      "revId": "9a56bff879ce6391752ca12970e2961bb78e9e7c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc17cd2e_25cc3bbb",
@@ -65,6 +101,24 @@
       "writtenOn": "2022-10-07T18:59:35Z",
       "side": 1,
       "message": "CBB_zero?",
+      "revId": "9a56bff879ce6391752ca12970e2961bb78e9e7c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "942b0d12_22873de2",
+        "filename": "crypto/bytestring/cbb.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-10-07T22:04:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dc17cd2e_25cc3bbb",
       "revId": "9a56bff879ce6391752ca12970e2961bb78e9e7c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
