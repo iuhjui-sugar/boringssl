@@ -177,6 +177,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9144aed9_096b8956",
+        "filename": "crypto/cpu_aarch64_freebsd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 14851
+      },
+      "writtenOn": "2022-10-10T15:17:23Z",
+      "side": 1,
+      "message": "@fuzxxl@gmail.com\n\nI\u0027m not able to reproduce a build on that architecture, but if that\u0027s ok I can make a change, please confirm.",
+      "parentUuid": "d024dbe3_c3e9b279",
+      "revId": "61b79ca562f428b9e141fc72b1172c2e2eb54afa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3f8019f2_d175b908",
         "filename": "crypto/cpu_aarch64_freebsd.c",
         "patchSetId": 2
