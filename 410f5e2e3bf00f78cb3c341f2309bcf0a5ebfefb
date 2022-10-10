@@ -726,6 +726,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "27438db7_89fe9700",
+        "filename": "crypto/cpu_aarch64_freebsd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 14851
+      },
+      "writtenOn": "2022-10-10T14:50:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ce5d3f7d_3c408b71",
+      "range": {
+        "startLine": 51,
+        "startChar": 41,
+        "endLine": 51,
+        "endChar": 43
+      },
+      "revId": "410f5e2e3bf00f78cb3c341f2309bcf0a5ebfefb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8651097d_eb5dd1e3",
@@ -787,6 +811,30 @@
       "side": 1,
       "message": "See above.",
       "parentUuid": "b2c30f8a_441b678f",
+      "range": {
+        "startLine": 54,
+        "startChar": 42,
+        "endLine": 54,
+        "endChar": 44
+      },
+      "revId": "410f5e2e3bf00f78cb3c341f2309bcf0a5ebfefb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4907d32_55601bf6",
+        "filename": "crypto/cpu_aarch64_freebsd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 14851
+      },
+      "writtenOn": "2022-10-10T14:50:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40aae018_4adeed43",
       "range": {
         "startLine": 54,
         "startChar": 42,
@@ -953,6 +1001,30 @@
       "side": 1,
       "message": "This thread was also a little prematurely resolved. Let\u0027s document the subtlety Robert mentioned in code. Can you please add something like:\n\n```\n  // |elf_aux_info| may fail, in which case |hwcap| and |hwcap2| will be\n  // left at zero. The rest of this function will then gracefully report\n  // the features are absent.\n```",
       "parentUuid": "6fdd1069_2066c1d3",
+      "range": {
+        "startLine": 30,
+        "startChar": 33,
+        "endLine": 30,
+        "endChar": 39
+      },
+      "revId": "410f5e2e3bf00f78cb3c341f2309bcf0a5ebfefb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e75566f_4509fca0",
+        "filename": "crypto/cpu_arm_freebsd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 14851
+      },
+      "writtenOn": "2022-10-10T14:50:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a1c82f6b_0c62951f",
       "range": {
         "startLine": 30,
         "startChar": 33,

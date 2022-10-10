@@ -141,6 +141,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "522924e1_05d52df8",
+        "filename": "crypto/cpu_aarch64_freebsd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 14851
+      },
+      "writtenOn": "2022-10-10T14:50:45Z",
+      "side": 1,
+      "message": "David, the \"machine/_stdint.h\" is the part of the FreeBSD distribution, please take a look on the following commit, https://cgit.freebsd.org/src/commit/?id\u003d49545b3891a707a543faab07822d56d86c4ee73c",
+      "parentUuid": "8616d47e_0613f91c",
+      "revId": "61b79ca562f428b9e141fc72b1172c2e2eb54afa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3f8019f2_d175b908",
         "filename": "crypto/cpu_aarch64_freebsd.c",
         "patchSetId": 2
@@ -169,6 +187,24 @@
       "writtenOn": "2022-10-07T15:34:48Z",
       "side": 1,
       "message": "This is redundant with the copy on line 37. Copy-paste error?",
+      "revId": "61b79ca562f428b9e141fc72b1172c2e2eb54afa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a638df1_08632d2c",
+        "filename": "crypto/cpu_aarch64_freebsd.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 14851
+      },
+      "writtenOn": "2022-10-10T14:50:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "716d5b7b_ef7891c3",
       "revId": "61b79ca562f428b9e141fc72b1172c2e2eb54afa",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
