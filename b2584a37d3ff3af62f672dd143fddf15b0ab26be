@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09deb098_c07128c7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-10-11T21:04:29Z",
+      "side": 1,
+      "message": "Thanks! This looks good. Just one super minor nitpick on includes and then this is good to go!",
+      "revId": "b2584a37d3ff3af62f672dd143fddf15b0ab26be",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c9778ee_17dd8758",
+        "filename": "crypto/cpu_aarch64_freebsd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-10-11T21:04:29Z",
+      "side": 1,
+      "message": "Nit: Not quite sorted (\u0027st\u0027 comes before \u0027sy\u0027), but as I said in the other comment thread, you can just omit \u003cstdint.h\u003e. We usually don\u0027t bother writing it (and \u003cstddef.h\u003e) because every file in the library would use it. Instead, \u003copenssl/base.h\u003e pulls it in for you.\n\nSo either sort these, or just remove the line.",
+      "revId": "b2584a37d3ff3af62f672dd143fddf15b0ab26be",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89136d9f_154c8d91",
+        "filename": "crypto/cpu_aarch64_freebsd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-10-11T21:04:29Z",
+      "side": 1,
+      "message": "(Oh, we\u0027ve actually since added an `ARMV8_SHA512` for SHA-512 acceleration on aarch64. But I can follow this CL up with a change to add that if you prefer. I believe the condition is `ID_AA64ISAR0_SHA2_VAL(id_aa64isar0) \u003e\u003d ID_AA64ISAR0_SHA2_512`.)",
+      "revId": "b2584a37d3ff3af62f672dd143fddf15b0ab26be",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
