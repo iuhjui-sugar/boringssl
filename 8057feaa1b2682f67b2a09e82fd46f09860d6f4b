@@ -51,6 +51,23 @@
       "message": "This change was implemented and merged by @agl@google.com at https://boringssl.googlesource.com/boringssl/+/8927cb8f814ad3cb7cde08f02e826f1eed02bfb0. Thanks Adam!",
       "revId": "8057feaa1b2682f67b2a09e82fd46f09860d6f4b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9082433f_d0929820",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14496
+      },
+      "writtenOn": "2022-10-11T15:41:35Z",
+      "side": 1,
+      "message": "Should we abondon this change, as it\u0027s implemented by Adam in a new patch https://boringssl-review.googlesource.com/c/boringssl/+/54665",
+      "revId": "8057feaa1b2682f67b2a09e82fd46f09860d6f4b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
