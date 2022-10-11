@@ -50,6 +50,23 @@
       "message": "(Oh, we\u0027ve actually since added an `ARMV8_SHA512` for SHA-512 acceleration on aarch64. But I can follow this CL up with a change to add that if you prefer. I believe the condition is `ID_AA64ISAR0_SHA2_VAL(id_aa64isar0) \u003e\u003d ID_AA64ISAR0_SHA2_512`.)",
       "revId": "b2584a37d3ff3af62f672dd143fddf15b0ab26be",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd303a93_a615e3bb",
+        "filename": "crypto/cpu_arm_freebsd.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-10-11T21:05:04Z",
+      "side": 1,
+      "message": "Oh, these two should also be sorted.",
+      "revId": "b2584a37d3ff3af62f672dd143fddf15b0ab26be",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
