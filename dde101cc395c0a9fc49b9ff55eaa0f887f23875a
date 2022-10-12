@@ -70,6 +70,23 @@
       "parentUuid": "01fca109_dd42d5c6",
       "revId": "dde101cc395c0a9fc49b9ff55eaa0f887f23875a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73fec392_0d6e2786",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14851
+      },
+      "writtenOn": "2022-10-12T17:09:14Z",
+      "side": 1,
+      "message": "Hello,\n\nI believe this can be safely closed after https://boringssl-review.googlesource.com/c/boringssl/+/54105.\n\nThank you.",
+      "revId": "dde101cc395c0a9fc49b9ff55eaa0f887f23875a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
