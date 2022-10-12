@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebdcf0f7_d8f5ce07",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-10-12T15:04:18Z",
+      "side": 1,
+      "message": "This addition look good from the FreeBSD side?",
+      "revId": "69556645cc92c4a9c0f5859a362d4c88a5b37837",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
