@@ -33,6 +33,24 @@
       "message": "LGTM.\n\nTest build and test suite passes on arm64 FreeBSD 13.1 (Raspberry Pi 4B).",
       "revId": "69556645cc92c4a9c0f5859a362d4c88a5b37837",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9701359_857f17ad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-10-12T17:46:08Z",
+      "side": 1,
+      "message": "Thank! (Upshot is you\u0027ll get this nice perf boost on Armv8.2: https://boringssl-review.googlesource.com/c/boringssl/+/50807 ) Not on the rpi yet, but I imagine it\u0027ll trickle through the Arm ecosystem eventually.",
+      "parentUuid": "f4dcb284_f7d4bf49",
+      "revId": "69556645cc92c4a9c0f5859a362d4c88a5b37837",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
