@@ -41,6 +41,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4af1226_1dccc896",
+        "filename": "ssl/internal.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 2704,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-10-13T21:51:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5cec2dea_dfd4e7dd",
+      "range": {
+        "startLine": 2704,
+        "startChar": 40,
+        "endLine": 2704,
+        "endChar": 51
+      },
+      "revId": "1b80fc74a2921cc71b34644bbf5d6537c4590ab5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "807671ed_614591d3",
@@ -54,6 +78,30 @@
       "writtenOn": "2022-10-13T20:48:58Z",
       "side": 1,
       "message": "Also just to allow the peer to send a few at the start... which we ourselves like to do. :-)",
+      "range": {
+        "startLine": 2709,
+        "startChar": 5,
+        "endLine": 2710,
+        "endChar": 10
+      },
+      "revId": "1b80fc74a2921cc71b34644bbf5d6537c4590ab5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a93d8d67_962980b7",
+        "filename": "ssl/internal.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 2710,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-10-13T21:51:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "807671ed_614591d3",
       "range": {
         "startLine": 2709,
         "startChar": 5,
@@ -81,6 +129,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "293bd21d_91f45753",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 1016,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-10-13T21:51:32Z",
+      "side": 1,
+      "message": "I put the assert into the key update processing logic with a comment, and \njust redid this to remember the last sequence and not care about modulus.",
+      "parentUuid": "c6b44d3d_c8d2c674",
+      "revId": "1b80fc74a2921cc71b34644bbf5d6537c4590ab5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f3dbd8d8_522835cb",
@@ -94,6 +160,30 @@
       "writtenOn": "2022-10-13T20:48:58Z",
       "side": 1,
       "message": "Nit: s/another key updates/Another key update/\n\nOr perhaps slightly shorter is:\n\"After another 256 records, we allow another key update.\"\n\nLikewise \"After another 512 records, we allow two key updates.\" below.",
+      "range": {
+        "startLine": 7691,
+        "startChar": 5,
+        "endLine": 7691,
+        "endChar": 12
+      },
+      "revId": "1b80fc74a2921cc71b34644bbf5d6537c4590ab5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd29f1b6_30f74e6b",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 7691,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-10-13T21:51:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f3dbd8d8_522835cb",
       "range": {
         "startLine": 7691,
         "startChar": 5,
@@ -121,6 +211,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ede9ae13_f70a31cf",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 7694,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-10-13T21:51:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "efbf5a18_efab6a3e",
+      "revId": "1b80fc74a2921cc71b34644bbf5d6537c4590ab5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6e034730_e824bfa2",
@@ -144,6 +252,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "75d382da_4f405d97",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 7705,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-10-13T21:51:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e034730_e824bfa2",
+      "range": {
+        "startLine": 7705,
+        "startChar": 25,
+        "endLine": 7705,
+        "endChar": 27
+      },
+      "revId": "1b80fc74a2921cc71b34644bbf5d6537c4590ab5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dea50a96_175a3760",
@@ -157,6 +289,30 @@
       "writtenOn": "2022-10-13T20:48:58Z",
       "side": 1,
       "message": "Nit: Period at the end.",
+      "range": {
+        "startLine": 7718,
+        "startChar": 60,
+        "endLine": 7718,
+        "endChar": 61
+      },
+      "revId": "1b80fc74a2921cc71b34644bbf5d6537c4590ab5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "edfb2902_cfbd051d",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 7718,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-10-13T21:51:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dea50a96_175a3760",
       "range": {
         "startLine": 7718,
         "startChar": 60,
