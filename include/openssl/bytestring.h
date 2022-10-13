@@ -359,8 +359,10 @@ OPENSSL_EXPORT char *CBS_asn1_oid_to_text(const CBS *cbs);
 // otherwise. If |allow_timezone_offset| is non-zero, four-digit timezone
 // offsets, which would not be allowed by DER, are permitted. On success, if
 // |out_tm| is non-NULL, |*out_tm| will be zeroed, and then set to the
-// corresponding time in UTC. This function does not compute |out_tm->tm_wday|
-// or |out_tm->tm_yday|.
+// corresponding time in UTC. On success, if |out_time| is non-NULL, |*out_time|
+// will be set to the corresponding time in number of seconds since the POSIX
+// time epoch. This function does not compute |out_tm->tm_wday| or
+// |out_tm->tm_yday|.
 OPENSSL_EXPORT int CBS_parse_generalized_time(const CBS *cbs, struct tm *out_tm,
                                               int allow_timezone_offset);
 
@@ -369,8 +371,9 @@ OPENSSL_EXPORT int CBS_parse_generalized_time(const CBS *cbs, struct tm *out_tm,
 // If |allow_timezone_offset| is non-zero, four-digit timezone offsets, which
 // would not be allowed by DER, are permitted. On success, if |out_tm| is
 // non-NULL, |*out_tm| will be zeroed, and then set to the corresponding time
-// in UTC. This function does not compute |out_tm->tm_wday| or
-// |out_tm->tm_yday|.
+// in UTC. On success, if |out_time| is non-NULL, |*out_time| will be set to the
+// corresponding time in number of seconds since the POSIX time epoch. This
+// function does not compute |out_tm->tm_wday| or |out_tm->tm_yday|.
 OPENSSL_EXPORT int CBS_parse_utc_time(const CBS *cbs, struct tm *out_tm,
                                       int allow_timezone_offset);
 

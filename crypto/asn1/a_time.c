@@ -73,26 +73,24 @@ IMPLEMENT_ASN1_MSTRING(ASN1_TIME, B_ASN1_TIME)
 
 IMPLEMENT_ASN1_FUNCTIONS_const(ASN1_TIME)
 
-ASN1_TIME *ASN1_TIME_set(ASN1_TIME *s, time_t t) {
+ASN1_TIME *ASN1_TIME_set(ASN1_TIME *s, int64_t t) {
   return ASN1_TIME_adj(s, t, 0, 0);
 }
 
-ASN1_TIME *ASN1_TIME_adj(ASN1_TIME *s, time_t t, int offset_day,
+ASN1_TIME *ASN1_TIME_adj(ASN1_TIME *s, int64_t t, int offset_day,
                          long offset_sec) {
-  struct tm *ts;
-  struct tm data;
+  struct tm tm;
 
-  ts = OPENSSL_gmtime(&t, &data);
-  if (ts == NULL) {
+  if (!OPENSSL_posix_to_tm(t, &tm)) {
     OPENSSL_PUT_ERROR(ASN1, ASN1_R_ERROR_GETTING_TIME);
     return NULL;
   }
   if (offset_day || offset_sec) {
-    if (!OPENSSL_gmtime_adj(ts, offset_day, offset_sec)) {
+    if (!OPENSSL_gmtime_adj(&tm, offset_day, offset_sec)) {
       return NULL;
     }
   }
-  if ((ts->tm_year >= 50) && (ts->tm_year < 150)) {
+  if ((tm.tm_year >= 50) && (tm.tm_year < 150)) {
     return ASN1_UTCTIME_adj(s, t, offset_day, offset_sec);
   }
   return ASN1_GENERALIZEDTIME_adj(s, t, offset_day, offset_sec);
