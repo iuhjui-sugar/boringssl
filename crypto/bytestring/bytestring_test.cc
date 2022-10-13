@@ -1583,9 +1583,10 @@ TEST(CBSTest, BogusTime) {
     SCOPED_TRACE(t.timestring);
     CBS cbs;
     CBS_init(&cbs, (const uint8_t *)t.timestring, strlen(t.timestring));
-    EXPECT_FALSE(CBS_parse_generalized_time(&cbs, NULL,
+    EXPECT_FALSE(CBS_parse_generalized_time(&cbs, NULL, NULL,
                                             /*allow_timezone_offset=*/0));
-    EXPECT_FALSE(CBS_parse_utc_time(&cbs, NULL, /*allow_timezone_offset=*/1));
+    EXPECT_FALSE(
+        CBS_parse_utc_time(&cbs, NULL, NULL, /*allow_timezone_offset=*/1));
   }
   static const struct {
     const char *timestring;
@@ -1600,12 +1601,14 @@ TEST(CBSTest, BogusTime) {
     SCOPED_TRACE(t.timestring);
     CBS cbs;
     CBS_init(&cbs, (const uint8_t *)t.timestring, strlen(t.timestring));
-    EXPECT_FALSE(CBS_parse_generalized_time(&cbs, NULL,
+    EXPECT_FALSE(CBS_parse_generalized_time(&cbs, NULL, NULL,
                                             /*allow_timezone_offset=*/0));
-    EXPECT_FALSE(CBS_parse_generalized_time(&cbs, NULL,
+    EXPECT_FALSE(CBS_parse_generalized_time(&cbs, NULL, NULL,
                                             /*allow_timezone_offset=*/1));
-    EXPECT_TRUE(CBS_parse_utc_time(&cbs, NULL, /*allow_timezone_offset=*/1));
-    EXPECT_FALSE(CBS_parse_utc_time(&cbs, NULL, /*allow_timezone_offset=*/0));
+    EXPECT_TRUE(
+        CBS_parse_utc_time(&cbs, NULL, NULL, /*allow_timezone_offset=*/1));
+    EXPECT_FALSE(
+        CBS_parse_utc_time(&cbs, NULL, NULL, /*allow_timezone_offset=*/0));
   }
   static const struct {
     const char *timestring;
@@ -1618,9 +1621,10 @@ TEST(CBSTest, BogusTime) {
     SCOPED_TRACE(t.timestring);
     CBS cbs;
     CBS_init(&cbs, (const uint8_t *)t.timestring, strlen(t.timestring));
-    EXPECT_FALSE(CBS_parse_generalized_time(&cbs, NULL,
+    EXPECT_FALSE(CBS_parse_generalized_time(&cbs, NULL, NULL,
                                             /*allow_timezone_offset=*/0));
-    EXPECT_FALSE(CBS_parse_utc_time(&cbs, NULL, /*allow_timezone_offset=*/1));
+    EXPECT_FALSE(
+        CBS_parse_utc_time(&cbs, NULL, NULL, /*allow_timezone_offset=*/1));
   }
   static const struct {
     const char *timestring;
@@ -1634,12 +1638,14 @@ TEST(CBSTest, BogusTime) {
     SCOPED_TRACE(t.timestring);
     CBS cbs;
     CBS_init(&cbs, (const uint8_t *)t.timestring, strlen(t.timestring));
-    EXPECT_FALSE(CBS_parse_generalized_time(&cbs, NULL,
+    EXPECT_FALSE(CBS_parse_generalized_time(&cbs, NULL, NULL,
                                             /*allow_timezone_offset=*/0));
-    EXPECT_TRUE(CBS_parse_generalized_time(&cbs, NULL,
+    EXPECT_TRUE(CBS_parse_generalized_time(&cbs, NULL, NULL,
                                            /*allow_timezone_offset=*/1));
-    EXPECT_FALSE(CBS_parse_utc_time(&cbs, NULL, /*allow_timezone_offset=*/1));
-    EXPECT_FALSE(CBS_parse_utc_time(&cbs, NULL, /*allow_timezone_offset=*/0));
+    EXPECT_FALSE(
+        CBS_parse_utc_time(&cbs, NULL, NULL, /*allow_timezone_offset=*/1));
+    EXPECT_FALSE(
+        CBS_parse_utc_time(&cbs, NULL, NULL, /*allow_timezone_offset=*/0));
   }
   static const struct {
     const char *timestring;
@@ -1652,8 +1658,9 @@ TEST(CBSTest, BogusTime) {
     SCOPED_TRACE(t.timestring);
     CBS cbs;
     CBS_init(&cbs, (const uint8_t *)t.timestring, strlen(t.timestring));
-    EXPECT_FALSE(CBS_parse_generalized_time(&cbs, NULL,
+    EXPECT_FALSE(CBS_parse_generalized_time(&cbs, NULL, NULL,
                                             /*allow_timezone_offset=*/0));
-    EXPECT_FALSE(CBS_parse_utc_time(&cbs, NULL, /*allow_timezone_offset=*/1));
+    EXPECT_FALSE(
+        CBS_parse_utc_time(&cbs, NULL, NULL, /*allow_timezone_offset=*/1));
   }
 }

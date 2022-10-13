@@ -70,7 +70,7 @@ int asn1_generalizedtime_to_tm(struct tm *tm, const ASN1_GENERALIZEDTIME *d) {
   }
   CBS cbs;
   CBS_init(&cbs, d->data, (size_t)d->length);
-  if (!CBS_parse_generalized_time(&cbs, tm, /*allow_timezone_offset=*/0)) {
+  if (!CBS_parse_generalized_time(&cbs, tm, NULL, /*allow_timezone_offset=*/0)) {
     return 0;
   }
   return 1;
@@ -100,15 +100,15 @@ int ASN1_GENERALIZEDTIME_set_string(ASN1_GENERALIZEDTIME *s, const char *str) {
 }
 
 ASN1_GENERALIZEDTIME *ASN1_GENERALIZEDTIME_set(ASN1_GENERALIZEDTIME *s,
-                                               time_t t) {
+                                               int64_t t) {
   return ASN1_GENERALIZEDTIME_adj(s, t, 0, 0);
 }
 
 ASN1_GENERALIZEDTIME *ASN1_GENERALIZEDTIME_adj(ASN1_GENERALIZEDTIME *s,
-                                               time_t t, int offset_day,
+                                               int64_t t, int offset_day,
                                                long offset_sec) {
   struct tm data;
-  if (!OPENSSL_gmtime(&t, &data)) {
+  if (!OPENSSL_posix_to_tm(t, &data)) {
     return NULL;
   }
 

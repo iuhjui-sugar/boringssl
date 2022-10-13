@@ -857,27 +857,42 @@ static int CBS_parse_rfc5280_time_internal(const CBS *cbs, int is_gentime,
     return 0;  // Reject invalid lengths.
   }
 
-  if (out_tm != NULL) {
-    // Fill in the tm fields corresponding to what we validated.
-    out_tm->tm_year = year - 1900;
-    out_tm->tm_mon = month - 1;
-    out_tm->tm_mday = day;
-    out_tm->tm_hour = hour;
-    out_tm->tm_min = min;
-    out_tm->tm_sec = sec;
-    if (offset_seconds && !OPENSSL_gmtime_adj(out_tm, 0, offset_seconds)) {
-      return 0;
-    }
+  assert(out_tm != NULL);
+  // Fill in the tm fields corresponding to what we validated.
+  out_tm->tm_year = year - 1900;
+  out_tm->tm_mon = month - 1;
+  out_tm->tm_mday = day;
+  out_tm->tm_hour = hour;
+  out_tm->tm_min = min;
+  out_tm->tm_sec = sec;
+  if (offset_seconds && !OPENSSL_gmtime_adj(out_tm, 0, offset_seconds)) {
+    return 0;
   }
   return 1;
 }
 
-int CBS_parse_generalized_time(const CBS *cbs, struct tm *out_tm,
+int CBS_parse_generalized_time(const CBS *cbs, struct tm *out_tm, int64_t *out_time,
                                int allow_timezone_offset) {
-  return CBS_parse_rfc5280_time_internal(cbs, 1, allow_timezone_offset, out_tm);
+  struct tm tmp_tm;
+  out_tm = (out_tm == NULL) ? &tmp_tm : out_tm;
+  if (CBS_parse_rfc5280_time_internal(cbs, 1, allow_timezone_offset, out_tm)) {
+    if (out_time && !OPENSSL_tm_to_posix(out_tm, out_time)) {
+      return 0;
+    }
+    return 1;
+  }
+  return 0;
 }
 
-int CBS_parse_utc_time(const CBS *cbs, struct tm *out_tm,
+int CBS_parse_utc_time(const CBS *cbs, struct tm *out_tm, int64_t *out_time,
                        int allow_timezone_offset) {
-  return CBS_parse_rfc5280_time_internal(cbs, 0, allow_timezone_offset, out_tm);
+  struct tm tmp_tm;
+  out_tm = (out_tm == NULL) ? &tmp_tm : out_tm;
+  if (CBS_parse_rfc5280_time_internal(cbs, 0, allow_timezone_offset, out_tm)) {
+    if (out_time && !OPENSSL_tm_to_posix(out_tm, out_time)) {
+      return 0;
+    }
+    return 1;
+  }
+  return 0;
 }

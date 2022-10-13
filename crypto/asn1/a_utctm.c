@@ -71,7 +71,7 @@ int asn1_utctime_to_tm(struct tm *tm, const ASN1_UTCTIME *d,
   }
   CBS cbs;
   CBS_init(&cbs, d->data, (size_t)d->length);
-  if (!CBS_parse_utc_time(&cbs, tm, allow_timezone_offset)) {
+  if (!CBS_parse_utc_time(&cbs, tm, NULL, allow_timezone_offset)) {
     return 0;
   }
   return 1;
@@ -100,14 +100,14 @@ int ASN1_UTCTIME_set_string(ASN1_UTCTIME *s, const char *str) {
   }
 }
 
-ASN1_UTCTIME *ASN1_UTCTIME_set(ASN1_UTCTIME *s, time_t t) {
+ASN1_UTCTIME *ASN1_UTCTIME_set(ASN1_UTCTIME *s, int64_t t) {
   return ASN1_UTCTIME_adj(s, t, 0, 0);
 }
 
-ASN1_UTCTIME *ASN1_UTCTIME_adj(ASN1_UTCTIME *s, time_t t, int offset_day,
+ASN1_UTCTIME *ASN1_UTCTIME_adj(ASN1_UTCTIME *s, int64_t t, int offset_day,
                                long offset_sec) {
   struct tm data;
-  if (!OPENSSL_gmtime(&t, &data)) {
+  if (!OPENSSL_posix_to_tm(t, &data)) {
     return NULL;
   }
 

@@ -443,7 +443,7 @@ int ASN1_GENERALIZEDTIME_print(BIO *bp, const ASN1_GENERALIZEDTIME *tm) {
   CBS cbs;
   CBS_init(&cbs, tm->data, tm->length);
   struct tm utc;
-  if (!CBS_parse_generalized_time(&cbs, &utc, /*allow_timezone_offset=*/0)) {
+  if (!CBS_parse_generalized_time(&cbs, &utc, NULL, /*allow_timezone_offset=*/0)) {
     BIO_puts(bp, "Bad time value");
     return 0;
   }
@@ -457,7 +457,7 @@ int ASN1_UTCTIME_print(BIO *bp, const ASN1_UTCTIME *tm) {
   CBS cbs;
   CBS_init(&cbs, tm->data, tm->length);
   struct tm utc;
-  if (!CBS_parse_utc_time(&cbs, &utc, /*allow_timezone_offset=*/0)) {
+  if (!CBS_parse_utc_time(&cbs, &utc, NULL, /*allow_timezone_offset=*/0)) {
     BIO_puts(bp, "Bad time value");
     return 0;
   }

@@ -829,13 +829,13 @@ static int asn1_ex_c2i(ASN1_VALUE **pval, const unsigned char *cont, int len,
         }
       }
       if (utype == V_ASN1_UTCTIME) {
-        if (!CBS_parse_utc_time(&cbs, NULL, /*allow_timezone_offset=*/1)) {
+        if (!CBS_parse_utc_time(&cbs, NULL, NULL, /*allow_timezone_offset=*/1)) {
           OPENSSL_PUT_ERROR(ASN1, ASN1_R_INVALID_TIME_FORMAT);
           goto err;
         }
       }
       if (utype == V_ASN1_GENERALIZEDTIME) {
-        if (!CBS_parse_generalized_time(&cbs, NULL,
+        if (!CBS_parse_generalized_time(&cbs, NULL, NULL,
                                         /*allow_timezone_offset=*/0)) {
           OPENSSL_PUT_ERROR(ASN1, ASN1_R_INVALID_TIME_FORMAT);
           goto err;
