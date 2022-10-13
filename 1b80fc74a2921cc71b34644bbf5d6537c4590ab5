@@ -1,0 +1,170 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4f7c4f5_8c0edbd9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-10-13T20:48:58Z",
+      "side": 1,
+      "message": "Last round of comments this time, I promise. :-)",
+      "revId": "1b80fc74a2921cc71b34644bbf5d6537c4590ab5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5cec2dea_dfd4e7dd",
+        "filename": "ssl/internal.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 2704,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-10-13T20:48:58Z",
+      "side": 1,
+      "message": "Can drop \"consecutive\" now.",
+      "range": {
+        "startLine": 2704,
+        "startChar": 40,
+        "endLine": 2704,
+        "endChar": 51
+      },
+      "revId": "1b80fc74a2921cc71b34644bbf5d6537c4590ab5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "807671ed_614591d3",
+        "filename": "ssl/internal.h",
+        "patchSetId": 19
+      },
+      "lineNbr": 2710,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-10-13T20:48:58Z",
+      "side": 1,
+      "message": "Also just to allow the peer to send a few at the start... which we ourselves like to do. :-)",
+      "range": {
+        "startLine": 2709,
+        "startChar": 5,
+        "endLine": 2710,
+        "endChar": 10
+      },
+      "revId": "1b80fc74a2921cc71b34644bbf5d6537c4590ab5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6b44d3d_c8d2c674",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 1016,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-10-13T20:48:58Z",
+      "side": 1,
+      "message": "We should probably leave a comment here, and below, that this will be a little inaccurate if the 0 mod 256 record happens to land on an empty record or non-app-data record, or in between writes, but that we\u0027re okay with being a little sloppy.\n\nI can think of two scenarios where we might fail open instead:\n\n- If this gets sampled immediately after a KeyUpdate, read_sequence and write_sequence will be zero. I *think*, as currently implemented, it\u0027s not possible for read_sequence to be zero, but write_sequence can be persistently zero if we just sent KeyUpdate and then the caller keeps pumping SSL_write(0) for some weird reason. (Also your automated KeyUpdate CL, in the post-write KeyUpdate version, rather than the pre-write one, would also trip this. :-) )\n\n- DTLS will get a little confused. read_sequence doesn\u0027t do anything in DTLS and is always left at zero. (DTLS records don\u0027t come in order and needs to track something more complicated.) Moot for now since we don\u0027t do DTLS 1.3.\n\nWe could mitigate the second one with just an assert(!SSL_is_dtls(ssl)) somewhere near the KeyUpdates with a comment that we have to update something. The first one is unlikely but mildly weird... probably not that important?\n\nAlternatively, might be simpler to just track this accurately. We could make key_update_budget be measured in records and then subtract 256 at a time. And then increment it closer to where records are actually encrypted to ensure it\u0027s accurate.\n\n(An observation, but I think it\u0027s not a big deal: the peer could also chose to send us lots of tiny records, rather than large records. Dunno how much we care about that one... the main thing of interest over the previous scheme is you can build up a budget to flood us with later. But the peer gets to send us 256 * 14 bytes to increment the budget by one. So to make us spin on 1000 of them, it\u0027d have to send us 3.5 MiB. That\u0027s probably not too worrisome?)",
+      "revId": "1b80fc74a2921cc71b34644bbf5d6537c4590ab5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3dbd8d8_522835cb",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 7691,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-10-13T20:48:58Z",
+      "side": 1,
+      "message": "Nit: s/another key updates/Another key update/\n\nOr perhaps slightly shorter is:\n\"After another 256 records, we allow another key update.\"\n\nLikewise \"After another 512 records, we allow two key updates.\" below.",
+      "range": {
+        "startLine": 7691,
+        "startChar": 5,
+        "endLine": 7691,
+        "endChar": 12
+      },
+      "revId": "1b80fc74a2921cc71b34644bbf5d6537c4590ab5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "efbf5a18_efab6a3e",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 7694,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-10-13T20:48:58Z",
+      "side": 1,
+      "message": "It was a little confusing that the KeyUpdate came in before the budget was increased, and then I realized it\u0027s because the client doesn\u0027t read it until way later. Maybe move this to immediately after the loop rather than immediately before, so it\u0027s clearer what\u0027s going on?\n\nDitto below.",
+      "revId": "1b80fc74a2921cc71b34644bbf5d6537c4590ab5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e034730_e824bfa2",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 7705,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-10-13T20:48:58Z",
+      "side": 1,
+      "message": "Nit: Single period.",
+      "range": {
+        "startLine": 7705,
+        "startChar": 25,
+        "endLine": 7705,
+        "endChar": 27
+      },
+      "revId": "1b80fc74a2921cc71b34644bbf5d6537c4590ab5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dea50a96_175a3760",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 19
+      },
+      "lineNbr": 7718,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-10-13T20:48:58Z",
+      "side": 1,
+      "message": "Nit: Period at the end.",
+      "range": {
+        "startLine": 7718,
+        "startChar": 60,
+        "endLine": 7718,
+        "endChar": 61
+      },
+      "revId": "1b80fc74a2921cc71b34644bbf5d6537c4590ab5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
