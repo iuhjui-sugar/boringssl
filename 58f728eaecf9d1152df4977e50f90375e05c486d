@@ -34,6 +34,24 @@
       "parentUuid": "11a5f6f4_29f48c93",
       "revId": "58f728eaecf9d1152df4977e50f90375e05c486d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef854d9c_047fd62c",
+        "filename": "crypto/rand_extra/windows.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-10-14T20:16:04Z",
+      "side": 0,
+      "message": "BoringSSL is used in far more than just Android, and those downstreams may be satisfied with their current level of toolchain support. Not every project aims to support every toolchain. Moreover, as these kinds of pragmas are relatively common in the Windows ecosystem, it is reasonable to expect your Windows toolchain to work with them.",
+      "parentUuid": "4ba54879_bae9e3f0",
+      "revId": "58f728eaecf9d1152df4977e50f90375e05c486d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
