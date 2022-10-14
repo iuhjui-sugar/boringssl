@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47460842_abb742cd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-10-14T18:48:48Z",
+      "side": 1,
+      "message": "Going to downgrade Fixed to Bug (pending hearing back from the reporter) and go ahead and land this as, whether it fixes the issue for the reporter or not, I don\u0027t see why we\u0027d want this in the install list.",
+      "revId": "8dad40cd072e71f9b48d5e7cdd30b92934dbcd32",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
