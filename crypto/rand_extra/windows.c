@@ -26,7 +26,6 @@ OPENSSL_MSVC_PRAGMA(warning(push, 3))
 #if WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_APP) && \
     !WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
 #include <bcrypt.h>
-OPENSSL_MSVC_PRAGMA(comment(lib, "bcrypt.lib"))
 #else
 // #define needed to link in RtlGenRandom(), a.k.a. SystemFunction036.  See the
 // "Community Additions" comment on MSDN here:
