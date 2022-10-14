@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11a5f6f4_29f48c93",
+        "filename": "crypto/rand_extra/windows.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-10-14T18:43:26Z",
+      "side": 0,
+      "message": "We have to build with multiple buildsystems beyond just the CMake one here. I think it\u0027s best to keep the pragmas in here, especially now that we have them, since we may break downstream builds.\n\n(I don\u0027t mind adding ws2_32 to the build though. That aligns with what we did here. https://boringssl-review.googlesource.com/c/boringssl/+/42105 )",
+      "revId": "58f728eaecf9d1152df4977e50f90375e05c486d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
