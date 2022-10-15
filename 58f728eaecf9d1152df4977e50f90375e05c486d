@@ -52,6 +52,24 @@
       "parentUuid": "4ba54879_bae9e3f0",
       "revId": "58f728eaecf9d1152df4977e50f90375e05c486d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96190c20_24d70343",
+        "filename": "crypto/rand_extra/windows.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 15101
+      },
+      "writtenOn": "2022-10-15T03:08:18Z",
+      "side": 0,
+      "message": "Thanks. I have updated the patch as requested.",
+      "parentUuid": "ef854d9c_047fd62c",
+      "revId": "58f728eaecf9d1152df4977e50f90375e05c486d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
