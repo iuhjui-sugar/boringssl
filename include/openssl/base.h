@@ -139,8 +139,13 @@ extern "C" {
 #endif
 #endif
 
+// Unfortunate workaround to avoid symbol conflict with wincrypt.h
+// See https://github.com/openssl/openssl/issues/9981
 #if defined(_WIN32)
 #define OPENSSL_WINDOWS
+#undef PKCS7_SIGNER_INFO
+#undef X509_EXTENSIONS
+#undef X509_NAME
 #endif
 
 // Trusty isn't Linux but currently defines __linux__. As a workaround, we
