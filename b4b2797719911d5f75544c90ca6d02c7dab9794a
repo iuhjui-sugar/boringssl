@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40cdd479_b21174d5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-10-18T15:11:31Z",
+      "side": 1,
+      "message": "We\u0027ve intentionally not applied something like this. It\u0027s fragile and sensitive to include order. If \u003cwincrypt.h\u003e happens to be included after \u003copenssl/base.h\u003e, the workaround will silently break. Moreover, by silently deleting parts of wincrypt.h\u0027s API, it\u0027ll break code that needs those macros.\n\nYou can see impacts of this where OpenSSL actually breaks the usual include guard pattern to mitigate the ordering issue!\nhttps://github.com/openssl/openssl/commit/3c58d447497b37f7b4f458aaa2956a7e226c6d65\n\nI don\u0027t think this is a good strategy. Instead, for Chromium, we mandate \u003cwincrypt.h\u003e be included via a special shim header that applies the fixups, and also re-exports the missing symbols under another name. By keeping that include and the undefs atomic, we can get something independent of include order.\nhttps://source.chromium.org/chromium/chromium/src/+/main:base/win/wincrypt_shim.h\n\nThis isn\u0027t great either, but if we can\u0027t reliably hide it from the caller, better to do something like this where the caller is aware. I\u0027m hopeful that a future version of the SDK will honor this `WINCRYPT_USE_SYMBOL_PREFIX` symbol, which should hopefully resolve it. We still would not define it in the headers as OpenSSL has done (that is, one again, include-order-dependent and caller-visible), but we can at least document that callers need to build with that option.\nhttps://github.com/openssl/openssl/pull/18131#discussion_r853369072",
+      "revId": "b4b2797719911d5f75544c90ca6d02c7dab9794a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
