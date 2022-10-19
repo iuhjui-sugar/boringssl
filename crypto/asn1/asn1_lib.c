@@ -271,19 +271,23 @@ ASN1_STRING *ASN1_STRING_dup(const ASN1_STRING *str) {
   return ret;
 }
 
-int ASN1_STRING_set(ASN1_STRING *str, const void *_data, int len) {
-  unsigned char *c;
+int ASN1_STRING_set(ASN1_STRING *str, const void *_data, ossl_ssize_t len) {
   const char *data = _data;
-
   if (len < 0) {
     if (data == NULL) {
       return 0;
-    } else {
-      len = strlen(data);
     }
+    len = strlen(data);
   }
+
+  // |ASN1_STRING| cannot represent strings that exceed |int|.
+  if (len > INT_MAX - 1) {
+    OPENSSL_PUT_ERROR(ASN1, ERR_R_OVERFLOW);
+    return 0;
+  }
+
   if ((str->length <= len) || (str->data == NULL)) {
-    c = str->data;
+    unsigned char *c = str->data;
     if (c == NULL) {
       str->data = OPENSSL_malloc(len + 1);
     } else {
@@ -296,7 +300,7 @@ int ASN1_STRING_set(ASN1_STRING *str, const void *_data, int len) {
       return 0;
     }
   }
-  str->length = len;
+  str->length = (int)len;
   if (data != NULL) {
     OPENSSL_memcpy(str->data, data, len);
     // an allowance for strings :-)
