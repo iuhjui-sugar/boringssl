@@ -326,6 +326,12 @@ enum ssl_verify_result_t BORINGSSL_ENUM_INT;
 #define BORINGSSL_ENUM_INT
 #endif
 
+// ossl_ssize_t is a signed type which is large enough to fit the size of any
+// valid object. We prefer using |size_t|, but sometimes this is not possible
+// due to OpenSSL API compatibility. This type can be used in such cases to
+// ensure all valid buffer sizes can fit without overflow.
+typedef ptrdiff_t ossl_ssize_t;
+
 // CRYPTO_THREADID is a dummy value.
 typedef int CRYPTO_THREADID;
 
