@@ -254,21 +254,16 @@ static int pkey_ec_paramgen(EVP_PKEY_CTX *ctx, EVP_PKEY *pkey) {
 }
 
 const EVP_PKEY_METHOD ec_pkey_meth = {
-    EVP_PKEY_EC,
-    pkey_ec_init,
-    pkey_ec_copy,
-    pkey_ec_cleanup,
-    pkey_ec_keygen,
-    pkey_ec_sign,
-    NULL /* sign_message */,
-    pkey_ec_verify,
-    NULL /* verify_message */,
-    NULL /* verify_recover */,
-    NULL /* encrypt */,
-    NULL /* decrypt */,
-    pkey_ec_derive,
-    pkey_ec_paramgen,
-    pkey_ec_ctrl,
+    .pkey_id = EVP_PKEY_EC,
+    .init = pkey_ec_init,
+    .copy = pkey_ec_copy,
+    .cleanup = pkey_ec_cleanup,
+    .keygen = pkey_ec_keygen,
+    .sign = pkey_ec_sign,
+    .verify = pkey_ec_verify,
+    .derive = pkey_ec_derive,
+    .paramgen = pkey_ec_paramgen,
+    .ctrl = pkey_ec_ctrl,
 };
 
 int EVP_PKEY_CTX_set_ec_paramgen_curve_nid(EVP_PKEY_CTX *ctx, int nid) {
