@@ -227,9 +227,9 @@ using namespace bssl;
 
 const SSL_METHOD *TLS_method(void) {
   static const SSL_METHOD kMethod = {
-      0,
-      &kTLSProtocolMethod,
-      &ssl_crypto_x509_method,
+      .version = 0,
+      .method = &kTLSProtocolMethod,
+      .x509_method = &ssl_crypto_x509_method,
   };
   return &kMethod;
 }
