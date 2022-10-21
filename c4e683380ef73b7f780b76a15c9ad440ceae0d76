@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d39a9022_860283e3",
+        "filename": "crypto/evp/evp_extra_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 786,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-10-21T23:02:40Z",
+      "side": 1,
+      "message": "It might be worth calling this out as \"legacy TLS-specific\" since they fixed it in 3.0 but the ghost of naming decisions past...",
+      "revId": "c4e683380ef73b7f780b76a15c9ad440ceae0d76",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
