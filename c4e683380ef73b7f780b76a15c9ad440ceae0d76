@@ -16,6 +16,24 @@
       "message": "It might be worth calling this out as \"legacy TLS-specific\" since they fixed it in 3.0 but the ghost of naming decisions past...",
       "revId": "c4e683380ef73b7f780b76a15c9ad440ceae0d76",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da6544e1_7431c6db",
+        "filename": "crypto/evp/evp_extra_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 786,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-10-22T02:06:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d39a9022_860283e3",
+      "revId": "c4e683380ef73b7f780b76a15c9ad440ceae0d76",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
