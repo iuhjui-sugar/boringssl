@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b34577da_b08720a3",
+        "filename": "crypto/bio/bio.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-10-24T18:04:20Z",
+      "side": 1,
+      "message": "I waffled a bit on whether it\u0027d be better to error, truncate, or write in a loop. I settled on error because...\n\n- Sometimes callers assume writes will not be partial (e.g. memory BIOs), so truncation is awkward.\n- Sometimes BIOs are weird, like datagram BIOs, such that splitting a write in two doesn\u0027t actually work.\n\nSo I figured error was safest. Upstream actually makes BIO_puts a method on BIO_METHOD, rather than a thin wrapper over BIO_write, but all the BIOs seem to just overflow, so it\u0027s not a useful data point.",
+      "revId": "8c3d86e0b1209c28592dba781910eef8a9b48be7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "10672e0e_7f5ae220",
+        "filename": "crypto/bio/socket.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-10-24T18:04:20Z",
+      "side": 1,
+      "message": "Windows `recv` actually just returns `int` so there\u0027s no need for cast. As for the rest, `outl` is bounded by `int` so therefore result is too.",
+      "range": {
+        "startLine": 102,
+        "startChar": 12,
+        "endLine": 102,
+        "endChar": 16
+      },
+      "revId": "8c3d86e0b1209c28592dba781910eef8a9b48be7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
