@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "896714b0_6a742c28",
+        "filename": "crypto/evp/print.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-10-25T20:57:48Z",
+      "side": 1,
+      "message": "really, we could probably just make a mode of BIO_hexdump that does this",
+      "revId": "926809e835eebd1729e648eaea2a50e5ec810183",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
