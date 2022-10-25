@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32a6f9e2_f29c6e27",
+        "filename": "crypto/dsa/dsa.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-10-25T19:07:15Z",
+      "side": 0,
+      "message": "We should really sweep for and kill all unsigned with fire.. it\u0027s always the wrong type \n\nhttps://bugs.chromium.org/p/boringssl/issues/detail?id\u003d525",
+      "revId": "671ccb1a98fae26bf9c115068b2993418cecc800",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
