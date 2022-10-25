@@ -66,6 +66,10 @@ TEST(CompilerTest, IntegerRepresentation) {
   unsigned char *ptr = &u8;
   (void)ptr;
 
+  uint32_t u32 = 0;
+  unsigned *ptr_u = &u32;
+  (void)ptr_u;
+
   // Sized integers have the expected size.
   EXPECT_EQ(1u, sizeof(uint8_t));
   EXPECT_EQ(2u, sizeof(uint16_t));
