@@ -46,6 +46,30 @@
       },
       "revId": "039b356bf91eeb3b6adbe9f19b5c3f81c3b3faba",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3c13b27_0e62f823",
+        "filename": "include/openssl/asn1.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 1220,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-10-27T17:58:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab0a6213_a328b4ba",
+      "range": {
+        "startLine": 1220,
+        "startChar": 30,
+        "endLine": 1220,
+        "endChar": 34
+      },
+      "revId": "039b356bf91eeb3b6adbe9f19b5c3f81c3b3faba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
