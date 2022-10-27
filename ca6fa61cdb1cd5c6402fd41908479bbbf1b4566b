@@ -22,6 +22,30 @@
       },
       "revId": "ca6fa61cdb1cd5c6402fd41908479bbbf1b4566b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e86506c3_4fb37ecb",
+        "filename": "crypto/asn1/a_utctm.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-10-27T16:48:26Z",
+      "side": 0,
+      "message": "I think we should consider removing these. And also the newly added \"to_time_t\" - we literally just added this because our \"feature\" said we neeeded it - but in fact we fixed the consumers with \"to_posix\" so IMO we should just provide \"to_posix\" and people can do their own overflow detection and convert once they have an int64_t. version of time.  I know that sounds scary, but I believe people will screw that up less than they will screw up checking for an error condition in an OpenSSL style API. \n\nHowever, I was planning on doing that in a followon.",
+      "parentUuid": "dded304d_ef85e98d",
+      "range": {
+        "startLine": 110,
+        "startChar": 7,
+        "endLine": 110,
+        "endChar": 21
+      },
+      "revId": "ca6fa61cdb1cd5c6402fd41908479bbbf1b4566b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
