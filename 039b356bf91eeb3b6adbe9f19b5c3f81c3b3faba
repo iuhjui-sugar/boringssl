@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d62354e6_99486a99",
+        "filename": "include/openssl/asn1.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 1220,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-10-27T14:32:53Z",
+      "side": 1,
+      "message": "Nit: It\u0027s no longer clear from the type alone that `t` is POSIX time. Ditto for all the others. Whereas before `time_t` was a bit self-documenting.\n\nIf we added a `typedef uint64_t ossl_time_t`, we could keep the self-documenting behavior, and leave a little note for what that\u0027s about. Or we spell it out in each of the comments.",
+      "range": {
+        "startLine": 1220,
+        "startChar": 30,
+        "endLine": 1220,
+        "endChar": 34
+      },
+      "revId": "039b356bf91eeb3b6adbe9f19b5c3f81c3b3faba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

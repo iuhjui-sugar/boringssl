@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dded304d_ef85e98d",
+        "filename": "crypto/asn1/a_utctm.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-10-27T14:32:53Z",
+      "side": 0,
+      "message": "Should we just remove this function? `ASN1_UTCTIME_cmp_time_t` calls it, but passing a `time_t` to `OPENSSL_posix_to_tm` works just fine. (We can even `static_assert(sizeof(time_t) \u003c\u003d sizeof(ossl_time_t), \"time_t is larger than ossl_time_t\")` somewhere in posix_time.c for bonus points.)",
+      "range": {
+        "startLine": 110,
+        "startChar": 7,
+        "endLine": 110,
+        "endChar": 21
+      },
+      "revId": "ca6fa61cdb1cd5c6402fd41908479bbbf1b4566b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
