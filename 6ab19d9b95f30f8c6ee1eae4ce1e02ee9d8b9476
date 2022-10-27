@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "816ce825_813cbb82",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-10-27T20:19:44Z",
+      "side": 1,
+      "message": "We mostly think of the CMake build as the developer build and that consumers use the generated file lists. As such, we always want -Werror on so that a) we catch stuff and b) we can address the new warnings that our consumers will hit. This change is moving the CMake build (further) away from being a developer build and I\u0027m not sure how we feel about that.",
+      "revId": "6ab19d9b95f30f8c6ee1eae4ce1e02ee9d8b9476",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
