@@ -16,6 +16,24 @@
       "message": "really, we could probably just make a mode of BIO_hexdump that does this",
       "revId": "926809e835eebd1729e648eaea2a50e5ec810183",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0ddc446_9d74d01a",
+        "filename": "crypto/evp/print.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-10-27T15:46:49Z",
+      "side": 1,
+      "message": "Hmm, maybe. Though as long as it\u0027s just this file, I figure we can just leave it in here for now. I went and checked the remaining call to BIO_hexdump and it actually (roughly) matches OpenSSL, so I guess that\u0027s the expected output?",
+      "parentUuid": "896714b0_6a742c28",
+      "revId": "926809e835eebd1729e648eaea2a50e5ec810183",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
