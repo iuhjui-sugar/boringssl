@@ -46,6 +46,30 @@
       },
       "revId": "ca6fa61cdb1cd5c6402fd41908479bbbf1b4566b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15d08a8b_65f9f632",
+        "filename": "crypto/asn1/a_utctm.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-10-31T23:08:06Z",
+      "side": 0,
+      "message": "Sounds good! When you get to that, I suspect this can also be cleaned up.\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/boringssl/src/crypto/asn1/asn1_test.cc;drc\u003dcab31f65f1ad6e6daca62e95b25dd6cd805fce0b;l\u003d982",
+      "parentUuid": "e86506c3_4fb37ecb",
+      "range": {
+        "startLine": 110,
+        "startChar": 7,
+        "endLine": 110,
+        "endChar": 21
+      },
+      "revId": "ca6fa61cdb1cd5c6402fd41908479bbbf1b4566b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }

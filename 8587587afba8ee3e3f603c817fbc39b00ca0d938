@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6231d338_69650dcd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-10-31T23:08:06Z",
+      "side": 1,
+      "message": "https://source.chromium.org/chromium/chromium/src/+/main:third_party/boringssl/src/crypto/asn1/asn1_test.cc;drc\u003dcab31f65f1ad6e6daca62e95b25dd6cd805fce0b;l\u003d982",
+      "revId": "8587587afba8ee3e3f603c817fbc39b00ca0d938",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f75a24ec_9ee322f1",
+        "filename": "crypto/asn1/a_gentm.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-10-31T23:08:06Z",
+      "side": 1,
+      "message": "Nit: Mind changing these and the others to `posix_time`, if we\u0027re not doing the typedef?\n\nDitto with the other two C files.",
+      "range": {
+        "startLine": 103,
+        "startChar": 55,
+        "endLine": 103,
+        "endChar": 56
+      },
+      "revId": "8587587afba8ee3e3f603c817fbc39b00ca0d938",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
