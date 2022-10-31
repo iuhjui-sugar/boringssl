@@ -16,6 +16,24 @@
       "message": "Apparently b:255591447 is syntax here.\nhttps://chromium.googlesource.com/chromium/src/+/main/docs/contributing.md#cl-footer-reference\n\n(Though I don\u0027t know if either is actually configured for this project.)",
       "revId": "3cb3284ca0846e5c951b47b20868d5cb60ba280f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "604a61a6_fab9edd7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2022-10-31T19:44:17Z",
+      "side": 1,
+      "message": "Switched it to b:, but it looks like it\u0027s not configured here.",
+      "parentUuid": "cd67c3b3_6656592d",
+      "revId": "3cb3284ca0846e5c951b47b20868d5cb60ba280f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
