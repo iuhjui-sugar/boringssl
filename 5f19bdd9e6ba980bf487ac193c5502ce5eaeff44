@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fe29ddd_997b296e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9723
+      },
+      "writtenOn": "2022-11-02T19:27:31Z",
+      "side": 1,
+      "message": "I forgot I had a repro project for this, and can verify it still repros https://github.com/keith/BoringSSLWeakRepro",
+      "revId": "5f19bdd9e6ba980bf487ac193c5502ce5eaeff44",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
