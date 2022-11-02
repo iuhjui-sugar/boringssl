@@ -16,6 +16,23 @@
       "message": "Friendly ping on this change, and it would be great if we can test this change in staging next week.\n\nThanks again for helping this, Nick and David!",
       "revId": "f08a3ef134d7ccdc4acfa9bec3b7cce2b28be44a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f9dc09f_8646d266",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-11-02T17:47:45Z",
+      "side": 1,
+      "message": "Oh hrm, Nick, do you not have CQ+2 bits? (I forget how it\u0027s set up...) Anyway, I\u0027ll go CQ it...",
+      "revId": "f08a3ef134d7ccdc4acfa9bec3b7cce2b28be44a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
