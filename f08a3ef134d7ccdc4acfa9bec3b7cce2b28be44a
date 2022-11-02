@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3aa5636_4c9c737e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15131
+      },
+      "writtenOn": "2022-11-02T17:44:54Z",
+      "side": 1,
+      "message": "Friendly ping on this change, and it would be great if we can test this change in staging next week.\n\nThanks again for helping this, Nick and David!",
+      "revId": "f08a3ef134d7ccdc4acfa9bec3b7cce2b28be44a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
