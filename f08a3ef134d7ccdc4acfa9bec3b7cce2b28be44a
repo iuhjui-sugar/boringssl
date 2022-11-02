@@ -33,6 +33,24 @@
       "message": "Oh hrm, Nick, do you not have CQ+2 bits? (I forget how it\u0027s set up...) Anyway, I\u0027ll go CQ it...",
       "revId": "f08a3ef134d7ccdc4acfa9bec3b7cce2b28be44a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd62c832_6b1b45fc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2022-11-02T18:00:41Z",
+      "side": 1,
+      "message": "No, I don\u0027t have CQ+2 (or any other +2 bits) on this gerrit.",
+      "parentUuid": "7f9dc09f_8646d266",
+      "revId": "f08a3ef134d7ccdc4acfa9bec3b7cce2b28be44a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
