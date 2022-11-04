@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60d6adf7_dd424645",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-11-04T23:32:24Z",
+      "side": 1,
+      "message": "Update-note: see go/xshow when incorporating this change internally.",
+      "revId": "c79f8d3417408994c40648b675db9267a257c528",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d81f349b_1ec8f9bc",
+        "filename": "crypto/fipsmodule/ec/ec_key.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-11-04T23:32:24Z",
+      "side": 1,
+      "message": "*out_buf \u003d NULL;\n\n(Just in case they OPNESSL_free it on error?)",
+      "revId": "c79f8d3417408994c40648b675db9267a257c528",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afc95eab_4d5972bf",
+        "filename": "crypto/fipsmodule/ec/ec_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-11-04T23:32:24Z",
+      "side": 1,
+      "message": "\"Allocating\"",
+      "range": {
+        "startLine": 222,
+        "startChar": 5,
+        "endLine": 222,
+        "endChar": 14
+      },
+      "revId": "c79f8d3417408994c40648b675db9267a257c528",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6018136d_818fe2e0",
+        "filename": "crypto/fipsmodule/ec/oct.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-11-04T23:32:24Z",
+      "side": 1,
+      "message": "*out_buf \u003d NULL;\n\n(Just in case they OPENSSL_free it on error?)",
+      "revId": "c79f8d3417408994c40648b675db9267a257c528",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27bd017e_dfb5de83",
+        "filename": "include/openssl/ec_key.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-11-04T23:32:24Z",
+      "side": 1,
+      "message": "\"at\" (maybe; your call)",
+      "range": {
+        "startLine": 196,
+        "startChar": 3,
+        "endLine": 196,
+        "endChar": 7
+      },
+      "revId": "c79f8d3417408994c40648b675db9267a257c528",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
