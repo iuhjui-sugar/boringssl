@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2eea91c0_7ae58ebe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-11-06T13:05:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "60d6adf7_dd424645",
+      "revId": "c79f8d3417408994c40648b675db9267a257c528",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d81f349b_1ec8f9bc",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-11-04T23:32:24Z",
       "side": 1,
       "message": "*out_buf \u003d NULL;\n\n(Just in case they OPNESSL_free it on error?)",
+      "revId": "c79f8d3417408994c40648b675db9267a257c528",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66645d33_a826b79b",
+        "filename": "crypto/fipsmodule/ec/ec_key.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-11-06T13:05:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d81f349b_1ec8f9bc",
       "revId": "c79f8d3417408994c40648b675db9267a257c528",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -58,6 +94,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4650b7b8_2c6903da",
+        "filename": "crypto/fipsmodule/ec/ec_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-11-06T13:05:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afc95eab_4d5972bf",
+      "range": {
+        "startLine": 222,
+        "startChar": 5,
+        "endLine": 222,
+        "endChar": 14
+      },
+      "revId": "c79f8d3417408994c40648b675db9267a257c528",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6018136d_818fe2e0",
@@ -75,6 +135,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5af4b0c_15b65a14",
+        "filename": "crypto/fipsmodule/ec/oct.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-11-06T13:05:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6018136d_818fe2e0",
+      "revId": "c79f8d3417408994c40648b675db9267a257c528",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "27bd017e_dfb5de83",
@@ -88,6 +166,30 @@
       "writtenOn": "2022-11-04T23:32:24Z",
       "side": 1,
       "message": "\"at\" (maybe; your call)",
+      "range": {
+        "startLine": 196,
+        "startChar": 3,
+        "endLine": 196,
+        "endChar": 7
+      },
+      "revId": "c79f8d3417408994c40648b675db9267a257c528",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f903ed1_cbc1bf81",
+        "filename": "include/openssl/ec_key.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-11-06T13:05:19Z",
+      "side": 1,
+      "message": "I just copied `EC_KEY_oct2key`. :-) We seem to use \"from\" more often, based on `git grep \u0027len| bytes\u0027 include` so sticking with that, but I\u0027m otherwise equally happy with either.",
+      "parentUuid": "27bd017e_dfb5de83",
       "range": {
         "startLine": 196,
         "startChar": 3,
