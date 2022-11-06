@@ -22,6 +22,30 @@
       },
       "revId": "50b4052564f2aacccbd6f4248beaf95b104ae8a2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed40efc0_bab8a4c2",
+        "filename": "crypto/asn1/asn1_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-11-06T15:41:11Z",
+      "side": 1,
+      "message": "Oh hmm. Actually, now that I look at it again, this is subtle:\n\n- `ASN1_STRING` itself doesn\u0027t require `len + 1` fit in `int`, only `len`.\n- However, a priori `len + 1` in `ossl_ssize_t` is not *necessarily* safe. `INT_MAX - 1` made it okay, because `ssize_t` is at least as big as `int`. But it\u0027s a little silly.\n- Whether all other code in the library tolerates an `INT_MAX` length, who knows? Though it\u0027s also made entirely of overflows anyway, at least until we redo it all with CBB/CBS. For tasn_dec.c, we set a limit of `INT_MAX / 2` as a \"this library is full of overflows and we don\u0027t trust it\" theory.\n\nThoughts? I\u0027m thinking the two reasonable options are:\n\na. The true limit is `INT_MAX` so check `INT_MAX`. Or...\nb. Do the same `INT_MAX / 2` limit, with an explanation that it\u0027s because crypto/asn1 and crypto/x509 are known to be made of overflow bugs.\n\n(a) feels more Correct, but, e.g, `i2c_ASN1_BIT_STRING` doesn\u0027t handle overflow. `i2c_ASN1_INTEGER` does, though. And I\u0027m sure there are overflows all throughout the library if your `ASN1_STRING` is too big. (Good news is it\u0027s not reachable from parsing because of tasn_dec.c\u0027s limit.)",
+      "parentUuid": "741900a1_78d30300",
+      "range": {
+        "startLine": 283,
+        "startChar": 2,
+        "endLine": 283,
+        "endChar": 3
+      },
+      "revId": "50b4052564f2aacccbd6f4248beaf95b104ae8a2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
