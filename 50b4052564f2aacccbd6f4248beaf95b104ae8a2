@@ -46,6 +46,30 @@
       },
       "revId": "50b4052564f2aacccbd6f4248beaf95b104ae8a2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "711effef_a21dd7a6",
+        "filename": "crypto/asn1/asn1_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-11-06T16:02:44Z",
+      "side": 1,
+      "message": "All it really needs the +1 for is the 0 byte on the end, so you need the INT_MAX - 1, since that\u0027s the real limit for \"len\" - which does not store the allocated size, it always stores the allocated size - 1, because it\u0027s strlen, not size of array. \n\nSo I think the existing way is fine, other than the comment about an ASN1_STRING, It doesn\u0027t care about overflowing the int - but the string itself has a 0 byte added.",
+      "parentUuid": "ed40efc0_bab8a4c2",
+      "range": {
+        "startLine": 283,
+        "startChar": 2,
+        "endLine": 283,
+        "endChar": 3
+      },
+      "revId": "50b4052564f2aacccbd6f4248beaf95b104ae8a2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
