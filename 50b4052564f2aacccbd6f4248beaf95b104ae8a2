@@ -70,6 +70,30 @@
       },
       "revId": "50b4052564f2aacccbd6f4248beaf95b104ae8a2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9124753a_f364b0b3",
+        "filename": "crypto/asn1/asn1_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-11-06T16:15:10Z",
+      "side": 1,
+      "message": "I\u0027m not sure `ASN1_STRING`, on its own, *actually* needs the -1. After this function\u0027s done its thing, it entirely forgets the trailing NUL. We can\u0027t even rely on an `ASN1_STRING` to have it. (CVE-2021-3712)\n\nSo my claim is that we actually only need to check:\n\n1. `len + 1`, in `size_t` space, doesn\u0027t overflow\n2. `len` fits in `int`\n\n(And then 1 is redundant with 2 because `INT_MAX \u003c SIZE_MAX - 1`.)\n\nI.e. actually the comment was right, not the code. (Except *other* code is wrong and may break given an `INT_MAX`-sized `ASN1_STRING`, and so maybe we want to be more conservative. Or maybe we should just fix that code...)",
+      "parentUuid": "711effef_a21dd7a6",
+      "range": {
+        "startLine": 283,
+        "startChar": 2,
+        "endLine": 283,
+        "endChar": 3
+      },
+      "revId": "50b4052564f2aacccbd6f4248beaf95b104ae8a2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
