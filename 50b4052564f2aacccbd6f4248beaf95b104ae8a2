@@ -94,6 +94,30 @@
       },
       "revId": "50b4052564f2aacccbd6f4248beaf95b104ae8a2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afcb90f0_3ab79247",
+        "filename": "crypto/asn1/asn1_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-11-07T12:25:55Z",
+      "side": 1,
+      "message": "Fundamentally, I\u0027d love to just say \"fix the other code\" and not depend on the 0 byte being there.  Sadly this has been this way long enough that I expect that\u0027s very pervasive, and happening a lot outside of boring even if we fix our own\nuses in crypto/asn1 and crypto/x509 and friends.\n\nIn a perfect world I\u0027d love to get rid of the 0 byte crutch in here, but I don\u0027t think we can without introducing a lot of potential for danger with users outside who are unwittingly depending on that behaviour.\n\nso tl;dr, yeah, since the allocations happen in size_t space, yes, we should just check that len fits in an int.",
+      "parentUuid": "9124753a_f364b0b3",
+      "range": {
+        "startLine": 283,
+        "startChar": 2,
+        "endLine": 283,
+        "endChar": 3
+      },
+      "revId": "50b4052564f2aacccbd6f4248beaf95b104ae8a2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
