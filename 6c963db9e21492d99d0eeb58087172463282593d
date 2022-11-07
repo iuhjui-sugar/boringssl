@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9efe7300_12453f82",
+        "filename": "crypto/asn1/asn1_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1052,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-11-07T21:30:13Z",
+      "side": 1,
+      "message": "Nit: stray line?",
+      "revId": "6c963db9e21492d99d0eeb58087172463282593d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1edc018_c673d9e6",
+        "filename": "crypto/asn1/asn1_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1053,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-11-07T21:30:13Z",
+      "side": 1,
+      "message": "Nit: I\u0027d just call these plain `days` and `secs`. We use `out_foo` to mean \"output parameter for `foo`\" and the value itself is just `foo`.",
+      "revId": "6c963db9e21492d99d0eeb58087172463282593d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04eb1dfe_2849ce26",
+        "filename": "crypto/asn1/asn1_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1056,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-11-07T21:30:13Z",
+      "side": 1,
+      "message": "Super nitpicky nitpick: Capitalize \u0027test\u0027",
+      "revId": "6c963db9e21492d99d0eeb58087172463282593d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
