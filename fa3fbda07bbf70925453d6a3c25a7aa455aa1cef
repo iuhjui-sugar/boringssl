@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "758bbecf_8dcf4a89",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2022-11-11T00:03:33Z",
+      "side": 1,
+      "message": "Great work!",
+      "revId": "fa3fbda07bbf70925453d6a3c25a7aa455aa1cef",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4dccb020_6d897fc3",
+        "filename": "crypto/fipsmodule/ec/asm/p256-armv8-asm.pl",
+        "patchSetId": 5
+      },
+      "lineNbr": 1418,
+      "author": {
+        "id": 5525
+      },
+      "writtenOn": "2022-11-11T00:03:33Z",
+      "side": 1,
+      "message": "The header file has:\n```\nconst BN_ULONG a[P256_LIMBS], BN_ULONG rep\n```\n\nIn particular, `a` is `const` in the header and `rep` isn\u0027t `int`. \n\nThe x86_64 version as:\n```\n# void ecp_nistz256_ord_sqr_mont(\n#   uint64_t res[4],\n#   uint64_t a[4],\n#   uint64_t rep);\n```\nI suggest we verify that `uint64_t` is the right type for the AAarch64 version and also change `a` to `const` in all declarations.\n\nThe `uint64_t` vs. `int` issue is particularly noteworthy of clarification.",
+      "revId": "fa3fbda07bbf70925453d6a3c25a7aa455aa1cef",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
