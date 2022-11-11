@@ -33,6 +33,24 @@
       "message": "The header file has:\n```\nconst BN_ULONG a[P256_LIMBS], BN_ULONG rep\n```\n\nIn particular, `a` is `const` in the header and `rep` isn\u0027t `int`. \n\nThe x86_64 version as:\n```\n# void ecp_nistz256_ord_sqr_mont(\n#   uint64_t res[4],\n#   uint64_t a[4],\n#   uint64_t rep);\n```\nI suggest we verify that `uint64_t` is the right type for the AAarch64 version and also change `a` to `const` in all declarations.\n\nThe `uint64_t` vs. `int` issue is particularly noteworthy of clarification.",
       "revId": "fa3fbda07bbf70925453d6a3c25a7aa455aa1cef",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9486b7f2_492bd9a9",
+        "filename": "crypto/fipsmodule/ec/asm/p256-armv8-asm.pl",
+        "patchSetId": 5
+      },
+      "lineNbr": 1418,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-11-11T14:14:51Z",
+      "side": 1,
+      "message": "Oh good call. Yeah, calling conventions for 32-bit and 64-bit on 64-bit platforms are actually very subtly different: the upper 32 bits of the register are undefined in all x86_64 and aarch64 calling conventions we support.\n\nThe good news is it is, ignoring overflows, it is okay to call an `int`-implemented function with a `uint64_t`-declared prototype. A `uint64_t`-implemented function, however, cannot be safely called with an `int` prototype because the upper half of the registers will be garbage.\n\nBut it looks like it\u0027s this comment that\u0027s wrong. The code uses `x2`, not `w2`. Same with the x86_64 version. Uploaded https://boringssl-review.googlesource.com/c/boringssl/+/55145 to fix the comment.",
+      "parentUuid": "4dccb020_6d897fc3",
+      "revId": "fa3fbda07bbf70925453d6a3c25a7aa455aa1cef",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
