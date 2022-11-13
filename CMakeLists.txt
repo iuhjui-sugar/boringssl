@@ -3,6 +3,8 @@ cmake_minimum_required(VERSION 3.8)
 # Defer enabling C and CXX languages.
 project(BoringSSL NONE)
 
+option(BORINGSSL_WARNINGS_AS_ERRORS "Treat warnings as errors during compilation" ON)
+
 # Don't install BoringSSL to system directories by default; it has no stable
 # ABI. Instead, default to an "install" directory under the source.
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
@@ -132,7 +134,10 @@ endif()
 if(CMAKE_COMPILER_IS_GNUCXX OR CLANG)
   # Note clang-cl is odd and sets both CLANG and MSVC. We base our configuration
   # primarily on our normal Clang one.
-  set(C_CXX_FLAGS "-Werror -Wformat=2 -Wsign-compare -Wmissing-field-initializers -Wwrite-strings -Wvla -Wshadow -Wtype-limits")
+  set(C_CXX_FLAGS "-Wformat=2 -Wsign-compare -Wmissing-field-initializers -Wwrite-strings -Wvla -Wshadow -Wtype-limits")
+  if(BORINGSSL_WARNINGS_AS_ERRORS)
+    set(C_CXX_FLAGS "${C_CXX_FLAGS} -Werror")
+  endif()
   if(MSVC)
     # clang-cl sets different default warnings than clang. It also treats -Wall
     # as -Weverything, to match MSVC. Instead -W3 is the alias for -Wall.
