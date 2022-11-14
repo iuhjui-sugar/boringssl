@@ -118,6 +118,30 @@
       },
       "revId": "50b4052564f2aacccbd6f4248beaf95b104ae8a2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2c6f353_8bff5300",
+        "filename": "crypto/asn1/asn1_lib.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-11-14T17:55:23Z",
+      "side": 1,
+      "message": "\u003e In a perfect world I\u0027d love to get rid of the 0 byte crutch in here, but I don\u0027t think we can without introducing a lot of potential for danger with users outside who are unwittingly depending on that behaviour.\n\nAgreed, yeah, I was just arguing that we don\u0027t actually need len+1 to fit in int because nothing actually acts on it.\n\n\u003e so tl;dr, yeah, since the allocations happen in size_t space, yes, we should just check that len fits in an int.\n\nAck. How\u0027s this version look?",
+      "parentUuid": "afcb90f0_3ab79247",
+      "range": {
+        "startLine": 283,
+        "startChar": 2,
+        "endLine": 283,
+        "endChar": 3
+      },
+      "revId": "50b4052564f2aacccbd6f4248beaf95b104ae8a2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
