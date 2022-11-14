@@ -290,6 +290,7 @@ static int obj_trust(int id, X509 *x, int flags) {
   ASN1_OBJECT *obj;
   size_t i;
   X509_CERT_AUX *ax;
+  int nid;
   ax = x->aux;
   if (!ax) {
     return X509_TRUST_UNTRUSTED;
@@ -297,7 +298,8 @@ static int obj_trust(int id, X509 *x, int flags) {
   if (ax->reject) {
     for (i = 0; i < sk_ASN1_OBJECT_num(ax->reject); i++) {
       obj = sk_ASN1_OBJECT_value(ax->reject, i);
-      if (OBJ_obj2nid(obj) == id) {
+      nid = OBJ_obj2nid(obj);
+      if (nid == id || nid == NID_anyExtendedKeyUsage) {
         return X509_TRUST_REJECTED;
       }
     }
@@ -305,7 +307,8 @@ static int obj_trust(int id, X509 *x, int flags) {
   if (ax->trust) {
     for (i = 0; i < sk_ASN1_OBJECT_num(ax->trust); i++) {
       obj = sk_ASN1_OBJECT_value(ax->trust, i);
-      if (OBJ_obj2nid(obj) == id) {
+      nid = OBJ_obj2nid(obj);
+      if (nid == id || nid == NID_anyExtendedKeyUsage) {
         return X509_TRUST_TRUSTED;
       }
     }
