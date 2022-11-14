@@ -539,6 +539,31 @@ static int get_issuer_sk(X509 **issuer, X509_STORE_CTX *ctx, X509 *x) {
   }
 }
 
+static int check_purpose(X509_STORE_CTX *ctx, X509 *cert, int purpose,
+                         int depth, int must_be_ca) {
+  int purpose_ok;
+
+  purpose_ok=X509_check_purpose(cert, purpose, must_be_ca);
+
+  int trust = X509_TRUST_UNTRUSTED;
+  // For trusted certificates we want to see whether any auxillary trust
+  // settings for the desired purpose override the purpose contraints
+  // from the certificate EKU
+  if (depth >= ctx->last_untrusted && purpose == ctx->param->purpose) {
+    trust = X509_check_trust(cert, ctx->param->trust, 0);
+  }
+
+  if (trust != X509_TRUST_REJECTED && purpose_ok) {
+    return 1;
+  }
+  ctx->error = X509_V_ERR_INVALID_PURPOSE;
+  ctx->error_depth = depth;
+  ctx->current_cert = cert;
+  return ctx->verify_cb(0, ctx);
+}
+
+
+
 // Check a certificate chains extensions for consistency with the supplied
 // purpose
 
@@ -568,8 +593,8 @@ static int check_chain_extensions(X509_STORE_CTX *ctx) {
 
   ca_requirement = ca_or_leaf;
 
-  // Check all untrusted certificates
-  for (i = 0; i < ctx->last_untrusted; i++) {
+  // Check all certificates
+  for (i = 0; i < (int)sk_X509_num(ctx->chain); i++) {
     int ret;
     x = sk_X509_value(ctx->chain, i);
     if (!(ctx->param->flags & X509_V_FLAG_IGNORE_CRITICAL) &&
@@ -625,18 +650,8 @@ static int check_chain_extensions(X509_STORE_CTX *ctx) {
         goto end;
       }
     }
-    if (ctx->param->purpose > 0) {
-      ret = X509_check_purpose(x, purpose, ca_requirement == must_be_ca);
-      if (ret != 1) {
-        ret = 0;
-        ctx->error = X509_V_ERR_INVALID_PURPOSE;
-        ctx->error_depth = i;
-        ctx->current_cert = x;
-        ok = ctx->verify_cb(0, ctx);
-        if (!ok) {
-          goto end;
-        }
-      }
+    if (!check_purpose(ctx, x, purpose, i, ca_requirement == must_be_ca)) {
+      goto end;
     }
     // Check pathlen if not self issued
     if ((i > 1) && !(x->ex_flags & EXFLAG_SI) && (x->ex_pathlen != -1) &&
