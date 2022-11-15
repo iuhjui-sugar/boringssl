@@ -43,6 +43,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "05eacef9_76a5b324",
+        "filename": "crypto/x509/x509_trs.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-11-15T18:52:15Z",
+      "side": 1,
+      "message": "yeah, the other one is stacked on it, and I don\u0027t intend to land either without a test.  just fighting with generating them ;)",
+      "parentUuid": "b6a95ad0_67ddc744",
+      "revId": "65cc0b62fa9733301519fa0092777dfa2e56e9d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "383d4b1a_b2f59d74",
         "filename": "crypto/x509/x509_trs.c",
         "patchSetId": 2
