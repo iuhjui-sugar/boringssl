@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d555ff97_45e6f413",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-11-15T18:49:56Z",
+      "side": 1,
+      "message": "s/Issue/Bug/\n\n(Don\u0027t think Issue is parsed. At least, the Gerrit setup doesn\u0027t know about it.)",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 5
+      },
+      "revId": "65cc0b62fa9733301519fa0092777dfa2e56e9d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6a95ad0_67ddc744",
+        "filename": "crypto/x509/x509_trs.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-11-15T18:49:56Z",
+      "side": 1,
+      "message": "Mind adding a test for this? Not just because tests are cool but because I\u0027m actually not sure I fully understand what this change does. :-)\n\nThough given also that no one uses `X509_add1_(reject|trust)_object`, I also wonder if we can delete this feature. I suppose it\u0027s hard to tell because `d2i_X509_CERT_AUX` exists. :-(",
+      "revId": "65cc0b62fa9733301519fa0092777dfa2e56e9d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "383d4b1a_b2f59d74",
+        "filename": "crypto/x509/x509_trs.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-11-15T18:49:56Z",
+      "side": 1,
+      "message": "Nit: I\u0027ve usually tried to use C99-style decls in new code. So rather than add `int nid` here, just stick `int` in front of each of 301 and 310.\n\n(Optional: if it were me, I\u0027d probably take this as an opportunity to shift all the other variables to their first use too, but no need to do that if you don\u0027t feel like it.)",
+      "revId": "65cc0b62fa9733301519fa0092777dfa2e56e9d5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
