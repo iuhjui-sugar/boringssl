@@ -189,14 +189,20 @@ extern "C" {
 #define BN_CAN_USE_INLINE_ASM
 #endif
 
-// |BN_mod_exp_mont_consttime| is based on the assumption that the L1 data
-// cache line width of the target processor is at least the following value.
-#define MOD_EXP_CTIME_MIN_CACHE_LINE_WIDTH 64
+// MOD_EXP_CTIME_ALIGN is the alignment expected for
+// |BN_mod_exp_mont_consttime|'s buffers. Historically, this was because it made
+// assumptions about cache lines for constant-time. It no longer does, but the
+// assembly optimizations require aligned buffers.
+//
+// TODO(davidben): Do we need full cache line alignment? The biggest actual
+// alignment requirement seems to be RSAZ, which requires 32-byte alignment for
+// VMOVDQA to a YMM register.
+#define MOD_EXP_CTIME_ALIGN 64
 
-// The number of |BN_ULONG|s needed for the |BN_mod_exp_mont_consttime| stack-
-// allocated storage buffer. The buffer is just the right size for the RSAZ
-// and is about ~1KB larger than what's necessary (4480 bytes) for 1024-bit
-// inputs.
+// MOD_EXP_CTIME_STORAGE_LEN is the number of |BN_ULONG|s needed for the
+// |BN_mod_exp_mont_consttime| stack-allocated storage buffer. The buffer is
+// just the right size for the RSAZ and is about ~1KB larger than what's
+// necessary (4480 bytes) for 1024-bit inputs.
 #define MOD_EXP_CTIME_STORAGE_LEN \
   (((320u * 3u) + (32u * 9u * 16u)) / sizeof(BN_ULONG))
 
