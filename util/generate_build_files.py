@@ -965,7 +965,7 @@ ALL_PLATFORMS = {
 }
 
 if __name__ == '__main__':
-  parser = optparse.OptionParser(usage='Usage: %%prog [--prefix=<path>] [%s]' %
+  parser = optparse.OptionParser(usage='Usage: %%prog [--prefix=<path>] [all|%s]' %
                                  '|'.join(sorted(ALL_PLATFORMS.keys())))
   parser.add_option('--prefix', dest='prefix',
       help='For Bazel, prepend argument to all source files')
@@ -981,12 +981,15 @@ if __name__ == '__main__':
     parser.print_help()
     sys.exit(1)
 
-  platforms = []
-  for s in args:
-    platform = ALL_PLATFORMS.get(s)
-    if platform is None:
-      parser.print_help()
-      sys.exit(1)
-    platforms.append(platform())
+  if 'all' in args:
+    platforms = [platform() for platform in ALL_PLATFORMS.values()]
+  else:
+    platforms = []
+    for s in args:
+      platform = ALL_PLATFORMS.get(s)
+      if platform is None:
+        parser.print_help()
+        sys.exit(1)
+      platforms.append(platform())
 
   sys.exit(main(platforms))
