@@ -558,7 +558,13 @@ if(USE_CUSTOM_LIBCXX)
     libcxxabi PRIVATE
     -D_LIBCPP_ENABLE_CXX17_REMOVED_UNEXPECTED_FUNCTIONS
   )
-  set_target_properties(libcxxabi PROPERTIES COMPILE_FLAGS "-Wno-missing-prototypes -Wno-implicit-fallthrough")
+  set_target_properties(
+    libcxxabi PROPERTIES
+    COMPILE_FLAGS "-Wno-missing-prototypes -Wno-implicit-fallthrough"
+    # libc++ must be built in C++20 mode.
+    CXX_STANDARD 20
+    CXX_STANDARD_REQUIRED TRUE
+  )
   # libc++abi depends on libc++ internal headers.
   set_property(TARGET libcxxabi APPEND PROPERTY INCLUDE_DIRECTORIES "${CMAKE_SOURCE_DIR}/util/bot/libcxx/src")
   install(TARGETS libcxxabi EXPORT OpenSSLTargets)
@@ -575,6 +581,14 @@ if(USE_CUSTOM_LIBCXX)
     libcxx PRIVATE
     -D_LIBCPP_BUILDING_LIBRARY
     -DLIBCXX_BUILDING_LIBCXXABI
+  )
+  set_property(TARGET libcxx APPEND PROPERTY INCLUDE_DIRECTORIES "${CMAKE_SOURCE_DIR}/util/bot/libcxx/src")
+  set_target_properties(
+    libcxx PROPERTIES
+    COMPILE_FLAGS "-Wno-missing-prototypes"
+    # libc++ must be built in C++20 mode.
+    CXX_STANDARD 20
+    CXX_STANDARD_REQUIRED TRUE
   )
   target_link_libraries(libcxx libcxxabi)
   install(TARGETS libcxx EXPORT OpenSSLTargets DESTINATION ${CMAKE_INSTALL_LIBDIR})
