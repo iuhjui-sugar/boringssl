@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "645cb6ae_b2c7a4f6",
+        "filename": "util/bot/UPDATING",
+        "patchSetId": 7
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-11-21T21:17:59Z",
+      "side": 1,
+      "message": "We should get infra to build this out of CIPD...",
+      "revId": "7179d279e2748600c221c8de0b8004cdbb09edbe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
