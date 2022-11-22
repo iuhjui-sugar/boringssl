@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b7bd352_b37aba73",
+        "filename": "include/openssl/asn1.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1398,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-11-22T21:37:52Z",
+      "side": 1,
+      "message": "Hrm, this doesn\u0027t really have anything to do with ASN.1, and I\u0027ve been trying to keep usage of the \u003copenssl/asn1.h\u003e header in otherwise CBS/CBB code to a minimum. (Makes it easier to check whether we\u0027ve missed anything.)\n\nNot sure if it quite fits our existing headers though... WDYT about just starting an \u003copenssl/time.h\u003e header?",
+      "revId": "d5db9261f48580d3c18396045d451bf66b843069",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
