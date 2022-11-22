@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "005ea728_f1a729ec",
+        "filename": "include/openssl/bn.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-11-22T23:39:41Z",
+      "side": 1,
+      "message": "This makes me wonder if we should carve off the existing public api of BN for things that use it elsewhere, and move our internal use to something private (which can then be deliberately more limited to inside of BoringSSL.)  the fact that BN is even exposed public API is just an artifact of OpenSSL, and it\u0027s not all that big, and for the non boringssl consumers I would say performance does not matter for us.",
+      "range": {
+        "startLine": 141,
+        "startChar": 0,
+        "endLine": 144,
+        "endChar": 23
+      },
+      "revId": "6f2184b2df4c1a8b71fd61364be98ce92771cc75",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
