@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35b73ea9_54bb9e61",
+        "filename": "crypto/fipsmodule/bn/exponentiation.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-11-22T23:34:03Z",
+      "side": 1,
+      "message": "if you\u0027re going to touch it, can\u0027t it be size_t?",
+      "range": {
+        "startLine": 884,
+        "startChar": 0,
+        "endLine": 884,
+        "endChar": 23
+      },
+      "revId": "583e632d39cb673f2745c60f396a662750f08bc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4dcbafff_7dbeb510",
+        "filename": "crypto/fipsmodule/bn/exponentiation.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1191,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-11-22T23:34:03Z",
+      "side": 1,
+      "message": "Won\u0027t the free below it just cleanse again?",
+      "range": {
+        "startLine": 1191,
+        "startChar": 0,
+        "endLine": 1191,
+        "endChar": 44
+      },
+      "revId": "583e632d39cb673f2745c60f396a662750f08bc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
