@@ -109,6 +109,7 @@
 #include <openssl/ex_data.h>
 
 #include <assert.h>
+#include <limits.h>
 #include <string.h>
 
 #include <openssl/crypto.h>
@@ -150,13 +151,15 @@ int CRYPTO_get_ex_new_index(CRYPTO_EX_DATA_CLASS *ex_data_class, int *out_index,
   }
 
   if (ex_data_class->meth == NULL ||
+      sk_CRYPTO_EX_DATA_FUNCS_num(ex_data_class->meth) >
+          INT_MAX - ex_data_class->num_reserved ||
       !sk_CRYPTO_EX_DATA_FUNCS_push(ex_data_class->meth, funcs)) {
     OPENSSL_PUT_ERROR(CRYPTO, ERR_R_MALLOC_FAILURE);
     OPENSSL_free(funcs);
     goto err;
   }
 
-  *out_index = sk_CRYPTO_EX_DATA_FUNCS_num(ex_data_class->meth) - 1 +
+  *out_index = (int)sk_CRYPTO_EX_DATA_FUNCS_num(ex_data_class->meth) - 1 +
                ex_data_class->num_reserved;
   ret = 1;
 
@@ -166,7 +169,10 @@ err:
 }
 
 int CRYPTO_set_ex_data(CRYPTO_EX_DATA *ad, int index, void *val) {
-  int n, i;
+  if (index < 0) {
+    OPENSSL_PUT_ERROR(CRYPTO, ERR_R_SHOULD_NOT_HAVE_BEEN_CALLED);
+    return 0;
+  }
 
   if (ad->sk == NULL) {
     ad->sk = sk_void_new_null();
@@ -176,17 +182,15 @@ int CRYPTO_set_ex_data(CRYPTO_EX_DATA *ad, int index, void *val) {
     }
   }
 
-  n = sk_void_num(ad->sk);
-
   // Add NULL values until the stack is long enough.
-  for (i = n; i <= index; i++) {
+  for (size_t i = sk_void_num(ad->sk); i <= (size_t)index; i++) {
     if (!sk_void_push(ad->sk, NULL)) {
       OPENSSL_PUT_ERROR(CRYPTO, ERR_R_MALLOC_FAILURE);
       return 0;
     }
   }
 
-  sk_void_set(ad->sk, index, val);
+  sk_void_set(ad->sk, (size_t)index, val);
   return 1;
 }
 
@@ -242,7 +246,10 @@ void CRYPTO_free_ex_data(CRYPTO_EX_DATA_CLASS *ex_data_class, void *obj,
     return;
   }
 
-  for (size_t i = 0; i < sk_CRYPTO_EX_DATA_FUNCS_num(func_pointers); i++) {
+  // |CRYPTO_get_ex_new_index| will not allocate indices beyond |INT_MAX|.
+  assert(sk_CRYPTO_EX_DATA_FUNCS_num(func_pointers) <=
+         INT_MAX - ex_data_class->num_reserved);
+  for (int i = 0; i < (int)sk_CRYPTO_EX_DATA_FUNCS_num(func_pointers); i++) {
     CRYPTO_EX_DATA_FUNCS *func_pointer =
         sk_CRYPTO_EX_DATA_FUNCS_value(func_pointers, i);
     if (func_pointer->free_func) {
