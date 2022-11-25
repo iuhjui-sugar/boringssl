@@ -182,21 +182,26 @@ func (k *hkdf) Process(vectorSet []byte, m Transactable) (interface{}, error) {
 			info = append(info, uData...)
 			info = append(info, vData...)
 
-			resp, err := m.Transact("HKDF/"+hashName, 1, key, salt, info, uint32le(outBytes))
-			if err != nil {
-				return nil, fmt.Errorf("HKDF operation failed: %s", err)
-			}
+			m.TransactAsync("HKDF/"+hashName, 1, [][]byte{key, salt, info, uint32le(outBytes)}, func(result [][]byte) error {
+				if isValidationTest {
+					passed := bytes.Equal(expected, result[0])
+					testResp.Passed = &passed
+				} else {
+					testResp.KeyOut = hex.EncodeToString(result[0])
+				}
 
-			if isValidationTest {
-				passed := bytes.Equal(expected, resp[0])
-				testResp.Passed = &passed
-			} else {
-				testResp.KeyOut = hex.EncodeToString(resp[0])
-			}
-
-			groupResp.Tests = append(groupResp.Tests, testResp)
+				groupResp.Tests = append(groupResp.Tests, testResp)
+				return nil
+			})
 		}
-		respGroups = append(respGroups, groupResp)
+
+		m.Barrier(func() {
+			respGroups = append(respGroups, groupResp)
+		})
+	}
+
+	if err := m.Flush(); err != nil {
+		return nil, err
 	}
 
 	return respGroups, nil
