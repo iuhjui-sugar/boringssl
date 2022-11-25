@@ -165,7 +165,7 @@ Span<const Span<const uint8_t>> ParseArgsFromFd(int fd,
 }
 
 bool WriteReplyToFd(int fd, const std::vector<Span<const uint8_t>> &spans) {
-  if (spans.empty() || spans.size() > kMaxArgs) {
+  if (spans.size() > kMaxArgs) {
     abort();
   }
 
@@ -226,6 +226,10 @@ bool WriteReplyToFd(int fd, const std::vector<Span<const uint8_t>> &spans) {
 static bool GetConfig(const Span<const uint8_t> args[], ReplyCallback write_reply) {
   static constexpr char kConfig[] =
       R"([
+      {
+        "algorithm": "acvptool",
+        "features": ["flush"]
+      },
       {
         "algorithm": "SHA2-224",
         "revision": "1.0",
@@ -887,8 +891,13 @@ static bool GetConfig(const Span<const uint8_t> args[], ReplyCallback write_repl
         ]
       }
     ])";
-  return write_reply({Span<const uint8_t>(
-      reinterpret_cast<const uint8_t *>(kConfig), sizeof(kConfig) - 1)});
+  return write_reply({
+      Span<const uint8_t>(reinterpret_cast<const uint8_t *>(kConfig), sizeof(kConfig) - 1)
+  });
+}
+
+static bool Flush(const Span<const uint8_t> args[], ReplyCallback write_reply) {
+  return true;
 }
 
 template <uint8_t *(*OneShotHash)(const uint8_t *, size_t, uint8_t *),
@@ -1941,6 +1950,7 @@ static constexpr struct {
   bool (*handler)(const Span<const uint8_t> args[], ReplyCallback write_reply);
 } kFunctions[] = {
     {"getConfig", 0, GetConfig},
+    {"flush", 0, Flush},
     {"SHA-1", 1, Hash<SHA1, SHA_DIGEST_LENGTH>},
     {"SHA2-224", 1, Hash<SHA224, SHA224_DIGEST_LENGTH>},
     {"SHA2-256", 1, Hash<SHA256, SHA256_DIGEST_LENGTH>},
