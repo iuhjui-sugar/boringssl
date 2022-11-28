@@ -93,6 +93,30 @@
       },
       "revId": "583e632d39cb673f2745c60f396a662750f08bc4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e8e915f2_c2469d44",
+        "filename": "crypto/fipsmodule/bn/exponentiation.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1191,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-11-28T17:09:25Z",
+      "side": 1,
+      "message": "ugh.. yeah sorry I forgot this was one of the maybe it\u0027s malloc\u0027ed and maybe it\u0027s not things.",
+      "parentUuid": "0f6115a1_2c490212",
+      "range": {
+        "startLine": 1191,
+        "startChar": 0,
+        "endLine": 1191,
+        "endChar": 44
+      },
+      "revId": "583e632d39cb673f2745c60f396a662750f08bc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
