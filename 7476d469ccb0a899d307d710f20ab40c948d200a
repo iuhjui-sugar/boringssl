@@ -1,6 +1,69 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "f20d540f_39640e39",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-11-28T21:13:32Z",
+      "side": 1,
+      "message": "\"explanations\"?",
+      "range": {
+        "startLine": 25,
+        "startChar": 23,
+        "endLine": 25,
+        "endChar": 59
+      },
+      "revId": "7476d469ccb0a899d307d710f20ab40c948d200a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d6de4339_25c7d607",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-11-28T21:13:32Z",
+      "side": 1,
+      "message": "unexpected end of sentence :)",
+      "range": {
+        "startLine": 27,
+        "startChar": 65,
+        "endLine": 28,
+        "endChar": 38
+      },
+      "revId": "7476d469ccb0a899d307d710f20ab40c948d200a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34f1f3e1_24b4f9e1",
+        "filename": "crypto/cipher_extra/cipher_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-11-28T21:13:32Z",
+      "side": 1,
+      "message": "\"a\" at the end, I think.",
+      "revId": "7476d469ccb0a899d307d710f20ab40c948d200a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "03d12da3_5d9c3174",
@@ -14,6 +77,24 @@
       "writtenOn": "2022-11-28T20:15:09Z",
       "side": 1,
       "message": "We probably should rework the CAVP tests a bit here, but I\u0027ve left them alone for now.",
+      "revId": "7476d469ccb0a899d307d710f20ab40c948d200a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c71cc89a_a5b7db49",
+        "filename": "crypto/cipher_extra/cipher_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-11-28T21:13:32Z",
+      "side": 1,
+      "message": "We can probably delete them now. CAVP is dead and I doubt they are adding useful coverage now.",
+      "parentUuid": "03d12da3_5d9c3174",
       "revId": "7476d469ccb0a899d307d710f20ab40c948d200a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
