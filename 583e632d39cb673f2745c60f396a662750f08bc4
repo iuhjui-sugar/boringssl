@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2cbd258a_cd406bab",
+        "filename": "crypto/fipsmodule/bn/exponentiation.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 884,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-11-28T15:55:32Z",
+      "side": 1,
+      "message": "Done. Though it\u0027s a little wonky because `BIGNUM` is still pretty pervasively `int`-based, since `BIGNUM::width` is an `int`. Something to fix perhaps.",
+      "parentUuid": "35b73ea9_54bb9e61",
+      "range": {
+        "startLine": 884,
+        "startChar": 0,
+        "endLine": 884,
+        "endChar": 23
+      },
+      "revId": "583e632d39cb673f2745c60f396a662750f08bc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4dcbafff_7dbeb510",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-11-22T23:34:03Z",
       "side": 1,
       "message": "Won\u0027t the free below it just cleanse again?",
+      "range": {
+        "startLine": 1191,
+        "startChar": 0,
+        "endLine": 1191,
+        "endChar": 44
+      },
+      "revId": "583e632d39cb673f2745c60f396a662750f08bc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0f6115a1_2c490212",
+        "filename": "crypto/fipsmodule/bn/exponentiation.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 1191,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-11-28T15:55:32Z",
+      "side": 1,
+      "message": "Not if it\u0027s on the stack (`powerbuf` non-NULL and `powerbuf_free` NULL). (Not that there\u0027s much point in cleansing stack values, but mostly just left it alone here for now.)",
+      "parentUuid": "4dcbafff_7dbeb510",
       "range": {
         "startLine": 1191,
         "startChar": 0,
