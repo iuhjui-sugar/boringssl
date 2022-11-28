@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48571627_378e4a18",
+        "filename": "util/fipstools/delocate/delocate.peg",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-11-28T19:08:09Z",
+      "side": 1,
+      "message": "Worth tossing these into testdata/aarch64-Basic somewhere?",
+      "revId": "385f19bbfd22642ee7ced875db8bdb42de36df2f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81f61211_7af4c721",
+        "filename": "util/fipstools/delocate/delocate.peg",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-11-28T19:08:09Z",
+      "side": 1,
+      "message": "If we\u0027re filling these in anyway, there\u0027s also b0, which is the 8-bit one.",
+      "range": {
+        "startLine": 81,
+        "startChar": 29,
+        "endLine": 81,
+        "endChar": 30
+      },
+      "revId": "385f19bbfd22642ee7ced875db8bdb42de36df2f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
