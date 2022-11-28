@@ -22,6 +22,30 @@
       },
       "revId": "6f2184b2df4c1a8b71fd61364be98ce92771cc75",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "294549e7_e8e9f023",
+        "filename": "include/openssl/bn.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-11-28T17:13:29Z",
+      "side": 1,
+      "message": "We\u0027ve somewhat done that. Most of the EC code uses the low-level \"word\" functions that act on BN_ULONG buffers directly. Though that one has it easy because it can be mostly fixed-width. RSA is a little trickier. Likewise, a lot of the actually constant-time helpers are internal and not exported.\n\nBut it\u0027s threaded through enough of the API that it\u0027ll be hard to *completely* detach from it. Though I have some thoughts about what to do once RSA is opaque. And then there\u0027re folks who use BIGNUM for custom cryptography, but ideally that\u0027d move within BoringSSL.\n\nIf nothing else, even with the public API mostly doing vartime algorithms, the fixed-width stuff will incur a cost for folks who don\u0027t want it.",
+      "parentUuid": "005ea728_f1a729ec",
+      "range": {
+        "startLine": 141,
+        "startChar": 0,
+        "endLine": 144,
+        "endChar": 23
+      },
+      "revId": "6f2184b2df4c1a8b71fd61364be98ce92771cc75",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
