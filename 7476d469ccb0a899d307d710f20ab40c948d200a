@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2d7c087_b986f178",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-11-29T19:05:18Z",
+      "side": 1,
+      "message": "Meant expectations, but that\u0027s confusing. Reworded.",
+      "parentUuid": "f20d540f_39640e39",
+      "range": {
+        "startLine": 25,
+        "startChar": 23,
+        "endLine": 25,
+        "endChar": 59
+      },
+      "revId": "7476d469ccb0a899d307d710f20ab40c948d200a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d6de4339_25c7d607",
@@ -47,6 +71,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "669a15dd_53cd79de",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-11-29T19:05:18Z",
+      "side": 1,
+      "message": "Deleted partial sentence.",
+      "parentUuid": "d6de4339_25c7d607",
+      "range": {
+        "startLine": 27,
+        "startChar": 65,
+        "endLine": 28,
+        "endChar": 38
+      },
+      "revId": "7476d469ccb0a899d307d710f20ab40c948d200a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "34f1f3e1_24b4f9e1",
@@ -60,6 +108,24 @@
       "writtenOn": "2022-11-28T21:13:32Z",
       "side": 1,
       "message": "\"a\" at the end, I think.",
+      "revId": "7476d469ccb0a899d307d710f20ab40c948d200a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a06a5ec_b455a050",
+        "filename": "crypto/cipher_extra/cipher_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-11-29T19:05:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34f1f3e1_24b4f9e1",
       "revId": "7476d469ccb0a899d307d710f20ab40c948d200a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
