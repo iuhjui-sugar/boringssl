@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "da94bd38_0b5974ed",
+        "filename": "ssl/ssl_privkey.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-12-01T21:34:59Z",
+      "side": 1,
+      "message": "This is a no-op because it\u0027ll never be called, but seemed prudent given we\u0027re doing all the other checks.",
+      "revId": "9c4f9039e5c4255b619d6cea28ba3fcdb6ae04af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
