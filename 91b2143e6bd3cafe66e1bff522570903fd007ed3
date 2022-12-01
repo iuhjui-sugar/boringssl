@@ -63,6 +63,30 @@
       },
       "revId": "91b2143e6bd3cafe66e1bff522570903fd007ed3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ca0f14c_57f5ab9c",
+        "filename": "util/bot/DEPS",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-12-01T20:21:43Z",
+      "side": 1,
+      "message": "Oh, interesting. Developers don\u0027t use the DEPS file, so let\u0027s keep it here for now, and if we ever want to move stuff to third_party, we can move them all.",
+      "parentUuid": "654f17bf_bc0c4280",
+      "range": {
+        "startLine": 110,
+        "startChar": 3,
+        "endLine": 110,
+        "endChar": 27
+      },
+      "revId": "91b2143e6bd3cafe66e1bff522570903fd007ed3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
