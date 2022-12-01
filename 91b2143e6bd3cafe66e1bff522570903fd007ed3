@@ -16,6 +16,29 @@
       "message": "Thank you for this change!",
       "revId": "91b2143e6bd3cafe66e1bff522570903fd007ed3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f80a138_05c9c6ec",
+        "filename": "util/bot/DEPS",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 15351
+      },
+      "writtenOn": "2022-12-01T02:55:37Z",
+      "side": 1,
+      "message": "Can the path be third_party/ninja?\ndepot_tools/ninja.py wrapper resolves the third_party/ninja.\nhttps://source.chromium.org/chromium/chromium/tools/depot_tools/+/main:ninja.py;l\u003d76\nSo developers also can use the DEPS ninja just by calling \"ninja\".\n\nIf you don\u0027t need this wrapper support, please keep this CIPD path.\nOnly bots will use this CIPD ninja.",
+      "range": {
+        "startLine": 110,
+        "startChar": 3,
+        "endLine": 110,
+        "endChar": 27
+      },
+      "revId": "91b2143e6bd3cafe66e1bff522570903fd007ed3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
