@@ -52,6 +52,24 @@
       "parentUuid": "bf44be11_a96334c1",
       "revId": "9c4f9039e5c4255b619d6cea28ba3fcdb6ae04af",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc9d3e75_2723e88e",
+        "filename": "ssl/ssl_privkey.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-12-02T18:55:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f2581b1b_01eff395",
+      "revId": "9c4f9039e5c4255b619d6cea28ba3fcdb6ae04af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
