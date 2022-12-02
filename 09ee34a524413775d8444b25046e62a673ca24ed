@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "924dfea2_11c91fb6",
+        "filename": "ssl/ssl_privkey.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-12-02T17:57:45Z",
+      "side": 1,
+      "message": "\"makes for a confusing abstraction confusing\" is also confusing ;)\n\n\"makes a confusing abstraction more confusing\"  perhaps?",
+      "range": {
+        "startLine": 597,
+        "startChar": 0,
+        "endLine": 598,
+        "endChar": 31
+      },
+      "revId": "09ee34a524413775d8444b25046e62a673ca24ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
