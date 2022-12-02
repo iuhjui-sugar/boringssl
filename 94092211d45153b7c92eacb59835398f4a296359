@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "71807a38_733e3eaf",
+        "filename": "crypto/dsa/dsa_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-12-02T22:44:07Z",
+      "side": 0,
+      "message": "I just removed the callback. It didn\u0027t seem to be providing anything of value.",
+      "revId": "94092211d45153b7c92eacb59835398f4a296359",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
