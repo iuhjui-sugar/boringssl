@@ -34,6 +34,24 @@
       "parentUuid": "da94bd38_0b5974ed",
       "revId": "9c4f9039e5c4255b619d6cea28ba3fcdb6ae04af",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2581b1b_01eff395",
+        "filename": "ssl/ssl_privkey.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-12-02T18:06:43Z",
+      "side": 1,
+      "message": "Sorry, I dropped a few words in the sentence. It *will* be called, but only with one of those algorithms because TLS 1.0/1.1 uses this function to select algorithms:\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/boringssl/src/ssl/extensions.cc;drc\u003d9d64d8d2373db494d3460102b970f4aaf92ee274;l\u003d4067\n\nBut this function doesn\u0027t know that and, in a function that decides whether a (version, pkey, sigalg) tuple is allowed, it seemed prudent to include the 1.0/1.1 rules, so that we don\u0027t accidentally sign something that isn\u0027t allowed.\n\n(This function is called both during negotiation and signing/verifying.)",
+      "parentUuid": "bf44be11_a96334c1",
+      "revId": "9c4f9039e5c4255b619d6cea28ba3fcdb6ae04af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
