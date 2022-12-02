@@ -22,6 +22,30 @@
       },
       "revId": "09ee34a524413775d8444b25046e62a673ca24ed",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2490144b_fb18edbf",
+        "filename": "ssl/ssl_privkey.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-12-02T19:34:49Z",
+      "side": 1,
+      "message": "I really need to better review my comments before uploading CLs. Seems there\u0027s always a typo or two. :-) Fixed. That was supposed to say \"makes for a confusing abstraction\".",
+      "parentUuid": "924dfea2_11c91fb6",
+      "range": {
+        "startLine": 597,
+        "startChar": 0,
+        "endLine": 598,
+        "endChar": 31
+      },
+      "revId": "09ee34a524413775d8444b25046e62a673ca24ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
