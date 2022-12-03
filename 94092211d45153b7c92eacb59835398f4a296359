@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe70d8b7_7a0b1691",
+        "filename": "crypto/ec_extra/ec_asn1.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-12-03T00:19:50Z",
+      "side": 1,
+      "message": "Are you missing an OPENSSL_PUT_ERROR(blah blah woof woof EC_LIB) here to mimic the past behaviour? do we care?",
+      "range": {
+        "startLine": 525,
+        "startChar": 16,
+        "endLine": 525,
+        "endChar": 17
+      },
+      "revId": "94092211d45153b7c92eacb59835398f4a296359",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
