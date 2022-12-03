@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ba533bc_554cb4f4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-12-03T17:14:45Z",
+      "side": 1,
+      "message": "As a very minor nitpick: we usually put a blank line between the first line of the commit message (a summary) and the longer description.\n\nSomething like this:\nhttps://chromium.googlesource.com/chromium/src/+/refs/heads/main/docs/contributing.md#Uploading-a-change-for-review",
+      "revId": "78a14bb2917d95261cb371d931c12658b80d2573",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5c8c044_a8dfcfc0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-12-03T17:14:45Z",
+      "side": 1,
+      "message": "If you add a line here:\n\nFixed: 531\n\nIt\u0027ll attach the CL to the bug you filed and also mark it as closed when it lands.",
+      "revId": "78a14bb2917d95261cb371d931c12658b80d2573",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "095e9eba_5066c0c2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-12-03T17:14:45Z",
+      "side": 1,
+      "message": "Thanks for the very thorough change!",
+      "revId": "78a14bb2917d95261cb371d931c12658b80d2573",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "419d5a36_a5e25d82",
+        "filename": "util/BUILD.toplevel",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-12-03T17:14:45Z",
+      "side": 1,
+      "message": "Huh, I didn\u0027t know hyphens in targets were allowed! Agreed there is a potential ambiguity due to x86_64 and x86_32, probably better to stick to underscores to match what seems to be Bazel style. I guess if we ever try to support the OS \"linux_x86\" on architecture \"32\", we\u0027ll have to revise this. :-)\nhttps://bazel.build/build/style-guide#target-naming\n\nHopefully by then the \"just link all the .S files together without thinking too hard\" plan will be in place.",
+      "range": {
+        "startLine": 44,
+        "startChar": 20,
+        "endLine": 44,
+        "endChar": 23
+      },
+      "revId": "78a14bb2917d95261cb371d931c12658b80d2573",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d201194f_c936c2c4",
+        "filename": "util/BUILD.toplevel",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-12-03T17:14:45Z",
+      "side": 1,
+      "message": "Seems right, but to confirm, I\u0027m guessing you switched this from aarch64 to arm64 because of this line here?\nhttps://github.com/bazelbuild/platforms/blob/main/cpu/BUILD#L34\n\n(Was going to say something about line wrapping, but I see https://bazel.build/build/style-guide#differences-python-style-guide says long lines are fine, so okay! :-) )",
+      "range": {
+        "startLine": 51,
+        "startChar": 80,
+        "endLine": 51,
+        "endChar": 85
+      },
+      "revId": "78a14bb2917d95261cb371d931c12658b80d2573",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4d4b83c_d5cea1e9",
+        "filename": "util/BUILD.toplevel",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-12-03T17:14:45Z",
+      "side": 1,
+      "message": "It\u0027s actually not needed on Android, because they\u0027re not glibc. And we\u0027ve since learned (https://crbug.com/boringssl/471) that it\u0027s actually a problem to set it on other platforms like FreeBSD. This seems to be just a glibc bug problem.\n\nMaybe flip this back to posix_copts and then update the comment above (which we should have done for issue 471) to say \"This is needed on glibc systems\" instead of \"This is needed on Linux systems (at least)\".",
+      "revId": "78a14bb2917d95261cb371d931c12658b80d2573",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
