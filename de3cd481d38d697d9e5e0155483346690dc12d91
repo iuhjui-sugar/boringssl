@@ -16,6 +16,29 @@
       "message": "This one is kinda gross. :-/",
       "revId": "de3cd481d38d697d9e5e0155483346690dc12d91",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5f426f0_1831c85f",
+        "filename": "crypto/ex_data.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-12-03T00:15:11Z",
+      "side": 1,
+      "message": "I know they love to do this, but should we start making these sorts of\nthings fatal instead of blundering on and hoping someone sees this error?",
+      "range": {
+        "startLine": 182,
+        "startChar": 0,
+        "endLine": 185,
+        "endChar": 3
+      },
+      "revId": "de3cd481d38d697d9e5e0155483346690dc12d91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
