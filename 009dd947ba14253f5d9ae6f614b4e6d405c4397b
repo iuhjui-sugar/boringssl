@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23190768_670f930e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-12-03T00:10:15Z",
+      "side": 1,
+      "message": "I suspect it predates being able to universally assume unsigned int was 32 bit.  OpenSSL historically supported some positively moribund stuff.",
+      "revId": "009dd947ba14253f5d9ae6f614b4e6d405c4397b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
