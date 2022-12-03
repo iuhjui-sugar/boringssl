@@ -36,6 +36,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6a78c79_a2631eda",
+        "filename": "crypto/asn1/a_object.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-12-03T22:10:14Z",
+      "side": 1,
+      "message": "Well, there\u0027s BIO_write_ex and BIO_read_ex. BIO_write_ex is just fine. BIO_read_ex has the EOF problems, so we\u0027d probably need BIO_read_ex2 or to do the BIO_eof thing. Since CPython uses SSL_write_ex and friends, I\u0027m thinking we should at least add those. This stuff is making me think we should add the BIO ones too... but do it right.\n\nSome of the ctrls might be a bit more tricky, but there\u0027s less strong of a need for them to be size_t-clean.",
+      "parentUuid": "6a4382ac_393c3b93",
+      "revId": "726f89bd5f07fd075831b1818ccec18060fc62c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "55158645_e40701c8",
@@ -61,6 +79,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "643b223b_0bbfc879",
+        "filename": "crypto/asn1/a_strex.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-12-03T22:10:14Z",
+      "side": 1,
+      "message": "Good call. I\u0027ll do you one better. :-)\nhttps://boringssl-review.googlesource.com/c/boringssl/+/55505",
+      "parentUuid": "55158645_e40701c8",
+      "range": {
+        "startLine": 124,
+        "startChar": 31,
+        "endLine": 124,
+        "endChar": 66
+      },
+      "revId": "726f89bd5f07fd075831b1818ccec18060fc62c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "70d7663d_3aa176b6",
         "filename": "crypto/asn1/asn1_test.cc",
         "patchSetId": 1
@@ -72,6 +114,30 @@
       "writtenOn": "2022-12-03T00:06:27Z",
       "side": 1,
       "message": "An interesting question (that basically came up yesterday in other circles) is that should this function set this RFC5280 style correctly.  I.E. if I do what you have there should i get back 700101000000Z...",
+      "range": {
+        "startLine": 1069,
+        "startChar": 1,
+        "endLine": 1069,
+        "endChar": 64
+      },
+      "revId": "726f89bd5f07fd075831b1818ccec18060fc62c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c97b0a00_3700dc0d",
+        "filename": "crypto/asn1/asn1_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1069,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-12-03T22:10:14Z",
+      "side": 1,
+      "message": "Maybe. Apparently upstream later added ASN1_TIME_set_string_X509 which does this. But this is kind of a ridiculous function anyway considering it has to guess at which format it\u0027s got. (ASN1_TIME_set_string_X509 still has that same behavior.)\n\nBetter, IMO, would be a function that takes the time in some *single*, well-defined format (perhaps GeneralizedTime\u0027s spelling) and then does whatever\u0027s appropriate.",
+      "parentUuid": "70d7663d_3aa176b6",
       "range": {
         "startLine": 1069,
         "startChar": 1,
