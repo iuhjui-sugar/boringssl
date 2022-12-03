@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81125335_c9246f84",
+        "filename": "crypto/dh_extra/dh_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-12-03T22:49:44Z",
+      "side": 1,
+      "message": "This and the 4 below come seem to date to OpenSSL\u0027s dhtest.c. I... don\u0027t know what the point is of testing a 64-bit DH prime, but I guess generating safe primes is kinda slow? *shrug*\n\nLeaving this along for this CL. I\u0027m not sure finite-field Diffie-Hellman is worth spending that much time on. I just felt inspired to clear out these TODO.",
+      "range": {
+        "startLine": 81,
+        "startChar": 49,
+        "endLine": 81,
+        "endChar": 51
+      },
+      "revId": "6d0e2d0fc7e7454fcada2fc54566785520b8fdf3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

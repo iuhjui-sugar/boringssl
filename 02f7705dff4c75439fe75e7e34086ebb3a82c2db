@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad740db4_cc8f99d7",
+        "filename": "decrepit/ripemd/ripemd_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-12-03T22:49:44Z",
+      "side": 0,
+      "message": "With C++20 changing the semantics of u8 string literals, I figured it was easier to not think about this and change them back to ASCII quotes.",
+      "range": {
+        "startLine": 112,
+        "startChar": 20,
+        "endLine": 112,
+        "endChar": 22
+      },
+      "revId": "02f7705dff4c75439fe75e7e34086ebb3a82c2db",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
