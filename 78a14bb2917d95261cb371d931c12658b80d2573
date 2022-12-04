@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0f99ba9_6afd8818",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 15366
+      },
+      "writtenOn": "2022-12-04T01:27:06Z",
+      "side": 1,
+      "message": "Done. \n(Also added manual wrapping and bullets, to match.)",
+      "parentUuid": "7ba533bc_554cb4f4",
+      "revId": "78a14bb2917d95261cb371d931c12658b80d2573",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c5c8c044_a8dfcfc0",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-12-03T17:14:45Z",
       "side": 1,
       "message": "If you add a line here:\n\nFixed: 531\n\nIt\u0027ll attach the CL to the bug you filed and also mark it as closed when it lands.",
+      "revId": "78a14bb2917d95261cb371d931c12658b80d2573",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc4baa1d_f8b66304",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 15366
+      },
+      "writtenOn": "2022-12-04T01:27:06Z",
+      "side": 1,
+      "message": "👍\nThanks for your patience looping me in on these as I get up to speed on the conventions.\n\nBy default, I\u0027ll change it to Bug: 531, just since the Windows assembly part is still open.",
+      "parentUuid": "c5c8c044_a8dfcfc0",
       "revId": "78a14bb2917d95261cb371d931c12658b80d2573",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -52,6 +88,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3e35565_135570c1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15366
+      },
+      "writtenOn": "2022-12-04T01:27:06Z",
+      "side": 1,
+      "message": "Thank you, David! A great, quick review, full of constructive ways to make it better and kind thoughtfulness. Thanks for being great all around.",
+      "parentUuid": "095e9eba_5066c0c2",
+      "revId": "78a14bb2917d95261cb371d931c12658b80d2573",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "419d5a36_a5e25d82",
@@ -65,6 +119,30 @@
       "writtenOn": "2022-12-03T17:14:45Z",
       "side": 1,
       "message": "Huh, I didn\u0027t know hyphens in targets were allowed! Agreed there is a potential ambiguity due to x86_64 and x86_32, probably better to stick to underscores to match what seems to be Bazel style. I guess if we ever try to support the OS \"linux_x86\" on architecture \"32\", we\u0027ll have to revise this. :-)\nhttps://bazel.build/build/style-guide#target-naming\n\nHopefully by then the \"just link all the .S files together without thinking too hard\" plan will be in place.",
+      "range": {
+        "startLine": 44,
+        "startChar": 20,
+        "endLine": 44,
+        "endChar": 23
+      },
+      "revId": "78a14bb2917d95261cb371d931c12658b80d2573",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "557d17b7_a676e436",
+        "filename": "util/BUILD.toplevel",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 15366
+      },
+      "writtenOn": "2022-12-04T01:27:06Z",
+      "side": 1,
+      "message": "Done.\n\nMight be worth saying, though, that I think the hyphen separator is pretty common style for generated targets, especially for cpu architecture. See, for example, jdk-k8 in the style guide you link, and *-pom, *-docs in the JVM rules (https://github.com/bazelbuild/rules_jvm_external/blob/853c82772671fa4ac119c211011af5dc03b383f1/docs/api.md). (A . separator is also common for implicit output targets and runnable derivatives.)",
+      "parentUuid": "419d5a36_a5e25d82",
       "range": {
         "startLine": 44,
         "startChar": 20,
@@ -98,6 +176,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "54953905_0235f606",
+        "filename": "util/BUILD.toplevel",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 15366
+      },
+      "writtenOn": "2022-12-04T01:27:06Z",
+      "side": 1,
+      "message": "Bingo. Good eye. I figured we\u0027d use the canonical one, esp since the alias has that bug encouraging its removal.\n\nI\u0027ll do the manual wrapping, required or no. I agree that it\u0027s more readable, here especially!",
+      "parentUuid": "d201194f_c936c2c4",
+      "range": {
+        "startLine": 51,
+        "startChar": 80,
+        "endLine": 51,
+        "endChar": 85
+      },
+      "revId": "78a14bb2917d95261cb371d931c12658b80d2573",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a4d4b83c_d5cea1e9",
@@ -111,6 +213,24 @@
       "writtenOn": "2022-12-03T17:14:45Z",
       "side": 1,
       "message": "It\u0027s actually not needed on Android, because they\u0027re not glibc. And we\u0027ve since learned (https://crbug.com/boringssl/471) that it\u0027s actually a problem to set it on other platforms like FreeBSD. This seems to be just a glibc bug problem.\n\nMaybe flip this back to posix_copts and then update the comment above (which we should have done for issue 471) to say \"This is needed on glibc systems\" instead of \"This is needed on Linux systems (at least)\".",
+      "revId": "78a14bb2917d95261cb371d931c12658b80d2573",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "043e85f8_6b9c4166",
+        "filename": "util/BUILD.toplevel",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 15366
+      },
+      "writtenOn": "2022-12-04T01:27:06Z",
+      "side": 1,
+      "message": "Good catch. Thanks! I also added the FreeBSD note, linked the issue, and renamed the variable to match.",
+      "parentUuid": "a4d4b83c_d5cea1e9",
       "revId": "78a14bb2917d95261cb371d931c12658b80d2573",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
