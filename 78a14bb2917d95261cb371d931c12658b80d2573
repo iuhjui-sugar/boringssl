@@ -73,6 +73,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "a4710728_08d0a614",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-12-05T17:27:10Z",
+      "side": 1,
+      "message": "Ah good point, yeah Bug is better than Fixed here.",
+      "parentUuid": "bc4baa1d_f8b66304",
+      "revId": "78a14bb2917d95261cb371d931c12658b80d2573",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "095e9eba_5066c0c2",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -143,6 +161,30 @@
       "side": 1,
       "message": "Done.\n\nMight be worth saying, though, that I think the hyphen separator is pretty common style for generated targets, especially for cpu architecture. See, for example, jdk-k8 in the style guide you link, and *-pom, *-docs in the JVM rules (https://github.com/bazelbuild/rules_jvm_external/blob/853c82772671fa4ac119c211011af5dc03b383f1/docs/api.md). (A . separator is also common for implicit output targets and runnable derivatives.)",
       "parentUuid": "419d5a36_a5e25d82",
+      "range": {
+        "startLine": 44,
+        "startChar": 20,
+        "endLine": 44,
+        "endChar": 23
+      },
+      "revId": "78a14bb2917d95261cb371d931c12658b80d2573",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ec05d07_8b11ef89",
+        "filename": "util/BUILD.toplevel",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-12-05T17:27:10Z",
+      "side": 1,
+      "message": "Fair enough. Well, let\u0027s leave it this way for now and we can change it later if we need to.",
+      "parentUuid": "557d17b7_a676e436",
       "range": {
         "startLine": 44,
         "startChar": 20,
