@@ -65,7 +65,7 @@ func (c *hkdfConfiguration) extract() (outBytes uint32, hashName string, err err
 		c.CounterLocation != "after fixed data" ||
 		c.CounterBits != 8 ||
 		c.OutputBits%8 != 0 {
-		return 0, "", fmt.Errorf("KAS-KDF not configured for HKDF: %#v", c)
+		return 0, "", fmt.Errorf("KDA not configured for HKDF: %#v", c)
 	}
 
 	if !strings.HasPrefix(c.MACMode, "HMAC-") {
