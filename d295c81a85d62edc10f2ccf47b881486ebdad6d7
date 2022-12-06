@@ -16,6 +16,24 @@
       "message": "Bug: b:261632678, chromium:1396479",
       "revId": "d295c81a85d62edc10f2ccf47b881486ebdad6d7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f6bfbef_942bed6e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-12-06T23:11:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dcdb4c2d_ed18a783",
+      "revId": "d295c81a85d62edc10f2ccf47b881486ebdad6d7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
