@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7899a95e_3226a7e8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2022-12-06T18:48:44Z",
+      "side": 1,
+      "message": "This change adds a new \"message\" field to issuance/redemption to derive the nonce from that instead of purely being random.\n\nNot sure about the naming (\"over_message\" or if I should use something other than \"msg\"/\"message\" for the field name?)",
+      "revId": "7de3bb2bda96290d116212887cd398d71a35fcbf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
