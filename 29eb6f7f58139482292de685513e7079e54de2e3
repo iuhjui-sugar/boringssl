@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62025883_e7a0b6e2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-12-06T16:13:23Z",
+      "side": 1,
+      "message": "IIRC, we removed that on the theory that, now that the operation is lazy, the entropy draw no longer matters because it\u0027s no longer on binary startup, and you\u0027re going to be drawing entropy for the RSA operation anyway? (In fact, we should probably stop honoring the NO_BLINDING flag and base it purely on where rsa-\u003ee is available. One less knob to worry about testing combinatorially.)\n\nIs the issue that you\u0027re doing a verify instead of a sign, and that verify doesn\u0027t normally draw entropy? If so, Adam, would it work to split the sign and verify self-tests in two so that RSA_sign triggers the sign self-test and RSA_verify triggers the verify one?",
+      "revId": "29eb6f7f58139482292de685513e7079e54de2e3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
