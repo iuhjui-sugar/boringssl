@@ -18,6 +18,7 @@
 #include <openssl/bytestring.h>
 #include <openssl/ec.h>
 #include <openssl/err.h>
+#include <openssl/evp.h>
 #include <openssl/mem.h>
 #include <openssl/nid.h>
 #include <openssl/rand.h>
@@ -325,7 +326,11 @@ static int pmbtoken_issuer_key_from_bytes(const PMBTOKEN_METHOD *method,
 }
 
 static STACK_OF(TRUST_TOKEN_PRETOKEN) *
-    pmbtoken_blind(const PMBTOKEN_METHOD *method, CBB *cbb, size_t count) {
+    pmbtoken_blind(const PMBTOKEN_METHOD *method, CBB *cbb, size_t count,
+                   const uint8_t *msg, size_t msg_len) {
+  EVP_MD_CTX ctx;
+  EVP_MD_CTX_init(&ctx);
+
   const EC_GROUP *group = method->group;
   STACK_OF(TRUST_TOKEN_PRETOKEN) *pretokens = sk_TRUST_TOKEN_PRETOKEN_new_null();
   if (pretokens == NULL) {
@@ -343,7 +348,18 @@ static STACK_OF(TRUST_TOKEN_PRETOKEN) *
       goto err;
     }
 
-    RAND_bytes(pretoken->t, sizeof(pretoken->t));
+    RAND_bytes(pretoken->salt, sizeof(pretoken->salt));
+    if (msg != NULL) {
+      assert(EVP_MD_size(EVP_sha512()) == TRUST_TOKEN_NONCE_SIZE);
+      if (!EVP_DigestInit_ex(&ctx, EVP_sha512(), NULL) ||
+          !EVP_DigestUpdate(&ctx, pretoken->salt, sizeof(pretoken->salt)) ||
+          !EVP_DigestUpdate(&ctx, msg, msg_len) ||
+          !EVP_DigestFinal_ex(&ctx, pretoken->t, NULL)) {
+        goto err;
+      }
+    } else {
+      OPENSSL_memcpy(pretoken->t, pretoken->salt, TRUST_TOKEN_NONCE_SIZE);
+    }
 
     // We sample |pretoken->r| in Montgomery form to simplify inverting.
     if (!ec_random_nonzero_scalar(group, &pretoken->r,
@@ -374,6 +390,7 @@ static STACK_OF(TRUST_TOKEN_PRETOKEN) *
   return pretokens;
 
 err:
+  EVP_MD_CTX_cleanup(&ctx);
   sk_TRUST_TOKEN_PRETOKEN_pop_free(pretokens, TRUST_TOKEN_PRETOKEN_free);
   return NULL;
 }
@@ -1024,7 +1041,7 @@ static STACK_OF(TRUST_TOKEN) *
     if (!CBB_init(&token_cbb,
                   4 + TRUST_TOKEN_NONCE_SIZE + 3 * (2 + point_len)) ||
         !CBB_add_u32(&token_cbb, key_id) ||
-        !CBB_add_bytes(&token_cbb, pretoken->t, TRUST_TOKEN_NONCE_SIZE) ||
+        !CBB_add_bytes(&token_cbb, pretoken->salt, TRUST_TOKEN_NONCE_SIZE) ||
         !cbb_add_prefixed_point(&token_cbb, group, &affines[0],
                                 method->prefix_point) ||
         !cbb_add_prefixed_point(&token_cbb, group, &affines[1],
@@ -1096,12 +1113,13 @@ static int pmbtoken_read(const PMBTOKEN_METHOD *method,
                          const TRUST_TOKEN_ISSUER_KEY *key,
                          uint8_t out_nonce[TRUST_TOKEN_NONCE_SIZE],
                          uint8_t *out_private_metadata, const uint8_t *token,
-                         size_t token_len) {
+                         size_t token_len, const uint8_t *msg, size_t msg_len) {
   const EC_GROUP *group = method->group;
   CBS cbs;
   CBS_init(&cbs, token, token_len);
   EC_AFFINE S, W, Ws;
-  if (!CBS_copy_bytes(&cbs, out_nonce, TRUST_TOKEN_NONCE_SIZE) ||
+  uint8_t salt[TRUST_TOKEN_NONCE_SIZE];
+  if (!CBS_copy_bytes(&cbs, salt, TRUST_TOKEN_NONCE_SIZE) ||
       !cbs_get_prefixed_point(&cbs, group, &S, method->prefix_point) ||
       !cbs_get_prefixed_point(&cbs, group, &W, method->prefix_point) ||
       !cbs_get_prefixed_point(&cbs, group, &Ws, method->prefix_point) ||
@@ -1110,6 +1128,21 @@ static int pmbtoken_read(const PMBTOKEN_METHOD *method,
     return 0;
   }
 
+  if (msg != NULL) {
+    EVP_MD_CTX ctx;
+    EVP_MD_CTX_init(&ctx);
+    assert(EVP_MD_size(EVP_sha512()) == TRUST_TOKEN_NONCE_SIZE);
+    if (!EVP_DigestInit_ex(&ctx, EVP_sha512(), NULL) ||
+        !EVP_DigestUpdate(&ctx, salt, sizeof(salt)) ||
+        !EVP_DigestUpdate(&ctx, msg, msg_len) ||
+        !EVP_DigestFinal_ex(&ctx, out_nonce, NULL)) {
+      EVP_MD_CTX_cleanup(&ctx);
+      OPENSSL_PUT_ERROR(EC, ERR_R_INTERNAL_ERROR);
+      return 0;
+    }
+  } else {
+    OPENSSL_memcpy(out_nonce, salt, TRUST_TOKEN_NONCE_SIZE);
+  }
 
   EC_RAW_POINT T;
   if (!method->hash_t(group, &T, out_nonce)) {
@@ -1275,11 +1308,13 @@ int pmbtoken_exp1_issuer_key_from_bytes(TRUST_TOKEN_ISSUER_KEY *key,
   return pmbtoken_issuer_key_from_bytes(&pmbtoken_exp1_method, key, in, len);
 }
 
-STACK_OF(TRUST_TOKEN_PRETOKEN) * pmbtoken_exp1_blind(CBB *cbb, size_t count) {
+STACK_OF(TRUST_TOKEN_PRETOKEN) * pmbtoken_exp1_blind(CBB *cbb, size_t count,
+                                                     const uint8_t *msg,
+                                                     size_t msg_len) {
   if (!pmbtoken_exp1_init_method()) {
     return NULL;
   }
-  return pmbtoken_blind(&pmbtoken_exp1_method, cbb, count);
+  return pmbtoken_blind(&pmbtoken_exp1_method, cbb, count, msg, msg_len);
 }
 
 int pmbtoken_exp1_sign(const TRUST_TOKEN_ISSUER_KEY *key, CBB *cbb, CBS *cbs,
@@ -1306,12 +1341,12 @@ STACK_OF(TRUST_TOKEN) *
 int pmbtoken_exp1_read(const TRUST_TOKEN_ISSUER_KEY *key,
                        uint8_t out_nonce[TRUST_TOKEN_NONCE_SIZE],
                        uint8_t *out_private_metadata, const uint8_t *token,
-                       size_t token_len) {
+                       size_t token_len, const uint8_t *msg, size_t msg_len) {
   if (!pmbtoken_exp1_init_method()) {
     return 0;
   }
   return pmbtoken_read(&pmbtoken_exp1_method, key, out_nonce,
-                       out_private_metadata, token, token_len);
+                       out_private_metadata, token, token_len, msg, msg_len);
 }
 
 int pmbtoken_exp1_get_h_for_testing(uint8_t out[97]) {
@@ -1444,11 +1479,13 @@ int pmbtoken_exp2_issuer_key_from_bytes(TRUST_TOKEN_ISSUER_KEY *key,
   return pmbtoken_issuer_key_from_bytes(&pmbtoken_exp2_method, key, in, len);
 }
 
-STACK_OF(TRUST_TOKEN_PRETOKEN) * pmbtoken_exp2_blind(CBB *cbb, size_t count) {
+STACK_OF(TRUST_TOKEN_PRETOKEN) * pmbtoken_exp2_blind(CBB *cbb, size_t count,
+                                                     const uint8_t *msg,
+                                                     size_t msg_len) {
   if (!pmbtoken_exp2_init_method()) {
     return NULL;
   }
-  return pmbtoken_blind(&pmbtoken_exp2_method, cbb, count);
+  return pmbtoken_blind(&pmbtoken_exp2_method, cbb, count, msg, msg_len);
 }
 
 int pmbtoken_exp2_sign(const TRUST_TOKEN_ISSUER_KEY *key, CBB *cbb, CBS *cbs,
@@ -1475,12 +1512,12 @@ STACK_OF(TRUST_TOKEN) *
 int pmbtoken_exp2_read(const TRUST_TOKEN_ISSUER_KEY *key,
                        uint8_t out_nonce[TRUST_TOKEN_NONCE_SIZE],
                        uint8_t *out_private_metadata, const uint8_t *token,
-                       size_t token_len) {
+                       size_t token_len, const uint8_t *msg, size_t msg_len) {
   if (!pmbtoken_exp2_init_method()) {
     return 0;
   }
   return pmbtoken_read(&pmbtoken_exp2_method, key, out_nonce,
-                       out_private_metadata, token, token_len);
+                       out_private_metadata, token, token_len, msg, msg_len);
 }
 
 int pmbtoken_exp2_get_h_for_testing(uint8_t out[97]) {

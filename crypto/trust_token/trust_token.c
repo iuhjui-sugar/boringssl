@@ -228,6 +228,13 @@ int TRUST_TOKEN_CLIENT_set_srr_key(TRUST_TOKEN_CLIENT *ctx, EVP_PKEY *key) {
 
 int TRUST_TOKEN_CLIENT_begin_issuance(TRUST_TOKEN_CLIENT *ctx, uint8_t **out,
                                       size_t *out_len, size_t count) {
+  return TRUST_TOKEN_CLIENT_begin_issuance_over_message(ctx, out, out_len,
+                                                        count, NULL, 0);
+}
+
+int TRUST_TOKEN_CLIENT_begin_issuance_over_message(
+    TRUST_TOKEN_CLIENT *ctx, uint8_t **out, size_t *out_len, size_t count,
+    const uint8_t *msg, size_t msg_len) {
   if (count > ctx->max_batchsize) {
     count = ctx->max_batchsize;
   }
@@ -241,7 +248,7 @@ int TRUST_TOKEN_CLIENT_begin_issuance(TRUST_TOKEN_CLIENT *ctx, uint8_t **out,
     goto err;
   }
 
-  pretokens = ctx->method->blind(&request, count);
+  pretokens = ctx->method->blind(&request, count, msg, msg_len);
   if (pretokens == NULL) {
     goto err;
   }
@@ -549,6 +556,16 @@ int TRUST_TOKEN_ISSUER_redeem_raw(const TRUST_TOKEN_ISSUER *ctx,
                                   uint8_t **out_client_data,
                                   size_t *out_client_data_len,
                                   const uint8_t *request, size_t request_len) {
+  return TRUST_TOKEN_ISSUER_redeem_over_message(
+      ctx, out_public, out_private, out_token, out_client_data,
+      out_client_data_len, request, request_len, NULL, 0);
+}
+
+int TRUST_TOKEN_ISSUER_redeem_over_message(
+    const TRUST_TOKEN_ISSUER *ctx, uint32_t *out_public, uint8_t *out_private,
+    TRUST_TOKEN **out_token, uint8_t **out_client_data,
+    size_t *out_client_data_len, const uint8_t *request, size_t request_len,
+    const uint8_t *msg, size_t msg_len) {
   CBS request_cbs, token_cbs;
   CBS_init(&request_cbs, request, request_len);
   if (!CBS_get_u16_length_prefixed(&request_cbs, &token_cbs)) {
@@ -570,7 +587,8 @@ int TRUST_TOKEN_ISSUER_redeem_raw(const TRUST_TOKEN_ISSUER *ctx,
   uint8_t nonce[TRUST_TOKEN_NONCE_SIZE];
   if (key == NULL ||
       !ctx->method->read(&key->key, nonce, &private_metadata,
-                         CBS_data(&token_cbs), CBS_len(&token_cbs))) {
+                         CBS_data(&token_cbs), CBS_len(&token_cbs),
+                         msg, msg_len)) {
     OPENSSL_PUT_ERROR(TRUST_TOKEN, TRUST_TOKEN_R_INVALID_TOKEN);
     return 0;
   }
@@ -693,7 +711,7 @@ int TRUST_TOKEN_ISSUER_redeem(const TRUST_TOKEN_ISSUER *ctx, uint8_t **out,
   uint8_t nonce[TRUST_TOKEN_NONCE_SIZE];
   if (key == NULL ||
       !ctx->method->read(&key->key, nonce, &private_metadata,
-                         CBS_data(&token_cbs), CBS_len(&token_cbs))) {
+                         CBS_data(&token_cbs), CBS_len(&token_cbs), NULL, 0)) {
     OPENSSL_PUT_ERROR(TRUST_TOKEN, TRUST_TOKEN_R_INVALID_TOKEN);
     return 0;
   }
