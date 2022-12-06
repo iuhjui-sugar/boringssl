@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ada36692_e96c99d7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-12-06T17:15:27Z",
+      "side": 1,
+      "message": "Thank you. It does, indeed, look like NIST have changed how HKDF is tested, but it\u0027s sadly not just a rename. The structure of the vectors is different. I\u0027m working on a full update but NIST\u0027s demo server is down this morning, which stops progress until fixed. I just wanted to leave a note here so that it\u0027s clear that I\u0027ve seen this.",
+      "revId": "3fb31e2609f401df53eecbc94d62f9288c4b3b86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
