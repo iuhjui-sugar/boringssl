@@ -45,6 +45,7 @@ var (
 	dumpRegcap      = flag.Bool("regcap", false, "Print module capabilities JSON to stdout")
 	configFilename  = flag.String("config", "config.json", "Location of the configuration JSON file")
 	jsonInputFile   = flag.String("json", "", "Location of a vector-set input file")
+	uploadInputFile = flag.String("upload", "", "Location of a JSON results file to upload")
 	runFlag         = flag.String("run", "", "Name of primitive to run tests for")
 	fetchFlag       = flag.String("fetch", "", "Name of primitive to fetch vectors for")
 	expectedOutFlag = flag.String("expected-out", "", "Name of a file to write the expected results to")
@@ -269,6 +270,7 @@ func processFile(filename string, supportedAlgos []map[string]interface{}, middl
 		group := map[string]interface{}{
 			"vsId":       commonFields.ID,
 			"testGroups": replyGroups,
+			"algorithm":  algo,
 		}
 		replyBytes, err := json.MarshalIndent(group, "", "    ")
 		if err != nil {
@@ -456,6 +458,100 @@ FetchResults:
 	}
 }
 
+func uploadFromFile(file string, config *Config, sessionTokensCacheDir string) {
+	if len(*jsonInputFile) > 0 {
+		log.Fatalf("-upload cannot be used with -json")
+	}
+	if len(*runFlag) > 0 {
+		log.Fatalf("-upload cannot be used with -run")
+	}
+	if len(*fetchFlag) > 0 {
+		log.Fatalf("-upload cannot be used with -fetch")
+	}
+	if len(*expectedOutFlag) > 0 {
+		log.Fatalf("-upload cannot be used with -expected-out")
+	}
+	if *dumpRegcap {
+		log.Fatalf("-upload cannot be used with -regcap")
+	}
+
+	in, err := os.Open(file)
+	if err != nil {
+		log.Fatalf("Cannot open input: %s", err)
+	}
+	defer in.Close()
+
+	decoder := json.NewDecoder(in)
+
+	var input []map[string]interface{}
+	if err := decoder.Decode(&input); err != nil {
+		log.Fatalf("Failed to parse input: %s", err)
+	}
+
+	if len(input) < 2 {
+		log.Fatalf("Input JSON has fewer than two elements")
+	}
+
+	header := input[0]
+	const urlKey = "url"
+	urlInterface, ok := header[urlKey]
+	if !ok {
+		log.Fatalf("Missing %q in header", urlKey)
+	}
+	url, ok := urlInterface.(string)
+	if !ok {
+		log.Fatalf("%q in header should be a string but have %#v", urlKey, urlInterface)
+	}
+
+	const setURLsKey = "vectorSetUrls"
+	setURLsInterface, ok := header[setURLsKey]
+	if !ok {
+		log.Fatalf("Missing %q in header", setURLsKey)
+	}
+
+	var urls []string
+	setURLInterfaces, ok := setURLsInterface.([]interface{})
+	if ok {
+		for _, urlInterface := range setURLInterfaces {
+			var url string
+			if url, ok = urlInterface.(string); !ok {
+				break
+			}
+			urls = append(urls, url)
+		}
+	}
+
+	if !ok {
+		log.Fatalf("%q in header should be an array of strings but have %#v", setURLsKey, setURLsInterface)
+	}
+
+	if len(input) != len(urls)+1 {
+		log.Fatalf("have %d URLs from header, but only %d result groups", len(urls), len(input)-1)
+	}
+
+	server, err := connect(config, sessionTokensCacheDir)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for i, url := range urls {
+		log.Printf("Uploading result for %q", url)
+		resultBytes, err := json.Marshal(input[i+1])
+		if err != nil {
+			log.Fatalf("Failed to marshal: %s", err)
+		}
+		if err := uploadResult(server, url, resultBytes); err != nil {
+			log.Fatalf("Failed to upload: %s", err)
+		}
+	}
+
+	if ok, err := getResultsWithRetry(server, url); err != nil {
+		log.Fatal(err)
+	} else if !ok {
+		os.Exit(1)
+	}
+}
+
 func main() {
 	flag.Parse()
 
@@ -474,6 +570,11 @@ func main() {
 			}
 			sessionTokensCacheDir = filepath.Join(home, sessionTokensCacheDir[2:])
 		}
+	}
+
+	if len(*uploadInputFile) > 0 {
+		uploadFromFile(*uploadInputFile, &config, sessionTokensCacheDir)
+		return
 	}
 
 	middle, err := subprocess.New(*wrapperPath)
