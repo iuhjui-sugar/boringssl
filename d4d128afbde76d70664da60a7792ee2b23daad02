@@ -33,6 +33,24 @@
       "message": "armellel: does this work for you?",
       "revId": "d4d128afbde76d70664da60a7792ee2b23daad02",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea344b15_06cd4190",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15371
+      },
+      "writtenOn": "2022-12-07T03:03:48Z",
+      "side": 1,
+      "message": "yes thank you!\nonce this is mainlined, we\u0027ll mainline the trusty TA update (aosp/2326494).",
+      "parentUuid": "670a59e5_dda875b0",
+      "revId": "d4d128afbde76d70664da60a7792ee2b23daad02",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
