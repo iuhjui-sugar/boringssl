@@ -16,6 +16,24 @@
       "message": "we now lose this check and will happily explode if passed NULL (I am ok with this)",
       "revId": "de3cd481d38d697d9e5e0155483346690dc12d91",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49550c6c_7d4e019a",
+        "filename": "crypto/ec_extra/ec_asn1.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-12-07T17:18:45Z",
+      "side": 0,
+      "message": "Ah, good catch. I also find these NULL checks pointless, but that one wasn\u0027t intentional. Given how silly this API is, it\u0027s probably not worth chasing down the inevitable caller that cares about this one. :-)",
+      "parentUuid": "04e5064a_465fafa0",
+      "revId": "de3cd481d38d697d9e5e0155483346690dc12d91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }

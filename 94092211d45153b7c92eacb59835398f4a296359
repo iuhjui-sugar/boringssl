@@ -22,6 +22,30 @@
       },
       "revId": "94092211d45153b7c92eacb59835398f4a296359",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe229608_61d75b80",
+        "filename": "crypto/ec_extra/ec_asn1.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 525,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-12-07T17:18:45Z",
+      "side": 1,
+      "message": "point2cbb should push something to the error queue when it fails, so I think that\u0027s fine. We haven\u0027t been doing it in the rest of the i2d functions and usually callers aren\u0027t that sensitive to these \"stack trace\" errors.",
+      "parentUuid": "fe70d8b7_7a0b1691",
+      "range": {
+        "startLine": 525,
+        "startChar": 16,
+        "endLine": 525,
+        "endChar": 17
+      },
+      "revId": "94092211d45153b7c92eacb59835398f4a296359",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
