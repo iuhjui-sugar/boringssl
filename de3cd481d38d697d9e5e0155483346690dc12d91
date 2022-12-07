@@ -39,6 +39,30 @@
       },
       "revId": "de3cd481d38d697d9e5e0155483346690dc12d91",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ba15c65_66ae9a5d",
+        "filename": "crypto/ex_data.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-12-07T17:02:05Z",
+      "side": 1,
+      "message": "Hrm, yeah, this one is kind of silly. Alright, let\u0027s make this an abort()... if the caller\u0027s in a position where arbitrary indices can be passed in, they have worse problems because a random free function will be called on `val`.",
+      "parentUuid": "c5f426f0_1831c85f",
+      "range": {
+        "startLine": 182,
+        "startChar": 0,
+        "endLine": 185,
+        "endChar": 3
+      },
+      "revId": "de3cd481d38d697d9e5e0155483346690dc12d91",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
