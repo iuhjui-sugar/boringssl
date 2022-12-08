@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fdd220b0_6d8b3058",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 666,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-12-08T22:42:47Z",
+      "side": 1,
+      "message": "Most of the error paths didn\u0027t previously call `server.Delete(url)`. Guessing that\u0027s intentional or fine? (I\u0027ve lost track of how this protocol works. :-) )",
+      "revId": "46471f1ad4a7658494f94af2aec5deeef1dbaf08",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
