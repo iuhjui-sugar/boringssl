@@ -22,6 +22,30 @@
       },
       "revId": "308a81488b9b42199a80269dfb7d37d9cc815243",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da94de97_6b44f64a",
+        "filename": "crypto/perlasm/arm-xlate.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-12-08T16:03:06Z",
+      "side": 0,
+      "message": "https://sourceware.org/binutils/docs/as/Section.html says:\n\n\u003e Note on targets where the @ character is the start of a comment (eg ARM) then another character is used instead. For example the ARM port uses the % character.\n\nBut these links suggest %progbits works everywhere anyway:\nhttps://patchwork.kernel.org/project/linux-crypto/patch/20170119212805.18049-1-dvlasenk@redhat.com/#20050285\nhttps://gcc.gnu.org/bugzilla/show_bug.cgi?id\u003d92820#c11\nhttps://sourceware.org/legacy-ml/gdb-patches/2016-01/msg00319.html\n\nLooking in gas source, it seems to be true since the initial commit in the git repository, in 1999. They just generically check for either \u0027@\u0027 or \u0027%\u0027. The same is true of clang-assembler starting 2010:\nhttps://github.com/llvm/llvm-project/commit/de990b270d73632a834cb37e6ea50db093321aad\n\nSo I think we can just uniformly use %progbits. (Otherwise we have to put an ifdef in every file, to make every file usable on all platforms.)\n\nBut this might be a reason to solve https://bugs.chromium.org/p/boringssl/issues/detail?id\u003d292 first.",
+      "parentUuid": "839c9366_b29698b8",
+      "range": {
+        "startLine": 246,
+        "startChar": 38,
+        "endLine": 246,
+        "endChar": 48
+      },
+      "revId": "308a81488b9b42199a80269dfb7d37d9cc815243",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
