@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa064e68_5fca97ca",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-12-08T17:41:10Z",
+      "side": 1,
+      "message": "LGTM with exec-stack bit fixed up.",
+      "revId": "3f9afebe1772f88db08746afc47ccc4503bcc1e9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
