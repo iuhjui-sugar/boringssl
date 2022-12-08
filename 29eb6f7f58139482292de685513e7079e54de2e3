@@ -34,6 +34,24 @@
       "parentUuid": "62025883_e7a0b6e2",
       "revId": "29eb6f7f58139482292de685513e7079e54de2e3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "870f53c3_6fc2c19c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-12-08T23:00:36Z",
+      "side": 1,
+      "message": "Since Android is explicitly invoking the self tests, splitting wouldn\u0027t help here. Thus this change LGTM to solve the immediate problem. Longer-term, perhaps Android won\u0027t need to run the tests explicitly or perhaps we can drop blinding.",
+      "parentUuid": "8ee54bbf_93d00ff7",
+      "revId": "29eb6f7f58139482292de685513e7079e54de2e3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
