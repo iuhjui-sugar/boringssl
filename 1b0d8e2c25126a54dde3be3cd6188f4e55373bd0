@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc611f97_ddd2c20c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-12-08T18:29:26Z",
+      "side": 1,
+      "message": "Based on https://boringssl.googlesource.com/boringssl/+/1b0d8e2c25126a54dde3be3cd6188f4e55373bd0/README.md and https://boringssl.googlesource.com/boringssl/+/1b0d8e2c25126a54dde3be3cd6188f4e55373bd0/, looks like we\u0027re good.\n\nWay back we worked around some problem in https://boringssl-review.googlesource.com/c/boringssl/+/6230, but I guess either they fixed the issue, or `./` was the key.",
+      "revId": "1b0d8e2c25126a54dde3be3cd6188f4e55373bd0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
