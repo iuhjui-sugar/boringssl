@@ -22,6 +22,30 @@
       },
       "revId": "f97b3e83bf7b0caf6daf256fd77d4f62bc0a304b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "72950617_124c6ec1",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-12-09T18:20:57Z",
+      "side": 1,
+      "message": "Yes, thanks. Otherwise the error return is a bit pointless.",
+      "parentUuid": "2cc4ea90_7fc9bead",
+      "range": {
+        "startLine": 366,
+        "startChar": 2,
+        "endLine": 366,
+        "endChar": 11
+      },
+      "revId": "f97b3e83bf7b0caf6daf256fd77d4f62bc0a304b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
