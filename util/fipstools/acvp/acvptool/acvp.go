@@ -62,6 +62,12 @@ type Config struct {
 	LogFile            string
 }
 
+type ResultHeader struct {
+	URL           string   `json:"url,omitempty"`
+	VectorSetURLs []string `json:"vectorSetUrls,omitempty"`
+	Time          string   `json:"time,omitempty"`
+}
+
 func isCommentLine(line []byte) bool {
 	var foundCommentStart bool
 	for _, b := range line {
@@ -481,7 +487,7 @@ func uploadFromFile(file string, config *Config, sessionTokensCacheDir string) {
 
 	decoder := json.NewDecoder(in)
 
-	var input []map[string]interface{}
+	var input []json.RawMessage
 	if err := decoder.Decode(&input); err != nil {
 		log.Fatalf("Failed to parse input: %s", err)
 	}
@@ -490,41 +496,13 @@ func uploadFromFile(file string, config *Config, sessionTokensCacheDir string) {
 		log.Fatalf("Input JSON has fewer than two elements")
 	}
 
-	header := input[0]
-	const urlKey = "url"
-	urlInterface, ok := header[urlKey]
-	if !ok {
-		log.Fatalf("Missing %q in header", urlKey)
-	}
-	url, ok := urlInterface.(string)
-	if !ok {
-		log.Fatalf("%q in header should be a string but have %#v", urlKey, urlInterface)
+	var header ResultHeader
+	if err := json.Unmarshal(input[0], &header); err != nil {
+		log.Fatalf("Failed to parse input header: %s", err)
 	}
 
-	const setURLsKey = "vectorSetUrls"
-	setURLsInterface, ok := header[setURLsKey]
-	if !ok {
-		log.Fatalf("Missing %q in header", setURLsKey)
-	}
-
-	var setURLs []string
-	setURLInterfaces, ok := setURLsInterface.([]interface{})
-	if ok {
-		for _, urlInterface := range setURLInterfaces {
-			var url string
-			if url, ok = urlInterface.(string); !ok {
-				break
-			}
-			setURLs = append(setURLs, url)
-		}
-	}
-
-	if !ok {
-		log.Fatalf("%q in header should be an array of strings but have %#v", setURLsKey, setURLsInterface)
-	}
-
-	if numGroups := len(input) - 1; numGroups != len(setURLs) {
-		log.Fatalf("have %d URLs from header, but only %d result groups", len(setURLs), numGroups)
+	if numGroups := len(input) - 1; numGroups != len(header.VectorSetURLs) {
+		log.Fatalf("have %d URLs from header, but only %d result groups", len(header.VectorSetURLs), numGroups)
 	}
 
 	server, err := connect(config, sessionTokensCacheDir)
@@ -532,18 +510,14 @@ func uploadFromFile(file string, config *Config, sessionTokensCacheDir string) {
 		log.Fatal(err)
 	}
 
-	for i, url := range setURLs {
+	for i, url := range header.VectorSetURLs {
 		log.Printf("Uploading result for %q", url)
-		resultBytes, err := json.Marshal(input[i+1])
-		if err != nil {
-			log.Fatalf("Failed to marshal: %s", err)
-		}
-		if err := uploadResult(server, url, resultBytes); err != nil {
+		if err := uploadResult(server, url, input[i+1]); err != nil {
 			log.Fatalf("Failed to upload: %s", err)
 		}
 	}
 
-	if ok, err := getResultsWithRetry(server, url); err != nil {
+	if ok, err := getResultsWithRetry(server, header.URL); err != nil {
 		log.Fatal(err)
 	} else if !ok {
 		os.Exit(1)
@@ -730,10 +704,10 @@ func main() {
 
 	if len(*fetchFlag) > 0 {
 		io.WriteString(fetchOutputTee, "[\n")
-		json.NewEncoder(fetchOutputTee).Encode(map[string]interface{}{
-			"url":           url,
-			"vectorSetUrls": result.VectorSetURLs,
-			"time":          time.Now().Format(time.RFC3339),
+		json.NewEncoder(fetchOutputTee).Encode(ResultHeader{
+			URL:           url,
+			VectorSetURLs: result.VectorSetURLs,
+			Time:          time.Now().Format(time.RFC3339),
 		})
 	}
 
