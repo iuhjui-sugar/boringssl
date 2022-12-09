@@ -16,6 +16,24 @@
       "message": "Most of the error paths didn\u0027t previously call `server.Delete(url)`. Guessing that\u0027s intentional or fine? (I\u0027ve lost track of how this protocol works. :-) )",
       "revId": "46471f1ad4a7658494f94af2aec5deeef1dbaf08",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5db1c487_ba481d0f",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 666,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-12-09T18:14:56Z",
+      "side": 1,
+      "message": "Yea, they probably should have in the \u0027run\u0027 case at least. It doesn\u0027t really matter: it\u0027s just being polite to the server.",
+      "parentUuid": "fdd220b0_6d8b3058",
+      "revId": "46471f1ad4a7658494f94af2aec5deeef1dbaf08",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
