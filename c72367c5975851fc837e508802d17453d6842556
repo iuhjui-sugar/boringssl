@@ -16,6 +16,24 @@
       "message": "(Am assuming downgrading this from error to non-fatal result is intentional and going to be relevant later in the patch series.)",
       "revId": "c72367c5975851fc837e508802d17453d6842556",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d8bc678e_3ea48289",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-12-09T18:20:52Z",
+      "side": 1,
+      "message": "At both call sites, it\u0027ll trigger `os.Exit(1)`, so it\u0027s still fatal. But I felt that the function itself shouldn\u0027t make that decision.",
+      "parentUuid": "748f3b65_5cd1971d",
+      "revId": "c72367c5975851fc837e508802d17453d6842556",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
