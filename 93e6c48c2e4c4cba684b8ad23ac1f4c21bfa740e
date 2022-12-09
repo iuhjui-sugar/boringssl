@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b12a5c7_31675607",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 495,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-12-09T20:48:52Z",
+      "side": 1,
+      "message": "Optional: rather than having to manually downcast types, does this work?\nhttps://boringssl-review.googlesource.com/c/boringssl/+/55725",
+      "revId": "93e6c48c2e4c4cba684b8ad23ac1f4c21bfa740e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
