@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2cc4ea90_7fc9bead",
+        "filename": "util/fipstools/acvp/acvptool/acvp.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-12-09T17:19:48Z",
+      "side": 1,
+      "message": "Nit: Should all these be error returns, now that this is a function that return an error?",
+      "range": {
+        "startLine": 366,
+        "startChar": 2,
+        "endLine": 366,
+        "endChar": 11
+      },
+      "revId": "f97b3e83bf7b0caf6daf256fd77d4f62bc0a304b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
