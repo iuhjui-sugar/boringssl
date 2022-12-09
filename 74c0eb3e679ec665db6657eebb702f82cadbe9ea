@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c03ff7d4_0ce25dd4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-12-09T19:12:26Z",
+      "side": 1,
+      "message": "That\u0027s easier on the eyes after that...",
+      "revId": "74c0eb3e679ec665db6657eebb702f82cadbe9ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
