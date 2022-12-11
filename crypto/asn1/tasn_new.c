@@ -67,8 +67,7 @@
 #include "internal.h"
 
 
-static int asn1_item_ex_combine_new(ASN1_VALUE **pval, const ASN1_ITEM *it,
-                                    int combine);
+static int asn1_item_ex_new(ASN1_VALUE **pval, const ASN1_ITEM *it);
 static void asn1_item_clear(ASN1_VALUE **pval, const ASN1_ITEM *it);
 static int ASN1_template_new(ASN1_VALUE **pval, const ASN1_TEMPLATE *tt);
 static void asn1_template_clear(ASN1_VALUE **pval, const ASN1_TEMPLATE *tt);
@@ -86,11 +85,10 @@ ASN1_VALUE *ASN1_item_new(const ASN1_ITEM *it) {
 // Allocate an ASN1 structure
 
 int ASN1_item_ex_new(ASN1_VALUE **pval, const ASN1_ITEM *it) {
-  return asn1_item_ex_combine_new(pval, it, 0);
+  return asn1_item_ex_new(pval, it);
 }
 
-static int asn1_item_ex_combine_new(ASN1_VALUE **pval, const ASN1_ITEM *it,
-                                    int combine) {
+static int asn1_item_ex_new(ASN1_VALUE **pval, const ASN1_ITEM *it) {
   const ASN1_TEMPLATE *tt = NULL;
   const ASN1_EXTERN_FUNCS *ef;
   ASN1_VALUE **pseqval;
@@ -134,13 +132,11 @@ static int asn1_item_ex_combine_new(ASN1_VALUE **pval, const ASN1_ITEM *it,
           return 1;
         }
       }
-      if (!combine) {
-        *pval = OPENSSL_malloc(it->size);
-        if (!*pval) {
-          goto memerr;
-        }
-        OPENSSL_memset(*pval, 0, it->size);
+      *pval = OPENSSL_malloc(it->size);
+      if (!*pval) {
+        goto memerr;
       }
+      OPENSSL_memset(*pval, 0, it->size);
       asn1_set_choice_selector(pval, -1, it);
       if (asn1_cb && !asn1_cb(ASN1_OP_NEW_POST, pval, it, NULL)) {
         goto auxerr2;
@@ -160,15 +156,13 @@ static int asn1_item_ex_combine_new(ASN1_VALUE **pval, const ASN1_ITEM *it,
           return 1;
         }
       }
-      if (!combine) {
-        *pval = OPENSSL_malloc(it->size);
-        if (!*pval) {
-          goto memerr;
-        }
-        OPENSSL_memset(*pval, 0, it->size);
-        asn1_refcount_set_one(pval, it);
-        asn1_enc_init(pval, it);
+      *pval = OPENSSL_malloc(it->size);
+      if (!*pval) {
+        goto memerr;
       }
+      OPENSSL_memset(*pval, 0, it->size);
+      asn1_refcount_set_one(pval, it);
+      asn1_enc_init(pval, it);
       for (i = 0, tt = it->templates; i < it->tcount; tt++, i++) {
         pseqval = asn1_get_field_ptr(pval, tt);
         if (!ASN1_template_new(pseqval, tt)) {
@@ -184,13 +178,13 @@ static int asn1_item_ex_combine_new(ASN1_VALUE **pval, const ASN1_ITEM *it,
   return 1;
 
 memerr2:
-  asn1_item_combine_free(pval, it, combine);
+  asn1_item_free(pval, it);
 memerr:
   OPENSSL_PUT_ERROR(ASN1, ERR_R_MALLOC_FAILURE);
   return 0;
 
 auxerr2:
-  asn1_item_combine_free(pval, it, combine);
+  asn1_item_free(pval, it);
 auxerr:
   OPENSSL_PUT_ERROR(ASN1, ASN1_R_AUX_ERROR);
   return 0;
@@ -255,7 +249,7 @@ static int ASN1_template_new(ASN1_VALUE **pval, const ASN1_TEMPLATE *tt) {
     goto done;
   }
   // Otherwise pass it back to the item routine
-  ret = asn1_item_ex_combine_new(pval, it, tt->flags & ASN1_TFLG_COMBINE);
+  ret = asn1_item_ex_new(pval, it);
 done:
   return ret;
 }
