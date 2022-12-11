@@ -66,15 +66,14 @@
 // Free up an ASN1 structure
 
 void ASN1_item_free(ASN1_VALUE *val, const ASN1_ITEM *it) {
-  asn1_item_combine_free(&val, it, 0);
+  asn1_item_free(&val, it);
 }
 
 void ASN1_item_ex_free(ASN1_VALUE **pval, const ASN1_ITEM *it) {
-  asn1_item_combine_free(pval, it, 0);
+  asn1_item_free(pval, it);
 }
 
-void asn1_item_combine_free(ASN1_VALUE **pval, const ASN1_ITEM *it,
-                            int combine) {
+void asn1_item_free(ASN1_VALUE **pval, const ASN1_ITEM *it) {
   const ASN1_TEMPLATE *tt = NULL, *seqtt;
   const ASN1_EXTERN_FUNCS *ef;
   int i;
@@ -117,10 +116,8 @@ void asn1_item_combine_free(ASN1_VALUE **pval, const ASN1_ITEM *it,
       if (asn1_cb) {
         asn1_cb(ASN1_OP_FREE_POST, pval, it, NULL);
       }
-      if (!combine) {
-        OPENSSL_free(*pval);
-        *pval = NULL;
-      }
+      OPENSSL_free(*pval);
+      *pval = NULL;
       break;
     }
 
@@ -160,10 +157,8 @@ void asn1_item_combine_free(ASN1_VALUE **pval, const ASN1_ITEM *it,
       if (asn1_cb) {
         asn1_cb(ASN1_OP_FREE_POST, pval, it, NULL);
       }
-      if (!combine) {
-        OPENSSL_free(*pval);
-        *pval = NULL;
-      }
+      OPENSSL_free(*pval);
+      *pval = NULL;
       break;
     }
   }
@@ -176,13 +171,12 @@ void ASN1_template_free(ASN1_VALUE **pval, const ASN1_TEMPLATE *tt) {
     for (i = 0; i < sk_ASN1_VALUE_num(sk); i++) {
       ASN1_VALUE *vtmp;
       vtmp = sk_ASN1_VALUE_value(sk, i);
-      asn1_item_combine_free(&vtmp, ASN1_ITEM_ptr(tt->item), 0);
+      asn1_item_free(&vtmp, ASN1_ITEM_ptr(tt->item));
     }
     sk_ASN1_VALUE_free(sk);
     *pval = NULL;
   } else {
-    asn1_item_combine_free(pval, ASN1_ITEM_ptr(tt->item),
-                           tt->flags & ASN1_TFLG_COMBINE);
+    asn1_item_free(pval, ASN1_ITEM_ptr(tt->item));
   }
 }
 
