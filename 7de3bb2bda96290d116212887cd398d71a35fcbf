@@ -16,6 +16,143 @@
       "message": "This change adds a new \"message\" field to issuance/redemption to derive the nonce from that instead of purely being random.\n\nNot sure about the naming (\"over_message\" or if I should use something other than \"msg\"/\"message\" for the field name?)",
       "revId": "7de3bb2bda96290d116212887cd398d71a35fcbf",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6afcef87_9e7b13c7",
+        "filename": "crypto/trust_token/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-12-12T16:25:45Z",
+      "side": 1,
+      "message": "FWIW, if you clang-format this line again, it should now work. I added TypeMacros settings. Ditto for the other bits with `STACK_OF(T)`.",
+      "range": {
+        "startLine": 104,
+        "startChar": 30,
+        "endLine": 104,
+        "endChar": 34
+      },
+      "revId": "7de3bb2bda96290d116212887cd398d71a35fcbf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36ab6b59_b315a94a",
+        "filename": "crypto/trust_token/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-12-12T16:25:45Z",
+      "side": 1,
+      "message": "What happens if you\u0027re calling `TRUST_TOKEN_ISSUER_redeem_over_message` and want to pass in an empty message? `{NULL, 0}` is a pretty common way to represent empty message (e.g. I think an empty `std::vector::data()` will often return `nullptr`). Seems that\u0027ll silently perform the wrong action.\n\nAs an immediate fix, you probably add an extra `int` parameter, though it\u0027s a bit tedious. Longer term, perhaps there\u0027s a better way to slice this API. I notice the VORPF draft doesn\u0027t believe in a `count` parameter... if you don\u0027t believe in that, then the loop could be lifted into trust tokens, along with the random salt or SHA512(salt || message), etc., decision can just happen at the caller. As far as VORPF is concerned, it seems this is just the \"input\".\n\nBut I forget this works and don\u0027t remember if we had to do something funny to account for PMBTokens.",
+      "range": {
+        "startLine": 215,
+        "startChar": 64,
+        "endLine": 216,
+        "endChar": 9
+      },
+      "revId": "7de3bb2bda96290d116212887cd398d71a35fcbf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd5c1a7a_4f46aa01",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-12-12T16:25:45Z",
+      "side": 1,
+      "message": "Ditto from the other file: digest.h if just hashing or you can just use `SHA512_CTX` directly and save a bit of fuss.",
+      "revId": "7de3bb2bda96290d116212887cd398d71a35fcbf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb8a73d3_9aa42d98",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1122,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-12-12T16:25:45Z",
+      "side": 1,
+      "message": "It\u0027s small, so there\u0027s no real harm in copying it, but you\u0027re not mutating either `salt` or `token`. So can just use `CBS_get_bytes` and read out of it directly.",
+      "revId": "7de3bb2bda96290d116212887cd398d71a35fcbf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98946110_c947661c",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-12-12T16:25:45Z",
+      "side": 1,
+      "message": "If you\u0027re just hashing stuff, digest.h\n\nAlternatively, if you know you\u0027re doing SHA-512, `SHA512_CTX` in sha.h doesn\u0027t need any cleanup.",
+      "range": {
+        "startLine": 21,
+        "startChar": 18,
+        "endLine": 21,
+        "endChar": 21
+      },
+      "revId": "7de3bb2bda96290d116212887cd398d71a35fcbf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f243583_c269dbf0",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-12-12T16:25:45Z",
+      "side": 1,
+      "message": "Do we have to worry about domain separation between these two schemes? Ditto for the other file.",
+      "revId": "7de3bb2bda96290d116212887cd398d71a35fcbf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90f3cb88_e2b04fe9",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 704,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-12-12T16:25:45Z",
+      "side": 1,
+      "message": "It\u0027s small, so there\u0027s no real harm in copying it, but you\u0027re not mutating either `salt` or `token`. So can just use `CBS_get_bytes` and read out of it directly.",
+      "revId": "7de3bb2bda96290d116212887cd398d71a35fcbf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
