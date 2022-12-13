@@ -125,7 +125,7 @@ err:
   return ret;
 }
 
-static void policy_cache_new(X509 *x) {
+void x509v3_setup_policy_cache(X509 *x) {
   X509_POLICY_CACHE *cache;
   ASN1_INTEGER *ext_any = NULL;
   POLICY_CONSTRAINTS *ext_pcons = NULL;
@@ -222,31 +222,9 @@ void x509_policy_cache_free(X509_POLICY_CACHE *cache) {
   OPENSSL_free(cache);
 }
 
-// g_x509_policy_cache_lock is used to protect against concurrent calls to
-// |policy_cache_new|. Ideally this would be done with a |CRYPTO_once_t| in
-// the |X509| structure, but |CRYPTO_once_t| isn't public.
-static struct CRYPTO_STATIC_MUTEX g_x509_policy_cache_lock =
-    CRYPTO_STATIC_MUTEX_INIT;
-
 const X509_POLICY_CACHE *x509_get_policy_cache(X509 *x) {
-  X509_POLICY_CACHE *cache;
-
-  CRYPTO_STATIC_MUTEX_lock_read(&g_x509_policy_cache_lock);
-  cache = x->policy_cache;
-  CRYPTO_STATIC_MUTEX_unlock_read(&g_x509_policy_cache_lock);
-
-  if (cache != NULL) {
-    return cache;
-  }
-
-  CRYPTO_STATIC_MUTEX_lock_write(&g_x509_policy_cache_lock);
-  if (x->policy_cache == NULL) {
-    policy_cache_new(x);
-  }
-  cache = x->policy_cache;
-  CRYPTO_STATIC_MUTEX_unlock_write(&g_x509_policy_cache_lock);
-
-  return cache;
+  x509v3_cache_extensions(x);
+  return x->policy_cache;
 }
 
 X509_POLICY_DATA *x509_policy_cache_find_data(X509_POLICY_CACHE *cache,

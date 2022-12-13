@@ -106,6 +106,10 @@ OPENSSL_EXPORT int x509v3_looks_like_dns_name(const unsigned char *in,
 // invalid.
 OPENSSL_EXPORT int x509v3_cache_extensions(X509 *x);
 
+// x509v3_setup_policy_cache is called from |x509v3_cache_extensions| to parse
+// fields relating to X.509 policy OIDs.
+void x509v3_setup_policy_cache(X509 *x);
+
 // x509v3_a2i_ipadd decodes |ipasc| as an IPv4 or IPv6 address. IPv6 addresses
 // use colon-separated syntax while IPv4 addresses use dotted decimal syntax. If
 // it decodes an IPv4 address, it writes the result to the first four bytes of

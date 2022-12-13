@@ -574,6 +574,8 @@ int x509v3_cache_extensions(X509 *x) {
     x->ex_flags |= EXFLAG_INVALID;
   }
 
+  x509v3_setup_policy_cache(x);
+
   for (j = 0; j < X509_get_ext_count(x); j++) {
     const X509_EXTENSION *ex = X509_get_ext(x, j);
     if (OBJ_obj2nid(X509_EXTENSION_get_object(ex)) == NID_freshest_crl) {
