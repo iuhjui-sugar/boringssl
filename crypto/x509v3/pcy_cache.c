@@ -68,39 +68,37 @@ static int policy_data_cmp(const X509_POLICY_DATA **a,
                            const X509_POLICY_DATA **b);
 static int policy_cache_set_int(long *out, ASN1_INTEGER *value);
 
-// Set cache entry according to CertificatePolicies extension. Note: this
-// destroys the passed CERTIFICATEPOLICIES structure.
-
-static int policy_cache_create(X509 *x, CERTIFICATEPOLICIES *policies) {
-  // TODO(davidben): This function fails to set |ret| to -1 in several codepaths
-  // here.
+// x509_policy_cache_set_policies sets policies in |cache| based on |policies|.
+// It returns one on success and zero on error. In both cases, it takes
+// ownership of and releases |policies|.
+static int x509_policy_cache_set_policies(X509_POLICY_CACHE *cache,
+                                          CERTIFICATEPOLICIES *policies) {
   int ret = 0;
-  X509_POLICY_CACHE *cache = x->policy_cache;
   X509_POLICY_DATA *data = NULL;
   if (sk_POLICYINFO_num(policies) == 0) {
-    goto bad_policy;
+    // The certificate policies extension cannot be empty.
+    goto err;
   }
 
   cache->data = sk_X509_POLICY_DATA_new(policy_data_cmp);
   if (!cache->data) {
-    goto bad_policy;
+    goto err;
   }
 
   for (size_t i = 0; i < sk_POLICYINFO_num(policies); i++) {
     POLICYINFO *policy = sk_POLICYINFO_value(policies, i);
     data = x509_policy_data_new_from_policyinfo(policy);
     if (!data) {
-      goto bad_policy;
+      goto err;
     }
     if (OBJ_obj2nid(data->valid_policy) == NID_any_policy) {
       // Check for a duplicate anyPolicy OID.
       if (cache->anyPolicy) {
-        ret = -1;
-        goto bad_policy;
+        goto err;
       }
       cache->anyPolicy = data;
     } else if (!sk_X509_POLICY_DATA_push(cache->data, data)) {
-      goto bad_policy;
+      goto err;
     }
     data = NULL;
   }
@@ -111,20 +109,16 @@ static int policy_cache_create(X509 *x, CERTIFICATEPOLICIES *policies) {
     const X509_POLICY_DATA *a = sk_X509_POLICY_DATA_value(cache->data, i - 1);
     const X509_POLICY_DATA *b = sk_X509_POLICY_DATA_value(cache->data, i);
     if (OBJ_cmp(a->valid_policy, b->valid_policy) == 0) {
-      ret = -1;
-      goto bad_policy;
+      goto err;
     }
   }
 
   ret = 1;
 
-bad_policy:
-  if (ret == -1) {
-    x->ex_flags |= EXFLAG_INVALID_POLICY;
-  }
+err:
   x509_policy_data_free(data);
   sk_POLICYINFO_pop_free(policies, POLICYINFO_free);
-  if (ret <= 0) {
+  if (!ret) {
     sk_X509_POLICY_DATA_pop_free(cache->data, x509_policy_data_free);
     cache->data = NULL;
   }
@@ -183,12 +177,8 @@ static void policy_cache_new(X509 *x) {
   }
 
   // This call frees |ext_cpols|.
-  if (policy_cache_create(x, ext_cpols) <= 0) {
-    // |policy_cache_create| already sets |EXFLAG_INVALID_POLICY|.
-    //
-    // TODO(davidben): While it does, it's missing some spots. Align this and
-    // |policy_cache_set_mapping|.
-    goto done;
+  if (!x509_policy_cache_set_policies(cache, ext_cpols)) {
+    goto bad_cache;
   }
 
   ext_pmaps = X509_get_ext_d2i(x, NID_policy_mappings, &critical, NULL);
@@ -199,7 +189,7 @@ static void policy_cache_new(X509 *x) {
     }
   } else {
     // This call frees |ext_pmaps|.
-    if (x509_policy_cache_set_mapping(x, ext_pmaps) <= 0) {
+    if (!x509_policy_cache_set_mapping(cache, ext_pmaps)) {
       goto bad_cache;
     }
   }

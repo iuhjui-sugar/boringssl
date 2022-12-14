@@ -267,7 +267,12 @@ void x509_policy_data_free(X509_POLICY_DATA *data);
 
 X509_POLICY_DATA *x509_policy_cache_find_data(X509_POLICY_CACHE *cache,
                                               const ASN1_OBJECT *id);
-int x509_policy_cache_set_mapping(X509 *x, POLICY_MAPPINGS *maps);
+
+// x509_policy_cache_set_mapping sets policy mapping entries in |cache| based on
+// |map|. It returns one on success and zero on error. In both cases, it takes
+// ownership of and releases |maps|.
+int x509_policy_cache_set_mapping(X509_POLICY_CACHE *cache,
+                                  POLICY_MAPPINGS *maps);
 
 STACK_OF(X509_POLICY_NODE) *x509_policy_node_cmp_new(void);
 

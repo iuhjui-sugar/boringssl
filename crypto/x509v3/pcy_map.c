@@ -64,29 +64,25 @@
 #include "../x509/internal.h"
 #include "internal.h"
 
-// Set policy mapping entries in cache. Note: this modifies the passed
-// POLICY_MAPPINGS structure
 
-int x509_policy_cache_set_mapping(X509 *x, POLICY_MAPPINGS *maps) {
-  POLICY_MAPPING *map;
-  X509_POLICY_DATA *data;
-  X509_POLICY_CACHE *cache = x->policy_cache;
+int x509_policy_cache_set_mapping(X509_POLICY_CACHE *cache,
+                                  POLICY_MAPPINGS *maps) {
   int ret = 0;
   if (sk_POLICY_MAPPING_num(maps) == 0) {
-    ret = -1;
-    goto bad_mapping;
+    // The policy mappings extension cannot be empty.
+    goto err;
   }
   for (size_t i = 0; i < sk_POLICY_MAPPING_num(maps); i++) {
-    map = sk_POLICY_MAPPING_value(maps, i);
+    POLICY_MAPPING *map = sk_POLICY_MAPPING_value(maps, i);
     // Reject if map to or from anyPolicy
     if ((OBJ_obj2nid(map->subjectDomainPolicy) == NID_any_policy) ||
         (OBJ_obj2nid(map->issuerDomainPolicy) == NID_any_policy)) {
-      ret = -1;
-      goto bad_mapping;
+      goto err;
     }
 
     // Attempt to find matching policy data
-    data = x509_policy_cache_find_data(cache, map->issuerDomainPolicy);
+    X509_POLICY_DATA *data =
+        x509_policy_cache_find_data(cache, map->issuerDomainPolicy);
     // If we don't have anyPolicy can't map
     if (!data && !cache->anyPolicy) {
       continue;
@@ -96,30 +92,28 @@ int x509_policy_cache_set_mapping(X509 *x, POLICY_MAPPINGS *maps) {
     if (!data) {
       data = x509_policy_data_new_from_oid(map->issuerDomainPolicy);
       if (!data) {
-        goto bad_mapping;
+        goto err;
       }
       data->qualifier_set = cache->anyPolicy->qualifier_set;
       data->flags |= POLICY_DATA_FLAG_MAPPED_ANY;
       data->flags |= POLICY_DATA_FLAG_SHARED_QUALIFIERS;
       if (!sk_X509_POLICY_DATA_push(cache->data, data)) {
         x509_policy_data_free(data);
-        goto bad_mapping;
+        goto err;
       }
     } else {
       data->flags |= POLICY_DATA_FLAG_MAPPED;
     }
     if (!sk_ASN1_OBJECT_push(data->expected_policy_set,
                              map->subjectDomainPolicy)) {
-      goto bad_mapping;
+      goto err;
     }
     map->subjectDomainPolicy = NULL;
   }
 
   ret = 1;
-bad_mapping:
-  if (ret == -1) {
-    x->ex_flags |= EXFLAG_INVALID_POLICY;
-  }
+
+err:
   sk_POLICY_MAPPING_pop_free(maps, POLICY_MAPPING_free);
   return ret;
 }
