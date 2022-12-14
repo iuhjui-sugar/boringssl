@@ -67,7 +67,7 @@
 // Set policy mapping entries in cache. Note: this modifies the passed
 // POLICY_MAPPINGS structure
 
-int policy_cache_set_mapping(X509 *x, POLICY_MAPPINGS *maps) {
+int x509_policy_cache_set_mapping(X509 *x, POLICY_MAPPINGS *maps) {
   POLICY_MAPPING *map;
   X509_POLICY_DATA *data;
   X509_POLICY_CACHE *cache = x->policy_cache;
@@ -87,7 +87,7 @@ int policy_cache_set_mapping(X509 *x, POLICY_MAPPINGS *maps) {
     }
 
     // Attempt to find matching policy data
-    data = policy_cache_find_data(cache, map->issuerDomainPolicy);
+    data = x509_policy_cache_find_data(cache, map->issuerDomainPolicy);
     // If we don't have anyPolicy can't map
     if (!data && !cache->anyPolicy) {
       continue;
@@ -95,9 +95,9 @@ int policy_cache_set_mapping(X509 *x, POLICY_MAPPINGS *maps) {
 
     // Create a NODE from anyPolicy
     if (!data) {
-      data =
-          policy_data_new(NULL, map->issuerDomainPolicy,
-                          cache->anyPolicy->flags & POLICY_DATA_FLAG_CRITICAL);
+      data = x509_policy_data_new(
+          NULL, map->issuerDomainPolicy,
+          cache->anyPolicy->flags & POLICY_DATA_FLAG_CRITICAL);
       if (!data) {
         goto bad_mapping;
       }
@@ -106,7 +106,7 @@ int policy_cache_set_mapping(X509 *x, POLICY_MAPPINGS *maps) {
       data->flags |= POLICY_DATA_FLAG_MAPPED_ANY;
       data->flags |= POLICY_DATA_FLAG_SHARED_QUALIFIERS;
       if (!sk_X509_POLICY_DATA_push(cache->data, data)) {
-        policy_data_free(data);
+        x509_policy_data_free(data);
         goto bad_mapping;
       }
     } else {

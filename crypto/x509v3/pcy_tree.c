@@ -190,7 +190,7 @@ static int tree_init(X509_POLICY_TREE **ptree, STACK_OF(X509) *certs,
   for (i = n - 2; i >= 0; i--) {
     x = sk_X509_value(certs, i);
     X509_check_purpose(x, -1, -1);
-    cache = policy_cache_set(x);
+    cache = x509_get_policy_cache(x);
     // If cache NULL something bad happened: return immediately
     if (cache == NULL) {
       return 0;
@@ -250,16 +250,16 @@ static int tree_init(X509_POLICY_TREE **ptree, STACK_OF(X509) *certs,
 
   // Root data: initialize to anyPolicy
 
-  data = policy_data_new(NULL, OBJ_nid2obj(NID_any_policy), 0);
+  data = x509_policy_data_new(NULL, OBJ_nid2obj(NID_any_policy), 0);
 
-  if (!data || !level_add_node(level, data, NULL, tree)) {
+  if (!data || !x509_level_add_node(level, data, NULL, tree)) {
     goto bad_tree;
   }
 
   for (i = n - 2; i >= 0; i--) {
     level++;
     x = sk_X509_value(certs, i);
-    cache = policy_cache_set(x);
+    cache = x509_get_policy_cache(x);
     X509_up_ref(x);
     level->cert = x;
 
@@ -319,15 +319,15 @@ static int tree_link_matching_nodes(X509_POLICY_LEVEL *curr,
   // Iterate through all in nodes linking matches
   for (i = 0; i < sk_X509_POLICY_NODE_num(last->nodes); i++) {
     node = sk_X509_POLICY_NODE_value(last->nodes, i);
-    if (policy_node_match(last, node, data->valid_policy)) {
-      if (!level_add_node(curr, data, node, NULL)) {
+    if (x509_policy_node_match(last, node, data->valid_policy)) {
+      if (!x509_level_add_node(curr, data, node, NULL)) {
         return 0;
       }
       matched = 1;
     }
   }
   if (!matched && last->anyPolicy) {
-    if (!level_add_node(curr, data, last->anyPolicy, NULL)) {
+    if (!x509_level_add_node(curr, data, last->anyPolicy, NULL)) {
       return 0;
     }
   }
@@ -376,7 +376,7 @@ static int tree_add_unmatched(X509_POLICY_LEVEL *curr,
   }
   // Create a new node with qualifiers from anyPolicy and id from unmatched
   // node.
-  data = policy_data_new(NULL, id, node_critical(node));
+  data = x509_policy_data_new(NULL, id, node_critical(node));
 
   if (data == NULL) {
     return 0;
@@ -384,8 +384,8 @@ static int tree_add_unmatched(X509_POLICY_LEVEL *curr,
   // Curr may not have anyPolicy
   data->qualifier_set = cache->anyPolicy->qualifier_set;
   data->flags |= POLICY_DATA_FLAG_SHARED_QUALIFIERS;
-  if (!level_add_node(curr, data, node, tree)) {
-    policy_data_free(data);
+  if (!x509_level_add_node(curr, data, node, tree)) {
+    x509_policy_data_free(data);
     return 0;
   }
 
@@ -417,7 +417,7 @@ static int tree_link_unmatched(X509_POLICY_LEVEL *curr,
     // Locate unmatched nodes
     for (i = 0; i < sk_ASN1_OBJECT_num(expset); i++) {
       ASN1_OBJECT *oid = sk_ASN1_OBJECT_value(expset, i);
-      if (level_find_node(curr, node, oid)) {
+      if (x509_level_find_node(curr, node, oid)) {
         continue;
       }
       if (!tree_add_unmatched(curr, cache, oid, node, tree)) {
@@ -470,7 +470,7 @@ static int tree_link_any(X509_POLICY_LEVEL *curr,
   }
   // Finally add link to anyPolicy
   if (last->anyPolicy) {
-    if (!level_add_node(curr, cache->anyPolicy, last->anyPolicy, NULL)) {
+    if (!x509_level_add_node(curr, cache->anyPolicy, last->anyPolicy, NULL)) {
       return 0;
     }
   }
@@ -529,7 +529,7 @@ static int tree_prune(X509_POLICY_TREE *tree, X509_POLICY_LEVEL *curr) {
 static int tree_add_auth_node(STACK_OF(X509_POLICY_NODE) **pnodes,
                               X509_POLICY_NODE *pcy) {
   if (!*pnodes) {
-    *pnodes = policy_node_cmp_new();
+    *pnodes = x509_policy_node_cmp_new();
     if (!*pnodes) {
       return 0;
     }
@@ -627,21 +627,21 @@ static int tree_calculate_user_set(X509_POLICY_TREE *tree,
 
   for (i = 0; i < sk_ASN1_OBJECT_num(policy_oids); i++) {
     oid = sk_ASN1_OBJECT_value(policy_oids, i);
-    node = tree_find_sk(auth_nodes, oid);
+    node = x509_tree_find_sk(auth_nodes, oid);
     if (!node) {
       if (!anyPolicy) {
         continue;
       }
       // Create a new node with policy ID from user set and qualifiers
       // from anyPolicy.
-      extra = policy_data_new(NULL, oid, node_critical(anyPolicy));
+      extra = x509_policy_data_new(NULL, oid, node_critical(anyPolicy));
       if (!extra) {
         return 0;
       }
       extra->qualifier_set = anyPolicy->data->qualifier_set;
       extra->flags =
           POLICY_DATA_FLAG_SHARED_QUALIFIERS | POLICY_DATA_FLAG_EXTRA_NODE;
-      node = level_add_node(NULL, extra, anyPolicy->parent, tree);
+      node = x509_level_add_node(NULL, extra, anyPolicy->parent, tree);
     }
     if (!tree->user_policies) {
       tree->user_policies = sk_X509_POLICY_NODE_new_null();
@@ -662,7 +662,7 @@ static int tree_evaluate(X509_POLICY_TREE *tree) {
   const X509_POLICY_CACHE *cache;
 
   for (i = 1; i < tree->nlevel; i++, curr++) {
-    cache = policy_cache_set(curr->cert);
+    cache = x509_get_policy_cache(curr->cert);
     if (!tree_link_nodes(curr, cache)) {
       return 0;
     }
@@ -698,11 +698,11 @@ void X509_policy_tree_free(X509_POLICY_TREE *tree) {
   for (int i = 0; i < tree->nlevel; i++) {
     X509_POLICY_LEVEL *curr = &tree->levels[i];
     X509_free(curr->cert);
-    sk_X509_POLICY_NODE_pop_free(curr->nodes, policy_node_free);
-    policy_node_free(curr->anyPolicy);
+    sk_X509_POLICY_NODE_pop_free(curr->nodes, x509_policy_node_free);
+    x509_policy_node_free(curr->anyPolicy);
   }
 
-  sk_X509_POLICY_DATA_pop_free(tree->extra_data, policy_data_free);
+  sk_X509_POLICY_DATA_pop_free(tree->extra_data, x509_policy_data_free);
   OPENSSL_free(tree->levels);
   OPENSSL_free(tree);
 }

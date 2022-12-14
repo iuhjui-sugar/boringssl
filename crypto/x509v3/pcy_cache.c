@@ -89,7 +89,7 @@ static int policy_cache_create(X509 *x, CERTIFICATEPOLICIES *policies,
 
   for (size_t i = 0; i < sk_POLICYINFO_num(policies); i++) {
     POLICYINFO *policy = sk_POLICYINFO_value(policies, i);
-    data = policy_data_new(policy, NULL, crit);
+    data = x509_policy_data_new(policy, NULL, crit);
     if (!data) {
       goto bad_policy;
     }
@@ -123,10 +123,10 @@ bad_policy:
   if (ret == -1) {
     x->ex_flags |= EXFLAG_INVALID_POLICY;
   }
-  policy_data_free(data);
+  x509_policy_data_free(data);
   sk_POLICYINFO_pop_free(policies, POLICYINFO_free);
   if (ret <= 0) {
-    sk_X509_POLICY_DATA_pop_free(cache->data, policy_data_free);
+    sk_X509_POLICY_DATA_pop_free(cache->data, x509_policy_data_free);
     cache->data = NULL;
   }
   return ret;
@@ -200,7 +200,7 @@ static void policy_cache_new(X509 *x) {
     }
   } else {
     // This call frees |ext_pmaps|.
-    if (policy_cache_set_mapping(x, ext_pmaps) <= 0) {
+    if (x509_policy_cache_set_mapping(x, ext_pmaps) <= 0) {
       goto bad_cache;
     }
   }
@@ -224,12 +224,12 @@ done:
   ASN1_INTEGER_free(ext_any);
 }
 
-void policy_cache_free(X509_POLICY_CACHE *cache) {
+void x509_policy_cache_free(X509_POLICY_CACHE *cache) {
   if (!cache) {
     return;
   }
-  policy_data_free(cache->anyPolicy);
-  sk_X509_POLICY_DATA_pop_free(cache->data, policy_data_free);
+  x509_policy_data_free(cache->anyPolicy);
+  sk_X509_POLICY_DATA_pop_free(cache->data, x509_policy_data_free);
   OPENSSL_free(cache);
 }
 
@@ -239,7 +239,7 @@ void policy_cache_free(X509_POLICY_CACHE *cache) {
 static struct CRYPTO_STATIC_MUTEX g_x509_policy_cache_lock =
     CRYPTO_STATIC_MUTEX_INIT;
 
-const X509_POLICY_CACHE *policy_cache_set(X509 *x) {
+const X509_POLICY_CACHE *x509_get_policy_cache(X509 *x) {
   X509_POLICY_CACHE *cache;
 
   CRYPTO_STATIC_MUTEX_lock_read(&g_x509_policy_cache_lock);
@@ -260,8 +260,8 @@ const X509_POLICY_CACHE *policy_cache_set(X509 *x) {
   return cache;
 }
 
-X509_POLICY_DATA *policy_cache_find_data(const X509_POLICY_CACHE *cache,
-                                         const ASN1_OBJECT *id) {
+X509_POLICY_DATA *x509_policy_cache_find_data(const X509_POLICY_CACHE *cache,
+                                              const ASN1_OBJECT *id) {
   size_t idx;
   X509_POLICY_DATA tmp;
 
