@@ -280,10 +280,20 @@ const X509_POLICY_NODE *x509_level_find_node(const X509_POLICY_LEVEL *level,
 X509_POLICY_NODE *x509_tree_find_sk(STACK_OF(X509_POLICY_NODE) *sk,
                                     const ASN1_OBJECT *id);
 
+// x509_level_add_node adds a node to |level| with data |data| and parent
+// |parent|. It returns the new node, owned by |level|, on success or NULL on
+// error. |parent| may be NULL for the root node. |data| is not copied and must
+// outlive the tree.
+//
+// If |level| is NULL, this function behaves slightly differently. It still
+// constructs the node but does not store it anywhere. Instead, the caller takes
+// ownership of the result and msut free it with |x509_policy_node_free| when
+// done.
 X509_POLICY_NODE *x509_level_add_node(X509_POLICY_LEVEL *level,
-                                      X509_POLICY_DATA *data,
-                                      X509_POLICY_NODE *parent,
-                                      X509_POLICY_TREE *tree);
+                                      const X509_POLICY_DATA *data,
+                                      X509_POLICY_NODE *parent);
+
+// x509_policy_node_free releases memory associated with |node|.
 void x509_policy_node_free(X509_POLICY_NODE *node);
 int x509_policy_node_match(const X509_POLICY_LEVEL *lvl,
                            const X509_POLICY_NODE *node,

@@ -103,9 +103,8 @@ const X509_POLICY_NODE *x509_level_find_node(const X509_POLICY_LEVEL *level,
 }
 
 X509_POLICY_NODE *x509_level_add_node(X509_POLICY_LEVEL *level,
-                                      X509_POLICY_DATA *data,
-                                      X509_POLICY_NODE *parent,
-                                      X509_POLICY_TREE *tree) {
+                                      const X509_POLICY_DATA *data,
+                                      X509_POLICY_NODE *parent) {
   X509_POLICY_NODE *node;
   node = OPENSSL_malloc(sizeof(X509_POLICY_NODE));
   if (!node) {
@@ -130,18 +129,6 @@ X509_POLICY_NODE *x509_level_add_node(X509_POLICY_LEVEL *level,
       if (!sk_X509_POLICY_NODE_push(level->nodes, node)) {
         goto node_error;
       }
-    }
-  }
-
-  if (tree) {
-    if (!tree->extra_data) {
-      tree->extra_data = sk_X509_POLICY_DATA_new_null();
-    }
-    if (!tree->extra_data) {
-      goto node_error;
-    }
-    if (!sk_X509_POLICY_DATA_push(tree->extra_data, data)) {
-      goto node_error;
     }
   }
 

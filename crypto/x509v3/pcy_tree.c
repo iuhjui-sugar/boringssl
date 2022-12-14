@@ -133,6 +133,20 @@ static void tree_print(char *str, X509_POLICY_TREE *tree,
 
 #endif
 
+// tree_save_extra_data saves |data| into |tree|'s "extra data" list. On
+// success, it takes ownership of |data| and returns one. Otherwise, it returns
+// zero. This function may be used in cases where |X509_POLICY_DATA| nodes need
+// to be synthesized for |tree|, rather than referencing values already in an
+// |X509_POLICY_CACHE|.
+static int tree_save_extra_data(X509_POLICY_TREE *tree,
+                                X509_POLICY_DATA *data) {
+  if (tree->extra_data == NULL) {
+    tree->extra_data = sk_X509_POLICY_DATA_new_null();
+  }
+  return tree->extra_data != NULL &&
+         sk_X509_POLICY_DATA_push(tree->extra_data, data);
+}
+
 //-
 // Initialize policy tree. Return values:
 //  0 Some internal error occurred.
@@ -247,10 +261,13 @@ static int tree_init(X509_POLICY_TREE **ptree, const STACK_OF(X509) *certs,
   level = tree->levels;
 
   // Root data: initialize to anyPolicy
-
   data = x509_policy_data_new(NULL, OBJ_nid2obj(NID_any_policy), 0);
+  if (data == NULL || !tree_save_extra_data(tree, data)) {
+    x509_policy_data_free(data);
+    goto bad_tree;
+  }
 
-  if (!data || !x509_level_add_node(level, data, NULL, tree)) {
+  if (!x509_level_add_node(level, data, NULL)) {
     goto bad_tree;
   }
 
@@ -309,23 +326,21 @@ bad_tree:
 }
 
 static int tree_link_matching_nodes(X509_POLICY_LEVEL *curr,
-                                    X509_POLICY_DATA *data) {
+                                    const X509_POLICY_DATA *data) {
   X509_POLICY_LEVEL *last = curr - 1;
-  X509_POLICY_NODE *node;
   int matched = 0;
-  size_t i;
   // Iterate through all in nodes linking matches
-  for (i = 0; i < sk_X509_POLICY_NODE_num(last->nodes); i++) {
-    node = sk_X509_POLICY_NODE_value(last->nodes, i);
+  for (size_t i = 0; i < sk_X509_POLICY_NODE_num(last->nodes); i++) {
+    X509_POLICY_NODE *node = sk_X509_POLICY_NODE_value(last->nodes, i);
     if (x509_policy_node_match(last, node, data->valid_policy)) {
-      if (!x509_level_add_node(curr, data, node, NULL)) {
+      if (!x509_level_add_node(curr, data, node)) {
         return 0;
       }
       matched = 1;
     }
   }
   if (!matched && last->anyPolicy) {
-    if (!x509_level_add_node(curr, data, last->anyPolicy, NULL)) {
+    if (!x509_level_add_node(curr, data, last->anyPolicy)) {
       return 0;
     }
   }
@@ -338,9 +353,7 @@ static int tree_link_matching_nodes(X509_POLICY_LEVEL *curr,
 static int tree_link_nodes(X509_POLICY_LEVEL *curr,
                            const X509_POLICY_CACHE *cache) {
   for (size_t i = 0; i < sk_X509_POLICY_DATA_num(cache->data); i++) {
-    // TODO(davidben): |data| should be const. Mutating |data| here would be a
-    // race condition.
-    X509_POLICY_DATA *data = sk_X509_POLICY_DATA_value(cache->data, i);
+    const X509_POLICY_DATA *data = sk_X509_POLICY_DATA_value(cache->data, i);
     // If a node is mapped any it doesn't have a corresponding
     // CertificatePolicies entry. However such an identical node would
     // be created if anyPolicy matching is enabled because there would be
@@ -367,26 +380,24 @@ static int tree_add_unmatched(X509_POLICY_LEVEL *curr,
                               const X509_POLICY_CACHE *cache,
                               const ASN1_OBJECT *id, X509_POLICY_NODE *node,
                               X509_POLICY_TREE *tree) {
-  X509_POLICY_DATA *data;
   if (id == NULL) {
     id = node->data->valid_policy;
   }
   // Create a new node with qualifiers from anyPolicy and id from unmatched
   // node.
-  data = x509_policy_data_new(NULL, id, node_critical(node));
-
+  X509_POLICY_DATA *data = x509_policy_data_new(NULL, id, node_critical(node));
   if (data == NULL) {
     return 0;
   }
   // Curr may not have anyPolicy
   data->qualifier_set = cache->anyPolicy->qualifier_set;
   data->flags |= POLICY_DATA_FLAG_SHARED_QUALIFIERS;
-  if (!x509_level_add_node(curr, data, node, tree)) {
+  if (!tree_save_extra_data(tree, data)) {
     x509_policy_data_free(data);
     return 0;
   }
 
-  return 1;
+  return x509_level_add_node(curr, data, node) != NULL;
 }
 
 static int tree_link_unmatched(X509_POLICY_LEVEL *curr,
@@ -467,7 +478,7 @@ static int tree_link_any(X509_POLICY_LEVEL *curr,
   }
   // Finally add link to anyPolicy
   if (last->anyPolicy) {
-    if (!x509_level_add_node(curr, cache->anyPolicy, last->anyPolicy, NULL)) {
+    if (!x509_level_add_node(curr, cache->anyPolicy, last->anyPolicy)) {
       return 0;
     }
   }
@@ -541,6 +552,16 @@ static int tree_add_auth_node(STACK_OF(X509_POLICY_NODE) **pnodes,
   }
 
   return 1;
+}
+
+// extra_node_free frees |node| if it is an "extra node". This is used in the
+// |user_policies| list, which typically aliases nodes already in the tree, but
+// sometimes needs to construct its own nodes.
+static void extra_node_free(X509_POLICY_NODE *node) {
+  if (node != NULL && node->data != NULL &&
+      (node->data->flags & POLICY_DATA_FLAG_EXTRA_NODE)) {
+    x509_policy_node_free(node);
+  }
 }
 
 // Calculate the authority set based on policy tree. The 'pnodes' parameter
@@ -632,15 +653,21 @@ static int tree_calculate_user_set(X509_POLICY_TREE *tree,
       extra->qualifier_set = anyPolicy->data->qualifier_set;
       extra->flags =
           POLICY_DATA_FLAG_SHARED_QUALIFIERS | POLICY_DATA_FLAG_EXTRA_NODE;
-      node = x509_level_add_node(NULL, extra, anyPolicy->parent, tree);
-    }
-    if (!tree->user_policies) {
-      tree->user_policies = sk_X509_POLICY_NODE_new_null();
-      if (!tree->user_policies) {
+      if (!tree_save_extra_data(tree, extra)) {
+        x509_policy_data_free(extra);
+        return 0;
+      }
+      node = x509_level_add_node(NULL, extra, anyPolicy->parent);
+      if (node == NULL) {
         return 0;
       }
     }
-    if (!sk_X509_POLICY_NODE_push(tree->user_policies, node)) {
+    if (!tree->user_policies) {
+      tree->user_policies = sk_X509_POLICY_NODE_new_null();
+    }
+    if (!tree->user_policies ||
+        !sk_X509_POLICY_NODE_push(tree->user_policies, node)) {
+      extra_node_free(node);
       return 0;
     }
   }
@@ -672,19 +699,13 @@ static int tree_evaluate(X509_POLICY_TREE *tree) {
   return 1;
 }
 
-static void exnode_free(X509_POLICY_NODE *node) {
-  if (node->data && (node->data->flags & POLICY_DATA_FLAG_EXTRA_NODE)) {
-    OPENSSL_free(node);
-  }
-}
-
 void X509_policy_tree_free(X509_POLICY_TREE *tree) {
   if (!tree) {
     return;
   }
 
   sk_X509_POLICY_NODE_free(tree->auth_policies);
-  sk_X509_POLICY_NODE_pop_free(tree->user_policies, exnode_free);
+  sk_X509_POLICY_NODE_pop_free(tree->user_policies, extra_node_free);
 
   for (int i = 0; i < tree->nlevel; i++) {
     X509_POLICY_LEVEL *curr = &tree->levels[i];
