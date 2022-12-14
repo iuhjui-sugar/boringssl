@@ -61,35 +61,69 @@
 #include <openssl/x509.h>
 #include <openssl/x509v3.h>
 
+#include <assert.h>
+
 #include "../x509/internal.h"
 #include "internal.h"
 
 
+static int x509_policy_mapping_cmp(const POLICY_MAPPING **a,
+                                   const POLICY_MAPPING **b) {
+  return OBJ_cmp((*a)->issuerDomainPolicy, (*b)->issuerDomainPolicy);
+}
+
 int x509_policy_cache_set_mapping(X509_POLICY_CACHE *cache,
                                   POLICY_MAPPINGS *maps) {
   int ret = 0;
+  STACK_OF(X509_POLICY_DATA) *extra_data = NULL;
   if (sk_POLICY_MAPPING_num(maps) == 0) {
     // The policy mappings extension cannot be empty.
     goto err;
   }
+
+  // The cache should have been sorted, which allows this function to run in
+  // O(N log N) time.
+  assert(sk_X509_POLICY_DATA_is_sorted(cache->data));
+
+  // When a policy mapping matches an anyPolicy, we synthesize a node out of it.
+  // The new nodes will be staged here, to avoid interfering with the cache's
+  // sort.
+  X509_POLICY_DATA *last_extra = NULL;
+  extra_data = sk_X509_POLICY_DATA_new_null();
+  if (extra_data == NULL) {
+    goto err;
+  }
+
+  // Sort |maps| by |issuerDomainPolicy|.
+  sk_POLICY_MAPPING_set_cmp_func(maps, x509_policy_mapping_cmp);
+  sk_POLICY_MAPPING_sort(maps);
+
   for (size_t i = 0; i < sk_POLICY_MAPPING_num(maps); i++) {
     POLICY_MAPPING *map = sk_POLICY_MAPPING_value(maps, i);
-    // Reject if map to or from anyPolicy
+    // Reject if mapping to or from anyPolicy.
     if ((OBJ_obj2nid(map->subjectDomainPolicy) == NID_any_policy) ||
         (OBJ_obj2nid(map->issuerDomainPolicy) == NID_any_policy)) {
       goto err;
     }
 
-    // Attempt to find matching policy data
+    // Attempt to find matching policy data.
     X509_POLICY_DATA *data =
         x509_policy_cache_find_data(cache, map->issuerDomainPolicy);
-    // If we don't have anyPolicy can't map
+
+    // The matching policy may also be in |extra_data|. |maps| was sorted, so
+    // it will either match |last_extra| or none at all.
+    if (data == NULL && last_extra != NULL &&
+        OBJ_cmp(last_extra->valid_policy, map->issuerDomainPolicy) == 0) {
+      data = last_extra;
+    }
+
+    // If not found and anyPolicy isn't asserted, there's nothing to map.
     if (!data && !cache->anyPolicy) {
       continue;
     }
 
-    // Create a NODE from anyPolicy
     if (!data) {
+      // Create a node from anyPolicy.
       data = x509_policy_data_new_from_oid(map->issuerDomainPolicy);
       if (!data) {
         goto err;
@@ -97,7 +131,7 @@ int x509_policy_cache_set_mapping(X509_POLICY_CACHE *cache,
       data->qualifier_set = cache->anyPolicy->qualifier_set;
       data->flags |= POLICY_DATA_FLAG_MAPPED_ANY;
       data->flags |= POLICY_DATA_FLAG_SHARED_QUALIFIERS;
-      if (!sk_X509_POLICY_DATA_push(cache->data, data)) {
+      if (!sk_X509_POLICY_DATA_push(extra_data, data)) {
         x509_policy_data_free(data);
         goto err;
       }
@@ -111,9 +145,21 @@ int x509_policy_cache_set_mapping(X509_POLICY_CACHE *cache,
     map->subjectDomainPolicy = NULL;
   }
 
+  // Merge |extra_data| into |cache| and re-sort.
+  for (size_t i = 0; i < sk_X509_POLICY_DATA_num(extra_data); i++) {
+    if (!sk_X509_POLICY_DATA_push(cache->data,
+                                  sk_X509_POLICY_DATA_value(extra_data, i))) {
+      goto err;
+    }
+    // |cache->data| took ownership.
+    sk_X509_POLICY_DATA_set(extra_data, i, NULL);
+  }
+  sk_X509_POLICY_DATA_sort(cache->data);
+
   ret = 1;
 
 err:
   sk_POLICY_MAPPING_pop_free(maps, POLICY_MAPPING_free);
+  sk_X509_POLICY_DATA_pop_free(extra_data, x509_policy_data_free);
   return ret;
 }

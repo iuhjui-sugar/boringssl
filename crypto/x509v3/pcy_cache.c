@@ -253,9 +253,7 @@ X509_POLICY_DATA *x509_policy_cache_find_data(X509_POLICY_CACHE *cache,
                                               const ASN1_OBJECT *id) {
   size_t idx;
   X509_POLICY_DATA tmp;
-
   tmp.valid_policy = (ASN1_OBJECT *)id;
-  sk_X509_POLICY_DATA_sort(cache->data);
   if (!sk_X509_POLICY_DATA_find(cache->data, &idx, &tmp)) {
     return NULL;
   }
