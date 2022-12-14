@@ -71,13 +71,12 @@ int x509_policy_cache_set_mapping(X509 *x, POLICY_MAPPINGS *maps) {
   POLICY_MAPPING *map;
   X509_POLICY_DATA *data;
   X509_POLICY_CACHE *cache = x->policy_cache;
-  size_t i;
   int ret = 0;
   if (sk_POLICY_MAPPING_num(maps) == 0) {
     ret = -1;
     goto bad_mapping;
   }
-  for (i = 0; i < sk_POLICY_MAPPING_num(maps); i++) {
+  for (size_t i = 0; i < sk_POLICY_MAPPING_num(maps); i++) {
     map = sk_POLICY_MAPPING_value(maps, i);
     // Reject if map to or from anyPolicy
     if ((OBJ_obj2nid(map->subjectDomainPolicy) == NID_any_policy) ||
@@ -95,12 +94,11 @@ int x509_policy_cache_set_mapping(X509 *x, POLICY_MAPPINGS *maps) {
 
     // Create a NODE from anyPolicy
     if (!data) {
-      data = x509_policy_data_new(NULL, map->issuerDomainPolicy);
+      data = x509_policy_data_new_from_oid(map->issuerDomainPolicy);
       if (!data) {
         goto bad_mapping;
       }
       data->qualifier_set = cache->anyPolicy->qualifier_set;
-      // map->issuerDomainPolicy = NULL;
       data->flags |= POLICY_DATA_FLAG_MAPPED_ANY;
       data->flags |= POLICY_DATA_FLAG_SHARED_QUALIFIERS;
       if (!sk_X509_POLICY_DATA_push(cache->data, data)) {

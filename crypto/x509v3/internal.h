@@ -250,8 +250,19 @@ int X509_policy_check(X509_POLICY_TREE **ptree, int *pexplicit_policy,
 
 void X509_policy_tree_free(X509_POLICY_TREE *tree);
 
-X509_POLICY_DATA *x509_policy_data_new(POLICYINFO *policy,
-                                       const ASN1_OBJECT *id);
+// x509_policy_data_new_from_oid returns a newly-allocated |X509_POLICY_DATA|
+// with an OID of |id|, or NULL on error.
+X509_POLICY_DATA *x509_policy_data_new_from_oid(const ASN1_OBJECT *id);
+
+// x509_policy_data_new_from_policyinfo returns a newly-allocated
+// |X509_POLICY_DATA| with OID and qualifiers from |policy|, or NULL on error.
+//
+// This function mutates |policy| to take ownership of some fields in it. The
+// caller is responsible for freeing |policy| but its contents are otherwise
+// undefined.
+X509_POLICY_DATA *x509_policy_data_new_from_policyinfo(POLICYINFO *policy);
+
+// x509_policy_data_free releases memory assoicated with |data|.
 void x509_policy_data_free(X509_POLICY_DATA *data);
 
 X509_POLICY_DATA *x509_policy_cache_find_data(X509_POLICY_CACHE *cache,

@@ -88,7 +88,7 @@ static int policy_cache_create(X509 *x, CERTIFICATEPOLICIES *policies) {
 
   for (size_t i = 0; i < sk_POLICYINFO_num(policies); i++) {
     POLICYINFO *policy = sk_POLICYINFO_value(policies, i);
-    data = x509_policy_data_new(policy, NULL);
+    data = x509_policy_data_new_from_policyinfo(policy);
     if (!data) {
       goto bad_policy;
     }

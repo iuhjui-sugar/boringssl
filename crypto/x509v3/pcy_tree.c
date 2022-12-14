@@ -261,7 +261,7 @@ static int tree_init(X509_POLICY_TREE **ptree, const STACK_OF(X509) *certs,
   level = tree->levels;
 
   // Root data: initialize to anyPolicy
-  data = x509_policy_data_new(NULL, OBJ_nid2obj(NID_any_policy));
+  data = x509_policy_data_new_from_oid(OBJ_nid2obj(NID_any_policy));
   if (data == NULL || !tree_save_extra_data(tree, data)) {
     x509_policy_data_free(data);
     goto bad_tree;
@@ -385,7 +385,7 @@ static int tree_add_unmatched(X509_POLICY_LEVEL *curr,
   }
   // Create a new node with qualifiers from anyPolicy and id from unmatched
   // node.
-  X509_POLICY_DATA *data = x509_policy_data_new(NULL, id);
+  X509_POLICY_DATA *data = x509_policy_data_new_from_oid(id);
   if (data == NULL) {
     return 0;
   }
@@ -645,7 +645,7 @@ static int tree_calculate_user_set(X509_POLICY_TREE *tree,
       }
       // Create a new node with policy ID from user set and qualifiers
       // from anyPolicy.
-      X509_POLICY_DATA *extra = x509_policy_data_new(NULL, oid);
+      X509_POLICY_DATA *extra = x509_policy_data_new_from_oid(oid);
       if (!extra) {
         return 0;
       }

@@ -62,6 +62,7 @@
 #include <openssl/x509.h>
 #include <openssl/x509v3.h>
 
+#include "../internal.h"
 #include "internal.h"
 
 // Policy Node routines
@@ -79,55 +80,47 @@ void x509_policy_data_free(X509_POLICY_DATA *data) {
   OPENSSL_free(data);
 }
 
-// Create a data based on an existing policy. If 'id' is NULL use the oid in
-// the policy, otherwise use 'id'. This behaviour covers the two types of
-// data in RFC 3280: data with from a CertificatePolcies extension and
-// additional data with just the qualifiers of anyPolicy and ID from another
-// source.
-
-X509_POLICY_DATA *x509_policy_data_new(POLICYINFO *policy,
-                                       const ASN1_OBJECT *cid) {
-  X509_POLICY_DATA *ret;
-  ASN1_OBJECT *id;
-  if (!policy && !cid) {
-    return NULL;
-  }
-  if (cid) {
-    id = OBJ_dup(cid);
-    if (!id) {
-      return NULL;
-    }
-  } else {
-    id = NULL;
-  }
-  ret = OPENSSL_malloc(sizeof(X509_POLICY_DATA));
-  if (!ret) {
+static X509_POLICY_DATA *x509_policy_data_new(void) {
+  X509_POLICY_DATA *ret = OPENSSL_malloc(sizeof(X509_POLICY_DATA));
+  if (ret == NULL) {
     OPENSSL_PUT_ERROR(X509V3, ERR_R_MALLOC_FAILURE);
-    ASN1_OBJECT_free(id);
     return NULL;
   }
+
+  OPENSSL_memset(ret, 0, sizeof(X509_POLICY_DATA));
   ret->expected_policy_set = sk_ASN1_OBJECT_new_null();
-  if (!ret->expected_policy_set) {
-    OPENSSL_free(ret);
-    ASN1_OBJECT_free(id);
+  if (ret->expected_policy_set == NULL) {
+    x509_policy_data_free(ret);
     return NULL;
   }
 
-  ret->flags = 0;
+  return ret;
+}
 
-  if (id) {
-    ret->valid_policy = id;
-  } else {
-    ret->valid_policy = policy->policyid;
-    policy->policyid = NULL;
+X509_POLICY_DATA *x509_policy_data_new_from_oid(const ASN1_OBJECT *id) {
+  X509_POLICY_DATA *ret = x509_policy_data_new();
+  if (ret == NULL) {
+    return NULL;
   }
 
-  if (policy) {
-    ret->qualifier_set = policy->qualifiers;
-    policy->qualifiers = NULL;
-  } else {
-    ret->qualifier_set = NULL;
+  ret->valid_policy = OBJ_dup(id);
+  if (ret->valid_policy == NULL) {
+    x509_policy_data_free(ret);
+    return NULL;
   }
 
+  return ret;
+}
+
+X509_POLICY_DATA *x509_policy_data_new_from_policyinfo(POLICYINFO *policy) {
+  X509_POLICY_DATA *ret = x509_policy_data_new();
+  if (ret == NULL) {
+    return NULL;
+  }
+
+  ret->valid_policy = policy->policyid;
+  policy->policyid = NULL;
+  ret->qualifier_set = policy->qualifiers;
+  policy->qualifiers = NULL;
   return ret;
 }
