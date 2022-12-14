@@ -180,10 +180,6 @@ struct X509_POLICY_DATA_st {
 
 #define POLICY_DATA_FLAG_EXTRA_NODE 0x8
 
-// Corresponding CertificatePolicies is critical
-
-#define POLICY_DATA_FLAG_CRITICAL 0x10
-
 // This structure is cached with a certificate
 
 struct X509_POLICY_CACHE_st {
@@ -200,8 +196,6 @@ struct X509_POLICY_CACHE_st {
   // if absent.
   long map_skip;
 };
-
-// #define POLICY_CACHE_FLAG_CRITICAL POLICY_DATA_FLAG_CRITICAL
 
 // This structure represents the relationship between nodes
 
@@ -245,11 +239,6 @@ struct X509_POLICY_TREE_st {
 // Set if anyPolicy present in user policies
 #define POLICY_FLAG_ANY_POLICY 0x2
 
-// Useful macros
-
-#define node_data_critical(data) ((data)->flags & POLICY_DATA_FLAG_CRITICAL)
-#define node_critical(node) node_data_critical((node)->data)
-
 // Internal functions
 
 void X509_POLICY_NODE_print(BIO *out, const X509_POLICY_NODE *node, int indent);
@@ -262,7 +251,7 @@ int X509_policy_check(X509_POLICY_TREE **ptree, int *pexplicit_policy,
 void X509_policy_tree_free(X509_POLICY_TREE *tree);
 
 X509_POLICY_DATA *x509_policy_data_new(POLICYINFO *policy,
-                                       const ASN1_OBJECT *id, int crit);
+                                       const ASN1_OBJECT *id);
 void x509_policy_data_free(X509_POLICY_DATA *data);
 
 X509_POLICY_DATA *x509_policy_cache_find_data(X509_POLICY_CACHE *cache,

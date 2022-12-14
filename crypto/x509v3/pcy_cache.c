@@ -71,8 +71,7 @@ static int policy_cache_set_int(long *out, ASN1_INTEGER *value);
 // Set cache entry according to CertificatePolicies extension. Note: this
 // destroys the passed CERTIFICATEPOLICIES structure.
 
-static int policy_cache_create(X509 *x, CERTIFICATEPOLICIES *policies,
-                               int crit) {
+static int policy_cache_create(X509 *x, CERTIFICATEPOLICIES *policies) {
   // TODO(davidben): This function fails to set |ret| to -1 in several codepaths
   // here.
   int ret = 0;
@@ -89,7 +88,7 @@ static int policy_cache_create(X509 *x, CERTIFICATEPOLICIES *policies,
 
   for (size_t i = 0; i < sk_POLICYINFO_num(policies); i++) {
     POLICYINFO *policy = sk_POLICYINFO_value(policies, i);
-    data = x509_policy_data_new(policy, NULL, crit);
+    data = x509_policy_data_new(policy, NULL);
     if (!data) {
       goto bad_policy;
     }
@@ -184,7 +183,7 @@ static void policy_cache_new(X509 *x) {
   }
 
   // This call frees |ext_cpols|.
-  if (policy_cache_create(x, ext_cpols, critical) <= 0) {
+  if (policy_cache_create(x, ext_cpols) <= 0) {
     // |policy_cache_create| already sets |EXFLAG_INVALID_POLICY|.
     //
     // TODO(davidben): While it does, it's missing some spots. Align this and

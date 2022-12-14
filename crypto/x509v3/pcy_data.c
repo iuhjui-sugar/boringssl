@@ -86,7 +86,7 @@ void x509_policy_data_free(X509_POLICY_DATA *data) {
 // source.
 
 X509_POLICY_DATA *x509_policy_data_new(POLICYINFO *policy,
-                                       const ASN1_OBJECT *cid, int crit) {
+                                       const ASN1_OBJECT *cid) {
   X509_POLICY_DATA *ret;
   ASN1_OBJECT *id;
   if (!policy && !cid) {
@@ -113,11 +113,7 @@ X509_POLICY_DATA *x509_policy_data_new(POLICYINFO *policy,
     return NULL;
   }
 
-  if (crit) {
-    ret->flags = POLICY_DATA_FLAG_CRITICAL;
-  } else {
-    ret->flags = 0;
-  }
+  ret->flags = 0;
 
   if (id) {
     ret->valid_policy = id;

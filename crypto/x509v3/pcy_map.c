@@ -95,9 +95,7 @@ int x509_policy_cache_set_mapping(X509 *x, POLICY_MAPPINGS *maps) {
 
     // Create a NODE from anyPolicy
     if (!data) {
-      data = x509_policy_data_new(
-          NULL, map->issuerDomainPolicy,
-          cache->anyPolicy->flags & POLICY_DATA_FLAG_CRITICAL);
+      data = x509_policy_data_new(NULL, map->issuerDomainPolicy);
       if (!data) {
         goto bad_mapping;
       }
