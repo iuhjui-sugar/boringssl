@@ -504,7 +504,8 @@ static void print_notice(BIO *out, const USERNOTICE *notice, int indent) {
   }
 }
 
-void X509_POLICY_NODE_print(BIO *out, X509_POLICY_NODE *node, int indent) {
+void X509_POLICY_NODE_print(BIO *out, const X509_POLICY_NODE *node,
+                            int indent) {
   const X509_POLICY_DATA *dat = node->data;
 
   BIO_printf(out, "%*sPolicy: ", indent, "");

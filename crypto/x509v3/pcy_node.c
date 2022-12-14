@@ -88,13 +88,11 @@ X509_POLICY_NODE *x509_tree_find_sk(STACK_OF(X509_POLICY_NODE) *nodes,
   return sk_X509_POLICY_NODE_value(nodes, idx);
 }
 
-X509_POLICY_NODE *x509_level_find_node(const X509_POLICY_LEVEL *level,
-                                       const X509_POLICY_NODE *parent,
-                                       const ASN1_OBJECT *id) {
-  X509_POLICY_NODE *node;
-  size_t i;
-  for (i = 0; i < sk_X509_POLICY_NODE_num(level->nodes); i++) {
-    node = sk_X509_POLICY_NODE_value(level->nodes, i);
+const X509_POLICY_NODE *x509_level_find_node(const X509_POLICY_LEVEL *level,
+                                             const X509_POLICY_NODE *parent,
+                                             const ASN1_OBJECT *id) {
+  for (size_t i = 0; i < sk_X509_POLICY_NODE_num(level->nodes); i++) {
+    const X509_POLICY_NODE *node = sk_X509_POLICY_NODE_value(level->nodes, i);
     if (node->parent == parent) {
       if (!OBJ_cmp(node->data->valid_policy, id)) {
         return node;

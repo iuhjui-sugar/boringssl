@@ -142,13 +142,11 @@ static void tree_print(char *str, X509_POLICY_TREE *tree,
 //  5 Tree OK and requireExplicitPolicy true.
 //  6 Tree empty and requireExplicitPolicy true.
 
-static int tree_init(X509_POLICY_TREE **ptree, STACK_OF(X509) *certs,
+static int tree_init(X509_POLICY_TREE **ptree, const STACK_OF(X509) *certs,
                      unsigned int flags) {
   X509_POLICY_TREE *tree;
   X509_POLICY_LEVEL *level;
-  const X509_POLICY_CACHE *cache;
   X509_POLICY_DATA *data = NULL;
-  X509 *x;
   int ret = 1;
   int i, n;
   int explicit_policy;
@@ -188,9 +186,9 @@ static int tree_init(X509_POLICY_TREE **ptree, STACK_OF(X509) *certs,
   // anchor. Note any bad cache results on the way. Also can calculate
   // explicit_policy value at this point.
   for (i = n - 2; i >= 0; i--) {
-    x = sk_X509_value(certs, i);
+    X509 *x = sk_X509_value(certs, i);
     X509_check_purpose(x, -1, -1);
-    cache = x509_get_policy_cache(x);
+    const X509_POLICY_CACHE *cache = x509_get_policy_cache(x);
     // If cache NULL something bad happened: return immediately
     if (cache == NULL) {
       return 0;
@@ -258,8 +256,8 @@ static int tree_init(X509_POLICY_TREE **ptree, STACK_OF(X509) *certs,
 
   for (i = n - 2; i >= 0; i--) {
     level++;
-    x = sk_X509_value(certs, i);
-    cache = x509_get_policy_cache(x);
+    X509 *x = sk_X509_value(certs, i);
+    const X509_POLICY_CACHE *cache = x509_get_policy_cache(x);
     X509_up_ref(x);
     level->cert = x;
 
@@ -339,11 +337,10 @@ static int tree_link_matching_nodes(X509_POLICY_LEVEL *curr,
 
 static int tree_link_nodes(X509_POLICY_LEVEL *curr,
                            const X509_POLICY_CACHE *cache) {
-  size_t i;
-  X509_POLICY_DATA *data;
-
-  for (i = 0; i < sk_X509_POLICY_DATA_num(cache->data); i++) {
-    data = sk_X509_POLICY_DATA_value(cache->data, i);
+  for (size_t i = 0; i < sk_X509_POLICY_DATA_num(cache->data); i++) {
+    // TODO(davidben): |data| should be const. Mutating |data| here would be a
+    // race condition.
+    X509_POLICY_DATA *data = sk_X509_POLICY_DATA_value(cache->data, i);
     // If a node is mapped any it doesn't have a corresponding
     // CertificatePolicies entry. However such an identical node would
     // be created if anyPolicy matching is enabled because there would be
@@ -599,15 +596,8 @@ static int tree_calculate_authority_set(X509_POLICY_TREE *tree,
 }
 
 static int tree_calculate_user_set(X509_POLICY_TREE *tree,
-                                   STACK_OF(ASN1_OBJECT) *policy_oids,
+                                   const STACK_OF(ASN1_OBJECT) *policy_oids,
                                    STACK_OF(X509_POLICY_NODE) *auth_nodes) {
-  size_t i;
-  X509_POLICY_NODE *node;
-  ASN1_OBJECT *oid;
-
-  X509_POLICY_NODE *anyPolicy;
-  X509_POLICY_DATA *extra;
-
   // Check if anyPolicy present in authority constrained policy set: this
   // will happen if it is a leaf node.
 
@@ -615,26 +605,27 @@ static int tree_calculate_user_set(X509_POLICY_TREE *tree,
     return 1;
   }
 
-  anyPolicy = tree->levels[tree->nlevel - 1].anyPolicy;
+  const X509_POLICY_NODE *anyPolicy = tree->levels[tree->nlevel - 1].anyPolicy;
 
-  for (i = 0; i < sk_ASN1_OBJECT_num(policy_oids); i++) {
-    oid = sk_ASN1_OBJECT_value(policy_oids, i);
+  for (size_t i = 0; i < sk_ASN1_OBJECT_num(policy_oids); i++) {
+    const ASN1_OBJECT *oid = sk_ASN1_OBJECT_value(policy_oids, i);
     if (OBJ_obj2nid(oid) == NID_any_policy) {
       tree->flags |= POLICY_FLAG_ANY_POLICY;
       return 1;
     }
   }
 
-  for (i = 0; i < sk_ASN1_OBJECT_num(policy_oids); i++) {
-    oid = sk_ASN1_OBJECT_value(policy_oids, i);
-    node = x509_tree_find_sk(auth_nodes, oid);
+  for (size_t i = 0; i < sk_ASN1_OBJECT_num(policy_oids); i++) {
+    const ASN1_OBJECT *oid = sk_ASN1_OBJECT_value(policy_oids, i);
+    X509_POLICY_NODE *node = x509_tree_find_sk(auth_nodes, oid);
     if (!node) {
       if (!anyPolicy) {
         continue;
       }
       // Create a new node with policy ID from user set and qualifiers
       // from anyPolicy.
-      extra = x509_policy_data_new(NULL, oid, node_critical(anyPolicy));
+      X509_POLICY_DATA *extra =
+          x509_policy_data_new(NULL, oid, node_critical(anyPolicy));
       if (!extra) {
         return 0;
       }
@@ -716,7 +707,8 @@ void X509_policy_tree_free(X509_POLICY_TREE *tree) {
 // -2   User constrained policy set empty and requireExplicit true.
 
 int X509_policy_check(X509_POLICY_TREE **ptree, int *pexplicit_policy,
-                      STACK_OF(X509) *certs, STACK_OF(ASN1_OBJECT) *policy_oids,
+                      const STACK_OF(X509) *certs,
+                      const STACK_OF(ASN1_OBJECT) *policy_oids,
                       unsigned int flags) {
   int ret;
   int calc_ret;

@@ -260,7 +260,7 @@ const X509_POLICY_CACHE *x509_get_policy_cache(X509 *x) {
   return cache;
 }
 
-X509_POLICY_DATA *x509_policy_cache_find_data(const X509_POLICY_CACHE *cache,
+X509_POLICY_DATA *x509_policy_cache_find_data(X509_POLICY_CACHE *cache,
                                               const ASN1_OBJECT *id) {
   size_t idx;
   X509_POLICY_DATA tmp;

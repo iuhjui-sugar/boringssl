@@ -252,10 +252,11 @@ struct X509_POLICY_TREE_st {
 
 // Internal functions
 
-void X509_POLICY_NODE_print(BIO *out, X509_POLICY_NODE *node, int indent);
+void X509_POLICY_NODE_print(BIO *out, const X509_POLICY_NODE *node, int indent);
 
 int X509_policy_check(X509_POLICY_TREE **ptree, int *pexplicit_policy,
-                      STACK_OF(X509) *certs, STACK_OF(ASN1_OBJECT) *policy_oids,
+                      const STACK_OF(X509) *certs,
+                      const STACK_OF(ASN1_OBJECT) *policy_oids,
                       unsigned int flags);
 
 void X509_policy_tree_free(X509_POLICY_TREE *tree);
@@ -264,7 +265,7 @@ X509_POLICY_DATA *x509_policy_data_new(POLICYINFO *policy,
                                        const ASN1_OBJECT *id, int crit);
 void x509_policy_data_free(X509_POLICY_DATA *data);
 
-X509_POLICY_DATA *x509_policy_cache_find_data(const X509_POLICY_CACHE *cache,
+X509_POLICY_DATA *x509_policy_cache_find_data(X509_POLICY_CACHE *cache,
                                               const ASN1_OBJECT *id);
 int x509_policy_cache_set_mapping(X509 *x, POLICY_MAPPINGS *maps);
 
@@ -272,9 +273,9 @@ STACK_OF(X509_POLICY_NODE) *x509_policy_node_cmp_new(void);
 
 void x509_policy_cache_free(X509_POLICY_CACHE *cache);
 
-X509_POLICY_NODE *x509_level_find_node(const X509_POLICY_LEVEL *level,
-                                       const X509_POLICY_NODE *parent,
-                                       const ASN1_OBJECT *id);
+const X509_POLICY_NODE *x509_level_find_node(const X509_POLICY_LEVEL *level,
+                                             const X509_POLICY_NODE *parent,
+                                             const ASN1_OBJECT *id);
 
 X509_POLICY_NODE *x509_tree_find_sk(STACK_OF(X509_POLICY_NODE) *sk,
                                     const ASN1_OBJECT *id);
