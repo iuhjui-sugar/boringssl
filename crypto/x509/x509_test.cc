@@ -5105,6 +5105,12 @@ TEST(X509Test, Policy) {
   bssl::UniquePtr<ASN1_OBJECT> oid3(
       OBJ_txt2obj("1.2.840.113554.4.1.72585.2.3", /*dont_search_names=*/1));
   ASSERT_TRUE(oid3);
+  bssl::UniquePtr<ASN1_OBJECT> oid4(
+      OBJ_txt2obj("1.2.840.113554.4.1.72585.2.4", /*dont_search_names=*/1));
+  ASSERT_TRUE(oid4);
+  bssl::UniquePtr<ASN1_OBJECT> oid5(
+      OBJ_txt2obj("1.2.840.113554.4.1.72585.2.5", /*dont_search_names=*/1));
+  ASSERT_TRUE(oid5);
 
   bssl::UniquePtr<X509> root(
       CertFromPEM(GetTestData("crypto/x509/test/policy_root.pem").c_str()));
@@ -5115,13 +5121,21 @@ TEST(X509Test, Policy) {
   bssl::UniquePtr<X509> intermediate_any(CertFromPEM(
       GetTestData("crypto/x509/test/policy_intermediate_any.pem").c_str()));
   ASSERT_TRUE(intermediate_any);
-  bssl::UniquePtr<X509> intermediate_invalid(CertFromPEM(
-      GetTestData("crypto/x509/test/policy_intermediate_invalid.pem").c_str()));
-  ASSERT_TRUE(intermediate_invalid);
   bssl::UniquePtr<X509> intermediate_duplicate(CertFromPEM(
       GetTestData("crypto/x509/test/policy_intermediate_duplicate.pem")
           .c_str()));
   ASSERT_TRUE(intermediate_duplicate);
+  bssl::UniquePtr<X509> intermediate_invalid(CertFromPEM(
+      GetTestData("crypto/x509/test/policy_intermediate_invalid.pem").c_str()));
+  ASSERT_TRUE(intermediate_invalid);
+  bssl::UniquePtr<X509> intermediate_mapped(CertFromPEM(
+      GetTestData("crypto/x509/test/policy_intermediate_mapped.pem")
+          .c_str()));
+  ASSERT_TRUE(intermediate_mapped);
+  bssl::UniquePtr<X509> intermediate_mapped_any(CertFromPEM(
+      GetTestData("crypto/x509/test/policy_intermediate_mapped_any.pem")
+          .c_str()));
+  ASSERT_TRUE(intermediate_mapped_any);
   bssl::UniquePtr<X509> intermediate_require(CertFromPEM(
       GetTestData("crypto/x509/test/policy_intermediate_require.pem").c_str()));
   ASSERT_TRUE(intermediate_require);
@@ -5140,12 +5154,27 @@ TEST(X509Test, Policy) {
   bssl::UniquePtr<X509> leaf_any(
       CertFromPEM(GetTestData("crypto/x509/test/policy_leaf_any.pem").c_str()));
   ASSERT_TRUE(leaf_any);
-  bssl::UniquePtr<X509> leaf_invalid(CertFromPEM(
-      GetTestData("crypto/x509/test/policy_leaf_invalid.pem").c_str()));
-  ASSERT_TRUE(leaf_invalid);
   bssl::UniquePtr<X509> leaf_duplicate(CertFromPEM(
       GetTestData("crypto/x509/test/policy_leaf_duplicate.pem").c_str()));
   ASSERT_TRUE(leaf_duplicate);
+  bssl::UniquePtr<X509> leaf_invalid(CertFromPEM(
+      GetTestData("crypto/x509/test/policy_leaf_invalid.pem").c_str()));
+  ASSERT_TRUE(leaf_invalid);
+  bssl::UniquePtr<X509> leaf_oid1(CertFromPEM(
+      GetTestData("crypto/x509/test/policy_leaf_oid1.pem").c_str()));
+  ASSERT_TRUE(leaf_oid1);
+  bssl::UniquePtr<X509> leaf_oid2(CertFromPEM(
+      GetTestData("crypto/x509/test/policy_leaf_oid2.pem").c_str()));
+  ASSERT_TRUE(leaf_oid2);
+  bssl::UniquePtr<X509> leaf_oid3(CertFromPEM(
+      GetTestData("crypto/x509/test/policy_leaf_oid3.pem").c_str()));
+  ASSERT_TRUE(leaf_oid3);
+  bssl::UniquePtr<X509> leaf_oid4(CertFromPEM(
+      GetTestData("crypto/x509/test/policy_leaf_oid4.pem").c_str()));
+  ASSERT_TRUE(leaf_oid4);
+  bssl::UniquePtr<X509> leaf_oid5(CertFromPEM(
+      GetTestData("crypto/x509/test/policy_leaf_oid5.pem").c_str()));
+  ASSERT_TRUE(leaf_oid5);
 
   // By default, OpenSSL does not check policies, so even syntax errors in the
   // certificatePolicies extension go unnoticed. (This is probably not
@@ -5312,4 +5341,80 @@ TEST(X509Test, Policy) {
                    [&](X509_VERIFY_PARAM *param) {
                      set_policies(param, {oid3.get()});
                    }));
+
+  for (bool use_any : {false, true}) {
+    SCOPED_TRACE(use_any);
+    X509 *cert =
+        use_any ? intermediate_mapped_any.get() : intermediate_mapped.get();
+    // OID3 is mapped to {OID1, OID2}, which means OID1 and OID2 (or both) are
+    // acceptable for OID3.
+    EXPECT_EQ(X509_V_OK, Verify(leaf.get(), {root.get()}, {cert},
+                                /*crls=*/{}, X509_V_FLAG_EXPLICIT_POLICY,
+                                [&](X509_VERIFY_PARAM *param) {
+                                  set_policies(param, {oid3.get()});
+                                }));
+    EXPECT_EQ(X509_V_OK, Verify(leaf_oid1.get(), {root.get()}, {cert},
+                                /*crls=*/{}, X509_V_FLAG_EXPLICIT_POLICY,
+                                [&](X509_VERIFY_PARAM *param) {
+                                  set_policies(param, {oid3.get()});
+                                }));
+    EXPECT_EQ(X509_V_OK, Verify(leaf_oid2.get(), {root.get()}, {cert},
+                                /*crls=*/{}, X509_V_FLAG_EXPLICIT_POLICY,
+                                [&](X509_VERIFY_PARAM *param) {
+                                  set_policies(param, {oid3.get()});
+                                }));
+
+    // Once OID3 is mapped to other values, OID3 in the subject is no longer a
+    // match for OID3 in the issuer. However if the issuer only asserts OID3 via
+    // anyPolicy, this breaks and we accept OID3 anyway. This seems to be a bug,
+    // though the RFC 5280 algorithm is ambiguous. It depends on whether "that
+    // does not appear in a child node" looks at just expected_policy_set or
+    // also valid_policy.
+    EXPECT_EQ(use_any ? X509_V_OK : X509_V_ERR_NO_EXPLICIT_POLICY,
+              Verify(leaf_oid3.get(), {root.get()}, {cert},
+                     /*crls=*/{}, X509_V_FLAG_EXPLICIT_POLICY,
+                     [&](X509_VERIFY_PARAM *param) {
+                       set_policies(param, {oid3.get()});
+                     }));
+
+    // The mapped OIDs are still usable as themselves.
+    //
+    // TODO(davidben): For some reason, in the |use_any| case, OpenSSL's
+    // validator behaves differently. This is probably a bug.
+    EXPECT_EQ(use_any ? X509_V_ERR_NO_EXPLICIT_POLICY : X509_V_OK,
+              Verify(leaf_oid1.get(), {root.get()}, {cert},
+                     /*crls=*/{}, X509_V_FLAG_EXPLICIT_POLICY,
+                     [&](X509_VERIFY_PARAM *param) {
+                       set_policies(param, {oid1.get()});
+                     }));
+
+    // All pairs of OID4 and OID5 are mapped together, so either can stand for
+    // the other.
+    EXPECT_EQ(X509_V_OK, Verify(leaf_oid4.get(), {root.get()}, {cert},
+                                /*crls=*/{}, X509_V_FLAG_EXPLICIT_POLICY,
+                                [&](X509_VERIFY_PARAM *param) {
+                                  set_policies(param, {oid4.get()});
+                                }));
+    EXPECT_EQ(X509_V_OK, Verify(leaf_oid4.get(), {root.get()}, {cert},
+                                /*crls=*/{}, X509_V_FLAG_EXPLICIT_POLICY,
+                                [&](X509_VERIFY_PARAM *param) {
+                                  set_policies(param, {oid5.get()});
+                                }));
+    EXPECT_EQ(X509_V_OK, Verify(leaf_oid5.get(), {root.get()}, {cert},
+                                /*crls=*/{}, X509_V_FLAG_EXPLICIT_POLICY,
+                                [&](X509_VERIFY_PARAM *param) {
+                                  set_policies(param, {oid4.get()});
+                                }));
+    EXPECT_EQ(X509_V_OK, Verify(leaf_oid5.get(), {root.get()}, {cert},
+                                /*crls=*/{}, X509_V_FLAG_EXPLICIT_POLICY,
+                                [&](X509_VERIFY_PARAM *param) {
+                                  set_policies(param, {oid5.get()});
+                                }));
+
+    EXPECT_EQ(X509_V_OK, Verify(leaf_oid4.get(), {root.get()}, {cert},
+                                /*crls=*/{}, X509_V_FLAG_EXPLICIT_POLICY,
+                                [&](X509_VERIFY_PARAM *param) {
+                                  set_policies(param, {oid4.get(), oid5.get()});
+                                }));
+  }
 }
