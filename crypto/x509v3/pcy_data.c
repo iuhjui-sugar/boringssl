@@ -67,6 +67,9 @@
 // Policy Node routines
 
 void policy_data_free(X509_POLICY_DATA *data) {
+  if (data == NULL) {
+    return;
+  }
   ASN1_OBJECT_free(data->valid_policy);
   // Don't free qualifiers if shared
   if (!(data->flags & POLICY_DATA_FLAG_SHARED_QUALIFIERS)) {

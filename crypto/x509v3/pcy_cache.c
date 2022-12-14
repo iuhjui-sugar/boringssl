@@ -112,9 +112,7 @@ bad_policy:
   if (ret == -1) {
     x->ex_flags |= EXFLAG_INVALID_POLICY;
   }
-  if (data) {
-    policy_data_free(data);
-  }
+  policy_data_free(data);
   sk_POLICYINFO_pop_free(policies, POLICYINFO_free);
   if (ret <= 0) {
     sk_X509_POLICY_DATA_pop_free(cache->data, policy_data_free);
@@ -229,12 +227,8 @@ void policy_cache_free(X509_POLICY_CACHE *cache) {
   if (!cache) {
     return;
   }
-  if (cache->anyPolicy) {
-    policy_data_free(cache->anyPolicy);
-  }
-  if (cache->data) {
-    sk_X509_POLICY_DATA_pop_free(cache->data, policy_data_free);
-  }
+  policy_data_free(cache->anyPolicy);
+  sk_X509_POLICY_DATA_pop_free(cache->data, policy_data_free);
   OPENSSL_free(cache);
 }
 
