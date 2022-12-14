@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "207838d9_c02625ab",
+        "filename": "crypto/x509/x509_vpm.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-12-14T21:48:41Z",
+      "side": 1,
+      "message": "(This wrapper is only needed because of const differences. `OBJ_dup` takes a const pointer.)",
+      "revId": "8a577235ec0b325569226a252cb061610a228372",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
