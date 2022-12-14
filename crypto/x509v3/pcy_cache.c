@@ -73,41 +73,52 @@ static int policy_cache_set_int(long *out, ASN1_INTEGER *value);
 
 static int policy_cache_create(X509 *x, CERTIFICATEPOLICIES *policies,
                                int crit) {
-  size_t i;
+  // TODO(davidben): This function fails to set |ret| to -1 in several codepaths
+  // here.
   int ret = 0;
   X509_POLICY_CACHE *cache = x->policy_cache;
   X509_POLICY_DATA *data = NULL;
-  POLICYINFO *policy;
   if (sk_POLICYINFO_num(policies) == 0) {
     goto bad_policy;
   }
+
   cache->data = sk_X509_POLICY_DATA_new(policy_data_cmp);
   if (!cache->data) {
     goto bad_policy;
   }
-  for (i = 0; i < sk_POLICYINFO_num(policies); i++) {
-    policy = sk_POLICYINFO_value(policies, i);
+
+  for (size_t i = 0; i < sk_POLICYINFO_num(policies); i++) {
+    POLICYINFO *policy = sk_POLICYINFO_value(policies, i);
     data = policy_data_new(policy, NULL, crit);
     if (!data) {
       goto bad_policy;
     }
-    // Duplicate policy OIDs are illegal: reject if matches found.
-    sk_X509_POLICY_DATA_sort(cache->data);
     if (OBJ_obj2nid(data->valid_policy) == NID_any_policy) {
+      // Check for a duplicate anyPolicy OID.
       if (cache->anyPolicy) {
         ret = -1;
         goto bad_policy;
       }
       cache->anyPolicy = data;
-    } else if (sk_X509_POLICY_DATA_find(cache->data, NULL, data)) {
-      ret = -1;
-      goto bad_policy;
     } else if (!sk_X509_POLICY_DATA_push(cache->data, data)) {
       goto bad_policy;
     }
     data = NULL;
   }
+
+  // Check for duplicate policy OIDs.
+  sk_X509_POLICY_DATA_sort(cache->data);
+  for (size_t i = 1; i < sk_X509_POLICY_DATA_num(cache->data); i++) {
+    const X509_POLICY_DATA *a = sk_X509_POLICY_DATA_value(cache->data, i - 1);
+    const X509_POLICY_DATA *b = sk_X509_POLICY_DATA_value(cache->data, i);
+    if (OBJ_cmp(a->valid_policy, b->valid_policy) == 0) {
+      ret = -1;
+      goto bad_policy;
+    }
+  }
+
   ret = 1;
+
 bad_policy:
   if (ret == -1) {
     x->ex_flags |= EXFLAG_INVALID_POLICY;
