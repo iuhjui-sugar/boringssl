@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1207b572_c89659b0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15416
+      },
+      "writtenOn": "2022-12-15T20:03:06Z",
+      "side": 1,
+      "message": "Fixes for the Rust binding generation which fails due to \"fatal error: \u0027openssl/err.h\u0027 file not found\".",
+      "revId": "da165b288a7280b0a00e30fbd7ba8911683758fe",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
