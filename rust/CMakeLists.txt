@@ -1,4 +1,5 @@
 # additional interop for things like macros and inlined functions
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../include)
 add_library(
   rust_wrapper
   STATIC
@@ -48,7 +49,7 @@ add_custom_target(
 )
 
 # move files into build directory
-configure_file("src/lib.rs" "src/lib.rs")
+configure_file("src/lib.rs.in" "src/lib.rs")
 
 if(NOT BUILD_SHARED_LIBS)
   configure_file("build.rs" "build.rs" COPYONLY)
