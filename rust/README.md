@@ -7,7 +7,9 @@ A low-level binding crate for Rust that moves in lockstop with BoringSSL. Boring
 `bssl-sys` uses `bindgen` as part of the cmake build process to generate Rust compatibility shims for the targeted platform. It is important to generate it for the correct platform because `bindgen` uses LLVM information for alignment which varies depending on architecture. These files are then packaged into a Rust crate.
 
 ### To Use
-Build `boringssl` with `-DRUST_BINDINGS=<rust-triple>` and ensure that you have `bindgen` installed.
+This directory is buildable with `cargo build`, but bindgen must be installed (`cargo install bindgen-cli`).
+
+If you wish to build the bindgen bindings manually, you can build `boringssl` with `-DRUST_BINDINGS=<rust-triple>`.
 
 The `rust-triple` option should be one of the supported targets at https://doc.rust-lang.org/nightly/rustc/platform-support.html.
 
