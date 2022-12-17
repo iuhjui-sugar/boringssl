@@ -13,27 +13,27 @@
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-use std::env;
-use std::path::Path;
-
 fn main() {
-    let dir = env::var("CARGO_MANIFEST_DIR").unwrap();
-    let crate_path = Path::new(&dir);
-    let parent_path = crate_path.parent().unwrap();
+    let cmake_dest = cmake::Config::new("..")
+        .define("RUST_BINDINGS", std::env::var("TARGET").unwrap())
+        .build();
 
     // Statically link libraries.
     println!(
         "cargo:rustc-link-search=native={}",
-        parent_path.join("crypto").display()
+        cmake_dest.join("build").join("crypto").display()
     );
     println!("cargo:rustc-link-lib=static=crypto");
 
     println!(
         "cargo:rustc-link-search=native={}",
-        parent_path.join("ssl").display()
+        cmake_dest.join("build").join("ssl").display()
     );
     println!("cargo:rustc-link-lib=static=ssl");
 
-    println!("cargo:rustc-link-search=native={}", crate_path.display());
+    println!(
+        "cargo:rustc-link-search=native={}",
+        cmake_dest.join("build").join("rust").display()
+    );
     println!("cargo:rustc-link-lib=static=rust_wrapper");
 }
