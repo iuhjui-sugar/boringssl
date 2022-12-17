@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3770be0_ec0b6c12",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15426
+      },
+      "writtenOn": "2022-12-17T03:51:08Z",
+      "side": 1,
+      "message": "Hi, we have a Rust project that wants to use the bssl-sys crate, and wish to have that project buildable from cargo.\n\nWith these changes, I am hoping to make it possible to add the following to .cargo/config.toml:\n\n[patch.crates-io]\nbssl-sys \u003d { git \u003d \"https://boringssl.googlesource.com/boringssl\", branch \u003d \"master }\n\nand be able to use the dependency instead of needing to manually check out boringssl repo and run cmake.",
+      "revId": "2a9e5f157ac1a776a406d78141f7b18211a129ca",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
