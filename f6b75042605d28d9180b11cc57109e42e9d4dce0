@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a35bc98d_d8f501cc",
+        "filename": "crypto/x509v3/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2022-12-20T20:53:32Z",
+      "side": 1,
+      "message": "X.509 doesn\u0027t have \"levels\" (aside from perhaps like in the book by Dante) so just prefixing this with x509 feels funny.. how about something that indicates this name is policy relatd, so maybe x509_pcy in front of everything instead of x509? (which also perhaps lets us move the file later?)",
+      "revId": "f6b75042605d28d9180b11cc57109e42e9d4dce0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
