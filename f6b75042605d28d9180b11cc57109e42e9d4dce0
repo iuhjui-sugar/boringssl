@@ -16,6 +16,24 @@
       "message": "X.509 doesn\u0027t have \"levels\" (aside from perhaps like in the book by Dante) so just prefixing this with x509 feels funny.. how about something that indicates this name is policy relatd, so maybe x509_pcy in front of everything instead of x509? (which also perhaps lets us move the file later?)",
       "revId": "f6b75042605d28d9180b11cc57109e42e9d4dce0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0beddc98_1e29509a",
+        "filename": "crypto/x509v3/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-12-20T20:56:31Z",
+      "side": 1,
+      "message": "Oh, my plan is to just punt most of this tower in favor of the rewrite anyway. Feel free to ignore anything I haven\u0027t explicitly added you as reviewer to. :-)\n\nAlthough, huh, you\u0027re right. I\u0027d never noticed that X.509 calls them \"depth\" not \"level\"!",
+      "parentUuid": "a35bc98d_d8f501cc",
+      "revId": "f6b75042605d28d9180b11cc57109e42e9d4dce0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
