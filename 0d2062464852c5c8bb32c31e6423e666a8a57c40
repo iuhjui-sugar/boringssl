@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1daf14ad_2a7f957a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-12-20T00:32:01Z",
+      "side": 1,
+      "message": "David: do you feel confident enough about reviewing Rust changes? If not, do we have anyone?",
+      "revId": "0d2062464852c5c8bb32c31e6423e666a8a57c40",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
