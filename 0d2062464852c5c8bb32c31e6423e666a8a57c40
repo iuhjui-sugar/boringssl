@@ -16,6 +16,41 @@
       "message": "David: do you feel confident enough about reviewing Rust changes? If not, do we have anyone?",
       "revId": "0d2062464852c5c8bb32c31e6423e666a8a57c40",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e75ad1cd_0c901998",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-12-20T19:11:15Z",
+      "side": 1,
+      "message": "Not especially... could we find whoever owns this on Android, maybe?",
+      "parentUuid": "1daf14ad_2a7f957a",
+      "revId": "0d2062464852c5c8bb32c31e6423e666a8a57c40",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f2697ea_292aa97d",
+        "filename": "rust/src/lib.rs",
+        "patchSetId": 6
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-12-20T19:11:15Z",
+      "side": 1,
+      "message": "I recall the way this file worked was a bit of a trouble for Android and they ended up manually forking some file. Will this avoid that?",
+      "revId": "0d2062464852c5c8bb32c31e6423e666a8a57c40",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
