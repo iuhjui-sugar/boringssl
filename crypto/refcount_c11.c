@@ -15,7 +15,7 @@
 #include "internal.h"
 
 
-#if defined(OPENSSL_C11_ATOMIC)
+#if defined(OPENSSL_C11_ATOMIC) && !defined(_MSC_VER)
 
 #include <assert.h>
 #include <stdalign.h>
