@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbc3fe5d_4e1330d9",
+        "filename": "crypto/fipsmodule/modes/asm/aesni-gcm-x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 378,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-12-21T17:29:44Z",
+      "side": 1,
+      "message": "Sorry to bother you with trivial stuff but if I edit the change, Gerrit will no longer allow me to also approve it:\n\nCould you line up the comment with the other comments: looks like there\u0027s perhaps one tab too many? (At least in Gerrit.)\n\nJust before these two lines could you add something like:\n\n`# These two prefetches were added in BoringSSL. See change that added them.`",
+      "revId": "18b6a5b7f4a28b3c521f5e524ebe00eb7abd7684",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
