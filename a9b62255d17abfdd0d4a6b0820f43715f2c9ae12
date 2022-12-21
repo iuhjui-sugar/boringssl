@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7879bcb_ec7d872b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-12-21T15:17:14Z",
+      "side": 1,
+      "message": "(Not that it matters, since we should apply the fix in LLVM anyway.)\n\nSorry, I was unclear. It\u0027s `Bug: chromium:1402885`. The `chromium:` prefix is because this repo\u0027s default project is BoringSSL rather than Chromium.",
+      "revId": "a9b62255d17abfdd0d4a6b0820f43715f2c9ae12",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
