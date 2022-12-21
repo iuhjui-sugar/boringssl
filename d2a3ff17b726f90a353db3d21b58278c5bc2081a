@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5aae00de_e3f36292",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 15456
+      },
+      "writtenOn": "2022-12-21T15:00:42Z",
+      "side": 1,
+      "message": "I tried to refer to the BUG according to the format of Chromium Gerrit, but it didn\u0027t work, so I temporarily changed it to the previous format.\n\nI am now modifying according to the format you provided, and found that I still cannot quote the BUG normally",
+      "parentUuid": "cbd1b0ab_7ab0acc9",
+      "revId": "d2a3ff17b726f90a353db3d21b58278c5bc2081a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "64659dac_55372144",
@@ -49,6 +67,24 @@
       "side": 1,
       "message": "\u003e It seems clang-cl has already partially done (b), but only partially. It\u0027s applied it for pre-C++23, but not C.\n\u003e https://github.com/llvm/llvm-project/commit/1ad7de9e92bc2977698e5f6d6493202b50c912d5\n\nOh, I missed a couple intermediate changes. Actually, in that version, clang would have been just fine. Then, because of the C++23 change, folks wanted to keep picking up the MSVC header in C++. That too would have been fine here.\nhttps://github.com/llvm/llvm-project/commit/ba49d39b20cc5358da28af2ac82bd336028780bc\n\nBut then this change was incorrect. Because it now makes clang-cl pick up MSVC\u0027s header in C mode, despite the comment explicitly calling that out as a case to workaround.\nhttps://github.com/llvm/llvm-project/commit/e0c3142af075e2ef89395dbed5939071345eb622\n\nSo not only is this a clang-cl bug, but it\u0027s a very, very recent regression. The correct place to fix this is clang-cl.",
       "parentUuid": "64659dac_55372144",
+      "revId": "d2a3ff17b726f90a353db3d21b58278c5bc2081a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "359ea0dc_ff2195c0",
+        "filename": "crypto/refcount_c11.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 15456
+      },
+      "writtenOn": "2022-12-21T15:00:42Z",
+      "side": 1,
+      "message": "Thanks for your explanation, my understanding of related components and codes has gone a step further, and thank you for submitting \"-1\", which let me know where this CL is incorrect.\n\nThanks for your explanation, my understanding of related components and codes has gone a step further, and thank you for submitting \"-1\", which let me know where this CL is incorrect.\n\nAt the same time, I want to confirm with you again, does this issue need to be submitted to LLVM?",
+      "parentUuid": "1beb5c92_cef6dd63",
       "revId": "d2a3ff17b726f90a353db3d21b58278c5bc2081a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
