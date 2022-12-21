@@ -33,6 +33,24 @@
       "message": "Has this change been tested? It seems previously there was a syntax error. This one seems dubious too because the alternate file, refcount_lock.c, is gated on `!defined(OPENSSL_C11_ATOMIC)`, so the CL just leaves there being no refcount implementation at all.\n\nTo do what you\u0027re aiming for, as Nico says, you\u0027ll need to disable `OPENSSL_C11_ATOMIC` itself. That said, I don\u0027t think we should do that either, as it would be a perf regression in Chrome for Windows. We\u0027d turn atomic-based refcounts into a global lock.\n\nThis seems like a bug in some combination of MSVC and clang-cl. We determine C11 atomics support via the standard C symbols, `__STDC_VERSION__ \u003e\u003d 201112L` and `__STDC_NO_ATOMICS__`. The former means C11 is supported and, as long as `__STDC_NO_ATOMICS__` is missing, we should be able to use stdatomic.h. clang-cl, being clang-based is telling us \"yes, C11 exists\" and \"no, we haven\u0027t specifically skipped implementing atomics\", yet it\u0027s breaking that expectation.\n\nIn clang-cl + older MSVC, we\u0027d pick up clang\u0027s stdatomic.h, which would just provide atomics itself, since MSVC lacked stdatomic.h.\n\nI gather what\u0027s changed is that MSVC headers now provides a stdatomic.h, to align with C++23, but does not (yet) provide it in C11. This is perfectly self-consistent because MSVC compiler defines `__STDC_NO_ATOMICS__` in C11 mode. However, the clang-cl + MSVC headers combination then became non-conforming. Either:\n\na) clang-cl should define `__STDC_NO_ATOMICS__` because it no longer provides C11 atomics in C11 mode\nb) clang-cl\u0027s stdatomic.h should know to avoid the MSVC one and continue providing its own\n\nOf these, (b) seems preferable to avoid regressing functionality and performance.\n\nIt seems clang-cl has already partially done (b), but only partially. It\u0027s applied it for pre-C++23, but not C.\nhttps://github.com/llvm/llvm-project/commit/1ad7de9e92bc2977698e5f6d6493202b50c912d5\n\nInstead of:\n`!(defined(_MSC_VER) \u0026\u0026 defined(__cplusplus) \u0026\u0026 __cplusplus \u003c 202002L)`\n\nI think this would work:\n`!(defined(_MSC_VER) \u0026\u0026 (!defined(__cplusplus) || __cplusplus \u003c 202002L))`",
       "revId": "d2a3ff17b726f90a353db3d21b58278c5bc2081a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1beb5c92_cef6dd63",
+        "filename": "crypto/refcount_c11.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2022-12-21T14:54:49Z",
+      "side": 1,
+      "message": "\u003e It seems clang-cl has already partially done (b), but only partially. It\u0027s applied it for pre-C++23, but not C.\n\u003e https://github.com/llvm/llvm-project/commit/1ad7de9e92bc2977698e5f6d6493202b50c912d5\n\nOh, I missed a couple intermediate changes. Actually, in that version, clang would have been just fine. Then, because of the C++23 change, folks wanted to keep picking up the MSVC header in C++. That too would have been fine here.\nhttps://github.com/llvm/llvm-project/commit/ba49d39b20cc5358da28af2ac82bd336028780bc\n\nBut then this change was incorrect. Because it now makes clang-cl pick up MSVC\u0027s header in C mode, despite the comment explicitly calling that out as a case to workaround.\nhttps://github.com/llvm/llvm-project/commit/e0c3142af075e2ef89395dbed5939071345eb622\n\nSo not only is this a clang-cl bug, but it\u0027s a very, very recent regression. The correct place to fix this is clang-cl.",
+      "parentUuid": "64659dac_55372144",
+      "revId": "d2a3ff17b726f90a353db3d21b58278c5bc2081a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
