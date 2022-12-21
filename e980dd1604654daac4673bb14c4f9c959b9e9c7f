@@ -16,6 +16,23 @@
       "message": "PTAL",
       "revId": "e980dd1604654daac4673bb14c4f9c959b9e9c7f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9cfb5232_96fec35b",
+        "filename": "crypto/refcount_c11.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5410
+      },
+      "writtenOn": "2022-12-21T14:09:59Z",
+      "side": 1,
+      "message": "This is not valid syntax. Did you mean to add this on line 18?\n\nMaybe OPENSSL_C11_ATOMIC should not be defined for _MSC_VER for now?",
+      "revId": "e980dd1604654daac4673bb14c4f9c959b9e9c7f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
