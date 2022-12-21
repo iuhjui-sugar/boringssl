@@ -19,7 +19,7 @@
 
 #include <assert.h>
 #include <stdalign.h>
-#include <stdatomic.h>
+#include <stdatomic.h> && !defined(_MSC_VER)
 #include <stdlib.h>
 
 
