@@ -122,7 +122,7 @@ void gcm_init_ssse3(u128 Htable[16], const uint64_t H[2]) {
     }
   }
 }
-#endif  // GHASH_ASM_X86_64 || GHASH_ASM_X86
+#endif
 
 #ifdef GCM_FUNCREF
 #undef GCM_MUL
@@ -145,6 +145,75 @@ static size_t hw_gcm_decrypt(const uint8_t *in, uint8_t *out, size_t len,
   return aesni_gcm_decrypt(in, out, len, key, ivec, Xi);
 }
 #endif  // HW_GCM && X86_64
+
+#if defined(HW_GCM) && defined(OPENSSL_AARCH64)
+
+static const int kAES128Rounds = 10;
+static const int kAES256Rounds = 14;
+
+static size_t hw_gcm_encrypt(const uint8_t *in, uint8_t *out, size_t len,
+                             const AES_KEY *key, uint8_t ivec[16],
+                             uint64_t *Xi) {
+  void (*encrypt_function)(const uint8_t *, uint64_t, void *, void *, uint8_t *,
+                           const AES_KEY *);
+  if (key->rounds == kAES128Rounds) {
+    encrypt_function = &aes_gcm_enc_128_kernel;
+  } else if (key->rounds == kAES256Rounds) {
+    encrypt_function = &aes_gcm_enc_256_kernel;
+  } else {
+    // Unsupported number of rounds
+    return 0;
+  }
+
+  const size_t orig_len = len;
+  while (len >= GHASH_CHUNK) {
+    (*encrypt_function)(in, GHASH_CHUNK / 16 * 128, out, Xi, ivec, key);
+    out += GHASH_CHUNK;
+    in += GHASH_CHUNK;
+    len -= GHASH_CHUNK;
+  }
+
+  const size_t len_blocks = len & kSizeTWithoutLower4Bits;
+  if (len_blocks != 0) {
+    (*encrypt_function)(in, len_blocks / 16 * 128, out, Xi, ivec, key);
+    len -= len_blocks;
+  }
+
+  return orig_len - len;
+}
+
+static size_t hw_gcm_decrypt(const uint8_t *in, uint8_t *out, size_t len,
+                             const AES_KEY *key, uint8_t ivec[16],
+                             uint64_t *Xi) {
+  void (*decrypt_function)(const uint8_t *, uint64_t, void *, void *, uint8_t *,
+                           const AES_KEY *);
+  if (key->rounds == kAES128Rounds) {
+    decrypt_function = &aes_gcm_dec_128_kernel;
+  } else if (key->rounds == kAES256Rounds) {
+    decrypt_function = &aes_gcm_dec_256_kernel;
+  } else {
+    // Unsupported number of rounds
+    return 0;
+  }
+
+  const size_t orig_len = len;
+  while (len >= GHASH_CHUNK) {
+    (*decrypt_function)(in, GHASH_CHUNK / 16 * 128, out, Xi, ivec, key);
+    out += GHASH_CHUNK;
+    in += GHASH_CHUNK;
+    len -= GHASH_CHUNK;
+  }
+
+  const size_t len_blocks = len & kSizeTWithoutLower4Bits;
+  if (len_blocks != 0) {
+    (*decrypt_function)(in, len_blocks / 16 * 128, out, Xi, ivec, key);
+    len -= len_blocks;
+  }
+
+  return orig_len - len;
+}
+
+#endif  // HW_GCM && AARCH64
 
 void CRYPTO_ghash_init(gmult_func *out_mult, ghash_func *out_hash,
                        u128 *out_key, u128 out_table[16], int *out_is_avx,
@@ -231,7 +300,12 @@ void CRYPTO_gcm128_init_key(GCM128_KEY *gcm_key, const AES_KEY *aes_key,
   CRYPTO_ghash_init(&gcm_key->gmult, &gcm_key->ghash, &gcm_key->H,
                     gcm_key->Htable, &is_avx, ghash_key);
 
-  gcm_key->use_hw_gcm_crypt = (is_avx && block_is_hwaes) ? 1 : 0;
+#if defined(OPENSSL_AARCH64)
+    gcm_key->use_hw_gcm_crypt = (gcm_pmull_capable() && block_is_hwaes) ? 1 :
+      0;
+#else
+    gcm_key->use_hw_gcm_crypt = (is_avx && block_is_hwaes) ? 1 : 0;
+#endif
 }
 
 void CRYPTO_gcm128_setiv(GCM128_CONTEXT *ctx, const AES_KEY *key,
