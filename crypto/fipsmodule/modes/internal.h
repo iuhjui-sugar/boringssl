@@ -278,7 +278,19 @@ size_t aesni_gcm_decrypt(const uint8_t *in, uint8_t *out, size_t len,
 #define GHASH_ASM_X86
 #endif  // OPENSSL_X86
 
-#elif defined(OPENSSL_ARM) || defined(OPENSSL_AARCH64)
+#elif defined(OPENSSL_AARCH64)
+
+#define HW_GCM
+// These functions are defined in aesv8-armx64-gcm.pl.
+void aes_gcm_enc_128_kernel(const uint8_t *in, uint64_t in_bits, void *out,
+                            void *Xi, uint8_t *ivec, const AES_KEY *key);
+void aes_gcm_enc_256_kernel(const uint8_t *in, uint64_t in_bits, void *out,
+                            void *Xi, uint8_t *ivec, const AES_KEY *key);
+void aes_gcm_dec_128_kernel(const uint8_t *in, uint64_t in_bits, void *out,
+                            void *Xi, uint8_t *ivec, const AES_KEY *key);
+void aes_gcm_dec_256_kernel(const uint8_t *in, uint64_t in_bits, void *out,
+                            void *Xi, uint8_t *ivec, const AES_KEY *key);
+
 #define GHASH_ASM_ARM
 #define GCM_FUNCREF
 
