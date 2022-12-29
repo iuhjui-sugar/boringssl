@@ -52,6 +52,24 @@
       "parentUuid": "1a9e3553_c6beca98",
       "revId": "6ab19d9b95f30f8c6ee1eae4ce1e02ee9d8b9476",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84bfb557_5ddba91c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-12-29T21:19:02Z",
+      "side": 1,
+      "message": "Doing the end-of-year cleanup: At the moment it still feels that the CMake is the developer build and we\u0027re weary of blurring that line.",
+      "parentUuid": "ca97148b_4c6fed73",
+      "revId": "6ab19d9b95f30f8c6ee1eae4ce1e02ee9d8b9476",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
