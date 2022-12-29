@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4b8a39e_3cb0bd62",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2022-12-29T22:19:50Z",
+      "side": 1,
+      "message": "Doing an end-of-year cleanup. We\u0027ve not heard about this issue from anywhere else, and the change breaks GCC. But it appears to work as a Clang-only change. I\u0027m trying to get the reproduction to run, but I think it\u0027ll need Xcode installed, which will take a while to download.",
+      "revId": "f2411384f42478afc7ee5501448357d6b7595e62",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
