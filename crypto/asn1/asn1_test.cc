@@ -2583,4 +2583,78 @@ TEST(ASN1Test, DoublyTagged) {
   TestSerialize(obj.get(), i2d_DOUBLY_TAGGED, kTrueEmpty);
 }
 
+struct BOOLEANS {
+  ASN1_BOOLEAN required;
+  ASN1_BOOLEAN optional;
+  ASN1_BOOLEAN default_true;
+  ASN1_BOOLEAN default_false;
+};
+
+DECLARE_ASN1_FUNCTIONS(BOOLEANS)
+ASN1_SEQUENCE(BOOLEANS) = {
+    ASN1_SIMPLE(BOOLEANS, required, ASN1_BOOLEAN),
+    ASN1_IMP_OPT(BOOLEANS, optional, ASN1_BOOLEAN, 1),
+    // Although not actually optional, |ASN1_TBOOLEAN| and |ASN1_FBOOLEAN| need
+    // to be marked optional in the template.
+    ASN1_IMP_OPT(BOOLEANS, default_true, ASN1_TBOOLEAN, 2),
+    ASN1_IMP_OPT(BOOLEANS, default_false, ASN1_FBOOLEAN, 3),
+} ASN1_SEQUENCE_END(BOOLEANS)
+IMPLEMENT_ASN1_FUNCTIONS(BOOLEANS)
+
+TEST(ASN1Test, OptionalAndDefaultBooleans) {
+  std::unique_ptr<BOOLEANS, decltype(&BOOLEANS_free)> obj(nullptr,
+                                                          BOOLEANS_free);
+
+  // A default-constructed object should use, respectively, omitted, omitted,
+  // TRUE, FALSE.
+  //
+  // TODO(davidben): Is the first one a bug? It seems more consistent for a
+  // required BOOLEAN default to FALSE. |FOO_new| typically default-initializes
+  // fields valid states. (Though there are exceptions. CHOICE, ANY, and OBJECT
+  // IDENTIFIER are default-initialized to something invalid.)
+  obj.reset(BOOLEANS_new());
+  ASSERT_TRUE(obj);
+  EXPECT_EQ(obj->required, -1);
+  EXPECT_EQ(obj->optional, -1);
+  EXPECT_EQ(obj->default_true, 0xff);
+  EXPECT_EQ(obj->default_false, 0);
+
+  // Trying to serialize this should fail, because |obj->required| is omitted.
+  EXPECT_EQ(-1, i2d_BOOLEANS(obj.get(), nullptr));
+
+  // Otherwise, this object is serializable. Most fields are omitted, due to
+  // them being optional or defaulted.
+  static const uint8_t kFieldsOmitted[] = {0x30, 0x03, 0x01, 0x01, 0x00};
+  obj->required = 0;
+  TestSerialize(obj.get(), i2d_BOOLEANS, kFieldsOmitted);
+
+  const uint8_t *der = kFieldsOmitted;
+  obj.reset(d2i_BOOLEANS(nullptr, &der, sizeof(kFieldsOmitted)));
+  ASSERT_TRUE(obj);
+  EXPECT_EQ(obj->required, 0);
+  EXPECT_EQ(obj->optional, -1);
+  EXPECT_EQ(obj->default_true, 0xff);
+  EXPECT_EQ(obj->default_false, 0);
+
+  // Include the optinonal fields instead.
+  static const uint8_t kFieldsIncluded[] = {0x30, 0x0c, 0x01, 0x01, 0xff,
+                                            0x81, 0x01, 0x00, 0x82, 0x01,
+                                            0x00, 0x83, 0x01, 0xff};
+  obj->required = 0xff;
+  obj->optional = 0;
+  obj->default_true = 0;
+  obj->default_false = 0xff;
+  TestSerialize(obj.get(), i2d_BOOLEANS, kFieldsIncluded);
+
+  der = kFieldsIncluded;
+  obj.reset(d2i_BOOLEANS(nullptr, &der, sizeof(kFieldsIncluded)));
+  ASSERT_TRUE(obj);
+  EXPECT_EQ(obj->required, 0xff);
+  EXPECT_EQ(obj->optional, 0);
+  EXPECT_EQ(obj->default_true, 0);
+  EXPECT_EQ(obj->default_false, 0xff);
+
+  // TODO(https://crbug.com/boringssl/354): Reject explicit DEFAULTs.
+}
+
 #endif  // !WINDOWS || !SHARED_LIBRARY
