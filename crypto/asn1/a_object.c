@@ -261,10 +261,14 @@ void ASN1_OBJECT_free(ASN1_OBJECT *a) {
   }
 }
 
-ASN1_OBJECT *ASN1_OBJECT_create(int nid, const unsigned char *data, int len,
+ASN1_OBJECT *ASN1_OBJECT_create(int nid, const unsigned char *data, size_t len,
                                 const char *sn, const char *ln) {
-  ASN1_OBJECT o;
+  if (len > INT_MAX) {
+    OPENSSL_PUT_ERROR(ASN1, ASN1_R_STRING_TOO_LONG);
+    return NULL;
+  }
 
+  ASN1_OBJECT o;
   o.sn = sn;
   o.ln = ln;
   o.data = data;
@@ -272,5 +276,5 @@ ASN1_OBJECT *ASN1_OBJECT_create(int nid, const unsigned char *data, int len,
   o.length = len;
   o.flags = ASN1_OBJECT_FLAG_DYNAMIC | ASN1_OBJECT_FLAG_DYNAMIC_STRINGS |
             ASN1_OBJECT_FLAG_DYNAMIC_DATA;
-  return (OBJ_dup(&o));
+  return OBJ_dup(&o);
 }
