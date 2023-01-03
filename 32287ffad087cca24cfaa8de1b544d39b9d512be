@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60166c58_e4b25a5d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15526
+      },
+      "writtenOn": "2023-01-03T12:16:28Z",
+      "side": 1,
+      "message": "Following upstream OpenSSL,\nhttps://github.com/openssl/openssl/blob/master/providers/implementations/rands/seeding/rand_unix.c",
+      "revId": "32287ffad087cca24cfaa8de1b544d39b9d512be",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
