@@ -99,10 +99,13 @@ extern "C" {
 #elif (defined(__PPC64__) || defined(__powerpc64__)) && defined(_LITTLE_ENDIAN)
 #define OPENSSL_64_BIT
 #define OPENSSL_PPC64LE
-#elif defined(__MIPSEL__) && !defined(__LP64__)
+#elif defined(__MIPSEL__) && _MIPS_SIM == _MIPS_SIM_ABI32
 #define OPENSSL_32_BIT
 #define OPENSSL_MIPS
-#elif defined(__MIPSEL__) && defined(__LP64__)
+#elif defined(__MIPSEL__) && _MIPS_SIM == _MIPS_SIM_NABI32
+#define OPENSSL_32_BIT
+#define OPENSSL_MIPSN32
+#elif defined(__MIPSEL__) && _MIPS_SIM == _MIPS_SIM_ABI64
 #define OPENSSL_64_BIT
 #define OPENSSL_MIPS64
 #elif defined(__riscv) && __SIZEOF_POINTER__ == 8

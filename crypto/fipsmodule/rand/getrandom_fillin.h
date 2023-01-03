@@ -32,6 +32,12 @@
 #define EXPECTED_NR_getrandom 384
 #elif defined(OPENSSL_PPC64LE)
 #define EXPECTED_NR_getrandom 359
+#elif defined(OPENSSL_MIPS64)
+#define EXPECTED_NR_getrandom 313
+#elif defined(OPENSSL_MIPSN32)
+#define EXPECTED_NR_getrandom 317
+#elif defined(OPENSSL_MIPS)
+#define EXPECTED_NR_getrandom 353
 #elif defined(OPENSSL_RISCV64)
 #define EXPECTED_NR_getrandom 278
 #endif
