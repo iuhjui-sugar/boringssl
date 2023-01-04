@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43900801_939ad847",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15526
+      },
+      "writtenOn": "2023-01-04T02:07:17Z",
+      "side": 1,
+      "message": "Excuse me, I saw you have accepted the RISC-V commit of getrandom from OpenSSL. So why don\u0027t accept the commit of Loongarch64?",
+      "revId": "7199500cc9c9d61c719fc3ab29b6ed91c1a5e54d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
