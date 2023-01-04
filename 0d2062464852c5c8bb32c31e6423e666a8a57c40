@@ -36,6 +36,41 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee3b4454_1351ac16",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15541
+      },
+      "writtenOn": "2023-01-04T20:04:17Z",
+      "side": 1,
+      "message": "+1 to adding the `include_directories` line\n\nRest of the stuff is explained long form, but I don\u0027t think we want `cargo` to be the entry-point for the `boringssl` build when using it with Rust.",
+      "revId": "0d2062464852c5c8bb32c31e6423e666a8a57c40",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cdd67e54_dbd3a4e5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15541
+      },
+      "writtenOn": "2023-01-04T20:04:17Z",
+      "side": 1,
+      "message": "This seems to invert the structure we were expecting for the build - previously, you built boringssl, and it produced a separate Rust source tree, suitable for use with a Rust project.\n\nNow, using Cargo on the Rust tree will build boringssl, which I don\u0027t think is the intended direction. This makes cargo the entry-point for building boringssl.\n\nThis also makes the resulting library unusable by Cargo without being located next to the boringssl source.\n\nWe could do this, it would just mean we need to:\n1. Update the sed line in Android\n2. Add the ability to pass arguments to camke through Cargo\n3. Update the Rust `openssl` crate upstream to use the new feature to pass arguments through\n\nIf anyone else is using this support with Cargo already and has their own build of `boringssl`, they too might need to be updated (the only possibility I can think of here is CrOS, but I don\u0027t think they have that yet).\n\nI\u0027m not convinced that we should be driving the boringssl build from Rust, rather than doing a boringssl build, then separately using the resulting Rust bindings, whether through Cargo or not.",
+      "parentUuid": "e75ad1cd_0c901998",
+      "revId": "0d2062464852c5c8bb32c31e6423e666a8a57c40",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9f2697ea_292aa97d",
