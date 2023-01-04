@@ -5342,6 +5342,13 @@ TEST(X509Test, Policy) {
                      set_policies(param, {oid3.get()});
                    }));
 
+  // With just a trust anchor, policy checking silently succeeds.
+  EXPECT_EQ(X509_V_OK, Verify(root.get(), {root.get()}, {},
+                              /*crls=*/{}, X509_V_FLAG_EXPLICIT_POLICY,
+                              [&](X509_VERIFY_PARAM *param) {
+                                set_policies(param, {oid1.get()});
+                              }));
+
   for (bool use_any : {false, true}) {
     SCOPED_TRACE(use_any);
     X509 *cert =
