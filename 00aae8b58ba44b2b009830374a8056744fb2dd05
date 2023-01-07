@@ -33,6 +33,24 @@
       "message": "For context, we\u0027re seeing this now in Fuchsia. \nhttps://bugs.fuchsia.dev/p/fuchsia/issues/detail?id\u003d118918#c2",
       "revId": "00aae8b58ba44b2b009830374a8056744fb2dd05",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b7ac893_0d49f0a5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15546
+      },
+      "writtenOn": "2023-01-07T00:22:05Z",
+      "side": 1,
+      "message": "My understanding is that there are not, but I\u0027m not totally sure. The patch in LLVM makes it sound like this has been the case for a long time. I\u0027m not sure if boring and Mac have different views of support windows though.",
+      "parentUuid": "0ea38354_21701a4d",
+      "revId": "00aae8b58ba44b2b009830374a8056744fb2dd05",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
