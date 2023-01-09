@@ -65,6 +65,9 @@ struct rand_thread_state {
   // last_block_valid is non-zero iff |last_block| contains data from
   // |get_seed_entropy|.
   int last_block_valid;
+  // fork_unsafe_buffering is non-zero iff, when |drbg| was last (re)seeded,
+  // fork-unsafe buffering was enabled.
+  int fork_unsafe_buffering;
 
 #if defined(BORINGSSL_FIPS)
   // last_block contains the previous block from |get_seed_entropy|.
@@ -326,6 +329,7 @@ void RAND_bytes_with_additional_data(uint8_t *out, size_t out_len,
   }
 
   const uint64_t fork_generation = CRYPTO_get_fork_generation();
+  const int fork_unsafe_buffering = rand_fork_unsafe_buffering_enabled();
 
   // Additional data is mixed into every CTR-DRBG call to protect, as best we
   // can, against forks & VM clones. We do not over-read this information and
@@ -340,7 +344,7 @@ void RAND_bytes_with_additional_data(uint8_t *out, size_t out_len,
     // entropy is used. This can be expensive (one read per |RAND_bytes| call)
     // and so is disabled when we have fork detection, or if the application has
     // promised not to fork.
-    if (fork_generation != 0 || rand_fork_unsafe_buffering_enabled()) {
+    if (fork_generation != 0 || fork_unsafe_buffering) {
       OPENSSL_memset(additional_data, 0, sizeof(additional_data));
     } else if (!have_rdrand()) {
       // No alternative so block for OS entropy.
@@ -383,6 +387,7 @@ void RAND_bytes_with_additional_data(uint8_t *out, size_t out_len,
     }
     state->calls = 0;
     state->fork_generation = fork_generation;
+    state->fork_unsafe_buffering = fork_unsafe_buffering;
 
 #if defined(BORINGSSL_FIPS)
     if (state != &stack_state) {
@@ -400,7 +405,14 @@ void RAND_bytes_with_additional_data(uint8_t *out, size_t out_len,
   }
 
   if (state->calls >= kReseedInterval ||
-      state->fork_generation != fork_generation) {
+      // If we've forked since |state| was last seeded, reseed.
+      state->fork_generation != fork_generation ||
+      // If |state| was seeded from a state with different fork-safety
+      // preferences, reseed. Suppose |state| was fork-safe, then forked into
+      // two children, but each of the children never fork and disable fork
+      // safety. The children must reseed to avoid working from the same PRNG
+      // state.
+      state->fork_unsafe_buffering != fork_unsafe_buffering) {
     uint8_t seed[CTR_DRBG_ENTROPY_LEN];
     uint8_t reseed_additional_data[CTR_DRBG_ENTROPY_LEN] = {0};
     size_t reseed_additional_data_len = 0;
@@ -418,6 +430,7 @@ void RAND_bytes_with_additional_data(uint8_t *out, size_t out_len,
     }
     state->calls = 0;
     state->fork_generation = fork_generation;
+    state->fork_unsafe_buffering = fork_unsafe_buffering;
   } else {
 #if defined(BORINGSSL_FIPS)
     CRYPTO_STATIC_MUTEX_lock_read(state_clear_all_lock_bss_get());
