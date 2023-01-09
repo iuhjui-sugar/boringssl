@@ -665,30 +665,26 @@ void tls_next_message(SSL *ssl) {
 class CipherScorer {
  public:
   CipherScorer(uint16_t group_id)
-      : aes_is_fine_(EVP_has_aes_hardware()),
-        security_128_is_fine_(group_id != SSL_CURVE_CECPQ2) {}
+      : aes_is_fine_(EVP_has_aes_hardware()) {}
 
-  typedef std::tuple<bool, bool, bool> Score;
+  typedef std::tuple<bool, bool> Score;
 
   // MinScore returns a |Score| that will compare less than the score of all
   // cipher suites.
   Score MinScore() const {
-    return Score(false, false, false);
+    return Score(false, false);
   }
 
   Score Evaluate(const SSL_CIPHER *a) const {
     return Score(
         // Something is always preferable to nothing.
         true,
-        // Either 128-bit is fine, or 256-bit is preferred.
-        security_128_is_fine_ || a->algorithm_enc != SSL_AES128GCM,
         // Either AES is fine, or else ChaCha20 is preferred.
         aes_is_fine_ || a->algorithm_enc == SSL_CHACHA20POLY1305);
   }
 
  private:
   const bool aes_is_fine_;
-  const bool security_128_is_fine_;
 };
 
 bool ssl_tls13_cipher_meets_policy(uint16_t cipher_id, bool only_fips) {
