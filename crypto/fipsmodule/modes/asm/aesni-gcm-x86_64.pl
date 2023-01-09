@@ -78,7 +78,7 @@ if ($avx>1) {{{
 
 ($inout0,$inout1,$inout2,$inout3,$inout4,$inout5,$rndkey) = map("%xmm$_",(9..15));
 
-($counter,$rounds,$ret,$const,$in0,$end0)=("%ebx","%ebp","%r10","%r11","%r14","%r15");
+($counter,$rounds,$const,$in0,$end0)=("%ebx","%r10d","%r11","%r14","%r15");
 
 $code=<<___;
 .text
@@ -390,7 +390,7 @@ _aesni_ctr32_ghash_6x:
 	  vaesenclast	$Hkey,$inout5,$inout5
 	 vpaddb		$T2,$Z3,$Hkey
 
-	add		\$0x60,$ret
+	add		\$0x60,%rax
 	sub		\$0x6,$len
 	jc		.L6x_done
 
@@ -428,53 +428,58 @@ $code.=<<___;
 .align	32
 aesni_gcm_decrypt:
 .cfi_startproc
-	xor	$ret,$ret
+	xor	%rax,%rax
 
 	# We call |_aesni_ctr32_ghash_6x|, which requires at least 96 (0x60)
 	# bytes of input.
 	cmp	\$0x60,$len			# minimal accepted length
 	jb	.Lgcm_dec_abort
 
-	lea	(%rsp),%rax			# save stack pointer
-.cfi_def_cfa_register	%rax
-	push	%rbx
-.cfi_push	%rbx
-	push	%rbp
-.cfi_push	%rbp
-	push	%r12
-.cfi_push	%r12
-	push	%r13
-.cfi_push	%r13
-	push	%r14
-.cfi_push	%r14
-	push	%r15
-.cfi_push	%r15
+	mov	%rbx, -8(%rsp)
+	mov	%rbp,-16(%rsp)
+	mov	%r12,-24(%rsp)
+	mov	%r13,-32(%rsp)
+	mov	%r14,-40(%rsp)
+	mov	%r15,-48(%rsp)
+	mov	%rsp, %rbp			# save stack pointer
+.cfi_def_cfa_register	%rbp
+.cfi_offset	rbx, -16
+.cfi_offset	rbp, -24
+.cfi_offset	r12, -32
+.cfi_offset	r13, -40
+.cfi_offset	r14, -48
+.cfi_offset	r15, -56
 ___
-$code.=<<___ if ($win64);
-	lea	-0xa8(%rsp),%rsp
-	movaps	%xmm6,-0xd8(%rax)
-	movaps	%xmm7,-0xc8(%rax)
-	movaps	%xmm8,-0xb8(%rax)
-	movaps	%xmm9,-0xa8(%rax)
-	movaps	%xmm10,-0x98(%rax)
-	movaps	%xmm11,-0x88(%rax)
-	movaps	%xmm12,-0x78(%rax)
-	movaps	%xmm13,-0x68(%rax)
-	movaps	%xmm14,-0x58(%rax)
-	movaps	%xmm15,-0x48(%rax)
-.Lgcm_dec_body:
+if ($win64) {
+$code.=<<___
+	lea	-0x158(%rsp),%rsp
+	movaps	%xmm6,-0xd8(%rbp)
+	movaps	%xmm7,-0xc8(%rbp)
+	movaps	%xmm8,-0xb8(%rbp)
+	movaps	%xmm9,-0xa8(%rbp)
+	movaps	%xmm10,-0x98(%rbp)
+	movaps	%xmm11,-0x88(%rbp)
+	movaps	%xmm12,-0x78(%rbp)
+	movaps	%xmm13,-0x68(%rbp)
+	movaps	%xmm14,-0x58(%rbp)
+	movaps	%xmm15,-0x48(%rbp)
+.Lgcm_enc_body:
 ___
+} else {
+$code.=<<___
+	lea	-0xb0(%rsp),%rsp
+___
+}
 $code.=<<___;
 	vzeroupper
 
 	vmovdqu		($ivp),$T1		# input counter value
-	add		\$-128,%rsp
 	mov		12($ivp),$counter
 	lea		.Lbswap_mask(%rip),$const
 	lea		-0x80($key),$in0	# borrow $in0
 	mov		\$0xf80,$end0		# borrow $end0
 	vmovdqu		($Xip),$Xi		# load Xi
-	and		\$-128,%rsp		# ensure stack alignment
+	and		\$-0x80,%rsp		# ensure stack alignment
 	vmovdqu		($const),$Ii		# borrow $Ii for .Lbswap_mask
 	lea		0x80($key),$key		# size optimization
 	lea		0x20+0x20($Xip),$Xip	# size optimization
@@ -491,7 +496,7 @@ $code.=<<___;
 .Ldec_no_key_aliasing:
 
 	vmovdqu		0x50($inp),$Z3		# I[5]
-	lea		($inp),$in0
+	mov		$inp,$in0
 	vmovdqu		0x40($inp),$Z0
 
 	# |_aesni_ctr32_ghash_6x| requires |$end0| to point to 2*96 (0xc0)
@@ -504,7 +509,7 @@ $code.=<<___;
 
 	vmovdqu		0x30($inp),$Z1
 	shr		\$4,$len
-	xor		$ret,$ret
+	xor		%rax,%rax
 	vmovdqu		0x20($inp),$Z2
 	 vpshufb	$Ii,$Z3,$Z3		# passed to _aesni_ctr32_ghash_6x
 	vmovdqu		0x10($inp),$T2
@@ -533,36 +538,35 @@ $code.=<<___;
 	vmovdqu		$Xi,-0x40($Xip)		# output Xi
 
 	vzeroupper
+	mov	%rbp,%rsp		# restore %rsp
+.cfi_def_cfa_register	%rsp
 ___
 $code.=<<___ if ($win64);
-	movaps	-0xd8(%rax),%xmm6
-	movaps	-0xc8(%rax),%xmm7
-	movaps	-0xb8(%rax),%xmm8
-	movaps	-0xa8(%rax),%xmm9
-	movaps	-0x98(%rax),%xmm10
-	movaps	-0x88(%rax),%xmm11
-	movaps	-0x78(%rax),%xmm12
-	movaps	-0x68(%rax),%xmm13
-	movaps	-0x58(%rax),%xmm14
-	movaps	-0x48(%rax),%xmm15
+	movaps	-0xd8(%rsp),%xmm6
+	movaps	-0xc8(%rsp),%xmm7
+	movaps	-0xb8(%rsp),%xmm8
+	movaps	-0xa8(%rsp),%xmm9
+	movaps	-0x98(%rsp),%xmm10
+	movaps	-0x88(%rsp),%xmm11
+	movaps	-0x78(%rsp),%xmm12
+	movaps	-0x68(%rsp),%xmm13
+	movaps	-0x58(%rsp),%xmm14
+	movaps	-0x48(%rsp),%xmm15
 ___
 $code.=<<___;
-	mov	-48(%rax),%r15
+	mov	-48(%rsp),%r15
 .cfi_restore	%r15
-	mov	-40(%rax),%r14
+	mov	-40(%rsp),%r14
 .cfi_restore	%r14
-	mov	-32(%rax),%r13
+	mov	-32(%rsp),%r13
 .cfi_restore	%r13
-	mov	-24(%rax),%r12
+	mov	-24(%rsp),%r12
 .cfi_restore	%r12
-	mov	-16(%rax),%rbp
+	mov	-16(%rsp),%rbp
 .cfi_restore	%rbp
-	mov	-8(%rax),%rbx
+	mov	-8(%rsp),%rbx
 .cfi_restore	%rbx
-	lea	(%rax),%rsp		# restore %rsp
-.cfi_def_cfa_register	%rsp
 .Lgcm_dec_abort:
-	mov	$ret,%rax		# return value
 	ret
 .cfi_endproc
 .size	aesni_gcm_decrypt,.-aesni_gcm_decrypt
@@ -671,7 +675,7 @@ aesni_gcm_encrypt:
 .extern	BORINGSSL_function_hit
 	movb \$1,BORINGSSL_function_hit+2(%rip)
 #endif
-	xor	$ret,$ret
+	xor	%rax,%rax
 
 	# We call |_aesni_ctr32_6x| twice, each call consuming 96 bytes of
 	# input. Then we call |_aesni_ctr32_ghash_6x|, which requires at
@@ -679,47 +683,52 @@ aesni_gcm_encrypt:
 	cmp	\$0x60*3,$len			# minimal accepted length
 	jb	.Lgcm_enc_abort
 
-	lea	(%rsp),%rax			# save stack pointer
-.cfi_def_cfa_register	%rax
-	push	%rbx
-.cfi_push	%rbx
-	push	%rbp
-.cfi_push	%rbp
-	push	%r12
-.cfi_push	%r12
-	push	%r13
-.cfi_push	%r13
-	push	%r14
-.cfi_push	%r14
-	push	%r15
-.cfi_push	%r15
+	mov	%rbx, -8(%rsp)
+	mov	%rbp,-16(%rsp)
+	mov	%r12,-24(%rsp)
+	mov	%r13,-32(%rsp)
+	mov	%r14,-40(%rsp)
+	mov	%r15,-48(%rsp)
+	mov	%rsp, %rbp			# save stack pointer
+.cfi_def_cfa_register	%rbp
+.cfi_offset	rbx, -16
+.cfi_offset	rbp, -24
+.cfi_offset	r12, -32
+.cfi_offset	r13, -40
+.cfi_offset	r14, -48
+.cfi_offset	r15, -56
 ___
-$code.=<<___ if ($win64);
-	lea	-0xa8(%rsp),%rsp
-	movaps	%xmm6,-0xd8(%rax)
-	movaps	%xmm7,-0xc8(%rax)
-	movaps	%xmm8,-0xb8(%rax)
-	movaps	%xmm9,-0xa8(%rax)
-	movaps	%xmm10,-0x98(%rax)
-	movaps	%xmm11,-0x88(%rax)
-	movaps	%xmm12,-0x78(%rax)
-	movaps	%xmm13,-0x68(%rax)
-	movaps	%xmm14,-0x58(%rax)
-	movaps	%xmm15,-0x48(%rax)
+if ($win64) {
+$code.=<<___
+	lea	-0x158(%rsp),%rsp
+	movaps	%xmm6,-0xd8(%rbp)
+	movaps	%xmm7,-0xc8(%rbp)
+	movaps	%xmm8,-0xb8(%rbp)
+	movaps	%xmm9,-0xa8(%rbp)
+	movaps	%xmm10,-0x98(%rbp)
+	movaps	%xmm11,-0x88(%rbp)
+	movaps	%xmm12,-0x78(%rbp)
+	movaps	%xmm13,-0x68(%rbp)
+	movaps	%xmm14,-0x58(%rbp)
+	movaps	%xmm15,-0x48(%rbp)
 .Lgcm_enc_body:
 ___
+} else {
+$code.=<<___
+	lea	-0xb0(%rsp),%rsp
+___
+}
 $code.=<<___;
 	vzeroupper
 
 	vmovdqu		($ivp),$T1		# input counter value
-	add		\$-128,%rsp
 	mov		12($ivp),$counter
 	lea		.Lbswap_mask(%rip),$const
 	lea		-0x80($key),$in0	# borrow $in0
 	mov		\$0xf80,$end0		# borrow $end0
 	lea		0x80($key),$key		# size optimization
 	vmovdqu		($const),$Ii		# borrow $Ii for .Lbswap_mask
-	and		\$-128,%rsp		# ensure stack alignment
+	and		\$-0x80,%rsp		# ensure stack alignment
 	mov		0xf0-0x80($key),$rounds
 
 	and		$end0,$in0
@@ -731,7 +740,7 @@ $code.=<<___;
 	sub		$end0,%rsp		# avoid aliasing with key
 .Lenc_no_key_aliasing:
 
-	lea		($out),$in0
+	mov		$out ,$in0
 
 	# |_aesni_ctr32_ghash_6x| requires |$end0| to point to 2*96 (0xc0)
 	# bytes before the end of the input. Note, in particular, that this is
@@ -762,7 +771,7 @@ $code.=<<___;
 	vmovdqu		($Xip),$Xi		# load Xi
 	lea		0x20+0x20($Xip),$Xip	# size optimization
 	sub		\$12,$len
-	mov		\$0x60*2,$ret
+	mov		\$0x60*2,%rax
 	vpshufb		$Ii,$Xi,$Xi
 
 	call		_aesni_ctr32_ghash_6x
@@ -949,36 +958,35 @@ $code.=<<___;
 	vmovdqu		$Xi,-0x40($Xip)		# output Xi
 
 	vzeroupper
+	mov	%rbp,%rsp		# restore %rsp
+.cfi_def_cfa_register	%rsp
 ___
 $code.=<<___ if ($win64);
-	movaps	-0xd8(%rax),%xmm6
-	movaps	-0xc8(%rax),%xmm7
-	movaps	-0xb8(%rax),%xmm8
-	movaps	-0xa8(%rax),%xmm9
-	movaps	-0x98(%rax),%xmm10
-	movaps	-0x88(%rax),%xmm11
-	movaps	-0x78(%rax),%xmm12
-	movaps	-0x68(%rax),%xmm13
-	movaps	-0x58(%rax),%xmm14
-	movaps	-0x48(%rax),%xmm15
+	movaps	-0xd8(%rsp),%xmm6
+	movaps	-0xc8(%rsp),%xmm7
+	movaps	-0xb8(%rsp),%xmm8
+	movaps	-0xa8(%rsp),%xmm9
+	movaps	-0x98(%rsp),%xmm10
+	movaps	-0x88(%rsp),%xmm11
+	movaps	-0x78(%rsp),%xmm12
+	movaps	-0x68(%rsp),%xmm13
+	movaps	-0x58(%rsp),%xmm14
+	movaps	-0x48(%rsp),%xmm15
 ___
 $code.=<<___;
-	mov	-48(%rax),%r15
+	mov	-48(%rsp),%r15
 .cfi_restore	%r15
-	mov	-40(%rax),%r14
+	mov	-40(%rsp),%r14
 .cfi_restore	%r14
-	mov	-32(%rax),%r13
+	mov	-32(%rsp),%r13
 .cfi_restore	%r13
-	mov	-24(%rax),%r12
+	mov	-24(%rsp),%r12
 .cfi_restore	%r12
-	mov	-16(%rax),%rbp
+	mov	-16(%rsp),%rbp
 .cfi_restore	%rbp
-	mov	-8(%rax),%rbx
+	mov	-8(%rsp),%rbx
 .cfi_restore	%rbx
-	lea	(%rax),%rsp		# restore %rsp
-.cfi_def_cfa_register	%rsp
 .Lgcm_enc_abort:
-	mov	$ret,%rax		# return value
 	ret
 .cfi_endproc
 .size	aesni_gcm_encrypt,.-aesni_gcm_encrypt
@@ -1039,7 +1047,7 @@ gcm_se_handler:
 	cmp	%r10,%rbx		# context->Rip>=epilogue label
 	jae	.Lcommon_seh_tail
 
-	mov	120($context),%rax	# pull context->Rax
+	mov	160($context),%rax	# pull context->Rbp
 
 	mov	-48(%rax),%r15
 	mov	-40(%rax),%r14
