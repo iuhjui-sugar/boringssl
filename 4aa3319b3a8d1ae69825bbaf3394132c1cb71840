@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1320484c_bd4a6d5e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15571
+      },
+      "writtenOn": "2023-01-10T17:46:06Z",
+      "side": 1,
+      "message": "Adam: Thanks for adopting those changes! Should we push those changes upstream?",
+      "revId": "4aa3319b3a8d1ae69825bbaf3394132c1cb71840",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7fac018_756f35c5",
+        "filename": "crypto/fipsmodule/modes/asm/aesni-gcm-x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 1050,
+      "author": {
+        "id": 15571
+      },
+      "writtenOn": "2023-01-10T17:46:06Z",
+      "side": 1,
+      "message": "Adam: This is an untested offset adjustment based off of:\nhttps://learn.microsoft.com/en-us/windows/win32/api/winnt/ns-winnt-context\nInstead of pulling offset 120, which is supposably \"DWORD64 Rax\" I am pulling offset 160, which is right \"DWORD64 Rbp\" which sits right next to \"DWORD Rsp\". This looks fine to me, but should be tested. Is there a Windows-backed unittest to exercise this handler?",
+      "range": {
+        "startLine": 1050,
+        "startChar": 5,
+        "endLine": 1050,
+        "endChar": 8
+      },
+      "revId": "4aa3319b3a8d1ae69825bbaf3394132c1cb71840",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
