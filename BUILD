@@ -12,6 +12,7 @@
 # OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
 # CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. */
 
+load("@bazel_skylib//lib:selects.bzl", "selects")
 load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library")
 load(
     ":BUILD.generated.bzl",
@@ -34,44 +35,13 @@ load(
     "tool_headers",
     "tool_sources",
 )
+load(":configs.bzl", "generate_platform_configs", "platform_config_setting")
 
 licenses(["notice"])
 
 exports_files(["LICENSE"])
 
-[
-    (
-        config_setting(
-            name = os + "_" + arch,
-            constraint_values = [
-                "@platforms//os:" + os,
-                "@platforms//cpu:" + arch,
-            ],
-        ),
-    )
-    for os in [
-        "linux",
-        "android",
-        "macos",
-        "ios",
-        "tvos",
-        "watchos",
-    ]
-    for arch in [
-        "arm64",
-        "armv7",
-        "x86_64",
-        "x86_32",
-    ]
-]
-
-config_setting(
-    name = "linux_ppc64le",
-    constraint_values = [
-        "@platforms//os:linux",
-        "@platforms//cpu:ppc",
-    ],
-)
+generate_platform_configs()
 
 posix_copts = [
     # Assembler option --noexecstack adds .note.GNU-stack to each object to
@@ -97,20 +67,16 @@ glibc_copts = posix_copts + [
     "-D_XOPEN_SOURCE=700",
 ]
 
-boringssl_copts = select({
-    "@platforms//os:linux": glibc_copts,
-    "@platforms//os:android": posix_copts,
-    "@platforms//os:macos": posix_copts,
-    "@platforms//os:ios": posix_copts,
-    "@platforms//os:tvos": posix_copts,
-    "@platforms//os:watchos": posix_copts,
-    "@platforms//os:windows": ["-DWIN32_LEAN_AND_MEAN"],
+boringssl_copts = selects.with_or({
+    ":linux_any": glibc_copts,
+    (":android_any", ":apple_any"): posix_copts,
+    ":windows_any": ["-DWIN32_LEAN_AND_MEAN"],
     "//conditions:default": [],
 })
 
 # These selects must be kept in sync.
 crypto_sources_asm = select({
-    ":linux_ppc64le": crypto_sources_linux_ppc64le,
+    ":linux_ppc": crypto_sources_linux_ppc64le,
     ":linux_armv7": crypto_sources_linux_arm,
     ":linux_arm64": crypto_sources_linux_aarch64,
     ":linux_x86_32": crypto_sources_linux_x86,
@@ -137,32 +103,13 @@ crypto_sources_asm = select({
     ":watchos_x86_64": crypto_sources_apple_x86_64,
     "//conditions:default": [],
 })
-boringssl_copts += select({
-    ":linux_ppc64le": [],
-    ":linux_armv7": [],
-    ":linux_arm64": [],
-    ":linux_x86_32": [],
-    ":linux_x86_64": [],
-    ":android_armv7": [],
-    ":android_arm64": [],
-    ":android_x86_32": [],
-    ":android_x86_64": [],
-    ":macos_armv7": [],
-    ":macos_arm64": [],
-    ":macos_x86_32": [],
-    ":macos_x86_64": [],
-    ":ios_armv7": [],
-    ":ios_arm64": [],
-    ":ios_x86_32": [],
-    ":ios_x86_64": [],
-    ":tvos_armv7": [],
-    ":tvos_arm64": [],
-    ":tvos_x86_32": [],
-    ":tvos_x86_64": [],
-    ":watchos_armv7": [],
-    ":watchos_arm64": [],
-    ":watchos_x86_32": [],
-    ":watchos_x86_64": [],
+
+boringssl_copts += selects.with_or({
+    (
+        ":linux_any",
+        ":android_any",
+        ":apple_any",
+    ): [],
     "//conditions:default": ["-DOPENSSL_NO_ASM"],
 })
 
@@ -174,13 +121,12 @@ posix_copts_c11 = [
     "-Wstrict-prototypes",
 ]
 
-boringssl_copts_c11 = boringssl_copts + select({
-    "@platforms//os:linux": posix_copts_c11,
-    "@platforms//os:android": posix_copts_c11,
-    "@platforms//os:macos": posix_copts_c11,
-    "@platforms//os:ios": posix_copts_c11,
-    "@platforms//os:tvos": posix_copts_c11,
-    "@platforms//os:watchos": posix_copts_c11,
+boringssl_copts_c11 = boringssl_copts + selects.with_or({
+    (
+        ":linux_any",
+        ":android_any",
+        ":apple_any",
+    ): posix_copts_c11,
     "//conditions:default": [],
 })
 
@@ -190,13 +136,12 @@ posix_copts_cxx = [
     "-Wmissing-declarations",
 ]
 
-boringssl_copts_cxx = boringssl_copts + select({
-    "@platforms//os:linux": posix_copts_cxx,
-    "@platforms//os:android": posix_copts_cxx,
-    "@platforms//os:macos": posix_copts_cxx,
-    "@platforms//os:ios": posix_copts_cxx,
-    "@platforms//os:tvos": posix_copts_cxx,
-    "@platforms//os:watchos": posix_copts_cxx,
+boringssl_copts_cxx = boringssl_copts + selects.with_or({
+    (
+        ":linux_any",
+        ":android_any",
+        ":apple_any",
+    ): posix_copts_cxx,
     "//conditions:default": [],
 })
 
@@ -207,7 +152,7 @@ cc_library(
     copts = boringssl_copts_c11,
     includes = ["src/include"],
     linkopts = select({
-        "@platforms//os:windows": ["-defaultlib:advapi32.lib"],
+        ":windows_any": ["-defaultlib:advapi32.lib"],
         "//conditions:default": ["-pthread"],
     }),
     visibility = ["//visibility:public"],
