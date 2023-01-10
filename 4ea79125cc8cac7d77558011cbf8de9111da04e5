@@ -33,6 +33,29 @@
       "message": "We can\u0027t use the `:foo_any` selectors here. Per the comment above, the two selects must be kept in sync. Otherwise, if there\u0027s some assembly-capable platform that isn\u0027t able to be detected by bazel, the C code won\u0027t know not to expect assembly.\n\n(This is another reason I\u0027m pondering getting platform detectors out of the build files. Bazel\u0027s not very good at handling related selects.)",
       "revId": "4ea79125cc8cac7d77558011cbf8de9111da04e5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0832cb5_03d0a7bc",
+        "filename": "configs.bzl",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-10T23:51:45Z",
+      "side": 1,
+      "message": "One more question... the keys in this dictionary are legacy CPU flags, right? But the CPU flags here aren\u0027t specific to Android at all. Do `{\"cpu\": \"x86_64\"}` and `{\"cpu\": \"arm64\"}`, etc., just mean Android in Bazel?\n\nAlso what happens if there multiple legacy CPU flags that correspond to the same `@platforms://cpu:foo` constraint? Or none? Should the mapping be reversed, so it maps the `@platforms` name to the list of legacy CPU flags?",
+      "range": {
+        "startLine": 71,
+        "startChar": 9,
+        "endLine": 71,
+        "endChar": 15
+      },
+      "revId": "4ea79125cc8cac7d77558011cbf8de9111da04e5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
