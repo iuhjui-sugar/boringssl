@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "863b2e54_10f6f673",
+        "filename": "BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-10T23:05:50Z",
+      "side": 1,
+      "message": "We can\u0027t use the `:foo_any` selectors here. Per the comment above, the two selects must be kept in sync. Otherwise, if there\u0027s some assembly-capable platform that isn\u0027t able to be detected by bazel, the C code won\u0027t know not to expect assembly.\n\n(This is another reason I\u0027m pondering getting platform detectors out of the build files. Bazel\u0027s not very good at handling related selects.)",
+      "revId": "4ea79125cc8cac7d77558011cbf8de9111da04e5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
