@@ -18,6 +18,23 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a25fb92f_5b17a63f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15571
+      },
+      "writtenOn": "2023-01-11T10:29:10Z",
+      "side": 1,
+      "message": "For future reference, if we ever need to push this upstream and people ask us about performance:\n\n* cl/489413618 has some benchmark number from this simple encryption benchmarker:\nhttp://cs/file:openssl_benchmark.cc. It shows that we save one instruction and very marginally improve performance.\n* llvm-mca shows a nice uOps reduction. movq seems to be much better than pushq. \n  - https://paste.googleplex.com/4959844292362240?raw old prelude/postlude requires 27 uOps.\n  - https://paste.googleplex.com/5260631891509248?raw new prelude/postlude requires\n15 uOps.",
+      "revId": "4aa3319b3a8d1ae69825bbaf3394132c1cb71840",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c7fac018_756f35c5",

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39a43864_0104caa3",
+        "filename": "crypto/fipsmodule/modes/asm/aesni-gcm-x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 15571
+      },
+      "writtenOn": "2023-01-11T10:29:10Z",
+      "side": 0,
+      "message": "The (original) code mixes hexadecimal and decimal offsets and it took me a minute to realize that while wondering why %r15 is not colliding with %xmm15. It would nice to convert everything to hex (copy from here: https://paste.googleplex.com/5784065864105984)\n\nIf we convert everything to hex, it becomes clear that on Windows there is a small gap between the xmm register locations and the r* register locations. Offsets -0x30 to -0x38 are unused. I can\u0027t see a reason why the gap exists. Should we close the gap? It doesn\u0027t make a big difference, and only very minimally reduces stack pressure.\n\nFeel free to ignore this as it\u0027s really minor.",
+      "range": {
+        "startLine": 547,
+        "startChar": 0,
+        "endLine": 550,
+        "endChar": 19
+      },
+      "revId": "f8a10eeef9549601a91c4525f55bf8a59d338eff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
