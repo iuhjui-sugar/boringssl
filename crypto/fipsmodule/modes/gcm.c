@@ -148,9 +148,6 @@ static size_t hw_gcm_decrypt(const uint8_t *in, uint8_t *out, size_t len,
 
 #if defined(HW_GCM) && defined(OPENSSL_AARCH64)
 
-static const int kAES128Rounds = 10;
-static const int kAES256Rounds = 14;
-
 static size_t hw_gcm_encrypt(const uint8_t *in, uint8_t *out, size_t len,
                              const AES_KEY *key, uint8_t ivec[16],
                              uint64_t *Xi) {
@@ -158,20 +155,7 @@ static size_t hw_gcm_encrypt(const uint8_t *in, uint8_t *out, size_t len,
   if (!len_blocks) {
     return 0;
   }
-
-  switch (key->rounds) {
-    case kAES128Rounds:
-      aes_gcm_enc_128_kernel(in, len_blocks * 8, out, Xi, ivec, key);
-      break;
-
-    case kAES256Rounds:
-      aes_gcm_enc_256_kernel(in, len_blocks * 8, out, Xi, ivec, key);
-      break;
-
-    default:
-      return 0;
-  }
-
+  aes_gcm_enc_kernel(in, len_blocks * 8, out, Xi, ivec, key);
   return len_blocks;
 }
 
@@ -182,21 +166,7 @@ static size_t hw_gcm_decrypt(const uint8_t *in, uint8_t *out, size_t len,
   if (!len_blocks) {
     return 0;
   }
-
-  switch (key->rounds) {
-    case kAES128Rounds:
-      aes_gcm_dec_128_kernel(in, len_blocks * 8, out, Xi, ivec, key);
-      break;
-
-    case kAES256Rounds:
-      aes_gcm_dec_256_kernel(in, len_blocks * 8, out, Xi, ivec, key);
-      break;
-
-    default:
-      return 0;
-  }
-
-
+  aes_gcm_dec_kernel(in, len_blocks * 8, out, Xi, ivec, key);
   return len_blocks;
 }
 
