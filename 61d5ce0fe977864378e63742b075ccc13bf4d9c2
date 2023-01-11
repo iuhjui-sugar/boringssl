@@ -16,6 +16,23 @@
       "message": "Do you expect that this will also fix https://bugs.chromium.org/p/boringssl/issues/detail?id\u003d553 ?",
       "revId": "61d5ce0fe977864378e63742b075ccc13bf4d9c2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e179a289_a67096bb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-01-11T14:33:26Z",
+      "side": 1,
+      "message": "Rubber-stamp LGTM. (Will leave before landing for a little bit in case anyone else has concerns.)",
+      "revId": "61d5ce0fe977864378e63742b075ccc13bf4d9c2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
