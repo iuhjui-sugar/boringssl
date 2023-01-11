@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59c31ea2_9954aebf",
+        "filename": "crypto/fipsmodule/aes/asm/aesv8-armx64-gcm.pl",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-11T15:16:05Z",
+      "side": 1,
+      "message": "To be consistent with other files, perhaps aesv8-gcm-armv8.pl? This matches aesni-gcm-x86_64.pl. The architecture is usually a suffix, and \"armx\" is for dual 32-bit/64-bit files. (This file name might even mess up generate_build_files.py as-is...)",
+      "revId": "633177da88be995cb032803265c4ce82494fa672",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abd54bbb_206161f9",
+        "filename": "crypto/fipsmodule/aes/asm/aesv8-armx64-gcm.pl",
+        "patchSetId": 7
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-11T15:16:05Z",
+      "side": 1,
+      "message": "I spent a little time trying to merge these together. Haven\u0027t gotten it working yet, but I vaguely understand the structure of at least the enc functions now. I\u0027ll see if I can pull it off. It\u0027s just a matter of conditionalizing groups of 8 instructions that are already close to scheduled together anyway.",
+      "revId": "633177da88be995cb032803265c4ce82494fa672",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ac2a71f_6644cfbb",
+        "filename": "crypto/fipsmodule/aes/asm/aesv8-armx64-gcm.pl",
+        "patchSetId": 7
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-11T15:16:05Z",
+      "side": 1,
+      "message": "This doesn\u0027t set up a frame pointer which comes to mind, given the kerfuffle with the corresponding x86_64 functions. :-) It\u0027s unclear to me if this violates the ABI.\n\nAAPCS64 talks about frame pointer requirements here, and leaves it up to to the platform how strongly they wish to require it. The strongest being that it\u0027s required \"except that small subroutines which do not modify the link register may elect not to create a frame record\"\nhttps://github.com/ARM-software/abi-aa/blob/main/aapcs64/aapcs64.rst#the-frame-pointer\n\nApple takes this option, allowing as an exception \"Some functions — such as leaf functions or tail calls\".\nhttps://developer.apple.com/documentation/xcode/writing-arm64-code-for-apple-platforms\n\nMicrosoft doesn\u0027t outright require it but encourages it.\nhttps://learn.microsoft.com/en-us/cpp/build/arm64-windows-abi-conventions?view\u003dmsvc-170#stack-walking\n\nAnd no one\u0027s written down the rules for ELF, as far as I can tell. I suspect it\u0027s an emergent behavior of whatever implementation Arm contributed to GCC and LLVM. :-)\n\nStrictly speaking, these functions don\u0027t modify LR (X30) or the frame pointer (X29). Though they\u0027re certainly not small! I\u0027m not sure what the implications are if you touch the stack, but don\u0027t touch X29 and X30, whether we\u0027d lose a stack frame. (The function\u0027s caller is in LR, but a non-leaf function might leave LR clobbered in the middle of execution, so I\u0027m not sure if unwinders us that.)\n\nAt the least, none of the existing OpenSSL aarch64 assembly does this. Skimming this grep, everything that modifies the stack starts with `stp x29, x30, [sp, #-N]`. (That\u0027s decrement `sp` by `N`, then write `x29` and `x30` to the resulting address. It\u0027s usually followed by `mov x29, sp` to update the frame pointer.) Many of which (e.g. `ChaCha20_ctr32`) are leaf functions.\n```\ngit grep -E \u0027sub.*sp|sp.*!\u0027 -- \u0027*armv8*.pl\u0027\n```\n\nI\u0027d be inclined to just set up a frame pointer and not think too hard about it. In that case, we need `AARCH64_SIGN_LINK_REGISTER` and `AARCH64_VALIDATE_LINK_REGISTER`. I wrote some docs in arm_arch.h.",
+      "revId": "633177da88be995cb032803265c4ce82494fa672",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "469cd870_2b6999d4",
+        "filename": "crypto/fipsmodule/aes/asm/aesv8-armx64-gcm.pl",
+        "patchSetId": 7
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-11T15:16:05Z",
+      "side": 1,
+      "message": "Style: labels are usually not indented in perlasm.",
+      "revId": "633177da88be995cb032803265c4ce82494fa672",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c360a07_cd783b4a",
+        "filename": "crypto/fipsmodule/modes/internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-11T15:16:05Z",
+      "side": 1,
+      "message": "Can we add these to ABI tests?",
+      "revId": "633177da88be995cb032803265c4ce82494fa672",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
