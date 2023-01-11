@@ -63,6 +63,30 @@
       },
       "revId": "4aa3319b3a8d1ae69825bbaf3394132c1cb71840",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8cad1f2_101139d6",
+        "filename": "crypto/fipsmodule/modes/asm/aesni-gcm-x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 1050,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-11T04:39:26Z",
+      "side": 1,
+      "message": "We actually do for SEH, but it\u0027s disabled for most functions, including this one because OpenSSL doesn\u0027t quite do it right. :-) I think what OpenSSL has might work for actual exception delivery (it\u0027s a fake language handler and also does some other goofy things IIRC... it\u0027s been a while), but doesn\u0027t work for profilers. You\u0027re *supposed* to use these rather restrictive unwind codes. I\u0027ve been hoping to redo things to get it right, but it hasn\u0027t bubbled up in priority yet.\n\nSince this CL is changing the prolog/epilog for this function with this CL anyway, rather than hope the redone wrong way still works, I\u0027ll take a stab at making this function do it right.",
+      "parentUuid": "c7fac018_756f35c5",
+      "range": {
+        "startLine": 1050,
+        "startChar": 5,
+        "endLine": 1050,
+        "endChar": 8
+      },
+      "revId": "4aa3319b3a8d1ae69825bbaf3394132c1cb71840",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
