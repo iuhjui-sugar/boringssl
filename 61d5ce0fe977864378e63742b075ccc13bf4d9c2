@@ -33,6 +33,24 @@
       "message": "Rubber-stamp LGTM. (Will leave before landing for a little bit in case anyone else has concerns.)",
       "revId": "61d5ce0fe977864378e63742b075ccc13bf4d9c2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80f43056_2486a7eb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15426
+      },
+      "writtenOn": "2023-01-11T18:01:18Z",
+      "side": 1,
+      "message": "Yes, that looks like it\u0027s caused by the same issue. You can patch this change to confirm",
+      "parentUuid": "73c3d128_84a951a5",
+      "revId": "61d5ce0fe977864378e63742b075ccc13bf4d9c2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
