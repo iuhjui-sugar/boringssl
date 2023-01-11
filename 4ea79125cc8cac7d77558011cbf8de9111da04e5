@@ -56,6 +56,23 @@
       },
       "revId": "4ea79125cc8cac7d77558011cbf8de9111da04e5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85ad3290_42b74e90",
+        "filename": "configs.bzl",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 15581
+      },
+      "writtenOn": "2023-01-11T16:28:21Z",
+      "side": 1,
+      "message": "Typo in \"armebai-v7a\"? Should be \"armeabi...\"",
+      "revId": "4ea79125cc8cac7d77558011cbf8de9111da04e5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
