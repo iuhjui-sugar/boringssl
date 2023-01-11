@@ -120,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e915b185_328c94fb",
+        "filename": "configs.bzl",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-11T22:33:34Z",
+      "side": 1,
+      "message": "I\u0027m still confused.\n\nIf `--cpu` is only meaningful in the context of  `--crosstool_top` value, does that mean conditioning on `--cpu` without also conditioning on `--crosstool_top` risks misinterpreting things?\n\nIsn\u0027t that what this CL is doing?\n\nIf I\u0027m reading `platform_config_setting`, right, it defines `name` to be a `config_setting` which matches either of `cpu_config` or `platform_config`. `platform_config` is the (os, cpu) tuple from `@platforms` I\u0027d expect. But `cpu_config` is `flags_values`.\n\nLine 86 here does `flag_values \u003d {\"cpu\": cpu_flag}`. So if a non-Android crosstool uses a `--cpu` of `x86_64`, why won\u0027t we misclassify that as Android?\n\n(For that matter, why don\u0027t they conflict, of the Android and Linux entries overlap...)",
+      "parentUuid": "8f2ea772_23fd542d",
+      "range": {
+        "startLine": 71,
+        "startChar": 9,
+        "endLine": 71,
+        "endChar": 15
+      },
+      "revId": "4ea79125cc8cac7d77558011cbf8de9111da04e5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "85ad3290_42b74e90",
         "filename": "configs.bzl",
         "patchSetId": 1
