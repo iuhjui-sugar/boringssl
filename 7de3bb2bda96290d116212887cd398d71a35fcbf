@@ -266,6 +266,41 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9d432867_b4f3e8d8",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-11T00:21:14Z",
+      "side": 1,
+      "message": "Not quite following. Which extra hash do you mean?\n\nWhat I was wondering is that there\u0027s no obvious separator plain case and the message-full case. Wasn\u0027t sure if someone can get themselves into some cross-protocol-type trouble if they mix the plain and \"over_message\" variants with the same key. Or is that fine?",
+      "parentUuid": "986bd0f7_7ea2de7b",
+      "revId": "7de3bb2bda96290d116212887cd398d71a35fcbf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d02d633_99339ecb",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-11T00:21:14Z",
+      "side": 1,
+      "message": "Oh hah. Actually the old version even had a memory leak because `EVP_MD_CTX_cleanup` doesn\u0027t run in the success case. Oh well. :-)",
+      "revId": "7de3bb2bda96290d116212887cd398d71a35fcbf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "90f3cb88_e2b04fe9",
         "filename": "crypto/trust_token/voprf.c",
         "patchSetId": 1

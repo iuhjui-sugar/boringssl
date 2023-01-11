@@ -1,0 +1,152 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a962a138_4beeb5f3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-11T00:21:14Z",
+      "side": 1,
+      "message": "Looks good. Just some minor nits and clarification question on the domain separator thing.",
+      "revId": "b74704aae86db8c91330df9b22619d8950bbe020",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe484047_0885f2ec",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-11T00:21:14Z",
+      "side": 1,
+      "message": "(Ditto that you don\u0027t need to bother checking for this failing.)",
+      "revId": "b74704aae86db8c91330df9b22619d8950bbe020",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05288ca7_2159e020",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 1133,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-11T00:21:14Z",
+      "side": 1,
+      "message": "(Ditto that you don\u0027t need to bother checking for this failing.)",
+      "revId": "b74704aae86db8c91330df9b22619d8950bbe020",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e13421d_e829bfb4",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-11T00:21:14Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "b74704aae86db8c91330df9b22619d8950bbe020",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9d38971_68efafdc",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-11T00:21:14Z",
+      "side": 1,
+      "message": "`/*include_message\u003d*/0`",
+      "range": {
+        "startLine": 268,
+        "startChar": 74,
+        "endLine": 268,
+        "endChar": 75
+      },
+      "revId": "b74704aae86db8c91330df9b22619d8950bbe020",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "570c7f6d_9e3d1fcb",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-11T00:21:14Z",
+      "side": 1,
+      "message": "`/*include_message\u003d*/1`",
+      "range": {
+        "startLine": 275,
+        "startChar": 74,
+        "endLine": 275,
+        "endChar": 75
+      },
+      "revId": "b74704aae86db8c91330df9b22619d8950bbe020",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1dc6a54_1629e473",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-11T00:21:14Z",
+      "side": 1,
+      "message": "Optional: oh, you don\u0027t need to bother checking for SHA512_Final failing. It only returns zero when the output pointer is NULL, which none of the other Final functions check for. I should probably just remove that and see if anything cares. (It just happened to check this before and I never got to cleaning up that inconsistency.)",
+      "revId": "b74704aae86db8c91330df9b22619d8950bbe020",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd13cb56_5b321c75",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-11T00:21:14Z",
+      "side": 1,
+      "message": "(Ditto that you don\u0027t need to bother checking for this failing.)",
+      "revId": "b74704aae86db8c91330df9b22619d8950bbe020",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
