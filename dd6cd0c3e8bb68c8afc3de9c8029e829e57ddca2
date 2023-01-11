@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d056557_ef76b815",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 5428,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-11T23:16:32Z",
+      "side": 1,
+      "message": "Fleshing out these tests was so tedious...",
+      "revId": "dd6cd0c3e8bb68c8afc3de9c8029e829e57ddca2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
