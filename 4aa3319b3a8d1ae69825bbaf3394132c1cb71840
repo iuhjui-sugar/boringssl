@@ -39,6 +39,30 @@
       },
       "revId": "4aa3319b3a8d1ae69825bbaf3394132c1cb71840",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1fb3be33_6a7f6a65",
+        "filename": "crypto/fipsmodule/modes/asm/aesni-gcm-x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 1050,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-01-11T01:15:54Z",
+      "side": 1,
+      "message": "We sadly don\u0027t have an SEH unittest like we have a CFI one. David knows the most about SEH and I rather hoping that the SEH here is already broken and thus we\u0027re not making it worse, but perhaps David knows if that\u0027s true.",
+      "parentUuid": "c7fac018_756f35c5",
+      "range": {
+        "startLine": 1050,
+        "startChar": 5,
+        "endLine": 1050,
+        "endChar": 8
+      },
+      "revId": "4aa3319b3a8d1ae69825bbaf3394132c1cb71840",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
