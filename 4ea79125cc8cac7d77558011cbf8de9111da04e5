@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1df4711e_491411eb",
+        "filename": "BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 15576
+      },
+      "writtenOn": "2023-01-11T21:40:05Z",
+      "side": 1,
+      "message": "Potentially using the \":foo_any\" combination configs this would be possible. You could also have whatever generates BUILD.generated.bzl also write the `select` statements, and wrap those in a macro (as I do in configs.bzl)",
+      "parentUuid": "fc1731ed_b04bb355",
+      "revId": "4ea79125cc8cac7d77558011cbf8de9111da04e5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "863b2e54_10f6f673",
         "filename": "BUILD",
         "patchSetId": 1
@@ -31,6 +49,24 @@
       "writtenOn": "2023-01-10T23:05:50Z",
       "side": 1,
       "message": "We can\u0027t use the `:foo_any` selectors here. Per the comment above, the two selects must be kept in sync. Otherwise, if there\u0027s some assembly-capable platform that isn\u0027t able to be detected by bazel, the C code won\u0027t know not to expect assembly.\n\n(This is another reason I\u0027m pondering getting platform detectors out of the build files. Bazel\u0027s not very good at handling related selects.)",
+      "revId": "4ea79125cc8cac7d77558011cbf8de9111da04e5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4a94884_f7c61586",
+        "filename": "BUILD",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 15576
+      },
+      "writtenOn": "2023-01-11T21:40:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "863b2e54_10f6f673",
       "revId": "4ea79125cc8cac7d77558011cbf8de9111da04e5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -60,6 +96,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8f2ea772_23fd542d",
+        "filename": "configs.bzl",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 15576
+      },
+      "writtenOn": "2023-01-11T21:40:05Z",
+      "side": 1,
+      "message": "No, see my comment http://b/265015354#comment12, but the short answer is: The value of `--cpu` is meaningless _except_ in the context of a specific `--crosstool_top`.\n\nWe could extend this to handle an empty string in the values, or reverse the map if needed. My thought was that `--cpu` values are more likely to be unique, so they make better keys.",
+      "parentUuid": "d0832cb5_03d0a7bc",
+      "range": {
+        "startLine": 71,
+        "startChar": 9,
+        "endLine": 71,
+        "endChar": 15
+      },
+      "revId": "4ea79125cc8cac7d77558011cbf8de9111da04e5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "85ad3290_42b74e90",
         "filename": "configs.bzl",
         "patchSetId": 1
@@ -71,6 +131,24 @@
       "writtenOn": "2023-01-11T16:28:21Z",
       "side": 1,
       "message": "Typo in \"armebai-v7a\"? Should be \"armeabi...\"",
+      "revId": "4ea79125cc8cac7d77558011cbf8de9111da04e5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47daa86f_771da554",
+        "filename": "configs.bzl",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 15576
+      },
+      "writtenOn": "2023-01-11T21:40:05Z",
+      "side": 1,
+      "message": "Thanks",
+      "parentUuid": "85ad3290_42b74e90",
       "revId": "4ea79125cc8cac7d77558011cbf8de9111da04e5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
