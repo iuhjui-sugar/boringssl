@@ -16,6 +16,24 @@
       "message": "No need for group_id parameter now.",
       "revId": "5163f4fb4bc7a1f49796c25e290339342d550bbf",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d450727_9007e3e0",
+        "filename": "ssl/s3_both.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 667,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-01-12T18:07:44Z",
+      "side": 1,
+      "message": "Good point, thanks! Done.",
+      "parentUuid": "76075d2d_08e75fb1",
+      "revId": "5163f4fb4bc7a1f49796c25e290339342d550bbf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
