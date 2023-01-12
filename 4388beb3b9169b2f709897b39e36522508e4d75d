@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a05639c_972a25bc",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-12T21:22:06Z",
+      "side": 1,
+      "message": "This seems to be -Wunused-parameter, which maybe is useful? https://crbug.com/boringssl/271",
+      "revId": "4388beb3b9169b2f709897b39e36522508e4d75d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20427448_db513fd5",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-12T21:22:06Z",
+      "side": 1,
+      "message": "This warning is dumb.",
+      "revId": "4388beb3b9169b2f709897b39e36522508e4d75d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "955c19ae_a01ce42f",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-12T21:22:06Z",
+      "side": 1,
+      "message": "Hopefully all the -Wshorten-64-to-32 work will eventually clear this out.",
+      "revId": "4388beb3b9169b2f709897b39e36522508e4d75d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3e8192b_004e998a",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-12T21:22:06Z",
+      "side": 1,
+      "message": "Unlike GCC/Clang\u0027s, MSVC\u0027s warning doesn\u0027t allow you to wrap in parens to silence it.",
+      "revId": "4388beb3b9169b2f709897b39e36522508e4d75d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
