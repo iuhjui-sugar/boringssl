@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31cd68ea_76e34780",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 5195,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-12T02:56:39Z",
+      "side": 1,
+      "message": "This is getting pretty unwieldy... in hindsight, I probably should have done a more CertBuilder-like design. Ah well. :-)",
+      "revId": "3bb10c6c8d250c926e395026c6bf340220811f54",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
