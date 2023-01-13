@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "41a72b22_067e39e0",
+        "filename": "crypto/fipsmodule/CMakeLists.txt",
+        "patchSetId": 10
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-13T18:28:59Z",
+      "side": 1,
+      "message": "Nit: I suppose, to be sorted, it should be one line later.",
+      "revId": "6fdeabb9cf0381ccb9a16bf59c31139d40d14eb0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3752fb7_81ebf98f",
+        "filename": "crypto/fipsmodule/modes/gcm_test.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-13T18:28:59Z",
+      "side": 1,
+      "message": "Nit: PMULL without AES is actually impossible[*], but probably check both this and hwaes_capable() to be more strictly correct.\n\n[*] ID_AA64ISAR0_EL1 can only encode neither, AES-only, or AES+PMULL. It\u0027s a single incrementing counter for the two features, so it\u0027s not possible to say just PMULL. But the OPENSSL_armcap_P and HWCAP abstractions treat them as independent bits, so probably ought to just check both and not think about it.",
+      "revId": "6fdeabb9cf0381ccb9a16bf59c31139d40d14eb0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32e480b0_730f03d7",
+        "filename": "crypto/fipsmodule/modes/internal.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-13T18:28:59Z",
+      "side": 1,
+      "message": "Looks like this inadvertently dropped the `gcm_*_v8` implementation on 32-bit Arm. Which is why it\u0027s complaining about unused variables in gcm_test.cc.\n\nI think we want to keep this condition as ARM || AARCH64, and then add an AARCH64 condition inside it. Or just have a separate block altogether.",
+      "revId": "6fdeabb9cf0381ccb9a16bf59c31139d40d14eb0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "979a0a07_945dfaeb",
+        "filename": "crypto/fipsmodule/modes/internal.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-13T18:28:59Z",
+      "side": 1,
+      "message": "aesv8-gcm-armv8.pl",
+      "range": {
+        "startLine": 284,
+        "startChar": 34,
+        "endLine": 284,
+        "endChar": 54
+      },
+      "revId": "6fdeabb9cf0381ccb9a16bf59c31139d40d14eb0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
