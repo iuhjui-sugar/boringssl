@@ -56,6 +56,24 @@
       "message": "meta: this gerrit instance doesnt support dark mode?",
       "revId": "7db75f299cded9c525052e717015439507d4016c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12716786_001a3791",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 5344,
+      "author": {
+        "id": 6700
+      },
+      "writtenOn": "2023-01-13T02:29:51Z",
+      "side": 1,
+      "message": "oh, forgot that it\u0027s called \"theme\" in the settings.",
+      "parentUuid": "912d61ea_e083f0ca",
+      "revId": "7db75f299cded9c525052e717015439507d4016c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
