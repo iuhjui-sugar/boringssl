@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4ed757b_be87490c",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1108,
+      "author": {
+        "id": 6700
+      },
+      "writtenOn": "2023-01-13T02:24:56Z",
+      "side": 1,
+      "message": "I guess not necessary for this CL, but is it just me or is this argument never used?",
+      "range": {
+        "startLine": 1108,
+        "startChar": 4,
+        "endLine": 1108,
+        "endChar": 59
+      },
+      "revId": "7db75f299cded9c525052e717015439507d4016c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bd408ef_504f6654",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 5344,
+      "author": {
+        "id": 6700
+      },
+      "writtenOn": "2023-01-13T02:24:56Z",
+      "side": 1,
+      "message": "meta: is there a codesearch instance for boringssl? (There\u0027s the copy in chromium codesearch, but it\u0027s not up to date.  The corp codesearch seems more up to date but doesn\u0027t seem to have working cross-refs for this file.)",
+      "revId": "7db75f299cded9c525052e717015439507d4016c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "912d61ea_e083f0ca",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 5344,
+      "author": {
+        "id": 6700
+      },
+      "writtenOn": "2023-01-13T02:24:56Z",
+      "side": 1,
+      "message": "meta: this gerrit instance doesnt support dark mode?",
+      "revId": "7db75f299cded9c525052e717015439507d4016c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
