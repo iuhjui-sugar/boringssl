@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29a94324_d1555630",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 5308,
+      "author": {
+        "id": 6700
+      },
+      "writtenOn": "2023-01-13T02:38:44Z",
+      "side": 1,
+      "message": "is this a duplicate of lines 5291-5295?",
+      "range": {
+        "startLine": 5304,
+        "startChar": 0,
+        "endLine": 5308,
+        "endChar": 34
+      },
+      "revId": "f9cdf5186e6b6c4ed86603d3d30b53d30e0564b1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
