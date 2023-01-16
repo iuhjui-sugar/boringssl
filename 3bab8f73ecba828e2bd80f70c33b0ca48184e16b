@@ -34,6 +34,24 @@
       "parentUuid": "eadf4afe_7e1e6de7",
       "revId": "3bab8f73ecba828e2bd80f70c33b0ca48184e16b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6179f83_2b48d901",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9619
+      },
+      "writtenOn": "2023-01-16T22:17:13Z",
+      "side": 1,
+      "message": "Hmm, I thought I tried that but perhaos not... Will try again tomorrow and update.\n\nI\u0027m ambivalent about fat binaries... We can demonstrably build for both Mac architectures on either of them, so we might as well keep doing that.",
+      "parentUuid": "24b57380_c05fcbe4",
+      "revId": "3bab8f73ecba828e2bd80f70c33b0ca48184e16b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
