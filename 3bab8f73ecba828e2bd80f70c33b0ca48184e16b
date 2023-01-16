@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eadf4afe_7e1e6de7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-16T19:15:19Z",
+      "side": 1,
+      "message": "Does it instead work to build with `-DCMAKE_OSX_ARCHITECTURES\u003dx86_64` and `-D CMAKE_OSX_ARCHITECTURES\u003darm64`? That\u0027s what I do.\nhttps://cmake.org/cmake/help/latest/variable/CMAKE_OSX_ARCHITECTURES.html\n\n(It\u0027s supposed to also work to pass `-DCMAKE_OSX_ARCHITECTURES\u003dx86_64;arm64` to build a fat binary, but it doesn\u0027t due to how our asm build is set up. But I\u0027ve got some plans to address that. I can bump the priority a bit if that\u0027d be helpful!)",
+      "revId": "3bab8f73ecba828e2bd80f70c33b0ca48184e16b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
