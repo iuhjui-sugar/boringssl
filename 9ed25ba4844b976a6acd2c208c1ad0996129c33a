@@ -16,6 +16,24 @@
       "message": "Hilarious. We\u0027ve since been relying on this ourselves on accident. Do you mind adding the missing include to ssl/test/test_config.cc? (They\u0027ve imposed fussier rules in Gerrit now so if I upload a new revision of the CL, someone else needs to go stamp it.)",
       "revId": "9ed25ba4844b976a6acd2c208c1ad0996129c33a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20079205_b17058ab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15611
+      },
+      "writtenOn": "2023-01-17T15:03:31Z",
+      "side": 1,
+      "message": "Done. Sorry, I\u0027m not sure how I ended up submitting this without building it.",
+      "parentUuid": "39277612_d0a74982",
+      "revId": "9ed25ba4844b976a6acd2c208c1ad0996129c33a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
