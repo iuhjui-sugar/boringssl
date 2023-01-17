@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92a98a68_c55d1453",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 5522,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-17T19:58:25Z",
+      "side": 1,
+      "message": "Self-review: computed safely",
+      "range": {
+        "startLine": 5522,
+        "startChar": 13,
+        "endLine": 5522,
+        "endChar": 30
+      },
+      "revId": "eb0b26c78c32f79be40ae77a7a6a362ea8950591",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
