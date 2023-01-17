@@ -26,6 +26,47 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "935456f4_12a3d1b9",
+        "filename": "crypto/x509/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-01-17T22:21:43Z",
+      "side": 1,
+      "message": "Aha. wait no I missed the clobbering at the top.. the description is currently wrong because *out_current_cert is set unconditionally, not only on error, it is set to NULL on success. (shrug) just make the description match what you think it should do. (I\u0027m fond of unset on success but don\u0027t care that much)",
+      "parentUuid": "80b5937d_fccfc0a7",
+      "range": {
+        "startLine": 412,
+        "startChar": 12,
+        "endLine": 412,
+        "endChar": 62
+      },
+      "revId": "eb0b26c78c32f79be40ae77a7a6a362ea8950591",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93263d8a_ba88b49d",
+        "filename": "crypto/x509/policy.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-01-17T22:21:43Z",
+      "side": 1,
+      "message": "Aha I missed that you clobber it unconditionally at the top. oops.",
+      "revId": "eb0b26c78c32f79be40ae77a7a6a362ea8950591",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6b97ef6a_df286c3f",
         "filename": "crypto/x509/policy.c",
         "patchSetId": 4
