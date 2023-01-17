@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "131aa1f0_5b0e8e40",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2344,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-17T21:14:29Z",
+      "side": 1,
+      "message": "Optional: Should we just pick random ones out of the whole range? We\u0027ve already had IETF drafts collide in the private use area for extensions, much less our own values. :-)",
+      "revId": "c84e4c7e74f80546e5c18d6bf868ea29c54a9613",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ca33435e_256c5954",
+        "filename": "ssl/ssl_key_share.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-17T21:14:29Z",
+      "side": 1,
+      "message": "Nit: just one byte short of 80 chars. :-(\n\n(I configure Gerrit to use a width of 80 chars so these things stand out.)",
+      "revId": "c84e4c7e74f80546e5c18d6bf868ea29c54a9613",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
