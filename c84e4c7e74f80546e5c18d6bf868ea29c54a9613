@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "87e5b5f6_4e3520bb",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2344,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-01-17T21:21:11Z",
+      "side": 1,
+      "message": "0xfe31 matches with Cloudflare\u0027s: https://blog.cloudflare.com/experiment-with-pq/\n\n0xfe32 is then the next value. Easy to change later if needed, but nice to interop with someone if we can.",
+      "parentUuid": "131aa1f0_5b0e8e40",
+      "revId": "c84e4c7e74f80546e5c18d6bf868ea29c54a9613",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ca33435e_256c5954",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-01-17T21:14:29Z",
       "side": 1,
       "message": "Nit: just one byte short of 80 chars. :-(\n\n(I configure Gerrit to use a width of 80 chars so these things stand out.)",
+      "revId": "c84e4c7e74f80546e5c18d6bf868ea29c54a9613",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cd4c682_d4dac12f",
+        "filename": "ssl/ssl_key_share.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-01-17T21:21:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ca33435e_256c5954",
       "revId": "c84e4c7e74f80546e5c18d6bf868ea29c54a9613",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
