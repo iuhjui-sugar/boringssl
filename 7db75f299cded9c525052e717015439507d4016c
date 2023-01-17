@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3347785_49545623",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 1108,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-17T14:38:40Z",
+      "side": 1,
+      "message": "Removed. Looks like I added it in https://boringssl-review.googlesource.com/c/boringssl/+/35665 but it was unused then too. Wonder what I was doing.",
+      "parentUuid": "d4ed757b_be87490c",
+      "range": {
+        "startLine": 1108,
+        "startChar": 4,
+        "endLine": 1108,
+        "endChar": 59
+      },
+      "revId": "7db75f299cded9c525052e717015439507d4016c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5bd408ef_504f6654",
@@ -72,6 +96,24 @@
       "side": 1,
       "message": "oh, forgot that it\u0027s called \"theme\" in the settings.",
       "parentUuid": "912d61ea_e083f0ca",
+      "revId": "7db75f299cded9c525052e717015439507d4016c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "027e92d8_764bcfef",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 5344,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-17T14:38:40Z",
+      "side": 1,
+      "message": "Not a dedicated one, no. :-( I usually use the Chromium one and `git grep`.",
+      "parentUuid": "5bd408ef_504f6654",
       "revId": "7db75f299cded9c525052e717015439507d4016c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
