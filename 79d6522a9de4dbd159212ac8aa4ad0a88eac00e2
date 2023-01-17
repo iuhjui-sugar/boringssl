@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1833de02_6035103b",
+        "filename": "crypto/CMakeLists.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-01-17T22:43:17Z",
+      "side": 0,
+      "message": "Those are a pretty glorious set of -\u0027s.. nice!",
+      "revId": "79d6522a9de4dbd159212ac8aa4ad0a88eac00e2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

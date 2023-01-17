@@ -67,6 +67,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "307507b2_1ce31bd3",
+        "filename": "crypto/x509/policy.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-01-17T22:43:17Z",
+      "side": 1,
+      "message": "Could potentially move declaration of this to the function level (maybe current_cert) initialize to NULL, then just set *out_current_cert in the err: portion depending on the value of ret, instead of doing it repeatedly before doing goto err;",
+      "revId": "eb0b26c78c32f79be40ae77a7a6a362ea8950591",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6b97ef6a_df286c3f",
         "filename": "crypto/x509/policy.c",
         "patchSetId": 4
@@ -78,6 +95,29 @@
       "writtenOn": "2023-01-17T22:15:47Z",
       "side": 1,
       "message": "If you\u0027re going to match the description you need to set *out_current_cert \u003d NULL here.",
+      "revId": "eb0b26c78c32f79be40ae77a7a6a362ea8950591",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8cdb431_b3754d5f",
+        "filename": "crypto/x509/policy.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-01-17T22:43:17Z",
+      "side": 1,
+      "message": "We\u0027re using openssl error values as return values here, and we\u0027re just sort of trusting that the function we just called that returned something we believe is a failure did an OPENSSL_PUT_ERROR of the same value and we got it right because of prayer and clean living.  \n\nSpeaking as someone who has attempted and failed such clean living with openssl error values in another life, Is there a way we could maybe change these functions to give us an out_err and we always use that instead of encoding the logic in here?",
+      "range": {
+        "startLine": 742,
+        "startChar": 4,
+        "endLine": 742,
+        "endChar": 50
+      },
       "revId": "eb0b26c78c32f79be40ae77a7a6a362ea8950591",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
