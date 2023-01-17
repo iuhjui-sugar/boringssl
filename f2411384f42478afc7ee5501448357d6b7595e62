@@ -16,6 +16,23 @@
       "message": "Doing an end-of-year cleanup. We\u0027ve not heard about this issue from anywhere else, and the change breaks GCC. But it appears to work as a Clang-only change. I\u0027m trying to get the reproduction to run, but I think it\u0027ll need Xcode installed, which will take a while to download.",
       "revId": "f2411384f42478afc7ee5501448357d6b7595e62",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a75304de_01a5fb2d",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-17T15:32:07Z",
+      "side": 1,
+      "message": "That looks like it\u0027s accidentally relying on the symbol being always inlined.\n\nThis is saying, in Clang + C, we use plain C99 non-`static` `inline`. But C99 `inline` has very different semantics from C++ `inline`.\n\nIn C++ `inline`, if you need the non-inlined version of the function, you just emit it and the linker dedups. In C `inline`, if you need the non-inlined version of the function, you just reference the symbol. Instead, exactly one C file must include:\n\n```\nextern inline int foo(int a);\n```\n\nIf you omit that, things will probably work, because the function is usually inlined, but if it ever isn\u0027t, you\u0027ll have a missing symbol.\n\nI\u0027m not sure how `attribute(weak)` interacts, but I would guess it means that the non-inlined version is a weak symbol... so if it\u0027s missing the linker won\u0027t even notice, and then we\u0027ll crash at runtime because we\u0027re calling a weak symbol without checking it.",
+      "revId": "f2411384f42478afc7ee5501448357d6b7595e62",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
