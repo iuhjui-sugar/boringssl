@@ -3,6 +3,63 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "80b5937d_fccfc0a7",
+        "filename": "crypto/x509/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-01-17T22:15:47Z",
+      "side": 1,
+      "message": "It currently leaves it unset if it applies to the entire chain and depends on the fact that it got called with it being NULL in the first place.\n\nAlternatively you could change this description to say that out_current_cert is set if the error is X509_V_ERR_INVALID_POLICY_EXTENSION\nand is unset otherwise.",
+      "range": {
+        "startLine": 412,
+        "startChar": 12,
+        "endLine": 412,
+        "endChar": 62
+      },
+      "revId": "eb0b26c78c32f79be40ae77a7a6a362ea8950591",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b97ef6a_df286c3f",
+        "filename": "crypto/x509/policy.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 724,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-01-17T22:15:47Z",
+      "side": 1,
+      "message": "If you\u0027re going to match the description you need to set *out_current_cert \u003d NULL here.",
+      "revId": "eb0b26c78c32f79be40ae77a7a6a362ea8950591",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a297e3ed_6347cd32",
+        "filename": "crypto/x509/policy.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 783,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-01-17T22:15:47Z",
+      "side": 1,
+      "message": "If you\u0027re going to match the description you need to set *out_current_cert\u003dNULL here.",
+      "revId": "eb0b26c78c32f79be40ae77a7a6a362ea8950591",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "92a98a68_c55d1453",
         "filename": "crypto/x509/x509_test.cc",
         "patchSetId": 4
