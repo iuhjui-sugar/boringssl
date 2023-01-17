@@ -124,6 +124,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8494ea0e_9bd9fd0c",
+        "filename": "crypto/x509/policy.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-01-17T22:45:02Z",
+      "side": 1,
+      "message": "(basically all the funcitons where you\u0027re doing an OPENSSL_PUT_ERROR)",
+      "parentUuid": "b8cdb431_b3754d5f",
+      "range": {
+        "startLine": 742,
+        "startChar": 4,
+        "endLine": 742,
+        "endChar": 50
+      },
+      "revId": "eb0b26c78c32f79be40ae77a7a6a362ea8950591",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a297e3ed_6347cd32",
         "filename": "crypto/x509/policy.c",
         "patchSetId": 4
