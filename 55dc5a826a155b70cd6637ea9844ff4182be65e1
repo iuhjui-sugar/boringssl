@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14712a8b_9ddff721",
+        "filename": "crypto/x509v3/v3_conf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-01-17T16:22:12Z",
+      "side": 1,
+      "message": "gotta love openssl dedicated error codes for everything...",
+      "revId": "55dc5a826a155b70cd6637ea9844ff4182be65e1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
