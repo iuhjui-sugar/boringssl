@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b8a9d66_cf61baeb",
+        "filename": "crypto/x509v3/v3_conf.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-01-17T16:37:32Z",
+      "side": 1,
+      "message": "Ok, I have now convinced myself that allowing a call to succeed with this where it would have crashed before isn\u0027t making it worse by somehow having that picking something that might have security impact... I think.... \n\nPresumably you have also thought about this and agree?",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 51
+      },
+      "revId": "b0aef23c83e6d43fe08ca225cc90ca241284b0b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
