@@ -22,6 +22,30 @@
       },
       "revId": "b0aef23c83e6d43fe08ca225cc90ca241284b0b8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "193cfdb7_69954d0d",
+        "filename": "crypto/x509v3/v3_conf.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-17T16:56:01Z",
+      "side": 1,
+      "message": "Well, it\u0027s a SEGV, so not a super sensitive issue. But yeah I figure a NULL `ctx` works often enough[*] that we probably should just fill it in. Otherwise you might call it with NULL, notice it works for your input, but not notice it doesn\u0027t work for other inputs.\n\n[*] A lot of stuff ignores `ctx`. A lot of stuff checks for NULL `ctx`, such as `v2i_AUTHORITY_KEYID`. And yet other stuff doesn\u0027t check, such as the `r2i` path in `do_ext_nconf`.",
+      "parentUuid": "5b8a9d66_cf61baeb",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 51
+      },
+      "revId": "b0aef23c83e6d43fe08ca225cc90ca241284b0b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
