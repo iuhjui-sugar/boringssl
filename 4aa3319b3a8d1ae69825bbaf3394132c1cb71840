@@ -37,6 +37,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "07fe9f54_2737415a",
+        "filename": "crypto/fipsmodule/modes/asm/aesni-gcm-x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-18T01:41:05Z",
+      "side": 1,
+      "message": "Oh, this relies on a red zone, which is not true on Windows, so that\u0027s another blocker here. :-)\n\n(I\u0027ll upload a new version of this CL with the prolog fixed.)",
+      "revId": "4aa3319b3a8d1ae69825bbaf3394132c1cb71840",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c7fac018_756f35c5",
         "filename": "crypto/fipsmodule/modes/asm/aesni-gcm-x86_64.pl",
         "patchSetId": 3
