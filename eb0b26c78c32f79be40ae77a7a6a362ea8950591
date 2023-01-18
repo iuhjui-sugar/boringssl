@@ -50,6 +50,63 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c32c1142_e26b002f",
+        "filename": "crypto/x509/policy.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 6700
+      },
+      "writtenOn": "2023-01-18T23:09:02Z",
+      "side": 1,
+      "message": "is the empty comment here intentional?",
+      "revId": "eb0b26c78c32f79be40ae77a7a6a362ea8950591",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc2a273a_c5b50a85",
+        "filename": "crypto/x509/policy.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 6700
+      },
+      "writtenOn": "2023-01-18T23:09:02Z",
+      "side": 1,
+      "message": "nit: mention 6.1.4. here?",
+      "revId": "eb0b26c78c32f79be40ae77a7a6a362ea8950591",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53635897_b45fbf34",
+        "filename": "crypto/x509/policy.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 6700
+      },
+      "writtenOn": "2023-01-18T23:09:02Z",
+      "side": 1,
+      "message": "\"must exceed\"?",
+      "range": {
+        "startLine": 533,
+        "startChar": 52,
+        "endLine": 533,
+        "endChar": 65
+      },
+      "revId": "eb0b26c78c32f79be40ae77a7a6a362ea8950591",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "93263d8a_ba88b49d",
         "filename": "crypto/x509/policy.c",
         "patchSetId": 4
@@ -61,6 +118,23 @@
       "writtenOn": "2023-01-17T22:21:43Z",
       "side": 1,
       "message": "Aha I missed that you clobber it unconditionally at the top. oops.",
+      "revId": "eb0b26c78c32f79be40ae77a7a6a362ea8950591",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ba678b4_e27be683",
+        "filename": "crypto/x509/policy.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 696,
+      "author": {
+        "id": 6700
+      },
+      "writtenOn": "2023-01-18T23:09:02Z",
+      "side": 1,
+      "message": "so this is intentionally using unsigned rollover to end the loop?",
       "revId": "eb0b26c78c32f79be40ae77a7a6a362ea8950591",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
