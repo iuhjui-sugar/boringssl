@@ -22,6 +22,30 @@
       },
       "revId": "f8a10eeef9549601a91c4525f55bf8a59d338eff",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07adad5e_03b707e9",
+        "filename": "crypto/fipsmodule/modes/asm/aesni-gcm-x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 550,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-18T22:35:06Z",
+      "side": 0,
+      "message": "\u003e If we convert everything to hex, it becomes clear that on Windows there is a small gap between the xmm register locations and the r* register locations. Offsets -0x30 to -0x38 are unused. I can\u0027t see a reason why the gap exists. Should we close the gap? It doesn\u0027t make a big difference, and only very minimally reduces stack pressure.\n\nOh, to answer this question, the gap is intentional. It\u0027s so the XMM registers are stashed at a 16-byte aligned boundary. (All x86-64 calling conventions guarantee the stack is 8 mod 16 on entry. The offset by 8 is the return address.) Otherwise MOVAPS would fault. One could use the unaligned variant, but that\u0027ll presumably perform worse.\n\nAlso, once the RBP issue above is fixed, the combination of Windows\u0027 various rules, and the standard RBP pattern, actually force this to be 16-byte aligned:\n\n- Stack is 8 mod 16 on stack entry.\n- A standard RBP frame pointer must begin PUSH RBP; MOV RBP, RSP\n- Thus, RBP is 0 mod 16\n- Windows believes the frame pointer\u0027s canonical address is not this one (8 past return address), but the top of the fixed stack allocation. I.e. it expects you to do all your PUSHs and then the MOV. Fortunately, you can say the value in the register is an offset... but that offset must be a multiple of 16.\n- Thus, the fixed stack allocation must also be 0 mod 16.\n- Windows requires XMM offsets, relative to this Windows notion of frame pointer, be a multiple of 16.\n- Thus, all XMM save positions must be 16-byte aligned",
+      "parentUuid": "39a43864_0104caa3",
+      "range": {
+        "startLine": 547,
+        "startChar": 0,
+        "endLine": 550,
+        "endChar": 19
+      },
+      "revId": "f8a10eeef9549601a91c4525f55bf8a59d338eff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }

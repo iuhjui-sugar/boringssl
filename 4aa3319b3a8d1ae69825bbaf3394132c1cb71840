@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "184f396b_1c6b52a5",
+        "filename": "crypto/fipsmodule/modes/asm/aesni-gcm-x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-18T22:35:06Z",
+      "side": 1,
+      "message": "Also not sure that does what we want. The usually frame pointer scheme is that rbp points at a 16-byte block containing `[prev_rbp | return_address]`. The standard prolog to set this up is:\n\n```\n  PUSH RBP\n  MOV RBP, RSP\n```\n  \nAt the time we save the stack pointer, RSP (and thus RBP) points to this. (Will fix this in new version.)",
+      "parentUuid": "07fe9f54_2737415a",
+      "revId": "4aa3319b3a8d1ae69825bbaf3394132c1cb71840",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "c7fac018_756f35c5",
         "filename": "crypto/fipsmodule/modes/asm/aesni-gcm-x86_64.pl",
         "patchSetId": 3
