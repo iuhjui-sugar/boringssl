@@ -400,6 +400,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bebe5da3_b31dec95",
+        "filename": "crypto/x509/policy.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-01-19T21:17:40Z",
+      "side": 1,
+      "message": "Yeah, as per the out of band discussion, I\u0027m ok with this being the least worst alternative if the ctx thing doesn\u0027t work out..  Least Worst Alternatives are the order of the day in here.",
+      "parentUuid": "a208bb77_59ac5151",
+      "range": {
+        "startLine": 742,
+        "startChar": 4,
+        "endLine": 742,
+        "endChar": 50
+      },
+      "revId": "eb0b26c78c32f79be40ae77a7a6a362ea8950591",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a297e3ed_6347cd32",
