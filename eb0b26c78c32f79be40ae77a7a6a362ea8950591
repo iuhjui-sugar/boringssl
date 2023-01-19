@@ -48,6 +48,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c223400_a9cfcf47",
+        "filename": "crypto/x509/internal.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-19T21:11:43Z",
+      "side": 1,
+      "message": "Made the description match. (I don\u0027t feel very strongly either way about what to do on success, but setting it at the top does seem less error-prone. We\u0027ve gotten into trouble before with leaving an out-param uninitialized.)\n\nMy kingdom for sum types and generally an end to all these out-params!",
+      "parentUuid": "935456f4_12a3d1b9",
+      "range": {
+        "startLine": 412,
+        "startChar": 12,
+        "endLine": 412,
+        "endChar": 62
+      },
+      "revId": "eb0b26c78c32f79be40ae77a7a6a362ea8950591",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c32c1142_e26b002f",
@@ -65,6 +89,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "46019184_a5e6f04b",
+        "filename": "crypto/x509/policy.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-19T21:11:43Z",
+      "side": 1,
+      "message": "Ah yeah, that seems to be the least obnoxious way to tell clang-format \"no, really, I want a newline here\". See go/bssl-clang-format-thread",
+      "parentUuid": "c32c1142_e26b002f",
+      "revId": "eb0b26c78c32f79be40ae77a7a6a362ea8950591",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bc2a273a_c5b50a85",
@@ -78,6 +120,24 @@
       "writtenOn": "2023-01-18T23:09:02Z",
       "side": 1,
       "message": "nit: mention 6.1.4. here?",
+      "revId": "eb0b26c78c32f79be40ae77a7a6a362ea8950591",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "150aadb4_4f51a9f7",
+        "filename": "crypto/x509/policy.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-19T21:11:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc2a273a_c5b50a85",
       "revId": "eb0b26c78c32f79be40ae77a7a6a362ea8950591",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -105,6 +165,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "21a4d23a_efa83118",
+        "filename": "crypto/x509/policy.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-19T21:11:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "53635897_b45fbf34",
+      "range": {
+        "startLine": 533,
+        "startChar": 52,
+        "endLine": 533,
+        "endChar": 65
+      },
+      "revId": "eb0b26c78c32f79be40ae77a7a6a362ea8950591",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "93263d8a_ba88b49d",
@@ -118,6 +202,24 @@
       "writtenOn": "2023-01-17T22:21:43Z",
       "side": 1,
       "message": "Aha I missed that you clobber it unconditionally at the top. oops.",
+      "revId": "eb0b26c78c32f79be40ae77a7a6a362ea8950591",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98b55b8d_4d3997f6",
+        "filename": "crypto/x509/policy.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-19T21:11:43Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "93263d8a_ba88b49d",
       "revId": "eb0b26c78c32f79be40ae77a7a6a362ea8950591",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -139,6 +241,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "939aa3ef_cff3da63",
+        "filename": "crypto/x509/policy.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 696,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-19T21:11:43Z",
+      "side": 1,
+      "message": "It is, yeah. We use that pattern a bit. It\u0027s pretty gross, but I guess it limits the off-by-one bits to one line, rather than the whole loop body needing to keep track of it.",
+      "parentUuid": "4ba678b4_e27be683",
+      "revId": "eb0b26c78c32f79be40ae77a7a6a362ea8950591",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "307507b2_1ce31bd3",
@@ -156,6 +276,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3387b000_f6f1cef7",
+        "filename": "crypto/x509/policy.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 697,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-19T21:11:43Z",
+      "side": 1,
+      "message": "The original code didn\u0027t associate `X509_V_ERR_NO_EXPLICIT_POLICY` with a particular cert, so doing it *quite* automatically would change the behavior a bit. Likewise with things like `ERR_R_MALLOC_FAILURE`. Also I\u0027d have to remember to set it back to NULL at the end of the loop.\n\n[*] That said, actually step 6.1.3 step (f) below is completely redundant with `has_explicit_policy`. So we could just delete it and also solve this problem. But I guess it stops processing when we know it\u0027d be pointless to continue.",
+      "parentUuid": "307507b2_1ce31bd3",
+      "revId": "eb0b26c78c32f79be40ae77a7a6a362ea8950591",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6b97ef6a_df286c3f",
@@ -169,6 +307,24 @@
       "writtenOn": "2023-01-17T22:15:47Z",
       "side": 1,
       "message": "If you\u0027re going to match the description you need to set *out_current_cert \u003d NULL here.",
+      "revId": "eb0b26c78c32f79be40ae77a7a6a362ea8950591",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02547f42_a8b6be0d",
+        "filename": "crypto/x509/policy.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 724,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-19T21:11:43Z",
+      "side": 1,
+      "message": "Updated description to reflect it always setting it, since it\u0027s a little shorter in code.",
+      "parentUuid": "6b97ef6a_df286c3f",
       "revId": "eb0b26c78c32f79be40ae77a7a6a362ea8950591",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -222,6 +378,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a208bb77_59ac5151",
+        "filename": "crypto/x509/policy.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-19T21:11:43Z",
+      "side": 1,
+      "message": "Talked out-of-band, seems there was some confusion around `X509_V_*` and `X509_R_*` being different values. (Oh, this library...)\n\nI thought about the `ctx` thing we talked about, but the nuisance is we\u0027d split the callback calls across multiple files, which seemed not quite ideal. And as long as the callback is called in x509_vfy.c, it seems we have to invent *some* kind of calling convention to pass the `X509_V_*` value and the current certificate out.",
+      "parentUuid": "8494ea0e_9bd9fd0c",
+      "range": {
+        "startLine": 742,
+        "startChar": 4,
+        "endLine": 742,
+        "endChar": 50
+      },
+      "revId": "eb0b26c78c32f79be40ae77a7a6a362ea8950591",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a297e3ed_6347cd32",
         "filename": "crypto/x509/policy.c",
         "patchSetId": 4
@@ -233,6 +413,24 @@
       "writtenOn": "2023-01-17T22:15:47Z",
       "side": 1,
       "message": "If you\u0027re going to match the description you need to set *out_current_cert\u003dNULL here.",
+      "revId": "eb0b26c78c32f79be40ae77a7a6a362ea8950591",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "67509d65_fb2a659b",
+        "filename": "crypto/x509/policy.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 783,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-19T21:11:43Z",
+      "side": 1,
+      "message": "Updated description to reflect it always setting it, since it\u0027s a little shorter in code.",
+      "parentUuid": "a297e3ed_6347cd32",
       "revId": "eb0b26c78c32f79be40ae77a7a6a362ea8950591",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -250,6 +448,30 @@
       "writtenOn": "2023-01-17T19:58:25Z",
       "side": 1,
       "message": "Self-review: computed safely",
+      "range": {
+        "startLine": 5522,
+        "startChar": 13,
+        "endLine": 5522,
+        "endChar": 30
+      },
+      "revId": "eb0b26c78c32f79be40ae77a7a6a362ea8950591",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a1cba20_0e2517f9",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 5522,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-19T21:11:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "92a98a68_c55d1453",
       "range": {
         "startLine": 5522,
         "startChar": 13,
