@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a00f2248_f8d85efe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 10131
+      },
+      "writtenOn": "2023-01-19T21:16:20Z",
+      "side": 1,
+      "message": "Please let me know, if this should go into openssl first.",
+      "revId": "85c3542bdff64fd93961c014169e6d4ffd5f7e09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
