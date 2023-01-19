@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5305d9be_178c9a55",
+        "filename": "crypto/x509/asn1_gen.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-19T20:43:29Z",
+      "side": 1,
+      "message": "Thoughts on stealing the zero value? It\u0027s mildly gross, but zero isn\u0027t actually an allowed tag (we reject it as of https://crbug.com/boringssl/455), but the alternative is this function, and the new versions of tasn_enc.c and tasn_dec.c need a pair of arguments `int has_tag, CBS_ASN1_TAG tag`, so I went with this one. But I can switch to the other convention if we prefer that one.",
+      "range": {
+        "startLine": 92,
+        "startChar": 3,
+        "endLine": 92,
+        "endChar": 24
+      },
+      "revId": "d323d448e7778ce89554fabf9277e95881672c43",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dca6d88e_08fae155",
+        "filename": "crypto/x509/asn1_gen.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-19T20:43:29Z",
+      "side": 1,
+      "message": "The really dumb thing is that one of `ASN1_generate_v3`\u0027s two callers turns around and dumps the `ASN1_TYPE` back into bytes anyway! So we could have just passed the bytes along and moved on with life. But I\u0027ve left that alone for now.",
+      "revId": "d323d448e7778ce89554fabf9277e95881672c43",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
