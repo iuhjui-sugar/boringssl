@@ -325,6 +325,7 @@ mov %r8, %r11
 subq $12288, %r8
 mov %r8, %r12
 subq $512, %r8
+vzeroupper
 vmovdqa const3(%rip), %ymm3
 vmovdqu 0(%rsi), %ymm0
 vmovdqu 88(%rsi), %ymm1
@@ -8476,6 +8477,7 @@ vmovdqu 1320(%rdi), %ymm11
 vpaddw 2752(%r8), %ymm11, %ymm11
 vpand mask_mod8192(%rip), %ymm11, %ymm11
 vmovdqu %ymm11, 1320(%rdi)
+vzeroupper
 pop %r12
 .cfi_restore r12
 pop %rbp
