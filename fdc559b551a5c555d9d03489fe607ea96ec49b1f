@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db996736_fd233b9a",
+        "filename": "crypto/fipsmodule/modes/asm/aesni-gcm-x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-01-20T23:52:28Z",
+      "side": 1,
+      "message": "You\u0027ve lost me here. Are these extra arguments that Windows is passing on the stack? Do we know that the \"parameter stack area\" is 0x20 and thus these are just above it?",
+      "revId": "fdc559b551a5c555d9d03489fe607ea96ec49b1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
