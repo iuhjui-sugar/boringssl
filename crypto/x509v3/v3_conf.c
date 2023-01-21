@@ -90,7 +90,9 @@ static void setup_ctx(X509V3_CTX *out, const CONF *conf,
   } else {
     *out = *ctx_in;
   }
-  X509V3_set_nconf(out, conf);
+  if (conf != NULL) {
+    X509V3_set_nconf(out, conf);
+  }
 }
 
 X509_EXTENSION *X509V3_EXT_nconf(const CONF *conf, const X509V3_CTX *ctx_in,
@@ -416,6 +418,7 @@ void X509V3_set_nconf(X509V3_CTX *ctx, const CONF *conf) {
 
 void X509V3_set_ctx(X509V3_CTX *ctx, const X509 *issuer, const X509 *subj,
                     const X509_REQ *req, const X509_CRL *crl, int flags) {
+  memset(ctx, 0, sizeof(*ctx));
   ctx->issuer_cert = issuer;
   ctx->subject_cert = subj;
   ctx->crl = crl;
