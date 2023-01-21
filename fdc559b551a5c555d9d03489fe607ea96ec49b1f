@@ -16,6 +16,24 @@
       "message": "You\u0027ve lost me here. Are these extra arguments that Windows is passing on the stack? Do we know that the \"parameter stack area\" is 0x20 and thus these are just above it?",
       "revId": "fdc559b551a5c555d9d03489fe607ea96ec49b1f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ff1b42ba_9f76f4c1",
+        "filename": "crypto/fipsmodule/modes/asm/aesni-gcm-x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-21T02:35:07Z",
+      "side": 1,
+      "message": "Windows passes four parameters in registers, not six, so we need to load the other two. When the function is tagged `@function`, perlasm automatically converts, but that conversion is incompatible with unwind codes because Windows is a bit fussy about the order of things.\n\nThe stack parameters are just before the saved RBP/RIP that RBP points to, so it starts at 0x10 and each argument is 0x08 past that. But 0x10 is argument 1, not argument 5. Windows has you reserved space for the four register parameters. (It gives you a default place to spill your arguments and makes varargs easier. But it\u0027s really just free stack space that the function can use for anything. It\u0027s what they have instead of a red zone.) So arguments 5 and 6 are 0x30 and 0x38. \n\nI chose RDI and RSI for the two parameters to so the set of registers used for arguments matched between Windows and SysV, just permuted a bit. That avoids needing to renumber the other registers.\n\nProblem is they\u0027re non-volatile on Windows, so we have to stash them. Could allocate more stack but hey there\u0027s free stack space in the four spare spots in the parameter stack area, so I just used that. (The automatic conversation also uses that space.)",
+      "parentUuid": "db996736_fd233b9a",
+      "revId": "fdc559b551a5c555d9d03489fe607ea96ec49b1f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
