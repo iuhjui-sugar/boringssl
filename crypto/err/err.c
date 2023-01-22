@@ -284,6 +284,18 @@ static uint32_t get_error_values(int inc, int top, const char **file, int *line,
   return ret;
 }
 
+int ERR_GET_LIB_FUNC(uint32_t packed_error) {
+  return ERR_GET_LIB(packed_error);
+}
+
+int ERR_GET_REASON_FUNC(uint32_t packed_error) {
+  return ERR_GET_REASON(packed_error);
+}
+
+int ERR_GET_FUNC_FUNC(uint32_t packed_error) {
+  return ERR_GET_FUNC(packed_error);
+}
+
 uint32_t ERR_get_error(void) {
   return get_error_values(1 /* inc */, 0 /* bottom */, NULL, NULL, NULL, NULL);
 }
