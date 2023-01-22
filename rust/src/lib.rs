@@ -6,15 +6,15 @@
 ${INCLUDES}
 
 pub fn ERR_GET_LIB(packed_error: u32) -> i32 {
-    unsafe { ERR_GET_LIB_RUST(packed_error) }
+    unsafe { ERR_get_lib(packed_error) }
 }
 
 pub fn ERR_GET_REASON(packed_error: u32) -> i32 {
-    unsafe { ERR_GET_REASON_RUST(packed_error) }
+    unsafe { ERR_get_reason(packed_error) }
 }
 
 pub fn ERR_GET_FUNC(packed_error: u32) -> i32 {
-    unsafe { ERR_GET_FUNC_RUST(packed_error) }
+    unsafe { ERR_get_func(packed_error) }
 }
 
 pub fn init() {

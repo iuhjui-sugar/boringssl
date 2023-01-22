@@ -1,10 +1,5 @@
 # additional interop for things like macros and inlined functions
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../include)
-add_library(
-  rust_wrapper
-  STATIC
-  rust_wrapper.c
-)
 
 # generate architecture specific wrappers
 set(WRAPPER_TARGET ${CMAKE_BINARY_DIR}/rust/src/wrapper_${RUST_BINDINGS}.rs)

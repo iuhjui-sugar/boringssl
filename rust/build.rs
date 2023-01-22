@@ -33,7 +33,4 @@ fn main() {
         parent_path.join("ssl").display()
     );
     println!("cargo:rustc-link-lib=static=ssl");
-
-    println!("cargo:rustc-link-search=native={}", crate_path.display());
-    println!("cargo:rustc-link-lib=static=rust_wrapper");
 }
