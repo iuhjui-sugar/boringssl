@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61f9ef42_a76ec1ce",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15576
+      },
+      "writtenOn": "2023-01-23T15:42:46Z",
+      "side": 1,
+      "message": "Any further comments? Should I withdraw this?",
+      "revId": "12132935f284214dad97011428792d8f87bad590",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
