@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5f6a605_08e96eb2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-23T16:45:38Z",
+      "side": 1,
+      "message": "go links only work for Googlers. Please use https://crrev.com/c/4187222 instead.\n\nThat said, I don\u0027t think this function is the one you want. We use BN_mod_inverse_blinded for RSA things, because the modulus is not a prime.\n\nFor ECC, we\u0027re just inverting modulo a prime and typically use Fermat\u0027s Little Theorem and just raise to the p-2.\n\nI would say we probably should move BN_mod_inverse_blinded to a private header. But I see some other code uses it. That code probably should move to BoringSSL in time, but I suppose that\u0027s a lot more work. (We\u0027re not trying to support general-purpose constant-time BIGNUM operations. Most of the true constant-time stuff is private to the library. There are a lot of subtleties around the widths of your BIGNUMs that, due to API constraints, we have to track implicitly in confusing ways.)",
+      "revId": "bceae92eee12758f3b6c0ec5857d140ba3e98cfc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
