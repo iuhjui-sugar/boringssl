@@ -16,6 +16,24 @@
       "message": "In the other review you mentioned sweeping for the first PQ and non-PQ method. If you still like that, that sounds good to me too.",
       "revId": "2e222932bcee2c92281ec9340dc9c5485626b4d6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7ccac25_c94d3799",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-24T23:12:13Z",
+      "side": 1,
+      "message": "Yeah, let\u0027s just sweep. Seems easier to think about. Unimplementedness aside, it\u0027s actually possible to have to look at three entries, between HRSS and the two Kybers.",
+      "parentUuid": "9aee1cc6_f04217bc",
+      "revId": "2e222932bcee2c92281ec9340dc9c5485626b4d6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
