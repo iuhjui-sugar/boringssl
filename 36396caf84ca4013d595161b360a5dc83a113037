@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d37b726_4d0bebd6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-01-24T20:55:45Z",
+      "side": 1,
+      "message": "I think that this is fine to do, but the ALL_CAPS style means \"warning, this is a macro\" and regular functions should follow the unix_hacker style.",
+      "revId": "36396caf84ca4013d595161b360a5dc83a113037",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
