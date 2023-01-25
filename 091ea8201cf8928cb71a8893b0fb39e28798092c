@@ -16,6 +16,24 @@
       "message": "I don\u0027t particularly mind after way, but what\u0027s the motivation for moving this inside the library instead of inside the Rust crate? For the moment, it seems this is exclusively a Rust limitiation. E.g. Python CFFI is perfectly capable of binding the function. And it seems there\u0027s some progress towards the Rust limitation getting addressed in https://github.com/rust-lang/rust-bindgen/pull/2335\n\n(This is a macro, not an inline function, but it\u0027s the same fundamental primitive. We might even be able to just make this an inline function rather than a macro.)",
       "revId": "091ea8201cf8928cb71a8893b0fb39e28798092c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "adb8d05c_f9b73cef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5180
+      },
+      "writtenOn": "2023-01-25T19:53:48Z",
+      "side": 1,
+      "message": "My motivation is to reduce the reliance on `build.rs`, because its disruptive to a lot of the paths to make rust-openssl\u0027s BoringSSL support more transparent (wall of text available at https://github.com/sfackler/rust-openssl/issues/1768#issuecomment-1365402267)\n\nIf you think it\u0027s a better direction to make these inline functions, and then chase down the bindgen angle, I\u0027m happy to do a different CL that converts the macros to inline functions (which I think OpenSSL3 also did) and then we can wait for a bindgen release with that functionality to remove the build.rs stuff. Let me know if that\u0027s your preference.",
+      "parentUuid": "3828cb23_62ad212f",
+      "revId": "091ea8201cf8928cb71a8893b0fb39e28798092c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
