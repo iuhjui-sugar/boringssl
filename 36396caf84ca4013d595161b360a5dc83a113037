@@ -16,6 +16,24 @@
       "message": "I think that this is fine to do, but the ALL_CAPS style means \"warning, this is a macro\" and regular functions should follow the unix_hacker style.",
       "revId": "36396caf84ca4013d595161b360a5dc83a113037",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "732e0d4c_9b1b245f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5180
+      },
+      "writtenOn": "2023-01-25T19:11:31Z",
+      "side": 1,
+      "message": "Good call, this also solves the atrocious naming -- assuming you\u0027re ok with names that vary only with capitalization.",
+      "parentUuid": "6d37b726_4d0bebd6",
+      "revId": "36396caf84ca4013d595161b360a5dc83a113037",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
