@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15960839_4b8ff6b1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-26T14:29:57Z",
+      "side": 1,
+      "message": "Wonder how long this policy lasts before we find a reason to need to change it. :-)",
+      "revId": "b1bba6e40c1422d2eadba0e369717e4ecf351b77",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f7d08b1_4473e943",
+        "filename": "ssl/extensions.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2312,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-26T14:29:57Z",
+      "side": 1,
+      "message": "Nit: May as well start iteration at 1.",
+      "range": {
+        "startLine": 2312,
+        "startChar": 20,
+        "endLine": 2312,
+        "endChar": 21
+      },
+      "revId": "b1bba6e40c1422d2eadba0e369717e4ecf351b77",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
