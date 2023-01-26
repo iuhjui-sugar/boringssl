@@ -16,6 +16,40 @@
       "message": "Thoughts?",
       "revId": "2613b3bf38140b22880a9c2b85c9946e5aa93219",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de2c7b4c_e587b6e4",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-01-26T20:33:54Z",
+      "side": 1,
+      "message": "For CMake, I don\u0027t know if this is !(NO_ASM || DELOCATE) or !NO_ASM || DELOCATE. (I.e. I believe it\u0027s the latter, but had to think.) Is disambiguating with parens worthwhile, or inconsistent because we would never do that in C?",
+      "revId": "2613b3bf38140b22880a9c2b85c9946e5aa93219",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9926d2b7_60a43dc5",
+        "filename": "crypto/fipsmodule/CMakeLists.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-01-26T20:33:54Z",
+      "side": 1,
+      "message": "stray new line?",
+      "revId": "2613b3bf38140b22880a9c2b85c9946e5aa93219",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
