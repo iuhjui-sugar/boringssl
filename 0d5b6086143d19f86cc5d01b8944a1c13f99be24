@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "354ece58_b9778ab3",
+        "filename": "crypto/trust_token/trust_token.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-26T19:54:19Z",
+      "side": 0,
+      "message": "One fewer CBOR implementation!",
+      "revId": "0d5b6086143d19f86cc5d01b8944a1c13f99be24",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bda5bf7_d00e1f21",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-26T19:54:19Z",
+      "side": 0,
+      "message": "Just to make update easier, let\u0027s also leave\n\n```\n// TRUST_TOKEN_ISSUER_redeem_raw is a legacy alias for \n|TRUST_TOKEN_ISSUER_redeem|\n#define TRUST_TOKEN_ISSUER_redeem_raw TRUST_TOKEN_ISSUER_redeem\n```\n\nAnd then we have a bit more flexibility in removing stuff.",
+      "range": {
+        "startLine": 285,
+        "startChar": 19,
+        "endLine": 285,
+        "endChar": 48
+      },
+      "revId": "0d5b6086143d19f86cc5d01b8944a1c13f99be24",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
