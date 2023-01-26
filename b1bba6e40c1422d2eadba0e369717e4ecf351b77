@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eaf5b4ec_094f4a30",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-01-26T17:45:50Z",
+      "side": 1,
+      "message": "\u003c six months I suspect.",
+      "parentUuid": "15960839_4b8ff6b1",
+      "revId": "b1bba6e40c1422d2eadba0e369717e4ecf351b77",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8f7d08b1_4473e943",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-01-26T14:29:57Z",
       "side": 1,
       "message": "Nit: May as well start iteration at 1.",
+      "range": {
+        "startLine": 2312,
+        "startChar": 20,
+        "endLine": 2312,
+        "endChar": 21
+      },
+      "revId": "b1bba6e40c1422d2eadba0e369717e4ecf351b77",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3232e66_3d629dbe",
+        "filename": "ssl/extensions.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2312,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-01-26T17:45:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f7d08b1_4473e943",
       "range": {
         "startLine": 2312,
         "startChar": 20,
