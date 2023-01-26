@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "08752555_086a3a79",
+        "filename": "util/fipstools/acvp/modulewrapper/main.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-26T23:37:16Z",
+      "side": 1,
+      "message": "Should this be in here? Didn\u0027t think we supported FIPS on 32-bit Arm either...",
+      "revId": "843d236f2522d957e4e9b9df6d96052e0d0b888f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
