@@ -35,6 +35,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0cea3cb8_04e083b3",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-26T22:45:46Z",
+      "side": 1,
+      "message": "Not sure, but I just switched it to `FIPS_DELOCATE OR NOT OPENSSL_NO_ASM` which is less ambiguous and doesn\u0027t need parens. :-)\n\nElsewhere, we\u0027ve written `if(NOT ASAN AND NOT MSAN)`, so I take it we\u0027re fine with CMake\u0027s precedence here. I guess it\u0027s analogous to not writing the parens in Python.",
+      "parentUuid": "de2c7b4c_e587b6e4",
+      "revId": "2613b3bf38140b22880a9c2b85c9946e5aa93219",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9926d2b7_60a43dc5",
@@ -48,6 +66,24 @@
       "writtenOn": "2023-01-26T20:33:54Z",
       "side": 1,
       "message": "stray new line?",
+      "revId": "2613b3bf38140b22880a9c2b85c9946e5aa93219",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2d990b3_27638b64",
+        "filename": "crypto/fipsmodule/CMakeLists.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-26T22:45:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9926d2b7_60a43dc5",
       "revId": "2613b3bf38140b22880a9c2b85c9946e5aa93219",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
