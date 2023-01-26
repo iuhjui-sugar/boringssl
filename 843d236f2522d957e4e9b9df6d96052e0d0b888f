@@ -16,6 +16,24 @@
       "message": "Should this be in here? Didn\u0027t think we supported FIPS on 32-bit Arm either...",
       "revId": "843d236f2522d957e4e9b9df6d96052e0d0b888f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9af670a_8d650500",
+        "filename": "util/fipstools/acvp/modulewrapper/main.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-01-26T23:40:06Z",
+      "side": 1,
+      "message": "We do. Not with delocate, but with the shared-library build.",
+      "parentUuid": "08752555_086a3a79",
+      "revId": "843d236f2522d957e4e9b9df6d96052e0d0b888f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
