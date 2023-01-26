@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f15ff6bb_71f91c36",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5180
+      },
+      "writtenOn": "2023-01-26T17:14:29Z",
+      "side": 1,
+      "message": "Yes, I agree inline functions are better. If that path works for you, it certainly works for me.\n\nI\u0027ll check in with folks about that bindgen work, but my hope is that it\u0027ll ship in the near term (\u003c1 month), so just waiting on it may be fine!\n\nIn terms of the end goals: Yes, you have it right, raw bindings textually included. If you wanted to build a proper Rust API, _that_ would be a normal crate, which includes the raw bindings the same way openssl-sys would.",
+      "parentUuid": "7f3495d2_1f658f46",
+      "revId": "091ea8201cf8928cb71a8893b0fb39e28798092c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "37ab612f_d3dc6ca1",
         "filename": "include/openssl/err.h",
         "patchSetId": 2
@@ -67,6 +85,24 @@
       "writtenOn": "2023-01-26T15:23:16Z",
       "side": 1,
       "message": "Why in the world is rust-openssl binding this function? Even upstream OpenSSL has retracted it. Can rust-openssl just be fixed to use OpenSSL\u0027s APIs correctly.",
+      "revId": "091ea8201cf8928cb71a8893b0fb39e28798092c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53811573_82886ef8",
+        "filename": "include/openssl/err.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 5180
+      },
+      "writtenOn": "2023-01-26T17:14:29Z",
+      "side": 1,
+      "message": "What does correctly mean? https://github.com/sfackler/rust-openssl/blob/master/openssl/src/error.rs is the context its used, its entirely for modeling OpenSSL\u0027s error stack in Rust. If it\u0027s correct to always just assume that func is 0/null, that\u0027s easy enough I suppose.",
+      "parentUuid": "37ab612f_d3dc6ca1",
       "revId": "091ea8201cf8928cb71a8893b0fb39e28798092c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
