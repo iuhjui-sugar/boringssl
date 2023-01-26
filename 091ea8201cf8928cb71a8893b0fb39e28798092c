@@ -34,6 +34,41 @@
       "parentUuid": "3828cb23_62ad212f",
       "revId": "091ea8201cf8928cb71a8893b0fb39e28798092c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f3495d2_1f658f46",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-26T15:23:16Z",
+      "side": 1,
+      "message": "Inline functions seem just generally preferable to macros (they\u0027re actually type-checked) so, whatever we do here, I\u0027m on board with making them inline regardless. That OpenSSL did this already bodes well for compatibility. I\u0027ve kicked off a build of the main monorepo to see if that causes any problems.\n\nIt does feel silly to me to have to define explicit out-of-line variants of any inline functions we might add. Or for converting an out-of-line function to an inline function to require a lot of fuss. When would you expect the bindgen issue to get resolved?\n\nI\u0027m also a little confused about the end goal... this is in service of (1) in the rust-openssl issue? I\u0027m not familiar very with Rust\u0027s build limitations, but saying bssl-sys doesn\u0027t participate in Rust compilation properly and instead is textually included seems odd. How would that work if we were to build a proper Rust API in the future? Surely that would need to actually be a crate, published or no. (I do not expect rust-openssl to be our long-term recommended path for Rust.)",
+      "parentUuid": "adb8d05c_f9b73cef",
+      "revId": "091ea8201cf8928cb71a8893b0fb39e28798092c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37ab612f_d3dc6ca1",
+        "filename": "include/openssl/err.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-26T15:23:16Z",
+      "side": 1,
+      "message": "Why in the world is rust-openssl binding this function? Even upstream OpenSSL has retracted it. Can rust-openssl just be fixed to use OpenSSL\u0027s APIs correctly.",
+      "revId": "091ea8201cf8928cb71a8893b0fb39e28798092c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
