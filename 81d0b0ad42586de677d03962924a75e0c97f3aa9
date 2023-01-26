@@ -34,6 +34,24 @@
       "parentUuid": "7a6e4f14_6b308a86",
       "revId": "81d0b0ad42586de677d03962924a75e0c97f3aa9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "766a115a_537d8e55",
+        "filename": "crypto/bytestring/cbs.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-26T18:31:40Z",
+      "side": 1,
+      "message": "Yeah, it is a little concerning that isdigit() still goes through the locale in a lot of libcs, but I guess we can wrestle with that later, if we care.",
+      "parentUuid": "207561f2_716a812e",
+      "revId": "81d0b0ad42586de677d03962924a75e0c97f3aa9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
