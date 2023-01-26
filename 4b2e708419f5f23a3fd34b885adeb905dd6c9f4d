@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1de56216_f0a5c5ba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-01-26T23:24:09Z",
+      "side": 1,
+      "message": "LGTM, but why do we still carry POWER assembly?",
+      "revId": "4b2e708419f5f23a3fd34b885adeb905dd6c9f4d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
