@@ -16,6 +16,80 @@
       "message": "Any further comments? Should I withdraw this?",
       "revId": "12132935f284214dad97011428792d8f87bad590",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "48a2ce3a_c9035661",
+        "filename": "configs.bzl",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-27T23:02:33Z",
+      "side": 1,
+      "message": "Played around with this a bit. Does this even work (typo fix below aside)? So, let me make sure I\u0027m understanding all this correctly...\n\nBecause gRPC is still using the legacy system, gRPC is in a situation where it\u0027s picking up the default, auto-detected `@platforms` settings, which match the host. However its actual toolchain, as specified by crosstool_top and cpu flags, does not match.\n\nAnd so gRPC\u0027s build gets messed up because it hits the wrong platform selects.\n\nThis CL tries to support both by making all the selects match essentially `{\"cpu\": \"k8\"} || [\"@platforms//os:linux\", \"@platforms//cpu:x86_64\"]`, etc.\n\nBut if the defaults hit the host platform, won\u0027t that just make two arms of the select match and the build break anyway?\n\n(I\u0027ve gotten further on the alternate solution, where we just link all the asm files together, so I\u0027m going to try to get that working in Bazel. But it\u0027d still be good to understand what the intended path is out of this mess.)",
+      "revId": "12132935f284214dad97011428792d8f87bad590",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f3e39d3_83a3f088",
+        "filename": "configs.bzl",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-27T23:02:33Z",
+      "side": 1,
+      "message": "I think this is unused.",
+      "revId": "12132935f284214dad97011428792d8f87bad590",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b9d59ea_565b0db9",
+        "filename": "configs.bzl",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-27T23:02:33Z",
+      "side": 1,
+      "message": "(If we go with this option, we\u0027ll probably want to adjust this so we don\u0027t assume exactly one legacy option for each non-legacy option.)",
+      "revId": "12132935f284214dad97011428792d8f87bad590",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4c639f7_291e0103",
+        "filename": "configs.bzl",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-27T23:02:33Z",
+      "side": 1,
+      "message": "(I think this was meant to be `cpu.constraint`)",
+      "range": {
+        "startLine": 107,
+        "startChar": 43,
+        "endLine": 107,
+        "endChar": 51
+      },
+      "revId": "12132935f284214dad97011428792d8f87bad590",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
