@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "bd3e8bef_9728227f",
+        "filename": "crypto/x509/asn1_gen.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-01-27T01:50:52Z",
+      "side": 1,
+      "message": "I think I\u0027m ok with the zero value.",
+      "parentUuid": "5305d9be_178c9a55",
+      "range": {
+        "startLine": 92,
+        "startChar": 3,
+        "endLine": 92,
+        "endChar": 24
+      },
+      "revId": "d323d448e7778ce89554fabf9277e95881672c43",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "dca6d88e_08fae155",
         "filename": "crypto/x509/asn1_gen.c",
         "patchSetId": 1
