@@ -397,9 +397,21 @@ both_builders(
         "run_ssl_tests": False,
     },
 )
-both_builders("linux", LINUX_HOST, category = "linux", short_name = "dbg")
+both_builders(
+    "linux",
+    LINUX_HOST,
+    category = "linux",
+    short_name = "dbg",
+    properties = {"check_stack": True},
+)
 both_builders("linux_rel", LINUX_HOST, category = "linux", short_name = "rel")
-both_builders("linux32", LINUX_HOST, category = "linux|32", short_name = "dbg")
+both_builders(
+    "linux32",
+    LINUX_HOST,
+    category = "linux|32",
+    short_name = "dbg",
+    properties = {"check_stack": True},
+)
 both_builders("linux32_rel", LINUX_HOST, category = "linux|32", short_name = "rel")
 ci_builder(
     "linux32_sde",
