@@ -39,6 +39,30 @@
       },
       "revId": "0d5b6086143d19f86cc5d01b8944a1c13f99be24",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ddfc3a5_51b03c02",
+        "filename": "include/openssl/trust_token.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 285,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2023-01-27T16:05:20Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "5bda5bf7_d00e1f21",
+      "range": {
+        "startLine": 285,
+        "startChar": 19,
+        "endLine": 285,
+        "endChar": 48
+      },
+      "revId": "0d5b6086143d19f86cc5d01b8944a1c13f99be24",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
