@@ -74,6 +74,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8d7f83ca_edb528ac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-27T14:21:36Z",
+      "side": 1,
+      "message": "https://boringssl-review.googlesource.com/c/boringssl/+/56405 switches to inline functions.",
+      "parentUuid": "f15ff6bb_71f91c36",
+      "revId": "091ea8201cf8928cb71a8893b0fb39e28798092c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "37ab612f_d3dc6ca1",
         "filename": "include/openssl/err.h",
         "patchSetId": 2
@@ -103,6 +121,24 @@
       "side": 1,
       "message": "What does correctly mean? https://github.com/sfackler/rust-openssl/blob/master/openssl/src/error.rs is the context its used, its entirely for modeling OpenSSL\u0027s error stack in Rust. If it\u0027s correct to always just assume that func is 0/null, that\u0027s easy enough I suppose.",
       "parentUuid": "37ab612f_d3dc6ca1",
+      "revId": "091ea8201cf8928cb71a8893b0fb39e28798092c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d71fe8c_602306df",
+        "filename": "include/openssl/err.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 426,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-27T14:21:36Z",
+      "side": 1,
+      "message": "The use in `impl fmt::Display for Error` doesn\u0027t make sense as it\u0027ll just be func(0) in OpenSSL 3.0 (and BoringSSL). Though the library also already provides `ERR_error_string_n` so I\u0027m not sure why rust-openssl is reimplementing this.\n\nThe other use seems to be about putting errors back onto the OpenSSL error stack? I\u0027ve never seen any caller need to do this. Usually you consume OpenSSL errors and just act on them. Semantically, it\u0027s a bit off to claim an error came from some function when it came from Rust.\n\nLooks like it came from https://github.com/sfackler/rust-openssl/pull/850 with no explanation as to why.",
+      "parentUuid": "53811573_82886ef8",
       "revId": "091ea8201cf8928cb71a8893b0fb39e28798092c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
