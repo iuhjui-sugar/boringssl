@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "edf6bb57_016d5fbd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5180
+      },
+      "writtenOn": "2023-01-28T18:20:48Z",
+      "side": 1,
+      "message": "Hmm. I may have done this too quickly. This installs the stuff in the rust/ build dir, and that\u0027s fine as it goes. Except the build.rs no longer works, it assumes that libcrypto.a and libssl.a are in the directory structure they have in build/ rather than the flat structure they have once installed.\n\nHow would you feel if I just installed the bindgen output and nothing else?",
+      "revId": "3b0705d60350d0f9724cce456f1ce93cc8165494",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
