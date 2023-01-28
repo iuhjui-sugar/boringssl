@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3a68962_5b269cbe",
+        "filename": "crypto/x509/asn1_gen.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-28T16:52:16Z",
+      "side": 1,
+      "message": "Hehe, I\u0027d actually fixed this later in my patch tower (not yet uploaded), but rearranged things. :-)\nhttps://boringssl-review.googlesource.com/c/boringssl/+/56486\n\n(Technically an existing issue since this was just previously picking it up from CONF, but whatever.)",
+      "parentUuid": "7723765c_f64e9f5a",
+      "range": {
+        "startLine": 191,
+        "startChar": 26,
+        "endLine": 191,
+        "endChar": 35
+      },
+      "revId": "6df8e0fbe68c3328c7106a9648f5191bf3a2b728",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d8d7783a_ab1c180c",
@@ -37,6 +61,24 @@
       "writtenOn": "2023-01-27T02:09:10Z",
       "side": 1,
       "message": "I believe this one (not the generalized one) is a change of behaviour, since the existing behaviour calls this one with 1 to allow us to parse\nthings with the non standard TZ offsets. We allow it for utc, but not for generalized.",
+      "revId": "6df8e0fbe68c3328c7106a9648f5191bf3a2b728",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2339a09_1b64c6c2",
+        "filename": "crypto/x509/asn1_gen.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-28T16:52:16Z",
+      "side": 1,
+      "message": "Added a note in the commit message about this. I suspect no one\u0027s using this code and I think we probably should be strict here.",
+      "parentUuid": "d8d7783a_ab1c180c",
       "revId": "6df8e0fbe68c3328c7106a9648f5191bf3a2b728",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -75,6 +117,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "89a2e3a6_a7ecb76f",
+        "filename": "crypto/x509v3/v3_utl.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-28T16:52:16Z",
+      "side": 1,
+      "message": "See https://boringssl-review.googlesource.com/c/boringssl/+/56487. This type is a bit of a hairball. The problem is it (at least originally) just preserved the exact flavor of BER TRUE that was encoded, but since we like DER, 0xff is the correct value. (But our encoder normalizes it most of the time.)",
+      "parentUuid": "f24ce9b0_ff13f2f3",
+      "revId": "6df8e0fbe68c3328c7106a9648f5191bf3a2b728",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "27ff64fd_7bd3333d",
@@ -88,6 +148,30 @@
       "writtenOn": "2023-01-27T02:09:10Z",
       "side": 1,
       "message": "if you are going to document it as returning zero for false, and non-zero for true, this is fine. \n\nhowever the function documentation calls out 0xff, so if you\u0027re keeping that it should test for that value.",
+      "range": {
+        "startLine": 324,
+        "startChar": 7,
+        "endLine": 324,
+        "endChar": 45
+      },
+      "revId": "6df8e0fbe68c3328c7106a9648f5191bf3a2b728",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e97a333_2c6956ca",
+        "filename": "crypto/x509v3/v3_utl.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-28T16:52:16Z",
+      "side": 1,
+      "message": "See https://boringssl-review.googlesource.com/c/boringssl/+/56487",
+      "parentUuid": "27ff64fd_7bd3333d",
       "range": {
         "startLine": 324,
         "startChar": 7,
