@@ -56,3 +56,6 @@ if(NOT BUILD_SHARED_LIBS)
 endif()
 
 configure_file("Cargo.toml" "Cargo.toml" COPYONLY)
+
+install(FILES ${WRAPPER_TARGET} DESTINATION rust/)
+install(TARGETS rust_wrapper DESTINATION rust/)
