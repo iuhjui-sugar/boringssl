@@ -56,3 +56,5 @@ if(NOT BUILD_SHARED_LIBS)
 endif()
 
 configure_file("Cargo.toml" "Cargo.toml" COPYONLY)
+
+install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR} DESTINATION .)
