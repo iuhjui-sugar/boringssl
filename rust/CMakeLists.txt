@@ -1,7 +1,3 @@
-# Additional interop for things like macros and inlined functions.
-add_library(rust_wrapper STATIC rust_wrapper.c)
-target_link_libraries(rust_wrapper crypto)
-
 # Generate architecture-specific wrappers.
 set(WRAPPER_TARGET ${CMAKE_BINARY_DIR}/rust/src/wrapper_${RUST_BINDINGS}.rs)
 set(COMMAND ${BINDGEN_EXECUTABLE} "wrapper.h"
@@ -29,6 +25,12 @@ set(COMMAND ${BINDGEN_EXECUTABLE} "wrapper.h"
             --blocklist-function="qgcvt"
             --blocklist-function="qfcvt"
             --blocklist-function="qfcvt_r"
+            --blocklist-function="_OSSwap.*"
+            --blocklist-function="OSReadSwap.*"
+            --blocklist-function="OSWriteSwap.*"
+            --experimental
+            --wrap-static-fns
+            --wrap-static-fns-path="${CMAKE_BINARY_DIR}/rust/wrapper.c"
             -- # these are LLVM arg passthroughs
             -I../include
             # https://doc.rust-lang.org/nightly/rustc/platform-support.html
@@ -40,9 +42,17 @@ add_custom_target(
   bindgen_rust_${RUST_BINDINGS}
   ALL
   ${COMMAND}
-  BYPRODUCTS ${WRAPPER_TARGET}
+  BYPRODUCTS ${WRAPPER_TARGET} ${CMAKE_BINARY_DIR}/rust/wrapper.c
   WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
+
+add_library(
+  rust_wrapper
+  STATIC
+  ${CMAKE_BINARY_DIR}/rust/wrapper.c
+)
+target_link_libraries(rust_wrapper crypto)
+target_compile_options(rust_wrapper PRIVATE -include ${CMAKE_CURRENT_SOURCE_DIR}/wrapper.h)
 
 # move files into build directory
 configure_file("src/lib.rs" "src/lib.rs")
@@ -52,3 +62,6 @@ if(NOT BUILD_SHARED_LIBS)
 endif()
 
 configure_file("Cargo.toml" "Cargo.toml" COPYONLY)
+
+install(FILES ${WRAPPER_TARGET} DESTINATION rust/)
+install(TARGETS rust_wrapper DESTINATION rust/)

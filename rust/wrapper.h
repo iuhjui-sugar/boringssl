@@ -75,5 +75,3 @@
 #include "../include/openssl/x509.h"
 #include "../include/openssl/x509_vfy.h"
 #include "../include/openssl/x509v3.h"
-
-#include "rust_wrapper.h"
