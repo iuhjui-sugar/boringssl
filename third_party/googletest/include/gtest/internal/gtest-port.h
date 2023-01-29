@@ -334,10 +334,8 @@
 #define GTEST_DISABLE_MSC_DEPRECATED_POP_() \
     _Pragma("clang diagnostic pop")
 #else
-# define GTEST_DISABLE_MSC_DEPRECATED_PUSH_() \
-    GTEST_DISABLE_MSC_WARNINGS_PUSH_(4996)
-# define GTEST_DISABLE_MSC_DEPRECATED_POP_() \
-    GTEST_DISABLE_MSC_WARNINGS_POP_()
+# define GTEST_DISABLE_MSC_DEPRECATED_PUSH_()
+# define GTEST_DISABLE_MSC_DEPRECATED_POP_()
 #endif
 
 // Brings in definitions for functions used in the testing::internal::posix
