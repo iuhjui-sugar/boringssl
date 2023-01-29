@@ -4,6 +4,7 @@
 # TODO(https://crbug.com/boringssl/563): Remove this if we ever stop believing
 # in fallible mallocs in libssl.
 add_library(malloc_override STATIC malloc.cc)
+target_include_directories(malloc_override PRIVATE ../../include)
 
 add_library(
   test_support_lib
