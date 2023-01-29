@@ -1,3 +1,10 @@
+# This is a separate target from test_support_lib so non-GTest test binaries
+# can import it without depending on GTest.
+#
+# TODO(https://crbug.com/boringssl/563): Remove this if we ever stop believing
+# in fallible mallocs in libssl.
+add_library(malloc_override STATIC malloc.cc)
+
 add_library(
   test_support_lib
 
@@ -5,7 +12,6 @@ add_library(
 
   abi_test.cc
   file_test.cc
-  malloc.cc
   test_util.cc
   wycheproof_util.cc
 )
@@ -18,6 +24,7 @@ endif()
 if(WIN32)
   target_link_libraries(test_support_lib dbghelp)
 endif()
+target_link_libraries(test_support_lib boringssl_gtest crypto malloc_override)
 add_dependencies(test_support_lib global_target)
 
 add_library(
@@ -29,3 +36,4 @@ add_library(
 )
 
 add_dependencies(boringssl_gtest_main global_target)
+target_link_libraries(boringssl_gtest_main boringssl_gtest crypto test_support_lib)
