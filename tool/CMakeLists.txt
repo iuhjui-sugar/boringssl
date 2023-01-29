@@ -20,13 +20,7 @@ add_executable(
   transport_common.cc
 )
 install(TARGETS bssl DESTINATION ${CMAKE_INSTALL_BINDIR})
-
 add_dependencies(bssl global_target)
-
-if(WIN32)
-  target_link_libraries(bssl ws2_32)
-endif()
-
 if(APPLE OR WIN32 OR ANDROID)
   target_link_libraries(bssl ssl crypto)
 else()
