@@ -85,6 +85,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "12bb869a_3ea21a26",
+        "filename": "crypto/x509/asn1_gen.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-01-30T16:31:02Z",
+      "side": 1,
+      "message": "Aha. yes this is indeed only the gen side, so it should be fine for our purposes.",
+      "parentUuid": "a2339a09_1b64c6c2",
+      "revId": "6df8e0fbe68c3328c7106a9648f5191bf3a2b728",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "76ba2374_089763b6",
         "filename": "crypto/x509v3/v3_utl.c",
         "patchSetId": 2
