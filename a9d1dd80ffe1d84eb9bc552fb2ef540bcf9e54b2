@@ -1,0 +1,187 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c86adb80_46a6ace1",
+        "filename": "crypto/bn_extra/convert.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-30T23:10:00Z",
+      "side": 1,
+      "message": "I think we can fold `hex` and `value` into one value of type `uint8_t`. This is one of the few places where C\u0027s integer rules do something sensible.",
+      "revId": "a9d1dd80ffe1d84eb9bc552fb2ef540bcf9e54b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9a6114b_3b78ea88",
+        "filename": "crypto/mem.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-30T23:10:00Z",
+      "side": 1,
+      "message": "Nit: missing a space here",
+      "range": {
+        "startLine": 312,
+        "startChar": 49,
+        "endLine": 312,
+        "endChar": 50
+      },
+      "revId": "a9d1dd80ffe1d84eb9bc552fb2ef540bcf9e54b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16ec1149_b8d1d36b",
+        "filename": "crypto/pem/pem_lib.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-30T23:10:00Z",
+      "side": 1,
+      "message": "This is such a fascinating combination of types being used.\n\nI don\u0027t think casting `((!(i \u0026 1)) * 4)` to `long` does anything useful, given it\u0027s either 0 or 4.\n\nLikewise I don\u0027t think converting out `uint8_t` to `int` does anything because we\u0027re writing it to an `unsigned char *` anyway. So I thik we can just make `v` a `uint8_t` and drop the `(long)` cast.\n\nIf you feel extra inspired, we can move `int i` into `for (...)` line, C99-style and save a line.\n\nIf you feel extra *extra* inspired, I think `int` can become `size_t` without any additional fuss. :-)",
+      "revId": "a9d1dd80ffe1d84eb9bc552fb2ef540bcf9e54b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68014ae2_21ca5828",
+        "filename": "crypto/x509v3/v3_utl.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 788,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-30T23:10:00Z",
+      "side": 1,
+      "message": "Nit:\n\n`if (!OPENSSL_isalnum(*p) \u0026\u0026 *p !\u003d \u0027\u003d\u0027) {`",
+      "revId": "a9d1dd80ffe1d84eb9bc552fb2ef540bcf9e54b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7a17276_1e081d64",
+        "filename": "include/openssl/mem.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-30T23:10:00Z",
+      "side": 1,
+      "message": "Optional: Existing issue, but maybe we should be saying \"locale-independent, ASCII-only\" instead of just \"locale-independent\".",
+      "range": {
+        "startLine": 113,
+        "startChar": 24,
+        "endLine": 113,
+        "endChar": 42
+      },
+      "revId": "a9d1dd80ffe1d84eb9bc552fb2ef540bcf9e54b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ef5fe10_7d14afc2",
+        "filename": "include/openssl/mem.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-30T23:10:00Z",
+      "side": 1,
+      "message": "one",
+      "range": {
+        "startLine": 125,
+        "startChar": 30,
+        "endLine": 125,
+        "endChar": 34
+      },
+      "revId": "a9d1dd80ffe1d84eb9bc552fb2ef540bcf9e54b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13a29067_8db5f3c1",
+        "filename": "include/openssl/mem.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-30T23:10:00Z",
+      "side": 1,
+      "message": "hexadecimal",
+      "range": {
+        "startLine": 125,
+        "startChar": 47,
+        "endLine": 125,
+        "endChar": 59
+      },
+      "revId": "a9d1dd80ffe1d84eb9bc552fb2ef540bcf9e54b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1836fd8_4f7d1fc0",
+        "filename": "include/openssl/mem.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-30T23:10:00Z",
+      "side": 1,
+      "message": "zero",
+      "range": {
+        "startLine": 127,
+        "startChar": 3,
+        "endLine": 127,
+        "endChar": 8
+      },
+      "revId": "a9d1dd80ffe1d84eb9bc552fb2ef540bcf9e54b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d01024b_b3cabb25",
+        "filename": "include/openssl/mem.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-30T23:10:00Z",
+      "side": 1,
+      "message": "Style nit: it\u0027s not very consistent, but we usually put outputs before inputs. (I think it comes from `memcpy`?)",
+      "revId": "a9d1dd80ffe1d84eb9bc552fb2ef540bcf9e54b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
