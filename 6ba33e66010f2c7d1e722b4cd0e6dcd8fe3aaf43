@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f7bc76e1_028da749",
+        "filename": "util/BUILD.toplevel",
+        "patchSetId": 5
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-30T15:01:20Z",
+      "side": 1,
+      "message": "@jcater@google.com is there an easy, supported way to query for compiler, rather than platform? That GitHub issue suggests yes, but I wasn\u0027t sure since Bazel hasn\u0027t documented this.",
+      "revId": "6ba33e66010f2c7d1e722b4cd0e6dcd8fe3aaf43",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
