@@ -464,8 +464,8 @@ int PEM_get_EVP_CIPHER_INFO(char *header, EVP_CIPHER_INFO *cipher) {
   p = header;
   for (;;) {
     c = *header;
-    if (!(((c >= 'A') && (c <= 'Z')) || (c == '-') ||
-          ((c >= '0') && (c <= '9')))) {
+    if (!((c >= 'A' && c <= 'Z') || c == '-' ||
+          OPENSSL_isdigit(c))) {
       break;
     }
     header++;
@@ -496,6 +496,7 @@ int PEM_get_EVP_CIPHER_INFO(char *header, EVP_CIPHER_INFO *cipher) {
 static int load_iv(char **fromp, unsigned char *to, int num) {
   int v, i;
   char *from;
+  uint8_t val;
 
   from = *fromp;
   for (i = 0; i < num; i++) {
@@ -503,16 +504,11 @@ static int load_iv(char **fromp, unsigned char *to, int num) {
   }
   num *= 2;
   for (i = 0; i < num; i++) {
-    if ((*from >= '0') && (*from <= '9')) {
-      v = *from - '0';
-    } else if ((*from >= 'A') && (*from <= 'F')) {
-      v = *from - 'A' + 10;
-    } else if ((*from >= 'a') && (*from <= 'f')) {
-      v = *from - 'a' + 10;
-    } else {
+    if (!OPENSSL_fromxdigit(*from, &val)) {
       OPENSSL_PUT_ERROR(PEM, PEM_R_BAD_IV_CHARS);
       return 0;
     }
+    v = val;
     from++;
     to[i / 2] |= v << (long)((!(i & 1)) * 4);
   }
