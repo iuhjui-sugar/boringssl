@@ -16,6 +16,24 @@
       "message": "Quoting yourself: \n\n(But it will never get both. An\nASN1_ITEM_TEMPLATE cannot wrap an optional template because types are\nnot optional.)\n\nSo, should we make this blow up if we actually get both, is that an error?",
       "revId": "77750f82e0e5bba318be0de8852b54a2e81cf510",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1dabaf8_72a73b93",
+        "filename": "crypto/asn1/tasn_enc.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 304,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-30T23:11:58Z",
+      "side": 1,
+      "message": "Added an assert. (It\u0027s impossible because line 148 prevents the only case when it might happen.)",
+      "parentUuid": "33a62886_43a677e8",
+      "revId": "77750f82e0e5bba318be0de8852b54a2e81cf510",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
