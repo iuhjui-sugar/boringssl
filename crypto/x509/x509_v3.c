@@ -183,7 +183,9 @@ err:
   OPENSSL_PUT_ERROR(X509, ERR_R_MALLOC_FAILURE);
 err2:
   X509_EXTENSION_free(new_ex);
-  sk_X509_EXTENSION_free(sk);
+  if (x != NULL && *x == NULL) {
+    sk_X509_EXTENSION_free(sk);
+  }
   return NULL;
 }
 
