@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d5871d73_a07502cd",
+        "filename": "util/BUILD.toplevel",
+        "patchSetId": 5
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-31T15:58:13Z",
+      "side": 1,
+      "message": "I\u0027m certainly a fan of fewer things being our responsibility! :-)\n\nI\u0027ll tidy that up in a follow-up, just to reduce the number of things this CL is changing. (Also because we\u0027ll need to fiddle with things a bit if we need a `.bazelrc` due to the bizarre way that branch is generated... we need to fix that.)\n\nLooking around, I take it the preferred story for things that come from the toolchain is:\n\n- `BUILD` file is agnostic to warnings, C++ version (C version?), etc. Whoever invokes `bazel` picks this up.\n\n- When the library is consumed in a project, we expect that to come from whatever the library does\n\n- When the library is the root of the dependency tree, if we don\u0027t have any particular toolchain preferences, just want to test stuff works, we\u0027d put flags in `.bazelrc`\n\n- You can\u0027t write `select` in `.bazelrc`, but you can specify different named \"configs\", and so we\u0027d have one for Windows that does the MSVC spelling, one for Linux, etc.\n\n- We can set `--enable_platform_specific_config` to pick up a default so that you don\u0027t have to remember to, on Windows, say `--config\u003dwindows`.\n\nIs that right?",
+      "parentUuid": "873a59d5_294db34c",
+      "range": {
+        "startLine": 70,
+        "startChar": 2,
+        "endLine": 70,
+        "endChar": 11
+      },
+      "revId": "6ba33e66010f2c7d1e722b4cd0e6dcd8fe3aaf43",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f7bc76e1_028da749",
         "filename": "util/BUILD.toplevel",
         "patchSetId": 5
