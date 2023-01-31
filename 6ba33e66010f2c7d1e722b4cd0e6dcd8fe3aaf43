@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "873a59d5_294db34c",
+        "filename": "util/BUILD.toplevel",
+        "patchSetId": 5
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 15576
+      },
+      "writtenOn": "2023-01-31T14:43:55Z",
+      "side": 1,
+      "message": "As a bazel maintainer, I would assume the project that depends on boringssl would set their own desired warning/error levels in their toolchains, and that they\u0027d be surprised that boringssl has overridden that.",
+      "range": {
+        "startLine": 70,
+        "startChar": 2,
+        "endLine": 70,
+        "endChar": 11
+      },
+      "revId": "6ba33e66010f2c7d1e722b4cd0e6dcd8fe3aaf43",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f7bc76e1_028da749",
         "filename": "util/BUILD.toplevel",
         "patchSetId": 5
@@ -14,6 +37,24 @@
       "writtenOn": "2023-01-30T15:01:20Z",
       "side": 1,
       "message": "@jcater@google.com is there an easy, supported way to query for compiler, rather than platform? That GitHub issue suggests yes, but I wasn\u0027t sure since Bazel hasn\u0027t documented this.",
+      "revId": "6ba33e66010f2c7d1e722b4cd0e6dcd8fe3aaf43",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7a93b78_b88d4c3b",
+        "filename": "util/BUILD.toplevel",
+        "patchSetId": 5
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 15576
+      },
+      "writtenOn": "2023-01-31T14:43:55Z",
+      "side": 1,
+      "message": "There is a standard `--compiler` flag. I do not know whether it is commonly used with Windows builds, you could ask the windows Bazel team for advice.",
+      "parentUuid": "f7bc76e1_028da749",
       "revId": "6ba33e66010f2c7d1e722b4cd0e6dcd8fe3aaf43",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
