@@ -55,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "31d1e404_9e051d30",
+        "filename": "configs.bzl",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-31T16:22:23Z",
+      "side": 1,
+      "message": "\u003e Based on your changes to remove the platform checking entirely, I think this change can be dropped, does that make sense to you?\n\nI think so, though I guess we\u0027ve yet to confirm whether either solution actually solves the problem for gRPC, so maybe we\u0027ll still have to go back to the drawing board. :-) Although worst case, there\u0027s always saying gRPC should override the build file.\n\nThanks a bunch for your help with all this! This has definitely helped me better understand how this stuff works.",
+      "parentUuid": "c2800722_ea856225",
+      "revId": "12132935f284214dad97011428792d8f87bad590",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7f3e39d3_83a3f088",
         "filename": "configs.bzl",
         "patchSetId": 3
