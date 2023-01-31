@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d54b44b_e68eb8cb",
+        "filename": "crypto/x509v3/v3_alt.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-01-31T20:43:32Z",
+      "side": 1,
+      "message": "It\u0027s not actually necessary because, as the old version says, it\u0027s got a static flag in it. But it\u0027s, in principle, dynamic and just freeing it seemed easier than explaining why it\u0027s not necessary. (Otherwise it relies on tasn_new.c using OBJ_nid2obj instead of ASN1_OBJECT_create.)",
+      "revId": "9b63876f2988a09f0e031aa694fbc59961cad756",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
