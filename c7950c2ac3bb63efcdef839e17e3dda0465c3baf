@@ -52,6 +52,24 @@
       "parentUuid": "d33c5c17_5bdaef08",
       "revId": "c7950c2ac3bb63efcdef839e17e3dda0465c3baf",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f3882f7_2877cfb2",
+        "filename": "crypto/x509/x509_v3.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-01-31T17:35:19Z",
+      "side": 1,
+      "message": "much better, manually verifying that with only one coffee in me no longer gives me a headache ;)",
+      "parentUuid": "d2716f11_ac660b26",
+      "revId": "c7950c2ac3bb63efcdef839e17e3dda0465c3baf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
