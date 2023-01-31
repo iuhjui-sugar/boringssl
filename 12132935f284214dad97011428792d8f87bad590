@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c2800722_ea856225",
+        "filename": "configs.bzl",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 15576
+      },
+      "writtenOn": "2023-01-31T15:51:56Z",
+      "side": 1,
+      "message": "Good point. Since this is related to CC specifically, I could add a check on `--incompatible_enable_cc_toolchain_resolution`, but I\u0027m not sure there\u0027s a solid global check. I\u0027ll go back to the team and see what makes sense.\n\nBased on your changes to remove the platform checking entirely, I think this change can be dropped, does that make sense to you?",
+      "parentUuid": "48a2ce3a_c9035661",
+      "revId": "12132935f284214dad97011428792d8f87bad590",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7f3e39d3_83a3f088",
         "filename": "configs.bzl",
         "patchSetId": 3
