@@ -182,6 +182,24 @@
       "message": "Style nit: it\u0027s not very consistent, but we usually put outputs before inputs. (I think it comes from `memcpy`?)",
       "revId": "a9d1dd80ffe1d84eb9bc552fb2ef540bcf9e54b2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cca01943_cfa6cc28",
+        "filename": "include/openssl/mem.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-01T00:06:57Z",
+      "side": 1,
+      "message": "Heh, I thought it was the other way around. lol.",
+      "parentUuid": "9d01024b_b3cabb25",
+      "revId": "a9d1dd80ffe1d84eb9bc552fb2ef540bcf9e54b2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
