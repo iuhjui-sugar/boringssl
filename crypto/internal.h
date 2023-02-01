@@ -465,17 +465,43 @@ static inline int constant_time_select_int(crypto_word_t mask, int a, int b) {
 // of memory as secret. Secret data is tracked as it flows to registers and
 // other parts of a memory. If secret data is used as a condition for a branch,
 // or as a memory index, it will trigger warnings in valgrind.
-#define CONSTTIME_SECRET(x, y) VALGRIND_MAKE_MEM_UNDEFINED(x, y)
+#define CONSTTIME_SECRET(ptr, len) VALGRIND_MAKE_MEM_UNDEFINED(ptr, len)
 
 // CONSTTIME_DECLASSIFY takes a pointer and a number of bytes and marks that
 // region of memory as public. Public data is not subject to constant-time
 // rules.
-#define CONSTTIME_DECLASSIFY(x, y) VALGRIND_MAKE_MEM_DEFINED(x, y)
+#define CONSTTIME_DECLASSIFY(ptr, len) VALGRIND_MAKE_MEM_DEFINED(ptr, len)
+
+static inline int constant_time_declassify_int(int v) {
+  CONSTTIME_DECLASSIFY(&v, sizeof(v));
+  return v;
+}
 
 #else
 
-#define CONSTTIME_SECRET(x, y)
-#define CONSTTIME_DECLASSIFY(x, y)
+#define CONSTTIME_SECRET(ptr, len)
+#define CONSTTIME_DECLASSIFY(ptr, len)
+
+static inline int constant_time_declassify_int(int v) {
+  // Return |v| through a value barrier to be safe. Valgrind-based constant-time
+  // validation is partly to check the compiler has not undone any constant-time
+  // work, which means it is only as accurate as
+  // |BORINGSSL_CONSTANT_TIME_VALIDATION| does not influence compilation.
+  //
+  // However, by sending pointers through valgrind, we likely inhibit compiler
+  // escape analysis by the compiler. Breaking escape analysis on buffers is
+  // likely mostly safe, but breaking it on local variables likely significantly
+  // changes register allocation significantly. It especially may impact
+  // compiler output for booleans.
+  //
+  // Thus, to be safe, stick a value barrier, in hopes of comparably inhibiting
+  // compiler analysis. (Though not identically. The validated version likely
+  // spills the value to memory, while we'd like to keep these values in
+  // registers.)
+  static_assert(sizeof(uint32_t) == sizeof(int),
+                "int is not the same size as uint32_t");
+  return value_barrier_u32(v);
+}
 
 #endif  // BORINGSSL_CONSTANT_TIME_VALIDATION
 
