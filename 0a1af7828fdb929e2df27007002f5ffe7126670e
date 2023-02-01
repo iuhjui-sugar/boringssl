@@ -16,6 +16,24 @@
       "message": "i want this off my phone i never appoved it and i am pissed off about it",
       "revId": "0a1af7828fdb929e2df27007002f5ffe7126670e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a279df31_af56fd35",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-01T20:00:55Z",
+      "side": 1,
+      "message": "I am removing you from CC on this April.",
+      "parentUuid": "4a222f15_08f2f3a6",
+      "revId": "0a1af7828fdb929e2df27007002f5ffe7126670e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
