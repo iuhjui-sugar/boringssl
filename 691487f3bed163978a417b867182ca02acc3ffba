@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0f1b7a1_756f90cc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-02T22:50:05Z",
+      "side": 1,
+      "message": "Not setting Auto-Submit because it seems worth having both of you look over this.",
+      "revId": "691487f3bed163978a417b867182ca02acc3ffba",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
