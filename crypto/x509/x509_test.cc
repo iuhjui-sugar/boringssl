@@ -1099,7 +1099,7 @@ static bssl::UniquePtr<STACK_OF(X509_CRL)> CRLsToStack(
   return stack;
 }
 
-static const time_t kReferenceTime = 1474934400 /* Sep 27th, 2016 */;
+static const int64_t kReferenceTime = 1474934400 /* Sep 27th, 2016 */;
 
 static int Verify(
     X509 *leaf, const std::vector<X509 *> &roots,
@@ -1133,7 +1133,7 @@ static int Verify(
   X509_STORE_CTX_set0_crls(ctx.get(), crls_stack.get());
 
   X509_VERIFY_PARAM *param = X509_STORE_CTX_get0_param(ctx.get());
-  X509_VERIFY_PARAM_set_time(param, kReferenceTime);
+  X509_VERIFY_PARAM_set_time_posix(param, kReferenceTime);
   if (configure_callback) {
     configure_callback(param);
   }
@@ -1483,7 +1483,7 @@ TEST(X509Test, TestCRL) {
   EXPECT_EQ(X509_V_ERR_CRL_HAS_EXPIRED,
             Verify(leaf.get(), {root.get()}, {root.get()}, {basic_crl.get()},
                    X509_V_FLAG_CRL_CHECK, [](X509_VERIFY_PARAM *param) {
-                     X509_VERIFY_PARAM_set_time(
+                     X509_VERIFY_PARAM_set_time_posix(
                          param, kReferenceTime + 2 * 30 * 24 * 3600);
                    }));
 
@@ -1492,7 +1492,7 @@ TEST(X509Test, TestCRL) {
             Verify(leaf.get(), {root.get()}, {root.get()}, {basic_crl.get()},
                    X509_V_FLAG_CRL_CHECK | X509_V_FLAG_NO_CHECK_TIME,
                    [](X509_VERIFY_PARAM *param) {
-                     X509_VERIFY_PARAM_set_time(
+                     X509_VERIFY_PARAM_set_time_posix(
                          param, kReferenceTime + 2 * 30 * 24 * 3600);
                    }));
 
@@ -3954,13 +3954,13 @@ TEST(X509Test, Expiry) {
   // The following are measured in seconds relative to kReferenceTime. The
   // validity periods are staggered so we can independently test both leaf and
   // root time checks.
-  const time_t kSecondsInDay = 24 * 3600;
-  const time_t kRootStart = -30 * kSecondsInDay;
-  const time_t kIntermediateStart = -20 * kSecondsInDay;
-  const time_t kLeafStart = -10 * kSecondsInDay;
-  const time_t kIntermediateEnd = 10 * kSecondsInDay;
-  const time_t kLeafEnd = 20 * kSecondsInDay;
-  const time_t kRootEnd = 30 * kSecondsInDay;
+  const int64_t kSecondsInDay = 24 * 3600;
+  const int64_t kRootStart = -30 * kSecondsInDay;
+  const int64_t kIntermediateStart = -20 * kSecondsInDay;
+  const int64_t kLeafStart = -10 * kSecondsInDay;
+  const int64_t kIntermediateEnd = 10 * kSecondsInDay;
+  const int64_t kLeafEnd = 20 * kSecondsInDay;
+  const int64_t kRootEnd = 30 * kSecondsInDay;
 
   bssl::UniquePtr<X509> root =
       MakeTestCert("Root", "Root", key.get(), /*is_ca=*/true);
@@ -3998,9 +3998,9 @@ TEST(X509Test, Expiry) {
   ASSERT_TRUE(X509_sign(leaf.get(), key.get(), EVP_sha256()));
 
   struct VerifyAt {
-    time_t time;
+    int64_t time;
     void operator()(X509_VERIFY_PARAM *param) const {
-      X509_VERIFY_PARAM_set_time(param, time);
+      X509_VERIFY_PARAM_set_time_posix(param, time);
     }
   };
 
