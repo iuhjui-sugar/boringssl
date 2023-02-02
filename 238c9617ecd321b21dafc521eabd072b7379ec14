@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2c32df2_0d54a60e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-02T16:52:27Z",
+      "side": 1,
+      "message": "(Clearing approval per Bob\u0027s request, to take another look at the reworked version.)",
+      "revId": "238c9617ecd321b21dafc521eabd072b7379ec14",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
