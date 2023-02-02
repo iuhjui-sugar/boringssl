@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7e03bfa_4b351530",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5180
+      },
+      "writtenOn": "2023-02-02T23:06:02Z",
+      "side": 1,
+      "message": "Latest patch relies on https://github.com/rust-lang/rust-bindgen/pull/2335, which is still in development. But it does work and has been tested end-to-end with rust-openssl locally.",
+      "revId": "84f6cea25f5d0d0c4973abbd962664938ded31ab",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
