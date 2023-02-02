@@ -852,7 +852,7 @@ static int copy_from_prebuf(BIGNUM *b, int top, const BN_ULONG *table, int idx,
   OPENSSL_memset(b->d, 0, sizeof(BN_ULONG) * top);
   const int width = 1 << window;
   for (int i = 0; i < width; i++, table += top) {
-    BN_ULONG mask = constant_time_eq_int(i, idx);
+    BN_ULONG mask = value_barrier_w(constant_time_eq_int(i, idx));
     for (int j = 0; j < top; j++) {
       b->d[j] |= table[j] & mask;
     }
