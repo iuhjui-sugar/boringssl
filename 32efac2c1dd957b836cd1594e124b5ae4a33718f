@@ -3,6 +3,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "29d9235e_f6ff8a26",
+        "filename": "crypto/fipsmodule/rsa/rsa_impl.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 809,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-02T23:44:44Z",
+      "side": 1,
+      "message": "possibly dumb question: Does this render the assert above effectively redundant, since this is basically stronger?",
+      "revId": "32efac2c1dd957b836cd1594e124b5ae4a33718f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cac7f2f3_8def324c",
+        "filename": "crypto/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-02T23:44:44Z",
+      "side": 1,
+      "message": "if this also returned with the value barrier, this could just be the same function and not defined differently for BORINGSSL_CONSTANT_TIME_VALIDATION",
+      "revId": "32efac2c1dd957b836cd1594e124b5ae4a33718f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f47ee842_8a04adb8",
         "filename": "crypto/internal.h",
         "patchSetId": 2
