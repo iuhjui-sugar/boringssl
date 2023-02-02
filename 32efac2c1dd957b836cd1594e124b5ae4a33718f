@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f47ee842_8a04adb8",
+        "filename": "crypto/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-02T22:56:14Z",
+      "side": 1,
+      "message": "Self-review: drop this word",
+      "range": {
+        "startLine": 491,
+        "startChar": 70,
+        "endLine": 491,
+        "endChar": 78
+      },
+      "revId": "32efac2c1dd957b836cd1594e124b5ae4a33718f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bbabfe0_0d75e4e9",
+        "filename": "crypto/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-02T22:56:14Z",
+      "side": 1,
+      "message": "Self-review: drop this clause. \"likely mostly safe\" is pretty meaningless. Important thing is that local variables seems very risky.",
+      "range": {
+        "startLine": 492,
+        "startChar": 38,
+        "endLine": 493,
+        "endChar": 28
+      },
+      "revId": "32efac2c1dd957b836cd1594e124b5ae4a33718f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e0febaac_97e67e2d",
+        "filename": "crypto/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-02T22:56:14Z",
+      "side": 1,
+      "message": "Self-review: drop this word",
+      "range": {
+        "startLine": 494,
+        "startChar": 33,
+        "endLine": 494,
+        "endChar": 46
+      },
+      "revId": "32efac2c1dd957b836cd1594e124b5ae4a33718f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
