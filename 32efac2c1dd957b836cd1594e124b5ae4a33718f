@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a7410ce8_f931b73f",
+        "filename": "crypto/fipsmodule/rsa/rsa_impl.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 809,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-03T16:35:59Z",
+      "side": 1,
+      "message": "Not quite. This is where our BIGNUM strategy is kinda weird. BIGNUMs are are not necessarily minimal-width. (Indeed we really don\u0027t want them to be minimal-width because that leaks leading zeros.) Honestly, I really should document how our BIGNUMs work because it\u0027s really subtle and weird.\n\nA BIGNUM is `width` words stored in `d`. Plus a sign bit, but we\u0027ll ignore that here. For simplicity, I\u0027m also going to assume 64-bit words. So that means the integer has value `0 \u003c\u003d v \u003c 2^(64 * width)`. But, a priori, it could fit in fewer words too. `width` is the *public* upper bound.\n\nThere\u0027s two halves to the first `assert`: `result-\u003ewidth \u003e\u003d N.width` and `result-\u003ewidth \u003c\u003d N.width`.\n\n`\u003e\u003d` is the important one. Even if the RSA computation gives zero, this whole process should not have chopped off the leading zero. Our public upper bound had better not be smaller than the modulus, because that\u0027s secret.\n\n`\u003c\u003d` is not so important. It\u0027s saying we didn\u0027t set a public upper bound that\u0027s even higher than `N.width`. Nothing goes wrong if we do. It just means some process did something silly[*], so I wrote `\u003d\u003d` to catch both.\n\n[*] Not that unlikely. The CRT computation will set some widths higher than necessary before we fix it up again. This part of the design might use rethinking.\n\n`bn_assert_fits_in_bytes` is saying something else. It\u0027s saying that the *value* of `result` can be represented in `BN_num_bytes(n)`. (Oops, that should be `len`. No sense in computing the byte length an extra time.) That is, whatever width is (maybe it\u0027s tight, or maybe it\u0027s very loose), all bytes in `n` from `len` to `8 * width` are zero.\n\nThat assert is to clear the false positive: if your RSA modulus not a whole number of words (say it\u0027s 2056-bit), valgrind thinks the entire top word is secret, when in reality only one byte of the top word is secret. And so it\u0027s okay that, in the course of checking preconditions, `BN_bn2bin_padded`  branches on those must-be-zero bytes.",
+      "parentUuid": "29d9235e_f6ff8a26",
+      "revId": "32efac2c1dd957b836cd1594e124b5ae4a33718f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cac7f2f3_8def324c",
         "filename": "crypto/internal.h",
         "patchSetId": 2
@@ -31,6 +49,24 @@
       "writtenOn": "2023-02-02T23:44:44Z",
       "side": 1,
       "message": "if this also returned with the value barrier, this could just be the same function and not defined differently for BORINGSSL_CONSTANT_TIME_VALIDATION",
+      "revId": "32efac2c1dd957b836cd1594e124b5ae4a33718f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38981c47_45380e78",
+        "filename": "crypto/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 477,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-03T16:35:59Z",
+      "side": 1,
+      "message": "Good idea. Done.",
+      "parentUuid": "cac7f2f3_8def324c",
       "revId": "32efac2c1dd957b836cd1594e124b5ae4a33718f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -48,6 +84,30 @@
       "writtenOn": "2023-02-02T22:56:14Z",
       "side": 1,
       "message": "Self-review: drop this word",
+      "range": {
+        "startLine": 491,
+        "startChar": 70,
+        "endLine": 491,
+        "endChar": 78
+      },
+      "revId": "32efac2c1dd957b836cd1594e124b5ae4a33718f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c22ae70f_aad128d7",
+        "filename": "crypto/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 491,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-03T16:35:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f47ee842_8a04adb8",
       "range": {
         "startLine": 491,
         "startChar": 70,
@@ -81,6 +141,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f312e87_cd6870c8",
+        "filename": "crypto/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-03T16:35:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0bbabfe0_0d75e4e9",
+      "range": {
+        "startLine": 492,
+        "startChar": 38,
+        "endLine": 493,
+        "endChar": 28
+      },
+      "revId": "32efac2c1dd957b836cd1594e124b5ae4a33718f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e0febaac_97e67e2d",
@@ -94,6 +178,30 @@
       "writtenOn": "2023-02-02T22:56:14Z",
       "side": 1,
       "message": "Self-review: drop this word",
+      "range": {
+        "startLine": 494,
+        "startChar": 33,
+        "endLine": 494,
+        "endChar": 46
+      },
+      "revId": "32efac2c1dd957b836cd1594e124b5ae4a33718f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea6e8c2a_c56bf09e",
+        "filename": "crypto/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-03T16:35:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e0febaac_97e67e2d",
       "range": {
         "startLine": 494,
         "startChar": 33,
