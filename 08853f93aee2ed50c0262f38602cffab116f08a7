@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa5862c5_34dee270",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-03T00:08:57Z",
+      "side": 1,
+      "message": "I strongly suspect most uses of this are to disable the assembly crypto implementations, or you\u0027re trying to compile with something that isn\u0027t gcc or clang, so the intersection of this is probably fine.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 70
+      },
+      "revId": "08853f93aee2ed50c0262f38602cffab116f08a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd438153_528d1451",
+        "filename": "crypto/fipsmodule/bn/exponentiation.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 856,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-03T00:08:57Z",
+      "side": 1,
+      "message": "Use a value barrier to prevent Clang from adding a branch when |i !\u003d idx| and making this copy not constant time.",
+      "range": {
+        "startLine": 855,
+        "startChar": 0,
+        "endLine": 856,
+        "endChar": 61
+      },
+      "revId": "08853f93aee2ed50c0262f38602cffab116f08a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
