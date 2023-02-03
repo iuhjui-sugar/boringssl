@@ -426,7 +426,7 @@ if(FIPS_DELOCATE OR NOT OPENSSL_NO_ASM)
       endforeach()
     endif()
     if(NOT WIN32)
-      set(CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} -Wa,--noexecstack")
+      # set(CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} -Wa,--noexecstack")
     endif()
     # Clang's integerated assembler does not support debug symbols.
     if(NOT CMAKE_ASM_COMPILER_ID MATCHES "Clang")
