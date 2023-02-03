@@ -16,6 +16,24 @@
       "message": "If nobody should be using these API\u0027s is there any reason to add more for this purpose and not just re-use X509V3_R_INVALID_VALUE?",
       "revId": "a673bbaefc274830ca2fe4da1e19ea0c332e3f15",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6964d683_d79967e2",
+        "filename": "include/openssl/x509v3.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1029,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-03T21:02:48Z",
+      "side": 1,
+      "message": "Ah yeah, let\u0027s just reuse that. Done",
+      "parentUuid": "819f5fe1_4da3d35b",
+      "revId": "a673bbaefc274830ca2fe4da1e19ea0c332e3f15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
