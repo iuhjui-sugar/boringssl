@@ -323,7 +323,7 @@ ___
 #endif  // !defined(OPENSSL_NO_ASM) && defined(__i386__) && $target
 #if defined(__ELF__)
 // See https://www.airs.com/blog/archives/518.
-.section .note.GNU-stack,"",\%progbits
+// .section .note.GNU-stack,"",\%progbits
 #endif
 ___
     }

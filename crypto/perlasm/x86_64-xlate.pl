@@ -1605,7 +1605,7 @@ if ($masm) {
 #endif
 #if defined(__ELF__)
 // See https://www.airs.com/blog/archives/518.
-.section .note.GNU-stack,"",\%progbits
+// .section .note.GNU-stack,"",\%progbits
 #endif
 ___
 } elsif ($nasm) {
