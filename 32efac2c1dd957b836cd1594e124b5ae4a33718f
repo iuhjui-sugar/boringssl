@@ -36,6 +36,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "32446a91_873feed5",
+        "filename": "crypto/fipsmodule/rsa/rsa_impl.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 809,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-03T16:45:20Z",
+      "side": 1,
+      "message": "OK, after several reads I think I got it 😊",
+      "parentUuid": "a7410ce8_f931b73f",
+      "revId": "32efac2c1dd957b836cd1594e124b5ae4a33718f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cac7f2f3_8def324c",
