@@ -1,0 +1,228 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7a4844c_5531d748",
+        "filename": "crypto/asn1/a_time.c",
+        "patchSetId": 23
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-04T00:31:33Z",
+      "side": 1,
+      "message": "Nit: I think we can omit this cast and let implicit conversion widen the type. If, somehow, time_t is larger than int64_t and we ever enable -Wconversion, we\u0027d probably want to flag it rather than silently truncate anyway.",
+      "range": {
+        "startLine": 82,
+        "startChar": 26,
+        "endLine": 82,
+        "endChar": 35
+      },
+      "revId": "a6d8e9c9128d59f25e8b198ca5dd5aa642298c0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7608c6ec_03abd282",
+        "filename": "crypto/asn1/a_time.c",
+        "patchSetId": 23
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-04T00:31:33Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 177,
+        "startChar": 28,
+        "endLine": 177,
+        "endChar": 37
+      },
+      "revId": "a6d8e9c9128d59f25e8b198ca5dd5aa642298c0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6dae6006_205102ed",
+        "filename": "crypto/asn1/a_utctm.c",
+        "patchSetId": 23
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-04T00:31:33Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 155,
+        "startChar": 27,
+        "endLine": 155,
+        "endChar": 36
+      },
+      "revId": "a6d8e9c9128d59f25e8b198ca5dd5aa642298c0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e45f418f_bb1e251c",
+        "filename": "crypto/x509/internal.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-04T00:31:33Z",
+      "side": 1,
+      "message": "Nit: POSIX",
+      "range": {
+        "startLine": 232,
+        "startChar": 39,
+        "endLine": 232,
+        "endChar": 44
+      },
+      "revId": "a6d8e9c9128d59f25e8b198ca5dd5aa642298c0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cbb1a50b_3bd1056f",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 23
+      },
+      "lineNbr": 1854,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-04T00:31:33Z",
+      "side": 1,
+      "message": "Ditto for the various `(int64_t)` casts in this file.",
+      "range": {
+        "startLine": 1854,
+        "startChar": 33,
+        "endLine": 1854,
+        "endChar": 43
+      },
+      "revId": "a6d8e9c9128d59f25e8b198ca5dd5aa642298c0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f9083c3_262ca09e",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 23
+      },
+      "lineNbr": 2315,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-04T00:31:33Z",
+      "side": 1,
+      "message": "Nit: clang-format :-)",
+      "range": {
+        "startLine": 2315,
+        "startChar": 5,
+        "endLine": 2315,
+        "endChar": 7
+      },
+      "revId": "a6d8e9c9128d59f25e8b198ca5dd5aa642298c0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac4acaee_1076a3e3",
+        "filename": "crypto/x509/x509_vpm.c",
+        "patchSetId": 23
+      },
+      "lineNbr": 387,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-04T00:31:33Z",
+      "side": 1,
+      "message": "Nit: unnecessary cast",
+      "range": {
+        "startLine": 387,
+        "startChar": 42,
+        "endLine": 387,
+        "endChar": 51
+      },
+      "revId": "a6d8e9c9128d59f25e8b198ca5dd5aa642298c0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "758fe6ff_0287088a",
+        "filename": "crypto/x509/x509_vpm.c",
+        "patchSetId": 23
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-04T00:31:33Z",
+      "side": 1,
+      "message": "Nit: extra blank line",
+      "revId": "a6d8e9c9128d59f25e8b198ca5dd5aa642298c0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da925322_389de0eb",
+        "filename": "include/openssl/asn1.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 1361,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-04T00:31:33Z",
+      "side": 1,
+      "message": "Hmm, I noticed some functions got set_posix variants while others just widened the parameter. What decided which is which? (FWIW, I\u0027m pretty cool with just widening the parameters. We can probably patch the few bindings that are impacted.)",
+      "range": {
+        "startLine": 1361,
+        "startChar": 3,
+        "endLine": 1361,
+        "endChar": 22
+      },
+      "revId": "a6d8e9c9128d59f25e8b198ca5dd5aa642298c0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f905b672_a72a19e8",
+        "filename": "include/openssl/asn1.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 1370,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-04T00:31:33Z",
+      "side": 1,
+      "message": "Nit: |ASN1_TIME_set_posix| (causes the docs generator to linkify it and us a monospace font).\n\nSpeaking of which, I really should dust off that pipes-to-backticks script...",
+      "range": {
+        "startLine": 1370,
+        "startChar": 40,
+        "endLine": 1370,
+        "endChar": 59
+      },
+      "revId": "a6d8e9c9128d59f25e8b198ca5dd5aa642298c0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
