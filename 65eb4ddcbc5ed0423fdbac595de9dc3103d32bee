@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d61454cb_d29d07c7",
+        "filename": "crypto/asn1/a_mbstr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-06T15:19:50Z",
+      "side": 0,
+      "message": "The problem was, on error, would both free the temporary value *and* leave its pointer in `*out`.",
+      "revId": "65eb4ddcbc5ed0423fdbac595de9dc3103d32bee",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
