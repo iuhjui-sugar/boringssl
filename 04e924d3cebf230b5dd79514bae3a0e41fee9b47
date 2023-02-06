@@ -83,6 +83,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "74688b19_a939ca18",
+        "filename": "crypto/asn1/tasn_dec.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-06T23:07:16Z",
+      "side": 1,
+      "message": "(Chatted out-of-band, probably was a mixup with one of the integers.)",
+      "parentUuid": "022dcd3b_b422ec9c",
+      "revId": "04e924d3cebf230b5dd79514bae3a0e41fee9b47",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "be44cc8a_6b12c304",
