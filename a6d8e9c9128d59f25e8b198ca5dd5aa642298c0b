@@ -226,6 +226,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff003d79_04f2f4dd",
+        "filename": "include/openssl/asn1.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 1361,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-06T21:32:55Z",
+      "side": 1,
+      "message": "Fair enough. Would be nice to get to somewhere consistent here, since C is perfectly fine with this. It\u0027s mostly bindings that cause is trouble. Saying we can\u0027t widen bad size types to `size_t` would be an unfortunate end state, but we don\u0027t have to resolve that right now.\n\nFor rust-openssl, I think the Android folks are looking to introduce typedefs to try to handle it more uniformly, but the pointer types mean we already can\u0027t be uniform.",
+      "parentUuid": "dc2437d8_7ffd0852",
+      "range": {
+        "startLine": 1361,
+        "startChar": 3,
+        "endLine": 1361,
+        "endChar": 22
+      },
+      "revId": "a6d8e9c9128d59f25e8b198ca5dd5aa642298c0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f905b672_a72a19e8",
