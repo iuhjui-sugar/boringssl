@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1da8175_a9b1f6b5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-06T15:23:47Z",
+      "side": 1,
+      "message": "Can you explain more what the motivation for this is?\n\nThis is definitely not something we can support without work to continuously test this in CI, and also just time to familiarize ourselves with how perlasm works here, as we\u0027d be diverging from upstream significantly.\n\nOver time, we\u0027ve gotten a bit more comfortable carrying patches to assembly, but this still makes me nervous. Upstream has, at various points, said the MASM backend doesn\u0027t work, and indeed upstream doesn\u0027t use it and only supports NASM.",
+      "revId": "534880736935c7dfdb15f878359508f27ca6f30f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
