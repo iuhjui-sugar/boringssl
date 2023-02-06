@@ -16,6 +16,24 @@
       "message": "Can you explain more what the motivation for this is?\n\nThis is definitely not something we can support without work to continuously test this in CI, and also just time to familiarize ourselves with how perlasm works here, as we\u0027d be diverging from upstream significantly.\n\nOver time, we\u0027ve gotten a bit more comfortable carrying patches to assembly, but this still makes me nervous. Upstream has, at various points, said the MASM backend doesn\u0027t work, and indeed upstream doesn\u0027t use it and only supports NASM.",
       "revId": "534880736935c7dfdb15f878359508f27ca6f30f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "074aae0d_30e8fbca",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-06T15:26:42Z",
+      "side": 1,
+      "message": "We\u0027ve also since done a lot of work on the NASM backend, from SEH unwind codes to conditioning all files so the build is simpler, which would need to be replicated before this can be done. Indeed the part of the build you\u0027ve patched relies on these modifications, so I\u0027d be surprised if this even works.\n\nThe build would also need to be reworked as it will later, after I\u0027ve finished some planned build and branch work, be a requirement that the perlasm functions always define all variants.",
+      "parentUuid": "f1da8175_a9b1f6b5",
+      "revId": "534880736935c7dfdb15f878359508f27ca6f30f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
