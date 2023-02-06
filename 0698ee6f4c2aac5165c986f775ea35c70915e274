@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "131c6962_2f8541d6",
+        "filename": "crypto/obj/obj.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 513,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-06T21:23:07Z",
+      "side": 1,
+      "message": "Poked at it, but with how long the variable names are, I think it ends up being even less readable. :-(\n\n```\n  global_added_by_nid \u003d global_added_by_nid \u003d\u003d NULL\n                            ? lh_ASN1_OBJECT_new(hash_nid, cmp_nid)\n                            : global_added_by_nid;\n  global_added_by_data \u003d global_added_by_data \u003d\u003d NULL\n                             ? lh_ASN1_OBJECT_new(hash_data, cmp_data)\n                             : global_added_by_data;\n  global_added_by_short_name \u003d\n      global_added_by_short_name \u003d\u003d NULL\n          ? lh_ASN1_OBJECT_new(hash_short_name, cmp_short_name)\n          : global_added_by_short_name;\n  global_added_by_long_name \u003d\n      global_added_by_long_name \u003d\u003d NULL\n          ? lh_ASN1_OBJECT_new(hash_long_name, cmp_long_name)\n          : global_added_by_long_name;\n```\n\nAlas, we don\u0027t have JavaScript\u0027s `??\u003d` operator.",
+      "parentUuid": "74d0bf66_492fb233",
+      "revId": "0698ee6f4c2aac5165c986f775ea35c70915e274",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "49f3ebcb_7b2d5258",
         "filename": "crypto/obj/obj.c",
         "patchSetId": 1
