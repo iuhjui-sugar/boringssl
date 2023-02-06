@@ -204,6 +204,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dc2437d8_7ffd0852",
+        "filename": "include/openssl/asn1.h",
+        "patchSetId": 23
+      },
+      "lineNbr": 1361,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-06T00:09:54Z",
+      "side": 1,
+      "message": "Initially I was just going to widen all the parameters, but that rapidly\nbecame unwieldy, so I just widened the parameters on the mostly internal ones\nand then the stuff that was getting called publicly added set_posix variants\nto just avoid the churn, and some of the more difficult changes (names with time_t, or pointers to time_t)",
+      "parentUuid": "da925322_389de0eb",
+      "range": {
+        "startLine": 1361,
+        "startChar": 3,
+        "endLine": 1361,
+        "endChar": 22
+      },
+      "revId": "a6d8e9c9128d59f25e8b198ca5dd5aa642298c0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f905b672_a72a19e8",
         "filename": "include/openssl/asn1.h",
         "patchSetId": 23
