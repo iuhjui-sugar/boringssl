@@ -160,6 +160,16 @@ OPENSSL_EXPORT int BIO_snprintf(char *buf, size_t n, const char *format, ...)
 OPENSSL_EXPORT int BIO_vsnprintf(char *buf, size_t n, const char *format,
                                  va_list args) OPENSSL_PRINTF_FORMAT_FUNC(3, 0);
 
+// OPENSSL_vasprintf has the same behavior as vasprintf(3).
+OPENSSL_EXPORT int OPENSSL_vasprintf(char **str, const char *format,
+                                     va_list args)
+    OPENSSL_PRINTF_FORMAT_FUNC(2, 0);
+
+// OPENSSL_asprintf has the same behavior as asprintf(3).
+OPENSSL_EXPORT int OPENSSL_asprintf(char **str, const char *format, ...)
+    OPENSSL_PRINTF_FORMAT_FUNC(2, 3);
+
+
 // OPENSSL_strndup returns an allocated, duplicate of |str|, which is, at most,
 // |size| bytes. The result is always NUL terminated.
 OPENSSL_EXPORT char *OPENSSL_strndup(const char *str, size_t size);
