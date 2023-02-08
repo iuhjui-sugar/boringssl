@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a0b7469_ebb40f2f",
+        "filename": "include/openssl/cipher.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-08T16:31:40Z",
+      "side": 1,
+      "message": "We lost the comment about how these flags were no-ops in boringssl, It should probably stay",
+      "revId": "8f055f9bf75061408e478a5506076dd942cbae41",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
