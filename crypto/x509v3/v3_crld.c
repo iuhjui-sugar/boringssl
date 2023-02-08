@@ -366,7 +366,6 @@ static void *v2i_crld(const X509V3_EXT_METHOD *method, const X509V3_CTX *ctx,
   return crld;
 
 merr:
-  OPENSSL_PUT_ERROR(X509V3, ERR_R_MALLOC_FAILURE);
 err:
   GENERAL_NAME_free(gen);
   GENERAL_NAMES_free(gens);
@@ -491,7 +490,6 @@ static void *v2i_idp(const X509V3_EXT_METHOD *method, const X509V3_CTX *ctx,
   return idp;
 
 merr:
-  OPENSSL_PUT_ERROR(X509V3, ERR_R_MALLOC_FAILURE);
 err:
   ISSUING_DIST_POINT_free(idp);
   return NULL;

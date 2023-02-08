@@ -19,6 +19,7 @@
 #include <string.h>
 
 #include <openssl/mem.h>
+#include <openssl/err.h>
 
 #include "../internal.h"
 
@@ -77,11 +78,13 @@ static int cbb_buffer_reserve(struct cbb_buffer_st *base, uint8_t **out,
   size_t newlen = base->len + len;
   if (newlen < base->len) {
     // Overflow
+    OPENSSL_PUT_ERROR(CRYPTO, ERR_R_OVERFLOW);
     goto err;
   }
 
   if (newlen > base->cap) {
     if (!base->can_resize) {
+      OPENSSL_PUT_ERROR(CRYPTO, ERR_R_SHOULD_NOT_HAVE_BEEN_CALLED);
       goto err;
     }
 
@@ -121,6 +124,7 @@ static int cbb_buffer_add(struct cbb_buffer_st *base, uint8_t **out,
 
 int CBB_finish(CBB *cbb, uint8_t **out_data, size_t *out_len) {
   if (cbb->is_child) {
+    OPENSSL_PUT_ERROR(CRYPTO, ERR_R_SHOULD_NOT_HAVE_BEEN_CALLED);
     return 0;
   }
 
@@ -160,7 +164,7 @@ int CBB_flush(CBB *cbb) {
   // memory.
   struct cbb_buffer_st *base = cbb_get_base(cbb);
   if (base == NULL || base->error) {
-    return 0;
+       return 0;
   }
 
   if (cbb->child == NULL) {
@@ -191,6 +195,7 @@ int CBB_flush(CBB *cbb) {
     assert (child->pending_len_len == 1);
 
     if (len > 0xfffffffe) {
+      OPENSSL_PUT_ERROR(CRYPTO, ERR_R_OVERFLOW);
       // Too large.
       goto err;
     } else if (len > 0xffffff) {
@@ -229,6 +234,7 @@ int CBB_flush(CBB *cbb) {
     len >>= 8;
   }
   if (len != 0) {
+    OPENSSL_PUT_ERROR(CRYPTO, ERR_R_INTERNAL_ERROR);
     goto err;
   }
 
