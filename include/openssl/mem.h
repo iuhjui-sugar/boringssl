@@ -84,7 +84,8 @@ OPENSSL_EXPORT void *OPENSSL_malloc(size_t size);
 #endif // !_BORINGSSL_PROHIBIT_OPENSSL_MALLOC
 
 // OPENSSL_free does nothing if |ptr| is NULL. Otherwise it zeros out the
-// memory allocated at |ptr| and frees it.
+// memory allocated at |ptr| and frees it along with the private data.
+// It must only be used on on |ptr| values obtained from |OPENSSL_malloc|
 OPENSSL_EXPORT void OPENSSL_free(void *ptr);
 
 #ifndef _BORINGSSL_PROHIBIT_OPENSSL_MALLOC
@@ -185,7 +186,7 @@ OPENSSL_EXPORT int OPENSSL_asprintf(char **str, const char *format, ...)
 OPENSSL_EXPORT char *OPENSSL_strndup(const char *str, size_t size);
 
 // OPENSSL_memdup returns an allocated, duplicate of |size| bytes from |data| or
-// NULL on allocation failure.The memory allocated must be freed with
+// NULL on allocation failure. The memory allocated must be freed with
 // |OPENSSL_free|.
 OPENSSL_EXPORT void *OPENSSL_memdup(const void *data, size_t size);
 

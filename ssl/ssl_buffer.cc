@@ -74,7 +74,6 @@ bool SSLBuffer::EnsureCap(size_t header_len, size_t new_cap) {
     // avoid zeroing on free.
     new_buf = (uint8_t *)malloc(new_cap + SSL3_ALIGN_PAYLOAD - 1);
     if (new_buf == NULL) {
-      OPENSSL_PUT_ERROR(SSL, ERR_R_MALLOC_FAILURE);
       return false;
     }
     new_buf_allocated = true;
