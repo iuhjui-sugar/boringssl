@@ -153,7 +153,6 @@ static void *r2i_certpol(const X509V3_EXT_METHOD *method, const X509V3_CTX *ctx,
                          const char *value) {
   STACK_OF(POLICYINFO) *pols = sk_POLICYINFO_new_null();
   if (pols == NULL) {
-    OPENSSL_PUT_ERROR(X509V3, ERR_R_MALLOC_FAILURE);
     return NULL;
   }
   STACK_OF(CONF_VALUE) *vals = X509V3_parse_list(value);
@@ -195,7 +194,6 @@ static void *r2i_certpol(const X509V3_EXT_METHOD *method, const X509V3_CTX *ctx,
       }
       pol = POLICYINFO_new();
       if (pol == NULL) {
-        OPENSSL_PUT_ERROR(X509V3, ERR_R_MALLOC_FAILURE);
         ASN1_OBJECT_free(pobj);
         goto err;
       }
@@ -203,7 +201,6 @@ static void *r2i_certpol(const X509V3_EXT_METHOD *method, const X509V3_CTX *ctx,
     }
     if (!sk_POLICYINFO_push(pols, pol)) {
       POLICYINFO_free(pol);
-      OPENSSL_PUT_ERROR(X509V3, ERR_R_MALLOC_FAILURE);
       goto err;
     }
   }
@@ -294,7 +291,6 @@ static POLICYINFO *policy_section(const X509V3_CTX *ctx,
   return pol;
 
 merr:
-  OPENSSL_PUT_ERROR(X509V3, ERR_R_MALLOC_FAILURE);
 
 err:
   POLICYINFO_free(pol);
@@ -385,7 +381,6 @@ static POLICYQUALINFO *notice_section(const X509V3_CTX *ctx,
   return qual;
 
 merr:
-  OPENSSL_PUT_ERROR(X509V3, ERR_R_MALLOC_FAILURE);
 
 err:
   POLICYQUALINFO_free(qual);
@@ -403,7 +398,6 @@ static int nref_nos(STACK_OF(ASN1_INTEGER) *nnums,
     }
     if (!sk_ASN1_INTEGER_push(nnums, aint)) {
       ASN1_INTEGER_free(aint);
-      OPENSSL_PUT_ERROR(X509V3, ERR_R_MALLOC_FAILURE);
       return 0;
     }
   }
