@@ -84,13 +84,15 @@ OPENSSL_EXPORT void *OPENSSL_malloc(size_t size);
 #endif //#ifndef _BORINGSSL_PROHIBIT_OPENSSL_MALLOC
 
 // OPENSSL_free does nothing if |ptr| is NULL. Otherwise it zeros out the
-// memory allocated at |ptr| and frees it.
+// memory allocated at |ptr| and frees it along with the private data.
+// It must only be used on on |ptr| values obtained from |OPENSSL_malloc|
 OPENSSL_EXPORT void OPENSSL_free(void *ptr);
 
 #ifndef _BORINGSSL_PROHIBIT_OPENSSL_MALLOC
 // OPENSSL_realloc returns a pointer to a buffer of |new_size| bytes that
 // contains the contents of |ptr|. Unlike |realloc|, a new buffer is always
-// allocated and the data at |ptr| is always wiped and freed.
+// allocated and the data at |ptr| is always wiped and freed. Memory is
+// allocated with |OPENSSL_malloc|.
 OPENSSL_EXPORT void *OPENSSL_realloc(void *ptr, size_t new_size);
 #endif //#ifndef _BORINGSSL_PROHIBIT_OPENSSL_MALLOC
 
