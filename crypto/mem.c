@@ -218,7 +218,11 @@ void *OPENSSL_malloc(size_t size) {
   if (OPENSSL_memory_alloc != NULL) {
     assert(OPENSSL_memory_free != NULL);
     assert(OPENSSL_memory_get_size != NULL);
-    return OPENSSL_memory_alloc(size);
+    void *ptr = OPENSSL_memory_alloc(size);
+    if (ptr == NULL) {
+      goto err;
+    }
+    return ptr;
   }
 
   if (size + OPENSSL_MALLOC_PREFIX < size) {
@@ -230,18 +234,22 @@ void *OPENSSL_malloc(size_t size) {
     // rare code path.
     uint8_t unused = *(volatile uint8_t *)kBoringSSLBinaryTag;
     (void) unused;
-    return NULL;
+    goto err;
   }
 
   void *ptr = malloc(size + OPENSSL_MALLOC_PREFIX);
   if (ptr == NULL) {
-    return NULL;
+    goto err;
   }
 
   *(size_t *)ptr = size;
 
   __asan_poison_memory_region(ptr, OPENSSL_MALLOC_PREFIX);
   return ((uint8_t *)ptr) + OPENSSL_MALLOC_PREFIX;
+ err:
+  // This only works because ERR does not call OPENSSL_malloc.
+  OPENSSL_PUT_ERROR(CRYPTO, ERR_R_MALLOC_FAILURE);
+  return NULL;
 }
 
 void OPENSSL_free(void *orig_ptr) {
@@ -549,7 +557,6 @@ char *OPENSSL_strndup(const char *str, size_t size) {
   }
   char *ret = OPENSSL_malloc(alloc_size);
   if (ret == NULL) {
-    OPENSSL_PUT_ERROR(CRYPTO, ERR_R_MALLOC_FAILURE);
     return NULL;
   }
 
@@ -588,7 +595,6 @@ void *OPENSSL_memdup(const void *data, size_t size) {
 
   void *ret = OPENSSL_malloc(size);
   if (ret == NULL) {
-    OPENSSL_PUT_ERROR(CRYPTO, ERR_R_MALLOC_FAILURE);
     return NULL;
   }
 
