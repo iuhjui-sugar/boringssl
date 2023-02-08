@@ -81,7 +81,6 @@ char *BN_bn2hex(const BIGNUM *bn) {
   char *buf = OPENSSL_malloc(1 /* leading '-' */ + 1 /* zero is non-empty */ +
                              width * BN_BYTES * 2 + 1 /* trailing NUL */);
   if (buf == NULL) {
-    OPENSSL_PUT_ERROR(BN, ERR_R_MALLOC_FAILURE);
     return NULL;
   }
 
@@ -293,7 +292,6 @@ char *BN_bn2dec(const BIGNUM *a) {
   return (char *)data;
 
 cbb_err:
-  OPENSSL_PUT_ERROR(BN, ERR_R_MALLOC_FAILURE);
 err:
   BN_free(copy);
   CBB_cleanup(&cbb);
@@ -427,7 +425,6 @@ BIGNUM *BN_mpi2bn(const uint8_t *in, size_t len, BIGNUM *out) {
   if (out == NULL) {
     out = BN_new();
     if (out == NULL) {
-      OPENSSL_PUT_ERROR(BN, ERR_R_MALLOC_FAILURE);
       return NULL;
     }
     out_is_alloced = 1;
