@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02d0f9c3_41d3a807",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-09T14:44:06Z",
+      "side": 1,
+      "message": "This looks good as a code change for bindings, but I assume you\u0027re exposing these bindings because you need to use these APIs?\n\nLike much of that crate, rust-openssl\u0027s API here is dangerous. They just copied one of OpenSSL\u0027s APIs, without incorporating any context into how HKDF actually works, or quirks around how OpenSSL likes to design APIs. The result is this is a very dangerous API that, normally, we would never want first-party code to use. Using rust-openssl is even worse than C in this regard, because you lose the warnings we put into the documentation. See https://github.com/sfackler/rust-openssl/issues/1818\n\nAs with all other first-party code using rust-openssl, consider this a temporary stopgap. At some point, when a more suitable crate is available, your project will need to be rewritten to use it.\n\nPlease confirm that you will flag this in review, and ensure any use of rust-openssl in your project gets extra scrutiny by someone familiar with cryptography.",
+      "revId": "cfda44cd52eab2c508b01b4e486dc860654b620c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
