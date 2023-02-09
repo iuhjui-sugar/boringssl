@@ -51,6 +51,24 @@
       "parentUuid": "262947df_bc8f8f91",
       "revId": "dbadde46854d2f2fec0a40e6f76960af4db28b63",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6bf86c8_30a911de",
+        "filename": "crypto/x509/by_dir.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-09T16:11:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cba4d33b_56647b5c",
+      "revId": "dbadde46854d2f2fec0a40e6f76960af4db28b63",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
