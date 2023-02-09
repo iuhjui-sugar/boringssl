@@ -1,0 +1,221 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d89b073_9f6b7934",
+        "filename": "crypto/internal.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 1308,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-09T21:29:58Z",
+      "side": 1,
+      "message": "comma",
+      "range": {
+        "startLine": 1308,
+        "startChar": 4,
+        "endLine": 1308,
+        "endChar": 5
+      },
+      "revId": "3084bffdc4bef3433edefa54c80e9beeb728c796",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4aa8b3aa_68ee7632",
+        "filename": "crypto/internal.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 1313,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-09T21:29:58Z",
+      "side": 1,
+      "message": "This should be inside the extern \"C\" block, or silly things will happen in C++.",
+      "revId": "3084bffdc4bef3433edefa54c80e9beeb728c796",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9695e3f4_cfc479e5",
+        "filename": "crypto/mem.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-09T21:29:58Z",
+      "side": 1,
+      "message": "Nit: clang-format for 80 chars. Also I think clang-format will write this `void *(*allocate)...` instead of `void* (*allocate)...`. Also `int system_malloc` isn\u0027t aligned to the `(`.",
+      "revId": "3084bffdc4bef3433edefa54c80e9beeb728c796",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79449ebd_49ee3436",
+        "filename": "crypto/mem.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 489,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-09T21:29:58Z",
+      "side": 1,
+      "message": "64 seems fine I suppose. *shrug*",
+      "revId": "3084bffdc4bef3433edefa54c80e9beeb728c796",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83bc0875_48755c54",
+        "filename": "crypto/mem.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-09T21:29:58Z",
+      "side": 1,
+      "message": "Don\u0027t see anything about INT_MAX in man vsnprintf. What\u0027s this about?\n\nEdit: Oh, is it so the `ret + 1` in line 505 doesn\u0027t overflow? Could probably just write `(size_t)ret + 1` to accept that case. :-)",
+      "range": {
+        "startLine": 498,
+        "startChar": 6,
+        "endLine": 498,
+        "endChar": 20
+      },
+      "revId": "3084bffdc4bef3433edefa54c80e9beeb728c796",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87d01dd0_aa9fa6ac",
+        "filename": "crypto/mem.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-09T21:29:58Z",
+      "side": 1,
+      "message": "Nit: No need for `else` since we\u0027re always doing a `goto` anyway.",
+      "range": {
+        "startLine": 501,
+        "startChar": 4,
+        "endLine": 501,
+        "endChar": 9
+      },
+      "revId": "3084bffdc4bef3433edefa54c80e9beeb728c796",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bd6a53c_28df1e07",
+        "filename": "crypto/mem.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-09T21:29:58Z",
+      "side": 1,
+      "message": "Is it possible that the second `vsnprintf` fails for some transient reason? Like if it internally allocates some temporary state and it worked the first time, but failed the second time?\n\n(Apparently we also didn\u0027t believe this could happen in `BIO_printf`, but I dunno if that\u0027s a bug...)",
+      "revId": "3084bffdc4bef3433edefa54c80e9beeb728c796",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3188f40_2983a15e",
+        "filename": "crypto/mem.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-09T21:29:58Z",
+      "side": 1,
+      "message": "Nit: Elsewhere, everything is `goto err`, so may as well match I guess.",
+      "range": {
+        "startLine": 519,
+        "startChar": 0,
+        "endLine": 519,
+        "endChar": 4
+      },
+      "revId": "3084bffdc4bef3433edefa54c80e9beeb728c796",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b308217_9f0ba45b",
+        "filename": "crypto/mem.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-09T21:29:58Z",
+      "side": 1,
+      "message": "We try to use C99 variable decls where we can these days, so I\u0027d just write this:\n\n```\n  va_list args;\n  va_start(args, format);\n  int ret \u003d OPENSSL_vasprintf(str, format, args);\n  va_end(args);\n  return ret;\n```",
+      "revId": "3084bffdc4bef3433edefa54c80e9beeb728c796",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32f8dcfe_132f0b80",
+        "filename": "include/openssl/mem.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-09T21:29:58Z",
+      "side": 1,
+      "message": "Probably need to say something about being freed by |OPENSSL_free| instead of |free|. :-)",
+      "range": {
+        "startLine": 163,
+        "startChar": 58,
+        "endLine": 163,
+        "endChar": 59
+      },
+      "revId": "3084bffdc4bef3433edefa54c80e9beeb728c796",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb6d535a_9aaab7b2",
+        "filename": "include/openssl/mem.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-09T21:29:58Z",
+      "side": 1,
+      "message": "Nit: extra blank line here",
+      "revId": "3084bffdc4bef3433edefa54c80e9beeb728c796",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
