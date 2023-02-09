@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70024741_c4a09815",
+        "filename": "crypto/asn1/a_mbstr.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-09T21:28:54Z",
+      "side": 1,
+      "message": "ERR_add_error_dataf(\"maxsize\u003d%ld\", maxsize); and dispense with the strbuf goo? (the error function is going to malloc anyway)",
+      "range": {
+        "startLine": 167,
+        "startChar": 0,
+        "endLine": 169,
+        "endChar": 48
+      },
+      "revId": "a6cd9069467492ba328a45b614f52c2095d8850c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
