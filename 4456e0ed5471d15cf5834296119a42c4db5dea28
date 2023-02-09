@@ -1,0 +1,306 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e231f1be_7eb2c3fc",
+        "filename": "crypto/err/err.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-09T21:53:49Z",
+      "side": 1,
+      "message": "I think this wants to be before the first `#include`. Otherwise it\u0027ll get confused if `\u003copenssl/err.h\u003e` happens to pull in `\u003copenssl/mem.h\u003e`\n\nAlso, nit, period at the end.",
+      "revId": "4456e0ed5471d15cf5834296119a42c4db5dea28",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ddaec4a_c00db0e8",
+        "filename": "crypto/err/err.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-09T21:53:49Z",
+      "side": 1,
+      "message": "Nit: period at the end. :-)",
+      "range": {
+        "startLine": 137,
+        "startChar": 75,
+        "endLine": 137,
+        "endChar": 76
+      },
+      "revId": "4456e0ed5471d15cf5834296119a42c4db5dea28",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afd75787_4f8f68f9",
+        "filename": "crypto/err/err.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-09T21:53:49Z",
+      "side": 1,
+      "message": "Nit: I think this can be line-wrapped a couple words later.",
+      "revId": "4456e0ed5471d15cf5834296119a42c4db5dea28",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f2b2499_4eb7e710",
+        "filename": "crypto/err/err.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-09T21:53:49Z",
+      "side": 1,
+      "message": "We can\u0027t use OPENSSL_strdup, but can\u0027t we just use real strdup? :-P",
+      "revId": "4456e0ed5471d15cf5834296119a42c4db5dea28",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1ef6232_efddee1e",
+        "filename": "crypto/err/err.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 665,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-09T21:53:49Z",
+      "side": 1,
+      "message": "This all seems `size_t`-clean. Why do we need to check for `INT_MAX`?",
+      "revId": "4456e0ed5471d15cf5834296119a42c4db5dea28",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4df694e5_1e244539",
+        "filename": "crypto/err/err.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-09T21:53:49Z",
+      "side": 1,
+      "message": "Also looks like a strdup.",
+      "revId": "4456e0ed5471d15cf5834296119a42c4db5dea28",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40b3a00c_2e269b90",
+        "filename": "crypto/err/err.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 724,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-09T21:53:49Z",
+      "side": 1,
+      "message": "Super nitpicky nitpick: Perhaps just `len`, or `substr_len`? `this` isn\u0027t a keyword in C, but it is very confusing to see it in purple in Gerrit! 😄",
+      "range": {
+        "startLine": 724,
+        "startChar": 11,
+        "endLine": 724,
+        "endChar": 15
+      },
+      "revId": "4456e0ed5471d15cf5834296119a42c4db5dea28",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fae213cd_d2b93b1b",
+        "filename": "crypto/err/err.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 725,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-09T21:53:49Z",
+      "side": 1,
+      "message": "This all seems to be `size_t`-clean. Do we need to check for `INT_MAX`, as opposed just checking for overflow?\n\nNit: Also, curly braces",
+      "range": {
+        "startLine": 725,
+        "startChar": 16,
+        "endLine": 725,
+        "endChar": 23
+      },
+      "revId": "4456e0ed5471d15cf5834296119a42c4db5dea28",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0aaaa4c1_43403f4a",
+        "filename": "crypto/err/err.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-09T21:53:49Z",
+      "side": 1,
+      "message": "Nit: Not that it matters, but I think we can just iterate over `args` directly for this second round, without a copy.",
+      "revId": "4456e0ed5471d15cf5834296119a42c4db5dea28",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0be71942_d893b14c",
+        "filename": "crypto/err/err.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-09T21:53:49Z",
+      "side": 1,
+      "message": "Nit: Probably worth a comment:\n\n`  total_size +\u003d 1;  // NUL terminator`",
+      "revId": "4456e0ed5471d15cf5834296119a42c4db5dea28",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36289da1_001c21cb",
+        "filename": "crypto/err/err.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 777,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-09T21:53:49Z",
+      "side": 1,
+      "message": "Hmm, this is an interesting question... do we ever expose `ERR_FLAG_MALLOCED` (aka `ERR_TXT_MALLOCED`) in the other direction, out of `ERR_get_error_line_data` and `ERR_peek_error_line_data` and, if so, do callers assume \n\nI think no, but I did find some concerning things in code search that we may need to fix. Going to start a thread on that internally.",
+      "range": {
+        "startLine": 777,
+        "startChar": 14,
+        "endLine": 777,
+        "endChar": 31
+      },
+      "revId": "4456e0ed5471d15cf5834296119a42c4db5dea28",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64989c38_1d899b25",
+        "filename": "crypto/err/err.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-09T21:53:49Z",
+      "side": 1,
+      "message": "Ditto about just using normal `strdup`.",
+      "revId": "4456e0ed5471d15cf5834296119a42c4db5dea28",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "549c3930_8dd7af06",
+        "filename": "crypto/err/err.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 787,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-09T21:53:49Z",
+      "side": 1,
+      "message": "Since both paths here do the copy, rather than `err_set_error_data_take_ownership`, perhaps we can just do...\n\n```\nchar *copy \u003d strdup(data);\nif (copy !\u003d NULL) {\n  err_set_error_data(copy);\n}\nif (flags \u0026 ERR_FLAG_MALLOCED) {\n  // We cannot take ownership of |data| directly because it\u0027s allocated\n  // with |OPENSSL_malloc| while \n  OPENSSL_free(data);\n}\n```\n\nNB: This will break if someone calls `ERR_set_error_data` with `ERR_FLAG_MALLOCED` and then assumes that we will retain it for a little while. Hopefully no one\u0027s doing this, but we have seen code that makes such assumptions.",
+      "revId": "4456e0ed5471d15cf5834296119a42c4db5dea28",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db4c7831_28a4d007",
+        "filename": "crypto/thread_pthread.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-09T21:53:49Z",
+      "side": 1,
+      "message": "Ditto about putting this at the top.\n\nActually, do we still need an `\u003copenssl/mem.h\u003e` include here at all?",
+      "revId": "4456e0ed5471d15cf5834296119a42c4db5dea28",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d2be3b7_25e08592",
+        "filename": "crypto/thread_win.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-09T21:53:49Z",
+      "side": 1,
+      "message": "Ditto about putting this at the top.\n\nActually, do we still need an `\u003copenssl/mem.h\u003e` include here at all?",
+      "revId": "4456e0ed5471d15cf5834296119a42c4db5dea28",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e59d620_223b3735",
+        "filename": "include/openssl/mem.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-09T21:53:49Z",
+      "side": 1,
+      "message": "Nit: Usually we just write this as `// !_BORINGSSL_PROHIBIT_OPENSSL_MALLOC` since it\u0027s a bit shorter. Also I think clang-format likes to put two spaces between code and `//`-style comment. (I don\u0027t know why. I\u0027ve just observed it likes to do that.)",
+      "range": {
+        "startLine": 84,
+        "startChar": 9,
+        "endLine": 84,
+        "endChar": 17
+      },
+      "revId": "4456e0ed5471d15cf5834296119a42c4db5dea28",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
