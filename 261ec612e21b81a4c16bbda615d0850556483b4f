@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bc302de_90c37a83",
+        "filename": "crypto/x509/x509_req.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-09T16:20:11Z",
+      "side": 0,
+      "message": "We don\u0027t support DH certificates or EVP_PKEY_DH at all.",
+      "revId": "261ec612e21b81a4c16bbda615d0850556483b4f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
