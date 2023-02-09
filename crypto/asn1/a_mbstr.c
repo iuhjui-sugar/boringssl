@@ -124,6 +124,7 @@ int ASN1_mbstring_ncopy(ASN1_STRING **out, const unsigned char *in, int len,
   CBS cbs;
   CBS_init(&cbs, in, len);
   size_t utf8_len = 0, nchar = 0;
+  char strbuf[32];
   while (CBS_len(&cbs) != 0) {
     uint32_t c;
     if (!decode_func(&cbs, &c)) {
@@ -162,20 +163,18 @@ int ASN1_mbstring_ncopy(ASN1_STRING **out, const unsigned char *in, int len,
 
     nchar++;
     utf8_len += cbb_get_utf8_len(c);
+    if (maxsize > 0 && nchar > (size_t)maxsize) {
+      OPENSSL_PUT_ERROR(ASN1, ASN1_R_STRING_TOO_LONG);
+      BIO_snprintf(strbuf, sizeof strbuf, "%ld", maxsize);
+      ERR_add_error_data(2, "maxsize=", strbuf);
+      return -1;
+    }
   }
 
-  char strbuf[32];
   if (minsize > 0 && nchar < (size_t)minsize) {
     OPENSSL_PUT_ERROR(ASN1, ASN1_R_STRING_TOO_SHORT);
     BIO_snprintf(strbuf, sizeof strbuf, "%ld", minsize);
     ERR_add_error_data(2, "minsize=", strbuf);
-    return -1;
-  }
-
-  if (maxsize > 0 && nchar > (size_t)maxsize) {
-    OPENSSL_PUT_ERROR(ASN1, ASN1_R_STRING_TOO_LONG);
-    BIO_snprintf(strbuf, sizeof strbuf, "%ld", maxsize);
-    ERR_add_error_data(2, "maxsize=", strbuf);
     return -1;
   }
 
