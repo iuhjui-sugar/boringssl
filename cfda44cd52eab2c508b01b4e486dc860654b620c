@@ -16,6 +16,24 @@
       "message": "This looks good as a code change for bindings, but I assume you\u0027re exposing these bindings because you need to use these APIs?\n\nLike much of that crate, rust-openssl\u0027s API here is dangerous. They just copied one of OpenSSL\u0027s APIs, without incorporating any context into how HKDF actually works, or quirks around how OpenSSL likes to design APIs. The result is this is a very dangerous API that, normally, we would never want first-party code to use. Using rust-openssl is even worse than C in this regard, because you lose the warnings we put into the documentation. See https://github.com/sfackler/rust-openssl/issues/1818\n\nAs with all other first-party code using rust-openssl, consider this a temporary stopgap. At some point, when a more suitable crate is available, your project will need to be rewritten to use it.\n\nPlease confirm that you will flag this in review, and ensure any use of rust-openssl in your project gets extra scrutiny by someone familiar with cryptography.",
       "revId": "cfda44cd52eab2c508b01b4e486dc860654b620c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26fee66d_6e8b4c5e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15426
+      },
+      "writtenOn": "2023-02-10T01:44:44Z",
+      "side": 1,
+      "message": "Yes, with the current state we have two versions of the HKDF implementation, one using the openSSL compatible PKey, and another using the Android specific https://android.googlesource.com/platform/external/rust/crates/openssl/+/refs/heads/master/src/hkdf.rs.\n\nI am hoping to unify those two implementations at the rust-openssl level so we don\u0027t have to have two separate implementations in our code.\n\nI understand that this is temporary and will migrate once a more suitable crate is available.\n\nWe are wycheproof testing our wrapper implementation to defend against mistakes when using the underlying APIs, but will get our security reviewer\u0027s attention on this.",
+      "parentUuid": "02d0f9c3_41d3a807",
+      "revId": "cfda44cd52eab2c508b01b4e486dc860654b620c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
