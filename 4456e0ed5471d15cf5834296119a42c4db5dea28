@@ -410,6 +410,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bee40e03_0c6f1bcb",
+        "filename": "crypto/err/err.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 777,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-10T17:46:14Z",
+      "side": 1,
+      "message": "As talked offline, yeah we\u0027ll need to fix the one upstream we see since this will crash it quickly. \n\nWe now set ERR_FLAG_MALLOCED on all the returns, since OpenSSL seems to want this (in spite of the fact that their documentation says DO NOT FREE IT YOURSELF)",
+      "parentUuid": "36289da1_001c21cb",
+      "range": {
+        "startLine": 777,
+        "startChar": 14,
+        "endLine": 777,
+        "endChar": 31
+      },
+      "revId": "4456e0ed5471d15cf5834296119a42c4db5dea28",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "64989c38_1d899b25",
