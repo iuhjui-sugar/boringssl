@@ -34,6 +34,24 @@
       "parentUuid": "02d0f9c3_41d3a807",
       "revId": "cfda44cd52eab2c508b01b4e486dc860654b620c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21af58ef_ed60c465",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-10T18:07:52Z",
+      "side": 1,
+      "message": "I see. Using rust-openssl is a regression in safety and performance here, but provided you make sure to wrap them back into the standard APIs (distinct operations), rather rust-openssl\u0027s, that should be fine. Though long term we really need to do something about Android\u0027s repeated use of such a problematic crate. :-(",
+      "parentUuid": "26fee66d_6e8b4c5e",
+      "revId": "cfda44cd52eab2c508b01b4e486dc860654b620c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
