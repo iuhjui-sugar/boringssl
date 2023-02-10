@@ -184,6 +184,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ffc2b2fd_1a7aedf1",
+        "filename": "crypto/mem.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-10T19:00:39Z",
+      "side": 1,
+      "message": "But `asprintf` returns the number of bytes excluding NUL, right? I.e. it\u0027s okay if the buffer is `INT_MAX + 1` large, as long as the string in it is at most `INT_MAX` characters.\n\n(Not that this particularly matters. Just seems one less corner case to think about when reading the code.)",
+      "parentUuid": "49c3c493_6a8086f7",
+      "range": {
+        "startLine": 498,
+        "startChar": 6,
+        "endLine": 498,
+        "endChar": 20
+      },
+      "revId": "3084bffdc4bef3433edefa54c80e9beeb728c796",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "87d01dd0_aa9fa6ac",
         "filename": "crypto/mem.c",
         "patchSetId": 6

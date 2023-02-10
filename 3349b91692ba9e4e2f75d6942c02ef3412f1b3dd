@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b48e070f_b22212c4",
+        "filename": "crypto/internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 1302,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-10T19:00:39Z",
+      "side": 1,
+      "message": "If",
+      "range": {
+        "startLine": 1302,
+        "startChar": 59,
+        "endLine": 1302,
+        "endChar": 61
+      },
+      "revId": "3349b91692ba9e4e2f75d6942c02ef3412f1b3dd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c58fe0c2_61177c2b",
+        "filename": "include/openssl/mem.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-10T19:00:39Z",
+      "side": 1,
+      "message": "Nit: missing space",
+      "range": {
+        "startLine": 181,
+        "startChar": 30,
+        "endLine": 181,
+        "endChar": 31
+      },
+      "revId": "3349b91692ba9e4e2f75d6942c02ef3412f1b3dd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
