@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "091288f8_4f1cd65b",
+        "filename": "crypto/internal.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 1308,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-10T00:43:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d89b073_9f6b7934",
+      "range": {
+        "startLine": 1308,
+        "startChar": 4,
+        "endLine": 1308,
+        "endChar": 5
+      },
+      "revId": "3084bffdc4bef3433edefa54c80e9beeb728c796",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4aa8b3aa_68ee7632",
@@ -41,6 +65,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "be95ab7e_9e43178e",
+        "filename": "crypto/internal.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 1313,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-10T00:43:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4aa8b3aa_68ee7632",
+      "revId": "3084bffdc4bef3433edefa54c80e9beeb728c796",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9695e3f4_cfc479e5",
@@ -54,6 +96,24 @@
       "writtenOn": "2023-02-09T21:29:58Z",
       "side": 1,
       "message": "Nit: clang-format for 80 chars. Also I think clang-format will write this `void *(*allocate)...` instead of `void* (*allocate)...`. Also `int system_malloc` isn\u0027t aligned to the `(`.",
+      "revId": "3084bffdc4bef3433edefa54c80e9beeb728c796",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6464b075_b6cceb44",
+        "filename": "crypto/mem.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-10T00:43:34Z",
+      "side": 1,
+      "message": "I am discovering that my normal git cl format workflow does not appear to run clang-format on patch stacks.",
+      "parentUuid": "9695e3f4_cfc479e5",
       "revId": "3084bffdc4bef3433edefa54c80e9beeb728c796",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -98,6 +158,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "49c3c493_6a8086f7",
+        "filename": "crypto/mem.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-10T00:43:34Z",
+      "side": 1,
+      "message": "No it\u0027s because asprintf() *returns* an int. you aren\u0027t allowed to make larger\nthan INT_MAX (including the terminating \\0) strings with asprintf.",
+      "parentUuid": "83bc0875_48755c54",
+      "range": {
+        "startLine": 498,
+        "startChar": 6,
+        "endLine": 498,
+        "endChar": 20
+      },
+      "revId": "3084bffdc4bef3433edefa54c80e9beeb728c796",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "87d01dd0_aa9fa6ac",
@@ -111,6 +195,30 @@
       "writtenOn": "2023-02-09T21:29:58Z",
       "side": 1,
       "message": "Nit: No need for `else` since we\u0027re always doing a `goto` anyway.",
+      "range": {
+        "startLine": 501,
+        "startChar": 4,
+        "endLine": 501,
+        "endChar": 9
+      },
+      "revId": "3084bffdc4bef3433edefa54c80e9beeb728c796",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e8f2bd0_08223919",
+        "filename": "crypto/mem.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 501,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-10T00:43:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87d01dd0_aa9fa6ac",
       "range": {
         "startLine": 501,
         "startChar": 4,
@@ -138,6 +246,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd67d110_58841884",
+        "filename": "crypto/mem.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-10T00:43:34Z",
+      "side": 1,
+      "message": "In theory no.. but careful reading says \"if an error occurs?\" so perhaps the BIO_printf way is also a bug.  I\u0027m happy to be conservative and make this a real check and not an assert ;)",
+      "parentUuid": "5bd6a53c_28df1e07",
+      "revId": "3084bffdc4bef3433edefa54c80e9beeb728c796",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b3188f40_2983a15e",
@@ -151,6 +277,30 @@
       "writtenOn": "2023-02-09T21:29:58Z",
       "side": 1,
       "message": "Nit: Elsewhere, everything is `goto err`, so may as well match I guess.",
+      "range": {
+        "startLine": 519,
+        "startChar": 0,
+        "endLine": 519,
+        "endChar": 4
+      },
+      "revId": "3084bffdc4bef3433edefa54c80e9beeb728c796",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "353ec302_cc7ff4c9",
+        "filename": "crypto/mem.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-10T00:43:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b3188f40_2983a15e",
       "range": {
         "startLine": 519,
         "startChar": 0,
@@ -178,6 +328,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5a0e745_a394f38d",
+        "filename": "crypto/mem.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 538,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-10T00:43:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b308217_9f0ba45b",
+      "revId": "3084bffdc4bef3433edefa54c80e9beeb728c796",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "32f8dcfe_132f0b80",
@@ -201,6 +369,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c22bd8a_b32ac122",
+        "filename": "include/openssl/mem.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-10T00:43:34Z",
+      "side": 1,
+      "message": "Yeah we\u0027ve sort of been implicitly assuming that in any of our fuctions in mem.h that allocate.  I\u0027m now tagging all of them with that.",
+      "parentUuid": "32f8dcfe_132f0b80",
+      "range": {
+        "startLine": 163,
+        "startChar": 58,
+        "endLine": 163,
+        "endChar": 59
+      },
+      "revId": "3084bffdc4bef3433edefa54c80e9beeb728c796",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb6d535a_9aaab7b2",
@@ -214,6 +406,24 @@
       "writtenOn": "2023-02-09T21:29:58Z",
       "side": 1,
       "message": "Nit: extra blank line here",
+      "revId": "3084bffdc4bef3433edefa54c80e9beeb728c796",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ecadc5f9_eeaa34ee",
+        "filename": "include/openssl/mem.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-10T00:43:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb6d535a_9aaab7b2",
       "revId": "3084bffdc4bef3433edefa54c80e9beeb728c796",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
