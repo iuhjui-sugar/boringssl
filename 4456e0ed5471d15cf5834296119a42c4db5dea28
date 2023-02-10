@@ -16,6 +16,24 @@
       "message": "Oof, I have to be obnoxious. :-( So, it\u0027s not *quite* true that we can remove this one as-is. CBB can fail if malloc fails *or* if the child CBB does not fit in the length prefixes. E.g. if `psk_len` exceeds 2^16. Likewise with other code using CBB.\n\nWhich actually means that this error was always incorrect. I think the easiest solution is to just make CBB push to the error queue on failure.",
       "revId": "4456e0ed5471d15cf5834296119a42c4db5dea28",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "decdcb1b_900138e9",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 1514,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-10T17:46:09Z",
+      "side": 0,
+      "message": "Yeah, it\u0027s only slightly obnoxious.  cbb now pushes something credible in it\u0027s non malloc failure cases.",
+      "parentUuid": "fd5bb6d0_b15e88b9",
+      "revId": "4456e0ed5471d15cf5834296119a42c4db5dea28",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
