@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbdb1196_691780f9",
+        "filename": "crypto/err/err.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-10T00:43:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e231f1be_7eb2c3fc",
+      "revId": "4456e0ed5471d15cf5834296119a42c4db5dea28",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7ddaec4a_c00db0e8",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-02-09T21:53:49Z",
       "side": 1,
       "message": "Nit: period at the end. :-)",
+      "range": {
+        "startLine": 137,
+        "startChar": 75,
+        "endLine": 137,
+        "endChar": 76
+      },
+      "revId": "4456e0ed5471d15cf5834296119a42c4db5dea28",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccc1107a_3c06b4fe",
+        "filename": "crypto/err/err.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-10T00:43:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ddaec4a_c00db0e8",
       "range": {
         "startLine": 137,
         "startChar": 75,
@@ -58,6 +100,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2a3324e_d462572e",
+        "filename": "crypto/err/err.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-10T00:43:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afd75787_4f8f68f9",
+      "revId": "4456e0ed5471d15cf5834296119a42c4db5dea28",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2f2b2499_4eb7e710",
@@ -71,6 +131,24 @@
       "writtenOn": "2023-02-09T21:53:49Z",
       "side": 1,
       "message": "We can\u0027t use OPENSSL_strdup, but can\u0027t we just use real strdup? :-P",
+      "revId": "4456e0ed5471d15cf5834296119a42c4db5dea28",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e6b88d1_fb59d6e8",
+        "filename": "crypto/err/err.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-10T00:43:24Z",
+      "side": 1,
+      "message": "Hmm. I was always thinking that we perhaps might not have strdup and need\nOPENSSL_whatever for platforms without..\n\nBut I guess that\u0027s silly. everything we care about will have.",
+      "parentUuid": "2f2b2499_4eb7e710",
       "revId": "4456e0ed5471d15cf5834296119a42c4db5dea28",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -92,6 +170,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5910c1e4_ba2a3b1b",
+        "filename": "crypto/err/err.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 665,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-10T00:43:24Z",
+      "side": 1,
+      "message": "deleted this function.",
+      "parentUuid": "a1ef6232_efddee1e",
+      "revId": "4456e0ed5471d15cf5834296119a42c4db5dea28",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4df694e5_1e244539",
@@ -109,6 +205,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d3a3a1c_ca1f0199",
+        "filename": "crypto/err/err.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-10T00:43:24Z",
+      "side": 1,
+      "message": "deleted this function.",
+      "parentUuid": "4df694e5_1e244539",
+      "revId": "4456e0ed5471d15cf5834296119a42c4db5dea28",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "40b3a00c_2e269b90",
@@ -122,6 +236,30 @@
       "writtenOn": "2023-02-09T21:53:49Z",
       "side": 1,
       "message": "Super nitpicky nitpick: Perhaps just `len`, or `substr_len`? `this` isn\u0027t a keyword in C, but it is very confusing to see it in purple in Gerrit! 😄",
+      "range": {
+        "startLine": 724,
+        "startChar": 11,
+        "endLine": 724,
+        "endChar": 15
+      },
+      "revId": "4456e0ed5471d15cf5834296119a42c4db5dea28",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e5b90af_678979c8",
+        "filename": "crypto/err/err.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 724,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-10T00:43:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40b3a00c_2e269b90",
       "range": {
         "startLine": 724,
         "startChar": 11,
@@ -155,6 +293,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3122e93_c48aff44",
+        "filename": "crypto/err/err.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 725,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-10T00:43:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fae213cd_d2b93b1b",
+      "range": {
+        "startLine": 725,
+        "startChar": 16,
+        "endLine": 725,
+        "endChar": 23
+      },
+      "revId": "4456e0ed5471d15cf5834296119a42c4db5dea28",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0aaaa4c1_43403f4a",
@@ -172,6 +334,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbea0357_e5b46552",
+        "filename": "crypto/err/err.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 731,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-10T00:43:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0aaaa4c1_43403f4a",
+      "revId": "4456e0ed5471d15cf5834296119a42c4db5dea28",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0be71942_d893b14c",
@@ -185,6 +365,24 @@
       "writtenOn": "2023-02-09T21:53:49Z",
       "side": 1,
       "message": "Nit: Probably worth a comment:\n\n`  total_size +\u003d 1;  // NUL terminator`",
+      "revId": "4456e0ed5471d15cf5834296119a42c4db5dea28",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3af647b_96fe8697",
+        "filename": "crypto/err/err.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-10T00:43:24Z",
+      "side": 1,
+      "message": "and now, an overflow check too.",
+      "parentUuid": "0be71942_d893b14c",
       "revId": "4456e0ed5471d15cf5834296119a42c4db5dea28",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -229,6 +427,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0de20cfe_3d907900",
+        "filename": "crypto/err/err.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-10T00:43:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "64989c38_1d899b25",
+      "revId": "4456e0ed5471d15cf5834296119a42c4db5dea28",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "549c3930_8dd7af06",
@@ -242,6 +458,24 @@
       "writtenOn": "2023-02-09T21:53:49Z",
       "side": 1,
       "message": "Since both paths here do the copy, rather than `err_set_error_data_take_ownership`, perhaps we can just do...\n\n```\nchar *copy \u003d strdup(data);\nif (copy !\u003d NULL) {\n  err_set_error_data(copy);\n}\nif (flags \u0026 ERR_FLAG_MALLOCED) {\n  // We cannot take ownership of |data| directly because it\u0027s allocated\n  // with |OPENSSL_malloc| while \n  OPENSSL_free(data);\n}\n```\n\nNB: This will break if someone calls `ERR_set_error_data` with `ERR_FLAG_MALLOCED` and then assumes that we will retain it for a little while. Hopefully no one\u0027s doing this, but we have seen code that makes such assumptions.",
+      "revId": "4456e0ed5471d15cf5834296119a42c4db5dea28",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c0427c6_f32ea8ce",
+        "filename": "crypto/err/err.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 787,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-10T00:43:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "549c3930_8dd7af06",
       "revId": "4456e0ed5471d15cf5834296119a42c4db5dea28",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -263,6 +497,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3985c1fc_0d4cb3b9",
+        "filename": "crypto/thread_pthread.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-10T00:43:24Z",
+      "side": 1,
+      "message": "nope",
+      "parentUuid": "db4c7831_28a4d007",
+      "revId": "4456e0ed5471d15cf5834296119a42c4db5dea28",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8d2be3b7_25e08592",
@@ -280,6 +532,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "49ecf56f_cac28afe",
+        "filename": "crypto/thread_win.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-10T00:43:24Z",
+      "side": 1,
+      "message": "nope",
+      "parentUuid": "8d2be3b7_25e08592",
+      "revId": "4456e0ed5471d15cf5834296119a42c4db5dea28",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4e59d620_223b3735",
@@ -293,6 +563,30 @@
       "writtenOn": "2023-02-09T21:53:49Z",
       "side": 1,
       "message": "Nit: Usually we just write this as `// !_BORINGSSL_PROHIBIT_OPENSSL_MALLOC` since it\u0027s a bit shorter. Also I think clang-format likes to put two spaces between code and `//`-style comment. (I don\u0027t know why. I\u0027ve just observed it likes to do that.)",
+      "range": {
+        "startLine": 84,
+        "startChar": 9,
+        "endLine": 84,
+        "endChar": 17
+      },
+      "revId": "4456e0ed5471d15cf5834296119a42c4db5dea28",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ddb5196d_803e2939",
+        "filename": "include/openssl/mem.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-10T00:43:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e59d620_223b3735",
       "range": {
         "startLine": 84,
         "startChar": 9,
