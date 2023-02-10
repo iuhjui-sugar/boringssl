@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7400973e_9f98e856",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-10T19:20:53Z",
+      "side": 1,
+      "message": "Maybe mention that we\u0027re also making ERR_get_error_line_data return ERR_FLAG_MALLOCED now, since some projects make assumptions.",
+      "revId": "c228e12d30f3115b544e87b4c6b7e3cbba770781",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29fa10d6_5b95894c",
+        "filename": "crypto/err/err.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-10T19:20:53Z",
+      "side": 1,
+      "message": "I think we also need to update err.h slightly. It currently says:\n\n```\n// ERR_FLAG_MALLOCED is passed into |ERR_set_error_data| to indicate that |data|\n// was allocated with |OPENSSL_malloc|. It is never returned from\n// |ERR_get_error_line_data|.\n#define ERR_FLAG_MALLOCED 2\n```\n\nIt\u0027s tricky because there are two distinct meanings now. Perhaps:\n\n```\n// ERR_FLAG_MALLOCED, when passed into |ERR_set_error_data|, indicates that\n// |data| was allocated with |OPENSSL_malloc|.\n//\n// It is, separately, returned in |*flags| from |ERR_get_error_line_data| to\n// indicate that |*data| has non-static lifetime, but this lifetime is still\n// managed by the library. The caller must not call |OPENSSL_free| or |free| on\n// |*data|.\n```",
+      "revId": "c228e12d30f3115b544e87b4c6b7e3cbba770781",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9153d52f_d3f1d48c",
+        "filename": "crypto/err/err.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-10T19:20:53Z",
+      "side": 1,
+      "message": "This is probably worth a comment like:\n\n// Without |ERR_FLAG_MALLOCED|, rust-openssl assumes the string has static lifetime. In both cases, we retain ownership of the string, and the caller is not expected to free it.",
+      "revId": "c228e12d30f3115b544e87b4c6b7e3cbba770781",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

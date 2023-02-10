@@ -153,6 +153,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8eec8733_95f23eed",
+        "filename": "crypto/err/err.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-10T19:20:53Z",
+      "side": 1,
+      "message": "Oh interesting. I\u0027d always assumed `strdup` was part of C, but it\u0027s actually just POSIX.\n\nhttps://en.cppreference.com/w/c/string/byte/strdup suggests it was moved to C in C23.\n\nMSVC does it. This claims there might be a warning if we don\u0027t use the underscore one (whyyyyy), but let\u0027s just use it and, if anything complains, we can wrestle with it then.\nhttps://learn.microsoft.com/en-us/cpp/c-runtime-library/reference/strdup-wcsdup?view\u003dmsvc-170",
+      "parentUuid": "0e6b88d1_fb59d6e8",
+      "revId": "4456e0ed5471d15cf5834296119a42c4db5dea28",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a1ef6232_efddee1e",
