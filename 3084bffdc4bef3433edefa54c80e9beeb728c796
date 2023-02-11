@@ -206,6 +206,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d460f3cf_d2cf8a74",
+        "filename": "crypto/mem.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-11T17:13:13Z",
+      "side": 1,
+      "message": "I know I have *seen* implementations of it that will not return an INT_MAX length string..  So thinking of if it\u0027s safe to protect people from themselves, I took a\npeek at OpenBSD\u0027s libc one and, yes indeed, it will do that.\n\nSo done - removed that limit.",
+      "parentUuid": "ffc2b2fd_1a7aedf1",
+      "range": {
+        "startLine": 498,
+        "startChar": 6,
+        "endLine": 498,
+        "endChar": 20
+      },
+      "revId": "3084bffdc4bef3433edefa54c80e9beeb728c796",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "87d01dd0_aa9fa6ac",
