@@ -419,6 +419,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4841a8a9_5d7fbd8e",
+        "filename": "crypto/x509v3/v3_pci.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-13T20:12:39Z",
+      "side": 1,
+      "message": "I\u0027m gonna deal with it after\nbug: 568",
+      "parentUuid": "694a4354_76447b5a",
+      "revId": "9bbd2602d9826f302ff5d46791dc9d514ddf83ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "634a8263_5588d358",
@@ -432,6 +450,24 @@
       "writtenOn": "2023-02-13T19:35:52Z",
       "side": 1,
       "message": "This is special",
+      "revId": "9bbd2602d9826f302ff5d46791dc9d514ddf83ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b44670cd_8d0307be",
+        "filename": "crypto/x509v3/v3_pci.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-13T20:12:39Z",
+      "side": 1,
+      "message": "bug: 568",
+      "parentUuid": "634a8263_5588d358",
       "revId": "9bbd2602d9826f302ff5d46791dc9d514ddf83ed",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -453,6 +489,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "886addbf_998e0c03",
+        "filename": "crypto/x509v3/v3_pci.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-13T20:12:39Z",
+      "side": 1,
+      "message": "Bug: 568",
+      "parentUuid": "a0602863_d9e16786",
+      "revId": "9bbd2602d9826f302ff5d46791dc9d514ddf83ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "75126dc6_7ffeecd0",
@@ -466,6 +520,24 @@
       "writtenOn": "2023-02-13T18:32:50Z",
       "side": 1,
       "message": "Also for a separate commit but... is this even reachalbe?",
+      "revId": "9bbd2602d9826f302ff5d46791dc9d514ddf83ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fbe31d2_45ea6cba",
+        "filename": "crypto/x509v3/v3_pci.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-13T20:12:39Z",
+      "side": 1,
+      "message": "Bug: 568",
+      "parentUuid": "75126dc6_7ffeecd0",
       "revId": "9bbd2602d9826f302ff5d46791dc9d514ddf83ed",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
