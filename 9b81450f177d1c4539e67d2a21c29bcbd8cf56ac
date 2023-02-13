@@ -16,6 +16,24 @@
       "message": "super nitty nit - \"reduce the effect of\" - It\u0027s still quadratic so it isn\u0027t avoided.",
       "revId": "9b81450f177d1c4539e67d2a21c29bcbd8cf56ac",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d19e986e_ac277f05",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 6357,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-13T17:07:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d677f7c_3d88b5a9",
+      "revId": "9b81450f177d1c4539e67d2a21c29bcbd8cf56ac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
