@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b29b36a_0bed8c58",
+        "filename": "include/openssl/dsa.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-13T21:40:16Z",
+      "side": 1,
+      "message": "I kind of want to use invalid parameters here, and dispense with the new one, but ECDSA doesn\u0027t have that and you have to add one there, so I guess it\u0027s fine for them both to be the same.",
+      "revId": "bb02f264c582afbfad30f366894d98acbab72372",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
