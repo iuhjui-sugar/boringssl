@@ -70,15 +70,21 @@
 // This function is in dsa_asn1.c rather than dsa.c because it is reachable from
 // |EVP_PKEY| parsers. This makes it easier for the static linker to drop most
 // of the DSA implementation.
-int dsa_check_parameters(const DSA *dsa) {
+int dsa_check_key(const DSA *dsa) {
   if (!dsa->p || !dsa->q || !dsa->g) {
     OPENSSL_PUT_ERROR(DSA, DSA_R_MISSING_PARAMETERS);
     return 0;
   }
 
-  // Reject invalid parameters. In particular, signing will infinite loop if |g|
-  // is zero.
-  if (BN_is_zero(dsa->p) || BN_is_zero(dsa->q) || BN_is_zero(dsa->g)) {
+  // Fully checking for invalid DSA groups is expensive, but check bounds on all
+  // values. In particular, signing will infinite loop if |g| is zero.
+  if (BN_is_negative(dsa->p) || BN_is_negative(dsa->q) || BN_is_zero(dsa->p) ||
+      BN_is_zero(dsa->q) || !BN_is_odd(dsa->p) || !BN_is_odd(dsa->q) ||
+      // |q| must be a prime divisor of |p - 1|, which implies |q < p|.
+      BN_cmp(dsa->q, dsa->p) >= 0 ||
+      // |g| is in the multiplicative group of |p|.
+      BN_is_negative(dsa->g) || BN_is_zero(dsa->g) ||
+      BN_cmp(dsa->g, dsa->p) >= 0) {
     OPENSSL_PUT_ERROR(DSA, DSA_R_INVALID_PARAMETERS);
     return 0;
   }
@@ -95,6 +101,25 @@ int dsa_check_parameters(const DSA *dsa) {
   if (BN_num_bits(dsa->p) > OPENSSL_DSA_MAX_MODULUS_BITS) {
     OPENSSL_PUT_ERROR(DSA, DSA_R_MODULUS_TOO_LARGE);
     return 0;
+  }
+
+  if (dsa->pub_key != NULL) {
+    // The public key is also in the multiplicative group of |p|.
+    if (BN_is_negative(dsa->pub_key) || BN_is_zero(dsa->pub_key) ||
+        BN_cmp(dsa->pub_key, dsa->p) >= 0) {
+      OPENSSL_PUT_ERROR(DSA, DSA_R_INVALID_PARAMETERS);
+      return 0;
+    }
+  }
+
+  if (dsa->priv_key != NULL) {
+    // The private key is a non-zero element of the scalar field, determined by
+    // |q|.
+    if (BN_is_negative(dsa->priv_key) || BN_is_zero(dsa->priv_key) ||
+        BN_cmp(dsa->priv_key, dsa->q) >= 0) {
+      OPENSSL_PUT_ERROR(DSA, DSA_R_INVALID_PARAMETERS);
+      return 0;
+    }
   }
 
   return 1;
@@ -162,7 +187,7 @@ DSA *DSA_parse_public_key(CBS *cbs) {
     OPENSSL_PUT_ERROR(DSA, DSA_R_DECODE_ERROR);
     goto err;
   }
-  if (!dsa_check_parameters(ret)) {
+  if (!dsa_check_key(ret)) {
     goto err;
   }
   return ret;
@@ -200,7 +225,7 @@ DSA *DSA_parse_parameters(CBS *cbs) {
     OPENSSL_PUT_ERROR(DSA, DSA_R_DECODE_ERROR);
     goto err;
   }
-  if (!dsa_check_parameters(ret)) {
+  if (!dsa_check_key(ret)) {
     goto err;
   }
   return ret;
@@ -251,9 +276,10 @@ DSA *DSA_parse_private_key(CBS *cbs) {
     OPENSSL_PUT_ERROR(DSA, DSA_R_DECODE_ERROR);
     goto err;
   }
-  if (!dsa_check_parameters(ret)) {
+  if (!dsa_check_key(ret)) {
     goto err;
   }
+
   return ret;
 
 err:
