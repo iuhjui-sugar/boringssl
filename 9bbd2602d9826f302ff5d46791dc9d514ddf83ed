@@ -1,0 +1,461 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4df3bdc_5a975119",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-13T18:32:50Z",
+      "side": 1,
+      "message": "Whew! That\u0027s so much tidier.",
+      "revId": "9bbd2602d9826f302ff5d46791dc9d514ddf83ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "156bf256_b207d2e7",
+        "filename": "crypto/asn1/tasn_new.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-13T18:32:50Z",
+      "side": 1,
+      "message": "Oh wow. Existing issue and definitely not something to change in this CL, but I am very suspicious whether every call site here has gotten `memerr` vs `memerr2` right! :-)",
+      "revId": "9bbd2602d9826f302ff5d46791dc9d514ddf83ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e88dda78_1169ba22",
+        "filename": "crypto/bn_extra/convert.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-13T18:32:50Z",
+      "side": 1,
+      "message": "`cbb_err` can be folded into `err` now.",
+      "range": {
+        "startLine": 294,
+        "startChar": 0,
+        "endLine": 294,
+        "endChar": 7
+      },
+      "revId": "9bbd2602d9826f302ff5d46791dc9d514ddf83ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f0d75ab_7dbb195b",
+        "filename": "crypto/bytestring/cbb.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-13T18:32:50Z",
+      "side": 1,
+      "message": "Nit: Perhaps also `ERR_R_OVERFLOW` here. This happens if you tried to write too much into a fixed `CBB`, which is... I guess somewhere between a precondition failure and buffer too small.",
+      "range": {
+        "startLine": 87,
+        "startChar": 32,
+        "endLine": 87,
+        "endChar": 65
+      },
+      "revId": "9bbd2602d9826f302ff5d46791dc9d514ddf83ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1cf8820e_cf5676da",
+        "filename": "crypto/bytestring/cbb.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-13T18:32:50Z",
+      "side": 1,
+      "message": "Nit: stray indents here\n\n(Hmm, I bet all these `base \u003d\u003d NULL` bits can be removed now, though not for this CL. I think they\u0027re a remnant from when `base` was allocated.)",
+      "revId": "9bbd2602d9826f302ff5d46791dc9d514ddf83ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49b775fa_b9712801",
+        "filename": "crypto/bytestring/cbb.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-13T18:32:50Z",
+      "side": 1,
+      "message": "This isn\u0027t necessary a library-internal error for a fixed-width length prefix. Maybe `ERR_R_OVERFLOW` again?",
+      "revId": "9bbd2602d9826f302ff5d46791dc9d514ddf83ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b716e38_76fd1775",
+        "filename": "crypto/bytestring/cbb.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-13T18:32:50Z",
+      "side": 1,
+      "message": "Nit: Perhaps an `ERR_R_INTERNAL_ERROR` or `ERR_R_SHOULD_NOT_HAVE_BEEN_CALLED` here. This might happen if you try to flush a `CBB` as a `SET OF` type when it\u0027s not one.",
+      "revId": "9bbd2602d9826f302ff5d46791dc9d514ddf83ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55d85ca8_07d5d71c",
+        "filename": "crypto/mem.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-13T18:32:50Z",
+      "side": 1,
+      "message": "`goto err`.",
+      "revId": "9bbd2602d9826f302ff5d46791dc9d514ddf83ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "31397e45_4772f4d5",
+        "filename": "crypto/mem.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-13T18:32:50Z",
+      "side": 1,
+      "message": "`ptr \u003d\u003d NULL \u0026\u0026 size !\u003d 0`\n\n(`malloc(0)` is allowed to successfully return NULL. It\u0027s very irritating.)",
+      "range": {
+        "startLine": 237,
+        "startChar": 18,
+        "endLine": 237,
+        "endChar": 20
+      },
+      "revId": "9bbd2602d9826f302ff5d46791dc9d514ddf83ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eaa43030_faa29f25",
+        "filename": "crypto/mem.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-13T18:32:50Z",
+      "side": 1,
+      "message": "Hmm, I guess this either needs `OPENSSL_PUT_ERROR(CRYPTO, ERR_R_MALLOC_FAILURE);` or, better yet, since our `realloc` just always called the underlying `malloc` anyway, let\u0027s just delete this branch. The underlying `OPENSSL_malloc` call to `should_fail_allocation()` will take care of simulating `realloc` failures. We\u0027re currently double-simulating them.",
+      "revId": "9bbd2602d9826f302ff5d46791dc9d514ddf83ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ef6278b_2ddf53b0",
+        "filename": "crypto/mem.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 530,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-13T18:32:50Z",
+      "side": 1,
+      "message": "If the `va_list` was passed in by the caller, do we still `va_end(args)`? I assumed not.",
+      "revId": "9bbd2602d9826f302ff5d46791dc9d514ddf83ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "906b03eb_1033fa2a",
+        "filename": "crypto/x509/x509_att.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-13T18:32:50Z",
+      "side": 1,
+      "message": "We can merge `err2` into `err` now.l",
+      "range": {
+        "startLine": 150,
+        "startChar": 0,
+        "endLine": 150,
+        "endChar": 4
+      },
+      "revId": "9bbd2602d9826f302ff5d46791dc9d514ddf83ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "89d08aab_cff58527",
+        "filename": "crypto/x509/x509_obj.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-13T18:32:50Z",
+      "side": 1,
+      "message": "We can merge `err` and `end` now.",
+      "revId": "9bbd2602d9826f302ff5d46791dc9d514ddf83ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5fc6394_b23b5fc2",
+        "filename": "crypto/x509/x_name.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-13T18:32:50Z",
+      "side": 1,
+      "message": "We can merge `memerr` into `err` now.",
+      "range": {
+        "startLine": 317,
+        "startChar": 0,
+        "endLine": 317,
+        "endChar": 6
+      },
+      "revId": "9bbd2602d9826f302ff5d46791dc9d514ddf83ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "314769a7_fa7c8957",
+        "filename": "crypto/x509v3/v3_cpols.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-13T18:32:50Z",
+      "side": 1,
+      "message": "merr and err can be merged together now.",
+      "range": {
+        "startLine": 293,
+        "startChar": 0,
+        "endLine": 293,
+        "endChar": 4
+      },
+      "revId": "9bbd2602d9826f302ff5d46791dc9d514ddf83ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ef3731f_10905f16",
+        "filename": "crypto/x509v3/v3_cpols.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-13T18:32:50Z",
+      "side": 1,
+      "message": "Ditto",
+      "range": {
+        "startLine": 383,
+        "startChar": 0,
+        "endLine": 383,
+        "endChar": 4
+      },
+      "revId": "9bbd2602d9826f302ff5d46791dc9d514ddf83ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bfa6ffba_c856d29a",
+        "filename": "crypto/x509v3/v3_crld.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-13T18:32:50Z",
+      "side": 1,
+      "message": "Ditto",
+      "range": {
+        "startLine": 368,
+        "startChar": 0,
+        "endLine": 368,
+        "endChar": 4
+      },
+      "revId": "9bbd2602d9826f302ff5d46791dc9d514ddf83ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a80f38cb_9da20132",
+        "filename": "crypto/x509v3/v3_crld.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-13T18:32:50Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 492,
+        "startChar": 0,
+        "endLine": 492,
+        "endChar": 4
+      },
+      "revId": "9bbd2602d9826f302ff5d46791dc9d514ddf83ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "366f1ef9_2bf17754",
+        "filename": "crypto/x509v3/v3_ncons.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-13T18:32:50Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 161,
+        "startChar": 0,
+        "endLine": 161,
+        "endChar": 6
+      },
+      "revId": "9bbd2602d9826f302ff5d46791dc9d514ddf83ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f6354d7_812503ba",
+        "filename": "crypto/x509v3/v3_pci.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-13T18:32:50Z",
+      "side": 1,
+      "message": "Wait what? Let\u0027s fix this in a separate commit but that\u0027s... not true, is it? Looks like this actually leaks memory when `realloc` fails.\n\nBut rather than call `realloc`, this can just be `ASN1_STRING_set(*policy, tmp_data2, val_len)`.",
+      "revId": "9bbd2602d9826f302ff5d46791dc9d514ddf83ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0602863_d9e16786",
+        "filename": "crypto/x509v3/v3_pci.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-13T18:32:50Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "9bbd2602d9826f302ff5d46791dc9d514ddf83ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75126dc6_7ffeecd0",
+        "filename": "crypto/x509v3/v3_pci.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-13T18:32:50Z",
+      "side": 1,
+      "message": "Also for a separate commit but... is this even reachalbe?",
+      "revId": "9bbd2602d9826f302ff5d46791dc9d514ddf83ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aad509b9_a30fb943",
+        "filename": "crypto/x509v3/v3_utl.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-13T18:32:50Z",
+      "side": 1,
+      "message": "We can merge malloc_err and err now.",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 125,
+        "endChar": 10
+      },
+      "revId": "9bbd2602d9826f302ff5d46791dc9d514ddf83ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

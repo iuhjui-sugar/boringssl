@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9015d88_8a6eb35d",
+        "filename": "crypto/asn1/a_object.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-13T18:32:50Z",
+      "side": 0,
+      "message": "Looks like this\u0027ll `OPENSSL_PUT_ERROR(ASN1, length)` as a result. :-) But since this is the only `goto err` path, let\u0027s just delete line 239 too.",
+      "revId": "fc524c161e8640e017b0d838f76e75dc49181e34",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d13390af_1acebc61",
+        "filename": "crypto/buf/buf.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-13T18:32:50Z",
+      "side": 0,
+      "message": "Keep this but probably switch to to `ERR_R_OVERFLOW`, at which point the `// overflow` comment can probably go since it\u0027s not doing anything useful.",
+      "revId": "fc524c161e8640e017b0d838f76e75dc49181e34",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1989b43_2941ffda",
+        "filename": "crypto/buf/buf.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-13T18:32:50Z",
+      "side": 0,
+      "message": "Ditto.",
+      "revId": "fc524c161e8640e017b0d838f76e75dc49181e34",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d13d37ba_8d2aad31",
+        "filename": "ssl/ssl_buffer.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-13T18:32:50Z",
+      "side": 0,
+      "message": "Still need this one, since this is system `malloc`.",
+      "revId": "fc524c161e8640e017b0d838f76e75dc49181e34",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
