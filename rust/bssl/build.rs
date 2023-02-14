@@ -1,4 +1,4 @@
-/* Copyright (c) 2021, Google Inc.
+/* Copyright (c) 2023, Google Inc.
  *
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -13,27 +13,7 @@
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-use std::env;
-use std::path::Path;
-
+// Could be a useful entry point for generating bssl-sys crate bindings
 fn main() {
-    let dir = env::var("CARGO_MANIFEST_DIR").unwrap();
-    let crate_path = Path::new(&dir);
-    let parent_path = crate_path.parent().unwrap();
 
-    // Statically link libraries.
-    println!(
-        "cargo:rustc-link-search=native={}",
-        parent_path.join("crypto").display()
-    );
-    println!("cargo:rustc-link-lib=static=crypto");
-
-    println!(
-        "cargo:rustc-link-search=native={}",
-        parent_path.join("ssl").display()
-    );
-    println!("cargo:rustc-link-lib=static=ssl");
-
-    println!("cargo:rustc-link-search=native={}", crate_path.display());
-    println!("cargo:rustc-link-lib=static=rust_wrapper");
 }
