@@ -543,7 +543,6 @@ static int check_chain_extensions(X509_STORE_CTX *ctx) {
   X509 *x;
   int proxy_path_length = 0;
   int purpose;
-  int allow_proxy_certs;
 
   enum {
     // ca_or_leaf allows either type of certificate so that direct use of
@@ -555,10 +554,8 @@ static int check_chain_extensions(X509_STORE_CTX *ctx) {
 
   // CRL path validation
   if (ctx->parent) {
-    allow_proxy_certs = 0;
     purpose = X509_PURPOSE_CRL_SIGN;
   } else {
-    allow_proxy_certs = !!(ctx->param->flags & X509_V_FLAG_ALLOW_PROXY_CERTS);
     purpose = ctx->param->purpose;
   }
 
@@ -571,15 +568,6 @@ static int check_chain_extensions(X509_STORE_CTX *ctx) {
     if (!(ctx->param->flags & X509_V_FLAG_IGNORE_CRITICAL) &&
         (x->ex_flags & EXFLAG_CRITICAL)) {
       ctx->error = X509_V_ERR_UNHANDLED_CRITICAL_EXTENSION;
-      ctx->error_depth = i;
-      ctx->current_cert = x;
-      ok = ctx->verify_cb(0, ctx);
-      if (!ok) {
-        goto end;
-      }
-    }
-    if (!allow_proxy_certs && (x->ex_flags & EXFLAG_PROXY)) {
-      ctx->error = X509_V_ERR_PROXY_CERTIFICATES_NOT_ALLOWED;
       ctx->error_depth = i;
       ctx->current_cert = x;
       ok = ctx->verify_cb(0, ctx);
@@ -649,24 +637,7 @@ static int check_chain_extensions(X509_STORE_CTX *ctx) {
     if (!(x->ex_flags & EXFLAG_SI)) {
       plen++;
     }
-    // If this certificate is a proxy certificate, the next certificate
-    // must be another proxy certificate or a EE certificate.  If not,
-    // the next certificate must be a CA certificate.
-    if (x->ex_flags & EXFLAG_PROXY) {
-      if (x->ex_pcpathlen != -1 && i > x->ex_pcpathlen) {
-        ctx->error = X509_V_ERR_PROXY_PATH_LENGTH_EXCEEDED;
-        ctx->error_depth = i;
-        ctx->current_cert = x;
-        ok = ctx->verify_cb(0, ctx);
-        if (!ok) {
-          goto end;
-        }
-      }
-      proxy_path_length++;
-      ca_requirement = must_not_be_ca;
-    } else {
-      ca_requirement = must_be_ca;
-    }
+    ca_requirement = must_be_ca;
   }
   ok = 1;
 end:
