@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "866c8c0f_5555fb61",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-14T15:39:17Z",
+      "side": 1,
+      "message": "Correction: my Xcode was just (slightly) old and between LLVM 13 and LLVM 14, the builtins went from atrocious (on all architectures) to actually decent.\n\nBut the hand-written assembly is still faster.",
+      "revId": "d1b451676eada2f2dcad9a20debf8b76fa17f403",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
