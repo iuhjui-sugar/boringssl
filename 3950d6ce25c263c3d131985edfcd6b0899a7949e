@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "319bc11c_dee64cb4",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-14T19:05:01Z",
+      "side": 0,
+      "message": "I think `must_not_be_ca` is no longer set, so we can probably drop those codepaths too. Could even just turn this into a boolean `int must_be_ca` now. Or even just drop the whole value and use `i \u003e 0`.\n\n(Ah, the age-old \"is the leaf allowed to be a CA\" question...)",
+      "range": {
+        "startLine": 553,
+        "startChar": 4,
+        "endLine": 553,
+        "endChar": 18
+      },
+      "revId": "3950d6ce25c263c3d131985edfcd6b0899a7949e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39d7fd95_4167ca47",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-14T19:05:01Z",
+      "side": 0,
+      "message": "Mind updating the comment for this flag to note that it\u0027s ignored and does nothing now? :-)",
+      "range": {
+        "startLine": 561,
+        "startChar": 47,
+        "endLine": 561,
+        "endChar": 76
+      },
+      "revId": "3950d6ce25c263c3d131985edfcd6b0899a7949e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8af6a792_90aea051",
+        "filename": "crypto/x509v3/v3_pcia.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-14T19:05:01Z",
+      "side": 0,
+      "message": "Let\u0027s also delete the structs and the `DECLARE_ASN1_FUNCTIONS_const` calls, since they\u0027re otherwise unimplemented decls.",
+      "revId": "3950d6ce25c263c3d131985edfcd6b0899a7949e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
