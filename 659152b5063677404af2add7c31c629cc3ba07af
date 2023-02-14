@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee703889_c4d92775",
+        "filename": "crypto/fipsmodule/bn/generic.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-14T16:14:05Z",
+      "side": 1,
+      "message": "In the vein of \"just use the compiler-specific stuff\", we can also extend this to use the Windows intrinsics later, etc.",
+      "revId": "659152b5063677404af2add7c31c629cc3ba07af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
