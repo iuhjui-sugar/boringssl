@@ -16,6 +16,29 @@
       "message": "In the vein of \"just use the compiler-specific stuff\", we can also extend this to use the Windows intrinsics later, etc.",
       "revId": "659152b5063677404af2add7c31c629cc3ba07af",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9352bd9e_7da5d3ac",
+        "filename": "crypto/fipsmodule/bn/generic.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 571,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-14T17:01:32Z",
+      "side": 1,
+      "message": "is this assert worthy? (similarly in the bn_sub_with_borrow case?)",
+      "range": {
+        "startLine": 571,
+        "startChar": 14,
+        "endLine": 571,
+        "endChar": 41
+      },
+      "revId": "659152b5063677404af2add7c31c629cc3ba07af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
