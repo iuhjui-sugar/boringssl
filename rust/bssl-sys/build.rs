@@ -19,7 +19,7 @@ use std::path::Path;
 fn main() {
     let dir = env::var("CARGO_MANIFEST_DIR").unwrap();
     let crate_path = Path::new(&dir);
-    let parent_path = crate_path.parent().unwrap();
+    let parent_path = crate_path.parent().unwrap().parent().unwrap();
 
     // Statically link libraries.
     println!(

@@ -1,0 +1,8 @@
+[package]
+name = "bssl"
+version = "0.1.0"
+edition = "2018"
+
+[dependencies]
+# this path will need to be replaced with the crate output from building with -DRUST_BINDINGS
+bssl-sys = {path = "../bssl-sys"}
