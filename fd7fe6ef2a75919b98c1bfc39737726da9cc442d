@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49e305b9_c2bc3127",
+        "filename": "crypto/evp/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-02-15T22:31:45Z",
+      "side": 1,
+      "message": "Why can\u0027t I include slow clap animated gifs for this ;)",
+      "revId": "fd7fe6ef2a75919b98c1bfc39737726da9cc442d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
