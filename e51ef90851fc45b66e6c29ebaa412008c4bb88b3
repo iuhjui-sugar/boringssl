@@ -16,6 +16,24 @@
       "message": "This no longer relies on anything experimental.",
       "revId": "e51ef90851fc45b66e6c29ebaa412008c4bb88b3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e12307b6_2034bd2b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5180
+      },
+      "writtenOn": "2023-02-15T00:01:11Z",
+      "side": 1,
+      "message": "Err, this was not precise: Everything it relies on is now in a released version of bindgen.\n\nBindgen still describes this functionality as experimental.",
+      "parentUuid": "86fdfc71_f656c002",
+      "revId": "e51ef90851fc45b66e6c29ebaa412008c4bb88b3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
