@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23b362a2_fd567e5c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-02-16T20:34:49Z",
+      "side": 1,
+      "message": "update: instead of using a type alias to mask the const generic, I added wrapper structs. While it is slightly more code, it completely hides the use of const generics from the caller and provides a better boundary for the public API\u0027s vs the implementation details, because type aliasing cant alias non public types.",
+      "revId": "69121b2b304b97bee68b1b58d62dc1145ba2f8d2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
