@@ -26,11 +26,14 @@
 extern crate core;
 use core::ops::Not;
 
-/// boringssl implemented hmac operations
-pub mod hmac;
+/// boringssl implemented plain aes operations
+pub mod aes;
 
 /// boringssl implemented hash functions
 pub mod digest;
+
+/// boringssl implemented hmac operations
+pub mod hmac;
 
 /// Used for handling result types from C APIs
 trait PanicResultHandler {
