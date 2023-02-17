@@ -16,6 +16,97 @@
       "message": "This change is similar davidben\u0027s Change-Id: Ib59b921d4cce76584320fefd23e6bb7ebd4847eb. It may need more work to be compatible with iOS. I also haven\u0027t made :pg_hi21: annotations. Regress passes on OpenBSD/aarch64, a platform which enforces linking with -Wl,--execute-only with ld.lld.",
       "revId": "2bcb6ae7913f554905ea6bc72bf2a90942dd7c71",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "adb04641_94e9e13d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-17T17:43:51Z",
+      "side": 1,
+      "message": "(Triggering a CQ dry run so we can see what this does on macOS/iOS and Windows. Though I\u0027ve already confirmed on my machine that it doesn\u0027t work for macOS/iOS.)",
+      "revId": "2bcb6ae7913f554905ea6bc72bf2a90942dd7c71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37407063_3589263b",
+        "filename": "crypto/fipsmodule/ec/asm/p256-armv8-asm.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-17T17:43:51Z",
+      "side": 1,
+      "message": "Nit: Probably best write this as `.text` here. I assume that\u0027s the default, but this way we don\u0027t have to guess. (Or worry about whether perlasm gets confused by `.previous`. Happily, doesn\u0027t look like the Arm perlasm rewrites sections much.)",
+      "revId": "2bcb6ae7913f554905ea6bc72bf2a90942dd7c71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d3619e8_72659f87",
+        "filename": "crypto/fipsmodule/ec/asm/p256-armv8-asm.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-17T17:43:51Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem to build on Apple platform, at least testing locally. I suspect because, yeah, we need the `:pg_hi21:` marker. Ditto for all the adrps.",
+      "revId": "2bcb6ae7913f554905ea6bc72bf2a90942dd7c71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5dce9da5_7fab7561",
+        "filename": "crypto/fipsmodule/ec/asm/p256-armv8-asm.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-17T17:43:51Z",
+      "side": 1,
+      "message": "Nit: Any particular reason this instruction gets two tabs here while most of them get one? Ditto for some of the other ones below.",
+      "range": {
+        "startLine": 91,
+        "startChar": 5,
+        "endLine": 91,
+        "endChar": 6
+      },
+      "revId": "2bcb6ae7913f554905ea6bc72bf2a90942dd7c71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "800cd1a8_9e32c6bf",
+        "filename": "crypto/fipsmodule/ec/asm/p256-armv8-asm.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1210,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-17T17:43:51Z",
+      "side": 1,
+      "message": "I think the `-64` can be folded in. See this example:\nhttps://boringssl.googlesource.com/boringssl/+/refs/heads/master/crypto/fipsmodule/aes/asm/vpaes-armv8.pl#195\n\nNote the parse on this is surprising. It\u0027s not `(:lo12:.Lk_mc_forward) + 16)` but `:lo12:(.Lk_mc_forward + 16)`. IIRC, it\u0027s also needed on both the ADRP and ADD because it matters where the page boundary ended up, or something like this. But it\u0027s been a while since I looked too closely at that.",
+      "revId": "2bcb6ae7913f554905ea6bc72bf2a90942dd7c71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
