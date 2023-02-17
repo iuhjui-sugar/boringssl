@@ -12,3 +12,4 @@ libc = "0.2"
 
 [dev-dependencies]
 wycheproof = "0.4.0"
+hex-literal = "0.3.4"
