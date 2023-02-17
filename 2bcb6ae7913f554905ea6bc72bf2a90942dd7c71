@@ -35,6 +35,23 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ea14b24_17f46086",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-17T18:11:46Z",
+      "side": 1,
+      "message": "Pfft, apparently I never added the Windows arm64 builder to the CQ. Running it manually then.",
+      "revId": "2bcb6ae7913f554905ea6bc72bf2a90942dd7c71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "37407063_3589263b",
