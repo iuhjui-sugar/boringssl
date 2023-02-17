@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23c4191a_bb64abce",
+        "filename": "rust/bssl/src/aes.rs",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5180
+      },
+      "writtenOn": "2023-02-17T12:41:45Z",
+      "side": 1,
+      "message": "There\u0027s almost never a use case for applications to be encrypting/decrypting a single block at a time. Users almost always need a higher level construction, such as AES-CBC (or even better, an AEAD). What\u0027s the use case for exposing it at this level?",
+      "revId": "46f313b639078b25b0d4a598d44a19646aaf25ef",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf929f6a_3e14caab",
+        "filename": "rust/bssl/src/aes.rs",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 5180
+      },
+      "writtenOn": "2023-02-17T12:41:45Z",
+      "side": 1,
+      "message": "Creating both an encryption key and a decryption key will have the effect of runnign the AES key schedule 2x, which won\u0027t be needed for most callers.",
+      "revId": "46f313b639078b25b0d4a598d44a19646aaf25ef",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
