@@ -42,6 +42,7 @@ type invocation struct {
 	wrapperPath  string
 	inPath       string
 	expectedPath string
+	configPath   string
 }
 
 func main() {
@@ -85,6 +86,13 @@ func main() {
 		log.Fatal(err)
 	}
 
+	configFile, err := os.CreateTemp("", "boringssl-check_expected-config-")
+	if err != nil {
+		log.Fatalf("Failed to create temp file for config: %s", err)
+	}
+	defer os.Remove(configFile.Name())
+	configFile.WriteString("{}\n")
+
 	work := make(chan invocation, runtime.NumCPU())
 	var numFailed uint32
 
@@ -104,6 +112,7 @@ func main() {
 			wrapperPath:  wrapper,
 			inPath:       test.In,
 			expectedPath: test.Out,
+			configPath:   configFile.Name(),
 		}
 	}
 
@@ -149,7 +158,7 @@ func doTest(test invocation) error {
 		return fmt.Errorf("Failed to decompress %q: %s", test.inPath, err)
 	}
 
-	cmd := exec.Command(test.toolPath, "-wrapper", test.wrapperPath, "-json", tempFile.Name())
+	cmd := exec.Command(test.toolPath, "-wrapper", test.wrapperPath, "-json", tempFile.Name(), "-config", test.configPath)
 	result, err := cmd.CombinedOutput()
 	if err != nil {
 		os.Stderr.Write(result)
