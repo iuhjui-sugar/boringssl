@@ -1815,6 +1815,7 @@ ___
 }
 }
 $code.=<<___;
+.section .rodata
 .align	64
 K_XX_XX:
 .long	0x5a827999,0x5a827999,0x5a827999,0x5a827999	# K_00_19
@@ -1832,6 +1833,7 @@ ___
 }}}
 $code.=<<___;
 .asciz	"SHA1 block transform for x86_64, CRYPTOGAMS by <appro\@openssl.org>"
+.text
 .align	64
 ___
 
