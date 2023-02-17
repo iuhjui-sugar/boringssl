@@ -1288,6 +1288,7 @@ _vpaes_preheat:
 ##                                                    ##
 ########################################################
 .type	_vpaes_consts,\@object
+.section .rodata
 .align	64
 _vpaes_consts:
 .Lk_inv:	# inv, inva

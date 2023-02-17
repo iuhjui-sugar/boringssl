@@ -1107,6 +1107,9 @@ ____
 		    $self->{value} = ".p2align\t" . (log($$line)/log(2));
 		} elsif ($dir eq ".section") {
 		    $current_segment=$$line;
+		    if (!$elf && $current_segment eq ".rodata") {
+			if	($flavour eq "macosx") { $self->{value} = ".section\t__DATA,__const"; }
+		    }
 		    if (!$elf && $current_segment eq ".init") {
 			if	($flavour eq "macosx")	{ $self->{value} = ".mod_init_func"; }
 			elsif	($flavour eq "mingw64")	{ $self->{value} = ".section\t.ctors"; }
