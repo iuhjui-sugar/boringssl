@@ -69,6 +69,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd5ebbfd_68e25ada",
+        "filename": "crypto/fipsmodule/ec/asm/p256-armv8-asm.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 15776
+      },
+      "writtenOn": "2023-02-17T18:31:10Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "37407063_3589263b",
+      "revId": "2bcb6ae7913f554905ea6bc72bf2a90942dd7c71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0d3619e8_72659f87",
@@ -82,6 +100,24 @@
       "writtenOn": "2023-02-17T17:43:51Z",
       "side": 1,
       "message": "This doesn\u0027t seem to build on Apple platform, at least testing locally. I suspect because, yeah, we need the `:pg_hi21:` marker. Ditto for all the adrps.",
+      "revId": "2bcb6ae7913f554905ea6bc72bf2a90942dd7c71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6713967f_717ee917",
+        "filename": "crypto/fipsmodule/ec/asm/p256-armv8-asm.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 15776
+      },
+      "writtenOn": "2023-02-17T18:31:10Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "0d3619e8_72659f87",
       "revId": "2bcb6ae7913f554905ea6bc72bf2a90942dd7c71",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -109,6 +145,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "654902ea_030ea196",
+        "filename": "crypto/fipsmodule/ec/asm/p256-armv8-asm.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 15776
+      },
+      "writtenOn": "2023-02-17T18:31:10Z",
+      "side": 1,
+      "message": "I made the arguments of the `add` line up with the arguments of `addrp` in an editor that uses 4 spaces for a tab for perl. The indentation is all wonky in this file anyway, so I dropped those. It looked odd in the diff, now it looks odd in the file :)",
+      "parentUuid": "5dce9da5_7fab7561",
+      "range": {
+        "startLine": 91,
+        "startChar": 5,
+        "endLine": 91,
+        "endChar": 6
+      },
+      "revId": "2bcb6ae7913f554905ea6bc72bf2a90942dd7c71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "800cd1a8_9e32c6bf",
@@ -122,6 +182,24 @@
       "writtenOn": "2023-02-17T17:43:51Z",
       "side": 1,
       "message": "I think the `-64` can be folded in. See this example:\nhttps://boringssl.googlesource.com/boringssl/+/refs/heads/master/crypto/fipsmodule/aes/asm/vpaes-armv8.pl#195\n\nNote the parse on this is surprising. It\u0027s not `(:lo12:.Lk_mc_forward) + 16)` but `:lo12:(.Lk_mc_forward + 16)`. IIRC, it\u0027s also needed on both the ADRP and ADD because it matters where the page boundary ended up, or something like this. But it\u0027s been a while since I looked too closely at that.",
+      "revId": "2bcb6ae7913f554905ea6bc72bf2a90942dd7c71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2396eb60_b041cdca",
+        "filename": "crypto/fipsmodule/ec/asm/p256-armv8-asm.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1210,
+      "author": {
+        "id": 15776
+      },
+      "writtenOn": "2023-02-17T18:31:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "800cd1a8_9e32c6bf",
       "revId": "2bcb6ae7913f554905ea6bc72bf2a90942dd7c71",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
