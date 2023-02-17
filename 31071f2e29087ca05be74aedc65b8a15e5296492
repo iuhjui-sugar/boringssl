@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1c05d22f_8fbde534",
+        "filename": "rust/bssl/build.rs",
+        "patchSetId": 17
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-02-17T00:48:30Z",
+      "side": 1,
+      "message": "cmake drives the building of boringssl c code + the generation of the `bssl-sys` low level bindgen generated rust bindings. This crate takes a dependency on that generated crate, so for convenience it might be nice to have `cargo build` from inside of this crate, also trigger generating the dependency.\n\nFor now I am just manually generating the bindings via the cmake command, and then depending on them from this crate",
+      "parentUuid": "4120d3cc_febdae3e",
+      "revId": "31071f2e29087ca05be74aedc65b8a15e5296492",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2559a1d4_c8a0b476",
         "filename": "rust/bssl/src/hmac.rs",
         "patchSetId": 17
@@ -37,6 +55,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e620c49f_dec5b676",
+        "filename": "rust/bssl/src/hmac.rs",
+        "patchSetId": 17
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-02-17T00:48:30Z",
+      "side": 1,
+      "message": "I guess the trait isn\u0027t technically needed, but I think it provides a nice way to define and document the HMAC operations in one place, that can then be implemented multiple times. It would also make adding future flavors easier",
+      "parentUuid": "2559a1d4_c8a0b476",
+      "revId": "31071f2e29087ca05be74aedc65b8a15e5296492",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "92f88bae_6f8a567c",
         "filename": "rust/bssl/src/hmac.rs",
         "patchSetId": 17
@@ -48,6 +84,24 @@
       "writtenOn": "2023-02-17T00:17:56Z",
       "side": 1,
       "message": "Is there a reason to write it this way, instead of `if len \u003d\u003d 0 || len \u003e N`?",
+      "revId": "31071f2e29087ca05be74aedc65b8a15e5296492",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c6d5d3f_5a2320b5",
+        "filename": "rust/bssl/src/hmac.rs",
+        "patchSetId": 17
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-02-17T00:48:30Z",
+      "side": 1,
+      "message": "good point, left over from a refactor, updated",
+      "parentUuid": "92f88bae_6f8a567c",
       "revId": "31071f2e29087ca05be74aedc65b8a15e5296492",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
