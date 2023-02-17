@@ -26,17 +26,28 @@
 extern crate core;
 use core::ops::Not;
 
-/// boringssl implemented hmac operations
-pub mod hmac;
+/// boringssl implemented plain aes operations
+pub mod aes;
 
 /// boringssl implemented hash functions
 pub mod digest;
 
+<<<<<<< PATCH SET (043c0c WIP plain AES bindings)
+/// boringssl implemented hmac operations
+pub mod hmac;
+
+// Used for handling result types from C APIs
+trait ResultHandler {
+    // panics if a C api returns an invalid result
+    // Used for APIs which return error codes for allocation failures
+    fn handle_result(&self);
+=======
 /// Used for handling result types from C APIs
 trait PanicResultHandler {
     /// panics if a C api returns an invalid result
     /// Used for APIs which return error codes for allocation failures
     fn panic_if_error(&self);
+>>>>>>> BASE      (5093be initial setup for bssl crate with hmac and sha2 bindings - u)
 }
 
 impl PanicResultHandler for i32 {
