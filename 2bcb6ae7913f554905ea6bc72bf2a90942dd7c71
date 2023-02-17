@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc3b88b8_eff205e7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15776
+      },
+      "writtenOn": "2023-02-17T17:10:46Z",
+      "side": 1,
+      "message": "This change is similar davidben\u0027s Change-Id: Ib59b921d4cce76584320fefd23e6bb7ebd4847eb. It may need more work to be compatible with iOS. I also haven\u0027t made :pg_hi21: annotations. Regress passes on OpenBSD/aarch64, a platform which enforces linking with -Wl,--execute-only with ld.lld.",
+      "revId": "2bcb6ae7913f554905ea6bc72bf2a90942dd7c71",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
