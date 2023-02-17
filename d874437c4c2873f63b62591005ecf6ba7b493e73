@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a583d169_7e581e73",
+        "filename": "crypto/chacha/asm/chacha-x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-17T17:46:06Z",
+      "side": 1,
+      "message": "I think all the `.previous` needs to be an explicit `.text`, otherwise perlasm doesn\u0027t know to transform it to the right thing on Windows. (`.previous` seems to be silently dropped by perlasm.)",
+      "range": {
+        "startLine": 111,
+        "startChar": 1,
+        "endLine": 111,
+        "endChar": 9
+      },
+      "revId": "d874437c4c2873f63b62591005ecf6ba7b493e73",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
