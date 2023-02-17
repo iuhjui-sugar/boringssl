@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c072464_bc646789",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15776
+      },
+      "writtenOn": "2023-02-17T18:50:37Z",
+      "side": 1,
+      "message": "It looks like the mac doesn\u0027t like `.section`... In my testing with LibreSSL perlasm, I found that at least gcc 12 on linux insists on having `.section`.\n```\naes/aes-elf-x86_64.S:1759: Error: unknown pseudo-op: `.rodata\u0027\n```\nI suppose this will need to be fixed in the perlasm.",
+      "revId": "7ecf2933ec6c7be90fcb725e221df141d963231c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
