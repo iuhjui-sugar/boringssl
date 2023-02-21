@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fee69115_ab28bab7",
+        "filename": "util/fipstools/acvp/acvptool/test/check_expected.go",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-21T14:58:23Z",
+      "side": 1,
+      "message": "Nit: Check for error",
+      "revId": "b12eda5e4002008e059cc2de5edd3f9921991391",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
