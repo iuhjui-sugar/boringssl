@@ -137,27 +137,6 @@ static int has_list_item(const STRING_PIECE *list, const char *item) {
   return 0;
 }
 
-// crypto_get_arm_hwcap_from_cpuinfo returns an equivalent ARM |AT_HWCAP| value
-// from |cpuinfo|.
-static unsigned long crypto_get_arm_hwcap_from_cpuinfo(
-    const STRING_PIECE *cpuinfo) {
-  if (cpuinfo_field_equals(cpuinfo, "CPU architecture", "8")) {
-    // This is a 32-bit ARM binary running on a 64-bit kernel. NEON is always
-    // available on ARMv8. Linux omits required features, so reading the
-    // "Features" line does not work. (For simplicity, use strict equality. We
-    // assume everything running on future ARM architectures will have a
-    // working |getauxval|.)
-    return HWCAP_NEON;
-  }
-
-  STRING_PIECE features;
-  if (extract_cpuinfo_field(&features, cpuinfo, "Features") &&
-      has_list_item(&features, "neon")) {
-    return HWCAP_NEON;
-  }
-  return 0;
-}
-
 // crypto_get_arm_hwcap2_from_cpuinfo returns an equivalent ARM |AT_HWCAP2|
 // value from |cpuinfo|.
 static unsigned long crypto_get_arm_hwcap2_from_cpuinfo(

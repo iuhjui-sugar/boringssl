@@ -18,6 +18,7 @@
     !defined(OPENSSL_STATIC_ARMCAP)
 #include <errno.h>
 #include <fcntl.h>
+#include <sys/auxv.h>
 #include <sys/types.h>
 #include <unistd.h>
 
@@ -25,13 +26,6 @@
 #include <openssl/mem.h>
 
 #include "cpu_arm_linux.h"
-
-#define AT_HWCAP 16
-#define AT_HWCAP2 26
-
-// |getauxval| is not available on Android until API level 20. Link it as a weak
-// symbol and use other methods as fallback.
-unsigned long getauxval(unsigned long type) __attribute__((weak));
 
 static int open_eintr(const char *path, int flags) {
   int ret;
@@ -116,32 +110,6 @@ err:
   return ret;
 }
 
-// getauxval_proc behaves like |getauxval| but reads from /proc/self/auxv.
-static unsigned long getauxval_proc(unsigned long type) {
-  int fd = open_eintr("/proc/self/auxv", O_RDONLY);
-  if (fd < 0) {
-    return 0;
-  }
-
-  struct {
-    unsigned long tag;
-    unsigned long value;
-  } entry;
-
-  for (;;) {
-    if (!read_full(fd, &entry, sizeof(entry)) ||
-        (entry.tag == 0 && entry.value == 0)) {
-      break;
-    }
-    if (entry.tag == type) {
-      close(fd);
-      return entry.value;
-    }
-  }
-  close(fd);
-  return 0;
-}
-
 extern uint32_t OPENSSL_armcap_P;
 
 static int g_needs_hwcap2_workaround;
@@ -157,25 +125,8 @@ void OPENSSL_cpuid_setup(void) {
   cpuinfo.data = cpuinfo_data;
   cpuinfo.len = cpuinfo_len;
 
-  // |getauxval| is not available on Android until API level 20. If it is
-  // unavailable, read from /proc/self/auxv as a fallback. This is unreadable
-  // on some versions of Android, so further fall back to /proc/cpuinfo.
-  //
-  // See
-  // https://android.googlesource.com/platform/ndk/+/882ac8f3392858991a0e1af33b4b7387ec856bd2
-  // and b/13679666 (Google-internal) for details.
-  unsigned long hwcap = 0;
-  if (getauxval != NULL) {
-    hwcap = getauxval(AT_HWCAP);
-  }
-  if (hwcap == 0) {
-    hwcap = getauxval_proc(AT_HWCAP);
-  }
-  if (hwcap == 0) {
-    hwcap = crypto_get_arm_hwcap_from_cpuinfo(&cpuinfo);
-  }
-
   // Matching OpenSSL, only report other features if NEON is present.
+  unsigned long hwcap = getauxval(AT_HWCAP);
   if (hwcap & HWCAP_NEON) {
     OPENSSL_armcap_P |= ARMV7_NEON;
 
