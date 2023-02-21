@@ -290,6 +290,12 @@ both_builders(
     category = "android|aarch64",
     short_name = "dbg",
     cq_compile_only = LINUX_HOST,
+    properties = {
+        "cmake_args": {
+            "ANDROID_ABI": "arm64-v8a",
+            "ANDROID_PLATFORM": "android-21",
+        },
+    },
 )
 both_builders(
     "android_aarch64_rel",
@@ -298,6 +304,12 @@ both_builders(
     short_name = "rel",
     cq_compile_only = LINUX_HOST,
     cq_enabled = False,
+    properties = {
+        "cmake_args": {
+            "ANDROID_ABI": "arm64-v8a",
+            "ANDROID_PLATFORM": "android-21",
+        },
+    },
 )
 both_builders(
     "android_aarch64_fips",
@@ -306,6 +318,12 @@ both_builders(
     category = "android|aarch64",
     short_name = "fips",
     cq_compile_only = LINUX_HOST,
+    properties = {
+        "cmake_args": {
+            "ANDROID_ABI": "arm64-v8a",
+            "ANDROID_PLATFORM": "android-21",
+        },
+    },
 )
 both_builders(
     "android_arm",
@@ -315,10 +333,12 @@ both_builders(
     cq_compile_only = LINUX_HOST,
     properties = {
         "cmake_args": {
+            "ANDROID_ABI": "armeabi-v7a",
             # Newer versions of the Android NDK make NEON-only builds by
             # default. We rely on making NEON-optional builds for some of our
             # test coverage, but see https://crbug.com/boringssl/454.
             "ANDROID_ARM_NEON": "FALSE",
+            "ANDROID_PLATFORM": "android-18",
         },
     },
 )
@@ -331,10 +351,12 @@ both_builders(
     cq_enabled = False,
     properties = {
         "cmake_args": {
+            "ANDROID_ABI": "armeabi-v7a",
             # Newer versions of the Android NDK make NEON-only builds by
             # default. We rely on making NEON-optional builds for some of our
             # test coverage, but see https://crbug.com/boringssl/454.
             "ANDROID_ARM_NEON": "FALSE",
+            "ANDROID_PLATFORM": "android-18",
         },
     },
 )
@@ -344,30 +366,15 @@ both_builders(
     category = "android|arm",
     short_name = "rel",
     cq_compile_only = LINUX_HOST,
-    cq_enabled = False,
     properties = {
         "cmake_args": {
+            "ANDROID_ABI": "armeabi-v7a",
+            "ANDROID_ARM_MODE": "arm",
             # Newer versions of the Android NDK make NEON-only builds by
             # default. We rely on making NEON-optional builds for some of our
             # test coverage, but see https://crbug.com/boringssl/454.
             "ANDROID_ARM_NEON": "FALSE",
-        },
-    },
-)
-
-# TODO(davidben): It's strange that the CI runs ARM mode in release mode while
-# the CQ compiles ARM mode in debug. Align these?
-cq_builder(
-    "android_arm_armmode_compile",
-    LINUX_HOST,
-    properties = {
-        "run_unit_tests": False,
-        "run_ssl_tests": False,
-        "cmake_args": {
-            # Newer versions of the Android NDK make NEON-only builds by
-            # default. We rely on making NEON-optional builds for some of our
-            # test coverage, but see https://crbug.com/boringssl/454.
-            "ANDROID_ARM_NEON": "FALSE",
+            "ANDROID_PLATFORM": "android-18",
         },
     },
 )
@@ -383,6 +390,10 @@ both_builders(
     category = "ios",
     short_name = "32",
     properties = {
+        "cmake_args": {
+            "CMAKE_OSX_ARCHITECTURES": "armv7",
+            "CMAKE_OSX_SYSROOT": "iphoneos",
+        },
         "run_unit_tests": False,
         "run_ssl_tests": False,
     },
@@ -393,6 +404,10 @@ both_builders(
     category = "ios",
     short_name = "64",
     properties = {
+        "cmake_args": {
+            "CMAKE_OSX_ARCHITECTURES": "arm64",
+            "CMAKE_OSX_SYSROOT": "iphoneos",
+        },
         "run_unit_tests": False,
         "run_ssl_tests": False,
     },
@@ -425,6 +440,11 @@ both_builders(
     LINUX_HOST,
     category = "linux|32",
     short_name = "nosse2",
+    properties = {
+        "cmake_args": {
+            "OPENSSL_NO_SSE2_FOR_TESTING": "1",
+        },
+    },
 )
 both_builders(
     "linux_clang_cfi",
@@ -504,6 +524,11 @@ both_builders(
     LINUX_HOST,
     category = "linux",
     short_name = "nosse2",
+    properties = {
+        "cmake_args": {
+            "OPENSSL_NO_SSE2_FOR_TESTING": "1",
+        },
+    },
 )
 both_builders("mac", MAC_X86_64_HOST, category = "mac", short_name = "dbg")
 both_builders("mac_rel", MAC_X86_64_HOST, category = "mac", short_name = "rel")
