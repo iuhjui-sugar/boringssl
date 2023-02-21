@@ -69,6 +69,24 @@
       "parentUuid": "cf929f6a_3e14caab",
       "revId": "46f313b639078b25b0d4a598d44a19646aaf25ef",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e77cf143_1c74e466",
+        "filename": "rust/bssl/src/aes.rs",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 15791
+      },
+      "writtenOn": "2023-02-21T23:00:46Z",
+      "side": 1,
+      "message": "For our use case for nearby presence, key scheduling costs are significant, so if we can offer a lower level API that only does one of encryption or decryption, that would be a win. We need decryption to be fast and cheap.",
+      "parentUuid": "830c6e13_4afd424f",
+      "revId": "46f313b639078b25b0d4a598d44a19646aaf25ef",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
