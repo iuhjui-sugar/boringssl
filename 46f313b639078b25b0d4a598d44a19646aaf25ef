@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a186b3c7_f905fd26",
+        "filename": "rust/bssl/src/aes.rs",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-02-21T17:59:25Z",
+      "side": 1,
+      "message": "Understood, but in this case we do have a use case for exposing single block plain AES. It is already provided as an API by boringssl, so this is just exposing that so Rust libraries can use it as well",
+      "parentUuid": "23c4191a_bb64abce",
+      "revId": "46f313b639078b25b0d4a598d44a19646aaf25ef",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cf929f6a_3e14caab",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-02-17T12:41:45Z",
       "side": 1,
       "message": "Creating both an encryption key and a decryption key will have the effect of runnign the AES key schedule 2x, which won\u0027t be needed for most callers.",
+      "revId": "46f313b639078b25b0d4a598d44a19646aaf25ef",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "830c6e13_4afd424f",
+        "filename": "rust/bssl/src/aes.rs",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-02-21T17:59:25Z",
+      "side": 1,
+      "message": "Good point, we are trying to adhere to the interface of RustCrypto\u0027s AES implementation: https://github.com/RustCrypto/block-ciphers/tree/master/aes so that this can more easily be swapped in to projects already depending on it. \n\nThe alternative way to implement that would be to just save the key bytes on `new()` and then call `AES_set_encrypt_key` inside of the `encrypt` fn. But then this cost is paid at encryption/decryption time. I would prefer to keep the initialization of the keys inside of `new()` since that cost is only paid once.\n\nAnother option is to have separate ciphers for encrypting and decrypting, but that differs from the RustCrypto API",
+      "parentUuid": "cf929f6a_3e14caab",
       "revId": "46f313b639078b25b0d4a598d44a19646aaf25ef",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
