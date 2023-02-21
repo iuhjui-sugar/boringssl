@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a720ba82_d007e6a9",
+        "filename": "rust/bssl/src/lib.rs",
+        "patchSetId": 19
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 15791
+      },
+      "writtenOn": "2023-02-21T19:19:53Z",
+      "side": 1,
+      "message": "`///` comments to make them rustdoc-able. \n\nNaming-wise, would `MaybeFatalError` or something like that be a clearer name? For the method, `handle_result` is a little inscrutable. What about `panic_if_error()`?",
+      "revId": "51d9e6d32b6f02d5e6b739cbb9b39fc43a217d04",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
