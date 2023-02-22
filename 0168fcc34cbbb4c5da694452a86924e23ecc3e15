@@ -70,6 +70,24 @@
       "parentUuid": "a233d8ff_661473e9",
       "revId": "0168fcc34cbbb4c5da694452a86924e23ecc3e15",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49d391cc_efd9a07c",
+        "filename": "rust/bssl/src/aes.rs",
+        "patchSetId": 13
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-02-22T21:10:16Z",
+      "side": 1,
+      "message": "Updated so that computing the key schedule is now a one shot operation ie: `AesEncryptKey::new_aes_128(key: [u8; 16])`",
+      "parentUuid": "ec530430_ce6ed62d",
+      "revId": "0168fcc34cbbb4c5da694452a86924e23ecc3e15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
