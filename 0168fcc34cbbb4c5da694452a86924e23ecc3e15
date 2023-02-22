@@ -16,6 +16,24 @@
       "message": "What\u0027s the thinking between having both sized \"AES key\" types (which seem to just be a `[u8; 16]`, `[u8; 32]`, etc.), and also wrappers over `AES_KEY`? It seems to me only the latter is needed.\n\nIf you\u0027re going to just perform a single operation and then throw the key away, it doesn\u0027t really matter what intermediate types we set up because they\u0027ll all be around for the duration of a single function call anyway.\n\nIf you\u0027re going to perform lots of operations, you don\u0027t want to compute the AES key schedule multiple times. That means you want an `AesEncryptKey` or an `AesDecryptKey`. But if we have also a `Aes256Key`, it encourages people to hold onto one of those instead, but an `Aes256Key` doesn\u0027t actually do anything. Its only purpose is to transit between wherever you got your key material to the actual key schedule.\n\nWhat if, instead, we just had `AesDecryptKey::new_aes128(\u0026[u8; 16])`, `AesDecryptKey::new_aes256(\u0026[u8; 32])`, etc.?",
       "revId": "0168fcc34cbbb4c5da694452a86924e23ecc3e15",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a233d8ff_661473e9",
+        "filename": "rust/bssl/src/aes.rs",
+        "patchSetId": 13
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-02-22T20:24:43Z",
+      "side": 1,
+      "message": "My thinking was to abstract the key bytes from the user. If the key is just passed around as a byte array it might be easy to mistake it with another byte array, so by providing a wrapper type, it makes it harder to mistakenly use the wrong byte array.\n\nRegarding the multiple use of Aes256Key, it would be impossible for a user to hold onto it, because once `new_encrypt_key` is called on it, it is consumed, so rust enforces that it can never be used again.\n\nI agree though, that multiple key types might be confusing to the user, so I would be okay with updating it",
+      "parentUuid": "3c616a68_c250aa02",
+      "revId": "0168fcc34cbbb4c5da694452a86924e23ecc3e15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
