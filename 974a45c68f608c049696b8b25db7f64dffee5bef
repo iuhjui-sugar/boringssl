@@ -93,6 +93,30 @@
       },
       "revId": "974a45c68f608c049696b8b25db7f64dffee5bef",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b723c177_906a1a40",
+        "filename": "crypto/kyber/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 15796
+      },
+      "writtenOn": "2023-02-22T00:43:39Z",
+      "side": 1,
+      "message": "Yes, it only needs incremental squeezing, your API should work for that now.",
+      "parentUuid": "12cacce3_0281ee10",
+      "range": {
+        "startLine": 34,
+        "startChar": 50,
+        "endLine": 34,
+        "endChar": 66
+      },
+      "revId": "974a45c68f608c049696b8b25db7f64dffee5bef",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
