@@ -279,6 +279,24 @@
       "parentUuid": "0f56c161_48c7db5f",
       "revId": "1536465a9f198b2acefda7fa7e36bc71418e2d84",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b98f7785_9c222bda",
+        "filename": "crypto/perlasm/x86_64-xlate.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 1162,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-22T21:57:45Z",
+      "side": 1,
+      "message": "Looks plausible. I think I have an idea for testing this.\n\n1. I\u0027ll run the CQ here to make sure Windows/Mac/Linux are happy.\n2. I\u0027ll go upload a CL on top of this that writes to all the \"read-only\" data, to confirm every platform crashes.",
+      "parentUuid": "c8188bf1_91cefee0",
+      "revId": "1536465a9f198b2acefda7fa7e36bc71418e2d84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
