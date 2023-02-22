@@ -171,6 +171,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "feed9a54_62527b8c",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-22T22:12:10Z",
+      "side": 1,
+      "message": "`union` is, officially, not allowed to type-pun in C++ but allowed to type-pun in C. Unofficially, I think every compiler promises the C semantics in C++ because it\u0027s insane otherwise. However, it\u0027s a bit subtle because the C semantics only work when you read/write directly into a union. I.e. this is okay in C but not C++:\n\n```\nunion {\n  uint16_t a[2];\n  uint32_t b;\n} u;\nu.b \u003d 1;\nreturn a[0];\n```\n\nBut this is not okay:\n\n```\nunion {\n  uint16_t a[2];\n  uint32_t b;\n} u;\nu.b \u003d 1;\ndo_something(\u0026a[0]);\n```\n\nBecause that violates strict aliasing. Confusingly, this is still okay because `uint8_t` is (we assume) a character type:\n\n```\nunion {\n  uint8_t a[4];\n  uint32_t b;\n} u;\nu.b \u003d 1;\ndo_something(\u0026a[0]);\n```\n\nThis is too hard to keep track of, so I\u0027ve just been writing everything with the `memcpy` wrappers, which are unambiguously okay. :-)",
+      "parentUuid": "fa452b98_a167088b",
+      "revId": "5b2fbe42cf644f59abd750efc4f0651db9ffcea7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc3cb803_d3a018ad",
