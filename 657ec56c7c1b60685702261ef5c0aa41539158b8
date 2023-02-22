@@ -1,6 +1,40 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ac366ec_96ca656a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 12
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14726
+      },
+      "writtenOn": "2023-02-22T19:51:29Z",
+      "side": 1,
+      "message": "couple driveby thoughts",
+      "revId": "657ec56c7c1b60685702261ef5c0aa41539158b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa603569_5001ea7c",
+        "filename": "rust/bssl/src/aes.rs",
+        "patchSetId": 12
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 14726
+      },
+      "writtenOn": "2023-02-22T19:51:29Z",
+      "side": 1,
+      "message": "Wondering if this type should provide an AsRef\u003c[u8]\u003e impl?",
+      "revId": "657ec56c7c1b60685702261ef5c0aa41539158b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "87feabb8_c3c12f19",
@@ -67,6 +101,24 @@
       "writtenOn": "2023-02-22T19:49:32Z",
       "side": 1,
       "message": "good point, updated",
+      "parentUuid": "5b5ccb27_8f017fa6",
+      "revId": "657ec56c7c1b60685702261ef5c0aa41539158b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68967442_4c107cd2",
+        "filename": "rust/bssl/src/aes.rs",
+        "patchSetId": 12
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 14726
+      },
+      "writtenOn": "2023-02-22T19:51:29Z",
+      "side": 1,
+      "message": "FWIW if this borrowed-self function is returning a non-reference I think it should be `to_array`\n\nhttps://rust-lang.github.io/api-guidelines/naming.html#ad-hoc-conversions-follow-as_-to_-into_-conventions-c-conv\n\nIgnore this if it\u0027s changed to return a borrow.\n\nMaybe the naming making it clear there\u0027s a non-free conversion happening means it can return it by value.",
       "parentUuid": "5b5ccb27_8f017fa6",
       "revId": "657ec56c7c1b60685702261ef5c0aa41539158b8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
