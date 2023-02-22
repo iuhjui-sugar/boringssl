@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37d40018_f0da6b07",
+        "filename": "crypto/dsa/dsa_asn1.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-02-22T22:09:41Z",
+      "side": 1,
+      "message": "and q \u003c p?",
+      "revId": "91aa8b3c7a9eea75c07d9b4d1ec8c8f3d57d7cbd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "687882e3_382ddaad",
+        "filename": "crypto/dsa/dsa_asn1.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-02-22T22:09:41Z",
+      "side": 1,
+      "message": "\" the \"",
+      "range": {
+        "startLine": 114,
+        "startChar": 47,
+        "endLine": 114,
+        "endChar": 48
+      },
+      "revId": "91aa8b3c7a9eea75c07d9b4d1ec8c8f3d57d7cbd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
