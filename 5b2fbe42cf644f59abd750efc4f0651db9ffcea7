@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8c9d4ffe_272d63f4",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-02-22T22:04:52Z",
+      "side": 1,
+      "message": "Do you mean that it won\u0027t run on the builder? (It does pass on an Android-FIPS-with-delocate build.)",
+      "parentUuid": "8471923b_83ed0cc3",
+      "range": {
+        "startLine": 26,
+        "startChar": 13,
+        "endLine": 26,
+        "endChar": 37
+      },
+      "revId": "5b2fbe42cf644f59abd750efc4f0651db9ffcea7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5ed1e75f_41977077",
         "filename": "crypto/fipsmodule/rand/urandom_test.cc",
         "patchSetId": 8
@@ -54,6 +78,30 @@
       "writtenOn": "2023-02-22T21:41:53Z",
       "side": 1,
       "message": "This can also be `NT_PRSTATUS`",
+      "range": {
+        "startLine": 295,
+        "startChar": 55,
+        "endLine": 295,
+        "endChar": 66
+      },
+      "revId": "5b2fbe42cf644f59abd750efc4f0651db9ffcea7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a947e28d_4ed1703f",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-02-22T22:04:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ed1e75f_41977077",
       "range": {
         "startLine": 295,
         "startChar": 55,
@@ -81,6 +129,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa452b98_a167088b",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-02-22T22:04:52Z",
+      "side": 1,
+      "message": "Done. (I thought `union` was the verbose-but-safe way!)",
+      "parentUuid": "42424b00_57b1dc61",
+      "revId": "5b2fbe42cf644f59abd750efc4f0651db9ffcea7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc3cb803_d3a018ad",
@@ -104,6 +170,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cb98f06_58dc849c",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-02-22T22:04:52Z",
+      "side": 1,
+      "message": "Oops, yes. Thanks.",
+      "parentUuid": "dc3cb803_d3a018ad",
+      "range": {
+        "startLine": 527,
+        "startChar": 36,
+        "endLine": 527,
+        "endChar": 44
+      },
+      "revId": "5b2fbe42cf644f59abd750efc4f0651db9ffcea7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "da47400b_35fe1f13",
@@ -117,6 +207,24 @@
       "writtenOn": "2023-02-22T21:41:53Z",
       "side": 1,
       "message": "Nit: 80 chars",
+      "revId": "5b2fbe42cf644f59abd750efc4f0651db9ffcea7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e5af3a4_999ec38e",
+        "filename": "crypto/rand_extra/passive.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-02-22T22:04:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da47400b_35fe1f13",
       "revId": "5b2fbe42cf644f59abd750efc4f0651db9ffcea7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
