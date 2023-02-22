@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6eb8e1b2_01edd164",
+        "filename": "crypto/cipher_extra/asm/aes128gcmsiv-x86_64.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 15776
+      },
+      "writtenOn": "2023-02-22T20:40:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3c17266_19a40a4f",
+      "revId": "1536465a9f198b2acefda7fa7e36bc71418e2d84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "00fc9b4a_ebb11f08",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-02-22T19:32:44Z",
       "side": 1,
       "message": "Extremely nitpicky nitpick that probably doesn\u0027t matter:\n\nI suspect `.text` wants to come before `.align 64` to have an effect. Although I\u0027m not sure this had any effect anyway, considering that what comes afterwards has its own `.align` markers. *shrug*",
+      "revId": "1536465a9f198b2acefda7fa7e36bc71418e2d84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27cf3a4f_4ca605c8",
+        "filename": "crypto/fipsmodule/aes/asm/aesni-x86_64.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 3804,
+      "author": {
+        "id": 15776
+      },
+      "writtenOn": "2023-02-22T20:40:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00fc9b4a_ebb11f08",
       "revId": "1536465a9f198b2acefda7fa7e36bc71418e2d84",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -52,6 +88,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "64d7c370_734e8c82",
+        "filename": "crypto/fipsmodule/aes/asm/vpaes-x86_64.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 1401,
+      "author": {
+        "id": 15776
+      },
+      "writtenOn": "2023-02-22T20:40:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10081ed5_55478f20",
+      "revId": "1536465a9f198b2acefda7fa7e36bc71418e2d84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c354f41b_e7c3bf94",
@@ -65,6 +119,24 @@
       "writtenOn": "2023-02-22T19:32:44Z",
       "side": 1,
       "message": "Extremely nitpicky nitpick that probably doesn\u0027t matter:\n\nI suspect `.text` wants to come before `.align 64` to have an effect. Although I\u0027m not sure this had any effect anyway, considering that what comes afterwards has its own `.align` markers. *shrug*",
+      "revId": "1536465a9f198b2acefda7fa7e36bc71418e2d84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15e008b4_9855ed49",
+        "filename": "crypto/fipsmodule/bn/asm/rsaz-avx2.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 1754,
+      "author": {
+        "id": 15776
+      },
+      "writtenOn": "2023-02-22T20:40:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c354f41b_e7c3bf94",
       "revId": "1536465a9f198b2acefda7fa7e36bc71418e2d84",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -86,6 +158,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "73b41300_b0054098",
+        "filename": "crypto/fipsmodule/modes/asm/aesni-gcm-x86_64.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 1070,
+      "author": {
+        "id": 15776
+      },
+      "writtenOn": "2023-02-22T20:40:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa17fb9a_1f9fc210",
+      "revId": "1536465a9f198b2acefda7fa7e36bc71418e2d84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4f1ba391_73be596b",
@@ -99,6 +189,24 @@
       "writtenOn": "2023-02-22T19:32:44Z",
       "side": 1,
       "message": "Extremely nitpicky nitpick that probably doesn\u0027t matter:\n\nI suspect `.text` wants to come before `.align 64` to have an effect. Although I\u0027m not sure this had any effect anyway, considering nothing comes afterwards anyway.",
+      "revId": "1536465a9f198b2acefda7fa7e36bc71418e2d84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4a31bef_c26b5fcb",
+        "filename": "crypto/fipsmodule/modes/asm/ghash-x86_64.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 1311,
+      "author": {
+        "id": 15776
+      },
+      "writtenOn": "2023-02-22T20:40:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4f1ba391_73be596b",
       "revId": "1536465a9f198b2acefda7fa7e36bc71418e2d84",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -120,6 +228,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6d039a8_6616c4f3",
+        "filename": "crypto/fipsmodule/sha/asm/sha1-x86_64.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 1836,
+      "author": {
+        "id": 15776
+      },
+      "writtenOn": "2023-02-22T20:40:38Z",
+      "side": 1,
+      "message": "I have fixed all of those. I don\u0027t know how I managed to get that wrong. Thanks.",
+      "parentUuid": "679eaf72_02ba965f",
+      "revId": "1536465a9f198b2acefda7fa7e36bc71418e2d84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0f56c161_48c7db5f",
@@ -133,6 +259,24 @@
       "writtenOn": "2023-02-22T19:32:44Z",
       "side": 1,
       "message": "I think this block also needs tweaks. I think we\u0027re otherwise just defining a section named `.rodata` without specifying any particular bits on it.\n\nIn particular, it seems Windows canonically calls its read-only section `.rdata`:\nhttps://learn.microsoft.com/en-us/windows/win32/debug/pe-format\n\nffmpeg\u0027s macros seem to just assume that name does the right thing.\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/ffmpeg/libavutil/x86/x86inc.asm;l\u003d88?q\u003dSECTION_RODATA\n\nWhich matches the NASM documentation (\"The defaults assumed by NASM [...]\"):\nhttps://www.nasm.us/xdoc/2.16.01/html/nasmdoc8.html#section-8.5.1\n\nThough I see the nasm codepath explicitly specifies it for `.pdata` and `.xdata` anyway. Can\u0027t hurt to be consistent I suppose.\n\nIn the MASM path (which we don\u0027t currently use though I\u0027ve been pondering whether we should change that), I\u0027m not sure. It mentions \"default characteristics\", but it\u0027s unclear if those are global defaults or defaults for the segment name. Copying the `.pdata` and `.xdata` bits again seems safe though?\nhttps://learn.microsoft.com/en-us/cpp/assembler/masm/segment?view\u003dmsvc-170",
+      "revId": "1536465a9f198b2acefda7fa7e36bc71418e2d84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8188bf1_91cefee0",
+        "filename": "crypto/perlasm/x86_64-xlate.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 1162,
+      "author": {
+        "id": 15776
+      },
+      "writtenOn": "2023-02-22T20:40:38Z",
+      "side": 1,
+      "message": "Ok, I\u0027m really only guessing here and I have no way of testing it. I pushed a version possibly matching what you suggest. I hope this is what you intended.",
+      "parentUuid": "0f56c161_48c7db5f",
       "revId": "1536465a9f198b2acefda7fa7e36bc71418e2d84",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
