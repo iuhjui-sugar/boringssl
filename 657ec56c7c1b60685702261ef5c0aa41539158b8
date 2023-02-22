@@ -16,6 +16,24 @@
       "message": "Should we return a \u0026[u8; 32] or equivalent for as_array() -- is 32 bytes a little fat to be returning directly? I\u0027m not sure where the cost of copying becomes significant.",
       "revId": "657ec56c7c1b60685702261ef5c0aa41539158b8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b479ced8_c641217c",
+        "filename": "rust/bssl/src/aes.rs",
+        "patchSetId": 12
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-02-22T19:43:32Z",
+      "side": 1,
+      "message": "Wouldn\u0027t that just become the same as as_slice() then?",
+      "parentUuid": "87feabb8_c3c12f19",
+      "revId": "657ec56c7c1b60685702261ef5c0aa41539158b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
