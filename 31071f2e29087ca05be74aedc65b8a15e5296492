@@ -71,6 +71,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "73710fec_f1639c29",
+        "filename": "rust/bssl/src/hmac.rs",
+        "patchSetId": 17
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-02-22T22:44:32Z",
+      "side": 1,
+      "message": "On second thought, I agree that the trait isn\u0027t needed, since exposing a public trait might encourage users to implement it, which we don\u0027t want. I removed the trait and just directly implemented the structs",
+      "parentUuid": "e620c49f_dec5b676",
+      "revId": "31071f2e29087ca05be74aedc65b8a15e5296492",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "92f88bae_6f8a567c",
@@ -137,6 +155,24 @@
       "side": 1,
       "message": "the goal here is to not have rust libraries handle allocation failures and instead just panic/abort/crash, rather than continue to run and have an attacker potentially be able to exploit the malloc failures",
       "parentUuid": "e7d12fa7_3d97aad2",
+      "revId": "31071f2e29087ca05be74aedc65b8a15e5296492",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c54118d_54b9f146",
+        "filename": "rust/bssl/src/lib.rs",
+        "patchSetId": 17
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-02-22T22:44:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5efceb97_69ec7637",
       "revId": "31071f2e29087ca05be74aedc65b8a15e5296492",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
