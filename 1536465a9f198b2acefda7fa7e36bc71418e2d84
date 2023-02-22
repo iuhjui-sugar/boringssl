@@ -297,6 +297,24 @@
       "parentUuid": "c8188bf1_91cefee0",
       "revId": "1536465a9f198b2acefda7fa7e36bc71418e2d84",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "505947d1_da1759ab",
+        "filename": "crypto/perlasm/x86_64-xlate.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 1162,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-22T22:04:54Z",
+      "side": 1,
+      "message": "Alright, let\u0027s see how the CQ feels about these:\nhttps://boringssl-review.googlesource.com/c/boringssl/+/57525\nhttps://boringssl-review.googlesource.com/c/boringssl/+/57526",
+      "parentUuid": "b98f7785_9c222bda",
+      "revId": "1536465a9f198b2acefda7fa7e36bc71418e2d84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
