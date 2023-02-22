@@ -1328,6 +1328,7 @@ __ecp_nistz256_mul_montq:
 	mov	%rax, $t1
 	mulq	$acc1
 	mov	.Lpoly+8*1(%rip),$poly1
+	mov	$poly1,.Lpoly+8*1(%rip)
 	mov	%rax, $acc0
 	mov	$t1, %rax
 	mov	%rdx, $acc1
@@ -1795,6 +1796,7 @@ __ecp_nistz256_mul_montx:
 	xor	$acc5, $acc5		# cf=0
 	mulx	$acc3, $t1, $acc3
 	mov	.Lpoly+8*3(%rip), $poly3
+	mov	$poly3, .Lpoly+8*3(%rip)
 	adc	$t0, $acc1
 	mulx	$acc4, $t0, $acc4
 	 mov	$acc0, %rdx
