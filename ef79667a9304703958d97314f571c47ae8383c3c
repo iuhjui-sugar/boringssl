@@ -124,6 +124,24 @@
       "parentUuid": "b0f6b1f1_28cda9fa",
       "revId": "ef79667a9304703958d97314f571c47ae8383c3c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab6a934e_89cd8309",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-22T21:41:53Z",
+      "side": 1,
+      "message": "Yeah, the CQ pool doesn\u0027t have any devices that can run our FIPS tests, only the CI pool. I filed https://crbug.com/1418460 to get that fixed.\n\nNever set that up because, originally, the CI didn\u0027t work on Android at all for some mysterious reason I didn\u0027t understand. That mysterious reason is seemingly fixed, except we don\u0027t have the capacity for it.",
+      "parentUuid": "67804e46_1489658d",
+      "revId": "ef79667a9304703958d97314f571c47ae8383c3c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }

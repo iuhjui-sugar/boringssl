@@ -16,6 +16,109 @@
       "message": "(Back to you because I don\u0027t trust myself with C11 atomics, and because of the non-trivial addition to ignore /dev/properties files.)",
       "revId": "5b2fbe42cf644f59abd750efc4f0651db9ffcea7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8471923b_83ed0cc3",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-22T21:41:53Z",
+      "side": 1,
+      "message": "I forget what made this static-linking-only, but I suspect this still won\u0027t actually run on Android FIPS.",
+      "range": {
+        "startLine": 26,
+        "startChar": 13,
+        "endLine": 26,
+        "endChar": 37
+      },
+      "revId": "5b2fbe42cf644f59abd750efc4f0651db9ffcea7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ed1e75f_41977077",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 295,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-22T21:41:53Z",
+      "side": 1,
+      "message": "This can also be `NT_PRSTATUS`",
+      "range": {
+        "startLine": 295,
+        "startChar": 55,
+        "endLine": 295,
+        "endChar": 66
+      },
+      "revId": "5b2fbe42cf644f59abd750efc4f0651db9ffcea7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42424b00_57b1dc61",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 399,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-22T21:41:53Z",
+      "side": 1,
+      "message": "Irritatingly UB in C++ (yes, it\u0027s terrible).\n\n```\nuint64_t word \u003d ptrace(PTRACE_PEEKDATA, child_pid,\n                       reinterpret_cast\u003cvoid *\u003e(aligned_addr), 0);\nuint8_t bytes[8];\nCRYPTO_store_u64_le(bytes, word);\nreturn bytes[offset];\n```",
+      "revId": "5b2fbe42cf644f59abd750efc4f0651db9ffcea7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc3cb803_d3a018ad",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 527,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-22T21:41:53Z",
+      "side": 1,
+      "message": "Reading `filename` right after you free it here. Guessing that\u0027s why the tests are all broken.\n\nMaybe just toss it into a `std::string` and don\u0027t think about it too hard. :-) (Then you can also replace CBB with just `std::string::push_back`.)",
+      "range": {
+        "startLine": 527,
+        "startChar": 36,
+        "endLine": 527,
+        "endChar": 44
+      },
+      "revId": "5b2fbe42cf644f59abd750efc4f0651db9ffcea7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da47400b_35fe1f13",
+        "filename": "crypto/rand_extra/passive.c",
+        "patchSetId": 8
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-22T21:41:53Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "5b2fbe42cf644f59abd750efc4f0651db9ffcea7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
