@@ -34,6 +34,24 @@
       "parentUuid": "3c616a68_c250aa02",
       "revId": "0168fcc34cbbb4c5da694452a86924e23ecc3e15",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "233eb1f7_6245f6b9",
+        "filename": "rust/bssl/src/aes.rs",
+        "patchSetId": 13
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 15791
+      },
+      "writtenOn": "2023-02-22T20:28:46Z",
+      "side": 1,
+      "message": "`Aes(128|256)Key` are useful for hinting to the user that they could/should use those types to represent a key loaded from wherever their keys come from rather than plain byte arrays -- but maybe that\u0027s out of scope for this library?",
+      "parentUuid": "a233d8ff_661473e9",
+      "revId": "0168fcc34cbbb4c5da694452a86924e23ecc3e15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
