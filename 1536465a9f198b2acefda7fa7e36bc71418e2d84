@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3c17266_19a40a4f",
+        "filename": "crypto/cipher_extra/asm/aes128gcmsiv-x86_64.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-22T19:32:44Z",
+      "side": 1,
+      "message": "Nit: Looks like this is redundant with the `.text` a line below. (Yikes, why was this in `.data` before?)",
+      "revId": "1536465a9f198b2acefda7fa7e36bc71418e2d84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00fc9b4a_ebb11f08",
+        "filename": "crypto/fipsmodule/aes/asm/aesni-x86_64.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 3804,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-22T19:32:44Z",
+      "side": 1,
+      "message": "Extremely nitpicky nitpick that probably doesn\u0027t matter:\n\nI suspect `.text` wants to come before `.align 64` to have an effect. Although I\u0027m not sure this had any effect anyway, considering that what comes afterwards has its own `.align` markers. *shrug*",
+      "revId": "1536465a9f198b2acefda7fa7e36bc71418e2d84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10081ed5_55478f20",
+        "filename": "crypto/fipsmodule/aes/asm/vpaes-x86_64.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 1401,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-22T19:32:44Z",
+      "side": 1,
+      "message": "I think this needs a `.text` here or a few lines later, because otherwise `se_handler` will end up in `.rodata`.\n\n(Not that any of the SEH handlers are correct in the first place. We need to redo all that to *actually* align with Win64 calling convention.)",
+      "revId": "1536465a9f198b2acefda7fa7e36bc71418e2d84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c354f41b_e7c3bf94",
+        "filename": "crypto/fipsmodule/bn/asm/rsaz-avx2.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 1754,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-22T19:32:44Z",
+      "side": 1,
+      "message": "Extremely nitpicky nitpick that probably doesn\u0027t matter:\n\nI suspect `.text` wants to come before `.align 64` to have an effect. Although I\u0027m not sure this had any effect anyway, considering that what comes afterwards has its own `.align` markers. *shrug*",
+      "revId": "1536465a9f198b2acefda7fa7e36bc71418e2d84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa17fb9a_1f9fc210",
+        "filename": "crypto/fipsmodule/modes/asm/aesni-gcm-x86_64.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 1070,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-22T19:32:44Z",
+      "side": 1,
+      "message": "Extremely nitpicky nitpick that probably doesn\u0027t matter:\n\nI suspect `.text` wants to come before `.align 64` to have an effect. Although I\u0027m not sure this had any effect anyway, considering nothing comes afterwards anyway.",
+      "revId": "1536465a9f198b2acefda7fa7e36bc71418e2d84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4f1ba391_73be596b",
+        "filename": "crypto/fipsmodule/modes/asm/ghash-x86_64.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 1311,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-22T19:32:44Z",
+      "side": 1,
+      "message": "Extremely nitpicky nitpick that probably doesn\u0027t matter:\n\nI suspect `.text` wants to come before `.align 64` to have an effect. Although I\u0027m not sure this had any effect anyway, considering nothing comes afterwards anyway.",
+      "revId": "1536465a9f198b2acefda7fa7e36bc71418e2d84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "679eaf72_02ba965f",
+        "filename": "crypto/fipsmodule/sha/asm/sha1-x86_64.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 1836,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-22T19:32:44Z",
+      "side": 1,
+      "message": "Extremely nitpicky nitpick that probably doesn\u0027t matter:\n\nI suspect `.text` wants to come before `.align 64` to have an effect. Although I\u0027m not sure this had any effect anyway, considering what comes afterwards has its own `.align` marker.",
+      "revId": "1536465a9f198b2acefda7fa7e36bc71418e2d84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f56c161_48c7db5f",
+        "filename": "crypto/perlasm/x86_64-xlate.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 1162,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-22T19:32:44Z",
+      "side": 1,
+      "message": "I think this block also needs tweaks. I think we\u0027re otherwise just defining a section named `.rodata` without specifying any particular bits on it.\n\nIn particular, it seems Windows canonically calls its read-only section `.rdata`:\nhttps://learn.microsoft.com/en-us/windows/win32/debug/pe-format\n\nffmpeg\u0027s macros seem to just assume that name does the right thing.\nhttps://source.chromium.org/chromium/chromium/src/+/main:third_party/ffmpeg/libavutil/x86/x86inc.asm;l\u003d88?q\u003dSECTION_RODATA\n\nWhich matches the NASM documentation (\"The defaults assumed by NASM [...]\"):\nhttps://www.nasm.us/xdoc/2.16.01/html/nasmdoc8.html#section-8.5.1\n\nThough I see the nasm codepath explicitly specifies it for `.pdata` and `.xdata` anyway. Can\u0027t hurt to be consistent I suppose.\n\nIn the MASM path (which we don\u0027t currently use though I\u0027ve been pondering whether we should change that), I\u0027m not sure. It mentions \"default characteristics\", but it\u0027s unclear if those are global defaults or defaults for the segment name. Copying the `.pdata` and `.xdata` bits again seems safe though?\nhttps://learn.microsoft.com/en-us/cpp/assembler/masm/segment?view\u003dmsvc-170",
+      "revId": "1536465a9f198b2acefda7fa7e36bc71418e2d84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
