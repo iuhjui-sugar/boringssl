@@ -36,6 +36,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "390e22d2_c9a4dd20",
+        "filename": "rust/bssl/build.rs",
+        "patchSetId": 17
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-02-22T22:47:19Z",
+      "side": 1,
+      "message": "I just removed the build.rs for now. It can always be added back later if needed.",
+      "parentUuid": "1c05d22f_8fbde534",
+      "revId": "31071f2e29087ca05be74aedc65b8a15e5296492",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2559a1d4_c8a0b476",
