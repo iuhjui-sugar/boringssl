@@ -41,6 +41,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "77ed1b1d_e1baf8d6",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-02-22T21:21:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e914a148_6a1170ba",
+      "range": {
+        "startLine": 26,
+        "startChar": 13,
+        "endLine": 26,
+        "endChar": 48
+      },
+      "revId": "2f75d3ce9e67e881db59a6470e9ae591ffa86679",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a8185e23_5a80d226",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-02-22T18:33:18Z",
       "side": 1,
       "message": "I found this constant in the NDK. Ditto below. I think you just need to include \u003celf.h\u003e for it. (It\u0027s in `man 5 elf` on my machine.)",
+      "range": {
+        "startLine": 276,
+        "startChar": 52,
+        "endLine": 276,
+        "endChar": 63
+      },
+      "revId": "2f75d3ce9e67e881db59a6470e9ae591ffa86679",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "84cefff7_b14f9769",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-02-22T21:21:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8185e23_5a80d226",
       "range": {
         "startLine": 276,
         "startChar": 52,
@@ -81,6 +129,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "44495ae4_e098a51b",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-02-22T21:21:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "78434972_b329c243",
+      "revId": "2f75d3ce9e67e881db59a6470e9ae591ffa86679",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d067230f_54936aff",
@@ -98,6 +164,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7525c92_3963badb",
+        "filename": "crypto/rand_extra/passive.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-02-22T21:21:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d067230f_54936aff",
+      "revId": "2f75d3ce9e67e881db59a6470e9ae591ffa86679",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c9cb2135_3cc7f3fd",
@@ -111,6 +195,24 @@
       "writtenOn": "2023-02-22T18:33:18Z",
       "side": 1,
       "message": "```\n  static_assert(sizeof(kSocketPath) \u003c\u003d UNIX_PATH_MAX,\n                \"socket path too long\");\n```",
+      "revId": "2f75d3ce9e67e881db59a6470e9ae591ffa86679",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e971297_5ff57659",
+        "filename": "crypto/rand_extra/passive.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-02-22T21:21:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9cb2135_3cc7f3fd",
       "revId": "2f75d3ce9e67e881db59a6470e9ae591ffa86679",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }

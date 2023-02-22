@@ -106,6 +106,24 @@
       "parentUuid": "14a8e18b_a7c8aa7e",
       "revId": "ef79667a9304703958d97314f571c47ae8383c3c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67804e46_1489658d",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 482,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-02-22T21:21:27Z",
+      "side": 1,
+      "message": "Something extra to note here: I was testing on Android with an Android FIPS build, but that\u0027s useless since that\u0027s a shared-library build and this test is disabled on shared-library builds. I fixed that (had to add the reading of strings and ignoring /dev/properties) but it does show that even with \"Choose Tryjobs\" there are no builders for this test on Android, and the prior changes in this stack show that we don\u0027t run FIPS tests on the builders I think? (I.e. the ACVP tests were broken and I had been assuming that the trybots and builders checked that, but we didn\u0027t notice.)",
+      "parentUuid": "b0f6b1f1_28cda9fa",
+      "revId": "ef79667a9304703958d97314f571c47ae8383c3c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }

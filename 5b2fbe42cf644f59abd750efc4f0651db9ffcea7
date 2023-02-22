@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a620f0f8_50b3615b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-02-22T21:21:27Z",
+      "side": 1,
+      "message": "(Back to you because I don\u0027t trust myself with C11 atomics, and because of the non-trivial addition to ignore /dev/properties files.)",
+      "revId": "5b2fbe42cf644f59abd750efc4f0651db9ffcea7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
