@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79efa974_ac0ae0ac",
+        "filename": "BUILDING.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-22T16:55:11Z",
+      "side": 1,
+      "message": "Picked 19 because it\u0027s the minimum in the current NDK",
+      "range": {
+        "startLine": 99,
+        "startChar": 37,
+        "endLine": 99,
+        "endChar": 39
+      },
+      "revId": "00c212cb6a40036130023c37b94e20002ddc2706",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
