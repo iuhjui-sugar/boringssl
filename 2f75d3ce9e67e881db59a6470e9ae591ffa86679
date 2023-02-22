@@ -16,6 +16,103 @@
       "message": "This has been waiting around for a while but we\u0027ll need it now that the next FIPS cycle is gearing up.",
       "revId": "2f75d3ce9e67e881db59a6470e9ae591ffa86679",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e914a148_6a1170ba",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-22T18:33:18Z",
+      "side": 1,
+      "message": "We have an OPENSSL_URANDOM now, which might be a little tidier than !BORINGSSL_UNSAFE_DETERMINISTIC_MODE.",
+      "range": {
+        "startLine": 26,
+        "startChar": 13,
+        "endLine": 26,
+        "endChar": 48
+      },
+      "revId": "2f75d3ce9e67e881db59a6470e9ae591ffa86679",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8185e23_5a80d226",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 276,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-22T18:33:18Z",
+      "side": 1,
+      "message": "I found this constant in the NDK. Ditto below. I think you just need to include \u003celf.h\u003e for it. (It\u0027s in `man 5 elf` on my machine.)",
+      "range": {
+        "startLine": 276,
+        "startChar": 52,
+        "endLine": 276,
+        "endChar": 63
+      },
+      "revId": "2f75d3ce9e67e881db59a6470e9ae591ffa86679",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78434972_b329c243",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-22T18:33:18Z",
+      "side": 1,
+      "message": "Optional: This works, but it seems a bit tidier to just do:\n\n```\nstatic bool regs_set(int child_pid, const struct regs *new_regs) {\n  struct iovec io;\n  io.iov_base \u003d new_regs-\u003eregs;\n  io.iov_len \u003d sizeof(new_regs-\u003eregs);\n  return ptrace(PTRACE_SETREGSET, child_pid, (void *)/*NT_PRSTATUS*/ 1, \u0026io) \u003d\u003d\n         0;\n}\n\nstatic bool regs_set_ret(int child_pid, int ret) {\n  struct regs regs;\n  if (!regs_read(\u0026regs, child_pid)) {\n    return false;\n  }\n  regs-\u003eregs[0] \u003d ret;\n  return regs_set(child_pid, \u0026regs);\n}\n\nstatic bool regs_break_syscall(int child_pid, const struct regs *orig_regs) {\n  // Replacing the syscall number with -1 doesn\u0027t work on AArch64 thus we set\n  // the first argument to -1, which suffices to break the syscalls that we care\n  // about here.\n  struct regs copy \u003d *orig_regs;\n  copy-\u003eregs[0] \u003d -1;\n  return regs_set(child_pid, \u0026copy);\n}\n\n```",
+      "revId": "2f75d3ce9e67e881db59a6470e9ae591ffa86679",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d067230f_54936aff",
+        "filename": "crypto/rand_extra/passive.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-22T18:33:18Z",
+      "side": 1,
+      "message": "Optional: Not that it matters, but since this\u0027ll never build on MSVC, we could just use C11 atomics straight and reduce some unnecessary cacheline contention.",
+      "revId": "2f75d3ce9e67e881db59a6470e9ae591ffa86679",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9cb2135_3cc7f3fd",
+        "filename": "crypto/rand_extra/passive.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-22T18:33:18Z",
+      "side": 1,
+      "message": "```\n  static_assert(sizeof(kSocketPath) \u003c\u003d UNIX_PATH_MAX,\n                \"socket path too long\");\n```",
+      "revId": "2f75d3ce9e67e881db59a6470e9ae591ffa86679",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
