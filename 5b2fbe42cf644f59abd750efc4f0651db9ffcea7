@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f1cf546d_e534f453",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-22T22:06:50Z",
+      "side": 1,
+      "message": "On the builder, yeah. Currently the only Android FIPS configuration we run is the shared library one. Does the static library one work? I can add it...",
+      "parentUuid": "8c9d4ffe_272d63f4",
+      "range": {
+        "startLine": 26,
+        "startChar": 13,
+        "endLine": 26,
+        "endChar": 37
+      },
+      "revId": "5b2fbe42cf644f59abd750efc4f0651db9ffcea7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5ed1e75f_41977077",
         "filename": "crypto/fipsmodule/rand/urandom_test.cc",
         "patchSetId": 8
