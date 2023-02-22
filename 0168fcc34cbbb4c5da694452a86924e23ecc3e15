@@ -52,6 +52,24 @@
       "parentUuid": "a233d8ff_661473e9",
       "revId": "0168fcc34cbbb4c5da694452a86924e23ecc3e15",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ec530430_ce6ed62d",
+        "filename": "rust/bssl/src/aes.rs",
+        "patchSetId": 13
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-22T20:32:06Z",
+      "side": 1,
+      "message": "Couldn\u0027t the user just as easily mistake it with another byte array just *before* they wrap in `Aes256Key`? Especially if it\u0027s consumed, it seems to me this type is only useful immediately before calling `new_encrypt_key` and `new_decrypt_key`. But then it\u0027s not doing anything, because effectively `Aes256Key` + `new_encrypt_key` are a single operation anyway.",
+      "parentUuid": "a233d8ff_661473e9",
+      "revId": "0168fcc34cbbb4c5da694452a86924e23ecc3e15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
