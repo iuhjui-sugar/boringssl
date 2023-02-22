@@ -35,6 +35,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "41503f9b_6b3772df",
+        "filename": "rust/bssl/src/aes.rs",
+        "patchSetId": 12
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-02-22T20:11:17Z",
+      "side": 1,
+      "message": "Sure, that makes sense. I added an AsRef\u003c[u8]\u003e impl and removed the `as_slice` fn",
+      "parentUuid": "fa603569_5001ea7c",
+      "revId": "657ec56c7c1b60685702261ef5c0aa41539158b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "87feabb8_c3c12f19",
@@ -120,6 +138,24 @@
       "side": 1,
       "message": "FWIW if this borrowed-self function is returning a non-reference I think it should be `to_array`\n\nhttps://rust-lang.github.io/api-guidelines/naming.html#ad-hoc-conversions-follow-as_-to_-into_-conventions-c-conv\n\nIgnore this if it\u0027s changed to return a borrow.\n\nMaybe the naming making it clear there\u0027s a non-free conversion happening means it can return it by value.",
       "parentUuid": "5b5ccb27_8f017fa6",
+      "revId": "657ec56c7c1b60685702261ef5c0aa41539158b8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2dbb03cc_d83b0fb5",
+        "filename": "rust/bssl/src/aes.rs",
+        "patchSetId": 12
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-02-22T20:11:17Z",
+      "side": 1,
+      "message": "good point, if I had left it returning by value, I think `to_array` would have been the right name (instead of `as_array`).\n\nI updated it to return a borrow, so `as_array` should be the correct name now",
+      "parentUuid": "68967442_4c107cd2",
       "revId": "657ec56c7c1b60685702261ef5c0aa41539158b8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
