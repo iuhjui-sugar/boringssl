@@ -24,43 +24,28 @@
 //! Rust boringssl binding
 
 extern crate core;
-use core::ops::Not;
 
 /// BoringSSL implemented plain aes operations.
 pub mod aes;
 
-/// BoringSSL implemented hmac operations.
-pub mod hmac;
-
 /// BoringSSL implemented hash functions.
 pub mod digest;
 
-/// Used for handling result types from C APIs.
-trait PanicResultHandler {
-    /// Panics if a C api returns an invalid result
-    /// Used for APIs which return error codes for allocation failures.
-    fn panic_if_error(&self);
-}
+/// boring ssl implemented hkdf operations
+pub mod hkdf;
 
-impl PanicResultHandler for i32 {
-    /// BoringSSL APIs return 1 on success or 0 on allocation failure.
-    #[allow(clippy::expect_used)]
-    fn panic_if_error(&self) {
-        self.gt(&0).then_some(()).expect("allocation failed!")
+/// BoringSSL implemented hmac operations.
+pub mod hmac;
+
+/// Helper function for API calls to panic on fatal errors. For example for allocation errors
+/// we want to panic/abort rather than return a error code and have a caller try to "handle" it.
+fn check(result: bool) {
+    if !result {
+        panic!("Fatal API failure")
     }
 }
 
-impl<T> PanicResultHandler for *mut T {
-    /// Boringssl APIs return NULL on allocation failure for APIs that return a CTX.
-    #[allow(clippy::expect_used)]
-    fn panic_if_error(&self) {
-        self.is_null()
-            .not()
-            .then_some(())
-            .expect("allocation failed!")
-    }
-}
-
+/// Helper struct for passing slices over FFI
 struct CSlice<'a>(&'a [u8]);
 
 impl CSlice<'_> {
