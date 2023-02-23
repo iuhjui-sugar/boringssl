@@ -34,6 +34,69 @@
       "parentUuid": "58b0cb68_7b1b5f51",
       "revId": "7f608caa535b7c5cf197f043e5ab19d46a71c127",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46c5cf11_0a567810",
+        "filename": "crypto/kyber/keccak.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-23T17:09:42Z",
+      "side": 1,
+      "message": "I\u0027m just going to take your word and test vectors for this one. :-) I\u0027ve reviewed it just for staying within bounds of `state`.",
+      "revId": "7f608caa535b7c5cf197f043e5ab19d46a71c127",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33ac998a_e237e5a4",
+        "filename": "crypto/kyber/keccak.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-23T17:09:42Z",
+      "side": 1,
+      "message": "`#include \u003cstdlib.h\u003e`",
+      "range": {
+        "startLine": 132,
+        "startChar": 6,
+        "endLine": 132,
+        "endChar": 11
+      },
+      "revId": "7f608caa535b7c5cf197f043e5ab19d46a71c127",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62035621_d5aeb494",
+        "filename": "crypto/kyber/keccak.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-23T17:09:42Z",
+      "side": 1,
+      "message": "C is the worst. I think this is actually UB because the `uint8_t[200]` arm of the union is active, yet we\u0027re accessing it as `uint64_t*`. (The union carve-out only applies when you access the field directly, and the strict aliasing character type carve-out only applies when the pointer type is characters.)\n\nI believe this change avoids it:\nhttps://boringssl-review.googlesource.com/c/boringssl/+/57566",
+      "range": {
+        "startLine": 150,
+        "startChar": 15,
+        "endLine": 150,
+        "endChar": 29
+      },
+      "revId": "7f608caa535b7c5cf197f043e5ab19d46a71c127",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
