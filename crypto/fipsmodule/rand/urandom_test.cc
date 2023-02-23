@@ -221,14 +221,14 @@ static bool regs_set_ret(int child_pid, int ret);
 // to fail to run.
 static bool regs_break_syscall(int child_pid, const struct regs *orig_regs);
 
-#if defined(OPENSSL_X86_64)
-
 struct regs {
   uintptr_t syscall;
   uintptr_t args[3];
   uintptr_t ret;
   struct user_regs_struct regs;
 };
+
+#if defined(OPENSSL_X86_64)
 
 static bool regs_read(struct regs *out_regs, int child_pid) {
   if (ptrace(PTRACE_GETREGS, child_pid, nullptr, &out_regs->regs) != 0) {
@@ -264,33 +264,26 @@ static bool regs_break_syscall(int child_pid, const struct regs *orig_regs) {
 
 #elif defined(OPENSSL_AARCH64)
 
-struct regs {
-  uintptr_t syscall;
-  uintptr_t args[3];
-  uintptr_t ret;
-  uint64_t regs[9];
-};
-
 static bool regs_read(struct regs *out_regs, int child_pid) {
   struct iovec io;
-  io.iov_base = out_regs->regs;
+  io.iov_base = &out_regs->regs;
   io.iov_len = sizeof(out_regs->regs);
   if (ptrace(PTRACE_GETREGSET, child_pid, NT_PRSTATUS, &io) != 0) {
     return false;
   }
 
-  out_regs->syscall = out_regs->regs[8];
-  out_regs->ret = out_regs->regs[0];
-  out_regs->args[0] = out_regs->regs[0];
-  out_regs->args[1] = out_regs->regs[1];
-  out_regs->args[2] = out_regs->regs[2];
+  out_regs->syscall = out_regs->regs.regs[8];
+  out_regs->ret = out_regs->regs.regs[0];
+  out_regs->args[0] = out_regs->regs.regs[0];
+  out_regs->args[1] = out_regs->regs.regs[1];
+  out_regs->args[2] = out_regs->regs.regs[2];
 
   return true;
 }
 
 static bool regs_set(int child_pid, const struct regs *new_regs) {
   struct iovec io;
-  io.iov_base = (void *) new_regs->regs;
+  io.iov_base = const_cast<struct user_regs_struct *>(&new_regs->regs);
   io.iov_len = sizeof(new_regs->regs);
   return ptrace(PTRACE_SETREGSET, child_pid, NT_PRSTATUS, &io) == 0;
 }
@@ -309,7 +302,7 @@ static bool regs_break_syscall(int child_pid, const struct regs *orig_regs) {
   // the first argument to -1, which suffices to break the syscalls that we care
   // about here.
   struct regs copy = *orig_regs;
-  copy.regs[0] = -1;
+  copy.regs.regs[0] = -1;
   return regs_set(child_pid, orig_regs);
 }
 
@@ -418,7 +411,7 @@ static std::string get_string_from_remote(int child_pid, uint64_t ptr) {
 // calls using ptrace. It simulates a variety of failures based on the contents
 // of |flags| and records the observed events by appending to |out_trace|.
 static void GetTrace(std::vector<Event> *out_trace, unsigned flags,
-                     std::function<void()> thunk) {
+                     bool has_getrandom, std::function<void()> thunk) {
   const int child_pid = fork();
   ASSERT_NE(-1, child_pid);
 
@@ -485,13 +478,15 @@ static void GetTrace(std::vector<Event> *out_trace, unsigned flags,
 
     switch (regs.syscall) {
       case __NR_getrandom:
-        if (flags & NO_GETRANDOM) {
-          force_result = -ENOSYS;
-        } else if (flags & GETRANDOM_ERROR) {
-          force_result = -EINVAL;
-        } else if (flags & GETRANDOM_NOT_READY) {
-          if (regs.args[2] & GRND_NONBLOCK) {
-            force_result = -EAGAIN;
+        if (has_getrandom) {
+          if (flags & NO_GETRANDOM) {
+            force_result = -ENOSYS;
+          } else if (flags & GETRANDOM_ERROR) {
+            force_result = -EINVAL;
+          } else if (flags & GETRANDOM_NOT_READY) {
+            if (regs.args[2] & GRND_NONBLOCK) {
+              force_result = -EAGAIN;
+            }
           }
         }
         out_trace->push_back(
@@ -814,7 +809,7 @@ TEST(URandomTest, Test) {
     const std::vector<Event> expected_trace = TestFunctionPRNGModel(flags);
     CheckInvariants(expected_trace);
     std::vector<Event> actual_trace;
-    GetTrace(&actual_trace, flags, TestFunction);
+    GetTrace(&actual_trace, flags, has_getrandom, TestFunction);
 
     if (expected_trace != actual_trace) {
       ADD_FAILURE() << "Expected: " << ToString(expected_trace)
