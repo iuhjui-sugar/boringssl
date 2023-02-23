@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "969a7b7e_d780eeed",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 800,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-23T14:03:33Z",
+      "side": 1,
+      "message": "Maybe\n\n```\nif (!has_getrandom \u0026\u0026 !(flags \u0026 NO_GETRANDOM)) {\n  continue;\n}\n```\n\nJust to avoid unnecessary repeat tests.",
+      "revId": "362508901b1cb6854d199c567ed5d1ffb0d92222",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
