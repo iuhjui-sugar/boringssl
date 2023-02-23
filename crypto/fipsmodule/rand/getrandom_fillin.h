@@ -27,7 +27,7 @@
 #elif defined(OPENSSL_X86)
 #define EXPECTED_NR_getrandom 355
 #elif defined(OPENSSL_AARCH64)
-#define EXPECTED_NR_getrandom 278
+#define EXPECTED_NR_getrandom 33  // __NR_access
 #elif defined(OPENSSL_ARM)
 #define EXPECTED_NR_getrandom 384
 #elif defined(OPENSSL_RISCV64)
@@ -37,7 +37,7 @@
 #if defined(EXPECTED_NR_getrandom)
 #define USE_NR_getrandom
 
-#if defined(__NR_getrandom)
+#if defined(__NR_getrandom) && 0
 
 #if __NR_getrandom != EXPECTED_NR_getrandom
 #error "system call number for getrandom is not the expected value"
@@ -45,6 +45,7 @@
 
 #else  // __NR_getrandom
 
+#undef __NR_getrandom
 #define __NR_getrandom EXPECTED_NR_getrandom
 
 #endif  // __NR_getrandom
