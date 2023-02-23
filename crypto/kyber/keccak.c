@@ -134,28 +134,28 @@ static void keccak_init(struct BORINGSSL_keccak_st *ctx,
 
   OPENSSL_memset(ctx, 0, sizeof(*ctx));
   ctx->rate_bytes = 200 - capacity_bytes;
+  assert(ctx->rate_bytes % 8 == 0);
+  size_t rate_words = ctx->rate_bytes / 8;
 
-  do {
-    size_t todo = in_len;
-    if (todo > ctx->rate_bytes) {
-      todo = ctx->rate_bytes;
+  while (in_len >= ctx->rate_bytes) {
+    for (size_t i = 0; i < rate_words; i++) {
+      ctx->state[i] ^= CRYPTO_load_u64_le(in + 8 * i);
     }
-    for (size_t i = 0; i < todo; i++) {
-      ctx->state.u8[i] ^= in[i];
-    }
-    in += todo;
-    in_len -= todo;
+    keccak_f(ctx->state);
+    in += ctx->rate_bytes;
+    in_len -= ctx->rate_bytes;
+  }
 
-    if (todo == ctx->rate_bytes) {
-      keccak_f(ctx->state.u64);
-      todo = 0;
-    }
-    if (in_len == 0) {
-      ctx->state.u8[todo] ^= terminator;
-      ctx->state.u8[ctx->rate_bytes - 1] ^= 0x80;
-      keccak_f(ctx->state.u64);
-    }
-  } while (in_len);
+  // XOR the final block. Accessing |ctx->state| as a |uint8_t*| is allowed by
+  // strict aliasing because we require |uint8_t| to be a character type.
+  uint8_t *state_bytes = (uint8_t *)ctx->state;
+  assert(in_len < ctx->rate_bytes);
+  for (size_t i = 0; i < in_len; i++) {
+    state_bytes[i] ^= in[i];
+  }
+  state_bytes[in_len] ^= terminator;
+  state_bytes[ctx->rate_bytes - 1] ^= 0x80;
+  keccak_f(ctx->state);
 }
 
 void BORINGSSL_keccak(uint8_t *out, size_t out_len, const uint8_t *in,
@@ -181,18 +181,21 @@ void BORINGSSL_keccak_init(struct BORINGSSL_keccak_st *ctx, const uint8_t *in,
 
 void BORINGSSL_keccak_squeeze(struct BORINGSSL_keccak_st *ctx, uint8_t *out,
                               size_t out_len) {
+  // Accessing |ctx->state| as a |uint8_t*| is allowed by strict aliasing
+  // because we require |uint8_t| to be a character type.
+  const uint8_t *state_bytes = (const uint8_t *)ctx->state;
   while (out_len) {
     size_t remaining = ctx->rate_bytes - ctx->offset;
     size_t todo = out_len;
     if (todo > remaining) {
       todo = remaining;
     }
-    OPENSSL_memcpy(out, &ctx->state.u8[ctx->offset], todo);
+    OPENSSL_memcpy(out, &state_bytes[ctx->offset], todo);
     out += todo;
     out_len -= todo;
     ctx->offset += todo;
     if (ctx->offset == ctx->rate_bytes) {
-      keccak_f(ctx->state.u64);
+      keccak_f(ctx->state);
       ctx->offset = 0;
     }
   }

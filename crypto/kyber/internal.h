@@ -23,10 +23,7 @@ extern "C" {
 
 
 struct BORINGSSL_keccak_st {
-  union {
-    uint64_t u64[25];
-    uint8_t u8[200];
-  } state;
+  uint64_t state[25];
   size_t rate_bytes;
   size_t offset;
 };
