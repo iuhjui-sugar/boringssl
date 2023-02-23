@@ -13,6 +13,8 @@
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+use crate::check;
+
 /// Block size in bytes for AES.
 pub const BLOCK_SIZE: usize = bssl_sys::AES_BLOCK_SIZE as usize;
 
@@ -79,18 +81,14 @@ fn new_encrypt_key<const N: usize>(key: [u8; N]) -> AesEncryptKey {
     // - key is guaranteed to point to bits/8 bytes determined by the len() * 8 used below.
     // - bits is always a valid AES key size, as defined by the new_aes_* fns defined on the public
     //   key structs.
-    // The expect will never be hit since input key is always a valid AES key size.
-    #[allow(clippy::expect_used)]
-    unsafe {
+    let result = unsafe {
         bssl_sys::AES_set_encrypt_key(
             key.as_ptr(),
             key.len() as core::ffi::c_uint * 8,
             enc_key_uninit.as_mut_ptr(),
         )
-    }
-    .eq(&0)
-    .then_some(())
-    .expect("bssl_sys::AES_set_encrypt_key unexpectedly failed");
+    };
+    check(result == 0);
 
     // Safety:
     // - since we have checked above that initialization succeeded, this will never be UB
@@ -108,18 +106,14 @@ fn new_decrypt_key<const N: usize>(key: [u8; N]) -> AesDecryptKey {
     // - key is guaranteed to point to bits/8 bytes determined by the len() * 8 used below.
     // - bits is always a valid AES key size, as defined by the new_aes_* fns defined on the public
     //   key structs.
-    // The expect will never be hit since input key is always a valid AES key size.
-    #[allow(clippy::expect_used)]
-    unsafe {
+    let result = unsafe {
         bssl_sys::AES_set_decrypt_key(
             key.as_ptr(),
             key.len() as core::ffi::c_uint * 8,
             dec_key_uninit.as_mut_ptr(),
         )
-    }
-    .eq(&0)
-    .then_some(())
-    .expect("bssl_sys::AES_set_decrypt_key unexpectedly failed");
+    };
+    check(result == 0);
 
     // Safety:
     // - Since we have checked above that initialization succeeded, this will never be UB.
