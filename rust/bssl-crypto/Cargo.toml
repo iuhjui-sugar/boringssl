@@ -12,3 +12,7 @@ bssl-sys = {path = "../../build/rust/bssl-sys"}
 
 [dev-dependencies]
 hex-literal = "0.3.4"
+
+[profile.test]
+# speed up test execution
+opt-level = 3
