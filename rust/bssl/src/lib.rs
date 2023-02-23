@@ -32,6 +32,9 @@ pub mod aes;
 /// boringssl implemented hash functions
 pub mod digest;
 
+/// boring ssl implemented hkdf operations
+pub mod hkdf;
+
 /// boringssl implemented hmac operations
 pub mod hmac;
 
