@@ -308,6 +308,7 @@ both_builders(
         "cmake_args": {
             "ANDROID_ABI": "arm64-v8a",
             "ANDROID_PLATFORM": "android-21",
+            "CMAKE_BUILD_TYPE": "Release",
         },
     },
 )
@@ -322,6 +323,9 @@ both_builders(
         "cmake_args": {
             "ANDROID_ABI": "arm64-v8a",
             "ANDROID_PLATFORM": "android-21",
+            # FIPS mode on Android uses shared libraries.
+            "BUILD_SHARED_LIBS": "1",
+            "FIPS": "1",
         },
     },
 )
@@ -357,6 +361,7 @@ both_builders(
             # test coverage, but see https://crbug.com/boringssl/454.
             "ANDROID_ARM_NEON": "FALSE",
             "ANDROID_PLATFORM": "android-18",
+            "CMAKE_BUILD_TYPE": "Release",
         },
     },
 )
@@ -375,6 +380,7 @@ both_builders(
             # test coverage, but see https://crbug.com/boringssl/454.
             "ANDROID_ARM_NEON": "FALSE",
             "ANDROID_PLATFORM": "android-18",
+            "CMAKE_BUILD_TYPE": "Release",
         },
     },
 )
@@ -417,23 +423,77 @@ both_builders(
     LINUX_HOST,
     category = "linux",
     short_name = "dbg",
-    properties = {"check_stack": True},
+    properties = {
+        "check_stack": True,
+        "cmake_args": {
+            # Pick one builder to build with the C++ runtime allowed. The default
+            # configuration does not check pure virtuals
+            "BORINGSSL_ALLOW_CXX_RUNTIME": "1",
+        },
+    },
 )
-both_builders("linux_rel", LINUX_HOST, category = "linux", short_name = "rel")
+both_builders(
+    "linux_rel",
+    LINUX_HOST,
+    category = "linux",
+    short_name = "rel",
+    properties = {
+        "cmake_args": {
+            "CMAKE_BUILD_TYPE": "Release",
+        },
+    },
+)
 both_builders(
     "linux32",
     LINUX_HOST,
     category = "linux|32",
     short_name = "dbg",
-    properties = {"check_stack": True},
+    properties = {
+        "check_stack": True,
+        "cmake_args": {
+            # 32-bit x86 is cross-compiled on the 64-bit bots.
+            "CMAKE_SYSTEM_NAME": "Linux",
+            "CMAKE_SYSTEM_PROCESSOR": "x86",
+            "CMAKE_ASM_FLAGS": "-m32 -msse2",
+            "CMAKE_CXX_FLAGS": "-m32 -msse2",
+            "CMAKE_C_FLAGS": "-m32 -msse2",
+        },
+    },
 )
-both_builders("linux32_rel", LINUX_HOST, category = "linux|32", short_name = "rel")
+both_builders(
+    "linux32_rel",
+    LINUX_HOST,
+    category = "linux|32",
+    short_name = "rel",
+    properties = {
+        "cmake_args": {
+            "CMAKE_BUILD_TYPE": "Release",
+            # 32-bit x86 is cross-compiled on the 64-bit bots.
+            "CMAKE_SYSTEM_NAME": "Linux",
+            "CMAKE_SYSTEM_PROCESSOR": "x86",
+            "CMAKE_ASM_FLAGS": "-m32 -msse2",
+            "CMAKE_C_FLAGS": "-m32 -msse2",
+            "CMAKE_CXX_FLAGS": "-m32 -msse2",
+        },
+    },
+)
 ci_builder(
     "linux32_sde",
     LINUX_HOST,
     category = "linux|32",
     short_name = "sde",
     execution_timeout = SDE_TIMEOUT,
+    properties = {
+        "cmake_args": {
+            "CMAKE_BUILD_TYPE": "RelWithAsserts",
+            # 32-bit x86 is cross-compiled on the 64-bit bots.
+            "CMAKE_SYSTEM_NAME": "Linux",
+            "CMAKE_SYSTEM_PROCESSOR": "x86",
+            "CMAKE_ASM_FLAGS": "-m32 -msse2",
+            "CMAKE_C_FLAGS": "-m32 -msse2",
+            "CMAKE_CXX_FLAGS": "-m32 -msse2",
+        },
+    },
 )
 both_builders(
     "linux32_nosse2_noasm",
@@ -442,7 +502,14 @@ both_builders(
     short_name = "nosse2",
     properties = {
         "cmake_args": {
+            "OPENSSL_NO_ASM": "1",
             "OPENSSL_NO_SSE2_FOR_TESTING": "1",
+            # 32-bit x86 is cross-compiled on the 64-bit bots.
+            "CMAKE_SYSTEM_NAME": "Linux",
+            "CMAKE_SYSTEM_PROCESSOR": "x86",
+            "CMAKE_ASM_FLAGS": "-m32 -msse2",
+            "CMAKE_C_FLAGS": "-m32 -msse2",
+            "CMAKE_CXX_FLAGS": "-m32 -msse2",
         },
     },
 )
@@ -452,18 +519,42 @@ both_builders(
     category = "linux|clang",
     short_name = "cfi",
     cq_enabled = False,
+    properties = {
+        "clang": True,
+        "cmake_args": {
+            "CFI": "1",
+        },
+    },
 )
 both_builders(
     "linux_clang_rel",
     LINUX_HOST,
     category = "linux|clang",
     short_name = "rel",
+    properties = {
+        "clang": True,
+        "cmake_args": {
+            "CMAKE_BUILD_TYPE": "Release",
+        },
+    },
 )
 both_builders(
     "linux_clang_rel_msan",
     LINUX_HOST,
     category = "linux|clang",
     short_name = "msan",
+    properties = {
+        "clang": True,
+        "cmake_args": {
+            # TODO(davidben): Should this be RelWithAsserts?
+            "CMAKE_BUILD_TYPE": "Release",
+            "MSAN": "1",
+            "USE_CUSTOM_LIBCXX": "1",
+        },
+        "gclient_vars": {
+            "checkout_libcxx": True,
+        },
+    },
 )
 both_builders(
     "linux_clang_rel_tsan",
@@ -471,44 +562,122 @@ both_builders(
     category = "linux|clang",
     short_name = "tsan",
     cq_enabled = False,
+    properties = {
+        "clang": True,
+        "cmake_args": {
+            # TODO(davidben): Should this be RelWithAsserts?
+            "CMAKE_BUILD_TYPE": "Release",
+            "TSAN": "1",
+            "USE_CUSTOM_LIBCXX": "1",
+        },
+        "gclient_vars": {
+            "checkout_libcxx": True,
+        },
+    },
 )
-both_builders("linux_fips", LINUX_HOST, category = "linux|fips", short_name = "dbg")
+both_builders(
+    "linux_fips",
+    LINUX_HOST,
+    category = "linux|fips",
+    short_name = "dbg",
+    properties = {
+        "cmake_args": {
+            "FIPS": "1",
+        },
+    },
+)
 both_builders(
     "linux_fips_rel",
     LINUX_HOST,
     category = "linux|fips",
     short_name = "rel",
+    properties = {
+        "cmake_args": {
+            "CMAKE_BUILD_TYPE": "Release",
+            "FIPS": "1",
+        },
+    },
 )
 both_builders(
     "linux_fips_clang",
     LINUX_HOST,
     category = "linux|fips|clang",
     short_name = "dbg",
+    properties = {
+        "clang": True,
+        "cmake_args": {
+            "FIPS": "1",
+        },
+    },
 )
 both_builders(
     "linux_fips_clang_rel",
     LINUX_HOST,
     category = "linux|fips|clang",
     short_name = "rel",
+    properties = {
+        "clang": True,
+        "cmake_args": {
+            "CMAKE_BUILD_TYPE": "Release",
+            "FIPS": "1",
+        },
+    },
 )
 both_builders(
     "linux_fips_noasm_asan",
     LINUX_HOST,
     category = "linux|fips",
     short_name = "asan",
+    properties = {
+        "clang": True,
+        "cmake_args": {
+            "ASAN": "1",
+            "FIPS": "1",
+            "OPENSSL_NO_ASM": "1",
+        },
+    },
 )
-both_builders("linux_fuzz", LINUX_HOST, category = "linux", short_name = "fuzz")
+both_builders(
+    "linux_fuzz",
+    LINUX_HOST,
+    category = "linux",
+    short_name = "fuzz",
+    properties = {
+        "clang": True,
+        "cmake_args": {
+            "FUZZ": "1",
+            "LIBFUZZER_FROM_DEPS": "1",
+        },
+        "gclient_vars": {
+            "checkout_fuzzer": True,
+        },
+    },
+)
 both_builders(
     "linux_noasm_asan",
     LINUX_HOST,
     category = "linux",
     short_name = "asan",
+    properties = {
+        "clang": True,
+        "cmake_args": {
+            "ASAN": "1",
+            "OPENSSL_NO_ASM": "1",
+        },
+    },
 )
+
 both_builders(
     "linux_nothreads",
     LINUX_HOST,
     category = "linux",
     short_name = "not",
+    properties = {
+        "cmake_args": {
+            "CMAKE_C_FLAGS": "-DOPENSSL_NO_THREADS_CORRUPT_MEMORY_AND_LEAK_SECRETS_IF_THREADED=1",
+            "CMAKE_CXX_FLAGS": "-DOPENSSL_NO_THREADS_CORRUPT_MEMORY_AND_LEAK_SECRETS_IF_THREADED=1",
+        },
+    },
 )
 ci_builder(
     "linux_sde",
@@ -516,9 +685,35 @@ ci_builder(
     category = "linux",
     short_name = "sde",
     execution_timeout = SDE_TIMEOUT,
+    properties = {
+        "cmake_args": {
+            "CMAKE_BUILD_TYPE": "RelWithAsserts",
+        },
+    },
 )
-both_builders("linux_shared", LINUX_HOST, category = "linux", short_name = "sh")
-both_builders("linux_small", LINUX_HOST, category = "linux", short_name = "sm")
+both_builders(
+    "linux_shared",
+    LINUX_HOST,
+    category = "linux",
+    short_name = "sh",
+    properties = {
+        "cmake_args": {
+            "BUILD_SHARED_LIBS": "1",
+        },
+    },
+)
+both_builders(
+    "linux_small",
+    LINUX_HOST,
+    category = "linux",
+    short_name = "sm",
+    properties = {
+        "cmake_args": {
+            "CMAKE_C_FLAGS": "-DOPENSSL_SMALL=1",
+            "CMAKE_CXX_FLAGS": "-DOPENSSL_SMALL=1",
+        },
+    },
+)
 both_builders(
     "linux_nosse2_noasm",
     LINUX_HOST,
@@ -531,19 +726,77 @@ both_builders(
     },
 )
 both_builders("mac", MAC_X86_64_HOST, category = "mac", short_name = "dbg")
-both_builders("mac_rel", MAC_X86_64_HOST, category = "mac", short_name = "rel")
-both_builders("mac_small", MAC_X86_64_HOST, category = "mac", short_name = "sm")
+both_builders(
+    "mac_rel",
+    MAC_X86_64_HOST,
+    category = "mac",
+    short_name = "rel",
+    properties = {
+        "cmake_args": {
+            "CMAKE_BUILD_TYPE": "Release",
+        },
+    },
+)
+both_builders(
+    "mac_small",
+    MAC_X86_64_HOST,
+    category = "mac",
+    short_name = "sm",
+    properties = {
+        "cmake_args": {
+            "CMAKE_C_FLAGS": "-DOPENSSL_SMALL=1",
+            "CMAKE_CXX_FLAGS": "-DOPENSSL_SMALL=1",
+        },
+    },
+)
 both_builders("mac_arm64", MAC_ARM64_HOST, category = "mac", short_name = "arm64")
-both_builders("win32", WIN_HOST, category = "win|32", short_name = "dbg")
-both_builders("win32_rel", WIN_HOST, category = "win|32", short_name = "rel")
+both_builders(
+    "win32",
+    WIN_HOST,
+    category = "win|32",
+    short_name = "dbg",
+    properties = {
+        "msvc_target": "x86",
+    },
+)
+both_builders(
+    "win32_rel",
+    WIN_HOST,
+    category = "win|32",
+    short_name = "rel",
+    properties = {
+        "cmake_args": {
+            "CMAKE_BUILD_TYPE": "Release",
+        },
+        "msvc_target": "x86",
+    },
+)
 ci_builder(
     "win32_sde",
     WIN_HOST,
     category = "win|32",
     short_name = "sde",
     execution_timeout = SDE_TIMEOUT,
+    properties = {
+        "cmake_args": {
+            "CMAKE_BUILD_TYPE": "RelWithAsserts",
+        },
+        "msvc_target": "x86",
+    },
 )
-both_builders("win32_small", WIN_HOST, category = "win|32", short_name = "sm")
+both_builders(
+    "win32_small",
+    WIN_HOST,
+    category = "win|32",
+    short_name = "sm",
+    properties = {
+        "cmake_args": {
+            "CMAKE_C_FLAGS": "-DOPENSSL_SMALL=1",
+            "CMAKE_CXX_FLAGS": "-DOPENSSL_SMALL=1",
+        },
+        "msvc_target": "x86",
+    },
+)
 
 both_builders(
     "win32_vs2019",
@@ -553,6 +806,7 @@ both_builders(
     cq_compile_only = WIN_HOST,  # Reduce CQ cycle times.
     properties = {
         "gclient_vars": {"vs_version": "2019"},
+        "msvc_target": "x86",
     },
 )
 both_builders(
@@ -561,18 +815,68 @@ both_builders(
     category = "win|32",
     short_name = "clang",
     cq_compile_only = WIN_HOST,  # Reduce CQ cycle times.
+    properties = {
+        "clang": True,
+        "msvc_target": "x86",
+        "cmake_args": {
+            # Clang doesn't pick up 32-bit x86 from msvc_target. Specify it as a
+            # cross-compile.
+            "CMAKE_SYSTEM_NAME": "Windows",
+            "CMAKE_SYSTEM_PROCESSOR": "x86",
+            "CMAKE_ASM_FLAGS": "-m32 -msse2",
+            "CMAKE_C_FLAGS": "-m32 -msse2",
+            "CMAKE_CXX_FLAGS": "-m32 -msse2",
+        },
+    },
 )
 
-both_builders("win64", WIN_HOST, category = "win|64", short_name = "dbg")
-both_builders("win64_rel", WIN_HOST, category = "win|64", short_name = "rel")
+both_builders(
+    "win64",
+    WIN_HOST,
+    category = "win|64",
+    short_name = "dbg",
+    properties = {
+        "msvc_target": "x64",
+    },
+)
+both_builders(
+    "win64_rel",
+    WIN_HOST,
+    category = "win|64",
+    short_name = "rel",
+    properties = {
+        "cmake_args": {
+            "CMAKE_BUILD_TYPE": "Release",
+        },
+        "msvc_target": "x64",
+    },
+)
 ci_builder(
     "win64_sde",
     WIN_HOST,
     category = "win|64",
     short_name = "sde",
     execution_timeout = SDE_TIMEOUT,
+    properties = {
+        "cmake_args": {
+            "CMAKE_BUILD_TYPE": "RelWithAsserts",
+        },
+        "msvc_target": "x64",
+    },
 )
-both_builders("win64_small", WIN_HOST, category = "win|64", short_name = "sm")
+both_builders(
+    "win64_small",
+    WIN_HOST,
+    category = "win|64",
+    short_name = "sm",
+    properties = {
+        "cmake_args": {
+            "CMAKE_C_FLAGS": "-DOPENSSL_SMALL=1",
+            "CMAKE_CXX_FLAGS": "-DOPENSSL_SMALL=1",
+        },
+        "msvc_target": "x64",
+    },
+)
 
 both_builders(
     "win64_vs2019",
@@ -582,6 +886,7 @@ both_builders(
     cq_compile_only = WIN_HOST,  # Reduce CQ cycle times.
     properties = {
         "gclient_vars": {"vs_version": "2019"},
+        "msvc_target": "x64",
     },
 )
 both_builders(
@@ -590,6 +895,10 @@ both_builders(
     category = "win|64",
     short_name = "clg",
     cq_compile_only = WIN_HOST,  # Reduce CQ cycle times.
+    properties = {
+        "clang": True,
+        "msvc_target": "x64",
+    },
 )
 
 both_builders(
@@ -601,11 +910,13 @@ both_builders(
     properties = {
         "clang": True,
         "cmake_args": {
+            # Clang doesn't pick up arm64 from msvc_target. Specify it as a
+            # cross-compile.
             "CMAKE_SYSTEM_NAME": "Windows",
             "CMAKE_SYSTEM_PROCESSOR": "arm64",
             "CMAKE_ASM_FLAGS": "--target=arm64-windows",
-            "CMAKE_CXX_FLAGS": "--target=arm64-windows",
             "CMAKE_C_FLAGS": "--target=arm64-windows",
+            "CMAKE_CXX_FLAGS": "--target=arm64-windows",
         },
         "gclient_vars": {
             "checkout_nasm": False,
