@@ -22,6 +22,30 @@
       },
       "revId": "b0c050d9735e0c82c294d7007bcac0d121100830",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2282b6aa_c6786be9",
+        "filename": "crypto/dsa/dsa.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 617,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-23T15:45:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b90905d0_fcf551f1",
+      "range": {
+        "startLine": 617,
+        "startChar": 19,
+        "endLine": 617,
+        "endChar": 20
+      },
+      "revId": "b0c050d9735e0c82c294d7007bcac0d121100830",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
