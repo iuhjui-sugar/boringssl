@@ -73,6 +73,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "edaabaa0_62d3f4f6",
+        "filename": "crypto/fipsmodule/aes/asm/aesni-x86_64.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 3804,
+      "author": {
+        "id": 15776
+      },
+      "writtenOn": "2023-02-23T08:42:35Z",
+      "side": 1,
+      "message": "On review in OpenBSD, Miod Vallat tells me that these changes moving the .align directives were wrong: \"The intent of this align directive, here, is to make sure the data tables will not share cache lines with other data.\"",
+      "parentUuid": "27cf3a4f_4ca605c8",
+      "revId": "1536465a9f198b2acefda7fa7e36bc71418e2d84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "10081ed5_55478f20",
         "filename": "crypto/fipsmodule/aes/asm/vpaes-x86_64.pl",
         "patchSetId": 4
