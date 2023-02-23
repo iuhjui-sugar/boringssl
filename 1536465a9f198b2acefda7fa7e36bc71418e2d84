@@ -91,6 +91,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "99465324_1d3e8530",
+        "filename": "crypto/fipsmodule/aes/asm/aesni-x86_64.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 3804,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-23T17:26:24Z",
+      "side": 1,
+      "message": "Oh, interesting. Alright, guess we should flip that back then. Sorry about the churn! :-(",
+      "parentUuid": "edaabaa0_62d3f4f6",
+      "revId": "1536465a9f198b2acefda7fa7e36bc71418e2d84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "10081ed5_55478f20",
         "filename": "crypto/fipsmodule/aes/asm/vpaes-x86_64.pl",
         "patchSetId": 4
@@ -349,6 +367,24 @@
       "side": 1,
       "message": "Acknowledged",
       "parentUuid": "505947d1_da1759ab",
+      "revId": "1536465a9f198b2acefda7fa7e36bc71418e2d84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "640411c5_a6f5ce3a",
+        "filename": "crypto/perlasm/x86_64-xlate.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 1162,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-23T17:26:24Z",
+      "side": 1,
+      "message": "\u003e Alright, let\u0027s see how the CQ feels about these:\n\nCool. Confirmed it\u0027s okay on Mac and Linux.\n\nWindows is interesting. My test is showing it hanging, which isn\u0027t what I expected. Turns out the problem is GTest tries to unwind on SEH errors, but OpenSSL\u0027s SEH unwind doesn\u0027t work! I tested it with a different file, one where we fixed the unwind up and then I can confirm it\u0027s fine.\n\nLooks like it was actually fine without the xlate.pl change, so I guess the defaults are just read-only? Still, probably was good to put it in `.rdata` if that\u0027s the convention.",
+      "parentUuid": "d6805916_3307a96e",
       "revId": "1536465a9f198b2acefda7fa7e36bc71418e2d84",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
