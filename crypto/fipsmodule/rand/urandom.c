@@ -146,6 +146,8 @@ DEFINE_STATIC_ONCE(rand_once)
 // requested. This is the only function that modifies |urandom_fd|, which may be
 // read safely after calling the once.
 static void init_once(void) {
+  // See if the problem is in detecting aborts.
+  abort();
 #if defined(USE_NR_getrandom)
   int have_getrandom;
   uint8_t dummy;
