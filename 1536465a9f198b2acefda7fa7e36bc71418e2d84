@@ -107,6 +107,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c15f86b7_d42180e0",
+        "filename": "crypto/fipsmodule/aes/asm/aesni-x86_64.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 3804,
+      "author": {
+        "id": 15776
+      },
+      "writtenOn": "2023-02-23T18:00:09Z",
+      "side": 1,
+      "message": "No problem. I reverted that part of the change.",
+      "parentUuid": "99465324_1d3e8530",
+      "revId": "1536465a9f198b2acefda7fa7e36bc71418e2d84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "10081ed5_55478f20",
@@ -385,6 +403,24 @@
       "side": 1,
       "message": "\u003e Alright, let\u0027s see how the CQ feels about these:\n\nCool. Confirmed it\u0027s okay on Mac and Linux.\n\nWindows is interesting. My test is showing it hanging, which isn\u0027t what I expected. Turns out the problem is GTest tries to unwind on SEH errors, but OpenSSL\u0027s SEH unwind doesn\u0027t work! I tested it with a different file, one where we fixed the unwind up and then I can confirm it\u0027s fine.\n\nLooks like it was actually fine without the xlate.pl change, so I guess the defaults are just read-only? Still, probably was good to put it in `.rdata` if that\u0027s the convention.",
       "parentUuid": "d6805916_3307a96e",
+      "revId": "1536465a9f198b2acefda7fa7e36bc71418e2d84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "96505575_f36307e6",
+        "filename": "crypto/perlasm/x86_64-xlate.pl",
+        "patchSetId": 4
+      },
+      "lineNbr": 1162,
+      "author": {
+        "id": 15776
+      },
+      "writtenOn": "2023-02-23T18:00:09Z",
+      "side": 1,
+      "message": "Interesting. That sounds like a lot of fun to figure out...\n\nI left the xlate change in, after all we also don\u0027t know what masm wants or does.",
+      "parentUuid": "640411c5_a6f5ce3a",
       "revId": "1536465a9f198b2acefda7fa7e36bc71418e2d84",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
