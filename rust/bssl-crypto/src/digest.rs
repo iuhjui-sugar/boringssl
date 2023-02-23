@@ -39,6 +39,8 @@ pub(crate) trait Md {
 }
 
 impl Md for Sha256 {
+    const OUTPUT_SIZE: usize = bssl_sys::SHA256_DIGEST_LENGTH as usize;
+
     fn get_md() -> &'static MdRef {
         // Safety:
         // - this always returns a valid pointer to an EVP_MD
@@ -47,6 +49,8 @@ impl Md for Sha256 {
 }
 
 impl Md for Sha512 {
+    const OUTPUT_SIZE: usize = bssl_sys::SHA512_DIGEST_LENGTH as usize;
+
     fn get_md() -> &'static MdRef {
         // Safety:
         // - this always returns a valid pointer to an EVP_MD

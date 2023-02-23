@@ -29,11 +29,14 @@ use core::ops::Not;
 /// BoringSSL implemented plain aes operations.
 pub mod aes;
 
-/// BoringSSL implemented hmac operations.
-pub mod hmac;
-
 /// BoringSSL implemented hash functions.
 pub mod digest;
+
+/// boring ssl implemented hkdf operations
+pub mod hkdf;
+
+/// BoringSSL implemented hmac operations.
+pub mod hmac;
 
 /// Used for handling result types from C APIs.
 trait PanicResultHandler {
