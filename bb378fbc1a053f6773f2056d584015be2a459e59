@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99b939e7_30741b16",
+        "filename": "util/bot/vs_toolchain.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-24T19:02:59Z",
+      "side": 1,
+      "message": "Comment from Chromium, but I\u0027m pretty sure they meant to put a number in there. :-)\nhttps://chromium-review.googlesource.com/c/chromium/src/+/4072083/comment/44a52e46_7444da52/",
+      "range": {
+        "startLine": 75,
+        "startChar": 14,
+        "endLine": 75,
+        "endChar": 17
+      },
+      "revId": "bb378fbc1a053f6773f2056d584015be2a459e59",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
