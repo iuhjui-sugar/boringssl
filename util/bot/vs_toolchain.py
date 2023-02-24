@@ -62,6 +62,7 @@ def FindDepotTools():
 def _GetDesiredVsToolchainHashes(version):
   """Load a list of SHA1s corresponding to the toolchains that we want installed
   to build with."""
+  version = '2022' # DO NOT SUBMIT: Remove this line.
   if version == '2017':
     # VS 2017 Update 9 (15.9.12) with 10.0.18362 SDK, 10.0.17763 version of
     # Debuggers, and 10.0.17134 version of d3dcompiler_47.dll, with ARM64
@@ -71,6 +72,9 @@ def _GetDesiredVsToolchainHashes(version):
     # VS 2019 16.61 with 10.0.20348.0 SDK, 10.0.22621.755 version of Debuggers,
     # with ARM64 libraries and UWP support.
     return ['0b5ee4d2b1']
+  if version == '2022':
+    # VS 2022 x.x with 10.0.22621.0 SDK with ARM64 libraries and UWP support.
+    return ['27370823e7']
   raise Exception('Unsupported VS version %s' % version)
 
 
