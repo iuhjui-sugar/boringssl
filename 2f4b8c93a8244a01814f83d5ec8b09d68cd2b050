@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7f3d354_526d093f",
+        "filename": "ssl/ssl_key_share.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-02-24T14:48:56Z",
+      "side": 1,
+      "message": "`group_` is always set after construction, I think? If so, `const EC_GROUP *const group_;`.",
+      "revId": "2f4b8c93a8244a01814f83d5ec8b09d68cd2b050",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
