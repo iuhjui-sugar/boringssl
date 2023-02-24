@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a269de52_3457c80e",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-24T14:58:18Z",
+      "side": 1,
+      "message": "Design question: this is making up *yet another* ad-hoc file list format. Is this how we want to do this, or should we try to lean on one of our existing ones. We\u0027ve got...\n\n1. Most source lists: CMake has a list of files buried in the build. generate_build_files.py extracts them from directory structure. Mismatches ensue.\n\n2. CRYPTO_TEST_DATA: CMake reads sources.cmake. generate_build_files.py has its own, ad-hoc parser for this. I wanted to move everything else there to fix (1) and still hope to, but clearly that was overly optimistic. :-)\n\n3. perlasm: CMake has a list of perlasm(...) commands. generate_build_files.py has its own, ad-hoc parser for this.\n\n4. Now this: CMake reads the file and splits on lines itself. I intend for the Python recipe to do the same. (The recipe doesn\u0027t run run_tests itself... it probably could, but then we couldn\u0027t splat each test into its own step or extract a  list of failed tests.)\n\nWould it be better to toss this into sources.cmake instead? Tricky thing is the recipe would need to extract it somehow, and that may be a bit annoying to parse. Or I could migrate sources.cmake into a different format.\n\nConstraints:\n\n- No longer an issue: anything CMake reads in configure should be a dependency of build.ninja. At first, I thought this was hard-coded, which is part of why sources.cmake wasn\u0027t sources.json. Now I\u0027ve learned about CMAKE_CONFIGURE_DEPENDS so we can be more flexible.\n\n- CMake\u0027s string and list processing features are limited. Though CMake 3.19 will have a string(JSON ...) command. And in the meantime, we can always have the configure script shell out to stuff... that may complicate the standalone build, though maybe not too badly?\n\n- Recipe and generate_build_files.py can parse anything we\u0027re willing to write a parser for in Python. Though I don\u0027t think, the way things are set up, they can easily share code.\n\nSeparately: if we *really* want to redo everything, CMake has its own story for specifying tests. But I\u0027ve never used it and it\u0027s probably differently annoying.",
+      "revId": "eff4e1484af3e6a6faba2c5974eb5aa244a52231",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
