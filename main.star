@@ -493,6 +493,7 @@ ci_builder(
             "CMAKE_C_FLAGS": "-m32 -msse2",
             "CMAKE_CXX_FLAGS": "-m32 -msse2",
         },
+        "run_ssl_tests": False,
     },
 )
 both_builders(
@@ -573,6 +574,9 @@ both_builders(
         "gclient_vars": {
             "checkout_libcxx": True,
         },
+        # SSL tests are all single-threaded, so running them under TSan is a
+        # waste of time.
+        "run_ssl_tests": False,
     },
 )
 both_builders(
@@ -689,6 +693,7 @@ ci_builder(
         "cmake_args": {
             "CMAKE_BUILD_TYPE": "RelWithAsserts",
         },
+        "run_ssl_tests": False,
     },
 )
 both_builders(
@@ -721,6 +726,7 @@ both_builders(
     short_name = "nosse2",
     properties = {
         "cmake_args": {
+            "OPENSSL_NO_ASM": "1",
             "OPENSSL_NO_SSE2_FOR_TESTING": "1",
         },
     },
@@ -782,6 +788,7 @@ ci_builder(
             "CMAKE_BUILD_TYPE": "RelWithAsserts",
         },
         "msvc_target": "x86",
+        "run_ssl_tests": False,
     },
 )
 both_builders(
@@ -862,6 +869,7 @@ ci_builder(
             "CMAKE_BUILD_TYPE": "RelWithAsserts",
         },
         "msvc_target": "x64",
+        "run_ssl_tests": False,
     },
 )
 both_builders(
