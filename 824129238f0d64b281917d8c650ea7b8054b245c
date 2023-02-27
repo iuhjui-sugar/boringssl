@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc84dd44_432e11b7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-02-27T17:21:28Z",
+      "side": 1,
+      "message": "The build at https://luci-change-verifier.appspot.com/ui/run/boringssl/8945453004854-1-0860a1504ac54c2d made it most of the way through (only linux targets left) and was then canceled when I pushed a comment change; the corresponding comment here says \"changekind:NO_CHANGE\".",
+      "revId": "824129238f0d64b281917d8c650ea7b8054b245c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
