@@ -291,6 +291,7 @@ both_builders(
     short_name = "dbg",
     cq_compile_only = LINUX_HOST,
     properties = {
+        "android": True,
         "cmake_args": {
             "ANDROID_ABI": "arm64-v8a",
             "ANDROID_PLATFORM": "android-21",
@@ -305,6 +306,7 @@ both_builders(
     cq_compile_only = LINUX_HOST,
     cq_enabled = False,
     properties = {
+        "android": True,
         "cmake_args": {
             "ANDROID_ABI": "arm64-v8a",
             "ANDROID_PLATFORM": "android-21",
@@ -320,6 +322,7 @@ both_builders(
     short_name = "fips",
     cq_compile_only = LINUX_HOST,
     properties = {
+        "android": True,
         "cmake_args": {
             "ANDROID_ABI": "arm64-v8a",
             "ANDROID_PLATFORM": "android-21",
@@ -329,6 +332,27 @@ both_builders(
         },
     },
 )
+
+# delocate works on aarch64. Test this by also building the static library mode
+# for android_aarch64_fips. Additionally, urandom_test doesn't work in shared
+# library builds, so this gives Android FIPS coverage for urandom_test.
+both_builders(
+    "android_aarch64_fips_static",
+    # The Android FIPS configuration requires a newer device.
+    WALLEYE_HOST,
+    category = "android|aarch64",
+    short_name = "fips2",
+    cq_compile_only = LINUX_HOST,
+    properties = {
+        "android": True,
+        "cmake_args": {
+            "ANDROID_ABI": "arm64-v8a",
+            "ANDROID_PLATFORM": "android-21",
+            "FIPS": "1",
+        },
+    },
+)
+
 both_builders(
     "android_arm",
     BULLHEAD_HOST,
@@ -336,6 +360,7 @@ both_builders(
     short_name = "dbg",
     cq_compile_only = LINUX_HOST,
     properties = {
+        "android": True,
         "cmake_args": {
             "ANDROID_ABI": "armeabi-v7a",
             # Newer versions of the Android NDK make NEON-only builds by
@@ -354,6 +379,7 @@ both_builders(
     cq_compile_only = LINUX_HOST,
     cq_enabled = False,
     properties = {
+        "android": True,
         "cmake_args": {
             "ANDROID_ABI": "armeabi-v7a",
             # Newer versions of the Android NDK make NEON-only builds by
@@ -372,6 +398,7 @@ both_builders(
     short_name = "rel",
     cq_compile_only = LINUX_HOST,
     properties = {
+        "android": True,
         "cmake_args": {
             "ANDROID_ABI": "armeabi-v7a",
             "ANDROID_ARM_MODE": "arm",
@@ -381,6 +408,24 @@ both_builders(
             "ANDROID_ARM_NEON": "FALSE",
             "ANDROID_PLATFORM": "android-18",
             "CMAKE_BUILD_TYPE": "Release",
+        },
+    },
+)
+both_builders(
+    "android_arm_fips",
+    # The Android FIPS configuration requires a newer device.
+    WALLEYE_HOST,
+    category = "android|arm",
+    short_name = "fips",
+    cq_compile_only = LINUX_HOST,
+    properties = {
+        "android": True,
+        "cmake_args": {
+            "ANDROID_ABI": "armeabi-v7a",
+            "ANDROID_PLATFORM": "android-21",
+            # FIPS mode on Android uses shared libraries.
+            "BUILD_SHARED_LIBS": "1",
+            "FIPS": "1",
         },
     },
 )
@@ -494,6 +539,7 @@ ci_builder(
             "CMAKE_CXX_FLAGS": "-m32 -msse2",
         },
         "run_ssl_tests": False,
+        "sde": True,
     },
 )
 both_builders(
@@ -708,6 +754,7 @@ ci_builder(
             "CMAKE_BUILD_TYPE": "RelWithAsserts",
         },
         "run_ssl_tests": False,
+        "sde": True,
     },
 )
 both_builders(
@@ -719,6 +766,9 @@ both_builders(
         "cmake_args": {
             "BUILD_SHARED_LIBS": "1",
         },
+        # The default Linux build may not depend on the C++ runtime. This is
+        # easy to check when building shared libraries.
+        "check_imported_libraries": True,
     },
 )
 both_builders(
@@ -803,6 +853,7 @@ ci_builder(
         },
         "msvc_target": "x86",
         "run_ssl_tests": False,
+        "sde": True,
     },
 )
 both_builders(
@@ -884,6 +935,7 @@ ci_builder(
         },
         "msvc_target": "x64",
         "run_ssl_tests": False,
+        "sde": True,
     },
 )
 both_builders(
