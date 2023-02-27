@@ -36,6 +36,10 @@ void x25519_NEON(uint8_t out[32], const uint8_t scalar[32],
 #define BORINGSSL_CURVE25519_64BIT
 #endif
 
+#if defined(_MSC_VER) && (defined(_M_X64) || defined(_M_ARM64))
+#define BORINGSSL_CURVE25519_64BIT
+#endif
+
 #if defined(BORINGSSL_CURVE25519_64BIT)
 // fe means field element. Here the field is \Z/(2^255-19). An element t,
 // entries t[0]...t[4], represents the integer t[0]+2^51 t[1]+2^102 t[2]+2^153

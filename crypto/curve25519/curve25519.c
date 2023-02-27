@@ -35,7 +35,9 @@
 // Various pre-computed constants.
 #include "./curve25519_tables.h"
 
-#if defined(BORINGSSL_CURVE25519_64BIT)
+#if defined(BORINGSSL_CURVE25519_64BIT) && defined(_MSC_VER) && (defined(_M_X64) || defined(_M_ARM64))
+#include "../../third_party/fiat/curve25519_64_msvc.h"
+#elif defined(BORINGSSL_CURVE25519_64BIT)
 #include "../../third_party/fiat/curve25519_64.h"
 #else
 #include "../../third_party/fiat/curve25519_32.h"
