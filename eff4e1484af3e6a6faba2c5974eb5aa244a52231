@@ -34,6 +34,24 @@
       "parentUuid": "a269de52_3457c80e",
       "revId": "eff4e1484af3e6a6faba2c5974eb5aa244a52231",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c1ce1f9_a1a320ee",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 575,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-27T15:00:20Z",
+      "side": 1,
+      "message": "Probably. `sources.cmake` needs multiple list-valued records, but we could probably come up with something goofy. JSON would ideal, but I don\u0027t think we get to rely on CMake 3.19 for a while. :-(\n\nGuess I\u0027ll land this as-is for now and maybe later we can try to unify these.",
+      "parentUuid": "d3ce25f2_860f43e1",
+      "revId": "eff4e1484af3e6a6faba2c5974eb5aa244a52231",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
