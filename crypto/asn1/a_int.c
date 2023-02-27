@@ -122,17 +122,14 @@ int i2c_ASN1_INTEGER(const ASN1_INTEGER *in, unsigned char **outp) {
   // |ASN1_INTEGER|s should be represented minimally, but it is possible to
   // construct invalid ones. Skip leading zeros so this does not produce an
   // invalid encoding or break invariants.
-  CBS cbs;
-  CBS_init(&cbs, in->data, in->length);
-  while (CBS_len(&cbs) > 0 && CBS_data(&cbs)[0] == 0) {
-    CBS_skip(&cbs, 1);
+  int start = 0;
+  while (start < in->length && in->data[start] == 0) {
+    start++;
   }
 
   int is_negative = (in->type & V_ASN1_NEG) != 0;
-  size_t pad;
-  CBS copy = cbs;
-  uint8_t msb;
-  if (!CBS_get_u8(&copy, &msb)) {
+  int pad;
+  if (start >= in->length) {
     // Zero is represented as a single byte.
     is_negative = 0;
     pad = 1;
@@ -141,19 +138,20 @@ int i2c_ASN1_INTEGER(const ASN1_INTEGER *in, unsigned char **outp) {
     // through 0x00...01 and need an extra byte to be negative.
     // 0x01...00 through 0x80...00 have a two's complement of 0xfe...ff
     // through 0x80...00 and can be negated as-is.
-    pad = msb > 0x80 ||
-          (msb == 0x80 && !is_all_zeros(CBS_data(&copy), CBS_len(&copy)));
+    pad = in->data[start] > 0x80 ||
+          (in->data[start] == 0x80 &&
+           !is_all_zeros(in->data + start + 1, in->length - start - 1));
   } else {
     // If the high bit is set, the signed representation needs an extra
     // byte to be positive.
-    pad = (msb & 0x80) != 0;
+    pad = (in->data[start] & 0x80) != 0;
   }
 
-  if (CBS_len(&cbs) > INT_MAX - pad) {
+  if (in->length - start > INT_MAX - pad) {
     OPENSSL_PUT_ERROR(ASN1, ERR_R_OVERFLOW);
     return 0;
   }
-  int len = (int)(pad + CBS_len(&cbs));
+  int len = pad + in->length - start;
   assert(len > 0);
   if (outp == NULL) {
     return len;
@@ -162,7 +160,7 @@ int i2c_ASN1_INTEGER(const ASN1_INTEGER *in, unsigned char **outp) {
   if (pad) {
     (*outp)[0] = 0;
   }
-  OPENSSL_memcpy(*outp + pad, CBS_data(&cbs), CBS_len(&cbs));
+  OPENSSL_memcpy(*outp + pad, in->data + start, in->length - start);
   if (is_negative) {
     negate_twos_complement(*outp, len);
     assert((*outp)[0] >= 0x80);
