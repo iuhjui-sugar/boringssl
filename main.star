@@ -580,6 +580,20 @@ both_builders(
     },
 )
 both_builders(
+    "linux_clang_ubsan",
+    LINUX_HOST,
+    category = "linux|clang",
+    short_name = "ubsan",
+    cq_enabled = True,
+    properties = {
+        "clang": True,
+        "cmake_args": {
+            "CMAKE_BUILD_TYPE": "RelWithAsserts",
+            "UBSAN": "1",
+        },
+    },
+)
+both_builders(
     "linux_fips",
     LINUX_HOST,
     category = "linux|fips",
