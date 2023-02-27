@@ -16,6 +16,23 @@
       "message": "The build at https://luci-change-verifier.appspot.com/ui/run/boringssl/8945453004854-1-0860a1504ac54c2d made it most of the way through (only linux targets left) and was then canceled when I pushed a comment change; the corresponding comment here says \"changekind:NO_CHANGE\".",
       "revId": "824129238f0d64b281917d8c650ea7b8054b245c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9799148a_e5aafd66",
+        "filename": "third_party/fiat/curve25519_64_msvc.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-02-27T17:54:22Z",
+      "side": 1,
+      "message": "Do we know how to do better here? I read that MSVC does not do inline asm.",
+      "revId": "824129238f0d64b281917d8c650ea7b8054b245c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
