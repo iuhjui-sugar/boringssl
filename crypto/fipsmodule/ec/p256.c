@@ -30,7 +30,10 @@
 #include "../delocate.h"
 #include "./internal.h"
 
-#if defined(BORINGSSL_HAS_UINT128)
+#if defined(_MSC_VER) && (defined(_M_X64) || defined(_M_ARM64))
+#define BORINGSSL_NISTP256_64BIT 1
+#include "../../../third_party/fiat/p256_64_msvc.h"
+#elif defined(BORINGSSL_HAS_UINT128)
 #define BORINGSSL_NISTP256_64BIT 1
 #include "../../../third_party/fiat/p256_64.h"
 #else
