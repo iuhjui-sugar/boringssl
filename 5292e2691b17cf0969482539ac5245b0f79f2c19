@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce9972fb_1900fe5c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-02-27T15:49:42Z",
+      "side": 1,
+      "message": "Here\u0027s the output on aarch64 (specifically an M1 Mac), for the couple of clangs I have lying around. Notably, aarch64 does *not* have __builtin_ia32_addcarryx_u64.\n\nApple clang version 14.0.0 (clang-1400.0.29.202)\n(This is supposedly based on LLVM 14.0.0)\nold\nDid 82362 Ed25519 key generation operations in 1002397us (82165.1 ops/sec)\nDid 85000 Ed25519 signing operations in 1003094us (84737.8 ops/sec)\nDid 29000 Ed25519 verify operations in 1026397us (28254.2 ops/sec)\nDid 89000 Curve25519 base-point multiplication operations in 1002407us (88786.3 ops/sec)\nDid 34000 Curve25519 arbitrary point multiplication operations in 1022353us (33256.6 ops/sec)\nnew\nDid 76288 Ed25519 key generation operations in 1002731us (76080.2 ops/sec)\nDid 78000 Ed25519 signing operations in 1000440us (77965.7 ops/sec)\nDid 26000 Ed25519 verify operations in 1032888us (25172.1 ops/sec)\nDid 82000 Curve25519 base-point multiplication operations in 1000899us (81926.3 ops/sec)\nDid 31000 Curve25519 arbitrary point multiplication operations in 1019849us (30396.7 ops/sec)\n\nclang version 17.0.0 (https://chromium.googlesource.com/a/external/github.com/llvm/llvm-project 68e81d7e45c7ea1e2427bf6ac12ac5702693d5e9)\nold\nDid 77686 Ed25519 key generation operations in 1000720us (77630.1 ops/sec)\nDid 80000 Ed25519 signing operations in 1007725us (79386.7 ops/sec)\nDid 29000 Ed25519 verify operations in 1032681us (28082.2 ops/sec)\nDid 83000 Curve25519 base-point multiplication operations in 1000300us (82975.1 ops/sec)\nDid 33000 Curve25519 arbitrary point multiplication operations in 1003045us (32899.8 ops/sec)\nnew\nDid 70632 Ed25519 key generation operations in 1005085us (70274.7 ops/sec)\nDid 72000 Ed25519 signing operations in 1002045us (71853.1 ops/sec)\nDid 25000 Ed25519 verify operations in 1020475us (24498.4 ops/sec)\nDid 75000 Curve25519 base-point multiplication operations in 1006237us (74535.1 ops/sec)\nDid 30000 Curve25519 arbitrary point multiplication operations in 1024489us (29282.9 ops/sec)\n\nIrritatingly, it seems Clang 17.0 has regressed since 14.0, on top of this. :-/ I\u0027ve an idea... why don\u0027t I get you in touch with a Clang/LLVM person who might have some insight here.\n\nI stared at the disassembly a bit, and it looks like the difference is the new version is a bit worse at keeping the carry flag in the carry register. I\u0027m guessing the u128 getting split into two u64s is giving Clang/LLVM free rein to schedule them funny, and then we lose the carry bit. Whereas perhaps the u128 ops are preserved further through the compile pipeline and then just treated more special? I dunno.",
+      "revId": "5292e2691b17cf0969482539ac5245b0f79f2c19",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
