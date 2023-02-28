@@ -107,6 +107,7 @@ die "can't locate x86_64-xlate.pl";
 # In upstream, this is controlled by shelling out to the compiler to check
 # versions, but BoringSSL is intended to be used with pre-generated perlasm
 # output, so this isn't useful anyway.
+$avx512 = 3;
 $avx = 2;
 $shaext=1;	### set to zero if compiling for 1.0.1
 
@@ -254,6 +255,11 @@ ___
 $code.=<<___ if ($shaext);
 	test	\$`1<<29`,%r10d		# check SHA bit
 	jnz	_shaext_shortcut
+___
+$code.=<<___ if ($avx512);
+	and	\$`1<<5|1<<16|1<<31`,%r10d	# check AVX2+AVX512F+AVX512VL
+	cmp	\$`1<<5|1<<16|1<<31`,%r10d
+	je	_avx512_shortcut
 ___
 $code.=<<___ if ($avx>1);
 	and	\$`1<<3|1<<5|1<<8`,%r10d	# check AVX2+BMI1+BMI2
@@ -1321,7 +1327,470 @@ $code.=<<___;
 .cfi_endproc
 .size	sha1_block_data_order_avx,.-sha1_block_data_order_avx
 ___
+if ($avx512) {
+use integer;
+$Xi=4;					# reset variables
+@X=map("%ymm$_",(10..13,6..9));
+@Tx=map("%ymm$_",(14..16));
+$Kx="%ymm17";
+$j=0;
 
+my @ROTX=("%xmm0","%xmm1","%xmm2","%xmm3","%xmm4","%xmm5");
+my ($a5)=("%xmm18");
+
+my ($A,$F,$B,$C,$D,$E)=@ROTX;
+my $rx=0;
+my $frame="%rax";
+my ($ctx,$inp,$num,$scratch)=("%rdi","%rsi","%rdx","%rbx");
+
+# vpternlogd constants are lookup tables for logic function of 3 arguments.
+#  Magic for first 20 rounds:
+#  b | c | d | ((c^d)&b)^d
+#  -----------------
+#  0 | 0 | 0 | 0
+#  0 | 0 | 1 | 1
+#  0 | 1 | 0 | 0
+#  0 | 1 | 1 | 1
+#  1 | 0 | 0 | 0
+#  1 | 0 | 1 | 0
+#  1 | 1 | 0 | 1
+#  1 | 1 | 1 | 1
+#
+#  vpternlogd value - 0xca
+#
+#  Xor for scheduling and rounds 20-39/60-79
+#  b | c | d | b^c^d
+#  -----------------
+#  0 | 0 | 0 | 0
+#  0 | 0 | 1 | 1
+#  0 | 1 | 0 | 1
+#  0 | 1 | 1 | 0
+#  1 | 0 | 0 | 1
+#  1 | 0 | 1 | 0
+#  1 | 1 | 0 | 0
+#  1 | 1 | 1 | 1
+#
+#  vpternlogd value - 0x96
+#
+#  Magic for rounds 40-59
+#  b | c | d | ((b^c)&(c^d))^c
+#  -----------------
+#  0 | 0 | 0 | 0
+#  0 | 0 | 1 | 0
+#  0 | 1 | 0 | 0
+#  0 | 1 | 1 | 1
+#  1 | 0 | 0 | 0
+#  1 | 0 | 1 | 1
+#  1 | 1 | 0 | 1
+#  1 | 1 | 1 | 1
+#
+#  vpternlogd value - 0xe8
+
+$code.=<<___;
+.type	sha1_block_data_order_avx512,\@function,3
+.align	16
+sha1_block_data_order_avx512:
+_avx512_shortcut:
+.cfi_startproc
+	mov	%rsp,$fp
+.cfi_def_cfa_register	$fp
+	push	%rbx
+.cfi_push	%rbx
+	push	%rbp
+.cfi_push	%rbp
+	push	%r12
+.cfi_push	%r12
+	push	%r13
+.cfi_push	%r13
+	push	%r14
+.cfi_push	%r14
+	vzeroupper
+___
+$code.=<<___ if ($win64);
+	lea	-6*16(%rsp),%rsp
+	vmovaps	%xmm6,-40-6*16($fp)
+	vmovaps	%xmm7,-40-5*16($fp)
+	vmovaps	%xmm8,-40-4*16($fp)
+	vmovaps	%xmm9,-40-3*16($fp)
+	vmovaps	%xmm10,-40-2*16($fp)
+	vmovaps	%xmm11,-40-1*16($fp)
+.Lprologue_avx512:
+___
+$code.=<<___;
+	lea	-640(%rsp),%rsp
+	shl	\$6,$num
+	lea	64($inp),$frame
+	and	\$-128,%rsp
+	add	$inp,$num
+	lea	K_XX_XX+64(%rip),$K_XX_XX
+
+	vmovd	0($ctx),$A		# load context
+	cmp	$num,$frame
+	cmovae	$inp,$frame		# next or same block
+	vmovd	4($ctx),$F
+	vmovd	8($ctx),$C
+	vmovd	12($ctx),$D
+	vmovd	16($ctx),$E
+	vmovdqu	64($K_XX_XX),@X[2]	# pbswap mask
+
+	vmovdqu		($inp),%xmm6
+	vmovdqu		16($inp),%xmm7
+	vmovdqu		32($inp),%xmm8
+	vmovdqu		48($inp),%xmm9
+	lea		64($inp),$inp
+	vinserti128	\$1,($frame),@X[-4&7],@X[-4&7]
+	vinserti128	\$1,16($frame),@X[-3&7],@X[-3&7]
+	vpshufb		@X[2],@X[-4&7],@X[-4&7]
+	vinserti128	\$1,32($frame),@X[-2&7],@X[-2&7]
+	vpshufb		@X[2],@X[-3&7],@X[-3&7]
+	vinserti128	\$1,48($frame),@X[-1&7],@X[-1&7]
+	vpshufb		@X[2],@X[-2&7],@X[-2&7]
+	vmovdqu32		-64($K_XX_XX),$Kx	# K_00_19
+	vpshufb		@X[2],@X[-1&7],@X[-1&7]
+
+	vpaddd	$Kx,@X[-4&7],@X[0]	# add K_00_19
+	vpaddd	$Kx,@X[-3&7],@X[1]
+	vmovdqu	@X[0],0(%rsp)		# X[]+K xfer to IALU
+	vpaddd	$Kx,@X[-2&7],@X[2]
+	vmovdqu	@X[1],32(%rsp)
+	vpaddd	$Kx,@X[-1&7],@X[3]
+	vmovdqu	@X[2],64(%rsp)
+	vmovdqu	@X[3],96(%rsp)
+___
+for (;$Xi<8;$Xi++) {	# Xupdate_avx512_16_31
+    use integer;
+
+	&vpalignr(@X[0],@X[-3&7],@X[-4&7],8);	# compose "X[-14]" in "X[0]"
+	&vpsrldq(@Tx[0],@X[-1&7],4);		# "X[-3]", 3 dwords
+	&vpxor	(@X[0],@X[0],@X[-4&7]);		# "X[0]"^="X[-16]"
+	&vpternlogd (@X[0],@Tx[0],@X[-2&7],0x96); # "X[0]"^="X[-3]"^"X[-8]"
+	&vmovdqu32($Kx,eval(2*16*(($Xi)/5)-64)."($K_XX_XX)")	if ($Xi%5==0);	# K_XX_XX
+	&vpslldq(@Tx[2],@X[0],12);		# "X[0]"<<96, extract one dword
+	&vprord	(@X[0],@X[0],31);		# "X[0]"<<<=1
+	&vprord	(@Tx[2],@Tx[2],30);		# "Tx[2]<<<=2"
+	&vpxord	(@X[0],@X[0],@Tx[2]);		# "X[0]"^=("X[0]">>96)<<<2
+	&vpaddd	(@Tx[1],@X[0],$Kx);
+	&vmovdqu("32*$Xi(%rsp)",@Tx[1]);	# X[]+K xfer to IALU
+
+	push(@X,shift(@X));	# "rotate" X[]
+}
+$code.=<<___;
+	movq 	%rsp,%rcx
+	addq	\$128,%rcx
+	movq 	%rcx,$frame
+	jmp	.Loop_avx512
+.align	32
+.Loop_avx512:
+	vprord	\$2,$F,$B
+	vpternlogd \$0xca,$D,$C,$F
+___
+sub body_avx512 () {
+	# at start $f=magic, $b>>>=2
+	$rx++;
+	(
+	'($a,$f,$b,$c,$d,$e)=@ROTX;'.
+
+	'&vpaddd	($e,$e,((32*($j/4)+4*($j%4))%256-128)."($frame)");'.	# e+=X[i]+K
+	'&addq	($frame,"256")	if ($j%32==31);',
+
+	'&vpaddd	($e,$e,$f)',			# e+=(b&c)^(~b&d)
+	'&vprord	($a5,$a,27)',			# a<<<5
+	'&vprord	($f,$a,2)       if ($j<79)',	# b>>>2 for next round
+
+	'&vpaddd	($e,$e,$a5)',			# e+=a<<<5
+	'&vpternlogd	($a,$b,$c,0xca)		if ($j<19);'.	# f=(b&c)^(~b&d) for next round
+	'&vpternlogd	($a,$b,$c,0x96)		if ($j>=19 && $j<39);'.	# f=b^c^d for next round
+	'&vpternlogd	($a,$b,$c,0xe8)		if ($j>=39 && $j<59);'.	# f=((b^c)&(c^d))^c for next round
+	'&vpternlogd	($a,$b,$c,0x96)		if ($j>=59 && $j<79);'.	# f=b^c^d for next round
+
+	'unshift(@ROTX,pop(@ROTX)); $j++;'
+	)
+}
+
+sub Xupdate_avx512_16_31()		# recall that $Xi starts with 4
+{ use integer;
+  my $body = shift;
+  my @insns = (&$body,&$body,&$body,&$body,&$body);
+  my ($a,$b,$c,$d,$e);
+
+	&vpalignr(@X[0],@X[-3&7],@X[-4&7],8);	# compose "X[-14]" in "X[0]"
+	 eval(shift(@insns));
+	 eval(shift(@insns));
+	 eval(shift(@insns));
+	 eval(shift(@insns));
+
+	&vpsrldq(@Tx[0],@X[-1&7],4);		# "X[-3]", 3 dwords
+	 eval(shift(@insns));
+	 eval(shift(@insns));
+	 eval(shift(@insns));
+
+	&vpxor	(@X[0],@X[0],@X[-4&7]);		# "X[0]"^="X[-16]"
+	 eval(shift(@insns));
+	 eval(shift(@insns));
+
+	&vpternlogd (@X[0],@Tx[0],@X[-2&7],0x96); # "X[0]"^="X[-3]"^"X[-8]"
+	 eval(shift(@insns));
+	 eval(shift(@insns));
+	 eval(shift(@insns));
+	 eval(shift(@insns));
+
+	&vmovdqu32($Kx,eval(2*16*(($Xi)/5)-64)."($K_XX_XX)")	if ($Xi%5==0);	# K_XX_XX
+	 eval(shift(@insns));
+	 eval(shift(@insns));
+	 eval(shift(@insns));
+
+	&vpslldq(@Tx[2],@X[0],12);		# "X[0]"<<96, extract one dword
+	 eval(shift(@insns));
+	 eval(shift(@insns));
+
+	&vprord	(@X[0],@X[0],31);		# "X[0]"<<<=1
+	 eval(shift(@insns));
+	 eval(shift(@insns));
+
+	&vprord	(@Tx[2],@Tx[2],30);		# ("X[0]">>96)<<<2
+	 eval(shift(@insns));
+	 eval(shift(@insns));
+
+	&vpxord	(@X[0],@X[0],@Tx[2]);		# "X[0]"^=("X[0]">>96)<<<2
+	 eval(shift(@insns));
+	 eval(shift(@insns));
+	 eval(shift(@insns));
+
+	&vpaddd	(@Tx[1],@X[0],$Kx);
+	 eval(shift(@insns));
+	 eval(shift(@insns));
+	 eval(shift(@insns));
+	&vmovdqu(eval(32*($Xi))."(%rsp)",@Tx[1]);	# X[]+K xfer to IALU
+
+	 foreach (@insns) { eval; }	# remaining instructions [if any]
+
+	$Xi++;
+	push(@X,shift(@X));	# "rotate" X[]
+}
+
+sub Xupdate_avx512_32_79()
+{ use integer;
+  my $body = shift;
+  my @insns = (&$body,&$body,&$body,&$body,&$body);
+  my ($a,$b,$c,$d,$e);
+
+	&vpalignr(@Tx[0],@X[-1&7],@X[-2&7],8);	# compose "X[-6]"
+	&vpternlogd (@X[0],@X[-4&7],@X[-7&7],0x96); # "X[0]"="X[-32]"^"X[-16]"^"X[-28]"
+	 eval(shift(@insns));
+	 eval(shift(@insns));
+
+	&vmovdqu32($Kx,eval(2*16*($Xi/5)-64)."($K_XX_XX)")	if ($Xi%5==0);
+	 eval(shift(@insns));
+	 eval(shift(@insns));
+	 eval(shift(@insns));
+
+	&vpxord	(@X[0],@X[0],@Tx[0]);		# "X[0]"^="X[-6]"
+	 eval(shift(@insns));
+	 eval(shift(@insns));
+	 eval(shift(@insns));
+
+	 eval(shift(@insns));
+	 eval(shift(@insns));
+	 eval(shift(@insns));
+
+	 eval(shift(@insns));
+	 eval(shift(@insns));
+	 eval(shift(@insns));
+
+	&vprord	(@X[0],@X[0],30);		# "X[0]"<<<=2
+	 eval(shift(@insns));
+	 eval(shift(@insns));
+	 eval(shift(@insns));
+	 eval(shift(@insns));
+
+	&vpaddd	(@Tx[1],@X[0],$Kx);
+	 eval(shift(@insns));
+	 eval(shift(@insns));
+	 eval(shift(@insns));
+	 eval(shift(@insns));
+
+	&vmovdqu("32*$Xi(%rsp)",@Tx[1]);	# X[]+K xfer to IALU
+
+	 foreach (@insns) { eval; }	# remaining instructions
+
+	$Xi++;
+	push(@X,shift(@X));	# "rotate" X[]
+}
+
+sub Xloop_avx512()
+{ use integer;
+  my $body = shift;
+  my @insns = (&$body,&$body,&$body,&$body,&$body);	# 32 instructions
+  my ($a,$b,$c,$d,$e);
+
+	 foreach (@insns) { eval; }
+}
+
+	&align32();
+	&Xupdate_avx512_32_79(\&body_avx512);
+	&Xupdate_avx512_32_79(\&body_avx512);
+	&Xupdate_avx512_32_79(\&body_avx512);
+	&Xupdate_avx512_32_79(\&body_avx512);
+
+	&Xupdate_avx512_32_79(\&body_avx512);
+	&Xupdate_avx512_32_79(\&body_avx512);
+	&Xupdate_avx512_32_79(\&body_avx512);
+	&Xupdate_avx512_32_79(\&body_avx512);
+
+	&align32();
+	&Xupdate_avx512_32_79(\&body_avx512);
+	&Xupdate_avx512_32_79(\&body_avx512);
+	&Xupdate_avx512_32_79(\&body_avx512);
+	&Xupdate_avx512_32_79(\&body_avx512);
+
+	&Xloop_avx512(\&body_avx512);
+	&Xloop_avx512(\&body_avx512);
+	&Xloop_avx512(\&body_avx512);
+	&Xloop_avx512(\&body_avx512);
+
+$code.=<<___;
+	lea	128($inp),$frame
+	lea	128($inp),$scratch
+	cmp	$num,$frame
+	cmovae	$inp,$frame			# next or previous block
+
+	# output is d-e-[a]-f-b-c => A=d,F=e,C=f,D=b,E=c
+	vpaddd	0($ctx),@ROTX[0],@ROTX[0]		# update context
+	vpaddd	4($ctx),@ROTX[1],@ROTX[1]
+	vpaddd	8($ctx),@ROTX[3],@ROTX[3]
+	vmovd	@ROTX[0],0($ctx)
+	vpaddd	12($ctx),@ROTX[4],@ROTX[4]
+	vmovd	@ROTX[1],4($ctx)
+	vmovdqa	@ROTX[0],$A			# A=d
+	vpaddd	16($ctx),@ROTX[5],@ROTX[5]
+	vmovdqa32	@ROTX[3],$a5
+	vmovd	@ROTX[3],8($ctx)
+	vmovdqa	@ROTX[4],$D			# D=b
+	vmovd	@ROTX[4],12($ctx)
+	vmovdqa	@ROTX[1],$F			# F=e
+	vmovd	@ROTX[5],16($ctx)
+	vmovdqa	@ROTX[5],$E			# E=c
+	vmovdqa32	$a5,$C				# C=f
+
+	cmp	$num,$inp
+	je	.Ldone_avx512
+___
+
+$Xi=4;				# reset variables
+@X=map("%ymm$_",(10..13,6..9));
+
+$code.=<<___;
+	vmovdqu	64($K_XX_XX),@X[2]		# pbswap mask
+	cmp	$num,$scratch
+	ja	.Last_avx512
+
+	vmovdqu		-64($scratch),%xmm6		# low part of @X[-4&7]
+	vmovdqu		-48($scratch),%xmm7
+	vmovdqu		-32($scratch),%xmm8
+	vmovdqu		-16($scratch),%xmm9
+	vinserti128	\$1,0($frame),@X[-4&7],@X[-4&7]
+	vinserti128	\$1,16($frame),@X[-3&7],@X[-3&7]
+	vinserti128	\$1,32($frame),@X[-2&7],@X[-2&7]
+	vinserti128	\$1,48($frame),@X[-1&7],@X[-1&7]
+	jmp	.Last_avx512
+
+.align	32
+.Last_avx512:
+	lea	128+16(%rsp),$frame
+	vprord	\$2,$F,$B
+	vpternlogd \$0xca,$D,$C,$F
+	sub	\$-128,$inp
+___
+	$rx=$j=0;	@ROTX=($A,$F,$B,$C,$D,$E);
+
+	&Xloop_avx512	(\&body_avx512);
+	&Xloop_avx512	(\&body_avx512);
+	&Xloop_avx512	(\&body_avx512);
+	&Xloop_avx512	(\&body_avx512);
+
+	&Xloop_avx512	(\&body_avx512);
+	&vmovdqu32	($Kx,"-64($K_XX_XX)");		# K_00_19
+	&vpshufb	(@X[-4&7],@X[-4&7],@X[2]);	# byte swap
+	&Xloop_avx512	(\&body_avx512);
+	&vpshufb	(@X[-3&7],@X[-3&7],@X[2]);
+	&vpaddd	(@Tx[0],@X[-4&7],$Kx);		# add K_00_19
+	&Xloop_avx512	(\&body_avx512);
+	&vmovdqu	("0(%rsp)",@Tx[0]);
+	&vpshufb	(@X[-2&7],@X[-2&7],@X[2]);
+	&vpaddd	(@Tx[1],@X[-3&7],$Kx);
+	&Xloop_avx512	(\&body_avx512);
+	&vmovdqu	("32(%rsp)",@Tx[1]);
+	&vpshufb	(@X[-1&7],@X[-1&7],@X[2]);
+	&vpaddd	(@X[2],@X[-2&7],$Kx);
+
+	&Xloop_avx512	(\&body_avx512);
+	&align32	();
+	&vmovdqu	("64(%rsp)",@X[2]);
+	&vpaddd	(@X[3],@X[-1&7],$Kx);
+	&Xloop_avx512	(\&body_avx512);
+	&vmovdqu	("96(%rsp)",@X[3]);
+	&Xloop_avx512	(\&body_avx512);
+	&Xupdate_avx512_16_31(\&body_avx512);
+
+	&Xupdate_avx512_16_31(\&body_avx512);
+	&Xupdate_avx512_16_31(\&body_avx512);
+	&Xupdate_avx512_16_31(\&body_avx512);
+	&Xloop_avx512	(\&body_avx512);
+
+$code.=<<___;
+	lea	128(%rsp),$frame
+
+	# output is d-e-[a]-f-b-c => A=d,F=e,C=f,D=b,E=c
+	vpaddd	0($ctx),@ROTX[0],@ROTX[0]		# update context
+	vpaddd	4($ctx),@ROTX[1],@ROTX[1]
+	vpaddd	8($ctx),@ROTX[3],@ROTX[3]
+	vmovd	@ROTX[0],0($ctx)
+	vpaddd	12($ctx),@ROTX[4],@ROTX[4]
+	vmovd	@ROTX[1],4($ctx)
+	vmovdqa	@ROTX[0],$A			# A=d
+	vpaddd	16($ctx),@ROTX[5],@ROTX[5]
+	vmovdqa32	@ROTX[3],$a5
+	vmovd	@ROTX[3],8($ctx)
+	vmovdqa	@ROTX[4],$D			# D=b
+	vmovd	@ROTX[4],12($ctx)
+	vmovdqa	@ROTX[1],$F			# F=e
+	vmovd	@ROTX[5],16($ctx)
+	vmovdqa	@ROTX[5],$E			# E=c
+	vmovdqa32	$a5,$C				# C=f
+
+	cmp	$num,$inp
+	jbe	.Loop_avx512
+
+.Ldone_avx512:
+	vzeroupper
+___
+$code.=<<___ if ($win64); #TODO extra reg on win?
+	movaps	-40-6*16($fp),%xmm6
+	movaps	-40-5*16($fp),%xmm7
+	movaps	-40-4*16($fp),%xmm8
+	movaps	-40-3*16($fp),%xmm9
+	movaps	-40-2*16($fp),%xmm10
+	movaps	-40-1*16($fp),%xmm11
+___
+$code.=<<___;
+	mov	-40($fp),%r14
+.cfi_restore	%r14
+	mov	-32($fp),%r13
+.cfi_restore	%r13
+	mov	-24($fp),%r12
+.cfi_restore	%r12
+	mov	-16($fp),%rbp
+.cfi_restore	%rbp
+	mov	-8($fp),%rbx
+.cfi_restore	%rbx
+	lea	($fp),%rsp
+.cfi_def_cfa_register	%rsp
+.Lepilogue_avx512:
+	ret
+.cfi_endproc
+.size	sha1_block_data_order_avx512,.-sha1_block_data_order_avx512
+___
+}
 if ($avx>1) {
 use integer;
 $Xi=4;					# reset variables
@@ -2041,6 +2510,11 @@ $code.=<<___ if ($avx>1);
 	.rva	.LSEH_end_sha1_block_data_order_avx2
 	.rva	.LSEH_info_sha1_block_data_order_avx2
 ___
+$code.=<<___ if ($avx512);
+	.rva	.LSEH_begin_sha1_block_data_order_avx512
+	.rva	.LSEH_end_sha1_block_data_order_avx512
+	.rva	.LSEH_info_sha1_block_data_order_avx512
+___
 $code.=<<___;
 .section	.xdata
 .align	8
@@ -2070,6 +2544,12 @@ $code.=<<___ if ($avx>1);
 	.byte	9,0,0,0
 	.rva	ssse3_handler
 	.rva	.Lprologue_avx2,.Lepilogue_avx2		# HandlerData[]
+___
+$code.=<<___ if ($avx512);
+.LSEH_info_sha1_block_data_order_avx512:
+	.byte	9,0,0,0
+	.rva	ssse3_handler
+	.rva	.Lprologue_avx512,.Lepilogue_avx512		# HandlerData[]
 ___
 }
 
