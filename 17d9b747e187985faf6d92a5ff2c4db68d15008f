@@ -16,6 +16,24 @@
       "message": "I think there is a typo in the curve\u0027s name, it should be P-384 instead of P-386.",
       "revId": "17d9b747e187985faf6d92a5ff2c4db68d15008f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "152ce6eb_7c2d80bc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-02-28T17:46:09Z",
+      "side": 1,
+      "message": "Thank you. (Too much Intel assembly on the brain.)",
+      "parentUuid": "99215b82_88216fbc",
+      "revId": "17d9b747e187985faf6d92a5ff2c4db68d15008f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
