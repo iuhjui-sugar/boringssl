@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82adb726_69700de7",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-01T00:40:30Z",
+      "side": 1,
+      "message": "simulate",
+      "range": {
+        "startLine": 101,
+        "startChar": 41,
+        "endLine": 101,
+        "endChar": 51
+      },
+      "revId": "c5a5a9a9e570944db1e4c2fe2a769939de5f8f9c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0fdaeb25_1fd61ab1",
+        "filename": "crypto/fipsmodule/rand/urandom_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 657,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-01T00:40:30Z",
+      "side": 1,
+      "message": "Took me a while to wrap my head around how there\u0027s only one socket operation in the code, but two in the model, but I think I agree this is right. :-) A lot of fuss coming from us centering everything on the getrandom probe, but the getrandom probe happens at different places in different modes.\n\nOptional: Not sure if it\u0027s worth it, but I think we could normalize this a bit if `RAND_bytes_with_additional_data` changed the order of things. Right now it does:\n\n1. Set up `additional_data`. This may RDRAND, it may probe `getrandom`, and is sensitive to `MADV_WIPEONFORK`\n2. Lookup, possibly seed, possibly reseed a `rand_thread_state`. This reads from the socket and may probe `getrandom`, depending on whether it\u0027s the first to do it or not. This does not use `additional_data`.\n3. Cycle through `CTR_DRBG_generate`. This actually uses `additional_data`.\n\nIf we just swapped (1) and (2), I think the socket would consistently be first, and the first seeding of the first `rand_thread_state` would consistently be the one to probe `getrandom`. Might be a little tidier.",
+      "revId": "c5a5a9a9e570944db1e4c2fe2a769939de5f8f9c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
