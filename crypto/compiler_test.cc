@@ -22,6 +22,29 @@
 #include "test/test_util.h"
 
 
+// Require that |int| be exactly 32 bits. OpenSSL historically mixed up
+// |unsigned| and |uint32_t|, so we require it be at least 32 bits. Requiring at
+// most 32-bits is a bit more subtle. C promotes arithemetic operands to |int|
+// when they fit. But this means, if |int| is 2N bits wide, multiplying two
+// maximum-sized |uintN_t|s is undefined by integer overflow!
+//
+// We attempt to handle this for |uint16_t|, assuming a 32-bit |int|, but we
+// make no attempts to correct for this with |uint32_t| for a 64-bit |int|. Thus
+// BoringSSL does not support ILP64 platforms.
+static_assert(sizeof(int) == 4, "BoringSSL requires int be 32-bit");
+
+// Require that |unsigned char| and |uint8_t| be the same type. We require that
+// type-punning through |uint8_t| is not a strict aliasing violation. In
+// principle, type-punning should be done with |memcpy|, which would make this
+// moot.
+//
+// However, C made too many historical mistakes with the types and signedness of
+// character strings. As a result, aliasing between all variations on 8-bit
+// chars are a practical necessity for all real C code. We do not support
+// toolchains that break this assumption.
+static_assert(std::is_same<unsigned char, uint8_t>::value,
+              "BoringSSL requires uint8_t and unsigned char be the same type");
+
 template <typename T>
 static void CheckRepresentation(T value) {
   SCOPED_TRACE(value);
