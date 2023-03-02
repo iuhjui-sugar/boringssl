@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4b2cb23_44f64c98",
+        "filename": "rust/bssl/src/digest.rs",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 15791
+      },
+      "writtenOn": "2023-03-02T21:57:44Z",
+      "side": 1,
+      "message": "I think this is fine, and flexible, but perhaps an associated const would make sense here to make it clear that you\u0027ll never get different answers if you query the output size twice?",
+      "revId": "b3aaaac183d60f8d9f825ab94757db2eb3711a60",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90215797_a7a74576",
+        "filename": "rust/bssl/src/hkdf.rs",
+        "patchSetId": 8
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 15791
+      },
+      "writtenOn": "2023-03-02T21:57:44Z",
+      "side": 1,
+      "message": "Worth having a `Hkdf\u003cM\u003e::max_output_len() -\u003e usize` for this?",
+      "revId": "b3aaaac183d60f8d9f825ab94757db2eb3711a60",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "64d673dd_42c479d6",
+        "filename": "rust/bssl/src/hkdf.rs",
+        "patchSetId": 8
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 15791
+      },
+      "writtenOn": "2023-03-02T21:57:44Z",
+      "side": 1,
+      "message": "I think this is likely what we\u0027ll want long term anyway since crypto tests are very much cpu bound.\n\nThis will do it by default without requiring --release:\n\n```\n[profile.test]\n# speed up test execution\nopt-level \u003d 3\n```",
+      "revId": "b3aaaac183d60f8d9f825ab94757db2eb3711a60",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea3a49a5_f6e28fe7",
+        "filename": "rust/bssl/src/hkdf.rs",
+        "patchSetId": 8
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 15791
+      },
+      "writtenOn": "2023-03-02T21:57:44Z",
+      "side": 1,
+      "message": "should we be checking for this case in `expand` above?",
+      "revId": "b3aaaac183d60f8d9f825ab94757db2eb3711a60",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
