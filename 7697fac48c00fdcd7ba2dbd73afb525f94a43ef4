@@ -16,6 +16,23 @@
       "message": "Small leak spotted while looking at something related in LibreSSL.",
       "revId": "7697fac48c00fdcd7ba2dbd73afb525f94a43ef4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64eda6be_88a43bbf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-05T23:16:11Z",
+      "side": 1,
+      "message": "Nice catch. Thank you! (I really gotta finish up my branch to rewrite this file with `CBB`.)",
+      "revId": "7697fac48c00fdcd7ba2dbd73afb525f94a43ef4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
