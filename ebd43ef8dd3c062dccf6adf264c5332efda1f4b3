@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "afd2697d_ce688a05",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-06T19:42:53Z",
+      "side": 1,
+      "message": "For your amusement, this CL uncovered this mess. 😊\nhttps://boringssl-review.googlesource.com/c/boringssl/+/57825",
+      "revId": "ebd43ef8dd3c062dccf6adf264c5332efda1f4b3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
