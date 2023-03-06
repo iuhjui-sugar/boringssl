@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bfb1444_a62c65dd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-06T20:55:54Z",
+      "side": 1,
+      "message": "+bbe to stamp because I just rebased it and just invalidated my review.",
+      "revId": "8a28798db56d05848a53bd1db01d46dfa42e3cd5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
