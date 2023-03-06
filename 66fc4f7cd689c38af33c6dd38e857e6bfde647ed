@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8772dbe9_374a300e",
+        "filename": "crypto/perlasm/x86_64-xlate.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 1047,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-06T19:43:44Z",
+      "side": 1,
+      "message": "I think this works, but I did have a think about it because this updates `$sections` ever time and empties the stored qualifies the second time. This could be in an `else`.",
+      "revId": "66fc4f7cd689c38af33c6dd38e857e6bfde647ed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
