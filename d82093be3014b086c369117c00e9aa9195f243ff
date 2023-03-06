@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4cb8808c_ca1133ac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9619
+      },
+      "writtenOn": "2023-03-06T21:54:18Z",
+      "side": 1,
+      "message": "Oof, I forgot about this... Would be nice to upstream those changes, and with the benefit of time passed, David\u0027s comments make more sense than me trying to make the script bareword-clean.\n\nI\u0027ll take another pass at it.",
+      "revId": "d82093be3014b086c369117c00e9aa9195f243ff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
