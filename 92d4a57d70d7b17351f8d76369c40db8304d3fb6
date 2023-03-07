@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2edddc9_9735456d",
+        "filename": "crypto/fipsmodule/sha/asm/sha1-x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 392,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-07T13:59:57Z",
+      "side": 1,
+      "message": "There is one too many tabs here. (Sorry for the nit, but if I fix it the new Gerrit won\u0027t let me also approve it.)",
+      "range": {
+        "startLine": 392,
+        "startChar": 12,
+        "endLine": 392,
+        "endChar": 13
+      },
+      "revId": "92d4a57d70d7b17351f8d76369c40db8304d3fb6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
