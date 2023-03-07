@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ffabb300_f4ea2f6b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15796
+      },
+      "writtenOn": "2023-03-07T01:57:31Z",
+      "side": 1,
+      "message": "Added comments to kyber.c, explaining what the subfunctions do and linking them to the corresponding functions in the spec.",
+      "revId": "3ef878918241bae931886f2cb1fafa4bcf950b07",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
