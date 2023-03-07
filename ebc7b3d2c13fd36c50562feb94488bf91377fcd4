@@ -26,6 +26,144 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a616ca33_8418cd94",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 15796
+      },
+      "writtenOn": "2023-03-07T23:19:31Z",
+      "side": 1,
+      "message": "typo: bitreverse, not inverse (twice in this line)",
+      "range": {
+        "startLine": 213,
+        "startChar": 14,
+        "endLine": 213,
+        "endChar": 16
+      },
+      "revId": "ebc7b3d2c13fd36c50562feb94488bf91377fcd4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bee49c09_3fb871de",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 15796
+      },
+      "writtenOn": "2023-03-07T23:19:31Z",
+      "side": 1,
+      "message": "Maybe we should add that this method is not and does not need to be constant time, since it is called only on public information",
+      "range": {
+        "startLine": 270,
+        "startChar": 53,
+        "endLine": 270,
+        "endChar": 69
+      },
+      "revId": "ebc7b3d2c13fd36c50562feb94488bf91377fcd4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4b6f6f1_59f3865f",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 15796
+      },
+      "writtenOn": "2023-03-07T23:19:31Z",
+      "side": 1,
+      "message": "We could explicitly write that the output is 32*|bits| bytes (where 32 \u003d DEGREE/8)",
+      "range": {
+        "startLine": 348,
+        "startChar": 18,
+        "endLine": 348,
+        "endChar": 20
+      },
+      "revId": "ebc7b3d2c13fd36c50562feb94488bf91377fcd4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc88a7cd_b3d8a7ef",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 15796
+      },
+      "writtenOn": "2023-03-07T23:19:31Z",
+      "side": 1,
+      "message": "Similar here, the output is 32*RANK*|bits| many bytes.",
+      "range": {
+        "startLine": 373,
+        "startChar": 39,
+        "endLine": 373,
+        "endChar": 44
+      },
+      "revId": "ebc7b3d2c13fd36c50562feb94488bf91377fcd4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fd74d0c7_4ba73258",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 15796
+      },
+      "writtenOn": "2023-03-07T23:19:31Z",
+      "side": 1,
+      "message": "same comment here for the input, we read 32*|bits| bytes from |in|.",
+      "range": {
+        "startLine": 380,
+        "startChar": 18,
+        "endLine": 380,
+        "endChar": 33
+      },
+      "revId": "ebc7b3d2c13fd36c50562feb94488bf91377fcd4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "294f323d_0f5de10d",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 15796
+      },
+      "writtenOn": "2023-03-07T23:19:31Z",
+      "side": 1,
+      "message": "And here, where we read 32*RANK*|bits| bytes from |in|",
+      "range": {
+        "startLine": 402,
+        "startChar": 24,
+        "endLine": 402,
+        "endChar": 28
+      },
+      "revId": "ebc7b3d2c13fd36c50562feb94488bf91377fcd4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1f52ad7f_b311e8f7",
         "filename": "crypto/kyber/kyber.c",
         "patchSetId": 6
