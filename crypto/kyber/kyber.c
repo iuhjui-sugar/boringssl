@@ -12,8 +12,8 @@
 #define PRIME 3329
 #define LOG2PRIME 12
 #define HALF_PRIME ((PRIME - 1) / 2)
-#define BERRET_MULTIPLIER 5039
-#define BERRET_SHIFT 24
+#define BARRET_MULTIPLIER 5039
+#define BARRET_SHIFT 24
 #define DEGREE 256
 #define RANK 3
 #define ETA1 2
@@ -82,14 +82,16 @@ static const int32_t mod_roots[128] = {
     2775, 554,  886,  2443, 1722, 1607, 1212, 2117, 1874, 1455, 1029, 2300,
     2110, 1219, 2935, 394,  885,  2444, 2154, 1175};
 
+// constant time reduce x mod PRIME with x being between 0 and 2*PRIME
 static int32_t reduce_simple(int64_t x) {
   assert(x >= 0 && x < 2 * PRIME);
   return constant_time_select_w(constant_time_ge_w(x, PRIME), x - PRIME, x);
 }
 
+// constant time reduce x mod PRIME using Barret reduction.
 static int32_t reduce(int64_t x) {
-  int64_t product = x * BERRET_MULTIPLIER;
-  int32_t quotient = product >> BERRET_SHIFT;
+  int64_t product = x * BARRET_MULTIPLIER;
+  int32_t quotient = product >> BARRET_SHIFT;
   int32_t remainder = x - quotient * PRIME;
   return reduce_simple(remainder);
 }
@@ -106,6 +108,12 @@ static void zero_vector(vector *out) {
   }
 }
 
+// In place number theoretic transform of a given scalar.
+// Note that Kyber's prime 3329 does not have a 512th root of unity, so this
+// transform leaves of the last iteration of the usual FFT code, with the 128
+// relevant roots of unity being stored in |ntt_roots|. This means the output
+// should be seen as 128 elements in GF(3329^2), with the coefficients of the
+// elements being consecutive entries in s->c.
 static void number_theoretic_transform_scalar(scalar *s) {
   int offset = DEGREE;
   for (int step = 1; step < DEGREE / 2; step <<= 1) {
@@ -130,6 +138,11 @@ static void number_theoretic_transform_vector(vector *a) {
   }
 }
 
+// In place inverse number theoretic transform of a given scalar, with pairs of
+// entries of s->v being interpreted as elements of GF(3329^2). Just as with the
+// number theoretic transform, this leaves of the first step of the normal iFFT
+// to account for the fact that 3329 does not have a 512th root of unity, using
+// the precomputed 128 roots of unity stored in |inverse_ntt_roots|.
 static void inverse_number_theoretic_transform_scalar(scalar *s) {
   int step = DEGREE / 2;
   for (int offset = 2; offset < DEGREE; offset <<= 1) {
@@ -169,6 +182,14 @@ static void subtract_accumulate_scalar(scalar *lhs, const scalar *rhs) {
   }
 }
 
+// Multiplying to scalars in the number theoretically transformed state. Since
+// 3329 does not have a 512th root of unity, this means we have to interpret
+// the 2*ith and (2*i+)1th entries of the scalar as elements of GF(3329)[X]/(X^2
+// - 17^(2*bitinverse(i)+1)) The value of 17^(2*bitinverse(i)+1) mod 3329 is
+// stored in the precomputed |mod_roots| table. Note that our Barret transform
+// only allows us to multipy two reduced numbers together, so we need some
+// intermediate reduction steps, even if an int64_t could hold 3 multiplied
+// numbers.
 static void multiply(const scalar *lhs, const scalar *rhs, scalar *out) {
   for (int i = 0; i < DEGREE / 2; i++) {
     int32_t real_real = reduce(lhs->c[2 * i] * rhs->c[2 * i]);
@@ -198,7 +219,7 @@ static void matrix_multiply(const matrix *m, const vector *a, vector *out) {
 }
 
 static void matrix_multiply_transpose(const matrix *m, const vector *a,
-                               vector *out) {
+                                      vector *out) {
   zero_vector(out);
   for (int i = 0; i < RANK; i++) {
     for (int j = 0; j < RANK; j++) {
@@ -218,6 +239,8 @@ static void inner_product(const vector *lhs, const vector *rhs, scalar *out) {
   }
 }
 
+// Algorithm 1 of the Kyber spec. Rejection samples a keccak stream to get
+// uniformly distributed elements. This is used for matrix expansion.
 static void parse(struct BORINGSSL_keccak_st *ctx, scalar *out) {
   int index = 0;
   uint8_t bytes[3];
@@ -234,7 +257,14 @@ static void parse(struct BORINGSSL_keccak_st *ctx, scalar *out) {
   }
 }
 
-static void centered_binomial_distribution(int eta, uint8_t *entropy, scalar *out) {
+// Algorithm 2 of the Kyber spec. Creates binominally distributed elements by
+// sampling 2*|eta| bits, and setting the coefficient to the count of the first
+// bits minus the count of the second bits, resulting in a centered binomial
+// distribution. In practice, our values for eta are always 2, so this gives
+// -2/2 with a probability of 1/16, -1/1 with probability 1/4, and 0 with
+// probability 3/8.
+static void centered_binomial_distribution(int eta, uint8_t *entropy,
+                                           scalar *out) {
   for (int i = 0; i < DEGREE; i++) {
     int32_t value = 0;
     for (int j = 0; j < eta; j++) {
@@ -253,8 +283,10 @@ static void centered_binomial_distribution(int eta, uint8_t *entropy, scalar *ou
   }
 }
 
+// Generates a secret vector by using |centered_binomial_distribution|, using
+// the given seed appending and incrementing |counter| for entry of the vector.
 static void generate_secret_vector(int eta, uint8_t *counter, uint8_t *seed,
-                            vector *out) {
+                                   vector *out) {
   int size = 2 * eta * DEGREE / 8;
   assert(size <= 128);
   uint8_t input[33];
@@ -267,6 +299,7 @@ static void generate_secret_vector(int eta, uint8_t *counter, uint8_t *seed,
   }
 }
 
+// Expands the matrix of a seed for key generation and for encaps-CPA.
 static void expand_matrix(uint8_t *rho, matrix *out) {
   uint8_t input[34];
   OPENSSL_memcpy(input, rho, 32);
@@ -281,6 +314,9 @@ static void expand_matrix(uint8_t *rho, matrix *out) {
   }
 }
 
+// Inverse of Algorithm 3 of the Kyber spec. Packs the elements of the scalar
+// tightly into the output array, by encoding each scalar coefficient using
+// |bits| many bits.
 static void encode_scalar(const scalar *s, uint8_t *out, int bits) {
   int written = 0;
   *out = 0;
@@ -303,12 +339,16 @@ static void encode_scalar(const scalar *s, uint8_t *out, int bits) {
   }
 }
 
+// Encodes an entire vector. Note that since 256 (DEGREE) is divisible by 8, the
+// individual vector entries will always fill a whole number of bytes, so we do
+// not need to worry about bit packing here.
 static void encode_vector(const vector *a, uint8_t *out, int bits) {
   for (int i = 0; i < RANK; i++) {
     encode_scalar(&a->v[i], out + i * bits * DEGREE / 8, bits);
   }
 }
 
+// Algorithm 3 of the Kyber spec.
 static void decode_scalar(uint8_t *in, int bits, scalar *out) {
   int remaining = 8;
   for (int i = 0; i < DEGREE; i++) {
@@ -336,24 +376,45 @@ static void decode_vector(uint8_t *in, int bits, vector *out) {
   }
 }
 
+// Compresses (lossily) an input |x| mod 3329 into |bits| many bits by grouping
+// numbers close to each other together. The formula used is
+// round(2^|bits|/PRIME*x) mod 2^|bits|.
+// Uses Barret reduction to achieve constant time. Since we need both the
+// remainder (for rounding) and the quotient (as the result), we cannot use
+// |reduce| here, but need to do the Barret reduction directly.
 static int32_t compress(int32_t x, int bits) {
   int64_t product = (x << bits);
-  int64_t quotient = (product * BERRET_MULTIPLIER) >> BERRET_SHIFT;
+  int64_t quotient = (product * BARRET_MULTIPLIER) >> BARRET_SHIFT;
   int32_t remainder = product - quotient * PRIME;
   assert(remainder >= 0 && remainder < 2 * PRIME);
+  // Adjusting quotient if necessary.
   quotient = constant_time_select_w(constant_time_ge_w(remainder, PRIME),
                                     quotient + 1, quotient);
+  // Recomputing the correct remainder. We could also use |reduce_simple| here,
+  // but this avoids calling into constant time libraries for a second time.
   remainder = product - quotient * PRIME;
+  // The rounding logic compares the number to (PRIME + 1)/2 and conditionally
+  // increments the quotient. The final mod 2^|bits| step is achieves through
+  // bitwise operations.
   return constant_time_select_w(constant_time_ge_w(HALF_PRIME, remainder),
                                 quotient, quotient + 1) &
          ((1 << bits) - 1);
 }
 
+// Decompresses |x| by using an equi-distant representative. The formula is
+// round(PRIME/2^|bits|*x). Note that 2^|bits| being the divisor allows us to
+// implement this logic using only bit operations.
 static int32_t decompress(int32_t x, int bits) {
   int32_t product = x * PRIME;
   int32_t power = 1 << bits;
+  // This is |product| % power, since |power| is a power of 2.
   int32_t remainder = product & (power - 1);
+  // This is |product| / power, since |power| is a power of 2.
   int32_t lower = product >> bits;
+  // The rounding logic works since the first half of numbers mod |power| have a
+  // 0 as first bit, and the second half has a 1 as first bit, since |power| is
+  // a power of 2. As a 12 bit number, |remainder| is always positive, so we
+  // will shift in 0s for a right shift.
   return lower + (remainder >> (bits - 1));
 }
 
@@ -380,8 +441,13 @@ static void decompress_vector(vector *a, int bits) {
     decompress_scalar(&a->v[i], bits);
   }
 }
-static void encrypt_cpa(uint8_t *public_key, uint8_t *message, uint8_t *randomness,
-                 uint8_t *out) {
+
+// Algorithm 5 of the Kyber spec. Encrypts a message with given randomness to
+// the ciphertext in |out|. Without applying the Fujisaki-Okamoto transform this
+// would not result in a CCA secure scheme, since lattice schemes are vulnerable
+// to decryption failure oracles.
+static void encrypt_cpa(uint8_t *public_key, uint8_t *message,
+                        uint8_t *randomness, uint8_t *out) {
   vector rhs;
   decode_vector(public_key, LOG2PRIME, &rhs);
   matrix m;
@@ -419,7 +485,9 @@ static void encrypt_cpa(uint8_t *public_key, uint8_t *message, uint8_t *randomne
   encode_scalar(&v, out + COMPRESSED_VECTOR_SIZE, DV);
 }
 
-static void decrypt_cpa(uint8_t *private_key, uint8_t *ciphertext, uint8_t *out) {
+// Algorithm 6 of the Kyber spec.
+static void decrypt_cpa(uint8_t *private_key, uint8_t *ciphertext,
+                        uint8_t *out) {
   vector u;
   decode_vector(ciphertext, DU, &u);
   decompress_vector(&u, DU);
@@ -437,6 +505,8 @@ static void decrypt_cpa(uint8_t *private_key, uint8_t *ciphertext, uint8_t *out)
   encode_scalar(&v, out, 1);
 }
 
+// Calls |KYBER_generate_key_external_entropy| with random bytes from
+// |RAND_bytes|.
 void KYBER_generate_key(uint8_t out_public_key[KYBER_PUBLIC_KEY_BYTES],
                         uint8_t out_private_key[KYBER_PRIVATE_KEY_BYTES]) {
   uint8_t entropy[KYBER_GENERATE_KEY_ENTROPY];
@@ -444,6 +514,9 @@ void KYBER_generate_key(uint8_t out_public_key[KYBER_PUBLIC_KEY_BYTES],
   KYBER_generate_key_external_entropy(out_public_key, out_private_key, entropy);
 }
 
+// Algorithms 4 and 7 of the Kyber spec. Algorithms are combined since key
+// generation is not part of the FO transform, and the spec uses Algorithm 7 to
+// specify the actual key format.
 void KYBER_generate_key_external_entropy(
     uint8_t out_public_key[KYBER_PUBLIC_KEY_BYTES],
     uint8_t out_private_key[KYBER_PRIVATE_KEY_BYTES],
@@ -476,15 +549,22 @@ void KYBER_generate_key_external_entropy(
   OPENSSL_memcpy(out_private_key + FO_FAILUE_OFFSET, in_entropy + 32, 32);
 }
 
+// Calls KYBER_encap_external_entropy| with random bytes from |RAND_bytes|
 void KYBER_encap(uint8_t out_ciphertext[KYBER_CIPHERTEXT_BYTES],
                  uint8_t *out_shared_secret, size_t out_shared_secret_len,
                  uint8_t in_pub[KYBER_PUBLIC_KEY_BYTES]) {
   uint8_t entropy[KYBER_ENCAP_ENTROPY];
   RAND_bytes(entropy, KYBER_ENCAP_ENTROPY);
-   KYBER_encap_external_entropy(out_ciphertext, out_shared_secret,
+  KYBER_encap_external_entropy(out_ciphertext, out_shared_secret,
                                out_shared_secret_len, in_pub, entropy);
 }
 
+// Algorithm 8 of the Kyber spec, safe for line 2 of the spec. The spec there
+// hashes the output of the system's random number generator, since the FO
+// transform will reveal it to the decrypting party. There is no reason to do
+// this when a secure random number generator is used. When an insecure random
+// number generator is used, the caller should switch to a secure one before
+// calling this method.
 void KYBER_encap_external_entropy(
     uint8_t out_ciphertext[KYBER_CIPHERTEXT_BYTES], uint8_t *out_shared_secret,
     size_t out_shared_secret_len, uint8_t in_pub[KYBER_PUBLIC_KEY_BYTES],
@@ -502,6 +582,11 @@ void KYBER_encap_external_entropy(
                    prekey_and_randomness, 64, boringssl_shake256);
 }
 
+// Algorithm 9 of the Kyber spec, performing the FO transform by running
+// encrypt_cpa on the decrypted message. The spec does not allow the decryption
+// failure to be passed on to the caller, and instead returns a result that is
+// deterministic but unpredictable to anyone without knowledge of the private
+// key.
 void KYBER_decap(uint8_t *out_shared_secret, size_t out_shared_secret_len,
                  uint8_t in_ciphertext[KYBER_CIPHERTEXT_BYTES],
                  uint8_t in_priv[KYBER_PRIVATE_KEY_BYTES]) {
