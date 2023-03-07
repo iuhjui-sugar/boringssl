@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6cc77fa7_4ebd9210",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 15796
+      },
+      "writtenOn": "2023-03-07T23:11:59Z",
+      "side": 1,
+      "message": "Typo: missing R",
+      "range": {
+        "startLine": 44,
+        "startChar": 14,
+        "endLine": 44,
+        "endChar": 16
+      },
+      "revId": "ebc7b3d2c13fd36c50562feb94488bf91377fcd4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f52ad7f_b311e8f7",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 15796
+      },
+      "writtenOn": "2023-03-07T23:11:59Z",
+      "side": 1,
+      "message": "this can be out[KYBER_CIPHERTEXT_BYTES]",
+      "range": {
+        "startLine": 478,
+        "startChar": 24,
+        "endLine": 478,
+        "endChar": 37
+      },
+      "revId": "ebc7b3d2c13fd36c50562feb94488bf91377fcd4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e73f2de_79cd5cd6",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 15796
+      },
+      "writtenOn": "2023-03-07T23:11:59Z",
+      "side": 1,
+      "message": "This can be out[32]",
+      "range": {
+        "startLine": 520,
+        "startChar": 24,
+        "endLine": 520,
+        "endChar": 36
+      },
+      "revId": "ebc7b3d2c13fd36c50562feb94488bf91377fcd4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74692ddd_77ddc935",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 15796
+      },
+      "writtenOn": "2023-03-07T23:11:59Z",
+      "side": 1,
+      "message": "This can be private_key[KYBER_PRIVATE_KEY_BYTES]. In theory we only use the first ENCODED_VECTOR_SIZE bytes here, though.",
+      "range": {
+        "startLine": 520,
+        "startChar": 52,
+        "endLine": 520,
+        "endChar": 65
+      },
+      "revId": "ebc7b3d2c13fd36c50562feb94488bf91377fcd4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4f7de53_f8d5918b",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 15796
+      },
+      "writtenOn": "2023-03-07T23:11:59Z",
+      "side": 1,
+      "message": "If we want to have expanded public/private keys, the public key would be\nstruct KYBER_public_key {\n  vector t;\n  matrix m;\n  uint8_t rho[32];\n};\n\nThe private key would be\nstruct KYBER_private_key {\n  vector s;\n  vector t;\n  matrix m;\n  uint8_t rho[32];\n  uint8_t public_key_hash[32];\n  uint8_t fo_failure_secret[32];\n};\nWith the corresponding wire formats being the result of encode_vector() with LOG2PRIME bits called on the vectors, the matrix omitted and the byte arrays just concatenated.",
+      "range": {
+        "startLine": 576,
+        "startChar": 2,
+        "endLine": 576,
+        "endChar": 12
+      },
+      "revId": "ebc7b3d2c13fd36c50562feb94488bf91377fcd4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6ebe2a5a_42d456b2",
+        "filename": "include/openssl/kyber.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 15796
+      },
+      "writtenOn": "2023-03-07T23:11:59Z",
+      "side": 1,
+      "message": "We could move this and the other _external_entropy function to internal.h, then it would be accessible to the tests, but not part of the public API.",
+      "range": {
+        "startLine": 70,
+        "startChar": 20,
+        "endLine": 70,
+        "endChar": 49
+      },
+      "revId": "ebc7b3d2c13fd36c50562feb94488bf91377fcd4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
