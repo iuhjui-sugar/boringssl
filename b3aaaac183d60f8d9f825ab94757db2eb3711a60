@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9421a09f_75da3f70",
+        "filename": "rust/bssl/src/digest.rs",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-07T21:38:16Z",
+      "side": 1,
+      "message": "Good idea, updated.",
+      "parentUuid": "c4b2cb23_44f64c98",
+      "revId": "b3aaaac183d60f8d9f825ab94757db2eb3711a60",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "90215797_a7a74576",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-03-02T21:57:44Z",
       "side": 1,
       "message": "Worth having a `Hkdf\u003cM\u003e::max_output_len() -\u003e usize` for this?",
+      "revId": "b3aaaac183d60f8d9f825ab94757db2eb3711a60",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec748e4f_9cef5ae7",
+        "filename": "rust/bssl/src/hkdf.rs",
+        "patchSetId": 8
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-07T21:38:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "90215797_a7a74576",
       "revId": "b3aaaac183d60f8d9f825ab94757db2eb3711a60",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -52,6 +88,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "19ce657f_2a0a71f4",
+        "filename": "rust/bssl/src/hkdf.rs",
+        "patchSetId": 8
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-07T21:38:16Z",
+      "side": 1,
+      "message": "Done, runtime isn\u0027t too bad for all lengths, ~300ms",
+      "parentUuid": "64d673dd_42c479d6",
+      "revId": "b3aaaac183d60f8d9f825ab94757db2eb3711a60",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ea3a49a5_f6e28fe7",
@@ -65,6 +119,24 @@
       "writtenOn": "2023-03-02T21:57:44Z",
       "side": 1,
       "message": "should we be checking for this case in `expand` above?",
+      "revId": "b3aaaac183d60f8d9f825ab94757db2eb3711a60",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a88beb1e_97685d47",
+        "filename": "rust/bssl/src/hkdf.rs",
+        "patchSetId": 8
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-07T21:38:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea3a49a5_f6e28fe7",
       "revId": "b3aaaac183d60f8d9f825ab94757db2eb3711a60",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
