@@ -14,6 +14,10 @@
 
 #include <gtest/gtest.h>
 
+#include <cstring>
+#include <openssl/ctrdrbg.h>
+#include <openssl/kyber.h>
+
 #include "../test/file_test.h"
 #include "../test/test_util.h"
 #include "./internal.h"
@@ -63,4 +67,61 @@ static void KeccakFileTest(FileTest *t) {
 
 TEST(KyberTest, Keccak) {
   FileTestGTest("crypto/kyber/keccak_tests.txt", KeccakFileTest);
+}
+
+static void KyberFileTest(FileTest *t) {
+  std::vector<uint8_t> seed, public_key_expected, private_key_expected,
+      ciphertext_expected, shared_secret_expected;
+  t->IgnoreAttribute("count");
+  ASSERT_TRUE(t->GetBytes(&seed, "seed"));
+  ASSERT_TRUE(t->GetBytes(&public_key_expected, "pk"));
+  ASSERT_TRUE(t->GetBytes(&private_key_expected, "sk"));
+  ASSERT_TRUE(t->GetBytes(&ciphertext_expected, "ct"));
+  ASSERT_TRUE(t->GetBytes(&shared_secret_expected, "ss"));
+
+  uint8_t private_key[KYBER_PRIVATE_KEY_BYTES];
+  uint8_t public_key[KYBER_PUBLIC_KEY_BYTES];
+  uint8_t ciphertext[KYBER_CIPHERTEXT_BYTES];
+  uint8_t gen_key_entropy[KYBER_GENERATE_KEY_ENTROPY];
+  uint8_t encap_entropy[KYBER_ENCAP_ENTROPY];
+  uint8_t encapsulated_key[32];
+  uint8_t decapsulated_key[32];
+  CTR_DRBG_STATE *state = CTR_DRBG_new(seed.data(), nullptr, 0);
+  CTR_DRBG_generate(state, gen_key_entropy, 32, nullptr, 0);
+  CTR_DRBG_generate(state, gen_key_entropy + 32, 32, nullptr, 0);
+  CTR_DRBG_generate(state, encap_entropy, KYBER_ENCAP_ENTROPY, nullptr, 0);
+  CTR_DRBG_free(state);
+
+  BORINGSSL_keccak(encap_entropy, KYBER_ENCAP_ENTROPY, encap_entropy,
+                   KYBER_ENCAP_ENTROPY, boringssl_sha3_256);
+
+  KYBER_generate_key_external_entropy(public_key, private_key, gen_key_entropy);
+  KYBER_encap_external_entropy(ciphertext, encapsulated_key,
+                               sizeof(encapsulated_key), public_key,
+                               encap_entropy);
+  KYBER_decap(decapsulated_key, sizeof(decapsulated_key), ciphertext,
+              private_key);
+
+  EXPECT_EQ(Bytes(encapsulated_key), Bytes(decapsulated_key));
+  EXPECT_EQ(Bytes(private_key_expected), Bytes(private_key));
+  EXPECT_EQ(Bytes(public_key_expected), Bytes(public_key));
+  EXPECT_EQ(Bytes(ciphertext_expected), Bytes(ciphertext));
+  EXPECT_EQ(Bytes(shared_secret_expected), Bytes(encapsulated_key));
+
+  uint8_t corrupted_ciphertext[KYBER_CIPHERTEXT_BYTES];
+  OPENSSL_memcpy(corrupted_ciphertext, ciphertext, KYBER_CIPHERTEXT_BYTES);
+  corrupted_ciphertext[3] ^= 0x40;
+  uint8_t corrupted_decapsulated_key[32];
+  KYBER_decap(corrupted_decapsulated_key, sizeof(corrupted_decapsulated_key),
+              corrupted_ciphertext, private_key);
+  // It would be nice to have actual test vectors for the failure case, but the
+  // NIST submission currently does not include those, so we are just testing
+  // for inequality.
+  static_assert(sizeof(encapsulated_key) == sizeof(corrupted_decapsulated_key),
+                "outputs are different lengths so certainly won't match");
+  EXPECT_NE(Bytes(encapsulated_key), Bytes(corrupted_decapsulated_key));
+}
+
+TEST(KyberTest, Kyber) {
+  FileTestGTest("crypto/kyber/kyber_tests.txt", KyberFileTest);
 }
