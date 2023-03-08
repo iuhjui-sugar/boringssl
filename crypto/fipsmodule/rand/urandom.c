@@ -68,6 +68,12 @@
 #include <sys/random.h>
 #endif
 
+#if defined(OPENSSL_OPENBSD)
+// getentropy exists in any supported version of OpenBSD
+#define OPENBSD_GETENTROPY
+#include <unistd.h>
+#endif
+
 #include <openssl/thread.h>
 #include <openssl/mem.h>
 
@@ -300,19 +306,21 @@ static int fill_with_entropy(uint8_t *out, size_t len, int block, int seed) {
       r = boringssl_getrandom(out, len, getrandom_flags);
 #elif defined(FREEBSD_GETRANDOM)
       r = getrandom(out, len, getrandom_flags);
-#elif defined(OPENSSL_MACOS)
+#elif defined(OPENSSL_MACOS) || defined OPENBSD_GETENTROPY
+#if defined(OPENSSL_MACOS)
+      // TODO(bbe):Sierra is 2009.. Can we give up on this yet and just treat it
+      // as always there as on OpenBSD?
       if (__builtin_available(macos 10.12, *)) {
+#endif // OPENSSL_MACOS
         // |getentropy| can only request 256 bytes at a time.
         size_t todo = len <= 256 ? len : 256;
-        if (getentropy(out, todo) != 0) {
-          r = -1;
-        } else {
-          r = (ssize_t)todo;
-        }
+        r = getentropy(out, todo) != 0 ? -1 : (ssize_t)todo;
+#if defined (OPENSSL_MACOS)
       } else {
-        fprintf(stderr, "urandom fd corrupt.\n");
+        fprintf(stderr, "urandom fd corrupt and no getentropy().\n");
         abort();
       }
+#endif // OPENSSL_MACOS
 #else  // USE_NR_getrandom
       fprintf(stderr, "urandom fd corrupt.\n");
       abort();
