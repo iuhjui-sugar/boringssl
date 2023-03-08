@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e2146fa2_0d9300ab",
+        "filename": "tool/speed.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 960,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-08T23:10:00Z",
+      "side": 1,
+      "message": "Some quick comparisons. \n\nM1 mini:\ncpu0 at mainbus0 mpidr 0: Apple Icestorm r1p1:\nm1mini$ ./tool/bssl speed -filter Kyber             \nDid 5544 Kyber generate operations in 1018198us (5444.9 ops/sec)\nDid 4719 Kyber encap operations in 1062928us (4439.6 ops/sec)\nDid 4906 Kyber decap operations in 1080105us (4542.2 ops/sec)\nm1mini$ ./tool/bssl speed -filter X25519 \nDid 22800 Ed25519 key generation operations in 1007169us (22637.7 ops/sec)\nDid 24000 Ed25519 signing operations in 1006182us (23852.5 ops/sec)\nDid 8541 Ed25519 verify operations in 1040004us (8212.5 ops/sec)\nDid 25000 Curve25519 base-point multiplication operations in 1013757us (24660.7 ops/sec)\nDid 10670 Curve25519 arbitrary point multiplication operations in 1095804us (9737.1 ops/sec)\n\nNanoPI-A64:\ncpu0 at mainbus0 mpidr 0: ARM Cortex-A53 r0p4\nherp$ ./bssl speed -filter Kyber\nDid 560 Kyber generate operations in 1039025us (539.0 ops/sec)\nDid 462 Kyber encap operations in 1062288us (434.9 ops/sec)\nDid 451 Kyber decap operations in 1080239us (417.5 ops/sec)\nherp$ ./bssl speed -filter X25519\nDid 3036 Ed25519 key generation operations in 1000805us (3033.6 ops/sec)\nDid 3328 Ed25519 signing operations in 1022041us (3256.2 ops/sec)\nDid 1068 Ed25519 verify operations in 1007402us (1060.2 ops/sec)\nDid 3707 Curve25519 base-point multiplication operations in 1067337us (3473.1 ops/sec)\nDid 1375 Curve25519 arbitrary point multiplication operations in 1084079us (1268.4 ops/sec)\n\nFanless intel:\ncpu0: Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz, 1696.06 MHz, 06-8e-0a\ntelus-fw1$ ./tool/bssl speed -filter Kyber \nDid 3485 Kyber generate operations in 1021936us (3410.2 ops/sec)\nDid 3080 Kyber encap operations in 1068251us (2883.2 ops/sec)\nDid 2928 Kyber decap operations in 1076558us (2719.8 ops/sec)\ntelus-fw1$ ./tool/bssl speed -filter X25519\nDid 38012 Ed25519 key generation operations in 1001453us (37956.8 ops/sec)\nDid 48000 Ed25519 signing operations in 1015580us (47263.6 ops/sec)\nDid 16767 Ed25519 verify operations in 1033835us (16218.3 ops/sec)\nDid 51000 Curve25519 base-point multiplication operations in 1013929us (50299.4 ops/sec)\nDid 19000 Curve25519 arbitrary point multiplication operations in 1030437us (18438.8 ops/sec)\n\nPCENGINES APU:\ncpu0: AMD G-T40E Processor, 1000.02 MHz, 14-02-00\nobtuse1$ ./bssl speed -filter Kyber \nDid 612 Kyber generate operations in 1022166us (598.7 ops/sec)\nDid 506 Kyber encap operations in 1039466us (486.8 ops/sec)\nDid 495 Kyber decap operations in 1071279us (462.1 ops/sec)\nobtuse1$ ./bssl speed -filter X25519\nDid 4154 Ed25519 key generation operations in 1011649us (4106.2 ops/sec)\nDid 4680 Ed25519 signing operations in 1046491us (4472.1 ops/sec)\nDid 1520 Ed25519 verify operations in 1032301us (1472.4 ops/sec)\nDid 4979 Curve25519 base-point multiplication operations in 1015659us (4902.2 ops/sec)\nDid 1680 Curve25519 arbitrary point multiplication operations in 1010777us (1662.1 ops/sec)",
+      "revId": "4025c1a5e643c67702d5c3488305742b84aa14af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
