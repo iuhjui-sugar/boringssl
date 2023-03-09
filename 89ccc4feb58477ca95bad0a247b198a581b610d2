@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b34d31f4_8d13a219",
+        "filename": "rust/bssl/deny.toml",
+        "patchSetId": 35
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-09T21:46:29Z",
+      "side": 1,
+      "message": "You can fix this:\n\nerror[unlicensed]: bssl \u003d 0.1.0 is unlicensed\n  ┌─ bssl 0.1.0 (path+file:///Users/bbe/boringssl/rust/bssl):2:9\n  │\n2 │ name \u003d \"bssl\"\n  │         ^^^^ a valid license expression could not be retrieved for the crate\n3 │ version \u003d \"0.1.0\"\n4 │ license \u003d \"\"\n  │            - license expression was not specified\n  │\n  \u003d bssl v0.1.0\n\nerror[unlicensed]: bssl-sys \u003d 0.1.0 is unlicensed\n  ┌─ bssl-sys 0.1.0 (path+file:///Users/bbe/boringssl/build/rust/bssl-sys):2:9\n  │\n2 │ name \u003d \"bssl-sys\"\n  │         ^^^^^^^^ a valid license expression could not be retrieved for the crate\n3 │ version \u003d \"0.1.0\"\n4 │ license \u003d \"\"\n  │            - license expression was not specified\n  │\n  \u003d bssl-sys v0.1.0\n    └── bssl v0.1.0\n\n\nBefore we change anything in here ;)",
+      "revId": "89ccc4feb58477ca95bad0a247b198a581b610d2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
