@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3165bae8_1adfeaf6",
+        "filename": "rust/bssl/README.md",
+        "patchSetId": 35
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-09T23:12:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "20d9e4eb_de497b1b",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 26
+      },
+      "revId": "89ccc4feb58477ca95bad0a247b198a581b610d2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b34d31f4_8d13a219",
@@ -141,6 +165,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f243b78_51aa8171",
+        "filename": "rust/bssl/src/digest.rs",
+        "patchSetId": 35
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-09T23:12:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0764f66_3cf6e094",
+      "range": {
+        "startLine": 18,
+        "startChar": 4,
+        "endLine": 18,
+        "endChar": 11
+      },
+      "revId": "89ccc4feb58477ca95bad0a247b198a581b610d2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bbb9103c_04fc8c2b",
@@ -154,6 +202,30 @@
       "writtenOn": "2023-03-09T22:39:51Z",
       "side": 1,
       "message": "BoringSSL same as above.",
+      "range": {
+        "startLine": 22,
+        "startChar": 4,
+        "endLine": 22,
+        "endChar": 11
+      },
+      "revId": "89ccc4feb58477ca95bad0a247b198a581b610d2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6f586b6_c01c6115",
+        "filename": "rust/bssl/src/digest.rs",
+        "patchSetId": 35
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-09T23:12:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bbb9103c_04fc8c2b",
       "range": {
         "startLine": 22,
         "startChar": 4,
@@ -187,6 +259,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "627b5c07_4a5ad038",
+        "filename": "rust/bssl/src/digest.rs",
+        "patchSetId": 35
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-09T23:12:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f72dc0f1_4c25a0cb",
+      "range": {
+        "startLine": 35,
+        "startChar": 4,
+        "endLine": 35,
+        "endChar": 45
+      },
+      "revId": "89ccc4feb58477ca95bad0a247b198a581b610d2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8d636355_f61de3b4",
@@ -200,6 +296,24 @@
       "writtenOn": "2023-03-09T22:39:51Z",
       "side": 1,
       "message": "Needs a. at the end of the sentence, and a mention that it can panic if memory allocation fails in the underlying BoringSSL code.",
+      "revId": "89ccc4feb58477ca95bad0a247b198a581b610d2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ced385e_5315a71e",
+        "filename": "rust/bssl/src/hmac.rs",
+        "patchSetId": 35
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-09T23:12:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d636355_f61de3b4",
       "revId": "89ccc4feb58477ca95bad0a247b198a581b610d2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -221,6 +335,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "13267e2f_c3261cc9",
+        "filename": "rust/bssl/src/hmac.rs",
+        "patchSetId": 35
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-09T23:12:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "934895d3_2aaaef5b",
+      "revId": "89ccc4feb58477ca95bad0a247b198a581b610d2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bc20c773_b418b40f",
@@ -234,6 +366,24 @@
       "writtenOn": "2023-03-09T22:39:51Z",
       "side": 1,
       "message": "as above.",
+      "revId": "89ccc4feb58477ca95bad0a247b198a581b610d2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df8cdf23_14560b99",
+        "filename": "rust/bssl/src/hmac.rs",
+        "patchSetId": 35
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-09T23:12:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc20c773_b418b40f",
       "revId": "89ccc4feb58477ca95bad0a247b198a581b610d2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -255,6 +405,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e5636b34_e66d3ae6",
+        "filename": "rust/bssl/src/hmac.rs",
+        "patchSetId": 35
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-09T23:12:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6532160_e2b548f0",
+      "revId": "89ccc4feb58477ca95bad0a247b198a581b610d2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e505da5f_adc9a394",
@@ -272,6 +440,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "384e7912_dba78f01",
+        "filename": "rust/bssl/src/hmac.rs",
+        "patchSetId": 35
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-09T23:12:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e505da5f_adc9a394",
+      "revId": "89ccc4feb58477ca95bad0a247b198a581b610d2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8601b641_25cdbe26",
@@ -285,6 +471,24 @@
       "writtenOn": "2023-03-09T22:39:51Z",
       "side": 1,
       "message": "BoringSSL (throughout)",
+      "revId": "89ccc4feb58477ca95bad0a247b198a581b610d2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1462596_f40b081c",
+        "filename": "rust/bssl/src/lib.rs",
+        "patchSetId": 35
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-09T23:12:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8601b641_25cdbe26",
       "revId": "89ccc4feb58477ca95bad0a247b198a581b610d2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
