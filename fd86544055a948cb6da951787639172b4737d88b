@@ -127,6 +127,29 @@
       },
       "revId": "fd86544055a948cb6da951787639172b4737d88b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da5bba0a_3b7859fd",
+        "filename": "rust/bssl/src/hmac.rs",
+        "patchSetId": 39
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-09T23:36:01Z",
+      "side": 1,
+      "message": "warning: casting to the same type is unnecessary (`usize` -\u003e `usize`)\n   --\u003e src/hmac.rs:271:17\n    |\n271 |                 result.len() as usize,\n    |                 ^^^^^^^^^^^^^^^^^^^^^ help: try: `result.len()`\n    |\n    \u003d help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#unnecessary_cast\n    \u003d note: `#[warn(clippy::unnecessary_cast)]` on by default\n\nPlease fix.",
+      "range": {
+        "startLine": 271,
+        "startChar": 0,
+        "endLine": 271,
+        "endChar": 38
+      },
+      "revId": "fd86544055a948cb6da951787639172b4737d88b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
