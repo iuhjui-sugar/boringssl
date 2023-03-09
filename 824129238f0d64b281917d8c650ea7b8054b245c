@@ -20,6 +20,80 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bdd8784f_e0b63455",
+        "filename": "crypto/curve25519/curve25519.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-09T21:52:18Z",
+      "side": 1,
+      "message": "clang-cl (clang pretending to be MSVC) will define _MSC_VER, so we actually want to condition it on BORINGSSL_HAS_UINT128. Otherwise clang will get the non-u128 code.",
+      "revId": "824129238f0d64b281917d8c650ea7b8054b245c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e3d0ef5_3c9e73f0",
+        "filename": "crypto/curve25519/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-09T21:52:18Z",
+      "side": 1,
+      "message": "Oh, I think it\u0027s fine to simplify this down a bit. Specifically, I think we can remove BORINGSSL_NISTP256_64BIT and BORINGSSL_CURVE25519_64BIT just use OPENSSL_64_BIT and just require that 64-bit platforms *somehow* work out how to multiply.\n\nbn/internal.h already requires this. Search for \"Either BN_ULLONG or BN_UMULT_LOHI must be defined on every platform.\" Given that, now that fiat can output both u128 and (u64, u64) code, I think we should just take the simplifying assumption that fiat word size \u003d\u003d bignum word size.\n\nThat, in turn, means we can probably drop the comments in fiat_p256_from_words and fiat_p256_to_generic.\n\nIt\u0027s true that if, say, anyone tried to build us on MSVC + RV64, it\u0027ll currently fail to build. But it\u0027s already failing to build and the fix to bn/internal.h can be applied to Fiat too.",
+      "range": {
+        "startLine": 39,
+        "startChar": 21,
+        "endLine": 39,
+        "endChar": 63
+      },
+      "revId": "824129238f0d64b281917d8c650ea7b8054b245c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b7978b9_42f096dd",
+        "filename": "crypto/fipsmodule/ec/p256.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-09T21:52:18Z",
+      "side": 1,
+      "message": "Ditto about the order.",
+      "revId": "824129238f0d64b281917d8c650ea7b8054b245c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edcdd247_b42ad168",
+        "filename": "third_party/fiat/curve25519_64_msvc.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-09T21:52:18Z",
+      "side": 1,
+      "message": "I think this header, and `_addcarry_u64`, isn\u0027t available on Windows Arm64. Ditto for `_subborrow_u64`. :-/\n\nProbably we\u0027d need to guard it by `_M_X64` and on other platforms, use a fallback. Maybe just borrow the formulations in `bn/generic.c`? I\u0027m sure MSVC won\u0027t recognize it, but I think that\u0027s fine. Going up to 64-bit multipliers will outweigh everything.\n\nThough I also wasn\u0027t able to get it to work in godbolt as-is. Based on this link, I suspect the header is `\u003cintrin.h\u003e`. Maybe it was working because the header got included already?\nhttps://learn.microsoft.com/en-us/previous-versions/hh977022(v\u003dvs.140)?redirectedfrom\u003dMSDN\n\n(We could even just not care very much and use the fallback unconditionally. The intrinsic does seem to behave better than the fallback though.\nhttps://godbolt.org/z/qWdYaorf9 )\n\nApparently I never MSVC Arm64 to our CI though. We have a `win_arm64_compile` builder, but I think it\u0027s actually clang-cl Arm64. I manually ran it, but I should add the other configs. That\u0027s my bad. Filed https://crbug.com/boringssl/573 to fill that in. Though clang-cl Arm64 is reproducing this problem anyway because you check `_MSC_VER` before uint128 right now. :-)",
+      "revId": "824129238f0d64b281917d8c650ea7b8054b245c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9799148a_e5aafd66",
         "filename": "third_party/fiat/curve25519_64_msvc.h",
         "patchSetId": 2
@@ -31,6 +105,24 @@
       "writtenOn": "2023-02-27T17:54:22Z",
       "side": 1,
       "message": "Do we know how to do better here? I read that MSVC does not do inline asm.",
+      "revId": "824129238f0d64b281917d8c650ea7b8054b245c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2d993a6_3a840c37",
+        "filename": "third_party/fiat/curve25519_64_msvc.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-09T21:52:18Z",
+      "side": 1,
+      "message": "Not that I know of, though MSVC is also much less aggressive than GCC or Clang, so hopefully it\u0027s less of a concern.\n\nWhat does fiat output if you leave it alone? If the default is to output the `#if !defined(FIAT_P256_NO_ASM) \u0026\u0026 (defined(__GNUC__) || defined(__clang__))` thing, we can also just leave it in there and care too much. :-)",
+      "parentUuid": "9799148a_e5aafd66",
       "revId": "824129238f0d64b281917d8c650ea7b8054b245c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
