@@ -52,6 +52,29 @@
       "parentUuid": "2ee5923c_bb2180e2",
       "revId": "89ccc4feb58477ca95bad0a247b198a581b610d2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e3972a0a_073679fb",
+        "filename": "rust/bssl/deny.toml",
+        "patchSetId": 35
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-09T22:05:40Z",
+      "side": 1,
+      "message": "uncomment these three and it will stop complaining ;)",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 38
+      },
+      "revId": "89ccc4feb58477ca95bad0a247b198a581b610d2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
