@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "20d9e4eb_de497b1b",
+        "filename": "rust/bssl/README.md",
+        "patchSetId": 35
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-09T22:39:51Z",
+      "side": 1,
+      "message": "cd rust/bssl \u0026\u0026 cargo clippy \u0026\u0026 cargo deny check \u0026\u0026 cargo test",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 26
+      },
+      "revId": "89ccc4feb58477ca95bad0a247b198a581b610d2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b34d31f4_8d13a219",
         "filename": "rust/bssl/deny.toml",
         "patchSetId": 35
@@ -91,6 +114,177 @@
         "endLine": 81,
         "endChar": 38
       },
+      "revId": "89ccc4feb58477ca95bad0a247b198a581b610d2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0764f66_3cf6e094",
+        "filename": "rust/bssl/src/digest.rs",
+        "patchSetId": 35
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-09T22:39:51Z",
+      "side": 1,
+      "message": "BoringSSL - amd make it a sentence with a . Mention that it can panic on memory allocation failures in BoringSSL.  (remember this shows up in Cargo doc)",
+      "range": {
+        "startLine": 18,
+        "startChar": 4,
+        "endLine": 18,
+        "endChar": 11
+      },
+      "revId": "89ccc4feb58477ca95bad0a247b198a581b610d2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbb9103c_04fc8c2b",
+        "filename": "rust/bssl/src/digest.rs",
+        "patchSetId": 35
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-09T22:39:51Z",
+      "side": 1,
+      "message": "BoringSSL same as above.",
+      "range": {
+        "startLine": 22,
+        "startChar": 4,
+        "endLine": 22,
+        "endChar": 11
+      },
+      "revId": "89ccc4feb58477ca95bad0a247b198a581b610d2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f72dc0f1_4c25a0cb",
+        "filename": "rust/bssl/src/digest.rs",
+        "patchSetId": 35
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-09T22:39:51Z",
+      "side": 1,
+      "message": "\"BoringSSL\" and \"MD\"\n\nAnd generally speaking throughout, if it\u0027s worth a comment use a sentence (capitalize the start and end with a .)",
+      "range": {
+        "startLine": 35,
+        "startChar": 4,
+        "endLine": 35,
+        "endChar": 45
+      },
+      "revId": "89ccc4feb58477ca95bad0a247b198a581b610d2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8d636355_f61de3b4",
+        "filename": "rust/bssl/src/hmac.rs",
+        "patchSetId": 35
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-09T22:39:51Z",
+      "side": 1,
+      "message": "Needs a. at the end of the sentence, and a mention that it can panic if memory allocation fails in the underlying BoringSSL code.",
+      "revId": "89ccc4feb58477ca95bad0a247b198a581b610d2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "934895d3_2aaaef5b",
+        "filename": "rust/bssl/src/hmac.rs",
+        "patchSetId": 35
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-09T22:39:51Z",
+      "side": 1,
+      "message": "needs a.  And a mention that it can panic if memory allocation fails.",
+      "revId": "89ccc4feb58477ca95bad0a247b198a581b610d2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc20c773_b418b40f",
+        "filename": "rust/bssl/src/hmac.rs",
+        "patchSetId": 35
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-09T22:39:51Z",
+      "side": 1,
+      "message": "as above.",
+      "revId": "89ccc4feb58477ca95bad0a247b198a581b610d2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6532160_e2b548f0",
+        "filename": "rust/bssl/src/hmac.rs",
+        "patchSetId": 35
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-09T22:39:51Z",
+      "side": 1,
+      "message": "End comment sentences with a \u0027.\u0027  start with capital, throughout.",
+      "revId": "89ccc4feb58477ca95bad0a247b198a581b610d2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e505da5f_adc9a394",
+        "filename": "rust/bssl/src/hmac.rs",
+        "patchSetId": 35
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-09T22:39:51Z",
+      "side": 1,
+      "message": "period at end of sentence,  Mention it may panic if memory allocation fails in BoringSSL.",
+      "revId": "89ccc4feb58477ca95bad0a247b198a581b610d2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8601b641_25cdbe26",
+        "filename": "rust/bssl/src/lib.rs",
+        "patchSetId": 35
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-09T22:39:51Z",
+      "side": 1,
+      "message": "BoringSSL (throughout)",
       "revId": "89ccc4feb58477ca95bad0a247b198a581b610d2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
