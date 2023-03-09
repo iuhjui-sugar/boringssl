@@ -200,6 +200,24 @@
       "parentUuid": "53e07874_f0182e63",
       "revId": "acc75b798be080e6d3c21aa0544c23f1174b8d92",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b34253d_d9cc08ba",
+        "filename": "rust/bssl/README.md",
+        "patchSetId": 32
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-09T21:45:06Z",
+      "side": 1,
+      "message": "yeah my bad, it\u0027s fine",
+      "parentUuid": "53e07874_f0182e63",
+      "revId": "acc75b798be080e6d3c21aa0544c23f1174b8d92",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
