@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8fa54a92_84dc2688",
+        "filename": "rust/bssl/deny.toml",
+        "patchSetId": 39
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-09T23:25:56Z",
+      "side": 1,
+      "message": "comment this out for now",
+      "revId": "fd86544055a948cb6da951787639172b4737d88b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35ef5bc2_aa9e499b",
+        "filename": "rust/bssl/deny.toml",
+        "patchSetId": 39
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-09T23:25:56Z",
+      "side": 1,
+      "message": "and this one...",
+      "revId": "fd86544055a948cb6da951787639172b4737d88b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8167d82f_585b98be",
+        "filename": "rust/bssl/deny.toml",
+        "patchSetId": 39
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-09T23:25:56Z",
+      "side": 1,
+      "message": "and this one.",
+      "revId": "fd86544055a948cb6da951787639172b4737d88b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "472b8f05_b911b06e",
+        "filename": "rust/bssl/src/hmac.rs",
+        "patchSetId": 39
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-09T23:25:56Z",
+      "side": 1,
+      "message": "Hey what\u0027s the thought on why we want this? Since this is all C under the covers I\u0027m somewhat allergic to this bringing in dependencies, but if we really need/want it for other things? @danakj@chromium.org - this a crate we want?",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 34
+      },
+      "revId": "fd86544055a948cb6da951787639172b4737d88b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
