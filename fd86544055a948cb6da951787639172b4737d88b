@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb4b8437_9113cf5b",
+        "filename": "rust/bssl/deny.toml",
+        "patchSetId": 39
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-09T23:31:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8fa54a92_84dc2688",
+      "revId": "fd86544055a948cb6da951787639172b4737d88b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "35ef5bc2_aa9e499b",
@@ -35,6 +53,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a326fec7_6af18741",
+        "filename": "rust/bssl/deny.toml",
+        "patchSetId": 39
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-09T23:31:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35ef5bc2_aa9e499b",
+      "revId": "fd86544055a948cb6da951787639172b4737d88b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8167d82f_585b98be",
@@ -48,6 +84,24 @@
       "writtenOn": "2023-03-09T23:25:56Z",
       "side": 1,
       "message": "and this one.",
+      "revId": "fd86544055a948cb6da951787639172b4737d88b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc7f7f05_8eeb73e8",
+        "filename": "rust/bssl/deny.toml",
+        "patchSetId": 39
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-09T23:31:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8167d82f_585b98be",
       "revId": "fd86544055a948cb6da951787639172b4737d88b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
