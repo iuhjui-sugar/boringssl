@@ -34,6 +34,24 @@
       "parentUuid": "b34d31f4_8d13a219",
       "revId": "89ccc4feb58477ca95bad0a247b198a581b610d2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d23d16d_1484f435",
+        "filename": "rust/bssl/deny.toml",
+        "patchSetId": 35
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-09T22:02:27Z",
+      "side": 1,
+      "message": "MIT",
+      "parentUuid": "2ee5923c_bb2180e2",
+      "revId": "89ccc4feb58477ca95bad0a247b198a581b610d2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
