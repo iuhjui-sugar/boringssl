@@ -980,7 +980,6 @@ both_builders(
     WIN_HOST,
     category = "win",
     short_name = "arm64",
-    cq_enabled = False,
     properties = {
         "clang": True,
         "cmake_args": {
@@ -992,6 +991,21 @@ both_builders(
             "CMAKE_C_FLAGS": "--target=arm64-windows",
             "CMAKE_CXX_FLAGS": "--target=arm64-windows",
         },
+        "gclient_vars": {
+            "checkout_nasm": False,
+        },
+        "msvc_target": "arm64",
+        "run_unit_tests": False,
+        "run_ssl_tests": False,
+    },
+)
+
+# TODO(davidben): After confirming this configuration works, add it to CI.
+cq_builder(
+    "win_arm64_msvc_compile",
+    WIN_HOST,
+    cq_enabled = False,
+    properties = {
         "gclient_vars": {
             "checkout_nasm": False,
         },
