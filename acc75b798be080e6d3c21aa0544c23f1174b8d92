@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ea82b9f_43ac328f",
+        "filename": "rust/bssl/Cargo.toml",
+        "patchSetId": 32
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-09T20:44:00Z",
+      "side": 1,
+      "message": "What\u0027s the rationale behind bringing this in here? Since this is a bindgen library and boringssl is already running these tests, does it make any sense to run this again?   I\u0027m thinking here that the tests need to be that yes indeed, the same input to boringssl HMAC gives you same in rust, but for example, we do not *re-do* the wycheproof tests in boringssl when calling HMAC through a c++ wrapper to the C funcitons....",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 20
+      },
+      "revId": "acc75b798be080e6d3c21aa0544c23f1174b8d92",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
