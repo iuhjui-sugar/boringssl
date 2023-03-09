@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "47530adb_fc387ac6",
+        "filename": "rust/bssl/Cargo.toml",
+        "patchSetId": 32
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-09T21:31:05Z",
+      "side": 1,
+      "message": "Got it, updated and added the default deny.toml. For the libc crate that is already used by bssl-sys even before this CL, its also already imported to Chromium: https://source.chromium.org/chromium/chromium/src/+/main:third_party/rust/libc/v0_2/;l\u003d1 and has MIT/Apache License so I think it should be good",
+      "parentUuid": "9ed89977_231cc8a7",
+      "revId": "acc75b798be080e6d3c21aa0544c23f1174b8d92",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1ea82b9f_43ac328f",
         "filename": "rust/bssl/Cargo.toml",
         "patchSetId": 32
