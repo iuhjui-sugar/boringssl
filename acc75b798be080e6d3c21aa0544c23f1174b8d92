@@ -85,6 +85,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "52a6cfce_6ece78dc",
+        "filename": "rust/bssl/Cargo.toml",
+        "patchSetId": 32
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-09T21:36:24Z",
+      "side": 1,
+      "message": "All this does is eventually make test runs more onerous.. I\u0027d skip the crate dependency and put a few edge cases in your own tests.",
+      "parentUuid": "dbf2445a_fea31652",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 20
+      },
+      "revId": "acc75b798be080e6d3c21aa0544c23f1174b8d92",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f34b6ab6_a8a0fccf",
         "filename": "rust/bssl/README.md",
         "patchSetId": 32
