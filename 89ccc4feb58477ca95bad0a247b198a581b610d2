@@ -56,6 +56,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "c0bb7fce_836f7334",
+        "filename": "rust/bssl/deny.toml",
+        "patchSetId": 35
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-09T22:17:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d23d16d_1484f435",
+      "revId": "89ccc4feb58477ca95bad0a247b198a581b610d2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "e3972a0a_073679fb",
         "filename": "rust/bssl/deny.toml",
         "patchSetId": 35
