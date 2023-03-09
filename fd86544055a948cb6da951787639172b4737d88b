@@ -131,6 +131,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cf26c4cb_1418816f",
+        "filename": "rust/bssl/src/hmac.rs",
+        "patchSetId": 39
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-09T23:36:55Z",
+      "side": 1,
+      "message": "I pulled this in basically just for convenience of wrapping C types, its a small lib which mostly just exposes helper macro/fns, for example `as_ptr` and `as_ptr`. My thinking was that we would end up re-implementing all of these anyways, so might as well re-use this existing crate here",
+      "parentUuid": "472b8f05_b911b06e",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 34
+      },
+      "revId": "fd86544055a948cb6da951787639172b4737d88b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "da5bba0a_3b7859fd",
         "filename": "rust/bssl/src/hmac.rs",
         "patchSetId": 39
