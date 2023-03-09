@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9ed89977_231cc8a7",
+        "filename": "rust/bssl/Cargo.toml",
+        "patchSetId": 32
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-09T21:07:23Z",
+      "side": 1,
+      "message": "Since we are at least for testing going to be smoking from the cargo pipe, let\u0027s set this up properly from the first place.  Set up cargo deny and to a cargo deny init in here and commit the deny.toml as well.. It will show you a few interesting things and help keep this clean. (we can adjust the deny.toml after you add it, just add the default and note the warnings. not sure about that libc crate.",
+      "revId": "acc75b798be080e6d3c21aa0544c23f1174b8d92",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1ea82b9f_43ac328f",
         "filename": "rust/bssl/Cargo.toml",
         "patchSetId": 32
