@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "dbf2445a_fea31652",
+        "filename": "rust/bssl/Cargo.toml",
+        "patchSetId": 32
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-09T20:51:06Z",
+      "side": 1,
+      "message": "That\u0027s a good point, I guess I agree that they are not needed, but it was just the easiest way to verify that the bindings were still working correctly, and that there weren\u0027t any issues with how the types and bytes were passed across the boundary. Given they are already implemented, is there any harm in leaving them? If not, what would be the best approach to testing, just a couple of main test cases and edge cases instead of the whole list of vectors?",
+      "parentUuid": "1ea82b9f_43ac328f",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 20
+      },
+      "revId": "acc75b798be080e6d3c21aa0544c23f1174b8d92",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f34b6ab6_a8a0fccf",
         "filename": "rust/bssl/README.md",
         "patchSetId": 32
