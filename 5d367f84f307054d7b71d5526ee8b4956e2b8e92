@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "34f40f80_66fc04d4",
+        "filename": "rust/bssl-crypto/src/hmac.rs",
+        "patchSetId": 44
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-10T20:35:06Z",
+      "side": 1,
+      "message": "Another thing I wanted to call out is this. Discussed with @bbe@google.com offline and have concluded that is will always be safe for boringssl, despite the fact that `usize` is not guaranteed to equal `size_t`: https://internals.rust-lang.org/t/pre-rfc-usize-is-not-size-t/15369\n\nBut for the platforms boringssl supports, this will always be the case to `usize` is safe to pass as is over FFI",
+      "range": {
+        "startLine": 271,
+        "startChar": 16,
+        "endLine": 271,
+        "endChar": 28
+      },
+      "revId": "5d367f84f307054d7b71d5526ee8b4956e2b8e92",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
