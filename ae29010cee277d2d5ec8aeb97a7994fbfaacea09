@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1f3e075f_37253da1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 43
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-10T20:15:45Z",
+      "side": 1,
+      "message": "Update: after discussion with davidben@, we have opted to rename this `bssl-crypto` given there will eventually be a separate `bssl-tls`",
+      "revId": "ae29010cee277d2d5ec8aeb97a7994fbfaacea09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
