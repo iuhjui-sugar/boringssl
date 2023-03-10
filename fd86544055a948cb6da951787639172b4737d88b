@@ -179,6 +179,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0eae10eb_41f38c78",
+        "filename": "rust/bssl/src/hmac.rs",
+        "patchSetId": 39
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 14726
+      },
+      "writtenOn": "2023-03-10T17:29:01Z",
+      "side": 1,
+      "message": "Thanks for the discussion. I took a quick look at the crate... From what I can see:\n- It provides some structure to enforce that you provide all of from_ptr, as_ptr, and into_ptr together, through a trait\n- It provides a macro to write types that own pointers.\n\nMy opinions/thoughts here are:\n\nI don\u0027t think we need to write generic code over ForeignType/ForeignTypeRef so the trait\u0027s not doing that much for us.\n\nThe macro is a bit magic/intense, I\u0027d rather code review the actual code I think instead of the use of the macro.\n\nSo IMO I\u0027d drop the foreign_types crates. But if any of these feel like a misrepresentation or there\u0027s something more for me to look at please say.",
+      "parentUuid": "92724eaf_92f9bfab",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 34
+      },
+      "revId": "fd86544055a948cb6da951787639172b4737d88b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "da5bba0a_3b7859fd",
         "filename": "rust/bssl/src/hmac.rs",
         "patchSetId": 39
