@@ -70,6 +70,24 @@
       "parentUuid": "9321dd6d_5f5b6471",
       "revId": "f8cb2a376084bf278c43c5188b5e5ce4e1d04b16",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce1df0b0_9dcb415d",
+        "filename": "rust/bssl/src/hmac.rs",
+        "patchSetId": 42
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-10T18:02:45Z",
+      "side": 1,
+      "message": "\u003e However, we consider the fact that this doesn\u0027t work a language bug\n\nSorry, that got confused in an editing pass. Replace with:\n\nHowever, we don\u0027t actually want to check for `len \u003d\u003d 0`. It comes from what we consider to be language bugs.",
+      "parentUuid": "0314a89a_b174364e",
+      "revId": "f8cb2a376084bf278c43c5188b5e5ce4e1d04b16",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
