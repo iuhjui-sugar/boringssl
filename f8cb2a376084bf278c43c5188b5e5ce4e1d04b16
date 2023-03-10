@@ -52,6 +52,24 @@
       "parentUuid": "4e91205e_5c29cb00",
       "revId": "f8cb2a376084bf278c43c5188b5e5ce4e1d04b16",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0314a89a_b174364e",
+        "filename": "rust/bssl/src/hmac.rs",
+        "patchSetId": 42
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-10T18:01:04Z",
+      "side": 1,
+      "message": "Yeah, we generally check `len \u003d\u003d 0` before doing anything with the pointer. Specifically before:\n\n1. passing the pointer into `memcpy`, even though we\u0027d be copying zero bytes\n2. computing `ptr + len`\n3. computing `ptr - ptr`\n\nAs a consequence of this, I suspect BoringSSL functions accidentally work as well with (dangling, 0) as they do with (NULL, 0).\n\nHowever, we consider the fact that this doesn\u0027t work a language bug. Most functions naturally work for empty slices just as well as for non-empty slices. The only reason they don\u0027t work is due to a hole in C\u0027s semantics, which force us to treat the empty slice as a special case.\n\nHaving to treat the empty slice as a special case is more branches, more code that could be wrong, etc. It is much, much preferable to just write code in the natural way.\n\nOf these language bugs, (2) and (3) are already fixed in C++. I mean to contact the C folks to try to get them fixed in C too. If the language bugs are fixed, or if we move to libcrypto C++, we will no longer need to treat zero as a special case (the special-case in (1) is dumb but easy to handle systematically), at which point (dangling, 0) will stop working. Because C++ does not permit dangling + 0 or dangling - dangling, only NULL. Moreover, if we move to C++, we might try to use things like std::vector or std::span, which I believe also do not allow (dangling, 0).\n\nMoreover, libssl is *already* C++, and at some point this crate will presumably need to bind libssl too. (Actually, this is a design point we probably need to work out. Is it one big crate that also pulls in libssl, or two crates?)\n\nAs a result, I don\u0027t see any tenable position for BoringSSL\u0027s API (or any other C/C++ API) other than to say (dangling, 0) into our functions is UB, only (NULL, 0) and (valid, 0) are permitted. (invalid, 0) is not. To change that, we\u0027d need to get C/C++ to permit zero-length pointer ops on invalid pointers, or to get Rust to suitably convince the C/C++ abstract machine that there are zero-sized allocations located at each of its dangling pointers.",
+      "parentUuid": "9321dd6d_5f5b6471",
+      "revId": "f8cb2a376084bf278c43c5188b5e5ce4e1d04b16",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
