@@ -34,6 +34,24 @@
       "parentUuid": "8435fbb1_707d134b",
       "revId": "f8cb2a376084bf278c43c5188b5e5ce4e1d04b16",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9321dd6d_5f5b6471",
+        "filename": "rust/bssl/src/hmac.rs",
+        "patchSetId": 42
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 14726
+      },
+      "writtenOn": "2023-03-10T17:49:15Z",
+      "side": 1,
+      "message": "\u003e It probably works in practice because C doesn\u0027t allow NULL + 0 anyway, so we have to check. However C++ does, and if we ever move BoringSSL to C++, we\u0027ll probably drop those workarounds.\n\nCould you clarify for me David what the \"check\" boringssl is doing today that it wouldn\u0027t in the future? Is it that it checks the len, but it might use the (non-null) pointer without checking the len in the future?",
+      "parentUuid": "4e91205e_5c29cb00",
+      "revId": "f8cb2a376084bf278c43c5188b5e5ce4e1d04b16",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
