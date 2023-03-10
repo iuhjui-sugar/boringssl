@@ -203,6 +203,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6d4de31e_9992f1c5",
+        "filename": "rust/bssl/src/hmac.rs",
+        "patchSetId": 39
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-10T20:11:09Z",
+      "side": 1,
+      "message": "Sg, I am in favor of less macros, so will drop this dep and see how it looks",
+      "parentUuid": "0eae10eb_41f38c78",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 34
+      },
+      "revId": "fd86544055a948cb6da951787639172b4737d88b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "da5bba0a_3b7859fd",
         "filename": "rust/bssl/src/hmac.rs",
         "patchSetId": 39

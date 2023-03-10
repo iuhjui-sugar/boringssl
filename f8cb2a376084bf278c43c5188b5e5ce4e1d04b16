@@ -106,6 +106,24 @@
       "parentUuid": "ce1df0b0_9dcb415d",
       "revId": "f8cb2a376084bf278c43c5188b5e5ce4e1d04b16",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37c90d08_bd7cce74",
+        "filename": "rust/bssl/src/hmac.rs",
+        "patchSetId": 42
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-10T20:11:09Z",
+      "side": 1,
+      "message": "Sg, thanks for clarifying. Sounds like maybe even a type that could be upstreamed into `std::ffi` ?",
+      "parentUuid": "38ff8925_01bdf173",
+      "revId": "f8cb2a376084bf278c43c5188b5e5ce4e1d04b16",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
