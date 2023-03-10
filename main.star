@@ -1006,6 +1006,12 @@ cq_builder(
     WIN_HOST,
     cq_enabled = False,
     properties = {
+        "cmake_args": {
+            # This is a cross-compile, so CMake needs to be told the processor.
+            # MSVC will pick up the architecture from msvc_target.
+            "CMAKE_SYSTEM_NAME": "Windows",
+            "CMAKE_SYSTEM_PROCESSOR": "arm64",
+        },
         "gclient_vars": {
             "checkout_nasm": False,
         },
