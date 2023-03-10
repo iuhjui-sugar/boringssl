@@ -94,6 +94,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6df30514_e9df7ae5",
+        "filename": "third_party/fiat/curve25519_64_msvc.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-10T16:44:32Z",
+      "side": 1,
+      "message": "Okay, now we have both win_arm64_compile (which should be win_arm64_clang_compile) and win_arm64_msvc_compile (which should be win_arm64_compile) under \"choose tryjobs\" and we can repro the issue in plain MSVC too. I\u0027ll add them to Commit-Queue+1 by default shortly, since it seems to be working.",
+      "parentUuid": "edcdd247_b42ad168",
+      "revId": "824129238f0d64b281917d8c650ea7b8054b245c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9799148a_e5aafd66",
         "filename": "third_party/fiat/curve25519_64_msvc.h",
         "patchSetId": 2
