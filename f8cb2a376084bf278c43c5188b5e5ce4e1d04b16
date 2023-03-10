@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8435fbb1_707d134b",
+        "filename": "rust/bssl/src/hmac.rs",
+        "patchSetId": 42
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-10T17:18:33Z",
+      "side": 1,
+      "message": "This is not quiiiiite safe. Rust messed up really badly here and used an incompatible empty slice representation from C/C++, as well as one that\u0027s quite unsafe in general since fabricating pointers is pretty question. (Indeed, AIUI rustc actually outputs LLVM bitcode that\u0027s technical UB right now? Though I\u0027m not clear on the details there.)\n\nSee go/rust-empty-slice-ub\n\nYou probably will need helper functions to go between C and Rust whenever slices are involved. It\u0027s the worst. :-(\n\nIt probably works in practice because C doesn\u0027t allow NULL + 0 anyway, so we have to check. However C++ does, and if we ever move BoringSSL to C++, we\u0027ll probably drop those workarounds. And so, formally, BoringSSL has to currently believe (NULL, 0) is a valid empty slice but (invalid-pointer, 0) is not.\n\nIt\u0027s possible that the fix for rustc\u0027s problems will make its invalid pointers sufficiently valid that this will make it moot, but that\u0027s not the current state, so you need to avoid it. This means Rust will be slightly less efficient, but that\u0027s the cost of Rust\u0027s unsafe slice repr. 😞",
+      "revId": "f8cb2a376084bf278c43c5188b5e5ce4e1d04b16",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
