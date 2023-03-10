@@ -88,6 +88,24 @@
       "parentUuid": "0314a89a_b174364e",
       "revId": "f8cb2a376084bf278c43c5188b5e5ce4e1d04b16",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38ff8925_01bdf173",
+        "filename": "rust/bssl/src/hmac.rs",
+        "patchSetId": 42
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 14726
+      },
+      "writtenOn": "2023-03-10T18:17:13Z",
+      "side": 1,
+      "message": "Thanks David, all clear.\n\nTo Nabil\u0027s question, then this needs to be `if key.len() \u003d\u003d 0 { std::ptr::null() } else { key.as_ptr() as *const c_void }`\n\nAnd some kinda helper here would be nice.\n\nA CSlice (like CString) type that can be constructed from slice and as_ptr() returns null when len is 0?",
+      "parentUuid": "ce1df0b0_9dcb415d",
+      "revId": "f8cb2a376084bf278c43c5188b5e5ce4e1d04b16",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
