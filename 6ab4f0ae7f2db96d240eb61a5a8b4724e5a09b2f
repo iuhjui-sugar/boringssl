@@ -16,6 +16,24 @@
       "message": "Note: It looks like this change may have broken the Chromium-into-WebRTC autoroller: https://ci.chromium.org/ui/p/webrtc/builders/try/android_compile_arm_rel/46983/overview\n\nI\u0027m hoping maybe WebRTC just needs to change its Android build configuration or something?",
       "revId": "6ab4f0ae7f2db96d240eb61a5a8b4724e5a09b2f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44246ede_532eeed7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-10T21:30:53Z",
+      "side": 1,
+      "message": "Oh fun. Hopefully! If they actually need to support old Androids, we can figure something out, but given not even the NDK supports it anymore, I assume their bot is just targeting a needlessly old version.\n\nDo you know who to get in touch with for that?",
+      "parentUuid": "b558f97c_b1a1efe6",
+      "revId": "6ab4f0ae7f2db96d240eb61a5a8b4724e5a09b2f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
