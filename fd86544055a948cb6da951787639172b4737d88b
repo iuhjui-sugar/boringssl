@@ -225,6 +225,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c8644f6_89df4799",
+        "filename": "rust/bssl/src/hmac.rs",
+        "patchSetId": 39
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-13T17:10:43Z",
+      "side": 1,
+      "message": "Updated to remove the dep on foreign-types",
+      "parentUuid": "6d4de31e_9992f1c5",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 34
+      },
+      "revId": "fd86544055a948cb6da951787639172b4737d88b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "da5bba0a_3b7859fd",

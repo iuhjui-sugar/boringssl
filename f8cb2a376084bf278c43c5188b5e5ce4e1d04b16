@@ -124,6 +124,24 @@
       "parentUuid": "38ff8925_01bdf173",
       "revId": "f8cb2a376084bf278c43c5188b5e5ce4e1d04b16",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12e98116_70455fc6",
+        "filename": "rust/bssl/src/hmac.rs",
+        "patchSetId": 42
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-13T17:10:43Z",
+      "side": 1,
+      "message": "Updated to go through a new `CSlice` type for passing slices over FFI",
+      "parentUuid": "37c90d08_bd7cce74",
+      "revId": "f8cb2a376084bf278c43c5188b5e5ce4e1d04b16",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
