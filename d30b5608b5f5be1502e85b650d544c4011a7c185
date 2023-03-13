@@ -46,6 +46,30 @@
       },
       "revId": "d30b5608b5f5be1502e85b650d544c4011a7c185",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43cc8175_15924ceb",
+        "filename": "rust/bssl-sys/Cargo.toml",
+        "patchSetId": 45
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-13T17:36:59Z",
+      "side": 1,
+      "message": "good point updated",
+      "parentUuid": "49acf959_3ab452e0",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 16
+      },
+      "revId": "d30b5608b5f5be1502e85b650d544c4011a7c185",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
