@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "114fb63f_49aeb51c",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 14
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 15796
+      },
+      "writtenOn": "2023-03-13T22:17:17Z",
+      "side": 1,
+      "message": "This is technically implementation defined behavior. Only a particularly cruel compiler would shift a negative number with zeroes, but bitwise shift on ints was only defined in C++20.\n\nhttps://en.cppreference.com/w/cpp/language/operator_arithmetic",
+      "range": {
+        "startLine": 118,
+        "startChar": 18,
+        "endLine": 118,
+        "endChar": 46
+      },
+      "revId": "4674383efc807a611133024eb9acd6c5efd68cb1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
