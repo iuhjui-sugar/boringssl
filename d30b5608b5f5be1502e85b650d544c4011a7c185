@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8dd5eee2_7fe24b74",
+        "filename": "rust/bssl-sys/Cargo.toml",
+        "patchSetId": 45
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-13T17:32:20Z",
+      "side": 1,
+      "message": "bbe-macbookpro:bssl-crypto bbe$ cargo clippy\n    Updating crates.io index\nerror: failed to select a version for the requirement `bssl-sys \u003d \"^0.2\"`\ncandidate versions found which didn\u0027t match: 0.1.0\nlocation searched: crates.io index\nrequired by package `bssl-sys v0.1.0 (/Users/bbe/boringssl/build/rust/bssl-sys)`\n    ... which satisfies path dependency `bssl-sys` (locked to 0.1.0) of package `bssl-crypto v0.1.0 (/Users/bbe/boringssl/rust/bssl-crypto)`\nbbe-macbookpro:bssl-crypto bbe$ cargo deny\nCargo plugin to help you manage large dependency graphs",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 16
+      },
+      "revId": "d30b5608b5f5be1502e85b650d544c4011a7c185",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
