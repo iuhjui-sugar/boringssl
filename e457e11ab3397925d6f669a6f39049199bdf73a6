@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "25e866e5_e01d79df",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-13T16:56:30Z",
+      "side": 1,
+      "message": "What\u0027s the rationale around changing this from uint32_t in the previous version? I tend to the \"unsigned is never the right type\" school...",
+      "revId": "e457e11ab3397925d6f669a6f39049199bdf73a6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
