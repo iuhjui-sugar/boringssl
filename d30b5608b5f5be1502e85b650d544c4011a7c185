@@ -22,6 +22,30 @@
       },
       "revId": "d30b5608b5f5be1502e85b650d544c4011a7c185",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "49acf959_3ab452e0",
+        "filename": "rust/bssl-sys/Cargo.toml",
+        "patchSetId": 45
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-13T17:33:36Z",
+      "side": 1,
+      "message": "Since you don\u0027t want to change this or you may break android, I think you meant to keep the libc dependency there.",
+      "parentUuid": "8dd5eee2_7fe24b74",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 16
+      },
+      "revId": "d30b5608b5f5be1502e85b650d544c4011a7c185",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
