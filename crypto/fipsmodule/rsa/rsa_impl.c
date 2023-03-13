@@ -1089,13 +1089,13 @@ static int generate_prime(BIGNUM *out, int bits, const BIGNUM *e,
     // bound checked below in steps 4.4 and 5.5).
     if (!BN_rand(out, bits, BN_RAND_TOP_ONE, BN_RAND_BOTTOM_ODD) ||
         !BN_GENCB_call(cb, BN_GENCB_GENERATED, rand_tries++)) {
-      goto err;
+      continue;
     }
 
     if (p != NULL) {
       // If |p| and |out| are too close, try again (step 5.4).
       if (!bn_abs_sub_consttime(tmp, out, p, ctx)) {
-        goto err;
+        continue;
       }
       if (BN_cmp(tmp, pow2_bits_100) <= 0) {
         continue;
@@ -1113,32 +1113,43 @@ static int generate_prime(BIGNUM *out, int bits, const BIGNUM *e,
       continue;
     }
 
-    // RSA key generation's bottleneck is discarding composites. If it fails
-    // trial division, do not bother computing a GCD or performing Miller-Rabin.
-    if (!bn_odd_number_is_obviously_composite(out)) {
-      // Check gcd(out-1, e) is one (steps 4.5 and 5.6).
-      int relatively_prime;
-      if (!BN_sub(tmp, out, BN_value_one()) ||
-          !bn_is_relatively_prime(&relatively_prime, tmp, e, ctx)) {
-        goto err;
+// here, using the nextprime algorithm to search a prime number
+// next_prime_step:
+    while( tries < limit) {
+      tries++;
+      // make sure the "out" is odd number, not even number
+      // every step is 2, that's odd number: 2k+1
+      // this means: out = out + 2
+      BN_add_word(out, 2);
+      if (!BN_is_odd(out)) {
+        BN_add_word(out, 1);
       }
-      if (relatively_prime) {
-        // Test |out| for primality (steps 4.5.1 and 5.6.1).
-        int is_probable_prime;
-        if (!BN_primality_test(&is_probable_prime, out,
-                               BN_prime_checks_for_generation, ctx, 0, cb)) {
-          goto err;
+      // RSA key generation's bottleneck is discarding composites. If it fails
+      // trial division, do not bother computing a GCD or performing Miller-Rabin.
+      if (!bn_odd_number_is_obviously_composite(out)) {
+        // Check gcd(out-1, e) is one (steps 4.5 and 5.6).
+        int relatively_prime;
+        if (!BN_sub(tmp, out, BN_value_one()) ||
+            !bn_is_relatively_prime(&relatively_prime, tmp, e, ctx)) {
+          continue;
         }
-        if (is_probable_prime) {
-          ret = 1;
-          goto err;
-        }
-      }
-    }
+        if (relatively_prime) {
+          // Test |out| for primality (steps 4.5.1 and 5.6.1).
+          int is_probable_prime;
+          if (!BN_primality_test(&is_probable_prime, out,
+                                BN_prime_checks_for_generation, ctx, 0, cb)) {
+            continue;
+          }
+          if (is_probable_prime) {
+            ret = 1;
+            goto err;
+          }
+        } // relatively_prime
+      } // bn_odd_number_is_obviously_composite()
+    } // nex_step
 
     // If we've tried too many times to find a prime, abort (steps 4.7 and
     // 5.8).
-    tries++;
     if (tries >= limit) {
       OPENSSL_PUT_ERROR(RSA, RSA_R_TOO_MANY_ITERATIONS);
       goto err;
