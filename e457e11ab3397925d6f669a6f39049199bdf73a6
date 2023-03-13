@@ -16,6 +16,24 @@
       "message": "What\u0027s the rationale around changing this from uint32_t in the previous version? I tend to the \"unsigned is never the right type\" school...",
       "revId": "e457e11ab3397925d6f669a6f39049199bdf73a6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2ad6bb3b_07af809e",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 15796
+      },
+      "writtenOn": "2023-03-13T17:28:14Z",
+      "side": 1,
+      "message": "That was the reason I had them signed in the initial version. In the end it doesn\u0027t matter too much, as at the end of a function they have to be between 0 and 3328. In this specific function we need to read bitwise stored integers into these 0 to 3328 ints, with power being the offset coming from crossing a byte boundary. It should be the same type we use in scalar in general, which used to be int32_t, but was changed to uint16_t. One argument in favor of using unsigned here is that a bunch of bitshifting and other bitoperations happen in this function, and unless you go all in on \"it\u0027s 2-adic numbers, not integers\" those make little sense for signed integers.",
+      "parentUuid": "25e866e5_e01d79df",
+      "revId": "e457e11ab3397925d6f669a6f39049199bdf73a6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
