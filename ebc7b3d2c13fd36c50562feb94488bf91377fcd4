@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ce198cd_7fc0abdd",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-13T21:32:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6cc77fa7_4ebd9210",
+      "range": {
+        "startLine": 44,
+        "startChar": 14,
+        "endLine": 44,
+        "endChar": 16
+      },
+      "revId": "ebc7b3d2c13fd36c50562feb94488bf91377fcd4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a616ca33_8418cd94",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-03-07T23:19:31Z",
       "side": 1,
       "message": "typo: bitreverse, not inverse (twice in this line)",
+      "range": {
+        "startLine": 213,
+        "startChar": 14,
+        "endLine": 213,
+        "endChar": 16
+      },
+      "revId": "ebc7b3d2c13fd36c50562feb94488bf91377fcd4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "154227d5_1661ed09",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-13T21:32:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a616ca33_8418cd94",
       "range": {
         "startLine": 213,
         "startChar": 14,
@@ -70,6 +118,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "963aab90_eb6c53fd",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-13T21:32:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bee49c09_3fb871de",
+      "range": {
+        "startLine": 270,
+        "startChar": 53,
+        "endLine": 270,
+        "endChar": 69
+      },
+      "revId": "ebc7b3d2c13fd36c50562feb94488bf91377fcd4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f4b6f6f1_59f3865f",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-03-07T23:19:31Z",
       "side": 1,
       "message": "We could explicitly write that the output is 32*|bits| bytes (where 32 \u003d DEGREE/8)",
+      "range": {
+        "startLine": 348,
+        "startChar": 18,
+        "endLine": 348,
+        "endChar": 20
+      },
+      "revId": "ebc7b3d2c13fd36c50562feb94488bf91377fcd4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "74dfc7c8_c2eec1c0",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-13T21:32:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4b6f6f1_59f3865f",
       "range": {
         "startLine": 348,
         "startChar": 18,
@@ -139,6 +235,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6341e5d9_15fa127c",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 373,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-13T21:32:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc88a7cd_b3d8a7ef",
+      "range": {
+        "startLine": 373,
+        "startChar": 39,
+        "endLine": 373,
+        "endChar": 44
+      },
+      "revId": "ebc7b3d2c13fd36c50562feb94488bf91377fcd4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fd74d0c7_4ba73258",
@@ -152,6 +272,30 @@
       "writtenOn": "2023-03-07T23:19:31Z",
       "side": 1,
       "message": "same comment here for the input, we read 32*|bits| bytes from |in|.",
+      "range": {
+        "startLine": 380,
+        "startChar": 18,
+        "endLine": 380,
+        "endChar": 33
+      },
+      "revId": "ebc7b3d2c13fd36c50562feb94488bf91377fcd4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "910253ab_0e6c6e72",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-13T21:32:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fd74d0c7_4ba73258",
       "range": {
         "startLine": 380,
         "startChar": 18,
@@ -185,6 +329,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0bdc8c26_742a4b78",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-13T21:32:30Z",
+      "side": 1,
+      "message": "`unsigned` is a good type for a shift. (I suspect it\u0027s undefined behaviour if it\u0027s out of range of the shifted type anyway.)",
+      "parentUuid": "2bfa99c2_737d985e",
+      "range": {
+        "startLine": 386,
+        "startChar": 7,
+        "endLine": 386,
+        "endChar": 10
+      },
+      "revId": "ebc7b3d2c13fd36c50562feb94488bf91377fcd4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "294f323d_0f5de10d",
@@ -198,6 +366,30 @@
       "writtenOn": "2023-03-07T23:19:31Z",
       "side": 1,
       "message": "And here, where we read 32*RANK*|bits| bytes from |in|",
+      "range": {
+        "startLine": 402,
+        "startChar": 24,
+        "endLine": 402,
+        "endChar": 28
+      },
+      "revId": "ebc7b3d2c13fd36c50562feb94488bf91377fcd4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60a5eb04_3534ef63",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-13T21:32:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "294f323d_0f5de10d",
       "range": {
         "startLine": 402,
         "startChar": 24,
@@ -231,6 +423,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "88429f1f_17518895",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-13T21:32:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8cb7e6d_0a755eef",
+      "range": {
+        "startLine": 425,
+        "startChar": 53,
+        "endLine": 425,
+        "endChar": 56
+      },
+      "revId": "ebc7b3d2c13fd36c50562feb94488bf91377fcd4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1f52ad7f_b311e8f7",
@@ -244,6 +460,30 @@
       "writtenOn": "2023-03-07T23:11:59Z",
       "side": 1,
       "message": "this can be out[KYBER_CIPHERTEXT_BYTES]",
+      "range": {
+        "startLine": 478,
+        "startChar": 24,
+        "endLine": 478,
+        "endChar": 37
+      },
+      "revId": "ebc7b3d2c13fd36c50562feb94488bf91377fcd4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29b5a3ae_9c16115b",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 478,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-13T21:32:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f52ad7f_b311e8f7",
       "range": {
         "startLine": 478,
         "startChar": 24,
@@ -300,6 +540,54 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b1281c2d_1659c036",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-13T21:32:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0e73f2de_79cd5cd6",
+      "range": {
+        "startLine": 520,
+        "startChar": 24,
+        "endLine": 520,
+        "endChar": 36
+      },
+      "revId": "ebc7b3d2c13fd36c50562feb94488bf91377fcd4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4d8cf1e_9c843321",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-13T21:32:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74692ddd_77ddc935",
+      "range": {
+        "startLine": 520,
+        "startChar": 52,
+        "endLine": 520,
+        "endChar": 65
+      },
+      "revId": "ebc7b3d2c13fd36c50562feb94488bf91377fcd4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d4f7de53_f8d5918b",
@@ -323,6 +611,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "193420e4_127791c9",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 576,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-13T21:32:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4f7de53_f8d5918b",
+      "range": {
+        "startLine": 576,
+        "startChar": 2,
+        "endLine": 576,
+        "endChar": 12
+      },
+      "revId": "ebc7b3d2c13fd36c50562feb94488bf91377fcd4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6ebe2a5a_42d456b2",
@@ -336,6 +648,30 @@
       "writtenOn": "2023-03-07T23:11:59Z",
       "side": 1,
       "message": "We could move this and the other _external_entropy function to internal.h, then it would be accessible to the tests, but not part of the public API.",
+      "range": {
+        "startLine": 70,
+        "startChar": 20,
+        "endLine": 70,
+        "endChar": 49
+      },
+      "revId": "ebc7b3d2c13fd36c50562feb94488bf91377fcd4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7389d872_85e278c9",
+        "filename": "include/openssl/kyber.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-13T21:32:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ebe2a5a_42d456b2",
       "range": {
         "startLine": 70,
         "startChar": 20,

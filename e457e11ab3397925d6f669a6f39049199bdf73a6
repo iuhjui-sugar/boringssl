@@ -34,6 +34,24 @@
       "parentUuid": "25e866e5_e01d79df",
       "revId": "e457e11ab3397925d6f669a6f39049199bdf73a6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "faa375e4_29462ba6",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 13
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-13T21:32:30Z",
+      "side": 1,
+      "message": "\u003e What\u0027s the rationale around changing this from uint32_t in the previous version?\n\nAn unsigned type because it\u0027s a shift, and a shift had better not be negative.\nNot uint32_t because it\u0027s not inherently sized.\n\nBut I really could go either way. Looking at this code again prompted me to try rewriting it, which was worth a few percent speedup overall. And I used `int` there to fit in, so it goes.\n\nI also split off the 1-bit version of each into its own function, which is worth another few percent. (I want to be mindful of code-size, but the 1-bit case is very simple.)",
+      "parentUuid": "2ad6bb3b_07af809e",
+      "revId": "e457e11ab3397925d6f669a6f39049199bdf73a6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
