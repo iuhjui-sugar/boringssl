@@ -70,6 +70,30 @@
       },
       "revId": "bf08f55491722ab85b6560c03f3176c4a29bdc67",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67c25c2e_9eb33e58",
+        "filename": "rust/bssl-crypto/Cargo.lock",
+        "patchSetId": 25
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-14T17:46:15Z",
+      "side": 1,
+      "message": "this is a library ;)",
+      "parentUuid": "584072a7_6ceae933",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 49
+      },
+      "revId": "bf08f55491722ab85b6560c03f3176c4a29bdc67",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }

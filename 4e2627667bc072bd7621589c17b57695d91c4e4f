@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0d444fa_874d4122",
+        "filename": "rust/bssl/src/aes.rs",
+        "patchSetId": 22
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-14T17:46:15Z",
+      "side": 1,
+      "message": "This would be a confusing panic message, just say \"bssl_sys::AES_set_encrypt_key unexpectedly failed\"\n(If you want to put that this won\u0027t be hit in a comment, that\u0027s fine)",
+      "revId": "4e2627667bc072bd7621589c17b57695d91c4e4f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7af10886_047e3f0b",
+        "filename": "rust/bssl/src/aes.rs",
+        "patchSetId": 22
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-14T17:46:15Z",
+      "side": 1,
+      "message": "This would be a confusing panic message, just say \"bssl_sys::AES_set_decrypt_key unexpectedly failed\"\n(If you want to put that this won\u0027t be hit in a comment, that\u0027s fine)",
+      "range": {
+        "startLine": 120,
+        "startChar": 13,
+        "endLine": 120,
+        "endChar": 77
+      },
+      "revId": "4e2627667bc072bd7621589c17b57695d91c4e4f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
