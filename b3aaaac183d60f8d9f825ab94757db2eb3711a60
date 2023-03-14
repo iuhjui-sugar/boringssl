@@ -88,6 +88,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "882513f4_ba6abb70",
+        "filename": "rust/bssl/src/hkdf.rs",
+        "patchSetId": 8
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-14T23:40:51Z",
+      "side": 1,
+      "message": "alright removed",
+      "parentUuid": "c173fc80_b81f2f4e",
+      "revId": "b3aaaac183d60f8d9f825ab94757db2eb3711a60",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "64d673dd_42c479d6",
@@ -171,6 +189,24 @@
       "writtenOn": "2023-03-14T22:15:47Z",
       "side": 1,
       "message": "The place to run a full wycheproof test vector suite is in boringssl\u0027s crypto implementation, not in here.",
+      "revId": "b3aaaac183d60f8d9f825ab94757db2eb3711a60",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "acde6f44_cc408e20",
+        "filename": "rust/bssl/src/hkdf.rs",
+        "patchSetId": 8
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-14T23:40:51Z",
+      "side": 1,
+      "message": "If you are looking at the latest diff this should already be gone.",
+      "parentUuid": "4c958989_94969af6",
       "revId": "b3aaaac183d60f8d9f825ab94757db2eb3711a60",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
