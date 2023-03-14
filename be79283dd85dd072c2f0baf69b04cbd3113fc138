@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "33681e5a_e17ab693",
+        "filename": "rust/bssl-crypto/src/hmac.rs",
+        "patchSetId": 50
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-14T23:35:17Z",
+      "side": 1,
+      "message": "Done in latest cl",
+      "parentUuid": "126421b4_15683370",
+      "range": {
+        "startLine": 30,
+        "startChar": 15,
+        "endLine": 30,
+        "endChar": 19
+      },
+      "revId": "be79283dd85dd072c2f0baf69b04cbd3113fc138",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "bc736831_a0b22ea9",
@@ -77,6 +101,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "83ac6203_d2659a8e",
+        "filename": "rust/bssl-crypto/src/hmac.rs",
+        "patchSetId": 50
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-14T23:35:17Z",
+      "side": 1,
+      "message": "Done in latest CL/ Bobs CL above",
+      "parentUuid": "6ae99997_f17fa8fb",
+      "revId": "be79283dd85dd072c2f0baf69b04cbd3113fc138",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "76358d00_aa477fa1",
@@ -108,6 +150,24 @@
       "side": 1,
       "message": "Good point, will take this is a followup cl since this is already merged. I was manually making sure each place this is used, does in fact follow that return convention, but I agree that would make it really easy to wrongly use these for future API\u0027s",
       "parentUuid": "76358d00_aa477fa1",
+      "revId": "be79283dd85dd072c2f0baf69b04cbd3113fc138",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8cb06b24_4e5bb0ff",
+        "filename": "rust/bssl-crypto/src/lib.rs",
+        "patchSetId": 50
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-14T23:35:17Z",
+      "side": 1,
+      "message": "Done in latest cl",
+      "parentUuid": "5bdc0533_5bacf400",
       "revId": "be79283dd85dd072c2f0baf69b04cbd3113fc138",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
