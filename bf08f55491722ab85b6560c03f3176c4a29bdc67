@@ -214,6 +214,30 @@
       },
       "revId": "bf08f55491722ab85b6560c03f3176c4a29bdc67",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30184b7a_22ef7023",
+        "filename": "rust/bssl-crypto/Cargo.lock",
+        "patchSetId": 25
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 14726
+      },
+      "writtenOn": "2023-03-14T18:22:45Z",
+      "side": 1,
+      "message": "For Chrome we fix the version of all dependencies. We do it by vendoring them all, which is conceptually like us checking in a Cargo.lock (we actually do have one which is part of the generating BUILD.gn files).\n\nChrome wants to pick those versions, we don\u0027t want bssl to force specific versions.\n\n\u003e it definitely does happen in practice that different people at the same revision might not have matching compile output (e.g. won\u0027t compile for one of them) because they need to run cargo update. I\u0027ve seen this on multiple projects.\n\nMaybe it would make sense to lock the versions for building tests. You def want to lock the versions in production executable crates for the reason you state.\n\nMaybe I am wrong that putting the lock in the library crate also fixes versions for downstream, but if it does then if Chrome picks a different version we will fail to run Cargo against our vendored deps + bssl",
+      "parentUuid": "3887b625_d13ca638",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 49
+      },
+      "revId": "bf08f55491722ab85b6560c03f3176c4a29bdc67",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
