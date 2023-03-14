@@ -118,6 +118,30 @@
       },
       "revId": "bf08f55491722ab85b6560c03f3176c4a29bdc67",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01a63e02_f72ab6a8",
+        "filename": "rust/bssl-crypto/Cargo.lock",
+        "patchSetId": 25
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-14T17:50:33Z",
+      "side": 1,
+      "message": "True, I am still unsure though, what is the reason for not checking it in? In that case I think we would also want to add it to the gitignore otherwise someone else will end up checking it in",
+      "parentUuid": "67c25c2e_9eb33e58",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 49
+      },
+      "revId": "bf08f55491722ab85b6560c03f3176c4a29bdc67",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
