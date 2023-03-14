@@ -90,6 +90,24 @@
       "message": "This publicly exported API is currently unused. Do we want to encourage this mode of calling, or just say \"set up a CBS to call this\" (in which case we should perhaps not add this and the private key wrapper at this time)",
       "revId": "edad4de19c3ea20a036d30fa838ff66a8f98c527",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3336db0_19100c11",
+        "filename": "include/openssl/kyber.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-14T18:02:20Z",
+      "side": 1,
+      "message": "(alternatively is this the one true way and we should make the CBS version private?)",
+      "parentUuid": "26330828_580dbb7d",
+      "revId": "edad4de19c3ea20a036d30fa838ff66a8f98c527",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
