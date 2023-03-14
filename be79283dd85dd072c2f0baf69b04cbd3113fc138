@@ -3,6 +3,46 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "126421b4_15683370",
+        "filename": "rust/bssl-crypto/src/hmac.rs",
+        "patchSetId": 50
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-14T22:05:55Z",
+      "side": 1,
+      "message": "I\u0027ve never seen anyone write it as `sha_256`, though the name does have a hyphen in it. Let\u0027s just use `hmac_sha256`. That\u0027s even what the tests call it.",
+      "range": {
+        "startLine": 30,
+        "startChar": 15,
+        "endLine": 30,
+        "endChar": 19
+      },
+      "revId": "be79283dd85dd072c2f0baf69b04cbd3113fc138",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc736831_a0b22ea9",
+        "filename": "rust/bssl-crypto/src/hmac.rs",
+        "patchSetId": 50
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-14T22:05:55Z",
+      "side": 1,
+      "message": "Where does this limit come from? `EVP_MAX_MD_BLOCK_SIZE` is the maximum over all block sizes we support. It might even change if we add a new `EVP_MD` with larger block size.\n\nCapping against the block size of the particular hash function would be coherent, but even that\u0027s wrong because HMAC is specified to take an arbitrary-size key. I think this can be removed, in which case the whole InvalidLength case and fallible creation can be removed.",
+      "revId": "be79283dd85dd072c2f0baf69b04cbd3113fc138",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "76358d00_aa477fa1",
         "filename": "rust/bssl-crypto/src/lib.rs",
         "patchSetId": 50
