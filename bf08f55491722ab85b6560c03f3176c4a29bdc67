@@ -94,6 +94,30 @@
       },
       "revId": "bf08f55491722ab85b6560c03f3176c4a29bdc67",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b72eb0a_8add1886",
+        "filename": "rust/bssl-crypto/Cargo.lock",
+        "patchSetId": 25
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 15791
+      },
+      "writtenOn": "2023-03-14T17:50:24Z",
+      "side": 1,
+      "message": "FWIW the fact that the guidance excludes libraries is ... debatable. IMO, libraries should check in Cargo.lock, because otherwise reproducible builds are essentially impossible. It does no harm to _consuming_ the library because dependencies\u0027 Cargo.lock is ignored by cargo (if cargo is used).",
+      "parentUuid": "67c25c2e_9eb33e58",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 49
+      },
+      "revId": "bf08f55491722ab85b6560c03f3176c4a29bdc67",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
