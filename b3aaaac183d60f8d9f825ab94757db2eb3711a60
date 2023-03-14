@@ -156,6 +156,23 @@
       "parentUuid": "ea3a49a5_f6e28fe7",
       "revId": "b3aaaac183d60f8d9f825ab94757db2eb3711a60",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4c958989_94969af6",
+        "filename": "rust/bssl/src/hkdf.rs",
+        "patchSetId": 8
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-14T22:15:47Z",
+      "side": 1,
+      "message": "The place to run a full wycheproof test vector suite is in boringssl\u0027s crypto implementation, not in here.",
+      "revId": "b3aaaac183d60f8d9f825ab94757db2eb3711a60",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
