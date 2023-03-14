@@ -22,6 +22,30 @@
       },
       "revId": "4674383efc807a611133024eb9acd6c5efd68cb1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5498fd60_8f2eb665",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 14
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-14T16:53:08Z",
+      "side": 1,
+      "message": "Keep in mind that C is a completely different language. It\u0027s probably undefined behaviour in C or something because of sign-and-magnitude systems 😊\n\nBut thanks. I should have used a logic-shift with a subtraction, which we do elsewhere.",
+      "parentUuid": "114fb63f_49aeb51c",
+      "range": {
+        "startLine": 118,
+        "startChar": 18,
+        "endLine": 118,
+        "endChar": 46
+      },
+      "revId": "4674383efc807a611133024eb9acd6c5efd68cb1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
