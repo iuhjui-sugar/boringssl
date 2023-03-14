@@ -16,6 +16,29 @@
       "message": "+David in the attention set because this is plausibly close to ready.",
       "revId": "edad4de19c3ea20a036d30fa838ff66a8f98c527",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0796e0d3_147c897d",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 15796
+      },
+      "writtenOn": "2023-03-14T17:30:13Z",
+      "side": 1,
+      "message": "-bitreverse(i) (I hope python handles that correctly, otherwise 1175 \u003d 17^-1 mod 3329",
+      "range": {
+        "startLine": 84,
+        "startChar": 31,
+        "endLine": 84,
+        "endChar": 35
+      },
+      "revId": "edad4de19c3ea20a036d30fa838ff66a8f98c527",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
