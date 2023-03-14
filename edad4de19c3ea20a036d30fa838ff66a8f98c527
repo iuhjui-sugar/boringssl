@@ -20,6 +20,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "14c37c3c_e9ce0319",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-14T17:35:00Z",
+      "side": 1,
+      "message": "This is really a nit, and I don\u0027t care that much, but should we #define the values of the constants to use like this instead of using the comment paradigm?",
+      "revId": "edad4de19c3ea20a036d30fa838ff66a8f98c527",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0796e0d3_147c897d",
         "filename": "crypto/kyber/kyber.c",
         "patchSetId": 15
@@ -37,6 +54,40 @@
         "endLine": 84,
         "endChar": 35
       },
+      "revId": "edad4de19c3ea20a036d30fa838ff66a8f98c527",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5992f03c_de219121",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-14T17:35:00Z",
+      "side": 1,
+      "message": "Just a general nit throughout, in new code we\u0027ve been using size_t for array indices in loops.",
+      "revId": "edad4de19c3ea20a036d30fa838ff66a8f98c527",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26330828_580dbb7d",
+        "filename": "include/openssl/kyber.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-14T17:35:00Z",
+      "side": 1,
+      "message": "This publicly exported API is currently unused. Do we want to encourage this mode of calling, or just say \"set up a CBS to call this\" (in which case we should perhaps not add this and the private key wrapper at this time)",
       "revId": "edad4de19c3ea20a036d30fa838ff66a8f98c527",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
