@@ -73,6 +73,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c173fc80_b81f2f4e",
+        "filename": "rust/bssl/src/hkdf.rs",
+        "patchSetId": 8
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-14T22:11:21Z",
+      "side": 1,
+      "message": "This seems pretty excessive in light of BoringSSL\u0027s own tests, and you\u0027re just calling into it. So (related to my comment about turing on release mode because \"this is slow\" - I think this is probably not the place to be doing this.",
+      "revId": "b3aaaac183d60f8d9f825ab94757db2eb3711a60",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "64d673dd_42c479d6",
         "filename": "rust/bssl/src/hkdf.rs",
         "patchSetId": 8
