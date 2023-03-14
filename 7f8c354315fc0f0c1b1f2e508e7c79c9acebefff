@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37647b41_4a8cf961",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-14T18:48:31Z",
+      "side": 1,
+      "message": "Selecting candidates independently from each other was intentional, between matching the rules in FIPS 186-4, and also to avoid timing side channels. Our constant-time implementation relies on the fact that rejected composites are uncorrelated with the final secret prime. Incrementing old composites breaks this.\n\nUltimately, RSA key generation is not a fast operation and if your system relies on fast RSA keygen, you\u0027re probably doing something wrong.\n\nPS: This doesn\u0027t seem to be any faster on my machine anyway.",
+      "revId": "7f8c354315fc0f0c1b1f2e508e7c79c9acebefff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
