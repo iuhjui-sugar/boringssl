@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76358d00_aa477fa1",
+        "filename": "rust/bssl-crypto/src/lib.rs",
+        "patchSetId": 50
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-14T21:21:30Z",
+      "side": 1,
+      "message": "I don\u0027t think this is right. BoringSSL APIs *typically* return 1 on success and 0 on *all* errors, allocation or otherwise. Or NULL vs non-NULL. Some functions only fail on allocation error *or programmer error*, in which case panicking makes sense.\n\nLikewise, while *must* functions return 0 on error, they don\u0027t all do so. Some functions have other return conventions due to OpenSSL compatibility. I wish it were more uniform, but we\u0027re stuck there. You need to check the documentation to see.\n\nThus injecting a `panic_if_error` method onto `i32` and `*mut T` is misleading and less safe. It suggests to the reader that we\u0027ve automatically already marked all the functions with a result type that knows about the return values of each function. Really all we\u0027re doing is just tagging the common one.\n\n`\"allocation failed!\"` is also not right because you may also have just failed a precondition.\n\nInstead, it seems to me a lower-tech strategy is both more straightforward and safer: just have a function analogous to C++ `CHECK` that takes a boolean and panicks on false. And then you can just write `check(HMAC_Update(...) \u003e 0)` or whatever. That clues to the reader that they must cross-reference the return value convention in the code with that of the function.",
+      "revId": "be79283dd85dd072c2f0baf69b04cbd3113fc138",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
