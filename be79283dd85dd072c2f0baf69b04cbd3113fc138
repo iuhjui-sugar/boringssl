@@ -61,6 +61,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6ae99997_f17fa8fb",
+        "filename": "rust/bssl-crypto/src/hmac.rs",
+        "patchSetId": 50
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-14T23:05:26Z",
+      "side": 1,
+      "message": "See https://boringssl-review.googlesource.com/c/boringssl/+/58006",
+      "parentUuid": "e9c44a72_b5bb3337",
+      "revId": "be79283dd85dd072c2f0baf69b04cbd3113fc138",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "76358d00_aa477fa1",
         "filename": "rust/bssl-crypto/src/lib.rs",
         "patchSetId": 50
