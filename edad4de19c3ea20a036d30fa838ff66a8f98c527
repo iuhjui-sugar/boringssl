@@ -77,6 +77,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9553cc71_da2f09ad",
+        "filename": "include/openssl/kyber.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 15796
+      },
+      "writtenOn": "2023-03-14T20:20:51Z",
+      "side": 1,
+      "message": "Should KYBER_generate_key create marshalled keys or unmarshalled keys? If the keys are unmarshalled, generating the key and immediately using it would not require reexpanding of the matrix. Of course there is little that can immediately done with the key until the public key has been marshalled, send out, and someone has encapsulated to it, which can all happen in parallel to the unmarshalling of the private key.",
+      "range": {
+        "startLine": 53,
+        "startChar": 17,
+        "endLine": 53,
+        "endChar": 39
+      },
+      "revId": "edad4de19c3ea20a036d30fa838ff66a8f98c527",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "26330828_580dbb7d",
         "filename": "include/openssl/kyber.h",
         "patchSetId": 15
