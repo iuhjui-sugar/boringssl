@@ -43,6 +43,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e9c44a72_b5bb3337",
+        "filename": "rust/bssl-crypto/src/hmac.rs",
+        "patchSetId": 50
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-14T22:09:59Z",
+      "side": 1,
+      "message": "\u003e the maximum over all block sizes we support\n\nSorry, that was unclear. It\u0027s the maximum block size over all EVP_MDs we support.\n\nThat is, this is just an upper-bound to aid callers in stack-allocating buffers that will definitely be large enough.",
+      "parentUuid": "bc736831_a0b22ea9",
+      "revId": "be79283dd85dd072c2f0baf69b04cbd3113fc138",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "76358d00_aa477fa1",
         "filename": "rust/bssl-crypto/src/lib.rs",
         "patchSetId": 50
