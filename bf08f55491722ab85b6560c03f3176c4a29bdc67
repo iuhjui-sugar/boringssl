@@ -190,6 +190,30 @@
       },
       "revId": "bf08f55491722ab85b6560c03f3176c4a29bdc67",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3887b625_d13ca638",
+        "filename": "rust/bssl-crypto/Cargo.lock",
+        "patchSetId": 25
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 15791
+      },
+      "writtenOn": "2023-03-14T18:18:55Z",
+      "side": 1,
+      "message": "To be clear, I don\u0027t actually care all that much one way or another since the small dep tree is unlikely to cause many problems.\n\nAnyway, it definitely does happen in practice that different people at the same revision might not have matching compile output (e.g. won\u0027t compile for one of them) because they need to run `cargo update`. I\u0027ve seen this on multiple projects.\n\nSimilarly, if you want to be able to compile an old revision just as it was back in the day, `Cargo.lock` must be version controlled.\n\n@danakj can you be more specific about putting restrictions on dependencies? How does that happen when Cargo.lock for dependencies isn\u0027t incorporated into a final binary\u0027s (Cargo) build? Do other toolchains use Cargo.lock?",
+      "parentUuid": "85a3bad6_7b799ccd",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 49
+      },
+      "revId": "bf08f55491722ab85b6560c03f3176c4a29bdc67",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
