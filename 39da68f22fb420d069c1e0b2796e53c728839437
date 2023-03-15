@@ -52,6 +52,24 @@
       "parentUuid": "354b38c4_0ce32d6f",
       "revId": "39da68f22fb420d069c1e0b2796e53c728839437",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4faee8db_644fe3a1",
+        "filename": "rust/bssl-crypto/Cargo.toml",
+        "patchSetId": 28
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-15T22:36:28Z",
+      "side": 1,
+      "message": "In real rust programs consuming this, sure, but this is really meant to be a binding and shim layer to BoringSSL - not something implementing all the things in rust. If you can write linux kernel pieces without external crates we should be able to get what we need here. \n\nHaving said that, I don\u0027t think I\u0027m saying \"never\" I\u0027m at the moment saying \"not without a good reason\" - making our build system eat this because we want hex probably isn\u0027t that ;)",
+      "parentUuid": "f5369ed7_6d618767",
+      "revId": "39da68f22fb420d069c1e0b2796e53c728839437",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
