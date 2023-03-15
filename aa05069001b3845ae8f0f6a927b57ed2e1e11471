@@ -39,6 +39,30 @@
       },
       "revId": "aa05069001b3845ae8f0f6a927b57ed2e1e11471",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "859b8fba_76d6806a",
+        "filename": "rust/bssl-crypto/src/hmac.rs",
+        "patchSetId": 22
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-15T18:36:23Z",
+      "side": 1,
+      "message": "derp, I read that wrong.\n\nYou should really change these to the format with a message indicting what failed.\ni.e. assert!(condition, \"something\")",
+      "parentUuid": "b44d114a_16ec2058",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 153,
+        "endChar": 31
+      },
+      "revId": "aa05069001b3845ae8f0f6a927b57ed2e1e11471",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
