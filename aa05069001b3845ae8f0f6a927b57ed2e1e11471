@@ -105,6 +105,30 @@
       },
       "revId": "aa05069001b3845ae8f0f6a927b57ed2e1e11471",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d434a5b_c7b93218",
+        "filename": "rust/bssl-crypto/src/hmac.rs",
+        "patchSetId": 22
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-15T18:44:50Z",
+      "side": 1,
+      "message": "added message indicating failure in asserts",
+      "parentUuid": "d1577bb5_3e117bf4",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 153,
+        "endChar": 31
+      },
+      "revId": "aa05069001b3845ae8f0f6a927b57ed2e1e11471",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
