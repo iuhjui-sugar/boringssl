@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "69bee71a_1d50e5ad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-15T17:37:07Z",
+      "side": 1,
+      "message": "Also just checked and Android\u0027s bindgen is indeed new enough, so hopefully this\u0027ll be straightforward:\nhttps://cs.android.com/android/platform/superproject/+/master:external/rust/crates/bindgen/lib.rs?q\u003dwrap-static-fns",
+      "parentUuid": "7a874e47_da200e6e",
+      "revId": "d5f74dd70cb738555f4b5870bdaf5f1a7dc39243",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "99cdc880_4ad2346b",
         "filename": "rust/CMakeLists.txt",
         "patchSetId": 8
