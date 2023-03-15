@@ -53,6 +53,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "92ff9777_c76613ad",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-15T16:27:46Z",
+      "side": 1,
+      "message": "Goot enough for me.. not a strongly held preference on my part.",
+      "parentUuid": "0b13f21f_370afa84",
+      "revId": "edad4de19c3ea20a036d30fa838ff66a8f98c527",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0796e0d3_147c897d",
@@ -131,6 +149,24 @@
       "side": 1,
       "message": "I prefer unsigned values in general, but using `size_t` for the loops in `scalar_ntt` and `scalar_inverse_ntt` is measurably slower: 16534.3 ops/sec -\u003e 15652.7 ops/sec.",
       "parentUuid": "5992f03c_de219121",
+      "revId": "edad4de19c3ea20a036d30fa838ff66a8f98c527",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cec27d14_e9bbb92b",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-15T16:27:46Z",
+      "side": 1,
+      "message": "We should chuck a comment in there to this effect so that some well meaning cleanup later on does not undo it then.",
+      "parentUuid": "a4818fc2_14261bf2",
       "revId": "edad4de19c3ea20a036d30fa838ff66a8f98c527",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
