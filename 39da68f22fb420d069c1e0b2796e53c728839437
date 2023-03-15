@@ -16,6 +16,24 @@
       "message": "Ok, I know this sucks but it looks like increasingly if we are going to have a reasonable to maintain CI pipeline for this, we don\u0027t want to take external dependencies. Every one of them will complicate things.\n\nSo.. I\u0027m gonna ask you to follow on and get rid of this in your tests. If you want to Base64 or Hex things boringssl actually has things you can call into for this if you don\u0027t want to just write the utilities here in rust.",
       "revId": "39da68f22fb420d069c1e0b2796e53c728839437",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "354b38c4_0ce32d6f",
+        "filename": "rust/bssl-crypto/Cargo.toml",
+        "patchSetId": 28
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-15T22:23:16Z",
+      "side": 1,
+      "message": "Hmmmmmm, what if we just vendor external dependencies in tree?",
+      "parentUuid": "720006cf_01486a4c",
+      "revId": "39da68f22fb420d069c1e0b2796e53c728839437",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
