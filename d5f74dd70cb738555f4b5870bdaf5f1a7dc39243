@@ -176,6 +176,24 @@
       "parentUuid": "672fab20_64d86467",
       "revId": "d5f74dd70cb738555f4b5870bdaf5f1a7dc39243",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "14825709_c0115bf2",
+        "filename": "rust/CMakeLists.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-15T21:56:45Z",
+      "side": 1,
+      "message": "The `asm(\"...\")` in the declarations seems also a bad idea. What was the reason for that? Won\u0027t that break also break with non-GCC/Clang compilers? Also it seems to just generally risk mishaps on platforms that mangle names interestingly. (E.g. Apple platforms prefix C symbols with underscores.)\n\nI suppose bindgen already depends on libclang, but considering Rust and bindgen already inherently needs to know the platform\u0027s name-mangling story for C to support `extern \"C\"`, what is the point of doing something else?",
+      "parentUuid": "9e8b2c45_c65a4a41",
+      "revId": "d5f74dd70cb738555f4b5870bdaf5f1a7dc39243",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
