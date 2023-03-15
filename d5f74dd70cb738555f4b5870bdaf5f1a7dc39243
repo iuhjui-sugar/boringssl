@@ -72,6 +72,23 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dfb38634_0016d3dd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5180
+      },
+      "writtenOn": "2023-03-15T21:11:49Z",
+      "side": 1,
+      "message": "I\u0027ll rebase this to only contain teh relevant parts.",
+      "revId": "d5f74dd70cb738555f4b5870bdaf5f1a7dc39243",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "99cdc880_4ad2346b",
@@ -85,6 +102,24 @@
       "writtenOn": "2023-03-15T17:33:16Z",
       "side": 1,
       "message": "target_include_directories(rust_wrapper PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})\n\nThat way it\u0027ll work for any toolchain, though I doubt MSVC + Rust works right now. :-)",
+      "revId": "d5f74dd70cb738555f4b5870bdaf5f1a7dc39243",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3677a7e9_56707c0d",
+        "filename": "rust/CMakeLists.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5180
+      },
+      "writtenOn": "2023-03-15T21:11:49Z",
+      "side": 1,
+      "message": "This is depressingly, not equivilant. `target_include_directories` is the equivilant of `-I`, that is the include search path. `-include` is basically a \"pretend I wrote #include at the top of the file\"",
+      "parentUuid": "99cdc880_4ad2346b",
       "revId": "d5f74dd70cb738555f4b5870bdaf5f1a7dc39243",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
