@@ -140,6 +140,24 @@
       "parentUuid": "3677a7e9_56707c0d",
       "revId": "d5f74dd70cb738555f4b5870bdaf5f1a7dc39243",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "672fab20_64d86467",
+        "filename": "rust/CMakeLists.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5180
+      },
+      "writtenOn": "2023-03-15T21:39:32Z",
+      "side": 1,
+      "message": "Interesting, it does render with `(void)` on the previous line:\n\nstruct stack_st_ACCESS_DESCRIPTION * sk_ACCESS_DESCRIPTION_new_null__extern(void) asm(\"sk_ACCESS_DESCRIPTION_new_null__extern\");\nstruct stack_st_ACCESS_DESCRIPTION * sk_ACCESS_DESCRIPTION_new_null__extern() { return sk_ACCESS_DESCRIPTION_new_null(); }\n\n\nI\u0027ll file a bug: https://github.com/rust-lang/rust-bindgen/issues/2442",
+      "parentUuid": "ba436ef9_2aba2238",
+      "revId": "d5f74dd70cb738555f4b5870bdaf5f1a7dc39243",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
