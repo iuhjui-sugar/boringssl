@@ -783,6 +783,20 @@ both_builders(
         },
     },
 )
+
+both_builders(
+    "linux_small2",
+    LINUX_HOST,
+    category = "linux",
+    short_name = "sm2",
+    properties = {
+        "cmake_args": {
+            "CMAKE_C_FLAGS": "-DOPENSSL_SMALL=1",
+            "CMAKE_CXX_FLAGS": "-DOPENSSL_SMALL=1",
+        },
+    },
+)
+
 both_builders(
     "linux_nosse2_noasm",
     LINUX_HOST,
