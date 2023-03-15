@@ -158,6 +158,24 @@
       "parentUuid": "ba436ef9_2aba2238",
       "revId": "d5f74dd70cb738555f4b5870bdaf5f1a7dc39243",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e8b2c45_c65a4a41",
+        "filename": "rust/CMakeLists.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-15T21:45:09Z",
+      "side": 1,
+      "message": "Ah yeah, both should be `(void)`. I\u0027m not sure if it makes a real difference in the definition, unlike the declaration, but without `(void)` in the definition, it\u0027s technically a K\u0026R-style function definition. Anyway, GCC warns without it and I think they are right to do so.\n\nInterestingly, it looks like C23 is finally fixing this and making `()` mean `(void)`.\nhttps://en.cppreference.com/w/c/language/function_definition\nhttps://en.cppreference.com/w/c/language/function_declaration\n\nBut the world\u0027s not C23 yet.",
+      "parentUuid": "672fab20_64d86467",
+      "revId": "d5f74dd70cb738555f4b5870bdaf5f1a7dc39243",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
