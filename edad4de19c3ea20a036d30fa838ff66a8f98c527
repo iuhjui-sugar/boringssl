@@ -292,6 +292,24 @@
       "parentUuid": "26330828_580dbb7d",
       "revId": "edad4de19c3ea20a036d30fa838ff66a8f98c527",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6eebde09_5bf38a20",
+        "filename": "include/openssl/kyber.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-15T23:17:12Z",
+      "side": 1,
+      "message": "No strong feelings. We have both for RSA, but I think that was more an artifact of us figuring it out at the time. The \"parse\" model where we leave trailing data in does seem to result in people forgetting to check for trailing data all the time, so I\u0027m not that satisfied with it. But \"parse_foo\" feels much more natural of a name than \"foo_from_bytes\" to me. Especially since it captures the format better. E.g. if foo has two serializations (FooRed and FooBlue), we can have \"parse_foo_red\" and \"parse_foo_blue\".\n\nSee also go/cbs-api-thoughts :-)\n\n(Though really I suspect we should make an EVP_KEM but that\u0027s definitely not for this CL! 😄)",
+      "parentUuid": "a3336db0_19100c11",
+      "revId": "edad4de19c3ea20a036d30fa838ff66a8f98c527",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }

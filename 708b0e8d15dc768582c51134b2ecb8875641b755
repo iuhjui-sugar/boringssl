@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b75ac9c_5f5a0b62",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-15T23:17:12Z",
+      "side": 1,
+      "message": "Looked at everything except, of course, the important file (crypto/kyber/kyber.c). Am reading through the Kyber specification now so I understand that better.",
+      "revId": "708b0e8d15dc768582c51134b2ecb8875641b755",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d68e83f9_c4bf4466",
+        "filename": "crypto/kyber/keccak.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-15T23:17:12Z",
+      "side": 1,
+      "message": "Playing with godbolt, looks like what happens is this formulation causes Clang (but not GCC) to unroll the whole loop, and even use a vector reg in a few places (??), while the original formulation emits an actual multiplication to compute `out_y` mod 5.\n\nI suppose the problem is this value can be as large as 25, so there\u0027s not really any avoiding doing a proper reduction.",
+      "revId": "708b0e8d15dc768582c51134b2ecb8875641b755",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48b47e2f_a509b6ca",
+        "filename": "crypto/kyber/keccak.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-15T23:17:12Z",
+      "side": 1,
+      "message": "Am assuming test vectors will notice if this is wrong. :-)",
+      "revId": "708b0e8d15dc768582c51134b2ecb8875641b755",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1ba3406_20be0936",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-15T23:17:12Z",
+      "side": 1,
+      "message": "Worth including a link to a specification somewhere, so we know what to reference?",
+      "revId": "708b0e8d15dc768582c51134b2ecb8875641b755",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11614d0f_868fec48",
+        "filename": "crypto/kyber/kyber_test.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-15T23:17:12Z",
+      "side": 1,
+      "message": "Nit: Maybe worth a comment like \"The test vectors provide a CTR-DRBG seed which is used to generate the input entropy.\"\n\n(Odd that they pumped CTR-DRBG twice for gen_key_entropy rather than just asking for 64 bytes. Ah well.)",
+      "revId": "708b0e8d15dc768582c51134b2ecb8875641b755",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e750b56d_10b65a38",
+        "filename": "crypto/kyber/kyber_test.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-15T23:17:12Z",
+      "side": 1,
+      "message": "Nit: Not that it matters, but maybe `ASSERT_EQ(seed.size(), CTR_DRBG_ENTROPY_LEN)`, so that a bad test vector will cleanly fail rather than silently truncate or go off the edge.",
+      "revId": "708b0e8d15dc768582c51134b2ecb8875641b755",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47f18253_f061895d",
+        "filename": "crypto/kyber/kyber_test.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-15T23:17:12Z",
+      "side": 1,
+      "message": "Rebase atop https://boringssl-review.googlesource.com/c/boringssl/+/58046\n\nThen this can be:\n\n```\nbssl::UniquePtr\u003cCTR_DRBG_STATE\u003e state(CTR_DRBG_new(seed.data(), nullptr, 0));\nASSERT_TRUE(state);\nASSERT_TRUE(CTR_DRBG_generate(state, gen_key_entropy, 32, nullptr, 0));\nASSERT_TRUE(CTR_DRBG_generate(state, gen_key_entropy + 32, 32, nullptr, 0));\nASSERT_TRUE(CTR_DRBG_generate(state, encap_entropy, KYBER_ENCAP_ENTROPY, nullptr, 0));\n```\n\nAt least until we finally decide to stop believing in malloc failures. :-(",
+      "revId": "708b0e8d15dc768582c51134b2ecb8875641b755",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80422d21_dc99bce4",
+        "filename": "crypto/kyber/kyber_test.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-15T23:17:12Z",
+      "side": 1,
+      "message": "Nit: Guessing this used to be `memcmp`? The `Bytes` thing already checks that the size matches (though at runtime rather than compile time), so okay to just omit this. Or not. Whichever.",
+      "revId": "708b0e8d15dc768582c51134b2ecb8875641b755",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cbb44de_dc7f7687",
+        "filename": "crypto/kyber/kyber_tests.txt",
+        "patchSetId": 17
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-15T23:17:12Z",
+      "side": 1,
+      "message": "I take it these came from the NIST round 3 submission package. Should we add a comment at the top saying that\u0027s where they\u0027re from?",
+      "revId": "708b0e8d15dc768582c51134b2ecb8875641b755",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
