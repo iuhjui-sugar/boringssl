@@ -160,8 +160,18 @@ wildcards = "allow"
 # * all - Both lowest-version and simplest-path are used
 highlight = "all"
 # List of crates that are allowed. Use with care!
+# This is meant to control any external depedndencies. This is effectively
+# a minimalist binding library and we try to have none, so you are strongly
+# encouraged not to add dependencies here.
 allow = [
-    #{ name = "ansi_term", version = "=0.11.0" },
+    # bssl-sys should be allowed
+    { name = "bssl-sys", version = "=0.1.0" },
+    # bssl-sys should be allowed
+    { name = "bssl-crypto", version = "=0.1.0" },
+    # libc is used by bssl-sys from android, but should really be made to go away.
+    { name = "libc", version = "=0.2.140" },
+    # this was added for convenience, but will complicat things, Nabil to remove.
+    { name = "hex-literal", version = "=0.3.4" },
 ]
 # List of crates to deny
 deny = [
