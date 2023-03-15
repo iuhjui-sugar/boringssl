@@ -1011,6 +1011,8 @@ cq_builder(
             # MSVC will pick up the architecture from msvc_target.
             "CMAKE_SYSTEM_NAME": "Windows",
             "CMAKE_SYSTEM_PROCESSOR": "arm64",
+            # We do not currently support Windows arm64 assembly with MSVC.
+            "OPENSSL_NO_ASM": "1",
         },
         "gclient_vars": {
             "checkout_nasm": False,
