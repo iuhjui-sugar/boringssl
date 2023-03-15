@@ -16,6 +16,41 @@
       "message": "This was mostly obviated by a different rust-openssl PR.\n\nAre you interseted in me trimming this down to use the static inline stuff, or just close this out?",
       "revId": "d5f74dd70cb738555f4b5870bdaf5f1a7dc39243",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68ef625f_ddef5cc4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-15T17:33:16Z",
+      "side": 1,
+      "message": "Sorry about the late response. The static inline stuff definitely sounds good. The main constraint right now is that deleting rust_wrapper.h and rust_wrapper.c will break Android unless we update their build with it. So I\u0027m thinking I\u0027ll:\n\n1) Wait for @prb@google.com to get the latest update through in https://android-review.googlesource.com/c/platform/external/boringssl/+/2480396\n\n2) Replicate this change in the Android build and make sure it works.\n\n3) If all clears, land this.",
+      "parentUuid": "adec2331_79c0e751",
+      "revId": "d5f74dd70cb738555f4b5870bdaf5f1a7dc39243",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99cdc880_4ad2346b",
+        "filename": "rust/CMakeLists.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-15T17:33:16Z",
+      "side": 1,
+      "message": "target_include_directories(rust_wrapper PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})\n\nThat way it\u0027ll work for any toolchain, though I doubt MSVC + Rust works right now. :-)",
+      "revId": "d5f74dd70cb738555f4b5870bdaf5f1a7dc39243",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
