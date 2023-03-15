@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f8e5fc2_7422b1fd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 20
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-15T16:45:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a606641_946642c0",
+      "revId": "5dfac44b4c499f559f63c4ed6eb4c5beab6a3883",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "072b3672_53f6ae5a",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-03-15T16:20:46Z",
       "side": 1,
       "message": "You seem to have re-invented std::assert here. Would it not make more sense and be more generally readable to use use assert, so most of your checks will end up looking like assert!(thing.is_null()) (which makes it obvious what is going on without having to look to see that this is the same thing?)",
+      "range": {
+        "startLine": 40,
+        "startChar": 2,
+        "endLine": 40,
+        "endChar": 3
+      },
+      "revId": "5dfac44b4c499f559f63c4ed6eb4c5beab6a3883",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a652a99d_c8548080",
+        "filename": "rust/bssl-crypto/src/lib.rs",
+        "patchSetId": 20
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-15T16:45:08Z",
+      "side": 1,
+      "message": "Sure, good point, updated",
+      "parentUuid": "072b3672_53f6ae5a",
       "range": {
         "startLine": 40,
         "startChar": 2,
