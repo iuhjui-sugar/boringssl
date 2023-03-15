@@ -478,6 +478,18 @@ both_builders(
     },
 )
 both_builders(
+    "linux_rst",
+    LINUX_HOST,
+    category = "linux",
+    short_name = "rst",
+    properties = {
+        "cmake_args": {
+            "CMAKE_C_FLAGS": '-DRUST_BINDINGS="$(gcc -dumpmachine)"',
+            "CMAKE_BUILD_TYPE": "Release",
+        },
+    },
+)
+both_builders(
     "linux_rel",
     LINUX_HOST,
     category = "linux",
