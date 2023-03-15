@@ -34,6 +34,24 @@
       "parentUuid": "720006cf_01486a4c",
       "revId": "39da68f22fb420d069c1e0b2796e53c728839437",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5369ed7_6d618767",
+        "filename": "rust/bssl-crypto/Cargo.toml",
+        "patchSetId": 28
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-15T22:24:45Z",
+      "side": 1,
+      "message": "For this one, I am fine to find another solution that doesn\u0027t involve external deps, but I am just thinking longer term with this crate do really anticipating never wanting to bring in any external crates? The std library is missing core functionality that even defers to external crates in documentation, so my concern is that it will one day be unavoidable",
+      "parentUuid": "354b38c4_0ce32d6f",
+      "revId": "39da68f22fb420d069c1e0b2796e53c728839437",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
