@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e48007fd_e2085433",
+        "filename": "rust/bssl-crypto/src/hkdf.rs",
+        "patchSetId": 22
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-15T18:19:24Z",
+      "side": 1,
+      "message": "bbe-macbookpro:bssl-crypto bbe$ cargo clippy\n    Updating crates.io index\n   Compiling bssl-sys v0.1.0 (/Users/bbe/boringssl/build/rust/bssl-sys)\n    Checking bssl-crypto v0.1.0 (/Users/bbe/boringssl/rust/bssl-crypto)\nwarning: length comparison to zero\n  --\u003e src/hkdf.rs:70:50\n   |\n70 |         (okm.len() \u003c\u003d Self::MAX_OUTPUT_LENGTH \u0026\u0026 okm.len() \u003e 0)\n   |                                                  ^^^^^^^^^^^^^ help: using `!is_empty` is clearer and more explicit: `!okm.is_empty()`\n   |\n   \u003d help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#len_zero\n   \u003d note: `#[warn(clippy::len_zero)]` on by default\n   \nPlease fix, and util I wrestle the CI to add a clippy, run the clippy check before submitting.",
+      "revId": "aa05069001b3845ae8f0f6a927b57ed2e1e11471",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b44d114a_16ec2058",
+        "filename": "rust/bssl-crypto/src/hmac.rs",
+        "patchSetId": 22
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-15T18:19:24Z",
+      "side": 1,
+      "message": "using two ! here can\u0027t possible be correct. perhaps revisit everything where you were using check() and modify the conditions to be correct for assert.",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 153,
+        "endChar": 31
+      },
+      "revId": "aa05069001b3845ae8f0f6a927b57ed2e1e11471",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
