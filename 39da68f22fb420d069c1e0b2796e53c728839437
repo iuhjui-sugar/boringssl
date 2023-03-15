@@ -70,6 +70,24 @@
       "parentUuid": "f5369ed7_6d618767",
       "revId": "39da68f22fb420d069c1e0b2796e53c728839437",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86522af0_e831dc77",
+        "filename": "rust/bssl-crypto/Cargo.toml",
+        "patchSetId": 28
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-15T22:43:10Z",
+      "side": 1,
+      "message": "Fair enough, I\u0027ll work on getting this dep out of here then",
+      "parentUuid": "4faee8db_644fe3a1",
+      "revId": "39da68f22fb420d069c1e0b2796e53c728839437",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
