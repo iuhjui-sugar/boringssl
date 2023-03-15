@@ -122,6 +122,24 @@
       "parentUuid": "99cdc880_4ad2346b",
       "revId": "d5f74dd70cb738555f4b5870bdaf5f1a7dc39243",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba436ef9_2aba2238",
+        "filename": "rust/CMakeLists.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-15T21:30:43Z",
+      "side": 1,
+      "message": "Ah I see. Went and looked at the output. I don\u0027t think this bindgen feature can be considered working yet.\n\n- First, `bindgen` should output a file that includes the necessary includes, instead of relying on build goop to inject it. Otherwise this output cannot be used on C toolchains that don\u0027t use GCC-style command-line arguments.\n\n- Second, when I try to build it, I get a pile of warnings like this:\n\n```\n[...]/rust/wrapper.c:1468:38: error: old-style function definition [-Werror\u003dold-style-definition]\n 1468 | struct stack_st_ACCESS_DESCRIPTION * sk_ACCESS_DESCRIPTION_new_null__extern() { return sk_ACCESS_DESCRIPTION_new_null(); }\n      |                                      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n```\n\nThe way to say an empty parameter list in C is `(void)`, not `()`. Using empty is actually the old-style K\u0026R syntax.\n\nSeems `bindgen` still has some work to do before we can remove the need for `bssl-sys`, sadly.",
+      "parentUuid": "3677a7e9_56707c0d",
+      "revId": "d5f74dd70cb738555f4b5870bdaf5f1a7dc39243",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
