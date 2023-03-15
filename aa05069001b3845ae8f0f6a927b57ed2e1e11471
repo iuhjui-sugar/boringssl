@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c074b39d_e532551b",
+        "filename": "rust/bssl-crypto/src/hkdf.rs",
+        "patchSetId": 22
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-15T18:39:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e48007fd_e2085433",
+      "revId": "aa05069001b3845ae8f0f6a927b57ed2e1e11471",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b44d114a_16ec2058",
@@ -54,6 +72,30 @@
       "writtenOn": "2023-03-15T18:36:23Z",
       "side": 1,
       "message": "derp, I read that wrong.\n\nYou should really change these to the format with a message indicting what failed.\ni.e. assert!(condition, \"something\")",
+      "parentUuid": "b44d114a_16ec2058",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 153,
+        "endChar": 31
+      },
+      "revId": "aa05069001b3845ae8f0f6a927b57ed2e1e11471",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1577bb5_3e117bf4",
+        "filename": "rust/bssl-crypto/src/hmac.rs",
+        "patchSetId": 22
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-15T18:39:25Z",
+      "side": 1,
+      "message": "I know it looks weird with the 2 !, but this is in fact correct. the first `!` is signifying that this is a macro, the second is saying this is `not` null",
       "parentUuid": "b44d114a_16ec2058",
       "range": {
         "startLine": 153,
