@@ -22,6 +22,30 @@
       },
       "revId": "7535650cf2da15ca598ac97aedee0b118cc2b9d1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7defd6ab_612b54d8",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-15T16:58:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07efc64b_e5694b39",
+      "range": {
+        "startLine": 38,
+        "startChar": 43,
+        "endLine": 38,
+        "endChar": 44
+      },
+      "revId": "7535650cf2da15ca598ac97aedee0b118cc2b9d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }

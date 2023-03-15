@@ -171,6 +171,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8ec7359_1cd03673",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-15T16:58:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cec27d14_e9bbb92b",
+      "revId": "edad4de19c3ea20a036d30fa838ff66a8f98c527",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a03454f8_622a3066",
@@ -184,6 +202,30 @@
       "writtenOn": "2023-03-15T16:34:05Z",
       "side": 1,
       "message": "Typo swapping 1 and ).",
+      "range": {
+        "startLine": 215,
+        "startChar": 22,
+        "endLine": 215,
+        "endChar": 24
+      },
+      "revId": "edad4de19c3ea20a036d30fa838ff66a8f98c527",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de37b546_3da81ab5",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-15T16:58:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a03454f8_622a3066",
       "range": {
         "startLine": 215,
         "startChar": 22,
