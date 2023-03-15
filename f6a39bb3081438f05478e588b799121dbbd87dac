@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6981a75_a8afbac9",
+        "filename": "rust/bssl-crypto/src/hmac.rs",
+        "patchSetId": 26
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-15T22:50:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7452b772_e89bcd75",
+      "revId": "f6a39bb3081438f05478e588b799121dbbd87dac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "33716cc4_12a9cac9",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-03-15T22:06:10Z",
       "side": 1,
       "message": "SHA512",
+      "revId": "f6a39bb3081438f05478e588b799121dbbd87dac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe5bde28_2e3ca869",
+        "filename": "rust/bssl-crypto/src/hmac.rs",
+        "patchSetId": 26
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-15T22:50:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33716cc4_12a9cac9",
       "revId": "f6a39bb3081438f05478e588b799121dbbd87dac",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -58,6 +94,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d119f01_ee37d510",
+        "filename": "rust/bssl-crypto/src/hmac.rs",
+        "patchSetId": 26
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-15T22:50:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab8d9d8e_a70ff71a",
+      "range": {
+        "startLine": 43,
+        "startChar": 27,
+        "endLine": 43,
+        "endChar": 30
+      },
+      "revId": "f6a39bb3081438f05478e588b799121dbbd87dac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2f6d7300_272295dc",
@@ -75,6 +135,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "115b0036_93488dfc",
+        "filename": "rust/bssl-crypto/src/lib.rs",
+        "patchSetId": 26
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-15T22:50:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f6d7300_272295dc",
+      "revId": "f6a39bb3081438f05478e588b799121dbbd87dac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "460f6b2d_51291260",
@@ -88,6 +166,24 @@
       "writtenOn": "2023-03-15T22:06:10Z",
       "side": 1,
       "message": "passing mutable slices?\n\nMake this a real sentence and document the non-mutable version similarly.",
+      "revId": "f6a39bb3081438f05478e588b799121dbbd87dac",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9382a00b_7512322f",
+        "filename": "rust/bssl-crypto/src/lib.rs",
+        "patchSetId": 26
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-15T22:50:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "460f6b2d_51291260",
       "revId": "f6a39bb3081438f05478e588b799121dbbd87dac",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
