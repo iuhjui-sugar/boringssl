@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0b13f21f_370afa84",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-15T16:25:33Z",
+      "side": 1,
+      "message": "It\u0027s a C thing: we\u0027re not on a new enough version of C that `const`s can be used in defining other `const` values yet. Yea, they can be #defines, but they are used elsewhere and I prefer typed values to the preprocessor where possible. For `DEGREE` and `RANK` it\u0027s not possible because they\u0027re used when defining the structs, but for these few I (weakly) feel that this is the lesser evil.",
+      "parentUuid": "14c37c3c_e9ce0319",
+      "revId": "edad4de19c3ea20a036d30fa838ff66a8f98c527",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0796e0d3_147c897d",
         "filename": "crypto/kyber/kyber.c",
         "patchSetId": 15
@@ -48,6 +66,30 @@
       "writtenOn": "2023-03-14T17:30:13Z",
       "side": 1,
       "message": "-bitreverse(i) (I hope python handles that correctly, otherwise 1175 \u003d 17^-1 mod 3329",
+      "range": {
+        "startLine": 84,
+        "startChar": 31,
+        "endLine": 84,
+        "endChar": 35
+      },
+      "revId": "edad4de19c3ea20a036d30fa838ff66a8f98c527",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d77a0de_b74b9ad5",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-15T16:25:33Z",
+      "side": 1,
+      "message": "Oops, thank you.",
+      "parentUuid": "0796e0d3_147c897d",
       "range": {
         "startLine": 84,
         "startChar": 31,
@@ -71,6 +113,24 @@
       "writtenOn": "2023-03-14T17:35:00Z",
       "side": 1,
       "message": "Just a general nit throughout, in new code we\u0027ve been using size_t for array indices in loops.",
+      "revId": "edad4de19c3ea20a036d30fa838ff66a8f98c527",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4818fc2_14261bf2",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 15
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-15T16:25:33Z",
+      "side": 1,
+      "message": "I prefer unsigned values in general, but using `size_t` for the loops in `scalar_ntt` and `scalar_inverse_ntt` is measurably slower: 16534.3 ops/sec -\u003e 15652.7 ops/sec.",
+      "parentUuid": "5992f03c_de219121",
       "revId": "edad4de19c3ea20a036d30fa838ff66a8f98c527",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
