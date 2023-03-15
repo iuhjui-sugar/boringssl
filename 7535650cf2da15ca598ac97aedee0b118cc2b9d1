@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07efc64b_e5694b39",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 16
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 15796
+      },
+      "writtenOn": "2023-03-15T16:43:51Z",
+      "side": 1,
+      "message": "We should probably add a comment that this is 128^-1 mod 3329. 128 because of the whole no 512th root of unity thing",
+      "range": {
+        "startLine": 38,
+        "startChar": 43,
+        "endLine": 38,
+        "endChar": 44
+      },
+      "revId": "7535650cf2da15ca598ac97aedee0b118cc2b9d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
