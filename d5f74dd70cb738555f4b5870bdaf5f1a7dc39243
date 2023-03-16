@@ -194,6 +194,24 @@
       "parentUuid": "9e8b2c45_c65a4a41",
       "revId": "d5f74dd70cb738555f4b5870bdaf5f1a7dc39243",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5b9f791_856857e7",
+        "filename": "rust/CMakeLists.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5180
+      },
+      "writtenOn": "2023-03-16T03:22:55Z",
+      "side": 1,
+      "message": "I absolutely do not know why they chose that approach :-) Their CI tests on both Ubuntu and macOS, so at a minimum it seems to handle both platform\u0027s ABIs.",
+      "parentUuid": "14825709_c0115bf2",
+      "revId": "d5f74dd70cb738555f4b5870bdaf5f1a7dc39243",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }

@@ -16,6 +16,24 @@
       "message": "BTW, presumably you want to remove that one if rust_wrapper.h is gone.",
       "revId": "7b5cab9657cd4cc50c85ac9e4cb0b8620c3867d3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a89c0c1_a42a66e3",
+        "filename": "rust/bssl-sys/CMakeLists.txt",
+        "patchSetId": 9
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5180
+      },
+      "writtenOn": "2023-03-16T03:22:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07704035_c8d35450",
+      "revId": "7b5cab9657cd4cc50c85ac9e4cb0b8620c3867d3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
