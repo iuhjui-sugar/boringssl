@@ -212,6 +212,24 @@
       "parentUuid": "14825709_c0115bf2",
       "revId": "d5f74dd70cb738555f4b5870bdaf5f1a7dc39243",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5449207_872c2334",
+        "filename": "rust/CMakeLists.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-16T16:10:53Z",
+      "side": 1,
+      "message": "I filed https://github.com/rust-lang/rust-bindgen/issues/2445\n\nObviously, testing on just Ubuntu and macOS isn\u0027t enough. It omits a significant desktop platform that tends to be quite in toolchain and ABI from more POSIX-y ones. :-P",
+      "parentUuid": "f5b9f791_856857e7",
+      "revId": "d5f74dd70cb738555f4b5870bdaf5f1a7dc39243",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
