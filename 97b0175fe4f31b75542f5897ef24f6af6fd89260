@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "df5efd74_4a6797a7",
+        "filename": "rust/bssl-crypto/src/aes.rs",
+        "patchSetId": 27
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-16T18:25:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2124f634_04a075c6",
+      "revId": "97b0175fe4f31b75542f5897ef24f6af6fd89260",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "911edba9_5cf40711",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-03-16T17:18:53Z",
       "side": 1,
       "message": "Same here, add the message back.",
+      "revId": "97b0175fe4f31b75542f5897ef24f6af6fd89260",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0013795c_ee0d9a75",
+        "filename": "rust/bssl-crypto/src/aes.rs",
+        "patchSetId": 27
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-16T18:25:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "911edba9_5cf40711",
       "revId": "97b0175fe4f31b75542f5897ef24f6af6fd89260",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
