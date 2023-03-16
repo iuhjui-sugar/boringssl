@@ -88,6 +88,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "591cfb71_ea5fa5bd",
+        "filename": "crypto/kyber/kyber_test.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 15796
+      },
+      "writtenOn": "2023-03-16T18:32:32Z",
+      "side": 1,
+      "message": "I think this is due to how the entropy is consumed in the spec, where there are two different rng calls, for some reason (they also use keccak to double the first 32 bytes of entropy into 64, and then use more keccak to sample stuff from these seeds), so if you implement this with a function pointer it looks more natural, but the spec certainly makes some choices.",
+      "parentUuid": "11614d0f_868fec48",
+      "revId": "708b0e8d15dc768582c51134b2ecb8875641b755",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e750b56d_10b65a38",
         "filename": "crypto/kyber/kyber_test.cc",
         "patchSetId": 17

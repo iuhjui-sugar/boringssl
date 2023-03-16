@@ -310,6 +310,24 @@
       "parentUuid": "a3336db0_19100c11",
       "revId": "edad4de19c3ea20a036d30fa838ff66a8f98c527",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96026a95_4c9f172b",
+        "filename": "include/openssl/kyber.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 15796
+      },
+      "writtenOn": "2023-03-16T18:32:32Z",
+      "side": 1,
+      "message": "I actually really hope that we will never see more than one wire format for Kyber, imho that is an anti-pattern, the internals of a scheme should only ever be consumed by the implementation of the scheme. This also fits well with the struct publicly only having a single field called opaque, even in expanded form.\n\nOTOH, while I don\u0027t see streamed consumption of private/public keys to be common, for ciphertexts that might be the standard usage pattern, which currently wouldn\u0027t be possible without using reinterpret_cast, but there not checking for trailing bytes would in the worst case be a vulnerability.",
+      "parentUuid": "6eebde09_5bf38a20",
+      "revId": "edad4de19c3ea20a036d30fa838ff66a8f98c527",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
