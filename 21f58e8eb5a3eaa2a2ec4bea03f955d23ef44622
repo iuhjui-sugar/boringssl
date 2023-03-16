@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6c15261_66351a4d",
+        "filename": "rust/bssl-crypto/deny.toml",
+        "patchSetId": 4
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-16T15:26:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d7bbbc1d_feacb612",
+      "range": {
+        "startLine": 163,
+        "startChar": 40,
+        "endLine": 163,
+        "endChar": 53
+      },
+      "revId": "21f58e8eb5a3eaa2a2ec4bea03f955d23ef44622",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7bce2a6f_7308591d",
@@ -37,6 +61,24 @@
       "writtenOn": "2023-03-15T23:39:01Z",
       "side": 1,
       "message": "Is this actually used? I don\u0027t actually see it in the generated code. Maybe we can just remove it now?\n\nI wonder if this was an artifact of this thing...\nhttps://boringssl.googlesource.com/boringssl/+/b8b924caa4619001a3376b8d84e2dc9ce95d7089%5E%21/",
+      "revId": "21f58e8eb5a3eaa2a2ec4bea03f955d23ef44622",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb65350d_856746a2",
+        "filename": "rust/bssl-crypto/deny.toml",
+        "patchSetId": 4
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-16T15:26:39Z",
+      "side": 1,
+      "message": "I don\u0027t think it is, and I don\u0027t think the crate is necessary, but I don\u0027t want to remove it until we test the removal on android.  I\u0027m not trying to remove dependencies with this commit, just block any new ones, and set us up for removing them.",
+      "parentUuid": "7bce2a6f_7308591d",
       "revId": "21f58e8eb5a3eaa2a2ec4bea03f955d23ef44622",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
