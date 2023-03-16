@@ -69,6 +69,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c492903a_fca26a22",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 17
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-16T23:57:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a1ba3406_20be0936",
+      "revId": "708b0e8d15dc768582c51134b2ecb8875641b755",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "11614d0f_868fec48",
@@ -104,6 +122,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "415f4735_4bc9b385",
+        "filename": "crypto/kyber/kyber_test.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-16T23:57:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "591cfb71_ea5fa5bd",
+      "revId": "708b0e8d15dc768582c51134b2ecb8875641b755",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e750b56d_10b65a38",
@@ -117,6 +153,24 @@
       "writtenOn": "2023-03-15T23:17:12Z",
       "side": 1,
       "message": "Nit: Not that it matters, but maybe `ASSERT_EQ(seed.size(), CTR_DRBG_ENTROPY_LEN)`, so that a bad test vector will cleanly fail rather than silently truncate or go off the edge.",
+      "revId": "708b0e8d15dc768582c51134b2ecb8875641b755",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "40709d05_c5be369b",
+        "filename": "crypto/kyber/kyber_test.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-16T23:57:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e750b56d_10b65a38",
       "revId": "708b0e8d15dc768582c51134b2ecb8875641b755",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -138,6 +192,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "27c606e4_531da740",
+        "filename": "crypto/kyber/kyber_test.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-16T23:57:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47f18253_f061895d",
+      "revId": "708b0e8d15dc768582c51134b2ecb8875641b755",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "80422d21_dc99bce4",
@@ -155,6 +227,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cbc21768_4fe781b6",
+        "filename": "crypto/kyber/kyber_test.cc",
+        "patchSetId": 17
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-16T23:57:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "80422d21_dc99bce4",
+      "revId": "708b0e8d15dc768582c51134b2ecb8875641b755",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4cbb44de_dc7f7687",
@@ -168,6 +258,24 @@
       "writtenOn": "2023-03-15T23:17:12Z",
       "side": 1,
       "message": "I take it these came from the NIST round 3 submission package. Should we add a comment at the top saying that\u0027s where they\u0027re from?",
+      "revId": "708b0e8d15dc768582c51134b2ecb8875641b755",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7559c68a_d3df70e8",
+        "filename": "crypto/kyber/kyber_tests.txt",
+        "patchSetId": 17
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-16T23:57:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4cbb44de_dc7f7687",
       "revId": "708b0e8d15dc768582c51134b2ecb8875641b755",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }

@@ -328,6 +328,24 @@
       "parentUuid": "6eebde09_5bf38a20",
       "revId": "edad4de19c3ea20a036d30fa838ff66a8f98c527",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d27bbe9_8af634dd",
+        "filename": "include/openssl/kyber.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-16T23:57:28Z",
+      "side": 1,
+      "message": "\u003e The \"parse\" model where we leave trailing data in does seem to result in people forgetting to check for trailing data all the time, so I\u0027m not that satisfied with it.\n\nThe `parse_foo` functions here _do_ reject trailing data, so I guess that\u0027s inconsistent and perhaps should change?\n\nBut it sounds like people don\u0027t love having `_from_bytes` and I was only duplicating the RSA functions here. Since it\u0027s easy to add stuff and hard to remove I\u0027ve erred on the side of removing them.\n\n(Leaving unresolved because of trailing data point.)",
+      "parentUuid": "96026a95_4c9f172b",
+      "revId": "edad4de19c3ea20a036d30fa838ff66a8f98c527",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
