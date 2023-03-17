@@ -346,6 +346,24 @@
       "parentUuid": "96026a95_4c9f172b",
       "revId": "edad4de19c3ea20a036d30fa838ff66a8f98c527",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0454f4b8_ed9efcff",
+        "filename": "include/openssl/kyber.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-17T14:45:28Z",
+      "side": 1,
+      "message": "I\u0027d be perfectly happy with cleaning up the \"parse\" model to just check for trailing data - I\u0027m pretty used to always checking for that and rejecting things when parsing stuff in a CBS in a \"parse\" routine in general, (meaning i\u0027d be likely to forget to check if the parse routine did not)\n\nmeaning these could stay as they are and we fix the others",
+      "parentUuid": "0d27bbe9_8af634dd",
+      "revId": "edad4de19c3ea20a036d30fa838ff66a8f98c527",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
