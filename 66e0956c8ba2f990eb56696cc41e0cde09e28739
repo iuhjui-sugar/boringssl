@@ -168,6 +168,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "29ed326d_e3df741e",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-19T18:30:26Z",
+      "side": 1,
+      "message": "Update: see comment on `kyber_parse_public_key_no_hash` and `KYBER_parse_private_key`.",
+      "parentUuid": "a6c3ddc2_4855595e",
+      "revId": "66e0956c8ba2f990eb56696cc41e0cde09e28739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5bb9fb35_e0df3021",
         "filename": "crypto/kyber/kyber.c",
         "patchSetId": 19
@@ -265,6 +283,114 @@
       "writtenOn": "2023-03-18T01:07:23Z",
       "side": 1,
       "message": "Note to self: this is how far through the file I got.",
+      "revId": "66e0956c8ba2f990eb56696cc41e0cde09e28739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e4c3fb9_a75761d4",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-19T18:30:26Z",
+      "side": 1,
+      "message": "It does make us multiply twice, though by a constant. We can also do this with just two conditional increments:\n\n```\nstatic uint16_t compress(uint16_t x, int bits) {\n  uint32_t product \u003d (uint32_t)x \u003c\u003c bits;\n  uint32_t quotient \u003d ((uint64_t)product * kBarrettMultiplier) \u003e\u003e kBarrettShift;\n  uint32_t remainder \u003d product - quotient * kPrime;\n\n  // Adjust the quotient to round correctly:\n  //   0 \u003c\u003d remainder \u003c\u003d kHalfPrime round to 0\n  //   kHalfPrime \u003c remainder \u003c\u003d kPrime + kHalfPrime round to 1\n  //   kPrime + kHalfPrime \u003c remainder \u003c 2 * kPrime round to 2\n  assert(remainder \u003c 2u * kPrime);\n  quotient +\u003d 1 \u0026 constant_time_lt_w(kHalfPrime, remainder);\n  quotient +\u003d 1 \u0026 constant_time_lt_w(kPrime + kHalfPrime, remainder);\n  return quotient \u0026 ((1 \u003c\u003c bits) - 1);\n}\n```\n\nLooks like that\u0027s worth a +4% boost. It does remove some value barriers, but compilers seem to behave here:\nhttps://godbolt.org/z/qxzzqjMaf",
+      "revId": "66e0956c8ba2f990eb56696cc41e0cde09e28739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6167fe10_d2cb456d",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 629,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-19T18:30:26Z",
+      "side": 1,
+      "message": "The tension between strict aliasing, wanting to keep internals private, but also wanting types to be stack-allocatable, is a mess. Not sure how best to deal with this, but I suppose we\u0027ve got patterns like this in a few places already. :-(",
+      "revId": "66e0956c8ba2f990eb56696cc41e0cde09e28739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6151687_104cd890",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-19T18:30:26Z",
+      "side": 1,
+      "message": "`scalar_centered_binomial_distribution` is only ever called on the output of PRF and, due to the `eta` \u003d 2 or 3 business, every time it\u0027s called we have to calculate `2 * eta * DEGREE / 8`, assert it\u0027s secretly 128, and then SHAKE-256 into a buffer.\n\nWhat if we just folded the PRF call into `scalar_centered_binomial_distribution` and made it:\n\n```\nvoid scalar_centered_binomial_distribution_prf(\n    scalar *out, int eta, const uint8_t input[33])\n```\n\nAlthough not written that way in the spec, the PRF call depends on eta to know how much output it needs, so a combined operation is probably more natural. That also means, if we ever need Kyber-512, we can specialize for eta \u003d\u003d 2 or eta \u003d\u003d 3 inside the function if that ends up being as efficient. (Though I suspect we want to also specialize `vector_generate_secret` to eta so it can be vectorized.)",
+      "range": {
+        "startLine": 653,
+        "startChar": 2,
+        "endLine": 653,
+        "endChar": 39
+      },
+      "revId": "66e0956c8ba2f990eb56696cc41e0cde09e28739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51d3c30b_318a2651",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 682,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-19T18:30:26Z",
+      "side": 1,
+      "message": "Note to self: still need to look at this point onwards.",
+      "revId": "66e0956c8ba2f990eb56696cc41e0cde09e28739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6bb8b77_a088f042",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-19T18:30:26Z",
+      "side": 1,
+      "message": "This only ensures are coefficients \u003c 2^12 \u003d 4096, so they might not be *quite* fully reduced. Will this break the rest of the calculation? Should we reject this / test that things still work correctly / call reduce_simple on everything?\n\nMy read from the spec is that we\u0027re supposed to tolerate this, because Decode_l is defined to infallibly return something in R_q, which implies:\n\na) We can\u0027t reject any inputs\nb) We can\u0027t just compute the wrong answer on grounds the key is invalid because 0 and 3392 are the same object in R_q.\n\nBut perhaps this should be feedback that the spec should either call this out or reject this case.\n\nIn particular, I think it\u0027s fine for `pub-\u003et` in the current state of the patch set, because that\u0027s only passed to `scalar_inner_product`. But, with the `scalar_mult` I suggested above, I don\u0027t think it works.\n\n`reduce(img_real + real_img)` can be as high as 4095 * 3391 * 2 \u003d 27772290, and that Barrett reduction stops working at 23419515. But this is perhaps a bit fragile (e.g. if we pick up other impls) and maybe we should just reduce on parse to meet the stated preconditions.\n\nI can also confirm that if I bump the input bytes, I hit the assert in the new `scalar_mult`, but don\u0027t hit it in tests, so we don\u0027t seem to include any test coverage for this.",
+      "revId": "66e0956c8ba2f990eb56696cc41e0cde09e28739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11ffe9c3_3da9f075",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-19T18:30:26Z",
+      "side": 1,
+      "message": "Ditto about unreduced coefficients. Looks like this is only passed to `scalar_inner_product`, so same story with the `scalar_mult`s.",
       "revId": "66e0956c8ba2f990eb56696cc41e0cde09e28739",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
