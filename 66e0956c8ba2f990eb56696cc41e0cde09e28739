@@ -380,6 +380,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "33376123_13cc0c33",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-19T18:39:00Z",
+      "side": 1,
+      "message": "\u003e b) We can\u0027t just compute the wrong answer on grounds the key is invalid because 0 and 3392 are the same object in R_q.\n\ns/3392/3329/\n\nInterestingly, the H(pk) step means it\u0027s not the same key in Kyber.CCAKEM, though I think it\u0027s the same key in Kyber.CPAPKE? And, in the private key bit below, I believe the two encodings are the same key.",
+      "parentUuid": "b6bb8b77_a088f042",
+      "revId": "66e0956c8ba2f990eb56696cc41e0cde09e28739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "11ffe9c3_3da9f075",
         "filename": "crypto/kyber/kyber.c",
         "patchSetId": 19
