@@ -168,8 +168,6 @@ allow = [
     { name = "bssl-crypto", version = "=0.1.0" },
     # bssl-sys should be allowed, version appropriately.
     { name = "bssl-sys", version = "=0.1.0" },
-    # hex-literal was added for ease of tests, but should be removed.
-    { name = "hex-literal", version = "=0.3.4" },
 ]
 # List of crates to deny
 deny = [
