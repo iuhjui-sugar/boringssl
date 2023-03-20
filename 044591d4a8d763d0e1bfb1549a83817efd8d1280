@@ -34,6 +34,24 @@
       "parentUuid": "02548f46_e5f4992b",
       "revId": "044591d4a8d763d0e1bfb1549a83817efd8d1280",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "351704d8_8cc4cdcb",
+        "filename": "rust/bssl-crypto/src/test_helpers.rs",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 14726
+      },
+      "writtenOn": "2023-03-20T17:31:40Z",
+      "side": 1,
+      "message": "oh perfect, thanks",
+      "parentUuid": "d1a04411_107610ba",
+      "revId": "044591d4a8d763d0e1bfb1549a83817efd8d1280",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
