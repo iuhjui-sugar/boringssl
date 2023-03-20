@@ -134,6 +134,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "754d7efa_6375aaf1",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 15796
+      },
+      "writtenOn": "2023-03-20T21:27:43Z",
+      "side": 1,
+      "message": "We could put the increment in the for loop, together with the i++, but that is pretty unreadable imho. Alternatively we could also get rid of i and just compute the value from k, it\u0027s just obnoxious because the increment jumps around depending on offset.",
+      "parentUuid": "79bdbe5c_db958393",
+      "revId": "66e0956c8ba2f990eb56696cc41e0cde09e28739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "ab17eac7_4290c2e7",
         "filename": "crypto/kyber/kyber.c",
         "patchSetId": 19
@@ -145,6 +163,24 @@
       "writtenOn": "2023-03-18T01:07:23Z",
       "side": 1,
       "message": "Wrapped my head around the structure of the loop at least, but I\u0027ve no idea how NTTs work. :-)",
+      "revId": "66e0956c8ba2f990eb56696cc41e0cde09e28739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "364b6513_060eb6d4",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 15796
+      },
+      "writtenOn": "2023-03-20T21:27:43Z",
+      "side": 1,
+      "message": "Wikipedia has a section on inplace FFTs, which is where you can see the basic algorithm. To make it an NTT, you replace the `exp(−2πi/m)` with the kNTTRoots values (i.e. we basically say that `exp(−2πi/128) \u003d 17`, which is true when you squint enough, i.e. embed Q[X]/(X^256+1) into C, but also localize at 3329, and pay no attention to the fact that exp doesn\u0027t actually converge and that π isn\u0027t defined in the localized ring).\n\nWe also keep the data bit reversed, so no need to undo that part. The other difference is the above mentioned missing last step, for that you have to do a bit of math by hand (with the formulas in the Wikipedia article) to figure out that it just means leaving of the iteration step.\n\nhttps://en.wikipedia.org/wiki/Cooley%E2%80%93Tukey_FFT_algorithm#Data_reordering,_bit_reversal,_and_in-place_algorithms",
+      "parentUuid": "ab17eac7_4290c2e7",
       "revId": "66e0956c8ba2f990eb56696cc41e0cde09e28739",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
