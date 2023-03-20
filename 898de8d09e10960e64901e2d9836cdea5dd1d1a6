@@ -16,6 +16,24 @@
       "message": "you can remove the dependency from deny.toml as well",
       "revId": "898de8d09e10960e64901e2d9836cdea5dd1d1a6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7a1cbb79_6ba8d15d",
+        "filename": "rust/bssl-crypto/Cargo.toml",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-20T17:34:54Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "c8a303f7_f68f62da",
+      "revId": "898de8d09e10960e64901e2d9836cdea5dd1d1a6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
