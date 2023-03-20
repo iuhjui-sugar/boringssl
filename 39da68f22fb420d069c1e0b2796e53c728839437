@@ -88,6 +88,24 @@
       "parentUuid": "4faee8db_644fe3a1",
       "revId": "39da68f22fb420d069c1e0b2796e53c728839437",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "686f2112_87a198b2",
+        "filename": "rust/bssl-crypto/Cargo.toml",
+        "patchSetId": 28
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-20T21:57:22Z",
+      "side": 1,
+      "message": "https://boringssl-review.googlesource.com/c/boringssl/+/58225",
+      "parentUuid": "86522af0_e831dc77",
+      "revId": "39da68f22fb420d069c1e0b2796e53c728839437",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
