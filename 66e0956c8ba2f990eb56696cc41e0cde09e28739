@@ -361,6 +361,58 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "06d29a5c_9a9487b1",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 682,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-20T02:23:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51d3c30b_318a2651",
+      "revId": "66e0956c8ba2f990eb56696cc41e0cde09e28739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8c627d8_9a29bdf7",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-20T02:23:25Z",
+      "side": 1,
+      "message": "This can be `CRYPTO_memcmp`. Maybe with `constant_time_eq_int` because it technically returns an `int` even though it\u0027s actually the same thing. :-)",
+      "revId": "66e0956c8ba2f990eb56696cc41e0cde09e28739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16685e5d_4750831f",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 750,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-20T02:23:25Z",
+      "side": 1,
+      "message": "Super nitpicky nitpick: Not sure this variable is pulling its weight when we could just write `priv-\u003efo_failure_secret` below. :-)",
+      "revId": "66e0956c8ba2f990eb56696cc41e0cde09e28739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b6bb8b77_a088f042",
