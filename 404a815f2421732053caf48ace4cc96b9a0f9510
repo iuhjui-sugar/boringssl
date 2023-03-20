@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f0c5fe3_37f6bcd8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-20T22:34:07Z",
+      "side": 1,
+      "message": "ohh no.. cargo deny is our friend ;). and I\u0027m pretty sure we\u0027ll need deps in here eventually, I just want it done thoughtfully ;)",
+      "revId": "404a815f2421732053caf48ace4cc96b9a0f9510",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
