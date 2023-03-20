@@ -51,6 +51,24 @@
       "message": "Did you run cargo deny to test this? I now get a warning related to this crate going away.",
       "revId": "898de8d09e10960e64901e2d9836cdea5dd1d1a6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c844acd4_cea598aa",
+        "filename": "rust/bssl-crypto/deny.toml",
+        "patchSetId": 4
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-20T22:30:13Z",
+      "side": 0,
+      "message": "you know what, should we just remove the `deny.toml` now that there aren\u0027t any deps?",
+      "parentUuid": "59807eb4_bc763f7b",
+      "revId": "898de8d09e10960e64901e2d9836cdea5dd1d1a6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
