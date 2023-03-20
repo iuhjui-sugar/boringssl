@@ -34,6 +34,23 @@
       "parentUuid": "c8a303f7_f68f62da",
       "revId": "898de8d09e10960e64901e2d9836cdea5dd1d1a6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59807eb4_bc763f7b",
+        "filename": "rust/bssl-crypto/deny.toml",
+        "patchSetId": 4
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-20T22:25:42Z",
+      "side": 0,
+      "message": "Did you run cargo deny to test this? I now get a warning related to this crate going away.",
+      "revId": "898de8d09e10960e64901e2d9836cdea5dd1d1a6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
