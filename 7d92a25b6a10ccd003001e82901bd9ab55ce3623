@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec210281_f34f2623",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2023-03-20T17:34:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f5da22c_eee22ae3",
+      "revId": "7d92a25b6a10ccd003001e82901bd9ab55ce3623",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b74ad919_7cf09045",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-03-20T17:23:25Z",
       "side": 1,
       "message": "What\u0027s the status of VOPRF? Do we match the latest draft?",
+      "range": {
+        "startLine": 835,
+        "startChar": 3,
+        "endLine": 835,
+        "endChar": 8
+      },
+      "revId": "7d92a25b6a10ccd003001e82901bd9ab55ce3623",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "abdc6be9_89ae94db",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 835,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2023-03-20T17:34:52Z",
+      "side": 1,
+      "message": "We\u0027re on an older draft of it, its past RGLC and getting reviewed on the later stages.",
+      "parentUuid": "b74ad919_7cf09045",
       "range": {
         "startLine": 835,
         "startChar": 3,
