@@ -296,7 +296,9 @@ static std::vector<const TRUST_TOKEN_METHOD *> AllMethods() {
   return {
     TRUST_TOKEN_experiment_v1(),
     TRUST_TOKEN_experiment_v2_voprf(),
-    TRUST_TOKEN_experiment_v2_pmb()
+    TRUST_TOKEN_experiment_v2_pmb(),
+    TRUST_TOKEN_pst_v1_voprf(),
+    TRUST_TOKEN_pst_v1_pmb()
   };
 }
 
@@ -773,7 +775,8 @@ TEST_P(TrustTokenMetadataTest, TruncatedProof) {
   if (method() == TRUST_TOKEN_experiment_v1()) {
     token_length += 4;
   }
-  if (method() == TRUST_TOKEN_experiment_v2_voprf()) {
+  if (method() == TRUST_TOKEN_experiment_v2_voprf() ||
+      method() == TRUST_TOKEN_pst_v1_voprf()) {
     token_length = 1 + 2 * BN_num_bytes(&group->field);
   }
   for (size_t i = 0; i < count; i++) {
@@ -841,7 +844,8 @@ TEST_P(TrustTokenMetadataTest, ExcessDataProof) {
   if (method() == TRUST_TOKEN_experiment_v1()) {
     token_length += 4;
   }
-  if (method() == TRUST_TOKEN_experiment_v2_voprf()) {
+  if (method() == TRUST_TOKEN_experiment_v2_voprf() ||
+      method() == TRUST_TOKEN_pst_v1_voprf()) {
     token_length = 1 + 2 * BN_num_bytes(&group->field);
   }
   for (size_t i = 0; i < count; i++) {
