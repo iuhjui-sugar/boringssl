@@ -468,6 +468,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ffe50854_6c390b3a",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-20T19:01:14Z",
+      "side": 1,
+      "message": "Fair enough. I\u0027m perfectly okay rejecting such inputs. That would probably be my preference absent the spec anyway. Though, if that\u0027s what we prefer, we should then provide that as feedback to the spec and get that written down. After all, the spec\u0027s purpose is to tell us what Kyber is as functions from byte strings. Rejecting vs. tolerating unreduced coordinates are different functions and the world needs to agree on one.\n\nOne way or another, I think we need to do *something* here. We currently violate our own invariants. We say \"On every function entry and exit, 0 \u003c\u003d c \u003c kPrime\", but kPrime \u003c\u003d c \u003c 4096 is currently possible. (Untrusted public keys are quite common. Untrusted private keys are less common but still a thing in scenarios like cloud providers doing work on someone else\u0027s behalf.)",
+      "parentUuid": "6985538f_3e8e4770",
+      "revId": "66e0956c8ba2f990eb56696cc41e0cde09e28739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "11ffe9c3_3da9f075",
         "filename": "crypto/kyber/kyber.c",
         "patchSetId": 19
