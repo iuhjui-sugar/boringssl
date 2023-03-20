@@ -185,6 +185,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5debe83_84d2f59e",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-20T21:35:28Z",
+      "side": 1,
+      "message": "Thanks! Will need to do some reading. (No need to block on me understanding this bit though! Happy to defer to you/Adam and the fact that the test vectors pass. 😊)",
+      "parentUuid": "364b6513_060eb6d4",
+      "revId": "66e0956c8ba2f990eb56696cc41e0cde09e28739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a6c3ddc2_4855595e",
