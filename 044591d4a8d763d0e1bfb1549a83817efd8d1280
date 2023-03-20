@@ -16,6 +16,24 @@
       "message": "should these be guarded by cfg(test) ?\n\ni\u0027m not actually sure about rust norms but i also think we tend to be a bit more paranoid",
       "revId": "044591d4a8d763d0e1bfb1549a83817efd8d1280",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1a04411_107610ba",
+        "filename": "rust/bssl-crypto/src/test_helpers.rs",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-20T17:30:44Z",
+      "side": 1,
+      "message": "the whole `test_helper` mode is guarded by cfg(test), see the lib.rs where it\u0027s included",
+      "parentUuid": "02548f46_e5f4992b",
+      "revId": "044591d4a8d763d0e1bfb1549a83817efd8d1280",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
