@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f5da22c_eee22ae3",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-20T17:23:25Z",
+      "side": 1,
+      "message": "Mind adding corresponding ones for these?",
+      "revId": "7d92a25b6a10ccd003001e82901bd9ab55ce3623",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b74ad919_7cf09045",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 835,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-20T17:23:25Z",
+      "side": 1,
+      "message": "What\u0027s the status of VOPRF? Do we match the latest draft?",
+      "range": {
+        "startLine": 835,
+        "startChar": 3,
+        "endLine": 835,
+        "endChar": 8
+      },
+      "revId": "7d92a25b6a10ccd003001e82901bd9ab55ce3623",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e61b9ae8_4f964048",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 856,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-20T17:23:25Z",
+      "side": 1,
+      "message": "We really should make this infallible. :-(\n\nI\u0027ve got a patch series lying around somewhere that gets a good chunk of the way there.",
+      "range": {
+        "startLine": 856,
+        "startChar": 2,
+        "endLine": 856,
+        "endChar": 15
+      },
+      "revId": "7d92a25b6a10ccd003001e82901bd9ab55ce3623",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
