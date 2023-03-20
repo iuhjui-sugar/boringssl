@@ -450,6 +450,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6985538f_3e8e4770",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 15796
+      },
+      "writtenOn": "2023-03-20T18:49:40Z",
+      "side": 1,
+      "message": "For private keys, they are the same key, and I think this encoding difference is harmless (if the attacker can change your private key, you have a problem). I think in general private keys are allowed to be malleable encoded (RSA for example has two versions, depending on whether CRT coeffs are included or not).\n\nFor public keys, it\u0027s trivial to find a secondary public key that the same private key will decrypt CPA, without being detectable, you just add an additional error term to t. That will increase the decryption failure probability, but not catastrophically. The FO transform will stop any such manipulation to public key and ciphertext, though. (and this type of manipulation, applied to the ciphertext is the attack that otherwise leads to private key recovery. A buggy encaps code that reuses the same entropy over and over would be attackable with manipulating the public key if it wasn\u0027t for the hash, but using fresh entropy in encaps makes this type of manipulation meaningless. The hash is still useful to bind the ciphertext to the public key, though, you get weird properties in some protocols if that doesn\u0027t happen).\n\nIn the end, I would call a public key with values between 3329 and 4096 malformed, as a standard compliant Kyber implementation can never produce those keys. I\u0027m not aware of any damage you could do with such a malformed key, given the hash that goes into the shared secret computation.\n\nOne other way to think about this is that for an ECC point-not-on-curve attack to work, you similarly need a CCA game, and in theory you could defend against point-not-on-curve using FO transform. It would be a stupidly expensive way to defend against point-not-on-curve, but it defends against point-not-on-curve, so we only need a way to guarantee CCA security, not rejection of invalid public keys.",
+      "parentUuid": "33376123_13cc0c33",
+      "revId": "66e0956c8ba2f990eb56696cc41e0cde09e28739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "11ffe9c3_3da9f075",
         "filename": "crypto/kyber/kyber.c",
         "patchSetId": 19
