@@ -131,6 +131,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "82dc386c_b1bbbdc6",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 835,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-21T18:21:17Z",
+      "side": 1,
+      "message": "Ah yeah, Thursday is a bit close.\n\nShould the draft version of VOPRF be called out in the blink-dev thread? (Looks like switching from draft versions came up.) Do we have a bug open to switch to that? Does shipping the current mechanism mean we\u0027ll need to support it persistently, or will you be able to unship this one and switch to the final one by then?\n\n(I see the header still calls it \"experimental\", even if the function name doesn\u0027t call it, so I assume this one is still doomed to die.)",
+      "parentUuid": "7f0ca244_8552518f",
+      "range": {
+        "startLine": 835,
+        "startChar": 3,
+        "endLine": 835,
+        "endChar": 8
+      },
+      "revId": "7d92a25b6a10ccd003001e82901bd9ab55ce3623",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "e61b9ae8_4f964048",
