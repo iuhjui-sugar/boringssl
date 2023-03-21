@@ -22,6 +22,30 @@
       },
       "revId": "d7d74ecd94ca2a92a98fa72ea6ff409133f4691a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6155f2f6_12724ee3",
+        "filename": "rust/bssl-crypto/src/rand.rs",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-21T15:04:47Z",
+      "side": 1,
+      "message": "How would I improve the existing comment? I think its already explaining exactly that",
+      "parentUuid": "2c8258ad_1bbb6c53",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 111
+      },
+      "revId": "d7d74ecd94ca2a92a98fa72ea6ff409133f4691a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
