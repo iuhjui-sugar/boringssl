@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c8258ad_1bbb6c53",
+        "filename": "rust/bssl-crypto/src/rand.rs",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-21T14:55:07Z",
+      "side": 1,
+      "message": "Your assert is gonna be necessary because rust doesn\u0027t believe in \"trust us\" from C, but BoringSSL will never return anything but 1 from RAND_bytes, otherwise you\u0027re going to get an abort in the C code. Add a comment to this  effect.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 111
+      },
+      "revId": "d7d74ecd94ca2a92a98fa72ea6ff409133f4691a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
