@@ -70,6 +70,24 @@
       "parentUuid": "bbd7f99f_e66ba135",
       "revId": "a82626331e79db629212957ef7a277b5745b2768",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "67e47a86_f6307655",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-21T16:57:35Z",
+      "side": 1,
+      "message": "I guess we can deal with it if it arises.",
+      "parentUuid": "88e58b86_f5958fc2",
+      "revId": "a82626331e79db629212957ef7a277b5745b2768",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
