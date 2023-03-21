@@ -558,6 +558,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "335c57bb_c34bca26",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-21T18:22:28Z",
+      "side": 1,
+      "message": "Do you mind emailing them? I haven\u0027t been following pqc-forum and you\u0027re more familiar with all this stuff anyway. :-)",
+      "parentUuid": "de066c89_89bad683",
+      "revId": "66e0956c8ba2f990eb56696cc41e0cde09e28739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "11ffe9c3_3da9f075",
         "filename": "crypto/kyber/kyber.c",
         "patchSetId": 19
