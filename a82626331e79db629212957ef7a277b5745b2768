@@ -34,6 +34,24 @@
       "parentUuid": "d2e8277e_6c7368d1",
       "revId": "a82626331e79db629212957ef7a277b5745b2768",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbd7f99f_e66ba135",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-21T16:45:44Z",
+      "side": 1,
+      "message": "What\u0027s our plan if they come to us with broken customers? I\u0027m concerned we might need a knob around this update note with a plan to remove it later?",
+      "parentUuid": "63badd39_fb89aa08",
+      "revId": "a82626331e79db629212957ef7a277b5745b2768",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
