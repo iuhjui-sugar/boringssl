@@ -88,6 +88,24 @@
       "parentUuid": "88e58b86_f5958fc2",
       "revId": "a82626331e79db629212957ef7a277b5745b2768",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f81af124_2828b32b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-21T22:22:49Z",
+      "side": 1,
+      "message": "Yeah, we can apply workarounds like the one in https://boringssl-review.googlesource.com/c/boringssl/+/58185/, or other flags, as needed. But we\u0027ll need to know where the mistakes are first to do that.",
+      "parentUuid": "67e47a86_f6307655",
+      "revId": "a82626331e79db629212957ef7a277b5745b2768",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
