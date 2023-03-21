@@ -70,6 +70,30 @@
       },
       "revId": "d7d74ecd94ca2a92a98fa72ea6ff409133f4691a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97820269_9d9cfece",
+        "filename": "rust/bssl-crypto/src/rand.rs",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-21T16:28:44Z",
+      "side": 1,
+      "message": "okay updated the comment",
+      "parentUuid": "dc26bdb2_4256e1f4",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 111
+      },
+      "revId": "d7d74ecd94ca2a92a98fa72ea6ff409133f4691a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
