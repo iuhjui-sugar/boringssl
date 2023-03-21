@@ -52,6 +52,24 @@
       "parentUuid": "63badd39_fb89aa08",
       "revId": "a82626331e79db629212957ef7a277b5745b2768",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88e58b86_f5958fc2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-21T16:46:34Z",
+      "side": 1,
+      "message": "I.E. I\u0027m suggesting a knob to make it permissive again with a note we\u0027re going to remove it in min(one year, we see no need for it)",
+      "parentUuid": "bbd7f99f_e66ba135",
+      "revId": "a82626331e79db629212957ef7a277b5745b2768",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
