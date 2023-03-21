@@ -46,6 +46,30 @@
       },
       "revId": "d7d74ecd94ca2a92a98fa72ea6ff409133f4691a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc26bdb2_4256e1f4",
+        "filename": "rust/bssl-crypto/src/rand.rs",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-03-21T15:05:35Z",
+      "side": 1,
+      "message": "To an end user it shouldnt matter if the abort happens in the C or the Rust, if it fails it aborts is all they need to know",
+      "parentUuid": "6155f2f6_12724ee3",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 111
+      },
+      "revId": "d7d74ecd94ca2a92a98fa72ea6ff409133f4691a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
