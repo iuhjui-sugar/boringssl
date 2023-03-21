@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f416f11f_20bf9d6f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 15276
+      },
+      "writtenOn": "2023-03-21T22:08:58Z",
+      "side": 1,
+      "message": "It looks that current owner is a \"Deleted User\". How this can be fixed?\n\nWhat is required to make progress with this patchset?",
+      "revId": "32fe277f40bbed3b3ada3a1976f9e8b71157b3f4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
