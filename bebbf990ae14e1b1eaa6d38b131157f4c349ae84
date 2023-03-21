@@ -16,6 +16,24 @@
       "message": "What, no X509_MIN_VERSION and X509_MAX_VERSION to support future extensions and configurability?",
       "revId": "bebbf990ae14e1b1eaa6d38b131157f4c349ae84",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d90ae149_181fd5cc",
+        "filename": "crypto/x509/x_x509.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-21T16:18:20Z",
+      "side": 1,
+      "message": "Eh, I doubt there\u0027ll ever be an X.509v4 now that X.509v3 added an extensions field. Does seem to be the way of things. Versioned fields increment until someone adds an extensions bucket, and then they stop.\n\nAlso, if there ever were, we\u0027d probably need to tweak this function anyway.",
+      "parentUuid": "cc6ef16f_c3ffa61d",
+      "revId": "bebbf990ae14e1b1eaa6d38b131157f4c349ae84",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
