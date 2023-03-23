@@ -66,6 +66,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "593058cd_7b59de9e",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-23T00:02:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c665da14_e1a39d24",
+      "range": {
+        "startLine": 119,
+        "startChar": 3,
+        "endLine": 119,
+        "endChar": 16
+      },
+      "revId": "66e0956c8ba2f990eb56696cc41e0cde09e28739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "25fa516c_3267752d",
         "filename": "crypto/kyber/kyber.c",
         "patchSetId": 19
@@ -98,6 +122,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "71496bf2_c5f861f4",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-23T00:02:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b8d8471_0b0dabbe",
+      "revId": "66e0956c8ba2f990eb56696cc41e0cde09e28739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5c1666d0_35ede304",
@@ -111,6 +153,24 @@
       "writtenOn": "2023-03-18T01:07:23Z",
       "side": 1,
       "message": "Exhaustively tested all inputs up to this to confirm it works. :-)",
+      "revId": "66e0956c8ba2f990eb56696cc41e0cde09e28739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b76ad7fd_9656e324",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-23T00:02:04Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "5c1666d0_35ede304",
       "revId": "66e0956c8ba2f990eb56696cc41e0cde09e28739",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -238,6 +298,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e7dc195_75f75994",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-23T00:02:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29ed326d_e3df741e",
+      "revId": "66e0956c8ba2f990eb56696cc41e0cde09e28739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5bb9fb35_e0df3021",
@@ -251,6 +329,30 @@
       "writtenOn": "2023-03-18T01:07:23Z",
       "side": 1,
       "message": "Between this 128 and the callers, it seems we\u0027re effectively hard-coding `eta` being 2 anyway. Is there even a point in pretending it might be 3? :-)\n\nI.e. we could just call call the functions `scalar_centered_binomial_distribution_2` and `vector_generate_secret_2` and, if we ever need Kyber512, we can add the 3 version. Given that optimizing this function made such a bit difference below, I kinda suspect we\u0027d want to specialize it anyway.",
+      "range": {
+        "startLine": 307,
+        "startChar": 72,
+        "endLine": 307,
+        "endChar": 75
+      },
+      "revId": "66e0956c8ba2f990eb56696cc41e0cde09e28739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "54a95fb8_8f5542d2",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 307,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-23T00:02:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5bb9fb35_e0df3021",
       "range": {
         "startLine": 307,
         "startChar": 72,
@@ -278,6 +380,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "be53db0d_c6e569c6",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-23T00:02:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77709bc1_6f629924",
+      "revId": "66e0956c8ba2f990eb56696cc41e0cde09e28739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e018f8bd_fc0749a0",
@@ -301,6 +421,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aebc5cdb_1bf2d96b",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-23T00:02:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e018f8bd_fc0749a0",
+      "range": {
+        "startLine": 398,
+        "startChar": 36,
+        "endLine": 398,
+        "endChar": 40
+      },
+      "revId": "66e0956c8ba2f990eb56696cc41e0cde09e28739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d52c68ed_a50488fb",
@@ -314,6 +458,30 @@
       "writtenOn": "2023-03-18T01:07:23Z",
       "side": 1,
       "message": "`const uint8_t in[32]` for a tiny bit of checking.",
+      "range": {
+        "startLine": 452,
+        "startChar": 55,
+        "endLine": 452,
+        "endChar": 57
+      },
+      "revId": "66e0956c8ba2f990eb56696cc41e0cde09e28739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3001964_10fec1bc",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 452,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-23T00:02:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d52c68ed_a50488fb",
       "range": {
         "startLine": 452,
         "startChar": 55,
@@ -360,6 +528,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "a86cd546_c5c84ae2",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-23T00:02:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e4c3fb9_a75761d4",
+      "revId": "66e0956c8ba2f990eb56696cc41e0cde09e28739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "6167fe10_d2cb456d",
         "filename": "crypto/kyber/kyber.c",
         "patchSetId": 19
@@ -388,6 +574,30 @@
       "writtenOn": "2023-03-19T18:30:26Z",
       "side": 1,
       "message": "`scalar_centered_binomial_distribution` is only ever called on the output of PRF and, due to the `eta` \u003d 2 or 3 business, every time it\u0027s called we have to calculate `2 * eta * DEGREE / 8`, assert it\u0027s secretly 128, and then SHAKE-256 into a buffer.\n\nWhat if we just folded the PRF call into `scalar_centered_binomial_distribution` and made it:\n\n```\nvoid scalar_centered_binomial_distribution_prf(\n    scalar *out, int eta, const uint8_t input[33])\n```\n\nAlthough not written that way in the spec, the PRF call depends on eta to know how much output it needs, so a combined operation is probably more natural. That also means, if we ever need Kyber-512, we can specialize for eta \u003d\u003d 2 or eta \u003d\u003d 3 inside the function if that ends up being as efficient. (Though I suspect we want to also specialize `vector_generate_secret` to eta so it can be vectorized.)",
+      "range": {
+        "startLine": 653,
+        "startChar": 2,
+        "endLine": 653,
+        "endChar": 39
+      },
+      "revId": "66e0956c8ba2f990eb56696cc41e0cde09e28739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d1fc2f9_7e254b0d",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 653,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-23T00:02:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c6151687_104cd890",
       "range": {
         "startLine": 653,
         "startChar": 2,
@@ -450,6 +660,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "523ce1bc_7756f0a8",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-23T00:02:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8c627d8_9a29bdf7",
+      "revId": "66e0956c8ba2f990eb56696cc41e0cde09e28739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "16685e5d_4750831f",
@@ -463,6 +691,24 @@
       "writtenOn": "2023-03-20T02:23:25Z",
       "side": 1,
       "message": "Super nitpicky nitpick: Not sure this variable is pulling its weight when we could just write `priv-\u003efo_failure_secret` below. :-)",
+      "revId": "66e0956c8ba2f990eb56696cc41e0cde09e28739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7881b78d_d94fe018",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 750,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-23T00:02:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16685e5d_4750831f",
       "revId": "66e0956c8ba2f990eb56696cc41e0cde09e28739",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -576,6 +822,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a7d4d59c_186683ff",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-23T00:02:04Z",
+      "side": 1,
+      "message": "I\u0027ve made parsing fail if any coefficient \u003e\u003d kPrime for now.",
+      "parentUuid": "335c57bb_c34bca26",
+      "revId": "66e0956c8ba2f990eb56696cc41e0cde09e28739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "11ffe9c3_3da9f075",
         "filename": "crypto/kyber/kyber.c",
         "patchSetId": 19
@@ -587,6 +851,24 @@
       "writtenOn": "2023-03-19T18:30:26Z",
       "side": 1,
       "message": "Ditto about unreduced coefficients. Looks like this is only passed to `scalar_inner_product`, so same story with the `scalar_mult`s.",
+      "revId": "66e0956c8ba2f990eb56696cc41e0cde09e28739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b070445e_a3653603",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 824,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-23T00:02:04Z",
+      "side": 1,
+      "message": "Made it fail for out-of-bound values.",
+      "parentUuid": "11ffe9c3_3da9f075",
       "revId": "66e0956c8ba2f990eb56696cc41e0cde09e28739",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }

@@ -261,6 +261,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "be5ef97b_297d5c34",
+        "filename": "include/openssl/kyber.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-23T00:02:04Z",
+      "side": 1,
+      "message": "Generation has to serialise the public key in order to calculate the hash and it seems that anyone with the private key likely only wants the public key in serialised form. If they need the unmarshaled public key then they can call `KYBER_public_from_private` to avoid a matrix expansion.\n\nI can go either way on this, but that was my reasoning ¯\\_(ツ)_/¯",
+      "parentUuid": "9553cc71_da2f09ad",
+      "range": {
+        "startLine": 53,
+        "startChar": 17,
+        "endLine": 53,
+        "endChar": 39
+      },
+      "revId": "edad4de19c3ea20a036d30fa838ff66a8f98c527",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "26330828_580dbb7d",
         "filename": "include/openssl/kyber.h",
         "patchSetId": 15
