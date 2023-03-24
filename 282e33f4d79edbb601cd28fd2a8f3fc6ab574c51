@@ -22,6 +22,30 @@
       },
       "revId": "282e33f4d79edbb601cd28fd2a8f3fc6ab574c51",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e71e8c6e_b8f5a0ae",
+        "filename": "main.star",
+        "patchSetId": 1
+      },
+      "lineNbr": 929,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-24T18:28:24Z",
+      "side": 1,
+      "message": "I think for windows, let\u0027s just use what windows calls it so this is fine, If anything since they are different it\u0027s less confusing in the per-OS case to use the norm for that area.",
+      "parentUuid": "8ccf2554_c4877c2b",
+      "range": {
+        "startLine": 929,
+        "startChar": 20,
+        "endLine": 929,
+        "endChar": 23
+      },
+      "revId": "282e33f4d79edbb601cd28fd2a8f3fc6ab574c51",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
