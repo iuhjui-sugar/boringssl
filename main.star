@@ -823,7 +823,7 @@ both_builders("mac_arm64", MAC_ARM64_HOST, category = "mac", short_name = "arm64
 both_builders(
     "win32",
     WIN_HOST,
-    category = "win|32",
+    category = "win|x86",
     short_name = "dbg",
     properties = {
         "msvc_target": "x86",
@@ -832,7 +832,7 @@ both_builders(
 both_builders(
     "win32_rel",
     WIN_HOST,
-    category = "win|32",
+    category = "win|x86",
     short_name = "rel",
     properties = {
         "cmake_args": {
@@ -844,7 +844,7 @@ both_builders(
 ci_builder(
     "win32_sde",
     WIN_HOST,
-    category = "win|32",
+    category = "win|x86",
     short_name = "sde",
     execution_timeout = SDE_TIMEOUT,
     properties = {
@@ -859,7 +859,7 @@ ci_builder(
 both_builders(
     "win32_small",
     WIN_HOST,
-    category = "win|32",
+    category = "win|x86",
     short_name = "sm",
     properties = {
         "cmake_args": {
@@ -873,7 +873,7 @@ both_builders(
 both_builders(
     "win32_vs2019",
     WIN_HOST,
-    category = "win|32",
+    category = "win|x86",
     short_name = "vs2019",
     cq_compile_only = WIN_HOST,  # Reduce CQ cycle times.
     properties = {
@@ -884,7 +884,7 @@ both_builders(
 both_builders(
     "win32_clang",
     WIN_HOST,
-    category = "win|32",
+    category = "win|x86",
     short_name = "clang",
     cq_compile_only = WIN_HOST,  # Reduce CQ cycle times.
     properties = {
@@ -905,7 +905,7 @@ both_builders(
 both_builders(
     "win64",
     WIN_HOST,
-    category = "win|64",
+    category = "win|x64",
     short_name = "dbg",
     properties = {
         "msvc_target": "x64",
@@ -914,7 +914,7 @@ both_builders(
 both_builders(
     "win64_rel",
     WIN_HOST,
-    category = "win|64",
+    category = "win|x64",
     short_name = "rel",
     properties = {
         "cmake_args": {
@@ -926,7 +926,7 @@ both_builders(
 ci_builder(
     "win64_sde",
     WIN_HOST,
-    category = "win|64",
+    category = "win|x64",
     short_name = "sde",
     execution_timeout = SDE_TIMEOUT,
     properties = {
@@ -941,7 +941,7 @@ ci_builder(
 both_builders(
     "win64_small",
     WIN_HOST,
-    category = "win|64",
+    category = "win|x64",
     short_name = "sm",
     properties = {
         "cmake_args": {
@@ -955,7 +955,7 @@ both_builders(
 both_builders(
     "win64_vs2019",
     WIN_HOST,
-    category = "win|64",
+    category = "win|x64",
     short_name = "vs2019",
     cq_compile_only = WIN_HOST,  # Reduce CQ cycle times.
     properties = {
@@ -966,7 +966,7 @@ both_builders(
 both_builders(
     "win64_clang",
     WIN_HOST,
-    category = "win|64",
+    category = "win|x64",
     short_name = "clg",
     cq_compile_only = WIN_HOST,  # Reduce CQ cycle times.
     properties = {
@@ -978,8 +978,8 @@ both_builders(
 both_builders(
     "win_arm64_compile",
     WIN_HOST,
-    category = "win",
-    short_name = "arm64",
+    category = "win|arm64",
+    short_name = "clang",
     properties = {
         "clang": True,
         "cmake_args": {
@@ -1000,11 +1000,11 @@ both_builders(
     },
 )
 
-# TODO(davidben): After confirming this configuration works, add it to CI.
-cq_builder(
+both_builders(
     "win_arm64_msvc_compile",
     WIN_HOST,
-    cq_enabled = False,
+    category = "win|arm64",
+    short_name = "msvc",
     properties = {
         "cmake_args": {
             # This is a cross-compile, so CMake needs to be told the processor.
