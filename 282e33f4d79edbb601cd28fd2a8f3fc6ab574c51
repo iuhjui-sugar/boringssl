@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ccf2554_c4877c2b",
+        "filename": "main.star",
+        "patchSetId": 1
+      },
+      "lineNbr": 929,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-24T16:57:56Z",
+      "side": 1,
+      "message": "Or should we call these \"x86_64\"? For aarch64/arm64, we currently use a mix of them which roughly matches what the corresponding OSes call it, so I\u0027ve extended that here to use the names from the OS. But it\u0027s not like any of this is principled, so happy to pick the other convention.",
+      "range": {
+        "startLine": 929,
+        "startChar": 20,
+        "endLine": 929,
+        "endChar": 23
+      },
+      "revId": "282e33f4d79edbb601cd28fd2a8f3fc6ab574c51",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
