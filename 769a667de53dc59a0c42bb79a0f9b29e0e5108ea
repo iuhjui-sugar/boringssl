@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "693147da_da691760",
+        "filename": "crypto/x509v3/v3_utl.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-24T13:51:42Z",
+      "side": 1,
+      "message": "While a little subtle, I don\u0027t believe this is out of bounds. Were you able to repr this with ASan/MSan? I notice the CL doesn\u0027t have a test.\n\n`value` is a NUL-terminated C string, which means it is safe to access `value[i]` if you know `value[0..i-1]` are non-NUL. So the `value[0]` access is always okay and, given that\u0027s not NUL, we know the `value[1]` access is okay. Doing it this way also avoids doing two passes over the string if it\u0027s a long one.\n\nIndeed your CL relies on this property too. Under the hood, `strlen` keeps reading bytes until it finds a non-NUL byte.\n\nDoes that make sense, or was I missing something and you had a different issue was something else?",
+      "revId": "769a667de53dc59a0c42bb79a0f9b29e0e5108ea",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
