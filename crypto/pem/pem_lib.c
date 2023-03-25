@@ -78,7 +78,7 @@
 static int load_iv(char **fromp, unsigned char *to, size_t num);
 static int check_pem(const char *nm, const char *name);
 
-void PEM_proc_type(char *buf, int type) {
+void PEM_proc_type(char buf[PEM_BUFSIZE], int type) {
   const char *str;
 
   if (type == PEM_TYPE_ENCRYPTED) {
@@ -96,24 +96,22 @@ void PEM_proc_type(char *buf, int type) {
   OPENSSL_strlcat(buf, "\n", PEM_BUFSIZE);
 }
 
-void PEM_dek_info(char *buf, const char *type, int len, char *str) {
+void PEM_dek_info(char buf[PEM_BUFSIZE], const char *type, int len, char *str) {
   static const unsigned char map[17] = "0123456789ABCDEF";
-  long i;
-  int j;
 
   OPENSSL_strlcat(buf, "DEK-Info: ", PEM_BUFSIZE);
   OPENSSL_strlcat(buf, type, PEM_BUFSIZE);
   OPENSSL_strlcat(buf, ",", PEM_BUFSIZE);
-  j = strlen(buf);
+  size_t j = strlen(buf);
   if (j + (len * 2) + 1 > PEM_BUFSIZE) {
     return;
   }
-  for (i = 0; i < len; i++) {
+  for (int i = 0; i < len; i++) {
     buf[j + i * 2] = map[(str[i] >> 4) & 0x0f];
     buf[j + i * 2 + 1] = map[(str[i]) & 0x0f];
   }
-  buf[j + i * 2] = '\n';
-  buf[j + i * 2 + 1] = '\0';
+  buf[j + len * 2] = '\n';
+  buf[j + len * 2 + 1] = '\0';
 }
 
 void *PEM_ASN1_read(d2i_of_void *d2i, const char *name, FILE *fp, void **x,
@@ -781,5 +779,5 @@ int PEM_def_callback(char *buf, int size, int rwflag, void *userdata) {
     return 0;
   }
   OPENSSL_strlcpy(buf, userdata, (size_t)size);
-  return len;
+  return (int)len;
 }
