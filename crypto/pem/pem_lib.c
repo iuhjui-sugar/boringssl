@@ -78,7 +78,8 @@
 static int load_iv(char **fromp, unsigned char *to, size_t num);
 static int check_pem(const char *nm, const char *name);
 
-void PEM_proc_type(char buf[PEM_BUFSIZE], int type) {
+// PEM_proc_type appends a Proc-Type header to |buf|, determined by |type|.
+static void PEM_proc_type(char buf[PEM_BUFSIZE], int type) {
   const char *str;
 
   if (type == PEM_TYPE_ENCRYPTED) {
@@ -96,7 +97,10 @@ void PEM_proc_type(char buf[PEM_BUFSIZE], int type) {
   OPENSSL_strlcat(buf, "\n", PEM_BUFSIZE);
 }
 
-void PEM_dek_info(char buf[PEM_BUFSIZE], const char *type, int len, char *str) {
+// PEM_dek_info appends a DEK-Info header to |buf|, with an algorithm of |type|
+// and a single parameter, specified by hex-encoding |len| bytes from |str|.
+static void PEM_dek_info(char buf[PEM_BUFSIZE], const char *type, int len,
+                         char *str) {
   static const unsigned char map[17] = "0123456789ABCDEF";
 
   OPENSSL_strlcat(buf, "DEK-Info: ", PEM_BUFSIZE);
