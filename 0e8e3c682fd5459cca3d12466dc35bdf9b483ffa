@@ -34,6 +34,24 @@
       "parentUuid": "6465b47d_0c279a63",
       "revId": "0e8e3c682fd5459cca3d12466dc35bdf9b483ffa",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "db0c163d_deacdacc",
+        "filename": "include/openssl/obj.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-28T19:07:09Z",
+      "side": 1,
+      "message": "I think we\u0027d have to be somewhat selective, not just the \"merely unpleasant\" but the ones that are really quite actively dangerous to use.. i.e. like this one.",
+      "parentUuid": "c42ad95f_6d7bd1e0",
+      "revId": "0e8e3c682fd5459cca3d12466dc35bdf9b483ffa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
