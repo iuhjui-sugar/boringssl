@@ -16,6 +16,24 @@
       "message": "How do we feel about making these things warn when used outside.  I can toss a bug on myself to go wire us up for all the compiler equivalents of #warn or __pragma_deprecated__ etc..\n\nThis seems to me like if you try to use this it should warn.",
       "revId": "0e8e3c682fd5459cca3d12466dc35bdf9b483ffa",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c42ad95f_6d7bd1e0",
+        "filename": "include/openssl/obj.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-28T18:04:26Z",
+      "side": 1,
+      "message": "Maybe. Though this is far from the first API we don\u0027t like. 😄\n\nI worry a bit that, since a lot of Google projects like to just `-Werror` (non-error warnings tend to be invisible), we\u0027ll be very limited in how much we can actually do this. E.g. we may \"deprecate\" a function because *we* think it\u0027s bad, but OpenSSL doesn\u0027t, and so we\u0027d just need to support it for compatibility with 3p code indefinitely. But we can play around with options here.",
+      "parentUuid": "6465b47d_0c279a63",
+      "revId": "0e8e3c682fd5459cca3d12466dc35bdf9b483ffa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
