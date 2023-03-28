@@ -70,6 +70,24 @@
       "parentUuid": "d1b97505_07d8dc28",
       "revId": "4025c1a5e643c67702d5c3488305742b84aa14af",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "099ddb32_afbb12d0",
+        "filename": "tool/speed.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 960,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-28T22:22:20Z",
+      "side": 1,
+      "message": "With Patchset 20 and same machines:\n\nm1mini$ \ndmesg | grep cpu0\ncpu0 at mainbus0 mpidr 0: Apple Icestorm r1p1\nm1mini$ ./tool/big-bssl speed -filter Kyber \nDid 13248 Kyber generate + decap operations in 1008595us (13135.1 ops/sec)\nDid 21000 Kyber parse + encap operations in 1020900us (20570.1 ops/sec)m1mini$ m1mini$ ./tool/big-bssl speed -filter X25519 \nDid 48400 Ed25519 key generation operations in 1003802us (48216.7 ops/sec)\nDid 66000 Ed25519 signing operations in 1007991us (65476.8 ops/sec)\nDid 24000 Ed25519 verify operations in 1034595us (23197.5 ops/sec)\nDid 71000 Curve25519 base-point multiplication operations in 1001788us (70873.3 ops/sec)\nDid 30000 Curve25519 arbitrary point multiplication operations in 1025539us (29252.9 ops/sec)\n\nherp$ dmesg | grep cpu0         \ncpu0 at mainbus0 mpidr 0: ARM Cortex-A53 r0p4\nherp$ ./tool/bssl speed -filter Kyber \nDid 840 Kyber generate + decap operations in 1001085us (839.1 ops/sec)\nDid 1488 Kyber parse + encap operations in 1086167us (1370.0 ops/sec)\nherp$ ./tool/bssl speed -filter X25519\nDid 3000 Ed25519 key generation operations in 1000857us (2997.4 ops/sec)\nDid 3240 Ed25519 signing operations in 1000809us (3237.4 ops/sec)\nDid 1105 Ed25519 verify operations in 1065014us (1037.5 ops/sec)\nDid 3674 Curve25519 base-point multiplication operations in 1054771us (3483.2 ops/sec)\nDid 1375 Curve25519 arbitrary point multiplication operations in 1083739us (1268.8 ops/sec)\n\nThe Cortex has some fairly significant improvement in speed.",
+      "parentUuid": "9b2677bd_c65ecef7",
+      "revId": "4025c1a5e643c67702d5c3488305742b84aa14af",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
