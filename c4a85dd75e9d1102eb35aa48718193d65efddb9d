@@ -33,6 +33,24 @@
       "message": "You know what\u0027s truly horrifying? If you pass in the ID of a built-in `X509_PURPOSE`, you actually mutate the built-in one. This works because `xstandard` is not const, and *there is a caller that relies on this because they didn\u0027t realize you can allocate your own ID*.",
       "revId": "c4a85dd75e9d1102eb35aa48718193d65efddb9d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e5f050e_d412e1d7",
+        "filename": "crypto/x509v3/v3_purp.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-28T19:02:31Z",
+      "side": 1,
+      "message": "Why would they allocate their own if they can mutate the built-in one for their purposes..  I mean, the API is there. may as well use it.",
+      "parentUuid": "a3d5c2ac_94626195",
+      "revId": "c4a85dd75e9d1102eb35aa48718193d65efddb9d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
