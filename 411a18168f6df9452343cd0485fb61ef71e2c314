@@ -16,6 +16,24 @@
       "message": "Not sure we actually want this one marked?",
       "revId": "411a18168f6df9452343cd0485fb61ef71e2c314",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1bf67500_25436271",
+        "filename": "include/openssl/obj.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-28T21:50:58Z",
+      "side": 1,
+      "message": "or even if we do decide to mark this (or others) land separately with an update-note..",
+      "parentUuid": "a39978bf_81b4c07c",
+      "revId": "411a18168f6df9452343cd0485fb61ef71e2c314",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
