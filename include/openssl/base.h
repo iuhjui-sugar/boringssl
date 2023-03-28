@@ -221,6 +221,29 @@ extern "C" {
 
 #endif  // defined(BORINGSSL_SHARED_LIBRARY)
 
+#if defined(_MSC_VER)
+
+#define OPENSSL_DEPRECATED __declspec(deprecated)
+#define OPENSSL_BEGIN_ALLOW_DEPRECATED \
+  __pragma(warning(push)) __pragma(warning(disable : 4996))
+#define OPENSSL_END_ALLOW_DEPRECATED __pragma(warning(pop))
+
+#elif defined(__GNUC__) || defined(__clang__)
+
+#define OPENSSL_DEPRECATED __attribute__((__deprecated__))
+#define OPENSSL_BEGIN_ALLOW_DEPRECATED \
+  _Pragma("GCC diagnostic push")       \
+  _Pragma("GCC diagnostic ignored \"-Wdeprecated-declarations\"")
+#define OPENSSL_END_ALLOW_DEPRECATED _Pragma("GCC diagnostic pop")
+
+#else
+
+#define OPENSSL_DEPRECATED
+#define OPENSSL_BEGIN_ALLOW_DEPRECATED
+#define OPENSSL_END_ALLOW_DEPRECATED
+
+#endif
+
 
 #if defined(__GNUC__) || defined(__clang__)
 // MinGW has two different printf implementations. Ensure the format macro

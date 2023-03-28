@@ -1784,6 +1784,7 @@ TEST(ASN1Test, StringByNID) {
   }
 }
 
+OPENSSL_BEGIN_ALLOW_DEPRECATED
 TEST(ASN1Test, StringByCustomNID) {
   // This test affects library-global state. We rely on nothing else in the test
   // suite using these OIDs.
@@ -1872,6 +1873,7 @@ TEST(ASN1Test, StringByCustomNIDThreads) {
     thread.join();
   }
 }
+OPENSSL_END_ALLOW_DEPRECATED
 #endif  // OPENSSL_THREADS
 
 // Test that multi-string types correctly encode negative ENUMERATED.
