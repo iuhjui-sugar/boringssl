@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "966ffeea_26bed75d",
+        "filename": "crypto/stack/stack_test.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-28T21:56:08Z",
+      "side": 1,
+      "message": "I really wish there were a less ugly way to write these.",
+      "revId": "e51326ff77582d1414699229800803af3cb30ffb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98d1c33e_affdfa22",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-28T21:56:08Z",
+      "side": 1,
+      "message": "hmm.. is this one the right time for this? or perhaps after the next couple things cueued up.. I\u0027d almost rather see this committed separately with a commit message for why, it just sort of lurks in this.",
+      "revId": "e51326ff77582d1414699229800803af3cb30ffb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
