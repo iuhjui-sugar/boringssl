@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6465b47d_0c279a63",
+        "filename": "include/openssl/obj.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-28T17:56:41Z",
+      "side": 1,
+      "message": "How do we feel about making these things warn when used outside.  I can toss a bug on myself to go wire us up for all the compiler equivalents of #warn or __pragma_deprecated__ etc..\n\nThis seems to me like if you try to use this it should warn.",
+      "revId": "0e8e3c682fd5459cca3d12466dc35bdf9b483ffa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
