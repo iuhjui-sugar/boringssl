@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f65f90b0_44856f1e",
+        "filename": "crypto/stack/stack_test.cc",
+        "patchSetId": 8
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-29T00:27:55Z",
+      "side": 1,
+      "message": "Really this should just take `const TEST_INT *a, const TEST_INT *b` and avoid all this, but the type signature is written to match `qsort`. :-)",
+      "parentUuid": "966ffeea_26bed75d",
+      "revId": "e51326ff77582d1414699229800803af3cb30ffb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "98d1c33e_affdfa22",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-03-28T21:56:08Z",
       "side": 1,
       "message": "hmm.. is this one the right time for this? or perhaps after the next couple things cueued up.. I\u0027d almost rather see this committed separately with a commit message for why, it just sort of lurks in this.",
+      "revId": "e51326ff77582d1414699229800803af3cb30ffb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b757a0d2_b11e8e11",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 8
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-29T00:27:55Z",
+      "side": 1,
+      "message": "I mean, we just bump this \"whenever is convenient\". 😊 So in theory it\u0027s allowed to bump it every single commit if we want to.\n\nI often do it when making source-incompatible changes, so that we can patch downstream code with something like:\n\n```\n#if BORINGSSL_API_VERSION \u003c 19\nold non-const signature\n#else\nnew const signature\n#endif\n```\n\nIn the case of Envoy, I was able to avoid it with C++14 generic lambdas, but if something else comes up, they may need it.",
+      "parentUuid": "98d1c33e_affdfa22",
       "revId": "e51326ff77582d1414699229800803af3cb30ffb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
