@@ -86,13 +86,22 @@ int X509_NAME_get_text_by_OBJ(const X509_NAME *name, const ASN1_OBJECT *obj,
   }
   const ASN1_STRING *data =
       X509_NAME_ENTRY_get_data(X509_NAME_get_entry(name, i));
-  i = (data->length > (len - 1)) ? (len - 1) : data->length;
-  if (buf == NULL) {
-    return data->length;
+  unsigned char *text = NULL;
+  int text_len = ASN1_STRING_to_UTF8(&text, data);
+  // Fail if we could not encode as UTF-8, or if the UTF-8 encoding of the
+  // string contains a zero byte, because mortal callers seldom handle
+  // the length difference correctly.
+  if (text_len < 0 || OPENSSL_memchr(text, 0, text_len) != NULL) {
+    return -1;
   }
-  OPENSSL_memcpy(buf, data->data, i);
-  buf[i] = '\0';
-  return i;
+  if (buf == NULL) {
+    goto out;
+  }
+  size_t output_bytes = len <= text_len ? len : text_len + 1;
+  (void) OPENSSL_strlcpy(buf, (char *)text, output_bytes);
+ out:
+  OPENSSL_free(text);
+  return text_len;
 }
 
 int X509_NAME_entry_count(const X509_NAME *name) {
