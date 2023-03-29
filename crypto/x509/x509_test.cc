@@ -6549,3 +6549,40 @@ TEST(X509Test, SortRDN) {
       0x02, 0x41, 0x42};
   EXPECT_EQ(Bytes(kExpected), Bytes(der, der_len));
 }
+
+TEST(X509Test, X509_NAME_get_text_by_OBJ) {
+  struct OBJTestCase {
+    const char *content;
+    int len;
+    int expected_result;
+  } kTests[] = {
+      {
+          "derp",
+          4,
+          4,
+      },
+      {
+          "de\0rp",
+          5,
+          -1,
+      },
+      {
+          "\xc0\xc1"
+          "derp",
+          -1,
+          8,
+      },
+  };
+
+  for (const auto &test : kTests) {
+    bssl::UniquePtr<X509_NAME> name(X509_NAME_new());
+    bssl::UniquePtr<X509_NAME_ENTRY> ne(X509_NAME_ENTRY_create_by_NID(
+        NULL, NID_commonName, V_ASN1_BIT_STRING,
+        reinterpret_cast<const uint8_t *>(test.content), test.len));
+    EXPECT_TRUE(X509_NAME_add_entry(name.get(), ne.get(), -1, 0));
+    char text[80] = {};
+    EXPECT_EQ(
+        test.expected_result,
+        X509_NAME_get_text_by_NID(name.get(), NID_commonName, text, sizeof(text)));
+  }
+}
