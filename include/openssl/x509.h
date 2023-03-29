@@ -1525,20 +1525,21 @@ OPENSSL_EXPORT ASN1_TIME *X509_CRL_get_nextUpdate(X509_CRL *crl);
 OPENSSL_EXPORT ASN1_INTEGER *X509_get_serialNumber(X509 *x509);
 
 // X509_NAME_get_text_by_OBJ finds the first attribute with type |obj| in
-// |name|. If found, it ignores the value's ASN.1 type, writes the raw
+// |name|. If found, it ignores the value's ASN.1 type, writes a UTF-8
 // |ASN1_STRING| representation to |buf|, followed by a NUL byte, and
-// returns the number of bytes in output, excluding the NUL byte.
+// returns the number of bytes in output, excluding the NUL byte. This
+// is unlike OpenSSL which returns the raw ASN1_STRING data. The UTF-8
+// encoding of the |ASN1_STRING| may not contain a 0 codepoint.
 //
 // This function writes at most |len| bytes, including the NUL byte. If |len| is
 // not large enough, it silently truncates the output to fit. If |buf| is NULL,
-// it instead writes enough and returns the number of bytes in the output,
-// excluding the NUL byte.
+// it instead writes nothing and returns the number of bytes in the output,
+// excluding the NUL byte that would be required for the full utf-8 output.
 //
-// WARNING: Do not use this function. It does not return enough information for
-// the caller to correctly interpret its output. The attribute value may be of
-// any type, including one of several ASN.1 string encodings, but this function
-// only outputs the raw |ASN1_STRING| representation. See
-// https://crbug.com/boringssl/436.
+// This function may return -1 if an error occurs for any reason, including
+// memory allocation failures, an object with type |obj| not existing in |name|,
+// or the UTF-8 representation of the object's |ASN1_STRING| representation
+// containing a 0 codepoint.
 OPENSSL_EXPORT int X509_NAME_get_text_by_OBJ(const X509_NAME *name,
                                              const ASN1_OBJECT *obj, char *buf,
                                              int len);
