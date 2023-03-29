@@ -6649,3 +6649,61 @@ TEST(X509Test, NameAttributeValues) {
               (Bytes(CBB_data(cbb.get()), CBB_len(cbb.get()))));
   }
 }
+
+TEST(X509Test, GetTextByOBJ) {
+  struct OBJTestCase {
+    const char *content;
+    int len;
+    int expected_result;
+    const char *expected_string;
+  } kUnconvertableTests[] = {
+      {"\x30\x00",  // Empty sequence can not be converted to UTF-8
+       2, -1, ""},
+  };
+  struct OBJTestCase kConvertableTests[] = {
+      {"derp", 4, 4, "derp"},
+      {
+          "der\0p",
+          5,
+          -1,
+          "",
+      },
+      {
+          "\x07\xff",
+          2,
+          3,
+          "\x07\xc3\xbf",
+      },
+  };
+  for (const auto &test : kUnconvertableTests) {
+    bssl::UniquePtr<X509_NAME> name(X509_NAME_new());
+    bssl::UniquePtr<X509_NAME_ENTRY> entry(X509_NAME_ENTRY_new());
+    EXPECT_TRUE(
+        X509_NAME_ENTRY_set_object(entry.get(), OBJ_nid2obj(NID_commonName)));
+    EXPECT_TRUE(X509_NAME_ENTRY_set_data(
+        entry.get(), V_ASN1_SEQUENCE,
+        reinterpret_cast<const unsigned char *>(test.content), test.len));
+    EXPECT_TRUE(X509_NAME_add_entry(name.get(), entry.get(), /*loc=*/-1,
+                                    /*set=*/0));
+    char text[80] = {};
+    EXPECT_EQ(test.expected_result,
+              X509_NAME_get_text_by_NID(name.get(), NID_commonName, text,
+                                        sizeof(text)));
+    EXPECT_EQ(Bytes(text, strlen(text)),
+              Bytes(test.expected_string, strlen(test.expected_string)));
+  }
+  for (const auto &test : kConvertableTests) {
+    bssl::UniquePtr<X509_NAME> name(X509_NAME_new());
+    bssl::UniquePtr<X509_NAME_ENTRY> ne(X509_NAME_ENTRY_create_by_NID(
+        NULL, NID_commonName, MBSTRING_ASC,
+        reinterpret_cast<const uint8_t *>(test.content), test.len));
+    EXPECT_TRUE(
+        X509_NAME_add_entry(name.get(), ne.get(), /*loc=*/-1, /*set=*/0));
+    char text[80] = {};
+    EXPECT_EQ(test.expected_result,
+              X509_NAME_get_text_by_NID(name.get(), NID_commonName, text,
+                                        sizeof(text)));
+    EXPECT_EQ(Bytes(text, strlen(text)),
+              Bytes(test.expected_string, strlen(test.expected_string)));
+  }
+}
