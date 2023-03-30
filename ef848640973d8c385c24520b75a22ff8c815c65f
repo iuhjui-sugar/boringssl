@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26a31858_04f20a28",
+        "filename": "crypto/x509/x509name.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-30T04:53:47Z",
+      "side": 1,
+      "message": "Optional: This works, but since `ASN1_STRING_to_UTF8` won\u0027t write anything when it returns `text_len \u003c 0`, I might suggest just:\n\n```\n  unsigned char *text \u003d NULL;\n  int text_len \u003d ASN1_STRING_to_UTF8(\u0026text, data);\n  if (text_len \u003c 0) {\n    return -1;\n  }\n  ...\n```\n\nThat then saves you from doing a `text_len !\u003d -1` afterwards.",
+      "revId": "ef848640973d8c385c24520b75a22ff8c815c65f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1e959b8_dc4e369e",
+        "filename": "crypto/x509/x509name.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-30T04:53:47Z",
+      "side": 1,
+      "message": "(Similar super nitpicky nitpick about code points vs code units.)\n\nStrictly speaking, this API returns the length, so the caller *can* actually handle embedded NULs correctly. But I\u0027m quite happy to reject it on grounds that everyone probably gets it wrong.\n\nAnd indeed, non-scientifically sampling three callers, two of them get it wrong.",
+      "revId": "ef848640973d8c385c24520b75a22ff8c815c65f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9086575c_1c376696",
+        "filename": "crypto/x509/x509name.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-30T04:53:47Z",
+      "side": 1,
+      "message": "It seems a little weird that, in the `buf \u003d\u003d NULL` case, we catch UTF-8 failures but not embedded NUL failures. Seems clearer to handle both in the length-measuring case too. E.g. just `OPENSSL_memchr(data, 0, text_len)` probably suffices.",
+      "revId": "ef848640973d8c385c24520b75a22ff8c815c65f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32eca5d0_993ddad2",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1532,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-30T04:53:47Z",
+      "side": 1,
+      "message": "Super nitpicky nitpick: UTF-8 encoding contains \"code units\" (bytes for UTF-8). Code points are the inputs to the EncodeUTF8 transform. :-) I think we can either say \"The string may not contain a zero code point\" or \"The UTF-8 encoding of the string may not contain a zero byte.\"",
+      "revId": "ef848640973d8c385c24520b75a22ff8c815c65f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c58f267_01d7456e",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1537,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-30T04:53:47Z",
+      "side": 1,
+      "message": "Nit: UTF-8",
+      "range": {
+        "startLine": 1537,
+        "startChar": 62,
+        "endLine": 1537,
+        "endChar": 65
+      },
+      "revId": "ef848640973d8c385c24520b75a22ff8c815c65f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
