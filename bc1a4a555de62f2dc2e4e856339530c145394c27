@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9efe9aca_c5f9fa9b",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 642,
+      "author": {
+        "id": 15796
+      },
+      "writtenOn": "2023-03-30T05:31:29Z",
+      "side": 1,
+      "message": "32\nIt\u0027s only 64 bytes because I wanted to avoid a copy",
+      "range": {
+        "startLine": 642,
+        "startChar": 76,
+        "endLine": 642,
+        "endChar": 79
+      },
+      "revId": "bc1a4a555de62f2dc2e4e856339530c145394c27",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "caec434c_3354e4d9",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 701,
+      "author": {
+        "id": 15796
+      },
+      "writtenOn": "2023-03-30T05:31:29Z",
+      "side": 1,
+      "message": "I think this should just be |entropy| instead of |input|, this is a leftover from the original implementation calling RAND_bytes() directly on the first 32 bytes of |input|. There is already a bit of a dance going on here with parts of 64 byte arrays being replaced, it\u0027s probably best to make this simpler where possible.",
+      "range": {
+        "startLine": 701,
+        "startChar": 34,
+        "endLine": 701,
+        "endChar": 40
+      },
+      "revId": "bc1a4a555de62f2dc2e4e856339530c145394c27",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
