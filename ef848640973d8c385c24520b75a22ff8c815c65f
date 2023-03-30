@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "eec0bcab_76327d6b",
+        "filename": "crypto/x509/x509name.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-30T16:35:40Z",
+      "side": 1,
+      "message": "Yeah, it needs unit tests ;)",
+      "parentUuid": "c08e110c_3ecc6c7f",
+      "revId": "ef848640973d8c385c24520b75a22ff8c815c65f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "26a31858_04f20a28",
         "filename": "crypto/x509/x509name.c",
         "patchSetId": 1
@@ -48,6 +66,24 @@
       "writtenOn": "2023-03-30T04:53:47Z",
       "side": 1,
       "message": "(Similar super nitpicky nitpick about code points vs code units.)\n\nStrictly speaking, this API returns the length, so the caller *can* actually handle embedded NULs correctly. But I\u0027m quite happy to reject it on grounds that everyone probably gets it wrong.\n\nAnd indeed, non-scientifically sampling three callers, two of them get it wrong.",
+      "revId": "ef848640973d8c385c24520b75a22ff8c815c65f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5a2c81b_afe6afd3",
+        "filename": "crypto/x509/x509name.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-03-30T16:35:40Z",
+      "side": 1,
+      "message": "Yeah, when I looked through them I decided the average caller had to handle failure and did not handle this, so this is the safe bet ;)",
+      "parentUuid": "f1e959b8_dc4e369e",
       "revId": "ef848640973d8c385c24520b75a22ff8c815c65f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
