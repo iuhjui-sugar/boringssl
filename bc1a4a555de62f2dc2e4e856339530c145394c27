@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7450dbf8_81a4e94b",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-30T16:54:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4782077_7385460d",
+      "range": {
+        "startLine": 231,
+        "startChar": 24,
+        "endLine": 231,
+        "endChar": 25
+      },
+      "revId": "bc1a4a555de62f2dc2e4e856339530c145394c27",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7e4d4d14_2537473c",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-03-30T09:01:25Z",
       "side": 1,
       "message": "Nit: Should we call this `vector_generate_secret_eta_2` like the other one?",
+      "range": {
+        "startLine": 328,
+        "startChar": 42,
+        "endLine": 328,
+        "endChar": 47
+      },
+      "revId": "bc1a4a555de62f2dc2e4e856339530c145394c27",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ceeadae5_8231acec",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-30T16:54:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7e4d4d14_2537473c",
       "range": {
         "startLine": 328,
         "startChar": 42,
@@ -70,6 +118,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "39b641ed_69f4c1c3",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 642,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-30T16:54:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9efe9aca_c5f9fa9b",
+      "range": {
+        "startLine": 642,
+        "startChar": 76,
+        "endLine": 642,
+        "endChar": 79
+      },
+      "revId": "bc1a4a555de62f2dc2e4e856339530c145394c27",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "caec434c_3354e4d9",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-03-30T05:31:29Z",
       "side": 1,
       "message": "I think this should just be |entropy| instead of |input|, this is a leftover from the original implementation calling RAND_bytes() directly on the first 32 bytes of |input|. There is already a bit of a dance going on here with parts of 64 byte arrays being replaced, it\u0027s probably best to make this simpler where possible.",
+      "range": {
+        "startLine": 701,
+        "startChar": 34,
+        "endLine": 701,
+        "endChar": 40
+      },
+      "revId": "bc1a4a555de62f2dc2e4e856339530c145394c27",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d545316_598bb9dd",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 701,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-30T16:54:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "caec434c_3354e4d9",
       "range": {
         "startLine": 701,
         "startChar": 34,

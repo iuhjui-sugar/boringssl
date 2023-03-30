@@ -283,6 +283,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "314ff2d9_d4949e4f",
+        "filename": "include/openssl/kyber.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-30T16:54:08Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "be5ef97b_297d5c34",
+      "range": {
+        "startLine": 53,
+        "startChar": 17,
+        "endLine": 53,
+        "endChar": 39
+      },
+      "revId": "edad4de19c3ea20a036d30fa838ff66a8f98c527",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "26330828_580dbb7d",
@@ -386,6 +410,24 @@
       "side": 1,
       "message": "I\u0027d be perfectly happy with cleaning up the \"parse\" model to just check for trailing data - I\u0027m pretty used to always checking for that and rejecting things when parsing stuff in a CBS in a \"parse\" routine in general, (meaning i\u0027d be likely to forget to check if the parse routine did not)\n\nmeaning these could stay as they are and we fix the others",
       "parentUuid": "0d27bbe9_8af634dd",
+      "revId": "edad4de19c3ea20a036d30fa838ff66a8f98c527",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9472e67c_d5d21651",
+        "filename": "include/openssl/kyber.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-03-30T16:54:08Z",
+      "side": 1,
+      "message": "Going with this for now. We\u0027ll revisit the behaviour of out-of-range coefficients if the Kyber team reach a different decision.",
+      "parentUuid": "0454f4b8_ed9efcff",
       "revId": "edad4de19c3ea20a036d30fa838ff66a8f98c527",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
