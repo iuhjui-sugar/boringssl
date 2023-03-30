@@ -838,6 +838,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "09660fc0_a4813210",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 19
+      },
+      "lineNbr": 775,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-30T09:01:25Z",
+      "side": 1,
+      "message": "SGTM",
+      "parentUuid": "a7d4d59c_186683ff",
+      "revId": "66e0956c8ba2f990eb56696cc41e0cde09e28739",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "11ffe9c3_3da9f075",

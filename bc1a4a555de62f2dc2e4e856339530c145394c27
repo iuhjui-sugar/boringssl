@@ -3,6 +3,52 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d4782077_7385460d",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-30T09:01:25Z",
+      "side": 1,
+      "message": "Something I just realized, I think we should write this as `(uint32_t)lhs-\u003ec[2 * i] * rhs-\u003ec[2 * i]`.\n\nDitto for the others. Otherwise, we\u0027re actually relying on integer promotion! LHS and RHS are `uint16_t`. Being smaller than `int`, they get promoted to `int` and multiple as `int`s, with overflow on UB and everything!\n\nFortunately, assuming inputs are fully reduced, multiplying as `int` is safe and won\u0027t overflow. But best to not tempt the compiler.\n\nC is the worst.",
+      "range": {
+        "startLine": 231,
+        "startChar": 24,
+        "endLine": 231,
+        "endChar": 25
+      },
+      "revId": "bc1a4a555de62f2dc2e4e856339530c145394c27",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e4d4d14_2537473c",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 20
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-03-30T09:01:25Z",
+      "side": 1,
+      "message": "Nit: Should we call this `vector_generate_secret_eta_2` like the other one?",
+      "range": {
+        "startLine": 328,
+        "startChar": 42,
+        "endLine": 328,
+        "endChar": 47
+      },
+      "revId": "bc1a4a555de62f2dc2e4e856339530c145394c27",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9efe9aca_c5f9fa9b",
         "filename": "crypto/kyber/kyber.c",
         "patchSetId": 20
