@@ -953,7 +953,7 @@ static STACK_OF(TRUST_TOKEN) *pmbtoken_unblind(
   if (count > ((size_t)-1) / sizeof(EC_RAW_POINT) ||
       count > ((size_t)-1) / sizeof(EC_SCALAR)) {
     OPENSSL_PUT_ERROR(TRUST_TOKEN, ERR_R_OVERFLOW);
-    return 0;
+    goto err;
   }
   EC_RAW_POINT *Tps = OPENSSL_malloc(count * sizeof(EC_RAW_POINT));
   EC_RAW_POINT *Sps = OPENSSL_malloc(count * sizeof(EC_RAW_POINT));
