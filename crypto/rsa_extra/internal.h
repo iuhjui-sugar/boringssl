@@ -54,92 +54,24 @@
  * copied and put under another distribution licence
  * [including the GNU Public Licence.] */
 
-#ifndef OPENSSL_HEADER_RSA_INTERNAL_H
-#define OPENSSL_HEADER_RSA_INTERNAL_H
 
-#include <openssl/base.h>
-
-#include <openssl/bn.h>
-
+#ifndef OPENSSL_HEADER_RSA_EXTRA_INTERNAL_H
+#define OPENSSL_HEADER_RSA_EXTRA_INTERNAL_H
 
 #if defined(__cplusplus)
 extern "C" {
 #endif
 
 
-#define RSA_PKCS1_PADDING_SIZE 11
-
-// Default implementations of RSA operations.
-
-const RSA_METHOD *RSA_default_method(void);
-
-size_t rsa_default_size(const RSA *rsa);
-int rsa_default_sign_raw(RSA *rsa, size_t *out_len, uint8_t *out,
-                         size_t max_out, const uint8_t *in, size_t in_len,
-                         int padding);
-int rsa_default_private_transform(RSA *rsa, uint8_t *out, const uint8_t *in,
-                                  size_t len);
-
-
-BN_BLINDING *BN_BLINDING_new(void);
-void BN_BLINDING_free(BN_BLINDING *b);
-void BN_BLINDING_invalidate(BN_BLINDING *b);
-int BN_BLINDING_convert(BIGNUM *n, BN_BLINDING *b, const BIGNUM *e,
-                        const BN_MONT_CTX *mont_ctx, BN_CTX *ctx);
-int BN_BLINDING_invert(BIGNUM *n, const BN_BLINDING *b, BN_MONT_CTX *mont_ctx,
-                       BN_CTX *ctx);
-
-
-int PKCS1_MGF1(uint8_t *out, size_t len, const uint8_t *seed, size_t seed_len,
-               const EVP_MD *md);
-int RSA_padding_add_PKCS1_type_1(uint8_t *to, size_t to_len,
-                                 const uint8_t *from, size_t from_len);
-int RSA_padding_check_PKCS1_type_1(uint8_t *out, size_t *out_len,
-                                   size_t max_out, const uint8_t *from,
-                                   size_t from_len);
-int RSA_padding_add_none(uint8_t *to, size_t to_len, const uint8_t *from,
-                         size_t from_len);
-
-// rsa_check_public_key checks that |rsa|'s public modulus and exponent are
-// within DoS bounds.
-int rsa_check_public_key(const RSA *rsa);
-
-// RSA_private_transform calls either the method-specific |private_transform|
-// function (if given) or the generic one. See the comment for
-// |private_transform| in |rsa_meth_st|.
-int RSA_private_transform(RSA *rsa, uint8_t *out, const uint8_t *in,
-                          size_t len);
-
-
-// This constant is exported for test purposes.
-extern const BN_ULONG kBoringSSLRSASqrtTwo[];
-extern const size_t kBoringSSLRSASqrtTwoLen;
-
-
-// Functions that avoid self-tests.
-//
-// Self-tests need to call functions that don't try and ensure that the
-// self-tests have passed. These functions, in turn, need to limit themselves
-// to such functions too.
-//
-// These functions are the same as their public versions, but skip the self-test
-// check.
-
-int rsa_verify_no_self_test(int hash_nid, const uint8_t *digest,
-                            size_t digest_len, const uint8_t *sig,
-                            size_t sig_len, RSA *rsa);
-
-int rsa_verify_raw_no_self_test(RSA *rsa, size_t *out_len, uint8_t *out,
-                                size_t max_out, const uint8_t *in,
-                                size_t in_len, int padding);
-
-int rsa_sign_no_self_test(int hash_nid, const uint8_t *digest,
-                          size_t digest_len, uint8_t *out, unsigned *out_len,
-                          RSA *rsa);
+int RSA_padding_check_PKCS1_OAEP_mgf1(uint8_t *out, size_t *out_len,
+                                      size_t max_out, const uint8_t *from,
+                                      size_t from_len, const uint8_t *param,
+                                      size_t param_len, const EVP_MD *md,
+                                      const EVP_MD *mgf1md);
 
 
 #if defined(__cplusplus)
 }  // extern C
 #endif
 
-#endif  // OPENSSL_HEADER_RSA_INTERNAL_H
+#endif  // OPENSSL_HEADER_RSA_EXTRA_INTERNAL_H
