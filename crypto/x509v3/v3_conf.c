@@ -201,10 +201,10 @@ static X509_EXTENSION *do_ext_nconf(const CONF *conf, const X509V3_CTX *ctx,
 
 static X509_EXTENSION *do_ext_i2d(const X509V3_EXT_METHOD *method, int ext_nid,
                                   int crit, void *ext_struc) {
-  unsigned char *ext_der;
-  int ext_len;
-  ASN1_OCTET_STRING *ext_oct;
-  X509_EXTENSION *ext;
+  unsigned char *ext_der = NULL;
+  int ext_len = 0;
+  ASN1_OCTET_STRING *ext_oct = NULL;
+  X509_EXTENSION *ext = NULL;
   // Convert internal representation to DER
   if (method->it) {
     ext_der = NULL;
@@ -228,14 +228,14 @@ static X509_EXTENSION *do_ext_i2d(const X509V3_EXT_METHOD *method, int ext_nid,
   ext_oct->length = ext_len;
 
   ext = X509_EXTENSION_create_by_NID(NULL, ext_nid, crit, ext_oct);
-  if (!ext) {
-    goto merr;
-  }
+
   ASN1_OCTET_STRING_free(ext_oct);
+  ext_oct = NULL;
 
   return ext;
 
 merr:
+
   return NULL;
 }
 
