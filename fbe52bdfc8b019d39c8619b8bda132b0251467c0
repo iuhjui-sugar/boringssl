@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "019f5fdb_1f20e569",
+        "filename": "crypto/pkcs8/pkcs8_x509.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-04-01T18:22:42Z",
+      "side": 1,
+      "message": "This is incorrect, pass is permitted to be NULL, check the documentation of this function in openssl/pkcs8.h\n\nArguably yes if you pass in a different negative integer length this will\ndo bad things (however this is endemic through the OpenSSL API due to it\u0027s use of int instead of size_t for lengths in public API) I would not return an error in this case and allow things to continue,  I would call abort().",
+      "revId": "fbe52bdfc8b019d39c8619b8bda132b0251467c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
