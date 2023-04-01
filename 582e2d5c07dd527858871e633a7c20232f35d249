@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "353edad0_062189f6",
+        "filename": "crypto/x509v3/v3_cpols.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-04-01T18:01:21Z",
+      "side": 1,
+      "message": "This makes no sense, as in this case nos is either NULL from a failure\nor is an empty stack so there is nothing to pop_free.",
+      "revId": "582e2d5c07dd527858871e633a7c20232f35d249",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
