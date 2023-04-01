@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "925d687a_487a9ff9",
+        "filename": "crypto/x509v3/v3_conf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-04-01T17:56:42Z",
+      "side": 1,
+      "message": "Since X509_EXTENSION_create_by_NID copies the bytes into the extension from ext_oct, I believe the correct fix you want here is only to delete lines 231 through 233.. ext_oct should just always be free\u0027d and we return ext.",
+      "revId": "45a5634b1cd2f412d0778fb28610a30170cf58ec",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "588cfeab_a1d62dbb",
+        "filename": "crypto/x509v3/v3_conf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-04-01T17:56:42Z",
+      "side": 1,
+      "message": "This is uneccessary, all _free functions in boringssl are NULL safe and it is the norm to call them with NULL. nevertheless this is not the correct fix for this issue. (see the other comment about lines 231 through 233)",
+      "revId": "45a5634b1cd2f412d0778fb28610a30170cf58ec",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
