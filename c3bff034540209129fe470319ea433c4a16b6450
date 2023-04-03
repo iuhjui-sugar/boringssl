@@ -16,6 +16,24 @@
       "message": "I believe you are correct that the second check at line 1204 is currently superflous, as powerbuf is initialized to NULL and is only set when the malloc succeeds, however your added check at line 1207 is unnecessary, OPENSSL_free is NULL safe and you simply call it with NULL.",
       "revId": "c3bff034540209129fe470319ea433c4a16b6450",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33c1fcd1_80199d5c",
+        "filename": "crypto/fipsmodule/bn/exponentiation.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1207,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-03T01:46:52Z",
+      "side": 1,
+      "message": "\u003e as powerbuf is initialized to NULL and is only set when the malloc succeeds\n\nI don\u0027t think that\u0027s quite true. `powerbuf` may point to a stack buffer in line 984. I suspect this CL came from faulty static analysis that assumed `OPENSSL_BN_ASM_MONT5` was unset.\n\nI.e., that check is saying \"cleanse only if `powerbuf` was on the stack\". It dates to https://boringssl-review.googlesource.com/28584, and I guess the idea was that, when it\u0027s on the heap, we\u0027ll implicitly cleanse it anyway. This buffer can get decently large, so avoiding double-cleansing is probably prudent.\n\n(Whether cleansing stack values is of any use at all is another question, but either way, I don\u0027t think this change is correct.)",
+      "parentUuid": "0da7ee48_96a6039a",
+      "revId": "c3bff034540209129fe470319ea433c4a16b6450",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
