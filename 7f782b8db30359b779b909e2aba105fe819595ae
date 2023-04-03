@@ -130,6 +130,24 @@
       "message": "Oh hmm, this actually behaves slightly differently than it used to. Previously, the behavior was:\n\n- If `buf \u003d\u003d NULL`, return the full length of the output, ignoring `len`.\n- If `buf !\u003d NULL`, output the data, truncating to `len` if needed\n- If we truncated, return the length of the truncated string, not the full length\n\nNow, in the last case, we return the full length.",
       "revId": "7f782b8db30359b779b909e2aba105fe819595ae",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71c299fc_1fd1c406",
+        "filename": "crypto/x509/x509name.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-04-03T15:38:48Z",
+      "side": 1,
+      "message": "Hmm.. I had somehow read that wrong, and thought this could get used (even with a short buffer) try a short buffer, if it works great, if not you know how much to reallocate\".  If all this does is silently truncate and return the truncated length I am thinking instead we should just make it fail on truncation. none of the callers should notice unless they are doing something silly.",
+      "parentUuid": "b59d8e3a_3c5c05cf",
+      "revId": "7f782b8db30359b779b909e2aba105fe819595ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
