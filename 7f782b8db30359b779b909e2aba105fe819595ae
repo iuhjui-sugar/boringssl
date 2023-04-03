@@ -1,0 +1,135 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "333570ac_ba5e34da",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 6553,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-03T01:30:46Z",
+      "side": 1,
+      "message": "Somewhat confusingly, we tend to do UpperCamelCase for test names, to match the rest of Google C++. This, admittedly, sticks out weirdly compared to all the OpenSSL-style names.",
+      "range": {
+        "startLine": 6553,
+        "startChar": 15,
+        "endLine": 6553,
+        "endChar": 40
+      },
+      "revId": "7f782b8db30359b779b909e2aba105fe819595ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa7d0fc2_13c47d44",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 6578,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-03T01:30:46Z",
+      "side": 1,
+      "message": "bssl::UniquePtr\u003cX509_NAME\u003e so we don\u0027t have to X509_NAME_free at the bottom.",
+      "revId": "7f782b8db30359b779b909e2aba105fe819595ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37d65834_be1048cc",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 6581,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-03T01:30:46Z",
+      "side": 1,
+      "message": "This isn\u0027t really testing the conversion thing because the `X509_NAME` itself is just going to contain UTF8String. (It calls `ASN1_STRING_set_by_NID` which usually prefers UTF8String.)\n\nI think we can, instead, specify exactly we want by using a `V_ASN1_*` value rather than an `MBSTRING_*` value. See the docs for `X509_NAME_ENTRY_set_data`. It\u0027s truly horrific.",
+      "revId": "7f782b8db30359b779b909e2aba105fe819595ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1604f14e_81c46acb",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 6582,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-03T01:30:46Z",
+      "side": 1,
+      "message": "Worth testing the truncation case?",
+      "range": {
+        "startLine": 6582,
+        "startChar": 14,
+        "endLine": 6582,
+        "endChar": 16
+      },
+      "revId": "7f782b8db30359b779b909e2aba105fe819595ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04bf722f_7608bf1e",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 6585,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-03T01:30:46Z",
+      "side": 1,
+      "message": "Should we also assert that the contents of the buffer are what we expect? (`EXPECT_STREQ` will compare C strings. Or we can just do `EXPECT_EQ` with `Bytes` to compare the whole byte slice.)",
+      "revId": "7f782b8db30359b779b909e2aba105fe819595ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f7a1594_6660f7d2",
+        "filename": "crypto/x509/x509name.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-03T01:30:46Z",
+      "side": 1,
+      "message": "OPENSSL_free(text)\n\n(Whoops. The `return -1` suggestion worked great when we don\u0027t handling anything else in this codepath, but the `OPENSSL_memchr(text, 0, text_len)` case means we have to worry about it. :-/)",
+      "revId": "7f782b8db30359b779b909e2aba105fe819595ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b59d8e3a_3c5c05cf",
+        "filename": "crypto/x509/x509name.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-03T01:30:46Z",
+      "side": 1,
+      "message": "Oh hmm, this actually behaves slightly differently than it used to. Previously, the behavior was:\n\n- If `buf \u003d\u003d NULL`, return the full length of the output, ignoring `len`.\n- If `buf !\u003d NULL`, output the data, truncating to `len` if needed\n- If we truncated, return the length of the truncated string, not the full length\n\nNow, in the last case, we return the full length.",
+      "revId": "7f782b8db30359b779b909e2aba105fe819595ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
