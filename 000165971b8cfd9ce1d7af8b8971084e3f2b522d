@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a152a34_f3ae64d2",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 839,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-03T03:48:53Z",
+      "side": 1,
+      "message": "(This is checked in the parser. But also it\u0027s a one-byte length prefix so `UINT8_MAX` is guaranteed even if we forget to check.)",
+      "revId": "000165971b8cfd9ce1d7af8b8971084e3f2b522d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
