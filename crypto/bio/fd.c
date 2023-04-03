@@ -247,7 +247,18 @@ static int fd_gets(BIO *bp, char *buf, int size) {
 
   char *ptr = buf;
   char *end = buf + size - 1;
-  while (ptr < end && fd_read(bp, ptr, 1) > 0) {
+  while (ptr < end) {
+    int ret = fd_read(bp, ptr, 1);
+    if (ret < 0) {
+      // I/O error. Ensure the output is NUL-terminated, in case the caller
+      // doesn't check.
+      ptr[0] = '\0';
+      return ret;
+    }
+    if (ret == 0) {
+      break;
+    }
+
     char c = ptr[0];
     ptr++;
     if (c == '\n') {

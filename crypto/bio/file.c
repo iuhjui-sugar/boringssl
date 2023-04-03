@@ -255,10 +255,14 @@ static int file_gets(BIO *bp, char *buf, int size) {
     return 0;
   }
 
-  if (!fgets(buf, size, (FILE *)bp->ptr)) {
+  FILE *fp = bp->ptr;
+  if (!fgets(buf, size, fp)) {
     buf[0] = 0;
-    // TODO(davidben): This doesn't distinguish error and EOF. This should check
-    // |ferror| as in |file_read|.
+    if (ferror(fp)) {
+      OPENSSL_PUT_SYSTEM_ERROR();
+      OPENSSL_PUT_ERROR(BIO, ERR_R_SYS_LIB);
+      return -1;
+    }
     return 0;
   }
 
