@@ -60,6 +60,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3f9931d5_0d9fe043",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 6581,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-04-03T21:20:40Z",
+      "side": 1,
+      "message": "heh.. ok I am truly fighting with tasn_enc to actually get it to allow me to do evil here..",
+      "parentUuid": "37d65834_be1048cc",
+      "revId": "7f782b8db30359b779b909e2aba105fe819595ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1604f14e_81c46acb",
         "filename": "crypto/x509/x509_test.cc",
         "patchSetId": 3
