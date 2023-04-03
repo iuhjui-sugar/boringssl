@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "475149f4_5166c4ba",
+        "filename": "crypto/bio/fd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 244,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-04-03T17:35:39Z",
+      "side": 1,
+      "message": "Being super picky here, probably a 0 byte size should return 0 (because read does this and is therefore indistinguishable from EOF in this case) but a negative size should EINVAL, rather than look suspiciously like EOF.\n\nThis is the case for read if size (which is size_t in that case) would be larger than SSIZE_MAX, so would be roughly analagous in this case.",
+      "revId": "ea7a47feb9cf0e9357f07dac1d38e6d59705d74d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
