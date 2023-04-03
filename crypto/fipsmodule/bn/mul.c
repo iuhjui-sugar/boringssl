@@ -254,12 +254,7 @@ static void bn_mul_recursive(BN_ULONG *r, const BN_ULONG *a, const BN_ULONG *b,
   // t2,t3 = t0 * t1 = |(a0 - a1)*(b1 - b0)|
   // r0,r1 = a0 * b0
   // r2,r3 = a1 * b1
-  if (n == 4 && dna == 0 && dnb == 0) {
-    bn_mul_comba4(&t[n2], t, &t[n]);
-
-    bn_mul_comba4(r, a, b);
-    bn_mul_comba4(&r[n2], &a[n], &b[n]);
-  } else if (n == 8 && dna == 0 && dnb == 0) {
+  if (n == 8 && dna == 0 && dnb == 0) {
     bn_mul_comba8(&t[n2], t, &t[n]);
 
     bn_mul_comba8(r, a, b);
