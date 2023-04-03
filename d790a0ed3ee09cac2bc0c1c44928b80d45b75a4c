@@ -16,6 +16,74 @@
       "message": "This is what the TODO in the earlier CL was referring to. If `fgets` consumed a NUL, we\u0027ll truncate. Problem is it doesn\u0027t seem `fgets` even tells you how many bytes it read.\n\nAlso we use this in our PEM parser, so everything\u0027s great. 😄",
       "revId": "d790a0ed3ee09cac2bc0c1c44928b80d45b75a4c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "445379e5_8df25d26",
+        "filename": "crypto/fipsmodule/ec/oct.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-04-03T17:12:07Z",
+      "side": 1,
+      "message": "must have been missed when ERR_ got converted? or brought in from upstream.",
+      "revId": "d790a0ed3ee09cac2bc0c1c44928b80d45b75a4c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82935468_ebff9620",
+        "filename": "crypto/fipsmodule/ec/p256-nistz_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-04-03T17:12:07Z",
+      "side": 1,
+      "message": "while I get saving memory in the session case, this is a test and this just sorta seems strange to worry about here. honestly I\u0027d prefer just consistently using size_t for these for consistency unless we have good reason not to which there doesn\u0027t seem to be here.. unless I\u0027m missing something, this doesn\u0027t seem to belong with this set.",
+      "revId": "d790a0ed3ee09cac2bc0c1c44928b80d45b75a4c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7f0b346_8101c4d5",
+        "filename": "crypto/pem/pem_lib.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-04-03T17:12:07Z",
+      "side": 1,
+      "message": "Don\u0027t we technically need to constrain len here to make sure it doesn\u0027t overflow this multiplication as an int?",
+      "revId": "d790a0ed3ee09cac2bc0c1c44928b80d45b75a4c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8e7e58af_1acd63f7",
+        "filename": "crypto/x509v3/v3_conf.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-04-03T17:12:07Z",
+      "side": 1,
+      "message": "nit: if ((oct \u003d ASN1_OCTET_STRING_new()) \u003d\u003d NULL)",
+      "revId": "d790a0ed3ee09cac2bc0c1c44928b80d45b75a4c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
