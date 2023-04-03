@@ -16,6 +16,23 @@
       "message": "(This is checked in the parser. But also it\u0027s a one-byte length prefix so `UINT8_MAX` is guaranteed even if we forget to check.)",
       "revId": "000165971b8cfd9ce1d7af8b8971084e3f2b522d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb1a72dd_eca136c4",
+        "filename": "ssl/tls13_both.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-04-03T16:08:55Z",
+      "side": 1,
+      "message": "perhaps these sorts of checks should just be added to CBB_add_u24?",
+      "revId": "000165971b8cfd9ce1d7af8b8971084e3f2b522d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
