@@ -16,6 +16,24 @@
       "message": "This makes no sense, as in this case nos is either NULL from a failure\nor is an empty stack so there is nothing to pop_free.",
       "revId": "582e2d5c07dd527858871e633a7c20232f35d249",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6b05037_c728930b",
+        "filename": "crypto/x509v3/v3_cpols.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-03T01:41:47Z",
+      "side": 1,
+      "message": "I think this one\u0027s actually correct. While there\u0027s nothing to pop_free, there is something to free. And it\u0027s probably better to consistently use free vs pop_free for any given type so we better keep track of whether stacks own their contents.",
+      "parentUuid": "353edad0_062189f6",
+      "revId": "582e2d5c07dd527858871e633a7c20232f35d249",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
