@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b57594aa_6c644df8",
+        "filename": "crypto/asn1/tasn_dec.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-03T03:57:56Z",
+      "side": 1,
+      "message": "d2i is all `long`-based. Although, amusingly, i2d is all `int`-based. Anyway, this will be moot when we rewrite with CBS and CBB.",
+      "range": {
+        "startLine": 88,
+        "startChar": 68,
+        "endLine": 88,
+        "endChar": 77
+      },
+      "revId": "f4b2403947ac7ba80edd6ceab4070f38f486cd89",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79dc1ad4_b0ecb53b",
+        "filename": "crypto/bio/bio.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 466,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-03T03:57:56Z",
+      "side": 1,
+      "message": "Possible if `max_len` exceeds `INT_MAX`, I think.",
+      "revId": "f4b2403947ac7ba80edd6ceab4070f38f486cd89",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

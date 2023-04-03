@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f483dd1_d0f7f2e4",
+        "filename": "crypto/bio/file.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-03T03:57:56Z",
+      "side": 1,
+      "message": "This is what the TODO in the earlier CL was referring to. If `fgets` consumed a NUL, we\u0027ll truncate. Problem is it doesn\u0027t seem `fgets` even tells you how many bytes it read.\n\nAlso we use this in our PEM parser, so everything\u0027s great. 😄",
+      "revId": "d790a0ed3ee09cac2bc0c1c44928b80d45b75a4c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
