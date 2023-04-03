@@ -115,6 +115,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7419bf6c_536c678e",
+        "filename": "crypto/x509/x509name.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-04-03T18:03:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f7a1594_6660f7d2",
+      "revId": "7f782b8db30359b779b909e2aba105fe819595ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b59d8e3a_3c5c05cf",
@@ -146,6 +164,24 @@
       "side": 1,
       "message": "Hmm.. I had somehow read that wrong, and thought this could get used (even with a short buffer) try a short buffer, if it works great, if not you know how much to reallocate\".  If all this does is silently truncate and return the truncated length I am thinking instead we should just make it fail on truncation. none of the callers should notice unless they are doing something silly.",
       "parentUuid": "b59d8e3a_3c5c05cf",
+      "revId": "7f782b8db30359b779b909e2aba105fe819595ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "261da7dd_f5c11edf",
+        "filename": "crypto/x509/x509name.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-04-03T18:03:43Z",
+      "side": 1,
+      "message": "looking at the callers they all seem to follow either the \"pass null and allocate the right amount\" or \"pass something big enough and hold my beer\" model.  So I think failing on truncation is the right thing to do.",
+      "parentUuid": "71c299fc_1fd1c406",
       "revId": "7f782b8db30359b779b909e2aba105fe819595ae",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
