@@ -16,6 +16,23 @@
       "message": "LGTM and checks out by my reading it.",
       "revId": "419f877e85d5d812ac26a6fdadc5efd978e31828",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44086fc5_086e0271",
+        "filename": "crypto/fipsmodule/bn/mul.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-04-04T17:04:25Z",
+      "side": 1,
+      "message": "I might actually in this case replace the 8 with (BN_SQR_RECURSIVE_SIZE_NORMAL / 2)",
+      "revId": "419f877e85d5d812ac26a6fdadc5efd978e31828",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
