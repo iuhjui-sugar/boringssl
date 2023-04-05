@@ -188,7 +188,6 @@ OPENSSL_EXPORT const EVP_AEAD *EVP_aead_aes_128_ccm_matter(void);
 // constant-time AES-GCM.
 OPENSSL_EXPORT int EVP_has_aes_hardware(void);
 
-
 // Utility functions.
 
 // EVP_AEAD_key_length returns the length, in bytes, of the keys used by

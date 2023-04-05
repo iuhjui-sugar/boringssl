@@ -65,7 +65,6 @@
 #include "../service_indicator/internal.h"
 #include "../delocate.h"
 
-
 OPENSSL_MSVC_PRAGMA(warning(push))
 OPENSSL_MSVC_PRAGMA(warning(disable: 4702))  // Unreachable code.
 
@@ -1472,5 +1471,4 @@ int EVP_has_aes_hardware(void) {
   return 0;
 #endif
 }
-
 OPENSSL_MSVC_PRAGMA(warning(pop))
