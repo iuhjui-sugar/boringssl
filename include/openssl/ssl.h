@@ -5196,7 +5196,6 @@ OPENSSL_EXPORT int SSL_CTX_set_compliance_policy(
 OPENSSL_EXPORT int SSL_set_compliance_policy(
     SSL *ssl, enum ssl_compliance_policy_t policy);
 
-
 // Nodejs compatibility section (hidden).
 //
 // These defines exist for node.js, with the hope that we can eliminate the
@@ -5420,6 +5419,18 @@ OPENSSL_EXPORT bool SSL_get_traffic_secrets(
     const SSL *ssl, Span<const uint8_t> *out_read_traffic_secret,
     Span<const uint8_t> *out_write_traffic_secret);
 
+// SSL_CTX_set_aes_hw_override_for_testing sets |override| to a function for
+// testing that should return 1 if the library should behave as if aes hardware
+// support is present, and 0 if it should not. if |override| is NULL the
+// library will revert to the default behaviour of detecting aes hardware
+// support.
+OPENSSL_EXPORT void SSL_CTX_set_aes_hw_override_for_testing(
+    SSL_CTX *ctx, bool override_value);
+
+// SSL_set_aes_hw_override_for_testing acts the same as
+// |SSL_CTX_set_aes_override_for_testing| but only configures a single |SSL*|.
+OPENSSL_EXPORT void SSL_set_aes_hw_override_for_testing(SSL *ssl,
+                                                        bool override_value);
 
 BSSL_NAMESPACE_END
 
