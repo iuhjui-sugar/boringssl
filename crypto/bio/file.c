@@ -73,7 +73,7 @@
 
 #include <openssl/bio.h>
 
-#if !defined(OPENSSL_TRUSTY)
+#if !defined(OPENSSL_NO_OS)
 
 #include <errno.h>
 #include <stdio.h>
@@ -315,4 +315,4 @@ long BIO_seek(BIO *bio, long offset) {
   return BIO_ctrl(bio, BIO_C_FILE_SEEK, offset, NULL);
 }
 
-#endif  // OPENSSL_TRUSTY
+#endif  // OPENSSL_NO_OS

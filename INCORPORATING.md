@@ -101,6 +101,11 @@ interact poorly with assembly code.
 `OPENSSL_SMALL` removes some code that is especially large at some performance
 cost.
 
+`OPENSSL_NO_OS` makes BoringSSL ignore any preprocessor flag indicating a
+specific operating system target (typically added transparently by the
+toolchain) and results in code that should be compatible with a baremetal
+environment.
+
 ## Symbols
 
 You cannot link multiple versions of BoringSSL or OpenSSL into a single binary

@@ -124,6 +124,13 @@ extern "C" {
 #error "Unknown target CPU"
 #endif
 
+#if defined(__TRUSTY__)
+#define OPENSSL_TRUSTY
+#define OPENSSL_NO_OS
+#define OPENSSL_NO_THREADS_CORRUPT_MEMORY_AND_LEAK_SECRETS_IF_THREADED
+#endif
+
+#if !defined(OPENSSL_NO_OS)
 #if defined(__APPLE__)
 #define OPENSSL_APPLE
 // Note |TARGET_OS_MAC| is set for all Apple OS variants. |TARGET_OS_OSX|
@@ -140,20 +147,12 @@ extern "C" {
 #define OPENSSL_WINDOWS
 #endif
 
-// Trusty isn't Linux but currently defines __linux__. As a workaround, we
-// exclude it here.
-// TODO(b/169780122): Remove this workaround once Trusty no longer defines it.
-#if defined(__linux__) && !defined(__TRUSTY__)
+#if defined(__linux__)
 #define OPENSSL_LINUX
 #endif
 
 #if defined(__Fuchsia__)
 #define OPENSSL_FUCHSIA
-#endif
-
-#if defined(__TRUSTY__)
-#define OPENSSL_TRUSTY
-#define OPENSSL_NO_THREADS_CORRUPT_MEMORY_AND_LEAK_SECRETS_IF_THREADED
 #endif
 
 #if defined(__ANDROID_API__)
@@ -162,6 +161,7 @@ extern "C" {
 
 #if defined(__FreeBSD__)
 #define OPENSSL_FREEBSD
+#endif
 #endif
 
 // BoringSSL requires platform's locking APIs to make internal global state
