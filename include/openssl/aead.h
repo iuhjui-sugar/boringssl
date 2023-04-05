@@ -185,9 +185,9 @@ OPENSSL_EXPORT const EVP_AEAD *EVP_aead_aes_128_ccm_bluetooth_8(void);
 OPENSSL_EXPORT const EVP_AEAD *EVP_aead_aes_128_ccm_matter(void);
 
 // EVP_has_aes_hardware returns one if we enable hardware support for fast and
-// constant-time AES-GCM.
-OPENSSL_EXPORT int EVP_has_aes_hardware(void);
-
+// constant-time AES-GCM. if |override| is non-null it is called and it's value
+// returned instead of really checking for hardware support.
+OPENSSL_EXPORT int EVP_has_aes_hardware(int (*override)(void));
 
 // Utility functions.
 

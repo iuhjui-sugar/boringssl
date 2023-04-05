@@ -633,9 +633,11 @@ const EVP_MD *ssl_get_handshake_digest(uint16_t version,
 // newly-allocated |SSLCipherPreferenceList| containing the result. It returns
 // true on success and false on failure. If |strict| is true, nonsense will be
 // rejected. If false, nonsense will be silently ignored. An empty result is
-// considered an error regardless of |strict|.
+// considered an error regardless of |strict|. |override| is used for testing
+// as the argument for EVP_has_aes_hw.
 bool ssl_create_cipher_list(UniquePtr<SSLCipherPreferenceList> *out_cipher_list,
-                            const char *rule_str, bool strict);
+                            int (*override)(), const char *rule_str,
+                            bool strict);
 
 // ssl_cipher_auth_mask_for_key returns the mask of cipher |algorithm_auth|
 // values suitable for use with |key| in TLS 1.2 and below.
@@ -659,9 +661,13 @@ size_t ssl_cipher_get_record_split_len(const SSL_CIPHER *cipher);
 
 // ssl_choose_tls13_cipher returns an |SSL_CIPHER| corresponding with the best
 // available from |cipher_suites| compatible with |version|, |group_id|, and
-// |only_fips|. It returns NULL if there isn't a compatible cipher.
-const SSL_CIPHER *ssl_choose_tls13_cipher(CBS cipher_suites, uint16_t version,
-                                          uint16_t group_id, bool only_fips);
+// |only_fips|. It returns NULL if there isn't a compatible cipher. |override|
+// is used for testing as the argument for EVP_has_aes_hw.
+const SSL_CIPHER *ssl_choose_tls13_cipher(CBS cipher_suites,
+                                          int (*override)(void),
+
+                                          uint16_t version, uint16_t group_id,
+                                          bool only_fips);
 
 // ssl_tls13_cipher_meets_policy returns true if |cipher_id| is acceptable given
 // |only_fips|. (For now there's only a single policy and so the policy argument
@@ -3059,6 +3065,10 @@ struct SSL_CONFIG {
   // structure for the client to use when negotiating ECH.
   Array<uint8_t> client_ech_config_list;
 
+  // aes_hw_override if set overrides the return value of EVP_has_aes_hardware
+  // in order to mock the presence or absence of hardware support for testing.
+  int (*aes_hw_override)(void) = nullptr;
+
   // verify_mode is a bitmask of |SSL_VERIFY_*| values.
   uint8_t verify_mode = SSL_VERIFY_NONE;
 
@@ -3626,6 +3636,10 @@ struct ssl_ctx_st {
                         const uint8_t *in, unsigned in_len,
                         void *arg) = nullptr;
   void *alpn_select_cb_arg = nullptr;
+
+  // aes_hw_override if set overrides the return value of EVP_has_aes_hardware
+  // in order to mock the presence or absence of hardware support for testing.
+  int (*aes_hw_override)(void) = nullptr;
 
   // For a client, this contains the list of supported protocols in wire
   // format.
