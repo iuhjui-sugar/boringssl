@@ -188,6 +188,13 @@ OPENSSL_EXPORT const EVP_AEAD *EVP_aead_aes_128_ccm_matter(void);
 // constant-time AES-GCM.
 OPENSSL_EXPORT int EVP_has_aes_hardware(void);
 
+// EVP_set_aes_hardware_for_testing makes EVP_has_aes_hardware return one
+// always.
+OPENSSL_EXPORT void EVP_set_aes_hardware_for_testing(void);
+
+// EVP_unset_aes_hardware_for_testing makes EVP_has_aes_hardware return zero
+// always.
+OPENSSL_EXPORT void EVP_unset_aes_hardware_for_testing(void);
 
 // Utility functions.
 

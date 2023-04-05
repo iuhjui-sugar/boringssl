@@ -66,6 +66,11 @@
 #include "../delocate.h"
 
 
+#define kAesHwDefault 0
+#define kAesHwForTesting 1
+#define kNoAesHwForTesting 2
+static int aes_hw_test_override;
+
 OPENSSL_MSVC_PRAGMA(warning(push))
 OPENSSL_MSVC_PRAGMA(warning(disable: 4702))  // Unreachable code.
 
@@ -1464,6 +1469,14 @@ DEFINE_METHOD_FUNCTION(EVP_AEAD, EVP_aead_aes_256_gcm_tls13) {
 }
 
 int EVP_has_aes_hardware(void) {
+  switch(aes_hw_test_override) {
+  case kAesHwForTesting:
+    return 1;
+  case kNoAesHwForTesting:
+    return 0;
+  default:
+    break;
+  }
 #if defined(OPENSSL_X86) || defined(OPENSSL_X86_64)
   return hwaes_capable() && crypto_gcm_clmul_enabled();
 #elif defined(OPENSSL_ARM) || defined(OPENSSL_AARCH64)
@@ -1471,6 +1484,14 @@ int EVP_has_aes_hardware(void) {
 #else
   return 0;
 #endif
+}
+
+void EVP_set_aes_hardware_for_testing(void) {
+  aes_hw_test_override = kAesHwForTesting;
+}
+
+void EVP_unset_aes_hardware_for_testing(void) {
+  aes_hw_test_override = kNoAesHwForTesting;
 }
 
 OPENSSL_MSVC_PRAGMA(warning(pop))
