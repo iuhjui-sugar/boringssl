@@ -647,6 +647,7 @@ SSL *SSL_new(SSL_CTX *ctx) {
   ssl->config->permute_extensions = ctx->permute_extensions;
   ssl->config->only_fips_cipher_suites_in_tls13 =
       ctx->only_fips_cipher_suites_in_tls13;
+  ssl->config->aes_hw_override = ctx->aes_hw_override;
 
   if (!ssl->config->supported_group_list.CopyFrom(ctx->supported_group_list) ||
       !ssl->config->alpn_client_proto_list.CopyFrom(
@@ -2026,18 +2027,21 @@ const char *SSL_get_cipher_list(const SSL *ssl, int n) {
 }
 
 int SSL_CTX_set_cipher_list(SSL_CTX *ctx, const char *str) {
-  return ssl_create_cipher_list(&ctx->cipher_list, str, false /* not strict */);
+  return ssl_create_cipher_list(&ctx->cipher_list, ctx->aes_hw_override, str,
+                                false /* not strict */);
 }
 
 int SSL_CTX_set_strict_cipher_list(SSL_CTX *ctx, const char *str) {
-  return ssl_create_cipher_list(&ctx->cipher_list, str, true /* strict */);
+  return ssl_create_cipher_list(&ctx->cipher_list, ctx->aes_hw_override, str,
+                                true /* strict */);
 }
 
 int SSL_set_cipher_list(SSL *ssl, const char *str) {
   if (!ssl->config) {
     return 0;
   }
-  return ssl_create_cipher_list(&ssl->config->cipher_list, str,
+  return ssl_create_cipher_list(&ssl->config->cipher_list,
+                                ssl->config->aes_hw_override, str,
                                 false /* not strict */);
 }
 
@@ -2045,7 +2049,8 @@ int SSL_set_strict_cipher_list(SSL *ssl, const char *str) {
   if (!ssl->config) {
     return 0;
   }
-  return ssl_create_cipher_list(&ssl->config->cipher_list, str,
+  return ssl_create_cipher_list(&ssl->config->cipher_list,
+                                ssl->config->aes_hw_override, str,
                                 true /* strict */);
 }
 
@@ -3203,4 +3208,13 @@ int SSL_set_compliance_policy(SSL *ssl, enum ssl_compliance_policy_t policy) {
     default:
       return 0;
   }
+}
+
+void SSL_CTX_set_aes_hw_override_for_testing(SSL_CTX *ctx,
+                                             int (*override)(void)) {
+  ctx->aes_hw_override = override;
+}
+
+void SSL_set_aes_hw_override_for_testing(SSL *ssl, int (*override)(void)) {
+  ssl->config->aes_hw_override = override;
 }

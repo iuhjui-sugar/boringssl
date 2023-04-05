@@ -5196,6 +5196,19 @@ OPENSSL_EXPORT int SSL_CTX_set_compliance_policy(
 OPENSSL_EXPORT int SSL_set_compliance_policy(
     SSL *ssl, enum ssl_compliance_policy_t policy);
 
+// SSL_CTX_set_aes_hw_override_for_testing sets |override| to a function for
+// testing that should return 1 if the library should behave as if aes hardware
+// support is present, and 0 if it should not. if |override| is NULL the
+// library will revert to the default behaviour of detecting aes hardware
+// support.
+OPENSSL_EXPORT void SSL_CTX_set_aes_hw_override_for_testing(
+    SSL_CTX *ctx, int (*override)(void));
+
+// SSL_set_aes_hw_override_for_testing acts the same as
+// |SSL_CTX_set_aes_override_for_testing| but only configures a single |SSL*|.
+OPENSSL_EXPORT void SSL_set_aes_hw_override_for_testing(SSL *ssl,
+                                                        int (*override)(void));
+
 
 // Nodejs compatibility section (hidden).
 //

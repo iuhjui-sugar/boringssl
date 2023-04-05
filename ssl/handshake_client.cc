@@ -239,8 +239,8 @@ static bool ssl_write_client_cipher_list(const SSL_HANDSHAKE *hs, CBB *out,
         TLS1_3_CK_CHACHA20_POLY1305_SHA256 & 0xffff,
         ssl->config->only_fips_cipher_suites_in_tls13);
 
-    if (!EVP_has_aes_hardware() &&  //
-        include_chacha20 &&         //
+    if (!EVP_has_aes_hardware(ssl->config->aes_hw_override) &&  //
+        include_chacha20 &&                                     //
         !CBB_add_u16(&child, TLS1_3_CK_CHACHA20_POLY1305_SHA256 & 0xffff)) {
       return false;
     }
@@ -248,8 +248,8 @@ static bool ssl_write_client_cipher_list(const SSL_HANDSHAKE *hs, CBB *out,
         !CBB_add_u16(&child, TLS1_3_CK_AES_256_GCM_SHA384 & 0xffff)) {
       return false;
     }
-    if (EVP_has_aes_hardware() &&  //
-        include_chacha20 &&        //
+    if (EVP_has_aes_hardware(ssl->config->aes_hw_override) &&  //
+        include_chacha20 &&                                    //
         !CBB_add_u16(&child, TLS1_3_CK_CHACHA20_POLY1305_SHA256 & 0xffff)) {
       return false;
     }
