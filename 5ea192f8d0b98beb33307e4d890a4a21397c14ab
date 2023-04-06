@@ -51,6 +51,24 @@
       "parentUuid": "e5d17fb8_de07389d",
       "revId": "5ea192f8d0b98beb33307e4d890a4a21397c14ab",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd1e9cbb_41870e92",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 5204,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-04-06T20:14:27Z",
+      "side": 1,
+      "message": "well or a tri-state enum, since really this needs to be \"override false\", \"override true\" or \"leave it alone\".",
+      "parentUuid": "fac2ddaf_9bde0525",
+      "revId": "5ea192f8d0b98beb33307e4d890a4a21397c14ab",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
