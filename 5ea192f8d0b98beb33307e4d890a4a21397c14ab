@@ -33,6 +33,24 @@
       "message": "Why allow the override to be a function pointer rather than a boolean? (It\u0027s set on a per-SSL level so should be scoped enough?)",
       "revId": "5ea192f8d0b98beb33307e4d890a4a21397c14ab",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fac2ddaf_9bde0525",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 5204,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-04-06T20:06:39Z",
+      "side": 1,
+      "message": "Probably because initially I didn\u0027t tie it to the SSL, so yea, I can just change it to a boolean.",
+      "parentUuid": "e5d17fb8_de07389d",
+      "revId": "5ea192f8d0b98beb33307e4d890a4a21397c14ab",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
