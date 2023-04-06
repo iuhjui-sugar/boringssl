@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b50b6a5e_91e863ed",
+        "filename": "ssl/internal.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 636,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-04-06T21:54:23Z",
+      "side": 1,
+      "message": "\"indicates\"",
+      "range": {
+        "startLine": 636,
+        "startChar": 60,
+        "endLine": 636,
+        "endChar": 68
+      },
+      "revId": "c9c067dc182895cb9aa56d2bee4b88692e76bd9a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "95bfffa1_8613c367",
+        "filename": "ssl/internal.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 665,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-04-06T21:54:23Z",
+      "side": 1,
+      "message": "needs updating.",
+      "range": {
+        "startLine": 664,
+        "startChar": 68,
+        "endLine": 665,
+        "endChar": 58
+      },
+      "revId": "c9c067dc182895cb9aa56d2bee4b88692e76bd9a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af71f5f9_877ec0fb",
+        "filename": "ssl/internal.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 3119,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-04-06T21:54:23Z",
+      "side": 1,
+      "message": "\"AES\"",
+      "range": {
+        "startLine": 3119,
+        "startChar": 70,
+        "endLine": 3119,
+        "endChar": 73
+      },
+      "revId": "c9c067dc182895cb9aa56d2bee4b88692e76bd9a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c19a7300_50998391",
+        "filename": "ssl/internal.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 3124,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-04-06T21:54:23Z",
+      "side": 1,
+      "message": "\"hardware\" (for consistency with other comments).",
+      "range": {
+        "startLine": 3124,
+        "startChar": 24,
+        "endLine": 3124,
+        "endChar": 26
+      },
+      "revId": "c9c067dc182895cb9aa56d2bee4b88692e76bd9a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
