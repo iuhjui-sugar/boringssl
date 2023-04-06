@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eb161d48_a04bcd65",
+        "filename": "include/openssl/aead.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-04-06T19:52:28Z",
+      "side": 1,
+      "message": "Wouldn\u0027t you want callers to handle the override themselves? (I.e. it seems odd to pass a function pointer into a function to tell it to ignore its value.)",
+      "revId": "5ea192f8d0b98beb33307e4d890a4a21397c14ab",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5d17fb8_de07389d",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 5204,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-04-06T19:52:28Z",
+      "side": 1,
+      "message": "Why allow the override to be a function pointer rather than a boolean? (It\u0027s set on a per-SSL level so should be scoped enough?)",
+      "revId": "5ea192f8d0b98beb33307e4d890a4a21397c14ab",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
