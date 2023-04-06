@@ -65,7 +65,6 @@
 #include "../service_indicator/internal.h"
 #include "../delocate.h"
 
-
 OPENSSL_MSVC_PRAGMA(warning(push))
 OPENSSL_MSVC_PRAGMA(warning(disable: 4702))  // Unreachable code.
 
@@ -1463,7 +1462,10 @@ DEFINE_METHOD_FUNCTION(EVP_AEAD, EVP_aead_aes_256_gcm_tls13) {
   out->open_gather = aead_aes_gcm_open_gather;
 }
 
-int EVP_has_aes_hardware(void) {
+int EVP_has_aes_hardware(int (*override)(void)) {
+  if (override != NULL) {
+    return override();
+  }
 #if defined(OPENSSL_X86) || defined(OPENSSL_X86_64)
   return hwaes_capable() && crypto_gcm_clmul_enabled();
 #elif defined(OPENSSL_ARM) || defined(OPENSSL_AARCH64)
@@ -1472,5 +1474,4 @@ int EVP_has_aes_hardware(void) {
   return 0;
 #endif
 }
-
 OPENSSL_MSVC_PRAGMA(warning(pop))
