@@ -52,6 +52,24 @@
       "parentUuid": "f6b05037_c728930b",
       "revId": "582e2d5c07dd527858871e633a7c20232f35d249",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "46a5eb6d_f5e9c568",
+        "filename": "crypto/x509v3/v3_cpols.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-07T05:03:27Z",
+      "side": 1,
+      "message": "Oh, I actually meant that `sk_CONF_VALUE_pop_free` is probably better. `nos` owns its contents (see line 363 below), so let\u0027s use the same one to free it throughout. Even though, yeah, an empty stack means they both do the same thing.\n\nI.e. I think it\u0027s OK to land this CL as-is. WDYT?",
+      "parentUuid": "783873e3_65618dc9",
+      "revId": "582e2d5c07dd527858871e633a7c20232f35d249",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
