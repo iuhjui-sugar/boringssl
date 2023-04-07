@@ -16,6 +16,24 @@
       "message": "Thanks for the fix! Agreed this is a leak, but the fix isn\u0027t right. Instead of manually freeing stuff, just replace this whole thing with\n\n```\n  if (count \u003e ((size_t)-1) / sizeof(EC_RAW_POINT) ||\n      count \u003e ((size_t)-1) / sizeof(EC_SCALAR)) {\n    OPENSSL_PUT_ERROR(TRUST_TOKEN, ERR_R_OVERFLOW);\n    goto err;\n  }\n```\n\nAdditionally, we put a space between `if` and `(`. We don\u0027t null-check before calling a free function because our free functions all handle NULL. And there is no point in setting `ret` to NULL if we\u0027re returning immediately afterwards.\n\nBut this is all moot because `goto err` will take care of it all.",
       "revId": "af4306caa0fa50fe1e96ad4c684e9aad625c763e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d5d3444_0dad821f",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 15832
+      },
+      "writtenOn": "2023-04-07T01:45:47Z",
+      "side": 1,
+      "message": "Modified.",
+      "parentUuid": "98e267a5_0bdac6b5",
+      "revId": "af4306caa0fa50fe1e96ad4c684e9aad625c763e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
