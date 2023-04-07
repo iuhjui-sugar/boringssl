@@ -34,6 +34,24 @@
       "parentUuid": "53a8a98f_5ab4b522",
       "revId": "7b20399697eddafb3e00fa13028adc784b21b923",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2407534c_fb2edeaa",
+        "filename": "crypto/trust_token/pmbtoken.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 959,
+      "author": {
+        "id": 15832
+      },
+      "writtenOn": "2023-04-07T11:17:00Z",
+      "side": 1,
+      "message": "Make the same modifications to it as 58485.",
+      "parentUuid": "06b9c332_7f246da7",
+      "revId": "7b20399697eddafb3e00fa13028adc784b21b923",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
