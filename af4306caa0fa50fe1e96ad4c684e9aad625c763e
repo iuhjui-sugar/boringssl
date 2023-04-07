@@ -34,6 +34,24 @@
       "parentUuid": "98e267a5_0bdac6b5",
       "revId": "af4306caa0fa50fe1e96ad4c684e9aad625c763e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6b765bc_52cff63a",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-07T05:06:43Z",
+      "side": 1,
+      "message": "Oh sorry, I missed a detail here. The place where we transition to `goto err` needs to have all the variables defined. Let\u0027s just do this, so we can condense it a little:\n\n```\n  const EC_GROUP *group \u003d method-\u003egroup;\n  if (count \u003e sk_TRUST_TOKEN_PRETOKEN_num(pretokens)) {\n    OPENSSL_PUT_ERROR(TRUST_TOKEN, TRUST_TOKEN_R_DECODE_FAILURE);\n    return NULL;\n  }\n  \n  if (count \u003e ((size_t)-1) / sizeof(EC_RAW_POINT) ||\n      count \u003e ((size_t)-1) / sizeof(EC_SCALAR)) {\n    OPENSSL_PUT_ERROR(TRUST_TOKEN, ERR_R_OVERFLOW);\n    return NULL;\n  }\n\n  int ok \u003d 0;\n  STACK_OF(TRUST_TOKEN) *ret \u003d sk_TRUST_TOKEN_new_null();\n  EC_RAW_POINT *BTs \u003d OPENSSL_malloc(count * sizeof(EC_RAW_POINT));\n  EC_RAW_POINT *Zs \u003d OPENSSL_malloc(count * sizeof(EC_RAW_POINT));\n  EC_SCALAR *es \u003d OPENSSL_malloc(count * sizeof(EC_SCALAR));\n  CBB batch_cbb;\n  CBB_zero(\u0026batch_cbb);\n  if (ret \u003d\u003d NULL ||\n      BTs \u003d\u003d NULL ||\n      Zs \u003d\u003d NULL ||\n      es \u003d\u003d NULL ||\n      !CBB_init(\u0026batch_cbb, 0) ||\n      !cbb_add_point(\u0026batch_cbb, method-\u003egroup, \u0026key-\u003epubs)) {\n    goto err;\n  }\n```\n\nI.e. move the overflow check to before we have anything to free, and then let\u0027s fold the `ret \u003d\u003d NULL` check in with the others.",
+      "parentUuid": "6d5d3444_0dad821f",
+      "revId": "af4306caa0fa50fe1e96ad4c684e9aad625c763e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
