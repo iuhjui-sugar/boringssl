@@ -33,6 +33,24 @@
       "message": "perhaps these sorts of checks should just be added to CBB_add_u24?",
       "revId": "000165971b8cfd9ce1d7af8b8971084e3f2b522d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2505e0bd_2611e3d6",
+        "filename": "ssl/tls13_both.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-07T06:13:55Z",
+      "side": 1,
+      "message": "They are. Problem is `CBB_add_u24` takes a `uint32_t`, not a `uint64_t`. :-)",
+      "parentUuid": "bb1a72dd_eca136c4",
+      "revId": "000165971b8cfd9ce1d7af8b8971084e3f2b522d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
