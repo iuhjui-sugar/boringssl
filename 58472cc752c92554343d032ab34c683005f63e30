@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "42600865_c082487f",
+        "filename": "crypto/fipsmodule/rsa/rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-04-10T22:22:28Z",
+      "side": 0,
+      "message": "Yea, the name just seems like bait for auditors and, as you mention, it\u0027s a bizarre function.",
+      "parentUuid": "025e20b4_26fb8a7e",
+      "range": {
+        "startLine": 323,
+        "startChar": 4,
+        "endLine": 323,
+        "endChar": 23
+      },
+      "revId": "58472cc752c92554343d032ab34c683005f63e30",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4fa81612_1fe42af7",
@@ -37,6 +61,24 @@
       "writtenOn": "2023-04-10T21:52:35Z",
       "side": 0,
       "message": "Likewise, this is really a weird verify function.",
+      "revId": "58472cc752c92554343d032ab34c683005f63e30",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8505ed01_e09efdfd",
+        "filename": "crypto/fipsmodule/rsa/rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-04-10T22:22:28Z",
+      "side": 0,
+      "message": "Yep, moved for the same reason.",
+      "parentUuid": "4fa81612_1fe42af7",
       "revId": "58472cc752c92554343d032ab34c683005f63e30",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
