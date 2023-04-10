@@ -237,7 +237,7 @@ static bool ssl_write_client_cipher_list(const SSL_HANDSHAKE *hs, CBB *out,
   if (hs->max_version >= TLS1_3_VERSION) {
     const bool include_chacha20 = ssl_tls13_cipher_meets_policy(
         TLS1_3_CK_CHACHA20_POLY1305_SHA256 & 0xffff,
-        ssl->config->only_fips_cipher_suites_in_tls13);
+        ssl->config->tls13_cipher_policy);
 
     const bool has_aes_hw = ssl->config->aes_hw_override
                                 ? ssl->config->aes_hw_override_value
@@ -248,7 +248,13 @@ static bool ssl_write_client_cipher_list(const SSL_HANDSHAKE *hs, CBB *out,
         !CBB_add_u16(&child, TLS1_3_CK_CHACHA20_POLY1305_SHA256 & 0xffff)) {
       return false;
     }
-    if (!CBB_add_u16(&child, TLS1_3_CK_AES_128_GCM_SHA256 & 0xffff) ||
+    if (ssl_tls13_cipher_meets_policy(TLS1_3_CK_AES_128_GCM_SHA256 & 0xffff,
+                                      ssl->config->tls13_cipher_policy) &&
+        !CBB_add_u16(&child, TLS1_3_CK_AES_128_GCM_SHA256 & 0xffff)) {
+      return false;
+    }
+    if (ssl_tls13_cipher_meets_policy(TLS1_3_CK_AES_256_GCM_SHA384 & 0xffff,
+                                      ssl->config->tls13_cipher_policy) &&
         !CBB_add_u16(&child, TLS1_3_CK_AES_256_GCM_SHA384 & 0xffff)) {
       return false;
     }
