@@ -22,6 +22,30 @@
       },
       "revId": "604617ab821aa7565ca3631e9b9a84e9a8ca9865",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7e410973_8c43359e",
+        "filename": "crypto/asn1/a_mbstr.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-10T13:23:42Z",
+      "side": 1,
+      "message": "`%zd` would be the signed type corresponding to `size_t` which... isn\u0027t *necessarily* the same as `ossl_ssize_t`. Because that\u0027s really `ptrdiff_t`, and it\u0027s possible that one was `long` and the other was `long long` or something dumb like this.\n\nThough it looks like `%td` is `ptrdiff_t`, which was added to C at the same time as `%zu`, so we should be able to do that one. Though I figured since the check itself is being done on `(size_t)maxsize` anyway, cast + `%zu` isn\u0027t *wrong* per se. I dunno, preferences?\n\nAnd yeah, we started being able to rely on `%zu` once we required MSVC 2015. :-)\nhttps://boringssl-review.googlesource.com/c/boringssl/+/7821\n\nBut that\u0027s not enough to remove `PRIu64`. On 32-bit platforms `uint64_t` is larger than `size_t`. And then we can\u0027t easily use `%lu` or `%llu` because of the same `long` vs `long long` nonsense. C is the worst. :-) I suppose we could assume `sizeof(unsigned long long) \u003e\u003d sizeof(uint64_t)` and do `%llu` plus a cast to `unsigned long long`. But that\u0027s really wordy.\n\nC23 finally fixes this mess and adds things like `%w64u`, but we\u0027re a long ways away for adding that one.",
+      "parentUuid": "0baab972_1fe4e17a",
+      "range": {
+        "startLine": 168,
+        "startChar": 26,
+        "endLine": 168,
+        "endChar": 27
+      },
+      "revId": "604617ab821aa7565ca3631e9b9a84e9a8ca9865",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
