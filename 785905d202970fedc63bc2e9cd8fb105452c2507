@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "490ded4f_6ceebc26",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-10T21:52:35Z",
+      "side": 1,
+      "message": "CQ is upset for some reason. Guessing there\u0027s an infinite loop somewhere with the self-tests.",
+      "revId": "785905d202970fedc63bc2e9cd8fb105452c2507",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

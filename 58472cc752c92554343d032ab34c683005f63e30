@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "025e20b4_26fb8a7e",
+        "filename": "crypto/fipsmodule/rsa/rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-10T21:52:35Z",
+      "side": 0,
+      "message": "This is really a weird signing function. Is it also in scope for moving out?\n\n(Though also happy to move it out just on grounds of having less stuff in the module.)",
+      "range": {
+        "startLine": 323,
+        "startChar": 4,
+        "endLine": 323,
+        "endChar": 23
+      },
+      "revId": "58472cc752c92554343d032ab34c683005f63e30",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4fa81612_1fe42af7",
+        "filename": "crypto/fipsmodule/rsa/rsa.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-10T21:52:35Z",
+      "side": 0,
+      "message": "Likewise, this is really a weird verify function.",
+      "revId": "58472cc752c92554343d032ab34c683005f63e30",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
