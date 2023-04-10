@@ -52,6 +52,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "749d5605_8c874d50",
+        "filename": "crypto/fipsmodule/ec/p256-nistz_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-10T13:09:32Z",
+      "side": 1,
+      "message": "Less saving memory and more it seemed shorter than writing a cast. But I suppose, for sufficiently large values of 16, a cast is slightly more correct. Switched.",
+      "parentUuid": "82935468_ebff9620",
+      "revId": "d790a0ed3ee09cac2bc0c1c44928b80d45b75a4c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a7f0b346_8101c4d5",
@@ -69,6 +87,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31951f0a_d9767703",
+        "filename": "crypto/pem/pem_lib.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-10T13:09:32Z",
+      "side": 1,
+      "message": "Oh good call. Done. Also made `len` a `size_t` and then folded https://boringssl-review.googlesource.com/c/boringssl/+/58550/ in to be able to do it cleanly.\n\nLooks like the bounds check wasn\u0027t even correct! It forgot to account for the `\\n`.\n\n(Though, this is all moot because `type` is a cipher name and `len` is the corresponding IV length, so this is actually impossible.)",
+      "parentUuid": "a7f0b346_8101c4d5",
+      "revId": "d790a0ed3ee09cac2bc0c1c44928b80d45b75a4c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8e7e58af_1acd63f7",
@@ -82,6 +118,24 @@
       "writtenOn": "2023-04-03T17:12:07Z",
       "side": 1,
       "message": "nit: if ((oct \u003d ASN1_OCTET_STRING_new()) \u003d\u003d NULL)",
+      "revId": "d790a0ed3ee09cac2bc0c1c44928b80d45b75a4c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35253ad6_cd955700",
+        "filename": "crypto/x509v3/v3_conf.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 321,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-10T13:09:32Z",
+      "side": 1,
+      "message": "I think we\u0027ve usually preferred to avoid assignments inside `if`s like this. (Though I don\u0027t feel very strongly about this... could change the style if we prefer.)",
+      "parentUuid": "8e7e58af_1acd63f7",
       "revId": "d790a0ed3ee09cac2bc0c1c44928b80d45b75a4c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
