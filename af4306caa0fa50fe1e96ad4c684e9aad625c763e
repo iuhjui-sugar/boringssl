@@ -70,6 +70,24 @@
       "parentUuid": "c6b765bc_52cff63a",
       "revId": "af4306caa0fa50fe1e96ad4c684e9aad625c763e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b7772a4_3960f055",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 579,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-10T12:04:43Z",
+      "side": 1,
+      "message": "Thanks!",
+      "parentUuid": "c2c28a9e_25ec9861",
+      "revId": "af4306caa0fa50fe1e96ad4c684e9aad625c763e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
