@@ -51,6 +51,24 @@
       "parentUuid": "44086fc5_086e0271",
       "revId": "419f877e85d5d812ac26a6fdadc5efd978e31828",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "958ddd17_fe6e7bb5",
+        "filename": "crypto/fipsmodule/bn/mul.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-10T12:11:09Z",
+      "side": 1,
+      "message": "I think we actually want 8 here. The `bn_mul_comba8` function only works with 8-word inputs.\n\nAlthough this is a little interesting because it means `bn_mul_comba4` is actually completely unreachable. Possibly we should just remove it. In fact, it looks like it\u0027s been unused since SSLeay days...",
+      "parentUuid": "49ad9e97_9cefa026",
+      "revId": "419f877e85d5d812ac26a6fdadc5efd978e31828",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
