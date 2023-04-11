@@ -70,6 +70,24 @@
       "parentUuid": "783873e3_65618dc9",
       "revId": "582e2d5c07dd527858871e633a7c20232f35d249",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00a26861_6e51ac11",
+        "filename": "crypto/x509v3/v3_cpols.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-04-11T21:33:22Z",
+      "side": 1,
+      "message": "yeah, I think we\u0027re ok in this case then",
+      "parentUuid": "46a5eb6d_f5e9c568",
+      "revId": "582e2d5c07dd527858871e633a7c20232f35d249",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
