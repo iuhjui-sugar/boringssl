@@ -69,6 +69,24 @@
       "parentUuid": "49ad9e97_9cefa026",
       "revId": "419f877e85d5d812ac26a6fdadc5efd978e31828",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e507d368_d13a2ae1",
+        "filename": "crypto/fipsmodule/bn/mul.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 15832
+      },
+      "writtenOn": "2023-04-11T07:51:34Z",
+      "side": 1,
+      "message": "From the macro definition:\n#define BN_MUL_RECURSIVE_SIZE_NORMAL 16\n#define BN_SQR_RECURSIVE_SIZE_NORMAL BN_MUL_RECURSIVE_SIZE_NORMAL\n\nit can be seen that unless the macro definition changes, BN_SQR_RECURSIVE_SIZE_NORMAL/2 is equivalent to 8.",
+      "parentUuid": "958ddd17_fe6e7bb5",
+      "revId": "419f877e85d5d812ac26a6fdadc5efd978e31828",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
