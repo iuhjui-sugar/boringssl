@@ -87,6 +87,24 @@
       "parentUuid": "958ddd17_fe6e7bb5",
       "revId": "419f877e85d5d812ac26a6fdadc5efd978e31828",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4023f9d_8fc7ff76",
+        "filename": "crypto/fipsmodule/bn/mul.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-11T12:47:20Z",
+      "side": 1,
+      "message": "Yes, but semantically this branch is not about handling `BN_SQR_RECURSIVE_SIZE_NORMAL/2`. It is specifically about handling 8, because it is using `bn_mul_comba8`, which is specialized for 8-word limbs.",
+      "parentUuid": "e507d368_d13a2ae1",
+      "revId": "419f877e85d5d812ac26a6fdadc5efd978e31828",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
