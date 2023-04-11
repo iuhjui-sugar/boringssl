@@ -34,6 +34,24 @@
       "parentUuid": "019f5fdb_1f20e569",
       "revId": "fbe52bdfc8b019d39c8619b8bda132b0251467c0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "74b02529_04bcd6b4",
+        "filename": "crypto/pkcs8/pkcs8_x509.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-11T13:27:02Z",
+      "side": 1,
+      "message": "Hmm, no that doesn\u0027t work. This is actually kinda subtle because PKCS#12 (but not the others) believes NULL and \"\" are different. And actually pkcs12_key_gen, but not the other PBE methods, will tolerate (NULL, 128). Gosh what a mess.\n\nEither way, this CL is *definitely* incorrect. But we should probably tweak this a bit.",
+      "parentUuid": "631f8a39_aaa6e95f",
+      "revId": "fbe52bdfc8b019d39c8619b8bda132b0251467c0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
