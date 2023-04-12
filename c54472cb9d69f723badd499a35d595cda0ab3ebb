@@ -73,6 +73,24 @@
       "message": "There\u0027s actually even a standard `[[deprecated]]` attribute in C++14. We could use that when building for C++.\nhttps://en.cppreference.com/w/cpp/language/attributes/deprecated\n\nNot in C until C23 though:\nhttps://en.cppreference.com/w/c/language/attributes",
       "revId": "c54472cb9d69f723badd499a35d595cda0ab3ebb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e16127f_5f83507e",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-04-12T23:24:39Z",
+      "side": 1,
+      "message": "Yeah, I know. I wanted to use the nice way but it needs to work with C.",
+      "parentUuid": "88caf3b2_052f36ad",
+      "revId": "c54472cb9d69f723badd499a35d595cda0ab3ebb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
