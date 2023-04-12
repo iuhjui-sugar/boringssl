@@ -1022,7 +1022,7 @@ TEST(SSLTest, CipherProperties) {
       },
       {
           TLS1_3_CK_CHACHA20_POLY1305_SHA256,
-          "TLS_CHACHA20_POLY1305_SHA256",
+          "TLS_CHACHA20_POLY1305_SHA256zzzz",
           NID_chacha20_poly1305,
           NID_undef,
           NID_kx_any,

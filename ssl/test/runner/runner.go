@@ -16000,7 +16000,7 @@ func addCertCompressionTests() {
 				},
 			},
 			shouldFail:    true,
-			expectedError: ":ERROR_PARSING_EXTENSION:",
+			expectedError: ":zzzzzERROR_PARSING_EXTENSION:",
 		})
 
 		// With compression algorithms configured, an duplicate values should still
