@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c76500f1_49a33a02",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-12T22:04:46Z",
+      "side": 1,
+      "message": "Ewwwwww. :-P\n\nDepending on other folks\u0027 include symbols seems a recipe for problems, between include order differences, symbols changing, or the world someday moving to C++20 modules. (Also I think the internal repository\u0027s GTest has different include symbols.)\n\nWe might instead want a #define to suppress deprecated symbols and build the tests with it on. Or, better yet, is a way we can wrap code that tests deprecated functions in `OPENSSL_BEGIN_ALLOW_DEPRECATED` and `OPENSSL_END_ALLOW_DEPRECATED`? Like pushing/popping a warning disable?\n\nInterestingly, this says our internal repo actually disables this by default and then relies on clang-tidy tooling, which is surprisingly sensible. No idea what Chrome and Android do. I bet Chrome doesn\u0027t do anything terribly useful, since I rarely see deprecation attributes.\nhttps://github.com/abseil/abseil-cpp/blob/master/absl/base/attributes.h#L679-L681",
+      "revId": "c54472cb9d69f723badd499a35d595cda0ab3ebb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "534e8d1b_43601a25",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-12T22:04:46Z",
+      "side": 1,
+      "message": "Seems we can reduce some nesting with `#elif` here.",
+      "revId": "c54472cb9d69f723badd499a35d595cda0ab3ebb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b77acf2_960185c7",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-12T22:04:46Z",
+      "side": 1,
+      "message": "`__clang__`",
+      "range": {
+        "startLine": 236,
+        "startChar": 0,
+        "endLine": 236,
+        "endChar": 1
+      },
+      "revId": "c54472cb9d69f723badd499a35d595cda0ab3ebb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "88caf3b2_052f36ad",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-12T22:04:46Z",
+      "side": 1,
+      "message": "There\u0027s actually even a standard `[[deprecated]]` attribute in C++14. We could use that when building for C++.\nhttps://en.cppreference.com/w/cpp/language/attributes/deprecated\n\nNot in C until C23 though:\nhttps://en.cppreference.com/w/c/language/attributes",
+      "revId": "c54472cb9d69f723badd499a35d595cda0ab3ebb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

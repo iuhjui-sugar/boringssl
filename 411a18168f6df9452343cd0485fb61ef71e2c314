@@ -34,6 +34,24 @@
       "parentUuid": "a39978bf_81b4c07c",
       "revId": "411a18168f6df9452343cd0485fb61ef71e2c314",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ba38c1c_8690a5d5",
+        "filename": "include/openssl/obj.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-12T22:04:46Z",
+      "side": 1,
+      "message": "To that end, we have two, and with this, three different ways to make stuff as deprecated now. :-) There\u0027s...\n\n* Put it in the \"Deprecated\" section of the header, which is documentation only\n* Banish the function to libdecrepit, which isn\u0027t linked into Chrome or Android at all\n* And now this\n\nWhen should we use each?",
+      "parentUuid": "1bf67500_25436271",
+      "revId": "411a18168f6df9452343cd0485fb61ef71e2c314",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
