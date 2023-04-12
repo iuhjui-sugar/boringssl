@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ae999d26_2ee9a6e7",
+        "filename": "crypto/x509v3/v3_conf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 15832
+      },
+      "writtenOn": "2023-04-12T02:14:14Z",
+      "side": 1,
+      "message": "We need to declare the variables in the function, WDYT?",
+      "parentUuid": "ba5871c5_4fc26921",
+      "revId": "45a5634b1cd2f412d0778fb28610a30170cf58ec",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "925d687a_487a9ff9",
         "filename": "crypto/x509v3/v3_conf.c",
         "patchSetId": 1
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "Also the macro versions are legacy. This should just be `ASN1_OCTET_STRING_free` or `ASN1_STRING_free`. (They\u0027re the same thing.)",
       "parentUuid": "588cfeab_a1d62dbb",
+      "revId": "45a5634b1cd2f412d0778fb28610a30170cf58ec",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b2a0c86_e2c25cec",
+        "filename": "crypto/x509v3/v3_conf.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 15832
+      },
+      "writtenOn": "2023-04-12T02:14:14Z",
+      "side": 1,
+      "message": "modified.",
+      "parentUuid": "893ab090_9617bf21",
       "revId": "45a5634b1cd2f412d0778fb28610a30170cf58ec",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
