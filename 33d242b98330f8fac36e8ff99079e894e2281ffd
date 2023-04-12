@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6562a44_cc0e46c9",
+        "filename": "include/openssl/x509v3.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 692,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-04-12T20:50:28Z",
+      "side": 1,
+      "message": "Might this be a candidate for marking as deprecated?",
+      "revId": "33d242b98330f8fac36e8ff99079e894e2281ffd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
