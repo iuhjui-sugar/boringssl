@@ -16,6 +16,24 @@
       "message": "Probably no harm in calling `boringssl_ensure_rsa_self_test` before calling into `RSA_METHOD`. Maybe this should just be...\n\n```\nint rsa_private_transform(RSA *rsa, uint8_t *out, const uint8_t *in,\n                          size_t len) {\n  boringssl_ensure_rsa_self_test();\n  return rsa_private_transform_no_self_test(rsa, out, in, len);\n}\n```\n\n(Actually, do we need to run the self-test from `rsa_private_transform` in the first place? I assume we don\u0027t *actually* care if `rsa_default_decrypt` runs the self-test once it\u0027s out of the module.)",
       "revId": "61b45930b8ceda1261c78d25959c04a0a547b6f6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "49ccb86e_0cf209da",
+        "filename": "crypto/fipsmodule/rsa/rsa.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 914,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-04-12T00:05:33Z",
+      "side": 1,
+      "message": "I think that, since the private-transform is a function of the module, we do need to ensure that the self-test is run first. Fair point that we should safely be able to run the self-test before calling the method. Done.",
+      "parentUuid": "6b9b9c7a_88b0afa7",
+      "revId": "61b45930b8ceda1261c78d25959c04a0a547b6f6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
