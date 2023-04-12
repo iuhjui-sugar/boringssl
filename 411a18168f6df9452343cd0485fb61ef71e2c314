@@ -52,6 +52,24 @@
       "parentUuid": "1bf67500_25436271",
       "revId": "411a18168f6df9452343cd0485fb61ef71e2c314",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bec95398_611137eb",
+        "filename": "include/openssl/obj.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-04-12T23:13:40Z",
+      "side": 1,
+      "message": "Yeah, so again, I\u0027m not sure if we want this or not, it more or less allows us to make things \"inconvenient but there\" i.e. generating a warning so more nasty than just in the documentation.. \n\nOBJ_create() for example maybe should *NOT* get this treatement but some of the X509_EXT stuff should?  what do you think?",
+      "parentUuid": "8ba38c1c_8690a5d5",
+      "revId": "411a18168f6df9452343cd0485fb61ef71e2c314",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
