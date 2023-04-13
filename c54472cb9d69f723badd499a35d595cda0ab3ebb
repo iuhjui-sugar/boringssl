@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a87c10a8_db73d953",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-04-13T15:56:37Z",
+      "side": 1,
+      "message": "Well thanks to c99 having _Pragma, it wasn\u0027t too bad to do OPENSSL_BEGIN_ALLOW_DEPRECATED and OPENSSL_END_ALLOW_DEPRECATED. \n\nI\u0027ve put them here around OBJ_create, but it\u0027s still up in the air in\nmy mind if we actually want to use this for OBJ_create or not.",
+      "parentUuid": "c76500f1_49a33a02",
+      "revId": "c54472cb9d69f723badd499a35d595cda0ab3ebb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "534e8d1b_43601a25",
@@ -35,6 +53,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "45dae32a_05541fc3",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-04-13T15:56:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "534e8d1b_43601a25",
+      "revId": "c54472cb9d69f723badd499a35d595cda0ab3ebb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2b77acf2_960185c7",
@@ -48,6 +84,30 @@
       "writtenOn": "2023-04-12T22:04:46Z",
       "side": 1,
       "message": "`__clang__`",
+      "range": {
+        "startLine": 236,
+        "startChar": 0,
+        "endLine": 236,
+        "endChar": 1
+      },
+      "revId": "c54472cb9d69f723badd499a35d595cda0ab3ebb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "261368d2_3a62ba63",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-04-13T15:56:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b77acf2_960185c7",
       "range": {
         "startLine": 236,
         "startChar": 0,
