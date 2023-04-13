@@ -16,6 +16,69 @@
       "message": "da",
       "revId": "7410bd349220c706cccbd7cd7b62929db5f579df",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd318bfb_8f41987d",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1475,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-13T19:29:36Z",
+      "side": 1,
+      "message": "Optional: Now that we have the load/store helpers, this is *slightly* tighter:\n\n```\n  if (out_len_bytes.size() !\u003d sizeof(uint32_t)) {\n    return false;\n  }\n  uint32_t out_len \u003d CRYPTO_load_u32_le(out_len_bytes.data());\n```",
+      "revId": "7410bd349220c706cccbd7cd7b62929db5f579df",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f1b4dcff_b9ab1e08",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1481,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-13T19:29:36Z",
+      "side": 1,
+      "message": "Naming this function `HKDF` instead of `CRYPTO_hkdf` or `EVP_hkdf` or something was probably a mistake on our part. :-)\n\nInterestingly, OpenSSL has changed their mind again and now seem to prefer `OSSL_foo`.",
+      "range": {
+        "startLine": 1481,
+        "startChar": 7,
+        "endLine": 1481,
+        "endChar": 9
+      },
+      "revId": "7410bd349220c706cccbd7cd7b62929db5f579df",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f91faff5_513a9326",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1482,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-13T19:29:36Z",
+      "side": 1,
+      "message": "Nit: one more space",
+      "range": {
+        "startLine": 1482,
+        "startChar": 5,
+        "endLine": 1482,
+        "endChar": 7
+      },
+      "revId": "7410bd349220c706cccbd7cd7b62929db5f579df",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
