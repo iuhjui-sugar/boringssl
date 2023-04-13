@@ -70,6 +70,24 @@
       "parentUuid": "8ba38c1c_8690a5d5",
       "revId": "411a18168f6df9452343cd0485fb61ef71e2c314",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2f586ff_6f9f9a9f",
+        "filename": "include/openssl/obj.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-04-13T20:30:08Z",
+      "side": 1,
+      "message": "After chatting in person - OBJ_create will probably get this treatement but not yet, but the X509_EXT stuff can get it right now.",
+      "parentUuid": "bec95398_611137eb",
+      "revId": "411a18168f6df9452343cd0485fb61ef71e2c314",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
