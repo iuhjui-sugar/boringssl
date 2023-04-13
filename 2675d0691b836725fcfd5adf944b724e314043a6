@@ -51,6 +51,24 @@
       "parentUuid": "9315df74_ad47fb73",
       "revId": "2675d0691b836725fcfd5adf944b724e314043a6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6b60bfaf_a39abecb",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-13T23:44:53Z",
+      "side": 1,
+      "message": "Oh whoops, missed that somehow. :-)",
+      "parentUuid": "7647e18f_f28bff42",
+      "revId": "2675d0691b836725fcfd5adf944b724e314043a6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
