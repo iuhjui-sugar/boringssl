@@ -1,0 +1,187 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1cccd612_95829725",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 6690,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-13T22:31:33Z",
+      "side": 1,
+      "message": "I\u0027d maybe pull this into the test, since it\u0027s really part of `content`.",
+      "range": {
+        "startLine": 6690,
+        "startChar": 21,
+        "endLine": 6690,
+        "endChar": 36
+      },
+      "revId": "3c3e0fc6d556c0aa93a7fbaf29ccac041478137b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "01ef1fb0_52c3eb1e",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 6703,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-13T22:31:33Z",
+      "side": 1,
+      "message": "ASSERT_TRUE(name) and ASSERT_TRUE(ne).\n\nThe former is just malloc failure nonsense. The latter is also catches encoding errors if you use an `MBSTRING_*` type. Though see note above.\n\n(See the documentation for `X509_NAME_ENTRY_set_data` for what this API is doing. It\u0027s a huge mess.)",
+      "revId": "3c3e0fc6d556c0aa93a7fbaf29ccac041478137b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2a4fd83_dc33d3a7",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 6705,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-13T22:31:33Z",
+      "side": 1,
+      "message": "I\u0027m not sure this actually tests that `X509_NAME_get_text_by_NID` does a UTF-8 conversion, because `X509_NAME_ENTRY_create_by_NID` is secretly doing the conversion for us behind the scenes. Wheres we want the X509_NAME itself to contain the various string types, and confirm that, even if it\u0027s a BMPString, we still normalize the encoding to UTF-8.\n\n\nI think if you, like the `V_ASN1_SEQUENCE` comment above, pull the type into the test so you can specify `V_ASN1_BMPSTRING`, `V_ASN1_IA5STRING`, etc., that will work.\n\nAlternatively, you can steal what I did for X509Test.NameAttributeValues, where I just gave up and serialized the input I wanted myself. :-)",
+      "revId": "3c3e0fc6d556c0aa93a7fbaf29ccac041478137b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a25382d0_23ab1db7",
+        "filename": "crypto/x509/x509name.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-13T22:31:33Z",
+      "side": 1,
+      "message": "Nit: Maybe worth a comment. I read this as an error condition first and was confused.\n```\nif (buf \u003d\u003d NULL) {\n  goto out;  // Return |text_len| without writing anything.\n}\n```",
+      "revId": "3c3e0fc6d556c0aa93a7fbaf29ccac041478137b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2fdaed1c_a2a45c99",
+        "filename": "crypto/x509/x509name.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-13T22:31:33Z",
+      "side": 1,
+      "message": "Nit: Either works, but `len` seems tidier because `strlcopy` should be passed the output buffer\u0027s output size, rather than the expected input length. (I.e. `len` makes it more obvious this is memory-safe.)",
+      "range": {
+        "startLine": 107,
+        "startChar": 44,
+        "endLine": 107,
+        "endChar": 56
+      },
+      "revId": "3c3e0fc6d556c0aa93a7fbaf29ccac041478137b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e73659e1_99cb62c1",
+        "filename": "crypto/x509/x509name.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-13T22:31:33Z",
+      "side": 1,
+      "message": "Maybe give this another go in clang-format. It seems to have gotten very confused. (Newline after colon might unconfuse it?)\n\nAlso an extra space on line 110.",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 7
+      },
+      "revId": "3c3e0fc6d556c0aa93a7fbaf29ccac041478137b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f1ecceb_fba858e7",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 1529,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-13T22:31:33Z",
+      "side": 1,
+      "message": "\"If found, it writes the value\u0027s UTF-8 representation to |buf|\".\n\nASN1_STRING was talking about the various different in-memory representations we use for ASN1_STRING, but now we have a clean output. Also we no longer ignore the ASN1. type.",
+      "range": {
+        "startLine": 1528,
+        "startChar": 11,
+        "endLine": 1529,
+        "endChar": 41
+      },
+      "revId": "3c3e0fc6d556c0aa93a7fbaf29ccac041478137b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22e0a265_7a049d4b",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 1540,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-13T22:31:33Z",
+      "side": 1,
+      "message": "UTF-8",
+      "range": {
+        "startLine": 1540,
+        "startChar": 53,
+        "endLine": 1540,
+        "endChar": 56
+      },
+      "revId": "3c3e0fc6d556c0aa93a7fbaf29ccac041478137b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66097e8f_3836305e",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 1542,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-13T22:31:33Z",
+      "side": 1,
+      "message": "Probably should also mention that it will fail if the value is not a recognized string type.",
+      "revId": "3c3e0fc6d556c0aa93a7fbaf29ccac041478137b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
