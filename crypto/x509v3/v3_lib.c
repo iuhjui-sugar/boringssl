@@ -144,15 +144,6 @@ int X509V3_EXT_free(int nid, void *ext_data) {
   return 1;
 }
 
-int X509V3_EXT_add_list(X509V3_EXT_METHOD *extlist) {
-  for (; extlist->ext_nid != -1; extlist++) {
-    if (!X509V3_EXT_add(extlist)) {
-      return 0;
-    }
-  }
-  return 1;
-}
-
 int X509V3_EXT_add_alias(int nid_to, int nid_from) {
   const X509V3_EXT_METHOD *ext;
   X509V3_EXT_METHOD *tmpext;
