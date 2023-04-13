@@ -33,6 +33,24 @@
       "message": "Worth adding a comment about these? E.g. that the ALLOW_DEPRECATED macros can be used to suppress the warning in caller code?\n\nFor that matter, should we have a test for this, now that we\u0027re not actually deprecating a function we\u0027ve tested? :-) We could toss into crypto_test.cc something like...\n\n```\nOPENSSL_DEPRECATED static void DeprecatedFunction() {}\n\nOPENSSL_BEGIN_ALLOW_DEPRECATED\nTEST(CryptoTest, DeprecatedFunction) {\n  // This is deprecated, but should not trigger any warnings.\n  DeprecatedFunction();\n}\nOPENSSL_END_ALLOW_DEPRECATED\n```",
       "revId": "2675d0691b836725fcfd5adf944b724e314043a6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7647e18f_f28bff42",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-04-13T23:25:10Z",
+      "side": 1,
+      "message": "It\u0027s actually used in v3_lib.c, (and fails without those) but it makes sense to add the test you\u0027re suggesting because without that we could lose coverage when we get rid functions for good.",
+      "parentUuid": "9315df74_ad47fb73",
+      "revId": "2675d0691b836725fcfd5adf944b724e314043a6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
