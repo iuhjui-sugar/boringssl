@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4822e9cd_d926b9c4",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 6553,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-04-13T19:22:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "333570ac_ba5e34da",
+      "range": {
+        "startLine": 6553,
+        "startChar": 15,
+        "endLine": 6553,
+        "endChar": 40
+      },
+      "revId": "7f782b8db30359b779b909e2aba105fe819595ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "aa7d0fc2_13c47d44",
@@ -37,6 +61,24 @@
       "writtenOn": "2023-04-03T01:30:46Z",
       "side": 1,
       "message": "bssl::UniquePtr\u003cX509_NAME\u003e so we don\u0027t have to X509_NAME_free at the bottom.",
+      "revId": "7f782b8db30359b779b909e2aba105fe819595ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "29e83f01_bfea2cd9",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 6578,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-04-13T19:22:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa7d0fc2_13c47d44",
       "revId": "7f782b8db30359b779b909e2aba105fe819595ae",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -72,6 +114,24 @@
       "side": 1,
       "message": "heh.. ok I am truly fighting with tasn_enc to actually get it to allow me to do evil here..",
       "parentUuid": "37d65834_be1048cc",
+      "revId": "7f782b8db30359b779b909e2aba105fe819595ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e34f18d_f38558e0",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 6581,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-04-13T19:22:19Z",
+      "side": 1,
+      "message": "Alright, separated out an invalid case as a sequence.",
+      "parentUuid": "3f9931d5_0d9fe043",
       "revId": "7f782b8db30359b779b909e2aba105fe819595ae",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -123,6 +183,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1db0fb14_b32c9389",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 6582,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-04-13T19:22:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6f69707c_77b4a6c4",
+      "range": {
+        "startLine": 6582,
+        "startChar": 14,
+        "endLine": 6582,
+        "endChar": 16
+      },
+      "revId": "7f782b8db30359b779b909e2aba105fe819595ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "04bf722f_7608bf1e",
@@ -136,6 +220,24 @@
       "writtenOn": "2023-04-03T01:30:46Z",
       "side": 1,
       "message": "Should we also assert that the contents of the buffer are what we expect? (`EXPECT_STREQ` will compare C strings. Or we can just do `EXPECT_EQ` with `Bytes` to compare the whole byte slice.)",
+      "revId": "7f782b8db30359b779b909e2aba105fe819595ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "553688d3_a791dc15",
+        "filename": "crypto/x509/x509_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 6585,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-04-13T19:22:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04bf722f_7608bf1e",
       "revId": "7f782b8db30359b779b909e2aba105fe819595ae",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
