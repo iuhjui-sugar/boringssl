@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac00bbaf_eea146c5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-13T23:19:43Z",
+      "side": 1,
+      "message": "I think this is good, though adding agl to confirm he also thinks this makes sense. 😊\n\nThose two functions should have very low blast radius to play with initially. I guess the idea is we can gradually mark more and more widely used, disfavored functions to see how it works out in different consumers?\n\nFor the internal repository, this comment makes me optimistic that we can mark functions pretty freely, even if they\u0027re widely used. But I\u0027m sure other marking functions will be more expensive in other consumers.\nhttps://github.com/abseil/abseil-cpp/blob/124e4f4edd1ec2d32193a673f8228f5b5c0ff9fa/absl/base/attributes.h#L679-L681\n\nTo that end, should we add an Update-Note to the commit message that we\u0027re starting to play with this, and will be experimenting with marking other deprecated functions in the future?\n\nLong-term, I hope we can settle on a clear on answer on when something is:\n\n* `OPENSSL_DEPRECATED`\n* Documented as \"deprecated\"\n* Banished to libdecrepit\n\nWith bonus points if two or more of these states are folded into one. 😊",
+      "revId": "2675d0691b836725fcfd5adf944b724e314043a6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9315df74_ad47fb73",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-13T23:19:43Z",
+      "side": 1,
+      "message": "Worth adding a comment about these? E.g. that the ALLOW_DEPRECATED macros can be used to suppress the warning in caller code?\n\nFor that matter, should we have a test for this, now that we\u0027re not actually deprecating a function we\u0027ve tested? :-) We could toss into crypto_test.cc something like...\n\n```\nOPENSSL_DEPRECATED static void DeprecatedFunction() {}\n\nOPENSSL_BEGIN_ALLOW_DEPRECATED\nTEST(CryptoTest, DeprecatedFunction) {\n  // This is deprecated, but should not trigger any warnings.\n  DeprecatedFunction();\n}\nOPENSSL_END_ALLOW_DEPRECATED\n```",
+      "revId": "2675d0691b836725fcfd5adf944b724e314043a6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
