@@ -3,7 +3,7 @@
 #![allow(non_snake_case)]
 
 // populated by cmake
-${INCLUDES}
+include!(env!("BINDGEN_RS_FILE"));
 
 pub fn ERR_GET_LIB(packed_error: u32) -> i32 {
     unsafe { ERR_GET_LIB_RUST(packed_error) }
