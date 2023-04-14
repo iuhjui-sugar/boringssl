@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b19ea0b2_133a95dc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14726
+      },
+      "writtenOn": "2023-04-14T20:36:22Z",
+      "side": 1,
+      "message": "LGTM",
+      "revId": "a308809b79670dc188f309d0cccbf22679b50a66",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1620b154_e7455dcf",
+        "filename": "rust/bssl-sys/src/lib.rs",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 14726
+      },
+      "writtenOn": "2023-04-14T20:36:22Z",
+      "side": 1,
+      "message": "nit: `Set in build.rs.`",
+      "range": {
+        "startLine": 5,
+        "startChar": 3,
+        "endLine": 5,
+        "endChar": 18
+      },
+      "revId": "a308809b79670dc188f309d0cccbf22679b50a66",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
