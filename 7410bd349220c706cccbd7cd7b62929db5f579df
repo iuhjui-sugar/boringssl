@@ -37,6 +37,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "b4a07650_7a81b77c",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1475,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-04-14T22:47:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd318bfb_8f41987d",
+      "revId": "7410bd349220c706cccbd7cd7b62929db5f579df",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "f1b4dcff_b9ab1e08",
         "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
         "patchSetId": 3
@@ -71,6 +89,30 @@
       "writtenOn": "2023-04-13T19:29:36Z",
       "side": 1,
       "message": "Nit: one more space",
+      "range": {
+        "startLine": 1482,
+        "startChar": 5,
+        "endLine": 1482,
+        "endChar": 7
+      },
+      "revId": "7410bd349220c706cccbd7cd7b62929db5f579df",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eee0c7e1_5b890eaf",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1482,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-04-14T22:47:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f91faff5_513a9326",
       "range": {
         "startLine": 1482,
         "startChar": 5,
