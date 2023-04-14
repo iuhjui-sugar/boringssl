@@ -39,6 +39,30 @@
       },
       "revId": "a308809b79670dc188f309d0cccbf22679b50a66",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1ed1e9b_1bcc200d",
+        "filename": "rust/bssl-sys/src/lib.rs",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-04-14T20:40:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1620b154_e7455dcf",
+      "range": {
+        "startLine": 5,
+        "startChar": 3,
+        "endLine": 5,
+        "endChar": 18
+      },
+      "revId": "a308809b79670dc188f309d0cccbf22679b50a66",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
