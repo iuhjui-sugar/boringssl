@@ -1,0 +1,152 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b794fda8_e672b51a",
+        "filename": "crypto/fipsmodule/tls/internal.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-15T00:17:06Z",
+      "side": 1,
+      "message": "I guess this is just so the pointers and lengths are paired up?",
+      "range": {
+        "startLine": 37,
+        "startChar": 57,
+        "endLine": 37,
+        "endChar": 59
+      },
+      "revId": "286ae97e476268e68cd1c787a655d7d9d084226d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "83de5a2e_426daaae",
+        "filename": "util/fipstools/acvp/acvptool/subprocess/tls13.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-15T00:17:06Z",
+      "side": 1,
+      "message": "Should we include a comment about what\u0027s going on here? :-)",
+      "revId": "286ae97e476268e68cd1c787a655d7d9d084226d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67811d19_1d0bb916",
+        "filename": "util/fipstools/acvp/acvptool/subprocess/tls13.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-15T00:17:06Z",
+      "side": 1,
+      "message": "Nit: Based on the order, maybe ServerFinishedHex should come before ClientFinishedHex?",
+      "revId": "286ae97e476268e68cd1c787a655d7d9d084226d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d0a4f18_97dc5c0c",
+        "filename": "util/fipstools/acvp/acvptool/subprocess/tls13.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-15T00:17:06Z",
+      "side": 1,
+      "message": "Took me a while to understand the logic behind these names because, e.g., ServerFinished includes more than just the server Finished.\n\nWhat about this...\n\n```\n// Although ACVP refers to these as client and server randoms, these fields\n// are misnamed and really contain portions of the handshake transcript.\n// Concatenated in order, they give the transcript up to the named\n// message. In case of HelloRetryRequest, ClientHelloHex includes up to the\n// second ClientHello.\nClientHelloHex string json:\"helloClientRandom\"`\nServerHelloHex string `json:\"helloServerRandom\"`\nServerFinishedHex string `json:\"finishedServerRandom\"`\nClientFinishedHex string `json:\"finishedClientRandom\"`\n```",
+      "revId": "286ae97e476268e68cd1c787a655d7d9d084226d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee936d9b_738b7a38",
+        "filename": "util/fipstools/acvp/acvptool/subprocess/tls13.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-15T00:17:06Z",
+      "side": 1,
+      "message": "Nit: I\u0027d also swap these last two to match the transcript order.",
+      "revId": "286ae97e476268e68cd1c787a655d7d9d084226d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "497ac571_f9d33711",
+        "filename": "util/fipstools/acvp/acvptool/subprocess/tls13.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-15T00:17:06Z",
+      "side": 1,
+      "message": "Nit: Just to account for HRR, maybe `hashedToServerHello`. Also shorter and matches `hashedToServerFinished`.\n\nAnd then maybe also `hashedToClientHello` just for consistency. Also technically more correct for HRR because it\u0027s then `hashedToSecondClientHello`. :-)",
+      "range": {
+        "startLine": 140,
+        "startChar": 3,
+        "endLine": 140,
+        "endChar": 29
+      },
+      "revId": "286ae97e476268e68cd1c787a655d7d9d084226d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "750619c4_48e0892b",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1502,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-15T00:17:06Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "286ae97e476268e68cd1c787a655d7d9d084226d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0565edf_a09a0985",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1518,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-15T00:17:06Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "286ae97e476268e68cd1c787a655d7d9d084226d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
