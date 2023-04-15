@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f85cc5a9_74e0844f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16036
+      },
+      "writtenOn": "2023-04-15T05:48:52Z",
+      "side": 1,
+      "message": "Run ninja -C build run_tests\n\nAll tests passed!",
+      "revId": "c01ce583a1692017da087b2401dfc88238c6a312",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
