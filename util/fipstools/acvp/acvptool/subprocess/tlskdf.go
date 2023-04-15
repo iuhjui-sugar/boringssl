@@ -35,17 +35,11 @@ type tlsKDFTestGroup struct {
 }
 
 type tlsKDFTest struct {
-	ID     uint64 `json:"tcId"`
-	PMSHex string `json:"preMasterSecret"`
-	// ClientHelloRandomHex and ServerHelloRandomHex are used for deriving the
-	// master secret. ClientRandomHex and ServerRandomHex are used for deriving the
-	// key block. Having different values for these is not possible in a TLS
-	// handshake unless you squint at a resumption handshake and somehow rederive
-	// the master secret from the session information during resumption.
-	ClientHelloRandomHex string `json:"clientHelloRandom"`
-	ServerHelloRandomHex string `json:"serverHelloRandom"`
-	ClientRandomHex      string `json:"clientRandom"`
-	ServerRandomHex      string `json:"serverRandom"`
+	ID              uint64 `json:"tcId"`
+	PMSHex          string `json:"preMasterSecret"`
+	ClientRandomHex string `json:"clientRandom"`
+	ServerRandomHex string `json:"serverRandom"`
+	SessionHashHex  string `json:"sessionHash"`
 }
 
 type tlsKDFTestGroupResponse struct {
@@ -74,28 +68,13 @@ func (k *tlsKDF) Process(vectorSet []byte, m Transactable) (interface{}, error) 
 			ID: group.ID,
 		}
 
-		var tlsVer string
-		switch group.TLSVersion {
-		case "v1.0/1.1":
-			tlsVer = "1.0"
-		case "v1.2":
-			tlsVer = "1.2"
-		default:
-			return nil, fmt.Errorf("unknown TLS version %q", group.TLSVersion)
-		}
+		const tlsVer = "1.2"
 
-		hashIsTLS10 := false
 		switch group.Hash {
-		case "SHA-1":
-			hashIsTLS10 = true
 		case "SHA2-256", "SHA2-384", "SHA2-512":
 			break
 		default:
 			return nil, fmt.Errorf("unknown hash %q", group.Hash)
-		}
-
-		if (tlsVer == "1.0") != hashIsTLS10 {
-			return nil, fmt.Errorf("hash %q not permitted with TLS version %q", group.Hash, group.TLSVersion)
 		}
 
 		if group.KeyBlockBits%8 != 0 {
@@ -110,16 +89,6 @@ func (k *tlsKDF) Process(vectorSet []byte, m Transactable) (interface{}, error) 
 				return nil, err
 			}
 
-			clientHelloRandom, err := hex.DecodeString(test.ClientHelloRandomHex)
-			if err != nil {
-				return nil, err
-			}
-
-			serverHelloRandom, err := hex.DecodeString(test.ServerHelloRandomHex)
-			if err != nil {
-				return nil, err
-			}
-
 			clientRandom, err := hex.DecodeString(test.ClientRandomHex)
 			if err != nil {
 				return nil, err
@@ -130,15 +99,20 @@ func (k *tlsKDF) Process(vectorSet []byte, m Transactable) (interface{}, error) 
 				return nil, err
 			}
 
+			sessionHash, err := hex.DecodeString(test.SessionHashHex)
+			if err != nil {
+				return nil, err
+			}
+
 			const (
 				masterSecretLength = 48
-				masterSecretLabel  = "master secret"
+				masterSecretLabel  = "extended master secret"
 				keyBlockLabel      = "key expansion"
 			)
 
 			var outLenBytes [4]byte
 			binary.LittleEndian.PutUint32(outLenBytes[:], uint32(masterSecretLength))
-			result, err := m.Transact(method, 1, outLenBytes[:], pms, []byte(masterSecretLabel), clientHelloRandom, serverHelloRandom)
+			result, err := m.Transact(method, 1, outLenBytes[:], pms, []byte(masterSecretLabel), sessionHash, nil)
 			if err != nil {
 				return nil, err
 			}
