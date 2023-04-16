@@ -41,6 +41,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0396b907_46680b66",
+        "filename": "util/fipstools/acvp/acvptool/subprocess/tls13.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-04-16T20:52:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "83de5a2e_426daaae",
+      "revId": "286ae97e476268e68cd1c787a655d7d9d084226d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "67811d19_1d0bb916",
@@ -54,6 +72,24 @@
       "writtenOn": "2023-04-15T00:17:06Z",
       "side": 1,
       "message": "Nit: Based on the order, maybe ServerFinishedHex should come before ClientFinishedHex?",
+      "revId": "286ae97e476268e68cd1c787a655d7d9d084226d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "307222b4_bb49a80d",
+        "filename": "util/fipstools/acvp/acvptool/subprocess/tls13.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-04-16T20:52:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "67811d19_1d0bb916",
       "revId": "286ae97e476268e68cd1c787a655d7d9d084226d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -75,6 +111,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7db54a5b_433d4b9c",
+        "filename": "util/fipstools/acvp/acvptool/subprocess/tls13.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-04-16T20:52:58Z",
+      "side": 1,
+      "message": "That\u0027s more neutral than I would have come up with. Thanks 😊",
+      "parentUuid": "1d0a4f18_97dc5c0c",
+      "revId": "286ae97e476268e68cd1c787a655d7d9d084226d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ee936d9b_738b7a38",
@@ -88,6 +142,24 @@
       "writtenOn": "2023-04-15T00:17:06Z",
       "side": 1,
       "message": "Nit: I\u0027d also swap these last two to match the transcript order.",
+      "revId": "286ae97e476268e68cd1c787a655d7d9d084226d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "90be0d43_44625dca",
+        "filename": "util/fipstools/acvp/acvptool/subprocess/tls13.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-04-16T20:52:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee936d9b_738b7a38",
       "revId": "286ae97e476268e68cd1c787a655d7d9d084226d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -115,6 +187,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "11eaa1b1_e2400fda",
+        "filename": "util/fipstools/acvp/acvptool/subprocess/tls13.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-04-16T20:52:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "497ac571_f9d33711",
+      "range": {
+        "startLine": 140,
+        "startChar": 3,
+        "endLine": 140,
+        "endChar": 29
+      },
+      "revId": "286ae97e476268e68cd1c787a655d7d9d084226d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "750619c4_48e0892b",
@@ -132,6 +228,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8dff24c5_3184b5da",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1502,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-04-16T20:52:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "750619c4_48e0892b",
+      "revId": "286ae97e476268e68cd1c787a655d7d9d084226d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c0565edf_a09a0985",
@@ -145,6 +259,24 @@
       "writtenOn": "2023-04-15T00:17:06Z",
       "side": 1,
       "message": "Nit: 80 chars",
+      "revId": "286ae97e476268e68cd1c787a655d7d9d084226d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65f4a6f1_27a471c3",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 1518,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-04-16T20:52:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c0565edf_a09a0985",
       "revId": "286ae97e476268e68cd1c787a655d7d9d084226d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
