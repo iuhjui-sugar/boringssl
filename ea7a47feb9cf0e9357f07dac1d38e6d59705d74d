@@ -52,6 +52,29 @@
       "parentUuid": "c90e7eec_de7c87f6",
       "revId": "ea7a47feb9cf0e9357f07dac1d38e6d59705d74d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56b64271_329268ed",
+        "filename": "crypto/bio/fd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-04-17T20:03:24Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we push the error stack here? - our OPENSSL_PUT_SYSTEM_ERROR doesn\u0027t include errno at the moment, but in theory if it did this should probably be just like in the file version: \n\n      OPENSSL_PUT_SYSTEM_ERROR();\n      OPENSSL_PUT_ERROR(BIO, ERR_R_SYS_LIB);",
+      "range": {
+        "startLine": 253,
+        "startChar": 11,
+        "endLine": 253,
+        "endChar": 12
+      },
+      "revId": "ea7a47feb9cf0e9357f07dac1d38e6d59705d74d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
