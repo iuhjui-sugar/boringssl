@@ -99,6 +99,30 @@
       },
       "revId": "ea7a47feb9cf0e9357f07dac1d38e6d59705d74d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "389eac0f_596efe86",
+        "filename": "crypto/bio/fd.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-17T21:37:12Z",
+      "side": 1,
+      "message": "https://bugs.chromium.org/p/boringssl/issues/list?q\u003dcomponent:Crypto%3EBIO",
+      "parentUuid": "21989e50_c4de3a21",
+      "range": {
+        "startLine": 253,
+        "startChar": 11,
+        "endLine": 253,
+        "endChar": 12
+      },
+      "revId": "ea7a47feb9cf0e9357f07dac1d38e6d59705d74d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
