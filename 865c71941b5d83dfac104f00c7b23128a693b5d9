@@ -65,6 +65,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f70bae67_54e92f7a",
+        "filename": "util/fipstools/break-tests.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-04-17T22:28:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1bef0615_af3583b0",
+      "range": {
+        "startLine": 65,
+        "startChar": 10,
+        "endLine": 65,
+        "endChar": 12
+      },
+      "revId": "865c71941b5d83dfac104f00c7b23128a693b5d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a7d618c1_56ebe1bd",
@@ -78,6 +102,30 @@
       "writtenOn": "2022-08-04T22:46:34Z",
       "side": 1,
       "message": "\"$1\"",
+      "range": {
+        "startLine": 69,
+        "startChar": 10,
+        "endLine": 69,
+        "endChar": 12
+      },
+      "revId": "865c71941b5d83dfac104f00c7b23128a693b5d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6ed2d567_ba1ee849",
+        "filename": "util/fipstools/break-tests.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-04-17T22:28:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7d618c1_56ebe1bd",
       "range": {
         "startLine": 69,
         "startChar": 10,
@@ -111,6 +159,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "69ce1842_2d8cc1f4",
+        "filename": "util/fipstools/break-tests.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-04-17T22:28:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "31b24783_f9053ea8",
+      "range": {
+        "startLine": 81,
+        "startChar": 11,
+        "endLine": 81,
+        "endChar": 20
+      },
+      "revId": "865c71941b5d83dfac104f00c7b23128a693b5d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "699d7f82_b8ce31da",
@@ -124,6 +196,30 @@
       "writtenOn": "2022-08-04T22:46:34Z",
       "side": 1,
       "message": "\"$BORINGSSL/...\", \"$TEST_FIPS_BIN\"",
+      "range": {
+        "startLine": 88,
+        "startChar": 9,
+        "endLine": 88,
+        "endChar": 18
+      },
+      "revId": "865c71941b5d83dfac104f00c7b23128a693b5d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a256ce4f_afaa0070",
+        "filename": "util/fipstools/break-tests.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-04-17T22:28:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "699d7f82_b8ce31da",
       "range": {
         "startLine": 88,
         "startChar": 9,
@@ -157,6 +253,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e78dcf8_cbc4f0c3",
+        "filename": "util/fipstools/break-tests.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-04-17T22:28:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11455e2a_8c79733e",
+      "range": {
+        "startLine": 94,
+        "startChar": 9,
+        "endLine": 94,
+        "endChar": 10
+      },
+      "revId": "865c71941b5d83dfac104f00c7b23128a693b5d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c060ca99_2a07a274",
@@ -170,6 +290,30 @@
       "writtenOn": "2022-08-04T22:46:34Z",
       "side": 1,
       "message": "\"$TEST_FIPS_BREAK_BIN\"",
+      "range": {
+        "startLine": 101,
+        "startChar": 37,
+        "endLine": 101,
+        "endChar": 56
+      },
+      "revId": "865c71941b5d83dfac104f00c7b23128a693b5d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f71cda21_9f77e996",
+        "filename": "util/fipstools/break-tests.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-04-17T22:28:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c060ca99_2a07a274",
       "range": {
         "startLine": 101,
         "startChar": 37,
@@ -203,6 +347,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9545e7fc_7f927eec",
+        "filename": "util/fipstools/break-tests.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-04-17T22:28:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34521df8_c56e425d",
+      "range": {
+        "startLine": 108,
+        "startChar": 9,
+        "endLine": 108,
+        "endChar": 47
+      },
+      "revId": "865c71941b5d83dfac104f00c7b23128a693b5d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f0c9fe0c_f06447c6",
@@ -216,6 +384,30 @@
       "writtenOn": "2022-08-04T22:46:34Z",
       "side": 1,
       "message": "\"$BORINGSSL/...\", \"$TEST_FIPS_BREAK_BIN\"",
+      "range": {
+        "startLine": 115,
+        "startChar": 9,
+        "endLine": 115,
+        "endChar": 10
+      },
+      "revId": "865c71941b5d83dfac104f00c7b23128a693b5d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3fa0707_359c08a3",
+        "filename": "util/fipstools/break-tests.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-04-17T22:28:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0c9fe0c_f06447c6",
       "range": {
         "startLine": 115,
         "startChar": 9,
@@ -249,6 +441,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8bda958b_f9b13dfe",
+        "filename": "util/fipstools/break-tests.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-04-17T22:28:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e2ccc98_46f77dec",
+      "range": {
+        "startLine": 128,
+        "startChar": 13,
+        "endLine": 128,
+        "endChar": 27
+      },
+      "revId": "865c71941b5d83dfac104f00c7b23128a693b5d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f09f9df4_29d9a39c",
@@ -272,6 +488,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b7f3b57_665d20d6",
+        "filename": "util/fipstools/break-tests.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-04-17T22:28:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f09f9df4_29d9a39c",
+      "range": {
+        "startLine": 131,
+        "startChar": 12,
+        "endLine": 131,
+        "endChar": 32
+      },
+      "revId": "865c71941b5d83dfac104f00c7b23128a693b5d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "86a31d01_34d0e563",
@@ -285,6 +525,30 @@
       "writtenOn": "2022-08-04T22:46:34Z",
       "side": 1,
       "message": "\"$TEST_FIPS_BIN\" \"$LIBRCRYPTO_BIN\"",
+      "range": {
+        "startLine": 168,
+        "startChar": 20,
+        "endLine": 168,
+        "endChar": 21
+      },
+      "revId": "865c71941b5d83dfac104f00c7b23128a693b5d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fcbb1fb_04d647af",
+        "filename": "util/fipstools/break-tests.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-04-17T22:28:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "86a31d01_34d0e563",
       "range": {
         "startLine": 168,
         "startChar": 20,
