@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11351c8b_4e208fdb",
+        "filename": "ssl/test/test_config.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-04-17T17:56:01Z",
+      "side": 1,
+      "message": "Nit: I really really have a pathological loathing of the no_foo \u003d false style stuff openssl seems so fond of.. is it extremely challenging to just leave this as enforce_rsa_key_usage and set it to \"true\"? either that or rename this to \"unsafe_rsa_key_usage\" \u003d false or \"ignore_rsa_key_usage \u003d false\" or something like that?",
+      "revId": "a207d21182181a0c181ff0dcc27463f6a1d6d015",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
