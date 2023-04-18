@@ -1,0 +1,356 @@
+From 895572d504e5445ddeac05a5f3d455fc23f220c7 Mon Sep 17 00:00:00 2001
+From: Bob Beck <bbe@google.com>
+Date: Tue, 6 Jun 2023 14:20:10 -0600
+Subject: [PATCH 19/22] Change parse_values_unittest to use explicit uint8_t
+ values
+
+---
+ net/cert/pki/cert_error_params.cc             |  2 +-
+ .../pki/cert_issuer_source_static_unittest.cc |  3 +-
+ net/cert/pki/general_names.cc                 |  2 +-
+ net/cert/pki/nist_pkits_unittest.h            |  6 +-
+ net/cert/pki/path_builder.cc                  |  4 +-
+ net/cert/pki/path_builder_unittest.cc         | 12 +--
+ net/cert/pki/test_helpers.cc                  |  2 +-
+ .../many-names/generate-chains.py             | 34 +++++----
+ net/der/parse_values_unittest.cc              | 75 ++++++++++---------
+ 9 files changed, 76 insertions(+), 64 deletions(-)
+
+diff --git a/net/cert/pki/cert_error_params.cc b/net/cert/pki/cert_error_params.cc
+index 0bb7fe7039ed6..0893f6bb3ce53 100644
+--- a/net/cert/pki/cert_error_params.cc
++++ b/net/cert/pki/cert_error_params.cc
+@@ -6,9 +6,9 @@
+ 
+ #include <memory>
+ 
++#include "base/check.h"
+ #include "net/cert/pki/string_util.h"
+ #include "net/der/input.h"
+-#include "base/check.h"
+ 
+ namespace net {
+ 
+diff --git a/net/cert/pki/cert_issuer_source_static_unittest.cc b/net/cert/pki/cert_issuer_source_static_unittest.cc
+index af8cc4b59a735..04ed7543c72f6 100644
+--- a/net/cert/pki/cert_issuer_source_static_unittest.cc
++++ b/net/cert/pki/cert_issuer_source_static_unittest.cc
+@@ -32,7 +32,8 @@ INSTANTIATE_TYPED_TEST_SUITE_P(CertIssuerSourceStaticNormalizationTest,
+                                CertIssuerSourceSyncNormalizationTest,
+                                CertIssuerSourceStaticTestDelegate);
+ 
+-GTEST_ALLOW_UNINSTANTIATED_PARAMETERIZED_TEST(CertIssuerSourceSyncNotNormalizedTest);
++GTEST_ALLOW_UNINSTANTIATED_PARAMETERIZED_TEST(
++    CertIssuerSourceSyncNotNormalizedTest);
+ 
+ }  // namespace
+ 
+diff --git a/net/cert/pki/general_names.cc b/net/cert/pki/general_names.cc
+index 904185ca7690f..bafc81ca2c065 100644
+--- a/net/cert/pki/general_names.cc
++++ b/net/cert/pki/general_names.cc
+@@ -4,8 +4,8 @@
+ 
+ #include "net/cert/pki/general_names.h"
+ 
+-#include <cstring>
+ #include <climits>
++#include <cstring>
+ 
+ #include "net/cert/pki/cert_error_params.h"
+ #include "net/cert/pki/cert_errors.h"
+diff --git a/net/cert/pki/nist_pkits_unittest.h b/net/cert/pki/nist_pkits_unittest.h
+index e2367d2cd3adf..52daee181c605 100644
+--- a/net/cert/pki/nist_pkits_unittest.h
++++ b/net/cert/pki/nist_pkits_unittest.h
+@@ -89,13 +89,15 @@ class PkitsTest : public ::testing::Test {
+                const char* const (&crl_names)[num_crls],
+                const PkitsTestInfo& info) {
+     std::vector<std::string> cert_ders;
+-    for (const std::string s : cert_names)
++    for (const std::string s : cert_names) {
+       cert_ders.push_back(net::ReadTestFileToString(
+           "net/third_party/nist-pkits/certs/" + s + ".crt"));
++    }
+     std::vector<std::string> crl_ders;
+-    for (const std::string s : crl_names)
++    for (const std::string s : crl_names) {
+       crl_ders.push_back(net::ReadTestFileToString(
+           "net/third_party/nist-pkits/crls/" + s + ".crl"));
++    }
+ 
+     std::string_view test_number = info.test_number;
+ 
+diff --git a/net/cert/pki/path_builder.cc b/net/cert/pki/path_builder.cc
+index 65a34aca5b305..7ceeba466f8e1 100644
+--- a/net/cert/pki/path_builder.cc
++++ b/net/cert/pki/path_builder.cc
+@@ -254,7 +254,7 @@ CertIssuersIter::CertIssuersIter(
+       debug_data_(debug_data) {
+ #if defined(DVLOG)
+   DVLOG(2) << "CertIssuersIter created for " << CertDebugString(cert());
+-#endif 
++#endif
+ }
+ 
+ void CertIssuersIter::GetNextIssuer(IssuerEntry* out) {
+@@ -703,7 +703,7 @@ bool CertPathIter::GetNextPath(ParsedCertificateList* out_certs,
+         // Skip this cert if it is already in the chain.
+         if (cur_path_.IsPresent(next_issuer_.cert.get())) {
+           cur_path_.back()->increment_skipped_issuer_count();
+-#if defined (DVLOG)
++#if defined(DVLOG)
+           DVLOG(1) << "CertPathIter skipping dupe cert: "
+                    << CertDebugString(next_issuer_.cert.get());
+ #endif
+diff --git a/net/cert/pki/path_builder_unittest.cc b/net/cert/pki/path_builder_unittest.cc
+index 1255a0480f46d..0a950a248e8a8 100644
+--- a/net/cert/pki/path_builder_unittest.cc
++++ b/net/cert/pki/path_builder_unittest.cc
+@@ -44,7 +44,7 @@ using ::testing::Return;
+ using ::testing::SaveArg;
+ using ::testing::SetArgPointee;
+ using ::testing::StrictMock;
+-#endif // !_BORINGSSL_LIBPKI_
++#endif  // !_BORINGSSL_LIBPKI_
+ 
+ class TestPathBuilderDelegate : public SimplePathBuilderDelegate {
+  public:
+@@ -205,7 +205,7 @@ TEST(PathBuilderResultUserDataTest, ModifyUserDataInConstructor) {
+   ASSERT_TRUE(data);
+   EXPECT_EQ(1234, data->value);
+ }
+-#endif // !_BORINGSSL_LIBPKI_
++#endif  // !_BORINGSSL_LIBPKI_
+ 
+ class PathBuilderMultiRootTest : public ::testing::Test {
+  public:
+@@ -1576,7 +1576,7 @@ class MockCertIssuerSource : public CertIssuerSource {
+   MOCK_METHOD2(AsyncGetIssuersOf,
+                void(const ParsedCertificate*, std::unique_ptr<Request>*));
+ };
+-#endif // !_BORINGSSL_LIBPKI_
++#endif  // !_BORINGSSL_LIBPKI_
+ 
+ // Helper class to pass the Request to the PathBuilder when it calls
+ // AsyncGetIssuersOf. (GoogleMock has a ByMove helper, but it apparently can
+@@ -1782,7 +1782,7 @@ TEST_F(PathBuilderKeyRolloverTest, TestDuplicateAsyncIntermediates) {
+   EXPECT_EQ(newintermediate_, path1.certs[1]);
+   EXPECT_EQ(newroot_, path1.certs[2]);
+ }
+-#endif // !_BORINGSSL_LIBPKI_
++#endif  // !_BORINGSSL_LIBPKI_
+ 
+ class PathBuilderSimpleChainTest : public ::testing::Test {
+  public:
+@@ -1953,7 +1953,7 @@ TEST_F(PathBuilderCheckPathAfterVerificationTest, NoOpToValidPath) {
+   CertPathBuilder::Result result = RunPathBuilder(nullptr, &delegate);
+   EXPECT_TRUE(result.HasValidPath());
+ }
+-#endif // !_BORINGSSL_LIBPKI_
++#endif  // !_BORINGSSL_LIBPKI_
+ 
+ DEFINE_CERT_ERROR_ID(kWarningFromDelegate, "Warning from delegate");
+ 
+@@ -2038,7 +2038,7 @@ TEST_F(PathBuilderCheckPathAfterVerificationTest, SetsDelegateData) {
+ 
+   EXPECT_EQ(0xB33F, data->value);
+ }
+-#endif // !_BORINGSSL_LIBPKI_
++#endif  // !_BORINGSSL_LIBPKI_
+ 
+ TEST(PathBuilderPrioritizationTest, DatePrioritization) {
+   std::string test_dir =
+diff --git a/net/cert/pki/test_helpers.cc b/net/cert/pki/test_helpers.cc
+index e76249c6312c4..b72a8cd363294 100644
+--- a/net/cert/pki/test_helpers.cc
++++ b/net/cert/pki/test_helpers.cc
+@@ -469,7 +469,7 @@ void VerifyUserConstrainedPolicySet(
+     const std::set<der::Input>& actual_user_constrained_policy_set,
+     const std::string& errors_file_path) {
+   std::set<std::string> actual_user_constrained_policy_str_set;
+-  for (const der::Input & der_oid : actual_user_constrained_policy_set) {
++  for (const der::Input& der_oid : actual_user_constrained_policy_set) {
+     actual_user_constrained_policy_str_set.insert(OidToString(der_oid));
+   }
+   if (expected_user_constrained_policy_str_set !=
+diff --git a/net/data/verify_certificate_chain_unittest/many-names/generate-chains.py b/net/data/verify_certificate_chain_unittest/many-names/generate-chains.py
+index 11f601a6fff12..70e37b10e1681 100755
+--- a/net/data/verify_certificate_chain_unittest/many-names/generate-chains.py
++++ b/net/data/verify_certificate_chain_unittest/many-names/generate-chains.py
+@@ -92,21 +92,25 @@ def make_chain(name, doc, excluded, permitted, sans):
+   gencerts.write_chain(doc, chain, '%s.pem' % name)
+ 
+ 
+-make_chain(
+-    'ok-all-types',
+-    "A chain containing a large number of name constraints and names,\n"
+-    "but below the limit.",
+-    excluded=dict(num_dns=170, num_ip=170, num_dirnames=170, num_uri=1025),
+-    permitted=dict(num_dns=171, num_ip=171, num_dirnames=172, num_uri=1025),
+-    sans=dict(num_dns=341, num_ip=341, num_dirnames=342, num_uri=1025))
+-
+-make_chain(
+-    'toomany-all-types',
+-    "A chain containing a large number of different types of name\n"
+-    "constraints and names, above the limit.",
+-    excluded=dict(num_dns=170, num_ip=170, num_dirnames=170, num_uri=0),
+-    permitted=dict(num_dns=172, num_ip=171, num_dirnames=172, num_uri=0),
+-    sans=dict(num_dns=342, num_ip=341, num_dirnames=341, num_uri=0))
++make_chain('ok-all-types',
++           "A chain containing a large number of name constraints and names,\n"
++           "but below the limit.",
++           excluded=dict(num_dns=170,
++                         num_ip=170,
++                         num_dirnames=170,
++                         num_uri=1025),
++           permitted=dict(num_dns=171,
++                          num_ip=171,
++                          num_dirnames=172,
++                          num_uri=1025),
++           sans=dict(num_dns=341, num_ip=341, num_dirnames=342, num_uri=1025))
++
++make_chain('toomany-all-types',
++           "A chain containing a large number of different types of name\n"
++           "constraints and names, above the limit.",
++           excluded=dict(num_dns=170, num_ip=170, num_dirnames=170, num_uri=0),
++           permitted=dict(num_dns=172, num_ip=171, num_dirnames=172, num_uri=0),
++           sans=dict(num_dns=342, num_ip=341, num_dirnames=341, num_uri=0))
+ 
+ make_chain(
+     'toomany-dns-excluded',
+diff --git a/net/der/parse_values_unittest.cc b/net/der/parse_values_unittest.cc
+index c1121e0b62614..48b8e8771beb3 100644
+--- a/net/der/parse_values_unittest.cc
++++ b/net/der/parse_values_unittest.cc
+@@ -374,87 +374,92 @@ TEST(ParseValuesTest, ParseBitStringSevenOneBitsUnusedBitIsOne) {
+ }
+ 
+ TEST(ParseValuesTest, ParseIA5String) {
+-  const Input valid_der({0x46, 0x6f, 0x6f, 0x20, 0x62, 0x61, 0x72, 0x01, 0x7f});
++  const uint8_t valid_der[] = {0x46, 0x6f, 0x6f, 0x20, 0x62,
++                               0x61, 0x72, 0x01, 0x7f};
+   std::string s;
+-  EXPECT_TRUE(ParseIA5String(valid_der, &s));
++  EXPECT_TRUE(ParseIA5String(der::Input(valid_der), &s));
+   EXPECT_EQ("Foo bar\x01\x7f", s);
+ 
+   // 0x80 is not a valid character in IA5String.
+-  const Input invalid_der({0x46, 0x6f, 0x80, 0x20, 0x62, 0x61, 0x72});
+-  EXPECT_FALSE(ParseIA5String(invalid_der, &s));
++  const uint8_t invalid_der[] = {0x46, 0x6f, 0x80, 0x20, 0x62, 0x61, 0x72};
++  EXPECT_FALSE(ParseIA5String(der::Input(invalid_der), &s));
+ }
+ 
+ TEST(ParseValuesTest, ParseVisibleString) {
+-  const Input valid_der({0x46, 0x6f, 0x6f, 0x20, 0x62, 0x61, 0x72, 0x7e});
++  const uint8_t valid_der[] = {0x46, 0x6f, 0x6f, 0x20, 0x62, 0x61, 0x72, 0x7e};
+   std::string s;
+-  EXPECT_TRUE(ParseVisibleString(valid_der, &s));
++  EXPECT_TRUE(ParseVisibleString(der::Input(valid_der), &s));
+   EXPECT_EQ("Foo bar\x7e", s);
+ 
+   // 0x7f is not a valid character in VisibleString
+-  const Input invalid_der({0x46, 0x6f, 0x7f, 0x20, 0x62, 0x61, 0x72});
+-  EXPECT_FALSE(ParseVisibleString(invalid_der, &s));
++  const uint8_t invalid_der[] = {0x46, 0x6f, 0x7f, 0x20, 0x62, 0x61, 0x72};
++  EXPECT_FALSE(ParseVisibleString(der::Input(invalid_der), &s));
+ 
+   // 0x1f is not a valid character in VisibleString
+-  const Input invalid_der2({0x46, 0x6f, 0x1f, 0x20, 0x62, 0x61, 0x72});
+-  EXPECT_FALSE(ParseVisibleString(invalid_der2, &s));
++  const uint8_t invalid_der2[] = {0x46, 0x6f, 0x1f, 0x20, 0x62, 0x61, 0x72};
++  EXPECT_FALSE(ParseVisibleString(der::Input(invalid_der2), &s));
+ }
+ 
+ TEST(ParseValuesTest, ParsePrintableString) {
+-  const Input valid_der({0x46, 0x6f, 0x6f, 0x20, 0x62, 0x61, 0x72});
++  const uint8_t valid_der[] = {0x46, 0x6f, 0x6f, 0x20, 0x62, 0x61, 0x72};
+   std::string s;
+-  EXPECT_TRUE(ParsePrintableString(valid_der, &s));
++  EXPECT_TRUE(ParsePrintableString(der::Input(valid_der), &s));
+   EXPECT_EQ("Foo bar", s);
+ 
+   // 0x5f '_' is not a valid character in PrintableString.
+-  const Input invalid_der({0x46, 0x6f, 0x5f, 0x20, 0x62, 0x61, 0x72});
+-  EXPECT_FALSE(ParsePrintableString(invalid_der, &s));
++  const uint8_t invalid_der[] = {0x46, 0x6f, 0x5f, 0x20, 0x62, 0x61, 0x72};
++  EXPECT_FALSE(ParsePrintableString(der::Input(invalid_der), &s));
+ }
+ 
+ TEST(ParseValuesTest, ParseTeletexStringAsLatin1) {
+-  const Input valid_der({0x46, 0x6f, 0xd6, 0x20, 0x62, 0x61, 0x72});
++  const uint8_t valid_der[] = {0x46, 0x6f, 0xd6, 0x20, 0x62, 0x61, 0x72};
+   std::string s;
+-  EXPECT_TRUE(ParseTeletexStringAsLatin1(valid_der, &s));
++  EXPECT_TRUE(ParseTeletexStringAsLatin1(der::Input(valid_der), &s));
+   EXPECT_EQ("FoÖ bar", s);
+ }
+ 
+ TEST(ParseValuesTest, ParseBmpString) {
+-  const Input valid_der(
+-      {0x00, 0x66, 0x00, 0x6f, 0x00, 0x6f, 0x00, 0x62, 0x00, 0x61, 0x00, 0x72});
++  const uint8_t valid_der[] = {0x00, 0x66, 0x00, 0x6f, 0x00, 0x6f,
++                               0x00, 0x62, 0x00, 0x61, 0x00, 0x72};
+   std::string s;
+-  EXPECT_TRUE(ParseBmpString(valid_der, &s));
++  EXPECT_TRUE(ParseBmpString(der::Input(valid_der), &s));
+   EXPECT_EQ("foobar", s);
+ 
+-  const Input valid_nonascii_der({0x27, 0x28, 0x26, 0xa1, 0x2b, 0x50});
+-  EXPECT_TRUE(ParseBmpString(valid_nonascii_der, &s));
++  const uint8_t valid_nonascii_der[] = {0x27, 0x28, 0x26, 0xa1, 0x2b, 0x50};
++  EXPECT_TRUE(ParseBmpString(der::Input(valid_nonascii_der), &s));
+   EXPECT_EQ("✨⚡⭐", s);
+ 
+   // BmpString must encode characters in pairs of 2 bytes.
+-  const Input invalid_odd_der({0x00, 0x66, 0x00, 0x6f, 0x00});
+-  EXPECT_FALSE(ParseBmpString(invalid_odd_der, &s));
++  const uint8_t invalid_odd_der[] = {0x00, 0x66, 0x00, 0x6f, 0x00};
++  EXPECT_FALSE(ParseBmpString(der::Input(invalid_odd_der), &s));
+ 
+   // UTF-16BE encoding of U+1D11E, MUSICAL SYMBOL G CLEF, which is not valid in
+   // UCS-2.
+-  const Input invalid_bmp_valid_utf16_with_surrogate({0xd8, 0x34, 0xdd, 0x1e});
+-  EXPECT_FALSE(ParseBmpString(invalid_bmp_valid_utf16_with_surrogate, &s));
++  const uint8_t invalid_bmp_valid_utf16_with_surrogate[] = {0xd8, 0x34, 0xdd,
++                                                            0x1e};
++  EXPECT_FALSE(
++      ParseBmpString(der::Input(invalid_bmp_valid_utf16_with_surrogate), &s));
+ }
+ 
+ TEST(ParseValuesTest, ParseUniversalString) {
+-  const Input valid_der({0x00, 0x00, 0x00, 0x66, 0x00, 0x00, 0x00, 0x6f,
+-                         0x00, 0x00, 0x00, 0x6f, 0x00, 0x00, 0x00, 0x62,
+-                         0x00, 0x00, 0x00, 0x61, 0x00, 0x00, 0x00, 0x72});
++  const uint8_t valid_der[] = {0x00, 0x00, 0x00, 0x66, 0x00, 0x00, 0x00, 0x6f,
++                               0x00, 0x00, 0x00, 0x6f, 0x00, 0x00, 0x00, 0x62,
++                               0x00, 0x00, 0x00, 0x61, 0x00, 0x00, 0x00, 0x72};
+   std::string s;
+-  EXPECT_TRUE(ParseUniversalString(valid_der, &s));
++  EXPECT_TRUE(ParseUniversalString(der::Input(valid_der), &s));
+   EXPECT_EQ("foobar", s);
+ 
+-  const Input valid_non_ascii_der({0x0,  0x1,  0xf4, 0xe,  0x0,  0x0, 0x0,
+-                                   0x20, 0x0,  0x1,  0xd1, 0x1e, 0x0, 0x0,
+-                                   0x26, 0x69, 0x0,  0x0,  0x26, 0x6b});
+-  EXPECT_TRUE(ParseUniversalString(valid_non_ascii_der, &s));
++  const uint8_t valid_non_ascii_der[] = {0x0,  0x1,  0xf4, 0xe,  0x0,  0x0, 0x0,
++                                         0x20, 0x0,  0x1,  0xd1, 0x1e, 0x0, 0x0,
++                                         0x26, 0x69, 0x0,  0x0,  0x26, 0x6b};
++  EXPECT_TRUE(ParseUniversalString(der::Input(valid_non_ascii_der), &s));
+   EXPECT_EQ("🐎 𝄞♩♫", s);
+ 
+   // UniversalString must encode characters in groups of 4 bytes.
+-  const Input invalid_non_4_multiple_der({0x00, 0x00, 0x00, 0x66, 0x00, 0x00});
+-  EXPECT_FALSE(ParseUniversalString(invalid_non_4_multiple_der, &s));
++  const uint8_t invalid_non_4_multiple_der[] = {0x00, 0x00, 0x00,
++                                                0x66, 0x00, 0x00};
++  EXPECT_FALSE(
++      ParseUniversalString(der::Input(invalid_non_4_multiple_der), &s));
+ }
+ 
+ }  // namespace net::der::test
+-- 
+2.41.0.162.gfafddb0af9-goog
+
