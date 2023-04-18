@@ -1,0 +1,26 @@
+From f3c3d28b6bbff8a7e7a2627e91b708f45e7cb455 Mon Sep 17 00:00:00 2001
+From: Bob Beck <bbe@google.com>
+Date: Thu, 22 Jun 2023 08:52:00 -0600
+Subject: [PATCH 4/4] Include <vector> in parse_values.cc
+
+This is used here and is currently obtained via hopes and prayers
+from other dependencies. It it needed when built outside of chrome.
+---
+ net/der/parse_values.cc | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/net/der/parse_values.cc b/net/der/parse_values.cc
+index 6fa96d806cf66..6ff5024393212 100644
+--- a/net/der/parse_values.cc
++++ b/net/der/parse_values.cc
+@@ -5,6 +5,7 @@
+ #include "net/der/parse_values.h"
+ 
+ #include <tuple>
++#include <vector>
+ 
+ #include "base/check_op.h"
+ #include "base/notreached.h"
+-- 
+2.41.0.162.gfafddb0af9-goog
+
