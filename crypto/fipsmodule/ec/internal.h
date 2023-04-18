@@ -91,6 +91,8 @@ extern "C" {
 // be the largest fields anyone plausibly uses.
 #define EC_MAX_BYTES 66
 #define EC_MAX_WORDS ((EC_MAX_BYTES + BN_BYTES - 1) / BN_BYTES)
+#define EC_MAX_COMPRESSED (EC_MAX_BYTES + 1)
+#define EC_MAX_UNCOMPRESSED (2 * EC_MAX_BYTES + 1)
 
 static_assert(EC_MAX_WORDS <= BN_SMALL_MAX_WORDS,
               "bn_*_small functions not usable");
