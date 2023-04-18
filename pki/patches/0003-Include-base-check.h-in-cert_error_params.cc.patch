@@ -1,0 +1,24 @@
+From f6c6b0d58b6ad660da52cddd89ec8b7de2f62319 Mon Sep 17 00:00:00 2001
+From: Bob Beck <bbe@google.com>
+Date: Thu, 1 Jun 2023 11:04:34 +0200
+Subject: [PATCH 3/4] Include base/check.h in cert_error_params.cc
+
+---
+ net/cert/pki/cert_error_params.cc | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/net/cert/pki/cert_error_params.cc b/net/cert/pki/cert_error_params.cc
+index 392e2be659c7d..0bb7fe7039ed6 100644
+--- a/net/cert/pki/cert_error_params.cc
++++ b/net/cert/pki/cert_error_params.cc
+@@ -8,6 +8,7 @@
+ 
+ #include "net/cert/pki/string_util.h"
+ #include "net/der/input.h"
++#include "base/check.h"
+ 
+ namespace net {
+ 
+-- 
+2.41.0.rc0.172.g3f132b7071-goog
+
