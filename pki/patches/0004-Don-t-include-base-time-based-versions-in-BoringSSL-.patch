@@ -1,0 +1,102 @@
+From 9bf7c8d905d576ec4b0568aa0cca7f797a386a9b Mon Sep 17 00:00:00 2001
+From: Bob Beck <bbe@google.com>
+Date: Thu, 1 Jun 2023 12:59:02 +0200
+Subject: [PATCH 4/4] Don't include base::time based versions in BoringSSL
+ compilation.
+
+---
+ net/der/encode_values.cc | 7 ++++++-
+ net/der/encode_values.h  | 6 ++++++
+ 2 files changed, 12 insertions(+), 1 deletion(-)
+
+diff --git a/net/der/encode_values.cc b/net/der/encode_values.cc
+index 6ba2ee393bc44..9ee0913c231ad 100644
+--- a/net/der/encode_values.cc
++++ b/net/der/encode_values.cc
+@@ -3,8 +3,9 @@
+ // found in the LICENSE file.
+ 
+ #include "net/der/encode_values.h"
+-
++#if !defined(OPENSSL_USE_BORINGSSL_TIME_ONLY)
+ #include "base/time/time.h"
++#endif
+ #include "net/der/parse_values.h"
+ 
+ #include "third_party/boringssl/src/include/openssl/time.h"
+@@ -36,6 +37,7 @@ bool WriteTwoDigit(uint8_t value, uint8_t out[2]) {
+ 
+ }  // namespace
+ 
++#if !defined(OPENSSL_USE_BORINGSSL_TIME_ONLY)
+ bool EncodeTimeAsGeneralizedTime(const base::Time& time,
+                                  GeneralizedTime* generalized_time) {
+   base::Time::Exploded exploded;
+@@ -51,6 +53,7 @@ bool EncodeTimeAsGeneralizedTime(const base::Time& time,
+   generalized_time->seconds = exploded.second;
+   return true;
+ }
++#endif
+ 
+ bool EncodePosixTimeAsGeneralizedTime(int64_t posix_time,
+                                       GeneralizedTime* generalized_time) {
+@@ -68,6 +71,7 @@ bool EncodePosixTimeAsGeneralizedTime(int64_t posix_time,
+   return true;
+ }
+ 
++#if !defined(OPENSSL_USE_BORINGSSL_TIME_ONLY)
+ bool GeneralizedTimeToTime(const der::GeneralizedTime& generalized,
+                            base::Time* result) {
+   base::Time::Exploded exploded = {0};
+@@ -97,6 +101,7 @@ bool GeneralizedTimeToTime(const der::GeneralizedTime& generalized,
+   }
+   return false;
+ }
++#endif
+ 
+ bool GeneralizedTimeToPosixTime(const der::GeneralizedTime& generalized,
+                                 int64_t* result) {
+diff --git a/net/der/encode_values.h b/net/der/encode_values.h
+index 4e8c1462f5572..1c95ec25b9b44 100644
+--- a/net/der/encode_values.h
++++ b/net/der/encode_values.h
+@@ -10,18 +10,22 @@
+ 
+ #include "net/base/net_export.h"
+ 
++#if !defined(OPENSSL_USE_BORINGSSL_TIME_ONLY)
+ namespace base {
+ class Time;
+ }
++#endif
+ 
+ namespace net::der {
+ 
+ struct GeneralizedTime;
+ 
++#if !defined(OPENSSL_USE_BORINGSSL_TIME_ONLY)
+ // Encodes |time|, a UTC-based time, to DER |generalized_time|, for comparing
+ // against other GeneralizedTime objects.
+ NET_EXPORT bool EncodeTimeAsGeneralizedTime(const base::Time& time,
+                                             GeneralizedTime* generalized_time);
++#endif
+ 
+ // Encodes |posix_time|, a posix time in seconds, to DER |generalized_time|, for
+ // comparing against other GeneralizedTime objects, returning true on success or
+@@ -30,11 +34,13 @@ NET_EXPORT bool EncodePosixTimeAsGeneralizedTime(
+     int64_t posix_time,
+     GeneralizedTime* generalized_time);
+ 
++#if !defined(OPENSSL_USE_BORINGSSL_TIME_ONLY)
+ // Converts a GeneralizedTime struct to a base::Time, returning true on success
+ // or false if |generalized| was invalid or cannot be represented by
+ // base::Time.
+ NET_EXPORT bool GeneralizedTimeToTime(const der::GeneralizedTime& generalized,
+                                       base::Time* result);
++#endif
+ 
+ // Converts a GeneralizedTime struct to a posix time in seconds in |result|,
+ // returning true on success or false if |generalized| was invalid or cannot be
+-- 
+2.41.0.rc0.172.g3f132b7071-goog
+
