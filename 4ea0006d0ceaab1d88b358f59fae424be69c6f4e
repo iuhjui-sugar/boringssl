@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bc4caca_d4f41f6e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2023-04-18T17:25:01Z",
+      "side": 1,
+      "message": "This is updated to VOPRF-21 and the \"standardized\" construction for batching:\n\n- Different ordering for the DSTs.\n- Addition instead of subtraction on the proof.",
+      "revId": "4ea0006d0ceaab1d88b358f59fae424be69c6f4e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
