@@ -1,0 +1,25 @@
+From f603cfe3e2ef458076cbd513af9706b20809fcb0 Mon Sep 17 00:00:00 2001
+From: Bob Beck <bbe@google.com>
+Date: Thu, 22 Jun 2023 09:13:09 -0600
+Subject: [PATCH 2/2] Include base/check.h in parsed_certificate.
+
+needed for DCHECK/CHECK.
+---
+ net/cert/pki/parsed_certificate.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/net/cert/pki/parsed_certificate.h b/net/cert/pki/parsed_certificate.h
+index 5fba2b80e8e70..135064be2ef6d 100644
+--- a/net/cert/pki/parsed_certificate.h
++++ b/net/cert/pki/parsed_certificate.h
+@@ -9,6 +9,7 @@
+ #include <memory>
+ #include <vector>
+ 
++#include "base/check.h"
+ #include "net/base/net_export.h"
+ #include "net/cert/pki/certificate_policies.h"
+ #include "net/cert/pki/parse_certificate.h"
+-- 
+2.41.0.162.gfafddb0af9-goog
+
