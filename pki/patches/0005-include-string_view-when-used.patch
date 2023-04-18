@@ -1,0 +1,24 @@
+From 34b54f581e9139aef2da7eda685159a258b81f31 Mon Sep 17 00:00:00 2001
+From: Bob Beck <bbe@google.com>
+Date: Thu, 1 Jun 2023 16:59:49 +0200
+Subject: [PATCH 5/9] include string_view when used
+
+---
+ net/cert/pki/test_helpers.cc | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/net/cert/pki/test_helpers.cc b/net/cert/pki/test_helpers.cc
+index ac18beb9b778e..171e48149999e 100644
+--- a/net/cert/pki/test_helpers.cc
++++ b/net/cert/pki/test_helpers.cc
+@@ -20,6 +20,7 @@
+ #include "third_party/boringssl/src/include/openssl/pool.h"
+ 
+ #include <sstream>
++#include <string_view>
+ 
+ namespace net {
+ 
+-- 
+2.41.0.162.gfafddb0af9-goog
+
