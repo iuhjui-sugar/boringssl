@@ -1,0 +1,24 @@
+From 19d0a72bdb8ae0402532c8e8f8a0071ba192a4a8 Mon Sep 17 00:00:00 2001
+From: Bob Beck <bbe@google.com>
+Date: Thu, 1 Jun 2023 16:59:49 +0200
+Subject: [PATCH 10/15] include string_view when used
+
+---
+ net/cert/pki/test_helpers.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/net/cert/pki/test_helpers.h b/net/cert/pki/test_helpers.h
+index d9e6d17f5051b..05171bf93fb60 100644
+--- a/net/cert/pki/test_helpers.h
++++ b/net/cert/pki/test_helpers.h
+@@ -9,6 +9,7 @@
+ 
+ #include <ostream>
+ #include <string>
++#include <string_view>
+ #include <vector>
+ 
+ #include "net/cert/pki/parsed_certificate.h"
+-- 
+2.41.0.rc0.172.g3f132b7071-goog
+
