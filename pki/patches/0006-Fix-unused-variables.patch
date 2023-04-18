@@ -1,0 +1,35 @@
+From 5c2e31995d91b0d051d825da8796b1b21f15924d Mon Sep 17 00:00:00 2001
+From: Bob Beck <bbe@google.com>
+Date: Thu, 1 Jun 2023 17:15:21 +0200
+Subject: [PATCH 06/17] Fix unused variables.
+
+---
+ net/cert/pki/verify_certificate_chain.cc | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/net/cert/pki/verify_certificate_chain.cc b/net/cert/pki/verify_certificate_chain.cc
+index 8dbbf14a29ed9..7c0553612ee6a 100644
+--- a/net/cert/pki/verify_certificate_chain.cc
++++ b/net/cert/pki/verify_certificate_chain.cc
+@@ -508,6 +508,8 @@ class ValidPolicyGraph {
+     // parent. However, we must limit to those which are reachable from the
+     // end-entity certificate because we defer some pruning steps.
+     for (auto& [policy, node] : levels_.back()) {
++      (void)policy;  // [[maybe_unused]] is unhappy with these with many
++                     // compilers, so this is needed to avoid an unused warning.
+       node.reachable = true;
+     }
+     std::set<der::Input> policy_set;
+@@ -610,6 +612,9 @@ class ValidPolicyGraph {
+     assert(policy != der::Input(kAnyPolicyOid));
+     auto [iter, inserted] = levels_.back().insert(
+         std::pair{policy, Node{std::move(parent_policies)}});
++    (void)inserted;  // [[maybe_unused]] is unhappy with these and the assert
++                     // below can be compiled out which triggers unused variable
++                     // warnings.
+     assert(inserted);
+     return iter;
+   }
+-- 
+2.41.0.162.gfafddb0af9-goog
+

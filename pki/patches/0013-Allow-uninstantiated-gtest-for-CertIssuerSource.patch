@@ -1,0 +1,26 @@
+From 8d86b2507c847a4d8e0ecbc354bab866af878021 Mon Sep 17 00:00:00 2001
+From: Bob Beck <bbe@google.com>
+Date: Mon, 5 Jun 2023 15:45:39 -0600
+Subject: [PATCH 13/17] Allow uninstantiated gtest for CertIssuerSource
+
+---
+ net/cert/pki/cert_issuer_source_static_unittest.cc | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/net/cert/pki/cert_issuer_source_static_unittest.cc b/net/cert/pki/cert_issuer_source_static_unittest.cc
+index c46acb4b48685..04ed7543c72f6 100644
+--- a/net/cert/pki/cert_issuer_source_static_unittest.cc
++++ b/net/cert/pki/cert_issuer_source_static_unittest.cc
+@@ -32,6 +32,9 @@ INSTANTIATE_TYPED_TEST_SUITE_P(CertIssuerSourceStaticNormalizationTest,
+                                CertIssuerSourceSyncNormalizationTest,
+                                CertIssuerSourceStaticTestDelegate);
+ 
++GTEST_ALLOW_UNINSTANTIATED_PARAMETERIZED_TEST(
++    CertIssuerSourceSyncNotNormalizedTest);
++
+ }  // namespace
+ 
+ }  // namespace net
+-- 
+2.41.0.162.gfafddb0af9-goog
+
