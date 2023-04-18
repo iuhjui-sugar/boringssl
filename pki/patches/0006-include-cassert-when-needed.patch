@@ -1,0 +1,25 @@
+From 8406b436c718137a55f5777a8ed7b14ffec39935 Mon Sep 17 00:00:00 2001
+From: Bob Beck <bbe@google.com>
+Date: Thu, 1 Jun 2023 16:23:27 +0200
+Subject: [PATCH 06/14] include cassert when needed
+
+---
+ net/cert/pki/parse_name.cc | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/net/cert/pki/parse_name.cc b/net/cert/pki/parse_name.cc
+index d2b928c0f214b..e3867671a9023 100644
+--- a/net/cert/pki/parse_name.cc
++++ b/net/cert/pki/parse_name.cc
+@@ -9,6 +9,8 @@
+ #include "third_party/boringssl/src/include/openssl/bytestring.h"
+ #include "third_party/boringssl/src/include/openssl/mem.h"
+ 
++#include <cassert>
++
+ namespace net {
+ 
+ namespace {
+-- 
+2.41.0.rc0.172.g3f132b7071-goog
+
