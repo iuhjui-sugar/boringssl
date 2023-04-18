@@ -1,0 +1,13 @@
+#ifndef EXPERIMENTAL_USERS_AGL_LIBSLEEVI_FILLINS_NET_ERRORS_H
+#define EXPERIMENTAL_USERS_AGL_LIBSLEEVI_FILLINS_NET_ERRORS_H
+#include <openssl/base.h>
+
+namespace bssl {
+
+enum OPENSSL_EXPORT Error {
+  OK = 0,
+};
+
+}  // namespace bssl
+
+#endif  // EXPERIMENTAL_USERS_AGL_LIBSLEEVI_FILLINS_NET_ERRORS_H
