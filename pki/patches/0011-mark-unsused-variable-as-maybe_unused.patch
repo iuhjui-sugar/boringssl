@@ -1,0 +1,25 @@
+From a9b72243e7bd15edc8a885fd3a7e405bc5c3e9d8 Mon Sep 17 00:00:00 2001
+From: Bob Beck <bbe@google.com>
+Date: Thu, 1 Jun 2023 17:15:21 +0200
+Subject: [PATCH 11/16] mark unsused variable as maybe_unused
+
+---
+ net/cert/pki/verify_certificate_chain.cc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/net/cert/pki/verify_certificate_chain.cc b/net/cert/pki/verify_certificate_chain.cc
+index 8dbbf14a29ed9..4ba53a03236ab 100644
+--- a/net/cert/pki/verify_certificate_chain.cc
++++ b/net/cert/pki/verify_certificate_chain.cc
+@@ -507,7 +507,7 @@ class ValidPolicyGraph {
+     // The root's policy domain is determined by nodes with anyPolicy as a
+     // parent. However, we must limit to those which are reachable from the
+     // end-entity certificate because we defer some pruning steps.
+-    for (auto& [policy, node] : levels_.back()) {
++    for ([[maybe_unused]] auto& [policy, node] : levels_.back()) {
+       node.reachable = true;
+     }
+     std::set<der::Input> policy_set;
+-- 
+2.41.0.rc0.172.g3f132b7071-goog
+
