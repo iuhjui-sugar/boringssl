@@ -1,0 +1,24 @@
+From 58a2c968aafd83208bf596e35475209d6e21f44f Mon Sep 17 00:00:00 2001
+From: Bob Beck <bbe@google.com>
+Date: Tue, 13 Jun 2023 16:03:40 -0600
+Subject: [PATCH 7/7] Remove unreachable code. MSVC does not like this
+
+---
+ net/der/parse_values.cc | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/net/der/parse_values.cc b/net/der/parse_values.cc
+index 1385819f72b3a..0d1769af3ad94 100644
+--- a/net/der/parse_values.cc
++++ b/net/der/parse_values.cc
+@@ -116,7 +116,6 @@ bool ValidateGeneralizedTime(const GeneralizedTime& time) {
+       break;
+     default:
+       NOTREACHED();
+-      return false;
+   }
+   return true;
+ }
+-- 
+2.41.0.162.gfafddb0af9-goog
+
