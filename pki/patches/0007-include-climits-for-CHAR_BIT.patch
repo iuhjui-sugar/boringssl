@@ -1,0 +1,24 @@
+From eca0914a0b4bf19d05424c665ca690a24572819e Mon Sep 17 00:00:00 2001
+From: Bob Beck <bbe@google.com>
+Date: Thu, 1 Jun 2023 16:32:53 +0200
+Subject: [PATCH 07/14] include <climits> for CHAR_BIT
+
+---
+ net/cert/pki/general_names.cc | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/net/cert/pki/general_names.cc b/net/cert/pki/general_names.cc
+index 4489c3916305b..904185ca7690f 100644
+--- a/net/cert/pki/general_names.cc
++++ b/net/cert/pki/general_names.cc
+@@ -5,6 +5,7 @@
+ #include "net/cert/pki/general_names.h"
+ 
+ #include <cstring>
++#include <climits>
+ 
+ #include "net/cert/pki/cert_error_params.h"
+ #include "net/cert/pki/cert_errors.h"
+-- 
+2.41.0.rc0.172.g3f132b7071-goog
+
