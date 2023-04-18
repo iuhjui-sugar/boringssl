@@ -1,0 +1,40 @@
+From 2913604e8cdf7b4df64c1f6c8e79a55e15043ba4 Mon Sep 17 00:00:00 2001
+From: Bob Beck <bbe@google.com>
+Date: Thu, 1 Jun 2023 17:55:39 +0200
+Subject: [PATCH 14/18] add breaks to avoid implicit-fallthrough warnings
+
+---
+ net/cert/pki/path_builder.cc | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/net/cert/pki/path_builder.cc b/net/cert/pki/path_builder.cc
+index 6013615437ae5..2f47b3964f9b1 100644
+--- a/net/cert/pki/path_builder.cc
++++ b/net/cert/pki/path_builder.cc
+@@ -135,6 +135,7 @@ int TrustAndKeyIdentifierMatchToOrder(const ParsedCertificate* target,
+         case kMismatch:
+           return kTrustedAndKeyIdMismatch;
+       }
++      break;
+     case CertificateTrustType::UNSPECIFIED:
+     case CertificateTrustType::TRUSTED_LEAF:
+       switch (key_id_match) {
+@@ -145,6 +146,7 @@ int TrustAndKeyIdentifierMatchToOrder(const ParsedCertificate* target,
+         case kMismatch:
+           return kKeyIdMismatch;
+       }
++      break;
+     case CertificateTrustType::DISTRUSTED:
+       switch (key_id_match) {
+         case kMatch:
+@@ -154,6 +156,7 @@ int TrustAndKeyIdentifierMatchToOrder(const ParsedCertificate* target,
+         case kMismatch:
+           return kDistrustedAndKeyIdMismatch;
+       }
++      break;
+   }
+   assert(0);  // NOTREACHED
+   return (-1);
+-- 
+2.41.0.rc0.172.g3f132b7071-goog
+
