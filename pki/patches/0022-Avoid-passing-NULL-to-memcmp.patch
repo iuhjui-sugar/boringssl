@@ -1,0 +1,40 @@
+From fe209102d3148d95fca3f25b75bcf106a82ea627 Mon Sep 17 00:00:00 2001
+From: Bob Beck <bbe@google.com>
+Date: Fri, 9 Jun 2023 13:24:21 -0600
+Subject: [PATCH 22/22] Avoid passing NULL to memcmp
+
+---
+ net/cert/pki/general_names.cc            | 1 +
+ net/cert/pki/verify_certificate_chain.cc | 4 ++--
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/net/cert/pki/general_names.cc b/net/cert/pki/general_names.cc
+index bafc81ca2c065..de3b1a6503cf9 100644
+--- a/net/cert/pki/general_names.cc
++++ b/net/cert/pki/general_names.cc
+@@ -40,6 +40,7 @@ bool IsSuffixZero(const IPAddressBytes& mask, unsigned prefix_length) {
+   size_t zero_bits = mask.size() * CHAR_BIT - prefix_length;
+   size_t zero_bytes = zero_bits / CHAR_BIT;
+   std::vector<uint8_t> zeros(zero_bytes, 0);
++  zeros.reserve(16);  // Reserve some data so we don't send NULL to memcmp.
+   if (memcmp(zeros.data(), mask.data() + mask.size() - zero_bytes, zero_bytes))
+     return false;
+   size_t leftover_bits = zero_bits % CHAR_BIT;
+diff --git a/net/cert/pki/verify_certificate_chain.cc b/net/cert/pki/verify_certificate_chain.cc
+index 41872f50652fd..7c0553612ee6a 100644
+--- a/net/cert/pki/verify_certificate_chain.cc
++++ b/net/cert/pki/verify_certificate_chain.cc
+@@ -508,8 +508,8 @@ class ValidPolicyGraph {
+     // parent. However, we must limit to those which are reachable from the
+     // end-entity certificate because we defer some pruning steps.
+     for (auto& [policy, node] : levels_.back()) {
+-      (void)policy; // [[maybe_unused]] is unhappy with these with many
+-                    // compilers, so this is needed to avoid an unused warning.
++      (void)policy;  // [[maybe_unused]] is unhappy with these with many
++                     // compilers, so this is needed to avoid an unused warning.
+       node.reachable = true;
+     }
+     std::set<der::Input> policy_set;
+-- 
+2.41.0.162.gfafddb0af9-goog
+
