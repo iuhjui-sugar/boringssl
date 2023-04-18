@@ -1,0 +1,26 @@
+From 72d3dedcbc5507010ae9ecac7e4cd16ecbd30815 Mon Sep 17 00:00:00 2001
+From: Bob Beck <bbe@google.com>
+Date: Thu, 1 Jun 2023 16:17:50 +0200
+Subject: [PATCH 05/21] Avoid making a copy of a der::Input which upsets
+ compiler
+
+---
+ net/cert/pki/test_helpers.cc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/net/cert/pki/test_helpers.cc b/net/cert/pki/test_helpers.cc
+index cf59748d96b1c..e76249c6312c4 100644
+--- a/net/cert/pki/test_helpers.cc
++++ b/net/cert/pki/test_helpers.cc
+@@ -469,7 +469,7 @@ void VerifyUserConstrainedPolicySet(
+     const std::set<der::Input>& actual_user_constrained_policy_set,
+     const std::string& errors_file_path) {
+   std::set<std::string> actual_user_constrained_policy_str_set;
+-  for (const auto der_oid : actual_user_constrained_policy_set) {
++  for (const der::Input & der_oid : actual_user_constrained_policy_set) {
+     actual_user_constrained_policy_str_set.insert(OidToString(der_oid));
+   }
+   if (expected_user_constrained_policy_str_set !=
+-- 
+2.41.0.rc0.172.g3f132b7071-goog
+

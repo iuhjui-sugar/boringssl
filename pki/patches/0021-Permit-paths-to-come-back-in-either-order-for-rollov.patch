@@ -1,0 +1,53 @@
+From 1ed8044b905718885653a1a87e3696f096c842e4 Mon Sep 17 00:00:00 2001
+From: Bob Beck <bbe@google.com>
+Date: Thu, 8 Jun 2023 09:45:53 -0600
+Subject: [PATCH 21/21] Permit paths to come back in either order for rollover
+ test.
+
+---
+ net/cert/pki/path_builder_unittest.cc | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
+
+diff --git a/net/cert/pki/path_builder_unittest.cc b/net/cert/pki/path_builder_unittest.cc
+index a3f9b22e10780..3ec91e72daea9 100644
+--- a/net/cert/pki/path_builder_unittest.cc
++++ b/net/cert/pki/path_builder_unittest.cc
+@@ -1133,13 +1133,21 @@ TEST_F(PathBuilderKeyRolloverTest, TestReturnsPartialPathEndedByLoopChecker) {
+   //   target->newintermediate->newroot
+   //   target->newintermediate->newrootrollover
+ 
++  // Keep track of which path comes back first.
++  bool rollover_first;
++
+   {
+     const auto& path = *result.paths[0];
+     EXPECT_FALSE(path.IsValid());
+     ASSERT_EQ(3U, path.certs.size());
+     EXPECT_EQ(target_, path.certs[0]);
+     EXPECT_EQ(newintermediate_, path.certs[1]);
+-    EXPECT_EQ(newroot_, path.certs[2]);
++    if ((rollover_first = newrootrollover_ == path.certs[2])) {
++      EXPECT_EQ(newrootrollover_, path.certs[2]);
++    } else {
++      EXPECT_EQ(newroot_, path.certs[2]);
++    }
++
+     EXPECT_TRUE(path.errors.ContainsError(cert_errors::kNoIssuersFound));
+   }
+ 
+@@ -1149,7 +1157,11 @@ TEST_F(PathBuilderKeyRolloverTest, TestReturnsPartialPathEndedByLoopChecker) {
+     ASSERT_EQ(3U, path.certs.size());
+     EXPECT_EQ(target_, path.certs[0]);
+     EXPECT_EQ(newintermediate_, path.certs[1]);
+-    EXPECT_EQ(newrootrollover_, path.certs[2]);
++    if (rollover_first) {
++      EXPECT_EQ(newroot_, path.certs[2]);
++    } else {
++      EXPECT_EQ(newrootrollover_, path.certs[2]);
++    }
+     EXPECT_TRUE(path.errors.ContainsError(cert_errors::kNoIssuersFound));
+   }
+ }
+-- 
+2.41.0.rc0.172.g3f132b7071-goog
+
