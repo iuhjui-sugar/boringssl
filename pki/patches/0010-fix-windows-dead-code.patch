@@ -1,0 +1,24 @@
+From 0712ade14fc4b90f7f120dd785a504c3d0ea335b Mon Sep 17 00:00:00 2001
+From: Bob Beck <bbe@google.com>
+Date: Fri, 2 Jun 2023 12:03:27 +0200
+Subject: [PATCH 10/16] fix windows dead code
+
+---
+ net/der/parse_values.cc | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/net/der/parse_values.cc b/net/der/parse_values.cc
+index 1385819f72b3a..0d1769af3ad94 100644
+--- a/net/der/parse_values.cc
++++ b/net/der/parse_values.cc
+@@ -116,7 +116,6 @@ bool ValidateGeneralizedTime(const GeneralizedTime& time) {
+       break;
+     default:
+       NOTREACHED();
+-      return false;
+   }
+   return true;
+ }
+-- 
+2.41.0.rc0.172.g3f132b7071-goog
+
