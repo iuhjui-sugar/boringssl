@@ -1,0 +1,31 @@
+From 8f347d7dd589389f4bc2b672422515816df0da3c Mon Sep 17 00:00:00 2001
+From: Bob Beck <bbe@google.com>
+Date: Thu, 1 Jun 2023 16:36:49 +0200
+Subject: [PATCH 08/21] avoid shadowed warnings in cert_errors.cc
+
+---
+ net/cert/pki/cert_errors.cc | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/net/cert/pki/cert_errors.cc b/net/cert/pki/cert_errors.cc
+index 843967426f903..82cc84485ae04 100644
+--- a/net/cert/pki/cert_errors.cc
++++ b/net/cert/pki/cert_errors.cc
+@@ -29,10 +29,10 @@ void AppendLinesWithIndentation(const std::string& text,
+ 
+ CertError::CertError() = default;
+ 
+-CertError::CertError(Severity severity,
+-                     CertErrorId id,
+-                     std::unique_ptr<CertErrorParams> params)
+-    : severity(severity), id(id), params(std::move(params)) {}
++CertError::CertError(Severity in_severity,
++                     CertErrorId in_id,
++                     std::unique_ptr<CertErrorParams> in_params)
++    : severity(in_severity), id(in_id), params(std::move(in_params)) {}
+ 
+ CertError::CertError(CertError&& other) = default;
+ 
+-- 
+2.41.0.rc0.172.g3f132b7071-goog
+
