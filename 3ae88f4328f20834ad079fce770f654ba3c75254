@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "75b8a497_60c5a1fc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-04-19T11:37:12Z",
+      "side": 1,
+      "message": "Please take another look. The cleanup you suggested worked out well. For addcarry, I use the intrinsic if _M_X64 and generic code otherwise.",
+      "revId": "3ae88f4328f20834ad079fce770f654ba3c75254",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

@@ -35,6 +35,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2db59d1b_8d36fa48",
+        "filename": "crypto/curve25519/curve25519.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-04-19T11:37:12Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "bdd8784f_e0b63455",
+      "revId": "824129238f0d64b281917d8c650ea7b8054b245c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9e3d0ef5_3c9e73f0",
@@ -58,6 +76,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6208dd78_29fefcc4",
+        "filename": "crypto/curve25519/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-04-19T11:37:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e3d0ef5_3c9e73f0",
+      "range": {
+        "startLine": 39,
+        "startChar": 21,
+        "endLine": 39,
+        "endChar": 63
+      },
+      "revId": "824129238f0d64b281917d8c650ea7b8054b245c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6b7978b9_42f096dd",
@@ -71,6 +113,24 @@
       "writtenOn": "2023-03-09T21:52:18Z",
       "side": 1,
       "message": "Ditto about the order.",
+      "revId": "824129238f0d64b281917d8c650ea7b8054b245c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f18da7d2_785d93a5",
+        "filename": "crypto/fipsmodule/ec/p256.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-04-19T11:37:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6b7978b9_42f096dd",
       "revId": "824129238f0d64b281917d8c650ea7b8054b245c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -106,6 +166,24 @@
       "side": 1,
       "message": "Okay, now we have both win_arm64_compile (which should be win_arm64_clang_compile) and win_arm64_msvc_compile (which should be win_arm64_compile) under \"choose tryjobs\" and we can repro the issue in plain MSVC too. I\u0027ll add them to Commit-Queue+1 by default shortly, since it seems to be working.",
       "parentUuid": "edcdd247_b42ad168",
+      "revId": "824129238f0d64b281917d8c650ea7b8054b245c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f1f4c13_8c3ad36d",
+        "filename": "third_party/fiat/curve25519_64_msvc.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-04-19T11:37:12Z",
+      "side": 1,
+      "message": "Done enough to pass CQ; though I am not sure whether what I did for the header include is intelligent.",
+      "parentUuid": "6df30514_e9df7ae5",
       "revId": "824129238f0d64b281917d8c650ea7b8054b245c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
