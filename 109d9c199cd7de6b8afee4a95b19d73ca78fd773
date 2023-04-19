@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b92483d_8dbc47ca",
+        "filename": "crypto/x509/t_x509.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-19T17:00:59Z",
+      "side": 1,
+      "message": "If you\u0027re wondering, this is why it\u0027s not const right now. We possibly should think about that function a bit. Though it mutates a cache, it is locked and stuff.\n\nLeft it alone for now.",
+      "revId": "109d9c199cd7de6b8afee4a95b19d73ca78fd773",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
