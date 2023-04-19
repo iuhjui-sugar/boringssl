@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fc833c9_a01fac53",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-04-19T20:01:31Z",
+      "side": 1,
+      "message": "That\u0027s truly horrible. my eyes... and yes, as discussed there seems to not be a better alternative.",
+      "revId": "456543cda9d21bff9c500f8f038719d67c713b13",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
