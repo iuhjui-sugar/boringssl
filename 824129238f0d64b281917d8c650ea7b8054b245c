@@ -188,6 +188,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e201b94_d8731564",
+        "filename": "third_party/fiat/curve25519_64_msvc.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-19T16:09:26Z",
+      "side": 1,
+      "message": "Looks great. Thanks!",
+      "parentUuid": "9f1f4c13_8c3ad36d",
+      "revId": "824129238f0d64b281917d8c650ea7b8054b245c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9799148a_e5aafd66",
@@ -219,6 +237,24 @@
       "side": 1,
       "message": "Not that I know of, though MSVC is also much less aggressive than GCC or Clang, so hopefully it\u0027s less of a concern.\n\nWhat does fiat output if you leave it alone? If the default is to output the `#if !defined(FIAT_P256_NO_ASM) \u0026\u0026 (defined(__GNUC__) || defined(__clang__))` thing, we can also just leave it in there and care too much. :-)",
       "parentUuid": "9799148a_e5aafd66",
+      "revId": "824129238f0d64b281917d8c650ea7b8054b245c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81672c5d_4132072d",
+        "filename": "third_party/fiat/curve25519_64_msvc.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-19T16:09:26Z",
+      "side": 1,
+      "message": "(Making resolved.)",
+      "parentUuid": "b2d993a6_3a840c37",
       "revId": "824129238f0d64b281917d8c650ea7b8054b245c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
