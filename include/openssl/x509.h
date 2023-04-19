@@ -2716,6 +2716,11 @@ OPENSSL_EXPORT void X509_STORE_set_verify(X509_STORE *ctx,
 OPENSSL_EXPORT void X509_STORE_CTX_set_verify(X509_STORE_CTX *ctx,
                                               X509_STORE_CTX_verify_fn verify);
 OPENSSL_EXPORT X509_STORE_CTX_verify_fn X509_STORE_get_verify(X509_STORE *ctx);
+
+// X509_STORE_set_verify_cb acts like |X509_STORE_CTX_set_verify_cb| but sets
+// the verify callback for any |X509_STORE_CTX| created from this |X509_STORE|
+//
+// DO NOT USE THIS FUNCTION - see |X509_STORE_CTX_set_verify_cb|.
 OPENSSL_EXPORT void X509_STORE_set_verify_cb(
     X509_STORE *ctx, X509_STORE_CTX_verify_cb verify_cb);
 #define X509_STORE_set_verify_cb_func(ctx, func) \
@@ -2856,8 +2861,28 @@ OPENSSL_EXPORT void X509_STORE_CTX_set_time(X509_STORE_CTX *ctx,
 OPENSSL_EXPORT void X509_STORE_CTX_set_time_posix(X509_STORE_CTX *ctx,
                                                   unsigned long flags,
                                                   int64_t t);
+
+// X509_STORE_CTX_set_verify_cb configures a callback function for |ctx| that is
+// called at multiple times during |X509_verify|, as |X509_verify| modifies
+// |CTX| during the process of path finding and chain verification. The first
+// parameter |ok| is set to a potential return value of a stage in the
+// verification process.  the callback function's return value should normally
+// be the same value as |ok| unless the callback wants to override a stage of
+// the verification process, which the callback does not explicitly know but may
+// choose to attempt to guess by looking at the error stack in |ctx|. Doing this
+// in any sort of what appears to be accurate way depends on the internal
+// workings of |X509_verify| which may be subject to change, and can possibly be
+// different for the same certificate chain for reasons outside the control of
+// the caller.
+//
+// DO NOT USE OR DEPEND ON THIS FUNCTION. It will look deceptively like you have
+// all the corner cases and you will not. Making this function return any value
+// but the value of |ok| passed into it will result in undefined behaviour from
+// |X509_verify| and possibly security problems, No assumptions should be made
+// about state of what is left in an X509_STORE_ctx after a partial or failed
+// verification, as this should be considered undefined behaviour.
 OPENSSL_EXPORT void X509_STORE_CTX_set_verify_cb(
-    X509_STORE_CTX *ctx, int (*verify_cb)(int, X509_STORE_CTX *));
+    X509_STORE_CTX *ctx, int (*verify_cb)(int ok, X509_STORE_CTX *ctx));
 
 OPENSSL_EXPORT X509_VERIFY_PARAM *X509_STORE_CTX_get0_param(
     X509_STORE_CTX *ctx);
