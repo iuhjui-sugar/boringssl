@@ -1,8 +1,3 @@
-# Additional interop for things like macros and inlined functions.
-add_library(rust_wrapper STATIC rust_wrapper.c)
-target_link_libraries(rust_wrapper crypto)
-
-
 # Generate architecture-specific wrappers.
 set(WRAPPER_TARGET ${CMAKE_BINARY_DIR}/rust/bssl-sys/src/wrapper_${RUST_BINDINGS}.rs)
 set(COMMAND ${BINDGEN_EXECUTABLE} wrapper.h
@@ -32,6 +27,9 @@ set(COMMAND ${BINDGEN_EXECUTABLE} wrapper.h
             # switch to that.
             --allowlist-file=".*[[:punct:]]include[[:punct:]]openssl[[:punct:]].*\\.h"
             --allowlist-file=".*[[:punct:]]rust_wrapper\\.h"
+            --experimental
+            --wrap-static-fns
+            --wrap-static-fns-path="${CMAKE_CURRENT_BINARY_DIR}/wrapper.c"
             -- # these are LLVM arg passthroughs
             -I../../include
             # https://doc.rust-lang.org/nightly/rustc/platform-support.html
@@ -41,9 +39,20 @@ add_custom_target(
   bindgen_rust_${RUST_BINDINGS}
   ALL
   ${COMMAND}
-  BYPRODUCTS ${WRAPPER_TARGET}
+  BYPRODUCTS ${WRAPPER_TARGET} ${CMAKE_CURRENT_BINARY_DIR}/wrapper.c
   WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
+
+add_library(
+  rust_wrapper
+  STATIC
+  ${CMAKE_CURRENT_BINARY_DIR}/wrapper.c
+)
+if(CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_COMPILER_IS_GNUCXX)
+  target_compile_options(rust_wrapper PRIVATE "-Wno-missing-prototypes")
+endif()
+target_include_directories(rust_wrapper PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+target_link_libraries(rust_wrapper crypto)
 
 # move files into build directory
 configure_file("src/lib.rs" "src/lib.rs")
