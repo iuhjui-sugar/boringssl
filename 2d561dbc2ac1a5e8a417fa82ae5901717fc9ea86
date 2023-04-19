@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f4fbab8_6597aa09",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 1908,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-04-19T19:31:02Z",
+      "side": 1,
+      "message": "It\u0027s a crying shame these even exist..",
+      "revId": "2d561dbc2ac1a5e8a417fa82ae5901717fc9ea86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
