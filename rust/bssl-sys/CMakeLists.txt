@@ -4,7 +4,7 @@ target_link_libraries(rust_wrapper crypto)
 
 
 # Generate architecture-specific wrappers.
-set(WRAPPER_TARGET ${CMAKE_BINARY_DIR}/rust/bssl-sys/src/wrapper_${RUST_BINDINGS}.rs)
+set(WRAPPER_TARGET ${CMAKE_CURRENT_BINARY_DIR}/src/wrapper_${RUST_BINDINGS}.rs)
 set(COMMAND ${BINDGEN_EXECUTABLE} wrapper.h
             -o ${WRAPPER_TARGET}
             --no-derive-default
@@ -37,13 +37,18 @@ set(COMMAND ${BINDGEN_EXECUTABLE} wrapper.h
             # https://doc.rust-lang.org/nightly/rustc/platform-support.html
             --target=${RUST_BINDINGS})
 
-add_custom_target(
-  bindgen_rust_${RUST_BINDINGS}
-  ALL
-  ${COMMAND}
-  BYPRODUCTS ${WRAPPER_TARGET}
+# Ideally we'd use bindgen and ninja's depfile support but that didn't work when
+# we tried it. There may be some mismatch in the syntax. Instead, explicitly
+# depend on all our headers. This won't quite work right when adding a new
+# header without re-running CMake. For that, we need depfiles.
+file(GLOB headers ../../include/openssl/*.h)
+add_custom_command(
+  OUTPUT ${WRAPPER_TARGET}
+  COMMAND ${COMMAND}
+  DEPENDS wrapper.h ${headers}
   WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
+add_custom_target(bssl_sys ALL DEPENDS ${WRAPPER_TARGET})
 
 # move files into build directory
 configure_file("src/lib.rs" "src/lib.rs")
