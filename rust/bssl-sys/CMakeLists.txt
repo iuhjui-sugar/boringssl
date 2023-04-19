@@ -12,8 +12,10 @@ set(COMMAND ${BINDGEN_EXECUTABLE} "wrapper.h"
             --use-core
             --default-macro-constant-type="signed"
             --rustified-enum="point_conversion_form_t"
-            --allowlist-file=".*/include/openssl/.*\\.h"
-            --allowlist-file=".*/rust_wrapper\\.h"
+            # This is a regex with two layers of escaping: one for CMake and
+            # one for the regex itself.
+            --allowlist-file=".*[/\\\\]include[/\\\\]openssl[/\\\\].*\\.h"
+            --allowlist-file=".*[/\\\\]rust_wrapper\\.h"
             -- # these are LLVM arg passthroughs
             -I../../include
             # https://doc.rust-lang.org/nightly/rustc/platform-support.html
