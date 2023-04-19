@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6db07431_6fa39fdb",
+        "filename": "rust/bssl-sys/CMakeLists.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-04-19T21:04:36Z",
+      "side": 1,
+      "message": "Gerrit really needs to allow for meme comments so this can be approved with the lego movie \"everything is awful\" spoof.",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 60
+      },
+      "revId": "8d1b8a3b8ffc83cc119e7d5bee8c9a3dfa2da681",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
