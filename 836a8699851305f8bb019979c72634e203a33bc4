@@ -1,0 +1,313 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65323a4e_1af2c949",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-20T18:37:09Z",
+      "side": 1,
+      "message": "Nit: extra space",
+      "range": {
+        "startLine": 80,
+        "startChar": 39,
+        "endLine": 80,
+        "endChar": 41
+      },
+      "revId": "836a8699851305f8bb019979c72634e203a33bc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61f4fb79_5e47bd14",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-20T18:37:09Z",
+      "side": 1,
+      "message": "I\u0027m... not sure why I said this function was fallible. I think you can ignore that case. :-)",
+      "revId": "836a8699851305f8bb019979c72634e203a33bc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2212e814_b50686da",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-20T18:37:09Z",
+      "side": 1,
+      "message": "Nit: Should we call this hash_to_scalar_challenge or something like that? Wasn\u0027t sure what \"composite\" referred to, but this seems to be specific to the \"Challenge\" calculation.\n\nEdit: Oh I see something else is called \"composite\". Typo?",
+      "range": {
+        "startLine": 316,
+        "startChar": 11,
+        "endLine": 316,
+        "endChar": 35
+      },
+      "revId": "836a8699851305f8bb019979c72634e203a33bc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c029b30_09216fb2",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-20T18:37:09Z",
+      "side": 1,
+      "message": "Optional: looks like this is some 496 bytes or so. Maybe round up to 512 to not worry about it. We can probably save some allocations by either `CBB_init(\u0026cbb, 512)` or even just `uint8_t transcript[512]` and then `CBB_init_fixed`. (`CBB` will bounds-check it, so we\u0027ll know if it\u0027s the wrong size.)\n\nOr if 512 is too magic, we could declare it as `5 * EC_MAX_UNCOMPRESSED + 2 + sizeof(kChallengeLabel)` (see comment below about `EC_MAX_UNCOMPRESSED`).",
+      "revId": "836a8699851305f8bb019979c72634e203a33bc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "45c9b5b5_bb876ae8",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-20T18:37:09Z",
+      "side": 1,
+      "message": "Nit: clang-format",
+      "range": {
+        "startLine": 505,
+        "startChar": 21,
+        "endLine": 505,
+        "endChar": 22
+      },
+      "revId": "836a8699851305f8bb019979c72634e203a33bc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61a17d58_f8ea6ab6",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 735,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-20T18:37:09Z",
+      "side": 1,
+      "message": "This includes the trailing NUL. Is it supposed to? (Skimming the spec, it looks like isn\u0027t, but I could be reading it wrong.)\n\nHow hard would it be to make some tests that capture the official test vectors? I guess, since we didn\u0027t make an actual VOPRF API, it\u0027s a little tricky, but maybe by calling into internals in the right place? And then we can morph that into an actual VOPRF API later.",
+      "range": {
+        "startLine": 735,
+        "startChar": 26,
+        "endLine": 735,
+        "endChar": 41
+      },
+      "revId": "836a8699851305f8bb019979c72634e203a33bc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "57af7a38_008e4a4e",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 745,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-20T18:37:09Z",
+      "side": 1,
+      "message": "May as well use the single-shot function. A bit shorter:\n`SHA384(buf, len, out);`\n\nAlternatively, we can avoid the CBB business and allocations:\n\n```\nstatic void sha384_update_u16(SHA512_CTX *ctx, uint16_t v) {\n  uint8_t buf[2] \u003d {v \u003e\u003e 8, v \u0026 0xff};\n  SHA384_Update(ctx, buf, 2);\n}\n\nstatic void sha384_update_point_with_length(\n     SHA512_CTX *ctx, const EC_GROUP *group, const EC_AFFINE *point) {\n  // Should we #define EC_MAX_UNCOMPRESSED (2*EC_MAX_BYTES + 1) in\n  // ec/internal.h?\n  uint8_t buf[2 * EC_MAX_BYTES + 1];\n  size_t len \u003d ec_point_to_bytes(group, point, POINT_CONVERSION_UNCOMPRESSED, buf, sizeof(buf));\n  assert(len \u003e 0);\n  sha384_update_u16(ctx, (uint16_t)len);\n  SHA384_Update(ctx, buf, len);\n}\n\nstatic void compute_composite_seed(const VOPRF_METHOD *method,\n                                   uint8_t out[SHA384_DIGEST_LENGTH],\n                                   const EC_AFFINE *pub) {\n  const EC_GROUP *group \u003d method-\u003egroup;\n  static const uint8_t kSeedDST[] \u003d \"Seed-OPRFV1-\\x01-P384-SHA384\"; \n\n  SHA512_CTX hash_ctx;\n  SHA384_Init(\u0026hash_ctx);\n  sha384_update_point_with_length(\u0026hash_ctx, group, pub);\n  sha384_update_u16(\u0026hash_ctx, sizeof(kSeedDST));\n  SHA384_Update(\u0026hash_ctx, kSeedDST, sizeof(kSeedDST));\n  SHA384_Final(\u0026hash_ctx, out);\n}\n```",
+      "revId": "836a8699851305f8bb019979c72634e203a33bc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2be7a3ff_0c697e8b",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 770,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-20T18:37:09Z",
+      "side": 1,
+      "message": "Should we make this fail if `index \u003e UINT16_MAX`? Seems VOPRF just doesn\u0027t allow more than 2^16 in a batch.",
+      "range": {
+        "startLine": 770,
+        "startChar": 25,
+        "endLine": 770,
+        "endChar": 30
+      },
+      "revId": "836a8699851305f8bb019979c72634e203a33bc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "078de443_a904c00f",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 774,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-20T18:37:09Z",
+      "side": 1,
+      "message": "Ditto about whether this is meant to include a trailing NUL.",
+      "range": {
+        "startLine": 774,
+        "startChar": 21,
+        "endLine": 774,
+        "endChar": 27
+      },
+      "revId": "836a8699851305f8bb019979c72634e203a33bc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef2482af_e6041f6a",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 776,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-20T18:37:09Z",
+      "side": 1,
+      "message": "Optional: similar to above comment, this works out to 253 bytes, so we can probably save some allocations.",
+      "revId": "836a8699851305f8bb019979c72634e203a33bc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "616928c7_3ffdf4f1",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 819,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-20T18:37:09Z",
+      "side": 1,
+      "message": "Nit: clang-format",
+      "range": {
+        "startLine": 819,
+        "startChar": 23,
+        "endLine": 819,
+        "endChar": 25
+      },
+      "revId": "836a8699851305f8bb019979c72634e203a33bc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "369ebfc3_ddad92ed",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 831,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-20T18:37:09Z",
+      "side": 1,
+      "message": "We\u0027ve also got a subtraction function. :-)\n`ec_scalar_sub(group, \u0026s, \u0026r, \u0026neg_res);`\n\n(Also you can fold `neg_res` into `s`, but whatever.)",
+      "revId": "836a8699851305f8bb019979c72634e203a33bc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8a8e4b4_60d01eb4",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 878,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-20T18:37:09Z",
+      "side": 1,
+      "message": "Nit: May as well call this `expected_c` to align with the spec\u0027s names.",
+      "range": {
+        "startLine": 878,
+        "startChar": 12,
+        "endLine": 878,
+        "endChar": 22
+      },
+      "revId": "836a8699851305f8bb019979c72634e203a33bc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "105cbdc2_67537aa8",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 894,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-20T18:37:09Z",
+      "side": 1,
+      "message": "Having a slightly hard time following how these bits relate to the VOPRF spec. I see this is calling into GenerateProof and friends from VOPRF, but not seeing this function. (Maybe worth a comment?) But I\u0027m also a little confused because GenerateProof seems to take a list of elements, yet VOPRF only calls it with one element anyway.",
+      "range": {
+        "startLine": 894,
+        "startChar": 11,
+        "endLine": 894,
+        "endChar": 21
+      },
+      "revId": "836a8699851305f8bb019979c72634e203a33bc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11ac9dfb_8b4be292",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 938,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-20T18:37:09Z",
+      "side": 1,
+      "message": "Nit: 80 chars",
+      "revId": "836a8699851305f8bb019979c72634e203a33bc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
