@@ -16,6 +16,132 @@
       "message": "I\u0027m probably far to spicy here. suggest changes ;)",
       "revId": "430b4b40752a340d59237ac64b74531115c6f4d9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "936b27f0_15b38fe7",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2723,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-20T23:17:05Z",
+      "side": 1,
+      "message": "Nit: Not that it matters, but just sampling `git grep -i \u0027do not use\u0027 include/`, perhaps:\n\n`WARNING: Do not use this function. See |X509_STORE_CTX_set_verify_cb|.`",
+      "revId": "430b4b40752a340d59237ac64b74531115c6f4d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6d0f7d8_13c209f5",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2866,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-20T23:17:05Z",
+      "side": 1,
+      "message": "X509_verify_cert. X509_verify is the one that only checks a signature. This makes a lot of sense. :-)",
+      "range": {
+        "startLine": 2866,
+        "startChar": 36,
+        "endLine": 2866,
+        "endChar": 47
+      },
+      "revId": "430b4b40752a340d59237ac64b74531115c6f4d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aa456b66_69b5a18c",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2867,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-20T23:17:05Z",
+      "side": 1,
+      "message": "ctx",
+      "range": {
+        "startLine": 2867,
+        "startChar": 4,
+        "endLine": 2867,
+        "endChar": 7
+      },
+      "revId": "430b4b40752a340d59237ac64b74531115c6f4d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7fadc47_49710394",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2869,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-20T23:17:05Z",
+      "side": 1,
+      "message": "s/ the/The/. (Capital and single space.)",
+      "range": {
+        "startLine": 2869,
+        "startChar": 24,
+        "endLine": 2869,
+        "endChar": 29
+      },
+      "revId": "430b4b40752a340d59237ac64b74531115c6f4d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1caaf580_8641860b",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2876,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-20T23:17:05Z",
+      "side": 1,
+      "message": "Perhaps a little less wordy would be:\n\n\u003e X509_STORE_CTX_set_verify_cb configures a callback function for |ctx| that is called multiple times during |X509_verify_cert|. The callback returns zero to fail verification and non-zero to proceed. Typically, it will return |ok|, which preserves the default behavior. Returning one when |ok| is zero will proceed past some error. The callback inspects |ctx| and the error queue to determine the current stage of certificate verification.\n\u003e\n\u003e WARNING: Do not use this function. It is extremely fragile and unpredictable. This callback exposes implementation details of certificate verification, which change as the library evolves. Attempting to use it for security checks can introduce vulnerabilities if making incorrect assumptions about when the callback is called. Additionally, overriding |ok| may leave |ctx| in an inconsistent state and break invariants.\n\u003e\n\u003e Instead, customize certificate verification by configuring options on the |X509_STORE_CTX| before verification, or applying additional checks after |X509_verify_cert| completes successfully.\n\nWDYT?",
+      "revId": "430b4b40752a340d59237ac64b74531115c6f4d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "080237db_c62fe212",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2882,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-20T23:17:05Z",
+      "side": 1,
+      "message": "|X509_STORE_CTX|",
+      "range": {
+        "startLine": 2882,
+        "startChar": 37,
+        "endLine": 2882,
+        "endChar": 51
+      },
+      "revId": "430b4b40752a340d59237ac64b74531115c6f4d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
