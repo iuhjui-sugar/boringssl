@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a0487b25_296feea4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-04-21T00:37:50Z",
+      "side": 1,
+      "message": "What\u0027s the line between deprecating and deleting? If we think something is garbage, we usually delete it. Is the aim here to try stop new users of something, even if we can\u0027t get rid of it? If so, will it achieve that aim? David linked to a comment that says that these warnings won\u0027t appear in google3 (right?). Even if they did,  a lot of really bad callers are 3rd-party imports and what\u0027ll be our position there?",
+      "parentUuid": "c627893f_dbbf8bc8",
+      "revId": "2675d0691b836725fcfd5adf944b724e314043a6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9315df74_ad47fb73",
         "filename": "include/openssl/base.h",
         "patchSetId": 11
