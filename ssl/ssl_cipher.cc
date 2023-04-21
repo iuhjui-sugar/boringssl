@@ -545,8 +545,8 @@ static const CIPHER_ALIAS kCipherAliases[] = {
     {"TLSv1.2", ~0u, ~0u, ~0u, ~0u, TLS1_2_VERSION},
 
     // Legacy strength classes.
-    {"HIGH", ~0u, ~0u, ~0u, ~0u, 0},
-    {"FIPS", ~0u, ~0u, ~0u, ~0u, 0},
+    {"HIGH", ~0u, ~0u, ~SSL_3DES, ~0u, 0},
+    {"FIPS", ~0u, ~0u, ~SSL_3DES, ~0u, 0},
 
     // Temporary no-op aliases corresponding to removed SHA-2 legacy CBC
     // ciphers. These should be removed after 2018-05-14.
