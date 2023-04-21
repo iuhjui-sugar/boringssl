@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "028cc567_18e0a509",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-04-21T17:59:11Z",
+      "side": 1,
+      "message": "Well at least now depfiles work.",
+      "revId": "4f1c05e4febc38301d51a4e9c6528f08d1e3ff07",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
