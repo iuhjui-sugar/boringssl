@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "16cf69b2_a5009623",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-21T15:10:37Z",
+      "side": 1,
+      "message": "I think it depends on what this flag actually does. My read of the absl comment is that google3 won\u0027t fail the build or even spew warnings, just give you little notes in code review. My hope is that\u0027d mean 1p code is discouraged from using it while 3p code is out of our control, but we can sometimes patch if rare/unused. If that\u0027s common, we can probably `OPENSSL_DEPRECATED` every function we document as deprecated and nudge 1p code slightly harder. That\u0027d be a nice outcome IMO.\n\nBut that\u0027s just google3. If it appears as a warning or build error in a repo with lots of 3p code, we either can only tag functions that will be shortly removed anyway (much more limited use), or those repos need to pass -Wno-deprecated-declarations to 3p projects, which is a bit coarse-grained and may be too disruptive.\n\nThis particular function is going to be very low blast radius (it\u0027s removable with a bit more work), to the point that we\u0027ll probably confirm the google3 situation and little else.",
+      "parentUuid": "a0487b25_296feea4",
+      "revId": "2675d0691b836725fcfd5adf944b724e314043a6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9315df74_ad47fb73",
         "filename": "include/openssl/base.h",
         "patchSetId": 11
