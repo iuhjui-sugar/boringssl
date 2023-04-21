@@ -72,6 +72,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3886d89_797c97c5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-04-21T15:28:13Z",
+      "side": 1,
+      "message": "The disruption to non-google3 consumers is what\u0027ll determine how widely we can use this. (Perhaps we could #ifdef it only to google3 in the future.)\n\nBut learning the google3 behaviour with this SGTM then we can figure out the plan.",
+      "parentUuid": "16cf69b2_a5009623",
+      "revId": "2675d0691b836725fcfd5adf944b724e314043a6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9315df74_ad47fb73",
