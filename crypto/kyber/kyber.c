@@ -309,19 +309,28 @@ static void scalar_centered_binomial_distribution_eta_2_with_prf(
   static_assert(sizeof(entropy) == 2 * /*kEta=*/2 * DEGREE / 8, "");
   BORINGSSL_keccak(entropy, sizeof(entropy), input, 33, boringssl_shake256);
 
-  for (int i = 0; i < DEGREE; i += 2) {
-    uint8_t byte = entropy[i / 2];
+  const uint64_t kEvenBits = UINT64_C(0x5555555555555555);
+  // kPrime4 is kPrime repeated across the four 16-bit words.
+  const uint64_t kPrime4 = UINT64_C(0x0d010d010d010d01);
+  const uint64_t kBottom2Bits4 = UINT64_C(0x0003000300030003);
 
-    uint16_t value = kPrime;
-    value += (byte & 1) + ((byte >> 1) & 1);
-    value -= ((byte >> 2) & 1) + ((byte >> 3) & 1);
-    out->c[i] = reduce_once(value);
+  for (int i = 0; i < DEGREE; i += 12) {
+    uint64_t bits;
+    OPENSSL_memcpy(&bits, &entropy[i / 2], sizeof(bits));
 
-    byte >>= 4;
-    value = kPrime;
-    value += (byte & 1) + ((byte >> 1) & 1);
-    value -= ((byte >> 2) & 1) + ((byte >> 3) & 1);
-    out->c[i + 1] = reduce_once(value);
+    uint64_t sums = (bits & kEvenBits) + ((bits >> 1) & kEvenBits);
+    for (int j = 0; j < 4; j++) {
+      uint64_t outputs = kPrime4;
+      outputs += sums & kBottom2Bits4;
+      outputs -= (sums >> 2) & kBottom2Bits4;
+      out->c[i] = reduce_once(outputs & 0xffff);
+      out->c[i + 4] = reduce_once((outputs >> 16) & 0xffff);
+      out->c[i + 8] = reduce_once((outputs >> 32) & 0xffff);
+      out->c[i + 12] = reduce_once((outputs >> 48) & 0xffff);
+
+      sums >>= 4;
+      i++;
+    }
   }
 }
 
