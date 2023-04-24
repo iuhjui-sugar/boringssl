@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3405d25f_020f6556",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-24T20:04:54Z",
+      "side": 1,
+      "message": "Optional: Is it worth adding a function like:\n\n```\nstatic bool add_tls13_cipher(CBB *cbb, uint16_t cipher_id, ssl_compliance_policy_t policy) {\n  if (ssl_tls13_cipher_meets_policy(cipher_id, policy)) {\n    return CBB_add_u16(cbb, cipher_id);\n  }\n  return 1;\n}\n```\n\nThen we don\u0027t need `include_chacha20` and whatnot.",
+      "revId": "00a657e08919525826e367b4ee93dd4ecc266464",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75022d21_b0a89483",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-24T20:04:54Z",
+      "side": 1,
+      "message": "Nit: I think this can fit on one line.",
+      "revId": "00a657e08919525826e367b4ee93dd4ecc266464",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
