@@ -5322,6 +5322,12 @@ TEST(X509Test, Policy) {
   bssl::UniquePtr<X509> leaf_require1(CertFromPEM(
       GetTestData("crypto/x509/test/policy_leaf_require1.pem").c_str()));
   ASSERT_TRUE(leaf_require1);
+  bssl::UniquePtr<X509> leaf_rpki(CertFromPEM(
+      GetTestData("crypto/x509/test/policy_rpki_leaf.pem").c_str()));
+  ASSERT_TRUE(leaf_rpki);
+  bssl::UniquePtr<X509> root_rpki(CertFromPEM(
+      GetTestData("crypto/x509/test/policy_rpki_root.pem").c_str()));
+  ASSERT_TRUE(root_rpki);
 
   auto set_policies = [](X509_VERIFY_PARAM *param,
                          std::vector<const ASN1_OBJECT *> oids) {
@@ -5668,6 +5674,11 @@ TEST(X509Test, Policy) {
              [&](X509_VERIFY_PARAM *param) {
                set_policies(param, {oid3.get()});
              }));
+
+  // Test a real case from rpki.
+  EXPECT_EQ(X509_V_OK, Verify(leaf_rpki.get(), {root_rpki.get()}, {},
+                              /*crls=*/{}, X509_V_FLAG_EXPLICIT_POLICY));
+  
 }
 
 #if defined(OPENSSL_THREADS)
