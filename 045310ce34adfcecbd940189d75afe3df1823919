@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03a72bea_e6ea1f34",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-24T20:47:10Z",
+      "side": 1,
+      "message": "Oddly, I\u0027m getting kind of a wash on my laptop (M1) and workstation (Xeon). Glancing at the disassembly, Clang seems to already vectorize that code effectively, all the way into 128-bit regs. (Though maybe other compilers would be less good at that.)",
+      "range": {
+        "startLine": 9,
+        "startChar": 26,
+        "endLine": 9,
+        "endChar": 28
+      },
+      "revId": "045310ce34adfcecbd940189d75afe3df1823919",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e636b04_54012507",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-24T20:47:10Z",
+      "side": 1,
+      "message": "`i +\u003d 12` here and then the four `i++`s below threw me off at first! Maybe worth a comment. Or perhaps just `i + j` in the loop and `i +\u003d 16` here. (Hopefully the compiler can figure that one out...)",
+      "range": {
+        "startLine": 317,
+        "startChar": 35,
+        "endLine": 317,
+        "endChar": 37
+      },
+      "revId": "045310ce34adfcecbd940189d75afe3df1823919",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
