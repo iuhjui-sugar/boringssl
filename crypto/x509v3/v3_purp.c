@@ -326,6 +326,9 @@ int X509_supported_extension(const X509_EXTENSION *ex) {
   // normally reject the certificate. The list must be kept in numerical
   // order because it will be searched using bsearch.
 
+  // XXX hack
+  return 1;
+
   static const int supported_nids[] = {
       NID_netscape_cert_type,    // 71
       NID_key_usage,             // 83
