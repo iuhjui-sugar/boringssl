@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1f54bd5f_f770bf2b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-25T15:30:15Z",
+      "side": 1,
+      "message": "Perhaps:\n\nAlign TRUST_TOKEN_pst_v1_voprf with draft-21 of VOPRF\n\nThis aligns the DLEQ proof portion of TRUST_TOKEN_pst_v1_voprf with draft-irtf-cfrg-voprf-21. The blind and finalize operations still differ. Additionally, as VOPRF doesn\u0027t include batched issuance, the issuance process around the DLEQ proof is adapted from draft-robert-privacypass-batched-tokens-01.",
+      "revId": "d30f9a5e2c024157c18811d26f7571eef68c520c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e8c1076_88836c49",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-25T15:30:15Z",
+      "side": 1,
+      "message": "Bug: chromium:1414562",
+      "revId": "d30f9a5e2c024157c18811d26f7571eef68c520c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a7d1386_a62ed211",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-25T15:30:15Z",
+      "side": 1,
+      "message": "No harm, in doing it, but you no longer need to `CBB_cleanup` fixed-width `CBB`s. And `CBB_init_fixed` can be treated as infallible.",
+      "revId": "d30f9a5e2c024157c18811d26f7571eef68c520c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f37e783_70ad96e0",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-25T15:30:15Z",
+      "side": 1,
+      "message": "Nit: trailing whitespace",
+      "range": {
+        "startLine": 755,
+        "startChar": 0,
+        "endLine": 755,
+        "endChar": 2
+      },
+      "revId": "d30f9a5e2c024157c18811d26f7571eef68c520c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

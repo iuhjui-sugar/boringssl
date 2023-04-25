@@ -261,6 +261,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "679fe7bb_b51b9a9e",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 735,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-25T15:30:15Z",
+      "side": 1,
+      "message": "And I suppose our trick of sampling some of the random scalars in Montgomery form complicates things. :-) TBH, a single Montgomery reduction is pretty cheap and probably not worth optimizing, so we can just drop that if needed.\n\nThe two non-deterministic bits here are `voprf_blind` sampling the input and blinding value, and then `voprf_sign`\u0027s random scalar in the proof, right?\n\nIt\u0027s not like any of the test vectors apply for this `voprf_blind` because it\u0027s not matching any spec anyway. The token_input construction in draft-robert-privacypass-batched-tokens-01 is also very different from what\u0027s implemented here. :-) The only part that does match is the actual scalar multiplies, which we probably can skip test vectors for.\n\nThe DLEQ proof has a lot of inputs and I think test vectors are worthwhile here if we want to claim some semblance of implementing the VOPRF draft. In particular, I\u0027m fairly sure `sizeof(kSeedDST)` should be `sizeof(kSeedDST) - 1` here, but that\u0027s what test vectors are for.\n\nFinalize also has a lot of interesting inputs, but you\u0027re also not matching either draft there. :-)\n\nSo I think that means we just want test vectors for `voprf_blind` for now. That seems a bit more manageable. Would something like this work?\n\n1. Make `generate_proof` take `const EC_SCALAR *r` as a parameter, rather than generating it internally.\n\n2. Split `voprf_sign` into these three functions:\n\n```\nint voprf_sign_impl(\n    const VOPRF_METHOD *method,\n    const TRUST_TOKEN_ISSUER_KEY *key, CBB *cbb, CBS *cbs,\n    size_t num_requested, size_t num_to_issue,\n    const EC_SCALAR *proof_scalar) {\n  // The actual implementation. Pass proof_scalar into generate_proof\n}\n\nint voprf_sign(const VOPRF_METHOD *method,\n               const TRUST_TOKEN_ISSUER_KEY *key, CBB *cbb, CBS *cbs,\n               size_t num_requested, size_t num_to_issue) {\n  // Generate a random scalar and call voprf_sign_impl\n}\n\nint voprf_sign_with_proof_scalar_for_testing(\n    const VOPRF_METHOD *method,\n    const TRUST_TOKEN_ISSUER_KEY *key, CBB *cbb, CBS *cbs,\n    size_t num_requested, size_t num_to_issue,\n    const uint8_t *proof_scalar, size_t proof_scalar_len) {\n  // ec_scalar_from_bytes();\n  // pass the result to voprf_sign_impl\n}\n```\n\nAnd then have the tests pickle the data into the form expected and check the output matches what you expect.",
+      "parentUuid": "0c27dc51_308d48d7",
+      "range": {
+        "startLine": 735,
+        "startChar": 26,
+        "endLine": 735,
+        "endChar": 41
+      },
+      "revId": "836a8699851305f8bb019979c72634e203a33bc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "57af7a38_008e4a4e",
         "filename": "crypto/trust_token/voprf.c",
         "patchSetId": 3
