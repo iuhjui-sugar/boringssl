@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d945902_e7a3336c",
+        "filename": "ssl/ssl_cipher.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-04-25T08:52:13Z",
+      "side": 1,
+      "message": "At the risk of possibly overengineering this, it just feels somehow wrong to have \"AESciphers\" and \"ChachaCiphers\" which is really just based on a priority selection for one property (hey does it have hardware for the first group or possibly \"is it FIPS\".  \n\nDoes it make more sense to put all of these \"properties\" in a flags field adjacent to the cipher and then we can simply tag with a flag like \"CIPHER_AES\" \"CIPHER_FIPS\" \"CIPHER_CHACHA\" \"CIPHER_BLAH\" \"CIPHER_WOOF\"\n\nkeep the flags private and then we can sort on up to 32 or 64 arbitary properties, and/or make sorting things that prefer things in certain orders.\n\nAnyway, it lgtm as is (since this is better than what was there before) or you can ponder and change it",
+      "revId": "93c6efa7558f3edd76a9165ae64dc4199b3f6f86",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
