@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "06e729ec_7ed34793",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2023-04-25T20:26:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a82839f8_b148c22a",
+      "revId": "ca34d632c84fa8747de318979a15ce0d7c888d69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "12695a06_dae6dea0",
@@ -41,6 +59,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f2fbcc7_3352501b",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2023-04-25T20:26:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12695a06_dae6dea0",
+      "range": {
+        "startLine": 332,
+        "startChar": 28,
+        "endLine": 332,
+        "endChar": 29
+      },
+      "revId": "ca34d632c84fa8747de318979a15ce0d7c888d69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9947f69d_b6d47344",
@@ -54,6 +96,30 @@
       "writtenOn": "2023-04-25T20:13:09Z",
       "side": 1,
       "message": "Fallible if length is wrong or scalar not reduced.",
+      "range": {
+        "startLine": 348,
+        "startChar": 2,
+        "endLine": 348,
+        "endChar": 22
+      },
+      "revId": "ca34d632c84fa8747de318979a15ce0d7c888d69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35c8248a_345edc11",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2023-04-25T20:26:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9947f69d_b6d47344",
       "range": {
         "startLine": 348,
         "startChar": 2,
@@ -104,6 +170,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d00d07e4_5da2457f",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2023-04-25T20:26:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b818a033_e98c71fd",
+      "range": {
+        "startLine": 407,
+        "startChar": 41,
+        "endLine": 407,
+        "endChar": 49
+      },
+      "revId": "ca34d632c84fa8747de318979a15ce0d7c888d69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "946e89b3_9e975be1",
@@ -117,6 +207,24 @@
       "writtenOn": "2023-04-25T20:13:09Z",
       "side": 1,
       "message": "This leaks `expected_buf` at the end of the function. Maybe just `Bytes(CBB_data, CBB_len)`? Ditto for the othersr.\n\n(Long long, ago I said to use `CBB_finish`, but in hindsight, past me was being ridiculous and we should just use `CBB_data` and `CBB_len` when it\u0027s convenient.)",
+      "revId": "ca34d632c84fa8747de318979a15ce0d7c888d69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b08f63e_721b0bfd",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2023-04-25T20:26:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "946e89b3_9e975be1",
       "revId": "ca34d632c84fa8747de318979a15ce0d7c888d69",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -138,6 +246,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d16f8e3_10b16cd6",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2023-04-25T20:26:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f8bb2a7_c6792a80",
+      "revId": "ca34d632c84fa8747de318979a15ce0d7c888d69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4046fba7_1c21898b",
@@ -155,6 +281,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5698dcf_d79b236d",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2023-04-25T20:26:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4046fba7_1c21898b",
+      "revId": "ca34d632c84fa8747de318979a15ce0d7c888d69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "977f6fc3_9932bab7",
@@ -168,6 +312,24 @@
       "writtenOn": "2023-04-25T20:13:09Z",
       "side": 1,
       "message": "Also don\u0027t need this line now that you\u0027re not doing a cleanup.",
+      "revId": "ca34d632c84fa8747de318979a15ce0d7c888d69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4de03d33_a922c2ef",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2023-04-25T20:26:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "977f6fc3_9932bab7",
       "revId": "ca34d632c84fa8747de318979a15ce0d7c888d69",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -195,6 +357,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2c5cf89_2473f63e",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2023-04-25T20:26:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a2d7752b_4afe5fed",
+      "range": {
+        "startLine": 714,
+        "startChar": 14,
+        "endLine": 714,
+        "endChar": 33
+      },
+      "revId": "ca34d632c84fa8747de318979a15ce0d7c888d69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "feadfe1b_e7b9a7da",
@@ -212,6 +398,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3737e2c_6f847b72",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 753,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2023-04-25T20:26:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "feadfe1b_e7b9a7da",
+      "revId": "ca34d632c84fa8747de318979a15ce0d7c888d69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c74c6c00_112450fd",
@@ -225,6 +429,30 @@
       "writtenOn": "2023-04-25T20:13:09Z",
       "side": 1,
       "message": "Nit: Also fallible if `proof_scalar_len` is wrong. Which really, really shouldn\u0027t happen but probably ought to check.",
+      "range": {
+        "startLine": 982,
+        "startChar": 2,
+        "endLine": 982,
+        "endChar": 22
+      },
+      "revId": "ca34d632c84fa8747de318979a15ce0d7c888d69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1772bf45_5e5fc765",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 982,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2023-04-25T20:26:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c74c6c00_112450fd",
       "range": {
         "startLine": 982,
         "startChar": 2,
