@@ -1,0 +1,238 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a82839f8_b148c22a",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-25T20:13:09Z",
+      "side": 1,
+      "message": "bssl::UniquePtr\n\nAlso check for EC_POINT_new failing.",
+      "revId": "ca34d632c84fa8747de318979a15ce0d7c888d69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12695a06_dae6dea0",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-25T20:13:09Z",
+      "side": 1,
+      "message": "Nit: Missing one space here. (Wouldn\u0027t care but since you\u0027re touching this file anyway...)",
+      "range": {
+        "startLine": 332,
+        "startChar": 28,
+        "endLine": 332,
+        "endChar": 29
+      },
+      "revId": "ca34d632c84fa8747de318979a15ce0d7c888d69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9947f69d_b6d47344",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-25T20:13:09Z",
+      "side": 1,
+      "message": "Fallible if length is wrong or scalar not reduced.",
+      "range": {
+        "startLine": 348,
+        "startChar": 2,
+        "endLine": 348,
+        "endChar": 22
+      },
+      "revId": "ca34d632c84fa8747de318979a15ce0d7c888d69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "926de61d_39378567",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-25T20:13:09Z",
+      "side": 1,
+      "message": "(Would be nice if these were one function that looped over test cases, but whatever. It\u0027s not obvious how to do that with the batch thing...)",
+      "revId": "ca34d632c84fa8747de318979a15ce0d7c888d69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b818a033_e98c71fd",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-25T20:13:09Z",
+      "side": 1,
+      "message": "Mind adding the /*num_requested\u003d*/, etc comments here, so it\u0027s easier to tell what these numbers are? Ditto for the other calls.",
+      "range": {
+        "startLine": 407,
+        "startChar": 41,
+        "endLine": 407,
+        "endChar": 49
+      },
+      "revId": "ca34d632c84fa8747de318979a15ce0d7c888d69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "946e89b3_9e975be1",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-25T20:13:09Z",
+      "side": 1,
+      "message": "This leaks `expected_buf` at the end of the function. Maybe just `Bytes(CBB_data, CBB_len)`? Ditto for the othersr.\n\n(Long long, ago I said to use `CBB_finish`, but in hindsight, past me was being ridiculous and we should just use `CBB_data` and `CBB_len` when it\u0027s convenient.)",
+      "revId": "ca34d632c84fa8747de318979a15ce0d7c888d69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f8bb2a7_c6792a80",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 448,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-25T20:13:09Z",
+      "side": 1,
+      "message": "Nit: extra newline",
+      "revId": "ca34d632c84fa8747de318979a15ce0d7c888d69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4046fba7_1c21898b",
+        "filename": "crypto/trust_token/trust_token_test.cc",
+        "patchSetId": 9
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-25T20:13:09Z",
+      "side": 1,
+      "message": "I didn\u0027t look at all these values and assume you transcribed them correctly. :-)",
+      "revId": "ca34d632c84fa8747de318979a15ce0d7c888d69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "977f6fc3_9932bab7",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-25T20:13:09Z",
+      "side": 1,
+      "message": "Also don\u0027t need this line now that you\u0027re not doing a cleanup.",
+      "revId": "ca34d632c84fa8747de318979a15ce0d7c888d69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2d7752b_4afe5fed",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 714,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-25T20:13:09Z",
+      "side": 1,
+      "message": "Oh, I guess we should make an EC_MAX_COMPRESSED too. Not that it matters, but *slightly* more buffer than you actually need here.",
+      "range": {
+        "startLine": 714,
+        "startChar": 14,
+        "endLine": 714,
+        "endChar": 33
+      },
+      "revId": "ca34d632c84fa8747de318979a15ce0d7c888d69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "feadfe1b_e7b9a7da",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 753,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-25T20:13:09Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "ca34d632c84fa8747de318979a15ce0d7c888d69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c74c6c00_112450fd",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 982,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-25T20:13:09Z",
+      "side": 1,
+      "message": "Nit: Also fallible if `proof_scalar_len` is wrong. Which really, really shouldn\u0027t happen but probably ought to check.",
+      "range": {
+        "startLine": 982,
+        "startChar": 2,
+        "endLine": 982,
+        "endChar": 22
+      },
+      "revId": "ca34d632c84fa8747de318979a15ce0d7c888d69",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
