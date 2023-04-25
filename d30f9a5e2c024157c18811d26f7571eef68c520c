@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4bf8abb6_9e12bd94",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2023-04-25T19:25:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1f54bd5f_f770bf2b",
+      "revId": "d30f9a5e2c024157c18811d26f7571eef68c520c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6e8c1076_88836c49",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-04-25T15:30:15Z",
       "side": 1,
       "message": "Bug: chromium:1414562",
+      "revId": "d30f9a5e2c024157c18811d26f7571eef68c520c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36660530_a0e609b7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2023-04-25T19:25:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e8c1076_88836c49",
       "revId": "d30f9a5e2c024157c18811d26f7571eef68c520c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -52,6 +88,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "32c34069_1e9f3f85",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 336,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2023-04-25T19:25:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a7d1386_a62ed211",
+      "revId": "d30f9a5e2c024157c18811d26f7571eef68c520c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8f37e783_70ad96e0",
@@ -65,6 +119,30 @@
       "writtenOn": "2023-04-25T15:30:15Z",
       "side": 1,
       "message": "Nit: trailing whitespace",
+      "range": {
+        "startLine": 755,
+        "startChar": 0,
+        "endLine": 755,
+        "endChar": 2
+      },
+      "revId": "d30f9a5e2c024157c18811d26f7571eef68c520c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ab396cf_222545d7",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 755,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2023-04-25T19:25:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f37e783_70ad96e0",
       "range": {
         "startLine": 755,
         "startChar": 0,

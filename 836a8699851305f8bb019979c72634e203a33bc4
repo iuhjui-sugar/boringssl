@@ -307,6 +307,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5c1d6c8_a5d72fab",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 735,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2023-04-25T19:25:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a39c93a4_8c72a446",
+      "range": {
+        "startLine": 735,
+        "startChar": 26,
+        "endLine": 735,
+        "endChar": 41
+      },
+      "revId": "836a8699851305f8bb019979c72634e203a33bc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "57af7a38_008e4a4e",
@@ -637,6 +661,30 @@
       "side": 1,
       "message": "Added a comment with details at the loop, and pointed to the relevant draft (robert-privacypass-batched-tokens-01).",
       "parentUuid": "105cbdc2_67537aa8",
+      "range": {
+        "startLine": 894,
+        "startChar": 11,
+        "endLine": 894,
+        "endChar": 21
+      },
+      "revId": "836a8699851305f8bb019979c72634e203a33bc4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2b50b1f_b095e645",
+        "filename": "crypto/trust_token/voprf.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 894,
+      "author": {
+        "id": 5955
+      },
+      "writtenOn": "2023-04-25T19:25:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6b431fd_84b9854b",
       "range": {
         "startLine": 894,
         "startChar": 11,
