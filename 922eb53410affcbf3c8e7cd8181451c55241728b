@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a495e08_9a04e024",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-04-25T13:23:16Z",
+      "side": 1,
+      "message": "With -Wvla on the gtest stuff doesn\u0027t compile (warns about C99 features) but taking this away seems strange.",
+      "revId": "922eb53410affcbf3c8e7cd8181451c55241728b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
