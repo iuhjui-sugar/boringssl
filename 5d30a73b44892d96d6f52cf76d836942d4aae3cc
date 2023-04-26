@@ -34,6 +34,24 @@
       "parentUuid": "e4d33b17_d6620268",
       "revId": "5d30a73b44892d96d6f52cf76d836942d4aae3cc",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a36fd8ca_0d3f33ea",
+        "filename": "rust/bssl-sys/build.rs",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-26T14:55:46Z",
+      "side": 1,
+      "message": "Ah sorry, by \"this\" I meant the other one. Other one is landing now, so let me know if you still have issues with that in.\n\nWe really got to get the Rust stuff in our CI... :-)",
+      "parentUuid": "39b74155_e5e47887",
+      "revId": "5d30a73b44892d96d6f52cf76d836942d4aae3cc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
