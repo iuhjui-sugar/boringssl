@@ -26,7 +26,7 @@ fn main() {
         .read_dir()
         .unwrap()
         .map(|file| file.unwrap().file_name().into_string().unwrap())
-        .find(|file| file.starts_with("wrapper_"))
+        .find(|file| file.starts_with("wrapper_") && file.ends_with(".rs"))
         .unwrap();
     println!("cargo:rustc-env=BINDGEN_RS_FILE={}", bindgen_file);
 
