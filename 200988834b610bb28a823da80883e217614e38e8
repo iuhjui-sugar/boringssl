@@ -33,6 +33,24 @@
       "message": "(Was waiting on hearing back from Android folks, but I think I\u0027ve long timed out, and this is needed to avoid https://boringssl-review.googlesource.com/c/boringssl/+/59285.)",
       "revId": "200988834b610bb28a823da80883e217614e38e8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3431a61_3ca6babb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-26T14:54:36Z",
+      "side": 1,
+      "message": "(resolving)",
+      "parentUuid": "5e27d732_56a76dea",
+      "revId": "200988834b610bb28a823da80883e217614e38e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
