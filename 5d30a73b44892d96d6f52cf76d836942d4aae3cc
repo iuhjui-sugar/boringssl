@@ -16,6 +16,24 @@
       "message": "Ah whoops. Does this CL fix it for you? Thinking maybe we should just land that instead.\nhttps://boringssl-review.googlesource.com/c/boringssl/+/59105\n\n(I was waiting on hearing back from Android folks, but I think I\u0027ve timed out on that one.)",
       "revId": "5d30a73b44892d96d6f52cf76d836942d4aae3cc",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39b74155_e5e47887",
+        "filename": "rust/bssl-sys/build.rs",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 15426
+      },
+      "writtenOn": "2023-04-26T02:32:02Z",
+      "side": 1,
+      "message": "This fixes the build for me, but happy to wait a little bit for your more comprehensive CL to land",
+      "parentUuid": "e4d33b17_d6620268",
+      "revId": "5d30a73b44892d96d6f52cf76d836942d4aae3cc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
