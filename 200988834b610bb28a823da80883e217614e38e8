@@ -16,6 +16,23 @@
       "message": "Hello folks who know more about Rust than me! Does this look reasonable to you all? This seems to be a bit more convenient to test with, and generally less complex of a build. Does this look right to you all?\n\nFrom what I understand, Chromium and Android aren\u0027t consuming the cmake or cargo builds at all here, so this shouldn\u0027t impact you all.",
       "revId": "200988834b610bb28a823da80883e217614e38e8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a275bc3f_d62c8241",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-26T01:55:18Z",
+      "side": 1,
+      "message": "(Was waiting on hearing back from Android folks, but I think I\u0027ve long timed out, and this is needed to avoid https://boringssl-review.googlesource.com/c/boringssl/+/59285.)",
+      "revId": "200988834b610bb28a823da80883e217614e38e8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
