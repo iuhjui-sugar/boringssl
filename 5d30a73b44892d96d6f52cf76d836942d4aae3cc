@@ -52,6 +52,24 @@
       "parentUuid": "39b74155_e5e47887",
       "revId": "5d30a73b44892d96d6f52cf76d836942d4aae3cc",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5e8a498_9eecca3a",
+        "filename": "rust/bssl-sys/build.rs",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 15426
+      },
+      "writtenOn": "2023-04-26T23:35:11Z",
+      "side": 1,
+      "message": "Ah yes, that fixed the build for me. Thanks!",
+      "parentUuid": "a36fd8ca_0d3f33ea",
+      "revId": "5d30a73b44892d96d6f52cf76d836942d4aae3cc",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
