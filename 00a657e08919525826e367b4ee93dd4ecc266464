@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "822ecd69_1681dd02",
+        "filename": "ssl/handshake_client.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-04-27T21:55:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3405d25f_020f6556",
+      "revId": "00a657e08919525826e367b4ee93dd4ecc266464",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "75022d21_b0a89483",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-04-24T20:04:54Z",
       "side": 1,
       "message": "Nit: I think this can fit on one line.",
+      "revId": "00a657e08919525826e367b4ee93dd4ecc266464",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "baf3fda1_4df4e02c",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 663,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-04-27T21:55:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "75022d21_b0a89483",
       "revId": "00a657e08919525826e367b4ee93dd4ecc266464",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
