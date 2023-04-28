@@ -462,10 +462,6 @@ static int asn1_item_ex_d2i(ASN1_VALUE **pval, const unsigned char **in,
           goto err;
         }
       }
-      // Save encoding
-      if (!asn1_enc_save(pval, *in, p - *in, it, buf)) {
-        goto auxerr;
-      }
       if (asn1_cb && !asn1_cb(ASN1_OP_D2I_POST, pval, it, NULL)) {
         goto auxerr;
       }
