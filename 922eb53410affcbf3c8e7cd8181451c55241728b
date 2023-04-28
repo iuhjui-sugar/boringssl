@@ -16,6 +16,24 @@
       "message": "With -Wvla on the gtest stuff doesn\u0027t compile (warns about C99 features) but taking this away seems strange.",
       "revId": "922eb53410affcbf3c8e7cd8181451c55241728b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a3ba524_91cb9e85",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-04-28T13:46:02Z",
+      "side": 1,
+      "message": "Do you have a copy of the error? We can take it away on just gtest, but might be better to just fix gtest. (We can locally patch it + send them a patch.)",
+      "parentUuid": "8a495e08_9a04e024",
+      "revId": "922eb53410affcbf3c8e7cd8181451c55241728b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
