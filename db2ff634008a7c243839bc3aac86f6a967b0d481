@@ -33,6 +33,23 @@
       "message": "If this changeset is considered beneficial, there is some cleanup to do, the following functions and calls to these functions could probably be removed.\n\n* asn1_enc_restore()\n* asn1_enc_save()\n* asn1_encoding_clear()\n* asn1_enc_init()\n* asn1_enc_free",
       "revId": "db2ff634008a7c243839bc3aac86f6a967b0d481",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f09529c_f10e7af8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16131
+      },
+      "writtenOn": "2023-04-28T20:04:07Z",
+      "side": 1,
+      "message": "A regression test for LibreSSL is available here and could be copied into BoringSSL too: https://github.com/openbsd/src/blob/master/regress/lib/libcrypto/x509/x509_asn1.c",
+      "revId": "db2ff634008a7c243839bc3aac86f6a967b0d481",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
