@@ -16,6 +16,23 @@
       "message": "The way OpenSSL envisioned to handle d2i/i2d is prone to errors, this changeset might be of interest to you.",
       "revId": "db2ff634008a7c243839bc3aac86f6a967b0d481",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e6a7d7d6_d83571df",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16131
+      },
+      "writtenOn": "2023-04-28T19:58:54Z",
+      "side": 1,
+      "message": "If this changeset is considered beneficial, there is some cleanup to do, the following functions and calls to these functions could probably be removed.\n\n* asn1_enc_restore()\n* asn1_enc_save()\n* asn1_encoding_clear()\n* asn1_enc_init()\n* asn1_enc_free",
+      "revId": "db2ff634008a7c243839bc3aac86f6a967b0d481",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
