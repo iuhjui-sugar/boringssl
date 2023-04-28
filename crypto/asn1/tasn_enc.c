@@ -204,16 +204,6 @@ int asn1_item_ex_i2d_opt(ASN1_VALUE **pval, unsigned char **out,
     }
 
     case ASN1_ITYPE_SEQUENCE: {
-      i = asn1_enc_restore(&seqcontlen, out, pval, it);
-      // An error occurred
-      if (i < 0) {
-        return -1;
-      }
-      // We have a valid cached encoding...
-      if (i > 0) {
-        return seqcontlen;
-      }
-      // Otherwise carry on
       seqcontlen = 0;
       // If no IMPLICIT tagging set to SEQUENCE, UNIVERSAL
       if (tag == -1) {

@@ -2308,28 +2308,6 @@ static bool PEMToDER(bssl::UniquePtr<uint8_t> *out, size_t *out_len,
   return true;
 }
 
-TEST(X509Test, TestFromBuffer) {
-  size_t data_len;
-  bssl::UniquePtr<uint8_t> data;
-  ASSERT_TRUE(PEMToDER(&data, &data_len, kRootCAPEM));
-
-  bssl::UniquePtr<CRYPTO_BUFFER> buf(
-      CRYPTO_BUFFER_new(data.get(), data_len, nullptr));
-  ASSERT_TRUE(buf);
-  bssl::UniquePtr<X509> root(X509_parse_from_buffer(buf.get()));
-  ASSERT_TRUE(root);
-
-  const uint8_t *enc_pointer = root->cert_info->enc.enc;
-  const uint8_t *buf_pointer = CRYPTO_BUFFER_data(buf.get());
-  ASSERT_GE(enc_pointer, buf_pointer);
-  ASSERT_LT(enc_pointer, buf_pointer + CRYPTO_BUFFER_len(buf.get()));
-  buf.reset();
-
-  /* This ensures the X509 took a reference to |buf|, otherwise this will be a
-   * reference to free memory and ASAN should notice. */
-  ASSERT_EQ(0x30, enc_pointer[0]);
-}
-
 TEST(X509Test, TestFromBufferWithTrailingData) {
   size_t data_len;
   bssl::UniquePtr<uint8_t> data;
@@ -2363,11 +2341,6 @@ TEST(X509Test, TestFromBufferModified) {
   ASN1_INTEGER_set_int64(fourty_two.get(), 42);
   X509_set_serialNumber(root.get(), fourty_two.get());
 
-  ASSERT_EQ(static_cast<long>(data_len), i2d_X509(root.get(), nullptr));
-
-  // Re-encode the TBSCertificate.
-  i2d_re_X509_tbs(root.get(), nullptr);
-
   ASSERT_NE(static_cast<long>(data_len), i2d_X509(root.get(), nullptr));
 }
 
@@ -2386,9 +2359,6 @@ TEST(X509Test, TestFromBufferReused) {
   size_t data2_len;
   bssl::UniquePtr<uint8_t> data2;
   ASSERT_TRUE(PEMToDER(&data2, &data2_len, kLeafPEM));
-  EXPECT_TRUE(buffers_alias(root->cert_info->enc.enc, root->cert_info->enc.len,
-                            CRYPTO_BUFFER_data(buf.get()),
-                            CRYPTO_BUFFER_len(buf.get())));
 
   // Historically, this function tested the interaction betweeen
   // |X509_parse_from_buffer| and object reuse. We no longer support object
@@ -2402,9 +2372,6 @@ TEST(X509Test, TestFromBufferReused) {
 
   ASSERT_EQ(root.get(), ret);
   ASSERT_EQ(nullptr, root->cert_info->enc.buf);
-  EXPECT_FALSE(buffers_alias(root->cert_info->enc.enc, root->cert_info->enc.len,
-                             CRYPTO_BUFFER_data(buf.get()),
-                             CRYPTO_BUFFER_len(buf.get())));
 
   // Free |data2| and ensure that |root| took its own copy. Otherwise the
   // following will trigger a use-after-free.
