@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "52d5ffaa_8e037b36",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16131
+      },
+      "writtenOn": "2023-04-28T19:56:23Z",
+      "side": 1,
+      "message": "The way OpenSSL envisioned to handle d2i/i2d is prone to errors, this changeset might be of interest to you.",
+      "revId": "db2ff634008a7c243839bc3aac86f6a967b0d481",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
