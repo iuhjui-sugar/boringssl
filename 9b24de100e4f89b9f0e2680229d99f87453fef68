@@ -22,6 +22,30 @@
       },
       "revId": "9b24de100e4f89b9f0e2680229d99f87453fef68",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5bf774a1_6a2337a0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-01T20:14:47Z",
+      "side": 1,
+      "message": "One day, I will learn how to type. :-)",
+      "parentUuid": "f5967397_81dda09a",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 7
+      },
+      "revId": "9b24de100e4f89b9f0e2680229d99f87453fef68",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
