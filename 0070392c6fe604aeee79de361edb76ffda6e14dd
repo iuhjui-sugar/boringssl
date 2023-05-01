@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd045f9f_cf588ce5",
+        "filename": "ssl/test/runner/kyber/kyber.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-01T16:38:05Z",
+      "side": 1,
+      "message": "*Hopefully*, cl/527993797 will reduce the amount of effort we need to go through for this one. :-)",
+      "revId": "0070392c6fe604aeee79de361edb76ffda6e14dd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d9d7afe_f99f7d85",
+        "filename": "ssl/test/runner/kyber/kyber.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-01T16:38:05Z",
+      "side": 1,
+      "message": "(Didn\u0027t read this file super carefully. Mostly assuming that the test vectors do the trick.)",
+      "revId": "0070392c6fe604aeee79de361edb76ffda6e14dd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
