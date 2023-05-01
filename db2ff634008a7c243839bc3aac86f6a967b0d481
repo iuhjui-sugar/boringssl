@@ -67,6 +67,24 @@
       "message": "I don\u0027t think this is compatible, or at least not obviously so. The cached encodings are indeed a huge mess, and I have a lot of plans to rework things here, but they\u0027re because `d2i_X509` historically accepted BER in addition to DER.\n\nNow, formally, a BER X.509 certificate is supposed to be re-encoded as DER before verifying the signature, but no one does this. Instead, what everyone does is calculate the signature over the bytes you *actually* received. That cached encoding achieves this. It\u0027s also safer to check the signature over the original byte input, rather than re-encoding it, because re-encoding assumes that the encoder doesn\u0027t accidentally drop some significant variation in the parsed structure. That\u0027s why almost every X.509 library holds onto the original parsed representation.\n\nWe have since removed quite a lot of the BER from this parser, but I\u0027m not confident we\u0027ve done so to the point that that `i2d_X509(d2i_X509)` is always the identity function. (In fact, I\u0027m quite sure we haven\u0027t around BOOLEANs.)",
       "revId": "db2ff634008a7c243839bc3aac86f6a967b0d481",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6932fce8_36a5402b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16131
+      },
+      "writtenOn": "2023-05-01T10:43:51Z",
+      "side": 1,
+      "message": "Without the cache, CRL signatures are verified based on bytes that have been pulled through d2i_ -\u003e i2d_, this can cause reordering, which in turn invalidates the signature. For example if in the original CRL revocation entries were sorted by date instead of ascending serial number order.",
+      "parentUuid": "f2a74f09_bd6365b6",
+      "revId": "db2ff634008a7c243839bc3aac86f6a967b0d481",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
