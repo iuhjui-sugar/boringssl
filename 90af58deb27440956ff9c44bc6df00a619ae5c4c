@@ -34,6 +34,24 @@
       "parentUuid": "9fb5d94b_7857f874",
       "revId": "90af58deb27440956ff9c44bc6df00a619ae5c4c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1b84ad3_8ae826a4",
+        "filename": "ssl/ssl_cipher.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-01T16:43:03Z",
+      "side": 1,
+      "message": "I\u0027m afraid I can\u0027t look at that link without a clear indication it\u0027s covered by the CLA, but probably no need. We actually already have a change in the pipeline to implement what we\u0027ve suggested. I\u0027ll go ahead and upload it. I just haven\u0027t had time yet to clean up the things downstream yet, so not quite ready to land it. Hopefully soon.",
+      "parentUuid": "958f275e_b8ce1c72",
+      "revId": "90af58deb27440956ff9c44bc6df00a619ae5c4c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
