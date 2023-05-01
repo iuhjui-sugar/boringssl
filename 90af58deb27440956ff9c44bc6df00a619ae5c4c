@@ -16,6 +16,24 @@
       "message": "Thanks! We looked at this a bit, and we think it\u0027s time to just just deprecate the 3DES cipher and take out of the default altogether. I.e. make it so that it\u0027s only addressable by name or the \"3DES\" alias. I\u0027ve filed https://crbug.com/boringssl/599 and have a CL ready to do this. There are two test failures downstream we need to address, but it shouldn\u0027t be too bad.\n\nThen we don\u0027t need to update the documentation that \"HIGH\" and \"FIPS\" are just legacy aliases for \"ALL\". :-)",
       "revId": "90af58deb27440956ff9c44bc6df00a619ae5c4c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "958f275e_b8ce1c72",
+        "filename": "ssl/ssl_cipher.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 16081
+      },
+      "writtenOn": "2023-05-01T14:06:48Z",
+      "side": 1,
+      "message": "David, we attempted something a bit stricter than what was proposed in this change: https://github.com/aws/aws-lc/pull/906. For inspiration. Partly what you propose in your comment.",
+      "parentUuid": "9fb5d94b_7857f874",
+      "revId": "90af58deb27440956ff9c44bc6df00a619ae5c4c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
