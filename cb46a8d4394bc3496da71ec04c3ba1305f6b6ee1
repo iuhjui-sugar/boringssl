@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "71090e12_0c3a09c9",
+        "filename": "crypto/fipsmodule/modes/asm/aesni-gcm-x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-05-03T16:55:16Z",
+      "side": 0,
+      "message": "Just to double-check, this 0x20 was the Xip-\u003eHtable offset in the structure and, by passing Htable\u0027s pointer directly, we drop this? And the Xip value in old code, past this code, was pointing into the Htable and was just reusing a confusing name?",
+      "range": {
+        "startLine": 514,
+        "startChar": 10,
+        "endLine": 514,
+        "endChar": 15
+      },
+      "revId": "cb46a8d4394bc3496da71ec04c3ba1305f6b6ee1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
