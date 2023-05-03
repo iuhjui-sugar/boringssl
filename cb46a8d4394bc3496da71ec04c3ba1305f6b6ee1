@@ -22,6 +22,30 @@
       },
       "revId": "cb46a8d4394bc3496da71ec04c3ba1305f6b6ee1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f4439c2_c772c2a7",
+        "filename": "crypto/fipsmodule/modes/asm/aesni-gcm-x86_64.pl",
+        "patchSetId": 1
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-03T18:03:56Z",
+      "side": 0,
+      "message": "\u003e Just to double-check, this 0x20 was the Xip-\u003eHtable offset in the structure and, by passing Htable\u0027s pointer directly, we drop this\n\nThat\u0027s right. It\u0027s skipping past `Xi` and `H`.\n\nIn particular, nothing was reading `ctx-\u003eH` anyway, just relying on an offset. It may as well have been `char wasted_space[16]`. :-)\n\n\u003e And the Xip value in old code, past this code, was pointing into the Htable and was just reusing a confusing name?\n\nYeah, the -0x40 is to undo this adjustment. I suppose, whether you believe this was reusing a confusing name or if `Xi+H+Htable` was a single structure called `Xi` for short is a matter of interpretation.",
+      "parentUuid": "71090e12_0c3a09c9",
+      "range": {
+        "startLine": 514,
+        "startChar": 10,
+        "endLine": 514,
+        "endChar": 15
+      },
+      "revId": "cb46a8d4394bc3496da71ec04c3ba1305f6b6ee1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
