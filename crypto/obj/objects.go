@@ -470,6 +470,10 @@ extern "C" {
  * stable identifiers. */
 
 
+// TODO(davidben): Remove these compatibility aliases once callers have migrated
+// to the suffixed name.
+#define NID_X25519Kyber768 NID_X25519Kyber768Draft00
+
 `)
 
 	for nid, obj := range objs.byNID {
