@@ -382,7 +382,7 @@ static const char *kBadRules[] = {
   "[AES128-SHA | AES128-SHA256]",
 };
 
-static const char *kMustNotIncludeNull[] = {
+static const char *kMustNotIncludeNullOrCBCSHA256[] = {
   "ALL",
   "DEFAULT",
   "HIGH",
@@ -578,7 +578,7 @@ TEST(SSLTest, CipherRules) {
     ERR_clear_error();
   }
 
-  for (const char *rule : kMustNotIncludeNull) {
+  for (const char *rule : kMustNotIncludeNullOrCBCSHA256) {
     SCOPED_TRACE(rule);
     bssl::UniquePtr<SSL_CTX> ctx(SSL_CTX_new(TLS_method()));
     ASSERT_TRUE(ctx);
@@ -586,6 +586,21 @@ TEST(SSLTest, CipherRules) {
     ASSERT_TRUE(SSL_CTX_set_strict_cipher_list(ctx.get(), rule));
     for (const SSL_CIPHER *cipher : SSL_CTX_get_ciphers(ctx.get())) {
       EXPECT_NE(NID_undef, SSL_CIPHER_get_cipher_nid(cipher));
+      // This cipher should only be enabled explicitly.
+      EXPECT_NE(TLS1_CK_ECDHE_RSA_WITH_AES_128_CBC_SHA256 & 0xffff,
+                SSL_CIPHER_get_protocol_id(cipher));
+    }
+  }
+
+  {
+    // Should be able to select TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256 by name.
+    bssl::UniquePtr<SSL_CTX> ctx(SSL_CTX_new(TLS_method()));
+    ASSERT_TRUE(ctx);
+    ASSERT_TRUE(SSL_CTX_set_strict_cipher_list(
+        ctx.get(), "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256"));
+    for (const SSL_CIPHER *cipher : SSL_CTX_get_ciphers(ctx.get())) {
+      EXPECT_EQ(TLS1_CK_ECDHE_RSA_WITH_AES_128_CBC_SHA256 & 0xffff,
+                SSL_CIPHER_get_protocol_id(cipher));
     }
   }
 }

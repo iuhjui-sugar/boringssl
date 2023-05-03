@@ -335,6 +335,18 @@ static constexpr SSL_CIPHER kCiphers[] = {
      SSL_HANDSHAKE_MAC_DEFAULT,
     },
 
+    // Cipher C027
+    {
+     TLS1_TXT_ECDHE_RSA_WITH_AES_128_CBC_SHA256,
+     "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256",
+     TLS1_CK_ECDHE_RSA_WITH_AES_128_CBC_SHA256,
+     SSL_kECDHE,
+     SSL_aRSA,
+     SSL_AES128,
+     SSL_SHA256,
+     SSL_HANDSHAKE_MAC_SHA256,
+    },
+
     // GCM based TLS v1.2 ciphersuites from RFC 5289
 
     // Cipher C02B
@@ -623,6 +635,14 @@ bool ssl_cipher_get_evp_aead(const EVP_AEAD **out_aead,
     }
 
     *out_mac_secret_len = SHA_DIGEST_LENGTH;
+  } else if (cipher->algorithm_mac == SSL_SHA256) {
+    if (cipher->algorithm_enc == SSL_AES128) {
+      *out_aead = EVP_aead_aes_128_cbc_sha256_tls();
+    } else {
+      return false;
+    }
+
+    *out_mac_secret_len = SHA256_DIGEST_LENGTH;
   } else {
     return false;
   }
@@ -805,6 +825,10 @@ static void ssl_cipher_apply_rule(
       if (cipher_id != cp->id) {
         continue;
       }
+    } else if (cp->id == TLS1_CK_ECDHE_RSA_WITH_AES_128_CBC_SHA256) {
+      // This cipher can only be accessed by name because it's only
+      // supported for a special case. See b/277491106.
+      continue;
     } else if (strength_bits >= 0) {
       if (strength_bits != SSL_CIPHER_get_bits(cp, NULL)) {
         continue;
@@ -1122,6 +1146,7 @@ bool ssl_create_cipher_list(UniquePtr<SSLCipherPreferenceList> *out_cipher_list,
       TLS1_CK_ECDHE_ECDSA_WITH_AES_256_CBC_SHA & 0xffff,
       TLS1_CK_ECDHE_RSA_WITH_AES_256_CBC_SHA & 0xffff,
       TLS1_CK_ECDHE_PSK_WITH_AES_256_CBC_SHA & 0xffff,
+      TLS1_CK_ECDHE_RSA_WITH_AES_128_CBC_SHA256 & 0xffff,
       TLS1_CK_RSA_WITH_AES_128_GCM_SHA256 & 0xffff,
       TLS1_CK_RSA_WITH_AES_256_GCM_SHA384 & 0xffff,
       TLS1_CK_RSA_WITH_AES_128_SHA & 0xffff,
@@ -1364,6 +1389,8 @@ int SSL_CIPHER_get_digest_nid(const SSL_CIPHER *cipher) {
       return NID_undef;
     case SSL_SHA1:
       return NID_sha1;
+    case SSL_SHA256:
+      return NID_sha256;
   }
   assert(0);
   return NID_undef;
@@ -1610,6 +1637,10 @@ const char *SSL_CIPHER_description(const SSL_CIPHER *cipher, char *buf,
   switch (alg_mac) {
     case SSL_SHA1:
       mac = "SHA1";
+      break;
+
+    case SSL_SHA256:
+      mac = "SHA256";
       break;
 
     case SSL_AEAD:
