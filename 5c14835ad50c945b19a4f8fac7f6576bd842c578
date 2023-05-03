@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d444dd6_037817c7",
+        "filename": "crypto/obj/objects.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-05-03T22:07:11Z",
+      "side": 1,
+      "message": "Do we need this? I hope that we can just update Chromium during the roll, no?",
+      "revId": "5c14835ad50c945b19a4f8fac7f6576bd842c578",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
