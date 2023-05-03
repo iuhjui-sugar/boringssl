@@ -80,6 +80,10 @@ extern "C" {
  * stable identifiers. */
 
 
+// TODO(davidben): Remove these compatibility aliases once callers have migrated
+// to the suffixed name.
+#define NID_X25519Kyber768 NID_X25519Kyber768Draft00
+
 #define SN_undef "UNDEF"
 #define LN_undef "undefined"
 #define NID_undef 0
@@ -4252,14 +4256,11 @@ extern "C" {
 #define LN_hkdf "hkdf"
 #define NID_hkdf 963
 
-#define SN_X25519Kyber768 "X25519Kyber768"
-#define NID_X25519Kyber768 964
+#define SN_X25519Kyber768Draft00 "X25519Kyber768Draft00"
+#define NID_X25519Kyber768Draft00 964
 
-#define SN_P256Kyber768 "P256Kyber768"
-#define NID_P256Kyber768 965
-
-#define SN_P384Kyber768 "P384Kyber768"
-#define NID_P384Kyber768 966
+// TODO(davidben): Remove this once callers have migrated to the suffixed name.
+#define NID_X25519Kyber768 NID_X25519Kyber768Draft00
 
 
 #if defined(__cplusplus)

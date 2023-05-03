@@ -470,6 +470,10 @@ extern "C" {
  * stable identifiers. */
 
 
+// TODO(davidben): Remove these compatibility aliases once callers have migrated
+// to the suffixed name.
+#define NID_X25519Kyber768 NID_X25519Kyber768Draft00
+
 `)
 
 	for nid, obj := range objs.byNID {
@@ -506,7 +510,10 @@ extern "C" {
 		fmt.Fprintf(&b, "\n")
 	}
 
-	fmt.Fprintf(&b, `
+	fmt.Fprintf(&b, `// TODO(davidben): Remove this once callers have migrated to the suffixed name.
+#define NID_X25519Kyber768 NID_X25519Kyber768Draft00
+
+
 #if defined(__cplusplus)
 }  /* extern C */
 #endif
