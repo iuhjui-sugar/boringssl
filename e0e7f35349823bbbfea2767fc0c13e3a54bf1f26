@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f357e1e_47169b1b",
+        "filename": "ssl/ssl_key_share.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-03T22:04:18Z",
+      "side": 1,
+      "message": "Defining one of these involves perhaps a few too many constants and repetitions... :-/",
+      "range": {
+        "startLine": 292,
+        "startChar": 32,
+        "endLine": 292,
+        "endChar": 65
+      },
+      "revId": "e0e7f35349823bbbfea2767fc0c13e3a54bf1f26",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
