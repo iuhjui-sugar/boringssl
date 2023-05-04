@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "38b2b40c_7925a240",
+        "filename": "crypto/cpu_aarch64_openbsd.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-05-04T20:57:10Z",
+      "side": 1,
+      "message": "Sorry, OpenBSD vs BoringSSL style :)",
+      "parentUuid": "69d28433_2c644962",
+      "revId": "1aeaa2db4c867d138ac9516af7281859482a45f4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9c804ec6_e3ff5d02",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-04-28T13:46:02Z",
       "side": 1,
       "message": "POSIX does say this should be available in \u003csys/types.h\u003e. :-P\nhttps://pubs.opengroup.org/onlinepubs/007904875/basedefs/sys/types.h.html\n\nI don\u0027t suppose it\u0027s possible to just fix the OpenBSD headers?",
+      "revId": "1aeaa2db4c867d138ac9516af7281859482a45f4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8354da3_3625d682",
+        "filename": "include/openssl/thread.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-05-04T20:57:10Z",
+      "side": 1,
+      "message": "It should be fixed, but won\u0027t be in the near term, I\u0027ll pull on that thread but in the meantime perhaps #ifdef it to only for OpenBSD?",
+      "parentUuid": "9c804ec6_e3ff5d02",
       "revId": "1aeaa2db4c867d138ac9516af7281859482a45f4",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }

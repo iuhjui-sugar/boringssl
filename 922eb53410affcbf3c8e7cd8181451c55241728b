@@ -34,6 +34,24 @@
       "parentUuid": "8a495e08_9a04e024",
       "revId": "922eb53410affcbf3c8e7cd8181451c55241728b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd5afede_052ec01e",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-05-04T20:57:10Z",
+      "side": 1,
+      "message": "[50/396] Building CXX object CMakeFiles/boringssl_gtest.dir/third_party/googletest/src/gtest-all.cc.o\nFAILED: CMakeFiles/boringssl_gtest.dir/third_party/googletest/src/gtest-all.cc.o \n/usr/bin/c++ -DBORINGSSL_IMPLEMENTATION -I/home/beck/kyber/boringssl/third_party/googletest/include -I/home\n/beck/kyber/boringssl/third_party/googletest -Werror -Wformat\u003d2 -Wsign-compare -Wmissing-field-initializers\n -Wwrite-strings -Wshadow -Wvla -Wtype-limits -ggdb -Wall -fvisibility\u003dhidden -fno-common -Wnewline-eof -fc\nolor-diagnostics -Wstring-concatenation -Wimplicit-fallthrough -Wmissing-declarations -fno-exceptions -fno-\nrtti -Wmissing-prototypes -O3 -DNDEBUG -std\u003dgnu++14 -MD -MT CMakeFiles/boringssl_gtest.dir/third_party/goog\nletest/src/gtest-all.cc.o -MF CMakeFiles/boringssl_gtest.dir/third_party/googletest/src/gtest-all.cc.o.d -o\n CMakeFiles/boringssl_gtest.dir/third_party/googletest/src/gtest-all.cc.o -c /home/beck/kyber/boringssl/thi\nrd_party/googletest/src/gtest-all.cc\nIn file included from /home/beck/kyber/boringssl/third_party/googletest/src/gtest-all.cc:45:\n/home/beck/kyber/boringssl/third_party/googletest/src/gtest-port.cc:205:26: error: variable length arrays a\nre a C99 feature [-Werror,-Wvla-extension]\n  struct kinfo_proc info[mib[5]];\n                         ^~~~~~\n/home/beck/kyber/boringssl/third_party/googletest/src/gtest-port.cc:205:26: note: read of non-constexpr var\niable \u0027mib\u0027 is not allowed in a constant expression\n/home/beck/kyber/boringssl/third_party/googletest/src/gtest-port.cc:186:7: note: declared here\n  int mib[] \u003d {\n      ^\n1 error generated.\n\nSo anyway, I went and fixed it by using an std::vector instead of the variable length array and put -Wvla back, \n\nAlthough this seems to have been stolen from llvm - so they did it this way.",
+      "parentUuid": "9a3ba524_91cb9e85",
+      "revId": "922eb53410affcbf3c8e7cd8181451c55241728b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
