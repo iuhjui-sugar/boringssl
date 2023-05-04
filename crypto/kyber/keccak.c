@@ -24,9 +24,11 @@
 // keccak_f implements the Keccak-1600 permutation as described at
 // https://keccak.team/keccak_specs_summary.html. Each lane is represented as a
 // 64-bit value and the 5×5 lanes are stored as an array in row-major order.
-static void keccak_f(uint64_t state[25]) {
-  static const int kNumRounds = 24;
-  for (int round = 0; round < kNumRounds; round++) {
+static void keccak_f(uint64_t state[25], const int rounds) {
+  static const int kMaxRounds = 24;
+  assert(rounds <= kMaxRounds);
+
+  for (int round = kMaxRounds - rounds; round < kMaxRounds; round++) {
     // θ step
     uint64_t c[5];
     for (int x = 0; x < 5; x++) {
@@ -104,85 +106,217 @@ static void keccak_f(uint64_t state[25]) {
   }
 }
 
-static void keccak_init(struct BORINGSSL_keccak_st *ctx,
-                        size_t *out_required_out_len, const uint8_t *in,
-                        size_t in_len, enum boringssl_keccak_config_t config) {
+OPENSSL_EXPORT void BORINGSSL_keccak_init(
+    struct BORINGSSL_keccak_st *ctx, enum boringssl_keccak_config_t config) {
+  OPENSSL_memset(ctx, 0, sizeof(*ctx));
+
   size_t capacity_bytes;
-  uint8_t terminator;
+  ctx->rounds = 24;
   switch (config) {
     case boringssl_sha3_256:
       capacity_bytes = 512 / 8;
-      *out_required_out_len = 32;
-      terminator = 0x06;
+      ctx->required_out_len = 32;
+      ctx->terminator = 0x06;
       break;
     case boringssl_sha3_512:
       capacity_bytes = 1024 / 8;
-      *out_required_out_len = 64;
-      terminator = 0x06;
+      ctx->required_out_len = 64;
+      ctx->terminator = 0x06;
       break;
     case boringssl_shake128:
       capacity_bytes = 256 / 8;
-      *out_required_out_len = 0;
-      terminator = 0x1f;
+      ctx->terminator = 0x1f;
       break;
     case boringssl_shake256:
       capacity_bytes = 512 / 8;
-      *out_required_out_len = 0;
-      terminator = 0x1f;
+      ctx->terminator = 0x1f;
+      break;
+    case boringssl_turboshake128:
+      capacity_bytes = 256 / 8;
+      ctx->terminator = 0x1f;
+      ctx->rounds = 12;
+      break;
+    case boringssl_turboshake256:
+      capacity_bytes = 512 / 8;
+      ctx->terminator = 0x1f;
+      ctx->rounds = 12;
       break;
     default:
       abort();
   }
 
-  OPENSSL_memset(ctx, 0, sizeof(*ctx));
   ctx->rate_bytes = 200 - capacity_bytes;
   assert(ctx->rate_bytes % 8 == 0);
+}
+
+// absorb_left_encode implements the |left_encode| function from SP 800-185,
+// section 2.3.1. Note that the examples at the end of that section write
+// bits backwards.
+static void absorb_left_encode(struct BORINGSSL_keccak_st *ctx,
+                               uint64_t value) {
+  uint8_t buf[sizeof(uint64_t)];
+  CRYPTO_store_u64_be(buf, value);
+
+  size_t i;
+  for (i = 0; i < sizeof(buf) - 1 && buf[i] == 0; i++) {
+  }
+  const uint8_t len = sizeof(buf) - i;
+  BORINGSSL_keccak_absorb(ctx, &len, sizeof(len));
+  BORINGSSL_keccak_absorb(ctx, &buf[i], len);
+}
+
+OPENSSL_EXPORT void BORINGSSL_keccak_init_with_customization(
+    struct BORINGSSL_keccak_st *ctx,
+    enum boringssl_keccak_customization_config_t config,
+    const uint8_t *customization, size_t customization_len) {
+  // This is a sanity bound to avoid worrying about bounds later on.
+  if (customization_len > 1024 * 1024 * 1024) {
+    abort();
+  }
+
+  OPENSSL_memset(ctx, 0, sizeof(*ctx));
+  size_t capacity_bytes;
+  ctx->rounds = 24;
+  switch (config) {
+    case boringssl_cshake128:
+      if (customization_len == 0) {
+        BORINGSSL_keccak_init(ctx, boringssl_shake128);
+        return;
+      }
+      capacity_bytes = 256 / 8;
+      ctx->terminator = 0x04;
+      break;
+    case boringssl_cshake256:
+      if (customization_len == 0) {
+        BORINGSSL_keccak_init(ctx, boringssl_shake256);
+        return;
+      }
+      capacity_bytes = 512 / 8;
+      ctx->terminator = 0x04;
+      break;
+    default:
+      abort();
+  }
+
+  ctx->rate_bytes = 200 - capacity_bytes;
+  assert(ctx->rate_bytes % 8 == 0);
+
+  absorb_left_encode(ctx, ctx->rate_bytes);
+  BORINGSSL_keccak_absorb(ctx, (const uint8_t *)"\x01", 2);  // left_encode(0)
+  absorb_left_encode(ctx, ((uint64_t)customization_len) * 8);
+  BORINGSSL_keccak_absorb(ctx, customization, customization_len);
+
+  if (ctx->next_word || ctx->word_offset) {
+    keccak_f(ctx->state, ctx->rounds);
+    ctx->next_word = ctx->word_offset = 0;
+  }
+}
+
+void BORINGSSL_keccak_absorb(struct BORINGSSL_keccak_st *ctx, const uint8_t *in,
+                             size_t in_len) {
+  assert(ctx->terminator);
+
+  // Accessing |ctx->state| as a |uint8_t*| is allowed by strict aliasing
+  // because we require |uint8_t| to be a character type.
+  uint8_t *const state_bytes = (uint8_t *)ctx->state;
   const size_t rate_words = ctx->rate_bytes / 8;
 
+  if (ctx->word_offset) {
+    while (ctx->word_offset < 8 && in_len) {
+      state_bytes[sizeof(uint64_t) * ctx->next_word + ctx->word_offset] ^= *in;
+      ctx->word_offset++;
+      in++;
+      in_len--;
+    }
+
+    if (ctx->word_offset == 8) {
+      ctx->next_word++;
+      ctx->word_offset = 0;
+
+      if (ctx->next_word == rate_words) {
+        keccak_f(ctx->state, ctx->rounds);
+        ctx->next_word = 0;
+      }
+    }
+  }
+
+  if (ctx->next_word != 0) {
+    while (in_len >= 8) {
+      assert(ctx->word_offset == 0);
+      ctx->state[ctx->next_word++] ^= CRYPTO_load_u64_le(in);
+      in += 8;
+      in_len -= 8;
+
+      if (ctx->next_word == rate_words) {
+        keccak_f(ctx->state, ctx->rounds);
+        ctx->next_word = 0;
+        break;
+      }
+    }
+  }
+
   while (in_len >= ctx->rate_bytes) {
+    assert(ctx->next_word == 0);
     for (size_t i = 0; i < rate_words; i++) {
       ctx->state[i] ^= CRYPTO_load_u64_le(in + 8 * i);
     }
-    keccak_f(ctx->state);
+    keccak_f(ctx->state, ctx->rounds);
     in += ctx->rate_bytes;
     in_len -= ctx->rate_bytes;
   }
 
-  // XOR the final block. Accessing |ctx->state| as a |uint8_t*| is allowed by
-  // strict aliasing because we require |uint8_t| to be a character type.
-  uint8_t *state_bytes = (uint8_t *)ctx->state;
-  assert(in_len < ctx->rate_bytes);
-  for (size_t i = 0; i < in_len; i++) {
-    state_bytes[i] ^= in[i];
+  while (in_len >= 8) {
+    assert(ctx->word_offset == 0);
+    ctx->state[ctx->next_word++] ^= CRYPTO_load_u64_le(in);
+    in += 8;
+    in_len -= 8;
+
+    if (ctx->next_word == rate_words) {
+      keccak_f(ctx->state, ctx->rounds);
+      ctx->next_word = 0;
+    }
   }
-  state_bytes[in_len] ^= terminator;
+
+  assert(in_len < 8);
+  while (in_len) {
+    state_bytes[sizeof(uint64_t) * ctx->next_word + ctx->word_offset] ^= *in;
+    ctx->word_offset++;
+    in++;
+    in_len--;
+  }
+}
+
+static void keccak_final(struct BORINGSSL_keccak_st *ctx) {
+  assert(ctx->terminator);
+  // Accessing |ctx->state| as a |uint8_t*| is allowed by strict aliasing
+  // because we require |uint8_t| to be a character type.
+  uint8_t *state_bytes = (uint8_t *)ctx->state;
+  state_bytes[sizeof(uint64_t) * ctx->next_word + ctx->word_offset++] ^=
+      ctx->terminator;
   state_bytes[ctx->rate_bytes - 1] ^= 0x80;
-  keccak_f(ctx->state);
+  keccak_f(ctx->state, ctx->rounds);
+  ctx->terminator = 0;
 }
 
 void BORINGSSL_keccak(uint8_t *out, size_t out_len, const uint8_t *in,
                       size_t in_len, enum boringssl_keccak_config_t config) {
   struct BORINGSSL_keccak_st ctx;
-  size_t required_out_len;
-  keccak_init(&ctx, &required_out_len, in, in_len, config);
-  if (required_out_len != 0 && out_len != required_out_len) {
-    abort();
-  }
+  BORINGSSL_keccak_init(&ctx, config);
+  BORINGSSL_keccak_absorb(&ctx, in, in_len);
   BORINGSSL_keccak_squeeze(&ctx, out, out_len);
-}
-
-void BORINGSSL_keccak_init(struct BORINGSSL_keccak_st *ctx, const uint8_t *in,
-                           size_t in_len,
-                           enum boringssl_keccak_config_t config) {
-  size_t required_out_len;
-  keccak_init(ctx, &required_out_len, in, in_len, config);
-  if (required_out_len != 0) {
-    abort();
-  }
 }
 
 void BORINGSSL_keccak_squeeze(struct BORINGSSL_keccak_st *ctx, uint8_t *out,
                               size_t out_len) {
+  if (ctx->terminator) {
+    keccak_final(ctx);
+  }
+
+  if (ctx->required_out_len &&
+      (out_len != ctx->required_out_len || ctx->offset != 0)) {
+    abort();
+  }
+
   // Accessing |ctx->state| as a |uint8_t*| is allowed by strict aliasing
   // because we require |uint8_t| to be a character type.
   const uint8_t *state_bytes = (const uint8_t *)ctx->state;
@@ -197,7 +331,7 @@ void BORINGSSL_keccak_squeeze(struct BORINGSSL_keccak_st *ctx, uint8_t *out,
     out_len -= todo;
     ctx->offset += todo;
     if (ctx->offset == ctx->rate_bytes) {
-      keccak_f(ctx->state);
+      keccak_f(ctx->state, ctx->rounds);
       ctx->offset = 0;
     }
   }

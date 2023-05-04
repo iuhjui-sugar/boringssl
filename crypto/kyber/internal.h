@@ -34,8 +34,23 @@ extern "C" {
 
 struct BORINGSSL_keccak_st {
   uint64_t state[25];
-  size_t rate_bytes;
-  size_t offset;
+  // rate_bytes is the number of bytes outside of the sponge's capacity.
+  uint8_t rate_bytes;
+  // rounds is the number of Keccek rounds to do, normally 24.
+  uint8_t rounds;
+  // offset is the offset into |state| when squeezing.
+  uint8_t offset;
+  // terminator is the "domain separation" byte, or zero if it has already
+  // been applied.
+  uint8_t terminator;
+  // next_word is the index (0..=24) into `state` of the next word to update when
+  // absorbing.
+  uint8_t next_word;
+  // word_offset is offset (0..=7) within |next_word| when absorbing.
+  uint8_t word_offset;
+  // required_out_len is the required number of bytes to squeeze. This is used
+  // for configurations like SHA-3 which have a fixed output size.
+  uint8_t required_out_len;
 };
 
 enum boringssl_keccak_config_t {
@@ -43,6 +58,13 @@ enum boringssl_keccak_config_t {
   boringssl_sha3_512,
   boringssl_shake128,
   boringssl_shake256,
+  boringssl_turboshake128,
+  boringssl_turboshake256,
+};
+
+enum boringssl_keccak_customization_config_t {
+  boringssl_cshake128,
+  boringssl_cshake256,
 };
 
 // BORINGSSL_keccak hashes |in_len| bytes from |in| and writes |out_len| bytes
@@ -52,14 +74,25 @@ OPENSSL_EXPORT void BORINGSSL_keccak(uint8_t *out, size_t out_len,
                                      const uint8_t *in, size_t in_len,
                                      enum boringssl_keccak_config_t config);
 
-// BORINGSSL_keccak_init absorbs |in_len| bytes from |in| and sets up |ctx| for
-// squeezing. The |config| must specify a SHAKE variant, otherwise callers
-// should use |BORINGSSL_keccak|.
+// BORINGSSL_keccak_init sets up |ctx| for hashing.
 OPENSSL_EXPORT void BORINGSSL_keccak_init(
-    struct BORINGSSL_keccak_st *ctx, const uint8_t *in, size_t in_len,
-    enum boringssl_keccak_config_t config);
+    struct BORINGSSL_keccak_st *ctx, enum boringssl_keccak_config_t config);
 
-// BORINGSSL_keccak_squeeze writes |out_len| bytes to |out| from |ctx|.
+// BORINGSSL_keccak_init sets up |ctx| for hashing a customizable function. The
+// length of |customization| must be less than 1GiB.
+OPENSSL_EXPORT void BORINGSSL_keccak_init_with_customization(
+    struct BORINGSSL_keccak_st *ctx,
+    enum boringssl_keccak_customization_config_t config,
+    const uint8_t *customization, size_t customization_len);
+
+// BORINGSSL_keccak_absorb absorbs |in_len| bytes in |in| into |ctx|. The |ctx|
+// argument must have been set up with |BORINGSSL_keccak_init*| previously.
+OPENSSL_EXPORT void BORINGSSL_keccak_absorb(struct BORINGSSL_keccak_st *ctx,
+                                            const uint8_t *in, size_t in_len);
+
+// BORINGSSL_keccak_squeeze writes |out_len| bytes to |out| from |ctx|. If |ctx|
+// was set up as a fixed-output function (e.g. boringssl_sha3_*) then this can
+// only be called once and |out_len| must be the correct length.
 OPENSSL_EXPORT void BORINGSSL_keccak_squeeze(struct BORINGSSL_keccak_st *ctx,
                                              uint8_t *out, size_t out_len);
 

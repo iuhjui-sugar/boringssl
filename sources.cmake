@@ -66,6 +66,7 @@ set(
   crypto/fipsmodule/rand/ctrdrbg_vectors.txt
   crypto/hmac_extra/hmac_tests.txt
   crypto/hpke/hpke_test_vectors.txt
+  crypto/kyber/cshake_tests.txt
   crypto/kyber/keccak_tests.txt
   crypto/kyber/kyber_tests.txt
   crypto/pkcs8/test/empty_password.p12
