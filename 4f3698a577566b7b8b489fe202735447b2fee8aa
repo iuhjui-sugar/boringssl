@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5bcf811c_8903681b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-04T20:14:48Z",
+      "side": 1,
+      "message": "One comment, but otherwise looks good.",
+      "revId": "4f3698a577566b7b8b489fe202735447b2fee8aa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52b3aa05_a9ddf7bd",
+        "filename": "ssl/ssl_cipher.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 830,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-04T20:14:48Z",
+      "side": 1,
+      "message": "It\u0027s probably fine for what we\u0027re currently trying to do, but it\u0027s a little screwy. If it breaks `strength_bits`, then adding the cipher and then calling `@STRENGTH` to sort the ciphers won\u0027t work.\n\nAlso if it breaks exclusions then if you specify a bunch of ciphers and then do something like `!RSA`, it won\u0027t work.\n\nHow much that matters is another matter. For 3DES (which is waiting on a resolution to the Envoy bug...), I tried this. It\u0027s a bit more complex, but seemed maybe a better general story? Dunno. Thoughts?\nhttps://boringssl-review.googlesource.com/c/boringssl/+/59425/1/ssl/ssl_cipher.cc\n\nWe could pull those bits out in advance of sorting out 3DES if we want. Or we could just align on this version... mostly I just want this spelling and the 3DES one to match. :-)",
+      "revId": "4f3698a577566b7b8b489fe202735447b2fee8aa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
