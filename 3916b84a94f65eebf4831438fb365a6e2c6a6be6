@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "729c1cba_1fd9ba63",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-05-04T21:57:26Z",
+      "side": 1,
+      "message": "Can we just get rid of this check? I think Sierra is out of our 5 year window.",
+      "revId": "3916b84a94f65eebf4831438fb365a6e2c6a6be6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
