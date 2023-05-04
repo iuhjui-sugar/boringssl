@@ -56,13 +56,15 @@ static void KeccakFileTest(FileTest *t) {
 
   struct BORINGSSL_keccak_st ctx;
 
-  BORINGSSL_keccak_init(&ctx, input.data(), input.size(), boringssl_shake128);
+  BORINGSSL_keccak_init(&ctx, boringssl_shake128);
+  BORINGSSL_keccak_absorb(&ctx, input.data(), input.size());
   for (size_t i = 0; i < sizeof(shake128_output); i++) {
     BORINGSSL_keccak_squeeze(&ctx, &shake128_output[i], 1);
   }
   EXPECT_EQ(Bytes(shake128_expected), Bytes(shake128_output));
 
-  BORINGSSL_keccak_init(&ctx, input.data(), input.size(), boringssl_shake256);
+  BORINGSSL_keccak_init(&ctx, boringssl_shake256);
+  BORINGSSL_keccak_absorb(&ctx, input.data(), input.size());
   for (size_t i = 0; i < sizeof(shake256_output); i++) {
     BORINGSSL_keccak_squeeze(&ctx, &shake256_output[i], 1);
   }
@@ -71,6 +73,121 @@ static void KeccakFileTest(FileTest *t) {
 
 TEST(KyberTest, KeccakTestVectors) {
   FileTestGTest("crypto/kyber/keccak_tests.txt", KeccakFileTest);
+}
+
+static void cSHAKEFileTest(FileTest *t) {
+  std::vector<uint8_t> input, customization, cshake128_expected,
+      cshake256_expected;
+  ASSERT_TRUE(t->GetBytes(&input, "Input"));
+  ASSERT_TRUE(t->GetBytes(&customization, "Customization"));
+  ASSERT_TRUE(t->GetBytes(&cshake128_expected, "cSHAKE-128"));
+  ASSERT_TRUE(t->GetBytes(&cshake256_expected, "cSHAKE-256"));
+
+  {
+    struct BORINGSSL_keccak_st ctx;
+    BORINGSSL_keccak_init_with_customization(
+        &ctx, boringssl_cshake128, customization.data(), customization.size());
+    BORINGSSL_keccak_absorb(&ctx, input.data(), input.size());
+    std::vector<uint8_t> output(cshake128_expected.size());
+    BORINGSSL_keccak_squeeze(&ctx, output.data(), output.size());
+    EXPECT_EQ(Bytes(cshake128_expected), Bytes(output));
+  }
+
+  {
+    struct BORINGSSL_keccak_st ctx;
+    BORINGSSL_keccak_init_with_customization(
+        &ctx, boringssl_cshake256, customization.data(), customization.size());
+    BORINGSSL_keccak_absorb(&ctx, input.data(), input.size());
+    std::vector<uint8_t> output(cshake256_expected.size());
+    BORINGSSL_keccak_squeeze(&ctx, output.data(), output.size());
+    EXPECT_EQ(Bytes(cshake256_expected), Bytes(output));
+  }
+}
+
+TEST(KyberTest, cSHAKETestVectors) {
+  FileTestGTest("crypto/kyber/cshake_tests.txt", cSHAKEFileTest);
+}
+
+TEST(KyberTest, cSHAKEFallback) {
+  // cSHAKE is defined to be equal to SHAKE (via special exception) when the
+  // customization string is empty.
+
+  auto check = [](boringssl_keccak_customization_config_t cshake_config,
+                  boringssl_keccak_config_t shake_config) {
+    struct BORINGSSL_keccak_st ctx;
+    BORINGSSL_keccak_init_with_customization(&ctx, cshake_config, nullptr, 0);
+    uint8_t output[32];
+    BORINGSSL_keccak_squeeze(&ctx, output, sizeof(output));
+
+    uint8_t expected_output[32];
+    BORINGSSL_keccak(expected_output, sizeof(expected_output), nullptr, 0,
+                     shake_config);
+    EXPECT_EQ(Bytes(output), Bytes(expected_output));
+  };
+
+  check(boringssl_cshake128, boringssl_shake128);
+  check(boringssl_cshake256, boringssl_shake256);
+}
+
+TEST(KyberTest, TurboSHAKE) {
+  // There aren't good test vectors for TurboSHAKE, but the bulk of the
+  // machinery is already tested so this test just confirms that the digest of
+  // the empty string matches what https://github.com/cloudflare/circl things
+  // the answer is.
+
+  {
+    static const uint8_t kExpected[] = {
+        0x1e, 0x41, 0x5f, 0x1c, 0x59, 0x83, 0xaf, 0xf2,
+        0x16, 0x92, 0x17, 0x27, 0x7d, 0x17, 0xbb, 0x53,
+    };
+    uint8_t calculated[sizeof(kExpected)];
+    BORINGSSL_keccak(calculated, sizeof(calculated), nullptr, 0,
+                     boringssl_turboshake128);
+    EXPECT_EQ(Bytes(kExpected), Bytes(calculated));
+  }
+
+  {
+    static const uint8_t kExpected[] = {
+        0x36, 0x7a, 0x32, 0x9d, 0xaf, 0xea, 0x87, 0x1c,
+        0x78, 0x02, 0xec, 0x67, 0xf9, 0x05, 0xae, 0x13,
+    };
+    uint8_t calculated[sizeof(kExpected)];
+    BORINGSSL_keccak(calculated, sizeof(calculated), nullptr, 0,
+                     boringssl_turboshake256);
+    EXPECT_EQ(Bytes(kExpected), Bytes(calculated));
+  }
+}
+
+TEST(KyberTest, InputSizes) {
+  // Check that all sizes of writes work correctly.
+
+  uint8_t data[512];
+  BORINGSSL_keccak(data, sizeof(data), nullptr, 0, boringssl_shake128);
+  uint8_t expected_digest[32];
+  BORINGSSL_keccak(expected_digest, sizeof(expected_digest), data, sizeof(data),
+                   boringssl_sha3_256);
+
+  for (size_t stride = 1; stride < sizeof(data); stride++) {
+    SCOPED_TRACE(stride);
+
+    struct BORINGSSL_keccak_st ctx;
+    BORINGSSL_keccak_init(&ctx, boringssl_sha3_256);
+
+    size_t done = 0;
+    while (done < sizeof(data)) {
+      size_t todo = sizeof(data) - done;
+      if (todo > stride) {
+        todo = stride;
+      }
+      BORINGSSL_keccak_absorb(&ctx, data + done, todo);
+      done += todo;
+    }
+
+    uint8_t digest[sizeof(expected_digest)];
+    BORINGSSL_keccak_squeeze(&ctx, digest, sizeof(digest));
+
+    EXPECT_EQ(Bytes(expected_digest), Bytes(digest));
+  }
 }
 
 template <typename T>
