@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ed2c7a7_ab524a72",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-05-04T21:53:40Z",
+      "side": 1,
+      "message": "ooh nice catch. yeah the API is exactly the same as macos, which took it from openbsd.\n\nI merged the two. if we can get rid of 2009 operating system support it can be much more compact...",
+      "parentUuid": "78e5a48f_10150e8e",
+      "revId": "91dffd7226c0364f14594cdfc711d19654e0461b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "97c0629e_e62921bd",
@@ -48,6 +66,24 @@
       "writtenOn": "2023-05-04T21:32:38Z",
       "side": 1,
       "message": "Mind putting together a CL to upstream this? Based on https://github.com/google/googletest/blob/main/CONTRIBUTING.md#are-you-a-googler",
+      "revId": "91dffd7226c0364f14594cdfc711d19654e0461b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a06f58e_d4a32410",
+        "filename": "third_party/googletest/src/gtest-port.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-05-04T21:53:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fadc1114_afefc806",
       "revId": "91dffd7226c0364f14594cdfc711d19654e0461b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
