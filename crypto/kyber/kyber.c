@@ -354,8 +354,8 @@ static void matrix_expand(matrix *out, const uint8_t rho[32]) {
       input[32] = i;
       input[33] = j;
       struct BORINGSSL_keccak_st keccak_ctx;
-      BORINGSSL_keccak_init(&keccak_ctx, input, sizeof(input),
-                            boringssl_shake128);
+      BORINGSSL_keccak_init(&keccak_ctx, boringssl_shake128);
+      BORINGSSL_keccak_absorb(&keccak_ctx, input, sizeof(input));
       scalar_from_keccak_vartime(&out->v[i][j], &keccak_ctx);
     }
   }
