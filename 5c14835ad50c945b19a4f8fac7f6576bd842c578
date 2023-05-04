@@ -16,6 +16,24 @@
       "message": "Do we need this? I hope that we can just update Chromium during the roll, no?",
       "revId": "5c14835ad50c945b19a4f8fac7f6576bd842c578",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04c50ace_b765eab9",
+        "filename": "crypto/obj/objects.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-04T02:15:02Z",
+      "side": 1,
+      "message": "Ah yeah I guess no one else is using this yet. Removed. Also I see I left two copies of it around when I changed my mind about whether to put it on the top or bottom. :-)",
+      "parentUuid": "9d444dd6_037817c7",
+      "revId": "5c14835ad50c945b19a4f8fac7f6576bd842c578",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
