@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "78e5a48f_10150e8e",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 312,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-04T21:32:38Z",
+      "side": 1,
+      "message": "Sorry, missed this the first iteration. If `len \u003e 256`, I think this will do something goofy. Rather than filling the whole buffer, it\u0027ll only fill the first 256 bytes. It\u0027ll then return `(ssize_t)todo`, but since this function is meant to return 1 on success and always fill the whole buffer (or fail trying), that won\u0027t do anything.\n\nI think you want to copy this block from the macOS code.\n\n```\n        size_t todo \u003d len \u003c\u003d 256 ? len : 256;\n        if (getentropy(out, todo) !\u003d 0) {\n          r \u003d -1;\n        } else {\n          r \u003d (ssize_t)todo;\n        }\n```\n\nOr do the ternary thing like you\u0027ve done:\n\n```\n        size_t todo \u003d len \u003c\u003d 256 ? len : 256;\n        r \u003d getentropy(out, todo) !\u003d 0 ? -1 : (ssize_t)todo;\n```\n\n(If the latter, let\u0027s make the macOS one match too while we\u0027re at it.)",
+      "revId": "91dffd7226c0364f14594cdfc711d19654e0461b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97c0629e_e62921bd",
+        "filename": "third_party/googletest/src/gtest-port.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-04T21:32:38Z",
+      "side": 1,
+      "message": "Could you add to third_party/googletest/METADATA something like \"Applied cl/529512111\"?",
+      "revId": "91dffd7226c0364f14594cdfc711d19654e0461b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fadc1114_afefc806",
+        "filename": "third_party/googletest/src/gtest-port.cc",
+        "patchSetId": 5
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-04T21:32:38Z",
+      "side": 1,
+      "message": "Mind putting together a CL to upstream this? Based on https://github.com/google/googletest/blob/main/CONTRIBUTING.md#are-you-a-googler",
+      "revId": "91dffd7226c0364f14594cdfc711d19654e0461b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
