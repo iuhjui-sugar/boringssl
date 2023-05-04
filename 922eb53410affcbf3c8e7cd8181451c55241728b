@@ -52,6 +52,24 @@
       "parentUuid": "9a3ba524_91cb9e85",
       "revId": "922eb53410affcbf3c8e7cd8181451c55241728b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5aa91a34_527f6c41",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-05-04T21:17:43Z",
+      "side": 1,
+      "message": "cl/529512111 - since they claim to not want github pr\u0027s from googlers.",
+      "parentUuid": "fd5afede_052ec01e",
+      "revId": "922eb53410affcbf3c8e7cd8181451c55241728b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
