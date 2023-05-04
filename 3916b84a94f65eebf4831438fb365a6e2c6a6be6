@@ -16,6 +16,24 @@
       "message": "Can we just get rid of this check? I think Sierra is out of our 5 year window.",
       "revId": "3916b84a94f65eebf4831438fb365a6e2c6a6be6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7d3f02e_b1cfb1dd",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-05-04T22:10:31Z",
+      "side": 1,
+      "message": "I guess not 2009, but 2009 level hardware, it officially was supplanted by High Sierra in 2017..",
+      "parentUuid": "729c1cba_1fd9ba63",
+      "revId": "3916b84a94f65eebf4831438fb365a6e2c6a6be6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
