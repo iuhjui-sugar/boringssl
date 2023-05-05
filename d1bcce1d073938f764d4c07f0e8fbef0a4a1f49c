@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b72b1813_e6f85012",
+        "filename": "crypto/cpu_aarch64_openbsd.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-05-05T22:00:12Z",
+      "side": 1,
+      "message": "yeah most likely a leftover.",
+      "parentUuid": "79914bef_57f2366b",
+      "revId": "d1bcce1d073938f764d4c07f0e8fbef0a4a1f49c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a3e46fab_b6d7fb32",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-05-05T18:26:07Z",
       "side": 1,
       "message": "Nit: unused",
+      "revId": "d1bcce1d073938f764d4c07f0e8fbef0a4a1f49c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c72ef046_0761ef00",
+        "filename": "crypto/cpu_arm_openbsd.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-05-05T22:00:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3e46fab_b6d7fb32",
       "revId": "d1bcce1d073938f764d4c07f0e8fbef0a4a1f49c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -58,6 +94,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b4ad2cd_6f7ed3cb",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-05-05T22:00:12Z",
+      "side": 1,
+      "message": "removed entirely with the refactor of MacOS, this extra define buys nothing.",
+      "parentUuid": "b0e4adf7_c4cdd8c1",
+      "range": {
+        "startLine": 309,
+        "startChar": 39,
+        "endLine": 309,
+        "endChar": 40
+      },
+      "revId": "d1bcce1d073938f764d4c07f0e8fbef0a4a1f49c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f92f00f3_f554cf63",
@@ -71,6 +131,30 @@
       "writtenOn": "2023-05-05T18:26:07Z",
       "side": 1,
       "message": "Style nit: no space before the parens here.",
+      "range": {
+        "startLine": 318,
+        "startChar": 11,
+        "endLine": 318,
+        "endChar": 12
+      },
+      "revId": "d1bcce1d073938f764d4c07f0e8fbef0a4a1f49c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "19e8ab6d_b3fc6167",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-05-05T22:00:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f92f00f3_f554cf63",
       "range": {
         "startLine": 318,
         "startChar": 11,
