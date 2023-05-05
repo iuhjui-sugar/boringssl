@@ -34,6 +34,24 @@
       "parentUuid": "729c1cba_1fd9ba63",
       "revId": "3916b84a94f65eebf4831438fb365a6e2c6a6be6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40ab7137_44800a0f",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-05T18:26:07Z",
+      "side": 1,
+      "message": "We can on Chrome, but only just barely. (Chrome\u0027s minimum is 10.13.) I\u0027m not sure about other users though. https://github.com/google/oss-policies-info/blob/main/foundational-cxx-support-matrix.md looks good too.\n\nOther question I suppose is what `-mmacosx-version-min` defaults to if you pass nothing in.\n\nI dunno, not opposed to trying it. (Maybe separately so it\u0027s easy to revert. 😊)",
+      "parentUuid": "c7d3f02e_b1cfb1dd",
+      "revId": "3916b84a94f65eebf4831438fb365a6e2c6a6be6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }

@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "79914bef_57f2366b",
+        "filename": "crypto/cpu_aarch64_openbsd.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-05T18:26:07Z",
+      "side": 1,
+      "message": "Unused?",
+      "revId": "d1bcce1d073938f764d4c07f0e8fbef0a4a1f49c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a3e46fab_b6d7fb32",
+        "filename": "crypto/cpu_arm_openbsd.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-05T18:26:07Z",
+      "side": 1,
+      "message": "Nit: unused",
+      "revId": "d1bcce1d073938f764d4c07f0e8fbef0a4a1f49c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0e4adf7_c4cdd8c1",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-05T18:26:07Z",
+      "side": 1,
+      "message": "Style nit: `defined(OPENBSD_GETENTROPY)`",
+      "range": {
+        "startLine": 309,
+        "startChar": 39,
+        "endLine": 309,
+        "endChar": 40
+      },
+      "revId": "d1bcce1d073938f764d4c07f0e8fbef0a4a1f49c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f92f00f3_f554cf63",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 10
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-05T18:26:07Z",
+      "side": 1,
+      "message": "Style nit: no space before the parens here.",
+      "range": {
+        "startLine": 318,
+        "startChar": 11,
+        "endLine": 318,
+        "endChar": 12
+      },
+      "revId": "d1bcce1d073938f764d4c07f0e8fbef0a4a1f49c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
