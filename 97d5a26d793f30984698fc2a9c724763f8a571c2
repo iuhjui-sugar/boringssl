@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "532c8629_1d72db9f",
+        "filename": "BUILDING.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-05-05T21:10:41Z",
+      "side": 1,
+      "message": "This appears to be a valid SDK version, but also looks like it might be a corruption of \"2014\". Please ignore this comment if \"2104\" was intended.",
+      "range": {
+        "startLine": 35,
+        "startChar": 52,
+        "endLine": 35,
+        "endChar": 56
+      },
+      "revId": "97d5a26d793f30984698fc2a9c724763f8a571c2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
