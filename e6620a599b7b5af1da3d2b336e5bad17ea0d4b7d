@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3208a146_c9e89645",
+        "filename": "ssl/ssl_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-05T21:01:16Z",
+      "side": 1,
+      "message": "Nit: We can probably just call this kMustNotIncludeDeprecated now. (NULL no longer even exists. I forgot to remove this when removing that cipher.)",
+      "range": {
+        "startLine": 385,
+        "startChar": 35,
+        "endLine": 385,
+        "endChar": 40
+      },
+      "revId": "e6620a599b7b5af1da3d2b336e5bad17ea0d4b7d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
