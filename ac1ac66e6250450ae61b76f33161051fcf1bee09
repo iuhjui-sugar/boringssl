@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4fd550a_37784fb6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-05-08T21:08:30Z",
+      "side": 1,
+      "message": "Thought about this when reviewing the CL but didn\u0027t want to block it.",
+      "revId": "ac1ac66e6250450ae61b76f33161051fcf1bee09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
