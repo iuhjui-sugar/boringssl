@@ -52,6 +52,24 @@
       "parentUuid": "c7d3f02e_b1cfb1dd",
       "revId": "3916b84a94f65eebf4831438fb365a6e2c6a6be6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28997e6b_df096f63",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 9
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-05-08T16:18:38Z",
+      "side": 1,
+      "message": "Seems to happily pass a full TGP run.. Easy enough to revert separately but could just commit as two identical chunks initially with the old check for macos, and a separate chunk for OpenBSD, then a separate CL to merge the two.. \n\nWDYT?",
+      "parentUuid": "40ab7137_44800a0f",
+      "revId": "3916b84a94f65eebf4831438fb365a6e2c6a6be6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
