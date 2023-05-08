@@ -33,6 +33,80 @@
       "message": "(p.s. unsure if this is better. Happy to discard.)",
       "revId": "ac1ac66e6250450ae61b76f33161051fcf1bee09",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8a626d7_5bf8618d",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-08T21:17:11Z",
+      "side": 1,
+      "message": "I\u0027m 70% sure this needs an `inline` to avoid an ODR violation.",
+      "revId": "ac1ac66e6250450ae61b76f33161051fcf1bee09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96755e04_9c767b77",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-08T21:17:11Z",
+      "side": 1,
+      "message": "Let\u0027s make this take `Span\u003cconst char *const\u003e fixed_names` and `Span\u003cconst T\u003e objects`. More memory-safe *and* less typing at the call site.\n\n(`Span` on `out` would make sense too, but I suppose we\u0027re looking to avoid duplicating code there.)",
+      "revId": "ac1ac66e6250450ae61b76f33161051fcf1bee09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "30f7f9ef_472033e7",
+        "filename": "ssl/ssl_privkey.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 494,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-08T21:17:11Z",
+      "side": 1,
+      "message": "Wonder if the MSVC bug still applies, especially after https://boringssl-review.googlesource.com/c/boringssl/+/59665 lands...",
+      "revId": "ac1ac66e6250450ae61b76f33161051fcf1bee09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf884c33_a3cdcfc5",
+        "filename": "ssl/ssl_privkey.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 523,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-08T21:17:11Z",
+      "side": 1,
+      "message": "clang-format",
+      "range": {
+        "startLine": 523,
+        "startChar": 5,
+        "endLine": 523,
+        "endChar": 7
+      },
+      "revId": "ac1ac66e6250450ae61b76f33161051fcf1bee09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
