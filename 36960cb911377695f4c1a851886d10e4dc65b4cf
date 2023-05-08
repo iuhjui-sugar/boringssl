@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7b258ae4_583481a9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-08T16:38:16Z",
+      "side": 1,
+      "message": "Maybe rephrase this to be something like:\n\nUpdate-Note: Additionally, BoringSSL now requires macOS 10.12 or later for getentropy support. This is consistent with https://github.com/google/oss-policies-info/blob/main/foundational-cxx-support-matrix.md\n\nSeems worth calling out. :-)",
+      "revId": "36960cb911377695f4c1a851886d10e4dc65b4cf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "658b100a_0302dfc5",
+        "filename": "crypto/fipsmodule/rand/urandom.c",
+        "patchSetId": 12
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-08T16:38:16Z",
+      "side": 1,
+      "message": "If we\u0027re dropping it, this should also go. For that matter, you probably need to do the same with `OPENSSL_OPENBSD` here. Otherwise I think we still use /dev/urandom on OpenBSD.\n\n(This is the actual load-bearing check. The other one is redundant and is only there because of Apple added an interesting Clang warning. It actually does control flow analysis and won\u0027t let you call APIs newer than your minimum without a `__builtin_available` check.)\n\nMay as well fold the various identical chunks together at that point.",
+      "revId": "36960cb911377695f4c1a851886d10e4dc65b4cf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
