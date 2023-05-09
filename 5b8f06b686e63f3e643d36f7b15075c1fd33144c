@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a637259_a8359dec",
+        "filename": "zephyr/module.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-09T14:57:55Z",
+      "side": 1,
+      "message": "What exactly are the implications of this file / future plans here? The CL description talks about a build system, but this file doesn\u0027t seem to actually describe how to build anything. We don\u0027t even have a Kconfig file, so the `kconfig-ext` file is a little surprising.\n\nThe link in [4] talks about integrating a project into Zephyr\u0027s default list of modules? Is that what you all are looking to do here? That sounds like a much bigger request of us than just carrying a file for you all.\n\nIf this is just ended to be a CrOS thing, is there any reason you all can\u0027t carry the file on your end?",
+      "revId": "5b8f06b686e63f3e643d36f7b15075c1fd33144c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
