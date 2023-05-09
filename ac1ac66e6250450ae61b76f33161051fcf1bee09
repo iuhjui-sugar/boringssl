@@ -52,6 +52,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "62326aca_996322cf",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 460,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-05-09T21:34:58Z",
+      "side": 1,
+      "message": "I think that, because at least one template parameter is generic, it\u0027s ok. But happy to anyway.",
+      "parentUuid": "e8a626d7_5bf8618d",
+      "revId": "ac1ac66e6250450ae61b76f33161051fcf1bee09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "96755e04_9c767b77",
@@ -65,6 +83,24 @@
       "writtenOn": "2023-05-08T21:17:11Z",
       "side": 1,
       "message": "Let\u0027s make this take `Span\u003cconst char *const\u003e fixed_names` and `Span\u003cconst T\u003e objects`. More memory-safe *and* less typing at the call site.\n\n(`Span` on `out` would make sense too, but I suppose we\u0027re looking to avoid duplicating code there.)",
+      "revId": "ac1ac66e6250450ae61b76f33161051fcf1bee09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd35572c_a538ebf8",
+        "filename": "ssl/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-05-09T21:34:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96755e04_9c767b77",
       "revId": "ac1ac66e6250450ae61b76f33161051fcf1bee09",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -99,6 +135,30 @@
       "writtenOn": "2023-05-08T21:17:11Z",
       "side": 1,
       "message": "clang-format",
+      "range": {
+        "startLine": 523,
+        "startChar": 5,
+        "endLine": 523,
+        "endChar": 7
+      },
+      "revId": "ac1ac66e6250450ae61b76f33161051fcf1bee09",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b11f22df_5bca3ade",
+        "filename": "ssl/ssl_privkey.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 523,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-05-09T21:34:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf884c33_a3cdcfc5",
       "range": {
         "startLine": 523,
         "startChar": 5,
