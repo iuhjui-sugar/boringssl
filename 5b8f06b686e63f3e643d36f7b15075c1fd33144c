@@ -34,6 +34,24 @@
       "parentUuid": "4a637259_a8359dec",
       "revId": "5b8f06b686e63f3e643d36f7b15075c1fd33144c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65f41b9a_227acb43",
+        "filename": "zephyr/module.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16191
+      },
+      "writtenOn": "2023-05-09T15:54:23Z",
+      "side": 1,
+      "message": "\u003e What exactly are the implications of this file / future plans here?\n\nWith this file, this repository can be recognised as a Zephyr module. We are using BoringSSL in EC (compile `libcrypto.a` and link it with the EC). Zephyr has a different approach: we are providing `CMakeLists.txt` with information (list of files and compilation flags) on how to compile a module (your `generate_build_files.py` is really helpful here 😊), but the repository must be recognised as module first, this is why I need `module.yml` in this repository.\n\nIf I were to add BoringSSL in upstream Zephyr I would fork BoringSSL (like [mbedTLS](https://github.com/zephyrproject-rtos/mbedtls)) and put `module.yml` there, but for EC we get code directly from this repository.\n\n\u003e  We don\u0027t even have a Kconfig file\n\nYup. You don\u0027t need it. `Kconfig` will be provided in Zephyr. Actually I prepared minimal [Kconfig](https://chromium-review.googlesource.com/c/chromiumos/platform/ec/+/4489070/3/zephyr/modules/boringssl/Kconfig). `kconfig-ext` means that the file is not in this repository.\n\n\u003e The link in [4] talks about integrating a project into Zephyr\u0027s default list of modules? Is that what you all are looking to do here?\n\nNo. I just need to add `zephyr/module.yml` here. That\u0027s all.\n\n\u003e If this is just ended to be a CrOS thing, is there any reason you all can\u0027t carry the file on your end?\n\nand\n\n\u003e Consumers of BoringSSL generally import the source regularly into their own repositories and integrate it into their build system.\n\nWe don\u0027t include BoringSSL code in EC/Zephyr repository. Technically, we could create a fork of this repository and add a `modules.yml` file there, but it would require more effort to maintain it. I need to confirm that there are no other options.",
+      "parentUuid": "47a3f25c_aa7b6abf",
+      "revId": "5b8f06b686e63f3e643d36f7b15075c1fd33144c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
