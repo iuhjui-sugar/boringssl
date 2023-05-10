@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "28040793_6a4b90ca",
+        "filename": "util/fipstools/acvp/acvptool/subprocess/subprocess.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-10T21:26:23Z",
+      "side": 1,
+      "message": "TransactAsync. Also we probably need to talk about `callback` a bit. Specifically:\n\n- It runs in the background, unsynchronized with the calling routine\n- It is, however, synchronized with other response callbacks, and will run in order it was requested\n- Use Flush() to wait for the current run of things to complete",
+      "range": {
+        "startLine": 198,
+        "startChar": 3,
+        "endLine": 198,
+        "endChar": 11
+      },
+      "revId": "bbb33bac7e8c239720cb41eb268090ad92126556",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "338ee3a2_bc18ed3f",
+        "filename": "util/fipstools/acvp/modulewrapper/main.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-10T21:26:23Z",
+      "side": 1,
+      "message": "I\u0027m a little confused why this needs changes in the modulewrapper. So the modulewrapper is just a process that goes:\n\n1. Read request\n2. Think very hard\n3. Write response to stdout\n4. Repeat\n\nAnd now we\u0027re making step (3) buffer things up so that, I guess, we don\u0027t block on the write. Instead we buffer it up in the modulewrapper\u0027s memory, to be processed in a whole chunk by ACVP tool later?\n\nBut the pipe from modulewraper to ACVP is itself a buffer. Why don\u0027t we just tell modulewrapper to write as before, and then we just continually read in ACVP the background, as we seem to do.\n\nWhy isn\u0027t it sufficient to just remove the flush command and, effectively, flush after every command, let the callbacks run as they run, and then use the barriers to know when we\u0027re done with a batch of things?",
+      "revId": "bbb33bac7e8c239720cb41eb268090ad92126556",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c4d823d_aac097d1",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-10T21:26:23Z",
+      "side": 1,
+      "message": "This is a little bit shorter. :-)\n\n```suggestion\nuint8_t buf[4];\nCRYPTO_store_u32_le(buf, spans.size());\ng_reply_buffer.insert(g_reply_buffer.end(), buf, buf + sizeof(buf));\nfor (const auto \u0026span : spans) {\n  CRYPTO_store_u32_le(buf, span.size());\n  g_reply_buffer.insert(g_reply_buffer.end(), buf, buf + sizeof(buf));\n} \n```\n\n(The cast is fine here because `uint8_t` is a character type, but it\u0027s so wordy that we may as well do the `memcpy` anyway.)",
+      "range": {
+        "startLine": 173,
+        "startChar": 0,
+        "endLine": 186,
+        "endChar": 66
+      },
+      "revId": "bbb33bac7e8c239720cb41eb268090ad92126556",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e12bcd9f_be3acd47",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-10T21:26:23Z",
+      "side": 1,
+      "message": "```suggestion\n  for (const auto \u0026span : spans) {\n```",
+      "range": {
+        "startLine": 188,
+        "startChar": 0,
+        "endLine": 189,
+        "endChar": 32
+      },
+      "revId": "bbb33bac7e8c239720cb41eb268090ad92126556",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92b20eaa_7cbf8238",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 982,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-10T21:26:23Z",
+      "side": 1,
+      "message": "Nit: clang-format (stray change?)",
+      "revId": "bbb33bac7e8c239720cb41eb268090ad92126556",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
