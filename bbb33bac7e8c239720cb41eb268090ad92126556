@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1f8a31b_b42cdc75",
+        "filename": "util/fipstools/acvp/acvptool/subprocess/aead.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-10T21:28:32Z",
+      "side": 1,
+      "message": "A slight subtlety, though this does work out: this only works because `response` is declared inside the loop, so that each iteration gets its own closure. If the variable were declared outside and then mutated on each loop, it would go wrong.",
+      "revId": "bbb33bac7e8c239720cb41eb268090ad92126556",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "28040793_6a4b90ca",
