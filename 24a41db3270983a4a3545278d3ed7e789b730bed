@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f55f4ff_d993d804",
+        "filename": "include/openssl/span.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-10T18:15:42Z",
+      "side": 1,
+      "message": "There\u0027s already an implicit `Span(T[N])` constructor, so I think this can just be `return Span\u003cconst T\u003e(array)` or perhaps even `return array`. Alternatively, I think you can delete this and just omit `MakeConstSpan` at the call site.",
+      "revId": "24a41db3270983a4a3545278d3ed7e789b730bed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
