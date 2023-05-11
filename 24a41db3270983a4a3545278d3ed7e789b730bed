@@ -16,6 +16,24 @@
       "message": "There\u0027s already an implicit `Span(T[N])` constructor, so I think this can just be `return Span\u003cconst T\u003e(array)` or perhaps even `return array`. Alternatively, I think you can delete this and just omit `MakeConstSpan` at the call site.",
       "revId": "24a41db3270983a4a3545278d3ed7e789b730bed",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea41c72a_e44780ff",
+        "filename": "include/openssl/span.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-05-11T19:40:41Z",
+      "side": 1,
+      "message": "Can\u0027t omit `MakeConstSpan` at the call site:\n\n```\n/Users/agl/boringssl/ssl/ssl_privkey.cc:538:10: error: no matching function for call to \u0027GetAllNames\u0027\n  return GetAllNames(out, max_out, kPredefinedNames,\n         ^~~~~~~~~~~\n/Users/agl/boringssl/ssl/internal.h:460:15: note: candidate template ignored: could not match \u0027Span\u003cconst T\u003e\u0027 against \u0027const SignatureAlgorithmName *\u0027\ninline size_t GetAllNames(const char **out, size_t max_out,\n```\n\n`return array` here does work, however.\n\nThat ok? Or do you feel that omitting `MakeConstSpan` should really work and I should poke at `Span` to try and make it work? (I\u0027m not sure why it doesn\u0027t given the implicit constructor.)",
+      "parentUuid": "6f55f4ff_d993d804",
+      "revId": "24a41db3270983a4a3545278d3ed7e789b730bed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
