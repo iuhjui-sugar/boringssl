@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "331936e8_8c011f09",
+        "filename": "crypto/cpu_aarch64_openbsd.c",
+        "patchSetId": 14
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-05-11T16:02:39Z",
+      "side": 1,
+      "message": "```\nuint64_t cpu_id \u003d 0;\nsize_t len \u003d sizeof(cpu_id);\n```\n\n(I think? Just to make it clear what variable `len` is sizing.)",
+      "revId": "6ebb87ae9ea965ebe722ce3101140ff4aa2f9686",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ed55b55c_57fc72e8",
+        "filename": "crypto/cpu_arm_openbsd.c",
+        "patchSetId": 14
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-05-11T16:02:39Z",
+      "side": 1,
+      "message": "nit: no blank line at the start of functions.",
+      "revId": "6ebb87ae9ea965ebe722ce3101140ff4aa2f9686",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
