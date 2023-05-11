@@ -5,5 +5,8 @@ edition = "2021"
 publish = false
 license = "MIT"
 
+[build-dependencies]
+bindgen = ">=0.65.0"
+
 [dependencies]
 bssl-sys = {path = "../bssl-sys"}
