@@ -94,6 +94,30 @@
       },
       "revId": "7027573601128902aca519d588079588f45d5cc5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "505d4bae_38e6c0b2",
+        "filename": "rust/bssl-crypto/Cargo.toml",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-11T21:41:56Z",
+      "side": 1,
+      "message": "FWIW, all this will be moot once https://boringssl-review.googlesource.com/c/boringssl/+/58985 is ready to land anyway, because then we\u0027ll pass in a flag that only newer bindgen understands. 😊",
+      "parentUuid": "2f116323_ba4faea0",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 20
+      },
+      "revId": "7027573601128902aca519d588079588f45d5cc5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
