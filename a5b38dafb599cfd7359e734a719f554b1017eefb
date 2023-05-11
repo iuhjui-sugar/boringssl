@@ -34,6 +34,24 @@
       "parentUuid": "b8e3321f_7a998eac",
       "revId": "a5b38dafb599cfd7359e734a719f554b1017eefb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35ae90fa_6e9fb875",
+        "filename": "rust/bssl-crypto/src/hkdf.rs",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-05-11T19:58:55Z",
+      "side": 1,
+      "message": "Okay changes no longer needed on latest version, updated the Readme",
+      "parentUuid": "f4f30e00_0bf46b5e",
+      "revId": "a5b38dafb599cfd7359e734a719f554b1017eefb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
