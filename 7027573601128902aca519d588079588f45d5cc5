@@ -70,6 +70,30 @@
       },
       "revId": "7027573601128902aca519d588079588f45d5cc5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f116323_ba4faea0",
+        "filename": "rust/bssl-crypto/Cargo.toml",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-05-11T21:37:33Z",
+      "side": 1,
+      "message": "The problem is the cmake step comes first so the build would fail before it even gets here. The second thing is cmake uses a system wide bindgen install which could be a different version even if this is specified in this crates specific build deps",
+      "parentUuid": "316afd1c_ddaaacb8",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 20
+      },
+      "revId": "7027573601128902aca519d588079588f45d5cc5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
