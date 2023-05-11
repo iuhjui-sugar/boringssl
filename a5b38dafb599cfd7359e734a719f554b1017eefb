@@ -16,6 +16,24 @@
       "message": "What changed to make this change needed?\n\nWas it this change?\nhttps://boringssl.googlesource.com/boringssl/+/e2d14016687d99803987fa24e23e2a4ee1b03f33%5E%21/\n\nThat change should have been a no-op, as it\u0027s been on by default for ages. It\u0027s been deprecated to the point that the latest bindgen rejects the flag, which is why I removed it. Later BoringSSL is going to require bindgen 0.65 or later to handle inline functions properly. (I\u0027m just waiting on Android to update their bindgen.)\n\nAre you running with an old bindgen by any chance?",
       "revId": "a5b38dafb599cfd7359e734a719f554b1017eefb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4f30e00_0bf46b5e",
+        "filename": "rust/bssl-crypto/src/hkdf.rs",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-05-11T17:17:11Z",
+      "side": 1,
+      "message": "ahh good point, it looks like I am on an older version of bindgen, let me try updating",
+      "parentUuid": "b8e3321f_7a998eac",
+      "revId": "a5b38dafb599cfd7359e734a719f554b1017eefb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
