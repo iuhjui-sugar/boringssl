@@ -46,6 +46,30 @@
       },
       "revId": "7027573601128902aca519d588079588f45d5cc5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "316afd1c_ddaaacb8",
+        "filename": "rust/bssl-crypto/Cargo.toml",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-05-11T21:30:50Z",
+      "side": 1,
+      "message": "and effectively this is what we\u0027ll end up running in the ci 😊",
+      "parentUuid": "729012bd_a857abad",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 20
+      },
+      "revId": "7027573601128902aca519d588079588f45d5cc5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
