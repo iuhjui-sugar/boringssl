@@ -16,6 +16,29 @@
       "message": "Was going to do something more involved, but this particular class of fuzzer reports just aren\u0027t a good use of time.",
       "revId": "4258f5e697f3b22a689fe019ae43891e57c2d36e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7ec4cf2_80efeda2",
+        "filename": "fuzz/conf.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-05-11T23:30:43Z",
+      "side": 1,
+      "message": "We could *probably* with some effort merely cap the input of this stuff in a similar way for realsies. \n\nMaybe make a bug for that and link it here?",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 40
+      },
+      "revId": "4258f5e697f3b22a689fe019ae43891e57c2d36e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
