@@ -34,6 +34,24 @@
       "parentUuid": "6f55f4ff_d993d804",
       "revId": "24a41db3270983a4a3545278d3ed7e789b730bed",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47933379_5e9bfc06",
+        "filename": "include/openssl/span.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-11T22:26:45Z",
+      "side": 1,
+      "message": "Ohhhhh. It\u0027s because it\u0027s a template and template argument deduction isn\u0027t smart enough. Bah!\n\nIf we had a function `GetAllNames(..., Span\u003cconst SSL_CIPHER\u003e ...)`, and we called it with `const SSL_CIPHER[24]`, the language would try to do an implicit conversion and everything is fine.\n\nBut we have a template `GetAllNames\u003cT, _\u003e(... Span\u003cconst T\u003e ...)`. The language needs to first deduce the type of `T` before it has an actual type to try to coerce. There aren\u0027t any other parameters of the template that allow the language to deduce `T`. C++ templates are too unconstrained to resolve implicit constructors and template argument deduction concurrently.\n\nC++17 allows \"user-defined deduction guides\", but I\u0027m actually not sure if they\u0027re consulted in this context either. They might not be. It\u0027s all a mess.\n\nIt would have worked if you wrote `GetAllNames\u003cSSL_CIPHER, const char*\u003e` but at that point `MakeConstSpan` is probably easier.",
+      "parentUuid": "ea41c72a_e44780ff",
+      "revId": "24a41db3270983a4a3545278d3ed7e789b730bed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
