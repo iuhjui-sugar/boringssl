@@ -22,6 +22,30 @@
       },
       "revId": "7027573601128902aca519d588079588f45d5cc5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "729012bd_a857abad",
+        "filename": "rust/bssl-crypto/Cargo.toml",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-05-11T21:30:20Z",
+      "side": 1,
+      "message": "right, but if you are doing what the readme says to check your code, this *does* pick it up just fine.",
+      "parentUuid": "960e3f5b_273f4d43",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 20
+      },
+      "revId": "7027573601128902aca519d588079588f45d5cc5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
