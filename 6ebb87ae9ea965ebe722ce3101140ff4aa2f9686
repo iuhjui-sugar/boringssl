@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8f53f67d_7964ce2d",
+        "filename": "crypto/cpu_aarch64_openbsd.c",
+        "patchSetId": 14
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-05-11T16:21:06Z",
+      "side": 1,
+      "message": "yeah, forces cpu_id to be declared above, but sure.",
+      "parentUuid": "331936e8_8c011f09",
+      "revId": "6ebb87ae9ea965ebe722ce3101140ff4aa2f9686",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ed55b55c_57fc72e8",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-05-11T16:02:39Z",
       "side": 1,
       "message": "nit: no blank line at the start of functions.",
+      "revId": "6ebb87ae9ea965ebe722ce3101140ff4aa2f9686",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "988a1a1f_e7b7324a",
+        "filename": "crypto/cpu_arm_openbsd.c",
+        "patchSetId": 14
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-05-11T16:21:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ed55b55c_57fc72e8",
       "revId": "6ebb87ae9ea965ebe722ce3101140ff4aa2f9686",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
