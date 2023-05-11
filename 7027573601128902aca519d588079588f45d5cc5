@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "960e3f5b_273f4d43",
+        "filename": "rust/bssl-crypto/Cargo.toml",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-05-11T21:09:04Z",
+      "side": 1,
+      "message": "this is not quite correct, as the bindgen crate is not being used anywhere in the cargo build. Instead there is a system dependency on `bindgen-cli` required by the cmake build",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 20
+      },
+      "revId": "7027573601128902aca519d588079588f45d5cc5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
