@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e59f1896_d7740e27",
+        "filename": "util/fipstools/acvp/acvptool/subprocess/aead.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-05-11T20:25:33Z",
+      "side": 1,
+      "message": "Yea, this pattern is used a lot in this code now.  It is a little subtle that the callbacks run in order, but it seems to work out reasonably well. (I think. Let\u0027s see what I think in a year.)",
+      "parentUuid": "d1f8a31b_b42cdc75",
+      "revId": "bbb33bac7e8c239720cb41eb268090ad92126556",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "28040793_6a4b90ca",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-05-10T21:26:23Z",
       "side": 1,
       "message": "TransactAsync. Also we probably need to talk about `callback` a bit. Specifically:\n\n- It runs in the background, unsynchronized with the calling routine\n- It is, however, synchronized with other response callbacks, and will run in order it was requested\n- Use Flush() to wait for the current run of things to complete",
+      "range": {
+        "startLine": 198,
+        "startChar": 3,
+        "endLine": 198,
+        "endChar": 11
+      },
+      "revId": "bbb33bac7e8c239720cb41eb268090ad92126556",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44957101_b197722a",
+        "filename": "util/fipstools/acvp/acvptool/subprocess/subprocess.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-05-11T20:25:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "28040793_6a4b90ca",
       "range": {
         "startLine": 198,
         "startChar": 3,
@@ -58,6 +100,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "838e2230_4c85f456",
+        "filename": "util/fipstools/acvp/modulewrapper/main.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-05-11T20:25:33Z",
+      "side": 1,
+      "message": "These changes to modulewrapper aren\u0027t needed; it works fine if flush is a no-op. But this makes modulewrapper buffer as much as allowed and thus stress the acvptool.\n\nAdded comment.",
+      "parentUuid": "338ee3a2_bc18ed3f",
+      "revId": "bbb33bac7e8c239720cb41eb268090ad92126556",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2c4d823d_aac097d1",
@@ -71,6 +131,30 @@
       "writtenOn": "2023-05-10T21:26:23Z",
       "side": 1,
       "message": "This is a little bit shorter. :-)\n\n```suggestion\nuint8_t buf[4];\nCRYPTO_store_u32_le(buf, spans.size());\ng_reply_buffer.insert(g_reply_buffer.end(), buf, buf + sizeof(buf));\nfor (const auto \u0026span : spans) {\n  CRYPTO_store_u32_le(buf, span.size());\n  g_reply_buffer.insert(g_reply_buffer.end(), buf, buf + sizeof(buf));\n} \n```\n\n(The cast is fine here because `uint8_t` is a character type, but it\u0027s so wordy that we may as well do the `memcpy` anyway.)",
+      "range": {
+        "startLine": 173,
+        "startChar": 0,
+        "endLine": 186,
+        "endChar": 66
+      },
+      "revId": "bbb33bac7e8c239720cb41eb268090ad92126556",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dccc2735_be6b7f06",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-05-11T20:25:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c4d823d_aac097d1",
       "range": {
         "startLine": 173,
         "startChar": 0,
@@ -104,6 +188,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e26e2696_c87713ae",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-05-11T20:25:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e12bcd9f_be3acd47",
+      "range": {
+        "startLine": 188,
+        "startChar": 0,
+        "endLine": 189,
+        "endChar": 32
+      },
+      "revId": "bbb33bac7e8c239720cb41eb268090ad92126556",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "92b20eaa_7cbf8238",
@@ -117,6 +225,24 @@
       "writtenOn": "2023-05-10T21:26:23Z",
       "side": 1,
       "message": "Nit: clang-format (stray change?)",
+      "revId": "bbb33bac7e8c239720cb41eb268090ad92126556",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2447ec34_72f91205",
+        "filename": "util/fipstools/acvp/modulewrapper/modulewrapper.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 982,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-05-11T20:25:33Z",
+      "side": 1,
+      "message": "Thanks. Not sure what happened there.",
+      "parentUuid": "92b20eaa_7cbf8238",
       "revId": "bbb33bac7e8c239720cb41eb268090ad92126556",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
