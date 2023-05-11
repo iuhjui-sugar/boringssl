@@ -52,6 +52,24 @@
       "parentUuid": "ea41c72a_e44780ff",
       "revId": "24a41db3270983a4a3545278d3ed7e789b730bed",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ed4a4c1_90718b5b",
+        "filename": "include/openssl/span.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-11T22:28:50Z",
+      "side": 1,
+      "message": "This is the same reason why Chromium has that annoying `base::as_bytes(base::make_span(some_string))` pattern. Though now that Chromium is C++17, I think it can use CTAD + deduction guides to get `base::as_bytes(base::span(some_string))`. I don\u0027t think we can remove the `base::span` though.",
+      "parentUuid": "47933379_5e9bfc06",
+      "revId": "24a41db3270983a4a3545278d3ed7e789b730bed",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
