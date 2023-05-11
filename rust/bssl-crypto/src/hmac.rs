@@ -16,6 +16,7 @@ use crate::{
     digest::{Md, Sha256, Sha512},
     CSlice, ForeignTypeRef as _,
 };
+use bssl_sys::size_t;
 use core::{
     ffi::{c_uint, c_void},
     marker::PhantomData,
@@ -153,9 +154,9 @@ fn hmac<const N: usize, M: Md>(key: &[u8], data: &[u8]) -> [u8; N] {
         bssl_sys::HMAC(
             M::get_md().as_ptr(),
             CSlice::from(key).as_ptr(),
-            key.len(),
+            key.len() as size_t,
             CSlice::from(data).as_ptr(),
-            data.len(),
+            data.len() as size_t,
             out.as_mut_ptr(),
             &mut size as *mut c_uint,
         )
@@ -202,7 +203,7 @@ impl<const N: usize, M: Md> Hmac<N, M> {
             bssl_sys::HMAC_Init_ex(
                 ctx,
                 CSlice::from(key).as_ptr() as *const c_void,
-                key.len(),
+                key.len() as size_t,
                 M::get_md().as_ptr(),
                 ptr::null_mut(),
             )
@@ -219,7 +220,7 @@ impl<const N: usize, M: Md> Hmac<N, M> {
     fn update(&mut self, data: &[u8]) {
         let result = unsafe {
             // Safety: HMAC_Update will always return 1, in case it doesnt we panic
-            bssl_sys::HMAC_Update(self.ctx, data.as_ptr(), data.len())
+            bssl_sys::HMAC_Update(self.ctx, data.as_ptr(), data.len() as size_t)
         };
         assert_eq!(result, 1, "failure in bssl_sys::HMAC_Update");
     }
@@ -271,7 +272,7 @@ impl<const N: usize, M: Md> Hmac<N, M> {
             bssl_sys::CRYPTO_memcmp(
                 CSlice::from(result).as_ptr() as *const c_void,
                 CSlice::from(tag).as_ptr() as *const c_void,
-                result.len(),
+                result.len() as size_t,
             )
         }
         .eq(&0)

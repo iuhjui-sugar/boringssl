@@ -14,12 +14,13 @@
  */
 
 use crate::CSliceMut;
+use bssl_sys::size_t;
 
 /// Fills buf with random bytes. In the event that sufficient random data can not be obtained,
 /// BoringSSL will abort, so the assert will never be hit.
 pub fn rand_bytes(buf: &mut [u8]) {
     let mut ffi_buf = CSliceMut::from(buf);
-    let result = unsafe { bssl_sys::RAND_bytes(ffi_buf.as_mut_ptr(), ffi_buf.len()) };
+    let result = unsafe { bssl_sys::RAND_bytes(ffi_buf.as_mut_ptr(), ffi_buf.len() as size_t) };
     assert_eq!(result, 1, "BoringSSL RAND_bytes API failed unexpectedly");
 }
 

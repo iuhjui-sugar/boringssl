@@ -15,6 +15,7 @@
 use crate::digest::Md;
 use crate::digest::{Sha256, Sha512};
 use crate::{CSlice, CSliceMut, ForeignTypeRef};
+use bssl_sys::size_t;
 use core::marker::PhantomData;
 
 /// Implementation of HKDF-SHA-256
@@ -78,14 +79,14 @@ impl<M: Md> Hkdf<M> {
                 let result = unsafe {
                     bssl_sys::HKDF(
                         okm_cslice.as_mut_ptr(),
-                        okm_cslice.len(),
+                        okm_cslice.len() as size_t,
                         M::get_md().as_ptr(),
                         CSlice::from(self.ikm.as_slice()).as_ptr(),
-                        self.ikm.as_slice().len(),
+                        self.ikm.as_slice().len() as size_t,
                         CSlice::from(salt).as_ptr(),
-                        salt.len(),
+                        salt.len() as size_t,
                         CSlice::from(info).as_ptr(),
-                        info.len(),
+                        info.len() as size_t,
                     )
                 };
                 assert!(result > 0, "Allocation failure in bssl_sys::HKDF");
