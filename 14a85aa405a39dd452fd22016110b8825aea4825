@@ -46,6 +46,30 @@
       },
       "revId": "14a85aa405a39dd452fd22016110b8825aea4825",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9677c657_d6031dbf",
+        "filename": "rust/bssl-crypto/src/ed25519.rs",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-05-12T18:19:31Z",
+      "side": 1,
+      "message": "We could explictly panic, calling out that it can\u0027t happen, which, I suppose the expect effectively does.. Add a commment where you are disabling the warning explaining why you are disabling for this case.",
+      "parentUuid": "a7d1ae69_7de3a9c9",
+      "range": {
+        "startLine": 68,
+        "startChar": 5,
+        "endLine": 68,
+        "endChar": 37
+      },
+      "revId": "14a85aa405a39dd452fd22016110b8825aea4825",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
