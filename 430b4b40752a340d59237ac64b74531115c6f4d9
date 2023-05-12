@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d602f968_7bceec09",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-05-12T17:38:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "822432c5_9f2e439b",
+      "revId": "430b4b40752a340d59237ac64b74531115c6f4d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "936b27f0_15b38fe7",
@@ -35,6 +53,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "647eb7b2_3c7b3e23",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2723,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-05-12T17:38:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "936b27f0_15b38fe7",
+      "revId": "430b4b40752a340d59237ac64b74531115c6f4d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e6d0f7d8_13c209f5",
@@ -48,6 +84,30 @@
       "writtenOn": "2023-04-20T23:17:05Z",
       "side": 1,
       "message": "X509_verify_cert. X509_verify is the one that only checks a signature. This makes a lot of sense. :-)",
+      "range": {
+        "startLine": 2866,
+        "startChar": 36,
+        "endLine": 2866,
+        "endChar": 47
+      },
+      "revId": "430b4b40752a340d59237ac64b74531115c6f4d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b5be0c6_bb50588a",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2866,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-05-12T17:38:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6d0f7d8_13c209f5",
       "range": {
         "startLine": 2866,
         "startChar": 36,
@@ -81,6 +141,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7af2a008_57b4ec5e",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2867,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-05-12T17:38:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aa456b66_69b5a18c",
+      "range": {
+        "startLine": 2867,
+        "startChar": 4,
+        "endLine": 2867,
+        "endChar": 7
+      },
+      "revId": "430b4b40752a340d59237ac64b74531115c6f4d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c7fadc47_49710394",
@@ -94,6 +178,30 @@
       "writtenOn": "2023-04-20T23:17:05Z",
       "side": 1,
       "message": "s/ the/The/. (Capital and single space.)",
+      "range": {
+        "startLine": 2869,
+        "startChar": 24,
+        "endLine": 2869,
+        "endChar": 29
+      },
+      "revId": "430b4b40752a340d59237ac64b74531115c6f4d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "44cfa88b_42f55109",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2869,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-05-12T17:38:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7fadc47_49710394",
       "range": {
         "startLine": 2869,
         "startChar": 24,
@@ -121,6 +229,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad9c3899_a0ca8c75",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2876,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-05-12T17:38:19Z",
+      "side": 1,
+      "message": "Yes, for the most part, I reworded a little bit around \"the callback inspects\" because, well the callback *can* inspect, sometimes they do and sometimes they don\u0027t..",
+      "parentUuid": "1caaf580_8641860b",
+      "revId": "430b4b40752a340d59237ac64b74531115c6f4d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "080237db_c62fe212",
@@ -134,6 +260,30 @@
       "writtenOn": "2023-04-20T23:17:05Z",
       "side": 1,
       "message": "|X509_STORE_CTX|",
+      "range": {
+        "startLine": 2882,
+        "startChar": 37,
+        "endLine": 2882,
+        "endChar": 51
+      },
+      "revId": "430b4b40752a340d59237ac64b74531115c6f4d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93e85ede_c2062083",
+        "filename": "include/openssl/x509.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 2882,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-05-12T17:38:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "080237db_c62fe212",
       "range": {
         "startLine": 2882,
         "startChar": 37,
