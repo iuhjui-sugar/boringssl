@@ -39,6 +39,30 @@
       },
       "revId": "4258f5e697f3b22a689fe019ae43891e57c2d36e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76b31157_f82d5b99",
+        "filename": "fuzz/conf.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-12T01:50:23Z",
+      "side": 1,
+      "message": "It\u0027s a little tricky because, by the time it gets to a problem function, it\u0027s already a parsed CONF structure.\n\nI\u0027m thinking the way to cap it is to cap the output, which will be easy once we\u0027re using CBB everywhere, but a bit tricky right now. Anyway, filed a bug. :-)",
+      "parentUuid": "c7ec4cf2_80efeda2",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 40
+      },
+      "revId": "4258f5e697f3b22a689fe019ae43891e57c2d36e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
