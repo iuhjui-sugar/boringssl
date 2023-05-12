@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfe0e340_d098baf6",
+        "filename": "rust/bssl-crypto/src/ed25519.rs",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-05-12T17:54:38Z",
+      "side": 1,
+      "message": "Well, you sorta fixed it, by disabling the warning :). Do you truly neeed expect() here and you can\u0027t simply handle the Err case, even if it can\u0027t happen?",
+      "range": {
+        "startLine": 68,
+        "startChar": 5,
+        "endLine": 68,
+        "endChar": 37
+      },
+      "revId": "14a85aa405a39dd452fd22016110b8825aea4825",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
