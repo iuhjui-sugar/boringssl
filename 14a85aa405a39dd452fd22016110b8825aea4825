@@ -22,6 +22,30 @@
       },
       "revId": "14a85aa405a39dd452fd22016110b8825aea4825",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7d1ae69_7de3a9c9",
+        "filename": "rust/bssl-crypto/src/ed25519.rs",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-05-12T17:59:02Z",
+      "side": 1,
+      "message": "Handle it how so? I don\u0027t think it would make sense to a return an error to the user here since they wouldnt be able to do anything with it, so it would only be confusing.\n\nIt will always be safe to expect here since this can never happen. The compiler is not smart enough to know that a slice of length 32 will always fit into a 32 byte array, but we are :)\n\nI added the clippy::expect lints mostly just to make sure when new people are adding code, they are being thoughtful about how expect is used, to not accidentally introduce a panic",
+      "parentUuid": "dfe0e340_d098baf6",
+      "range": {
+        "startLine": 68,
+        "startChar": 5,
+        "endLine": 68,
+        "endChar": 37
+      },
+      "revId": "14a85aa405a39dd452fd22016110b8825aea4825",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
