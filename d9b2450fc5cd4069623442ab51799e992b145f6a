@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f9a06d4_5551d912",
+        "filename": "rust/bssl-crypto/src/ed25519.rs",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-05-12T17:16:01Z",
+      "side": 1,
+      "message": "bbe-macbookpro:bssl-crypto bbe$ cargo clippy\n   Compiling bssl-sys v0.1.0 (/Users/bbe/boringssl/rust/bssl-sys)\n    Checking bssl-crypto v0.1.0 (/Users/bbe/boringssl/rust/bssl-crypto)\nerror: used `expect()` on a `Result` value\n  --\u003e src/ed25519.rs:69:25\n   |\n69 |               public_key: bytes[PUBLIC_KEY_LENGTH..]\n   |  _________________________^\n70 | |                 .try_into()\n71 | |                 .expect(\"The slice is always the correct size for a public key\"),\n   | |________________________________________________________________________________^\n   |\n   \u003d help: if this value is an `Err`, it will panic\n   \u003d help: for further information visit https://rust-lang.github.io/rust-clippy/master/index.html#expect_used\nnote: the lint level is defined here\n  --\u003e src/lib.rs:22:5\n   |\n22 |     clippy::expect_used\n   |     ^^^^^^^^^^^^^^^^^^^\n   \n   \n   Please fix",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 1
+      },
+      "revId": "d9b2450fc5cd4069623442ab51799e992b145f6a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
