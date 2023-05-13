@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "744d1277_31b4337f",
+        "filename": "tool/speed.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-05-13T22:29:33Z",
+      "side": 1,
+      "message": "abort instead? This is a programming error, no?",
+      "revId": "0508d14bfa38375de6703f4c017fe845839a9c1c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "adfa4631_6339d66e",
+        "filename": "tool/speed.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 820,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-05-13T22:29:33Z",
+      "side": 1,
+      "message": "ditto about abort? (Your call, could do either way.)",
+      "revId": "0508d14bfa38375de6703f4c017fe845839a9c1c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
