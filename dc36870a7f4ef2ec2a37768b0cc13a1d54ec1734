@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d256d2e9_ce09dd2c",
+        "filename": "crypto/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-05-15T20:50:08Z",
+      "side": 1,
+      "message": "removed",
+      "range": {
+        "startLine": 552,
+        "startChar": 15,
+        "endLine": 552,
+        "endChar": 21
+      },
+      "revId": "dc36870a7f4ef2ec2a37768b0cc13a1d54ec1734",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9d88e940_1ba8a224",
+        "filename": "crypto/refcount_win.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-05-15T20:50:08Z",
+      "side": 1,
+      "message": "2023",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "dc36870a7f4ef2ec2a37768b0cc13a1d54ec1734",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9863baa4_d30856fb",
+        "filename": "crypto/refcount_win.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-05-15T20:50:08Z",
+      "side": 1,
+      "message": "size",
+      "range": {
+        "startLine": 26,
+        "startChar": 53,
+        "endLine": 26,
+        "endChar": 62
+      },
+      "revId": "dc36870a7f4ef2ec2a37768b0cc13a1d54ec1734",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "621f4c81_9d661149",
+        "filename": "crypto/refcount_win.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-05-15T20:50:08Z",
+      "side": 1,
+      "message": "`desired` ?",
+      "range": {
+        "startLine": 57,
+        "startChar": 25,
+        "endLine": 57,
+        "endChar": 37
+      },
+      "revId": "dc36870a7f4ef2ec2a37768b0cc13a1d54ec1734",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "37badffd_b876382d",
+        "filename": "crypto/refcount_win.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-05-15T20:50:08Z",
+      "side": 1,
+      "message": "in the prior function, `new_value` is `const`. I good with either, but they should be the same.",
+      "revId": "dc36870a7f4ef2ec2a37768b0cc13a1d54ec1734",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
