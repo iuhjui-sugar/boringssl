@@ -13,6 +13,9 @@
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+///implementation for the CTR mode of operation
+pub mod ctr;
+
 /// Block size in bytes for AES.
 pub const BLOCK_SIZE: usize = bssl_sys::AES_BLOCK_SIZE as usize;
 
