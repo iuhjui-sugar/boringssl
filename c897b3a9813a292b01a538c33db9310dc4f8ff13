@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a4fd5aea_aba7be1e",
+        "filename": "rust/bssl-crypto/src/ed25519.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-05-15T21:07:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "670f1f18_b82a1d0a",
+      "range": {
+        "startLine": 18,
+        "startChar": 30,
+        "endLine": 18,
+        "endChar": 37
+      },
+      "revId": "c897b3a9813a292b01a538c33db9310dc4f8ff13",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3706ccef_6a6e5c98",
@@ -37,6 +61,24 @@
       "writtenOn": "2023-05-15T20:43:03Z",
       "side": 1,
       "message": "Not really any point in stashing the public key in there given the keypair already has one. :-)",
+      "revId": "c897b3a9813a292b01a538c33db9310dc4f8ff13",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e280c1e5_0371301c",
+        "filename": "rust/bssl-crypto/src/ed25519.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-05-15T21:07:05Z",
+      "side": 1,
+      "message": "Yeah thats fair, the only reason I left it is because the boringssl API looks like: \n`ED25519_keypair(uint8_t out_public_key[32], uint8_t out_private_key[64])` which seemed to be treating them separately anyways",
+      "parentUuid": "3706ccef_6a6e5c98",
       "revId": "c897b3a9813a292b01a538c33db9310dc4f8ff13",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -64,6 +106,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b231280_8a8e3942",
+        "filename": "rust/bssl-crypto/src/ed25519.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-05-15T21:07:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f5157e52_11b37729",
+      "range": {
+        "startLine": 34,
+        "startChar": 25,
+        "endLine": 34,
+        "endChar": 32
+      },
+      "revId": "c897b3a9813a292b01a538c33db9310dc4f8ff13",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ac411fce_9cd1ac88",
@@ -77,6 +143,30 @@
       "writtenOn": "2023-05-15T20:43:03Z",
       "side": 1,
       "message": "Is this type really doing anything, over just returning `[u8; 64]` directly?",
+      "range": {
+        "startLine": 35,
+        "startChar": 11,
+        "endLine": 35,
+        "endChar": 20
+      },
+      "revId": "c897b3a9813a292b01a538c33db9310dc4f8ff13",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc8083b2_dc829b43",
+        "filename": "rust/bssl-crypto/src/ed25519.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-05-15T21:07:05Z",
+      "side": 1,
+      "message": "Its mostly just for convenience/clarification to avoid using the wrong byte array somewhere. Personally I like it this way, but don\u0027t feel too strongly. If the preference is to remove it I am fine with that too",
+      "parentUuid": "ac411fce_9cd1ac88",
       "range": {
         "startLine": 35,
         "startChar": 11,
@@ -117,6 +207,24 @@
       "writtenOn": "2023-05-15T20:43:03Z",
       "side": 1,
       "message": "This is a rather involved way to say `if ret \u003d\u003d 1 { Ok(()) } else { Err(SignatureError) }`. :-) Is that the usual style in Rust?",
+      "revId": "c897b3a9813a292b01a538c33db9310dc4f8ff13",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb110a77_50f7518b",
+        "filename": "rust/bssl-crypto/src/ed25519.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-05-15T21:07:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f2c6bca4_a99e9de8",
       "revId": "c897b3a9813a292b01a538c33db9310dc4f8ff13",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
