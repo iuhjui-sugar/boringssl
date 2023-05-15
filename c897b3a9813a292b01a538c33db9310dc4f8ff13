@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "670f1f18_b82a1d0a",
+        "filename": "rust/bssl-crypto/src/ed25519.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-15T20:43:03Z",
+      "side": 1,
+      "message": "Nit: RFC 8032 has settled on \"Ed25519\" with a capital E as the preferred capitalization, so let\u0027s use that. Ditto throughout.",
+      "range": {
+        "startLine": 18,
+        "startChar": 30,
+        "endLine": 18,
+        "endChar": 37
+      },
+      "revId": "c897b3a9813a292b01a538c33db9310dc4f8ff13",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3706ccef_6a6e5c98",
+        "filename": "rust/bssl-crypto/src/ed25519.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-15T20:43:03Z",
+      "side": 1,
+      "message": "Not really any point in stashing the public key in there given the keypair already has one. :-)",
+      "revId": "c897b3a9813a292b01a538c33db9310dc4f8ff13",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5157e52_11b37729",
+        "filename": "rust/bssl-crypto/src/ed25519.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-15T20:43:03Z",
+      "side": 1,
+      "message": "s/creates/is created/?",
+      "range": {
+        "startLine": 34,
+        "startChar": 25,
+        "endLine": 34,
+        "endChar": 32
+      },
+      "revId": "c897b3a9813a292b01a538c33db9310dc4f8ff13",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ac411fce_9cd1ac88",
+        "filename": "rust/bssl-crypto/src/ed25519.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-15T20:43:03Z",
+      "side": 1,
+      "message": "Is this type really doing anything, over just returning `[u8; 64]` directly?",
+      "range": {
+        "startLine": 35,
+        "startChar": 11,
+        "endLine": 35,
+        "endChar": 20
+      },
+      "revId": "c897b3a9813a292b01a538c33db9310dc4f8ff13",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "377c8d9b_0b12710d",
+        "filename": "rust/bssl-crypto/src/ed25519.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-15T20:43:03Z",
+      "side": 1,
+      "message": "Oh, this is a bit fun. So what is an Ed25519 private key is... kind of all over the place. It took a while before it got standardized coherently.\nhttps://blog.mozilla.org/warner/2011/11/29/ed25519-keys/\n\nNow we do have a \"standard\" opinion, RFC 8032. RFC 8032 has taken the byte representation to be \"seed\". That differs from our \"low-level\" Ed25519 API.\n\nPart of this is because if you\u0027re signing a lot with one key, you want the public half available. It figures into the signing process, and we don\u0027t want to have to compute it repeatedly.\n\nInstead of having separate steps for \"import private key\" and \"sign\", `ED25519_sign` just cheats and says \"eh, a private key is just a 64-byte blob\", whatever.\n\nAnd, honestly, that\u0027s mostly fine. Though this means dumb things can happen if you import a private key where the public key doesn\u0027t match. Actually if you use the correct private key with the wrong public key, your private key is lost. But I think this is a mostly theoretical concern because if you believe the whole 64-byte structure is the private key, obviously you should not let the attacker mutate half of it! :-)\n\nBut, in most languages, including here, we don\u0027t need to be so afraid of types. It\u0027s pretty useful to have kind of of `PrivateKey` or `KeyPair` or `Signer` or whatever type. And, once you have that, you may as well just do the public key computation on import, so a 32-byte format is smaller and avoids thinking about the above.\n\nOn the flip side, it doesn\u0027t give you any way to say \"I already have the public key precomputed and trust it as much as the private key, please don\u0027t waste cycles on the import\". But it\u0027s also not *that* slow (it\u0027s less than the cost of one signature). So I think it\u0027s probably better to just stick to the RFC 8032 spelling on the public API and not think about it too hard. :-) Then we also can cite RFC 8032 when describing the bytes you get out.\n\n(If we were to do that, is `KeyPair` still a better name, or would `PrivateKey` make more sense?)",
+      "revId": "c897b3a9813a292b01a538c33db9310dc4f8ff13",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f2c6bca4_a99e9de8",
+        "filename": "rust/bssl-crypto/src/ed25519.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-15T20:43:03Z",
+      "side": 1,
+      "message": "This is a rather involved way to say `if ret \u003d\u003d 1 { Ok(()) } else { Err(SignatureError) }`. :-) Is that the usual style in Rust?",
+      "revId": "c897b3a9813a292b01a538c33db9310dc4f8ff13",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
