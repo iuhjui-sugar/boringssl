@@ -227,6 +227,24 @@
       "parentUuid": "f2c6bca4_a99e9de8",
       "revId": "c897b3a9813a292b01a538c33db9310dc4f8ff13",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a899eec_b3736b0a",
+        "filename": "rust/bssl-crypto/src/ed25519.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-05-15T21:07:51Z",
+      "side": 1,
+      "message": "Honestly not sure what the usual style is, I think your way is clearer so I updated it too that",
+      "parentUuid": "eb110a77_50f7518b",
+      "revId": "c897b3a9813a292b01a538c33db9310dc4f8ff13",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
