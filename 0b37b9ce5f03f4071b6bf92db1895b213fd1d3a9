@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "93f43690_3d395f1c",
+        "filename": "crypto/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 627,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-05-15T23:23:01Z",
+      "side": 1,
+      "message": "`desired`?",
+      "range": {
+        "startLine": 627,
+        "startChar": 25,
+        "endLine": 627,
+        "endChar": 37
+      },
+      "revId": "0b37b9ce5f03f4071b6bf92db1895b213fd1d3a9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
