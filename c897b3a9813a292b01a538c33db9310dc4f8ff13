@@ -196,6 +196,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a8306e17_8aa5c10f",
+        "filename": "rust/bssl-crypto/src/ed25519.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-05-15T21:43:32Z",
+      "side": 1,
+      "message": "I see, so updating the `from_bytes()` on to only accept a 32 byte private key. Re-naming it to `SecretKey` might make sense, I was loosely trying to follow the Rust implementation API, which implements signing on the KeyPair struct: https://docs.rs/ed25519-dalek/latest/ed25519_dalek/struct.Keypair.html",
+      "parentUuid": "377c8d9b_0b12710d",
+      "revId": "c897b3a9813a292b01a538c33db9310dc4f8ff13",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f2c6bca4_a99e9de8",
         "filename": "rust/bssl-crypto/src/ed25519.rs",
         "patchSetId": 3
