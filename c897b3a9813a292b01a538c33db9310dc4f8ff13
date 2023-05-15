@@ -83,6 +83,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bad5f013_84d78827",
+        "filename": "rust/bssl-crypto/src/ed25519.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-05-15T22:14:27Z",
+      "side": 1,
+      "message": "Removed. Now the `out_public_key` passed to boringssl is just thrown away",
+      "parentUuid": "e280c1e5_0371301c",
+      "revId": "c897b3a9813a292b01a538c33db9310dc4f8ff13",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f5157e52_11b37729",
@@ -208,6 +226,24 @@
       "side": 1,
       "message": "I see, so updating the `from_bytes()` on to only accept a 32 byte private key. Re-naming it to `SecretKey` might make sense, I was loosely trying to follow the Rust implementation API, which implements signing on the KeyPair struct: https://docs.rs/ed25519-dalek/latest/ed25519_dalek/struct.Keypair.html",
       "parentUuid": "377c8d9b_0b12710d",
+      "revId": "c897b3a9813a292b01a538c33db9310dc4f8ff13",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d1e2c559_5f2487bd",
+        "filename": "rust/bssl-crypto/src/ed25519.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-05-15T22:14:27Z",
+      "side": 1,
+      "message": "Okay I removed `from_bytes` and replaced it with `new_from_seed`. I decided to leave it as a `KeyPair` because even though its created from a private key (seed), what its really representing is a KeyPair",
+      "parentUuid": "a8306e17_8aa5c10f",
       "revId": "c897b3a9813a292b01a538c33db9310dc4f8ff13",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
