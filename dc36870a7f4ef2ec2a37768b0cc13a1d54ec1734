@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3d1c50f_09405098",
+        "filename": "crypto/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 552,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-15T23:28:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d256d2e9_ce09dd2c",
+      "range": {
+        "startLine": 552,
+        "startChar": 15,
+        "endLine": 552,
+        "endChar": 21
+      },
+      "revId": "dc36870a7f4ef2ec2a37768b0cc13a1d54ec1734",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9d88e940_1ba8a224",
@@ -47,6 +71,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0c981a3_959e1924",
+        "filename": "crypto/refcount_win.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-15T23:28:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9d88e940_1ba8a224",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "dc36870a7f4ef2ec2a37768b0cc13a1d54ec1734",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9863baa4_d30856fb",
@@ -60,6 +108,30 @@
       "writtenOn": "2023-05-15T20:50:08Z",
       "side": 1,
       "message": "size",
+      "range": {
+        "startLine": 26,
+        "startChar": 53,
+        "endLine": 26,
+        "endChar": 62
+      },
+      "revId": "dc36870a7f4ef2ec2a37768b0cc13a1d54ec1734",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ccbf3c6c_3ee23320",
+        "filename": "crypto/refcount_win.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-15T23:28:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9863baa4_d30856fb",
       "range": {
         "startLine": 26,
         "startChar": 53,
@@ -95,6 +167,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ecc8606a_3f1f1468",
+        "filename": "crypto/refcount_win.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-15T23:28:12Z",
+      "side": 1,
+      "message": "I think this is correct, but now I\u0027m slightly worried, so please double-check me on this! :-)\n\n`atomic_compare_exchange` is meant to mirror the C11 function. The C11 function needs to return 1 iff `*expected` on function entry is equal to `*ptr` on function entry. (See Notes here.)\nhttps://en.cppreference.com/w/c/atomic/atomic_compare_exchange\n\n`InterlockedCompareExchange` returns the original value of `*ptr`. You have to infer whether the swap happened based on whether it matched `old_expected`.\nhttps://learn.microsoft.com/en-us/windows/win32/api/winnt/nf-winnt-interlockedcompareexchange\n\nThat is, I believe it\u0027s the atomic version of:\n```\nLONG InterlockedCompareExchange(\n  [in, out] LONG volatile *Destination,\n  [in]      LONG          ExChange,\n  [in]      LONG          Comparand\n) {\n    LONG InitialValue \u003d *Destination;\n    if (Comparand \u003d\u003d InitialValue) {\n        *Destination \u003d ExChange;\n    }\n    return InitialValue;\n}\n```\n\nAnd so we want to return one if `Comparand` (`old_expected`) matches the function\u0027s return value (`new_expected`).\n\n(Also I like how the docs can\u0027t decide if it\u0027s `Comperand` or `Comparand`.)",
+      "parentUuid": "621f4c81_9d661149",
+      "range": {
+        "startLine": 57,
+        "startChar": 25,
+        "endLine": 57,
+        "endChar": 37
+      },
+      "revId": "dc36870a7f4ef2ec2a37768b0cc13a1d54ec1734",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "37badffd_b876382d",
         "filename": "crypto/refcount_win.c",
         "patchSetId": 5
@@ -106,6 +202,24 @@
       "writtenOn": "2023-05-15T20:50:08Z",
       "side": 1,
       "message": "in the prior function, `new_value` is `const`. I good with either, but they should be the same.",
+      "revId": "dc36870a7f4ef2ec2a37768b0cc13a1d54ec1734",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47195b06_5bf26b4f",
+        "filename": "crypto/refcount_win.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-15T23:28:12Z",
+      "side": 1,
+      "message": "Made the other one `const` too, but I think I just got this from refcount_c11.c, which does the same thing. :-P",
+      "parentUuid": "37badffd_b876382d",
       "revId": "dc36870a7f4ef2ec2a37768b0cc13a1d54ec1734",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
