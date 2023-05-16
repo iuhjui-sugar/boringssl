@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "91848ce3_edc21a98",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-05-16T19:26:10Z",
+      "side": 1,
+      "message": "(It seems reasonable, given the MS documentation, to assume that the compiler won\u0027t reorder writes across this on Windows.)",
+      "revId": "1b3726c19b0a1348e91cea1e3a13731814b4a3e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
