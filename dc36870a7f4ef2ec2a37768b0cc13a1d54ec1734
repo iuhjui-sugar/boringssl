@@ -191,6 +191,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9c57f9e2_cfeb4621",
+        "filename": "crypto/refcount_win.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-05-16T00:28:59Z",
+      "side": 1,
+      "message": "\"The function returns the initial value of the Destination parameter.\"[1]\n\nI think that\u0027s what I was missing. Seems like an odd choice to me, but that makes this line correct. Could you rename some of the variables here to be (arguably) clearer?\n\n`expected` -\u003e `expected32` (or `expected_u32`)\n`old_expected` -\u003e `expected`\n`new_expected` -\u003e `actual`\n\n[1] https://learn.microsoft.com/en-us/windows/win32/api/winnt/nf-winnt-interlockedcompareexchange#return-value",
+      "parentUuid": "ecc8606a_3f1f1468",
+      "range": {
+        "startLine": 57,
+        "startChar": 25,
+        "endLine": 57,
+        "endChar": 37
+      },
+      "revId": "dc36870a7f4ef2ec2a37768b0cc13a1d54ec1734",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "37badffd_b876382d",
         "filename": "crypto/refcount_win.c",
         "patchSetId": 5
