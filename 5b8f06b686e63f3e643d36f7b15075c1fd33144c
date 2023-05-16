@@ -52,6 +52,24 @@
       "parentUuid": "47a3f25c_aa7b6abf",
       "revId": "5b8f06b686e63f3e643d36f7b15075c1fd33144c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51d5bcaa_2191d816",
+        "filename": "zephyr/module.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16191
+      },
+      "writtenOn": "2023-05-16T13:03:56Z",
+      "side": 1,
+      "message": "It took me a while, but I found a way to integrate BoringSSL without a module definition file. Thanks for your comments!",
+      "parentUuid": "65f41b9a_227acb43",
+      "revId": "5b8f06b686e63f3e643d36f7b15075c1fd33144c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
