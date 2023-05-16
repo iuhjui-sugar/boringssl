@@ -16,6 +16,24 @@
       "message": "(It seems reasonable, given the MS documentation, to assume that the compiler won\u0027t reorder writes across this on Windows.)",
       "revId": "1b3726c19b0a1348e91cea1e3a13731814b4a3e0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dc3aab5f_609468ed",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-16T20:50:17Z",
+      "side": 1,
+      "message": "This code also never runs on Windows anyway. :-) But yeah, I\u0027m assuming/hoping that Interlocked* behave seq_cst atomics. At least, they say \"Most of the interlocked functions provide full memory barriers on all Windows platforms\". Also they have functions like InterlockedCompareExchangeAcquire and InterlockedCompareExchangeRelease, which suggests the default is at least stronger than acquire or release.\n\nTBH, I think release semantics here and acquire semantics above are sufficient, but ah well. I figure we can move away from seq_cst later... hopefully after we can just rely on C11 or C++11 atomics and stop worrying about MSVC.",
+      "parentUuid": "91848ce3_edc21a98",
+      "revId": "1b3726c19b0a1348e91cea1e3a13731814b4a3e0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
