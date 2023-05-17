@@ -12,37 +12,63 @@
  * OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. */
 
-#if !defined(_GNU_SOURCE)
+#if defined(__linux__) && !defined(_GNU_SOURCE)
 #define _GNU_SOURCE  // needed for madvise() and MAP_ANONYMOUS on Linux.
 #endif
 
 #include <openssl/base.h>
-
 #include "fork_detect.h"
 
-#if defined(OPENSSL_LINUX)
+#if defined(OPENSSL_FORK_DETECTION)
 #include <assert.h>
-#include <sys/mman.h>
 #include <unistd.h>
 #include <stdlib.h>
 
-#include "../delocate.h"
-#include "../../internal.h"
+#include <pthread.h>
 
-
+#if defined(OPENSSL_FORK_DETECTION_MADVISE)
+#include <sys/mman.h>
 #if defined(MADV_WIPEONFORK)
 static_assert(MADV_WIPEONFORK == 18, "MADV_WIPEONFORK is not 18");
 #else
 #define MADV_WIPEONFORK 18
 #endif
+#endif // OPENSSL_FORK_DETECTION_MADVISE
 
+#include "../delocate.h"
+#include "../../internal.h"
+
+DEFINE_BSS_GET(int, g_force_madv_wipeonfork);
+DEFINE_BSS_GET(int, g_force_madv_wipeonfork_enabled);
+#if defined(OPENSSL_FORK_DETECTION_MADVISE)
 DEFINE_STATIC_ONCE(g_fork_detect_once);
 DEFINE_STATIC_MUTEX(g_fork_detect_lock);
 DEFINE_BSS_GET(CRYPTO_atomic_u32 *, g_fork_detect_addr);
 DEFINE_BSS_GET(uint64_t, g_fork_generation);
-DEFINE_BSS_GET(int, g_force_madv_wipeonfork);
-DEFINE_BSS_GET(int, g_force_madv_wipeonfork_enabled);
+#endif
 
+DEFINE_STATIC_ONCE(g_pthread_fork_detection_once);
+DEFINE_BSS_GET(uint64_t, g_atfork_fork_generation);
+
+static void we_are_forked(void) {
+  // Immediately after a fork, the proces must be single-threaded.
+  uint32_t value = *g_atfork_fork_generation_bss_get();
+  if (value++ == 0) {
+    value++;
+  }
+  *g_atfork_fork_generation_bss_get() = value;
+  // Clear the unsafe buffering flag, since we have forked.
+  RAND_disable_fork_unsafe_buffering();
+}
+
+static void init_pthread_fork_detection(void) {
+  if (pthread_atfork(NULL, NULL, we_are_forked) != 0) {
+    abort();
+  }
+  *g_atfork_fork_generation_bss_get() = 1;
+}
+
+#if defined(OPENSSL_FORK_DETECTION_MADVISE)
 static void init_fork_detect(void) {
   if (*g_force_madv_wipeonfork_bss_get()) {
     return;
@@ -73,9 +99,14 @@ static void init_fork_detect(void) {
   CRYPTO_atomic_store_u32(addr, 1);
   *g_fork_detect_addr_bss_get() = addr;
   *g_fork_generation_bss_get() = 1;
+
 }
+#endif // OPENSSL_FORK_DETECTION_MADVISE
 
 uint64_t CRYPTO_get_fork_generation(void) {
+#if defined( OPENSSL_FORK_DETECTION_MADVISE)
+  CRYPTO_once(g_fork_detect_once_bss_get(), init_fork_detect);
+
   // In a single-threaded process, there are obviously no races because there's
   // only a single mutator in the address space.
   //
@@ -87,7 +118,6 @@ uint64_t CRYPTO_get_fork_generation(void) {
   // child process is single-threaded, the child may become multi-threaded
   // before it observes this. Therefore, we must synchronize the logic below.
 
-  CRYPTO_once(g_fork_detect_once_bss_get(), init_fork_detect);
   CRYPTO_atomic_u32 *const flag_ptr = *g_fork_detect_addr_bss_get();
   if (flag_ptr == NULL) {
     // Our kernel is too old to support |MADV_WIPEONFORK| or
@@ -98,6 +128,12 @@ uint64_t CRYPTO_get_fork_generation(void) {
       // doesn't support it.
       return 42;
     }
+    // With Linux and clone(), we do not believe that pthread_atfork() is
+    // sufficient for detecting all forms of address space duplication. At this
+    // point we have a kernel that does not support MADV_WIPEONFORK. We could
+    // return the generation number from pthread_atfork() here and it would
+    // probably be safe in almost any situation, but to ensure safety we return
+    // 0 and force an entropy draw on every call.
     return 0;
   }
 
@@ -122,7 +158,7 @@ uint64_t CRYPTO_get_fork_generation(void) {
     current_generation++;
     if (current_generation == 0) {
       // Zero means fork detection isn't supported, so skip that value.
-      current_generation = 1;
+      current_generation == 1;
     }
 
     // We must update |generation_ptr| before |flag_ptr|. Other threads may
@@ -133,6 +169,13 @@ uint64_t CRYPTO_get_fork_generation(void) {
   CRYPTO_MUTEX_unlock_write(lock);
 
   return current_generation;
+
+#else
+  // Use the pthread_atfork generation number instead of madvise.
+  CRYPTO_once(g_pthread_fork_detection_once_bss_get(), init_pthread_fork_detection);
+
+  return  *g_atfork_fork_generation_bss_get();
+#endif
 }
 
 void CRYPTO_fork_detect_force_madv_wipeonfork_for_testing(int on) {
@@ -140,7 +183,7 @@ void CRYPTO_fork_detect_force_madv_wipeonfork_for_testing(int on) {
   *g_force_madv_wipeonfork_enabled_bss_get() = on;
 }
 
-#elif defined(OPENSSL_WINDOWS) || defined(OPENSSL_TRUSTY)
+#elif defined(OPENSSL_DOES_NOT_FORK)
 
 // These platforms are guaranteed not to fork, and therefore do not require
 // fork detection support. Returning a constant non zero value makes BoringSSL

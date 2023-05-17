@@ -43,6 +43,13 @@ OPENSSL_EXPORT int RAND_bytes(uint8_t *buf, size_t len);
 // It has an unusual name because the buffer is unsafe across calls to |fork|.
 // Hence, this function should never be called by libraries.
 OPENSSL_EXPORT void RAND_enable_fork_unsafe_buffering(int fd);
+// RAND_disable_fork_unsafe_buffering disables efficient buffered reading of
+// /dev/urandom.
+//
+// It has an unusual name because the buffer is unsafe across calls to |fork|.
+// This function will be called by BoringSSL's fork detection code if a fork()
+// is known to have happened.
+OPENSSL_EXPORT void RAND_disable_fork_unsafe_buffering(void); 
 #endif
 
 #if defined(BORINGSSL_UNSAFE_DETERMINISTIC_MODE)
