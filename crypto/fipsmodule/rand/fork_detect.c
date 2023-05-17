@@ -12,29 +12,41 @@
  * OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. */
 
-#if !defined(_GNU_SOURCE)
+#include <openssl/base.h>
+#include "fork_detect.h"
+
+#if defined(OPENSSL_LINUX) && !defined(_GNU_SOURCE)
 #define _GNU_SOURCE  // needed for madvise() and MAP_ANONYMOUS on Linux.
 #endif
 
-#include <openssl/base.h>
+#if defined(OPENSSL_MACOS) || defined(OPENSSL_OPENBSD)
+// Defining this means that |pthread_atfork| is sufficient for detecting fork or
+// fork-like operations, and the operating system does not use other methods of
+// cloning an address space which would not be noticed by |pthread_atfork|
+#define OPENSSL_FORK_DETECT_PTHREAD_ATFORK
+#endif
 
-#include "fork_detect.h"
+#if defined(OPENSSL_LINUX) || defined(OPENSSL_FORK_DETECT_PTHREAD_ATFORK)
 
-#if defined(OPENSSL_LINUX)
 #include <assert.h>
-#include <sys/mman.h>
 #include <unistd.h>
 #include <stdlib.h>
 
-#include "../delocate.h"
-#include "../../internal.h"
+#if defined(OPENSSL_FORK_DETECTION_PTHREAD_ATFORK)
+#include <pthread.h>
+#endif // OPENSSL_FORK_DETECTION_PTHREAD_ATFORK
 
-
+#if defined(OPENSSL_LINUX)
+#include <sys/mman.h>
 #if defined(MADV_WIPEONFORK)
 static_assert(MADV_WIPEONFORK == 18, "MADV_WIPEONFORK is not 18");
 #else
 #define MADV_WIPEONFORK 18
 #endif
+#endif // OPENSSL_LINUX
+
+#include "../delocate.h"
+#include "../../internal.h"
 
 DEFINE_STATIC_ONCE(g_fork_detect_once);
 DEFINE_STATIC_MUTEX(g_fork_detect_lock);
@@ -43,11 +55,23 @@ DEFINE_BSS_GET(uint64_t, g_fork_generation);
 DEFINE_BSS_GET(int, g_force_madv_wipeonfork);
 DEFINE_BSS_GET(int, g_force_madv_wipeonfork_enabled);
 
+
+#if defined(OPENSSL_FORK_DETECT_PTHREAD_ATFORK)
+static void we_are_forked(void) {
+  CRYPTO_atomic_u32 *const flag_ptr = *g_fork_detect_addr_bss_get();
+  if (flag_ptr == NULL) {
+    abort();
+  }
+  CRYPTO_atomic_store_u32(flag_ptr, 0);
+}
+#endif // OPENSSL_FORK_DETECT_PTHREAD_ATFORK
+
 static void init_fork_detect(void) {
   if (*g_force_madv_wipeonfork_bss_get()) {
     return;
   }
 
+#if defined(OPENSSL_LINUX)
   long page_size = sysconf(_SC_PAGESIZE);
   if (page_size <= 0) {
     return;
@@ -69,6 +93,17 @@ static void init_fork_detect(void) {
     munmap(addr, (size_t)page_size);
     return;
   }
+#endif // OPENSSL_LINUX
+
+#if defined(OPENSSL_FORK_DETECT_PTHREAD_ATFORK)
+  void *addr = calloc(sizeof(CRYPTO_atomic_u32), 1);
+  if (addr == NULL) {
+    return;
+  }
+  if (pthread_atfork(NULL, NULL, we_are_forked) != 0) {
+    return;
+  }
+#endif // OPENSSL_FORK_DETECT_PTHREAD_ATFORK
 
   CRYPTO_atomic_store_u32(addr, 1);
   *g_fork_detect_addr_bss_get() = addr;
@@ -140,8 +175,8 @@ void CRYPTO_fork_detect_force_madv_wipeonfork_for_testing(int on) {
   *g_force_madv_wipeonfork_enabled_bss_get() = on;
 }
 
-#else   // !OPENSSL_LINUX
+#else // !OPENSSL_LINUX && !OPENSSL_FORK_DETECT_PTHREAD_ATFORK
 
 uint64_t CRYPTO_get_fork_generation(void) { return 0; }
 
-#endif  // OPENSSL_LINUX
+#endif  // OPENSSL_LINUX || OPENSSL_FORK_DETECT_PTHREAD_ATFORK

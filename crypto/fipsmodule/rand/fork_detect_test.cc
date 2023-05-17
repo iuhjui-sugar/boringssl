@@ -16,7 +16,9 @@
 
 // TSAN cannot cope with this test and complains that "starting new threads
 // after multi-threaded fork is not supported".
-#if defined(OPENSSL_LINUX) && !defined(OPENSSL_TSAN)
+#if (defined(OPENSSL_LINUX) || defined(OPENSSL_MACOS) || \
+     defined(OPENSSL_OPENBSD)) &&                        \
+    !defined(OPENSSL_TSAN)
 #include <errno.h>
 #include <inttypes.h>
 #include <stdio.h>
@@ -96,10 +98,15 @@ static void ForkInChild(std::function<void()> f) {
 
 TEST(ForkDetect, Test) {
   const uint64_t start = CRYPTO_get_fork_generation();
-  if (start == 0) {
-    fprintf(stderr, "Fork detection not supported. Skipping test.\n");
-    return;
-  }
+#if defined(OPENSSL_LINUX) || defined(OPENSSL_MACOS) || defined(OPENSSL_OPENBSD)
+  // We expect fork detection to be supported.
+  EXPECT_NE(start, (uint64_t)0);
+#else
+  // We expect fork detection to not be supported.
+  EXPECT_EQ(start, (uint64_t)0);
+  fprintf(stderr, "Fork detection not supported. Skipping test.\n");
+  return;
+#endif
 
   // The fork generation should be stable.
   EXPECT_EQ(start, CRYPTO_get_fork_generation());
@@ -157,4 +164,4 @@ TEST(ForkDetect, Test) {
   EXPECT_EQ(start, CRYPTO_get_fork_generation());
 }
 
-#endif  // OPENSSL_LINUX && !OPENSSL_TSAN
+#endif  // OPENSSL_LINUX || OPENSSL_MACOS || OPENSSL_OPENBSD && !OPENSSL_TSAN
