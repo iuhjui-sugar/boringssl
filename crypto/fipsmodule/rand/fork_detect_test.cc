@@ -14,9 +14,11 @@
 
 #include <openssl/base.h>
 
+#include "fork_detect.h"
+
 // TSAN cannot cope with this test and complains that "starting new threads
 // after multi-threaded fork is not supported".
-#if defined(OPENSSL_LINUX) && !defined(OPENSSL_TSAN)
+#if defined(OPENSSL_FORK_DETECTION) && !defined(OPENSSL_TSAN)
 #include <errno.h>
 #include <inttypes.h>
 #include <stdio.h>
@@ -32,8 +34,6 @@
 
 #include <gtest/gtest.h>
 
-#include "fork_detect.h"
-
 
 static pid_t WaitpidEINTR(pid_t pid, int *out_status, int options) {
   pid_t ret;
@@ -47,19 +47,19 @@ static pid_t WaitpidEINTR(pid_t pid, int *out_status, int options) {
 // The *InChild functions run inside a child process and must report errors via
 // |stderr| and |_exit| rather than GTest.
 
-static void CheckGenerationInChild(const char *name, uint64_t expected) {
+static void CheckGenerationInChild(const char *name, uint64_t minimum_expected) {
   uint64_t generation = CRYPTO_get_fork_generation();
-  if (generation != expected) {
+  if (generation < minimum_expected) {
     fprintf(stderr, "%s generation (#1) was %" PRIu64 ", wanted %" PRIu64 ".\n",
-            name, generation, expected);
+            name, generation, minimum_expected);
     _exit(1);
   }
 
   // The generation should be stable.
   generation = CRYPTO_get_fork_generation();
-  if (generation != expected) {
+  if (generation < minimum_expected) {
     fprintf(stderr, "%s generation (#2) was %" PRIu64 ", wanted %" PRIu64 ".\n",
-            name, generation, expected);
+            name, generation, minimum_expected);
     _exit(1);
   }
 }
@@ -96,10 +96,8 @@ static void ForkInChild(std::function<void()> f) {
 
 TEST(ForkDetect, Test) {
   const uint64_t start = CRYPTO_get_fork_generation();
-  if (start == 0) {
-    fprintf(stderr, "Fork detection not supported. Skipping test.\n");
-    return;
-  }
+  // We expect fork detection to be supported.
+  EXPECT_NE(start, 0U);
 
   // The fork generation should be stable.
   EXPECT_EQ(start, CRYPTO_get_fork_generation());
@@ -157,4 +155,4 @@ TEST(ForkDetect, Test) {
   EXPECT_EQ(start, CRYPTO_get_fork_generation());
 }
 
-#endif  // OPENSSL_LINUX && !OPENSSL_TSAN
+#endif  // OPENSSL_FORK_DETECTION && !OPENSSL_TSAN
