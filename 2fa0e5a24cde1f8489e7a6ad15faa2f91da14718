@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "180fb897_19d02872",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16232
+      },
+      "writtenOn": "2023-05-17T22:14:57Z",
+      "side": 1,
+      "message": "The expression \"if (a+b\u003ec) a\u003dc-b\" is incorrect if \"a+b\" overflows. It should be replaced by \"if (a\u003ec-b) a\u003dc-b\", which avoids the potential overflow and is much easier to understand. This pattern is the root cause of CVE-2022-37454, a buffer overflow vulnerability in the \"official\" SHA-3 implementation.\n\nIt has been confirmed that the addition in crypto/fipsmodule/hkdf/hkdf.c:97 cannot overflow. So this is only a minor change proposal to avoid a potentially vulnerable code pattern and to improve readability. (And to make BoringSSL more \"boring\"!) More information: https://github.com/github/codeql/pull/12036#issuecomment-1466056959",
+      "revId": "2fa0e5a24cde1f8489e7a6ad15faa2f91da14718",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
