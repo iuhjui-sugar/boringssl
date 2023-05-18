@@ -327,11 +327,10 @@ static void rand_get_seed(struct rand_thread_state *state,
 
 #endif
 
-void RAND_bytes_with_additional_data(uint8_t *out, size_t out_len,
-                                     const uint8_t user_additional_data[32]) {
-  if (out_len == 0) {
-    return;
-  }
+static void rand_bytes_with_additional_data_internal(
+    uint8_t *out, size_t out_len, const uint8_t user_additional_data[32]) {
+  // A NULL output buffer and a length of 0 will force a reseed. */
+  int force_reseed = (out_len == 0 && out == NULL);
 
   const uint64_t fork_generation = CRYPTO_get_fork_generation();
   const int fork_unsafe_buffering = rand_fork_unsafe_buffering_enabled();
@@ -410,7 +409,7 @@ void RAND_bytes_with_additional_data(uint8_t *out, size_t out_len,
 #endif
   }
 
-  if (state->calls >= kReseedInterval ||
+  if (force_reseed || state->calls >= kReseedInterval ||
       // If we've forked since |state| was last seeded, reseed.
       state->fork_generation != fork_generation ||
       // If |state| was seeded from a state with different fork-safety
@@ -470,6 +469,16 @@ void RAND_bytes_with_additional_data(uint8_t *out, size_t out_len,
 #if defined(BORINGSSL_FIPS)
   CRYPTO_MUTEX_unlock_read(&state->clear_drbg_lock);
 #endif
+}
+
+void RAND_force_reseed(void) {
+  static const uint8_t kZeroAdditionalData[32] = {0};
+  rand_bytes_with_additional_data_internal(NULL, 0, kZeroAdditionalData);
+}
+
+void RAND_bytes_with_additional_data(uint8_t *out, size_t out_len,
+                                     const uint8_t user_additional_data[32]) {
+  rand_bytes_with_additional_data_internal(out, out_len, user_additional_data);
 }
 
 int RAND_bytes(uint8_t *out, size_t out_len) {

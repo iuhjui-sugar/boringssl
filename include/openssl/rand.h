@@ -61,6 +61,10 @@ OPENSSL_EXPORT void RAND_reset_for_fuzzing(void);
 OPENSSL_EXPORT void RAND_get_system_entropy_for_custom_prng(uint8_t *buf,
                                                             size_t len);
 
+// RAND_force_reseed will manually force a reseed of the PRNG that supplies
+// |RAND_bytes|. It performs the same operation as if a fork had been
+// detected.
+OPENSSL_EXPORT void RAND_force_reseed(void);
 
 // Deprecated functions
 
