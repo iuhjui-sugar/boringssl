@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a23d482c_7d474f66",
+        "filename": "crypto/fipsmodule/rand/rand.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-05-18T17:45:44Z",
+      "side": 1,
+      "message": "I really guess I could have just made passing 0 length to RAND_bytes_with additional data be the trigger for this, since it\u0027s effectively internal instead of adding flag and making the guts static...",
+      "revId": "e716c04173e6baea49b33eebe8647f9a69ec5879",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
