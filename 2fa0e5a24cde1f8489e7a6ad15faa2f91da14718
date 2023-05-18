@@ -50,6 +50,23 @@
       "message": "Thanks!",
       "revId": "2fa0e5a24cde1f8489e7a6ad15faa2f91da14718",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de0e83c9_4bad2c84",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-18T23:05:36Z",
+      "side": 1,
+      "message": "Submitting manually. Our 32-bit bots are broken right now for some reason.",
+      "revId": "2fa0e5a24cde1f8489e7a6ad15faa2f91da14718",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
