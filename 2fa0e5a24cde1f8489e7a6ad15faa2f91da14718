@@ -33,6 +33,23 @@
       "message": "(CLA confirmed)\n\n+David, although I\u0027m positively inclined.",
       "revId": "2fa0e5a24cde1f8489e7a6ad15faa2f91da14718",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d3ef13a_10b4df52",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-18T23:01:29Z",
+      "side": 1,
+      "message": "Thanks!",
+      "revId": "2fa0e5a24cde1f8489e7a6ad15faa2f91da14718",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
