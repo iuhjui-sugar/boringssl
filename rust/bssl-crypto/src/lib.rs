@@ -26,6 +26,9 @@
 
 extern crate core;
 
+/// BoringSSL implemented AEAD's.
+pub mod aead;
+
 /// BoringSSL implemented plain aes operations.
 pub mod aes;
 
