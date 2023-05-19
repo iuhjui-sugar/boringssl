@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b6f6c62_f3a2ded8",
+        "filename": "crypto/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-19T20:05:06Z",
+      "side": 1,
+      "message": "Really this should be right after the `#define`, but it might do weird things if `OPENSSL_C11_ATOMIC` were ever externally-defined on a platform where we mis-detect no atomics support, despite atomics working.\n\nThat\u0027d be really weird, but then we did find those other places where people had inadvertently defined `__STDC_NO_ATOMICS__`. They might be sneaking by \n with an external `OPENSSL_C11_ATOMIC` right now...",
+      "revId": "04c04beb3d6f81db9ef16d5b77f04d24e2b04ebf",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
