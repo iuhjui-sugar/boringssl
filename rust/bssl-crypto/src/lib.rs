@@ -26,6 +26,9 @@
 
 extern crate core;
 
+/// Authenticated Encryption with Additional Data algorithms.
+pub mod aead;
+
 /// AES block operations.
 pub mod aes;
 
