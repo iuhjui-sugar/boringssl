@@ -62,6 +62,14 @@
 #include <stdlib.h>
 #include <stdarg.h>
 
+#if !defined(BORINGSSL_NO_CXX)
+
+extern "C++" {
+#include <type_traits>
+}  // extern C++
+
+#endif  // !BORINGSSL_NO_CXX
+
 #if defined(__cplusplus)
 extern "C" {
 #endif
@@ -240,6 +248,35 @@ BSSL_NAMESPACE_BEGIN
 
 BORINGSSL_MAKE_DELETER(char, OPENSSL_free)
 BORINGSSL_MAKE_DELETER(uint8_t, OPENSSL_free)
+
+// CleanseWrapper is a drop-in replacement to make sure the data is cleaned
+// after use.
+//
+// Template parameters:
+//   |T| - The type of the data to be wrapped.
+//   |Enable| The enable_if_t helper field.
+template <typename T, typename Enable = void>
+struct CleanseWrapper {
+  // You have to have a specialization for CleanseWrapper.
+  CleanseWrapper() = delete;
+};
+
+// This only works for the type that is trivial and standard layout.
+template <typename T>
+class CleanseWrapper<
+    T, typename std::enable_if<std::is_trivial<T>::value &&
+                               std::is_standard_layout<T>::value>::type>
+    : public T {
+ public:
+  // Inherit all existing constructors.
+  using T::T;
+
+  // Allow implicit conversions.
+  constexpr CleanseWrapper(const T &t) : T(t) {}
+
+  // Clean the data.
+  ~CleanseWrapper() { OPENSSL_cleanse(this, sizeof(*this)); }
+};
 
 BSSL_NAMESPACE_END
 
