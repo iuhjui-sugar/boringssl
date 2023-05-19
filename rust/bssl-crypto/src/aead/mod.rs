@@ -18,6 +18,9 @@ use bssl_sys::{EVP_AEAD, EVP_AEAD_CTX};
 /// BoringSSL implemented AES-GCM-SIV operations.
 pub mod aes_gcm_siv;
 
+/// BoringSSL implemented AES-CTR-HMAC operations
+pub mod aes_ctr_hmac;
+
 /// Error returned in the event of an unsuccessful AEAD operation.
 #[derive(Debug)]
 pub struct AeadError;
@@ -45,6 +48,8 @@ struct AeadImpl<const N: usize, const T: usize>(*mut EVP_AEAD_CTX);
 enum AeadType {
     Aes128GcmSiv,
     Aes256GcmSiv,
+    Aes128CtrHmacSha256,
+    Aes256CtrHmacSha256,
 }
 
 fn get_evp_ctx(aead_type: AeadType) -> *const EVP_AEAD {
@@ -52,6 +57,8 @@ fn get_evp_ctx(aead_type: AeadType) -> *const EVP_AEAD {
         match aead_type {
             AeadType::Aes128GcmSiv => bssl_sys::EVP_aead_aes_128_gcm_siv(),
             AeadType::Aes256GcmSiv => bssl_sys::EVP_aead_aes_256_gcm_siv(),
+            AeadType::Aes128CtrHmacSha256 => bssl_sys::EVP_aead_aes_128_ctr_hmac_sha256(),
+            AeadType::Aes256CtrHmacSha256 => bssl_sys::EVP_aead_aes_256_ctr_hmac_sha256(),
         }
     }
 }
