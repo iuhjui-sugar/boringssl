@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5913c175_d686f718",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16241
+      },
+      "writtenOn": "2023-05-19T04:24:56Z",
+      "side": 1,
+      "message": "Hi, please help review this CL, thanks!\n\nWe are trying to upstream the usage from here:\nhttps://chromium-review.googlesource.com/c/chromiumos/platform/ec/+/4516060",
+      "revId": "8587e10b334187ded754555f79d8eeb9bc0e0c0a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
