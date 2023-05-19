@@ -176,7 +176,7 @@
 #endif
 #endif  // !__cplusplus
 
-#if defined(OPENSSL_C11_ATOMIC)
+#if defined(OPENSSL_C11_ATOMIC) && !defined(__cplusplus)
 #include <stdatomic.h>
 #endif
 
