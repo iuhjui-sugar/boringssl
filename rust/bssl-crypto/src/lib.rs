@@ -14,7 +14,6 @@
  */
 
 #![deny(
-    missing_docs,
     unsafe_op_in_unsafe_fn,
     clippy::indexing_slicing,
     clippy::unwrap_used,
@@ -25,6 +24,9 @@
 //! Rust boringssl binding
 
 extern crate core;
+
+///
+pub mod aead;
 
 /// BoringSSL implemented plain aes operations.
 pub mod aes;
