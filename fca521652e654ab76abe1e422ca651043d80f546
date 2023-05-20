@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "44c6b06a_a8a6bfca",
+        "filename": "include/openssl/mem.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 16241
+      },
+      "writtenOn": "2023-05-20T03:44:00Z",
+      "side": 1,
+      "message": "This is used for the objects that are allocated on the stack, so the use case is a little different between to OPENSSL_malloc.",
+      "parentUuid": "6ffa1255_2e5fcc0f",
+      "revId": "fca521652e654ab76abe1e422ca651043d80f546",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7189820c_cc7265aa",
         "filename": "include/openssl/mem.h",
         "patchSetId": 6
@@ -31,6 +49,24 @@
       "writtenOn": "2023-05-19T16:20:18Z",
       "side": 1,
       "message": "Why isn\u0027t this just a `static_assert`. That seems less complicated than messing around with SFINAE.",
+      "revId": "fca521652e654ab76abe1e422ca651043d80f546",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "970a7e98_f9a037b2",
+        "filename": "include/openssl/mem.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 16241
+      },
+      "writtenOn": "2023-05-20T03:44:00Z",
+      "side": 1,
+      "message": "hmm, I was thinking that we might want to add specifications for the other types, e.g. std::vector.",
+      "parentUuid": "7189820c_cc7265aa",
       "revId": "fca521652e654ab76abe1e422ca651043d80f546",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
