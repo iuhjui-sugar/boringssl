@@ -31,6 +31,9 @@
 #include "internal.h"
 #include "../internal.h"
 
+#if !defined(OPENSSL_NO_ASM) && !defined(OPENSSL_SMALL) && defined(__linux__) && defined(__x86_64__)
+#include "../../third_party/fiat/curve25519_64_adx.h"
+#endif
 
 // Various pre-computed constants.
 #include "./curve25519_tables.h"
@@ -2081,6 +2084,12 @@ static void x25519_scalar_mult(uint8_t out[32], const uint8_t scalar[32],
 #if defined(BORINGSSL_X25519_NEON)
   if (CRYPTO_is_NEON_capable()) {
     x25519_NEON(out, scalar, point);
+    return;
+  }
+#elif !defined(OPENSSL_NO_ASM) && !defined(OPENSSL_SMALL) && defined(__linux__) && defined(__x86_64__)
+  if (CRYPTO_is_BMI1_capable() && CRYPTO_is_BMI2_capable() &&
+      CRYPTO_is_ADX_capable()) {
+    x25519_scalar_mult_adx(out, scalar, point);
     return;
   }
 #endif
