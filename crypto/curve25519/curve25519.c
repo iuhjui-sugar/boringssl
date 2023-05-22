@@ -19,8 +19,6 @@
 //
 // The field functions are shared by Ed25519 and X25519 where possible.
 
-#include <openssl/curve25519.h>
-
 #include <assert.h>
 #include <string.h>
 
@@ -30,7 +28,6 @@
 
 #include "internal.h"
 #include "../internal.h"
-
 
 // Various pre-computed constants.
 #include "./curve25519_tables.h"
@@ -797,14 +794,24 @@ static void table_select(ge_precomp *t, const int pos, const signed char b) {
 // Preconditions:
 //   a[31] <= 127
 void x25519_ge_scalarmult_base(ge_p3 *h, const uint8_t a[32]) {
+#if defined(BORINGSSL_FE25519_ADX)
+  if (CRYPTO_is_BMI1_capable() && CRYPTO_is_BMI2_capable() &&
+      CRYPTO_is_ADX_capable()) {
+    uint8_t t[4][32];
+    x25519_ge_scalarmult_base_adx(t, a);
+    fiat_25519_from_bytes(h->X.v, t[0]);
+    fiat_25519_from_bytes(h->Y.v, t[1]);
+    fiat_25519_from_bytes(h->Z.v, t[2]);
+    fiat_25519_from_bytes(h->T.v, t[3]);
+    return;
+  }
+#endif
   signed char e[64];
   signed char carry;
   ge_p1p1 r;
   ge_p2 s;
-  ge_precomp t;
-  int i;
 
-  for (i = 0; i < 32; ++i) {
+  for (unsigned i = 0; i < 32; ++i) {
     e[2 * i + 0] = (a[i] >> 0) & 15;
     e[2 * i + 1] = (a[i] >> 4) & 15;
   }
@@ -812,7 +819,7 @@ void x25519_ge_scalarmult_base(ge_p3 *h, const uint8_t a[32]) {
   // e[63] is between 0 and 7
 
   carry = 0;
-  for (i = 0; i < 63; ++i) {
+  for (unsigned i = 0; i < 63; ++i) {
     e[i] += carry;
     carry = e[i] + 8;
     carry >>= 4;
@@ -822,7 +829,8 @@ void x25519_ge_scalarmult_base(ge_p3 *h, const uint8_t a[32]) {
   // each e[i] is between -8 and 8
 
   ge_p3_0(h);
-  for (i = 1; i < 64; i += 2) {
+  for (unsigned i = 1; i < 64; i += 2) {
+    ge_precomp t;
     table_select(&t, i / 2, e[i]);
     ge_madd(&r, h, &t);
     x25519_ge_p1p1_to_p3(h, &r);
@@ -837,7 +845,8 @@ void x25519_ge_scalarmult_base(ge_p3 *h, const uint8_t a[32]) {
   ge_p2_dbl(&r, &s);
   x25519_ge_p1p1_to_p3(h, &r);
 
-  for (i = 0; i < 64; i += 2) {
+  for (unsigned i = 0; i < 64; i += 2) {
+    ge_precomp t;
     table_select(&t, i / 2, e[i]);
     ge_madd(&r, h, &t);
     x25519_ge_p1p1_to_p3(h, &r);
@@ -2064,6 +2073,12 @@ static void x25519_scalar_mult(uint8_t out[32], const uint8_t scalar[32],
 #if defined(BORINGSSL_X25519_NEON)
   if (CRYPTO_is_NEON_capable()) {
     x25519_NEON(out, scalar, point);
+    return;
+  }
+#elif defined(BORINGSSL_FE25519_ADX)
+  if (CRYPTO_is_BMI1_capable() && CRYPTO_is_BMI2_capable() &&
+      CRYPTO_is_ADX_capable()) {
+    x25519_scalar_mult_adx(out, scalar, point);
     return;
   }
 #endif
