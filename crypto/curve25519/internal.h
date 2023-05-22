@@ -15,6 +15,8 @@
 #ifndef OPENSSL_HEADER_CURVE25519_INTERNAL_H
 #define OPENSSL_HEADER_CURVE25519_INTERNAL_H
 
+#include <openssl/curve25519.h>
+
 #if defined(__cplusplus)
 extern "C" {
 #endif
@@ -30,6 +32,26 @@ extern "C" {
 // x25519_NEON is defined in asm/x25519-arm.S.
 void x25519_NEON(uint8_t out[32], const uint8_t scalar[32],
                  const uint8_t point[32]);
+#endif
+
+#if !defined(OPENSSL_NO_ASM) && !defined(OPENSSL_SMALL) && \
+    defined(__GNUC__) && defined(__x86_64__)
+#define BORINGSSL_FE25519_ADX
+
+// fiat_curve25519_adx_mul is defined in
+// third_party/fiat/asm/fiat_curve25519_adx_mul.S
+void __attribute__((sysv_abi))
+fiat_curve25519_adx_mul(uint64_t out[4], const uint64_t in1[4],
+                        const uint64_t in2[4]);
+
+// fiat_curve25519_adx_square is defined in
+// third_party/fiat/asm/fiat_curve25519_adx_square.S
+void __attribute__((sysv_abi))
+fiat_curve25519_adx_square(uint64_t out[4], const uint64_t in[4]);
+
+// x25519_scalar_mult_adx is defined in third_party/fiat/curve25519_64_adx.h
+void x25519_scalar_mult_adx(uint8_t out[32], const uint8_t scalar[32],
+                            const uint8_t point[32]);
 #endif
 
 #if defined(OPENSSL_64_BIT)
