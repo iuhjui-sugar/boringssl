@@ -20,6 +20,7 @@
 
 #include <openssl/curve25519.h>
 
+#include "internal.h"
 #include "../internal.h"
 #include "../test/file_test.h"
 #include "../test/test_util.h"
@@ -147,3 +148,17 @@ TEST(X25519Test, Wycheproof) {
       EXPECT_EQ(Bytes(secret), Bytes(shared));
   });
 }
+
+#if defined(BORINGSSL_FE25519_ADX) && SUPPORTS_ABI_TEST
+TEST(X25519Test, AdxMulABI) {
+  static const uint64_t in1[4] = {0}, in2[4] = {0};
+  uint64_t out[4];
+  CHECK_ABI(fiat_curve25519_adx_mul, out, in1, in2);
+}
+
+TEST(X25519Test, AdxSquareABI) {
+  static const uint64_t in[4] = {0};
+  uint64_t out[4];
+  CHECK_ABI(fiat_curve25519_adx_square, out, in);
+}
+#endif  // BORINGSSL_FE25519_ADX && SUPPORTS_ABI_TEST
