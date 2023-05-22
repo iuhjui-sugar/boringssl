@@ -15,6 +15,7 @@ endif()
 set(
   CRYPTO_SOURCES_ASM
   curve25519/asm/x25519-asm-arm.S
+  curve25519/asm/fiat_curve25519_adx.S
   hrss/asm/poly_rq_mul.S
   poly1305/poly1305_arm_asm.S
 )
