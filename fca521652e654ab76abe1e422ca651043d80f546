@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2e5b97e9_5036b97f",
+        "filename": "include/openssl/mem.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-22T17:07:54Z",
+      "side": 1,
+      "message": "Ah. We generally do not cleanse things on the stack. That really cannot be done without compiler support. Registers (which may contain secrets) get spilled to the stack constantly.\n\nIf you all still want to cleanse things on the stack despite this, it sounds like this should be in your project, and not BoringSSL.",
+      "parentUuid": "44c6b06a_a8a6bfca",
+      "revId": "fca521652e654ab76abe1e422ca651043d80f546",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7189820c_cc7265aa",
         "filename": "include/openssl/mem.h",
         "patchSetId": 6
@@ -67,6 +85,24 @@
       "side": 1,
       "message": "hmm, I was thinking that we might want to add specifications for the other types, e.g. std::vector.",
       "parentUuid": "7189820c_cc7265aa",
+      "revId": "fca521652e654ab76abe1e422ca651043d80f546",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a803aea_21d6db20",
+        "filename": "include/openssl/mem.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-22T17:07:54Z",
+      "side": 1,
+      "message": "Let\u0027s move this to your library then. If this is something that supports specializations, then we\u0027d be saying that specializing this is part of our public API, and that\u0027s going even further than this CL.",
+      "parentUuid": "970a7e98_f9a037b2",
       "revId": "fca521652e654ab76abe1e422ca651043d80f546",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
