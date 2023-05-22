@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8b1fbce2_b9d25880",
+        "filename": "include/openssl/mem.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 16246
+      },
+      "writtenOn": "2023-05-22T22:30:34Z",
+      "side": 1,
+      "message": "The case we\u0027re trying to handle is something like the following:\n\n```\nstd::array\u003cuint8_t, KEY_LEN\u003e \u003e enc_key;\n// AES operation\n```\n\nIs the canonical way to do this in BoringSSL to use `OPENSSL_malloc`?\n\n```\nuint8_t* enc_key \u003d OPENSSL_malloc(KEY_LEN);\n```\n\nOr a `std::allocator` implementation that could be used with `std::vector`, etc? We have [something like this in ChromeOS](https://source.chromium.org/chromiumos/chromiumos/codesearch/+/main:src/platform2/libbrillo/brillo/secure_blob.h;l\u003d22-26;drc\u003d3a446f27a00fba076a5a42d383ae6134c333ee57).",
+      "parentUuid": "2e5b97e9_5036b97f",
+      "revId": "fca521652e654ab76abe1e422ca651043d80f546",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7189820c_cc7265aa",
         "filename": "include/openssl/mem.h",
         "patchSetId": 6
