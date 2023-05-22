@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd8cfecf_5a74634a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-05-22T20:57:59Z",
+      "side": 1,
+      "message": "Please take a look at the ifdefs. Perf:\n\n$ # env CFLAGS\u003d\u0027-march\u003dnative\u0027 CC\u003dclang CXX\u003dclang++ cmake -GNinja -DCMAKE_BUILD_TYPE\u003dRelease -B build \u0026\u0026 ninja -C build/ tool/bssl crypto/crypto_test \u0026\u0026 ./build/crypto/crypto_test\n$ ~/fiat-crypto/master/etc/machine.sh | cut -d- -f2-\nht-notb_support-nops-nocpufreq_support-znver2\n$ ./build/tool/bssl speed -filter 25519 | grep \u0027arbitrary point\u0027\nDid 29000 Curve25519 arbitrary point multiplication operations in 1016649us (28525.1 ops/sec)\n$ ../master/build/tool/bssl speed -filter 25519 | grep \u0027arbitrary point\u0027\nDid 22000 Curve25519 arbitrary point multiplication operations in 1027912us (21402.6 ops/sec)",
+      "revId": "60be1f1f12d94b77c26971a28d602f1855e9ea35",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
