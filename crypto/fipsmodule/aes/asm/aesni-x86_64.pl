@@ -1524,6 +1524,8 @@ $code.=<<___;
 	pxor		$rndkey0,$in3
 	movdqu		0x50($inp),$in5
 	pxor		$rndkey0,$in4
+	prefetcht0	0x180($inp)	# We use 96-byte block so prefetch 2 lines (128 bytes)
+	prefetcht0	0x1c0($inp)
 	pxor		$rndkey0,$in5
 	aesenc		$rndkey1,$inout0
 	aesenc		$rndkey1,$inout1
