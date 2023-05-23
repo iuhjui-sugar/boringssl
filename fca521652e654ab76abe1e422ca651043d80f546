@@ -182,6 +182,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "55590cf1_b49af026",
+        "filename": "include/openssl/mem.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-23T18:31:42Z",
+      "side": 1,
+      "message": "I think you may be overthinking it. 😊 We *do not try to protect against secrets on the stack*. We assume secrets can make their way on the stack, including secrets that were otherwise stored in the heap, and that\u0027s life. It is impossible to prevent that in C/C++ without toolchain help. It\u0027d be cool if we did have toolchain help, but no one\u0027s done that yet. Until then, we don\u0027t want to waste time calling `OPENSSL_cleanse` on stack buffers when it won\u0027t actually save you from a stack leak anyway. Don\u0027t leak your stack.",
+      "parentUuid": "222dd356_481970ee",
+      "revId": "fca521652e654ab76abe1e422ca651043d80f546",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7189820c_cc7265aa",
         "filename": "include/openssl/mem.h",
         "patchSetId": 6
