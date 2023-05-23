@@ -22,6 +22,30 @@
       },
       "revId": "56fcc7b36fda1fc134b628da5750429f33f5647f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00489912_e22ab6cc",
+        "filename": "crypto/fipsmodule/aes/asm/aesni-x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 1527,
+      "author": {
+        "id": 10131
+      },
+      "writtenOn": "2023-05-23T22:57:51Z",
+      "side": 1,
+      "message": "Thanks for catching this! I didn\u0027t see loads below and assumed that we process 6 blocks (from 0x0 to 0x50). Aligning this actually makes code faster! Updated the code and message (with new data). Prefetch0 prefetches 1 64-byte aligned line, so we need 2 for 128 byte.",
+      "parentUuid": "38ef2e95_217daebc",
+      "range": {
+        "startLine": 1527,
+        "startChar": 33,
+        "endLine": 1527,
+        "endChar": 40
+      },
+      "revId": "56fcc7b36fda1fc134b628da5750429f33f5647f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
