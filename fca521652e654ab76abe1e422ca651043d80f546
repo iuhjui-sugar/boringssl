@@ -218,6 +218,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ba716425_a3c41e14",
+        "filename": "include/openssl/mem.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-23T22:23:47Z",
+      "side": 1,
+      "message": "Ah, I see.\n\nDepends on how your address space leaked I suppose. If you managed to leak your *entire* address space, yeah, you lose. But I think you just lose anyway in that case. Whether or not we manage to zero secrets on release, the secrets are ultimately alive in memory *somewhere*.\n\nBut if you\u0027re worried about a random memory error, whether it can leak the stack or a random chunk of a heap probably depends on the error. They tend to be a bit separated. (Malloc won\u0027t return a stack pointer, and stack allocations won\u0027t give you a heap thing. And usually there\u0027s some guard pages between the two, I think.) So zeroing heap stuff is... at least not obviously useless. 😊 And since the compiler won\u0027t spill there, we can actually do it without toolchain involvement, unlike the stack.",
+      "parentUuid": "c9d8966b_4ba4715c",
+      "revId": "fca521652e654ab76abe1e422ca651043d80f546",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7189820c_cc7265aa",
         "filename": "include/openssl/mem.h",
         "patchSetId": 6
