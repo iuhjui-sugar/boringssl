@@ -110,6 +110,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f1f619da_e993d724",
+        "filename": "include/openssl/mem.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-23T15:42:51Z",
+      "side": 1,
+      "message": "That\u0027s the heap, not the stack. But to answer your question, OpenSSL does not automatically cleanse on `OPENSSL_free` like we do. That\u0027s something we did in BoringSSL because we got tired of bifurcating everything between things like `BN_free` vs `BN_clear_free` and likewise up the layers. (They also don\u0027t take the same position we do for the stack.)",
+      "parentUuid": "a3c51b7a_9d72a3c5",
+      "revId": "fca521652e654ab76abe1e422ca651043d80f546",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7189820c_cc7265aa",
         "filename": "include/openssl/mem.h",
         "patchSetId": 6
