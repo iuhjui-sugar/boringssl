@@ -164,6 +164,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "222dd356_481970ee",
+        "filename": "include/openssl/mem.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 16171
+      },
+      "writtenOn": "2023-05-23T18:10:26Z",
+      "side": 1,
+      "message": "\u003e  There is nothing stopping you all from just doing this in your project, in an openssl_util.h or whatever header.\n\nYeah, at this point I\u0027m just trying to understand the assumptions that boringssl made, so we can decide what makes sense for our project. I understand this CL is not relevant for boringssl to take.\n\n\u003e The difference is the compiler won\u0027t spill secrets to the stack. So we can coherently aim to clear secrets out of the heap. We do that by making OPENSSL_free automatically cleanse, for the stack of simplicity.\n\nIs that because you\u0027re careful to make sure that you don\u0027t do something like this?\n\n```\n{\n ptr \u003d secret_in_heap;\n\n uint32_t secret_val \u003d *secret_in_heap; // oops, maybe on stack\n uint32_t result \u003d secret_val ^ value;\n \n // oops, secret_val maybe pushed on stack\n some_other_function();\n}\n```\n\nInstead, you\u0027re careful that all code that references secrets is done through pointers and rvalues so that it doesn\u0027t get pushed on the stack?\n\ne.g., above would be:\n\n```\n{\n  ptr \u003d secret_in_heap;\n\n  uint32_t result \u003d *secret_in_heap ^ value;\n \n  // *secret_in_heap was rvalue so nothing to push on stack\n  some_other_function();\n}\n```\n\nI\u0027m still trying to reason through whether an rvalue  could be pushed on the stack if there weren\u0027t enough registers available to perform other operations that use it.\n\nOr even a case like this:\n\n```\n{\n  ptr \u003d secret_in_heap;\n\n  // compiler could load secret_in_heap into register, push to stack, \n  // call some_other_function?\n  uint32_t result \u003d *secret_in_heap ^ some_other_function(); \n}\n```",
+      "parentUuid": "0f770b60_18d41796",
+      "revId": "fca521652e654ab76abe1e422ca651043d80f546",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7189820c_cc7265aa",
         "filename": "include/openssl/mem.h",
         "patchSetId": 6
