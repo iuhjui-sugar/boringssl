@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fc0194fc_c1f9991c",
+        "filename": "crypto/fipsmodule/aes/asm/aesni-x86_64.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 1528,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-23T15:55:27Z",
+      "side": 1,
+      "message": "Nit: To be consistent with the surrounding code here, let\u0027s write these in hex. That makes it a bit easier to compare these constants with others. Also because an AES block is 16 bytes, hex is quite natural.",
+      "revId": "6c3fce0522ac2433b11336327f0f634db339770c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
