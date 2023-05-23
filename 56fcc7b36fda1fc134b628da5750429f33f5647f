@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38ef2e95_217daebc",
+        "filename": "crypto/fipsmodule/aes/asm/aesni-x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 1527,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-23T20:02:22Z",
+      "side": 1,
+      "message": "Actually, where are you getting 96 from? 96 \u003d 6 * 16, i.e. 6 blocks. But this code seems to process 8 blocks at a time.\n\n(Also a \"block\" is always 16 bytes for AES. This code is doing several blocks at a time.)\n\nI also notice that you\u0027re prefetching an address 3 three iterations in the future (3 * 0x80) and then another address 3.5 iterations. I take it then that prefetcht0 works in 4*16 \u003d 64-byte chunks? Three was chosen because that\u0027s how far ahead of the loop it\u0027s useful to be?",
+      "range": {
+        "startLine": 1527,
+        "startChar": 33,
+        "endLine": 1527,
+        "endChar": 40
+      },
+      "revId": "56fcc7b36fda1fc134b628da5750429f33f5647f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
