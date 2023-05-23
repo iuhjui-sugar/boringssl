@@ -92,6 +92,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a3c51b7a_9d72a3c5",
+        "filename": "include/openssl/mem.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 16171
+      },
+      "writtenOn": "2023-05-23T15:40:19Z",
+      "side": 1,
+      "message": "\u003e Secrets end up in registers, and those registers are going to get spilled on the stack\n\nWhy does OpenSSL bother clearing memory allocated by `OPENSSL_malloc`?",
+      "parentUuid": "4df95c9b_86c3c813",
+      "revId": "fca521652e654ab76abe1e422ca651043d80f546",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7189820c_cc7265aa",
         "filename": "include/openssl/mem.h",
         "patchSetId": 6
