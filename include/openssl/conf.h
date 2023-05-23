@@ -77,7 +77,9 @@ extern "C" {
 //   [section_name]
 //   key2=value2
 //
-// Config files are represented by a |CONF|.
+// Config files are represented by a |CONF|. Use of this module is strongly
+// discouraged. It is a remnant of the OpenSSL command-line tool. Taking an
+// untrusted config file
 
 struct conf_value_st {
   char *section;
