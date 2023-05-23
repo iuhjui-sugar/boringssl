@@ -74,6 +74,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4df95c9b_86c3c813",
+        "filename": "include/openssl/mem.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-23T15:36:35Z",
+      "side": 1,
+      "message": "In BoringSSL, we just write `uint8_t enc_key[KEY_LEN]` and don\u0027t think about it too hard. :-) (We\u0027re C, so `std::array\u003cuint8_t, KEY_LEN\u003e` in C++ if you prefer.)\n\nThe problem is cleansing things on the stack in C/C++ is hopeless without compiler support. Secrets end up in registers, and those registers are going to get spilled on the stack. And then putting `OPENSSL_cleanse` in places is both more things to keep track of and also inhibits compiler optimizations to keep things out of memory in the first place, or reduce stack space. So our position is not to bother.\n\nIf your project has a different position, that\u0027s fine (though I would caution it is as pointless for you all as it is for us), but then that should go in your project.",
+      "parentUuid": "8b1fbce2_b9d25880",
+      "revId": "fca521652e654ab76abe1e422ca651043d80f546",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7189820c_cc7265aa",
         "filename": "include/openssl/mem.h",
         "patchSetId": 6
