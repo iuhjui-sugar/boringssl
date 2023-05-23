@@ -128,6 +128,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c6397e65_1913e3cc",
+        "filename": "include/openssl/mem.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 16171
+      },
+      "writtenOn": "2023-05-23T15:51:21Z",
+      "side": 1,
+      "message": "\u003e That\u0027s the heap, not the stack.\n\nYeah, I\u0027m well aware. 😊\n\nRegardless of heap or stack, the compiler can copy data into registers (e.g., instead of allocating space for variables on the stack), so I\u0027m not sure I see the difference in how that would affect whether secrets end up in registers  (which are then pushed to the stack during function calls, etc.).\n\n \u003e  That\u0027s something we did in BoringSSL because we got tired of bifurcating everything between things like BN_free vs BN_clear_free and likewise up the layers.\n \n Ok, so the decision in BoringSSL has nothing to do with trying to clear secrets from memory; just keeping the code simpler.",
+      "parentUuid": "f1f619da_e993d724",
+      "revId": "fca521652e654ab76abe1e422ca651043d80f546",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7189820c_cc7265aa",
         "filename": "include/openssl/mem.h",
         "patchSetId": 6
