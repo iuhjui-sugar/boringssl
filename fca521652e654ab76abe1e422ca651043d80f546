@@ -200,6 +200,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c9d8966b_4ba4715c",
+        "filename": "include/openssl/mem.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 16171
+      },
+      "writtenOn": "2023-05-23T22:13:45Z",
+      "side": 1,
+      "message": "Thanks for the clarification.\n\n\u003e  Until then, we don\u0027t want to waste time calling OPENSSL_cleanse on stack buffers when it won\u0027t actually save you from a stack leak anyway\n\nI think the part that I\u0027m still stuck on is why ever bother calling `OPENSSL_cleanse` at all given that data from the heap could also inadvertently end up on the stack? (That\u0027s why I was trying to work out to what extent that was possible in my last comment.)",
+      "parentUuid": "55590cf1_b49af026",
+      "revId": "fca521652e654ab76abe1e422ca651043d80f546",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7189820c_cc7265aa",
         "filename": "include/openssl/mem.h",
         "patchSetId": 6
