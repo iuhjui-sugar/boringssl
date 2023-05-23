@@ -146,6 +146,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "0f770b60_18d41796",
+        "filename": "include/openssl/mem.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-23T15:59:47Z",
+      "side": 1,
+      "message": "\u003e Regardless of heap or stack, the compiler can copy data into registers [...]\n\nThe difference is the compiler won\u0027t spill secrets to the stack. So we can coherently aim to clear secrets out of the heap. We do that by making `OPENSSL_free` automatically cleanse, for the stack of simplicity.\n\nHowever, there is no hope in keeping secrets out of the stack without toolchain support, which will certainly not look like explicit calls to `OPENSSL_cleanse`.\n\n\u003e Ok, so the decision in BoringSSL has nothing to do with trying to clear secrets from memory; just keeping the code simpler.\n\nNo, it\u0027s to keep the code simpler while still clearing secrets from the heap. If we just wanted to keep the code simpler, we\u0027d just drop `OPENSSL_cleanse` altogether.\n\nI\u0027ll reiterate the point made several times in this thread: you all proposing to add a new API to BoringSSL here. This API is just a thin wrapper over an API we already provide. There is nothing stopping you all from just doing this in your project, in an openssl_util.h or whatever header.",
+      "parentUuid": "c6397e65_1913e3cc",
+      "revId": "fca521652e654ab76abe1e422ca651043d80f546",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7189820c_cc7265aa",
         "filename": "include/openssl/mem.h",
         "patchSetId": 6
