@@ -70,6 +70,30 @@
       },
       "revId": "56fcc7b36fda1fc134b628da5750429f33f5647f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86b9bbcd_8c841a85",
+        "filename": "crypto/fipsmodule/aes/asm/aesni-x86_64.pl",
+        "patchSetId": 3
+      },
+      "lineNbr": 1527,
+      "author": {
+        "id": 10131
+      },
+      "writtenOn": "2023-05-24T18:54:47Z",
+      "side": 1,
+      "message": "Yes this is intentionally, or more precisely I\u0027ve tried different offsets with 64 byte increment, and this works best",
+      "parentUuid": "8fcc6b0d_67db7fe9",
+      "range": {
+        "startLine": 1527,
+        "startChar": 33,
+        "endLine": 1527,
+        "endChar": 40
+      },
+      "revId": "56fcc7b36fda1fc134b628da5750429f33f5647f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
