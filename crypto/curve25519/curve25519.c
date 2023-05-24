@@ -629,7 +629,7 @@ static void ge_p3_dbl(ge_p1p1 *r, const ge_p3 *p) {
 }
 
 // r = p + q
-static void ge_madd(ge_p1p1 *r, const ge_p3 *p, const ge_precomp *q) {
+static void ge_p1p1_madd(ge_p1p1 *r, const ge_p3 *p, const ge_precomp *q) {
   fe trY, trZ, trT;
 
   fe_add(&r->X, &p->Y, &p->X);
@@ -645,8 +645,31 @@ static void ge_madd(ge_p1p1 *r, const ge_p3 *p, const ge_precomp *q) {
   fe_sub(&r->T, &trZ, &trT);
 }
 
+// r = p + q
+static void ge_madd(ge_p3 *r, const ge_p3 *p, const ge_precomp *q) {
+  fe A, B, C, D_t;
+  fe_loose YplusX, YminusX, D, X3, Y3, Z3, T3;
+  // Transcibed from a Coq function proven against affine coordinates.
+  // https://github.com/mit-plv/fiat-crypto/blob/a36568d1d73aff5d7accc79fd28be672882f9c17/src/Curves/Edwards/XYZT/Precomputed.v#L38-L56
+  fe_add(&YplusX, &p->Y, &p->X);
+  fe_sub(&YminusX, &p->Y, &p->X);
+  fe_mul_tll(&A, &YplusX, &q->yplusx);
+  fe_mul_tll(&B, &YminusX, &q->yminusx);
+  fe_mul_tlt(&C, &q->xy2d, &p->T);
+  fe_add(&D, &p->Z, &p->Z);
+  fe_sub(&X3, &A, &B);
+  fe_add(&Y3, &A, &B);
+  fe_carry(&D_t, &D);
+  fe_add(&Z3, &D_t, &C);
+  fe_sub(&T3, &D_t, &C);
+  fe_mul_tll(&r->X, &X3, &T3);
+  fe_mul_tll(&r->Y, &Y3, &Z3);
+  fe_mul_tll(&r->Z, &T3, &Z3);
+  fe_mul_tll(&r->T, &X3, &Y3);
+}
+
 // r = p - q
-static void ge_msub(ge_p1p1 *r, const ge_p3 *p, const ge_precomp *q) {
+static void ge_p1p1_msub(ge_p1p1 *r, const ge_p3 *p, const ge_precomp *q) {
   fe trY, trZ, trT;
 
   fe_add(&r->X, &p->Y, &p->X);
@@ -763,8 +786,7 @@ void x25519_ge_scalarmult_small_precomp(
     x25519_ge_add(&r, h, &cached);
     x25519_ge_p1p1_to_p3(h, &r);
 
-    ge_madd(&r, h, &e);
-    x25519_ge_p1p1_to_p3(h, &r);
+    ge_madd(h, h, &e);
   }
 }
 
@@ -841,8 +863,7 @@ void x25519_ge_scalarmult_base(ge_p3 *h, const uint8_t a[32]) {
   ge_p3_0(h);
   for (i = 1; i < 64; i += 2) {
     table_select(&t, i / 2, e[i]);
-    ge_madd(&r, h, &t);
-    x25519_ge_p1p1_to_p3(h, &r);
+    ge_madd(h, h, &t);
   }
 
   ge_p3_dbl(&r, h);
@@ -856,8 +877,7 @@ void x25519_ge_scalarmult_base(ge_p3 *h, const uint8_t a[32]) {
 
   for (i = 0; i < 64; i += 2) {
     table_select(&t, i / 2, e[i]);
-    ge_madd(&r, h, &t);
-    x25519_ge_p1p1_to_p3(h, &r);
+    ge_madd(h, h, &t);
   }
 }
 
@@ -1021,10 +1041,10 @@ static void ge_double_scalarmult_vartime(ge_p2 *r, const uint8_t *a,
 
     if (bslide[i] > 0) {
       x25519_ge_p1p1_to_p3(&u, &t);
-      ge_madd(&t, &u, &Bi[bslide[i] / 2]);
+      ge_p1p1_madd(&t, &u, &Bi[bslide[i] / 2]);
     } else if (bslide[i] < 0) {
       x25519_ge_p1p1_to_p3(&u, &t);
-      ge_msub(&t, &u, &Bi[(-bslide[i]) / 2]);
+      ge_p1p1_msub(&t, &u, &Bi[(-bslide[i]) / 2]);
     }
 
     x25519_ge_p1p1_to_p2(r, &t);
