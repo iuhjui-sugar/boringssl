@@ -495,6 +495,28 @@ static inline int constant_time_select_int(crypto_word_t mask, int a, int b) {
                                       (crypto_word_t)(b)));
 }
 
+// memcmov copies n bytes from src to dst if b is nonzero
+static inline void memcmov(void *dst, const void *src, const size_t n,
+                           const crypto_word_t b) {
+  uint8_t mask = value_barrier_w(~constant_time_is_zero_w(b));
+  uint8_t *out = (uint8_t *)dst;
+  const uint8_t *in = (const uint8_t *)src;
+  for (size_t i = 0; i < n; i++) {
+    out[i] = (mask & in[i]) | (~mask & out[i]);
+  }
+}
+
+// memcxor xors n bytes from src to dst if b is nonzero
+static inline void memcxor(void *dst, const void *src, const size_t n,
+                           const crypto_word_t b) {
+  uint8_t mask = value_barrier_w(~constant_time_is_zero_w(b));
+  uint8_t *out = (uint8_t *)dst;
+  const uint8_t *in = (const uint8_t *)src;
+  for (size_t i = 0; i < n; i++) {
+    out[i] ^= mask & in[i];
+  }
+}
+
 #if defined(BORINGSSL_CONSTANT_TIME_VALIDATION)
 
 // CONSTTIME_SECRET takes a pointer and a number of bytes and marks that region
