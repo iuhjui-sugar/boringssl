@@ -315,11 +315,6 @@ static void fe_copy_lt(fe_loose *h, const fe *f) {
   static_assert(sizeof(fe_loose) == sizeof(fe), "fe and fe_loose mismatch");
   OPENSSL_memmove(h, f, sizeof(fe));
 }
-#if !defined(OPENSSL_SMALL)
-static void fe_copy_ll(fe_loose *h, const fe_loose *f) {
-  OPENSSL_memmove(h, f, sizeof(fe_loose));
-}
-#endif // !defined(OPENSSL_SMALL)
 
 static void fe_loose_invert(fe *out, const fe_loose *z) {
   fe t0;
@@ -782,28 +777,39 @@ static uint8_t negative(signed char b) {
   return x;
 }
 
-static void table_select(ge_precomp *t, int pos, signed char b) {
-  ge_precomp minust;
+static void memcmov(void *dst, const void *src, const uint8_t b,
+                    const size_t n) {
+  uint8_t *out = dst;
+  const uint8_t *in = src;
+  uint8_t mask = -!!b;
+  for (size_t i = 0; i < n; i++) {
+    out[i] = constant_time_select_8(mask, in[i], out[i]);
+  }
+}
+
+static void table_select(ge_precomp *t, const int pos, const signed char b) {
   uint8_t bnegative = negative(b);
-  uint8_t babs = b - ((uint8_t)((-bnegative) & b) << 1);
+  uint8_t babs = b - 2*b*bnegative;
 
-  ge_precomp_0(t);
-  cmov(t, &k25519Precomp[pos][0], equal(babs, 1));
-  cmov(t, &k25519Precomp[pos][1], equal(babs, 2));
-  cmov(t, &k25519Precomp[pos][2], equal(babs, 3));
-  cmov(t, &k25519Precomp[pos][3], equal(babs, 4));
-  cmov(t, &k25519Precomp[pos][4], equal(babs, 5));
-  cmov(t, &k25519Precomp[pos][5], equal(babs, 6));
-  cmov(t, &k25519Precomp[pos][6], equal(babs, 7));
-  cmov(t, &k25519Precomp[pos][7], equal(babs, 8));
-  fe_copy_ll(&minust.yplusx, &t->yminusx);
-  fe_copy_ll(&minust.yminusx, &t->yplusx);
+  uint8_t t_bytes[3][32] = {{1},{1},{0}};
+  static_assert(sizeof(t_bytes) == sizeof(k25519Precomp[pos][0]), "");
+  for (int i = 0; i < 8; i++) {
+    memcmov(t_bytes, k25519Precomp[pos][i], equal(babs, 1+i), sizeof(t_bytes));
+  }
 
-  // NOTE: the input table is canonical, but types don't encode it
-  fe tmp;
-  fe_carry(&tmp, &t->xy2d);
-  fe_neg(&minust.xy2d, &tmp);
+  fe yplusx, yminusx, xy2d;
+  fe_frombytes_strict(&yplusx, t_bytes[0]);
+  fe_frombytes_strict(&yminusx, t_bytes[1]);
+  fe_frombytes_strict(&xy2d, t_bytes[2]);
 
+  fe_copy_lt(&t->yplusx, &yplusx);
+  fe_copy_lt(&t->yminusx, &yminusx);
+  fe_copy_lt(&t->xy2d, &xy2d);
+
+  ge_precomp minust;
+  fe_copy_lt(&minust.yplusx, &yminusx);
+  fe_copy_lt(&minust.yminusx, &yplusx);
+  fe_neg(&minust.xy2d, &xy2d);
   cmov(t, &minust, bnegative);
 }
 
