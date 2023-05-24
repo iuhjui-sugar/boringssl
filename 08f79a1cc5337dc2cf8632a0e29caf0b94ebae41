@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4b52d169_7e2a3575",
+        "filename": "crypto/curve25519/curve25519.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-24T18:40:04Z",
+      "side": 1,
+      "message": "https://boringssl-review.googlesource.com/c/boringssl/+/60109\n\nLooks like the answer is yes clang is un-constant-timing this. :-( What happens if you replace this with `constant_time_select_8`? Dunno if that would hurt perf, since it may impede vectorization.",
+      "parentUuid": "7cd05d82_15b0e95c",
+      "revId": "08f79a1cc5337dc2cf8632a0e29caf0b94ebae41",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8ff1adea_54dc2170",
         "filename": "crypto/curve25519/make_curve25519_tables.py",
         "patchSetId": 1
