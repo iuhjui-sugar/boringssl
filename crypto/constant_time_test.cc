@@ -169,3 +169,69 @@ TEST(ConstantTimeTest, ValueBarrier) {
     EXPECT_EQ(u64, value_barrier_u64(u64));
   }
 }
+
+TEST(ConstantTimeTest, MemCmov) {
+  for (int i = 0; i < 100; i++) {
+    uint8_t in[256];
+    RAND_bytes(in, sizeof(in));
+    CONSTTIME_SECRET(in, sizeof(in));
+
+    uint8_t out[256];
+    RAND_bytes(out, sizeof(out));
+    CONSTTIME_SECRET(out, sizeof(out));
+
+    uint8_t ref_out[256], ref_in[256];
+    OPENSSL_memcpy(ref_out, out, sizeof(out));
+    OPENSSL_memcpy(ref_in, in, sizeof(in));
+
+    uint8_t b = b;
+    RAND_bytes(&b, 1);
+    CONSTTIME_SECRET(&b, 1);
+    b = (b & 1) * b;
+
+    memcmov(out, in, sizeof(out), b);
+
+    if (constant_time_declassify_w(b)) {
+      OPENSSL_memcpy(ref_out, in, sizeof(in));
+    }
+
+    CONSTTIME_DECLASSIFY(&out, sizeof(in));
+    CONSTTIME_DECLASSIFY(&out, sizeof(out));
+    EXPECT_EQ(0, OPENSSL_memcmp(in, ref_in, sizeof(in)));
+    EXPECT_EQ(0, OPENSSL_memcmp(out, ref_out, sizeof(out)));
+  }
+}
+
+TEST(ConstantTimeTest, MemCxor) {
+  for (int i = 0; i < 100; i++) {
+    uint8_t in[256];
+    RAND_bytes(in, sizeof(in));
+    CONSTTIME_SECRET(in, sizeof(in));
+
+    uint8_t out[256];
+    RAND_bytes(out, sizeof(out));
+    CONSTTIME_SECRET(out, sizeof(out));
+
+    uint8_t ref_out[256], ref_in[256];
+    OPENSSL_memcpy(ref_out, out, sizeof(out));
+    OPENSSL_memcpy(ref_in, in, sizeof(in));
+
+    uint8_t b = b;
+    RAND_bytes(&b, 1);
+    CONSTTIME_SECRET(&b, 1);
+    b = (b & 1) * b;
+
+    memcxor(out, in, sizeof(out), b);
+
+    if (constant_time_declassify_w(b)) {
+      for (size_t j = 0; j < sizeof(ref_out); ++j) {
+        ref_out[j] ^= in[j];
+      }
+    }
+
+    CONSTTIME_DECLASSIFY(&out, sizeof(in));
+    CONSTTIME_DECLASSIFY(&out, sizeof(out));
+    EXPECT_EQ(0, OPENSSL_memcmp(in, ref_in, sizeof(in)));
+    EXPECT_EQ(0, OPENSSL_memcmp(out, ref_out, sizeof(out)));
+  }
+}
