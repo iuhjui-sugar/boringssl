@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4806632_0f8408cb",
+        "filename": "crypto/curve25519/curve25519.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 780,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-24T17:41:43Z",
+      "side": 1,
+      "message": "Minor style nits:\n\n- wrap to 80 chars (I just have a keystroke for clang-format in my editor)\n- s/`unsigned char`/`uint8_t`/g. We assume they\u0027re the same type, and `uint8_t` is shorter",
+      "revId": "08f79a1cc5337dc2cf8632a0e29caf0b94ebae41",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7cd05d82_15b0e95c",
+        "filename": "crypto/curve25519/curve25519.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 785,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-24T17:41:43Z",
+      "side": 1,
+      "message": "Hmm, this is the sort of thing where we\u0027ve needed value barriers with clang before, but I\u0027m not positive. Apparently we don\u0027t have X25519 in our constant-time validation stuff. Whoops. I\u0027ll go fix that...",
+      "revId": "08f79a1cc5337dc2cf8632a0e29caf0b94ebae41",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ff1adea_54dc2170",
+        "filename": "crypto/curve25519/make_curve25519_tables.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-24T17:41:43Z",
+      "side": 1,
+      "message": "I\u0027m guessing it\u0027s still worthwhile to use `to_ge_precomp` here because, even though it would shave memory bandwidth by 1/3, we\u0027d have to do an extra multiplication by `d2` for each lookup?",
+      "revId": "08f79a1cc5337dc2cf8632a0e29caf0b94ebae41",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
