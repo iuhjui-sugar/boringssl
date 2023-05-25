@@ -16,6 +16,24 @@
       "message": "What\u0027s the motivation for changing this line? Looks like they compute the same thing, except the new one requires a bit more work by the compiler to avoid a multiplication. MSVC doesn\u0027t even manage it.\nhttps://godbolt.org/z/aoeP7fzP8\n\n(Sorry, didn\u0027t notice this line earlier. This otherwise LGTM!)",
       "revId": "108abe7b744a48e65c6a9f247f5b6c01e1745af1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23e46bea_1ed93378",
+        "filename": "crypto/curve25519/curve25519.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 792,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-05-25T22:21:33Z",
+      "side": 1,
+      "message": "Because I found myself spending time to parse the previous version. Here\u0027s another try.",
+      "parentUuid": "a1e89f61_de766335",
+      "revId": "108abe7b744a48e65c6a9f247f5b6c01e1745af1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
