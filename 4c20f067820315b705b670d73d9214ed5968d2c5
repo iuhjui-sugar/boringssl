@@ -1,0 +1,163 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e3daec0_2de028ae",
+        "filename": "crypto/curve25519/asm/fiat_curve25519_adx.S",
+        "patchSetId": 11
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-25T18:14:49Z",
+      "side": 1,
+      "message": "Oh fun, I suppose we can see how reliable our tooling can support Intel syntax. :-) (Much as AT\u0026T syntax is the worst, I think support for Intel syntax has historically been spotty in GCC and Clang.)\n\nIf we needed to do AT\u0026T syntax in the future, how hard would it be to get AT\u0026T syntax out? It\u0027s not an immediate issue right now, but if curve25519 ever moves inside the FIPS module, we\u0027ll need to be able to rewrite the assembly with our delocate tool, and that thing wants AT\u0026T syntax. (FIPS 186-5 already covers Ed25519. I imagine they\u0027ll pick up X25519 in the future.)",
+      "revId": "4c20f067820315b705b670d73d9214ed5968d2c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "76f2aeb1_c5910477",
+        "filename": "crypto/curve25519/curve25519.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-25T18:14:49Z",
+      "side": 1,
+      "message": "Nit: clang-format",
+      "revId": "4c20f067820315b705b670d73d9214ed5968d2c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbf980cf_8722479a",
+        "filename": "crypto/curve25519/curve25519.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 2089,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-25T18:14:49Z",
+      "side": 1,
+      "message": "Nit: clang-format",
+      "revId": "4c20f067820315b705b670d73d9214ed5968d2c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cfd7103a_5a5c6d4f",
+        "filename": "third_party/fiat/asm/fiat_curve25519_adx_mul.S",
+        "patchSetId": 11
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-25T18:14:49Z",
+      "side": 1,
+      "message": "Just to avoid polluting the namespace, can we do something like...\n\n```\n#if defined(__APPLE__)\n.global _fiat_curve25519_adx_mul\n_fiat_curve25519_adx_mul:\n#else\n.global fiat_curve25519_adx_mul\nfiat_curve25519_adx_mul:\n#endif\n```\n\nOr:\n\n```\n#if defined(__APPLE__)\n#define GLOBAL(x) _ ## x\n#else\n#define GLOBAL(x) x\n#endif\n\n.globl GLOBAL(fiat_curve25519_adx_mul)\nGLOBAL(fiat_curve25519_adx_mul)\n```",
+      "revId": "4c20f067820315b705b670d73d9214ed5968d2c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ec1fd19_b4ff664a",
+        "filename": "third_party/fiat/asm/fiat_curve25519_adx_mul.S",
+        "patchSetId": 11
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-25T18:14:49Z",
+      "side": 1,
+      "message": "I\u0027m not sure if anyone\u0027s unwind *actually* cares, but usually this is `push rbp`. And then `pop rbp` on the epilog.",
+      "revId": "4c20f067820315b705b670d73d9214ed5968d2c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6b650ce_de44a614",
+        "filename": "third_party/fiat/asm/fiat_curve25519_adx_mul.S",
+        "patchSetId": 11
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-25T18:14:49Z",
+      "side": 1,
+      "message": "So that non-frame-pointer-based unwind works correctly, we like to have CFI annotations in our assembly files. In particular, this allows an unwinder to restore all the callee-saved registers, in case the rest of the stack frame isn\u0027t RBP-based.\n\nAdam has some notes on it here https://www.imperialviolet.org/2017/01/18/cfi.html. If you grep for `.cfi_` in our other asm files, you\u0027ll also see examples, though note that perlasm has some helper macros for it, so some of the directives you\u0027ll see are fake. :-)\n\n(Is there a reason the callee-saved registers are saved intermingled in the file? Having them done at the front is a bit easier to review, though I don\u0027t know off-hand if there\u0027s a perf requirement. We\u0027ll also want them at the front if we ever support Windows because I\u0027m fairly sure there\u0027s a limit on how big the prolog can be.)",
+      "revId": "4c20f067820315b705b670d73d9214ed5968d2c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9ee95f19_f00f6bb6",
+        "filename": "third_party/fiat/asm/fiat_curve25519_adx_square.S",
+        "patchSetId": 11
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-25T18:14:49Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "4c20f067820315b705b670d73d9214ed5968d2c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d0927bf_5f699af3",
+        "filename": "third_party/fiat/curve25519_64_adx.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-25T18:14:49Z",
+      "side": 1,
+      "message": "FWIW, I suspect this won\u0027t work on Windows anyway because you assume a red zone. :-)",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 30
+      },
+      "revId": "4c20f067820315b705b670d73d9214ed5968d2c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7e01682_f2f4153f",
+        "filename": "third_party/fiat/curve25519_64_adx.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-25T18:14:49Z",
+      "side": 1,
+      "message": "We like to have ABI tests for all our assembly functions. I\u0027m not sure the right pattern for here, since this file is synthesized, but the pattern I\u0027ve done before is:\n\nFirst, in the module\u0027s header file, include code like this:\n\n```\n#if !defined(OPENSSL_NO_ASM) \u0026\u0026                         \\\n    (defined(OPENSSL_X86) || defined(OPENSSL_X86_64) || \\\n     defined(OPENSSL_ARM) || defined(OPENSSL_AARCH64))\n#define OPENSSL_BN_ASM_MONT\n// bn_mul_mont writes |ap| * |bp| mod |np| to |rp|, each |num| words\n// long. [...]\nint bn_mul_mont(BN_ULONG *rp, const BN_ULONG *ap, const BN_ULONG *bp,\n                const BN_ULONG *np, const BN_ULONG *n0, size_t num);\n#endif\n```\n\nThis does a few things. First, it forces me to write down what a function does. Also it means the caller and the test files agree on both the function prototype (what ABI we\u0027re checking) and when the symbol exists (`OPENSSL_BN_ASM_MONT`).\n\nIf the function is conditionally available, sometimes we\u0027ll abstract that too:\n\n```\nOPENSSL_INLINE int hwaes_capable(void) { return CRYPTO_is_AESNI_capable(); }\n```\n\nBut I think sometimes the tests just call the same conditions again because that\u0027s a bit of work. :-)\n\nThen in the test file, add a test like this:\n\n```\n#if defined(SHA256_ASM) \u0026\u0026 defined(SUPPORTS_ABI_TEST)\nTEST(SHATest, SHA256ABI) {\n  SHA256_CTX ctx;\n  SHA256_Init(\u0026ctx);\n\n  static const uint8_t kBuf[SHA256_CBLOCK * 8] \u003d {0};\n  CHECK_ABI(sha256_block_data_order, ctx.h, kBuf, 1);\n  CHECK_ABI(sha256_block_data_order, ctx.h, kBuf, 2);\n  CHECK_ABI(sha256_block_data_order, ctx.h, kBuf, 4);\n  CHECK_ABI(sha256_block_data_order, ctx.h, kBuf, 8);\n}\n#endif  // SHA256_ASM \u0026\u0026 SUPPORTS_ABI_TEST\n```\n\nIf you grep for `CHECK_ABI`, you\u0027ll find a few of them. This includes both register checking and also CFI/SEH-based unwind checking on x86_64. Though SEH checking is disabled most of the time because it doesn\u0027t work. To get CFI checking to work, install `libunwind-dev` and re-run CMake. (That one is, unfortunately, not in CI...)\n\nAlso I realize now that `x25519_NEON` lacks an ABI test, so I\u0027ll go fill that in... :-)",
+      "revId": "4c20f067820315b705b670d73d9214ed5968d2c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
