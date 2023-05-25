@@ -16,6 +16,91 @@
       "message": "Well, do we want this? Possibly useful for macos chrome? maybe others?\nDon\u0027t submit yet, I want to try in some other places and look at things.",
       "revId": "16c96c983fe71c5a8ac70b962600428e9e5d777b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86797c73_ac86c86a",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-25T14:40:48Z",
+      "side": 1,
+      "message": "These need to be at the very top of the file, otherwise we can have problems if one of the other headers includes `\u003csys/mman.h\u003e` first.",
+      "revId": "16c96c983fe71c5a8ac70b962600428e9e5d777b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "514ff5b9_62fa571d",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-25T14:40:48Z",
+      "side": 1,
+      "message": "I assume calling the syscall directly is not supported by OpenBSD?",
+      "revId": "16c96c983fe71c5a8ac70b962600428e9e5d777b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "04bf39d0_e515c444",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-25T14:40:48Z",
+      "side": 1,
+      "message": "At least based on the name, probably this shouldn\u0027t kick in for the `pthread_atfork` case. I also suspect we don\u0027t need it because `pthread_atfork` is should be ubiquitous on supported platforms.",
+      "revId": "16c96c983fe71c5a8ac70b962600428e9e5d777b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d6fb730_8659e663",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-25T14:40:48Z",
+      "side": 1,
+      "message": "This can just be a normal global without going through the heap. :-)",
+      "revId": "16c96c983fe71c5a8ac70b962600428e9e5d777b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4108512a_7de5444f",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-25T14:40:48Z",
+      "side": 1,
+      "message": "Maybe it\u0027s worth pondering this abstraction a bit. So, if we were purely `pthread_atfork`, we wouldn\u0027t need any threading or anything. We just do:\n\n```\nstatic uint64_t fork_generation \u003d 0;\nstatic void we_are_forked(void) { fork_generation++; }\nuint64_t CRYPTO_get_fork_generation(void) { return fork_generation; }\n```\n\nBecause at the point when we call `we_are_forked`, we\u0027re guaranteed to be single-threaded. The only reason we need all this threading stuff in the `MADV_WIPEONFORK` case is the kernel doesn\u0027t let us control what happens when we fork, so we need to translate the signals.\n\nThat would suggest doing the ifdefs at a different layer and probably make things simpler.\n\n(`pthread_atfork` also exists on Linux too. Might be worth registering that and incorporate it to further guard mistaken `RAND_enable_fork_unsafe_buffering` calls, perhaps as a fallback if `MADV_WIPEONFORK` is missing? Though that will require further synchronization and changing the API to return \"this is my fork generation\" and \"you can rely on the fork generation\" separately. Probably for later.)\n\nInterestingly, OpenSSL briefly supported `pthread_atfork`, but made it off by default. That caused a CVE and now they... check the PID? Because PID reuse definitely isn\u0027t a thing...\nhttps://github.com/openssl/openssl/pull/9802\n\nAlso, separately, `fork` isn\u0027t applicable to Windows (though it is to Cygwin...), so arguably Windows should just return a constant non-zero value like 1.",
+      "revId": "16c96c983fe71c5a8ac70b962600428e9e5d777b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
