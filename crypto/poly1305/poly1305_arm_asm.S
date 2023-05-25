@@ -169,8 +169,13 @@
 openssl_poly1305_neon2_blocks:
 vpush {q4,q5,q6,q7}
 mov r12,sp
-sub sp,sp,#192
-bic sp,sp,#31
+sub r12,r12,#192
+bic r12,r12,#31
+strd r4,[r12,#0]
+mov r4, sp
+mov sp ,r12
+mov r12, r4
+ldrd r4,[sp,#0]
 
 # qhasm: len = input_3
 # asm 1: mov >len=int32#4,<input_3=int32#4

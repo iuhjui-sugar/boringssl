@@ -773,13 +773,15 @@ if ($flavour =~ /64/) {			######## 64-bit code
 	# fix up remaining new-style suffixes
 	s/\],#[0-9]+/]!/o;
 
-	s/cclr\s+([^,]+),\s*([a-z]+)/mov$2	$1,#0/o			or
+	s/cclr\s+([^,]+),\s*([a-z]+)/mov.$2	$1,#0/o			or
 	s/vdup\.32\s+(.*)/unvdup32($1)/geo				or
 	s/v?(pmull2?)\.p64\s+(.*)/unvpmullp64($1,$2)/geo		or
 	s/\bq([0-9]+)#(lo|hi)/sprintf "d%d",2*$1+($2 eq "hi")/geo	or
 	s/^(\s+)b\./$1b/o						or
 	s/^(\s+)ret/$1bx\tlr/o;
-
+	if (s/^(\s+)mov\.([a-z]+)/$1mov$2/) {
+	    print "     it      $2\n";
+	}
 	print $_,"\n";
     }
 }
