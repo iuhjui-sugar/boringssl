@@ -61,19 +61,8 @@ typedef struct fe_loose { uint32_t v[10]; } fe_loose;
 // Here the group is the set of pairs (x,y) of field elements (see fe.h)
 // satisfying -x^2 + y^2 = 1 + d x^2y^2
 // where d = -121665/121666.
-//
-// Representations:
-//   ge_p2 (projective): (X:Y:Z) satisfying x=X/Z, y=Y/Z
-//   ge_p3 (extended): (X:Y:Z:T) satisfying x=X/Z, y=Y/Z, XY=ZT
-//   ge_p1p1 (completed): ((X:Z),(Y:T)) satisfying x=X/Z, y=Y/T
-//   ge_precomp (Duif): (y+x,y-x,2dxy)
 
-typedef struct {
-  fe X;
-  fe Y;
-  fe Z;
-} ge_p2;
-
+// Extended coordinates: (X/Z, Y/Z) = (x,y) s.t X*Y=Z*T.
 typedef struct {
   fe X;
   fe Y;
@@ -81,37 +70,14 @@ typedef struct {
   fe T;
 } ge_p3;
 
-typedef struct {
-  fe_loose X;
-  fe_loose Y;
-  fe_loose Z;
-  fe_loose T;
-} ge_p1p1;
-
-typedef struct {
-  fe_loose yplusx;
-  fe_loose yminusx;
-  fe_loose xy2d;
-} ge_precomp;
-
-typedef struct {
-  fe_loose YplusX;
-  fe_loose YminusX;
-  fe_loose Z;
-  fe_loose T2d;
-} ge_cached;
-
-void x25519_ge_tobytes(uint8_t s[32], const ge_p2 *h);
+void x25519_ge_tobytes(uint8_t s[32], const ge_p3 *h);
 int x25519_ge_frombytes_vartime(ge_p3 *h, const uint8_t s[32]);
-void x25519_ge_p3_to_cached(ge_cached *r, const ge_p3 *p);
-void x25519_ge_p1p1_to_p2(ge_p2 *r, const ge_p1p1 *p);
-void x25519_ge_p1p1_to_p3(ge_p3 *r, const ge_p1p1 *p);
-void x25519_ge_add(ge_p1p1 *r, const ge_p3 *p, const ge_cached *q);
-void x25519_ge_sub(ge_p1p1 *r, const ge_p3 *p, const ge_cached *q);
+void x25519_ge_add(ge_p3 *r, const ge_p3 *p, const ge_p3 *q);
+void x25519_ge_sub(ge_p3 *r, const ge_p3 *p, const ge_p3 *q);
 void x25519_ge_scalarmult_small_precomp(
     ge_p3 *h, const uint8_t a[32], const uint8_t precomp_table[15 * 2 * 32]);
 void x25519_ge_scalarmult_base(ge_p3 *h, const uint8_t a[32]);
-void x25519_ge_scalarmult(ge_p2 *r, const uint8_t *scalar, const ge_p3 *A);
+void x25519_ge_scalarmult(ge_p3 *r, const uint8_t *scalar, const ge_p3 *A);
 void x25519_sc_reduce(uint8_t s[64]);
 
 enum spake2_state_t {
@@ -134,6 +100,12 @@ struct spake2_ctx_st {
   char disable_password_scalar_hack;
 };
 
+// NOTE: only used for precomputed tables
+typedef struct {  // (Duif): (y+x,y-x,2dxy)
+  fe_loose yplusx;
+  fe_loose yminusx;
+  fe_loose xy2d;
+} ge_precomp;
 
 #if defined(__cplusplus)
 }  // extern C
