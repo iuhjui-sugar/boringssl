@@ -425,15 +425,9 @@ int SPAKE2_generate_msg(SPAKE2_CTX *ctx, uint8_t *out, size_t *out_len,
                                          : kSpakeNSmallPrecomp);
 
   // P* = P + mask.
-  ge_cached mask_cached;
-  x25519_ge_p3_to_cached(&mask_cached, &mask);
-  ge_p1p1 Pstar;
-  x25519_ge_add(&Pstar, &P, &mask_cached);
-
-  // Encode P*
-  ge_p2 Pstar_proj;
-  x25519_ge_p1p1_to_p2(&Pstar_proj, &Pstar);
-  x25519_ge_tobytes(ctx->my_msg, &Pstar_proj);
+  ge_p3 Pstar;
+  x25519_ge_add(&Pstar, &P, &mask);
+  x25519_ge_tobytes(ctx->my_msg, &Pstar);
 
   OPENSSL_memcpy(out, ctx->my_msg, sizeof(ctx->my_msg));
   *out_len = sizeof(ctx->my_msg);
@@ -478,15 +472,8 @@ int SPAKE2_process_msg(SPAKE2_CTX *ctx, uint8_t *out_key, size_t *out_key_len,
                                         ? kSpakeNSmallPrecomp
                                         : kSpakeMSmallPrecomp);
 
-  ge_cached peers_mask_cached;
-  x25519_ge_p3_to_cached(&peers_mask_cached, &peers_mask);
-
-  ge_p1p1 Q_compl;
-  ge_p3 Q_ext;
-  x25519_ge_sub(&Q_compl, &Qstar, &peers_mask_cached);
-  x25519_ge_p1p1_to_p3(&Q_ext, &Q_compl);
-
-  ge_p2 dh_shared;
+  ge_p3 Q_ext, dh_shared;
+  x25519_ge_sub(&Q_ext, &Qstar, &peers_mask);
   x25519_ge_scalarmult(&dh_shared, ctx->private_key, &Q_ext);
 
   uint8_t dh_shared_encoded[32];
