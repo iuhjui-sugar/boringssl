@@ -1,0 +1,181 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cd59fbcf_b4aaf7b0",
+        "filename": "rust/bssl-crypto/src/ed25519.rs",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-25T22:24:56Z",
+      "side": 1,
+      "message": "I don\u0027t think this constant, or BoringSSL\u0027s C representation, needs to be part of the public API.",
+      "revId": "fd119ebcf574fe797b2d30b4154191c04c636b6d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc910201_4602ff66",
+        "filename": "rust/bssl-crypto/src/ed25519.rs",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-25T22:24:56Z",
+      "side": 1,
+      "message": "Our API usually says \"private\" for a public/private pair. I\u0027ve mostly seen \"secret\" in the context of symmetric things. (Shared secrets, etc.) Suggest either `PRIVATE_KEY_LENGTH` or `SEED_LENGTH`. Maybe the latter if we want to use the \"seed\" terminology in the rest of the API.",
+      "revId": "fd119ebcf574fe797b2d30b4154191c04c636b6d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f7ca5f6_932c78d7",
+        "filename": "rust/bssl-crypto/src/ed25519.rs",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-25T22:24:56Z",
+      "side": 1,
+      "message": "Rust question: when structs are defined this way, can external callers convert to/from arrays on their own, or do they have to use the `from_bytes` and `to_bytes` APIs?\n\nI ask because, if you can convert on your own:\n- It\u0027s a little unclear to me why we need `to_bytes` and `from_bytes`\n- It means callers care allowed to import arbitrary bytes as private keys and possibly hit the wrong public key bug... dunno how much we want to care about that.",
+      "revId": "fd119ebcf574fe797b2d30b4154191c04c636b6d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43b29d49_7d8cfdd4",
+        "filename": "rust/bssl-crypto/src/ed25519.rs",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-25T22:24:56Z",
+      "side": 1,
+      "message": "Thinking about it some more, I think `PrivateKey` makes more sense here. When I see a function that says \"keypair\", I\u0027d expect it to return a pair of things, like `ED25519_keypair` does. But this function throws away half of it.\n\nPart of the weirdness here comes from details of how Ed25519 works vs, say, ECDSA. It happens that Ed25519 signing incorporates the public key into some computations. You could compute it at the time you generate a signature, but it\u0027s more efficient, if you\u0027re doing multiple signatures, to store it alongside your signature.\n\nIn contrast, ECDSA signing only uses the scalar. You could, in theory, only  have the scalar and not carry the public key in your `PrivateKey` structure. This is pretty much unique to ECDSA though. RSA private keys typically have the full public key alongside them. *Sometimes* you see RSA private keys without `e`, but that prohibits both RSA blinding and some fault attack defenses, so that\u0027s not a great idea anyway.\n\nNow, you could take this and say, oh, the Ed25519 signing function is `Sign(privkey, pubkey, msg)`. But exposing them as separable risks callers passing the wrong public key for the private key, which actually is [catastrophic](https://github.com/jedisct1/libsodium/issues/170). Thus it\u0027s better to just have this cached public key value be abstracted behind your \"private key\" representation.\n\nCalling it `KeyPair` gets you an odd mix of both worlds. It\u0027s not *actually* a pair, which is good because being able to construct them separably would lead to the problem above. Rather, the only thing about it that\u0027s pair-like is that you have an accessor for the public key. But you could just as easily have computed the public key on demand, so I\u0027m not sure that\u0027s much of a \"pair\".\n\nAlso \"private key\" is more consistent with the rest of our APIs.",
+      "revId": "fd119ebcf574fe797b2d30b4154191c04c636b6d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc55dde2_436727b0",
+        "filename": "rust/bssl-crypto/src/ed25519.rs",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-25T22:24:56Z",
+      "side": 1,
+      "message": "WDYT about calling this `seed()` or `to_seed()` and only returning the seed part. Right now, if you want to call `generate()` and `to_bytes()`, you don\u0027t get back something you can import again.",
+      "revId": "fd119ebcf574fe797b2d30b4154191c04c636b6d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2f16f184_b5f7171e",
+        "filename": "rust/bssl-crypto/src/ed25519.rs",
+        "patchSetId": 6
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-25T22:24:56Z",
+      "side": 1,
+      "message": "Nit: I would have said \"from `seed`\" rather than \"from a `seed`\" since this is in reference to a variable. Or is the \"a\" more idiomatic for Rust?",
+      "range": {
+        "startLine": 64,
+        "startChar": 34,
+        "endLine": 64,
+        "endChar": 42
+      },
+      "revId": "fd119ebcf574fe797b2d30b4154191c04c636b6d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7137c6dd_da8bc41b",
+        "filename": "rust/bssl-crypto/src/ed25519.rs",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-25T22:24:56Z",
+      "side": 1,
+      "message": "This reads a little oddly. I\u0027m guessing you meant this as \"in this implementation, the seed corresponds to [what RFC 8032 calls] the private key\".\n\nI read it at first as \"the seed corresponds to what this implementation calls a private key\" which was very confusing.\n\nPerhaps, \"which is the 32-byte private key representation defined in RFC 8032\".",
+      "range": {
+        "startLine": 64,
+        "startChar": 44,
+        "endLine": 65,
+        "endChar": 22
+      },
+      "revId": "fd119ebcf574fe797b2d30b4154191c04c636b6d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "297f047b_a692e2a6",
+        "filename": "rust/bssl-crypto/src/ed25519.rs",
+        "patchSetId": 6
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-25T22:24:56Z",
+      "side": 1,
+      "message": "Should this be `\u0026[u8; ...]` to avoid a copy? (Dunno what\u0027s idiomatic.)",
+      "range": {
+        "startLine": 66,
+        "startChar": 31,
+        "endLine": 66,
+        "endChar": 54
+      },
+      "revId": "fd119ebcf574fe797b2d30b4154191c04c636b6d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af38db43_9278166f",
+        "filename": "rust/bssl-crypto/src/lib.rs",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-25T22:24:56Z",
+      "side": 1,
+      "message": "Nit: BoringSSL",
+      "range": {
+        "startLine": 35,
+        "startChar": 4,
+        "endLine": 35,
+        "endChar": 13
+      },
+      "revId": "fd119ebcf574fe797b2d30b4154191c04c636b6d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
