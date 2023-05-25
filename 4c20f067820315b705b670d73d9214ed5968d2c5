@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "33abd3e8_7633cf57",
+        "filename": "crypto/curve25519/asm/fiat_curve25519_adx.S",
+        "patchSetId": 11
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-05-25T19:41:03Z",
+      "side": 1,
+      "message": "It\u0027s possible (we use a pretty-printer) but no work has been done in that direction yet.",
+      "parentUuid": "6e3daec0_2de028ae",
+      "revId": "4c20f067820315b705b670d73d9214ed5968d2c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "76f2aeb1_c5910477",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-05-25T18:14:49Z",
       "side": 1,
       "message": "Nit: clang-format",
+      "revId": "4c20f067820315b705b670d73d9214ed5968d2c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2e1c16e_3106d4ac",
+        "filename": "crypto/curve25519/curve25519.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-05-25T19:41:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "76f2aeb1_c5910477",
       "revId": "4c20f067820315b705b670d73d9214ed5968d2c5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -52,6 +88,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "96a5027b_fd46a565",
+        "filename": "crypto/curve25519/curve25519.c",
+        "patchSetId": 11
+      },
+      "lineNbr": 2089,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-05-25T19:41:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bbf980cf_8722479a",
+      "revId": "4c20f067820315b705b670d73d9214ed5968d2c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cfd7103a_5a5c6d4f",
@@ -65,6 +119,24 @@
       "writtenOn": "2023-05-25T18:14:49Z",
       "side": 1,
       "message": "Just to avoid polluting the namespace, can we do something like...\n\n```\n#if defined(__APPLE__)\n.global _fiat_curve25519_adx_mul\n_fiat_curve25519_adx_mul:\n#else\n.global fiat_curve25519_adx_mul\nfiat_curve25519_adx_mul:\n#endif\n```\n\nOr:\n\n```\n#if defined(__APPLE__)\n#define GLOBAL(x) _ ## x\n#else\n#define GLOBAL(x) x\n#endif\n\n.globl GLOBAL(fiat_curve25519_adx_mul)\nGLOBAL(fiat_curve25519_adx_mul)\n```",
+      "revId": "4c20f067820315b705b670d73d9214ed5968d2c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "18992f20_7faeeaa0",
+        "filename": "third_party/fiat/asm/fiat_curve25519_adx_mul.S",
+        "patchSetId": 11
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-05-25T19:41:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cfd7103a_5a5c6d4f",
       "revId": "4c20f067820315b705b670d73d9214ed5968d2c5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -86,6 +158,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f45aead3_5765d5aa",
+        "filename": "third_party/fiat/asm/fiat_curve25519_adx_mul.S",
+        "patchSetId": 11
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-05-25T19:41:03Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "7ec1fd19_b4ff664a",
+      "revId": "4c20f067820315b705b670d73d9214ed5968d2c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c6b650ce_de44a614",
@@ -103,6 +193,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "445ba057_f274f1b3",
+        "filename": "third_party/fiat/asm/fiat_curve25519_adx_mul.S",
+        "patchSetId": 11
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-05-25T19:41:03Z",
+      "side": 1,
+      "message": "This is generated code. I don\u0027t know reason for it to be in any specific way but also changing the generator to do it differently may not be all that easy. I don\u0027t think there is even anything preventing it from saving registers in other registers or piecewise.",
+      "parentUuid": "c6b650ce_de44a614",
+      "revId": "4c20f067820315b705b670d73d9214ed5968d2c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9ee95f19_f00f6bb6",
@@ -116,6 +224,24 @@
       "writtenOn": "2023-05-25T18:14:49Z",
       "side": 1,
       "message": "Ditto.",
+      "revId": "4c20f067820315b705b670d73d9214ed5968d2c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ad5bce9_f871b484",
+        "filename": "third_party/fiat/asm/fiat_curve25519_adx_square.S",
+        "patchSetId": 11
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-05-25T19:41:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ee95f19_f00f6bb6",
       "revId": "4c20f067820315b705b670d73d9214ed5968d2c5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -143,6 +269,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2018342c_55f2a116",
+        "filename": "third_party/fiat/curve25519_64_adx.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-05-25T19:41:03Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "4d0927bf_5f699af3",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 30
+      },
+      "revId": "4c20f067820315b705b670d73d9214ed5968d2c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d7e01682_f2f4153f",
@@ -156,6 +306,24 @@
       "writtenOn": "2023-05-25T18:14:49Z",
       "side": 1,
       "message": "We like to have ABI tests for all our assembly functions. I\u0027m not sure the right pattern for here, since this file is synthesized, but the pattern I\u0027ve done before is:\n\nFirst, in the module\u0027s header file, include code like this:\n\n```\n#if !defined(OPENSSL_NO_ASM) \u0026\u0026                         \\\n    (defined(OPENSSL_X86) || defined(OPENSSL_X86_64) || \\\n     defined(OPENSSL_ARM) || defined(OPENSSL_AARCH64))\n#define OPENSSL_BN_ASM_MONT\n// bn_mul_mont writes |ap| * |bp| mod |np| to |rp|, each |num| words\n// long. [...]\nint bn_mul_mont(BN_ULONG *rp, const BN_ULONG *ap, const BN_ULONG *bp,\n                const BN_ULONG *np, const BN_ULONG *n0, size_t num);\n#endif\n```\n\nThis does a few things. First, it forces me to write down what a function does. Also it means the caller and the test files agree on both the function prototype (what ABI we\u0027re checking) and when the symbol exists (`OPENSSL_BN_ASM_MONT`).\n\nIf the function is conditionally available, sometimes we\u0027ll abstract that too:\n\n```\nOPENSSL_INLINE int hwaes_capable(void) { return CRYPTO_is_AESNI_capable(); }\n```\n\nBut I think sometimes the tests just call the same conditions again because that\u0027s a bit of work. :-)\n\nThen in the test file, add a test like this:\n\n```\n#if defined(SHA256_ASM) \u0026\u0026 defined(SUPPORTS_ABI_TEST)\nTEST(SHATest, SHA256ABI) {\n  SHA256_CTX ctx;\n  SHA256_Init(\u0026ctx);\n\n  static const uint8_t kBuf[SHA256_CBLOCK * 8] \u003d {0};\n  CHECK_ABI(sha256_block_data_order, ctx.h, kBuf, 1);\n  CHECK_ABI(sha256_block_data_order, ctx.h, kBuf, 2);\n  CHECK_ABI(sha256_block_data_order, ctx.h, kBuf, 4);\n  CHECK_ABI(sha256_block_data_order, ctx.h, kBuf, 8);\n}\n#endif  // SHA256_ASM \u0026\u0026 SUPPORTS_ABI_TEST\n```\n\nIf you grep for `CHECK_ABI`, you\u0027ll find a few of them. This includes both register checking and also CFI/SEH-based unwind checking on x86_64. Though SEH checking is disabled most of the time because it doesn\u0027t work. To get CFI checking to work, install `libunwind-dev` and re-run CMake. (That one is, unfortunately, not in CI...)\n\nAlso I realize now that `x25519_NEON` lacks an ABI test, so I\u0027ll go fill that in... :-)",
+      "revId": "4c20f067820315b705b670d73d9214ed5968d2c5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "034cb352_c2b0a6a7",
+        "filename": "third_party/fiat/curve25519_64_adx.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-05-25T19:41:03Z",
+      "side": 1,
+      "message": "I added the symbol to curve25519/internal.h and created a new C file to build the header that I previously included to curve25519.c.\n\nI added a test but didn\u0027t get to build it even though I have `libunwind-dev` and a fresh build directory.",
+      "parentUuid": "d7e01682_f2f4153f",
       "revId": "4c20f067820315b705b670d73d9214ed5968d2c5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
