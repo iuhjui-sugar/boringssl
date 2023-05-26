@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e11effd4_5cbb43b5",
+        "filename": "rust/bssl-crypto/src/ed25519.rs",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-05-26T00:04:35Z",
+      "side": 1,
+      "message": "good point, updated.",
+      "parentUuid": "cd59fbcf_b4aaf7b0",
+      "revId": "fd119ebcf574fe797b2d30b4154191c04c636b6d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cc910201_4602ff66",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-05-25T22:24:56Z",
       "side": 1,
       "message": "Our API usually says \"private\" for a public/private pair. I\u0027ve mostly seen \"secret\" in the context of symmetric things. (Shared secrets, etc.) Suggest either `PRIVATE_KEY_LENGTH` or `SEED_LENGTH`. Maybe the latter if we want to use the \"seed\" terminology in the rest of the API.",
+      "revId": "fd119ebcf574fe797b2d30b4154191c04c636b6d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5414d3d2_135b37ee",
+        "filename": "rust/bssl-crypto/src/ed25519.rs",
+        "patchSetId": 6
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-05-26T00:04:35Z",
+      "side": 1,
+      "message": "Updated to `SEED_LENGTH`",
+      "parentUuid": "cc910201_4602ff66",
       "revId": "fd119ebcf574fe797b2d30b4154191c04c636b6d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -52,6 +88,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7ef32ff_8c8cffd9",
+        "filename": "rust/bssl-crypto/src/ed25519.rs",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-05-26T00:04:35Z",
+      "side": 1,
+      "message": "Nope, anything inside the struct is private to the caller, so the only way they can `to_bytes` and `from_bytes` is by explicitly publicly defined functions.\n\nthis is basically just a shorthand for a struct with only one field. It is the \"newtype\" design pattern, see: https://rust-unofficial.github.io/patterns/patterns/behavioural/newtype.html for more info",
+      "parentUuid": "6f7ca5f6_932c78d7",
+      "revId": "fd119ebcf574fe797b2d30b4154191c04c636b6d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "43b29d49_7d8cfdd4",
@@ -65,6 +119,24 @@
       "writtenOn": "2023-05-25T22:24:56Z",
       "side": 1,
       "message": "Thinking about it some more, I think `PrivateKey` makes more sense here. When I see a function that says \"keypair\", I\u0027d expect it to return a pair of things, like `ED25519_keypair` does. But this function throws away half of it.\n\nPart of the weirdness here comes from details of how Ed25519 works vs, say, ECDSA. It happens that Ed25519 signing incorporates the public key into some computations. You could compute it at the time you generate a signature, but it\u0027s more efficient, if you\u0027re doing multiple signatures, to store it alongside your signature.\n\nIn contrast, ECDSA signing only uses the scalar. You could, in theory, only  have the scalar and not carry the public key in your `PrivateKey` structure. This is pretty much unique to ECDSA though. RSA private keys typically have the full public key alongside them. *Sometimes* you see RSA private keys without `e`, but that prohibits both RSA blinding and some fault attack defenses, so that\u0027s not a great idea anyway.\n\nNow, you could take this and say, oh, the Ed25519 signing function is `Sign(privkey, pubkey, msg)`. But exposing them as separable risks callers passing the wrong public key for the private key, which actually is [catastrophic](https://github.com/jedisct1/libsodium/issues/170). Thus it\u0027s better to just have this cached public key value be abstracted behind your \"private key\" representation.\n\nCalling it `KeyPair` gets you an odd mix of both worlds. It\u0027s not *actually* a pair, which is good because being able to construct them separably would lead to the problem above. Rather, the only thing about it that\u0027s pair-like is that you have an accessor for the public key. But you could just as easily have computed the public key on demand, so I\u0027m not sure that\u0027s much of a \"pair\".\n\nAlso \"private key\" is more consistent with the rest of our APIs.",
+      "revId": "fd119ebcf574fe797b2d30b4154191c04c636b6d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "df503c3c_4372e173",
+        "filename": "rust/bssl-crypto/src/ed25519.rs",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-05-26T00:04:35Z",
+      "side": 1,
+      "message": "Got it, that makes sense. I was originally thinking KeyPair because what was stored in the underlying byte array of the struct was the keypair bytes but that is more of an implementation detail and is only done as an optimization. The other reason is I was loosely following the RustCrypto structure: https://docs.rs/ed25519-dalek/latest/ed25519_dalek/index.html#structs in case compatibility with that did end up being a goal of this crate. But since we have already deviated in other ways from their API I am not sure how much following that makes sense anymore. Based on what you laid out above I think I like `PrivateKey` better.",
+      "parentUuid": "43b29d49_7d8cfdd4",
       "revId": "fd119ebcf574fe797b2d30b4154191c04c636b6d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -86,6 +158,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "57d32097_e67685e1",
+        "filename": "rust/bssl-crypto/src/ed25519.rs",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-05-26T00:04:35Z",
+      "side": 1,
+      "message": "Good point, I like that better.",
+      "parentUuid": "cc55dde2_436727b0",
+      "revId": "fd119ebcf574fe797b2d30b4154191c04c636b6d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2f16f184_b5f7171e",
@@ -99,6 +189,30 @@
       "writtenOn": "2023-05-25T22:24:56Z",
       "side": 1,
       "message": "Nit: I would have said \"from `seed`\" rather than \"from a `seed`\" since this is in reference to a variable. Or is the \"a\" more idiomatic for Rust?",
+      "range": {
+        "startLine": 64,
+        "startChar": 34,
+        "endLine": 64,
+        "endChar": 42
+      },
+      "revId": "fd119ebcf574fe797b2d30b4154191c04c636b6d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c3b42d9_316d3627",
+        "filename": "rust/bssl-crypto/src/ed25519.rs",
+        "patchSetId": 6
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-05-26T00:04:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f16f184_b5f7171e",
       "range": {
         "startLine": 64,
         "startChar": 34,
@@ -132,6 +246,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f200f0ed_bf91bd3f",
+        "filename": "rust/bssl-crypto/src/ed25519.rs",
+        "patchSetId": 6
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-05-26T00:04:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7137c6dd_da8bc41b",
+      "range": {
+        "startLine": 64,
+        "startChar": 44,
+        "endLine": 65,
+        "endChar": 22
+      },
+      "revId": "fd119ebcf574fe797b2d30b4154191c04c636b6d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "297f047b_a692e2a6",
@@ -155,6 +293,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cb4a7111_88fd56d5",
+        "filename": "rust/bssl-crypto/src/ed25519.rs",
+        "patchSetId": 6
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-05-26T00:04:35Z",
+      "side": 1,
+      "message": "Yeah for sure, avoiding the copy is better.",
+      "parentUuid": "297f047b_a692e2a6",
+      "range": {
+        "startLine": 66,
+        "startChar": 31,
+        "endLine": 66,
+        "endChar": 54
+      },
+      "revId": "fd119ebcf574fe797b2d30b4154191c04c636b6d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "af38db43_9278166f",
@@ -168,6 +330,30 @@
       "writtenOn": "2023-05-25T22:24:56Z",
       "side": 1,
       "message": "Nit: BoringSSL",
+      "range": {
+        "startLine": 35,
+        "startChar": 4,
+        "endLine": 35,
+        "endChar": 13
+      },
+      "revId": "fd119ebcf574fe797b2d30b4154191c04c636b6d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b029ff94_977229f1",
+        "filename": "rust/bssl-crypto/src/lib.rs",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-05-26T00:04:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "af38db43_9278166f",
       "range": {
         "startLine": 35,
         "startChar": 4,
