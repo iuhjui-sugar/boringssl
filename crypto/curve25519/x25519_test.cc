@@ -255,4 +255,4 @@ TEST(X25519Test, AdxSquareABI) {
     GTEST_SKIP() << "Can't test ABI of ADX code without ADX";
   }
 }
-#endif  // BORINGSSL_FE25519_ADX && SUPPORTS_ABI_TEST
+#endif  // BORINGSSL_FE25519_ADX && defined(SUPPORTS_ABI_TEST)
