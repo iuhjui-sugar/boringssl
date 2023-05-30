@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82d48a24_6f458e5b",
+        "filename": "tool/transport_common.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-05-30T19:42:04Z",
+      "side": 0,
+      "message": "Closed as fixed in 2020.",
+      "revId": "b0a026f8541c551854efd617021bb276f1fe5c23",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

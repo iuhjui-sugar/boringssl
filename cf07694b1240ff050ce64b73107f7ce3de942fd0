@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a9e08ca_f637f458",
+        "filename": "crypto/internal.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-05-30T19:42:04Z",
+      "side": 1,
+      "message": "Being able to use uintptr_t as the scalar type would simplify creating a more rigorous C backend for fiat-crypto, so I\u0027d like to switch to that unless it has substantial downsides compared to size_t.",
+      "revId": "cf07694b1240ff050ce64b73107f7ce3de942fd0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27cc4f5e_75b7bf37",
+        "filename": "crypto/internal.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-05-30T19:42:04Z",
+      "side": 1,
+      "message": "Both uintptr_t and size_t seem to be incompatible with uint64_t and uint32_t on Apple targets https://logs.chromium.org/logs/boringssl/buildbucket/cr-buildbucket/8779650072715163313/+/u/ninja/stdout?format\u003draw",
+      "range": {
+        "startLine": 314,
+        "startChar": 18,
+        "endLine": 314,
+        "endChar": 31
+      },
+      "revId": "5c747a775fc1422a6f913592386eaf1f3459a66c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f339b9ad_2cd539da",
+        "filename": "include/openssl/bn.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-05-30T19:42:04Z",
+      "side": 1,
+      "message": "A broken version passed tests earlier.",
+      "range": {
+        "startLine": 170,
+        "startChar": 22,
+        "endLine": 170,
+        "endChar": 24
+      },
+      "revId": "5c747a775fc1422a6f913592386eaf1f3459a66c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
