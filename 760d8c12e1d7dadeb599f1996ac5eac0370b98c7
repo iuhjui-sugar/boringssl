@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc10cae7_1cadc271",
+        "filename": "crypto/curve25519/x25519_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-30T22:22:05Z",
+      "side": 1,
+      "message": "Since we already constant-time checks elsewhere here, mind integrating it into one of the above tests? Perhaps also with a comment explaining why we\u0027re marking the point as secret.",
+      "revId": "760d8c12e1d7dadeb599f1996ac5eac0370b98c7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
