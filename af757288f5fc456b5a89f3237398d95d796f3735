@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a831c04c_f7cec9f8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-30T22:35:01Z",
+      "side": 1,
+      "message": "🎉 smaller *and* faster!",
+      "revId": "af757288f5fc456b5a89f3237398d95d796f3735",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61e1ab1d_7976afcf",
+        "filename": "crypto/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-30T22:35:01Z",
+      "side": 1,
+      "message": "Style nit:\n\n```suggestion\n// memcmov copies |n| bytes from |src| to |dst| if |b| is nonzero.\n```\n\n(Period at the end, and other than the function name itself, we use `|` to denote symbols. On that note, I really should finish that script to convert them all to backticks as that seems to be the more common style now...)",
+      "revId": "af757288f5fc456b5a89f3237398d95d796f3735",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42d9729c_1bd9bd02",
+        "filename": "crypto/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-30T22:35:01Z",
+      "side": 1,
+      "message": "It matters less for internal headers, but for consistency with the other functions, and some amount of symbol hygiene, perhaps call this something like `constant_time_memcmov` or `constant_time_memcpy_if` or `constant_time_maybe_memcpy` or `constant_time_copy_if`.\n\n(Not sure what would be the best name. `memcmov` mostly worries me that it\u0027s too close to `memmove` and we have `memcpy`\u0027s aliasing requirements, not `memmove`\u0027s. Also rather a lot of acronyms. 😊)",
+      "range": {
+        "startLine": 499,
+        "startChar": 19,
+        "endLine": 499,
+        "endChar": 26
+      },
+      "revId": "af757288f5fc456b5a89f3237398d95d796f3735",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "782c34e7_c0e667d1",
+        "filename": "crypto/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-30T22:35:01Z",
+      "side": 1,
+      "message": "Huh, interesting. Looks like there are two differences from `constant_time_select_8`:\n\n1. `constant_time_select_8` bumps the mask size up by way of `constant_time_select_w`.\n2. `memcmov` pre-applies LICM\n3. `constant_time_select_w` applies separate barriers on both `mask` and `~mask` whereas this function just has a barrier on `mask`. I.e. we *do* allow the compiler to know the relationship between `mask` and `~mask`.\n\nI remember you mentioned (1), which I\u0027m guessing helps with vectorization and such. In principle a non-`volatile` asm block allows the compiler to do (2), but I don\u0027t know how reliable it is and it certainly doesn\u0027t hurt to help it out. (3) I guess doesn\u0027t matter if the compiler can\u0027t prove it\u0027s all zeros or all ones?\n\nCurious if you know which differences did and didn\u0027t matter. I.e. is this just because `constant_time_select_8` is inefficiently implemented (in which case should we fix that), or does the compiler need some help with LICM?",
+      "revId": "af757288f5fc456b5a89f3237398d95d796f3735",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9bd16dcf_1c3b2aa6",
+        "filename": "crypto/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-30T22:35:01Z",
+      "side": 1,
+      "message": "```suggestion\n// memcxor xors |n| bytes from |src| to |dst| if |b| is nonzero.\n```",
+      "revId": "af757288f5fc456b5a89f3237398d95d796f3735",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9707cf8b_5e528d1c",
+        "filename": "crypto/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-30T22:35:01Z",
+      "side": 1,
+      "message": "Similar to the above, let\u0027s name it `constant_time_` something.",
+      "range": {
+        "startLine": 510,
+        "startChar": 19,
+        "endLine": 510,
+        "endChar": 26
+      },
+      "revId": "af757288f5fc456b5a89f3237398d95d796f3735",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
