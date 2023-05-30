@@ -245,4 +245,4 @@ TEST(X25519Test, AdxSquareABI) {
   uint64_t out[4];
   CHECK_ABI(fiat_curve25519_adx_square, out, in);
 }
-#endif  // BORINGSSL_FE25519_ADX && SUPPORTS_ABI_TEST
+#endif  // BORINGSSL_FE25519_ADX && defined(SUPPORTS_ABI_TEST)
