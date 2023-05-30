@@ -159,6 +159,8 @@ struct spake2_ctx_st {
 
 extern const uint8_t k25519Precomp[32][8][3][32];
 
+extern const uint8_t k25519Precomp[32][8][3][32];
+
 #if defined(__cplusplus)
 }  // extern C
 #endif
