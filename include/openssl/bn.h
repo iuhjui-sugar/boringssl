@@ -156,18 +156,16 @@ extern "C" {
 // this is a public header, bn.h does not define |__STDC_FORMAT_MACROS| itself.
 // Projects which use |BN_*_FMT*| with outdated C headers may need to define it
 // externally.
+typedef uintptr_t BN_ULONG;
+#define BN_DEC_FMT1 "%" PRIuPTR
+#define BN_HEX_FMT1 "%" PRIxPTR
+
 #if defined(OPENSSL_64_BIT)
-typedef uint64_t BN_ULONG;
 #define BN_BITS2 64
-#define BN_DEC_FMT1 "%" PRIu64
-#define BN_HEX_FMT1 "%" PRIx64
-#define BN_HEX_FMT2 "%016" PRIx64
+#define BN_HEX_FMT2 "%016" PRIxPTR
 #elif defined(OPENSSL_32_BIT)
-typedef uint32_t BN_ULONG;
 #define BN_BITS2 32
-#define BN_DEC_FMT1 "%" PRIu32
-#define BN_HEX_FMT1 "%" PRIx32
-#define BN_HEX_FMT2 "%08" PRIx32
+#define BN_HEX_FMT2 "%08" PRIxPTR
 #else
 #error "Must define either OPENSSL_32_BIT or OPENSSL_64_BIT"
 #endif

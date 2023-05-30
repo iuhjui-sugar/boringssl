@@ -311,16 +311,12 @@ static inline void *align_pointer(void *ptr, size_t alignment) {
 // crypto_word_t lt = constant_time_lt_w(a, b);
 // c = constant_time_select_w(lt, a, b);
 
-// crypto_word_t is the type that most constant-time functions use. Ideally we
-// would like it to be |size_t|, but NaCl builds in 64-bit mode with 32-bit
-// pointers, which means that |size_t| can be 32 bits when |BN_ULONG| is 64
-// bits. Since we want to be able to do constant-time operations on a
-// |BN_ULONG|, |crypto_word_t| is defined as an unsigned value with the native
-// word length.
+typedef uintptr_t crypto_word_t;
+
 #if defined(OPENSSL_64_BIT)
-typedef uint64_t crypto_word_t;
+static_assert(sizeof(crypto_word_t) == 8, "wrong size word");
 #elif defined(OPENSSL_32_BIT)
-typedef uint32_t crypto_word_t;
+static_assert(sizeof(crypto_word_t) == 4, "wrong size word");
 #else
 #error "Must define either OPENSSL_32_BIT or OPENSSL_64_BIT"
 #endif
