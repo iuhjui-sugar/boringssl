@@ -231,3 +231,13 @@ TEST(X25519Test, NeonABI) {
   CHECK_ABI(x25519_NEON, secret, kScalar, kPoint);
 }
 #endif  // BORINGSSL_X25519_NEON && SUPPORTS_ABI_TEST
+
+#if defined(BORINGSSL_CONSTANT_TIME_VALIDATION)
+TEST(X25519Test, ConstantTimeSinglePath) {
+  uint8_t scalar[32] = {9}, point[32] = {9}, out[32];
+  CONSTTIME_SECRET(out, sizeof(out));
+  CONSTTIME_SECRET(point, sizeof(point));
+  CONSTTIME_SECRET(scalar, sizeof(scalar));
+  EXPECT_TRUE(X25519(out, scalar, point));
+}
+#endif // BORINGSSL_CONSTANT_TIME_VALIDATION
