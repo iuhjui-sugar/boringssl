@@ -124,6 +124,12 @@ extern "C" {
 #error "Unknown target CPU"
 #endif
 
+#if __STDC__ == 1 && __STDC_VERSION >= 201112L
+#include <assert.h>
+static_assert(_Generic((uintptr_t)0, size_t: 1), "");
+static_assert(_Generic((uintptr_t)0, uint64_t: 1, uint32_t: 1), "");
+#endif
+
 #if defined(__APPLE__)
 #define OPENSSL_APPLE
 // Note |TARGET_OS_MAC| is set for all Apple OS variants. |TARGET_OS_OSX|
