@@ -56,6 +56,7 @@
 
 // This file should be the first included by all BoringSSL headers.
 
+#include <assert.h>
 #include <stddef.h>
 #include <stdint.h>
 #include <sys/types.h>
@@ -123,6 +124,9 @@ extern "C" {
 // crypto/compiler_test.cc, before adding a new architecture.
 #error "Unknown target CPU"
 #endif
+
+static_assert(_Generic((uintptr_t)0, size_t: 1), "");
+static_assert(_Generic((uintptr_t)0, uint64_t: 1, uint32_t: 1), "");
 
 #if defined(__APPLE__)
 #define OPENSSL_APPLE
