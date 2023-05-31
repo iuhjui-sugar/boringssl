@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e54295b_d1bbe33c",
+        "filename": "crypto/curve25519/x25519_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-31T20:59:27Z",
+      "side": 1,
+      "message": "Normally we do the `sizeof` thing so that we don\u0027t have to duplicate the length, but we\u0027re not actually getting that here.\n```suggestion\n  CONSTTIME_SECRET(out_shared_key, 32);\n```\n\n(Though I dunno if we get anything out of marking `out_shared_key`. It\u0027s already uninitialized by being the output variable since it\u0027s not an input.)",
+      "range": {
+        "startLine": 47,
+        "startChar": 35,
+        "endLine": 47,
+        "endChar": 60
+      },
+      "revId": "66654b21bdd1848fc488727034da375764ea32d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b40189c_c93d8139",
+        "filename": "crypto/curve25519/x25519_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-31T20:59:27Z",
+      "side": 1,
+      "message": "```suggestion\n  CONSTTIME_DECLASSIFY(out_shared_key, 32);\n```",
+      "revId": "66654b21bdd1848fc488727034da375764ea32d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
