@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d89d60a0_223a0779",
+        "filename": "crypto/curve25519/x25519_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-05-31T21:02:54Z",
+      "side": 1,
+      "message": "Done. I think it\u0027s only uninitialized on the first one of the two calls.",
+      "parentUuid": "6e54295b_d1bbe33c",
+      "range": {
+        "startLine": 47,
+        "startChar": 35,
+        "endLine": 47,
+        "endChar": 60
+      },
+      "revId": "66654b21bdd1848fc488727034da375764ea32d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1b40189c_c93d8139",
@@ -37,6 +61,24 @@
       "writtenOn": "2023-05-31T20:59:27Z",
       "side": 1,
       "message": "```suggestion\n  CONSTTIME_DECLASSIFY(out_shared_key, 32);\n```",
+      "revId": "66654b21bdd1848fc488727034da375764ea32d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7d642424_05a3b868",
+        "filename": "crypto/curve25519/x25519_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-05-31T21:02:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b40189c_c93d8139",
       "revId": "66654b21bdd1848fc488727034da375764ea32d9",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
