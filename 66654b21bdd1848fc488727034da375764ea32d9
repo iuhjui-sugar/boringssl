@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5c49b7c2_585d205b",
+        "filename": "crypto/curve25519/x25519_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-05-31T21:31:38Z",
+      "side": 1,
+      "message": "Could we resolve that readability concern by creating an alias for CONSTTIME_SECRET, like CONSTTIME_DONTUSE or CONSTTIME_WRITEONLY? I think it\u0027s good to have the constant-time verification to be vaguely self-contained -- if valgrind passes, there\u0027s a single path that doesn\u0027t address or branch with secrets.",
+      "parentUuid": "1b32e9c2_f37015cd",
+      "range": {
+        "startLine": 47,
+        "startChar": 35,
+        "endLine": 47,
+        "endChar": 60
+      },
+      "revId": "66654b21bdd1848fc488727034da375764ea32d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1b40189c_c93d8139",
         "filename": "crypto/curve25519/x25519_test.cc",
         "patchSetId": 2
