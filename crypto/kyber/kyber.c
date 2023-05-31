@@ -757,10 +757,8 @@ void KYBER_decap(uint8_t *out_shared_secret, size_t out_shared_secret_len,
                                            sizeof(expected_ciphertext)),
                              0);
   uint8_t input[64];
-  for (int i = 0; i < 32; i++) {
-    input[i] = constant_time_select_8(mask, prekey_and_randomness[i],
-                                      priv->fo_failure_secret[i]);
-  }
+  OPENSSL_memcpy(input, priv->fo_failure_secret, 32);
+  constant_time_conditional_memcpy(input, prekey_and_randomness, 32, mask);
   BORINGSSL_keccak(input + 32, 32, ciphertext, KYBER_CIPHERTEXT_BYTES,
                    boringssl_sha3_256);
   BORINGSSL_keccak(out_shared_secret, out_shared_secret_len, input,

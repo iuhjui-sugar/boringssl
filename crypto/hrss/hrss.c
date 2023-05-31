@@ -2206,10 +2206,8 @@ int HRSS_decap(uint8_t out_shared_key[HRSS_KEY_BYTES],
                 sizeof(vars->expected_ciphertext));
   SHA256_Final(vars->shared_key, &vars->hash_ctx);
 
-  for (unsigned i = 0; i < sizeof(vars->shared_key); i++) {
-    out_shared_key[i] =
-        constant_time_select_8(ok, vars->shared_key[i], out_shared_key[i]);
-  }
+  constant_time_conditional_memcpy(out_shared_key, vars->shared_key,
+                                   sizeof(vars->shared_key), ok);
 
 out:
   OPENSSL_free(malloc_ptr);
