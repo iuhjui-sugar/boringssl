@@ -35,6 +35,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c902888e_7b51411d",
+        "filename": "crypto/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-05-31T20:23:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61e1ab1d_7976afcf",
+      "revId": "af757288f5fc456b5a89f3237398d95d796f3735",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "42d9729c_1bd9bd02",
@@ -48,6 +66,30 @@
       "writtenOn": "2023-05-30T22:35:01Z",
       "side": 1,
       "message": "It matters less for internal headers, but for consistency with the other functions, and some amount of symbol hygiene, perhaps call this something like `constant_time_memcmov` or `constant_time_memcpy_if` or `constant_time_maybe_memcpy` or `constant_time_copy_if`.\n\n(Not sure what would be the best name. `memcmov` mostly worries me that it\u0027s too close to `memmove` and we have `memcpy`\u0027s aliasing requirements, not `memmove`\u0027s. Also rather a lot of acronyms. 😊)",
+      "range": {
+        "startLine": 499,
+        "startChar": 19,
+        "endLine": 499,
+        "endChar": 26
+      },
+      "revId": "af757288f5fc456b5a89f3237398d95d796f3735",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47e6839e_cf7f19a6",
+        "filename": "crypto/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-05-31T20:23:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42d9729c_1bd9bd02",
       "range": {
         "startLine": 499,
         "startChar": 19,
@@ -75,6 +117,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4da03a2_d7a7b07b",
+        "filename": "crypto/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-05-31T20:23:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "782c34e7_c0e667d1",
+      "revId": "af757288f5fc456b5a89f3237398d95d796f3735",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9bd16dcf_1c3b2aa6",
@@ -92,6 +152,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e823413_54ba5ddd",
+        "filename": "crypto/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 509,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-05-31T20:23:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9bd16dcf_1c3b2aa6",
+      "revId": "af757288f5fc456b5a89f3237398d95d796f3735",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9707cf8b_5e528d1c",
@@ -105,6 +183,30 @@
       "writtenOn": "2023-05-30T22:35:01Z",
       "side": 1,
       "message": "Similar to the above, let\u0027s name it `constant_time_` something.",
+      "range": {
+        "startLine": 510,
+        "startChar": 19,
+        "endLine": 510,
+        "endChar": 26
+      },
+      "revId": "af757288f5fc456b5a89f3237398d95d796f3735",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9374ae9_24adeac2",
+        "filename": "crypto/internal.h",
+        "patchSetId": 11
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-05-31T20:23:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9707cf8b_5e528d1c",
       "range": {
         "startLine": 510,
         "startChar": 19,
