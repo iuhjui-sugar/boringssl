@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1b32e9c2_f37015cd",
+        "filename": "crypto/curve25519/x25519_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-05-31T21:24:02Z",
+      "side": 1,
+      "message": "True, but even one run with it already uninitialized should do the trick. :-) I guess what I\u0027m saying is that if `X25519` branches on (or uses at all) the value of `out_shared_key` on input, we already have a functional bug anyway, much less a side channel bug, which is caught by other tools anyway (e.g. MSan). It\u0027s a nitpick, but I think it\u0027s better to just leave it unmarked and defer that one to those tools.\n\n(Otherwise, reading the code is a bit confusing since it reads like `out_shared_key` is an input, but it\u0027s not.)",
+      "parentUuid": "d89d60a0_223a0779",
+      "range": {
+        "startLine": 47,
+        "startChar": 35,
+        "endLine": 47,
+        "endChar": 60
+      },
+      "revId": "66654b21bdd1848fc488727034da375764ea32d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1b40189c_c93d8139",
         "filename": "crypto/curve25519/x25519_test.cc",
         "patchSetId": 2
