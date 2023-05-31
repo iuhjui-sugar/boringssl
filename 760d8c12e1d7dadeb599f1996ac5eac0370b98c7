@@ -16,6 +16,24 @@
       "message": "Since we already constant-time checks elsewhere here, mind integrating it into one of the above tests? Perhaps also with a comment explaining why we\u0027re marking the point as secret.",
       "revId": "760d8c12e1d7dadeb599f1996ac5eac0370b98c7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e201f8e0_e88420ab",
+        "filename": "crypto/curve25519/x25519_test.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-05-31T12:03:19Z",
+      "side": 1,
+      "message": "I made a wrapper that calls X25519 with the right annotations and used it in all tests.\n\nI imagine some style guide would tell me that in tests such code should be inlined, but trying it that way didn\u0027t seem nicer -- duplicated code filled the screen and scope contention required error-prone renames.",
+      "parentUuid": "bc10cae7_1cadc271",
+      "revId": "760d8c12e1d7dadeb599f1996ac5eac0370b98c7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
