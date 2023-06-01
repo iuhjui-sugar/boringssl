@@ -13,6 +13,8 @@
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+use crate::CSlice;
+
 /// Returns true iff `a` and `b` contain the same bytes. It takes an amount of time dependent on the
 /// lengths, but independent of the contents of the slices `a` and `b`. The return type is a `bool`,
 /// since unlike `memcmp` in C this function cannot be used to put elements into a defined order.
@@ -26,8 +28,13 @@ pub fn crypto_memcmp(a: &[u8], b: &[u8]) -> bool {
     }
     // Safety:
     // - The lengths of a and b are checked above.
-    let result =
-        unsafe { bssl_sys::CRYPTO_memcmp(a.as_ptr() as *const _, b.as_ptr() as *const _, a.len()) };
+    let result = unsafe {
+        bssl_sys::CRYPTO_memcmp(
+            CSlice(a).as_ptr() as *const _,
+            CSlice(b).as_ptr() as *const _,
+            a.len(),
+        )
+    };
     result == 0
 }
 
