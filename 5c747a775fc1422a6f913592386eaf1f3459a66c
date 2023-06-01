@@ -1,6 +1,29 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd98b78c_1405b194",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-01T21:55:29Z",
+      "side": 1,
+      "message": "Distressingly, NaCl isn\u0027t *quite* dead yet. But hopefully no one\u0027s building BoringSSL with it anymore? At least, Chromium isn\u0027t...",
+      "range": {
+        "startLine": 7,
+        "startChar": 33,
+        "endLine": 7,
+        "endChar": 41
+      },
+      "revId": "5c747a775fc1422a6f913592386eaf1f3459a66c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "27cc4f5e_75b7bf37",
@@ -26,6 +49,47 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f26de4c3_aa8e4734",
+        "filename": "crypto/internal.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-01T21:55:29Z",
+      "side": 1,
+      "message": "It\u0027s probably the `unsigned long long` vs `unsigned long` issue. On LP64 targets (i.e. non-Windows 64-bit platforms), `long long` and `long` are both 64-bit, but are formally different types.\n\nActually, if they\u0027re sometimes incompatible, I\u0027m a little surprised this compiles. Could have sworn we sometimes cast `crypto_word_t` to `uintN_t`. Or does that happen to always be defined the same as `uintptr_t` right now?",
+      "parentUuid": "27cc4f5e_75b7bf37",
+      "range": {
+        "startLine": 314,
+        "startChar": 18,
+        "endLine": 314,
+        "endChar": 31
+      },
+      "revId": "5c747a775fc1422a6f913592386eaf1f3459a66c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b4c69f0_dd34685c",
+        "filename": "include/openssl/bn.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-01T21:55:29Z",
+      "side": 1,
+      "message": "Rather than duplicating this, maybe we should move `crypto_word_t` into openssl/base.h (i.e. make it public) and then making `BN_ULONG` a typedef for that.\n\nBrian filed this way back, but I\u0027d forgotten about it: https://crbug.com/boringssl/241",
+      "revId": "5c747a775fc1422a6f913592386eaf1f3459a66c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f339b9ad_2cd539da",
         "filename": "include/openssl/bn.h",
         "patchSetId": 9
@@ -37,6 +101,30 @@
       "writtenOn": "2023-05-30T19:42:04Z",
       "side": 1,
       "message": "A broken version passed tests earlier.",
+      "range": {
+        "startLine": 170,
+        "startChar": 22,
+        "endLine": 170,
+        "endChar": 24
+      },
+      "revId": "5c747a775fc1422a6f913592386eaf1f3459a66c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f6aaeda7_5920f181",
+        "filename": "include/openssl/bn.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-01T21:55:29Z",
+      "side": 1,
+      "message": "Oh yeah I think we more-or-less don\u0027t use these and won\u0027t notice issues. :-) But external code needs them. Perhaps that\u0027s a reason to write some tests...",
+      "parentUuid": "f339b9ad_2cd539da",
       "range": {
         "startLine": 170,
         "startChar": 22,

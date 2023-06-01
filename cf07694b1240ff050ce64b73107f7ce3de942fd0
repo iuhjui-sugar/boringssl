@@ -16,6 +16,24 @@
       "message": "Being able to use uintptr_t as the scalar type would simplify creating a more rigorous C backend for fiat-crypto, so I\u0027d like to switch to that unless it has substantial downsides compared to size_t.",
       "revId": "cf07694b1240ff050ce64b73107f7ce3de942fd0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65a2ee17_c672d7d0",
+        "filename": "crypto/internal.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-01T21:55:29Z",
+      "side": 1,
+      "message": "So, `size_t` is the size of your address space, or at least the maximum size of a single object (well, conceivably you could have an address space larger than your object), while `uintptr_t` is what\u0027s needed to (roughly) round-trip a pointer to/from integers. And then `crypto_word_t` is meant to be \"the type that your process is good at multiplying\". They\u0027re not *a priori* the same, but in practice they are today.\n\nThinking about when that\u0027s varied over the years...\n\nWe don\u0027t currently support such a platform, but I know the Rust people have been muttering a lot about this CHERI thing. I haven\u0027t been following where it ended up, but I gather there\u0027s a world where it would rather pointers be larger than the address space, because they use half of it for capability bits?\nhttps://reviews.freebsd.org/D25995\n\nIn the other direction, while we (I hope!) don\u0027t care about building BoringSSL for NaCl anymore, the idea of having 32-bit address space on an ISA with 64-bit multipliers comes up occasionally:\n* The x32 ABI for Linux: https://lwn.net/Articles/456731/\n* V8 does pointer compression to save memory: https://v8.dev/blog/pointer-compression\n\nx32 was abandoned and V8 wasn\u0027t done at the toolchain level, but between those two I\u0027m a little nervous about *completely* closing the door on these, at least not without understanding why and what it\u0027d take to open the door again. What\u0027s the thing that makes fiat-crypto care about this?",
+      "parentUuid": "3a9e08ca_f637f458",
+      "revId": "cf07694b1240ff050ce64b73107f7ce3de942fd0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }

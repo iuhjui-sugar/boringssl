@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a7cb056_aee41649",
+        "filename": "crypto/internal.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 322,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-01T21:55:29Z",
+      "side": 0,
+      "message": "So we actually fail to build, rather than silently proceed incorrectly, I think we still want the ifdefs, if nothing else for some static asserts like\n\n```\n#if defined(OPENSSL_64_BIT)\nstatic_assert(sizeof(crypto_word_t) \u003d\u003d 8, \"wrong size word\");\n#elif defined(OPENSSL_32_BIT)#else\nstatic_assert(sizeof(crypto_word_t) \u003d\u003d 4, \"wrong size word\");\n#else\n#error \"Must define either OPENSSL_32_BIT or OPENSSL_64_BIT\"\n#endif\n```",
+      "revId": "b0a026f8541c551854efd617021bb276f1fe5c23",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "82d48a24_6f458e5b",
