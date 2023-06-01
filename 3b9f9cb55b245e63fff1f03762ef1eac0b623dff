@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3054540_60bc037a",
+        "filename": "crypto/internal.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-01T19:21:47Z",
+      "side": 1,
+      "message": "Do we need a barrier on `mask` here too? We had one in `copy_from_prebuf`, which was OR instead of XOR, but it\u0027s ultimately the same thing.",
+      "range": {
+        "startLine": 532,
+        "startChar": 14,
+        "endLine": 532,
+        "endChar": 18
+      },
+      "revId": "3b9f9cb55b245e63fff1f03762ef1eac0b623dff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

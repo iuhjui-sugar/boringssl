@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b17e1784_1f6e2629",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-01T19:21:47Z",
+      "side": 1,
+      "message": "I like how this keeps getting successively faster. :-)\n\n(BTW, there\u0027s a `-json` flag to `bssl speed` and a `util/compare_benchmarks.go` script, which might be handy. Produces basically the same output, but adds some little percentages on the side.)",
+      "parentUuid": "a831c04c_f7cec9f8",
+      "revId": "af757288f5fc456b5a89f3237398d95d796f3735",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "61e1ab1d_7976afcf",
