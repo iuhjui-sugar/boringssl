@@ -60,7 +60,7 @@ impl<C: Curve> PrivateKey<C> {
     /// Generate a new private key for use in a Diffie-Hellman key exchange.
     pub fn generate() -> Self {
         Self {
-            eckey: EcKey::generate(&C::ec_group()),
+            eckey: EcKey::generate(C::ec_group()),
             marker: PhantomData,
         }
     }
@@ -72,7 +72,7 @@ impl<C: Curve> PrivateKey<C> {
     ///
     /// Returns an error if the given bytes is not a valid representation of a P-256 private key.
     pub fn from_private_bytes(private_key_bytes: &[u8]) -> Result<Self, Error> {
-        EcKey::try_from_raw_bytes(&C::ec_group(), private_key_bytes)
+        EcKey::try_from_raw_bytes(C::ec_group(), private_key_bytes)
             .map(|eckey| Self {
                 eckey,
                 marker: PhantomData,
@@ -124,7 +124,7 @@ impl<C: Curve> PublicKey<C> {
         y: &[u8; AFFINE_COORDINATE_SIZE],
     ) -> Result<Self, Error> {
         assert_eq!(AFFINE_COORDINATE_SIZE, C::AFFINE_COORDINATE_SIZE);
-        EcKey::try_new_public_key_from_affine_coordinates(&C::ec_group(), &x[..], &y[..])
+        EcKey::try_new_public_key_from_affine_coordinates(C::ec_group(), &x[..], &y[..])
             .map(|eckey| Self {
                 eckey,
                 marker: PhantomData,
@@ -171,7 +171,7 @@ impl<C: Curve> TryFrom<&[u8]> for PublicKey<C> {
     type Error = Error;
 
     fn try_from(value: &[u8]) -> Result<Self, Error> {
-        EcKey::try_new_public_key_from_bytes(&C::ec_group(), value)
+        EcKey::try_new_public_key_from_bytes(C::ec_group(), value)
             .map(|eckey| Self {
                 eckey,
                 marker: PhantomData,
