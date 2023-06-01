@@ -47,6 +47,9 @@ pub mod hmac;
 /// Random number generation.
 pub mod rand;
 
+/// X25519 elliptic curve operations.
+pub mod x25519;
+
 /// Memory-manipulation operations.
 pub mod mem;
 
