@@ -16,6 +16,24 @@
       "message": "This is kinda silly, but was easy enough. Other possibilities:\nhttps://bugs.chromium.org/p/boringssl/issues/detail?id\u003d614#c1\n\nThoughts? I don\u0027t have a strong preference and just went with preserving the existing behavior on other platforms.",
       "revId": "cbcc13d8506d1fd4b52b5d3ad7ef79be17e56e2b",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5554f9c9_e282804a",
+        "filename": "crypto/chacha/chacha.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-01T19:10:46Z",
+      "side": 1,
+      "message": "The spec seems to be somewhere in between ambiguous on whether it wraps, or implicitly saying overflow isn\u0027t allowed.\n\n\u003e   ChaCha20 successively calls the ChaCha20 block function, with the\n\u003e   same key and nonce, and with successively increasing block counter\n\u003e   parameters.  ChaCha20 then serializes the resulting state by writing\n\u003e   the numbers in little-endian order, creating a keystream block.\n\nhttps://www.rfc-editor.org/rfc/rfc7539.html#section-2.4\n\nWrapping isn\u0027t \"successively increasing\". But it also doesn\u0027t say what to do if you can\u0027t increase.\n\n\u003e `key_stream \u003d chacha20_block(key, counter+j, nonce)`\n\nUnclear what the normative semantics of that pseudocode is. :-)\n\nhttps://www.rfc-editor.org/rfc/rfc7539.html#section-2.4.1\n\nSo we can also say the assembly is undefined as to which it does and then the C code normalizes and calls `abort()` if you do something ridiculous.",
+      "parentUuid": "80bd5d3b_5db855c9",
+      "revId": "cbcc13d8506d1fd4b52b5d3ad7ef79be17e56e2b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
