@@ -44,6 +44,9 @@ pub mod hmac;
 /// BoringSSL implemented cryptographically secure pseudo-random number generation.
 pub mod rand;
 
+/// BoringSSL implemented memory-manipulation operations.
+pub mod mem;
+
 #[cfg(test)]
 mod test_helpers;
 
