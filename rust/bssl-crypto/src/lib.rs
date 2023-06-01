@@ -44,6 +44,9 @@ pub mod hmac;
 /// BoringSSL implemented cryptographically secure pseudo-random number generation.
 pub mod rand;
 
+/// BoringSSL implemented X25519 elliptic curve operations.
+pub mod x25519;
+
 /// BoringSSL implemented memory-manipulation operations.
 pub mod mem;
 
