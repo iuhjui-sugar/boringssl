@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96ce777d_7af7afc5",
+        "filename": "rust/bssl-crypto/src/digest.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-06-01T22:56:12Z",
+      "side": 1,
+      "message": "would it make more sense for this to be named `new` ?",
+      "range": {
+        "startLine": 59,
+        "startChar": 11,
+        "endLine": 59,
+        "endChar": 19
+      },
+      "revId": "0123304d03ce443276a2c7eb8bc550cedab1f019",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
