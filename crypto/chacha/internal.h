@@ -29,11 +29,24 @@ void CRYPTO_hchacha20(uint8_t out[32], const uint8_t key[32],
 
 #if !defined(OPENSSL_NO_ASM) &&                         \
     (defined(OPENSSL_X86) || defined(OPENSSL_X86_64) || \
-     defined(OPENSSL_ARM) || defined(OPENSSL_AARCH64))
-#define CHACHA20_ASM
+     defined(OPENSSL_ARM))
+#define CHACHA20_ASM_CTR32
 
-// ChaCha20_ctr32 is defined in asm/chacha-*.pl.
+// ChaCha20_ctr32 encrypts |len| bytes from |in| with ChaCha20 and writes the
+// result to |out|. |counter| is the concatenated counter and nonce. This
+// function implements a 32-bit counter and 96-bit nonce, as in RFC 7539.
 void ChaCha20_ctr32(uint8_t *out, const uint8_t *in, size_t in_len,
+                    const uint32_t key[8], const uint32_t counter[4]);
+#endif
+
+#if !defined(OPENSSL_NO_ASM) && defined(OPENSSL_AARCH64)
+#define CHACHA20_ASM_CTR64
+
+// ChaCha20_ctr64 encrypts |len| bytes from |in| with ChaCha20 and writes the
+// result to |out|. |counter| is the concatenated counter and nonce. This
+// function implements a 64-bit counter and 64-bit nonce. This differs from RFC
+// 7539.
+void ChaCha20_ctr64(uint8_t *out, const uint8_t *in, size_t in_len,
                     const uint32_t key[8], const uint32_t counter[4]);
 #endif
 

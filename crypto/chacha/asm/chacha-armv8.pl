@@ -136,10 +136,10 @@ $code.=<<___;
 
 .text
 
-.globl	ChaCha20_ctr32
-.type	ChaCha20_ctr32,%function
+.globl	ChaCha20_ctr64
+.type	ChaCha20_ctr64,%function
 .align	5
-ChaCha20_ctr32:
+ChaCha20_ctr64:
 	AARCH64_VALID_CALL_TARGET
 	cbz	$len,.Labort
 #if __has_feature(hwaddress_sanitizer) && __clang_major__ >= 10
@@ -334,7 +334,7 @@ $code.=<<___;
 	ldp	x29,x30,[sp],#96
 	AARCH64_VALIDATE_LINK_REGISTER
 	ret
-.size	ChaCha20_ctr32,.-ChaCha20_ctr32
+.size	ChaCha20_ctr64,.-ChaCha20_ctr64
 ___
 
 {{{

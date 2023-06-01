@@ -60,7 +60,7 @@ void CRYPTO_hchacha20(uint8_t out[32], const uint8_t key[32],
   OPENSSL_memcpy(&out[16], &x[12], sizeof(uint32_t) * 4);
 }
 
-#if defined(CHACHA20_ASM)
+#if defined(CHACHA20_ASM_CTR32) || defined(CHACHA20_ASM_CTR64)
 
 void CRYPTO_chacha_20(uint8_t *out, const uint8_t *in, size_t in_len,
                       const uint8_t key[32], const uint8_t nonce[12],
@@ -91,7 +91,39 @@ void CRYPTO_chacha_20(uint8_t *out, const uint8_t *in, size_t in_len,
   }
 #endif
 
+#if defined(CHACHA20_ASM_CTR32)
   ChaCha20_ctr32(out, in, in_len, key_ptr, counter_nonce);
+#else
+  while (in_len > 0) {
+    // 32- and 64-bit counters differ if the counter wraps around.
+    // |CRYPTO_chacha_20| want 32-bit counters, so we must use separate calls to
+    // |ChaCha20_ctr64| to compute the same value.
+    //
+    // This is purely a theoretical concern. Confidentiality breaks if the
+    // counter wraps to an already-used value, so uses should start at a low
+    // initial value and set input limits to prevent overflow, as
+    // ChaCha20-Poly1305 does. Wraparound is only safe if starting at a high
+    // initial value, then wrapping around to unused lower values, but there is
+    // no reason to offset the counter like this.
+    //
+    // Nonetheless, we prefer our functions behave the same across platforms, so
+    // we normalize the behavior.
+    static_assert(sizeof(size_t) >= 8, "This logic assumes size_t is 64-bit");
+    size_t todo = 64 * ((((size_t)1) << 32) - counter_nonce[0]);
+    if (todo > in_len) {
+      todo = in_len;
+    }
+
+    ChaCha20_ctr64(out, in, todo, key_ptr, counter_nonce);
+    in += todo;
+    out += todo;
+    in_len -= todo;
+
+    // We're either done and will next break out of the loop, or we stopped at
+    // the wraparound point and the counter should continue at zero.
+    counter_nonce[0] = 0;
+  }
+#endif
 }
 
 #else
