@@ -45,6 +45,9 @@ pub mod hmac;
 pub mod rand;
 
 ///
+pub mod x25519;
+
+///
 pub mod mem;
 
 ///
@@ -53,6 +56,7 @@ pub mod p256;
 pub(crate) mod bn;
 pub(crate) mod ec;
 pub(crate) mod pkey;
+
 #[cfg(test)]
 mod test_helpers;
 
