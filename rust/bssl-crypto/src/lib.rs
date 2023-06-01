@@ -47,6 +47,12 @@ pub mod rand;
 ///
 pub mod mem;
 
+///
+pub mod p256;
+
+pub(crate) mod ec;
+pub(crate) mod pkey;
+pub(crate) mod bn;
 #[cfg(test)]
 mod test_helpers;
 
