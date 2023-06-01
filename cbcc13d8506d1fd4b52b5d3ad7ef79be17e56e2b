@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80bd5d3b_5db855c9",
+        "filename": "crypto/chacha/chacha.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-01T19:04:13Z",
+      "side": 1,
+      "message": "This is kinda silly, but was easy enough. Other possibilities:\nhttps://bugs.chromium.org/p/boringssl/issues/detail?id\u003d614#c1\n\nThoughts? I don\u0027t have a strong preference and just went with preserving the existing behavior on other platforms.",
+      "revId": "cbcc13d8506d1fd4b52b5d3ad7ef79be17e56e2b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
