@@ -47,6 +47,12 @@ pub mod rand;
 /// BoringSSL implemented memory-manipulation operations.
 pub mod mem;
 
+/// BoringSSL implemented Nist P-256 elliptic curve operations.
+pub mod p256;
+
+pub(crate) mod bn;
+pub(crate) mod ec;
+pub(crate) mod pkey;
 #[cfg(test)]
 mod test_helpers;
 
