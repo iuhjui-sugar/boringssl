@@ -96,6 +96,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0870eecd_62f19d26",
+        "filename": "crypto/curve25519/x25519_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-01T19:27:28Z",
+      "side": 1,
+      "message": "Eh, probably too much fuss. I don\u0027t feel super strongly, and it sounds like you prefer having this marked. *shrug* Happy to leave this as-is if you prefer. Would rather we not get in the habit of having to mark every output buffer constantly since it\u0027d be tedious, but we can figure that out as we add more of these annotations.",
+      "parentUuid": "5c49b7c2_585d205b",
+      "range": {
+        "startLine": 47,
+        "startChar": 35,
+        "endLine": 47,
+        "endChar": 60
+      },
+      "revId": "66654b21bdd1848fc488727034da375764ea32d9",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1b40189c_c93d8139",
