@@ -34,6 +34,24 @@
       "parentUuid": "b6e250e8_7742b704",
       "revId": "a96f8a65c11b06970abe14adcb20b4a51404aef2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2186ce2_dbb8d323",
+        "filename": "rust/bssl-crypto/src/mem.rs",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 15426
+      },
+      "writtenOn": "2023-06-02T18:10:34Z",
+      "side": 1,
+      "message": "Done, renamed to `crypto_memcmp`.\n\nFor the documentation I omitted it initially since the return type is a `bool`. Added it back and adapted it to the context of the Rust types here.",
+      "parentUuid": "348429dd_200753b7",
+      "revId": "a96f8a65c11b06970abe14adcb20b4a51404aef2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
