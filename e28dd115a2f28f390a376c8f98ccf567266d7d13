@@ -16,6 +16,23 @@
       "message": "The tests fail without the gcd.c change and pass with it.",
       "revId": "e28dd115a2f28f390a376c8f98ccf567266d7d13",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0480c06a_3512883a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-02T18:16:34Z",
+      "side": 1,
+      "message": "Thanks!",
+      "revId": "e28dd115a2f28f390a376c8f98ccf567266d7d13",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
