@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24e3f318_04c46f2b",
+        "filename": "crypto/chacha/chacha.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-02T17:16:32Z",
+      "side": 1,
+      "message": "We currently only need this on aarch64, but it seemed easier to just say it\u0027s undefined across the board and do this uniformly.",
+      "revId": "a36a27a122c95e665977d2f48d145f7f805b0485",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
