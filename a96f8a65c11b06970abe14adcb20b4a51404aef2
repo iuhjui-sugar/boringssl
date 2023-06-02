@@ -16,6 +16,24 @@
       "message": "Please do not call this memcmp - you will be silently inviting rust programmers to use it as a routine for sorting comparison if they are not careful, because of 50 years of knowing what \"memcmp\" does. Please call it CRYPTO_memcmp, as per the BoringSSL function (or memory_is_same, or something other than memcmp)\n\nThe api for this is different from the usual memcmp function.",
       "revId": "a96f8a65c11b06970abe14adcb20b4a51404aef2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "348429dd_200753b7",
+        "filename": "rust/bssl-crypto/src/mem.rs",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-02T06:24:14Z",
+      "side": 1,
+      "message": "The documentation should also mention that this does not guarantee an ordering of the two blocks (as the BoringSSL documentation does) or just\nrefer to the BoringSSL documentation instead of duplicating part of it without the gotcha..",
+      "parentUuid": "b6e250e8_7742b704",
+      "revId": "a96f8a65c11b06970abe14adcb20b4a51404aef2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
