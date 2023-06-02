@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cdf74ce7_f7a02d62",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-06-02T15:41:02Z",
+      "side": 1,
+      "message": "I think this is a merge conflict just because gerrit doesn\u0027t understand the concept of a CL that depends on two CLs that don\u0027t depend on each other.",
+      "revId": "1df3818ea6add94ff25b2fa3800cd75e704724d6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
