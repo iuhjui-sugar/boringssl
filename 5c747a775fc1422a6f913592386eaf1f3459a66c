@@ -73,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "79893e9d_8f1a65fc",
+        "filename": "crypto/internal.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-06-02T13:53:04Z",
+      "side": 1,
+      "message": "I think they are castable but not compatible (so that pointers to them are not castable?). I have not investigated more than that one assert.",
+      "parentUuid": "f26de4c3_aa8e4734",
+      "range": {
+        "startLine": 314,
+        "startChar": 18,
+        "endLine": 314,
+        "endChar": 31
+      },
+      "revId": "5c747a775fc1422a6f913592386eaf1f3459a66c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8b4c69f0_dd34685c",
         "filename": "include/openssl/bn.h",
         "patchSetId": 9

@@ -34,6 +34,24 @@
       "parentUuid": "3a9e08ca_f637f458",
       "revId": "cf07694b1240ff050ce64b73107f7ce3de942fd0",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c5c8f19_623a1761",
+        "filename": "crypto/internal.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-06-02T13:53:04Z",
+      "side": 1,
+      "message": "Fiat-crypto C pretty-printer is currently rather hackish, with known and likely unknown soundness issues. The main alternative I am considering right now is going through Bedrock2. There is already a a working but prototype with performance limitations; it has a clear path to soundness and the performance might just be a question of sprinkling intrinsics in the right places. However, Bedrock2 is a lower-level language than most C code and has no concept of types whatsoever. Multiply and store are hardcoded to take the same kind of things as input throughout the stack (the size of the memory access is encoded separately). Adding support for types to Bedrock2 would require more work than I am looking to put into making this work, and I am not sure other maintainers would even support it.\n\nIf you judge this CL is not in the interest of BoringSSL without fiat-crypto considerations, let\u0027s not do it now. I will anticipate writing a detailed design doc on this entire debacle anyway.",
+      "parentUuid": "65a2ee17_c672d7d0",
+      "revId": "cf07694b1240ff050ce64b73107f7ce3de942fd0",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
