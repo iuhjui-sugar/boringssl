@@ -22,6 +22,30 @@
       },
       "revId": "0123304d03ce443276a2c7eb8bc550cedab1f019",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1edb07e0_3f1d20db",
+        "filename": "rust/bssl-crypto/src/digest.rs",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 15426
+      },
+      "writtenOn": "2023-06-02T00:14:04Z",
+      "side": 1,
+      "message": "It would be surprising to me that `Sha256::new`\u0027s return type is not `Sha256`. What about `new_digest`?",
+      "parentUuid": "96ce777d_7af7afc5",
+      "range": {
+        "startLine": 59,
+        "startChar": 11,
+        "endLine": 59,
+        "endChar": 19
+      },
+      "revId": "0123304d03ce443276a2c7eb8bc550cedab1f019",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
