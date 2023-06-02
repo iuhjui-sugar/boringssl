@@ -22,6 +22,30 @@
       },
       "revId": "3b9f9cb55b245e63fff1f03762ef1eac0b623dff",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec6731d7_4121562f",
+        "filename": "crypto/internal.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-06-02T14:03:53Z",
+      "side": 1,
+      "message": "Adding a value barrier generates assembly that is less convincing in terms of future constant-time compilation and results in a 2-3% slowdown. The generated assembly for current source looks convincing, passes ctgrind, and a version with added `if (babs \u003d\u003d 1+i)` fails ctgrind. I suggest we merge this change (and keep investigating value-barrier compilation).",
+      "parentUuid": "f3054540_60bc037a",
+      "range": {
+        "startLine": 532,
+        "startChar": 14,
+        "endLine": 532,
+        "endChar": 18
+      },
+      "revId": "3b9f9cb55b245e63fff1f03762ef1eac0b623dff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
