@@ -46,6 +46,30 @@
       },
       "revId": "3b9f9cb55b245e63fff1f03762ef1eac0b623dff",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "97c62906_b202fd5f",
+        "filename": "crypto/internal.h",
+        "patchSetId": 14
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-06-02T18:53:52Z",
+      "side": 1,
+      "message": "I added the value barrier and mitigated the slowdown. https://boringssl-review.googlesource.com/c/boringssl/+/60107/14..15",
+      "parentUuid": "ec6731d7_4121562f",
+      "range": {
+        "startLine": 532,
+        "startChar": 14,
+        "endLine": 532,
+        "endChar": 18
+      },
+      "revId": "3b9f9cb55b245e63fff1f03762ef1eac0b623dff",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
