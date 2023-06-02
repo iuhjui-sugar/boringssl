@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b6e250e8_7742b704",
+        "filename": "rust/bssl-crypto/src/mem.rs",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-02T06:22:04Z",
+      "side": 1,
+      "message": "Please do not call this memcmp - you will be silently inviting rust programmers to use it as a routine for sorting comparison if they are not careful, because of 50 years of knowing what \"memcmp\" does. Please call it CRYPTO_memcmp, as per the BoringSSL function (or memory_is_same, or something other than memcmp)\n\nThe api for this is different from the usual memcmp function.",
+      "revId": "a96f8a65c11b06970abe14adcb20b4a51404aef2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
