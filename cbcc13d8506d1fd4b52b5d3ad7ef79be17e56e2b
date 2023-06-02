@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8933343f_0ebfc2df",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-02T14:05:10Z",
+      "side": 1,
+      "message": "Removing Auto-Submit for now until I\u0027ve had a chance to look at this and whether that changes things:\nhttps://bugs.chromium.org/p/boringssl/issues/detail?id\u003d614#c3",
+      "revId": "cbcc13d8506d1fd4b52b5d3ad7ef79be17e56e2b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "80bd5d3b_5db855c9",
         "filename": "crypto/chacha/chacha.c",
         "patchSetId": 1
