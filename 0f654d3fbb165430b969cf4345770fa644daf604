@@ -16,6 +16,23 @@
       "message": "I don\u0027t understand why gerrit shows a merge conflict.\n\n```\nandreser@andreser:~/boringssl/curve25519adx$ git ls-remote origin master\nb0a026f8541c551854efd617021bb276f1fe5c23        refs/heads/master\nandreser@andreser:~/boringssl/curve25519adx$ git log master~..HEAD\ncommit 392afb04b5b3b977018de7b1ba92cdcf5f52ae6d (HEAD -\u003e curve25519adx)\nAuthor: Andres Erbsen \u003candreser@google.com\u003e\nDate:   Mon May 22 20:51:15 2023 +0000\n\n    Add saturated X25519 for x86_64+ADX running Linux\n    \n    Change-Id: I212f9a6dae11f81921ff926442f76f68155b4ee6\n\ncommit b0a026f8541c551854efd617021bb276f1fe5c23 (master)\nAuthor: Nabil Wadih \u003cnwadih@google.com\u003e\nDate:   Fri May 12 09:30:10 2023 -0700\n\n    add rust bindings for ed25519\n    \n    Change-Id: I7458b1d7aa1736d586dc80660d59c07fa2ac1c8a\n    Reviewed-on: https://boringssl-review.googlesource.com/c/boringssl/+/59805\n    Reviewed-by: Bob Beck \u003cbbe@google.com\u003e\n    Reviewed-by: David Benjamin \u003cdavidben@google.com\u003e\n    Commit-Queue: David Benjamin \u003cdavidben@google.com\u003e\nandreser@andreser:~/boringssl/curve25519adx$ git push origin HEAD:refs/for/master\nTotal 0 (delta 0), reused 0 (delta 0), pack-reused 0\nremote: Processing changes: refs: 1, done    \nTo https://boringssl.googlesource.com/boringssl\n ! [remote rejected]     HEAD -\u003e refs/for/master (no new changes)\nerror: failed to push some refs to \u0027https://boringssl.googlesource.com/boringssl\u0027\n```",
       "revId": "0f654d3fbb165430b969cf4345770fa644daf604",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24a8f019_cfb85ebd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-06-02T14:05:48Z",
+      "side": 1,
+      "message": "Is there anything else that needs to be done for merging this? Thanks!",
+      "revId": "0f654d3fbb165430b969cf4345770fa644daf604",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
