@@ -15,6 +15,9 @@
 use crate::CSlice;
 use bssl_sys::{EVP_AEAD, EVP_AEAD_CTX};
 
+/// BoringSSL implemented AES-GCM operations.
+pub mod aes_gcm;
+
 /// BoringSSL implemented AES-GCM-SIV operations.
 pub mod aes_gcm_siv;
 
@@ -43,6 +46,8 @@ pub trait Aead<const N: usize> {
 struct AeadImpl<const N: usize, const T: usize>(*mut EVP_AEAD_CTX);
 
 enum AeadType {
+    Aes128Gcm,
+    Aes256Gcm,
     Aes128GcmSiv,
     Aes256GcmSiv,
 }
@@ -50,6 +55,8 @@ enum AeadType {
 fn get_evp_ctx(aead_type: AeadType) -> *const EVP_AEAD {
     unsafe {
         match aead_type {
+            AeadType::Aes128Gcm => bssl_sys::EVP_aead_aes_128_gcm(),
+            AeadType::Aes256Gcm => bssl_sys::EVP_aead_aes_256_gcm(),
             AeadType::Aes128GcmSiv => bssl_sys::EVP_aead_aes_128_gcm_siv(),
             AeadType::Aes256GcmSiv => bssl_sys::EVP_aead_aes_256_gcm_siv(),
         }
