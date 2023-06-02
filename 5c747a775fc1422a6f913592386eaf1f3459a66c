@@ -114,6 +114,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "87205c2d_7b569618",
+        "filename": "include/openssl/bn.h",
+        "patchSetId": 9
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-06-02T16:00:07Z",
+      "side": 1,
+      "message": "I am not sure, I don\u0027t really want to add `crypto_word_t` to the public API unless we want users of BoringSSL to use it?",
+      "parentUuid": "8b4c69f0_dd34685c",
+      "revId": "5c747a775fc1422a6f913592386eaf1f3459a66c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f339b9ad_2cd539da",
         "filename": "include/openssl/bn.h",
         "patchSetId": 9
