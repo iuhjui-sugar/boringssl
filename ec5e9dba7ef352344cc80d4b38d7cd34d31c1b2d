@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3b16decd_16a82abb",
+        "filename": "rust/bssl-crypto/src/x25519.rs",
+        "patchSetId": 8
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 15426
+      },
+      "writtenOn": "2023-06-05T19:21:40Z",
+      "side": 1,
+      "message": "`#[cfg(test)]` only exposes it to tests within this crate, but we want to have test vectors in our library (user of this crate) as well.\n\nFor Chrome builds, it supports using features, and `#[cfg(test)]` within the same crate similar to cargo",
+      "parentUuid": "5728dc00_71bc57f7",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 102
+      },
+      "revId": "ec5e9dba7ef352344cc80d4b38d7cd34d31c1b2d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9445a7bb_530ec3e4",
         "filename": "rust/bssl-crypto/src/x25519.rs",
         "patchSetId": 8
