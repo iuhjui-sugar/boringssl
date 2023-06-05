@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69d82ba1_c7fa1c76",
+        "filename": "rust/bssl-crypto/src/lib.rs",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-05T17:37:30Z",
+      "side": 1,
+      "message": "Ok, So at least for the moment you don\u0027t have a constant time memory comparison operation.  What I\u0027m not 100% sure about is from a rustyness perspective what\u0027s better for us here.  Yes indeed, we can bind BoringSSL\u0027s comparison operations directly here, and I\u0027m more or less fine with this, but before we do that, Are we certain we don\u0027t want to say \"no we should use something that is more normal is rust code like subtle (https://docs.rs/subtle/2.5.0/subtle/)\" - especially if we\nbelieve we are doing to be pulling in stuff that already has such dependencies? \n\n@danakaj - penny for your thoughts there please?",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 57
+      },
+      "revId": "e0d21f028fda5bd0403a20d8bea3046ffc0e493a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
