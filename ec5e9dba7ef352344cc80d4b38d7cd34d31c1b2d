@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cc07c761_808357ca",
+        "filename": "rust/bssl-crypto/src/x25519.rs",
+        "patchSetId": 8
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 15426
+      },
+      "writtenOn": "2023-06-05T18:14:16Z",
+      "side": 1,
+      "message": "Would you prefer conditionally compiling this in using a cargo feature, or use a naming suffix like `from_private_bytes_for_testing`?",
+      "parentUuid": "4bf4c899_da4fde42",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 102
+      },
+      "revId": "ec5e9dba7ef352344cc80d4b38d7cd34d31c1b2d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9445a7bb_530ec3e4",
         "filename": "rust/bssl-crypto/src/x25519.rs",
         "patchSetId": 8
