@@ -98,6 +98,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2e28bbab_33534137",
+        "filename": "rust/bssl-crypto/src/x25519.rs",
+        "patchSetId": 8
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-05T21:10:41Z",
+      "side": 1,
+      "message": "why would you need that if you have everything you are calling tested against test vectors in boringssl itself, as well as basic unit testing here. You should not need to replicate testing x25519 correctness in boring as it already does that\nyou just need to test that you get the expected results in rust.",
+      "parentUuid": "3b16decd_16a82abb",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 102
+      },
+      "revId": "ec5e9dba7ef352344cc80d4b38d7cd34d31c1b2d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9445a7bb_530ec3e4",
         "filename": "rust/bssl-crypto/src/x25519.rs",
         "patchSetId": 8
