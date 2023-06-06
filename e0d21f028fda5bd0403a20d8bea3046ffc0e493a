@@ -94,6 +94,30 @@
       },
       "revId": "e0d21f028fda5bd0403a20d8bea3046ffc0e493a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8fa2fa6_e53e9bf1",
+        "filename": "rust/bssl-crypto/src/lib.rs",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 14726
+      },
+      "writtenOn": "2023-06-06T17:35:48Z",
+      "side": 1,
+      "message": "This reasoning is of the \"for security reasons we should have one impl\" and if that\u0027s the mood then we should expose boring SSLs, and ban subtle, I agree. For the same reason we\u0027re not using openssl or rustcrypto crates.",
+      "parentUuid": "3964dfa3_1e341ab0",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 57
+      },
+      "revId": "e0d21f028fda5bd0403a20d8bea3046ffc0e493a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
