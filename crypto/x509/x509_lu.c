@@ -140,6 +140,12 @@ int X509_LOOKUP_by_subject(X509_LOOKUP *ctx, int type, X509_NAME *name,
   return ctx->method->get_by_subject(ctx, type, name, ret) > 0;
 }
 
+// FIXME(fxbug.dev/128274): UBSan is detecting many function type mismatches due
+// to improvements to -fsanitize=function upstream. Much of this UB involves
+// passing around various compare functions that have different argument types.
+// Unifying/fixing all of the arguments will require a major refactoring, so
+// temporarily disable the check on this function and come back to fix later.
+__attribute__((no_sanitize("function")))
 static int x509_object_cmp(const X509_OBJECT *a, const X509_OBJECT *b) {
   int ret = a->type - b->type;
   if (ret) {
