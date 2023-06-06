@@ -35,6 +35,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f9eaa84e_8e4b5409",
+        "filename": "crypto/curve25519/x25519_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-06-06T20:42:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "508a08fc_adcc4e38",
+      "revId": "c817f6000ca9163b2c4876a9a3278f8fdb4cee6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "00d3f261_4b08fc74",
@@ -48,6 +66,30 @@
       "writtenOn": "2023-06-06T20:26:49Z",
       "side": 1,
       "message": "```suggestion\n  // Transcribed from a Coq function proven against affine coordinates.\n```",
+      "range": {
+        "startLine": 545,
+        "startChar": 5,
+        "endLine": 545,
+        "endChar": 15
+      },
+      "revId": "c817f6000ca9163b2c4876a9a3278f8fdb4cee6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "46a39c6a_ec7f80ad",
+        "filename": "third_party/fiat/curve25519_64_adx.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-06-06T20:42:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00d3f261_4b08fc74",
       "range": {
         "startLine": 545,
         "startChar": 5,
@@ -81,6 +123,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "76efea4a_e82d6b98",
+        "filename": "third_party/fiat/curve25519_64_adx.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-06-06T20:42:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5d50c161_6687af0b",
+      "range": {
+        "startLine": 562,
+        "startChar": 0,
+        "endLine": 562,
+        "endChar": 1
+      },
+      "revId": "c817f6000ca9163b2c4876a9a3278f8fdb4cee6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a0f51527_43981e2b",
@@ -94,6 +160,30 @@
       "writtenOn": "2023-06-06T20:26:49Z",
       "side": 1,
       "message": "```suggestion\n  // Transcribed from a Coq function proven against affine coordinates.\n```",
+      "range": {
+        "startLine": 570,
+        "startChar": 5,
+        "endLine": 570,
+        "endChar": 15
+      },
+      "revId": "c817f6000ca9163b2c4876a9a3278f8fdb4cee6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "075c1151_23c77a8a",
+        "filename": "third_party/fiat/curve25519_64_adx.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-06-06T20:42:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0f51527_43981e2b",
       "range": {
         "startLine": 570,
         "startChar": 5,
@@ -121,6 +211,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3fbca78_216a0c91",
+        "filename": "third_party/fiat/curve25519_64_adx.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-06-06T20:42:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "40812234_a2ec2f16",
+      "revId": "c817f6000ca9163b2c4876a9a3278f8fdb4cee6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0f81bd76_52ee120b",
@@ -138,6 +246,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c73bb1b7_aedc9d77",
+        "filename": "third_party/fiat/curve25519_64_adx.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-06-06T20:42:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0f81bd76_52ee120b",
+      "revId": "c817f6000ca9163b2c4876a9a3278f8fdb4cee6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3b972b6c_cf85cbb0",
@@ -151,6 +277,30 @@
       "writtenOn": "2023-06-06T20:26:49Z",
       "side": 1,
       "message": "Nit: There\u0027s this `/*skip_t\u003d*/true` convention that some tools know how to check these days. I find it handy when it\u0027s not clear from reading which form it is.\nhttps://abseil.io/tips/94",
+      "range": {
+        "startLine": 648,
+        "startChar": 33,
+        "endLine": 648,
+        "endChar": 37
+      },
+      "revId": "c817f6000ca9163b2c4876a9a3278f8fdb4cee6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3be94542_32c84f8f",
+        "filename": "third_party/fiat/curve25519_64_adx.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 648,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-06-06T20:42:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3b972b6c_cf85cbb0",
       "range": {
         "startLine": 648,
         "startChar": 33,
@@ -184,6 +334,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a12fa671_6d14d60f",
+        "filename": "third_party/fiat/curve25519_64_adx.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-06-06T20:42:29Z",
+      "side": 1,
+      "message": "`inline_x25519_ge_dbl_4` doesn\u0027t read `t`, and the last `inline_x25519_ge_dbl_4` is called with `false` so it writes `t` (without looking at input `t`).",
+      "parentUuid": "85e4e42e_c52bef89",
+      "range": {
+        "startLine": 651,
+        "startChar": 33,
+        "endLine": 651,
+        "endChar": 38
+      },
+      "revId": "c817f6000ca9163b2c4876a9a3278f8fdb4cee6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9958582e_131d9121",
@@ -201,6 +375,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6c07ce8_f647649c",
+        "filename": "third_party/fiat/curve25519_64_adx.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 659,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-06-06T20:42:29Z",
+      "side": 1,
+      "message": "I am not sure. The precondition is likely conservative, but I don\u0027t know whether it is so conservative that just copying in any 32 bytes would be fine.",
+      "parentUuid": "9958582e_131d9121",
+      "revId": "c817f6000ca9163b2c4876a9a3278f8fdb4cee6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "27147b62_0987c523",
@@ -214,6 +406,24 @@
       "writtenOn": "2023-06-06T20:26:49Z",
       "side": 1,
       "message": "Maybe worth a similar comment about assuming the bytes repr and fe2 repr align.",
+      "revId": "c817f6000ca9163b2c4876a9a3278f8fdb4cee6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d832c7e9_9552bfd0",
+        "filename": "third_party/fiat/curve25519_64_adx.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 665,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-06-06T20:42:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "27147b62_0987c523",
       "revId": "c817f6000ca9163b2c4876a9a3278f8fdb4cee6f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
