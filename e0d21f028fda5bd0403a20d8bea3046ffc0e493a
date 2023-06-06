@@ -262,6 +262,30 @@
       },
       "revId": "e0d21f028fda5bd0403a20d8bea3046ffc0e493a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf96efb2_76aa5d77",
+        "filename": "rust/bssl-crypto/src/lib.rs",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 14726
+      },
+      "writtenOn": "2023-06-06T20:06:49Z",
+      "side": 1,
+      "message": "Ok, thank you for clarifying. So any 1p Rust in Chromium should be expected to use boringssl stuff for this, not subtle then.",
+      "parentUuid": "ada0eb76_92fceb8e",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 57
+      },
+      "revId": "e0d21f028fda5bd0403a20d8bea3046ffc0e493a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
