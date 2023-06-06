@@ -1,12 +1,14 @@
 .text
 #if defined(__APPLE__)
+.private_extern fiat_curve25519_adx_mul
 .global _fiat_curve25519_adx_mul
 _fiat_curve25519_adx_mul:
 #else
+.type fiat_curve25519_adx_mul, @function
+.hidden fiat_curve25519_adx_mul
 .global fiat_curve25519_adx_mul
 fiat_curve25519_adx_mul:
 #endif
-
 .cfi_startproc
 mov [rsp - 0x08], rbp
 .cfi_offset rbp, -8-0x08
@@ -153,3 +155,6 @@ mov r15, [ rsp - 0x58 ]
 mov rbp, [rsp - 0x08]
 ret
 .cfi_endproc
+#if defined(__ELF__)
+.size fiat_curve25519_adx_mul, .-fiat_curve25519_adx_mul
+#endif
