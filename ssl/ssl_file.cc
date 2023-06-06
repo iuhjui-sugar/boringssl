@@ -124,6 +124,14 @@
 #include "internal.h"
 
 
+// FIXME(fxbug.dev/128274): UBSan is detecting many function type mismatches due
+// to improvements to -fsanitize=function upstream. Much of this UB involves
+// passing around various compare functions that have different argument types.
+// Unifying/fixing all of the arguments will require a major refactoring, so
+// temporarily disable the check on this function and come back to fix later.
+#if defined(__clang__)
+[[clang::no_sanitize("function")]]
+#endif
 static int xname_cmp(const X509_NAME *const *a, const X509_NAME *const *b) {
   return X509_NAME_cmp(*a, *b);
 }

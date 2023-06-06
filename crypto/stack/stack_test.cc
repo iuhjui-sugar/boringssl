@@ -210,6 +210,14 @@ TEST(StackTest, BigStack) {
 
 static uint64_t g_compare_count = 0;
 
+// FIXME(fxbug.dev/128274): UBSan is detecting many function type mismatches due
+// to improvements to -fsanitize=function upstream. Much of this UB involves
+// passing around various compare functions that have different argument types.
+// Unifying/fixing all of the arguments will require a major refactoring, so
+// temporarily disable the check on this function and come back to fix later.
+#if defined(__clang__)
+[[clang::no_sanitize("function")]]
+#endif
 static int compare(const TEST_INT *const *a, const TEST_INT *const *b) {
   g_compare_count++;
   if (**a < **b) {
@@ -221,6 +229,14 @@ static int compare(const TEST_INT *const *a, const TEST_INT *const *b) {
   return 0;
 }
 
+// FIXME(fxbug.dev/128274): UBSan is detecting many function type mismatches due
+// to improvements to -fsanitize=function upstream. Much of this UB involves
+// passing around various compare functions that have different argument types.
+// Unifying/fixing all of the arguments will require a major refactoring, so
+// temporarily disable the check on this function and come back to fix later.
+#if defined(__clang__)
+[[clang::no_sanitize("function")]]
+#endif
 static int compare_reverse(const TEST_INT *const *a, const TEST_INT *const *b) {
   return -compare(a, b);
 }
