@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47e6d0b1_33f0a8ca",
+        "filename": "crypto/stack/stack_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-06T22:51:28Z",
+      "side": 1,
+      "message": "It\u0027s not an issue of refactoring. The types of these functions are correct and cannot be changed (part of the public API we must retain).\n\nThe issue is we cannot implement the function we need to using `qsort`. We need `qsort_r`, which is a compatibility disaster, and often unavailable.\nhttps://boringssl.googlesource.com/boringssl/+/refs/heads/master/crypto/stack/stack.c#404\n\nIf Fuchsia had `qsort_r` or `qsort_s`, we could fix it for Fuchsia, but code search suggests you all don\u0027t have it at all.\n\nI don\u0027t think disabling sanitizers on all our comparison functions is a good option. Will ponder this tomorrow... I worry the answer may be that we need to implement our own sort, like we did with `bsearch`, and give up on the libc version.",
+      "revId": "5f54f08acfda9582a48a489bf066b218ba843c56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
