@@ -1,0 +1,221 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6371f5c3_a75f230a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-06T20:26:49Z",
+      "side": 1,
+      "message": "test",
+      "revId": "c817f6000ca9163b2c4876a9a3278f8fdb4cee6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "508a08fc_adcc4e38",
+        "filename": "crypto/curve25519/x25519_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-06T20:26:49Z",
+      "side": 1,
+      "message": "Stray change?",
+      "revId": "c817f6000ca9163b2c4876a9a3278f8fdb4cee6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00d3f261_4b08fc74",
+        "filename": "third_party/fiat/curve25519_64_adx.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-06T20:26:49Z",
+      "side": 1,
+      "message": "```suggestion\n  // Transcribed from a Coq function proven against affine coordinates.\n```",
+      "range": {
+        "startLine": 545,
+        "startChar": 5,
+        "endLine": 545,
+        "endChar": 15
+      },
+      "revId": "c817f6000ca9163b2c4876a9a3278f8fdb4cee6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d50c161_6687af0b",
+        "filename": "third_party/fiat/curve25519_64_adx.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-06T20:26:49Z",
+      "side": 1,
+      "message": "Nit: Stray tab?",
+      "range": {
+        "startLine": 562,
+        "startChar": 0,
+        "endLine": 562,
+        "endChar": 1
+      },
+      "revId": "c817f6000ca9163b2c4876a9a3278f8fdb4cee6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0f51527_43981e2b",
+        "filename": "third_party/fiat/curve25519_64_adx.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 570,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-06T20:26:49Z",
+      "side": 1,
+      "message": "```suggestion\n  // Transcribed from a Coq function proven against affine coordinates.\n```",
+      "range": {
+        "startLine": 570,
+        "startChar": 5,
+        "endLine": 570,
+        "endChar": 15
+      },
+      "revId": "c817f6000ca9163b2c4876a9a3278f8fdb4cee6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40812234_a2ec2f16",
+        "filename": "third_party/fiat/curve25519_64_adx.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 595,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-06T20:26:49Z",
+      "side": 1,
+      "message": "Is this something that also benefits from forcing to memory like the other file?",
+      "revId": "c817f6000ca9163b2c4876a9a3278f8fdb4cee6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f81bd76_52ee120b",
+        "filename": "third_party/fiat/curve25519_64_adx.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 596,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-06T20:26:49Z",
+      "side": 1,
+      "message": "Should this be:\n\n`static_assert(sizeof(t_bytes) \u003d\u003d sizeof(k25519Precomp[pos][0]), \"\");`\n\nAnd then the `ge_precomp_4` right before the `OPENSSL_memcpy`? Maybe with a comment like:\n\n```\n// fe4 uses saturated 64-bit limbs, so converting from bytes is just a copy.\n```",
+      "revId": "c817f6000ca9163b2c4876a9a3278f8fdb4cee6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b972b6c_cf85cbb0",
+        "filename": "third_party/fiat/curve25519_64_adx.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 648,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-06T20:26:49Z",
+      "side": 1,
+      "message": "Nit: There\u0027s this `/*skip_t\u003d*/true` convention that some tools know how to check these days. I find it handy when it\u0027s not clear from reading which form it is.\nhttps://abseil.io/tips/94",
+      "range": {
+        "startLine": 648,
+        "startChar": 33,
+        "endLine": 648,
+        "endChar": 37
+      },
+      "revId": "c817f6000ca9163b2c4876a9a3278f8fdb4cee6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "85e4e42e_c52bef89",
+        "filename": "third_party/fiat/curve25519_64_adx.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 651,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-06T20:26:49Z",
+      "side": 1,
+      "message": "I\u0027m probably just confused... it seems `ge_p3_add_p3_precomp_4` uses `p-\u003eT`, so why is it okay to set `skip_t` here?",
+      "range": {
+        "startLine": 651,
+        "startChar": 33,
+        "endLine": 651,
+        "endChar": 38
+      },
+      "revId": "c817f6000ca9163b2c4876a9a3278f8fdb4cee6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9958582e_131d9121",
+        "filename": "third_party/fiat/curve25519_64_adx.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 659,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-06T20:26:49Z",
+      "side": 1,
+      "message": "Do the tests pass either way because the precondition doesn\u0027t matter, or because we\u0027re missing some test vector?",
+      "revId": "c817f6000ca9163b2c4876a9a3278f8fdb4cee6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27147b62_0987c523",
+        "filename": "third_party/fiat/curve25519_64_adx.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 665,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-06T20:26:49Z",
+      "side": 1,
+      "message": "Maybe worth a similar comment about assuming the bytes repr and fe2 repr align.",
+      "revId": "c817f6000ca9163b2c4876a9a3278f8fdb4cee6f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
