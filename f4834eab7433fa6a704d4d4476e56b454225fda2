@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1e62309_06aaf122",
+        "filename": "crypto/curve25519/curve25519_64_adx.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-06T17:59:30Z",
+      "side": 1,
+      "message": "Not that it makes any sense for this file, but we probably should stick the copyright header on it for consistency.",
+      "revId": "f4834eab7433fa6a704d4d4476e56b454225fda2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
