@@ -32,7 +32,14 @@ pub mod aead;
 /// AES block operations.
 pub mod aes;
 
+<<<<<<< PATCH SET (fd07b7 Add Rust bindings to AES_CTR through EVP_* cipher API's)
+/// BoringSSL implemented ciphers.
+pub mod cipher;
+
+/// BoringSSL implemented hash functions.
+=======
 /// Hash functions.
+>>>>>>> BASE      (89ab6c Add Rust bindings to AES-GCM through the EVP_AEAD_* APIs)
 pub mod digest;
 
 /// Ed25519, a signature scheme.
