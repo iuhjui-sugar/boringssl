@@ -3,6 +3,98 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2dc67a42_266ca597",
+        "filename": "rust/bssl-crypto/src/bn.rs",
+        "patchSetId": 10
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-06-06T16:31:50Z",
+      "side": 1,
+      "message": "same here",
+      "range": {
+        "startLine": 48,
+        "startChar": 41,
+        "endLine": 48,
+        "endChar": 46
+      },
+      "revId": "f4c523193fb8f563e90dac384279ab5c74384283",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b177a8e5_f5eeecc2",
+        "filename": "rust/bssl-crypto/src/ec.rs",
+        "patchSetId": 10
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-06-06T16:31:50Z",
+      "side": 1,
+      "message": "Rust slices aren\u0027t quite safe to use directly over FFI because Rust and C have different representations of empty slices, see: http://go/rust-empty-slice-ub for context, but instead you could use the `CSlice` helper struct from the root of this crate.\n\nSame comment for the rest of the slices passed over ffi as well",
+      "range": {
+        "startLine": 85,
+        "startChar": 16,
+        "endLine": 85,
+        "endChar": 31
+      },
+      "revId": "f4c523193fb8f563e90dac384279ab5c74384283",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "235ff1ee_298e70e2",
+        "filename": "rust/bssl-crypto/src/ec.rs",
+        "patchSetId": 10
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-06-06T16:31:50Z",
+      "side": 1,
+      "message": "Should this have an error type?",
+      "range": {
+        "startLine": 132,
+        "startChar": 22,
+        "endLine": 132,
+        "endChar": 24
+      },
+      "revId": "f4c523193fb8f563e90dac384279ab5c74384283",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f623da84_fbcf7301",
+        "filename": "rust/bssl-crypto/src/p256.rs",
+        "patchSetId": 10
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-06-06T16:31:50Z",
+      "side": 1,
+      "message": "nit: does this map to a `bssl_sys` constant that could be used?",
+      "range": {
+        "startLine": 22,
+        "startChar": 6,
+        "endLine": 22,
+        "endChar": 21
+      },
+      "revId": "f4c523193fb8f563e90dac384279ab5c74384283",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7a57ce20_4978e21f",
         "filename": "rust/bssl-crypto/src/p256.rs",
         "patchSetId": 10
@@ -42,6 +134,29 @@
         "startChar": 0,
         "endLine": 88,
         "endChar": 42
+      },
+      "revId": "f4c523193fb8f563e90dac384279ab5c74384283",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "286fec75_8676f55c",
+        "filename": "rust/bssl-crypto/src/p256.rs",
+        "patchSetId": 10
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-06-06T16:31:50Z",
+      "side": 1,
+      "message": "nit: does this map to a bssl_sys const that can be used?",
+      "range": {
+        "startLine": 104,
+        "startChar": 6,
+        "endLine": 104,
+        "endChar": 29
       },
       "revId": "f4c523193fb8f563e90dac384279ab5c74384283",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
