@@ -34,6 +34,24 @@
       "parentUuid": "86365aab_e7ba7cab",
       "revId": "048ceb703f517f22a842dcc524696317142c40a3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a937275f_55b03266",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 761,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-06T20:15:51Z",
+      "side": 1,
+      "message": "I guess we could check it against a second implementation to be sure.",
+      "parentUuid": "8b42f702_93e2edac",
+      "revId": "048ceb703f517f22a842dcc524696317142c40a3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
