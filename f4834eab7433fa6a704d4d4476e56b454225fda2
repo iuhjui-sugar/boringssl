@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b6a2982_a928f82a",
+        "filename": "crypto/curve25519/curve25519_64_adx.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-06-06T18:07:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1e62309_06aaf122",
+      "revId": "f4834eab7433fa6a704d4d4476e56b454225fda2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d018a9e8_3b154a19",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-06-06T18:00:38Z",
       "side": 1,
       "message": "This is an existing issue, but since you\u0027re uploading a new version anyway, mind changing this to...\n\n```suggestion\n\n#include \u003copenssl/curve25519.h\u003e\n\n#include \"../internal.h\"\n\n#if defined(__cplusplus)\nextern \"C\" {\n#endif\n```\n\n(No need to include `base.h` if `curve25519.h` and it\u0027s kinda rude to wrap someone else\u0027s header in `extern \"C\"`.)",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 24
+      },
+      "revId": "f4834eab7433fa6a704d4d4476e56b454225fda2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50c31423_699787df",
+        "filename": "crypto/curve25519/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-06-06T18:07:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d018a9e8_3b154a19",
       "range": {
         "startLine": 17,
         "startChar": 0,
