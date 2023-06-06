@@ -190,6 +190,30 @@
       },
       "revId": "e0d21f028fda5bd0403a20d8bea3046ffc0e493a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31d083a0_4ae816a3",
+        "filename": "rust/bssl-crypto/src/lib.rs",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-06T19:58:49Z",
+      "side": 1,
+      "message": "Heh.. yeah, well, It\u0027s one of those things I wanted us to have a discussion about and I think it\u0027s landed in the right place, So  I think this makes sense. (as I mentioned before, I\u0027m more or less fine with it, as long as we\u0027re making a conscious decision to do it).",
+      "parentUuid": "02f7308e_e852b9b0",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 57
+      },
+      "revId": "e0d21f028fda5bd0403a20d8bea3046ffc0e493a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
