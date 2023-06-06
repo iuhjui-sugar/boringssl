@@ -16,6 +16,24 @@
       "message": "There doesn\u0027t seem to be a test for mask\u003d0",
       "revId": "048ceb703f517f22a842dcc524696317142c40a3",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b42f702_93e2edac",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 761,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-06T20:15:32Z",
+      "side": 1,
+      "message": "*headdesk*\nhttps://boringssl.googlesource.com/boringssl/+/refs/heads/master/crypto/kyber/kyber_test.cc#215\n\nMaybe we should toss an actual test vector in there somewhere, even if we\u0027re just computing against ourselves.",
+      "parentUuid": "86365aab_e7ba7cab",
+      "revId": "048ceb703f517f22a842dcc524696317142c40a3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
