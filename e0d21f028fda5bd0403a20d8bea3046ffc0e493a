@@ -238,6 +238,30 @@
       },
       "revId": "e0d21f028fda5bd0403a20d8bea3046ffc0e493a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ada0eb76_92fceb8e",
+        "filename": "rust/bssl-crypto/src/lib.rs",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-06T20:04:29Z",
+      "side": 1,
+      "message": "We (BoringSSL folks) definitely don\u0027t have the bandwidth to be monitoring `subtle` or any other Rust crate for constant-time optimization failures. We\u0027ve got a long runway still to go for our own stuff, much less taking on some third-party thing.\n\nAnd, one way or another, `CRYPTO_memcmp` will be load-bearing because most constant-time stuff is inside BoringSSL, not outside. So that means any use of `subtle` is purely additive.\n\nJust if something sneaks in, I don\u0027t think we need to treat it as a huge emergency and be that worried about it. Realistically, I think any use of `subtle` will be paired with something we *do* have opinions about anyway.",
+      "parentUuid": "13fcef2b_dfcd73eb",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 57
+      },
+      "revId": "e0d21f028fda5bd0403a20d8bea3046ffc0e493a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
