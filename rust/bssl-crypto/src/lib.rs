@@ -32,6 +32,9 @@ pub mod aead;
 /// BoringSSL implemented plain aes operations.
 pub mod aes;
 
+/// BoringSSL implemented ciphers.
+pub mod cipher;
+
 /// BoringSSL implemented hash functions.
 pub mod digest;
 
