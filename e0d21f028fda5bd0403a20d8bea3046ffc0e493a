@@ -142,6 +142,30 @@
       },
       "revId": "e0d21f028fda5bd0403a20d8bea3046ffc0e493a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02f7308e_e852b9b0",
+        "filename": "rust/bssl-crypto/src/lib.rs",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-06T19:56:42Z",
+      "side": 1,
+      "message": "This is also not interesting enough of a function to be *that* worried about. :-)\n\nI think binding it from BoringSSL is fine for the sake of self-contained-ness. But also if some other library pulls in `subtle` and is otherwise okay (i.e. isn\u0027t a whole new parallel crypto impl), I don\u0027t think we need to be terribly upset about it for the sake of `subtle` alone.\n\nBut I suspect \"crates that want constant-time memory comparison\" will all either (a) pull in a cryptography crate, or (b) be implementing cryptography themselves. In both those cases, we\u0027ll have an opinion on this anyway.",
+      "parentUuid": "1513b752_ca46e4fa",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 57
+      },
+      "revId": "e0d21f028fda5bd0403a20d8bea3046ffc0e493a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
