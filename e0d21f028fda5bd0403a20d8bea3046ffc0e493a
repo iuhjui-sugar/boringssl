@@ -214,6 +214,30 @@
       },
       "revId": "e0d21f028fda5bd0403a20d8bea3046ffc0e493a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13fcef2b_dfcd73eb",
+        "filename": "rust/bssl-crypto/src/lib.rs",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 14726
+      },
+      "writtenOn": "2023-06-06T19:59:21Z",
+      "side": 1,
+      "message": "This reads to me like we should use `subtle` then because we wouldn\u0027t want to ban its use elsewhere so let\u0027s just use that as the One True Constant Time thing?",
+      "parentUuid": "2416f1f4_1c7aff07",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 57
+      },
+      "revId": "e0d21f028fda5bd0403a20d8bea3046ffc0e493a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
