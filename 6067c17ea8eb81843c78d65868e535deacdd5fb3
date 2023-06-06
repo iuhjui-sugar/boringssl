@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dc1d331f_115ff98b",
+        "filename": "third_party/fiat/curve25519_64_adx.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-06T20:48:59Z",
+      "side": 1,
+      "message": "Very nit-picky nitpick: Not that it matters, but I think this one wants to be\n\n`sizeof(t_bytes) \u003d\u003d sizeof(ge_precomp4)`\n\nAnd then the one on line 599 wants to be:\n\n`sizeof(t_bytes) \u003d\u003d sizeof(k25519Precomp[pos][0])`\n\nSo that they reflect the assumption we\u0027re making at each point.",
+      "revId": "6067c17ea8eb81843c78d65868e535deacdd5fb3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
