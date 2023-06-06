@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03fe8ea0_56f9ec93",
+        "filename": "third_party/fiat/asm/fiat_curve25519_adx_mul.S",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-06-06T19:29:01Z",
+      "side": 1,
+      "message": "Does macOS not take `.type`?",
+      "revId": "52ea54618861ce779f45fce2625a468d8f75ecc8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
