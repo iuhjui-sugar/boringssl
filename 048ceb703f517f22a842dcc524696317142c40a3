@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86365aab_e7ba7cab",
+        "filename": "crypto/kyber/kyber.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 761,
+      "author": {
+        "id": 8749
+      },
+      "writtenOn": "2023-06-06T18:31:07Z",
+      "side": 1,
+      "message": "There doesn\u0027t seem to be a test for mask\u003d0",
+      "revId": "048ceb703f517f22a842dcc524696317142c40a3",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
