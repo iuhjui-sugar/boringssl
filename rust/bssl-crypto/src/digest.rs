@@ -15,7 +15,7 @@
 
 use core::marker::PhantomData;
 
-use crate::ForeignTypeRef;
+use crate::{ForeignTypeRef, CSlice};
 
 /// The BoringSSL implemented SHA-256 digest algorithm.
 #[derive(Clone)]
@@ -110,10 +110,11 @@ impl<M: Md, const OUTPUT_SIZE: usize> Digest<M, OUTPUT_SIZE> {
 
     /// Updates this digest computation using the given `data`.
     pub fn update(&mut self, data: &[u8]) {
+        let data_ffi = CSlice(data);
         // Safety:
-        // - `data` is a slice from safe Rust.
+        // - `data` is a CSlice from safe Rust.
         let result = unsafe {
-            bssl_sys::EVP_DigestUpdate(&mut self.0, data.as_ptr() as *const _, data.len())
+            bssl_sys::EVP_DigestUpdate(&mut self.0, data_ffi.as_ptr() as *const _, data_ffi.len())
         };
         assert_eq!(result, 1, "bssl_sys::EVP_DigestUpdate failed");
     }
