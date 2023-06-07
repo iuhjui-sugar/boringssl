@@ -122,6 +122,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c3751fe5_ef957711",
+        "filename": "rust/bssl-crypto/src/x25519.rs",
+        "patchSetId": 8
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 15426
+      },
+      "writtenOn": "2023-06-07T00:06:59Z",
+      "side": 1,
+      "message": "In UKEY2, the initial handshake derives encryption / decryption keys from the ECDH shared-secret. We are testing that the resulting key derived as expected from a given initial generated ephemeral key. So our goal is not to re-test the boringSSL implementation (even though that is a side effect), but to provide a way to have deterministic input into the system, to get deterministic outputs that can be compared against pre-calculated values.",
+      "parentUuid": "2e28bbab_33534137",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 102
+      },
+      "revId": "ec5e9dba7ef352344cc80d4b38d7cd34d31c1b2d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "69595310_c50662fa",
         "filename": "rust/bssl-crypto/src/x25519.rs",
         "patchSetId": 8
