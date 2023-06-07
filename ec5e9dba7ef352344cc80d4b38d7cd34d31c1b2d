@@ -167,6 +167,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "457caf47_3d41bfeb",
+        "filename": "rust/bssl-crypto/src/x25519.rs",
+        "patchSetId": 8
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 15426
+      },
+      "writtenOn": "2023-06-07T01:41:55Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "69595310_c50662fa",
+      "range": {
+        "startLine": 92,
+        "startChar": 7,
+        "endLine": 92,
+        "endChar": 99
+      },
+      "revId": "ec5e9dba7ef352344cc80d4b38d7cd34d31c1b2d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9445a7bb_530ec3e4",
