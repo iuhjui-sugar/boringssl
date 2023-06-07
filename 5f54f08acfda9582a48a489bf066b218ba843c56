@@ -88,6 +88,24 @@
       "parentUuid": "c1db596b_3a5cb144",
       "revId": "5f54f08acfda9582a48a489bf066b218ba843c56",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9fa4cc36_13622956",
+        "filename": "crypto/stack/stack_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-07T17:59:17Z",
+      "side": 1,
+      "message": "Also interesting that we can\u0027t repro this on our CI... do you all build your libc with `-fsanitize\u003dundefined` enabled? Maybe that\u0027s why you hit it and we don\u0027t.",
+      "parentUuid": "dafc10e0_7c9a63a4",
+      "revId": "5f54f08acfda9582a48a489bf066b218ba843c56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
