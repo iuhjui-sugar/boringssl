@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54f2cb37_55523249",
+        "filename": "rust/bssl-crypto/src/hmac.rs",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-06-07T18:13:20Z",
+      "side": 1,
+      "message": "if it helps you could just remove this API for now, since we didn\u0027t end up actually using it. \n\nThe goal was to save some performance because we run a lot of hmac operations using the same key and have to build a new hmac instance each time, so we were hoping to save some performance by re-using the hmac instance by resetting its state rather than build a new one. Instead of this, we should probably add a `verify_slice_reset` or `finalize_reset` : https://docs.rs/digest/0.10.7/digest/trait.Mac.html#tymethod.verify_slice_reset\nhttps://docs.rs/digest/0.10.7/digest/trait.Mac.html#tymethod.finalize_reset",
+      "range": {
+        "startLine": 140,
+        "startChar": 3,
+        "endLine": 140,
+        "endChar": 29
+      },
+      "revId": "8c5ba939e8293a66b65d428c53895d551c45b95d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
