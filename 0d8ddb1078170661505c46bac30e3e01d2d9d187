@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5c9c74f_4e1bb55f",
+        "filename": "include/openssl/stack.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-07T16:14:50Z",
+      "side": 1,
+      "message": "I would have just written this as a pile of `#define`s, but bindgen can\u0027t handle that yet.\nhttps://github.com/rust-lang/rust-bindgen/issues/2544",
+      "revId": "0d8ddb1078170661505c46bac30e3e01d2d9d187",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
