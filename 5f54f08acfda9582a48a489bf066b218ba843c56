@@ -124,6 +124,24 @@
       "parentUuid": "9fa4cc36_13622956",
       "revId": "5f54f08acfda9582a48a489bf066b218ba843c56",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6a550c18_0635ff3c",
+        "filename": "crypto/stack/stack_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-07T18:53:53Z",
+      "side": 1,
+      "message": "The other `qsort`s should be passing the right function pointer types already. The problem here is that the function pointer comes from public API, so we have to preserve the type on it, and `qsort` has no way to pass additional context into the comparator.\n\n\u003e We have https://reviews.llvm.org/D152322 as an alternative\n\nOh, you all use LLVM\u0027s libc? Yeah, it\u0027d be great if LLVM would implement `qsort_r` or `qsort_s`. Though it\u0027s (I hope) moot for BoringSSL now that we\u0027ve given up on the libc here anymore.\n\nBut hopefully you don\u0027t need to workaround it for our sake anymore, just update your BoringSSL.",
+      "parentUuid": "325998d1_0f82e392",
+      "revId": "5f54f08acfda9582a48a489bf066b218ba843c56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
