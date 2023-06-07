@@ -106,6 +106,24 @@
       "parentUuid": "dafc10e0_7c9a63a4",
       "revId": "5f54f08acfda9582a48a489bf066b218ba843c56",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "325998d1_0f82e392",
+        "filename": "crypto/stack/stack_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 16326
+      },
+      "writtenOn": "2023-06-07T18:40:17Z",
+      "side": 1,
+      "message": "Yeah, we sanitize our libc. We have https://reviews.llvm.org/D152322 as an alternative, but I\u0027ll also start a roll and see if that fixes it. There also appears to be other instances of qsort in boringssl. Should they also be using the same heap_sort?",
+      "parentUuid": "9fa4cc36_13622956",
+      "revId": "5f54f08acfda9582a48a489bf066b218ba843c56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
