@@ -46,6 +46,30 @@
       },
       "revId": "8c5ba939e8293a66b65d428c53895d551c45b95d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f38329d_7993e2c2",
+        "filename": "rust/bssl-crypto/src/hmac.rs",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 15751
+      },
+      "writtenOn": "2023-06-07T18:28:50Z",
+      "side": 1,
+      "message": "I would think `finalize_reset` saves some memory over clone since it doesn\u0027t require cloning into a new object, although it has the undesirable mutable state.\n\nI agree a separate key type seems like the best option, but that would again differ from the RustCrypto API surface. Not sure if that actually matters, but I remember in initial discussions we had that as a sort of goal",
+      "parentUuid": "142244e3_55ffec6f",
+      "range": {
+        "startLine": 140,
+        "startChar": 3,
+        "endLine": 140,
+        "endChar": 29
+      },
+      "revId": "8c5ba939e8293a66b65d428c53895d551c45b95d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
