@@ -34,6 +34,24 @@
       "parentUuid": "47e6d0b1_33f0a8ca",
       "revId": "5f54f08acfda9582a48a489bf066b218ba843c56",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1db596b_3a5cb144",
+        "filename": "crypto/stack/stack_test.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-07T01:00:45Z",
+      "side": 1,
+      "message": "Yeah, C++ would be nicer in a lot of ways. :-/ The nuisance is Bazel is pretty bad at mixing C and C++ in a single target, so some of our downstream builds would be a bit impacted.\n\nI put together the \"give up on `qsort`\" option which, while disappointing, isn\u0027t *horrible*. So that could be an option.\nhttps://boringssl-review.googlesource.com/c/boringssl/+/60507",
+      "parentUuid": "83ab0dd7_ff7053b6",
+      "revId": "5f54f08acfda9582a48a489bf066b218ba843c56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
