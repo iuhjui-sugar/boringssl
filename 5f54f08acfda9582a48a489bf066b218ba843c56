@@ -1,6 +1,24 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c8130c1_eeb31256",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-07T15:54:00Z",
+      "side": 1,
+      "message": "\u003e https://boringssl-review.googlesource.com/c/boringssl/+/60507\n\nIt\u0027s really not that horrible to be honest.",
+      "tag": "mailMessageId\u003d\u003cCALA6n3GB8wvR8L\u003d3ufEAWqFpTmbR57Nz1_W6Lvh49d_LL1cMHg@mail.gmail.com\u003e",
+      "revId": "5f54f08acfda9582a48a489bf066b218ba843c56",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "47e6d0b1_33f0a8ca",
