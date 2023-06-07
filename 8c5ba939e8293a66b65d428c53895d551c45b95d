@@ -22,6 +22,30 @@
       },
       "revId": "8c5ba939e8293a66b65d428c53895d551c45b95d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "142244e3_55ffec6f",
+        "filename": "rust/bssl-crypto/src/hmac.rs",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-07T18:17:48Z",
+      "side": 1,
+      "message": "Eh, I don\u0027t mind keeping it around for now. I see their API has `reset` too.\n\nWhat\u0027s the benefit of `finalize_reset`, etc., over just implementing `Clone` on these objects? That\u0027s more thread-safe anyway, since it means you don\u0027t have to mutate your template.\n\nBetter yet, have a separate key type, like ring does. That\u0027s slightly more efficient memory-wise too, though our C API doesn\u0027t currently admit that optimization. (It should.)\nhttps://briansmith.org/rustdoc/ring/hmac/",
+      "parentUuid": "54f2cb37_55523249",
+      "range": {
+        "startLine": 140,
+        "startChar": 3,
+        "endLine": 140,
+        "endChar": 29
+      },
+      "revId": "8c5ba939e8293a66b65d428c53895d551c45b95d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
