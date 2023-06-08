@@ -1510,6 +1510,36 @@ OPTION	DOTNAME
 ___
 }
 
+if ($nasm) {
+    print <<___;
+\%define _CET_ENDBR
+___
+} else {
+    print <<___;
+#if defined(__CET__)
+#include <cet.h>
+#else
+#define _CET_ENDBR
+#endif
+
+___
+}
+
+if ($nasm) {
+    print <<___;
+\%define _CET_ENDBR
+___
+} else {
+    print <<___;
+#if defined(__CET__)
+#include <cet.h>
+#else
+#define _CET_ENDBR
+#endif
+
+___
+}
+
 if ($gas) {
     my $target;
     if ($elf) {
