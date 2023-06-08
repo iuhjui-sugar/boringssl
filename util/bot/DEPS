@@ -34,7 +34,11 @@ vars = {
   # Update the following from
   # https://chromium.googlesource.com/chromium/src/+/main/DEPS
   'android_sdk_platform-tools_version': 'RSI3iwryh7URLGRgJHsCvUxj092woTPnKt4pwFcJ6L8C',
+<<<<<<< PATCH SET (abd614 Upgrade NDK from r23c to r25c and switch to CIPD)
+  'android_toolchain_version': 'version:2@r25c.cr0',
+=======
   'android_ndk_revision': '310956bd122ec2b96049f8d7398de6b717f3452e',
+>>>>>>> BASE      (3f680b Remove a layer of indirection from fiat curve25519 assembly)
   'libfuzzer_revision': 'debe7d2d1982e540fbd6bd78604bf001753f9e74',
   'libcxx_revision': 'f8279b01085b800724f5c5629dc365b9f040dc53',
   'libcxxabi_revision': '899caea3814eeb45c689fc206052968943fd5cb8',
@@ -42,9 +46,13 @@ vars = {
 }
 
 deps = {
-  'boringssl/util/bot/android_ndk': {
-    'url': Var('chromium_git') + '/android_ndk.git' + '@' + Var('android_ndk_revision'),
+  'boringssl/util/bot/android_toolchain': {
+    'packages': [{
+      'package': 'chromium/third_party/android_toolchain/r25c/android_toolchain',
+      'version': Var('android_toolchain_version'),
+    }],
     'condition': 'checkout_android',
+    'dep_type': 'cipd',
   },
 
   'boringssl/util/bot/android_sdk/public': {
