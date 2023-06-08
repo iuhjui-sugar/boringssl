@@ -16,6 +16,24 @@
       "message": "The diff looks good to me.\n\nThe commit message has a few too many \"support\" in the first line. Maybe a simple\n\"Add Intel Indirect Branch Tracking support\" would do.\n\nSome other software that ships a bundled BoringSSL apart from chrome is mono and qtwebengine.",
       "revId": "171df08db4878bec3d523601fbedfb382c86ad9c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd21cd31_c8545819",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-08T17:30:50Z",
+      "side": 1,
+      "message": "Amended",
+      "parentUuid": "252b2e8d_90ad6986",
+      "revId": "171df08db4878bec3d523601fbedfb382c86ad9c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
