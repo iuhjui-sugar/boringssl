@@ -47,6 +47,14 @@
 .popsection
 #endif
 
+#if defined(OPENSSL_X86_84)
+#if defined(__CET__)
+#include <cet.h>
+#else
+#define _CET_ENDBR
+#endif
+#endif // X86_64
+
 #if defined(OPENSSL_ARM) || defined(OPENSSL_AARCH64)
 
 // We require the ARM assembler provide |__ARM_ARCH| from Arm C Language
