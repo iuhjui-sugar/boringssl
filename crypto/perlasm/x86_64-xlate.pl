@@ -1488,6 +1488,7 @@ my $endbranch = sub {
 $comment This file is generated from a similarly-named Perl script in the BoringSSL
 $comment source tree. Do not edit by hand.
 
+#include <openssl/asm_base.h>
 ___
 }
 
@@ -1499,6 +1500,7 @@ default	rel
 \%define XMMWORD
 \%define YMMWORD
 \%define ZMMWORD
+\%define _CET_ENDBR
 
 \%ifdef BORINGSSL_PREFIX
 \%include "boringssl_prefix_symbols_nasm.inc"
@@ -1507,6 +1509,18 @@ ___
 } elsif ($masm) {
     print <<___;
 OPTION	DOTNAME
+___
+}
+
+if (!$nasm) {
+    print <<___;
+#include <openssl/asm_base.h>
+#if defined(__CET__)
+#include <cet.h>
+#else
+#define _CET_ENDBR
+#endif
+
 ___
 }
 
@@ -1522,8 +1536,6 @@ if ($gas) {
         die "unknown target: $flavour";
     }
     print <<___;
-#include <openssl/asm_base.h>
-
 #if !defined(OPENSSL_NO_ASM) && defined(OPENSSL_X86_64) && $target
 ___
 }
