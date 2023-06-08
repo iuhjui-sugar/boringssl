@@ -46,6 +46,30 @@
       },
       "revId": "4cbb1013c4b280b93031cfa9dc4c159aa7d8980a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8fb44c20_2ed54cbc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-08T21:43:34Z",
+      "side": 1,
+      "message": "Ahh yes, I missed that the lock functions were not public.. yes, this is fine.",
+      "parentUuid": "50b52c8f_24b517f6",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 39
+      },
+      "revId": "4cbb1013c4b280b93031cfa9dc4c159aa7d8980a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
