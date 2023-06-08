@@ -34,7 +34,7 @@ vars = {
   # Update the following from
   # https://chromium.googlesource.com/chromium/src/+/main/DEPS
   'android_sdk_platform-tools_version': 'RSI3iwryh7URLGRgJHsCvUxj092woTPnKt4pwFcJ6L8C',
-  'android_ndk_revision': '8388a2be5421311dc75c5f937aae13d821a27f3d',
+  'android_toolchain_version': 'version:2@r25c.cr0',
   'libfuzzer_revision': 'debe7d2d1982e540fbd6bd78604bf001753f9e74',
   'libcxx_revision': 'f8279b01085b800724f5c5629dc365b9f040dc53',
   'libcxxabi_revision': 'd5e79e117ce9adfdcfdc5dde56ee8cddd7742854',
@@ -42,9 +42,13 @@ vars = {
 }
 
 deps = {
-  'boringssl/util/bot/android_ndk': {
-    'url': Var('chromium_git') + '/android_ndk.git' + '@' + Var('android_ndk_revision'),
+  'boringssl/util/bot/android_toolchain': {
+    'packages': [{
+      'package': 'chromium/third_party/android_toolchain/r25c/android_toolchain',
+      'version': Var('android_toolchain_version'),
+    }],
     'condition': 'checkout_android',
+    'dep_type': 'cipd',
   },
 
   'boringssl/util/bot/android_sdk/public': {
