@@ -47,6 +47,19 @@
 .popsection
 #endif
 
+#if defined(__CET__)
+// Clang and GCC define __CET__ and provide <cet.h> when they support Intel's
+// Indirect Branch Tracking.
+// https://lpc.events/event/7/contributions/729/attachments/496/903/CET-LPC-2020.pdf
+//
+// cet.h defines _CET_ENDBR which is used to mark function entry points for IBT.
+// the value of _CET_ENDBR is then dependant on if '-fcf-protection' is passed
+// to the compiler.
+#include <cet.h>
+#else
+#define _CET_ENDBR
+#endif
+
 #if defined(OPENSSL_ARM) || defined(OPENSSL_AARCH64)
 
 // We require the ARM assembler provide |__ARM_ARCH| from Arm C Language
