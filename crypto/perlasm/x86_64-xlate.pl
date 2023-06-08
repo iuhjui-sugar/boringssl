@@ -1510,6 +1510,12 @@ OPTION	DOTNAME
 ___
 }
 
+if ($nasm) {
+    print <<___;
+\%define _CET_ENDBR
+___
+}
+
 if ($gas) {
     my $target;
     if ($elf) {
