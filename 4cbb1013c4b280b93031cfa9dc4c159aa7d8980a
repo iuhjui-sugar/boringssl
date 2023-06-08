@@ -22,6 +22,30 @@
       },
       "revId": "4cbb1013c4b280b93031cfa9dc4c159aa7d8980a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50b52c8f_24b517f6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-08T18:00:19Z",
+      "side": 1,
+      "message": "I think it\u0027s fine? It wasn\u0027t possible to do anything useful with `CRYPTO_MUTEX`, since we didn\u0027t export any of the functions for it. It was only there because it\u0027s embedded in some public structs.",
+      "parentUuid": "e0ef863e_f9b7c014",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 39
+      },
+      "revId": "4cbb1013c4b280b93031cfa9dc4c159aa7d8980a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
