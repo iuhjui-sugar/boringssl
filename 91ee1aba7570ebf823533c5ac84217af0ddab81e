@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfe80113_801cf452",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-08T17:35:08Z",
+      "side": 1,
+      "message": "I presume you TGP\u0027ed this one? :) (For the benefit of the google3 updater)",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 22
+      },
+      "revId": "91ee1aba7570ebf823533c5ac84217af0ddab81e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
