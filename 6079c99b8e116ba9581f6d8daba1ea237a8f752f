@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59fc89ba_7c220635",
+        "filename": "util/bot/DEPS",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 15786
+      },
+      "writtenOn": "2023-06-08T04:25:24Z",
+      "side": 1,
+      "message": "Debatable on how desirable it is to keep the name \u0027android_ndk\u0027, as that refers to a now-stale legacy path. However, in the context of BoringSSL, we really do want the Android NDK and not just the minimal set of things required for the toolchain, so this remapping might be okay.\n\nFor reference - the reason we\u0027re not switching it here is that the bot seems to know \u0027android_ndk\u0027 as the path, so if we want to switch it, we\u0027ll have to update the bot configuration first.",
+      "revId": "6079c99b8e116ba9581f6d8daba1ea237a8f752f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
