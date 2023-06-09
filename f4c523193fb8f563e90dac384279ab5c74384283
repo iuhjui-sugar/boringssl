@@ -357,6 +357,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "53650729_d4db2692",
+        "filename": "rust/bssl-crypto/src/p256.rs",
+        "patchSetId": 10
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 15426
+      },
+      "writtenOn": "2023-06-09T23:20:13Z",
+      "side": 1,
+      "message": "I might have been overindexing on the p256 Rust crate that provides the equivalent functionality. That was the reason why this module is `p256` and also why the private keys are called `EphemeralSecret`.\n\nFor our use case, `from_private_bytes` is used for testing only, but it sounds like the preference is to remove the \"ephemeral\" aspect from the naming.\n\nIt sounds like the direction I should go instead, is\n\n1. Rename `EphemeralSecret` to `PrivateKey`\n2. Rename the module to `ecdh`\n3. Introduce a trait `Curve`, and an impl `P256`\n4. Make PublicKey and PrivateKey generic over `Curve`\n5. Move X25519 to share this API surface\n\nThat\u0027ll get this pretty close to the Go package\u0027s API surface",
+      "parentUuid": "6118c924_19cad7d1",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 42
+      },
+      "revId": "f4c523193fb8f563e90dac384279ab5c74384283",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "286fec75_8676f55c",
         "filename": "rust/bssl-crypto/src/p256.rs",
         "patchSetId": 10
