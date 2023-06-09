@@ -236,6 +236,30 @@
       },
       "revId": "ec5e9dba7ef352344cc80d4b38d7cd34d31c1b2d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "846e3c72_0b745337",
+        "filename": "rust/bssl-crypto/src/x25519.rs",
+        "patchSetId": 8
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 15426
+      },
+      "writtenOn": "2023-06-09T00:36:31Z",
+      "side": 1,
+      "message": "Removed this comment from the code in the latest patch set, but @davidben please comment if you think we should rename this",
+      "parentUuid": "9445a7bb_530ec3e4",
+      "range": {
+        "startLine": 118,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 42
+      },
+      "revId": "ec5e9dba7ef352344cc80d4b38d7cd34d31c1b2d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
