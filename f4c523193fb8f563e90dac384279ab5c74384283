@@ -381,6 +381,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "955fbaa9_da9701b0",
+        "filename": "rust/bssl-crypto/src/p256.rs",
+        "patchSetId": 10
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-09T23:30:04Z",
+      "side": 1,
+      "message": "We also don\u0027t necessarily have to set up a trait hierarchy just yet. That comment was based on an incorrect assumption that you all had already done a completely different X25519 API, and I was trying to understand why it was different.\n\nI suspect a trait hierarchy and wanting to believe in fixed-width inputs will be tricky. Not all DH primitives have the same sizes. Also P-256 pulls in some added questions around compressed vs. uncompressed coordinates since it wasn\u0027t standardized as consistently.\n\nThough I guess this API also doesn\u0027t really handle that correctly yet, as it doesn\u0027t even implement the standard X9.62 serialization.\n\n\u003e it sounds like the preference is to remove the \"ephemeral\" aspect from the naming.\n\nIt\u0027s more than just naming. The `diffie_hellman` method consumes the object. I see it does it in the `p256` crate too... this seems like someone trying to make the Rust type system enforce ephemerality. That is something one could do, but then we can\u0027t have `from_private_bytes`.\n\nBut since there are valid reasons to do non-ephemeral ECDH, we\u0027d presumbly need the other API later. And then we have to answer what we\u0027re actually getting out of having separate ephemeral-only and reusable APIs.\n\nWhat are you actually planning on doing with this API? The lack of the standard serialization format is pretty surprising. Have you all gathered your requirements there?\n\n\u003e I might have been overindexing on the p256 Rust crate that provides the equivalent functionality. That was the reason why this module is p256 and also why the private keys are called EphemeralSecret.\n\nI see. I mean, looking to other APIs makes sense, but I think we need to be able to articulate why we made the choices we did. This may be something we should discuss next week.\n\nI will note though, that that crate has `p256::ecdh` and `p256::ecdsa` for exactly the reason I was mentioning here. P-256 is a curve, not an ECDH primitive.",
+      "parentUuid": "53650729_d4db2692",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 42
+      },
+      "revId": "f4c523193fb8f563e90dac384279ab5c74384283",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "286fec75_8676f55c",
         "filename": "rust/bssl-crypto/src/p256.rs",
         "patchSetId": 10
