@@ -309,6 +309,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a0ec4689_84f0c931",
+        "filename": "rust/bssl-crypto/src/p256.rs",
+        "patchSetId": 10
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-09T22:29:17Z",
+      "side": 1,
+      "message": "I haven\u0027t had time to look at this carefully yet, but I think there may be some bigger API questions to think about here:\n\nFirst, P-256 is a curve, not a Diffie-Hellman primitive. It is used to implement ECDH, ECDSA, and all manner of algorithms. In contrast, X25519 is a Diffie-Hellman primitive. (X25519\u0027s curve is curve25519, which is equivalent to edwards25519, the curve that underlies Ed25519. But as curves, those can be used to make other primitives.)\n\nSo while it is, IMO, nicer that we have APIs for ECDH-P256 instead of P-256 (elliptic curves are things you build cryptography out of), calling the module `p256` is weird.\n\nSecond, it\u0027s weird that you all call the private key an `EphemeralSecret`. While ECDH is typically used with ephemeral keypairs, it isn\u0027t always. You can have long-lived ECDH keypairs. It\u0027s possible that we make an API specifically tailored for ephemeral keys only (I see `diffie_hellman` consumes the object), but in that case, why is there a `from_private_bytes` API? If you believe you can serialize and deserialize the object, it\u0027s clearly not ephemeral anymore.\n\nIt\u0027s also weird to take an opinionated stance that ECDH with P-256 is ephemeral, but not X25519? They\u0027re the same kind of construct ultimately.\n\nFinally, although we haven\u0027t solved this problem in even the C API (sort of... there\u0027s the EVP Diffie-Hellman stuff, but it\u0027s tedious) and don\u0027t necessary have to at this iteration, it is a bit weird for X25519 and ECDH with P-256 to be so different in API. Go recently added `crypto/ecdh` to their standard library, which is a pretty nice abstraction.\nhttps://pkg.go.dev/crypto/ecdh",
+      "parentUuid": "b1772a70_249a52ee",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 42
+      },
+      "revId": "f4c523193fb8f563e90dac384279ab5c74384283",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "286fec75_8676f55c",
         "filename": "rust/bssl-crypto/src/p256.rs",
         "patchSetId": 10

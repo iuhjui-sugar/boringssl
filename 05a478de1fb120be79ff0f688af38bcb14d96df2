@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afddab53_6c41e6a5",
+        "filename": "rust/bssl-crypto/src/p256.rs",
+        "patchSetId": 12
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-09T22:29:17Z",
+      "side": 1,
+      "message": "Nit: The curve is \"P-256\", not \"P256\". \"P256\" is just what you write contexts like API symbols when hyphens don\u0027t work very well.",
+      "range": {
+        "startLine": 24,
+        "startChar": 31,
+        "endLine": 24,
+        "endChar": 35
+      },
+      "revId": "05a478de1fb120be79ff0f688af38bcb14d96df2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
