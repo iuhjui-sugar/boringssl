@@ -333,6 +333,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6118c924_19cad7d1",
+        "filename": "rust/bssl-crypto/src/p256.rs",
+        "patchSetId": 10
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-09T22:34:10Z",
+      "side": 1,
+      "message": "Oh, scratch some of the comments on X25519. I misremembered and thought you all had already designed an X25519 API but actually that was Ed25519. I see X25519 is later in the stack. :-)\n\nThough I still am a little confused about the focus on `EphemeralSecret`. Our C API doesn\u0027t try to force that. Can you elaborate on the motivation here?",
+      "parentUuid": "a0ec4689_84f0c931",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 42
+      },
+      "revId": "f4c523193fb8f563e90dac384279ab5c74384283",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "286fec75_8676f55c",
         "filename": "rust/bssl-crypto/src/p256.rs",
         "patchSetId": 10

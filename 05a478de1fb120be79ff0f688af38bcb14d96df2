@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a6242fbb_cb0e325c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-09T22:34:10Z",
+      "side": 1,
+      "message": "These bug numbers are interpreted as BoringSSL bug numbers by default. I believe the bugdroid syntax for that one is `b:285223043`, though I don\u0027t know if it\u0027ll get picked up here.",
+      "revId": "05a478de1fb120be79ff0f688af38bcb14d96df2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "afddab53_6c41e6a5",
         "filename": "rust/bssl-crypto/src/p256.rs",
         "patchSetId": 12
