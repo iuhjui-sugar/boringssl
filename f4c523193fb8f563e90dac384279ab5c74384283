@@ -236,6 +236,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0067dc06_44297095",
+        "filename": "rust/bssl-crypto/src/p256.rs",
+        "patchSetId": 10
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 15426
+      },
+      "writtenOn": "2023-06-09T00:36:26Z",
+      "side": 1,
+      "message": "It is also used in the consuming library, the same way we use it in X25519",
+      "parentUuid": "fa2d6009_1b975a48",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 102
+      },
+      "revId": "f4c523193fb8f563e90dac384279ab5c74384283",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b2769d97_825883a1",
@@ -249,6 +273,30 @@
       "writtenOn": "2023-06-05T17:55:49Z",
       "side": 1,
       "message": "Davidben may have an opinion here, but IMO the horse left the barn long ago with the door open at \"PublicKey\".",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 42
+      },
+      "revId": "f4c523193fb8f563e90dac384279ab5c74384283",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1772a70_249a52ee",
+        "filename": "rust/bssl-crypto/src/p256.rs",
+        "patchSetId": 10
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 15426
+      },
+      "writtenOn": "2023-06-09T00:36:26Z",
+      "side": 1,
+      "message": "Removed this comment from the code in the latest patch set, but @davidben please comment if you think we should rename this.",
+      "parentUuid": "b2769d97_825883a1",
       "range": {
         "startLine": 88,
         "startChar": 0,
