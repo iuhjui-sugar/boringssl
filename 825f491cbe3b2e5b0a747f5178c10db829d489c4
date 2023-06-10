@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51c431b2_9486cb3c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-06-10T21:01:52Z",
+      "side": 1,
+      "message": "(Man that\u0027s a sharp edge in asm syntax.)",
+      "revId": "825f491cbe3b2e5b0a747f5178c10db829d489c4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
