@@ -155,9 +155,18 @@ def ci_builder(
         short_name = short_name,
     )
 
-def cq_builder(name, host, *, recipe = "boringssl", cq_enabled = True, properties = {}):
+def cq_builder(
+        name,
+        host,
+        *,
+        recipe = "boringssl",
+        cq_enabled = True,
+        execution_timeout = None,
+        properties = {}):
     dimensions = dict(host["dimensions"])
     dimensions["pool"] = "luci.flex.try"
+    if execution_timeout == None:
+        execution_timeout = host.get("execution_timeout", DEFAULT_TIMEOUT)
     builder = luci.builder(
         name = name,
         bucket = "try",
@@ -187,6 +196,7 @@ def both_builders(
         short_name = None,
         cq_enabled = True,
         cq_compile_only = None,
+        execution_timeout = None,
         properties = {}):
     ci_builder(
         name,
@@ -194,6 +204,7 @@ def both_builders(
         recipe = recipe,
         category = category,
         short_name = short_name,
+        execution_timeout = execution_timeout,
         properties = properties,
     )
 
@@ -207,6 +218,7 @@ def both_builders(
         host,
         recipe = recipe,
         cq_enabled = cq_enabled and not cq_compile_only,
+        execution_timeout = execution_timeout,
         properties = properties,
     )
     if cq_compile_only:
@@ -218,6 +230,7 @@ def both_builders(
             cq_compile_only,
             recipe = recipe,
             cq_enabled = cq_enabled,
+            execution_timeout = execution_timeout,
             properties = compile_properties,
         )
 
@@ -522,11 +535,12 @@ both_builders(
         },
     },
 )
-ci_builder(
+both_builders(
     "linux32_sde",
     LINUX_HOST,
     category = "linux|32",
     short_name = "sde",
+    cq_enabled = False,
     execution_timeout = SDE_TIMEOUT,
     properties = {
         "cmake_args": {
@@ -743,11 +757,12 @@ both_builders(
         },
     },
 )
-ci_builder(
+both_builders(
     "linux_sde",
     LINUX_HOST,
     category = "linux",
     short_name = "sde",
+    cq_enabled = False,
     execution_timeout = SDE_TIMEOUT,
     properties = {
         "cmake_args": {
@@ -841,11 +856,12 @@ both_builders(
         "msvc_target": "x86",
     },
 )
-ci_builder(
+both_builders(
     "win32_sde",
     WIN_HOST,
     category = "win|x86",
     short_name = "sde",
+    cq_enabled = False,
     execution_timeout = SDE_TIMEOUT,
     properties = {
         "cmake_args": {
@@ -923,11 +939,12 @@ both_builders(
         "msvc_target": "x64",
     },
 )
-ci_builder(
+both_builders(
     "win64_sde",
     WIN_HOST,
     category = "win|x64",
     short_name = "sde",
+    cq_enabled = False,
     execution_timeout = SDE_TIMEOUT,
     properties = {
         "cmake_args": {
