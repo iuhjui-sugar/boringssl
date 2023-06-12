@@ -1,0 +1,35 @@
+From 05ae5d50f6e78fc5adc580fb736289fd7869f2c1 Mon Sep 17 00:00:00 2001
+From: Bob Beck <bbe@google.com>
+Date: Thu, 1 Jun 2023 17:46:11 +0200
+Subject: [PATCH 08/17] don't use a reference here, to avoid
+ range-loop-construct warnings
+
+---
+ net/cert/pki/nist_pkits_unittest.h | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/net/cert/pki/nist_pkits_unittest.h b/net/cert/pki/nist_pkits_unittest.h
+index 45e3ff91e5417..52daee181c605 100644
+--- a/net/cert/pki/nist_pkits_unittest.h
++++ b/net/cert/pki/nist_pkits_unittest.h
+@@ -89,13 +89,15 @@ class PkitsTest : public ::testing::Test {
+                const char* const (&crl_names)[num_crls],
+                const PkitsTestInfo& info) {
+     std::vector<std::string> cert_ders;
+-    for (const std::string& s : cert_names)
++    for (const std::string s : cert_names) {
+       cert_ders.push_back(net::ReadTestFileToString(
+           "net/third_party/nist-pkits/certs/" + s + ".crt"));
++    }
+     std::vector<std::string> crl_ders;
+-    for (const std::string& s : crl_names)
++    for (const std::string s : crl_names) {
+       crl_ders.push_back(net::ReadTestFileToString(
+           "net/third_party/nist-pkits/crls/" + s + ".crl"));
++    }
+ 
+     std::string_view test_number = info.test_number;
+ 
+-- 
+2.41.0.162.gfafddb0af9-goog
+
