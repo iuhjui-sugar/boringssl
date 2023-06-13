@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9a4153a7_8ceb4294",
+        "filename": "include/openssl/asm_base.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-13T21:26:16Z",
+      "side": 1,
+      "message": "Well, it really is kind of like openssl/base.h so it made sense to me. \n\nI\u0027m relatively ok with either name, unless we feel the need to make an include/openssl/asm directory and hide them in there.",
+      "parentUuid": "00825821_183fc36e",
+      "revId": "c1866a30af5e39316f3d5a9d2af2e9d731abd4eb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9f6e9cb3_db093ecc",
         "filename": "include/openssl/target.h",
         "patchSetId": 4
