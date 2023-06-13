@@ -26,6 +26,8 @@
 
 extern crate core;
 
+use core::ffi::CStr;
+
 /// AES block operations.
 pub mod aes;
 
@@ -50,8 +52,8 @@ pub mod x25519;
 /// BoringSSL implemented memory-manipulation operations.
 pub mod mem;
 
-/// BoringSSL implemented Nist P-256 elliptic curve operations.
-pub mod p256;
+/// BoringSSL implemented elliptic curve diffie-hellman operations.
+pub mod ecdh;
 
 pub(crate) mod bn;
 pub(crate) mod ec;
@@ -106,6 +108,13 @@ impl<'a> From<&'a mut [u8]> for CSliceMut<'a> {
     fn from(value: &'a mut [u8]) -> Self {
         Self(value)
     }
+}
+
+pub(crate) fn debug_print_error() {
+    let error_code = unsafe { bssl_sys::ERR_get_error() };
+    let reason_string = unsafe { CStr::from_ptr(bssl_sys::ERR_reason_error_string(error_code)) };
+    let error_lib = unsafe { CStr::from_ptr(bssl_sys::ERR_lib_error_string(error_code)) };
+    println!("Error code={error_code:?} reason={reason_string:?} lib={error_lib:?}");
 }
 
 /// A helper trait implemented by types which reference borrowed foreign types.

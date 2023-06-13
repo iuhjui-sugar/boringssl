@@ -29,12 +29,12 @@ pub const SHARED_KEY_LEN: usize = bssl_sys::X25519_SHARED_KEY_LEN as usize;
 pub struct DiffieHellmanError;
 
 /// An ephemeral secret containing a X25519 key pair.
-pub struct EphemeralSecret {
+pub struct PrivateKey {
     private_key: [u8; PRIVATE_KEY_LEN],
     public_key: [u8; PUBLIC_KEY_LEN],
 }
 
-impl EphemeralSecret {
+impl PrivateKey {
     /// Derives a shared secrect from this ephemeral secret and the given public key.
     pub fn diffie_hellman(
         self,
@@ -56,7 +56,7 @@ impl EphemeralSecret {
             // - `shared_key_uninit` is initialized by `X25519` above, and we checked that it
             //   succeeded
             let shared_key = unsafe { shared_key_uninit.assume_init() };
-            Ok(SharedSecret(shared_key))
+            Ok(crate::ecdh::SharedSecret(shared_key))
         } else {
             Err(DiffieHellmanError)
         }
@@ -105,8 +105,8 @@ impl EphemeralSecret {
     }
 }
 
-impl<'a> From<&'a EphemeralSecret> for PublicKey {
-    fn from(value: &'a EphemeralSecret) -> Self {
+impl<'a> From<&'a PrivateKey> for PublicKey {
+    fn from(value: &'a PrivateKey) -> Self {
         Self(value.public_key)
     }
 }
@@ -127,64 +127,49 @@ impl PublicKey {
     }
 }
 
-impl From<[u8; 32]> for PublicKey {
-    fn from(value: [u8; 32]) -> Self {
-        Self(value)
+impl From<&[u8; 32]> for PublicKey {
+    fn from(value: &[u8; 32]) -> Self {
+        Self(*value)
     }
 }
 
 /// Shared secret derived from a Diffie-Hellman key exchange. Don't use the shared key directly,
 /// rather use a KDF and also include the two public values as inputs.
-pub struct SharedSecret([u8; SHARED_KEY_LEN]);
-
-impl SharedSecret {
-    /// Gets a copy of the shared secret.
-    pub fn to_bytes(&self) -> [u8; SHARED_KEY_LEN] {
-        self.0
-    }
-
-    /// Gets a reference to the underlying data in this shared secret.
-    pub fn as_bytes(&self) -> &[u8; SHARED_KEY_LEN] {
-        &self.0
-    }
-}
+type SharedSecret = crate::ecdh::SharedSecret<SHARED_KEY_LEN>;
 
 #[cfg(test)]
 #[allow(clippy::unwrap_used)]
 mod tests {
     use crate::{
         test_helpers::decode_hex,
-        x25519::{EphemeralSecret, PublicKey},
+        x25519::{PrivateKey, PublicKey},
     };
 
     #[test]
     fn x25519_test_diffie_hellman() {
         // wycheproof/testvectors/x25519_test.json tcId 1
-        let public_key_bytes =
+        let public_key_bytes: [u8; 32] =
             decode_hex("504a36999f489cd2fdbc08baff3d88fa00569ba986cba22548ffde80f9806829");
         let private_key =
             decode_hex("c8a9d5a91091ad851c668b0736c1c9a02936c0d3ad62670858088047ba057475");
-        let expected_shared_secret =
+        let expected_shared_secret: [u8; 32] =
             decode_hex("436a2c040cf45fea9b29a0cb81b1f41458f863d0d61b453d0a982720d6d61320");
-        let public_key = PublicKey(public_key_bytes);
-        let ephemeral_secret = EphemeralSecret {
-            private_key,
-            public_key: [0_u8; 32], // The public key is not used in diffie hellman
-        };
+        let public_key = PublicKey::from(&public_key_bytes);
+        let private_key = PrivateKey::from_private_bytes(&private_key);
 
-        let shared_secret = ephemeral_secret.diffie_hellman(&public_key);
-        assert_eq!(expected_shared_secret, shared_secret.unwrap().to_bytes());
+        let shared_secret = private_key.diffie_hellman(&public_key).unwrap();
+        assert_eq!(expected_shared_secret, shared_secret.to_bytes());
     }
 
     #[test]
     fn x25519_generate_diffie_hellman_matches() {
-        let ephemeral_secret_1 = EphemeralSecret::generate();
-        let ephemeral_secret_2 = EphemeralSecret::generate();
-        let public_key_1 = PublicKey::from(&ephemeral_secret_1);
-        let public_key_2 = PublicKey::from(&ephemeral_secret_2);
+        let private_key_1 = PrivateKey::generate();
+        let private_key_2 = PrivateKey::generate();
+        let public_key_1 = PublicKey::from(&private_key_1);
+        let public_key_2 = PublicKey::from(&private_key_2);
 
-        let diffie_hellman_1 = ephemeral_secret_1.diffie_hellman(&public_key_2).unwrap();
-        let diffie_hellman_2 = ephemeral_secret_2.diffie_hellman(&public_key_1).unwrap();
+        let diffie_hellman_1 = private_key_1.diffie_hellman(&public_key_2).unwrap();
+        let diffie_hellman_2 = private_key_2.diffie_hellman(&public_key_1).unwrap();
 
         assert_eq!(diffie_hellman_1.to_bytes(), diffie_hellman_2.to_bytes());
     }
@@ -196,11 +181,8 @@ mod tests {
             decode_hex("0000000000000000000000000000000000000000000000000000000000000000");
         let private_key =
             decode_hex("88227494038f2bb811d47805bcdf04a2ac585ada7f2f23389bfd4658f9ddd45e");
-        let public_key = PublicKey(public_key_bytes);
-        let ephemeral_secret = EphemeralSecret {
-            private_key,
-            public_key: [0_u8; 32], // The public key is not used in diffie hellman
-        };
+        let public_key = PublicKey::from(&public_key_bytes);
+        let ephemeral_secret = PrivateKey::from_private_bytes(&private_key);
 
         let shared_secret = ephemeral_secret.diffie_hellman(&public_key);
         assert!(shared_secret.is_err());
@@ -210,25 +192,22 @@ mod tests {
     fn x25519_public_key_byte_conversion() {
         let public_key_bytes =
             decode_hex("504a36999f489cd2fdbc08baff3d88fa00569ba986cba22548ffde80f9806829");
-        let public_key = PublicKey(public_key_bytes);
-        assert_eq!(&public_key_bytes, public_key.as_bytes());
+        let public_key = PublicKey::from(&public_key_bytes);
         assert_eq!(public_key_bytes, public_key.to_bytes());
     }
 
     #[test]
-    fn x25519_test_public_key_from_ephemeral_secret() {
+    fn x25519_test_public_key_from_private_key() {
+        // Taken from https://www.rfc-editor.org/rfc/rfc7748.html#section-6.1
         let public_key_bytes =
-            decode_hex("504a36999f489cd2fdbc08baff3d88fa00569ba986cba22548ffde80f9806829");
-        let private_key =
-            decode_hex("c8a9d5a91091ad851c668b0736c1c9a02936c0d3ad62670858088047ba057475");
-        let ephemeral_secret = EphemeralSecret {
-            private_key,
-            public_key: public_key_bytes,
-        };
+            decode_hex("8520f0098930a754748b7ddcb43ef75a0dbf3a0d26381af4eba4a98eaa9b4e6a");
+        let private_key_bytes =
+            decode_hex("77076d0a7318a57d3c16c17251b26645df4c2f87ebc0992ab177fba51db92c2a");
+        let private_key = PrivateKey::from_private_bytes(&private_key_bytes);
 
         assert_eq!(
-            PublicKey(public_key_bytes),
-            PublicKey::from(&ephemeral_secret)
+            PublicKey::from(&public_key_bytes),
+            PublicKey::from(&private_key)
         );
     }
 }
