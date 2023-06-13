@@ -22,6 +22,30 @@
       },
       "revId": "d76b6cbc05175ab086dba53e1815ea262c2323bd",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "67a13dd6_f712bd95",
+        "filename": "crypto/fipsmodule/bn/div.c",
+        "patchSetId": 4
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-13T21:20:59Z",
+      "side": 1,
+      "message": "It did, buried deep in `bn_mod_add_consttime`. (Slightly dubious since these functions require their inputs be fully reduced, but okay. Effectively this is silently taking an absolute value.)",
+      "parentUuid": "7d6eb912_da31067e",
+      "range": {
+        "startLine": 726,
+        "startChar": 4,
+        "endLine": 726,
+        "endChar": 15
+      },
+      "revId": "d76b6cbc05175ab086dba53e1815ea262c2323bd",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
