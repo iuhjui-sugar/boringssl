@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c85e2f8_a3d89239",
+        "filename": "include/openssl/arm_arch.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-13T19:27:52Z",
+      "side": 1,
+      "message": "I kept this header around because these symbols are also consumed by C.",
+      "revId": "55d175effb9a7784f5d4a3db73e853c2098c2e45",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "739117eb_1f03bc88",
+        "filename": "include/openssl/arm_arch.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-13T19:27:52Z",
+      "side": 1,
+      "message": "Not sure whether here or `asm_base.h` would be better for these bits.",
+      "revId": "55d175effb9a7784f5d4a3db73e853c2098c2e45",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
