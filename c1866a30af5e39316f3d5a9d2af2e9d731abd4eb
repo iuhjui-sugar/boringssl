@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f6e9cb3_db093ecc",
+        "filename": "include/openssl/target.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-13T21:20:16Z",
+      "side": 1,
+      "message": "Nit: you should probably also mention that this really isn\u0027t for direct public consumption, just include openssl/base.h",
+      "revId": "c1866a30af5e39316f3d5a9d2af2e9d731abd4eb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}

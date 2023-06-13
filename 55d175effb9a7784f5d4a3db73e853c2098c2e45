@@ -33,6 +33,24 @@
       "message": "Not sure whether here or `asm_base.h` would be better for these bits.",
       "revId": "55d175effb9a7784f5d4a3db73e853c2098c2e45",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03b3f625_2efbd345",
+        "filename": "include/openssl/arm_arch.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-13T21:20:16Z",
+      "side": 1,
+      "message": "It\u0027s pretty arm specific, and even more so it\u0027s our decision that \"we don\u0027t support anything without it\" so  I think it\u0027s fine in here.",
+      "parentUuid": "739117eb_1f03bc88",
+      "revId": "55d175effb9a7784f5d4a3db73e853c2098c2e45",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
