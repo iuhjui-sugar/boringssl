@@ -16,6 +16,24 @@
       "message": "We have non-perlasm assembly too. Presumably they might need these annotations too?\n\nCan the change in x86_64-xlate contain some comments about the semantics of this directive and where it\u0027s needed? Is cet.h going to exist in the environments that we care about?\n\nCan Intel SDE test this? In general, how would we notice if we added assembly that wasn\u0027t compliant with this?",
       "revId": "0e446d92b15da4560e9938012d8b860d1c079065",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "445ee18f_a75b2ab2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-13T16:00:35Z",
+      "side": 1,
+      "message": "I suppose to initially answer, Yes, the non-perlasm will also need annotations. \n\nIntel SDE can test this, so after a chat with david and waiting for the include changes that may simplify this, I\u0027ll take a look at addressing both and seeing if we can have go tests fire it through the SDE",
+      "parentUuid": "36ee2a48_f39cfc84",
+      "revId": "0e446d92b15da4560e9938012d8b860d1c079065",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
