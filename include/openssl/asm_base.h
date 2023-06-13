@@ -15,6 +15,14 @@
 #ifndef OPENSSL_HEADER_ASM_BASE_H
 #define OPENSSL_HEADER_ASM_BASE_H
 
+#if !defined(__ASSEMBLER__)
+// FIXME: Remove this. This is just being included to confirm __ASSEMBLER__ is
+// always present on the CQ. Although this header should only be included from
+// the assembler, by making this a "public" header, we need it to be buildable
+// as C.
+#error "Not assembler!"
+#endif
+
 #include <openssl/target.h>
 
 
