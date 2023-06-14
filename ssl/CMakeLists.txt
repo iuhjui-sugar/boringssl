@@ -46,6 +46,7 @@ install_if_enabled(TARGETS ssl EXPORT OpenSSLTargets ${INSTALL_DESTINATION_DEFAU
 set_property(TARGET ssl PROPERTY EXPORT_NAME SSL)
 target_link_libraries(ssl crypto)
 
+if (NOT BORINGSSL_SKIP_TESTS)
 add_executable(
   ssl_test
 
@@ -55,3 +56,4 @@ add_executable(
 )
 target_link_libraries(ssl_test test_support_lib boringssl_gtest_main ssl crypto)
 add_dependencies(all_tests ssl_test)
+endif()
