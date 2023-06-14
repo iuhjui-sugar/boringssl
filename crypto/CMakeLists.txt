@@ -346,6 +346,7 @@ if(USE_CUSTOM_LIBCXX)
   target_link_libraries(crypto libcxx)
 endif()
 
+if (NOT BORINGSSL_SKIP_TESTS)
 # urandom_test is a separate binary because it needs to be able to observe the
 # PRNG initialisation, which means that it can't have other tests running before
 # it does.
@@ -430,3 +431,4 @@ add_executable(
 )
 target_link_libraries(crypto_test test_support_lib boringssl_gtest_main crypto)
 add_dependencies(all_tests crypto_test)
+endif()

@@ -21,6 +21,7 @@ add_library(
 )
 target_link_libraries(decrepit crypto ssl)
 
+if (NOT BORINGSSL_SKIP_TESTS)
 add_executable(
   decrepit_test
 
@@ -34,3 +35,4 @@ add_executable(
 target_link_libraries(decrepit_test test_support_lib boringssl_gtest_main
                       decrepit crypto)
 add_dependencies(all_tests decrepit_test)
+endif()
