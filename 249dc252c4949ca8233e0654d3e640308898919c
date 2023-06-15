@@ -18,6 +18,23 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "56b5e917_fd80475a",
+        "filename": "crypto/rand_extra/windows.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 16376
+      },
+      "writtenOn": "2023-06-15T18:29:40Z",
+      "side": 1,
+      "message": "remove #else",
+      "revId": "249dc252c4949ca8233e0654d3e640308898919c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "731131ed_be61a6dc",
@@ -88,6 +105,24 @@
       "writtenOn": "2023-06-15T18:26:09Z",
       "side": 1,
       "message": "If `LoadLibraryW` hadn\u0027t yet been called by the time we enter the sandbox, won\u0027t this break?\n\nI was envisioning that we\u0027d have this be in a `CRYPTO_init_sysrand` (you\u0027ll need to fiddle with `rand/internal.h` slightly since right now it assumes only POSIX needs an init). `CRYPTO_init_sysrand` is called from the `CRYPTO_pre_sandbox_init` public API, so Chromium can then call that to ensure it was initialized at the right time.",
+      "revId": "249dc252c4949ca8233e0654d3e640308898919c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a18aca7f_7f56adef",
+        "filename": "crypto/rand_extra/windows.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 16376
+      },
+      "writtenOn": "2023-06-15T18:29:40Z",
+      "side": 1,
+      "message": "right I see - thanks for the comments - I\u0027ll figure that out",
+      "parentUuid": "d7299047_91d2fbad",
       "revId": "249dc252c4949ca8233e0654d3e640308898919c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
