@@ -1,0 +1,95 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f8d3749_09dc1a87",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-15T18:26:09Z",
+      "side": 1,
+      "message": "BTW, bugdroid works here too, so if there\u0027s a Chromium bug you want to staple this to, you can do `Bug: chromium:123456`.",
+      "revId": "249dc252c4949ca8233e0654d3e640308898919c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "731131ed_be61a6dc",
+        "filename": "crypto/rand_extra/windows.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-15T18:26:09Z",
+      "side": 1,
+      "message": "Oh nice, it\u0027s actually size_t-based! :-)",
+      "range": {
+        "startLine": 40,
+        "startChar": 57,
+        "endLine": 40,
+        "endChar": 63
+      },
+      "revId": "249dc252c4949ca8233e0654d3e640308898919c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dfa88648_4ba5ef4c",
+        "filename": "crypto/rand_extra/windows.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-15T18:26:09Z",
+      "side": 1,
+      "message": "static",
+      "revId": "249dc252c4949ca8233e0654d3e640308898919c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "106bf872_ad765eaf",
+        "filename": "crypto/rand_extra/windows.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-15T18:26:09Z",
+      "side": 1,
+      "message": "Nit: We usually write `!\u003d NULL` instead of coercing to bool. (Though we\u0027re not *that* consistent. 😊) Ditto below.",
+      "revId": "249dc252c4949ca8233e0654d3e640308898919c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7299047_91d2fbad",
+        "filename": "crypto/rand_extra/windows.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-15T18:26:09Z",
+      "side": 1,
+      "message": "If `LoadLibraryW` hadn\u0027t yet been called by the time we enter the sandbox, won\u0027t this break?\n\nI was envisioning that we\u0027d have this be in a `CRYPTO_init_sysrand` (you\u0027ll need to fiddle with `rand/internal.h` slightly since right now it assumes only POSIX needs an init). `CRYPTO_init_sysrand` is called from the `CRYPTO_pre_sandbox_init` public API, so Chromium can then call that to ensure it was initialized at the right time.",
+      "revId": "249dc252c4949ca8233e0654d3e640308898919c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
