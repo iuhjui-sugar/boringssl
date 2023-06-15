@@ -16,6 +16,29 @@
       "message": "(just dry-running)",
       "revId": "5dae6a5db840e1e5d4495e5377d8fce012511b77",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e95ef3df_74fdc884",
+        "filename": "crypto/fipsmodule/rand/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-15T22:21:32Z",
+      "side": 1,
+      "message": "Just to cut down on the multi-file ifdef mess, I\u0027d suggest make CRYPTO_init_sysrand exist in the WINAPI_PARTITION_APP mode too, and we can just define a no-op version of it in windows.c.",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 54
+      },
+      "revId": "5dae6a5db840e1e5d4495e5377d8fce012511b77",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
