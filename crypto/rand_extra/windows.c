@@ -27,7 +27,6 @@ OPENSSL_MSVC_PRAGMA(warning(push, 3))
     !WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
 #include <bcrypt.h>
 OPENSSL_MSVC_PRAGMA(comment(lib, "bcrypt.lib"))
-#else
 #endif  // WINAPI_PARTITION_APP && !WINAPI_PARTITION_DESKTOP
 
 OPENSSL_MSVC_PRAGMA(warning(pop))
