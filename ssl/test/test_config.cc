@@ -197,6 +197,7 @@ std::vector<Flag> SortedFlags() {
   std::vector<Flag> flags = {
       IntFlag("-port", &TestConfig::port, /*skip_handshaker=*/true),
       BoolFlag("-ipv6", &TestConfig::ipv6, /*skip_handshaker=*/true),
+      IntFlag("-shim-id", &TestConfig::shim_id, /*skip_handshaker=*/true),
       BoolFlag("-server", &TestConfig::is_server),
       BoolFlag("-dtls", &TestConfig::is_dtls),
       BoolFlag("-quic", &TestConfig::is_quic),
