@@ -41,13 +41,18 @@ ProcessPrngFunction g_processprng_fn = NULL;
 
 static void init_processprng(void) {
   HMODULE hmod = LoadLibraryW(L"bcryptprimitives");
-  if (!hmod) {
+  if (hmod == NULL) {
     abort();
   }
   g_processprng_fn = (ProcessPrngFunction)GetProcAddress(hmod, "ProcessPrng");
-  if (!g_processprng_fn) {
+  if (g_processprng_fn == NULL) {
     abort();
   }
+}
+
+void CRYPTO_init_sysrand(void) {
+  static CRYPTO_once_t once = CRYPTO_ONCE_INIT;
+  CRYPTO_once(&once, init_processprng);
 }
 #endif  // !(WINAPI_PARTITION_APP && !WINAPI_PARTITION_DESKTOP)
 
@@ -69,11 +74,10 @@ void CRYPTO_sysrand(uint8_t *out, size_t requested) {
   }
   return;
 #else
+  CRYPTO_init_sysrand();
   // On non-UWP configurations, use ProcessPrng instead of BCryptGenRandom
   // to avoid accessing resources that may be unavailable inside the
   // Chromium sandbox. See https://crbug.com/74242
-  static CRYPTO_once_t once = CRYPTO_ONCE_INIT;
-  CRYPTO_once(&once, init_processprng);
   if (!g_processprng_fn(out, requested)) {
     abort();
   }
