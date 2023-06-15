@@ -82,7 +82,15 @@ void CRYPTO_init_sysrand(void);
 // return 0.
 int CRYPTO_sysrand_if_available(uint8_t *buf, size_t len);
 #else
+#if defined(OPENSSL_WINDOWS) && \
+ !defined(BORINGSSL_UNSAFE_DETERMINISTIC_MODE) && \
+ !(WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_APP) && \
+   !WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP))
+// On non-UWP configurations CRYPTO_pre_sandbox_init has work to do.
+void CRYPTO_init_sysrand(void);
+#else
 OPENSSL_INLINE void CRYPTO_init_sysrand(void) {}
+#endif
 
 OPENSSL_INLINE int CRYPTO_sysrand_if_available(uint8_t *buf, size_t len) {
   CRYPTO_sysrand(buf, len);
