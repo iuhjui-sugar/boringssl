@@ -39,6 +39,30 @@
       },
       "revId": "5dae6a5db840e1e5d4495e5377d8fce012511b77",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2789e19a_1f518533",
+        "filename": "crypto/fipsmodule/rand/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 16376
+      },
+      "writtenOn": "2023-06-15T23:51:37Z",
+      "side": 1,
+      "message": "done - I\u0027ve turned this into two #if stanzas let me know if that\u0027s not the right style.",
+      "parentUuid": "e95ef3df_74fdc884",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 54
+      },
+      "revId": "5dae6a5db840e1e5d4495e5377d8fce012511b77",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
