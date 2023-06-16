@@ -34,6 +34,24 @@
       "parentUuid": "9f2b604a_be5ac3cc",
       "revId": "5e1397d0efde93bbaaaac99a91d44e6567398c01",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6807bae_391f21aa",
+        "filename": "crypto/bn_extra/convert.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-16T20:23:35Z",
+      "side": 1,
+      "message": "I see. Don\u0027t hijack another platform\u0027s `#define`. We won\u0027t support you if you do that. Trusty is go/trusty and only go/trusty. It is not a generic embedded target. (Embedded targets vary too much to be a single one, and we already have far too much tech debt to clean up from other embedded targets hacking around with the build.)\n\nIf you want to add support for a new embedded target, send the team list an email with details, and we can figure out:\na) Whether we can support you at all\nb) How best to handle that in code\n\nSupposing you pass (a), probably (b) will look like us recogizing your platform\u0027s #define and then generalizing the OPENSSL_TRUSTY ifdefs accordingly. Actually I\u0027m overdue for generalizing some of them for another embedded target anyway, so I may just go upload that...",
+      "parentUuid": "f3369e97_fef69088",
+      "revId": "5e1397d0efde93bbaaaac99a91d44e6567398c01",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
