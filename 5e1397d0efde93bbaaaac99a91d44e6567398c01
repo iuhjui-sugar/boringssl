@@ -16,6 +16,24 @@
       "message": "Weird that this is only showing up now.\n\nTrusty uses musl these days, right? (b/110161494) Perhaps, rather than having to guard every use of FILE BIOs, we should just make FILE BIOs work? In particular, it\u0027s weird that we simultaneously believe:\n\n* Trusty has FILE from stdio.h\n* Trusty has BIOs in general\n* crypto/bio/file.c only uses functions defined in C, not POSIX (I believe this is true)\n* Trusty somehow doesn\u0027t get to build crypto/bio/file.c\n\nIf you instead just remove the OPENSSL_TRUSTY guard in that file, how far is it from building?",
       "revId": "5e1397d0efde93bbaaaac99a91d44e6567398c01",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3369e97_fef69088",
+        "filename": "crypto/bn_extra/convert.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 16171
+      },
+      "writtenOn": "2023-06-16T20:17:22Z",
+      "side": 1,
+      "message": "This is actually showing up now because we\u0027ve hijacked Trusty for our firmware build of `boringssl`: http://b/273639386. We don\u0027t have filesystem support enabled in our firmware C library (newlib).\n\nWhat\u0027s interesting is that this *was* compiling fine, but when I tried to add a [change for unrelated compilation flags](https://crrev.com/c/4610318), the build started to fail. I didn\u0027t look into the exact reason the compilation started to fail, since it does look like it\u0027s wrong as written.",
+      "parentUuid": "9f2b604a_be5ac3cc",
+      "revId": "5e1397d0efde93bbaaaac99a91d44e6567398c01",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
