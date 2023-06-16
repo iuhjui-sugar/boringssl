@@ -52,6 +52,24 @@
       "parentUuid": "f3369e97_fef69088",
       "revId": "5e1397d0efde93bbaaaac99a91d44e6567398c01",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38ed12d3_be72c2a1",
+        "filename": "crypto/bn_extra/convert.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 16171
+      },
+      "writtenOn": "2023-06-16T21:28:19Z",
+      "side": 1,
+      "message": "Sent a note to you to the team list.\n\nI completely agree that Trusty should only be used for Trusty. That said, this does look like a real bug that could affect Trusty too, so it should probably be fixed (regardless of the other work).",
+      "parentUuid": "e6807bae_391f21aa",
+      "revId": "5e1397d0efde93bbaaaac99a91d44e6567398c01",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
