@@ -354,6 +354,7 @@ end:
   return ret;
 }
 
+#if !defined(OPENSSL_TRUSTY)
 int BN_print_fp(FILE *fp, const BIGNUM *a) {
   BIO *b = BIO_new_fp(fp, BIO_NOCLOSE);
   if (b == NULL) {
@@ -364,6 +365,7 @@ int BN_print_fp(FILE *fp, const BIGNUM *a) {
   BIO_free(b);
   return ret;
 }
+#endif
 
 
 size_t BN_bn2mpi(const BIGNUM *in, uint8_t *out) {
