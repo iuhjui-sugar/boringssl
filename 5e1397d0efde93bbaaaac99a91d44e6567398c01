@@ -70,6 +70,24 @@
       "parentUuid": "e6807bae_391f21aa",
       "revId": "5e1397d0efde93bbaaaac99a91d44e6567398c01",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05f1dcd9_30432ec1",
+        "filename": "crypto/bn_extra/convert.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-16T21:32:06Z",
+      "side": 1,
+      "message": "Yeah, I suspect Trusty is getting by because the static linker is dropping BN_print_fp. :-) Agreed that\u0027s not great and we should do something.\n\nBut probably the right fix for Trusty is https://boringssl-review.googlesource.com/c/boringssl/+/60889, because they have a perfectly functional \u003cstdio.h\u003e these days. (A way that borrowing others\u0027 defines is awkward.)\n\nAlso uploaded https://boringssl-review.googlesource.com/c/boringssl/+/60890 which starts generalizing a few things. Though it leaves the FILE question alone... that one\u0027s a little fun because we have to decide on a boundary for \u003cstdio.h\u003e (elsewhere we assume `FILE*` and `stderr` exist).",
+      "parentUuid": "38ed12d3_be72c2a1",
+      "revId": "5e1397d0efde93bbaaaac99a91d44e6567398c01",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
