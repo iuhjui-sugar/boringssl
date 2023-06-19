@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c35990c4_d0de443d",
+        "filename": "crypto/fipsmodule/ec/ec.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-06-19T16:47:50Z",
+      "side": 1,
+      "message": "```\n// `raw.Z` was set to 1 by `ec_GFp_simple_group_set_curve`.\n```",
+      "revId": "e221560b19b83ad7d8c2f3f3b6c28d7473137c37",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
