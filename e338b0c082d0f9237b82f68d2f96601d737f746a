@@ -22,6 +22,30 @@
       },
       "revId": "e338b0c082d0f9237b82f68d2f96601d737f746a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6616d206_c68a204c",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-19T18:44:23Z",
+      "side": 1,
+      "message": "rvalue references are weird and don\u0027t stay rvalue references when mentioned by name:\nhttps://godbolt.org/z/crTe48oqP",
+      "parentUuid": "10e52f34_e8a1131d",
+      "range": {
+        "startLine": 101,
+        "startChar": 45,
+        "endLine": 101,
+        "endChar": 54
+      },
+      "revId": "e338b0c082d0f9237b82f68d2f96601d737f746a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
