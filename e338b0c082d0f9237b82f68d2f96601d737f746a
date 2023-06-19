@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10e52f34_e8a1131d",
+        "filename": "ssl/test/bssl_shim.cc",
+        "patchSetId": 6
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-06-19T17:31:09Z",
+      "side": 1,
+      "message": "Since `other` is already a `\u0026\u0026`, isn\u0027t this redundant?",
+      "range": {
+        "startLine": 101,
+        "startChar": 45,
+        "endLine": 101,
+        "endChar": 54
+      },
+      "revId": "e338b0c082d0f9237b82f68d2f96601d737f746a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
