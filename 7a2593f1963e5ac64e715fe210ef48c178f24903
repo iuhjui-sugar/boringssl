@@ -16,6 +16,24 @@
       "message": "This is worth a comment.",
       "revId": "7a2593f1963e5ac64e715fe210ef48c178f24903",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca5146e7_089b239d",
+        "filename": "ssl/test/test_config.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-19T18:40:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba8aaab6_4158d98a",
+      "revId": "7a2593f1963e5ac64e715fe210ef48c178f24903",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
