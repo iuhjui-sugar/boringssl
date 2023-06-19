@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba8aaab6_4158d98a",
+        "filename": "ssl/test/test_config.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-06-19T17:26:17Z",
+      "side": 1,
+      "message": "This is worth a comment.",
+      "revId": "7a2593f1963e5ac64e715fe210ef48c178f24903",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
