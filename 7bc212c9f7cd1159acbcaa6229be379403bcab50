@@ -16,6 +16,24 @@
       "message": "it\u0027s funky that this is called `closeErr` when there\u0027s another variable with the same name that\u0027s separate. Maybe just call the struct member `err`?",
       "revId": "7bc212c9f7cd1159acbcaa6229be379403bcab50",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "88df89f7_9be7453a",
+        "filename": "ssl/test/runner/shim_dispatcher.go",
+        "patchSetId": 9
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-20T04:27:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa230a98_d27ec1c1",
+      "revId": "7bc212c9f7cd1159acbcaa6229be379403bcab50",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
