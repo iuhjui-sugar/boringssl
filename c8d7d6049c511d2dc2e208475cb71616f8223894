@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbadf8ab_b49dc5e5",
+        "filename": "ssl/extensions.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 4107,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-20T15:39:50Z",
+      "side": 0,
+      "message": "I suspect this SSL_R can probably go behind the barn, with some others.",
+      "range": {
+        "startLine": 4107,
+        "startChar": 26,
+        "endLine": 4107,
+        "endChar": 48
+      },
+      "revId": "c8d7d6049c511d2dc2e208475cb71616f8223894",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
