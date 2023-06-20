@@ -16,6 +16,24 @@
       "message": "Removing autosubmit for the moment. Not sure why this builds (static linker?), but it looks like Trusty may have most of `FILE*` but not `fopen`. I\u0027ll check with them tomorrow:\nhttps://android.googlesource.com/trusty/lib/+/refs/heads/master/lib/libc-trusty/rules.mk",
       "revId": "678b61672fca74038655b626732b7d89f60dab5d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f09c4dba_8e271cd4",
+        "filename": "crypto/bio/file.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-20T18:51:52Z",
+      "side": 1,
+      "message": "I\u0027m all for doing this, we just need to ensure we have the right options set for trusty..",
+      "parentUuid": "85a24f78_5ce8bdf8",
+      "revId": "678b61672fca74038655b626732b7d89f60dab5d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
