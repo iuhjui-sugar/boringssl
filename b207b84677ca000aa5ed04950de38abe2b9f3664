@@ -22,6 +22,30 @@
       },
       "revId": "b207b84677ca000aa5ed04950de38abe2b9f3664",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be10d66c_9711d48b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-20T15:34:57Z",
+      "side": 1,
+      "message": "Hmm  although I guess after the previous removing a the free\u0027s is actually just a cleanup step at that point.. I\u0027m undecided as to what\u0027s the more significant thing here. ;)",
+      "parentUuid": "1639ecb6_7b4a7633",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 50
+      },
+      "revId": "b207b84677ca000aa5ed04950de38abe2b9f3664",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
