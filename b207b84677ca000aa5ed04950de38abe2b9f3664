@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1639ecb6_7b4a7633",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-20T15:30:22Z",
+      "side": 1,
+      "message": "Nit: while yes this is the result, I might title this \"Use constant curve-specific groups whenever possible\" or something like that and that removing a lot of the the dynamic group creation and freeing is the result.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 50
+      },
+      "revId": "b207b84677ca000aa5ed04950de38abe2b9f3664",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
