@@ -52,6 +52,24 @@
       "parentUuid": "074aae0d_30e8fbca",
       "revId": "534880736935c7dfdb15f878359508f27ca6f30f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3328e672_292dad57",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-21T18:20:13Z",
+      "side": 1,
+      "message": "I\u0027m actually now leaning towards trying to move from NASM to a MASM / clang-assembler combination. But for clang-assembler, actually using the more gas-like syntax so we can run the C preprocessor. (Having the C preprocessor available simplifies some build mess for us.)\n\nYou can star this bug to follow that. But a lot more work is needed than just wiring it up to the build like this. (I\u0027m hoping the build will look very different before we try to tackle this.)\nhttps://bugs.chromium.org/p/boringssl/issues/detail?id\u003d571",
+      "parentUuid": "d406fb36_a4610612",
+      "revId": "534880736935c7dfdb15f878359508f27ca6f30f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
