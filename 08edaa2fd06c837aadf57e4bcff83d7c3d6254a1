@@ -70,6 +70,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0aa81c84_e449d48a",
+        "filename": "pki/fillins/base64.h",
+        "patchSetId": 85
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-21T23:18:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8640530b_b2f30e9e",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "715a6a3f_42121078",
@@ -287,6 +305,24 @@
       "writtenOn": "2023-06-21T19:16:20Z",
       "side": 1,
       "message": "I don\u0027t know how long-term these fillins are intended to be, but could probably save some allocations by `reserve`ing before pushing in these functions.",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9233442a_7f5dacb7",
+        "filename": "pki/fillins/ip_address.cc",
+        "patchSetId": 85
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-21T23:18:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d09edc9f_bf4ca5e1",
       "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
