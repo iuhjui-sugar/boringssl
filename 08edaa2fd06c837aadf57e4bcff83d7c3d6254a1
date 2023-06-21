@@ -1,0 +1,589 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69fb46ed_2d2dbd06",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 85
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-06-21T19:16:20Z",
+      "side": 1,
+      "message": "Did a pass on the fillins files.",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50a8d845_359831c6",
+        "filename": "pki/fillins/base64.cc",
+        "patchSetId": 85
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-06-21T19:16:20Z",
+      "side": 1,
+      "message": "nit: formatting.",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8640530b_b2f30e9e",
+        "filename": "pki/fillins/base64.h",
+        "patchSetId": 85
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-06-21T19:16:20Z",
+      "side": 1,
+      "message": "We should probably have some license on all source files. Possibly reuse the Chromium license since it covers much of the rest of this change?",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "715a6a3f_42121078",
+        "filename": "pki/fillins/base64.h",
+        "patchSetId": 85
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-06-21T19:16:20Z",
+      "side": 1,
+      "message": "Unused.",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac62e4dc_1f4f8d1c",
+        "filename": "pki/fillins/base64.h",
+        "patchSetId": 85
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-06-21T19:16:20Z",
+      "side": 1,
+      "message": "(In the exciting future you can write `namespace bssl::fillins {`, but you might just be earning yourself some build failures if you try that now.)",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44a1a317_86784746",
+        "filename": "pki/fillins/file_util.cc",
+        "patchSetId": 85
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-06-21T19:16:20Z",
+      "side": 1,
+      "message": "space after `#include`. (Possibly just `clang-format` all these files.)",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fccaed6c_9b9df0c0",
+        "filename": "pki/fillins/file_util.cc",
+        "patchSetId": 85
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-06-21T19:16:20Z",
+      "side": 1,
+      "message": "Chromium has historically made { } optional for single-line bodies. That has changed recently, and BoringSSL elsewhere always uses { }. You call here: probably best to match what\u0027s common in the rest of the libpki code.",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7bc7e6a5_2151927d",
+        "filename": "pki/fillins/file_util.cc",
+        "patchSetId": 85
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-06-21T19:16:20Z",
+      "side": 1,
+      "message": "superfluous parens.",
+      "range": {
+        "startLine": 22,
+        "startChar": 14,
+        "endLine": 22,
+        "endChar": 15
+      },
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23c5cf0e_da83251e",
+        "filename": "pki/fillins/file_util.h",
+        "patchSetId": 85
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-06-21T19:16:20Z",
+      "side": 1,
+      "message": "blank line after guard lines.",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d09edc9f_bf4ca5e1",
+        "filename": "pki/fillins/ip_address.cc",
+        "patchSetId": 85
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-06-21T19:16:20Z",
+      "side": 1,
+      "message": "I don\u0027t know how long-term these fillins are intended to be, but could probably save some allocations by `reserve`ing before pushing in these functions.",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44923212_81441e8a",
+        "filename": "pki/fillins/ip_address.cc",
+        "patchSetId": 85
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-06-21T19:16:20Z",
+      "side": 1,
+      "message": "I would consider a CHECK here, they aren\u0027t that expensive and this is memory corruption if the conditional is false.",
+      "range": {
+        "startLine": 87,
+        "startChar": 2,
+        "endLine": 87,
+        "endChar": 3
+      },
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39643915_2fe7006f",
+        "filename": "pki/fillins/ip_address.cc",
+        "patchSetId": 85
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-06-21T19:16:20Z",
+      "side": 1,
+      "message": "uint8_t?",
+      "range": {
+        "startLine": 154,
+        "startChar": 4,
+        "endLine": 154,
+        "endChar": 12
+      },
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "25929b3f_6c6c6a9c",
+        "filename": "pki/fillins/ip_address.cc",
+        "patchSetId": 85
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-06-21T19:16:20Z",
+      "side": 1,
+      "message": "Your call, but I think it\u0027s fine to just use `8` here and to use `0x80` on the next line. We don\u0027t support machines with other values of `CHAR_BIT`.",
+      "range": {
+        "startLine": 157,
+        "startChar": 29,
+        "endLine": 157,
+        "endChar": 37
+      },
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e3000a6_4fd58ebe",
+        "filename": "pki/fillins/ip_address.h",
+        "patchSetId": 85
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-06-21T19:16:20Z",
+      "side": 1,
+      "message": "blank line.",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c94419e_85183dcd",
+        "filename": "pki/fillins/net_errors.h",
+        "patchSetId": 85
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-06-21T19:16:20Z",
+      "side": 1,
+      "message": "blank line.",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29af51f4_5e048541",
+        "filename": "pki/fillins/openssl_util.h",
+        "patchSetId": 85
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-06-21T19:16:20Z",
+      "side": 1,
+      "message": "not used.",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f821c4de_b89bce82",
+        "filename": "pki/fillins/path_service.cc",
+        "patchSetId": 85
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-06-21T19:16:20Z",
+      "side": 1,
+      "message": "blank line",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de0daac9_1f1d2f65",
+        "filename": "pki/fillins/path_service.cc",
+        "patchSetId": 85
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-06-21T19:16:20Z",
+      "side": 1,
+      "message": "I\u0027ve no idea what this is trying to do. Worth a comment?",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06df0b89_fdc8109e",
+        "filename": "pki/fillins/path_service.cc",
+        "patchSetId": 85
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-06-21T19:16:20Z",
+      "side": 1,
+      "message": "left in debugging?",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c3f0ecad_888ead7d",
+        "filename": "pki/fillins/path_service.cc",
+        "patchSetId": 85
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-06-21T19:16:20Z",
+      "side": 1,
+      "message": "`const`",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a8ebc28_3279afd5",
+        "filename": "pki/fillins/path_service.h",
+        "patchSetId": 85
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-06-21T19:16:20Z",
+      "side": 1,
+      "message": "blank line",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "af64e1f0_a7119b47",
+        "filename": "pki/fillins/string_util.cc",
+        "patchSetId": 85
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-06-21T19:16:20Z",
+      "side": 1,
+      "message": "Possible to delete this function? If there are still callers then it might be better to comment them out rather than leave a run-time bomb in.",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2dd23bed_1d29c80e",
+        "filename": "pki/fillins/string_util.h",
+        "patchSetId": 85
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-06-21T19:16:20Z",
+      "side": 1,
+      "message": "blank line.",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2c64191_65390730",
+        "filename": "pki/fillins/string_util.h",
+        "patchSetId": 85
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-06-21T19:16:20Z",
+      "side": 1,
+      "message": "not used",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38534e66_1e627140",
+        "filename": "pki/fillins/string_util.h",
+        "patchSetId": 85
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-06-21T19:16:20Z",
+      "side": 1,
+      "message": "not used",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a8e2536_683a9450",
+        "filename": "pki/fillins/time.cc",
+        "patchSetId": 85
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-06-21T19:16:20Z",
+      "side": 1,
+      "message": "I prefer no blank line between `namespace` lines like this, but it\u0027s different from the other files. They should all use the same pattern.",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "15d81e6f_5b6aee18",
+        "filename": "pki/fillins/time.h",
+        "patchSetId": 85
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-06-21T19:16:20Z",
+      "side": 1,
+      "message": "Guard lines have a different format.",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "592d11b7_7d512428",
+        "filename": "pki/fillins/time.h",
+        "patchSetId": 85
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-06-21T19:16:20Z",
+      "side": 1,
+      "message": "blank line.",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00e71a59_7e736d12",
+        "filename": "pki/fillins/time.h",
+        "patchSetId": 85
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-06-21T19:16:20Z",
+      "side": 1,
+      "message": "`OPENSSL_EXPORT` on the class is usually enough?",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9514e9ef_a660d0f9",
+        "filename": "pki/fillins/utf_string_conversions.cc",
+        "patchSetId": 85
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-06-21T19:16:20Z",
+      "side": 1,
+      "message": "Probably drop `#if 0` blocks. (And above and below.)",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "712349fc_76ee34a8",
+        "filename": "pki/fillins/utf_string_conversions.h",
+        "patchSetId": 85
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-06-21T19:16:20Z",
+      "side": 1,
+      "message": "blank line.",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34a8e463_24ecc79b",
+        "filename": "pki/fillins/utf_string_conversions.h",
+        "patchSetId": 85
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-06-21T19:16:20Z",
+      "side": 1,
+      "message": "I assume the calling code needs these defines, but I\u0027d put them outside of the `namespace` lines since they don\u0027t end up namespaced.",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5440f53e_183edcd4",
+        "filename": "pki/fillins/utf_string_conversions.h",
+        "patchSetId": 85
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-06-21T19:16:20Z",
+      "side": 1,
+      "message": "Drop commented-out prototypes.",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
