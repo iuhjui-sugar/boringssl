@@ -35,6 +35,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "91abf442_7203dd6a",
+        "filename": "pki/fillins/base64.cc",
+        "patchSetId": 85
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-21T23:09:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "50a8d845_359831c6",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8640530b_b2f30e9e",
@@ -65,6 +83,24 @@
       "writtenOn": "2023-06-21T19:16:20Z",
       "side": 1,
       "message": "Unused.",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f158b0e_83d6f5b3",
+        "filename": "pki/fillins/base64.h",
+        "patchSetId": 85
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-21T23:09:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "715a6a3f_42121078",
       "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -103,6 +139,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c106655_194d2194",
+        "filename": "pki/fillins/file_util.cc",
+        "patchSetId": 85
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-21T23:09:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44a1a317_86784746",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fccaed6c_9b9df0c0",
@@ -116,6 +170,24 @@
       "writtenOn": "2023-06-21T19:16:20Z",
       "side": 1,
       "message": "Chromium has historically made { } optional for single-line bodies. That has changed recently, and BoringSSL elsewhere always uses { }. You call here: probably best to match what\u0027s common in the rest of the libpki code.",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd772caa_b52cd9fe",
+        "filename": "pki/fillins/file_util.cc",
+        "patchSetId": 85
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-21T23:09:22Z",
+      "side": 1,
+      "message": "we\u0027re using {} everywhere, just missed this one.",
+      "parentUuid": "fccaed6c_9b9df0c0",
       "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -143,6 +215,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c74ec7c8_129acf90",
+        "filename": "pki/fillins/file_util.cc",
+        "patchSetId": 85
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-21T23:09:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7bc7e6a5_2151927d",
+      "range": {
+        "startLine": 22,
+        "startChar": 14,
+        "endLine": 22,
+        "endChar": 15
+      },
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "23c5cf0e_da83251e",
@@ -156,6 +252,24 @@
       "writtenOn": "2023-06-21T19:16:20Z",
       "side": 1,
       "message": "blank line after guard lines.",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "490c3dcf_ca9352c0",
+        "filename": "pki/fillins/file_util.h",
+        "patchSetId": 85
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-21T23:09:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23c5cf0e_da83251e",
       "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -200,6 +314,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7f84fbd_9f74ef33",
+        "filename": "pki/fillins/ip_address.cc",
+        "patchSetId": 85
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-21T23:09:22Z",
+      "side": 1,
+      "message": "changed, however of note DCHECK here is always CHECK in libpki.",
+      "parentUuid": "44923212_81441e8a",
+      "range": {
+        "startLine": 87,
+        "startChar": 2,
+        "endLine": 87,
+        "endChar": 3
+      },
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "39643915_2fe7006f",
@@ -213,6 +351,30 @@
       "writtenOn": "2023-06-21T19:16:20Z",
       "side": 1,
       "message": "uint8_t?",
+      "range": {
+        "startLine": 154,
+        "startChar": 4,
+        "endLine": 154,
+        "endChar": 12
+      },
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef456813_a27e6c01",
+        "filename": "pki/fillins/ip_address.cc",
+        "patchSetId": 85
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-21T23:09:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39643915_2fe7006f",
       "range": {
         "startLine": 154,
         "startChar": 4,
@@ -263,6 +425,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e40bc0d_ccb348df",
+        "filename": "pki/fillins/ip_address.h",
+        "patchSetId": 85
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-21T23:09:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e3000a6_4fd58ebe",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3c94419e_85183dcd",
@@ -276,6 +456,24 @@
       "writtenOn": "2023-06-21T19:16:20Z",
       "side": 1,
       "message": "blank line.",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "38b1db29_62765b29",
+        "filename": "pki/fillins/net_errors.h",
+        "patchSetId": 85
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-21T23:09:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c94419e_85183dcd",
       "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -297,6 +495,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3b361fb_bd515478",
+        "filename": "pki/fillins/openssl_util.h",
+        "patchSetId": 85
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-21T23:09:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29af51f4_5e048541",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f821c4de_b89bce82",
@@ -310,6 +526,24 @@
       "writtenOn": "2023-06-21T19:16:20Z",
       "side": 1,
       "message": "blank line",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fb242da5_396a7b50",
+        "filename": "pki/fillins/path_service.cc",
+        "patchSetId": 85
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-21T23:09:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f821c4de_b89bce82",
       "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -331,6 +565,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b5f92d6_dfc14b6b",
+        "filename": "pki/fillins/path_service.cc",
+        "patchSetId": 85
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-21T23:09:22Z",
+      "side": 1,
+      "message": "Oh yeah, I did forget to add something explaining that little bit of evil.",
+      "parentUuid": "de0daac9_1f1d2f65",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "06df0b89_fdc8109e",
@@ -344,6 +596,24 @@
       "writtenOn": "2023-06-21T19:16:20Z",
       "side": 1,
       "message": "left in debugging?",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6824b59_83eb7b85",
+        "filename": "pki/fillins/path_service.cc",
+        "patchSetId": 85
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-21T23:09:22Z",
+      "side": 1,
+      "message": "yes, removed.",
+      "parentUuid": "06df0b89_fdc8109e",
       "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -365,6 +635,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a385ff7f_1fdfab30",
+        "filename": "pki/fillins/path_service.cc",
+        "patchSetId": 85
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-21T23:09:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c3f0ecad_888ead7d",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7a8ebc28_3279afd5",
@@ -378,6 +666,24 @@
       "writtenOn": "2023-06-21T19:16:20Z",
       "side": 1,
       "message": "blank line",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "66aa9d07_6fee0651",
+        "filename": "pki/fillins/path_service.h",
+        "patchSetId": 85
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-21T23:09:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a8ebc28_3279afd5",
       "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -399,6 +705,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0d638d3_b29c9dc2",
+        "filename": "pki/fillins/string_util.cc",
+        "patchSetId": 85
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-21T23:09:22Z",
+      "side": 1,
+      "message": "another thing I forgot to remove debugging.",
+      "parentUuid": "af64e1f0_a7119b47",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2dd23bed_1d29c80e",
@@ -412,6 +736,24 @@
       "writtenOn": "2023-06-21T19:16:20Z",
       "side": 1,
       "message": "blank line.",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "274b6eeb_273d6f81",
+        "filename": "pki/fillins/string_util.h",
+        "patchSetId": 85
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-21T23:09:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2dd23bed_1d29c80e",
       "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -433,6 +775,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba160dc6_f027e903",
+        "filename": "pki/fillins/string_util.h",
+        "patchSetId": 85
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-21T23:09:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2c64191_65390730",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "38534e66_1e627140",
@@ -446,6 +806,24 @@
       "writtenOn": "2023-06-21T19:16:20Z",
       "side": 1,
       "message": "not used",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3acf035_dddea994",
+        "filename": "pki/fillins/string_util.h",
+        "patchSetId": 85
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-21T23:09:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38534e66_1e627140",
       "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -467,6 +845,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac1194c3_dac0ccda",
+        "filename": "pki/fillins/time.cc",
+        "patchSetId": 85
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-21T23:09:22Z",
+      "side": 1,
+      "message": "file is removed, now unneeded with upstream change.",
+      "parentUuid": "7a8e2536_683a9450",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "15d81e6f_5b6aee18",
@@ -480,6 +876,24 @@
       "writtenOn": "2023-06-21T19:16:20Z",
       "side": 1,
       "message": "Guard lines have a different format.",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0587c1fb_5bd2f6d9",
+        "filename": "pki/fillins/time.h",
+        "patchSetId": 85
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-21T23:09:22Z",
+      "side": 1,
+      "message": "removed the file, upstream changes make it no longer needed now.",
+      "parentUuid": "15d81e6f_5b6aee18",
       "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -501,6 +915,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a6cd587_de0d0c83",
+        "filename": "pki/fillins/time.h",
+        "patchSetId": 85
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-21T23:09:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "592d11b7_7d512428",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "00e71a59_7e736d12",
@@ -514,6 +946,24 @@
       "writtenOn": "2023-06-21T19:16:20Z",
       "side": 1,
       "message": "`OPENSSL_EXPORT` on the class is usually enough?",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "02f26508_31cc425a",
+        "filename": "pki/fillins/time.h",
+        "patchSetId": 85
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-21T23:09:22Z",
+      "side": 1,
+      "message": "removed the file, upstream changes make it no longer needed now.",
+      "parentUuid": "00e71a59_7e736d12",
       "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -535,6 +985,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc80311b_6da548db",
+        "filename": "pki/fillins/utf_string_conversions.cc",
+        "patchSetId": 85
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-21T23:09:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9514e9ef_a660d0f9",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "712349fc_76ee34a8",
@@ -548,6 +1016,24 @@
       "writtenOn": "2023-06-21T19:16:20Z",
       "side": 1,
       "message": "blank line.",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6859c6e9_280eb5d3",
+        "filename": "pki/fillins/utf_string_conversions.h",
+        "patchSetId": 85
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-21T23:09:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "712349fc_76ee34a8",
       "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -569,6 +1055,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "004af266_ed234618",
+        "filename": "pki/fillins/utf_string_conversions.h",
+        "patchSetId": 85
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-21T23:09:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "34a8e463_24ecc79b",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5440f53e_183edcd4",
@@ -582,6 +1086,24 @@
       "writtenOn": "2023-06-21T19:16:20Z",
       "side": 1,
       "message": "Drop commented-out prototypes.",
+      "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5d97c9f_08442e34",
+        "filename": "pki/fillins/utf_string_conversions.h",
+        "patchSetId": 85
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-21T23:09:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5440f53e_183edcd4",
       "revId": "08edaa2fd06c837aadf57e4bcff83d7c3d6254a1",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
