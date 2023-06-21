@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0beff297_14124f54",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-06-21T18:49:53Z",
+      "side": 1,
+      "message": "I think this can be achieved just by moving the code down. Having uploaded a patchset excludes me from reviewing the change these days so, David/Bob, could you +1?",
+      "revId": "bfa116d0fe318701194c17c5f27787230b9b029e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
