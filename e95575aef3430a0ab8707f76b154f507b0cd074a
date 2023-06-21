@@ -76,6 +76,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0708f19_b66af187",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 1575,
+      "author": {
+        "id": 16251
+      },
+      "writtenOn": "2023-06-21T23:47:07Z",
+      "side": 1,
+      "message": "I\u0027ve added a method that returns a `CRYPTO_BUFFER` containing the unparsed key",
+      "parentUuid": "04241cad_85e852ce",
+      "range": {
+        "startLine": 1575,
+        "startChar": 31,
+        "endLine": 1575,
+        "endChar": 51
+      },
+      "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f8056696_cafc1752",
@@ -89,6 +113,30 @@
       "writtenOn": "2021-06-09T21:42:32Z",
       "side": 1,
       "message": "Nit: I\u0027ve mostly tried to extrapolate from your original code on comment style, though my impression was we don\u0027t use \"you\" very often in documentation.",
+      "range": {
+        "startLine": 2868,
+        "startChar": 15,
+        "endLine": 2868,
+        "endChar": 18
+      },
+      "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdcda196_d65c5582",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 2868,
+      "author": {
+        "id": 16251
+      },
+      "writtenOn": "2023-06-21T23:47:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8056696_cafc1752",
       "range": {
         "startLine": 2868,
         "startChar": 15,
@@ -122,6 +170,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "125cf712_bb26de72",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 10
+      },
+      "lineNbr": 2878,
+      "author": {
+        "id": 16251
+      },
+      "writtenOn": "2023-06-21T23:47:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4de3801_e10fadf2",
+      "range": {
+        "startLine": 2878,
+        "startChar": 48,
+        "endLine": 2878,
+        "endChar": 55
+      },
+      "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "600db85b_3244b76f",
@@ -145,6 +217,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "638a5566_8a25f386",
+        "filename": "ssl/ssl_cert.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 16251
+      },
+      "writtenOn": "2023-06-21T23:47:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "600db85b_3244b76f",
+      "range": {
+        "startLine": 337,
+        "startChar": 15,
+        "endLine": 337,
+        "endChar": 18
+      },
+      "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "85de2a9e_56af3bad",
@@ -158,6 +254,24 @@
       "writtenOn": "2021-06-09T21:42:32Z",
       "side": 1,
       "message": "Nit: 80 chars",
+      "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b9500281_3e8d6b07",
+        "filename": "ssl/ssl_lib.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 715,
+      "author": {
+        "id": 16251
+      },
+      "writtenOn": "2023-06-21T23:47:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "85de2a9e_56af3bad",
       "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -242,6 +356,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3cd684a4_1c972fe0",
+        "filename": "ssl/t1_lib.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 3161,
+      "author": {
+        "id": 16251
+      },
+      "writtenOn": "2023-06-21T23:47:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "672e030d_1f3965d3",
+      "range": {
+        "startLine": 3161,
+        "startChar": 18,
+        "endLine": 3161,
+        "endChar": 33
+      },
+      "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "61403ea7_137c7a1c",
@@ -299,6 +437,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "947b73f4_cc435d43",
+        "filename": "ssl/test/runner/common.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 16251
+      },
+      "writtenOn": "2023-06-21T23:47:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71a59dd2_9f3b444d",
+      "range": {
+        "startLine": 412,
+        "startChar": 33,
+        "endLine": 412,
+        "endChar": 38
+      },
+      "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a925fd7_9d28e1d6",
@@ -316,6 +478,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f260194e_6fb1c0ec",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 1159,
+      "author": {
+        "id": 16251
+      },
+      "writtenOn": "2023-06-21T23:47:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a925fd7_9d28e1d6",
+      "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "38eb0710_ebd8e737",
@@ -329,6 +509,24 @@
       "writtenOn": "2021-06-09T21:42:32Z",
       "side": 1,
       "message": "This\u0027ll silently ignore the extension in TLS 1.2 ServerHello. Probably we should error on it, so we\u0027ll notice if the shim sticks them in TLS 1.2 for some reason.",
+      "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "21306449_230b457a",
+        "filename": "ssl/test/runner/handshake_messages.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 1652,
+      "author": {
+        "id": 16251
+      },
+      "writtenOn": "2023-06-21T23:47:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "38eb0710_ebd8e737",
       "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -373,6 +571,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a59d392f_b08e4e17",
+        "filename": "ssl/test/runner/handshake_server.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 936,
+      "author": {
+        "id": 16251
+      },
+      "writtenOn": "2023-06-21T23:47:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b0158d4_43afce4a",
+      "range": {
+        "startLine": 936,
+        "startChar": 70,
+        "endLine": 936,
+        "endChar": 71
+      },
+      "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a2ffb82_d80d50d0",
@@ -407,6 +629,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8668180d_2b8c2c28",
+        "filename": "ssl/test/runner/runner.go",
+        "patchSetId": 10
+      },
+      "lineNbr": 15112,
+      "author": {
+        "id": 16251
+      },
+      "writtenOn": "2023-06-21T23:47:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f08035fc_d8b1ea76",
+      "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dfcea794_d98d6ea7",
@@ -420,6 +660,24 @@
       "writtenOn": "2021-06-09T21:42:32Z",
       "side": 1,
       "message": "SPKIOf?",
+      "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1611cd4c_e06a39fe",
+        "filename": "ssl/test/test_config.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 1248,
+      "author": {
+        "id": 16251
+      },
+      "writtenOn": "2023-06-21T23:47:07Z",
+      "side": 1,
+      "message": "Can you elaborate? Do you mean create a method called `SPKIOf` that abstracts this functionality?",
+      "parentUuid": "dfcea794_d98d6ea7",
       "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -447,6 +705,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "097225d3_c709ea5b",
+        "filename": "ssl/tls13_both.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 16251
+      },
+      "writtenOn": "2023-06-21T23:47:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a43ce53_2a5859c2",
+      "range": {
+        "startLine": 215,
+        "startChar": 16,
+        "endLine": 215,
+        "endChar": 18
+      },
+      "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5b02976f_5a24142f",
@@ -464,6 +746,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff4cfed7_24a65bf1",
+        "filename": "ssl/tls13_both.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 16251
+      },
+      "writtenOn": "2023-06-21T23:47:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5b02976f_5a24142f",
+      "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c8d1f24b_25248fef",
@@ -477,6 +777,30 @@
       "writtenOn": "2021-06-09T21:42:32Z",
       "side": 1,
       "message": "clang-format",
+      "range": {
+        "startLine": 440,
+        "startChar": 0,
+        "endLine": 440,
+        "endChar": 4
+      },
+      "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9af2a2e4_078b1912",
+        "filename": "ssl/tls13_both.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 440,
+      "author": {
+        "id": 16251
+      },
+      "writtenOn": "2023-06-21T23:47:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8d1f24b_25248fef",
       "range": {
         "startLine": 440,
         "startChar": 0,
