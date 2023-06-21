@@ -594,4 +594,17 @@ install_if_enabled(EXPORT OpenSSLTargets
   NAMESPACE OpenSSL::
   DESTINATION lib/cmake/OpenSSL
 )
-install_if_enabled(FILES cmake/OpenSSLConfig.cmake DESTINATION lib/cmake/OpenSSL)
+
+if(INSTALL_ENABLED)
+  include(CMakePackageConfigHelpers)
+  write_basic_package_version_file(OpenSSLConfigVersion.cmake
+    # BoringSSL should be compatible with OpenSSL 1.1.1, see
+    # https://boringssl.googlesource.com/boringssl/+/49e9f67d8b7cbeb3953b5548ad1009d15947a523
+    VERSION 1.1.1
+    COMPATIBILITY SameMinorVersion
+  )
+endif()
+
+install_if_enabled(
+  FILES cmake/OpenSSLConfig.cmake ${CMAKE_CURRENT_BINARY_DIR}/OpenSSLConfigVersion.cmake
+  DESTINATION lib/cmake/OpenSSL)
