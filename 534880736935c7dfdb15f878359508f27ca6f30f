@@ -34,6 +34,24 @@
       "parentUuid": "f1da8175_a9b1f6b5",
       "revId": "534880736935c7dfdb15f878359508f27ca6f30f",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d406fb36_a4610612",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7200
+      },
+      "writtenOn": "2023-06-21T18:03:40Z",
+      "side": 1,
+      "message": "I was trying to see if I could possible compile BoringSSL assembly with clang-cl, which should be compatible with MASM, thus avoiding the dependency on NASM, but it sounds like that would be a significant amount of effort and probably not worth it.",
+      "parentUuid": "074aae0d_30e8fbca",
+      "revId": "534880736935c7dfdb15f878359508f27ca6f30f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
