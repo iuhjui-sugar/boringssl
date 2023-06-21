@@ -79,6 +79,7 @@ set(
   crypto/pkcs8/test/windows.p12
   crypto/poly1305/poly1305_tests.txt
   crypto/siphash/siphash_tests.txt
+  crypto/spx/spx_tests.txt
   crypto/x509/test/basic_constraints_ca.pem
   crypto/x509/test/basic_constraints_ca_pathlen_0.pem
   crypto/x509/test/basic_constraints_ca_pathlen_1.pem
