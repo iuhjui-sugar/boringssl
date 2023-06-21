@@ -12,19 +12,9 @@
  * OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. */
 
-#include <algorithm>
-#include <functional>
-#include <memory>
-#include <string>
-#include <vector>
-
 #include <assert.h>
 #include <errno.h>
 #include <inttypes.h>
-#include <stdint.h>
-#include <stdlib.h>
-#include <string.h>
-
 #include <openssl/aead.h>
 #include <openssl/aes.h>
 #include <openssl/base64.h>
@@ -45,7 +35,17 @@
 #include <openssl/rand.h>
 #include <openssl/rsa.h>
 #include <openssl/siphash.h>
+#include <openssl/spx.h>
 #include <openssl/trust_token.h>
+#include <stdint.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include <algorithm>
+#include <functional>
+#include <memory>
+#include <string>
+#include <vector>
 
 #if defined(OPENSSL_WINDOWS)
 OPENSSL_MSVC_PRAGMA(warning(push, 3))
@@ -278,7 +278,7 @@ static bool TimeFunctionParallel(TimeResults *results,
 
   results->num_calls = 0;
   results->us = 0;
-  for (const auto& pair : thread_results) {
+  for (const auto &pair : thread_results) {
     if (!pair.ok) {
       return false;
     }
@@ -305,8 +305,8 @@ static bool SpeedRSA(const std::string &selected) {
     const uint8_t *key;
     const size_t key_len;
   } kRSAKeys[] = {
-    {"RSA 2048", kDERRSAPrivate2048, kDERRSAPrivate2048Len},
-    {"RSA 4096", kDERRSAPrivate4096, kDERRSAPrivate4096Len},
+      {"RSA 2048", kDERRSAPrivate2048, kDERRSAPrivate2048Len},
+      {"RSA 4096", kDERRSAPrivate4096, kDERRSAPrivate4096Len},
   };
 
   for (size_t i = 0; i < OPENSSL_ARRAY_SIZE(kRSAKeys); i++) {
@@ -492,7 +492,6 @@ static bool SpeedAEADChunk(const EVP_AEAD *aead, std::string name,
   OPENSSL_memset(ad.get(), 0, ad_len);
   std::unique_ptr<uint8_t[]> tag_storage(
       new uint8_t[overhead_len + kAlignment]);
-
 
   uint8_t *const in =
       static_cast<uint8_t *>(align_pointer(in_storage.get(), kAlignment));
@@ -749,8 +748,7 @@ static bool SpeedECDHCurve(const std::string &name, int nid,
   }
 
   bssl::UniquePtr<EC_KEY> peer_key(EC_KEY_new_by_curve_name(nid));
-  if (!peer_key ||
-      !EC_KEY_generate_key(peer_key.get())) {
+  if (!peer_key || !EC_KEY_generate_key(peer_key.get())) {
     return false;
   }
 
@@ -806,8 +804,7 @@ static bool SpeedECDSACurve(const std::string &name, int nid,
   }
 
   bssl::UniquePtr<EC_KEY> key(EC_KEY_new_by_curve_name(nid));
-  if (!key ||
-      !EC_KEY_generate_key(key.get())) {
+  if (!key || !EC_KEY_generate_key(key.get())) {
     return false;
   }
 
@@ -946,15 +943,14 @@ static bool SpeedSPAKE2(const std::string &selected) {
   static const uint8_t kAliceName[] = {'A'};
   static const uint8_t kBobName[] = {'B'};
   static const uint8_t kPassword[] = "password";
-  bssl::UniquePtr<SPAKE2_CTX> alice(SPAKE2_CTX_new(spake2_role_alice,
-                                    kAliceName, sizeof(kAliceName), kBobName,
-                                    sizeof(kBobName)));
+  bssl::UniquePtr<SPAKE2_CTX> alice(
+      SPAKE2_CTX_new(spake2_role_alice, kAliceName, sizeof(kAliceName),
+                     kBobName, sizeof(kBobName)));
   uint8_t alice_msg[SPAKE2_MAX_MSG_SIZE];
   size_t alice_msg_len;
 
   if (!SPAKE2_generate_msg(alice.get(), alice_msg, &alice_msg_len,
-                           sizeof(alice_msg),
-                           kPassword, sizeof(kPassword))) {
+                           sizeof(alice_msg), kPassword, sizeof(kPassword))) {
     fprintf(stderr, "SPAKE2_generate_msg failed.\n");
     return false;
   }
@@ -1128,6 +1124,52 @@ static bool SpeedKyber(const std::string &selected) {
   return true;
 }
 
+static bool SpeedSpx(const std::string &selected) {
+  if (!selected.empty() && selected.find("spx") == std::string::npos) {
+    return true;
+  }
+
+  TimeResults results;
+  if (!TimeFunctionParallel(&results, []() -> bool {
+        uint8_t public_key[32], private_key[64];
+        spx_generate_key(public_key, private_key);
+        return true;
+      })) {
+    return false;
+  }
+
+  results.Print("SPHINCS+-SHA2-128s key generation");
+
+  uint8_t public_key[32], private_key[64];
+  spx_generate_key(public_key, private_key);
+  static const uint8_t kMessage[] = {0, 1, 2, 3, 4, 5};
+
+  if (!TimeFunctionParallel(&results, [&private_key]() -> bool {
+        uint8_t out[SPX_SIGNATURE_BYTES];
+        spx_sign(out, private_key, kMessage, sizeof(kMessage), true);
+        return true;
+      })) {
+    return false;
+  }
+
+  results.Print("SPHINCS+-SHA2-128s signing");
+
+  uint8_t signature[SPX_SIGNATURE_BYTES];
+  spx_sign(signature, private_key, kMessage, sizeof(kMessage), true);
+
+  if (!TimeFunctionParallel(&results, [&public_key, &signature]() -> bool {
+        return spx_verify(signature, public_key, kMessage, sizeof(kMessage)) ==
+               1;
+      })) {
+    fprintf(stderr, "SPHINCS+-SHA2-128s verify failed.\n");
+    return false;
+  }
+
+  results.Print("SPHINCS+-SHA2-128s verify");
+
+  return true;
+}
+
 static bool SpeedHashToCurve(const std::string &selected) {
   if (!selected.empty() && selected.find("hashtocurve") == std::string::npos) {
     return true;
@@ -1188,26 +1230,26 @@ static bool SpeedBase64(const std::string &selected) {
   }
 
   static const char kInput[] =
-    "MIIDtTCCAp2gAwIBAgIJALW2IrlaBKUhMA0GCSqGSIb3DQEBCwUAMEUxCzAJBgNV"
-    "BAYTAkFVMRMwEQYDVQQIEwpTb21lLVN0YXRlMSEwHwYDVQQKExhJbnRlcm5ldCBX"
-    "aWRnaXRzIFB0eSBMdGQwHhcNMTYwNzA5MDQzODA5WhcNMTYwODA4MDQzODA5WjBF"
-    "MQswCQYDVQQGEwJBVTETMBEGA1UECBMKU29tZS1TdGF0ZTEhMB8GA1UEChMYSW50"
-    "ZXJuZXQgV2lkZ2l0cyBQdHkgTHRkMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIB"
-    "CgKCAQEAugvahBkSAUF1fC49vb1bvlPrcl80kop1iLpiuYoz4Qptwy57+EWssZBc"
-    "HprZ5BkWf6PeGZ7F5AX1PyJbGHZLqvMCvViP6pd4MFox/igESISEHEixoiXCzepB"
-    "rhtp5UQSjHD4D4hKtgdMgVxX+LRtwgW3mnu/vBu7rzpr/DS8io99p3lqZ1Aky+aN"
-    "lcMj6MYy8U+YFEevb/V0lRY9oqwmW7BHnXikm/vi6sjIS350U8zb/mRzYeIs2R65"
-    "LUduTL50+UMgat9ocewI2dv8aO9Dph+8NdGtg8LFYyTTHcUxJoMr1PTOgnmET19W"
-    "JH4PrFwk7ZE1QJQQ1L4iKmPeQistuQIDAQABo4GnMIGkMB0GA1UdDgQWBBT5m6Vv"
-    "zYjVYHG30iBE+j2XDhUE8jB1BgNVHSMEbjBsgBT5m6VvzYjVYHG30iBE+j2XDhUE"
-    "8qFJpEcwRTELMAkGA1UEBhMCQVUxEzARBgNVBAgTClNvbWUtU3RhdGUxITAfBgNV"
-    "BAoTGEludGVybmV0IFdpZGdpdHMgUHR5IEx0ZIIJALW2IrlaBKUhMAwGA1UdEwQF"
-    "MAMBAf8wDQYJKoZIhvcNAQELBQADggEBAD7Jg68SArYWlcoHfZAB90Pmyrt5H6D8"
-    "LRi+W2Ri1fBNxREELnezWJ2scjl4UMcsKYp4Pi950gVN+62IgrImcCNvtb5I1Cfy"
-    "/MNNur9ffas6X334D0hYVIQTePyFk3umI+2mJQrtZZyMPIKSY/sYGQHhGGX6wGK+"
-    "GO/og0PQk/Vu6D+GU2XRnDV0YZg1lsAsHd21XryK6fDmNkEMwbIWrts4xc7scRrG"
-    "HWy+iMf6/7p/Ak/SIicM4XSwmlQ8pPxAZPr+E2LoVd9pMpWUwpW2UbtO5wsGTrY5"
-    "sO45tFNN/y+jtUheB1C2ijObG/tXELaiyCdM+S/waeuv0MXtI4xnn1A=";
+      "MIIDtTCCAp2gAwIBAgIJALW2IrlaBKUhMA0GCSqGSIb3DQEBCwUAMEUxCzAJBgNV"
+      "BAYTAkFVMRMwEQYDVQQIEwpTb21lLVN0YXRlMSEwHwYDVQQKExhJbnRlcm5ldCBX"
+      "aWRnaXRzIFB0eSBMdGQwHhcNMTYwNzA5MDQzODA5WhcNMTYwODA4MDQzODA5WjBF"
+      "MQswCQYDVQQGEwJBVTETMBEGA1UECBMKU29tZS1TdGF0ZTEhMB8GA1UEChMYSW50"
+      "ZXJuZXQgV2lkZ2l0cyBQdHkgTHRkMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIB"
+      "CgKCAQEAugvahBkSAUF1fC49vb1bvlPrcl80kop1iLpiuYoz4Qptwy57+EWssZBc"
+      "HprZ5BkWf6PeGZ7F5AX1PyJbGHZLqvMCvViP6pd4MFox/igESISEHEixoiXCzepB"
+      "rhtp5UQSjHD4D4hKtgdMgVxX+LRtwgW3mnu/vBu7rzpr/DS8io99p3lqZ1Aky+aN"
+      "lcMj6MYy8U+YFEevb/V0lRY9oqwmW7BHnXikm/vi6sjIS350U8zb/mRzYeIs2R65"
+      "LUduTL50+UMgat9ocewI2dv8aO9Dph+8NdGtg8LFYyTTHcUxJoMr1PTOgnmET19W"
+      "JH4PrFwk7ZE1QJQQ1L4iKmPeQistuQIDAQABo4GnMIGkMB0GA1UdDgQWBBT5m6Vv"
+      "zYjVYHG30iBE+j2XDhUE8jB1BgNVHSMEbjBsgBT5m6VvzYjVYHG30iBE+j2XDhUE"
+      "8qFJpEcwRTELMAkGA1UEBhMCQVUxEzARBgNVBAgTClNvbWUtU3RhdGUxITAfBgNV"
+      "BAoTGEludGVybmV0IFdpZGdpdHMgUHR5IEx0ZIIJALW2IrlaBKUhMAwGA1UdEwQF"
+      "MAMBAf8wDQYJKoZIhvcNAQELBQADggEBAD7Jg68SArYWlcoHfZAB90Pmyrt5H6D8"
+      "LRi+W2Ri1fBNxREELnezWJ2scjl4UMcsKYp4Pi950gVN+62IgrImcCNvtb5I1Cfy"
+      "/MNNur9ffas6X334D0hYVIQTePyFk3umI+2mJQrtZZyMPIKSY/sYGQHhGGX6wGK+"
+      "GO/og0PQk/Vu6D+GU2XRnDV0YZg1lsAsHd21XryK6fDmNkEMwbIWrts4xc7scRrG"
+      "HWy+iMf6/7p/Ak/SIicM4XSwmlQ8pPxAZPr+E2LoVd9pMpWUwpW2UbtO5wsGTrY5"
+      "sO45tFNN/y+jtUheB1C2ijObG/tXELaiyCdM+S/waeuv0MXtI4xnn1A=";
 
   TimeResults results;
   if (!TimeFunctionParallel(&results, [&]() -> bool {
@@ -1553,8 +1595,7 @@ bool Speed(const std::vector<std::string> &args) {
       char *ptr;
       unsigned long long val = strtoull(start, &ptr, 10);
       if (ptr == start /* no numeric characters found */ ||
-          errno == ERANGE /* overflow */ ||
-          static_cast<size_t>(val) != val) {
+          errno == ERANGE /* overflow */ || static_cast<size_t>(val) != val) {
         fprintf(stderr, "Error parsing -chunks argument\n");
         return false;
       }
@@ -1613,15 +1654,10 @@ bool Speed(const std::vector<std::string> &args) {
       !SpeedHash(EVP_sha256(), "SHA-256", selected) ||
       !SpeedHash(EVP_sha512(), "SHA-512", selected) ||
       !SpeedHash(EVP_blake2b256(), "BLAKE2b-256", selected) ||
-      !SpeedRandom(selected) ||
-      !SpeedECDH(selected) ||
-      !SpeedECDSA(selected) ||
-      !Speed25519(selected) ||
-      !SpeedSPAKE2(selected) ||
-      !SpeedScrypt(selected) ||
-      !SpeedRSAKeyGen(selected) ||
-      !SpeedHRSS(selected) ||
-      !SpeedKyber(selected) ||
+      !SpeedRandom(selected) || !SpeedECDH(selected) || !SpeedECDSA(selected) ||
+      !Speed25519(selected) || !SpeedSPAKE2(selected) ||
+      !SpeedScrypt(selected) || !SpeedRSAKeyGen(selected) ||
+      !SpeedHRSS(selected) || !SpeedKyber(selected) || !SpeedSpx(selected) ||
       !SpeedHashToCurve(selected) ||
       !SpeedTrustToken("TrustToken-Exp1-Batch1", TRUST_TOKEN_experiment_v1(), 1,
                        selected) ||
@@ -1635,8 +1671,7 @@ bool Speed(const std::vector<std::string> &args) {
                        TRUST_TOKEN_experiment_v2_pmb(), 1, selected) ||
       !SpeedTrustToken("TrustToken-Exp2PMB-Batch10",
                        TRUST_TOKEN_experiment_v2_pmb(), 10, selected) ||
-      !SpeedBase64(selected) ||
-      !SpeedSipHash(selected)) {
+      !SpeedBase64(selected) || !SpeedSipHash(selected)) {
     return false;
   }
 #if defined(BORINGSSL_FIPS)

@@ -209,6 +209,13 @@ add_library(
   rsa_extra/rsa_asn1.c
   rsa_extra/rsa_crypt.c
   rsa_extra/rsa_print.c
+  spx/address.c
+  spx/fors.c
+  spx/merkle.c
+  spx/spx.c
+  spx/thash.c
+  spx/util.c
+  spx/wots.c
   stack/stack.c
   siphash/siphash.c
   thread.c
@@ -417,6 +424,7 @@ add_executable(
   refcount_test.cc
   rsa_extra/rsa_test.cc
   self_test.cc
+  spx/spx_test.cc
   stack/stack_test.cc
   siphash/siphash_test.cc
   test/file_test_gtest.cc
