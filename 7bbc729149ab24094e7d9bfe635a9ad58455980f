@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "10c68afe_7b27e233",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-22T15:19:50Z",
+      "side": 1,
+      "message": "Additionally, why is this proposing to introduce yet another build for Android? Have you worked with the Android build to find something on the Android side that meets your needs?",
+      "parentUuid": "d56836f7_f7b2bfd5",
+      "revId": "7bbc729149ab24094e7d9bfe635a9ad58455980f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bbdffd6e_d7a32f3d",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
