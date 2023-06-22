@@ -51,6 +51,24 @@
       "message": "Guessing some old patch files were left around? There\u0027s two 0001s and two 0002s, and some are duplicates with 0004 and 0005. :-)\n\n(FWIW, this one seems very easy to upstream.)",
       "revId": "4bc50f335bdaa6de67bd795777f6d8f238850851",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "67ef4479_e159cf8d",
+        "filename": "pki/patches/0001-Include-vector-in-parse_values.cc.patch",
+        "patchSetId": 92
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-22T15:28:22Z",
+      "side": 1,
+      "message": "https://chromium-review.googlesource.com/c/chromium/src/+/4635530\n\nIt already is if you wanna boop it instead of matt ;)\n\nI\u0027m trying not to tag you for everything :)",
+      "parentUuid": "0c239f6d_d01c5bee",
+      "revId": "4bc50f335bdaa6de67bd795777f6d8f238850851",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
