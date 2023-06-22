@@ -6,6 +6,7 @@
 CHROMIUM_SRC=~/chromium/src
 
 mkdir -p ./testdata
+rm -rf ./testdata/*
 cp $CHROMIUM_SRC/net/test/test_certificate_data.h ./testdata
 
 tar -C $CHROMIUM_SRC/net/third_party -cf -  nist-pkits | tar -C ./testdata -xf - 

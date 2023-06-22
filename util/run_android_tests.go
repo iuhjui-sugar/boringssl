@@ -310,6 +310,15 @@ func main() {
 			"BUILDING.md",
 		)
 
+		err := filepath.Walk("/pki/testdata/", func(path string, info os.FileInfo, err error) error {
+			if info.IsFile() {
+	                        files = append(files, path)
+                        }
+                }
+                if (err != nil) {
+			fmt.Printf("can't walk pki/testdata/ [%v]\n", err)
+                }
+
 		tests, err := testconfig.ParseTestConfig("util/all_tests.json")
 		if err != nil {
 			fmt.Printf("Failed to parse input: %s\n", err)
@@ -367,7 +376,7 @@ func main() {
 		}
 	}
 
-	var libraries []string
+        var libraries []string
 	if _, err := os.Stat(filepath.Join(*buildDir, "crypto/libcrypto.so")); err == nil {
 		libraries = []string{
 			"libboringssl_gtest.so",
