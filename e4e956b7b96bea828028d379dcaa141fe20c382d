@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "098427fc_167f78bf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-22T22:30:53Z",
+      "side": 1,
+      "message": "Per the other CL, the syntax for referencing b/123456 is to add a \u0027b:\u0027 prefix.",
+      "range": {
+        "startLine": 9,
+        "startChar": 5,
+        "endLine": 9,
+        "endChar": 14
+      },
+      "revId": "e4e956b7b96bea828028d379dcaa141fe20c382d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7508eb80_e10fc8d7",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-22T22:30:53Z",
+      "side": 1,
+      "message": "Let\u0027s keep the discussion as to whether the overall direction makes sense to the other CL. But it\u0027s pretty unclear what configurations we\u0027d be signing up to support by taking this change.\n\nThis CMake build enables fairly aggressive set of warnings (unlike the other builds I pointed to in the other CL). We\u0027ve often had to patch GTest, or suppress warnings in it. Passing an arbitrary GTest revision has a good chance of not working. At the least, it\u0027s very unclear what revisions we would and wouldn\u0027t be implicitly promising to support. E.g., what would happen if the external GTest needs some warning disabled? Would we have to take a patch to remove the warning?\n\nThere was even a time when we needed to atomically update GTest and the tests due to some API change.\nhttps://boringssl-review.googlesource.com/c/boringssl/+/35504",
+      "revId": "e4e956b7b96bea828028d379dcaa141fe20c382d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
