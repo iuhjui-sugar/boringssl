@@ -475,16 +475,20 @@ if(USE_CUSTOM_LIBCXX)
   target_link_libraries(libcxx libcxxabi)
 endif()
 
+if(NOT GTEST_DIR)
+  set(GTEST_DIR "third_party/googletest")
+endif()
+
 # Add minimal googletest targets. The provided one has many side-effects, and
 # googletest has a very straightforward build.
-add_library(boringssl_gtest third_party/googletest/src/gtest-all.cc)
+add_library(boringssl_gtest ${GTEST_DIR}/src/gtest-all.cc)
 if(USE_CUSTOM_LIBCXX)
   target_link_libraries(boringssl_gtest libcxx)
 endif()
 target_include_directories(
     boringssl_gtest
-    PUBLIC third_party/googletest/include
-    PRIVATE third_party/googletest
+    PUBLIC ${GTEST_DIR}/include
+    PRIVATE ${GTEST_DIR}
 )
 
 # Declare a dummy target to build all unit tests. Test targets should inject
