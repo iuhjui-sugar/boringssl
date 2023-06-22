@@ -128,6 +128,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6be71a21_e8c6a046",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 16411
+      },
+      "writtenOn": "2023-06-22T22:24:00Z",
+      "side": 1,
+      "message": "Honestly, if I was BoringSSL owner, I\u0027d like both external gtest config and a way to disable it :). Regardless of what we need.",
+      "parentUuid": "1f6abe4a_eeae8c45",
+      "revId": "7bbc729149ab24094e7d9bfe635a9ad58455980f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bbdffd6e_d7a32f3d",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
