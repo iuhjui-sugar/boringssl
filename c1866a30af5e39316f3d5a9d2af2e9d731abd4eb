@@ -105,6 +105,24 @@
       "parentUuid": "9f6e9cb3_db093ecc",
       "revId": "c1866a30af5e39316f3d5a9d2af2e9d731abd4eb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "946930cd_8456b39b",
+        "filename": "include/openssl/target.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-22T23:34:45Z",
+      "side": 1,
+      "message": "nice, yeah that reads right to me.",
+      "parentUuid": "1e9ee1cd_e63cc216",
+      "revId": "c1866a30af5e39316f3d5a9d2af2e9d731abd4eb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
