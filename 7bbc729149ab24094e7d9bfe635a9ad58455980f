@@ -92,6 +92,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1f6abe4a_eeae8c45",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 16411
+      },
+      "writtenOn": "2023-06-22T21:21:46Z",
+      "side": 1,
+      "message": "Well, there\u0027s a couple benefits:\n- limiting the scope of changes needed for BoringSSL (that\u0027s the main one for us)\n- configuration of out-of-tree GTest may be useful for other users and is also a common practice\n- Building tests may still catch some problems even if we don\u0027t use them\n\nTL;DR: I think CL 61025 may be just less controversial for Pete and David. Let\u0027s hear from them.",
+      "parentUuid": "0dd94fc3_52fd3855",
+      "revId": "7bbc729149ab24094e7d9bfe635a9ad58455980f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bbdffd6e_d7a32f3d",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
