@@ -53,6 +53,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c082b29_75cbbf08",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 10
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16251
+      },
+      "writtenOn": "2023-06-22T00:09:01Z",
+      "side": 1,
+      "message": "I ended up adding a separate method that returns the unparsed version of the key",
+      "parentUuid": "b0042595_f2ad9ac9",
+      "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "04241cad_85e852ce",
