@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d56836f7_f7b2bfd5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-22T15:17:07Z",
+      "side": 1,
+      "message": "This doesn\u0027t seem right. Are you sure this is the build you want to be using? It has a Go and Perl dependency, and generally is only tested by BoringSSL developers. We generate some CMake builds in generate_build_files.py that may be more suitable.\n\n(This is a mess and I\u0027m trying to unify things, but in the meantime, that\u0027s probably the right entrypoint for you all. Having yet another novel CMake build will probably make cleaning this up harder.)",
+      "revId": "7bbc729149ab24094e7d9bfe635a9ad58455980f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bbdffd6e_d7a32f3d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-22T15:17:07Z",
+      "side": 1,
+      "message": "Do you have a bug for this?\n\n(The syntax for referencing b/123456 in this repo is `Bug: b:123456`. Not sure if it actually works, but I think that\u0027s what bugdroid expects. 😊)",
+      "range": {
+        "startLine": 19,
+        "startChar": 5,
+        "endLine": 19,
+        "endChar": 8
+      },
+      "revId": "7bbc729149ab24094e7d9bfe635a9ad58455980f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e7cb6bde_2a542ed7",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 510,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-22T15:17:07Z",
+      "side": 1,
+      "message": "Please match the surrounding style. No space after the name of the CMake function, and two space indent.\n\nDitto throughout the CL.",
+      "revId": "7bbc729149ab24094e7d9bfe635a9ad58455980f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
