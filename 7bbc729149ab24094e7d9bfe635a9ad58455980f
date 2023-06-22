@@ -110,6 +110,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f9e31472_db799d06",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-22T22:23:17Z",
+      "side": 1,
+      "message": "I think my questions above are still outstanding.\n\n1. There\u0027s already not one, but *two* other generated CMake builds that align more with downstream needs. Why aren\u0027t you all using one of those?\n\n2. Have you worked with the Android build team to figure out how to get the Android-supported build system working with the Android copy of BoringSSL?\n\nThis CMake is intended to be used with a normal BoringSSL checkout. The CL seems to propose to add yet another mode to its scope. Our build situation is already very complex and we have too many variations to support, as we go and clean this up. We should not add a new build variation to our maintenance burden, unless the existing ones truly do not work. So far, there has been no answer to pointers to other options.\n\nThis CL didn\u0027t linked to the bug, but I see there was a similar comment from Android over in b/285204695#comment13",
+      "parentUuid": "1f6abe4a_eeae8c45",
+      "revId": "7bbc729149ab24094e7d9bfe635a9ad58455980f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bbdffd6e_d7a32f3d",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
