@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bed80f2a_c7b4a60d",
+        "filename": "util/run_android_tests.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 2271,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-22T23:40:40Z",
+      "side": 1,
+      "message": "Good news is actually android_aarch64 on the CQ works just fine. So actually you don\u0027t need to manually test it and can just hit Choose Tryjobs. (Maybe it was just that FIPS one that was blocked on hardware? I forget.)\n\nBad news is it\u0027s upset about this:\nhttps://logs.chromium.org/logs/boringssl/buildbucket/cr-buildbucket/8777546719341746913/+/u/unit_tests/stdout\n\nBut also this is really long. That seems long enough that maybe `filepath.WalkDir` or something is justified. I mean, I imagine eventually we\u0027ll toss it into a JSON file on the side or something, adding it right in the middle of code seems maybe a bit much. 😄",
+      "revId": "893b2f617d9e87d928e74113b63457de15f4cfc8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "291e8a7f_bba3dad9",
+        "filename": "util/run_android_tests.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 2331,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-22T23:40:40Z",
+      "side": 1,
+      "message": "Stray change?",
+      "revId": "893b2f617d9e87d928e74113b63457de15f4cfc8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ec29add_242e97b5",
+        "filename": "util/run_android_tests.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 2337,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-22T23:40:40Z",
+      "side": 1,
+      "message": "Suspect you need to add to this to appease the FIPS builder (which is not on the CQ, sadly)",
+      "revId": "893b2f617d9e87d928e74113b63457de15f4cfc8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
