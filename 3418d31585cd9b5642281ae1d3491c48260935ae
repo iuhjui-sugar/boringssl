@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7c71722_8a7e3e3b",
+        "filename": "pki/fillins/ip_address.cc",
+        "patchSetId": 91
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-06-22T15:24:45Z",
+      "side": 1,
+      "message": "std::vector.reserve takes a [count of elements](https://en.cppreference.com/w/cpp/container/vector/reserve) rather than bytes, so the `* sizeof(uint8_t)` is potentially misleading (although not incorrect).",
+      "range": {
+        "startLine": 23,
+        "startChar": 18,
+        "endLine": 23,
+        "endChar": 35
+      },
+      "revId": "3418d31585cd9b5642281ae1d3491c48260935ae",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
