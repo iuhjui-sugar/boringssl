@@ -7,7 +7,24 @@
 #include <stdlib.h>
 #include <iostream>
 
+#if !defined(OPENSSL_WINDOWS)
+#include <sys/stat.h>
+#endif
+
 namespace bssl {
+
+namespace {
+
+bool PathExists(const char *path) {
+#if !defined(OPENSSL_WINDOWS)
+  struct stat sb;
+  return stat(path, &sb) == 0;
+#else
+  return true;  // We don't need this on windows in any case.
+#endif  // OPENSSL_WINDOWS
+}
+
+}  // namespace
 
 namespace fillins {
 
@@ -28,15 +45,41 @@ FilePath FilePath::AppendASCII(const std::string &ascii_path_element) const {
 
 // static
 void PathService::Get(PathKey key, FilePath *out) {
+  // Figure out where the source code is for getting test data
+  // right from there.
 #if defined(_BORINGSSL_PKI_SRCDIR_)
   // We stringify the compile parameter because cmake. sigh.
 #define _boringssl_xstr(s) _boringssl_str(s)
 #define _boringssl_str(s) #s
   const char pki_srcdir[] = _boringssl_xstr(_BORINGSSL_PKI_SRCDIR_);
+  const char pki_curdir[] = "./pki";
+  const char curdir[] = ".";
 #else
 #error "No _BORINGSSL_PKI_SRCDIR"
 #endif  // defined(BORINGSSL_PKI_SRCDIR
-  *out = FilePath(pki_srcdir);
+  // We want to know where the top of pki is to find testdata.  Some things like
+  // to run tests in random places with the data files copied around. Let's be
+  // flexible, maybe we can't see the source directory...
+#if !defined(OPENSSL_WINDOWS)
+  char *pki_srcdir_env = getenv("PKI_SRCDIR");
+  if (pki_srcdir_env && PathExists(pki_srcdir_env)) {
+    // use the PKI_SRCDIR from the environment.
+    *out = FilePath(pki_srcdir_env);
+  } else if (PathExists(pki_srcdir)) {
+    // Try the source code directory
+    *out = FilePath(pki_srcdir);
+  } else if (PathExists(pki_curdir)) {
+    // Try "pki" in the current directory
+    *out = FilePath(pki_curdir);
+  } else {
+    // As a last resort, try just "." and hope for the best, maybe they stripped
+    // pki and copied just the data directory.
+    *out = FilePath(curdir);
+  }
+#else
+    // Use the source code directory
+    *out = FilePath(pki_srcdir);
+#endif 
 }
 
 }  // namespace fillins
