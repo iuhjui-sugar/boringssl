@@ -310,6 +310,24 @@ func main() {
 			"BUILDING.md",
 		)
 
+		err := filepath.Walk("/pki/testdata/", func(path string, info os.FileInfo, err error) error {
+			if err != nil {
+				fmt.Println(err)
+                                return nil
+                        }
+                        // Go why oh why is IsRegular() not always here and we need to perpetuate the
+                        // security bug inducing nonsense that anything not a directory is a file..
+                        // no it doesn't matter here but it makes me sad.
+			if !info.IsDir() {
+	                        files = append(files, path)
+                        }
+                        return nil
+                })
+                if (err != nil) {
+			fmt.Printf("can't walk pki/testdata/ [%v]\n", err)
+                        os.Exit(1);
+                }
+
 		tests, err := testconfig.ParseTestConfig("util/all_tests.json")
 		if err != nil {
 			fmt.Printf("Failed to parse input: %s\n", err)
