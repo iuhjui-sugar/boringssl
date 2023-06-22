@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "53897f9a_dd5170be",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 9619
+      },
+      "writtenOn": "2023-06-22T15:37:02Z",
+      "side": 1,
+      "message": "My (possibly incorrect) understanding from the AOSP CL is they want to build libbinder for not-Android *and* also support different toolchains.\n\nI think that\u0027s two requirements... libbinder should already build for Linux hosts using Soong, and if not it should be fixed.\n\nIf people want to build with their own toolchain though then it\u0027s reasonable to ask them to use BoringSSL directly from upstream, not AOSP\u0027s copy.  And that builds fine on platforms without googletest for me.",
+      "parentUuid": "10c68afe_7b27e233",
+      "revId": "7bbc729149ab24094e7d9bfe635a9ad58455980f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bbdffd6e_d7a32f3d",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
