@@ -54,6 +54,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "083a371a_2cc6374e",
+        "filename": "include/openssl/asm_base.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-22T23:24:06Z",
+      "side": 1,
+      "message": "Alright, let\u0027s just stick with `\u003copenssl/asm_base.h\u003e` then. :-)",
+      "parentUuid": "54820794_e15f8033",
+      "revId": "c1866a30af5e39316f3d5a9d2af2e9d731abd4eb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9f6e9cb3_db093ecc",
@@ -67,6 +85,24 @@
       "writtenOn": "2023-06-13T21:20:16Z",
       "side": 1,
       "message": "Nit: you should probably also mention that this really isn\u0027t for direct public consumption, just include openssl/base.h",
+      "revId": "c1866a30af5e39316f3d5a9d2af2e9d731abd4eb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1e9ee1cd_e63cc216",
+        "filename": "include/openssl/target.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-22T23:24:06Z",
+      "side": 1,
+      "message": "Done. Also added an IWYU pragma in base.h, which I think is the right marker to use here?\nhttps://github.com/include-what-you-use/include-what-you-use/blob/master/docs/IWYUPragmas.md#iwyu-pragma-export",
+      "parentUuid": "9f6e9cb3_db093ecc",
       "revId": "c1866a30af5e39316f3d5a9d2af2e9d731abd4eb",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
