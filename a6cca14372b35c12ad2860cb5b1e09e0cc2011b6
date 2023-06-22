@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8317b483_7a6a8f00",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16426
+      },
+      "writtenOn": "2023-06-22T15:16:06Z",
+      "side": 1,
+      "message": "A tiny nit that applies to multiple files.",
+      "revId": "a6cca14372b35c12ad2860cb5b1e09e0cc2011b6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c919bae_64db3e6c",
+        "filename": "crypto/spx/address.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 16426
+      },
+      "writtenOn": "2023-06-22T15:16:06Z",
+      "side": 1,
+      "message": "Nit: s/Inc./LLC/ per current code / copyright standards.",
+      "range": {
+        "startLine": 1,
+        "startChar": 23,
+        "endLine": 1,
+        "endChar": 29
+      },
+      "revId": "a6cca14372b35c12ad2860cb5b1e09e0cc2011b6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
