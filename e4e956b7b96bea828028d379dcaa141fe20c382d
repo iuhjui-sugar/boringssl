@@ -57,6 +57,24 @@
       "parentUuid": "7508eb80_e10fc8d7",
       "revId": "e4e956b7b96bea828028d379dcaa141fe20c382d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c88f56e8_1b632346",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-22T22:57:42Z",
+      "side": 1,
+      "message": "Android doesn\u0027t build with quite as aggressive of warnings. And, somewhat by construction, Android\u0027s warnings are presumably compatible with Android\u0027s GTest. :-)\n\nThat wouldn\u0027t help with the API change... I actually don\u0027t remember how that ended up working with all the downstream builds. Android, Chromium, and google3 all build our tests and with the external BoringSSL. The difference is we also use their GTest build definitions themselves.\n\nThis is part of why I was asking about why you all want this particular build. Historically, this build has mostly been used by BoringSSL devs, which is why it\u0027s really aggressive about warnings, compiles in debug mode by default, and has Go and Perl build dependencies where downstream builds usually pre-generate some generated files. This build does not know how to consume pre-generated files.\n\nThis split is a huge mess and the product of things evolving over time. We\u0027re trying to clean it up, after which I intend for the generated CMake build and this one to be one and the same. But having yet another configuration (Android BoringSSL + standalone CMake build) will make it harder to clean it up and, in the meantime, this is the split we have. I asked the questions I did on the other CL because it really seems like you all are using the wrong build.",
+      "parentUuid": "a69b724b_864fc746",
+      "revId": "e4e956b7b96bea828028d379dcaa141fe20c382d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
