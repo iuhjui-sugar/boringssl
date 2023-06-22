@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f54cb3e0_5c63d603",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 16411
+      },
+      "writtenOn": "2023-06-22T16:11:31Z",
+      "side": 1,
+      "message": "We want libbinder to be able to build with CMake straight from Android checkout for testing-on-CI purposes (because AOSP is the upstream for libbinder), but the problem is that Android\u0027s fork of BoringSSL strips GTest sources. All it takes to make it actually work for us is to point this build file to the correct location where GTest is.\n\nHow about https://boringssl-review.googlesource.com/c/boringssl/+/61025",
+      "parentUuid": "10c68afe_7b27e233",
+      "revId": "7bbc729149ab24094e7d9bfe635a9ad58455980f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bbdffd6e_d7a32f3d",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
