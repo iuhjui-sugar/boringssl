@@ -6,8 +6,18 @@
 
 #include <stdlib.h>
 #include <iostream>
+#include <filesystem>
 
 namespace bssl {
+
+namespace {
+
+bool path_exists(const char *path) {
+  std::filesystem::directory_entry entry(path);
+  return entry.exists();
+}
+
+}
 
 namespace fillins {
 
@@ -28,15 +38,29 @@ FilePath FilePath::AppendASCII(const std::string &ascii_path_element) const {
 
 // static
 void PathService::Get(PathKey key, FilePath *out) {
+  // Figure out where the source code is for getting test data
+  // right from there.
 #if defined(_BORINGSSL_PKI_SRCDIR_)
   // We stringify the compile parameter because cmake. sigh.
 #define _boringssl_xstr(s) _boringssl_str(s)
 #define _boringssl_str(s) #s
   const char pki_srcdir[] = _boringssl_xstr(_BORINGSSL_PKI_SRCDIR_);
+  const char pki_curdir[] = "./pki";
+  const char curdir[] = ".";
 #else
 #error "No _BORINGSSL_PKI_SRCDIR"
 #endif  // defined(BORINGSSL_PKI_SRCDIR
-  *out = FilePath(pki_srcdir);
+  // Things like to run tests in random places witht the data files
+  // copied in random ways.. let's be flexible, maybe we can't see
+  // the source directory...
+  if (path_exists(pki_srcdir)) {
+    *out = FilePath(pki_srcdir);
+  } else if (path_exists(pki_curdir)) {
+    *out = FilePath(pki_curdir);
+  } else {
+    // . should exist. hold my beer and hope for the best.
+    *out = FilePath(curdir);
+  }
 }
 
 }  // namespace fillins
