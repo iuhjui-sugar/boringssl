@@ -122,7 +122,8 @@ const (
 	extensionQUICTransportParams        uint16 = 57
 	extensionCustom                     uint16 = 1234  // not IANA assigned
 	extensionNextProtoNeg               uint16 = 13172 // not IANA assigned
-	extensionApplicationSettings        uint16 = 17513 // not IANA assigned
+	extensionApplicationSettingsOld     uint16 = 17513 // not IANA assigned
+	extensionApplicationSettings        uint16 = 17613 // not IANA assigned
 	extensionRenegotiationInfo          uint16 = 0xff01
 	extensionQUICTransportParamsLegacy  uint16 = 0xffa5 // draft-ietf-quic-tls-32 and earlier
 	extensionChannelID                  uint16 = 30032  // not IANA assigned
@@ -277,6 +278,8 @@ type ConnectionState struct {
 	QUICTransportParamsLegacy  []byte                // the legacy QUIC transport params received from the peer
 	HasApplicationSettings     bool                  // whether ALPS was negotiated
 	PeerApplicationSettings    []byte                // application settings received from the peer
+	HasApplicationSettingsOld  bool                  // whether ALPS old codepoint was negotiated
+	PeerApplicationSettingsOld []byte                // the old application settings received from the peer
 	ECHAccepted                bool                  // whether ECH was accepted on this connection
 }
 
@@ -314,6 +317,9 @@ type ClientSessionState struct {
 	hasApplicationSettings   bool
 	localApplicationSettings []byte
 	peerApplicationSettings  []byte
+	hasApplicationSettingsOld   bool
+	localApplicationSettingsOld []byte
+	peerApplicationSettingsOld  []byte
 }
 
 // ClientSessionCache is a cache of ClientSessionState objects that can be used
@@ -389,6 +395,43 @@ func (c QUICUseCodepoint) String() string {
 	panic("unknown value")
 }
 
+// ALPSUseCodepoint controls which TLS extension codepoint is used to convey the
+// ApplicationSettings. ALPSUseCodepointNew means use 17613,
+// ALPSUseCodepointOld means use old value 17513, ALPSUseCodepointBoth
+// means use both. ALPSUseCodepointNeither means do not send
+// ApplicationSettings.
+type ALPSUseCodepoint int
+
+const (
+	ALPSUseCodepointNew ALPSUseCodepoint = iota
+	ALPSUseCodepointOld
+	ALPSUseCodepointBoth
+	ALPSUseCodepointNeither
+	NumALPSUseCodepoints
+)
+
+func (c ALPSUseCodepoint) IncludeNew() bool {
+	return c == ALPSUseCodepointNew || c == ALPSUseCodepointBoth
+}
+
+func (c ALPSUseCodepoint) IncludeOld() bool {
+	return c == ALPSUseCodepointOld || c == ALPSUseCodepointBoth
+}
+
+func (c ALPSUseCodepoint) String() string {
+	switch c {
+	case ALPSUseCodepointNew:
+		return "New"
+	case ALPSUseCodepointOld:
+		return "Old"
+	case ALPSUseCodepointBoth:
+		return "Both"
+	case ALPSUseCodepointNeither:
+		return "Neither"
+	}
+	panic("unknown value")
+}
+
 // A Config structure is used to configure a TLS client or server.
 // After one has been passed to a TLS function it must not be
 // modified. A Config may be reused; the tls package will also not
@@ -428,6 +471,10 @@ type Config struct {
 	// ApplicationSettings is a set of application settings to use which each
 	// application protocol.
 	ApplicationSettings map[string][]byte
+
+	// ALPSUseNewCodepoint controls which TLS extension codepoint is used to
+	// convey the ApplicationSettings.
+	ALPSUseNewCodepoint ALPSUseCodepoint
 
 	// ServerName is used to verify the hostname on the returned
 	// certificates unless InsecureSkipVerify is given. It is also included
@@ -996,10 +1043,20 @@ type ProtocolBugs struct {
 	// return.
 	ALPNProtocol *string
 
-	// AlwaysNegotiateApplicationSettings, if true, causes the server to
-	// negotiate ALPS for a protocol even if the client did not support it or
-	// the version is wrong.
-	AlwaysNegotiateApplicationSettings bool
+	// AlwaysNegotiateApplicationSettingsBoth, if true, causes the server to
+	// negotiate ALPS using both codepoint for a protocol even if the client did
+	// not support it or the version is wrong.
+	AlwaysNegotiateApplicationSettingsBoth bool
+
+	// AlwaysNegotiateApplicationSettingsNew, if true, causes the server to
+	// negotiate ALPS using new codepoint for a protocol even if the client did
+	// not support it or the version is wrong.
+	AlwaysNegotiateApplicationSettingsNew bool
+
+	// AlwaysNegotiateApplicationSettingsOld, if true, causes the server to
+	// negotiate ALPS using old codepoint for a protocol even if the client did
+	// not support it or the version is wrong.
+	AlwaysNegotiateApplicationSettingsOld bool
 
 	// SendApplicationSettingsWithEarlyData, if true, causes the client and
 	// server to send the application_settings extension with early data,
