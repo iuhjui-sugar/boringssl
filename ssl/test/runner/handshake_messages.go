@@ -180,6 +180,7 @@ type clientHelloMsg struct {
 	supportedVersions                        []uint16
 	secureRenegotiation                      []byte
 	alpnProtocols                            []string
+	alpsUseNewCodePoint                      bool
 	quicTransportParams                      []byte
 	quicTransportParamsLegacy                []byte
 	duplicateExtension                       bool
@@ -439,6 +440,9 @@ func (m *clientHelloMsg) marshalBody(hello *cryptobyte.Builder, typ clientHelloT
 			id:   extensionALPN,
 			body: alpnExtension.BytesOrPanic(),
 		})
+	}
+	if m.alpsUseNewCodePoint {
+		extensions = append(extensions, extension{id: extensionAlpsNewCodePoint})
 	}
 	if len(m.quicTransportParams) > 0 {
 		extensions = append(extensions, extension{
@@ -952,6 +956,11 @@ func (m *clientHelloMsg) unmarshal(data []byte) bool {
 				}
 				m.alpnProtocols = append(m.alpnProtocols, string(protocol))
 			}
+		case extensionAlpsNewCodePoint:
+			if len(body) != 0 {
+				return false
+			}
+			m.alpsUseNewCodePoint = true;
 		case extensionQUICTransportParams:
 			m.quicTransportParams = body
 		case extensionQUICTransportParamsLegacy:
@@ -1411,6 +1420,7 @@ type serverExtensions struct {
 	quicTransportParamsLegacy []byte
 	serverNameAck             bool
 	applicationSettings       []byte
+	alpsUseNewCodePoint       bool
 	hasApplicationSettings    bool
 	echRetryConfigs           []byte
 }
@@ -1539,6 +1549,10 @@ func (m *serverExtensions) marshal(extensions *cryptobyte.Builder) {
 		extensions.AddUint16(extensionApplicationSettings)
 		addUint16LengthPrefixedBytes(extensions, m.applicationSettings)
 	}
+	if m.alpsUseNewCodePoint {
+		extensions.AddUint16(extensionAlpsNewCodePoint)
+		extensions.AddUint16(0) // zero length
+	}
 	if len(m.echRetryConfigs) > 0 {
 		extensions.AddUint16(extensionEncryptedClientHello)
 		addUint16LengthPrefixedBytes(extensions, m.echRetryConfigs)
@@ -1649,6 +1663,11 @@ func (m *serverExtensions) unmarshal(data cryptobyte.String, version uint16) boo
 		case extensionApplicationSettings:
 			m.hasApplicationSettings = true
 			m.applicationSettings = body
+		case extensionAlpsNewCodePoint:
+			if len(body) != 0 {
+				return false
+			}
+			m.alpsUseNewCodePoint = true
 		case extensionEncryptedClientHello:
 			if version < VersionTLS13 {
 				return false

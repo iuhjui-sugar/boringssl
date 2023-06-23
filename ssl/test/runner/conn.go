@@ -76,7 +76,7 @@ type Conn struct {
 
 	localApplicationSettings, peerApplicationSettings []byte
 	hasApplicationSettings                            bool
-
+	alpsUseNewCodePoint    bool
 	// verify_data values for the renegotiation extension.
 	clientVerify []byte
 	serverVerify []byte
@@ -1596,6 +1596,7 @@ func (c *Conn) processTLS13NewSessionTicket(newSessionTicket *newSessionTicketMs
 		earlyALPN:                c.clientProtocol,
 		hasApplicationSettings:   c.hasApplicationSettings,
 		localApplicationSettings: c.localApplicationSettings,
+		alpsUseNewCodePoint:      c.alpsUseNewCodePoint,
 		peerApplicationSettings:  c.peerApplicationSettings,
 	}
 
@@ -1858,6 +1859,7 @@ func (c *Conn) ConnectionState() ConnectionState {
 		state.QUICTransportParamsLegacy = c.quicTransportParamsLegacy
 		state.HasApplicationSettings = c.hasApplicationSettings
 		state.PeerApplicationSettings = c.peerApplicationSettings
+		state.AlpsUseNewCodePoint = c.alpsUseNewCodePoint
 		state.ECHAccepted = c.echAccepted
 	}
 
