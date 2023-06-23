@@ -555,6 +555,9 @@ type connectionExpectations struct {
 	peerApplicationSettings []byte
 	// echAccepted is whether ECH should have been accepted on this connection.
 	echAccepted bool
+	// alpsUseNewCodePoint controls whether the alps negotiation should use the
+	// new codepoint which allows the alps frame larger than 128 bytes.
+	alpsUseNewCodePoint bool
 }
 
 type testCase struct {
@@ -935,6 +938,16 @@ func doExchange(test *testCase, config *Config, conn net.Conn, isResume bool, tr
 		}
 	} else if connState.HasApplicationSettings {
 		return errors.New("application settings unexpectedly negotiated")
+	}
+
+	if expectations.alpsUseNewCodePoint {
+		if !connState.AlpsUseNewCodePoint {
+			return errors.New("alps new codepoint should have been negotiated")
+		}
+	} else {
+		if connState.AlpsUseNewCodePoint {
+			return errors.New("alps new codepoint unexpectedly negotiated")
+		}
 	}
 
 	if p := connState.SRTPProtectionProfile; p != expectations.srtpProtectionProfile {
@@ -7771,6 +7784,178 @@ func addExtensionTests() {
 					},
 					// If not specified, runner and shim both implicitly expect ALPS
 					// is not negotiated.
+				})
+			}
+
+			// Test ALPS new codepoint.
+			if ver.version >= VersionTLS13 {
+				// Test the client enables Alps new codepoint.
+				testCases = append(testCases, testCase{
+					protocol:           protocol,
+					testType:           clientTest,
+					name:               "Client-Enable-ALPS-New-Codepoint-" + suffix,
+					skipQUICALPNConfig: true,
+					config: Config{
+						MaxVersion:          ver.version,
+						NextProtos:          []string{"proto"},
+						ApplicationSettings: map[string][]byte{"proto": []byte{}},
+						AlpsUseNewCodePoint: true,
+					},
+					resumeSession: true,
+					expectations: connectionExpectations{
+						peerApplicationSettings: []byte{},
+						alpsUseNewCodePoint: true,
+					},
+					flags: []string{
+						"-advertise-alpn", "\x05proto",
+						"-expect-alpn", "proto",
+						"-application-settings", "proto,",
+						"-expect-peer-application-settings", "",
+						"-expect-alps-new-codepoint",
+					},
+				})
+
+				// Test the server enables Alps new codepoint.
+				testCases = append(testCases, testCase{
+					protocol:           protocol,
+					testType:           serverTest,
+					name:               "Server-Enable-ALPS-New-Codepoint-" + suffix,
+					skipQUICALPNConfig: true,
+					config: Config{
+						MaxVersion:          ver.version,
+						NextProtos:          []string{"proto"},
+						ApplicationSettings: map[string][]byte{"proto": []byte{}},
+						AlpsUseNewCodePoint: true,
+					},
+					resumeSession: true,
+					expectations: connectionExpectations{
+						peerApplicationSettings: []byte{},
+						alpsUseNewCodePoint: true,
+					},
+					flags: []string{
+						"-select-alpn", "proto",
+						"-application-settings", "proto,",
+						"-expect-peer-application-settings", "",
+						"-expect-alps-new-codepoint",
+					},
+				})
+
+				// Test the client enables Alps new codepoint without application
+				// settings.
+				declineALPSNewCodepointError := ":UNEXPECTED_EXTENSION:"
+				declineALPSNewCodepointLocalError := "remote error: unsupported extension"
+				if protocol == quic {
+					declineALPSNewCodepointError = ""
+					declineALPSNewCodepointLocalError = ""
+				}
+				testCases = append(testCases, testCase{
+					protocol:           protocol,
+					testType:           clientTest,
+					name:               "Client-Unsupported-ALPS-New-Codepoint-" + suffix,
+					skipQUICALPNConfig: true,
+					config: Config{
+						MaxVersion:          ver.version,
+						NextProtos:          []string{"proto"},
+						AlpsUseNewCodePoint: true,
+					},
+					resumeSession: true,
+					expectations: connectionExpectations{
+						alpsUseNewCodePoint: false,
+					},
+					flags: []string{
+						"-advertise-alpn", "\x05proto",
+						"-expect-alpn", "proto",
+						"-expect-alps-new-codepoint",
+					},
+					shouldFail:         true,
+					expectedError:      declineALPSNewCodepointError,
+					expectedLocalError: declineALPSNewCodepointLocalError,
+				})
+
+				// Test the server enables Alps new codepoint without application
+				// settings.
+				testCases = append(testCases, testCase{
+					protocol:           protocol,
+					testType:           serverTest,
+					name:               "Server-Unsupported-ALPS-New-Codepoint-" + suffix,
+					skipQUICALPNConfig: true,
+					config: Config{
+						MaxVersion:          ver.version,
+						NextProtos:          []string{"proto"},
+						AlpsUseNewCodePoint: true,
+					},
+					resumeSession: true,
+					expectations: connectionExpectations{
+						alpsUseNewCodePoint: false,
+					},
+					flags: []string{
+						"-select-alpn", "proto",
+						"-expect-alps-new-codepoint",
+					},
+				})
+			} else {
+				// Test the client rejects the ALPS new code point extension if the
+				// server negotiated TLS 1.2 or below.
+				testCases = append(testCases, testCase{
+					protocol: protocol,
+					testType: clientTest,
+					name:     "Client-Reject-Alps-New-Codepoint-" + suffix,
+					config: Config{
+						MaxVersion:          ver.version,
+						NextProtos:          []string{"foo"},
+						ApplicationSettings: map[string][]byte{"foo": []byte("runner")},
+						AlpsUseNewCodePoint: true,
+						Bugs: ProtocolBugs{
+							AlwaysNegotiateApplicationSettings: true,
+						},
+					},
+					flags: []string{
+						"-advertise-alpn", "\x03foo",
+						"-expect-alpn", "foo",
+						"-application-settings", "foo,shim",
+						"-expect-alps-new-codepoint",
+					},
+					shouldFail:         true,
+					expectedError:      ":UNEXPECTED_EXTENSION:",
+					expectedLocalError: "remote error: unsupported extension",
+				})
+
+				// Test the server decline the ALPS with ALPS new codepoint if the
+				// server negotiated TLS 1.2 or below.
+				testCases = append(testCases, testCase{
+					protocol:           protocol,
+					testType:           serverTest,
+					name:               "Server-Decline-ALPS-With-New-Codepoint-" + suffix,
+					skipQUICALPNConfig: true,
+					config: Config{
+						MaxVersion:          ver.version,
+						NextProtos:          []string{"proto"},
+						ApplicationSettings: map[string][]byte{"proto": []byte{}},
+						AlpsUseNewCodePoint: true,
+					},
+					resumeSession: true,
+					flags: []string{
+						"-select-alpn", "proto",
+						"-application-settings", "proto,",
+						"-expect-alps-new-codepoint",
+					},
+				})
+
+				// Test the server decline the ALPS new codepoint extension if the
+				// server negotiated TLS 1.2 or below.
+				testCases = append(testCases, testCase{
+					protocol:           protocol,
+					testType:           serverTest,
+					name:               "Server-Decline-ALPS-New-Codepoint-" + suffix,
+					skipQUICALPNConfig: true,
+					config: Config{
+						MaxVersion:          ver.version,
+						AlpsUseNewCodePoint: true,
+					},
+					resumeSession: true,
+					flags: []string{
+						"-expect-alps-new-codepoint",
+					},
 				})
 			}
 
