@@ -130,6 +130,7 @@ const (
 	extensionDuplicate                  uint16 = 0xffff // not IANA assigned
 	extensionEncryptedClientHello       uint16 = 0xfe0d // not IANA assigned
 	extensionECHOuterExtensions         uint16 = 0xfd00 // not IANA assigned
+	extensionAlpsNewCodePoint	          uint16 = 17613 // not IANA assigned
 )
 
 // TLS signaling cipher suite values
@@ -277,6 +278,7 @@ type ConnectionState struct {
 	QUICTransportParamsLegacy  []byte                // the legacy QUIC transport params received from the peer
 	HasApplicationSettings     bool                  // whether ALPS was negotiated
 	PeerApplicationSettings    []byte                // application settings received from the peer
+	AlpsUseNewCodePoint				 bool								 // whether ALPS use new codepoint
 	ECHAccepted                bool                  // whether ECH was accepted on this connection
 }
 
@@ -314,6 +316,7 @@ type ClientSessionState struct {
 	hasApplicationSettings   bool
 	localApplicationSettings []byte
 	peerApplicationSettings  []byte
+	alpsUseNewCodePoint				 bool
 }
 
 // ClientSessionCache is a cache of ClientSessionState objects that can be used
@@ -428,6 +431,10 @@ type Config struct {
 	// ApplicationSettings is a set of application settings to use which each
 	// application protocol.
 	ApplicationSettings map[string][]byte
+
+	// AlpsUseNewCodePoint allows the server to allow whether alps can extend
+	// the frame size larger than 128 bytes.
+	AlpsUseNewCodePoint bool
 
 	// ServerName is used to verify the hostname on the returned
 	// certificates unless InsecureSkipVerify is given. It is also included
