@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ba51f9d_3e490c75",
+        "filename": "crypto/fipsmodule/rand/internal.h",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-23T01:21:04Z",
+      "side": 1,
+      "message": "Hopefully this\u0027ll also be useful for your getentropy work? If not, I can do a minimal fix. I was just getting annoyed at all the ifdefs. :-)",
+      "revId": "248f351cf88a6e77b119de28e6b8acd041174ccb",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
