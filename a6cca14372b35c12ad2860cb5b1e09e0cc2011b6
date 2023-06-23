@@ -74,6 +74,30 @@
       },
       "revId": "a6cca14372b35c12ad2860cb5b1e09e0cc2011b6",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d56dcb6e_ac238214",
+        "filename": "crypto/spx/address.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-23T21:20:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5c919bae_64db3e6c",
+      "range": {
+        "startLine": 1,
+        "startChar": 23,
+        "endLine": 1,
+        "endChar": 29
+      },
+      "revId": "a6cca14372b35c12ad2860cb5b1e09e0cc2011b6",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
