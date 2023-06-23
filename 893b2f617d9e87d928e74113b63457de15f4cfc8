@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6477dd6_8bc074e6",
+        "filename": "util/run_android_tests.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 2271,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-23T18:13:24Z",
+      "side": 1,
+      "message": "Fixed up with a walkdir.",
+      "parentUuid": "bed80f2a_c7b4a60d",
+      "revId": "893b2f617d9e87d928e74113b63457de15f4cfc8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "291e8a7f_bba3dad9",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-06-22T23:40:40Z",
       "side": 1,
       "message": "Stray change?",
+      "revId": "893b2f617d9e87d928e74113b63457de15f4cfc8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef114e2b_5476d5c8",
+        "filename": "util/run_android_tests.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 2331,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-23T18:13:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "291e8a7f_bba3dad9",
       "revId": "893b2f617d9e87d928e74113b63457de15f4cfc8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -66,6 +102,24 @@
       "side": 1,
       "message": "(Or rather it\u0027s on the CQ but doesn\u0027t work.)",
       "parentUuid": "3ec29add_242e97b5",
+      "revId": "893b2f617d9e87d928e74113b63457de15f4cfc8",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c671a9b6_31164645",
+        "filename": "util/run_android_tests.go",
+        "patchSetId": 2
+      },
+      "lineNbr": 2337,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-23T18:13:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16985a09_2e998779",
       "revId": "893b2f617d9e87d928e74113b63457de15f4cfc8",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
