@@ -121,6 +121,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "558dc4ea_df1203f5",
+        "filename": "pki/fillins/path_service.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-23T21:47:37Z",
+      "side": 1,
+      "message": "Oh, I was thinking that, once you have the environment variable (which I think works on Windows), you can probably get rid of all the rest. At the least, I don\u0027t think we need to stat it anymore.\n\nSpecifically, we will eventually want to support:\n\n1. all_tests.go running it in CI\n2. BoringSSL devs running the tests manually as `./build/pki_test --gtest_filter\u003d...`\n3. Downstream consumers running it in their CI (Android, Chromium, google3, etc.)\n\nAnd then we have some annoying constraints, mostly coming from that last one:\n\n- I\u0027m sure passing paths in as `-D` will cause endless escaping hell.\n- Downstream consumers will not want the absolute path to the build directory embedded in the binary. It\u0027ll mess with caching and whatnot.\n- Downstream consumers, like `run_android_tests.go` need to be told to package up the files in their remote execution things. When they do that, the path will probably have a prefix like `third_party/boringssl/src`\n- It may or may not be easy to inject an environment variable, depending on the tool\n\n(1) is easy and can just rely on the `getenv` mechanism. all_tests.go can just set an environment variable.\n\n(2) should be fine with cwd.\n\n(3) is annoying. My *hope* is that `getenv` will satisfy most people. And where it doesn\u0027t work, I\u0027m thinking we can let you swap out the file, ideally aligning with whatever crypto_test_data.cc is currently doing.\n\nSo if we do that, I think we don\u0027t need any ifdefs or `stat`, just:\n\n- dir \u003d getenv\n- if no env, dir \u003d \".\"\n- return dir + \"pki\"\n\nAnd then later we fix up the abstraction so it looks more like `GetTestData`, with `pki` being included in the path by the caller, and the function returning the test data itself. That way folks can swap it out if they need to.",
+      "parentUuid": "c4e72722_0db0bafb",
+      "revId": "ce75155e71c0b7dd6615ad1b218c8b9602ab12a2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f55ddc75_110693db",
         "filename": "util/run_android_tests.go",
         "patchSetId": 15

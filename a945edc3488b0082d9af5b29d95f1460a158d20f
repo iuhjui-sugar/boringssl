@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "027ada82_8e7b1464",
+        "filename": "pki/fillins/path_service.cc",
+        "patchSetId": 18
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-23T21:47:37Z",
+      "side": 1,
+      "message": "What if we call this `BORINGSSL_TEST_DATA_DIR` or `BORINGSSL_TEST_DATA_ROOT` or so hand have it point to the root of the checkout, not the `pki` subdirectory?\n\nReason is we\u0027ll want to replace `crypto_test_data.cc` later too and if all the `foo_test` files take the same environment variable, pointing at the same directory, `all_tests` can just set the variable unconditionally.\n\n(I\u0027m thinking ahead to the build cleanups I\u0027m looking to do. I should write up what I\u0027m thinking for the test data.)",
+      "range": {
+        "startLine": 60,
+        "startChar": 33,
+        "endLine": 60,
+        "endChar": 43
+      },
+      "revId": "a945edc3488b0082d9af5b29d95f1460a158d20f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
