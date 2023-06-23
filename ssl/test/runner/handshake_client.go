@@ -630,8 +630,15 @@ func (hs *clientHandshakeState) createClientHello(innerHello *clientHelloMsg, ec
 		hello.secureRenegotiation = nil
 	}
 
-	for protocol := range c.config.ApplicationSettings {
-		hello.alpsProtocols = append(hello.alpsProtocols, protocol)
+	if c.config.ALPSUseNewCodepoint.IncludeNew() {
+		for protocol := range c.config.ApplicationSettings {
+			hello.alpsProtocols = append(hello.alpsProtocols, protocol)
+		}
+	}
+	if c.config.ALPSUseNewCodepoint.IncludeOld() {
+		for protocol := range c.config.ApplicationSettings {
+			hello.alpsProtocolsOld = append(hello.alpsProtocolsOld, protocol)
+		}
 	}
 
 	if maxVersion >= VersionTLS13 {
@@ -1402,6 +1409,13 @@ func (hs *clientHandshakeState) doTLS13Handshake(msg any) error {
 			clientEncryptedExtensions.applicationSettings = c.localApplicationSettings
 		}
 	}
+	if encryptedExtensions.extensions.hasApplicationSettingsOld || (c.config.Bugs.SendApplicationSettingsWithEarlyData && c.hasApplicationSettingsOld) {
+		hasEncryptedExtensions = true
+		if !c.config.Bugs.OmitClientApplicationSettings {
+			clientEncryptedExtensions.hasApplicationSettingsOld = true
+			clientEncryptedExtensions.applicationSettingsOld = c.localApplicationSettingsOld
+		}
+	}
 	if c.config.Bugs.SendExtraClientEncryptedExtension {
 		hasEncryptedExtensions = true
 		clientEncryptedExtensions.customExtension = []byte{0}
@@ -2076,6 +2090,30 @@ func (hs *clientHandshakeState) processServerExtensions(serverExtensions *server
 		c.hasApplicationSettings = hs.session.hasApplicationSettings
 		c.localApplicationSettings = hs.session.localApplicationSettings
 		c.peerApplicationSettings = hs.session.peerApplicationSettings
+	}
+
+  if serverExtensions.hasApplicationSettingsOld {
+		if c.vers < VersionTLS13 {
+			return errors.New("tls: server sent application settings at invalid version")
+		}
+		if serverExtensions.hasEarlyData {
+			return errors.New("tls: server sent application settings with 0-RTT")
+		}
+		if !serverHasALPN {
+			return errors.New("tls: server sent application settings without ALPN")
+		}
+		settings, ok := c.config.ApplicationSettings[serverExtensions.alpnProtocol]
+		if !ok {
+			return errors.New("tls: server sent application settings for invalid protocol")
+		}
+		c.hasApplicationSettingsOld = true
+		c.localApplicationSettingsOld = settings
+		c.peerApplicationSettingsOld = serverExtensions.applicationSettingsOld
+	} else if serverExtensions.hasEarlyData {
+		// 0-RTT connections inherit application settings from the session.
+		c.hasApplicationSettingsOld = hs.session.hasApplicationSettingsOld
+		c.localApplicationSettingsOld = hs.session.localApplicationSettingsOld
+		c.peerApplicationSettingsOld = hs.session.peerApplicationSettingsOld
 	}
 
 	return nil
