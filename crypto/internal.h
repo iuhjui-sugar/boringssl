@@ -126,24 +126,10 @@
 #endif
 
 #if !defined(__cplusplus)
-#if defined(__STDC_VERSION__) && __STDC_VERSION__ >= 201112L
-#include <stdalign.h>
-#elif defined(_MSC_VER) && !defined(__clang__)
-#define alignas(x) __declspec(align(x))
-#define alignof __alignof
-#else
-// With the exception of MSVC, we require C11 to build the library. C11 is a
-// prerequisite for improved refcounting performance. All our supported C
-// compilers have long implemented C11 and made it default. The most likely
-// cause of pre-C11 modes is stale -std=c99 or -std=gnu99 flags in build
-// configuration. Such flags can be removed.
-//
-// TODO(davidben): In MSVC 2019 16.8 or higher (_MSC_VER >= 1928),
-// |__STDC_VERSION__| will be 201112 when passed /std:c11 and unset otherwise.
-// C11 alignas and alignof are only implemented in C11 mode. Can we mandate C11
-// mode for those versions?
-#error "BoringSSL must be built in C11 mode or higher."
+#if !defined(__STDC_VERSION__) || __STDC_VERSION__ < 201112L
+#error "BoringSSL requires C11 or higher. Try passing -std=c11 (GCC) or /std:c11 (MSVC)."
 #endif
+#include <stdalign.h>
 #endif
 
 #if defined(OPENSSL_THREADS) && \
@@ -159,9 +145,8 @@
 
 // Determine the atomics implementation to use with C.
 #if !defined(__cplusplus)
-#if !defined(OPENSSL_C11_ATOMIC) && defined(OPENSSL_THREADS) &&   \
-    !defined(__STDC_NO_ATOMICS__) && defined(__STDC_VERSION__) && \
-    __STDC_VERSION__ >= 201112L
+#if !defined(OPENSSL_C11_ATOMIC) && defined(OPENSSL_THREADS) && \
+    !defined(__STDC_NO_ATOMICS__)
 #define OPENSSL_C11_ATOMIC
 #endif
 
