@@ -146,6 +146,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "18f43663_485e070d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 16411
+      },
+      "writtenOn": "2023-06-23T14:27:47Z",
+      "side": 1,
+      "message": "1. https://boringssl-review.googlesource.com/c/boringssl/+/61025\n\nTL;DR: it seems to work.",
+      "parentUuid": "6be71a21_e8c6a046",
+      "revId": "7bbc729149ab24094e7d9bfe635a9ad58455980f",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "bbdffd6e_d7a32f3d",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
