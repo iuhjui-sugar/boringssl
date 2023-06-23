@@ -511,6 +511,7 @@ func (hs *clientHandshakeState) createClientHello(innerHello *clientHelloMsg, ec
 		nextProtoNeg:              len(c.config.NextProtos) > 0,
 		secureRenegotiation:       []byte{},
 		alpnProtocols:             c.config.NextProtos,
+		alpsUseNewCodePoint:			 c.config.AlpsUseNewCodePoint,
 		quicTransportParams:       quicTransportParams,
 		quicTransportParamsLegacy: quicTransportParamsLegacy,
 		duplicateExtension:        c.config.Bugs.DuplicateExtension,
@@ -2072,6 +2073,16 @@ func (hs *clientHandshakeState) processServerExtensions(serverExtensions *server
 		c.hasApplicationSettings = hs.session.hasApplicationSettings
 		c.localApplicationSettings = hs.session.localApplicationSettings
 		c.peerApplicationSettings = hs.session.peerApplicationSettings
+	}
+
+	if serverExtensions.alpsUseNewCodePoint {
+		if c.vers < VersionTLS13 {
+			return errors.New("tls: server sent alps new codepoint for TLS version less than 1.3")
+		}
+		if !serverExtensions.hasApplicationSettings {
+			return errors.New("tls: server sent alps new codepoint without application settings")
+		}
+		c.alpsUseNewCodePoint = serverExtensions.alpsUseNewCodePoint
 	}
 
 	return nil
