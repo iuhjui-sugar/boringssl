@@ -910,8 +910,10 @@ ResendHelloRetryRequest:
 		if !config.Bugs.AlwaysRejectEarlyData && hs.sessionState != nil {
 			if hs.sessionState.cipherSuite == hs.suite.id &&
 				c.clientProtocol == string(hs.sessionState.earlyALPN) &&
-				c.hasApplicationSettings == hs.sessionState.hasApplicationSettings &&
-				bytes.Equal(c.localApplicationSettings, hs.sessionState.localApplicationSettings) {
+				((c.hasApplicationSettings == hs.sessionState.hasApplicationSettings &&
+				bytes.Equal(c.localApplicationSettings, hs.sessionState.localApplicationSettings)) ||
+				(c.hasApplicationSettingsOld == hs.sessionState.hasApplicationSettingsOld &&
+				bytes.Equal(c.localApplicationSettingsOld, hs.sessionState.localApplicationSettingsOld))) {
 				encryptedExtensions.extensions.hasEarlyData = true
 			}
 			if config.Bugs.AlwaysAcceptEarlyData {
@@ -926,6 +928,8 @@ ResendHelloRetryRequest:
 			if !config.Bugs.SendApplicationSettingsWithEarlyData {
 				encryptedExtensions.extensions.hasApplicationSettings = false
 				encryptedExtensions.extensions.applicationSettings = nil
+				encryptedExtensions.extensions.hasApplicationSettingsOld = false
+				encryptedExtensions.extensions.applicationSettingsOld = nil
 			}
 
 			sessionCipher := cipherSuiteFromID(hs.sessionState.cipherSuite)
@@ -1285,6 +1289,29 @@ ResendHelloRetryRequest:
 		c.peerApplicationSettings = hs.sessionState.peerApplicationSettings
 	}
 
+	// If we sent an old ALPS extension, the client must respond with one.
+	if encryptedExtensions.extensions.hasApplicationSettingsOld {
+		msg, err := c.readHandshake()
+		if err != nil {
+			return err
+		}
+		clientEncryptedExtensions, ok := msg.(*clientEncryptedExtensionsMsg)
+		if !ok {
+			c.sendAlert(alertUnexpectedMessage)
+			return unexpectedMessageError(clientEncryptedExtensions, msg)
+		}
+		hs.writeClientHash(clientEncryptedExtensions.marshal())
+
+		if !clientEncryptedExtensions.hasApplicationSettingsOld {
+			c.sendAlert(alertMissingExtension)
+			return errors.New("tls: client didn't provide old application settings")
+		}
+		c.peerApplicationSettingsOld = clientEncryptedExtensions.applicationSettingsOld
+	} else if encryptedExtensions.extensions.hasEarlyData {
+		// 0-RTT sessions carry application settings over.
+		c.peerApplicationSettingsOld = hs.sessionState.peerApplicationSettingsOld
+	}
+
 	// If we requested a client certificate, then the client must send a
 	// certificate message, even if it's empty.
 	if config.ClientAuth >= RequestClientCert {
@@ -1596,6 +1623,7 @@ func (hs *serverHandshakeState) processClientExtensions(serverExtensions *server
 		}
 
 		var alpsAllowed bool
+		var alpsAllowedOld bool
 		if c.vers >= VersionTLS13 {
 			for _, proto := range hs.clientHello.alpsProtocols {
 				if proto == c.clientProtocol {
@@ -1603,9 +1631,23 @@ func (hs *serverHandshakeState) processClientExtensions(serverExtensions *server
 					break
 				}
 			}
+			for _, proto := range hs.clientHello.alpsProtocolsOld {
+				if proto == c.clientProtocol {
+					alpsAllowedOld = true
+					break
+				}
+			}
 		}
-		if c.config.Bugs.AlwaysNegotiateApplicationSettings {
+
+		if c.config.Bugs.AlwaysNegotiateApplicationSettingsBoth {
 			alpsAllowed = true
+			alpsAllowedOld = true
+		}
+		if c.config.Bugs.AlwaysNegotiateApplicationSettingsNew {
+			alpsAllowed = true
+		}
+		if c.config.Bugs.AlwaysNegotiateApplicationSettingsOld {
+			alpsAllowedOld = true
 		}
 		if settings, ok := c.config.ApplicationSettings[c.clientProtocol]; ok && alpsAllowed {
 			c.hasApplicationSettings = true
@@ -1613,6 +1655,13 @@ func (hs *serverHandshakeState) processClientExtensions(serverExtensions *server
 			// Note these fields may later be cleared we accept 0-RTT.
 			serverExtensions.hasApplicationSettings = true
 			serverExtensions.applicationSettings = settings
+		}
+		if settings, ok := c.config.ApplicationSettings[c.clientProtocol]; ok && alpsAllowedOld {
+			c.hasApplicationSettingsOld = true
+			c.localApplicationSettingsOld = settings
+			// Note these fields may later be cleared we accept 0-RTT.
+			serverExtensions.hasApplicationSettingsOld = true
+			serverExtensions.applicationSettingsOld = settings
 		}
 	}
 
