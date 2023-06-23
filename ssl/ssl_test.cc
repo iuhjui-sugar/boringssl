@@ -7989,6 +7989,118 @@ TEST(SSLTest, ALPNConfig) {
   check_alpn_proto({});
 }
 
+class AlpsNewCodepointTest : public testing::Test {
+ protected:
+  void SetUp() override {
+    client_ctx_.reset(SSL_CTX_new(TLS_method()));
+    server_ctx_ = CreateContextWithTestCertificate(TLS_method());
+    ASSERT_TRUE(client_ctx_);
+    ASSERT_TRUE(server_ctx_);
+  }
+
+  void SetUpExpecteNewCodePoint() {
+    SSL_CTX_set_select_certificate_cb(
+      server_ctx_.get(),
+      [](const SSL_CLIENT_HELLO *client_hello) -> ssl_select_cert_result_t {
+        const uint8_t *data;
+        size_t len;
+        if (!SSL_early_callback_ctx_extension_get(
+                client_hello, TLSEXT_TYPE_application_settings, &data,
+                &len)) {
+          ADD_FAILURE() << "Could not find alps new codpoint.";
+          return ssl_select_cert_error;
+        }
+        return ssl_select_cert_success;
+      });
+  }
+
+  void SetUpExpecteOldCodePoint() {
+    SSL_CTX_set_select_certificate_cb(
+      server_ctx_.get(),
+      [](const SSL_CLIENT_HELLO *client_hello) -> ssl_select_cert_result_t {
+        const uint8_t *data;
+        size_t len;
+        if (!SSL_early_callback_ctx_extension_get(
+                client_hello, TLSEXT_TYPE_application_settings_old, &data,
+                &len)) {
+          ADD_FAILURE() << "Could not find alps old codpoint.";
+          return ssl_select_cert_error;
+        }
+        return ssl_select_cert_success;
+      });
+  }
+
+  void SetUpApplicationSetting() {
+    static const uint8_t alpn[] = {0x03, 'f', 'o', 'o',
+                                  0x03, 'b', 'a', 'r'};
+    static const uint8_t alps[] = {0x04, 'a', 'l', 'p', 's'};
+    SSL_set_alpn_protos(client_.get(), alpn, sizeof(alpn));
+    SSL_add_application_settings(client_.get(), alpn, sizeof(alpn), nullptr, 0);
+    SSL_add_application_settings(server_.get(), alpn, sizeof(alpn), alps, sizeof(alps));
+  }
+
+  bssl::UniquePtr<SSL_CTX> client_ctx_;
+  bssl::UniquePtr<SSL_CTX> server_ctx_;
+
+  bssl::UniquePtr<SSL> client_;
+  bssl::UniquePtr<SSL> server_;
+};
+
+TEST_F(AlpsNewCodepointTest, Enabled) {
+  SetUpExpecteNewCodePoint();
+
+  ASSERT_TRUE(CreateClientAndServer(&client_, &server_, client_ctx_.get(),
+                                    server_ctx_.get()));
+
+  SSL_set_alps_use_new_codepoint(client_.get(), 1);
+  SSL_set_alps_use_new_codepoint(server_.get(), 1);
+
+  SetUpApplicationSetting();
+  ASSERT_TRUE(CompleteHandshakes(client_.get(), server_.get()));
+}
+
+TEST_F(AlpsNewCodepointTest, Disabled) {
+  // Both client and server disable alps new codepoint.
+  SetUpExpecteOldCodePoint();
+
+  ASSERT_TRUE(CreateClientAndServer(&client_, &server_, client_ctx_.get(),
+                                    server_ctx_.get()));
+
+  SSL_set_alps_use_new_codepoint(client_.get(), 0);
+  SSL_set_alps_use_new_codepoint(server_.get(), 0);
+
+  SetUpApplicationSetting();
+  ASSERT_TRUE(CompleteHandshakes(client_.get(), server_.get()));
+}
+
+TEST_F(AlpsNewCodepointTest, ClientOnly) {
+  // If client set new codepoint but server doesn't set, it would be fine.
+  SetUpExpecteNewCodePoint();
+
+  ASSERT_TRUE(CreateClientAndServer(&client_, &server_, client_ctx_.get(),
+                                    server_ctx_.get()));
+
+  SSL_set_alps_use_new_codepoint(client_.get(), 1);
+  SSL_set_alps_use_new_codepoint(server_.get(), 0);
+
+  SetUpApplicationSetting();
+  ASSERT_TRUE(CompleteHandshakes(client_.get(), server_.get()));
+}
+
+TEST_F(AlpsNewCodepointTest, ServerOnly) {
+  // If client doesn't set new codepoint, while server set.
+  SetUpExpecteOldCodePoint();
+
+  ASSERT_TRUE(CreateClientAndServer(&client_, &server_, client_ctx_.get(),
+                                    server_ctx_.get()));
+
+  SSL_set_alps_use_new_codepoint(client_.get(), 0);
+  SSL_set_alps_use_new_codepoint(server_.get(), 1);
+
+  SetUpApplicationSetting();
+  ASSERT_TRUE(CompleteHandshakes(client_.get(), server_.get()));
+}
+
 // Test that the key usage checker can correctly handle issuerUID and
 // subjectUID. See https://crbug.com/1199744.
 TEST(SSLTest, KeyUsageWithUIDs) {
