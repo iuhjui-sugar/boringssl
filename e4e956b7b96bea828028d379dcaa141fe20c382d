@@ -75,6 +75,24 @@
       "parentUuid": "a69b724b_864fc746",
       "revId": "e4e956b7b96bea828028d379dcaa141fe20c382d",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f1d2b1b_13d7dfeb",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 492,
+      "author": {
+        "id": 16411
+      },
+      "writtenOn": "2023-06-23T14:24:59Z",
+      "side": 1,
+      "message": "Okay, I tried the build generator and it worked: https://android-review.git.corp.google.com/c/platform/frameworks/native/+/2631596/3/libs/binder/linux/build.sh\n\nFYI instructions from http://shortn/_oB4VOoRkB2 are misleading: https://paste.googleplex.com/4852368616194048?raw (I guess they should work from google3).",
+      "parentUuid": "c88f56e8_1b632346",
+      "revId": "e4e956b7b96bea828028d379dcaa141fe20c382d",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
