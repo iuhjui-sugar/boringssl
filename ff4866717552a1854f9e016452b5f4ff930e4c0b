@@ -1,0 +1,239 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "35b06a2d_c588d9f4",
+        "filename": "crypto/curve25519/curve25519.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-23T22:12:27Z",
+      "side": 1,
+      "message": "Transcribed",
+      "range": {
+        "startLine": 547,
+        "startChar": 5,
+        "endLine": 547,
+        "endChar": 15
+      },
+      "revId": "ff4866717552a1854f9e016452b5f4ff930e4c0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e53edbf_7ce7ec88",
+        "filename": "crypto/curve25519/curve25519.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 548,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-23T22:12:27Z",
+      "side": 1,
+      "message": "(Checked this matches.)",
+      "range": {
+        "startLine": 548,
+        "startChar": 4,
+        "endLine": 548,
+        "endChar": 135
+      },
+      "revId": "ff4866717552a1854f9e016452b5f4ff930e4c0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22c758e1_b4d0cece",
+        "filename": "crypto/curve25519/curve25519.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 568,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-23T22:12:27Z",
+      "side": 1,
+      "message": "Transcribed",
+      "range": {
+        "startLine": 568,
+        "startChar": 5,
+        "endLine": 568,
+        "endChar": 15
+      },
+      "revId": "ff4866717552a1854f9e016452b5f4ff930e4c0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ab397239_b90e8c7e",
+        "filename": "crypto/curve25519/curve25519.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 589,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-23T22:12:27Z",
+      "side": 1,
+      "message": "Does having the separate inline version do anything? I didn\u0027t think compilers actually did much with the `inline` keyword here.",
+      "revId": "ff4866717552a1854f9e016452b5f4ff930e4c0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9c9d83e0_8f9d52db",
+        "filename": "crypto/curve25519/curve25519.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 655,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-23T22:12:27Z",
+      "side": 1,
+      "message": "Nit: Any reason not to write this as:\n\n```suggestion\n    ge_p3_add_p3_precomp(h, h, \u0026e);\n    if (i) {\n      // NOTE: h.T is unused, dead-code elimination help us\n      x25519_ge_dbl(h, h);\n    }\n```\n\n(I assume it\u0027ll only do dead code elimination if we manage to inline the whole thing.)\n\nEdit: Oh, I see. You wrote it this way to tempt the compiler into noticing that `h.T` in the first branch, but not the second? Maybe that could be clearer...\n\n// NOTE: h.T is unused in this branch. The calls to ge_p3_add_p3_precomp are duplicated so the compiler can skip that computation.",
+      "range": {
+        "startLine": 649,
+        "startChar": 0,
+        "endLine": 655,
+        "endChar": 5
+      },
+      "revId": "ff4866717552a1854f9e016452b5f4ff930e4c0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "129a4f5d_afc2fc6a",
+        "filename": "crypto/curve25519/curve25519.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-23T22:12:27Z",
+      "side": 1,
+      "message": "through",
+      "range": {
+        "startLine": 752,
+        "startChar": 32,
+        "endLine": 752,
+        "endChar": 39
+      },
+      "revId": "ff4866717552a1854f9e016452b5f4ff930e4c0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "100c40d3_40e0a05b",
+        "filename": "crypto/curve25519/curve25519.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 776,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-23T22:12:27Z",
+      "side": 1,
+      "message": "Completed\n\nAlso perhaps this to match the other ones.\n\n```suggestion\n// Completed coordinates: (X/Z, Y/T) \u003d (x, y)\ntypedef struct {\n```",
+      "range": {
+        "startLine": 776,
+        "startChar": 21,
+        "endLine": 776,
+        "endChar": 31
+      },
+      "revId": "ff4866717552a1854f9e016452b5f4ff930e4c0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b89c6566_ccc4e8d4",
+        "filename": "crypto/curve25519/curve25519.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 799,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-23T22:12:27Z",
+      "side": 1,
+      "message": "Just to confirm, this is ge_p2_dbl composed with x25519_ge_p1p1_to_p2 in the old version?\n\n(We don\u0027t have formulas for these, do we? I\u0027m just comparing them against the old ones, but am curious...)",
+      "revId": "ff4866717552a1854f9e016452b5f4ff930e4c0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e1b87185_298776f1",
+        "filename": "crypto/curve25519/curve25519.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 898,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-23T22:12:27Z",
+      "side": 1,
+      "message": "Nit: Probably worth keeping this as a stack temporary, maybe even scoped to inside the loop, rather than scribbling over `r`. I assume it won\u0027t make much difference either way and it confused me a bit at first why we were writing temporaries to `r`.\n\n(Also if we do manage to inline it all, I imagine the compiler will be happier not having to reason about `r` and how it aliases.)",
+      "range": {
+        "startLine": 898,
+        "startChar": 18,
+        "endLine": 898,
+        "endChar": 19
+      },
+      "revId": "ff4866717552a1854f9e016452b5f4ff930e4c0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e37472e0_da98ed39",
+        "filename": "crypto/curve25519/curve25519.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 1069,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-23T22:12:27Z",
+      "side": 1,
+      "message": "Style nit: it\u0027s a lot more lines, but we like to include the curly braes on everything.",
+      "revId": "ff4866717552a1854f9e016452b5f4ff930e4c0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42d8a513_c0b7d4c4",
+        "filename": "crypto/curve25519/internal.h",
+        "patchSetId": 6
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-23T22:12:27Z",
+      "side": 1,
+      "message": "Very nitpicky nitpick, mostly to match line 66, but also seems a bit easier to parse. :-)\n\n```suggestion\n// Duif coordinates: (y+x,y-x,2dxy)\n// These are only used for precomputed tables.\ntypedef struct {\n```",
+      "range": {
+        "startLine": 103,
+        "startChar": 7,
+        "endLine": 104,
+        "endChar": 9
+      },
+      "revId": "ff4866717552a1854f9e016452b5f4ff930e4c0b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
