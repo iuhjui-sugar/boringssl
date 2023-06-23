@@ -3153,6 +3153,11 @@ struct SSL_CONFIG {
   // of support for AES hw. The value is only considered if |aes_hw_override| is
   // true.
   bool aes_hw_override_value : 1;
+
+  // alps_use_new_codepoint is used for set ALPS to support new codepoint to
+  // negatiate and allow to extend the alps frame with size larger than 128
+  // bytes.
+  bool alps_use_new_codepoint : 1;
 };
 
 // From RFC 8446, used in determining PSK modes.
