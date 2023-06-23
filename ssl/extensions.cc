@@ -2991,6 +2991,79 @@ static bool ext_alps_add_serverhello(SSL_HANDSHAKE *hs, CBB *out) {
   return true;
 }
 
+static bool ext_alps_new_cp_add_clienthello(const SSL_HANDSHAKE *hs, CBB *out,
+                                            CBB *out_compressible,
+                                            ssl_client_hello_type_t type) {
+  const SSL *const ssl = hs->ssl;
+  // ALPS new codepoint requires ALPS, keeping the same checks as ALPS adding
+  // clienthello.
+  if (hs->max_version < TLS1_3_VERSION ||
+      hs->config->alpn_client_proto_list.empty() ||
+      hs->config->alps_configs.empty() ||
+      ssl->s3->initial_handshake_complete ) {
+    return true;
+  }
+
+  // Nothing to do, since we don't enable alps new codepoint.
+  if (!hs->config->alps_use_new_codepoint) {
+    return true;
+  }
+
+  CBB contents;
+  if (!CBB_add_u16(out_compressible, TLSEXT_TYPE_alps_new_codepoint) ||
+      !CBB_add_u16_length_prefixed(out_compressible, &contents)) {
+    return false;
+  }
+
+  return CBB_flush(out_compressible);
+}
+
+static bool ext_alps_new_cp_parse_serverhello(SSL_HANDSHAKE *hs,
+                                              uint8_t *out_alert,
+                                              CBS *contents) {
+  SSL *const ssl = hs->ssl;
+  if (contents == nullptr) {
+    return true;
+  }
+
+  assert(!ssl->s3->initial_handshake_complete);
+  assert(!hs->config->alpn_client_proto_list.empty());
+  assert(!hs->config->alps_configs.empty());
+
+  // ALPS requires TLS 1.3.
+  if (ssl_protocol_version(ssl) < TLS1_3_VERSION) {
+    *out_alert = SSL_AD_UNSUPPORTED_EXTENSION;
+    OPENSSL_PUT_ERROR(SSL, SSL_R_UNEXPECTED_EXTENSION);
+    return false;
+  }
+
+  return true;
+}
+
+static bool ext_alps_new_cp_add_serverhello(SSL_HANDSHAKE *hs, CBB *out) {
+  SSL *const ssl = hs->ssl;
+  // ALPS new codepoint requires ALPS, keeping the same checks as ALPS adding
+  // serverhello.
+  if (hs->new_session == nullptr ||
+      !hs->new_session->has_application_settings ||
+      ssl->s3->early_data_accepted) {
+    return true;
+  }
+
+   // Nothing to do, since we don't enable alps new codepoint.
+  if (!hs->config->alps_use_new_codepoint) {
+    return true;
+  }
+
+  CBB contents;
+  if (!CBB_add_u16(out, TLSEXT_TYPE_alps_new_codepoint) ||
+      !CBB_add_u16_length_prefixed(out, &contents)) {
+    return false;
+  }
+
+  return CBB_flush(out);
+}
+
 bool ssl_negotiate_alps(SSL_HANDSHAKE *hs, uint8_t *out_alert,
                         const SSL_CLIENT_HELLO *client_hello) {
   SSL *const ssl = hs->ssl;
@@ -3215,6 +3288,13 @@ static const struct tls_extension kExtensions[] = {
     // ALPS is negotiated late in |ssl_negotiate_alpn|.
     ignore_parse_clienthello,
     ext_alps_add_serverhello,
+  },
+  {
+    TLSEXT_TYPE_alps_new_codepoint,
+    ext_alps_new_cp_add_clienthello,
+    ext_alps_new_cp_parse_serverhello,
+    ignore_parse_clienthello,
+    ext_alps_new_cp_add_serverhello,
   },
 };
 
