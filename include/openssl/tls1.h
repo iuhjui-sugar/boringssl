@@ -246,6 +246,9 @@ extern "C" {
 // extension number.
 #define TLSEXT_TYPE_application_settings 17513
 
+// This is not an IANA defined extension number.
+#define TLSEXT_TYPE_alps_new_codepoint 17613
+
 // ExtensionType values from draft-ietf-tls-esni-13. This is not an IANA defined
 // extension number.
 #define TLSEXT_TYPE_encrypted_client_hello 0xfe0d

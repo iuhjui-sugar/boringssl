@@ -1648,6 +1648,14 @@ func (hs *serverHandshakeState) processClientExtensions(serverExtensions *server
 		serverExtensions.quicTransportParamsLegacy = c.config.QUICTransportParams
 	}
 
+	if hs.clientHello.alpsUseNewCodePoint {
+		c.alpsUseNewCodePoint = hs.clientHello.alpsUseNewCodePoint
+	}
+
+	if c.config.AlpsUseNewCodePoint {
+		serverExtensions.alpsUseNewCodePoint = c.config.AlpsUseNewCodePoint
+	}
+
 	if c.vers < VersionTLS13 || config.Bugs.NegotiateEMSAtAllVersions {
 		disableEMS := config.Bugs.NoExtendedMasterSecret
 		if c.cipherSuite != nil {
