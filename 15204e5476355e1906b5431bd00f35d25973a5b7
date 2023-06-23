@@ -16,6 +16,23 @@
       "message": "Oh hmm, this probably doesn\u0027t help with the Android issue.",
       "revId": "15204e5476355e1906b5431bd00f35d25973a5b7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "faf95fac_392262f5",
+        "filename": "pki/CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-23T15:43:24Z",
+      "side": 1,
+      "message": "Whoops, one moment. I see to have not quite gotten this right. :-)",
+      "revId": "15204e5476355e1906b5431bd00f35d25973a5b7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
