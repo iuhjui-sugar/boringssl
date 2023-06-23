@@ -1,4 +1,4 @@
-From 9a38f227afca29cb3e373ca973d2f68126a0145e Mon Sep 17 00:00:00 2001
+From ddc9943e5da6f9f7d37df8da1f349a54ba4717c0 Mon Sep 17 00:00:00 2001
 From: Bob Beck <bbe@google.com>
 Date: Fri, 2 Jun 2023 11:08:50 +0200
 Subject: [PATCH 3/3] disable path builder tests with unsupported dependencies

@@ -19,5 +19,6 @@ tar -C $CHROMIUM_SRC/net/data -cf -  cert_issuer_source_static_unittest \
     verify_certificate_chain_unittest \
     verify_name_match_unittest \
     verify_signed_data_unittest | tar -C ./testdata -xf -
+git add ./testdata
 
 go run ./import_tool.go -spec import_spec.json --source-base $CHROMIUM_SRC -dest-base .

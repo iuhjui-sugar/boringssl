@@ -1,4 +1,4 @@
-From 8776d775ed86427e37b17ce1ea4728e99cb45275 Mon Sep 17 00:00:00 2001
+From 8f19dc194f438842ccd5d595e1fca4a0779701f0 Mon Sep 17 00:00:00 2001
 From: Bob Beck <bbe@google.com>
 Date: Thu, 1 Jun 2023 10:54:40 +0200
 Subject: [PATCH 2/3] Conditionalize the use of DVLOG/LOG in path builder on
