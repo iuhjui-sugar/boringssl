@@ -34,6 +34,24 @@
       "parentUuid": "61510e81_527ca502",
       "revId": "ee4d7e129ad0cd03c154c50bb92a0cf221203880",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "637fbff1_344c3fcb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 15908
+      },
+      "writtenOn": "2023-06-26T08:22:52Z",
+      "side": 1,
+      "message": "Thanks Bob, should be fixed now (the tests were still checking for 0 as a success on verification instead of 1).",
+      "parentUuid": "ec7bfd38_3f80e235",
+      "revId": "ee4d7e129ad0cd03c154c50bb92a0cf221203880",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
