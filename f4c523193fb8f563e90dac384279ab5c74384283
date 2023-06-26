@@ -405,6 +405,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b3901ae1_3fd79b12",
+        "filename": "rust/bssl-crypto/src/p256.rs",
+        "patchSetId": 10
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 15426
+      },
+      "writtenOn": "2023-06-26T20:02:25Z",
+      "side": 1,
+      "message": "Add a next commit in the chain that makes the changes we have discussed here, and if that looks like the right direction, I will squash it into this change so we can continue the discussion here.\n\n---\n\n\u003e What are you actually planning on doing with this API? The lack of the standard serialization format is pretty surprising. Have you all gathered your requirements there?\n\nWe are implementing go/ukey2 on top of this API. For production we are only doing ephemeral ECDH. The only reason why we are using `from_private_bytes` is for testing – to be able to define a private key from a constant (pre-generated) value and compare the exchanged keys with a known value.",
+      "parentUuid": "955fbaa9_da9701b0",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 42
+      },
+      "revId": "f4c523193fb8f563e90dac384279ab5c74384283",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "286fec75_8676f55c",
         "filename": "rust/bssl-crypto/src/p256.rs",
         "patchSetId": 10
