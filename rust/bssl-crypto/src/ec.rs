@@ -18,8 +18,9 @@
 //! to be exposed externally.
 
 use core::panic;
+use std::fmt::Debug;
 
-use crate::{bn::BigNum, ForeignType, CSlice};
+use crate::{bn::BigNum, ForeignType, CSlice, CSliceMut};
 
 #[derive(Debug)]
 pub(crate) struct EcKey {
@@ -91,7 +92,7 @@ impl EcKey {
         match result {
             0 => Err(ConversionFailed),
             1 => Ok(eckey),
-            _ => panic!("Unexpected return value {result} from EC_POINT_oct2point"),
+            _ => panic!("Unexpected return value {result} from EC_KEY_oct2key"),
         }
     }
 
@@ -178,6 +179,28 @@ impl EcKey {
         Ok(eckey)
     }
 
+    /// Converts between the private key component of `eckey` and octet form. The octet form
+    /// consists of the content octets of the `privateKey` `OCTET STRING` in an `ECPrivateKey` ASN.1
+    /// structure
+    pub(crate) fn to_raw_bytes(&self) -> Vec<u8> {
+        let mut output = vec![0_u8; 66];
+        let mut private_key_bytes_ffi = CSliceMut::from(&mut output[..]);
+        // Safety:
+        // - `EcKey` ensures `self.ptr` is valid.
+        // - `private_key_bytes_ffi` is a CSliceMut we just allocated.
+        // - 66 bytes is guaranteed to be sufficient to store an EC private key
+        let num_octets_stored = unsafe {
+            bssl_sys::EC_KEY_priv2oct(
+                self.as_ptr(),
+                private_key_bytes_ffi.as_mut_ptr(),
+                private_key_bytes_ffi.len(),
+            )
+        };
+        // Safety: `EC_KEY_priv2oct` just wrote `num_octets_stored` into the buffer.
+        unsafe { output.set_len(num_octets_stored) }
+        output
+    }
+
     pub(crate) fn public_key_eq(&self, other: &Self) -> bool {
         let result = unsafe {
             bssl_sys::EC_POINT_cmp(
@@ -209,7 +232,7 @@ impl EcKey {
                 core::ptr::null_mut(),
             )
         };
-        assert_ne!(output_size, 0, "bssl_sys::EC_KEY_key2buf failed");
+        assert_ne!(output_size, 0, "bssl_sys::EC_POINT_point2oct failed");
         let mut result_vec = Vec::<u8>::with_capacity(output_size);
         let buf_len = unsafe {
             bssl_sys::EC_POINT_point2oct(
@@ -221,7 +244,7 @@ impl EcKey {
                 core::ptr::null_mut(),
             )
         };
-        assert_ne!(buf_len, 0, "bssl_sys::EC_KEY_key2buf failed");
+        assert_ne!(buf_len, 0, "bssl_sys::EC_POINT_point2oct failed");
         // Safety: The length is what EC_POINT_point2oct just told us it filled into the buffer.
         unsafe { result_vec.set_len(buf_len) }
         result_vec
@@ -233,4 +256,54 @@ impl Drop for EcKey {
         // Safety: `self.ptr` is owned by this struct
         unsafe { bssl_sys::EC_KEY_free(self.ptr) }
     }
+}
+
+/// An elliptic curve, used as the type parameter for [`PublicKey`] and [`PrivateKey`].
+pub trait Curve: Debug {
+    /// The NID associated with this curve. The value should be a `NID_*` constant defined in
+    /// `bssl_sys`.
+    const NID: i32;
+
+    /// The size of the affine coordinates for this curve.
+    const AFFINE_COORDINATE_SIZE: usize;
+}
+
+/// The P-224 curve, corresponding to `NID_secp224r1`.
+#[derive(Debug)]
+pub struct P224;
+
+impl Curve for P224 {
+    const NID: i32 = bssl_sys::NID_secp224r1;
+
+    const AFFINE_COORDINATE_SIZE: usize = 28;
+}
+
+/// The P-256 curve, corresponding to `NID_X9_62_prime256v1`.
+#[derive(Debug)]
+pub struct P256;
+
+impl Curve for P256 {
+    const NID: i32 = bssl_sys::NID_X9_62_prime256v1;
+
+    const AFFINE_COORDINATE_SIZE: usize = 32;
+}
+
+/// The P-384 curve, corresponding to `NID_secp384r1`.
+#[derive(Debug)]
+pub struct P384;
+
+impl Curve for P384 {
+    const NID: i32 = bssl_sys::NID_secp384r1;
+
+    const AFFINE_COORDINATE_SIZE: usize = 48;
+}
+
+/// The P-521 curve, corresponding to `NID_secp521r1`.
+#[derive(Debug)]
+pub struct P521;
+
+impl Curve for P521 {
+    const NID: i32 = bssl_sys::NID_secp521r1;
+
+    const AFFINE_COORDINATE_SIZE: usize = 66;
 }

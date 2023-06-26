@@ -36,19 +36,18 @@ unsafe impl ForeignType for Pkey {
     }
 }
 
-impl From<EcKey> for Pkey {
-    fn from(eckey: EcKey) -> Self {
+impl From<&EcKey> for Pkey {
+    fn from(eckey: &EcKey) -> Self {
         // Safety: EVP_PKEY_new does not have any preconditions
         let pkey = unsafe { bssl_sys::EVP_PKEY_new() };
         assert!(!pkey.is_null());
-        let manually_drop_ec_key = core::mem::ManuallyDrop::new(eckey);
         // Safety:
         // - pkey is just allocated and is null-checked
         // - EcKey ensures eckey.ptr is valid during its lifetime
-        // - EVP_PKEY_assign_EC_KEY takes ownership, which we transfer using ManuallyDrop
+        // - EVP_PKEY_set1_EC_KEY doesn't take ownership
         let result =
-            unsafe { bssl_sys::EVP_PKEY_assign_EC_KEY(pkey, manually_drop_ec_key.as_ptr()) };
-        assert_eq!(result, 1, "bssl_sys::EVP_PKEY_assign_EC_KEY failed");
+            unsafe { bssl_sys::EVP_PKEY_set1_EC_KEY(pkey, eckey.as_ptr()) };
+        assert_eq!(result, 1, "bssl_sys::EVP_PKEY_set1_EC_KEY failed");
         Self { ptr: pkey }
     }
 }
