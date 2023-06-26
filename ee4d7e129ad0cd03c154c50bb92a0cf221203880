@@ -70,6 +70,24 @@
       "parentUuid": "637fbff1_344c3fcb",
       "revId": "ee4d7e129ad0cd03c154c50bb92a0cf221203880",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aadcffb8_8e13f162",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-26T16:03:46Z",
+      "side": 1,
+      "message": "Or more specifically rebase your change here off of patchset 2?",
+      "parentUuid": "3e369886_83ce4bda",
+      "revId": "ee4d7e129ad0cd03c154c50bb92a0cf221203880",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
