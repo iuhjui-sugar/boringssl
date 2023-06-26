@@ -52,6 +52,24 @@
       "parentUuid": "ec7bfd38_3f80e235",
       "revId": "ee4d7e129ad0cd03c154c50bb92a0cf221203880",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e369886_83ce4bda",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-26T16:03:05Z",
+      "side": 1,
+      "message": "When you did this you reverted the changes I made in patchet 2 on this CL to address a couple things (I.E,  you pulled out the change to bring the copyrigits into modern compliance.. Can you rebase off of the latest patch set?",
+      "parentUuid": "637fbff1_344c3fcb",
+      "revId": "ee4d7e129ad0cd03c154c50bb92a0cf221203880",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
