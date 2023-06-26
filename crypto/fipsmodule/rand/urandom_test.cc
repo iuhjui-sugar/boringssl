@@ -700,10 +700,6 @@ static std::vector<Event> TestFunctionPRNGModel(unsigned flags) {
       if (getrandom_ready) {
         return;
       }
-
-      ret.push_back(Event::GetRandom(1, GRND_NONBLOCK));
-      ret.push_back(Event::GetRandom(1, 0));
-      getrandom_ready = true;
     };
     sysrand = [&ret, &wait_for_entropy](bool block, size_t len) {
       if (block) {
