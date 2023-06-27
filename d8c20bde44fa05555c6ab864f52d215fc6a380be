@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51c0e680_ece68ae1",
+        "filename": "crypto/spx/internal.h",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-27T23:10:43Z",
+      "side": 1,
+      "message": "Let\u0027s keep this interface internal for now, and we can change this to expose it through the normal BoringSSL API\u0027s",
+      "revId": "d8c20bde44fa05555c6ab864f52d215fc6a380be",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
