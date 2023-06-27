@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "16ceb532_395f07ac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-06-27T16:38:33Z",
+      "side": 1,
+      "message": "We would need to pre-flight this by landing a change in google3 that prints a clear message if getrandom is missing, and with a Blaze flag for people to work around, and we probably need to leave it for a few months to gain confidence that we can make the change stick.",
+      "revId": "fa364e25cf8d2a0ea59d27f35ffad4355d97a581",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
