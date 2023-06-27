@@ -16,6 +16,23 @@
       "message": "Ping?",
       "revId": "89ba65270016c911d12aaeb7a6bd7c2d1de7a2a7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ebd93a8e_49edbbc2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-06-27T16:46:09Z",
+      "side": 1,
+      "message": "Our CMake build is intended for development, and it\u0027s not clear that find_package(OpenSSL 1.1.1) _should_ find BoringSSL. If you\u0027re using BoringSSL as a new consumer we suggest consuming the generated file lists and integrating into your build system. See https://boringssl.googlesource.com/boringssl/+/HEAD/INCORPORATING.md",
+      "revId": "89ba65270016c911d12aaeb7a6bd7c2d1de7a2a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
