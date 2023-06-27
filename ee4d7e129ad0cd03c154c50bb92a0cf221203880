@@ -88,6 +88,24 @@
       "parentUuid": "3e369886_83ce4bda",
       "revId": "ee4d7e129ad0cd03c154c50bb92a0cf221203880",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eda744b8_116bcf0d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 15908
+      },
+      "writtenOn": "2023-06-27T14:09:45Z",
+      "side": 1,
+      "message": "Should be fixed now in the latest patchset :).",
+      "parentUuid": "aadcffb8_8e13f162",
+      "revId": "ee4d7e129ad0cd03c154c50bb92a0cf221203880",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
