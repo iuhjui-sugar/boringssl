@@ -868,6 +868,30 @@
       },
       "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c207600_ff7470bd",
+        "filename": "ssl/tls13_both.cc",
+        "patchSetId": 10
+      },
+      "lineNbr": 441,
+      "author": {
+        "id": 16251
+      },
+      "writtenOn": "2023-06-28T22:18:11Z",
+      "side": 1,
+      "message": "I _think_ this is resolved by virtue of the call to `ssl_add_message_cbb` at the bottom, but I\u0027m still wrapping my head around how CBBs work so let me know if I\u0027m wrong.",
+      "parentUuid": "14a349cd_cca58d4f",
+      "range": {
+        "startLine": 441,
+        "startChar": 9,
+        "endLine": 441,
+        "endChar": 23
+      },
+      "revId": "e95575aef3430a0ab8707f76b154f507b0cd074a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
