@@ -51,6 +51,24 @@
       "parentUuid": "ebd93a8e_49edbbc2",
       "revId": "89ba65270016c911d12aaeb7a6bd7c2d1de7a2a7",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fcdb35e6_b6302e76",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-29T19:12:58Z",
+      "side": 1,
+      "message": "This doesn\u0027t make much sense as OpenSSL is not packaged with CMake in the first place. How does it find the version with OpenSSL? I see FindOpenSSL.cmake has some code that parses OPENSSL_VERSION_NUMBER out of opensslv.h. Do we just need to move our OPENSSL_VERSION_NUMBER line into opensslv.h? That would be a very straightforward change.\n\nAdditionally, these kinds of auto-detection scripts tend to be built around system libraries, which would be extremely inappropriate for use with BoringSSL. We expect folks that use BoringSSL to do so in contexts where they already know that they\u0027re using BoringSSL. So if `find_package(OpenSSL)` accepts some flags that specify an install directory, you should just be using that.\n\nCan you also explain the motivation here? What Google project is building BoringSSL non-trivially with CMake? As Adam noted, this CMake build is, for now, mostly used with development. I would like to clean this up a bit, but honestly, we (BoringSSL folks) don\u0027t have much experience with CMake to really know the implications of trying to support full integration with the CMake ecosystem. That\u0027s just not how most projects at Google are built.\n\nEven accepting patches for an \"install\" target has caused us a lot of problems and, in hindsight, we probably should have said no.",
+      "parentUuid": "8d7924de_cfe93879",
+      "revId": "89ba65270016c911d12aaeb7a6bd7c2d1de7a2a7",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
