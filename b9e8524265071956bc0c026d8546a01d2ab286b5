@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8bdfdcc0_c256e1dd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 7730
+      },
+      "writtenOn": "2023-06-29T13:46:17Z",
+      "side": 1,
+      "message": "I think this looks good just some small suggestions / questions. That said I am not a boringssl core committer",
+      "revId": "b9e8524265071956bc0c026d8546a01d2ab286b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68ec29d4_9e1b4695",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 3064,
+      "author": {
+        "id": 7730
+      },
+      "writtenOn": "2023-06-29T13:46:17Z",
+      "side": 1,
+      "message": "```suggestion\n// obtained via |SSL_get0_peer_pubkey| or |SSL_get0_unparsed_peer_pubkey|. This is only supported for client\n```",
+      "revId": "b9e8524265071956bc0c026d8546a01d2ab286b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b489a33_7538ce1a",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 3077,
+      "author": {
+        "id": 7730
+      },
+      "writtenOn": "2023-06-29T13:46:17Z",
+      "side": 1,
+      "message": "```suggestion\n// non-NULL. |spki| must be non-NULL if |privkey_method| is, otherwise the\n```",
+      "revId": "b9e8524265071956bc0c026d8546a01d2ab286b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "765485b2_cfc6fabd",
+        "filename": "ssl/tls13_both.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 7730
+      },
+      "writtenOn": "2023-06-29T13:46:17Z",
+      "side": 1,
+      "message": "I wonder if it would be possible to only parse it when we really need it. Like when we only ever want to use the unparsed version I wonder if we can not remove this one.",
+      "revId": "b9e8524265071956bc0c026d8546a01d2ab286b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
