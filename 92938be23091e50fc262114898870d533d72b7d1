@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8969363a_94384745",
+        "filename": "pki/cert_net_fetcher.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-06-29T20:56:49Z",
+      "side": 1,
+      "message": "There are some formatting nits here, but I assume it\u0027s not time to clang-format all this code yet.",
+      "revId": "92938be23091e50fc262114898870d533d72b7d1",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
