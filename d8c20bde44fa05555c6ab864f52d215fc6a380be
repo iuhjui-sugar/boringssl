@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "411643da_e5030932",
+        "filename": "crypto/spx/address.c",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-06-30T14:15:13Z",
+      "side": 1,
+      "message": "I mentioned this to you on chat Stefan, but this file and a couple of the other \"byte bashing\" files we should re-write into using the CBB/CBS API that boringssl uses internally, I\u0027m away at a conference next week but will probably just do this shortly.",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 4
+      },
+      "revId": "d8c20bde44fa05555c6ab864f52d215fc6a380be",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "51c0e680_ece68ae1",
         "filename": "crypto/spx/internal.h",
         "patchSetId": 5
