@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5fa58bd0_b5772068",
+        "filename": "sources.cmake",
+        "patchSetId": 1
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-06-30T17:26:14Z",
+      "side": 1,
+      "message": "@bbe@google.com, how do you feel about this version? This list should be available in `generate_build_files.py` as `cmake[\"PKI_SOURCES\"]` and `cmake[\"PKI_TEST_SOURCES\"]`.\n\nIf the separate test files work better for you, we can instead just do the `CMAKE_CONFIGURE_DEPENDS` thing, but I figured this might work better.",
+      "revId": "ff95d47042f69da0cfce6163be41b8340d2b47ab",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
