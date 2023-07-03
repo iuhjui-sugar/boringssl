@@ -128,6 +128,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "436cecaf_75e7f4f5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-03T14:55:18Z",
+      "side": 1,
+      "message": "And (with the compiler flags changed to add -fcf-protection) I just confirmed that all the elf objects end up with the IBT and SHSTK properties set, so assuming we do that the X86_64 binaries we build would not preclude someone using us from making use of those features. (if they compiled all the rest of their stuff with it)",
+      "parentUuid": "2fbeb31f_6a5498db",
+      "revId": "0e446d92b15da4560e9938012d8b860d1c079065",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "15f9d059_c7815193",
         "filename": "crypto/chacha/asm/chacha-x86_64.pl",
         "patchSetId": 2
