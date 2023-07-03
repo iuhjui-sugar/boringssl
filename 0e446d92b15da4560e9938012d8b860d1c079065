@@ -92,6 +92,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "052ddd7f_deb519a9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-03T14:41:14Z",
+      "side": 1,
+      "message": "So pulling this onto a linux machine, and adding the -fcf-protection flag to the compiler flags in cmake we do end up with the endbr instructions in the correct place, and the binaries get correctly tagged as having IBT:\n\nbbe@bbe-glinux1:~/boringssl/build$ readelf -n crypto/fipsmodule/CMakeFiles/fipsmodule.dir/aesni-x86_64-linux.S.o\n\nDisplaying notes found in: .note.gnu.property\n  Owner                Data size \tDescription\n  GNU                  0x00000010\tNT_GNU_PROPERTY_TYPE_0\n      Properties: x86 feature: IBT, SHSTK\nbbe@bbe-glinux1:~/boringssl/build$ objdump --disassemble crypto/fipsmodule/CMakeFiles/fipsmodule.dir/aesni-x86_64-linux.S.o | grep endbr\n       0:\tf3 0f 1e fa          \tendbr64\n      50:\tf3 0f 1e fa          \tendbr64\n     740:\tf3 0f 1e fa          \tendbr64\n     ca0:\tf3 0f 1e fa          \tendbr64\n    15f0:\tf3 0f 1e fa          \tendbr64\n    1f70:\tf3 0f 1e fa          \tendbr64\n    1fe0:\tf3 0f 1e fa          \tendbr64\nbbe@bbe-glinux1:~/boringssl/build$ readelf -n pki/CMakeFiles/pki.dir/input.cc.o \n\nDisplaying notes found in: .note.gnu.property\n  Owner                Data size \tDescription\n  GNU                  0x00000010\tNT_GNU_PROPERTY_TYPE_0\n      Properties: x86 feature: IBT, SHSTK\nbbe@bbe-glinux1:~/boringssl/build$ objdump --disassemble pki/CMakeFiles/pki.dir/input.cc.o | grep endbr\n   0:\tf3 0f 1e fa          \tendbr64\n  4e:\tf3 0f 1e fa          \tendbr64\n  8c:\tf3 0f 1e fa          \tendbr64\n  de:\tf3 0f 1e fa          \tendbr64\n 116:\tf3 0f 1e fa          \tendbr64\n 142:\tf3 0f 1e fa          \tendbr64\n 1d9:\tf3 0f 1e fa          \tendbr64\n 206:\tf3 0f 1e fa          \tendbr64\n 244:\tf3 0f 1e fa          \tendbr64\n 29a:\tf3 0f 1e fa          \tendbr64\n 30e:\tf3 0f 1e fa          \tendbr64\n 32a:\tf3 0f 1e fa          \tendbr64\n   0:\tf3 0f 1e fa          \tendbr64\n   0:\tf3 0f 1e fa          \tendbr64\n   0:\tf3 0f 1e fa          \tendbr64\n   0:\tf3 0f 1e fa          \tendbr64\n   0:\tf3 0f 1e fa          \tendbr64\n   0:\tf3 0f 1e fa          \tendbr64\n   0:\tf3 0f 1e fa          \tendbr64\n   0:\tf3 0f 1e fa          \tendbr64\n   0:\tf3 0f 1e fa          \tendbr64\n   0:\tf3 0f 1e fa          \tendbr64\n   0:\tf3 0f 1e fa          \tendbr64\n   0:\tf3 0f 1e fa          \tendbr64\n   0:\tf3 0f 1e fa          \tendbr64\n   0:\tf3 0f 1e fa          \tendbr64",
+      "parentUuid": "b7c53d1e_e513a544",
+      "revId": "0e446d92b15da4560e9938012d8b860d1c079065",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "15f9d059_c7815193",
         "filename": "crypto/chacha/asm/chacha-x86_64.pl",
         "patchSetId": 2
