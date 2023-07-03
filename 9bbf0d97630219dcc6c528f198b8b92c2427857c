@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f7ecc18_c93a6efb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-03T15:37:26Z",
+      "side": 1,
+      "message": "Ugh. looks like this broke the android stuff again.",
+      "revId": "9bbf0d97630219dcc6c528f198b8b92c2427857c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
