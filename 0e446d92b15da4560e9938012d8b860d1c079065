@@ -110,6 +110,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "2fbeb31f_6a5498db",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-03T14:42:21Z",
+      "side": 1,
+      "message": "of note at least on out linux environments we can\u0027t build an enforcing binary without linking in a libc / libc++ build with -fcf-protection as this is another all or nothing thing.",
+      "parentUuid": "052ddd7f_deb519a9",
+      "revId": "0e446d92b15da4560e9938012d8b860d1c079065",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "15f9d059_c7815193",
         "filename": "crypto/chacha/asm/chacha-x86_64.pl",
         "patchSetId": 2
