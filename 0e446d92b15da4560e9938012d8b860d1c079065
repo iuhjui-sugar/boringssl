@@ -74,6 +74,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "b7c53d1e_e513a544",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-03T12:33:08Z",
+      "side": 1,
+      "message": "So effectively __CET__ is defined by the compiler if it supports and has \u003ccet.h\u003e which was added to gcc and clang by intel.  \n\nFor windows for the moment, it\u0027s a no-op.\n\nI\u0027ve moved the definition into asm_base.h and annotated the fiat assembler files\nand the start of the function in the same manner as the perlasm ones.",
+      "parentUuid": "191dd650_7e2bfe7a",
+      "revId": "0e446d92b15da4560e9938012d8b860d1c079065",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "15f9d059_c7815193",
         "filename": "crypto/chacha/asm/chacha-x86_64.pl",
         "patchSetId": 2
@@ -108,6 +126,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "ac0a5c05_013644da",
+        "filename": "crypto/perlasm/x86_64-xlate.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 1513,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-03T12:33:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96699ffa_24a46f47",
+      "revId": "0e446d92b15da4560e9938012d8b860d1c079065",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "b551e0e8_e4ab4559",
         "filename": "crypto/perlasm/x86_64-xlate.pl",
         "patchSetId": 2
@@ -136,6 +172,24 @@
       "writtenOn": "2023-06-13T19:40:49Z",
       "side": 1,
       "message": "Looks like `\u003ccet.h\u003e` internally defines one of those marker sections too. Maybe we should put this in `\u003copenssl/asm_base.h\u003e` once this lands:\nhttps://boringssl-review.googlesource.com/c/boringssl/+/60765\n\nThat\u0027ll also make it work for non-perlasm files.",
+      "revId": "0e446d92b15da4560e9938012d8b860d1c079065",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "156f49d8_b3132168",
+        "filename": "crypto/perlasm/x86_64-xlate.pl",
+        "patchSetId": 2
+      },
+      "lineNbr": 1520,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-03T12:33:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf6558fb_5e924e14",
       "revId": "0e446d92b15da4560e9938012d8b860d1c079065",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
