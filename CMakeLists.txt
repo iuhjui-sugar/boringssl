@@ -530,7 +530,11 @@ target_link_libraries(pki crypto)
 
 add_executable(pki_test ${PKI_TEST_SOURCES})
 target_compile_definitions(pki_test PRIVATE _BORINGSSL_LIBPKI_)
+if (APPLE)
+target_link_libraries(pki_test test_support_lib boringssl_gtest_main pki crypto "-framework Security")
+else()
 target_link_libraries(pki_test test_support_lib boringssl_gtest_main pki crypto)
+endif()
 add_dependencies(all_tests pki_test)
 
 # The PKI library requires C++17.
