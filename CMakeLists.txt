@@ -141,6 +141,9 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CLANG)
   # primarily on our normal Clang one.
   # TODO(bbe) took out -Wmissing-field-initializers for pki - fix and put back or disable only for pki
   set(C_CXX_FLAGS "-Werror -Wformat=2 -Wsign-compare -Wwrite-strings -Wvla -Wshadow -Wtype-limits")
+  if (APPLE)
+    set(C_CXX_FLAGS "${C_CXX_FLAGS} -framework Security")
+  endif()
   if(MSVC)
     # clang-cl sets different default warnings than clang. It also treats -Wall
     # as -Weverything, to match MSVC. Instead -W3 is the alias for -Wall.
