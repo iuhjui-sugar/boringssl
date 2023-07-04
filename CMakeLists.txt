@@ -522,6 +522,7 @@ add_subdirectory(decrepit)
 
 if(APPLE)
   set(PKI_CXX_FLAGS "-fno-aligned-new")
+  set(CMAKE_EXE_LINKER_FLAGS, "-framework Security")
 endif()
 
 add_library(pki ${PKI_SOURCES})
