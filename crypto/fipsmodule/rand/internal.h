@@ -34,8 +34,32 @@ extern "C" {
 // Trusty's PRNG file is, for now, maintained outside the tree.
 #elif defined(OPENSSL_WINDOWS)
 #define OPENSSL_RAND_WINDOWS
-#else
+#elif defined(OPENSSL_LINUX)
+#if defined(BORINGSSL_FIPS)
+// FIPS always uses urandom for now.
 #define OPENSSL_RAND_URANDOM
+#elif defined(__GLIBC__)
+// Glibc >= 2.25 has getentropy();
+#if (__GLIBC__ >= 2) && (__GLIBC_MINOR__ >= 25)
+#define OPENSSL_RAND_GETENROPY
+#endif
+#else
+// Glibc 2.25 was released in 2017. Be visible to encourage
+// an upgrade but use urandom.
+#warn "Your glibc is too old and ourside our support window"
+#define OPENSSL_RAND_URANDOM
+#endif //__GLIBC__
+// Musl and others have had getentropy since 2018 but are
+// by choice not version detectable in the preprocessor.
+// use getentropy.
+#define OPENSSL_RAND_GETENTROPY
+#elif defined(OPENSSL_ANDROID)
+// TODO(bbe) Android has in theory had getentropy since android 6.
+#define OPENSSL_RAND_URANDOM
+#else
+// By default if you are integrating BoringSSL we expect you to
+// provide getentropy.
+#define OPENSSL_RAND_GETENTROPY
 #endif
 
 // RAND_bytes_with_additional_data samples from the RNG after mixing 32 bytes
@@ -77,7 +101,7 @@ void CRYPTO_sysrand(uint8_t *buf, size_t len);
 // depending on the vendor's configuration.
 void CRYPTO_sysrand_for_seed(uint8_t *buf, size_t len);
 
-#if defined(OPENSSL_RAND_URANDOM) || defined(OPENSSL_RAND_WINDOWS)
+#if defined(OPENSSL_RAND_URANDOM) || defined(OPENSSL_RAND_WINDOWS) || defined (OPENSSL_RAND_GETENTROPY)
 // CRYPTO_init_sysrand initializes long-lived resources needed to draw entropy
 // from the operating system.
 void CRYPTO_init_sysrand(void);
@@ -85,7 +109,7 @@ void CRYPTO_init_sysrand(void);
 OPENSSL_INLINE void CRYPTO_init_sysrand(void) {}
 #endif  // defined(OPENSSL_RAND_URANDOM) || defined(OPENSSL_RAND_WINDOWS)
 
-#if defined(OPENSSL_RAND_URANDOM)
+#if defined(OPENSSL_RAND_URANDOM) || defined (OPENSSL_RAND_GETENTROPY)
 // CRYPTO_sysrand_if_available fills |len| bytes at |buf| with entropy from the
 // operating system, or early /dev/urandom data, and returns 1, _if_ the entropy
 // pool is initialized or if getrandom() is not available and not in FIPS mode.
