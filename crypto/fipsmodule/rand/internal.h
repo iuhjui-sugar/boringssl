@@ -34,8 +34,15 @@ extern "C" {
 // Trusty's PRNG file is, for now, maintained outside the tree.
 #elif defined(OPENSSL_WINDOWS)
 #define OPENSSL_RAND_WINDOWS
-#else
+#elif defined(OPENSSL_ANDROID) || defined(OPENSSL_LINUX)
 #define OPENSSL_RAND_URANDOM
+#elif defined(OPENSSL_IOS)
+// Unlike MacOS, IOS hides away getentropy() from you.
+#define OPENSSL_RAND_IOS
+#else
+// By default if you are integrating BoringSSL we expect you to
+// provide getentropy from the <unistd.h> header file.
+#define OPENSSL_RAND_GETENTROPY
 #endif
 
 // RAND_bytes_with_additional_data samples from the RNG after mixing 32 bytes
@@ -77,7 +84,7 @@ void CRYPTO_sysrand(uint8_t *buf, size_t len);
 // depending on the vendor's configuration.
 void CRYPTO_sysrand_for_seed(uint8_t *buf, size_t len);
 
-#if defined(OPENSSL_RAND_URANDOM) || defined(OPENSSL_RAND_WINDOWS)
+#if defined(OPENSSL_RAND_URANDOM) || defined(OPENSSL_RAND_WINDOWS) 
 // CRYPTO_init_sysrand initializes long-lived resources needed to draw entropy
 // from the operating system.
 void CRYPTO_init_sysrand(void);
