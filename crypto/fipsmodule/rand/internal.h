@@ -34,8 +34,24 @@ extern "C" {
 // Trusty's PRNG file is, for now, maintained outside the tree.
 #elif defined(OPENSSL_WINDOWS)
 #define OPENSSL_RAND_WINDOWS
-#else
+#elif defined(OPENSSL_ANDROID)
+// TODO(bbe) Android supposedly hashad getentropy since android 6. In theory
+// some old kernels still don't have the system calls.
 #define OPENSSL_RAND_URANDOM
+#elif defined(OPENSSL_IOS)
+#define OPENSSL_RAND_ARC4RANDOM
+#elif defined(OPENSSL_LINUX)
+#if defined(BORINGSSL_FIPS) || defined(OPENSSL_MSAN)
+// FIPS always uses urandom for now.
+#define OPENSSL_RAND_URANDOM
+#else
+// Linux has had getentropy since 2017 in glibc, 2018 in musl
+#define OPENSSL_RAND_GETENTROPY
+#endif
+#else
+// By default if you are integrating BoringSSL we expect you to
+// provide getentropy.
+#define OPENSSL_RAND_GETENTROPY
 #endif
 
 // RAND_bytes_with_additional_data samples from the RNG after mixing 32 bytes
@@ -77,7 +93,8 @@ void CRYPTO_sysrand(uint8_t *buf, size_t len);
 // depending on the vendor's configuration.
 void CRYPTO_sysrand_for_seed(uint8_t *buf, size_t len);
 
-#if defined(OPENSSL_RAND_URANDOM) || defined(OPENSSL_RAND_WINDOWS)
+#if defined(OPENSSL_RAND_URANDOM) || defined(OPENSSL_RAND_WINDOWS) || \
+    defined(OPENSSL_RAND_GETENTROPY)
 // CRYPTO_init_sysrand initializes long-lived resources needed to draw entropy
 // from the operating system.
 void CRYPTO_init_sysrand(void);
