@@ -93,6 +93,7 @@
 #include "modes/polyval.c"
 #include "rand/ctrdrbg.c"
 #include "rand/fork_detect.c"
+#include "rand/getentropy.c"
 #include "rand/rand.c"
 #include "rand/urandom.c"
 #include "rsa/blinding.c"
