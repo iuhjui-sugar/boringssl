@@ -524,6 +524,10 @@ if(APPLE)
   set(PKI_CXX_FLAGS "-fno-aligned-new")
 endif()
 
+if (IOS)
+  set(CMAKE_EXE_LINKER_FLAGS, "-framework Security")
+endif()
+
 add_library(pki ${PKI_SOURCES})
 target_compile_definitions(pki PRIVATE _BORINGSSL_LIBPKI_)
 target_link_libraries(pki crypto)
