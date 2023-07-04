@@ -198,6 +198,7 @@ add_library(
   poly1305/poly1305_arm.c
   poly1305/poly1305_vec.c
   pool/pool.c
+  rand_extra/arc4random.c
   rand_extra/deterministic.c
   rand_extra/forkunsafe.c
   rand_extra/fuchsia.c
