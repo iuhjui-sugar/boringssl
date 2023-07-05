@@ -111,6 +111,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b768042b_82139e1f",
+        "filename": "crypto/fipsmodule/rand/getentropy.c",
+        "patchSetId": 26
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-05T18:59:55Z",
+      "side": 1,
+      "message": "No, you explicitly don\u0027t need an EINTR loop with getentropy - that\u0027s part of the point.",
+      "parentUuid": "c0f275c5_8eea8637",
+      "revId": "10e9dcf6f1fe7bbad6b379499c6185f6ff94df15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "62158fd8_ffa93010",
         "filename": "crypto/fipsmodule/rand/getentropy.c",
         "patchSetId": 26
