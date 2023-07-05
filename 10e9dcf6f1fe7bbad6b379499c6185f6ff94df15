@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e35599d7_e8b3a2c1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-05T19:37:11Z",
+      "side": 1,
+      "message": "Well, we\u0027ve managed so far to exercise the 5 year old w.r.t. toolchains, but the machines we run on is a little harder. Toolchains is \"just\" a matter of getting the embedder to update their tools, but the runtime is actually about what platforms the embedder supports.\n\nI\u0027m quite sure we can\u0027t insist on it yet for Android. Given the google/oss-policies-info CentOS 7 thing, I don\u0027t think we can insist on it for non-Android Linux either. And then we\u0027ve got the stderr warning which depends on GRND_NONBLOCK.\n\nBetween all this, I figure we should just leave Linux on urandom.c for the time being, and maybe we can re-evaluate later once we have some subset of:\n\n- Everyone\u0027s kernel has getrandom \u003d\u003e no need for /dev/urandom fallback\n- Everyone\u0027s libc has getrandom \u003d\u003e no need to call the syscall directly\n- Everyone\u0027s libc has getentropy \u003d\u003e can use the portable one IF...\n- ...everyone\u0027s sorted out the boot-time entropy mess \u003d\u003e don\u0027t need GRND_NONBLOCK to preserve that stderr printout for debugging\n\n(No strong feelings on FIPS vs non-FIPS. We can always move things in and out later anyway.)",
+      "parentUuid": "2f54bd15_44f05efe",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 5
+      },
+      "revId": "10e9dcf6f1fe7bbad6b379499c6185f6ff94df15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b2259f40_e68c99af",
         "filename": "/COMMIT_MSG",
         "patchSetId": 26
