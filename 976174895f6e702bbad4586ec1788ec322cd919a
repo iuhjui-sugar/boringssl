@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "241c8260_3e314c40",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 29
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-05T20:09:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a6006fe_a85be766",
+      "revId": "976174895f6e702bbad4586ec1788ec322cd919a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d0000231_b2dd744b",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-07-05T20:00:15Z",
       "side": 1,
       "message": "`OPENSSL_ANDROID` implies `OPENSSL_LINUX`, so we just need `OPENSSL_LINUX` here.",
+      "revId": "976174895f6e702bbad4586ec1788ec322cd919a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ce82541_380098b3",
+        "filename": "crypto/fipsmodule/rand/internal.h",
+        "patchSetId": 29
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-05T20:09:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0000231_b2dd744b",
       "revId": "976174895f6e702bbad4586ec1788ec322cd919a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -58,6 +94,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a17dd830_fd85eb47",
+        "filename": "crypto/fipsmodule/rand/internal.h",
+        "patchSetId": 29
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-05T20:09:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2dbfbe87_4b91fe6a",
+      "range": {
+        "startLine": 40,
+        "startChar": 25,
+        "endLine": 40,
+        "endChar": 32
+      },
+      "revId": "976174895f6e702bbad4586ec1788ec322cd919a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b18ac716_92021af4",
@@ -71,6 +131,24 @@
       "writtenOn": "2023-07-05T20:00:15Z",
       "side": 1,
       "message": "Nit: stray space here",
+      "revId": "976174895f6e702bbad4586ec1788ec322cd919a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ba986c2_25a0a403",
+        "filename": "crypto/fipsmodule/rand/internal.h",
+        "patchSetId": 29
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-05T20:09:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b18ac716_92021af4",
       "revId": "976174895f6e702bbad4586ec1788ec322cd919a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
