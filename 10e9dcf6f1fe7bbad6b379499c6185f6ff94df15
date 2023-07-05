@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2f54bd15_44f05efe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-05T18:57:56Z",
+      "side": 1,
+      "message": "Effectively getentropy() ensures we don\u0027t have to mess about with the unhelpful failure cases for getrandom(). Based on our 5 year support window, we should be able to insist on this from linux as far as it looks like to me. It has been in glibc since 2017 and musl since 2018.\n\nI have put it in the fips area and delocated it so it could be potentially used for that in the future? unsure what we want to do here?",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 5
+      },
+      "revId": "10e9dcf6f1fe7bbad6b379499c6185f6ff94df15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b2259f40_e68c99af",
         "filename": "/COMMIT_MSG",
         "patchSetId": 26
