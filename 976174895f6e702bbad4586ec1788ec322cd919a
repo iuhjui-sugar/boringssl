@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a6006fe_a85be766",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 29
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-05T20:00:15Z",
+      "side": 1,
+      "message": "This is probably worth an Update-Note. I think this is the right summary?\n\nUpdate-Note: Non-macOS Apple platforms now use CCRandomGenerateBytes instead of /dev/urandom. Linux behavior remains unchanged. Platforms which were not explicitly supported with a different codepath will also switch from /dev/urandom to getentropy. If your platform specifically requires /dev/urandom, let us know.",
+      "revId": "976174895f6e702bbad4586ec1788ec322cd919a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0000231_b2dd744b",
+        "filename": "crypto/fipsmodule/rand/internal.h",
+        "patchSetId": 29
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-05T20:00:15Z",
+      "side": 1,
+      "message": "`OPENSSL_ANDROID` implies `OPENSSL_LINUX`, so we just need `OPENSSL_LINUX` here.",
+      "revId": "976174895f6e702bbad4586ec1788ec322cd919a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2dbfbe87_4b91fe6a",
+        "filename": "crypto/fipsmodule/rand/internal.h",
+        "patchSetId": 29
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-05T20:00:15Z",
+      "side": 1,
+      "message": "similar",
+      "range": {
+        "startLine": 40,
+        "startChar": 25,
+        "endLine": 40,
+        "endChar": 32
+      },
+      "revId": "976174895f6e702bbad4586ec1788ec322cd919a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b18ac716_92021af4",
+        "filename": "crypto/fipsmodule/rand/internal.h",
+        "patchSetId": 29
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-05T20:00:15Z",
+      "side": 1,
+      "message": "Nit: stray space here",
+      "revId": "976174895f6e702bbad4586ec1788ec322cd919a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
