@@ -16,6 +16,24 @@
       "message": "I have made SecRandomCopyBytes work for this, but this does bring in a -framework Security dependency on anything using libcrypto which is somewhat awkward. arc4random() doensn\u0027t have that problem but (shrug) don\u0027t know what we want here.",
       "revId": "9e54645747b5eb819452c43ad42bd4de51dece60",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9112286d_e91aa66c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 25
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-05T17:37:34Z",
+      "side": 1,
+      "message": "Given that arc4random is sane on IOS, I suspect we should just use that one, and drop the SecRandomCopyBytes version unless for some reason I can\u0027t think of we really want to take the dependency on IOS.",
+      "parentUuid": "be92d764_769f2205",
+      "revId": "9e54645747b5eb819452c43ad42bd4de51dece60",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
