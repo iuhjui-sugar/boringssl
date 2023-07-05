@@ -48,6 +48,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fda0dfc9_74129a95",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-05T19:51:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2f54bd15_44f05efe",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 5
+      },
+      "revId": "10e9dcf6f1fe7bbad6b379499c6185f6ff94df15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b2259f40_e68c99af",
@@ -61,6 +85,24 @@
       "writtenOn": "2023-07-05T18:08:54Z",
       "side": 1,
       "message": "Let\u0027s add a `Bug: 287`",
+      "revId": "10e9dcf6f1fe7bbad6b379499c6185f6ff94df15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a2a89086_f8925d82",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-05T19:51:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2259f40_e68c99af",
       "revId": "10e9dcf6f1fe7bbad6b379499c6185f6ff94df15",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -82,6 +124,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61e6aead_197e9be5",
+        "filename": "crypto/fipsmodule/rand/getentropy.c",
+        "patchSetId": 26
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-05T19:51:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ee2ed96_acb0823c",
+      "revId": "10e9dcf6f1fe7bbad6b379499c6185f6ff94df15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b4c69c7c_f99274ef",
@@ -99,6 +159,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c7f9aa09_94139927",
+        "filename": "crypto/fipsmodule/rand/getentropy.c",
+        "patchSetId": 26
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-05T19:51:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b4c69c7c_f99274ef",
+      "revId": "10e9dcf6f1fe7bbad6b379499c6185f6ff94df15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "430d0a34_12993654",
@@ -112,6 +190,24 @@
       "writtenOn": "2023-07-05T18:08:54Z",
       "side": 1,
       "message": "Nit: Redundant with the while loop. May as well drop it.",
+      "revId": "10e9dcf6f1fe7bbad6b379499c6185f6ff94df15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50310d0f_1a8be809",
+        "filename": "crypto/fipsmodule/rand/getentropy.c",
+        "patchSetId": 26
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-05T19:51:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "430d0a34_12993654",
       "revId": "10e9dcf6f1fe7bbad6b379499c6185f6ff94df15",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -151,6 +247,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "56d24c63_cb7d3fe8",
+        "filename": "crypto/fipsmodule/rand/getentropy.c",
+        "patchSetId": 26
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-05T19:51:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b768042b_82139e1f",
+      "revId": "10e9dcf6f1fe7bbad6b379499c6185f6ff94df15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "62158fd8_ffa93010",
@@ -168,6 +282,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "914157e3_5460de74",
+        "filename": "crypto/fipsmodule/rand/getentropy.c",
+        "patchSetId": 26
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-05T19:51:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "62158fd8_ffa93010",
+      "revId": "10e9dcf6f1fe7bbad6b379499c6185f6ff94df15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4ffcbe6b_a1dde6e1",
@@ -181,6 +313,24 @@
       "writtenOn": "2023-07-05T18:08:54Z",
       "side": 1,
       "message": "Newer Androids have it, but I\u0027m quite sure older ones haven\u0027t fallen off our support window yet. :-(",
+      "revId": "10e9dcf6f1fe7bbad6b379499c6185f6ff94df15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "648726a0_5f2c8417",
+        "filename": "crypto/fipsmodule/rand/internal.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-05T19:51:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ffcbe6b_a1dde6e1",
       "revId": "10e9dcf6f1fe7bbad6b379499c6185f6ff94df15",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -208,6 +358,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a6e11cc_02f90566",
+        "filename": "crypto/fipsmodule/rand/internal.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-05T19:51:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1aa0fe67_57d03df2",
+      "range": {
+        "startLine": 42,
+        "startChar": 11,
+        "endLine": 42,
+        "endChar": 20
+      },
+      "revId": "10e9dcf6f1fe7bbad6b379499c6185f6ff94df15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1a7b82f0_40498754",
@@ -225,6 +399,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf35e249_c82d741a",
+        "filename": "crypto/fipsmodule/rand/internal.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-05T19:51:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a7b82f0_40498754",
+      "revId": "10e9dcf6f1fe7bbad6b379499c6185f6ff94df15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4ff88544_4fc5d571",
@@ -238,6 +430,24 @@
       "writtenOn": "2023-07-05T18:08:54Z",
       "side": 1,
       "message": "Oh it\u0027s arguably the inverse. On FIPS builds, we already require getrandom (though not sure about the libc\u0027s getentropy availability), whereas other Linux builds are a bit of a trainwreck.\n\nBut given that this thing still supports CentOS 7, I think we\u0027ll have a hard time if we try to mandate getentropy. And I\u0027m not sure what the state of CrOS is.\nhttps://github.com/google/oss-policies-info/blob/main/foundational-cxx-support-matrix.md\n\nAlso urandom.c knows how to print a warning about getrandom blocking, whereas getentropy can\u0027t do that because there\u0027s no GRND_NONBLOCK equivalent.\n\nI would say we should just keep all of Linux on OPENSSL_RAND_URANDOM for the time being. I\u0027d like to move past that, but that\u0027s probably better done separately. Then all this gets much simpler. Besides, it\u0027s not like there\u0027s that much harm in sending Linux unnecessarily down the OPENSSL_RAND_URANDOM path. If the platform has the getrandom syscall, we\u0027ll still use it.",
+      "revId": "10e9dcf6f1fe7bbad6b379499c6185f6ff94df15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aef5ebf2_ce654760",
+        "filename": "crypto/fipsmodule/rand/internal.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-05T19:51:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ff88544_4fc5d571",
       "revId": "10e9dcf6f1fe7bbad6b379499c6185f6ff94df15",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }

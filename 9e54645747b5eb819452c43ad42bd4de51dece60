@@ -52,6 +52,24 @@
       "parentUuid": "be92d764_769f2205",
       "revId": "9e54645747b5eb819452c43ad42bd4de51dece60",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b82b78bc_5913a437",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 25
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-05T19:51:37Z",
+      "side": 1,
+      "message": "Yes it does.  At the moment, I think on principle if it\u0027s the default, let\u0027s keep macos on getentropy as it has been forever anyway. I\u0027d rather not give them further excuses to be special ;)",
+      "parentUuid": "817c4a71_fa554369",
+      "revId": "9e54645747b5eb819452c43ad42bd4de51dece60",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
