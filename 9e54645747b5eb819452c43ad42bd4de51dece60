@@ -34,6 +34,24 @@
       "parentUuid": "be92d764_769f2205",
       "revId": "9e54645747b5eb819452c43ad42bd4de51dece60",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "817c4a71_fa554369",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 25
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-05T18:08:54Z",
+      "side": 1,
+      "message": "SecRandomCopyBytes is just a thin wrapper over CommonCrypto\u0027s CCRandomGenerateBytes. I think that doesn\u0027t require linking anything special.\n\nLooks like both CCRandomGenerateBytes and arc4random are wrappers over ccrng in corecrypto, but arc4random\u0027s initialization process seems... questionably thread-safe.\n\nDoes using CCRandomGenerateBytes work?",
+      "parentUuid": "be92d764_769f2205",
+      "revId": "9e54645747b5eb819452c43ad42bd4de51dece60",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }

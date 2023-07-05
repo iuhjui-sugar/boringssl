@@ -3,6 +3,148 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b2259f40_e68c99af",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 26
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-05T18:08:54Z",
+      "side": 1,
+      "message": "Let\u0027s add a `Bug: 287`",
+      "revId": "10e9dcf6f1fe7bbad6b379499c6185f6ff94df15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5ee2ed96_acb0823c",
+        "filename": "crypto/fipsmodule/rand/getentropy.c",
+        "patchSetId": 26
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-05T18:08:54Z",
+      "side": 1,
+      "message": "If FIPS \u003d\u003e urandom.c, maybe we should just put this in `crypto/rand_extra`. Less code that has to deal with delocate and all.\n\n(Also `bcm.c` doesn\u0027t play nicely with the `_DEFAULT_SOURCE` thing.)",
+      "revId": "10e9dcf6f1fe7bbad6b379499c6185f6ff94df15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4c69c7c_f99274ef",
+        "filename": "crypto/fipsmodule/rand/getentropy.c",
+        "patchSetId": 26
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-05T18:08:54Z",
+      "side": 1,
+      "message": "(If we keep Linux on `urandom.c`, probably don\u0027t need this.)",
+      "revId": "10e9dcf6f1fe7bbad6b379499c6185f6ff94df15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "430d0a34_12993654",
+        "filename": "crypto/fipsmodule/rand/getentropy.c",
+        "patchSetId": 26
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-05T18:08:54Z",
+      "side": 1,
+      "message": "Nit: Redundant with the while loop. May as well drop it.",
+      "revId": "10e9dcf6f1fe7bbad6b379499c6185f6ff94df15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0f275c5_8eea8637",
+        "filename": "crypto/fipsmodule/rand/getentropy.c",
+        "patchSetId": 26
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-05T18:08:54Z",
+      "side": 1,
+      "message": "Since `getentropy` is all-or-nothing, seems we can write this more simply as:\n\n```\n  while (len \u003e 0) {\n    // |getentropy| can only request 256 bytes at a time.\n    size_t todo \u003d len \u003c\u003d 256 ? len : 256;\n    if (getentropy(out, todo) !\u003d 0) {\n      perror(\"getentropy() failed\");\n      abort();\n    }\n\n    out +\u003d todo;\n    len -\u003d todo;\n  }\n```\n\nDo we need an `EINTR` loop?",
+      "revId": "10e9dcf6f1fe7bbad6b379499c6185f6ff94df15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "62158fd8_ffa93010",
+        "filename": "crypto/fipsmodule/rand/getentropy.c",
+        "patchSetId": 26
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-05T18:08:54Z",
+      "side": 1,
+      "message": "The `wait_for_entropy` thing on Linux really only matters for printing the message to `stderr`. That, in turn, is only possible because `getrandom` has a `GRND_NONBLOCK` option that we can poll first. (Also that, in urandom.c isn\u0027t done on `CRYPTO_init_sysrand` anyway. `CRYPTO_init_sysrand` just matters for prewarming the sandbox.)\n\nOtherwise, in both cases, we\u0027ll just block on the the first call into the PRNG, so I don\u0027t think this is doing anything. It could be useful to call this to prewarm the sandbox, but that\u0027d only matter if there was some `getentropy` platform where `getentropy` secretly opened an fd.\n\nI\u0027d say, for now:\n\n1. Keep Linux on urandom.c\n2. `CRYPTO_init_sysrand` does nothing\n3. Inline `fill_with_entropy` into `CRYPTO_sysrand`.",
+      "revId": "10e9dcf6f1fe7bbad6b379499c6185f6ff94df15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ffcbe6b_a1dde6e1",
+        "filename": "crypto/fipsmodule/rand/internal.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-05T18:08:54Z",
+      "side": 1,
+      "message": "Newer Androids have it, but I\u0027m quite sure older ones haven\u0027t fallen off our support window yet. :-(",
+      "revId": "10e9dcf6f1fe7bbad6b379499c6185f6ff94df15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1aa0fe67_57d03df2",
+        "filename": "crypto/fipsmodule/rand/internal.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-05T18:08:54Z",
+      "side": 1,
+      "message": "Very nitpicky nitpick: I think Apple usually styles these \"macOS\" and \"iOS\". Though I suspect the same constraints apply to watchOS and tvOS. I have no idea whether anyone\u0027s building BoringSSL for these, but APPLE \u0026\u0026 !MACOS is probably the way to spell it. (Or we could just use CCRandomGenerateBytes on all Apple platforms.)",
+      "range": {
+        "startLine": 42,
+        "startChar": 11,
+        "endLine": 42,
+        "endChar": 20
+      },
+      "revId": "10e9dcf6f1fe7bbad6b379499c6185f6ff94df15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1a7b82f0_40498754",
         "filename": "crypto/fipsmodule/rand/internal.h",
         "patchSetId": 26
@@ -14,6 +156,23 @@
       "writtenOn": "2023-07-05T08:39:14Z",
       "side": 1,
       "message": "I guess it isn\u0027t chacha on iOS, they did the NIST approved AES stuff in 10.12 and later.",
+      "revId": "10e9dcf6f1fe7bbad6b379499c6185f6ff94df15",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ff88544_4fc5d571",
+        "filename": "crypto/fipsmodule/rand/internal.h",
+        "patchSetId": 26
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-05T18:08:54Z",
+      "side": 1,
+      "message": "Oh it\u0027s arguably the inverse. On FIPS builds, we already require getrandom (though not sure about the libc\u0027s getentropy availability), whereas other Linux builds are a bit of a trainwreck.\n\nBut given that this thing still supports CentOS 7, I think we\u0027ll have a hard time if we try to mandate getentropy. And I\u0027m not sure what the state of CrOS is.\nhttps://github.com/google/oss-policies-info/blob/main/foundational-cxx-support-matrix.md\n\nAlso urandom.c knows how to print a warning about getrandom blocking, whereas getentropy can\u0027t do that because there\u0027s no GRND_NONBLOCK equivalent.\n\nI would say we should just keep all of Linux on OPENSSL_RAND_URANDOM for the time being. I\u0027d like to move past that, but that\u0027s probably better done separately. Then all this gets much simpler. Besides, it\u0027s not like there\u0027s that much harm in sending Linux unnecessarily down the OPENSSL_RAND_URANDOM path. If the platform has the getrandom syscall, we\u0027ll still use it.",
       "revId": "10e9dcf6f1fe7bbad6b379499c6185f6ff94df15",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
