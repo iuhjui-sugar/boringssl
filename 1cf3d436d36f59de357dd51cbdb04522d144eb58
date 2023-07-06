@@ -3,6 +3,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c8d18c94_1ed3149c",
+        "filename": "include/openssl/asm_base.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-06T19:14:07Z",
+      "side": 1,
+      "message": "We should add this now also requires the program, on x86_64, be compatible with Intel IBT and SHSTK. (SHSTK because `\u003ccet.h\u003e` seems to imply both.)",
+      "revId": "1cf3d436d36f59de357dd51cbdb04522d144eb58",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b2c3ba3_ea5ab2b3",
+        "filename": "include/openssl/asm_base.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-06T19:14:07Z",
+      "side": 1,
+      "message": "This probably should be `defined(__CET__) \u0026\u0026 defined(OPENSSL_X86_64)`?\n\nI\u0027m not sure if anyone tries to do CET for 32-bit x86, but given `endbr32` exists, I gather 32-bit CET at least exists. We\u0027re not currently compatible with IBT for 32-bit x86. I suspect we aren\u0027t compatible with SHSTK either given the call/pop PIC convention.\n\nIn that case, we\u0027re probably better off silently disabling it than claiming support and crashing. (Failing with `#error` wouldn\u0027t be wrong, but given Ubuntu 20.04 just enables it by default, it\u0027s probably too late to assume that anyone setting `__CET__` knows they want it. Silently omitting the marker is probably the best we can do.)",
+      "revId": "1cf3d436d36f59de357dd51cbdb04522d144eb58",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "854eeb01_862cec1a",
         "filename": "include/openssl/asm_base.h",
         "patchSetId": 17
@@ -14,6 +48,23 @@
       "writtenOn": "2023-07-06T17:07:42Z",
       "side": 1,
       "message": "I would mention here that _CET_ENDBR is only required when the function is the target of an indirect jump, but that BoringSSL chooses to mark all assembly entry points because it\u0027s easier.",
+      "revId": "1cf3d436d36f59de357dd51cbdb04522d144eb58",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6f1c221_698ea5a9",
+        "filename": "include/openssl/asm_base.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-06T19:14:07Z",
+      "side": 1,
+      "message": "Let\u0027s also mention that including `\u003ccet.h\u003e` adds the assembly marker. That\u0027s not quite obvious.",
       "revId": "1cf3d436d36f59de357dd51cbdb04522d144eb58",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }

@@ -146,6 +146,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "22f92a47_2a449d2e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-06T19:14:07Z",
+      "side": 1,
+      "message": "Played around with this and filed https://bugs.chromium.org/p/boringssl/issues/detail?id\u003d627 with notes for how to test this on CI.",
+      "parentUuid": "436cecaf_75e7f4f5",
+      "revId": "0e446d92b15da4560e9938012d8b860d1c079065",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "15f9d059_c7815193",
         "filename": "crypto/chacha/asm/chacha-x86_64.pl",
         "patchSetId": 2
