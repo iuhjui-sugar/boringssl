@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebb73145_9215dabd",
+        "filename": "crypto/x509/x509_vfy.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1796,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-06T07:39:43Z",
+      "side": 1,
+      "message": "Do a tgp run with this please - I\u0027ve seen goofy callers to these in the wild. (It\u0027s probably fine but save the tripup on the roll)",
+      "revId": "64eff0bc40920c33e56d26fd6454ae1477841660",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
