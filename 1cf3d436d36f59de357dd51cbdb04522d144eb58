@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "854eeb01_862cec1a",
+        "filename": "include/openssl/asm_base.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5005
+      },
+      "writtenOn": "2023-07-06T17:07:42Z",
+      "side": 1,
+      "message": "I would mention here that _CET_ENDBR is only required when the function is the target of an indirect jump, but that BoringSSL chooses to mark all assembly entry points because it\u0027s easier.",
+      "revId": "1cf3d436d36f59de357dd51cbdb04522d144eb58",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
