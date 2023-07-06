@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4aa4d18e_3eaba86d",
+        "filename": "crypto/rand_extra/getentropy.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-06T13:03:27Z",
+      "side": 1,
+      "message": "Odd that Fuchsia has it via musl, yet musl puts it in unistd.h:\nhttps://git.musl-libc.org/cgit/musl/tree/include/unistd.h#n183\n\nThough it does indeed seem to be in sys/random.h here:\nhttps://cs.opensource.google/search?q\u003dgetentropy%20file:h$%20case:yes\u0026sq\u003d\u0026ss\u003dfuchsia%2Ffuchsia\n\nLooks like Fuchsia uses musl\u0027s source, but has its own headers? @mgnb@google.com, I don\u0027t suppose Fuchsia would be willing to put it in unistd.h? That\u0027s where (almost) everyone else puts it. (No need to block this CL on it. I\u0027m just asking since it\u0027d avoid this special case in the future.)",
+      "revId": "e028c598611f35ed9bbb5ed53372768f6d48a160",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
