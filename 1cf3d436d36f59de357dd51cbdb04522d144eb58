@@ -67,6 +67,41 @@
       "message": "Let\u0027s also mention that including `\u003ccet.h\u003e` adds the assembly marker. That\u0027s not quite obvious.",
       "revId": "1cf3d436d36f59de357dd51cbdb04522d144eb58",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a93459d6_cc318e0b",
+        "filename": "include/openssl/asm_base.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-06T20:16:29Z",
+      "side": 1,
+      "message": "(Also it turns out every assembly entry point is the target of an indirect jump via our ABI tester.)",
+      "parentUuid": "854eeb01_862cec1a",
+      "revId": "1cf3d436d36f59de357dd51cbdb04522d144eb58",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f79f0bda_675ca180",
+        "filename": "include/openssl/asm_base.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-06T20:16:29Z",
+      "side": 1,
+      "message": "Looks like we\u0027re missing _CET_ENDBR in crypto/hrss/asm/poly_rq_mul.S\n\n(Found by running under SDE on Focal. :D)",
+      "revId": "1cf3d436d36f59de357dd51cbdb04522d144eb58",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
