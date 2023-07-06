@@ -16,6 +16,24 @@
       "message": "```\n// `raw.Z` was set to 1 by `ec_GFp_simple_group_set_curve`.\n```",
       "revId": "e221560b19b83ad7d8c2f3f3b6c28d7473137c37",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e2197f0a_9ec8d70c",
+        "filename": "crypto/fipsmodule/ec/ec.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-06T22:53:58Z",
+      "side": 1,
+      "message": "Done. (Used vertical bars because we haven\u0027t yet converted everything yet. :-) I\u0027ve got some script I can dust off to do a big rewrite...)",
+      "parentUuid": "c35990c4_d0de443d",
+      "revId": "e221560b19b83ad7d8c2f3f3b6c28d7473137c37",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
