@@ -63,6 +63,30 @@
       },
       "revId": "513646bd742ab371a21060829651d84e54e9bdd2",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82c995d8_e261a61c",
+        "filename": "include/openssl/asm_base.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-10T19:06:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae1879c6_06524323",
+      "range": {
+        "startLine": 37,
+        "startChar": 18,
+        "endLine": 37,
+        "endChar": 24
+      },
+      "revId": "513646bd742ab371a21060829651d84e54e9bdd2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ],
   "submitRequirementResults": [
