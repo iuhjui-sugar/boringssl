@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd99fb91_fe486c9e",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-10T20:05:58Z",
+      "side": 1,
+      "message": "While you are here, what say you rename this \"preference\" This might have been the allowed list of ciphers in the dark days and has me looking for that instead of it being the desired preference order ;)",
+      "range": {
+        "startLine": 356,
+        "startChar": 4,
+        "endLine": 356,
+        "endChar": 10
+      },
+      "revId": "e73bb192278035ba8903895220dff2e7ab619e50",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e9a9370_32cc3a57",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-10T20:05:58Z",
+      "side": 1,
+      "message": "and with the rename |preference|\u0027s order applies make sense.",
+      "range": {
+        "startLine": 375,
+        "startChar": 26,
+        "endLine": 375,
+        "endChar": 31
+      },
+      "revId": "e73bb192278035ba8903895220dff2e7ab619e50",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
