@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7535691b_f0cb5939",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-10T23:22:23Z",
+      "side": 1,
+      "message": "This probably needs a second look. I had to significantly change make_tables.go due to a bug in the generated output. (That 521 rounds to 32 and 64 differently always throws things off.)",
+      "revId": "889630ed2cb51e1362f3def933bb7d2a940bb0aa",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
