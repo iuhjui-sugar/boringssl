@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7497d2cb_0e91ad35",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-10T20:57:21Z",
+      "side": 1,
+      "message": "Should I ride this API bump and add renaming CRYPTO_sysrand to this? (to catch anyone else depending on swapping it out?)",
+      "revId": "caac1ab60b2a88465f1943c7885e091871eb9ca5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
