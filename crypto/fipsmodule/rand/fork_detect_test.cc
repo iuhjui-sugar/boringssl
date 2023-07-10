@@ -100,6 +100,10 @@ TEST(ForkDetect, Test) {
     fprintf(stderr, "Fork detection not supported. Skipping test.\n");
     return;
   }
+  if (start == 0xc0ffee) {
+    fprintf(stderr, "This platform had promised not to fork. Skipping test.\n");
+    return;
+  }
 
   // The fork generation should be stable.
   EXPECT_EQ(start, CRYPTO_get_fork_generation());
