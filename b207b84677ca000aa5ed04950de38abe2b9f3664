@@ -46,6 +46,30 @@
       },
       "revId": "b207b84677ca000aa5ed04950de38abe2b9f3664",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59ecf789_16d6fbe5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-10T19:25:31Z",
+      "side": 1,
+      "message": "*shrug* Either works for me. :-)",
+      "parentUuid": "be10d66c_9711d48b",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 50
+      },
+      "revId": "b207b84677ca000aa5ed04950de38abe2b9f3664",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }

@@ -22,6 +22,30 @@
       },
       "revId": "c8d7d6049c511d2dc2e208475cb71616f8223894",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27a511ce_55d53d44",
+        "filename": "ssl/extensions.cc",
+        "patchSetId": 7
+      },
+      "lineNbr": 4107,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-10T19:25:31Z",
+      "side": 0,
+      "message": "Yeah, we\u0027re probably due for a reset on the error codes. For now I\u0027ve just manually removed this one.",
+      "parentUuid": "bbadf8ab_b49dc5e5",
+      "range": {
+        "startLine": 4107,
+        "startChar": 26,
+        "endLine": 4107,
+        "endChar": 48
+      },
+      "revId": "c8d7d6049c511d2dc2e208475cb71616f8223894",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
