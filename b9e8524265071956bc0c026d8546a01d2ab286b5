@@ -35,6 +35,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e0850173_16c384d0",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 3064,
+      "author": {
+        "id": 16251
+      },
+      "writtenOn": "2023-07-10T20:22:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68ec29d4_9e1b4695",
+      "revId": "b9e8524265071956bc0c026d8546a01d2ab286b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2b489a33_7538ce1a",
@@ -54,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "58ae46b3_127caa9b",
+        "filename": "include/openssl/ssl.h",
+        "patchSetId": 15
+      },
+      "lineNbr": 3077,
+      "author": {
+        "id": 16251
+      },
+      "writtenOn": "2023-07-10T20:22:40Z",
+      "side": 1,
+      "message": "I took this as `|spki| must be non-NULL if and only if |privkey_method| is`",
+      "parentUuid": "2b489a33_7538ce1a",
+      "revId": "b9e8524265071956bc0c026d8546a01d2ab286b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "765485b2_cfc6fabd",
         "filename": "ssl/tls13_both.cc",
         "patchSetId": 15
@@ -65,6 +101,24 @@
       "writtenOn": "2023-06-29T13:46:17Z",
       "side": 1,
       "message": "I wonder if it would be possible to only parse it when we really need it. Like when we only ever want to use the unparsed version I wonder if we can not remove this one.",
+      "revId": "b9e8524265071956bc0c026d8546a01d2ab286b5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1aed03d9_a67d1a4b",
+        "filename": "ssl/tls13_both.cc",
+        "patchSetId": 15
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 16251
+      },
+      "writtenOn": "2023-07-10T20:22:40Z",
+      "side": 1,
+      "message": "The concern there is that you lose validation against malformed keys",
+      "parentUuid": "765485b2_cfc6fabd",
       "revId": "b9e8524265071956bc0c026d8546a01d2ab286b5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
