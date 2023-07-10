@@ -36,6 +36,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "994e1566_8b1d72be",
+        "filename": "include/openssl/asm_base.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-10T18:52:42Z",
+      "side": 1,
+      "message": "Right, I guess the question is who is \"we\" here. That decision is usually made outside of this repo, so we can only here decide how to react.\n\n*If* our asm weren\u0027t SHSTK-compatible, probably that ifdef would need to be something gross like:\n`#if defined(__CET__) \u0026\u0026 (__CET__ \u0026 2) \u003d\u003d 0 \u0026\u0026 defined(OPENSSL_X86_64`\n\nThat way, if you try to build with SHSTK, the assembly files don\u0027t accidentally claim to be SHSTK-compatible and then crash at runtime. But this is moot because we don\u0027t have to do anything to be SHSTK-compatible. :-)\n\nI suppose we might need to do something if `__CET__ \u0026 4` ever changes to mean some new feature that we\u0027re incompatible with. Meh.",
+      "parentUuid": "4dd09323_1accfd12",
+      "revId": "1cf3d436d36f59de357dd51cbdb04522d144eb58",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4b2c3ba3_ea5ab2b3",

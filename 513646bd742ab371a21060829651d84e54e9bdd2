@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76eb193f_8c9c9294",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-10T18:52:42Z",
+      "side": 1,
+      "message": "(still lgtm)",
+      "revId": "513646bd742ab371a21060829651d84e54e9bdd2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d1bf8cf_0b8140c9",
+        "filename": "include/openssl/asm_base.h",
+        "patchSetId": 18
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-10T18:52:42Z",
+      "side": 1,
+      "message": "Super nitpicky nitpick: I think this is usually styled lowercase \"x86_64\".",
+      "range": {
+        "startLine": 37,
+        "startChar": 18,
+        "endLine": 37,
+        "endChar": 24
+      },
+      "revId": "513646bd742ab371a21060829651d84e54e9bdd2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
