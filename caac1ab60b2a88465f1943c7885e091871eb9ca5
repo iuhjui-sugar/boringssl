@@ -3,6 +3,40 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9cb83f87_c36730e0",
+        "filename": "crypto/rand_extra/trusty.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-10T22:31:03Z",
+      "side": 1,
+      "message": "Oof. As I was digging around into the history for the bottom comment, I noticed this awful thing. We may need to figure out what\u0027s going on in b/152900279#comment18 😞",
+      "revId": "caac1ab60b2a88465f1943c7885e091871eb9ca5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63629d04_b60f0de1",
+        "filename": "crypto/rand_extra/trusty.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-10T22:31:03Z",
+      "side": 1,
+      "message": "Let\u0027s add a TODO about the fork thing. Among other things, it\u0027ll drop the kinda gross trusty_rng_internal.h include. :-) (It\u0027s called trusty_rng_internal.h because they only want BoringSSL to use it. But if we don\u0027t *actually* need to use it, this is all a bit silly...)\n\nTODO(davidben, bbe): Trusty gained separate CRYPTO_sysrand and CRYPTO_sysrand_for_seed functions in b/193673777 and b/193674299. However, CRYPTO_sysrand is only used for fork-safety. Teach RAND_bytes that Trusty doesn\u0027t fork, so that we won\u0027t call CRYPTO_sysrand on every RAND_bytes call. From there, CRYPTO_sysrand can be made to call trusty_rng_hw_rand and trusty_rng_internal_system_rand can be removed completely.\n\nOr perhaps we should just do that right now? I\u0027m thinking we just make Trusty (and Windows) have a CRYPTO_get_fork_generation that returns 1 instead of 0.",
+      "revId": "caac1ab60b2a88465f1943c7885e091871eb9ca5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7497d2cb_0e91ad35",
         "filename": "include/openssl/base.h",
         "patchSetId": 1
@@ -32,6 +66,24 @@
       "side": 1,
       "message": "Or perhaps we need not bother - since now every option links in our own CRYPTO_sysrand by default so you can\u0027t end up doing this easily without noticing.",
       "parentUuid": "7497d2cb_0e91ad35",
+      "revId": "caac1ab60b2a88465f1943c7885e091871eb9ca5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7ab8ddde_50a36fad",
+        "filename": "include/openssl/base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-10T22:31:03Z",
+      "side": 1,
+      "message": "If we rename it right now, we\u0027ll break these folks:\nhttps://cs.android.com/android/platform/superproject/main/+/main:packages/modules/Virtualization/vmbase/src/rand.rs;drc\u003d62ffc0d7f87a61cea92749d4608fbc8075e62650;l\u003d151\n\nGiven they\u0027ve got the added fussiness of being in Rust (unclear to me even where their libc headers come from...), let\u0027s do the rename after we\u0027ve figured that out. Also I\u0027m having a pretty hard time updating BoringSSL in Android, so let\u0027s defer flagging things until a little later. 😊",
+      "parentUuid": "7adf0034_bc88510f",
       "revId": "caac1ab60b2a88465f1943c7885e091871eb9ca5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
