@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4dd09323_1accfd12",
+        "filename": "include/openssl/asm_base.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-10T18:36:22Z",
+      "side": 1,
+      "message": "We can (if we want) compile our stuff to only be IBT and not SHSTK compatible, I don\u0027t know why we would not do both, but it seems to be possible.",
+      "parentUuid": "c8d18c94_1ed3149c",
+      "revId": "1cf3d436d36f59de357dd51cbdb04522d144eb58",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4b2c3ba3_ea5ab2b3",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-07-06T19:14:07Z",
       "side": 1,
       "message": "This probably should be `defined(__CET__) \u0026\u0026 defined(OPENSSL_X86_64)`?\n\nI\u0027m not sure if anyone tries to do CET for 32-bit x86, but given `endbr32` exists, I gather 32-bit CET at least exists. We\u0027re not currently compatible with IBT for 32-bit x86. I suspect we aren\u0027t compatible with SHSTK either given the call/pop PIC convention.\n\nIn that case, we\u0027re probably better off silently disabling it than claiming support and crashing. (Failing with `#error` wouldn\u0027t be wrong, but given Ubuntu 20.04 just enables it by default, it\u0027s probably too late to assume that anyone setting `__CET__` knows they want it. Silently omitting the marker is probably the best we can do.)",
+      "revId": "1cf3d436d36f59de357dd51cbdb04522d144eb58",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cc57f3f4_0dd64814",
+        "filename": "include/openssl/asm_base.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-10T18:36:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4b2c3ba3_ea5ab2b3",
       "revId": "1cf3d436d36f59de357dd51cbdb04522d144eb58",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
@@ -87,6 +123,42 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "28674893_6ff5b6f1",
+        "filename": "include/openssl/asm_base.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-10T18:36:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a6f1c221_698ea5a9",
+      "revId": "1cf3d436d36f59de357dd51cbdb04522d144eb58",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c35756ff_49f0c203",
+        "filename": "include/openssl/asm_base.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-10T18:36:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a93459d6_cc318e0b",
+      "revId": "1cf3d436d36f59de357dd51cbdb04522d144eb58",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f79f0bda_675ca180",
@@ -100,6 +172,24 @@
       "writtenOn": "2023-07-06T20:16:29Z",
       "side": 1,
       "message": "Looks like we\u0027re missing _CET_ENDBR in crypto/hrss/asm/poly_rq_mul.S\n\n(Found by running under SDE on Focal. :D)",
+      "revId": "1cf3d436d36f59de357dd51cbdb04522d144eb58",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "164d3697_ec00a77a",
+        "filename": "include/openssl/asm_base.h",
+        "patchSetId": 17
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-10T18:36:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f79f0bda_675ca180",
       "revId": "1cf3d436d36f59de357dd51cbdb04522d144eb58",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
