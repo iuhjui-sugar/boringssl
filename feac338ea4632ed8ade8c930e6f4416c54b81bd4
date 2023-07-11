@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "54e1ea74_0e20c521",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-11T21:45:41Z",
+      "side": 1,
+      "message": "I was going to say something snarky about rust.. but I\u0027m going to be nice.",
+      "revId": "feac338ea4632ed8ade8c930e6f4416c54b81bd4",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
