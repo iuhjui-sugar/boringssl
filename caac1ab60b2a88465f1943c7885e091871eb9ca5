@@ -36,6 +36,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b3b2300_2ae7c5ab",
+        "filename": "crypto/rand_extra/trusty.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-11T18:29:11Z",
+      "side": 1,
+      "message": "Well, they\u0027ll still call CRYPTO_sysrand_for_seed (which they later switched to overriding), but I\u0027ve since gotten access and it looks like this is gone as of b/234644597#comment8",
+      "parentUuid": "aba031f2_97b0a5df",
+      "revId": "caac1ab60b2a88465f1943c7885e091871eb9ca5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "63629d04_b60f0de1",

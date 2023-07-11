@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e15bbf24_e427ac7a",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-11T18:29:11Z",
+      "side": 1,
+      "message": "platforms",
+      "range": {
+        "startLine": 145,
+        "startChar": 9,
+        "endLine": 145,
+        "endChar": 19
+      },
+      "revId": "c977486dd08cc116c4711e908d98110010440513",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "51d4d23a_bc5f2dff",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-11T18:29:11Z",
+      "side": 1,
+      "message": "Nit: We actually don\u0027t reseed but we add additional entropy to each call.",
+      "range": {
+        "startLine": 147,
+        "startChar": 54,
+        "endLine": 148,
+        "endChar": 23
+      },
+      "revId": "c977486dd08cc116c4711e908d98110010440513",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44d04e85_935b2096",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-11T18:29:11Z",
+      "side": 1,
+      "message": "Hehehe. I\u0027d just have done 1. :-P",
+      "range": {
+        "startLine": 149,
+        "startChar": 51,
+        "endLine": 149,
+        "endChar": 59
+      },
+      "revId": "c977486dd08cc116c4711e908d98110010440513",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "29cd50fd_260808e5",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-11T18:29:11Z",
+      "side": 1,
+      "message": "platforms",
+      "range": {
+        "startLine": 153,
+        "startChar": 9,
+        "endLine": 153,
+        "endChar": 19
+      },
+      "revId": "c977486dd08cc116c4711e908d98110010440513",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f2573ee_6bb1b9a9",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-11T18:29:11Z",
+      "side": 1,
+      "message": "Ditto.",
+      "range": {
+        "startLine": 155,
+        "startChar": 56,
+        "endLine": 156,
+        "endChar": 10
+      },
+      "revId": "c977486dd08cc116c4711e908d98110010440513",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
