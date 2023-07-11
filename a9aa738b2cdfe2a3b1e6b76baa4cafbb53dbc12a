@@ -16,6 +16,23 @@
       "message": "See discussion. Unsure if this makes sense — dumbly smashing to make some code work.",
       "revId": "a9aa738b2cdfe2a3b1e6b76baa4cafbb53dbc12a",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "feeda10f_9022d4f7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-11T19:54:07Z",
+      "side": 1,
+      "message": "Probably not needed anymore with https://boringssl-review.googlesource.com/c/boringssl/+/56265",
+      "revId": "a9aa738b2cdfe2a3b1e6b76baa4cafbb53dbc12a",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
