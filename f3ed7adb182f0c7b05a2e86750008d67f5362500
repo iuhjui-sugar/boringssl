@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0d372278_5d3514bb",
+        "filename": "crypto/fipsmodule/rand/fork_detect_test.cc",
+        "patchSetId": 4
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-11T19:08:12Z",
+      "side": 1,
+      "message": "I\u0027m confused. Any platform which hits this case is one that never forks. Which means this test won\u0027t even compile because we don\u0027t have the `fork` symbol.\n\nThe test is gated on `OPENSSL_LINUX \u0026\u0026 !OPENSSL_TSAN`, so one hopes neither Trusty nor Windows will try to build it... :-)",
+      "revId": "f3ed7adb182f0c7b05a2e86750008d67f5362500",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
