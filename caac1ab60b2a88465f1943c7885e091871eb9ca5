@@ -18,6 +18,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "aba031f2_97b0a5df",
+        "filename": "crypto/rand_extra/trusty.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-11T16:26:45Z",
+      "side": 1,
+      "message": "So reading that it looks like they attempt to call it too early and have bad things, so with what I have just changed to mark it as non-forking \nCRYPTO_sysrand won\u0027t call the hw rng for them, so it should be a non issue.",
+      "parentUuid": "9cb83f87_c36730e0",
+      "revId": "caac1ab60b2a88465f1943c7885e091871eb9ca5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "63629d04_b60f0de1",
@@ -49,6 +67,24 @@
       "side": 1,
       "message": "We should just do that now.. :)",
       "parentUuid": "63629d04_b60f0de1",
+      "revId": "caac1ab60b2a88465f1943c7885e091871eb9ca5",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81a22d2f_95f51d78",
+        "filename": "crypto/rand_extra/trusty.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-11T16:26:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c09d1ddf_67fb2997",
       "revId": "caac1ab60b2a88465f1943c7885e091871eb9ca5",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
