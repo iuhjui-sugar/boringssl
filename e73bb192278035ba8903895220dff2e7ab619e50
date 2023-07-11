@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b9a5842b_007bbe72",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-11T22:17:30Z",
+      "side": 1,
+      "message": "I still don\u0027t think it\u0027s allow -- \"peer_prefernce\" i.e. it\u0027s prio and we break ties with the peer\u0027s preference order?",
+      "parentUuid": "3c691ea5_8d494100",
+      "range": {
+        "startLine": 356,
+        "startChar": 4,
+        "endLine": 356,
+        "endChar": 10
+      },
+      "revId": "e73bb192278035ba8903895220dff2e7ab619e50",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9e9a9370_32cc3a57",
         "filename": "ssl/handshake_server.cc",
         "patchSetId": 2
