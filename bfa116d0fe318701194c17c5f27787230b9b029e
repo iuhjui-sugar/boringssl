@@ -34,6 +34,24 @@
       "parentUuid": "0beff297_14124f54",
       "revId": "bfa116d0fe318701194c17c5f27787230b9b029e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b3e9d86_316e4d2f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16386
+      },
+      "writtenOn": "2023-07-11T19:23:39Z",
+      "side": 1,
+      "message": "Could you submit it? Seems I don\u0027t have permission for that.",
+      "parentUuid": "243c960f_7ca10962",
+      "revId": "bfa116d0fe318701194c17c5f27787230b9b029e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
