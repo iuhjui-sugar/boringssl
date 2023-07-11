@@ -54,6 +54,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "daf04d94_66191177",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-11T16:46:00Z",
+      "side": 1,
+      "message": "Both MacOS and OpenBSD don\u0027t like things calling syscall() directly\nfor security reasons. OpenBSD murders anything that calls syscall not\nfrom libc\u0027s stubs which are mapped specially and the kernel knows about.\n\nRegular things abusing syscall() with insane tables of system call numbers that are presumed to never change is really a linuxism.  Realistically this check should probably be !defined(OPENSSL_LINUX)",
+      "parentUuid": "514ff5b9_62fa571d",
+      "revId": "16c96c983fe71c5a8ac70b962600428e9e5d777b",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "04bf39d0_e515c444",
         "filename": "crypto/fipsmodule/rand/fork_detect.c",
         "patchSetId": 1
