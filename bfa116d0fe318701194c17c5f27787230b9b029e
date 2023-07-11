@@ -16,6 +16,24 @@
       "message": "I think this can be achieved just by moving the code down. Having uploaded a patchset excludes me from reviewing the change these days so, David/Bob, could you +1?",
       "revId": "bfa116d0fe318701194c17c5f27787230b9b029e",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "243c960f_7ca10962",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-11T19:09:28Z",
+      "side": 1,
+      "message": "Whoops, I missed this. rslgtm, if it\u0027s still relevant.",
+      "parentUuid": "0beff297_14124f54",
+      "revId": "bfa116d0fe318701194c17c5f27787230b9b029e",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
