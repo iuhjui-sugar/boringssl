@@ -24,6 +24,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "26f09cee_c97428ad",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-11T19:16:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e15bbf24_e427ac7a",
+      "range": {
+        "startLine": 145,
+        "startChar": 9,
+        "endLine": 145,
+        "endChar": 19
+      },
+      "revId": "c977486dd08cc116c4711e908d98110010440513",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "51d4d23a_bc5f2dff",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-07-11T18:29:11Z",
       "side": 1,
       "message": "Nit: We actually don\u0027t reseed but we add additional entropy to each call.",
+      "range": {
+        "startLine": 147,
+        "startChar": 54,
+        "endLine": 148,
+        "endChar": 23
+      },
+      "revId": "c977486dd08cc116c4711e908d98110010440513",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dffd1bcf_df74933e",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-11T19:16:29Z",
+      "side": 1,
+      "message": "reworded.",
+      "parentUuid": "51d4d23a_bc5f2dff",
       "range": {
         "startLine": 147,
         "startChar": 54,
@@ -70,6 +118,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a602b52_80c92135",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-11T19:16:29Z",
+      "side": 1,
+      "message": "We already have 42 in there for another case\u0027s recognizable magic value, so I figured we\u0027d continue.",
+      "parentUuid": "44d04e85_935b2096",
+      "range": {
+        "startLine": 149,
+        "startChar": 51,
+        "endLine": 149,
+        "endChar": 59
+      },
+      "revId": "c977486dd08cc116c4711e908d98110010440513",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "29cd50fd_260808e5",
@@ -93,6 +165,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "6881db66_034d2400",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-11T19:16:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "29cd50fd_260808e5",
+      "range": {
+        "startLine": 153,
+        "startChar": 9,
+        "endLine": 153,
+        "endChar": 19
+      },
+      "revId": "c977486dd08cc116c4711e908d98110010440513",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5f2573ee_6bb1b9a9",
@@ -106,6 +202,30 @@
       "writtenOn": "2023-07-11T18:29:11Z",
       "side": 1,
       "message": "Ditto.",
+      "range": {
+        "startLine": 155,
+        "startChar": 56,
+        "endLine": 156,
+        "endChar": 10
+      },
+      "revId": "c977486dd08cc116c4711e908d98110010440513",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7361a5ab_6c7b1940",
+        "filename": "crypto/fipsmodule/rand/fork_detect.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-11T19:16:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f2573ee_6bb1b9a9",
       "range": {
         "startLine": 155,
         "startChar": 56,
