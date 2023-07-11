@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3c691ea5_8d494100",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-11T18:42:31Z",
+      "side": 1,
+      "message": "It\u0027s actually much closer to `allow`. `prio` is \"preference\" because we iterate over that first.\n\nThe logic is that `prio`\u0027s order wins (we iterate over that one first), but within an equi-preference group, we\u0027ll break ties with `allow`.\n\n(Really we should change this so the library has a built-in preference order that it refuses to change and we evaluate a score or something. :-) )",
+      "parentUuid": "bd99fb91_fe486c9e",
+      "range": {
+        "startLine": 356,
+        "startChar": 4,
+        "endLine": 356,
+        "endChar": 10
+      },
+      "revId": "e73bb192278035ba8903895220dff2e7ab619e50",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9e9a9370_32cc3a57",
         "filename": "ssl/handshake_server.cc",
         "patchSetId": 2
