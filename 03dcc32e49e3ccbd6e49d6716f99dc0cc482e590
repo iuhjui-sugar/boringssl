@@ -52,6 +52,24 @@
       "parentUuid": "f5c5a788_b5775ef8",
       "revId": "03dcc32e49e3ccbd6e49d6716f99dc0cc482e590",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0eacc1be_8063ffcc",
+        "filename": "crypto/fipsmodule/rand/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-12T15:18:44Z",
+      "side": 1,
+      "message": "I\u0027m really not for this, since getentropy() is due to land in posix and this just feels like we let apple off the hook for keeping it around and add another layer we have to keep abreast of.\n\nReally if ios is hard to test we should just fix that problem ;)",
+      "parentUuid": "3e749ba9_272cb515",
+      "revId": "03dcc32e49e3ccbd6e49d6716f99dc0cc482e590",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
