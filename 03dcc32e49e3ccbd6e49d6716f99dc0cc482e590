@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20fdd6f6_b31853b9",
+        "filename": "crypto/fipsmodule/rand/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-12T00:13:39Z",
+      "side": 1,
+      "message": "Is this worth doing? I\u0027m not sure.\n\nPros:\n- https://boringssl-review.googlesource.com/c/boringssl/+/61529/ would have been caught by bots\n- More straightforward logic here\n\nCons:\n- CCRandomGenerateBytes, IIRC, is a userspace DRBG in front of getentropy, so we are sticking an extra layer in there\n\nThoughts?",
+      "revId": "03dcc32e49e3ccbd6e49d6716f99dc0cc482e590",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
