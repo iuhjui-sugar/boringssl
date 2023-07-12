@@ -34,9 +34,8 @@ extern "C" {
 #define OPENSSL_RAND_WINDOWS
 #elif defined(OPENSSL_LINUX)
 #define OPENSSL_RAND_URANDOM
-#elif defined(OPENSSL_APPLE) && !defined(OPENSSL_MACOS)
-// Unlike macOS, iOS and similar hide away getentropy().
-#define OPENSSL_RAND_IOS
+#elif defined(OPENSSL_APPLE)
+#define OPENSSL_RAND_APPLE
 #else
 // By default if you are integrating BoringSSL we expect you to
 // provide getentropy from the <unistd.h> header file.

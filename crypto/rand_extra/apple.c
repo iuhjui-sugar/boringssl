@@ -16,7 +16,7 @@
 
 #include "../fipsmodule/rand/internal.h"
 
-#if defined(OPENSSL_RAND_IOS)
+#if defined(OPENSSL_RAND_APPLE)
 #include <stdlib.h>
 
 #include <CommonCrypto/CommonRandom.h>
@@ -31,4 +31,4 @@ void CRYPTO_sysrand_for_seed(uint8_t *out, size_t requested) {
   CRYPTO_sysrand(out, requested);
 }
 
-#endif  // OPENSSL_RAND_IOS
+#endif  // OPENSSL_RAND_APPLE
