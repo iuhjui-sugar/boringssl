@@ -34,6 +34,24 @@
       "parentUuid": "20fdd6f6_b31853b9",
       "revId": "03dcc32e49e3ccbd6e49d6716f99dc0cc482e590",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e749ba9_272cb515",
+        "filename": "crypto/fipsmodule/rand/internal.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-12T00:43:11Z",
+      "side": 1,
+      "message": "\u003e Do we know what userspace DRBG it is?\n\nLooks like it\u0027s a process-global CTR_DRBG instance (with, I assume, a mutex).\n\n\u003e Are we messing up fork safety?\n\niOS can\u0027t fork, so we\u0027re definitely fine if we don\u0027t use it on macOS. :-) But it, in theory, handles fork safety with `pthread_atfork`. That *should* be fine on macOS, since macOS doesn\u0027t like people making syscalls directly. (And we have tests for at least basic cases.)\n\nBut yeah, using it on macOS would make the fork safety story a little less clear.",
+      "parentUuid": "f5c5a788_b5775ef8",
+      "revId": "03dcc32e49e3ccbd6e49d6716f99dc0cc482e590",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
