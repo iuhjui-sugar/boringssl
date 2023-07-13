@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa22a54d_a8205a97",
+        "filename": "include/openssl/target.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-13T19:07:28Z",
+      "side": 1,
+      "message": "Nit : I would add a small comment block here before the trusty and nanolibc blocks saying something like \"Google Embedded platforms are below. If you are a different embedded platform do not re-use these defines you need to get your own\" or something to that effect.",
+      "revId": "73098db4181a740bd0ccfe9aa36a37e68573f340",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
