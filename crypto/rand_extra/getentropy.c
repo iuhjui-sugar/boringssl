@@ -26,7 +26,9 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#if defined(OPENSSL_MACOS) || defined(OPENSSL_FUCHSIA)
+// On some platforms, getentropy is in a different header.
+#if defined(OPENSSL_MACOS) || defined(OPENSSL_FUCHSIA) || \
+    defined(ANDROID_BAREMETAL)
 #include <sys/random.h>
 #endif
 
