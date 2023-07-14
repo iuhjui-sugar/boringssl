@@ -16,6 +16,120 @@
       "message": "Kind ping on this :) thnaks!",
       "revId": "eef13cd8c0ba2fb57671b2be45bf8e5e6beaa53c",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f91bc258_20f44fdb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-14T18:37:27Z",
+      "side": 1,
+      "message": "Sorry for how tardy my response is here. 😞",
+      "revId": "eef13cd8c0ba2fb57671b2be45bf8e5e6beaa53c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bd8d1c15_f317f3cd",
+        "filename": "rust/bssl-crypto/src/aead/aes_gcm_siv.rs",
+        "patchSetId": 11
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-14T18:37:27Z",
+      "side": 1,
+      "message": "How do we expect this API to be used? I noticed it\u0027s under the `aead::aes_gcm_siv` module. Is it expected that Rust imports the individual function, or imports the crate and calls it as `aes_gcm_siv::new_aes_128_gcm_siv`? The latter is kinda wordy.\n\n(Would it make sense to just put all the AEADs in the `aead` module?)",
+      "revId": "eef13cd8c0ba2fb57671b2be45bf8e5e6beaa53c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d7fb6c5b_950556e4",
+        "filename": "rust/bssl-crypto/src/aead/mod.rs",
+        "patchSetId": 11
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-14T18:37:27Z",
+      "side": 1,
+      "message": "To be consistent with https://boringssl-review.googlesource.com/c/boringssl/+/60546, let\u0027s drop all the mentions of \"BoringSSL implemented\" references. That\u0027s all implicit from the fact that you\u0027re using bssl-crypto.",
+      "revId": "eef13cd8c0ba2fb57671b2be45bf8e5e6beaa53c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "91521a73_2a3ec7a3",
+        "filename": "rust/bssl-crypto/src/aead/mod.rs",
+        "patchSetId": 11
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-14T18:37:27Z",
+      "side": 1,
+      "message": "This is an odd calling convention for an in-place encrypt. Usually the idea with in-place encrypt or decrypt is that the buffer is managed however the caller wants. I.e. it would want to take a mutable slice of some sort. This one forces it to be a `Vec`.\n\nFor example, if you\u0027re decrypting TLS packets, your input will be a slice of a much larger packet. This API is actually incompatible with in-place operation because it requires the caller move it into a `Vec` first. At that point, it\u0027s more efficient to take the input as `\u0026[u8]` and put the output in a separate `Vec\u003cu8\u003e`.",
+      "range": {
+        "startLine": 33,
+        "startChar": 22,
+        "endLine": 33,
+        "endChar": 40
+      },
+      "revId": "eef13cd8c0ba2fb57671b2be45bf8e5e6beaa53c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58018f9a_53901f17",
+        "filename": "rust/bssl-crypto/src/aead/mod.rs",
+        "patchSetId": 11
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-14T18:37:27Z",
+      "side": 1,
+      "message": "This kind of API is an anti-pattern[*] for us, which is why we don\u0027t have such an API for AEADs in C. (There are a few places where we do, but they\u0027re all for OpenSSL compatibility and usually have warnings not to use them.)\n\nThe problems are:\n\n* It means the caller pulls in every AEAD we implement, whether they use it or not\n\n* Different caller have different needs. One application may need SHA-1 support for legacy compatibility, while another caller may have security requirements incompatible with SHA-1. APIs like this make it very easy for unwanted hashes to be reachable to callers.\n\n* It makes it much more difficult to statically check what algorithms are used by what callers.\n\nInstead, each AEAD should be its own symbol. When callers want to dispatch between a couple algorithms, it should be up to the caller to collect the algorithms they accept and dispatch between them. This avoids both these problems.\n\n[*] Admittedly our SPKI and PKCS#8 parsers implicitly have this property. One thing I\u0027d like to do is rework them so the caller explicitly says \"parse SPKI, I am okay with these key types\".",
+      "range": {
+        "startLine": 63,
+        "startChar": 42,
+        "endLine": 63,
+        "endChar": 61
+      },
+      "revId": "eef13cd8c0ba2fb57671b2be45bf8e5e6beaa53c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "113fe03a_97014174",
+        "filename": "rust/bssl-crypto/src/lib.rs",
+        "patchSetId": 11
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-14T18:37:27Z",
+      "side": 1,
+      "message": "(The convention here will have changed a bit when you rebase.)",
+      "revId": "eef13cd8c0ba2fb57671b2be45bf8e5e6beaa53c",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
