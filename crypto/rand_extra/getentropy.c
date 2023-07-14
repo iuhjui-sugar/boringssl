@@ -12,6 +12,10 @@
  * OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
  * CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. */
 
+#if !defined(_BSD_SOURCE)
+#define _BSD_SOURCE  // Needed for getentropy on musl
+#endif
+
 #include <openssl/rand.h>
 
 #include "../fipsmodule/rand/internal.h"
