@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f0cb3a5b_5035f074",
+        "filename": "ssl/handshake_server.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-14T16:13:16Z",
+      "side": 1,
+      "message": "Yeah, that\u0027s true. I guess the question is whether you focus on the tie-breaking access or that (but for some equi-pref stuff) it is a filter on prio. :-)\n\n`peer` could work. Though it\u0027s a little awkward because \"peer\" usually means \"the other side\", i.e. the client. But if `SSL_OP_CIPHER_SERVER_PREFERENCE` is off, then things are flipped and `prio` is the client order and `allow`/`peer` is our order. (And then there are guaranteed to be no equipreference groups, so we know we won\u0027t ever tie-break.)\n\nNot sure what the best name is given all that. (Also we\u0027ll, I hope, undo all this later when we enforce our own order. Though that may not be for a while given the other stuff we\u0027re juggling.)",
+      "parentUuid": "b9a5842b_007bbe72",
+      "range": {
+        "startLine": 356,
+        "startChar": 4,
+        "endLine": 356,
+        "endChar": 10
+      },
+      "revId": "e73bb192278035ba8903895220dff2e7ab619e50",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "9e9a9370_32cc3a57",
         "filename": "ssl/handshake_server.cc",
         "patchSetId": 2
