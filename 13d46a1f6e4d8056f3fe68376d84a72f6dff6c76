@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80f213ad_2ceed096",
+        "filename": "crypto/rand_extra/getentropy.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-14T17:47:29Z",
+      "side": 1,
+      "message": "change this to say musl and glibc",
+      "revId": "13d46a1f6e4d8056f3fe68376d84a72f6dff6c76",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
