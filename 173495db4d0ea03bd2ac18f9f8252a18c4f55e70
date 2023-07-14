@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3987f19_ec855784",
+        "filename": "crypto/rsa_extra/rsa_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-14T20:53:43Z",
+      "side": 1,
+      "message": "For the purposes of at least our own tests, and perhaps our on future sanity in a lot of places, Can we simply make this a #define in base.h or internal somewhere? \n\nmanually changing magic numbers is more evil than RSA_MINIMUM_KEY_SIZE or RSA_RECCOMENDED_KEY_SIZE, and then we never care again and change it in one spot.",
+      "range": {
+        "startLine": 639,
+        "startChar": 45,
+        "endLine": 639,
+        "endChar": 49
+      },
+      "revId": "173495db4d0ea03bd2ac18f9f8252a18c4f55e70",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
