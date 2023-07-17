@@ -16,6 +16,24 @@
       "message": "I really guess I could have just made passing 0 length to RAND_bytes_with additional data be the trigger for this, since it\u0027s effectively internal instead of adding flag and making the guts static...",
       "revId": "e716c04173e6baea49b33eebe8647f9a69ec5879",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e86eeec_4695cba1",
+        "filename": "crypto/fipsmodule/rand/rand.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 333,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-17T16:53:50Z",
+      "side": 1,
+      "message": "Removed the additional flag and made it reseed when called with a NULL and 0 length output buffer.",
+      "parentUuid": "a23d482c_7d474f66",
+      "revId": "e716c04173e6baea49b33eebe8647f9a69ec5879",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
