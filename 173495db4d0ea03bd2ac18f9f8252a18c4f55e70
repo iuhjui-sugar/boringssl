@@ -46,6 +46,30 @@
       },
       "revId": "173495db4d0ea03bd2ac18f9f8252a18c4f55e70",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92be15cd_1a485ebd",
+        "filename": "crypto/rsa_extra/rsa_test.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 639,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-17T15:52:55Z",
+      "side": 1,
+      "message": "Eh. I expect it\u0027ll be as easy to drop RSA completely as it will be to set a library-wide minimum beyond 2048. Even going beyond 1024 library-wide seems unthinkable. :-)",
+      "parentUuid": "4c3aee4d_fa0003d7",
+      "range": {
+        "startLine": 639,
+        "startChar": 45,
+        "endLine": 639,
+        "endChar": 49
+      },
+      "revId": "173495db4d0ea03bd2ac18f9f8252a18c4f55e70",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
