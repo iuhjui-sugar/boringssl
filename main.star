@@ -276,13 +276,6 @@ WIN_HOST = {
 # The Android tests take longer to run. See https://crbug.com/900953.
 ANDROID_TIMEOUT = 60 * time.minute
 
-BULLHEAD_HOST = {
-    "dimensions": {
-        "device_type": "bullhead",  # Nexus 5X
-    },
-    "execution_timeout": ANDROID_TIMEOUT,
-}
-
 WALLEYE_HOST = {
     "dimensions": {
         "device_type": "walleye",  # Pixel 2
@@ -299,7 +292,7 @@ SDE_TIMEOUT = 60 * time.minute
 
 both_builders(
     "android_aarch64",
-    BULLHEAD_HOST,
+    WALLEYE_HOST,
     category = "android|aarch64",
     short_name = "dbg",
     cq_compile_only = LINUX_HOST,
@@ -313,7 +306,7 @@ both_builders(
 )
 both_builders(
     "android_aarch64_rel",
-    BULLHEAD_HOST,
+    WALLEYE_HOST,
     category = "android|aarch64",
     short_name = "rel",
     cq_compile_only = LINUX_HOST,
@@ -368,7 +361,7 @@ both_builders(
 
 both_builders(
     "android_arm",
-    BULLHEAD_HOST,
+    WALLEYE_HOST,
     category = "android|thumb",
     short_name = "dbg",
     cq_compile_only = LINUX_HOST,
@@ -386,7 +379,7 @@ both_builders(
 )
 both_builders(
     "android_arm_rel",
-    BULLHEAD_HOST,
+    WALLEYE_HOST,
     category = "android|thumb",
     short_name = "rel",
     cq_compile_only = LINUX_HOST,
@@ -424,7 +417,7 @@ both_builders(
 )
 both_builders(
     "android_arm_armmode_rel",
-    BULLHEAD_HOST,
+    WALLEYE_HOST,
     category = "android|arm",
     short_name = "rel",
     cq_compile_only = LINUX_HOST,
