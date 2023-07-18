@@ -99,6 +99,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "11322500_ef02e80e",
+        "filename": "fuzz/parse_certificate_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-18T21:00:25Z",
+      "side": 1,
+      "message": "(It also has to make some more changes to them.. so since these hardly ever change, maybe not worth it? and I\u0027ll just take them out of the import after manually moving them and converting them)",
+      "parentUuid": "55925b7c_d3a33335",
+      "revId": "cc5d4a796152878bf05ac7b70b062d71a2c08838",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9a2a7653_b663cb30",
