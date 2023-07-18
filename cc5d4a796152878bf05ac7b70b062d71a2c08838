@@ -81,6 +81,24 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "55925b7c_d3a33335",
+        "filename": "fuzz/parse_certificate_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-18T20:59:23Z",
+      "side": 1,
+      "message": "I will do that, once we settle on how this one will land and I do the others ;)",
+      "parentUuid": "cccdb757_f0f7880d",
+      "revId": "cc5d4a796152878bf05ac7b70b062d71a2c08838",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9a2a7653_b663cb30",
