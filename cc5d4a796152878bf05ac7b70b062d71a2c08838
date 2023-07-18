@@ -41,6 +41,30 @@
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "87dc708e_fdd7f091",
+        "filename": "fuzz/CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-18T21:05:13Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "1ee7446c_9c271dfe",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 9
+      },
+      "revId": "cc5d4a796152878bf05ac7b70b062d71a2c08838",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "22d2c81e_f4ce8661",
@@ -54,6 +78,30 @@
       "writtenOn": "2023-07-18T20:44:47Z",
       "side": 1,
       "message": "You only need the pki library, not ssl, right?",
+      "range": {
+        "startLine": 42,
+        "startChar": 32,
+        "endLine": 42,
+        "endChar": 35
+      },
+      "revId": "cc5d4a796152878bf05ac7b70b062d71a2c08838",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4dcc4666_6a26ddbd",
+        "filename": "fuzz/CMakeLists.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-18T21:05:13Z",
+      "side": 1,
+      "message": "yeah, pki doesn\u0027t imply ssl.",
+      "parentUuid": "22d2c81e_f4ce8661",
       "range": {
         "startLine": 42,
         "startChar": 32,
