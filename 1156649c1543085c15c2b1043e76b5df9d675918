@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b045940e_64ed0edb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-18T19:49:27Z",
+      "side": 1,
+      "message": "To me this really feels like planning for something that should really never happen in practice, I can\u0027t imagine anything supporting sockets that doesn\u0027t support file descriptors, and even if such a thing existed our socket support is so file descriptor dependent it probably wouldn\u0027t work.\n\nYou sure you need this?",
+      "range": {
+        "startLine": 10,
+        "startChar": 17,
+        "endLine": 12,
+        "endChar": 19
+      },
+      "revId": "1156649c1543085c15c2b1043e76b5df9d675918",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
