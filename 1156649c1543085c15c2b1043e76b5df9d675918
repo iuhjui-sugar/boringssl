@@ -70,6 +70,30 @@
       },
       "revId": "1156649c1543085c15c2b1043e76b5df9d675918",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ef8ea69_95296f36",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-18T20:23:56Z",
+      "side": 1,
+      "message": "I am thinking more about what the rust people are going to do when respecting the OPENSSL_NO\u0027s. \n\nWhile it\u0027s certainly possible for them to accomodate differences, it would probably be much nicer to the rest of the world if the OPENSSL_NO_ meant something like consisitency as much as possible.",
+      "parentUuid": "0e91173d_bce17306",
+      "range": {
+        "startLine": 10,
+        "startChar": 17,
+        "endLine": 12,
+        "endChar": 19
+      },
+      "revId": "1156649c1543085c15c2b1043e76b5df9d675918",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
