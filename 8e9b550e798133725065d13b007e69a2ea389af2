@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "30deb4d6_e6dc84b6",
+        "filename": "include/openssl/bio.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-18T19:58:28Z",
+      "side": 1,
+      "message": "this should also be valid for file descriptors",
+      "range": {
+        "startLine": 593,
+        "startChar": 0,
+        "endLine": 593,
+        "endChar": 50
+      },
+      "revId": "8e9b550e798133725065d13b007e69a2ea389af2",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
