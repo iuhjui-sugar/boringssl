@@ -3,10 +3,21 @@ macro(fuzzer name)
   target_compile_options(${name} PRIVATE "-Wno-missing-prototypes")
   target_link_libraries(${name} crypto ${ARGN})
   if(LIBFUZZER_FROM_DEPS)
-    set_target_properties(${name} PROPERTIES LINK_FLAGS "-fsanitize=fuzzer-no-link")
+    set_target_properties(
+    ${name}
+    PROPERTIES
+    LINK_FLAGS "-fsanitize=fuzzer-no-link"
+    CXX_STANDARD 17
+    CXX_STANDARD_REQUIRED YES
+    COMPILE_FLAGS "-D_BORINGSSL_LIBPKI_")
     target_link_libraries(${name} Fuzzer)
   else()
-    set_target_properties(${name} PROPERTIES LINK_FLAGS "-fsanitize=fuzzer")
+    set_target_properties(${name}
+    PROPERTIES
+    LINK_FLAGS "-fsanitize=fuzzer"
+    CXX_STANDARD 17
+    CXX_STANDARD_REQUIRED YES
+    COMPILE_FLAGS "-D_BORINGSSL_LIBPKI_")
   endif()
 endmacro()
 
@@ -28,3 +39,4 @@ fuzzer(server ssl)
 fuzzer(session ssl)
 fuzzer(spki)
 fuzzer(ssl_ctx_api ssl)
+fuzzer(parse_certificate_fuzzer ssl pki)
