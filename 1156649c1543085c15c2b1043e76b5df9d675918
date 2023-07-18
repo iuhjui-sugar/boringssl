@@ -118,6 +118,30 @@
       },
       "revId": "1156649c1543085c15c2b1043e76b5df9d675918",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "446b95d1_36e68841",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-18T20:31:58Z",
+      "side": 1,
+      "message": "(Actually, I think Trusty does use rust-openssl. At least, they have a build for it that seems to be involved in some headaches.)",
+      "parentUuid": "de56b5a2_cc28b131",
+      "range": {
+        "startLine": 10,
+        "startChar": 17,
+        "endLine": 12,
+        "endChar": 19
+      },
+      "revId": "1156649c1543085c15c2b1043e76b5df9d675918",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
