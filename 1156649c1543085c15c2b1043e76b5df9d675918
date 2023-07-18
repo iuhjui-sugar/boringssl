@@ -46,6 +46,30 @@
       },
       "revId": "1156649c1543085c15c2b1043e76b5df9d675918",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e91173d_bce17306",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-18T20:19:58Z",
+      "side": 1,
+      "message": "\u003e You sure you need this?\n\nUnclear. This really only came out of https://boringssl-review.googlesource.com/c/boringssl/+/61730/7/ssl/ssl_lib.cc and trying to figure out how to guard `SSL_get_rfd`. `SSL_set_rfd` is `OPENSSL_NO_SOCK` because, despite the name, it makes a socket BIO, not an fd BIO. But then it also calls `BIO_set_fd`. Also that might suggest `SSL_get_rfd` is the same, but that\u0027s weird because it only calls `BIO_get_fd`, which is fd not socket. So that\u0027s all a mess.\n\nReally this means copying OpenSSL\u0027s separate `OPENSSL_NO_POSIX_IO` and `OPENSSL_NO_SOCK` abstractions may have been a mistake, and perhaps we should have just had one for both. But, well, we made both of them so I figured it was easy enough to just make those unconditional and not have to think about it too hard.\n\nArguably an embedded application could also make their own custom `BIO_TYPE_DESCRIPTOR` BIO, but I doubt it. :-)\n\nBut do we need this? Probably not. It just seemed the most self-consistent, even though it\u0027s accounting for cases that will never happen.\n\n\u003e I mean I guess windows is techincally that?\n\nNah, Windows has fds. They\u0027re a fake userland construct, but good enough for us.",
+      "parentUuid": "34f9983d_f6c85362",
+      "range": {
+        "startLine": 10,
+        "startChar": 17,
+        "endLine": 12,
+        "endChar": 19
+      },
+      "revId": "1156649c1543085c15c2b1043e76b5df9d675918",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
