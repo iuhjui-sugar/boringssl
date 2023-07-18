@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d9248773_9dfe00cd",
+        "filename": "include/openssl/target.h",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-18T19:46:18Z",
+      "side": 1,
+      "message": "I know we know what these mean, but as we start asking things like rust_openssl to pay attention to them we probably need to have someplace that documents all the OPENSSL_NO_\u0027s as we start adding to them.. not for this CL but we should think about where we want to point people like that to.",
+      "revId": "cd1b849e0e6a19d6aab7a5aad273d73553418950",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
