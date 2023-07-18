@@ -94,6 +94,30 @@
       },
       "revId": "1156649c1543085c15c2b1043e76b5df9d675918",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de56b5a2_cc28b131",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-18T20:31:28Z",
+      "side": 1,
+      "message": "Hopefully no one ever builds rust-openssl for these platforms. :-/\n\nIf they do, I guess yeah matching OpenSSL\u0027s `OPENSSL_NO_*` names is most convenient there. OpenSSL likewise defines `BIO_set_fd` and `BIO_get_fd` unconditionally.\n\nBut it\u0027s moot because rust-openssl doesn\u0027t bind this part of BIO anyway. They just bind the custom BIO stuff, probably to bridge it into Rust\u0027s socket, etc., stuff.",
+      "parentUuid": "8ef8ea69_95296f36",
+      "range": {
+        "startLine": 10,
+        "startChar": 17,
+        "endLine": 12,
+        "endChar": 19
+      },
+      "revId": "1156649c1543085c15c2b1043e76b5df9d675918",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
