@@ -180,6 +180,24 @@
       "message": "A thought: you can probably seed this fuzzer\u0027s corpus from the `cert` one\u0027s corpus. https://boringssl.googlesource.com/boringssl/+/HEAD/FUZZING.md also has some notes on minimizing the corpora.\n\n(Reminds me, I really need to do something about the no_fuzzer_mode things. They\u0027re just weird.)",
       "revId": "cc5d4a796152878bf05ac7b70b062d71a2c08838",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "310da425_719efce1",
+        "filename": "fuzz/parse_certificate_fuzzer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-18T21:08:55Z",
+      "side": 1,
+      "message": "Does that change here or do we just blarp them into a directory called parse_certifcate_fuzzer_corpus ?",
+      "parentUuid": "9a2a7653_b663cb30",
+      "revId": "cc5d4a796152878bf05ac7b70b062d71a2c08838",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
