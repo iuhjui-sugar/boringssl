@@ -142,6 +142,30 @@
       },
       "revId": "1156649c1543085c15c2b1043e76b5df9d675918",
       "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "92269a00_4762d4bf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-18T20:52:42Z",
+      "side": 1,
+      "message": "I guess if this is being consistent, I\u0027m good with it then.",
+      "parentUuid": "446b95d1_36e68841",
+      "range": {
+        "startLine": 10,
+        "startChar": 17,
+        "endLine": 12,
+        "endChar": 19
+      },
+      "revId": "1156649c1543085c15c2b1043e76b5df9d675918",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
     }
   ]
 }
