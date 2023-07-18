@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eaf5ac3d_5bc85023",
+        "filename": "crypto/fipsmodule/rand/internal.h",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5415
+      },
+      "writtenOn": "2023-07-18T19:15:36Z",
+      "side": 1,
+      "message": "Note to self: hold on landing this until we get the Android baremetal stuff to stick, just to avoid needing multiple arounds of reverts.",
+      "revId": "eb574d9e257f13c4ecfa50b9403f88e0e48cee61",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
