@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ecf9066_871ba8a3",
+        "filename": "crypto/bio/errno.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 14196
+      },
+      "writtenOn": "2023-07-18T19:57:06Z",
+      "side": 1,
+      "message": "I had forgotten how much I dislike this part of BIO, or had at least blocked it out of my mind in self defence.",
+      "revId": "b10b16cd241a18e4dd8a62923b7f7be425b87327",
+      "serverId": "66b711a4-aa9b-3dac-9062-916540830212"
+    }
+  ]
+}
